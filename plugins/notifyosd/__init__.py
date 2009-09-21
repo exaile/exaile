@@ -145,7 +145,7 @@ class ExaileNotifyOsd(object):
     
     def exaile_ready(self, type = None, data1 = None, data2 = None):
         if self.exaile.gui.tray_icon:
-            self.tray_connection = self.exaile.gui.tray_icon.icon.connect('query-tooltip', self.on_tooltip)
+            self.tray_connection = self.exaile.gui.tray_icon.connect('query-tooltip', self.on_tooltip)
             
     def on_tray_toggled(self, type, object, data):
         if data and self.tray_connection == -1:

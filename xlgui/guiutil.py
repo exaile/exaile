@@ -23,28 +23,13 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
-import gtk, os.path, urllib, time
-import gtk.gdk, pango, gobject
+import gtk, os.path, time, urllib
+import gtk.gdk, pango, gobject, gio
 from xl import xdg, track, playlist, common, settings, event
 from xl.nls import gettext as _
 import threading
 from xlgui import rating
-
-try:
-    import sexy
-except ImportError:
-    sexy = None
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
@@ -301,7 +286,6 @@ class DragTreeView(gtk.TreeView):
         tracks = []
         playlists = []
         for loc in locs:
-            loc = urllib.unquote(loc)
             (found_tracks, found_playlist) = self._handle_unknown_drag_data(loc)
             tracks.extend(found_tracks)
             playlists.extend(found_playlist)
@@ -328,11 +312,7 @@ class DragTreeView(gtk.TreeView):
             @returns: a 2 tuple in which the first part is a list of tracks
                 and the second is a list of playlist
         """
-        if loc in DragTreeView.dragged_data:
-            new_track = DragTreeView.dragged_data[loc]
-            del DragTreeView.dragged_data[loc]
-            return ([new_track],[])
-        elif track.is_valid_track(loc):
+        if track.is_valid_track(loc):
             new_track = track.Track(loc)
             return ([new_track],[])
         elif playlist.is_valid_playlist(loc):
@@ -341,66 +321,30 @@ class DragTreeView(gtk.TreeView):
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
-        elif loc.startswith("file://") and os.path.isdir(loc[7:]):
-            #They dropped a folder
-            new_tracks = [] 
-            new_playlist = []
-            for root, dirs, files in os.walk(loc[7:]):
-                files.sort()
-                for file in files:
-                    full_path = os.path.join(root, file)
-                    (found_tracks, found_playlist) = self._handle_unknown_drag_data(full_path)
-                    new_tracks.extend(found_tracks)
-                    new_playlist.extend(found_playlist) 
-            return (new_tracks, new_playlist)
+        elif gio.File(loc).query_info("standard::type").get_file_type() == \
+                gio.FILE_TYPE_DIRECTORY:
+            return (track.get_tracks_from_uri(loc), [])
         else: #We don't know what they dropped
             return ([], [])
 
-class EntryWithClearButton(object):
-    """
-        A gtk.Entry with a clear icon
-    """
-    def __init__(self):
-        """
-            Initializes the entry
-        """
-        if sexy:
-            self.entry = sexy.IconEntry()
-            image = gtk.Image()
-            image.set_from_stock('gtk-clear', gtk.ICON_SIZE_SMALL_TOOLBAR)
-            self.entry.set_icon(sexy.ICON_ENTRY_SECONDARY, image)
-            self.entry.connect('icon-released', self.icon_released)
-        else:
-            self.entry = gtk.Entry()
-
-    def icon_released(self, *e):
-        """
-            Called when the user clicks the entry icon
-        """
-        self.entry.set_text('')
-
-    def __getattr__(self, attr):
-        """
-            If this object doesn't have the attribute, check the gtk.Entry for
-            it
-        """
-        if attr == 'entry': return self.entry
-        return getattr(self.entry, attr)
-
-class SearchEntry(EntryWithClearButton):
+class SearchEntry(object):
     """
         A gtk.Entry that emits the "activated" signal when something has
         changed after the specified timeout
     """
-    def __init__(self, timeout=500):
+    def __init__(self, entry=None, timeout=500):
         """
             Initializes the entry
         """
-        EntryWithClearButton.__init__(self)
-        self.timeout = 500
+        self.entry = entry
+        self.timeout = timeout
         self.change_id = None
 
+        if self.entry is None:
+            self.entry = gtk.Entry()
+
         self.entry.connect('changed', self.on_entry_changed)
+        self.entry.connect('icon-press', self.on_entry_icon_press)
 
     def on_entry_changed(self, *e):
         """
@@ -412,11 +356,24 @@ class SearchEntry(EntryWithClearButton):
         self.change_id = gobject.timeout_add(self.timeout,
             self.entry_activate)
 
+    def on_entry_icon_press(self, entry, icon_pos, event):
+        """
+            Clears the entry
+        """
+        self.entry.set_text('')
+
     def entry_activate(self, *e):
         """
             Emit the activate signal
         """
-        self.entry.emit('activate')
+        self.entry.activate()
+
+    def __getattr__(self, attr):
+        """
+            Tries to pass attribute requests
+            to the internal entry item
+        """
+        return getattr(self.entry, attr)
 
 def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     """
@@ -438,6 +395,66 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
         path = xdg.get_data_path('images', 'track.png')
     
     return gtk.gdk.pixbuf_new_from_file(path)
+
+class MuteButton(object):
+    """
+        Allows for immediate muting of the volume and
+        indicates the current volume level via an icon
+    """
+    def __init__(self, button):
+        self.button = button
+        self.restore_volume = settings.get_option('player/volume', 1)
+        self.icon_names = ['low', 'medium', 'high']
+
+        self.button.connect('toggled', self.on_toggled)
+        event.add_callback(self.on_setting_change, 'player_option_set')
+
+    def update_volume_icon(self, volume):
+        """
+            Sets the volume level indicator
+        """
+        icon_name = 'audio-volume-muted'
+        tooltip = _('Muted')
+
+        if volume > 0:
+            i = int(round(volume * 2))
+            icon_name = 'audio-volume-%s' % self.icon_names[i]
+            #TRANSLATORS: Volume percentage
+            tooltip = '%d%%' % (volume * 100)
+
+        if volume == 1.0:
+            tooltip = _('Full Volume')
+
+        self.button.child.set_from_icon_name(icon_name, gtk.ICON_SIZE_BUTTON)
+        self.button.set_tooltip_text(tooltip)
+
+    def on_toggled(self, button):
+        """
+            Mutes or unmutes the volume
+        """
+        if button.get_active():
+            self.restore_volume = settings.get_option('player/volume', 1)
+            volume = 0
+        else:
+            volume = self.restore_volume
+
+        self.update_volume_icon(volume)
+
+        if self.restore_volume > 0:
+            settings.set_option('player/volume', volume)
+
+    def on_setting_change(self, event, sender, option):
+        """
+            Saves the restore volume and
+            changes the volume indicator
+        """
+        if option == 'player/volume':
+            volume = settings.get_option(option, 1)
+
+            if volume > 0:
+                self.button.set_active(False)
+
+            self.update_volume_icon(volume)
 
 BITMAP_CACHE = dict()
 def get_text_icon(widget, text, width, height, bgcolor='#456eac',   
@@ -638,47 +655,95 @@ class Menu(gtk.Menu):
         else:
             gtk.Menu.popup(self, *e)
 
-class StatusBar(object):
+class Statusbar(object):
     """
-        A basic statusbar to replace gtk.StatusBar
+        Convenient access to multiple status labels
     """
-    def __init__(self, label):
+    def __init__(self, status_bar):
         """
-            Initializes the bar
-            
-            @param label: the gtk.Label to use for setting status messages
+            Initialises the status bar
         """
-        self.label = label
+        self.status_bar = status_bar
+        children = status_bar.get_children()
+        # [0] is a frame containing the native label
+        self.track_count_label = children[1]
+        self.queue_count_button = children[2]
 
-    def set_label(self, message, timeout=0):
-        """
-            Sets teh status label
-        """
-        self.label.set_label(message)
-        if timeout:
-            gobject.timeout_add(timeout, self.clear)
+        self.context_id = self.status_bar.get_context_id('status')
+        self.message_ids = []
 
-    def clear(self, *e):
+    def set_status(self, status, timeout=0):
         """
-            Clears the label
+            Sets the status message
         """
-        self.label.set_label('')
+        self.message_ids += [self.status_bar.push(self.context_id, status)]
 
+        if timeout > 0:
+            gobject.timeout_add(timeout, self.clear_status)
+
+    def clear_status(self):
+        """
+            Clears the status message
+        """
+        try:
+            for message_id in self.message_ids:
+                self.status_bar.remove_message(self.context_id, message_id)
+        except AttributeError:
+            for message_id in self.message_ids:
+                self.status_bar.remove(self.context_id, message_id)
+
+        del self.message_ids[:]
+        self.message_ids = []
+
+    def set_track_count(self, playlist_count=0, collection_count=0):
+        """
+            Sets the track count
+        """
+        status = _("%(playlist_count)d showing, "
+            "%(collection_count)d in collection") % {
+            'playlist_count': playlist_count,
+            'collection_count': collection_count
+        }
+
+        self.track_count_label.set_label(status)
+
+    def set_queue_count(self, queue_count=0):
+        """
+            Sets the queue count
+        """
+        if queue_count > 0:
+            self.queue_count_button.set_label(_("(%d queued)") % queue_count)
+            self.queue_count_button.set_no_show_all(False)
+            self.queue_count_button.show_all()
+        else:
+            self.queue_count_button.hide_all()
+            self.queue_count_button.set_no_show_all(True)
 
 class MenuRatingWidget(gtk.MenuItem):
     """
         A rating widget that can be used as a menu entry
+
+        @param: _get_tracks is a function that should return a list of tracks
+           linked to this widget.
+        
+        @param: _get_tracks_rating is a function that should return an int
+           representing the rating of the tracks which are meant to be linked to
+           this widget. Should return 0 if two tracks have a different rating or
+           if it contains over miscellaneous/rating_widget_tracks_limit tracks.
+           Default limit: 100
     """
 
-    def __init__(self, _get_tracks):
+    def __init__(self, _get_tracks, _get_tracks_rating):
         gtk.MenuItem.__init__(self)
         
         self._get_tracks = _get_tracks
+        self._get_tracks_rating = _get_tracks_rating
+        self._last_calculated_rating = self._get_tracks_rating()
         
         self.hbox = gtk.HBox(spacing=3)
         self.hbox.pack_start(gtk.Label(_("Rating:")), False, False)
         self.image = gtk.image_new_from_pixbuf(
-            self._get_rating_pixbuf(0))
+            self._get_rating_pixbuf(self._last_calculated_rating))
         self.hbox.pack_start(self.image, False, False, 12)
         
         self.add(self.hbox)
@@ -686,6 +751,9 @@ class MenuRatingWidget(gtk.MenuItem):
         self.connect('button-release-event', self._update_rating)
         self.connect('motion-notify-event', self._motion_notify)
         self.connect('leave-notify-event', self._leave_notify)
+
+        # This may be useful when rating is changed from outside of the GUI
+        event.add_callback(self.on_rating_change, 'rating_changed')
 
     def _motion_notify(self, widget, e):
         steps = settings.get_option('miscellaneous/rating_steps', 5)
@@ -711,17 +779,17 @@ class MenuRatingWidget(gtk.MenuItem):
             Resets the rating if the widget
             is left without clicking
         """
-        tracks = self._get_tracks()
-        if tracks and tracks[0]:
-            self.image.set_from_pixbuf(
-                self._get_rating_pixbuf(tracks[0].get_rating()))
-            self.queue_draw()
+        self.image.set_from_pixbuf(
+            self._get_rating_pixbuf(self._last_calculated_rating))
+        self.queue_draw()
 
     def _update_rating(self, widget, e):
         """
             Updates the rating of the tracks for this
             widget, meant to be used with a click event
         """
+        event.remove_callback(self.on_rating_change, 'rating_changed')
+        
         tracks = self._get_tracks()
         if tracks and tracks[0]:
             steps = settings.get_option('miscellaneous/rating_steps', 5)
@@ -735,28 +803,37 @@ class MenuRatingWidget(gtk.MenuItem):
                 r = -1
             
             if r >= 0:
-                if r == tracks[0].get_rating() and \
-                    self._all_ratings_equal(tracks):
+                if r == self._last_calculated_rating:
                     r = 0
-                
+
                 for track in tracks:
-                    track.set_rating(r)
-                
+                    track.set_rating (r)
+
                 event.log_event('rating_changed', self, r)
+                self._last_calculated_rating = r
+
+        event.add_callback(self.on_rating_change, 'rating_changed')
 
     def _get_rating_pixbuf(self, num):
         """
             Returns the pixbuf for num
         """
         return rating.rating_images[num]
+
+    def on_rating_change(self, type = None, object = None, data = None):
+        """
+            Handles possible changes of track ratings
+        """
+        self._last_calculated_rating = self._get_tracks_rating()
+        self.image.set_from_pixbuf(
+            self._get_rating_pixbuf(self._last_calculated_rating))
+        self.queue_draw ()
             
 def get_urls_for(items):
     """
         Returns the items' URLs
     """
-    return [urllib.quote(item.get_loc().encode(
-        common.get_default_encoding()), '/:')
-        for item in items]
+    return [item.get_loc_for_io() for item in items]
 
 def finish(repeat=True):
     """
@@ -765,20 +842,6 @@ def finish(repeat=True):
     while gtk.events_pending():
         gtk.main_iteration()
         if not repeat: break
-
-def on_slider_scroll(widget, ev):
-    """
-        Called when the user scrolls their mouse wheel over the volume bar
-    """
-    incr = widget.get_adjustment().page_size
-    # Modify default HScale up/down behaviour.
-    if ev.direction == gtk.gdk.SCROLL_DOWN:
-        widget.set_value(widget.get_value() - incr)
-        return True
-    elif ev.direction == gtk.gdk.SCROLL_UP:
-        widget.set_value(widget.get_value() + incr)
-        return True
-    return False
 
 def on_slider_key_press(widget, ev):
     """

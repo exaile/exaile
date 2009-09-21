@@ -19,7 +19,7 @@
 
 from __future__ import with_statement
 import gtk, time, gobject, thread, os
-from gettext import gettext as _        # Not sure how to apply this sort of thing to glade files...
+from xl.nls import gettext as _
 from xl import event, xdg
 from xl import settings
 #import xl.plugins as plugins
@@ -27,7 +27,7 @@ from xl import settings
 #import cPickle as pickle
 
 PATH = os.path.dirname(os.path.realpath(__file__))
-GLADE = os.path.join(PATH,'alarmclk.glade')
+UI = os.path.join(PATH, 'alarmclk.glade')
 
 pb = gtk.gdk.pixbuf_new_from_file(os.path.join(PATH,'clock32.png'))
 
@@ -182,13 +182,14 @@ class AlarmClock:
                         'on_Time_value_changed':self.time_changed,
                         'on_MainWindow_destroy':self.destroy}
 
-        self.ui = gtk.glade.XML(GLADE, 'MainWindow') # load GUI from glade file
-        self.ui.signal_autoconnect(self.signals)    # connect signals to GUI
+        self.ui = gtk.Builder()
+        self.ui.add_from_file(UI)
+        self.ui.connect_signals(self.signals)    # connect signals to GUI
         
-        self.window = self.ui.get_widget('MainWindow')
+        self.window = self.ui.get_object('MainWindow')
         
         # Model & Treeview - model created in init()
-        self.view = self.ui.get_widget('AlarmList')
+        self.view = self.ui.get_object('AlarmList')
         self.view.set_model(self.model)
         self.selection = self.view.get_selection()
         
@@ -205,14 +206,14 @@ class AlarmClock:
         
         # Set GUI Values
         self.load_settings()
-        self.ui.get_widget('FadingCB').set_active(self.fading)
-        self.ui.get_widget('RestartCB').set_active(self.restart)
-        self.ui.get_widget('MinVolume').set_value(self.min_volume)
-        self.ui.get_widget('MaxVolume').set_value(self.max_volume)        
-        self.ui.get_widget('Increment').set_value(self.increment)        
-        self.ui.get_widget('Time').set_value(self.time_per_inc)        
-        self.EnabledCB = self.ui.get_widget('EnabledCB')
-        self.AlarmLabel = self.ui.get_widget('AlarmLabel')
+        self.ui.get_object('FadingCB').set_active(self.fading)
+        self.ui.get_object('RestartCB').set_active(self.restart)
+        self.ui.get_object('MinVolume').set_value(self.min_volume)
+        self.ui.get_object('MaxVolume').set_value(self.max_volume)        
+        self.ui.get_object('Increment').set_value(self.increment)        
+        self.ui.get_object('Time').set_value(self.time_per_inc)        
+        self.EnabledCB = self.ui.get_object('EnabledCB')
+        self.AlarmLabel = self.ui.get_object('AlarmLabel')
         
         # Set Signal for Selection Change
         self.selection.connect('changed', self.selection_change)
@@ -296,19 +297,20 @@ class AddAlarm:
         pass    
         
     def run(self, alarm):
-        self.ui = gtk.glade.XML(GLADE,'AddWindow') # load GUI
+        self.ui = gtk.Builder()
+        self.ui.add_from_file(UI)
         
-        self.window = self.ui.get_widget('AddWindow')
-        self.alarm_name = self.ui.get_widget('AlarmName')
-        self.alarm_hour = self.ui.get_widget('SpinHour')
-        self.alarm_minute = self.ui.get_widget('SpinMinute')
-        self.alarm_days = [self.ui.get_widget('Check0'),
-                           self.ui.get_widget('Check1'),
-                           self.ui.get_widget('Check2'),
-                           self.ui.get_widget('Check3'),
-                           self.ui.get_widget('Check4'),
-                           self.ui.get_widget('Check5'),
-                           self.ui.get_widget('Check6')]
+        self.window = self.ui.get_object('AddWindow')
+        self.alarm_name = self.ui.get_object('AlarmName')
+        self.alarm_hour = self.ui.get_object('SpinHour')
+        self.alarm_minute = self.ui.get_object('SpinMinute')
+        self.alarm_days = [self.ui.get_object('Check0'),
+                           self.ui.get_object('Check1'),
+                           self.ui.get_object('Check2'),
+                           self.ui.get_object('Check3'),
+                           self.ui.get_object('Check4'),
+                           self.ui.get_object('Check5'),
+                           self.ui.get_object('Check6')]
         
         hour, minute = alarm.time.split(':')
         self.alarm_hour.set_value(int(hour))
@@ -409,7 +411,7 @@ def _enable(exaile):
     
     MENU_ITEM = gtk.MenuItem(_('Multi-Alarm Clock'))
     MENU_ITEM.connect('activate', main.show_ui, exaile)
-    exaile.gui.xml.get_widget('tools_menu').append(MENU_ITEM)
+    exaile.gui.builder.get_object('tools_menu').append(MENU_ITEM)
     MENU_ITEM.show()
 
     

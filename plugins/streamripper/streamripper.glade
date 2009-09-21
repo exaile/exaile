@@ -1,39 +1,40 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Tue Oct 21 12:11:17 2008 -->
-<glade-interface>
-  <widget class="GtkWindow" id="prefs_window">
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="prefs_window">
     <child>
-      <widget class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <child>
-          <widget class="GtkTable" id="table1">
+          <object class="GtkTable" id="table1">
             <property name="visible">True</property>
             <property name="n_rows">2</property>
             <property name="n_columns">2</property>
             <child>
-              <widget class="GtkHBox" id="hbox2">
+              <object class="GtkHBox" id="hbox2">
                 <property name="visible">True</property>
                 <child>
-                  <widget class="GtkEntry" id="plugin/streamripper/relay_port">
+                  <object class="GtkEntry" id="plugin/streamripper/relay_port">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">15</property>
-                  </widget>
+                  </object>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkLabel" id="label5">
+                  <object class="GtkLabel" id="label5">
                     <property name="visible">True</property>
-                  </widget>
+                  </object>
                   <packing>
                     <property name="position">1</property>
                   </packing>
                 </child>
-              </widget>
+              </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
@@ -42,37 +43,38 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkHBox" id="hbox1">
+              <object class="GtkHBox" id="hbox1">
                 <property name="visible">True</property>
                 <child>
-                  <widget class="GtkFileChooserButton" id="plugin/streamripper/save_location">
+                  <object class="GtkFileChooserButton" id="plugin/streamripper/save_location">
                     <property name="visible">True</property>
-                    <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
-                  </widget>
+                    <property name="action">select-folder</property>
+                  </object>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkLabel" id="label4">
+                  <object class="GtkLabel" id="label4">
                     <property name="visible">True</property>
-                  </widget>
+                  </object>
                   <packing>
                     <property name="position">1</property>
                   </packing>
                 </child>
-              </widget>
+              </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label3">
+              <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Relay Port:</property>
-              </widget>
+              </object>
               <packing>
                 <property name="top_attach">1</property>
                 <property name="bottom_attach">2</property>
@@ -80,32 +82,33 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label2">
+              <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Save Location:</property>
-              </widget>
+              </object>
               <packing>
                 <property name="x_options">GTK_FILL</property>
               </packing>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
           <placeholder/>
         </child>
         <child>
-          <widget class="GtkLabel" id="label1">
+          <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
-          </widget>
+          </object>
           <packing>
             <property name="position">2</property>
           </packing>
         </child>
-      </widget>
+      </object>
     </child>
-  </widget>
-</glade-interface>
+  </object>
+</interface>

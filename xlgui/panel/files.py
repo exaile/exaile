@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -15,16 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 #
 #
 # The developers of the Exaile media player hereby grant permission 
@@ -53,7 +41,7 @@ class FilesPanel(panel.Panel):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    gladeinfo = ('files_panel.glade', 'FilesPanelWindow')
+    ui_info = ('files_panel.glade', 'FilesPanelWindow')
 
     def __init__(self, parent, collection):
         """
@@ -62,7 +50,7 @@ class FilesPanel(panel.Panel):
         panel.Panel.__init__(self, parent)
         self.collection = collection
 
-        self.box = self.xml.get_widget('files_box')
+        self.box = self.builder.get_object('files_box')
 
         self.targets = [('text/uri-list', 0, 0)]
 
@@ -155,21 +143,21 @@ class FilesPanel(panel.Panel):
         self.directory = guiutil.get_icon('gnome-fs-directory')
         self.track = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/track.png'))
-        self.back = self.xml.get_widget('files_back_button')
+        self.back = self.builder.get_object('files_back_button')
         self.back.connect('clicked', self.go_back)
-        self.forward = self.xml.get_widget('files_forward_button')
+        self.forward = self.builder.get_object('files_forward_button')
         self.forward.connect('clicked', self.go_forward)
-        self.up = self.xml.get_widget('files_up_button')
+        self.up = self.builder.get_object('files_up_button')
         self.up.connect('clicked', self.go_up)
-        self.xml.get_widget('files_refresh_button').connect('clicked',
+        self.builder.get_object('files_refresh_button').connect('clicked',
             self.refresh)
-        self.xml.get_widget('files_home_button').connect('clicked',
+        self.builder.get_object('files_home_button').connect('clicked',
             self.go_home)
-        self.entry = self.xml.get_widget('files_entry')
+        self.entry = self.builder.get_object('files_entry')
         self.entry.connect('activate', self.entry_activate)
 
         # set up the search entry
-        self.search = self.xml.get_widget('files_search_entry')
+        self.search = self.builder.get_object('files_search_entry')
         self.search.connect('key-release-event', self.key_release)
         self.search.connect('activate', lambda *e:
             self.load_directory(self.current, history=False,
@@ -443,7 +431,7 @@ class FilesPanel(panel.Panel):
         tracks = self.get_selected_tracks()
         if not tracks: return
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
         urls = guiutil.get_urls_for(tracks)
         selection.set_uris(urls)
         

@@ -10,7 +10,6 @@ from copy import copy
 import xl.event
 import os
 import gtk
-import gtk.glade
 import logging
 
 LOG = logging.getLogger('exaile.xlgui.queue')
@@ -24,14 +23,14 @@ class QueueManager(object):
     def __init__(self, parent, queue):
         self._queue = queue
 
-        self._xml = gtk.glade.XML(
-                xdg.get_data_path(os.path.join('glade', 'queue_dialog.glade')),
-                    'QueueManagerDialog', 'exaile')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(
+            xdg.get_data_path(os.path.join('ui', 'queue_dialog.glade')))
 
-        self._dialog = self._xml.get_widget('QueueManagerDialog')
+        self._dialog = self.builder.get_object('QueueManagerDialog')
         self._dialog.set_transient_for(parent)
         self._dialog.connect('delete-event', self.destroy)
-        self._xml.signal_autoconnect({
+        self.builder.connect_signals({
             'close_dialog': self.destroy,
             'on_remove_all_button_clicked': self.remove_all,
             })
@@ -40,7 +39,7 @@ class QueueManager(object):
             queue, queue, _column_ids=['tracknumber', 'title', 'artist'],
             _is_queue=True)
         self._playlist.scroll.set_shadow_type(gtk.SHADOW_ETCHED_IN)
-        box = self._xml.get_widget('queue_box')
+        box = self.builder.get_object('queue_box')
         box.pack_start(self._playlist)
 
     def show(self):

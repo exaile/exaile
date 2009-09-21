@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -25,20 +23,10 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
 from xl import xdg, event, cover, common, metadata
 from xlgui import guiutil, commondialogs
-import gtk, gobject, gtk.glade, time
+import gtk, gobject, time
 import logging, traceback
 logger = logging.getLogger(__name__)
 
@@ -66,17 +54,17 @@ class CoverManager(object):
         self.track_dict = {}
         self._stopped = True
 
-        self.xml = gtk.glade.XML(xdg.get_data_path('glade/covermanager.glade'),
-            'CoverManager', 'exaile')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(xdg.get_data_path('ui/covermanager.glade'))
 
-        self.window = self.xml.get_widget('CoverManager')
+        self.window = self.builder.get_object('CoverManager')
         self.window.set_transient_for(parent)
 
-        self.icons = self.xml.get_widget('cover_icon_view')
+        self.icons = self.builder.get_object('cover_icon_view')
         self.icons.connect('button-press-event', 
             self._on_button_press)
-        self.progress = self.xml.get_widget('progress')
-        self.stop_button = self.xml.get_widget('stop_button')
+        self.progress = self.builder.get_object('progress')
+        self.stop_button = self.builder.get_object('stop_button')
         self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
         self.icons.set_item_width(100)
 
@@ -119,7 +107,16 @@ class CoverManager(object):
         """
             Shows the currently selected cover
         """
-        cover = self.covers[self.get_selected_cover()]
+        
+        item = self._get_selected_item()
+        c = self.manager.coverdb.get_cover(item[0], item[1])
+        
+        # if there is no cover, use the nocover image from the selected widget
+        if c == None:
+            cover = self.covers[self.get_selected_cover()]
+        else:
+            cover = gtk.gdk.pixbuf_new_from_file(c)
+        
         window = CoverWindow(self.parent, cover)
         window.show_all()
 
@@ -161,8 +158,11 @@ class CoverManager(object):
 
     def remove_cover(self, *e):
         item = self._get_selected_item()
+        paths = self.icons.get_selected_items()
         self.manager.coverdb.remove_cover(item[0], item[1])
         self.covers[item] = self.nocover
+        if not paths: return
+        iter = self.model.get_iter(paths[0])
         self.model.set_value(iter, 1, self.nocover)
 
     def _find_initial(self):
@@ -232,7 +232,7 @@ class CoverManager(object):
         """
             Connects the various events
         """
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_stop_button_clicked': self._toggle_find,
             'on_cancel_button_clicked': self._on_destroy
         })
@@ -482,23 +482,23 @@ class CoverWindow(object):
 
     def __init__(self, parent, cover, title=''):
         """Initializes and shows the cover"""
-        self.widgets = gtk.glade.XML(xdg.get_data_path('glade/coverwindow.glade'), 
-            'CoverWindow', 'exaile')
-        self.widgets.signal_autoconnect(self)
-        self.cover_window = self.widgets.get_widget('CoverWindow')
-        self.layout = self.widgets.get_widget('layout')
-        self.toolbar = self.widgets.get_widget('toolbar')
-        self.zoom_in = self.widgets.get_widget('zoom_in')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.glade'))
+        self.builder.connect_signals(self)
+        self.cover_window = self.builder.get_object('CoverWindow')
+        self.layout = self.builder.get_object('layout')
+        self.toolbar = self.builder.get_object('toolbar')
+        self.zoom_in = self.builder.get_object('zoom_in')
         self.zoom_in.connect('clicked', self.zoom_in_clicked)
-        self.zoom_out = self.widgets.get_widget('zoom_out')
+        self.zoom_out = self.builder.get_object('zoom_out')
         self.zoom_out.connect('clicked', self.zoom_out_clicked)
-        self.zoom_100 = self.widgets.get_widget('zoom_100')
+        self.zoom_100 = self.builder.get_object('zoom_100')
         self.zoom_100.connect('clicked', self.zoom_100_clicked)
-        self.zoom_fit = self.widgets.get_widget('zoom_fit')
+        self.zoom_fit = self.builder.get_object('zoom_fit')
         self.zoom_fit.connect('clicked', self.zoom_fit_clicked)
-        self.image = self.widgets.get_widget('image')
-        self.statusbar = self.widgets.get_widget('statusbar')
-        self.scrolledwindow = self.widgets.get_widget('scrolledwindow')
+        self.image = self.builder.get_object('image')
+        self.statusbar = self.builder.get_object('statusbar')
+        self.scrolledwindow = self.builder.get_object('scrolledwindow')
         self.scrolledwindow.set_hadjustment(self.layout.get_hadjustment())
         self.scrolledwindow.set_vadjustment(self.layout.get_vadjustment())
         self.cover_window.set_title(title)
@@ -636,9 +636,9 @@ class CoverChooser(gobject.GObject):
         gobject.GObject.__init__(self)
         self.manager = covers
         self.parent = parent
-        self.xml = gtk.glade.XML(xdg.get_data_path('glade/coverchooser.glade'), 
-            'CoverChooser', 'exaile')
-        self.window = self.xml.get_widget('CoverChooser')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.glade'))
+        self.window = self.builder.get_object('CoverChooser')
         self.window.set_title("%s - %s" % 
             (
                 metadata.j(track['artist']), 
@@ -648,19 +648,19 @@ class CoverChooser(gobject.GObject):
 
         self.track = track
         self.current = 0
-        self.prev = self.xml.get_widget('cover_back_button')
+        self.prev = self.builder.get_object('cover_back_button')
         self.prev.connect('clicked', self.go_prev)
         self.prev.set_sensitive(False)
-        self.next = self.xml.get_widget('cover_forward_button')
+        self.next = self.builder.get_object('cover_forward_button')
         self.next.connect('clicked', self.go_next)
-        self.xml.get_widget('cover_newsearch_button').connect('clicked',
+        self.builder.get_object('cover_newsearch_button').connect('clicked',
             self.new_search)
-        self.xml.get_widget('cover_cancel_button').connect('clicked',
+        self.builder.get_object('cover_cancel_button').connect('clicked',
             lambda *e: self.window.destroy())
-        self.ok = self.xml.get_widget('cover_ok_button')
+        self.ok = self.builder.get_object('cover_ok_button')
         self.ok.connect('clicked',
             self.on_ok)
-        self.box = self.xml.get_widget('cover_image_box')
+        self.box = self.builder.get_object('cover_image_box')
         self.cover = guiutil.ScalableImageWidget()
         self.cover.set_image_size(350, 350)
         self.box.pack_start(self.cover, True, True)

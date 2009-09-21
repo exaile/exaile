@@ -1,35 +1,62 @@
 <?xml version="1.0"?>
-<glade-interface>
-  <!-- interface-requires gtk+ 2.16 -->
-  <!-- interface-naming-policy toplevel-contextual -->
-  <widget class="GtkWindow" id="cd_prefs_window">
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkListStore" id="model1">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Ogg Vorbis</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">FLAC</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">AAC</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">MP3 (VBR)</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">MP3 (CBR)</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">WavPack</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkWindow" id="cd_prefs_window">
     <child>
-      <widget class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
-          <widget class="GtkHBox" id="hbox1">
+          <object class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkLabel" id="label1">
+              <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Import format: </property>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkComboBox" id="cd_import/format">
+              <object class="GtkComboBox" id="cd_import/format">
                 <property name="visible">True</property>
-                <property name="items" comments="NOT TRANSLATABLE!!!!">Ogg Vorbis
-FLAC
-AAC
-MP3 (VBR)
-MP3 (CBR)
-WavPack</property>
-              </widget>
+                <property name="model">model1</property>
+                <child>
+                  <object class="GtkCellRendererText" id="renderer1"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="position">1</property>
@@ -38,29 +65,29 @@ WavPack</property>
             <child>
               <placeholder/>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox2">
+          <object class="GtkHBox" id="hbox2">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkLabel" id="label2">
+              <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Import quality: </property>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkComboBox" id="cd_import/quality">
+              <object class="GtkComboBox" id="cd_import/quality">
                 <property name="visible">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
@@ -70,34 +97,34 @@ WavPack</property>
             <child>
               <placeholder/>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="position">1</property>
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox3">
+          <object class="GtkHBox" id="hbox3">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkLabel" id="label3">
+              <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Import path: </property>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkComboBoxEntry" id="cd_import/outpath">
+              <object class="GtkComboBoxEntry" id="cd_import/outpath">
                 <property name="visible">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="position">1</property>
               </packing>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="position">2</property>
@@ -106,7 +133,7 @@ WavPack</property>
         <child>
           <placeholder/>
         </child>
-      </widget>
+      </object>
     </child>
-  </widget>
-</glade-interface>
+  </object>
+</interface>

@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -25,20 +23,10 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
 from xl.nls import gettext as _
 import logging, os, threading
-import gtk, gobject
+import gtk, gobject, gio
 from xl import event, xdg, collection
 from xlgui import commondialogs
 
@@ -57,8 +45,8 @@ class CollectionScanThread(threading.Thread):
         threading.Thread.__init__(self)
         self.setDaemon(True)
     
-        self.main = main
         self.collection = collection
+        self.main = main
         self.stopped = False
         self.panel = panel
 
@@ -100,15 +88,15 @@ class CollectionManagerDialog(object):
         self.parent = parent
         self.main = main
         self.collection = collection
-        self.xml = gtk.glade.XML(xdg.get_data_path('glade/collection_manager.glade'), 
-            'CollectionManager', 'exaile')
-        self.dialog = self.xml.get_widget('CollectionManager')
-        self.list = commondialogs.ListBox(self.xml.get_widget('lm_list_box'))
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(xdg.get_data_path('ui/collection_manager.glade'))
+        self.dialog = self.builder.get_object('CollectionManager')
+        self.list = commondialogs.ListBox(self.builder.get_object('lm_list_box'))
         self.add_list = []
         self.remove_list = []
         self.dialog.set_transient_for(self.parent)
 
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_add_button_clicked': self.on_add,
             'on_remove_button_clicked': self.on_remove
         })
@@ -166,36 +154,28 @@ class CollectionManagerDialog(object):
             (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_ADD, gtk.RESPONSE_OK))
         dialog.set_current_folder(xdg.get_last_dir())
+        dialog.set_local_only(False) # enable gio
         response = dialog.run()
         dialog.hide()
 
         if response == gtk.RESPONSE_OK:
-            path = dialog.get_filename()
-            tmp_items = self.get_items()
+            gloc = gio.File(dialog.get_uri())
+            items = [ (gio.File(i), i) for i in self.get_items() ]
 
-            # Append os.sep so /ab is not detected as descendant of /a.
-            sep = os.sep
-            if path.endswith(sep):
-                path_sep = path
+            removes = []
+            for gitem, item in items:
+                if gloc.has_prefix(gitem):
+                    commondialogs.error(self.parent, 
+                        _('Path is already in your collection, or is a '
+                        'subdirectory of another path in your collection'))
+                    break
+                elif gitem.has_prefix(gloc):
+                    removes.append(item)
             else:
-                path_sep = path + sep
-
-            # TODO: Copy the code from 0.2 to handle the opposite, e.g. adding
-            # /a after /a/b should add /a and remove /a/b.
-
-            for item in tmp_items:
-                if not item: continue
-                if item.endswith(sep):
-                    item_sep = item
-                else:
-                    item_sep = item + sep
-                if (path_sep.startswith(item_sep)):
-                    # our added path is a subdir of an existing path
-                    commondialogs.error(self.parent, _('Path is already '
-                        'in your collection, or is a subdirectory of '
-                        'another path in your collection'))
-                    return
-    
-            self.list.append(path)
-
+                self.list.append(gloc.get_uri())
+                for item in removes:
+                    try:
+                        self.list.remove(item)
+                    except:
+                        pass
         dialog.destroy()

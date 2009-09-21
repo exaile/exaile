@@ -25,6 +25,7 @@ make-install-dirs:
 	mkdir -p $(EXAILELIBDIR)/xl
 	mkdir -p $(EXAILELIBDIR)/xl/metadata
 	mkdir -p $(EXAILELIBDIR)/xl/player
+	mkdir -p $(EXAILELIBDIR)/xl/migrations
 	mkdir -p $(EXAILELIBDIR)/xlgui
 	mkdir -p $(EXAILELIBDIR)/xlgui/panel
 	mkdir -p $(EXAILELIBDIR)/xlgui/prefs
@@ -35,8 +36,8 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/images/24x24
 	mkdir -p $(EXAILESHAREDIR)/data/images/32x32
 	mkdir -p $(EXAILESHAREDIR)/data/images/48x48
-	mkdir -p $(EXAILESHAREDIR)/data/images/svg
-	mkdir -p $(EXAILESHAREDIR)/data/glade
+	mkdir -p $(EXAILESHAREDIR)/data/images/scalable
+	mkdir -p $(EXAILESHAREDIR)/data/ui
 	mkdir -p $(EXAILESHAREDIR)/data/migrations
 	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
@@ -64,6 +65,8 @@ install-target: make-install-dirs
 	install -m 644 xl/metadata/*.py $(EXAILELIBDIR)/xl/metadata
 	-install -m 644 xl/player/*.py[co] $(EXAILELIBDIR)/xl/player
 	install -m 644 xl/player/*.py $(EXAILELIBDIR)/xl/player
+	-install -m 644 xl/migrations/*.py[co] $(EXAILELIBDIR)/xl/migrations
+	install -m 644 xl/migrations/*.py $(EXAILELIBDIR)/xl/migrations
 	-install -m 644 xlgui/*.py[co] $(EXAILELIBDIR)/xlgui
 	install -m 644 xlgui/*.py $(EXAILELIBDIR)/xlgui
 	-install -m 644 xlgui/panel/*.py[co] $(EXAILELIBDIR)/xlgui/panel
@@ -75,11 +78,11 @@ install-target: make-install-dirs
 	install -m 644 data/images/24x24/*.png $(EXAILESHAREDIR)/data/images/24x24
 	install -m 644 data/images/32x32/*.png $(EXAILESHAREDIR)/data/images/32x32
 	install -m 644 data/images/48x48/*.png $(EXAILESHAREDIR)/data/images/48x48
-	install -m 644 data/images/svg/*.svg $(EXAILESHAREDIR)/data/images/svg
+	install -m 644 data/images/scalable/*.svg $(EXAILESHAREDIR)/data/images/scalable
 	install -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
 	install -m 644 data/images/48x48/exaile.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
-	install -m 644 data/glade/*.glade $(EXAILESHAREDIR)/data/glade
+	install -m 644 data/ui/*.glade $(EXAILESHAREDIR)/data/ui
 	install -m 644 data/migrations/*.py $(EXAILESHAREDIR)/data/migrations/
 	install -m 644 data/migrations/migration_200907100931/*.py \
 	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/
@@ -119,7 +122,7 @@ pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in
 	find xl -name "*.py" >> po/POTFILES.in
 	find xlgui -name "*.py" >> po/POTFILES.in
-	find data/glade/ -name "*.glade" >> po/POTFILES.in
+	find data/ui/ -name "*.glade" >> po/POTFILES.in
 	find plugins -name "*.py" >> po/POTFILES.in
 	find plugins -name "*.glade" >> po/POTFILES.in
 	find plugins -name PLUGININFO >> po/POTFILES.in
@@ -132,12 +135,10 @@ potball:
 
 .PHONY: dist 
 
-# TODO: embed version information
 dist:
 	mkdir -p dist
 	rm -rf dist/copy
 	bzr co --lightweight ./ dist/copy
-	tar --bzip2 --format=posix -cf dist/exaile-dist.tar.bz2 dist/copy \
-	    --exclude=dist/copy/.bzr* --transform s/dist\\/copy/exaile/
-
+	./tools/dist.sh
+	rm -rf dist/copy
 

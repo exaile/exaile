@@ -75,7 +75,7 @@ class Playlist(gtk.VBox):
         self.player = self.exaile.player
         self.queue = queue
         self.search_keyword = ''
-        self.xml = main.xml
+        self.builder = main.builder
         self._initial_column_ids = _column_ids
         self._is_queue = _is_queue
 
@@ -87,7 +87,7 @@ class Playlist(gtk.VBox):
 
         # see plcolumns.py for more information on the columns menu
         if not Playlist.menu_items:
-            plcolumns.setup_menu(self.xml.get_widget('columns_menu_menu'),
+            plcolumns.setup_menu(self.builder.get_object('columns_menu_menu'),
                 Playlist.menu_items)
 
         self._setup_tree()
@@ -140,7 +140,7 @@ class Playlist(gtk.VBox):
         while it:
             cur = self.model.get_value(it, 0)
             for track in tracks:
-                if cur.get_loc() == track.get_loc():
+                if cur.get_loc_for_io() == track.get_loc_for_io():
                     self.update_iter(it, track)
                     tracks.remove(track)
             it = self.model.iter_next(it)
@@ -192,9 +192,9 @@ class Playlist(gtk.VBox):
         """
             Sets up the column menus (IE, View->Column->Track, etc)
         """
-        self.resizable_cols = self.xml.get_widget('col_resizable_item')
+        self.resizable_cols = self.builder.get_object('col_resizable_item')
         self.not_resizable_cols = \
-            self.xml.get_widget('col_not_resizable_item')
+            self.builder.get_object('col_not_resizable_item')
         if not self.resizable_cols and not self.not_resizable_cols:
             return # potentially dangerous if someone breaks the gladefile...
         self.resizable_cols.set_active(
@@ -407,6 +407,38 @@ class Playlist(gtk.VBox):
 
         return songs
 
+    def get_tracks_rating(self):
+        """
+            Returns the rating of the selected tracks in the tree view
+            Returns 0 if not all tracks have the same rating or if the selection
+            is too big
+        """
+        rating = 0
+        selection = self.list.get_selection()
+        (model, paths) = selection.get_selected_rows()
+        
+        if paths != None and len(paths) > 0:
+            iter = self.model.get_iter(paths[0])
+            song = self.model.get_value(iter, 0)
+            rating = song.get_rating ()
+        else:
+            return 0 # no tracks
+            
+        if rating == 0:
+            return 0 # if first song has 0 as a rating, we know the final result
+
+        if len(paths) > settings.get_option('miscellaneous/rating_widget_tracks_limit', 100):
+            return 0 # too many tracks, skipping
+
+        for path in paths:
+            iter = self.model.get_iter(path)
+            song = self.model.get_value(iter, 0)
+            if song.get_rating() != rating:
+                return 0 # different ratings
+
+        return rating # only one rating in the tracks, returning it
+
+
     def update_iter(self, iter, song):
         """
             Updates the track at "iter"
@@ -426,7 +458,8 @@ class Playlist(gtk.VBox):
         while True:
             check = self.model.get_value(iter, 0)
             if not check: break
-            if check == song or check.get_loc() == song.get_loc():
+            if check == song or \
+                    check.get_loc_for_io() == song.get_loc_for_io():
                 self.update_iter(iter, song)
                 break
             iter = self.model.iter_next(iter)
@@ -753,7 +786,7 @@ class Playlist(gtk.VBox):
         
         tracks = self.get_selected_tracks()
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
 
         locs = guiutil.get_urls_for(tracks)
         selection.set_uris(locs)
@@ -843,6 +876,8 @@ class Playlist(gtk.VBox):
             col.set_reorderable(True)
             col.set_resizable(False)
             col.set_sort_indicator(False)
+            # hack to make sorting work right. does not sort.
+            col.set_sort_order(gtk.SORT_DESCENDING)
 
             if not resizable:
                 if column.id in ('title', 'artist', 'album', '__loc', 'genre'):
@@ -1007,7 +1042,7 @@ class Playlist(gtk.VBox):
     def press_header(self, widget, event):
         if event.button != 3:
             return False
-        menu = self.xml.get_widget('columns_menu_menu')
+        menu = self.builder.get_object('columns_menu_menu')
         menu.popup(None, None, None, event.button, event.time)
         return True
 
@@ -1018,7 +1053,7 @@ class Playlist(gtk.VBox):
         print banner
         tracks = self.playlist.get_tracks()
         for track in tracks:
-            print track.get_loc()
+            print track.get_loc_for_display()
         print '---Done printing playlist'
 
     def update_rating(self, w, e):

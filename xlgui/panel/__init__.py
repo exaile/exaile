@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -25,18 +23,8 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
-import gtk, gtk.glade, gobject
+import gtk, gobject
 from xl import xdg
 
 class Panel(gobject.GObject):
@@ -44,9 +32,9 @@ class Panel(gobject.GObject):
         The base panel class.
 
         This class is abstract and should be subclassed.  All subclasses
-        should define a 'gladeinfo' and 'name' variables.
+        should define a 'ui_info' and 'name' variables.
     """
-    gladeinfo = ('panel.glade', 'PanelWindow')
+    ui_info = ('panel.glade', 'PanelWindow')
 
     def __init__(self, parent, name=None):
         """
@@ -58,20 +46,21 @@ class Panel(gobject.GObject):
         self.name = name
         self.parent = parent
 
-        # if the gladefile starts with file:// use the full path minus
+        # if the UI designer file starts with file:// use the full path minus
         # file://, otherwise check in the data directories
-        gladefile = self.gladeinfo[0]
-        if not gladefile.startswith('file://'):
-            gladefile = xdg.get_data_path('glade/%s' % gladefile)
+        ui_file = self.ui_info[0]
+        if not ui_file.startswith('file://'):
+            ui_file = xdg.get_data_path('ui/%s' % ui_file)
         else:
-            gladefile = gladefile[7:]
+            ui_file = ui_file[7:]
 
-        self.xml = gtk.glade.XML(gladefile, self.gladeinfo[1], 'exaile')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(ui_file)
         self._child = None
 
     def get_panel(self):
         if not self._child:
-            window = self.xml.get_widget(self.gladeinfo[1])
+            window = self.builder.get_object(self.ui_info[1])
             self._child = window.get_child()
             window.remove(self._child)
             if not self.name:

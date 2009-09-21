@@ -1,7 +1,7 @@
 import os
 import traceback
 from xl import xdg, track, collection
-from xl import settings, common, migration
+from xl import settings, common
 from xl.playlist import PlaylistManager, Playlist
 from ConfigParser import SafeConfigParser
 import urlparse
@@ -37,6 +37,8 @@ _SETTINGS_MAP = (
     (str,   'ui',       'tab_placement',    'gui/tab_placement', '_set_tab_placement'),
 )
 
+class MigrationException(Exception): pass
+
 def migration_needed():
     # check for the presence of old exaile settings
     for file in ('~/.exaile/music.db', '~/.exaile/settings.ini'):
@@ -55,7 +57,7 @@ def migration_needed():
         return False
 
     if not olddb.SQLITE_AVAIL:
-        raise migration.MigrationException("Sqlite not available.  "
+        raise MigrationException("Sqlite not available.  "
             "Cannot migrate 0.2.14 settings")
 
     # if we've gotten this far, check for sqlite, but if it's not available,
@@ -203,16 +205,21 @@ def _migrate_playlists(db, newdb, playlists):
     playlists.save_order()
 
 def migrate(force=False):
-    if force or not migration_needed():
+    if not force and not migration_needed():
         logger.debug("Will not migrate and overwrite data.")
         return
     logger.info("Migrating data from 0.2.14....")
+
+    # allow force to overwrite the new db
+    newdbpath = os.path.join(xdg.get_data_dirs()[0], 'music.db')
+    if os.path.exists(newdbpath):
+        os.remove(newdbpath)
 
     oldsettings = SafeConfigParser()
     oldsettings.read(os.path.expanduser('~/.exaile/settings.ini'))
 
     if not olddb.SQLITE_AVAIL:
-        raise migration.MigrationException("Sqlite is not available. "
+        raise MigrationException("Sqlite is not available. "
             "Unable to migrate 0.2.14 settings")
 
     # old database

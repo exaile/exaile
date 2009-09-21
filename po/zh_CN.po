@@ -8,51 +8,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-24 18:16+0200\n"
-"PO-Revision-Date: 2009-08-21 17:46+0000\n"
+"POT-Creation-Date: 2009-09-08 17:57+0200\n"
+"PO-Revision-Date: 2009-09-12 11:10+0000\n"
 "Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-08-24 18:56+0000\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2009-09-21 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
 msgstr "自动"
 
-#: ../xl/player/pipe.py:203
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../xl/player/pipe.py:208
-msgid "ALSA"
-msgstr "ALSA"
-
-#: ../xl/player/pipe.py:213
-msgid "OSS"
-msgstr "OSS"
-
-#: ../xl/player/pipe.py:218
-msgid "PulseAudio"
-msgstr "PulseAudio"
-
-#: ../xl/player/pipe.py:223
-msgid "JACK"
-msgstr "JACK"
-
-#. TODO: remove this before 0.3.0 since it is not needed for
-#. stable->stable upgrades
-#: ../xl/player/engine_normal.py:154
-#, python-format
-msgid ""
-"Exaile now uses absolute URI's, please delete/rename your %s directory"
-msgstr "Exaile 现在使用绝对 URI，请删除/重命名您的 %s 目录"
-
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
 msgstr "从 0.2.14 迁移失败"
+
+#: ../xl/main.py:298
+msgid "Playback options"
+msgstr "回放选项"
 
 #: ../xl/main.py:273
 msgid "Play the next track"
@@ -72,19 +49,23 @@ msgstr "播放"
 
 #: ../xl/main.py:281
 msgid "Toggle Play or Pause"
-msgstr "切换播放或暂停"
+msgstr "切换播放或暂停状态"
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
 msgstr "当前音轨后停止回放"
 
+#: ../xl/main.py:314
+msgid "Track options"
+msgstr "音轨选项"
+
 #: ../xl/main.py:288
 msgid "Query player"
-msgstr "询问播放器"
+msgstr "队列播放"
 
 #: ../xl/main.py:290
 msgid "Show a popup of the currently playing track"
-msgstr "显示当前播放音轨的弹出窗"
+msgstr "为当前播放音轨弹出提示"
 
 #: ../xl/main.py:292
 msgid "Print the title of current track"
@@ -116,6 +97,10 @@ msgstr ""
 
 #: ../xl/main.py:308
 msgid "Print the progress inside the current track as percentage"
+msgstr "显示当前歌曲的播放进度百分比"
+
+#: ../xl/main.py:339
+msgid "Volume options"
 msgstr ""
 
 #: ../xl/main.py:312
@@ -130,6 +115,10 @@ msgstr "减小音量至 VOL%"
 msgid "Print the current volume percentage"
 msgstr "打印当前音量百分比"
 
+#: ../xl/main.py:348
+msgid "Other options"
+msgstr ""
+
 #: ../xl/main.py:320
 msgid "Start new instance"
 msgstr "启动新的实例"
@@ -138,10 +127,27 @@ msgstr "启动新的实例"
 msgid "Start minimized (to tray, if possible)"
 msgstr "启动后最小化(如果可能最小化到托盘)"
 
+#: ../xl/main.py:355
+msgid "Toggle visibility of the GUI (if possible)"
+msgstr ""
+
 #: ../xl/main.py:325
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "安全模式启动 - 当有运行问题时非常有用"
+
+#: ../xl/main.py:360
+msgid "Force import of old data from 0.2.x. Overwrites current data."
+msgstr ""
+
+#: ../xl/main.py:363
+msgid "Do not import old data from 0.2.x."
+msgstr "不要从 0.2.x 版本导入旧的数据。"
+
+#. development and debug options
+#: ../xl/main.py:368
+msgid "Development/Debug options"
+msgstr "开发/调试 选项"
 
 #. development and debug options
 #: ../xl/main.py:329
@@ -158,7 +164,7 @@ msgstr "启用 xl.event 调试。产生大量的输出"
 
 #: ../xl/main.py:336
 msgid "Filter event debug output"
-msgstr ""
+msgstr "过滤事件调试输出"
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
@@ -175,7 +181,7 @@ msgstr "禁用 HAL 支持"
 #. entire playlist
 #: ../xl/main.py:362
 msgid "Entire Library"
-msgstr "整个音乐库"
+msgstr "整个媒体库"
 
 #: ../xl/main.py:368
 #, python-format
@@ -195,23 +201,23 @@ msgstr ""
 
 #: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
-msgstr "你未指定保存数据库的位置"
+msgstr "您没有定义用于保存数据库的位置"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
-msgstr "order 必须是一个列表或数组"
+msgstr "顺序必须是一个列表或元组"
 
 #: ../xl/transcoder.py:45
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
-msgstr "Vorbis 是一个开放源码的、有损的音频编解码器，具备高品质的输出并且文件体积比 MP3 更小。"
+msgstr "Vorbis 是一个开源的有损音频编解码算法，具备高品质的输出并且文件体积比 MP3 更小。"
 
 #: ../xl/transcoder.py:55
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
-msgstr "FLAC 是一个开源的压缩编解码器，不会降低音质。"
+msgstr "FLAC 是一个开源的无损音频编解码算法。"
 
 #: ../xl/transcoder.py:67
 msgid ""
@@ -249,7 +255,7 @@ msgstr "设置的版本比当前版本更新。"
 
 #: ../xl/settings.py:167
 msgid "We don't know how to store that kind of setting: "
-msgstr "Exaile 不知道如何存储这样的设置： "
+msgstr "Exaile 无法保存以下设置： "
 
 #: ../xl/settings.py:194
 msgid "An Unknown type of setting was found!"
@@ -340,16 +346,6 @@ msgstr "另存为…"
 msgid "Toggle: Stop after selected track"
 msgstr "锁定：选中音乐后停止"
 
-#: ../xlgui/main.py:645
-#, python-format
-msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr "当前显示 %(playlist_count)d 首，音乐库中共 %(collection_count)d 首"
-
-#: ../xlgui/main.py:653
-#, python-format
-msgid " (%(queue_count)d queued)"
-msgstr " (%(queue_count)d 首已排队)"
-
 #: ../xlgui/main.py:788
 #, python-format
 msgid "Buffering: %d%%..."
@@ -397,7 +393,7 @@ msgstr "暂停：%s"
 #: ../xlgui/main.py:1082
 #, python-format
 msgid "Playing %s"
-msgstr "现在播放 %s"
+msgstr "正在播放 %s"
 
 #: ../xlgui/menu.py:43
 msgid "Toggle Queue"
@@ -437,7 +433,7 @@ msgstr "另存为自定义播放列表(_S)"
 
 #: ../xlgui/menu.py:207
 msgid "_Save Changes To Playlist"
-msgstr ""
+msgstr "保存改变到播放列表(_S)"
 
 #: ../xlgui/menu.py:208
 msgid "_Save As..."
@@ -457,7 +453,7 @@ msgstr "追加到当前播放列表"
 
 #: ../xlgui/menu.py:233
 msgid "Queue Items"
-msgstr "将项目加入队列"
+msgstr "队列项目"
 
 #: ../xlgui/menu.py:277
 msgid "Delete track"
@@ -513,11 +509,11 @@ msgstr "XSPF 播放列表"
 
 #: ../xlgui/menu.py:401 ../xlgui/panel/playlists.py:966
 msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr "您确定要永久性删除选中的播放列表？"
+msgstr "您确定要永久删除选定的播放列表吗？"
 
 #: ../xlgui/menu.py:414
 msgid "Enter the new name you want for your playlist"
-msgstr "输入播放列表的新名称"
+msgstr "输入新的播放列表名称"
 
 #: ../xlgui/cover.py:286
 #, python-format
@@ -531,11 +527,11 @@ msgstr "开始"
 
 #: ../xlgui/cover.py:325
 msgid "Show Cover"
-msgstr "显示封面"
+msgstr "显示专辑封面"
 
 #: ../xlgui/cover.py:326
 msgid "Fetch Cover"
-msgstr "获取封面"
+msgstr "获取专辑封面"
 
 #: ../xlgui/cover.py:327
 msgid "Remove Cover"
@@ -547,7 +543,7 @@ msgstr "输入要搜索的内容"
 
 #: ../xlgui/cover.py:684
 msgid "No covers found"
-msgstr "未找到封面"
+msgstr "未能找到专辑封面"
 
 #: ../xlgui/osd.py:207
 msgid "No track"
@@ -591,12 +587,22 @@ msgstr "所有文件"
 
 #: ../xlgui/__init__.py:341
 msgid "Scanning collection..."
-msgstr "正在扫描音乐库..."
+msgstr "扫描收藏 ..."
 
 #: ../xlgui/__init__.py:438
 #, python-format
 msgid "Scanning %s..."
 msgstr "正在扫描 %s..."
+
+#: ../xlgui/main.py:645
+#, python-format
+msgid "%(playlist_count)d showing, %(collection_count)d in collection"
+msgstr "当前显示 %(playlist_count)d 首，音乐库中共 %(collection_count)d 首"
+
+#: ../xlgui/guiutil.py:717
+#, python-format
+msgid "(%d queued)"
+msgstr ""
 
 #: ../xlgui/guiutil.py:650
 msgid "Rating:"
@@ -768,7 +774,7 @@ msgstr "名称："
 
 #: ../xlgui/filtergui.py:65
 msgid "Match any of the criteria"
-msgstr "匹配任何标准"
+msgstr "匹配任一条件"
 
 #: ../xlgui/filtergui.py:67
 msgid "Randomize results"
@@ -906,11 +912,11 @@ msgstr "您输入的播放列表名称已经被使用。"
 
 #: ../xlgui/panel/playlists.py:349
 msgid "New custom playlist name:"
-msgstr ""
+msgstr "新自定义播放列表名称："
 
 #: ../xlgui/panel/playlists.py:350
 msgid "Add To New Playlist..."
-msgstr ""
+msgstr "添加到新的播放列表..."
 
 #: ../xlgui/panel/playlists.py:360 ../xlgui/panel/playlists.py:586
 #: ../xlgui/panel/playlists.py:659
@@ -948,7 +954,7 @@ msgstr "空闲。"
 
 #: ../xlgui/panel/radio.py:166
 msgid "Add Radio Station"
-msgstr ""
+msgstr "添加电台"
 
 #: ../xlgui/panel/radio.py:169
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
@@ -985,7 +991,7 @@ msgstr "%s KB"
 msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
-msgstr ""
+msgstr "将会永久删除磁盘上的音乐文件，确定要继续吗？"
 
 #: ../xlgui/panel/collection.py:162
 msgid "Rescan Collection"
@@ -998,7 +1004,7 @@ msgstr "多位艺人"
 #: ../xlgui/panel/device.py:115
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "正在传输到 %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:21
 msgid "Covers"
@@ -1066,15 +1072,15 @@ msgstr ""
 
 #: ../xlgui/prefs/widgets.py:249
 msgid "Remove item"
-msgstr ""
+msgstr "删除项目"
 
 #: ../xlgui/prefs/widgets.py:262
 msgid "Move selected item up"
-msgstr ""
+msgstr "将所选项上移"
 
 #: ../xlgui/prefs/widgets.py:267
 msgid "Move selected item down"
-msgstr ""
+msgstr "选中项下移"
 
 #: ../xlgui/prefs/widgets.py:538
 msgid "Action"
@@ -1131,7 +1137,7 @@ msgstr "设备类型："
 #: ../data/glade/device_panel.glade.h:1
 #: ../data/glade/collection_panel.glade.h:10
 msgid "Collection"
-msgstr "音乐库"
+msgstr "媒体库"
 
 #: ../data/glade/coverchooser.glade.h:1
 msgid "Cover Finder"
@@ -1252,25 +1258,25 @@ msgstr ""
 msgid "Always show tab bar"
 msgstr "始终显示标签栏"
 
+#: ../data/ui/appearance_prefs_pane.glade.h:2
+msgid "Bottom"
+msgstr ""
+
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
 msgstr "当音轨改变时跳转到当前曲目"
 
-#: ../data/glade/appearance_prefs_pane.glade.h:4
-msgid ""
-"Left\n"
-"Right\n"
-"Top\n"
-"Bottom"
+#: ../data/ui/appearance_prefs_pane.glade.h:5
+msgid "Left"
 msgstr ""
-"左\n"
-"右\n"
-"上\n"
-"下"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:8
 msgid "Minimize to tray"
 msgstr "最小化到托盘"
+
+#: ../data/ui/appearance_prefs_pane.glade.h:7
+msgid "Right"
+msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:9
 msgid "Show splash screen on startup"
@@ -1284,9 +1290,13 @@ msgstr "显示托盘图标"
 msgid "Tab placement:"
 msgstr "标签位置："
 
+#: ../data/ui/appearance_prefs_pane.glade.h:11
+msgid "Top"
+msgstr ""
+
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
-msgstr ""
+msgstr "使用透明效果(如果支持)"
 
 #: ../data/glade/osd_window.glade.h:1
 msgid ""
@@ -1323,16 +1333,6 @@ msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
 msgstr "<b>移动屏幕上显示的窗口到指定位置</b>"
-
-#: ../data/glade/osd_prefs_pane.glade.h:2
-msgid ""
-"<b>{title}</b>\n"
-"{artist}\n"
-"on {album} - {length}"
-msgstr ""
-"<b>{title}</b>\n"
-"艺人：{artist}\n"
-"专辑：{album} - {length}"
 
 #: ../data/glade/osd_prefs_pane.glade.h:5
 msgid "Background Color:"
@@ -1382,25 +1382,13 @@ msgstr "队列管理器"
 msgid "Remove All"
 msgstr "全部删除"
 
+#: ../xl/player/pipe.py:208
+msgid "ALSA"
+msgstr "ALSA"
+
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
 msgstr "音频接收器：  "
-
-#: ../data/glade/playback_prefs_pane.glade.h:2
-msgid ""
-"Automatic\n"
-"GNOME\n"
-"ALSA\n"
-"OSS\n"
-"PulseAudio\n"
-"JACK"
-msgstr ""
-"自动\n"
-"GNOME\n"
-"ALSA\n"
-"OSS\n"
-"PulseAudio\n"
-"JACK"
 
 #: ../data/glade/playback_prefs_pane.glade.h:8
 msgid "Crossfade duration (ms):"
@@ -1410,17 +1398,29 @@ msgstr "匀滑转换持续时间(毫秒)："
 msgid "Fade duration (ms):"
 msgstr "淡入淡出持续时间(毫秒)："
 
-#: ../data/glade/playback_prefs_pane.glade.h:10
-msgid ""
-"Normal\n"
-"Unified (unstable)"
+#: ../xl/player/pipe.py:203
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../xl/player/pipe.py:223
+msgid "JACK"
+msgstr "JACK"
+
+#: ../data/ui/playback_prefs_pane.glade.h:8
+msgid "Normal"
 msgstr ""
-"普通\n"
-"Unified(不稳定)"
+
+#: ../xl/player/pipe.py:213
+msgid "OSS"
+msgstr "OSS"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
 msgstr "回放引擎(需要重新启动程序)： "
+
+#: ../xl/player/pipe.py:218
+msgid "PulseAudio"
+msgstr "PulseAudio"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
@@ -1434,6 +1434,10 @@ msgstr "启动时继续上次播放"
 msgid "These options only affect the unified engine."
 msgstr "这些选项只影响 unified 引擎。"
 
+#: ../data/ui/playback_prefs_pane.glade.h:15
+msgid "Unified (unstable)"
+msgstr ""
+
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "使用匀滑转换(实验性)"
@@ -1444,7 +1448,7 @@ msgstr "用户操作时使用匀滑转换"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>没有选定插件</b>"
+msgstr "<b>没有选中任何插件</b>"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:2
 msgid "Authors:"
@@ -1468,11 +1472,11 @@ msgstr "安装更新"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "从文件安装第三方插件"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "安装插件文件"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:9
 msgid "Installed Plugins"
@@ -1485,14 +1489,6 @@ msgstr "更新"
 #: ../data/glade/plugin_prefs_pane.glade.h:11
 msgid "Version:"
 msgstr "版本："
-
-#: ../data/glade/main.glade.h:1
-msgid " + "
-msgstr " + "
-
-#: ../data/glade/main.glade.h:2
-msgid " - "
-msgstr " - "
 
 #: ../data/glade/main.glade.h:3
 msgid "0/0 tracks"
@@ -1509,6 +1505,10 @@ msgstr "封面(_O)"
 #: ../data/glade/main.glade.h:6
 msgid "Clear Playlist"
 msgstr "清空播放列表"
+
+#: ../data/ui/main.glade.h:5
+msgid "Click to view Queue"
+msgstr ""
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
@@ -1536,7 +1536,7 @@ msgstr "随机改变当前播放列表顺序"
 
 #: ../data/glade/main.glade.h:14
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "重新扫描收藏(_S)"
 
 #: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:13
 #: ../data/glade/files_panel.glade.h:6
@@ -1553,22 +1553,21 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"停止播放\n"
+"\n"
+"在音轨处右击来停止"
 
 #: ../data/glade/main.glade.h:23
 msgid "Track _properties"
 msgstr "音轨属性(_P)"
 
-#: ../data/glade/main.glade.h:24
-msgid "Vol:"
-msgstr "音量："
-
 #: ../data/glade/main.glade.h:25
 msgid "_Autosize"
-msgstr ""
+msgstr "自动调整大小(_A)"
 
 #: ../data/glade/main.glade.h:26
 msgid "_Collection"
-msgstr ""
+msgstr "收藏(_C)"
 
 #: ../data/glade/main.glade.h:27
 msgid "_Columns"
@@ -1604,11 +1603,11 @@ msgstr "队列(_Q)"
 
 #: ../data/glade/main.glade.h:36
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "随机播放列表(_R)"
 
 #: ../data/glade/main.glade.h:37
 msgid "_Resizable"
-msgstr ""
+msgstr "还原大小(_R)"
 
 #: ../data/glade/main.glade.h:38
 msgid "_Tools"
@@ -1624,11 +1623,11 @@ msgstr "音乐库管理"
 
 #: ../data/glade/flatplaylist_panel.glade.h:1
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "添加全部音轨到播放列表"
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
-msgstr ""
+msgstr "添加光盘"
 
 #: ../data/glade/general_prefs_pane.glade.h:1
 #: ../data/glade/playlists_prefs_pane.glade.h:1
@@ -1637,39 +1636,43 @@ msgstr "启动时打开最近的播放列表"
 
 #: ../data/glade/collection_panel.glade.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>收藏是空的。</b>"
 
 #: ../data/glade/collection_panel.glade.h:2
 msgid "Add Music"
 msgstr "添加音乐"
 
-#: ../data/glade/collection_panel.glade.h:3
-msgid ""
-"Artist\n"
-"Album\n"
-"Genre - Artist\n"
-"Genre - Album\n"
-"Year - Artist\n"
-"Year - Album\n"
-"Artist - Year - Album"
+#: ../data/ui/collection_panel.glade.h:5
+msgid "Artist - Year - Album"
 msgstr ""
-"艺人\n"
-"专辑\n"
-"流派 - 艺人\n"
-"流派 - 专辑\n"
-"年份 - 艺人\n"
-"年份 - 专辑\n"
-"艺人 - 年份 - 专辑"
+
+#: ../data/ui/collection_panel.glade.h:7
+msgid "Genre - Album"
+msgstr ""
+
+#: ../data/ui/collection_panel.glade.h:8
+msgid "Genre - Artist"
+msgstr ""
 
 #: ../data/glade/collection_panel.glade.h:11
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"刷新收藏查看\n"
+"(按住 Shift 键来重新扫描收藏)"
+
+#: ../data/ui/collection_panel.glade.h:12
+msgid "Year - Album"
+msgstr ""
+
+#: ../data/ui/collection_panel.glade.h:13
+msgid "Year - Artist"
+msgstr ""
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "关闭时提示保存自定义的播放列表"
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
@@ -1678,10 +1681,6 @@ msgstr "(拖动以调整顺序)"
 #: ../data/glade/cover_prefs_pane.glade.h:2
 msgid "Cover Search Order:"
 msgstr "封面搜索顺序："
-
-#: ../data/glade/preferences_dialog.glade.h:1
-msgid "<b>General</b>"
-msgstr "<b>常规</b>"
 
 #: ../data/glade/files_panel.glade.h:1
 msgid "Files"
@@ -1714,16 +1713,16 @@ msgstr "多点闹钟"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "闹钟"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "同乐会"
 
 #: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
-msgstr ""
+msgstr "启用同乐会"
 
 #: ../plugins/cd/__init__.py:95 ../plugins/cd/__init__.py:172
 msgid "Audio Disc"
@@ -1735,7 +1734,7 @@ msgstr "正在导入 CD..."
 
 #: ../plugins/cd/cdprefs.py:22
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
 msgid "Track number"
@@ -1768,7 +1767,7 @@ msgstr "清空书签"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "osd 通知"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
@@ -1797,6 +1796,18 @@ msgstr "Amazon 封面"
 msgid "Desktop Cover"
 msgstr "桌面封面"
 
+#: ../plugins/moodbar/__init__.py:163
+msgid "Searching for mood..."
+msgstr "正在搜索 mood..."
+
+#: ../plugins/moodbar/__init__.py:167
+msgid "Mood found."
+msgstr "Mood 已找到。"
+
+#: ../plugins/moodbar/__init__.py:199
+msgid "Could not read moodbar."
+msgstr "无法读取 moodbar 。"
+
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
 msgstr "Moodbar 可执行程序不存在。"
@@ -1816,7 +1827,7 @@ msgstr "播客"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "刷新 Podcast"
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
@@ -1850,14 +1861,14 @@ msgstr "无法保存播客文件"
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:158
 #: ../plugins/shoutcast/__init__.py:201 ../plugins/shoutcast/__init__.py:237
 msgid "Contacting Shoutcast server..."
-msgstr ""
+msgstr "联接 Podcast 服务器..."
 
 #: ../plugins/shoutcast/__init__.py:114 ../plugins/shoutcast/__init__.py:118
 #: ../plugins/shoutcast/__init__.py:167 ../plugins/shoutcast/__init__.py:171
 #: ../plugins/shoutcast/__init__.py:215 ../plugins/shoutcast/__init__.py:220
 #: ../plugins/shoutcast/__init__.py:248 ../plugins/shoutcast/__init__.py:253
 msgid "Error connecting to Shoutcast server."
-msgstr ""
+msgstr "联接 Podcast 服务器出错。"
 
 #: ../plugins/shoutcast/__init__.py:273
 msgid "Enter the search keywords"
@@ -1877,7 +1888,7 @@ msgstr "搜索"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "通知"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -1961,17 +1972,17 @@ msgstr "恢复"
 #: ../plugins/minimode/minimodeprefs.py:136
 #: ../plugins/minimode/minimodeprefs.py:142
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:138
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title by $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:140
 msgid "$title ($length)"
-msgstr ""
+msgstr "$title ($length)"
 
 #: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
@@ -1987,7 +1998,7 @@ msgstr "暂停回放"
 
 #: ../plugins/minimode/mmwidgets.py:732
 msgid "Seeking: "
-msgstr ""
+msgstr "搜索： "
 
 #: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
@@ -1996,11 +2007,11 @@ msgstr " & "
 #: ../plugins/contextinfo/__init__.py:1033
 #: ../plugins/contextinfo/context.glade.h:1
 msgid "Context"
-msgstr ""
+msgstr "关联菜单"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "流媒体"
 
 #: ../plugins/streamripper/__init__.py:54
 msgid "Streamripper can only record streams."
@@ -2013,7 +2024,7 @@ msgstr "提取流媒体时出错"
 #: ../plugins/multialarmclock/alarmclk.glade.h:1
 #: ../plugins/alarmclock/acprefs_pane.glade.h:1
 msgid "Alarm Days:"
-msgstr "提醒日："
+msgstr "定时日期："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:2
 msgid "Alarm Name:"
@@ -2123,15 +2134,39 @@ msgid "Username:"
 msgstr "用户名："
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
-msgid "Import format: "
+msgid "AAC"
 msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:2
-msgid "Import path: "
+msgid "FLAC"
 msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:1
+msgid "Import format: "
+msgstr "导入格式： "
+
+#: ../plugins/cd/cdprefs_pane.glade.h:2
+msgid "Import path: "
+msgstr "导入路径： "
 
 #: ../plugins/cd/cdprefs_pane.glade.h:3
 msgid "Import quality: "
+msgstr "导入音质： "
+
+#: ../plugins/cd/cdprefs_pane.glade.h:6
+msgid "MP3 (CBR)"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:7
+msgid "MP3 (VBR)"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:8
+msgid "Ogg Vorbis"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:9
+msgid "WavPack"
 msgstr ""
 
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
@@ -2194,15 +2229,15 @@ msgstr "为暂停、停止和恢复使用媒体图标"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
 msgid "When GUI is Focused"
-msgstr ""
+msgstr "窗口聚焦时"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
 msgid "API Key:"
-msgstr ""
+msgstr "API Key:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
 msgid "Secret Key:"
-msgstr ""
+msgstr "密钥："
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
 msgid ""
@@ -2210,9 +2245,73 @@ msgid ""
 "this information visit http://aws.amazon.com/"
 msgstr ""
 
+#: ../plugins/desktopcover/prefs.glade.h:1
+msgid "Anchor:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:2
+msgid "Bottom left"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:3
+msgid "Bottom right"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:4
+msgid "Size:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:5
+msgid "Top left"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:6
+msgid "Top right"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:7
+msgid "X offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:8
+msgid "Y offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:9
+msgid "pixels"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:1
+msgid "Base color"
+msgstr "基色"
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:2
+msgid "Base color:"
+msgstr "基色："
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
+msgid "Darken played section instead of using cursor"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
+msgid "Darkness level:"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
+msgid "Show only waveform, not mood"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
+msgid "Use color theme "
+msgstr "使用颜色方案 "
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
+msgid "Use waveform style"
+msgstr ""
+
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "功放增益(dB)"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
 msgid "Additional amplification to apply to all files"
@@ -2236,7 +2335,7 @@ msgstr "喜欢逐一专辑校正"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "抵制信号噪音"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
 msgid "Use clipping protection"
@@ -2287,35 +2386,19 @@ msgstr "字体："
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
 msgid "Terminal Opacity:"
-msgstr ""
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:1
-msgid "<b>Position</b>"
-msgstr "<b>位置</b>"
+msgstr "终端模糊处理："
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"
 msgstr "前端显示"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:3
-msgid "Center horizontally"
-msgstr "水平居中"
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:4
-msgid "Center vertically"
-msgstr "竖直居中"
-
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:5
 msgid "Display window decorations"
 msgstr "显示窗口装饰"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:6
-msgid "Horizontal:"
-msgstr "水平："
-
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
 msgid "Show in tasklist"
-msgstr ""
+msgstr "在任务列表中显示"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:8
 msgid "Show on all desktops"
@@ -2324,10 +2407,6 @@ msgstr "在所有桌面上显示"
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Track title format:"
 msgstr "音轨标题格式："
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:10
-msgid "Vertical:"
-msgstr "竖直："
 
 #: ../plugins/streamripper/streamripper.glade.h:1
 msgid "Relay Port:"
@@ -2354,6 +2433,18 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"定时播放音乐。\n"
+"\n"
+"注意到了指定的时间，Exaile 会自动开始播放，请确保在你的播放列表中有相应的歌曲"
+
+#: ../plugins/currentsong/PLUGININFO:3
+msgid "Current Song"
+msgstr ""
+
+#: ../plugins/currentsong/PLUGININFO:4
+msgid ""
+"Sets the currently playing status in Pidgin for services that support it."
+msgstr ""
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
@@ -2371,17 +2462,13 @@ msgid ""
 "Requires python-cddb to look up tags."
 msgstr ""
 
-#: ../plugins/mpris/PLUGININFO:3
-msgid "MPRIS"
-msgstr ""
-
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
 msgstr ""
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr ""
+msgstr "允许保存/重新开始音频文件的书签位置。"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -2436,7 +2523,7 @@ msgstr "iPod 支持"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr ""
+msgstr "用于支持 iPod 的插件"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -2444,27 +2531,27 @@ msgstr ""
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "添加简单的 Podcast 支持"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "屏幕保护程序启动时暂停"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
-msgstr ""
+msgstr "屏幕保护程序 启动/停止 时，自动 暂停/继续 播放"
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"
-msgstr ""
+msgstr "高音喇叭"
 
 #: ../plugins/shoutcast/PLUGININFO:4
 msgid "Shoutcast Radio list"
-msgstr ""
+msgstr "高音喇叭列表"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "大家好"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -2472,7 +2559,7 @@ msgstr ""
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "GNOME 多媒体按键"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
@@ -2480,17 +2567,25 @@ msgid ""
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
 
+#: ../plugins/xkeys/PLUGININFO:3
+msgid "XKeys"
+msgstr "XKeys"
+
+#: ../plugins/xkeys/PLUGININFO:4
+msgid "Global hotkeys using xlib (mmkeys.so)"
+msgstr ""
+
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
-msgstr ""
+msgstr "歌词滚动"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "从 lyricsfly.com 获取歌词的插件"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "支持USB存储器类型的媒体播放器"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
@@ -2500,7 +2595,7 @@ msgstr ""
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
-msgstr ""
+msgstr "歌曲开始时弹出通知"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -2508,7 +2603,7 @@ msgstr ""
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "浏览和倾听来自 Librivox.org 的 乐谱。"
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
@@ -2516,24 +2611,25 @@ msgstr ""
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "兼容模式的 Exaile，有配置界面"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr ""
+msgstr "标签封面"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
-msgstr ""
+msgstr "按音轨标签搜索封面"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "关联菜单信息"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
 "Show various informations about the track currently playing.\n"
-"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
+"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
+"PIL)"
 msgstr ""
 
 #: ../plugins/streamripper/PLUGININFO:4
@@ -2544,11 +2640,11 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "歌词 Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr ""
+msgstr "从 lyricwiki.org 获取歌词的插件"
 
 #, python-format
 #~ msgid "Unable to fully disable plugin %s"
@@ -2643,6 +2739,17 @@ msgstr ""
 #~ msgid "Error loading preferences pane"
 #~ msgstr "载入面板首选项出错"
 
+#~ msgid ""
+#~ "Left\n"
+#~ "Right\n"
+#~ "Top\n"
+#~ "Bottom"
+#~ msgstr ""
+#~ "左\n"
+#~ "右\n"
+#~ "上\n"
+#~ "下"
+
 #~ msgid "Move song to bottom of queue"
 #~ msgstr "移动歌曲到队列尾部"
 
@@ -2651,6 +2758,27 @@ msgstr ""
 
 #~ msgid "Move song up in queue"
 #~ msgstr "在队列中前移歌曲"
+
+#~ msgid ""
+#~ "Automatic\n"
+#~ "GNOME\n"
+#~ "ALSA\n"
+#~ "OSS\n"
+#~ "PulseAudio\n"
+#~ "JACK"
+#~ msgstr ""
+#~ "自动\n"
+#~ "GNOME\n"
+#~ "ALSA\n"
+#~ "OSS\n"
+#~ "PulseAudio\n"
+#~ "JACK"
+
+#~ msgid " + "
+#~ msgstr " + "
+
+#~ msgid " - "
+#~ msgstr " - "
 
 #~ msgid "Pl_ugins"
 #~ msgstr "插件(_U)"
@@ -2662,11 +2790,26 @@ msgstr ""
 #~ msgid "Seeking:"
 #~ msgstr "正在查找："
 
+#~ msgid "<b>Position</b>"
+#~ msgstr "<b>位置</b>"
+
+#~ msgid "Center horizontally"
+#~ msgstr "水平居中"
+
+#~ msgid "Center vertically"
+#~ msgstr "竖直居中"
+
+#~ msgid "Horizontal:"
+#~ msgstr "水平："
+
 #~ msgid "Mini mode button in main window"
 #~ msgstr "迷你模式下主窗口按钮"
 
 #~ msgid "Show in panel"
 #~ msgstr "在面版上显示"
+
+#~ msgid "Vertical:"
+#~ msgstr "竖直："
 
 #~ msgid "Safe mode enabled, not loading plugins."
 #~ msgstr "安全模式启用，不载入插件。"
@@ -2741,17 +2884,12 @@ msgstr ""
 #~ msgstr "从 '%(object)s' 发出 '%(type)s' 事件和 '%(data)s' 数据。"
 
 #, python-format
+#~ msgid " (%(queue_count)d queued)"
+#~ msgstr " (%(queue_count)d 首已排队)"
+
+#, python-format
 #~ msgid "adding %(column_id)s column to %(preference)s"
 #~ msgstr "正在添加 %(column_id)s 列到 %(preference)s"
-
-#~ msgid "Searching for mood..."
-#~ msgstr "正在搜索 mood..."
-
-#~ msgid "Mood found."
-#~ msgstr "Mood 已找到。"
-
-#~ msgid "Could not read moodbar."
-#~ msgstr "无法读取 moodbar 。"
 
 #~ msgid "Pre-amp (dB):"
 #~ msgstr "前置放大器(dB)："
@@ -2832,8 +2970,31 @@ msgstr ""
 #~ msgid "Save"
 #~ msgstr "保存"
 
+#~ msgid ""
+#~ "Artist\n"
+#~ "Album\n"
+#~ "Genre - Artist\n"
+#~ "Genre - Album\n"
+#~ "Year - Artist\n"
+#~ "Year - Album\n"
+#~ "Artist - Year - Album"
+#~ msgstr ""
+#~ "艺人\n"
+#~ "专辑\n"
+#~ "流派 - 艺人\n"
+#~ "流派 - 专辑\n"
+#~ "年份 - 艺人\n"
+#~ "年份 - 专辑\n"
+#~ "艺人 - 年份 - 专辑"
+
 #~ msgid "Randomize Playlist"
 #~ msgstr "随机播放列表"
+
+#~ msgid "Vol:"
+#~ msgstr "音量："
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>常规</b>"
 
 #~ msgid "Start playback"
 #~ msgstr "开始回放"
@@ -2873,3 +3034,24 @@ msgstr ""
 
 #~ msgid "Use media icons for pause, stop and resume notifications"
 #~ msgstr "为暂停播放、停止播放和继续播放等通知使用媒体图标"
+
+#, python-format
+#~ msgid ""
+#~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
+#~ msgstr "Exaile 现在使用绝对 URI，请删除/重命名您的 %s 目录"
+
+#~ msgid ""
+#~ "<b>{title}</b>\n"
+#~ "{artist}\n"
+#~ "on {album} - {length}"
+#~ msgstr ""
+#~ "<b>{title}</b>\n"
+#~ "艺人：{artist}\n"
+#~ "专辑：{album} - {length}"
+
+#~ msgid ""
+#~ "Normal\n"
+#~ "Unified (unstable)"
+#~ msgstr ""
+#~ "普通\n"
+#~ "Unified(不稳定)"

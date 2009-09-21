@@ -7,51 +7,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-08-24 18:16+0200\n"
-"PO-Revision-Date: 2009-07-28 22:10+0000\n"
-"Last-Translator: benihb <benohamid@gmail.com>\n"
+"POT-Creation-Date: 2009-09-08 17:57+0200\n"
+"PO-Revision-Date: 2009-09-09 18:36+0000\n"
+"Last-Translator: Muhammad Negm <Unknown>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-08-24 18:56+0000\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
+"3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
+"X-Launchpad-Export-Date: 2009-09-21 09:50+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr "آليّاً"
-
-#: ../xl/player/pipe.py:203
-msgid "GNOME"
-msgstr "جنوم"
-
-#: ../xl/player/pipe.py:208
-msgid "ALSA"
-msgstr "ا ل اس ا"
-
-#: ../xl/player/pipe.py:213
-msgid "OSS"
-msgstr "او اس اس"
-
-#: ../xl/player/pipe.py:218
-msgid "PulseAudio"
-msgstr "بليساوديو"
-
-#: ../xl/player/pipe.py:223
-msgid "JACK"
-msgstr "جاك"
-
-#. TODO: remove this before 0.3.0 since it is not needed for
-#. stable->stable upgrades
-#: ../xl/player/engine_normal.py:154
-#, python-format
-msgid ""
-"Exaile now uses absolute URI's, please delete/rename your %s directory"
-msgstr "مستعملي Exaile الان كامل URI ,من فضلك حذف/تسمية %s مستنداتك"
+msgstr "آلي"
 
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
 msgstr "فشل في النزوح من 0.2.14"
+
+#: ../xl/main.py:298
+msgid "Playback options"
+msgstr "خواص التشغيل"
 
 #: ../xl/main.py:273
 msgid "Play the next track"
@@ -63,11 +41,11 @@ msgstr "تشغيل المسار السابق"
 
 #: ../xl/main.py:277
 msgid "Stop playback"
-msgstr "إيقاف التشغيل"
+msgstr "أوقف التشغيل"
 
 #: ../xl/main.py:279
 msgid "Play"
-msgstr "تشغيل"
+msgstr "شغل"
 
 #: ../xl/main.py:281
 msgid "Toggle Play or Pause"
@@ -75,7 +53,11 @@ msgstr "إرجاع التشغيل او تشغيل"
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "اوفق التشغيل بعد الانتهاء من المسار الحالي"
+
+#: ../xl/main.py:314
+msgid "Track options"
+msgstr "خواص المسار"
 
 #: ../xl/main.py:288
 msgid "Query player"
@@ -117,6 +99,10 @@ msgstr ""
 msgid "Print the progress inside the current track as percentage"
 msgstr ""
 
+#: ../xl/main.py:339
+msgid "Volume options"
+msgstr ""
+
 #: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
 msgstr "زد شدّة الصوت بVOL%"
@@ -129,6 +115,10 @@ msgstr "نقصان الصوت ب%"
 msgid "Print the current volume percentage"
 msgstr "طباعة النسبة المئوية للصوت الحالي"
 
+#: ../xl/main.py:348
+msgid "Other options"
+msgstr ""
+
 #: ../xl/main.py:320
 msgid "Start new instance"
 msgstr "بداية نمودج جديد"
@@ -137,10 +127,27 @@ msgstr "بداية نمودج جديد"
 msgid "Start minimized (to tray, if possible)"
 msgstr ""
 
+#: ../xl/main.py:355
+msgid "Toggle visibility of the GUI (if possible)"
+msgstr ""
+
 #: ../xl/main.py:325
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "البدء في الوضع الآمن -- من المفيد أحيانا اذا وقعت في مشاكل"
+
+#: ../xl/main.py:360
+msgid "Force import of old data from 0.2.x. Overwrites current data."
+msgstr ""
+
+#: ../xl/main.py:363
+msgid "Do not import old data from 0.2.x."
+msgstr ""
+
+#. development and debug options
+#: ../xl/main.py:368
+msgid "Development/Debug options"
+msgstr ""
 
 #. development and debug options
 #: ../xl/main.py:329
@@ -344,16 +351,6 @@ msgstr ""
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
 msgstr "متناوب:توقف بعد تحديد المسار"
-
-#: ../xlgui/main.py:645
-#, python-format
-msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr ""
-
-#: ../xlgui/main.py:653
-#, python-format
-msgid " (%(queue_count)d queued)"
-msgstr ""
 
 #: ../xlgui/main.py:788
 #, python-format
@@ -602,6 +599,16 @@ msgstr "فحص المجموعة...."
 #, python-format
 msgid "Scanning %s..."
 msgstr "يفحص %s..."
+
+#: ../xlgui/main.py:645
+#, python-format
+msgid "%(playlist_count)d showing, %(collection_count)d in collection"
+msgstr ""
+
+#: ../xlgui/guiutil.py:717
+#, python-format
+msgid "(%d queued)"
+msgstr ""
 
 #: ../xlgui/guiutil.py:650
 msgid "Rating:"
@@ -1258,24 +1265,24 @@ msgstr ""
 msgid "Always show tab bar"
 msgstr "عرض دائم عارضة تاب"
 
+#: ../data/ui/appearance_prefs_pane.glade.h:2
+msgid "Bottom"
+msgstr ""
+
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
 msgstr "قفز الى الاغنية الحالية عند تغيير المسار"
 
-#: ../data/glade/appearance_prefs_pane.glade.h:4
-msgid ""
-"Left\n"
-"Right\n"
-"Top\n"
-"Bottom"
+#: ../data/ui/appearance_prefs_pane.glade.h:5
+msgid "Left"
 msgstr ""
-"يسار\n"
-"يمين\n"
-"اعلى\n"
-"اسفل"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:8
 msgid "Minimize to tray"
+msgstr ""
+
+#: ../data/ui/appearance_prefs_pane.glade.h:7
+msgid "Right"
 msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:9
@@ -1289,6 +1296,10 @@ msgstr "أظهر أيقونة الجانبية"
 #: ../data/glade/appearance_prefs_pane.glade.h:11
 msgid "Tab placement:"
 msgstr "وضعية تاب"
+
+#: ../data/ui/appearance_prefs_pane.glade.h:11
+msgid "Top"
+msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
@@ -1330,16 +1341,6 @@ msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
 msgstr "<b>حرك داخل شاشة العرض النافذة إلى مكان الذي اردت ظهورها فيه"
-
-#: ../data/glade/osd_prefs_pane.glade.h:2
-msgid ""
-"<b>{title}</b>\n"
-"{artist}\n"
-"on {album} - {length}"
-msgstr ""
-"<b>{عنوان}</b>\n"
-"{فنان}\n"
-"في {البوم} - {طول}"
 
 #: ../data/glade/osd_prefs_pane.glade.h:5
 msgid "Background Color:"
@@ -1389,25 +1390,13 @@ msgstr "مدير الصفوف"
 msgid "Remove All"
 msgstr "إزالة الكل"
 
+#: ../xl/player/pipe.py:208
+msgid "ALSA"
+msgstr "ا ل اس ا"
+
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
 msgstr "اختراق صوتي:  "
-
-#: ../data/glade/playback_prefs_pane.glade.h:2
-msgid ""
-"Automatic\n"
-"GNOME\n"
-"ALSA\n"
-"OSS\n"
-"PulseAudio\n"
-"JACK"
-msgstr ""
-"تلقائي \n"
-"جنوم\n"
-"ألسا\n"
-"أو أس أس\n"
-"بليسأوديو\n"
-"جاك"
 
 #: ../data/glade/playback_prefs_pane.glade.h:8
 msgid "Crossfade duration (ms):"
@@ -1417,17 +1406,29 @@ msgstr "مدة سير التلاشي (م ث):"
 msgid "Fade duration (ms):"
 msgstr "مدة التضاؤل(مث):"
 
-#: ../data/glade/playback_prefs_pane.glade.h:10
-msgid ""
-"Normal\n"
-"Unified (unstable)"
+#: ../xl/player/pipe.py:203
+msgid "GNOME"
+msgstr "جنوم"
+
+#: ../xl/player/pipe.py:223
+msgid "JACK"
+msgstr "جاك"
+
+#: ../data/ui/playback_prefs_pane.glade.h:8
+msgid "Normal"
 msgstr ""
-"عادي\n"
-"موحد(غير مستقر)"
+
+#: ../xl/player/pipe.py:213
+msgid "OSS"
+msgstr "او اس اس"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
 msgstr ""
+
+#: ../xl/player/pipe.py:218
+msgid "PulseAudio"
+msgstr "بليساوديو"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
@@ -1440,6 +1441,10 @@ msgstr "إستئناف قائمة التشغيل عند البداية"
 #: ../data/glade/playback_prefs_pane.glade.h:15
 msgid "These options only affect the unified engine."
 msgstr "هؤلاء الخيارات تؤثر فقط عند عامل موحد"
+
+#: ../data/ui/playback_prefs_pane.glade.h:15
+msgid "Unified (unstable)"
+msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
@@ -1493,14 +1498,6 @@ msgstr "تحديثات"
 msgid "Version:"
 msgstr "الإصدارة:"
 
-#: ../data/glade/main.glade.h:1
-msgid " + "
-msgstr " + "
-
-#: ../data/glade/main.glade.h:2
-msgid " - "
-msgstr " - "
-
 #: ../data/glade/main.glade.h:3
 msgid "0/0 tracks"
 msgstr "0/0مسار"
@@ -1516,6 +1513,10 @@ msgstr ""
 #: ../data/glade/main.glade.h:6
 msgid "Clear Playlist"
 msgstr "مسح قائمة الاغاني"
+
+#: ../data/ui/main.glade.h:5
+msgid "Click to view Queue"
+msgstr ""
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
@@ -1563,10 +1564,6 @@ msgstr ""
 
 #: ../data/glade/main.glade.h:23
 msgid "Track _properties"
-msgstr ""
-
-#: ../data/glade/main.glade.h:24
-msgid "Vol:"
 msgstr ""
 
 #: ../data/glade/main.glade.h:25
@@ -1650,28 +1647,30 @@ msgstr ""
 msgid "Add Music"
 msgstr ""
 
-#: ../data/glade/collection_panel.glade.h:3
-msgid ""
-"Artist\n"
-"Album\n"
-"Genre - Artist\n"
-"Genre - Album\n"
-"Year - Artist\n"
-"Year - Album\n"
-"Artist - Year - Album"
+#: ../data/ui/collection_panel.glade.h:5
+msgid "Artist - Year - Album"
 msgstr ""
-"فنان \n"
-"ألبوم\n"
-"نوع-فنان\n"
-"نوع-ألبوم\n"
-"سنة-فنان\n"
-"سنة -ألبوم\n"
-"فنان-سنة-ألبوم"
+
+#: ../data/ui/collection_panel.glade.h:7
+msgid "Genre - Album"
+msgstr ""
+
+#: ../data/ui/collection_panel.glade.h:8
+msgid "Genre - Artist"
+msgstr ""
 
 #: ../data/glade/collection_panel.glade.h:11
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
+msgstr ""
+
+#: ../data/ui/collection_panel.glade.h:12
+msgid "Year - Album"
+msgstr ""
+
+#: ../data/ui/collection_panel.glade.h:13
+msgid "Year - Artist"
 msgstr ""
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
@@ -1685,10 +1684,6 @@ msgstr "سحب إلى التصنيف"
 #: ../data/glade/cover_prefs_pane.glade.h:2
 msgid "Cover Search Order:"
 msgstr "ترتيب بحث الأغلفة"
-
-#: ../data/glade/preferences_dialog.glade.h:1
-msgid "<b>General</b>"
-msgstr "<b>عام</b>"
 
 #: ../data/glade/files_panel.glade.h:1
 msgid "Files"
@@ -1803,6 +1798,18 @@ msgstr ""
 #: ../plugins/desktopcover/prefs.py:22 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
 msgstr "غلاف سطح المكتب"
+
+#: ../plugins/moodbar/__init__.py:163
+msgid "Searching for mood..."
+msgstr "بحث للطبع..."
+
+#: ../plugins/moodbar/__init__.py:167
+msgid "Mood found."
+msgstr "إيجاد الطبع"
+
+#: ../plugins/moodbar/__init__.py:199
+msgid "Could not read moodbar."
+msgstr "لا يمكن قراءة عارضة الطباع"
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
@@ -2128,6 +2135,14 @@ msgid "Username:"
 msgstr "إسم المستخدم:"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
+msgid "AAC"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:2
+msgid "FLAC"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:1
 msgid "Import format: "
 msgstr ""
 
@@ -2137,6 +2152,22 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:3
 msgid "Import quality: "
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:6
+msgid "MP3 (CBR)"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:7
+msgid "MP3 (VBR)"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:8
+msgid "Ogg Vorbis"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:9
+msgid "WavPack"
 msgstr ""
 
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
@@ -2213,6 +2244,70 @@ msgstr ""
 msgid ""
 "To sign up for an Amazon AWS account and get \n"
 "this information visit http://aws.amazon.com/"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:1
+msgid "Anchor:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:2
+msgid "Bottom left"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:3
+msgid "Bottom right"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:4
+msgid "Size:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:5
+msgid "Top left"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:6
+msgid "Top right"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:7
+msgid "X offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:8
+msgid "Y offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:9
+msgid "pixels"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:1
+msgid "Base color"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:2
+msgid "Base color:"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
+msgid "Darken played section instead of using cursor"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
+msgid "Darkness level:"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
+msgid "Show only waveform, not mood"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
+msgid "Use color theme "
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
+msgid "Use waveform style"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
@@ -2292,29 +2387,13 @@ msgstr ""
 msgid "Terminal Opacity:"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:1
-msgid "<b>Position</b>"
-msgstr "<b> الوضعية</b>"
-
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"
 msgstr "دائما في القمة"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:3
-msgid "Center horizontally"
-msgstr "الوسط الافقي"
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:4
-msgid "Center vertically"
-msgstr "الوسط العمودي"
-
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:5
 msgid "Display window decorations"
 msgstr "عرض نافدة الديكور"
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:6
-msgid "Horizontal:"
-msgstr "أفقي:"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
 msgid "Show in tasklist"
@@ -2327,10 +2406,6 @@ msgstr "عرض الكل في سطح مكتب"
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Track title format:"
 msgstr ""
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:10
-msgid "Vertical:"
-msgstr "عمودي:"
 
 #: ../plugins/streamripper/streamripper.glade.h:1
 msgid "Relay Port:"
@@ -2358,6 +2433,15 @@ msgid ""
 "your playlist"
 msgstr ""
 
+#: ../plugins/currentsong/PLUGININFO:3
+msgid "Current Song"
+msgstr ""
+
+#: ../plugins/currentsong/PLUGININFO:4
+msgid ""
+"Sets the currently playing status in Pidgin for services that support it."
+msgstr ""
+
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
@@ -2372,10 +2456,6 @@ msgstr ""
 msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
-msgstr ""
-
-#: ../plugins/mpris/PLUGININFO:3
-msgid "MPRIS"
 msgstr ""
 
 #: ../plugins/mpris/PLUGININFO:4
@@ -2483,6 +2563,14 @@ msgid ""
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
 
+#: ../plugins/xkeys/PLUGININFO:3
+msgid "XKeys"
+msgstr ""
+
+#: ../plugins/xkeys/PLUGININFO:4
+msgid "Global hotkeys using xlib (mmkeys.so)"
+msgstr ""
+
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
 msgstr ""
@@ -2536,7 +2624,8 @@ msgstr ""
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
 "Show various informations about the track currently playing.\n"
-"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
+"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
+"PIL)"
 msgstr ""
 
 #: ../plugins/streamripper/PLUGININFO:4
@@ -2552,3 +2641,91 @@ msgstr ""
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
 msgstr ""
+
+#~ msgid "Vertical:"
+#~ msgstr "عمودي:"
+
+#~ msgid "Center vertically"
+#~ msgstr "الوسط العمودي"
+
+#~ msgid "Horizontal:"
+#~ msgstr "أفقي:"
+
+#~ msgid "Center horizontally"
+#~ msgstr "الوسط الافقي"
+
+#~ msgid "<b>Position</b>"
+#~ msgstr "<b> الوضعية</b>"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>عام</b>"
+
+#~ msgid ""
+#~ "Artist\n"
+#~ "Album\n"
+#~ "Genre - Artist\n"
+#~ "Genre - Album\n"
+#~ "Year - Artist\n"
+#~ "Year - Album\n"
+#~ "Artist - Year - Album"
+#~ msgstr ""
+#~ "فنان \n"
+#~ "ألبوم\n"
+#~ "نوع-فنان\n"
+#~ "نوع-ألبوم\n"
+#~ "سنة-فنان\n"
+#~ "سنة -ألبوم\n"
+#~ "فنان-سنة-ألبوم"
+
+#~ msgid " - "
+#~ msgstr " - "
+
+#~ msgid " + "
+#~ msgstr " + "
+
+#~ msgid ""
+#~ "Automatic\n"
+#~ "GNOME\n"
+#~ "ALSA\n"
+#~ "OSS\n"
+#~ "PulseAudio\n"
+#~ "JACK"
+#~ msgstr ""
+#~ "تلقائي \n"
+#~ "جنوم\n"
+#~ "ألسا\n"
+#~ "أو أس أس\n"
+#~ "بليسأوديو\n"
+#~ "جاك"
+
+#~ msgid ""
+#~ "Normal\n"
+#~ "Unified (unstable)"
+#~ msgstr ""
+#~ "عادي\n"
+#~ "موحد(غير مستقر)"
+
+#~ msgid ""
+#~ "Left\n"
+#~ "Right\n"
+#~ "Top\n"
+#~ "Bottom"
+#~ msgstr ""
+#~ "يسار\n"
+#~ "يمين\n"
+#~ "اعلى\n"
+#~ "اسفل"
+
+#~ msgid ""
+#~ "<b>{title}</b>\n"
+#~ "{artist}\n"
+#~ "on {album} - {length}"
+#~ msgstr ""
+#~ "<b>{عنوان}</b>\n"
+#~ "{فنان}\n"
+#~ "في {البوم} - {طول}"
+
+#, python-format
+#~ msgid ""
+#~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
+#~ msgstr "مستعملي Exaile الان كامل URI ,من فضلك حذف/تسمية %s مستنداتك"

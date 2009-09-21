@@ -103,8 +103,7 @@ class ShoutcastRadioStation(RadioStation):
         if no_cache or not self.data:
             set_status(_('Contacting Shoutcast server...'))
             hostinfo = urlparse.urlparse(self.genre_url)
-            c = httplib.HTTPConnection(hostinfo.netloc,
-                timeout=20)
+            c = httplib.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent':
                     _USERAGENT})
@@ -118,7 +117,7 @@ class ShoutcastRadioStation(RadioStation):
                     _('Error connecting to Shoutcast server.'))
 
             data = response.read()
-            set_status(_('Idle.'))
+            set_status('')
 
             self.data = data
             self._save_cache()
@@ -157,7 +156,7 @@ class ShoutcastRadioStation(RadioStation):
 
         set_status(_('Contacting Shoutcast server...'))
         hostinfo = urlparse.urlparse(url)
-        c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+        c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
                 headers={'User-Agent': _USERAGENT})
@@ -171,7 +170,7 @@ class ShoutcastRadioStation(RadioStation):
                 _('Error connecting to Shoutcast server.'))
 
         data = response.read()
-        set_status(_('Idle.'))
+        set_status('')
 
         rlists = []
         items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)" br="(\d+)"', data)
@@ -204,7 +203,7 @@ class ShoutcastRadioStation(RadioStation):
         url = self.playlist_url % {'id': station_id}
 
         hostinfo = urlparse.urlparse(url)
-        c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+        c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             print "Reading %s" % url
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
@@ -221,7 +220,7 @@ class ShoutcastRadioStation(RadioStation):
             return None
 
         handle = StringIO.StringIO(response.read())
-        set_status(_('Idle.'))
+        set_status('')
 
         self.playlists[station_id] = playlist.import_from_pls(name + ".pls",
             handle)
@@ -238,7 +237,7 @@ class ShoutcastRadioStation(RadioStation):
         url = self.search_url % {'kw': keyword}
 
         hostinfo = urlparse.urlparse(url)
-        c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+        c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
                 headers={'User-Agent': _USERAGENT})
@@ -254,7 +253,7 @@ class ShoutcastRadioStation(RadioStation):
             return
 
         data = response.read()
-        set_status(_('Idle.'))
+        set_status('')
         rlists = []
         items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)"', data)
 

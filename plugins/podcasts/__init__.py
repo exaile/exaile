@@ -48,8 +48,7 @@ def disable(exaile):
         PODCASTS = None
 
 class PodcastPanel(panel.Panel):
-    gladeinfo = ('file://' + os.path.join(BASEDIR, 'podcasts.glade'), 
-        'PodcastPanelWindow')
+    ui_info = ('file://' + os.path.join(BASEDIR, 'podcasts.glade'), 'PodcastPanelWindow')
 
     def __init__(self, parent):
         panel.Panel.__init__(self, parent, _('Podcasts'))
@@ -65,7 +64,7 @@ class PodcastPanel(panel.Panel):
 
     def _setup_widgets(self):
         self.model = gtk.ListStore(str, str)
-        self.tree = self.xml.get_widget('podcast_tree')
+        self.tree = self.builder.get_object('podcast_tree')
         self.tree.set_model(self.model)
 
         text = gtk.CellRendererText()
@@ -75,7 +74,7 @@ class PodcastPanel(panel.Panel):
         self.column.set_attributes(text, text=0)
         self.tree.append_column(self.column)
 
-        self.status = self.xml.get_widget('podcast_statusbar')
+        self.status = self.builder.get_object('podcast_statusbar')
 
         self.menu = guiutil.Menu()
         self.menu.append(_('Refresh Podcast'), self._on_refresh, 'gtk-refresh')
@@ -86,10 +85,10 @@ class PodcastPanel(panel.Panel):
         self.status.set_text(message)
 
         if timeout:
-            gobject.timeout_add(timeout, self._set_status, _('Idle.'), 0)
+            gobject.timeout_add(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_add_button_clicked': self.on_add_podcast,
         })
 
@@ -165,6 +164,7 @@ class PodcastPanel(panel.Panel):
             tracks = []
             for e in entries:
                 tr = track.Track()
+                tr._scanning = True
                 tr.set_loc(e['enclosures'][0].href)
                 date = e['updated_parsed']
                 tr['artist'] = title
@@ -172,9 +172,10 @@ class PodcastPanel(panel.Panel):
                 tr['date'] = "%d-%02d-%02d" % (date.tm_year, date.tm_mon,
                     date.tm_mday)
                 tracks.append(tr)
+                tr._scanning = False
             
             pl.add_tracks(tracks)
-            self._set_status(_('Idle.'))
+            self._set_status('')
 
             self._open_podcast(pl, title)
             self.podcast_playlists.save_playlist(pl, overwrite=True)
@@ -209,7 +210,7 @@ class PodcastPanel(panel.Panel):
                 self.podcasts.append((title, url))
         except (IOError, OSError):
             logger.info('WARNING: could not open podcast file')
-            self._set_status(_('Idle.'))
+            self._set_status('')
             return
 
         self._done_loading_podcasts()
@@ -221,7 +222,7 @@ class PodcastPanel(panel.Panel):
         for (title, url) in self.podcasts:
             self.model.append([title, url])
 
-        self._set_status(_('Idle.'))
+        self._set_status('')
 
     def _save_podcasts(self):
         try:

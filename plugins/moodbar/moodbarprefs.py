@@ -25,7 +25,7 @@ from xl.nls import gettext as _
 
 name = 'Moodbar'
 basedir = os.path.dirname(os.path.realpath(__file__))
-glade = os.path.join(basedir, "moodbarprefs_pane.glade")
+ui = os.path.join(basedir, "moodbarprefs_pane.glade")
 
 
 class defaultstyle(widgets.CheckPrefsItem):

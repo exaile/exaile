@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import gtk, gtk.glade, cairo, gobject
+import gtk, cairo, gobject
 from xl import xdg, common, metadata
 from xl.nls import gettext as _
 from xlgui import guiutil, cover
@@ -75,16 +75,16 @@ class OSDWindow(object):
         if self.progress_widget:
             self.progress_widget.destroy()
 
-        self.xml = gtk.glade.XML(xdg.get_data_path('glade/osd_window.glade'), 
-            'OSDWindow', 'exaile')
-        self.window = self.xml.get_widget('OSDWindow')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(xdg.get_data_path('ui/osd_window.glade'))
+        self.window = self.builder.get_object('OSDWindow')
 
         self.color = gtk.gdk.color_parse(
                 self._settings.get_option('osd/bg_color', '#567ea2'))
-        self.event = self.xml.get_widget('osd_event_box')
-        self.box = self.xml.get_widget('image_box')
+        self.event = self.builder.get_object('osd_event_box')
+        self.box = self.builder.get_object('image_box')
 
-        self.progress = self.xml.get_widget('osd_progressbar')
+        self.progress = self.builder.get_object('osd_progressbar')
 
         self.cover_widget = CoverWidget()
         if self.cover:
@@ -120,7 +120,7 @@ class OSDWindow(object):
             self.window.modify_bg(gtk.STATE_NORMAL, self.color)
             self.progress.modify_bg(gtk.STATE_NORMAL, self.color)
             
-        self.title = self.xml.get_widget('osd_title_label')
+        self.title = self.builder.get_object('osd_title_label')
         text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
             (self._settings.get_option('osd/text_font', 'Sans 11'),
             self._settings.get_option('osd/text_color', '#ffffff'),

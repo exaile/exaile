@@ -29,17 +29,16 @@ from xl.nls import gettext as _
 import os
 import gtk
 import gobject
-import gtk.glade
 
 class TrackPropertiesDialog(gobject.GObject):
     def __init__(self, parent, track):
         gobject.GObject.__init__(self)
 
         self.track = track
-        self.xml = gtk.glade.XML(
-            xdg.get_data_path('glade/trackproperties_dialog.glade'),
-            'TrackPropertiesDialog', 'exaile')
-        self.dialog = self.xml.get_widget('TrackPropertiesDialog')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(
+                xdg.get_data_path('ui/trackproperties_dialog.glade'))
+        self.dialog = self.builder.get_object('TrackPropertiesDialog')
         self.dialog.set_transient_for(parent)
 
         self._setup_widgets()
@@ -47,7 +46,7 @@ class TrackPropertiesDialog(gobject.GObject):
         self._populate_from_track(track)
 
     def _connect_events(self):
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_ok_button_clicked': self._on_ok,
             'on_delete': self._on_close,
             'on_close_button_clicked': self._on_close,
@@ -58,7 +57,7 @@ class TrackPropertiesDialog(gobject.GObject):
         for item in ('title', 'artist', 'album', 'tracknumber', 
             'genre', 'date', 'loc', 'length', 'bitrate', 'size',
             'playcount'):
-            field = self.xml.get_widget('%s_entry' % item)
+            field = self.builder.get_object('%s_entry' % item)
             setattr(self, '%s_entry' % item, field)
 
     def _populate_from_track(self, track):
@@ -70,7 +69,7 @@ class TrackPropertiesDialog(gobject.GObject):
             if not value: value = ''
             field.set_text(value)
 
-        self.loc_entry.set_text(track.get_loc())
+        self.loc_entry.set_text(track.get_loc_for_display())
 
         try:
             seconds = track.get_duration()

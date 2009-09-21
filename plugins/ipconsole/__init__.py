@@ -134,7 +134,7 @@ def _enable(exaile):
     MENU_ITEM = gtk.MenuItem(_('Show IPython Console'))
     MENU_ITEM.connect('activate', show_console,exaile)
 
-    exaile.gui.xml.get_widget('tools_menu').append(MENU_ITEM)
+    exaile.gui.builder.get_object('tools_menu').append(MENU_ITEM)
     MENU_ITEM.show()
 #    return True    # bad! crashes compiz
 

@@ -21,7 +21,7 @@ from xl.nls import gettext as _
 
 name = _('Bookmarks')
 basedir = os.path.dirname(os.path.realpath(__file__))
-glade = os.path.join(basedir, "bookmarks_pane.glade")
+ui = os.path.join(basedir, "bookmarks_pane.glade")
 
 
 class UseCovers(widgets.CheckPrefsItem):

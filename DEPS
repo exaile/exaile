@@ -12,8 +12,9 @@ Essential:
 * gstreamer-plugins-good 0.10
 * mutagen (>= 1.10)
 * dbus-python
-* pygtk (>= 2.12)
-* python-glade2
+* pygtk (>= 2.14, built against gtk >= 2.16)
+* pygobject (>= 2.18, built with gio support)
+
 
 Translation:
 
@@ -23,10 +24,6 @@ Documentation:
 
 * sphinx
 
-Replaygain, Equalizer:
-
-* gstreamer-plugins-bad (>= 10.5)
-
 Device detection:
 
 * hal
@@ -35,25 +32,4 @@ CD info:
 
 * python-cddb
 
-Library realtime watching:
 
-* pyinotify
-
-Clear button on search fields:
-
-* sexy-python
-
-Dependency Priorities
----------------------
-
-===================== ===================== ============
-Dependency            Recommended/Suggested Compile-time
-===================== ===================== ============
-gettext               Recommended           Yes
-sphinx                Recommended           Yes
-gstreamer-plugins-bad Suggested             No
-hal                   Recommended           No
-python-cddb           Recommended           No
-pyinotify             Recommended           No
-sexy-python           Recommended           No
-===================== ===================== ============

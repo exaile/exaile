@@ -1,32 +1,79 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<?xml version="1.0"?>
 <!--*- mode: xml -*-->
-<glade-interface>
-  <widget class="GtkWindow" id="prefs_window">
+<interface>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="upper">23</property>
+    <property name="lower">0</property>
+    <property name="page_increment">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_size">0</property>
+    <property name="value">12</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="upper">59</property>
+    <property name="lower">0</property>
+    <property name="page_increment">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_size">0</property>
+    <property name="value">30</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment3">
+    <property name="upper">100</property>
+    <property name="lower">0</property>
+    <property name="page_increment">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_size">0</property>
+    <property name="value">0</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment4">
+    <property name="upper">100</property>
+    <property name="lower">0</property>
+    <property name="page_increment">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_size">0</property>
+    <property name="value">100</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment5">
+    <property name="upper">100</property>
+    <property name="lower">0</property>
+    <property name="page_increment">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_size">0</property>
+    <property name="value">1</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment6">
+    <property name="upper">100</property>
+    <property name="lower">0</property>
+    <property name="page_increment">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_size">0</property>
+    <property name="value">1</property>
+  </object>
+  <object class="GtkWindow" id="prefs_window">
     <child>
-      <widget class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <property name="spacing">5</property>
         <child>
-          <widget class="GtkHBox" id="hbox1">
+          <object class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkLabel" id="label1">
+              <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes" context="yes">Alarm Time:</property>
+                <property context="yes" name="label" translatable="yes">Alarm Time:</property>
                 <property name="justify">GTK_JUSTIFY_CENTER</property>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkSpinButton" id="plugin/alarmclock/hour">
+              <object class="GtkSpinButton" id="plugin/alarmclock/hour">
                 <property name="visible">True</property>
-                <property name="adjustment">12 0 23 1 10 0</property>
-              </widget>
+                <property name="adjustment">adjustment1</property>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
@@ -34,10 +81,10 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label81">
+              <object class="GtkLabel" id="label81">
                 <property name="visible">True</property>
-                <property name="label" context="yes">:</property>
-              </widget>
+                <property context="yes" name="label">:</property>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
@@ -45,17 +92,17 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkSpinButton" id="plugin/alarmclock/minuts">
+              <object class="GtkSpinButton" id="plugin/alarmclock/minuts">
                 <property name="visible">True</property>
-                <property name="adjustment">30 0 59 1 10 0</property>
-              </widget>
+                <property name="adjustment">adjustment2</property>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
                 <property name="position">3</property>
               </packing>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -65,11 +112,11 @@
           <placeholder/>
         </child>
         <child>
-          <widget class="GtkLabel" id="label6">
+          <object class="GtkLabel" id="label6">
             <property name="visible">True</property>
             <property name="xalign">0</property>
-            <property name="label" translatable="yes" context="yes">Alarm Days:</property>
-          </widget>
+            <property context="yes" name="label" translatable="yes">Alarm Days:</property>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -77,55 +124,51 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox6">
+          <object class="GtkHBox" id="hbox6">
             <property name="visible">True</property>
             <property name="homogeneous">True</property>
             <child>
-              <widget class="GtkCheckButton" id="plugin/alarmclock/monday">
+              <object class="GtkCheckButton" id="plugin/alarmclock/monday">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes" context="yes">Monday</property>
-                <property name="response_id">0</property>
+                <property context="yes" name="label" translatable="yes">Monday</property>
                 <property name="draw_indicator">True</property>
-              </widget>
+              </object>
             </child>
             <child>
-              <widget class="GtkCheckButton" id="plugin/alarmclock/tuesday">
+              <object class="GtkCheckButton" id="plugin/alarmclock/tuesday">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes" context="yes">Tuesday</property>
-                <property name="response_id">0</property>
+                <property context="yes" name="label" translatable="yes">Tuesday</property>
                 <property name="draw_indicator">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="position">1</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkCheckButton" id="plugin/alarmclock/thursday">
+              <object class="GtkCheckButton" id="plugin/alarmclock/thursday">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes" context="yes">Thursday</property>
-                <property name="response_id">0</property>
+                <property context="yes" name="label" translatable="yes">Thursday</property>
                 <property name="draw_indicator">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="position">2</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkCheckButton" id="plugin/alarmclock/wednesday">
+              <object class="GtkCheckButton" id="plugin/alarmclock/wednesday">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes" context="yes">Wednesday</property>
-                <property name="response_id">0</property>
+                <property context="yes" name="label" translatable="yes">Wednesday</property>
                 <property name="draw_indicator">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="position">3</property>
               </packing>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -133,51 +176,48 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox7">
+          <object class="GtkHBox" id="hbox7">
             <property name="visible">True</property>
             <property name="homogeneous">True</property>
             <child>
-              <widget class="GtkCheckButton" id="plugin/alarmclock/friday">
+              <object class="GtkCheckButton" id="plugin/alarmclock/friday">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes" context="yes">Friday</property>
-                <property name="response_id">0</property>
+                <property context="yes" name="label" translatable="yes">Friday</property>
                 <property name="draw_indicator">True</property>
-              </widget>
+              </object>
             </child>
             <child>
-              <widget class="GtkCheckButton" id="plugin/alarmclock/saturday">
+              <object class="GtkCheckButton" id="plugin/alarmclock/saturday">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes" context="yes">Saturday</property>
-                <property name="response_id">0</property>
+                <property context="yes" name="label" translatable="yes">Saturday</property>
                 <property name="draw_indicator">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="position">1</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkCheckButton" id="plugin/alarmclock/sunday">
+              <object class="GtkCheckButton" id="plugin/alarmclock/sunday">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes" context="yes">Sunday</property>
-                <property name="response_id">0</property>
+                <property context="yes" name="label" translatable="yes">Sunday</property>
                 <property name="draw_indicator">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="position">2</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label7">
+              <object class="GtkLabel" id="label7">
                 <property name="visible">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="position">3</property>
               </packing>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -185,13 +225,12 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkCheckButton" id="plugin/alarmclock/alarm_use_fading">
+          <object class="GtkCheckButton" id="plugin/alarmclock/alarm_use_fading">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="label" translatable="yes" context="yes">Use Fading</property>
-            <property name="response_id">0</property>
+            <property context="yes" name="label" translatable="yes">Use Fading</property>
             <property name="draw_indicator">True</property>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -199,82 +238,82 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox8">
+          <object class="GtkHBox" id="hbox8">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkTable" id="table1">
+              <object class="GtkTable" id="table1">
                 <property name="visible">True</property>
                 <property name="n_rows">4</property>
                 <property name="n_columns">2</property>
                 <child>
-                  <widget class="GtkLabel" id="label2">
+                  <object class="GtkLabel" id="label2">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes" context="yes">Minimum Volume:</property>
-                  </widget>
+                    <property context="yes" name="label" translatable="yes">Minimum Volume:</property>
+                  </object>
                 </child>
                 <child>
-                  <widget class="GtkLabel" id="label3">
+                  <object class="GtkLabel" id="label3">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes" context="yes">Maximum Volume:</property>
-                  </widget>
+                    <property context="yes" name="label" translatable="yes">Maximum Volume:</property>
+                  </object>
                   <packing>
                     <property name="top_attach">1</property>
                     <property name="bottom_attach">2</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkLabel" id="label4">
+                  <object class="GtkLabel" id="label4">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes" context="yes">Increment:</property>
-                  </widget>
+                    <property context="yes" name="label" translatable="yes">Increment:</property>
+                  </object>
                   <packing>
                     <property name="top_attach">2</property>
                     <property name="bottom_attach">3</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkLabel" id="label5">
+                  <object class="GtkLabel" id="label5">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes" context="yes">Timer per Increment:</property>
-                  </widget>
+                    <property context="yes" name="label" translatable="yes">Timer per Increment:</property>
+                  </object>
                   <packing>
                     <property name="top_attach">3</property>
                     <property name="bottom_attach">4</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkSpinButton" id="plugin/alarmclock/alarm_min_volume">
+                  <object class="GtkSpinButton" id="plugin/alarmclock/alarm_min_volume">
                     <property name="visible">True</property>
-                    <property name="adjustment">0 0 100 1 10 0</property>
-                  </widget>
+                    <property name="adjustment">adjustment3</property>
+                  </object>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
-                    <property name="y_options"></property>
+                    <property name="y_options"/>
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkSpinButton" id="plugin/alarmclock/alarm_max_volume">
+                  <object class="GtkSpinButton" id="plugin/alarmclock/alarm_max_volume">
                     <property name="visible">True</property>
-                    <property name="adjustment">100 0 100 1 10 0</property>
-                  </widget>
+                    <property name="adjustment">adjustment4</property>
+                  </object>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
                     <property name="top_attach">1</property>
                     <property name="bottom_attach">2</property>
-                    <property name="y_options"></property>
+                    <property name="y_options"/>
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkSpinButton" id="plugin/alarmclock/alarm_increment">
+                  <object class="GtkSpinButton" id="plugin/alarmclock/alarm_increment">
                     <property name="visible">True</property>
-                    <property name="adjustment">1 0 100 1 10 0</property>
-                  </widget>
+                    <property name="adjustment">adjustment5</property>
+                  </object>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
@@ -283,10 +322,10 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkSpinButton" id="plugin/alarmclock/alarm_timer_per_inc">
+                  <object class="GtkSpinButton" id="plugin/alarmclock/alarm_timer_per_inc">
                     <property name="visible">True</property>
-                    <property name="adjustment">1 0 100 1 10 0</property>
-                  </widget>
+                    <property name="adjustment">adjustment6</property>
+                  </object>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
@@ -294,21 +333,21 @@
                     <property name="bottom_attach">4</property>
                   </packing>
                 </child>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label9">
+              <object class="GtkLabel" id="label9">
                 <property name="visible">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="position">1</property>
               </packing>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -334,14 +373,14 @@
           <placeholder/>
         </child>
         <child>
-          <widget class="GtkLabel" id="label8">
+          <object class="GtkLabel" id="label8">
             <property name="visible">True</property>
-          </widget>
+          </object>
           <packing>
             <property name="position">13</property>
           </packing>
         </child>
-      </widget>
+      </object>
     </child>
-  </widget>
-</glade-interface>
+  </object>
+</interface>

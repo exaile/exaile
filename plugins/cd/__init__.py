@@ -143,7 +143,7 @@ class CDPlaylist(playlist.Playlist):
             song['title'] = "Track %d" % count
             song['tracknumber'] = count
             song['__length'] = length
-            songs[song.get_loc()] = song
+            songs[song.get_loc_for_io()] = song
 
         sort_tups = [ (int(s['tracknumber'][0]),s) for s in songs.values() ]
         sort_tups.sort()

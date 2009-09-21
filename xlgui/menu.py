@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -15,16 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 #
 #
 # The developers of the Exaile media player hereby grant permission 
@@ -161,7 +149,7 @@ class PlaylistMenu(GenericTrackMenu):
         self.playlist = playlist
         
         self.rating_item = guiutil.MenuRatingWidget( 
-            self.playlist.get_selected_tracks)
+            self.playlist.get_selected_tracks, self.playlist.get_tracks_rating)
         
         self.append_item(self.rating_item)
 
@@ -203,12 +191,13 @@ class PlaylistMenu(GenericTrackMenu):
         """
         from xlgui import main
         if self.playlist_tab_menu:
-          pagecount = main.get_playlist_nb().get_n_pages()
+          pagecount = main.get_playlist_notebook().get_n_pages()
           if settings.get_option('gui/show_tabbar', True) or pagecount > 1:
               self.playlist_tab_menu.hide_all()
           else:
               if pagecount == 1:
                   self.playlist_tab_menu.show_all()
+        self.rating_item.on_rating_change()
         GenericTrackMenu.popup(self, event)
 
 class PlaylistTabMenu(guiutil.Menu):
@@ -272,10 +261,11 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         Menu for any panel that operates on selecting tracks
         including an option to rate tracks
     """
-    def __init__(self, get_selected_tracks):
+    def __init__(self, tree_selection, get_selected_tracks, get_tracks_rating):
         
+        self.tree_selection = tree_selection
         self.rating_item = guiutil.MenuRatingWidget(
-            get_selected_tracks)
+            get_selected_tracks, get_tracks_rating)
 
         TrackSelectMenu.__init__(self)
         
@@ -286,6 +276,23 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         TrackSelectMenu._create_menu(self)
         gtk.Menu.append(self, self.rating_item)
         self.rating_item.show_all()
+        self.changed_id = -1
+
+
+    def popup(self, event):
+        """
+            Displays the menu
+        """
+        self.rating_item.on_rating_change()
+        self.changed_id = self.tree_selection.connect('changed', self.rating_item.on_rating_change)
+        TrackSelectMenu.popup(self, event)
+
+    def popdown(self, event):
+        """
+            Displays the menu
+        """
+        self.tree_selection.disconnect(self.changed_id)
+        TrackSelectMenu.popdown(self, event)
 
 class CollectionPanelMenu(RatedTrackSelectMenu):
     __gsignals__ = {

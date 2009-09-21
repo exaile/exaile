@@ -24,13 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import logging, os, urllib2, urlparse
+import logging, os, urllib2, urlparse, weakref
 from copy import deepcopy
+import gio
 from xl.nls import gettext as _
-from xl import common
+from xl import common, settings, event
 import xl.metadata as metadata
 from xl.common import lstrip_special
-from xl import settings, event
 logger = logging.getLogger(__name__)
 
 def is_valid_track(loc):
@@ -40,26 +40,25 @@ def is_valid_track(loc):
         possibly could be extended to actually opening
         the file and determining
     """
-    sections = loc.split('.');
-    return sections[-1].lower() in metadata.formats
+    extension = gio.File(loc).get_basename().split(".")[-1]
+    return extension.lower() in metadata.formats
 
 def get_tracks_from_uri(uri):
     """
         Returns all valid tracks located at uri
     """
     tracks = []
-    if urlparse.urlparse(uri).scheme == "":
-        uri = "file://" + uri
-    if uri.startswith("file://") and os.path.isdir(uri[7:]):
-        tracks = [
-                    Track(os.path.join(uri, file))
-                    for file in os.listdir(uri[7:])
-                    if is_valid_track(file)
-                 ]
+    gloc = gio.File(uri)
+    type = gloc.query_info("standard::type").get_file_type()
+    if type == gio.FILE_TYPE_DIRECTORY:
+        from xl.collection import Library, Collection
+        tracks = Collection('scanner')
+        lib = Library(uri)
+        lib.set_collection(tracks)
+        lib.rescan()
+        tracks = tracks.search("")
     else:
         tracks = [Track(uri)]
-        tracks[0]['artist'] = tracks[0]['artist'] or uri
-        tracks[0]['title'] = tracks[0]['title'] or uri
     return tracks
 
 
@@ -67,41 +66,82 @@ class Track(object):
     """
         Represents a single track.
     """
+    # save a little memory this way
+    __slots__ = ["tags", "_scan_valid", "_scanning", 
+            "_dirty", "__weakref__", "__init"]
+    # this is used to enforce the one-track-per-uri rule
+    __tracksdict = weakref.WeakValueDictionary()
+
+    def __new__(cls, *args, **kwargs):
+        uri = None
+        if len(args) > 0:
+            uri = args[0]
+        elif kwargs.has_key("uri"):
+            uri = kwargs["uri"]
+        if uri is not None:
+            try:
+                tr = cls.__tracksdict[uri]
+                tr.__init = False
+            except KeyError:
+                tr = object.__new__(cls)
+                cls.__tracksdict[uri] = tr
+                tr.__init = True
+            return tr
+        else:
+            tr = object.__new__(cls)
+            tr.__init = True
+            return tr
+
     def __init__(self, uri=None, _unpickles=None):
         """
             loads and initializes the tag information
             
             uri: path to the track [string]
         """
+        # don't re-init if its a reused track. see __new__
+        if self.__init == False:
+            return
+
         self.tags = {}
 
-        self._scan_valid = False
+        self._scan_valid = False # whether our last tag read attempt worked
+        self._scanning = False  # flag to avoid sending tag updates on mass
+                                # load
         self._dirty = False
         if _unpickles:
             self._unpickles(_unpickles)
-            self._scan_valid = True # allow tag event firing
+            self.__register()
         elif uri:
-            self.set_loc(uri)
-            if self.read_tags():
-                self._scan_valid = True
+            self.tags['__loc'] = gio.File(uri).get_uri()
+            self.read_tags()
+
+    def __register(self):
+        self.__tracksdict[self['__loc']] = self
+
+    def __unregister(self):
+        try:
+            del self.__tracksdict[self['__loc']]
+        except KeyError:
+            pass
 
     def set_loc(self, loc):
         """
             Sets the location. 
             
-            loc: the location [string]
+            loc: the location [string], as either a uri or a file path.
         """
-        split = urlparse.urlsplit(loc)
-        if split[0] == "":
-            loc = os.path.abspath(loc)
-            loc = urlparse.urlunsplit(('file', split[1], loc, '', ''))
-        self['__loc'] = loc
+        self.__unregister()
+        gloc = gio.File(loc)
+        self['__loc'] = gloc.get_uri()
+        self.__register()
        
-    def get_loc(self):
+    def get_loc_for_display(self):
         """
             Gets the location as unicode (might contain garbled characters) in
-            full absolute url form, i.e. "file:///home/foo/bar baz". If you are
-            trying to get the path for a local file, use local_file_name(..)
+            full absolute url form, i.e. "file:///home/foo/bar baz". 
+
+            The value returned by this function may not be safe for IO
+            operations.
 
             returns: the location [unicode]
         """
@@ -115,34 +155,30 @@ class Track(object):
         """
             Returns if the file exists
         """
-        if self.is_local():
-            return os.path.exists(self.local_file_name())
-        else:
-            return  #FIXME: how to handle hanging on missing servers?
-
-            try:
-                urllib2.urlopen(self.get_loc_for_io())
-            except urllib2.URLError, urllib2.HTTPError:
-                return False
-            else:
-                return True
+        return gio.File(self.get_loc_for_io()).query_exists()
 
     def local_file_name(self):
         """
-            If the file is a local file, return a standard path to it, i.e.
-            "/home/foo/bar", If the file is not local, return None
+            If the file is accessible on the local filesystem, return a
+            standard path to it i.e. "/home/foo/bar". Otherwise, return None
+
+            If a path is returned, it is safe to use for IO operations.
         """
-        if not self.is_local():
-            return None
-        return common.local_file_from_url(self.get_loc_for_io())
+        return gio.File(self['__loc']).get_path()
 
     def get_loc_for_io(self):
         """
-            Gets the location in its original form. should always be correct.
+            Gets the location as a full uri. 
+            
+            Safe for IO operations via gio, not suitable for display to users
+            as it may be in non-utf-8 encodings.
 
             returns: the location [string]
         """
         return self['__loc']
+
+    def get_type(self):
+        return gio.File(self.get_loc_for_io()).get_uri_scheme()
 
     def get_album_tuple(self):
         """
@@ -165,12 +201,6 @@ class Track(object):
         else:
             return (metadata.j(self['artist']), 
                 metadata.j(self['album']))
-
-    def get_type(self):
-        b = self['__loc'].find('://')
-        if b == -1: 
-            return 'file'
-        return self['__loc'][:b]
 
     def get_tag(self, tag):
         """
@@ -199,7 +229,7 @@ class Track(object):
 
         # for lists, filter out empty values and convert to unicode
         if isinstance(values, list):
-            values = [common.to_unicode(x, self['encoding']) for x in values
+            values = [common.to_unicode(x, self['__encoding']) for x in values
                 if x not in (None, '')]
             if append:
                 values = list(self.get_tag(tag)).extend(values)
@@ -215,7 +245,7 @@ class Track(object):
             self.tags[tag] = values
 
         self._dirty = True
-        if self._scan_valid:
+        if not self._scanning:
             event.log_event("track_tags_changed", self, tag)
         
     def __getitem__(self, tag):
@@ -244,12 +274,10 @@ class Track(object):
         """
             Writes tags to file
         """
-        if not self.is_local():
-            return False #not a local file
         try:
             f = metadata.get_format(self.get_loc_for_io())
             if f is None:
-                return False # nto a supported type
+                return False # not a supported type
             f.write_tags(self.tags)
             return f
         except:
@@ -260,12 +288,12 @@ class Track(object):
         """
             Reads tags from file
         """
-        if not self.is_local():
-            return False #not a local file
-
         try:
+            self._scanning = True
+            self._scan_valid = False
             f = metadata.get_format(self.get_loc_for_io())
             if f is None:
+                self._scanning = False
                 return False # nto a supported type
             ntags = f.read_all()
             for k,v in ntags.iteritems():
@@ -278,13 +306,18 @@ class Track(object):
             self['__modified'] = mtime
             self['__basedir'] = os.path.dirname(path)
             self._dirty = True
+            self._scan_valid = True
+            self._scanning = False
             return f
         except:
             common.log_exception()
+            self._scanning = False
             return False
 
     def is_local(self):
-        return urlparse.urlsplit(self.get_loc()).scheme == "file"
+        if self.local_file_name():
+            return True
+        return False
 
     def get_track(self):
         """
@@ -359,7 +392,8 @@ class Track(object):
             return self['__bitrate']
 
     def get_size(self):
-        return os.path.getsize(self.get_loc())
+        f = gio.File(self.get_loc_for_io())
+        return f.query_info("standard::size").get_size()
 
     def get_duration(self):
         """
@@ -462,7 +496,8 @@ def parse_stream_tags(track, tags):
         if key == '__bitrate': track['__bitrate'] = int(value[0]) / 1000
 
         # if there's a comment, but no album, set album to the comment
-        elif key == 'comment' and not track.get_loc().endswith('.mp3'): 
+        elif key == 'comment' and not \
+                track.get_loc_for_io().lower().endswith('.mp3'): 
             track['album'] = value
 
         elif key == 'album': track['album'] = value
@@ -481,8 +516,8 @@ def parse_stream_tags(track, tags):
                 newsong = True
 
             title_array = value[0].split(' - ', 1)
-            if len(title_array) == 1 or (track.get_loc().endswith(".mp3") and \
-                    not track.get_loc().endswith("lastfm.mp3")): # FIXME: HACK!
+            if len(title_array) == 1 or \
+                    track.get_loc_for_io().lower().endswith(".mp3"):
                 track['title'] = value
             else:
                 track['artist'] = [title_array[0]]

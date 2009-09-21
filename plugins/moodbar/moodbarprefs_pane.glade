@@ -1,14 +1,21 @@
 <?xml version="1.0"?>
-<glade-interface>
-  <!-- interface-requires gtk+ 2.16 -->
-  <!-- interface-naming-policy toplevel-contextual -->
-  <widget class="GtkWindow" id="prefs_window">
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="value">5</property>
+    <property name="upper">10</property>
+    <property name="step_increment">0.10000000000000001</property>
+    <property name="page_increment">1</property>
+    <property name="page_size">1</property>
+  </object>
+  <object class="GtkWindow" id="prefs_window">
     <child>
-      <widget class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <child>
-          <widget class="GtkCheckButton" id="plugin/moodbar/cursor">
+          <object class="GtkCheckButton" id="plugin/moodbar/cursor">
             <property name="label" translatable="yes">Darken played section instead of using cursor</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -16,7 +23,7 @@
             <property name="relief">none</property>
             <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -24,49 +31,49 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkAlignment" id="alignment1">
+          <object class="GtkAlignment" id="alignment1">
             <property name="visible">True</property>
             <property name="top_padding">5</property>
             <property name="bottom_padding">20</property>
             <property name="left_padding">22</property>
             <property name="right_padding">5</property>
             <child>
-              <widget class="GtkVBox" id="vbox3">
+              <object class="GtkVBox" id="vbox3">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <widget class="GtkHBox" id="hbox1">
+                  <object class="GtkHBox" id="hbox1">
                     <property name="visible">True</property>
                     <child>
-                      <widget class="GtkLabel" id="label3">
+                      <object class="GtkLabel" id="label3">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">Darkness level:</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkHScale" id="plugin/moodbar/darkness">
+                      <object class="GtkHScale" id="plugin/moodbar/darkness">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="adjustment">5 0 10 0.10000000000000001 1 1</property>
+                        <property name="adjustment">adjustment1</property>
                         <property name="value_pos">right</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="position">1</property>
                       </packing>
                     </child>
-                  </widget>
+                  </object>
                   <packing>
                     <property name="position">0</property>
                   </packing>
                 </child>
-              </widget>
+              </object>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -74,14 +81,14 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkCheckButton" id="plugin/moodbar/defaultstyle">
+          <object class="GtkCheckButton" id="plugin/moodbar/defaultstyle">
             <property name="label" translatable="yes">Use waveform style</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -89,32 +96,32 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkAlignment" id="alignment2">
+          <object class="GtkAlignment" id="alignment2">
             <property name="visible">True</property>
             <property name="top_padding">5</property>
             <property name="bottom_padding">20</property>
             <property name="left_padding">21</property>
             <property name="right_padding">5</property>
             <child>
-              <widget class="GtkVBox" id="vbox1">
+              <object class="GtkVBox" id="vbox1">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <widget class="GtkCheckButton" id="plugin/moodbar/flat">
+                  <object class="GtkCheckButton" id="plugin/moodbar/flat">
                     <property name="label" translatable="yes">Show only waveform, not mood</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_underline">True</property>
                     <property name="draw_indicator">True</property>
-                  </widget>
+                  </object>
                   <packing>
                     <property name="position">0</property>
                   </packing>
                 </child>
-              </widget>
+              </object>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -122,14 +129,14 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkCheckButton" id="plugin/moodbar/theme">
+          <object class="GtkCheckButton" id="plugin/moodbar/theme">
             <property name="label" translatable="yes">Use color theme </property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -137,28 +144,28 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkAlignment" id="alignment3">
+          <object class="GtkAlignment" id="alignment3">
             <property name="visible">True</property>
             <property name="bottom_padding">20</property>
             <property name="left_padding">22</property>
             <property name="right_padding">5</property>
             <child>
-              <widget class="GtkHBox" id="hbox2">
+              <object class="GtkHBox" id="hbox2">
                 <property name="visible">True</property>
                 <property name="homogeneous">True</property>
                 <child>
-                  <widget class="GtkLabel" id="label5">
+                  <object class="GtkLabel" id="label5">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">Base color:</property>
-                  </widget>
+                  </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkColorButton" id="plugin/moodbar/color">
+                  <object class="GtkColorButton" id="plugin/moodbar/color">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -166,15 +173,15 @@
                     <property name="xalign">1</property>
                     <property name="title" translatable="yes">Base color</property>
                     <property name="color">#c116ffff0000</property>
-                  </widget>
+                  </object>
                   <packing>
                     <property name="fill">False</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
-              </widget>
+              </object>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -182,14 +189,14 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkLabel" id="label1">
+          <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
-          </widget>
+          </object>
           <packing>
             <property name="position">6</property>
           </packing>
         </child>
-      </widget>
+      </object>
     </child>
-  </widget>
-</glade-interface>
+  </object>
+</interface>

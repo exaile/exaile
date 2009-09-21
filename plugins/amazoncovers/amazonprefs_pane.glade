@@ -1,36 +1,36 @@
 <?xml version="1.0"?>
-<glade-interface>
+<interface>
   <!-- interface-requires gtk+ 2.16 -->
   <!-- interface-naming-policy project-wide -->
-  <widget class="GtkWindow" id="prefs_window">
+  <object class="GtkWindow" id="prefs_window">
     <child>
-      <widget class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>
         <property name="spacing">3</property>
         <child>
-          <widget class="GtkTable" id="table1">
+          <object class="GtkTable" id="table1">
             <property name="visible">True</property>
             <property name="n_rows">3</property>
             <property name="n_columns">2</property>
             <child>
-              <widget class="GtkLabel" id="label1">
+              <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">API Key:</property>
-              </widget>
+              </object>
               <packing>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
-              <widget class="GtkEntry" id="plugin/amazoncovers/api_key">
+              <object class="GtkEntry" id="plugin/amazoncovers/api_key">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">&#x2022;</property>
-              </widget>
+              </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
@@ -38,29 +38,29 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label2">
+              <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Secret Key:</property>
-              </widget>
+              </object>
               <packing>
                 <property name="top_attach">1</property>
                 <property name="bottom_attach">2</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
-              <widget class="GtkEntry" id="plugin/amazoncovers/secret_key">
+              <object class="GtkEntry" id="plugin/amazoncovers/secret_key">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">&#x2022;</property>
-              </widget>
+              </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
                 <property name="top_attach">1</property>
                 <property name="bottom_attach">2</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
@@ -69,18 +69,18 @@
             <child>
               <placeholder/>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <widget class="GtkLabel" id="label3">
+          <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="label" translatable="yes">To sign up for an Amazon AWS account and get 
 this information visit http://aws.amazon.com/</property>
             <property name="justify">center</property>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -88,7 +88,7 @@ this information visit http://aws.amazon.com/</property>
             <property name="position">1</property>
           </packing>
         </child>
-      </widget>
+      </object>
     </child>
-  </widget>
-</glade-interface>
+  </object>
+</interface>

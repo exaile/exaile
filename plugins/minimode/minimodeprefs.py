@@ -21,7 +21,7 @@ from xl.nls import gettext as _
 
 name = _('Mini Mode')
 basedir = os.path.dirname(os.path.realpath(__file__))
-glade = os.path.join(basedir, "minimodeprefs_pane.glade")
+ui = os.path.join(basedir, "minimodeprefs_pane.glade")
 
 class AlwaysOnTopPreference(widgets.CheckPrefsItem):
     name = 'plugin/minimode/always_on_top'

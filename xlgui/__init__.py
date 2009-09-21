@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -25,21 +23,11 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
 __all__ = ['main', 'panel', 'playlist']
 
 from xl.nls import gettext as _
-import gtk, gtk.glade, gobject, logging, os, urlparse
+import gtk, gobject, logging, os, urlparse
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
 
 from xlgui import commondialogs, cover 
@@ -78,9 +66,9 @@ class Main(object):
         self.first_removed = False
         self.tray_icon = None
         self.panels = {}
-        self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
-            'ExaileWindow', 'exaile')
-        self.progress_box = self.xml.get_widget('progress_box')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(xdg.get_data_path("ui/main.glade"))
+        self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
         self.icons = icons.IconManager()
@@ -98,14 +86,12 @@ class Main(object):
                 xdg.get_data_path('images'))
 
         logger.info("Loading main window...")
-        self.main = main.MainWindow(self, self.xml,
+        self.main = main.MainWindow(self, self.builder,
             exaile.collection, exaile.player, exaile.queue, exaile.covers)
-        self.panel_notebook = self.xml.get_widget('panel_notebook')
-        self.play_toolbar = self.xml.get_widget('play_toolbar')
+        self.panel_notebook = self.builder.get_object('panel_notebook')
+        self.play_toolbar = self.builder.get_object('play_toolbar')
 
         logger.info("Loading panels...")
-        self.last_selected_panel = settings.get_option(
-            'gui/last_selected_panel', None)
         self.panels['collection'] = collection.CollectionPanel(self.main.window,
             exaile.collection, _show_collection_empty_message=True)
         self.panels['radio'] = radio.RadioPanel(self.main.window, exaile.collection, 
@@ -117,13 +103,6 @@ class Main(object):
         for panel in ('collection', 'radio', 'playlists', 'files'):
             self.add_panel(*self.panels[panel].get_panel())
 
-        try:
-            selected_panel = self.panels[self.last_selected_panel]._child
-            selected_panel_num = self.panel_notebook.page_num(selected_panel)
-            self.panel_notebook.set_current_page(selected_panel_num)
-        except KeyError:
-            pass
-
         # add the device panels
         for device in self.exaile.devices.list_devices():
             if device.connected:
@@ -132,50 +111,16 @@ class Main(object):
         logger.info("Connecting panel events...")
         self.main._connect_panel_events()
 
-        logger.info("Connecting main window events...")
-        self._connect_events()
-
         if settings.get_option('gui/use_tray', False):
             self.tray_icon = tray.TrayIcon(self.main)
-
-        event.add_callback(self._on_quit_application, 'quit_application')
 
         self.device_panels = {}
         event.add_callback(self.add_device_panel, 'device_connected')
         event.add_callback(self.remove_device_panel, 'device_disconnected')
+        event.add_callback(self.on_gui_loaded, 'gui_loaded')
 
         logger.info("Done loading main window...")
         Main._main = self
-
-    def _connect_events(self):
-        """
-            Connects the various events to their handlers
-        """
-        self.xml.signal_autoconnect({
-            'on_about_item_activate': self.show_about_dialog,
-            'on_scan_collection_item_activate': self.on_rescan_collection,
-            'on_randomize_playlist_item_activate': self.on_randomize_playlist,
-            'on_collection_manager_item_activate': self.collection_manager,
-            'on_goto_playing_track_activate': self.on_goto_playing_track,
-            'on_queue_manager_item_activate': self.queue_manager,
-            'on_preferences_item_activate': lambda *e: self.show_preferences(),
-            'on_device_manager_item_activate': lambda *e: self.show_devices(),
-            'on_cover_manager_item_activate': self.show_cover_manager,
-            'on_open_item_activate': self.open_dialog,
-            'on_open_url_item_activate': self.open_url,
-            'on_export_current_playlist_activate': self.export_current_playlist,
-            'on_panel_notebook_switch_page': self.on_panel_switch,
-            'on_track_properties_activate':self.on_track_properties,
-            'on_clear_playlist_item_activate': self.main.on_clear_playlist,
-        })
-
-    def _on_quit_application(self, event, sender, data):
-        """
-            Updates settings affected by GUI interaction
-        """
-        if not self.last_selected_panel:
-            self.last_selected_panel = 0
-        settings.set_option('gui/last_selected_panel', self.last_selected_panel)
         
     def export_current_playlist(self, *e):
         pl = self.main.get_current_playlist ().playlist
@@ -230,6 +175,7 @@ class Main(object):
             self.main.window, buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
                 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_local_only(False) # enable gio
 
         supported_file_filter = gtk.FileFilter()
         supported_file_filter.set_name(_("Supported Files"))
@@ -345,6 +291,19 @@ class Main(object):
             coll.thaw_libraries()
             self.on_rescan_collection()
 
+    def on_gui_loaded(self, event, object, nothing):
+        """
+            Allows plugins to be the last selected panel
+        """
+        try:
+            last_selected_panel = settings.get_option(
+                'gui/last_selected_panel', 'collection')
+            panel = self.panels[last_selected_panel]._child
+            panel_num = self.panel_notebook.page_num(panel)
+            self.panel_notebook.set_current_page(panel_num)
+        except KeyError:
+            pass
+
     def on_goto_playing_track(self, *e):
         track = self.exaile.queue.get_current()
         pl = self.main.get_current_playlist()
@@ -358,11 +317,12 @@ class Main(object):
         """
             Called when the user wishes to rescan the collection
         """
-        from xlgui import collection as guicol
-        thread = guicol.CollectionScanThread(self, self.exaile.collection, 
-                self.panels['collection'])
-        self.progress_manager.add_monitor(thread,
-            _("Scanning collection..."), 'gtk-refresh')
+        if not self.exaile.collection._scanning:
+            from xlgui.collection import CollectionScanThread
+            thread = CollectionScanThread(self, self.exaile.collection, 
+                    self.panels['collection'])
+            self.progress_manager.add_monitor(thread,
+                _("Scanning collection..."), 'gtk-refresh')
 
     def on_randomize_playlist(self, *e):
         pl = self.main.get_selected_playlist()
@@ -393,6 +353,7 @@ class Main(object):
 
             # the first tab in the panel is a stub that just stops libglade from
             # complaining
+            # TODO: Check if this is valid for GtkBuilder
             self.panel_notebook.remove_page(0)
 
     def remove_panel(self, child):
@@ -403,19 +364,26 @@ class Main(object):
         raise ValueError("No such panel")
 
     def on_panel_switch(self, notebook, page, pagenum):
+        """
+            Saves the currently selected panel
+        """
+        if self.exaile.loading:
+            return
+
         page = notebook.get_nth_page(pagenum)
         for id, panel in self.panels.items():
             if panel._child == page:
-                self.last_selected_panel = id
+                settings.set_option('gui/last_selected_panel', id)
+                return
 
     def show_about_dialog(self, *e):
         """
             Displays the about dialog
         """
         import xl.main as xlmain
-        xml = gtk.glade.XML(xdg.get_data_path('glade/about_dialog.glade'),
-            'AboutDialog', 'exaile')
-        dialog = xml.get_widget('AboutDialog')
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path('ui/about_dialog.glade'))
+        dialog = builder.get_object('AboutDialog')
         logo = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/exailelogo.png'))
         dialog.set_logo(logo)
@@ -479,10 +447,10 @@ def show_splash(show=True):
     if not show: return
     image = gtk.Image()
     image.set_from_file(xdg.get_data_path("images/splash.png"))
-    xml = gtk.glade.XML(xdg.get_data_path("glade/splash.glade"), 'SplashScreen',
-        'exaile')
-    splash_screen = xml.get_widget('SplashScreen')
-    box = xml.get_widget('splash_box')
+    builder = gtk.Builder()
+    builder.add_from_file(xdg.get_data_path("ui/splash.glade"))
+    splash_screen = builder.get_object('SplashScreen')
+    box = builder.get_object('splash_box')
     box.pack_start(image, True, True)
     splash_screen.set_transient_for(None)
     splash_screen.show_all()

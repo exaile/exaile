@@ -23,23 +23,13 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
 import thread, os, shlex, string, urllib2
 from xl.nls import gettext as _
 import inspect
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade
+import gtk
 from xl import xdg
 from xl.settings import _SETTINGSMANAGER
 from xlgui.prefs.widgets import *
@@ -74,20 +64,21 @@ class PreferencesDialog(object):
         self.builders = {}
         self.popup = None
 
-        self.xml = xml = gtk.glade.XML(
-            xdg.get_data_path('glade/preferences_dialog.glade'), 
-            'PreferencesDialog', 'exaile')
+        self.builder = gtk.Builder()
+        self.builder.set_translation_domain('exaile')
+        self.builder.add_from_file(
+            xdg.get_data_path('ui/preferences_dialog.glade'))
 
-        self.window = xml.get_widget('PreferencesDialog')
+        self.window = self.builder.get_object('PreferencesDialog')
         self.window.set_transient_for(parent)
         self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.window.connect('delete-event', lambda *e: self.cancel())
 
         self._connect_events()
 
-        self.box = xml.get_widget('prefs_box')
+        self.box = self.builder.get_object('prefs_box')
 
-        self.tree = xml.get_widget('prefs_tree')
+        self.tree = self.builder.get_object('prefs_tree')
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Preferences'), text, text=0)
         self.tree.append_column(col)
@@ -150,7 +141,7 @@ class PreferencesDialog(object):
         """
             Connects the various events to their handlers
         """
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_cancel_button_clicked': lambda *e: self.cancel(),
             'on_apply_button_clicked': self.apply,
             'on_ok_button_clicked': self.ok,
@@ -216,11 +207,20 @@ class PreferencesDialog(object):
         child = self.panes.get(page)
         if not child:
             if hasattr(page, 'ui'):
+                import gtk
                 builder = gtk.Builder()
                 builder.add_from_file(page.ui)
             else:
-                builder = gtk.glade.XML(page.glade, 'prefs_pane')
-                builder.get_object = builder.get_widget
+                try:
+                    logger.warning('Please switch to gtk.Builder for preferences panes')
+                    import gtk.glade
+                    builder = gtk.glade.XML(page.glade, 'prefs_pane')
+                    builder.get_object = builder.get_widget
+                    builder.connect_signals = builder.signal_autoconnect
+                except ImportError:
+                    logger.error('Importing Glade as fallback failed')
+                    return
+
             child = builder.get_object('prefs_pane')
             init = getattr(page, 'init', None)
             if init: init(self, builder)
@@ -232,7 +232,8 @@ class PreferencesDialog(object):
 
         if hasattr(page, 'page_enter'):
             page.page_enter(self)
-                
+
+        child.unparent()
         self.box.pack_start(child, True, True)
         self.last_child = child
         self.box.show_all()

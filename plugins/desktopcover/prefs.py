@@ -15,13 +15,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import gtk
 from xlgui.prefs import widgets
 from xl.nls import gettext as _
 
 name = _('Desktop Cover')
 _basedir = os.path.dirname(os.path.realpath(__file__))
-ui = os.path.join(_basedir, "prefs.ui")
+ui = os.path.join(_basedir, "prefs.glade")
 
 _SETTINGS_PREFIX = 'plugin/desktopcover/'
 

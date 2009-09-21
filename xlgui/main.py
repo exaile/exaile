@@ -29,7 +29,7 @@ import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
-import gtk, gtk.glade, gobject, pango, datetime
+import gtk, gobject, pango, datetime
 from xl import xdg, event, track, common
 from xl import settings, trackdb
 import xl.playlist
@@ -272,6 +272,7 @@ class NotebookTab(gtk.EventBox):
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
             self.title = dialog.get_value()
+            self.page.playlist.set_name(self.title)
 
     def do_save_custom(self, *args):
         dialog = commondialogs.TextEntryDialog(
@@ -319,7 +320,7 @@ class MainWindow(gobject.GObject):
     """
     __gsignals__ = {'main-visible-toggle': (gobject.SIGNAL_RUN_LAST, bool, ())}
     _mainwindow = None
-    def __init__(self, controller, xml, collection, 
+    def __init__(self, controller, builder, collection, 
         player, queue, covers):
         """
             Initializes the main window
@@ -344,10 +345,10 @@ class MainWindow(gobject.GObject):
             if rgbamap is not None:
                 gtk.widget_set_default_colormap(rgbamap)
 
-        self.xml = xml
-        self.window = self.xml.get_widget('ExaileWindow')
+        self.builder = builder
+        self.window = self.builder.get_object('ExaileWindow')
         self.window.set_title('Exaile')
-        self.playlist_notebook = self.xml.get_widget('playlist_notebook')
+        self.playlist_notebook = self.builder.get_object('playlist_notebook')
         self.playlist_notebook.remove_page(0)
         self.playlist_notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
         map = {
@@ -358,11 +359,12 @@ class MainWindow(gobject.GObject):
         }
         self.playlist_notebook.set_tab_pos(map.get(
             settings.get_option('gui/tab_placement', 'top')))
-        self.splitter = self.xml.get_widget('splitter')
+        self.splitter = self.builder.get_object('splitter')
 
         self._setup_position()
         self._setup_widgets()
         self._setup_hotkeys()
+        logger.info("Connecting main window events...")
         self._connect_events()
         self.osd = osd.OSDWindow(self.cover, self.covers, self.player)
         self.tab_manager = xl.playlist.PlaylistManager(
@@ -536,7 +538,7 @@ class MainWindow(gobject.GObject):
 
     def _setup_hotkeys(self):
         """
-            Sets up accelerators that haven't been set up in glade
+            Sets up accelerators that haven't been set up in UI designer
         """
         hotkeys = (
             ('<Control>W', lambda *e: self.close_playlist_tab()),
@@ -560,51 +562,51 @@ class MainWindow(gobject.GObject):
         """
             Sets up the various widgets
         """
-        self.volume_slider = self.xml.get_widget('volume_slider')
-        self.volume_slider.set_value(settings.get_option("player/volume", 1))
-        self.volume_slider.connect('scroll-event', guiutil.on_slider_scroll)
+        volume = settings.get_option("player/volume", 1)
+        self.volume_slider = self.builder.get_object('volume_slider')
+        self.volume_slider.set_value(volume)
         self.volume_slider.connect('key-press-event',
             guiutil.on_slider_key_press)
 
-        self.shuffle_toggle = self.xml.get_widget('shuffle_button')
+        self.shuffle_toggle = self.builder.get_object('shuffle_button')
         self.shuffle_toggle.set_active(settings.get_option('playback/shuffle', False))
-        self.repeat_toggle = self.xml.get_widget('repeat_button')
+        self.repeat_toggle = self.builder.get_object('repeat_button')
         self.repeat_toggle.set_active(settings.get_option('playback/repeat', False))
-        self.dynamic_toggle = self.xml.get_widget('dynamic_button')
+        self.dynamic_toggle = self.builder.get_object('dynamic_button')
         self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
 
         # Cover box
-        self.cover_event_box = self.xml.get_widget('cover_event_box')
+        self.cover_event_box = self.builder.get_object('cover_event_box')
         self.cover = cover.CoverWidget(self, self.covers, self.player)
         self.cover_event_box.add(self.cover)
-        self.track_title_label = self.xml.get_widget('track_title_label')
+        self.track_title_label = self.builder.get_object('track_title_label')
         attr = pango.AttrList()
         attr.change(pango.AttrWeight(pango.WEIGHT_BOLD, 0, 800))
         attr.change(pango.AttrSize(12500, 0, 600))
         self.track_title_label.set_attributes(attr)
-        self.track_info_label = self.xml.get_widget('track_info_label')
+        self.track_info_label = self.builder.get_object('track_info_label')
+
+        self.mute_button = guiutil.MuteButton(self.builder.get_object('mute_button'))
+        self.mute_button.update_volume_icon(volume)
 
         self.progress_bar = PlaybackProgressBar(
-            self.xml.get_widget('playback_progressbar'),
+            self.builder.get_object('playback_progressbar'),
             self.player)
 
         # Playback buttons
         for button in ('play', 'next', 'prev', 'stop'):
             setattr(self, '%s_button' % button,
-                self.xml.get_widget('%s_button' % button))
+                self.builder.get_object('%s_button' % button))
         
         self.stop_button.connect('button-press-event',
             self.on_stop_buttonpress)
-        self.status = guiutil.StatusBar(self.xml.get_widget('left_statuslabel'))
-        self.track_count_label = self.xml.get_widget('track_count_label')
-        self.queue_count_label = self.xml.get_widget('queue_count_label')
+
+        # Status bar
+        self.statusbar = guiutil.Statusbar(self.builder.get_object('status_bar'))
 
         # Search filter
-        box = self.xml.get_widget('playlist_search_entry_box')
-        self.filter = guiutil.SearchEntry()
-        self.filter.connect('activate', self.on_playlist_search)
-        box.pack_start(self.filter.entry, True, True)
-
+        self.filter = guiutil.SearchEntry(
+            self.builder.get_object('playlist_search_entry'))
 
     def on_queue(self):
         """
@@ -614,16 +616,27 @@ class MainWindow(gobject.GObject):
                 self.playlist_notebook.get_current_page()]
         cur_page.menu.on_queue()
 
-    def on_playlist_search(self, *e):
+    def on_volume_changed(self, widget):
         """
-            Filters the currently selected playlist
+            Saves the preferred volume
         """
-        pl = self.get_selected_playlist()
-        if pl:
-            pl.search(unicode(self.filter.get_text(), 'utf-8'))
+        settings.set_option('player/volume', widget.get_value())
 
-    def on_volume_changed(self, range):
-        settings.set_option('player/volume', range.get_value())
+    def on_volume_slider_scroll_event(self, widget, event):
+        """
+            Changes the volume on scrolling
+        """
+        incr = self.volume_slider.get_adjustment().page_increment
+        value = self.volume_slider.get_value()
+
+        if event.direction == gtk.gdk.SCROLL_DOWN:
+            self.volume_slider.set_value(value - incr)
+            return True
+        elif event.direction == gtk.gdk.SCROLL_UP:
+            self.volume_slider.set_value(value + incr)
+            return True
+
+        return False
 
     def on_stop_buttonpress(self, widget, event):
         """
@@ -657,25 +670,17 @@ class MainWindow(gobject.GObject):
         """
         if not self.get_selected_playlist(): return
 
-        message = _("%(playlist_count)d showing, %(collection_count)d in collection") \
-            % {'playlist_count' : len(self.get_selected_playlist().playlist), 
-                'collection_count' : self.collection.get_count()}
-        
-        self.track_count_label.set_label(message)
-
-        queuecount = len(self.queue)
-        if queuecount:
-            queuemessage = _(" (%(queue_count)d queued)") % {'queue_count' : queuecount}
-            self.queue_count_label.set_label(queuemessage)
-        else:
-            self.queue_count_label.set_label('')
+        self.statusbar.set_track_count(
+            len(self.get_selected_playlist().playlist),
+            self.collection.get_count())
+        self.statusbar.set_queue_count(len(self.queue))
 
     def _connect_events(self):
         """
             Connects the various events to their handlers
         """
         self.splitter.connect('notify::position', self.configure_event)
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_configure_event':   self.configure_event,
             'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.delete_event,
@@ -690,15 +695,33 @@ class MainWindow(gobject.GObject):
             'on_shuffle_button_toggled': self.set_mode_toggles,
             'on_repeat_button_toggled': self.set_mode_toggles,
             'on_dynamic_button_toggled': self.set_mode_toggles,
+            'on_playlist_search_entry_activate': self.on_playlist_search_entry_activate,
             'on_clear_playlist_button_clicked': self.on_clear_playlist,
             'on_playlist_notebook_switch':  self.on_playlist_notebook_switch,
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
             'on_playlist_notebook_button_press': self.on_playlist_notebook_button_press,
             'on_new_playlist_item_activated': lambda *e:
                 self.add_playlist(),
+            'on_mute_button_scroll_event': self.on_volume_slider_scroll_event,
             'on_volume_slider_value_changed': self.on_volume_changed,
-            'on_queue_count_event_box_button_press_event':
-                self.controller.queue_manager,
+            'on_volume_slider_scroll_event': self.on_volume_slider_scroll_event,
+            'on_queue_count_clicked': self.controller.queue_manager,
+            # Controller
+            'on_about_item_activate': self.controller.show_about_dialog,
+            'on_scan_collection_item_activate': self.controller.on_rescan_collection,
+            'on_randomize_playlist_item_activate': self.controller.on_randomize_playlist,
+            'on_collection_manager_item_activate': self.controller.collection_manager,
+            'on_goto_playing_track_activate': self.controller.on_goto_playing_track,
+            'on_queue_manager_item_activate': self.controller.queue_manager,
+            'on_preferences_item_activate': lambda *e: self.controller.show_preferences(),
+            'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
+            'on_cover_manager_item_activate': self.controller.show_cover_manager,
+            'on_open_item_activate': self.controller.open_dialog,
+            'on_open_url_item_activate': self.controller.open_url,
+            'on_export_current_playlist_activate': self.controller.export_current_playlist,
+            'on_panel_notebook_switch_page': self.controller.on_panel_switch,
+            'on_track_properties_activate':self.controller.on_track_properties,
+            'on_clear_playlist_item_activate': self.on_clear_playlist,
         })        
 
         event.add_callback(self.on_playback_end, 'playback_player_end',
@@ -800,9 +823,9 @@ class MainWindow(gobject.GObject):
             Called when a stream is buffering
         """
         if percent < 100:
-            self.status.set_label(_("Buffering: %d%%...") % percent, 1000)
+            self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1000)
         else:
-            self.status.set_label(_("Buffering: 100%..."), 1000)
+            self.statusbar.set_status(_("Buffering: 100%..."), 1000)
 
     def on_tags_parsed(self, type, player, args):
         """
@@ -887,6 +910,14 @@ class MainWindow(gobject.GObject):
             Gives focus to the playlist search bar
         """
         self.filter.grab_focus()
+
+    def on_playlist_search_entry_activate(self, entry):
+        """
+            Starts searching the current playlist
+        """
+        playlist = self.get_selected_playlist()
+        if playlist:
+            playlist.search(unicode(entry.get_text(), 'utf-8'))
 
     def on_save_playlist(self, *e):
         """
@@ -1012,19 +1043,13 @@ class MainWindow(gobject.GObject):
                 self.controller.tray_icon = tray.TrayIcon(self)
 
         if option == 'playback/dynamic':
-            if self.controller.tray_icon:
-                self.controller.tray_icon.check_dyna.set_active(settings.get_option('playback/dynamic', False))
-            self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
+            self.dynamic_toggle.set_active(settings.get_option(option, False))
 
         if option == 'playback/shuffle':
-            if self.controller.tray_icon:
-                self.controller.tray_icon.check_shuffle.set_active(settings.get_option('playback/shuffle', False))
-            self.shuffle_toggle.set_active(settings.get_option('playback/shuffle', False))
+            self.shuffle_toggle.set_active(settings.get_option(option, False))
 
         if option == 'playback/repeat':
-            if self.controller.tray_icon:
-                self.controller.tray_icon.check_repeat.set_active(settings.get_option('playback/repeat', False))
-            self.repeat_toggle.set_active(settings.get_option('playback/repeat', False))
+            self.repeat_toggle.set_active(settings.get_option(option, False))
 
     @common.threaded
     def _get_dynamic_tracks(self):
@@ -1189,12 +1214,18 @@ class MainWindow(gobject.GObject):
         if not toggle_handled and self.window.is_active(): # focused
             self.window.hide()
         elif not toggle_handled:
+            self.window.deiconify()
             self.window.present()
 
     def configure_event(self, *e):
         """
             Called when the window is resized or moved
         """
+        pos = self.splitter.get_position()
+        if pos > 10 and pos != settings.get_option(
+                "gui/mainw_sash_pos", -1):
+            settings.set_option('gui/mainw_sash_pos', pos)
+            
         # Don't save window size if it is maximized or fullscreen.
         if settings.get_option('gui/mainw_maximized', False) or \
                 self._fullscreen:
@@ -1210,14 +1241,10 @@ class MainWindow(gobject.GObject):
                 key in ["x", "y"] ]:
             settings.set_option('gui/mainw_x', x)
             settings.set_option('gui/mainw_y', y)
-        pos = self.splitter.get_position()
-        if pos > 10 and pos != settings.get_option(
-                "gui/mainw_sash_pos", -1):
-            settings.set_option('gui/mainw_sash_pos', pos)
 
         return False
 
-    def window_state_change_event(self, widget, event):
+    def window_state_change_event(self, window, event):
         """
             Saves the current maximized and fullscreen
             states and minimizes to tray if requested
@@ -1229,14 +1256,14 @@ class MainWindow(gobject.GObject):
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
 
         if settings.get_option('gui/minimize_to_tray', False) and \
-           self.controller.tray_icon is not None and \
-           event.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED and \
-           event.new_window_state & gtk.gdk.WINDOW_STATE_ICONIFIED:
-            self.window.hide()
+            self.controller.tray_icon is not None:
+            data = window.window.property_get('_NET_WM_STATE')
+            if data is not None and '_NET_WM_STATE_HIDDEN' in data[2]:
+                window.hide()
 
         return False
 
-def get_playlist_nb():
+def get_playlist_notebook():
     return MainWindow._mainwindow.playlist_notebook
 
 def get_selected_playlist():

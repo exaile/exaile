@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -15,16 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 #
 #
 # The developers of the Exaile media player hereby grant permission 
@@ -59,7 +47,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
-    gladeinfo = ('radio_panel.glade', 'RadioPanelWindow')
+    ui_info = ('radio_panel.glade', 'RadioPanelWindow')
     _radiopanel = None
 
     def __init__(self, parent, collection, 
@@ -139,14 +127,14 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Sets up the various widgets required for this panel
         """
-        self.status = self.xml.get_widget('status_label')
+        self.status = self.builder.get_object('status_label')
 
     @guiutil.idle_add()
     def _set_status(self, message, timeout=0):
         self.status.set_text(message)
 
         if timeout:
-            gobject.timeout_add(timeout, self._set_status, _('Idle.'), 0)
+            gobject.timeout_add(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
         """
@@ -172,7 +160,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.remove_selected_playlist())
 
 
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_add_button_clicked': self._on_add_button_clicked,
         })
         self.tree.connect('row-expanded', self.on_row_expand)
@@ -227,7 +215,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Sets up the tree that displays the radio panel
         """
-        box = self.xml.get_widget('RadioPanel')
+        box = self.builder.get_object('RadioPanel')
         self.tree = guiutil.DragTreeView(self, True, True)
         self.tree.set_headers_visible(False)
 
@@ -446,7 +434,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         if not tracks: return
 
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
         
         urls = guiutil.get_urls_for(tracks)
         selection_data.set_uris(urls)

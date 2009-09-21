@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
-<glade-interface>
-  <!-- interface-requires gtk+ 2.16 -->
-  <!-- interface-naming-policy toplevel-contextual -->
-  <widget class="GtkWindow" id="ContextPanelWindow">
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="ContextPanelWindow">
     <property name="title" translatable="yes">Context</property>
     <child>
-      <widget class="GtkVBox" id="ContextPanel">
+      <object class="GtkVBox" id="ContextPanel">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <property name="spacing">2</property>
         <child>
-          <widget class="GtkHBox" id="ContextBar">
+          <object class="GtkHBox" id="ContextBar">
             <property name="height_request">32</property>
             <property name="visible">True</property>
             <child>
-              <widget class="GtkButton" id="PrevButton">
+              <object class="GtkButton" id="PrevButton">
                 <property name="width_request">32</property>
                 <property name="height_request">32</property>
                 <property name="visible">True</property>
@@ -22,13 +22,13 @@
                 <property name="receives_default">False</property>
                 <property name="relief">none</property>
                 <child>
-                  <widget class="GtkImage" id="image1">
+                  <object class="GtkImage" id="image1">
                     <property name="visible">True</property>
                     <property name="stock">gtk-go-back</property>
                     <property name="icon-size">2</property>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
@@ -36,7 +36,7 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="NextButton">
+              <object class="GtkButton" id="NextButton">
                 <property name="width_request">32</property>
                 <property name="height_request">32</property>
                 <property name="visible">True</property>
@@ -44,12 +44,12 @@
                 <property name="receives_default">True</property>
                 <property name="relief">none</property>
                 <child>
-                  <widget class="GtkImage" id="image4">
+                  <object class="GtkImage" id="image4">
                     <property name="visible">True</property>
                     <property name="stock">gtk-go-forward</property>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
@@ -57,7 +57,7 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="HomeButton">
+              <object class="GtkButton" id="HomeButton">
                 <property name="width_request">32</property>
                 <property name="height_request">32</property>
                 <property name="visible">True</property>
@@ -65,12 +65,12 @@
                 <property name="receives_default">True</property>
                 <property name="relief">none</property>
                 <child>
-                  <widget class="GtkImage" id="image2">
+                  <object class="GtkImage" id="image2">
                     <property name="visible">True</property>
                     <property name="stock">gtk-home</property>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
@@ -78,7 +78,7 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="RefreshButton">
+              <object class="GtkButton" id="RefreshButton">
                 <property name="width_request">32</property>
                 <property name="height_request">32</property>
                 <property name="visible">True</property>
@@ -86,13 +86,13 @@
                 <property name="receives_default">True</property>
                 <property name="relief">none</property>
                 <child>
-                  <widget class="GtkImage" id="RefreshButtonImage">
+                  <object class="GtkImage" id="RefreshButtonImage">
                     <property name="visible">True</property>
                     <property name="stock">gtk-refresh</property>
                     <property name="icon-size">2</property>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
@@ -100,7 +100,7 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkButton" id="LyricsButton">
+              <object class="GtkButton" id="LyricsButton">
                 <property name="width_request">32</property>
                 <property name="height_request">32</property>
                 <property name="visible">True</property>
@@ -108,13 +108,13 @@
                 <property name="receives_default">True</property>
                 <property name="relief">none</property>
                 <child>
-                  <widget class="GtkImage" id="image3">
+                  <object class="GtkImage" id="image3">
                     <property name="visible">True</property>
                     <property name="stock">gtk-file</property>
                     <property name="icon-size">2</property>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
@@ -122,7 +122,7 @@
                 <property name="position">4</property>
               </packing>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -130,18 +130,18 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkFrame" id="ContextFrame">
+          <object class="GtkFrame" id="ContextFrame">
             <property name="visible">True</property>
             <property name="label_xalign">0</property>
             <child>
               <placeholder/>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="position">1</property>
           </packing>
         </child>
-      </widget>
+      </object>
     </child>
-  </widget>
-</glade-interface>
+  </object>
+</interface>

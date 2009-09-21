@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
-<glade-interface>
-  <!-- interface-requires gtk+ 2.16 -->
-  <!-- interface-naming-policy toplevel-contextual -->
-  <widget class="GtkWindow" id="prefs_window">
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="prefs_window">
     <child>
-      <widget class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <child>
-          <widget class="GtkFrame" id="show_notifications">
+          <object class="GtkFrame" id="show_notifications">
             <property name="visible">True</property>
             <property name="label_xalign">0</property>
             <child>
-              <widget class="GtkAlignment" id="alignment2">
+              <object class="GtkAlignment" id="alignment2">
                 <property name="visible">True</property>
                 <property name="top_padding">5</property>
                 <property name="bottom_padding">5</property>
                 <property name="left_padding">5</property>
                 <property name="right_padding">5</property>
                 <child>
-                  <widget class="GtkVBox" id="vbox1">
+                  <object class="GtkVBox" id="vbox1">
                     <property name="visible">True</property>
                     <property name="orientation">vertical</property>
                     <child>
-                      <widget class="GtkCheckButton" id="plugin/notifyosd/notify_play">
+                      <object class="GtkCheckButton" id="plugin/notifyosd/notify_play">
                         <property name="label" translatable="yes">On Track Change</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -31,13 +31,13 @@
                         <property name="border_width">2</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="plugin/notifyosd/notify_pause">
+                      <object class="GtkCheckButton" id="plugin/notifyosd/notify_pause">
                         <property name="label" translatable="yes">On Playback Start, Pause or Stop</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -45,14 +45,14 @@
                         <property name="border_width">2</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="plugin/notifyosd/tray_hover">
+                      <object class="GtkCheckButton" id="plugin/notifyosd/tray_hover">
                         <property name="label" translatable="yes">On Tray Icon Hover</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -60,20 +60,20 @@
                         <property name="border_width">2</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="plugin/notifyosd/show_when_focused">
+                      <object class="GtkCheckButton" id="plugin/notifyosd/show_when_focused">
                         <property name="label" translatable="yes">When GUI is Focused</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="draw_indicator">True</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="position">3</property>
                       </packing>
@@ -81,21 +81,18 @@
                     <child>
                       <placeholder/>
                     </child>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
             </child>
-            <child>
-              <widget class="GtkLabel" id="label9">
+            <child type="label">
+              <object class="GtkLabel" id="label9">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">&lt;b&gt;Display&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
-              </widget>
-              <packing>
-                <property name="type">label_item</property>
-              </packing>
+              </object>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="padding">5</property>
@@ -103,22 +100,22 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkFrame" id="display_icons">
+          <object class="GtkFrame" id="display_icons">
             <property name="visible">True</property>
             <property name="label_xalign">0</property>
             <child>
-              <widget class="GtkAlignment" id="alignment3">
+              <object class="GtkAlignment" id="alignment3">
                 <property name="visible">True</property>
                 <property name="top_padding">5</property>
                 <property name="bottom_padding">5</property>
                 <property name="left_padding">5</property>
                 <property name="right_padding">5</property>
                 <child>
-                  <widget class="GtkVBox" id="vbox2">
+                  <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
                     <property name="orientation">vertical</property>
                     <child>
-                      <widget class="GtkCheckButton" id="plugin/notifyosd/covers">
+                      <object class="GtkCheckButton" id="plugin/notifyosd/covers">
                         <property name="label" translatable="yes">Use Album Covers As Icons</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -126,41 +123,38 @@
                         <property name="yalign">0.49000000953674316</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="plugin/notifyosd/media_icons">
+                      <object class="GtkCheckButton" id="plugin/notifyosd/media_icons">
                         <property name="label" translatable="yes">Use Media Icons For Pause, Stop and Resume</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
             </child>
-            <child>
-              <widget class="GtkLabel" id="label2">
+            <child type="label">
+              <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">&lt;b&gt;Icons&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
-              </widget>
-              <packing>
-                <property name="type">label_item</property>
-              </packing>
+              </object>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="padding">5</property>
@@ -168,29 +162,29 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkFrame" id="message_settings">
+          <object class="GtkFrame" id="message_settings">
             <property name="visible">True</property>
             <property name="label_xalign">0</property>
             <child>
-              <widget class="GtkAlignment" id="alignment1">
+              <object class="GtkAlignment" id="alignment1">
                 <property name="visible">True</property>
                 <property name="top_padding">5</property>
                 <property name="bottom_padding">5</property>
                 <property name="left_padding">5</property>
                 <property name="right_padding">5</property>
                 <child>
-                  <widget class="GtkTable" id="table1">
+                  <object class="GtkTable" id="table1">
                     <property name="visible">True</property>
                     <property name="n_rows">4</property>
                     <property name="n_columns">2</property>
                     <property name="column_spacing">3</property>
                     <property name="row_spacing">3</property>
                     <child>
-                      <widget class="GtkLabel" id="label3">
+                      <object class="GtkLabel" id="label3">
                         <property name="visible">True</property>
                         <property name="xalign">1</property>
                         <property name="label" translatable="yes">Artist Line:</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="top_attach">2</property>
                         <property name="bottom_attach">3</property>
@@ -198,23 +192,23 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label5">
+                      <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">The tags "%(title)s", "%(artist)s", and "%(album)s" will be replaced by their respective values. The title will be replaced by "Unknown" if it is empty.</property>
                         <property name="use_markup">True</property>
                         <property name="justify">fill</property>
                         <property name="wrap">True</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="right_attach">2</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label6">
+                      <object class="GtkLabel" id="label6">
                         <property name="visible">True</property>
                         <property name="xalign">1</property>
                         <property name="label" translatable="yes">Summary:</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
@@ -222,12 +216,12 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkEntry" id="plugin/notifyosd/summary">
+                      <object class="GtkEntry" id="plugin/notifyosd/summary">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">&#x2022;</property>
                         <property name="caps_lock_warning">False</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
@@ -237,12 +231,12 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkEntry" id="plugin/notifyosd/bodyartist">
+                      <object class="GtkEntry" id="plugin/notifyosd/bodyartist">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">&#x2022;</property>
                         <property name="caps_lock_warning">False</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
@@ -252,12 +246,12 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkEntry" id="plugin/notifyosd/bodyalbum">
+                      <object class="GtkEntry" id="plugin/notifyosd/bodyalbum">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">&#x2022;</property>
                         <property name="caps_lock_warning">False</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
@@ -267,39 +261,36 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label4">
+                      <object class="GtkLabel" id="label4">
                         <property name="visible">True</property>
                         <property name="xalign">1</property>
                         <property name="label" translatable="yes">Album Line:</property>
-                      </widget>
+                      </object>
                       <packing>
                         <property name="top_attach">3</property>
                         <property name="bottom_attach">4</property>
                         <property name="x_options">GTK_FILL</property>
                       </packing>
                     </child>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
             </child>
-            <child>
-              <widget class="GtkLabel" id="label1">
+            <child type="label">
+              <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">&lt;b&gt;Content&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
-              </widget>
-              <packing>
-                <property name="type">label_item</property>
-              </packing>
+              </object>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="padding">5</property>
             <property name="position">2</property>
           </packing>
         </child>
-      </widget>
+      </object>
     </child>
-  </widget>
-</glade-interface>
+  </object>
+</interface>

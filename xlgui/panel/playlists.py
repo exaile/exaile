@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -15,16 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 #
 #
 # The developers of the Exaile media player hereby grant permission 
@@ -183,7 +171,7 @@ class TrackWrapper(object):
         if text and self.track['artist']:
             text += " - " + ' / '.join(self.track['artist'])
         
-        if not text: return self.track.get_loc()
+        if not text: return self.track.get_loc_for_io()
         return text
 
 class BasePlaylistPanelMixin(gobject.GObject):
@@ -438,7 +426,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
         The playlists panel
     """
-    gladeinfo = ('playlists_panel.glade', 'PlaylistsPanelWindow')
+    ui_info = ('playlists_panel.glade', 'PlaylistsPanelWindow')
 
     def __init__(self, parent, playlist_manager, 
         smart_manager, collection):
@@ -452,7 +440,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.playlist_manager = playlist_manager
         self.smart_manager = smart_manager
         self.collection = collection
-        self.box = self.xml.get_widget('playlists_box')
+        self.box = self.builder.get_object('playlists_box')
         
         self.playlist_name_info = 500
         self.track_target = ("text/uri-list", 0, 0)
@@ -857,7 +845,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if not tracks: return
     
             for track in tracks:
-                guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+                guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
             
             urls = guiutil.get_urls_for(tracks)
             selection_data.set_uris(urls)

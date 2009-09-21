@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -15,16 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 #
 #
 # The developers of the Exaile media player hereby grant permission 
@@ -84,7 +72,7 @@ class ReceptiveCollectionPanel(CollectionPanel):
         uris = data.get_uris()
         tracks, playlists = self.tree.get_drag_data(uris)
         tracks = [ t for t in tracks if not \
-                self.collection.loc_is_member(t.get_loc()) ]
+                self.collection.loc_is_member(t.get_loc_for_io()) ]
 
         self.add_tracks_func(tracks)
 
@@ -110,7 +98,7 @@ class DevicePanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    gladeinfo = ('device_panel.glade', 'DevicePanelWindow')
+    ui_info = ('device_panel.glade', 'DevicePanelWindow')
 
     def __init__(self, parent, main, 
         device, name=None):
@@ -119,7 +107,7 @@ class DevicePanel(panel.Panel):
         self.device = device
         self.main = main
 
-        self.notebook = self.xml.get_widget("device_notebook")
+        self.notebook = self.builder.get_object("device_notebook")
 
         self.collectionpanel = ReceptiveCollectionPanel(parent,
             collection=device.collection, name=name)
@@ -154,7 +142,7 @@ class FlatPlaylistDevicePanel(panel.Panel):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    gladeinfo = ('device_panel.glade', 'DevicePanelWindow')
+    ui_info = ('device_panel.glade', 'DevicePanelWindow')
 
     def __init__(self, parent, main, 
         device, name=None):
@@ -163,7 +151,7 @@ class FlatPlaylistDevicePanel(panel.Panel):
         self.device = device
         self.main = main
 
-        self.notebook = self.xml.get_widget("device_notebook")
+        self.notebook = self.builder.get_object("device_notebook")
 
         self.fppanel = FlatPlaylistPanel(self, name)
 

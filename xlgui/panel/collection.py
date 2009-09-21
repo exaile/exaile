@@ -23,28 +23,25 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
+import logging, traceback, urllib
+import gtk, gobject
+from xl import event, xdg, common, track, trackdb, metadata, settings
 from xl.nls import gettext as _
-import gtk, gobject, urllib, logging
-from xl import event, xdg, common, track, trackdb, metadata
-from xl import settings
 import xlgui
-import traceback
 from xlgui import panel, guiutil, menu, playlist, rating
 
 logger = logging.getLogger(__name__)
 
 TRACK_NUM = 300
+
+def first_meaningful_char(s):
+    for i in range(len(s)):
+        if s[i].isdigit():
+            return '0'
+        elif s[i].isalpha():
+            return s[i]
+    return '_'
 
 class CollectionPanel(panel.Panel):
     """
@@ -56,11 +53,10 @@ class CollectionPanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    gladeinfo = ('collection_panel.glade', 'CollectionPanelWindow')
+    ui_info = ('collection_panel.glade', 'CollectionPanelWindow')
     orders = (
         ['artist', 'album', 'tracknumber', 'title'],
         ['album', 'tracknumber', 'title'],
-        ['album', 'artist', 'tracknumber', 'title'],
         ['genre', 'artist', 'album', 'tracknumber', 'title'],
         ['genre', 'album', 'artist', 'tracknumber', 'title'],
         ['date', 'artist', 'album', 'tracknumber', 'title'],
@@ -68,7 +64,7 @@ class CollectionPanel(panel.Panel):
         ['artist', 'date', 'album', 'tracknumber', 'title'],
     )
 
-    def __init__(self, parent, collection, name=None, 
+    def __init__(self, parent, collection, name=None,
         _show_collection_empty_message=False):
         """
             Initializes the collection panel
@@ -82,10 +78,9 @@ class CollectionPanel(panel.Panel):
         self._show_collection_empty_message = _show_collection_empty_message
         self.collection = collection
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
-        self.vbox = self.xml.get_widget('CollectionPanel')
-        self.message = self.xml.get_widget('EmptyCollectionPanel')
-        self.filter = self.xml.get_widget('collection_search_entry')
-        self.choice = self.xml.get_widget('collection_combo_box')
+        self.vbox = self.builder.get_object('CollectionPanel')
+        self.message = self.builder.get_object('EmptyCollectionPanel')
+        self.choice = self.builder.get_object('collection_combo_box')
         self.collection_empty_message = False
         self._search_num = 0
 
@@ -100,7 +95,9 @@ class CollectionPanel(panel.Panel):
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
 
-        self.menu = menu.CollectionPanelMenu(self.get_selected_tracks)
+        self.menu = menu.CollectionPanelMenu(self.tree.get_selection(),
+            self.get_selected_tracks,
+            self.get_tracks_rating)
         self.menu.connect('append-items', lambda *e:
             self.emit('append-items', self.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
@@ -136,15 +133,12 @@ class CollectionPanel(panel.Panel):
         """
             Sets up the various widgets to be used in this panel
         """
-        self.choice = self.xml.get_widget('collection_combo_box')
+        self.choice = self.builder.get_object('collection_combo_box')
         active = settings.get_option('gui/collection_active_view', 0)
         self.choice.set_active(active)
 
-        box = self.xml.get_widget('collection_search_box')
-        self.filter = guiutil.SearchEntry()
-        self.filter.connect('activate', self.on_search)
-        box.pack_start(self.filter.entry, True, True)
-        box.show_all()
+        self.filter = guiutil.SearchEntry(
+            self.builder.get_object('collection_search_entry'))
 
     def _check_collection_empty(self, *e):
         if not self._show_collection_empty_message or \
@@ -167,10 +161,11 @@ class CollectionPanel(panel.Panel):
         """
             Uses signal_autoconnect to connect the various events
         """
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
             'on_refresh_button_pressed': self.on_refresh_button_pressed,
             'on_refresh_button_key_pressed': self.on_refresh_button_key_pressed,
+            'on_collection_search_entry_activate': self.on_collection_search_entry_activate,
             'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
         })
         self.tree.connect('key-release-event', self.on_key_released)
@@ -212,29 +207,29 @@ class CollectionPanel(panel.Panel):
         if event.keyval == gtk.keysyms.Menu:
             gtk.Menu.popup(self.menu, None, None, None, 0, event.time)
             return True
-
+        
         if event.keyval == gtk.keysyms.Left:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.collapse_row(path)
             return True
-
+        
         if event.keyval == gtk.keysyms.Right:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.expand_row(path, False)
             return True
-
+        
         if event.keyval == gtk.keysyms.Return:
             self.append_to_playlist()
             return True
         return False
-
-    def on_search(self, *e):
+    
+    def on_collection_search_entry_activate(self, entry):
         """
             Searches tracks and reloads the tree
         """
-        self.keyword = unicode(self.filter.get_text(), 'utf-8')
+        self.keyword = unicode(entry.get_text(), 'utf-8')
         self.start_count += 1
         self.load_tree()
 
@@ -268,7 +263,7 @@ class CollectionPanel(panel.Panel):
         """
         tracks = self.get_selected_tracks()
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
         urls = guiutil.get_urls_for(tracks)
         selection.set_uris(urls)
 
@@ -278,7 +273,7 @@ class CollectionPanel(panel.Panel):
         """
         self.tree = guiutil.DragTreeView(self)
         self.tree.set_headers_visible(False)
-        container = self.xml.get_widget('CollectionPanel')
+        container = self.builder.get_object('CollectionPanel')
         scroll = gtk.ScrolledWindow()
         scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         scroll.add(self.tree)
@@ -317,7 +312,7 @@ class CollectionPanel(panel.Panel):
         """
         self.load_subtree(iter)
         search = " ".join(self.get_node_search_terms(iter))
-        return self.collection.search(search, tracks=self.tracks) 
+        return self.collection.search(search, tracks=self.tracks)
 
     def get_selected_tracks(self):
         """
@@ -326,7 +321,7 @@ class CollectionPanel(panel.Panel):
 
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
-        tracks = [] 
+        tracks = []
         for path in paths:
             iter = self.model.get_iter(path)
             newset = self._find_tracks(iter)
@@ -337,6 +332,51 @@ class CollectionPanel(panel.Panel):
         tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
 
         return tracks
+
+    def get_tracks_rating(self):
+        """
+            Returns the rating of the selected tracks
+            Returns 0 if there is no selection, if tracks have different ratings
+            or if the selection is too big
+        """
+        rating = 0
+        selection = self.tree.get_selection()
+        (model, paths) = selection.get_selected_rows()
+        tracks_limit = settings.get_option('miscellaneous/rating_widget_tracks_limit', 100)
+        if tracks_limit == 0: return 0
+        current_count = 0
+        
+        if paths and paths[0]:
+            iter = self.model.get_iter(paths[0])
+            newset = self._find_tracks(iter)
+            current_count += len (newset)
+            if current_count > tracks_limit:
+                return 0 # too many tracks
+            
+            if newset and newset[0]:
+                rating = newset[0].get_rating ()
+            
+            if rating == 0:
+                return 0 # if first song has 0 as a rating, we know the result
+            
+            for song in newset:
+                if song.get_rating() != rating:
+                    return 0 # different ratings
+        else:
+            return 0 # no tracks
+
+        for path in paths[1:]:
+            iter = self.model.get_iter(path)
+            newset = self._find_tracks(iter)
+            current_count += len (newset)
+            if current_count > tracks_limit:
+                return 0 # too many tracks
+            
+            for song in newset:
+                if song.get_rating() != rating:
+                    return 0 # different ratings
+
+        return rating # only one rating in the tracks, returning it
 
     def append_to_playlist(self, item=None, event=None):
         """
@@ -418,7 +458,7 @@ class CollectionPanel(panel.Panel):
                 if word == _("Unknown"):
                     word = "__null__"
 
-                if word.startswith('\a\a'): 
+                if word.startswith('\a\a'):
                     terms.append(word[2:])
                 else:
                     terms.append("%s==\"%s\""%(field, word))
@@ -451,8 +491,10 @@ class CollectionPanel(panel.Panel):
 
         # save the active view setting
         settings.set_option(
-                'gui/collection_active_view', 
+                'gui/collection_active_view',
                 self.choice.get_active())
+
+        self.tracks = []
 
         self.load_subtree(None)
 
@@ -514,7 +556,7 @@ class CollectionPanel(panel.Panel):
         if tuple(expand) in self._expand_items: return
         self._expand_items.add(tuple(expand))
 
-        gobject.idle_add(self._expand_node_by_name, 
+        gobject.idle_add(self._expand_node_by_name,
             search_num, None, item, expand)
 
     def _expand_search_nodes(self, search_num):
@@ -536,10 +578,10 @@ class CollectionPanel(panel.Panel):
                     if not value: continue
 
                     if self.keyword.strip().lower() in value.lower():
-                        self._expand_to( 
+                        self._expand_to(
                             search_num, track, tmporder)
 
-                except (TypeError, KeyError):  
+                except (TypeError, KeyError):
                     traceback.print_exc()
                     continue
 
@@ -577,7 +619,7 @@ class CollectionPanel(panel.Panel):
 
         try:
             tag = self.order[depth]
-            self.tracks = self.collection.search(search)
+            self.tracks.extend(self.collection.search(search))
             if previously_loaded:   # leave after setting self.tracks, so _find_tracks searches right branch
                 return
 
@@ -588,9 +630,9 @@ class CollectionPanel(panel.Panel):
                 _search = "__compilation==__null__ " + search
             else:
                 _search = search
-            values = self.collection.list_tag(tag, 
-                    _search, 
-                    use_albumartist=False, ignore_the=True, sort=True, 
+            values = self.collection.list_tag(tag,
+                    _search,
+                    use_albumartist=False, ignore_the=True, sort=True,
                     sort_by=sort_by)
         except IndexError:
             return # at the bottom of the tree
@@ -618,10 +660,12 @@ class CollectionPanel(panel.Panel):
                     v = _("Unknown")
 
             if depth == 0 and draw_seps:
-                check_val = common.the_cutter(v)
-                char = check_val.lower()[0]
+                check_val = common.the_cutter(common.lstrip_special(v))
+                check_val = common.strip_marks(check_val).lower()
 
-                if char.isdigit(): 
+                char = first_meaningful_char(check_val)
+
+                if char.isdigit():
                     char = '0'
 
                 if first:
@@ -643,7 +687,7 @@ class CollectionPanel(panel.Panel):
                 tracks=self.tracks, sort_fields=sort_by)
             if tracks:
                 self.model.append(parent, [None, None, None])
-                iter = self.model.append(parent, [image, _('Various Artists'), 
+                iter = self.model.append(parent, [image, _('Various Artists'),
                     '! __compilation==__null__'])
                 self.model.append(iter, [None, None, None])
 
@@ -658,13 +702,12 @@ class CollectionPanel(panel.Panel):
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
-        if depth == 0 and \
-                len(values) <= settings.get_option(
-                        "gui/expand_maximum_results", 100) and \
-                len(self.keyword.strip()) >= \
-                settings.get_option("gui/expand_minimum_term_length", 3) and \
-                settings.get_option("gui/expand_enabled", True):
-
+        if depth == 0 and settings.get_option("gui/expand_enabled", True) and \
+            len(values) <= settings.get_option(
+                    "gui/expand_maximum_results", 100) and \
+            len(self.keyword.strip()) >= \
+            settings.get_option("gui/expand_minimum_term_length", 3):
+            
             # the search number is an id for expanding nodes. 
             # we set the id before we try expanding the nodes because
             # expanding can happen in the background.  If the id changes, the

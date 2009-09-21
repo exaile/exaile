@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
-<glade-interface>
-  <!-- interface-requires gtk+ 2.16 -->
-  <!-- interface-naming-policy toplevel-contextual -->
-  <widget class="GtkWindow" id="prefs_window">
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="prefs_window">
     <child>
-      <widget class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <child>
-          <widget class="GtkHBox" id="box1">
+          <object class="GtkHBox" id="box1">
           <property name="visible">True</property>
           <property name="border_width">0</property>
           <child>
-            <widget class="GtkLabel" id="strip_list_label">
+            <object class="GtkLabel" id="strip_list_label">
               <property name="label" translatable="yes">Strip these words from the beginnng of the artist tag (space separated):</property>
               <property name="receives_default">False</property>
               <property name="wrap">True</property>
-            </widget>
+            </object>
             <packing>
               <property name="expand">False</property>
               <property name="fill">False</property>
               <property name="position">0</property>
             </packing>
           </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -31,9 +31,9 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkEntry" id="collection/strip_list">
+          <object class="GtkEntry" id="collection/strip_list">
             <property name="receives_default">False</property>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -41,10 +41,10 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkLabel" id="collection/strip_list_label2">
+          <object class="GtkLabel" id="collection/strip_list_label2">
             <property name="label" translatable="yes">(Right click for reset to defaults)</property>
             <property name="receives_default">False</property>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -52,19 +52,19 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkCheckButton" id="collection/file_based_compilations">
+          <object class="GtkCheckButton" id="collection/file_based_compilations">
             <property name="label" translatable="yes">Use file based compilation detection</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="position">3</property>
           </packing>
         </child>
-      </widget>
+      </object>
     </child>
-  </widget>
-</glade-interface>
+  </object>
+</interface>

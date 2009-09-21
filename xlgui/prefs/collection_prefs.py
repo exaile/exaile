@@ -20,7 +20,7 @@ from xl.nls import gettext as _
 from xlgui import commondialogs
 
 name = _('Collection')
-glade = xdg.get_data_path('glade/collection_prefs_pane.glade')
+ui = xdg.get_data_path('ui/collection_prefs_pane.glade')
 
 def _get_default_strip_list():
     from locale import getlocale, getdefaultlocale

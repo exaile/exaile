@@ -675,7 +675,9 @@ class Statusbar(object):
         hbox.pack_start(label, True, True)
         frame.add(hbox)
         for widget in children[1:]:
-            status_bar.remove(widget)
+            # Bug in old PyGTK versions: Statusbar.remove hides
+            # Container.remove.
+            gtk.Container.remove(status_bar, widget)
             hbox.pack_start(widget, False, True)
 
         self.track_count_label = children[1]

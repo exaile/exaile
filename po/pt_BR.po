@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-14 20:37+0000\n"
-"Last-Translator: Arthur Cruz <Unknown>\n"
+"PO-Revision-Date: 2009-09-21 16:52+0000\n"
+"Last-Translator: Aren Olson <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2009-09-21 09:52+0000\n"
+"X-Launchpad-Export-Date: 2009-09-22 09:45+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1823,15 +1823,12 @@ msgstr "Capas da Amazon"
 msgid "Desktop Cover"
 msgstr "Desktop Cover"
 
-#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
 msgstr "Buscando mood..."
 
-#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
 msgstr "Mood encontrado"
 
-#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
 msgstr "Não foi possível ler moodbar"
 

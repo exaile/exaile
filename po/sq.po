@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-21 09:50+0000\n"
+"X-Launchpad-Export-Date: 2009-09-22 09:43+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1769,15 +1769,12 @@ msgstr ""
 msgid "Desktop Cover"
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
 msgstr ""
 

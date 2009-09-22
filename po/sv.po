@@ -6,14 +6,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-05 09:06+0000\n"
+"PO-Revision-Date: 2009-09-21 16:32+0000\n"
 "Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-21 09:52+0000\n"
+"X-Launchpad-Export-Date: 2009-09-22 09:45+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1817,15 +1817,12 @@ msgstr "Omslag från Amazon"
 msgid "Desktop Cover"
 msgstr "Skrivbordsomslag"
 
-#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
 msgstr ""
 

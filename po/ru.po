@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-15 13:47+0000\n"
+"PO-Revision-Date: 2009-09-21 16:50+0000\n"
 "Last-Translator: Paul Philippov <themactep@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-09-21 09:52+0000\n"
+"X-Launchpad-Export-Date: 2009-09-22 09:45+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1826,15 +1826,12 @@ msgstr "Обложки с Amazon"
 msgid "Desktop Cover"
 msgstr "Обложка Рабочего Стола"
 
-#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
 msgstr "Подбор тональности..."
 
-#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
 msgstr "Тональность подобрана."
 
-#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
 msgstr "Невозможно прочитать регулятор тональности."
 

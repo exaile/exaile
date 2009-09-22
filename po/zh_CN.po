@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-12 11:10+0000\n"
+"PO-Revision-Date: 2009-09-21 16:27+0000\n"
 "Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-09-21 09:52+0000\n"
+"X-Launchpad-Export-Date: 2009-09-22 09:45+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1796,15 +1796,12 @@ msgstr "Amazon 封面"
 msgid "Desktop Cover"
 msgstr "桌面封面"
 
-#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
 msgstr "正在搜索 mood..."
 
-#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
 msgstr "Mood 已找到。"
 
-#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
 msgstr "无法读取 moodbar 。"
 

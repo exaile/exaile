@@ -755,16 +755,6 @@ Right Click for Stop After Track Feature</property>
           </packing>
         </child>
         <child>
-          <object class="GtkHSeparator" id="hseparator1">
-            <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="padding">1</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkStatusbar" id="status_bar">
             <property name="visible">True</property>
             <child>
@@ -799,7 +789,7 @@ Right Click for Stop After Track Feature</property>
           <packing>
             <property name="expand">False</property>
             <property name="pack_type">end</property>
-            <property name="position">3</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>

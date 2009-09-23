@@ -663,9 +663,23 @@ class Statusbar(object):
         """
             Initialises the status bar
         """
+        # The first child of the status bar is a frame containing a label. We
+        # create an HBox, pack it inside the frame, and move the label and other
+        # widgets of the status bar into it.
         self.status_bar = status_bar
         children = status_bar.get_children()
-        # [0] is a frame containing the native label
+        frame = children[0]
+        label = frame.child
+        hbox = gtk.HBox(False, 0)
+        frame.remove(label)
+        hbox.pack_start(label, True, True)
+        frame.add(hbox)
+        for widget in children[1:]:
+            # Bug in old PyGTK versions: Statusbar.remove hides
+            # Container.remove.
+            gtk.Container.remove(status_bar, widget)
+            hbox.pack_start(widget, False, True)
+
         self.track_count_label = children[1]
         self.queue_count_button = children[2]
 

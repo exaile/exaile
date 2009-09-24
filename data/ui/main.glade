@@ -772,8 +772,9 @@ Right Click for Stop After Track Feature</property>
                 <property name="visible">True</property>
                 <signal name="button_press_event" handler="on_queue_count_clicked"/>
                 <child>
-                  <object class="GtkLabel" id="track_count_labe">
+                  <object class="GtkLabel" id="queue_count_label">
                     <property name="visible">True</property>
+                    <property name="tooltip_text" translatable="yes">Click to open the Queue Manager</property>
                     <property name="xpad">3</property>
                   </object>
                 </child>

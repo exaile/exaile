@@ -27,13 +27,17 @@ __builtin__.__dict__['print_'] = print_
 ql.print_ = print_
 
 class ExFalsoController:
-    def __init__(self):
+    def __init__(self, on_changed=None):
         from quodlibet import const, config
         from quodlibet.qltk.exfalsowindow import ExFalsoWindow
 
         config.init(const.CONFIG)
         self.instance = instance = ql.init(backend='nullbe')
         backend, library, player = instance
+
+        self.on_changed = on_changed
+        if on_changed:
+            library.connect('changed', self._on_changed)
 
         self.window = window = ExFalsoWindow(library)
 
@@ -49,6 +53,16 @@ class ExFalsoController:
         self.filelist = filelist = children[1].child
         assert isinstance(dirlist, gtk.TreeView)
         assert isinstance(filelist, gtk.TreeView)
+
+    def _on_changed(self, library, items):
+        # We can't directly use the items passed in because Ex Falso converts
+        # all the paths into real paths, removing symlink information; so, we
+        # manually read the selected files from the file list.
+        filelist = self.filelist
+        filesel = filelist.get_selection()
+        model, paths = filesel.get_selected_rows()
+        fpaths = [model[path][0] for path in paths]
+        self.on_changed(fpaths)
 
     def select(self, paths):
         # We are calling a "private" method here, but there's no other way to
@@ -78,6 +92,10 @@ class ExFalsoController:
         config.write(const.CONFIG)
         config.quit()
 
+import xl.event, xl.track
+import xlgui.playlist
+from xlgui import guiutil
+
 class ExFalsoTagger:
     def __init__(self, exaile):
         self.exaile = exaile
@@ -89,14 +107,17 @@ class ExFalsoTagger:
     def run(self, tracks):
         ef = self.exfalso
         if ef is None:
-            ef = self.exfalso = ExFalsoController()
+            ef = self.exfalso = ExFalsoController(self.on_changed)
             ef.window.connect('destroy', self.destroy)
         ef.window.present()
         ef.select(track.local_file_name() for track in tracks)
-
-from xl import event
-from xlgui import guiutil
-import xlgui.playlist
+    def on_changed(self, paths):
+        get_track = self.exaile.collection.get_track_by_loc
+        for path in paths:
+            uri = 'file://' + path
+            track = get_track(uri) or xl.track.Track(uri)
+            track.read_tags()
+            xl.event.log_event('track_tags_changed', track, None)
 
 PLUGIN = None
 
@@ -111,12 +132,12 @@ def properties_dialog(self):
 
 def enable(exaile):
     if exaile.loading:
-        event.add_callback(_enable, 'exaile_loaded')
+        xl.event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
 
 @guiutil.idle_add()
-def _enable(eventname, exaile, nothing):
+def _enable(event, exaile, nothing):
     global PLUGIN
     PLUGIN = ExFalsoTagger(exaile)
     xlgui.playlist.Playlist.properties_dialog = properties_dialog

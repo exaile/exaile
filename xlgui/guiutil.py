@@ -681,7 +681,7 @@ class Statusbar(object):
             hbox.pack_start(widget, False, True)
 
         self.track_count_label = children[1]
-        self.queue_count_button = children[2]
+        self.queue_count_label = children[2].child
 
         self.context_id = self.status_bar.get_context_id('status')
         self.message_ids = []
@@ -726,12 +726,12 @@ class Statusbar(object):
             Sets the queue count
         """
         if queue_count > 0:
-            self.queue_count_button.set_label(_("(%d queued)") % queue_count)
-            self.queue_count_button.set_no_show_all(False)
-            self.queue_count_button.show_all()
+            self.queue_count_label.set_text(_("(%d queued)") % queue_count)
+            self.queue_count_label.set_no_show_all(False)
+            self.queue_count_label.show_all()
         else:
-            self.queue_count_button.hide_all()
-            self.queue_count_button.set_no_show_all(True)
+            self.queue_count_label.hide_all()
+            self.queue_count_label.set_no_show_all(True)
 
 class MenuRatingWidget(gtk.MenuItem):
     """

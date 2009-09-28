@@ -342,7 +342,7 @@ class CollectionPanel(panel.Panel):
         rating = 0
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
-        tracks_limit = settings.get_option('miscellaneous/rating_widget_tracks_limit', 100)
+        tracks_limit = settings.get_option('miscellaneous/rating_widget_tracks_limit', 0)
         if tracks_limit == 0: return 0
         current_count = 0
         

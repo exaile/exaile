@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-21 16:16+0000\n"
-"Last-Translator: Aren Olson <Unknown>\n"
+"PO-Revision-Date: 2009-09-24 18:11+0000\n"
+"Last-Translator: Mathias Brodala <Unknown>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-23 09:39+0000\n"
+"X-Launchpad-Export-Date: 2009-09-30 06:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: GERMANY\n"
 "X-Poedit-Language: German\n"
@@ -2804,3 +2804,54 @@ msgstr "Holt Liedtexte von lyricwiki.org"
 
 #~ msgid "MPRIS"
 #~ msgstr "MPRIS"
+
+#~ msgid "Muted"
+#~ msgstr "Stumm"
+
+#~ msgid "Full Volume"
+#~ msgstr "Volle Lautstärke"
+
+#~ msgid "Equalizer"
+#~ msgstr "Equalizer"
+
+#~ msgid "+12 dB"
+#~ msgstr "+12 dB"
+
+#~ msgid "-24 dB"
+#~ msgstr "-24 dB"
+
+#~ msgid "1.9K"
+#~ msgstr "1.9K"
+
+#~ msgid "119"
+#~ msgstr "119"
+
+#~ msgid "15K"
+#~ msgstr "15K"
+
+#~ msgid "227"
+#~ msgstr "227"
+
+#~ msgid "29"
+#~ msgstr "29"
+
+#~ msgid "3.8K"
+#~ msgstr "3.8K"
+
+#~ msgid "474"
+#~ msgstr "474"
+
+#~ msgid "59"
+#~ msgstr "59"
+
+#~ msgid "7.5K"
+#~ msgstr "7.5K"
+
+#~ msgid "947"
+#~ msgstr "947"
+
+#~ msgid "pre"
+#~ msgstr "pre"
+
+#~ msgid "A 10-band equalizer"
+#~ msgstr "Ein 10-Band-Equalizer"

@@ -1,4 +1,4 @@
-# Russian translation for exaile
+# Malay translation for exaile
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
@@ -8,290 +8,270 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-26 13:10+0000\n"
-"Last-Translator: Artem Karimov <skybon@gmail.com>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"PO-Revision-Date: 2009-09-26 17:02+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Malay <ms@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2009-09-30 06:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr "Автоматическое"
+msgstr "Automatik"
 
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
-msgstr "Не удалось мигрировать с 0.2.14"
+msgstr "Tidak berjaya untuk pindah dari 0.2.14"
 
 #: ../xl/main.py:298
 msgid "Playback options"
-msgstr "Настройки воспроизведения"
+msgstr ""
 
 #: ../xl/main.py:273
 msgid "Play the next track"
-msgstr "Воспроизвести следующую композицию"
+msgstr "Main trek berikut"
 
 #: ../xl/main.py:275
 msgid "Play the previous track"
-msgstr "Воспроизвести предыдущую композицию"
+msgstr "Main trek sebelum"
 
 #: ../xl/main.py:277
 msgid "Stop playback"
-msgstr "Остановить воспроизведение"
+msgstr "Berhenti main"
 
 #: ../xl/main.py:279
 msgid "Play"
-msgstr "Воспроизвести"
+msgstr "Main"
 
 #: ../xl/main.py:281
 msgid "Toggle Play or Pause"
-msgstr "Переключить на воспроизведение или паузу"
+msgstr "Toggle Play atau Pause"
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
-msgstr "Остановить воспроизведение после текущей композиции"
+msgstr "Berhenti main selepas trek semasa"
 
 #: ../xl/main.py:314
 msgid "Track options"
-msgstr "Параметры композиции"
+msgstr ""
 
 #: ../xl/main.py:288
 msgid "Query player"
-msgstr "Проигрыватель очереди"
+msgstr ""
 
 #: ../xl/main.py:290
 msgid "Show a popup of the currently playing track"
-msgstr "Показывать всплывающее уведомление о проигрываемой песне"
+msgstr ""
 
 #: ../xl/main.py:292
 msgid "Print the title of current track"
-msgstr "Показывать название текущей композиции"
+msgstr "Cetak judul trek semasa"
 
 #: ../xl/main.py:294
 msgid "Print the album of current track"
-msgstr "Показывать название альбома для текущей композиции"
+msgstr "Cetak album trek semasa"
 
 #: ../xl/main.py:296
 msgid "Print the artist of current track"
-msgstr "Показывать исполнителя текущей композиции"
+msgstr "Cetak artis trek semasa"
 
 #: ../xl/main.py:298
 msgid "Print the length of current track"
-msgstr "Показывать длину текущей композиции"
+msgstr "Cetak jangkamasa trek semasa"
 
 #: ../xl/main.py:300
 msgid "Set rating for current song"
-msgstr "Оценить текущую композицию"
+msgstr "Set rating bagi lagu semasa"
 
 #: ../xl/main.py:302
 msgid "Get rating for current song"
-msgstr "Получить оценку текущей композиции"
+msgstr "Dapatkan rating bagi lagu semasa"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
-msgstr "Отображать текущую позицию воспроизведения в виде времени"
+msgstr "Cetak posisi di dalam trek semasa sebagai masa"
 
 #: ../xl/main.py:308
 msgid "Print the progress inside the current track as percentage"
-msgstr "Отображать текущую позицию воспроизведения в процентах"
+msgstr "Cetak progres di dalam trek semasa sebagai peratusan"
 
 #: ../xl/main.py:339
 msgid "Volume options"
-msgstr "Настройки громкости"
+msgstr ""
 
 #: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
-msgstr "Увеличить громкость на VOL%"
+msgstr ""
 
 #: ../xl/main.py:314
 msgid "Decreases the volume by VOL%"
-msgstr "Уменьшить громкость на VOL%"
+msgstr ""
 
 #: ../xl/main.py:316
 msgid "Print the current volume percentage"
-msgstr "Показывать текущий уровень громкости"
+msgstr ""
 
 #: ../xl/main.py:348
 msgid "Other options"
-msgstr "Другие настройки"
+msgstr ""
 
 #: ../xl/main.py:320
 msgid "Start new instance"
-msgstr "Запустить новый экземпляр"
+msgstr ""
 
 #: ../xl/main.py:323
 msgid "Start minimized (to tray, if possible)"
-msgstr "Запускать свёрнутым в трей (если возможно)"
+msgstr ""
 
 #: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr "Переключить видимость ГИП (если возможно)"
+msgstr ""
 
 #: ../xl/main.py:325
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
-"Запускать в безопасном режиме - иногда это бывает полезно при возникновении "
-"проблем"
 
 #: ../xl/main.py:360
 msgid "Force import of old data from 0.2.x. Overwrites current data."
 msgstr ""
-"Принудительно импортировать данные из 0.2.x. Перезаписывает текущие данные."
 
 #: ../xl/main.py:363
 msgid "Do not import old data from 0.2.x."
-msgstr "Не импортировать старую информацию из ветки 0.2.x."
+msgstr ""
 
 #. development and debug options
 #: ../xl/main.py:368
 msgid "Development/Debug options"
-msgstr "Настройки Разработки/Отладки"
+msgstr ""
 
 #. development and debug options
 #: ../xl/main.py:329
 msgid "Set data directory"
-msgstr "Установить директорию с данными"
+msgstr "Set direktori data"
 
 #: ../xl/main.py:331
 msgid "Show debugging output"
-msgstr "Отображать отладочный вывод"
+msgstr "Papar output debug"
 
 #: ../xl/main.py:334
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr "Включить отладку xl.event. Создает ОГРОМНОЕ количество вывода"
+msgstr ""
 
 #: ../xl/main.py:336
 msgid "Filter event debug output"
-msgstr "Фильтровать вывод отладки приложения"
+msgstr ""
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
-msgstr "Снизить уровень сигнала"
+msgstr ""
 
 #: ../xl/main.py:343
 msgid "Disable D-Bus support"
-msgstr "Отключить поддержку D-Bus"
+msgstr "Disable sokongan D-Bus"
 
 #: ../xl/main.py:345
 msgid "Disable HAL support."
-msgstr "Отключить поддержку HAL"
+msgstr ""
 
 #. entire playlist
 #: ../xl/main.py:362
 msgid "Entire Library"
-msgstr "Вся фонотека"
+msgstr "Kesemua Library"
 
 #: ../xl/main.py:368
 #, python-format
 msgid "Random %d"
-msgstr "Случайный %d"
+msgstr "Random %d"
 
 #: ../xl/main.py:376
 #, python-format
 msgid "Rating > %d"
-msgstr "Рейтинг > %d"
+msgstr "Rating > %d"
 
 #: ../xl/main.py:473
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
-"Exaile ещё не запустился. Возможно, вам следует дождаться сигнала "
-"exaile_loaded"
 
 #: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
-msgstr "Вы не указали место для сохранения базы данных"
+msgstr "Anda tidak tetapkan lokasi untuk simpan db"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
-msgstr "порядок должен быть списком или хешем"
+msgstr ""
 
 #: ../xl/transcoder.py:45
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
-"Vorbis - открытый кодек для сжатия звука с потерями, дающий высокое качество "
-"при меньшем размере файла, чем MP3."
 
 #: ../xl/transcoder.py:55
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
 msgstr ""
-"FLAC (Free Lossless Audio Codec) - открытый кодек, сжимающий звук без потери "
-"качества."
 
 #: ../xl/transcoder.py:67
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Принадлежащий Apple формат сжатия звука с потерями, дающий более высокое "
-"качество на низких частотах, чем MP3."
 
 #: ../xl/transcoder.py:78
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"Закрытый, устаревший, но всё ещё популярный формат сжатия звука с потерями. "
-"VBR дает более высокое качество звука, чем CBR, но может оказаться "
-"несовместимым с некоторыми плеерами."
 
 #: ../xl/transcoder.py:89
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"Закрытый, устаревший, но всё ещё популярный формат сжатия звука с потерями. "
-"CBR дает более низкое качество звука, чем VBR, но совместим с любыми "
-"плеерами."
 
 #: ../xl/transcoder.py:100
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
-"Cвободный формат сжатия звука без потери качества с высокой скоростью и "
-"хорошей компрессией."
 
 #: ../xl/track.py:474
 msgid "  New song, fetching cover."
-msgstr "  Новая песня, загружаем обложку."
+msgstr "  Lagu baru, mengambil cover."
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
-msgstr "Класс прибора не поддерживает передачу."
+msgstr ""
 
 #: ../xl/settings.py:82
 msgid "Settings version is newer than current."
-msgstr "Версия параметров новее текущей."
+msgstr ""
 
 #: ../xl/settings.py:167
 msgid "We don't know how to store that kind of setting: "
-msgstr "Нам неизвестно, как сохранить этот тип параметров: "
+msgstr ""
 
 #: ../xl/settings.py:194
 msgid "An Unknown type of setting was found!"
-msgstr "Обнаружен неизвестный тип параметров!"
+msgstr ""
 
 #: ../xl/plugins.py:73
 msgid "Plugin archive is not in the correct format"
-msgstr "Не поддерживаемый формат архива"
+msgstr ""
 
 #: ../xl/plugins.py:80
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr "Плагин \"%s\" уже установлен"
+msgstr ""
 
 #: ../xl/plugins.py:85
 msgid "Plugin archive contains an unsafe path"
-msgstr "Архив с плагином содержит небезопасный путь"
+msgstr ""
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
 #: ../xl/playlist.py:243 ../xlgui/panel/collection.py:395
@@ -300,16 +280,16 @@ msgstr "Архив с плагином содержит небезопасный
 #: ../plugins/notifyosd/__init__.py:68 ../plugins/notify/__init__.py:27
 #: ../plugins/minimode/mmwidgets.py:820
 msgid "Unknown"
-msgstr "Неизвестно"
+msgstr "Tidak Ketahui"
 
 #: ../xl/playlist.py:387
 #, python-format
 msgid "Playlist %d"
-msgstr "Список воспроизведения %d"
+msgstr "Playlist %d"
 
 #: ../xl/xldbus.py:75 ../xl/xldbus.py:284
 msgid "Not playing."
-msgstr "Не воспроизводится."
+msgstr ""
 
 #: ../xl/xldbus.py:289
 #, python-format
@@ -317,12 +297,12 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
-"статус: %(status)s, название: %(title)s, исполнитель: %(artist)s, альбом: "
-"%(album)s, длина: %(length)s, позиция: %(progress)s%% [%(position)s]"
+"status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
+"length: %(length)s, position: %(progress)s%% [%(position)s]"
 
 #: ../xl/trackdb.py:176
 msgid "You did not specify a location to load the db from"
-msgstr "Вы не указали местоположение базы данных"
+msgstr ""
 
 #: ../xlgui/properties.py:51 ../xlgui/osd.py:193 ../xlgui/plcolumns.py:110
 #, python-format
@@ -337,326 +317,325 @@ msgstr "0:00"
 #: ../xlgui/main.py:36 ../xlgui/main.py:107 ../xlgui/main.py:960
 #: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:630
 msgid "Not Playing"
-msgstr "Не воспроизводится"
+msgstr "Tidak Memainkan"
 
 #: ../xlgui/main.py:117 ../plugins/minimode/mmwidgets.py:650
 msgid "Streaming..."
-msgstr "Создание потоков..."
+msgstr "Streaming..."
 
 #: ../xlgui/main.py:198
 msgid "Close tab"
-msgstr "Закрыть вкладку"
+msgstr "Tutup tab"
 
 #: ../xlgui/main.py:254
 msgid "New playlist title:"
-msgstr "Новый заголовок списка воспроизведения:"
+msgstr "Judul playlist baru:"
 
 #: ../xlgui/main.py:254 ../xlgui/menu.py:415
 msgid "Rename Playlist"
-msgstr "Переименовать список воспроизведения"
+msgstr "Rename Playlist"
 
 #: ../xlgui/main.py:262
 msgid "Custom playlist name:"
-msgstr "Название текущего списка воспроизведения:"
+msgstr ""
 
 #: ../xlgui/main.py:262
 msgid "Save As..."
-msgstr "Сохранить Как..."
+msgstr "Simpan Sebagai..."
 
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
-msgstr "Переключатель: Остановить воспроизведение после выбранной композиции"
+msgstr "Toggle: Berhenti selepas trek dipilih"
 
 #: ../xlgui/main.py:788
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr "Буферизация: %d%%..."
+msgstr "Buffering: %d%%..."
 
 #: ../xlgui/main.py:790
 msgid "Buffering: 100%..."
-msgstr "Буферизация: 100%..."
+msgstr "Buffering: 100%..."
 
 #: ../xlgui/main.py:961 ../data/glade/main.glade.h:22
 msgid "Stopped"
-msgstr "Остановлено"
+msgstr "Dihentikan"
 
 #: ../xlgui/main.py:1035
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
-"Проигрыватель музыки Exaile\n"
-"Ничего не воспроизводится"
+"Exaile Music Player\n"
+"Not playing"
 
 #. TRANSLATORS: Window title
 #: ../xlgui/main.py:1057
 #, python-format
 msgid "%(title)s (by %(artist)s)"
-msgstr "%(title)s (%(artist)s)"
+msgstr "%(title)s (by %(artist)s)"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xlgui/main.py:1067
 #, python-format
 msgid "by %s"
-msgstr "(%s)"
+msgstr "oleh %s"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xlgui/main.py:1069
 #, python-format
 msgid "from %s"
-msgstr "из альбома %s"
+msgstr "dari %s"
 
 #: ../xlgui/main.py:1080
 #, python-format
 msgid "In pause: %s"
-msgstr "Приостановлено: %s"
+msgstr "In pause: %s"
 
 #: ../xlgui/main.py:1082
 #, python-format
 msgid "Playing %s"
-msgstr "Воспроизводится %s"
+msgstr "Playing %s"
 
 #: ../xlgui/menu.py:43
 msgid "Toggle Queue"
-msgstr "Переключить очередь воспроизведения"
+msgstr "Toggle Queue"
 
 #: ../xlgui/menu.py:89 ../xlgui/menu.py:311 ../xlgui/panel/radio.py:395
 msgid "New Playlist"
-msgstr "Создать список воспроизведения"
+msgstr "Playlist baru"
 
 #: ../xlgui/menu.py:147
 msgid "Add to custom playlist"
-msgstr "Добавить к текущему списку воспроизведения"
+msgstr "Tambah ke custom playlist"
 
 #: ../xlgui/menu.py:150 ../xlgui/menu.py:454
 msgid "Remove"
-msgstr "Удалить"
+msgstr "Buang"
 
 #: ../xlgui/menu.py:153
 msgid "Properties"
-msgstr "Свойства"
+msgstr "Ciri-ciri"
 
 #: ../xlgui/menu.py:167
 msgid "Playlist"
-msgstr "Список воспроизведения"
+msgstr "Playlist"
 
 #: ../xlgui/menu.py:201 ../data/glade/main.glade.h:34
 msgid "_New Playlist"
-msgstr "_Новый список воспроизведения"
+msgstr "_Playlist Baru"
 
 #: ../xlgui/menu.py:203
 msgid "_Rename Playlist"
-msgstr "_Переименовать список воспроизведения"
+msgstr "_Rename Playlist"
 
 #: ../xlgui/menu.py:205
 msgid "_Save As Custom Playlist"
-msgstr "_Сохранить Как Текущий Список Воспроизведения"
+msgstr "_Simpan sebagai Custom Playlist"
 
 #: ../xlgui/menu.py:207
 msgid "_Save Changes To Playlist"
-msgstr "_Сохранить Изменения В Списке Воспроизведения"
+msgstr "_Simpan Perubahan Ke Playlist"
 
 #: ../xlgui/menu.py:208
 msgid "_Save As..."
-msgstr "_Сохранить Как..."
+msgstr "_Simpan Sebagai..."
 
 #: ../xlgui/menu.py:209
 msgid "C_lear All Tracks"
-msgstr "_Удалить Все Композиции"
+msgstr "B_ersih Semua Trek"
 
 #: ../xlgui/menu.py:211
 msgid "_Close Playlist"
-msgstr "_Закрыть Список Воспроизведения"
+msgstr "_Tutup Playlist"
 
 #: ../xlgui/menu.py:231
 msgid "Append to Current"
-msgstr "Добавить к Текущему"
+msgstr ""
 
 #: ../xlgui/menu.py:233
 msgid "Queue Items"
-msgstr "Элементы Очереди Воспроизведения"
+msgstr ""
 
 #: ../xlgui/menu.py:277
 msgid "Delete track"
-msgstr "Удалить композицию"
+msgstr "Hapus trek"
 
 #: ../xlgui/menu.py:308
 msgid "New Station"
-msgstr "Новая Станция"
+msgstr "Stesen Baru"
 
 #: ../xlgui/menu.py:313
 msgid "New Smart Playlist"
-msgstr "Новый 'Умный' Список Воспроизведения"
+msgstr "Smart Playlist Baru"
 
 #: ../xlgui/menu.py:357
 msgid "Open"
-msgstr "Открыть"
+msgstr "Buka"
 
 #: ../xlgui/menu.py:360
 msgid "Rename"
-msgstr "Переименовать"
+msgstr "Rename"
 
 #: ../xlgui/menu.py:362
 msgid "Edit"
-msgstr "Правка"
+msgstr "Edit"
 
 #: ../xlgui/menu.py:365
 msgid "Export"
-msgstr "Экспортировать"
+msgstr "Eksport"
 
 #: ../xlgui/menu.py:368
 msgid "Delete Playlist"
-msgstr "Удалить Список Воспроизведения"
+msgstr "Hapus Playlist"
 
 #: ../xlgui/menu.py:378
 msgid "Export as..."
-msgstr "Экспортировать как..."
+msgstr "Eksport sebagai..."
 
 #: ../xlgui/menu.py:383 ../xlgui/__init__.py:165
 msgid "M3U Playlist"
-msgstr "M3U Список Воспроизведения"
+msgstr "M3U Playlist"
 
 #: ../xlgui/menu.py:384 ../xlgui/__init__.py:166
 msgid "PLS Playlist"
-msgstr "PLS Список Воспроизведения"
+msgstr "PLS Playlist"
 
 #: ../xlgui/menu.py:385 ../xlgui/__init__.py:167
 msgid "ASX Playlist"
-msgstr "ASX Список Воспроизведения"
+msgstr "ASX Playlist"
 
 #: ../xlgui/menu.py:386 ../xlgui/__init__.py:168
 msgid "XSPF Playlist"
-msgstr "XSPF Список Воспроизведения"
+msgstr "XSPF Playlist"
 
 #: ../xlgui/menu.py:401 ../xlgui/panel/playlists.py:966
 msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr ""
-"Вы уверены, что хотите полностью удалить выбранный список воспроизвадения?"
+msgstr "Adakah anda pasti mahu hapus playlist yang dipilih?"
 
 #: ../xlgui/menu.py:414
 msgid "Enter the new name you want for your playlist"
-msgstr "Введите новое имя для вашего списка воспроизведения"
+msgstr "Masukkan nama baru untuk playlist anda"
 
 #: ../xlgui/cover.py:286
 #, python-format
 msgid "%d covers to fetch"
-msgstr "%d обложек для загрузки"
+msgstr "%d cover untuk diambil"
 
 #: ../xlgui/cover.py:291 ../xlgui/cover.py:310
 #: ../data/glade/covermanager.glade.h:2
 msgid "Start"
-msgstr "Запуск"
+msgstr "Mula"
 
 #: ../xlgui/cover.py:325
 msgid "Show Cover"
-msgstr "Показать Обложку"
+msgstr "Perlihat Cover"
 
 #: ../xlgui/cover.py:326
 msgid "Fetch Cover"
-msgstr "Загрузить Обложку"
+msgstr "Ambil Cover"
 
 #: ../xlgui/cover.py:327
 msgid "Remove Cover"
-msgstr "Удалить Обложку"
+msgstr "Buang Cover"
 
 #: ../xlgui/cover.py:658
 msgid "Enter the search text"
-msgstr "Введите текст для поиска"
+msgstr "Masuk teks carian"
 
 #: ../xlgui/cover.py:684
 msgid "No covers found"
-msgstr "Обложек не найдено"
+msgstr "Tiada cover dijumpai"
 
 #: ../xlgui/osd.py:207
 msgid "No track"
-msgstr "Композиций нет"
+msgstr "Tiada trek"
 
 #: ../xlgui/__init__.py:160
 msgid "Export current playlist..."
-msgstr "Экспортирование текущего списка воспроизведения..."
+msgstr "Eksport playlist semasa..."
 
 #: ../xlgui/__init__.py:183 ../xlgui/panel/playlists.py:921
 msgid "Invalid file extension, file not saved"
-msgstr "Недопустимое резрешение файла, файл не сохранён"
+msgstr "File extension tidak sah, fail tidak disimpan"
 
 #: ../xlgui/__init__.py:190
 msgid "Enter the URL to open"
-msgstr "Введите URL для открытия"
+msgstr "Masukkan URL untuk dibuka"
 
 #: ../xlgui/__init__.py:191
 msgid "Open URL"
-msgstr "Открыть URL"
+msgstr "Buka URL"
 
 #: ../xlgui/__init__.py:205
 msgid "Choose a file to open"
-msgstr "Выбрать файл для открытия"
+msgstr "Pilih fail untuk dibuka"
 
 #: ../xlgui/__init__.py:211
 msgid "Supported Files"
-msgstr "Поддерживаемые Типы Файлов"
+msgstr "Fail-fail yang disokong"
 
 #: ../xlgui/__init__.py:213
 msgid "Music Files"
-msgstr "Музыкальные Файлы"
+msgstr "Fail-fail Muzik"
 
 #: ../xlgui/__init__.py:215
 msgid "Playlist Files"
-msgstr "Файлы Списков Воспроизведения"
+msgstr "Fail-fail Playlist"
 
 #: ../xlgui/__init__.py:217 ../xlgui/prefs/plugin_prefs.py:134
 msgid "All Files"
-msgstr "Все Файлы"
+msgstr "Semua Fail"
 
 #: ../xlgui/__init__.py:341
 msgid "Scanning collection..."
-msgstr "Сканирование фонотеки..."
+msgstr "Mengimbas koleksi..."
 
 #: ../xlgui/__init__.py:438
 #, python-format
 msgid "Scanning %s..."
-msgstr "Сканирование %s..."
+msgstr "Mengimbas %s..."
 
 #: ../xlgui/main.py:645
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr "%(playlist_count)d показано, %(collection_count)d в фонотеке"
+msgstr ""
 
 #: ../xlgui/guiutil.py:717
 #, python-format
 msgid "(%d queued)"
-msgstr "(%d в очереди)"
+msgstr ""
 
 #: ../xlgui/guiutil.py:650
 msgid "Rating:"
-msgstr "Оценка:"
+msgstr "Rating:"
 
 #: ../xlgui/commondialogs.py:309
 msgid "Select File Type (By Extension)"
-msgstr "Выбрать Тип Файлов (По Расширению)"
+msgstr "Pilih Jenis Fail (By Extension)"
 
 #: ../xlgui/commondialogs.py:317
 msgid "File Type"
-msgstr "Тип Файла"
+msgstr "Jenis Fail"
 
 #: ../xlgui/commondialogs.py:320
 msgid "Extension"
-msgstr "Расширение"
+msgstr "Extension"
 
 #: ../xlgui/devices.py:62
 msgid "Icon"
-msgstr "Значок"
+msgstr "Ikon"
 
 #: ../xlgui/devices.py:67
 msgid "Device"
-msgstr "Устройство"
+msgstr "Device"
 
 #: ../xlgui/devices.py:74
 msgid "Driver"
-msgstr "Драйвер"
+msgstr "Driver"
 
 #: ../xlgui/collection.py:140
 msgid "Add a directory"
-msgstr "Добавить директорию"
+msgstr "Tambah direktori"
 
 #. our added path is a subdir of an existing path
 #: ../xlgui/collection.py:170
@@ -664,68 +643,66 @@ msgid ""
 "Path is already in your collection, or is a subdirectory of another path in "
 "your collection"
 msgstr ""
-"Каталог уже присутствует в вашей фонотеке или он является поддиректорий "
-"одного из присутствующих каталогов"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/plcolumns.py:59 ../xlgui/panel/flatplaylist.py:78
 msgid "#"
-msgstr "№"
+msgstr "#"
 
 #: ../xlgui/plcolumns.py:80 ../xlgui/panel/playlists.py:140
 #: ../xlgui/panel/flatplaylist.py:86 ../plugins/cd/cdprefs.py:84
 #: ../plugins/minimode/minimodeprefs.py:118
 msgid "Title"
-msgstr "Название"
+msgstr "Judul"
 
 #: ../xlgui/plcolumns.py:85 ../xlgui/panel/playlists.py:55
 #: ../xlgui/panel/playlists.py:139 ../plugins/cd/cdprefs.py:85
 #: ../plugins/minimode/minimodeprefs.py:119
 msgid "Artist"
-msgstr "Исполнитель"
+msgstr "Artis"
 
 #: ../xlgui/plcolumns.py:90 ../plugins/cd/cdprefs.py:86
 #: ../plugins/minimode/minimodeprefs.py:120
 msgid "Composer"
-msgstr "Композитор"
+msgstr "Penggubah"
 
 #: ../xlgui/plcolumns.py:95 ../xlgui/panel/playlists.py:65
 #: ../xlgui/panel/playlists.py:141 ../plugins/cd/cdprefs.py:87
 #: ../plugins/minimode/minimodeprefs.py:121
 msgid "Album"
-msgstr "Альбом"
+msgstr "Album"
 
 #: ../xlgui/plcolumns.py:100 ../xlgui/panel/playlists.py:97
 #: ../xlgui/panel/playlists.py:142 ../plugins/cd/cdprefs.py:88
 #: ../plugins/minimode/minimodeprefs.py:122
 msgid "Length"
-msgstr "Продолжительность"
+msgstr "Jangkamasa"
 
 #: ../xlgui/plcolumns.py:120
 msgid "Disc"
-msgstr "Диск"
+msgstr "Cakera"
 
 #: ../xlgui/plcolumns.py:126 ../xlgui/panel/playlists.py:77
 #: ../xlgui/panel/playlists.py:143 ../plugins/cd/cdprefs.py:90
 #: ../plugins/minimode/minimodeprefs.py:124
 msgid "Rating"
-msgstr "Оценка"
+msgstr "Rating"
 
 #: ../xlgui/plcolumns.py:149 ../plugins/cd/cdprefs.py:91
 #: ../plugins/minimode/minimodeprefs.py:125
 msgid "Date"
-msgstr "Дата"
+msgstr "Tarikh"
 
 #: ../xlgui/plcolumns.py:154 ../xlgui/panel/playlists.py:71
 #: ../xlgui/panel/playlists.py:146 ../plugins/cd/cdprefs.py:92
 #: ../plugins/minimode/minimodeprefs.py:126
 msgid "Genre"
-msgstr "Жанр"
+msgstr "Genre"
 
 #: ../xlgui/plcolumns.py:159 ../plugins/cd/cdprefs.py:93
 #: ../plugins/minimode/minimodeprefs.py:127
 msgid "Bitrate"
-msgstr "Битрейт"
+msgstr "Bitrate"
 
 #. (_('Date Added'), [
 #. TRANSLATORS: Example: track has been added in the last 2 days
@@ -745,17 +722,17 @@ msgstr "Битрейт"
 #: ../xlgui/panel/playlists.py:147 ../plugins/cd/cdprefs.py:94
 #: ../plugins/minimode/minimodeprefs.py:128
 msgid "Location"
-msgstr "Местоположение"
+msgstr "Lokasi"
 
 #. TRANSLATORS: Filename column in the file browser
 #: ../xlgui/plcolumns.py:177 ../xlgui/panel/files.py:89
 #: ../plugins/cd/cdprefs.py:95 ../plugins/minimode/minimodeprefs.py:129
 msgid "Filename"
-msgstr "Имя Файла"
+msgstr "Namafail"
 
 #: ../xlgui/plcolumns.py:182
 msgid "Playcount"
-msgstr "Количество Воспроизведений"
+msgstr "Playcount"
 
 #: ../xlgui/plcolumns.py:190 ../plugins/cd/cdprefs.py:97
 #: ../plugins/minimode/minimodeprefs.py:132
@@ -764,209 +741,209 @@ msgstr "BPM"
 
 #: ../xlgui/plcolumns.py:195 ../plugins/minimode/minimodeprefs.py:131
 msgid "Last played"
-msgstr "Последним воспроизводилось"
+msgstr "Terakhir dimainkan"
 
 #: ../xlgui/plcolumns.py:206 ../xlgui/plcolumns.py:226
 #: ../plugins/minimode/mmwidgets.py:880
 msgid "Never"
-msgstr "Никогда"
+msgstr "Tidak pernah"
 
 #: ../xlgui/plcolumns.py:218 ../plugins/minimode/mmwidgets.py:893
 msgid "Today"
-msgstr "Сегодня"
+msgstr "Hari ini"
 
 #: ../xlgui/plcolumns.py:220 ../plugins/minimode/mmwidgets.py:895
 msgid "Yesterday"
-msgstr "Вчера"
+msgstr "Semalam"
 
 #: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:897
 #, python-format
 msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr "%(year)d-%(month)02d-%(day)02d"
+msgstr ""
 
 #: ../xlgui/plcolumns.py:253
 msgid "Track Number"
-msgstr "Номер Композиции"
+msgstr "Nombor Trek"
 
 #: ../xlgui/plcolumns.py:255
 msgid "Disc Number"
-msgstr "Номер Диска"
+msgstr "Nombor Cakera"
 
 #: ../xlgui/filtergui.py:51 ../xlgui/panel/radio.py:168
 msgid "Name:"
-msgstr "Название:"
+msgstr "Nama:"
 
 #: ../xlgui/filtergui.py:65
 msgid "Match any of the criteria"
-msgstr "Добавить все по критерию"
+msgstr ""
 
 #: ../xlgui/filtergui.py:67
 msgid "Randomize results"
-msgstr "Случайные результаты"
+msgstr ""
 
 #: ../xlgui/filtergui.py:83
 msgid "Limit to: "
-msgstr "Ограничен до: "
+msgstr "Had ke: "
 
 #: ../xlgui/filtergui.py:93
 msgid " songs"
-msgstr " композиции"
+msgstr " lagu-lagu"
 
 #: ../xlgui/playlist.py:1060
 #, python-format
 msgid "Close %s"
-msgstr "Закрыть %s"
+msgstr "Tutup %s"
 
 #: ../xlgui/playlist.py:1061
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>Сохранить изменения в %s перед выходом?<b>"
+msgstr "<b>Simpan perubahan ke %s sebelum tutup?</b>"
 
 #: ../xlgui/playlist.py:1062
 msgid "Your changes will be lost if you don't save them"
-msgstr "Ваши изменения будут потеряны, если вы их не сохраните"
+msgstr "Perubahan anda akan hilang jika anda tidak simpankannya"
 
 #: ../xlgui/playlist.py:1064
 msgid "Close Without Saving"
-msgstr "Закрыть без Сохранения"
+msgstr "Tutup Tanpa Simpan"
 
 #: ../xlgui/panel/playlists.py:25 ../xlgui/panel/playlists.py:37
 #: ../xlgui/panel/playlists.py:44
 msgid "seconds"
-msgstr "секунд(ы)"
+msgstr "saat"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:30
 msgid "and"
-msgstr "и"
+msgstr "dan"
 
 #: ../xlgui/panel/playlists.py:34 ../xlgui/panel/playlists.py:37
 msgid "days"
-msgstr "дн."
+msgstr "hari"
 
 #: ../xlgui/panel/playlists.py:37
 msgid "minutes"
-msgstr "минут(ы)"
+msgstr "minit"
 
 #: ../xlgui/panel/playlists.py:37
 msgid "hours"
-msgstr "час (ов)"
+msgstr "jam"
 
 #: ../xlgui/panel/playlists.py:37
 msgid "weeks"
-msgstr "неделя(ль, ли)"
+msgstr "minggu"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:57 ../xlgui/panel/playlists.py:66
 #: ../xlgui/panel/playlists.py:72 ../xlgui/panel/playlists.py:100
 #: ../xlgui/panel/playlists.py:117 ../xlgui/panel/playlists.py:125
 msgid "is"
-msgstr "является"
+msgstr "adalah"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:59 ../xlgui/panel/playlists.py:67
 #: ../xlgui/panel/playlists.py:73 ../xlgui/panel/playlists.py:118
 #: ../xlgui/panel/playlists.py:126
 msgid "is not"
-msgstr "не является"
+msgstr "bukan"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:61 ../xlgui/panel/playlists.py:68
 #: ../xlgui/panel/playlists.py:74 ../xlgui/panel/playlists.py:119
 #: ../xlgui/panel/playlists.py:127
 msgid "contains"
-msgstr "содержит"
+msgstr "mengandungi"
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/panel/playlists.py:63 ../xlgui/panel/playlists.py:69
 #: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:120
 #: ../xlgui/panel/playlists.py:128
 msgid "does not contain"
-msgstr "не содержит"
+msgstr "tidak mengandungi"
 
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:134
 msgid "greater than"
-msgstr "больше чем"
+msgstr "lebih besar daripada"
 
 #: ../xlgui/panel/playlists.py:79 ../xlgui/panel/playlists.py:135
 msgid "less than"
-msgstr "меньше чем"
+msgstr "kurang daripada"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
 #: ../xlgui/panel/playlists.py:98 ../xlgui/panel/playlists.py:129
 msgid "at least"
-msgstr "не менее"
+msgstr "sekurang-kurangnya"
 
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:87
 #: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:130
 msgid "at most"
-msgstr "не больше"
+msgstr "selebih-lebihnya"
 
 #: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:144
 msgid "Plays"
-msgstr "Воспроизведение"
+msgstr "Plays"
 
 #: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:145
 msgid "Year"
-msgstr "Год"
+msgstr "Tahun"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:91 ../xlgui/panel/playlists.py:131
 msgid "before"
-msgstr "до"
+msgstr "sebelum"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:93 ../xlgui/panel/playlists.py:132
 msgid "after"
-msgstr "после"
+msgstr "selepas"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:95 ../xlgui/panel/playlists.py:133
 msgid "between"
-msgstr "между"
+msgstr "antara"
 
 #. name is already in use
 #: ../xlgui/panel/playlists.py:212 ../xlgui/panel/playlists.py:318
 #: ../xlgui/panel/playlists.py:356 ../xlgui/panel/playlists.py:592
 #: ../xlgui/panel/playlists.py:666
 msgid "The playlist name you entered is already in use."
-msgstr "Введённое вами название списка воспроизведения уже используется."
+msgstr "Nama playlist yang anda masukkan telah digunakan"
 
 #: ../xlgui/panel/playlists.py:349
 msgid "New custom playlist name:"
-msgstr "Новое название текущего списка воспроизведения:"
+msgstr "Nama custom playlist baru:"
 
 #: ../xlgui/panel/playlists.py:350
 msgid "Add To New Playlist..."
-msgstr "Добавить В Новый Список Воспроизведения...."
+msgstr "Tambah Ke Playlist Baru..."
 
 #: ../xlgui/panel/playlists.py:360 ../xlgui/panel/playlists.py:586
 #: ../xlgui/panel/playlists.py:659
 msgid "You did not enter a name for your playlist"
-msgstr "Вы не указали имя для вашего списка воспроизведения"
+msgstr "Anda tidak memasukkan nama untuk playlist anda"
 
 #: ../xlgui/panel/playlists.py:534
 msgid "Smart Playlists"
-msgstr "'Умные' Списки Воспроизведения"
+msgstr "Smart Playlists"
 
 #: ../xlgui/panel/playlists.py:537
 msgid "Custom Playlists"
-msgstr "Текущий Список Воспроизведения"
+msgstr "Custom Playlists"
 
 #: ../xlgui/panel/playlists.py:572
 msgid "Add Smart Playlist"
-msgstr "Добавить 'Умный' Список Воспроизведения"
+msgstr "Tambah Smart Playlist"
 
 #: ../xlgui/panel/playlists.py:637
 msgid "Edit Smart Playlist"
-msgstr "Редактировать 'Умный' Список Воспроизведения"
+msgstr "Edit Smart Playlist"
 
 #: ../xlgui/panel/radio.py:96 ../xlgui/panel/radio.py:453
 #: ../xlgui/panel/radio.py:529
 msgid "Loading streams..."
-msgstr "Загрузка потоков..."
+msgstr "Loading streams..."
 
 #: ../xlgui/panel/radio.py:125 ../data/glade/radio_panel.glade.h:2
 #: ../plugins/podcasts/__init__.py:89 ../plugins/podcasts/__init__.py:212
@@ -974,11 +951,11 @@ msgstr "Загрузка потоков..."
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:224
 #: ../plugins/shoutcast/__init__.py:257 ../plugins/podcasts/podcasts.glade.h:2
 msgid "Idle."
-msgstr "Ожидание."
+msgstr "Idle."
 
 #: ../xlgui/panel/radio.py:166
 msgid "Add Radio Station"
-msgstr "Добавить Радио Станцию"
+msgstr "Tambah Stesen Radio"
 
 #: ../xlgui/panel/radio.py:169
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
@@ -987,154 +964,154 @@ msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:234
 msgid "Saved Stations"
-msgstr "Сохранённые Станции"
+msgstr "Stesen yang disimpan"
 
 #: ../xlgui/panel/radio.py:235
 msgid "Radio Streams"
-msgstr "Радио Потоки"
+msgstr "Aliran Radio"
 
 #: ../xlgui/panel/radio.py:264
 msgid "Refresh"
-msgstr "Обновить"
+msgstr "Refresh"
 
 #: ../xlgui/panel/radio.py:394
 msgid "Enter the name you want for your new playlist"
-msgstr "Введите новое имя для вашего списка воспроизведения"
+msgstr "Masukkan nama yang anda mahu bagi playlist baru anda"
 
 #. TRANSLATORS: Filesize column in the file browser
 #: ../xlgui/panel/files.py:114
 msgid "Size"
-msgstr "Размер"
+msgstr "Saiz"
 
 #: ../xlgui/panel/files.py:347
 #, python-format
 msgid "%s KB"
-msgstr "%s Кбайт"
+msgstr "%s KB"
 
 #: ../xlgui/panel/collection.py:100
 msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
-"Эта операция полностью удалит выбранные композиции с вашего диска, вы "
-"уверены, что хотите продолжить?"
+"Ini akan hapuskan trek yang dipilih dari disk anda, adakah anda pasti mahu "
+"teruskan?"
 
 #: ../xlgui/panel/collection.py:162
 msgid "Rescan Collection"
-msgstr "Заново просканировать фонотеку"
+msgstr "Imbas kembali Koleksi"
 
 #: ../xlgui/panel/collection.py:625
 msgid "Various Artists"
-msgstr "Различные Исполнители"
+msgstr "Pelbagai Artis"
 
 #: ../xlgui/panel/device.py:115
 #, python-format
 msgid "Transferring to %s..."
-msgstr "Передача в %s..."
+msgstr "Memindahkan ke %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:21
 msgid "Covers"
-msgstr "Обложки"
+msgstr "Covers"
 
 #: ../xlgui/prefs/appearance_prefs.py:22
 msgid "Appearance"
-msgstr "Оформление"
+msgstr "Penampilan"
 
 #: ../xlgui/prefs/playback_prefs.py:22
 msgid "Playback"
-msgstr "Воспроизведение"
+msgstr "Playback"
 
 #: ../xlgui/prefs/__init__.py:73 ../data/glade/preferences_dialog.glade.h:2
 msgid "Preferences"
-msgstr "Настройки"
+msgstr "Keutamaan"
 
 #: ../xlgui/prefs/__init__.py:84 ../xlgui/prefs/plugin_prefs.py:25
 msgid "Plugins"
-msgstr "Плагины"
+msgstr "Plugins"
 
 #: ../xlgui/prefs/playlists_prefs.py:22
 #: ../data/glade/playlists_panel.glade.h:1
 msgid "Playlists"
-msgstr "Списки Воспроизведения"
+msgstr "Playlists"
 
 #: ../xlgui/prefs/osd_prefs.py:22
 msgid "On Screen Display"
-msgstr "Всплывающее Уведомление"
+msgstr "Paparan Atas Skrin"
 
 #: ../xlgui/prefs/plugin_prefs.py:81
 msgid "Plugin"
-msgstr "Плагин"
+msgstr "Plugin"
 
 #: ../xlgui/prefs/plugin_prefs.py:89
 msgid "Version"
-msgstr "Версия"
+msgstr "Versi"
 
 #: ../xlgui/prefs/plugin_prefs.py:97
 #: ../plugins/multialarmclock/alarmclk.glade.h:6
 msgid "Enabled"
-msgstr "Включен"
+msgstr "Dibolehkan"
 
 #: ../xlgui/prefs/plugin_prefs.py:119
 msgid "Choose a plugin"
-msgstr "Выбрать плагин"
+msgstr "Pilih plugin"
 
 #: ../xlgui/prefs/plugin_prefs.py:127
 msgid "Plugin Archives"
-msgstr "Архивы Плагинов"
+msgstr "Arkib Plugin"
 
 #: ../xlgui/prefs/plugin_prefs.py:180
 #, python-format
 msgid "Could not enable plugin: %s"
-msgstr "Не удалось включить плагин: %s"
+msgstr "Tidak boleh enable plugin: %s"
 
 #: ../xlgui/prefs/plugin_prefs.py:187
 #, python-format
 msgid "Could not disable plugin: %s"
-msgstr "Не удалось отключить плагин: %s"
+msgstr "Tidak boleh disable plugin: %s"
 
 #: ../xlgui/prefs/widgets.py:244
 msgid "Add item"
-msgstr "Добавить элемент"
+msgstr "Tambah item"
 
 #: ../xlgui/prefs/widgets.py:249
 msgid "Remove item"
-msgstr "Удалить элемент"
+msgstr "Buang item"
 
 #: ../xlgui/prefs/widgets.py:262
 msgid "Move selected item up"
-msgstr "Переместить выбранный элемент вверх"
+msgstr "Alih item dipilih ke atas"
 
 #: ../xlgui/prefs/widgets.py:267
 msgid "Move selected item down"
-msgstr "Переместить выбранный элемент вниз"
+msgstr "Alih item dipilih ke bawah"
 
 #: ../xlgui/prefs/widgets.py:538
 msgid "Action"
-msgstr "Действие"
+msgstr "Action"
 
 #: ../xlgui/prefs/widgets.py:546
 msgid "Shortcut"
-msgstr "Комбинация клавиш"
+msgstr "Shortcut"
 
 #: ../xlgui/tray.py:73
 msgid "Exaile Music Player"
-msgstr "Музыкальный проигрыватель Exaile"
+msgstr "Exaile Music Player"
 
 #: ../xlgui/tray.py:116 ../data/glade/main.glade.h:17
 msgid "Shuffle playback order"
-msgstr "Проигрывать композиции в случайном порядке"
+msgstr ""
 
 #: ../xlgui/tray.py:121 ../data/glade/main.glade.h:15
 msgid "Repeat playlist"
-msgstr "Повторять список воспроизведения"
+msgstr "Ulang playlist"
 
 #: ../xlgui/tray.py:126
 msgid "Dynamically add similar tracks"
-msgstr "Динамически добавлять похожие композиции"
+msgstr ""
 
 #: ../xlgui/tray.py:135
 msgid "Remove current track from playlist"
-msgstr "Удалить текущую композицию из списка воспроизведения"
+msgstr "Buang trek semasa dari playlist"
 
 #: ../data/glade/device_manager.glade.h:1
 msgid "..."
@@ -1142,92 +1119,92 @@ msgstr "..."
 
 #: ../data/glade/device_manager.glade.h:2
 msgid "Add device"
-msgstr "Добавить устройство"
+msgstr "Tambah device"
 
 #: ../data/glade/device_manager.glade.h:3
 msgid "Custom: "
-msgstr "Текущий: "
+msgstr "Custom: "
 
 #: ../data/glade/device_manager.glade.h:4
 msgid "Detected devices:"
-msgstr "Обнаруженные устройства:"
+msgstr "Device yang dikesan:"
 
 #: ../data/glade/device_manager.glade.h:5
 msgid "Device Manager"
-msgstr "Менеджер Устройств"
+msgstr "Device Manager"
 
 #: ../data/glade/device_manager.glade.h:6
 msgid "Type of device:"
-msgstr "Тип устройств:"
+msgstr ""
 
 #: ../data/glade/device_panel.glade.h:1
 #: ../data/glade/collection_panel.glade.h:10
 msgid "Collection"
-msgstr "Фонотека"
+msgstr "Koleksi"
 
 #: ../data/glade/coverchooser.glade.h:1
 msgid "Cover Finder"
-msgstr "Поисковик Обложек"
+msgstr "Pencari Cover"
 
 #: ../data/glade/coverchooser.glade.h:2
 msgid "New Search"
-msgstr "Новый Поиск"
+msgstr "Carian Baru"
 
 #: ../data/glade/trackproperties_dialog.glade.h:1
 msgid "Album:"
-msgstr "Альбом:"
+msgstr "Album:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:2
 msgid "Artist:"
-msgstr "Исполнитель:"
+msgstr "Artis:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:3
 msgid "Basic"
-msgstr "Основной"
+msgstr "Asas"
 
 #: ../data/glade/trackproperties_dialog.glade.h:4
 msgid "Bitrate:"
-msgstr "Битрейт:"
+msgstr "Bitrate:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:5
 msgid "Date:"
-msgstr "Дата:"
+msgstr "Tarikh:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:6
 msgid "Details"
-msgstr "Подробности"
+msgstr "Perincian"
 
 #: ../data/glade/trackproperties_dialog.glade.h:7
 msgid "File Size:"
-msgstr "Размер Файла:"
+msgstr "Saiz fail:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:8
 msgid "Genre:"
-msgstr "Жанр:"
+msgstr "Genre:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:9
 msgid "Length:"
-msgstr "Длительность:"
+msgstr "Panjang:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:10
 msgid "Location:"
-msgstr "Местоположение:"
+msgstr "Lokasi:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:11
 msgid "Play Count:"
-msgstr "Количество Воспроизведений:"
+msgstr "Bilangan Main:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:12
 msgid "Title:"
-msgstr "Название:"
+msgstr "Judul:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:13
 msgid "Track Number:"
-msgstr "Номер Композиции:"
+msgstr "Nombor Trek:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:14
 msgid "Track Properties"
-msgstr "Свойства Композиции"
+msgstr "Track Properties"
 
 #: ../data/glade/about_dialog.glade.h:1
 msgid "&#xA9; 2009"
@@ -1235,7 +1212,7 @@ msgstr "&#xA9; 2009"
 
 #: ../data/glade/about_dialog.glade.h:2
 msgid "About Exaile"
-msgstr "Об Exaile"
+msgstr "Tentang Exaile"
 
 #: ../data/glade/about_dialog.glade.h:3
 msgid ""
@@ -1255,12 +1232,14 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
-"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"Hakcipta (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
+"Program ini adalah perisian percuma; anda boleh edar semula dan/atau "
+"ubahkannya\n"
+"dibawah syarat-syarat GNU General Public License sebagaimana yang "
+"diterbitkan oleh\n"
+"Free Software Foundation; sama ada versi 2 Lesen tersebut, atau\n"
+"(pilihan anda) mana-mana versi terbaru.\n"
 "\n"
 "This program is distributed in the hope that it will be useful,\n"
 "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
@@ -1279,51 +1258,51 @@ msgid ""
 msgstr ""
 "Mathias Brodala\n"
 "   <info@noctus.net>\n"
-"    Translation Manager"
+"    Pengurus Terjemahan"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:1
 msgid "Always show tab bar"
-msgstr "Всегда показывать полосу вкладок"
+msgstr "Sentiasa papar bar tab"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:2
 msgid "Bottom"
-msgstr "Низ"
+msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
-msgstr "Переходить к текущей композиции в списке при смене"
+msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.glade.h:5
 msgid "Left"
-msgstr "Лево"
+msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:8
 msgid "Minimize to tray"
-msgstr "Свернуть в трей"
+msgstr "Minimize ke tray"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:7
 msgid "Right"
-msgstr "Право"
+msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:9
 msgid "Show splash screen on startup"
-msgstr "Показывать сплеш-заставку при загрузке"
+msgstr "Papar splash screen ketika startup"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:10
 msgid "Show tray icon"
-msgstr "Отображать иконку в системном трее"
+msgstr "Paparkan ikon tray"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:11
 msgid "Tab placement:"
-msgstr "Местоположение вкладки:"
+msgstr "Penempatan tab:"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:11
 msgid "Top"
-msgstr "Верх"
+msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
-msgstr "Использовать прозрачность (если поддерживается)"
+msgstr "Guna alpha transparency (jika disokong)"
 
 #: ../data/glade/osd_window.glade.h:1
 msgid ""
@@ -1332,83 +1311,84 @@ msgid ""
 "OSD to appear"
 msgstr ""
 "<b>OSD</b>\n"
-"Перетащите это окно в то место экрана,\n"
-"где вы хотите видеть OSD"
+"Drag ke lokasi yang anda mahu\n"
+"OSD muncul"
 
 #: ../data/glade/osd_window.glade.h:4
 msgid "Popup"
-msgstr "Всплывающее окно"
+msgstr "Popup"
 
 #: ../data/glade/radio_panel.glade.h:1
 msgid "Add Station"
-msgstr "Добавить Станцию"
+msgstr "Tambah Stesen"
 
 #: ../data/glade/radio_panel.glade.h:3
 #: ../data/glade/flatplaylist_panel.glade.h:3
 msgid "Radio"
-msgstr "Радио"
+msgstr "Radio"
 
 #: ../data/glade/covermanager.glade.h:1
 msgid "Cover Manager"
-msgstr "Менеджер Обложек"
+msgstr "Pengurus Cover"
 
 #: ../data/glade/covermanager.glade.h:3
 msgid "_Close"
-msgstr "_Закрыть"
+msgstr "_Tutup"
 
 #: ../data/glade/osd_prefs_pane.glade.h:1
 msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
-msgstr "<b>Вы можете перетащить окно OSD в удобное для вас место экрана</b>"
+msgstr ""
+"<b>Alih tetingkap On Screen Display ke lokasi yang anda mahu ianya muncul</b>"
 
 #: ../data/glade/osd_prefs_pane.glade.h:5
 msgid "Background Color:"
-msgstr "Цвет Фона:"
+msgstr "Warna Latar Belakang:"
 
 #: ../data/glade/osd_prefs_pane.glade.h:6
 msgid "Display OSD when hovering over tray icon"
-msgstr "Показывать OSD при наведении мыши на иконку в трее"
+msgstr ""
 
 #: ../data/glade/osd_prefs_pane.glade.h:7
 msgid "Display a progressbar in the OSD"
-msgstr "Показывать прогрессбар на OSD"
+msgstr "Papar progressbar dalam OSD"
 
 #: ../data/glade/osd_prefs_pane.glade.h:8
 msgid "Opacity Level:"
-msgstr "Уровень Прозрачности:"
+msgstr "Kadar Kelegapan:"
 
 #: ../data/glade/osd_prefs_pane.glade.h:9
 msgid "Show OSD on track change"
-msgstr "Показывать OSD при смене композиции"
+msgstr "Papar OSD ketika trek berubah"
 
 #: ../data/glade/osd_prefs_pane.glade.h:10
 msgid "Text Color"
-msgstr "Цвет Текста"
+msgstr "Warna Teks"
 
 #: ../data/glade/osd_prefs_pane.glade.h:11
 msgid "Text Font:"
-msgstr "Шрифт:"
+msgstr "Font Teks:"
 
 #: ../data/glade/osd_prefs_pane.glade.h:12
 msgid "Window Height:"
-msgstr "Высота Окна:"
+msgstr "Tinggi Tetingkap:"
 
 #: ../data/glade/osd_prefs_pane.glade.h:13
 msgid "Window Width:"
-msgstr "Ширина Окна:"
+msgstr "Lebar Tetingkap:"
 
 #: ../data/glade/queue_dialog.glade.h:1
 msgid "Close this dialog"
-msgstr "Закрыть это окно"
+msgstr "Tutup dialog ini"
 
 #: ../data/glade/queue_dialog.glade.h:2
 msgid "Queue Manager"
-msgstr "Управление Очередью Воспроизведения"
+msgstr "Queue Manager"
 
 #: ../data/glade/queue_dialog.glade.h:3
 msgid "Remove All"
-msgstr "Удалить Всё"
+msgstr "Buang Semua"
 
 #: ../xl/player/pipe.py:208
 msgid "ALSA"
@@ -1416,15 +1396,15 @@ msgstr "ALSA"
 
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
-msgstr "Аудиоустройство:  "
+msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:8
 msgid "Crossfade duration (ms):"
-msgstr "Продолжительность плавного микширования (мс):"
+msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:9
 msgid "Fade duration (ms):"
-msgstr "Продолжительность плавного затухания (мс):"
+msgstr ""
 
 #: ../xl/player/pipe.py:203
 msgid "GNOME"
@@ -1436,7 +1416,7 @@ msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.glade.h:8
 msgid "Normal"
-msgstr "Нормальный"
+msgstr ""
 
 #: ../xl/player/pipe.py:213
 msgid "OSS"
@@ -1444,7 +1424,7 @@ msgstr "OSS"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
-msgstr "Модуль вопроизведения (требуется перезапуск): "
+msgstr ""
 
 #: ../xl/player/pipe.py:218
 msgid "PulseAudio"
@@ -1452,76 +1432,75 @@ msgstr "PulseAudio"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
-msgstr "Возобновлять воспроизведение в приостановленном состоянии"
+msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:14
 msgid "Resume playback on start"
-msgstr "Возобновлять воспроизведение при запуске программы"
+msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:15
 msgid "These options only affect the unified engine."
 msgstr ""
-"Эти настройки действуют только для универсального модуля воспроизведения."
 
 #: ../data/ui/playback_prefs_pane.glade.h:15
 msgid "Unified (unstable)"
-msgstr "Объединённый (нестабильно)"
+msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr "Использовать микширование (ЭКСПЕРИМЕНТАЛЬНО)"
+msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:17
 msgid "Use fade transitions on user actions"
-msgstr "Использовать плавные переходы при действиях пользователя"
+msgstr ""
 
 #: ../data/glade/plugin_prefs_pane.glade.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Ни Один Плагин Не Выбран</b>"
+msgstr ""
 
 #: ../data/glade/plugin_prefs_pane.glade.h:2
 msgid "Authors:"
-msgstr "Авторы:"
+msgstr "Pengarang:"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:3
 msgid "Available Plugins"
-msgstr "Доступные Плагины"
+msgstr ""
 
 #: ../data/glade/plugin_prefs_pane.glade.h:4
 msgid "Description:"
-msgstr "Описание:"
+msgstr "Perihal:"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:5
 msgid "Install"
-msgstr "Установить"
+msgstr "Install"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:6
 msgid "Install Updates"
-msgstr "Установить Обновления"
+msgstr ""
 
 #: ../data/glade/plugin_prefs_pane.glade.h:7
 msgid "Install a third party plugin from a file"
-msgstr "Установить сторонний плагин из файла"
+msgstr ""
 
 #: ../data/glade/plugin_prefs_pane.glade.h:8
 msgid "Install plugin file"
-msgstr "Установить файл плагина"
+msgstr "Install fail plugin"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:9
 msgid "Installed Plugins"
-msgstr "Установить Плагины"
+msgstr "Plugin Dipasang"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:10
 msgid "Updates"
-msgstr "Обновления"
+msgstr "Kemaskini"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:11
 msgid "Version:"
-msgstr "Версия:"
+msgstr "Versi:"
 
 #: ../data/glade/main.glade.h:3
 msgid "0/0 tracks"
-msgstr "0/0 композиций"
+msgstr "0/0 tracks"
 
 #: ../data/glade/main.glade.h:4
 msgid "0:00 / 0:00"
@@ -1529,53 +1508,52 @@ msgstr "0:00 / 0:00"
 
 #: ../data/glade/main.glade.h:5
 msgid "C_overs"
-msgstr "_Обложки"
+msgstr "C_overs"
 
 #: ../data/glade/main.glade.h:6
 msgid "Clear Playlist"
-msgstr "Очистить Список Воспроизведения"
+msgstr "Bersih Playlist"
 
 #: ../data/ui/main.glade.h:5
 msgid "Click to view Queue"
-msgstr "Нажмите, чтобы посмотреть Очередь"
+msgstr ""
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
-msgstr "Динамически добавлять похожие композиции в список воспроизведения"
+msgstr ""
 
 #: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
 msgid "Next Track"
-msgstr "Следующая Композиция"
+msgstr "Trek Seterusnya"
 
 #: ../data/glade/main.glade.h:10
 msgid "Open _URL"
-msgstr "Открыть _URL"
+msgstr "Buka _URL"
 
 #: ../data/glade/main.glade.h:11
 msgid "Page 1"
-msgstr "Страница 1"
+msgstr "Halaman 1"
 
 #: ../data/glade/main.glade.h:12 ../plugins/minimode/__init__.py:203
 msgid "Previous Track"
-msgstr "Пердыдущая Композиция"
+msgstr "Trek terdahulu"
 
 #: ../data/glade/main.glade.h:13
 msgid "Randomize the order of the current playlist"
 msgstr ""
-"Случайно изменить порядок композиций в текущем списке воспроизведения"
 
 #: ../data/glade/main.glade.h:14
 msgid "Re_scan Collection"
-msgstr "Заново про_сканировать фонотеку"
+msgstr "Imbas_kembali Koleksi"
 
 #: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:13
 #: ../data/glade/files_panel.glade.h:6
 msgid "Search: "
-msgstr "Поиск: "
+msgstr "Cari: "
 
 #: ../data/glade/main.glade.h:18
 msgid "Start/Pause Playback"
-msgstr "Начать/Приостановить Воспроизведение"
+msgstr "Start/Pause Playback"
 
 #: ../data/glade/main.glade.h:19
 msgid ""
@@ -1583,185 +1561,179 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
-"Остановить Воспроизведение\n"
-"\n"
-"Щелкните правой кнопкой мыши для остановки после выделенной композиции"
 
 #: ../data/glade/main.glade.h:23
 msgid "Track _properties"
-msgstr "Свойства _композиции"
+msgstr ""
 
 #: ../data/glade/main.glade.h:25
 msgid "_Autosize"
-msgstr "_Автоматический Размер"
+msgstr "_Autosize"
 
 #: ../data/glade/main.glade.h:26
 msgid "_Collection"
-msgstr "_Фонотека"
+msgstr "_Koleksi"
 
 #: ../data/glade/main.glade.h:27
 msgid "_Columns"
-msgstr "С_толбцы"
+msgstr "_Kolum"
 
 #: ../data/glade/main.glade.h:28
 msgid "_Device Manager"
-msgstr "_Менеджер Устройств"
+msgstr ""
 
 #: ../data/glade/main.glade.h:29
 msgid "_Edit"
-msgstr "_Правка"
+msgstr "_Edit"
 
 #: ../data/glade/main.glade.h:30
 msgid "_Export current playlist"
-msgstr "_Экспорт текущего списка воспроизведения"
+msgstr "_Eksport playlist semasa"
 
 #: ../data/glade/main.glade.h:31
 msgid "_File"
-msgstr "_Файл"
+msgstr "_Fail"
 
 #: ../data/glade/main.glade.h:32
 msgid "_Go to Playing Track"
-msgstr "_Перейти к Проигрываемой Композиции"
+msgstr ""
 
 #: ../data/glade/main.glade.h:33
 msgid "_Help"
-msgstr "_Помощь"
+msgstr "_Bantuan"
 
 #: ../data/glade/main.glade.h:35
 msgid "_Queue"
-msgstr "_Очередь"
+msgstr "_Queue"
 
 #: ../data/glade/main.glade.h:36
 msgid "_Randomize Playlist"
-msgstr "_Перемешать Список Воспроизведения"
+msgstr ""
 
 #: ../data/glade/main.glade.h:37
 msgid "_Resizable"
-msgstr "_Изменяемого Размера"
+msgstr ""
 
 #: ../data/glade/main.glade.h:38
 msgid "_Tools"
-msgstr "_Инструменты"
+msgstr ""
 
 #: ../data/glade/main.glade.h:39
 msgid "_View"
-msgstr "_Вид"
+msgstr "_Papar"
 
 #: ../data/glade/collection_manager.glade.h:1
 msgid "Collection Manager"
-msgstr "Управление Фонотекой"
+msgstr "Pengurus Koleksi"
 
 #: ../data/glade/flatplaylist_panel.glade.h:1
 msgid "Append All Tracks to Playlist"
-msgstr "Добавить Все Композиции в Список Воспроизведения"
+msgstr ""
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
-msgstr "Импорт CD"
+msgstr "Import CD"
 
 #: ../data/glade/general_prefs_pane.glade.h:1
 #: ../data/glade/playlists_prefs_pane.glade.h:1
 msgid "Open last playlists on startup"
-msgstr "Открывать последний список воспроизведения при запуске программы"
+msgstr ""
 
 #: ../data/glade/collection_panel.glade.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr "<b>Фонотека пуста.</b>"
+msgstr "<b>Koleksi kosong.</b>"
 
 #: ../data/glade/collection_panel.glade.h:2
 msgid "Add Music"
-msgstr "Добавить Музыку"
+msgstr "Tambah Muzik"
 
 #: ../data/ui/collection_panel.glade.h:5
 msgid "Artist - Year - Album"
-msgstr "Исполнитель - Год - Альбом"
+msgstr ""
 
 #: ../data/ui/collection_panel.glade.h:7
 msgid "Genre - Album"
-msgstr "Жанр - Альбом"
+msgstr ""
 
 #: ../data/ui/collection_panel.glade.h:8
 msgid "Genre - Artist"
-msgstr "Жанр - Исполнитель"
+msgstr ""
 
 #: ../data/glade/collection_panel.glade.h:11
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
-"Обновить панель фонотеки\n"
-"(Зажмите Shift для повторного сканирования фонотеки)"
 
 #: ../data/ui/collection_panel.glade.h:12
 msgid "Year - Album"
-msgstr "Год - Альбом"
+msgstr ""
 
 #: ../data/ui/collection_panel.glade.h:13
 msgid "Year - Artist"
-msgstr "Год - Исполнитель"
+msgstr ""
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
 msgstr ""
-"Спрашивать о сохранении текущего списка воспроизведения перед закрытием"
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
-msgstr "(переместите для изменения порядка)"
+msgstr ""
 
 #: ../data/glade/cover_prefs_pane.glade.h:2
 msgid "Cover Search Order:"
-msgstr "Порядок Поиска Обложек:"
+msgstr ""
 
 #: ../data/glade/files_panel.glade.h:1
 msgid "Files"
-msgstr "Файлы"
+msgstr "Fail"
 
 #: ../data/glade/files_panel.glade.h:2
 msgid "Home directory"
-msgstr "Домашний каталог"
+msgstr "Direktori rumah"
 
 #: ../data/glade/files_panel.glade.h:3
 msgid "Next visited directory"
-msgstr "Следующий посещённый каталог"
+msgstr ""
 
 #: ../data/glade/files_panel.glade.h:4
 msgid "Previous visited directory"
-msgstr "Предыдущий посещённый каталог"
+msgstr ""
 
 #: ../data/glade/files_panel.glade.h:5
 msgid "Refresh directory listing"
-msgstr "Обновить содержимое каталога"
+msgstr ""
 
 #: ../data/glade/files_panel.glade.h:7
 msgid "Up one directory"
-msgstr "Вверх на один каталог"
+msgstr ""
 
 #: ../plugins/multialarmclock/__init__.py:410
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr "Мультибудильник"
+msgstr ""
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr "Будильник"
+msgstr "Jam Penggera"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr "AudioScrobbler"
+msgstr ""
 
 #: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
-msgstr "Включить аудио-скробблинг"
+msgstr "Enable audioscrobbling"
 
 #: ../plugins/cd/__init__.py:95 ../plugins/cd/__init__.py:172
 msgid "Audio Disc"
-msgstr "Звуковой Диск"
+msgstr "Cakera Audio"
 
 #: ../plugins/cd/_cdguipanel.py:60
 msgid "Importing CD..."
-msgstr "Импортирование CD..."
+msgstr "Importing CD..."
 
 #: ../plugins/cd/cdprefs.py:22
 msgid "CD"
@@ -1769,36 +1741,36 @@ msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
 msgid "Track number"
-msgstr "Номер композиции"
+msgstr "Nombor trek"
 
 #: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
 msgid "Disc number"
-msgstr "Номер диска"
+msgstr "Nombor Disk"
 
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:130
 msgid "Play count"
-msgstr "Количество воспроизведений"
+msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:278
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr "Закладки"
+msgstr "Tanda Buku"
 
 #: ../plugins/bookmarks/__init__.py:286
 msgid "Bookmark this track"
-msgstr "Добавить в закладки"
+msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:291
 msgid "Delete bookmark"
-msgstr "Удалить закладку"
+msgstr "Hapus tanda buku"
 
 #: ../plugins/bookmarks/__init__.py:295
 msgid "Clear bookmarks"
-msgstr "Очистить закладки"
+msgstr "Bersih tanda buku"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr "Всплывающие подсказки"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
@@ -1810,113 +1782,113 @@ msgstr "%(title)s"
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr "(%(artist)s)"
+msgstr "oleh %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr "из %(album)s"
+msgstr "dari %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr "Обложки с Amazon"
+msgstr "Amazon Covers"
 
 #: ../plugins/desktopcover/prefs.py:22 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr "Обложка Рабочего Стола"
+msgstr "Desktop Cover"
 
 msgid "Searching for mood..."
-msgstr "Подбор тональности..."
+msgstr ""
 
 msgid "Mood found."
-msgstr "Тональность подобрана."
+msgstr ""
 
 msgid "Could not read moodbar."
-msgstr "Невозможно прочитать регулятор тональности."
+msgstr ""
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
-msgstr "Приложение регулятора тональности недоступно."
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs.py:22
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr "ReplayGain"
+msgstr ""
 
 #: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr "Подкасты"
+msgstr "Podcasts"
 
 #: ../plugins/podcasts/__init__.py:72
 msgid "Podcast"
-msgstr "Подкаст"
+msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Refresh Podcast"
-msgstr "Обновить Подкасты"
+msgstr "Refresh Podcast"
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
-msgstr "Удалить"
+msgstr "Hapus"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
-msgstr "Для добавления подкаста введите его URL"
+msgstr ""
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
-msgstr "Открыть подкаст"
+msgstr "Buka Podcast"
 
 #: ../plugins/podcasts/__init__.py:154
 #, python-format
 msgid "Loading %s..."
-msgstr "Загрузка %s..."
+msgstr "Loading %s..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
-msgstr "Ошибка загрузки подкаста."
+msgstr "Ralat loading podcast."
 
 #: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
-msgstr "Загрузка Подкастов...."
+msgstr "Loading Podcasts..."
 
 #: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
-msgstr "Не удалось сохранить файл подкаста"
+msgstr "Tidak boleh simpan fail podcast"
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:158
 #: ../plugins/shoutcast/__init__.py:201 ../plugins/shoutcast/__init__.py:237
 msgid "Contacting Shoutcast server..."
-msgstr "Соединение с сервером Shoutcast"
+msgstr "Menghubungi server Shoutcast..."
 
 #: ../plugins/shoutcast/__init__.py:114 ../plugins/shoutcast/__init__.py:118
 #: ../plugins/shoutcast/__init__.py:167 ../plugins/shoutcast/__init__.py:171
 #: ../plugins/shoutcast/__init__.py:215 ../plugins/shoutcast/__init__.py:220
 #: ../plugins/shoutcast/__init__.py:248 ../plugins/shoutcast/__init__.py:253
 msgid "Error connecting to Shoutcast server."
-msgstr "Ошибка при подключении к серверу Shoutcast"
+msgstr "Ralat menghubungi server Shoutcast."
 
 #: ../plugins/shoutcast/__init__.py:273
 msgid "Enter the search keywords"
-msgstr "Введите ключевые слова для поиска"
+msgstr "Masukkan katakunci carian"
 
 #: ../plugins/shoutcast/__init__.py:274
 msgid "Shoutcast Search"
-msgstr "Поиск Потоковых Радиостанций"
+msgstr "Carian Shoutcast"
 
 #: ../plugins/shoutcast/__init__.py:297
 msgid "Search Results"
-msgstr "Результаты Поиска"
+msgstr "Hasil Carian"
 
 #: ../plugins/shoutcast/__init__.py:330
 msgid "Search"
-msgstr "Поиск"
+msgstr "Carian"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr "Уведомление"
+msgstr ""
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -1924,77 +1896,77 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
-"(%(artist)s)\n"
-"из альбома <i>%(album)s</i>"
+"oleh %(artist)s\n"
+"dari <i>%(album)s</i>"
 
 #: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
-msgstr "Консоль IPython - Exaile"
+msgstr "IPython Console - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:134
 msgid "Show IPython Console"
-msgstr "Показать Консоль IPython"
+msgstr "Papar IPython Console"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr "Консоль IPython"
+msgstr "IPython Console"
 
 #: ../plugins/minimode/__init__.py:209
 msgid "Stop Playback"
-msgstr "Остановить Воспроизведение"
+msgstr "Stop Playback"
 
 #: ../plugins/minimode/__init__.py:211
 msgid "Restore Main Window"
-msgstr "Восстановить Главное Окно"
+msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr "Компактный Режим"
+msgstr "Mini Mode"
 
 #: ../plugins/minimode/minimodeprefs.py:97
 msgid "Available controls"
-msgstr "Доступные элементы управления"
+msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:98
 msgid "Selected controls"
-msgstr "Выбранные элементы управления"
+msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:100
 msgid "Previous"
-msgstr "Предыдущая"
+msgstr "Sebelum"
 
 #: ../plugins/minimode/minimodeprefs.py:101
 msgid "Play/Pause"
-msgstr "Воспроизведение/Пауза"
+msgstr "Main/Jeda"
 
 #: ../plugins/minimode/minimodeprefs.py:102
 msgid "Stop"
-msgstr "Остановить воспроизведение"
+msgstr "Berhenti"
 
 #: ../plugins/minimode/minimodeprefs.py:103
 msgid "Next"
-msgstr "Следующая"
+msgstr "Seterusnya"
 
 #: ../plugins/minimode/minimodeprefs.py:104
 msgid "Track selector"
-msgstr "Выбор композиций"
+msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:105
 msgid "Progress bar"
-msgstr "Индикатор воспроизведения"
+msgstr "Bar progres"
 
 #: ../plugins/minimode/minimodeprefs.py:106
 msgid "Volume"
-msgstr "Громкость"
+msgstr "Volume"
 
 #: ../plugins/minimode/minimodeprefs.py:107
 msgid "Playlist button"
-msgstr "Кнопка списка воспроизведения"
+msgstr "Butang Playlist"
 
 #: ../plugins/minimode/minimodeprefs.py:110
 msgid "Restore"
-msgstr "Восстановить"
+msgstr "Restore"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:136
@@ -2005,28 +1977,28 @@ msgstr "$tracknumber - $title"
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:138
 msgid "$title by $artist"
-msgstr "$title - $artist"
+msgstr "$judul oleh $artis"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:140
 msgid "$title ($length)"
-msgstr "$title ($length)"
+msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
-msgstr "Начать Воспроизведение"
+msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:169
 msgid "Continue Playback"
-msgstr "Продолжить Воспроизведение"
+msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:172
 msgid "Pause Playback"
-msgstr "Приостановить Воспроизведение"
+msgstr "JedaPlayback"
 
 #: ../plugins/minimode/mmwidgets.py:732
 msgid "Seeking: "
-msgstr "Переход: "
+msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
@@ -2035,208 +2007,207 @@ msgstr " & "
 #: ../plugins/contextinfo/__init__.py:1033
 #: ../plugins/contextinfo/context.glade.h:1
 msgid "Context"
-msgstr "Содержание"
+msgstr "Konteks"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr "Запись аудиопотока"
+msgstr ""
 
 #: ../plugins/streamripper/__init__.py:54
 msgid "Streamripper can only record streams."
-msgstr "Риппер потоков может только записывать потоки."
+msgstr ""
 
 #: ../plugins/streamripper/__init__.py:87
 msgid "Error executing streamripper"
-msgstr "Ошибка выполнения риппера потоков"
+msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:1
 #: ../plugins/alarmclock/acprefs_pane.glade.h:1
 msgid "Alarm Days:"
-msgstr "Дни Оповещений:"
+msgstr "Hari Penggera:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:2
 msgid "Alarm Name:"
-msgstr "Имя Оповещения:"
+msgstr "Nama Penggera:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:3
 #: ../plugins/alarmclock/acprefs_pane.glade.h:2
 msgid "Alarm Time:"
-msgstr "Время Оповещения:"
+msgstr "Waktu Penggera:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:4
 msgid "Alarm:"
-msgstr "Оповещение:"
+msgstr "Penggera:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:5
 msgid "Enable Fading"
-msgstr "Включить затухание"
+msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:7
 msgid "Fading:"
-msgstr "Затухание:"
+msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:8
 #: ../plugins/alarmclock/acprefs_pane.glade.h:3
 msgid "Friday"
-msgstr "Пятница"
+msgstr "Jumaat"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:9
 #: ../plugins/alarmclock/acprefs_pane.glade.h:4
 msgid "Increment:"
-msgstr "Увеличение:"
+msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:10
 #: ../plugins/alarmclock/acprefs_pane.glade.h:5
 msgid "Maximum Volume:"
-msgstr "Максимальный Уровень Звука:"
+msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:11
 #: ../plugins/alarmclock/acprefs_pane.glade.h:6
 msgid "Minimum Volume:"
-msgstr "Минимальный Уровень Звука:"
+msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:12
 #: ../plugins/alarmclock/acprefs_pane.glade.h:7
 msgid "Monday"
-msgstr "Понедельник"
+msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:13
 msgid "Name - Time"
-msgstr "Название - Время"
+msgstr "Nama - Masa"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:14
 msgid "Restart Playlist"
-msgstr "Перезапустить Список Воспроизведения"
+msgstr "Restart Playlist"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:15
 #: ../plugins/alarmclock/acprefs_pane.glade.h:8
 msgid "Saturday"
-msgstr "Суббота"
+msgstr "Sabtu"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:16
 #: ../plugins/alarmclock/acprefs_pane.glade.h:9
 msgid "Sunday"
-msgstr "Воскресенье"
+msgstr "Ahad"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:17
 #: ../plugins/alarmclock/acprefs_pane.glade.h:10
 msgid "Thursday"
-msgstr "Четверг"
+msgstr "Khamis"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:18
 msgid "Time per Increment:"
-msgstr "Приращение времени:"
+msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:19
 #: ../plugins/alarmclock/acprefs_pane.glade.h:12
 msgid "Tuesday"
-msgstr "Вторник"
+msgstr "Selasa"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:20
 #: ../plugins/alarmclock/acprefs_pane.glade.h:14
 msgid "Wednesday"
-msgstr "Среда"
+msgstr "Rabu"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:11
 msgid "Timer per Increment:"
-msgstr "Приращение времени:"
+msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:13
 msgid "Use Fading"
-msgstr "Использовать Затухание"
+msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:1
 msgid "Password:"
-msgstr "Пароль:"
+msgstr "Katalaluan:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
 msgid "Show Menuitem to toggle Submission"
-msgstr "Добавить пункт меню для включение скробблинга"
+msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
 msgid "Submit tracks using Audioscrobbler"
-msgstr "Передать композиции, используя Audioscrobbler"
+msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:5
 msgid "Username:"
-msgstr "Имя пользователя:"
+msgstr "Nama pengguna:"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
 msgid "AAC"
-msgstr "AAC"
+msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:2
 msgid "FLAC"
-msgstr "FLAC"
+msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
 msgid "Import format: "
-msgstr "Формат импортируемых файлов: "
+msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:2
 msgid "Import path: "
-msgstr "Дирректория: "
+msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:3
 msgid "Import quality: "
-msgstr "Качество: "
+msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:6
 msgid "MP3 (CBR)"
-msgstr "MP3 (CBR)"
+msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:7
 msgid "MP3 (VBR)"
-msgstr "MP3 (VBR)"
+msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:8
 msgid "Ogg Vorbis"
-msgstr "Ogg Vorbis"
+msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:9
 msgid "WavPack"
-msgstr "WavPack"
+msgstr ""
 
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
-"Использовать обложки в меню закладок (активизируется при следующем запуске)"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
 msgid "<b>Content</b>"
-msgstr "<b>Содержимое</b>"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
 msgid "<b>Display</b>"
-msgstr "<b>Отображение</b>"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
 msgid "<b>Icons</b>"
-msgstr "<b>Иконки</b>"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
 msgid "Album Line:"
-msgstr "Строка Альбома:"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:5
 msgid "Artist Line:"
-msgstr "Строка Исполнителя:"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
 msgid "On Playback Start, Pause or Stop"
-msgstr "При Старте, Приостановке или Остановке Воспроизведения"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
 msgid "On Track Change"
-msgstr "При Смене Композиции"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
 msgid "On Tray Icon Hover"
-msgstr "При Наведении Мыши На Иконку В Трее"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
 msgid "Summary:"
-msgstr "Резюме:"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
 #, python-format
@@ -2245,144 +2216,140 @@ msgid ""
 "by their respective values. The title will be replaced by \"Unknown\" if it "
 "is empty."
 msgstr ""
-"Шаблоны \"%(title)s\", \"%(artist)s\", и \"%(album)s\" будут заменены на их "
-"значения. Заголовок будет заменён на \"Неизвестно\" в случае его отсутствия."
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
 msgid "Use Album Covers As Icons"
-msgstr "Использовать Обложки Альбомов Как Иконки"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr "Использовать Медия-Иконки Для Паузы, Остановки и Возобновления"
+msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
 msgid "When GUI is Focused"
-msgstr "Когда окно в фокусе"
+msgstr ""
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
 msgid "API Key:"
-msgstr "API ключ"
+msgstr ""
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
 msgid "Secret Key:"
-msgstr "Секретный ключ:"
+msgstr ""
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
 msgid ""
 "To sign up for an Amazon AWS account and get \n"
 "this information visit http://aws.amazon.com/"
 msgstr ""
-"Для получения аккаунта на Amazon AWS и дополнительной \n"
-"информации посетите сайт http://aws.amazon.com/"
 
 #: ../plugins/desktopcover/prefs.glade.h:1
 msgid "Anchor:"
-msgstr "Якорь:"
+msgstr ""
 
 #: ../plugins/desktopcover/prefs.glade.h:2
 msgid "Bottom left"
-msgstr "Внизу слева"
+msgstr ""
 
 #: ../plugins/desktopcover/prefs.glade.h:3
 msgid "Bottom right"
-msgstr "Внизу справа"
+msgstr ""
 
 #: ../plugins/desktopcover/prefs.glade.h:4
 msgid "Size:"
-msgstr "Размер:"
+msgstr ""
 
 #: ../plugins/desktopcover/prefs.glade.h:5
 msgid "Top left"
-msgstr "Вверху слева"
+msgstr ""
 
 #: ../plugins/desktopcover/prefs.glade.h:6
 msgid "Top right"
-msgstr "Сверху справа"
+msgstr ""
 
 #: ../plugins/desktopcover/prefs.glade.h:7
 msgid "X offset:"
-msgstr "Отступ по X:"
+msgstr ""
 
 #: ../plugins/desktopcover/prefs.glade.h:8
 msgid "Y offset:"
-msgstr "Отступ по Y:"
+msgstr ""
 
 #: ../plugins/desktopcover/prefs.glade.h:9
 msgid "pixels"
-msgstr "пикселей"
+msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:1
 msgid "Base color"
-msgstr "Базовый цвет"
+msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:2
 msgid "Base color:"
-msgstr "Базовый цвет:"
+msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
 msgid "Darken played section instead of using cursor"
-msgstr "Затемнять проигранную часть трека, вместо использования курсора"
+msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
 msgid "Darkness level:"
-msgstr "Степень затемнения:"
+msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
 msgid "Show only waveform, not mood"
-msgstr "Залить однородным цветом"
+msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
 msgid "Use color theme "
-msgstr "Включить цветовую тему "
+msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
 msgid "Use waveform style"
-msgstr "Показывать в виде осциллограммы"
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Additional amplification (dB):"
-msgstr "Дополнительное усиление (dB):"
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
 msgid "Additional amplification to apply to all files"
-msgstr "Дополнительное усиление для всех файлов"
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
-msgstr "Заранее анализировать треки, не имеющие информацию ReplayGain"
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
 msgid "Fallback correction level (dB):"
-msgstr "Уровень восстанавливающей корректировки (дБ):"
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr "Предпочитать корректировать звук по албомам, а не по трекам."
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:9
 msgid "Prefer per-album correction"
-msgstr "Предпочитаемая поальбомная коррекция"
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
 msgid "Protect against noise caused by over-amplification"
-msgstr "Защитить от шума, вызванного сильным усилением громкости"
+msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
 msgid "Use clipping protection"
-msgstr "Использовать защиту от обрезки сигнала"
+msgstr ""
 
 #: ../plugins/podcasts/podcasts.glade.h:1
 msgid "Add Podcast"
-msgstr "Добавить подкаст"
+msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:1
 msgid "<b>Body Message</b>"
-msgstr "<b>Тело Сообщения</b>"
+msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:2
 msgid "Both artist and album"
-msgstr "И исполнитель, и альбом"
+msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:4
 #, python-format
@@ -2392,62 +2359,58 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place"
 msgstr ""
-"Сообщение, отображаемое в теле всплывающего уведомления. Каждый раз "
-"\"%(title)s\", \"%(artist)s\", и \"%(album)s\" будут заменены "
-"соответствующими значениями. Если теги отсутствуют, будет вставляться "
-"\"Неизвестно\""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:5
 msgid "Only album"
-msgstr "Только альбом"
+msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:6
 msgid "Only artist"
-msgstr "Только исполнитель"
+msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:7
 msgid "Resize displayed covers"
-msgstr "Изменить размер отображаемых обложек"
+msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:8
 msgid "Summary"
-msgstr "Сводка"
+msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:1
 msgid "Font:"
-msgstr "Шрифт:"
+msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
 msgid "Terminal Opacity:"
-msgstr "Прозрачность терминала"
+msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"
-msgstr "Всегда поверх всех окон"
+msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:5
 msgid "Display window decorations"
-msgstr "Декорировать окно"
+msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
 msgid "Show in tasklist"
-msgstr "Показать в плейлисте"
+msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:8
 msgid "Show on all desktops"
-msgstr "Показывать на всех рабочих столах"
+msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Track title format:"
-msgstr "Формат заголовка трека"
+msgstr ""
 
 #: ../plugins/streamripper/streamripper.glade.h:1
 msgid "Relay Port:"
-msgstr "Порт радиосервера:"
+msgstr ""
 
 #: ../plugins/streamripper/streamripper.glade.h:2
 msgid "Save Location:"
-msgstr "Путь Сохранения:"
+msgstr ""
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -2457,11 +2420,6 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Проигрывает музыку в определенное время и день.\n"
-"\n"
-"Внимание: Exaile всего лишь нажмет кнопку воспроизведения, когда наступит "
-"указанное время, поэтому будьте уверены в том, что музыка, которую вы хотите "
-"услышать, в будет плейлисте"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2471,58 +2429,47 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Проигрывает музыку в определенное время.\n"
-"\n"
-"Внимание: Exaile всего лишь нажмет кнопку воспроизведения, когда наступит "
-"указанное время, поэтому будьте уверены в том, что музыка, которую вы хотите "
-"услышать, в будет плейлисте"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr "Текущая песня"
+msgstr ""
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
 "Sets the currently playing status in Pidgin for services that support it."
 msgstr ""
-"Устанавливает статус в Pidgin на текущее воспроизведение для поддерживающих "
-"это сервисов."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
-"Отправляет информацию о том что вы слушаете на Last.fm и похожие сервисы, "
-"поддерживающие автоматический скробблинг"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr "Воспроизведение CD"
+msgstr ""
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
 msgstr ""
-"Позволяет проигрывать CD-диски\n"
-"Для прочтения тегов нужен python-cddb."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
-msgstr "Создает объект MPRIS D-Bus для управления Exaile"
+msgstr ""
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr "Позволяет запоминать и воспроизводить с определенного места в треке"
+msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr "Обложки из Last.fm"
+msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr "Ищет обложки на Last.fm"
+msgstr ""
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -2533,12 +2480,6 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
-"Этот плагин показывает всплывающее сообщение при запуске или остановке "
-"воспроизведения. В сообщении показывается обложка альбома или иконка "
-"воспроизведение/пауза/стоп.\n"
-"\n"
-"Необходима библиотека: python-notify\n"
-"Рекомендуется плагин: notify-osd"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -2546,144 +2487,136 @@ msgid ""
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
 msgstr ""
-"Ищет обложки на Amazon\n"
-"\n"
-"Чтобы использовать этот плагин необходим ключ AWS API и секретный ключ."
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr "Отображает обложку текущего альбома на рабочем столе"
+msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Search"
-msgstr "Динамические плейлисты Last.fm"
+msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr "Поддержка динамических плейлистов Last.fm"
+msgstr ""
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr "Moodbar"
+msgstr ""
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
-"Заменяет стандартную полосу промотки трека на цветовое представление трека "
-"(Moodbar).\n"
-"Необходима библиотека: Moodbar"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
-msgstr "Поддержка iPod"
+msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr "Плагин для поддержки iPod'ов"
+msgstr ""
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr "Включает ReplayGain"
+msgstr ""
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr "Простенькая поддержка подкастов"
+msgstr ""
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr "Пауза при включении хранителя экрана"
+msgstr ""
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
-msgstr "Приостанавливать воспроизведение при активном хранителе экрана"
+msgstr ""
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"
-msgstr "Радио Shoutcast"
+msgstr ""
 
 #: ../plugins/shoutcast/PLUGININFO:4
 msgid "Shoutcast Radio list"
-msgstr "Радиостанции Shoutcast"
+msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr "Hello World"
+msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr "Простой плагин для тестирования системы плагинов"
+msgstr ""
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr "Мултимедийные клавиши GNOME"
+msgstr ""
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
-"Добавляет возможность управления Exaile через мульимедийные клавиши GNOME. "
-"работает в GNOME >= 2.20.x"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr "XKeys"
+msgstr ""
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr "Клобальные горячие клавиши через xlib"
+msgstr ""
 
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
-msgstr "Lyrics Fly"
+msgstr ""
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr "Плагин достает тексты из lyricsfly.com"
+msgstr ""
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr "Поддержка USB-плеера"
+msgstr ""
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
-msgstr "Добавляет возможность доступа к USB-плеерам"
+msgstr ""
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
-msgstr "Показывает всплывающе сообщение, при начале воспроизведени трека"
+msgstr ""
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr "Librivox"
+msgstr ""
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr "Просмотр и прослушивание аудио-книг из Librivox.org."
+msgstr ""
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
-msgstr "Добавляет консоль IPython для управления Exaile."
+msgstr ""
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr "Компактный режим плеера с настраиваемым интерфейсом"
+msgstr ""
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr "Обложки из тегов"
+msgstr ""
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
-msgstr "Поиск обложек альбомов в тегах"
+msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr "Контекстная информация"
+msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -2691,137 +2624,17 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
-"Показывает различную информацию о проигрываемой композиции.\n"
-"Зависит от: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging ( или "
-" PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
-"Позволяет записывать аудиопотоки с помощью streamripper\n"
-"Необходимы библиотеки: streamripper"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr "Lyrics Wiki"
+msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr "Ищет тексты песен в lyricwiki.org"
-
-#~ msgid "Choose a file"
-#~ msgstr "Выберите файл"
-
-#~ msgid "Number of Plays"
-#~ msgstr "Количество проигрываний"
-
-#~ msgid "Add to Playlist"
-#~ msgstr "Добавить в плейлист"
-
-#~ msgid "Add Playlist"
-#~ msgstr "Добавить плейлист"
-
-#, python-format
-#~ msgid ""
-#~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
-#~ msgstr ""
-#~ "Exaile теперь использует абсолютные URL, пожалуйста, удалите/переименуйте "
-#~ "вашу %s директорию"
-
-#~ msgid "Cancel"
-#~ msgstr "Отмена"
-
-#~ msgid "Center vertically"
-#~ msgstr "Центрировать по вертикали"
-
-#~ msgid "Center horizontally"
-#~ msgstr "Центрировать по горизонтали"
-
-#~ msgid ""
-#~ "Left\n"
-#~ "Right\n"
-#~ "Top\n"
-#~ "Bottom"
-#~ msgstr ""
-#~ "Слева\n"
-#~ "Справа\n"
-#~ "Сверху\n"
-#~ "Снизу"
-
-#~ msgid ""
-#~ "<b>{title}</b>\n"
-#~ "{artist}\n"
-#~ "on {album} - {length}"
-#~ msgstr ""
-#~ "<b>{title}</b>\n"
-#~ "{artist}\n"
-#~ "из альбома {album} - {length}"
-
-#~ msgid ""
-#~ "Automatic\n"
-#~ "GNOME\n"
-#~ "ALSA\n"
-#~ "OSS\n"
-#~ "PulseAudio\n"
-#~ "JACK"
-#~ msgstr ""
-#~ "Автоматически\n"
-#~ "GNOME\n"
-#~ "ALSA\n"
-#~ "OSS\n"
-#~ "PulseAudio\n"
-#~ "JACK"
-
-#~ msgid " - "
-#~ msgstr " - "
-
-#~ msgid " + "
-#~ msgstr " + "
-
-#~ msgid "Autosize"
-#~ msgstr "Авторазмер"
-
-#~ msgid "Vol:"
-#~ msgstr "Громкость:"
-
-#~ msgid ""
-#~ "Artist\n"
-#~ "Album\n"
-#~ "Genre - Artist\n"
-#~ "Genre - Album\n"
-#~ "Year - Artist\n"
-#~ "Year - Album\n"
-#~ "Artist - Year - Album"
-#~ msgstr ""
-#~ "Исполнитель\n"
-#~ "Альбом\n"
-#~ "Жанр - Исполнитель\n"
-#~ "Жанр - Альбом\n"
-#~ "Год - Исполнитель\n"
-#~ "Год - Альбом\n"
-#~ "Исполнитель - Год - Альбом"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Общее</b>"
-
-#~ msgid "<b>Position</b>"
-#~ msgstr "<b>Позиция</b>"
-
-#~ msgid "Vertical:"
-#~ msgstr "Вертикально:"
-
-#~ msgid "Horizontal:"
-#~ msgstr "Горизонтально:"
-
-#, python-format
-#~ msgid " (%(queue_count)d queued)"
-#~ msgstr " (%(queue_count)d добавлено в очередь)"
-
-#~ msgid ""
-#~ "Normal\n"
-#~ "Unified (unstable)"
-#~ msgstr ""
-#~ "Нормальный\n"
-#~ "Универсальный (нестабилен)"
+msgstr ""

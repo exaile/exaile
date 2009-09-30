@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-21 16:57+0000\n"
+"PO-Revision-Date: 2009-09-25 23:48+0000\n"
 "Last-Translator: Siegfried Gevatter <rainct@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-23 09:39+0000\n"
+"X-Launchpad-Export-Date: 2009-09-30 06:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -133,7 +133,7 @@ msgstr ""
 #: ../xl/main.py:325
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
-msgstr ""
+msgstr "Inicia en mode segur - a vegades és útil si us trobeu amb problemes"
 
 #: ../xl/main.py:360
 msgid "Force import of old data from 0.2.x. Overwrites current data."
@@ -200,7 +200,7 @@ msgstr ""
 
 #: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
-msgstr ""
+msgstr "No heu especificat cap ubicació on desar la base de dades"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
@@ -381,7 +381,7 @@ msgstr ""
 #: ../xlgui/main.py:1057
 #, python-format
 msgid "%(title)s (by %(artist)s)"
-msgstr ""
+msgstr "%(title)s (per %(artist)s)"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xlgui/main.py:1067
@@ -525,12 +525,12 @@ msgstr ""
 
 #: ../xlgui/menu.py:414
 msgid "Enter the new name you want for your playlist"
-msgstr ""
+msgstr "Introduïu el nou nom per a la llista de reproducció"
 
 #: ../xlgui/cover.py:286
 #, python-format
 msgid "%d covers to fetch"
-msgstr ""
+msgstr "hi ha %d caràtules per a recollir"
 
 #: ../xlgui/cover.py:291 ../xlgui/cover.py:310
 #: ../data/glade/covermanager.glade.h:2
@@ -654,6 +654,8 @@ msgid ""
 "Path is already in your collection, or is a subdirectory of another path in "
 "your collection"
 msgstr ""
+"El camí ja està a la col·lecció o és un subdirectori d'un altre camí de la "
+"col·lecció"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/plcolumns.py:59 ../xlgui/panel/flatplaylist.py:78
@@ -790,7 +792,7 @@ msgstr ""
 
 #: ../xlgui/filtergui.py:67
 msgid "Randomize results"
-msgstr ""
+msgstr "Mescla aleatòriament els resultats"
 
 #: ../xlgui/filtergui.py:83
 msgid "Limit to: "
@@ -954,7 +956,7 @@ msgstr ""
 #: ../xlgui/panel/radio.py:96 ../xlgui/panel/radio.py:453
 #: ../xlgui/panel/radio.py:529
 msgid "Loading streams..."
-msgstr ""
+msgstr "S'estan carregant els fluxes..."
 
 #: ../xlgui/panel/radio.py:125 ../data/glade/radio_panel.glade.h:2
 #: ../plugins/podcasts/__init__.py:89 ../plugins/podcasts/__init__.py:212
@@ -1279,7 +1281,7 @@ msgstr "Mostrar la pantalla d'inici a l'inici"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:10
 msgid "Show tray icon"
-msgstr ""
+msgstr "Mostrar la icona de l'àrea de notificació"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:11
 msgid "Tab placement:"
@@ -1337,6 +1339,7 @@ msgstr "Color de fons:"
 #: ../data/glade/osd_prefs_pane.glade.h:6
 msgid "Display OSD when hovering over tray icon"
 msgstr ""
+"Mostra l'OSD en mantenir el ratolí sobre la icona de l'àrea de notificació"
 
 #: ../data/glade/osd_prefs_pane.glade.h:7
 msgid "Display a progressbar in the OSD"
@@ -1770,13 +1773,13 @@ msgstr ""
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "per %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "de %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
@@ -1860,7 +1863,7 @@ msgstr ""
 
 #: ../plugins/shoutcast/__init__.py:273
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Introduïu els termes de cerca"
 
 #: ../plugins/shoutcast/__init__.py:274
 msgid "Shoutcast Search"

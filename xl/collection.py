@@ -753,7 +753,7 @@ class TransferQueue(object):
         self.transferring = True
         self.current_pos += 1
         try:
-            while self.current_pos + 1 < len(self.queue) and not self._stop:
+            while self.current_pos  < len(self.queue) and not self._stop:
                 track = self.queue[self.current_pos]
                 loc = track.get_loc_for_io()
                 self.library.add(loc)
@@ -764,6 +764,7 @@ class TransferQueue(object):
 
                 self.current_pos += 1
         finally:
+            self.queue = []
             self.transferring = False
             self.current_pos = -1
             self._stop = False

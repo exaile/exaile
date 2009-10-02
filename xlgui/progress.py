@@ -72,7 +72,8 @@ class ProgressMonitor(gtk.Frame):
         if percent == 100 or percent == 'complete':
             if hasattr(self.thread, 'thread_complete'):
                 self.thread.thread_complete()
-            self.stop_monitor()
+            #self.stop_monitor()
+            self.manager.remove_monitor(self)
 
     def stop_monitor(self, *e):
         """

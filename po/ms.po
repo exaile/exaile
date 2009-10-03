@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-02 03:03+0000\n"
+"PO-Revision-Date: 2009-10-03 02:16+0000\n"
 "Last-Translator: Ibrahim Elias <imen802003@netscape.net>\n"
 "Language-Team: Malay <ms@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-02 06:35+0000\n"
+"X-Launchpad-Export-Date: 2009-10-03 06:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -128,7 +128,7 @@ msgstr "Mula minimized (ke tray, sekiranya boleh)"
 
 #: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Toggle visibility of the GUI (if possible)"
 
 #: ../xl/main.py:325
 msgid ""
@@ -160,15 +160,15 @@ msgstr "Papar output debug"
 
 #: ../xl/main.py:334
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "Enable debugging of xl.event. Generates LOTS of output"
 
 #: ../xl/main.py:336
 msgid "Filter event debug output"
-msgstr ""
+msgstr "Filter event debug output"
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
-msgstr ""
+msgstr "Reduce level of output"
 
 #: ../xl/main.py:343
 msgid "Disable D-Bus support"
@@ -198,6 +198,8 @@ msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile is not yet finished loading. Perhaps you should listen for the "
+"exaile_loaded signal?"
 
 #: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
@@ -205,7 +207,7 @@ msgstr "Anda tidak tetapkan lokasi untuk simpan db"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
-msgstr ""
+msgstr "order must be a list or tuple"
 
 #: ../xl/transcoder.py:45
 msgid ""
@@ -228,22 +230,28 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
 
 #: ../xl/transcoder.py:78
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
 
 #: ../xl/transcoder.py:89
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
 
 #: ../xl/transcoder.py:100
 msgid "A very fast Free lossless audio format with good compression."
-msgstr ""
+msgstr "A very fast Free lossless audio format with good compression."
 
 #: ../xl/track.py:474
 msgid "  New song, fetching cover."
@@ -251,7 +259,7 @@ msgstr "  Lagu baru, mengambil cover."
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
-msgstr ""
+msgstr "Kelas peranti tidak sokong pindah."
 
 #: ../xl/settings.py:82
 msgid "Settings version is newer than current."
@@ -259,7 +267,7 @@ msgstr "Versi ketetapan lebih baru dari semasa."
 
 #: ../xl/settings.py:167
 msgid "We don't know how to store that kind of setting: "
-msgstr ""
+msgstr "We don't know how to store that kind of setting: "
 
 #: ../xl/settings.py:194
 msgid "An Unknown type of setting was found!"
@@ -455,7 +463,7 @@ msgstr "_Tutup Playlist"
 
 #: ../xlgui/menu.py:231
 msgid "Append to Current"
-msgstr ""
+msgstr "Append to Current"
 
 #: ../xlgui/menu.py:233
 msgid "Queue Items"
@@ -786,7 +794,7 @@ msgstr "Padan mana-man kriteria"
 
 #: ../xlgui/filtergui.py:67
 msgid "Randomize results"
-msgstr ""
+msgstr "Randomize results"
 
 #: ../xlgui/filtergui.py:83
 msgid "Limit to: "
@@ -1106,7 +1114,7 @@ msgstr "Exaile Music Player"
 
 #: ../xlgui/tray.py:116 ../data/glade/main.glade.h:17
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Shuffle playback order"
 
 #: ../xlgui/tray.py:121 ../data/glade/main.glade.h:15
 msgid "Repeat playlist"
@@ -1114,7 +1122,7 @@ msgstr "Ulang playlist"
 
 #: ../xlgui/tray.py:126
 msgid "Dynamically add similar tracks"
-msgstr ""
+msgstr "Tambah trek seumpama secara dinamik"
 
 #: ../xlgui/tray.py:135
 msgid "Remove current track from playlist"
@@ -1277,7 +1285,7 @@ msgstr "Bawah"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
-msgstr ""
+msgstr "Lompat ke lagu semasa ketika perubahan trek"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:5
 msgid "Left"
@@ -1355,7 +1363,7 @@ msgstr "Warna Latar Belakang:"
 
 #: ../data/glade/osd_prefs_pane.glade.h:6
 msgid "Display OSD when hovering over tray icon"
-msgstr ""
+msgstr "Papar OSD ketika hover atas ikon tray"
 
 #: ../data/glade/osd_prefs_pane.glade.h:7
 msgid "Display a progressbar in the OSD"
@@ -1403,15 +1411,15 @@ msgstr "ALSA"
 
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Audio Sink:  "
 
 #: ../data/glade/playback_prefs_pane.glade.h:8
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Tempoh Crossfade (ms):"
 
 #: ../data/glade/playback_prefs_pane.glade.h:9
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Tempoh faed (ms):"
 
 #: ../xl/player/pipe.py:203
 msgid "GNOME"
@@ -1431,7 +1439,7 @@ msgstr "OSS"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "Enjin Playback (perlu restart): "
 
 #: ../xl/player/pipe.py:218
 msgid "PulseAudio"
@@ -1439,31 +1447,31 @@ msgstr "PulseAudio"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Resume playback dalam keadaan jeda"
 
 #: ../data/glade/playback_prefs_pane.glade.h:14
 msgid "Resume playback on start"
-msgstr ""
+msgstr "Resume playback ketika mula"
 
 #: ../data/glade/playback_prefs_pane.glade.h:15
 msgid "These options only affect the unified engine."
-msgstr ""
+msgstr "Pilihan ini hanya terkesan untuk unified engine."
 
 #: ../data/ui/playback_prefs_pane.glade.h:15
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Unified (unstable)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Guna crossfading (PERCUBAAN)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:17
 msgid "Use fade transitions on user actions"
-msgstr ""
+msgstr "Use fade transitions on user actions"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr ""
+msgstr "<b>Tiada Plugin dipilih</b>"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:2
 msgid "Authors:"
@@ -1471,7 +1479,7 @@ msgstr "Pengarang:"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:3
 msgid "Available Plugins"
-msgstr ""
+msgstr "Plugin yang ada"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:4
 msgid "Description:"
@@ -1527,7 +1535,7 @@ msgstr "Klik untuk lihat Baris"
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Tambah trek seumpama ke playlist secara dinamik"
 
 #: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
 msgid "Next Track"
@@ -1547,7 +1555,7 @@ msgstr "Trek terdahulu"
 
 #: ../data/glade/main.glade.h:13
 msgid "Randomize the order of the current playlist"
-msgstr ""
+msgstr "Randomize the order of the current playlist"
 
 #: ../data/glade/main.glade.h:14
 msgid "Re_scan Collection"
@@ -1568,10 +1576,13 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Stop Playback\n"
+"\n"
+"Right Click for Stop After Track Feature"
 
 #: ../data/glade/main.glade.h:23
 msgid "Track _properties"
-msgstr ""
+msgstr "Perihal _trek"
 
 #: ../data/glade/main.glade.h:25
 msgid "_Autosize"
@@ -1603,7 +1614,7 @@ msgstr "_Fail"
 
 #: ../data/glade/main.glade.h:32
 msgid "_Go to Playing Track"
-msgstr ""
+msgstr "_Pergi ke Trek dimainkan"
 
 #: ../data/glade/main.glade.h:33
 msgid "_Help"
@@ -1615,11 +1626,11 @@ msgstr "_Queue"
 
 #: ../data/glade/main.glade.h:36
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "_Randomize Playlist"
 
 #: ../data/glade/main.glade.h:37
 msgid "_Resizable"
-msgstr ""
+msgstr "_Resizable"
 
 #: ../data/glade/main.glade.h:38
 msgid "_Tools"
@@ -1635,7 +1646,7 @@ msgstr "Pengurus Koleksi"
 
 #: ../data/glade/flatplaylist_panel.glade.h:1
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Masuk Semua Trek ke Playlist"
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
@@ -1671,6 +1682,8 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Refresh paparan koleksi\n"
+"(Hold Shift key untuk imbas kembali koleksi)"
 
 #: ../data/ui/collection_panel.glade.h:12
 msgid "Year - Album"
@@ -1682,15 +1695,15 @@ msgstr "Tahun - Artis"
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Dorong untuk simpan custom playlist ketika tutup"
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
-msgstr ""
+msgstr "(drag untuk reorder)"
 
 #: ../data/glade/cover_prefs_pane.glade.h:2
 msgid "Cover Search Order:"
-msgstr ""
+msgstr "Urutan Carian Cover:"
 
 #: ../data/glade/files_panel.glade.h:1
 msgid "Files"
@@ -1702,15 +1715,15 @@ msgstr "Direktori rumah"
 
 #: ../data/glade/files_panel.glade.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Direktori yang dilawati sebelum"
 
 #: ../data/glade/files_panel.glade.h:4
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Direktori yang dilawati sebelum"
 
 #: ../data/glade/files_panel.glade.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Refresh senarai direktori"
 
 #: ../data/glade/files_panel.glade.h:7
 msgid "Up one directory"
@@ -1728,7 +1741,7 @@ msgstr "Jam Penggera"
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
@@ -1777,7 +1790,7 @@ msgstr "Bersih tanda buku"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Notify-osd notifications"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
@@ -1807,22 +1820,22 @@ msgid "Desktop Cover"
 msgstr "Desktop Cover"
 
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Mencari mood..."
 
 msgid "Mood found."
-msgstr ""
+msgstr "Mood dijumpai."
 
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "Tidak boleh baca moodbar."
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Moodbar executable tidak didapati."
 
 #: ../plugins/replaygain/replaygainprefs.py:22
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "ReplayGain"
 
 #: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -1933,11 +1946,11 @@ msgstr "Mini Mode"
 
 #: ../plugins/minimode/minimodeprefs.py:97
 msgid "Available controls"
-msgstr ""
+msgstr "Available controls"
 
 #: ../plugins/minimode/minimodeprefs.py:98
 msgid "Selected controls"
-msgstr ""
+msgstr "Selected controls"
 
 #: ../plugins/minimode/minimodeprefs.py:100
 msgid "Previous"
@@ -2026,7 +2039,7 @@ msgstr "Streamripper hanya boleh rakam stream."
 
 #: ../plugins/streamripper/__init__.py:87
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "Error executing streamripper"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:1
 #: ../plugins/alarmclock/acprefs_pane.glade.h:1
@@ -2048,11 +2061,11 @@ msgstr "Penggera:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:5
 msgid "Enable Fading"
-msgstr ""
+msgstr "Enable Fading"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:7
 msgid "Fading:"
-msgstr ""
+msgstr "Fading:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:8
 #: ../plugins/alarmclock/acprefs_pane.glade.h:3
@@ -2104,7 +2117,7 @@ msgstr "Khamis"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:18
 msgid "Time per Increment:"
-msgstr ""
+msgstr "Time per Increment:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:19
 #: ../plugins/alarmclock/acprefs_pane.glade.h:12
@@ -2118,11 +2131,11 @@ msgstr "Rabu"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:11
 msgid "Timer per Increment:"
-msgstr ""
+msgstr "Timer per Increment:"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:13
 msgid "Use Fading"
-msgstr ""
+msgstr "Use Fading"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:1
 msgid "Password:"
@@ -2130,7 +2143,7 @@ msgstr "Katalaluan:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
 msgid "Show Menuitem to toggle Submission"
-msgstr ""
+msgstr "Show Menuitem to toggle Submission"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
 msgid "Submit tracks using Audioscrobbler"
@@ -2178,7 +2191,7 @@ msgstr "WavPack"
 
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
-msgstr ""
+msgstr "Guna cover dalam menu tanda buku (berkesan pada mula berikut)"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
 msgid "<b>Content</b>"
@@ -2202,15 +2215,15 @@ msgstr "Artist Line:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
 msgid "On Playback Start, Pause or Stop"
-msgstr ""
+msgstr "On Playback Start, Pause or Stop"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
 msgid "On Track Change"
-msgstr ""
+msgstr "On Track Change"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
 msgid "On Tray Icon Hover"
-msgstr ""
+msgstr "On Tray Icon Hover"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
 msgid "Summary:"
@@ -2223,6 +2236,8 @@ msgid ""
 "by their respective values. The title will be replaced by \"Unknown\" if it "
 "is empty."
 msgstr ""
+"Tag \"%(title)s\", \"%(artist)s\", and \"%(album)s\" akan diganti dengan "
+"value berkenaan. Judul akan digantikan dengan \"Unknown\" sekiranya kosong."
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
 msgid "Use Album Covers As Icons"
@@ -2234,7 +2249,7 @@ msgstr "Guna Ikon Media Untuk Jeda, Berhenti dan Resume"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
 msgid "When GUI is Focused"
-msgstr ""
+msgstr "Apabila GUI difokus"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
 msgid "API Key:"
@@ -2274,7 +2289,7 @@ msgstr "Atas kiri"
 
 #: ../plugins/desktopcover/prefs.glade.h:6
 msgid "Top right"
-msgstr ""
+msgstr "Atas kanan"
 
 #: ../plugins/desktopcover/prefs.glade.h:7
 msgid "X offset:"
@@ -2318,7 +2333,7 @@ msgstr "Guna gaya waveform"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Additional amplification (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
 msgid "Additional amplification to apply to all files"
@@ -2326,11 +2341,11 @@ msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
-msgstr ""
+msgstr "Fallback correction for files that lack ReplayGain information"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Fallback correction level (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
@@ -2346,7 +2361,7 @@ msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Guna clipping protection"
 
 #: ../plugins/podcasts/podcasts.glade.h:1
 msgid "Add Podcast"
@@ -2354,7 +2369,7 @@ msgstr "Tambah Podcast"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:1
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Body Message</b>"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:2
 msgid "Both artist and album"
@@ -2379,7 +2394,7 @@ msgstr "Hanya artis"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:7
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Resize cover yang dipapar"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:8
 msgid "Summary"
@@ -2403,11 +2418,11 @@ msgstr "Papar hiasan tetingkap"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Tera dalam senarai task"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:8
 msgid "Show on all desktops"
-msgstr ""
+msgstr "Papar atas semua desktop"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Track title format:"
@@ -2476,14 +2491,16 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
 msgstr ""
+"Tambah sokongan untuk memain CD audio.\n"
+"Memerliukan python-cddb to look up tags."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
-msgstr ""
+msgstr "Cipta objek MPRIS D-Bus untuk kawal Exaile"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr ""
+msgstr "Benarkan simpan/resume posisi tanda buku dalam fail audio."
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -2502,6 +2519,13 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Plugin ini memaparkan belon notifikasi apabila lagu "
+"dimainkan/resume/berhenti, dengan cover lagu atau ikon media bagi "
+"menunjukkan aksi terbaru.\n"
+"\n"
+"\n"
+"Memerlukan: python-notify\n"
+"Recommends: notify-osd"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -2534,6 +2558,8 @@ msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Menggantikan standard progress bar dengan moodbar.\n"
+"Memerlukan: moodbar"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
@@ -2573,7 +2599,7 @@ msgstr "Hello World"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "Plugin mudah bagi memeriksa sistem plugin asas"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
@@ -2584,6 +2610,8 @@ msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Tambah sokongan bagi kawal Exaile via GNOME's multimedia key system. Sesuai "
+"dengan GNOME >= 2.20.x"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
@@ -2591,7 +2619,7 @@ msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "Hotkey global menggunakan xlib (mmkeys.so)"
 
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
@@ -2599,7 +2627,7 @@ msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "Plugin untuk ambil lirik dari lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -2610,10 +2638,12 @@ msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Sokongan untuk akses pemain media mudah alih menggunakan protokol USB Mass "
+"Storage"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
-msgstr ""
+msgstr "Pop up notifikasi apabila playback trek mula"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -2625,11 +2655,11 @@ msgstr "Layari dan dengar audiobook dari Librivox.org."
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
-msgstr ""
+msgstr "Menyediakan konsol IPython yang boleh memanipulasi Exaile."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Compact mode for Exaile with a configurable interface"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
@@ -2637,7 +2667,7 @@ msgstr "Cover Tag"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
-msgstr ""
+msgstr "Cari tag ter untuk cover"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
@@ -2649,6 +2679,9 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Tera pelbagai maklumat tentang trek yang sedang dimainkan.\n"
+"Memerlukan: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging "
+"(a.k.a. PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""

@@ -1160,6 +1160,10 @@ msgstr "Aktion"
 msgid "Shortcut"
 msgstr "Tastenkürzel"
 
+#: ../xlgui/prefs/collection_prefs.py:27
+msgid "el l' la le les los the"
+msgstr "el l' la le les los the der die das"
+
 #: ../xlgui/tray.py:75
 msgid "Exaile Music Player"
 msgstr "Exaile Musikwiedergabe"

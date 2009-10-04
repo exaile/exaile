@@ -23,18 +23,9 @@ name = _('Collection')
 ui = xdg.get_data_path('ui/collection_prefs_pane.glade')
 
 def _get_default_strip_list():
-    from locale import getlocale, getdefaultlocale
-    default_list = ["el", "l'", "la", "le", "les", "los", "the"]
-    try:
-        (loc, enc) = getlocale()
-        if loc is None:
-            (loc, enc) = getdefaultlocale()
-        #TRANSLATORS: Alter default_list to appropriate content
-        if loc == 'de_DE':
-            default_list.extend(["der", "die", "das"])
-    except:
-        pass
-    return default_list
+    #TRANSLATORS: Alter default_strip_list
+    default_strip_list = _("el l' la le les los the")
+    return [v.lower() for v in default_strip_list.split(' ') if v is not '']
 
 class CollectionStripArtistPreference(widgets.ListPrefsItem):
     default = _get_default_strip_list()

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-28 20:27+0000\n"
-"Last-Translator: Piotr Puldzian Płucienniczak <Unknown>\n"
+"PO-Revision-Date: 2009-10-03 20:15+0000\n"
+"Last-Translator: Rafal Misiewicz <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-09-30 06:40+0000\n"
+"X-Launchpad-Export-Date: 2009-10-04 06:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -139,11 +139,11 @@ msgstr ""
 
 #: ../xl/main.py:360
 msgid "Force import of old data from 0.2.x. Overwrites current data."
-msgstr ""
+msgstr "Wymuś importowanie starych danych z 0.2.x. Nadpisuje obecne dane."
 
 #: ../xl/main.py:363
 msgid "Do not import old data from 0.2.x."
-msgstr ""
+msgstr "Nie importuj starych danych z 0.2.x."
 
 #. development and debug options
 #: ../xl/main.py:368

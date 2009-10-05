@@ -8,20 +8,20 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-21 17:10+0000\n"
-"Last-Translator: Miro Glavić <glavicmiro@gmail.com>\n"
+"PO-Revision-Date: 2009-10-05 06:42+0000\n"
+"Last-Translator: nafterburner <nafterburner@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-09-23 09:40+0000\n"
+"X-Launchpad-Export-Date: 2009-10-05 06:43+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr "Automatski"
+msgstr "Automatsko"
 
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
@@ -49,7 +49,7 @@ msgstr "Sviraj"
 
 #: ../xl/main.py:281
 msgid "Toggle Play or Pause"
-msgstr ""
+msgstr "Uključi reprodukciju ili pauzu"
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
@@ -57,15 +57,15 @@ msgstr "Zaustavi reprodukciju nakon trenutne pjesme"
 
 #: ../xl/main.py:314
 msgid "Track options"
-msgstr ""
+msgstr "Opcija trake."
 
 #: ../xl/main.py:288
 msgid "Query player"
-msgstr ""
+msgstr "Ispitaj preglednika"
 
 #: ../xl/main.py:290
 msgid "Show a popup of the currently playing track"
-msgstr ""
+msgstr "Prikaži skočni prozor pjesme koja se trenutno reproducira"
 
 #: ../xl/main.py:292
 msgid "Print the title of current track"
@@ -93,11 +93,11 @@ msgstr "Dobij ocjene za trenutnu pjesmu"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "Ispiši poziciju unutar trenutne pjesme kao vrijeme"
 
 #: ../xl/main.py:308
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "Ispiši napredak unutar trenutne pjesme kao postotak"
 
 #: ../xl/main.py:339
 msgid "Volume options"
@@ -105,15 +105,15 @@ msgstr "Opcije jačine"
 
 #: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
-msgstr "Pojačaj za VOL%"
+msgstr "Pojačava glasnoću za VOL%"
 
 #: ../xl/main.py:314
 msgid "Decreases the volume by VOL%"
-msgstr "Utišaj za VOL%"
+msgstr "Stišava glasnoću za VOL%"
 
 #: ../xl/main.py:316
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "Ispiši postotak trenutne glasnoće"
 
 #: ../xl/main.py:348
 msgid "Other options"
@@ -121,11 +121,11 @@ msgstr "Druge opcije"
 
 #: ../xl/main.py:320
 msgid "Start new instance"
-msgstr ""
+msgstr "Pokreni novu instancu"
 
 #: ../xl/main.py:323
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "Pokreni minimizirano (u području obavijesti, ako je moguće)"
 
 #: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
@@ -135,19 +135,21 @@ msgstr ""
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
+"Pokreni u sigurnom načinu rada - korisno ako ponekad naiđete na probleme"
 
 #: ../xl/main.py:360
 msgid "Force import of old data from 0.2.x. Overwrites current data."
 msgstr ""
+"Prisili uvoz starih podataka iz 0.2.x. Piše preko trenutnih podataka."
 
 #: ../xl/main.py:363
 msgid "Do not import old data from 0.2.x."
-msgstr ""
+msgstr "Ne uvozi stare podatke iz 0.2.x."
 
 #. development and debug options
 #: ../xl/main.py:368
 msgid "Development/Debug options"
-msgstr ""
+msgstr "Razvojne/Debug opcije"
 
 #. development and debug options
 #: ../xl/main.py:329
@@ -267,7 +269,7 @@ msgstr "Verzija postavki je novija od aktivne."
 
 #: ../xl/settings.py:167
 msgid "We don't know how to store that kind of setting: "
-msgstr ""
+msgstr "Neznamo kako pohraniti takvu vrst postavki. "
 
 #: ../xl/settings.py:194
 msgid "An Unknown type of setting was found!"
@@ -350,7 +352,7 @@ msgstr "Preimenuj listu pjesama"
 
 #: ../xlgui/main.py:262
 msgid "Custom playlist name:"
-msgstr ""
+msgstr "Prilagođeo ime popisa naslova:"
 
 #: ../xlgui/main.py:262
 msgid "Save As..."
@@ -378,6 +380,8 @@ msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
+"Exaile Muzicki svirač\n"
+"Ne svira"
 
 #. TRANSLATORS: Window title
 #: ../xlgui/main.py:1057
@@ -453,7 +457,7 @@ msgstr "_Spremi Kao..."
 
 #: ../xlgui/menu.py:209
 msgid "C_lear All Tracks"
-msgstr ""
+msgstr "O_čisti Sve Trake"
 
 #: ../xlgui/menu.py:211
 msgid "_Close Playlist"
@@ -477,7 +481,7 @@ msgstr "Nova Stanica"
 
 #: ../xlgui/menu.py:313
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "Novi Pametni  Popis Naslova"
 
 #: ../xlgui/menu.py:357
 msgid "Open"
@@ -560,7 +564,7 @@ msgstr "Slika albuma nije nađena."
 
 #: ../xlgui/osd.py:207
 msgid "No track"
-msgstr ""
+msgstr "Nema trake"
 
 #: ../xlgui/__init__.py:160
 msgid "Export current playlist..."
@@ -615,7 +619,7 @@ msgstr "%(playlist_count)d prikazuje, %(collection_count)d u kolekciji"
 #: ../xlgui/guiutil.py:717
 #, python-format
 msgid "(%d queued)"
-msgstr ""
+msgstr "(%d na čekanju)"
 
 #: ../xlgui/guiutil.py:650
 msgid "Rating:"
@@ -754,7 +758,7 @@ msgstr "BPM"
 
 #: ../xlgui/plcolumns.py:195 ../plugins/minimode/minimodeprefs.py:131
 msgid "Last played"
-msgstr ""
+msgstr "Zadnje svirano"
 
 #: ../xlgui/plcolumns.py:206 ../xlgui/plcolumns.py:226
 #: ../plugins/minimode/mmwidgets.py:880
@@ -1006,10 +1010,12 @@ msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
+"Ovo će trajno izbrisati označene trake sa vašeg diska, jeste li sigurni da "
+"želite nastaviti?"
 
 #: ../xlgui/panel/collection.py:162
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Ponovno skeniraj Kolekciju"
 
 #: ../xlgui/panel/collection.py:625
 msgid "Various Artists"
@@ -1047,7 +1053,7 @@ msgstr "Liste pjesama"
 
 #: ../xlgui/prefs/osd_prefs.py:22
 msgid "On Screen Display"
-msgstr ""
+msgstr "Prikaz Na Zaslon"
 
 #: ../xlgui/prefs/plugin_prefs.py:81
 msgid "Plugin"
@@ -1296,7 +1302,7 @@ msgstr "Vrh"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
-msgstr ""
+msgstr "Primjeni alfa transparentnost (ako je podržano)"
 
 #: ../data/glade/osd_window.glade.h:1
 msgid ""
@@ -1404,7 +1410,7 @@ msgstr "GNOME"
 
 #: ../xl/player/pipe.py:223
 msgid "JACK"
-msgstr ""
+msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.glade.h:8
 msgid "Normal"
@@ -1687,11 +1693,11 @@ msgstr "Glavni Direktorij"
 
 #: ../data/glade/files_panel.glade.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Sljedeći posjećen direktorij"
 
 #: ../data/glade/files_panel.glade.h:4
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Prethodni posjećen direktorij"
 
 #: ../data/glade/files_panel.glade.h:5
 msgid "Refresh directory listing"

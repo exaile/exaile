@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-03 08:18+0000\n"
+"PO-Revision-Date: 2009-10-05 09:16+0000\n"
 "Last-Translator: Tao Wei <weitao1979@gmail.com>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-10-04 06:48+0000\n"
+"X-Launchpad-Export-Date: 2009-10-06 06:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -541,7 +541,7 @@ msgstr "删除封面"
 
 #: ../xlgui/cover.py:658
 msgid "Enter the search text"
-msgstr "输入要搜索的内容"
+msgstr "输入搜索文字"
 
 #: ../xlgui/cover.py:684
 msgid "No covers found"
@@ -636,7 +636,7 @@ msgstr "驱动程序"
 
 #: ../xlgui/collection.py:140
 msgid "Add a directory"
-msgstr "添加目录"
+msgstr "添加一个目录"
 
 #. our added path is a subdir of an existing path
 #: ../xlgui/collection.py:170
@@ -665,7 +665,7 @@ msgstr "艺术家"
 #: ../xlgui/plcolumns.py:90 ../plugins/cd/cdprefs.py:86
 #: ../plugins/minimode/minimodeprefs.py:120
 msgid "Composer"
-msgstr "作曲"
+msgstr "作曲家"
 
 #: ../xlgui/plcolumns.py:95 ../xlgui/panel/playlists.py:65
 #: ../xlgui/panel/playlists.py:141 ../plugins/cd/cdprefs.py:87
@@ -788,7 +788,7 @@ msgstr "限定在： "
 
 #: ../xlgui/filtergui.py:93
 msgid " songs"
-msgstr " 首"
+msgstr " 歌曲"
 
 #: ../xlgui/playlist.py:1060
 #, python-format
@@ -977,7 +977,7 @@ msgstr "刷新"
 
 #: ../xlgui/panel/radio.py:394
 msgid "Enter the name you want for your new playlist"
-msgstr "输入新建播放列表的名称"
+msgstr "为您的新播放列表命名"
 
 #. TRANSLATORS: Filesize column in the file browser
 #: ../xlgui/panel/files.py:114
@@ -1282,7 +1282,7 @@ msgstr "右"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:9
 msgid "Show splash screen on startup"
-msgstr "启动时显示飞溅屏幕"
+msgstr "启动时显示启动画面"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:10
 msgid "Show tray icon"
@@ -1334,7 +1334,7 @@ msgstr "关闭(_C)"
 msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
-msgstr "<b>移动屏幕上显示的窗口到指定位置</b>"
+msgstr "<b>移动屏幕上的显示窗口至您想要的位置</b>"
 
 #: ../data/glade/osd_prefs_pane.glade.h:5
 msgid "Background Color:"
@@ -1482,7 +1482,7 @@ msgstr "安装插件文件"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:9
 msgid "Installed Plugins"
-msgstr "已安装插件"
+msgstr "已安装的插件"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:10
 msgid "Updates"
@@ -1634,7 +1634,7 @@ msgstr "添加光盘"
 #: ../data/glade/general_prefs_pane.glade.h:1
 #: ../data/glade/playlists_prefs_pane.glade.h:1
 msgid "Open last playlists on startup"
-msgstr "启动时打开最近的播放列表"
+msgstr "启动时打开上次的播放列表"
 
 #: ../data/glade/collection_panel.glade.h:1
 msgid "<b>Collection is empty.</b>"

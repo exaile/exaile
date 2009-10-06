@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-05 06:42+0000\n"
+"PO-Revision-Date: 2009-10-05 15:39+0000\n"
 "Last-Translator: nafterburner <nafterburner@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-10-05 06:43+0000\n"
+"X-Launchpad-Export-Date: 2009-10-06 06:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -365,11 +365,11 @@ msgstr ""
 #: ../xlgui/main.py:788
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr ""
+msgstr "Međuspremanje: %d%%..."
 
 #: ../xlgui/main.py:790
 msgid "Buffering: 100%..."
-msgstr ""
+msgstr "Međuspremanje: 100%..."
 
 #: ../xlgui/main.py:961 ../data/glade/main.glade.h:22
 msgid "Stopped"
@@ -535,7 +535,7 @@ msgstr "Unesite novo ime liste pjesama."
 #: ../xlgui/cover.py:286
 #, python-format
 msgid "%d covers to fetch"
-msgstr ""
+msgstr "%d omota za dohvatiti"
 
 #: ../xlgui/cover.py:291 ../xlgui/cover.py:310
 #: ../data/glade/covermanager.glade.h:2
@@ -609,7 +609,7 @@ msgstr "Pretražujem zbirku..."
 #: ../xlgui/__init__.py:438
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "Skeniranje %s"
 
 #: ../xlgui/main.py:645
 #, python-format
@@ -1116,7 +1116,7 @@ msgstr "Exaile Music Player"
 
 #: ../xlgui/tray.py:116 ../data/glade/main.glade.h:17
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Promiješaj redoslijed reprodukcije"
 
 #: ../xlgui/tray.py:121 ../data/glade/main.glade.h:15
 msgid "Repeat playlist"
@@ -1124,11 +1124,11 @@ msgstr "Ponovi listu igranja"
 
 #: ../xlgui/tray.py:126
 msgid "Dynamically add similar tracks"
-msgstr ""
+msgstr "Dinamično dodaj slične trake"
 
 #: ../xlgui/tray.py:135
 msgid "Remove current track from playlist"
-msgstr ""
+msgstr "Ukloni trenutnu traku iz popisa naslova"
 
 #: ../data/glade/device_manager.glade.h:1
 msgid "..."
@@ -1249,6 +1249,22 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com>\n"
+"\n"
+"Ovaj program je slobodan software; možete ga redistribuirati i/ili "
+"modificirati\n"
+"u okviru uvjeta GNU General Public License kao što je objavljeno od strane\n"
+"Free Software Foundation; bilo verzija 2 Licence ili \n"
+"(po vašem mišljenju) bilo koja kasnija verzija.\n"
+"\n"
+"Ova program je distribuiran u nadi da će biti koristan,\n"
+"ali BEZ IKAKVE GARANCIJE; čak, bez podrazumijevane garancije\n"
+"TRŽENJA ili SPADANJA U ODREĐENU SVRHU. Pogledajte \n"
+"GNU General Public License za više detalja.\n"
+"\n"
+"Trebali bi dobiti kopiju GNU General Public License zajedno\n"
+"sa ovim programom; ako niste, pišite na Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/glade/about_dialog.glade.h:19
 msgid ""
@@ -1262,7 +1278,7 @@ msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:1
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Uvijek prikaži tablu s karticama"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:2
 msgid "Bottom"
@@ -1278,7 +1294,7 @@ msgstr "Lijevo"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:8
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Spusti u tray"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:7
 msgid "Right"
@@ -1290,11 +1306,11 @@ msgstr "Prikaži pozdravni ekran pri pokretanju"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:10
 msgid "Show tray icon"
-msgstr ""
+msgstr "Prikaži ikonu u tray"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:11
 msgid "Tab placement:"
-msgstr ""
+msgstr "Položaj kartice:"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:11
 msgid "Top"
@@ -1382,7 +1398,7 @@ msgstr "Zatvori ovaj dijalog"
 
 #: ../data/glade/queue_dialog.glade.h:2
 msgid "Queue Manager"
-msgstr ""
+msgstr "Menadžer reda"
 
 #: ../data/glade/queue_dialog.glade.h:3
 msgid "Remove All"
@@ -1398,11 +1414,11 @@ msgstr "Audio Sink:  "
 
 #: ../data/glade/playback_prefs_pane.glade.h:8
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Trajanje prijelaznog slabljenja (ms)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:9
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Trajanje slabljenja (ms)"
 
 #: ../xl/player/pipe.py:203
 msgid "GNOME"
@@ -1422,7 +1438,7 @@ msgstr "OSS"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "Mašina reprodukcije (zahtijeva restart) "
 
 #: ../xl/player/pipe.py:218
 msgid "PulseAudio"
@@ -1430,23 +1446,23 @@ msgstr "PulseAudio"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Nastavi reprodukciju u pauziranom stanju"
 
 #: ../data/glade/playback_prefs_pane.glade.h:14
 msgid "Resume playback on start"
-msgstr ""
+msgstr "Nastavi reprodukciju na početku"
 
 #: ../data/glade/playback_prefs_pane.glade.h:15
 msgid "These options only affect the unified engine."
-msgstr ""
+msgstr "Ove opcije utječu samo na ujedinjen mehanizam."
 
 #: ../data/ui/playback_prefs_pane.glade.h:15
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Ujedinjen (nestabilno)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Upotrijebi crossfading (EKSPERIMENTALNO)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:17
 msgid "Use fade transitions on user actions"
@@ -1514,11 +1530,11 @@ msgstr "Očisti Listu Igranja"
 
 #: ../data/ui/main.glade.h:5
 msgid "Click to view Queue"
-msgstr ""
+msgstr "Kliknite za pogled u Redoslijed"
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Dinamično dodaj slične trake u popis naslova"
 
 #: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
 msgid "Next Track"
@@ -1542,7 +1558,7 @@ msgstr ""
 
 #: ../data/glade/main.glade.h:14
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Re_skeniraj Kolekciju"
 
 #: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:13
 #: ../data/glade/files_panel.glade.h:6
@@ -1562,11 +1578,11 @@ msgstr ""
 
 #: ../data/glade/main.glade.h:23
 msgid "Track _properties"
-msgstr ""
+msgstr "Traka _Svojstva"
 
 #: ../data/glade/main.glade.h:25
 msgid "_Autosize"
-msgstr ""
+msgstr "_Autoveličina"
 
 #: ../data/glade/main.glade.h:26
 msgid "_Collection"
@@ -1626,7 +1642,7 @@ msgstr "Upravljanje zbirkama"
 
 #: ../data/glade/flatplaylist_panel.glade.h:1
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Dodaj Sve Trake u Popis naslova"
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
@@ -1662,6 +1678,8 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Osvježi pogled u kolekciju\n"
+"(Držite Skift tipku za reskeniranje kolekcije))"
 
 #: ../data/ui/collection_panel.glade.h:12
 msgid "Year - Album"
@@ -1705,7 +1723,7 @@ msgstr ""
 
 #: ../data/glade/files_panel.glade.h:7
 msgid "Up one directory"
-msgstr ""
+msgstr "Gore jedan direktorij"
 
 #: ../plugins/multialarmclock/__init__.py:410
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -1731,7 +1749,7 @@ msgstr "Audio Disk"
 
 #: ../plugins/cd/_cdguipanel.py:60
 msgid "Importing CD..."
-msgstr ""
+msgstr "Uvozi CD..."
 
 #: ../plugins/cd/cdprefs.py:22
 msgid "CD"
@@ -1798,10 +1816,10 @@ msgid "Desktop Cover"
 msgstr "Omot Radne Površine"
 
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Traženje raspoloženja..."
 
 msgid "Mood found."
-msgstr ""
+msgstr "Raspoloženje pronađeno."
 
 msgid "Could not read moodbar."
 msgstr ""
@@ -1866,15 +1884,15 @@ msgstr ""
 #: ../plugins/shoutcast/__init__.py:215 ../plugins/shoutcast/__init__.py:220
 #: ../plugins/shoutcast/__init__.py:248 ../plugins/shoutcast/__init__.py:253
 msgid "Error connecting to Shoutcast server."
-msgstr ""
+msgstr "Greška povezivanja sa Shoutcast serverom."
 
 #: ../plugins/shoutcast/__init__.py:273
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Unesite ključne riječi za traženje"
 
 #: ../plugins/shoutcast/__init__.py:274
 msgid "Shoutcast Search"
-msgstr ""
+msgstr "Shoutcast Traženje"
 
 #: ../plugins/shoutcast/__init__.py:297
 msgid "Search Results"
@@ -1899,15 +1917,15 @@ msgstr ""
 
 #: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "IPython Konzola - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:134
 msgid "Show IPython Console"
-msgstr ""
+msgstr "Prikaži IPython Konzolu"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "IPython Konzola"
 
 #: ../plugins/minimode/__init__.py:209
 msgid "Stop Playback"
@@ -1915,12 +1933,12 @@ msgstr "Zaustavi reprodukciju"
 
 #: ../plugins/minimode/__init__.py:211
 msgid "Restore Main Window"
-msgstr ""
+msgstr "Vrati Glavni Prozor"
 
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Minimalan Način rada"
 
 #: ../plugins/minimode/minimodeprefs.py:97
 msgid "Available controls"
@@ -1960,7 +1978,7 @@ msgstr "Jačina zvuka"
 
 #: ../plugins/minimode/minimodeprefs.py:107
 msgid "Playlist button"
-msgstr ""
+msgstr "Tipka za popis naslova"
 
 #: ../plugins/minimode/minimodeprefs.py:110
 msgid "Restore"
@@ -1970,17 +1988,17 @@ msgstr "Obnovi"
 #: ../plugins/minimode/minimodeprefs.py:136
 #: ../plugins/minimode/minimodeprefs.py:142
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$brojtrake - $naslov"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:138
 msgid "$title by $artist"
-msgstr ""
+msgstr "$naslov po $umjetnik"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:140
 msgid "$title ($length)"
-msgstr ""
+msgstr "$naslov ($duljina)"
 
 #: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
@@ -1996,7 +2014,7 @@ msgstr "Pauziraj Reprodukciju"
 
 #: ../plugins/minimode/mmwidgets.py:732
 msgid "Seeking: "
-msgstr ""
+msgstr "Traženje: "
 
 #: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
@@ -2009,7 +2027,7 @@ msgstr "Kontekst"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Streamripper"
 
 #: ../plugins/streamripper/__init__.py:54
 msgid "Streamripper can only record streams."
@@ -2017,7 +2035,7 @@ msgstr ""
 
 #: ../plugins/streamripper/__init__.py:87
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "Greška pri pokretanju streamrippera"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:1
 #: ../plugins/alarmclock/acprefs_pane.glade.h:1

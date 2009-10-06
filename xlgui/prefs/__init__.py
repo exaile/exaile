@@ -33,7 +33,7 @@ import gtk
 from xl import xdg
 from xl.settings import _SETTINGSMANAGER
 from xlgui.prefs.widgets import *
-from xlgui.prefs import playlists_prefs, osd_prefs
+from xlgui.prefs import playlists_prefs, osd_prefs, collection_prefs
 from xlgui.prefs import cover_prefs, playback_prefs, appearance_prefs
 from xlgui.prefs import plugin_prefs
 import logging, traceback, gobject
@@ -46,7 +46,7 @@ class PreferencesDialog(object):
     """
 
     PAGES = (playlists_prefs, appearance_prefs, playback_prefs, 
-        osd_prefs, cover_prefs)
+        collection_prefs, osd_prefs, cover_prefs)
     PREFERENCES_DIALOG = None
 
     def __init__(self, parent, main):

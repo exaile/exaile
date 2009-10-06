@@ -684,6 +684,7 @@ class ListPrefsItem(PrefsItem):
     def _get_value(self):
         # shlex is broken with unicode, so we feed it UTF-8 and decode
         # afterwards.
+        import shlex
         values = shlex.split(self.widget.get_text())
         values = [unicode(value, 'utf-8') for value in values]
         return values

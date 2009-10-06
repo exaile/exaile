@@ -310,7 +310,10 @@ def the_cutter(field):
         sorting
     """
     lowered = field.lower()
-    for word in ("el ", "l'", "la ", "le ", "les ", "los ", "the "):
+    import settings
+    for word in settings.get_option('collection/strip_list', ''):
+        if not word.endswith("'"):
+            word += ' '
         if lowered.startswith(word):
             field = field[len(word):]
             break

@@ -20,7 +20,7 @@ class LastFMCoverSearch(CoverSearchMethod):
     """
     name = 'lastfm'
     type = 'remote' # fetches remotely as opposed to locally
-    regex = re.compile(r'<coverart>.*?medium>([^<]*)</medium>.*?</coverart>', 
+    regex = re.compile(r'<coverart>.*?<large>(.*)</large>.*?</coverart>', 
         re.IGNORECASE|re.DOTALL)
     url = "http://ws.audioscrobbler.com/1.0/album/%(artist)s/%(album)s/info.xml"
 

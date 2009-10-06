@@ -121,6 +121,9 @@ class PreferencesDialog(object):
                         logger.warning('Error loading preferences pane')
                         traceback.print_exc()
 
+        import locale
+        plugin_pages.sort(key=lambda x: locale.strxfrm(x.name))
+
         for page in plugin_pages:
             self.model.append(self.plug_root, [page.name, page])
 

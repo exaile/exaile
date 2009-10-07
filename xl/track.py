@@ -326,12 +326,30 @@ class Track(object):
         t = self.get_tag('tracknumber')
     
         try:
-            if type(t) == tuple or type(t) == list:
+            if type(t) in (tuple, list):
                 t = t[0]
 
             if t == None:
                 return -1
             t = t.split("/")[0]
+            return int(t)
+        except ValueError:
+            return t
+
+    def get_disc(self):
+        """
+            Gets the disc number in int format.
+        """
+        t = self.get_tag('discnumber')
+
+        try:
+            if type(t) in (tuple, list):
+                t = t[0]
+
+            if t == None:
+                return -1
+
+            t = t.split('/')[0]
             return int(t)
         except ValueError:
             return t
@@ -409,6 +427,8 @@ class Track(object):
         """
         if field == 'tracknumber': 
             return self.get_track()
+        elif field == 'discnumber':
+            return self.get_disc()
         elif field == 'artist':
             try:
                 artist = lstrip_special(self['artist'][0], True)

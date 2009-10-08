@@ -326,29 +326,36 @@ class FilesPanel(panel.Panel):
         subfiles = []
         for f in files:
             basename = f.get_basename()
+            if basename.startswith('.'):
+                # Ignore .hidden files. They can still be accessed manually from
+                # the location bar.
+                continue
             low_basename = basename.lower()
             if keyword and keyword.lower() not in low_basename:
                 continue
+            def sortkey():
+                name = f.query_info('standard::display-name').get_display_name()
+                sortname = locale.strxfrm(name)
+                return sortname, name, f
             ftype = f.query_info('standard::type').get_file_type()
             if ftype == gio.FILE_TYPE_DIRECTORY:
-                subdirs.append((locale.strxfrm(low_basename), basename, f))
-            else:
-                if any(low_basename.endswith('.' + ext)
-                        for ext in metadata.formats):
-                    subfiles.append((locale.strxfrm(low_basename), basename, f))
+                subdirs.append(sortkey())
+            elif any(low_basename.endswith('.' + ext)
+                    for ext in metadata.formats):
+                subfiles.append(sortkey())
 
         subdirs.sort()
         subfiles.sort()
 
         self.model.clear()
 
-        for sortname, basename, f in subdirs:
-            self.model.append([f, self.directory, basename, ''])
+        for sortname, name, f in subdirs:
+            self.model.append((f, self.directory, name, ''))
 
-        for sortname, basename, f in subfiles:
+        for sortname, name, f in subfiles:
             size = f.query_info('standard::size').get_size() // 1024
             size = locale.format_string(_("%d KB"), size, True)
-            self.model.append([f, self.track, basename, size])
+            self.model.append((f, self.track, name, size))
 
         self.tree.set_model(self.model)
         self.entry.set_text(directory.get_parse_name())

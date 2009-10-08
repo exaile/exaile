@@ -126,8 +126,8 @@ pot:
 	find plugins -name "*.py" >> po/POTFILES.in
 	find plugins -name "*.glade" >> po/POTFILES.in
 	find plugins -name PLUGININFO >> po/POTFILES.in
-	cd po && XGETTEXT_ARGS="--language=Python" intltool-update \
-	    --pot --gettext-package=messages --verbose && cd ..
+	cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
+		intltool-update --pot --gettext-package=messages --verbose && cd ..
 
 potball:
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \

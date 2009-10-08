@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import gtk, gobject, os, locale, re
+import gio, gtk, gobject, os, locale, re
 import xl.track, urllib
 from xl import common, trackdb, metadata
 from xl import settings
@@ -66,8 +66,8 @@ class FilesPanel(panel.Panel):
         self.key_id = None
         self.i = 0
 
-        self.first_dir = settings.get_option('gui/files_panel_dir',
-            xdg.homedir)
+        self.first_dir = gio.File(settings.get_option('gui/files_panel_dir',
+            xdg.homedir))
         self.history = [self.first_dir]
         self.load_directory(self.first_dir, False)
 
@@ -75,65 +75,65 @@ class FilesPanel(panel.Panel):
         tracks = self.get_selected_tracks()
         steps = settings.get_option('miscellaneous/rating_steps', 5)
         for track in tracks:
-            track['__rating'] = float((100.0*rating)/steps)
+            track['__rating'] = 100.0 * rating / steps
 
     def _setup_tree(self):
         """
             Sets up tree widget for the files panel
         """
-        self.model = gtk.ListStore(gtk.gdk.Pixbuf, str, str)
-        self.tree = guiutil.DragTreeView(self, True, True)
-        self.tree.set_model(self.model)
-        self.tree.connect('row-activated', self.row_activated)
-        self.tree.connect('key-release-event', self.on_key_released)
+        self.model = gtk.ListStore(gio.File, gtk.gdk.Pixbuf, str, str)
+        self.tree = tree = guiutil.DragTreeView(self, True, True)
+        tree.set_model(self.model)
+        tree.connect('row-activated', self.row_activated)
+        tree.connect('key-release-event', self.on_key_released)
 
-        selection = self.tree.get_selection()
+        selection = tree.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
-        self.scroll = gtk.ScrolledWindow()
-        self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.scroll.add(self.tree)
-        self.scroll.set_shadow_type(gtk.SHADOW_IN)
-        self.box.pack_start(self.scroll, True, True)
+        self.scroll = scroll = gtk.ScrolledWindow()
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll.add(tree)
+        scroll.set_shadow_type(gtk.SHADOW_IN)
+        self.box.pack_start(scroll, True, True)
 
         pb = gtk.CellRendererPixbuf()
         text = gtk.CellRendererText()
         # TRANSLATORS: Filename column in the file browser
-        self.colname = gtk.TreeViewColumn(_('Filename'))
-        self.colname.pack_start(pb, False)
-        self.colname.pack_start(text, True)
+        self.colname = colname = gtk.TreeViewColumn(_('Filename'))
+        colname.pack_start(pb, False)
+        colname.pack_start(text, True)
         if settings.get_option('gui/ellipsize_text_in_panels', False):
             import pango
-            text.set_property( 'ellipsize-set', True)
-            text.set_property( 'ellipsize', pango.ELLIPSIZE_END)
+            text.set_property('ellipsize-set', True)
+            text.set_property('ellipsize', pango.ELLIPSIZE_END)
         else:
-            self.colname.connect('notify::width', self.set_column_width)
+            colname.connect('notify::width', self.set_column_width)
 
             width = settings.get_option('gui/files_filename_col_width', 130)
 
-            self.colname.set_fixed_width(width)
-            self.colname.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+            colname.set_fixed_width(width)
+            colname.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
-        self.colname.set_resizable(True)
-        self.colname.set_attributes(pb, pixbuf=0)
-        self.colname.set_attributes(text, text=1)
-        self.colname.set_expand(True)
+        colname.set_resizable(True)
+        colname.set_attributes(pb, pixbuf=1)
+        colname.set_attributes(text, text=2)
+        colname.set_expand(True)
 
-        self.tree.append_column(self.colname)
+        tree.append_column(self.colname)
 
         text = gtk.CellRendererText()
         text.set_property('xalign', 1.0)
         # TRANSLATORS: Filesize column in the file browser
-        self.colsize = gtk.TreeViewColumn(_('Size'))
-        self.colsize.set_resizable(True)
-        self.colsize.pack_start(text, False)
-        self.colsize.set_attributes(text, text=2)
-        self.colsize.set_expand(False)
-        self.tree.append_column(self.colsize)
+        self.colsize = colsize = gtk.TreeViewColumn(_('Size'))
+        colsize.set_resizable(True)
+        colsize.pack_start(text, False)
+        colsize.set_attributes(text, text=3)
+        colsize.set_expand(False)
+        tree.append_column(colsize)
 
-#        self.tree.resize_children()
-#        self.tree.realize()
-#        self.tree.columns_autosize()
-#        self.colsize.set_fixed_width(self.tree.get
+#        tree.resize_children()
+#        tree.realize()
+#        tree.columns_autosize()
+#        colsize.set_fixed_width(tree.get
         
 
     def _setup_widgets(self):
@@ -208,8 +208,8 @@ class FilesPanel(panel.Panel):
                 return False
             
             if len(self.get_selected_tracks()) >= 2:
-                (mods,paths) = selection.get_selected_rows()
-                if (path[0] in paths):
+                model, paths = selection.get_selected_rows()
+                if path[0] in paths:
                     if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                         return False
                     return True
@@ -222,14 +222,13 @@ class FilesPanel(panel.Panel):
             Called when someone double clicks a row
         """
         selection = self.tree.get_selection()
-        (model, paths) = selection.get_selected_rows()
+        model, paths = selection.get_selected_rows()
 
         for path in paths:
-            iter = self.model.get_iter(path)
-            value = unicode(model.get_value(iter, 1), 'utf-8')
-            dir = os.path.join(self.current, value)
-            if os.path.isdir(dir):
-                self.load_directory(dir)
+            f = model[path][0]
+            ftype = f.query_info('standard::type').get_file_type()
+            if ftype == gio.FILE_TYPE_DIRECTORY:
+                self.load_directory(f)
             else:
                 self.emit('append-items', self.get_selected_tracks())
 
@@ -256,159 +255,157 @@ class FilesPanel(panel.Panel):
         """
             Called when the user presses enter in the entry box
         """
-        dir = os.path.expanduser(unicode(self.entry.get_text(), 'utf-8'))
-        if not os.path.isdir(dir):
-            self.entry.set_text(self.current)
+        path = self.entry.get_text()
+        if path.startswith('~'):
+            path = os.path.expanduser(path)
+        f = gio.file_parse_name(path)
+        ftype = f.query_info('standard::type').get_file_type()
+        if ftype != gio.FILE_TYPE_DIRECTORY:
+            self.entry.set_text(self.current.get_parse_name())
             return
-        self.load_directory(os.path.normpath(dir))
+        self.load_directory(f)
 
     def go_forward(self, widget):
         """
             Goes to the next entry in history
         """
-        try:
-            self.i += 1 
+        if self.i < len(self.history) - 1:
+            self.i += 1
             self.load_directory(self.history[self.i], False)
             if self.i >= len(self.history) - 1:
                 self.forward.set_sensitive(False)
             if len(self.history):
                 self.back.set_sensitive(True)
-        except IndexError:
-            return
             
     def go_back(self, widget):
         """
             Goes to the previous entry in history
         """
-        try:
+        if self.i > 0:
             self.i -= 1
             self.load_directory(self.history[self.i], False)
             if self.i == 0:
                 self.back.set_sensitive(False)
             if len(self.history):
                 self.forward.set_sensitive(True)
-        except IndexError:
-            return
 
     def go_up(self, widget):
         """
             Moves up one directory
         """
-        self.load_directory(os.path.dirname(self.current))
+        parent = self.current.get_parent()
+        if parent:
+            self.load_directory(parent)
 
     def go_home(self, widget):
         """
             Goes to the user's home directory
         """
-        self.load_directory(xdg.homedir)
+        self.load_directory(gio.File(xdg.homedir))
         
     def set_column_width(self, col, stuff=None):
         """
             Called when the user resizes a column
         """
-        name = "gui/files_%s_col_width" % col.get_title()
+        name = {self.colname: 'filename', self.colsize: 'size'}[col]
+        name = "gui/files_%s_col_width" % name
         settings.set_option(name, col.get_width())
 
-    def load_directory(self, dir, history=True, keyword=None):
+    def load_directory(self, directory, history=True, keyword=None):
         """
             Loads a directory into the files view
         """
-        dir = str(dir)
-        try:
-            paths = os.listdir(dir)
-        except OSError:
-            paths = os.listdir(xdg.homedir)
+        file_infos = directory.enumerate_children('standard::name')
+        files = (directory.get_child(fi.get_name()) for fi in file_infos)
+        # FIXME: Are there errors we need to handle?
 
-        settings.set_option('gui/files_panel_dir', dir)
-        self.current = dir
-        directories = []
-        files = []
-        for path in paths:
-            if path.startswith('.'): continue
-
-            if keyword and path.lower().find(keyword.lower()) == -1:
+        import locale
+        settings.set_option('gui/files_panel_dir', directory.get_uri())
+        self.current = directory
+        subdirs = []
+        subfiles = []
+        for f in files:
+            basename = f.get_basename()
+            if basename.startswith('.'):
+                # Ignore .hidden files. They can still be accessed manually from
+                # the location bar.
                 continue
-            full = os.path.join(dir, path)
-            if os.path.isdir(full):
-                directories.append(path)
+            low_basename = basename.lower()
+            if keyword and keyword.lower() not in low_basename:
+                continue
+            def sortkey():
+                name = f.query_info('standard::display-name').get_display_name()
+                sortname = locale.strxfrm(name)
+                return sortname, name, f
+            ftype = f.query_info('standard::type').get_file_type()
+            if ftype == gio.FILE_TYPE_DIRECTORY:
+                subdirs.append(sortkey())
+            elif any(low_basename.endswith('.' + ext)
+                    for ext in metadata.formats):
+                subfiles.append(sortkey())
 
-            else:
-                (stuff, ext) = os.path.splitext(path)
-                if ext.lower()[1:] in metadata.formats:
-                    files.append(path)
-
-        directories.sort()
-        files.sort()
+        subdirs.sort()
+        subfiles.sort()
 
         self.model.clear()
-        
-        for d in directories:
-            self.model.append([self.directory, d, '-'])
 
-        for f in files:
-            try:
-                info = os.stat(os.path.join(dir, f))
-            except OSError:
-                continue
-            size = info[6]
-            size = size / 1024
-            # The next two lines are equivalent to
-            # locale.format_string(_("%d KB"), size, True)
-            # which is only available in Python >=2.5.
-            size = locale.format('%d', size, True)
-            size = _("%s KB") % size
+        for sortname, name, f in subdirs:
+            self.model.append((f, self.directory, name, ''))
 
-            self.model.append([self.track, f, size])
+        for sortname, name, f in subfiles:
+            size = f.query_info('standard::size').get_size() // 1024
+            size = locale.format_string(_("%d KB"), size, True)
+            self.model.append((f, self.track, name, size))
 
         self.tree.set_model(self.model)
-        self.entry.set_text(self.current)
-        if history: 
+        self.entry.set_text(directory.get_parse_name())
+        if history:
             self.back.set_sensitive(True)
             self.history = self.history[:self.i + 1]
             self.history.append(self.current)
             self.i = len(self.history) - 1
             self.forward.set_sensitive(False)
+        self.up.set_sensitive(bool(directory.get_parent()))
 
     def get_selected_tracks(self):
         """
             Returns the selected tracks
         """
         selection = self.tree.get_selection()
-        (model, paths) = selection.get_selected_rows()
+        model, paths = selection.get_selected_rows()
 
         tracks = []
         for path in paths:
-            iter = self.model.get_iter(path)
-            value = unicode(model.get_value(iter, 1), 'utf-8')
-            value = os.path.join(self.current, value)
-            self.append_recursive(tracks, value)
+            f = model[path][0]
+            self.append_recursive(tracks, f)
 
-        if tracks:
-            return tracks
+        return tracks or None
 
-        # no tracks found
-        return None
-
-    def append_recursive(self, songs, value):
+    def append_recursive(self, songs, f):
         """
             Appends recursively
         """
-        if os.path.isdir(value):
-            for filename in os.listdir(value):
-                self.append_recursive(songs, os.path.join(value, filename))
+        ftype = f.query_info('standard::type').get_file_type()
+        if ftype == gio.FILE_TYPE_DIRECTORY:
+            file_infos = f.enumerate_children('standard::name')
+            files = (f.get_child(fi.get_name()) for fi in file_infos)
+            for subf in files:
+                self.append_recursive(songs, subf)
         else:
-            if xl.track.is_valid_track(value):
-                tr = self.get_track(value)
-                if tr:
-                    songs.append(tr)
+            tr = self.get_track(f)
+            if tr:
+                songs.append(tr)
 
-    def get_track(self, path):
+    def get_track(self, f):
         """
-            Returns a single track from a path
+            Returns a single track from a gio.File
         """
+        path = f.get_path()
+        if not xl.track.is_valid_track(path):
+            return None
         tr = self.collection.get_track_by_loc(path)
-        if tr: return tr
-
+        if tr:
+            return tr
         tr = xl.track.Track(path)
         return tr
 
@@ -434,4 +431,3 @@ class FilesPanel(panel.Panel):
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
         urls = guiutil.get_urls_for(tracks)
         selection.set_uris(urls)
-        

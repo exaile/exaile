@@ -23,8 +23,11 @@ name = _('Collection')
 ui = xdg.get_data_path('ui/collection_prefs_pane.glade')
 
 def _get_default_strip_list():
-    #TRANSLATORS: Alter default_strip_list
-    default_strip_list = _("el l' la le les los the")
+    #TRANSLATORS: Grammatical articles that are ignored while sorting the
+    #collection panel. For example, in French locales this could be
+    #"l' la le les". If this practice is not common in your locale, simply
+    #translate this to an empty string.
+    default_strip_list = _("the")
     return [v.lower() for v in default_strip_list.split(' ') if v is not '']
 
 class CollectionStripArtistPreference(widgets.ListPrefsItem):

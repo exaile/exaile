@@ -28,5 +28,5 @@ class OpacityPreference(widgets.ScalePrefsItem):
     name = 'plugin/ipconsole/opacity'
 
 class FontPreference(widgets.FontButtonPrefsItem):
-    default = 'Luxi Mono 10'
+    default = 'Monospace 10'
     name = 'plugin/ipconsole/font'

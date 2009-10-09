@@ -69,7 +69,7 @@ class Bookmarks:
         # check if it's already playing
         track = exaile.player.current
         if track:
-            if track.get_loc() == key:
+            if track.get_loc_for_io() == key:
                 exaile.player.unpause()
                 exaile.player.seek(pos)
                 return
@@ -77,14 +77,14 @@ class Bookmarks:
         # check for song in current playlist
         pl = exaile.queue.current_playlist
         if pl:
-            track = [ x for x in pl.get_tracks() if x.get_loc() == key ]
+            track = [ x for x in pl.get_tracks() if x.get_loc_for_io() == key ]
             if len(track) > 0: # found one
                 track = track[0] # should only be one...
 
         # check for song in currently selected playlist
         pl = exaile.gui.main.get_selected_playlist().playlist
         if pl:
-            track = [ x for x in pl.get_tracks() if x.get_loc() == key ]
+            track = [ x for x in pl.get_tracks() if x.get_loc_for_io() == key ]
             if len(track) > 0: # found one
                 exaile.queue.set_current_playlist(pl)
                 track = track[0] # should only be one...
@@ -130,7 +130,7 @@ class Bookmarks:
             return
             
         pos = self.exaile.player.get_time()
-        key = track.get_loc()
+        key = track.get_loc_for_io()
         self.bookmarks.append((key,pos))
         self.display_bookmark(key, pos, menus)
         menus[0].get_children()[1].set_sensitive(True)

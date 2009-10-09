@@ -400,13 +400,13 @@ class FilesPanel(panel.Panel):
         """
             Returns a single track from a gio.File
         """
-        path = f.get_path()
-        if not xl.track.is_valid_track(path):
+        uri = f.get_uri()
+        if not xl.track.is_valid_track(uri):
             return None
-        tr = self.collection.get_track_by_loc(path)
+        tr = self.collection.get_track_by_loc(uri)
         if tr:
             return tr
-        tr = xl.track.Track(path)
+        tr = xl.track.Track(uri)
         return tr
 
     def drag_data_received(self, *e):

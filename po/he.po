@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: http://exaile.org/trac/attachment/ticket/569\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-07 20:10+0000\n"
+"PO-Revision-Date: 2009-10-08 13:19+0000\n"
 "Last-Translator: kulight <Unknown>\n"
 "Language-Team: Hebrew <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-08 06:46+0000\n"
+"X-Launchpad-Export-Date: 2009-10-09 06:46+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1243,6 +1243,21 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"זכויות יוצרים (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"תוכנה זו היא תוכנה חופשית; באפשרותך להפיצה ו/או לשנותה\n"
+"תחת התנאים של GNU General Public License כפי שפורסמו ע\"י\n"
+"Free Software Foundation; או גירסה 2 של הרישיון, או\n"
+"(לבחירתך) כל גירסה מאוחרת יותר.\n"
+"\n"
+"תוכנה זו מופצת מתוך תיקווה שהיא תיהיה שימושית,\n"
+"אך ללא כל אחריות; ללא אפילו אחריות מרומזת של\n"
+"סחירות או התאמה לביצוע פעולה כלשהי.  עיין ב- \n"
+"GNU General Public License לפרטים נוספים.\n"
+"\n"
+"היית אמורלקבל עותק של ה-GNU General Public License \n"
+"מצורף לתוכנה זו; אם לא, כתוב אל Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/glade/about_dialog.glade.h:19
 msgid ""
@@ -1693,28 +1708,28 @@ msgstr "תיקיית הבית"
 
 #: ../data/glade/files_panel.glade.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "תיקיה הבאה שניצפתה"
 
 #: ../data/glade/files_panel.glade.h:4
 msgid "Previous visited directory"
-msgstr ""
+msgstr "תיקיה קודמת שניצפתה"
 
 #: ../data/glade/files_panel.glade.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "רענן רשימת תיקיות"
 
 #: ../data/glade/files_panel.glade.h:7
 msgid "Up one directory"
-msgstr ""
+msgstr "עלה תקייה אחת"
 
 #: ../plugins/multialarmclock/__init__.py:410
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "שעון רב התראות"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "שעון מעורר"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -1731,84 +1746,84 @@ msgstr "תקליטור שמע"
 
 #: ../plugins/cd/_cdguipanel.py:60
 msgid "Importing CD..."
-msgstr ""
+msgstr "יבא CD..."
 
 #: ../plugins/cd/cdprefs.py:22
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
 msgid "Track number"
-msgstr ""
+msgstr "רצועה מספר"
 
 #: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
 msgid "Disc number"
-msgstr ""
+msgstr "דיסק מספר"
 
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:130
 msgid "Play count"
-msgstr ""
+msgstr "מספר השמעות"
 
 #: ../plugins/bookmarks/__init__.py:278
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "סימניות"
 
 #: ../plugins/bookmarks/__init__.py:286
 msgid "Bookmark this track"
-msgstr ""
+msgstr "צור סימניה לרצועה זו"
 
 #: ../plugins/bookmarks/__init__.py:291
 msgid "Delete bookmark"
-msgstr ""
+msgstr "מחק סימנייה"
 
 #: ../plugins/bookmarks/__init__.py:295
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "נקה סימנייות"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "הודעות Notify-osd"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "ע\"י %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "מתוך %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "עטיפות Amazon"
 
 #: ../plugins/desktopcover/prefs.py:22 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "עטיפת שולחן עבודה"
 
 msgid "Searching for mood..."
-msgstr ""
+msgstr "מחפש אחר מצב רוח..."
 
 msgid "Mood found."
-msgstr ""
+msgstr "מצב רוח נימצא"
 
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "לא ניתן לקרוא את סרגל מצב הרוח"
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "קובץ ההרצה של סרגל מצב הרוח אינו זמין"
 
 #: ../plugins/replaygain/replaygainprefs.py:22
 #: ../plugins/replaygain/PLUGININFO:3

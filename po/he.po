@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: http://exaile.org/trac/attachment/ticket/569\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-08 13:19+0000\n"
+"PO-Revision-Date: 2009-10-09 12:06+0000\n"
 "Last-Translator: kulight <Unknown>\n"
 "Language-Team: Hebrew <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-09 06:46+0000\n"
+"X-Launchpad-Export-Date: 2009-10-10 06:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1844,7 +1844,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
-msgstr ""
+msgstr "מחק"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
@@ -1857,7 +1857,7 @@ msgstr ""
 #: ../plugins/podcasts/__init__.py:154
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "טוען את %s..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
@@ -1885,7 +1885,7 @@ msgstr ""
 
 #: ../plugins/shoutcast/__init__.py:273
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "הכנס את מילות המפתח לחיפוש"
 
 #: ../plugins/shoutcast/__init__.py:274
 msgid "Shoutcast Search"
@@ -1893,7 +1893,7 @@ msgstr ""
 
 #: ../plugins/shoutcast/__init__.py:297
 msgid "Search Results"
-msgstr ""
+msgstr "תוצאות החיפוש"
 
 #: ../plugins/shoutcast/__init__.py:330
 msgid "Search"
@@ -1901,7 +1901,7 @@ msgstr "חפש"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "ידע"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -1909,6 +1909,8 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"ביצוע של %(artist)s\n"
+"מתוך <i>%(album)s</i>"
 
 #: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
@@ -1928,20 +1930,20 @@ msgstr "עצור ניגון"
 
 #: ../plugins/minimode/__init__.py:211
 msgid "Restore Main Window"
-msgstr ""
+msgstr "שחזר חלון ראשי"
 
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "מצב מוקטן"
 
 #: ../plugins/minimode/minimodeprefs.py:97
 msgid "Available controls"
-msgstr ""
+msgstr "פקדים זמינים"
 
 #: ../plugins/minimode/minimodeprefs.py:98
 msgid "Selected controls"
-msgstr ""
+msgstr "פקדים ניבחרים"
 
 #: ../plugins/minimode/minimodeprefs.py:100
 msgid "Previous"
@@ -1961,64 +1963,64 @@ msgstr "הבא"
 
 #: ../plugins/minimode/minimodeprefs.py:104
 msgid "Track selector"
-msgstr ""
+msgstr "בוחר רצועות"
 
 #: ../plugins/minimode/minimodeprefs.py:105
 msgid "Progress bar"
-msgstr ""
+msgstr "סרגל התקדמות"
 
 #: ../plugins/minimode/minimodeprefs.py:106
 msgid "Volume"
-msgstr ""
+msgstr "עוצמה"
 
 #: ../plugins/minimode/minimodeprefs.py:107
 msgid "Playlist button"
-msgstr ""
+msgstr "בפתור רשימת השמעה"
 
 #: ../plugins/minimode/minimodeprefs.py:110
 msgid "Restore"
-msgstr ""
+msgstr "שחזר"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:136
 #: ../plugins/minimode/minimodeprefs.py:142
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:138
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title ע\"י $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:140
 msgid "$title ($length)"
-msgstr ""
+msgstr "$title ($length)"
 
 #: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
-msgstr ""
+msgstr "התחל השמעה"
 
 #: ../plugins/minimode/mmwidgets.py:169
 msgid "Continue Playback"
-msgstr ""
+msgstr "המשך השמעה"
 
 #: ../plugins/minimode/mmwidgets.py:172
 msgid "Pause Playback"
-msgstr ""
+msgstr "עצור השמעה"
 
 #: ../plugins/minimode/mmwidgets.py:732
 msgid "Seeking: "
-msgstr ""
+msgstr "מחפש: "
 
 #: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
-msgstr ""
+msgstr " & "
 
 #: ../plugins/contextinfo/__init__.py:1033
 #: ../plugins/contextinfo/context.glade.h:1
 msgid "Context"
-msgstr ""
+msgstr "הקשר"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"

@@ -318,34 +318,35 @@ class FilesPanel(panel.Panel):
         """
         self.current = directory
         try:
-            file_infos = directory.enumerate_children('standard::name')
+            infos = directory.enumerate_children('standard::is-hidden,'
+                'standard::name,standard::display-name,standard::type')
         except gio.Error:
             if directory.get_path() != xdg.homedir:
                 return self.load_directory(
                     gio.File(xdg.homedir), history, keyword)
         if self.current != directory: # Modified from another thread.
             return
-        files = (directory.get_child(fi.get_name()) for fi in file_infos)
 
         settings.set_option('gui/files_panel_dir', directory.get_uri())
 
         subdirs = []
         subfiles = []
         import locale
-        for f in files:
-            basename = f.get_basename()
-            if basename.startswith('.'):
-                # Ignore .hidden files. They can still be accessed manually from
+        for info in infos:
+            if info.get_is_hidden():
+                # Ignore hidden files. They can still be accessed manually from
                 # the location bar.
                 continue
+            f = directory.get_child(info.get_name())
+            basename = f.get_basename()
             low_basename = basename.lower()
             if keyword and keyword.lower() not in low_basename:
                 continue
             def sortkey():
-                name = f.query_info('standard::display-name').get_display_name()
+                name = info.get_display_name()
                 sortname = locale.strxfrm(name)
                 return sortname, name, f
-            ftype = f.query_info('standard::type').get_file_type()
+            ftype = info.get_file_type()
             if ftype == gio.FILE_TYPE_DIRECTORY:
                 subdirs.append(sortkey())
             elif any(low_basename.endswith('.' + ext)
@@ -356,6 +357,9 @@ class FilesPanel(panel.Panel):
         subfiles.sort()
 
         def idle():
+            if self.current != directory: # Modified from another thread.
+                return
+
             self.model.clear()
 
             for sortname, name, f in subdirs:

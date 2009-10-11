@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-03 20:15+0000\n"
-"Last-Translator: Rafal Misiewicz <Unknown>\n"
+"PO-Revision-Date: 2009-10-10 15:02+0000\n"
+"Last-Translator: Rafał Barański <kazislav@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-10-04 06:48+0000\n"
+"X-Launchpad-Export-Date: 2009-10-11 06:50+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1459,7 +1459,7 @@ msgstr "Te opcje dotyczą tylko zunifikowanego silnika."
 
 #: ../data/ui/playback_prefs_pane.glade.h:15
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Jednolity (niestabilny)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
@@ -2408,7 +2408,7 @@ msgstr "Czcionka:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
 msgid "Terminal Opacity:"
-msgstr ""
+msgstr "Przezroczystość terminalu:"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-21 17:10+0000\n"
-"Last-Translator: Muszela Balázs <bazsi86@gmail.com>\n"
+"PO-Revision-Date: 2009-10-11 14:12+0000\n"
+"Last-Translator: Németh Gábor II. <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-23 09:40+0000\n"
+"X-Launchpad-Export-Date: 2009-10-12 07:05+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -52,7 +52,7 @@ msgstr "Váltás lejátszás és megállítás között"
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "Lejátszás megállítása az aktuális dal után"
 
 #: ../xl/main.py:314
 msgid "Track options"
@@ -116,7 +116,7 @@ msgstr ""
 
 #: ../xl/main.py:348
 msgid "Other options"
-msgstr ""
+msgstr "Egyéb beállítások"
 
 #: ../xl/main.py:320
 msgid "Start new instance"
@@ -352,7 +352,7 @@ msgstr ""
 
 #: ../xlgui/main.py:262
 msgid "Save As..."
-msgstr ""
+msgstr "Mentés másként…"
 
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
@@ -425,7 +425,7 @@ msgstr "Eltávolítás"
 
 #: ../xlgui/menu.py:153
 msgid "Properties"
-msgstr ""
+msgstr "Tulajdonságok"
 
 #: ../xlgui/menu.py:167
 msgid "Playlist"
@@ -449,7 +449,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:208
 msgid "_Save As..."
-msgstr ""
+msgstr "M_entés másként…"
 
 #: ../xlgui/menu.py:209
 msgid "C_lear All Tracks"
@@ -635,15 +635,15 @@ msgstr "Kiterjesztés"
 
 #: ../xlgui/devices.py:62
 msgid "Icon"
-msgstr ""
+msgstr "Ikon"
 
 #: ../xlgui/devices.py:67
 msgid "Device"
-msgstr ""
+msgstr "Eszköz"
 
 #: ../xlgui/devices.py:74
 msgid "Driver"
-msgstr ""
+msgstr "Meghajtó"
 
 #: ../xlgui/collection.py:140
 msgid "Add a directory"
@@ -754,20 +754,20 @@ msgstr "BPM"
 
 #: ../xlgui/plcolumns.py:195 ../plugins/minimode/minimodeprefs.py:131
 msgid "Last played"
-msgstr ""
+msgstr "Legutóbb lejátszva"
 
 #: ../xlgui/plcolumns.py:206 ../xlgui/plcolumns.py:226
 #: ../plugins/minimode/mmwidgets.py:880
 msgid "Never"
-msgstr ""
+msgstr "Soha"
 
 #: ../xlgui/plcolumns.py:218 ../plugins/minimode/mmwidgets.py:893
 msgid "Today"
-msgstr ""
+msgstr "Ma"
 
 #: ../xlgui/plcolumns.py:220 ../plugins/minimode/mmwidgets.py:895
 msgid "Yesterday"
-msgstr ""
+msgstr "Tegnap"
 
 #: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:897
 #, python-format
@@ -805,7 +805,7 @@ msgstr " dalok"
 #: ../xlgui/playlist.py:1060
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "%s bezárása"
 
 #: ../xlgui/playlist.py:1061
 #, python-format
@@ -876,11 +876,11 @@ msgstr "nem tartalmazza ezt:"
 
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:134
 msgid "greater than"
-msgstr ""
+msgstr "nagyobb, mint"
 
 #: ../xlgui/panel/playlists.py:79 ../xlgui/panel/playlists.py:135
 msgid "less than"
-msgstr ""
+msgstr "kisebb, mint"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
@@ -964,7 +964,7 @@ msgstr "Folyamok betöltése..."
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:224
 #: ../plugins/shoutcast/__init__.py:257 ../plugins/podcasts/podcasts.glade.h:2
 msgid "Idle."
-msgstr ""
+msgstr "Üresjárat."
 
 #: ../xlgui/panel/radio.py:166
 msgid "Add Radio Station"
@@ -973,7 +973,7 @@ msgstr ""
 #: ../xlgui/panel/radio.py:169
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:234
 msgid "Saved Stations"
@@ -1009,7 +1009,7 @@ msgstr ""
 
 #: ../xlgui/panel/collection.py:162
 msgid "Rescan Collection"
-msgstr ""
+msgstr "A gyűjtemény átvizsgálása"
 
 #: ../xlgui/panel/collection.py:625
 msgid "Various Artists"
@@ -1022,15 +1022,15 @@ msgstr ""
 
 #: ../xlgui/prefs/cover_prefs.py:21
 msgid "Covers"
-msgstr ""
+msgstr "Borítók"
 
 #: ../xlgui/prefs/appearance_prefs.py:22
 msgid "Appearance"
-msgstr ""
+msgstr "Megjelenés"
 
 #: ../xlgui/prefs/playback_prefs.py:22
 msgid "Playback"
-msgstr ""
+msgstr "Lejátszás"
 
 #: ../xlgui/prefs/__init__.py:73 ../data/glade/preferences_dialog.glade.h:2
 msgid "Preferences"
@@ -1047,7 +1047,7 @@ msgstr "Lejátszólisták"
 
 #: ../xlgui/prefs/osd_prefs.py:22
 msgid "On Screen Display"
-msgstr ""
+msgstr "OSD"
 
 #: ../xlgui/prefs/plugin_prefs.py:81
 msgid "Plugin"
@@ -1055,7 +1055,7 @@ msgstr "Bővítmény"
 
 #: ../xlgui/prefs/plugin_prefs.py:89
 msgid "Version"
-msgstr ""
+msgstr "Verziószám"
 
 #: ../xlgui/prefs/plugin_prefs.py:97
 #: ../plugins/multialarmclock/alarmclk.glade.h:6
@@ -1064,7 +1064,7 @@ msgstr "Engedélyezve"
 
 #: ../xlgui/prefs/plugin_prefs.py:119
 msgid "Choose a plugin"
-msgstr ""
+msgstr "Válassz bővítményt"
 
 #: ../xlgui/prefs/plugin_prefs.py:127
 msgid "Plugin Archives"
@@ -1082,23 +1082,23 @@ msgstr ""
 
 #: ../xlgui/prefs/widgets.py:244
 msgid "Add item"
-msgstr ""
+msgstr "Elem hozzáadása"
 
 #: ../xlgui/prefs/widgets.py:249
 msgid "Remove item"
-msgstr ""
+msgstr "Elem eltávolítása"
 
 #: ../xlgui/prefs/widgets.py:262
 msgid "Move selected item up"
-msgstr ""
+msgstr "A kijelölt elemet feljebb mozgatja"
 
 #: ../xlgui/prefs/widgets.py:267
 msgid "Move selected item down"
-msgstr ""
+msgstr "A kijelölt elemet lejjebb mozgatja"
 
 #: ../xlgui/prefs/widgets.py:538
 msgid "Action"
-msgstr ""
+msgstr "Művelet"
 
 #: ../xlgui/prefs/widgets.py:546
 msgid "Shortcut"
@@ -1163,51 +1163,51 @@ msgstr "Új keresés"
 
 #: ../data/glade/trackproperties_dialog.glade.h:1
 msgid "Album:"
-msgstr ""
+msgstr "Album:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:2
 msgid "Artist:"
-msgstr ""
+msgstr "Előadó:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:3
 msgid "Basic"
-msgstr ""
+msgstr "Alap"
 
 #: ../data/glade/trackproperties_dialog.glade.h:4
 msgid "Bitrate:"
-msgstr ""
+msgstr "Bitráta:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:5
 msgid "Date:"
-msgstr ""
+msgstr "Dátum:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:6
 msgid "Details"
-msgstr ""
+msgstr "Részletek"
 
 #: ../data/glade/trackproperties_dialog.glade.h:7
 msgid "File Size:"
-msgstr ""
+msgstr "Fájlméret:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:8
 msgid "Genre:"
-msgstr ""
+msgstr "Műfaj:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:9
 msgid "Length:"
-msgstr ""
+msgstr "Hossz:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:10
 msgid "Location:"
-msgstr ""
+msgstr "Hely:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:11
 msgid "Play Count:"
-msgstr ""
+msgstr "Lejátszások száma:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:12
 msgid "Title:"
-msgstr ""
+msgstr "Cím:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:13
 msgid "Track Number:"
@@ -1257,7 +1257,7 @@ msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.glade.h:2
 msgid "Bottom"
-msgstr ""
+msgstr "Alul"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
@@ -1265,15 +1265,15 @@ msgstr "Ugrás a jelenlegi dalhoz számváltásnál"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:5
 msgid "Left"
-msgstr ""
+msgstr "Bal"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:8
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Kicsinyítés a tálcára"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:7
 msgid "Right"
-msgstr ""
+msgstr "Jobb"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:9
 msgid "Show splash screen on startup"
@@ -1289,7 +1289,7 @@ msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.glade.h:11
 msgid "Top"
-msgstr ""
+msgstr "Felül"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
@@ -1408,7 +1408,7 @@ msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.glade.h:8
 msgid "Normal"
-msgstr ""
+msgstr "Normál"
 
 #: ../xl/player/pipe.py:213
 msgid "OSS"
@@ -1500,11 +1500,11 @@ msgstr "0:00 / 0:00"
 
 #: ../data/glade/main.glade.h:5
 msgid "C_overs"
-msgstr ""
+msgstr "B_orítók"
 
 #: ../data/glade/main.glade.h:6
 msgid "Clear Playlist"
-msgstr ""
+msgstr "Lejátszólista törlése"
 
 #: ../data/ui/main.glade.h:5
 msgid "Click to view Queue"
@@ -1596,7 +1596,7 @@ msgstr "_Súgó"
 
 #: ../data/glade/main.glade.h:35
 msgid "_Queue"
-msgstr ""
+msgstr "_Várólista"
 
 #: ../data/glade/main.glade.h:36
 msgid "_Randomize Playlist"
@@ -1624,7 +1624,7 @@ msgstr ""
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
-msgstr ""
+msgstr "CD importálása"
 
 #: ../data/glade/general_prefs_pane.glade.h:1
 #: ../data/glade/playlists_prefs_pane.glade.h:1
@@ -1659,7 +1659,7 @@ msgstr ""
 
 #: ../data/ui/collection_panel.glade.h:12
 msgid "Year - Album"
-msgstr ""
+msgstr "Év - Album"
 
 #: ../data/ui/collection_panel.glade.h:13
 msgid "Year - Artist"
@@ -1708,12 +1708,12 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Ébresztőóra"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
@@ -1721,7 +1721,7 @@ msgstr ""
 
 #: ../plugins/cd/__init__.py:95 ../plugins/cd/__init__.py:172
 msgid "Audio Disc"
-msgstr ""
+msgstr "Audio lemez"
 
 #: ../plugins/cd/_cdguipanel.py:60
 msgid "Importing CD..."
@@ -1729,19 +1729,19 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs.py:22
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
 msgid "Track number"
-msgstr ""
+msgstr "Dal sorszáma"
 
 #: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
 msgid "Disc number"
-msgstr ""
+msgstr "Lemez-sorszám"
 
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:130
 msgid "Play count"
-msgstr ""
+msgstr "Lejátszások száma"
 
 #: ../plugins/bookmarks/__init__.py:278
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -1823,7 +1823,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
-msgstr ""
+msgstr "Törlés"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
@@ -1836,7 +1836,7 @@ msgstr ""
 #: ../plugins/podcasts/__init__.py:154
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "A(z) %s betöltése..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
@@ -1880,7 +1880,7 @@ msgstr "Keresés"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Figyelmeztetés"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -1928,7 +1928,7 @@ msgstr "Előző"
 
 #: ../plugins/minimode/minimodeprefs.py:101
 msgid "Play/Pause"
-msgstr ""
+msgstr "Lejátszás/Szünet"
 
 #: ../plugins/minimode/minimodeprefs.py:102
 msgid "Stop"
@@ -1944,11 +1944,11 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:105
 msgid "Progress bar"
-msgstr ""
+msgstr "Folyamatjelző"
 
 #: ../plugins/minimode/minimodeprefs.py:106
 msgid "Volume"
-msgstr ""
+msgstr "Hangerő"
 
 #: ../plugins/minimode/minimodeprefs.py:107
 msgid "Playlist button"
@@ -1956,7 +1956,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:110
 msgid "Restore"
-msgstr ""
+msgstr "Visszaállítás"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:136
@@ -1976,19 +1976,19 @@ msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
-msgstr ""
+msgstr "Lejátszás"
 
 #: ../plugins/minimode/mmwidgets.py:169
 msgid "Continue Playback"
-msgstr ""
+msgstr "Lejátszás folytatása"
 
 #: ../plugins/minimode/mmwidgets.py:172
 msgid "Pause Playback"
-msgstr ""
+msgstr "Lejátszás megállítása"
 
 #: ../plugins/minimode/mmwidgets.py:732
 msgid "Seeking: "
-msgstr ""
+msgstr "Keresés: "
 
 #: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
@@ -1997,7 +1997,7 @@ msgstr ""
 #: ../plugins/contextinfo/__init__.py:1033
 #: ../plugins/contextinfo/context.glade.h:1
 msgid "Context"
-msgstr ""
+msgstr "Kontextus"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
@@ -2005,11 +2005,11 @@ msgstr ""
 
 #: ../plugins/streamripper/__init__.py:54
 msgid "Streamripper can only record streams."
-msgstr ""
+msgstr "Adatfolyam rippelő csak adatfolyamot tud rögzíteni"
 
 #: ../plugins/streamripper/__init__.py:87
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "Hiba a futtatott folyam feldolgozása közben"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:1
 #: ../plugins/alarmclock/acprefs_pane.glade.h:1
@@ -2045,7 +2045,7 @@ msgstr "Péntek"
 #: ../plugins/multialarmclock/alarmclk.glade.h:9
 #: ../plugins/alarmclock/acprefs_pane.glade.h:4
 msgid "Increment:"
-msgstr ""
+msgstr "Növelés:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:10
 #: ../plugins/alarmclock/acprefs_pane.glade.h:5
@@ -2125,11 +2125,11 @@ msgstr "Felhasználónév:"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
 msgid "Import format: "
@@ -2145,15 +2145,15 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:6
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:7
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:8
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:9
 msgid "WavPack"
@@ -2165,15 +2165,15 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>Tartalom</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>Megjelenés</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
 msgid "<b>Icons</b>"
-msgstr ""
+msgstr "<b>Ikonok</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
 msgid "Album Line:"
@@ -2197,7 +2197,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
 msgid "Summary:"
-msgstr ""
+msgstr "Összegzés:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
 #, python-format
@@ -2235,47 +2235,47 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.glade.h:1
 msgid "Anchor:"
-msgstr ""
+msgstr "Horgony:"
 
 #: ../plugins/desktopcover/prefs.glade.h:2
 msgid "Bottom left"
-msgstr ""
+msgstr "Bal alsó"
 
 #: ../plugins/desktopcover/prefs.glade.h:3
 msgid "Bottom right"
-msgstr ""
+msgstr "Jobb alsó"
 
 #: ../plugins/desktopcover/prefs.glade.h:4
 msgid "Size:"
-msgstr ""
+msgstr "Méret:"
 
 #: ../plugins/desktopcover/prefs.glade.h:5
 msgid "Top left"
-msgstr ""
+msgstr "Bal felső"
 
 #: ../plugins/desktopcover/prefs.glade.h:6
 msgid "Top right"
-msgstr ""
+msgstr "Jobb felső"
 
 #: ../plugins/desktopcover/prefs.glade.h:7
 msgid "X offset:"
-msgstr ""
+msgstr "X távolság:"
 
 #: ../plugins/desktopcover/prefs.glade.h:8
 msgid "Y offset:"
-msgstr ""
+msgstr "Y távolság:"
 
 #: ../plugins/desktopcover/prefs.glade.h:9
 msgid "pixels"
-msgstr ""
+msgstr "képpont"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:1
 msgid "Base color"
-msgstr ""
+msgstr "Alapszín"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:2
 msgid "Base color:"
-msgstr ""
+msgstr "Alapszín:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
 msgid "Darken played section instead of using cursor"
@@ -2283,7 +2283,7 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
 msgid "Darkness level:"
-msgstr ""
+msgstr "Sötétségi szint:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
 msgid "Show only waveform, not mood"
@@ -2331,7 +2331,7 @@ msgstr ""
 
 #: ../plugins/podcasts/podcasts.glade.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "Podcast hozzáadása"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:1
 msgid "<b>Body Message</b>"
@@ -2352,11 +2352,11 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:5
 msgid "Only album"
-msgstr ""
+msgstr "Csak album"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:6
 msgid "Only artist"
-msgstr ""
+msgstr "Csak előadó"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:7
 msgid "Resize displayed covers"
@@ -2364,11 +2364,11 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:8
 msgid "Summary"
-msgstr ""
+msgstr "Összegzés"
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:1
 msgid "Font:"
-msgstr ""
+msgstr "Betűtípus:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
 msgid "Terminal Opacity:"
@@ -2376,7 +2376,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"
-msgstr ""
+msgstr "Mindig legfelül"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:5
 msgid "Display window decorations"
@@ -2400,7 +2400,7 @@ msgstr "Relay Port:"
 
 #: ../plugins/streamripper/streamripper.glade.h:2
 msgid "Save Location:"
-msgstr ""
+msgstr "A mentés helye:"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -2437,7 +2437,7 @@ msgstr ""
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "CD lejátszás"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
@@ -2502,11 +2502,11 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
-msgstr ""
+msgstr "iPod támogatás"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr ""
+msgstr "iPod támogatás bővítmény"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -2518,7 +2518,7 @@ msgstr ""
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "Képernykímélő esetén szünet"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
@@ -2534,7 +2534,7 @@ msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Hello World"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -2606,7 +2606,7 @@ msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Környezeti információ"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""

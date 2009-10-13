@@ -503,8 +503,17 @@ class TrackSearcher(object):
 
         # split the search into tokens to be parsed
         search = " " + newsearch.lower() + " "
-        tokens = search.split(" ")
-        tokens = [t for t in tokens if t != ""]
+        tokensraw = search.split(" ")
+        tokens = []
+        for t in tokensraw:
+            if t == "":
+                # handle multiple consecutive spaces
+                if len(tokens) > 0:
+                    tokens[-1] = tokens[-1] + " "
+            else:
+                tokens.append(t)
+        if len(tokens) > 0:
+            tokens[-1] = tokens[-1][:-1] # trim excess space
 
         # handle "" grouping
         etokens = []

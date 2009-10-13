@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-11 14:12+0000\n"
-"Last-Translator: Németh Gábor II. <Unknown>\n"
+"PO-Revision-Date: 2009-10-12 08:27+0000\n"
+"Last-Translator: Muszela Balázs <bazsi86@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-12 07:05+0000\n"
+"X-Launchpad-Export-Date: 2009-10-13 06:59+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -56,7 +56,7 @@ msgstr "Lejátszás megállítása az aktuális dal után"
 
 #: ../xl/main.py:314
 msgid "Track options"
-msgstr ""
+msgstr "Zeneszám beállítások"
 
 #: ../xl/main.py:288
 msgid "Query player"
@@ -100,7 +100,7 @@ msgstr ""
 
 #: ../xl/main.py:339
 msgid "Volume options"
-msgstr ""
+msgstr "Hangerő beállítások"
 
 #: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
@@ -469,11 +469,11 @@ msgstr "Elemek sorba rakása"
 
 #: ../xlgui/menu.py:277
 msgid "Delete track"
-msgstr ""
+msgstr "Zeneszám törlése"
 
 #: ../xlgui/menu.py:308
 msgid "New Station"
-msgstr ""
+msgstr "Új Állomás"
 
 #: ../xlgui/menu.py:313
 msgid "New Smart Playlist"
@@ -560,7 +560,7 @@ msgstr "Nincs elérhető borító"
 
 #: ../xlgui/osd.py:207
 msgid "No track"
-msgstr ""
+msgstr "Nem zeneszám"
 
 #: ../xlgui/__init__.py:160
 msgid "Export current playlist..."
@@ -968,7 +968,7 @@ msgstr "Üresjárat."
 
 #: ../xlgui/panel/radio.py:166
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Rádióállomás Hozzáadása"
 
 #: ../xlgui/panel/radio.py:169
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
@@ -1211,11 +1211,11 @@ msgstr "Cím:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:13
 msgid "Track Number:"
-msgstr ""
+msgstr "Zeneszám Sorszáma:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:14
 msgid "Track Properties"
-msgstr ""
+msgstr "Zeneszám Tulajdonságai"
 
 #: ../data/glade/about_dialog.glade.h:1
 msgid "&#xA9; 2009"
@@ -1396,7 +1396,7 @@ msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:9
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Átvezetés hossza (ms):"
 
 #: ../xl/player/pipe.py:203
 msgid "GNOME"
@@ -1564,7 +1564,7 @@ msgstr ""
 
 #: ../data/glade/main.glade.h:26
 msgid "_Collection"
-msgstr ""
+msgstr "_Gyűlytemény"
 
 #: ../data/glade/main.glade.h:27
 msgid "_Columns"
@@ -1637,11 +1637,11 @@ msgstr ""
 
 #: ../data/glade/collection_panel.glade.h:2
 msgid "Add Music"
-msgstr ""
+msgstr "Zene Hozzáadása"
 
 #: ../data/ui/collection_panel.glade.h:5
 msgid "Artist - Year - Album"
-msgstr ""
+msgstr "Előadó - Év - Album"
 
 #: ../data/ui/collection_panel.glade.h:7
 msgid "Genre - Album"
@@ -1663,7 +1663,7 @@ msgstr "Év - Album"
 
 #: ../data/ui/collection_panel.glade.h:13
 msgid "Year - Artist"
-msgstr ""
+msgstr "Év - Előadó"
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
@@ -1912,7 +1912,7 @@ msgstr ""
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Mini Mód"
 
 #: ../plugins/minimode/minimodeprefs.py:97
 msgid "Available controls"
@@ -2221,11 +2221,11 @@ msgstr ""
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
 msgid "API Key:"
-msgstr ""
+msgstr "API Kulcs:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
 msgid "Secret Key:"
-msgstr ""
+msgstr "Titkos Kulcs:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
 msgid ""
@@ -2455,7 +2455,7 @@ msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Last.fm Borítók"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
@@ -2542,7 +2542,7 @@ msgstr ""
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "GNOME Multimédia Billentyűk"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
@@ -2552,7 +2552,7 @@ msgstr ""
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "XBillentyűk"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"

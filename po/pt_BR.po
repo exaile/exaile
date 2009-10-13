@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-10 20:24+0000\n"
-"Last-Translator: Pedro Senna <pedrosenna5@yahoo.com.br>\n"
+"PO-Revision-Date: 2009-10-12 20:02+0000\n"
+"Last-Translator: jp.seixas <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2009-10-11 06:50+0000\n"
+"X-Launchpad-Export-Date: 2009-10-13 06:59+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -2325,7 +2325,7 @@ msgstr "Nível de escurecimento:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Mostrar somente a forma de onda, não a atmosfera"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
 msgid "Use color theme "
@@ -2333,7 +2333,7 @@ msgstr "Usar cores do tema "
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
 msgid "Use waveform style"
-msgstr ""
+msgstr "Usar estilo de forma de onda"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Additional amplification (dB):"
@@ -2346,10 +2346,11 @@ msgstr "Amplificação adicional a ser utilizada em todos os arquivos"
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
+"Correção de queda para arquivos que não tenham informação do ReplayGain"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Nível da correção de queda (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
@@ -2365,7 +2366,7 @@ msgstr "Proteger contra ruído causado pelo excesso de amplificação"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Utilizar a proteção de corte"
 
 #: ../plugins/podcasts/podcasts.glade.h:1
 msgid "Add Podcast"
@@ -2387,6 +2388,10 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place"
 msgstr ""
+"Mensagem que deverá ser exibida no corpo da notificação. Em cada caso, "
+"\"%(title)s\", \"%(artist)s\", e \"%(album)s\" serão substituídos pelos seus "
+"respectivos valores. Se o rótulo não for conhecido, \"Desconhecido\" será "
+"preenchido em seu lugar"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:5
 msgid "Only album"
@@ -2475,6 +2480,7 @@ msgstr "Faixa atual"
 msgid ""
 "Sets the currently playing status in Pidgin for services that support it."
 msgstr ""
+"Mostrar no Pidgin, para os serviços suportados, o status de reprodução atual"
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
@@ -2522,6 +2528,12 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Este plugin exibe bolhas de notificação quando uma música é "
+"reproduzida/retomada/parada, quer com a capa da música ou ícone de mídia "
+"para indicar a última ação.\n"
+"\n"
+"Dependência: python-notify\n"
+"Recomendação: notify-osd"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -2555,6 +2567,8 @@ msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Substitui a barra de progresso padrão por uma moodbar.\n"
+"Dependência: moodbar"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
@@ -2570,7 +2584,7 @@ msgstr "Habilita o suporte ao ReplayGain"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Adiciona um Suporte Simples ao Podcast"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
@@ -2657,7 +2671,7 @@ msgstr "Modo compacto do Exaile com uma interface configurável"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr ""
+msgstr "Etiquetar Capas"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"

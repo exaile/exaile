@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-09 01:40+0000\n"
-"Last-Translator: Robert Okadar <aranea.network@gmail.com>\n"
+"PO-Revision-Date: 2009-10-12 14:45+0000\n"
+"Last-Translator: nafterburner <nafterburner@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-10-10 06:52+0000\n"
+"X-Launchpad-Export-Date: 2009-10-13 06:59+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -129,7 +129,7 @@ msgstr "Pokreni minimizirano (u području obavijesti, ako je moguće)"
 
 #: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Preklopi vidljivost GUI-a (ako je moguće)"
 
 #: ../xl/main.py:325
 msgid ""
@@ -162,11 +162,11 @@ msgstr "Prikaži izlaz otklanjanja grešaka"
 
 #: ../xl/main.py:334
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "Omogući debuggiranje xl.događaja. Generira PUNO ispisa."
 
 #: ../xl/main.py:336
 msgid "Filter event debug output"
-msgstr ""
+msgstr "Filtriraj debug ispis događaja."
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
@@ -200,6 +200,8 @@ msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile još nije završio učitavanje. Možda bi trebali slušati dali se čuje "
+"signal exaile_učitan?"
 
 #: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
@@ -207,7 +209,7 @@ msgstr "Niste specificirali lokaciju za spremanje db"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
-msgstr ""
+msgstr "redosljed mora biti lista ili red"
 
 #: ../xl/transcoder.py:45
 msgid ""
@@ -257,7 +259,7 @@ msgstr ""
 
 #: ../xl/track.py:474
 msgid "  New song, fetching cover."
-msgstr ""
+msgstr "  Nova pjesma, dobavljanje omota."
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
@@ -286,7 +288,7 @@ msgstr "Priključak sa nazivom \"%s\" je već instaliran"
 
 #: ../xl/plugins.py:85
 msgid "Plugin archive contains an unsafe path"
-msgstr ""
+msgstr "Arhiva dodatka sadrži nesigurnu putanju."
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
 #: ../xl/playlist.py:243 ../xlgui/panel/collection.py:395
@@ -336,7 +338,7 @@ msgstr "Ništa ne svira"
 
 #: ../xlgui/main.py:117 ../plugins/minimode/mmwidgets.py:650
 msgid "Streaming..."
-msgstr ""
+msgstr "Potjecanje..."
 
 #: ../xlgui/main.py:198
 msgid "Close tab"
@@ -360,7 +362,7 @@ msgstr "Spremi Kao..."
 
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
-msgstr ""
+msgstr "Prekidač: Zaustavi nakon označene trake"
 
 #: ../xlgui/main.py:788
 #, python-format
@@ -1362,7 +1364,7 @@ msgstr "Boja pozadine"
 
 #: ../data/glade/osd_prefs_pane.glade.h:6
 msgid "Display OSD when hovering over tray icon"
-msgstr ""
+msgstr "Prikaži OSD pri pokrivanju ikone u trayu"
 
 #: ../data/glade/osd_prefs_pane.glade.h:7
 msgid "Display a progressbar in the OSD"
@@ -1466,7 +1468,7 @@ msgstr "Upotrijebi crossfading (EKSPERIMENTALNO)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:17
 msgid "Use fade transitions on user actions"
-msgstr ""
+msgstr "Upotrijebi tranziciju \"Izblijeđivanje\" pri korisnikovim akcijama"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:1
 msgid "<b>No Plugin Selected</b>"
@@ -1494,7 +1496,7 @@ msgstr "Instaliraj nadogradnje"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "Instaliraj dodatak treće strane iz datoteke"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:8
 msgid "Install plugin file"
@@ -1554,7 +1556,7 @@ msgstr "Prethodna pjesma"
 
 #: ../data/glade/main.glade.h:13
 msgid "Randomize the order of the current playlist"
-msgstr ""
+msgstr "Rasporedi trenutnoi popis naslova slučajnim odabirom"
 
 #: ../data/glade/main.glade.h:14
 msgid "Re_scan Collection"
@@ -1691,7 +1693,7 @@ msgstr "Godina - Izvođač"
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Pitaj za spremanje prilagođenih popisa naslova pri zatvaranju"
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
@@ -1719,7 +1721,7 @@ msgstr "Prethodni posjećen direktorij"
 
 #: ../data/glade/files_panel.glade.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Osvježi izlistavanje mapa"
 
 #: ../data/glade/files_panel.glade.h:7
 msgid "Up one directory"
@@ -1786,7 +1788,7 @@ msgstr "Očisti oznake"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Uključi obavijesti preko OSD-a"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
@@ -1822,11 +1824,11 @@ msgid "Mood found."
 msgstr "Raspoloženje pronađeno."
 
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "Ne mogu pročitati moodbar."
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Moodbar, izvršna datoteka nije dostupan."
 
 #: ../plugins/replaygain/replaygainprefs.py:22
 #: ../plugins/replaygain/PLUGININFO:3
@@ -1851,7 +1853,7 @@ msgstr "Obriši"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Unesite URL podcasta za dodavanje"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
@@ -1877,7 +1879,7 @@ msgstr "Nemoguće spremiti podcast datoteku"
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:158
 #: ../plugins/shoutcast/__init__.py:201 ../plugins/shoutcast/__init__.py:237
 msgid "Contacting Shoutcast server..."
-msgstr ""
+msgstr "Kontaktiram Shoutcast server..."
 
 #: ../plugins/shoutcast/__init__.py:114 ../plugins/shoutcast/__init__.py:118
 #: ../plugins/shoutcast/__init__.py:167 ../plugins/shoutcast/__init__.py:171
@@ -2031,7 +2033,7 @@ msgstr "Streamripper"
 
 #: ../plugins/streamripper/__init__.py:54
 msgid "Streamripper can only record streams."
-msgstr ""
+msgstr "Streamripper može samo snimati streamove."
 
 #: ../plugins/streamripper/__init__.py:87
 msgid "Error executing streamripper"
@@ -2057,11 +2059,11 @@ msgstr "Alarm:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:5
 msgid "Enable Fading"
-msgstr ""
+msgstr "Uključi Izblijeđivanje"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:7
 msgid "Fading:"
-msgstr ""
+msgstr "Izblijeđivanje:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:8
 #: ../plugins/alarmclock/acprefs_pane.glade.h:3
@@ -2094,7 +2096,7 @@ msgstr "Ime - Vrijeme"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:14
 msgid "Restart Playlist"
-msgstr ""
+msgstr "Ponovo pokreni listu pjesama"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:15
 #: ../plugins/alarmclock/acprefs_pane.glade.h:8
@@ -2113,7 +2115,7 @@ msgstr "Četvrtak"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:18
 msgid "Time per Increment:"
-msgstr ""
+msgstr "Vrijeme po Uvećanju:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:19
 #: ../plugins/alarmclock/acprefs_pane.glade.h:12
@@ -2127,11 +2129,11 @@ msgstr "Srijeda"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:11
 msgid "Timer per Increment:"
-msgstr ""
+msgstr "Brojač po Uvećanju:"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:13
 msgid "Use Fading"
-msgstr ""
+msgstr "Koristi Izbljeđivanje"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:1
 msgid "Password:"
@@ -2143,7 +2145,7 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Dostavi pjesme koristeći Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:5
 msgid "Username:"
@@ -2211,15 +2213,15 @@ msgstr "Linija Izvođača:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
 msgid "On Playback Start, Pause or Stop"
-msgstr ""
+msgstr "Na, Početku reprodukcije, Pauzi ili Stopu"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
 msgid "On Track Change"
-msgstr ""
+msgstr "Na Promjenu Pjesme"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
 msgid "On Tray Icon Hover"
-msgstr ""
+msgstr "Na Prekrivanje Tray Ikone"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
 msgid "Summary:"
@@ -2243,7 +2245,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
 msgid "When GUI is Focused"
-msgstr ""
+msgstr "Kad je GUI fokusiran"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
 msgid "API Key:"
@@ -2285,11 +2287,11 @@ msgstr "Gornji desno"
 
 #: ../plugins/desktopcover/prefs.glade.h:7
 msgid "X offset:"
-msgstr ""
+msgstr "X ofset:"
 
 #: ../plugins/desktopcover/prefs.glade.h:8
 msgid "Y offset:"
-msgstr ""
+msgstr "Y ofset"
 
 #: ../plugins/desktopcover/prefs.glade.h:9
 msgid "pixels"
@@ -2305,11 +2307,11 @@ msgstr "Osnovna boja:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Zatamni odsviranu sekciju umjesto upotrebom kursora"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
 msgid "Darkness level:"
-msgstr ""
+msgstr "Razina tame:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
 msgid "Show only waveform, not mood"

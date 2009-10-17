@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-from xl import xdg, event, cover, common, metadata
+from xl import xdg, event, cover, common, metadata, settings
 from xlgui import guiutil, commondialogs
 import gtk, gobject, time
 import logging, traceback
@@ -451,13 +451,27 @@ class CoverWidget(gtk.EventBox):
         self.emit('cover-found', nocover)
         gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
 
-        try:
-            cov = self.covers.get_cover(self.current_track,
-                update_track=True)
-        except cover.NoCoverFoundException:
-            logger.warning("No covers found")
-            gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
-            return
+        if (settings.get_option('covers/automatic_fetching', True)):
+            try:
+                cov = self.covers.get_cover(self.current_track,
+                    update_track=True)
+            except cover.NoCoverFoundException:
+                logger.warning("No covers found")
+                gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
+                return
+        else:
+            try:
+                item = track.get_album_tuple()
+                if item[0] and item[1]: 
+                    cov = self.coverdb.get_cover(item[0], item[1]) 
+            except TypeError: # one of the fields is missing
+                pass
+            except AttributeError:
+                pass
+            
+            if not cov:
+                gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
+                return
 
         if self.player.current == self.current_track:
             self.image.loc = cov

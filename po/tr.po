@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-21 16:29+0000\n"
-"Last-Translator: Aren Olson <Unknown>\n"
+"PO-Revision-Date: 2009-10-17 09:03+0000\n"
+"Last-Translator: Yiğitcan Aksarı <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-09-23 09:41+0000\n"
+"X-Launchpad-Export-Date: 2009-10-18 07:02+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -24,7 +24,7 @@ msgstr "Otomatik"
 
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "0.2.14'den taşıma başarısız oldu"
 
 #: ../xl/main.py:298
 msgid "Playback options"
@@ -68,27 +68,27 @@ msgstr ""
 
 #: ../xl/main.py:292
 msgid "Print the title of current track"
-msgstr ""
+msgstr "Çalan parçanın başlığını görüntüle"
 
 #: ../xl/main.py:294
 msgid "Print the album of current track"
-msgstr ""
+msgstr "Çalan parçanın albümünü görüntüle"
 
 #: ../xl/main.py:296
 msgid "Print the artist of current track"
-msgstr ""
+msgstr "Çalan parçanın sanatçısını görüntüle"
 
 #: ../xl/main.py:298
 msgid "Print the length of current track"
-msgstr ""
+msgstr "Çalan parçanın uzunluğunu görüntüle"
 
 #: ../xl/main.py:300
 msgid "Set rating for current song"
-msgstr ""
+msgstr "Çalan şarkı için değerlendirme yap"
 
 #: ../xl/main.py:302
 msgid "Get rating for current song"
-msgstr ""
+msgstr "Çalan şarkının değerlendirmesini al"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
@@ -124,16 +124,18 @@ msgstr ""
 
 #: ../xl/main.py:323
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "Küçültülmüş olarak başlar (eğer mümkünse, sistem tepsisine)"
 
 #: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Görsel arayüzün görünürlüğünü değiştir (eğer mümkünse)"
 
 #: ../xl/main.py:325
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
+"Güvenli kipte başlat - sorunlarla karşılaştığınızda bazen kullanışlı "
+"olabilir."
 
 #: ../xl/main.py:360
 msgid "Force import of old data from 0.2.x. Overwrites current data."
@@ -147,7 +149,7 @@ msgstr "0.2.x'den eski datayı içe aktarma"
 #. development and debug options
 #: ../xl/main.py:368
 msgid "Development/Debug options"
-msgstr ""
+msgstr "Geliştirme/Hata ayıklama seçenekleri"
 
 #. development and debug options
 #: ../xl/main.py:329
@@ -168,30 +170,30 @@ msgstr ""
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
-msgstr ""
+msgstr "Çıktı seviyesini azalt"
 
 #: ../xl/main.py:343
 msgid "Disable D-Bus support"
-msgstr ""
+msgstr "D-Bus desteğini etkisizleştir"
 
 #: ../xl/main.py:345
 msgid "Disable HAL support."
-msgstr ""
+msgstr "HAL desteğini etkisizleştir"
 
 #. entire playlist
 #: ../xl/main.py:362
 msgid "Entire Library"
-msgstr ""
+msgstr "Tüm Kütüphane"
 
 #: ../xl/main.py:368
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "Rasgele %d"
 
 #: ../xl/main.py:376
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "Derecelendirme > %d"
 
 #: ../xl/main.py:473
 msgid ""
@@ -247,7 +249,7 @@ msgstr ""
 
 #: ../xl/track.py:474
 msgid "  New song, fetching cover."
-msgstr ""
+msgstr "  Yeni parça, albüm kapağı alınıyor."
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
@@ -272,7 +274,7 @@ msgstr ""
 #: ../xl/plugins.py:80
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr ""
+msgstr "\"%s\" adında bir eklenti zaten kurulu"
 
 #: ../xl/plugins.py:85
 msgid "Plugin archive contains an unsafe path"
@@ -290,11 +292,11 @@ msgstr "Bilinmeyen"
 #: ../xl/playlist.py:387
 #, python-format
 msgid "Playlist %d"
-msgstr ""
+msgstr "Çalma listesi %d"
 
 #: ../xl/xldbus.py:75 ../xl/xldbus.py:284
 msgid "Not playing."
-msgstr ""
+msgstr "Bir şey çalmıyor."
 
 #: ../xl/xldbus.py:289
 #, python-format
@@ -328,11 +330,11 @@ msgstr ""
 
 #: ../xlgui/main.py:198
 msgid "Close tab"
-msgstr ""
+msgstr "Sekmeyi kapat"
 
 #: ../xlgui/main.py:254
 msgid "New playlist title:"
-msgstr ""
+msgstr "Yeni çalma listesi başlığı:"
 
 #: ../xlgui/main.py:254 ../xlgui/menu.py:415
 msgid "Rename Playlist"
@@ -340,11 +342,11 @@ msgstr "Çalma Listesini Yeniden Adlandır"
 
 #: ../xlgui/main.py:262
 msgid "Custom playlist name:"
-msgstr ""
+msgstr "Özel çalma listesi ismi:"
 
 #: ../xlgui/main.py:262
 msgid "Save As..."
-msgstr ""
+msgstr "Farklı Kaydet..."
 
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
@@ -415,11 +417,11 @@ msgstr "Kaldır"
 
 #: ../xlgui/menu.py:153
 msgid "Properties"
-msgstr ""
+msgstr "Özellikler"
 
 #: ../xlgui/menu.py:167
 msgid "Playlist"
-msgstr ""
+msgstr "Çalma Listesi"
 
 #: ../xlgui/menu.py:201 ../data/glade/main.glade.h:34
 msgid "_New Playlist"

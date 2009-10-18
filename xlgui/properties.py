@@ -456,6 +456,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
 class TagRow():
     def __init__(self, parent, parent_table, field, tag_name, value, multi_id):
+        self.parent = parent
         self.table = parent_table
         self.tag = tag_name
         self.field = field
@@ -489,6 +490,14 @@ class TagRow():
         else:
             self.label = gtk.Label()
 
+        self.clear_button = gtk.Button()
+        im = gtk.Image()
+        im.set_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON)
+        self.clear_button.set_image(im)
+        self.clear_button.connect("clicked", self.clear)
+        self.field.pack_start(self.clear_button, expand=False, fill=False)
+        self.field.show_all()
+
         #Remove mode settings
         self.remove_mode = False
         self.remove_button = gtk.Button()
@@ -502,14 +511,21 @@ class TagRow():
         self.field.register_all_func(parent.apply_all)
 
     def set_remove_mode(self, val):
-        if val and not self.remove_mode:
-            self.field.pack_start(self.remove_button, expand=False, fill=False)
-            self.field.show_all()
-            self.remove_mode = True
+        if self.tag not in self.parent.def_tags:
+            if val and not self.remove_mode:
+                self.field.remove(self.clear_button)
+                self.field.pack_start(self.remove_button, expand=False, fill=False)
+                self.field.show_all()
+                self.remove_mode = True
 
-        if not val and self.remove_mode:
-            self.field.remove(self.remove_button)
-            self.remove_mode = False
+            if not val and self.remove_mode:
+                self.field.remove(self.remove_button)
+                self.remove_mode = False
+                self.field.pack_start(self.clear_button, expand=False, fill=False)
+                self.field.show_all()
+
+    def clear(self, w):
+        self.field.set_value('')
 
 class TagField(gtk.HBox):
     def __init__(self, all_button=True): 

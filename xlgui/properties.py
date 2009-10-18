@@ -354,12 +354,9 @@ class TrackPropertiesDialog(gobject.GObject):
         try:
             t[tag].append('')
             o[tag].append('')
-#            print tag, t[tag]
         except KeyError:
             t[tag] = ['']
             o[tag] = ['']
-#            print tag, t[tag]
-#        print tag
 
         self._build_from_track(self.current)
 

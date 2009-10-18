@@ -350,13 +350,13 @@ class TrackPropertiesDialog(gobject.GObject):
             tag = self.new_tag_combo.get_child().get_text()
 
         t = self.tracks[self.current]
-        o = self.tracks_original[self.current]
+        #o = self.tracks_original[self.current]
         try:
             t[tag].append('')
-            o[tag].append('')
+            #o[tag].append('')
         except KeyError:
             t[tag] = ['']
-            o[tag] = ['']
+            #o[tag] = ['']
 
         self._build_from_track(self.current)
 
@@ -508,7 +508,7 @@ class TagRow():
         self.field.register_all_func(parent.apply_all)
 
     def set_remove_mode(self, val):
-        if self.tag not in self.parent.def_tags:
+        if self.tag not in self.parent.def_tags or self.multi_id != 0:
             if val and not self.remove_mode:
                 self.field.remove(self.clear_button)
                 self.field.pack_start(self.remove_button, expand=False, fill=False)

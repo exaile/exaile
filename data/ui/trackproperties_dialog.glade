@@ -68,11 +68,11 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="add_tag_button">
-                        <property name="label" translatable="yes">gtk-add</property>
+                        <property name="label" translatable="yes">A_dd</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="image">image4</property>
                         <signal name="clicked" handler="on_add_tag_button_clicked"/>
                       </object>
                       <packing>
@@ -81,11 +81,12 @@
                     </child>
                     <child>
                       <object class="GtkToggleButton" id="remove_tag_button">
-                        <property name="label" translatable="yes">Remove tag</property>
+                        <property name="label" translatable="yes">_Remove tag</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="image">image3</property>
+                        <property name="use_underline">True</property>
                         <signal name="toggled" handler="on_remove_tag_button_toggled"/>
                       </object>
                       <packing>
@@ -106,7 +107,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="title_case_button">
-                        <property name="label" translatable="yes">title &#x2192; _Title</property>
+                        <property name="label" translatable="yes">ab &#x2192; A_b</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -327,5 +328,9 @@
   <object class="GtkImage" id="image3">
     <property name="visible">True</property>
     <property name="stock">gtk-remove</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="stock">gtk-add</property>
   </object>
 </interface>

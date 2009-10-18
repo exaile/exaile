@@ -165,7 +165,7 @@ class TrackPropertiesDialog(gobject.GObject):
         for n, track in enumerate(self.tracks):
             for tag in track:
                 if not tag.startswith("__"):
-                    self.track_refs[n][tag] = track[tag]
+                    self.track_refs[n].set_tag(tag, track[tag], emit_signal=False)
 
             #in case a tag has been removed..
             if len(self.track_refs[n].tags) > len(track):

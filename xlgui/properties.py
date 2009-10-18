@@ -312,7 +312,7 @@ class TrackPropertiesDialog(gobject.GObject):
                       gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, 
                       gtk.MESSAGE_WARNING,
                       gtk.BUTTONS_OK_CANCEL,
-                      "Close without applying changes to tags?")
+                      _("Close without applying changes to tags?"))
 
             response = dialog.run()
             if response == gtk.RESPONSE_OK:
@@ -628,7 +628,7 @@ class TagDblNumField(gtk.HBox):
             f.set_range(min, max)
             f.set_increments(step, page)
 
-        lbl = gtk.Label('of:')
+        lbl = gtk.Label(_('of') + ':')
         self.all_button = [None, None]
         if all_button:
             if all_button == 1:
@@ -734,7 +734,7 @@ class PropertyField(gtk.HBox):
 class AllButton(gtk.ToggleButton):
     def __init__(self, parent_field, id_num=0):
         gtk.ToggleButton.__init__(self)
-        self.set_tooltip_text("Apply current value to all tracks")
+        self.set_tooltip_text(_("Apply current value to all tracks"))
         self.connect("toggled", self.set_all_mode)
         self.field = parent_field
         self.id_num = id_num

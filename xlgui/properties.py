@@ -220,7 +220,7 @@ class TrackPropertiesDialog(gobject.GObject):
                 f = None
                 if dialog_tags[tag][1] == 'int':
                     if tag == 'tracknumber': 
-                        f = TagDblNumField(dialog_tags[tag][2], dialog_tags[tag][3], all_button=ab)
+                        f = TagDblNumField(dialog_tags[tag][2], dialog_tags[tag][3], all_button=ab_dbl)
                     elif tag == 'discnumber':
                         f = TagDblNumField(dialog_tags[tag][2], dialog_tags[tag][3], all_button=ab_dbl)
                     else:

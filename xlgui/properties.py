@@ -173,10 +173,12 @@ class TrackPropertiesDialog(gobject.GObject):
             if len(self.track_refs[n].tags) > len(track):
                 poplist = []
                 for tag in self.track_refs[n].tags:
-                    try:
-                        track[tag]
-                    except KeyError:
-                        poplist.append(tag)
+                    if tag in dialog_tags:
+                        if dialog_tags[tag][1] != "IGNORE":
+                            try:
+                                track[tag]
+                            except KeyError:
+                                poplist.append(tag)
                 
                 for tag in poplist:
                     self.track_refs[n].tags.pop(tag)

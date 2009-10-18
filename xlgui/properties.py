@@ -163,10 +163,8 @@ class TrackPropertiesDialog(gobject.GObject):
 
     def _tags_write(self):
         for n, track in enumerate(self.tracks):
-            print track
             for tag in track:
                 if not tag.startswith("__"):
-                    print tag, track[tag]
                     self.track_refs[n][tag] = track[tag]
 
             #in case a tag has been removed..
@@ -350,13 +348,10 @@ class TrackPropertiesDialog(gobject.GObject):
             tag = self.new_tag_combo.get_child().get_text()
 
         t = self.tracks[self.current]
-        #o = self.tracks_original[self.current]
         try:
             t[tag].append('')
-            #o[tag].append('')
         except KeyError:
             t[tag] = ['']
-            #o[tag] = ['']
 
         self._build_from_track(self.current)
 

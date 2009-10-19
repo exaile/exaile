@@ -214,7 +214,7 @@ class Track(object):
         except KeyError:
             return None
 
-    def set_tag(self, tag, values, append=False, emit_signal=True):
+    def set_tag(self, tag, values, append=False):
         """
             Common function for setting a tag.
             
@@ -245,7 +245,7 @@ class Track(object):
             self.tags[tag] = values
 
         self._dirty = True
-        if emit_signal and not self._scanning:
+        if not self._scanning:
             event.log_event("track_tags_changed", self, tag)
         
     def __getitem__(self, tag):

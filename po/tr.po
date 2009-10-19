@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-17 09:03+0000\n"
-"Last-Translator: Yiğitcan Aksarı <Unknown>\n"
+"PO-Revision-Date: 2009-10-19 03:10+0000\n"
+"Last-Translator: Emre Ayca <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-10-18 07:02+0000\n"
+"X-Launchpad-Export-Date: 2009-10-19 07:09+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -48,11 +48,11 @@ msgstr "Yürüt"
 
 #: ../xl/main.py:281
 msgid "Toggle Play or Pause"
-msgstr ""
+msgstr "Yürüt yada durdur."
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "Bu parçadan sonra yürütmeyi durdur"
 
 #: ../xl/main.py:314
 msgid "Track options"

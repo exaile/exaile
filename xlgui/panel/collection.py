@@ -83,7 +83,7 @@ class CollectionPanel(panel.Panel):
         self.choice = self.builder.get_object('collection_combo_box')
         self.collection_empty_message = False
         self._search_num = 0
-        self._refresh_id = 0
+
         self.start_count = 0
         self.keyword = ''
         self._setup_tree()
@@ -469,22 +469,11 @@ class CollectionPanel(panel.Panel):
 
     def refresh_tags_in_tree(self, type, track, tag):
         """
-            wrapper so that multiple events dont cause multiple
-            reloads in quick succession
+            For now, basically calls load_tree.
         """
         if settings.get_option('gui/sync_on_tag_change', True) and \
             tag in self.order:
-            if self._refresh_id != 0:
-                gobject.source_remove(self._refresh_id)
-            self._refresh_id = gobject.timeout_add(500, 
-                    self._refresh_tags_in_tree)
-
-    def _refresh_tags_in_tree(self):
-        """
-            For now, basically calls load_tree.
-        """
-        self.load_tree()
-        return False
+            self.load_tree()
 
     def load_tree(self):
         """

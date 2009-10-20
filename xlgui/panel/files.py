@@ -67,10 +67,10 @@ class FilesPanel(panel.Panel):
         self.key_id = None
         self.i = 0
 
-        self.first_dir = gio.File(settings.get_option('gui/files_panel_dir',
+        first_dir = gio.File(settings.get_option('gui/files_panel_dir',
             xdg.homedir))
-        self.history = [self.first_dir]
-        self.load_directory(self.first_dir, False)
+        self.history = [first_dir]
+        self.load_directory(first_dir, False)
 
     def set_rating(self, widget, rating):
         tracks = self.get_selected_tracks()
@@ -345,33 +345,42 @@ class FilesPanel(panel.Panel):
         name = "gui/files_%s_col_width" % name
         settings.set_option(name, col.get_width())
 
+    @common.threaded
     def load_directory(self, directory, history=True, keyword=None):
         """
             Loads a directory into the files view
         """
-        file_infos = directory.enumerate_children('standard::name')
-        files = (directory.get_child(fi.get_name()) for fi in file_infos)
-        # FIXME: Are there errors we need to handle?
-
-        import locale
-        settings.set_option('gui/files_panel_dir', directory.get_uri())
         self.current = directory
+        try:
+            infos = directory.enumerate_children('standard::is-hidden,'
+                'standard::name,standard::display-name,standard::type')
+        except gio.Error:
+            if directory.get_path() != xdg.homedir:
+                return self.load_directory(
+                    gio.File(xdg.homedir), history, keyword)
+        if self.current != directory: # Modified from another thread.
+            return
+
+        settings.set_option('gui/files_panel_dir', directory.get_uri())
+
         subdirs = []
         subfiles = []
-        for f in files:
-            basename = f.get_basename()
-            if basename.startswith('.'):
-                # Ignore .hidden files. They can still be accessed manually from
+        import locale
+        for info in infos:
+            if info.get_is_hidden():
+                # Ignore hidden files. They can still be accessed manually from
                 # the location bar.
                 continue
+            f = directory.get_child(info.get_name())
+            basename = f.get_basename()
             low_basename = basename.lower()
             if keyword and keyword.lower() not in low_basename:
                 continue
             def sortkey():
-                name = f.query_info('standard::display-name').get_display_name()
+                name = info.get_display_name()
                 sortname = locale.strxfrm(name)
                 return sortname, name, f
-            ftype = f.query_info('standard::type').get_file_type()
+            ftype = info.get_file_type()
             if ftype == gio.FILE_TYPE_DIRECTORY:
                 subdirs.append(sortkey())
             elif any(low_basename.endswith('.' + ext)
@@ -412,6 +421,32 @@ class FilesPanel(panel.Panel):
             self.i = len(self.history) - 1
             self.forward.set_sensitive(False)
         self.up.set_sensitive(bool(directory.get_parent()))
+
+        def idle():
+            if self.current != directory: # Modified from another thread.
+                return
+
+            self.model.clear()
+
+            for sortname, name, f in subdirs:
+                self.model.append((f, self.directory, name, ''))
+
+            for sortname, name, f in subfiles:
+                size = f.query_info('standard::size').get_size() // 1024
+                size = locale.format_string(_("%d KB"), size, True)
+                self.model.append((f, self.track, name, size))
+
+            self.tree.set_model(self.model)
+            self.entry.set_text(directory.get_parse_name())
+            if history:
+                self.back.set_sensitive(True)
+                self.history = self.history[:self.i + 1]
+                self.history.append(self.current)
+                self.i = len(self.history) - 1
+                self.forward.set_sensitive(False)
+            self.up.set_sensitive(bool(directory.get_parent()))
+
+        gobject.idle_add(idle)
 
     def get_selected_tracks(self):
         """

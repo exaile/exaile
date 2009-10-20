@@ -153,13 +153,13 @@ class Playlist(gtk.VBox):
             it = self.model.iter_next(it)
         self.list.queue_draw()
         
-    def selection_changed(self):
-        tracks = self.get_selected_tracks()
-        self.builder.get_object('track_properties_item').set_sensitive(bool(tracks))
-
         if info:
             for path in info[1]:
                 selection.select_path(path)
+                        
+    def selection_changed(self):
+        tracks = self.get_selected_tracks()
+        self.builder.get_object('track_properties_item').set_sensitive(bool(tracks))
 
     def on_stop_track(self, event, queue, stop_track):
         """

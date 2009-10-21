@@ -156,6 +156,10 @@ class Playlist(gtk.VBox):
         if info:
             for path in info[1]:
                 selection.select_path(path)
+                        
+    def selection_changed(self):
+        tracks = self.get_selected_tracks()
+        self.builder.get_object('track_properties_item').set_sensitive(bool(tracks))
 
     def on_stop_track(self, event, queue, stop_track):
         """
@@ -562,6 +566,7 @@ class Playlist(gtk.VBox):
 
         selection = self.list.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
+        selection.connect('changed', lambda s: self.selection_changed())
 
         window = gtk.Window()
         img = window.render_icon('gtk-media-play',

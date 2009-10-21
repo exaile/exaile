@@ -28,6 +28,7 @@ import gio, gtk, gobject, os, locale, re
 import xl.track, urllib
 from xl import common, trackdb, metadata
 from xl import settings
+from xl import event
 from xlgui import panel, guiutil, xdg, menu, playlist
 from xl.nls import gettext as _
 locale.setlocale(locale.LC_ALL, '')
@@ -155,6 +156,14 @@ class FilesPanel(panel.Panel):
             self.go_home)
         self.entry = self.builder.get_object('files_entry')
         self.entry.connect('activate', self.entry_activate)
+        
+        # set up the location of libraries combobox
+        self.libraries_location = self.builder.get_object('libraries_location_combobox')
+        self.libraries_location_changed_handler_id = self.libraries_location.connect('changed', self.on_libraries_location_combobox_changed)
+        # Connect to Collection Panel
+        event.add_callback(self.fill_libraries_location, 'libraries_modified', self.collection)
+        
+        self.fill_libraries_location()         
 
         # set up the search entry
         self.search = self.builder.get_object('files_search_entry')
@@ -162,6 +171,31 @@ class FilesPanel(panel.Panel):
         self.search.connect('activate', lambda *e:
             self.load_directory(self.current, history=False,
             keyword=unicode(self.search.get_text(), 'utf-8')))
+        
+    def fill_libraries_location(self, *e):
+        self.libraries_location.handler_block(self.libraries_location_changed_handler_id)
+        libraries_location_model = self.libraries_location.get_model()
+        libraries_location_model.clear()
+        len_libraries = len(self.collection._serial_libraries)       
+      
+#        self.builder.get_object('label_libraries_location').set_sensitive(len_libraries > 0)
+        self.libraries_location.set_sensitive(len_libraries > 0)
+        
+        if len_libraries > 0: 
+            for library in self.collection._serial_libraries:
+                libraries_location_model.append([library['location']])
+
+        self.libraries_location.set_active(-1)
+        self.libraries_location.handler_unblock(self.libraries_location_changed_handler_id)
+        
+        
+    def on_libraries_location_combobox_changed(self, widget, *args):
+        # find out which one
+        iter = self.libraries_location.get_active_iter()
+        model = self.libraries_location.get_model()
+        location = model.get_value(iter, 0)
+        if location != '':
+            self.load_directory(gio.File(location))
 
     def on_key_released(self, widget, event):
         """
@@ -355,6 +389,38 @@ class FilesPanel(panel.Panel):
 
         subdirs.sort()
         subfiles.sort()
+
+        self.model.clear()
+
+        for sortname, name, f in subdirs:
+            self.model.append((f, self.directory, name, ''))
+
+        for sortname, name, f in subfiles:
+            size = f.query_info('standard::size').get_size() // 1024
+            size = locale.format_string(_("%d KB"), size, True)
+            self.model.append((f, self.track, name, size))
+
+        self.tree.set_model(self.model)
+        self.entry.set_text(directory.get_parse_name())
+
+        # Change the selection in the library location combobox
+        iter_libraries_location = self.libraries_location.get_active_iter()
+        if not iter_libraries_location is None: 
+            model_libraries_location = self.libraries_location.get_model()
+            location = gio.File(model_libraries_location.get_value(iter_libraries_location, 0))
+            location_name = location.get_parse_name()
+            if location_name != '' and location_name != directory.get_parse_name():
+                    self.libraries_location.handler_block(self.libraries_location_changed_handler_id)
+                    self.libraries_location.set_active(-1)
+                    self.libraries_location.handler_unblock(self.libraries_location_changed_handler_id)
+
+        if history:
+            self.back.set_sensitive(True)
+            self.history = self.history[:self.i + 1]
+            self.history.append(self.current)
+            self.i = len(self.history) - 1
+            self.forward.set_sensitive(False)
+        self.up.set_sensitive(bool(directory.get_parent()))
 
         def idle():
             if self.current != directory: # Modified from another thread.

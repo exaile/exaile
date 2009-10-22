@@ -128,11 +128,11 @@ class Playlist(gtk.VBox):
             return False
 
         dialog = properties.TrackPropertiesDialog(self.main.window, 
-            tracks[0])
-        result = dialog.run()
-        dialog.hide()
+            tracks)
+        #result = dialog.run()
+        #dialog.hide()
 
-        return True
+        #return True
     
     def refresh_changed_tracks(self, type, track, tag):
         """
@@ -1159,3 +1159,5 @@ class ConfirmCloseDialog(gtk.MessageDialog):
         response = gtk.Dialog.run(self)
         self.hide()
         return response
+
+# vim: et sts=4 sw=4

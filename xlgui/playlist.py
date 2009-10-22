@@ -79,6 +79,9 @@ class Playlist(gtk.VBox):
         self._initial_column_ids = _column_ids
         self._is_queue = _is_queue
 
+        self._redraw_queue = []
+        self._redraw_id = 0
+
         if not _is_queue:
             self.playlist = copy.copy(pl)
             self.playlist.ordered_tracks = pl.ordered_tracks[:]
@@ -135,21 +138,33 @@ class Playlist(gtk.VBox):
         """
             Called when a track is known to have a tag changed
         """
-        tracks = [track]
-        if not tracks or tracks == [] or not \
+        if not track or not \
             settings.get_option('gui/sync_on_tag_change', True):
             return
+        if self._redraw_id:
+            gobject.source_remove(self._redraw_id)
+        self._redraw_queue.append(track)
+        self._redraw_id = gobject.timeout_add(100, 
+                self.__refresh_changed_tracks)
         
+
+    def __refresh_changed_tracks(self):
+        tracks = set(self._redraw_queue)
+        self._redraw_queue = []
+
         selection = self.list.get_selection()
         info = selection.get_selected_rows()
         
         it = self.model.get_iter_first()
         while it:
             cur = self.model.get_value(it, 0)
-            for track in tracks:
-                if cur.get_loc_for_io() == track.get_loc_for_io():
-                    self.update_iter(it, track)
-                    tracks.remove(track)
+            for tr in tracks:
+                if cur.get_loc_for_io() == tr.get_loc_for_io():
+                    self.update_iter(it, tr)
+                    tracks.remove(tr)
+                    break
+            if len(tracks) == 0:
+                break
             it = self.model.iter_next(it)
         self.list.queue_draw()
         

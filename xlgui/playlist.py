@@ -132,10 +132,17 @@ class Playlist(gtk.VBox):
         return True
     
     def refresh_changed_tracks(self, type, track, tag):
+        """
+            Called when a track is known to have a tag changed
+        """
         tracks = [track]
         if not tracks or tracks == [] or not \
             settings.get_option('gui/sync_on_tag_change', True):
             return
+        
+        selection = self.list.get_selection()
+        info = selection.get_selected_rows()
+        
         it = self.model.get_iter_first()
         while it:
             cur = self.model.get_value(it, 0)
@@ -145,6 +152,14 @@ class Playlist(gtk.VBox):
                     tracks.remove(track)
             it = self.model.iter_next(it)
         self.list.queue_draw()
+        
+        if info:
+            for path in info[1]:
+                selection.select_path(path)
+                        
+    def selection_changed(self):
+        tracks = self.get_selected_tracks()
+        self.builder.get_object('track_properties_item').set_sensitive(bool(tracks))
 
     def on_stop_track(self, event, queue, stop_track):
         """
@@ -152,17 +167,8 @@ class Playlist(gtk.VBox):
             playlist after playback has stopped due to SPAT
         """
         next_track = self.playlist.next()
-        iter = self.model.get_iter_first()
-        selection = self.list.get_selection()
-        selection.unselect_all()
-
-        while iter:
-            track = self.model.get_value(iter, 0)
-            if track == next_track:
-                path = self.model.get_path(iter)
-                selection.select_path(path)
-                break
-            iter = self.model.iter_next(iter)
+        next_index = self.playlist.index(next_track)
+        self.list.set_cursor(next_index)
 
     def queue_selected_tracks(self):
         """
@@ -202,8 +208,9 @@ class Playlist(gtk.VBox):
         self.not_resizable_cols.set_active(not \
             settings.get_option('gui/resizable_cols', False))
         self.resizable_cols.connect('activate', self.activate_cols_resizable)
-        self.not_resizable_cols.connect('activate',
-            self.activate_cols_resizable)
+        # activate_cols_resizable will be called by resizable_cols anyway, no need to call it twice
+        #self.not_resizable_cols.connect('activate',
+        #    self.activate_cols_resizable)
 
         column_ids = None
         if settings.get_option('gui/trackslist_defaults_set', False):
@@ -269,12 +276,7 @@ class Playlist(gtk.VBox):
             Called when the user chooses whether or not columns can be
             resizable
         """
-        if 'not' in widget.name:
-            resizable = False
-        else:
-            resizable = True
-
-        settings.set_option('gui/resizable_cols', resizable)
+        settings.set_option('gui/resizable_cols', widget.get_active())
         self.emit('column-settings-changed')
 
     def update_col_settings(self):
@@ -283,6 +285,10 @@ class Playlist(gtk.VBox):
         """
         selection = self.list.get_selection()
         info = selection.get_selected_rows()
+        # grab the first visible raw of the treeview
+        firstpath = self.list.get_path_at_pos(4,4)
+        if firstpath:
+            topindex = firstpath[0][0]
 
         self.list.disconnect(self.changed_id)
         columns = self.list.get_columns()
@@ -293,18 +299,10 @@ class Playlist(gtk.VBox):
         self._set_tracks(self.playlist.get_tracks())
         self.list.queue_draw()
 
+        self.list.scroll_to_cell(topindex)
         if info:
-            paths = info[1]
-            if paths:
-                if paths[0]:
-                    iter = self.model.get_iter(paths[0])
-                    track = self.model.get_value(iter, 0)
-                    index = self.playlist.index(track)
-                    self.list.scroll_to_cell(index)
-                    self.list.set_cursor(index)
-                
-                for path in paths:
-                    selection.select_path(path)
+            for path in info[1]:
+                selection.select_path(path)
 
     def on_remove_tracks(self, type, playlist, info):
         """
@@ -320,7 +318,8 @@ class Playlist(gtk.VBox):
         for track in tracks:
             self._append_track(track)
         
-        self.emit('track-count-changed', len(self.playlist))
+        newlength = len(self.playlist)
+        self.emit('track-count-changed', newlength)
         range = self.list.get_visible_range()
         offset = 0
         if range:
@@ -328,7 +327,7 @@ class Playlist(gtk.VBox):
         
         if tracks and scroll:
             try:
-                if offset > len(self.playlist):
+                if offset > newlength:
                     self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
                 else:
                     self.list.scroll_to_cell(self.playlist.index(tracks[offset]))
@@ -567,6 +566,7 @@ class Playlist(gtk.VBox):
 
         selection = self.list.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
+        selection.connect('changed', lambda s: self.selection_changed())
 
         window = gtk.Window()
         img = window.render_icon('gtk-media-play',
@@ -756,6 +756,10 @@ class Playlist(gtk.VBox):
             if value in tracks: rows.append(iter)
             iter = self.model.iter_next(iter)
 
+        if rows:
+            nextrow = self.model.iter_next(rows[-1])
+            lastindex = self.playlist.index(self.model.get_value(rows[-1], 0))
+
         for row in rows:
             track = self.model.get_value(row, 0)
             try:
@@ -765,6 +769,13 @@ class Playlist(gtk.VBox):
                 pass
             self.model.remove(row)
 
+        if nextrow:
+            nexttrack = self.model.get_value(nextrow, 0)
+            nextindex = self.playlist.index(nexttrack)
+            self.list.set_cursor(nextindex)
+        elif rows:
+            self.list.set_cursor(lastindex - len(rows))
+        
         gobject.idle_add(event.add_callback, self.on_remove_tracks, 
             'tracks_removed', self.playlist)
         self.emit('track-count-changed', len(self.playlist))

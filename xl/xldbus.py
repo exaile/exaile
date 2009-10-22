@@ -375,3 +375,14 @@ class DbusManager(dbus.service.Object):
             Toggles visibility of the GUI, if possible
         """
         self.exaile.gui.main.toggle_visible()
+        
+    @dbus.service.method('org.exaile.Exaile')
+    def GetCoverPath(self):
+        """
+            Returns the path to the cover image of the playing track
+        """
+        from xl.cover import NoCoverFoundException
+        try: 
+            return self.exaile.covers.get_cover(self.exaile.player.current)
+        except NoCoverFoundException:
+            return ''

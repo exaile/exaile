@@ -773,7 +773,10 @@ class Playlist(gtk.VBox):
 
         if rows:
             nextrow = self.model.iter_next(rows[-1])
-            lastindex = self.playlist.index(self.model.get_value(rows[-1], 0))
+            if nextrow:
+                lastindex = self.playlist.index(self.model.get_value(rows[-1], 0))
+            else:
+                lastindex = 0
 
         for row in rows:
             track = self.model.get_value(row, 0)

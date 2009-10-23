@@ -180,7 +180,7 @@ class Track(object):
     def get_type(self):
         return gio.File(self.get_loc_for_io()).get_uri_scheme()
 
-    def get_album_tuple(self):
+    def get_album_tuple(self, join_char=u'\u0000'):
         """
             Returns the album tuple for use in the coverdb
         """
@@ -191,16 +191,16 @@ class Track(object):
         if self['albumartist']:
             # most of the cover stuff is expecting a 2 item tuple, so we just
             # return the albumartist twice
-            return (metadata.j(self['albumartist']),
-                metadata.j(self['albumartist']))
+            return (metadata.j(self['albumartist'], join_char=join_char),
+                metadata.j(self['albumartist'], join_char=join_char))
         elif self['__compilation']:
             # this should be a 2 item tuple, containing the basedir and the
             # album.  It is populated in
             # collection.Collection._check_compilations
             return self['__compilation']
         else:
-            return (metadata.j(self['artist']), 
-                metadata.j(self['album']))
+            return (metadata.j(self['artist'], join_char=join_char), 
+                metadata.j(self['album'], join_char=join_char))
 
     def get_tag(self, tag):
         """

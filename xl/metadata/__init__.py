@@ -111,16 +111,25 @@ def get_format(loc):
         common.log_exception(logger)
         return None
 
-#FIXME: give this a better name. and a docstring.
-def j(value):
+def join_tags(value, join_char=u'\u0000'):
+    """
+        If a tag has more than one value, this will join them the character
+        specified in the `join_char` paramter
+
+        @param value: the tag.  Can be a str, unicode or a type that is
+            iterable
+    """
+    
     if not value: return value
     if hasattr(value, '__iter__') and type(value) not in (str, unicode):
         try:
-            return u'\u0000'.join(value)
+            return join_char.join(value)
         except TypeError:
             return value
     else:
         return value
+
+j = join_tags # for legacy code
 
 # vim: et sts=4 sw=4
 

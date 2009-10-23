@@ -55,7 +55,7 @@ class AmazonCoverSearch(CoverSearchMethod):
         """
             Searches amazon for album covers
         """
-        (artist, album) = track.get_album_tuple()
+        (artist, album) = track.get_album_tuple(join_char=' ')
         return self.search_covers("%s - %s" % 
             (artist, album), limit)
 

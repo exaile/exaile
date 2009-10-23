@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-22 07:00+0000\n"
+"PO-Revision-Date: 2009-10-23 02:25+0000\n"
 "Last-Translator: Elmaz Yu <Unknown>\n"
 "Language-Team: Traditional Chinese <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-10-22 07:23+0000\n"
+"X-Launchpad-Export-Date: 2009-10-23 07:25+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -519,7 +519,7 @@ msgstr "輸入您想使用的新播放清單名稱"
 #: ../xlgui/cover.py:286
 #, python-format
 msgid "%d covers to fetch"
-msgstr ""
+msgstr "%d 封面待取回"
 
 #: ../xlgui/cover.py:291 ../xlgui/cover.py:310
 #: ../data/glade/covermanager.glade.h:2
@@ -2337,23 +2337,23 @@ msgstr "偏好專輯校正"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "保護因過度放大而造成的噪音"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
 msgid "Use clipping protection"
-msgstr ""
+msgstr "使用跳音保護"
 
 #: ../plugins/podcasts/podcasts.glade.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "加入 Podcast"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:1
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>身體語言</b>"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:2
 msgid "Both artist and album"
-msgstr ""
+msgstr "表演者與專輯兩者"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:4
 #, python-format
@@ -2363,58 +2363,60 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place"
 msgstr ""
+"訊息應該被顯示在通知區之內。在每一種狀況下，\"%(title)s\", \"%(artist)s\", 和 \"%(album)s\" "
+"將會被各自的值所取代。若是未知的標籤，「未知的」將會填入其中。"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:5
 msgid "Only album"
-msgstr ""
+msgstr "只有專輯"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:6
 msgid "Only artist"
-msgstr ""
+msgstr "只有表演者"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:7
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "調整封面顯示大小"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:8
 msgid "Summary"
-msgstr ""
+msgstr "總結"
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:1
 msgid "Font:"
-msgstr ""
+msgstr "字型："
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
 msgid "Terminal Opacity:"
-msgstr ""
+msgstr "終端機不透明度："
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"
-msgstr ""
+msgstr "永遠在最上層"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:5
 msgid "Display window decorations"
-msgstr ""
+msgstr "顯示視窗裝飾"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
 msgid "Show in tasklist"
-msgstr ""
+msgstr "顯示在工作清單中"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:8
 msgid "Show on all desktops"
-msgstr ""
+msgstr "顯示在所有桌面上"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Track title format:"
-msgstr ""
+msgstr "音軌標題格式："
 
 #: ../plugins/streamripper/streamripper.glade.h:1
 msgid "Relay Port:"
-msgstr ""
+msgstr "中繼連接埠："
 
 #: ../plugins/streamripper/streamripper.glade.h:2
 msgid "Save Location:"
-msgstr ""
+msgstr "儲存位置："
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -2424,6 +2426,9 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"在特定的時間和日期播放音樂。\n"
+"\n"
+"請注意當特定時間到達時，Exaile 動作將會類似於您按下播放按鈕，所以請確認您想聽的音樂有在播放清單中"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2433,47 +2438,52 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"在特定的時間播放音樂。\n"
+"\n"
+"請注意當特定時間到達時，Exaile 動作將會類似於您按下播放按鈕，所以請確認您想聽的音樂有在播放清單中"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr ""
+msgstr "目前歌曲"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
 "Sets the currently playing status in Pidgin for services that support it."
-msgstr ""
+msgstr "設定目前播放狀態至支援 Pidgin 的服務"
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
-msgstr ""
+msgstr "傳送正在聆聽的資訊至 Last.fm 和其他支援 AudioScrobbler 的類似服務"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "CD 播放"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
 msgstr ""
+"對播放音樂 CD 加入支援。\n"
+"需要 python-cddb 來查詢標籤。"
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
-msgstr ""
+msgstr "創造一個 MPRIS D-Bus 物件以控制 Exaile"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr ""
+msgstr "允許在音樂檔案中儲存/回復書籤位置。"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Last.fm 封面"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "在 Last.fm 尋找封面"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -2484,6 +2494,10 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"當歌曲播放/回復/停止時這個擴充套件會顯示氣泡式通知圖示，與歌曲封面或是一個媒體圖示來指出最後的動作。\n"
+"\n"
+"需求套件：python-notify\n"
+"建議套件：notify-osd"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -2491,136 +2505,141 @@ msgid ""
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
 msgstr ""
+"在 Amazon 搜尋封面\n"
+"\n"
+"為了能使用此擴充套件，需要一個 AWS API 金鑰和私密金鑰。"
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "在桌面上顯示目前專輯封面"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Search"
-msgstr ""
+msgstr "Last.fm 動態搜尋"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "Last.fm 的動態播放清單後端"
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "情態列"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"以情態列代替標準進度列。\n"
+"需求套件：moodbar"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
-msgstr ""
+msgstr "iPod 支援"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr ""
+msgstr "iPod 支援擴充套件"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr ""
+msgstr "啟用播放增益支援"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "新增簡易 Podcast 支援"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "螢幕保護程式啟動時暫停"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
-msgstr ""
+msgstr "當螢幕保護程式啟動/停止時暫停/恢復播放"
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"
-msgstr ""
+msgstr "Shoutcast 廣播"
 
 #: ../plugins/shoutcast/PLUGININFO:4
 msgid "Shoutcast Radio list"
-msgstr ""
+msgstr "Shoutcast 廣播列表"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Hello World"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "一個簡單的擴充套件用於測試基本擴充套件系統"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "GNOME 多媒體鍵"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
-msgstr ""
+msgstr "增加支援透過 GNOME 多媒體鍵系統控制 Exaile 功能。相容於 GNOME 版本 >= 2.20.x"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "全域熱鍵使用 xlib (mmkeys.so)"
 
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
-msgstr ""
+msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "擴充套件用於從 lyricsfly.com 取回歌詞"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "USB 外接儲存式媒體播放器支援"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
-msgstr ""
+msgstr "支援透過 USB 外接儲存協定存取可攜式媒體播放器"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
-msgstr ""
+msgstr "當開始播放音軌時彈出通知圖示"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "瀏覽及聆聽來自 Librivox.org 的有聲書"
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
-msgstr ""
+msgstr "提供 IPython 控制台以用來操作 Exaile"
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "具有可設定介面之 Exaile 精簡模式"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr ""
+msgstr "標籤封面"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
-msgstr ""
+msgstr "搜尋音軌標籤封面"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "內文資訊"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -2628,20 +2647,24 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"顯示各種關於目前播放音軌的資訊。\n"
+"需求套件：libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (又名 PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"允許您透過串流擷取器錄製串流。\n"
+"需求套件：streamripper"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr ""
+msgstr "擴充套件用於從 lyricwiki.org 取回歌詞"
 
 #~ msgid ""
 #~ "<b>{title}</b>\n"

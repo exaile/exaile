@@ -77,7 +77,7 @@ class TrackPropertiesDialog(gobject.GObject):
         self.builder.add_from_file(
                 xdg.get_data_path('ui/trackproperties_dialog.glade'))
         self.dialog = self.builder.get_object('TrackPropertiesDialog')
-	self.dialog.set_transient_for(parent)
+        self.dialog.set_transient_for(parent)
         self._connect_events()
 
         self.remove_tag_button = self.builder.get_object('remove_tag_button')
@@ -119,6 +119,7 @@ class TrackPropertiesDialog(gobject.GObject):
         self.current = 0
         self._build_from_track(self.current)
 
+        self.dialog.resize(600, 350)
         self.dialog.show()
 
     def _connect_events(self):
@@ -272,7 +273,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
         cur_row = {tables[0]:0, tables[1]:0}
 
-        paddings = [0, 0, gtk.FILL|gtk.EXPAND, 0]
+        paddings = [0, gtk.FILL, gtk.FILL|gtk.EXPAND, 0]
 
         for row in self.rows:
             columns = [
@@ -280,6 +281,7 @@ class TrackPropertiesDialog(gobject.GObject):
                     row.label,
                     row.field,
                     gtk.Label()]
+
             for col, content in enumerate(columns):
                 row.table.attach(content, col, col + 1, cur_row[row.table], 
                         cur_row[row.table] + 1, xoptions=paddings[col], yoptions=0)
@@ -446,7 +448,7 @@ class TrackPropertiesDialog(gobject.GObject):
     def hide(self):
         self.dialog.hide()
 
-class TagRow():
+class TagRow(object):
     def __init__(self, parent, parent_table, field, tag_name, value, multi_id):
         self.parent = parent
         self.table = parent_table
@@ -474,8 +476,9 @@ class TagRow():
         self.name = name
 
         if multi_id == 0:
-            self.label = gtk.Label(name + ':')
+            self.label = gtk.Label(name.capitalize() + ':')
             self.label.create_pango_context()
+            self.label.set_alignment(0.0, .50)
             if parent.tracks[parent.current][self.tag] != \
                     parent.tracks_original[parent.current][self.tag]:
                 self.label.set_markup('<i>' + name + '</i>:')
@@ -487,7 +490,8 @@ class TagRow():
         im.set_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON)
         self.clear_button.set_image(im)
         self.clear_button.connect("clicked", self.clear)
-        self.field.pack_start(self.clear_button, expand=False, fill=False)
+        if not isinstance(field, PropertyField):
+            self.field.pack_start(self.clear_button, expand=False, fill=False)
         self.field.show_all()
 
         #Remove mode settings
@@ -700,10 +704,12 @@ class PropertyField(gtk.HBox):
 
         #property_type informs of special formatting required
         self.property_type = property_type
-        self.field = gtk.Label()
-        self.field.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
-        self.field.set_max_width_chars(50)
-        self.field.set_selectable(True)
+        self.field = gtk.Entry() #gtk.Label()
+        self.field.set_sensitive(False)
+#        self.field.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
+#        self.field.set_max_width_chars(50)
+#        self.field.set_selectable(True)
+        self.field.set_editable(False)
         self.pack_start(self.field)
         self.parent_row = None
 

@@ -73,6 +73,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="image">image4</property>
+                        <property name="use_underline">True</property>
                         <signal name="clicked" handler="on_add_tag_button_clicked"/>
                       </object>
                       <packing>
@@ -213,6 +214,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="image">image2</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_prev_track_button_clicked"/>
                   </object>
                   <packing>
@@ -239,6 +241,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="image">image1</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="on_next_track_button_clicked"/>
                   </object>
                   <packing>
@@ -269,7 +272,7 @@
                 <property name="spacing">10</property>
                 <child>
                   <object class="GtkButton" id="close_button">
-                    <property name="label" translatable="yes">gtk-close</property>
+                    <property name="label">gtk-close</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -284,7 +287,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="apply_button">
-                    <property name="label" translatable="yes">gtk-apply</property>
+                    <property name="label">gtk-apply</property>
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>

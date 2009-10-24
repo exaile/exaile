@@ -388,10 +388,14 @@ class TrackPropertiesDialog(gobject.GObject):
 
         for row in self.rows:
             if row.tag == tag and row.multi_id == 0:
-                if t[tag] != o[tag]:
+                try:
+                    if t[tag] != o[tag]:
+                        row.label.set_markup('<i>' + row.name + ':</i>')
+                    else:
+                        row.label.set_markup(row.name + ':')
+                except KeyError:
                     row.label.set_markup('<i>' + row.name + ':</i>')
-                else:
-                    row.label.set_markup(row.name + ':')
+
 
             if row.tag == tag and row.multi_id == multi_id:
                 all_vals = []
@@ -479,8 +483,11 @@ class TagRow(object):
             self.label = gtk.Label(name.capitalize() + ':')
             self.label.create_pango_context()
             self.label.set_alignment(0.0, .50)
-            if parent.tracks[parent.current][self.tag] != \
-                    parent.tracks_original[parent.current][self.tag]:
+            try:
+                if parent.tracks[parent.current][self.tag] != \
+                        parent.tracks_original[parent.current][self.tag]:
+                    self.label.set_markup('<i>' + name + '</i>:')
+            except KeyError:
                 self.label.set_markup('<i>' + name + '</i>:')
         else:
             self.label = gtk.Label()

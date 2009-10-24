@@ -705,7 +705,7 @@ class PropertyField(gtk.HBox):
         #property_type informs of special formatting required
         self.property_type = property_type
         self.field = gtk.Entry() #gtk.Label()
-        self.field.set_sensitive(False)
+#        self.field.set_sensitive(False)
 #        self.field.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
 #        self.field.set_max_width_chars(50)
 #        self.field.set_selectable(True)

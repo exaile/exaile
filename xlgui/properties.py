@@ -169,18 +169,22 @@ class TrackPropertiesDialog(gobject.GObject):
                     self.track_refs[n][tag] = track[tag]
 
             #in case a tag has been removed..
-            if len(self.track_refs[n].tags) > len(track):
-                poplist = []
-                for tag in self.track_refs[n].tags:
-                    if tag in dialog_tags:
-                        if dialog_tags[tag][1] != "IGNORE":
-                            try:
-                                track[tag]
-                            except KeyError:
-                                poplist.append(tag)
-                
-                for tag in poplist:
-                    self.track_refs[n].tags.pop(tag)
+            poplist = []
+            for tag in self.track_refs[n].tags:
+                if tag in dialog_tags:
+                    if dialog_tags[tag][1] != "IGNORE":
+                        try:
+                            track[tag]
+                        except KeyError:
+                            poplist.append(tag)
+                else:
+                    try:
+                        track[tag]
+                    except KeyError:
+                        poplist.append(tag)
+            
+            for tag in poplist:
+                self.track_refs[n].tags.pop(tag)
 
             self.track_refs[n].write_tags()
 
@@ -306,7 +310,7 @@ class TrackPropertiesDialog(gobject.GObject):
             self.apply_button.set_sensitive(False)
             for row in self.rows:
                 if row.multi_id == 0:
-                    row.label.set_markup(row.name + ':')
+                    row.label.set_markup(row.name.capitalize() + ':')
 
     def _on_close(self, w):
         if self.tracks != self.tracks_original:
@@ -390,11 +394,11 @@ class TrackPropertiesDialog(gobject.GObject):
             if row.tag == tag and row.multi_id == 0:
                 try:
                     if t[tag] != o[tag]:
-                        row.label.set_markup('<i>' + row.name + ':</i>')
+                        row.label.set_markup('<i>' + row.name.capitalize() + ':</i>')
                     else:
                         row.label.set_markup(row.name + ':')
                 except KeyError:
-                    row.label.set_markup('<i>' + row.name + ':</i>')
+                    row.label.set_markup('<i>' + row.name.capitalize() + ':</i>')
 
 
             if row.tag == tag and row.multi_id == multi_id:
@@ -486,9 +490,9 @@ class TagRow(object):
             try:
                 if parent.tracks[parent.current][self.tag] != \
                         parent.tracks_original[parent.current][self.tag]:
-                    self.label.set_markup('<i>' + name + '</i>:')
+                    self.label.set_markup('<i>' + name.capitalize() + '</i>:')
             except KeyError:
-                self.label.set_markup('<i>' + name + '</i>:')
+                self.label.set_markup('<i>' + name.capitalize() + '</i>:')
         else:
             self.label = gtk.Label()
 

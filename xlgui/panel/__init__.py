@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
+import os
 import gtk, gobject
 from xl import xdg
 
@@ -49,10 +50,8 @@ class Panel(gobject.GObject):
         # if the UI designer file starts with file:// use the full path minus
         # file://, otherwise check in the data directories
         ui_file = self.ui_info[0]
-        if not ui_file.startswith('file://'):
+        if not os.path.isabs(ui_file):
             ui_file = xdg.get_data_path('ui/%s' % ui_file)
-        else:
-            ui_file = ui_file[7:]
 
         self.builder = gtk.Builder()
         self.builder.add_from_file(ui_file)

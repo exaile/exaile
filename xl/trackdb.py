@@ -471,6 +471,7 @@ class TrackSearcher(object):
         search = search.replace(" OR ", " | ")
         search = search.replace(" NOT ", " ! ")
 
+        tokens = []
         newsearch = ""
         in_quotes = False
         n = 0
@@ -486,62 +487,17 @@ class TrackSearcher(object):
                 newsearch += c
             elif c == "\"":
                 in_quotes = not in_quotes # toggle
-                newsearch += c
+                #newsearch += c
             elif c in ["|", "!", "(", ")"]:
-                newsearch += " " + c + " "
+                newsearch += c 
             elif c == " ":
-                try:
-                    if search[n+1] != " ":
-                        if search[n+1] not in ["=", ">", "<"]:
-                            newsearch += " "
-                except IndexError:
-                    pass
+                tokens.append(newsearch)
+                newsearch = ""
             else:
                 newsearch += c
             n += 1
 
-
-        # split the search into tokens to be parsed
-        search = " " + newsearch.lower() + " "
-        tokensraw = search.split(" ")
-        tokens = []
-        for t in tokensraw:
-            if t == "":
-                # handle multiple consecutive spaces
-                if len(tokens) > 0:
-                    tokens[-1] = tokens[-1] + " "
-            else:
-                tokens.append(t)
-        if len(tokens) > 0:
-            tokens[-1] = tokens[-1][:-1] # trim excess space
-
-        # handle "" grouping
-        etokens = []
-        counter = 0
-        while counter < len(tokens):
-            if '"' in tokens[counter]:
-                tk = tokens[counter]
-                while tk.count('"') - tk.count('\\"') < 2:
-                    try:
-                        tk += " " + tokens[counter+1]
-                        counter += 1
-                    except IndexError: # someone didnt match their "s
-                        break
-                first = tk.index('"', 0)
-                last = first
-                while True:
-                    try:
-                        last = tk.index('"', last+1)
-                    except ValueError:
-                        break
-                tk = tk[:first] + tk[first+1:last] + tk[last+1:]
-                etokens.append(tk)
-                counter += 1
-            else:
-                if tokens[counter].strip() != "":
-                    etokens.append(tokens[counter])
-                counter += 1
-        tokens = etokens
+        print tokens
 
         # reduce tokens to a search tree and optimize it
         tokens = self.__red(tokens)

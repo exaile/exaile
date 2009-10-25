@@ -497,8 +497,6 @@ class TrackSearcher(object):
                 newsearch += c
             n += 1
 
-        print tokens
-
         # reduce tokens to a search tree and optimize it
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)

@@ -30,6 +30,7 @@ from xl import xdg, track, playlist, common, settings, event
 from xl.nls import gettext as _
 import threading
 from xlgui import rating
+from urllib2 import urlparse
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
@@ -312,7 +313,20 @@ class DragTreeView(gtk.TreeView):
             @returns: a 2 tuple in which the first part is a list of tracks
                 and the second is a list of playlist
         """
-        if track.is_valid_track(loc):
+        filetype = None
+        info = urlparse.urlparse(loc)
+
+        # don't use gio to test the filetype if it's a non-local file
+        # (otherwise gio will try to connect to every remote url passed in and
+        # cause the gui to hang)
+        if info.scheme in ('file', ''):
+            try:
+                filetype = gio.File(loc).query_info(
+                    'standard::type').get_file_type()
+            except gio.Error:
+                filetype = None
+
+        if track.is_valid_track(loc) or info.scheme not in ('file', ''):
             new_track = track.Track(loc)
             return ([new_track],[])
         elif playlist.is_valid_playlist(loc):
@@ -321,8 +335,7 @@ class DragTreeView(gtk.TreeView):
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
-        elif gio.File(loc).query_info("standard::type").get_file_type() == \
-                gio.FILE_TYPE_DIRECTORY:
+        elif filetype == gio.FILE_TYPE_DIRECTORY:
             return (track.get_tracks_from_uri(loc), [])
         else: #We don't know what they dropped
             return ([], [])

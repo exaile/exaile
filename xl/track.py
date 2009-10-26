@@ -513,11 +513,11 @@ def parse_stream_tags(track, tags):
 
         value = [value]
 
-        if key == '__bitrate': track['__bitrate'] = int(value[0]) / 1000
+        if key == '__bitrate':
+            track['__bitrate'] = int(value[0]) / 1000
 
         # if there's a comment, but no album, set album to the comment
-        elif key == 'comment' and not \
-                track.get_loc_for_io().lower().endswith('.mp3'): 
+        elif key == 'comment' and not track['album']:
             track['album'] = value
 
         elif key == 'album': track['album'] = value

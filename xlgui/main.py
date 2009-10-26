@@ -502,7 +502,7 @@ class MainWindow(gobject.GObject):
             nb.set_current_page(cur)
         else:
             nb.set_current_page(nb.get_n_pages() - 1)
-        self.set_mode_toggles()
+        self.set_playlist_modes()
         
         # Always show tab bar for more than one tab
         if nb.get_n_pages() > 1:
@@ -569,9 +569,13 @@ class MainWindow(gobject.GObject):
             guiutil.on_slider_key_press)
 
         self.shuffle_toggle = self.builder.get_object('shuffle_button')
+        self.shuffle_toggle.connect('button-press-event', self.on_shuffle_pressed)
         self.shuffle_toggle.set_active(settings.get_option('playback/shuffle', False))
+        self.shuffle_image = self.builder.get_object('shuffle_button_image')
+
         self.repeat_toggle = self.builder.get_object('repeat_button')
         self.repeat_toggle.set_active(settings.get_option('playback/repeat', False))
+        
         self.dynamic_toggle = self.builder.get_object('dynamic_button')
         self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
 
@@ -692,7 +696,6 @@ class MainWindow(gobject.GObject):
                 lambda *e: self.queue.prev(),
             'on_stop_button_clicked':
                 lambda *e: self.player.stop(),
-            'on_shuffle_button_toggled': self.set_mode_toggles,
             'on_repeat_button_toggled': self.set_mode_toggles,
             'on_dynamic_button_toggled': self.set_mode_toggles,
             'on_playlist_search_entry_activate': self.on_playlist_search_entry_activate,
@@ -881,7 +884,9 @@ class MainWindow(gobject.GObject):
         self.current_page = page_num
         playlist = self.get_selected_playlist()
         self.queue.set_current_playlist(playlist.playlist)
-        self.set_mode_toggles()
+        self.set_playlist_modes()
+        self._on_setting_change(None, None, 'playback/shuffle')
+        self._on_setting_change(None, None, 'playback/shuffle_mode')
         self.update_track_counts()
 
     def on_playlist_notebook_remove(self, notebook, widget):
@@ -956,21 +961,87 @@ class MainWindow(gobject.GObject):
         if not playlist: return
         playlist.playlist.clear()
 
+    def on_shuffle_pressed(self, widget, event):
+        """
+            Called when the shuffle button is clicked
+        """
+        #Make it appear pressed in when the menu pops up (looks a bit nicer)
+        self.shuffle_toggle.set_active(True)
+        
+        #Get the current setting so the right radio button is chosen
+        sel = [False, False, False]
+        if settings.get_option('playback/shuffle', False) == True:
+            if settings.get_option('playback/shuffle_mode') == 'track':
+                sel[1] = True
+            else:
+                sel[2] = True
+        else:
+            sel[0] = True
+
+
+        #SHUFFLE POPUP MENU
+        menu = gtk.Menu()
+
+        #Connect signal to make sure the toggle goes back to how it should be
+        #after we changed it when the menu was popped up for asthetics
+        menu.connect("deactivate", lambda *e: self.shuffle_toggle.set_active(
+                    settings.get_option('playback/shuffle', False)))
+        texts = (_("Shuffle _Off"), _("Shuffle _Tracks"), _("Shuffle _Albums"))
+        r = None
+        for num, text in enumerate(texts):
+            r = gtk.RadioMenuItem(r, text)
+            r.set_active(sel[num])
+            menu.append(r)
+            r.connect("activate", self.shuffle_mode_selected, text)
+            r.show()
+            if text == _("Shuffle _Off"):
+                sep = gtk.SeparatorMenuItem()
+                menu.append(sep)
+                sep.show()
+
+        menu.popup(None, None, self.shuffle_menu_set_pos, event.button, event.time, widget)
+        #Call reposition as the menu's width is required in calculation and
+        #it needs a "refresh"
+        menu.reposition()
+
+    def shuffle_menu_set_pos(self, menu, button):
+        """
+            Nicely position the shuffle popup menu with the button's corner
+        """
+        w = self.window.get_position()
+        b = button.get_allocation()
+        m = menu.get_allocation()
+        pos = (w[0] + b.x + 1, 
+                w[1] + b.y + b.height - m.height - 3)
+
+        return (pos[0], pos[1], True)
+
+    def shuffle_mode_selected(self, widget, mode):
+        
+        if mode == _("Shuffle _Off"):
+            settings.set_option('playback/shuffle', False)
+        elif mode == _("Shuffle _Tracks"):
+            settings.set_option('playback/shuffle', True)
+            settings.set_option('playback/shuffle_mode', 'track')
+        elif mode == _("Shuffle _Albums"):
+            settings.set_option('playback/shuffle', True)
+            settings.set_option('playback/shuffle_mode', 'album')
+
     def set_mode_toggles(self, *e):
         """
             Called when the user clicks one of the playback mode buttons
         """
-        settings.set_option('playback/shuffle', 
-                self.shuffle_toggle.get_active())
         settings.set_option('playback/repeat', 
                 self.repeat_toggle.get_active())
         settings.set_option('playback/dynamic', 
                 self.dynamic_toggle.get_active())
 
+    def set_playlist_modes(self):
         pl = self.get_selected_playlist()
         if pl:
-            pl.playlist.set_random(self.shuffle_toggle.get_active())
-            pl.playlist.set_repeat(self.repeat_toggle.get_active())
+            pl.playlist.set_repeat(settings.get_option('playback/repeat'))
+            pl.playlist.set_random(settings.get_option('playback/shuffle'), 
+                    settings.get_option('playback/shuffle_mode'))
 
     def on_playback_start(self, type, player, object):
         """
@@ -1047,9 +1118,39 @@ class MainWindow(gobject.GObject):
 
         if option == 'playback/shuffle':
             self.shuffle_toggle.set_active(settings.get_option(option, False))
+            if settings.get_option(option, False) == False:
+                self.shuffle_image.set_from_icon_name('media-playlist-shuffle',
+                        gtk.ICON_SIZE_BUTTON)
+            else:
+                if settings.get_option('playback/shuffle_mode') == "track":
+                    self.shuffle_image.set_from_icon_name('media-playlist-shuffle', 
+                            gtk.ICON_SIZE_BUTTON)
+                else:
+                    self.shuffle_image.set_from_icon_name('media-optical',
+                            gtk.ICON_SIZE_BUTTON)
+
+            self.set_playlist_modes()
+
+
+        if option == 'playback/shuffle_mode':
+            if settings.get_option(option) == "track":
+                self.shuffle_image.set_from_icon_name('media-playlist-shuffle', 
+                        gtk.ICON_SIZE_BUTTON)
+            else:
+                if settings.get_option('playback/shuffle'):
+                    self.shuffle_image.set_from_icon_name('media-optical',
+                            gtk.ICON_SIZE_BUTTON)
+                else:
+                    self.shuffle_image.set_from_icon_name('media-playlist-shuffle',
+                            gtk.ICON_SIZE_BUTTON)
+
+            self.set_playlist_modes()
 
         if option == 'playback/repeat':
             self.repeat_toggle.set_active(settings.get_option(option, False))
+
+            self.set_playlist_modes()
+
 
     @common.threaded
     def _get_dynamic_tracks(self):
@@ -1271,3 +1372,5 @@ def get_selected_playlist():
 
 def mainwindow():
     return MainWindow._mainwindow
+
+# vim: et sts=4 sw=4

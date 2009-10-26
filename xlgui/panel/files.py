@@ -154,14 +154,17 @@ class FilesPanel(panel.Panel):
             self.refresh)
         self.builder.get_object('files_home_button').connect('clicked',
             self.go_home)
-        self.entry = self.builder.get_object('files_entry')
+        self.entry = self.builder.get_object('files_entry').child
         self.entry.connect('activate', self.entry_activate)
         
         # set up the location of libraries combobox
-        self.libraries_location = self.builder.get_object('libraries_location_combobox')
-        self.libraries_location_changed_handler_id = self.libraries_location.connect('changed', self.on_libraries_location_combobox_changed)
+        self.libraries_location = self.builder.get_object('files_entry')
+        self.libraries_location_changed_handler_id = \
+            self.libraries_location.connect('changed', 
+            self.on_libraries_location_combobox_changed)
         # Connect to Collection Panel
-        event.add_callback(self.fill_libraries_location, 'libraries_modified', self.collection)
+        event.add_callback(self.fill_libraries_location, 
+            'libraries_modified', self.collection)
         
         self.fill_libraries_location()         
 
@@ -173,25 +176,27 @@ class FilesPanel(panel.Panel):
             keyword=unicode(self.search.get_text(), 'utf-8')))
         
     def fill_libraries_location(self, *e):
-        self.libraries_location.handler_block(self.libraries_location_changed_handler_id)
+        self.libraries_location.handler_block(
+            self.libraries_location_changed_handler_id)
         libraries_location_model = self.libraries_location.get_model()
         libraries_location_model.clear()
         len_libraries = len(self.collection._serial_libraries)       
       
-#        self.builder.get_object('label_libraries_location').set_sensitive(len_libraries > 0)
         self.libraries_location.set_sensitive(len_libraries > 0)
         
         if len_libraries > 0: 
             for library in self.collection._serial_libraries:
+                print library['location']
                 libraries_location_model.append([library['location']])
 
         self.libraries_location.set_active(-1)
-        self.libraries_location.handler_unblock(self.libraries_location_changed_handler_id)
-        
+        self.libraries_location.handler_unblock(
+            self.libraries_location_changed_handler_id)
         
     def on_libraries_location_combobox_changed(self, widget, *args):
         # find out which one
         iter = self.libraries_location.get_active_iter()
+        if not iter: return
         model = self.libraries_location.get_model()
         location = model.get_value(iter, 0)
         if location != '':

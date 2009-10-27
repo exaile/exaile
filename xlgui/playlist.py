@@ -229,13 +229,10 @@ class Playlist(gtk.VBox):
 
         column_ids = None
         if settings.get_option('gui/trackslist_defaults_set', False):
-            column_ids = set()
             ids = settings.get_option("gui/columns", [])
             # Don't add invalid columns.
-            all_ids = frozenset(self.COLUMNS.keys())
-            for id in ids:
-                if id in all_ids:
-                    column_ids.add(id)
+            all_ids = frozenset(self.COLUMNS.iterkeys())
+            column_ids = frozenset(id for id in ids if id in all_ids)
 
         if not column_ids:
             # Use default.
@@ -245,7 +242,7 @@ class Playlist(gtk.VBox):
             column_ids = frozenset(ids)
 
         if not self._is_queue:
-            for col_struct in self.COLUMNS.values():
+            for col_struct in self.COLUMNS.itervalues():
                 try:
                     menu = Playlist.menu_items[col_struct.id]
                 except KeyError:

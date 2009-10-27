@@ -17,7 +17,7 @@
 #    Drag and drop for books with yet unknown chapters works with
 #    main playlist only (see get_chapters_and_drop and related functions).
 #    Otherwise, (without threaded functions) UI is non responsive, while
-#    fetching that info... 
+#    fetching that info...
 
 import gtk, gobject, os
 import librivoxsearch as LS
@@ -31,11 +31,11 @@ def enable(exaile):
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
-       
+
 def _enable(o1, exaile, o2):
     global panel
     panel=LVPanel(exaile)
-    
+
 def disable(exaile):
     global panel
     if panel.aboutwindow!=None:
@@ -44,34 +44,34 @@ def disable(exaile):
     exaile.gui.remove_panel(panel.vbox)
 
 class LVPanel():
-    
+
     def on_search(self, widget):
         self.run_search(widget)
-        
+
     @common.threaded
     def run_search(self, widget):
         (c_id, msg_id)=self.statusbar.set_status('Searching...')
         self.keyword=unicode(self.entry.get_text(), 'utf-8')
         self.books=LS.find_books(self.keyword)
-        self.generate_treestore(self.books) 
+        self.generate_treestore(self.books)
         self.statusbar.unset_status(c_id, msg_id)
-    
+
     def on_row_exp(self, treeview, iter, path):
         row=path[0]
         if not self.books[row].is_loading and not self.books[row].loaded:
             self.get_chapters(row)
-            
+
     @common.threaded
     def get_chapters(self, row):
         self.get_all(row)
         return
-    
+
     @common.threaded
     def get_chapters_and_add(self, row, location=None):
         self.get_all(row)
         self.add_to_playlist(self.books[row].chapters, location)
         return
-        
+
     @guiutil.idle_add()
     def done_getting_chapters(self, row):
         # adds chapters to treeview and removes "Loading..." message
@@ -81,45 +81,45 @@ class LVPanel():
             self.rowlvl2=self.treestore.append(iter, [chapter[0], self.chapter_icon])
         if len(self.books[row].chapters)>0:
             self.treestore.remove(l_iter)
-        
+
     def __init__(self,exaile):
-        
+
         self.librivoxdir= os.path.dirname(__file__)
         self.abicon = gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/ebook.png')
         self.clock_icon=gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/clock.png')
         self.chapter_icon=gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))
-        self.gui_init(exaile)        
+        self.gui_init(exaile)
         self.connect_events()
-        self.controller=exaile.gui.main        
+        self.controller=exaile.gui.main
         self.getting_info=False
 
     def gui_init(self, exaile):
         self.vbox=gtk.VBox()
         self.vbox.set_border_width(3)
         self.search_label=gtk.Label("LibriVox.org")
-        self.vbox.pack_start(self.search_label, False, True, 4)        
+        self.vbox.pack_start(self.search_label, False, True, 4)
         self.entry=guiutil.SearchEntry()
         self.entry.connect("activate", self.run_search)
-        
+
         self.hbox=gtk.HBox()
         self.vbox.pack_start(self.hbox, False, True, 0)
         self.hbox.pack_start(self.entry.entry, True, True, 0)
         self.searchbutton=gtk.Button()
-        
+
         self.searchimage=gtk.Image()
         self.searchimage.set_from_stock(gtk.STOCK_FIND, gtk.ICON_SIZE_MENU)
         self.searchbutton.set_image(self.searchimage)
         self.searchbutton.connect("pressed", self.run_search)
         self.hbox.pack_start(self.searchbutton, False, True, 0)
-        
+
         self.statusbar=Status()
-        self.vbox.pack_start(self.statusbar.bar, False, True, 0)        
-        
+        self.vbox.pack_start(self.statusbar.bar, False, True, 0)
+
         self.scrlw=gtk.ScrolledWindow()
         self.scrlw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.scrlw.set_shadow_type(gtk.SHADOW_IN)
         self.vbox.pack_start(self.scrlw, True, True, 0)
-        
+
         self.treestore = gtk.TreeStore(str, gtk.gdk.Pixbuf)
         self.treeview=gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
@@ -136,11 +136,11 @@ class LVPanel():
         self.column.set_attributes(self.cellpb, pixbuf=1)
         self.treeview.append_column(self.column)
         self.treeview.connect("row-expanded", self.on_row_exp)
-        
+
         self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK, [('text/uri-list', 0, 0)], gtk.gdk.ACTION_COPY)
         self.treeview.connect("drag-data-get", self.drag_data_get)
         self.scrlw.add(self.treeview)
-        
+
         self.title='LibriVox'
         self.vbox.show_all()
         exaile.gui.add_panel(self.vbox, self.title)
@@ -153,9 +153,9 @@ class LVPanel():
         self.popup_menu.add(self.add_to_pl)
         self.popup_menu.add(self.about_book)
         self.popup_menu.show_all()
-    
+
         self.aboutwindow=None
-        
+
     def connect_events(self):
         self.treeview.connect("row-activated", self.on_append_to_playlist)
         self.treeview.connect("button-press-event", self.menu_popup)
@@ -169,10 +169,10 @@ class LVPanel():
                 chapter_track=track.Track(chapter[1])
                 chapter_track['artist']='Librivox.org'
                 chapter_track['title']=chapter[0]
-                chapter_track['album']='Audiobook'        
+                chapter_track['album']='Audiobook'
                 tracks.append(chapter_track)
             return tracks
-    
+
     def on_append_to_playlist(self, widget, path=None, column=None):
         if not path:
             path=self.treeview.get_cursor()[0]
@@ -183,18 +183,18 @@ class LVPanel():
             if self.books[row].loaded: # book info already loaded
                 self.add_to_playlist(self.books[row].chapters, location=None)
             else:
-                self.get_chapters_and_add(row, location=None)                
-            
+                self.get_chapters_and_add(row, location=None)
+
         if len(path)>1: # selected item is chapter
             chapter=self.books[path[0]].chapters[path[1]]
             self.add_to_playlist([chapter], location=None)
-    
+
     def add_to_playlist(self, chapters, location=None):
         current_playlist=self.controller.get_selected_playlist().playlist
         tracks=self.generate_tracks(chapters)
         current_playlist.add_tracks(tracks, location)
-        
-            
+
+
     def menu_popup(self, treeview, event):
         if event.button == 3:
             x = int(event.x)
@@ -214,7 +214,7 @@ class LVPanel():
         for book in books:
             self.rowlvl1=self.treestore.append(None, [book.title, self.abicon])
             self.rowlvl2=self.treestore.append(self.rowlvl1, ["Loading...", self.clock_icon])
-                
+
     def drag_data_get(self, treeview, context, selection, info, timestamp):
         path=self.treeview.get_cursor()[0]
         if not path:
@@ -228,14 +228,14 @@ class LVPanel():
                     guiutil.DragTreeView.dragged_data[chapter[1]] = chapter_track[0]
                     uris.append(chapter[1])
                 selection.set_uris(uris)
-                del uris        
-                
+                del uris
+
             else:
                 if book.is_loading:
                     return
                 current_playlist=self.controller.get_selected_playlist()
                 current_playlist_tv=self.controller.get_selected_playlist().list
-                
+
                 (x,y)=current_playlist_tv.get_pointer()
                 rect=current_playlist_tv.get_allocation()
                 if x<0 or x>rect.width or y<0 or y>rect.height:
@@ -253,8 +253,8 @@ class LVPanel():
                     self.get_chapters_and_drop(book, current_playlist, PLpath, after)
 
                 else:
-                    self.get_chapters_and_add(path[0])            
-                    
+                    self.get_chapters_and_add(path[0])
+
         elif len(path)==2:
             if self.books[path[0]].is_loading:
                 return
@@ -263,15 +263,15 @@ class LVPanel():
             guiutil.DragTreeView.dragged_data[chapter[1]] = chapter_track[0]
             uri=chapter[1]
             selection.set('text/uri-list', 0, uri)
-            
+
     @common.threaded
     def get_chapters_and_drop(self, book, current_playlist, PLpath, after):
         path=self.treeview.get_cursor()[0]
         row=path[0]
         self.get_all(row)
-        self.drop_after_getting(book, current_playlist, PLpath, after)    
+        self.drop_after_getting(book, current_playlist, PLpath, after)
 
-    
+
     @guiutil.idle_add()
     def drop_after_getting(self, book, current_playlist, PLpath, after):
         # simulates drag_data_received() function of xlgui/playlist.py
@@ -300,10 +300,10 @@ class LVPanel():
         if curtrack is not None:
             index = current_playlist.playlist.index(curtrack)
             current_playlist.playlist.set_current_pos(index)
-            
+
     def on_drag_begin(self, widget, context):
         self.treeview.drag_source_set_icon_pixbuf(self.abicon)
-    
+
     @common.threaded
     def on_about_book(self, widget, event):
         path=self.treeview.get_cursor()[0]
@@ -313,7 +313,7 @@ class LVPanel():
         if not self.books[row].loaded:
             self.get_all(row)
         self.done_getting_info(row)
-        
+
     @guiutil.idle_add()
     def done_getting_info(self, row):
         if self.aboutwindow==None:
@@ -324,7 +324,7 @@ class LVPanel():
             self.aboutwindow.showing=True
         elif self.aboutwindow.showing:
             self.aboutwindow.win.present()
-            
+
 
     def get_all(self, row):
         (c_id, msg_id)=self.statusbar.set_status('Loading...')
@@ -333,9 +333,9 @@ class LVPanel():
         self.done_getting_chapters(row)
         self.books[row].is_loading=False
         self.statusbar.unset_status(c_id, msg_id)
-        
-        
-        
+
+
+
 class Status():
     '''Status bar'''
     def __init__(self):
@@ -348,5 +348,5 @@ class Status():
         return (context_id, msg_id)
     def unset_status(self, context_id, msg_id):
         self.bar.remove(context_id, msg_id)
-        
+
 

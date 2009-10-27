@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 """
@@ -76,10 +76,10 @@ def sort_tracks(fields, tracks, reverse=False):
     """
         Sorts tracks by the field passed
 
-        :param fields: field(s) to sort by 
+        :param fields: field(s) to sort by
         :type fields: string or list of strings
 
-        :param tracks: tracks to sort 
+        :param tracks: tracks to sort
         :type tracks: list of :class:`xl.track.Track`
 
         :param reverse: sort in reverse?
@@ -104,7 +104,7 @@ class TrackHolder(object):
 
 class TrackDB(object):
     """
-        Manages a track database. 
+        Manages a track database.
 
         Allows you to add, remove, retrieve, search, save and load
         Track objects.
@@ -183,7 +183,7 @@ class TrackDB(object):
                     _("You did not specify a location to load the db from"))
 
         try:
-            pdata = shelve.open(self.location, flag='c', 
+            pdata = shelve.open(self.location, flag='c',
                     protocol=common.PICKLE_PROTOCOL)
             if pdata.has_key("_dbversion"):
                 if pdata['_dbversion'] > self._dbversion:
@@ -219,14 +219,14 @@ class TrackDB(object):
 
         pdata.close()
 
-        self._dirty = False 
+        self._dirty = False
 
     @common.synchronized
     def save_to_location(self, location=None):
         """
             Saves a pickled representation of this :class:`TrackDB` to the
             specified location.
-            
+
             :param location: the location to save the data to
             :type location: string
         """
@@ -234,7 +234,7 @@ class TrackDB(object):
             {'name' : self.name, 'location' : location or self.location})
         if not self._dirty:
             for k, track in self.tracks.iteritems():
-                if track._track._dirty: 
+                if track._track._dirty:
                     self._dirty = True
                     break
 
@@ -246,12 +246,12 @@ class TrackDB(object):
         if not location:
             raise AttributeError(_("You did not specify a location to save the db"))
 
-        if self._saving: 
+        if self._saving:
             return
         self._saving = True
 
         try:
-            pdata = shelve.open(self.location, flag='c', 
+            pdata = shelve.open(self.location, flag='c',
                     protocol=common.PICKLE_PROTOCOL)
             if pdata.has_key("_dbversion"):
                 if pdata['_dbversion'] > self._dbversion:
@@ -280,19 +280,19 @@ class TrackDB(object):
 
         pdata.sync()
         pdata.close()
-        
+
         for track in self.tracks.itervalues():
-            if track._track._dirty: 
+            if track._track._dirty:
                 track._dirty = False
 
         self._dirty = False
         self._saving = False
 
-    def list_tag(self, tag, search_terms="", use_albumartist=False, 
+    def list_tag(self, tag, search_terms="", use_albumartist=False,
                  ignore_the=False, sort=False, sort_by=[], reverse=False):
         """
             lists out all the values for a particular, tag, without duplicates
-            
+
             can also optionally prefer albumartist's value over artist's, this
             is primarily useful for the collection panel
         """
@@ -427,7 +427,7 @@ class TrackDB(object):
         """
             Adds a track to the database of tracks
 
-            :param track: The Track to add 
+            :param track: The Track to add
             :type track: :class:`xl.track.Track`
         """
         self.add_tracks([track])
@@ -438,33 +438,33 @@ class TrackDB(object):
             self.tracks[tr.get_loc_for_io()] = TrackHolder(tr, self._key)
             self._key += 1
             event.log_event("track_added", self, tr.get_loc_for_io())
-        self._dirty = True 
+        self._dirty = True
 
     def remove(self, track):
         """
             Removes a track from the database
 
-            :param track: the Track to remove 
-            :type track: Track]   
+            :param track: the Track to remove
+            :type track: Track]
         """
         self.remove_tracks([track])
-    
-    @common.synchronized            
+
+    @common.synchronized
     def remove_tracks(self, tracks):
         for tr in tracks:
             self._deleted_keys.append(self.tracks[tr.get_loc_for_io()]._key)
             del self.tracks[tr.get_loc_for_io()]
             event.log_event("track_removed", self, tr.get_loc_for_io())
         self._dirty = True
-      
+
 
 class TrackSearcher(object):
     """
         Search a TrackDB for matching tracks
-    """ 
+    """
     def tokenize_query(self, search):
-        """ 
-            tokenizes a search query 
+        """
+            tokenizes a search query
         """
         search = " " + search + " "
 
@@ -489,7 +489,7 @@ class TrackSearcher(object):
                 in_quotes = not in_quotes # toggle
                 #newsearch += c
             elif c in ["|", "!", "(", ")"]:
-                newsearch += c 
+                newsearch += c
             elif c == " ":
                 tokens.append(newsearch)
                 newsearch = ""
@@ -504,10 +504,10 @@ class TrackSearcher(object):
         return tokens
 
     def __optimize_tokens(self, tokens):
-        """ 
-            optimizes token order for fast search 
+        """
+            optimizes token order for fast search
 
-            :param tokens: tokens to optimize 
+            :param tokens: tokens to optimize
             :type tokens: token list
         """
         # only optimizes the top level of tokens, the speed
@@ -531,10 +531,10 @@ class TrackSearcher(object):
         return tokens
 
     def __red(self, tokens):
-        """ 
-            reduce tokens to a parsable format 
+        """
+            reduce tokens to a parsable format
 
-            :param tokens: the list of tokens to reduce 
+            :param tokens: the list of tokens to reduce
             :type tokens: list of string
         """
         # base case since we use recursion
@@ -591,12 +591,12 @@ class TrackSearcher(object):
 
     def search(self, query, tracks, sort_order=None):
         """
-            executes a search using the passed query and (optionally) 
+            executes a search using the passed query and (optionally)
             the passed tracks
 
             :param query: the query to search for
             :type query: string
-            :param tracks: the dict of tracks to use 
+            :param tracks: the dict of tracks to use
             :type tracks: dict of :class:`xl.track.Track`
         """
         tokens = self.tokenize_query(query)
@@ -604,12 +604,12 @@ class TrackSearcher(object):
         return tracks
 
     def __do_search(self, tokens, current_list):
-        """ 
-            search for tracks by using the parsed tokens 
+        """
+            search for tracks by using the parsed tokens
 
-            :param tokens: tokens to use when searching 
+            :param tokens: tokens to use when searching
             :type tokens: token list
-            :param current_list: dict of tracks to search 
+            :param current_list: dict of tracks to search
             :type current_list: dict of Track
         """
         new_list = {}

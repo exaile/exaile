@@ -41,7 +41,7 @@ def exaile_ready(event, exaile, nothing):
 
 def disable(exaile):
     global PODCASTS
-    
+
     if PODCASTS:
         conroller = xlgui.controller()
         conroller.remove_panel(PODCASTS.get_panel()[0])
@@ -55,11 +55,11 @@ class PodcastPanel(panel.Panel):
         self.podcasts = []
         self.podcast_playlists = playlist.PlaylistManager(
             'podcast_plugin_playlists')
-        
+
         self._setup_widgets()
         self._connect_events()
         self.podcast_file = os.path.join(xdg.get_plugin_data_dir(),
-            'podcasts_plugin.db') 
+            'podcasts_plugin.db')
         self._load_podcasts()
 
     def _setup_widgets(self):
@@ -173,7 +173,7 @@ class PodcastPanel(panel.Panel):
                     date.tm_mday)
                 tracks.append(tr)
                 tr._scanning = False
-            
+
             pl.add_tracks(tracks)
             self._set_status('')
 

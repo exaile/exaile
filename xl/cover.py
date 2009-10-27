@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import logging, os
@@ -44,7 +44,7 @@ class CoverData(object):
 def get_cover_data(info):
     if isinstance(info, CoverData):
         return info.data
-    
+
     handle = gio.File(info).read()
     data = handle.read()
 
@@ -56,7 +56,7 @@ class NoCoverFoundException(Exception):
 class CoverDB(object):
     """
         Manages the stored cover database
-    
+
         Allows you to set covers for a particular album
     """
     def __init__(self, location=None, pickle_attrs=[]):
@@ -86,7 +86,7 @@ class CoverDB(object):
 
     def get_cover(self, artist, album):
         """
-            Gets the cover filename for an album 
+            Gets the cover filename for an album
 
             @param artist: the artist
             @param album: the album
@@ -96,11 +96,11 @@ class CoverDB(object):
             if album and album in self.artists[artist]:
                 return self.artists[artist][album]
         return None
-        
+
     def set_cover(self, artist, album, cover):
         """
             Sets the cover filename for an album
-            
+
             @param artist: the artist
             @param album: the album
         """
@@ -151,9 +151,9 @@ class CoverDB(object):
 
     def save_to_location(self, location=None):
         """
-            Saves a pickled representation of this CoverDB to the 
+            Saves a pickled representation of this CoverDB to the
             specified location.
-            
+
             location: the location to save the data to [string]
         """
         if not self._dirty:
@@ -193,7 +193,7 @@ class CoverDB(object):
             os.remove(location + ".old")
         except:
             pass
-        
+
         self._dirty = False
 
 class CoverManager(providers.ProviderHandler):
@@ -222,23 +222,23 @@ class CoverManager(providers.ProviderHandler):
     def add_search_method(self, method):
         """
             Adds a search method to the provider list.
-            
+
             @param method: the search method instance
         """
         providers.register(self.servicename, method)
-        
+
     def remove_search_method(self, method):
         """
             Removes the given search method from the provider list.
-            
+
             @param method: the search method instance
         """
         providers.unregister(self.servicename, method)
-        
+
     def remove_search_method_by_name(self, name):
         """
             Removes a search method from the provider list.
-            
+
             @param name: the search method name
         """
         try:
@@ -262,37 +262,37 @@ class CoverManager(providers.ProviderHandler):
         """
             Adds the new provider to the methods dict and passes a
             reference of the manager instance to the provider.
-            
+
             @param provider: the provider instance being added.
         """
         if not provider.name in self.methods:
             self.methods[provider.name] = provider
             provider._set_manager(self)
-            event.log_event('cover_search_method_added', self, provider) 
+            event.log_event('cover_search_method_added', self, provider)
 
     def on_del_provider(self, provider):
         """
             Remove the provider from the methods dict, and the
             preferred_order dict if needed.
-            
+
             @param provider: the provider instance being removed.
         """
         try:
             del self.methods[provider.name]
-            event.log_event('cover_search_method_removed', self, provider) 
+            event.log_event('cover_search_method_removed', self, provider)
         except KeyError:
             pass
         try:
             self.preferred_order.remove(provider.name)
         except (ValueError, AttributeError):
-            pass     
+            pass
 
     def get_methods(self):
         """
             Returns a list of Methods, sorted by preference
         """
         methods = []
-        
+
         for name in self.preferred_order:
             if name in self.methods:
                 methods.append(self.methods[name])
@@ -326,7 +326,7 @@ class CoverManager(providers.ProviderHandler):
         self.coverdb.remove_cover(*track.get_album_tuple())
 
     def set_cover(self, track, order=None):
-        """ 
+        """
             Sets the ['album_image'] for a given track
 
             @param track:  The track to set the art for
@@ -358,9 +358,9 @@ class CoverManager(providers.ProviderHandler):
         cover = None
         try:
             item = track.get_album_tuple()
-            if not item[0] or not item[1]: 
+            if not item[0] or not item[1]:
                 raise NoCoverFoundException()
-            cover = self.coverdb.get_cover(item[0], item[1]) 
+            cover = self.coverdb.get_cover(item[0], item[1])
         except TypeError: # one of the fields is missing
             raise NoCoverFoundException()
         except AttributeError:
@@ -395,12 +395,12 @@ class CoverManager(providers.ProviderHandler):
 
     def find_covers(self, track, limit=-1, search=False):
         """
-            Finds a cover for a track.  
+            Finds a cover for a track.
 
             Searches the preferred order first, and then the rest of the
             available methods.  The first cover that is found is returned.
 
-            @param track: the track 
+            @param track: the track
             @para limit: Set to -1 to return all covers, or the max number of
                 covers you want returned
         """
@@ -424,12 +424,12 @@ class CoverManager(providers.ProviderHandler):
                     break
             except NoCoverFoundException:
                 pass
-        
+
         if not covers:
             # no covers were found, raise an exception
             raise NoCoverFoundException()
 
-        event.log_event('covers_found', self, covers) 
+        event.log_event('covers_found', self, covers)
         return covers
 
 class CoverSearchMethod(object):
@@ -447,7 +447,7 @@ class CoverSearchMethod(object):
 
     def _set_manager(self, manager):
         """
-            Sets the cover manager.  
+            Sets the cover manager.
 
             Called when this method is added to the cover manager via
             add_search_method()

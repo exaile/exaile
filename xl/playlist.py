@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 # Playlist
@@ -78,7 +78,7 @@ def save_to_m3u(playlist, path):
 
     for track in playlist:
         leng = float(track['__length'])
-        if leng < 1: 
+        if leng < 1:
             leng = -1
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
             track['title'], track.get_loc_for_io()))
@@ -96,7 +96,7 @@ def import_from_m3u(path):
         handle = urllib.urlopen(path)
         name = url_parsed[2].split('/')[-1].replace('.m3u', '')
         is_local = False
-    
+
     #if not handle.readline().startswith("#EXTM3U"):
     #    return None
 
@@ -143,12 +143,12 @@ def save_to_pls(playlist, path):
         Saves a Playlist to an pls file
     """
     handle = open(path, "w")
-    
+
     handle.write("[playlist]\n")
     handle.write("NumberOfEntries=%d\n\n" % len(playlist))
-    
-    count = 1 
-    
+
+    count = 1
+
     for track in playlist:
         handle.write("File%d=%s\n" % (count, track.get_loc_for_io()))
         handle.write("Title%d=%s\n" % (count, track['title']))
@@ -157,7 +157,7 @@ def save_to_pls(playlist, path):
         else:
             handle.write("Length%d=%d\n\n" % (count, float(track['__length'])))
         count += 1
-    
+
     handle.write("Version=2")
     handle.close()
 
@@ -214,29 +214,29 @@ def import_from_pls(path, handle=None):
 
     return pl
 
-    
+
 def save_to_asx(playlist, path):
     """
         Saves a Playlist to an asx file
     """
     handle = open(path, "w")
-    
+
     handle.write("<asx version=\"3.0\">\n")
     if playlist.get_name() == '':
         name = ''
     else:
         name = playlist.get_name()
     handle.write("  <title>%s</title>\n" % name)
-    
+
     for track in playlist:
         handle.write("<entry>\n")
         handle.write("  <title>%s</title>\n" % track['title'])
         handle.write("  <ref href=\"%s\" />\n" % track.get_loc_for_io())
         handle.write("</entry>\n")
-    
+
     handle.write("</asx>")
     handle.close()
-    
+
 def import_from_asx(path):
     tree = ETree.ElementTree(file=urllib.urlopen(path))
     # bad hack to support non-lowercase elems. FIXME
@@ -278,12 +278,12 @@ def save_to_xspf(playlist, path):
         Saves a Playlist to a xspf file
     """
     handle = open(path, "w")
-    
+
     handle.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
     handle.write("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">\n")
     if playlist.get_name() != '':
         handle.write("  <title>%s</title>\n" % playlist.get_name())
-    
+
     handle.write("  <trackList>\n")
     for track in playlist:
         handle.write("    <track>\n")
@@ -294,11 +294,11 @@ def save_to_xspf(playlist, path):
         url = track.get_loc_for_io()
         handle.write("      <location>%s</location>\n" % url)
         handle.write("    </track>\n")
-    
+
     handle.write("  </trackList>\n")
     handle.write("</playlist>\n")
     handle.close()
-    
+
 def import_from_xspf(path):
     #TODO: support content resolution
     tree = ETree.ElementTree(file=urllib.urlopen(path))
@@ -347,10 +347,10 @@ def import_playlist(path):
         return import_from_xspf(path)
     else:
         raise InvalidPlaylistTypeException()
-    
+
 def export_playlist(playlist, path):
     """
-        Exact same as @see import_playlist except 
+        Exact same as @see import_playlist except
         it exports
     """
     sections = path.split('.')
@@ -365,7 +365,7 @@ def export_playlist(playlist, path):
         return save_to_xspf(playlist, path)
     else:
         raise InvalidPlaylistTypeException()
-    
+
 
 class PlaylistIterator(object):
     def __init__(self, pl):
@@ -408,7 +408,7 @@ class Playlist(object):
         self._needs_save = False
         self.name = name
         self.tracks_history = []
-        self.extra_save_items = ['random_enabled', 'random_mode', 'repeat_enabled', 
+        self.extra_save_items = ['random_enabled', 'random_mode', 'repeat_enabled',
                 'dynamic_enabled', 'current_pos', 'name', '_is_custom', '_needs_save']
 
     def get_name(self):
@@ -416,13 +416,13 @@ class Playlist(object):
 
     def set_name(self, name):
         self.name = name
-        
+
     def get_is_custom(self):
         return self._is_custom
 
     def set_is_custom(self, val):
         self._is_custom = val
-        
+
     def get_needs_save(self):
         return self._needs_save
 
@@ -435,7 +435,7 @@ class Playlist(object):
         """
         if self.filtered:
             return self.filtered_tracks
-        else:   
+        else:
             return self._ordered_tracks
 
     def _set_ordered_tracks(self, tracks):
@@ -521,7 +521,7 @@ class Playlist(object):
         else:
             self.ordered_tracks = self.ordered_tracks[:location] + \
                     tracks + self.ordered_tracks[location:]
-        
+
         if location != None and location <= self.current_pos:
             self.current_pos += len(tracks)
 
@@ -672,17 +672,17 @@ class Playlist(object):
             if len(self.ordered_tracks) == 1 and \
                     len(self.tracks_history) == 1:
                 return None
-            
+
             try:
                 next = self.get_next_random_track(self.random_mode)
 
             except IndexError:
                 logger.debug('Ran out of tracks to shuffle')
-                # clear this so we restart the shuffle cycle next time a 
+                # clear this so we restart the shuffle cycle next time a
                 # track is played
                 self.tracks_history = []
                 return None
-            self.current_pos = self.ordered_tracks.index(next)            
+            self.current_pos = self.ordered_tracks.index(next)
 
         else:
             if len(self.ordered_tracks) == 0:
@@ -780,7 +780,7 @@ class Playlist(object):
         if not self.random_enabled:
             self.tracks_history = []
         self.random_enabled = value
-        if mode != self.random_mode: 
+        if mode != self.random_mode:
             #Makes shuffle a bit more interesting if switching random mode
             self.tracks_history = []
             self.random_mode = mode
@@ -877,7 +877,7 @@ class Playlist(object):
             meta = None
             if loc.find('\t') > -1:
                 (loc, meta) = loc.split('\t')
-               
+
             tr = None
             tr = track.Track(uri=loc)
 
@@ -901,11 +901,11 @@ class Playlist(object):
         trs = self.ordered_tracks
         random.shuffle(trs)
         self.ordered_tracks = trs
-    
+
 
 class SmartPlaylist(object):
-    """ 
-        Represents a Smart Playlist.  
+    """
+        Represents a Smart Playlist.
         This will query a collection object using a set of parameters
 
         Simple usage:
@@ -919,7 +919,7 @@ class SmartPlaylist(object):
         >>> p = sp.get_playlist()
         >>> p.get_tracks()[1]['album'][0]
         u'Chimera'
-        >>> 
+        >>>
     """
     def __init__(self, name="", collection=None):
         """
@@ -954,7 +954,7 @@ class SmartPlaylist(object):
         self.collection = collection
 
     def set_random_sort(self, sort):
-        """ 
+        """
             If True, the tracks added during update() will be randomized
 
             @param sort: bool
@@ -967,10 +967,10 @@ class SmartPlaylist(object):
             Returns True if this playlist will randomly be sorted
         """
         return self.random_sort
-    
+
     def set_return_limit(self, count):
         """
-            Sets the max number of tracks to return.  
+            Sets the max number of tracks to return.
 
             @param count:  number of tracks to return.  Set to -1 to return
                 all matched
@@ -998,7 +998,7 @@ class SmartPlaylist(object):
             Return if this is an any or and playlist
         """
         return self.or_match
-        
+
     def add_param(self, field, op, value, index=-1):
         """
             Adds a search parameter.
@@ -1007,7 +1007,7 @@ class SmartPlaylist(object):
             @param op:     The operator.  Valid operators are:
                     >,<,>=,<=,=,!=,==,!==,>< (between) [string]
             @param value:  The value to match against [string]
-            @param index:  Where to insert the parameter in the search order.  -1 
+            @param index:  Where to insert the parameter in the search order.  -1
                     to append [int]
         """
         if index:
@@ -1033,7 +1033,7 @@ class SmartPlaylist(object):
     def remove_param(self, index):
         """
             Removes a parameter at the speficied index
-        
+
             index:  the index of the parameter to remove
         """
         self._dirty = True
@@ -1042,7 +1042,7 @@ class SmartPlaylist(object):
     def get_playlist(self, collection=None):
         """
             Generates a playlist by querying the collection
-            
+
             @param collection: the collection to search (leave None to search
                         internal ref)
         """
@@ -1053,7 +1053,7 @@ class SmartPlaylist(object):
 
         search_string = self._create_search_string()
         sort_field = None
-        if self.random_sort: 
+        if self.random_sort:
             sort_field = 'RANDOM'
         else:
             sort_field = ('artist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
@@ -1178,7 +1178,7 @@ class PlaylistManager(object):
             pl.save_to_location(os.path.join(self.playlist_dir,
                 encode_filename(name)))
 
-            if not name in self.playlists: 
+            if not name in self.playlists:
                 self.playlists.append(name)
             #self.playlists.sort()
         else:
@@ -1201,7 +1201,7 @@ class PlaylistManager(object):
                 pass
             self.playlists.remove(name)
             event.log_event('playlist_removed', self, name)
-            
+
     def rename_playlist(self, playlist, new_name):
         """
             Renames the playlist to new_name
@@ -1230,7 +1230,7 @@ class PlaylistManager(object):
             ordered_playlists = self.load_from_location(self.order_file)
             self.playlists = [n for n in ordered_playlists if n in existing]
         else:
-            self.playlists = existing 
+            self.playlists = existing
 
     def get_playlist(self, name):
         """
@@ -1251,7 +1251,7 @@ class PlaylistManager(object):
             Returns all the contained playlist names
         """
         return self.playlists[:]
-        
+
     def move(self, playlist, position, after = True):
         """
             Moves the playlist to where position is
@@ -1264,13 +1264,13 @@ class PlaylistManager(object):
         if after:
             position_index = position_index + 1
         self.playlists.insert(position_index, playlist)
-    
+
     def save_order(self):
         """
             Saves the order to the order file
         """
         self.save_to_location(self.order_file)
-    
+
     def save_to_location(self, location):
         """
             Saves the names of the playlist to a file that is
@@ -1294,7 +1294,7 @@ class PlaylistManager(object):
         """
             Loads the names of the playlist from a file.
             Their load order is their view order
-            
+
             @return: a list of the playlist names
         """
         f = None

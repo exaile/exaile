@@ -33,7 +33,7 @@ def enable(exaile):
 
 def _enable(eventname, exaile, nothing):
     exaile.covers.add_search_method(
-        AmazonCoverSearch() 
+        AmazonCoverSearch()
     )
 
 def disable(exaile):
@@ -56,7 +56,7 @@ class AmazonCoverSearch(CoverSearchMethod):
             Searches amazon for album covers
         """
         (artist, album) = track.get_album_tuple(join_char=' ')
-        return self.search_covers("%s - %s" % 
+        return self.search_covers("%s - %s" %
             (artist, album), limit)
 
     def search_covers(self, search, limit=-1):
@@ -100,7 +100,7 @@ class AmazonCoverSearch(CoverSearchMethod):
                 covers.append(covername)
                 if limit != -1 and len(covers) >= limit:
                     return covers
-            except AttributeError: 
+            except AttributeError:
                 continue
             except:
                 traceback.print_exc()

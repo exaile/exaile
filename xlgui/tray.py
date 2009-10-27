@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import gobject, gtk
@@ -99,12 +99,12 @@ class TrayIcon(gtk.StatusIcon):
         self.check_shuffle.set_active(settings.get_option('playback/shuffle', False))
         self.check_shuffle.connect('toggled', self.set_mode_toggles)
         self.menu.append_item(self.check_shuffle)
-        
+
         self.check_repeat = gtk.CheckMenuItem(_("Repeat playlist"))
         self.check_repeat.set_active(settings.get_option('playback/repeat', False))
         self.check_repeat.connect('toggled', self.set_mode_toggles)
         self.menu.append_item(self.check_repeat)
-        
+
         self.check_dynamic = gtk.CheckMenuItem(_("Dynamically add similar tracks"))
         self.check_dynamic.set_active(settings.get_option('playback/dynamic', False))
         self.check_dynamic.connect('toggled', self.set_mode_toggles)
@@ -118,14 +118,14 @@ class TrayIcon(gtk.StatusIcon):
         self.rm_item = self.menu.append(label=_("Remove current track from playlist"),
             stock_id='gtk-remove',
             callback=lambda *e: self._remove_current_song())
-        
+
         self.menu.append_separator()
 
         self.menu.append(stock_id='gtk-quit',
             callback=lambda *e: self.controller.exaile.quit())
 
         event.add_callback(self.update_menu, 'playback_track_start')
-    
+
     def _get_current_track_list(self):
         l = []
         l.append(self.player.current)
@@ -148,7 +148,7 @@ class TrayIcon(gtk.StatusIcon):
             self.playpause.destroy()
             self.playpause = self.menu.prepend(stock_id='gtk-media-pause',
                 callback=lambda *e: self._play_pause_clicked())
-        
+
         if track:
             self.rating_item.set_sensitive(True)
             self.rm_item.set_sensitive(True)
@@ -181,7 +181,7 @@ class TrayIcon(gtk.StatusIcon):
         """
         if option == 'playback/shuffle':
             self.check_shuffle.set_active(settings.get_option(option, False))
-        
+
         if option == 'playback/repeat':
             self.check_repeat.set_active(settings.get_option(option, False))
 
@@ -197,7 +197,7 @@ class TrayIcon(gtk.StatusIcon):
             self.update_menu()
             self.menu.popup(None, None, gtk.status_icon_position_menu,
                 event.button, event.time, self)
-    
+
     def _play_pause_clicked(self):
         if self.player.is_paused() or self.player.is_playing():
             self.player.toggle_pause()

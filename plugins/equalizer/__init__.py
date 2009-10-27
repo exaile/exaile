@@ -69,16 +69,16 @@ class GSTEqualizer(ElementBin):
 
         self.audioconvert = gst.element_factory_make("audioconvert")
         self.elements[40] = self.audioconvert
-        
+
         self.preamp = gst.element_factory_make("volume")
         self.elements[50] = self.preamp
-        
+
         self.eq10band = gst.element_factory_make("equalizer-10bands")
         self.elements[60] = self.eq10band
-        
+
         self.setup_elements()
 
-        event.add_callback(self._on_setting_change, 
+        event.add_callback(self._on_setting_change,
                 "plugin/equalizer_option_set")
 
         setts = ["band%s" for n in xrange(10)] + ["pre", "enabled"]
@@ -90,13 +90,13 @@ class GSTEqualizer(ElementBin):
         for band in range(10):
             if data == "plugin/equalizer/band%s"%band:
                 if settings.get_option("plugin/equalizer/enabled") == True:
-                    self.eq10band.set_property("band%s"%band, 
+                    self.eq10band.set_property("band%s"%band,
                             settings.get_option("plugin/equalizer/band%s"%band))
                 else:
                     self.eq10band.set_property("band%s"%band, 0.0)
 
         if data == "plugin/equalizer/pre":
-            if settings.get_option("plugin/equalizer/enabled") == True:         
+            if settings.get_option("plugin/equalizer/enabled") == True:
                 self.preamp.set_property("volume", self.dB_to_percent(
                         settings.get_option("plugin/equalizer/pre")))
             else:
@@ -107,7 +107,7 @@ class GSTEqualizer(ElementBin):
                 self.preamp.set_property("volume", self.dB_to_percent(
                         settings.get_option("plugin/equalizer/pre")))
                 for band in range(10):
-                    self.eq10band.set_property("band%s"%band, 
+                    self.eq10band.set_property("band%s"%band,
                             settings.get_option("plugin/equalizer/band%s"%band))
             else:
                 self.preamp.set_property("volume", 1.0)
@@ -132,7 +132,7 @@ class EqualizerPlugin:
         self.MENU_ITEM.show()
 
         self.presets_path = os.path.join(xdg.get_config_dir(), 'eq-presets.dat')
-        self.presets = gtk.ListStore(str, float, float, float, float, 
+        self.presets = gtk.ListStore(str, float, float, float, float,
                 float, float, float, float, float, float, float)
         self.load_presets()
 
@@ -163,7 +163,7 @@ class EqualizerPlugin:
         """
         Populate the GTK ListStore with presets
         """
-        
+
     def show_gui(self, widget, exaile):
         """
         Display main window.
@@ -171,8 +171,8 @@ class EqualizerPlugin:
         if self.window:
             self.window.present()
             return
-        
-        signals = {     
+
+        signals = {
                 'on_equalizer/main-window_destroy':self.destroy_gui,
                 'on_equalizer/chk-enabled_toggled':self.toggle_enabled,
                 'on_equalizer/combo-presets_changed':self.preset_changed,
@@ -188,7 +188,7 @@ class EqualizerPlugin:
                 'on_equalizer/band6_format_value':self.adjust_band,
                 'on_equalizer/band7_format_value':self.adjust_band,
                 'on_equalizer/band8_format_value':self.adjust_band,
-                'on_equalizer/band9_format_value':self.adjust_band      
+                'on_equalizer/band9_format_value':self.adjust_band
                 }
 
         self.ui = gtk.Builder()
@@ -211,7 +211,7 @@ class EqualizerPlugin:
         combobox.set_text_column(0)
         combobox.set_active(0)
 
-        self.ui.get_object('equalizer/chk-enabled').set_active( 
+        self.ui.get_object('equalizer/chk-enabled').set_active(
                 settings.get_option("plugin/equalizer/enabled"))
 
         self.window.show_all()
@@ -239,7 +239,7 @@ class EqualizerPlugin:
         """
         if widget.get_value() != settings.get_option(
                 "plugin/equalizer/band%s" % widget.get_name()[-1]):
-            settings.set_option("plugin/equalizer/band%s" % 
+            settings.set_option("plugin/equalizer/band%s" %
                     widget.get_name()[-1], widget.get_value())
             self.ui.get_object("equalizer/combo-presets").set_active(0)
 
@@ -265,28 +265,28 @@ class EqualizerPlugin:
 #        print "EQPLUGIN: debug: ", new_preset
         self.presets.append(new_preset)
         self.save_presets()
-    
+
     def remove_preset(self, widget):
         entry = self.ui.get_object("equalizer/combo-presets").get_active()
         if entry > 1:
             self.presets.remove(self.presets.get_iter(entry))
             self.ui.get_object("equalizer/combo-presets").set_active(0)
             self.save_presets()
-    
+
     def preset_changed(self, widget):
-        
+
         d = widget.get_model()
         i = widget.get_active()
 
         #If an option other than "Custom" is chosen:
-        if i > 0:  
-            settings.set_option("plugin/equalizer/pre", 
+        if i > 0:
+            settings.set_option("plugin/equalizer/pre",
                     d.get_value( d.get_iter(i), 1))
-            self.ui.get_object("equalizer/pre").set_value( 
+            self.ui.get_object("equalizer/pre").set_value(
                     d.get_value( d.get_iter(i), 1))
 
             for band in range(10):
-                settings.set_option("plugin/equalizer/band%s"%band, 
+                settings.set_option("plugin/equalizer/band%s"%band,
                         d.get_value( d.get_iter(i), band+2))
                 self.ui.get_object("equalizer/band%s"%band).set_value(
                         d.get_value( d.get_iter(i), band+2))
@@ -323,45 +323,45 @@ class EqualizerPlugin:
 
                     for i in range(11):
                         preset.append(float(vals[i]))
-                    
+
                     self.presets.append(preset)
                     line = f.readline()
         else:
-            self.presets.append(["Custom", 
+            self.presets.append(["Custom",
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-            self.presets.append(["Default", 
+            self.presets.append(["Default",
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-            self.presets.append(["Classical", 
+            self.presets.append(["Classical",
                     0, 0, 0, 0, 0, 0, 0, -7.2, -7.2, -7.2, -9.6])
-            self.presets.append(["Club", 
+            self.presets.append(["Club",
                     0, 0, 0, 8, 5.6, 5.6, 5.6, 3.2, 0, 0, 0])
-            self.presets.append(["Dance", 
+            self.presets.append(["Dance",
                     0, 9.6, 7.2, 2.4, 0, 0, -5.6, -7.2, -7.2, 0, 0])
-            self.presets.append(["Full Bass", 
+            self.presets.append(["Full Bass",
                     0, -8, 9.6, 9.6, 5.6, 1.6, -4, -8, -10.4, -11.2, -11.2])
-            self.presets.append(["Full Bass and Treble", 
+            self.presets.append(["Full Bass and Treble",
                     0, 7.2, 5.6, 0, -7.2, -4.8, 1.6, 8, 11.2, 12, 12])
-            self.presets.append(["Full Treble", 
+            self.presets.append(["Full Treble",
                     0, -9.6, -9.6, -9.6, -4, 2.4, 11.2, 16, 16, 16, 16.8])
-            self.presets.append(["Laptop Speakers and Headphones", 
+            self.presets.append(["Laptop Speakers and Headphones",
                     0, 4.8, 11.2, 5.6, -3.2, -2.4, 1.6, 4.8, 9.6, 11.9, 11.9])
-            self.presets.append(["Large Hall", 
+            self.presets.append(["Large Hall",
                     0, 10.4, 10.4, 5.6, 5.6, 0, -4.8, -4.8, -4.8, 0, 0])
-            self.presets.append(["Live", 
+            self.presets.append(["Live",
                     0, -4.8, 0, 4, 5.6, 5.6, 5.6, 4, 2.4, 2.4, 2.4])
-            self.presets.append(["Party", 
+            self.presets.append(["Party",
                     0, 7.2, 7.2, 0, 0, 0, 0, 0, 0, 7.2, 7.2])
-            self.presets.append(["Pop", 
+            self.presets.append(["Pop",
                     0, -1.6, 4.8, 7.2, 8, 5.6, 0, -2.4, -2.4, -1.6, -1.6])
-            self.presets.append(["Reggae", 
+            self.presets.append(["Reggae",
                     0, 0, 0, 0, -5.6, 0, 6.4, 6.4, 0, 0, 0])
-            self.presets.append(["Rock", 
+            self.presets.append(["Rock",
                     0, 8, 4.8, -5.6, -8, -3.2, 4, 8.8, 11.2, 11.2, 11.2])
-            self.presets.append(["Ska", 
+            self.presets.append(["Ska",
                     0, -2.4, -4.8, -4, 0, 4, 5.6, 8.8, 9.6, 11.2, 9.6])
-            self.presets.append(["Soft", 
+            self.presets.append(["Soft",
                     0, 4.8, 1.6, 0, -2.4, 0, 4, 8, 9.6, 11.2, 12])
-            self.presets.append(["Soft Rock", 
+            self.presets.append(["Soft Rock",
                     0, 4, 4, 2.4, 0, -4, -5.6, -3.2, 0, 2.4, 8.8])
-            self.presets.append(["Techno", 
+            self.presets.append(["Techno",
                     0, 8, 5.6, 0, -5.6, -4.8, 0, 8, 9.6, 9.6, 8.8])

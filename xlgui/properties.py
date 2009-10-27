@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl import xdg, metadata
@@ -41,7 +41,7 @@ dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
                 'originaldate': (_('Original Date'), 'int', 1000, 2100),
                 'date': (_('Date'), 'int', 0, 2100),
                 'arranger': (_('Arranger'), 'text'),
-                'conductor': (_('Conductor'), 'text'), 
+                'conductor': (_('Conductor'), 'text'),
                 'performer': (_('Performer'), 'text'),
                 'artist': (_('Artist'), 'text'),
                 'album': (_('Album'), 'text'),
@@ -53,7 +53,7 @@ dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
                 'isrc': (_('ISRC'), 'text'),
                 'genre': (_('Genre'), 'text'),
                 'composer': (_('Composer'), 'text'),
-                'encodedby': (_('Encoded By'), 'text'), 
+                'encodedby': (_('Encoded By'), 'text'),
                 'organization': (_('Organization'), 'text'),
                 'discnumber': (_('Disc'), 'int', 0, 50),
                 'bpm': (_('BPM'), 'int', 0, 300),
@@ -101,14 +101,14 @@ class TrackPropertiesDialog(gobject.GObject):
         self.new_tag_combo_list.set_sort_column_id(1, gtk.SORT_ASCENDING)
         self.new_tag_combo.set_model(self.new_tag_combo_list)
         self.new_tag_combo.set_text_column(1)
-        
-        self.def_tags = [   'tracknumber', 
-                            'title', 
+
+        self.def_tags = [   'tracknumber',
+                            'title',
                             'artist',
                             'album',
                             'discnumber',
-                            'date', 
-                            'genre', 
+                            'date',
+                            'genre',
                             ]
 
         #Store the tracks and a working copy
@@ -182,7 +182,7 @@ class TrackPropertiesDialog(gobject.GObject):
                         track[tag]
                     except KeyError:
                         poplist.append(tag)
-            
+
             for tag in poplist:
                 self.track_refs[n].tags.pop(tag)
 
@@ -193,7 +193,7 @@ class TrackPropertiesDialog(gobject.GObject):
         for table in [self.tags_table, self.properties_table]:
             for child in table.get_children():
                 table.remove(child)
-            
+
             table.resize(1,4)
 
         self.rows = []
@@ -224,7 +224,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
                 f = None
                 if dialog_tags[tag][1] == 'int':
-                    if tag == 'tracknumber': 
+                    if tag == 'tracknumber':
                         f = TagDblNumField(dialog_tags[tag][2], dialog_tags[tag][3], all_button=ab_dbl)
                     elif tag == 'discnumber':
                         f = TagDblNumField(dialog_tags[tag][2], dialog_tags[tag][3], all_button=ab_dbl)
@@ -236,19 +236,19 @@ class TrackPropertiesDialog(gobject.GObject):
                 self.rows.append(TagRow(self, self.tags_table, f, tag, entry, i))
 
         for tag in t:
-            if tag not in self.def_tags: 
+            if tag not in self.def_tags:
 
                 try:
                     type = dialog_tags[tag][1]
                 except KeyError:
                     type = 'text'
-                
+
                 if type != 'IGNORE':
                     for i, entry in enumerate(t[tag]):
                         f = None
                         if tag[:2] != '__':
                             if type == 'int':
-                                f = TagNumField(dialog_tags[tag][2], 
+                                f = TagNumField(dialog_tags[tag][2],
                                         dialog_tags[tag][3], all_button=ab)
                             else:
                                 f = TagField(all_button=ab)
@@ -257,7 +257,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
                         else:
                             f = PropertyField(type)
-                            
+
                             self.rows.append(TagRow(self, self.properties_table, f, tag, entry, i))
 
 
@@ -287,7 +287,7 @@ class TrackPropertiesDialog(gobject.GObject):
                     gtk.Label()]
 
             for col, content in enumerate(columns):
-                row.table.attach(content, col, col + 1, cur_row[row.table], 
+                row.table.attach(content, col, col + 1, cur_row[row.table],
                         cur_row[row.table] + 1, xoptions=paddings[col], yoptions=0)
 
             cur_row[row.table] += 1
@@ -306,7 +306,7 @@ class TrackPropertiesDialog(gobject.GObject):
             self.tracks_original = None
             self.tracks = self._tags_copy(self.track_refs)
             self.tracks_original = self._tags_copy(self.track_refs)
- 
+
             self.apply_button.set_sensitive(False)
             for row in self.rows:
                 if row.multi_id == 0:
@@ -315,7 +315,7 @@ class TrackPropertiesDialog(gobject.GObject):
     def _on_close(self, w):
         if self.tracks != self.tracks_original:
             dialog = gtk.MessageDialog(self.dialog,
-                      gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, 
+                      gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
                       gtk.MESSAGE_WARNING,
                       gtk.BUTTONS_OK_CANCEL,
                       _("Close without applying changes to tags?"))
@@ -378,7 +378,7 @@ class TrackPropertiesDialog(gobject.GObject):
             if len(track) != len(self.tracks_original[i]):
                 apply_flag = True
 
-        if apply_flag: 
+        if apply_flag:
             if not self.apply_button.get_property("sensitive"):
                 self.apply_button.set_sensitive(True)
         else:
@@ -472,7 +472,7 @@ class TagRow(object):
                 all_vals.append(None)
 
         self.field.set_value(value, all_vals)
-    
+
         try:
             name = dialog_tags[self.tag][0]
         except:
@@ -535,7 +535,7 @@ class TagRow(object):
         self.field.set_value('')
 
 class TagField(gtk.HBox):
-    def __init__(self, all_button=True): 
+    def __init__(self, all_button=True):
         gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
         #Create the widgets
@@ -556,7 +556,7 @@ class TagField(gtk.HBox):
     def set_value(self, val, all_vals=None, doupdate=True):
         if doupdate:
             self.field.set_text(val)
-        
+
         if all_vals != None and self.all_button != None:
             #Set the value of the all button
             flag = True
@@ -581,7 +581,7 @@ class TagField(gtk.HBox):
         self.all_func = f
 
 class TagNumField(gtk.HBox):
-    def __init__(self, min=0, max=10000, step=1, page=10, all_button=True): 
+    def __init__(self, min=0, max=10000, step=1, page=10, all_button=True):
         gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
         #Create the widgets
@@ -635,7 +635,7 @@ class TagDblNumField(gtk.HBox):
 
     def __init__(self, min=0, max=10000, step=1, page=10, all_button=1):
         gtk.HBox.__init__(self, homogeneous=False, spacing=5)
-    
+
         self.field = [gtk.SpinButton(), gtk.SpinButton()]
         self.all_func = None
         self.parent_row = None
@@ -670,7 +670,7 @@ class TagDblNumField(gtk.HBox):
             val += '/'
 
         vals = val.split('/')
-        
+
         if doupdate:
             for x in range(2):
                 if vals[x] != '':
@@ -757,15 +757,15 @@ class AllButton(gtk.ToggleButton):
         self.id_num = id_num
         self.set_active(True)
         self.set_active(False)
-                    
+
     def set_all_mode(self, w=None, do_apply=True):
-        
+
         if self.get_active():
             if do_apply and self.field.parent_row:
                 tag = self.field.parent_row.tag
                 multi_id = self.field.parent_row.multi_id
                 if self.field.all_func != None:
-                    self.field.all_func(tag, multi_id, self.field.get_value, self.id_num)                
+                    self.field.all_func(tag, multi_id, self.field.get_value, self.id_num)
             im = gtk.Image()
             im.set_from_stock(gtk.STOCK_DND_MULTIPLE, gtk.ICON_SIZE_BUTTON)
             self.set_image(im)

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import locale, logging, random, string, sys, threading, time, traceback, \
@@ -73,7 +73,7 @@ def threaded(f):
     """
         A decorator that will make any function run in a new thread
     """
-    
+
     # TODO: make this bad hack unneeded
     if _TESTING: return f
     @wraps(f)
@@ -170,18 +170,18 @@ def local_file_from_url(url):
     split = urlparse.urlsplit(url)
     return urlparse.urlunsplit(('', '') + split[2:])
 
-class idict(dict): 
+class idict(dict):
     """
         Case insensitive dictionary
     """
-    def __init__(self): 
+    def __init__(self):
         """
             Initializes the dictionary
         """
         self.keys_dict = dict()
         dict.__init__(self)
 
-    def __setitem__(self, item, val): 
+    def __setitem__(self, item, val):
         """
             Sets an item in the dict
         """
@@ -189,14 +189,14 @@ class idict(dict):
         dict.__setitem__(self, item.lower(), val)
         if hasattr(self, 'keys_dict'):
             self.keys_dict[item.lower()] = item
-    
-    def __getitem__(self, item): 
+
+    def __getitem__(self, item):
         """
             Gets an item from the dict
         """
         return dict.__getitem__(self, item.lower())
 
-    def __contains__(self, key): 
+    def __contains__(self, key):
         """
             Returns True if this dictionary contains the specified key
         """
@@ -208,7 +208,7 @@ class idict(dict):
         dict.__delitem__(self, key)
         del self.keys_dict[key]
 
-    def has_key(self, key): 
+    def has_key(self, key):
         """
             Returns True if this dictionary contains the specified key
         """
@@ -216,7 +216,7 @@ class idict(dict):
             return False
         return dict.has_key(self, key.lower())
 
-    def keys(self): 
+    def keys(self):
         """
             Returns the case sensitive values of the keys
         """
@@ -249,15 +249,15 @@ class odict(DictMixin):
         if kwdata:
             self._merge_keys(kwdata.iterkeys())
             self.update(kwdata)
-        
+
     def __setitem__(self, key, value):
         if key not in self._data:
             self._keys.append(key)
         self._data[key] = value
-        
+
     def __getitem__(self, key):
         return self._data[key]
-    
+
     def __delitem__(self, key):
         del self._data[key]
         self._keys.remove(key)
@@ -285,10 +285,10 @@ class odict(DictMixin):
             else:
                 self._merge_keys(data.keys())
             self._data.update(data)
-        
+
     def keys(self):
         return list(self._keys)
-    
+
     def copy(self):
         copyDict = odict()
         copyDict._data = self._data.copy()
@@ -335,7 +335,7 @@ def lstrip_special(field, cutter=False):
         ret = lowered.lstrip()
     if cutter:
         ret = the_cutter(ret)
-    
+
     return ret
 
 def normalize(field):

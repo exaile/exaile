@@ -43,12 +43,12 @@ def rep(m):
     return re.sub(r"[^a-zA-Z _-]", '%', m).replace('%%', '%')
 
 class LyricsFly(LyricSearchMethod):
-    
+
     name= "lyricsfly"
     def find_lyrics(self, track):
         search = "http://lyricsfly.com/api/api.php?i=%s&a=%s&t=%s" % (
             license_key.decode('rot13').decode('base64'),
-            rep(track["artist"][0]), 
+            rep(track["artist"][0]),
             rep(track["title"][0]))
         sock = urllib.urlopen(search)
         xml = sock.read()
@@ -75,7 +75,7 @@ class LyricsFly(LyricSearchMethod):
             id = sg.find("id")
             url = "http://lyricsfly.com/search/view.php?%s&view=%s" % (
                 urllib.quote_plus(cs),
-                urllib.quote_plus(id)) 
+                urllib.quote_plus(id))
             # Take out the [br]
             lyrics = lyrics.replace("[br]","")
             return (lyrics, url)

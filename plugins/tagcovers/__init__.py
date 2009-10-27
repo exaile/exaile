@@ -67,12 +67,12 @@ class TagCoverSearch(CoverSearchMethod):
 if __name__ == '__main__':
     from mutagen import id3
     from xl import cover, settings, xdg, settings
-    
+
     settings = settings.SettingsManager(os.path.join(
         xdg.get_config_dir(), 'settings.ini'))
 
     from xl import collection
-    collection = collection.Collection('Collection',    
+    collection = collection.Collection('Collection',
         os.path.join(xdg.get_data_dirs()[0], 'music.db'))
     covers = cover.CoverManager(settings, cache_dir=os.path.join(
         xdg.get_data_dirs()[0], 'covers'))
@@ -93,7 +93,7 @@ if __name__ == '__main__':
             done = False
             for v in a.values():
                 if isinstance(v, id3.APIC):
-                    if v.desc == '__exaile_cover__': 
+                    if v.desc == '__exaile_cover__':
                         done = True
                         break
                     done = True

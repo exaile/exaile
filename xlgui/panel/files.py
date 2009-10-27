@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import gio, gtk, gobject, os, locale, re
@@ -135,7 +135,7 @@ class FilesPanel(panel.Panel):
 #        tree.realize()
 #        tree.columns_autosize()
 #        colsize.set_fixed_width(tree.get
-        
+
 
     def _setup_widgets(self):
         """
@@ -156,17 +156,17 @@ class FilesPanel(panel.Panel):
             self.go_home)
         self.entry = self.builder.get_object('files_entry').child
         self.entry.connect('activate', self.entry_activate)
-        
+
         # set up the location of libraries combobox
         self.libraries_location = self.builder.get_object('files_entry')
         self.libraries_location_changed_handler_id = \
-            self.libraries_location.connect('changed', 
+            self.libraries_location.connect('changed',
             self.on_libraries_location_combobox_changed)
         # Connect to Collection Panel
-        event.add_callback(self.fill_libraries_location, 
+        event.add_callback(self.fill_libraries_location,
             'libraries_modified', self.collection)
-        
-        self.fill_libraries_location()         
+
+        self.fill_libraries_location()
 
         # set up the search entry
         self.search = self.builder.get_object('files_search_entry')
@@ -174,17 +174,17 @@ class FilesPanel(panel.Panel):
         self.search.connect('activate', lambda *e:
             self.load_directory(self.current, history=False,
             keyword=unicode(self.search.get_text(), 'utf-8')))
-        
+
     def fill_libraries_location(self, *e):
         self.libraries_location.handler_block(
             self.libraries_location_changed_handler_id)
         libraries_location_model = self.libraries_location.get_model()
         libraries_location_model.clear()
-        len_libraries = len(self.collection._serial_libraries)       
-      
+        len_libraries = len(self.collection._serial_libraries)
+
         self.libraries_location.set_sensitive(len_libraries > 0)
-        
-        if len_libraries > 0: 
+
+        if len_libraries > 0:
             for library in self.collection._serial_libraries:
                 print library['location']
                 libraries_location_model.append([library['location']])
@@ -192,7 +192,7 @@ class FilesPanel(panel.Panel):
         self.libraries_location.set_active(-1)
         self.libraries_location.handler_unblock(
             self.libraries_location_changed_handler_id)
-        
+
     def on_libraries_location_combobox_changed(self, widget, *args):
         # find out which one
         iter = self.libraries_location.get_active_iter()
@@ -209,19 +209,19 @@ class FilesPanel(panel.Panel):
         if event.keyval == gtk.keysyms.Menu:
             gtk.Menu.popup(self.menu, None, None, None, 0, event.time)
             return True
-        
+
         if event.keyval == gtk.keysyms.Left and gtk.gdk.MOD1_MASK & event.state:
             self.go_back(self.tree)
             return True
-        
+
         if event.keyval == gtk.keysyms.Right and gtk.gdk.MOD1_MASK & event.state:
             self.go_forward(self.tree)
             return True
-        
+
         if event.keyval == gtk.keysyms.Up and gtk.gdk.MOD1_MASK & event.state:
             self.go_up(self.tree)
             return True
-        
+
         if event.keyval == gtk.keysyms.F5:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             self.refresh(self.tree)
@@ -245,7 +245,7 @@ class FilesPanel(panel.Panel):
 
             if not path:
                 return False
-            
+
             if len(self.get_selected_tracks()) >= 2:
                 model, paths = selection.get_selected_rows()
                 if path[0] in paths:
@@ -315,7 +315,7 @@ class FilesPanel(panel.Panel):
                 self.forward.set_sensitive(False)
             if len(self.history):
                 self.back.set_sensitive(True)
-            
+
     def go_back(self, widget):
         """
             Goes to the previous entry in history
@@ -341,7 +341,7 @@ class FilesPanel(panel.Panel):
             Goes to the user's home directory
         """
         self.load_directory(gio.File(xdg.homedir))
-        
+
     def set_column_width(self, col, stuff=None):
         """
             Called when the user resizes a column
@@ -410,7 +410,7 @@ class FilesPanel(panel.Panel):
 
         # Change the selection in the library location combobox
         iter_libraries_location = self.libraries_location.get_active_iter()
-        if not iter_libraries_location is None: 
+        if not iter_libraries_location is None:
             model_libraries_location = self.libraries_location.get_model()
             location = gio.File(model_libraries_location.get_value(iter_libraries_location, 0))
             location_name = location.get_parse_name()
@@ -496,7 +496,7 @@ class FilesPanel(panel.Panel):
         return tr
 
     def drag_data_received(self, *e):
-        """ 
+        """
             stub
         """
         pass

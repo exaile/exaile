@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,33 +16,33 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import locale, gettext
@@ -90,10 +90,10 @@ if __name__ == '__main__':
 
     if checks in ('doctests', 'all'):
         for file in os.listdir('xl'):
-            if file in ('__init__.py', 'main.py') or not file.endswith('.py'): 
+            if file in ('__init__.py', 'main.py') or not file.endswith('.py'):
                 continue
 
-            mod = imp.load_source(file.replace('.py', ''), 
+            mod = imp.load_source(file.replace('.py', ''),
                 os.path.join('xl', file))
             try:
                 suite.addTest(doctest.DocTestSuite(mod, setUp=lambda self: gettext.install("exaile")))
@@ -105,7 +105,7 @@ if __name__ == '__main__':
             if file in ('base.py','__init__.py') or not file.endswith('.py'):
                 continue
 
-            mod = imp.load_source('xl/' + file.replace('.py', ''), 
+            mod = imp.load_source('xl/' + file.replace('.py', ''),
                 os.path.join('tests', file))
             suite.addTests(loader.loadTestsFromModule(mod))
 
@@ -120,13 +120,13 @@ if __name__ == '__main__':
                     continue
                 mod = imp.load_source(path, os.path.join(path, 'test.py'))
                 suite.addTests(loader.loadTestsFromModule(mod))
-                
+
     if not guitest:
         print " **** guitest is not available. Cannot perform gui tests."
         print "Please download it from http://gintas.pov.lt/guitest/"
     else:
         # test gui elements
-        # in order for these to work, you're going to need guitest from 
+        # in order for these to work, you're going to need guitest from
         # http://gintas.pov.lt/guitest/.  Thank you, come again.
         if checks in ('gui', 'all'):
             for file in os.listdir('tests/gui'):

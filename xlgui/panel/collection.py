@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import logging, traceback, urllib
@@ -207,24 +207,24 @@ class CollectionPanel(panel.Panel):
         if event.keyval == gtk.keysyms.Menu:
             gtk.Menu.popup(self.menu, None, None, None, 0, event.time)
             return True
-        
+
         if event.keyval == gtk.keysyms.Left:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.collapse_row(path)
             return True
-        
+
         if event.keyval == gtk.keysyms.Right:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.expand_row(path, False)
             return True
-        
+
         if event.keyval == gtk.keysyms.Return:
             self.append_to_playlist()
             return True
         return False
-    
+
     def on_collection_search_entry_activate(self, entry):
         """
             Searches tracks and reloads the tree
@@ -345,20 +345,20 @@ class CollectionPanel(panel.Panel):
         tracks_limit = settings.get_option('miscellaneous/rating_widget_tracks_limit', 0)
         if tracks_limit == 0: return 0
         current_count = 0
-        
+
         if paths and paths[0]:
             iter = self.model.get_iter(paths[0])
             newset = self._find_tracks(iter)
             current_count += len (newset)
             if current_count > tracks_limit:
                 return 0 # too many tracks
-            
+
             if newset and newset[0]:
                 rating = newset[0].get_rating ()
-            
+
             if rating == 0:
                 return 0 # if first song has 0 as a rating, we know the result
-            
+
             for song in newset:
                 if song.get_rating() != rating:
                     return 0 # different ratings
@@ -371,7 +371,7 @@ class CollectionPanel(panel.Panel):
             current_count += len (newset)
             if current_count > tracks_limit:
                 return 0 # too many tracks
-            
+
             for song in newset:
                 if song.get_rating() != rating:
                     return 0 # different ratings
@@ -476,7 +476,7 @@ class CollectionPanel(panel.Panel):
             tag in self.order:
             if self._refresh_id != 0:
                 gobject.source_remove(self._refresh_id)
-            self._refresh_id = gobject.timeout_add(500, 
+            self._refresh_id = gobject.timeout_add(500,
                     self._refresh_tags_in_tree)
 
     def _refresh_tags_in_tree(self):
@@ -718,8 +718,8 @@ class CollectionPanel(panel.Panel):
                     "gui/expand_maximum_results", 100) and \
             len(self.keyword.strip()) >= \
             settings.get_option("gui/expand_minimum_term_length", 3):
-            
-            # the search number is an id for expanding nodes. 
+
+            # the search number is an id for expanding nodes.
             # we set the id before we try expanding the nodes because
             # expanding can happen in the background.  If the id changes, the
             # expanding methods will know that they need to stop because the

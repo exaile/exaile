@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 __all__ = ['main', 'panel', 'playlist']
@@ -30,7 +30,7 @@ from xl.nls import gettext as _
 import gtk, gobject, logging, os, urlparse
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
 
-from xlgui import commondialogs, cover 
+from xlgui import commondialogs, cover
 from xlgui import devices, guiutil, icons, prefs, queue
 
 logger = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ class Main(object):
     """
     _main = None
     def __init__(self, exaile):
-        """ 
+        """
             Initializes the GUI
 
             @param exaile: The Exaile instance
@@ -94,9 +94,9 @@ class Main(object):
         logger.info("Loading panels...")
         self.panels['collection'] = collection.CollectionPanel(self.main.window,
             exaile.collection, _show_collection_empty_message=True)
-        self.panels['radio'] = radio.RadioPanel(self.main.window, exaile.collection, 
+        self.panels['radio'] = radio.RadioPanel(self.main.window, exaile.collection,
             exaile.radio, exaile.stations)
-        self.panels['playlists'] = playlists.PlaylistsPanel(self.main.window, 
+        self.panels['playlists'] = playlists.PlaylistsPanel(self.main.window,
             exaile.playlists, exaile.smart_playlists, exaile.collection)
         self.panels['files'] = files.FilesPanel(self.main.window, exaile.collection)
 
@@ -107,7 +107,7 @@ class Main(object):
         for device in self.exaile.devices.list_devices():
             if device.connected:
                 self.add_device_panel(None, None, device)
-       
+
         logger.info("Connecting panel events...")
         self.main._connect_panel_events()
 
@@ -121,11 +121,11 @@ class Main(object):
 
         logger.info("Done loading main window...")
         Main._main = self
-        
+
     def export_current_playlist(self, *e):
         pl = self.main.get_current_playlist ().playlist
         name = pl.get_name() + ".m3u"
-        
+
         dialog = commondialogs.FileOperationDialog(_("Export current playlist..."),
             None, gtk.FILE_CHOOSER_ACTION_SAVE,
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
@@ -151,7 +151,7 @@ class Main(object):
                 except _xpl.InvalidPlaylistTypeException:
                     commondialogs.error(None, _('Invalid file extension, file not saved'))
         dialog.destroy()
-        
+
     def open_url(self, *e):
         """
             Displays a dialog to open a url
@@ -160,7 +160,7 @@ class Main(object):
         _('Open URL'))
         dialog.set_transient_for(self.main.window)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        
+
         result = dialog.run()
         dialog.hide()
         if result == gtk.RESPONSE_OK:
@@ -312,14 +312,14 @@ class Main(object):
             pl.list.scroll_to_cell(index)
             pl.list.set_cursor(index)
         #TODO implement a way to browse through all playlists and search for the track
-            
+
     def on_rescan_collection(self, *e):
         """
             Called when the user wishes to rescan the collection
         """
         if not self.exaile.collection._scanning:
             from xlgui.collection import CollectionScanThread
-            thread = CollectionScanThread(self, self.exaile.collection, 
+            thread = CollectionScanThread(self, self.exaile.collection,
                     self.panels['collection'])
             self.progress_manager.add_monitor(thread,
                 _("Scanning collection..."), 'gtk-refresh')
@@ -329,7 +329,7 @@ class Main(object):
         pl.playlist.randomize()
         pl._set_tracks(pl.playlist.get_tracks())
         pl.reorder_songs()
-    
+
     def on_track_properties(self, *e):
         pl = self.main.get_selected_playlist()
         if not pl.properties_dialog():
@@ -392,7 +392,7 @@ class Main(object):
         dialog.set_transient_for(self.main.window)
         dialog.connect('response', lambda d, r: d.destroy())
         dialog.show()
-        
+
     def quit(self):
         """
             Quits the gui, saving anything that needs to be saved
@@ -413,7 +413,7 @@ class Main(object):
             elif issubclass(device.panel_type, xlgui.panel.Panel):
                 paneltype = device.panel_type
 
-        panel = paneltype(self.main.window, self.main, 
+        panel = paneltype(self.main.window, self.main,
             device, device.get_name())
 
         sort = True
@@ -424,7 +424,7 @@ class Main(object):
 
         self.device_panels[device.get_name()] = panel
         gobject.idle_add(self.add_panel, *panel.get_panel())
-        thread = collection.CollectionScanThread(self.main, 
+        thread = collection.CollectionScanThread(self.main,
                 device.get_collection(), panel)
         self.progress_manager.add_monitor(thread,
                 _("Scanning %s..."%device.name), 'gtk-refresh')

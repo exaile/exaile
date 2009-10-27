@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl.nls import gettext as _
@@ -50,17 +50,17 @@ class PlaybackProgressBar(object):
         self.bar.connect('button-release-event', self.seek_end)
         self.bar.connect('motion-notify-event', self.seek_motion_notify)
 
-        event.add_callback(self.playback_start, 
+        event.add_callback(self.playback_start,
                 'playback_player_start', player)
         event.add_callback(self.playback_toggle_pause, 'playback_toggle_pause',
             player)
-        event.add_callback(self.playback_end, 
+        event.add_callback(self.playback_end,
                 'playback_player_end', player)
 
     def destroy(self):
-        event.remove_callback(self.playback_start, 
+        event.remove_callback(self.playback_start,
                 'playback_player_start', self.player)
-        event.remove_callback(self.playback_end, 
+        event.remove_callback(self.playback_end,
                 'playback_player_end', self.player)
 
     def seek_begin(self, *e):
@@ -102,12 +102,12 @@ class PlaybackProgressBar(object):
         seconds = float(value * length)
         remaining_seconds = length - seconds
         self._set_bar_text(seconds, length)
-       
+
     def playback_start(self, type, player, object):
         self.timer_id = gobject.timeout_add(1000, self.timer_update)
 
     def playback_toggle_pause(self, type, player, object):
-        if self.timer_id: 
+        if self.timer_id:
             gobject.source_remove(self.timer_id)
             self.timer_id = None
         if not player.is_paused():
@@ -184,7 +184,7 @@ class NotebookTab(gtk.EventBox):
         self.nb = notebook
         self.page = page
         self.already_needs_save = self.page.playlist.get_is_custom() and self.page.get_needs_save()
-        
+
         self.connect('button_press_event', self.on_button_press)
         self.page.connect('playlist-content-changed', lambda widget, dirty:
                     self.on_playlist_content_change(dirty))
@@ -226,19 +226,19 @@ class NotebookTab(gtk.EventBox):
         self.label.set_text(title)
         self.label.set_tooltip_text(self.label.get_text())
     title = property(get_title, set_title)
-    
+
     def on_customness_change(self, custom):
         self.menu.destroy()
         self.menu = None
         self.menu = menu.PlaylistTabMenu(self, custom)
-    
+
     def on_playlist_removed(self, type, object, name):
         if name == self.page.playlist.name and self.page.playlist.get_is_custom():
             self.page.playlist.set_needs_save(False)
             self.on_playlist_content_change(False)
             self.page.playlist.set_is_custom(False)
             self.on_customness_change(False)
-    
+
     def on_playlist_content_change(self, dirty):
         if self.page.playlist.get_is_custom():
             if dirty and not self.already_needs_save:
@@ -289,7 +289,7 @@ class NotebookTab(gtk.EventBox):
             pl.emit('customness-changed', True)
             pl.set_needs_save(False)
             event.log_event('custom_playlist_saved', self, pl.playlist)
-        
+
     def do_save_changes_to_custom(self, *args):
         pl = self.main.get_selected_playlist()
         pl.set_needs_save(False)
@@ -320,7 +320,7 @@ class MainWindow(gobject.GObject):
     """
     __gsignals__ = {'main-visible-toggle': (gobject.SIGNAL_RUN_LAST, bool, ())}
     _mainwindow = None
-    def __init__(self, controller, builder, collection, 
+    def __init__(self, controller, builder, collection,
         player, queue, covers):
         """
             Initializes the main window
@@ -336,7 +336,7 @@ class MainWindow(gobject.GObject):
         self.player = player
         self.playlist_manager = controller.exaile.playlists
         self.queue = queue
-        self.current_page = -1 
+        self.current_page = -1
         self._fullscreen = False
 
         if settings.get_option('gui/use_alpha', False):
@@ -419,10 +419,10 @@ class MainWindow(gobject.GObject):
                 count2 = i
                 self.queue.set_current_playlist(pl.playlist)
 
-        # If there's no selected playlist saved, use the currently 
+        # If there's no selected playlist saved, use the currently
         # playing
         if count == -1:
-            count = count2 
+            count = count2
 
         self.playlist_notebook.set_current_page(count)
 
@@ -445,7 +445,7 @@ class MainWindow(gobject.GObject):
                 tag = 'current.'
             pl.name = "order%d.%s%s" % (i, tag, pl.name)
             logger.debug("Saving tab %d: %s" % (i, pl.name))
-            self.tab_manager.save_playlist(pl, True)            
+            self.tab_manager.save_playlist(pl, True)
 
     def add_playlist(self, pl=None, erase_empty=True):
         """
@@ -493,7 +493,7 @@ class MainWindow(gobject.GObject):
         curpl = nb.get_nth_page(cur)
         if curpl and len(curpl.playlist.get_tracks()) == 0:
             remove_cur = True
-        
+
         nb.append_page(pl, tab)
         nb.set_tab_reorderable(pl, True)
         if remove_cur and not new_empty_pl and erase_empty:
@@ -503,13 +503,13 @@ class MainWindow(gobject.GObject):
         else:
             nb.set_current_page(nb.get_n_pages() - 1)
         self.set_playlist_modes()
-        
+
         # Always show tab bar for more than one tab
         if nb.get_n_pages() > 1:
             nb.set_show_tabs(True)
 
         self.queue.set_current_playlist(pl.playlist)
-        
+
         return pl
 
     def _connect_playlist_events(self, pl):
@@ -575,7 +575,7 @@ class MainWindow(gobject.GObject):
 
         self.repeat_toggle = self.builder.get_object('repeat_button')
         self.repeat_toggle.set_active(settings.get_option('playback/repeat', False))
-        
+
         self.dynamic_toggle = self.builder.get_object('dynamic_button')
         self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
 
@@ -601,7 +601,7 @@ class MainWindow(gobject.GObject):
         for button in ('play', 'next', 'prev', 'stop'):
             setattr(self, '%s_button' % button,
                 self.builder.get_object('%s_button' % button))
-        
+
         self.stop_button.connect('button-press-event',
             self.on_stop_buttonpress)
 
@@ -725,19 +725,19 @@ class MainWindow(gobject.GObject):
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
             'on_track_properties_activate':self.controller.on_track_properties,
             'on_clear_playlist_item_activate': self.on_clear_playlist,
-        })        
+        })
 
         event.add_callback(self.on_playback_end, 'playback_player_end',
             self.player)
         event.add_callback(self.on_playback_start, 'playback_track_start',
-            self.player) 
+            self.player)
         event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
             self.player)
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
             self.player)
         event.add_callback(self.on_buffering, 'playback_buffering',
             self.player)
-        event.add_callback(self.on_playback_error, 'playback_error', 
+        event.add_callback(self.on_playback_error, 'playback_error',
             self.player)
 
         # Monitor the queue
@@ -747,7 +747,7 @@ class MainWindow(gobject.GObject):
             'tracks_removed', self.queue)
 
         event.add_callback(self.queue_playlist_draw, 'stop_track', self.queue)
-        
+
         # Settings
         event.add_callback(self._on_setting_change, 'option_set')
 
@@ -835,7 +835,7 @@ class MainWindow(gobject.GObject):
             Called when tags are parsed from a stream/track
         """
         (tr, args) = args
-        if not tr or tr.is_local(): 
+        if not tr or tr.is_local():
             return
         if track.parse_stream_tags(tr, args):
             self._update_track_information()
@@ -853,10 +853,10 @@ class MainWindow(gobject.GObject):
         else:
             image = gtk.image_new_from_stock('gtk-media-pause',
                 gtk.ICON_SIZE_SMALL_TOOLBAR)
-            
+
         self.play_button.set_image(image)
         self._update_track_information()
-        
+
         # refresh the current playlist
         pl = self.get_selected_playlist()
         if pl:
@@ -907,7 +907,7 @@ class MainWindow(gobject.GObject):
         """
             Gives focus to the collection search bar
         """
-        
+
         self.controller.panels['collection'].filter.grab_focus()
 
     def on_search_playlist_focus(self, *e):
@@ -967,7 +967,7 @@ class MainWindow(gobject.GObject):
         """
         #Make it appear pressed in when the menu pops up (looks a bit nicer)
         self.shuffle_toggle.set_active(True)
-        
+
         #Get the current setting so the right radio button is chosen
         sel = [False, False, False]
         if settings.get_option('playback/shuffle', False) == True:
@@ -1011,13 +1011,13 @@ class MainWindow(gobject.GObject):
         w = self.window.get_position()
         b = button.get_allocation()
         m = menu.get_allocation()
-        pos = (w[0] + b.x + 1, 
+        pos = (w[0] + b.x + 1,
                 w[1] + b.y + b.height - m.height - 3)
 
         return (pos[0], pos[1], True)
 
     def shuffle_mode_selected(self, widget, mode):
-        
+
         if mode == _("Shuffle _Off"):
             settings.set_option('playback/shuffle', False)
         elif mode == _("Shuffle _Tracks"):
@@ -1031,16 +1031,16 @@ class MainWindow(gobject.GObject):
         """
             Called when the user clicks one of the playback mode buttons
         """
-        settings.set_option('playback/repeat', 
+        settings.set_option('playback/repeat',
                 self.repeat_toggle.get_active())
-        settings.set_option('playback/dynamic', 
+        settings.set_option('playback/dynamic',
                 self.dynamic_toggle.get_active())
 
     def set_playlist_modes(self):
         pl = self.get_selected_playlist()
         if pl:
             pl.playlist.set_repeat(settings.get_option('playback/repeat'))
-            pl.playlist.set_random(settings.get_option('playback/shuffle'), 
+            pl.playlist.set_random(settings.get_option('playback/shuffle'),
                     settings.get_option('playback/shuffle_mode'))
 
     def on_playback_start(self, type, player, object):
@@ -1052,7 +1052,7 @@ class MainWindow(gobject.GObject):
         pl = self.get_selected_playlist()
         if player.current in pl.playlist.ordered_tracks:
             path = (pl.playlist.index(player.current),)
-        
+
             if settings.get_option('gui/ensure_visible', True):
                 pl.list.scroll_to_cell(path)
 
@@ -1123,7 +1123,7 @@ class MainWindow(gobject.GObject):
                         gtk.ICON_SIZE_BUTTON)
             else:
                 if settings.get_option('playback/shuffle_mode') == "track":
-                    self.shuffle_image.set_from_icon_name('media-playlist-shuffle', 
+                    self.shuffle_image.set_from_icon_name('media-playlist-shuffle',
                             gtk.ICON_SIZE_BUTTON)
                 else:
                     self.shuffle_image.set_from_icon_name('media-optical',
@@ -1134,7 +1134,7 @@ class MainWindow(gobject.GObject):
 
         if option == 'playback/shuffle_mode':
             if settings.get_option(option) == "track":
-                self.shuffle_image.set_from_icon_name('media-playlist-shuffle', 
+                self.shuffle_image.set_from_icon_name('media-playlist-shuffle',
                         gtk.ICON_SIZE_BUTTON)
             else:
                 if settings.get_option('playback/shuffle'):
@@ -1155,13 +1155,13 @@ class MainWindow(gobject.GObject):
     @common.threaded
     def _get_dynamic_tracks(self):
         """
-            Gets some dynamic tracks from the dynamic manager.  
+            Gets some dynamic tracks from the dynamic manager.
 
             This tries to keep at least 5 tracks the current playlist... if
             there are already 5, it just adds one
         """
         playlist = self.get_selected_playlist().playlist
-        
+
         self.controller.exaile.dynamic.populate_playlist(playlist)
 
     def _update_track_information(self):
@@ -1179,15 +1179,15 @@ class MainWindow(gobject.GObject):
         artist = track['artist']
         album = track['album']
         title = track['title']
-        if title is None: 
+        if title is None:
             title = ''
         else:
             title = " / ".join(title)
-        if album is None: 
+        if album is None:
             album = ''
         else:
             album = " / ".join(album)
-        if artist is None: 
+        if artist is None:
             artist = ''
         else:
             artist = " / ".join(artist)
@@ -1277,7 +1277,7 @@ class MainWindow(gobject.GObject):
         """
         if settings.get_option('gui/mainw_maximized', False):
             self.window.maximize()
-            
+
         width = settings.get_option('gui/mainw_width', 500)
         height = settings.get_option('gui/mainw_height', 475)
         x = settings.get_option('gui/mainw_x', 10)
@@ -1326,7 +1326,7 @@ class MainWindow(gobject.GObject):
         if pos > 10 and pos != settings.get_option(
                 "gui/mainw_sash_pos", -1):
             settings.set_option('gui/mainw_sash_pos', pos)
-            
+
         # Don't save window size if it is maximized or fullscreen.
         if settings.get_option('gui/mainw_maximized', False) or \
                 self._fullscreen:

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import logging, os, urllib2, urlparse, weakref
@@ -67,7 +67,7 @@ class Track(object):
         Represents a single track.
     """
     # save a little memory this way
-    __slots__ = ["tags", "_scan_valid", "_scanning", 
+    __slots__ = ["tags", "_scan_valid", "_scanning",
             "_dirty", "__weakref__", "__init"]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
@@ -95,7 +95,7 @@ class Track(object):
     def __init__(self, uri=None, _unpickles=None):
         """
             loads and initializes the tag information
-            
+
             uri: path to the track [string]
         """
         # don't re-init if its a reused track. see __new__
@@ -126,19 +126,19 @@ class Track(object):
 
     def set_loc(self, loc):
         """
-            Sets the location. 
-            
+            Sets the location.
+
             loc: the location [string], as either a uri or a file path.
         """
         self.__unregister()
         gloc = gio.File(loc)
         self['__loc'] = gloc.get_uri()
         self.__register()
-       
+
     def get_loc_for_display(self):
         """
             Gets the location as unicode (might contain garbled characters) in
-            full absolute url form, i.e. "file:///home/foo/bar baz". 
+            full absolute url form, i.e. "file:///home/foo/bar baz".
 
             The value returned by this function may not be safe for IO
             operations.
@@ -168,8 +168,8 @@ class Track(object):
 
     def get_loc_for_io(self):
         """
-            Gets the location as a full uri. 
-            
+            Gets the location as a full uri.
+
             Safe for IO operations via gio, not suitable for display to users
             as it may be in non-utf-8 encodings.
 
@@ -199,13 +199,13 @@ class Track(object):
             # collection.Collection._check_compilations
             return self['__compilation']
         else:
-            return (metadata.j(self['artist'], join_char=join_char), 
+            return (metadata.j(self['artist'], join_char=join_char),
                 metadata.j(self['album'], join_char=join_char))
 
     def get_tag(self, tag):
         """
             Common function for getting a tag.
-            
+
             tag: tag to get [string]
         """
         try:
@@ -217,7 +217,7 @@ class Track(object):
     def set_tag(self, tag, values, append=False):
         """
             Common function for setting a tag.
-            
+
             tag: tag to set [string]
             values: list of values for the tag [list]
             append: whether to append to existing values [bool]
@@ -234,7 +234,7 @@ class Track(object):
             if append:
                 values = list(self.get_tag(tag)).extend(values)
 
-        # don't bother storing it if its a null value. this saves us a 
+        # don't bother storing it if its a null value. this saves us a
         # little memory
         if not values:
             try:
@@ -247,7 +247,7 @@ class Track(object):
         self._dirty = True
         if not self._scanning:
             event.log_event("track_tags_changed", self, tag)
-        
+
     def __getitem__(self, tag):
         """
             Allows retrieval of tags via Track[tag] syntax.
@@ -298,7 +298,7 @@ class Track(object):
             ntags = f.read_all()
             for k,v in ntags.iteritems():
                 self[k] = v
-                
+
 
             # fill out file specific items
             path = self.local_file_name()
@@ -321,10 +321,10 @@ class Track(object):
 
     def get_track(self):
         """
-            Gets the track number in int format.  
+            Gets the track number in int format.
         """
         t = self.get_tag('tracknumber')
-    
+
         try:
             if type(t) in (tuple, list):
                 t = t[0]
@@ -390,7 +390,7 @@ class Track(object):
         except ValueError: return
         self['__rating'] = rating
 
-    def get_bitrate(self): 
+    def get_bitrate(self):
         """
             Returns the bitrate
         """
@@ -421,11 +421,11 @@ class Track(object):
         return int(float(l))
 
     def sort_param(self, field):
-        """ 
+        """
             Returns a sortable of the parameter given (some items should be
             returned as an int instead of unicode)
         """
-        if field == 'tracknumber': 
+        if field == 'tracknumber':
             return self.get_track()
         elif field == 'discnumber':
             return self.get_disc()
@@ -450,7 +450,7 @@ class Track(object):
                 return lstrip_special(unicode(self[field]))
             except:
                 return u""
-        else: 
+        else:
             try:
                 return lstrip_special(unicode(self[field][0]))
             except:
@@ -526,7 +526,7 @@ def parse_stream_tags(track, tags):
         elif key == 'track-number': track['tracknumber'] = value
         elif key == 'genre': track['genre'] = value
 
-        elif key == 'title': 
+        elif key == 'title':
             try:
                 if track['__rawtitle'] != value:
                     track['__rawtitle'] = value

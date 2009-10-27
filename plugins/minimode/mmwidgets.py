@@ -255,7 +255,7 @@ class AttachedWindow(gtk.Window):
 
         # E.g.         974 - 800     < 400
         if workarea_height - parent_y < height:
-            #            800 - 400 = 400 
+            #            800 - 400 = 400
             y = parent_y - height # Aligned top
         else:
             y = parent_y + parent_height # Aligned bottom
@@ -380,7 +380,7 @@ class PlaylistButton(gtk.ToggleButton):
         """
         if track in self.playlist.playlist.ordered_tracks:
             path = (self.playlist.playlist.index(track),)
-        
+
             if settings.get_option('gui/ensure_visible', True):
                 self.playlist.list.scroll_to_cell(path)
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl import xdg, event, cover, common, metadata, settings
@@ -61,7 +61,7 @@ class CoverManager(object):
         self.window.set_transient_for(parent)
 
         self.icons = self.builder.get_object('cover_icon_view')
-        self.icons.connect('button-press-event', 
+        self.icons.connect('button-press-event',
             self._on_button_press)
         self.progress = self.builder.get_object('progress')
         self.stop_button = self.builder.get_object('stop_button')
@@ -107,16 +107,16 @@ class CoverManager(object):
         """
             Shows the currently selected cover
         """
-        
+
         item = self._get_selected_item()
         c = self.manager.coverdb.get_cover(item[0], item[1])
-        
+
         # if there is no cover, use the nocover image from the selected widget
         if c == None:
             cover = self.covers[self.get_selected_cover()]
         else:
             cover = gtk.gdk.pixbuf_new_from_file(c)
-        
+
         window = CoverWindow(self.parent, cover)
         window.show_all()
 
@@ -127,7 +127,7 @@ class CoverManager(object):
         item = self._get_selected_item()
         if not item: return
         track = self.track_dict[item[0]][item[1]][0]
-        window = CoverChooser(self.window, 
+        window = CoverChooser(self.window,
             self.manager, track)
         window.connect('cover-chosen', self.on_cover_chosen)
 
@@ -255,7 +255,7 @@ class CoverManager(object):
                 continue
 
             try:
-                c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0], 
+                c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0],
                     update_track=True)
             except cover.NoCoverFoundException:
                 continue
@@ -275,7 +275,7 @@ class CoverManager(object):
                     gobject.idle_add(self.model.set_value, node, 1, image)
                 except:
                     traceback.print_exc()
-        
+
             gobject.idle_add(self.progress.set_fraction, float(self.count) /
                 float(self.needs))
             gobject.idle_add(self.progress.set_text, "%s/%s fetched" % (self.count,
@@ -343,7 +343,7 @@ class CoverMenu(guiutil.Menu):
         """
         guiutil.Menu.__init__(self)
         self.widget = widget
-        
+
         self.append(_('Show Cover'), self.on_show_clicked)
         self.append(_('Fetch Cover'), self.on_fetch_clicked)
         self.append(_('Remove Cover'), self.on_remove_clicked)
@@ -385,20 +385,20 @@ class CoverWidget(gtk.EventBox):
         self.image.set_image(NOCOVER_IMAGE)
         self.add(self.image)
         self.image.show()
-        
+
         if main:
             self.connect('button-press-event', self._on_button_press)
 
-        event.add_callback(self.on_playback_start, 
+        event.add_callback(self.on_playback_start,
                 'playback_track_start', player)
-        event.add_callback(self.on_playback_end, 
+        event.add_callback(self.on_playback_end,
                 'playback_player_end', player)
         self.menu = CoverMenu(self)
 
     def destroy(self):
-        event.remove_callback(self.on_playback_start, 
+        event.remove_callback(self.on_playback_start,
                 'playback_track_start', player)
-        event.remove_callback(self.on_playback_end, 
+        event.remove_callback(self.on_playback_end,
                 'playback_player_end', player)
 
     def show_cover(self):
@@ -413,9 +413,9 @@ class CoverWidget(gtk.EventBox):
             Fetches a cover for the current track
         """
         if not self.player.current: return
-        window = CoverChooser(self.main.window, 
+        window = CoverChooser(self.main.window,
             self.covers,
-            self.player.current) 
+            self.player.current)
         window.connect('cover-chosen', self.on_cover_chosen)
 
     def on_cover_chosen(self, object, cover):
@@ -462,13 +462,13 @@ class CoverWidget(gtk.EventBox):
         else:
             try:
                 item = track.get_album_tuple()
-                if item[0] and item[1]: 
-                    cov = self.coverdb.get_cover(item[0], item[1]) 
+                if item[0] and item[1]:
+                    cov = self.coverdb.get_cover(item[0], item[1])
             except TypeError: # one of the fields is missing
                 pass
             except AttributeError:
                 pass
-            
+
             if not cov:
                 gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
                 return
@@ -538,7 +538,7 @@ class CoverWindow(object):
 
     def show_all(self):
         self.cover_window.show_all()
- 
+
     def available_image_width(self):
         """Returns the available horizontal space for the image"""
         return self.cover_window.get_size()[0]
@@ -591,7 +591,7 @@ class CoverWindow(object):
         new_height = int(self.image_original_pixbuf.get_height() * \
                          self.image_ratio)
         if new_width != self.image_pixbuf.get_width() or \
-           new_height != self.image_pixbuf.get_height(): 
+           new_height != self.image_pixbuf.get_height():
             self.image_pixbuf = self.image_original_pixbuf.scale_simple(new_width, \
                                   new_height, self.image_interp)
 
@@ -608,7 +608,7 @@ class CoverWindow(object):
 
     def zoom_in_clicked(self, widget):
         self.image_fitted = False
-        self.image_ratio *= self.ratio 
+        self.image_ratio *= self.ratio
         self.update_widgets()
 
     def zoom_out_clicked(self, widget):
@@ -662,7 +662,7 @@ class CoverChooser(gobject.GObject):
             tempalbum = ' / '.join(track['album'])
         except TypeError:
             tempalbum = ''
-        
+
         self.window.set_title("%s - %s" % (tempartist,tempalbum))
         self.window.set_transient_for(parent)
 
@@ -710,7 +710,7 @@ class CoverChooser(gobject.GObject):
         """
         self.covers = []
         self.current = 0
-        
+
         if type(search) == str or type(search) == unicode:
             covers = self.manager.search_covers(search)
         else:

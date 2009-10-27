@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import gtk, gobject
@@ -42,7 +42,7 @@ class GenericTrackMenu(guiutil.Menu):
     }
     def __init__(self):
         guiutil.Menu.__init__(self)
-        
+
         self._add_queue_pixbuf()
         self._create_menu()
 
@@ -147,21 +147,21 @@ class PlaylistMenu(GenericTrackMenu):
     def __init__(self, playlist, playlists):
         GenericTrackMenu.__init__(self)
         self.playlist = playlist
-        
-        self.rating_item = guiutil.MenuRatingWidget( 
+
+        self.rating_item = guiutil.MenuRatingWidget(
             self.playlist.get_selected_tracks, self.playlist.get_tracks_rating)
-        
+
         self.append_item(self.rating_item)
 
         self.add_playlist_menu = AddToPlaylistMenu(playlist, playlists)
-        self.append_menu(_('Add to custom playlist'), 
+        self.append_menu(_('Add to custom playlist'),
             self.add_playlist_menu, 'gtk-add')
         self.append_separator()
-        self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 
+        self.append(_('Remove'), lambda *e: self.remove_selected_tracks(),
             'gtk-remove')
         self.append_separator()
         self.append(_('Properties'), lambda *e: self.emit('properties'),
-            'gtk-properties') 
+            'gtk-properties')
 
         self.playlist_tab_menu = None
         # Defer menu setup until exaile is loaded
@@ -262,13 +262,13 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         including an option to rate tracks
     """
     def __init__(self, tree_selection, get_selected_tracks, get_tracks_rating):
-        
+
         self.tree_selection = tree_selection
         self.rating_item = guiutil.MenuRatingWidget(
             get_selected_tracks, get_tracks_rating)
 
         TrackSelectMenu.__init__(self)
-        
+
     def _create_menu(self):
         """
             Actually adds the menu items
@@ -303,12 +303,12 @@ class CollectionPanelMenu(RatedTrackSelectMenu):
 
     def _create_menu(self):
         RatedTrackSelectMenu._create_menu(self)
-        self.delete_item = self.append(_('Delete track'), 
+        self.delete_item = self.append(_('Delete track'),
                 lambda *e: self.on_delete_track(), 'gtk-delete')
 
     def on_delete_track(self):
         self.emit('delete-items')
-    
+
 
 
 # these are stubbs for now

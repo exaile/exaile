@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import gtk.gdk, hashlib, os, pango
@@ -65,7 +65,7 @@ class PrefsItem(object):
             pass
 
     def _set_value(self):
-        """ 
+        """
             Sets the GUI widget up for this preference
         """
         if not self.widget:
@@ -171,7 +171,7 @@ class DirPrefsItem(PrefsItem):
 
 
 class OrderListPrefsItem(PrefsItem):
-    """ 
+    """
         A list box with reorderable items
     """
     def __init__(self, prefs, widget):
@@ -423,7 +423,7 @@ class SelectionListPrefsItem(PrefsItem):
         if not event.state & gtk.gdk.MOD1_MASK: return
 
         keyname = gtk.gdk.keyval_name(event.keyval)
-        
+
         if keyname == 'Left':
             self.on_remove_button_clicked(None)
         elif keyname == 'Up':
@@ -612,7 +612,7 @@ class ShortcutListPrefsItem(PrefsItem):
             if accel:
                 option[action] = accel
             iter = self.list.iter_next(iter)
-        
+
         return option
 
     def update_list(self, items):
@@ -658,7 +658,7 @@ class TextViewPrefsItem(PrefsItem):
             self.prefs.settings.get_option(self.name,
             default=self.default)))
 
-    def _get_value(self):    
+    def _get_value(self):
         """
             Applies the setting
         """
@@ -673,7 +673,7 @@ class ListPrefsItem(PrefsItem):
         PrefsItem.__init__(self, prefs, widget)
 
     def _set_value(self):
-        items = self.prefs.settings.get_option(self.name, 
+        items = self.prefs.settings.get_option(self.name,
             default=self.default)
         try:
             items = " ".join(items)
@@ -698,7 +698,7 @@ class SpinPrefsItem(PrefsItem):
         PrefsItem.__init__(self, prefs, widget)
 
     def _set_value(self):
-        value = self.prefs.settings.get_option(self.name, 
+        value = self.prefs.settings.get_option(self.name,
             default=self.default)
         self.widget.set_value(value)
 
@@ -724,7 +724,7 @@ class FloatPrefsItem(PrefsItem):
 
     def _set_value(self):
         self.widget.set_text(str(
-            self.prefs.settings.get_option(self.name, 
+            self.prefs.settings.get_option(self.name,
             default=self.default)))
 
     def _get_value(self):
@@ -749,12 +749,12 @@ class ColorButtonPrefsItem(PrefsItem):
 
     def _set_value(self):
         self.widget.set_color(gtk.gdk.color_parse(
-            self.prefs.settings.get_option(self.name, 
+            self.prefs.settings.get_option(self.name,
             self.default)))
 
     def _get_value(self):
         color = self.widget.get_color()
-        string = "#%.2x%.2x%.2x" % (color.red / 257, color.green / 257, 
+        string = "#%.2x%.2x%.2x" % (color.red / 257, color.green / 257,
             color.blue / 257)
         return string
 
@@ -770,10 +770,10 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
         self.widget.connect('font-set', self.change)
 
     def _set_value(self):
-        font = self.prefs.settings.get_option(self.name, 
+        font = self.prefs.settings.get_option(self.name,
             self.default)
         self.widget.set_font_name(font)
-        
+
     def _get_value(self):
         font = self.widget.get_font_name()
         return font
@@ -792,7 +792,7 @@ class ComboPrefsItem(PrefsItem):
         self.widget.connect('changed', self.change)
 
     def _set_value(self):
-        item = self.prefs.settings.get_option(self.name, 
+        item = self.prefs.settings.get_option(self.name,
             self.default)
 
         if self.use_map:
@@ -802,7 +802,7 @@ class ComboPrefsItem(PrefsItem):
             return
 
         if self.use_index:
-            index = self.prefs.settings.get_option(self.name, 
+            index = self.prefs.settings.get_option(self.name,
                 self.default)
             self.widget.set_active(index)
             return

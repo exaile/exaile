@@ -40,7 +40,7 @@ class Pidgin :
                 * A boolean -> True if the status of this account was changed on the previous track change
         """
         return {'GenericAccount' : False}
-    
+
     def setStatus(self, status, attr, value):
         # this doesn't actually work, for some reason the getter always return ""
         if self.purple.PurpleStatusGetAttrString(status, attr) != value:

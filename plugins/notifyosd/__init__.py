@@ -68,7 +68,7 @@ class ExaileNotifyOsd(object):
         	title = _("Unknown")
         artist = " / ".join(track['artist'] or "")
         album = " / ".join(track['album'] or "")
-        
+
         # Find the icon we will use
         icon_allowed = False
         if media_icon and self.use_media_icons:
@@ -83,10 +83,10 @@ class ExaileNotifyOsd(object):
                 self.cover = notifyosd_cover.notifyosd_get_image_for_track(
                     track, self.exaile)
                 icon_allowed = True
-        
+
         # Setup the summary and body for the notification
         self.summary = self.format_summary % {'title': title or self.unknown}
-        
+
         if artist and album:
             self.body = self.format_artist % {'artist' : artist} + '\n' + self.format_album % {'album' : album}
         elif artist:
@@ -95,24 +95,24 @@ class ExaileNotifyOsd(object):
             self.body = self.format_album % {'album' : album}
         else:
             self.body = ""
-        
+
         if icon_allowed :
             self.notify.update(self.summary, self.body, self.cover)
         else :
             self.notify.update(self.summary, self.body)
-        
+
         if settings.get_option("plugin/notifyosd/show_when_focused", True) or \
                 not self.exaile.gui.main.window.is_active():
             self.notify.show()
-        
+
     def on_pause(self, type, player, track):
         if self.notify_pause:
             self.update_track_notify(type, player, track, self.pauseicon)
-        
+
     def on_stop(self, type, player, track):
         if self.notify_pause:
             self.update_track_notify(type, player, track, self.stopicon)
-        
+
     def on_resume(self, type, player, track):
         if self.notify_pause:
             self.update_track_notify(type, player, track, self.resumeicon)
@@ -125,7 +125,7 @@ class ExaileNotifyOsd(object):
 
     def on_quit(self, type, exaile, data=None):
         self.notify.close()
-    
+
     def on_tooltip(self, *e):
         if self.tray_hover:
             track = self.exaile.player.current
@@ -141,12 +141,12 @@ class ExaileNotifyOsd(object):
                 else:
                     self.notify.update(self.summary, self.body)
                 self.notify.show()
-                
-    
+
+
     def exaile_ready(self, type = None, data1 = None, data2 = None):
         if self.exaile.gui.tray_icon:
             self.tray_connection = self.exaile.gui.tray_icon.connect('query-tooltip', self.on_tooltip)
-            
+
     def on_tray_toggled(self, type, object, data):
         if data and self.tray_connection == -1:
             gobject.timeout_add(800, self.exaile_ready)

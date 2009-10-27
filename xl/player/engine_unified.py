@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl.nls import gettext as _
@@ -45,7 +45,7 @@ class UnifiedPlayer(_base.ExailePlayer):
         #   44100hz audio all the time.
         #   Or better yet, fix gst to handle changing caps :D
         self.caps = gst.Caps(
-                "audio/x-raw-int, " 
+                "audio/x-raw-int, "
                 "endianness=(int)1234, "
                 "signed=(boolean)true, "
                 "width=(int)16, "
@@ -55,7 +55,7 @@ class UnifiedPlayer(_base.ExailePlayer):
         self.pipe = gst.Pipeline()
         self.adder = gst.element_factory_make("adder")
         self.audio_queue = gst.element_factory_make("queue")
-    
+
         self.streams = [None, None]
 
         self._load_queue_values()
@@ -70,13 +70,13 @@ class UnifiedPlayer(_base.ExailePlayer):
         # a decent buffer. This is done as a setting so users whose
         # collections are on slower media can increase it to preserve
         # gapless, at the expense of UI lag.
-        self.audio_queue.set_property("max-size-time", 
+        self.audio_queue.set_property("max-size-time",
                 settings.get_option("player/queue_duration", 100000))
 
     def _setup_pipeline(self):
         self.pipe.add(
-                self.adder, 
-                self.audio_queue, 
+                self.adder,
+                self.audio_queue,
                 self.mainbin
                 )
         self.adder.link(self.audio_queue)
@@ -95,7 +95,7 @@ class UnifiedPlayer(_base.ExailePlayer):
                 self.play(tr, user=False)
         else:
             self.unlink_stream(stream)
-    
+
     def setup_bus(self):
         """
             setup the gstreamer message bus and callacks
@@ -138,7 +138,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             return self.streams[self._current_stream].get_position()
         except AttributeError:
             return 0
-        
+
     @common.synchronized
     def play(self, track, user=True):
         if not track:
@@ -170,7 +170,7 @@ class UnifiedPlayer(_base.ExailePlayer):
                 self.unlink_stream(self.streams[self._current_stream])
 
         self.streams[next] = AudioStream("Stream%s"%(next), caps=self.caps)
-        self.streams[next].dec.connect("drained", self._on_drained, 
+        self.streams[next].dec.connect("drained", self._on_drained,
                 self.streams[next])
 
         if not self.link_stream(self.streams[next], track):
@@ -187,16 +187,16 @@ class UnifiedPlayer(_base.ExailePlayer):
         if fading:
             timeout = int(float(duration)/float(100))
             if self.streams[next]:
-                gobject.timeout_add(timeout, self._fade_stream, 
+                gobject.timeout_add(timeout, self._fade_stream,
                         self.streams[next], 1)
             if self.streams[self._current_stream]:
-                gobject.timeout_add(timeout, self._fade_stream, 
+                gobject.timeout_add(timeout, self._fade_stream,
                         self.streams[self._current_stream], -1, True)
             if settings.get_option("player/crossfading", False):
                 time = int(track.get_duration()*1000 - duration)
-                gobject.timer_id = gobject.timeout_add(time, 
+                gobject.timer_id = gobject.timeout_add(time,
                         self._start_crossfade)
-                
+
         self._current_stream = next
         if not playing:
             event.log_event('playback_player_start', self, track)
@@ -210,7 +210,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             return False
         else:
             return True
-        
+
     def _fade_stream(self, stream, direction, delete=False):
         current = stream.get_volume()
         current += direction/100.0
@@ -288,7 +288,7 @@ class UnifiedPlayer(_base.ExailePlayer):
         if self.is_playing() or self.is_paused():
             current = self.current
             self.pipe.set_state(gst.STATE_NULL)
-            for stream in self.streams:           
+            for stream in self.streams:
                 self.unlink_stream(stream)
             self._reset_crossfade_timer()
             event.log_event('playback_player_end', self, current)
@@ -306,7 +306,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             event.log_event('playback_player_pause', self, self.current)
             return True
         return False
- 
+
     @common.synchronized
     def unpause(self):
         """
@@ -356,10 +356,10 @@ class AudioStream(gst.Bin):
         self.capsfilter = gst.element_factory_make("capsfilter")
         self.capsfilter.set_property("caps", self.caps)
         self.vol = gst.element_factory_make("volume")
-        self.add(self.dec, 
-                self.audioconv, 
-                self.audioresam, 
-                self.provided, 
+        self.add(self.dec,
+                self.audioconv,
+                self.audioresam,
+                self.provided,
                 self.capsfilter,
                 self.vol)
         self.audioconv.link(self.audioresam)
@@ -394,14 +394,14 @@ class AudioStream(gst.Bin):
                 logger.error("File does not exist: %s" %
                         track.get_loc_for_display())
                 return False
-        
+
         self.track = track
 
         uri = track.get_loc_for_io()
 
         logger.info("Playing %s" % uri)
         self.reset_playtime_stamp()
-        
+
         self.dec.set_property("uri", uri)
 
         # TODO: abstract this into generic uri handling via providers
@@ -478,7 +478,7 @@ class AudioStream(gst.Bin):
             return None
 
     def get_position(self):
-        if self.is_paused(): 
+        if self.is_paused():
             return self.last_position
         try:
             self.last_position = self.dec.query_position(gst.FORMAT_TIME)[0]
@@ -495,7 +495,7 @@ class AudioStream(gst.Bin):
             logger.debug("Failed to settle state on %s."%self)
             gst.Bin.set_state(self, gst.STATE_NULL)
             event.log_event("stream_settled", self, None)
-            return 
+            return
         gobject.idle_add(self._settle_state_sub)
 
     @common.threaded
@@ -524,7 +524,7 @@ class AudioStream(gst.Bin):
 
         value = int(gst.SECOND * value)
         seekevent = gst.event_new_seek(1.0, gst.FORMAT_TIME,
-            gst.SEEK_FLAG_FLUSH,gst.SEEK_TYPE_SET, value, 
+            gst.SEEK_FLAG_FLUSH,gst.SEEK_TYPE_SET, value,
             gst.SEEK_TYPE_NONE, 0)
 
         self.vol.send_event(seekevent)
@@ -536,7 +536,7 @@ class AudioStream(gst.Bin):
             internal code used if seek is called before the stream is ready
         """
         if self._settle_flag == 1 or object != self:
-            return 
+            return
         event.remove_callback(self._seek_delayed, type, object)
-        self._seek_event.set()    
+        self._seek_event.set()
 

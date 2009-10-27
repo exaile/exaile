@@ -31,7 +31,7 @@ def enable(exaile):
     global SCROBBLER
 
     SCROBBLER = ExaileScrobbler(exaile)
-    
+
     if exaile.loading:
         event.add_callback(__enb, 'gui_loaded')
     else:
@@ -43,13 +43,13 @@ def __enb(eventname, exaile, nothing):
 def _enable(exaile):
     SCROBBLER.exaile_menu = exaile.gui.builder.get_object('tools_menu')
     SCROBBLER.get_options('','','plugin/ascrobbler/menu_check')
-    
+
 def disable(exaile):
     """
         Disables the AudioScrobbler plugin
     """
     global SCROBBLER
-    
+
     if SCROBBLER:
         SCROBBLER.stop()
         SCROBBLER = None
@@ -69,7 +69,7 @@ class ExaileScrobbler(object):
         self.menu_entry = None
         self.exaile = exaile
         self.menu_conn = 0
-        self.cachefile = os.path.join(xdg.get_data_dirs()[0], 
+        self.cachefile = os.path.join(xdg.get_data_dirs()[0],
                 "audioscrobbler.cache")
         self.get_options('','','plugin/ascrobbler/cache_size')
         self.get_options('','','plugin/ascrobbler/user')
@@ -90,55 +90,55 @@ class ExaileScrobbler(object):
             server = settings.get_option('plugin/ascrobbler/url',
                 'http://post.audioscrobbler.com/')
             self.submit = settings.get_option('plugin/ascrobbler/submit', True)
-            
+
             if self.use_menu and self.menu_entry:
                 self.menu_entry.set_active(self.submit)
-                
+
             if (not self.connecting and not self.connected) and self.submit:
                 if username and password:
                     self.connecting = True
                     self.initialize(username, password, server)
-            
+
         if option == 'plugin/ascrobbler/menu_check':
             self.use_menu = settings.get_option('plugin/ascrobbler/menu_check', False)
             if self.use_menu and not self.menu_entry:
                 self.setup_menu()
             elif self.menu_entry and not self.use_menu:
                 self.remove_menu()
-    
+
     def setup_menu(self):
         self.menu_agr = self.exaile.gui.main.accel_group
-        
+
         self.menu_sep = gtk.SeparatorMenuItem()
-        
+
         self.menu_entry = gtk.CheckMenuItem(_('Enable audioscrobbling'), self.menu_agr)
         self.menu_entry.set_active(self.submit)
-        
+
         self.exaile_menu.append(self.menu_sep)
         self.exaile_menu.append(self.menu_entry)
-        
+
         self.menu_conn = self.menu_entry.connect('toggled', self._menu_entry_toggled)
         key, mod = gtk.accelerator_parse("<Control>B")
-        self.menu_entry.add_accelerator("activate", self.menu_agr, key, 
+        self.menu_entry.add_accelerator("activate", self.menu_agr, key,
             mod, gtk.ACCEL_VISIBLE)
-        
+
         self.menu_entry.show_all()
         self.menu_sep.show_all()
-    
+
     def remove_menu(self):
         self.menu_entry.disconnect(self.menu_conn)
-        
+
         self.menu_entry.hide()
         self.menu_entry.destroy()
         self.menu_entry = None
-        
+
         self.menu_sep.hide()
         self.menu_sep.destroy()
         self.menu_sep = None
-        
+
     def _menu_entry_toggled(self, data):
         settings.set_option('plugin/ascrobbler/submit', self.menu_entry.get_active())
-    
+
     def stop(self):
         """
             Stops submitting
@@ -158,14 +158,14 @@ class ExaileScrobbler(object):
             logger.info("Attempting to connect to AudioScrobbler (%s)" % server)
             scrobbler.login(username, password, hashpw=False, post_url=server)
         except:
-            
+
             try:
                 scrobbler.login(username, password, hashpw=True, post_url=server)
             except:
                 self.connecting = False
                 common.log_exception()
                 return
-           
+
         logger.info("Connected to AudioScrobbler")
 
         event.add_callback(self.on_play, 'playback_track_start')
@@ -177,13 +177,13 @@ class ExaileScrobbler(object):
     def now_playing(self, player, track):
         # wait 5 seconds before now playing to allow for skipping
         time.sleep(5)
-        if player.current != track: 
+        if player.current != track:
             return
 
         logger.info("Attempting to submit \"Now Playing\" information to AudioScrobbler...")
         scrobbler.now_playing(
-            metadata.j(track['artist']), metadata.j(track['title']), 
-            metadata.j(track['album']), 
+            metadata.j(track['artist']), metadata.j(track['title']),
+            metadata.j(track['album']),
             track.get_duration(), track.get_track())
 
     def on_play(self, type, player, track):
@@ -195,13 +195,13 @@ class ExaileScrobbler(object):
 
     def on_stop(self, type, player, track):
         if not track or not track.is_local() \
-           or track['__playtime'] is None: 
+           or track['__playtime'] is None:
             return
         playtime = (track['__playtime'] or 0) - \
                 (track['__audioscrobbler_playtime'] or 0)
         if playtime > 240 or playtime > float(track['__length']) / 2.0:
             if self.submit and track['__length'] > 30:
-                self.submit_to_scrobbler(track, 
+                self.submit_to_scrobbler(track,
                     track['__audioscrobbler_starttime'], playtime)
 
         track['__audioscrobbler_starttime'] = None
@@ -235,9 +235,9 @@ class ExaileScrobbler(object):
         if scrobbler.SESSION_ID and track and time_started and time_played:
             try:
                 scrobbler.submit(
-                    metadata.j(track['artist']), 
+                    metadata.j(track['artist']),
                     metadata.j(track['title']),
-                    int(time_started), 'P', '', track.get_duration(), 
+                    int(time_started), 'P', '', track.get_duration(),
                     metadata.j(track['album']), track.get_track(), autoflush=True)
             except:
                 common.log_exception()

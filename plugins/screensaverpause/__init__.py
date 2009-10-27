@@ -74,10 +74,10 @@ def test():
     gobject.threads_init()
     import dbus.mainloop.glib as dbgl
     dbgl.DBusGMainLoop(set_as_default=True)
-    
+
     global bus
     bus = dbus.SessionBus()
-    
+
     for service in SERVICES:
         try:
             proxy = bus.get_object(service['bus_name'], service['path'],

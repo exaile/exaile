@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 """Generic widget and dialog for filtering items.
@@ -164,7 +164,7 @@ class FilterDialog(gtk.Dialog):
 
     def get_result(self):
         """Return the user's input as a list of filter criteria.
-        
+
         See FilterWidget.get_result.
         """
         # TODO: display error message
@@ -172,14 +172,14 @@ class FilterDialog(gtk.Dialog):
 
     def get_state(self):
         """Return the filter state.
-        
+
         See FilterWidget.get_state.
         """
         return self.filter.get_state()
 
     def set_state(self, state):
         """Set the filter state.
-        
+
         See FilterWidget.set_state.
         """
         self.filter.set_state(state)
@@ -202,7 +202,7 @@ class FilterWidget(gtk.Table):
             (N_('Year'), [
                 # name - field class/factory
                 (N_('is'), EntryField),
-                (N_('is between'), 
+                (N_('is between'),
                     lambda x: EntryLabelEntryField(x, _('and'))),
                 (N_('is this year'), NothingField)
             ]),
@@ -351,7 +351,7 @@ class Criterion(gtk.HBox):
 
     def _combo_changed(self, widget):
         """Called when the combo box changes its value."""
-        state = self.child.get_state() 
+        state = self.child.get_state()
         self.remove(self.child)
         self.child = Criterion(self.subcriteria[self.combo.get_active()][1])
         if state: self.child.set_state(state)
@@ -388,7 +388,7 @@ class Criterion(gtk.HBox):
                     break
             self.child.set_state(state)
         else:
-            if len(state) > 1: 
+            if len(state) > 1:
                 self.child.set_state(state[1])
 
 # Sample fields
@@ -491,5 +491,5 @@ class SpinButtonAndComboField(gtk.HBox):
             self.combo.set_active(index)
 
     def get_state(self):
-        return [self.entry.get_value(), 
+        return [self.entry.get_value(),
             unicode(self.items[self.combo.get_active()], 'utf-8')]

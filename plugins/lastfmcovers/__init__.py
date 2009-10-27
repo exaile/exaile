@@ -20,11 +20,11 @@ class LastFMCoverSearch(CoverSearchMethod):
     """
     name = 'lastfm'
     type = 'remote' # fetches remotely as opposed to locally
-    regex = re.compile(r'<coverart>.*?<large>(.*)</large>.*?</coverart>', 
+    regex = re.compile(r'<coverart>.*?<large>(.*)</large>.*?</coverart>',
         re.IGNORECASE|re.DOTALL)
     url = "http://ws.audioscrobbler.com/1.0/album/%(artist)s/%(album)s/info.xml"
 
-    # List of SHA1 (hex) signatures of covers to be ignored. It can be 
+    # List of SHA1 (hex) signatures of covers to be ignored. It can be
     # replaced by a [frozen]set if the number of elements becomes large.
     black_list = ["57b2c37343f711c94e83a37bd91bc4d18d2ed9d5"]
 
@@ -37,7 +37,7 @@ class LastFMCoverSearch(CoverSearchMethod):
             raise NoCoverFoundException()
         (artist, album) = track['artist'][0], track['album'][0]
 
-        data = urllib.urlopen(self.url % 
+        data = urllib.urlopen(self.url %
         {
             'album': urllib.quote_plus(album.encode("utf-8")),
             'artist': urllib.quote_plus(artist.encode("utf-8"))

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl.nls import gettext as _
@@ -123,7 +123,7 @@ class ElementBin(gst.Bin):
                     self.remove(elem)
                     elem.set_state(gst.STATE_NULL)
                 except gst.RemoveError:
-                    pass 
+                    pass
 
         elems = list(self.elements.iteritems())
         elems.sort()
@@ -163,7 +163,7 @@ class ElementBin(gst.Bin):
 class ProviderBin(ElementBin, ProviderHandler):
     """
         A ProviderBin is a gst.Bin that adds and removes elements from itself
-        using the providers system. Providers should be a subclass of 
+        using the providers system. Providers should be a subclass of
         gst.Element and provide the following attributes:
             name  - name to use for this element
             index - priority within the pipeline. range [0-100] integer.
@@ -175,7 +175,7 @@ class ProviderBin(ElementBin, ProviderHandler):
         """
             :param servicename: the Provider name to listen for
         """
-        ElementBin.__init__(self, name=name) 
+        ElementBin.__init__(self, name=name)
         ProviderHandler.__init__(self, servicename)
 
         self.reset_providers()
@@ -196,7 +196,7 @@ class ProviderBin(ElementBin, ProviderHandler):
 
 class Postprocessing(ProviderBin):
     def __init__(self):
-        ProviderBin.__init__(self, 'postprocessing_element', 
+        ProviderBin.__init__(self, 'postprocessing_element',
                 name="Postprocessing")
 
 class BaseSink(gst.Bin):
@@ -205,8 +205,8 @@ class BaseSink(gst.Bin):
 
 SINK_PRESETS = {
         "auto"  : {
-            "name"      : _("Automatic"), 
-            "elem"      : "autoaudiosink", 
+            "name"      : _("Automatic"),
+            "elem"      : "autoaudiosink",
             "options"   : {},
             },
         "gconf" : {
@@ -242,7 +242,7 @@ def sink_from_preset(preset):
         sink = AudioSink(d['name'], d['elem'], d['options'], preset=preset)
         return sink
     except:
-        common.log_exception(log=logger, 
+        common.log_exception(log=logger,
                 message="Could not enable audiosink %s"%preset)
         return None
 
@@ -259,7 +259,7 @@ class AudioSink(BaseSink):
         elems = [self.provided, self.vol, self.sink]
         self.add(*elems)
         gst.element_link_many(*elems)
-        self.sinkghost = gst.GhostPad("sink", 
+        self.sinkghost = gst.GhostPad("sink",
                 self.provided.get_static_pad("sink"))
         self.add_pad(self.sinkghost)
         self.load_options()
@@ -279,7 +279,7 @@ class AudioSink(BaseSink):
                 self.sink.set_property(param, value)
             except:
                 common.log_exception(log=logger)
-                logger.warning("Could not set parameter %(parameter)s for %(sink)s" % 
+                logger.warning("Could not set parameter %(parameter)s for %(sink)s" %
                     {'parameter' : param, 'sink': self.sink_elem})
 
     def set_volume(self, vol):

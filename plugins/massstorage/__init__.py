@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl import providers, collection, common
@@ -56,7 +56,7 @@ class MassStorageDevice(Device):
         self.mountpoints = []
 
     def connect(self):
-        self.mountpoints = [ str(x) for x in self._mountpoints if 
+        self.mountpoints = [ str(x) for x in self._mountpoints if
                 str(x) is not "" and os.path.exists(unicode(x)) ]
         if self.mountpoints == []:
             raise IOError, "Device is not mounted."
@@ -65,7 +65,7 @@ class MassStorageDevice(Device):
             self.collection.add_library(library)
         self.transfer = collection.TransferQueue(
                 self.collection.get_libraries()[0] )
-        self.connected = True # set this here so the UI can react 
+        self.connected = True # set this here so the UI can react
 
     def disconnect(self):
         self.collection = collection.Collection(name=self.name)
@@ -77,7 +77,7 @@ class MassStorageDevice(Device):
 class HalMountpoint(object):
     """
         Class to represent a mountpoint so we can delay HAL
-        mountpoint resolution.  
+        mountpoint resolution.
     """
     def __init__(self, hal, udi):
         self.hal = hal

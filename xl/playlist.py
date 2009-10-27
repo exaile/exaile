@@ -401,13 +401,14 @@ class Playlist(object):
         self.current_pos = -1
         self.current_playing = False
         self.random_enabled = False
+        self.random_mode= "track"
         self.repeat_enabled = False
         self.dynamic_enabled = False
         self._is_custom = is_custom
         self._needs_save = False
         self.name = name
         self.tracks_history = []
-        self.extra_save_items = ['random_enabled', 'repeat_enabled', 
+        self.extra_save_items = ['random_enabled', 'random_mode', 'repeat_enabled', 
                 'dynamic_enabled', 'current_pos', 'name', '_is_custom', '_needs_save']
 
     def get_name(self):
@@ -622,6 +623,40 @@ class Playlist(object):
                 return None # end of playlist
         return self.ordered_tracks[nextpos]
 
+    def get_next_random_track(self, mode="track"):
+        """
+            Returns a valid next track if shuffle is activated based on random_mode
+        """
+        if mode == "track":
+            return random.choice([ x for x in self.ordered_tracks \
+                    if x not in self.tracks_history])
+        if mode == "album":
+            try: #Try and get the next track on the album
+                #NB If the user starts the playlist from the middle of the album
+                #some tracks of the album remain off the tracks_history, and the
+                #album can be selected again randomly from its first track
+                t = [ x for i, x in enumerate(self.ordered_tracks) \
+                        if x['album'] == self.ordered_tracks[self.current_pos]['album'] and \
+                        (x.get_track() > self.ordered_tracks[self.current_pos].get_track() or \
+                        (x.get_track() == self.ordered_tracks[self.current_pos].get_track() \
+                        and i > self.current_pos) ) ]
+                t.sort(lambda x, y: x.get_track() - y.get_track())
+                return t[0]
+
+            except IndexError: #Pick a new album
+                t = [ x for x in self.ordered_tracks \
+                        if x not in self.tracks_history ]
+                albums = []
+                for x in t:
+                    if not x['album'] in albums:
+                        albums.append(x['album'])
+
+                album = random.choice(albums)
+                t = [ x for x in self.ordered_tracks \
+                        if x['album'] == album ]
+                t.sort(lambda x, y: x.get_track() - y.get_track())
+                return t[0]
+
     def next(self):
         """
             moves to the next track in the playlist
@@ -639,8 +674,8 @@ class Playlist(object):
                 return None
             
             try:
-                next = random.choice([ x for x in self.ordered_tracks \
-                    if x not in self.tracks_history])
+                next = self.get_next_random_track(self.random_mode)
+
             except IndexError:
                 logger.debug('Ran out of tracks to shuffle')
                 # clear this so we restart the shuffle cycle next time a 
@@ -648,6 +683,7 @@ class Playlist(object):
                 self.tracks_history = []
                 return None
             self.current_pos = self.ordered_tracks.index(next)            
+
         else:
             if len(self.ordered_tracks) == 0:
                 return None
@@ -735,7 +771,7 @@ class Playlist(object):
         self.dynamic_enabled = not self.repeat_enabled
         self._dirty = True
 
-    def set_random(self, value):
+    def set_random(self, value, mode="track"):
         """
             Enables random mode if it isn't already enabled
 
@@ -744,6 +780,10 @@ class Playlist(object):
         if not self.random_enabled:
             self.tracks_history = []
         self.random_enabled = value
+        if mode != self.random_mode: 
+            #Makes shuffle a bit more interesting if switching random mode
+            self.tracks_history = []
+            self.random_mode = mode
         self._dirty = True
 
     def set_repeat(self, value):

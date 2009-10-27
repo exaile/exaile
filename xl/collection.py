@@ -424,9 +424,9 @@ class Library(object):
         if not settings.get_option('collection/file_based_compilations', True):
             return
         try:
-            basedir = metadata.j(tr['__basedir'])
-            album = metadata.j(tr['album'])
-            artist = metadata.j(tr['artist'])
+            basedir = metadata.j(tr.get_tag_raw('__basedir'))
+            album = metadata.j(tr.get_tag_raw('album'))
+            artist = metadata.j(tr.get_tag_raw('artist'))
         except UnicodeDecodeError: #TODO: figure out why this happens
             logger.warning("Encoding error, skipping compilation check")
             return
@@ -518,9 +518,9 @@ class Library(object):
         else:
             tr = track.Track(uri)
             if tr._scan_valid == True:
-                tr['__date_added'] = time.time()
+                tr.set_tag_raw('__date_added', time.time())
                 self.collection.add(tr)
-        tr['__modified'] = mtime
+        tr.set_tag_raw('__modified', mtime)
         return tr
 
     def rescan(self, notify_interval=None):
@@ -586,9 +586,9 @@ class Library(object):
             base = basedir.replace('"', '\\"')
             alb = album.replace('"', '\\"')
             items = [ tr for tr in dirtracks if \
-                    tr['__basedir'] == base and \
+                    tr.get_tag_raw('__basedir') == base and \
                     # FIXME: this is ugly
-                    alb in u"".join(tr['album']) ]
+                    alb in "".join(tr.get_tag_raw('album')) ]
             for item in items:
                 item['__compilation'] = (basedir, album)
 

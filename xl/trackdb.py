@@ -95,11 +95,8 @@ class TrackHolder(object):
         self._key = key
         self._attrs = kwargs
 
-    def __getitem__(self, tag):
-        return self._track[tag]
-
-    def __setitem__(self, tag, values):
-        self._track[tag] = values
+    def __getattr__(self, attr):
+        return getattr(self._track, attr)
 
 
 class TrackDB(object):
@@ -654,11 +651,11 @@ class TrackSearcher(object):
                 if content == "__null__":
                     content = None
                 for l,tr in current_list.iteritems():
-                    if content == tr[tag]:
+                    if content == tr.get_tag_raw(tag):
                         new_list[l] = tr
                         continue
                     try:
-                        for t in tr[tag]:
+                        for t in tr.get_tag_raw(tag):
                             if str(t).lower() == content or t == content:
                                 new_list[l]=tr
                                 break
@@ -670,7 +667,7 @@ class TrackSearcher(object):
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        for t in tr[tag]:
+                        for t in tr.get_tag_raw(tag):
                             if content in str(t).lower():
                                 new_list[l]=tr
                                 break
@@ -682,7 +679,7 @@ class TrackSearcher(object):
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if float(content) < float(tr[tag]):
+                        if float(content) < float(tr.get_tag_raw(tag)):
                             new_list[l]=tr
                     except:
                         pass
@@ -692,7 +689,7 @@ class TrackSearcher(object):
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if float(content) > float(tr[tag]):
+                        if float(content) > float(tr.get_tag_raw(tag)):
                             new_list[l]=tr
                     except:
                         pass

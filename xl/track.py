@@ -232,6 +232,14 @@ class Track(object):
         """
             returns a string representing the track
         """
+        vals = map(self.get_tag_display, ('title', 'album', 'artist'))
+        rets = []
+        for v in vals:
+            if not v:
+                v = "Unknown"
+            v = "'" + v + "'"
+            rets.append(v)
+        ret = "%s from %s by %s" % tuple(rets)
         return ret
 
     def _pickles(self):
@@ -363,6 +371,8 @@ class Track(object):
         """
             Exaile's standard method to join tag values
         """
+        if type(values) in (str, unicode):
+            return values
         return u" / ".join(values)
 
     @staticmethod

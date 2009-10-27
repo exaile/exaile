@@ -305,10 +305,10 @@ class TrackDB(object):
 
             for t in self.search(search_terms):
                 try:
-                    for i in t[tag]:
+                    for i in t.get_tag_raw(tag):
                         tset.add(i)
                 except:
-                    tset.add(t[tag])
+                    tset.add(t.get_tag_raw(tag))
 
             vals = list(tset)
             if ignore_the:
@@ -699,7 +699,7 @@ class TrackSearcher(object):
                 for l,tr in current_list.iteritems():
                     for item in SEARCH_ITEMS:
                         try:
-                            for t in tr[item]:
+                            for t in tr.get_tag_raw(item):
                                 if content in t.lower():
                                     new_list[l]=tr
                                     break

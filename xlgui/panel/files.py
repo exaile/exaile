@@ -182,8 +182,6 @@ class FilesPanel(panel.Panel):
         libraries_location_model.clear()
         len_libraries = len(self.collection._serial_libraries)
 
-        self.libraries_location.set_sensitive(len_libraries > 0)
-
         if len_libraries > 0:
             for library in self.collection._serial_libraries:
                 print library['location']

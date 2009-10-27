@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-25 18:05+0000\n"
+"PO-Revision-Date: 2009-10-26 19:00+0000\n"
 "Last-Translator: Mark Kwidzińsczi <mark@linuxcsb.org>\n"
 "Language-Team: Kashubian <csb@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-10-26 04:30+0000\n"
+"X-Launchpad-Export-Date: 2009-10-27 08:23+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -33,11 +33,11 @@ msgstr "Òptacëje graniô"
 
 #: ../xl/main.py:273
 msgid "Play the next track"
-msgstr "Grôj nôslédny sztëczk"
+msgstr "Grôj nôslédny titel"
 
 #: ../xl/main.py:275
 msgid "Play the previous track"
-msgstr "Grôj pòprzédny sztëczk"
+msgstr "Grôj pòprzédny titel"
 
 #: ../xl/main.py:277
 msgid "Stop playback"
@@ -53,11 +53,11 @@ msgstr "Granié abò pùza"
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
-msgstr "Zatrzëmôj granie na biéżnym sztëczkù"
+msgstr "Zatrzëmôj granie na biéżnym titlu"
 
 #: ../xl/main.py:314
 msgid "Track options"
-msgstr "Òptacëje sztëczka"
+msgstr "Òptacëje titla"
 
 #: ../xl/main.py:288
 msgid "Query player"
@@ -65,39 +65,39 @@ msgstr "Lësta graniô"
 
 #: ../xl/main.py:290
 msgid "Show a popup of the currently playing track"
-msgstr "Wëskrzëni aktualno gróny sztëczk"
+msgstr "Wëskrzëni aktualno gróny titel"
 
 #: ../xl/main.py:292
 msgid "Print the title of current track"
-msgstr "Wëskrzëni titel aktualnegò sztëczka"
+msgstr "Wëskrzëni miono aktualnégò  titla"
 
 #: ../xl/main.py:294
 msgid "Print the album of current track"
-msgstr "Wëskrzëni albùm aktualnegò sztëczka"
+msgstr "Wëskrzëni albùm aktualnegò titla"
 
 #: ../xl/main.py:296
 msgid "Print the artist of current track"
-msgstr "Wëskrzëni artistã aktualnegò sztëczka"
+msgstr "Wëskrzëni artistã aktualnegò titla"
 
 #: ../xl/main.py:298
 msgid "Print the length of current track"
-msgstr "Wëskrzëni długòtã aktualnegò sztëczka"
+msgstr "Wëskrzëni długòtã aktualnegò titla"
 
 #: ../xl/main.py:300
 msgid "Set rating for current song"
-msgstr "Òbsãdzë aktualny sztëczk"
+msgstr "Òbsãdzë aktualny titel"
 
 #: ../xl/main.py:302
 msgid "Get rating for current song"
-msgstr "Dobëjë òbsądu aktualnegò sztëczka"
+msgstr "Dobëjë òbsądu aktualnegò titla"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
-msgstr "Wëskrzëni pòłożenié w aktualnym sztëczkù jakno czas"
+msgstr "Wëskrzëni pòłożenié w aktualnym titlu jakno czas"
 
 #: ../xl/main.py:308
 msgid "Print the progress inside the current track as percentage"
-msgstr "Wëskrzëni pòłożenié w aktualnym sztëczkù jakno procentë"
+msgstr "Wëskrzëni pòłożenié w aktualnym titlu jakno procentë"
 
 #: ../xl/main.py:339
 msgid "Volume options"
@@ -143,7 +143,7 @@ msgstr ""
 
 #: ../xl/main.py:363
 msgid "Do not import old data from 0.2.x."
-msgstr "NIe impòrtëjë stôrich pòdôłków z 0.2.x."
+msgstr "NIe impòrtëjë stôrich pòdôwków z 0.2.x."
 
 #. development and debug options
 #: ../xl/main.py:368
@@ -169,7 +169,7 @@ msgstr ""
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
-msgstr "REdukùjë równiã wińdzenia"
+msgstr "Redukùjë równiã wińdzenia"
 
 #: ../xl/main.py:343
 msgid "Disable D-Bus support"
@@ -240,7 +240,7 @@ msgid ""
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
 "Swój ë stôrszi, równak dali pòpùlarny, fòrmat audio. VBR dôwô wëszi kwalitet "
-"jakno CBR, mòże ni bëc równak kòmpatibilny z niejednymi grôczama."
+"jakno CBR, mòże ni bëc równak kòmpatibilny z niejednyma grôczama."
 
 #: ../xl/transcoder.py:89
 msgid ""
@@ -258,11 +258,11 @@ msgstr ""
 
 #: ../xl/track.py:474
 msgid "  New song, fetching cover."
-msgstr "  Nowi sztëczk, ladëjã òbkłôdkã."
+msgstr "  Nowi titel, ladëjã òbkłôdkã."
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
-msgstr ""
+msgstr "Klasa ùrządzeniô nie wspiérô transferów."
 
 #: ../xl/settings.py:82
 msgid "Settings version is newer than current."
@@ -345,7 +345,7 @@ msgstr "Zamkni kôrtã"
 
 #: ../xlgui/main.py:254
 msgid "New playlist title:"
-msgstr "Titel nowi listë graniô:"
+msgstr "Titel nowi lëstë graniô:"
 
 #: ../xlgui/main.py:254 ../xlgui/menu.py:415
 msgid "Rename Playlist"
@@ -361,7 +361,7 @@ msgstr "Zapiszë jakno..."
 
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
-msgstr "Włączë/wëłączë: Zatrzëmôj pò wëbrónym sztëczkù"
+msgstr "Włączë/wëłączë: Zatrzëmôj pò wëbrónym titlu"
 
 #: ../xlgui/main.py:788
 #, python-format
@@ -458,7 +458,7 @@ msgstr "Zapi_szë jakno..."
 
 #: ../xlgui/menu.py:209
 msgid "C_lear All Tracks"
-msgstr "_Wëczëszczë wszëtczé sztëczczi"
+msgstr "_Wëczëszczë wszëtczé title"
 
 #: ../xlgui/menu.py:211
 msgid "_Close Playlist"
@@ -474,7 +474,7 @@ msgstr "Dodôj do pòsobnicë"
 
 #: ../xlgui/menu.py:277
 msgid "Delete track"
-msgstr "Rëmôj sztëczk"
+msgstr "Rëmôj titel"
 
 #: ../xlgui/menu.py:308
 msgid "New Station"
@@ -564,7 +564,7 @@ msgstr "Felëją òbkłôdczi"
 
 #: ../xlgui/osd.py:207
 msgid "No track"
-msgstr "Felënk sztëczka"
+msgstr "Felënk titla"
 
 #: ../xlgui/__init__.py:160
 msgid "Export current playlist..."
@@ -805,7 +805,7 @@ msgstr "Ògrańczë do: "
 
 #: ../xlgui/filtergui.py:93
 msgid " songs"
-msgstr " sztëczczi"
+msgstr " title"
 
 #: ../xlgui/playlist.py:1060
 #, python-format
@@ -940,7 +940,7 @@ msgstr "Dodôj do nowi lëstë graniô..."
 #: ../xlgui/panel/playlists.py:360 ../xlgui/panel/playlists.py:586
 #: ../xlgui/panel/playlists.py:659
 msgid "You did not enter a name for your playlist"
-msgstr "Ni môsz wpisóny nowégò miona lëstë graniô."
+msgstr "Ni môsz wpisóné nowégò miona lëstë graniô."
 
 #: ../xlgui/panel/playlists.py:534
 msgid "Smart Playlists"
@@ -1010,11 +1010,11 @@ msgstr "%s KB"
 msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
-msgstr "To je rëmanié na wiedno sztëczka z twòjegò diskù. Jisc dali?"
+msgstr "To je rëmanié na wiedno titla z twòjegò diskù. Jisc dali?"
 
 #: ../xlgui/panel/collection.py:162
 msgid "Rescan Collection"
-msgstr "Przeskanëjë znowa kòlekcëjã"
+msgstr "Przeskanëjë kòlekcëjã znowa"
 
 #: ../xlgui/panel/collection.py:625
 msgid "Various Artists"
@@ -1127,7 +1127,7 @@ msgstr "Dodôwôj dinamiczno zblëżoné sztëczczi"
 
 #: ../xlgui/tray.py:135
 msgid "Remove current track from playlist"
-msgstr "Rëmôj aktualny sztëczk z lëstë graniô"
+msgstr "Rëmôj aktualny titel z lëstë graniô"
 
 #: ../data/glade/device_manager.glade.h:1
 msgid "..."
@@ -1204,7 +1204,7 @@ msgstr "Długòta:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:10
 msgid "Location:"
-msgstr "Lokacëjô:"
+msgstr "Lokalizacëjô:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:11
 msgid "Play Count:"
@@ -1216,11 +1216,11 @@ msgstr "Titel:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:13
 msgid "Track Number:"
-msgstr "Numer sztëczka:"
+msgstr "Numer titla:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:14
 msgid "Track Properties"
-msgstr "Swòjizna sztëczka"
+msgstr "Swòjizna titla"
 
 #: ../data/glade/about_dialog.glade.h:1
 msgid "&#xA9; 2009"
@@ -1269,7 +1269,7 @@ msgstr "Dół"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
-msgstr "Biéj do aktualnegò sztëczka pò zmianie stegnë"
+msgstr "Biéj do aktualnegò titla pò zmianie stegnë"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:5
 msgid "Left"
@@ -1358,7 +1358,7 @@ msgstr "Równiô przezérnotë:"
 
 #: ../data/glade/osd_prefs_pane.glade.h:9
 msgid "Show OSD on track change"
-msgstr "Wëskrzëni OSD przë zmianie sztëczka"
+msgstr "Wëskrzëni OSD przë zmianie titla"
 
 #: ../data/glade/osd_prefs_pane.glade.h:10
 msgid "Text Color"
@@ -1498,7 +1498,7 @@ msgstr "Wersëjô:"
 
 #: ../data/glade/main.glade.h:3
 msgid "0/0 tracks"
-msgstr "0/0 sztëczków"
+msgstr "0/0 titlów"
 
 #: ../data/glade/main.glade.h:4
 msgid "0:00 / 0:00"
@@ -1518,11 +1518,11 @@ msgstr "Klëkni bë wëskrzënic żdającé"
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
-msgstr "Dodôj dinamiczno zblëżoné sztëczczi do lëstë graniô"
+msgstr "Dodôj dinamiczno zblëżoné title do lëstë graniô"
 
 #: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
 msgid "Next Track"
-msgstr "Pòstãpny sztëczk"
+msgstr "Pòstãpny titel"
 
 #: ../data/glade/main.glade.h:10
 msgid "Open _URL"
@@ -1534,7 +1534,7 @@ msgstr "Starna 1"
 
 #: ../data/glade/main.glade.h:12 ../plugins/minimode/__init__.py:203
 msgid "Previous Track"
-msgstr "Pòprzédny sztëczk"
+msgstr "Pòprzédny titel"
 
 #: ../data/glade/main.glade.h:13
 msgid "Randomize the order of the current playlist"
@@ -1561,11 +1561,11 @@ msgid ""
 msgstr ""
 "Zatrzëmôj granié\n"
 "\n"
-"Klëkni prawą knąpą abë zatrzëmac pò kùńcu sztëczka"
+"Klëkni prawą knąpą abë zatrzëmac pò kùńcu titla"
 
 #: ../data/glade/main.glade.h:23
 msgid "Track _properties"
-msgstr "Swòjizna sztëczka"
+msgstr "Swòjizna titla"
 
 #: ../data/glade/main.glade.h:25
 msgid "_Autosize"
@@ -1597,7 +1597,7 @@ msgstr "_Lopk"
 
 #: ../data/glade/main.glade.h:32
 msgid "_Go to Playing Track"
-msgstr "Biéj do _grónegò sztëczka"
+msgstr "Biéj do _grónegò titla"
 
 #: ../data/glade/main.glade.h:33
 msgid "_Help"
@@ -1629,7 +1629,7 @@ msgstr "Menadżera kòlekcëji"
 
 #: ../data/glade/flatplaylist_panel.glade.h:1
 msgid "Append All Tracks to Playlist"
-msgstr "Dodôj wszëtczé sztëczczi do lëstë graniô"
+msgstr "Dodôj wszëtczé title do lëstë graniô"
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
@@ -1744,7 +1744,7 @@ msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
 msgid "Track number"
-msgstr "Numer sztëczka"
+msgstr "Numer titla"
 
 #: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
 msgid "Disc number"
@@ -1761,7 +1761,7 @@ msgstr "Załóżczi"
 
 #: ../plugins/bookmarks/__init__.py:286
 msgid "Bookmark this track"
-msgstr "Dodôj sztëczk do załóżków"
+msgstr "Dodôj titel do załóżków"
 
 #: ../plugins/bookmarks/__init__.py:291
 msgid "Delete bookmark"
@@ -1953,7 +1953,7 @@ msgstr "Nôslédny"
 
 #: ../plugins/minimode/minimodeprefs.py:104
 msgid "Track selector"
-msgstr "Wëbierôcz sztëczka"
+msgstr "Wëbierôcz titla"
 
 #: ../plugins/minimode/minimodeprefs.py:105
 msgid "Progress bar"
@@ -2100,7 +2100,7 @@ msgstr "Czwiôrtk"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:18
 msgid "Time per Increment:"
-msgstr ""
+msgstr "Czas na przërost:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:19
 #: ../plugins/alarmclock/acprefs_pane.glade.h:12
@@ -2114,7 +2114,7 @@ msgstr "Strzoda"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:11
 msgid "Timer per Increment:"
-msgstr ""
+msgstr "Czas na przërost:"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:13
 msgid "Use Fading"
@@ -2130,7 +2130,7 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
 msgid "Submit tracks using Audioscrobbler"
-msgstr "Dodôj sztëczczi z pòmòcą Audioscrobblera"
+msgstr "Dodôj title z pòmòcą Audioscrobblera"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:5
 msgid "Username:"
@@ -2202,7 +2202,7 @@ msgstr "Przë zrëszaniu/zatrzëmaniu/paùze graniô"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
 msgid "On Track Change"
-msgstr "Przë zmianie sztëczka"
+msgstr "Przë zmianie titla"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
 msgid "On Tray Icon Hover"
@@ -2228,7 +2228,7 @@ msgstr "Brëkùjë òbkłôdków albùmów jakno ikònów"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr ""
+msgstr "Brëkùjë ikònë mediów dlô Pùzë, Zatrzëmaniô ë Znowieniô"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
 msgid "When GUI is Focused"
@@ -2247,6 +2247,8 @@ msgid ""
 "To sign up for an Amazon AWS account and get \n"
 "this information visit http://aws.amazon.com/"
 msgstr ""
+"Do dobëcô ti wëdowiédzë je ce nót kònto  \n"
+"Amazon AWS przë http://aws.amazon.com/"
 
 #: ../plugins/desktopcover/prefs.glade.h:1
 msgid "Anchor:"
@@ -2366,7 +2368,7 @@ msgid ""
 msgstr ""
 "Wiadło, chtërné mia bëc wëskrzënionô w zamkłoscë nowinë. Za kòżdim razã "
 "\"%(title)s\", \"%(artist)s\", ë \"%(album)s\" bãdą zamienioné na pasowné "
-"wôrtnotë. Jeżlë jaczis ze znakòwników bãdze pùãti, to w jegò placu bãdze "
+"wôrtnotë. Jeżlë jaczis ze znakòwników bãdze pùsti, to w jegò placu bãdze "
 "wstôwioné \"Nieznóny\""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:5
@@ -2403,7 +2405,7 @@ msgstr "Wëskrzëni dekòracëjã òkna"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Wëskrzëni w lësce dzejaniów"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:8
 msgid "Show on all desktops"
@@ -2411,7 +2413,7 @@ msgstr "Wëskrzëni na wszëtczich pùltach"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Track title format:"
-msgstr "Fòrmat titla sztëczka:"
+msgstr "Fòrmat miona titla:"
 
 #: ../plugins/streamripper/streamripper.glade.h:1
 msgid "Relay Port:"
@@ -2441,7 +2443,7 @@ msgstr ""
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr "Aktualny sztëczk"
+msgstr "Aktualny titel"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
@@ -2470,7 +2472,7 @@ msgstr ""
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
-msgstr ""
+msgstr "Ùsôdzô òbjekt MPRIS Dbus dlô kòntrolë Exaile"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
@@ -2543,7 +2545,7 @@ msgstr "Dodôj prosté wspiatcé Podcastów"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "Pùza zrëszanô przez wëgaszôcz ekranu"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
@@ -2618,11 +2620,11 @@ msgstr "Przezérôj ë słëchôj gôdónych knéżków z Librivox.org."
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
-msgstr ""
+msgstr "Dôwô kònsolã IPython chtërną mòże brëkòwac do manipùlacëji Exaile."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Kòmpaktowi trib dlô Exaile z kònfigùrowólnym interfejsã"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
@@ -2630,7 +2632,7 @@ msgstr "Znakòwniczi òbkłôdków"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
-msgstr ""
+msgstr "Szëkba pòdle znakòwników titlów za òbkłôdkama"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
@@ -2642,7 +2644,7 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
-"Wëskrzrni dodôwną wëdowiédzã ò teëô grónym sztëczkù.\n"
+"Wëskrzrni dodôwną wëdowiédzã ò terô grónym titlu.\n"
 "Nót je: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 

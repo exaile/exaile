@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: http://exaile.org/trac/attachment/ticket/569\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-10 09:51+0000\n"
+"PO-Revision-Date: 2009-10-26 21:38+0000\n"
 "Last-Translator: kulight <Unknown>\n"
 "Language-Team: Hebrew <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-11 06:50+0000\n"
+"X-Launchpad-Export-Date: 2009-10-27 08:23+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1836,11 +1836,11 @@ msgstr "פודקאסטים"
 
 #: ../plugins/podcasts/__init__.py:72
 msgid "Podcast"
-msgstr ""
+msgstr "פודקסט"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "רענן פודקסט"
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"

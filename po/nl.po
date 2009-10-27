@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-16 19:37+0000\n"
-"Last-Translator: Jaap Broekhuizen <Unknown>\n"
+"PO-Revision-Date: 2009-10-26 11:28+0000\n"
+"Last-Translator: Emilien Klein <emilien+ubuntu@klein.st>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-17 07:07+0000\n"
+"X-Launchpad-Export-Date: 2009-10-27 08:23+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -147,7 +147,7 @@ msgstr "Geen oude data importeren van 0.2.x."
 #. development and debug options
 #: ../xl/main.py:368
 msgid "Development/Debug options"
-msgstr ""
+msgstr "Ontwikkeling/Debug opties"
 
 #. development and debug options
 #: ../xl/main.py:329
@@ -618,7 +618,7 @@ msgstr "%(playlist_count)d laten zien, %(collection_count)d in collectie"
 #: ../xlgui/guiutil.py:717
 #, python-format
 msgid "(%d queued)"
-msgstr ""
+msgstr "(%d in wachtlijst)"
 
 #: ../xlgui/guiutil.py:650
 msgid "Rating:"

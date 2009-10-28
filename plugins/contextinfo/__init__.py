@@ -12,6 +12,7 @@ import re
 import urllib
 import webkit
 import xlgui
+from inspector import Inspector
 
 LFM_API_KEY = '3b954460f7b207e5414ffdf8c5710592'
 PANEL = None
@@ -52,6 +53,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
     def __init__(self, builder, theme):
         webkit.WebView.__init__(self)
         providers.ProviderHandler.__init__(self, "context_page")
+
         self.connect_events()
         self.hover = ''
         self.theme = theme
@@ -79,6 +81,8 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
             ex.exaile().player)
 
+        self.get_settings().set_property('enable-developer-extras', True)
+
         #FIXME: HACK! ajust zoom level for the new webkit version
         try:
             self.get_settings().get_property("enable-developer-extras")
@@ -87,6 +91,9 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             pass
 
         gobject.idle_add(self.on_home_clicked)
+
+        # javascript debugger
+        inspector = Inspector(self.get_web_inspector())
 
     def on_tags_parsed(self, type, player, args):
         (tr, args) = args
@@ -196,6 +203,9 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.refresh_button.set_sensitive(False)
         self.refresh_button_image.set_from_animation(self.refresh_animation)
         self.loaded = False
+        h = open('/home/synic/test.html', 'w')
+        h.write(self.currentpage.get_html())
+        h.close()
         self.load_string(self.currentpage.get_html(), "text/html", "utf-8", "file://%s" % self.theme.path)
 
     def setup_dnd(self):
@@ -205,7 +215,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.connect('drag_begin', self.drag_begin)
         self.connect('drag_end', self.drag_end)
         self.connect('button_release_event', self.button_release)
-        self.connect('button_press_event', self.button_press)
+        #self.connect('button_press_event', self.button_press)
         self.connect('drag_data_get', self.drag_get_data)
 
     def button_press(self, widget, event):
@@ -307,6 +317,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
                 if page_provider.base == link[0]:
                     self.push(page_provider(self.theme, link[1]))
 
+        if link[0] == 'album': return True
         return False
 
     def _populate_popup(self, view, menu):
@@ -315,6 +326,8 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             showincolitem = gtk.MenuItem(label="Show in collection")
             menu.append(showincolitem)
             showincolitem.connect('activate', self._show_artist)
+            menu.show_all()
+        else:
             menu.show_all()
 
     def _show_artist(self, widget):

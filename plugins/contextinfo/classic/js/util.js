@@ -35,6 +35,8 @@ function doToggleElem(elem){
 		elem.style.display = '';
 		deleteCookie(id);
 	}
+
+	return false;
 }
 
 function makeTogglePanels(){

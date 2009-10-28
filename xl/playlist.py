@@ -834,7 +834,10 @@ class Playlist(object):
                 value = tr[item]
                 if value is not None: meta[item] = value[0]
             buffer += '\t%s\n' % urllib.urlencode(meta)
-            f.write(buffer.encode('utf-8'))
+            try:
+                f.write(buffer.encode('utf-8'))
+            except UnicodeDecodeError:
+                continue
 
         f.write("EOF\n")
         for item in self.extra_save_items:

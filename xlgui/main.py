@@ -445,7 +445,13 @@ class MainWindow(gobject.GObject):
                 tag = 'current.'
             pl.name = "order%d.%s%s" % (i, tag, pl.name)
             logger.debug("Saving tab %d: %s" % (i, pl.name))
-            self.tab_manager.save_playlist(pl, True)
+
+            try:
+                self.tab_manager.save_playlist(pl, True)
+            except:
+                # an exception here could cause exaile to be unable to quit.
+                # Catch all exceptions.
+                traceback.print_exc()
 
     def add_playlist(self, pl=None, erase_empty=True):
         """

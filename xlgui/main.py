@@ -451,6 +451,7 @@ class MainWindow(gobject.GObject):
             except:
                 # an exception here could cause exaile to be unable to quit.
                 # Catch all exceptions.
+                import traceback
                 traceback.print_exc()
 
     def add_playlist(self, pl=None, erase_empty=True):

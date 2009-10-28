@@ -306,7 +306,8 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             for page_provider in self.get_providers():
                 if page_provider.base == link[0]:
                     self.push(page_provider(self.theme, link[1]))
-        return 1
+
+        return False
 
     def _populate_popup(self, view, menu):
         type = self.hover.split('://')[0]
@@ -638,7 +639,7 @@ class ContextPage(object):
 
 class DefaultPage(ContextPage):
 
-    def __init__(self, theme, base='default://', template='default.htm', async=[]):
+    def __init__(self, theme, base='default://', template='default.html', async=[]):
         try:
             self.username = settings.get_option('plugin/ascrobbler/user')
         except:
@@ -756,7 +757,7 @@ class DefaultPage(ContextPage):
         return "Enter your username in the settings"
 
 class ArtistPage(DefaultPage):
-    def __init__(self, theme, artist, base = 'artist://', template = 'artist.htm', async=[]):
+    def __init__(self, theme, artist, base = 'artist://', template ='artist.html', async=[]):
         self.artist = artist
         self.artist_tracks = get_artist_tracks(artist)
         DefaultPage.__init__(self, theme, base, template, async+['compils', 'albums', 'artist-info', 'artist-img', 'artist-tags', 'similar-artists', 'top-tracks'])
@@ -892,7 +893,7 @@ class ArtistPage(DefaultPage):
 
 class TagPage(DefaultPage):
 
-    def __init__(self, theme, tag, base='tag://', template='tag.htm', async=[]):
+    def __init__(self, theme, tag, base='tag://', template='tag.html', async=[]):
         self.tag = tag
         DefaultPage.__init__(self, theme, base, template, async+['similar-tags', 'top-artists', 'tag-top-tracks', 'tag-top-albums'])
 
@@ -929,7 +930,7 @@ class TagPage(DefaultPage):
 
 class PlayingPage(ArtistPage):
 
-    def __init__(self, theme, track, base='playing://', template='playing.htm', async=[]):
+    def __init__(self, theme, track, base='playing://', template='playing.html', async=[]):
         self.track = track
         ArtistPage.__init__(self, theme, get_track_tag(self.track, 'artist', 'unknown'),base, template, async+['track-tags', 'suggested-tracks', 'similar-tracks', 'lyrics'])
         event.add_callback(self.refresh_rating, 'rating_changed')
@@ -1019,7 +1020,7 @@ class PlayingPage(ArtistPage):
 
 class LyricsPage(PlayingPage):
 
-    def __init__(self, theme, track, base='lyrics://', template='lyrics.htm', async=[]):
+    def __init__(self, theme, track, base='lyrics://', template='lyrics.html', async=[]):
         PlayingPage.__init__(self, theme, track, base, template, async)
 
 class ContextPanel(gobject.GObject):

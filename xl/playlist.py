@@ -844,7 +844,10 @@ class Playlist(object):
         f.write("EOF\n")
         for item in self.extra_save_items:
             val = getattr(self, item)
-            strn = settings._SETTINGSMANAGER._val_to_str(val)
+            try:
+                strn = settings._SETTINGSMANAGER._val_to_str(val)
+            except ValueError:
+                strn = ""
             f.write("%s=%s\n"%(item,strn))
         f.close()
         if os.path.exists(location + ".new"):

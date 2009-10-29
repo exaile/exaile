@@ -401,7 +401,7 @@ class Playlist(object):
         self.current_pos = -1
         self.current_playing = False
         self.random_enabled = False
-        self.random_mode= "track"
+        self.random_mode = "track"
         self.repeat_enabled = False
         self.dynamic_enabled = False
         self._is_custom = is_custom
@@ -627,9 +627,6 @@ class Playlist(object):
         """
             Returns a valid next track if shuffle is activated based on random_mode
         """
-        if mode == "track":
-            return random.choice([ x for x in self.ordered_tracks \
-                    if x not in self.tracks_history])
         if mode == "album":
             try: #Try and get the next track on the album
                 #NB If the user starts the playlist from the middle of the album
@@ -656,6 +653,11 @@ class Playlist(object):
                         if x['album'] == album ]
                 t.sort(lambda x, y: x.get_track() - y.get_track())
                 return t[0]
+        else:   # track mode - dont check explicitly because the restore code
+                # sometimes gives us a None here.
+            return random.choice([ x for x in self.ordered_tracks \
+                    if x not in self.tracks_history])
+
 
     def next(self):
         """

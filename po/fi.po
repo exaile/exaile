@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-03 21:15+0000\n"
-"Last-Translator: Jussi Aalto <jta_lnx@dnainternet.net>\n"
+"PO-Revision-Date: 2009-10-30 20:42+0000\n"
+"Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-04 06:48+0000\n"
+"X-Launchpad-Export-Date: 2009-10-31 08:34+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr ""
+msgstr "Automaattinen"
 
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
@@ -28,7 +28,7 @@ msgstr ""
 
 #: ../xl/main.py:298
 msgid "Playback options"
-msgstr ""
+msgstr "Toistoasetukset"
 
 #: ../xl/main.py:273
 msgid "Play the next track"
@@ -40,7 +40,7 @@ msgstr "Soita edellinen raita"
 
 #: ../xl/main.py:277
 msgid "Stop playback"
-msgstr ""
+msgstr "Lopeta toisto"
 
 #: ../xl/main.py:279
 msgid "Play"
@@ -52,11 +52,11 @@ msgstr ""
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "Pysäytä toisto nykyisen raidan jälkeen"
 
 #: ../xl/main.py:314
 msgid "Track options"
-msgstr ""
+msgstr "Kappaleasetukset"
 
 #: ../xl/main.py:288
 msgid "Query player"
@@ -68,23 +68,23 @@ msgstr ""
 
 #: ../xl/main.py:292
 msgid "Print the title of current track"
-msgstr ""
+msgstr "Näytä toistettavan kappaleen nimi"
 
 #: ../xl/main.py:294
 msgid "Print the album of current track"
-msgstr ""
+msgstr "Näytä albumi, johon soitettava kappale kuuluu"
 
 #: ../xl/main.py:296
 msgid "Print the artist of current track"
-msgstr ""
+msgstr "Näytä toistettavan kappaleen esittäjä"
 
 #: ../xl/main.py:298
 msgid "Print the length of current track"
-msgstr ""
+msgstr "Näytä toistettavan raidan kesto"
 
 #: ../xl/main.py:300
 msgid "Set rating for current song"
-msgstr ""
+msgstr "Aseta toistettavalle kappaleelle arvosana"
 
 #: ../xl/main.py:302
 msgid "Get rating for current song"
@@ -100,23 +100,23 @@ msgstr ""
 
 #: ../xl/main.py:339
 msgid "Volume options"
-msgstr ""
+msgstr "Äänenvoimakkuusasetukset"
 
 #: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
-msgstr ""
+msgstr "Nostaa äänenvoimakkuutta VOL%"
 
 #: ../xl/main.py:314
 msgid "Decreases the volume by VOL%"
-msgstr ""
+msgstr "Laskee äänenvoimakkuutta VOL%"
 
 #: ../xl/main.py:316
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "Näytä nykyinen äänenvoimakkuustaso"
 
 #: ../xl/main.py:348
 msgid "Other options"
-msgstr ""
+msgstr "Muut asetukset"
 
 #: ../xl/main.py:320
 msgid "Start new instance"
@@ -146,7 +146,7 @@ msgstr ""
 #. development and debug options
 #: ../xl/main.py:368
 msgid "Development/Debug options"
-msgstr ""
+msgstr "Kehitys- ja vianmääritysasetukset"
 
 #. development and debug options
 #: ../xl/main.py:329
@@ -155,7 +155,7 @@ msgstr ""
 
 #: ../xl/main.py:331
 msgid "Show debugging output"
-msgstr ""
+msgstr "Näytä vianmääritystuloste"
 
 #: ../xl/main.py:334
 msgid "Enable debugging of xl.event. Generates LOTS of output"
@@ -185,12 +185,12 @@ msgstr ""
 #: ../xl/main.py:368
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "Satunnainen %d"
 
 #: ../xl/main.py:376
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "Arvostelu > %d"
 
 #: ../xl/main.py:473
 msgid ""
@@ -248,7 +248,7 @@ msgstr ""
 
 #: ../xl/track.py:474
 msgid "  New song, fetching cover."
-msgstr ""
+msgstr "  Uusi kappale, haetaan kansi."
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
@@ -291,7 +291,7 @@ msgstr "Tuntematon"
 #: ../xl/playlist.py:387
 #, python-format
 msgid "Playlist %d"
-msgstr ""
+msgstr "Soittolista %d"
 
 #: ../xl/xldbus.py:75 ../xl/xldbus.py:284
 msgid "Not playing."
@@ -325,15 +325,15 @@ msgstr "Soitto pysäytetty"
 
 #: ../xlgui/main.py:117 ../plugins/minimode/mmwidgets.py:650
 msgid "Streaming..."
-msgstr ""
+msgstr "Puskuroidaan..."
 
 #: ../xlgui/main.py:198
 msgid "Close tab"
-msgstr ""
+msgstr "Sulje välilehti"
 
 #: ../xlgui/main.py:254
 msgid "New playlist title:"
-msgstr ""
+msgstr "Uuden soittolistan nimi:"
 
 #: ../xlgui/main.py:254 ../xlgui/menu.py:415
 msgid "Rename Playlist"

@@ -472,6 +472,8 @@ class LocalCoverSearch(CoverSearchMethod):
 
     def find_covers(self, track, limit=-1):
         covers = []
+        if track.get_type() == 'http':
+            raise NoCoverFoundException()
         try:
             search_dir = gio.File(track.get_loc_for_io()).get_parent()
         except AttributeError:

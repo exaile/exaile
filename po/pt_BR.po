@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-14 20:37+0000\n"
+"PO-Revision-Date: 2009-10-25 22:38+0000\n"
 "Last-Translator: Arthur Cruz <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2009-09-21 09:52+0000\n"
+"X-Launchpad-Export-Date: 2009-10-27 08:23+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -92,11 +92,11 @@ msgstr "Obter classificação para a faixa atual"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "Exibe a posição da faixa atual em tempo"
 
 #: ../xl/main.py:308
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "Exibe a posição da faixa atual em porcentagem"
 
 #: ../xl/main.py:339
 msgid "Volume options"
@@ -156,7 +156,7 @@ msgstr "Definir diretório de dados"
 
 #: ../xl/main.py:331
 msgid "Show debugging output"
-msgstr "Mostrar a saída de debug"
+msgstr "Mostrar saída de depuração"
 
 #: ../xl/main.py:334
 msgid "Enable debugging of xl.event. Generates LOTS of output"
@@ -321,7 +321,7 @@ msgstr "Não especificou uma localização da qual carregar a base de dados"
 #: ../xlgui/properties.py:51 ../xlgui/osd.py:193 ../xlgui/plcolumns.py:110
 #, python-format
 msgid "%(minutes)d:%(seconds)02d"
-msgstr ""
+msgstr "%(minutes)d:%(seconds)02d"
 
 #. TRANSLATORS: Default track length
 #: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:114
@@ -359,7 +359,7 @@ msgstr "Salvar Como..."
 
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
-msgstr "Alfinete: Para após faixa selecionada"
+msgstr "Ativar: Parar após a faixa selecionada"
 
 #: ../xlgui/main.py:788
 #, python-format
@@ -576,7 +576,7 @@ msgstr "Extensão de arquivo inválida, arquivo não salvo"
 
 #: ../xlgui/__init__.py:190
 msgid "Enter the URL to open"
-msgstr "Digite a URL para abrir"
+msgstr "Insira a URL a ser aberta"
 
 #: ../xlgui/__init__.py:191
 msgid "Open URL"
@@ -604,7 +604,7 @@ msgstr "Todos os Arquivos"
 
 #: ../xlgui/__init__.py:341
 msgid "Scanning collection..."
-msgstr "Escaneando colleção..."
+msgstr "Escaneando coleção..."
 
 #: ../xlgui/__init__.py:438
 #, python-format
@@ -614,7 +614,7 @@ msgstr "Verificando %s..."
 #: ../xlgui/main.py:645
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr ""
+msgstr "Exibindo %(playlist_count)d, na coleção %(collection_count)d"
 
 #: ../xlgui/guiutil.py:717
 #, python-format
@@ -815,11 +815,11 @@ msgstr "Fechar %s"
 #: ../xlgui/playlist.py:1061
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>Salvar alterações to %s antes de fechar?</b>"
+msgstr "<b>Salvar modificações em %s antes de fechar?</b>"
 
 #: ../xlgui/playlist.py:1062
 msgid "Your changes will be lost if you don't save them"
-msgstr "Suas alterações serão perdidas if você não as salvar"
+msgstr "Suas alterações serão perdidas, caso não salve-as"
 
 #: ../xlgui/playlist.py:1064
 msgid "Close Without Saving"
@@ -945,7 +945,7 @@ msgstr "Você não especificou um nome para sua lista de reprodução"
 
 #: ../xlgui/panel/playlists.py:534
 msgid "Smart Playlists"
-msgstr "Listas de Reprodução Automáticas"
+msgstr "Listas Inteligentes de Músicas"
 
 #: ../xlgui/panel/playlists.py:537
 msgid "Custom Playlists"
@@ -962,7 +962,7 @@ msgstr "Editar Lista Inteligente de Músicas"
 #: ../xlgui/panel/radio.py:96 ../xlgui/panel/radio.py:453
 #: ../xlgui/panel/radio.py:529
 msgid "Loading streams..."
-msgstr "Carregando streams..."
+msgstr "Carregando fluxos..."
 
 #: ../xlgui/panel/radio.py:125 ../data/glade/radio_panel.glade.h:2
 #: ../plugins/podcasts/__init__.py:89 ../plugins/podcasts/__init__.py:212
@@ -1114,7 +1114,7 @@ msgstr "Atalho"
 
 #: ../xlgui/tray.py:73
 msgid "Exaile Music Player"
-msgstr "Reprodutor de Mídia Exaile"
+msgstr "Reprodutor de Música Exaile"
 
 #: ../xlgui/tray.py:116 ../data/glade/main.glade.h:17
 msgid "Shuffle playback order"
@@ -1150,11 +1150,11 @@ msgstr "Dispositivos Detectados:"
 
 #: ../data/glade/device_manager.glade.h:5
 msgid "Device Manager"
-msgstr "Gerenciador de de Dispositivos"
+msgstr "Gerenciador de dispositivos"
 
 #: ../data/glade/device_manager.glade.h:6
 msgid "Type of device:"
-msgstr "Tipo de dispositivo:"
+msgstr "Tipo do dispositivo:"
 
 #: ../data/glade/device_panel.glade.h:1
 #: ../data/glade/collection_panel.glade.h:10
@@ -1357,8 +1357,7 @@ msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
 msgstr ""
-"<b>Mova a janela OSD para a localização em que você deseja que ela "
-"apareça</b>"
+"<b>Mova a janela OSD para a posição que você deseja que ela apareça</b>"
 
 #: ../data/glade/osd_prefs_pane.glade.h:5
 msgid "Background Color:"
@@ -1470,7 +1469,7 @@ msgstr "Usar crossfading (EXPERIMENTAL)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:17
 msgid "Use fade transitions on user actions"
-msgstr ""
+msgstr "Usar transições suaves nas ações dos usuários"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:1
 msgid "<b>No Plugin Selected</b>"
@@ -1823,15 +1822,12 @@ msgstr "Capas da Amazon"
 msgid "Desktop Cover"
 msgstr "Desktop Cover"
 
-#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
 msgstr "Buscando mood..."
 
-#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
 msgstr "Mood encontrado"
 
-#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
 msgstr "Não foi possível ler moodbar"
 
@@ -2253,15 +2249,15 @@ msgstr "Utilizar Capas dos Álbuns como Ícones"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr ""
+msgstr "Utilizar Ícones das Mídias para Pausar, Parar e Reproduzir"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
 msgid "When GUI is Focused"
-msgstr ""
+msgstr "Quando o player estiver com o foco"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
 msgid "API Key:"
-msgstr ""
+msgstr "Chave da API:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
 msgid "Secret Key:"
@@ -2321,7 +2317,7 @@ msgstr "Cor base:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Escurecer seção tocada ao invés de usar o cursor"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
 msgid "Darkness level:"
@@ -2329,7 +2325,7 @@ msgstr "Nível de escurecimento:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Mostrar somente a forma de onda, não a atmosfera"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
 msgid "Use color theme "
@@ -2337,7 +2333,7 @@ msgstr "Usar cores do tema "
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
 msgid "Use waveform style"
-msgstr ""
+msgstr "Usar estilo de forma de onda"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Additional amplification (dB):"
@@ -2350,10 +2346,11 @@ msgstr "Amplificação adicional a ser utilizada em todos os arquivos"
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
+"Correção de queda para arquivos que não tenham informação do ReplayGain"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Nível da correção de queda (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
@@ -2369,7 +2366,7 @@ msgstr "Proteger contra ruído causado pelo excesso de amplificação"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Utilizar a proteção de corte"
 
 #: ../plugins/podcasts/podcasts.glade.h:1
 msgid "Add Podcast"
@@ -2391,6 +2388,10 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place"
 msgstr ""
+"Mensagem que deverá ser exibida no corpo da notificação. Em cada caso, "
+"\"%(title)s\", \"%(artist)s\", e \"%(album)s\" serão substituídos pelos seus "
+"respectivos valores. Se o rótulo não for conhecido, \"Desconhecido\" será "
+"preenchido em seu lugar"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:5
 msgid "Only album"
@@ -2479,6 +2480,7 @@ msgstr "Faixa atual"
 msgid ""
 "Sets the currently playing status in Pidgin for services that support it."
 msgstr ""
+"Mostrar no Pidgin, para os serviços suportados, o status de reprodução atual"
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
@@ -2526,6 +2528,12 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Este plugin exibe bolhas de notificação quando uma música é "
+"reproduzida/retomada/parada, quer com a capa da música ou ícone de mídia "
+"para indicar a última ação.\n"
+"\n"
+"Dependência: python-notify\n"
+"Recomendação: notify-osd"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -2559,6 +2567,8 @@ msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Substitui a barra de progresso padrão por uma moodbar.\n"
+"Dependência: moodbar"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
@@ -2574,7 +2584,7 @@ msgstr "Habilita o suporte ao ReplayGain"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Adiciona um Suporte Simples ao Podcast"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
@@ -2630,13 +2640,15 @@ msgstr "Plugin para obter letras do lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "Suporte a dispositivos de mídia USB Mass Storage"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Suporte para acessar dispositivos portáteis utilizando o protocolo USB Mass "
+"Storage"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
@@ -2661,7 +2673,7 @@ msgstr "Modo compacto do Exaile com uma interface configurável"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr ""
+msgstr "Etiquetar Capas"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"

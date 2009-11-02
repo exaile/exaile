@@ -848,6 +848,7 @@ class Playlist(object):
                 strn = settings._SETTINGSMANAGER._val_to_str(val)
             except ValueError:
                 strn = ""
+
             f.write("%s=%s\n"%(item,strn))
         f.close()
         if os.path.exists(location + ".new"):

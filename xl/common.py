@@ -360,5 +360,28 @@ class VersionError(Exception):
     def __str__(self):
         return repr(self.message)
 
-# vim: et sts=4 sw=4
+import platform, os, subprocess
+def windows_check():
+    """
+        Checks if the current platform is Windows
+    """
+    return platform.system() in ('Windows', 'Microsoft')
 
+def osx_check():
+    """
+        Checks if the current platform is Mac OS X
+    """
+    return platform.system() == "Darwin"
+
+def open_file(path):
+    """
+        Opens a file or folder using the system configured program
+    """
+    if windows_check():
+        os.startfile("%s" % path)
+    elif osx_check():
+        subprocess.Popen(["open", "%s" % path])
+    else:
+        subprocess.Popen(["xdg-open", "%s" % path])
+
+# vim: et sts=4 sw=4

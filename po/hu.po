@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-25 16:45+0000\n"
-"Last-Translator: Muszela Balázs <bazsi86@gmail.com>\n"
+"PO-Revision-Date: 2009-11-02 08:13+0000\n"
+"Last-Translator: szittyi <szittyi@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-26 04:30+0000\n"
+"X-Launchpad-Export-Date: 2009-11-02 08:22+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1102,7 +1102,7 @@ msgstr "Művelet"
 
 #: ../xlgui/prefs/widgets.py:546
 msgid "Shortcut"
-msgstr ""
+msgstr "Gyorsbillentyű"
 
 #: ../xlgui/tray.py:73
 msgid "Exaile Music Player"
@@ -1285,7 +1285,7 @@ msgstr "Tálcaikon megjelenítése"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:11
 msgid "Tab placement:"
-msgstr ""
+msgstr "fül elhelyezkedése"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:11
 msgid "Top"
@@ -1293,7 +1293,7 @@ msgstr "Felül"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
-msgstr ""
+msgstr "Átlátszóság használata(ha támogatott)"
 
 #: ../data/glade/osd_window.glade.h:1
 msgid ""
@@ -1424,7 +1424,7 @@ msgstr "PulseAudio"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Lejátszás folytatása szüneteltetett álapotban"
 
 #: ../data/glade/playback_prefs_pane.glade.h:14
 msgid "Resume playback on start"
@@ -1472,7 +1472,7 @@ msgstr "Frissítések telepítése"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "Harmadik féltől származó beépülő telepítése, fájlból"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:8
 msgid "Install plugin file"

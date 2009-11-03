@@ -301,6 +301,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.currentpage.link_clicked(link)
         if link[0] == 'track':
             self.on_append_items()
+            return True
         elif link[0] == 'artist':
             self.push(ArtistPage(self.theme,link[1]))
         elif link[0] == 'tag':

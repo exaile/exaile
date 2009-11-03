@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-11-01 19:58+0000\n"
-"Last-Translator: Artem Karimov <skybon@gmail.com>\n"
+"PO-Revision-Date: 2009-11-03 07:19+0000\n"
+"Last-Translator: AsstZD <eskaer_spamsink@ngs.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-11-02 08:22+0000\n"
+"X-Launchpad-Export-Date: 2009-11-03 08:32+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -549,7 +549,7 @@ msgstr "Запуск"
 
 #: ../xlgui/cover.py:325
 msgid "Show Cover"
-msgstr "Показать Обложку"
+msgstr "Показать обложку"
 
 #: ../xlgui/cover.py:326
 msgid "Fetch Cover"
@@ -557,7 +557,7 @@ msgstr "Загрузить Обложку"
 
 #: ../xlgui/cover.py:327
 msgid "Remove Cover"
-msgstr "Удалить Обложку"
+msgstr "Удалить обложку"
 
 #: ../xlgui/cover.py:658
 msgid "Enter the search text"
@@ -577,7 +577,7 @@ msgstr "Экспортирование текущего списка воспр�
 
 #: ../xlgui/__init__.py:183 ../xlgui/panel/playlists.py:921
 msgid "Invalid file extension, file not saved"
-msgstr "Недопустимое резрешение файла, файл не сохранён"
+msgstr "Недопустимое расширение файла; файл не сохранён"
 
 #: ../xlgui/__init__.py:190
 msgid "Enter the URL to open"
@@ -593,7 +593,7 @@ msgstr "Выбрать файл для открытия"
 
 #: ../xlgui/__init__.py:211
 msgid "Supported Files"
-msgstr "Поддерживаемые Типы Файлов"
+msgstr "Поддерживаемые иипы файлов"
 
 #: ../xlgui/__init__.py:213
 msgid "Music Files"

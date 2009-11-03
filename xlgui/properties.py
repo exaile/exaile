@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import xdg, metadata
+from xl import xdg, metadata, common
 from xl.nls import gettext as _
 import os
 import gtk
@@ -39,7 +39,7 @@ dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
                 'originalartist': (_('Original Artist'), 'text'),
                 'author': (_('Author'), 'text'),
                 'originaldate': (_('Original Date'), 'int', 1000, 2100),
-                'date': (_('Date'), 'int', 0, 2100),
+                'date': (_('Date'), 'text'),
                 'arranger': (_('Arranger'), 'text'),
                 'conductor': (_('Conductor'), 'text'),
                 'performer': (_('Performer'), 'text'),
@@ -61,7 +61,7 @@ dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
                 '__date_added': (_('Date Added'), 'prop:datetime'),
                 '__length': (_('Length'), 'prop:time'),
                 '__loc': (_('Location'), 'text'),
-                '__basedir': (_('Base Directory'), 'text'),
+                '__basedir': (_('Base Directory'), 'prop:dir'),
                 '__modified': (_('Modified'), 'prop:datetime'),
                 '__playtime': (_('playtime'), 'IGNORE'),
                 '__playcount': (_('Times Played'), 'text'),
@@ -724,6 +724,14 @@ class PropertyField(gtk.HBox):
         self.pack_start(self.field)
         self.parent_row = None
 
+        if self.property_type == 'prop:dir':
+            self.folder_button = gtk.Button()
+            im = gtk.Image()
+            im.set_from_stock(gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_BUTTON)
+            self.folder_button.set_image(im)
+            self.pack_start(self.folder_button, expand=False, fill=False)
+            self.folder_button.connect("clicked", self.folder_button_clicked)
+
     def register_parent_row(self, parent_row):
         self.parent_row = parent_row
 
@@ -741,6 +749,9 @@ class PropertyField(gtk.HBox):
         if doupdate:
             self.field.set_text(output)
             self.field.set_tooltip_text(output)
+
+    def folder_button_clicked(self, w):
+        common.open_file(self.field.get_text())
 
     def register_update_func(self, f):
         pass

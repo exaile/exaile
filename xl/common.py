@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import locale, logging, random, string, sys, threading, time, traceback, \
+import locale, logging, os, random, string, sys, threading, time, traceback, \
     unicodedata, urlparse
 from functools import wraps
 from xl.nls import gettext as _
@@ -360,28 +360,16 @@ class VersionError(Exception):
     def __str__(self):
         return repr(self.message)
 
-import platform, os, subprocess
-def windows_check():
-    """
-        Checks if the current platform is Windows
-    """
-    return platform.system() in ('Windows', 'Microsoft')
-
-def osx_check():
-    """
-        Checks if the current platform is Mac OS X
-    """
-    return platform.system() == "Darwin"
-
 def open_file(path):
     """
         Opens a file or folder using the system configured program
     """
-    if windows_check():
-        os.startfile("%s" % path)
-    elif osx_check():
-        subprocess.Popen(["open", "%s" % path])
+    platform = sys.platform
+    if platform == 'win32':
+        os.startfile(path)
+    elif platform == 'darwin':
+        subprocess.Popen(["open", path])
     else:
-        subprocess.Popen(["xdg-open", "%s" % path])
+        subprocess.Popen(["xdg-open", path])
 
 # vim: et sts=4 sw=4

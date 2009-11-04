@@ -26,30 +26,6 @@ import xl.event
 
 log = logging.getLogger(__name__)
 
-MENU_ITEMS = {
-        'play': {
-            'stock': gtk.STOCK_MEDIA_PLAY,
-            'title': 'Play'
-            },
-
-        'stop': {
-            'stock': gtk.STOCK_MEDIA_STOP,
-            'title': 'Stop'
-            },
-
-        'prev': {
-            'stock': gtk.STOCK_MEDIA_PREVIOUS,
-            'title': 'Previous'
-            },
-
-        'fwd': {
-            'stock': gtk.STOCK_MEDIA_FORWARD,
-            'title': 'Forward'
-            },
-        }
-
-            
-
 
 class ExaileAwn(object):
 
@@ -58,8 +34,6 @@ class ExaileAwn(object):
         obj = bus.get_object("com.google.code.Awn", "/com/google/code/Awn")
         self.awn = dbus.Interface(obj, "com.google.code.Awn")
         self.exaile = None
-        self.menu_items = {}
-        self.add_menu_items()
         self.enabled = True
 
     def xid(self):
@@ -69,9 +43,6 @@ class ExaileAwn(object):
 
     def unset_cover(self):
         self.awn.UnsetTaskIconByXid(self.xid())
-
-    def add_handlers(self):
-        pass
 
     def cleanup(self):
         self.unset_cover()
@@ -98,20 +69,6 @@ class ExaileAwn(object):
             log.debug("Setting AWN cover to %s" % repr(path))
             self.awn.SetTaskIconByXid(self.xid(), path)
 
-    def add_menu_items(self, *args, **kwargs):
-        return
-        if self.exaile is None or self.exaile.gui is None:
-            return False
-        title = self.exaile.gui.main.window.get_title()
-        for key, val in MENU_ITEMS.iteritems():
-            if key not in self.menu_items:
-                id = self.awn.AddTaskMenuItemByName(
-                        title,
-                        val['stock'],
-                        val['title'])
-                self.menu_items[key] = id
-
-
 EXAILE_AWN = None
 
 TRACK_CHANGE_CALLBACKS = (
@@ -128,7 +85,6 @@ def enable(exaile):
     EXAILE_AWN.exaile = exaile
     for signal in TRACK_CHANGE_CALLBACKS:
         xl.event.add_callback(EXAILE_AWN.set_cover, signal)
-    xl.event.add_callback(EXAILE_AWN.add_menu_items, 'gui_loaded')
     EXAILE_AWN.set_cover()
 
 def disable(exaile):

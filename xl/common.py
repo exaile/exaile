@@ -24,8 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import locale, logging, os, random, string, sys, threading, time, traceback, \
-    unicodedata, urlparse
+import locale, logging, os, random, string, sys, threading
+import time, traceback, unicodedata, urlparse, subprocess
 from functools import wraps
 from xl.nls import gettext as _
 

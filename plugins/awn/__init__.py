@@ -70,6 +70,9 @@ class ExaileAwn(object):
     def unset_cover(self):
         self.awn.UnsetTaskIconByXid(self.xid())
 
+    def add_handlers(self):
+        pass
+
     def cleanup(self):
         self.unset_cover()
 
@@ -96,6 +99,7 @@ class ExaileAwn(object):
             self.awn.SetTaskIconByXid(self.xid(), path)
 
     def add_menu_items(self, *args, **kwargs):
+        return
         if self.exaile is None or self.exaile.gui is None:
             return False
         title = self.exaile.gui.main.window.get_title()

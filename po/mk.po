@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-08-24 22:21+0000\n"
-"Last-Translator: Благој Најдов <blagoj.najdov@gmail.com>\n"
+"PO-Revision-Date: 2009-11-04 00:56+0000\n"
+"Last-Translator: Мартин Спасовски <shorteysk@gmail.com>\n"
 "Language-Team: Macedonian <mk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
-"X-Launchpad-Export-Date: 2009-09-23 09:40+0000\n"
+"X-Launchpad-Export-Date: 2009-11-04 08:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr ""
+msgstr "Автоматски"
 
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../xl/main.py:277
 msgid "Stop playback"
-msgstr ""
+msgstr "Стопирај плејбек"
 
 #: ../xl/main.py:279
 msgid "Play"
@@ -116,7 +116,7 @@ msgstr ""
 
 #: ../xl/main.py:348
 msgid "Other options"
-msgstr ""
+msgstr "Други поставки"
 
 #: ../xl/main.py:320
 msgid "Start new instance"
@@ -180,17 +180,17 @@ msgstr ""
 #. entire playlist
 #: ../xl/main.py:362
 msgid "Entire Library"
-msgstr ""
+msgstr "Цела библиотека"
 
 #: ../xl/main.py:368
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "Случаен %d"
 
 #: ../xl/main.py:376
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "Рејтинг > %d"
 
 #: ../xl/main.py:473
 msgid ""
@@ -280,7 +280,7 @@ msgstr ""
 #: ../plugins/notifyosd/__init__.py:68 ../plugins/notify/__init__.py:27
 #: ../plugins/minimode/mmwidgets.py:820
 msgid "Unknown"
-msgstr ""
+msgstr "Непозната"
 
 #: ../xl/playlist.py:387
 #, python-format

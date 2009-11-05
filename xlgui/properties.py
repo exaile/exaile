@@ -63,7 +63,7 @@ dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
                 '__loc': (_('Location'), 'text'),
                 '__basedir': (_('Base Directory'), 'prop:dir'),
                 '__modified': (_('Modified'), 'prop:datetime'),
-                '__playtime': (_('playtime'), 'IGNORE'),
+                '__playtime': (_('Playtime'), 'IGNORE'),
                 '__playcount': (_('Times Played'), 'text'),
                 '__last_played': (_('Last Played'), 'prop:datetime'),
                 }
@@ -208,7 +208,12 @@ class TrackPropertiesDialog(gobject.GObject):
         if track == (len(self.tracks) - 1):
             self.next_button.set_sensitive(False)
 
-        self.cur_track_label.set_text(_("Editing track %(cur)d of %(tot)d") % {'cur': self.current+1, 'tot': len(self.track_refs)})
+        self.cur_track_label.set_text(
+            _("Editing track %(current)d of %(total)d") % {
+                'current': self.current + 1,
+                'total': len(self.track_refs)
+            }
+        )
 
         t = self.tracks[track]
 

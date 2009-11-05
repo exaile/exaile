@@ -47,28 +47,16 @@
                     <property name="visible">True</property>
                     <property name="spacing">5</property>
                     <child>
-                      <object class="GtkLabel" id="label4">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">New tag:</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="padding">5</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkComboBoxEntry" id="new_tag_combo">
                         <property name="visible">True</property>
                       </object>
                       <packing>
-                        <property name="position">1</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="add_tag_button">
-                        <property name="label" translatable="yes">A_dd</property>
+                        <property name="label" translatable="yes">A_dd tag</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -77,7 +65,7 @@
                         <signal name="clicked" handler="on_add_tag_button_clicked"/>
                       </object>
                       <packing>
-                        <property name="position">2</property>
+                        <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
@@ -93,7 +81,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
-                        <property name="position">3</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                     <child>
@@ -103,7 +91,7 @@
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="position">4</property>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                     <child>
@@ -112,7 +100,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Set all tags to proper case</property>
+                        <property name="tooltip_text" translatable="yes">Uppercase first letter of all tags</property>
                         <property name="use_underline">True</property>
                         <signal name="clicked" handler="on_title_case_button_clicked"/>
                       </object>
@@ -120,7 +108,7 @@
                         <property name="expand">False</property>
                         <property name="fill">False</property>
                         <property name="padding">5</property>
-                        <property name="position">5</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                   </object>
@@ -209,7 +197,7 @@
                 <property name="visible">True</property>
                 <child>
                   <object class="GtkButton" id="prev_track_button">
-                    <property name="label" translatable="yes">_Prev</property>
+                    <property name="label" translatable="yes">_Previous</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -226,7 +214,7 @@
                 <child>
                   <object class="GtkLabel" id="current_track_label">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Editing track 1 of 10</property>
+                    <property name="label">Editing track 1 of 10</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>

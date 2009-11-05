@@ -203,9 +203,6 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.refresh_button.set_sensitive(False)
         self.refresh_button_image.set_from_animation(self.refresh_animation)
         self.loaded = False
-        h = open('/home/synic/test.html', 'w')
-        h.write(self.currentpage.get_html())
-        h.close()
         self.load_string(self.currentpage.get_html(), "text/html", "utf-8", "file://%s" % self.theme.path)
 
     def setup_dnd(self):
@@ -215,7 +212,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.connect('drag_begin', self.drag_begin)
         self.connect('drag_end', self.drag_end)
         self.connect('button_release_event', self.button_release)
-        #self.connect('button_press_event', self.button_press)
+        self.connect('button_press_event', self.button_press)
         self.connect('drag_data_get', self.drag_get_data)
 
     def button_press(self, widget, event):
@@ -304,9 +301,11 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             return True
         elif link[0] == 'artist':
             self.push(ArtistPage(self.theme,link[1]))
+            return True
         elif link[0] == 'tag':
             self.push(TagPage(self.theme, link[1]))
         elif link[0] == 'load':
+            return True
             self.refresh_button.set_sensitive(False)
             self.refresh_button_image.set_from_animation(self.refresh_animation)
             self.currentpage.async_update_field(link[1])
@@ -318,7 +317,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
                 if page_provider.base == link[0]:
                     self.push(page_provider(self.theme, link[1]))
 
-        if link[0] == 'album': return True
+        if link[0] in ('album', 'rate'): return True
         return False
 
     def _populate_popup(self, view, menu):
@@ -956,6 +955,7 @@ class PlayingPage(ArtistPage):
             for field in ['rating', 'track-info']:
                 if field in self.get_template_fields():
                     event.log_event('field_refresh', self, (field, str(self[field])), async=False)
+            return True
 
     def _title(self):
         return get_track_tag(self.track, 'title', 'unknown')

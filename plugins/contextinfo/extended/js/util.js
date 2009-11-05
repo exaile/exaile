@@ -4,6 +4,8 @@ function toggle(id){
 		elem.style.display = 'none';
 	else
 		elem.style.display = '';
+
+	return false;
 }
 
 function toggleElem(elem){
@@ -13,6 +15,8 @@ function toggleElem(elem){
 		elem.style.display = 'none';
 	else
 		elem.style.display = '';
+
+	return false;
 }
 
 function hideElem(elem){
@@ -20,6 +24,8 @@ function hideElem(elem){
 		elem = elem.nextSibling;
 	if(elem.style.display=='')
 		elem.style.display = 'none';
+
+	return false;
 }
 
 function doToggleElem(elem){
@@ -35,6 +41,8 @@ function doToggleElem(elem){
 		elem.style.display = '';
 		deleteCookie(id);
 	}
+
+	return false;
 }
 
 function makeTogglePanels(){
@@ -55,6 +63,8 @@ function toggleCD(elem){
 			elem.style.display = '';
 	}
 	while(elem.nextSibling)
+
+	return false;
 }
 
 function makeToggleCds(){
@@ -63,6 +73,8 @@ function makeToggleCds(){
 		albums[e].onclick = new Function("toggleCD(this);");
 		toggleCD(albums[e])
 	}
+
+	return false;
 }
 
 window.onload = function() {

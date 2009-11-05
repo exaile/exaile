@@ -305,10 +305,10 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         elif link[0] == 'tag':
             self.push(TagPage(self.theme, link[1]))
         elif link[0] == 'load':
-            return True
             self.refresh_button.set_sensitive(False)
             self.refresh_button_image.set_from_animation(self.refresh_animation)
             self.currentpage.async_update_field(link[1])
+            return True
         elif link[0] == 'http':
             self.currentpage=None
             return False

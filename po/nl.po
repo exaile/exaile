@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-11-01 19:57+0000\n"
-"Last-Translator: Emilien Klein <emilien+ubuntu@klein.st>\n"
+"PO-Revision-Date: 2009-11-04 17:26+0000\n"
+"Last-Translator: Yentl <y.v.t@scarlet.be>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-11-02 08:22+0000\n"
+"X-Launchpad-Export-Date: 2009-11-05 08:35+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -92,11 +92,11 @@ msgstr "Haal de waardering voor het huidige nummer op"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "Geef de positie binnen de huidige track als tijd weer"
 
 #: ../xl/main.py:308
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "Geef de vooruitgang binnen de huidige track weer als percentage"
 
 #: ../xl/main.py:339
 msgid "Volume options"
@@ -124,11 +124,11 @@ msgstr "Start een nieuwe instantie"
 
 #: ../xl/main.py:323
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "Start geminimaliseerd (naar de systeembalk, indien mogelijk)"
 
 #: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Zichtbaarheid van de GUI wisselen (indien mogelijk)"
 
 #: ../xl/main.py:325
 msgid ""
@@ -164,7 +164,7 @@ msgstr "Zet debuggen van xl.event aan. Genereert VEEL uitvoer"
 
 #: ../xl/main.py:336
 msgid "Filter event debug output"
-msgstr ""
+msgstr "Filter gebeurtenis debug uitvoer"
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
@@ -259,7 +259,7 @@ msgstr "  Nieuw nummer, albumhoes aan het ophalen."
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
-msgstr ""
+msgstr "Apparaatklasse ondersteunt geen dataverkeer."
 
 #: ../xl/settings.py:82
 msgid "Settings version is newer than current."
@@ -350,7 +350,7 @@ msgstr "Afspeellijst hernoemen"
 
 #: ../xlgui/main.py:262
 msgid "Custom playlist name:"
-msgstr ""
+msgstr "Aangepaste afspeellijst naam:"
 
 #: ../xlgui/main.py:262
 msgid "Save As..."
@@ -447,7 +447,7 @@ msgstr "_Opslaan als aangepaste afspeellijst"
 
 #: ../xlgui/menu.py:207
 msgid "_Save Changes To Playlist"
-msgstr ""
+msgstr "_Sla wijzigingen op naar afspeellijst"
 
 #: ../xlgui/menu.py:208
 msgid "_Save As..."
@@ -646,7 +646,7 @@ msgstr "Apparaat"
 
 #: ../xlgui/devices.py:74
 msgid "Driver"
-msgstr ""
+msgstr "Stuurprogramma"
 
 #: ../xlgui/collection.py:140
 msgid "Add a directory"
@@ -930,7 +930,7 @@ msgstr "De speellijstnaam die je hebt ingevuld word al gebruikt!"
 
 #: ../xlgui/panel/playlists.py:349
 msgid "New custom playlist name:"
-msgstr ""
+msgstr "Nieuwe aangepaste afspeellijstnaam:"
 
 #: ../xlgui/panel/playlists.py:350
 msgid "Add To New Playlist..."
@@ -1024,7 +1024,7 @@ msgstr "Diverse artiesten"
 #: ../xlgui/panel/device.py:115
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Overzetten naar %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:21
 msgid "Covers"
@@ -1104,7 +1104,7 @@ msgstr "Geselecteerde item omlaag verplaatsen"
 
 #: ../xlgui/prefs/widgets.py:538
 msgid "Action"
-msgstr ""
+msgstr "Actie"
 
 #: ../xlgui/prefs/widgets.py:546
 msgid "Shortcut"
@@ -1283,7 +1283,7 @@ msgstr "Laat altijd een tabbar zien"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:2
 msgid "Bottom"
-msgstr ""
+msgstr "Onderkant"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
@@ -1319,7 +1319,7 @@ msgstr "Bovenkant"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
-msgstr ""
+msgstr "Gebruik alfa transparantie (indien ondersteund)"
 
 #: ../data/glade/osd_window.glade.h:1
 msgid ""
@@ -1414,7 +1414,7 @@ msgstr "ALSA"
 
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Audio Daal:  "
 
 #: ../data/glade/playback_prefs_pane.glade.h:8
 msgid "Crossfade duration (ms):"
@@ -1462,7 +1462,7 @@ msgstr "Deze opties beïnvloeden alleen de verenigde engine."
 
 #: ../data/ui/playback_prefs_pane.glade.h:15
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Verenigd (onstabiel)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
@@ -1498,7 +1498,7 @@ msgstr "Updates Installeren"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "Installeer een plugin van een derde partij vanuit een bestand"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:8
 msgid "Install plugin file"
@@ -1534,7 +1534,7 @@ msgstr "Wis afspeellijst"
 
 #: ../data/ui/main.glade.h:5
 msgid "Click to view Queue"
-msgstr ""
+msgstr "Klik om wachtrij weer te geven"
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
@@ -1579,6 +1579,9 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Afspelen stoppen\n"
+"\n"
+"Rechtsklikken om te stoppen na het huidig nummer."
 
 #: ../data/glade/main.glade.h:23
 msgid "Track _properties"
@@ -1586,7 +1589,7 @@ msgstr "Nummereigenscha_ppen"
 
 #: ../data/glade/main.glade.h:25
 msgid "_Autosize"
-msgstr ""
+msgstr "_Autosize"
 
 #: ../data/glade/main.glade.h:26
 msgid "_Collection"
@@ -1626,11 +1629,11 @@ msgstr "_Wachtrij"
 
 #: ../data/glade/main.glade.h:36
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "Afspeellijst in willekeu_rige volgorde"
 
 #: ../data/glade/main.glade.h:37
 msgid "_Resizable"
-msgstr ""
+msgstr "Ve_rgrootbaar"
 
 #: ../data/glade/main.glade.h:38
 msgid "_Tools"
@@ -1646,7 +1649,7 @@ msgstr "Collectie Beheerder"
 
 #: ../data/glade/flatplaylist_panel.glade.h:1
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Alle Nummers toevoegen aan Afspeellijst"
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
@@ -1682,6 +1685,8 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Vernieuw collectie weergave\n"
+"(Houdt Shift ingedrukt om de collectie te herscannen)"
 
 #: ../data/ui/collection_panel.glade.h:12
 msgid "Year - Album"
@@ -1693,7 +1698,7 @@ msgstr "Jaar - Artiest"
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Vragen om aangepaste afspeellijsten op te slaan bij het sluiten"
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
@@ -2141,7 +2146,7 @@ msgstr "Wachtwoord:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
 msgid "Show Menuitem to toggle Submission"
-msgstr ""
+msgstr "Menuitem weergeven om Submission aan/uit te zetten"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
 msgid "Submit tracks using Audioscrobbler"
@@ -2249,7 +2254,7 @@ msgstr "Gebruik Media Iconen voor Pauzeren, Stoppen en Hervatten"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
 msgid "When GUI is Focused"
-msgstr ""
+msgstr "Wanneer de GUI in focus is"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
 msgid "API Key:"
@@ -2313,15 +2318,15 @@ msgstr "Basiskleur:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Verdonker de gespeelde sectie in plaats van een cursor te gebruiken"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
 msgid "Darkness level:"
-msgstr ""
+msgstr "Donkerheid niveau:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Geef enkel golfvorm weer, geen gemoed"
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
 msgid "Use color theme "
@@ -2329,39 +2334,41 @@ msgstr "Gebruik kleurenthema "
 
 #: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
 msgid "Use waveform style"
-msgstr ""
+msgstr "Gebruik golfvorm-stijl"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Extra versterking (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Extra versterking op alle bestanden toepassen"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
+"Terugval correctie voor bestanden die geen ReplayGain informatie bevatten"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Terugval correctie niveau (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
 msgstr ""
+"ReplayGain's per-album correctie preferreren boven de per-track correctie."
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:9
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "Per-album correctie preferreren"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Bescherm tegen ruis, ontstaan door over-versterking"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Gebruik clipping bescherming"
 
 #: ../plugins/podcasts/podcasts.glade.h:1
 msgid "Add Podcast"
@@ -2369,11 +2376,11 @@ msgstr "Podcast toevoegen"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:1
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Broodtekst</b>"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:2
 msgid "Both artist and album"
-msgstr ""
+msgstr "Zowel artist als album"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:4
 #, python-format
@@ -2398,7 +2405,7 @@ msgstr "Alleen artiest"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:7
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Weergegeven covers herschalen"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:8
 msgid "Summary"
@@ -2410,7 +2417,7 @@ msgstr "Lettertype:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
 msgid "Terminal Opacity:"
-msgstr ""
+msgstr "Terminal opaciteit:"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"
@@ -2430,7 +2437,7 @@ msgstr "Laat zien op alle desktops"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Track title format:"
-msgstr ""
+msgstr "Nummer titel formaat:"
 
 #: ../plugins/streamripper/streamripper.glade.h:1
 msgid "Relay Port:"
@@ -2448,6 +2455,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Speel muziek op gespecifieerde momenten en dagen.\n"
+"\n"
+"Noot dat als dat moment aanbreekt, Exaile zal veronderstellen dat je op de "
+"play-knop hebt gedrukt, dus zorg dat de muziek die je wilt horen in jouw "
+"afspeellijst staat"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2457,6 +2469,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Speel muziek op een specifiek moment.\n"
+"\n"
+"Noot dat als dat moment aanbreekt, Exaile zal veronderstellen dat je op de "
+"play-knop hebt gedrukt, dus zorg dat de muziek die je wilt horen in jouw "
+"afspeellijst staat"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
@@ -2466,6 +2483,7 @@ msgstr "Huidige nummer"
 msgid ""
 "Sets the currently playing status in Pidgin for services that support it."
 msgstr ""
+"Zet de huidige afspeelstatus in Pidgin voor diensten die dat ondersteunen."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
@@ -2477,21 +2495,24 @@ msgstr ""
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "CD Afspelen"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
 msgstr ""
+"Voegt ondersteuning toe om audio CDs te kunnen spelen.\n"
+"Vereist python-cddb om tags op te zoeken."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
-msgstr ""
+msgstr "Creëert een MPRIS D-Bus object om Exaile te besturen"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr ""
+"Staat opslaan/verdergaan van bladwijzer-posities in audiobestanden toe."
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -2510,6 +2531,12 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Deze plugin geeft notificatiebubbels weer wanneer een nummer "
+"gespeeld/gestopt/verdergezet wordt, met ofwel de cover van het nummer, ofwel "
+"een media icoon om de laatste actie aan te duiden.\n"
+"\n"
+"Vereisten: python-notify\n"
+"Aanbevolen: notify-osd"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -2532,17 +2559,19 @@ msgstr "Last.fm Dynamisch Zoeken"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "De Last.fm backend voor dynamische afspeellijsten"
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Gemoedsbalk"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Vervangt de standaard vooruitgangsbalk met een gemoedsbalk.\n"
+"Vereisten: moodbar"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
@@ -2554,7 +2583,7 @@ msgstr "Een plugin voor iPodondesteuning"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr ""
+msgstr "Schakelt ReplayGain ondersteuning in"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
@@ -2598,61 +2627,65 @@ msgstr ""
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "Globale sneltoetsen gebruikmakende van xlib (mmkeys.so)"
 
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
-msgstr ""
+msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "Plugin om lyrics op te halen van lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "USB Massa Opslag Media Speler Ondersteuning"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Ondersteuning om toegang te verkrijgen tot draagbare media spelers die het "
+"USB Massa Opslag protocol gebruiken"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
-msgstr ""
+msgstr "Geeft een notificatie wanneer het afspelen van een track begint"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "Zoek en luister naar audioboeken van Librivox.org."
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
+"Voorziet een IPython console die gebruikt kan worden om Exaile te "
+"manipuleren."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Compacte modus voor Exaile met een configureerbare interface"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr ""
+msgstr "Tag Covers"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
-msgstr ""
+msgstr "Zoek track tags voor covers"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Contextuele informatie"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -2660,20 +2693,26 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Geeft een verscheidenheid aan informatie weer over de track die nu aan het "
+"spelen is.\n"
+"Vereisten: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (ook "
+"bekend als PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Maakt het mogelijk om streams op te slaan met streamripper.\n"
+"Vereisten: streamripper"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr ""
+msgstr "Plugin om lyrics op te halen van lyricwiki.org"
 
 #, python-format
 #~ msgid ""

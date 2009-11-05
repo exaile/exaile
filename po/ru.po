@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-11-04 08:11+0000\n"
+"PO-Revision-Date: 2009-11-04 18:23+0000\n"
 "Last-Translator: valdmaar9@gmail.com <valdmaar9@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-11-04 08:28+0000\n"
+"X-Launchpad-Export-Date: 2009-11-05 08:35+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -266,7 +266,7 @@ msgstr "  Новая песня, загружаем обложку."
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
-msgstr "Класс прибора не поддерживает передачу."
+msgstr "Класс устройства не поддерживает передачу"
 
 #: ../xl/settings.py:82
 msgid "Settings version is newer than current."

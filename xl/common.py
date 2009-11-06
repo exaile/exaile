@@ -372,4 +372,18 @@ def open_file(path):
     else:
         subprocess.Popen(["xdg-open", path])
 
+def open_file_directory(path):
+    """
+        Opens the parent directory of a file, selecting the file if possible.
+    """
+    import gio
+    f = gio.File(path)
+    platform = sys.platform
+    if platform == 'win32':
+        subprocess.Popen(["explorer", "/select,", f.get_parse_name()])
+    elif platform == 'darwin':
+        subprocess.Popen(["open", f.get_parent().get_parse_name()])
+    else:
+        subprocess.Popen(["xdg-open", f.get_parent().get_parse_name()])
+
 # vim: et sts=4 sw=4

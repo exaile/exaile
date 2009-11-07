@@ -57,7 +57,6 @@ EXAILE = None
 PANELS = {}
 MENU_ITEM = None
 AVAHI_INTERFACE = None
-#CONNECTIONS = {}
 
 def new_share(conn, menu):
     if menu:
@@ -110,13 +109,6 @@ def manual_connect(widget, exaile):
             try:
                 port = str(loc.split(':')[1])
             except IndexError:
-#                dialog = gtk.MessageDialog(exaile.gui.main.window,
-#                gtk.DIALOG_MODAL, gtk.MESSAGE_INFO, gtk.BUTTONS_OK,
-#                _("""You must supply an IP address and port number, in the format
-#    <ip address>:<port>"""))
-#                dialog.run()
-#                dialog.destroy()
-#                continue
                 port = 3689
                 
             nstr = 'custom%s%s' % (address, port)
@@ -177,7 +169,6 @@ class DaapAvahiInterface: #derived from python-daap/examples
             avahi.DBUS_INTERFACE_SERVICE_BROWSER)
         self.browser.connect_to_signal('ItemNew', self.new_service)
         self.browser.connect_to_signal('ItemRemove', self.remove_service)
- #       self.panel = panel
 
 class DaapConnection(object):
     """
@@ -226,7 +217,7 @@ class DaapConnection(object):
         self.session = None
         self.tracks = None
         self.database = None
-        self.all = []#library.TrackData()
+        self.all = []
         self.connected = False
 
     def reload(self):
@@ -270,50 +261,38 @@ class DaapConnection(object):
             Converts the DAAP track database into DaapTracks.
         """
         # Convert DAAPTrack's attributes to media.Track's.
-#        eqiv = {'title':'minm','artist':'asar','album':'asal'}
-#        eqiv = {'title':'minm','artist':'asar','album':'asal',
-#            'genre':'asgn','track':'astn','enc':'asfm',
-#            'bitrate':'asbr'}
+        eqiv = {'title':'minm','artist':'asar','album':'asal','track':'astn',}
+#            'genre':'asgn','enc':'asfm','bitrate':'asbr'}
 
-
-# test removing all track stuph
-        time.sleep(12)
-        return
         for tr in self.tracks:
-            if tr:
-                temp = track.Track()
+            if tr is not None:
+                #http://<server>:<port>/databases/<dbid>/items/<id>.<type>?session-id=<sessionid>
                 
-#                for field in eqiv.keys():
-#                    try:
-#                        temp[field] = u'%s'%tr.atom.getAtom(eqiv[field])
-#                        if temp[field] == "None":
-#                            temp[field] = "Unknown"
-#                    except:
-#                        temp[field] = "Unknown"
+                uri = "http://%s:%s/databases/%s/items/%s.%s?session-id=%s" % \
+                    (self.server, self.port, self.database.id, tr.id,
+                    tr.type, self.session.sessionid)
 
-                temp['title'] = tr.name
-                temp['artist'] = tr.artist
-                temp['album'] = tr.album
+                temp = track.Track(uri)
+                
+
+                for field in eqiv.keys():
+                    try:
+                        temp.tags[field] = [u'%s'%tr.atom.getAtom(eqiv[field])]
+                        if temp.tags[field] == "None":
+                            temp.tags[field] = ["Unknown"]
+                    except:
+                        temp.tags[field] = ["Unknown"]
+
                 
                 #TODO: convert year (asyr) here as well, what's the formula?
                 try:
-#                    temp["__length"] = tr.atom.getAtom('astm') / 1000
-                    temp["__length"] = tr.time / 1000
+                    temp.tags["__length"] = tr.atom.getAtom('astm') / 1000
+#                    temp.tags["__length"] = tr.time / 1000
                 except:
-                    temp["__length"] = 0
-#                temp['type'] = getattr(tr, 'type')
-#                temp['daapid'] = getattr(tr, 'id')
-#                temp['connection'] = self
-    #http://<server>:<port>/databases/<dbid>/items/<id>.<type>?session-id=<sessionid>
-                temp.set_loc("http://%s:%s/databases/%s/items/%s.%s?session-id=%s" % \
-                    (self.server, self.port, self.database.id, tr.id,
-                    tr.type, self.session.sessionid) )
-#                    (self.server, self.port, self.database.id, temp['daapid'][0],
-#                    temp['type'][0], self.session.sessionid) )
-##                temp.set_rating(2) #bad, but it works.
+                    temp.tags["__length"] = 0
+
                 self.all.append(temp)
 
-#        APP.plugin_tracks[plugins.name(__file__)] = self.all
 
     @common.threaded
     def get_track(self, track_id, filename):
@@ -426,6 +405,7 @@ class NetworkPanel(CollectionPanel):
         if count > 0:
 #            gobject.idle_add(self.collection.add_tracks, self.daap_share.all)
             self.collection.add_tracks(self.daap_share.all)
+        gobject.idle_add(self.load_tree)
         print 'done %f' % (time.time() - t)
         
 

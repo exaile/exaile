@@ -103,6 +103,8 @@ class ExaileAwn(object):
         elif self.exaile.player.current is None:
             log.debug("Player stopped, removing AWN cover")
             self.unset_cover()
+        elif not self.cover_display:
+            self.unset_cover()
         else:
             try:
                 cover_full_url = self.exaile.covers.get_cover(
@@ -145,6 +147,10 @@ class ExaileAwn(object):
             return False
         self._set_timer(int(self.exaile.player.get_progress() * 100))
         return True
+
+    def on_option_set(self, event, settings, option):
+        if option == 'plugin/awn/cover_display':
+            self.set_cover()
             
 
 
@@ -171,6 +177,7 @@ def enable(exaile):
             'playback_player_end')
     xl.event.add_callback(EXAILE_AWN.toggle_pause_progress,
             'playback_toggle_pause')
+    xl.event.add_callback(EXAILE_AWN.on_option_set, 'option_set')
     EXAILE_AWN.set_cover()
 
 def disable(exaile):

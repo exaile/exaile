@@ -59,95 +59,17 @@ if DAAP:
 #PLUGIN_ICON = gtk.Button().render_icon('gtk-network', gtk.ICON_SIZE_MENU)
 
 # Globals Warming
-PANELS = {}
 MENU_ITEM = None
-AVAHI_INTERFACE = None
+MANAGER = None
 
-def new_share(conn, exaile, menu):
-    '''
-        This function is called by Avahi when a new share is detected
-    on the network.  It adds the share to the Connect menu.
-    '''
-    if menu:
-        menu_item = gtk.MenuItem(conn.name)
-        menu_item.connect('activate', lambda x : connect_share(conn, exaile.gui.main.window) )
-        menu.append_item(menu_item)
-        menu_item.show()
-    
-def remove_share(conn, menu):
-    '''
-        This function is called by Avahi when a share is removed
-        from the network.  It removes the menu entry for the share.
-    '''
-    
-    label = conn.name
-    if menus:
-        item = [x for x in menus.get_children() if (x.get_name() == 'GtkMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == label)]
-        if len(item) > 0:
-            item[0].destroy()
-
-
-def connect_share(conn, parent):
-    '''
-        This function is called when a user wants to connec to
-    a DAAP share.  It creates a new panel for the share, and 
-    requests a track list.
-    '''
-    global PANELS
-    
-    conn.connect()
-    library = DAAPLibrary(conn)
-    panel = NetworkPanel(parent, library)
-#    cst = CollectionScanThread(None, panel.net_collection, panel)
-#    cst.start()
-    panel.refresh()             # threaded
-    xlgui.controller().add_panel(*panel.get_panel())
-    PANELS[conn.name] = panel
-    
-def disconnect_share(conn):
-    '''
-        This function is called to disconnect a previously connected
-    share.  It calls the DAAP disconnect, and removes the panel.
-    '''
-    global PANELS
-
-    panel = PANELS[conn.name]
-#    panel.library.daap_share.disconnect()
-    panel.daap_share.disconnect()
-#    panel.net_collection.remove_library(panel.library)
-    xlgui.controller().remove_panel(panel.get_panel()[0])
-    del PANELS[conn.name]
-
-def manual_connect(widget, exaile):
-    '''
-        This function is called when the user selects the manual 
-    connection option from the menu.  It requests a host/ip to connect
-    to.
-    '''
-    dialog = commondialogs.TextEntryDialog(
-        _("Enter IP address and port for share"),
-        _("Enter IP address and port."))
-    resp = dialog.run()
-        
-    if resp == gtk.RESPONSE_OK:
-        loc = dialog.get_value()
-        address = str(loc.split(':')[0])
-        try:
-            port = str(loc.split(':')[1])
-        except IndexError:
-            port = 3689     # if no port specified, use default DAAP port
-                
-        nstr = 'custom%s%s' % (address, port)
-#        print nstr
-        conn = DaapConnection(loc, address, port)
-        connect_share(conn, exaile.gui.main.window)
-            
-
-
-class DaapAvahiInterface: #derived from python-daap/examples
+class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
     """
-        Handles detection of DAAP shares via Avahi.
+        Handles detection of DAAP shares via Avahi and manages the menu showing the shares.
+    Fires a "connect" signal when a menu item is clicked.
     """
+    __gsignals__ = {
+                    'connect' : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
+                                    ( gobject.TYPE_PYOBJECT, ) ) }
 
     def new_service(self, interface, protocol, name, type, domain, flags):
         interface, protocol, name, type, domain, host, aprotocol, address, port, txt, flags = self.server.ResolveService(interface, protocol, name, type, domain, avahi.PROTO_UNSPEC, dbus.UInt32(0))
@@ -157,11 +79,12 @@ class DaapAvahiInterface: #derived from python-daap/examples
         logger.info("DAAP: Found %s." % name)
         #Use all available info in key to avoid name conflicts.
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
+        
         if name in self.services:   # using only name for conflicts (for multiple adapters)
             return
-        conn = DaapConnection(name, address, port)
-        self.services[name] = conn
-        new_share(conn, self.exaile, self.menu)
+
+        self.services[name] = (address, port)
+        self.new_share_menu_item(name)
 
     def remove_service(self, interface, protocol, name, type, domain, flags):
         """
@@ -169,15 +92,46 @@ class DaapAvahiInterface: #derived from python-daap/examples
         """
         logger.info("DAAP: Lost %s." % name)
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
-        conn = self.services[name]
-        remove_share(conn, self.menu)        
-        del self.services[name]
+
+        if name in self.services:
+            self.remove_share_menu_item(name)        
+            del self.services[name]
+
+    def new_share_menu_item(self, name):
+        '''
+            This function is called by Avahi when a new share is detected
+        on the network.  It adds the share to the Connect menu.
+        '''
+        
+        if self.menu:
+            menu_item = gtk.MenuItem(name)
+            menu_item.connect('activate', self.clicked, name )
+            self.menu.append_item(menu_item)
+            menu_item.show()
+        
+    def remove_share_menu_item(self, name):
+        '''
+            This function is called by Avahi when a share is removed
+            from the network.  It removes the menu entry for the share.
+        '''
+        
+        if self.menu:
+            item = [x for x in self.get_children() if (x.get_name() == 'GtkMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == name)]
+            if len(item) > 0:
+                item[0].destroy()
+                
+    def clicked(self, menu_item, name):
+        '''
+            This function is called in response to a menu_item click.  
+        Fire away.
+        '''
+        gobject.idle_add(self.emit, "connect", (name,)+self.services[name])
 
     def __init__(self, exaile, menu):
         """
             Sets up the avahi listener.
         """
-        self.exaile = exaile
+        gobject.GObject.__init__(self)
         self.services = {}
         self.menu = menu
         self.bus = dbus.SystemBus()
@@ -191,6 +145,99 @@ class DaapAvahiInterface: #derived from python-daap/examples
             avahi.DBUS_INTERFACE_SERVICE_BROWSER)
         self.browser.connect_to_signal('ItemNew', self.new_service)
         self.browser.connect_to_signal('ItemRemove', self.remove_service)
+
+
+class DaapManager:
+    '''
+        DaapManager is a class that manages DaapConnections, both manual 
+    and avahi-generated.  
+    '''
+    def __init__(self, exaile, menu, avahi):
+        '''
+            Init!  Create manual menu item, and connect to avahi signal.
+        '''
+        self.exaile = exaile
+        self.avahi = avahi
+        self.panels = {}
+        
+        menu_item = gtk.MenuItem(_('Manually...'))
+        menu_item.connect('activate', self.manual_connect)
+        menu.append_item(menu_item)
+
+        
+        if avahi is not None:
+            avahi.connect("connect", self.connect_share)
+
+    def connect_share(self, obj, (name, addr, port)):
+        '''
+            This function is called when a user wants to connec to
+        a DAAP share.  It creates a new panel for the share, and 
+        requests a track list.
+        '''
+        
+        conn = DaapConnection(name, addr, port)
+            
+        conn.connect()
+        library = DaapLibrary(conn)
+        panel = NetworkPanel(self.exaile.gui.main.window, library, self)
+    #    cst = CollectionScanThread(None, panel.net_collection, panel)
+    #    cst.start()
+        panel.refresh()             # threaded
+        xlgui.controller().add_panel(*panel.get_panel())
+        self.panels[name] = panel
+        
+    def disconnect_share(self, name):
+        '''
+            This function is called to disconnect a previously connected
+        share.  It calls the DAAP disconnect, and removes the panel.
+        '''
+
+        panel = self.panels[name]
+    #    panel.library.daap_share.disconnect()
+        panel.daap_share.disconnect()
+    #    panel.net_collection.remove_library(panel.library)
+        xlgui.controller().remove_panel(panel.get_panel()[0])
+        del self.panels[name]
+
+    def manual_connect(self, widget):
+        '''
+            This function is called when the user selects the manual 
+        connection option from the menu.  It requests a host/ip to connect
+        to.
+        '''
+        dialog = commondialogs.TextEntryDialog(
+            _("Enter IP address and port for share"),
+            _("Enter IP address and port."))
+        resp = dialog.run()
+            
+        if resp == gtk.RESPONSE_OK:
+            loc = dialog.get_value()
+            address = str(loc.split(':')[0])
+            try:
+                port = str(loc.split(':')[1])
+            except IndexError:
+                port = 3689     # if no port specified, use default DAAP port
+                    
+            nstr = 'custom%s%s' % (address, port)
+    #        print nstr
+            conn = DaapConnection(loc, address, port)
+            self.connect_share((loc, address, port))
+            
+            
+    def close(self, remove=False):
+        '''
+            This function disconnects active DaapConnections, and optionally
+        removes the panels from the UI.
+        '''
+        # disconnect active shares
+        for panel in self.panels.values():
+            panel.daap_share.disconnect()
+            
+            # there's no point in doing this if we're just shutting down, only on
+            # disable
+            if remove:
+                xlgui.controller().remove_panel(panel.get_panel()[0])
+
 
 class DaapConnection(object):
     """
@@ -333,7 +380,7 @@ class DaapConnection(object):
 You must stop playback before downloading songs."""))
 
 
-class DAAPLibrary(collection.Library):
+class DaapLibrary(collection.Library):
     '''
         Library subclass for better management of collection??  
     Or something to do with devices or somesuch.  Ask Aren.
@@ -392,7 +439,7 @@ class NetworkPanel(CollectionPanel):
     """
         A panel that displays a collection of tracks from the DAAP share.
     """
-    def __init__(self, parent, library):
+    def __init__(self, parent, library, mgr):
         """
             Expects a parent gtk.Window, and a daap connection.
         """
@@ -408,13 +455,13 @@ class NetworkPanel(CollectionPanel):
         self.connect_id = None
         
         # Throw a menu entry on the context menu that can disconnect the DAAP share
-        self.menu.append(_("Disconnect"), lambda x, y: disconnect_share(library.daap_share))
+        self.menu.append(_("Disconnect"), lambda x, y: mgr.disconnect_share(self.name))
 
     @common.threaded
     def refresh(self):
-    '''
-        This is called to refresh the track list.
-    '''
+        '''
+            This is called to refresh the track list.
+        '''
         # Since we don't use a ProgressManager/Thingy, we have to call these w/out
         #  a ScanThread
         self.net_collection.rescan_libraries()
@@ -463,7 +510,7 @@ def __enb(eventname, exaile, wat):
     gobject.idle_add(_enable, exaile)
     
 def _enable(exaile):
-    global MENU_ITEM
+    global MENU_ITEM, MANAGER
     
     if not DAAP:
         raise Exception("DAAP could not be imported.")
@@ -471,40 +518,42 @@ def _enable(exaile):
 #    if not AVAHI:
 #        raise Exception("AVAHI could not be imported.")
         
-    tools = exaile.gui.builder.get_object('tools_menu')
-    MENU_ITEM = gtk.MenuItem(_('Connect to DAAP...'))
     
     menu = guiutil.Menu()
-    menu_item = gtk.MenuItem(_('Manually...'))
-    menu_item.connect('activate', manual_connect, exaile)
-    menu.append_item(menu_item)
 
+    tools = exaile.gui.builder.get_object('tools_menu')
+    MENU_ITEM = gtk.MenuItem(_('Connect to DAAP...'))
     MENU_ITEM.set_submenu(menu)
     tools.append(MENU_ITEM)
     MENU_ITEM.show_all()
-    
+
     if AVAHI:
-        AVAHI_INTERFACE = DaapAvahiInterface(exaile, menu)
+        avahi_interface = DaapAvahiInterface(exaile, menu)
     else:
+        avahi_interface = None
         logger.warn('AVAHI could not be imported, you will not see broadcast shares.')
+
+    MANAGER = DaapManager(exaile, menu, avahi_interface)
+
+    
 
 def teardown(exaile):
     '''
         Exaile Shutdown.
     '''
-    for x in PANELS:
-        disconnect_share(PANELS[x].library.daap_share)
+    if MANAGER is not None:
+        MANAGER.close()
            
 
 def disable(exaile):
     '''
         Plugin Disabled.
     '''
-    global MENU_ITEM, PANELS
-    
+    global MENU_ITEM
     # disconnect from active shares
-    for x in PANELS:
-        disconnect_share(PANELS[x].library.daap_share)
+    if MANAGER is not None:
+#        MANAGER.clear()
+        MANAGER.close(True)
         
     
     if MENU_ITEM:

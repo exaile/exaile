@@ -77,7 +77,7 @@ def save_to_m3u(playlist, path):
         handle.write("#PLAYLIST: %s\n" % playlist.get_name())
 
     for track in playlist:
-        leng = float(track['__length'])
+        leng = round(float(track.get('__length', -1)))
         if leng < 1:
             leng = -1
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
@@ -152,10 +152,10 @@ def save_to_pls(playlist, path):
     for track in playlist:
         handle.write("File%d=%s\n" % (count, track.get_loc_for_io()))
         handle.write("Title%d=%s\n" % (count, track['title']))
-        if track['__length'] < 1:
-            handle.write("Length%d=%d\n\n" % (count, -1))
-        else:
-            handle.write("Length%d=%d\n\n" % (count, float(track['__length'])))
+        length = round(float(track.get('__length', -1)))
+        if length < 1:
+            length = -1
+        handle.write("Length%d=%d\n\n" % (count, length))
         count += 1
 
     handle.write("Version=2")

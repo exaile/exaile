@@ -33,12 +33,14 @@ name = _("AWN")
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "awn_prefs_pane.glade")
 
+
 class OverlayDisplay(widgets.ComboPrefsItem):
     default = 'progress'
     name = 'plugin/awn/overlay'
     map = ['progress', 'text', 'none']
     def __init__(self, prefs, widget):
         widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+
 
 class CoverDisplay(widgets.CheckPrefsItem):
     default = True

@@ -30,7 +30,7 @@ try:
     from daap import DAAPClient, DAAPError
     DAAP = True
 except Exception as inst:
-    print 'DAAP exception: %s' % inst
+    logger.warn('DAAP exception: %s' % inst)
     DAAP = False
 
 #detect authoriztion support in python-daap
@@ -48,20 +48,19 @@ try:
     import avahi
     AVAHI = True
 except Exception as inst:
-    print 'AVAHI exception: %s' % inst
+    logger.warn('AVAHI exception: %s' % inst)
     AVAHI = False
 
 #PLUGIN_ICON = gtk.Button().render_icon('gtk-network', gtk.ICON_SIZE_MENU)
 
-EXAILE = None
 PANELS = {}
 MENU_ITEM = None
 AVAHI_INTERFACE = None
 
-def new_share(conn, menu):
+def new_share(conn, exaile, menu):
     if menu:
         menu_item = gtk.MenuItem(conn.name)
-        menu_item.connect('activate', lambda x : connect_share(conn) )
+        menu_item.connect('activate', lambda x : connect_share(conn, exaile.gui.main.window) )
         menu.append_item(menu_item)
         menu_item.show()
     
@@ -72,12 +71,12 @@ def remove_share(conn, menu):
         if len(item) > 0:
             item[0].destroy()
 
-def connect_share(conn):
+def connect_share(conn, parent):
     global PANELS
     
     conn.connect()
 #    library = DAAPLibrary(conn)
-    panel = NetworkPanel(EXAILE.gui.main.window, conn)
+    panel = NetworkPanel(parent, conn)
 #    panel.net_collection.rescan_libraries()
 #    cst = CollectionScanThread(None, panel.net_collection, panel)
 #    cst.start()
@@ -97,28 +96,24 @@ def disconnect_share(conn):
     del PANELS[conn.name]
 
 def manual_connect(widget, exaile):
-    while 1:
-        dialog = commondialogs.TextEntryDialog(
-            _("Enter IP address and port for share"),
-            _("Enter IP address and port."))
-        resp = dialog.run()
+    dialog = commondialogs.TextEntryDialog(
+        _("Enter IP address and port for share"),
+        _("Enter IP address and port."))
+    resp = dialog.run()
         
-        if resp == gtk.RESPONSE_OK:
-            loc = dialog.get_value()
-            address = str(loc.split(':')[0])
-            try:
-                port = str(loc.split(':')[1])
-            except IndexError:
-                port = 3689
+    if resp == gtk.RESPONSE_OK:
+        loc = dialog.get_value()
+        address = str(loc.split(':')[0])
+        try:
+            port = str(loc.split(':')[1])
+        except IndexError:
+            port = 3689
                 
-            nstr = 'custom%s%s' % (address, port)
-#            print nstr
-            conn = DaapConnection(loc, address, port)
-            connect_share(conn)
-            break
+        nstr = 'custom%s%s' % (address, port)
+#        print nstr
+        conn = DaapConnection(loc, address, port)
+        connect_share(conn, exaile.gui.main.window)
             
-        elif resp == gtk.RESPONSE_CANCEL:
-            break
 
 
 class DaapAvahiInterface: #derived from python-daap/examples
@@ -131,31 +126,32 @@ class DaapAvahiInterface: #derived from python-daap/examples
         """
             Called when a new share is found.
         """
-        print "DAAP: Found %s." % name
+        logger.info("DAAP: Found %s." % name)
         #Use all available info in key to avoid name conflicts.
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
         if name in self.services:
             return
         conn = DaapConnection(name, address, port)
         self.services[name] = conn
-        new_share(conn, self.menu)
+        new_share(conn, self.exaile, self.menu)
 #        self.panel.update_connections()
 
     def remove_service(self, interface, protocol, name, type, domain, flags):
         """
             Called when the connection to a share is lost.
         """
-        print "DAAP: Lost %s." % name
+        logger.info("DAAP: Lost %s." % name)
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
         conn = self.services[name]
         remove_share(conn, self.menu)        
         del self.services[name]
 #        self.panel.update_connections()
 
-    def __init__(self, menu):
+    def __init__(self, exaile, menu):
         """
             Sets up the avahi listener.
         """
+        self.exaile = exaile
         self.services = {}
         self.menu = menu
         self.bus = dbus.SystemBus()
@@ -200,11 +196,11 @@ class DaapConnection(object):
 #        except DAAPError:
         except Exception as inst:
             #print 's:%s, p:%s (%s, %s)' % (self.server, self.port, type(self.server), type(self.port))
-            print 'Exception: %s' % inst
+            logger.warn(print 'Exception: %s' % inst)
             self.auth = True
             self.connected = False
 #            raise DAAPError
-            raise Exception
+            raise Exception, inst
 
     def disconnect(self):
         """
@@ -227,13 +223,11 @@ class DaapConnection(object):
         self.tracks = None
         self.database = None
         self.all = []
-        t = time.time()
-        print 'getting db'
         self.get_database()
-        print '%f\nconversion' % (time.time()-t)
+        #print 'conversion'
         t = time.time()
         self.convert_list()
-        print '%f, %d tracks' % (time.time()-t, len(self.all))
+        #print '%f, %d tracks' % (time.time()-t, len(self.all))
 
 
     def get_database(self):
@@ -248,7 +242,6 @@ class DaapConnection(object):
         """
             Get the track list from a DAAP database
         """
-        print 'getting trak'
         if reset or self.tracks == None:
             if self.database is None:
                 self.database = self.session.library()
@@ -310,56 +303,50 @@ class DaapConnection(object):
 You must stop playback before downloading songs."""))
 
 
-#class DAAPLibrary(collection.Library):
-#    def __init__(self, daap_share, col=None):
-##        location = "http://%s:%s/databasese/%s/items/" % (daap_share.server, daap_share.port, daap_share.database.id)
-#        location = "http://%s:%s/" % (daap_share.server, daap_share.port)
-#        collection.Library.__init__(self, location)
-#        self.active_share = daap_share
-#        self.collection = collection
+class DAAPLibrary(collection.Library):
+    def __init__(self, daap_share, col=None):
+#        location = "http://%s:%s/databasese/%s/items/" % (daap_share.server, daap_share.port, daap_share.database.id)
+        location = "http://%s:%s/" % (daap_share.server, daap_share.port)
+        collection.Library.__init__(self, location)
+        self.daap_share = daap_share
+        self.collection = collection
 
 #    @common.threaded        
-#    def rescan(self, notify_interval=None):
-#    
-#        if self.collection is None:
-#            return True
-#            
-#        if self.scanning:
-#            return
-#            
-#        logger.info('Scanning library: %s' % self.active_share.name)
-#        self.scanning = True
-#        db = self.collection
-#        
-#        print 'ref'
-#        self.active_share.reload()
-#        print 'post rel'
-#        if self.active_share.all:
-#            count = len(self.active_share.all)
-#        else:
-#            count = 0
-#            
-#       
-#        print 'addin'
-#        # empty colleciton
-##        self.collection.remove_tracks(self.net_collection.tracks.itervalues())
-#        
-#        if count > 0:
-#            self.collection.add_tracks(self.active_share.all)
-#        print 'done'
-#        
-#        
-#        if notify_interval is not None:
-#            event.log_event('tracks_scanned', self, count)
-#            
-#        # track removal?
-#        
-#    def _count_files(self):
-#        count = 0
-#        if self.active_share:
-#            count = len(self.active_share.all)
-#            
-#        return count
+    def rescan(self, notify_interval=None):
+    
+        if self.collection is None:
+            return True
+            
+        if self.scanning:
+            return
+            
+        logger.info('Scanning library: %s' % self.active_share.name)
+        self.scanning = True
+        db = self.collection
+        
+        self.active_share.reload()
+        print 'post rel'
+        if self.active_share.all:
+            count = len(self.active_share.all)
+        else:
+            count = 0
+            
+       
+        if count > 0:
+            self.collection.add_tracks(self.active_share.all)
+        
+        
+        if notify_interval is not None:
+            event.log_event('tracks_scanned', self, count)
+            
+        # track removal?
+        
+    def _count_files(self):
+        count = 0
+        if self.active_share:
+            count = len(self.active_share.all)
+            
+        return count
 
 
 class NetworkPanel(CollectionPanel):
@@ -368,13 +355,12 @@ class NetworkPanel(CollectionPanel):
     """
     def __init__(self, parent, daap_share):
         """
-            Expects the main exaile object, and a glade xml object.
+            Expects a parent gtk.Window, and a daap connection.
         """
         
         self.name = daap_share.name
         self.daap_share = daap_share
         self.net_collection = collection.Collection(self.name)
-#        event.remove_callback(self.refresh_tags_in_tree, 'track_tags_changed')
 #        self.net_collection.add_library(library)
         CollectionPanel.__init__(self, parent, self.net_collection, self.name, _show_collection_empty_message=False)
 
@@ -390,23 +376,17 @@ class NetworkPanel(CollectionPanel):
 
     @common.threaded
     def refresh(self):
-        print 'ref'
         self.daap_share.reload()
-        print 'post rel'
             
         if self.daap_share.all:
             count = len(self.daap_share.all)
         else:
             count = 0
-        print 'addin %d' %count
-        # empty colleciton
-#        self.collection.remove_tracks(self.net_collection.tracks.itervalues())
-        t = time.time()
+        
         if count > 0:
 #            gobject.idle_add(self.collection.add_tracks, self.daap_share.all)
             self.collection.add_tracks(self.daap_share.all)
-        gobject.idle_add(self.load_tree)
-        print 'done %f' % (time.time() - t)
+            gobject.idle_add(self.load_tree)
         
 
 
@@ -449,14 +429,13 @@ def __enb(eventname, exaile, wat):
     gobject.idle_add(_enable, exaile)
     
 def _enable(exaile):
-    global MENU_ITEM, EXAILE
-    EXAILE = exaile
+    global MENU_ITEM
     
     if not DAAP:
         raise Exception("DAAP could not be imported.")
 
-    if not AVAHI:
-        raise Exception("AVAHI could not be imported.")
+#    if not AVAHI:
+#        raise Exception("AVAHI could not be imported.")
         
     tools = exaile.gui.builder.get_object('tools_menu')
     MENU_ITEM = gtk.MenuItem(_('Connect to DAAP...'))
@@ -470,7 +449,10 @@ def _enable(exaile):
     tools.append(MENU_ITEM)
     MENU_ITEM.show_all()
     
-    AVAHI_INTERFACE = DaapAvahiInterface(menu)
+    if AVAHI:
+        AVAHI_INTERFACE = DaapAvahiInterface(exaile, menu)
+    else:
+        logger.warn('AVAHI could not be imported, you will not see broadcast shares.')
 
 def teardown(exaile):
     for x in PANELS:

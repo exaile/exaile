@@ -122,6 +122,7 @@ class ExaileAwn(object):
         if self.overlay == 'progress':
             self.awn.SetProgressByXid(self.xid(), percent)
         elif self.overlay == 'text':
+            self.awn.SetProgressByXid(self.xid(), 100)
             if percent != 100 and percent != 0:
                 self.awn.SetInfoByXid(self.xid(), "%d%%" % percent)
             else:
@@ -151,6 +152,8 @@ class ExaileAwn(object):
     def on_option_set(self, event, settings, option):
         if option == 'plugin/awn/cover_display':
             self.set_cover()
+        elif option == 'plugin/awn/overlay':
+            self.update_timer()
             
 
 

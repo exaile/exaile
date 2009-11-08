@@ -63,5 +63,20 @@
   </object>
   <object class="GtkAction" id="action1"/>
   <object class="GtkToggleAction" id="toggleaction1"/>
-  <object class="GtkListStore" id="overlay_liststore"/>
+  <object class="GtkListStore" id="overlay_liststore">
+    <columns>
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Circle Display</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Text Percentage</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">None</col>
+      </row>
+    </data>
+  </object>
 </interface>

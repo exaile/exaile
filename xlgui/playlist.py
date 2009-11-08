@@ -124,7 +124,7 @@ class Playlist(gtk.VBox):
         from xlgui import properties
         tracks = self.get_selected_tracks()
 
-        if len(tracks) == 0:
+        if not tracks:
             return False
 
         dialog = properties.TrackPropertiesDialog(self.main.window,

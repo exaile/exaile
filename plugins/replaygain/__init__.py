@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl import providers, event, settings
@@ -48,9 +48,9 @@ def disable(exaile):
 
 class ReplaygainVolume(ElementBin):
     """
-        Handles replaygain volume adjustment and pre-amp. 
+        Handles replaygain volume adjustment and pre-amp.
 
-        Placed at 20 in the pipeline, since most elements should do their 
+        Placed at 20 in the pipeline, since most elements should do their
         processing after it.
     """
     index = 20
@@ -67,12 +67,12 @@ class ReplaygainVolume(ElementBin):
 
         # load settings
         for x in ("album-mode", "pre-amp", "fallback-gain"):
-            self._on_setting_change("replaygain_option_set", None, 
+            self._on_setting_change("replaygain_option_set", None,
                     "replaygain/%s"%x)
 
     def _on_setting_change(self, name, object, data):
         if data == "replaygain/album-mode":
-            self.rgvol.set_property("album-mode", 
+            self.rgvol.set_property("album-mode",
                     settings.get_option("replaygain/album-mode", True))
         elif data == "replaygain/pre-amp":
             self.rgvol.set_property("pre-amp",
@@ -84,9 +84,9 @@ class ReplaygainVolume(ElementBin):
 
 class ReplaygainLimiter(ElementBin):
     """
-        Implements clipping protection. 
-        
-        Placed at 80 in the pipeline so that other elements can come 
+        Implements clipping protection.
+
+        Placed at 80 in the pipeline so that other elements can come
         before it if necessary.
     """
     index = 80
@@ -100,12 +100,12 @@ class ReplaygainLimiter(ElementBin):
         self.setup_elements()
 
         event.add_callback(self._on_setting_change, "replaygain_option_set")
-        self._on_setting_change("replaygain_option_set", None, 
+        self._on_setting_change("replaygain_option_set", None,
                 "replaygain/clipping-protection")
 
     def _on_setting_change(self, name, object, data):
         if data == "replaygain/clipping-protection":
-            self.rglimit.set_property("enabled", 
-                    settings.get_option("replaygain/clipping-protection", 
+            self.rglimit.set_property("enabled",
+                    settings.get_option("replaygain/clipping-protection",
                         True))
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# This plugin is adapted from the Python Console plugin and the IPython 
+# This plugin is adapted from the Python Console plugin and the IPython
 # cookbook at:
 #   http://ipython.scipy.org/moin/Cookbook/EmbeddingInGTK
 # Copyright (C) 2009 Brian Parma
@@ -31,7 +31,7 @@ try:    # xl doesn't exist outside of exaile
 except:
     from gettext import gettext as _
     print 'Running outside of Exaile...'
-    
+
 
 import ipython_view as ip
 import pango
@@ -50,13 +50,13 @@ def get_prefs_pane():
 class Quitter(object):
     """Simple class to handle exit, similar to Python 2.5's.
 
-       This Quitter is used to circumvent IPython's circumvention 
+       This Quitter is used to circumvent IPython's circumvention
        of the builtin Quitter, since it prevents exaile form closing."""
-    
+
     def __init__(self,exit,name):
         self.exit = exit
         self.name = name
-      
+
     def __repr__(self):
         return 'Type %s() to exit.' % self.name
         __str__ = __repr__
@@ -73,11 +73,11 @@ class IPyConsole(gtk.Window):
     """
     def __init__(self, namespace):
         gtk.Window.__init__(self)
-        
+
         self.set_title(_("IPython Console - Exaile"))
         self.set_size_request(750,550)
         self.set_resizable(True)
-        
+
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
@@ -109,20 +109,20 @@ class IPyConsole(gtk.Window):
         # prevent exit and quit - freezes window? does bad things
         ipv.updateNamespace({'exit':None,
                              'quit':None})
-                             
+
         # This is so when exaile calls exit(), IP doesn't prompt and prevent
         # it from closing
         __builtin__.exit = Quitter(ipv.IP.magic_Exit, 'exit')
         __builtin__.quit = Quitter(ipv.IP.magic_Exit, 'quit')
-        
+
         ipv.show()
-        
+
         sw.add(ipv)
         sw.show()
-        
+
         self.add(sw)
         self.show()
-        
+
         self.connect('delete_event',lambda x,y:False)
 
 def _enable(exaile):

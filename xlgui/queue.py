@@ -35,7 +35,7 @@ class QueueManager(object):
             'on_remove_all_button_clicked': self.remove_all,
             })
 
-        self._playlist = playlist.Playlist(main.mainwindow(), 
+        self._playlist = playlist.Playlist(main.mainwindow(),
             queue, queue, _column_ids=['tracknumber', 'title', 'artist'],
             _is_queue=True)
         self._playlist.scroll.set_shadow_type(gtk.SHADOW_ETCHED_IN)

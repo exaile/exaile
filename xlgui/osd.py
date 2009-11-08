@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import gtk, cairo, gobject
@@ -45,7 +45,7 @@ class OSDWindow(object):
     """
         A popup window to show information on the current playing track
     """
-    def __init__(self, cover=None, covers=None, 
+    def __init__(self, cover=None, covers=None,
         player=None, draggable=False, settings=settings):
         """
             Initializes the popup
@@ -88,7 +88,7 @@ class OSDWindow(object):
 
         self.cover_widget = CoverWidget()
         if self.cover:
-            self._cover_sig = self.cover.connect('cover-found', 
+            self._cover_sig = self.cover.connect('cover-found',
                 self.cover_widget.cover_found)
         self.cover_widget.set_image_size(
             self._settings.get_option('osd/h', 95) - 8,
@@ -119,21 +119,21 @@ class OSDWindow(object):
             # Just set the background color in the old fashioned way
             self.window.modify_bg(gtk.STATE_NORMAL, self.color)
             self.progress.modify_bg(gtk.STATE_NORMAL, self.color)
-            
+
         self.title = self.builder.get_object('osd_title_label')
         text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
             (self._settings.get_option('osd/text_font', 'Sans 11'),
             self._settings.get_option('osd/text_color', '#ffffff'),
-            self._settings.get_option('osd/display_text', 
+            self._settings.get_option('osd/display_text',
                 "<b>{title}</b>\n{artist}\non {album} - {length}"))
         self.title.set_markup(text)
         self.text = text
 
         self.window.set_size_request(
-            self._settings.get_option('osd/w', 400), 
+            self._settings.get_option('osd/w', 400),
             self._settings.get_option('osd/h', 95))
         self.window.move(
-            self._settings.get_option('osd/x', 0), 
+            self._settings.get_option('osd/x', 0),
             self._settings.get_option('osd/y', 0))
 
         self.event.connect('button_press_event', self.start_dragging)
@@ -149,8 +149,8 @@ class OSDWindow(object):
         cr.clip()
 
         opacity = int(self._settings.get_option('osd/opacity', 75))
-        
-        cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0, 
+
+        cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0,
                 self.color.blue/65535.0, opacity/100.0)
         cr.paint()
         return False
@@ -176,12 +176,12 @@ class OSDWindow(object):
         (x, y) = self.window.get_position()
         print x,y
 
-        for key, val in (('osd/x', int(x)), 
+        for key, val in (('osd/x', int(x)),
                             ('osd/y', int(y)),
                             ('osd/h', int(h)),
                             ('osd/w', int(w))):
             self._settings.set_option(key, val)
-    
+
     def dragging(self, widget, event):
         """
             Called when the user drags the window
@@ -195,7 +195,7 @@ class OSDWindow(object):
     def show(self, track, timeout=4000):
         if track:
             text = self.text.replace('&', '&amp;')
-            for item in ('title', 'artist', 'album', '__length', 'tracknumber', 
+            for item in ('title', 'artist', 'album', '__length', 'tracknumber',
                     '__bitrate', 'genre', 'year', '__rating'):
                 value = track[item]
                 if item == '__length':

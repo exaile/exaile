@@ -51,7 +51,7 @@ MPRIS_TAG_INFORMATION = {
                         'exaile_tag': '__length',
                         'desc'      : 'The duration in seconds',
                         },
-        'mtime'      : {'out_type'  : int, 
+        'mtime'      : {'out_type'  : int,
                         'desc'      : 'The duration in milliseconds',
                         },
         'genre'      : {'out_type'  : unicode,
@@ -159,7 +159,7 @@ class ExaileTagConverter(object):
                                 val,
                               )
 
-                        
+
         return metadata
 
     @staticmethod

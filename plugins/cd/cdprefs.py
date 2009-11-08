@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl.nls import gettext as _
@@ -43,7 +43,7 @@ class OutputFormatPreference(widgets.ComboPrefsItem):
         widgets.ComboPrefsItem.__init__(self, *args)
         global FORMAT_WIDGET
         FORMAT_WIDGET = self.widget
-    
+
 
 class OutputQualityPreference(widgets.ComboPrefsItem):
     name = 'cd_import/quality'
@@ -55,9 +55,9 @@ class OutputQualityPreference(widgets.ComboPrefsItem):
         widget.pack_start(cell, True)
         widget.add_attribute(cell, 'text', 0)
         widget.show_all()
-        
+
         self._update_list(None, widget, prefs)
-        widgets.ComboPrefsItem.__init__(self, prefs, widget, 
+        widgets.ComboPrefsItem.__init__(self, prefs, widget,
                 use_map=True)
 
         global FORMAT_WIDGET
@@ -73,7 +73,7 @@ class OutputQualityPreference(widgets.ComboPrefsItem):
             format = prefs.settings.get_option("cd_import/format", "Ogg Vorbis")
         fmt_dict = transcoder.FORMATS[format]
         widget.get_model().clear()
-        
+
         for kbs in fmt_dict["kbs_steps"]:
             widget.append_text(str(kbs))
 

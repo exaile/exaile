@@ -36,16 +36,16 @@ class Book():
 		self.xmldata=None
 		self.xmltree=None
 		self.loaded=False
-		
+
 
 	def get_all(self):
 		'''
-		Unified function for getting chapters and info at the same 
-		time.  
+		Unified function for getting chapters and info at the same
+		time.
 		'''
 		if self.loaded:
 			return
-		
+
 		try:
 			self.xmldata=urllib.urlopen(self.rssurl).read()
 			self.xmltree=ElementTree.XML(self.xmldata)
@@ -60,19 +60,19 @@ class Book():
 			duration=item.find("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration").text
 			link=link.replace("_64kb.mp3", ".ogg")
 			self.chapters.append([title+" "+"("+duration+")", link])
-		
+
 		self.info=self.xmltree.find("channel/description")
 		self.info=self.info.text
 		self.loaded=True
 		return
-		
-		
-		
-		
-		
+
+
+
+
+
 
 def find_books(keyword):
-	''' 
+	'''
 	Returns a list of Book instances, with unknown chapters...
 	'''
 	old_keyword=keyword #transform 'keyw1 keyw2 keyw3' into 'key1+key2+key3'
@@ -82,7 +82,7 @@ def find_books(keyword):
 			keyword=keyword+letter
 		else:
 			keyword=keyword+'+'
-			
+
 	url=search_url+keyword
 	try:
 		data = urllib.urlopen(url).read()

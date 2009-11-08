@@ -65,7 +65,7 @@ class ExaileNotification(object):
         title = " / ".join(track['title'] or "")
         artist = " / ".join(track['artist'] or "")
         album = " / ".join(track['album'] or "")
-        if artist and album: 
+        if artist and album:
             body_format = self.body_artistalbum
         elif artist:
             body_format = self.body_artist

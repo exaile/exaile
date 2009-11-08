@@ -7,33 +7,22 @@
       <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">3</property>
         <child>
-          <object class="GtkHBox" id="box1">
-          <property name="visible">True</property>
-          <property name="border_width">0</property>
-          <child>
-            <object class="GtkLabel" id="strip_list_label">
-              <property name="label" translatable="yes">Strip these words from the beginnng of the artist tag (space separated):</property>
-              <property name="receives_default">False</property>
-              <property name="wrap">True</property>
-            </object>
-            <packing>
-              <property name="expand">False</property>
-              <property name="fill">False</property>
-              <property name="position">0</property>
-            </packing>
-          </child>
+          <object class="GtkLabel" id="strip_list_label">
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">Words to strip from the beginning of artist tags (space separated):</property>
+            <property name="justify">fill</property>
+            <property name="wrap">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="collection/strip_list">
-            <property name="receives_default">False</property>
-          </object>
+          <object class="GtkEntry" id="collection/strip_list"/>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
@@ -42,8 +31,7 @@
         </child>
         <child>
           <object class="GtkLabel" id="collection/strip_list_label2">
-            <property name="label" translatable="yes">(Right click for reset to defaults)</property>
-            <property name="receives_default">False</property>
+            <property name="label" translatable="yes">(Right click to reset to defaults)</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -57,6 +45,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
+            <property name="draw_indicator">True</property>
           </object>
           <packing>
             <property name="expand">False</property>

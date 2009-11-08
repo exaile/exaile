@@ -73,6 +73,8 @@ class MiniMode(gtk.Window):
         self.set_title('Exaile')
         self.set_resizable(False)
 
+        self.formatter = mmwidgets.TrackFormatter('$tracknumber - $title')
+
         self.box = mmwidgets.WidgetBox(spacing=3)
         self.add(self.box)
         self.register_widgets()
@@ -186,8 +188,7 @@ class MiniMode(gtk.Window):
                 value += self.fixed_items
                 self.update_widgets(value)
             elif option == 'plugin/minimode/track_title_format':
-                #self.box['track_selector'].update_track_list()
-                pass
+                self.formatter.set_format(value)
     
     def update_position(self):
         """
@@ -211,19 +212,19 @@ class MiniMode(gtk.Window):
                 [self.exaile.player, self.on_play_pause]),
             'stop': (mmwidgets.Button,
                 ['gtk-media-stop', _('Stop Playback'), self.on_stop]),
-            'restore': (mmwidgets.Button,
-                ['gtk-fullscreen', _('Restore Main Window'), self.on_restore]),
-            'track_selector': (mmwidgets.TrackSelector,
-                [self.exaile.gui.main, self.exaile.queue,
-                 self.on_track_change, self.on_format_request]),
-            'progress_bar': (mmwidgets.ProgressBar,
-                [self.exaile.player, self.on_track_seeked]),
             'volume': (mmwidgets.VolumeButton,
                 [self.exaile.player, self.on_volume_changed]),
+            'restore': (mmwidgets.Button,
+                ['gtk-fullscreen', _('Restore Main Window'), self.on_restore]),
+            'progress_bar': (mmwidgets.ProgressBar,
+                [self.exaile.player, self.on_track_seeked]),
+            'track_selector': (mmwidgets.TrackSelector,
+                [self.exaile.gui.main, self.exaile.queue, self.formatter,
+                 self.on_track_change]),
             'playlist_button': (mmwidgets.PlaylistButton,
                 [self.exaile.gui.main, self.exaile.queue,
-                 self.exaile.queue.current_playlist,
-                 self.on_track_change, self.on_format_request])
+                 self.exaile.queue.current_playlist, self.formatter,
+                 self.on_track_change])
         }
         # TODO: PlaylistProgressBar
 
@@ -239,13 +240,13 @@ class MiniMode(gtk.Window):
             if id not in ids:
                 try:
                     self.box.remove_widget(id)
-                except KeyError, e:
+                except KeyError:
                     pass
 
         for id in ids:
             try:
                 self.box.add_widget(id)
-            except KeyError, e:
+            except KeyError:
                 pass
 
     def get_option(self, option):

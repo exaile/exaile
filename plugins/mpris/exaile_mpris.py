@@ -80,7 +80,7 @@ class ExaileMpris(object):
         """
         self.mpris_root = mpris_root.ExaileMprisRoot(self.exaile, self.bus)
         self.mpris_tracklist = mpris_tracklist.ExaileMprisTrackList(
-                                                        self.exaile, 
+                                                        self.exaile,
                                                         self.bus)
         self.mpris_player = mpris_player.ExaileMprisPlayer(
                                                         self.exaile,

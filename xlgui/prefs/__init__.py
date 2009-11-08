@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import thread, os, shlex, string, urllib2
@@ -45,7 +45,7 @@ class PreferencesDialog(object):
         Preferences Dialog
     """
 
-    PAGES = (playlists_prefs, appearance_prefs, playback_prefs, 
+    PAGES = (playlists_prefs, appearance_prefs, playback_prefs,
         collection_prefs, osd_prefs, cover_prefs)
     PREFERENCES_DIALOG = None
 
@@ -59,7 +59,7 @@ class PreferencesDialog(object):
         self.parent = parent
         self.settings = _SETTINGSMANAGER
         self.plugins = self.main.exaile.plugins.list_installed_plugins()
-        self.fields = {} 
+        self.fields = {}
         self.panes = {}
         self.builders = {}
         self.popup = None
@@ -109,7 +109,7 @@ class PreferencesDialog(object):
         self._clear_children(self.plug_root)
         plugin_pages = []
         plugin_manager = self.main.exaile.plugins
-        
+
         for plugin in self.plugins:
             name = plugin
             if plugin in plugin_manager.enabled_plugins:
@@ -154,7 +154,7 @@ class PreferencesDialog(object):
         """
             Called when the user clicks 'ok'
         """
-        if self.apply(None): 
+        if self.apply(None):
             self.cancel()
             self.window.hide()
             self.window.destroy()
@@ -202,7 +202,7 @@ class PreferencesDialog(object):
             self.box.remove(self.last_child)
 
         if self.last_page:
-            if hasattr(self.last_page, 'page_leave'): 
+            if hasattr(self.last_page, 'page_leave'):
                 self.last_page.page_leave(self)
 
         self.last_page = page
@@ -252,17 +252,17 @@ class PreferencesDialog(object):
             try:
                 klass = getattr(page, attr)
                 if inspect.isclass(klass) and \
-                    issubclass(klass, widgets.PrefsItem): 
+                    issubclass(klass, widgets.PrefsItem):
                     widget = builder.get_object(klass.name)
                     if not widget:
-                        logger.warning('Invalid prefs widget: %s' % klass.name) 
+                        logger.warning('Invalid prefs widget: %s' % klass.name)
                         continue
                     field = klass(self, widget)
                     self.fields[page].append(field)
             except:
                 logger.warning('Broken prefs class: %s' % attr)
                 traceback.print_exc()
- 
+
     def run(self):
         """
             Runs the dialog

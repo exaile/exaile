@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 from tests.base import BaseTestCase
 from xl import playlist
@@ -60,7 +60,7 @@ class SmartPlaylistTestCase(BasePlaylistTestCase):
         # test playlist
         sp = playlist.SmartPlaylist(collection=self.collection)
         sp.load_from_location(self.sp_loc)
-        
+
         assert sp.get_or_match() == True, "Loading saved smart playlist failed"
         sp.set_or_match(False)
 
@@ -86,7 +86,7 @@ class SmartPlaylistTestCase(BasePlaylistTestCase):
 
         # if it's not different in 50 iterations, something *has* to be wrong
         for i in range(50):
-            p = sp.get_playlist() 
+            p = sp.get_playlist()
             if start != p.get_tracks():
                 check = True
                 break

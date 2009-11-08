@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import threading
@@ -100,7 +100,7 @@ class DevicePanel(panel.Panel):
 
     ui_info = ('device_panel.glade', 'DevicePanelWindow')
 
-    def __init__(self, parent, main, 
+    def __init__(self, parent, main,
         device, name=None):
 
         panel.Panel.__init__(self, name)
@@ -123,7 +123,7 @@ class DevicePanel(panel.Panel):
     def add_tracks_func(self, tracks):
         self.device.add_tracks(tracks)
         thread = DeviceTransferThread(self.device, self.main, self)
-        self.main.controller.progress_manager.add_monitor(thread, 
+        self.main.controller.progress_manager.add_monitor(thread,
                 _("Transferring to %s...")%self.name, 'gtk-go-up')
 
     def get_panel(self):
@@ -144,7 +144,7 @@ class FlatPlaylistDevicePanel(panel.Panel):
 
     ui_info = ('device_panel.glade', 'DevicePanelWindow')
 
-    def __init__(self, parent, main, 
+    def __init__(self, parent, main,
         device, name=None):
 
         panel.Panel.__init__(self, name)

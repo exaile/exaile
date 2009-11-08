@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import gtk, pango, gtk.gdk, gobject
@@ -53,7 +53,7 @@ class Playlist(gtk.VBox):
     default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
     menu_items = {}
     _is_drag_source = False
-    
+
     __gsignals__ = {
         'playlist-content-changed': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
         'customness-changed': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
@@ -78,6 +78,9 @@ class Playlist(gtk.VBox):
         self.builder = main.builder
         self._initial_column_ids = _column_ids
         self._is_queue = _is_queue
+
+        self._redraw_queue = []
+        self._redraw_id = 0
 
         if not _is_queue:
             self.playlist = copy.copy(pl)
@@ -124,39 +127,51 @@ class Playlist(gtk.VBox):
         if len(tracks) == 0:
             return False
 
-        dialog = properties.TrackPropertiesDialog(self.main.window, 
-            tracks[0])
-        result = dialog.run()
-        dialog.hide()
+        dialog = properties.TrackPropertiesDialog(self.main.window,
+            tracks)
+        #result = dialog.run()
+        #dialog.hide()
 
-        return True
-    
+        #return True
+
     def refresh_changed_tracks(self, type, track, tag):
         """
             Called when a track is known to have a tag changed
         """
-        tracks = [track]
-        if not tracks or tracks == [] or not \
+        if not track or not \
             settings.get_option('gui/sync_on_tag_change', True):
             return
-        
+        if self._redraw_id:
+            gobject.source_remove(self._redraw_id)
+        self._redraw_queue.append(track)
+        self._redraw_id = gobject.timeout_add(100,
+                self.__refresh_changed_tracks)
+
+
+    def __refresh_changed_tracks(self):
+        tracks = set(self._redraw_queue)
+        self._redraw_queue = []
+
         selection = self.list.get_selection()
         info = selection.get_selected_rows()
-        
+
         it = self.model.get_iter_first()
         while it:
             cur = self.model.get_value(it, 0)
-            for track in tracks:
-                if cur.get_loc_for_io() == track.get_loc_for_io():
-                    self.update_iter(it, track)
-                    tracks.remove(track)
+            for tr in tracks:
+                if cur.get_loc_for_io() == tr.get_loc_for_io():
+                    self.update_iter(it, tr)
+                    tracks.remove(tr)
+                    break
+            if len(tracks) == 0:
+                break
             it = self.model.iter_next(it)
         self.list.queue_draw()
-        
+
         if info:
             for path in info[1]:
                 selection.select_path(path)
-                        
+
     def selection_changed(self):
         tracks = self.get_selected_tracks()
         self.builder.get_object('track_properties_item').set_sensitive(bool(tracks))
@@ -214,13 +229,10 @@ class Playlist(gtk.VBox):
 
         column_ids = None
         if settings.get_option('gui/trackslist_defaults_set', False):
-            column_ids = set()
             ids = settings.get_option("gui/columns", [])
             # Don't add invalid columns.
-            all_ids = frozenset(self.COLUMNS.keys())
-            for id in ids:
-                if id in all_ids:
-                    column_ids.add(id)
+            all_ids = frozenset(self.COLUMNS.iterkeys())
+            column_ids = frozenset(id for id in ids if id in all_ids)
 
         if not column_ids:
             # Use default.
@@ -230,7 +242,7 @@ class Playlist(gtk.VBox):
             column_ids = frozenset(ids)
 
         if not self._is_queue:
-            for col_struct in self.COLUMNS.values():
+            for col_struct in self.COLUMNS.itervalues():
                 try:
                     menu = Playlist.menu_items[col_struct.id]
                 except KeyError:
@@ -317,14 +329,14 @@ class Playlist(gtk.VBox):
         """
         for track in tracks:
             self._append_track(track)
-        
+
         newlength = len(self.playlist)
         self.emit('track-count-changed', newlength)
         range = self.list.get_visible_range()
         offset = 0
         if range:
             offset = range[1][0] - range[0][0]
-        
+
         if tracks and scroll:
             try:
                 if offset > newlength:
@@ -415,14 +427,14 @@ class Playlist(gtk.VBox):
         rating = 0
         selection = self.list.get_selection()
         (model, paths) = selection.get_selected_rows()
-        
+
         if paths != None and len(paths) > 0:
             iter = self.model.get_iter(paths[0])
             song = self.model.get_value(iter, 0)
             rating = song.get_rating ()
         else:
             return 0 # no tracks
-            
+
         if rating == 0:
             return 0 # if first song has 0 as a rating, we know the final result
 
@@ -592,14 +604,14 @@ class Playlist(gtk.VBox):
         settings.set_option('gui/columns', cols)
         self._setup_columns()
         self._set_tracks(self.playlist.get_tracks())
-    
+
     def get_needs_save(self):
         return self.playlist.get_needs_save()
-    
+
     def set_needs_save(self, val=True):
         self.playlist.set_needs_save(val)
         self.emit('playlist-content-changed', self.get_needs_save())
-    
+
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
             Called when data is recieved
@@ -758,13 +770,16 @@ class Playlist(gtk.VBox):
 
         if rows:
             nextrow = self.model.iter_next(rows[-1])
-            lastindex = self.playlist.index(self.model.get_value(rows[-1], 0))
+            if nextrow:
+                lastindex = self.playlist.index(self.model.get_value(rows[-1], 0))
+            else:
+                lastindex = 0
 
         for row in rows:
             track = self.model.get_value(row, 0)
             try:
                 self.playlist.remove(self.playlist.index(track))
-            except ValueError: 
+            except ValueError:
                 # track has already been removed from the playlist
                 pass
             self.model.remove(row)
@@ -775,8 +790,8 @@ class Playlist(gtk.VBox):
             self.list.set_cursor(nextindex)
         elif rows:
             self.list.set_cursor(lastindex - len(rows))
-        
-        gobject.idle_add(event.add_callback, self.on_remove_tracks, 
+
+        gobject.idle_add(event.add_callback, self.on_remove_tracks,
             'tracks_removed', self.playlist)
         self.emit('track-count-changed', len(self.playlist))
         self.set_needs_save(True)
@@ -794,7 +809,7 @@ class Playlist(gtk.VBox):
             Called when a drag source wants data for this drag operation
         """
         Playlist._is_drag_source = True
-        
+
         tracks = self.get_selected_tracks()
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
@@ -958,7 +973,7 @@ class Playlist(gtk.VBox):
         self.playlist.ordered_tracks = tracks
         index = self.playlist.index(curtrack)
         self.playlist.set_current_pos(index)
-    
+
     def return_order_tags(self, newtag = None):
         """
             Returns a list of tags, which sorting will be used to sort tracks
@@ -967,13 +982,13 @@ class Playlist(gtk.VBox):
         """
         tags = settings.get_option ('gui/tags_sorting_order',
             ['artist', 'date', 'album', 'discnumber', 'tracknumber', 'title'])
-        
+
         if newtag:
             if newtag in tags:
                 tags.remove (newtag)
             tags.insert (0, newtag)
             settings.set_option ('gui/tags_sorting_order', tags)
-        
+
         return tags
 
     def reorder_songs(self):
@@ -1110,7 +1125,7 @@ def sort_tracks(tracks):
 
     pl = main.get_selected_playlist()
     column, descending = pl.get_sort_by()
-    
+
     if column != 'tracknumber':
         tracks.sort(key=lambda track: track.sort_param(column),
             reverse=descending)
@@ -1144,3 +1159,5 @@ class ConfirmCloseDialog(gtk.MessageDialog):
         response = gtk.Dialog.run(self)
         self.hide()
         return response
+
+# vim: et sts=4 sw=4

@@ -44,11 +44,11 @@ class color(widgets.ColorButtonPrefsItem):
     default =  '#AAAAAA'
     name = 'plugin/moodbar/color'
 
-	 
+
 class cursor(widgets.CheckPrefsItem):
     default = False
     name = 'plugin/moodbar/cursor'
 class darkness(widgets.ScalePrefsItem):
     default = 1
-    name = 'plugin/moodbar/darkness'	 
+    name = 'plugin/moodbar/darkness'
 

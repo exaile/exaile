@@ -261,7 +261,7 @@ if interface:
             self.assertEqual(dbus.Int32(0), self.player.GetStatus()[0])
             self._play()
             self.assertEqual(dbus.Int32(0), self.player.GetStatus()[0])
-            
+
             self._pause()
             self.assertEqual(dbus.Int32(1), self.player.GetStatus()[0])
             self._pause()
@@ -319,7 +319,7 @@ if interface:
             self.player.PositionSet(-1)
             self.assertTrue(pos < self.player.PositionGet(),
                     "Don't move to invalid position")
-        
+
 
 def suite():
     sub_test = [TestMprisRoot, TestTrackList]

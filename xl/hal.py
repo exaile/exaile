@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import logging
@@ -39,7 +39,7 @@ class HAL(providers.ProviderHandler):
     def __init__(self, devicemanager):
         providers.ProviderHandler.__init__(self, "hal")
         self.devicemanager = devicemanager
-        
+
         self.bus = None
         self.hal = None
 
@@ -49,7 +49,7 @@ class HAL(providers.ProviderHandler):
     def connect(self):
         try:
             self.bus = dbus.SystemBus()
-            hal_obj = self.bus.get_object('org.freedesktop.Hal', 
+            hal_obj = self.bus.get_object('org.freedesktop.Hal',
                 '/org/freedesktop/Hal/Manager')
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
             logger.info("HAL Providers: %s" % repr(self.get_providers()))
@@ -101,12 +101,12 @@ class HAL(providers.ProviderHandler):
         if handler is None:
             logger.debug("Found no HAL device handler for %s" % device_udi)
             return
-        
+
         dev = handler.device_from_udi(self, device_udi)
-        if not dev: 
+        if not dev:
             logger.debug("Failed to create device for %s" % device_udi)
             return
-        
+
         logger.debug("Found new %(handler)s device at %(device_udi)s" %
                 {'handler' : handler.name, 'device_udi' : device_udi})
         dev.autoconnect()
@@ -136,7 +136,7 @@ class Handler(object):
 
     def is_type(self, device, capabilities):
         return False
-    
+
     def get_udis(self, hal):
         return []
 

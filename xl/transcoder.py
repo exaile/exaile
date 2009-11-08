@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 
@@ -34,11 +34,11 @@ import gst
 """
     explanation of format dicts:
     default:    the default quality to use, must be a member of raw_steps.
-    raw_steps:  a value defining the quality of encoding that will be passed 
+    raw_steps:  a value defining the quality of encoding that will be passed
                 to the encoder.
     kbs_steps:  a value defining the quality of encoding that will be displayed
                 to the user. must be a one-to-one mapping with raw_steps.
-    command:    the gstreamer pipeline to execute. should contain exactly one 
+    command:    the gstreamer pipeline to execute. should contain exactly one
                 %s, which will be replaced with the value from raw_steps.
     plugins:    the gstreamer plugins needed for this transcode pipeline
     desc:       a description of the encoder to display to the user
@@ -68,7 +68,7 @@ FORMATS = {
             },
         "AAC"       : {
             "default"   : 160000,
-            "raw_steps" : (32000, 48000, 64000, 96000, 128000, 160000, 
+            "raw_steps" : (32000, 48000, 64000, 96000, 128000, 160000,
                     192000, 224000, 256000, 320000),
             "kbs_steps" : (32, 48, 64, 96, 128, 160, 192, 224, 256, 320),
             "command"   : "faac bitrate=%s ! ffmux_mp4",
@@ -178,9 +178,9 @@ class Transcoder(object):
     def set_output_raw(self, raw):
         self.output = raw
 
-    def start_transcode(self): 
+    def start_transcode(self):
         self._construct_encoder()
-        elements = [ self.input, "decodebin name=\"decoder\"", "audioconvert", 
+        elements = [ self.input, "decodebin name=\"decoder\"", "audioconvert",
                 self.encoder, self.output ]
         pipestr = " ! ".join( elements )
         pipe = gst.parse_launch(pipestr)
@@ -213,7 +213,7 @@ class Transcoder(object):
 
     def on_eof(self, *args):
         self.stop()
-        
+
     def get_time(self):
         if not self.running:
             return 0.0

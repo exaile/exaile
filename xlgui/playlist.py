@@ -206,7 +206,7 @@ class Playlist(gtk.VBox):
         steps = settings.get_option('miscellaneous/rating_steps', 5)
         r = float((100.0*rating)/steps)
         for track in tracks:
-            track['__rating'] = r
+            track.set_tag_raw('__rating', r)
         event.log_event('rating_changed', self, r)
 
     def _setup_col_menus(self):
@@ -381,14 +381,9 @@ class Playlist(gtk.VBox):
         """
         ar = [song, None, None]
         for field in self.append_map:
-            try:
-                if isinstance(song[field], basestring):
-                    raise TypeError
-                value = " / ".join(song[field])
-            except TypeError:
-                value = song[field]
-            if value is None: value = ''
-
+            value = song.get_tag_display(field)
+            if value is None:
+                value = ''
             ar.append(value)
         return ar
 
@@ -1115,10 +1110,10 @@ class Playlist(gtk.VBox):
                 leftpadding = (rating_col_width - rating._rating_width) / 2
                 i = int(math.ceil((x-left_edge-leftpadding)/icon_size))
                 new_rating = float((100*i)/steps)
-                if track['__rating'] == new_rating:
-                    track['__rating'] = 0.0
+                if track.get_tag_raw('__rating') == new_rating:
+                    track.set_tag_raw('__rating', 0.0)
                 else:
-                    track['__rating'] = new_rating
+                    track.set_tag_raw('__rating', new_rating)
                 if hasattr(w, 'queue_draw'):
                     w.queue_draw()
                 event.log_event('rating_changed', self, i)
@@ -1133,7 +1128,7 @@ def sort_tracks(tracks):
         tracks.sort(key=lambda track: track.sort_param(column),
             reverse=descending)
     else:
-        tracks = trackdb.sort_tracks(
+        tracks = track.sort_tracks(
             ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
             tracks)
         if descending: tracks.reverse()

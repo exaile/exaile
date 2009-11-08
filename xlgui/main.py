@@ -75,8 +75,9 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         track = self.player.current
-        if not track or not (track.is_local() or track['__length']): return
-        length = track.get_duration()
+        if not track or not (track.is_local() or \
+                track.get_tag_raw('__length')): return
+        length = track.get_tag_raw('__length')
 
         seconds = float(value * length)
         self.player.seek(seconds)
@@ -87,7 +88,8 @@ class PlaybackProgressBar(object):
 
     def seek_motion_notify(self, widget, event):
         track = self.player.current
-        if not track or not(track.is_local() or track['__length']): return
+        if not track or not(track.is_local() or \
+                track.get_tag_raw('__length')): return
 
         mouse_x, mouse_y = event.get_coords()
         progress_loc = self.bar.get_allocation()
@@ -98,7 +100,7 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         self.bar.set_fraction(value)
-        length = track.get_duration()
+        length = track.get_tag_raw('__length')
         seconds = float(value * length)
         remaining_seconds = length - seconds
         self._set_bar_text(seconds, length)
@@ -124,11 +126,11 @@ class PlaybackProgressBar(object):
         if not track: return
         if self.seeking: return True
 
-        if not track.is_local() and not track['__length']:
+        if not track.is_local() and not track.get_tag_raw('__length'):
             self.bar.set_fraction(0)
             self.bar.set_text(_('Streaming...'))
             return True
-        length = track.get_duration()
+        length = track.get_tag_raw('__length')
 
         self.bar.set_fraction(self.player.get_progress())
 
@@ -797,7 +799,7 @@ class MainWindow(gobject.GObject):
         pl = self.get_selected_playlist()
 
         if sort:
-            items = trackdb.sort_tracks(
+            items = track.sort_tracks(
                 ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
                 items)
 
@@ -1176,21 +1178,9 @@ class MainWindow(gobject.GObject):
                 tray_icon.set_tooltip(_("Exaile Music Player\nNot playing"))
             return
 
-        artist = track['artist']
-        album = track['album']
-        title = track['title']
-        if title is None:
-            title = ''
-        else:
-            title = " / ".join(title)
-        if album is None:
-            album = ''
-        else:
-            album = " / ".join(album)
-        if artist is None:
-            artist = ''
-        else:
-            artist = " / ".join(artist)
+        artist = track.get_tag_display('artist')
+        album = track.get_tag_display('album')
+        title = track.get_tag_display('title')
 
         # Update window title.
         if artist:

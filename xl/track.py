@@ -62,6 +62,41 @@ def get_tracks_from_uri(uri):
     return tracks
 
 
+def get_sort_tuple(fields, track):
+    """
+        Returns the sort tuple for a single track
+
+        :param fields: the tag(s) to sort by
+        :type fields: a single string or iterable of strings
+        :param track: the track to sort
+        :type track: :class:`xl.track.Track`
+    """
+    items = []
+    if not type(fields) in (list, tuple):
+        items = [track.get_tag_sort(fields)]
+    else:
+        items = [track.get_tag_sort(field) for field in fields]
+
+    items.append(track)
+    return tuple(items)
+
+def sort_tracks(fields, tracks, reverse=False):
+    """
+        Sorts tracks by the field passed
+
+        :param fields: field(s) to sort by
+        :type fields: string or list of strings
+
+        :param tracks: tracks to sort
+        :type tracks: list of :class:`xl.track.Track`
+
+        :param reverse: sort in reverse?
+        :type reverse: bool
+    """
+    tracks = [get_sort_tuple(fields, t) for t in tracks]
+    tracks.sort(reverse=reverse)
+    return [t[-1] for t in tracks]
+
 class Track(object):
     """
         Represents a single track.
@@ -288,7 +323,7 @@ class Track(object):
     def get_tag_raw(self, tag, join=False):
         val = self.tags.get(tag)
         if join and val:
-            return self.join(val)
+            return self.join_values(val)
         return val
 
     def get_tag_sort(self, tag, join=True):
@@ -316,13 +351,16 @@ class Track(object):
         else:
             retval = self.tags.get(tag)
 
+        if not retval:
+            retval = "\xff\xff\xff\xff" # unknown
+
         if not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
             retval = self.strip_leading(retval)
             retval = self.the_cutter(retval)
             if join:
                 retval = self.join_values(retval)
-            retval = self.lower(retval)
+            retval = self.locale_lower(retval)
 
         return retval
 
@@ -351,6 +389,13 @@ class Track(object):
         else:
             retval = self.tags.get(tag)
 
+        if not retval:
+            if tag in ('tracknumber', 'discnumber', '__rating',
+                    '__playcount'):
+                retval = "0"
+            else:
+                retval = _("Unknown")
+
         if isinstance(retval, list) and len(retval) == 1:
             retval = retval[0]
 
@@ -364,6 +409,41 @@ class Track(object):
 
         return retval
 
+    ### convenience funcs for rating ###
+    # these dont fit in the normal set of tag access methods,
+    # but are sufficiently useful to warrant inclusion here
+
+    def get_rating(self):
+        """
+            Returns the current track rating.
+        """
+        try:
+            rating = float(self.get_tag_raw('__rating'))
+        except (TypeError, KeyError, ValueError):
+            return 0
+
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
+        rating = int(round(rating*float(steps)/100.0))
+
+        if rating > steps: return int(steps)
+        elif rating < 0: return 0
+
+        return rating
+
+    def set_rating(self, rating):
+        """
+            Sets the current track rating.
+        """
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
+
+        try:
+            rating = min(rating, steps)
+            rating = max(0, rating)
+            rating = float(rating * 100.0 / float(steps))
+        except (TypeError, KeyError, ValueError):
+            return
+        self.set_tag_raw('__rating', rating)
+
     ### Special functions for wrangling tag values ###
 
     @staticmethod
@@ -376,14 +456,17 @@ class Track(object):
         return u" / ".join(values)
 
     @staticmethod
-    def lower(values):
+    def locale_lower(values):
         """
-            convert a list of tag values to lowercase
+            convert a list of tag values to lowercase, using locale-aware
+            methods. suitable for sorting.
         """
+        import locale
         try:
-            return values.lower() # it was already a string
-        except AttributeError:
-            return [x.lower() for x in values] # it was an iterable of strings
+            try:
+                return locale.strxfrm(values) # it was already a string
+            except:
+                return [locale.strxfrm(x) for x in values] # iterable of strings
         except:
             raise ValueError, "Could not convert to lowercase, unknown type."
 
@@ -430,6 +513,10 @@ class Track(object):
 
     @staticmethod
     def the_cutter(values):
+        """
+            Cut common words like 'the' from the beginning of a tag so that
+            they sort properly.
+        """
         if isinstance(values, list):
             return [Track.the_cutter(v) for v in values]
         lowered = values.lower()
@@ -437,7 +524,9 @@ class Track(object):
             if not word.endswith("'"):
                 word += ' '
             if lowered.startswith(word):
-                values = values[len(word):]
+                # add it to the end so that when sorting ones that have
+                # the same prefix get sorted together
+                values = values[len(word):] + values[:len(word)]
                 break
         return values
 

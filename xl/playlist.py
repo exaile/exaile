@@ -733,8 +733,8 @@ class Playlist(object):
         searcher = trackdb.TrackSearcher()
 
         search_db = {}
-        for track in self.ordered_tracks:
-            search_db[track.get_loc_for_io()] = track
+        for tr in self.ordered_tracks:
+            search_db[tr.get_loc_for_io()] = tr
         tracks = searcher.search(phrase, search_db)
         tracks = tracks.values()
 
@@ -742,7 +742,7 @@ class Playlist(object):
             if sort_fields == 'RANDOM':
                 random.shuffle(tracks)
             else:
-                tracks = trackdb.sort_tracks(sort_fields, tracks)
+                tracks = track.sort_tracks(sort_fields, tracks)
         if return_lim != -1:
             tracks = tracks[:return_lim]
 
@@ -831,8 +831,9 @@ class Playlist(object):
             items = ('artist', 'album', 'tracknumber', 'title', 'genre',
                 'date')
             for item in items:
-                value = tr[item]
-                if value is not None: meta[item] = value[0]
+                value = tr.get_tag_raw(item)
+                if value is not None:
+                    meta[item] = value[0]
             buffer += '\t%s\n' % urllib.urlencode(meta)
             f.write(buffer.encode('utf-8'))
 

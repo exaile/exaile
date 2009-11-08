@@ -118,6 +118,9 @@ class ExaileAwn(object):
             log.debug("Setting AWN cover to %s" % repr(path))
             self.awn.SetTaskIconByXid(self.xid(), path)
 
+    def unset_timer(self):
+        self._set_timer(100)
+
     def _set_timer(self, percent):
         if self.overlay == 'progress':
             self.awn.SetProgressByXid(self.xid(), percent)
@@ -194,6 +197,7 @@ def disable(exaile):
     xl.event.remove_callback(EXAILE_AWN.toggle_pause_progress,
             'playback_toggle_pause')
     EXAILE_AWN.unset_cover()
+    EXAILE_AWN.unset_timer()
     EXAILE_AWN.exaile = None
 
 def get_prefs_pane():

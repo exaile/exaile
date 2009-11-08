@@ -104,8 +104,28 @@ class CollectionPanel(panel.Panel):
             self.emit('queue-items', self.get_selected_tracks()))
         self.menu.connect('rating-set', self._on_set_rating)
         self.menu.connect('delete-items', self._on_delete_items)
+        self.menu.connect('properties', lambda *e:
+            self.properties_dialog())
+
 
         self.load_tree()
+
+    def properties_dialog(self):
+        """
+            Shows the properties dialog
+        """
+        from xlgui import properties
+        tracks = self.get_selected_tracks()
+
+	if not tracks:
+            return False
+
+        tracks_sorted = trackdb.sort_tracks(
+			('artist', 'date', 'album', 'discnumber', 'tracknumber'), 
+			tracks)
+
+        dialog = properties.TrackPropertiesDialog(self.parent,
+            tracks_sorted)
 
     def _on_set_rating(self, widget, new_rating):
         """
@@ -726,3 +746,5 @@ class CollectionPanel(panel.Panel):
             # search is no longer valid
             self._search_num += 1
             gobject.idle_add(self._expand_search_nodes, self._search_num)
+
+# vim: et sts=4 sw=4

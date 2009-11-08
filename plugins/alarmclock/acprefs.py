@@ -40,34 +40,34 @@ class TuesdayPreference(widgets.CheckPrefsItem):
     name = 'plugin/alarmclock/tuesday'
 
 class ThursdayPreference(widgets.CheckPrefsItem):
-    default = False 
+    default = False
     name = 'plugin/alarmclock/thursday'
-    
+
 class WednesdayPreference(widgets.CheckPrefsItem):
-    default = False 
+    default = False
     name = 'plugin/alarmclock/wednesday'
-    
+
 class FridayPreference(widgets.CheckPrefsItem):
     default = False
     name = 'plugin/alarmclock/friday'
-    
+
 class SaturdayPreference(widgets.CheckPrefsItem):
     default = False
     name = 'plugin/alarmclock/saturday'
-    
+
 
 class SundayPreference(widgets.CheckPrefsItem):
     default = False
     name = 'plugin/alarmclock/sunday'
-    
+
 class FadingPreferencew(widgets.CheckPrefsItem):
-    default = False 
+    default = False
     name = 'plugin/alarmclock/alarm_use_fading'
 
 class MinVolumePreference(widgets.SpinPrefsItem):
     default = 0
     name = 'plugin/alarmclock/alarm_min_volume'
-    
+
 class MaxVolumePreference(widgets.SpinPrefsItem):
     default = 100
     name = 'plugin/alarmclock/alarm_max_volume'

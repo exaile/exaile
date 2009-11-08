@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import os, threading, copy
@@ -30,7 +30,7 @@ from xl import transcoder, track, settings, common
 
 class CDImporter(object):
     def __init__(self, tracks):
-        self.tracks = [ t for t in tracks if 
+        self.tracks = [ t for t in tracks if
                 t.get_loc_for_io().startswith("cdda") ]
         self.duration = float(sum( [ t['__length'] for t in self.tracks ] ))
         self.transcoder = transcoder.Transcoder()
@@ -40,7 +40,7 @@ class CDImporter(object):
 
         self.running = False
 
-        self.outpath = settings.get_option("cd_import/outpath", 
+        self.outpath = settings.get_option("cd_import/outpath",
                 "%s/$artist/$album/$tracknumber - $title" % \
                 os.getenv("HOME"))
 
@@ -102,11 +102,11 @@ class CDImporter(object):
             for k, v in replacedict.iteritems():
                 val = tr[v]
                 if type(val) in (list, tuple):
-                    val = u" & ".join(val) 
+                    val = u" & ".join(val)
                 part = part.replace(k, str(val))
             part = part.replace(os.sep, "") # strip os.sep
             parts2.append(part)
-        dirpath = "/" + os.path.join(*parts2[:-1]) 
+        dirpath = "/" + os.path.join(*parts2[:-1])
         if not os.path.exists(dirpath):
             os.makedirs(dirpath)
         ext = transcoder.FORMATS[self.transcoder.dest_format]['extension']

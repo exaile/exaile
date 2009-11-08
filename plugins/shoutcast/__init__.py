@@ -69,7 +69,7 @@ class ShoutcastRadioStation(RadioStation):
         self.playlist_url = 'http://www.shoutcast.com/sbin/tunein-station.pls?id=%(id)s'
         self.search_url = 'http://www.shoutcast.com/sbin/newxml.phtml?search=%(kw)s'
         self.cache_file = os.path.join(xdg.get_cache_dir(), 'shoutcast.cache')
-        self.data = None 
+        self.data = None
         self._load_cache()
         self.subs = {}
         self.playlists = {}
@@ -137,7 +137,7 @@ class ShoutcastRadioStation(RadioStation):
             rlist.get_items = lambda no_cache, name=item: \
                 self._get_subrlists(name=name, no_cache=no_cache)
             rlists.append(rlist)
-        
+
         sort_list = [(item.name, item) for item in rlists]
         sort_list.sort()
         rlists = [item[1] for item in sort_list]
@@ -229,7 +229,7 @@ class ShoutcastRadioStation(RadioStation):
     def search(self, keyword):
         """
             Searches the station for a specified keyword
-            
+
             @param keyword: the keyword to search
         """
         from xlgui.panel import radio
@@ -269,13 +269,13 @@ class ShoutcastRadioStation(RadioStation):
         """
             Called when the user wants to search for a specific stream
         """
-        dialog = commondialogs.TextEntryDialog(_("Enter the search keywords"), 
+        dialog = commondialogs.TextEntryDialog(_("Enter the search keywords"),
             _("Shoutcast Search"))
 
         result = dialog.run()
         if result == gtk.RESPONSE_OK:
             keyword = dialog.get_value()
-           
+
             self.do_search(keyword)
 
     @common.threaded

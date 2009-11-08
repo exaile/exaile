@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 """
@@ -50,7 +50,7 @@ COLLECTIONS = set()
 def get_collection_by_loc(loc):
     """
         gets the collection by a location.
-        
+
         :param loc: Location of the collection
         :return: collection at location or None
         :rtype: Collection
@@ -75,7 +75,7 @@ class Collection(trackdb.TrackDB):
         >>> tracks = list(c.search('artist="TestArtist"'))
         >>> print len(tracks)
         5
-        >>> 
+        >>>
     """
     def __init__(self, name, location=None, pickle_attrs=[]):
         global COLLECTIONS
@@ -145,7 +145,7 @@ class Collection(trackdb.TrackDB):
             if v == library:
                 del self.libraries[k]
                 break
- 
+
         to_rem = []
         if not "://" in library.location:
             location = u"file://" + library.location
@@ -154,8 +154,8 @@ class Collection(trackdb.TrackDB):
         for tr in self.tracks:
             if tr.startswith(location):
                 to_rem.append(self.tracks[tr]._track)
-        self.remove_tracks(to_rem)       
-       
+        self.remove_tracks(to_rem)
+
         self.serialize_libraries()
         self._dirty = True
 
@@ -169,10 +169,10 @@ class Collection(trackdb.TrackDB):
             Stops the library scan
         """
         self._scan_stopped = True
-    
+
     def get_libraries(self):
         """
-            Gets a list of all the Libraries associated with this 
+            Gets a list of all the Libraries associated with this
             Collection
 
             :rtype: list of :class:`Library`
@@ -205,7 +205,7 @@ class Collection(trackdb.TrackDB):
             event.remove_callback(self._progress_update, 'tracks_scanned',
                 library)
             self._running_total_count += self._running_count
-            if self._scan_stopped: 
+            if self._scan_stopped:
                 break
         else: # didnt break
             try:
@@ -224,7 +224,7 @@ class Collection(trackdb.TrackDB):
     def __count_files(self):
         file_count = 0
         for library in self.libraries.values():
-            if self._scan_stopped: 
+            if self._scan_stopped:
                 self._scanning = False
                 return
             file_count += library._count_files()
@@ -312,7 +312,7 @@ class Library(object):
         ./tests/data
         >>> print len(list(c.search('artist="TestArtist"')))
         5
-        >>> 
+        >>>
     """
     def __init__(self, location, realtime=False, scan_interval=0):
         """
@@ -400,7 +400,7 @@ class Library(object):
         count = 0
         for file in self._walk(gio.File(self.location)):
             if self.collection:
-                if self.collection._scan_stopped: 
+                if self.collection._scan_stopped:
                     break
             count += 1
 
@@ -422,7 +422,7 @@ class Library(object):
         """
         # check for compilations
         if not settings.get_option('collection/file_based_compilations', True):
-            return 
+            return
         try:
             basedir = metadata.j(tr['__basedir'])
             album = metadata.j(tr['album'])
@@ -447,7 +447,7 @@ class Library(object):
             artist in ccheck[basedir][album]:
             if not (basedir, album) in compilations:
                 compilations.append((basedir, album))
-                logger.info("Compilation %(album)s detected in %(dir)s" % 
+                logger.info("Compilation %(album)s detected in %(dir)s" %
                         {'album':album, 'dir':basedir})
 
         ccheck[basedir][album].append(artist)
@@ -462,7 +462,7 @@ class Library(object):
             within a dir and order of dir traversal is not specified.
 
             :root: A gio.File representing the directory to walk through
-            
+
             returns a generator object that yields each gio.File in turn
         """
         queue = deque()
@@ -471,8 +471,8 @@ class Library(object):
         while len(queue) > 0:
             dir = queue.pop()
             yield dir
-            for fileinfo in dir.enumerate_children("standard::type," 
-                    "standard::is-symlink,standard::name," 
+            for fileinfo in dir.enumerate_children("standard::type,"
+                    "standard::is-symlink,standard::name,"
                     "standard::symlink-target,time::modified"):
                 fil = dir.get_child(fileinfo.get_name())
                 # FIXME: recursive symlinks could cause an infinite loop
@@ -501,7 +501,7 @@ class Library(object):
         """
         uri = gloc.get_uri()
         if not uri: # we get segfaults if this check is removed
-            return None 
+            return None
         mtime = gloc.query_info("time::modified").get_modification_time()
         trmtime = None
         try:
@@ -533,8 +533,8 @@ class Library(object):
         if self.collection is None:
             return True
 
-        if self.scanning: 
-            return 
+        if self.scanning:
+            return
 
         logger.info("Scanning library: %s" % self.location)
         self.scanning = True
@@ -580,7 +580,7 @@ class Library(object):
 
         # final progress update
         if notify_interval is not None:
-            event.log_event('tracks_scanned', self, count)        
+            event.log_event('tracks_scanned', self, count)
 
         for (basedir, album) in compilations:
             base = basedir.replace('"', '\\"')
@@ -600,7 +600,7 @@ class Library(object):
         for k, tr in self.collection.tracks.iteritems():
             tr = tr._track
             loc = tr.get_loc_for_io()
-            if not loc: 
+            if not loc:
                 continue
             gloc = gio.File(loc)
             try:
@@ -612,7 +612,7 @@ class Library(object):
 
             if not gloc.query_exists():
                 removals.append(tr)
-       
+
         for tr in removals:
             logger.debug(u"Removing %s"%unicode(tr))
             self.collection.remove(tr)
@@ -654,14 +654,14 @@ class Library(object):
             if self.scan_id:
                 gobject.source_remove(self.scan_id)
 
-            self.scan_id = gobject.timeout_add(interval * 1000, 
+            self.scan_id = gobject.timeout_add(interval * 1000,
                 self.rescan)
 
         self.scan_interval = interval
 
     def add(self, loc, move=False):
         """
-            Copies (or moves) a file into the library and adds it to the 
+            Copies (or moves) a file into the library and adds it to the
             collection
         """
         if not loc.startswith("file://"):
@@ -695,7 +695,7 @@ class Library(object):
             except:
                 common.log_exception(logger)
 
-    # the below are not essential for 0.3.0, should be implemented only 
+    # the below are not essential for 0.3.0, should be implemented only
     # if time allows for it
 
     def set_layout(self, layout, default="Unknown"):

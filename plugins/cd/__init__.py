@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 
@@ -47,7 +47,7 @@ except:
     CDDB_AVAIL=False
 
 import cdprefs
-    
+
 def get_prefs_pane():
     return cdprefs
 
@@ -97,7 +97,7 @@ class CDTocParser(object):
             entry = ioctl(fd, CDROMREADTOCENTRY, entry)
             track, adrctrl, format, addr = struct.unpack(TOC_ENTRY_FMT, entry)
             m, s, f = struct.unpack(ADDR_FMT, struct.pack('i', addr))
-                
+
             adr = adrctrl & 0xf
             ctrl = (adrctrl & 0xf0) >> 4
 
@@ -105,7 +105,7 @@ class CDTocParser(object):
             if ctrl & CDROM_DATA_TRACK:
                 data = 1
 
-            self.raw_tracks.append( (track, m, s, f, (m*60+s) * 75 + f, data) ) 
+            self.raw_tracks.append( (track, m, s, f, (m*60+s) * 75 + f, data) )
 
     def get_raw_info(self):
         return self.raw_tracks[:]
@@ -126,7 +126,7 @@ class CDPlaylist(playlist.Playlist):
             self.device = "/dev/cdrom"
         else:
             self.device = device
-        
+
         self.open_disc()
 
     def open_disc(self):
@@ -135,7 +135,7 @@ class CDPlaylist(playlist.Playlist):
         lengths = toc.get_track_lengths()
 
         songs = {}
-        
+
         for count, length in enumerate(lengths):
             count += 1
             song = track.Track()
@@ -154,12 +154,12 @@ class CDPlaylist(playlist.Playlist):
 
         if CDDB_AVAIL:
             self.get_cddb_info()
-    
+
     @common.threaded
     def get_cddb_info(self):
         try:
             disc = DiscID.open(self.device)
-            self.info = DiscID.disc_id(disc) 
+            self.info = DiscID.disc_id(disc)
             status, info = CDDB.query(self.info)
         except IOError:
             return
@@ -169,9 +169,9 @@ class CDPlaylist(playlist.Playlist):
             status = 200
         if status != 200:
             return
-        
+
         (status, info) = CDDB.read(info['category'], info['disc_id'])
-        
+
         title = info['DTITLE'].split(" / ")
         for i in range(self.info[1]):
             self.ordered_tracks[i]['title'] = \
@@ -208,7 +208,7 @@ class CDDevice(Device):
         except:
             common.log_exception(log=logger, message="Could not import cd gui panel")
             return 'flatplaylist'
-      
+
     panel_type = property(_get_panel_type)
 
     def connect(self):

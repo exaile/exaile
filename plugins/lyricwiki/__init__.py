@@ -28,11 +28,11 @@ def disable(exaile):
     exaile.lyrics.remove_search_method_by_name("lyricwiki")
 
 class LyricWiki(LyricSearchMethod):
-    
+
     name= "lyricwiki"
     def find_lyrics(self, track):
         search = "http://lyricwiki.org/api.php?artist=%s&song=%s&fmt=xml" % (
-            urllib.quote_plus(track["artist"][0]), 
+            urllib.quote_plus(track["artist"][0]),
             urllib.quote_plus(track["title"][0]))
         sock = urllib.urlopen(search)
         xml = sock.read()

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import copy, logging, os, urllib2, urlparse
@@ -49,7 +49,7 @@ class BaseFormat(object):
         self.open = False
         self.mutagen = None
         self.load()
-        self._reverse_mapping = dict(( 
+        self._reverse_mapping = dict((
             (v,k) for k,v in self.tag_mapping.iteritems() ))
 
     def load(self):
@@ -74,7 +74,7 @@ class BaseFormat(object):
 
     def _get_raw(self):
         if self.MutagenType:
-            return self.mutagen            
+            return self.mutagen
         else:
             return {'title':self._get_fallback_title()}
 
@@ -120,7 +120,7 @@ class BaseFormat(object):
         """
             get the values for the specified tags.
 
-            returns a dict of the found values. if no value was found for a 
+            returns a dict of the found values. if no value was found for a
             requested tag it will not exist in the returned dict
         """
         raw = self._get_raw()

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,18 +15,18 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 # Here's where it all begins.....
 #
-# Holds the main Exaile class, whose instantiation starts up the entiriety 
+# Holds the main Exaile class, whose instantiation starts up the entiriety
 # of Exaile and which also handles Exaile shutdown.
 #
 # Also takes care of parsing commandline options.
@@ -53,7 +53,7 @@ logger = logging.getLogger(__name__)
 
 class Exaile(object):
     _exaile = None
-    
+
     def __init__(self):
         """
             Initializes Exaile.
@@ -78,14 +78,14 @@ class Exaile(object):
 
         #initial mainloop setup. The actual loop is started later, if necessary
         self.mainloop_init()
-        
+
         #initialize DbusManager
         if self.options.StartGui and self.options.Dbus:
             from xl import xldbus
             if xldbus.check_exit(self.options, self.args):
                 sys.exit(0)
             self.dbus = xldbus.DbusManager(self)
-        
+
         #load the rest.
         self.__init()
 
@@ -110,7 +110,7 @@ class Exaile(object):
         except common.VersionError:
             common.log_exception(log=logger)
             exit(1)
-        
+
         # Splash screen
         if self.options.StartGui:
             self.__show_splash()
@@ -126,7 +126,7 @@ class Exaile(object):
                 migrator.migrate(force=self.options.ForceImport)
                 del migrator
             except:
-                common.log_exception(log=logger, 
+                common.log_exception(log=logger,
                         message=_("Failed to migrate from 0.2.14"))
 
         # Initialize plugin manager
@@ -153,7 +153,7 @@ class Exaile(object):
         from xl import player
         from xl.player import queue
         self.player = player.get_player()()
-        self.queue = queue.PlayQueue(self.player, 
+        self.queue = queue.PlayQueue(self.player,
                 location=os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
         event.log_event("player_loaded", self, None)
 
@@ -163,7 +163,7 @@ class Exaile(object):
         self.smart_playlists = playlist.PlaylistManager('smart_playlists',
             playlist.SmartPlaylist)
         if firstrun:
-            self._add_default_playlists() 
+            self._add_default_playlists()
         event.log_event("playlists_loaded", self, None)
 
         # Initialize dynamic playlist support
@@ -282,7 +282,7 @@ class Exaile(object):
                 mode='a', backupCount=5)
         logfile.doRollover() # each session gets its own file
         logfile.setLevel(logfilelevel)
-        formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s (%(name)s)', 
+        formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
             datefmt="%m-%d %H:%M")
         logfile.setFormatter(formatter)
         logging.getLogger("").addHandler(logfile)
@@ -304,7 +304,7 @@ class Exaile(object):
             default=False, help=_("Stop playback"))
         group.add_option("-a", "--play", dest="Play", action="store_true",
             default=False, help=_("Play"))
-        group.add_option("-t", "--play-pause", dest="PlayPause", 
+        group.add_option("-t", "--play-pause", dest="PlayPause",
             action="store_true", default=False, help=_("Toggle Play or Pause"))
         group.add_option("--stop-after-current", dest="StopAfterCurrent",
             action="store_true", default=False,
@@ -328,8 +328,8 @@ class Exaile(object):
             type='int', metavar='RATING', help=_('Set rating for current song'))
         group.add_option('--get-rating', dest='GetRating', action='store_true',
             default=False, help=_('Get rating for current song'))
-        group.add_option("--current-position", dest="CurrentPosition", 
-            action="store_true", default=False, 
+        group.add_option("--current-position", dest="CurrentPosition",
+            action="store_true", default=False,
             help=_("Print the position inside the current track as time"))
         group.add_option("--current-progress", dest="CurrentProgress",
             action="store_true", default=False,
@@ -337,7 +337,7 @@ class Exaile(object):
         p.add_option_group(group)
 
         group = OptionGroup(p, _('Volume options'))
-        group.add_option("-i", "--increase-vol", dest="IncreaseVolume", action="store", 
+        group.add_option("-i", "--increase-vol", dest="IncreaseVolume", action="store",
             type="int", metavar="VOL", help=_("Increases the volume by VOL%"))
         group.add_option("-l", "--decrease-vol", dest="DecreaseVolume", action="store",
             type="int", metavar="VOL", help=_("Decreases the volume by VOL%"))
@@ -356,10 +356,10 @@ class Exaile(object):
         group.add_option("--safemode", dest="SafeMode", action="store_true",
             default=False, help=_("Start in safe mode - sometimes useful "
             "when you're running into problems"))
-        group.add_option("--force-import", dest="ForceImport", 
+        group.add_option("--force-import", dest="ForceImport",
             action="store_true", default=False, help=_("Force import of "
             "old data from 0.2.x. Overwrites current data."))
-        group.add_option("--no-import", dest="NoImport", 
+        group.add_option("--no-import", dest="NoImport",
             action="store_true", default=False, help=_("Do not import "
             "old data from 0.2.x."))
         p.add_option_group(group)
@@ -369,8 +369,8 @@ class Exaile(object):
         group.add_option("--datadir", dest="UseDataDir", help=_("Set data directory"))
         group.add_option("--debug", dest="Debug", action="store_true",
             default=False, help=_("Show debugging output"))
-        group.add_option("--eventdebug", dest="DebugEvent", 
-            action="store_true", default=False, 
+        group.add_option("--eventdebug", dest="DebugEvent",
+            action="store_true", default=False,
             help=_("Enable debugging of xl.event. Generates LOTS of output"))
         group.add_option("--eventfilter", dest="EventFilter",
             action='store', type='string', help=_("Filter event debug "
@@ -390,7 +390,7 @@ class Exaile(object):
     def version(self):
         print r"""   ____          _ __    __
   / __/_ _____ _(_) /__ / /
- / _/ \ \ / _ `/ / / -_)_/ 
+ / _/ \ \ / _ `/ / / -_)_/
 /___//_\_\\_,_/_/_/\__(_)   v%s
 """%__version__
         exit()
@@ -402,7 +402,7 @@ class Exaile(object):
         from xl import playlist
         # entire playlist
         entire_lib = playlist.SmartPlaylist(_("Entire Library"),
-            collection=self.collection) 
+            collection=self.collection)
         self.smart_playlists.save_playlist(entire_lib, overwrite=True)
 
         # random playlists
@@ -415,7 +415,7 @@ class Exaile(object):
 
         # rating based playlists
         for item in (3, 4):
-            pl = playlist.SmartPlaylist(_("Rating > %d") % item, 
+            pl = playlist.SmartPlaylist(_("Rating > %d") % item,
                 collection=self.collection)
             pl.add_param('__rating', '>', item)
             self.smart_playlists.save_playlist(pl, overwrite=True)
@@ -456,7 +456,7 @@ class Exaile(object):
 
             takes care of saving prefs, databases, etc.
         """
-        if self.quitting: 
+        if self.quitting:
             return
         self.quitting = True
         logger.info("Exaile is shutting down...")
@@ -476,7 +476,7 @@ class Exaile(object):
             timer.cancel()
 
         # this event should be used by plugins and modules that dont need
-        # to be saved in any particular order. modules that might be 
+        # to be saved in any particular order. modules that might be
         # touched by events triggered here should be added statically
         # below.
         event.log_event("quit_application", self, None, async=False)
@@ -490,7 +490,7 @@ class Exaile(object):
         self.covers.save_cover_db()
 
         self.collection.save_to_location()
-        
+
         #Save order of custom playlists
         self.playlists.save_order()
         self.stations.save_order()

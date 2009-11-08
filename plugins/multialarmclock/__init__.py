@@ -35,8 +35,8 @@ pb = gtk.gdk.pixbuf_new_from_file(os.path.join(PATH,'clock32.png'))
 #PLUGIN_AUTHORS              = ['Brian Parma <execrable@gmail.com>']
 #PLUGIN_VERSION              = "0.1"
 #PLUGIN_ICON                 = pb
-#PLUGIN_DESCRIPTION          = _(r"""Plays music at a specific times and days.\n\nNote that when the 
-                                #specified time arrives, Exaile will just act like you pressed the play button, 
+#PLUGIN_DESCRIPTION          = _(r"""Plays music at a specific times and days.\n\nNote that when the
+                                #specified time arrives, Exaile will just act like you pressed the play button,
                                 #so be sure you have the music you want to hear in your playlist""")
 
 PLUGIN_ENABLED              = False
@@ -50,7 +50,7 @@ MENU_ITEM                   = None
 ###><><><### Alarm Clock Stuph ###><><><###
 
 class Alarm:
-    ''' 
+    '''
         Class for individual alarms.
     '''
     def __init__(self, time="09:00", days=None, name="New Alarm", dict={}):
@@ -61,16 +61,16 @@ class Alarm:
             self.days = [False,False,False,False,False,False,False]
         else:
             self.days = days
-        
+
         # For setting attributes by dictionary
         self.__dict__.update(dict)
-        
+
     def on(self):
         self.active = True
-        
+
     def off(self):
         self.active = False
-        
+
     def toggle(self):
         if self.active:
             self.off()
@@ -93,15 +93,15 @@ class AlarmClock:
         self.time_per_inc = 1
         self.window = None
         self.exaile = exaile
-        
+
         self.icon = pb
-        
+
         # Create Model
         self.model = gtk.ListStore(str,gtk.gdk.Pixbuf,object)
 
         # Load any saved alarms
         self.load_list()
-        
+
     def minvolume_changed(self, widget):
         self.min_volume = widget.get_value()
         settings.set_option('plugin/multialarmclock/fade_min_volume',
@@ -109,7 +109,7 @@ class AlarmClock:
 #        print 'AC: minvol change',self.min_volume,SETTINGS.get_float("alarm_min_volume", plugin=plugins.name(__file__))
 
     def maxvolume_changed(self, widget):
-        self.max_volume = widget.get_value()        
+        self.max_volume = widget.get_value()
         settings.set_option('plugin/multialarmclock/fade_max_volume',
                 self.max_volume)
 #        print 'AC: maxvol change'
@@ -125,7 +125,7 @@ class AlarmClock:
         settings.set_option('plugin/multialarmclock/fade_time_per_inc',
                 self.time_per_inc)
 #        print 'AC: time change'
-        
+
     def selection_change(self, selection):
         model, tree_iter = self.selection.get_selected()
         if tree_iter is not None:
@@ -138,30 +138,30 @@ class AlarmClock:
                     day_string += days[i]
             self.AlarmLabel.set_text(alarm.name+' - '+alarm.time + day_string)
 #        print 'AC: selection change'
-        
+
     def fading_cb(self, widget):
         self.fading = widget.get_active()
         settings.set_option('plugin/multialarmclock/fading_on',
                 self.fading)
 #        print 'AC: fading ',self.fading
-        
+
     def enable_cb(self, widget):
         model, tree_iter = self.selection.get_selected()
         if tree_iter is not None:
             alarm = model.get_value(tree_iter, 2)
             alarm.active = widget.get_active()
 #            print 'AC: toggle: ', alarm.active
-            
+
         else:
             widget.set_active(False)
 #            print 'AC: notoggle'
-        
+
     def restart_cb(self, widget):
         self.restart = widget.get_active()
         settings.set_option('plugin/multialarmclock/restart_playlist_on',
                 self.restart)
 #        print 'AC: restart: ',self.restart
-        
+
     def show_ui(self, widget, exaile):
         '''
             Display main window, which is not Modal.
@@ -169,7 +169,7 @@ class AlarmClock:
         if self.window:
             self.window.present()
             return
-            
+
         self.signals = {'on_AddButton_clicked':self.add_button,
                         'on_EditButton_clicked':self.edit_button,
                         'on_DeleteButton_clicked':self.delete_button,
@@ -185,52 +185,52 @@ class AlarmClock:
         self.ui = gtk.Builder()
         self.ui.add_from_file(UI)
         self.ui.connect_signals(self.signals)    # connect signals to GUI
-        
+
         self.window = self.ui.get_object('MainWindow')
-        
+
         # Model & Treeview - model created in init()
         self.view = self.ui.get_object('AlarmList')
         self.view.set_model(self.model)
         self.selection = self.view.get_selection()
-        
+
         col = gtk.TreeViewColumn('Test')
         cel = gtk.CellRendererText()
         pcel = gtk.CellRendererPixbuf()
-        
+
         self.view.append_column(col)
-        
+
         col.pack_start(pcel,False)
         col.pack_end(cel,False)
         col.add_attribute(cel, 'text', 0)
         col.add_attribute(pcel, 'pixbuf', 1)
-        
+
         # Set GUI Values
         self.load_settings()
         self.ui.get_object('FadingCB').set_active(self.fading)
         self.ui.get_object('RestartCB').set_active(self.restart)
         self.ui.get_object('MinVolume').set_value(self.min_volume)
-        self.ui.get_object('MaxVolume').set_value(self.max_volume)        
-        self.ui.get_object('Increment').set_value(self.increment)        
-        self.ui.get_object('Time').set_value(self.time_per_inc)        
+        self.ui.get_object('MaxVolume').set_value(self.max_volume)
+        self.ui.get_object('Increment').set_value(self.increment)
+        self.ui.get_object('Time').set_value(self.time_per_inc)
         self.EnabledCB = self.ui.get_object('EnabledCB')
         self.AlarmLabel = self.ui.get_object('AlarmLabel')
-        
+
         # Set Signal for Selection Change
         self.selection.connect('changed', self.selection_change)
-        
+
         self.window.show_all()
-        
+
     def add_alarm(self, alarm):
         self.model.append([alarm.name,self.icon,alarm])
         self.alarm_list.append(alarm)
-        
+
     def add_button(self, widget):
         alarm = Alarm()
         add = AddAlarm()    # create new instance each time or use a self.instance?
         if add.run(alarm):
             self.add_alarm(alarm)
             self.save_list()    # since exaile doesn't notify on program exit...
-        
+
     def edit_button(self, widget):
         # Get currently selected alarm
         model, tree_iter = self.selection.get_selected()
@@ -240,17 +240,17 @@ class AlarmClock:
             if add.run(alarm):
                 model.set_value(tree_iter, 0, alarm.name) # update display incase of name change
                 self.selection_change(self.selection)
-                self.save_list()   
-        
+                self.save_list()
+
     def delete_button(self, widget):
         model, tree_iter = self.selection.get_selected()
         if tree_iter is not None:
             alarm = model.get_value(tree_iter, 2)
             model.remove(tree_iter)
-        
+
             self.alarm_list.remove(alarm)
-            self.save_list()   
-            
+            self.save_list()
+
     def load_settings(self):
         print 'AC: load settings'
         self.fading = settings.get_option(
@@ -278,7 +278,7 @@ class AlarmClock:
                         self.add_alarm(al)
                     except:
                         print 'MultiAlarmClock plugin: bad alarm definition'
-            
+
         except IOError, (e,s):  # File might not exist
             print 'MultiAlarmClock plugin: could not open file:', s
 
@@ -294,12 +294,12 @@ class AlarmClock:
 
 class AddAlarm:
     def __init__(self):
-        pass    
-        
+        pass
+
     def run(self, alarm):
         self.ui = gtk.Builder()
         self.ui.add_from_file(UI)
-        
+
         self.window = self.ui.get_object('AddWindow')
         self.alarm_name = self.ui.get_object('AlarmName')
         self.alarm_hour = self.ui.get_object('SpinHour')
@@ -311,14 +311,14 @@ class AddAlarm:
                            self.ui.get_object('Check4'),
                            self.ui.get_object('Check5'),
                            self.ui.get_object('Check6')]
-        
+
         hour, minute = alarm.time.split(':')
         self.alarm_hour.set_value(int(hour))
         self.alarm_minute.set_value(int(minute))
         self.alarm_name.set_text(alarm.name)
         for i in range(7):
             self.alarm_days[i].set_active(alarm.days[i])
-        
+
         result = self.window.run()
 
         # stuff
@@ -329,12 +329,12 @@ class AddAlarm:
             alarm.name = unicode(self.alarm_name.get_text(), 'utf-8')
             for i in range(7):
                 alarm.days[i] = self.alarm_days[i].get_active()
-        
+
         self.window.destroy()
-        
+
         return (result == 1)
-        
-        
+
+
 ###><><><### Globals ###><><><###
 
 def fade_in(main, exaile):
@@ -364,7 +364,7 @@ def check_alarms(main, exaile):
         if al.active and al.time == current and al.days[currentDay] == True:
             check = time.strftime("%m %d %Y %H:%M") # clever...
             if main.RANG.has_key(check): return True
-            
+
             # tracks to play?
             count = len(exaile.queue.get_tracks())
             if exaile.queue.current_playlist:
@@ -380,52 +380,52 @@ def check_alarms(main, exaile):
                     exaile.queue.current_playlist.set_current_pos(0)
                 else:
                     exaile.queue.set_current_playlist(exaile.gui.main.get_selected_playlist())
-            
+
             exaile.queue.play()
 
             main.RANG[check] = True
 
     return True
 
-        
+
 ###><><><### Plugin Handling Functions ###><><><###
 
 def __enb(eventname, exaile, nothing):
     gobject.idle_add(_enable, exaile)
 
 def enable(exaile):
-       
+
     if exaile.loading:
         event.add_callback(__enb,'exaile_loaded')
     else:
         __enb(None, exaile, None)
-        
+
 def _enable(exaile):
     '''
         Called when plugin is loaded.  Start timer and load previously saved alarms.
     '''
     global TIMER_ID, MENU_ITEM, ALARM_CLOCK_MAIN
-    ALARM_CLOCK_MAIN = main = AlarmClock(exaile) 
-    
+    ALARM_CLOCK_MAIN = main = AlarmClock(exaile)
+
     TIMER_ID = gobject.timeout_add(5000, check_alarms, main, exaile)
-    
+
     MENU_ITEM = gtk.MenuItem(_('Multi-Alarm Clock'))
     MENU_ITEM.connect('activate', main.show_ui, exaile)
     exaile.gui.builder.get_object('tools_menu').append(MENU_ITEM)
     MENU_ITEM.show()
 
-    
-    
+
+
 def disable(exaile):
     '''
         Called when plugin is unloaded.  Stop timer, destroy main window if it exists, and save current alarms.
     '''
     global TIMER_ID, MENU_ITEM, ALARM_CLOCK_MAIN
-        
+
     # Cleanup
     if ALARM_CLOCK_MAIN.window:
         ALARM_CLOCK_MAIN.window.destroy()
-        
+
 #    if main:
         #main.save_list()       # unnecessary
 #        main = None

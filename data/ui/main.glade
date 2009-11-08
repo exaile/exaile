@@ -525,7 +525,6 @@
                         <property name="tooltip_text" translatable="yes">Shuffle playback order</property>
                         <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="toggled" handler="on_shuffle_button_toggled"/>
                         <child>
                           <object class="GtkImage" id="shuffle_button_image">
                             <property name="visible">True</property>

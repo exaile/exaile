@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 # script to turn a plugin dir into a .exz file suitable for distribution
@@ -34,7 +34,7 @@
 
 from optparse import OptionParser
 p = OptionParser()
-p.add_option("-c", "--compression", dest="compression", 
+p.add_option("-c", "--compression", dest="compression",
         action="store", choices=("", "gz", "bz2"), default="bz2")
 p.add_option("-e", "--ignore-extension", dest="extensions",
         action="append", default=(".pyc", ".pyo"))
@@ -63,7 +63,7 @@ for dir in args:
     if not os.path.exists(dir):
         print "No such folder %s" % dir
         break
-    
+
     print "Making plugin %s..." % dir
 
     if not os.path.exists(os.path.join(dir, "PLUGININFO")):
@@ -88,7 +88,7 @@ for dir in args:
 
 
     tfile = tarfile.open(
-            options.output + dir + "-%s.exz"%info["Version"], 
+            options.output + dir + "-%s.exz"%info["Version"],
             "w:%s"%COMPRESSION)
     tfile.posix = True # we like being standards-compilant
 
@@ -99,13 +99,13 @@ for dir in args:
                 if file.endswith(ext):
                     stop = True
                     break
-            if stop: 
+            if stop:
                 continue
             for name in IGNORED_FILES:
                 if file == name:
                     stop = True
                     break
-            if stop: 
+            if stop:
                 continue
 
             path = os.path.join(fold, file)

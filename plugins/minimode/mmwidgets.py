@@ -255,7 +255,7 @@ class AttachedWindow(gtk.Window):
 
         # E.g.         974 - 800     < 400
         if workarea_height - parent_y < height:
-            #            800 - 400 = 400 
+            #            800 - 400 = 400
             y = parent_y - height # Aligned top
         else:
             y = parent_y + parent_height # Aligned bottom
@@ -284,7 +284,7 @@ class PlaylistButton(gtk.ToggleButton):
         Also allows for drag and drop of files
         to add them to the playlist
     """
-    def __init__(self, main, queue, playlist, change_callback, format_callback=None):
+    def __init__(self, main, queue, playlist, formatter, change_callback):
         gtk.ToggleButton.__init__(self, '')
 
         self.set_size_request(150, -1)
@@ -298,19 +298,15 @@ class PlaylistButton(gtk.ToggleButton):
         self.add(box)
 
         self.main = main
-        self.formatter = TrackFormatter()
+        self.formatter = formatter
         self.playlist = Playlist(main, queue, playlist)
+        self.playlist.scroll.set_property('shadow-type', gtk.SHADOW_IN)
         self.popup = AttachedWindow(self, self.playlist)
 
         self._dirty = False
         self._drag_shown = False
         self._parent_hide_id = None
         self._drag_motion_id = None
-
-        try:
-            self.formatter.connect('format-request', format_callback)
-        except TypeError:
-            pass
 
         self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
             self.playlist.list.targets,
@@ -330,6 +326,7 @@ class PlaylistButton(gtk.ToggleButton):
             self.on_playlist_drag_data_received)
         self.main.playlist_notebook.connect('switch-page',
             self.on_playlist_notebook_switch)
+        self.formatter.connect('format-changed', self.on_format_changed)
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_playback_start, 'playback_player_start')
         event.add_callback(self.on_playback_end, 'playback_player_end')
@@ -350,6 +347,16 @@ class PlaylistButton(gtk.ToggleButton):
             Sets the direction of the arrow
         """
         self.arrow.set(direction, gtk.SHADOW_OUT)
+
+    def on_format_changed(self, formatter, format):
+        """
+            Updates the playlist button
+            on track title format changes
+        """
+        track = self.playlist.playlist.get_current()
+
+        if track:
+            self.set_label(self.formatter.format(track))
 
     def on_playlist_current_changed(self, event, playlist, track):
         """
@@ -380,7 +387,7 @@ class PlaylistButton(gtk.ToggleButton):
         """
         if track in self.playlist.playlist.ordered_tracks:
             path = (self.playlist.playlist.index(track),)
-        
+
             if settings.get_option('gui/ensure_visible', True):
                 self.playlist.list.scroll_to_cell(path)
 
@@ -511,16 +518,12 @@ class TrackSelector(gtk.ComboBox):
         Control which updates its content automatically
         on playlist actions, track display is configurable
     """
-    def __init__(self, main, queue, changed_callback, format_callback=None):
+    def __init__(self, main, queue, formatter, changed_callback):
         gtk.ComboBox.__init__(self)
 
         self.queue = queue
+        self.formatter = formatter
         self.list = gtk.ListStore(gobject.TYPE_PYOBJECT, gobject.TYPE_STRING)
-        self.formatter = TrackFormatter()
-        self._updating = False
-        self._dirty = False
-        #self._changed_callback = changed_callback
-
         self.set_model(self.list)
         self.set_size_request(150, 0)
 
@@ -528,10 +531,8 @@ class TrackSelector(gtk.ComboBox):
         self.pack_start(textrenderer, expand=True)
         self.set_cell_data_func(textrenderer, self.text_data_func)
 
-        try:
-            self.formatter.connect('format-request', format_callback)
-        except TypeError:
-            pass
+        self._updating = False
+        self._dirty = False
 
         self.update_track_list(self.queue.current_playlist)
 
@@ -540,6 +541,7 @@ class TrackSelector(gtk.ComboBox):
         self.connect('track-changed', changed_callback)
         main.playlist_notebook.connect('switch-page',
             self.on_playlist_notebook_switch)
+        self.formatter.connect('format-changed', self.on_format_changed)
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_tracks_added, 'tracks_added')
         event.add_callback(self.on_tracks_removed, 'tracks_removed')
@@ -635,8 +637,14 @@ class TrackSelector(gtk.ComboBox):
             Wrapper function to prevent race conditions
         """
         if not self._updating:
-            #self._changed_callback(*e)
             self.emit('track-changed', self.get_active_track())
+
+    def on_format_changed(self, formatter, format):
+        """
+            Updates the track list
+            on track title format changes
+        """
+        self.update_track_list()
 
     def on_playlist_current_changed(self, event, playlist, track):
         """
@@ -848,14 +856,14 @@ class TrackFormatter(gobject.GObject):
         Formats track titles based on a format string
     """
     __gsignals__ = {
-        'format-request': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_STRING, ()),
-        'rating-steps-request': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_INT, ()),
+        'format-changed': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING,))
     }
 
-    def __init__(self):
+    def __init__(self, format):
         gobject.GObject.__init__(self)
 
-        self._format = '$tracknumber - $title'
+        self._format = format
+        self._template = Template(self._format)
         self._substitutions = {
             'tracknumber': 'tracknumber',
             'title': 'title',
@@ -883,6 +891,25 @@ class TrackFormatter(gobject.GObject):
         }
         self._rating_steps = 5.0
 
+    def set_format(self, format):
+        """
+            Updates the internal template
+        """
+        self._format = format
+        self._template = Template(self._format)
+        self.emit('format-changed', self._format)
+
+    def set_rating_steps(self, rating_steps):
+        """
+            Updates the rating steps
+        """
+        self._rating_steps = rating_steps
+
+        rating_pattern = '%s%s' % (self._template.delimiter, 'rating')
+
+        if rating_pattern in self._format:
+            self.emit('format-changed', self._format)
+
     def format(self, track):
         """
             Returns the formatted title of a track
@@ -890,15 +917,6 @@ class TrackFormatter(gobject.GObject):
         if not isinstance(track, Track):
             return None
 
-        template = Template(self.emit('format-request') or self._format)
-        text = template.safe_substitute(self.__get_substitutions(track))
-
-        return text
-
-    def __get_substitutions(self, track):
-        """
-            Returns a map for keyword to tag value mapping
-        """
         substitutions = self._substitutions.copy()
 
         for keyword, tagname in substitutions.iteritems():
@@ -909,15 +927,15 @@ class TrackFormatter(gobject.GObject):
                 substitutions[keyword] = track[tagname]
 
             try:
-                formatter = self._formattings[keyword]
-                substitutions[keyword] = formatter(substitutions[keyword])
+                format_callback = self._formattings[keyword]
+                substitutions[keyword] = format_callback(substitutions[keyword])
             except KeyError:
                 pass
 
             if substitutions[keyword] is None:
                 substitutions[keyword] = _('Unknown')
 
-        return substitutions
+        return self._template.safe_substitute(substitutions)
 
     def __format_tracknumber(self, tracknumber):
         """
@@ -952,12 +970,11 @@ class TrackFormatter(gobject.GObject):
         except TypeError:
             rating = 0
 
-        rating_steps = self.emit('rating-steps-request') or self._rating_steps
-        rating = rating_steps * rating
+        rating *= self._rating_steps
 
         return '%s%s' % (
             '★' * int(rating),
-            '☆' * int(rating_steps - rating)
+            '☆' * int(self._rating_steps - rating)
         )
 
     def __format_bitrate(self, bitrate):

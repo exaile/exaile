@@ -45,7 +45,7 @@ class iPod(Device):
         if self._is_mounted:
             self.mountpoint = str(volume.GetProperty("volume.mount_point"))
             self.open_db()
-            self.populate_collection()  
+            self.populate_collection()
 
     def open_db(self):
         if self.db:
@@ -102,7 +102,7 @@ class iPodHandler(Handler):
         ret = []
         # Based on the code from: https://bugs.launchpad.net/exaile/+bug/135915
         self.bus = hal.bus # BAD
-        dev_udi_list = hal.hal.FindDeviceStringMatch('info.category', 
+        dev_udi_list = hal.hal.FindDeviceStringMatch('info.category',
             'portable_audio_player')
         for udi in dev_udi_list:
             udiObj = hal.bus.get_object('org.freedesktop.Hal', udi)
@@ -112,10 +112,10 @@ class iPodHandler(Handler):
                 volList = hal.hal.FindDeviceStringMatch('info.parent', udi)
                 for volUdi in volList:
                     volObj = hal.bus.get_object('org.freedesktop.Hal', volUdi)
-                    volInt = dbus.Interface(volObj, 
+                    volInt = dbus.Interface(volObj,
                         'org.freedesktop.Hal.Device')
                     # The first partition contains ipod firmware,  which cannot
-                    # be mounted (unless there's only one partition, as 
+                    # be mounted (unless there's only one partition, as
                     # on this ipod nano)
                     if len(volList) == 1 or \
                         (volInt.PropertyExists('volume.partition.number') and \

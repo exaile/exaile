@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl.nls import gettext as _
@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 class NormalPlayer(_base.ExailePlayer):
     def __init__(self):
-        _base.ExailePlayer.__init__(self, 
+        _base.ExailePlayer.__init__(self,
                 pre_elems=[pipe.ProviderBin("stream_element")])
 
         self._current = None
@@ -177,7 +177,7 @@ class NormalPlayer(_base.ExailePlayer):
         playing = self.is_playing()
 
         self._current = track
-        
+
         uri = track.get_loc_for_io()
         logger.info("Playing %s" % uri)
         self.reset_playtime_stamp()
@@ -220,7 +220,7 @@ class NormalPlayer(_base.ExailePlayer):
             event.log_event('playback_player_pause', self, self.current)
             return True
         return False
- 
+
     def unpause(self):
         """
             unpause playback

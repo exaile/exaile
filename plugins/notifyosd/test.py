@@ -21,10 +21,10 @@ class NotifyOsdTestCase(BaseTestCase):
         self.player.current['title'] = 'Truly'
         self.player.current['artist'] = 'Delerium'
         self.player.current['album'] = 'Chimera'
- 
+
     def testNotify(self):
-        self.plugin.EXAILE_NOTIFYOSD.on_play('', 
-            self.player, self.player.current) 
+        self.plugin.EXAILE_NOTIFYOSD.on_play('',
+            self.player, self.player.current)
 
     def tearDown(self):
         self.plugin.disable(self)

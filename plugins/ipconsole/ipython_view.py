@@ -6,8 +6,8 @@ Backend to the console plugin.
 @copyright: Copyright (c) 2007 IBM Corporation
 @license: BSD
 
-All rights reserved. This program and the accompanying materials are made 
-available under the terms of the BSD which accompanies this distribution, and 
+All rights reserved. This program and the accompanying materials are made
+available under the terms of the BSD which accompanies this distribution, and
 is available at U{http://www.opensource.org/licenses/bsd-license.php}
 """
 # this file is a modified version of source code from the Accerciser project
@@ -77,7 +77,7 @@ class IterableIPShell:
     if argv is None:
       argv=[]
 
-    # This is to get rid of the blockage that occurs during 
+    # This is to get rid of the blockage that occurs during
     # IPython.Shell.InteractiveShell.user_setup()
     IPython.iplib.raw_input = lambda x: None
 
@@ -129,7 +129,7 @@ class IterableIPShell:
     else:
       self.prompt = str(self.IP.outputcache.prompt1).strip()
     sys.stdout = orig_stdout
-    
+
   def historyBack(self):
     self.history_level -= 1
     return self._getHistory()
@@ -166,7 +166,7 @@ class IterableIPShell:
     return str1
 
   def shell(self, cmd,verbose=0,debug=0,header=''):
-    print 'Shell'  
+    print 'Shell'
     stat = 0
     if verbose or debug: print header+cmd
     # flush stdout so we don't mangle python's buffering
@@ -276,7 +276,7 @@ class ConsoleView(gtk.TextView):
     elif insert_iter.compare(selection_iter) > 0:
         self.text_buffer.move_mark(selection_mark, start_iter)
 
-    
+
 
 class IPythonView(ConsoleView, IterableIPShell):
   def __init__(self):

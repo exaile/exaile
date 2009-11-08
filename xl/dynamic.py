@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 from xl.nls import gettext as _
@@ -44,7 +44,7 @@ class DynamicManager(providers.ProviderHandler):
 
     def find_similar_tracks(self, track, limit=-1, exclude=[]):
         """
-            finds tracks from the collection that are similar 
+            finds tracks from the collection that are similar
             to the passed track.
 
             @param track: the track to find similar tracks to
@@ -53,7 +53,7 @@ class DynamicManager(providers.ProviderHandler):
                 found, a random selection of those tracks is
                 returned.
         """
-        logger.debug(u"Searching for %(limit)s tracks related to %(track)s" % 
+        logger.debug(u"Searching for %(limit)s tracks related to %(track)s" %
                 {'limit' : limit, 'track' : track})
         artists = self.find_similar_artists(track)
         if artists == []:
@@ -140,16 +140,16 @@ class DynamicManager(providers.ProviderHandler):
         if current_pos < 0 or current_pos >= len(playlist):
             return
         needed = self.buffersize - (len(playlist) - current_pos)
-        
+
         if needed < 1:
             needed = 1
         curr = playlist.get_current()
-        tracks = self.find_similar_tracks(curr, needed, 
+        tracks = self.find_similar_tracks(curr, needed,
                 playlist.get_tracks())
 
         time.sleep(5)   # wait five seconds before adding to allow for skips
-                        # we're searching for new tracks during this time 
-                        # anyway so its not wasted 
+                        # we're searching for new tracks during this time
+                        # anyway so its not wasted
         if playlist.get_current_pos() != current_pos:
             return # we skipped in that 5 seconds, so ignore it
         playlist.add_tracks(tracks)

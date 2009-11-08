@@ -56,9 +56,9 @@ def toggle_record(widget=None, event=None):
             return True
 
         savedir = settings.get_option(
-                    'plugin/streamripper/save_location', 
+                    'plugin/streamripper/save_location',
                     os.getenv('HOME'))
-        
+
         try:
             port = int(settings.get_option(
                 'plugin/streamripper/relay_port', 8888))
@@ -71,7 +71,7 @@ def toggle_record(widget=None, event=None):
             time.strftime("%c", time.localtime()))
         STREAMRIPPER_OUT.write(
             "-------------------------------------------------\n\n\n")
-       
+
 
         APP.player.playbin.set_state(gst.STATE_NULL)
         sub = subprocess.Popen(['streamripper',
@@ -142,14 +142,14 @@ def initialize(type, exaile, stuff=None):
         image = gtk.Image()
         image.set_from_stock('gtk-media-record', gtk.ICON_SIZE_SMALL_TOOLBAR)
         BUTTON.set_image(image)
-        
+
         toolbar = exaile.gui.play_toolbar
         toolbar.pack_start(BUTTON, False, False)
         toolbar.reorder_child(BUTTON, 3)
 
         BUTTON.show()
 
-    event.add_callback(playback_stop, 'playback_player_end', 
+    event.add_callback(playback_stop, 'playback_player_end',
         exaile.player)
 
 def enable(exaile):

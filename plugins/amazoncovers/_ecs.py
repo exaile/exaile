@@ -37,7 +37,7 @@ def generate_timestamp():
 # code by Robert Wallis: SmilingRob@gmail.com, your hourly software contractor
 def get_aws_query_string(aws_access_key_id, secret, query_dictionary):
 	query_dictionary["AWSAccessKeyId"] = aws_access_key_id
-	query_dictionary["Timestamp"] = generate_timestamp() 
+	query_dictionary["Timestamp"] = generate_timestamp()
 	query_pairs = map(
 		lambda (k,v):(k+"="+urllib.quote(v)),
 		query_dictionary.items()
@@ -73,10 +73,10 @@ def search_covers(search, api_key, secret_key):
     m = re.search(r'<Message>(.*)</Message>', data, re.DOTALL)
     if m:
         logger.warning('Amazon Covers Search Error: %s' % m.group(1))
-        raise AmazonSearchError(m.group(1)) 
+        raise AmazonSearchError(m.group(1))
 
     # check for large images
     regex = re.compile(r'<LargeImage><URL>([^<]*)', re.DOTALL)
     items = regex.findall(data)
 
-    return items 
+    return items

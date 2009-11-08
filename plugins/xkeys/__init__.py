@@ -65,7 +65,7 @@ def disable(exaile):
     # DO NOT ASSIGN KEYS to None in this function, unless you like segfaults
 
     if KEYS:
-        for id in SIGNALS:  
+        for id in SIGNALS:
             KEYS.disconnect(id)
 
     SIGNALS = []

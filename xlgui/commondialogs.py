@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import pygtk
@@ -126,7 +126,7 @@ class TextEntryDialog(gtk.Dialog):
             self.entry.set_text(default_text)
         main.pack_start(self.entry, False, False)
 
-        self.entry.connect('activate', 
+        self.entry.connect('activate',
             lambda e: self.response(gtk.RESPONSE_OK))
 
     def get_value(self):
@@ -158,14 +158,14 @@ class ListDialog(gtk.Dialog):
             Initializes the dialog
         """
         gtk.Dialog.__init__(self, title, parent)
-        
+
         self.vbox.set_border_width(5)
         scroll = gtk.ScrolledWindow()
         scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.model = gtk.ListStore(object)
         self.list = gtk.TreeView(self.model)
         self.list.set_headers_visible(False)
-        self.list.connect('row-activated', 
+        self.list.connect('row-activated',
             lambda *e: self.response(gtk.RESPONSE_OK))
         scroll.add(self.list)
         scroll.set_shadow_type(gtk.SHADOW_IN)
@@ -175,7 +175,7 @@ class ListDialog(gtk.Dialog):
             gtk.STOCK_OK, gtk.RESPONSE_OK)
 
         self.selection = self.list.get_selection()
-        
+
         if multiple:
             self.selection.set_mode(gtk.SELECTION_MULTIPLE)
         else:
@@ -226,7 +226,7 @@ class ListDialog(gtk.Dialog):
         object = model.get_value(iter, 0)
         cell.set_property('text', str(object))
 
-def error(parent, message, _flags=gtk.DIALOG_MODAL): 
+def error(parent, message, _flags=gtk.DIALOG_MODAL):
     """
         Shows an error dialog
     """
@@ -263,7 +263,7 @@ class ListBox(object):
         self.list.append_column(col)
         self.rows = rows
         if not rows: self.rows = []
-        
+
         if rows:
             for row in rows:
                 self.store.append([row])
@@ -323,44 +323,44 @@ class FileOperationDialog(gtk.FileChooserDialog):
         valid file extensions that the file can be
         saved in. (similar to the one in GIMP)
     """
-    
-    def __init__(self, title=None, parent=None, action=gtk.FILE_CHOOSER_ACTION_OPEN, 
+
+    def __init__(self, title=None, parent=None, action=gtk.FILE_CHOOSER_ACTION_OPEN,
                  buttons=None, backend=None):
         """
             Standard __init__ of the gtk.FileChooserDialog.
             Also sets up the expander and list for extensions
         """
         gtk.FileChooserDialog.__init__(self, title, parent, action, buttons, backend)
-        
+
         self.expander = gtk.Expander(_('Select File Type (By Extension)'))
-        
+
         #Create the list that will hold the file type/extensions pair
         self.liststore = gtk.ListStore(str, str)
         self.list = gtk.TreeView(self.liststore)
-        
-        #Create the columns        
+
+        #Create the columns
         filetype_cell = gtk.CellRendererText()
         filetype_col = gtk.TreeViewColumn(_('File Type'), filetype_cell, text=0)
-        
+
         extension_cell = gtk.CellRendererText()
         extension_col = gtk.TreeViewColumn(_('Extension'), extension_cell, text=1)
-        
+
         self.list.append_column(filetype_col)
         self.list.append_column(extension_col)
-        
+
         self.list.show_all()
-        
+
         #Setup the dialog
         self.expander.add(self.list)
         self.vbox.pack_start(self.expander, False, False, 0)
         self.expander.show()
-        
+
         #Connect signals
         selection = self.list.get_selection()
         selection.connect('changed', self.on_selection_changed)
-        
+
         self.set_do_overwrite_confirmation(True)
-    
+
     def on_selection_changed(self, selection):
         """
             When the user selects an extension the filename
@@ -377,15 +377,15 @@ class FileOperationDialog(gtk.FileChooserDialog):
         else:
             filename = '*.' + extension
         self.set_current_name(filename)
-        
+
     def add_extensions(self, extensions):
         """
             Adds extensions to the list
-            
+
             @param extensions: a dictionary of extension:file type pairs
             i.e. { 'm3u':'M3U Playlist' }
         """
         keys = extensions.keys()
         for key in keys:
             self.liststore.append([extensions[key], key])
-    
+

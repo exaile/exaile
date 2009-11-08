@@ -13,16 +13,16 @@ def enable(exaile):
     """
     global ALARM
     ALARM=Alarmclock(exaile)
-    ALARM.enable_alarm()    
+    ALARM.enable_alarm()
 
 def disable(exaile):
     """
         Stops the timer for this plugin
     """
     if ALARM: ALARM.disable_alarm()
-    
+
 def get_prefs_pane():
-    if ALARM: ALARM.enable_alarm()    
+    if ALARM: ALARM.enable_alarm()
     return acprefs
 
 class VolumeControl:
@@ -45,7 +45,7 @@ class VolumeControl:
             time.sleep( self.time_per_inc )
             if self.exaile.player.is_paused() or not self.exaile.player.is_playing():
                 self.stop_fading()
-        
+
 
     def fade_out( self):
         temp_volume = self.max_volume
@@ -80,12 +80,12 @@ class VolumeControl:
 
 
 class Alarmclock(object):
-    
+
     def __init__(self,exaile):
         self.timer_id=None
         self.exaile=exaile
         self.volume_control=VolumeControl(exaile)
-        
+
     def timout_alarm(self):
         """
         Called every two seconds.  If the plugin is not enabled, it does
@@ -96,15 +96,15 @@ class Alarmclock(object):
         self.minuts=int(settings.get_option('plugin/alarmclock/minuts', 20))
         self.volume_control.load_settings()
         active_days_dict = [
-            settings.get_option('plugin/alarmclock/sunday', False), 
+            settings.get_option('plugin/alarmclock/sunday', False),
             settings.get_option('plugin/alarmclock/monday', False),
             settings.get_option('plugin/alarmclock/tuesday', False),
             settings.get_option('plugin/alarmclock/thursday', False),
             settings.get_option('plugin/alarmclock/wednesday', False),
             settings.get_option('plugin/alarmclock/friday', False),
-            settings.get_option('plugin/alarmclock/saturday', False) 
+            settings.get_option('plugin/alarmclock/saturday', False)
         ]
-        
+
         if not self.hour and self.minuts: return True
         if not active_days_dict: return True
 
@@ -123,11 +123,11 @@ class Alarmclock(object):
             RANG[check] = True
 
         return True
-        
+
     def enable_alarm(self):
         if self.timer_id !=  None :
             gobject.source_remove(self.timer_id)
         self.timer_id = gobject.timeout_add(2000, self.timout_alarm)
-    
+
     def disable_alarm(self):
-        gobject.source_remove(self.timer_id)    
+        gobject.source_remove(self.timer_id)

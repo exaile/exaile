@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 import gtk, os.path, time, urllib
@@ -30,6 +30,7 @@ from xl import xdg, track, playlist, common, settings, event
 from xl.nls import gettext as _
 import threading
 from xlgui import rating
+from urllib2 import urlparse
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
@@ -45,7 +46,7 @@ def idle_add(callback=None):
         from the function that calls a function with this decorator.  Instead,
         you must use the callback parameter.  If the wrapped function returns
         a value, it will be passed in as a parameter to the callback function.
-        
+
         @param callback: optional callback that will be called when the
             wrapped function is done running
     """
@@ -53,7 +54,7 @@ def idle_add(callback=None):
         def wrapped(*args, **kwargs):
             gobject.idle_add(_idle_callback, f, callback,
                 *args, **kwargs)
-        
+
         return wrapped
     return wrap
 
@@ -161,10 +162,10 @@ class DragTreeView(gtk.TreeView):
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
         if receive:
-            self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
+            self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT|
                 gtk.gdk.ACTION_MOVE)
-            self.connect('drag_data_received', 
+            self.connect('drag_data_received',
                 self.cont.drag_data_received)
             self.connect('drag_data_delete',
                 self.cont.drag_data_delete)
@@ -184,7 +185,7 @@ class DragTreeView(gtk.TreeView):
         """
             Called when a button is released
         """
-        if event.button != 1 or self.dragging: 
+        if event.button != 1 or self.dragging:
             self.dragging = False
             return True
         if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
@@ -205,7 +206,7 @@ class DragTreeView(gtk.TreeView):
         """
         self.dragging = False
         self.unset_rows_drag_dest()
-        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
     def drag_begin(self, list, context):
@@ -243,16 +244,16 @@ class DragTreeView(gtk.TreeView):
         x = int(x)
         y = int(y)
         path = self.get_path_at_pos(x, y)
-            
+
         if path:
-            if event.button != 3: 
+            if event.button != 3:
                 if event.type == gtk.gdk._2BUTTON_PRESS:
                     self.cont.button_press(button, event)
 
-                if selection.count_selected_rows() <= 1: 
+                if selection.count_selected_rows() <= 1:
                     return False
-                else: 
-                    if selection.path_is_selected(path[0]): 
+                else:
+                    if selection.path_is_selected(path[0]):
                         if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                             selection.unselect_path(path[0])
                         return True
@@ -263,20 +264,20 @@ class DragTreeView(gtk.TreeView):
             if not selection.count_selected_rows():
                 selection.select_path(path[0])
         return self.cont.button_press(button, event)
-    
+
     #TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
     def get_drag_data(self, locs, compile_tracks = True, existing_tracks = []):
         """
             Handles the locations from drag data
-        
+
             @param locs: locations we are dealing with (can
                 be anything from a file to a folder)
             @param compile_tracks: if true any tracks in the playlists
                 that are not found as tracks are added to the list of tracks
             @param existing_tracks: a list of tracks that have already
-                been loaded from files (used to skip loading the dragged 
+                been loaded from files (used to skip loading the dragged
                 tracks from the filesystem)
-            
+
             @returns: a 2 tuple in which the first part is a list of tracks
                 and the second is a list of playlist (note: any files that are
                 in a playlist are not added to the list of tracks, but a track could
@@ -289,30 +290,43 @@ class DragTreeView(gtk.TreeView):
             (found_tracks, found_playlist) = self._handle_unknown_drag_data(loc)
             tracks.extend(found_tracks)
             playlists.extend(found_playlist)
-            
+
         if compile_tracks:
             #Add any tracks in the playlist to the master list of tracks
             for playlist in playlists:
                 for track in playlist.get_tracks():
                     if track not in tracks:
                         tracks.append(track)
-                
+
         return (tracks, playlists)
-    
+
     def _handle_unknown_drag_data(self, loc):
         """
             Handles unknown drag data that has been recieved by
             drag_data_received.  Unknown drag data is classified as
             any loc (location) that is not in the collection of tracks
             (i.e. a new song, or a new playlist)
-            
+
             @param loc:
                 the location of the unknown drag data
-            
+
             @returns: a 2 tuple in which the first part is a list of tracks
                 and the second is a list of playlist
         """
-        if track.is_valid_track(loc):
+        filetype = None
+        info = urlparse.urlparse(loc)
+
+        # don't use gio to test the filetype if it's a non-local file
+        # (otherwise gio will try to connect to every remote url passed in and
+        # cause the gui to hang)
+        if info.scheme in ('file', ''):
+            try:
+                filetype = gio.File(loc).query_info(
+                    'standard::type').get_file_type()
+            except gio.Error:
+                filetype = None
+
+        if track.is_valid_track(loc) or info.scheme not in ('file', ''):
             new_track = track.Track(loc)
             return ([new_track],[])
         elif playlist.is_valid_playlist(loc):
@@ -321,8 +335,7 @@ class DragTreeView(gtk.TreeView):
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
-        elif gio.File(loc).query_info("standard::type").get_file_type() == \
-                gio.FILE_TYPE_DIRECTORY:
+        elif filetype == gio.FILE_TYPE_DIRECTORY:
             return (track.get_tracks_from_uri(loc), [])
         else: #We don't know what they dropped
             return ([], [])
@@ -385,15 +398,15 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
         if icon: return icon
     except gobject.GError:
         pass
-    
+
     # If no stock icon exists for the specified ID, search in the "images" data
     # directory.
     path = xdg.get_data_path('images', id + '.png')
-    
+
     # Fallback to the "track.png" file.
     if not path:
         path = xdg.get_data_path('images', 'track.png')
-    
+
     return gtk.gdk.pixbuf_new_from_file(path)
 
 class MuteButton(object):
@@ -457,7 +470,7 @@ class MuteButton(object):
             self.update_volume_icon(volume)
 
 BITMAP_CACHE = dict()
-def get_text_icon(widget, text, width, height, bgcolor='#456eac',   
+def get_text_icon(widget, text, width, height, bgcolor='#456eac',
     bordercolor=None):
     """
         Gets a bitmap icon with the specified text, width, and height
@@ -474,7 +487,7 @@ def get_text_icon(widget, text, width, height, bgcolor='#456eac',
     gc = pixmap.new_gc(foreground=black, background=white)
 
     if not bordercolor: bordercolor = black
-    else: 
+    else:
         bordercolor = colormap.alloc_color(gtk.gdk.color_parse(bordercolor))
     gc.set_foreground(bordercolor)
 
@@ -527,7 +540,7 @@ class Menu(gtk.Menu):
         image = gtk.Image()
         image.set_from_pixbuf(pixbuf)
         item.add(image)
-        
+
         if callback: item.connect('activate', callback, data)
         gtk.Menu.append(self, item)
         item.show_all()
@@ -739,7 +752,7 @@ class MenuRatingWidget(gtk.MenuItem):
 
         @param: _get_tracks is a function that should return a list of tracks
            linked to this widget.
-        
+
         @param: _get_tracks_rating is a function that should return an int
            representing the rating of the tracks which are meant to be linked to
            this widget. Should return 0 if two tracks have a different rating or
@@ -749,19 +762,19 @@ class MenuRatingWidget(gtk.MenuItem):
 
     def __init__(self, _get_tracks, _get_tracks_rating):
         gtk.MenuItem.__init__(self)
-        
+
         self._get_tracks = _get_tracks
         self._get_tracks_rating = _get_tracks_rating
         self._last_calculated_rating = self._get_tracks_rating()
-        
+
         self.hbox = gtk.HBox(spacing=3)
         self.hbox.pack_start(gtk.Label(_("Rating:")), False, False)
         self.image = gtk.image_new_from_pixbuf(
             self._get_rating_pixbuf(self._last_calculated_rating))
         self.hbox.pack_start(self.image, False, False, 12)
-        
+
         self.add(self.hbox)
-        
+
         self.connect('button-release-event', self._update_rating)
         self.connect('motion-notify-event', self._motion_notify)
         self.connect('leave-notify-event', self._leave_notify)
@@ -803,7 +816,7 @@ class MenuRatingWidget(gtk.MenuItem):
             widget, meant to be used with a click event
         """
         event.remove_callback(self.on_rating_change, 'rating_changed')
-        
+
         tracks = self._get_tracks()
         if tracks and tracks[0]:
             steps = settings.get_option('miscellaneous/rating_steps', 5)
@@ -815,7 +828,7 @@ class MenuRatingWidget(gtk.MenuItem):
                 r = (u / 12) + 1
             else:
                 r = -1
-            
+
             if r >= 0:
                 if r == self._last_calculated_rating:
                     r = 0
@@ -842,7 +855,7 @@ class MenuRatingWidget(gtk.MenuItem):
         self.image.set_from_pixbuf(
             self._get_rating_pixbuf(self._last_calculated_rating))
         self.queue_draw ()
-            
+
 def get_urls_for(items):
     """
         Returns the items' URLs

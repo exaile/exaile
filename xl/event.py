@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,23 +15,23 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
 """
 Provides a signals-like system for sending and listening for 'events'
 
 
-Events are kind of like signals, except they may be listened for on a 
-global scale, rather than connected on a per-object basis like signals 
-are. This means that ANY object can emit ANY event, and these events may 
-be listened for by ANY object. Events may be emitted either syncronously 
+Events are kind of like signals, except they may be listened for on a
+global scale, rather than connected on a per-object basis like signals
+are. This means that ANY object can emit ANY event, and these events may
+be listened for by ANY object. Events may be emitted either syncronously
 or asyncronously, the default is asyncronous.
 
 The events module also provides an idle_add() function similar to that of
@@ -43,7 +43,7 @@ most appropriate spot is immediately before a return statement.
 """
 
 import threading, time, logging, traceback, weakref
-from new import instancemethod 
+from new import instancemethod
 from inspect import ismethod
 from xl import common
 from xl.nls import gettext as _
@@ -108,7 +108,7 @@ def timeout_add(interval, function, *args, **kwargs):
     timer = EventTimer(interval, function, *args, **kwargs)
     _TIMERS.append(timer)
 
-    return timer    
+    return timer
 
 def log_event(type, obj, data, async=True):
     """
@@ -130,17 +130,17 @@ def add_callback(function, type=None, obj=None, *args, **kwargs):
     """
         Sets an Event callback
 
-        You should ALWAYS specify one of the two options on what to listen 
-        for. While not forbidden to listen to all events, doing so will 
-        cause your callback to be called very frequently, and possibly may 
+        You should ALWAYS specify one of the two options on what to listen
+        for. While not forbidden to listen to all events, doing so will
+        cause your callback to be called very frequently, and possibly may
         cause slowness within the player itself.
 
         @param function: the function to call when the event happens [function]
-        @param type: the 'type' or 'name' of the event to listen for, eg 
-                "track_added",  "cover_changed". Defaults to any event if 
+        @param type: the 'type' or 'name' of the event to listen for, eg
+                "track_added",  "cover_changed". Defaults to any event if
                 not specified. [string]
-        @param obj: the object to listen to events from, eg exaile.collection, 
-                exaile.cover_manager. Defaults to any object if not 
+        @param obj: the object to listen to events from, eg exaile.collection,
+                exaile.cover_manager. Defaults to any object if not
                 specified. [object]
         Any additional paramaters will be passed to the callback.
     """
@@ -160,10 +160,10 @@ def remove_callback(function, type=None, obj=None):
 def idle_add(func, *args):
     """
         Adds a function to run when there is spare processor time.
-        
+
         func: the function to call [function]
-        
-        any additional arguments to idle_add will be passed on to the 
+
+        any additional arguments to idle_add will be passed on to the
         called function.
 
         do not use for long-running tasks, so as to avoid blocking other
@@ -171,21 +171,21 @@ def idle_add(func, *args):
     """
     global IDLE_MANAGER
     IDLE_MANAGER.add(func, *args)
-    
+
 def events_pending():
     """
         Returns true if there are any events pending in the IdleManager.
     """
     global IDLE_MANAGER
     return IDLE_MANAGER.events_pending()
-    
+
 def event_iteration():
     """
         Explicitly processes one event in the IdleManager.
     """
     global IDLE_MANAGER
     IDLE_MANAGER.event_iteration()
-    
+
 def wait_for_pending_events():
     """
         Blocks until there are no pending events in the IdleManager.
@@ -227,15 +227,15 @@ class Callback(object):
         self.valid = False
 
 class _WeakMethod:
-    """Represent a weak bound method, i.e. a method doesn't keep alive the 
-    object that it is bound to. It uses WeakRef which, used on its own, 
-    produces weak methods that are dead on creation, not very useful. 
+    """Represent a weak bound method, i.e. a method doesn't keep alive the
+    object that it is bound to. It uses WeakRef which, used on its own,
+    produces weak methods that are dead on creation, not very useful.
     Typically, you will use the getRef() function instead of using
     this class directly. """
-    
+
     def __init__(self, method, notifyDead = None):
         """
-            The method must be bound. notifyDead will be called when 
+            The method must be bound. notifyDead will be called when
             object that method is bound to dies.
         """
         assert ismethod(method)
@@ -247,30 +247,30 @@ class _WeakMethod:
             self.objRef = weakref.ref(method.im_self, notifyDead)
         self.fun = method.im_func
         self.cls = method.im_class
-        
+
     def __call__(self):
         if self.objRef() is None:
             return None
         else:
             return instancemethod(self.fun, self.objRef(), self.cls)
-        
+
     def __eq__(self, method2):
         if not isinstance(method2, _WeakMethod):
-            return False 
+            return False
         return      self.fun      is method2.fun \
                 and self.objRef() is method2.objRef() \
                 and self.objRef() is not None
-    
+
     def __hash__(self):
         return hash(self.fun)
-    
+
     def __repr__(self):
         dead = ''
-        if self.objRef() is None: 
+        if self.objRef() is None:
             dead = '; DEAD'
         obj = '<%s at %s%s>' % (self.__class__, id(self), dead)
         return obj
-        
+
     def refs(self, weakRef):
         """Return true if we are storing same object referred to by weakRef."""
         return self.objRef == weakRef
@@ -286,7 +286,7 @@ def _getWeakRef(obj, notifyDead=None):
         createRef = _WeakMethod
     else:
         createRef = weakref.ref
-        
+
     if notifyDead is None:
         return createRef(obj)
     else:
@@ -329,33 +329,33 @@ class IdleManager(threading.Thread):
         # This is quite simple. If we have a job, wake up and run it.
         # If we run out of jobs, sleep until we have another one to do.
         while True:
-            if self._stopped: return 
+            if self._stopped: return
             while len(self.queue) == 0:
                 self.event.wait()
                 self.event.clear()
             func, args = self.queue[0]
             self.queue = self.queue[1:]
-            
-            if self._stopped: return 
+
+            if self._stopped: return
             self._call_function(func, args)
-                
+
     def events_pending(self):
-        """ 
-            Returns true if there are events pending in the event queue.    
+        """
+            Returns true if there are events pending in the event queue.
         """
         if len(self.queue) > 0:
             return True
         else:
             return False
-            
+
     def event_iteration(self):
         """
             Forces an event from the event queue to be processed.
         """
         self.event.set()
-        
+
     def wait_for_pending_events(self):
-        """ 
+        """
             Blocks until the event queue is empty.
         """
         while self.events_pending():
@@ -366,7 +366,7 @@ class IdleManager(threading.Thread):
             Adds a function to be executed.
 
             func: the function to execute [function]
-            
+
             any additional arguments will be passed on to the called
             function
         """
@@ -391,7 +391,7 @@ class EventManager(object):
 
             event: the Event to emit [Event]
         """
-        if not _TESTING: 
+        if not _TESTING:
             self.lock.acquire()
 
         callbacks = []
@@ -411,8 +411,8 @@ class EventManager(object):
             if not self.logger_filter or re.search(self.logger_filter,
                 event.type):
                 logger.debug("Sent '%(type)s' event from "
-                    "'%(object)s' with data '%(data)s'." % 
-                        {'type' : event.type, 'object' : repr(event.object), 
+                    "'%(object)s' with data '%(data)s'." %
+                        {'type' : event.type, 'object' : repr(event.object),
                         'data' : repr(event.data)})
 
         # now call them
@@ -436,18 +436,18 @@ class EventManager(object):
                                 "to %(event)s." % {
                                     'function': cb.wfunction(),
                                     'event': event.type})
-                    cb.wfunction().__call__(event.type, event.object, 
+                    cb.wfunction().__call__(event.type, event.object,
                             event.data, *cb.args, **cb.kwargs)
             except:
                 traceback.print_exc()
                 # something went wrong inside the function we're calling
-                if not _TESTING: 
-                    common.log_exception(logger, 
+                if not _TESTING:
+                    common.log_exception(logger,
                             message="Event callback exception caught!")
                 else:
                     traceback.print_exc()
 
-        if not _TESTING: 
+        if not _TESTING:
             self.lock.release()
 
     def emit_async(self, event):
@@ -482,9 +482,9 @@ class EventManager(object):
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):
-                logger.debug("Added callback %s for [%s, %s]" % 
+                logger.debug("Added callback %s for [%s, %s]" %
                         (function, type, obj))
-    
+
     def remove_callback(self, function, type=None, obj=None):
         """
             Unsets a callback
@@ -496,7 +496,7 @@ class EventManager(object):
 
     def _remove_callback(self, function, type, obj):
         """
-            Unsets a callback. 
+            Unsets a callback.
 
             The parameters must match those given when the callback was
             registered.
@@ -519,7 +519,7 @@ class EventManager(object):
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):
-                logger.debug("Removed callback %s for [%s, %s]" % 
+                logger.debug("Removed callback %s for [%s, %s]" %
                         (function, type, obj))
 
 

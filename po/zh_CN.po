@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-05 20:13+0100\n"
-"PO-Revision-Date: 2009-11-05 13:47+0000\n"
-"Last-Translator: 王英华 <wantinghard@gmail.com>\n"
+"PO-Revision-Date: 2009-11-07 10:05+0000\n"
+"Last-Translator: ZhangCheng <xxzc@live.cn>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-11-07 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-11-08 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.glade.h:3
@@ -304,11 +304,11 @@ msgstr "您没有指定载入数据库的位置"
 
 #: ../xlgui/properties.py:34
 msgid "Original Album"
-msgstr ""
+msgstr "原始专辑"
 
 #: ../xlgui/properties.py:35
 msgid "Lyricist"
-msgstr ""
+msgstr "作词"
 
 #: ../xlgui/properties.py:36
 msgid "Part"
@@ -316,23 +316,23 @@ msgstr ""
 
 #: ../xlgui/properties.py:37
 msgid "Website"
-msgstr ""
+msgstr "网站"
 
 #: ../xlgui/properties.py:38
 msgid "Cover"
-msgstr ""
+msgstr "封面"
 
 #: ../xlgui/properties.py:39
 msgid "Original Artist"
-msgstr ""
+msgstr "原始艺人"
 
 #: ../xlgui/properties.py:40
 msgid "Author"
-msgstr ""
+msgstr "作者"
 
 #: ../xlgui/properties.py:41
 msgid "Original Date"
-msgstr ""
+msgstr "原始日期"
 
 #: ../xlgui/properties.py:42 ../xlgui/plcolumns.py:163
 #: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:72
@@ -341,15 +341,15 @@ msgstr "日期"
 
 #: ../xlgui/properties.py:43
 msgid "Arranger"
-msgstr ""
+msgstr "改编者"
 
 #: ../xlgui/properties.py:44
 msgid "Conductor"
-msgstr ""
+msgstr "指挥"
 
 #: ../xlgui/properties.py:45
 msgid "Performer"
-msgstr ""
+msgstr "表演者"
 
 #: ../xlgui/properties.py:46 ../xlgui/plcolumns.py:99
 #: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:151
@@ -367,15 +367,15 @@ msgstr "专辑"
 
 #: ../xlgui/properties.py:48
 msgid "Copyright"
-msgstr ""
+msgstr "版权"
 
 #: ../xlgui/properties.py:49
 msgid "Lyrics"
-msgstr ""
+msgstr "歌词"
 
 #: ../xlgui/properties.py:50
 msgid "Track"
-msgstr ""
+msgstr "音轨"
 
 #: ../xlgui/properties.py:51 ../xlgui/prefs/plugin_prefs.py:98
 msgid "Version"
@@ -389,7 +389,7 @@ msgstr "标题"
 
 #: ../xlgui/properties.py:53
 msgid "ISRC"
-msgstr ""
+msgstr "国际标准录音码"
 
 #: ../xlgui/properties.py:54 ../xlgui/plcolumns.py:168
 #: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:158
@@ -408,7 +408,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:57
 msgid "Organization"
-msgstr ""
+msgstr "组织"
 
 #: ../xlgui/properties.py:58 ../xlgui/plcolumns.py:134
 msgid "Disc"
@@ -426,7 +426,7 @@ msgstr "比特率"
 
 #: ../xlgui/properties.py:61
 msgid "Date Added"
-msgstr ""
+msgstr "已添加日期"
 
 #: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:114
 #: ../xlgui/panel/playlists.py:109 ../xlgui/panel/playlists.py:154
@@ -459,7 +459,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:65
 msgid "Modified"
-msgstr ""
+msgstr "已修改"
 
 #: ../xlgui/properties.py:66
 msgid "Playtime"

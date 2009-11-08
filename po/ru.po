@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-05 20:13+0100\n"
-"PO-Revision-Date: 2009-11-06 13:12+0000\n"
-"Last-Translator: MMX-Dimitrov <msincster@gmail.com>\n"
+"PO-Revision-Date: 2009-11-07 23:56+0000\n"
+"Last-Translator: Klim <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-11-07 04:36+0000\n"
+"X-Launchpad-Export-Date: 2009-11-08 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.glade.h:3
@@ -327,7 +327,7 @@ msgstr "Первоначальный альбом"
 
 #: ../xlgui/properties.py:35
 msgid "Lyricist"
-msgstr ""
+msgstr "Автор текста"
 
 #: ../xlgui/properties.py:36
 msgid "Part"
@@ -785,7 +785,7 @@ msgstr "Выбрать файл для открытия"
 
 #: ../xlgui/__init__.py:181
 msgid "Supported Files"
-msgstr "Поддерживаемые иипы файлов"
+msgstr "Поддерживаемые типы файлов"
 
 #: ../xlgui/__init__.py:183
 msgid "Music Files"
@@ -1333,7 +1333,7 @@ msgstr "_Удалить метку"
 
 #: ../data/ui/trackproperties_dialog.glade.h:9
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "аб &#x2192; А_б"
 
 #: ../data/ui/about_dialog.glade.h:1
 msgid "&#xA9; 2009"
@@ -1866,7 +1866,7 @@ msgstr "Будильник"
 #: ../plugins/equalizer/__init__.py:129
 #: ../plugins/equalizer/equalizer.glade.h:15 ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Эквалайзер"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3

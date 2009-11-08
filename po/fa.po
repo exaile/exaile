@@ -8,23 +8,23 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-08-25 03:40+0000\n"
-"Last-Translator: Aren Olson <Unknown>\n"
+"PO-Revision-Date: 2009-09-22 05:13+0000\n"
+"Last-Translator: KasraKeshavarz <kasra545@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-09-21 09:51+0000\n"
+"X-Launchpad-Export-Date: 2009-09-23 09:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr ""
+msgstr "خودکار"
 
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "نمی‌توان از ۰.۲.۱۴ مهاجرت کرد"
 
 #: ../xl/main.py:298
 msgid "Playback options"
@@ -32,11 +32,11 @@ msgstr ""
 
 #: ../xl/main.py:273
 msgid "Play the next track"
-msgstr "شيار بعدي را بنواز"
+msgstr "شیار بعدی را پخش کن"
 
 #: ../xl/main.py:275
 msgid "Play the previous track"
-msgstr "شيار قبلي را بنواز"
+msgstr "شیار قبلی را پخش کن"
 
 #: ../xl/main.py:277
 msgid "Stop playback"
@@ -48,19 +48,19 @@ msgstr "پخش"
 
 #: ../xl/main.py:281
 msgid "Toggle Play or Pause"
-msgstr ""
+msgstr "تعویض بین پخش و مکث"
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "بازنواخت را بعد از شیار کنونی متوقف کن"
 
 #: ../xl/main.py:314
 msgid "Track options"
-msgstr ""
+msgstr "اختیارات شیار"
 
 #: ../xl/main.py:288
 msgid "Query player"
-msgstr ""
+msgstr "استفسار پخش‌کننده"
 
 #: ../xl/main.py:290
 msgid "Show a popup of the currently playing track"
@@ -92,48 +92,48 @@ msgstr "گرفتن درجه آهنگ جاري"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "مکان داخل شیار کنونی را به زمان نشان بده"
 
 #: ../xl/main.py:308
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "پیشرفت داخل شیار کنونی را به درصد نشان بده"
 
 #: ../xl/main.py:339
 msgid "Volume options"
-msgstr ""
+msgstr "اختیارات حجم صدا"
 
 #: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
-msgstr ""
+msgstr "افزودن حجم صدا به وسیله‌ی VOL%"
 
 #: ../xl/main.py:314
 msgid "Decreases the volume by VOL%"
-msgstr ""
+msgstr "کاهیدن حجم صدا به وسیله‌ی VOL%"
 
 #: ../xl/main.py:316
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "درصد حجم صدای کنونی را نمایش بده"
 
 #: ../xl/main.py:348
 msgid "Other options"
-msgstr ""
+msgstr "اختیارات دیگر"
 
 #: ../xl/main.py:320
 msgid "Start new instance"
-msgstr ""
+msgstr "شروع نمونه‌ی جدید"
 
 #: ../xl/main.py:323
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "شروع در حالت کمینه ("
 
 #: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "تغییر پدیداری GUI (در صورت امکان)"
 
 #: ../xl/main.py:325
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
-msgstr ""
+msgstr "شروع در حالت ساده - بعضی اوقات زمانی که مشکلاتی وجود دارد مفید است"
 
 #: ../xl/main.py:360
 msgid "Force import of old data from 0.2.x. Overwrites current data."
@@ -151,11 +151,11 @@ msgstr ""
 #. development and debug options
 #: ../xl/main.py:329
 msgid "Set data directory"
-msgstr ""
+msgstr "تنظیم فهرست راهنمای داده‌ها"
 
 #: ../xl/main.py:331
 msgid "Show debugging output"
-msgstr ""
+msgstr "نمایش خروجی اشکال‌زدایی"
 
 #: ../xl/main.py:334
 msgid "Enable debugging of xl.event. Generates LOTS of output"
@@ -167,7 +167,7 @@ msgstr ""
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
-msgstr ""
+msgstr "از سطح خروجی بکاه"
 
 #: ../xl/main.py:343
 msgid "Disable D-Bus support"
@@ -190,7 +190,7 @@ msgstr "%d تصادفي"
 #: ../xl/main.py:376
 #, python-format
 msgid "Rating > %d"
-msgstr "%d امتياز دادن"
+msgstr "امتیاز دادن > %d"
 
 #: ../xl/main.py:473
 msgid ""
@@ -200,7 +200,7 @@ msgstr ""
 
 #: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
-msgstr "شما جاي را براي ذخيره بانك اطلاعات نكرديد"
+msgstr "شما جايی را براي ذخيره بانك اطلاعات تعیین نكرديد"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
@@ -271,7 +271,7 @@ msgstr ""
 
 #: ../xl/plugins.py:85
 msgid "Plugin archive contains an unsafe path"
-msgstr "آرشيف پلاگين يك مسير نام امن دارد"
+msgstr "آرشیو افزونه شامل مسیری نام امن است"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
 #: ../xl/playlist.py:243 ../xlgui/panel/collection.py:395
@@ -289,7 +289,7 @@ msgstr ""
 
 #: ../xl/xldbus.py:75 ../xl/xldbus.py:284
 msgid "Not playing."
-msgstr ""
+msgstr "پخش نمی‌شود."
 
 #: ../xl/xldbus.py:289
 #, python-format
@@ -323,7 +323,7 @@ msgstr ""
 
 #: ../xlgui/main.py:198
 msgid "Close tab"
-msgstr ""
+msgstr "بستن زبانه"
 
 #: ../xlgui/main.py:254
 msgid "New playlist title:"
@@ -339,7 +339,7 @@ msgstr ""
 
 #: ../xlgui/main.py:262
 msgid "Save As..."
-msgstr ""
+msgstr "ذخیره به عنوان..."
 
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
@@ -363,6 +363,8 @@ msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
+"پخش‌کننده‌ی موزیک Exaile\n"
+"پخش نمی‌شود"
 
 #. TRANSLATORS: Window title
 #: ../xlgui/main.py:1057
@@ -1770,15 +1772,12 @@ msgstr ""
 msgid "Desktop Cover"
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
 msgstr ""
 

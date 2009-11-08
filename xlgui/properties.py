@@ -24,22 +24,24 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import xdg, metadata
+from xl import xdg, metadata, common
 from xl.nls import gettext as _
 import os
 import gtk
-import gobject
+import gio, gobject
 import pango, copy, datetime, string
+
+IGNORE = (None, None)
 
 dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
                 'lyricist': (_('Lyricist'), 'text'),
-                'part': (_('Part'), 'IGNORE'), #
+                'part': IGNORE, #
                 'website': (_('Website'), 'text'),
-                'cover': (_('Cover'), 'IGNORE'), #
+                'cover': IGNORE, #
                 'originalartist': (_('Original Artist'), 'text'),
                 'author': (_('Author'), 'text'),
                 'originaldate': (_('Original Date'), 'int', 1000, 2100),
-                'date': (_('Date'), 'int', 0, 2100),
+                'date': (_('Date'), 'text'),
                 'arranger': (_('Arranger'), 'text'),
                 'conductor': (_('Conductor'), 'text'),
                 'performer': (_('Performer'), 'text'),
@@ -60,10 +62,10 @@ dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
                 '__bitrate': (_('Bitrate'), 'prop:bitrate'),
                 '__date_added': (_('Date Added'), 'prop:datetime'),
                 '__length': (_('Length'), 'prop:time'),
-                '__loc': (_('Location'), 'text'),
-                '__basedir': (_('Base Directory'), 'text'),
+                '__loc': (_('Location'), 'prop:location'),
+                '__basedir': IGNORE,
                 '__modified': (_('Modified'), 'prop:datetime'),
-                '__playtime': (_('playtime'), 'IGNORE'),
+                '__playtime': IGNORE,
                 '__playcount': (_('Times Played'), 'text'),
                 '__last_played': (_('Last Played'), 'prop:datetime'),
                 }
@@ -172,7 +174,7 @@ class TrackPropertiesDialog(gobject.GObject):
             poplist = []
             for tag in self.track_refs[n].tags:
                 if tag in dialog_tags:
-                    if dialog_tags[tag][1] != "IGNORE":
+                    if dialog_tags[tag] is not IGNORE:
                         try:
                             track[tag]
                         except KeyError:
@@ -208,7 +210,12 @@ class TrackPropertiesDialog(gobject.GObject):
         if track == (len(self.tracks) - 1):
             self.next_button.set_sensitive(False)
 
-        self.cur_track_label.set_text(_("Editing track %(cur)d of %(tot)d") % {'cur': self.current+1, 'tot': len(self.track_refs)})
+        self.cur_track_label.set_text(
+            _("Editing track %(current)d of %(total)d") % {
+                'current': self.current + 1,
+                'total': len(self.track_refs)
+            }
+        )
 
         t = self.tracks[track]
 
@@ -243,10 +250,10 @@ class TrackPropertiesDialog(gobject.GObject):
                 except KeyError:
                     type = 'text'
 
-                if type != 'IGNORE':
+                if type is not None:
                     for i, entry in enumerate(t[tag]):
                         f = None
-                        if tag[:2] != '__':
+                        if not tag.startswith('__'):
                             if type == 'int':
                                 f = TagNumField(dialog_tags[tag][2],
                                         dialog_tags[tag][3], all_button=ab)
@@ -724,6 +731,14 @@ class PropertyField(gtk.HBox):
         self.pack_start(self.field)
         self.parent_row = None
 
+        if self.property_type == 'prop:location':
+            self.folder_button = gtk.Button()
+            im = gtk.Image()
+            im.set_from_stock(gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_BUTTON)
+            self.folder_button.set_image(im)
+            self.pack_start(self.folder_button, expand=False, fill=False)
+            self.folder_button.connect("clicked", self.folder_button_clicked)
+
     def register_parent_row(self, parent_row):
         self.parent_row = parent_row
 
@@ -735,12 +750,18 @@ class PropertyField(gtk.HBox):
             output = d.strftime("%Y/%m/%d %H:%M:%S")
         elif self.property_type == 'prop:time':
             output = "%(m)d:%(s)02d" % {'m': val // 60, 's': val % 60}
+        elif self.property_type == 'prop:location':
+            f = gio.File(val)
+            output = f.get_parse_name()
         else:
             output = str(val)
 
         if doupdate:
             self.field.set_text(output)
             self.field.set_tooltip_text(output)
+
+    def folder_button_clicked(self, w):
+        common.open_file_directory(self.field.get_text())
 
     def register_update_func(self, f):
         pass

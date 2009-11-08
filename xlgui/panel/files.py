@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gio, gtk, gobject, os, locale, re
+import gio, glib, gtk, gobject, os, locale, re
 import xl.track, urllib
 from xl import common, trackdb, metadata
 from xl import settings
@@ -63,6 +63,8 @@ class FilesPanel(panel.Panel):
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.get_selected_tracks()))
         self.menu.connect('rating-set', self.set_rating)
+        self.menu.connect('properties', lambda *e:
+            self.properties_dialog())
 
         self.key_id = None
         self.i = 0
@@ -71,6 +73,23 @@ class FilesPanel(panel.Panel):
             xdg.homedir))
         self.history = [first_dir]
         self.load_directory(first_dir, False)
+
+    def properties_dialog(self):
+        """
+            Shows the properties dialog
+        """
+        from xlgui import properties
+        tracks = self.get_selected_tracks()
+
+	if not tracks:
+            return False
+
+        tracks_sorted = trackdb.sort_tracks(
+			('artist', 'date', 'album', 'discnumber', 'tracknumber'), 
+			tracks)
+
+        dialog = properties.TrackPropertiesDialog(self.parent,
+            tracks_sorted)
 
     def set_rating(self, widget, rating):
         tracks = self.get_selected_tracks()
@@ -123,19 +142,13 @@ class FilesPanel(panel.Panel):
 
         text = gtk.CellRendererText()
         text.set_property('xalign', 1.0)
-        # TRANSLATORS: Filesize column in the file browser
+        # TRANSLATORS: File size column in the file browser
         self.colsize = colsize = gtk.TreeViewColumn(_('Size'))
         colsize.set_resizable(True)
         colsize.pack_start(text, False)
         colsize.set_attributes(text, text=3)
         colsize.set_expand(False)
         tree.append_column(colsize)
-
-#        tree.resize_children()
-#        tree.realize()
-#        tree.columns_autosize()
-#        colsize.set_fixed_width(tree.get
-
 
     def _setup_widgets(self):
         """
@@ -154,21 +167,17 @@ class FilesPanel(panel.Panel):
             self.refresh)
         self.builder.get_object('files_home_button').connect('clicked',
             self.go_home)
-        self.entry = self.builder.get_object('files_entry').child
-        self.entry.connect('activate', self.entry_activate)
 
-        # set up the location of libraries combobox
-        self.libraries_location = self.builder.get_object('files_entry')
-        self.libraries_location_changed_handler_id = \
-            self.libraries_location.connect('changed',
-            self.on_libraries_location_combobox_changed)
-        # Connect to Collection Panel
+        # Set up the location bar
+        self.location_bar = self.builder.get_object('files_entry')
+        self.location_bar.connect('changed', self.on_location_bar_changed)
         event.add_callback(self.fill_libraries_location,
             'libraries_modified', self.collection)
-
         self.fill_libraries_location()
+        self.entry = self.location_bar.child
+        self.entry.connect('activate', self.entry_activate)
 
-        # set up the search entry
+        # Set up the search entry
         self.search = self.builder.get_object('files_search_entry')
         self.search.connect('key-release-event', self.key_release)
         self.search.connect('activate', lambda *e:
@@ -176,28 +185,20 @@ class FilesPanel(panel.Panel):
             keyword=unicode(self.search.get_text(), 'utf-8')))
 
     def fill_libraries_location(self, *e):
-        self.libraries_location.handler_block(
-            self.libraries_location_changed_handler_id)
-        libraries_location_model = self.libraries_location.get_model()
-        libraries_location_model.clear()
-        len_libraries = len(self.collection._serial_libraries)
+        model = self.location_bar.get_model()
+        model.clear()
+        libraries = self.collection._serial_libraries
 
-        self.libraries_location.set_sensitive(len_libraries > 0)
+        if len(libraries) > 0:
+            for library in libraries:
+                model.append([gio.File(library['location']).get_parse_name()])
+        self.location_bar.set_model(model)
 
-        if len_libraries > 0:
-            for library in self.collection._serial_libraries:
-                print library['location']
-                libraries_location_model.append([library['location']])
-
-        self.libraries_location.set_active(-1)
-        self.libraries_location.handler_unblock(
-            self.libraries_location_changed_handler_id)
-
-    def on_libraries_location_combobox_changed(self, widget, *args):
-        # find out which one
-        iter = self.libraries_location.get_active_iter()
+    def on_location_bar_changed(self, widget, *args):
+        # Find out which one is selected, if any.
+        iter = self.location_bar.get_active_iter()
         if not iter: return
-        model = self.libraries_location.get_model()
+        model = self.location_bar.get_model()
         location = model.get_value(iter, 0)
         if location != '':
             self.load_directory(gio.File(location))
@@ -298,10 +299,13 @@ class FilesPanel(panel.Panel):
         if path.startswith('~'):
             path = os.path.expanduser(path)
         f = gio.file_parse_name(path)
-        ftype = f.query_info('standard::type').get_file_type()
-        if ftype != gio.FILE_TYPE_DIRECTORY:
+        try:
+            ftype = f.query_info('standard::type').get_file_type()
+        except glib.GError:
             self.entry.set_text(self.current.get_parse_name())
             return
+        if ftype != gio.FILE_TYPE_DIRECTORY:
+            f = f.get_parent()
         self.load_directory(f)
 
     def go_forward(self, widget):
@@ -395,38 +399,6 @@ class FilesPanel(panel.Panel):
         subdirs.sort()
         subfiles.sort()
 
-        self.model.clear()
-
-        for sortname, name, f in subdirs:
-            self.model.append((f, self.directory, name, ''))
-
-        for sortname, name, f in subfiles:
-            size = f.query_info('standard::size').get_size() // 1024
-            size = locale.format_string(_("%d KB"), size, True)
-            self.model.append((f, self.track, name, size))
-
-        self.tree.set_model(self.model)
-        self.entry.set_text(directory.get_parse_name())
-
-        # Change the selection in the library location combobox
-        iter_libraries_location = self.libraries_location.get_active_iter()
-        if not iter_libraries_location is None:
-            model_libraries_location = self.libraries_location.get_model()
-            location = gio.File(model_libraries_location.get_value(iter_libraries_location, 0))
-            location_name = location.get_parse_name()
-            if location_name != '' and location_name != directory.get_parse_name():
-                    self.libraries_location.handler_block(self.libraries_location_changed_handler_id)
-                    self.libraries_location.set_active(-1)
-                    self.libraries_location.handler_unblock(self.libraries_location_changed_handler_id)
-
-        if history:
-            self.back.set_sensitive(True)
-            self.history = self.history[:self.i + 1]
-            self.history.append(self.current)
-            self.i = len(self.history) - 1
-            self.forward.set_sensitive(False)
-        self.up.set_sensitive(bool(directory.get_parent()))
-
         def idle():
             if self.current != directory: # Modified from another thread.
                 return
@@ -442,6 +414,7 @@ class FilesPanel(panel.Panel):
                 self.model.append((f, self.track, name, size))
 
             self.tree.set_model(self.model)
+
             self.entry.set_text(directory.get_parse_name())
             if history:
                 self.back.set_sensitive(True)

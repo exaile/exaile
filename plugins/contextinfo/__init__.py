@@ -12,6 +12,7 @@ import re
 import urllib
 import webkit
 import xlgui
+from inspector import Inspector
 
 LFM_API_KEY = '3b954460f7b207e5414ffdf8c5710592'
 PANEL = None
@@ -52,6 +53,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
     def __init__(self, builder, theme):
         webkit.WebView.__init__(self)
         providers.ProviderHandler.__init__(self, "context_page")
+
         self.connect_events()
         self.hover = ''
         self.theme = theme
@@ -79,6 +81,8 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
             ex.exaile().player)
 
+        self.get_settings().set_property('enable-developer-extras', True)
+
         #FIXME: HACK! ajust zoom level for the new webkit version
         try:
             self.get_settings().get_property("enable-developer-extras")
@@ -87,6 +91,9 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             pass
 
         gobject.idle_add(self.on_home_clicked)
+
+        # javascript debugger
+        inspector = Inspector(self.get_web_inspector())
 
     def on_tags_parsed(self, type, player, args):
         (tr, args) = args
@@ -291,14 +298,17 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.currentpage.link_clicked(link)
         if link[0] == 'track':
             self.on_append_items()
+            return True
         elif link[0] == 'artist':
             self.push(ArtistPage(self.theme,link[1]))
+            return True
         elif link[0] == 'tag':
             self.push(TagPage(self.theme, link[1]))
         elif link[0] == 'load':
             self.refresh_button.set_sensitive(False)
             self.refresh_button_image.set_from_animation(self.refresh_animation)
             self.currentpage.async_update_field(link[1])
+            return True
         elif link[0] == 'http':
             self.currentpage=None
             return False
@@ -306,7 +316,9 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             for page_provider in self.get_providers():
                 if page_provider.base == link[0]:
                     self.push(page_provider(self.theme, link[1]))
-        return 1
+
+        if link[0] in ('album', 'rate'): return True
+        return False
 
     def _populate_popup(self, view, menu):
         type = self.hover.split('://')[0]
@@ -314,6 +326,8 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             showincolitem = gtk.MenuItem(label="Show in collection")
             menu.append(showincolitem)
             showincolitem.connect('activate', self._show_artist)
+            menu.show_all()
+        else:
             menu.show_all()
 
     def _show_artist(self, widget):
@@ -638,7 +652,7 @@ class ContextPage(object):
 
 class DefaultPage(ContextPage):
 
-    def __init__(self, theme, base='default://', template='default.htm', async=[]):
+    def __init__(self, theme, base='default://', template='default.html', async=[]):
         try:
             self.username = settings.get_option('plugin/ascrobbler/user')
         except:
@@ -756,7 +770,7 @@ class DefaultPage(ContextPage):
         return "Enter your username in the settings"
 
 class ArtistPage(DefaultPage):
-    def __init__(self, theme, artist, base = 'artist://', template = 'artist.htm', async=[]):
+    def __init__(self, theme, artist, base = 'artist://', template ='artist.html', async=[]):
         self.artist = artist
         self.artist_tracks = get_artist_tracks(artist)
         DefaultPage.__init__(self, theme, base, template, async+['compils', 'albums', 'artist-info', 'artist-img', 'artist-tags', 'similar-artists', 'top-tracks'])
@@ -892,7 +906,7 @@ class ArtistPage(DefaultPage):
 
 class TagPage(DefaultPage):
 
-    def __init__(self, theme, tag, base='tag://', template='tag.htm', async=[]):
+    def __init__(self, theme, tag, base='tag://', template='tag.html', async=[]):
         self.tag = tag
         DefaultPage.__init__(self, theme, base, template, async+['similar-tags', 'top-artists', 'tag-top-tracks', 'tag-top-albums'])
 
@@ -929,7 +943,7 @@ class TagPage(DefaultPage):
 
 class PlayingPage(ArtistPage):
 
-    def __init__(self, theme, track, base='playing://', template='playing.htm', async=[]):
+    def __init__(self, theme, track, base='playing://', template='playing.html', async=[]):
         self.track = track
         ArtistPage.__init__(self, theme, get_track_tag(self.track, 'artist', 'unknown'),base, template, async+['track-tags', 'suggested-tracks', 'similar-tracks', 'lyrics'])
         event.add_callback(self.refresh_rating, 'rating_changed')
@@ -941,6 +955,7 @@ class PlayingPage(ArtistPage):
             for field in ['rating', 'track-info']:
                 if field in self.get_template_fields():
                     event.log_event('field_refresh', self, (field, str(self[field])), async=False)
+            return True
 
     def _title(self):
         return get_track_tag(self.track, 'title', 'unknown')
@@ -1019,7 +1034,7 @@ class PlayingPage(ArtistPage):
 
 class LyricsPage(PlayingPage):
 
-    def __init__(self, theme, track, base='lyrics://', template='lyrics.htm', async=[]):
+    def __init__(self, theme, track, base='lyrics://', template='lyrics.html', async=[]):
         PlayingPage.__init__(self, theme, track, base, template, async)
 
 class ContextPanel(gobject.GObject):

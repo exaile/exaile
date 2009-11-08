@@ -228,6 +228,7 @@ class TrackSelectMenu(GenericTrackMenu):
     """
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'properties': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     def __init__(self):
         """
@@ -243,6 +244,9 @@ class TrackSelectMenu(GenericTrackMenu):
             self.on_append_items(), 'gtk-add')
         self.queue_item = self.append(_('Queue Items'), lambda *e: self.on_queue(),
             'exaile-queue-icon')
+        self.append_separator()
+        self.append(_('Properties'), lambda *e: self.emit('properties'),
+            'gtk-properties')
 
     def on_append_items(self, selected=None):
         """

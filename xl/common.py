@@ -24,8 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import locale, logging, random, string, sys, threading, time, traceback, \
-    unicodedata, urlparse
+import locale, logging, os, random, string, sys, threading
+import time, traceback, unicodedata, urlparse, subprocess
 from functools import wraps
 from xl.nls import gettext as _
 
@@ -360,5 +360,30 @@ class VersionError(Exception):
     def __str__(self):
         return repr(self.message)
 
-# vim: et sts=4 sw=4
+def open_file(path):
+    """
+        Opens a file or folder using the system configured program
+    """
+    platform = sys.platform
+    if platform == 'win32':
+        os.startfile(path)
+    elif platform == 'darwin':
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
 
+def open_file_directory(path):
+    """
+        Opens the parent directory of a file, selecting the file if possible.
+    """
+    import gio
+    f = gio.File(path)
+    platform = sys.platform
+    if platform == 'win32':
+        subprocess.Popen(["explorer", "/select,", f.get_parse_name()])
+    elif platform == 'darwin':
+        subprocess.Popen(["open", f.get_parent().get_parse_name()])
+    else:
+        subprocess.Popen(["xdg-open", f.get_parent().get_parse_name()])
+
+# vim: et sts=4 sw=4

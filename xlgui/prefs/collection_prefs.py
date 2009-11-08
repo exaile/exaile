@@ -25,7 +25,8 @@ ui = xdg.get_data_path('ui/collection_prefs_pane.glade')
 def _get_default_strip_list():
     #TRANSLATORS: Grammatical articles that are ignored while sorting the
     #collection panel. For example, in French locales this could be
-    #"l' la le les". If this practice is not common in your locale, simply
+    #the space-separated list "l' la le les".
+    #If this practice is not common in your locale, simply
     #translate this to an empty string.
     default_strip_list = _("the")
     return [v.lower() for v in default_strip_list.split(' ') if v is not '']

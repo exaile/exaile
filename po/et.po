@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-08-25 00:05+0000\n"
-"Last-Translator: Adam Olsen <Unknown>\n"
+"PO-Revision-Date: 2009-10-30 09:19+0000\n"
+"Last-Translator: René Pärts <Unknown>\n"
 "Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-21 09:51+0000\n"
+"X-Launchpad-Export-Date: 2009-10-31 08:34+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr ""
+msgstr "Automaatne"
 
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
@@ -1362,7 +1362,7 @@ msgstr ""
 
 #: ../xl/player/pipe.py:208
 msgid "ALSA"
-msgstr ""
+msgstr "ALSA"
 
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
@@ -1378,11 +1378,11 @@ msgstr ""
 
 #: ../xl/player/pipe.py:203
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #: ../xl/player/pipe.py:223
 msgid "JACK"
-msgstr ""
+msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.glade.h:8
 msgid "Normal"
@@ -1390,7 +1390,7 @@ msgstr ""
 
 #: ../xl/player/pipe.py:213
 msgid "OSS"
-msgstr ""
+msgstr "OSS"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
@@ -1398,7 +1398,7 @@ msgstr ""
 
 #: ../xl/player/pipe.py:218
 msgid "PulseAudio"
-msgstr ""
+msgstr "PulseAudio"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
@@ -1482,7 +1482,7 @@ msgstr ""
 
 #: ../data/glade/main.glade.h:6
 msgid "Clear Playlist"
-msgstr ""
+msgstr "Tühjenda playlist"
 
 #: ../data/ui/main.glade.h:5
 msgid "Click to view Queue"
@@ -1686,7 +1686,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Alarmkell"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -1769,15 +1769,12 @@ msgstr ""
 msgid "Desktop Cover"
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
 msgstr ""
 
@@ -1804,7 +1801,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
-msgstr ""
+msgstr "Kustuta"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"

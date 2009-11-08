@@ -39,10 +39,12 @@ logger = logging.getLogger(__name__)
 
 # various column definitions
 class Column(object):
-    size = 10 # default size
+    __slots__ = ('id', 'display', 'renderer', 'size')
+
+    id = ''
     display = ''
     renderer = gtk.CellRendererText
-    id = ''
+    size = 10 # default size
 
     def __init__(self, playlist):
         self.playlist = playlist

@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: http://exaile.org/trac/attachment/ticket/569\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-09-07 06:21+0000\n"
-"Last-Translator: ilangut <Unknown>\n"
+"PO-Revision-Date: 2009-10-26 21:38+0000\n"
+"Last-Translator: kulight <Unknown>\n"
 "Language-Team: Hebrew <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-21 09:51+0000\n"
+"X-Launchpad-Export-Date: 2009-10-27 08:23+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -41,7 +41,7 @@ msgstr "ניגון הרצועה הקודמת"
 
 #: ../xl/main.py:277
 msgid "Stop playback"
-msgstr "הפסקת השמעה"
+msgstr "הפסק השמעה"
 
 #: ../xl/main.py:279
 msgid "Play"
@@ -49,7 +49,7 @@ msgstr "נגן"
 
 #: ../xl/main.py:281
 msgid "Toggle Play or Pause"
-msgstr ""
+msgstr "החלף מצב נגן או המתן"
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
@@ -65,7 +65,7 @@ msgstr "שאילתת נגן"
 
 #: ../xl/main.py:290
 msgid "Show a popup of the currently playing track"
-msgstr ""
+msgstr "הצג חלון של הרצועה המושמעת"
 
 #: ../xl/main.py:292
 msgid "Print the title of current track"
@@ -93,27 +93,27 @@ msgstr "ראה את הדרוג של השיר המושמע"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "הדפס את המיקום ברצועה הנוכחית כזמן"
 
 #: ../xl/main.py:308
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "הדפס את ההתקדמות ברצועה הנוכחית כאחוז"
 
 #: ../xl/main.py:339
 msgid "Volume options"
-msgstr ""
+msgstr "אפשרויות הגברה"
 
 #: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
-msgstr ""
+msgstr "הגבר את עוצמת השמע ב- VOL%"
 
 #: ../xl/main.py:314
 msgid "Decreases the volume by VOL%"
-msgstr ""
+msgstr "הנמך את עוצמת השמע ב- VOL%"
 
 #: ../xl/main.py:316
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "הדפס את עצמת השמע כאחוז"
 
 #: ../xl/main.py:348
 msgid "Other options"
@@ -121,91 +121,92 @@ msgstr "אפשרויות אחרות"
 
 #: ../xl/main.py:320
 msgid "Start new instance"
-msgstr ""
+msgstr "התחל מופע חדש"
 
 #: ../xl/main.py:323
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "התחל מוקטן (לסרגל, אם ניתן)"
 
 #: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "החלף ניראות של ממשק המשתמש (אם ניתן)"
 
 #: ../xl/main.py:325
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
-msgstr ""
+msgstr "התחל במצב בטוח - לפעמים שימושי כאשר אתה ניתקל בבעיות"
 
 #: ../xl/main.py:360
 msgid "Force import of old data from 0.2.x. Overwrites current data."
-msgstr ""
+msgstr "אלץ יבוא של מידע ישן מ- 0.2.x ודרס מידע חדש."
 
 #: ../xl/main.py:363
 msgid "Do not import old data from 0.2.x."
-msgstr ""
+msgstr "אל תיבא מידע ישן מ- 0.2.x."
 
 #. development and debug options
 #: ../xl/main.py:368
 msgid "Development/Debug options"
-msgstr ""
+msgstr "אפשרויות פיתוח/ניפוי שגיאות"
 
 #. development and debug options
 #: ../xl/main.py:329
 msgid "Set data directory"
-msgstr ""
+msgstr "קבע תיקיית מידע"
 
 #: ../xl/main.py:331
 msgid "Show debugging output"
-msgstr ""
+msgstr "הראה פלט ניפוי שגיאות (debug)"
 
 #: ../xl/main.py:334
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "אפשר ניפוי שגיאות של xl.event. מייצר המון פלט."
 
 #: ../xl/main.py:336
 msgid "Filter event debug output"
-msgstr ""
+msgstr "סנן פלט של ניפוי שגיאות"
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
-msgstr ""
+msgstr "צמצם את רמת הפלט"
 
 #: ../xl/main.py:343
 msgid "Disable D-Bus support"
-msgstr ""
+msgstr "בטל את התמיכה ב- D-Bus"
 
 #: ../xl/main.py:345
 msgid "Disable HAL support."
-msgstr ""
+msgstr "בטל את התמיכה ב- HAL"
 
 #. entire playlist
 #: ../xl/main.py:362
 msgid "Entire Library"
-msgstr "כל תיקיית השמע"
+msgstr "כל הסיפרייה"
 
 #: ../xl/main.py:368
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "אקראי %d"
 
 #: ../xl/main.py:376
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "דירוג > %d"
 
 #: ../xl/main.py:473
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile עדיין לא סיים לטעון. אולי כדאי שתאזין לאותות_הטעונים של  exaile."
 
 #: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
-msgstr ""
+msgstr "לא ציינת מיקום לשמירת מסד הנתונים (db)"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
-msgstr ""
+msgstr "סדר חייב להיות רשימה של ביטויים"
 
 #: ../xl/transcoder.py:45
 msgid ""
@@ -253,36 +254,36 @@ msgstr "סוג מקודד מהיר וחופשי שאינו גורע מהאיכו
 
 #: ../xl/track.py:474
 msgid "  New song, fetching cover."
-msgstr ""
+msgstr "  שיר חדש, מביא עטיפה."
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
-msgstr ""
+msgstr "סוג המכשיר אינו תומך בהעברה"
 
 #: ../xl/settings.py:82
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "גירסת ההגדרות חדשה יותר מהנוכחית."
 
 #: ../xl/settings.py:167
 msgid "We don't know how to store that kind of setting: "
-msgstr ""
+msgstr "אנו לא יודעים כיצד לשמור סוג כזה של הגדרות: "
 
 #: ../xl/settings.py:194
 msgid "An Unknown type of setting was found!"
-msgstr ""
+msgstr "נימצא סוג לא מוכר של הגדרות."
 
 #: ../xl/plugins.py:73
 msgid "Plugin archive is not in the correct format"
-msgstr ""
+msgstr "התצורה של ארכיון התוספים (plugins) אינה נכונה."
 
 #: ../xl/plugins.py:80
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr ""
+msgstr "תוסף בשם \"%s\" כבר מותקן"
 
 #: ../xl/plugins.py:85
 msgid "Plugin archive contains an unsafe path"
-msgstr ""
+msgstr "ארכיון התוספים (plugins) מכיל נתיב לא בטוח"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
 #: ../xl/playlist.py:243 ../xlgui/panel/collection.py:395
@@ -296,11 +297,11 @@ msgstr "לא ידוע"
 #: ../xl/playlist.py:387
 #, python-format
 msgid "Playlist %d"
-msgstr ""
+msgstr "רשימת השמעה %d"
 
 #: ../xl/xldbus.py:75 ../xl/xldbus.py:284
 msgid "Not playing."
-msgstr ""
+msgstr "לא מנגן."
 
 #: ../xl/xldbus.py:289
 #, python-format
@@ -308,15 +309,17 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"מצב: %(status)s, כותרת: %(title)s, אמן: %(artist)s, אלבום: %(album)s, אורך: "
+"%(length)s, מיקום: %(progress)s%% [%(position)s]"
 
 #: ../xl/trackdb.py:176
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "לא ציינת מקור לטעינת מסד הנתונים (db)."
 
 #: ../xlgui/properties.py:51 ../xlgui/osd.py:193 ../xlgui/plcolumns.py:110
 #, python-format
 msgid "%(minutes)d:%(seconds)02d"
-msgstr ""
+msgstr "%(minutes)d:%(seconds)02d"
 
 #. TRANSLATORS: Default track length
 #: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:114
@@ -330,15 +333,15 @@ msgstr "לא מנגן"
 
 #: ../xlgui/main.py:117 ../plugins/minimode/mmwidgets.py:650
 msgid "Streaming..."
-msgstr ""
+msgstr "מזרים..."
 
 #: ../xlgui/main.py:198
 msgid "Close tab"
-msgstr ""
+msgstr "סגור לשונית"
 
 #: ../xlgui/main.py:254
 msgid "New playlist title:"
-msgstr ""
+msgstr "כותרת לרשימת השמעה חדשה:"
 
 #: ../xlgui/main.py:254 ../xlgui/menu.py:415
 msgid "Rename Playlist"
@@ -346,11 +349,11 @@ msgstr "שינוי שם לרשימת השמעה"
 
 #: ../xlgui/main.py:262
 msgid "Custom playlist name:"
-msgstr ""
+msgstr "התאם את שם רשימת ההשמעה:"
 
 #: ../xlgui/main.py:262
 msgid "Save As..."
-msgstr ""
+msgstr "שמור בשם..."
 
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
@@ -359,11 +362,11 @@ msgstr "החלפה: עציאה לאחר הרצועה הנבחרת"
 #: ../xlgui/main.py:788
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr ""
+msgstr "טוען: %d%%..."
 
 #: ../xlgui/main.py:790
 msgid "Buffering: 100%..."
-msgstr ""
+msgstr "טוען: 100%..."
 
 #: ../xlgui/main.py:961 ../data/glade/main.glade.h:22
 msgid "Stopped"
@@ -374,6 +377,8 @@ msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
+"נגן המוסיקה Exaile\n"
+"אינו מנגן"
 
 #. TRANSLATORS: Window title
 #: ../xlgui/main.py:1057
@@ -396,7 +401,7 @@ msgstr "מתוך האלבום %s"
 #: ../xlgui/main.py:1080
 #, python-format
 msgid "In pause: %s"
-msgstr ""
+msgstr "בהמתנה: %s"
 
 #: ../xlgui/main.py:1082
 #, python-format
@@ -413,7 +418,7 @@ msgstr "רשימת השמעה חדשה"
 
 #: ../xlgui/menu.py:147
 msgid "Add to custom playlist"
-msgstr ""
+msgstr "הוסף רשימת השמעה מותאמת אישית"
 
 #: ../xlgui/menu.py:150 ../xlgui/menu.py:454
 msgid "Remove"
@@ -421,7 +426,7 @@ msgstr "הסר"
 
 #: ../xlgui/menu.py:153
 msgid "Properties"
-msgstr ""
+msgstr "מאפיינים"
 
 #: ../xlgui/menu.py:167
 msgid "Playlist"
@@ -433,27 +438,27 @@ msgstr "_רשימת השמעה חדשה"
 
 #: ../xlgui/menu.py:203
 msgid "_Rename Playlist"
-msgstr ""
+msgstr "החלף_שם לרשימת ההשמעה"
 
 #: ../xlgui/menu.py:205
 msgid "_Save As Custom Playlist"
-msgstr ""
+msgstr "_שמור כרשימת השמעה מותאמת אישית"
 
 #: ../xlgui/menu.py:207
 msgid "_Save Changes To Playlist"
-msgstr ""
+msgstr "_שמור שינויים ברשימת ההשמעה"
 
 #: ../xlgui/menu.py:208
 msgid "_Save As..."
-msgstr ""
+msgstr "_שמור בשם..."
 
 #: ../xlgui/menu.py:209
 msgid "C_lear All Tracks"
-msgstr ""
+msgstr "_נקה את כל הרצועות"
 
 #: ../xlgui/menu.py:211
 msgid "_Close Playlist"
-msgstr ""
+msgstr "_סגור רשימת השמעה"
 
 #: ../xlgui/menu.py:231
 msgid "Append to Current"
@@ -465,7 +470,7 @@ msgstr "השהה פריטים"
 
 #: ../xlgui/menu.py:277
 msgid "Delete track"
-msgstr ""
+msgstr "מחק רצועה"
 
 #: ../xlgui/menu.py:308
 msgid "New Station"
@@ -473,7 +478,7 @@ msgstr "תחנה חדשה"
 
 #: ../xlgui/menu.py:313
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "רשימת השמעה חכמה חדשה"
 
 #: ../xlgui/menu.py:357
 msgid "Open"
@@ -497,7 +502,7 @@ msgstr "מחק רשימת השמעה"
 
 #: ../xlgui/menu.py:378
 msgid "Export as..."
-msgstr ""
+msgstr "יצא כ..."
 
 #: ../xlgui/menu.py:383 ../xlgui/__init__.py:165
 msgid "M3U Playlist"
@@ -526,7 +531,7 @@ msgstr "יש להזין את השם החדש לרשימת ההשמעה שלך"
 #: ../xlgui/cover.py:286
 #, python-format
 msgid "%d covers to fetch"
-msgstr ""
+msgstr "%d עטיפות ליבא"
 
 #: ../xlgui/cover.py:291 ../xlgui/cover.py:310
 #: ../data/glade/covermanager.glade.h:2
@@ -555,27 +560,27 @@ msgstr "לא נמצאו עטיפות"
 
 #: ../xlgui/osd.py:207
 msgid "No track"
-msgstr ""
+msgstr "אין רצועה"
 
 #: ../xlgui/__init__.py:160
 msgid "Export current playlist..."
-msgstr ""
+msgstr "יצא רשימת השמעה נוכחית..."
 
 #: ../xlgui/__init__.py:183 ../xlgui/panel/playlists.py:921
 msgid "Invalid file extension, file not saved"
-msgstr "סיומת הקובץ שגויה, הקובץ לא נשמע"
+msgstr "סיומת הקובץ שגויה, הקובץ לא נשמר"
 
 #: ../xlgui/__init__.py:190
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "הכנס את ה- URL לפתיחה"
 
 #: ../xlgui/__init__.py:191
 msgid "Open URL"
-msgstr ""
+msgstr "פתח URL"
 
 #: ../xlgui/__init__.py:205
 msgid "Choose a file to open"
-msgstr ""
+msgstr "בחר קובץ לפתיחה"
 
 #: ../xlgui/__init__.py:211
 msgid "Supported Files"
@@ -600,21 +605,21 @@ msgstr "סורק את האוסף..."
 #: ../xlgui/__init__.py:438
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "סורק %s..."
 
 #: ../xlgui/main.py:645
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr ""
+msgstr "%(playlist_count)d מראה, %(collection_count)d באוסף"
 
 #: ../xlgui/guiutil.py:717
 #, python-format
 msgid "(%d queued)"
-msgstr ""
+msgstr "(%d בתור)"
 
 #: ../xlgui/guiutil.py:650
 msgid "Rating:"
-msgstr ""
+msgstr "דירוג:"
 
 #: ../xlgui/commondialogs.py:309
 msgid "Select File Type (By Extension)"
@@ -630,15 +635,15 @@ msgstr "הרחבה"
 
 #: ../xlgui/devices.py:62
 msgid "Icon"
-msgstr ""
+msgstr "איקון"
 
 #: ../xlgui/devices.py:67
 msgid "Device"
-msgstr ""
+msgstr "התקן"
 
 #: ../xlgui/devices.py:74
 msgid "Driver"
-msgstr ""
+msgstr "מנהל התקן"
 
 #: ../xlgui/collection.py:140
 msgid "Add a directory"
@@ -748,25 +753,25 @@ msgstr "BPM"
 
 #: ../xlgui/plcolumns.py:195 ../plugins/minimode/minimodeprefs.py:131
 msgid "Last played"
-msgstr ""
+msgstr "נוגן אחרון"
 
 #: ../xlgui/plcolumns.py:206 ../xlgui/plcolumns.py:226
 #: ../plugins/minimode/mmwidgets.py:880
 msgid "Never"
-msgstr ""
+msgstr "אף-פעם"
 
 #: ../xlgui/plcolumns.py:218 ../plugins/minimode/mmwidgets.py:893
 msgid "Today"
-msgstr ""
+msgstr "היום"
 
 #: ../xlgui/plcolumns.py:220 ../plugins/minimode/mmwidgets.py:895
 msgid "Yesterday"
-msgstr ""
+msgstr "אתמול"
 
 #: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:897
 #, python-format
 msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr ""
+msgstr "%(year)d-%(month)02d-%(day)02d"
 
 #: ../xlgui/plcolumns.py:253
 msgid "Track Number"
@@ -799,7 +804,7 @@ msgstr " שירים"
 #: ../xlgui/playlist.py:1060
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "סגור %s"
 
 #: ../xlgui/playlist.py:1061
 #, python-format
@@ -826,7 +831,7 @@ msgstr "ו"
 
 #: ../xlgui/panel/playlists.py:34 ../xlgui/panel/playlists.py:37
 msgid "days"
-msgstr ""
+msgstr "ימים"
 
 #: ../xlgui/panel/playlists.py:37
 msgid "minutes"
@@ -838,7 +843,7 @@ msgstr "שעות"
 
 #: ../xlgui/panel/playlists.py:37
 msgid "weeks"
-msgstr ""
+msgstr "שבועות"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:57 ../xlgui/panel/playlists.py:66
@@ -870,11 +875,11 @@ msgstr "אינו מכיל"
 
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:134
 msgid "greater than"
-msgstr ""
+msgstr "גדול מ-"
 
 #: ../xlgui/panel/playlists.py:79 ../xlgui/panel/playlists.py:135
 msgid "less than"
-msgstr ""
+msgstr "קטן מ-"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
@@ -890,7 +895,7 @@ msgstr "לכל היותר"
 
 #: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:144
 msgid "Plays"
-msgstr ""
+msgstr "מתנגן"
 
 #: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:145
 msgid "Year"
@@ -909,22 +914,22 @@ msgstr "לאחר"
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:95 ../xlgui/panel/playlists.py:133
 msgid "between"
-msgstr ""
+msgstr "בין"
 
 #. name is already in use
 #: ../xlgui/panel/playlists.py:212 ../xlgui/panel/playlists.py:318
 #: ../xlgui/panel/playlists.py:356 ../xlgui/panel/playlists.py:592
 #: ../xlgui/panel/playlists.py:666
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "שם רשימת ההשמעה שהכנסת כבר נימצא בשימוש"
 
 #: ../xlgui/panel/playlists.py:349
 msgid "New custom playlist name:"
-msgstr ""
+msgstr "רשימת השמעה מותאמת אישית חדשה:"
 
 #: ../xlgui/panel/playlists.py:350
 msgid "Add To New Playlist..."
-msgstr ""
+msgstr "הוסף לרשימת השמעה חדשה..."
 
 #: ../xlgui/panel/playlists.py:360 ../xlgui/panel/playlists.py:586
 #: ../xlgui/panel/playlists.py:659
@@ -958,16 +963,16 @@ msgstr "טוען קישורים..."
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:224
 #: ../plugins/shoutcast/__init__.py:257 ../plugins/podcasts/podcasts.glade.h:2
 msgid "Idle."
-msgstr ""
+msgstr "במנוחה."
 
 #: ../xlgui/panel/radio.py:166
 msgid "Add Radio Station"
-msgstr ""
+msgstr "הוסף תחנת רדיו"
 
 #: ../xlgui/panel/radio.py:169
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
 msgid "URL:"
-msgstr ""
+msgstr "כתובת אינטרנט (URL):"
 
 #: ../xlgui/panel/radio.py:234
 msgid "Saved Stations"
@@ -1000,10 +1005,11 @@ msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
+"רצועות מסומנות אלו ימחקו לצמיתות מהדיסק שלך, האם אתה בטוח שבירצונך להמשיך?"
 
 #: ../xlgui/panel/collection.py:162
 msgid "Rescan Collection"
-msgstr ""
+msgstr "סרקו את האוסף מחדש"
 
 #: ../xlgui/panel/collection.py:625
 msgid "Various Artists"
@@ -1012,19 +1018,19 @@ msgstr "אמנים שונים"
 #: ../xlgui/panel/device.py:115
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "מעביר אל %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:21
 msgid "Covers"
-msgstr ""
+msgstr "עטיפות"
 
 #: ../xlgui/prefs/appearance_prefs.py:22
 msgid "Appearance"
-msgstr ""
+msgstr "מראה"
 
 #: ../xlgui/prefs/playback_prefs.py:22
 msgid "Playback"
-msgstr ""
+msgstr "ניגון"
 
 #: ../xlgui/prefs/__init__.py:73 ../data/glade/preferences_dialog.glade.h:2
 msgid "Preferences"
@@ -1041,7 +1047,7 @@ msgstr "רשימות השמעה"
 
 #: ../xlgui/prefs/osd_prefs.py:22
 msgid "On Screen Display"
-msgstr ""
+msgstr "תצוגה על המסך (OSD)"
 
 #: ../xlgui/prefs/plugin_prefs.py:81
 msgid "Plugin"
@@ -1049,7 +1055,7 @@ msgstr "תוסף"
 
 #: ../xlgui/prefs/plugin_prefs.py:89
 msgid "Version"
-msgstr ""
+msgstr "גירסה"
 
 #: ../xlgui/prefs/plugin_prefs.py:97
 #: ../plugins/multialarmclock/alarmclk.glade.h:6
@@ -1058,45 +1064,45 @@ msgstr "מאופשר"
 
 #: ../xlgui/prefs/plugin_prefs.py:119
 msgid "Choose a plugin"
-msgstr ""
+msgstr "בחר תוסף"
 
 #: ../xlgui/prefs/plugin_prefs.py:127
 msgid "Plugin Archives"
-msgstr ""
+msgstr "ארכיוני תוספים"
 
 #: ../xlgui/prefs/plugin_prefs.py:180
 #, python-format
 msgid "Could not enable plugin: %s"
-msgstr ""
+msgstr "לא ניתן היה להפעיל את התוסף: %s"
 
 #: ../xlgui/prefs/plugin_prefs.py:187
 #, python-format
 msgid "Could not disable plugin: %s"
-msgstr ""
+msgstr "לא ניתן היה לבטל את התוסף: %s"
 
 #: ../xlgui/prefs/widgets.py:244
 msgid "Add item"
-msgstr ""
+msgstr "הוסף פריט"
 
 #: ../xlgui/prefs/widgets.py:249
 msgid "Remove item"
-msgstr ""
+msgstr "הסר פריט"
 
 #: ../xlgui/prefs/widgets.py:262
 msgid "Move selected item up"
-msgstr ""
+msgstr "העלה פריט ניבחר"
 
 #: ../xlgui/prefs/widgets.py:267
 msgid "Move selected item down"
-msgstr ""
+msgstr "הורד פריט ניבחר"
 
 #: ../xlgui/prefs/widgets.py:538
 msgid "Action"
-msgstr ""
+msgstr "פעולה"
 
 #: ../xlgui/prefs/widgets.py:546
 msgid "Shortcut"
-msgstr ""
+msgstr "קיצור-דרך"
 
 #: ../xlgui/tray.py:73
 msgid "Exaile Music Player"
@@ -1104,19 +1110,19 @@ msgstr "נגן המוסיקה Exaile"
 
 #: ../xlgui/tray.py:116 ../data/glade/main.glade.h:17
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "ערבב סדר השמעה"
 
 #: ../xlgui/tray.py:121 ../data/glade/main.glade.h:15
 msgid "Repeat playlist"
-msgstr ""
+msgstr "חזור על רשימת השמעה"
 
 #: ../xlgui/tray.py:126
 msgid "Dynamically add similar tracks"
-msgstr ""
+msgstr "הוסף רצועות דומות בצורה דינאמית"
 
 #: ../xlgui/tray.py:135
 msgid "Remove current track from playlist"
-msgstr ""
+msgstr "הסר רצועה נוכחית מרשימת ההשמעה"
 
 #: ../data/glade/device_manager.glade.h:1
 msgid "..."
@@ -1165,7 +1171,7 @@ msgstr "אומן:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:3
 msgid "Basic"
-msgstr ""
+msgstr "בסיסי"
 
 #: ../data/glade/trackproperties_dialog.glade.h:4
 msgid "Bitrate:"
@@ -1173,15 +1179,15 @@ msgstr "קצב סיביות:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:5
 msgid "Date:"
-msgstr ""
+msgstr "תאריך:‏"
 
 #: ../data/glade/trackproperties_dialog.glade.h:6
 msgid "Details"
-msgstr ""
+msgstr "פרטים"
 
 #: ../data/glade/trackproperties_dialog.glade.h:7
 msgid "File Size:"
-msgstr ""
+msgstr "גודל הקובץ:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:8
 msgid "Genre:"
@@ -1189,15 +1195,15 @@ msgstr "ז'אנר:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:9
 msgid "Length:"
-msgstr ""
+msgstr "אורך:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:10
 msgid "Location:"
-msgstr ""
+msgstr "מיקום:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:11
 msgid "Play Count:"
-msgstr ""
+msgstr "מונה השמעות:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:12
 msgid "Title:"
@@ -1209,11 +1215,11 @@ msgstr "מספר רצועה:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:14
 msgid "Track Properties"
-msgstr ""
+msgstr "מאפייני הרצועה"
 
 #: ../data/glade/about_dialog.glade.h:1
 msgid "&#xA9; 2009"
-msgstr ""
+msgstr "&#xA9; 2009"
 
 #: ../data/glade/about_dialog.glade.h:2
 msgid "About Exaile"
@@ -1237,6 +1243,21 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"זכויות יוצרים (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"תוכנה זו היא תוכנה חופשית; באפשרותך להפיצה ו/או לשנותה\n"
+"תחת התנאים של GNU General Public License כפי שפורסמו ע\"י\n"
+"Free Software Foundation; או גירסה 2 של הרישיון, או\n"
+"(לבחירתך) כל גירסה מאוחרת יותר.\n"
+"\n"
+"תוכנה זו מופצת מתוך תיקווה שהיא תיהיה שימושית,\n"
+"אך ללא כל אחריות; ללא אפילו אחריות מרומזת של\n"
+"סחירות או התאמה לביצוע פעולה כלשהי.  עיין ב- \n"
+"GNU General Public License לפרטים נוספים.\n"
+"\n"
+"היית אמורלקבל עותק של ה-GNU General Public License \n"
+"מצורף לתוכנה זו; אם לא, כתוב אל Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/glade/about_dialog.glade.h:19
 msgid ""
@@ -1244,14 +1265,17 @@ msgid ""
 "   <info@noctus.net>\n"
 "    Translation Manager"
 msgstr ""
+"Mathias Brodala\n"
+"<info@noctus.net>\n"
+"Translation Manager"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:1
 msgid "Always show tab bar"
-msgstr ""
+msgstr "הראה תמיד את סרגל הלשוניות"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:2
 msgid "Bottom"
-msgstr ""
+msgstr "תחתית"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
@@ -1259,15 +1283,15 @@ msgstr "דלג לשיר הנוכחי עם החלפת רצועת השמע"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:5
 msgid "Left"
-msgstr ""
+msgstr "שמאל"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:8
 msgid "Minimize to tray"
-msgstr ""
+msgstr "מזער לסרגל"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:7
 msgid "Right"
-msgstr ""
+msgstr "ימין"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:9
 msgid "Show splash screen on startup"
@@ -1279,15 +1303,15 @@ msgstr "הצגת סמל הנגן במגש המערכת"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:11
 msgid "Tab placement:"
-msgstr ""
+msgstr "החלפת לשונית"
 
 #: ../data/ui/appearance_prefs_pane.glade.h:11
 msgid "Top"
-msgstr ""
+msgstr "עליון"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
-msgstr ""
+msgstr "השתמש ב- alpha transparency (אם קיימת תמיכה)"
 
 #: ../data/glade/osd_window.glade.h:1
 msgid ""
@@ -1314,7 +1338,7 @@ msgstr "רדיו"
 
 #: ../data/glade/covermanager.glade.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "מנהל עטיפות"
 
 #: ../data/glade/covermanager.glade.h:3
 msgid "_Close"
@@ -1364,15 +1388,15 @@ msgstr "רוחב חלון:"
 
 #: ../data/glade/queue_dialog.glade.h:1
 msgid "Close this dialog"
-msgstr ""
+msgstr "סגור חלון זה"
 
 #: ../data/glade/queue_dialog.glade.h:2
 msgid "Queue Manager"
-msgstr ""
+msgstr "מנהל התור"
 
 #: ../data/glade/queue_dialog.glade.h:3
 msgid "Remove All"
-msgstr ""
+msgstr "הסר הכל"
 
 #: ../xl/player/pipe.py:208
 msgid "ALSA"
@@ -1400,7 +1424,7 @@ msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.glade.h:8
 msgid "Normal"
-msgstr ""
+msgstr "רגיל"
 
 #: ../xl/player/pipe.py:213
 msgid "OSS"
@@ -1408,7 +1432,7 @@ msgstr "OSS"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "מנוע נגן (דרוש התחלה מחדש של התוכנה): "
 
 #: ../xl/player/pipe.py:218
 msgid "PulseAudio"
@@ -1416,19 +1440,19 @@ msgstr "PulseAudio"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "המשך נגינה במצב המתנה (pause)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:14
 msgid "Resume playback on start"
-msgstr ""
+msgstr "המשך נגינה אם הפעלת התוכנה"
 
 #: ../data/glade/playback_prefs_pane.glade.h:15
 msgid "These options only affect the unified engine."
-msgstr ""
+msgstr "אפשרויות אלו משפיעות רק על המנוע המאוחד"
 
 #: ../data/ui/playback_prefs_pane.glade.h:15
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "מאוחד (לא יציב)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
@@ -1464,11 +1488,11 @@ msgstr "התקנת עדכונים"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "התקן תוסף צד שלישי מקובץ"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "התקן קובץ תוסף"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:9
 msgid "Installed Plugins"
@@ -1492,7 +1516,7 @@ msgstr "0:00 / 0:00"
 
 #: ../data/glade/main.glade.h:5
 msgid "C_overs"
-msgstr ""
+msgstr "ע_טיפות"
 
 #: ../data/glade/main.glade.h:6
 msgid "Clear Playlist"
@@ -1500,11 +1524,11 @@ msgstr "נקה רשימת השמעה"
 
 #: ../data/ui/main.glade.h:5
 msgid "Click to view Queue"
-msgstr ""
+msgstr "לחץ לצפיה בתור"
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "הוסף בצורה דינאמית רצועות דומות לרשימת ההשמעה"
 
 #: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
 msgid "Next Track"
@@ -1524,11 +1548,11 @@ msgstr "רצועה קודמת"
 
 #: ../data/glade/main.glade.h:13
 msgid "Randomize the order of the current playlist"
-msgstr ""
+msgstr "ערבב את הסדר של רשימת ההשמעה הנוכחית"
 
 #: ../data/glade/main.glade.h:14
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "סרוק_מחדש את האוסף"
 
 #: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:13
 #: ../data/glade/files_panel.glade.h:6
@@ -1537,7 +1561,7 @@ msgstr "חפש "
 
 #: ../data/glade/main.glade.h:18
 msgid "Start/Pause Playback"
-msgstr ""
+msgstr "התחל/הפסק השמעה"
 
 #: ../data/glade/main.glade.h:19
 msgid ""
@@ -1545,18 +1569,21 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"עצור השמעה\n"
+"\n"
+"לחצן ימני לעצירה לאחר מאפין רצועה"
 
 #: ../data/glade/main.glade.h:23
 msgid "Track _properties"
-msgstr ""
+msgstr "מאפייני _רצועה"
 
 #: ../data/glade/main.glade.h:25
 msgid "_Autosize"
-msgstr ""
+msgstr "_גודל אוטומטי"
 
 #: ../data/glade/main.glade.h:26
 msgid "_Collection"
-msgstr ""
+msgstr "_אוסף"
 
 #: ../data/glade/main.glade.h:27
 msgid "_Columns"
@@ -1564,7 +1591,7 @@ msgstr "_עמודות"
 
 #: ../data/glade/main.glade.h:28
 msgid "_Device Manager"
-msgstr ""
+msgstr "_מנהל התקנים"
 
 #: ../data/glade/main.glade.h:29
 msgid "_Edit"
@@ -1572,7 +1599,7 @@ msgstr "_ערוך"
 
 #: ../data/glade/main.glade.h:30
 msgid "_Export current playlist"
-msgstr ""
+msgstr "_יצא רישימת השמעה נוכחית"
 
 #: ../data/glade/main.glade.h:31
 msgid "_File"
@@ -1580,7 +1607,7 @@ msgstr "_קובץ"
 
 #: ../data/glade/main.glade.h:32
 msgid "_Go to Playing Track"
-msgstr ""
+msgstr "_עבור לרצועה המושמעת"
 
 #: ../data/glade/main.glade.h:33
 msgid "_Help"
@@ -1588,15 +1615,15 @@ msgstr "_עזרה"
 
 #: ../data/glade/main.glade.h:35
 msgid "_Queue"
-msgstr ""
+msgstr "_תור"
 
 #: ../data/glade/main.glade.h:36
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "_ערבב רשימת השמעה"
 
 #: ../data/glade/main.glade.h:37
 msgid "_Resizable"
-msgstr ""
+msgstr "_ניתן לשינוי גודל"
 
 #: ../data/glade/main.glade.h:38
 msgid "_Tools"
@@ -1612,11 +1639,11 @@ msgstr "מנהל האוספים"
 
 #: ../data/glade/flatplaylist_panel.glade.h:1
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "הוסף את כל הרצועות לרשימת ההשמעה"
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
-msgstr ""
+msgstr "יבא CD"
 
 #: ../data/glade/general_prefs_pane.glade.h:1
 #: ../data/glade/playlists_prefs_pane.glade.h:1
@@ -1625,41 +1652,43 @@ msgstr "פתיחת רשימות ההשמעה האחרונות עם ההפעלה"
 
 #: ../data/glade/collection_panel.glade.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>האוסף ריק.</b>"
 
 #: ../data/glade/collection_panel.glade.h:2
 msgid "Add Music"
-msgstr ""
+msgstr "הוסף מוסיקה"
 
 #: ../data/ui/collection_panel.glade.h:5
 msgid "Artist - Year - Album"
-msgstr ""
+msgstr "אמן - שנה - אלבום"
 
 #: ../data/ui/collection_panel.glade.h:7
 msgid "Genre - Album"
-msgstr ""
+msgstr "סגנון - אלבום"
 
 #: ../data/ui/collection_panel.glade.h:8
 msgid "Genre - Artist"
-msgstr ""
+msgstr "סגנון - אמן"
 
 #: ../data/glade/collection_panel.glade.h:11
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"רענן תצוגת אוסף\n"
+"(החזק את המקש Shift לסריקה מחודשת של האוסף)"
 
 #: ../data/ui/collection_panel.glade.h:12
 msgid "Year - Album"
-msgstr ""
+msgstr "שנה - אלבום"
 
 #: ../data/ui/collection_panel.glade.h:13
 msgid "Year - Artist"
-msgstr ""
+msgstr "שנה - אמן"
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "שאל על שמירת רשימות השמעה מותאמות ביציאה"
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
@@ -1675,32 +1704,32 @@ msgstr "קבצים"
 
 #: ../data/glade/files_panel.glade.h:2
 msgid "Home directory"
-msgstr ""
+msgstr "תיקיית הבית"
 
 #: ../data/glade/files_panel.glade.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "תיקיה הבאה שניצפתה"
 
 #: ../data/glade/files_panel.glade.h:4
 msgid "Previous visited directory"
-msgstr ""
+msgstr "תיקיה קודמת שניצפתה"
 
 #: ../data/glade/files_panel.glade.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "רענן רשימת תיקיות"
 
 #: ../data/glade/files_panel.glade.h:7
 msgid "Up one directory"
-msgstr ""
+msgstr "עלה תקייה אחת"
 
 #: ../plugins/multialarmclock/__init__.py:410
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "שעון רב התראות"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "שעון מעורר"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -1717,87 +1746,84 @@ msgstr "תקליטור שמע"
 
 #: ../plugins/cd/_cdguipanel.py:60
 msgid "Importing CD..."
-msgstr ""
+msgstr "יבא CD..."
 
 #: ../plugins/cd/cdprefs.py:22
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
 msgid "Track number"
-msgstr ""
+msgstr "רצועה מספר"
 
 #: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
 msgid "Disc number"
-msgstr ""
+msgstr "דיסק מספר"
 
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:130
 msgid "Play count"
-msgstr ""
+msgstr "מספר השמעות"
 
 #: ../plugins/bookmarks/__init__.py:278
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "סימניות"
 
 #: ../plugins/bookmarks/__init__.py:286
 msgid "Bookmark this track"
-msgstr ""
+msgstr "צור סימניה לרצועה זו"
 
 #: ../plugins/bookmarks/__init__.py:291
 msgid "Delete bookmark"
-msgstr ""
+msgstr "מחק סימנייה"
 
 #: ../plugins/bookmarks/__init__.py:295
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "נקה סימנייות"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "הודעות Notify-osd"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "ע\"י %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "מתוך %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "עטיפות Amazon"
 
 #: ../plugins/desktopcover/prefs.py:22 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "עטיפת שולחן עבודה"
 
-#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr ""
+msgstr "מחפש אחר מצב רוח..."
 
-#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr ""
+msgstr "מצב רוח נימצא"
 
-#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "לא ניתן לקרוא את סרגל מצב הרוח"
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "קובץ ההרצה של סרגל מצב הרוח אינו זמין"
 
 #: ../plugins/replaygain/replaygainprefs.py:22
 #: ../plugins/replaygain/PLUGININFO:3
@@ -1810,15 +1836,15 @@ msgstr "פודקאסטים"
 
 #: ../plugins/podcasts/__init__.py:72
 msgid "Podcast"
-msgstr ""
+msgstr "פודקסט"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "רענן פודקסט"
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
-msgstr ""
+msgstr "מחק"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
@@ -1831,7 +1857,7 @@ msgstr ""
 #: ../plugins/podcasts/__init__.py:154
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "טוען את %s..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
@@ -1859,7 +1885,7 @@ msgstr ""
 
 #: ../plugins/shoutcast/__init__.py:273
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "הכנס את מילות המפתח לחיפוש"
 
 #: ../plugins/shoutcast/__init__.py:274
 msgid "Shoutcast Search"
@@ -1867,7 +1893,7 @@ msgstr ""
 
 #: ../plugins/shoutcast/__init__.py:297
 msgid "Search Results"
-msgstr ""
+msgstr "תוצאות החיפוש"
 
 #: ../plugins/shoutcast/__init__.py:330
 msgid "Search"
@@ -1875,7 +1901,7 @@ msgstr "חפש"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "ידע"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -1883,6 +1909,8 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"ביצוע של %(artist)s\n"
+"מתוך <i>%(album)s</i>"
 
 #: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
@@ -1902,20 +1930,20 @@ msgstr "עצור ניגון"
 
 #: ../plugins/minimode/__init__.py:211
 msgid "Restore Main Window"
-msgstr ""
+msgstr "שחזר חלון ראשי"
 
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "מצב מוקטן"
 
 #: ../plugins/minimode/minimodeprefs.py:97
 msgid "Available controls"
-msgstr ""
+msgstr "פקדים זמינים"
 
 #: ../plugins/minimode/minimodeprefs.py:98
 msgid "Selected controls"
-msgstr ""
+msgstr "פקדים ניבחרים"
 
 #: ../plugins/minimode/minimodeprefs.py:100
 msgid "Previous"
@@ -1935,64 +1963,64 @@ msgstr "הבא"
 
 #: ../plugins/minimode/minimodeprefs.py:104
 msgid "Track selector"
-msgstr ""
+msgstr "בוחר רצועות"
 
 #: ../plugins/minimode/minimodeprefs.py:105
 msgid "Progress bar"
-msgstr ""
+msgstr "סרגל התקדמות"
 
 #: ../plugins/minimode/minimodeprefs.py:106
 msgid "Volume"
-msgstr ""
+msgstr "עוצמה"
 
 #: ../plugins/minimode/minimodeprefs.py:107
 msgid "Playlist button"
-msgstr ""
+msgstr "בפתור רשימת השמעה"
 
 #: ../plugins/minimode/minimodeprefs.py:110
 msgid "Restore"
-msgstr ""
+msgstr "שחזר"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:136
 #: ../plugins/minimode/minimodeprefs.py:142
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:138
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title ע\"י $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:140
 msgid "$title ($length)"
-msgstr ""
+msgstr "$title ($length)"
 
 #: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
-msgstr ""
+msgstr "התחל השמעה"
 
 #: ../plugins/minimode/mmwidgets.py:169
 msgid "Continue Playback"
-msgstr ""
+msgstr "המשך השמעה"
 
 #: ../plugins/minimode/mmwidgets.py:172
 msgid "Pause Playback"
-msgstr ""
+msgstr "עצור השמעה"
 
 #: ../plugins/minimode/mmwidgets.py:732
 msgid "Seeking: "
-msgstr ""
+msgstr "מחפש: "
 
 #: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
-msgstr ""
+msgstr " & "
 
 #: ../plugins/contextinfo/__init__.py:1033
 #: ../plugins/contextinfo/context.glade.h:1
 msgid "Context"
-msgstr ""
+msgstr "הקשר"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
@@ -2013,12 +2041,12 @@ msgstr "התראה בימים:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:2
 msgid "Alarm Name:"
-msgstr ""
+msgstr "שם התראה:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:3
 #: ../plugins/alarmclock/acprefs_pane.glade.h:2
 msgid "Alarm Time:"
-msgstr ""
+msgstr "זמן התראה:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:4
 msgid "Alarm:"
@@ -2040,7 +2068,7 @@ msgstr "יום שישי"
 #: ../plugins/multialarmclock/alarmclk.glade.h:9
 #: ../plugins/alarmclock/acprefs_pane.glade.h:4
 msgid "Increment:"
-msgstr ""
+msgstr "תוספת:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:10
 #: ../plugins/alarmclock/acprefs_pane.glade.h:5
@@ -2059,11 +2087,11 @@ msgstr "יום שני"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:13
 msgid "Name - Time"
-msgstr ""
+msgstr "שם - זמן"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:14
 msgid "Restart Playlist"
-msgstr ""
+msgstr "התחל רשימת השמעה מחדש"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:15
 #: ../plugins/alarmclock/acprefs_pane.glade.h:8
@@ -2082,7 +2110,7 @@ msgstr "יום חמישי"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:18
 msgid "Time per Increment:"
-msgstr ""
+msgstr "זמן לכל תוספת:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:19
 #: ../plugins/alarmclock/acprefs_pane.glade.h:12
@@ -2120,35 +2148,35 @@ msgstr "שם המשתמש:"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
 msgid "Import format: "
-msgstr ""
+msgstr "יבא תצורה: "
 
 #: ../plugins/cd/cdprefs_pane.glade.h:2
 msgid "Import path: "
-msgstr ""
+msgstr "יבא נתיב: "
 
 #: ../plugins/cd/cdprefs_pane.glade.h:3
 msgid "Import quality: "
-msgstr ""
+msgstr "יבא איכות: "
 
 #: ../plugins/cd/cdprefs_pane.glade.h:6
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:7
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:8
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:9
 msgid "WavPack"
@@ -2156,43 +2184,43 @@ msgstr ""
 
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
-msgstr ""
+msgstr "השתמש בעטיפות בתפריט הסימניות (יכנס לתוקף בהפעלה הבאה)"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>תוכן</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>תצוגה</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
 msgid "<b>Icons</b>"
-msgstr ""
+msgstr "<b>סמלים</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
 msgid "Album Line:"
-msgstr ""
+msgstr "שורת אלבום:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:5
 msgid "Artist Line:"
-msgstr ""
+msgstr "שורת אמן:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
 msgid "On Playback Start, Pause or Stop"
-msgstr ""
+msgstr "בעת התחלת נגינה, המתן או עצור"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
 msgid "On Track Change"
-msgstr ""
+msgstr "בעת החלפת רצועה"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
 msgid "On Tray Icon Hover"
-msgstr ""
+msgstr "בעת ריחוף על סמל סרגל המשימות"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
 msgid "Summary:"
-msgstr ""
+msgstr "תקציר:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
 #, python-format
@@ -2201,10 +2229,12 @@ msgid ""
 "by their respective values. The title will be replaced by \"Unknown\" if it "
 "is empty."
 msgstr ""
+"התגים \"%(title)s\", \"%(artist)s\", and \"%(album)s\" יוחלפו ע\"י הערכים "
+"המתאימים. הכותרת תוחלף ע\"י  \"Unknown\" אם היא ריקה."
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
 msgid "Use Album Covers As Icons"
-msgstr ""
+msgstr "השתמש בעטיפות אלבומים כאייקונים"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"

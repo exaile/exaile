@@ -77,7 +77,7 @@ def save_to_m3u(playlist, path):
         handle.write("#PLAYLIST: %s\n" % playlist.get_name())
 
     for track in playlist:
-        leng = float(track['__length'])
+        leng = round(float(track.get('__length', -1)))
         if leng < 1:
             leng = -1
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
@@ -152,10 +152,10 @@ def save_to_pls(playlist, path):
     for track in playlist:
         handle.write("File%d=%s\n" % (count, track.get_loc_for_io()))
         handle.write("Title%d=%s\n" % (count, track['title']))
-        if track['__length'] < 1:
-            handle.write("Length%d=%d\n\n" % (count, -1))
-        else:
-            handle.write("Length%d=%d\n\n" % (count, float(track['__length'])))
+        length = round(float(track.get('__length', -1)))
+        if length < 1:
+            length = -1
+        handle.write("Length%d=%d\n\n" % (count, length))
         count += 1
 
     handle.write("Version=2")
@@ -401,7 +401,7 @@ class Playlist(object):
         self.current_pos = -1
         self.current_playing = False
         self.random_enabled = False
-        self.random_mode= "track"
+        self.random_mode = "track"
         self.repeat_enabled = False
         self.dynamic_enabled = False
         self._is_custom = is_custom
@@ -627,9 +627,6 @@ class Playlist(object):
         """
             Returns a valid next track if shuffle is activated based on random_mode
         """
-        if mode == "track":
-            return random.choice([ x for x in self.ordered_tracks \
-                    if x not in self.tracks_history])
         if mode == "album":
             try: #Try and get the next track on the album
                 #NB If the user starts the playlist from the middle of the album
@@ -656,6 +653,11 @@ class Playlist(object):
                         if x['album'] == album ]
                 t.sort(lambda x, y: x.get_track() - y.get_track())
                 return t[0]
+        else:   # track mode - dont check explicitly because the restore code
+                # sometimes gives us a None here.
+            return random.choice([ x for x in self.ordered_tracks \
+                    if x not in self.tracks_history])
+
 
     def next(self):
         """
@@ -835,12 +837,19 @@ class Playlist(object):
                 if value is not None:
                     meta[item] = value[0]
             buffer += '\t%s\n' % urllib.urlencode(meta)
-            f.write(buffer.encode('utf-8'))
+            try:
+                f.write(buffer.encode('utf-8'))
+            except UnicodeDecodeError:
+                continue
 
         f.write("EOF\n")
         for item in self.extra_save_items:
             val = getattr(self, item)
-            strn = settings._SETTINGSMANAGER._val_to_str(val)
+            try:
+                strn = settings._SETTINGSMANAGER._val_to_str(val)
+            except ValueError:
+                strn = ""
+
             f.write("%s=%s\n"%(item,strn))
         f.close()
         if os.path.exists(location + ".new"):

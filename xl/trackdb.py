@@ -429,6 +429,8 @@ class TrackSearcher(object):
         search = search.replace(" OR ", " | ")
         search = search.replace(" NOT ", " ! ")
 
+        search = search.lower()
+
         tokens = []
         newsearch = ""
         in_quotes = False

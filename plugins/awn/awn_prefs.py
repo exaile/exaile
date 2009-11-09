@@ -1,6 +1,4 @@
-#!/bin/sh
-
-# Copyright (C) 2008-2009 Adam Olsen 
+# Copyright (C) 2009 Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,6 +24,25 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-outpath=$(echo "$1" | sed "s/.po/\/LC_MESSAGES/")
-mkdir -p $outpath
-msgmerge -o - $1 messages.pot | msgfmt -c -o $outpath/exaile.mo -
+import os
+
+from xlgui.prefs import widgets
+from xl.nls import gettext as _
+
+name = _("AWN")
+basedir = os.path.dirname(os.path.realpath(__file__))
+ui = os.path.join(basedir, "awn_prefs_pane.glade")
+
+
+class OverlayDisplay(widgets.ComboPrefsItem):
+    default = 'progress'
+    name = 'plugin/awn/overlay'
+    map = ['progress', 'text', 'none']
+    def __init__(self, prefs, widget):
+        widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+
+
+class CoverDisplay(widgets.CheckPrefsItem):
+    default = True
+    name = 'plugin/awn/cover_display'
+

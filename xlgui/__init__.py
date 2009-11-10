@@ -26,9 +26,14 @@
 
 __all__ = ['main', 'panel', 'playlist']
 
-from xl.nls import gettext as _
+from xl.nls import gt, gettext as _
 import gtk, gobject, logging, os, urlparse
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
+if gt is not None:
+    import gtk.glade
+    gtk.glade.textdomain('exaile')
+    if xdg.local_hack:
+        gtk.glade.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
 
 from xlgui import commondialogs, cover
 from xlgui import devices, guiutil, icons, prefs, queue

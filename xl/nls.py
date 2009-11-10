@@ -29,24 +29,22 @@
     code in a gettext fashion without a hard depend on gettext itself.
 """
 
-import locale
+import locale, os
+from xl import xdg
 
 # set the locale to LANG, or the user's default
 locale.setlocale(locale.LC_ALL, '')
 
 try:
-    import gettext as gt
-    gettext = gt.gettext
+    import gettext
+
+    gettext.textdomain('exaile')
+    if xdg.local_hack: # running from source dir, so we have to set the paths
+        gettext.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
+
+    gettext = gettext.gettext
 except ImportError:
     # gettext is not available.  Provide a dummy function instead
-    gt = None
     def gettext(text):
         return text
-
-if gt is not None:
-    gt.textdomain('exaile')
-    from xl import xdg
-    import os
-    if xdg.local_hack: # running from source dir, so we have to set the paths
-        gt.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
 

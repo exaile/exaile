@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-05 20:13+0100\n"
-"PO-Revision-Date: 2009-11-09 18:34+0000\n"
+"PO-Revision-Date: 2009-11-10 22:32+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-11-10 11:28+0000\n"
+"X-Launchpad-Export-Date: 2009-11-11 04:33+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.glade.h:3
@@ -546,15 +546,15 @@ msgstr "Bufferen: 100%..."
 
 #: ../xlgui/main.py:996 ../xlgui/main.py:1004 ../xlgui/main.py:1028
 msgid "Shuffle _Off"
-msgstr "Shuffle _uitschakelen"
+msgstr "Willekeurig afspelen _uitschakelen"
 
 #: ../xlgui/main.py:996 ../xlgui/main.py:1030
 msgid "Shuffle _Tracks"
-msgstr "Shuffle _nummers"
+msgstr "_Nummers in willekeurige volgorde afspelen"
 
 #: ../xlgui/main.py:996 ../xlgui/main.py:1033
 msgid "Shuffle _Albums"
-msgstr "Shuffle _albums"
+msgstr "_Albums in willekeurige volgorde afspelen"
 
 #: ../xlgui/main.py:1085 ../data/ui/main.glade.h:21
 msgid "Stopped"
@@ -926,7 +926,7 @@ msgstr "Een of meer overeenkomende criteria"
 
 #: ../xlgui/filtergui.py:76
 msgid "Randomize results"
-msgstr "Gooi de resultaten willekeurig door elkaar"
+msgstr "Resultaten in willekeurige volgorde"
 
 #: ../xlgui/filtergui.py:92
 msgid "Limit to: "
@@ -1153,7 +1153,7 @@ msgstr "Albumhoezen"
 
 #: ../xlgui/prefs/appearance_prefs.py:32
 msgid "Appearance"
-msgstr "Uiterlijk"
+msgstr "Weergave"
 
 #: ../xlgui/prefs/playback_prefs.py:32
 msgid "Playback"
@@ -1251,7 +1251,7 @@ msgstr "Exaile muziekspeler"
 
 #: ../xlgui/tray.py:98 ../data/ui/main.glade.h:16
 msgid "Shuffle playback order"
-msgstr "Shuffle afspeelvolgorde"
+msgstr "In willekeurige volgorde afspelen"
 
 #: ../xlgui/tray.py:103 ../data/ui/main.glade.h:14
 msgid "Repeat playlist"
@@ -1896,7 +1896,7 @@ msgstr "Schijfnummer"
 
 #: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:77
 msgid "Play count"
-msgstr "Aantal keren afgespeeld"
+msgstr "Aantal malen afgespeeld"
 
 #: ../plugins/bookmarks/__init__.py:278
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3

@@ -61,6 +61,7 @@ if config_dirs == None:
 config_dirs = [os.path.join(d, "exaile") for d in config_dirs.split(":")]
 
 exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
+local_hack = False
 # Detect if Exaile is not installed.
 if os.path.exists(os.path.join(exaile_dir, 'Makefile')):
     local_hack = True

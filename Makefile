@@ -42,7 +42,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
-	mkdir -p $(EXAILECONFDIR)/exaile
+	mkdir -p $(EXAILECONFDIR)
 
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
@@ -88,7 +88,7 @@ install-target: make-install-dirs
 	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
-	install -m 644 data/config/settings.ini $(EXAILECONFDIR)/exaile
+	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	# the printf here is for bsd compat, dont use echo!
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	 printf "#!/bin/sh\n\

@@ -116,7 +116,7 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
         '''
         
         if self.menu:
-            item = [x for x in self.get_children() if (x.get_name() == 'GtkMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == name)]
+            item = [x for x in self.menu.get_children() if (x.get_name() == 'GtkMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == name)]
             if len(item) > 0:
                 item[0].destroy()
                 

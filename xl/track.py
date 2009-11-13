@@ -73,6 +73,10 @@ class Track(object):
     __tracksdict = weakref.WeakValueDictionary()
 
     def __new__(cls, *args, **kwargs):
+        """
+            override class creation to reuse existing Track objects
+            if one alreayd exists for a particular URI
+        """
         uri = None
         if len(args) > 0:
             uri = args[0]
@@ -92,11 +96,17 @@ class Track(object):
             tr.__init = True
             return tr
 
-    def __init__(self, uri=None, _unpickles=None):
+    def __init__(self, uri=None, scan=True, _unpickles=None):
         """
             loads and initializes the tag information
 
-            uri: path to the track [string]
+            uri:  The path to the track.
+            scan: Whether to try to read tags from the given uri.
+                  Use only if the tags need to be set by a
+                  different source.
+
+            _unpickles: used internally to restore from a pickled
+                state. not for normal use.
         """
         # don't re-init if its a reused track. see __new__
         if self.__init == False:
@@ -104,7 +114,7 @@ class Track(object):
 
         self.tags = {}
 
-        self._scan_valid = False # whether our last tag read attempt worked
+        self._scan_valid = None # whether our last tag read attempt worked
         self._scanning = False  # flag to avoid sending tag updates on mass
                                 # load
         self._dirty = False
@@ -112,8 +122,9 @@ class Track(object):
             self._unpickles(_unpickles)
             self.__register()
         elif uri:
-            self.tags['__loc'] = gio.File(uri).get_uri()
-            self.read_tags()
+            self.set_loc(uri)
+            if scan:
+                self.read_tags()
 
     def __register(self):
         self.__tracksdict[self['__loc']] = self

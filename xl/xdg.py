@@ -61,8 +61,10 @@ if config_dirs == None:
 config_dirs = [os.path.join(d, "exaile") for d in config_dirs.split(":")]
 
 exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
+local_hack = False
 # Detect if Exaile is not installed.
 if os.path.exists(os.path.join(exaile_dir, 'Makefile')):
+    local_hack = True
     # Insert the "data" directory to data_dirs.
     data_dir = os.path.join(exaile_dir, 'data')
     data_dirs.insert(0, data_dir)

@@ -80,6 +80,12 @@ CRITERIA = [
         (_('contains'), EntryField),
         (_('does not contain'), EntryField),
     ]),
+    (_('Title'), [
+        (_('is'), EntryField),
+        (_('is not'), EntryField),
+        (_('contains'), EntryField),
+        (_('does not contain'), EntryField),
+    ]),
     (_('Genre'), [
         (_('is'), EntryField),
         (_('is not'), EntryField),

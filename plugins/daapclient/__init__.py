@@ -338,7 +338,8 @@ class DaapConnection(object):
                     (self.server, self.port, self.database.id, tr.id,
                     tr.type, self.session.sessionid)
 
-                temp = track.Track(uri)
+                # Don't scan tracks because gio is slow!
+                temp = track.Track(uri, scan=False)
 
                 #
                 # We use track.tags because modifying the track's tags with

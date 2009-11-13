@@ -28,12 +28,21 @@ __all__ = ['main', 'panel', 'playlist']
 
 from xl.nls import gettext as _
 import gtk, gobject, logging, os, urlparse
+logger = logging.getLogger(__name__)
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
+try:
+    import gtk.glade
+    gtk.glade.textdomain('exaile')
+    if xdg.local_hack:
+        gtk.glade.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
+except ImportError:
+    logger.warning(
+        "Failed to import gtk.glade, interface "
+        "will not be fully translated.")
 
 from xlgui import commondialogs, cover
 from xlgui import devices, guiutil, icons, prefs, queue
 
-logger = logging.getLogger(__name__)
 
 ###
 # Set up xl/event to work with the gtk event loop

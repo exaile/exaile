@@ -33,16 +33,6 @@
 
 __version__ = '0.3.1+'
 
-import locale, gettext
-
-# set the locale to LANG, or the user's default
-locale.setlocale(locale.LC_ALL, '')
-
-# this installs _ into python's global namespace, so we don't have to
-# explicitly import it elsewhere
-#TODO: make this work
-#gettext.install("exaile")
-
 from xl.nls import gettext as _
 
 from xl import common, xdg, event

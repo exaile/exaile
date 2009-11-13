@@ -63,6 +63,8 @@ class FilesPanel(panel.Panel):
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.get_selected_tracks()))
         self.menu.connect('rating-set', self.set_rating)
+        self.menu.connect('properties', lambda *e:
+            self.properties_dialog())
 
         self.key_id = None
         self.i = 0
@@ -71,6 +73,23 @@ class FilesPanel(panel.Panel):
             xdg.homedir))
         self.history = [first_dir]
         self.load_directory(first_dir, False)
+
+    def properties_dialog(self):
+        """
+            Shows the properties dialog
+        """
+        from xlgui import properties
+        tracks = self.get_selected_tracks()
+
+	if not tracks:
+            return False
+
+        tracks_sorted = trackdb.sort_tracks(
+			('artist', 'date', 'album', 'discnumber', 'tracknumber'), 
+			tracks)
+
+        dialog = properties.TrackPropertiesDialog(self.parent,
+            tracks_sorted)
 
     def set_rating(self, widget, rating):
         tracks = self.get_selected_tracks()

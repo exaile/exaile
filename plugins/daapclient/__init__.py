@@ -221,7 +221,7 @@ class DaapManager:
             nstr = 'custom%s%s' % (address, port)
     #        print nstr
             conn = DaapConnection(loc, address, port)
-            self.connect_share((loc, address, port))
+            self.connect_share(None, (loc, address, port))
             
             
     def close(self, remove=False):
@@ -402,7 +402,7 @@ class DaapLibrary(collection.Library):
             
         if self.scanning:
             return
-            
+        t = time.time()    
         logger.info('Scanning library: %s' % self.daap_share.name)
         self.scanning = True
         db = self.collection
@@ -415,7 +415,7 @@ class DaapLibrary(collection.Library):
             count = 0
             
         if count > 0:
-            logger.info('Adding %d tracks from %s.' % (count, self.daap_share.name))
+            logger.info('Adding %d tracks from %s. (%f s)' % (count, self.daap_share.name, time.time()-t))
             self.collection.add_tracks(self.daap_share.all)
         
         
@@ -526,9 +526,13 @@ def _enable(exaile):
     MENU_ITEM.set_submenu(menu)
     tools.append(MENU_ITEM)
     MENU_ITEM.show_all()
-
+    
     if AVAHI:
-        avahi_interface = DaapAvahiInterface(exaile, menu)
+        try:
+            avahi_interface = DaapAvahiInterface(exaile, menu)
+        except RuntimeError: # no dbus?
+            avahi_interface = None
+            logger.warn('AVAHI interface could not be initialized (no dbus?)')
     else:
         avahi_interface = None
         logger.warn('AVAHI could not be imported, you will not see broadcast shares.')

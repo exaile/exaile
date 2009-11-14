@@ -55,7 +55,7 @@ class CoverManager(object):
         self._stopped = True
 
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/covermanager.glade'))
+        self.builder.add_from_file(xdg.get_data_path('ui/covermanager.ui'))
 
         self.window = self.builder.get_object('CoverManager')
         self.window.set_transient_for(parent)

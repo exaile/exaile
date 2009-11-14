@@ -31,7 +31,7 @@ from xl.nls import gettext as _
 
 name = _("AWN")
 basedir = os.path.dirname(os.path.realpath(__file__))
-ui = os.path.join(basedir, "awn_prefs_pane.glade")
+ui = os.path.join(basedir, "awn_prefs_pane.ui")
 
 
 class OverlayDisplay(widgets.ComboPrefsItem):

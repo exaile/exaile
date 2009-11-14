@@ -31,7 +31,7 @@ from xl.nls import gettext as _
 
 name = _('ReplayGain')
 basedir = os.path.dirname(os.path.realpath(__file__))
-ui = os.path.join(basedir, "replaygainprefs_pane.glade")
+ui = os.path.join(basedir, "replaygainprefs_pane.ui")
 
 class AlbumModePreference(widgets.CheckPrefsItem):
     default = True

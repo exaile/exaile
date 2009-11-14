@@ -432,7 +432,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
         The playlists panel
     """
-    ui_info = ('playlists_panel.glade', 'PlaylistsPanelWindow')
+    ui_info = ('playlists_panel.ui', 'PlaylistsPanelWindow')
 
     def __init__(self, parent, playlist_manager,
         smart_manager, collection):

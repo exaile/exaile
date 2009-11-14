@@ -25,7 +25,7 @@ class QueueManager(object):
 
         self.builder = gtk.Builder()
         self.builder.add_from_file(
-            xdg.get_data_path(os.path.join('ui', 'queue_dialog.glade')))
+            xdg.get_data_path(os.path.join('ui', 'queue_dialog.ui')))
 
         self._dialog = self.builder.get_object('QueueManagerDialog')
         self._dialog.set_transient_for(parent)

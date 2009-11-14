@@ -98,7 +98,7 @@ class DevicePanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    ui_info = ('device_panel.glade', 'DevicePanelWindow')
+    ui_info = ('device_panel.ui', 'DevicePanelWindow')
 
     def __init__(self, parent, main,
         device, name=None):
@@ -142,7 +142,7 @@ class FlatPlaylistDevicePanel(panel.Panel):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    ui_info = ('device_panel.glade', 'DevicePanelWindow')
+    ui_info = ('device_panel.ui', 'DevicePanelWindow')
 
     def __init__(self, parent, main,
         device, name=None):

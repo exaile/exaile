@@ -27,7 +27,7 @@ from xl import settings
 #import cPickle as pickle
 
 PATH = os.path.dirname(os.path.realpath(__file__))
-UI = os.path.join(PATH, 'alarmclk.glade')
+UI = os.path.join(PATH, 'alarmclk.ui')
 
 pb = gtk.gdk.pixbuf_new_from_file(os.path.join(PATH,'clock32.png'))
 

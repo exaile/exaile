@@ -45,7 +45,7 @@ class ManagerDialog(object):
         self.parent = parent
         self.device_manager = self.main.exaile.devices
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/device_manager.glade'))
+        self.builder.add_from_file(xdg.get_data_path('ui/device_manager.ui'))
         self.window = self.builder.get_object('device_manager')
         self.window.set_transient_for(self.parent)
         self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)

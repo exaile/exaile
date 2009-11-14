@@ -20,7 +20,7 @@ from xl.nls import gettext as _
 from xlgui import commondialogs
 
 name = _('Collection')
-ui = xdg.get_data_path('ui/collection_prefs_pane.glade')
+ui = xdg.get_data_path('ui/collection_prefs_pane.ui')
 
 def _get_default_strip_list():
     #TRANSLATORS: Grammatical articles that are ignored while sorting the

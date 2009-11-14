@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-05 20:13+0100\n"
-"PO-Revision-Date: 2009-11-09 07:54+0000\n"
-"Last-Translator: Renato Silva <Unknown>\n"
+"PO-Revision-Date: 2009-11-14 02:09+0000\n"
+"Last-Translator: Vagner K. Dos Santos <vagner.ks@hotmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2009-11-10 11:28+0000\n"
+"X-Launchpad-Export-Date: 2009-11-14 04:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.glade.h:3
@@ -476,11 +476,11 @@ msgstr "Modificado"
 
 #: ../xlgui/properties.py:66
 msgid "Playtime"
-msgstr ""
+msgstr "Tempo de Reprodução"
 
 #: ../xlgui/properties.py:67
 msgid "Times Played"
-msgstr ""
+msgstr "Vezes Reproduzido"
 
 #: ../xlgui/properties.py:68
 msgid "Last Played"
@@ -493,7 +493,7 @@ msgstr "Editando faixa %(current)d de %(total)d"
 
 #: ../xlgui/properties.py:326
 msgid "Close without applying changes to tags?"
-msgstr ""
+msgstr "Fechar sem aplicar as alterações às etiquetas?"
 
 #: ../xlgui/properties.py:651
 msgid "of"
@@ -805,11 +805,11 @@ msgstr "Verificando %s..."
 
 #: ../xlgui/guiutil.py:430
 msgid "Muted"
-msgstr ""
+msgstr "Sem Áudio"
 
 #: ../xlgui/guiutil.py:439
 msgid "Full Volume"
-msgstr ""
+msgstr "Volume Máximo"
 
 #: ../xlgui/guiutil.py:729
 #, python-format
@@ -1185,7 +1185,7 @@ msgstr ""
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Restaurar configurações padrão"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.glade.h:1
 msgid "Playlists"
@@ -1301,7 +1301,7 @@ msgstr "Nova busca"
 
 #: ../data/ui/trackproperties_dialog.glade.h:1
 msgid "A_dd tag"
-msgstr ""
+msgstr "A_dicionar etiquetas"
 
 #: ../data/ui/trackproperties_dialog.glade.h:3
 msgid "Tags"
@@ -1317,7 +1317,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.glade.h:6
 msgid "_Next"
-msgstr ""
+msgstr "_Próxima"
 
 #: ../data/ui/trackproperties_dialog.glade.h:7
 msgid "_Previous"
@@ -1622,7 +1622,7 @@ msgstr "Versão:"
 
 #: ../data/ui/collection_prefs_pane.glade.h:1
 msgid "(Right click for reset to defaults)"
-msgstr ""
+msgstr "(Clique com o botão direito para voltar as opções padrões)"
 
 #: ../data/ui/collection_prefs_pane.glade.h:2
 msgid "Use file based compilation detection"
@@ -2090,7 +2090,7 @@ msgstr "Reproduzir/Parar"
 
 #: ../plugins/minimode/minimodeprefs.py:49
 msgid "Stop"
-msgstr "Pare"
+msgstr "Parar"
 
 #: ../plugins/minimode/minimodeprefs.py:50
 msgid "Next"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-05 20:13+0100\n"
-"PO-Revision-Date: 2009-11-09 15:54+0000\n"
+"PO-Revision-Date: 2009-11-13 11:52+0000\n"
 "Last-Translator: Simen Heggestøyl <simen@simenh.com>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-11-10 11:28+0000\n"
+"X-Launchpad-Export-Date: 2009-11-14 04:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.glade.h:3
@@ -316,7 +316,7 @@ msgstr "Lyriker"
 
 #: ../xlgui/properties.py:36
 msgid "Part"
-msgstr ""
+msgstr "Del"
 
 #: ../xlgui/properties.py:37
 msgid "Website"
@@ -328,7 +328,7 @@ msgstr "Omslag"
 
 #: ../xlgui/properties.py:39
 msgid "Original Artist"
-msgstr ""
+msgstr "Original Artist"
 
 #: ../xlgui/properties.py:40
 msgid "Author"
@@ -336,7 +336,7 @@ msgstr "Forfatter"
 
 #: ../xlgui/properties.py:41
 msgid "Original Date"
-msgstr ""
+msgstr "Original Dato"
 
 #: ../xlgui/properties.py:42 ../xlgui/plcolumns.py:163
 #: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:72
@@ -353,7 +353,7 @@ msgstr "Dirigent"
 
 #: ../xlgui/properties.py:45
 msgid "Performer"
-msgstr ""
+msgstr "Artist"
 
 #: ../xlgui/properties.py:46 ../xlgui/plcolumns.py:99
 #: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:151
@@ -408,7 +408,7 @@ msgstr "Komponist"
 
 #: ../xlgui/properties.py:56
 msgid "Encoded By"
-msgstr ""
+msgstr "Kodet Av"
 
 #: ../xlgui/properties.py:57
 msgid "Organization"
@@ -475,7 +475,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:68
 msgid "Last Played"
-msgstr ""
+msgstr "Sist spilt"
 
 #: ../xlgui/properties.py:212
 #, python-format
@@ -538,15 +538,15 @@ msgstr "Buffer: 100%"
 
 #: ../xlgui/main.py:996 ../xlgui/main.py:1004 ../xlgui/main.py:1028
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "Omstokk A_v"
 
 #: ../xlgui/main.py:996 ../xlgui/main.py:1030
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Omstokk _Spor"
 
 #: ../xlgui/main.py:996 ../xlgui/main.py:1033
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Omstokk _Album"
 
 #: ../xlgui/main.py:1085 ../data/ui/main.glade.h:21
 msgid "Stopped"
@@ -796,7 +796,7 @@ msgstr "Dempet"
 
 #: ../xlgui/guiutil.py:439
 msgid "Full Volume"
-msgstr ""
+msgstr "Fullt Volum"
 
 #: ../xlgui/guiutil.py:729
 #, python-format
@@ -1111,7 +1111,7 @@ msgstr "Størrelse"
 #: ../xlgui/panel/files.py:394
 #, python-format
 msgid "%d KB"
-msgstr ""
+msgstr "%d KB"
 
 #: ../xlgui/panel/collection.py:120
 msgid ""
@@ -1170,7 +1170,7 @@ msgstr ""
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Sett tilbake til standardinnstillinger"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.glade.h:1
 msgid "Playlists"
@@ -1192,7 +1192,7 @@ msgstr "Aktivert"
 
 #: ../xlgui/prefs/plugin_prefs.py:128
 msgid "Choose a plugin"
-msgstr ""
+msgstr "Velg et programtillegg"
 
 #: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
@@ -1302,11 +1302,11 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.glade.h:6
 msgid "_Next"
-msgstr ""
+msgstr "_Neste"
 
 #: ../data/ui/trackproperties_dialog.glade.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Forrige"
 
 #: ../data/ui/trackproperties_dialog.glade.h:8
 msgid "_Remove tag"
@@ -1497,7 +1497,7 @@ msgstr "GNOME"
 
 #: ../data/ui/playback_prefs_pane.glade.h:7
 msgid "JACK"
-msgstr ""
+msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.glade.h:8
 msgid "Normal"
@@ -1517,7 +1517,7 @@ msgstr "PulseAudio"
 
 #: ../data/ui/playback_prefs_pane.glade.h:12
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Fortsett avspilling i pausemodus"
 
 #: ../data/ui/playback_prefs_pane.glade.h:13
 msgid "Resume playback on start"
@@ -1585,7 +1585,7 @@ msgstr "Versjon:"
 
 #: ../data/ui/collection_prefs_pane.glade.h:1
 msgid "(Right click for reset to defaults)"
-msgstr ""
+msgstr "(Høyreklikk for å sette tilbake til standardinnstillinger)"
 
 #: ../data/ui/collection_prefs_pane.glade.h:2
 msgid "Use file based compilation detection"
@@ -1780,7 +1780,7 @@ msgstr "(Dra for å bytte posisjon)"
 
 #: ../data/ui/cover_prefs_pane.glade.h:2
 msgid "Cover Search Order:"
-msgstr ""
+msgstr "Søkerekkefølge på Omslag:"
 
 #: ../data/ui/files_panel.glade.h:1
 msgid "Files"
@@ -1792,7 +1792,7 @@ msgstr "Hjemmekatalog"
 
 #: ../data/ui/files_panel.glade.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Neste besøkte katalog"
 
 #: ../data/ui/files_panel.glade.h:4
 msgid "Previous visited directory"
@@ -1924,15 +1924,15 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "Podkaster"
 
 #: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
-msgstr ""
+msgstr "Podkast"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "Oppdater Podkast"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
@@ -1944,7 +1944,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
-msgstr ""
+msgstr "Åpne Podkast"
 
 #: ../plugins/podcasts/__init__.py:153
 #, python-format
@@ -1957,11 +1957,11 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:200
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Laster Podkaster..."
 
 #: ../plugins/podcasts/__init__.py:231
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Kunne ikke lagre podkastfil"
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:157
 #: ../plugins/shoutcast/__init__.py:200 ../plugins/shoutcast/__init__.py:236

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-05 20:13+0100\n"
-"PO-Revision-Date: 2009-11-13 04:48+0000\n"
-"Last-Translator: apshalasha <apshalasha@gmail.com>\n"
+"PO-Revision-Date: 2009-11-13 16:32+0000\n"
+"Last-Translator: Mustafa Yılmaz <apshalasha@gmail.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-11-13 11:22+0000\n"
+"X-Launchpad-Export-Date: 2009-11-14 04:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.glade.h:3
@@ -235,16 +235,20 @@ msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
+"tescilli, eski fakat popüler, kayıplı ses biçimi. VBR CBR'den daha yüksek "
+"kaliteye sahip olmakla birlikte bazı oynatıcılarla uyumsuz olabilir."
 
 #: ../xl/transcoder.py:99
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
+"tescilli, eski fakat popüler, kayıplı ses biçimi. CBR VBR'den daha düşük "
+"kaliteye sahip olmakla birlikte her oynatıcıyla uyumludur."
 
 #: ../xl/transcoder.py:110
 msgid "A very fast Free lossless audio format with good compression."
-msgstr ""
+msgstr "Çok hızlı ve kayıpsız iyi sıkıştırmaya sahip bir Özgür ses biçimi."
 
 #: ../xl/track.py:547
 msgid "  New song, fetching cover."

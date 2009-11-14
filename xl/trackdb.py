@@ -230,8 +230,6 @@ class TrackDB(object):
             :param location: the location to save the data to
             :type location: string
         """
-        logger.debug("Saving %(name)s DB to %(location)s." %
-            {'name' : self.name, 'location' : location or self.location})
         if not self._dirty:
             for k, track in self.tracks.iteritems():
                 if track._track._dirty:
@@ -249,6 +247,9 @@ class TrackDB(object):
         if self._saving:
             return
         self._saving = True
+
+        logger.debug("Saving %(name)s DB to %(location)s." %
+            {'name' : self.name, 'location' : location or self.location})
 
         try:
             pdata = shelve.open(self.location, flag='c',

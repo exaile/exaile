@@ -42,6 +42,8 @@ def disable(exaile):
 def get_prefs_pane():
     return amazonprefs
 
+joiner = lambda x: " ".join(x)
+
 class AmazonCoverSearch(CoverSearchMethod):
     """
         Searches amazon for an album cover
@@ -55,7 +57,7 @@ class AmazonCoverSearch(CoverSearchMethod):
         """
             Searches amazon for album covers
         """
-        (artist, album) = track.get_album_tuple(join_char=' ')
+        (artist, album) = get_album_tuple(track, joiner=joiner)
         return self.search_covers("%s - %s" %
             (artist, album), limit)
 

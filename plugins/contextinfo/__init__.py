@@ -418,7 +418,7 @@ def get_track_cover(track):
 
 def get_track_tag(track, tag, default):
     try:
-        return str(track[tag][0])
+        return track.get_tag_display(tag)
     except:
         return default
 
@@ -1041,7 +1041,7 @@ class ContextPanel(gobject.GObject):
     """
         The contextual panel
     """
-    ui_info = (BASEDIR+'context.glade', 'ContextPanelWindow')
+    ui_info = (BASEDIR+'context.ui', 'ContextPanelWindow')
 
     def __init__(self, parent):
         self.init__(parent, _('Context'))

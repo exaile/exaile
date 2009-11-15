@@ -167,9 +167,9 @@ class LVPanel():
             tracks=[]
             for chapter in chapters:
                 chapter_track=track.Track(chapter[1])
-                chapter_track['artist']='Librivox.org'
-                chapter_track['title']=chapter[0]
-                chapter_track['album']='Audiobook'
+                chapter_track.set_tag_raw('artist', 'Librivox.org')
+                chapter_track.set_tag_raw('title', chapter[0])
+                chapter_track.set_tag_raw('album', 'Audiobook')
                 tracks.append(chapter_track)
             return tracks
 

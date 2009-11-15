@@ -21,7 +21,7 @@ from xl.nls import gettext as _
 
 name = _('Streamripper')
 basedir = os.path.dirname(os.path.realpath(__file__))
-ui = os.path.join(basedir, 'streamripper.glade')
+ui = os.path.join(basedir, 'streamripper.ui')
 
 class SavePreference(widgets.DirPrefsItem):
     default = os.getenv('HOME')

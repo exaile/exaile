@@ -76,7 +76,7 @@ class OSDWindow(object):
             self.progress_widget.destroy()
 
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/osd_window.glade'))
+        self.builder.add_from_file(xdg.get_data_path('ui/osd_window.ui'))
         self.window = self.builder.get_object('OSDWindow')
 
         self.color = gtk.gdk.color_parse(

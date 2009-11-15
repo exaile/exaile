@@ -262,6 +262,7 @@ class NotebookTab(gtk.EventBox):
             self.do_close()
             return True
         elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+            self.do_rename()
             return True # stop the event propagating
 
     def do_new_playlist(self, *args):

@@ -62,20 +62,17 @@ class ExaileNotifyOsd(object):
         event.add_callback(self.on_tray_toggled, 'tray_icon_toggled')
 
     def update_track_notify(self, type, player, track, media_icon = None):
-        # Get the title, artist and album values
-        title = " / ".join(track['title'] or "")
-        if title == "":
-        	title = _("Unknown")
-        artist = " / ".join(track['artist'] or "")
-        album = " / ".join(track['album'] or "")
-
+        title = track.get_tag_display('title')
+        artist = track.get_tag_display('artist')
+        album = track.get_tag_display('album')
         # Find the icon we will use
         icon_allowed = False
         if media_icon and self.use_media_icons:
             self.cover = media_icon
             icon_allowed = True
         else:
-            if self.cover == self.stopicon and self.summary == title and self.use_media_icons and self.notify_pause:
+            if self.cover == self.stopicon and self.summary == title and \
+                    self.use_media_icons and self.notify_pause:
                 # this is for when the song has been stopped previously
                 self.cover = self.resumeicon
                 icon_allowed = True
@@ -88,7 +85,8 @@ class ExaileNotifyOsd(object):
         self.summary = self.format_summary % {'title': title or self.unknown}
 
         if artist and album:
-            self.body = self.format_artist % {'artist' : artist} + '\n' + self.format_album % {'album' : album}
+            self.body = self.format_artist % {'artist' : artist} + '\n' + \
+                    self.format_album % {'album' : album}
         elif artist:
             self.body = self.format_artist % {'artist' : artist}
         elif album:

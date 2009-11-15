@@ -32,10 +32,13 @@ class LastFMCoverSearch(CoverSearchMethod):
         """
             Searches last.fm for album covers
         """
-        cache_dir = self.manager.cache_dir
-        if not track['artist'] or not track['album']:
+        # TODO: handle multi-valued fields better
+        (artist, album) = track.get_tag_raw('artist')[0],
+                track.get_tag_raw('album')[0]
+        if not artist or not album:
             raise NoCoverFoundException()
-        (artist, album) = track['artist'][0], track['album'][0]
+
+        cache_dir = self.manager.cache_dir
 
         data = urllib.urlopen(self.url %
         {

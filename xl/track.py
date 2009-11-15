@@ -132,11 +132,17 @@ class Track(object):
             tr.__init = True
             return tr
 
-    def __init__(self, uri=None, _unpickles=None):
+    def __init__(self, uri=None, scan=True, _unpickles=None):
         """
             loads and initializes the tag information
 
-            uri: path to the track [string]
+            uri:  The path to the track.
+            scan: Whether to try to read tags from the given uri.
+                  Use only if the tags need to be set by a
+                  different source.
+
+            _unpickles: used internally to restore from a pickled
+                state. not for normal use.
         """
         # don't re-init if its a reused track. see __new__
         if self.__init == False:
@@ -144,7 +150,7 @@ class Track(object):
 
         self.tags = {}
 
-        self._scan_valid = False # whether our last tag read attempt worked
+        self._scan_valid = None # whether our last tag read attempt worked
         self._scanning = False  # flag to avoid sending tag updates on mass
                                 # load
         self._dirty = False
@@ -152,8 +158,9 @@ class Track(object):
             self._unpickles(_unpickles)
             self.__register()
         elif uri:
-            self.tags['__loc'] = gio.File(uri).get_uri()
-            self.read_tags()
+            self.set_loc(uri)
+            if scan:
+                self.read_tags()
         else:
             raise ValueError, "Cannot create a Track from nothing"
 
@@ -524,9 +531,7 @@ class Track(object):
             if not word.endswith("'"):
                 word += ' '
             if lowered.startswith(word):
-                # add it to the end so that when sorting ones that have
-                # the same prefix get sorted together
-                values = values[len(word):] + values[:len(word)]
+                values = values[len(word):]
                 break
         return values
 

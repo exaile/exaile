@@ -140,14 +140,15 @@ class CDPlaylist(playlist.Playlist):
             count += 1
             song = track.Track()
             song.set_loc("cdda://%d#%s" % (count, self.device))
-            song['title'] = "Track %d" % count
-            song['tracknumber'] = count
-            song['__length'] = length
+            song.set_tag_raw('title', "Track %d" % count)
+            song.set_tag_raw('tracknumber', count)
+            song.set_tag_raw('__length', length)
             songs[song.get_loc_for_io()] = song
 
-        sort_tups = [ (int(s['tracknumber'][0]),s) for s in songs.values() ]
+        # FIXME: this can probably be cleaner
+        sort_tups = [ (int(s.get_tag_raw('tracknumber')[0]),s) \
+                for s in songs.values() ]
         sort_tups.sort()
-
         sorted = [ s[1] for s in sort_tups ]
 
         self.add_tracks(sorted)
@@ -174,16 +175,17 @@ class CDPlaylist(playlist.Playlist):
 
         title = info['DTITLE'].split(" / ")
         for i in range(self.info[1]):
-            self.ordered_tracks[i]['title'] = \
+            tr = self.ordered_tracks[i]
+            tr.set_tag_raw('title',
                     info['TTITLE' + `i`].decode('iso-8859-15', 'replace')
-            self.ordered_tracks[i]['album'] = \
-                    title[1].decode('iso-8859-15', 'replace')
-            self.ordered_tracks[i]['artist'] = \
-                    title[0].decode('iso-8859-15', 'replace')
-            self.ordered_tracks[i]['year'] = \
-                    info['EXTD'].replace("YEAR: ", "")
-            self.ordered_tracks[i]['genre'] = \
-                    info['DGENRE']
+            tr.set_tag_raw('album',
+                    title[1].decode('iso-8859-15', 'replace'))
+            tr.set_tag_raw('artist',
+                    title[0].decode('iso-8859-15', 'replace'))
+            tr.set_tag_raw('year',
+                    info['EXTD'].replace("YEAR: ", ""))
+            tr.set_tag_raw('genre',
+                    info['DGENRE'])
 
         self.set_name(title[1].decode('iso-8859-15', 'replace'))
         event.log_event('cddb_info_retrieved', self, True)

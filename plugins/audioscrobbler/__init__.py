@@ -182,30 +182,36 @@ class ExaileScrobbler(object):
 
         logger.info("Attempting to submit \"Now Playing\" information to AudioScrobbler...")
         scrobbler.now_playing(
-            metadata.j(track['artist']), metadata.j(track['title']),
-            metadata.j(track['album']),
-            track.get_duration(), track.get_track())
+            track.get_tag_raw('artist', join=True),
+            track.get_tag_raw('title', join=True),
+            track.get_tag_raw('album', join=True),
+            track.get_tag_raw('__length'),
+            track.split_numerical(track.get_tag_raw('tracknumber'))[0]
+            )
 
     def on_play(self, type, player, track):
-        track['__audioscrobbler_playtime'] = track['__playtime']
-        track['__audioscrobbler_starttime'] = time.time()
+        track.set_tag_raw('__audioscrobbler_playtime',
+                track.get_tag_raw('__playtime'))
+        track.set_tag_raw('__audioscrobbler_starttime', time.time())
 
         if track.is_local():
             self.now_playing(player, track)
 
     def on_stop(self, type, player, track):
         if not track or not track.is_local() \
-           or track['__playtime'] is None:
+           or track.get_tag_raw('__playtime') is None:
             return
-        playtime = (track['__playtime'] or 0) - \
-                (track['__audioscrobbler_playtime'] or 0)
-        if playtime > 240 or playtime > float(track['__length']) / 2.0:
-            if self.submit and track['__length'] > 30:
+        playtime = (track.get_tag_raw('__playtime') or 0) - \
+                (track.get_tag_raw('__audioscrobbler_playtime') or 0)
+        if playtime > 240 or \
+                playtime > float(track.get_tag_raw('__length')) / 2.0:
+            if self.submit and track.get_tag_raw('__length') > 30:
                 self.submit_to_scrobbler(track,
-                    track['__audioscrobbler_starttime'], playtime)
+                    track.get_tag_raw('__audioscrobbler_starttime'),
+                    playtime)
 
-        track['__audioscrobbler_starttime'] = None
-        track['__audioscrobbler_playtime'] = None
+        track.set_tag_raw('__audioscrobbler_starttime', None)
+        track.set_tag_raw('__audioscrobbler_playtime', None)
 
     def set_cache_size(self, size, save=True):
         scrobbler.MAX_CACHE = size
@@ -235,10 +241,14 @@ class ExaileScrobbler(object):
         if scrobbler.SESSION_ID and track and time_started and time_played:
             try:
                 scrobbler.submit(
-                    metadata.j(track['artist']),
-                    metadata.j(track['title']),
-                    int(time_started), 'P', '', track.get_duration(),
-                    metadata.j(track['album']), track.get_track(), autoflush=True)
+                    track.get_tag_raw('artist', join=True),
+                    track.get_tag_raw('title', join=True),
+                    int(time_started), 'P', '',
+                    track.get_tag_raw('__length'),
+                    track.get_tag_raw('album', join=True),
+                    track.split_numerical(track.get_tag_raw('tracknumber'))[0]
+                    autoflush=True
+                    )
             except:
                 common.log_exception()
                 logger.warning("AS: Failed to submit track")

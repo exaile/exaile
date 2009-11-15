@@ -77,7 +77,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self.builder = gtk.Builder()
         self.builder.add_from_file(
-                xdg.get_data_path('ui/trackproperties_dialog.glade'))
+                xdg.get_data_path('ui/trackproperties_dialog.ui'))
         self.dialog = self.builder.get_object('TrackPropertiesDialog')
         self.dialog.set_transient_for(parent)
         self._connect_events()

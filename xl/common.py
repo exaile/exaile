@@ -104,54 +104,6 @@ def synchronized(func):
     return wrapper
 
 
-# this code stolen from listen-gnome
-""" Parse a date and return a time object """
-""" Date like  Thu, 02 02 2005 10:25:21 ... """
-def strdate_to_time(date):
-    #removing timezone
-    c = date[-5:-4]
-    if (c == '+') or (c == '-'):
-        date = date[:-6]
-
-    #FIXME : don't remove use it in strptime
-    c = date[-3:]
-    if c in ["GMT","CST","EST","PST","EDT","PDT"]:
-        date = date[:-3]
-
-    #Remove day because some field have incorrect string
-    c = date.rfind(",")
-    if c!=-1:
-        date = date [c+1:]
-    date = date.strip()
-
-    #trying multiple date formats
-    new_date = None
-
-    #Set locale to C to parse date
-    locale.setlocale(locale.LC_TIME, "C")
-
-    formats = ["%d %b %Y %H:%M:%S",#without day, short month
-                "%d %B %Y %H:%M:%S",#without day, full month
-                "%d %b %Y",#only date , short month
-                "%d %B %Y",#only date , full month
-                "%b %d %Y %H:%M:%S",#without day, short month
-                "%B %d %Y %H:%M:%S",#without day, full month
-                "%b %d %Y",#only date , short month
-                "%B %d %Y",#only date , full month
-                "%Y-%m-%d %H:%M:%S",
-                ]
-    for format in formats:
-        try:
-            new_date = time.strptime(date,format)
-        except ValueError:
-            continue
-
-    locale.setlocale(locale.LC_TIME, '')
-    if new_date is None:
-        return ""
-
-    return time.mktime(new_date)
-
 def escape_xml(text):
     """
         Replaces &, <, and > with their entity references

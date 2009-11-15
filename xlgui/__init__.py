@@ -28,12 +28,21 @@ __all__ = ['main', 'panel', 'playlist']
 
 from xl.nls import gettext as _
 import gtk, gobject, logging, os, urlparse
+logger = logging.getLogger(__name__)
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
+try:
+    import gtk.glade
+    gtk.glade.textdomain('exaile')
+    if xdg.local_hack:
+        gtk.glade.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
+except ImportError:
+    logger.warning(
+        "Failed to import gtk.glade, interface "
+        "will not be fully translated.")
 
 from xlgui import commondialogs, cover
 from xlgui import devices, guiutil, icons, prefs, queue
 
-logger = logging.getLogger(__name__)
 
 ###
 # Set up xl/event to work with the gtk event loop
@@ -67,7 +76,7 @@ class Main(object):
         self.tray_icon = None
         self.panels = {}
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path("ui/main.glade"))
+        self.builder.add_from_file(xdg.get_data_path("ui/main.ui"))
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
@@ -382,7 +391,7 @@ class Main(object):
         """
         import xl.main as xlmain
         builder = gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui/about_dialog.glade'))
+        builder.add_from_file(xdg.get_data_path('ui/about_dialog.ui'))
         dialog = builder.get_object('AboutDialog')
         logo = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/exailelogo.png'))
@@ -448,7 +457,7 @@ def show_splash(show=True):
     image = gtk.Image()
     image.set_from_file(xdg.get_data_path("images/splash.png"))
     builder = gtk.Builder()
-    builder.add_from_file(xdg.get_data_path("ui/splash.glade"))
+    builder.add_from_file(xdg.get_data_path("ui/splash.ui"))
     splash_screen = builder.get_object('SplashScreen')
     box = builder.get_object('splash_box')
     box.pack_start(image, True, True)

@@ -63,8 +63,8 @@ class CDImporter(object):
         for tr in self.tracks:
             self.cont.clear()
             self.current = tr
-            self.current_len = tr['__length']
-            tags = copy.copy(tr.tags)
+            self.current_len = tr.get_tag_raw('__length')
+            tags = copy.deepcopy(tr.tags)
             for t in tags.keys():
                 if t.startswith("__"):
                     del tags[t]
@@ -82,7 +82,7 @@ class CDImporter(object):
             tr2.tags.update(tags)
             tr2.write_tags()
             try:
-                incr = tr['__length'] / self.duration
+                incr = tr.get_tag_raw('__length') / self.duration
                 self.progress += incr
             except:
                 raise
@@ -100,7 +100,7 @@ class CDImporter(object):
             replacedict["$%s"%tag] = tag
         for part in parts:
             for k, v in replacedict.iteritems():
-                val = tr[v]
+                val = tr.get_tag_raw(v)
                 if type(val) in (list, tuple):
                     val = u" & ".join(val)
                 part = part.replace(k, str(val))

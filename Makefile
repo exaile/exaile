@@ -42,7 +42,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
-	mkdir -p $(EXAILECONFDIR)/exaile
+	mkdir -p $(EXAILECONFDIR)
 
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
@@ -82,13 +82,13 @@ install-target: make-install-dirs
 	install -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
 	install -m 644 data/images/48x48/exaile.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
-	install -m 644 data/ui/*.glade $(EXAILESHAREDIR)/data/ui
+	install -m 644 data/ui/*.ui $(EXAILESHAREDIR)/data/ui
 	install -m 644 data/migrations/*.py $(EXAILESHAREDIR)/data/migrations/
 	install -m 644 data/migrations/migration_200907100931/*.py \
 	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
-	install -m 644 data/config/settings.ini $(EXAILECONFDIR)/exaile
+	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	# the printf here is for bsd compat, dont use echo!
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	 printf "#!/bin/sh\n\
@@ -122,9 +122,10 @@ pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in
 	find xl -name "*.py" >> po/POTFILES.in
 	find xlgui -name "*.py" >> po/POTFILES.in
-	find data/ui/ -name "*.glade" >> po/POTFILES.in
+	# Help intltool recognize .ui files as glade like format
+	find data/ui/ -name "*.ui" | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in
 	find plugins -name "*.py" >> po/POTFILES.in
-	find plugins -name "*.glade" >> po/POTFILES.in
+	find plugins -name "*.ui" | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in
 	find plugins -name PLUGININFO >> po/POTFILES.in
 	cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
 		intltool-update --pot --gettext-package=messages --verbose && cd ..

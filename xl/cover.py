@@ -60,7 +60,7 @@ def get_album_tuple(track, joiner=None):
         # hack for backwards-compat
         j = lambda x: u'\u0000'.join(x)
 
-    if track['albumartist']:
+    if track.get_tag_raw('albumartist'):
         # most of the cover stuff is expecting a 2 item tuple, so we just
         # return the albumartist twice
         return (j(track.get_tag_raw('albumartist')),

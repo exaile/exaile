@@ -737,7 +737,7 @@ class ProgressBar(gtk.Alignment):
         track = self.player.current
 
         if track is not None:
-            total = track.get_duration()
+            total = track.get_tag_raw('__length')
             current = self.player.get_progress() * total
             text = '%d:%02d / %d:%02d' % \
                 (current // 60, current % 60,

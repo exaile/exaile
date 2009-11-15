@@ -246,8 +246,8 @@ class ExaileScrobbler(object):
                     int(time_started), 'P', '',
                     track.get_tag_raw('__length'),
                     track.get_tag_raw('album', join=True),
-                    track.split_numerical(track.get_tag_raw('tracknumber'))[0]
-                    autoflush=True
+                    track.split_numerical(track.get_tag_raw('tracknumber'))[0],
+                    autoflush=True,
                     )
             except:
                 common.log_exception()

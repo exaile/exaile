@@ -418,7 +418,7 @@ def get_track_cover(track):
 
 def get_track_tag(track, tag, default):
     try:
-        return str(track[tag][0])
+        return track.get_tag_display(tag)
     except:
         return default
 

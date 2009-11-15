@@ -167,10 +167,10 @@ class PodcastPanel(panel.Panel):
                 tr._scanning = True
                 tr.set_loc(e['enclosures'][0].href)
                 date = e['updated_parsed']
-                tr['artist'] = title
-                tr['title'] = e['title']
-                tr['date'] = "%d-%02d-%02d" % (date.tm_year, date.tm_mon,
-                    date.tm_mday)
+                tr.set_tag_raw('artist', title)
+                tr.set_tag_raw('title', e['title'])
+                tr.set_tag_raw('date', "%d-%02d-%02d" %
+                        (date.tm_year, date.tm_mon, date.tm_mday))
                 tracks.append(tr)
                 tr._scanning = False
 

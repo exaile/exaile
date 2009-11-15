@@ -133,7 +133,10 @@ class TrayIcon(gtk.StatusIcon):
 
     def _get_current_track_rating(self):
         if self.player.current:
-            return self.player.current.get_rating ()
+            val = self.player.current.get_rating()
+            if val is None:
+                return 0
+            return val
         else:
             return 0
 

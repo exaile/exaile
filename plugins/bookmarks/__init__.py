@@ -143,18 +143,11 @@ class Bookmarks:
         pix = None
         # add menu item
         try:
-            item = self.exaile.collection.get_track_by_loc(key)
-            if not item:
-                item = _track.Track(key)
-            title = " / ".join(item['title'] or "")
-            if title == "":
-                title = _("Unknown")
+            item = _track.Track(key)
+            title = item.get_tag_display('title')
             if self.use_covers:
-                albtp = item.get_album_tuple()
-                if all(albtp) and hasattr(self.exaile, 'covers'):
-                    image = self.exaile.covers.coverdb.get_cover(*albtp)
-                    pix = gtk.gdk.pixbuf_new_from_file_at_size(image, 16, 16)
-
+                image = self.exaile.covers.get_cover(item)
+                pix = gtk.gdk.pixbuf_new_from_file_at_size(image, 16, 16)
         except:
             logger.debug('BM: Cannot open %s' % key)
             # delete offending key?

@@ -135,7 +135,7 @@ class LyricsManager(providers.ProviderHandler):
         """
         self.add_search_method(LocalLyricSearch())
 
-    def find_lyrics(self, track, update_track = False):
+    def find_lyrics(self, track):
         """
             Fetches lyrics for a track either from
                 1. a backend lyric plugin
@@ -143,8 +143,6 @@ class LyricsManager(providers.ProviderHandler):
 
             @param track: the track we want lyrics for, it
                 must have artist/title tags
-            @param update_track: if true we try to write the lyrics
-                to the tags in the track (only mp3 at the moment)
 
             @return: tuple of the following format (lyrics, source, url)
                 where lyrics are the lyrics to the track
@@ -170,12 +168,6 @@ class LyricsManager(providers.ProviderHandler):
             raise LyricsNotFoundException()
 
         lyrics = lyrics.strip()
-
-        # See if we want to update the track,
-        # but only if we have lyrics
-        if update_track:
-            track["lyrics"] = [lyrics]
-            track.write_tags()
 
         return (lyrics, source, url)
 

@@ -50,6 +50,30 @@ def get_cover_data(info):
 
     return data
 
+def get_album_tuple(track, joiner=None):
+    """
+        Returns the album tuple for use in the coverdb
+    """
+    if joiner:
+        j = joiner
+    else:
+        # hack for backwards-compat
+        j = lambda x: u'\u0000'.join(x)
+
+    if track.get_tag_raw('albumartist'):
+        # most of the cover stuff is expecting a 2 item tuple, so we just
+        # return the albumartist twice
+        return (j(track.get_tag_raw('albumartist')),
+                j(track.get_tag_raw('album')))
+    elif track.get_tag_raw('__compilation'):
+        # this should be a 2 item tuple, containing the basedir and the
+        # album.  It is populated in
+        # collection.Collection._check_compilations
+        return track.get_tag_raw('__compilation')
+    else:
+        return (j(track.get_tag_raw('artist')),
+                j(track.get_tag_raw('album')))
+
 class NoCoverFoundException(Exception):
     pass
 
@@ -323,7 +347,7 @@ class CoverManager(providers.ProviderHandler):
         """
             Removes the cover for a track
         """
-        self.coverdb.remove_cover(*track.get_album_tuple())
+        self.coverdb.remove_cover(*get_album_tuple(track))
 
     def set_cover(self, track, order=None):
         """
@@ -357,7 +381,7 @@ class CoverManager(providers.ProviderHandler):
 
         cover = None
         try:
-            item = track.get_album_tuple()
+            item = get_album_tuple(track)
             if not item[0] or not item[1]:
                 raise NoCoverFoundException()
             cover = self.coverdb.get_cover(item[0], item[1])

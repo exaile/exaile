@@ -48,46 +48,7 @@ logger = logging.getLogger(__name__)
 
 #FIXME: make these user-customizable
 SEARCH_ITEMS = ('artist', 'albumartist', 'album', 'title')
-SORT_FALLBACK = ('tracknumber', 'discnumber', 'album')
 
-def get_sort_tuple(fields, track):
-    """
-        Returns the sort tuple for a single track
-
-        :param fields: the tag(s) to sort by
-        :type fields: a single string or iterable of strings
-        :param track: the track to sort
-        :type track: :class:`xl.track.Track`
-    """
-    def lower(x):
-        if type(x) == type(""):
-            return locale.strxfrm(x)
-        return x
-    items = []
-    if not type(fields) in (list, tuple):
-        items = [lower(track.sort_param(fields))]
-    else:
-        items = [lower(track.sort_param(field)) for field in fields]
-
-    items.append(track)
-    return tuple(items)
-
-def sort_tracks(fields, tracks, reverse=False):
-    """
-        Sorts tracks by the field passed
-
-        :param fields: field(s) to sort by
-        :type fields: string or list of strings
-
-        :param tracks: tracks to sort
-        :type tracks: list of :class:`xl.track.Track`
-
-        :param reverse: sort in reverse?
-        :type reverse: bool
-    """
-    tracks = [get_sort_tuple(fields, t) for t in tracks]
-    tracks.sort(reverse=reverse)
-    return [t[-1] for t in tracks]
 
 class TrackHolder(object):
     def __init__(self, track, key, **kwargs):
@@ -95,11 +56,8 @@ class TrackHolder(object):
         self._key = key
         self._attrs = kwargs
 
-    def __getitem__(self, tag):
-        return self._track[tag]
-
-    def __setitem__(self, tag, values):
-        self._track[tag] = values
+    def __getattr__(self, attr):
+        return getattr(self._track, attr)
 
 class TrackDBIterator(object):
     def __init__(self, track_iterator):
@@ -332,10 +290,10 @@ class TrackDB(object):
 
             for t in self.search(search_terms):
                 try:
-                    for i in t[tag]:
+                    for i in t.get_tag_raw(tag):
                         tset.add(i)
                 except:
-                    tset.add(t[tag])
+                    tset.add(t.get_tag_raw(tag))
 
             vals = list(tset)
             if ignore_the:
@@ -391,8 +349,8 @@ class TrackDB(object):
             tracks = self.tracks
         elif type(tracks) == list:
             do_search = {}
-            for track in tracks:
-                do_search[track.get_loc_for_io()] = track
+            for tr in tracks:
+                do_search[tr.get_loc_for_io()] = tr
             tracks = do_search
         elif type(tracks) == dict:
             pass
@@ -413,7 +371,7 @@ class TrackDB(object):
             if sort_fields == 'RANDOM':
                 random.shuffle(tracks)
             else:
-                tracks = sort_tracks(sort_fields, tracks, reverse)
+                tracks = track.sort_tracks(sort_fields, tracks, reverse)
         if return_lim > 0:
             tracks = tracks[:return_lim]
 
@@ -618,7 +576,7 @@ class TrackSearcher(object):
 
         return self.__red(tokens)
 
-    def search(self, query, tracks, sort_order=None):
+    def search(self, query, tracks):
         """
             executes a search using the passed query and (optionally)
             the passed tracks
@@ -683,11 +641,11 @@ class TrackSearcher(object):
                 if content == "__null__":
                     content = None
                 for l,tr in current_list.iteritems():
-                    if content == tr[tag]:
+                    if content == tr.get_tag_raw(tag):
                         new_list[l] = tr
                         continue
                     try:
-                        for t in tr[tag]:
+                        for t in tr.get_tag_raw(tag):
                             if str(t).lower() == content or t == content:
                                 new_list[l]=tr
                                 break
@@ -699,7 +657,7 @@ class TrackSearcher(object):
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        for t in tr[tag]:
+                        for t in tr.get_tag_raw(tag):
                             if content in str(t).lower():
                                 new_list[l]=tr
                                 break
@@ -711,7 +669,7 @@ class TrackSearcher(object):
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if float(content) < float(tr[tag]):
+                        if float(content) < float(tr.get_tag_raw(tag)):
                             new_list[l]=tr
                     except:
                         pass
@@ -721,7 +679,7 @@ class TrackSearcher(object):
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if float(content) > float(tr[tag]):
+                        if float(content) > float(tr.get_tag_raw(tag)):
                             new_list[l]=tr
                     except:
                         pass
@@ -731,7 +689,7 @@ class TrackSearcher(object):
                 for l,tr in current_list.iteritems():
                     for item in SEARCH_ITEMS:
                         try:
-                            for t in tr[item]:
+                            for t in tr.get_tag_raw(item):
                                 if content in t.lower():
                                     new_list[l]=tr
                                     break

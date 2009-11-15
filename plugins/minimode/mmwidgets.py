@@ -737,7 +737,7 @@ class ProgressBar(gtk.Alignment):
         track = self.player.current
 
         if track is not None:
-            total = track.get_duration()
+            total = track.get_tag_raw('__length')
             current = self.player.get_progress() * total
             text = '%d:%02d / %d:%02d' % \
                 (current // 60, current % 60,
@@ -747,7 +747,7 @@ class ProgressBar(gtk.Alignment):
                 self.disable_timer()
                 fraction = self.bar.get_fraction()
             elif self.player.is_playing():
-                if track['__length']:
+                if track.get_tag_raw('__length'):
                     self.enable_timer()
                     fraction = self.player.get_progress()
                 elif not track.is_local():
@@ -791,7 +791,7 @@ class ProgressBar(gtk.Alignment):
             return True
 
         if not self.player.current.is_local() and \
-           not self.player.current['__length']:
+           not self.player.current.get_tag_raw('__length'):
             return True
 
         if event.button == 1:
@@ -934,9 +934,9 @@ class TrackFormatter(gobject.GObject):
         for keyword, tagname in substitutions.iteritems():
             try:
                 #TRANSLATORS: String multiple tag values will be joined by
-                substitutions[keyword] = _(' & ').join(track[tagname])
+                substitutions[keyword] = _(' & ').join(track.get_tag_raw(tagname))
             except TypeError:
-                substitutions[keyword] = track[tagname]
+                substitutions[keyword] = track.get_tag_raw(tagname)
 
             try:
                 format_callback = self._formattings[keyword]

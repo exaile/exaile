@@ -363,25 +363,18 @@ class JamendoPanel(panel.Panel):
     #add a track to the playlist based on its url.
     #track: a jamtree.Track object
     def add_track_to_playlist(self, track):
-        current_playlist = self.exaile.gui.main.get_selected_playlist().playlist
-        tr = xltrack.Track()
-        tr.set_loc(track.url)
-        tr['title'] = track.name
-        tr['artist'] = track.artist_name
-        tr['album'] = track.album_name
-        current_playlist.add(tr)
-    
+        self.add_tracks_to_playlist([track])
+
     #add a bunch of tracks to the playlist at once
     #track_list: a python list of jamtree.Track objects
     def add_tracks_to_playlist(self, track_list):
         #convert list to list of xl.Track objects as opposed to jamtree.Track objects
         xltrack_list = []
         for track in track_list:
-            tr = xltrack.Track()
-            tr.set_loc(track.url)
-            tr['title'] = track.name
-            tr['artist'] = track.artist_name
-            tr['album'] = track.album_name
+            tr = xltrack.Track(track.url, scan=False)
+            tr.set_tag_raw('title', track.name)
+            tr.set_tag_raw('artist', track.artist_name)
+            tr.set_tag_raw('album', track.album_name)
             xltrack_list.append(tr)
         self.exaile.gui.main.get_selected_playlist().playlist.add_tracks(xltrack_list)
 

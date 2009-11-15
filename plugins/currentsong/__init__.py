@@ -81,8 +81,11 @@ class Pidgin :
 ##############################################################################
 
 def on_begin_action(type, player, track):
-    #track['properties'] are lists. So, we pick the first element. I am not really sure if this is the best way to handle them though
-    client.setTune(unicode(track['artist'][0]), unicode(track['title'][0]), unicode(track['album'][0]))
+    client.setTune(
+            track.get_tag_display('artist'),
+            track.get_tag_display('title'),
+            track.get_tag_display('album')
+            )
 
 def on_stop_action(type, player, track):
     client.setTune("", "", "")

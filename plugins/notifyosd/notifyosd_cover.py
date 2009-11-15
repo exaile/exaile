@@ -16,7 +16,7 @@
 
 import gtk.gdk
 import logging
-from xl import xdg
+from xl import xdg, cover
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ def notifyosd_get_image_for_track(track, exaile, resize=False):
 
     '''
     logger.debug("Getting cover for " + str(track))
-    item = track.get_album_tuple()
+    item = cover.get_album_tuple(track)
     image = None
     if all(item) and hasattr(exaile, 'covers'):
         image = exaile.covers.coverdb.get_cover(*item)

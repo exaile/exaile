@@ -101,6 +101,15 @@ class TrackHolder(object):
     def __setitem__(self, tag, values):
         self._track[tag] = values
 
+class TrackDBIterator(object):
+    def __init__(self, track_iterator):
+        self.iter = track_iterator
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        return self.iter.next()[1]._track
 
 class TrackDB(object):
     """
@@ -139,6 +148,20 @@ class TrackDB(object):
         if location:
             self.load_from_location()
             event.timeout_add(300000, self._timeout_save)
+
+    def __iter__(self):
+        """
+            Provide the ability to iterate over a TrackDB.
+            Just as with a dictionary, if tracks are added
+            or removed during iteration, iteration will stop.
+
+        """
+        track_iterator = self.tracks.iteritems()
+        iterator = TrackDBIterator(track_iterator)
+        return iterator
+
+    def __len__(self):
+        return len(self.tracks)
 
     def _timeout_save(self):
         self.save_to_location()
@@ -457,6 +480,9 @@ class TrackDB(object):
             del self.tracks[tr.get_loc_for_io()]
             event.log_event("track_removed", self, tr.get_loc_for_io())
         self._dirty = True
+
+    def get_tracks(self):
+        return [ x for x in self ]
 
 
 class TrackSearcher(object):

@@ -556,34 +556,35 @@ def parse_stream_tags(track, tags):
         value = [value]
 
         if key == '__bitrate':
-            track['__bitrate'] = int(value[0]) / 1000
+            track.set_tag_raw('__bitrate', int(value[0]) / 1000)
 
         # if there's a comment, but no album, set album to the comment
-        elif key == 'comment' and not track['album']:
-            track['album'] = value
+        elif key == 'comment' and not track.get_tag_raw('album'):
+            track.set_tag_raw('album', value)
 
-        elif key == 'album': track['album'] = value
-        elif key == 'artist': track['artist'] = value
-        elif key == 'duration': track['__length'] = float(value[0])/1000000000
-        elif key == 'track-number': track['tracknumber'] = value
-        elif key == 'genre': track['genre'] = value
+        elif key == 'album': track.set_tag_raw('album', value)
+        elif key == 'artist': track.set_tag_raw('artist', value)
+        elif key == 'duration': track.set_tag_raw('__length',
+                float(value[0])/1000000000)
+        elif key == 'track-number': track.set_tag_raw('tracknumber', value)
+        elif key == 'genre': track.set_tag_raw('genre', value)
 
         elif key == 'title':
             try:
-                if track['__rawtitle'] != value:
-                    track['__rawtitle'] = value
+                if track.get_tag_raw('__rawtitle') != value:
+                    track.set_tag_raw('__rawtitle', value)
                     newsong = True
             except AttributeError:
-                track['__rawtitle'] = value
+                track.set_tag_raw('__rawtitle', value)
                 newsong = True
 
             title_array = value[0].split(' - ', 1)
             if len(title_array) == 1 or \
                     track.get_loc_for_io().lower().endswith(".mp3"):
-                track['title'] = value
+                track.set_tag_raw('title', value)
             else:
-                track['artist'] = [title_array[0]]
-                track['title'] = [title_array[1]]
+                track.set_tag_raw('artist', [title_array[0]])
+                track.set_tag_raw('title', [title_array[1]])
 
     if newsong:
         log.append(_('  New song, fetching cover.'))

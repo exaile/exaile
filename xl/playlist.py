@@ -77,16 +77,12 @@ def save_to_m3u(playlist, path):
         handle.write("#PLAYLIST: %s\n" % playlist.get_name())
 
     for track in playlist:
-        rawlen = track['__length']
+        rawlen = track.get_tag_raw('__length')
         if rawlen:
             leng = round(float(rawlen))
         if not rawlen or leng < 1:
             leng = -1
-        rawtitle = track['title']
-        if rawtitle:
-            title = " / ".join(rawtitle)
-        else:
-            title = ""
+        title = track.get_tag_raw('title', join=True)
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
             title, track.get_loc_for_io()))
 
@@ -109,7 +105,7 @@ def import_from_m3u(path):
 
     pl = Playlist(name=name)
 
-    current = None
+    current_extinf = None
     for line in handle:
         line = line.strip()
         if line == "":
@@ -117,8 +113,16 @@ def import_from_m3u(path):
         elif line.startswith("#Playlist: "):
             pl.set_name(line[12:])
         elif line.startswith("#EXTINF:"):
-            current = track.Track()
-            comma_separated = line[8:].split(",", 1)
+            current_extinf = line
+        elif line.startswith("#"):
+            pass
+        else:
+            track_is_local = len(urlparse.urlparse(line)[0]) <= 1
+            if track_is_local and not os.path.isabs(line):
+                line = os.path.join(os.path.dirname(path), line)
+            current = track.Track(line)
+
+            comma_separated = current_extinf[8:].split(",", 1)
             title = comma_separated[-1]
             if len(comma_separated) > 1:
                 length = float(comma_separated[0])
@@ -126,18 +130,9 @@ def import_from_m3u(path):
                     length = 0
             else:
                 length = 0
-            current['title'] = title
-            current['__length'] = length
-        elif line.startswith("#"):
-            pass
-        else:
-            if not current:
-                current = track.Track()
-            track_is_local = len(urlparse.urlparse(line)[0]) <= 1
-            if track_is_local and not os.path.isabs(line):
-                line = os.path.join(os.path.dirname(path), line)
-            current.set_loc(line)
-            current.read_tags()
+            current.set_tag_raw('title', title)
+            current.set_tag_raw('__length', length)
+
             pl.add(current, ignore_missing_files=track_is_local)
             current = None
 
@@ -158,8 +153,9 @@ def save_to_pls(playlist, path):
 
     for track in playlist:
         handle.write("File%d=%s\n" % (count, track.get_loc_for_io()))
-        handle.write("Title%d=%s\n" % (count, track['title']))
-        length = round(float(track.get('__length', -1)))
+        handle.write("Title%d=%s\n" % (count,
+                track.get_tag_raw('title', join=True)))
+        length = round(float(track.get_tag_raw('__length') or -1))
         if length < 1:
             length = -1
         handle.write("Length%d=%d\n\n" % (count, length))
@@ -200,21 +196,18 @@ def import_from_pls(path, handle=None):
     pl = Playlist(name=name)
 
     for n in range(1,num+1):
-        tr = track.Track()
-        tr.set_loc(linedict["file%s"%n])
+        tr = track.Track(linedict["file%s"%n])
         if "title%s"%n in linedict:
-            tr['title'] = linedict["title%s"%n]
+            tr.set_tag_raw('title', linedict["title%s"%n])
         else:
-            tr['title'] = linedict["file%s"%n].split("/")[-1]
+            tr.set_tag_raw('title', linedict["file%s"%n].split("/")[-1])
         if "__length%s"%n in linedict:
             length = float(linedict["__length%s"%n])
         else:
             length = 0
         if length < 1:
             length = 0
-        tr['__length'] = length
-        if tr.get_type() == 'file': # FIXME
-            tr.read_tags()
+        tr.set_tag_raw('__length', length)
         pl.add(tr, ignore_missing_files=False)
 
     handle.close()
@@ -237,7 +230,8 @@ def save_to_asx(playlist, path):
 
     for track in playlist:
         handle.write("<entry>\n")
-        handle.write("  <title>%s</title>\n" % track['title'])
+        handle.write("  <title>%s</title>\n" % \
+                track.get_tag_raw('title', join=True))
         handle.write("  <ref href=\"%s\" />\n" % track.get_loc_for_io())
         handle.write("</entry>\n")
 
@@ -262,14 +256,12 @@ def import_from_asx(path):
             break
     pl = Playlist(name=name)
     for t in tracks:
-        tr = track.Track()
         loc = t.find("ref").get("href")
-        tr.set_loc(loc)
+        tr = track.Track(loc)
         try:
-            tr['title'] = t.find("title").text.strip()
+            tr.set_tag_raw('title', t.find("title").text.strip())
         except:
             pass
-        tr.read_tags()
         pl.add(tr, ignore_missing_files=False)
     return pl
 
@@ -295,9 +287,10 @@ def save_to_xspf(playlist, path):
     for track in playlist:
         handle.write("    <track>\n")
         for xs, tag in XSPF_MAPPING.iteritems():
-            if track[tag] == u"":
+            if not track.get_tag_raw(tag):
                 continue
-            handle.write("      <%s>%s</%s>\n" % (xs, track[tag],xs) )
+            handle.write("      <%s>%s</%s>\n" % (xs,
+                track.get_tag_raw(tag, join=True),xs) )
         url = track.get_loc_for_io()
         handle.write("      <location>%s</location>\n" % url)
         handle.write("    </track>\n")
@@ -314,15 +307,13 @@ def import_from_xspf(path):
     name = tree.find("%stitle"%ns).text.strip()
     pl = Playlist(name=name)
     for t in tracks:
-        tr = track.Track()
         loc = t.find("%slocation"%ns).text.strip()
-        tr.set_loc(loc)
+        tr = track.Track(loc)
         for xs, tag in XSPF_MAPPING.iteritems():
             try:
-                tr[tag] = t.find("%s%s"%(ns,xs)).text.strip()
+                tr.set_tag_raw(tag, t.find("%s%s"%(ns,xs)).text.strip())
             except:
                 pass
-        tr.read_tags()
         pl.add(tr)
     return pl
 

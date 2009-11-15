@@ -2,26 +2,6 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
-  <object class="GtkListStore" id="search_categories">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Artist</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Album</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Genre/Tags</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Track</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkWindow" id="JamendoPanelWindow">
     <child>
       <object class="GtkVBox" id="vbox1">
@@ -44,7 +24,7 @@
                     <child>
                       <object class="GtkCellRendererText" id="renderer1"/>
                       <attributes>
-                        <attribute name="text">0</attribute>
+                        <attribute name="text">1</attribute>
                       </attributes>
                     </child>
                   </object>
@@ -346,6 +326,32 @@
       <row>
         <col id="0">starreddate</col>
         <col id="1" translatable="yes">Date of starring</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="search_categories">
+    <columns>
+      <!-- column-name value -->
+      <column type="gchararray"/>
+      <!-- column-name title -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">artist</col>
+        <col id="1" translatable="yes">Artist</col>
+      </row>
+      <row>
+        <col id="0">album</col>
+        <col id="1" translatable="yes">Album</col>
+      </row>
+      <row>
+        <col id="0">genre_tags</col>
+        <col id="1" translatable="yes">Genre/Tags</col>
+      </row>
+      <row>
+        <col id="0">track</col>
+        <col id="1" translatable="yes">Track</col>
       </row>
     </data>
   </object>

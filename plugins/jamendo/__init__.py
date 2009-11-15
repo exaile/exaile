@@ -316,7 +316,8 @@ class JamendoPanel(panel.Panel):
         self.model.clear()
 
         #get type of search
-        search_type = self.search_combobox.get_active_text()
+        iter = self.search_combobox.get_active_iter()
+        search_type = self.search_combobox.get_model().get_value(iter, 0)
         iter = self.orderby_type_combobox.get_active_iter()
         orderby = self.orderby_type_combobox.get_model().get_value(iter, 0)
         iter = self.orderby_direction_combobox.get_active_iter()
@@ -329,19 +330,19 @@ class JamendoPanel(panel.Panel):
         settings.set_option('plugin/jamendo/searchterms', search_term)
             
         results = None
-        if search_type == 'Artist':
+        if search_type == 'artist':
             resultthread = jamapi.get_artist_list(search_term, orderby, numresults, self.response_callback)
             resultthread.start();            
 
-        if search_type == 'Album':
+        if search_type == 'album':
             resultthread = jamapi.get_album_list(search_term, orderby, numresults, self.response_callback)
             resultthread.start()
 
-        if search_type == 'Genre/Tags':
+        if search_type == 'genre_tags':
             resultthread = jamapi.get_artist_list_by_genre(search_term, orderby, numresults, self.response_callback)
             resultthread.start()
         
-        if search_type == 'Track':
+        if search_type == 'track':
             resultthread = jamapi.get_track_list(search_term, orderby, numresults, self.response_callback)
             resultthread.start()
 

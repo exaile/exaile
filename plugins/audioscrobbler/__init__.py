@@ -185,7 +185,7 @@ class ExaileScrobbler(object):
             track.get_tag_raw('artist', join=True),
             track.get_tag_raw('title', join=True),
             track.get_tag_raw('album', join=True),
-            track.get_tag_raw('__length'),
+            int(track.get_tag_raw('__length')),
             track.split_numerical(track.get_tag_raw('tracknumber'))[0]
             )
 
@@ -244,7 +244,7 @@ class ExaileScrobbler(object):
                     track.get_tag_raw('artist', join=True),
                     track.get_tag_raw('title', join=True),
                     int(time_started), 'P', '',
-                    track.get_tag_raw('__length'),
+                    int(track.get_tag_raw('__length')),
                     track.get_tag_raw('album', join=True),
                     track.split_numerical(track.get_tag_raw('tracknumber'))[0],
                     autoflush=True,

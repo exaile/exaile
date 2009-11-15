@@ -1,0 +1,4 @@
+Version='0.8.5'
+Authors=['Brian Parma <execrable@gmail.com>','Aren Olson <reacocard@gmail.com>']
+Name=_('DAAP Client')
+Description=_('Allows playing of DAAP music shares.')

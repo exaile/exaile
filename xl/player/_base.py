@@ -62,8 +62,8 @@ class ExailePlayer(object):
             i = int(track.get_tag_raw('__playcount'))
         except:
             i = 0
-        track.get_tag_raw('__playcount', i + 1)
-        track.get_tag_raw('__last_played', time.time())
+        track.set_tag_raw('__playcount', i + 1)
+        track.set_tag_raw('__last_played', time.time())
 
     def _load_volume(self):
         """

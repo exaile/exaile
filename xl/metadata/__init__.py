@@ -88,9 +88,6 @@ def get_format(loc):
         if no suitable object can be found, a default object that
         defines title from the filename is used instead.
     """
-    # hack to prevent VERY SLOW gio call
-    if(loc[:4] == 'http'):
-        return None
     loc = gio.File(loc).get_path()
     if not loc:
         return None

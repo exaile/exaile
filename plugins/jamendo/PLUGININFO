@@ -1,0 +1,4 @@
+Version='0.0.1'
+Authors=['Erin Drummond <erin.dru@gmail.com>']
+Name='Jamendo Plugin'
+Description='Plugin to access the Jamendo music catalogue.'

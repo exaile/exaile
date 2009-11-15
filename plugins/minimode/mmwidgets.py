@@ -845,6 +845,18 @@ gobject.signal_new('track-seeked', ProgressBar,
     gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
     (gobject.TYPE_FLOAT, ))
 
+class PlaylistProgressBar(gtk.HBox):
+    """
+        A progress bar with a button for
+        management of the current playlist
+    """
+    def __init__(self, main, queue, player, playlist, formatter,
+            change_callback, seeked_callback):
+        # button, bar
+        #button = PlaylistButton(main, queue, playlist, formatter, change_callback)
+        #self.pack_start(button, expand=False)
+        pass
+
 class TrackBar(TrackSelector, ProgressBar):
     """
         Track selector + progress bar = WIN

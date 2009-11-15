@@ -35,7 +35,7 @@ class Panel(gobject.GObject):
         This class is abstract and should be subclassed.  All subclasses
         should define a 'ui_info' and 'name' variables.
     """
-    ui_info = ('panel.glade', 'PanelWindow')
+    ui_info = ('panel.ui', 'PanelWindow')
 
     def __init__(self, parent, name=None):
         """

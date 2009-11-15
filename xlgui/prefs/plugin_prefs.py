@@ -32,7 +32,7 @@ from xlgui import commondialogs
 from xl.nls import gettext as _
 
 name = _('Plugins')
-ui = xdg.get_data_path('ui/plugin_prefs_pane.glade')
+ui = xdg.get_data_path('ui/plugin_prefs_pane.ui')
 
 class PluginManager(object):
     """

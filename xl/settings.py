@@ -98,7 +98,7 @@ class SettingsManager(RawConfigParser):
             event.timeout_add(30000, self._timeout_save)
 
     def _timeout_save(self):
-        logger.debug("Requesting save from timeout...")
+        #logger.debug("Requesting save from timeout...")
         self.save()
         return True
 

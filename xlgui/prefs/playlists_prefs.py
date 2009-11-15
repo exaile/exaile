@@ -30,7 +30,7 @@ from xl.nls import gettext as _
 from xlgui import commondialogs
 
 name = _('Playlists')
-ui = xdg.get_data_path('ui/playlists_prefs_pane.glade')
+ui = xdg.get_data_path('ui/playlists_prefs_pane.ui')
 
 class OpenLastPreference(widgets.CheckPrefsItem):
     default = True

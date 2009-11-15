@@ -67,7 +67,7 @@ class PreferencesDialog(object):
         self.builder = gtk.Builder()
         self.builder.set_translation_domain('exaile')
         self.builder.add_from_file(
-            xdg.get_data_path('ui/preferences_dialog.glade'))
+            xdg.get_data_path('ui/preferences_dialog.ui'))
 
         self.window = self.builder.get_object('PreferencesDialog')
         self.window.set_transient_for(parent)

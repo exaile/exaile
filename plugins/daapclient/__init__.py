@@ -476,7 +476,8 @@ class NetworkPanel(CollectionPanel):
         items = self.get_selected_items()
         dialog = gtk.FileChooserDialog(_("Select a save location"),
             APP.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-            (_('Open'), gtk.RESPONSE_OK, _('Cancel'), gtk.RESPONSE_CANCEL))
+            (gtk.STOCK_OPEN, gtk.RESPONSE_OK,
+             gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL))
         dialog.set_current_folder(APP.get_last_dir())
         dialog.set_select_multiple(False)
         result = dialog.run()

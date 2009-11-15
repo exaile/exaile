@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-14 22:59+0100\n"
+"POT-Creation-Date: 2009-11-15 17:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,11 +192,11 @@ msgid ""
 "exaile_loaded signal?"
 msgstr ""
 
-#: ../xl/cover.py:131 ../xl/cover.py:165 ../xl/trackdb.py:247
+#: ../xl/cover.py:155 ../xl/cover.py:189 ../xl/trackdb.py:226
 msgid "You did not specify a location to save the db"
 msgstr ""
 
-#: ../xl/cover.py:257 ../xl/lyrics.py:85
+#: ../xl/cover.py:281 ../xl/lyrics.py:85
 msgid "order must be a list or tuple"
 msgstr ""
 
@@ -234,7 +234,18 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 
-#: ../xl/track.py:547
+#: ../xl/track.py:381
+msgid "Various Artists"
+msgstr ""
+
+#. TRANSLATORS : this replaces the title of a track when it's not known
+#: ../xl/track.py:386 ../xl/track.py:404 ../xl/playlist.py:251
+#: ../xlgui/panel/collection.py:478 ../plugins/notifyosd/__init__.py:57
+#: ../plugins/minimode/mmwidgets.py:948
+msgid "Unknown"
+msgstr ""
+
+#: ../xl/track.py:590
 msgid "  New song, fetching cover."
 msgstr ""
 
@@ -267,15 +278,6 @@ msgstr ""
 msgid "Plugin archive contains an unsafe path"
 msgstr ""
 
-#. TRANSLATORS : this replaces the title of a track when it's not known
-#: ../xl/playlist.py:251 ../xlgui/panel/collection.py:478
-#: ../xlgui/panel/collection.py:691 ../xlgui/panel/collection.py:728
-#: ../plugins/bookmarks/__init__.py:151 ../plugins/notifyosd/__init__.py:57
-#: ../plugins/notifyosd/__init__.py:68 ../plugins/notify/__init__.py:27
-#: ../plugins/minimode/mmwidgets.py:948
-msgid "Unknown"
-msgstr ""
-
 #: ../xl/playlist.py:395
 #, python-format
 msgid "Playlist %d"
@@ -292,7 +294,7 @@ msgid ""
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 
-#: ../xl/trackdb.py:183
+#: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
 msgstr ""
 
@@ -341,6 +343,7 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:157
 #: ../data/ui/collection_panel.ui.h:4 ../plugins/cd/cdprefs.py:95
 #: ../plugins/minimode/minimodeprefs.py:66
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Artist"
 msgstr ""
 
@@ -348,6 +351,7 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:77 ../xlgui/panel/playlists.py:159
 #: ../data/ui/collection_panel.ui.h:3 ../plugins/cd/cdprefs.py:97
 #: ../plugins/minimode/minimodeprefs.py:68
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Album"
 msgstr ""
 
@@ -359,7 +363,7 @@ msgstr ""
 msgid "Lyrics"
 msgstr ""
 
-#: ../xlgui/properties.py:52
+#: ../xlgui/properties.py:52 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
 msgstr ""
 
@@ -469,94 +473,94 @@ msgstr ""
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/main.py:48 ../xlgui/main.py:119 ../xlgui/main.py:1085
+#: ../xlgui/main.py:48 ../xlgui/main.py:121 ../xlgui/main.py:1087
 #: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:735
 msgid "Not Playing"
 msgstr ""
 
-#: ../xlgui/main.py:129 ../plugins/minimode/mmwidgets.py:755
+#: ../xlgui/main.py:131 ../plugins/minimode/mmwidgets.py:755
 msgid "Streaming..."
 msgstr ""
 
-#: ../xlgui/main.py:213
+#: ../xlgui/main.py:215
 msgid "Close tab"
 msgstr ""
 
-#: ../xlgui/main.py:271
+#: ../xlgui/main.py:273
 msgid "New playlist title:"
 msgstr ""
 
-#: ../xlgui/main.py:271 ../xlgui/menu.py:448
+#: ../xlgui/main.py:273 ../xlgui/menu.py:448
 msgid "Rename Playlist"
 msgstr ""
 
-#: ../xlgui/main.py:280
+#: ../xlgui/main.py:282
 msgid "Custom playlist name:"
 msgstr ""
 
-#: ../xlgui/main.py:280
+#: ../xlgui/main.py:282
 msgid "Save As..."
 msgstr ""
 
-#: ../xlgui/main.py:660
+#: ../xlgui/main.py:662
 msgid "Toggle: Stop after selected track"
 msgstr ""
 
-#: ../xlgui/main.py:837
+#: ../xlgui/main.py:839
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr ""
 
-#: ../xlgui/main.py:839
+#: ../xlgui/main.py:841
 msgid "Buffering: 100%..."
 msgstr ""
 
-#: ../xlgui/main.py:997 ../xlgui/main.py:1005 ../xlgui/main.py:1029
+#: ../xlgui/main.py:999 ../xlgui/main.py:1007 ../xlgui/main.py:1031
 msgid "Shuffle _Off"
 msgstr ""
 
-#: ../xlgui/main.py:997 ../xlgui/main.py:1031
+#: ../xlgui/main.py:999 ../xlgui/main.py:1033
 msgid "Shuffle _Tracks"
 msgstr ""
 
-#: ../xlgui/main.py:997 ../xlgui/main.py:1034
+#: ../xlgui/main.py:999 ../xlgui/main.py:1036
 msgid "Shuffle _Albums"
 msgstr ""
 
-#: ../xlgui/main.py:1086 ../data/ui/main.ui.h:21
+#: ../xlgui/main.py:1088 ../data/ui/main.ui.h:21
 msgid "Stopped"
 msgstr ""
 
-#: ../xlgui/main.py:1184
+#: ../xlgui/main.py:1186
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
 
 #. TRANSLATORS: Window title
-#: ../xlgui/main.py:1206
+#: ../xlgui/main.py:1196
 #, python-format
 msgid "%(title)s (by %(artist)s)"
 msgstr ""
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1216
+#: ../xlgui/main.py:1206
 #, python-format
 msgid "by %s"
 msgstr ""
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1218
+#: ../xlgui/main.py:1208
 #, python-format
 msgid "from %s"
 msgstr ""
 
-#: ../xlgui/main.py:1229
+#: ../xlgui/main.py:1219
 #, python-format
 msgid "In pause: %s"
 msgstr ""
 
-#: ../xlgui/main.py:1231
+#: ../xlgui/main.py:1221
 #, python-format
 msgid "Playing %s"
 msgstr ""
@@ -834,6 +838,7 @@ msgstr ""
 #: ../xlgui/plcolumns.py:140 ../xlgui/panel/playlists.py:95
 #: ../xlgui/panel/playlists.py:161 ../plugins/cd/cdprefs.py:100
 #: ../plugins/minimode/minimodeprefs.py:71
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Rating"
 msgstr ""
 
@@ -897,21 +902,21 @@ msgstr ""
 msgid " songs"
 msgstr ""
 
-#: ../xlgui/playlist.py:1150
+#: ../xlgui/playlist.py:1145
 #, python-format
 msgid "Close %s"
 msgstr ""
 
-#: ../xlgui/playlist.py:1151
+#: ../xlgui/playlist.py:1146
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr ""
 
-#: ../xlgui/playlist.py:1152
+#: ../xlgui/playlist.py:1147
 msgid "Your changes will be lost if you don't save them"
 msgstr ""
 
-#: ../xlgui/playlist.py:1154
+#: ../xlgui/playlist.py:1149
 msgid "Close Without Saving"
 msgstr ""
 
@@ -1097,10 +1102,6 @@ msgstr ""
 msgid "Rescan Collection"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:721
-msgid "Various Artists"
-msgstr ""
-
 #: ../xlgui/panel/device.py:127
 #, python-format
 msgid "Transferring to %s..."
@@ -1170,14 +1171,18 @@ msgstr ""
 msgid "Plugin Archives"
 msgstr ""
 
-#: ../xlgui/prefs/plugin_prefs.py:189
+#: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
-msgid "Could not enable plugin: %s"
+msgid ""
+"<b>Could not enable plugin:</b>\n"
+"%(reason)s"
 msgstr ""
 
-#: ../xlgui/prefs/plugin_prefs.py:196
+#: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
-msgid "Could not disable plugin: %s"
+msgid ""
+"<b>Could not disable plugin:</b>\n"
+"%(reason)s"
 msgstr ""
 
 #: ../xlgui/prefs/widgets.py:261
@@ -1804,7 +1809,7 @@ msgstr ""
 msgid "Enable audioscrobbling"
 msgstr ""
 
-#: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:199
+#: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:201
 msgid "Audio Disc"
 msgstr ""
 
@@ -1828,21 +1833,64 @@ msgstr ""
 msgid "Play count"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:278
+#: ../plugins/daapclient/__init__.py:163
+msgid "Manually..."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:209
+msgid "Enter IP address and port for share"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:210
+msgid "Enter IP address and port."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:380
+msgid ""
+"This server does not support multiple connections.\n"
+"You must stop playback before downloading songs."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:459
+msgid "Disconnect"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:477
+msgid "Select a save location"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:527
+msgid "Connect to DAAP..."
+msgstr ""
+
+#: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:286
+#: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:291
+#: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:295
+#: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
+msgstr ""
+
+#: ../plugins/jamendo/__init__.py:76
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
+msgid "Ready"
+msgstr ""
+
+#: ../plugins/jamendo/__init__.py:77
+msgid "Searching Jamendo catalogue..."
+msgstr ""
+
+#: ../plugins/jamendo/__init__.py:78
+msgid "Retrieving song data..."
 msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
@@ -1888,7 +1936,7 @@ msgstr ""
 msgid "Could not read moodbar."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:494
+#: ../plugins/moodbar/__init__.py:497
 msgid "Moodbar executable is not available."
 msgstr ""
 
@@ -2261,7 +2309,7 @@ msgid "Display Covers"
 msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
-msgid "Display Overlay"
+msgid "Display Overlay:"
 msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
@@ -2326,6 +2374,66 @@ msgstr ""
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
+msgid "Advanced"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
+msgid "Ascending"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
+msgid "Date of starring"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
+msgid "Descending"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
+msgid "Genre/Tags"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
+msgid "Number of downloads"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
+msgid "Number of listens"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
+msgid "Number of playlist additions"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
+msgid "Order By:"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
+msgid "Order Direction:"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
+msgid "Rating this month"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
+msgid "Rating this week"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
+msgid "Release date"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
+msgid "Results:"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
+msgid "Starred"
 msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
@@ -2622,12 +2730,28 @@ msgid ""
 "Requires python-cddb to look up tags."
 msgstr ""
 
+#: ../plugins/daapclient/PLUGININFO:3
+msgid "DAAP Client"
+msgstr ""
+
+#: ../plugins/daapclient/PLUGININFO:4
+msgid "Allows playing of DAAP music shares."
+msgstr ""
+
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
 msgstr ""
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
+msgstr ""
+
+#: ../plugins/jamendo/PLUGININFO:3
+msgid "Jamendo"
+msgstr ""
+
+#: ../plugins/jamendo/PLUGININFO:4
+msgid "Enables access to the Jamendo music catalogue."
 msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3

@@ -171,11 +171,11 @@ class TrackWrapper(object):
         self.playlist = playlist
 
     def __str__(self):
-        text = self.track['title']
+        text = self.track.get_tag_raw('title')
 
         if text: text = ' / '.join(text)
-        if text and self.track['artist']:
-            text += " - " + ' / '.join(self.track['artist'])
+        if text and self.track.get_tag_raw('artist'):
+            text += " - " + ' / '.join(self.track.get_tag_raw('artist'))
 
         if not text: return self.track.get_loc_for_io()
         return text

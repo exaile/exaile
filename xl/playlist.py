@@ -904,7 +904,7 @@ class Playlist(object):
                 meta = cgi.parse_qs(meta)
                 tr._scanning = True
                 for k, v in meta.iteritems():
-                    tr[k] = v[0]
+                    tr.set_tag_raw(k, v[0])
                 tr._scanning = False
 
             tracks.append(tr)

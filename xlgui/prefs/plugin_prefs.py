@@ -186,15 +186,15 @@ class PluginManager(object):
             try:
                 self.plugins.enable_plugin(plugin)
             except Exception, e:
-                commondialogs.error(self.builder.get_object('PreferencesDialog'), _('Could '
-                    'not enable plugin: %s') % str(e))
+                commondialogs.error(self.builder.get_object('PreferencesDialog'),
+                    _('<b>Could not enable plugin:</b>\n%(reason)s') % {'reason': str(e)})
                 return
         else:
             try:
                 self.plugins.disable_plugin(plugin)
             except Exception, e:
-                commondialogs.error(self.builder.get_object('PreferencesDialog'), _('Could '
-                    'not disable plugin: %s') % str(e))
+                commondialogs.error(self.builder.get_object('PreferencesDialog'),
+                    _('<b>Could not disable plugin:</b>\n%(reason)s') % {'reason': str(e)})
                 return
 
         if hasattr(self.plugins.loaded_plugins[plugin],

@@ -32,13 +32,11 @@ import menu
 import os
 import urllib
 import hashlib
-from xlgui import guiutil
+from xl import event, settings, xdg
 from xl import track as xltrack
-from xl import xdg
-from xl import event
-from xl import settings
 from xl.cover import CoverSearchMethod, NoCoverFoundException
-from xlgui import panel
+from xl.nls import gettext as _
+from xlgui import guiutil, panel
 
 JAMENDO_NOTEBOOK_PAGE = None
 
@@ -66,7 +64,7 @@ class JamendoPanel(panel.Panel):
         'download-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    ui_info = (os.path.dirname(__file__) + "/glade/jamendo_panel.glade", 'JamendoPanelWindow')    
+    ui_info = (os.path.dirname(__file__) + "/ui/jamendo_panel.ui", 'JamendoPanelWindow')    
 
     def __init__(self, parent, exaile):
         panel.Panel.__init__(self, parent)
@@ -75,9 +73,9 @@ class JamendoPanel(panel.Panel):
         self.name = "Jamendo"
         self.exaile = exaile
         
-        self.STATUS_READY = "Ready"
-        self.STATUS_SEARCHING = "Searching Jamendo catalogue..."
-        self.STATUS_RETRIEVING_DATA = "Retrieving song data..."
+        self.STATUS_READY = _("Ready")
+        self.STATUS_SEARCHING = _("Searching Jamendo catalogue...")
+        self.STATUS_RETRIEVING_DATA = _("Retrieving song data...")
      
         self.setup_widgets()
 
@@ -144,21 +142,21 @@ class JamendoPanel(panel.Panel):
 
         #setup search combobox
         self.search_combobox = self.builder.get_object('searchComboBox')
-        self.search_combobox.set_active(settings.get_option('plugin/jamendo/searchtype',0))
+        self.search_combobox.set_active(settings.get_option('plugin/jamendo/searchtype', 0))
         
         #get handle on search entrybox
         self.search_textentry = self.builder.get_object('searchEntry')
-        self.search_textentry.set_text(settings.get_option('plugin/jamendo/searchterms',""))
+        self.search_textentry.set_text(settings.get_option('plugin/jamendo/searchterms', ""))
         
         #setup order_by comboboxes
         self.orderby_type_combobox = self.builder.get_object('orderTypeComboBox')
-        self.orderby_type_combobox.set_active(settings.get_option('plugin/jamendo/ordertype',0))
+        self.orderby_type_combobox.set_active(settings.get_option('plugin/jamendo/ordertype', 0))
         self.orderby_direction_combobox = self.builder.get_object('orderDirectionComboBox')
-        self.orderby_direction_combobox.set_active(settings.get_option('plugin/jamendo/orderdirection',0))
+        self.orderby_direction_combobox.set_active(settings.get_option('plugin/jamendo/orderdirection', 0))
                         
         #setup num_results combobox
-        self.numresults_combobox = self.builder.get_object('numResultsComboBox')
-        self.numresults_combobox.set_active(settings.get_option('plugin/jamendo/numresults',5))
+        self.numresults_spinbutton = self.builder.get_object('numResultsSpinButton')
+        self.numresults_spinbutton.set_value(settings.get_option('plugin/jamendo/numresults', 10))
 
         #setup status label
         self.status_label = self.builder.get_object('statusLabel')
@@ -291,6 +289,10 @@ class JamendoPanel(panel.Panel):
     #is called by the search thread when it completed  
     def response_callback(self, collection):
         self.set_status(self.STATUS_READY)
+
+        if collection is None:
+            return
+
         for item in collection:
             #add item to treeview
             image = self.artist_image          
@@ -315,12 +317,14 @@ class JamendoPanel(panel.Panel):
 
         #get type of search
         search_type = self.search_combobox.get_active_text()
-        orderby = self.orderby_type_combobox.get_active_text()
-        direction = self.orderby_direction_combobox.get_active_text()        
+        iter = self.orderby_type_combobox.get_active_iter()
+        orderby = self.orderby_type_combobox.get_model().get_value(iter, 0)
+        iter = self.orderby_direction_combobox.get_active_iter()
+        direction = self.orderby_direction_combobox.get_model().get_value(iter, 0)       
         orderby += "_" + direction
-        numresults = self.numresults_combobox.get_active_text()
+        numresults = self.numresults_spinbutton.get_value_as_int()
         search_term = self.search_textentry.get_text()
-        
+
         #save search term
         settings.set_option('plugin/jamendo/searchterms', search_term)
             

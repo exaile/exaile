@@ -14,7 +14,7 @@
               <object class="GtkLabel" id="overlay_lbl">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Display Overlay</property>
+                <property name="label" translatable="yes">Display Overlay:</property>
               </object>
               <packing>
                 <property name="padding">5</property>
@@ -65,6 +65,7 @@
   <object class="GtkToggleAction" id="toggleaction1"/>
   <object class="GtkListStore" id="overlay_liststore">
     <columns>
+      <!-- column-name gchararray -->
       <column type="gchararray"/>
     </columns>
     <data>

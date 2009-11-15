@@ -140,11 +140,12 @@ class TrackPropertiesDialog(gobject.GObject):
         for track in tracks:
             t = {}
             for tag in self.def_tags:
-                if track[tag]:
-                    if isinstance(track[tag], list):
-                        t[tag] = track[tag][:]
+                tagval = track.get_tag_raw(tag)
+                if tagval:
+                    if isinstance(tagval, list):
+                        t[tag] = tagval[:]
                     else:
-                        t[tag] = [ track[tag] ]
+                        t[tag] = [ tagval ]
                 else:
                     t[tag] = ['']
 
@@ -155,10 +156,11 @@ class TrackPropertiesDialog(gobject.GObject):
 
             for tag in track.tags:
                 if tag not in self.def_tags:
-                    if isinstance(track[tag], list):
-                        t[tag] = track[tag][:]
+                    tagval = track.get_tag_raw(tag)
+                    if isinstance(tagval, list):
+                        t[tag] = tagval[:]
                     else:
-                        t[tag] = [ track[tag] ]
+                        t[tag] = [ tagval ]
 
             l.append(t)
 

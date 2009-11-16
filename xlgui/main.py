@@ -694,12 +694,17 @@ class MainWindow(gobject.GObject):
             Shows or hides the dynamic toggle button
             based on the amount of providers available
         """
-        if len(providers.get('dynamic_playlists')) > 0:
-            self.dynamic_toggle.set_no_show_all(False)
-            self.dynamic_toggle.show_all()
+        providers_available = len(providers.get('dynamic_playlists')) > 0
+        if providers_available:
+            self.dynamic_toggle.set_sensitive(True)
+            self.dynamic_toggle.set_tooltip_text(
+                _('Dynamically add similar tracks to the playlist')
+            )
         else:
-            self.dynamic_toggle.hide_all()
-            self.dynamic_toggle.set_no_show_all(True)
+            self.dynamic_toggle.set_sensitive(False)
+            self.dynamic_toggle.set_tooltip_text(
+                _('Requires plugins providing dynamic playlists')
+            )
 
     def _connect_events(self):
         """

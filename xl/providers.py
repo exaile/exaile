@@ -86,6 +86,7 @@ class ProviderManager(object):
 MANAGER = ProviderManager()
 register = MANAGER.register_provider
 unregister = MANAGER.unregister_provider
+get = MANAGER.get_providers
 
 class ProviderHandler(object):
     def __init__(self, servicename):

@@ -24,17 +24,16 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.nls import gettext as _
 import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
 import gtk, gobject, pango, datetime
-from xl import xdg, event, track, common
-from xl import settings, trackdb
+from xl import common, event, providers, settings, track, trackdb, xdg
+from xl.nls import gettext as _
 import xl.playlist
 from xlgui import playlist, cover, guiutil, menu, commondialogs, tray
-import xl.playlist, re, os, threading
+import re, os, threading
 
 logger = logging.getLogger(__name__)
 
@@ -588,6 +587,7 @@ class MainWindow(gobject.GObject):
 
         self.dynamic_toggle = self.builder.get_object('dynamic_button')
         self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
+        self.update_dynamic_toggle()
 
         # Cover box
         self.cover_event_box = self.builder.get_object('cover_event_box')
@@ -689,6 +689,18 @@ class MainWindow(gobject.GObject):
             self.collection.get_count())
         self.statusbar.set_queue_count(len(self.queue))
 
+    def update_dynamic_toggle(self, *e):
+        """
+            Shows or hides the dynamic toggle button
+            based on the amount of providers available
+        """
+        if len(providers.get('dynamic_playlists')) > 0:
+            self.dynamic_toggle.set_no_show_all(False)
+            self.dynamic_toggle.show_all()
+        else:
+            self.dynamic_toggle.hide_all()
+            self.dynamic_toggle.set_no_show_all(True)
+
     def _connect_events(self):
         """
             Connects the various events to their handlers
@@ -749,6 +761,12 @@ class MainWindow(gobject.GObject):
             self.player)
         event.add_callback(self.on_playback_error, 'playback_error',
             self.player)
+
+        # Dynamic toggle button
+        event.add_callback(self.update_dynamic_toggle,
+            'dynamic_playlists_provider_added')
+        event.add_callback(self.update_dynamic_toggle,
+            'dynamic_playlists_provider_removed')
 
         # Monitor the queue
         event.add_callback(self.update_track_counts,

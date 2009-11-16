@@ -27,21 +27,22 @@
 
 from xlgui import guiutil
 from xl import event
+from xl.nls import gettext as _
 import gtk, threading
 
 class ProgressMonitor(gtk.Frame):
     """
         A progress monitor
     """
-    def __init__(self, manager, thread, desc, icon):
+    def __init__(self, manager, thread, description, stock_icon):
         """
             Initializes the monitor
         """
         gtk.Frame.__init__(self)
         self.manager = manager
         self.thread = thread
-        self.desc = desc
-        self.icon = icon
+        self.description = description
+        self.stock_icon = stock_icon
 
         self._setup_widgets()
         self.show_all()
@@ -57,7 +58,11 @@ class ProgressMonitor(gtk.Frame):
 
         if fraction >= 0 and fraction <= 1.0:
             self.progress.set_fraction(float(percent) / 100)
-            self.progress.set_text('%d%%' % percent)
+            # TRANSLATORS: Progress manager bar text
+            self.progress.set_text(_('%(description)s (%(progress)d%%)') % {
+              'description': self.description,
+              'progress': percent
+            })
         if percent == 100 or percent == 'complete':
             if hasattr(self.thread, 'thread_complete'):
                 self.thread.thread_complete()
@@ -76,49 +81,29 @@ class ProgressMonitor(gtk.Frame):
             Sets up the various widgets for this object
         """
         self.set_shadow_type(gtk.SHADOW_NONE)
-        desc = self.desc
-        icon = self.icon
 
-        box = gtk.VBox()
-        box.set_border_width(3)
-        label = gtk.Label(desc)
-        label.set_use_markup(True)
-        label.set_alignment(0, 0.5)
-        label.set_padding(3, 0)
+        progress_box = gtk.HBox()
+        progress_box.set_spacing(3)
 
-        box.pack_start(label, False, False)
+        icon = gtk.Image()
+        icon.set_from_stock(self.stock_icon, gtk.ICON_SIZE_SMALL_TOOLBAR)
+        progress_box.pack_start(icon, False, False)
 
-        pbox = gtk.HBox()
-        pbox.set_spacing(3)
-
-        img = gtk.Image()
-        img.set_from_stock(icon, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        img.set_size_request(32, 32)
-        pbox.pack_start(img, False, False)
-
-        ibox = gtk.VBox()
-        l = gtk.Label()
-        l.set_size_request(2, 2)
-        ibox.pack_start(l, False, False)
+        alignment = gtk.Alignment(0.5, 0.5, 1.0, 1.0)
+        alignment.set_padding(3, 3, 0, 0)
         self.progress = gtk.ProgressBar()
-        self.progress.set_text(' ')
-
-        ibox.pack_start(self.progress, True, False)
-        l = gtk.Label()
-        l.set_size_request(2, 2)
-        ibox.pack_start(l, False, False)
-        pbox.pack_start(ibox, True, True)
+        self.progress.set_text(self.description)
+        alignment.add(self.progress)
+        progress_box.pack_start(alignment, True, True)
 
         button = gtk.Button()
         img = gtk.Image()
         img.set_from_stock('gtk-stop', gtk.ICON_SIZE_SMALL_TOOLBAR)
         button.set_image(img)
-
-        pbox.pack_start(button, False, False)
         button.connect('clicked', self.stop_monitor)
+        progress_box.pack_start(button, False, False)
 
-        box.pack_start(pbox, True, True)
-        self.add(box)
+        self.add(progress_box)
 
 class ProgressManager(object):
     """

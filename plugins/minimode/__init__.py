@@ -103,6 +103,7 @@ class MiniMode(gtk.Window):
         self._main_visible_toggle_id = None
 
         self.connect('show', self.on_show)
+        self.connect('delete-event', self.on_delete_event)
         self.exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
 
@@ -359,4 +360,12 @@ class MiniMode(gtk.Window):
         """
         self.resize(*self.size_request())
         self.queue_draw()
+
+    def on_delete_event(self, widget, event):
+        """
+            Closes application on quit
+        """
+        self.hide()
+        self.exaile.gui.main.quit()
+        return True
 

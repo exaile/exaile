@@ -113,18 +113,22 @@ class WidgetBox(gtk.HBox):
         self.__widgets[id].destroy()
         del self.__widgets[id]
 
-    def get_ids(self):
+    def update_widgets(self, ids):
         """
-            Returns all registered IDs
+            Updates display and order of widgets
         """
-        return self.__register.keys()
+        for id in self.__register.iterkeys():
+            if id not in ids:
+                try:
+                    self.remove_widget(id)
+                except KeyError:
+                    pass
 
-    def get_id_iter(self):
-        """
-            Returns an iterator over
-            all registered IDs
-        """
-        return self.__register.iterkeys()
+        for id in ids:
+            try:
+                self.add_widget(id)
+            except KeyError:
+                pass
 
     def __getitem__(self, id):
         """

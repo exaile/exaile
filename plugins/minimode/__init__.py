@@ -18,7 +18,6 @@ import gobject, gtk, os
 import minimodeprefs, mmwidgets
 from xl import event, plugins, settings, xdg
 from xl.nls import gettext as _
-from xlgui.guiutil import get_workarea_size
 
 MINIMODE = None
 
@@ -76,7 +75,11 @@ class MiniMode(gtk.Window):
         self.formatter = mmwidgets.TrackFormatter('$tracknumber - $title')
 
         self.box = mmwidgets.WidgetBox(spacing=3)
-        self.add(self.box)
+        frame = gtk.Frame()
+        frame.set_shadow_type(gtk.SHADOW_OUT)
+        frame.add(self.box)
+        self.add(frame)
+
         self.register_widgets()
         controls = self.get_option('plugin/minimode/selected_controls')
         controls += self.fixed_items
@@ -235,20 +238,7 @@ class MiniMode(gtk.Window):
         """
             Adds and removes widgets
         """
-        all_ids = self.box.get_id_iter()
-
-        for id in all_ids:
-            if id not in ids:
-                try:
-                    self.box.remove_widget(id)
-                except KeyError:
-                    pass
-
-        for id in ids:
-            try:
-                self.box.add_widget(id)
-            except KeyError:
-                pass
+        self.box.update_widgets(ids)
 
     def get_option(self, option):
         """

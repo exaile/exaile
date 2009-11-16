@@ -497,7 +497,7 @@ class CoverWindow(object):
     def __init__(self, parent, cover, title=''):
         """Initializes and shows the cover"""
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.glade'))
+        self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.ui'))
         self.builder.connect_signals(self)
         self.cover_window = self.builder.get_object('CoverWindow')
         self.layout = self.builder.get_object('layout')

@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-15 17:50+0100\n"
-"PO-Revision-Date: 2009-11-16 03:43+0000\n"
+"PO-Revision-Date: 2009-11-16 06:11+0000\n"
 "Last-Translator: 王英华 <wantinghard@gmail.com>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-11-16 04:33+0000\n"
+"X-Launchpad-Export-Date: 2009-11-17 04:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -85,7 +85,7 @@ msgstr "打印当前音轨的时长"
 
 #: ../xl/main.py:318
 msgid "Set rating for current song"
-msgstr "为当前曲目评级"
+msgstr "为当前曲目评分"
 
 #: ../xl/main.py:320
 msgid "Get rating for current song"
@@ -523,15 +523,15 @@ msgstr "正在缓冲:100%"
 
 #: ../xlgui/main.py:999 ../xlgui/main.py:1007 ../xlgui/main.py:1031
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "随机播放关(_O)"
 
 #: ../xlgui/main.py:999 ../xlgui/main.py:1033
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "随机播放音轨(_T)"
 
 #: ../xlgui/main.py:999 ../xlgui/main.py:1036
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "随机播放专辑(_A)"
 
 #: ../xlgui/main.py:1088 ../data/ui/main.ui.h:21
 msgid "Stopped"
@@ -779,11 +779,11 @@ msgstr "正在扫描 %s..."
 
 #: ../xlgui/guiutil.py:430
 msgid "Muted"
-msgstr ""
+msgstr "已静音"
 
 #: ../xlgui/guiutil.py:439
 msgid "Full Volume"
-msgstr ""
+msgstr "最大音量"
 
 #: ../xlgui/guiutil.py:729
 #, python-format
@@ -797,7 +797,7 @@ msgstr "(%d 首队列中)"
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
-msgstr "评级："
+msgstr "评分："
 
 #: ../xlgui/commondialogs.py:335
 msgid "Select File Type (By Extension)"
@@ -848,7 +848,7 @@ msgstr "0:00"
 #: ../plugins/minimode/minimodeprefs.py:71
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Rating"
-msgstr "评级"
+msgstr "评分"
 
 #. TRANSLATORS: Filename column in the file browser
 #: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:121
@@ -1098,7 +1098,7 @@ msgstr "大小"
 #: ../xlgui/panel/files.py:413
 #, python-format
 msgid "%d KB"
-msgstr ""
+msgstr "%d KB"
 
 #: ../xlgui/panel/collection.py:140
 msgid ""
@@ -1151,7 +1151,7 @@ msgstr ""
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
-msgstr ""
+msgstr "重置为默认值"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"
@@ -1185,6 +1185,8 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>无法启用插件：</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
@@ -1192,6 +1194,8 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>无法禁用插件：</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
@@ -1239,7 +1243,7 @@ msgstr "将当前音轨从播放列表中删除"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(右击以重置为默认值)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
@@ -1402,7 +1406,7 @@ msgstr "关闭(_C)"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "A_dd tag"
-msgstr ""
+msgstr "添加标签(_D)"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "Tags"
@@ -1414,19 +1418,19 @@ msgstr "音轨属性"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "将所有标签的第一个字母大写"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
-msgstr ""
+msgstr "下一个(_N)"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "前一个(_P)"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "删除标签(_R)"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
@@ -1826,11 +1830,11 @@ msgstr "闹钟"
 #: ../plugins/equalizer/__init__.py:129 ../plugins/equalizer/equalizer.ui.h:15
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "均衡器"
 
 #: ../plugins/awn/awn_prefs.py:32
 msgid "AWN"
-msgstr ""
+msgstr "AWN"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -1867,33 +1871,35 @@ msgstr "播放计数"
 
 #: ../plugins/daapclient/__init__.py:163
 msgid "Manually..."
-msgstr ""
+msgstr "手动..."
 
 #: ../plugins/daapclient/__init__.py:209
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "输入共享使用的 IP 地址和端口"
 
 #: ../plugins/daapclient/__init__.py:210
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "输入 IP 地址和端口"
 
 #: ../plugins/daapclient/__init__.py:380
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"这个服务器不支持多重连接。\n"
+"下载歌曲前您必须停止回放。"
 
 #: ../plugins/daapclient/__init__.py:459
 msgid "Disconnect"
-msgstr ""
+msgstr "断开"
 
 #: ../plugins/daapclient/__init__.py:477
 msgid "Select a save location"
-msgstr ""
+msgstr "选择一个保存位置"
 
 #: ../plugins/daapclient/__init__.py:527
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "连接到 DAAP..."
 
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -1915,7 +1921,7 @@ msgstr "清空书签"
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Ready"
-msgstr ""
+msgstr "就绪"
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
@@ -1923,7 +1929,7 @@ msgstr ""
 
 #: ../plugins/jamendo/__init__.py:78
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "正在取回歌曲数据..."
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
@@ -2280,11 +2286,11 @@ msgstr "使用淡出淡入"
 
 #: ../plugins/equalizer/equalizer.ui.h:1
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:2
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "0"
@@ -2292,43 +2298,43 @@ msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "227"
-msgstr ""
+msgstr "227"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
@@ -2336,11 +2342,11 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"
-msgstr ""
+msgstr "循环播放"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"
-msgstr ""
+msgstr "显示封面"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
@@ -2348,11 +2354,11 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"
-msgstr ""
+msgstr "无"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "Text Percentage"
-msgstr ""
+msgstr "文本百分比"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Password:"
@@ -2416,7 +2422,7 @@ msgstr "高级"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "升序"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
@@ -2424,19 +2430,19 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "降序"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
-msgstr ""
+msgstr "流派/标签"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
-msgstr ""
+msgstr "下载数"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
-msgstr ""
+msgstr "收听数"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
@@ -2444,27 +2450,27 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Order By:"
-msgstr ""
+msgstr "排序依据："
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Order Direction:"
-msgstr ""
+msgstr "排序方向："
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
-msgstr ""
+msgstr "本月评分"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Rating this week"
-msgstr ""
+msgstr "本周评分"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
-msgstr ""
+msgstr "发布日期"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Results:"
-msgstr ""
+msgstr "结果："
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
@@ -2740,11 +2746,11 @@ msgstr ""
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "一个10段均衡器"
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
-msgstr ""
+msgstr "Awn"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -2779,11 +2785,11 @@ msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "DAAP 客户端"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "允许播放 DAAP 音乐共享。"
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
@@ -2795,7 +2801,7 @@ msgstr "允许保存/重新开始音频文件的书签位置。"
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."

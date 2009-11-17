@@ -406,8 +406,9 @@ class Playlist(object):
         self._needs_save = False
         self.name = name
         self.tracks_history = []
-        self.extra_save_items = ['random_enabled', 'random_mode', 'repeat_enabled',
-                'dynamic_enabled', 'current_pos', 'name', '_is_custom', '_needs_save']
+        self.extra_save_items = ['random_enabled', 'random_mode',
+                'repeat_enabled', 'dynamic_enabled', 'current_pos',
+                'name', '_is_custom', '_needs_save']
 
     def get_name(self):
         return self.name
@@ -484,7 +485,16 @@ class Playlist(object):
         """
         return PlaylistIterator(self)
 
-    def add(self, track, location=None, ignore_missing_files = True):
+    def __contains__(self, track):
+        return track in self._ordered_tracks
+
+    def __getitem__(self, item):
+        return self.ordered_tracks.__getitem__(item)
+
+    def __getslice__(self, one, two):
+        return self.ordered_tracks.__getslice__(one, two)
+
+    def add(self, track, location=None, ignore_missing_files=True):
         """
             insert the track into the playlist at the specified
             location (default: append). by default it the track can
@@ -498,27 +508,22 @@ class Playlist(object):
         if track.exists() or not ignore_missing_files:
             self.add_tracks([track], location)
 
-    def add_tracks(self, tracks, location=None, add_duplicates=True):
+    def add_tracks(self, tracks, location=None):
         """
             like add(), but takes a list of tracks instead of a single one
 
-            @param tracks: the tracks to add [list of Track]
+            @param tracks: the tracks to add [iterable of Track]
             @param location: the index to insert at [int]
             @param add_duplicates: Set to [False] if you wouldn't like to add
                 tracks that are already in the playlist
         """
-        if not add_duplicates:
-            new = []
-            for track in tracks:
-                if track not in self.get_tracks():
-                    new.append(track)
-            tracks = new
-
         if location == None:
             self.ordered_tracks.extend(tracks)
         else:
-            self.ordered_tracks = self.ordered_tracks[:location] + \
-                    tracks + self.ordered_tracks[location:]
+            neworder = self.ordered_tracks[:location]
+            neworder.extend(tracks)
+            neworder.extend(self.ordered_tracks[location:])
+            self.ordered_tracks = neworder
 
         if location != None and location <= self.current_pos:
             self.current_pos += len(tracks)

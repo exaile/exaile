@@ -643,7 +643,6 @@ class Playlist(gtk.VBox):
             else:
                 first = True
 
-        current_tracks = self.playlist.get_tracks()
         (tracks, playlists) = self.list.get_drag_data(locs)
 
         tracks = sort_tracks(tracks)
@@ -652,8 +651,6 @@ class Playlist(gtk.VBox):
         # by default we load all tracks.
         # TODO: should we load tracks we find in the collection from there??
         for track in tracks:
-            if not Playlist._is_drag_source and track in current_tracks:
-                continue
             if not drop_info:
                 self._append_track(track)
             else:
@@ -680,20 +677,17 @@ class Playlist(gtk.VBox):
         else:
             context.finish(True, False, etime)
 
-        # iterates through the list and adds any tracks that are
-        # not in the playlist to the current playlist
-        current_tracks = self.playlist.get_tracks()
         iter = self.model.get_iter_first()
         if not iter:
             # Do we need to reactivate the callbacks when this happens?
             gobject.idle_add(self.add_track_callbacks)
             return
+        trs = []
         while True:
-            track = self.model.get_value(iter, 0)
-            if not track in current_tracks:
-                self.playlist.add_tracks((track,))
+            trs.append(self.model.get_value(iter, 0))
             iter = self.model.iter_next(iter)
             if not iter: break
+        self.playlist.add_tracks(trs)
 
         # Re add all of the tracks so that they
         # become ordered

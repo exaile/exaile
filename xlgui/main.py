@@ -834,9 +834,9 @@ class MainWindow(gobject.GObject):
                 ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
                 items)
 
-        pl.playlist.add_tracks(items, add_duplicates=False)
+        pl.playlist.add_tracks(items)
         if queue:
-            self.queue.add_tracks(items, add_duplicates=False)
+            self.queue.add_tracks(items)
         pl.list.queue_draw()
 
     @guiutil.idle_add()

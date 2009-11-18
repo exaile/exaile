@@ -178,7 +178,7 @@ class BitrateColumn(Column):
             Shows the bitrate
         """
         item = model.get_value(iter, 0)
-        cell.set_property('text', item.get_bitrate())
+        cell.set_property('text', item.get_tag_display("__bitrate"))
         self.playlist.set_cell_weight(cell, item)
 
 class IoLocColumn(Column):

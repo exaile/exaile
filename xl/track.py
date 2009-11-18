@@ -393,6 +393,12 @@ class Track(object):
             if uri.startswith("file://"):
                 uri = uri[7:]
             return uri
+        elif tag == '__bitrate':
+            try:
+                retval = int(self.tags['__bitrate']) / 1000
+                retval = str(retval) + "k"
+            except:
+                retval = " "
         else:
             retval = self.tags.get(tag)
 

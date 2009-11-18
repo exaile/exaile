@@ -154,7 +154,8 @@ class FilesPanel(panel.Panel):
         """
             Sets up the widgets for the files panel
         """
-        self.directory = guiutil.get_icon('gnome-fs-directory')
+        self.directory = self.tree.render_icon(
+            gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.track = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/track.png'))
         self.back = self.builder.get_object('files_back_button')

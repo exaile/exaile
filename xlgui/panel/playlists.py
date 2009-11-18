@@ -484,7 +484,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.tree.set_model(self.model)
 
         # icons
-        self.open_folder = guiutil.get_icon('gnome-fs-directory-accept')
+        self.folder = self.tree.render_icon(
+            gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.playlist_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/playlist.png'))
 
@@ -548,10 +549,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
             Loads the currently saved playlists
         """
-        self.smart = self.model.append(None, [self.open_folder,
+        self.smart = self.model.append(None, [self.folder,
             _("Smart Playlists"), None])
 
-        self.custom = self.model.append(None, [self.open_folder,
+        self.custom = self.model.append(None, [self.folder,
             _("Custom Playlists"), None])
 
         for name in self.smart_manager.playlists:

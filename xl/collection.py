@@ -287,8 +287,7 @@ class Collection(trackdb.TrackDB):
     def delete_tracks(self, tracks):
         for tr in tracks:
             for prefix, lib in self.libraries.iteritems():
-                if tr['__loc'].startswith('file://%s'%prefix):
-                    lib.delete(tr['__loc'])
+                lib.delete(tr.get_loc_for_io())
 
 class Library(object):
     """
@@ -664,16 +663,16 @@ class Library(object):
             Copies (or moves) a file into the library and adds it to the
             collection
         """
-        if not loc.startswith("file://"):
-            return
-        loc = loc[7:]
+        oldgloc = gio.File(loc)
 
-        newloc = os.path.join(self.location, os.path.basename(loc))
+        newgloc = gio.File(self.location).resolve_relative_path(
+                oldgloc.get_basename())
+
         if move:
-            shutil.move(loc, newloc)
+            oldgloc.move(newgloc)
         else:
-            shutil.copy(loc, newloc)
-        tr = track.Track(newloc)
+            oldgloc.copy(newgloc)
+        tr = track.Track(newgloc.get_uri())
         if tr._scan_valid:
             self.collection.add(tr)
 
@@ -687,13 +686,10 @@ class Library(object):
         tr = self.collection.get_track_by_loc(loc)
         if tr:
             self.collection.remove(tr)
-            path = common.local_file_from_url(tr.get_loc_for_io())
-            try:
-                os.unlink(path)
-            except OSError: # file not found?
-                common.log_exception(log=logger)
-            except:
-                common.log_exception(logger)
+            loc = tr.get_loc_for_io()
+            file = gio.File(loc)
+            if not file.delete():
+                logger.warning("Could not delete file %s." % loc)
 
     # the below are not essential for 0.3.0, should be implemented only
     # if time allows for it

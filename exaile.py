@@ -29,14 +29,9 @@ if sys.platform == 'linux2':
     try:
         import ctypes
         libc = ctypes.CDLL('libc.so.6')
-        libc.prctl(15, 'exaile', 0, 0, 0)
+        libc.prctl(15, 'exaile', 0, 0, 0) # 15 = PR_SET_NAME
     except:
-        try:
-             import dl
-             libc = dl.open('/lib/libc.so.6')
-             libc.call('prctl', 15, 'exaile\0', 0, 0, 0) # 15 is PR_SET_NAME
-        except:
-            pass
+        pass
 
 # Find out the location of exaile's working directory, and insert it to sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))

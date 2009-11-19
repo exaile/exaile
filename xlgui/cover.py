@@ -651,7 +651,7 @@ class CoverChooser(gobject.GObject):
         self.manager = covers
         self.parent = parent
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.glade'))
+        self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.ui'))
         self.window = self.builder.get_object('CoverChooser')
 
         try:

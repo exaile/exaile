@@ -9,7 +9,8 @@ PREFIX=$1
 CMD=$2
 shift 2
 
-XDG_CONFIG_HOME=$PREFIX/config/
-XDG_DATA_HOME=$PREFIX/data/
-XDG_CACHE_HOME=$PREFIX/cache/
-exec $CMD "$@"
+export XDG_CONFIG_HOME="$PREFIX/config/"
+export XDG_DATA_HOME="$PREFIX/data/"
+export XDG_CACHE_HOME="$PREFIX/cache/"
+
+exec "$CMD" "$@"

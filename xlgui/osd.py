@@ -197,7 +197,7 @@ class OSDWindow(object):
             text = self.text.replace('&', '&amp;')
             for item in ('title', 'artist', 'album', '__length', 'tracknumber',
                     '__bitrate', 'genre', 'year', '__rating'):
-                value = track[item]
+                value = track.get_tag_display(item)
                 if item == '__length':
                     if not isinstance(value, (int, float)):
                         value = 'N/A'

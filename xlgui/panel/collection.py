@@ -681,7 +681,7 @@ class CollectionPanel(panel.Panel):
                 continue
             last_val = tagval
             if depth == 0 and draw_seps:
-                val = tr.locale_lower(tr.strip_leading(tr.get_tag_sort(tag)))
+                val = tr.strip_leading(tr.get_tag_sort(tag))
                 char = first_meaningful_char(val)
                 if first:
                     last_char = char

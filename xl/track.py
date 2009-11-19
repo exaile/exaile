@@ -343,12 +343,12 @@ class Track(object):
                 try:
                     retval = self.tags['albumartist']
                 except KeyError: # No album artist, use Various Artist handling
-                    retval = "\xff\xff\xff\xfe"
+                    retval = u"\ufffe\ufffe\ufffe\ufffe"
             else:
                 try:
                     retval = self.tags['artist']
                 except KeyError: # Unknown artist
-                    retval = "\xff\xff\xff\xff"
+                    retval = u"\uffff\uffff\uffff\uffff"
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.tags.get(tag))[0]
         elif tag == '__length':
@@ -359,7 +359,7 @@ class Track(object):
             retval = self.tags.get(tag)
 
         if not retval:
-            retval = "\xff\xff\xff\xff" # unknown
+            retval = u"\uffff\uffff\uffff\uffff" # unknown
 
         if not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
@@ -367,7 +367,10 @@ class Track(object):
             retval = self.the_cutter(retval)
             if join:
                 retval = self.join_values(retval)
-            retval = self.locale_lower(retval)
+            # add the original string after the lowered val so that
+            # we sort case-sensitively if the case-insensitive values
+            # are identical. 
+            retval = retval.lower() + retval
 
         return retval
 
@@ -466,21 +469,6 @@ class Track(object):
         if type(values) in (str, unicode):
             return values
         return u" / ".join(values)
-
-    @staticmethod
-    def locale_lower(values):
-        """
-            convert a list of tag values to lowercase, using locale-aware
-            methods. suitable for sorting.
-        """
-        import locale
-        try:
-            try:
-                return locale.strxfrm(values) # it was already a string
-            except:
-                return [locale.strxfrm(x) for x in values] # iterable of strings
-        except:
-            raise ValueError, "Could not convert to lowercase, unknown type."
 
     @staticmethod
     def split_numerical(values):

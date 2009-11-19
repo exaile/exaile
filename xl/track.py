@@ -372,6 +372,10 @@ class Track(object):
         return retval
 
     def get_tag_display(self, tag, join=True):
+        if tag == '__loc':
+            uri = gio.File(self.tags['__loc']).get_parse_name()
+            return uri.decode('utf-8')
+
         retval = None
         if tag == "artist":
             if self.tags.get('__compilation'):
@@ -388,11 +392,6 @@ class Track(object):
             retval = self.split_numerical(self.tags.get(tag))[0]
         elif tag == '__length':
             retval = self.tags.get('__length', 0)
-        elif tag == '__loc':
-            uri = gio.File(self.tags['__loc']).get_parse_name()
-            if uri.startswith("file://"):
-                uri = uri[7:]
-            return uri
         elif tag == '__bitrate':
             try:
                 retval = int(self.tags['__bitrate']) / 1000

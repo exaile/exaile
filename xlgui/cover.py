@@ -731,8 +731,8 @@ class CoverChooser(gobject.GObject):
         cover = self.covers[self.current]
 
         self.manager.coverdb.set_cover(
-            metadata.j(track['artist']),
-            metadata.j(track['album']),
+            metadata.j(track.get_tag_raw('artist')),
+            metadata.j(track.get_tag_raw('album')),
             cover)
 
         self.emit('cover-chosen', cover)

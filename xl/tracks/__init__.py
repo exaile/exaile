@@ -65,7 +65,7 @@ def get_tracks_from_uri(uri):
         tracks = [Track(uri)]
     return tracks
 
-def sort_tracks(fields, trackiter, reverse=False, use_locale=True):
+def sort_tracks(fields, trackiter, reverse=False, use_locale=False):
     """
         Sorts tracks.
 

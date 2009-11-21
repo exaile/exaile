@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, os, weakref
+import logging, os, weakref, unicodedata
 from copy import deepcopy
 import gio
 from xl.nls import gettext as _
@@ -465,4 +465,9 @@ class Track(object):
                 break
         return values
 
-
+    @staticmethod
+    def strip_marks(values):
+        if isinstance(values, list):
+            return [Track.strip_marks(v) for v in values]
+        return ''.join((c for c in unicodedata.normalize('NFD', values)
+            if unicodedata.category(c) != 'Mn'))

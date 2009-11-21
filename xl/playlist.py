@@ -34,7 +34,8 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import trackdb, event, xdg, track, collection, settings
+from xl import event, xdg, collection, settings
+from xl.tracks import track, trackdb
 import cgi, os, random, urllib
 from xl.nls import gettext as _
 

@@ -24,7 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import playlist, track, event, providers
+from xl import playlist, event, providers
+from xl.tracks import track
 
 class RadioManager(providers.ProviderHandler):
     """

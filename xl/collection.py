@@ -35,7 +35,8 @@ collection.
 """
 
 from xl.nls import gettext as _
-from xl import trackdb, track, common, xdg, event, metadata, settings
+from xl import common, xdg, event, metadata, settings
+from xl.tracks import track, trackdb
 from xl.settings import SettingsManager
 
 import os, time, os.path, shutil, logging
@@ -519,7 +520,6 @@ class Library(object):
             if tr._scan_valid == True:
                 tr.set_tag_raw('__date_added', time.time())
                 self.collection.add(tr)
-        tr.set_tag_raw('__modified', mtime)
         return tr
 
     def rescan(self, notify_interval=None):

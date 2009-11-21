@@ -25,8 +25,8 @@
 # from your version.
 
 import gio, glib, gtk, gobject, os, locale, re
-import xl.track, urllib
-from xl import common, trackdb, metadata
+import urllib
+from xl import common, tracks, metadata
 from xl import settings
 from xl import event
 from xlgui import panel, guiutil, xdg, menu, playlist
@@ -81,11 +81,11 @@ class FilesPanel(panel.Panel):
         from xlgui import properties
         tracks = self.get_selected_tracks()
 
-	if not tracks:
+        if not tracks:
             return False
 
-        tracks_sorted = trackdb.sort_tracks(
-			('artist', 'date', 'album', 'discnumber', 'tracknumber'), 
+        tracks_sorted = tracks.sort_tracks(
+			('artist', 'date', 'album', 'discnumber', 'tracknumber'),
 			tracks)
 
         dialog = properties.TrackPropertiesDialog(self.parent,
@@ -93,9 +93,8 @@ class FilesPanel(panel.Panel):
 
     def set_rating(self, widget, rating):
         tracks = self.get_selected_tracks()
-        steps = settings.get_option('miscellaneous/rating_steps', 5)
         for track in tracks:
-            track['__rating'] = 100.0 * rating / steps
+            track.set_rating(rating)
 
     def _setup_tree(self):
         """
@@ -461,12 +460,9 @@ class FilesPanel(panel.Panel):
             Returns a single track from a gio.File
         """
         uri = f.get_uri()
-        if not xl.track.is_valid_track(uri):
+        if not tracks.is_valid_track(uri):
             return None
-        tr = self.collection.get_track_by_loc(uri)
-        if tr:
-            return tr
-        tr = xl.track.Track(uri)
+        tr = tracks.Track(uri)
         return tr
 
     def drag_data_received(self, *e):

@@ -24,78 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, os, urllib2, urlparse, weakref
+import logging, os, weakref
 from copy import deepcopy
 import gio
 from xl.nls import gettext as _
 from xl import common, settings, event
 import xl.metadata as metadata
-from xl.common import lstrip_special
 logger = logging.getLogger(__name__)
 
-def is_valid_track(loc):
-    """
-        Returns whether the file at loc is a valid track,
-        right now determines based on file extension but
-        possibly could be extended to actually opening
-        the file and determining
-    """
-    extension = gio.File(loc).get_basename().split(".")[-1]
-    return extension.lower() in metadata.formats
 
-def get_tracks_from_uri(uri):
-    """
-        Returns all valid tracks located at uri
-    """
-    tracks = []
-    gloc = gio.File(uri)
-    type = gloc.query_info("standard::type").get_file_type()
-    if type == gio.FILE_TYPE_DIRECTORY:
-        from xl.collection import Library, Collection
-        tracks = Collection('scanner')
-        lib = Library(uri)
-        lib.set_collection(tracks)
-        lib.rescan()
-        tracks = tracks.search("")
-    else:
-        tracks = [Track(uri)]
-    return tracks
-
-
-def get_sort_tuple(fields, track):
-    """
-        Returns the sort tuple for a single track
-
-        :param fields: the tag(s) to sort by
-        :type fields: a single string or iterable of strings
-        :param track: the track to sort
-        :type track: :class:`xl.track.Track`
-    """
-    items = []
-    if not type(fields) in (list, tuple):
-        items = [track.get_tag_sort(fields)]
-    else:
-        items = [track.get_tag_sort(field) for field in fields]
-
-    items.append(track)
-    return tuple(items)
-
-def sort_tracks(fields, tracks, reverse=False):
-    """
-        Sorts tracks by the field passed
-
-        :param fields: field(s) to sort by
-        :type fields: string or list of strings
-
-        :param tracks: tracks to sort
-        :type tracks: list of :class:`xl.track.Track`
-
-        :param reverse: sort in reverse?
-        :type reverse: bool
-    """
-    tracks = [get_sort_tuple(fields, t) for t in tracks]
-    tracks.sort(reverse=reverse)
-    return [t[-1] for t in tracks]
 
 class Track(object):
     """
@@ -134,8 +71,6 @@ class Track(object):
 
     def __init__(self, uri=None, scan=True, _unpickles=None):
         """
-            loads and initializes the tag information
-
             uri:  The path to the track.
             scan: Whether to try to read tags from the given uri.
                   Use only if the tags need to be set by a
@@ -245,10 +180,12 @@ class Track(object):
                 self.set_tag_raw(k, v)
 
             # fill out file specific items
-            path = self.local_file_name()
-            mtime = os.path.getmtime(path)
+            gloc = gio.File(self.get_loc_for_io())
+            mtime = gloc.query_info("time::modified").get_modification_time()
             self.set_tag_raw('__modified', mtime)
-            self.set_tag_raw('__basedir', os.path.dirname(path))
+            # TODO: this probably breaks on non-local files
+            path = gloc.get_parent().get_path()
+            self.set_tag_raw('__basedir', path)
             self._dirty = True
             self._scan_valid = True
             return f
@@ -528,64 +465,4 @@ class Track(object):
                 break
         return values
 
-def parse_stream_tags(track, tags):
-    """
-        Called when a tag is found in a stream.
-    """
-
-    log = ['Stream tag:']
-    newsong=False
-
-    for key in tags.keys():
-        value = tags[key]
-        try:
-            value = common.to_unicode(value)
-        except UnicodeDecodeError:
-            log.append('  ' + key + " [can't decode]: " + `str(value)`)
-            continue # TODO: What encoding does gst give us?
-
-        log.append('  ' + key + ': ' + value)
-
-        value = [value]
-
-        if key == '__bitrate':
-            track.set_tag_raw('__bitrate', int(value[0]) / 1000)
-
-        # if there's a comment, but no album, set album to the comment
-        elif key == 'comment' and not track.get_tag_raw('album'):
-            track.set_tag_raw('album', value)
-
-        elif key == 'album': track.set_tag_raw('album', value)
-        elif key == 'artist': track.set_tag_raw('artist', value)
-        elif key == 'duration': track.set_tag_raw('__length',
-                float(value[0])/1000000000)
-        elif key == 'track-number': track.set_tag_raw('tracknumber', value)
-        elif key == 'genre': track.set_tag_raw('genre', value)
-
-        elif key == 'title':
-            try:
-                if track.get_tag_raw('__rawtitle') != value:
-                    track.set_tag_raw('__rawtitle', value)
-                    newsong = True
-            except AttributeError:
-                track.set_tag_raw('__rawtitle', value)
-                newsong = True
-
-            title_array = value[0].split(' - ', 1)
-            if len(title_array) == 1 or \
-                    track.get_loc_for_io().lower().endswith(".mp3"):
-                track.set_tag_raw('title', value)
-            else:
-                track.set_tag_raw('artist', [title_array[0]])
-                track.set_tag_raw('title', [title_array[1]])
-
-    if newsong:
-        log.append(_('  New song, fetching cover.'))
-
-    for line in log:
-        logger.debug(line)
-    return newsong
-
-
-# vim: et sts=4 sw=4
 

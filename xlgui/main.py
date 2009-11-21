@@ -29,7 +29,8 @@ pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
 import gtk, gobject, pango, datetime
-from xl import common, event, providers, settings, track, trackdb, xdg
+from xl import common, event, providers, settings, xdg
+from xl.tracks import track, trackdb
 from xl.nls import gettext as _
 import xl.playlist
 from xlgui import playlist, cover, guiutil, menu, commondialogs, tray

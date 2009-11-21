@@ -26,7 +26,7 @@
 
 import logging, traceback, urllib
 import gtk, gobject
-from xl import event, xdg, common, track, trackdb, metadata, settings
+from xl import event, xdg, common, metadata, settings, tracks
 from xl.nls import gettext as _
 import xlgui
 from xlgui import panel, guiutil, menu, playlist, rating
@@ -115,14 +115,14 @@ class CollectionPanel(panel.Panel):
             Shows the properties dialog
         """
         from xlgui import properties
-        tracks = self.get_selected_tracks()
+        trs = self.get_selected_tracks()
 
-	if not tracks:
+        if not tracks:
             return False
 
-        tracks_sorted = trackdb.sort_tracks(
+        tracks_sorted = tracks.sort_tracks(
 			('artist', 'date', 'album', 'discnumber', 'tracknumber'), 
-			tracks)
+			trs)
 
         dialog = properties.TrackPropertiesDialog(self.parent,
             tracks_sorted)
@@ -281,10 +281,10 @@ class CollectionPanel(panel.Panel):
         """
             Called when a drag source wants data for this drag operation
         """
-        tracks = self.get_selected_tracks()
-        for track in tracks:
+        trs = self.get_selected_tracks()
+        for track in trs:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
-        urls = guiutil.get_urls_for(tracks)
+        urls = guiutil.get_urls_for(trs)
         selection.set_uris(urls)
 
     def _setup_tree(self):
@@ -341,17 +341,17 @@ class CollectionPanel(panel.Panel):
 
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
-        tracks = []
+        trs = []
         for path in paths:
             iter = self.model.get_iter(path)
             newset = self._find_tracks(iter)
-            tracks.append(newset)
+            trs.append(newset)
 
-        if not tracks: return None
+        if not trs: return None
 
-        tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
+        trs = list(set(reduce(lambda x, y: list(x) + list(y), trs)))
 
-        return tracks
+        return trs
 
     def get_tracks_rating(self):
         """
@@ -650,7 +650,7 @@ class CollectionPanel(panel.Panel):
 
         try:
             tag = self.order[depth]
-            tracks = self.collection.search(search)
+            trs = self.collection.search(search)
             if previously_loaded:
                 return
 
@@ -658,7 +658,7 @@ class CollectionPanel(panel.Panel):
             if depth > 0 and self.order[depth-1] == "tracknumber":
                 sort_by += ['discnumber', 'tracknumber']
             sort_by.reverse()
-            tracks = track.sort_tracks(sort_by, tracks)
+            trs = tracks.sort_tracks(sort_by, trs)
         except IndexError:
             return # at the bottom of the tree
         try:
@@ -675,7 +675,7 @@ class CollectionPanel(panel.Panel):
         last_val = ''
         first = True
 
-        for tr in tracks:
+        for tr in trs:
             tagval = tr.get_tag_display(tag)
             if last_val == tagval:
                 continue

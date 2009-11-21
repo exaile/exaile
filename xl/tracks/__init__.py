@@ -65,7 +65,7 @@ def get_tracks_from_uri(uri):
         tracks = [Track(uri)]
     return tracks
 
-def sort_tracks(fields, trackiter, reverse=False, use_locale=False):
+def sort_tracks(fields, trackiter, reverse=False, use_locale=True):
     """
         Sorts tracks.
 
@@ -74,16 +74,20 @@ def sort_tracks(fields, trackiter, reverse=False, use_locale=False):
         :param reverse: Whether to sort in reverse.
         :param use_locale: Use locale-specific sorting.
     """
+    lcmp = lambda x: x
+    if use_locale:
+        import locale
+        def lcmp(x):
+            try:
+                return locale.strxfrm(x)
+            except:
+                return x
+
     def keyfunc(tr):
-        items = [tr.get_tag_sort(field) for field in fields]
+        items = [lcmp(tr.get_tag_sort(field)) for field in fields]
         items.append(track)
         return items
 
-    if use_locale:
-        import locale
-        return sorted(trackiter, cmp=locale.strcoll,
-                key=keyfunc, reverse=reverse)
-    else:
-        return sorted(trackiter, key=keyfunc, reverse=reverse)
+    return sorted(trackiter, key=keyfunc, reverse=reverse)
 
 

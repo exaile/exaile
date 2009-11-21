@@ -343,7 +343,7 @@ class TrackDB(object):
         return list(self)
 
 
-    def search(self, query, tracks=None):
+    def __search(self, query, tracks=None):
         if not tracks: tracks=self
         tags = ['artist', 'albumartist', 'album', 'title']
         from search import search_tracks, TracksMatcher

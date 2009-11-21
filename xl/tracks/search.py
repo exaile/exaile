@@ -37,16 +37,21 @@ class SearchResultTrack(object):
         self.on_tags = []
 
 class _Matcher(object):
-    __slots__ = ['tag', 'content']
-    def __init__(self, tag, content):
+    __slots__ = ['tag', 'content', 'lower']
+    def __init__(self, tag, content, lower):
         self.tag = tag
         self.content = content
+        self.lower = lower
 
     def match(self, srtrack):
         vals = srtrack.track.get_tag_raw(self.tag)
         if type(vals) != list:
             vals = [vals]
         for item in vals:
+            try:
+                item = self.lower(item)
+            except:
+                pass
             if self.matches(item):
                 return True
         else:
@@ -112,12 +117,14 @@ class _ManyMultiMetaMatcher(object):
             return False
 
 class TracksMatcher(object):
-    __slots__ = ['matchers']
+    __slots__ = ['matchers', 'case_sensitive', 'keyword_tags']
     def __init__(self, searchstring, case_sensitive=True, keyword_tags=[]):
+        self.case_sensitive = case_sensitive
+        self.keyword_tags = keyword_tags
         tokens = self.__tokenize_query(searchstring)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
-        self.matchers = self.__tokens_to_matchers(tokens, [], keyword_tags)
+        self.matchers = self.__tokens_to_matchers(tokens, [])
 
     def match(self, srtrack):
         for ma in self.matchers:
@@ -132,7 +139,7 @@ class TracksMatcher(object):
             return True
         return False
 
-    def __tokens_to_matchers(self, tokens, matchers, keyword_tags):
+    def __tokens_to_matchers(self, tokens, matchers):
         # if there's no more tokens, we're done
         try:
             token = tokens[0]
@@ -146,17 +153,17 @@ class TracksMatcher(object):
             subtoken = token[0]
             # NOT
             if subtoken == "!":
-                nots = self.__tokens_to_matchers(token[1], [], keyword_tags)
+                nots = self.__tokens_to_matchers(token[1], [])
                 matchers.append(_NotMetaMatcher(_MultiMetaMatcher(nots)))
             # OR
             elif subtoken == "|":
-                left = self.__tokens_to_matchers([token[1][0]], [], keyword_tags)
-                right = self.__tokens_to_matchers([token[1][1]], [], keyword_tags)
+                left = self.__tokens_to_matchers([token[1][0]], [])
+                right = self.__tokens_to_matchers([token[1][1]], [])
                 matchers.append(_OrMetaMatcher(
                     _MultiMetaMatcher(left), _MultiMetaMatcher(right)))
             # ()
             elif subtoken == "(":
-                inner = self.__tokens_to_matchers([token[1]], [], keyword_tags)
+                inner = self.__tokens_to_matchers([token[1]], [])
                 matchers.append(_MultiMetaMatcher(inner))
             else:
                 logger.warning("Bad search token")
@@ -167,40 +174,41 @@ class TracksMatcher(object):
 
         # normal token
         else:
+            if not self.case_sensitive:
+                from string import lower
+            else:
+                lower = lambda x: x
             # exact match in tag
             if "==" in token:
                 tag, content = token.split("==", 1)
                 if content == "__null__":
                     content = None
-                matcher = _ExactMatcher(tag, content)
+                matcher = _ExactMatcher(tag, lower(content), lower)
                 matchers.append(matcher)
 
             # keyword in tag
             elif "=" in token:
                 tag, content = token.split("=", 1)
                 content = content.strip().strip('"')
-                matcher = _InMatcher(tag, content)
+                matcher = _InMatcher(tag, lower(content), lower)
                 matchers.append(matcher)
 
             # plain keyword
             else:
                 content = token.strip().strip('"')
                 mmm = []
-                for tag in keyword_tags:
-                    matcher = _InMatcher(tag, content)
+                for tag in self.keyword_tags:
+                    matcher = _InMatcher(tag, lower(content), lower)
                     mmm.append(matcher)
                 matchers.append(_ManyMultiMetaMatcher(mmm))
 
-        return self.__tokens_to_matchers(tokens[1:], matchers, keyword_tags)
+        return self.__tokens_to_matchers(tokens[1:], matchers)
 
     def __tokenize_query(self, search):
         """
             tokenizes a search query
         """
         search = " " + search + " "
-
-        search = search.replace(" OR ", " | ")
-        search = search.replace(" NOT ", " ! ")
 
         tokens = []
         newsearch = ""

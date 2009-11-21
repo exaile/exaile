@@ -399,9 +399,9 @@ class PlaylistButton(gtk.ToggleButton):
         self.disconnect(self._toggled_id)
         self.disconnect(self._drag_leave_id)
         self.disconnect(self._drag_motion_id)
-        self.disconnect(self._drag_data_received_id)
-        self.disconnect(self._switch_page_id)
-        self.disconnect(self._format_changed_id)
+        self.playlist.list.disconnect(self._drag_data_received_id)
+        self.main.playlist_notebook.disconnect(self._switch_page_id)
+        self.formatter.disconnect(self._format_changed_id)
 
         event.remove_callback(self.on_playback_start, 'playback_player_start')
         event.remove_callback(self.on_playback_end, 'playback_player_end')
@@ -550,14 +550,16 @@ class TrackSelector(gtk.ComboBox):
     def __init__(self, main, queue, formatter, changed_callback):
         gtk.ComboBox.__init__(self)
 
+        self.main = main
         self.queue = queue
         self.formatter = formatter
-        self.list = gtk.ListStore(gobject.TYPE_PYOBJECT, gobject.TYPE_STRING)
+        self.list = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
         self.set_model(self.list)
         self.set_size_request(150, 0)
 
         textrenderer = gtk.CellRendererText()
         self.pack_start(textrenderer, expand=True)
+        self.set_attributes(textrenderer, text=0)
         self.set_cell_data_func(textrenderer, self.text_data_func)
 
         self._updating = False
@@ -571,7 +573,7 @@ class TrackSelector(gtk.ComboBox):
             self.on_expose)
         self._changed_id = self.connect('changed',
             self.on_change)
-        self._switch_page_id = main.playlist_notebook.connect('switch-page',
+        self._switch_page_id = self.main.playlist_notebook.connect('switch-page',
             self.on_playlist_notebook_switch)
         self._format_changed_id = self.formatter.connect('format-changed',
             self.on_format_changed)
@@ -588,8 +590,8 @@ class TrackSelector(gtk.ComboBox):
         self.disconnect(self._track_changed_id)
         self.disconnect(self._expose_event_id)
         self.disconnect(self._changed_id)
-        self.disconnect(self._switch_page_id)
-        self.disconnect(self._format_changed_id)
+        self.main.playlist_notebook.disconnect(self._switch_page_id)
+        self.formatter.disconnect(self._format_changed_id)
 
         event.remove_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.remove_callback(self.on_tracks_added, 'tracks_added')
@@ -655,18 +657,11 @@ class TrackSelector(gtk.ComboBox):
             Updates track titles and highlights
             the current track if the popup is shown
         """
-        title = model.get_value(iter, 1)
-
-        if title is None:
-            return
-
-        cell.set_property('text', title)
-
         active_iter = self.get_active_iter()
 
         if active_iter is not None:
-            track = model.get_value(iter, 0)
-            active_track = model.get_value(active_iter, 0)
+            track = model.get_value(iter, 1)
+            active_track = model.get_value(active_iter, 1)
             weight = pango.WEIGHT_NORMAL
 
             if self.get_property('popup-shown'):

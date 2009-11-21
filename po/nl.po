@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-15 17:50+0100\n"
-"PO-Revision-Date: 2009-11-17 11:33+0000\n"
+"PO-Revision-Date: 2009-11-20 17:31+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-11-18 04:33+0000\n"
+"X-Launchpad-Export-Date: 2009-11-21 04:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -1930,19 +1930,19 @@ msgstr "Verbinden met DAAP..."
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr "Favorieten"
+msgstr "Bladwijzers"
 
 #: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
-msgstr "Dit nummer bij de favorieten zetten"
+msgstr "Dit nummer toevoegen aan de bladwijzers"
 
 #: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
-msgstr "Verwijder favoriet"
+msgstr "Bladwijzer verwijderen"
 
 #: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
-msgstr "Leeg de favorieten"
+msgstr "Bladwijzers wissen"
 
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
@@ -2441,7 +2441,7 @@ msgstr "WavPack"
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
-"Gebruik albumhoezen in het favorietenmenu (wordt toegepast na herstart)"
+"Gebruik albumhoezen in het bladwijzermenu (wordt toegepast na herstart)"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Advanced"

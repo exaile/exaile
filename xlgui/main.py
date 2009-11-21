@@ -29,8 +29,7 @@ pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
 import gtk, gobject, pango, datetime
-from xl import common, event, providers, settings, xdg
-from xl.tracks import track, trackdb
+from xl import common, event, providers, settings, xdg, tracks
 from xl.nls import gettext as _
 import xl.playlist
 from xlgui import playlist, cover, guiutil, menu, commondialogs, tray
@@ -74,10 +73,10 @@ class PlaybackProgressBar(object):
         if value < 0: value = 0
         if value > 1: value = 1
 
-        track = self.player.current
-        if not track or not (track.is_local() or \
-                track.get_tag_raw('__length')): return
-        length = track.get_tag_raw('__length')
+        tr = self.player.current
+        if not tr or not (tr.is_local() or \
+                tr.get_tag_raw('__length')): return
+        length = tr.get_tag_raw('__length')
 
         seconds = float(value * length)
         self.player.seek(seconds)
@@ -87,9 +86,9 @@ class PlaybackProgressBar(object):
 #        self.emit('seek', seconds)
 
     def seek_motion_notify(self, widget, event):
-        track = self.player.current
-        if not track or not(track.is_local() or \
-                track.get_tag_raw('__length')): return
+        tr = self.player.current
+        if not tr or not(tr.is_local() or \
+                tr.get_tag_raw('__length')): return
 
         mouse_x, mouse_y = event.get_coords()
         progress_loc = self.bar.get_allocation()
@@ -100,7 +99,7 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         self.bar.set_fraction(value)
-        length = track.get_tag_raw('__length')
+        length = tr.get_tag_raw('__length')
         seconds = float(value * length)
         remaining_seconds = length - seconds
         self._set_bar_text(seconds, length)
@@ -122,15 +121,15 @@ class PlaybackProgressBar(object):
         self.bar.set_fraction(0)
 
     def timer_update(self, *e):
-        track = self.player.current
-        if not track: return
+        tr = self.player.current
+        if not tr: return
         if self.seeking: return True
 
-        if not track.is_local() and not track.get_tag_raw('__length'):
+        if not tr.is_local() and not tr.get_tag_raw('__length'):
             self.bar.set_fraction(0)
             self.bar.set_text(_('Streaming...'))
             return True
-        length = track.get_tag_raw('__length')
+        length = tr.get_tag_raw('__length')
 
         self.bar.set_fraction(self.player.get_progress())
 
@@ -668,11 +667,11 @@ class MainWindow(gobject.GObject):
         """
             Called when the user clicks on the SPAT item
         """
-        tracks = self.get_selected_playlist().get_selected_tracks()
-        if not tracks: return
-        track = tracks[0]
+        trs = self.get_selected_playlist().get_selected_tracks()
+        if not trs: return
+        tr = trs[0]
 
-        if track == self.queue.stop_track:
+        if tr == self.queue.stop_track:
             self.queue.stop_track = None
         else:
             self.queue.stop_track = track
@@ -831,7 +830,7 @@ class MainWindow(gobject.GObject):
         pl = self.get_selected_playlist()
 
         if sort:
-            items = track.sort_tracks(
+            items = tracks.sort_tracks(
                 ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
                 items)
 

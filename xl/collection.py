@@ -502,18 +502,10 @@ class Library(object):
         if not uri: # we get segfaults if this check is removed
             return None
         mtime = gloc.query_info("time::modified").get_modification_time()
-        trmtime = None
-        try:
-            trmtime = self.collection.get_track_attr(uri, '__modified')
-        except TypeError:
-            pass
-        except:
-            common.log_exception(log=logger)
-        if trmtime is not None and mtime <= trmtime:
-            return None
         tr = self.collection.get_track_by_loc(uri)
         if tr:
-            tr.read_tags()
+            if tr.get_tag_raw('__modified') < mtime:
+                tr.read_tags()
         else:
             tr = track.Track(uri)
             if tr._scan_valid == True:

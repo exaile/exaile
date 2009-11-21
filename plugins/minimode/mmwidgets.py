@@ -31,8 +31,17 @@ class MenuItem(gtk.ImageMenuItem):
         gtk.ImageMenuItem.__init__(self, stock_id='exaile-minimode')
         self.child.set_label(_('Mini Mode'))
 
-        self._callback_id = self.connect('activate', callback)
+        self._activate_id = self.connect('activate', callback)
         event.add_callback(self.on_stock_icon_added, 'stock_icon_added')
+
+    def destroy(self):
+        """
+            Various cleanups
+        """
+        self.disconnect(self._activate_id)
+        event.remove_callback(self.on_stock_icon_added, 'stock_icon_added')
+
+        gtk.ImageMenuItem.destroy(self)
 
     def on_stock_icon_added(self, iconmanager, stock_id):
         """
@@ -41,14 +50,6 @@ class MenuItem(gtk.ImageMenuItem):
         if stock_id == 'exaile-minimode':
             self.set_image(gtk.gdk.image_new_from_stock(stock_id))
             event.remove_callback(self.on_stock_icon_added, 'stock_icon_added')
-
-    def destroy(self):
-        """
-            Does cleanup
-        """
-        self.disconnect(self._callback_id)
-        self.image.destroy()
-        gtk.ImageMenuItem.destroy(self)
 
 class KeyExistsError(Exception):
     pass
@@ -64,6 +65,15 @@ class WidgetBox(gtk.HBox):
 
         self.__register = {}
         self.__widgets = {}
+
+    def destroy(self):
+        """
+            Various cleanups
+        """
+        for widget in self.__widgets:
+            widget.destroy()
+
+        gtk.HBox.destroy(self)
 
     def register_widget(self, id, type, arguments=[]):
         """
@@ -109,7 +119,6 @@ class WidgetBox(gtk.HBox):
             raise KeyError, id
 
         self.remove(self.__widgets[id])
-        #del self.__widgets[id]
         self.__widgets[id].destroy()
         del self.__widgets[id]
 
@@ -148,7 +157,15 @@ class Button(gtk.Button):
         self.set_tooltip_text(tooltip_text)
         self.set_relief(gtk.RELIEF_NONE)
 
-        self.connect('clicked', callback)
+        self._clicked_id = self.connect('clicked', callback)
+
+    def destroy(self):
+        """
+            Various cleanups
+        """
+        self.disconnect(self._clicked_id)
+
+        gtk.Button.destroy(self)
 
 class PlayPauseButton(Button):
     """
@@ -165,6 +182,16 @@ class PlayPauseButton(Button):
         event.add_callback(self.on_playback_state_change, 'playback_player_start')
         event.add_callback(self.on_playback_state_change, 'playback_toggle_pause')
         event.add_callback(self.on_playback_state_change, 'playback_player_end')
+
+    def destroy(self):
+        """
+            Various cleanups
+        """
+        event.remove_callback(self.on_playback_state_change, 'playback_player_start')
+        event.remove_callback(self.on_playback_state_change, 'playback_toggle_pause')
+        event.remove_callback(self.on_playback_state_change, 'playback_player_end')
+
+        Button.destroy(self)
 
     def update_state(self):
         """
@@ -202,9 +229,17 @@ class VolumeButton(gtk.VolumeButton):
         self.set_adjustment(adjustment)
 
         self._changed_callback = callback
+        self._value_changed_id = self.connect('value-changed', self.on_change)
+        self._expose_event_id = self.connect('expose-event', self.on_expose)
 
-        self.connect('value-changed', self.on_change)
-        self.connect('expose-event', self.on_expose)
+    def destroy(self):
+        """
+            Various cleanups
+        """
+        self.disconnect(self._value_changed_id)
+        self.disconnect(self._expose_event_id)
+
+        gtk.VolumeButton.destroy(self)
 
     def on_change(self, *e):
         """
@@ -234,9 +269,22 @@ class AttachedWindow(gtk.Window):
         self.set_size_request(350, 400)
         self.add(child)
 
-        self.configure_id = None
         self.parent_widget = parent
-        self.parent_widget.connect('realize', self.on_parent_realize)
+
+        self._configure_id = None
+        self._parent_realize_id = self.parent_widget.connect(
+            'realize', self.on_parent_realize)
+
+    def destroy(self):
+        """
+            Various cleanups
+        """
+        if self._configure_id is not None:
+            self.disconnect(self._configure_id)
+
+        self.disconnect(self._parent_realize_id)
+
+        gtk.Window.destroy(self)
 
     def update_location(self):
         """
@@ -271,8 +319,8 @@ class AttachedWindow(gtk.Window):
             Prepares the window to
             follow its parent window
         """
-        if self.configure_id is None:
-            self.configure_id = parent.get_toplevel().connect(
+        if self._configure_id is None:
+            self._configure_id = parent.get_toplevel().connect(
                 'configure-event', self.on_parent_window_configure)
 
     def on_parent_window_configure(self, *e):
@@ -288,7 +336,7 @@ class PlaylistButton(gtk.ToggleButton):
         Also allows for drag and drop of files
         to add them to the playlist
     """
-    def __init__(self, main, queue, playlist, formatter, change_callback):
+    def __init__(self, main, queue, formatter, change_callback):
         gtk.ToggleButton.__init__(self, '')
 
         self.set_size_request(150, -1)
@@ -303,7 +351,10 @@ class PlaylistButton(gtk.ToggleButton):
 
         self.main = main
         self.formatter = formatter
-        self.playlist = Playlist(main, queue, playlist)
+        playlist = self.main.get_selected_playlist()
+        self.playlist = Playlist(main, queue, playlist.playlist)
+        self.playlist.model = playlist.model
+        self.playlist.list.set_model(self.playlist.model)
         self.playlist.scroll.set_property('shadow-type', gtk.SHADOW_IN)
         self.popup = AttachedWindow(self, self.playlist)
 
@@ -318,26 +369,45 @@ class PlaylistButton(gtk.ToggleButton):
             gtk.gdk.ACTION_DEFAULT |
             gtk.gdk.ACTION_MOVE)
 
-        self.connect('expose-event', self.on_expose)
-        self.connect('track-changed', change_callback)
-        self.connect('scroll-event', self.on_scroll)
-        self.connect('toggled', self.on_toggled)
-        self.connect_object('drag-data-received',
-            self.playlist.drag_data_received, self.playlist.list)
-        self.connect('drag-leave', self.on_drag_leave)
-        self.connect('drag-motion', self.on_drag_motion)
-        self.playlist.list.connect('drag-data-received',
+        self._track_changed_id = self.connect('track-changed',
+            change_callback)
+        self._scroll_event_id = self.connect('scroll-event',
+            self.on_scroll)
+        self._toggled_id = self.connect('toggled',
+            self.on_toggled)
+        self._drag_leave_id = self.connect('drag-leave',
+            self.on_drag_leave)
+        self._drag_motion_id = self.connect('drag-motion',
+            self.on_drag_motion)
+        self._drag_data_received_id = self.playlist.list.connect('drag-data-received',
             self.on_playlist_drag_data_received)
-        self.main.playlist_notebook.connect('switch-page',
+        self._switch_page_id = self.main.playlist_notebook.connect('switch-page',
             self.on_playlist_notebook_switch)
-        self.formatter.connect('format-changed', self.on_format_changed)
-        event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
+        self._format_changed_id = self.formatter.connect('format-changed',
+            self.on_format_changed)
+
         event.add_callback(self.on_playback_start, 'playback_player_start')
         event.add_callback(self.on_playback_end, 'playback_player_end')
         event.add_callback(self.on_track_start, 'playback_track_start')
-        event.add_callback(self.on_tracks_changed, 'tracks_added')
-        event.add_callback(self.on_tracks_changed, 'tracks_removed')
-        event.add_callback(self.on_tracks_changed, 'tracks_reordered')
+
+    def destroy(self):
+        """
+            Various cleanups
+        """
+        self.disconnect(self._track_changed_id)
+        self.disconnect(self._scroll_event_id)
+        self.disconnect(self._toggled_id)
+        self.disconnect(self._drag_leave_id)
+        self.disconnect(self._drag_motion_id)
+        self.disconnect(self._drag_data_received_id)
+        self.disconnect(self._switch_page_id)
+        self.disconnect(self._format_changed_id)
+
+        event.remove_callback(self.on_playback_start, 'playback_player_start')
+        event.remove_callback(self.on_playback_end, 'playback_player_end')
+        event.remove_callback(self.on_track_start, 'playback_track_start')
+
+        gtk.ToggleButton.destroy(self)
 
     def set_label(self, text):
         """
@@ -361,17 +431,6 @@ class PlaylistButton(gtk.ToggleButton):
 
         if track:
             self.set_label(self.formatter.format(track))
-
-    def on_playlist_current_changed(self, event, playlist, track):
-        """
-            Updates the currently selected track
-        """
-        if playlist != self.playlist.playlist:
-            try:
-                pos = self.playlist.playlist.index(track)
-            except ValueError:
-                return
-            self.playlist.playlist.set_current_pos(pos)
 
     def on_playback_start(self, event, player, track):
         """
@@ -397,46 +456,11 @@ class PlaylistButton(gtk.ToggleButton):
 
             gobject.idle_add(self.playlist.list.set_cursor, path)
 
-    def on_tracks_changed(self, event, playlist, *args):
-        """
-            Updates the local playlist as well as the
-            currently selected playlist in the main window
-        """
-        tracks = playlist.get_tracks()
-
-        if playlist == self.playlist.playlist:
-            self.main.get_selected_playlist()._set_tracks(tracks)
-            self.main.get_selected_playlist().playlist._set_ordered_tracks(tracks)
-        else:
-            if self.get_toplevel().get_property('visible'):
-                self.update_track_list(tracks)
-            else:
-                self._dirty = True
-
-    def update_track_list(self, tracks=None):
-        """
-            Updates track list on exposure
-        """
-        if tracks is None:
-            playlist = self.main.get_selected_playlist().playlist
-            tracks = playlist.get_tracks()
-
-        self.playlist._set_tracks(tracks)
-        self.playlist.playlist._set_ordered_tracks(tracks)
-
     def on_parent_hide(self, parent):
         """
             Makes sure to hide the popup
         """
         self.set_active(False)
-
-    def on_expose(self, togglebutton, event):
-        """
-            Performs deferred tasks
-        """
-        if self._dirty:
-            self.update_track_list()
-            self._dirty = False
 
     def on_scroll(self, togglebutton, event):
         """
@@ -507,10 +531,11 @@ class PlaylistButton(gtk.ToggleButton):
         """
             Updates the internal playlist
         """
-        page = notebook.get_nth_page(page_num)
-        if page is not None:
-            tracks = page.playlist.get_tracks()
-            self.playlist._set_tracks(tracks)
+        playlist = notebook.get_nth_page(page_num)
+
+        if playlist is not None:
+            self.playlist.model = playlist.model
+            self.playlist.list.set_model(self.playlist.model)
 
 gobject.type_register(PlaylistButton)
 gobject.signal_new('track-changed', PlaylistButton,
@@ -540,16 +565,38 @@ class TrackSelector(gtk.ComboBox):
 
         self.update_track_list(self.queue.current_playlist)
 
-        self.connect('expose-event', self.on_expose)
-        self.connect('changed', self.on_change)
-        self.connect('track-changed', changed_callback)
-        main.playlist_notebook.connect('switch-page',
+        self._track_changed_id = self.connect('track-changed',
+            changed_callback)
+        self._expose_event_id = self.connect('expose-event',
+            self.on_expose)
+        self._changed_id = self.connect('changed',
+            self.on_change)
+        self._switch_page_id = main.playlist_notebook.connect('switch-page',
             self.on_playlist_notebook_switch)
-        self.formatter.connect('format-changed', self.on_format_changed)
+        self._format_changed_id = self.formatter.connect('format-changed',
+            self.on_format_changed)
+
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_tracks_added, 'tracks_added')
         event.add_callback(self.on_tracks_removed, 'tracks_removed')
         event.add_callback(self.on_tracks_reordered, 'tracks_reordered')
+
+    def destroy(self):
+        """
+            Various cleanups
+        """
+        self.disconnect(self._track_changed_id)
+        self.disconnect(self._expose_event_id)
+        self.disconnect(self._changed_id)
+        self.disconnect(self._switch_page_id)
+        self.disconnect(self._format_changed_id)
+
+        event.remove_callback(self.on_playlist_current_changed, 'playlist_current_changed')
+        event.remove_callback(self.on_tracks_added, 'tracks_added')
+        event.remove_callback(self.on_tracks_removed, 'tracks_removed')
+        event.remove_callback(self.on_tracks_reordered, 'tracks_reordered')
+
+        gtk.ComboBox.destroy(self)
 
     def update_track_list(self, playlist=None, tracks=None):
         """
@@ -717,19 +764,37 @@ class ProgressBar(gtk.Alignment):
         self._press_event = None
         self.update_state()
 
-        self.connect('track-seeked', callback)
+        self.bar.add_events(gtk.gdk.BUTTON_PRESS_MASK |
+            gtk.gdk.BUTTON_RELEASE_MASK |
+            gtk.gdk.POINTER_MOTION_MASK)
+
+        self._track_seeked_id = self.connect('track-seeked',
+            callback)
+        self._button_press_event_id = self.bar.connect('button-press-event',
+            self.on_button_press)
+        self._button_release_event_id = self.bar.connect('button-release-event',
+            self.on_button_release)
+        self._motion_notify_event_id = self.bar.connect('motion-notify-event',
+            self.on_motion_notify)
 
         event.add_callback(self.on_playback_state_change, 'playback_player_start')
         event.add_callback(self.on_playback_state_change, 'playback_toggle_pause')
         event.add_callback(self.on_playback_state_change, 'playback_player_end')
 
-        self.bar.add_events(gtk.gdk.BUTTON_PRESS_MASK |
-            gtk.gdk.BUTTON_RELEASE_MASK |
-            gtk.gdk.POINTER_MOTION_MASK)
+    def destroy(self):
+        """
+            Various cleanups
+        """
+        event.remove_callback(self.on_playback_state_change, 'playback_player_start')
+        event.remove_callback(self.on_playback_state_change, 'playback_toggle_pause')
+        event.remove_callback(self.on_playback_state_change, 'playback_player_end')
 
-        self.bar.connect('button-press-event', self.on_button_press)
-        self.bar.connect('button-release-event', self.on_button_release)
-        self.bar.connect('motion-notify-event', self.on_motion_notify)
+        self.disconnect(self._track_seeked_id)
+        self.disconnect(self._button_press_event_id)
+        self.disconnect(self._button_release_event_id)
+        self.disconnect(self._motion_notify_event_id)
+
+        gtk.Alignment.destroy(self)
 
     def update_state(self):
         """

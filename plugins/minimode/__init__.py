@@ -72,7 +72,9 @@ class MiniMode(gtk.Window):
         self.set_title('Exaile')
         self.set_resizable(False)
 
-        self.formatter = mmwidgets.TrackFormatter('$tracknumber - $title')
+        self.formatter = mmwidgets.TrackFormatter(
+            self.get_option('plugin/minimode/track_title_format')
+        )
 
         self.box = mmwidgets.WidgetBox(spacing=3)
         frame = gtk.Frame()
@@ -128,6 +130,8 @@ class MiniMode(gtk.Window):
 
         self._active = False
         self._hide()
+        self.box.destroy()
+
         gtk.Window.destroy(self)
 
     def _hide(self):
@@ -226,8 +230,7 @@ class MiniMode(gtk.Window):
                 [self.exaile.gui.main, self.exaile.queue, self.formatter,
                  self.on_track_change]),
             'playlist_button': (mmwidgets.PlaylistButton,
-                [self.exaile.gui.main, self.exaile.queue,
-                 self.exaile.queue.current_playlist, self.formatter,
+                [self.exaile.gui.main, self.exaile.queue, self.formatter,
                  self.on_track_change])
         }
         # TODO: PlaylistProgressBar

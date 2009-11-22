@@ -736,7 +736,9 @@ class Playlist(object):
         """
             searches the playlist
         """
-        matcher = tracks.TracksMatcher(phrase)
+        # TODO: use shown columns
+        matcher = tracks.TracksMatcher(phrase, keyword_tags=('artist',
+            'album', 'title'))
         trs = tracks.search_tracks(self.ordered_tracks, [matcher])
         trs = (t.track for t in trs)
 

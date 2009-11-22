@@ -741,7 +741,7 @@ class Playlist(gtk.VBox):
     def remove_selected_tracks(self):
         self.remove_tracks(self.get_selected_tracks())
 
-    def remove_tracks(self, tracks):
+    def remove_tracks(self, trs):
         event.remove_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
 

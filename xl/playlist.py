@@ -883,7 +883,7 @@ class Playlist(object):
                 setattr(self, item, val)
         f.close()
 
-        tracks = []
+        trs = []
 
         for loc in locs:
             meta = None
@@ -891,7 +891,7 @@ class Playlist(object):
                 (loc, meta) = loc.split('\t')
 
             tr = None
-            tr = track.Track(uri=loc)
+            tr = tracks.Track(uri=loc)
 
             # readd meta
             if not tr: continue
@@ -902,9 +902,9 @@ class Playlist(object):
                     tr.set_tag_raw(k, v[0])
                 tr._scanning = False
 
-            tracks.append(tr)
+            trs.append(tr)
 
-        self.ordered_tracks = tracks
+        self.ordered_tracks = trs
 
     def randomize(self):
         """

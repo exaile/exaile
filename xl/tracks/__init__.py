@@ -83,10 +83,9 @@ def sort_tracks(fields, trackiter, reverse=False, use_locale=False):
             except:
                 return x
 
+
     def keyfunc(tr):
-        items = [lcmp(tr.get_tag_sort(field)) for field in fields]
-        items.append(track)
-        return items
+        return tuple((lcmp(tr.get_tag_sort(field)) for field in fields))
 
     return sorted(trackiter, key=keyfunc, reverse=reverse)
 

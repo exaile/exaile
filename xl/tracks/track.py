@@ -323,7 +323,7 @@ class Track(object):
             # add the original string after the lowered val so that
             # we sort case-sensitively if the case-insensitive values
             # are identical.
-            retval = retval.lower() + retval
+            retval = retval.lower() + " " + retval
             retval = self.strip_marks(retval)
             retval = self.expand_doubles(retval)
 

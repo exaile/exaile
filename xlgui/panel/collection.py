@@ -669,7 +669,7 @@ class CollectionPanel(panel.Panel):
             if depth > 0 and self.order[depth-1] == "tracknumber":
                 sort_by += ['discnumber', 'tracknumber']
             sort_by.reverse()
-            trs = tracks.sort_tracks(sort_by, trs)
+            trs = tracks.sort_tracks(self.order, trs)
         except IndexError:
             return # at the bottom of the tree
         try:

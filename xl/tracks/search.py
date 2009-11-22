@@ -29,12 +29,11 @@ __all__ = ['TracksMatcher', 'search_tracks']
 import logging
 logger = logging.getLogger(__name__)
 
-
 class SearchResultTrack(object):
     __slots__ = ['track', 'on_tags']
     def __init__(self, track):
         self.track = track
-        self.on_tags = []
+        self.on_tags = set()
 
 class _Matcher(object):
     __slots__ = ['tag', 'content', 'lower']
@@ -108,13 +107,13 @@ class _ManyMultiMetaMatcher(object):
 
     def match(self, srtrack):
         self.tags = []
+        matched = False
         for ma in self.matchers:
             if ma.match(srtrack):
+                if ma.tag:
+                    matched = True
                 self.tags.append(ma.tag)
-        if self.tags:
-            return True
-        else:
-            return False
+        return matched
 
 class TracksMatcher(object):
     __slots__ = ['matchers', 'case_sensitive', 'keyword_tags']
@@ -130,11 +129,10 @@ class TracksMatcher(object):
         for ma in self.matchers:
             if not ma.match(srtrack):
                 break
-            if ma.tag is not None and ma.tag not in srtrack.on_tags:
-                srtrack.on_tags.append(ma.tag)
+            if ma.tag is not None:
+                srtrack.on_tags.add(ma.tag)
             elif hasattr(ma, 'tags'):
-                srtrack.on_tags.append(
-                        [t for t in ma.tags if t not in srtrack.on_tags ])
+                srtrack.on_tags.update(ma.tags)
         else:
             return True
         return False

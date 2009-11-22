@@ -34,8 +34,8 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import event, xdg, collection, settings
-from xl.tracks import track, trackdb
+from xl import event, xdg, collection, settings, tracks
+
 import cgi, os, random, urllib
 from xl.nls import gettext as _
 
@@ -736,23 +736,19 @@ class Playlist(object):
         """
             searches the playlist
         """
-        searcher = trackdb.TrackSearcher()
-
-        search_db = {}
-        for tr in self.ordered_tracks:
-            search_db[tr.get_loc_for_io()] = tr
-        tracks = searcher.search(phrase, search_db)
-        tracks = tracks.values()
+        matcher = tracks.TracksMatcher(phrase)
+        trs = tracks.search_tracks(self.ordered_tracks, [matcher])
+        trs = (t.track for t in trs)
 
         if sort_fields:
             if sort_fields == 'RANDOM':
-                random.shuffle(tracks)
+                random.shuffle(trs)
             else:
-                tracks = track.sort_tracks(sort_fields, tracks)
+                trs = tracks.sort_tracks(sort_fields, trs)
         if return_lim != -1:
-            tracks = tracks[:return_lim]
+            trs = trs[:return_lim]
 
-        return tracks
+        return trs
 
     def toggle_random(self):
         """
@@ -1067,13 +1063,14 @@ class SmartPlaylist(object):
 
         search_string = self._create_search_string()
 
-        sort_field = ('artist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
         matcher = tracks.TracksMatcher(search_string)
-        trs = tracks.search_tracks(collection, [matcher])
+        trs = [ t.track for t in tracks.search_tracks(collection, [matcher]) ]
         if self.random_sort:
             trs = random.shuffle(trs)
         else:
+            sort_field = ('artist', 'date', 'album', 'discnumber',
+                    'tracknumber', 'title')
             trs = tracks.sort_tracks(sort_field, trs)
 
         pl = Playlist(name=self.get_name())

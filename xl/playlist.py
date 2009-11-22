@@ -1066,18 +1066,18 @@ class SmartPlaylist(object):
             return
 
         search_string = self._create_search_string()
-        sort_field = None
+
+        sort_field = ('artist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
+
+        matcher = tracks.TracksMatcher(search_string)
+        trs = tracks.search_tracks(collection, [matcher])
         if self.random_sort:
-            sort_field = 'RANDOM'
+            trs = random.shuffle(trs)
         else:
-            sort_field = ('artist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
+            trs = tracks.sort_tracks(sort_field, trs)
 
         pl = Playlist(name=self.get_name())
-
-        tracks = list(collection.search(search_string, sort_field,
-            self.track_count))
-
-        pl.add_tracks(tracks)
+        pl.add_tracks(trs)
 
         return pl
 
@@ -1100,21 +1100,21 @@ class SmartPlaylist(object):
                 value = float((100.0*value)/steps)
             if op == ">=" or op == "<=":
                 s += '( %(field)s%(op)s%(value)s ' \
-                    'OR %(field)s==%(value)s )' % \
+                    '| %(field)s==%(value)s )' % \
                     {
                         'field': field,
                         'value': value,
                         'op':    op[0]
                     }
             elif op == "!=" or op == "!==":
-                s += 'NOT %(field)s%(op)s"%(value)s"' % \
+                s += '! %(field)s%(op)s"%(value)s"' % \
                     {
                         'field': field,
                         'value': value,
                         'op':    op[1:]
                     }
             elif op == "><":
-                s+= '( %(field)s>%(value1)s AND ' \
+                s+= '( %(field)s>%(value1)s ' \
                     '%(field)s<%(value2)s )' % \
                     {
                         'field':  field,
@@ -1132,7 +1132,7 @@ class SmartPlaylist(object):
             params.append(s)
 
         if self.or_match:
-            return ' OR '.join(params)
+            return ' | '.join(params)
         else:
             return ' '.join(params)
 

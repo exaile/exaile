@@ -1,4 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen
+# -*- coding: utf-8
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,6 +33,21 @@ from xl import common, settings, event
 import xl.metadata as metadata
 logger = logging.getLogger(__name__)
 
+# map chars to appropriate subsitutes for sorting
+_sortcharmap = {
+        u'ß': u'ss', # U+00DF
+        u'æ': u'ae', # U+00E6
+        u'ĳ': u'ij', # U+0133
+        u'ŋ': u'ng', # U+014B
+        u'œ': u'oe', # U+0153
+        u'ƕ': u'hv', # U+0195
+        u'ǆ': u'dz', # U+01C6
+        u'ǉ': u'lj', # U+01C9
+        u'ǌ': u'nj', # U+01CC
+        u'ǳ': u'dz', # U+01F3
+        u'ҥ': u'ng', # U+04A5
+        u'ҵ': u'ts', # U+04B5
+        }
 
 
 class Track(object):
@@ -302,11 +318,12 @@ class Track(object):
                 tag not in ('tracknumber', 'discnumber'):
             retval = self.strip_leading(retval)
             retval = self.the_cutter(retval)
+            retval = self.expand_doubles(retval)
             if join:
                 retval = self.join_values(retval)
             # add the original string after the lowered val so that
             # we sort case-sensitively if the case-insensitive values
-            # are identical. 
+            # are identical.
             retval = retval.lower() + retval
 
         return retval
@@ -471,3 +488,16 @@ class Track(object):
             return [Track.strip_marks(v) for v in values]
         return ''.join((c for c in unicodedata.normalize('NFD', values)
             if unicodedata.category(c) != 'Mn'))
+
+    @staticmethod
+    def expand_doubles(values):
+        """
+            turns characters like æ into values suitable for sorting,
+            like 'ae'. see _sortcharmap for the mapping.
+
+            values must be unicode objects or this wont replace anything.
+        """
+        if isinstance(values, list):
+            return [Track.expand_doubles(v) for v in values]
+        return ''.join((_sortcharmap.get(c, c) for c in values))
+

@@ -318,14 +318,14 @@ class Track(object):
                 tag not in ('tracknumber', 'discnumber'):
             retval = self.strip_leading(retval)
             retval = self.the_cutter(retval)
-            retval = self.strip_marks(retval)
-            retval = self.expand_doubles(retval)
             if join:
                 retval = self.join_values(retval)
             # add the original string after the lowered val so that
             # we sort case-sensitively if the case-insensitive values
             # are identical.
             retval = retval.lower() + retval
+            retval = self.strip_marks(retval)
+            retval = self.expand_doubles(retval)
 
         return retval
 

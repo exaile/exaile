@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-15 17:50+0100\n"
-"PO-Revision-Date: 2009-11-20 17:31+0000\n"
+"PO-Revision-Date: 2009-11-21 20:20+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-11-21 04:44+0000\n"
+"X-Launchpad-Export-Date: 2009-11-22 04:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -64,7 +64,7 @@ msgstr "Queryspeler"
 
 #: ../xl/main.py:308
 msgid "Show a popup of the currently playing track"
-msgstr "Laat een pop-up van het huidige nummer zien"
+msgstr "Pop-up van het huidige nummer tonen"
 
 #: ../xl/main.py:310
 msgid "Print the title of current track"
@@ -100,7 +100,7 @@ msgstr "Geef de vooruitgang binnen de huidige track weer als percentage"
 
 #: ../xl/main.py:329
 msgid "Volume options"
-msgstr "Volumeopties"
+msgstr "Volume-opties"
 
 #: ../xl/main.py:331
 msgid "Increases the volume by VOL%"
@@ -124,7 +124,7 @@ msgstr "Start een nieuwe instantie"
 
 #: ../xl/main.py:343
 msgid "Start minimized (to tray, if possible)"
-msgstr "Start geminimaliseerd (naar de systeembalk, indien mogelijk)"
+msgstr "Geminimaliseerd starten (naar het systeemvak, indien mogelijk)"
 
 #: ../xl/main.py:345
 msgid "Toggle visibility of the GUI (if possible)"
@@ -133,7 +133,7 @@ msgstr "Zichtbaarheid van de GUI wisselen (indien mogelijk)"
 #: ../xl/main.py:347
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
-msgstr "Start in veilige modus - soms hander wanneer je problemen hebt"
+msgstr "Start in veilige modus - soms nuttig wanneer je problemen hebt"
 
 #: ../xl/main.py:350
 msgid "Force import of old data from 0.2.x. Overwrites current data."
@@ -154,7 +154,7 @@ msgstr "Stel de datamap in"
 
 #: ../xl/main.py:361
 msgid "Show debugging output"
-msgstr "Laat debuguitvoer zien"
+msgstr "Debug-uitvoer tonen"
 
 #: ../xl/main.py:364
 msgid "Enable debugging of xl.event. Generates LOTS of output"
@@ -283,16 +283,16 @@ msgstr "Een onbekend type instelling werd gevonden!"
 
 #: ../xl/plugins.py:84
 msgid "Plugin archive is not in the correct format"
-msgstr "Pluginarchief is niet in het goede formaat"
+msgstr "Plug-inarchief is niet in het goede formaat"
 
 #: ../xl/plugins.py:91
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr "Een plugin met de naam \"%s\" is al geïnstalleerd"
+msgstr "Een plug-in met de naam \"%s\" is al geïnstalleerd"
 
 #: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
-msgstr "Pluginarchief bevat een onveilig pad"
+msgstr "Plug-inarchief bevat een onveilig pad"
 
 #: ../xl/playlist.py:395
 #, python-format
@@ -502,7 +502,7 @@ msgstr "Streamen..."
 
 #: ../xlgui/main.py:215
 msgid "Close tab"
-msgstr "Tab sluiten"
+msgstr "Tabblad sluiten"
 
 #: ../xlgui/main.py:273
 msgid "New playlist title:"
@@ -595,11 +595,11 @@ msgstr "Nieuwe afspeellijst"
 
 #: ../xlgui/menu.py:157
 msgid "Add to custom playlist"
-msgstr "Voeg aan aangepaste afspeellijst toe"
+msgstr "Aan aangepaste afspeellijst toevoegen"
 
 #: ../xlgui/menu.py:160 ../xlgui/menu.py:487
 msgid "Remove"
-msgstr "Verwijder"
+msgstr "Verwijderen"
 
 #: ../xlgui/menu.py:163 ../xlgui/menu.py:248
 #: ../data/ui/trackproperties_dialog.ui.h:2
@@ -636,7 +636,7 @@ msgstr "Alle nummers _wissen"
 
 #: ../xlgui/menu.py:222
 msgid "_Close Playlist"
-msgstr "_Sluit afspeellijst"
+msgstr "Afspeellijst _sluiten"
 
 #: ../xlgui/menu.py:243
 msgid "Append to Current"
@@ -644,7 +644,7 @@ msgstr "Toevoegen aan huidige afspeellijst"
 
 #: ../xlgui/menu.py:245
 msgid "Queue Items"
-msgstr "Voeg items toe aan wachtrij"
+msgstr "Items aan wachtrij toevoegen"
 
 #: ../xlgui/menu.py:310
 msgid "Delete track"
@@ -676,7 +676,7 @@ msgstr "Exporteren"
 
 #: ../xlgui/menu.py:401
 msgid "Delete Playlist"
-msgstr "Verwijder afspeellijst"
+msgstr "Afspeellijst verwijderen"
 
 #: ../xlgui/menu.py:411
 msgid "Export as..."
@@ -684,19 +684,19 @@ msgstr "Exporteren als..."
 
 #: ../xlgui/menu.py:416 ../xlgui/__init__.py:143
 msgid "M3U Playlist"
-msgstr "M3U afspeellijst"
+msgstr "M3U-afspeellijst"
 
 #: ../xlgui/menu.py:417 ../xlgui/__init__.py:144
 msgid "PLS Playlist"
-msgstr "PLS afspeellijst"
+msgstr "PLS-afspeellijst"
 
 #: ../xlgui/menu.py:418 ../xlgui/__init__.py:145
 msgid "ASX Playlist"
-msgstr "ASX afspeellijst"
+msgstr "ASX-afspeellijst"
 
 #: ../xlgui/menu.py:419 ../xlgui/__init__.py:146
 msgid "XSPF Playlist"
-msgstr "XSPF afspeellijst"
+msgstr "XSPF-afspeellijst"
 
 #: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:984
 msgid "Are you sure you want to permanently delete the selected playlist?"
@@ -748,7 +748,7 @@ msgstr "Geen nummer"
 
 #: ../xlgui/__init__.py:138
 msgid "Export current playlist..."
-msgstr "Huidige afspeellijst exporteren"
+msgstr "Huidige afspeellijst exporteren..."
 
 #: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:939
 msgid "Invalid file extension, file not saved"
@@ -784,12 +784,12 @@ msgstr "Alle bestanden"
 
 #: ../xlgui/__init__.py:334
 msgid "Scanning collection..."
-msgstr "Collectie scannen"
+msgstr "Collectie herladen..."
 
 #: ../xlgui/__init__.py:439
 #, python-format
 msgid "Scanning %s..."
-msgstr "%s scannen..."
+msgstr "%s herladen..."
 
 #: ../xlgui/guiutil.py:430
 msgid "Muted"
@@ -802,7 +802,7 @@ msgstr "Maximum volume"
 #: ../xlgui/guiutil.py:729
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr "%(playlist_count)d laten zien, %(collection_count)d in collectie"
+msgstr "%(playlist_count)d zichtbaar, %(collection_count)d in collectie"
 
 #: ../xlgui/guiutil.py:742
 #, python-format
@@ -839,7 +839,7 @@ msgstr "Stuurprogramma"
 
 #: ../xlgui/collection.py:152
 msgid "Add a directory"
-msgstr "Voeg een map toe"
+msgstr "Een map toevoegen"
 
 #: ../xlgui/collection.py:169
 msgid ""
@@ -874,7 +874,7 @@ msgstr "Bestandsnaam"
 
 #: ../xlgui/plcolumns.py:196
 msgid "Playcount"
-msgstr "Aantal malen afgespeeld"
+msgstr "Aantal keren afgespeeld"
 
 #: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
@@ -1021,7 +1021,7 @@ msgstr "hoogstens"
 
 #: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:162
 msgid "Plays"
-msgstr "Malen afgespeeld"
+msgstr "Keren afgespeeld"
 
 #: ../xlgui/panel/playlists.py:107 ../xlgui/panel/playlists.py:163
 msgid "Year"
@@ -1054,7 +1054,7 @@ msgstr "Nieuwe naam aangepaste afspeellijst:"
 
 #: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
-msgstr "Voeg toe aan nieuwe speellijst..."
+msgstr "Aan nieuwe afspeellijst toevoegen..."
 
 #: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:604
 #: ../xlgui/panel/playlists.py:677
@@ -1080,7 +1080,7 @@ msgstr "Intelligente afspeellijst bewerken"
 #: ../xlgui/panel/radio.py:108 ../xlgui/panel/radio.py:466
 #: ../xlgui/panel/radio.py:542
 msgid "Loading streams..."
-msgstr "Streams aan het laden..."
+msgstr "Streams laden..."
 
 #: ../xlgui/panel/radio.py:178
 msgid "Add Radio Station"
@@ -1096,7 +1096,7 @@ msgstr "Opgeslagen stations"
 
 #: ../xlgui/panel/radio.py:248
 msgid "Radio Streams"
-msgstr "Radiostreams"
+msgstr "Radio-streams"
 
 #: ../xlgui/panel/radio.py:277
 msgid "Refresh"
@@ -1126,7 +1126,7 @@ msgstr ""
 
 #: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
-msgstr "Collectie opnieuw doorzoeken"
+msgstr "Collectie opnieuw laden"
 
 #: ../xlgui/panel/device.py:127
 #, python-format
@@ -1151,7 +1151,7 @@ msgstr "Voorkeuren"
 
 #: ../xlgui/prefs/__init__.py:94 ../xlgui/prefs/plugin_prefs.py:34
 msgid "Plugins"
-msgstr "Plugins"
+msgstr "Plug-ins"
 
 #: ../xlgui/prefs/collection_prefs.py:22 ../data/ui/device_panel.ui.h:1
 #: ../data/ui/collection_panel.ui.h:6
@@ -1177,11 +1177,11 @@ msgstr "Afspeellijsten"
 
 #: ../xlgui/prefs/osd_prefs.py:32
 msgid "On Screen Display"
-msgstr "On Screen Display"
+msgstr "Scherminfovenster"
 
 #: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"
-msgstr "Plugin"
+msgstr "Plug-in"
 
 #: ../xlgui/prefs/plugin_prefs.py:106
 #: ../plugins/multialarmclock/alarmclk.ui.h:6
@@ -1191,11 +1191,11 @@ msgstr "Ingeschakeld"
 
 #: ../xlgui/prefs/plugin_prefs.py:128
 msgid "Choose a plugin"
-msgstr "Selecteer een plugin"
+msgstr "Selecteer een plug-in"
 
 #: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
-msgstr "Pluginarchieven"
+msgstr "Plug-inarchieven"
 
 #: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
@@ -1203,7 +1203,7 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
-"<b>Kon plugin niet inschakelen:</b>\n"
+"<b>Kon plug-in niet inschakelen:</b>\n"
 "%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
@@ -1212,7 +1212,7 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
-"<b>Kon plugin niet uitschakelen:</b>\n"
+"<b>Kon plug-in niet uitschakelen:</b>\n"
 "%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
@@ -1249,7 +1249,7 @@ msgstr "In willekeurige volgorde afspelen"
 
 #: ../xlgui/tray.py:103 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
-msgstr "Herhaal afspeellijst"
+msgstr "Afspeellijst herhalen"
 
 #: ../xlgui/tray.py:108
 msgid "Dynamically add similar tracks"
@@ -1257,7 +1257,7 @@ msgstr "Soortgelijke nummers dynamisch toevoegen."
 
 #: ../xlgui/tray.py:118
 msgid "Remove current track from playlist"
-msgstr "Verwijder huidig nummer van de afspeellijst"
+msgstr "Huidig nummer uit de afspeellijst verwijderen"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
@@ -1291,7 +1291,7 @@ msgstr "Albumh_oezen"
 
 #: ../data/ui/main.ui.h:4
 msgid "Clear Playlist"
-msgstr "Wis afspeellijst"
+msgstr "Afspeellijst wissen"
 
 #: ../data/ui/main.ui.h:5
 msgid "Click to view Queue"
@@ -1323,7 +1323,7 @@ msgstr "Volgorde van de huidige afspeellijst willekeurig maken"
 
 #: ../data/ui/main.ui.h:13
 msgid "Re_scan Collection"
-msgstr "Herlaad collectie"
+msgstr "Collectie opnieuw _laden"
 
 #: ../data/ui/main.ui.h:15 ../data/ui/files_panel.ui.h:6
 #: ../data/ui/collection_panel.ui.h:11
@@ -1332,7 +1332,7 @@ msgstr "Zoeken: "
 
 #: ../data/ui/main.ui.h:17
 msgid "Start/Pause Playback"
-msgstr "Starten/pauzeren afspelen"
+msgstr "Afspelen starten/pauzeren"
 
 #: ../data/ui/main.ui.h:18
 msgid ""
@@ -1398,7 +1398,7 @@ msgstr "_Vergrootbaar"
 
 #: ../data/ui/main.ui.h:36
 msgid "_Tools"
-msgstr "_Gereedschappen"
+msgstr "E_xtra"
 
 #: ../data/ui/main.ui.h:37
 msgid "_View"
@@ -1458,7 +1458,7 @@ msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Geen plugin geselecteerd</b>"
+msgstr "<b>Geen plug-in geselecteerd</b>"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:2
 msgid "Authors:"
@@ -1466,7 +1466,7 @@ msgstr "Auteurs:"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:3
 msgid "Available Plugins"
-msgstr "Beschikbare plugins"
+msgstr "Beschikbare plug-ins"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:4
 msgid "Description:"
@@ -1482,15 +1482,15 @@ msgstr "Updates Installeren"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:7
 msgid "Install a third party plugin from a file"
-msgstr "Installeer een plugin van een derde partij vanuit een bestand"
+msgstr "Installeer een plug-in van een derde partij vanuit een bestand"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr "Installeer pluginbestand"
+msgstr "Installeer plug-inbestand"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
-msgstr "Geïnstalleerde plugins"
+msgstr "Geïnstalleerde plug-ins"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:10
 msgid "Updates"
@@ -1564,9 +1564,7 @@ msgstr "Vragen om aangepaste afspeellijsten op te slaan bij het sluiten"
 msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
-msgstr ""
-"<b>Verplaats het Op Scherm Display venster naar de locatie waar je het wilt "
-"hebben verschijnen</b>"
+msgstr "<b>Verplaats het Scherminfovenster naar de gewenste locatie</b>"
 
 #: ../data/ui/osd_prefs_pane.ui.h:2
 msgid "Background Color:"
@@ -1574,11 +1572,11 @@ msgstr "Achtergrondkleur:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:3
 msgid "Display OSD when hovering over tray icon"
-msgstr "Toon informatievenster bij zweven over systeemvakpictogram"
+msgstr "Scherminfovenster tonen bij rollen over systeemvakpictogram"
 
 #: ../data/ui/osd_prefs_pane.ui.h:4
 msgid "Display a progressbar in the OSD"
-msgstr "Voortgangsbalk tonen in de OSD"
+msgstr "Voortgangsbalk tonen in het Scherminfovenster"
 
 #: ../data/ui/osd_prefs_pane.ui.h:5
 msgid "Opacity Level:"
@@ -1586,7 +1584,7 @@ msgstr "Doorzichtigheidsniveau:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:6
 msgid "Show OSD on track change"
-msgstr "Toon infovenster bij nummerwijziging"
+msgstr "Scherminfovenster tonen bij veranderen van nummer"
 
 #: ../data/ui/osd_prefs_pane.ui.h:7
 msgid "Text Color"
@@ -1720,7 +1718,7 @@ msgstr "OSS"
 
 #: ../data/ui/playback_prefs_pane.ui.h:10
 msgid "Playback engine (requires restart): "
-msgstr "Afspeelengine (opnieuw opstarten vereist) "
+msgstr "Afspeel-engine (vereist herstart): "
 
 #: ../data/ui/playback_prefs_pane.ui.h:11
 msgid "PulseAudio"
@@ -1756,9 +1754,9 @@ msgid ""
 "Drag to the location you'd like the\n"
 "OSD to appear"
 msgstr ""
-"<b>OSD</b>\n"
-"Versleep naar de locatie waar je het\n"
-"OSD wilt hebben verschijnen"
+"<b>Scherminfovenster</b>\n"
+"Versleep Scherminfovenster naar\n"
+"de gewenste locatie"
 
 #: ../data/ui/osd_window.ui.h:4
 msgid "Popup"
@@ -1770,7 +1768,7 @@ msgstr "<b>Collectie is leeg.</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
-msgstr "Voeg muziek toe"
+msgstr "Muziek toevoegen"
 
 #: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
@@ -1789,8 +1787,8 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
-"Vernieuw collectie weergave\n"
-"(Houdt Shift ingedrukt om de collectie te herscannen)"
+"Getoonde collectie vernieuwen\n"
+"(Houdt Shift ingedrukt om de collectie opnieuw te laden)"
 
 #: ../data/ui/collection_panel.ui.h:12
 msgid "Year - Album"
@@ -1802,7 +1800,7 @@ msgstr "Jaar - Artiest"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:1
 msgid "Always show tab bar"
-msgstr "Laat altijd tabbalk zien"
+msgstr "Tabbladbalk altijd tonen"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:2
 msgid "Bottom"
@@ -1834,7 +1832,7 @@ msgstr "Systeemvakpictogram tonen"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:10
 msgid "Tab placement:"
-msgstr "Tabplaatsing:"
+msgstr "Tabbladpositie:"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:11
 msgid "Top"
@@ -1842,7 +1840,7 @@ msgstr "Bovenkant"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:12
 msgid "Use alpha transparency (if supported)"
-msgstr "Gebruik alfa transparantie (indien ondersteund)"
+msgstr "Alfa-transparantie gebruiken (indien ondersteund)"
 
 #: ../plugins/multialarmclock/__init__.py:412
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -1893,7 +1891,7 @@ msgstr "Schijfnummer"
 
 #: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:77
 msgid "Play count"
-msgstr "Aantal malen afgespeeld"
+msgstr "Aantal keren afgespeeld"
 
 #: ../plugins/daapclient/__init__.py:163
 msgid "Manually..."
@@ -1959,7 +1957,7 @@ msgstr "Ophalen nummerinformatie..."
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr "Notify-osd notificaties"
+msgstr "Notify-Scherminfovenster notificaties"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
@@ -2212,7 +2210,7 @@ msgstr "Streamripper kan alleen streams opnemen."
 
 #: ../plugins/streamripper/__init__.py:87
 msgid "Error executing streamripper"
-msgstr "Fout tijdens het uitvoeren van streamripper"
+msgstr "Fout tijdens het uitvoeren van Streamripper"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:1
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
@@ -2376,7 +2374,7 @@ msgstr "Albumhoezen tonen"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
-msgstr "Weergave overlapping:"
+msgstr "Weergave-overlapping:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"
@@ -2392,7 +2390,7 @@ msgstr "Wachtwoord:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show Menuitem to toggle Submission"
-msgstr "Menuitem weergeven om Submission aan/uit te zetten"
+msgstr "Menu-item tonen om Submission aan/uit te zetten"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit tracks using Audioscrobbler"
@@ -2469,11 +2467,11 @@ msgstr "Aantal downloads"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
-msgstr "Aantal maal beluisterd"
+msgstr "Aantal keren beluisterd"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
-msgstr "Aantal malen toegevoegd aan afspeellijst"
+msgstr "Aantal keren toegevoegd aan afspeellijst"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Order By:"
@@ -2529,11 +2527,11 @@ msgstr "Als het afspelen gestart, gepauzeerd of gestopt wordt"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "On Track Change"
-msgstr "Als er van nummer wordt veranderd"
+msgstr "Als het nummer verandert"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "On Tray Icon Hover"
-msgstr "Als je met de muis over het systeemvakpictogram gaat"
+msgstr "Als je met de muis over het systeemvakpictogram rolt"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "Summary:"
@@ -2546,9 +2544,9 @@ msgid ""
 "by their respective values. The title will be replaced by \"Unknown\" if it "
 "is empty."
 msgstr ""
-"De tags \"%(title)s\", \"%(artist)s\", en \"%(album)s\" zullen worden "
+"De labels \"%(title)s\", \"%(artist)s\", en \"%(album)s\" zullen worden "
 "vervangen door hun respectievelijke waarden. De titel zal worden vervangen "
-"met \"Unknown\" als hij leeg is."
+"door \"Onbekend\" als hij leeg is."
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 msgid "Use Album Covers As Icons"
@@ -2560,15 +2558,15 @@ msgstr "Gebruik Media Iconen voor Pauzeren, Stoppen en Hervatten"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "When GUI is Focused"
-msgstr "Wanneer de GUI is gefocust"
+msgstr "Als de GUI is gefocust"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API Key:"
-msgstr "API Sleutel:"
+msgstr "API-sleutel:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret Key:"
-msgstr "Geheime Sleutel:"
+msgstr "Geheime sleutel:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
@@ -2628,7 +2626,7 @@ msgstr "Verdonker de gespeelde sectie in plaats van een cursor te gebruiken"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Darkness level:"
-msgstr "Donkerheidsniveau"
+msgstr "Donkerheidsniveau:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Show only waveform, not mood"
@@ -2657,7 +2655,7 @@ msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Fallback correction level (dB):"
-msgstr "Terugval correctie niveau (dB):"
+msgstr "Terugvalcorrectieniveau (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
@@ -2666,7 +2664,7 @@ msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Prefer per-album correction"
-msgstr "Per-album correctie preferreren"
+msgstr "Per-album correctie prefereren"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Protect against noise caused by over-amplification"
@@ -2696,10 +2694,10 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place"
 msgstr ""
-"Bericht dat weergegeven zal worden in de notificatie. De tags  "
+"Bericht dat weergegeven zal worden in de notificatie. De labels  "
 "\"%(title)s\", \"%(artist)s\", en \"%(album)s\" zullen worden vervangen door "
-"hun respectievelijke waarden. Als een tag geen waarde heeft, zal \"Unknown\" "
-"worden ingevuld in zijn plaats."
+"hun respectievelijke waarden. Als een label geen waarde heeft, zal hij "
+"worden vervangen door \"Onbekend\"."
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:5
 msgid "Only album"
@@ -2723,7 +2721,7 @@ msgstr "Lettertype:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Terminal Opacity:"
-msgstr "Terminal opaciteit:"
+msgstr "Doorzichtigheid terminal:"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:1
 msgid "Always on top"
@@ -2735,11 +2733,11 @@ msgstr "Vensterdecoraties tonen"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:3
 msgid "Show in tasklist"
-msgstr "Laat zien in takenlijst"
+msgstr "Tonen in takenlijst"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:4
 msgid "Show on all desktops"
-msgstr "Laat zien op alle desktops"
+msgstr "Op alle bureaubladen tonen"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:5
 msgid "Track title format:"
@@ -2747,7 +2745,7 @@ msgstr "Titelformaat nummer:"
 
 #: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Relay Port:"
-msgstr "Doorgavepoort:"
+msgstr "Poortnummer:"
 
 #: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Save Location:"
@@ -2761,11 +2759,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Speel muziek op gespecifieerde momenten en dagen.\n"
+"Speel muziek af op gespecificeerde momenten en dagen.\n"
 "\n"
-"Noot dat als dat moment aanbreekt, Exaile zal veronderstellen dat je op de "
-"play-knop hebt gedrukt, dus zorg dat de muziek die je wilt horen in jouw "
-"afspeellijst staat"
+"Merk op dat als dat moment aanbreekt, Exaile zal veronderstellen dat je op "
+"de Afspelen-knop hebt gedrukt, dus zorg dat de muziek die je wilt horen in "
+"jouw afspeellijst staat"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2775,11 +2773,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Speel muziek op een specifiek moment.\n"
+"Speel muziek af op een specifiek moment.\n"
 "\n"
-"Noot dat als dat moment aanbreekt, Exaile zal veronderstellen dat je op de "
-"play-knop hebt gedrukt, dus zorg dat de muziek die je wilt horen in jouw "
-"afspeellijst staat"
+"Merk op dat als dat moment aanbreekt, Exaile zal veronderstellen dat je op "
+"de Afspelen-knop hebt gedrukt, dus zorg dat de muziek die je wilt horen in "
+"jouw afspeellijst staat"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -2880,8 +2878,8 @@ msgid ""
 msgstr ""
 "Zoekt Amazon af naar albumhoezen\n"
 "\n"
-"Om deze plugin te kunnen gebruiken is een AWS API key en een geheime sleutel "
-"nodig."
+"Om deze plug-in te kunnen gebruiken is een AWS API-sleutel en een geheime "
+"sleutel nodig."
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
@@ -2913,7 +2911,7 @@ msgstr "Ondersteuning voor iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr "Een plugin voor iPod-ondersteuning"
+msgstr "Een plug-in voor iPod-ondersteuning"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -2946,19 +2944,19 @@ msgstr "Hallo Wereld"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr "Een simpele plugin om het pluginsysteem te testen"
+msgstr "Een simpele plug-in om het plug-insysteem te testen"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr "GNOME Multimedia Toetsen"
+msgstr "GNOME-Multimediatoetsen"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
-"Voegt ondersteuning toe voor het besturen van Exaile via GNOME's multimedia "
-"toetsen systeem. Compatibel met GNOME >= 2.20.x"
+"Voegt ondersteuning toe voor het besturen van Exaile via het GNOME-"
+"multimediatoetsensysteem. Compatibel met GNOME >= 2.20.x"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
@@ -2966,7 +2964,7 @@ msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr "Globale sneltoetsen gebruikmakende van xlib (mmkeys.so)"
+msgstr "Globale sneltoetsen die gebruikmaken van xlib (mmkeys.so)"
 
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
@@ -2974,7 +2972,7 @@ msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr "Plugin om lyrics op te halen van lyricsfly.com"
+msgstr "Plug-in om songteksten op te halen van lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -3028,7 +3026,7 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
-"Geeft diverse informatie weer over het nummer dat nu aan het spelen is.\n"
+"Toont diverse informatie over het nummer dat nu aan het spelen is.\n"
 "Vereisten: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (ook "
 "bekend als PIL)"
 
@@ -3046,7 +3044,7 @@ msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr "Plugin om lyrics op te halen van lyricwiki.org"
+msgstr "Plug-in om songteksten op te halen van lyricwiki.org"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-15 17:50+0100\n"
-"PO-Revision-Date: 2009-11-21 20:20+0000\n"
+"PO-Revision-Date: 2009-11-22 09:00+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-11-22 04:48+0000\n"
+"X-Launchpad-Export-Date: 2009-11-23 04:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -1177,7 +1177,7 @@ msgstr "Afspeellijsten"
 
 #: ../xlgui/prefs/osd_prefs.py:32
 msgid "On Screen Display"
-msgstr "Scherminfovenster"
+msgstr "Infoschermvenster"
 
 #: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"
@@ -1564,7 +1564,7 @@ msgstr "Vragen om aangepaste afspeellijsten op te slaan bij het sluiten"
 msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
-msgstr "<b>Verplaats het Scherminfovenster naar de gewenste locatie</b>"
+msgstr "<b>Verplaats het Infoschermvenster naar de gewenste locatie</b>"
 
 #: ../data/ui/osd_prefs_pane.ui.h:2
 msgid "Background Color:"
@@ -1572,11 +1572,11 @@ msgstr "Achtergrondkleur:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:3
 msgid "Display OSD when hovering over tray icon"
-msgstr "Scherminfovenster tonen bij rollen over systeemvakpictogram"
+msgstr "Infoschermvenster tonen bij rollen over systeemvakpictogram"
 
 #: ../data/ui/osd_prefs_pane.ui.h:4
 msgid "Display a progressbar in the OSD"
-msgstr "Voortgangsbalk tonen in het Scherminfovenster"
+msgstr "Voortgangsbalk tonen in het Infoschermvenster"
 
 #: ../data/ui/osd_prefs_pane.ui.h:5
 msgid "Opacity Level:"
@@ -1584,7 +1584,7 @@ msgstr "Doorzichtigheidsniveau:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:6
 msgid "Show OSD on track change"
-msgstr "Scherminfovenster tonen bij veranderen van nummer"
+msgstr "Infoschermvenster tonen bij veranderen van nummer"
 
 #: ../data/ui/osd_prefs_pane.ui.h:7
 msgid "Text Color"
@@ -1754,8 +1754,8 @@ msgid ""
 "Drag to the location you'd like the\n"
 "OSD to appear"
 msgstr ""
-"<b>Scherminfovenster</b>\n"
-"Versleep Scherminfovenster naar\n"
+"<b>Infoschermvenster</b>\n"
+"Versleep Infoschermvenster naar\n"
 "de gewenste locatie"
 
 #: ../data/ui/osd_window.ui.h:4
@@ -1957,7 +1957,7 @@ msgstr "Ophalen nummerinformatie..."
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr "Notify-Scherminfovenster notificaties"
+msgstr "Notify-Infoschermvenster notificaties"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53

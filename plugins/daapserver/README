@@ -1,0 +1,56 @@
+* Requirements
+
+python2.4 or later ; mutagen
+<http://www.sacredchao.net/quodlibet/wiki/Development/Mutagen> ;
+pybonjour <http://o2s.csail.mit.edu/o2s-wiki/pybonjour>
+
+* Installing
+
+** Ubuntu/Debian
+
+> sudo apt-get install python-mutagen
+> wget http://o2s.csail.mit.edu/download/pybonjour/pybonjour-1.1.0.tar.gz
+> tar xzvf pybonjour-1.1.0.tar.gz
+> cd pybonjour-1.1.0
+> sudo python setup.py install
+
+** Mac OS X (with MacPorts)
+
+> sudo port install python25
+> sudo port install py25-hashlib
+> sudo port install py25-zlib
+> wget http://www.sacredchao.net/~piman/software/mutagen-1.12.tar.gz
+> tar xzvf mutagen-1.12.tar.gz
+> cd mutagen-1.12
+> sudo python2.5 setup.py install
+> cd ..
+> wget http://o2s.csail.mit.edu/download/pybonjour/pybonjour-1.1.0.tar.gz
+> tar xzvf pybonjour-1.1.0.tar.gz
+> cd pybonjour-1.1.0
+> sudo python2.5 setup.py install
+> cd ..
+
+* Running
+
+> cd spydaap
+> mkdir media
+
+Media is the default directory where spydaap looks for media files. It
+can be change by editing config.py.
+
+> ln -s ~/music media/
+> ln -s ~/more-music media
+
+Link in all the directories whose files you'd like to make available.
+
+> ./spydaap [ on Ubuntu/Debian ]
+
+> python2.5 spydaap.py [ on Mac OS X if python2.5 is not your default python ]
+
+Easy daemonizing will come soon.
+
+* Customizing
+
+See config.py for information on setting port, name, etc. There also
+examples of some custom smart playlists. For writing your own smart
+playlists, see spydaap/playlists.py.

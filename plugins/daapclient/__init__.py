@@ -15,28 +15,27 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, gtk, dbus, logging, time, threading
-from gettext import gettext as _
+import os
+import gtk
+import dbus
+import logging
+import time
+import threading
 import gobject
+import xlgui
+from gettext import gettext as _
 from xl import collection, event, track, common
 from xlgui.panel.collection import CollectionPanel
-import xlgui
 from xlgui import guiutil, commondialogs
-from xlgui.collection import CollectionScanThread
+from daap import DAAPClient, DAAPError
 
 logger = logging.getLogger(__name__)
 gobject.threads_init()
 
 #
-#   Check For python-daap and python-avahi, we can work without 
+#   Check For python-avahi, we can work without 
 #  avahi, but wont be able to discover shares.
 #
-try:
-    from daap import DAAPClient, DAAPError
-    DAAP = True
-except Exception as inst:
-    logger.warn('DAAP exception: %s' % inst)
-    DAAP = False
 
 try:
     import avahi
@@ -46,15 +45,14 @@ except Exception as inst:
     AVAHI = False
 
 # detect authoriztion support in python-daap
-if DAAP:
-    try:
-        tmp = DAAPClient()
-        tmp.connect("spam","eggs","sausage") #dummy login
-        del tmp
-    except TypeError:
-        AUTH = False
-    except:
-        AUTH = True
+try:
+    tmp = DAAPClient()
+    tmp.connect("spam","eggs","sausage") #dummy login
+    del tmp
+except TypeError:
+    AUTH = False
+except:
+    AUTH = True
 
 #PLUGIN_ICON = gtk.Button().render_icon('gtk-network', gtk.ICON_SIZE_MENU)
 
@@ -327,7 +325,7 @@ class DaapConnection(object):
             Converts the DAAP track database into Exaile Tracks.
         """
         # Convert DAAPTrack's attributes to Tracks.
-        eqiv = {'title':'minm','artist':'asar','album':'asal','track':'astn',}
+        eqiv = {'title':'minm','artist':'asar','album':'asal','tracknumber':'astn',}
 #            'genre':'asgn','enc':'asfm','bitrate':'asbr'}
 
         for tr in self.tracks:
@@ -341,26 +339,24 @@ class DaapConnection(object):
                 # Don't scan tracks because gio is slow!
                 temp = track.Track(uri, scan=False)
 
-                #
-                # We use track.tags because modifying the track's tags with
-                # __setitem__ causes track_tags_changed events to flood the
-                # UI.
-                #
                 for field in eqiv.keys():
                     try:
-                        temp.tags[field] = [u'%s'%tr.atom.getAtom(eqiv[field])]
-                        if temp.tags[field] == ["None"]:
-                            temp.tags[field] = [u"Unknown"]
-                    except:
-                        temp.tags[field] = [u"Unknown"]
+                        tag = u'%s'%tr.atom.getAtom(eqiv[field])
+                        if tag != 'None':
+                            temp.set_tag_raw(field, [tag])
+
+                    except: 
+                        if field is 'tracknumber':
+                            temp.set_tag_raw('tracknumber', [0])
+#                        traceback.print_exc(file=sys.stdout)
 
                 
                 #TODO: convert year (asyr) here as well, what's the formula?
                 try:
-                    temp.tags["__length"] = tr.atom.getAtom('astm') / 1000
+                    temp.set_tag_raw("__length", tr.atom.getAtom('astm') / 1000)
 #                    temp.tags["__length"] = tr.time / 1000
                 except:
-                    temp.tags["__length"] = 0
+                    temp.set_tag_raw("__length", 0)
 
                 self.all.append(temp)
 
@@ -514,8 +510,8 @@ def __enb(eventname, exaile, wat):
 def _enable(exaile):
     global MENU_ITEM, MANAGER
     
-    if not DAAP:
-        raise Exception("DAAP could not be imported.")
+#    if not DAAP:
+#        raise Exception("DAAP could not be imported.")
 
 #    if not AVAHI:
 #        raise Exception("AVAHI could not be imported.")

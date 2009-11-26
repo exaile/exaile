@@ -31,7 +31,6 @@ from xl import settings
 from xl import event
 from xlgui import panel, guiutil, xdg, menu, playlist
 from xl.nls import gettext as _
-locale.setlocale(locale.LC_ALL, '')
 
 class FilesPanel(panel.Panel):
     """

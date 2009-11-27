@@ -29,7 +29,7 @@ pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
 import gtk, gobject, pango, datetime
-from xl import common, event, providers, settings, xdg, tracks
+from xl import common, event, providers, settings, xdg, trax
 from xl.nls import gettext as _
 import xl.playlist
 from xlgui import playlist, cover, guiutil, menu, commondialogs, tray
@@ -830,7 +830,7 @@ class MainWindow(gobject.GObject):
         pl = self.get_selected_playlist()
 
         if sort:
-            items = tracks.sort_tracks(
+            items = trax.sort_tracks(
                 ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
                 items)
 

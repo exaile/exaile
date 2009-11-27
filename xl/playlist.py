@@ -34,7 +34,7 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import event, xdg, collection, settings, tracks
+from xl import event, xdg, collection, settings, trax
 
 import cgi, os, random, urllib
 from xl.nls import gettext as _
@@ -737,16 +737,16 @@ class Playlist(object):
             searches the playlist
         """
         # TODO: use shown columns
-        matcher = tracks.TracksMatcher(phrase, keyword_tags=('artist',
+        matcher = trax.TracksMatcher(phrase, keyword_tags=('artist',
             'album', 'title'))
-        trs = tracks.search_tracks(self.ordered_tracks, [matcher])
+        trs = trax.search_tracks(self.ordered_tracks, [matcher])
         trs = (t.track for t in trs)
 
         if sort_fields:
             if sort_fields == 'RANDOM':
                 random.shuffle(trs)
             else:
-                trs = tracks.sort_tracks(sort_fields, trs)
+                trs = trax.sort_tracks(sort_fields, trs)
         if return_lim != -1:
             trs = trs[:return_lim]
 
@@ -891,7 +891,7 @@ class Playlist(object):
                 (loc, meta) = loc.split('\t')
 
             tr = None
-            tr = tracks.Track(uri=loc)
+            tr = trax.Track(uri=loc)
 
             # readd meta
             if not tr: continue
@@ -1066,14 +1066,14 @@ class SmartPlaylist(object):
         search_string = self._create_search_string()
 
 
-        matcher = tracks.TracksMatcher(search_string)
-        trs = [ t.track for t in tracks.search_tracks(collection, [matcher]) ]
+        matcher = trax.TracksMatcher(search_string)
+        trs = [ t.track for t in trax.search_tracks(collection, [matcher]) ]
         if self.random_sort:
             trs = random.shuffle(trs)
         else:
             sort_field = ('artist', 'date', 'album', 'discnumber',
                     'tracknumber', 'title')
-            trs = tracks.sort_tracks(sort_field, trs)
+            trs = trax.sort_tracks(sort_field, trs)
 
         pl = Playlist(name=self.get_name())
         pl.add_tracks(trs)

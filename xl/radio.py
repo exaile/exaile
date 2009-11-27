@@ -24,8 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import playlist, event, providers
-from xl.tracks import track
+from xl import playlist, event, providers, trax
 
 class RadioManager(providers.ProviderHandler):
     """
@@ -141,7 +140,7 @@ class RadioItem(object):
         self.station = station
 
     def get_playlist(self):
-        tr = track.Track()
+        tr = trax.Track()
         tr['title'] = 'Test Track'
         pl = playlist.Playlist('Test Playlist')
         pl.add_tracks([tr])

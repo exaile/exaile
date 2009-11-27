@@ -26,7 +26,7 @@
 
 import gio, glib, gtk, gobject, os, locale, re
 import urllib
-from xl import common, tracks, metadata
+from xl import common, trax, metadata
 from xl import settings
 from xl import event
 from xlgui import panel, guiutil, xdg, menu, playlist
@@ -84,7 +84,7 @@ class FilesPanel(panel.Panel):
         if not tracks:
             return False
 
-        tracks_sorted = tracks.sort_tracks(
+        tracks_sorted = trax.sort_tracks(
 			('artist', 'date', 'album', 'discnumber', 'tracknumber'),
 			tracks)
 
@@ -460,9 +460,9 @@ class FilesPanel(panel.Panel):
             Returns a single track from a gio.File
         """
         uri = f.get_uri()
-        if not tracks.is_valid_track(uri):
+        if not trax.is_valid_track(uri):
             return None
-        tr = tracks.Track(uri)
+        tr = trax.Track(uri)
         return tr
 
     def drag_data_received(self, *e):

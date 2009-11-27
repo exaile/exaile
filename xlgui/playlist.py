@@ -28,7 +28,7 @@ import gtk, pango, gtk.gdk, gobject
 from xlgui import guiutil, menu, plcolumns
 from xlgui import rating
 from xlgui.plcolumns import *
-from xl import playlist, event, collection, xdg, settings, tracks
+from xl import playlist, event, collection, xdg, settings, trax
 from xl.nls import gettext as _
 import copy, urllib
 import logging
@@ -1119,7 +1119,7 @@ def sort_tracks(trs):
     if column != 'tracknumber':
         sort_by = [column] + sort_by
 
-    trs = tracks.sort_tracks(sort_by, trs, reverse=descending)
+    trs = trax.sort_tracks(sort_by, trs, reverse=descending)
 
     return trs
 

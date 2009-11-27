@@ -26,7 +26,7 @@
 
 import gtk, os.path, time, urllib
 import gtk.gdk, pango, gobject, gio
-from xl import xdg, playlist, common, settings, event, tracks
+from xl import xdg, playlist, common, settings, event, trax
 from xl.nls import gettext as _
 import threading
 from xlgui import rating
@@ -326,8 +326,8 @@ class DragTreeView(gtk.TreeView):
             except gio.Error:
                 filetype = None
 
-        if tracks.is_valid_track(loc) or info.scheme not in ('file', ''):
-            new_track = tracks.Track(loc)
+        if trax.is_valid_track(loc) or info.scheme not in ('file', ''):
+            new_track = trax.Track(loc)
             return ([new_track],[])
         elif playlist.is_valid_playlist(loc):
             #User is dragging a playlist into the playlist list
@@ -336,7 +336,7 @@ class DragTreeView(gtk.TreeView):
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
         elif filetype == gio.FILE_TYPE_DIRECTORY:
-            return (tracks.get_tracks_from_uri(loc), [])
+            return (trax.get_tracks_from_uri(loc), [])
         else: #We don't know what they dropped
             return ([], [])
 

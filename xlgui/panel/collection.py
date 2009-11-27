@@ -26,7 +26,7 @@
 
 import logging, traceback, urllib
 import gtk, gobject
-from xl import event, xdg, common, metadata, settings, tracks
+from xl import event, xdg, common, metadata, settings, trax
 from xl.nls import gettext as _
 import xlgui
 from xlgui import panel, guiutil, menu, playlist, rating
@@ -123,8 +123,8 @@ class CollectionPanel(panel.Panel):
         if not tracks:
             return False
 
-        tracks_sorted = tracks.sort_tracks(
-			('artist', 'date', 'album', 'discnumber', 'tracknumber'), 
+        tracks_sorted = trax.sort_tracks(
+			('artist', 'date', 'album', 'discnumber', 'tracknumber'),
 			trs)
 
         dialog = properties.TrackPropertiesDialog(self.parent,
@@ -335,8 +335,8 @@ class CollectionPanel(panel.Panel):
         """
         self.load_subtree(iter)
         search = " ".join(self.get_node_search_terms(iter))
-        matcher = tracks.TracksMatcher(search)
-        srtrs = tracks.search_tracks(self.tracks, [matcher])
+        matcher = trax.TracksMatcher(search)
+        srtrs = trax.search_tracks(self.tracks, [matcher])
         return [ x.track for x in srtrs ]
 
     def get_selected_tracks(self):
@@ -516,7 +516,7 @@ class CollectionPanel(panel.Panel):
     def resort_tracks(self):
 #        import time
 #        print "sorting...", time.clock()
-        self.sorted_tracks = tracks.sort_tracks([self.order[0]], self.collection)
+        self.sorted_tracks = trax.sort_tracks([self.order[0]], self.collection)
 #        print "sorted.", time.clock()
 
     def load_tree(self):
@@ -547,7 +547,7 @@ class CollectionPanel(panel.Panel):
             order.append('albumartist')
 
         self.tracks = [ t.track for t in
-                tracks.search_tracks_from_string(self.sorted_tracks,
+                trax.search_tracks_from_string(self.sorted_tracks,
                     keyword, case_sensitive=False, keyword_tags=order) ]
 
         self.load_subtree(None)
@@ -672,9 +672,9 @@ class CollectionPanel(panel.Panel):
             pass # tracknumber isnt in the list
 
         try:
-            matchers = [tracks.TracksMatcher(search)]
-            trs = (t.track for t in tracks.search_tracks(self.tracks, matchers))
-            trs = tracks.sort_tracks(self.order[1:depth], trs)
+            matchers = [trax.TracksMatcher(search)]
+            trs = (t.track for t in trax.search_tracks(self.tracks, matchers))
+            trs = trax.sort_tracks(self.order[1:depth], trs)
         except IndexError:
             return # at the bottom of the tree
         tag = self.order[depth]

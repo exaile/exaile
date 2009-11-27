@@ -1,5 +1,5 @@
-# Copyright (C) 2008-2009 Adam Olsen
 # -*- coding: utf-8
+# Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,12 +25,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, os, weakref, unicodedata
+import logging
+import os
+import weakref
+import unicodedata
 from copy import deepcopy
 import gio
 from xl.nls import gettext as _
-from xl import common, settings, event
-import xl.metadata as metadata
+from xl import common, settings, event, metadata
 logger = logging.getLogger(__name__)
 
 # map chars to appropriate subsitutes for sorting
@@ -116,9 +118,17 @@ class Track(object):
             raise ValueError, "Cannot create a Track from nothing"
 
     def __register(self):
+        """
+            Register this instance into the global registry of Track
+            objects.
+        """
         self.__tracksdict[self.tags['__loc']] = self
 
     def __unregister(self):
+        """
+            Unregister this instance from the global registry of
+            Track objects.
+        """
         try:
             del self.__tracksdict[self.tags['__loc']]
         except KeyError:
@@ -287,21 +297,20 @@ class Track(object):
         return val
 
     def get_tag_sort(self, tag, join=True):
+        """
+            Get a tag value in a form suitable for sorting.
+        """
+        # The two magic values here are to ensure that compilations
+        # and unknown values are always sorted below all normal
+        # values.
         retval = None
         if tag == "artist":
-            # The two magic values here are to ensure that compilations
-            # and unknown values are always sorted below all normal
-            # values.
             if self.tags.get('__compilation'):
-                try:
-                    retval = self.tags['albumartist']
-                except KeyError: # No album artist, use Various Artist handling
-                    retval = u"\ufffe\ufffe\ufffe\ufffe"
+                retval = self.tags.get('albumartist',
+                        u"\uffff\uffff\uffff\ufffe")
             else:
-                try:
-                    retval = self.tags['artist']
-                except KeyError: # Unknown artist
-                    retval = u"\uffff\uffff\uffff\uffff"
+                retval = self.tags.get('artist',
+                        u"\uffff\uffff\uffff\uffff")
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.tags.get(tag))[0]
         elif tag == '__length':
@@ -330,6 +339,9 @@ class Track(object):
         return retval
 
     def get_tag_display(self, tag, join=True):
+        """
+            Get a tag value in a form suitable for display.
+        """
         if tag == '__loc':
             uri = gio.File(self.tags['__loc']).get_parse_name()
             return uri.decode('utf-8')
@@ -337,15 +349,9 @@ class Track(object):
         retval = None
         if tag == "artist":
             if self.tags.get('__compilation'):
-                try:
-                    retval = self.tags['albumartist']
-                except KeyError:
-                    retval = _("Various Artists")
+                retval = self.tags.get('albumartist', _("Various Artists"))
             else:
-                try:
-                    retval = self.tags['artist']
-                except KeyError:
-                    retval = _("Unknown")
+                retval = self.tags.get('artist', _("Unknown"))
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.tags.get(tag))[0]
         elif tag == '__length':
@@ -365,9 +371,6 @@ class Track(object):
                 retval = "0"
             else:
                 retval = _("Unknown")
-
-        if isinstance(retval, list) and len(retval) == 1:
-            retval = retval[0]
 
         if isinstance(retval, list):
             retval = [unicode(x) for x in retval]

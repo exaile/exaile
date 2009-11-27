@@ -26,16 +26,19 @@
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
-import logging
-logger = logging.getLogger(__name__)
-
 class SearchResultTrack(object):
+    """
+        Holds a track with search result metadata included.
+    """
     __slots__ = ['track', 'on_tags']
     def __init__(self, track):
         self.track = track
-        self.on_tags = set()
+        self.on_tags = []
 
 class _Matcher(object):
+    """
+        Base class for match conditions
+    """
     __slots__ = ['tag', 'content', 'lower']
     def __init__(self, tag, content, lower):
         self.tag = tag
@@ -60,15 +63,24 @@ class _Matcher(object):
         raise NotImplementedError
 
 class _ExactMatcher(_Matcher):
+    """
+        Condition for exact matches
+    """
     def matches(self, value):
         return value == self.content
 
 class _InMatcher(_Matcher):
+    """
+        Condition for inexact (ie. containing) matches
+    """
     def matches(self, value):
         if not value: return False
         return self.content in value
 
 class _NotMetaMatcher(object):
+    """
+        Condition for boolean NOT
+    """
     __slots__ = ['matcher']
     tag = None
     def __init__(self, matcher):
@@ -77,7 +89,22 @@ class _NotMetaMatcher(object):
     def match(self, srtrack):
         return not self.matcher.matches(srtrack)
 
+class _OrMetaMatcher(object):
+    """
+        Condition for boolean OR
+    """
+    __slots__ = ['left', 'right']
+    tag = None
+    def __init__(self, left, right):
+        self.left, self.right = left, right
+
+    def match(self, srtrack):
+        return self.left.matches(srtrack) or self.right.matches(srtrack)
+
 class _MultiMetaMatcher(object):
+    """
+        Condition for boolean AND
+    """
     __slots__ = ['matchers']
     tag = None
     def __init__(self, matchers):
@@ -89,55 +116,80 @@ class _MultiMetaMatcher(object):
                 return False
         return True
 
-class _OrMetaMatcher(object):
-    __slots__ = ['left', 'right']
-    tag = None
-    def __init__(self, left, right):
-        self.left, self.right = left, right
-
-    def match(self, srtrack):
-        return self.left.matches(srtrack) or self.right.matches(srtrack)
-
 class _ManyMultiMetaMatcher(object):
+    """
+        TODO: think of a proper docstring for this
+
+        This handles the case where we want to match in an OR-like
+        fashion, but also know which tags were matched. Useful for
+        the collection panel expansion.
+    """
     __slots__ = ['matchers', 'tags']
     tag = None
     def __init__(self, matchers):
         self.matchers = matchers
-        self.tags = []
+        self.tags = set()
 
     def match(self, srtrack):
-        self.tags = []
+        self.tags = set()
         matched = False
         for ma in self.matchers:
             if ma.match(srtrack):
                 if ma.tag:
                     matched = True
-                self.tags.append(ma.tag)
+                    self.tags.add(ma.tag)
+                elif hasattr(ma, 'tags') and ma.tags:
+                    matched = True
+                    self.tags.update(ma.tags)
         return matched
 
 class TracksMatcher(object):
+    """
+        Holds criterea and determines whether a given Track matches
+        those criteria.
+    """
     __slots__ = ['matchers', 'case_sensitive', 'keyword_tags']
     def __init__(self, searchstring, case_sensitive=True, keyword_tags=[]):
+        """
+            :param searchstring: a string describing the match conditions
+            :param case_sensitive: whether to search in a case-sensitive
+                manner.
+            :param keyword_tags: a list of tags to match search keywords
+                in.
+        """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags
         tokens = self.__tokenize_query(searchstring)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
-        self.matchers = self.__tokens_to_matchers(tokens, [])
+        self.matchers = self.__tokens_to_matchers(tokens)
 
     def match(self, srtrack):
+        """
+            Determine whether a given SearchResultTrack's internal
+            Track object matches this search condition.
+        """
         for ma in self.matchers:
             if not ma.match(srtrack):
                 break
             if ma.tag is not None:
-                srtrack.on_tags.add(ma.tag)
+                if ma.tag not in srtrack.on_tags:
+                    srtrack.on_tags.append(ma.tag)
             elif hasattr(ma, 'tags'):
-                srtrack.on_tags.update(ma.tags)
+                for t in ma.tags:
+                    if t not in srtrack.on_tags:
+                        srtrack.on_tags.append(t)
         else:
             return True
         return False
 
-    def __tokens_to_matchers(self, tokens, matchers):
+    def __tokens_to_matchers(self, tokens, matchers=None):
+        """
+            Converts a token hierarchy to a list of matchers
+        """
+        if not matchers:
+            matchers = []
+
         # if there's no more tokens, we're done
         try:
             token = tokens[0]
@@ -151,17 +203,17 @@ class TracksMatcher(object):
             subtoken = token[0]
             # NOT
             if subtoken == "!":
-                nots = self.__tokens_to_matchers(token[1], [])
+                nots = self.__tokens_to_matchers(token[1])
                 matchers.append(_NotMetaMatcher(_MultiMetaMatcher(nots)))
             # OR
             elif subtoken == "|":
-                left = self.__tokens_to_matchers([token[1][0]], [])
-                right = self.__tokens_to_matchers([token[1][1]], [])
+                left = self.__tokens_to_matchers([token[1][0]])
+                right = self.__tokens_to_matchers([token[1][1]])
                 matchers.append(_OrMetaMatcher(
                     _MultiMetaMatcher(left), _MultiMetaMatcher(right)))
             # ()
             elif subtoken == "(":
-                inner = self.__tokens_to_matchers([token[1]], [])
+                inner = self.__tokens_to_matchers([token[1]])
                 matchers.append(_MultiMetaMatcher(inner))
             else:
                 logger.warning("Bad search token")
@@ -204,7 +256,7 @@ class TracksMatcher(object):
 
     def __tokenize_query(self, search):
         """
-            tokenizes a search query
+            Turns a search string into a list of tokens.
         """
         search = " " + search + " "
 
@@ -234,15 +286,12 @@ class TracksMatcher(object):
                 newsearch += c
             n += 1
 
-
         return tokens
 
     def __red(self, tokens):
         """
-            reduce tokens to a parsable format
-
-            :param tokens: the list of tokens to reduce
-            :type tokens: list of string
+            Turn the token list into a token list hierarchy that is
+            easier to parse.
         """
         # base case since we use recursion
         if tokens == []:
@@ -297,6 +346,9 @@ class TracksMatcher(object):
         return self.__red(tokens)
 
     def __optimize_tokens(self, tokens):
+        """
+            Attempt to optimize tokens, to speed up matching.
+        """
         # longer queries tend to reject more tracks, which speeds up
         # processing, so we put them first.
         tokens.sort(key=len)
@@ -304,6 +356,12 @@ class TracksMatcher(object):
 
 
 def search_tracks(trackiter, trackmatchers):
+    """
+        Search a set of tracks for those that match specified conditions.
+
+        :param trackiter: An iterable object returning Track objects
+        :param trackmatchers: A list of TrackMatcher objects
+    """
     for tr in trackiter:
         srtr = SearchResultTrack(tr)
         for tma in trackmatchers:
@@ -311,4 +369,14 @@ def search_tracks(trackiter, trackmatchers):
                 break
         else:
             yield srtr
+
+def search_tracks_from_string(trackiter, search_string,
+        case_sensitive=True, keyword_tags=[]):
+    """
+        Convenience wrapper around search_tracks that builds matchers
+        automatically from the search string.
+    """
+    matchers = [TracksMatcher(search_string, case_sensitive=case_sensitive,
+        keyword_tags=keyword_tags)]
+    return search_tracks(trackiter, matchers)
 

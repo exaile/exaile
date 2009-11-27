@@ -24,15 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-"""
-TrackDB
-
-:class:`TrackDB`:
-    a track database. basis for playlist, collection
-
-:class:`TrackSearcher`
-    fast, advanced method for searching a dictionary of tracks
-"""
 
 import logging
 import shelve
@@ -45,7 +36,8 @@ except:
 
 from xl import common, event, xdg
 from xl.nls import gettext as _
-from xl.tracks import Track
+
+from track import Track
 
 logger = logging.getLogger(__name__)
 
@@ -111,14 +103,17 @@ class TrackDB(object):
         """
             Provide the ability to iterate over a TrackDB.
             Just as with a dictionary, if tracks are added
-            or removed during iteration, iteration will stop.
-
+            or removed during iteration, iteration will halt
+            wuth a RuntimeError.
         """
         track_iterator = self.tracks.iteritems()
         iterator = TrackDBIterator(track_iterator)
         return iterator
 
     def __len__(self):
+        """
+            Obtain a count of how many items are in the TrackDB
+        """
         return len(self.tracks)
 
     def _timeout_save(self):
@@ -145,6 +140,11 @@ class TrackDB(object):
         return self.name
 
     def set_location(self, location):
+        """
+            Sets the location to save to
+
+            :param location: the location to save to
+        """
         self.location = location
         self._dirty = True
 
@@ -343,12 +343,6 @@ class TrackDB(object):
         return list(self)
 
 
-    def __search(self, query, tracks=None):
-        if not tracks: tracks=self
-        tags = ['artist', 'albumartist', 'album', 'title']
-        from search import search_tracks, TracksMatcher
-        matcher = TracksMatcher(query, keyword_tags=tags)
-        return [ x.track for x in search_tracks(tracks, [matcher]) ]
 
 
 # vim: et sts=4 sw=4

@@ -533,10 +533,10 @@ class CollectionPanel(panel.Panel):
         order = list(self.order)
         if 'artist' in order:
             order.append('albumartist')
-        matchers = [ tracks.TracksMatcher(keyword,
-                case_sensitive=False, keyword_tags=order) ]
 
-        self.tracks = [ t.track for t in tracks.search_tracks(self.collection, matchers) ]
+        self.tracks = [ t.track for t in
+                tracks.search_tracks_from_string(self.collection,
+                    keyword, case_sensitive=False, keyword_tags=order) ]
         self.tracks = tracks.sort_tracks(self.order, self.tracks)
 
         self.load_subtree(None)

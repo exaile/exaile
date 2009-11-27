@@ -27,21 +27,17 @@
 # It is encouraged that external modules should import from here,
 # rather than directly from submodules.
 
-__all__ = []
+import gio
+from xl import metadata
 
 from track import Track
 from trackdb import TrackDB
-from search import search_tracks, TracksMatcher
-
-import gio
-from xl import metadata
+from search import search_tracks, search_tracks_from_string, TracksMatcher
 
 def is_valid_track(loc):
     """
         Returns whether the file at loc is a valid track,
-        right now determines based on file extension but
-        possibly could be extended to actually opening
-        the file and determining
+        right now determines based on file extension
     """
     extension = gio.File(loc).get_basename().split(".")[-1]
     return extension.lower() in metadata.formats
@@ -65,28 +61,15 @@ def get_tracks_from_uri(uri):
         tracks = [Track(uri)]
     return tracks
 
-def sort_tracks(fields, trackiter, reverse=False, use_locale=False):
+def sort_tracks(fields, trackiter, reverse=False):
     """
         Sorts tracks.
 
         :param fields: An iterable of tag names to sort by.
         :param trackiter: An iterable of Track objects to be sorted.
         :param reverse: Whether to sort in reverse.
-        :param use_locale: Use locale-specific sorting.
     """
-    lcmp = lambda x: x
-    if use_locale:
-        import locale
-        def lcmp(x):
-            try:
-                return locale.strxfrm(x)
-            except:
-                return x
-
-
-    def keyfunc(tr):
-        return tuple((lcmp(tr.get_tag_sort(field)) for field in fields))
-
+    keyfunc = lambda tr: tuple((tr.get_tag_sort(field) for field in fields))
     return sorted(trackiter, key=keyfunc, reverse=reverse)
 
 

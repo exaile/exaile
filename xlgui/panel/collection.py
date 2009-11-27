@@ -514,7 +514,10 @@ class CollectionPanel(panel.Panel):
         return False
 
     def resort_tracks(self):
-        self.sorted_tracks = tracks.sort_tracks(self.order, self.collection)
+#        import time
+#        print "sorting...", time.clock()
+        self.sorted_tracks = tracks.sort_tracks([self.order[0]], self.collection)
+#        print "sorted.", time.clock()
 
     def load_tree(self):
         """
@@ -539,8 +542,6 @@ class CollectionPanel(panel.Panel):
                 self.choice.get_active())
 
         keyword = self.keyword.strip()
-        keyword = keyword.replace(" OR ", " | ")
-        keyword = keyword.replace(" NOT ", " ! ")
         order = list(self.order)
         if 'artist' in order:
             order.append('albumartist')
@@ -672,10 +673,11 @@ class CollectionPanel(panel.Panel):
 
         try:
             matchers = [tracks.TracksMatcher(search)]
-            tag = self.order[depth]
             trs = (t.track for t in tracks.search_tracks(self.tracks, matchers))
+            trs = tracks.sort_tracks(self.order[1:depth], trs)
         except IndexError:
             return # at the bottom of the tree
+        tag = self.order[depth]
         try:
             image = getattr(self, "%s_image"%tag)
         except:

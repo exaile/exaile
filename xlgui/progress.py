@@ -42,6 +42,7 @@ class ProgressMonitor(gtk.Frame):
         self.thread = thread
         self.desc = desc
         self.icon = icon
+        self.label = None
 
         self._setup_widgets()
         self.show_all()
@@ -49,6 +50,14 @@ class ProgressMonitor(gtk.Frame):
         event.add_callback(self.progress_update, 'progress_update', thread)
         thread.start()
 
+    def set_description(self, desc):
+        """
+            Changes the description of the monitor
+        """
+        self.desc = desc
+        if self.label:
+            self.label.set_text(desc)
+        
     def progress_update(self, type, thread, percent):
         """
             Called when the progress has been updated
@@ -85,8 +94,8 @@ class ProgressMonitor(gtk.Frame):
         label.set_use_markup(True)
         label.set_alignment(0, 0.5)
         label.set_padding(3, 0)
-
         box.pack_start(label, False, False)
+        self.label = label
 
         pbox = gtk.HBox()
         pbox.set_spacing(3)

@@ -490,7 +490,7 @@ class Track(object):
     def strip_marks(values):
         if isinstance(values, list):
             return [Track.strip_marks(v) for v in values]
-        return ''.join((c for c in unicodedata.normalize('NFD', values)
+        return u''.join((c for c in unicodedata.normalize('NFD', values)
             if unicodedata.category(c) != 'Mn'))
 
     @staticmethod
@@ -503,5 +503,5 @@ class Track(object):
         """
         if isinstance(values, list):
             return [Track.expand_doubles(v) for v in values]
-        return ''.join((_sortcharmap.get(c, c) for c in values))
+        return u''.join((_sortcharmap.get(c, c) for c in values))
 

@@ -104,6 +104,25 @@ def synchronized(func):
     return wrapper
 
 
+def profileit(func):
+    """
+        Decorator to profile a function
+    """
+    import hotshot, hotshot.stats
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        prof = hotshot.Profile("profiling.data")
+        res = prof.runcall(func, *args, **kwargs)
+        prof.close()
+        stats = hotshot.stats.load("profiling.data")
+        stats.strip_dirs()
+        stats.sort_stats('time', 'calls')
+        print ">>>---- Begin profiling print"
+        stats.print_stats()
+        print ">>>---- End profiling print"
+        return res
+    return wrapper
+
 def escape_xml(text):
     """
         Replaces &, <, and > with their entity references

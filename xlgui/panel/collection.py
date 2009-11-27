@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, traceback, urllib
+import logging, traceback, urllib, time
 import gtk, gobject
 from xl import event, xdg, common, metadata, settings, tracks
 from xl.nls import gettext as _
@@ -91,6 +91,9 @@ class CollectionPanel(panel.Panel):
         self._check_collection_empty()
         self._setup_images()
         self._connect_events()
+        self.order = None
+        self.tracks = []
+        self.sorted_tracks = []
 
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
@@ -503,10 +506,17 @@ class CollectionPanel(panel.Panel):
 
     def _refresh_tags_in_tree(self):
         """
-            For now, basically calls load_tree.
+            Callback for when tags have changed and the tree
+            needs reloading.
         """
+        self.resort_tracks()
         self.load_tree()
         return False
+
+    def resort_tracks(self):
+        print "Sort start", time.clock()
+        self.sorted_tracks = tracks.sort_tracks(self.order, self.collection)
+        print "Sort end", time.clock()
 
     def load_tree(self):
         """
@@ -520,7 +530,10 @@ class CollectionPanel(panel.Panel):
         self.tree.set_model(self.model_blank)
 
         self.root = None
+        oldorder = self.order
         self.order = self.orders[self.choice.get_active()]
+        if oldorder != self.order:
+            self.resort_tracks()
 
         # save the active view setting
         settings.set_option(
@@ -535,13 +548,14 @@ class CollectionPanel(panel.Panel):
             order.append('albumartist')
 
         self.tracks = [ t.track for t in
-                tracks.search_tracks_from_string(self.collection,
+                tracks.search_tracks_from_string(self.sorted_tracks,
                     keyword, case_sensitive=False, keyword_tags=order) ]
-        self.tracks = tracks.sort_tracks(self.order, self.tracks)
+        print "Keyword search done", time.clock()
 
         self.load_subtree(None)
 
         self.tree.set_model(self.model)
+        print "tree loaded", time.clock()
 
         self.emit('collection-tree-loaded')
 
@@ -664,12 +678,7 @@ class CollectionPanel(panel.Panel):
             matchers = [tracks.TracksMatcher(search)]
             tag = self.order[depth]
             trs = (t.track for t in tracks.search_tracks(self.tracks, matchers))
-
-            sort_by = [tag]
-            if depth > 0 and self.order[depth-1] == "tracknumber":
-                sort_by += ['discnumber', 'tracknumber']
-            sort_by.reverse()
-            trs = tracks.sort_tracks(self.order, trs)
+            print "subtree search done", time.clock()
         except IndexError:
             return # at the bottom of the tree
         try:
@@ -708,6 +717,8 @@ class CollectionPanel(panel.Panel):
 
         if iter_sep is not None:
             self.model.remove(iter_sep)
+
+        print "subtree loaded", time.clock()
 
         return #no expansion for now
         if depth == 0 and settings.get_option("gui/expand_enabled", True) and \

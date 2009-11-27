@@ -56,6 +56,7 @@ def get_tracks_from_uri(uri):
         lib = Library(uri)
         lib.set_collection(tracks)
         lib.rescan()
+        print len(tracks)
         tracks = tracks.search("")
     else:
         tracks = [Track(uri)]

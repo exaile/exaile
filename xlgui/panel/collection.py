@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, traceback, urllib, time
+import logging, traceback, urllib
 import gtk, gobject
 from xl import event, xdg, common, metadata, settings, tracks
 from xl.nls import gettext as _
@@ -514,9 +514,7 @@ class CollectionPanel(panel.Panel):
         return False
 
     def resort_tracks(self):
-        print "Sort start", time.clock()
         self.sorted_tracks = tracks.sort_tracks(self.order, self.collection)
-        print "Sort end", time.clock()
 
     def load_tree(self):
         """
@@ -550,12 +548,10 @@ class CollectionPanel(panel.Panel):
         self.tracks = [ t.track for t in
                 tracks.search_tracks_from_string(self.sorted_tracks,
                     keyword, case_sensitive=False, keyword_tags=order) ]
-        print "Keyword search done", time.clock()
 
         self.load_subtree(None)
 
         self.tree.set_model(self.model)
-        print "tree loaded", time.clock()
 
         self.emit('collection-tree-loaded')
 
@@ -678,7 +674,6 @@ class CollectionPanel(panel.Panel):
             matchers = [tracks.TracksMatcher(search)]
             tag = self.order[depth]
             trs = (t.track for t in tracks.search_tracks(self.tracks, matchers))
-            print "subtree search done", time.clock()
         except IndexError:
             return # at the bottom of the tree
         try:
@@ -717,8 +712,6 @@ class CollectionPanel(panel.Panel):
 
         if iter_sep is not None:
             self.model.remove(iter_sep)
-
-        print "subtree loaded", time.clock()
 
         return #no expansion for now
         if depth == 0 and settings.get_option("gui/expand_enabled", True) and \

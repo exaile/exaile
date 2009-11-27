@@ -488,6 +488,9 @@ class Track(object):
 
     @staticmethod
     def strip_marks(values):
+        """
+            Remove accents, diacritics, etc.
+        """
         if isinstance(values, list):
             return [Track.strip_marks(v) for v in values]
         return u''.join((c for c in unicodedata.normalize('NFD', values)
@@ -503,5 +506,9 @@ class Track(object):
         """
         if isinstance(values, list):
             return [Track.expand_doubles(v) for v in values]
-        return u''.join((_sortcharmap.get(c, c) for c in values))
+        for k, v in _sortcharmap.iteritems():
+            values = values.replace(k, v)
+        return values
+# This is slower, don't use it!
+#        return u''.join((_sortcharmap.get(c, c) for c in values))
 

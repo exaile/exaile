@@ -32,4 +32,6 @@ CD info:
 
 * python-cddb
 
+Scalable icons:
 
+* librsvg2

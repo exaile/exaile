@@ -91,7 +91,10 @@ class ExaileNotification(object):
             if self.attach_tray and hasattr(self.exaile, 'gui'):
                 gui = self.exaile.gui
                 if hasattr(gui, 'tray_icon') and gui.tray_icon:
-                    notif.attach_to_status_icon(gui.tray_icon.icon)
+                    if isinstance(gui.tray_icon, type(gtk.StatusIcon):
+                        notif.attach_to_status_icon(gui.tray_icon)
+                    else:
+                        notif.attach_to_widget(gui.tray_icon)
         # replace the last notification
         logger.debug("Setting id")
         if self.notification_id is not None:

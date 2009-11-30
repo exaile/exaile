@@ -56,7 +56,6 @@ def get_tracks_from_uri(uri):
         lib = Library(uri)
         lib.set_collection(tracks)
         lib.rescan()
-        print len(tracks)
         tracks = tracks.search("")
     else:
         tracks = [Track(uri)]
@@ -237,7 +236,6 @@ class Track(object):
             Reads tags from file
         """
         try:
-            print 'Trying to read tags for %s' % self.get_loc_for_io()
             self._scan_valid = False
             f = metadata.get_format(self.get_loc_for_io())
             if f is None:

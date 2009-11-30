@@ -633,15 +633,20 @@ class Playlist(gtk.VBox):
         if context.action != gtk.gdk.ACTION_MOVE:
             pass
 
-        drop_info = tv.get_dest_row_at_pos(x, y)
-        if drop_info:
-            path, position = drop_info
-            iter = self.model.get_iter(path)
-            if (position == gtk.TREE_VIEW_DROP_BEFORE or
-                position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
-                first = False
-            else:
-                first = True
+        try:
+            drop_info = tv.get_dest_row_at_pos(x, y)
+
+            if drop_info:
+                path, position = drop_info
+                iter = self.model.get_iter(path)
+                if (position == gtk.TREE_VIEW_DROP_BEFORE or
+                    position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
+                    first = False
+                else:
+                    first = True
+        except AttributeError:
+            drop_info = None
+            pass
 
         (tracks, playlists) = self.list.get_drag_data(locs)
 
@@ -773,11 +778,13 @@ class Playlist(gtk.VBox):
                 pass
             self.model.remove(row)
 
+        nextindex = lastindex - len(rows)
+
         if nextrow:
             nexttrack = self.model.get_value(nextrow, 0)
             nextindex = self.playlist.index(nexttrack)
-            self.list.set_cursor(nextindex)
-        elif rows:
+
+        if nextindex > 0:
             self.list.set_cursor(lastindex - len(rows))
 
         gobject.idle_add(event.add_callback, self.on_remove_tracks,
@@ -1120,7 +1127,7 @@ def sort_tracks(tracks):
             reverse=descending)
     else:
         tracks = track.sort_tracks(
-            ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
+            ('album', 'tracknumber', 'artist', 'date', 'discnumber'),
             tracks)
         if descending: tracks.reverse()
 

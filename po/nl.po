@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-15 17:50+0100\n"
-"PO-Revision-Date: 2009-11-25 13:49+0000\n"
-"Last-Translator: Jaap Broekhuizen <Unknown>\n"
+"PO-Revision-Date: 2009-11-29 15:50+0000\n"
+"Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-11-26 04:35+0000\n"
+"X-Launchpad-Export-Date: 2009-11-30 04:35+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -68,19 +68,19 @@ msgstr "Pop-up van het huidige nummer tonen"
 
 #: ../xl/main.py:310
 msgid "Print the title of current track"
-msgstr "Print de titel van het huidige nummer"
+msgstr "Titel van het huidige nummer weergeven"
 
 #: ../xl/main.py:312
 msgid "Print the album of current track"
-msgstr "Print het album van het huidige nummer"
+msgstr "Album van het huidige nummer weergeven"
 
 #: ../xl/main.py:314
 msgid "Print the artist of current track"
-msgstr "Print de artiest van het huidige nummer"
+msgstr "Artiest van het huidige nummer weergeven"
 
 #: ../xl/main.py:316
 msgid "Print the length of current track"
-msgstr "Print de lengte van het huidige nummer"
+msgstr "Tijdsduur van het huidige nummer weergeven"
 
 #: ../xl/main.py:318
 msgid "Set rating for current song"
@@ -92,11 +92,11 @@ msgstr "Haal de waardering voor het huidige nummer op"
 
 #: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
-msgstr "Geef de positie binnen de huidige track als tijd weer"
+msgstr "Positie binnen het huidige nummer weergeven als tijd"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
-msgstr "Geef de vooruitgang binnen de huidige track weer als percentage"
+msgstr "Vooruitgang binnen het huidige nummer weergeven als percentage"
 
 #: ../xl/main.py:329
 msgid "Volume options"
@@ -112,7 +112,7 @@ msgstr "Verlaagt het volume met VOL%"
 
 #: ../xl/main.py:335
 msgid "Print the current volume percentage"
-msgstr "Print het huidige volumepercentage"
+msgstr "Volumepercentage van het huidige nummer weergeven"
 
 #: ../xl/main.py:338
 msgid "Other options"
@@ -310,7 +310,7 @@ msgid ""
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 "status: %(status)s, titel: %(title)s, artiest: %(artist)s, album: %(album)s, "
-"lengte: %(length)s, positie: %(progress)s%% [%(position)s]"
+"tijd: %(length)s, positie: %(progress)s%% [%(position)s]"
 
 #: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
@@ -441,7 +441,7 @@ msgstr "Toegevoegd op"
 #: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160
 #: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:69
 msgid "Length"
-msgstr "Lengte"
+msgstr "Tijd"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #. (_('in the last'), (SpinDateField,
@@ -827,7 +827,7 @@ msgstr "Extensie"
 
 #: ../xlgui/devices.py:73
 msgid "Icon"
-msgstr "Pictogram"
+msgstr "Icoon"
 
 #: ../xlgui/devices.py:78
 msgid "Device"
@@ -2051,14 +2051,14 @@ msgstr "Kon de podcast niet opslaan"
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:157
 #: ../plugins/shoutcast/__init__.py:200 ../plugins/shoutcast/__init__.py:236
 msgid "Contacting Shoutcast server..."
-msgstr "Contact zoeken met de Shoutcast server..."
+msgstr "Verbinden met de Shoutcast-server..."
 
 #: ../plugins/shoutcast/__init__.py:113 ../plugins/shoutcast/__init__.py:117
 #: ../plugins/shoutcast/__init__.py:166 ../plugins/shoutcast/__init__.py:170
 #: ../plugins/shoutcast/__init__.py:214 ../plugins/shoutcast/__init__.py:219
 #: ../plugins/shoutcast/__init__.py:247 ../plugins/shoutcast/__init__.py:252
 msgid "Error connecting to Shoutcast server."
-msgstr "Fout tijdens het contact zoeken met de Shoutcast server."
+msgstr "Fout tijdens het verbinden met de Shoutcast-server."
 
 #: ../plugins/shoutcast/__init__.py:272
 msgid "Enter the search keywords"
@@ -2554,7 +2554,7 @@ msgstr "Gebruik albumhoezen als iconen"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr "Gebruik Media Iconen voor Pauzeren, Stoppen en Hervatten"
+msgstr "Gebruik media-iconen voor pauzeren, stoppen en hervatten"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "When GUI is Focused"

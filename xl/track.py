@@ -237,6 +237,7 @@ class Track(object):
             Reads tags from file
         """
         try:
+            print 'Trying to read tags for %s' % self.get_loc_for_io()
             self._scan_valid = False
             f = metadata.get_format(self.get_loc_for_io())
             if f is None:
@@ -421,7 +422,8 @@ class Track(object):
             retval = unicode(retval)
 
         if join:
-            retval = self.join_values(retval)
+            #TRANSLATORS: String multiple tag values will be joined by
+            retval = self.join_values(retval, _(u' & '))
 
         return retval
 
@@ -463,13 +465,13 @@ class Track(object):
     ### Special functions for wrangling tag values ###
 
     @staticmethod
-    def join_values(values):
+    def join_values(values, glue=u" / "):
         """
             Exaile's standard method to join tag values
         """
         if type(values) in (str, unicode):
             return values
-        return u" / ".join(values)
+        return glue.join(values)
 
     @staticmethod
     def split_numerical(values):

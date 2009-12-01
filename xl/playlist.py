@@ -898,10 +898,8 @@ class Playlist(object):
             if not tr: continue
             if not tr.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
-                tr._scanning = True
                 for k, v in meta.iteritems():
-                    tr.set_tag_raw(k, v[0])
-                tr._scanning = False
+                    tr.set_tag_raw(k, v[0], notify_changed=False)
 
             tracks.append(tr)
 

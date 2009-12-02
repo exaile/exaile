@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-11-30 19:06+0000\n"
+"PO-Revision-Date: 2009-12-01 14:36+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-12-01 04:37+0000\n"
+"X-Launchpad-Export-Date: 2009-12-02 04:53+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -211,7 +211,7 @@ msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
-"Vorbis is een opensource, lossy audio codec met hoge kwaliteit uitvoer bij "
+"Vorbis is een open bron, lossy audio codec met hoge kwaliteit uitvoer bij "
 "een kleinere bestandsgrootte dan MP3."
 
 #: ../xl/transcoder.py:65
@@ -220,31 +220,31 @@ msgid ""
 "does not degrade audio quality."
 msgstr ""
 "Free Lossless Audio Codec (FLAC) is een open bron codec die wel comprimeert "
-"maar niet de geluidskwaliteit verminderd."
+"maar niet de geluidskwaliteit vermindert."
 
 #: ../xl/transcoder.py:77
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Apple's eigen lossy audioformaat dat betere geluidskwaliteit bereikt bij "
-"lagere bitrates dan MP3."
+"Apple's eigen, niet vrije, lossy audioformaat dat betere geluidskwaliteit "
+"bereikt bij lagere bitrates dan MP3."
 
 #: ../xl/transcoder.py:88
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"Een eigen en oude, maar ook populair, lossy audioformaat. VBR geeft een "
-"hogere kwaliteit dan CBR, maar kan niet goed werken met sommige spelers."
+"Een niet vrije, oud, maar populair lossy audioformaat. VBR geeft een hogere "
+"kwaliteit dan CBR, maar kan niet goed werken met sommige spelers."
 
 #: ../xl/transcoder.py:99
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"Een eigen en oude, maar ook populair, lossy audioformaat. CBR geeft een "
-"lagere kwaliteit dan VBR, maar werkt met alle spelers."
+"Een niet vrije, oud, maar populair lossy audioformaat. CBR geeft een lagere "
+"kwaliteit dan VBR, maar werkt met alle spelers."
 
 #: ../xl/transcoder.py:110
 msgid "A very fast Free lossless audio format with good compression."
@@ -2019,7 +2019,7 @@ msgstr "Gemoedsbalk uitvoerbestand niet beschikbaar."
 #: ../plugins/droptrayicon/__init__.py:267
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Versleep naar om te selecteren"
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"

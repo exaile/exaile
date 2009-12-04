@@ -24,7 +24,6 @@ from xl import event, common, settings
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
-UNKNOWN_TEXT = _("Unknown")
 
 # This breaks stuff. if you want to enable it, set this to True and uncomment
 # the commented section in the UI designer file
@@ -62,9 +61,9 @@ class ExaileNotification(object):
         type and player arguments are ignored.
 
         '''
-        title = " / ".join(track['title'] or "")
-        artist = " / ".join(track['artist'] or "")
-        album = " / ".join(track['album'] or "")
+        title = track.get_tag_display('title')
+        artist = track.get_tag_display('artist')
+        album = track.get_tag_display('album')
         if artist and album:
             body_format = self.body_artistalbum
         elif artist:
@@ -73,15 +72,13 @@ class ExaileNotification(object):
             body_format = self.body_album
         else:
             body_format = ""
-        # Get the replaced text. UNKNOWN_TEXT substituted here because we check
-        # against the empty string above
-        summary = self.summary % {'title': title or UNKNOWN_TEXT,
-                                  'artist': artist or UNKNOWN_TEXT,
-                                  'album': album or UNKNOWN_TEXT,
+        summary = self.summary % {'title': title,
+                                  'artist': artist,
+                                  'album': album,
                                   }
-        body = body_format % {'title': cgi.escape(title or UNKNOWN_TEXT),
-                              'artist': cgi.escape(artist or UNKNOWN_TEXT),
-                              'album': cgi.escape(album or UNKNOWN_TEXT),
+        body = body_format % {'title': cgi.escape(title),
+                              'artist': cgi.escape(artist),
+                              'album': cgi.escape(album),
                               }
         notif = pynotify.Notification(summary, body)
         notif.set_icon_from_pixbuf(notify_cover.get_image_for_track(track,
@@ -94,7 +91,10 @@ class ExaileNotification(object):
             if self.attach_tray and hasattr(self.exaile, 'gui'):
                 gui = self.exaile.gui
                 if hasattr(gui, 'tray_icon') and gui.tray_icon:
-                    notif.attach_to_status_icon(gui.tray_icon.icon)
+                    if isinstance(gui.tray_icon, type(gtk.StatusIcon):
+                        notif.attach_to_status_icon(gui.tray_icon)
+                    else:
+                        notif.attach_to_widget(gui.tray_icon)
         # replace the last notification
         logger.debug("Setting id")
         if self.notification_id is not None:

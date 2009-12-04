@@ -193,7 +193,7 @@ class EqualizerPlugin:
 
         self.ui = gtk.Builder()
         self.ui.add_from_file( os.path.join( os.path.dirname(
-                os.path.realpath(__file__)), 'equalizer.glade'))
+                os.path.realpath(__file__)), 'equalizer.ui'))
         self.ui.connect_signals(signals)
 
         self.window = self.ui.get_object('equalizer/main-window')

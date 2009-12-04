@@ -18,7 +18,6 @@ import gobject, gtk, os
 import minimodeprefs, mmwidgets
 from xl import event, plugins, settings, xdg
 from xl.nls import gettext as _
-from xlgui.guiutil import get_workarea_size
 
 MINIMODE = None
 
@@ -73,10 +72,16 @@ class MiniMode(gtk.Window):
         self.set_title('Exaile')
         self.set_resizable(False)
 
-        self.formatter = mmwidgets.TrackFormatter('$tracknumber - $title')
+        self.formatter = mmwidgets.TrackFormatter(
+            self.get_option('plugin/minimode/track_title_format')
+        )
 
         self.box = mmwidgets.WidgetBox(spacing=3)
-        self.add(self.box)
+        frame = gtk.Frame()
+        frame.set_shadow_type(gtk.SHADOW_OUT)
+        frame.add(self.box)
+        self.add(frame)
+
         self.register_widgets()
         controls = self.get_option('plugin/minimode/selected_controls')
         controls += self.fixed_items
@@ -103,6 +108,7 @@ class MiniMode(gtk.Window):
         self._main_visible_toggle_id = None
 
         self.connect('show', self.on_show)
+        self.connect('delete-event', self.on_delete_event)
         self.exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
 
@@ -124,6 +130,8 @@ class MiniMode(gtk.Window):
 
         self._active = False
         self._hide()
+        self.box.destroy()
+
         gtk.Window.destroy(self)
 
     def _hide(self):
@@ -222,8 +230,7 @@ class MiniMode(gtk.Window):
                 [self.exaile.gui.main, self.exaile.queue, self.formatter,
                  self.on_track_change]),
             'playlist_button': (mmwidgets.PlaylistButton,
-                [self.exaile.gui.main, self.exaile.queue,
-                 self.exaile.queue.current_playlist, self.formatter,
+                [self.exaile.gui.main, self.exaile.queue, self.formatter,
                  self.on_track_change])
         }
         # TODO: PlaylistProgressBar
@@ -234,20 +241,7 @@ class MiniMode(gtk.Window):
         """
             Adds and removes widgets
         """
-        all_ids = self.box.get_id_iter()
-
-        for id in all_ids:
-            if id not in ids:
-                try:
-                    self.box.remove_widget(id)
-                except KeyError:
-                    pass
-
-        for id in ids:
-            try:
-                self.box.add_widget(id)
-            except KeyError:
-                pass
+        self.box.update_widgets(ids)
 
     def get_option(self, option):
         """
@@ -359,4 +353,12 @@ class MiniMode(gtk.Window):
         """
         self.resize(*self.size_request())
         self.queue_draw()
+
+    def on_delete_event(self, widget, event):
+        """
+            Closes application on quit
+        """
+        self.hide()
+        self.exaile.gui.main.quit()
+        return True
 

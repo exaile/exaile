@@ -45,9 +45,13 @@ class ProviderManager(object):
         if servicename not in self.services:
             self.services[servicename] = []
         self.services[servicename].append(provider)
-        logger.debug("Provider %(provider)s registered for service %(service)s" % \
-                {'provider' : provider.name, 'service' : servicename})
-        event.log_event("%s_provider_added"%servicename, self, provider)
+        logger.debug(
+            "Provider %(provider)s registered for service %(service)s" % {
+                'provider' : provider.name,
+                'service' : servicename
+            }
+        )
+        event.log_event("%s_provider_added" % servicename, self, provider)
 
     def unregister_provider(self, servicename, provider):
         """
@@ -63,9 +67,13 @@ class ProviderManager(object):
         try:
             if provider in self.services[servicename]:
                 self.services[servicename].remove(provider)
-            logger.debug("Provider %(provider)s unregistered from service %(service)s" % \
-                    {'provider' : provider.name, 'service' : servicename})
-            event.log_event("%s_provider_removed"%servicename, self, provider)
+            logger.debug(
+                "Provider %(provider)s unregistered from service %(service)s" % {
+                    'provider' : provider.name,
+                    'service' : servicename
+                }
+            )
+            event.log_event("%s_provider_removed" % servicename, self, provider)
         except KeyError:
             return
 
@@ -86,12 +94,13 @@ class ProviderManager(object):
 MANAGER = ProviderManager()
 register = MANAGER.register_provider
 unregister = MANAGER.unregister_provider
+get = MANAGER.get_providers
 
 class ProviderHandler(object):
     def __init__(self, servicename):
         self.servicename = servicename
-        event.add_callback(self._new_cb, "%s_provider_added"%servicename)
-        event.add_callback(self._del_cb, "%s_provider_removed"%servicename)
+        event.add_callback(self._new_cb, "%s_provider_added" % servicename)
+        event.add_callback(self._del_cb, "%s_provider_removed" % servicename)
 
     def _new_cb(self, name, obj, provider):
         self.on_new_provider(provider)

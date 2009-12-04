@@ -121,7 +121,7 @@ class ExModbar(object):
     #playing ----------------------------------------------------------------
 
     def lookformod(self,track):
-         if not track or not (track.is_local() or track['__length']):
+         if not track or not (track.is_local() or track.get_tag_raw('__length')):
              self.haveMod=False
              return
 
@@ -379,7 +379,8 @@ class ExModbar(object):
             return False
 
          track = self.exaile.player.current
-         if not track or not (track.is_local() or track['__length']): return
+         if not track or not (track.is_local() or \
+                 track.get_tag_raw('__length')): return
 
          if self.modTimer:
             if self.cursor:
@@ -447,7 +448,8 @@ class ExModbar(object):
         global exaile1
         self.seeking = False
         track = self.exaile.player.current
-        if not track or not (track.is_local() or track['__length']): return
+        if not track or not (track.is_local() or \
+                track.get_tag_raw('__length')): return
 
         mouse_x, mouse_y = event.get_coords()
         progress_loc = self.get_size()
@@ -466,7 +468,8 @@ class ExModbar(object):
     def modSeekMotionNotify(self,this,  event):
         if self.seeking:
             track = self.exaile.player.current
-            if not track or not (track.is_local() or track['__length']): return
+            if not track or not (track.is_local() or \
+                    track.get_tag_raw('__length')): return
 
             mouse_x, mouse_y = event.get_coords()
             progress_loc = self.get_size()

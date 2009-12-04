@@ -83,11 +83,12 @@ class NormalPlayer(_base.ExailePlayer):
         """
         if message.type == gst.MESSAGE_TAG and self.tag_func:
             self.tag_func(message.parse_tag())
-            if not self.current['__length']:
+            if not self.current.get_tag_raw('__length'):
                 try:
-                    duration = float(self.playbin.query_duration(gst.FORMAT_TIME, None)[0])/1000000000
+                    duration = float(self.playbin.query_duration(
+                            gst.FORMAT_TIME, None)[0])/1000000000
                     if duration > 0:
-                        self.current['__length'] = duration
+                        self.current.set_tag_raw('__length', duration)
                 except gst.QueryError:
                     logger.error("Couldn't query duration")
         elif message.type == gst.MESSAGE_EOS and not self.is_paused():
@@ -140,7 +141,7 @@ class NormalPlayer(_base.ExailePlayer):
             updates the total playtime for the currently playing track
         """
         if self.current and self._playtime_stamp:
-            last = self.current['__playtime']
+            last = self.current.get_tag_raw('__playtime')
             if type(last) == str:
                 try:
                     last = int(last)
@@ -148,8 +149,8 @@ class NormalPlayer(_base.ExailePlayer):
                     last = 0
             elif type(last) != int:
                 last = 0
-            self.current['__playtime'] = last + int(time.time() - \
-                    self._playtime_stamp)
+            self.current.set_tag_raw('__playtime', last + int(time.time() - \
+                    self._playtime_stamp))
             self._playtime_stamp = None
 
     def reset_playtime_stamp(self):
@@ -230,7 +231,8 @@ class NormalPlayer(_base.ExailePlayer):
 
             # gstreamer does not buffer paused network streams, so if the user
             # is unpausing a stream, just restart playback
-            if not (self.current.is_local() or self.current['__length']):
+            if not (self.current.is_local() or
+                    self.current.get_tag_raw('__length')):
                 self.playbin.set_state(gst.STATE_READY)
 
             self.playbin.set_state(gst.STATE_PLAYING)

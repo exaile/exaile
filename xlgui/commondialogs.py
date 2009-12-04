@@ -231,7 +231,7 @@ def error(parent, message, _flags=gtk.DIALOG_MODAL):
         Shows an error dialog
     """
     dialog = gtk.MessageDialog(parent, _flags, gtk.MESSAGE_ERROR,
-        gtk.BUTTONS_OK)
+        gtk.BUTTONS_CLOSE)
     dialog.set_markup(message)
     dialog.run()
     dialog.destroy()

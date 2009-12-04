@@ -115,6 +115,7 @@ class PluginsManager(object):
             plugin.enable(self.exaile)
             self.enabled_plugins[pluginname] = plugin
             logger.debug("Loaded plugin %s" % pluginname)
+            self.save_enabled()
         except Exception, e:
             traceback.print_exc()
             logger.warning("Unable to enable plugin %s" % pluginname)
@@ -126,6 +127,8 @@ class PluginsManager(object):
             plugin = self.enabled_plugins[pluginname]
             del self.enabled_plugins[pluginname]
             plugin.disable(self.exaile)
+            logger.debug("Unloaded plugin %s" % pluginname)
+            self.save_enabled()
         except Exception, e:
             traceback.print_exc()
             logger.warning("Unable to fully disable plugin %s" % pluginname)

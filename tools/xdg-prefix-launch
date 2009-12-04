@@ -1,23 +1,16 @@
 #!/bin/sh
 
-#TODO: is tere a better way to do this?
-ROOT=
-PROG=
-ARGS=
-for arg in "$@"; do
-    if [ -z $ROOT ]; then
-        ROOT=$arg
-    else 
-        if [ -z $PROG ]; then
-            PROG=$arg
-        else
-            ARGS="$ARGS $arg"
-        fi
-    fi
-done
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 prefix command [args...]"
+    exit 1
+fi
 
-echo $ROOT
-echo $PROG
-echo $ARGS
+PREFIX=$1
+CMD=$2
+shift 2
 
-XDG_CONFIG_HOME=$ROOT/config/ XDG_DATA_HOME=$ROOT/data/ XDG_CACHE_HOME=$ROOT/cache/ $PROG $ARGS
+export XDG_CONFIG_HOME="$PREFIX/config/"
+export XDG_DATA_HOME="$PREFIX/data/"
+export XDG_CACHE_HOME="$PREFIX/cache/"
+
+exec "$CMD" "$@"

@@ -59,11 +59,11 @@ class ExailePlayer(object):
         if not track:
             return
         try:
-            i = int(track['__playcount'])
+            i = int(track.get_tag_raw('__playcount'))
         except:
             i = 0
-        track['__playcount'] = i + 1
-        track['__last_played'] = time.time()
+        track.set_tag_raw('__playcount', i + 1)
+        track.set_tag_raw('__last_played', time.time())
 
     def _load_volume(self):
         """
@@ -165,7 +165,7 @@ class ExailePlayer(object):
     def get_progress(self):
         try:
             progress = self.get_position()/float(
-                    self.current.get_duration()*gst.SECOND)
+                    self.current.get_tag_raw("__length")*gst.SECOND)
         except ZeroDivisionError: # track doesnt have duration info
             progress = 0
         except AttributeError: # no current track

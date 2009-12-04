@@ -2194,7 +2194,7 @@ msgstr "خط الفنان :"
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
 msgid "On Playback Start, Pause or Stop"
 msgstr ""
-"في إعادة التشغيل شغل,وقف أو توقف\r\n"
+"في إعادة التشغيل شغل,وقف أو توقف\n"
 "لا"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7

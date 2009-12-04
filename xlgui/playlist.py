@@ -206,7 +206,7 @@ class Playlist(gtk.VBox):
         steps = settings.get_option('miscellaneous/rating_steps', 5)
         r = float((100.0*rating)/steps)
         for track in tracks:
-            track['__rating'] = r
+            track.set_tag_raw('__rating', r)
         event.log_event('rating_changed', self, r)
 
     def _setup_col_menus(self):
@@ -378,14 +378,9 @@ class Playlist(gtk.VBox):
         """
         ar = [song, None, None]
         for field in self.append_map:
-            try:
-                if isinstance(song[field], basestring):
-                    raise TypeError
-                value = " / ".join(song[field])
-            except TypeError:
-                value = song[field]
-            if value is None: value = ''
-
+            value = song.get_tag_display(field)
+            if value is None:
+                value = ''
             ar.append(value)
         return ar
 
@@ -638,17 +633,21 @@ class Playlist(gtk.VBox):
         if context.action != gtk.gdk.ACTION_MOVE:
             pass
 
-        drop_info = tv.get_dest_row_at_pos(x, y)
-        if drop_info:
-            path, position = drop_info
-            iter = self.model.get_iter(path)
-            if (position == gtk.TREE_VIEW_DROP_BEFORE or
-                position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
-                first = False
-            else:
-                first = True
+        try:
+            drop_info = tv.get_dest_row_at_pos(x, y)
 
-        current_tracks = self.playlist.get_tracks()
+            if drop_info:
+                path, position = drop_info
+                iter = self.model.get_iter(path)
+                if (position == gtk.TREE_VIEW_DROP_BEFORE or
+                    position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
+                    first = False
+                else:
+                    first = True
+        except AttributeError:
+            drop_info = None
+            pass
+
         (tracks, playlists) = self.list.get_drag_data(locs)
 
         tracks = sort_tracks(tracks)
@@ -657,8 +656,6 @@ class Playlist(gtk.VBox):
         # by default we load all tracks.
         # TODO: should we load tracks we find in the collection from there??
         for track in tracks:
-            if not Playlist._is_drag_source and track in current_tracks:
-                continue
             if not drop_info:
                 self._append_track(track)
             else:
@@ -685,20 +682,17 @@ class Playlist(gtk.VBox):
         else:
             context.finish(True, False, etime)
 
-        # iterates through the list and adds any tracks that are
-        # not in the playlist to the current playlist
-        current_tracks = self.playlist.get_tracks()
         iter = self.model.get_iter_first()
         if not iter:
             # Do we need to reactivate the callbacks when this happens?
             gobject.idle_add(self.add_track_callbacks)
             return
+        trs = []
         while True:
-            track = self.model.get_value(iter, 0)
-            if not track in current_tracks:
-                self.playlist.add_tracks((track,))
+            trs.append(self.model.get_value(iter, 0))
             iter = self.model.iter_next(iter)
             if not iter: break
+        self.playlist.add_tracks(trs)
 
         # Re add all of the tracks so that they
         # become ordered
@@ -768,12 +762,13 @@ class Playlist(gtk.VBox):
             if value in tracks: rows.append(iter)
             iter = self.model.iter_next(iter)
 
+        nextrow = None
+        lastindex = 0
+
         if rows:
             nextrow = self.model.iter_next(rows[-1])
-            if nextrow:
+            if nextrow is not None:
                 lastindex = self.playlist.index(self.model.get_value(rows[-1], 0))
-            else:
-                lastindex = 0
 
         for row in rows:
             track = self.model.get_value(row, 0)
@@ -784,11 +779,13 @@ class Playlist(gtk.VBox):
                 pass
             self.model.remove(row)
 
-        if nextrow:
+        nextindex = lastindex - len(rows)
+
+        if nextrow is not None:
             nexttrack = self.model.get_value(nextrow, 0)
             nextindex = self.playlist.index(nexttrack)
-            self.list.set_cursor(nextindex)
-        elif rows:
+
+        if nextindex > 0:
             self.list.set_cursor(lastindex - len(rows))
 
         gobject.idle_add(event.add_callback, self.on_remove_tracks,
@@ -1112,10 +1109,10 @@ class Playlist(gtk.VBox):
                 leftpadding = (rating_col_width - rating._rating_width) / 2
                 i = int(math.ceil((x-left_edge-leftpadding)/icon_size))
                 new_rating = float((100*i)/steps)
-                if track['__rating'] == new_rating:
-                    track['__rating'] = 0.0
+                if track.get_tag_raw('__rating') == new_rating:
+                    track.set_tag_raw('__rating', 0.0)
                 else:
-                    track['__rating'] = new_rating
+                    track.set_tag_raw('__rating', new_rating)
                 if hasattr(w, 'queue_draw'):
                     w.queue_draw()
                 event.log_event('rating_changed', self, i)
@@ -1130,8 +1127,8 @@ def sort_tracks(tracks):
         tracks.sort(key=lambda track: track.sort_param(column),
             reverse=descending)
     else:
-        tracks = trackdb.sort_tracks(
-            ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
+        tracks = track.sort_tracks(
+            ('album', 'tracknumber', 'artist', 'date', 'discnumber'),
             tracks)
         if descending: tracks.reverse()
 

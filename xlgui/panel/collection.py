@@ -53,7 +53,7 @@ class CollectionPanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    ui_info = ('collection_panel.glade', 'CollectionPanelWindow')
+    ui_info = ('collection_panel.ui', 'CollectionPanelWindow')
     orders = (
         ['artist', 'album', 'tracknumber', 'title'],
         ['album', 'tracknumber', 'title'],
@@ -624,7 +624,7 @@ class CollectionPanel(panel.Panel):
 
             @param node: the node
         """
-        previously_loaded = False
+        previously_loaded = False # was the subtree already loaded
         iter_sep = None
         if parent == None:
             depth = 0
@@ -650,21 +650,15 @@ class CollectionPanel(panel.Panel):
 
         try:
             tag = self.order[depth]
-            self.tracks.extend(self.collection.search(search))
-            if previously_loaded:   # leave after setting self.tracks, so _find_tracks searches right branch
+            tracks = self.collection.search(search)
+            if previously_loaded:
                 return
 
-            sort_by = []
+            sort_by = [tag]
             if depth > 0 and self.order[depth-1] == "tracknumber":
-                sort_by = ['discnumber', 'tracknumber']
-            if tag == 'artist':
-                _search = "__compilation==__null__ " + search
-            else:
-                _search = search
-            values = self.collection.list_tag(tag,
-                    _search,
-                    use_albumartist=False, ignore_the=True, sort=True,
-                    sort_by=sort_by)
+                sort_by += ['discnumber', 'tracknumber']
+            sort_by.reverse()
+            tracks = track.sort_tracks(sort_by, tracks)
         except IndexError:
             return # at the bottom of the tree
         try:
@@ -675,64 +669,36 @@ class CollectionPanel(panel.Panel):
         if depth == len(self.order)-1:
             bottom = True
 
-        unknown_items = []
 
         draw_seps = settings.get_option('gui/draw_separators', True)
         last_char = ''
+        last_val = ''
         first = True
-        for v in values:
-            if not v:
-                if depth == 0:
-                    # if the value is unknown and this is the top level,
-                    # append this item to the unknown list
-                    unknown_items.append(v)
-                    continue
-                else:
-                    v = _("Unknown")
 
+        for tr in tracks:
+            tagval = tr.get_tag_display(tag)
+            if last_val == tagval:
+                continue
+            last_val = tagval
             if depth == 0 and draw_seps:
-                check_val = common.the_cutter(common.lstrip_special(v))
-                check_val = common.strip_marks(check_val).lower()
-
-                char = first_meaningful_char(check_val)
-
-                if char.isdigit():
-                    char = '0'
-
+                val = tr.strip_leading(tr.get_tag_sort(tag))
+                char = first_meaningful_char(val)
                 if first:
                     last_char = char
                 else:
                     if char != last_char and last_char != '':
                         self.model.append(parent, [None, None, None])
                     last_char = char
-
             first = False
-            iter = self.model.append(parent, [image, v, None])
-            if not bottom:
-                self.model.append(iter, [None, None, None])
-            #self.load_subtree(iter, depth+1)
 
-        # various
-        if tag == 'artist':
-            tracks = self.collection.search('! __compilation==__null__',
-                tracks=self.tracks, sort_fields=sort_by)
-            if tracks:
-                self.model.append(parent, [None, None, None])
-                iter = self.model.append(parent, [image, _('Various Artists'),
-                    '! __compilation==__null__'])
-                self.model.append(iter, [None, None, None])
-
-        if unknown_items:
-            for v in unknown_items:
-                if not v:
-                    v = _('Unknown')
-            iter = self.model.append(parent, [image, v, None])
+            iter = self.model.append(parent, [image, tagval, None])
             if not bottom:
                 self.model.append(iter, [None, None, None])
 
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
+        return #no expansion for now
         if depth == 0 and settings.get_option("gui/expand_enabled", True) and \
             len(values) <= settings.get_option(
                     "gui/expand_maximum_results", 100) and \

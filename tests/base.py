@@ -39,7 +39,7 @@ for item in ('data_home', 'config_home', 'config_dirs'):
     setattr(xdg, item, path)
 
 # set the locale to LANG, or the user's default
-locale.setlocale(locale.LC_ALL, '')
+locale.setlocale(locale.LC_ALL, None)
 
 # this installs _ into python's global namespace, so we don't have to
 # explicitly import it elsewhere

@@ -47,7 +47,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
-    ui_info = ('radio_panel.glade', 'RadioPanelWindow')
+    ui_info = ('radio_panel.ui', 'RadioPanelWindow')
     _radiopanel = None
 
     def __init__(self, parent, collection,
@@ -238,14 +238,14 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
         self.tree.set_model(self.model)
 
-        self.open_folder = guiutil.get_icon('gnome-fs-directory-accept')
         self.track = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/track.png'))
-        self.folder = guiutil.get_icon('gnome-fs-directory')
+        self.folder = self.tree.render_icon(
+            gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.refresh_image = guiutil.get_icon('gtk-refresh')
 
-        self.custom = self.model.append(None, [self.open_folder, _("Saved Stations"), None])
-        self.radio_root = self.model.append(None, [self.open_folder, _("Radio "
+        self.custom = self.model.append(None, [self.folder, _("Saved Stations"), None])
+        self.radio_root = self.model.append(None, [self.folder, _("Radio "
             "Streams"), None])
 
         scroll = gtk.ScrolledWindow()
@@ -482,7 +482,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         driver = self.model.get_value(iter, 2)
 
         if not isinstance(driver, xl.playlist.Playlist):
-            self.model.set_value(iter, 0, self.open_folder)
+            self.model.set_value(iter, 0, self.folder)
 
         if isinstance(driver, xl.radio.RadioStation) or \
             isinstance(driver, xl.radio.RadioList):

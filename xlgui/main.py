@@ -24,17 +24,16 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.nls import gettext as _
 import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
 import gtk, gobject, pango, datetime
-from xl import xdg, event, track, common
-from xl import settings, trackdb
+from xl import common, event, providers, settings, track, trackdb, xdg
+from xl.nls import gettext as _
 import xl.playlist
 from xlgui import playlist, cover, guiutil, menu, commondialogs, tray
-import xl.playlist, re, os, threading
+import re, os, threading
 
 logger = logging.getLogger(__name__)
 
@@ -75,8 +74,9 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         track = self.player.current
-        if not track or not (track.is_local() or track['__length']): return
-        length = track.get_duration()
+        if not track or not (track.is_local() or \
+                track.get_tag_raw('__length')): return
+        length = track.get_tag_raw('__length')
 
         seconds = float(value * length)
         self.player.seek(seconds)
@@ -87,7 +87,8 @@ class PlaybackProgressBar(object):
 
     def seek_motion_notify(self, widget, event):
         track = self.player.current
-        if not track or not(track.is_local() or track['__length']): return
+        if not track or not(track.is_local() or \
+                track.get_tag_raw('__length')): return
 
         mouse_x, mouse_y = event.get_coords()
         progress_loc = self.bar.get_allocation()
@@ -98,7 +99,7 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         self.bar.set_fraction(value)
-        length = track.get_duration()
+        length = track.get_tag_raw('__length')
         seconds = float(value * length)
         remaining_seconds = length - seconds
         self._set_bar_text(seconds, length)
@@ -124,11 +125,11 @@ class PlaybackProgressBar(object):
         if not track: return
         if self.seeking: return True
 
-        if not track.is_local() and not track['__length']:
+        if not track.is_local() and not track.get_tag_raw('__length'):
             self.bar.set_fraction(0)
             self.bar.set_text(_('Streaming...'))
             return True
-        length = track.get_duration()
+        length = track.get_tag_raw('__length')
 
         self.bar.set_fraction(self.player.get_progress())
 
@@ -586,6 +587,7 @@ class MainWindow(gobject.GObject):
 
         self.dynamic_toggle = self.builder.get_object('dynamic_button')
         self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
+        self.update_dynamic_toggle()
 
         # Cover box
         self.cover_event_box = self.builder.get_object('cover_event_box')
@@ -687,6 +689,23 @@ class MainWindow(gobject.GObject):
             self.collection.get_count())
         self.statusbar.set_queue_count(len(self.queue))
 
+    def update_dynamic_toggle(self, *e):
+        """
+            Shows or hides the dynamic toggle button
+            based on the amount of providers available
+        """
+        providers_available = len(providers.get('dynamic_playlists')) > 0
+        if providers_available:
+            self.dynamic_toggle.set_sensitive(True)
+            self.dynamic_toggle.set_tooltip_text(
+                _('Dynamically add similar tracks to the playlist')
+            )
+        else:
+            self.dynamic_toggle.set_sensitive(False)
+            self.dynamic_toggle.set_tooltip_text(
+                _('Requires plugins providing dynamic playlists')
+            )
+
     def _connect_events(self):
         """
             Connects the various events to their handlers
@@ -748,6 +767,12 @@ class MainWindow(gobject.GObject):
         event.add_callback(self.on_playback_error, 'playback_error',
             self.player)
 
+        # Dynamic toggle button
+        event.add_callback(self.update_dynamic_toggle,
+            'dynamic_playlists_provider_added')
+        event.add_callback(self.update_dynamic_toggle,
+            'dynamic_playlists_provider_removed')
+
         # Monitor the queue
         event.add_callback(self.update_track_counts,
             'tracks_added', self.queue)
@@ -805,13 +830,13 @@ class MainWindow(gobject.GObject):
         pl = self.get_selected_playlist()
 
         if sort:
-            items = trackdb.sort_tracks(
+            items = track.sort_tracks(
                 ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
                 items)
 
-        pl.playlist.add_tracks(items, add_duplicates=False)
+        pl.playlist.add_tracks(items)
         if queue:
-            self.queue.add_tracks(items, add_duplicates=False)
+            self.queue.add_tracks(items)
         pl.list.queue_draw()
 
     @guiutil.idle_add()
@@ -1184,21 +1209,9 @@ class MainWindow(gobject.GObject):
                 tray_icon.set_tooltip(_("Exaile Music Player\nNot playing"))
             return
 
-        artist = track['artist']
-        album = track['album']
-        title = track['title']
-        if title is None:
-            title = ''
-        else:
-            title = " / ".join(title)
-        if album is None:
-            album = ''
-        else:
-            album = " / ".join(album)
-        if artist is None:
-            artist = ''
-        else:
-            artist = " / ".join(artist)
+        artist = track.get_tag_display('artist')
+        album = track.get_tag_display('album')
+        title = track.get_tag_display('title')
 
         # Update window title.
         if artist:

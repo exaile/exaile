@@ -77,7 +77,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self.builder = gtk.Builder()
         self.builder.add_from_file(
-                xdg.get_data_path('ui/trackproperties_dialog.glade'))
+                xdg.get_data_path('ui/trackproperties_dialog.ui'))
         self.dialog = self.builder.get_object('TrackPropertiesDialog')
         self.dialog.set_transient_for(parent)
         self._connect_events()
@@ -140,11 +140,12 @@ class TrackPropertiesDialog(gobject.GObject):
         for track in tracks:
             t = {}
             for tag in self.def_tags:
-                if track[tag]:
-                    if isinstance(track[tag], list):
-                        t[tag] = track[tag][:]
+                tagval = track.get_tag_raw(tag)
+                if tagval:
+                    if isinstance(tagval, list):
+                        t[tag] = tagval[:]
                     else:
-                        t[tag] = [ track[tag] ]
+                        t[tag] = [ tagval ]
                 else:
                     t[tag] = ['']
 
@@ -155,10 +156,11 @@ class TrackPropertiesDialog(gobject.GObject):
 
             for tag in track.tags:
                 if tag not in self.def_tags:
-                    if isinstance(track[tag], list):
-                        t[tag] = track[tag][:]
+                    tagval = track.get_tag_raw(tag)
+                    if isinstance(tagval, list):
+                        t[tag] = tagval[:]
                     else:
-                        t[tag] = [ track[tag] ]
+                        t[tag] = [ tagval ]
 
             l.append(t)
 
@@ -168,7 +170,7 @@ class TrackPropertiesDialog(gobject.GObject):
         for n, track in enumerate(self.tracks):
             for tag in track:
                 if not tag.startswith("__"):
-                    self.track_refs[n][tag] = track[tag]
+                    self.track_refs[n].set_tag_raw(tag, track[tag])
 
             #in case a tag has been removed..
             poplist = []

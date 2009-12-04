@@ -103,7 +103,11 @@ class ShoutcastRadioStation(RadioStation):
         if no_cache or not self.data:
             set_status(_('Contacting Shoutcast server...'))
             hostinfo = urlparse.urlparse(self.genre_url)
-            c = httplib.HTTPConnection(hostinfo.netloc)
+            try:
+                c = httplib.HTTPConnection(hostinfo.netloc,
+                        timeout=20)
+            except TypeError: # python 2.5 doesnt have timeout=
+                c = httplib.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent':
                     _USERAGENT})
@@ -156,7 +160,11 @@ class ShoutcastRadioStation(RadioStation):
 
         set_status(_('Contacting Shoutcast server...'))
         hostinfo = urlparse.urlparse(url)
-        c = httplib.HTTPConnection(hostinfo.netloc)
+        try:
+            c = httplib.HTTPConnection(hostinfo.netloc,
+                    timeout=20)
+        except TypeError: # python 2.5 doesnt have timeout=
+            c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
                 headers={'User-Agent': _USERAGENT})
@@ -203,7 +211,11 @@ class ShoutcastRadioStation(RadioStation):
         url = self.playlist_url % {'id': station_id}
 
         hostinfo = urlparse.urlparse(url)
-        c = httplib.HTTPConnection(hostinfo.netloc)
+        try:
+            c = httplib.HTTPConnection(hostinfo.netloc,
+                    timeout=20)
+        except TypeError: # python 2.5 doesnt have timeout=
+            c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             print "Reading %s" % url
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
@@ -237,7 +249,11 @@ class ShoutcastRadioStation(RadioStation):
         url = self.search_url % {'kw': keyword}
 
         hostinfo = urlparse.urlparse(url)
-        c = httplib.HTTPConnection(hostinfo.netloc)
+        try:
+            c = httplib.HTTPConnection(hostinfo.netloc,
+                    timeout=20)
+        except TypeError: # python 2.5 doesnt have timeout=
+            c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
                 headers={'User-Agent': _USERAGENT})

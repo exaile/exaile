@@ -115,8 +115,8 @@ class ScalableImageWidget(gtk.Image):
         """
             Sets the image
         """
-        self.loc = image
-        self.pixbuf = gtk.gdk.pixbuf_new_from_file(image)
+        self.loc = gio.File(image).get_path()
+        self.pixbuf = gtk.gdk.pixbuf_new_from_file(self.loc)
 
         self._set_image(self.pixbuf, fill)
 

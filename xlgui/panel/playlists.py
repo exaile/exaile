@@ -171,11 +171,11 @@ class TrackWrapper(object):
         self.playlist = playlist
 
     def __str__(self):
-        text = self.track['title']
+        text = self.track.get_tag_raw('title')
 
         if text: text = ' / '.join(text)
-        if text and self.track['artist']:
-            text += " - " + ' / '.join(self.track['artist'])
+        if text and self.track.get_tag_raw('artist'):
+            text += " - " + ' / '.join(self.track.get_tag_raw('artist'))
 
         if not text: return self.track.get_loc_for_io()
         return text
@@ -432,7 +432,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
         The playlists panel
     """
-    ui_info = ('playlists_panel.glade', 'PlaylistsPanelWindow')
+    ui_info = ('playlists_panel.ui', 'PlaylistsPanelWindow')
 
     def __init__(self, parent, playlist_manager,
         smart_manager, collection):
@@ -484,7 +484,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.tree.set_model(self.model)
 
         # icons
-        self.open_folder = guiutil.get_icon('gnome-fs-directory-accept')
+        self.folder = self.tree.render_icon(
+            gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.playlist_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/playlist.png'))
 
@@ -548,10 +549,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
             Loads the currently saved playlists
         """
-        self.smart = self.model.append(None, [self.open_folder,
+        self.smart = self.model.append(None, [self.folder,
             _("Smart Playlists"), None])
 
-        self.custom = self.model.append(None, [self.open_folder,
+        self.custom = self.model.append(None, [self.folder,
             _("Custom Playlists"), None])
 
         for name in self.smart_manager.playlists:

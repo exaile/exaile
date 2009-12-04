@@ -110,10 +110,11 @@ class UnifiedPlayer(_base.ExailePlayer):
             logger.warning("EOS: ", message)
         elif message.type == gst.MESSAGE_TAG and self.tag_func:
             self.tag_func(message.parse_tag())
-            if not self.current['__length']:
+            if not self.current.get_tag_raw('__length'):
                 try:
                     duration = float(self.mainbin.query_duration(gst.FORMAT_TIME, None)[0])/1000000000
-                    if duration > 0: self.current['__length'] = duration
+                    if duration > 0:
+                        self.current.set_tag_raw('__length', duration)
                 except gst.QueryError:
                     logger.debug("Couldn't query duration via GStreamer")
         elif message.type == gst.MESSAGE_ERROR:
@@ -227,8 +228,8 @@ class UnifiedPlayer(_base.ExailePlayer):
         if self._timer_id:
             gobject.source_remove(self._timer_id)
         if tr is None:
-            self._timer_id = gobject.timeout_add(
-                    1000*(self.current.get_duration() - self.get_time()),
+            self._timer_id = gobject.timeout_add(1000 * \
+                    (self.current.get_tag_raw('__length') - self.get_time()),
                     self.stop)
         return False
 
@@ -240,7 +241,7 @@ class UnifiedPlayer(_base.ExailePlayer):
         if not settings.get_option("player/crossfading", False):
             return
         duration = settings.get_option("player/crossfade_duration", 3000)
-        time = int( self.current.get_duration()*1000 - \
+        time = int( self.current.get_tag_raw('__length')*1000 - \
                 (self.get_time()*1000 + duration) )
         if time < duration: # start crossfade now, we're late!
             gobject.idle_add(self._start_crossfade)
@@ -423,7 +424,7 @@ class AudioStream(gst.Bin):
             updates the total playtime for the currently playing track
         """
         if self.track and self._playtime_stamp:
-            last = self.track['__playtime']
+            last = self.track.get_tag_raw('__playtime')
             if type(last) == str:
                 try:
                     last = int(last)
@@ -431,8 +432,8 @@ class AudioStream(gst.Bin):
                     last = 0
             elif type(last) != int:
                 last = 0
-            self.track['__playtime'] = last + int(time.time() - \
-                    self._playtime_stamp)
+            self.track.set_tag_raw('__playtime',
+                    last + int(time.time() - self._playtime_stamp) )
             self._playtime_stamp = None
 
     def reset_playtime_stamp(self):

@@ -76,7 +76,7 @@ class Main(object):
         self.tray_icon = None
         self.panels = {}
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path("ui/main.glade"))
+        self.builder.add_from_file(xdg.get_data_path("ui/main.ui"))
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
@@ -239,7 +239,7 @@ class Main(object):
             pl = self.main.get_selected_playlist()
             column, descending = pl.get_sort_by()
             tracks = track.get_tracks_from_uri(uri)
-            tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
+            tracks.sort(key=lambda track: track.get_tag_sort(column), reverse=descending)
             try:
                 pl.playlist.add_tracks(tracks)
                 pl.playlist.set_current_pos(len(pl.playlist) - len(tracks))
@@ -391,7 +391,7 @@ class Main(object):
         """
         import xl.main as xlmain
         builder = gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui/about_dialog.glade'))
+        builder.add_from_file(xdg.get_data_path('ui/about_dialog.ui'))
         dialog = builder.get_object('AboutDialog')
         logo = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/exailelogo.png'))
@@ -457,7 +457,7 @@ def show_splash(show=True):
     image = gtk.Image()
     image.set_from_file(xdg.get_data_path("images/splash.png"))
     builder = gtk.Builder()
-    builder.add_from_file(xdg.get_data_path("ui/splash.glade"))
+    builder.add_from_file(xdg.get_data_path("ui/splash.ui"))
     splash_screen = builder.get_object('SplashScreen')
     box = builder.get_object('splash_box')
     box.pack_start(image, True, True)

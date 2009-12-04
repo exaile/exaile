@@ -146,7 +146,7 @@ class ExaileAwn(object):
         if track is None:
             return False
         # Streaming music
-        if not track.is_local() and not track['__length']:
+        if not track.is_local() and not track.get_tag_raw('__length'):
             self._set_timer(100)
             return False
         self._set_timer(int(self.exaile.player.get_progress() * 100))

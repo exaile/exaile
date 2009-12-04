@@ -100,7 +100,7 @@ def toggle_record(widget=None, event=None):
     else:
         os.system('kill -9 %d' % STREAMRIPPER_PID)
         APP.player.playbin.set_state(gst.STATE_READY)
-        APP.player.playbin.set_property('uri', track['__loc'])
+        APP.player.playbin.set_property('uri', track.get_loc_for_io())
         CURRENT_TRACK = None
         APP.player.playbin.set_state(gst.STATE_PLAYING)
         STREAMRIPPER_PID = None

@@ -287,8 +287,7 @@ class Collection(trackdb.TrackDB):
     def delete_tracks(self, tracks):
         for tr in tracks:
             for prefix, lib in self.libraries.iteritems():
-                if tr['__loc'].startswith('file://%s'%prefix):
-                    lib.delete(tr['__loc'])
+                lib.delete(tr.get_loc_for_io())
 
 class Library(object):
     """
@@ -424,9 +423,9 @@ class Library(object):
         if not settings.get_option('collection/file_based_compilations', True):
             return
         try:
-            basedir = metadata.j(tr['__basedir'])
-            album = metadata.j(tr['album'])
-            artist = metadata.j(tr['artist'])
+            basedir = metadata.j(tr.get_tag_raw('__basedir'))
+            album = metadata.j(tr.get_tag_raw('album'))
+            artist = metadata.j(tr.get_tag_raw('artist'))
         except UnicodeDecodeError: #TODO: figure out why this happens
             logger.warning("Encoding error, skipping compilation check")
             return
@@ -503,24 +502,16 @@ class Library(object):
         if not uri: # we get segfaults if this check is removed
             return None
         mtime = gloc.query_info("time::modified").get_modification_time()
-        trmtime = None
-        try:
-            trmtime = self.collection.get_track_attr(uri, '__modified')
-        except TypeError:
-            pass
-        except:
-            common.log_exception(log=logger)
-        if trmtime is not None and mtime <= trmtime:
-            return None
         tr = self.collection.get_track_by_loc(uri)
         if tr:
-            tr.read_tags()
+            if tr.get_tag_raw('__modified') < mtime:
+                tr.read_tags()
         else:
             tr = track.Track(uri)
             if tr._scan_valid == True:
-                tr['__date_added'] = time.time()
-                self.collection.add(tr)
-        tr['__modified'] = mtime
+                tr.set_tag_raw('__date_added', time.time())
+            self.collection.add(tr)
+        tr.set_tag_raw('__modified', mtime)
         return tr
 
     def rescan(self, notify_interval=None):
@@ -586,11 +577,11 @@ class Library(object):
             base = basedir.replace('"', '\\"')
             alb = album.replace('"', '\\"')
             items = [ tr for tr in dirtracks if \
-                    tr['__basedir'] == base and \
+                    tr.get_tag_raw('__basedir') == base and \
                     # FIXME: this is ugly
-                    alb in u"".join(tr['album']) ]
+                    alb in "".join(tr.get_tag_raw('album')) ]
             for item in items:
-                item['__compilation'] = (basedir, album)
+                item.set_tag_raw('__compilation', (basedir, album))
 
         removals = deque()
         location = self.location
@@ -664,16 +655,16 @@ class Library(object):
             Copies (or moves) a file into the library and adds it to the
             collection
         """
-        if not loc.startswith("file://"):
-            return
-        loc = loc[7:]
+        oldgloc = gio.File(loc)
 
-        newloc = os.path.join(self.location, os.path.basename(loc))
+        newgloc = gio.File(self.location).resolve_relative_path(
+                oldgloc.get_basename())
+
         if move:
-            shutil.move(loc, newloc)
+            oldgloc.move(newgloc)
         else:
-            shutil.copy(loc, newloc)
-        tr = track.Track(newloc)
+            oldgloc.copy(newgloc)
+        tr = track.Track(newgloc.get_uri())
         if tr._scan_valid:
             self.collection.add(tr)
 
@@ -687,13 +678,10 @@ class Library(object):
         tr = self.collection.get_track_by_loc(loc)
         if tr:
             self.collection.remove(tr)
-            path = common.local_file_from_url(tr.get_loc_for_io())
-            try:
-                os.unlink(path)
-            except OSError: # file not found?
-                common.log_exception(log=logger)
-            except:
-                common.log_exception(logger)
+            loc = tr.get_loc_for_io()
+            file = gio.File(loc)
+            if not file.delete():
+                logger.warning("Could not delete file %s." % loc)
 
     # the below are not essential for 0.3.0, should be implemented only
     # if time allows for it

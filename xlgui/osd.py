@@ -76,7 +76,7 @@ class OSDWindow(object):
             self.progress_widget.destroy()
 
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/osd_window.glade'))
+        self.builder.add_from_file(xdg.get_data_path('ui/osd_window.ui'))
         self.window = self.builder.get_object('OSDWindow')
 
         self.color = gtk.gdk.color_parse(
@@ -197,7 +197,7 @@ class OSDWindow(object):
             text = self.text.replace('&', '&amp;')
             for item in ('title', 'artist', 'album', '__length', 'tracknumber',
                     '__bitrate', 'genre', 'year', '__rating'):
-                value = track[item]
+                value = track.get_tag_display(item)
                 if item == '__length':
                     if not isinstance(value, (int, float)):
                         value = 'N/A'

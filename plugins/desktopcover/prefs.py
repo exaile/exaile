@@ -20,7 +20,7 @@ from xl.nls import gettext as _
 
 name = _('Desktop Cover')
 _basedir = os.path.dirname(os.path.realpath(__file__))
-ui = os.path.join(_basedir, "prefs.glade")
+ui = os.path.join(_basedir, "prefs.ui")
 
 _SETTINGS_PREFIX = 'plugin/desktopcover/'
 

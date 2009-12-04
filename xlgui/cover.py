@@ -55,7 +55,7 @@ class CoverManager(object):
         self._stopped = True
 
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/covermanager.glade'))
+        self.builder.add_from_file(xdg.get_data_path('ui/covermanager.ui'))
 
         self.window = self.builder.get_object('CoverManager')
         self.window.set_transient_for(parent)
@@ -497,7 +497,7 @@ class CoverWindow(object):
     def __init__(self, parent, cover, title=''):
         """Initializes and shows the cover"""
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.glade'))
+        self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.ui'))
         self.builder.connect_signals(self)
         self.cover_window = self.builder.get_object('CoverWindow')
         self.layout = self.builder.get_object('layout')
@@ -651,7 +651,7 @@ class CoverChooser(gobject.GObject):
         self.manager = covers
         self.parent = parent
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.glade'))
+        self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.ui'))
         self.window = self.builder.get_object('CoverChooser')
 
         try:
@@ -731,8 +731,8 @@ class CoverChooser(gobject.GObject):
         cover = self.covers[self.current]
 
         self.manager.coverdb.set_cover(
-            metadata.j(track['artist']),
-            metadata.j(track['album']),
+            metadata.j(track.get_tag_raw('artist')),
+            metadata.j(track.get_tag_raw('album')),
             cover)
 
         self.emit('cover-chosen', cover)

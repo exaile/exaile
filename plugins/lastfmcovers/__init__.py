@@ -22,7 +22,6 @@ except:
 import hashlib, urllib
 from xl.cover import *
 from xl import event
-import lastfmcovers_prefs
 
 # Last.fm API Key for Exaile
 # if you reuse this code in a different application, please
@@ -42,9 +41,6 @@ def _enable(eventname, exaile, nothing):
 def disable(exaile):
     exaile.covers.remove_search_method_by_name('lastfm')
 
-def get_prefs_pane():
-    return lastfmcovers_prefs
-
 
 class LastFMCoverSearch(CoverSearchMethod):
     """
@@ -55,16 +51,11 @@ class LastFMCoverSearch(CoverSearchMethod):
 
     url = 'http://ws.audioscrobbler.com/2.0/?method=type.search&type=%(type)s&api_key='
 
-    # List of SHA1 (hex) signatures of covers to be ignored. It can be
-    # replaced by a [frozen]set if the number of elements becomes large.
-    black_list = ['57b2c37343f711c94e83a37bd91bc4d18d2ed9d5']
-
 
     def find_covers(self, track, limit=-1):
         """
             Searches last.fm for album covers
         """
-        size = settings.get_option('plugin/cover/overlay', 'extralarge')
 
         # TODO: handle multi-valued fields better
         (artist, album, title) = track.get_tag_raw('artist')[0], \
@@ -84,18 +75,15 @@ class LastFMCoverSearch(CoverSearchMethod):
             except IOError:
                 continue
 
-        if hashlib.sha1(data).hexdigest() in self.black_list:
-            raise NoCoverFoundException()
+            xml = ETree.fromstring(data)
 
-        xml = ETree.fromstring(data)
+            for element in xml.getiterator(type[0]):
+                if (element.find('artist').text == artist.encode("utf-8")):
+                    for sub_element in element.findall('image'):
+                        if (sub_element.attrib['size'] == 'extralarge'):
+                            return [self.save_cover(sub_element.text)]
 
-        for element in xml.getiterator(type[0]):
-            if (element.find('artist').text == artist.encode("utf-8")):
-                for sub_element in element.findall('image'):
-                    if (sub_element.attrib['size'] == size):
-                        return [self.save_cover(sub_element.text)]
-
-        return []
+        raise NoCoverFoundException()
 
     def save_cover(self, cover_url):
 

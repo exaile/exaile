@@ -149,7 +149,9 @@ class Playlist(gtk.VBox):
 
 
     def __refresh_changed_tracks(self):
-        tracks = set(self._redraw_queue)
+        tracks = {}
+        for tr in self._redraw_queue:
+            tracks[tr.get_loc_for_io()] = tr
         self._redraw_queue = []
 
         selection = self.list.get_selection()
@@ -157,14 +159,9 @@ class Playlist(gtk.VBox):
 
         it = self.model.get_iter_first()
         while it:
-            cur = self.model.get_value(it, 0)
-            for tr in tracks:
-                if cur.get_loc_for_io() == tr.get_loc_for_io():
-                    self.update_iter(it, tr)
-                    tracks.remove(tr)
-                    break
-            if len(tracks) == 0:
-                break
+            loc = self.model.get_value(it, 0).get_loc_for_io()
+            if loc in tracks:                
+                self.update_iter(it, tracks[loc])
             it = self.model.iter_next(it)
         self.list.queue_draw()
 

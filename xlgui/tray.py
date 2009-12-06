@@ -26,33 +26,24 @@
 
 import gobject, gtk
 
-from xl import xdg, event, settings
+from xl import event, settings, xdg
 from xl.nls import gettext as _
 from xlgui import guiutil
+import xlgui.main
 
-class TrayIcon(gtk.StatusIcon):
-    VOLUME_SCROLL_AMOUNT = 5
-
+class BaseTrayIcon(object):
+    """
+        Trayicon base, needs to be derived from
+    """
     def __init__(self, main):
-        gtk.StatusIcon.__init__(self)
-
-        self.controller = main.controller
+        self.main = main
         self.player = main.controller.exaile.player
         self.queue = main.controller.exaile.queue
-        self.window = main.window
-        self.main = main
+        self.VOLUME_STEP = 5
 
         self.setup_menu()
         self.update_icon()
-
-        self.connect('button-press-event', self._button_pressed)
-        self.connect('scroll-event', self._scrolled)
-        self.connect('query-tooltip', self._query_tooltip)
-
-        event.add_callback(self.on_playback_change_state, 'playback_player_start')
-        event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
-        event.add_callback(self.on_playback_change_state, 'playback_player_end')
-        event.add_callback(self.on_setting_change, 'option_set')
+        self.connect_events()
         event.log_event('tray_icon_toggled', self, True)
 
     def destroy(self):
@@ -67,25 +58,13 @@ class TrayIcon(gtk.StatusIcon):
         self.menu = None
         event.log_event('tray_icon_toggled', self, False)
 
-    def update_icon(self):
-        """
-            Updates the tray icon according to the playback state
-        """
-        if self.player.current is None:
-            self.set_from_icon_name('exaile')
-            self.set_tooltip(_("Exaile Music Player"))
-        elif self.player.is_paused():
-            self.set_from_icon_name('exaile-pause')
-        else:
-            self.set_from_icon_name('exaile-play')
-
     def setup_menu(self):
         """
             Sets up the popup menu for the tray icon
         """
         self.menu = guiutil.Menu()
 
-        self.playpause = self.menu.append(stock_id='gtk-media-play',
+        self.playpause_menuitem = self.menu.append(stock_id='gtk-media-play',
             callback=lambda *e: self._play_pause_clicked())
         self.menu.append(stock_id='gtk-media-next',
             callback=lambda *e: self.queue.next())
@@ -96,130 +75,177 @@ class TrayIcon(gtk.StatusIcon):
 
         self.menu.append_separator()
 
-        self.check_shuffle = gtk.CheckMenuItem(_("Shuffle playback order"))
-        self.check_shuffle.set_active(settings.get_option('playback/shuffle', False))
-        self.check_shuffle.connect('toggled', self.set_mode_toggles)
-        self.menu.append_item(self.check_shuffle)
+        self.shuffle_menuitem = gtk.CheckMenuItem(_('Shuffle playback order'))
+        self.shuffle_menuitem.set_active(settings.get_option('playback/shuffle', False))
+        self.menu.append_item(self.shuffle_menuitem)
 
-        self.check_repeat = gtk.CheckMenuItem(_("Repeat playlist"))
-        self.check_repeat.set_active(settings.get_option('playback/repeat', False))
-        self.check_repeat.connect('toggled', self.set_mode_toggles)
-        self.menu.append_item(self.check_repeat)
+        self.repeat_menuitem = gtk.CheckMenuItem(_('Repeat playlist'))
+        self.repeat_menuitem.set_active(settings.get_option('playback/repeat', False))
+        self.menu.append_item(self.repeat_menuitem)
 
-        self.check_dynamic = gtk.CheckMenuItem(_("Dynamically add similar tracks"))
-        self.check_dynamic.set_active(settings.get_option('playback/dynamic', False))
-        self.check_dynamic.connect('toggled', self.set_mode_toggles)
-        self.menu.append_item(self.check_dynamic)
+        self.dynamic_menuitem = gtk.CheckMenuItem(_('Dynamically add similar tracks'))
+        self.dynamic_menuitem.set_active(settings.get_option('playback/dynamic', False))
+        self.menu.append_item(self.dynamic_menuitem)
 
         self.menu.append_separator()
 
-        self.rating_item = guiutil.MenuRatingWidget(self._get_current_track_list,
-            self._get_current_track_rating)
-        self.menu.append_item(self.rating_item)
-        self.rm_item = self.menu.append(label=_("Remove current track from playlist"),
+        self.rating_menuitem = guiutil.MenuRatingWidget(
+            lambda: [self.player.current],
+            self.get_current_track_rating
+        )
+        self.menu.append_item(self.rating_menuitem)
+        self.remove_menuitem = self.menu.append(
+            label=_('Remove current track from playlist'),
             stock_id='gtk-remove',
-            callback=lambda *e: self._remove_current_song())
+            callback=lambda *e: self.remove_current_track()
+        )
 
         self.menu.append_separator()
 
         self.menu.append(stock_id='gtk-quit',
-            callback=lambda *e: self.controller.exaile.quit())
+            callback=lambda *e: self.main.quit())
 
-        event.add_callback(self.update_menu, 'playback_track_start')
+    def connect_events(self):
+        """
+            Connects various events with callbacks
+        """
+        self.connect('button-press-event', self.on_button_press_event)
+        self.connect('scroll-event', self.on_scroll_event)
 
-    def _get_current_track_list(self):
-        l = []
-        l.append(self.player.current)
-        return l
+        self.shuffle_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
+        self.repeat_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
+        self.dynamic_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
 
-    def _get_current_track_rating(self):
-        if self.player.current:
-            val = self.player.current.get_rating()
-            if val is None:
-                return 0
-            return val
-        else:
-            return 0
+        event.add_callback(self.on_playback_change_state, 'playback_player_start')
+        event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
+        event.add_callback(self.on_playback_change_state, 'playback_player_end')
+        #event.add_callback(self.update_menu, 'playback_track_start')
+        event.add_callback(self.on_setting_change, 'option_set')
 
-    def update_menu(self, type=None, object=None, data=None):
-        track = self.player.current
-        self.rating_item.on_rating_change()
-        if not track or not self.player.is_playing():
-            self.playpause.destroy()
-            self.playpause = self.menu.prepend(stock_id='gtk-media-play',
-                callback=lambda *e: self._play_pause_clicked())
+    def update_menu(self):
+        """
+            Updates the context menu
+        """
+        current_track = self.player.current
+
+        # TODO: Do better than this
+        if current_track is None or not self.player.is_playing():
+            self.playpause_menuitem.destroy()
+            self.playpause_menuitem = self.menu.prepend(
+                stock_id='gtk-media-play',
+                callback=lambda *e: self.play_pause()
+            )
         elif self.player.is_playing():
-            self.playpause.destroy()
-            self.playpause = self.menu.prepend(stock_id='gtk-media-pause',
-                callback=lambda *e: self._play_pause_clicked())
+            self.playpause_menuitem.destroy()
+            self.playpause_menuitem = self.menu.prepend(
+                stock_id='gtk-media-pause',
+                callback=lambda *e: self.play_pause()
+            )
 
-        if track:
-            self.rating_item.set_sensitive(True)
-            self.rm_item.set_sensitive(True)
+        self.rating_menuitem.on_rating_change()
+
+        if current_track is None:
+            self.rating_menuitem.set_sensitive(False)
+            self.remove_menuitem.set_sensitive(False)
         else:
-            self.rating_item.set_sensitive(False)
-            self.rm_item.set_sensitive(False)
+            self.rating_menuitem.set_sensitive(True)
+            self.remove_menuitem.set_sensitive(True)
 
-    def set_mode_toggles(self, menuitem):
+    def update_icon(self):
         """
-            Updates Shuffle, Repeat and Dynamic states
+            Updates icon appearance based
+            on current playback state
         """
-        settings.set_option('playback/shuffle', self.check_shuffle.get_active())
-        settings.set_option('playback/repeat', self.check_repeat.get_active())
-        settings.set_option('playback/dynamic', self.check_dynamic.get_active())
+        if self.player.current is None:
+            self.set_from_icon_name('exaile')
+            self.set_tooltip(_('Exaile Music Player'))
+        elif self.player.is_paused():
+            self.set_from_icon_name('exaile-pause')
+        else:
+            self.set_from_icon_name('exaile-play')
 
-    def _remove_current_song(self):
-        _pl = self.controller.main.get_current_playlist ().playlist
-        if _pl and self.player.current:
-            _pl.remove (_pl.index (self.player.current))
-
-    def on_playback_change_state(self, event, player, current):
+    def set_from_icon_name(self, icon_name):
         """
-            Updates the tray icon on playback state change
+            Updates the tray icon
         """
-        self.update_icon()
-
-    def on_setting_change(self, event, object, option):
+        pass
+    
+    def set_tooltip(self, tooltip_text):
         """
-            Updates the toggle states
+            Updates the tray icon tooltip
         """
-        if option == 'playback/shuffle':
-            self.check_shuffle.set_active(settings.get_option(option, False))
+        pass
 
-        if option == 'playback/repeat':
-            self.check_repeat.set_active(settings.get_option(option, False))
+    def get_menu_position(self, menu, icon):
+        """
+            Returns coordinates for
+            the best menu position
+        """
+        return (0, 0, False)
 
-        if option == 'playback/dynamic':
-            self.check_dynamic.set_active(settings.get_option(option, False))
-
-    def _button_pressed(self, icon, event):
-        if event.button == 1:
-            self.main.toggle_visible()
-        if event.button == 2:
-            self._play_pause_clicked()
-        if event.button == 3:
-            self.update_menu()
-            self.menu.popup(None, None, gtk.status_icon_position_menu,
-                event.button, event.time, self)
-
-    def _play_pause_clicked(self):
+    def play_pause(self):
+        """
+            Starts or pauses playback
+        """
         if self.player.is_paused() or self.player.is_playing():
             self.player.toggle_pause()
         else:
-            pl = self.controller.main.get_selected_playlist()
-            self.queue.set_current_playlist(pl.playlist)
-            if pl:
-                track = pl.get_selected_track()
-                if track:
-                    pl.playlist.set_current_pos(
-                        pl.playlist.index(track))
+            gplaylist = xlgui.main.get_selected_playlist()
+            playlist = gplaylist.playlist
+
+            if gplaylist is not None:
+                self.queue.set_current_playlist(playlist)
+                track = gplaylist.get_selected_track()
+
+                if track is not None:
+                    playlist.set_current_pos(playlist.index(track))
+
             self.queue.play()
 
-    def _query_tooltip(self, *e):
-        if settings.get_option('osd/hover_tray', False):
-            self.controller.main.osd.show(self.player.current)
+    def remove_current_track(self):
+        """
+            Removes the currently playing track
+        """
+        playlist = self.main.get_selected_playlist()
 
-    def _scrolled(self, icon, event):
+        if playlist is not None and self.player.current is not None:
+            playlist.remove_tracks([self.player.current])
+
+    def get_current_track_rating(self):
+        """
+            Returns the rating of the current track
+        """
+        if self.player.current is not None:
+            return self.player.current.get_rating()
+
+        return 0
+
+    def on_button_press_event(self, widget, event):
+        """
+            Toggles main window visibility and
+            pause as well as opens the context menu
+        """
+        if event.button == 1:
+            self.main.toggle_visible()
+        if event.button == 2:
+            self.play_pause()
+        if event.button == 3:
+            self.update_menu()
+            self.menu.popup(None, None, self.get_menu_position,
+                event.button, event.time, self)
+
+    def on_checkmenuitem_toggled(self, widget):
+        """
+            Updates Shuffle, Repeat and Dynamic states
+        """
+        settings.set_option('playback/shuffle', self.shuffle_menuitem.get_active())
+        settings.set_option('playback/repeat', self.repeat_menuitem.get_active())
+        settings.set_option('playback/dynamic', self.dynamic_menuitem.get_active())
+
+    def on_scroll_event(self, widget, event):
+        """
+            Changes volume and skips tracks on scroll
+        """
         if event.state & gtk.gdk.SHIFT_MASK:
             if event.direction == gtk.gdk.SCROLL_UP:
                 self.queue.prev()
@@ -228,14 +254,49 @@ class TrayIcon(gtk.StatusIcon):
         else:
             if event.direction == gtk.gdk.SCROLL_UP:
                 volume = self.player.get_volume()
-                self.player.set_volume(volume + self.VOLUME_SCROLL_AMOUNT)
+                self.player.set_volume(volume + self.VOLUME_STEP)
                 return True
             elif event.direction == gtk.gdk.SCROLL_DOWN:
                 volume = self.player.get_volume()
-                self.player.set_volume(volume - self.VOLUME_SCROLL_AMOUNT)
+                self.player.set_volume(volume - self.VOLUME_STEP)
                 return True
             elif event.direction == gtk.gdk.SCROLL_LEFT:
                 self.queue.prev()
             elif event.direction == gtk.gdk.SCROLL_RIGHT:
                 self.queue.next()
+
+    def on_playback_change_state(self, event, player, current):
+        """
+            Updates tray icon appearance
+            on playback state change
+        """
+        self.update_icon()
+
+    def on_setting_change(self, event, object, option):
+        """
+            Updates the toggle states
+        """
+        if option == 'playback/shuffle':
+            self.shuffle_menuitem.set_active(settings.get_option(option, False))
+
+        if option == 'playback/repeat':
+            self.repeat_menuitem.set_active(settings.get_option(option, False))
+
+        if option == 'playback/dynamic':
+            self.dynamic_menuitem.set_active(settings.get_option(option, False))
+
+class TrayIcon(gtk.StatusIcon, BaseTrayIcon):
+    """
+        Wrapper around GtkStatusIcon
+    """
+    def __init__(self, main):
+        gtk.StatusIcon.__init__(self)
+        BaseTrayIcon.__init__(self, main)
+
+    def get_menu_position(self, menu, icon):
+        """
+            Returns coordinates for
+            the best menu position
+        """
+        return gtk.status_icon_position_menu(menu, icon)
 

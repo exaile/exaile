@@ -67,7 +67,7 @@ class Track(object):
         Represents a single track.
     """
     # save a little memory this way
-    __slots__ = ["tags", "_scan_valid", "_scanning",
+    __slots__ = ["tags", "_scan_valid",
             "_dirty", "__weakref__", "__init"]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
@@ -84,8 +84,8 @@ class Track(object):
         uri = None
         if len(args) > 0:
             uri = args[0]
-        elif kwargs.has_key("uri"):
-            uri = kwargs["uri"]
+        else:
+            uri = kwargs.get("uri")
         if uri is not None:
             try:
                 tr = cls.__tracksdict[uri]
@@ -115,11 +115,9 @@ class Track(object):
             return
 
         self.tags = {}
-
         self._scan_valid = None # whether our last tag read attempt worked
-        self._scanning = False  # flag to avoid sending tag updates on mass
-                                # load
         self._dirty = False
+
         if _unpickles:
             self._unpickles(_unpickles)
             self.__register()
@@ -210,9 +208,9 @@ class Track(object):
             Reads tags from file
         """
         try:
-            self._scan_valid = False
             f = metadata.get_format(self.get_loc_for_io())
             if f is None:
+                self._scan_valid = False
                 return False # not a supported type
             ntags = f.read_all()
             for k,v in ntags.iteritems():
@@ -229,8 +227,8 @@ class Track(object):
             self._scan_valid = True
             return f
         except:
+            self._scan_valid = False
             common.log_exception()
-            self._scanning = False
             return False
 
     def is_local(self):
@@ -276,15 +274,19 @@ class Track(object):
         """
         self.tags = deepcopy(pickle_obj)
 
-    def set_tag_raw(self, tag, values):
+    def set_tag_raw(self, tag, values, notify_changed=True):
         """
             Set the raw value of the tag named "tag"
+
+            notify_changed - whether to send a signal to let other parts of
+            Exaile know there has been an update.
         """
         # handle values that aren't lists
         if not isinstance(values, list):
             if not tag.startswith("__"): # internal tags dont have to be lists
                 values = [values]
 
+        # TODO: is this needed? why?
         # for lists, filter out empty values and convert to unicode
         if isinstance(values, list):
             values = [common.to_unicode(x, self.tags.get('__encoding'))
@@ -301,7 +303,8 @@ class Track(object):
             self.tags[tag] = values
 
         self._dirty = True
-        event.log_event("track_tags_changed", self, tag)
+        if notify_changed:
+            event.log_event("track_tags_changed", self, tag)
 
     def get_tag_raw(self, tag, join=False):
         val = self.tags.get(tag)
@@ -381,7 +384,8 @@ class Track(object):
             retval = unicode(retval)
 
         if join:
-            retval = self.join_values(retval)
+            #TRANSLATORS: String multiple tag values will be joined by
+            retval = self.join_values(retval, _(u' & '))
 
         return retval
 
@@ -434,13 +438,13 @@ class Track(object):
         return values
 
     @staticmethod
-    def join_values(values):
+    def join_values(values, glue=u" / "):
         """
             Exaile's standard method to join tag values
         """
         if type(values) in (str, unicode):
             return values
-        return u" / ".join(values)
+        return glue.join(values)
 
     @staticmethod
     def split_numerical(values):

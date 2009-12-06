@@ -518,7 +518,8 @@ class Library(object):
             tr = track.Track(uri)
             if tr._scan_valid == True:
                 tr.set_tag_raw('__date_added', time.time())
-                self.collection.add(tr)
+            self.collection.add(tr)
+        tr.set_tag_raw('__modified', mtime)
         return tr
 
     def rescan(self, notify_interval=None):
@@ -588,7 +589,7 @@ class Library(object):
                     # FIXME: this is ugly
                     alb in "".join(tr.get_tag_raw('album')) ]
             for item in items:
-                item['__compilation'] = (basedir, album)
+                item.set_tag_raw('__compilation', (basedir, album))
 
         removals = deque()
         location = self.location

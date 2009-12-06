@@ -80,7 +80,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
     def do_import(self, tracks):
         if self.__importing:
             return
-        self.__importing == True
+        self.__importing = True
         imp = importer.CDImporter(tracks)
         impthread = CDImportThread(imp, self)
         self.main.controller.progress_manager.add_monitor(impthread,

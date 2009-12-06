@@ -238,8 +238,10 @@ class Main(object):
         else:
             pl = self.main.get_selected_playlist()
             column, descending = pl.get_sort_by()
-            tracks = trax.get_tracks_from_uri(uri)
-            tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
+
+            tracks = track.get_tracks_from_uri(uri)
+            tracks = trax.sort_tracks([column], tracks)
+
             try:
                 pl.playlist.add_tracks(tracks)
                 pl.playlist.set_current_pos(len(pl.playlist) - len(tracks))

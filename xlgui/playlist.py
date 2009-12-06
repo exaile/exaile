@@ -148,7 +148,9 @@ class Playlist(gtk.VBox):
 
 
     def __refresh_changed_tracks(self):
-        trs = set(self._redraw_queue)
+        tracks = {}
+        for tr in self._redraw_queue:
+            tracks[tr.get_loc_for_io()] = tr
         self._redraw_queue = []
 
         selection = self.list.get_selection()
@@ -156,14 +158,9 @@ class Playlist(gtk.VBox):
 
         it = self.model.get_iter_first()
         while it:
-            cur = self.model.get_value(it, 0)
-            for tr in trs:
-                if cur.get_loc_for_io() == tr.get_loc_for_io():
-                    self.update_iter(it, tr)
-                    trs.remove(tr)
-                    break
-            if len(trs) == 0:
-                break
+            loc = self.model.get_value(it, 0).get_loc_for_io()
+            if loc in tracks:
+                self.update_iter(it, tracks[loc])
             it = self.model.iter_next(it)
         self.list.queue_draw()
 
@@ -632,15 +629,20 @@ class Playlist(gtk.VBox):
         if context.action != gtk.gdk.ACTION_MOVE:
             pass
 
-        drop_info = tv.get_dest_row_at_pos(x, y)
-        if drop_info:
-            path, position = drop_info
-            iter = self.model.get_iter(path)
-            if (position == gtk.TREE_VIEW_DROP_BEFORE or
-                position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
-                first = False
-            else:
-                first = True
+        try:
+            drop_info = tv.get_dest_row_at_pos(x, y)
+
+            if drop_info:
+                path, position = drop_info
+                iter = self.model.get_iter(path)
+                if (position == gtk.TREE_VIEW_DROP_BEFORE or
+                    position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
+                    first = False
+                else:
+                    first = True
+        except AttributeError:
+            drop_info = None
+            pass
 
         (trs, playlists) = self.list.get_drag_data(locs)
 
@@ -756,12 +758,13 @@ class Playlist(gtk.VBox):
             if value in trs: rows.append(iter)
             iter = self.model.iter_next(iter)
 
+        nextrow = None
+        lastindex = 0
+
         if rows:
             nextrow = self.model.iter_next(rows[-1])
-            if nextrow:
+            if nextrow is not None:
                 lastindex = self.playlist.index(self.model.get_value(rows[-1], 0))
-            else:
-                lastindex = 0
 
         for row in rows:
             track = self.model.get_value(row, 0)
@@ -772,11 +775,13 @@ class Playlist(gtk.VBox):
                 pass
             self.model.remove(row)
 
-        if nextrow:
+        nextindex = lastindex - len(rows)
+
+        if nextrow is not None:
             nexttrack = self.model.get_value(nextrow, 0)
             nextindex = self.playlist.index(nexttrack)
-            self.list.set_cursor(nextindex)
-        elif rows:
+
+        if nextindex > 0:
             self.list.set_cursor(lastindex - len(rows))
 
         gobject.idle_add(event.add_callback, self.on_remove_tracks,
@@ -1122,6 +1127,7 @@ def sort_tracks(trs):
     trs = trax.sort_tracks(sort_by, trs, reverse=descending)
 
     return trs
+
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """

@@ -52,16 +52,6 @@ _sortcharmap = {
         u'ҵ': u'ts', # U+04B5
         }
 
-def _multivalue_decorator(func):
-    @wraps(func)
-    def wrapper(values, *args, **kwargs):
-        if isinstance(values, list):
-            return [func(v) for v in values]
-        else:
-            return func(values)
-    return wrapper
-
-
 class Track(object):
     """
         Represents a single track.
@@ -429,6 +419,8 @@ class Track(object):
 
     @classmethod
     def format_sort(cls, values):
+        if isinstance(values, list):
+            return [cls.format_sort(v) for v in values]
         # order of these is important, both for speed and behavior!
         values = cls.strip_leading(values)
         values = cls.strip_marks(values)
@@ -473,72 +465,67 @@ class Track(object):
         return (one, two)
 
     @staticmethod
-    @_multivalue_decorator
-    def strip_leading(values):
+    def strip_leading(value):
         """
             Strip special chars off the beginning of a field. If
             stripping the chars leaves nothing the original field is returned with
             only whitespace removed.
         """
-        stripped = values.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+        stripped = value.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
         if stripped:
             return stripped
         else:
-            return values.lstrip()
+            return value.lstrip()
 
     @staticmethod
-    @_multivalue_decorator
-    def the_cutter(values):
+    def the_cutter(value):
         """
             Cut common words like 'the' from the beginning of a tag so that
             they sort properly.
         """
-        lowered = values.lower()
+        lowered = value.lower()
         for word in Track.__the_cuts:
             if not word.endswith("'"):
                 word += ' '
             if lowered.startswith(word):
-                values = values[len(word):]
+                value = value[len(word):]
                 break
-        return values
+        return value
 
     @staticmethod
-    @_multivalue_decorator
-    def strip_marks(values):
+    def strip_marks(value):
         """
             Remove accents, diacritics, etc.
         """
-        return u''.join([c for c in unicodedata.normalize('NFD', values)
+        return u''.join([c for c in unicodedata.normalize('NFD', value)
             if unicodedata.category(c) != 'Mn'])
 
     @staticmethod
-    @_multivalue_decorator
-    def expand_doubles(values):
+    def expand_doubles(value):
         """
             turns characters like æ into values suitable for sorting,
             like 'ae'. see _sortcharmap for the mapping.
 
-            values must be unicode objects or this wont replace anything.
+            value must be a unicode object or this wont replace anything.
 
-            values must be in lower-case
+            value must be in lower-case
         """
         for k, v in _sortcharmap.iteritems():
-            values = values.replace(k, v)
-        return values
+            value = value.replace(k, v)
+        return value
 # This is slower, don't use it!
-#        return u''.join((_sortcharmap.get(c, c) for c in values))
+#        return u''.join((_sortcharmap.get(c, c) for c in value))
 
 
     @staticmethod
-    @_multivalue_decorator
-    def lower(values):
+    def lower(value):
         """
-            Make tag values lower-case.
+            Make tag value lower-case.
         """
         # add the original string after the lowered val so that
-        # we sort case-sensitively if the case-insensitive values
+        # we sort case-sensitively if the case-insensitive value
         # are identical.
-        return values.lower() + " " + values
+        return value.lower() + " " + value
 
     @classmethod
     def _the_cuts_cb(cls, name, obj, data):

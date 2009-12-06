@@ -92,7 +92,7 @@ class ExFalsoController:
         config.write(const.CONFIG)
         config.quit()
 
-import xl.event, xl.track
+import xl.event, xl.trax
 import xlgui.playlist
 from xlgui import guiutil
 
@@ -115,7 +115,7 @@ class ExFalsoTagger:
         get_track = self.exaile.collection.get_track_by_loc
         for path in paths:
             uri = 'file://' + path
-            track = get_track(uri) or xl.track.Track(uri)
+            track = get_track(uri) or xl.trax.Track(uri)
             track.read_tags()
             xl.event.log_event('track_tags_changed', track, None)
 

@@ -27,49 +27,8 @@
 # It is encouraged that external modules should import from here,
 # rather than directly from submodules.
 
-import gio
-from xl import metadata
-
 from track import Track
 from trackdb import TrackDB
 from search import search_tracks, search_tracks_from_string, TracksMatcher
-
-def is_valid_track(loc):
-    """
-        Returns whether the file at loc is a valid track,
-        right now determines based on file extension
-    """
-    extension = gio.File(loc).get_basename().split(".")[-1]
-    return extension.lower() in metadata.formats
-
-def get_tracks_from_uri(uri):
-    """
-        Returns all valid tracks located at uri
-    """
-    tracks = []
-    gloc = gio.File(uri)
-    type = gloc.query_info("standard::type").get_file_type()
-    if type == gio.FILE_TYPE_DIRECTORY:
-        # TODO: refactor Library so we dont need the collection obj
-        from xl.collection import Library, Collection
-        tracks = Collection('scanner')
-        lib = Library(uri)
-        lib.set_collection(tracks)
-        lib.rescan()
-        tracks = tracks.get_tracks()
-    else:
-        tracks = [Track(uri)]
-    return tracks
-
-def sort_tracks(fields, trackiter, reverse=False):
-    """
-        Sorts tracks.
-
-        :param fields: An iterable of tag names to sort by.
-        :param trackiter: An iterable of Track objects to be sorted.
-        :param reverse: Whether to sort in reverse.
-    """
-    keyfunc = lambda tr: [tr.get_tag_sort(field) for field in fields]
-    return sorted(trackiter, key=keyfunc, reverse=reverse)
-
+from util import is_valid_track, get_tracks_from_uri, sort_tracks
 

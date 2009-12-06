@@ -1,4 +1,4 @@
-from xl import main as ex, track, common, event, xdg, settings, providers
+from xl import main as ex, trax, common, event, xdg, settings, providers
 from xl.nls import gettext as _
 from xlgui import panel, guiutil, playlist, menu
 import HTMLParser

@@ -38,6 +38,8 @@ from xl import common, event, xdg
 from xl.nls import gettext as _
 
 from track import Track
+from util import sort_tracks
+from search import search_tracks_from_string
 
 logger = logging.getLogger(__name__)
 
@@ -341,6 +343,32 @@ class TrackDB(object):
 
     def get_tracks(self):
         return list(self)
+
+
+    def search(self, query, sort_fields=[], return_lim=-1, tracks=None, reverse=False):
+        """
+            Search the trackDB, optionally sorting by sort_field
+
+            :param query:  the search
+            :param sort_fields:  the field(s) to sort by.  Use RANDOM to sort
+                randomly.
+            :type sort_fields: A string or list of strings
+            :param return_lim:  limit the number of tracks returned to a
+                maximum
+        """
+        import warnings
+        warnings.warn("TrackDB.search is deprecated.", DeprecationWarning)
+        tracks = [ x.track for x in search_tracks_from_string(self, query, case_sensitive=False, keyword_tags=['artist', 'albumartist', 'album', 'title']) ]
+
+        if sort_fields:
+            if sort_fields == 'RANDOM':
+                random.shuffle(tracks)
+            else:
+                tracks = sort_tracks(sort_fields, tracks, reverse)
+        if return_lim > 0:
+            tracks = tracks[:return_lim]
+
+        return tracks
 
 
 

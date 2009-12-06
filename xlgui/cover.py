@@ -461,7 +461,7 @@ class CoverWidget(gtk.EventBox):
                 return
         else:
             try:
-                item = track.get_album_tuple()
+                item = cover.get_album_tuple(track)
                 if item[0] and item[1]:
                     cov = self.coverdb.get_cover(item[0], item[1])
             except TypeError: # one of the fields is missing
@@ -730,10 +730,8 @@ class CoverChooser(gobject.GObject):
         track = self.track
         cover = self.covers[self.current]
 
-        self.manager.coverdb.set_cover(
-            metadata.j(track.get_tag_raw('artist')),
-            metadata.j(track.get_tag_raw('album')),
-            cover)
+        album_tup = cover.get_album_tuple(track)
+        self.manager.coverdb.set_cover(album_tup[0], album_tup[1], cover)
 
         self.emit('cover-chosen', cover)
         self.window.destroy()

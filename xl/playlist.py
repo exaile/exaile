@@ -636,12 +636,12 @@ class Playlist(object):
                 #NB If the user starts the playlist from the middle of the album
                 #some tracks of the album remain off the tracks_history, and the
                 #album can be selected again randomly from its first track
+                curr = self.ordered_tracks[self.current_pos]
                 t = [ x for i, x in enumerate(self.ordered_tracks) \
-                        if x['album'] == self.ordered_tracks[self.current_pos]['album'] and \
-                        (x.get_track() > self.ordered_tracks[self.current_pos].get_track() or \
-                        (x.get_track() == self.ordered_tracks[self.current_pos].get_track() \
-                        and i > self.current_pos) ) ]
-                t.sort(lambda x, y: x.get_track() - y.get_track())
+                        if x.get_tag_raw('album') == curr.get_tag_raw('album') and \
+                        (x.get_tag_raw('tracknumber') >= curr.get_tag_raw('tracknumber') \
+                        and i > self.current_pos ) ]
+                t = trax.sort_tracks(['tracknumber'], t)
                 return t[0]
 
             except IndexError: #Pick a new album
@@ -649,13 +649,13 @@ class Playlist(object):
                         if x not in self.tracks_history ]
                 albums = []
                 for x in t:
-                    if not x['album'] in albums:
-                        albums.append(x['album'])
+                    if not x.get_tag_raw('album') in albums:
+                        albums.append(x.get_tag_raw('album'))
 
                 album = random.choice(albums)
                 t = [ x for x in self.ordered_tracks \
-                        if x['album'] == album ]
-                t.sort(lambda x, y: x.get_track() - y.get_track())
+                        if x.get_tag_raw('album') == album ]
+                t = trax.sort_tracks(['tracknumber'], t)
                 return t[0]
         else:   # track mode - dont check explicitly because the restore code
                 # sometimes gives us a None here.

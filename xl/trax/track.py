@@ -29,6 +29,7 @@ import logging
 import os
 import weakref
 import unicodedata
+from functools import wraps
 from copy import deepcopy
 import gio
 from xl.nls import gettext as _
@@ -51,6 +52,15 @@ _sortcharmap = {
         u'ҵ': u'ts', # U+04B5
         }
 
+def _multivalue_decorator(func):
+    @wraps(func)
+    def wrapper(values, *args, **kwargs):
+        if isinstance(values, list):
+            return [func(v) for v in values]
+        else:
+            return func(values)
+    return wrapper
+
 
 class Track(object):
     """
@@ -61,6 +71,9 @@ class Track(object):
             "_dirty", "__weakref__", "__init"]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
+    # store a copy of the settings values here - much faster (0.25 cpu
+    # seconds) (see _the_cuts_cb)
+    __the_cuts = settings.get_option('collection/strip_list', [])
 
     def __new__(cls, *args, **kwargs):
         """
@@ -313,28 +326,18 @@ class Track(object):
                         u"\uffff\uffff\uffff\uffff")
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.tags.get(tag))[0]
-        elif tag == '__length':
+        elif tag in ('__length', '__playcount'):
             retval = self.tags.get('__length', 0)
-        elif tag == '__loc':
-            return self.tags['__loc']
         else:
             retval = self.tags.get(tag)
 
         if not retval:
             retval = u"\uffff\uffff\uffff\uffff" # unknown
-
-        if not tag.startswith("__") and \
+        elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
-            retval = self.strip_leading(retval)
-            retval = self.the_cutter(retval)
+            retval = self.format_sort(retval)
             if join:
                 retval = self.join_values(retval)
-            # add the original string after the lowered val so that
-            # we sort case-sensitively if the case-insensitive values
-            # are identical.
-            retval = retval.lower() + " " + retval
-            retval = self.strip_marks(retval)
-            retval = self.expand_doubles(retval)
 
         return retval
 
@@ -382,6 +385,7 @@ class Track(object):
 
         return retval
 
+
     ### convenience funcs for rating ###
     # these dont fit in the normal set of tag access methods,
     # but are sufficiently useful to warrant inclusion here
@@ -419,6 +423,16 @@ class Track(object):
 
     ### Special functions for wrangling tag values ###
 
+    @classmethod
+    def format_sort(cls, values):
+        # order of these is important, both for speed and behavior!
+        values = cls.strip_leading(values)
+        values = cls.strip_marks(values)
+        values = cls.lower(values)
+        values = cls.the_cutter(values)
+        values = cls.expand_doubles(values)
+        return values
+
     @staticmethod
     def join_values(values):
         """
@@ -455,14 +469,13 @@ class Track(object):
         return (one, two)
 
     @staticmethod
+    @_multivalue_decorator
     def strip_leading(values):
         """
             Strip special chars off the beginning of a field. If
             stripping the chars leaves nothing the original field is returned with
             only whitespace removed.
         """
-        if isinstance(values, list):
-            return [Track.strip_leading(v) for v in values]
         stripped = values.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
         if stripped:
             return stripped
@@ -470,15 +483,14 @@ class Track(object):
             return values.lstrip()
 
     @staticmethod
+    @_multivalue_decorator
     def the_cutter(values):
         """
             Cut common words like 'the' from the beginning of a tag so that
             they sort properly.
         """
-        if isinstance(values, list):
-            return [Track.the_cutter(v) for v in values]
         lowered = values.lower()
-        for word in settings.get_option('collection/strip_list', ''):
+        for word in Track.__the_cuts:
             if not word.endswith("'"):
                 word += ' '
             if lowered.startswith(word):
@@ -487,28 +499,53 @@ class Track(object):
         return values
 
     @staticmethod
+    @_multivalue_decorator
     def strip_marks(values):
         """
             Remove accents, diacritics, etc.
         """
-        if isinstance(values, list):
-            return [Track.strip_marks(v) for v in values]
-        return u''.join((c for c in unicodedata.normalize('NFD', values)
-            if unicodedata.category(c) != 'Mn'))
+        return u''.join([c for c in unicodedata.normalize('NFD', values)
+            if unicodedata.category(c) != 'Mn'])
 
     @staticmethod
+    @_multivalue_decorator
     def expand_doubles(values):
         """
             turns characters like æ into values suitable for sorting,
             like 'ae'. see _sortcharmap for the mapping.
 
             values must be unicode objects or this wont replace anything.
+
+            values must be in lower-case
         """
-        if isinstance(values, list):
-            return [Track.expand_doubles(v) for v in values]
         for k, v in _sortcharmap.iteritems():
             values = values.replace(k, v)
         return values
 # This is slower, don't use it!
 #        return u''.join((_sortcharmap.get(c, c) for c in values))
+
+
+    @staticmethod
+    @_multivalue_decorator
+    def lower(values):
+        """
+            Make tag values lower-case.
+        """
+        # add the original string after the lowered val so that
+        # we sort case-sensitively if the case-insensitive values
+        # are identical.
+        return values.lower() + " " + values
+
+    @classmethod
+    def _the_cuts_cb(cls, name, obj, data):
+        """
+            PRIVATE
+
+            update the cached the_cutter values
+        """
+        if data == "collection/strip_list":
+            cls.__the_cuts = settings.get_option('collection/strip_list', [])
+
+
+event.add_callback(Track._the_cuts_cb, 'collection_option_set')
 

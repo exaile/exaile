@@ -69,7 +69,7 @@ def sort_tracks(fields, trackiter, reverse=False):
         :param trackiter: An iterable of Track objects to be sorted.
         :param reverse: Whether to sort in reverse.
     """
-    keyfunc = lambda tr: tuple((tr.get_tag_sort(field) for field in fields))
+    keyfunc = lambda tr: [tr.get_tag_sort(field) for field in fields]
     return sorted(trackiter, key=keyfunc, reverse=reverse)
 
 

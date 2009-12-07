@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-03 11:35+0000\n"
-"Last-Translator: Aron Xu <Unknown>\n"
+"PO-Revision-Date: 2009-12-06 10:48+0000\n"
+"Last-Translator: Careone <zzbusagain@yahoo.com.cn>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-12-05 04:35+0000\n"
+"X-Launchpad-Export-Date: 2009-12-07 04:41+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -428,7 +428,7 @@ msgstr "作曲家"
 
 #: ../xlgui/properties.py:58
 msgid "Encoded By"
-msgstr ""
+msgstr "编码"
 
 #: ../xlgui/properties.py:59
 msgid "Organization"
@@ -500,7 +500,7 @@ msgstr "关闭而不应用对标签的更改？"
 
 #: ../xlgui/properties.py:655
 msgid "of"
-msgstr ""
+msgstr "/"
 
 #: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
@@ -1999,11 +1999,11 @@ msgstr ""
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"
-msgstr ""
+msgstr "添加并播放"
 
 #: ../plugins/droptrayicon/__init__.py:272
 msgid "Append"
-msgstr ""
+msgstr "添加"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
@@ -2448,7 +2448,7 @@ msgstr "升序"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
-msgstr ""
+msgstr "评星级的日期"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
@@ -2496,7 +2496,7 @@ msgstr "结果："
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
-msgstr ""
+msgstr "评星级"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
@@ -2867,7 +2867,7 @@ msgstr "在桌面显示当前专辑封面"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Last.fm 动态播放列表"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
@@ -3031,7 +3031,7 @@ msgstr "从 lyricwiki.org 获取歌词的插件"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Ex Falso 标签编辑器"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""

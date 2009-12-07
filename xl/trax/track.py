@@ -310,7 +310,10 @@ class Track(object):
         # and unknown values are always sorted below all normal
         # values.
         retval = None
-        if tag == "artist":
+        sorttag = self.tags.get(tag + "sort")
+        if sorttag:
+            retval = sorttag
+        elif tag == "artist":
             if self.tags.get('__compilation'):
                 retval = self.tags.get('albumartist',
                         u"\uffff\uffff\uffff\ufffe")
@@ -328,7 +331,8 @@ class Track(object):
             retval = u"\uffff\uffff\uffff\uffff" # unknown
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
-            retval = self.format_sort(retval)
+            if not sorttag:
+                retval = self.format_sort(retval)
             if join:
                 retval = self.join_values(retval)
 

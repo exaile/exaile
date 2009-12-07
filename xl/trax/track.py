@@ -333,6 +333,11 @@ class Track(object):
                 tag not in ('tracknumber', 'discnumber'):
             if not sorttag:
                 retval = self.format_sort(retval)
+            else:
+                if isinstance(retval, list):
+                    retval = [self.lower(v) for v in retval]
+                else:
+                    retval = self.lower(v)
             if join:
                 retval = self.join_values(retval)
 

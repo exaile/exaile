@@ -684,12 +684,8 @@ class Playlist(gtk.VBox):
             # Do we need to reactivate the callbacks when this happens?
             gobject.idle_add(self.add_track_callbacks)
             return
-        trs = []
-        while True:
-            trs.append(self.model.get_value(iter, 0))
-            iter = self.model.iter_next(iter)
-            if not iter: break
-        self.playlist.add_tracks(trs)
+
+        self.playlist.add_tracks(tracks)
 
         # Re add all of the tracks so that they
         # become ordered

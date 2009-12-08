@@ -10,14 +10,12 @@ Contents:
 
 .. toctree::
 
-   planning/index
    xl/collection
-   xl/trackdb
+   xl/trax
 
 Indices and tables
 ==================
 
-* :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
 

@@ -32,3 +32,7 @@ from trackdb import TrackDB
 from search import search_tracks, search_tracks_from_string, TracksMatcher
 from util import is_valid_track, get_tracks_from_uri, sort_tracks
 
+__all__ = ['Track', 'TrackDB',
+    'search_tracks', 'search_tracks_from_string', 'TracksMatcher',
+    'is_valid_track', 'get_tracks_from_uri', 'sort_tracks']
+

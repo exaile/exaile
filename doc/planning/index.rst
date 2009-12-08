@@ -1,4 +1,0 @@
-.. toctree::
-
-   DEPS
-   future

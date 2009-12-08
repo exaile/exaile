@@ -34,6 +34,11 @@ from xl import providers, common
 
 LFMS = None
 
+# Last.fm API Key for Exaile
+# if you reuse this code in a different application, please
+# register your own key with last.fm
+API_KEY = '3599c79a97fd61ce518b75922688bc38'
+
 def enable(exaile):
     global LFMS
     LFMS = LastfmSource()
@@ -51,23 +56,18 @@ class LastfmSource(DynamicSource):
         DynamicSource.__init__(self)
 
     def get_results(self, artist):
-        ar = urllib.quote(artist.encode('utf-8'))
-        url = "http://ws.audioscrobbler.com/1.0/artist/%s/similar.xml"%ar
+        ar = urllib.quote_plus(artist.encode('utf-8'))
+        url = 'http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=%s&api_key='+API_KEY
         try:
-            f = urllib.urlopen(url)
-        except:
+            f = urllib.urlopen(url%ar).read()
+        except IOError:
             common.log_exception()
             return []
-        try:
-            tree = ETree.ElementTree(file=f)
-        except SyntaxError:
-            #XML syntax was bad, meaning artist not found
-            return []
-        artists = tree.findall('artist')
+
         retlist = []
-        for ar in artists:
-            name = ar.find('name').text
-            match = float(ar.find('match').text)
-            retlist.append((match, name))
+        xml = ETree.fromstring(f)
+
+        for e in xml.getiterator('artist'):
+            retlist.append((float(e.find('match').text), e.find('name').text))
 
         return retlist

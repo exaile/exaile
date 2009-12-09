@@ -2,6 +2,35 @@ Trax
 ====
 
 .. automodule:: xl.trax
-    :members:
-    :show-inheritance:
+xl.trax provides the base for creating and managing Track objects.
+
+Tracks
+******
+
+.. autoclass:: Track
+    :members: get_tag_sort, get_tag_display, get_tag_raw, set_tag_raw, get_rating, set_rating, get_type, get_loc_for_io, local_file_name, set_loc, exists, read_tags, write_tags
+
+.. autofunction:: is_valid_track
+
+.. autofunction:: get_tracks_from_uri
+
+.. autofunction:: sort_tracks
+
+Track Database
+**************
+Track databases are a simple persistence layer to hold collections of Track objects.
+
+.. autoclass:: TrackDB
+    :members: add, add_tracks, remove, remove_tracks, load_from_location, save_to_location
+
+
+Searching
+*********
+.. autofunction:: search_tracks
+
+.. autoclass:: TracksMatcher
+
+.. autofunction:: search_tracks_from_string
+
+
 

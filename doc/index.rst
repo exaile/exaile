@@ -10,7 +10,6 @@ Contents:
 
 .. toctree::
 
-   xl/collection
    xl/trax
 
 Indices and tables

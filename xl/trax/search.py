@@ -29,6 +29,8 @@ __all__ = ['TracksMatcher', 'search_tracks']
 class SearchResultTrack(object):
     """
         Holds a track with search result metadata included.
+
+        :param track: The Track object
     """
     __slots__ = ['track', 'on_tags']
     def __init__(self, track):
@@ -149,9 +151,9 @@ class TracksMatcher(object):
         those criteria.
     """
     __slots__ = ['matchers', 'case_sensitive', 'keyword_tags']
-    def __init__(self, searchstring, case_sensitive=True, keyword_tags=[]):
+    def __init__(self, search_string, case_sensitive=True, keyword_tags=[]):
         """
-            :param searchstring: a string describing the match conditions
+            :param search_string: a string describing the match conditions
             :param case_sensitive: whether to search in a case-sensitive
                 manner.
             :param keyword_tags: a list of tags to match search keywords
@@ -159,7 +161,7 @@ class TracksMatcher(object):
         """
         self.case_sensitive = case_sensitive
         self.keyword_tags = keyword_tags
-        tokens = self.__tokenize_query(searchstring)
+        tokens = self.__tokenize_query(search_string)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
         self.matchers = self.__tokens_to_matchers(tokens)
@@ -375,6 +377,9 @@ def search_tracks_from_string(trackiter, search_string,
     """
         Convenience wrapper around search_tracks that builds matchers
         automatically from the search string.
+
+        Arguments have the same meaning as the corresponding arguments on
+        on :class:`search_tracks` and :class:`TracksMatcher`.
     """
     matchers = [TracksMatcher(search_string, case_sensitive=case_sensitive,
         keyword_tags=keyword_tags)]

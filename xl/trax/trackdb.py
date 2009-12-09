@@ -70,20 +70,17 @@ class TrackDB(object):
         Allows you to add, remove, retrieve, search, save and load
         Track objects.
 
-        :param name:   The name of this TrackDB.
-        :type name: string
-        :param location:   Path to a file where this trackDB
+        :param name:   The name of this :class:`TrackDB`.
+        :param location:   Path to a file where this :class:`TrackDB`
                 should be stored.
-        :type location: string
         :param pickle_attrs:   A list of attributes to store in the
                 pickled representation of this object. All
                 attributes listed must be built-in types, with
                 one exception: If the object contains the phrase
                 'tracks' in its name it may be a list or dict
-                or :class:`xl.track.Track` objects.
-        :type pickle_attrs: list of strings
+                of :class:`Track` objects.
     """
-    def __init__(self, name='', location="", pickle_attrs=[]):
+    def __init__(self, name="", location="", pickle_attrs=[]):
         """
             Sets up the trackDB.
         """
@@ -119,6 +116,9 @@ class TrackDB(object):
         return len(self.tracks)
 
     def _timeout_save(self):
+        """
+            Callback for auto-saving.
+        """
         self.save_to_location()
         return True
 
@@ -311,13 +311,15 @@ class TrackDB(object):
         """
             Adds a track to the database of tracks
 
-            :param track: The Track to add
-            :type track: :class:`xl.track.Track`
+            :param track: The :class:`xl.track.Track` to add
         """
         self.add_tracks([track])
 
     @common.synchronized
     def add_tracks(self, tracks):
+        """
+            Like add(), but takes a list of :class:`xl.track.Track`
+        """
         for tr in tracks:
             self.tracks[tr.get_loc_for_io()] = TrackHolder(tr, self._key)
             self._key += 1
@@ -328,13 +330,15 @@ class TrackDB(object):
         """
             Removes a track from the database
 
-            :param track: the Track to remove
-            :type track: Track]
+            :param track: the :class:`xl.track.Track` to remove
         """
         self.remove_tracks([track])
 
     @common.synchronized
     def remove_tracks(self, tracks):
+        """
+            Like remove(), but takes a list of :class:`xl.track.Track`
+        """
         for tr in tracks:
             self._deleted_keys.append(self.tracks[tr.get_loc_for_io()]._key)
             del self.tracks[tr.get_loc_for_io()]

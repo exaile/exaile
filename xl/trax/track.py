@@ -99,12 +99,12 @@ class Track(object):
 
     def __init__(self, uri=None, scan=True, _unpickles=None):
         """
-            uri:  The path to the track.
-            scan: Whether to try to read tags from the given uri.
+            :param uri:  The path to the track.
+            :param scan: Whether to try to read tags from the given uri.
                   Use only if the tags need to be set by a
                   different source.
 
-            _unpickles: used internally to restore from a pickled
+            :param _unpickles: used internally to restore from a pickled
                 state. not for normal use.
         """
         # don't re-init if its a reused track. see __new__
@@ -146,7 +146,7 @@ class Track(object):
         """
             Sets the location.
 
-            loc: the location [string], as either a uri or a file path.
+            :param loc: the location, as either a uri or a file path.
         """
         self.__unregister()
         gloc = gio.File(loc)
@@ -155,17 +155,19 @@ class Track(object):
 
     def exists(self):
         """
-            Returns if the file exists
+            Returns whether the file exists
             This can be very slow, use with caution!
         """
         return gio.File(self.get_loc_for_io()).query_exists()
 
     def local_file_name(self):
         """
-            If the file is accessible on the local filesystem, return a
-            standard path to it i.e. "/home/foo/bar". Otherwise, return None
+            If the file is accessible on the local filesystem, returns a
+            standard path to it (e.g. "/home/foo/bar"), otherwise,
+            returns None.
 
             If a path is returned, it is safe to use for IO operations.
+            Existence of a path does *not* guarantee file existence.
         """
         return gio.File(self.tags['__loc']).get_path()
 
@@ -175,20 +177,21 @@ class Track(object):
 
             Safe for IO operations via gio, not suitable for display to users
             as it may be in non-utf-8 encodings.
-
-            returns: the location [string]
         """
         return self.tags['__loc']
 
     def get_type(self):
         """
-            Get the URI schema the file uses
+            Get the URI schema the file uses, e.g. file, http, smb.
         """
         return gio.File(self.get_loc_for_io()).get_uri_scheme()
 
     def write_tags(self):
         """
-            Writes tags to file
+            Writes tags to the file for this Track.
+
+            Returns False if unsuccessful, and a Format object from
+            `xl.metadata` otherwise.
         """
         try:
             f = metadata.get_format(self.get_loc_for_io())
@@ -202,7 +205,10 @@ class Track(object):
 
     def read_tags(self):
         """
-            Reads tags from file
+            Reads tags from the file for this Track.
+
+            Returns False if unsuccessful, and a Format object from
+            `xl.metadata` otherwise.
         """
         try:
             f = metadata.get_format(self.get_loc_for_io())
@@ -229,12 +235,18 @@ class Track(object):
             return False
 
     def is_local(self):
+        """
+            Determines whether a file is accessible on the local filesystem.
+        """
         # TODO: determine this better
         if self.local_file_name():
             return True
         return False
 
     def get_size(self):
+        """
+            Get the raw size of the file. Potentially slow.
+        """
         f = gio.File(self.get_loc_for_io())
         return f.query_info("standard::size").get_size()
 
@@ -273,10 +285,13 @@ class Track(object):
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
-            Set the raw value of the tag named "tag"
+            Set the raw value of a tag.
 
-            notify_changed - whether to send a signal to let other parts of
-            Exaile know there has been an update.
+            :param tag: The name of the tag to set.
+            :param values: The value or values to set the tag to.
+            :param notify_changed: whether to send a signal to let other parts of
+                Exaile know there has been an update. Only set this to False
+                if you know that no other parts of Exaile need to be updated.
         """
         # handle values that aren't lists
         if not isinstance(values, list):
@@ -289,8 +304,7 @@ class Track(object):
             values = [common.to_unicode(x, self.tags.get('__encoding'))
                 for x in values if x not in (None, '')]
 
-        # don't bother storing it if its a null value. this saves us a
-        # little memory
+        # save some memory by not storing null values.
         if not values:
             try:
                 del self.tags[tag]
@@ -304,6 +318,14 @@ class Track(object):
             event.log_event("track_tags_changed", self, tag)
 
     def get_tag_raw(self, tag, join=False):
+        """
+            Get the raw value of a tag.  For non-internal tags, the
+            result will always be a list of unicode strings.
+
+            :param tag: The name of the tag to get
+            :param join: If True, joins lists of values into a
+                single value.
+        """
         val = self.tags.get(tag)
         if join and val:
             return self.join_values(val)
@@ -312,6 +334,10 @@ class Track(object):
     def get_tag_sort(self, tag, join=True):
         """
             Get a tag value in a form suitable for sorting.
+
+            :param tag: The name of the tag to get
+            :param join: If True, joins lists of values into a
+                single value.
         """
         # The two magic values here are to ensure that compilations
         # and unknown values are always sorted below all normal
@@ -353,6 +379,10 @@ class Track(object):
     def get_tag_display(self, tag, join=True):
         """
             Get a tag value in a form suitable for display.
+
+            :param tag: The name of the tag to get
+            :param join: If True, joins lists of values into a
+                single value.
         """
         if tag == '__loc':
             uri = gio.File(self.tags['__loc']).get_parse_name()
@@ -401,7 +431,8 @@ class Track(object):
 
     def get_rating(self):
         """
-            Returns the current track rating.
+            Returns the current track rating as an integer, as
+            determined by the ``miscellaneous/rating_steps`` setting.
         """
         try:
             rating = float(self.get_tag_raw('__rating'))
@@ -418,7 +449,8 @@ class Track(object):
 
     def set_rating(self, rating):
         """
-            Sets the current track rating.
+            Sets the current track rating from an integer, on the
+            scale determined by the ``miscellaneous/rating_steps`` setting.
         """
         steps = settings.get_option("miscellaneous/rating_steps", 5)
 

@@ -574,9 +574,9 @@ class CollectionPanel(panel.Panel):
         tags = list(SEARCH_TAGS)
         tags += [t for t in get_all_tags(self.order) if t != 'tracknumber' and t not in tags]
 
-        self.tracks = [ t.track for t in
+        self.tracks = list(
                 trax.search_tracks_from_string(self.sorted_tracks,
-                    keyword, case_sensitive=False, keyword_tags=tags) ]
+                    keyword, case_sensitive=False, keyword_tags=tags) )
 
         self.load_subtree(None)
 
@@ -697,10 +697,10 @@ class CollectionPanel(panel.Panel):
         try:
             tags = self.order[depth].tags()
             matchers = [trax.TracksMatcher(search)]
-            trs = (t.track for t in trax.search_tracks(self.tracks, matchers))
+            srtrs = trax.search_tracks(self.tracks, matchers)
             # sort only if we are not on top level, because tracks are already sorted by fist order
-            if depth>0:
-                trs = trax.sort_tracks(tags, trs)
+            if depth > 0:
+                srtrs = trax.sort_result_tracks(tags, srtrs)
         except IndexError:
             return # at the bottom of the tree
         try:
@@ -716,44 +716,56 @@ class CollectionPanel(panel.Panel):
         last_char = ''
         last_val = ''
         first = True
+        path = None
+        expanded = False
+        to_expand = []
 
-        for tr in trs:
-            tagvals = [tr.get_tag_display(x) for x in tags]
+        for srtr in srtrs:
+            tagvals = [srtr.track.get_tag_display(x) for x in tags]
             tagval = self.order[depth].printTags(tagvals)
-            if last_val == tagval:
-                continue
-            last_val = tagval
-            if depth == 0 and draw_seps:
-                val = tr.get_tag_sort(tags[0])
-                char = first_meaningful_char(val)
-                if first:
-                    last_char = char
-                else:
-                    if char != last_char and last_char != '':
-                        self.model.append(parent, [None, None, None])
-                    last_char = char
-            first = False
+            if last_val != tagval:
+                last_val = tagval
+                if depth == 0 and draw_seps:
+                    val = srtr.track.get_tag_sort(tags[0])
+                    char = first_meaningful_char(val)
+                    if first:
+                        last_char = char
+                    else:
+                        if char != last_char and last_char != '':
+                            self.model.append(parent, [None, None, None])
+                        last_char = char
+                first = False
 
-            iter = self.model.append(parent, [image, tagval, tagvals])
-            if not bottom:
-                self.model.append(iter, [None, None, None])
+                iter = self.model.append(parent, [image, tagval, tagvals])
+                path = self.model.get_path(iter)
+                expanded = False
+                if not bottom:
+                    self.model.append(iter, [None, None, None])
+
+            if not expanded:
+                alltags = []
+                for o in self.order[depth+1:]:
+                    alltags.extend(o.tags())
+                for t in alltags:
+                    if t in srtr.on_tags:
+                        if depth > 0:
+                            # for some reason, nested iters are always
+                            # off by one in the terminal entry.
+                            path = path[:-1] + (path[-1]-1,)
+                        to_expand.append(path)
+                        expanded = True
+
+        if settings.get_option("gui/expand_enabled", True) and \
+            len(to_expand) < \
+                    settings.get_option("gui/expand_maximum_results", 100) and \
+            len(self.keyword.strip()) >= \
+                    settings.get_option("gui/expand_minimum_term_length", 2):
+            for row in to_expand:
+                gobject.idle_add(self.tree.expand_row, row, False)
 
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
-        return #no expansion for now
-        if depth == 0 and settings.get_option("gui/expand_enabled", True) and \
-            len(values) <= settings.get_option(
-                    "gui/expand_maximum_results", 100) and \
-            len(self.keyword.strip()) >= \
-            settings.get_option("gui/expand_minimum_term_length", 3):
 
-            # the search number is an id for expanding nodes.
-            # we set the id before we try expanding the nodes because
-            # expanding can happen in the background.  If the id changes, the
-            # expanding methods will know that they need to stop because the
-            # search is no longer valid
-            self._search_num += 1
-            gobject.idle_add(self._expand_search_nodes, self._search_num)
 
 # vim: et sts=4 sw=4

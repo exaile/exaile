@@ -364,8 +364,9 @@ def search_tracks(trackiter, trackmatchers):
         :param trackiter: An iterable object returning Track objects
         :param trackmatchers: A list of TrackMatcher objects
     """
-    for tr in trackiter:
-        srtr = SearchResultTrack(tr)
+    for srtr in trackiter:
+        if not isinstance(srtr, SearchResultTrack):
+            srtr = SearchResultTrack(srtr)
         for tma in trackmatchers:
             if not tma.match(srtr):
                 break

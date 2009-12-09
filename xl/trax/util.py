@@ -65,3 +65,13 @@ def sort_tracks(fields, trackiter, reverse=False):
     keyfunc = lambda tr: [tr.get_tag_sort(field) for field in fields]
     return sorted(trackiter, key=keyfunc, reverse=reverse)
 
+
+def sort_result_tracks(fields, trackiter, reverse=False):
+    """
+        Sorts SearchResultTracks, ie. the output from a search.
+
+        Same params as sort_tracks.
+    """
+    keyfunc = lambda tr: [tr.track.get_tag_sort(field) for field in fields]
+    return sorted(trackiter, key=keyfunc, reverse=reverse)
+

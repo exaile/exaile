@@ -46,6 +46,35 @@ def first_meaningful_char(s):
             return s[i]
     return '_'
 
+class TreeLevelTabs(object):
+    def __init__(self, level):
+        
+        if type(level) is str:
+            self.__tags = [level]
+            self.__printList = [0]
+            self.__searchedTagsIndices = [0]
+            return
+        if type(level) is tuple:
+            self.__tags = level[0]
+            self.__printList = level[1]
+            self.__searchedTagsIndices = level[2]
+            return
+            
+    def printTags(self, tagsValues):
+        return ''.join([(tagsValues[x] if type(x) is int else x) for x in self.__printList])
+    
+    def tags(self):
+        return self.__tags
+    
+    def searchedTagsIndices(self):
+        return self.__searchedTagsIndices
+    
+def get_all_tags(order):
+    result = []
+    for level in order:
+        result.extend(level.tags())
+    return result
+
 class CollectionPanel(panel.Panel):
     """
         The collection panel
@@ -57,14 +86,22 @@ class CollectionPanel(panel.Panel):
     }
 
     ui_info = ('collection_panel.ui', 'CollectionPanelWindow')
+    """
+        Each level in order is a tuple of tree lists
+        First list is list of tags, that are relevant to this level, in their sort order
+        Second list describes way of node is printed. Strings in list remain the same,
+        and values of corresponding tags are inserted instead of integers
+        Third list is list of indices of tags that tracks are searched by
+        If level is string 'tag', it's the same as (['tag'], [0], [0])
+    """
     orders = (
-        ['artist', 'album', 'tracknumber', 'title'],
-        ['album', 'tracknumber', 'title'],
-        ['genre', 'artist', 'album', 'tracknumber', 'title'],
-        ['genre', 'album', 'artist', 'tracknumber', 'title'],
-        ['date', 'artist', 'album', 'tracknumber', 'title'],
-        ['date', 'album', 'artist', 'tracknumber', 'title'],
-        ['artist', 'date', 'album', 'tracknumber', 'title'],
+        ['artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['genre', 'artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['genre', 'album', 'artist', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['date', 'artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['date', 'album', 'artist', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['artist', (['date', 'album'], [0, ' - ', 1], [0, 1]), (['discnumber', 'tracknumber', 'title'], [2], [2])],
     )
 
     def __init__(self, parent, collection, name=None,
@@ -327,8 +364,8 @@ class CollectionPanel(panel.Panel):
         self.tree.set_row_separator_func(
             lambda m, i: m.get_value(i, 1) is None)
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, str)
-        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, str, str)
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
 
         self.tree.connect("row-expanded", self.on_expanded)
 
@@ -452,43 +489,32 @@ class CollectionPanel(panel.Panel):
         """
         if not parent:
             return []
-        if self.model.get_value(parent, 2):
-            values = ["\a\a" + self.model.get_value(parent, 2)]
-        else:
-            values = [self.model.get_value(parent, 1)]
+        values = [self.model.get_value(parent, 2)]
         iter = self.model.iter_parent(parent)
         newvals = self.get_node_keywords(iter)
-        if values[0]:
-            values = newvals + values
-        else:
-            values = newvals
-        return values
+        return newvals + values
 
     def get_node_search_terms(self, node):
         """
             Finds all the related search terms for a particular node
             @param node: the node you wish to create search terms
         """
-        keywords = self.get_node_keywords(node)
+        keywordsList = self.get_node_keywords(node)
         terms = []
         n = 0
-        for field in self.order:
-            if field == 'tracknumber':
-                continue
+        for level in self.order:
             try:
-                word = keywords[n]
-
-                if word:
-                    word = word.replace("\"","\\\"")
-                else:
-                    n += 1
-                    continue
-                if word == _("Unknown"):
-                    word = "__null__"
-
-                if word.startswith('\a\a'):
-                    terms.append(word[2:])
-                else:
+                words = keywordsList[n]
+                for index in level.searchedTagsIndices():
+                    word = words[index]
+                    field = level.tags()[index]
+                    if word:
+                        word = word.replace("\\","\\\\")
+                        word = word.replace("\"","\\\"")
+                    else:
+                        continue
+                    if word == _("Unknown"):
+                        word = "__null__"
                     terms.append("%s==\"%s\""%(field, word))
                 n += 1
             except IndexError:
@@ -501,7 +527,7 @@ class CollectionPanel(panel.Panel):
             reloads in quick succession
         """
         if settings.get_option('gui/sync_on_tag_change', True) and \
-            tag in self.order:
+            tag in get_all_tags(self.order):
             if self._refresh_id != 0:
                 gobject.source_remove(self._refresh_id)
             self._refresh_id = gobject.timeout_add(500,
@@ -519,7 +545,7 @@ class CollectionPanel(panel.Panel):
     def resort_tracks(self):
 #        import time
 #        print "sorting...", time.clock()
-        self.sorted_tracks = trax.sort_tracks([self.order[0]], self.collection)
+        self.sorted_tracks = trax.sort_tracks(self.order[0].tags(), self.collection)
 #        print "sorted.", time.clock()
 
     def load_tree(self):
@@ -535,7 +561,7 @@ class CollectionPanel(panel.Panel):
 
         self.root = None
         oldorder = self.order
-        self.order = self.orders[self.choice.get_active()]
+        self.order = [TreeLevelTabs(x) for x in self.orders[self.choice.get_active()]]
         if oldorder != self.order:
             self.resort_tracks()
 
@@ -667,21 +693,16 @@ class CollectionPanel(panel.Panel):
             search = " ".join(terms)
         else:
             search = ""
-        try:
-            if self.order.index("tracknumber") <= depth:
-                depth += 1
-        except ValueError:
-            pass # tracknumber isnt in the list
 
         try:
+            tags = self.order[depth].tags()
             matchers = [trax.TracksMatcher(search)]
             trs = (t.track for t in trax.search_tracks(self.tracks, matchers))
-            trs = trax.sort_tracks(self.order[1:depth], trs)
+            trs = trax.sort_tracks(tags, trs)
         except IndexError:
             return # at the bottom of the tree
-        tag = self.order[depth]
         try:
-            image = getattr(self, "%s_image"%tag)
+            image = getattr(self, "%s_image"%tags[-1])
         except:
             image = None
         bottom = False
@@ -695,12 +716,13 @@ class CollectionPanel(panel.Panel):
         first = True
 
         for tr in trs:
-            tagval = tr.get_tag_display(tag)
+            tagvals = [tr.get_tag_display(x) for x in tags]
+            tagval = self.order[depth].printTags(tagvals)
             if last_val == tagval:
                 continue
             last_val = tagval
             if depth == 0 and draw_seps:
-                val = tr.get_tag_sort(tag)
+                val = tr.get_tag_sort(tags[0])
                 char = first_meaningful_char(val)
                 if first:
                     last_char = char
@@ -710,7 +732,7 @@ class CollectionPanel(panel.Panel):
                     last_char = char
             first = False
 
-            iter = self.model.append(parent, [image, tagval, None])
+            iter = self.model.append(parent, [image, tagval, tagvals])
             if not bottom:
                 self.model.append(iter, [None, None, None])
 

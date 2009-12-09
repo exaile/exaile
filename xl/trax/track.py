@@ -52,6 +52,13 @@ _sortcharmap = {
         u'ҵ': u'ts', # U+04B5
         }
 
+# Cache these here because calling gettext inside get_tag_display
+# is two orders of magnitude slower.
+_VARIOUSARTISTSSTR = _("Various Artists")
+_UNKNOWNSTR = _("Unknown")
+#TRANSLATORS: String multiple tag values will be joined by
+_JOINSTR =_(u' & ')
+
 class Track(object):
     """
         Represents a single track.
@@ -354,9 +361,9 @@ class Track(object):
         retval = None
         if tag == "artist":
             if self.tags.get('__compilation'):
-                retval = self.tags.get('albumartist', _("Various Artists"))
+                retval = self.tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                retval = self.tags.get('artist', _("Unknown"))
+                retval = self.tags.get('artist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.tags.get(tag))[0]
         elif tag == '__length':
@@ -375,7 +382,7 @@ class Track(object):
                     '__playcount'):
                 retval = "0"
             else:
-                retval = _("Unknown")
+                retval = _UNKNOWNSTR
 
         if isinstance(retval, list):
             retval = [unicode(x) for x in retval]
@@ -383,8 +390,7 @@ class Track(object):
             retval = unicode(retval)
 
         if join:
-            #TRANSLATORS: String multiple tag values will be joined by
-            retval = self.join_values(retval, _(u' & '))
+            retval = self.join_values(retval, _JOINSTR)
 
         return retval
 

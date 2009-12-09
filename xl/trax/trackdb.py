@@ -92,7 +92,8 @@ class TrackDB(object):
         self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
         self._key = 0
-        self._dbversion = 2
+        self._dbversion = 2.0
+        self._dbminorversion = 0
         self._deleted_keys = []
         if location:
             self.load_from_location()
@@ -169,7 +170,7 @@ class TrackDB(object):
             pdata = shelve.open(self.location, flag='c',
                     protocol=common.PICKLE_PROTOCOL)
             if pdata.has_key("_dbversion"):
-                if pdata['_dbversion'] > self._dbversion:
+                if int(pdata['_dbversion']) > int(self._dbversion):
                     raise common.VersionError, \
                             "DB was created on a newer Exaile version."
                 elif pdata['_dbversion'] < self._dbversion:

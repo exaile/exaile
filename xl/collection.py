@@ -615,6 +615,7 @@ class Library(object):
         for tr in removals:
             logger.debug(u"Removing %s"%unicode(tr))
             self.collection.remove(tr)
+        self.scanning = False
 
     def is_realtime(self):
         """

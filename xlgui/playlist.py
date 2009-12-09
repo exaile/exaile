@@ -347,7 +347,6 @@ class Playlist(gtk.VBox):
         """
             Sets the tracks that this playlist should display
         """
-        self.list.set_model(self.model_blank)
         self.model.clear()
 
         for track in trs:
@@ -646,7 +645,8 @@ class Playlist(gtk.VBox):
 
         (trs, playlists) = self.list.get_drag_data(locs)
 
-        trs = sort_tracks(trs)
+        (column, descending) = self.get_sort_by()
+        trs = trax.sort_tracks(self.return_order_tags(column), trs, reverse=descending)
 
         # Determine what to do with the tracks
         # by default we load all tracks.
@@ -816,7 +816,6 @@ class Playlist(gtk.VBox):
             ar.append(str)
 
         self.model = gtk.ListStore(*ar)
-        self.model_blank = gtk.ListStore(*ar)
         self.list.set_model(self.model)
 
     def _setup_columns(self):
@@ -949,6 +948,7 @@ class Playlist(gtk.VBox):
                 col.set_sort_order(order)
             else:
                 col.set_sort_indicator(False)
+                col.set_sort_order(gtk.SORT_DESCENDING)
 
         trs = self.reorder_songs()
         self._set_tracks(trs)
@@ -969,14 +969,12 @@ class Playlist(gtk.VBox):
             If newtag isn't set, only returns the list, otherwise adds it to the
             head of the list and saves it into the settings
         """
-        tags = settings.get_option ('gui/tags_sorting_order',
-            ['artist', 'date', 'album', 'discnumber', 'tracknumber', 'title'])
+        tags = ['artist', 'date', 'album', 'discnumber', 'tracknumber', 'title']
 
         if newtag:
             if newtag in tags:
                 tags.remove (newtag)
             tags.insert (0, newtag)
-            settings.set_option ('gui/tags_sorting_order', tags)
 
         return tags
 
@@ -1001,7 +999,7 @@ class Playlist(gtk.VBox):
             if col.get_sort_indicator():
                 return (self.column_by_display[col.get_title()].id,
                     col.get_sort_order() == gtk.SORT_DESCENDING)
-        return 'tracknumber', False
+        return None, False
 
     def icon_data_func(self, col, cell, model, iter):
         """
@@ -1108,21 +1106,6 @@ class Playlist(gtk.VBox):
                 if hasattr(w, 'queue_draw'):
                     w.queue_draw()
                 event.log_event('rating_changed', self, i)
-
-def sort_tracks(trs):
-    from xlgui import main
-
-    pl = main.get_selected_playlist()
-    column, descending = pl.get_sort_by()
-
-
-    sort_by = ['artist', 'date', 'album', 'discnumber', 'tracknumber']
-    if column != 'tracknumber':
-        sort_by = [column] + sort_by
-
-    trs = trax.sort_tracks(sort_by, trs, reverse=descending)
-
-    return trs
 
 
 class ConfirmCloseDialog(gtk.MessageDialog):

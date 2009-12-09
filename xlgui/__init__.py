@@ -240,7 +240,7 @@ class Main(object):
             column, descending = pl.get_sort_by()
 
             tracks = track.get_tracks_from_uri(uri)
-            tracks = trax.sort_tracks([column], tracks)
+            tracks = trax.sort_tracks(pl.return_order_tags(column), tracks)
 
             try:
                 pl.playlist.add_tracks(tracks)

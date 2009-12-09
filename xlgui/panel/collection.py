@@ -572,7 +572,7 @@ class CollectionPanel(panel.Panel):
 
         keyword = self.keyword.strip()
         tags = list(SEARCH_TAGS)
-        tags += [t for t in self.order if t != 'tracknumber' and t not in tags]
+        tags += [t for t in get_all_tags(self.order) if t != 'tracknumber' and t not in tags]
 
         self.tracks = [ t.track for t in
                 trax.search_tracks_from_string(self.sorted_tracks,
@@ -698,7 +698,9 @@ class CollectionPanel(panel.Panel):
             tags = self.order[depth].tags()
             matchers = [trax.TracksMatcher(search)]
             trs = (t.track for t in trax.search_tracks(self.tracks, matchers))
-            trs = trax.sort_tracks(tags, trs)
+            # sort only if we are not on top level, because tracks are already sorted by fist order
+            if depth>0:
+                trs = trax.sort_tracks(tags, trs)
         except IndexError:
             return # at the bottom of the tree
         try:

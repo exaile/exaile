@@ -10,7 +10,9 @@ Contents:
 
 .. toctree::
 
-   xl/trax
+    xl/metadata
+    xl/trax
+
 
 Indices and tables
 ==================

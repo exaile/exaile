@@ -684,7 +684,7 @@ class Playlist(gtk.VBox):
             gobject.idle_add(self.add_track_callbacks)
             return
 
-        self.playlist.add_tracks(tracks)
+        self.playlist.add_tracks(trs)
 
         # Re add all of the tracks so that they
         # become ordered

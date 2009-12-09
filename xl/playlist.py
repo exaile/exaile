@@ -466,8 +466,7 @@ class Playlist(object):
             self.filtered = False
             return self._ordered_tracks
         else:
-            self.filtered_tracks = self.search(keyword,
-                sort_fields=('artist', 'date', 'album', 'discnumber', 'tracknumber'))
+            self.filtered_tracks = self.search(keyword)
             self.filtered = True
             return self.filtered_tracks
 
@@ -1067,11 +1066,13 @@ class SmartPlaylist(object):
         matcher = trax.TracksMatcher(search_string)
         trs = [ t.track for t in trax.search_tracks(collection, [matcher]) ]
         if self.random_sort:
-            trs = random.shuffle(trs)
+            random.shuffle(trs)
         else:
             sort_field = ('artist', 'date', 'album', 'discnumber',
                     'tracknumber', 'title')
             trs = trax.sort_tracks(sort_field, trs)
+        if len(trs) > self.track_count:
+            trs=trs[:self.track_count]
 
         pl = Playlist(name=self.get_name())
         pl.add_tracks(trs)

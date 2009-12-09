@@ -676,7 +676,7 @@ class CollectionPanel(panel.Panel):
         try:
             matchers = [trax.TracksMatcher(search)]
             trs = (t.track for t in trax.search_tracks(self.tracks, matchers))
-            trs = trax.sort_tracks(self.order[1:depth], trs)
+            trs = trax.sort_tracks([self.order[depth]], trs)
         except IndexError:
             return # at the bottom of the tree
         tag = self.order[depth]

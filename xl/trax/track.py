@@ -544,8 +544,10 @@ class Track(object):
         """
             Remove accents, diacritics, etc.
         """
+        # value is appended afterwards so that like-accented values
+        # will sort together.
         return u''.join([c for c in unicodedata.normalize('NFD', value)
-            if unicodedata.category(c) != 'Mn'])
+            if unicodedata.category(c) != 'Mn']) + u" " + value
 
     @staticmethod
     def expand_doubles(value):

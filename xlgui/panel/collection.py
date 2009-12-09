@@ -35,6 +35,9 @@ logger = logging.getLogger(__name__)
 
 TRACK_NUM = 300
 
+# TODO: come up with a more customizable way to handle this
+SEARCH_TAGS = ("artist", "albumartist", "album", "title")
+
 def first_meaningful_char(s):
     for i in range(len(s)):
         if s[i].isdigit():
@@ -542,13 +545,12 @@ class CollectionPanel(panel.Panel):
                 self.choice.get_active())
 
         keyword = self.keyword.strip()
-        order = list(self.order)
-        if 'artist' in order:
-            order.append('albumartist')
+        tags = list(SEARCH_TAGS)
+        tags += [t for t in self.order if t != 'tracknumber' and t not in tags]
 
         self.tracks = [ t.track for t in
                 trax.search_tracks_from_string(self.sorted_tracks,
-                    keyword, case_sensitive=False, keyword_tags=order) ]
+                    keyword, case_sensitive=False, keyword_tags=tags) ]
 
         self.load_subtree(None)
 

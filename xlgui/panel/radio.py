@@ -189,13 +189,13 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     @common.threaded
     def _do_add_playlist(self, name, uri):
-        from xl import playlist, track
+        from xl import playlist, trax
         if playlist.is_valid_playlist(uri):
             pl = playlist.import_playlist(uri)
             pl.name = name
         else:
             pl = playlist.Playlist(name)
-            tracks = track.get_tracks_from_uri(uri)
+            tracks = trax.get_tracks_from_uri(uri)
             try:
                 pl.add_tracks(tracks)
             # Catch empty directories

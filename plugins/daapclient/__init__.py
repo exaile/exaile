@@ -24,7 +24,7 @@ import threading
 import gobject
 import xlgui
 from gettext import gettext as _
-from xl import collection, event, track, common
+from xl import collection, event, trax, common
 from xlgui.panel.collection import CollectionPanel
 from xlgui import guiutil, commondialogs
 from daap import DAAPClient, DAAPError
@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 gobject.threads_init()
 
 #
-#   Check For python-avahi, we can work without 
+#   Check For python-avahi, we can work without
 #  avahi, but wont be able to discover shares.
 #
 
@@ -337,7 +337,7 @@ class DaapConnection(object):
                     tr.type, self.session.sessionid)
 
                 # Don't scan tracks because gio is slow!
-                temp = track.Track(uri, scan=False)
+                temp = trax.Track(uri, scan=False)
 
                 for field in eqiv.keys():
                     try:

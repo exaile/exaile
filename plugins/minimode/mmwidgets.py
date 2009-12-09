@@ -19,7 +19,7 @@ import copy, gobject, gtk, pango
 from string import Template
 from xl import event, settings
 from xl.nls import gettext as _
-from xl.track import Track
+from xl.trax import Track
 from xlgui.guiutil import get_workarea_size
 from xlgui.playlist import Playlist
 

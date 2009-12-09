@@ -22,7 +22,7 @@
 import gtk, gobject, os
 import librivoxsearch as LS
 import about_window as AW
-from xl import track, playlist, event, xdg, common, settings
+from xl import trax, playlist, event, xdg, common, settings
 from xlgui import guiutil
 
 
@@ -166,7 +166,7 @@ class LVPanel():
     def generate_tracks(self, chapters):
             tracks=[]
             for chapter in chapters:
-                chapter_track=track.Track(chapter[1])
+                chapter_track=trax.Track(chapter[1])
                 chapter_track.set_tag_raw('artist', 'Librivox.org')
                 chapter_track.set_tag_raw('title', chapter[0])
                 chapter_track.set_tag_raw('album', 'Audiobook')

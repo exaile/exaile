@@ -33,7 +33,7 @@ import os
 import urllib
 import hashlib
 from xl import event, settings, xdg
-from xl import track as xltrack
+from xl import trax as xltrack
 from xl.cover import CoverSearchMethod, NoCoverFoundException
 from xl.nls import gettext as _
 from xlgui import guiutil, panel

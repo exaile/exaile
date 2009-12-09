@@ -26,7 +26,7 @@
 
 import logging, traceback, urllib
 import gtk, gobject
-from xl import event, xdg, common, track, trackdb, metadata, settings
+from xl import event, xdg, common, metadata, settings, trax
 from xl.nls import gettext as _
 import xlgui
 from xlgui import panel, guiutil, menu, playlist, rating
@@ -34,6 +34,9 @@ from xlgui import panel, guiutil, menu, playlist, rating
 logger = logging.getLogger(__name__)
 
 TRACK_NUM = 300
+
+# TODO: come up with a more customizable way to handle this
+SEARCH_TAGS = ("artist", "albumartist", "album", "title")
 
 def first_meaningful_char(s):
     for i in range(len(s)):
@@ -91,6 +94,9 @@ class CollectionPanel(panel.Panel):
         self._check_collection_empty()
         self._setup_images()
         self._connect_events()
+        self.order = None
+        self.tracks = []
+        self.sorted_tracks = []
 
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
@@ -115,14 +121,14 @@ class CollectionPanel(panel.Panel):
             Shows the properties dialog
         """
         from xlgui import properties
-        tracks = self.get_selected_tracks()
+        trs = self.get_selected_tracks()
 
-	if not tracks:
+        if not tracks:
             return False
 
-        tracks_sorted = trackdb.sort_tracks(
-			('artist', 'date', 'album', 'discnumber', 'tracknumber'), 
-			tracks)
+        tracks_sorted = trax.sort_tracks(
+			('artist', 'date', 'album', 'discnumber', 'tracknumber'),
+			trs)
 
         dialog = properties.TrackPropertiesDialog(self.parent,
             tracks_sorted)
@@ -281,10 +287,10 @@ class CollectionPanel(panel.Panel):
         """
             Called when a drag source wants data for this drag operation
         """
-        tracks = self.get_selected_tracks()
-        for track in tracks:
+        trs = self.get_selected_tracks()
+        for track in trs:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
-        urls = guiutil.get_urls_for(tracks)
+        urls = guiutil.get_urls_for(trs)
         selection.set_uris(urls)
 
     def _setup_tree(self):
@@ -328,11 +334,13 @@ class CollectionPanel(panel.Panel):
 
     def _find_tracks(self, iter):
         """
-            finds tracks matching a given iter. returns a resultset.
+            finds tracks matching a given iter. 
         """
         self.load_subtree(iter)
         search = " ".join(self.get_node_search_terms(iter))
-        return self.collection.search(search, tracks=self.tracks)
+        matcher = trax.TracksMatcher(search)
+        srtrs = trax.search_tracks(self.tracks, [matcher])
+        return [ x.track for x in srtrs ]
 
     def get_selected_tracks(self):
         """
@@ -341,17 +349,17 @@ class CollectionPanel(panel.Panel):
 
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
-        tracks = []
+        trs = []
         for path in paths:
             iter = self.model.get_iter(path)
             newset = self._find_tracks(iter)
-            tracks.append(newset)
+            trs.append(newset)
 
-        if not tracks: return None
+        if not trs: return None
 
-        tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
+        trs = list(set(reduce(lambda x, y: list(x) + list(y), trs)))
 
-        return tracks
+        return trs
 
     def get_tracks_rating(self):
         """
@@ -501,10 +509,18 @@ class CollectionPanel(panel.Panel):
 
     def _refresh_tags_in_tree(self):
         """
-            For now, basically calls load_tree.
+            Callback for when tags have changed and the tree
+            needs reloading.
         """
+        self.resort_tracks()
         self.load_tree()
         return False
+
+    def resort_tracks(self):
+#        import time
+#        print "sorting...", time.clock()
+        self.sorted_tracks = trax.sort_tracks([self.order[0]], self.collection)
+#        print "sorted.", time.clock()
 
     def load_tree(self):
         """
@@ -518,14 +534,23 @@ class CollectionPanel(panel.Panel):
         self.tree.set_model(self.model_blank)
 
         self.root = None
+        oldorder = self.order
         self.order = self.orders[self.choice.get_active()]
+        if oldorder != self.order:
+            self.resort_tracks()
 
         # save the active view setting
         settings.set_option(
                 'gui/collection_active_view',
                 self.choice.get_active())
 
-        self.tracks = []
+        keyword = self.keyword.strip()
+        tags = list(SEARCH_TAGS)
+        tags += [t for t in self.order if t != 'tracknumber' and t not in tags]
+
+        self.tracks = [ t.track for t in
+                trax.search_tracks_from_string(self.sorted_tracks,
+                    keyword, case_sensitive=False, keyword_tags=tags) ]
 
         self.load_subtree(None)
 
@@ -634,14 +659,14 @@ class CollectionPanel(panel.Panel):
                 previously_loaded = True
             iter_sep = self.model.iter_children(parent)
             depth = self.model.iter_depth(parent) + 1
+        if previously_loaded:
+            return
 
         terms = self.get_node_search_terms(parent)
         if terms:
             search = " ".join(terms)
         else:
             search = ""
-        if self.keyword.strip():
-            search += " " + self.keyword
         try:
             if self.order.index("tracknumber") <= depth:
                 depth += 1
@@ -649,18 +674,12 @@ class CollectionPanel(panel.Panel):
             pass # tracknumber isnt in the list
 
         try:
-            tag = self.order[depth]
-            tracks = self.collection.search(search)
-            if previously_loaded:
-                return
-
-            sort_by = [tag]
-            if depth > 0 and self.order[depth-1] == "tracknumber":
-                sort_by += ['discnumber', 'tracknumber']
-            sort_by.reverse()
-            tracks = track.sort_tracks(sort_by, tracks)
+            matchers = [trax.TracksMatcher(search)]
+            trs = (t.track for t in trax.search_tracks(self.tracks, matchers))
+            trs = trax.sort_tracks(self.order[1:depth], trs)
         except IndexError:
             return # at the bottom of the tree
+        tag = self.order[depth]
         try:
             image = getattr(self, "%s_image"%tag)
         except:
@@ -675,13 +694,13 @@ class CollectionPanel(panel.Panel):
         last_val = ''
         first = True
 
-        for tr in tracks:
+        for tr in trs:
             tagval = tr.get_tag_display(tag)
             if last_val == tagval:
                 continue
             last_val = tagval
             if depth == 0 and draw_seps:
-                val = tr.strip_leading(tr.get_tag_sort(tag))
+                val = tr.get_tag_sort(tag)
                 char = first_meaningful_char(val)
                 if first:
                     last_char = char

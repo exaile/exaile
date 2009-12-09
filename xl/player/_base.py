@@ -55,7 +55,7 @@ class ExailePlayer(object):
         if data == "player/volume":
             self._load_volume()
 
-    def _on_track_end(self, name, object, track):
+    def _on_track_end(self, name, obj, track):
         if not track:
             return
         try:

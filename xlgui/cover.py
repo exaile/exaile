@@ -117,11 +117,11 @@ class CoverManager(object):
 
         # if there is no cover, use the nocover image from the selected widget
         if c == None:
-            cover = self.covers[self.get_selected_cover()]
+            cvr = self.covers[self.get_selected_cover()]
         else:
-            cover = gtk.gdk.pixbuf_new_from_file(c)
+            cvr = gtk.gdk.pixbuf_new_from_file(c)
 
-        window = CoverWindow(self.parent, cover)
+        window = CoverWindow(self.parent, cvr)
         window.show_all()
 
     def fetch_cover(self):
@@ -135,7 +135,7 @@ class CoverManager(object):
             self.manager, track)
         window.connect('cover-chosen', self.on_cover_chosen)
 
-    def on_cover_chosen(self, object, cover):
+    def on_cover_chosen(self, object, cvr):
         paths = self.icons.get_selected_items()
         if not paths: return None
         path = paths[0]
@@ -143,7 +143,7 @@ class CoverManager(object):
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
 
-        image = gtk.gdk.pixbuf_new_from_file(cover)
+        image = gtk.gdk.pixbuf_new_from_file(cvr)
         image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
         self.covers[item] = image
         self.model.set_value(iter, 1, image)
@@ -212,7 +212,7 @@ class CoverManager(object):
 
             if cover_avail:
                 try:
-                    image = gtk.gdk.pixbuf_new_from_file(cover)
+                    image = gtk.gdk.pixbuf_new_from_file(cvr)
                     image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
                 except:
                     image = nocover
@@ -300,8 +300,8 @@ class CoverManager(object):
         """
         self.needs = 0
         for item in self.items:
-            cover = self.covers[item]
-            if cover == self.nocover:
+            cvr = self.covers[item]
+            if cvr == self.nocover:
                 self.needs += 1
 
     def _do_stop(self):
@@ -422,8 +422,8 @@ class CoverWidget(gtk.EventBox):
             self.player.current)
         window.connect('cover-chosen', self.on_cover_chosen)
 
-    def on_cover_chosen(self, object, cover):
-        self.image.set_image(cover)
+    def on_cover_chosen(self, object, cvr):
+        self.image.set_image(cvr)
 
     def remove_cover(self):
         """
@@ -498,7 +498,7 @@ class CoverWidget(gtk.EventBox):
 class CoverWindow(object):
     """Shows the cover in a simple image viewer"""
 
-    def __init__(self, parent, cover, title=''):
+    def __init__(self, parent, cvr, title=''):
         """Initializes and shows the cover"""
         self.builder = gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.ui'))
@@ -526,10 +526,10 @@ class CoverWindow(object):
                                    self.statusbar.size_request()[1]
         self.cover_window.set_default_size(self.cover_window_width, \
                                            self.cover_window_height)
-        if type(cover) == str or type(cover) == unicode:
-            self.image_original_pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
+        if type(cvr) == str or type(cvr) == unicode:
+            self.image_original_pixbuf = gtk.gdk.pixbuf_new_from_file(cvr)
         else:
-            self.image_original_pixbuf = cover
+            self.image_original_pixbuf = cvr
 
         self.image_pixbuf = self.image_original_pixbuf
         self.min_percent = 1
@@ -685,9 +685,9 @@ class CoverChooser(gobject.GObject):
         self.ok.connect('clicked',
             self.on_ok)
         self.box = self.builder.get_object('cover_image_box')
-        self.cover = guiutil.ScalableImageWidget()
-        self.cover.set_image_size(350, 350)
-        self.box.pack_start(self.cover, True, True)
+        self.cvr = guiutil.ScalableImageWidget()
+        self.cvr.set_image_size(350, 350)
+        self.box.pack_start(self.cvr, True, True)
 
         self.last_search = "%s - %s"  % (tempartist,tempalbum)
 
@@ -732,12 +732,12 @@ class CoverChooser(gobject.GObject):
             Chooses the current cover and saves it to the database
         """
         track = self.track
-        cover = self.covers[self.current]
+        cvr = self.covers[self.current]
 
         album_tup = cover.get_album_tuple(track)
-        self.manager.coverdb.set_cover(album_tup[0], album_tup[1], cover)
+        self.manager.coverdb.set_cover(album_tup[0], album_tup[1], cvr)
 
-        self.emit('cover-chosen', cover)
+        self.emit('cover-chosen', cvr)
         self.window.destroy()
 
     def go_next(self, widget):
@@ -770,5 +770,5 @@ class CoverChooser(gobject.GObject):
             Shows the current cover
         """
         logger.info(c)
-        self.cover.set_image_data(cover.get_cover_data(c))
+        self.cvr.set_image_data(cover.get_cover_data(c))
         self.window.show_all()

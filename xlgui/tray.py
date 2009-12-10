@@ -51,9 +51,9 @@ class BaseTrayIcon(object):
             Unhides the window and removes the tray icon
         """
         # FIXME: Allow other windows too
-        if not self.window.get_property('visible'):
-            self.window.deiconify()
-            self.window.present()
+        if not self.main.window.get_property('visible'):
+            self.main.window.deiconify()
+            self.main.window.present()
         self.set_visible(False)
         self.menu = None
         event.log_event('tray_icon_toggled', self, False)

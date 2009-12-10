@@ -107,7 +107,6 @@ class ElementBin(gst.Bin):
         if self.srcpad is not None:
             self.srcpad.set_blocked_async(True, self._setup_finish, state)
         else:
-#        if True:
             self._setup_finish(None, True, state)
 
 
@@ -185,7 +184,12 @@ class ProviderBin(ElementBin, ProviderHandler):
     def reset_providers(self):
         self.elements = {}
         for provider in self.get_providers():
-            self.elements[provider.index] = provider()
+            try:
+                self.elements[provider.index] = provider()
+            except:
+                logger.warning("Could not create %s element for %s." % \
+                        (provider, self.get_name()) )
+                common.log_exception(log=logger)
         #self.setup_elements()
 
     def on_new_provider(self, provider):

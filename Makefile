@@ -113,7 +113,10 @@ install-locale:
 plugins_dist:
 	make -C plugins dist
 
+.PHONY: clean
+
 clean:
+	-find . -name "*.~[0-9]~" -exec rm -f {} \;
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	find po/* -depth -type d -exec rm -r {} \;
 	make -C plugins clean

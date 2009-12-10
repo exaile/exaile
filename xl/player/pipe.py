@@ -44,7 +44,7 @@ class MainBin(gst.Bin):
     """
     def __init__(self, pre_elems=[]):
         gst.Bin.__init__(self)
-        self._elements = pre_elems
+        self._elements = pre_elems[:]
 
         self.pp = Postprocessing()
         self._elements.append(self.pp)
@@ -104,10 +104,10 @@ class ElementBin(gst.Bin):
     def setup_elements(self):
         state = self.get_state()[1]
 
-#       if self.srcpad is not None:
-#           self.srcpad.set_blocked_async(True, self._setup_finish, state)
-#       else:
-        if True:
+        if self.srcpad is not None:
+            self.srcpad.set_blocked_async(True, self._setup_finish, state)
+        else:
+#        if True:
             self._setup_finish(None, True, state)
 
 
@@ -151,7 +151,8 @@ class ElementBin(gst.Bin):
         self.added_elems = elems
 
         self.set_state(state)
-#        self.srcpad.set_blocked_async(False, lambda *args: False, state)
+        if blocked:
+            self.srcpad.set_blocked_async(False, lambda *args: False, state)
 
     def set_state(self, state):
         if state == gst.STATE_PLAYING and \

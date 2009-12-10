@@ -59,7 +59,7 @@ class ProgressMonitor(gtk.Frame):
         self.desc = desc
         if self.label:
             self.label.set_text(desc)
-        
+
     def progress_update(self, type, thread, percent):
         """
             Called when the progress has been updated

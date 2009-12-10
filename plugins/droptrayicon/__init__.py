@@ -102,7 +102,7 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
                 gtk.gdk.ACTION_DEFAULT |
                 gtk.gdk.ACTION_MOVE
             )
-        
+
         # Required to allow the window to be
         # integrated into the drag process
         self.drop_target_window.drag_dest_set(

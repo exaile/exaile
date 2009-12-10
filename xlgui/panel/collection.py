@@ -53,7 +53,7 @@ def first_meaningful_char(s):
 
 class TreeLevelTabs(object):
     def __init__(self, level):
-        
+
         if type(level) is str:
             self.__tags = [level]
             self.__printList = [0]
@@ -64,16 +64,16 @@ class TreeLevelTabs(object):
             self.__printList = level[1]
             self.__searchedTagsIndices = level[2]
             return
-            
+
     def printTags(self, tagsValues):
         return ''.join([(tagsValues[x] if type(x) is int else x) for x in self.__printList])
-    
+
     def tags(self):
         return self.__tags
-    
+
     def searchedTagsIndices(self):
         return self.__searchedTagsIndices
-    
+
 def get_all_tags(order):
     result = []
     for level in order:
@@ -376,7 +376,7 @@ class CollectionPanel(panel.Panel):
 
     def _find_tracks(self, iter):
         """
-            finds tracks matching a given iter. 
+            finds tracks matching a given iter.
         """
         self.load_subtree(iter)
         search = " ".join(self.get_node_search_terms(iter))

@@ -636,7 +636,7 @@ class Playlist(object):
                     if x.get_tag_raw('album') == curr.get_tag_raw('album') \
                     and x.get_tag_raw('tracknumber') >= \
                     curr.get_tag_raw('tracknumber') \
-                    and i > self.current_pos ) ]
+                    and i > self.current_pos ]
                 t = trax.sort_tracks(['tracknumber'], t)
                 return t[0]
 

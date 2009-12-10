@@ -284,11 +284,11 @@ class DAAPClient(object):
         }
 
         if gzip: headers['Accept-encoding'] = 'gzip'
-        
+
         if self.password:
             import base64
             b64 = base64.encodestring( '%s:%s'%('user', self.password) )[:-1]
-            headers['Authorization'] = 'Basic %s' % b64             
+            headers['Authorization'] = 'Basic %s' % b64
 
         # TODO - we should allow for different versions of itunes - there
         # are a few different hashing algos we could be using. I need some

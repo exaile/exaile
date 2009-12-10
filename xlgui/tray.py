@@ -170,7 +170,7 @@ class BaseTrayIcon(object):
             Updates the tray icon
         """
         pass
-    
+
     def set_tooltip(self, tooltip_text):
         """
             Updates the tray icon tooltip

@@ -42,7 +42,7 @@ class BaseFormat(object):
     tag_mapping = {}
     others = True
     writable = False
-    ignore_tags = []
+    ignore_tags = ['Cover Art (front)']
 
     def __init__(self, loc):
         self.loc = loc

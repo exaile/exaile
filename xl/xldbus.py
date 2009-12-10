@@ -334,7 +334,7 @@ class DbusManager(dbus.service.Object):
             Adds the specified files to the current playlist
         """
         import xl.playlist
-        from xl import track  # do this here to avoid loading
+        from xl import trax   # do this here to avoid loading
                               # settings when issuing dbus commands
         # FIXME: Get rid of dependency on xlgui
         #        by moving sorting column somewhere else
@@ -353,10 +353,7 @@ class DbusManager(dbus.service.Object):
             except:
                 traceback.print_exc()
 
-            tracks += track.get_tracks_from_uri(file)
-
-        print tracks
-        print [t._scan_valid for t in tracks]
+            tracks += trax.get_tracks_from_uri(file)
 
         tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
         self.exaile.queue.current_playlist.add_tracks(tracks)

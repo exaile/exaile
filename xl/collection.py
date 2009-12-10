@@ -34,13 +34,21 @@ A library finds tracks in a specified directory and adds them to an associated
 collection.
 """
 
+import os
+import time
+import os.path
+import shutil
+import logging
+from collections import deque
+
+import gobject
+import gio
+
 from xl.nls import gettext as _
-from xl import trackdb, track, common, xdg, event, metadata, settings
+from xl import common, xdg, event, metadata, settings
+from xl.trax import track, trackdb
 from xl.settings import SettingsManager
 
-import os, time, os.path, shutil, logging
-from collections import deque
-import gobject, gio
 
 logger = logging.getLogger(__name__)
 
@@ -607,6 +615,7 @@ class Library(object):
         for tr in removals:
             logger.debug(u"Removing %s"%unicode(tr))
             self.collection.remove(tr)
+        self.scanning = False
 
     def is_realtime(self):
         """

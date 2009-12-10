@@ -174,7 +174,7 @@ class CoverManager(object):
         items = []
         for track in tracks:
             try:
-                (artist, album) = track.get_album_tuple()
+                (artist, album) = cover.get_album_tuple(track)
             except KeyError:
                 continue
             except TypeError:
@@ -202,11 +202,11 @@ class CoverManager(object):
         for item in items:
             if not item[0] or not item[1]: continue
             try:
-                cover = self.manager.coverdb.get_cover(item[0], item[1])
+                cover_avail = self.manager.coverdb.get_cover(item[0], item[1])
             except TypeError:
-                cover = None
+                cover_avail = None
 
-            if cover:
+            if cover_avail:
                 try:
                     image = gtk.gdk.pixbuf_new_from_file(cover)
                     image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
@@ -219,8 +219,8 @@ class CoverManager(object):
                 self.needs += 1
 
             display = "%s - %s" % (item[0], item[1])
-            if self.track_dict[item[0]][item[1]][0]['__compilation']:
-                display = item[1]
+#            if self.track_dict[item[0]][item[1]][0]['__compilation']:
+#                display = item[1]
 
             self.cover_nodes[item] = self.model.append(
                 [display, image, item])
@@ -461,7 +461,7 @@ class CoverWidget(gtk.EventBox):
                 return
         else:
             try:
-                item = track.get_album_tuple()
+                item = cover.get_album_tuple(track)
                 if item[0] and item[1]:
                     cov = self.coverdb.get_cover(item[0], item[1])
             except TypeError: # one of the fields is missing
@@ -730,10 +730,8 @@ class CoverChooser(gobject.GObject):
         track = self.track
         cover = self.covers[self.current]
 
-        self.manager.coverdb.set_cover(
-            metadata.j(track.get_tag_raw('artist')),
-            metadata.j(track.get_tag_raw('album')),
-            cover)
+        album_tup = cover.get_album_tuple(track)
+        self.manager.coverdb.set_cover(album_tup[0], album_tup[1], cover)
 
         self.emit('cover-chosen', cover)
         self.window.destroy()

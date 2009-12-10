@@ -31,10 +31,12 @@ import gio
 from _base import *
 import urlparse
 
-import asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex, tta, wav, wv
+import ape, asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex, tta, wav, wv
+
+__all__ = ['get_format', 'formats']
 
 # lossy:    aac (in m4a), ac3, mp2, mp3, musepack, speex, vorbis, wma
-# lossless: aiff, alac (in m4a), flac, tta, wav, wavpack
+# lossless: aiff, alac (in m4a), ape, flac, tta, wav, wavpack
 # chip:     669, amf, dsm, far, it, med, mod, mtm, okt, s3m, spc, stm, ult, xm
 # other:    au
 # tags not read:  midi, real, shorten (can we fix these?)
@@ -43,6 +45,7 @@ formats = {
         'ac3'   : None,
         'aif'   : wav.WavFormat,
         'aiff'  : wav.WavFormat,
+        'ape'   : ape.MonkeysFormat,
         'amf'   : mod.ModFormat,
         'au'    : wav.WavFormat,
         'dsm'   : mod.ModFormat,
@@ -85,8 +88,9 @@ SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 def get_format(loc):
     """
         get a Format object appropriate for the file at loc.
-        if no suitable object can be found, a default object that
-        defines title from the filename is used instead.
+        if no suitable object can be found, None is returned.
+
+        :param loc: The location to read from.
     """
     loc = gio.File(loc).get_path()
     if not loc:

@@ -36,7 +36,7 @@ PROVIDER = None
 
 import dbus, threading, os, struct
 from fcntl import ioctl
-from xl import playlist, track, common
+from xl import playlist, trax, common
 from xl import settings
 import os.path
 
@@ -138,7 +138,7 @@ class CDPlaylist(playlist.Playlist):
 
         for count, length in enumerate(lengths):
             count += 1
-            song = track.Track()
+            song = trax.Track()
             song.set_loc("cdda://%d#%s" % (count, self.device))
             song.set_tag_raw('title', "Track %d" % count)
             song.set_tag_raw('tracknumber', count)

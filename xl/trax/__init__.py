@@ -24,12 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+# It is encouraged that external modules should import from here,
+# rather than directly from submodules.
 
-from xl.metadata._apev2 import ApeFormat
-from mutagen import musepack
-
-class MpcFormat(ApeFormat):
-    MutagenType = musepack.Musepack
-
-# vim: et sts=4 sw=4
+from track import Track
+from trackdb import TrackDB
+from search import search_tracks, search_tracks_from_string, TracksMatcher
+from util import is_valid_track, get_tracks_from_uri, sort_tracks, sort_result_tracks
 

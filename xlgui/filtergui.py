@@ -111,7 +111,7 @@ class FilterDialog(gtk.Dialog):
         """
             Sets the limit for the number of items that should be returned
         """
-        if limit > 0:
+        if limit > -1:
             self.lim_check.set_active(True)
             self.lim_spin.set_value(limit)
         else:
@@ -124,7 +124,7 @@ class FilterDialog(gtk.Dialog):
         if self.lim_check.get_active():
             return int(self.lim_spin.get_value())
         else:
-            return 0
+            return -1
 
     def get_random(self):
         """

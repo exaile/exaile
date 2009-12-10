@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 # Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,78 +25,39 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, os, urllib2, urlparse, weakref
+import logging
+import os
+import weakref
+import unicodedata
+from functools import wraps
 from copy import deepcopy
 import gio
 from xl.nls import gettext as _
-from xl import common, settings, event
-import xl.metadata as metadata
-from xl.common import lstrip_special
+from xl import common, settings, event, metadata
 logger = logging.getLogger(__name__)
 
-def is_valid_track(loc):
-    """
-        Returns whether the file at loc is a valid track,
-        right now determines based on file extension but
-        possibly could be extended to actually opening
-        the file and determining
-    """
-    extension = gio.File(loc).get_basename().split(".")[-1]
-    return extension.lower() in metadata.formats
+# map chars to appropriate subsitutes for sorting
+_sortcharmap = {
+        u'ß': u'ss', # U+00DF
+        u'æ': u'ae', # U+00E6
+        u'ĳ': u'ij', # U+0133
+        u'ŋ': u'ng', # U+014B
+        u'œ': u'oe', # U+0153
+        u'ƕ': u'hv', # U+0195
+        u'ǆ': u'dz', # U+01C6
+        u'ǉ': u'lj', # U+01C9
+        u'ǌ': u'nj', # U+01CC
+        u'ǳ': u'dz', # U+01F3
+        u'ҥ': u'ng', # U+04A5
+        u'ҵ': u'ts', # U+04B5
+        }
 
-def get_tracks_from_uri(uri):
-    """
-        Returns all valid tracks located at uri
-    """
-    tracks = []
-    gloc = gio.File(uri)
-    type = gloc.query_info("standard::type").get_file_type()
-    if type == gio.FILE_TYPE_DIRECTORY:
-        from xl.collection import Library, Collection
-        tracks = Collection('scanner')
-        lib = Library(uri)
-        lib.set_collection(tracks)
-        lib.rescan()
-        tracks = tracks.search("")
-    else:
-        tracks = [Track(uri)]
-    return tracks
-
-
-def get_sort_tuple(fields, track):
-    """
-        Returns the sort tuple for a single track
-
-        :param fields: the tag(s) to sort by
-        :type fields: a single string or iterable of strings
-        :param track: the track to sort
-        :type track: :class:`xl.track.Track`
-    """
-    items = []
-    if not type(fields) in (list, tuple):
-        items = [track.get_tag_sort(fields)]
-    else:
-        items = [track.get_tag_sort(field) for field in fields]
-
-    items.append(track)
-    return tuple(items)
-
-def sort_tracks(fields, tracks, reverse=False):
-    """
-        Sorts tracks by the field passed
-
-        :param fields: field(s) to sort by
-        :type fields: string or list of strings
-
-        :param tracks: tracks to sort
-        :type tracks: list of :class:`xl.track.Track`
-
-        :param reverse: sort in reverse?
-        :type reverse: bool
-    """
-    tracks = [get_sort_tuple(fields, t) for t in tracks]
-    tracks.sort(reverse=reverse)
-    return [t[-1] for t in tracks]
+# Cache these here because calling gettext inside get_tag_display
+# is two orders of magnitude slower.
+_VARIOUSARTISTSSTR = _("Various Artists")
+_UNKNOWNSTR = _("Unknown")
+#TRANSLATORS: String multiple tag values will be joined by
+_JOINSTR =_(u' & ')
 
 class Track(object):
     """
@@ -106,6 +68,9 @@ class Track(object):
             "_dirty", "__weakref__", "__init"]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
+    # store a copy of the settings values here - much faster (0.25 cpu
+    # seconds) (see _the_cuts_cb)
+    __the_cuts = settings.get_option('collection/strip_list', [])
 
     def __new__(cls, *args, **kwargs):
         """
@@ -134,14 +99,12 @@ class Track(object):
 
     def __init__(self, uri=None, scan=True, _unpickles=None):
         """
-            loads and initializes the tag information
-
-            uri:  The path to the track.
-            scan: Whether to try to read tags from the given uri.
+            :param uri:  The path to the track.
+            :param scan: Whether to try to read tags from the given uri.
                   Use only if the tags need to be set by a
                   different source.
 
-            _unpickles: used internally to restore from a pickled
+            :param _unpickles: used internally to restore from a pickled
                 state. not for normal use.
         """
         # don't re-init if its a reused track. see __new__
@@ -163,9 +126,17 @@ class Track(object):
             raise ValueError, "Cannot create a Track from nothing"
 
     def __register(self):
+        """
+            Register this instance into the global registry of Track
+            objects.
+        """
         self.__tracksdict[self.tags['__loc']] = self
 
     def __unregister(self):
+        """
+            Unregister this instance from the global registry of
+            Track objects.
+        """
         try:
             del self.__tracksdict[self.tags['__loc']]
         except KeyError:
@@ -175,7 +146,7 @@ class Track(object):
         """
             Sets the location.
 
-            loc: the location [string], as either a uri or a file path.
+            :param loc: the location, as either a uri or a file path.
         """
         self.__unregister()
         gloc = gio.File(loc)
@@ -184,17 +155,19 @@ class Track(object):
 
     def exists(self):
         """
-            Returns if the file exists
+            Returns whether the file exists
             This can be very slow, use with caution!
         """
         return gio.File(self.get_loc_for_io()).query_exists()
 
     def local_file_name(self):
         """
-            If the file is accessible on the local filesystem, return a
-            standard path to it i.e. "/home/foo/bar". Otherwise, return None
+            If the file is accessible on the local filesystem, returns a
+            standard path to it (e.g. "/home/foo/bar"), otherwise,
+            returns None.
 
             If a path is returned, it is safe to use for IO operations.
+            Existence of a path does *not* guarantee file existence.
         """
         return gio.File(self.tags['__loc']).get_path()
 
@@ -204,20 +177,21 @@ class Track(object):
 
             Safe for IO operations via gio, not suitable for display to users
             as it may be in non-utf-8 encodings.
-
-            returns: the location [string]
         """
         return self.tags['__loc']
 
     def get_type(self):
         """
-            Get the URI schema the file uses
+            Get the URI schema the file uses, e.g. file, http, smb.
         """
         return gio.File(self.get_loc_for_io()).get_uri_scheme()
 
     def write_tags(self):
         """
-            Writes tags to file
+            Writes tags to the file for this Track.
+
+            Returns False if unsuccessful, and a Format object from
+            `xl.metadata` otherwise.
         """
         try:
             f = metadata.get_format(self.get_loc_for_io())
@@ -231,7 +205,10 @@ class Track(object):
 
     def read_tags(self):
         """
-            Reads tags from file
+            Reads tags from the file for this Track.
+
+            Returns False if unsuccessful, and a Format object from
+            `xl.metadata` otherwise.
         """
         try:
             f = metadata.get_format(self.get_loc_for_io())
@@ -243,10 +220,12 @@ class Track(object):
                 self.set_tag_raw(k, v)
 
             # fill out file specific items
-            path = self.local_file_name()
-            mtime = os.path.getmtime(path)
+            gloc = gio.File(self.get_loc_for_io())
+            mtime = gloc.query_info("time::modified").get_modification_time()
             self.set_tag_raw('__modified', mtime)
-            self.set_tag_raw('__basedir', os.path.dirname(path))
+            # TODO: this probably breaks on non-local files
+            path = gloc.get_parent().get_path()
+            self.set_tag_raw('__basedir', path)
             self._dirty = True
             self._scan_valid = True
             return f
@@ -256,12 +235,18 @@ class Track(object):
             return False
 
     def is_local(self):
+        """
+            Determines whether a file is accessible on the local filesystem.
+        """
         # TODO: determine this better
         if self.local_file_name():
             return True
         return False
 
     def get_size(self):
+        """
+            Get the raw size of the file. Potentially slow.
+        """
         f = gio.File(self.get_loc_for_io())
         return f.query_info("standard::size").get_size()
 
@@ -300,10 +285,13 @@ class Track(object):
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
-            Set the raw value of the tag named "tag"
+            Set the raw value of a tag.
 
-            notify_changed - whether to send a signal to let other parts of
-            Exaile know there has been an update.
+            :param tag: The name of the tag to set.
+            :param values: The value or values to set the tag to.
+            :param notify_changed: whether to send a signal to let other parts of
+                Exaile know there has been an update. Only set this to False
+                if you know that no other parts of Exaile need to be updated.
         """
         # handle values that aren't lists
         if not isinstance(values, list):
@@ -316,8 +304,7 @@ class Track(object):
             values = [common.to_unicode(x, self.tags.get('__encoding'))
                 for x in values if x not in (None, '')]
 
-        # don't bother storing it if its a null value. this saves us a
-        # little memory
+        # save some memory by not storing null values.
         if not values:
             try:
                 del self.tags[tag]
@@ -331,53 +318,72 @@ class Track(object):
             event.log_event("track_tags_changed", self, tag)
 
     def get_tag_raw(self, tag, join=False):
+        """
+            Get the raw value of a tag.  For non-internal tags, the
+            result will always be a list of unicode strings.
+
+            :param tag: The name of the tag to get
+            :param join: If True, joins lists of values into a
+                single value.
+        """
         val = self.tags.get(tag)
         if join and val:
             return self.join_values(val)
         return val
 
     def get_tag_sort(self, tag, join=True):
+        """
+            Get a tag value in a form suitable for sorting.
+
+            :param tag: The name of the tag to get
+            :param join: If True, joins lists of values into a
+                single value.
+        """
+        # The two magic values here are to ensure that compilations
+        # and unknown values are always sorted below all normal
+        # values.
         retval = None
-        if tag == "artist":
-            # The two magic values here are to ensure that compilations
-            # and unknown values are always sorted below all normal
-            # values.
+        sorttag = self.tags.get(tag + "sort")
+        if sorttag:
+            retval = sorttag
+        elif tag == "artist":
             if self.tags.get('__compilation'):
-                try:
-                    retval = self.tags['albumartist']
-                except KeyError: # No album artist, use Various Artist handling
-                    retval = u"\ufffe\ufffe\ufffe\ufffe"
+                retval = self.tags.get('albumartist',
+                        u"\uffff\uffff\uffff\ufffe")
             else:
-                try:
-                    retval = self.tags['artist']
-                except KeyError: # Unknown artist
-                    retval = u"\uffff\uffff\uffff\uffff"
+                retval = self.tags.get('artist',
+                        u"\uffff\uffff\uffff\uffff")
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.tags.get(tag))[0]
-        elif tag == '__length':
+        elif tag in ('__length', '__playcount'):
             retval = self.tags.get('__length', 0)
-        elif tag == '__loc':
-            return self.tags['__loc']
         else:
             retval = self.tags.get(tag)
 
         if not retval:
             retval = u"\uffff\uffff\uffff\uffff" # unknown
-
-        if not tag.startswith("__") and \
+        elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
-            retval = self.strip_leading(retval)
-            retval = self.the_cutter(retval)
+            if not sorttag:
+                retval = self.format_sort(retval)
+            else:
+                if isinstance(retval, list):
+                    retval = [self.lower(v) for v in retval]
+                else:
+                    retval = self.lower(v)
             if join:
                 retval = self.join_values(retval)
-            # add the original string after the lowered val so that
-            # we sort case-sensitively if the case-insensitive values
-            # are identical. 
-            retval = retval.lower() + retval
 
         return retval
 
     def get_tag_display(self, tag, join=True):
+        """
+            Get a tag value in a form suitable for display.
+
+            :param tag: The name of the tag to get
+            :param join: If True, joins lists of values into a
+                single value.
+        """
         if tag == '__loc':
             uri = gio.File(self.tags['__loc']).get_parse_name()
             return uri.decode('utf-8')
@@ -385,15 +391,9 @@ class Track(object):
         retval = None
         if tag == "artist":
             if self.tags.get('__compilation'):
-                try:
-                    retval = self.tags['albumartist']
-                except KeyError:
-                    retval = _("Various Artists")
+                retval = self.tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                try:
-                    retval = self.tags['artist']
-                except KeyError:
-                    retval = _("Unknown")
+                retval = self.tags.get('artist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.tags.get(tag))[0]
         elif tag == '__length':
@@ -412,10 +412,7 @@ class Track(object):
                     '__playcount'):
                 retval = "0"
             else:
-                retval = _("Unknown")
-
-        if isinstance(retval, list) and len(retval) == 1:
-            retval = retval[0]
+                retval = _UNKNOWNSTR
 
         if isinstance(retval, list):
             retval = [unicode(x) for x in retval]
@@ -423,10 +420,10 @@ class Track(object):
             retval = unicode(retval)
 
         if join:
-            #TRANSLATORS: String multiple tag values will be joined by
-            retval = self.join_values(retval, _(u' & '))
+            retval = self.join_values(retval, _JOINSTR)
 
         return retval
+
 
     ### convenience funcs for rating ###
     # these dont fit in the normal set of tag access methods,
@@ -434,7 +431,8 @@ class Track(object):
 
     def get_rating(self):
         """
-            Returns the current track rating.
+            Returns the current track rating as an integer, as
+            determined by the ``miscellaneous/rating_steps`` setting.
         """
         try:
             rating = float(self.get_tag_raw('__rating'))
@@ -451,7 +449,8 @@ class Track(object):
 
     def set_rating(self, rating):
         """
-            Sets the current track rating.
+            Sets the current track rating from an integer, on the
+            scale determined by the ``miscellaneous/rating_steps`` setting.
         """
         steps = settings.get_option("miscellaneous/rating_steps", 5)
 
@@ -464,6 +463,18 @@ class Track(object):
         self.set_tag_raw('__rating', rating)
 
     ### Special functions for wrangling tag values ###
+
+    @classmethod
+    def format_sort(cls, values):
+        if isinstance(values, list):
+            return [cls.format_sort(v) for v in values]
+        # order of these is important, both for speed and behavior!
+        values = cls.strip_leading(values)
+        values = cls.strip_marks(values)
+        values = cls.lower(values)
+        values = cls.the_cutter(values)
+        values = cls.expand_doubles(values)
+        return values
 
     @staticmethod
     def join_values(values, glue=u" / "):
@@ -501,95 +512,80 @@ class Track(object):
         return (one, two)
 
     @staticmethod
-    def strip_leading(values):
+    def strip_leading(value):
         """
             Strip special chars off the beginning of a field. If
             stripping the chars leaves nothing the original field is returned with
             only whitespace removed.
         """
-        if isinstance(values, list):
-            return [Track.strip_leading(v) for v in values]
-        stripped = values.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+        stripped = value.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
         if stripped:
             return stripped
         else:
-            return values.lstrip()
+            return value.lstrip()
 
     @staticmethod
-    def the_cutter(values):
+    def the_cutter(value):
         """
             Cut common words like 'the' from the beginning of a tag so that
             they sort properly.
         """
-        if isinstance(values, list):
-            return [Track.the_cutter(v) for v in values]
-        lowered = values.lower()
-        for word in settings.get_option('collection/strip_list', ''):
+        lowered = value.lower()
+        for word in Track.__the_cuts:
             if not word.endswith("'"):
                 word += ' '
             if lowered.startswith(word):
-                values = values[len(word):]
+                value = value[len(word):]
                 break
-        return values
+        return value
 
-def parse_stream_tags(track, tags):
-    """
-        Called when a tag is found in a stream.
-    """
+    @staticmethod
+    def strip_marks(value):
+        """
+            Remove accents, diacritics, etc.
+        """
+        # value is appended afterwards so that like-accented values
+        # will sort together.
+        return u''.join([c for c in unicodedata.normalize('NFD', value)
+            if unicodedata.category(c) != 'Mn']) + u" " + value
 
-    log = ['Stream tag:']
-    newsong=False
+    @staticmethod
+    def expand_doubles(value):
+        """
+            turns characters like æ into values suitable for sorting,
+            like 'ae'. see _sortcharmap for the mapping.
 
-    for key in tags.keys():
-        value = tags[key]
-        try:
-            value = common.to_unicode(value)
-        except UnicodeDecodeError:
-            log.append('  ' + key + " [can't decode]: " + `str(value)`)
-            continue # TODO: What encoding does gst give us?
+            value must be a unicode object or this wont replace anything.
 
-        log.append('  ' + key + ': ' + value)
-
-        value = [value]
-
-        if key == '__bitrate':
-            track.set_tag_raw('__bitrate', int(value[0]) / 1000)
-
-        # if there's a comment, but no album, set album to the comment
-        elif key == 'comment' and not track.get_tag_raw('album'):
-            track.set_tag_raw('album', value)
-
-        elif key == 'album': track.set_tag_raw('album', value)
-        elif key == 'artist': track.set_tag_raw('artist', value)
-        elif key == 'duration': track.set_tag_raw('__length',
-                float(value[0])/1000000000)
-        elif key == 'track-number': track.set_tag_raw('tracknumber', value)
-        elif key == 'genre': track.set_tag_raw('genre', value)
-
-        elif key == 'title':
-            try:
-                if track.get_tag_raw('__rawtitle') != value:
-                    track.set_tag_raw('__rawtitle', value)
-                    newsong = True
-            except AttributeError:
-                track.set_tag_raw('__rawtitle', value)
-                newsong = True
-
-            title_array = value[0].split(' - ', 1)
-            if len(title_array) == 1 or \
-                    track.get_loc_for_io().lower().endswith(".mp3"):
-                track.set_tag_raw('title', value)
-            else:
-                track.set_tag_raw('artist', [title_array[0]])
-                track.set_tag_raw('title', [title_array[1]])
-
-    if newsong:
-        log.append(_('  New song, fetching cover.'))
-
-    for line in log:
-        logger.debug(line)
-    return newsong
+            value must be in lower-case
+        """
+        for k, v in _sortcharmap.iteritems():
+            value = value.replace(k, v)
+        return value
+# This is slower, don't use it!
+#        return u''.join((_sortcharmap.get(c, c) for c in value))
 
 
-# vim: et sts=4 sw=4
+    @staticmethod
+    def lower(value):
+        """
+            Make tag value lower-case.
+        """
+        # add the original string after the lowered val so that
+        # we sort case-sensitively if the case-insensitive value
+        # are identical.
+        return value.lower() + " " + value
+
+    @classmethod
+    def _the_cuts_cb(cls, name, obj, data):
+        """
+            PRIVATE
+
+            update the cached the_cutter values
+        """
+        if data == "collection/strip_list":
+            cls.__the_cuts = settings.get_option('collection/strip_list', [])
+
+
+event.add_callback(Track._the_cuts_cb, 'collection_option_set')
 

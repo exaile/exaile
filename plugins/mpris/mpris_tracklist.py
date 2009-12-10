@@ -20,7 +20,7 @@ http://wiki.xmms2.xmms.se/wiki/MPRIS#.2FTrackList_object_methods
 import dbus
 import dbus.service
 
-import xl.track
+import xl.trax
 import xl.event
 
 import mpris_tag_converter
@@ -90,7 +90,7 @@ class ExaileMprisTrackList(dbus.service.Object):
         uri = uri[7:]
         track = self.exaile.collection.get_track_by_loc(unicode(uri))
         if track is None:
-            track = xl.track.Track(uri)
+            track = xl.trax.Track(uri)
         self.exaile.queue.current_playlist.add(track)
         if play_immediately:
             self.exaile.queue.play(track)

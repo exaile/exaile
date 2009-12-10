@@ -39,6 +39,8 @@ class PluginsManager(object):
     def __init__(self, exaile, load=True):
         self.plugindirs = [ os.path.join(p, 'plugins') \
                 for p in xdg.get_data_dirs() ]
+        if xdg.local_hack:
+            self.plugindirs.insert(1, os.path.join(xdg.exaile_dir, 'plugins'))
 
         for dir in self.plugindirs:
             try:

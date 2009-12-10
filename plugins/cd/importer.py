@@ -25,7 +25,7 @@
 # from your version.
 
 import os, threading, copy
-from xl import transcoder, track, settings, common
+from xl import transcoder, trax, settings, common
 
 
 class CDImporter(object):
@@ -78,7 +78,7 @@ class CDImporter(object):
             self.cont.wait()
             if not self.running:
                 break
-            tr2 = track.Track("file://"+outloc)
+            tr2 = trax.Track("file://"+outloc)
             tr2.tags.update(tags)
             tr2.write_tags()
             try:

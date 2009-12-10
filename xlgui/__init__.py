@@ -229,7 +229,7 @@ class Main(object):
             Determines the type of a uri, imports it into a playlist, and
             starts playing it
         """
-        from xl import playlist, track
+        from xl import playlist, trax
         if playlist.is_valid_playlist(uri):
             pl = playlist.import_playlist(uri)
             self.main.add_playlist(pl)
@@ -238,8 +238,10 @@ class Main(object):
         else:
             pl = self.main.get_selected_playlist()
             column, descending = pl.get_sort_by()
+
             tracks = track.get_tracks_from_uri(uri)
-            tracks.sort(key=lambda track: track.get_tag_sort(column), reverse=descending)
+            tracks = trax.sort_tracks(pl.return_order_tags(column), tracks)
+
             try:
                 pl.playlist.add_tracks(tracks)
                 pl.playlist.set_current_pos(len(pl.playlist) - len(tracks))

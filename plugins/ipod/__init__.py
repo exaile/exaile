@@ -18,7 +18,7 @@ import sys, time
 from xl import common
 from xl.devices import Device
 from xl.collection import Collection
-from xl.track import Track, is_valid_track
+from xl.trax import Track, is_valid_track
 from xl import event, providers
 from xl.hal import Handler
 import gpod, gobject

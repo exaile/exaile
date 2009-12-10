@@ -28,8 +28,7 @@ import gtk, pango, gtk.gdk, gobject
 from xlgui import guiutil, menu, plcolumns
 from xlgui import rating
 from xlgui.plcolumns import *
-from xl import playlist, event, track, collection, xdg
-from xl import settings, trackdb
+from xl import playlist, event, collection, xdg, settings, trax
 from xl.nls import gettext as _
 import copy, urllib
 import logging
@@ -149,7 +148,9 @@ class Playlist(gtk.VBox):
 
 
     def __refresh_changed_tracks(self):
-        tracks = set(self._redraw_queue)
+        tracks = {}
+        for tr in self._redraw_queue:
+            tracks[tr.get_loc_for_io()] = tr
         self._redraw_queue = []
 
         selection = self.list.get_selection()
@@ -157,14 +158,9 @@ class Playlist(gtk.VBox):
 
         it = self.model.get_iter_first()
         while it:
-            cur = self.model.get_value(it, 0)
-            for tr in tracks:
-                if cur.get_loc_for_io() == tr.get_loc_for_io():
-                    self.update_iter(it, tr)
-                    tracks.remove(tr)
-                    break
-            if len(tracks) == 0:
-                break
+            loc = self.model.get_value(it, 0).get_loc_for_io()
+            if loc in tracks:
+                self.update_iter(it, tracks[loc])
             it = self.model.iter_next(it)
         self.list.queue_draw()
 
@@ -173,8 +169,8 @@ class Playlist(gtk.VBox):
                 selection.select_path(path)
 
     def selection_changed(self):
-        tracks = self.get_selected_tracks()
-        self.builder.get_object('track_properties_item').set_sensitive(bool(tracks))
+        trs = self.get_selected_tracks()
+        self.builder.get_object('track_properties_item').set_sensitive(bool(trs))
 
     def on_stop_track(self, event, queue, stop_track):
         """
@@ -189,10 +185,10 @@ class Playlist(gtk.VBox):
         """
             Toggles queue of selected tracks
         """
-        tracks = self.get_selected_tracks()
+        trs = self.get_selected_tracks()
 
         queue_tracks = self.queue.ordered_tracks
-        for track in tracks:
+        for track in trs:
             if track in queue_tracks:
                 queue_tracks.remove(track)
             else:
@@ -202,11 +198,11 @@ class Playlist(gtk.VBox):
         self.list.queue_draw()
 
     def set_rating(self, widget, rating):
-        tracks = self.get_selected_tracks()
+        trs = self.get_selected_tracks()
         steps = settings.get_option('miscellaneous/rating_steps', 5)
         r = float((100.0*rating)/steps)
-        for track in tracks:
-            track.set_tag_raw('__rating', r)
+        for track in trs:
+            track.set_rating(rating)
         event.log_event('rating_changed', self, r)
 
     def _setup_col_menus(self):
@@ -257,8 +253,8 @@ class Playlist(gtk.VBox):
         """
             Filter the playlist with a keyword
         """
-        tracks = self.playlist.filter(keyword)
-        self._set_tracks(tracks)
+        trs = self.playlist.filter(keyword)
+        self._set_tracks(trs)
         self.search_keyword = keyword
 
     def change_column_settings(self, item, data):
@@ -323,11 +319,11 @@ class Playlist(gtk.VBox):
         removed = info[2]
         self.remove_tracks(removed)
 
-    def on_add_tracks(self, type, playlist, tracks, scroll=False):
+    def on_add_tracks(self, type, playlist, trs, scroll=False):
         """
             Called when someone adds tracks to the contained playlist
         """
-        for track in tracks:
+        for track in trs:
             self._append_track(track)
 
         newlength = len(self.playlist)
@@ -337,7 +333,7 @@ class Playlist(gtk.VBox):
         if range:
             offset = range[1][0] - range[0][0]
 
-        if tracks and scroll:
+        if trs and scroll:
             try:
                 if offset > newlength:
                     self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
@@ -347,14 +343,13 @@ class Playlist(gtk.VBox):
                 self.list.scroll_to_cell(self.playlist.index(tracks[0]))
         self.set_needs_save(True)
 
-    def _set_tracks(self, tracks):
+    def _set_tracks(self, trs):
         """
             Sets the tracks that this playlist should display
         """
-        self.list.set_model(self.model_blank)
         self.model.clear()
 
-        for track in tracks:
+        for track in trs:
             self._append_track(track)
 
         self.list.set_model(self.model)
@@ -395,9 +390,9 @@ class Playlist(gtk.VBox):
         """
             Returns the currently selected track
         """
-        tracks = self.get_selected_tracks()
-        if not tracks: return None
-        else: return tracks[0]
+        trs = self.get_selected_tracks()
+        if not trs: return None
+        else: return trs[0]
 
     def get_selected_tracks(self):
         """
@@ -648,14 +643,15 @@ class Playlist(gtk.VBox):
             drop_info = None
             pass
 
-        (tracks, playlists) = self.list.get_drag_data(locs)
+        (trs, playlists) = self.list.get_drag_data(locs)
 
-        tracks = sort_tracks(tracks)
+        (column, descending) = self.get_sort_by()
+        trs = trax.sort_tracks(self.return_order_tags(column), trs, reverse=descending)
 
         # Determine what to do with the tracks
         # by default we load all tracks.
         # TODO: should we load tracks we find in the collection from there??
-        for track in tracks:
+        for track in trs:
             if not drop_info:
                 self._append_track(track)
             else:
@@ -687,11 +683,7 @@ class Playlist(gtk.VBox):
             # Do we need to reactivate the callbacks when this happens?
             gobject.idle_add(self.add_track_callbacks)
             return
-        trs = []
-        while True:
-            trs.append(self.model.get_value(iter, 0))
-            iter = self.model.iter_next(iter)
-            if not iter: break
+
         self.playlist.add_tracks(trs)
 
         # Re add all of the tracks so that they
@@ -708,7 +700,7 @@ class Playlist(gtk.VBox):
             iter = self.model.iter_next(iter)
             if not iter: break
 
-        if tracks:
+        if trs:
             self.set_needs_save(True)
 
         gobject.idle_add(self.add_track_callbacks)
@@ -747,19 +739,19 @@ class Playlist(gtk.VBox):
     def remove_selected_tracks(self):
         self.remove_tracks(self.get_selected_tracks())
 
-    def remove_tracks(self, tracks):
+    def remove_tracks(self, trs):
         event.remove_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
 
         # Make sure the callback actually gets removed before proceeding
         event.wait_for_pending_events()
-        tracks = set(tracks) # for faster traversing
+        trs = set(trs) # for faster traversing
 
         rows = []
         iter = self.model.get_iter_first()
         while iter:
             value = self.model.get_value(iter, 0)
-            if value in tracks: rows.append(iter)
+            if value in trs: rows.append(iter)
             iter = self.model.iter_next(iter)
 
         nextrow = None
@@ -807,11 +799,11 @@ class Playlist(gtk.VBox):
         """
         Playlist._is_drag_source = True
 
-        tracks = self.get_selected_tracks()
-        for track in tracks:
+        trs = self.get_selected_tracks()
+        for track in trs:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
 
-        locs = guiutil.get_urls_for(tracks)
+        locs = guiutil.get_urls_for(trs)
         selection.set_uris(locs)
 
     def setup_model(self, map):
@@ -824,7 +816,6 @@ class Playlist(gtk.VBox):
             ar.append(str)
 
         self.model = gtk.ListStore(*ar)
-        self.model_blank = gtk.ListStore(*ar)
         self.list.set_model(self.model)
 
     def _setup_columns(self):
@@ -957,9 +948,10 @@ class Playlist(gtk.VBox):
                 col.set_sort_order(order)
             else:
                 col.set_sort_indicator(False)
+                col.set_sort_order(gtk.SORT_DESCENDING)
 
-        tracks = self.reorder_songs()
-        self._set_tracks(tracks)
+        trs = self.reorder_songs()
+        self._set_tracks(trs)
 
         if not self.playlist.ordered_tracks: return
         try:
@@ -967,7 +959,7 @@ class Playlist(gtk.VBox):
                 self.playlist.ordered_tracks[self.playlist.get_current_pos()]
         except IndexError:
             curtrack = self.playlist.ordered_tracks[0]
-        self.playlist.ordered_tracks = tracks
+        self.playlist.ordered_tracks = trs
         index = self.playlist.index(curtrack)
         self.playlist.set_current_pos(index)
 
@@ -977,14 +969,12 @@ class Playlist(gtk.VBox):
             If newtag isn't set, only returns the list, otherwise adds it to the
             head of the list and saves it into the settings
         """
-        tags = settings.get_option ('gui/tags_sorting_order',
-            ['artist', 'date', 'album', 'discnumber', 'tracknumber', 'title'])
+        tags = ['artist', 'date', 'album', 'discnumber', 'tracknumber', 'title']
 
         if newtag:
             if newtag in tags:
                 tags.remove (newtag)
             tags.insert (0, newtag)
-            settings.set_option ('gui/tags_sorting_order', tags)
 
         return tags
 
@@ -1009,7 +999,7 @@ class Playlist(gtk.VBox):
             if col.get_sort_indicator():
                 return (self.column_by_display[col.get_title()].id,
                     col.get_sort_order() == gtk.SORT_DESCENDING)
-        return 'tracknumber', False
+        return None, False
 
     def icon_data_func(self, col, cell, model, iter):
         """
@@ -1074,8 +1064,8 @@ class Playlist(gtk.VBox):
             Debug - prints the current playlist to stdout
         """
         print banner
-        tracks = self.playlist.get_tracks()
-        for track in tracks:
+        trs = self.playlist.get_tracks()
+        for track in trs:
             print track.get_loc_for_display()
         print '---Done printing playlist'
 
@@ -1117,22 +1107,6 @@ class Playlist(gtk.VBox):
                     w.queue_draw()
                 event.log_event('rating_changed', self, i)
 
-def sort_tracks(tracks):
-    from xlgui import main
-
-    pl = main.get_selected_playlist()
-    column, descending = pl.get_sort_by()
-
-    if column != 'tracknumber':
-        tracks.sort(key=lambda track: track.sort_param(column),
-            reverse=descending)
-    else:
-        tracks = track.sort_tracks(
-            ('album', 'tracknumber', 'artist', 'date', 'discnumber'),
-            tracks)
-        if descending: tracks.reverse()
-
-    return tracks
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """

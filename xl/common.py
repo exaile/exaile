@@ -25,7 +25,7 @@
 # from your version.
 
 import locale, logging, os, random, string, sys, threading
-import time, traceback, unicodedata, urlparse, subprocess
+import time, traceback, urlparse, subprocess
 from functools import wraps
 from xl.nls import gettext as _
 
@@ -103,6 +103,25 @@ def synchronized(func):
             rlock.release()
     return wrapper
 
+
+def profileit(func):
+    """
+        Decorator to profile a function
+    """
+    import hotshot, hotshot.stats
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        prof = hotshot.Profile("profiling.data")
+        res = prof.runcall(func, *args, **kwargs)
+        prof.close()
+        stats = hotshot.stats.load("profiling.data")
+        stats.strip_dirs()
+        stats.sort_stats('time', 'calls')
+        print ">>>---- Begin profiling print"
+        stats.print_stats()
+        print ">>>---- End profiling print"
+        return res
+    return wrapper
 
 def escape_xml(text):
     """
@@ -256,51 +275,7 @@ def random_string(n):
         s += random.choice(string.ascii_letters)
     return s
 
-def the_cutter(field):
-    """
-        Cuts "the"-like words off of the beginning of any field for better
-        sorting
-    """
-    lowered = field.lower()
-    import settings
-    for word in settings.get_option('collection/strip_list', ''):
-        if not word.endswith("'"):
-            word += ' '
-        if lowered.startswith(word):
-            field = field[len(word):]
-            break
-    return field
 
-def lstrip_special(field, cutter=False):
-    """
-        Strip special chars off the beginning of a field for sorting. If
-        stripping the chars leaves nothing the original field is returned with
-        only whitespace removed.
-    """
-    if field == None:
-        return field
-    lowered = field.lower()
-    stripped = lowered.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
-    if stripped:
-        ret = stripped
-    else:
-        ret = lowered.lstrip()
-    if cutter:
-        ret = the_cutter(ret)
-
-    return ret
-
-def normalize(field):
-    """
-        Normalizes a utf8 string into a fully developed form
-    """
-    return unicodedata.normalize('NFD', field)
-
-def strip_marks(field):
-    """
-        Removes non spacing marks from a string (that is accents, mainly)
-    """
-    return ''.join((c for c in normalize(field) if unicodedata.category(c) != 'Mn'))
 
 class VersionError(Exception):
     """

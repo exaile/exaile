@@ -18,7 +18,7 @@ import gobject, gtk, os
 from egg.trayicon import TrayIcon as EggTrayIcon
 from xl import event, playlist, providers, settings
 from xl.nls import gettext as _
-from xl.track import Track, is_valid_track
+from xl.trax import Track, is_valid_track
 from xlgui.guiutil import get_workarea_size
 from xlgui.tray import BaseTrayIcon
 

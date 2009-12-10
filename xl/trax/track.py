@@ -289,9 +289,10 @@ class Track(object):
 
             :param tag: The name of the tag to set.
             :param values: The value or values to set the tag to.
-            :param notify_changed: whether to send a signal to let other parts of
-                Exaile know there has been an update. Only set this to False
-                if you know that no other parts of Exaile need to be updated.
+            :param notify_changed: whether to send a signal to let other
+                parts of Exaile know there has been an update. Only set
+                this to False if you know that no other parts of Exaile
+                need to be updated.
         """
         # handle values that aren't lists
         if not isinstance(values, list):
@@ -515,8 +516,8 @@ class Track(object):
     def strip_leading(value):
         """
             Strip special chars off the beginning of a field. If
-            stripping the chars leaves nothing the original field is returned with
-            only whitespace removed.
+            stripping the chars leaves nothing the original field is
+            returned with only whitespace removed.
         """
         stripped = value.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
         if stripped:

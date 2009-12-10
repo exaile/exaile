@@ -30,15 +30,15 @@
 
 
 from __future__ import with_statement
-
-import logging, os
 from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
+import logging
+import os
 
 logger = logging.getLogger(__name__)
 
+from xl.nls import gettext as _
 from xl import event, xdg
 from xl.common import VersionError
-from xl.nls import gettext as _
 
 TYPE_MAPPING = {
         'I': int,

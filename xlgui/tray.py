@@ -24,7 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject, gtk
+import gobject
+import gtk
 
 from xl import event, settings, xdg
 from xl.nls import gettext as _

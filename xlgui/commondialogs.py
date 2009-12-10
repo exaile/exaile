@@ -24,9 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import os.path
+
 import pygtk
 pygtk.require('2.0')
-import gtk, os.path
+import gtk
+
 from xl import xdg
 from xl.nls import gettext as _
 

@@ -24,14 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, gobject
+import gobject
+import gtk
+import threading
+
 from xlgui import panel, guiutil, commondialogs, menu
 from xlgui import playlist as guiplaylist
 import xlgui.panel.playlists as playlistpanel
-from xl import xdg, event, common
-from xl import settings
+from xl import xdg, event, common, settings
 import xl.radio
-import threading
 import xl.playlist
 from xl.nls import gettext as _
 

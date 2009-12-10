@@ -25,7 +25,9 @@
 # from your version.
 
 import locale
-import gtk, gobject
+import gobject
+import gtk
+
 from xlgui.prefs import widgets
 from xl import main, plugins, xdg
 from xlgui import commondialogs

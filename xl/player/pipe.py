@@ -24,18 +24,19 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.nls import gettext as _
+
+import copy
+import logging
 
 import pygst
 pygst.require('0.10')
 import gst
 
-import copy, logging
-logger = logging.getLogger(__name__)
-
+from xl.nls import gettext as _
 from xl import event, common, settings
 from xl.providers import ProviderHandler
 
+logger = logging.getLogger(__name__)
 
 class MainBin(gst.Bin):
     """
@@ -284,7 +285,8 @@ class AudioSink(BaseSink):
                 self.sink.set_property(param, value)
             except:
                 common.log_exception(log=logger)
-                logger.warning("Could not set parameter %(parameter)s for %(sink)s" %
+                logger.warning("Could not set parameter %(parameter)s "
+                    "for %(sink)s" %
                     {'parameter' : param, 'sink': self.sink_elem})
 
     def set_volume(self, vol):

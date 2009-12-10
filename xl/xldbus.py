@@ -24,9 +24,16 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, os, sys, traceback
+import logging
 from optparse import OptionParser
-import dbus, dbus.service, gobject
+import os
+import sys
+import traceback
+
+import dbus
+import dbus.service
+import gobject
+
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -355,7 +362,7 @@ class DbusManager(dbus.service.Object):
 
             tracks += trax.get_tracks_from_uri(file)
 
-        tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
+        tracks = trax.sort_tracks([column], tracks)
         self.exaile.queue.current_playlist.add_tracks(tracks)
 
         if not self.exaile.player.is_playing():

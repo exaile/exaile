@@ -24,28 +24,22 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-# Playlist
-#
-# Playlist - essentially an ordered TrackDB
-#
-# SmartPlaylist - playlist that auto-populates from a collection
-#
-# PlaylistManager - playlist persistence manager
-#
-# also contains functions for saving and loading various playlist formats.
-
-from xl import event, xdg, collection, settings, trax
-
-import cgi, os, random, urllib
-from xl.nls import gettext as _
+import cgi
+import logging
+import os
+import random
+import urllib
+import urlparse
+import xml.etree.cElementTree as ETree
 
 try:
     import cPickle as pickle
 except:
     import pickle
 
-import logging, urlparse
-import xml.etree.cElementTree as ETree
+from xl.nls import gettext as _
+from xl import event, xdg, collection, settings, trax
+
 logger = logging.getLogger(__name__)
 
 class InvalidPlaylistTypeException(Exception):
@@ -381,8 +375,7 @@ class PlaylistIterator(object):
 
 class Playlist(object):
     """
-        Represents a playlist, which is basically just a TrackDB
-        with ordering.
+        Represents a playlist
     """
     def __init__(self, name=_("Playlist %d"), is_custom=False):
         """
@@ -628,18 +621,22 @@ class Playlist(object):
 
     def get_next_random_track(self, mode="track"):
         """
-            Returns a valid next track if shuffle is activated based on random_mode
+            Returns a valid next track if shuffle is activated based
+            on random_mode
         """
         if mode == "album":
-            try: #Try and get the next track on the album
-                #NB If the user starts the playlist from the middle of the album
-                #some tracks of the album remain off the tracks_history, and the
-                #album can be selected again randomly from its first track
+            try:
+                # Try and get the next track on the album
+                # NB If the user starts the playlist from the middle
+                # of the album some tracks of the album remain off the
+                # tracks_history, and the album can be selected again
+                # randomly from its first track
                 curr = self.ordered_tracks[self.current_pos]
                 t = [ x for i, x in enumerate(self.ordered_tracks) \
-                        if x.get_tag_raw('album') == curr.get_tag_raw('album') and \
-                        (x.get_tag_raw('tracknumber') >= curr.get_tag_raw('tracknumber') \
-                        and i > self.current_pos ) ]
+                    if x.get_tag_raw('album') == curr.get_tag_raw('album') \
+                    and x.get_tag_raw('tracknumber') >= \
+                    curr.get_tag_raw('tracknumber') \
+                    and i > self.current_pos ) ]
                 t = trax.sort_tracks(['tracknumber'], t)
                 return t[0]
 
@@ -935,7 +932,6 @@ class SmartPlaylist(object):
             Sets up a smart playlist
 
             @param collection: a reference to a TrackDB object.
-            args: See TrackDB
         """
         self.search_params = []
         self.custom_params = []
@@ -995,7 +991,8 @@ class SmartPlaylist(object):
 
     def set_or_match(self, value):
         """
-            Set to True to make this an or match: match any of the parameters
+            Set to True to make this an or match: match any of the
+            parameters
 
             value: True to match any, False to match all params
         """
@@ -1016,8 +1013,8 @@ class SmartPlaylist(object):
             @param op:     The operator.  Valid operators are:
                     >,<,>=,<=,=,!=,==,!==,>< (between) [string]
             @param value:  The value to match against [string]
-            @param index:  Where to insert the parameter in the search order.  -1
-                    to append [int]
+            @param index:  Where to insert the parameter in the search
+                    order.  -1 to append [int]
         """
         if index:
             self.search_params.insert(index, [field, op, value])
@@ -1052,8 +1049,8 @@ class SmartPlaylist(object):
         """
             Generates a playlist by querying the collection
 
-            @param collection: the collection to search (leave None to search
-                        internal ref)
+            @param collection: the collection to search (leave None to
+                    search internal ref)
         """
         if not collection:
             collection = self.collection

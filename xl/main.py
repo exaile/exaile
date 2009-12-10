@@ -33,10 +33,13 @@
 
 __version__ = '0.3.1+'
 
-from xl.nls import gettext as _
+import os
+import sys
+import logging
+import logging.handlers
 
+from xl.nls import gettext as _
 from xl import common, xdg, event
-import os, sys, logging, logging.handlers
 
 # initiate the logger. logger params are set later
 logger = logging.getLogger(__name__)
@@ -63,10 +66,11 @@ class Exaile(object):
         if self.options.EventFilter:
             event.EVENT_MANAGER.logger_filter = self.options.EventFilter
 
-        #set up logging
+        # set up logging
         self.setup_logging()
 
-        #initial mainloop setup. The actual loop is started later, if necessary
+        # initial mainloop setup. The actual loop is started later,
+        # if necessary
         self.mainloop_init()
 
         #initialize DbusManager
@@ -83,7 +87,7 @@ class Exaile(object):
         import signal
         signal.signal(signal.SIGTERM, (lambda sig, stack: self.quit()))
 
-        #run the GUIs mainloop, if needed
+        # run the GUIs mainloop, if needed
         if self.options.StartGui:
             import xlgui
             xlgui.mainloop()
@@ -144,7 +148,7 @@ class Exaile(object):
         from xl.player import queue
         self.player = player.get_player()()
         self.queue = queue.PlayQueue(self.player,
-                location=os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
+                location=os.path.join(xdg.get_data_dirs()[0], 'queue.state'))
         event.log_event("player_loaded", self, None)
 
         # Initalize playlist manager
@@ -205,7 +209,7 @@ class Exaile(object):
             event.log_event("gui_loaded", self, None)
 
         self.queue._restore_player_state(
-                os.path.join(xdg.get_data_dirs()[0], 'player.state') )
+                os.path.join(xdg.get_data_dirs()[0], 'player.state'))
 
         if self.gui:
             # Find out if the user just passed in a list of songs
@@ -261,7 +265,8 @@ class Exaile(object):
         for logfile in logfiles:
             try:
                 # Try to move to new location
-                os.rename(logfile, os.path.join(logdir, os.path.basename(logfile)))
+                os.rename(logfile, os.path.join(logdir,
+                    os.path.basename(logfile)))
             except OSError:
                 # Give up and simply remove
                 os.remove(logfile)
@@ -272,8 +277,9 @@ class Exaile(object):
                 mode='a', backupCount=5)
         logfile.doRollover() # each session gets its own file
         logfile.setLevel(logfilelevel)
-        formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
-            datefmt="%m-%d %H:%M")
+        formatter = logging.Formatter(
+                '%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
+                datefmt="%m-%d %H:%M")
         logfile.setFormatter(formatter)
         logging.getLogger("").addHandler(logfile)
 
@@ -287,92 +293,100 @@ class Exaile(object):
 
         group = OptionGroup(p, _('Playback options'))
         group.add_option("-n", "--next", dest="Next", action="store_true",
-            default=False, help=_("Play the next track"))
+                default=False, help=_("Play the next track"))
         group.add_option("-p", "--prev", dest="Prev", action="store_true",
-            default=False,   help=_("Play the previous track"))
+                default=False,   help=_("Play the previous track"))
         group.add_option("-s", "--stop", dest="Stop", action="store_true",
-            default=False, help=_("Stop playback"))
+                default=False, help=_("Stop playback"))
         group.add_option("-a", "--play", dest="Play", action="store_true",
-            default=False, help=_("Play"))
+                default=False, help=_("Play"))
         group.add_option("-t", "--play-pause", dest="PlayPause",
-            action="store_true", default=False, help=_("Toggle Play or Pause"))
+                action="store_true", default=False,
+                help=_("Toggle Play or Pause"))
         group.add_option("--stop-after-current", dest="StopAfterCurrent",
-            action="store_true", default=False,
-            help=_("Stop playback after current track"))
+                action="store_true", default=False,
+                help=_("Stop playback after current track"))
         p.add_option_group(group)
 
         group = OptionGroup(p, _('Track options'))
         group.add_option("-q", "--query", dest="Query", action="store_true",
-            default=False, help=_("Query player"))
-        group.add_option("--gui-query", dest="GuiQuery", action="store_true",
-            default=False, help=_("Show a popup of the currently playing track"))
+                default=False, help=_("Query player"))
+        group.add_option("--gui-query", dest="GuiQuery",
+                action="store_true", default=False,
+                help=_("Show a popup of the currently playing track"))
         group.add_option("--get-title", dest="GetTitle", action="store_true",
-            default=False, help=_("Print the title of current track"))
+                default=False, help=_("Print the title of current track"))
         group.add_option("--get-album", dest="GetAlbum", action="store_true",
-            default=False, help=_("Print the album of current track"))
+                default=False, help=_("Print the album of current track"))
         group.add_option("--get-artist", dest="GetArtist", action="store_true",
-            default=False, help=_("Print the artist of current track"))
+                default=False, help=_("Print the artist of current track"))
         group.add_option("--get-length", dest="GetLength", action="store_true",
-            default=False, help=_("Print the length of current track"))
-        group.add_option('--set-rating', dest="SetRating", action='store',
-            type='int', metavar='RATING', help=_('Set rating for current song'))
+                default=False, help=_("Print the length of current track"))
+        group.add_option('--set-rating', dest="SetRating",
+                action='store', type='int', metavar='RATING',
+                help=_('Set rating for current song'))
         group.add_option('--get-rating', dest='GetRating', action='store_true',
-            default=False, help=_('Get rating for current song'))
+                default=False, help=_('Get rating for current song'))
         group.add_option("--current-position", dest="CurrentPosition",
-            action="store_true", default=False,
-            help=_("Print the position inside the current track as time"))
+                action="store_true", default=False,
+                help=_("Print the position inside the current track as time"))
         group.add_option("--current-progress", dest="CurrentProgress",
-            action="store_true", default=False,
-            help=_("Print the progress inside the current track as percentage"))
+                action="store_true", default=False, help=_("Print the "
+                "progress inside the current track as percentage"))
         p.add_option_group(group)
 
         group = OptionGroup(p, _('Volume options'))
-        group.add_option("-i", "--increase-vol", dest="IncreaseVolume", action="store",
-            type="int", metavar="VOL", help=_("Increases the volume by VOL%"))
-        group.add_option("-l", "--decrease-vol", dest="DecreaseVolume", action="store",
-            type="int", metavar="VOL", help=_("Decreases the volume by VOL%"))
+        group.add_option("-i", "--increase-vol", dest="IncreaseVolume",
+                action="store", type="int", metavar="VOL",
+                help=_("Increases the volume by VOL%"))
+        group.add_option("-l", "--decrease-vol", dest="DecreaseVolume",
+                action="store", type="int", metavar="VOL",
+                help=_("Decreases the volume by VOL%"))
         group.add_option("--get-volume", dest="GetVolume", action="store_true",
-            default=False, help=_("Print the current volume percentage"))
+                default=False, help=_("Print the current volume percentage"))
         p.add_option_group(group)
 
         group = OptionGroup(p, _('Other options'))
         group.add_option("--new", dest="NewInstance", action="store_true",
-            default=False, help=_("Start new instance"))
+                default=False, help=_("Start new instance"))
         group.add_option("--version", dest="ShowVersion", action="store_true")
-        group.add_option("--start-minimized", dest="StartMinimized", action="store_true",
-            default=False, help=_("Start minimized (to tray, if possible)"))
-        group.add_option("--toggle-visible", dest="GuiToggleVisible", action="store_true",
-            default=False, help=_("Toggle visibility of the GUI (if possible)"))
+        group.add_option("--start-minimized", dest="StartMinimized",
+                action="store_true", default=False,
+                help=_("Start minimized (to tray, if possible)"))
+        group.add_option("--toggle-visible", dest="GuiToggleVisible",
+                action="store_true", default=False,
+                help=_("Toggle visibility of the GUI (if possible)"))
         group.add_option("--safemode", dest="SafeMode", action="store_true",
-            default=False, help=_("Start in safe mode - sometimes useful "
-            "when you're running into problems"))
+                default=False, help=_("Start in safe mode - sometimes "
+                "useful when you're running into problems"))
         group.add_option("--force-import", dest="ForceImport",
-            action="store_true", default=False, help=_("Force import of "
-            "old data from 0.2.x. Overwrites current data."))
+                action="store_true", default=False, help=_("Force import of"
+                " old data from 0.2.x. Overwrites current data."))
         group.add_option("--no-import", dest="NoImport",
-            action="store_true", default=False, help=_("Do not import "
-            "old data from 0.2.x."))
+                action="store_true", default=False, help=_("Do not import "
+                "old data from 0.2.x."))
         p.add_option_group(group)
 
         # development and debug options
         group = OptionGroup(p, _('Development/Debug options'))
-        group.add_option("--datadir", dest="UseDataDir", help=_("Set data directory"))
+        group.add_option("--datadir", dest="UseDataDir",
+                help=_("Set data directory"))
         group.add_option("--debug", dest="Debug", action="store_true",
-            default=False, help=_("Show debugging output"))
+                default=False, help=_("Show debugging output"))
         group.add_option("--eventdebug", dest="DebugEvent",
-            action="store_true", default=False,
-            help=_("Enable debugging of xl.event. Generates LOTS of output"))
+                action="store_true", default=False, help=_("Enable debugging"
+                " of xl.event. Generates LOTS of output"))
         group.add_option("--eventfilter", dest="EventFilter",
-            action='store', type='string', help=_("Filter event debug "
-            "output"))
+                action='store', type='string', help=_("Filter event debug "
+                "output"))
         group.add_option("--quiet", dest="Quiet", action="store_true",
-            default=False, help=_("Reduce level of output"))
+                default=False, help=_("Reduce level of output"))
         group.add_option('--startgui', dest='StartGui', action='store_true',
-            default=False)
+                default=False)
         group.add_option('--no-dbus', dest='Dbus', action='store_false',
-            default=True, help=_("Disable D-Bus support"))
+                default=True, help=_("Disable D-Bus support"))
         group.add_option('--no-hal', dest='Hal', action='store_false',
-            default=True, help=_("Disable HAL support."))
+                default=True, help=_("Disable HAL support."))
         p.add_option_group(group)
 
         return p
@@ -459,8 +473,8 @@ class Exaile(object):
                 except:
                     pass
 
-        # stop the various idle based threads so they don't freak out when the
-        # program exits.  Silly Python.
+        # stop the various idle based threads so they don't freak out
+        # when the program exits.  Silly Python.
         event.IDLE_MANAGER.stop()
         for timer in event._TIMERS:
             timer.cancel()
@@ -481,7 +495,7 @@ class Exaile(object):
 
         self.collection.save_to_location()
 
-        #Save order of custom playlists
+        # Save order of custom playlists
         self.playlists.save_order()
         self.stations.save_order()
 

@@ -24,7 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glob, gtk, os
+import glob
+import os
+
+import gtk
+
 from xl import event
 
 class IconManager(object):

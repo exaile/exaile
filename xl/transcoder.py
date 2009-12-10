@@ -25,11 +25,11 @@
 # from your version.
 
 
-from xl.nls import gettext as _
-
 import pygst
 pygst.require("0.10")
 import gst
+
+from xl.nls import gettext as _
 
 """
     explanation of format dicts:

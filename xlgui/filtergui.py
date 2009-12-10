@@ -30,8 +30,10 @@ They resemble the configuration dialogs of Evolution's mail filters
 and Rhythmbox's automatic playlists.
 """
 
+import gobject
+import gtk
+
 from xl.nls import gettext as _
-import gtk, gobject
 
 class FilterDialog(gtk.Dialog):
     """Dialog to filter a list of items.

@@ -24,13 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import logging
+import time
+
 import pygst
 pygst.require('0.10')
 import gst
 
 from xl import event, settings
 from xl.player import pipe
-import logging, time
 logger = logging.getLogger(__name__)
 
 

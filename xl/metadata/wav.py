@@ -24,8 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import wave
+import sunau
+import aifc
+import sndhdr
+
 from xl.metadata import BaseFormat
-import wave, sunau, aifc, sndhdr
 
 type_map = {
         "aifc": aifc,

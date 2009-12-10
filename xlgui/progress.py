@@ -24,10 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import threading
+
+import gtk
 
 from xlgui import guiutil
 from xl import event
-import gtk, threading
 
 class ProgressMonitor(gtk.Frame):
     """

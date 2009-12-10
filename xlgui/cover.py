@@ -24,14 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import xdg, event, cover, common, metadata, settings
-from xlgui import guiutil, commondialogs
-import gtk, gobject, time
-import logging, traceback
-logger = logging.getLogger(__name__)
+import time
+import logging
+import traceback
+
+import gobject
+import gtk
 
 from xl.nls import gettext as _
-import gobject
+from xl import xdg, event, cover, common, metadata, settings
+from xlgui import guiutil, commondialogs
+logger = logging.getLogger(__name__)
+
 
 COVER_WIDTH = 100
 NOCOVER_IMAGE = xdg.get_data_path("images", "nocover.png")

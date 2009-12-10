@@ -24,16 +24,25 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import pygtk, pygst
-pygtk.require('2.0')
+import datetime
+import logging
+import os
+import re
+import threading
+
+import gobject
+import pygst
 pygst.require('0.10')
-import gst, logging
-import gtk, gobject, pango, datetime
+import gst
+import pygtk
+pygtk.require('2.0')
+import gtk
+import pango
+
 from xl import common, event, providers, settings, xdg, trax
 from xl.nls import gettext as _
 import xl.playlist
 from xlgui import playlist, cover, guiutil, menu, commondialogs, tray
-import re, os, threading
 
 logger = logging.getLogger(__name__)
 

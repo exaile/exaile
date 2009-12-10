@@ -24,7 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import copy, logging, os, urllib2, urlparse
+import copy
+import logging
+import os
+import urllib2
+import urlparse
 from xl import common
 
 logger = logging.getLogger(__name__)

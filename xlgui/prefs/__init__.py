@@ -24,19 +24,27 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import thread, os, shlex, string, urllib2
-from xl.nls import gettext as _
+import gobject
 import inspect
+import logging
+import os
+import shlex
+import string
+import thread
+import traceback
+import urllib2
+
 import pygtk
 pygtk.require('2.0')
 import gtk
+
+from xl.nls import gettext as _
 from xl import xdg
 from xl.settings import _SETTINGSMANAGER
 from xlgui.prefs.widgets import *
 from xlgui.prefs import playlists_prefs, osd_prefs, collection_prefs
 from xlgui.prefs import cover_prefs, playback_prefs, appearance_prefs
 from xlgui.prefs import plugin_prefs
-import logging, traceback, gobject
 
 logger = logging.getLogger(__name__)
 

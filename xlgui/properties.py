@@ -24,12 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import copy
+import datetime
+import os
+import string
+
+import gio
+import gobject
+import gtk
+import pango
+
 from xl import xdg, metadata, common
 from xl.nls import gettext as _
-import os
-import gtk
-import gio, gobject
-import pango, copy, datetime, string
 
 IGNORE = (None, None)
 

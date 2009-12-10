@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-11-15 17:50+0100\n"
-"PO-Revision-Date: 2009-11-22 07:42+0000\n"
-"Last-Translator: gilchris <gilchris@gilchris.org>\n"
+"POT-Creation-Date: 2009-11-30 12:40+0100\n"
+"PO-Revision-Date: 2009-12-09 19:17+0000\n"
+"Last-Translator: Cedna <sptcedna@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-11-23 04:48+0000\n"
+"X-Launchpad-Export-Date: 2009-12-10 04:32+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -92,11 +92,11 @@ msgstr "이 곡에 대한 등급 가져오기"
 
 #: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "현재 트랙 내의 위치를 시간으로 출력"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "현재 트랙 내의 진행을 퍼센트로 출력"
 
 #: ../xl/main.py:329
 msgid "Volume options"
@@ -104,11 +104,11 @@ msgstr "소리 크기 설정"
 
 #: ../xl/main.py:331
 msgid "Increases the volume by VOL%"
-msgstr ""
+msgstr "볼륨을 VOL%씩 높임"
 
 #: ../xl/main.py:333
 msgid "Decreases the volume by VOL%"
-msgstr ""
+msgstr "볼륨을 VOL%씩 낮춤"
 
 #: ../xl/main.py:335
 msgid "Print the current volume percentage"
@@ -128,7 +128,7 @@ msgstr "최소화 상태로(가능하다면 트레이로) 시작"
 
 #: ../xl/main.py:345
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "GUI의 가시성을 토글(가능한 경우에)"
 
 #: ../xl/main.py:347
 msgid ""
@@ -213,7 +213,9 @@ msgstr "Vorbis 는 MP3 보다 작은 파일 크기에서 높은 품질을 출력
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
-msgstr "무료 무손실 오디오 코덱(FLAC) 는 압축하지만 오디오 품질이 저하되지 않는 오픈소스 코덱 입니다."
+msgstr ""
+"Free Lossless Audio Codec (자유로운 무손실 오디오 코덱 , FLAC)은 파일을 압축 하면서도 음질은 저하되지 않는 "
+"오픈 소스 코덱입니다."
 
 #: ../xl/transcoder.py:77
 msgid ""
@@ -239,24 +241,51 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "압축률 좋은 매우 빠른 무료 무손실 오디오 포맷 입니다."
 
-#: ../xl/track.py:381
+#: ../xl/track.py:388
 msgid "Various Artists"
 msgstr "여러 아티스트"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
-#: ../xl/track.py:386 ../xl/track.py:404 ../xl/playlist.py:251
-#: ../xlgui/panel/collection.py:478 ../plugins/notifyosd/__init__.py:57
-#: ../plugins/minimode/mmwidgets.py:948
+#: ../xl/track.py:393 ../xl/track.py:412 ../xl/trackformatter.py:121
+#: ../xl/playlist.py:245 ../xlgui/panel/collection.py:478
+#: ../plugins/notifyosd/__init__.py:57 ../plugins/minimode/mmwidgets.py:1015
 msgid "Unknown"
 msgstr "알수없음"
 
-#: ../xl/track.py:590
+#. TRANSLATORS: String multiple tag values will be joined by
+#: ../xl/track.py:424 ../xl/trackformatter.py:110
+#: ../plugins/minimode/mmwidgets.py:1004
+msgid " & "
+msgstr " & "
+
+#: ../xl/track.py:584
 msgid "  New song, fetching cover."
 msgstr ""
 
 #: ../xl/devices.py:141 ../xl/devices.py:147
 msgid "Device class does not support transfer."
 msgstr ""
+
+#: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
+#: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
+msgid "Never"
+msgstr "하지 않음"
+
+#: ../xl/trackformatter.py:213 ../xlgui/plcolumns.py:232
+#: ../plugins/minimode/mmwidgets.py:1087
+msgid "Today"
+msgstr "오늘"
+
+#: ../xl/trackformatter.py:215 ../xlgui/plcolumns.py:234
+#: ../plugins/minimode/mmwidgets.py:1089
+msgid "Yesterday"
+msgstr "어제"
+
+#: ../xl/trackformatter.py:217 ../xlgui/plcolumns.py:236
+#: ../plugins/minimode/mmwidgets.py:1091
+#, python-format
+msgid "%(year)d-%(month)02d-%(day)02d"
+msgstr "%(year)d-%(month)02d-%(day)02d"
 
 #: ../xl/settings.py:94
 msgid "Settings version is newer than current."
@@ -283,14 +312,14 @@ msgstr ""
 msgid "Plugin archive contains an unsafe path"
 msgstr "플러그인 파일이 안전하지 않은 경로를 포함하고 있습니다."
 
-#: ../xl/playlist.py:395
+#: ../xl/playlist.py:386
 #, python-format
 msgid "Playlist %d"
 msgstr "재생목록 %d"
 
 #: ../xl/xldbus.py:85 ../xl/xldbus.py:298
 msgid "Not playing."
-msgstr "중지됨"
+msgstr ""
 
 #: ../xl/xldbus.py:303
 #, python-format
@@ -413,7 +442,7 @@ msgstr "디스크"
 #: ../xlgui/properties.py:61 ../xlgui/plcolumns.py:204
 #: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimodeprefs.py:79
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:173
 #: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimodeprefs.py:74
@@ -461,49 +490,49 @@ msgstr "재생된 시간"
 msgid "Last Played"
 msgstr "마지막 재생"
 
-#: ../xlgui/properties.py:214
+#: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr ""
 
-#: ../xlgui/properties.py:328
+#: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
 msgstr "태그 변경사항을 적용하지 않고 닫겠습니까?"
 
-#: ../xlgui/properties.py:653
+#: ../xlgui/properties.py:655
 msgid "of"
 msgstr ""
 
-#: ../xlgui/properties.py:775
+#: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
 msgstr "모든 트랙에 현재 값을 적용"
 
-#: ../xlgui/main.py:48 ../xlgui/main.py:121 ../xlgui/main.py:1087
-#: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:735
+#: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
+#: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
 msgid "Not Playing"
 msgstr "중지됨"
 
-#: ../xlgui/main.py:131 ../plugins/minimode/mmwidgets.py:755
+#: ../xlgui/main.py:130 ../plugins/minimode/mmwidgets.py:822
 msgid "Streaming..."
 msgstr "스트리밍중..."
 
-#: ../xlgui/main.py:215
+#: ../xlgui/main.py:214
 msgid "Close tab"
 msgstr "탭 닫기"
 
-#: ../xlgui/main.py:273
+#: ../xlgui/main.py:272
 msgid "New playlist title:"
 msgstr "새 재생목록 제목:"
 
-#: ../xlgui/main.py:273 ../xlgui/menu.py:448
+#: ../xlgui/main.py:272 ../xlgui/menu.py:448
 msgid "Rename Playlist"
 msgstr "재생목록 이름 바꾸기"
 
-#: ../xlgui/main.py:282
+#: ../xlgui/main.py:281
 msgid "Custom playlist name:"
 msgstr "사용자 재생목록 이름:"
 
-#: ../xlgui/main.py:282
+#: ../xlgui/main.py:281
 msgid "Save As..."
 msgstr "다른 이름으로 저장..."
 
@@ -511,32 +540,40 @@ msgstr "다른 이름으로 저장..."
 msgid "Toggle: Stop after selected track"
 msgstr "토글: 선택된 트랙후 중지"
 
-#: ../xlgui/main.py:839
+#: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
+msgid "Dynamically add similar tracks to the playlist"
+msgstr "동적으로 재생목록에 비슷한 트랙 추가"
+
+#: ../xlgui/main.py:706
+msgid "Requires plugins providing dynamic playlists"
+msgstr ""
+
+#: ../xlgui/main.py:862
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "버퍼링: %d%%..."
 
-#: ../xlgui/main.py:841
+#: ../xlgui/main.py:864
 msgid "Buffering: 100%..."
 msgstr "버퍼링: 100%..."
 
-#: ../xlgui/main.py:999 ../xlgui/main.py:1007 ../xlgui/main.py:1031
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
 msgstr ""
 
-#: ../xlgui/main.py:999 ../xlgui/main.py:1033
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
 msgstr ""
 
-#: ../xlgui/main.py:999 ../xlgui/main.py:1036
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
 msgstr ""
 
-#: ../xlgui/main.py:1088 ../data/ui/main.ui.h:21
+#: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
 msgstr "중지됨"
 
-#: ../xlgui/main.py:1186
+#: ../xlgui/main.py:1209
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
@@ -545,29 +582,29 @@ msgstr ""
 "중지됨"
 
 #. TRANSLATORS: Window title
-#: ../xlgui/main.py:1196
+#: ../xlgui/main.py:1219
 #, python-format
 msgid "%(title)s (by %(artist)s)"
 msgstr "%(title)s (, %(artist)s 의)"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1206
+#: ../xlgui/main.py:1229
 #, python-format
 msgid "by %s"
 msgstr ", %s 의"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1208
+#: ../xlgui/main.py:1231
 #, python-format
 msgid "from %s"
 msgstr ", %s 중"
 
-#: ../xlgui/main.py:1219
+#: ../xlgui/main.py:1242
 #, python-format
 msgid "In pause: %s"
 msgstr "일지정지: %s"
 
-#: ../xlgui/main.py:1221
+#: ../xlgui/main.py:1244
 #, python-format
 msgid "Playing %s"
 msgstr "%s 재생"
@@ -577,6 +614,7 @@ msgid "Toggle Queue"
 msgstr "대기열 토글"
 
 #: ../xlgui/menu.py:99 ../xlgui/menu.py:344 ../xlgui/panel/radio.py:408
+#: ../plugins/droptrayicon/__init__.py:274
 msgid "New Playlist"
 msgstr "새 재생목록"
 
@@ -685,7 +723,7 @@ msgstr "ASX 재생목록"
 msgid "XSPF Playlist"
 msgstr "XSPF 재생목록"
 
-#: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:984
+#: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:985
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr "선택된 재생목록을 영구적으로 삭제하시겠습니까?"
 
@@ -735,7 +773,7 @@ msgstr "트랙 없음"
 msgid "Export current playlist..."
 msgstr "현재 재생목록 내보내기"
 
-#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:939
+#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:940
 msgid "Invalid file extension, file not saved"
 msgstr "잘못된 파일 확장자, 파일이 저장되지 않음"
 
@@ -850,7 +888,7 @@ msgid "Rating"
 msgstr "평가"
 
 #. TRANSLATORS: Filename column in the file browser
-#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:121
+#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:120
 #: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:76
 msgid "Filename"
 msgstr "파일 이름"
@@ -862,24 +900,6 @@ msgstr "재생횟수"
 #: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
 msgstr "마지막 재생"
-
-#: ../xlgui/plcolumns.py:220 ../xlgui/plcolumns.py:240
-#: ../plugins/minimode/mmwidgets.py:1007
-msgid "Never"
-msgstr ""
-
-#: ../xlgui/plcolumns.py:232 ../plugins/minimode/mmwidgets.py:1020
-msgid "Today"
-msgstr "오늘"
-
-#: ../xlgui/plcolumns.py:234 ../plugins/minimode/mmwidgets.py:1022
-msgid "Yesterday"
-msgstr "어제"
-
-#: ../xlgui/plcolumns.py:236 ../plugins/minimode/mmwidgets.py:1024
-#, python-format
-msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr "%(year)d-%(month)02d-%(day)02d"
 
 #: ../xlgui/plcolumns.py:267
 msgid "Track Number"
@@ -909,21 +929,21 @@ msgstr "제한: "
 msgid " songs"
 msgstr " 노래"
 
-#: ../xlgui/playlist.py:1145
+#: ../xlgui/playlist.py:1146
 #, python-format
 msgid "Close %s"
 msgstr "%s 닫기"
 
-#: ../xlgui/playlist.py:1146
+#: ../xlgui/playlist.py:1147
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>닫기 전에 변경을 %s 에 저장 하시겠습니까?</b>"
 
-#: ../xlgui/playlist.py:1147
+#: ../xlgui/playlist.py:1148
 msgid "Your changes will be lost if you don't save them"
 msgstr "저장하지 않으면 수정한 내용이 없어집니다."
 
-#: ../xlgui/playlist.py:1149
+#: ../xlgui/playlist.py:1150
 msgid "Close Without Saving"
 msgstr "저장하지 않고 닫기"
 
@@ -1026,8 +1046,8 @@ msgid "between"
 msgstr ""
 
 #: ../xlgui/panel/playlists.py:230 ../xlgui/panel/playlists.py:336
-#: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:610
-#: ../xlgui/panel/playlists.py:684
+#: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
+#: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
 msgstr "입력한 재생목록 이름은 이미 사용중입니다."
 
@@ -1039,24 +1059,24 @@ msgstr "새 사용자 재생목록 이름:"
 msgid "Add To New Playlist..."
 msgstr "새 재생목록 추가..."
 
-#: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:604
-#: ../xlgui/panel/playlists.py:677
+#: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
+#: ../xlgui/panel/playlists.py:678
 msgid "You did not enter a name for your playlist"
 msgstr "재생목록 이름을 입력하지 않았습니다"
 
-#: ../xlgui/panel/playlists.py:552
+#: ../xlgui/panel/playlists.py:553
 msgid "Smart Playlists"
 msgstr "스마트 재생목록"
 
-#: ../xlgui/panel/playlists.py:555
+#: ../xlgui/panel/playlists.py:556
 msgid "Custom Playlists"
 msgstr "사용자 지정 재생목록"
 
-#: ../xlgui/panel/playlists.py:590
+#: ../xlgui/panel/playlists.py:591
 msgid "Add Smart Playlist"
 msgstr "스마트 재생목록 추가"
 
-#: ../xlgui/panel/playlists.py:655
+#: ../xlgui/panel/playlists.py:656
 msgid "Edit Smart Playlist"
 msgstr "스마트 재생목록 편집"
 
@@ -1090,7 +1110,7 @@ msgid "Enter the name you want for your new playlist"
 msgstr "원하는 새 재생목록의 이름을 입력하세요"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:146
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "크기"
 
@@ -1220,25 +1240,25 @@ msgstr "동작"
 msgid "Shortcut"
 msgstr "단축키"
 
-#: ../xlgui/tray.py:75
-msgid "Exaile Music Player"
-msgstr "Exaile 음악 연주기"
-
-#: ../xlgui/tray.py:98 ../data/ui/main.ui.h:16
+#: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
 msgstr "재생 순서 섞기"
 
-#: ../xlgui/tray.py:103 ../data/ui/main.ui.h:14
+#: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
 msgstr "재생목록 반복"
 
-#: ../xlgui/tray.py:108
+#: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
 msgstr "동적으로 유사한 트랙 추가"
 
-#: ../xlgui/tray.py:118
+#: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
 msgstr "재생목록에서 현재 트랙 삭제"
+
+#: ../xlgui/tray.py:179
+msgid "Exaile Music Player"
+msgstr "Exaile 음악 연주기"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
@@ -1276,11 +1296,7 @@ msgstr "재생 목록 지우기"
 msgid "Click to view Queue"
 msgstr ""
 
-#: ../data/ui/main.ui.h:6
-msgid "Dynamically add similar tracks to the playlist"
-msgstr "동적으로 재생목록에 비슷한 트랙 추가"
-
-#: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:210
+#: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
 msgid "Next Track"
 msgstr "다음 트랙"
 
@@ -1292,7 +1308,7 @@ msgstr "URL 열기(_U)"
 msgid "Page 1"
 msgstr "1 페이지"
 
-#: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:208
+#: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:216
 msgid "Previous Track"
 msgstr "이전 트랙"
 
@@ -1850,19 +1866,19 @@ msgstr "디스크 번호"
 msgid "Play count"
 msgstr "재생 횟수"
 
-#: ../plugins/daapclient/__init__.py:163
+#: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:209
+#: ../plugins/daapclient/__init__.py:207
 msgid "Enter IP address and port for share"
 msgstr "공유하려는 IP 주소와 포트 번호를 입력하세요."
 
-#: ../plugins/daapclient/__init__.py:210
+#: ../plugins/daapclient/__init__.py:208
 msgid "Enter IP address and port."
 msgstr "IP 주소와 포트 번호를 입력하세요."
 
-#: ../plugins/daapclient/__init__.py:380
+#: ../plugins/daapclient/__init__.py:376
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
@@ -1870,15 +1886,15 @@ msgstr ""
 "이 서버는 다중 연결을 지원하지 않습니다.\n"
 "재생을 멈추고 노래를 다운로드 하여야 합니다."
 
-#: ../plugins/daapclient/__init__.py:459
+#: ../plugins/daapclient/__init__.py:455
 msgid "Disconnect"
 msgstr "연결끊기"
 
-#: ../plugins/daapclient/__init__.py:477
+#: ../plugins/daapclient/__init__.py:473
 msgid "Select a save location"
 msgstr "저장 위치 선택"
 
-#: ../plugins/daapclient/__init__.py:527
+#: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
 msgstr "DAAP에 연결..."
 
@@ -1959,6 +1975,19 @@ msgstr ""
 msgid "Moodbar executable is not available."
 msgstr ""
 
+#: ../plugins/droptrayicon/__init__.py:267
+#: ../plugins/droptrayicon/drop_target_window.ui.h:1
+msgid "Drop to Choose"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:270
+msgid "Append and Play"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:272
+msgid "Append"
+msgstr ""
+
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
@@ -1993,43 +2022,43 @@ msgstr "팟캐스트 열기"
 msgid "Loading %s..."
 msgstr "%s (을)를 읽는 중..."
 
-#: ../plugins/podcasts/__init__.py:184
+#: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
 msgstr "팟캐스트 읽기 에러"
 
-#: ../plugins/podcasts/__init__.py:200
+#: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
 msgstr "팟캐스트를 읽는 중..."
 
-#: ../plugins/podcasts/__init__.py:231
+#: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
 msgstr "팟캐스트 파일을 저장할 수 없습니다."
 
-#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:157
-#: ../plugins/shoutcast/__init__.py:200 ../plugins/shoutcast/__init__.py:236
+#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
+#: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:113 ../plugins/shoutcast/__init__.py:117
-#: ../plugins/shoutcast/__init__.py:166 ../plugins/shoutcast/__init__.py:170
-#: ../plugins/shoutcast/__init__.py:214 ../plugins/shoutcast/__init__.py:219
-#: ../plugins/shoutcast/__init__.py:247 ../plugins/shoutcast/__init__.py:252
+#: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
+#: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
+#: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
+#: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:272
+#: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
 msgstr "검색어 입력"
 
-#: ../plugins/shoutcast/__init__.py:273
+#: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:296
+#: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
 msgstr "검색 결과"
 
-#: ../plugins/shoutcast/__init__.py:329
+#: ../plugins/shoutcast/__init__.py:345
 msgid "Search"
 msgstr "검색"
 
@@ -2056,11 +2085,11 @@ msgstr ""
 msgid "IPython Console"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:214
+#: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
 msgstr "재생 중지"
 
-#: ../plugins/minimode/__init__.py:218
+#: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
 msgstr ""
 
@@ -2129,26 +2158,21 @@ msgstr "$title by $artist"
 msgid "$title ($length)"
 msgstr "$title ($length)"
 
-#: ../plugins/minimode/mmwidgets.py:156 ../plugins/minimode/mmwidgets.py:170
+#: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
 msgstr "재생 시작"
 
-#: ../plugins/minimode/mmwidgets.py:174
+#: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
 msgstr "재생 계속"
 
-#: ../plugins/minimode/mmwidgets.py:177
+#: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
 msgstr "일시 정지"
 
-#: ../plugins/minimode/mmwidgets.py:837
+#: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
 msgstr ""
-
-#. TRANSLATORS: String multiple tag values will be joined by
-#: ../plugins/minimode/mmwidgets.py:937
-msgid " & "
-msgstr " & "
 
 #: ../plugins/contextinfo/__init__.py:1047
 #: ../plugins/contextinfo/context.ui.h:1
@@ -2805,7 +2829,7 @@ msgid "Displays the current album cover on the desktop"
 msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
-msgid "Last.fm Dynamic Search"
+msgid "Last.fm Dynamic Playlists"
 msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
@@ -2820,6 +2844,17 @@ msgstr ""
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
+msgstr ""
+
+#: ../plugins/droptrayicon/PLUGININFO:3
+msgid "Drop Trayicon"
+msgstr ""
+
+#: ../plugins/droptrayicon/PLUGININFO:4
+msgid ""
+"Provides an alternative trayicon which accepts dropped files.\n"
+"\n"
+"Depends: python-eggtrayicon"
 msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3

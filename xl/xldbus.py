@@ -185,7 +185,7 @@ class DbusManager(dbus.service.Object):
             Returns a attribute of a track
         """
         try:
-            value = self.exaile.player.current[attr]
+            value = self.exaile.player.current.tags[attr]
         except ValueError:
             value = None
         except TypeError:

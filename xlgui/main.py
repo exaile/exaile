@@ -903,6 +903,9 @@ class MainWindow(gobject.GObject):
         pl = self.get_selected_playlist()
         if pl:
             pl.list.queue_draw()
+        
+        # inform dbus client(s) of state change
+        self.controller.exaile.dbus.emit_state_changed()
 
     def close_playlist_tab(self, tab=None):
         """
@@ -1112,6 +1115,9 @@ class MainWindow(gobject.GObject):
         if settings.get_option('osd/enabled', True):
             self.osd.show(self.player.current)
 
+        # inform dbus client(s) of state change
+        self.controller.exaile.dbus.emit_state_changed()
+
     def on_playback_end(self, type, player, object):
         """
             Called when playback ends
@@ -1124,6 +1130,9 @@ class MainWindow(gobject.GObject):
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
+
+        # inform dbus client(s) of state change
+        self.controller.exaile.dbus.emit_state_changed()
 
     def _on_setting_change(self, name, object, option):
         """
@@ -1251,6 +1260,9 @@ class MainWindow(gobject.GObject):
                 tray_icon.set_tooltip(_("In pause: %s") % tip)
             else:
                 tray_icon.set_tooltip(_("Playing %s") % tip)
+                
+        # inform dbus client(s) of track change
+        self.controller.exaile.dbus.emit_track_changed()
 
     def draw_playlist(self, *e):
         """
@@ -1342,7 +1354,7 @@ class MainWindow(gobject.GObject):
             Toggles visibility of the main window
         """
         toggle_handled = self.emit('main-visible-toggle')
-        if not toggle_handled: # and self.window.is_active(): # focused
+        if not toggle_handled and self.window.is_active(): # focused
             self.window.hide()
         elif not toggle_handled:
             self.window.deiconify()

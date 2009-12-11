@@ -164,6 +164,8 @@ class DbusManager(dbus.service.Object):
         self.bus_name = dbus.service.BusName('org.exaile.Exaile',
             bus=self.bus)
         dbus.service.Object.__init__(self, self.bus_name, '/org/exaile/Exaile')
+        self.cached_track = ""
+        self.cached_state = ""
 
     @dbus.service.method('org.exaile.Exaile', 's')
     def TestService(self, arg):
@@ -179,7 +181,7 @@ class DbusManager(dbus.service.Object):
         """
         return bool(self.exaile.player.current)
 
-    @dbus.service.method('org.exaile.Exaile', 's')
+    @dbus.service.method('org.exaile.Exaile', 's', 's')
     def GetTrackAttr(self, attr):
         """
             Returns a attribute of a track
@@ -390,3 +392,41 @@ class DbusManager(dbus.service.Object):
             return self.exaile.covers.get_cover(self.exaile.player.current)
         except NoCoverFoundException:
             return ''
+    
+    @dbus.service.method('org.exaile.Exaile', None, 's')
+    def GetState(self):
+        """
+            Returns the surrent verbatim state (unlocalized)
+        """
+        return self.exaile.player.get_state()
+
+    @dbus.service.signal('org.exaile.Exaile')
+    def StateChanged(self):
+        """
+            Emitted when state change occurs: 'playing' 'paused' 'stopped'
+        """
+        
+    @dbus.service.signal('org.exaile.Exaile')
+    def TrackChanged(self):
+        """
+            Emitted when track change occurs.
+        """
+        
+    def emit_state_changed(self):
+        """
+            Called from main to emit signal
+        """
+        new_state = self.exaile.player.get_state()
+        if self.cached_state != new_state:
+            self.cached_state = new_state
+            self.StateChanged()
+        
+    def emit_track_changed(self):
+        """
+            Called from main to emit signal
+        """
+        new_track = self.GetTrackAttr('__loc')
+        if self.cached_track != new_track:
+            self.cached_track = new_track
+            self.TrackChanged()
+        

@@ -104,7 +104,10 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
         try:
             newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time)-5],'%Y-%m-%d %H:%M')))
         except ValueError:
-            pass
+             try:
+                 newtrack['__date_added'] = time.mktime(time.strptime(temp_time[0:len(temp_time)-3],'%Y-%m-%d %H:%M'))
+             except ValueError:
+                     pass
 
         for item in db_map.keys():
             newtrack.set_tag_raw(db_map[item], getattr(oldtrack, item))

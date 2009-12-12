@@ -167,7 +167,6 @@ class DbusManager(dbus.service.Object):
         dbus.service.Object.__init__(self, self.bus_name, '/org/exaile/Exaile')
         self.cached_track = ""
         self.cached_state = ""
-        self._connect_signals()
         
     def _connect_signals(self):
         # connect events

@@ -379,7 +379,7 @@ class CollectionPanel(panel.Panel):
             finds tracks matching a given iter.
         """
         self.load_subtree(iter)
-        search = " ".join(self.get_node_search_terms(iter))
+        search = self.get_node_search_terms(iter)
         matcher = trax.TracksMatcher(search)
         srtrs = trax.search_tracks(self.tracks, [matcher])
         return [ x.track for x in srtrs ]
@@ -484,47 +484,20 @@ class CollectionPanel(panel.Panel):
         """
         self.load_subtree(iter)
 
-    def get_node_keywords(self, parent):
-        """
-            Returns a list of keywords that are associated with this node, and
-            it's parent nodes
-
-            @param parent: the node
-            @return: a list of keywords
-        """
-        if not parent:
-            return []
-        values = [self.model.get_value(parent, 2)]
-        iter = self.model.iter_parent(parent)
-        newvals = self.get_node_keywords(iter)
-        return newvals + values
-
     def get_node_search_terms(self, node):
         """
             Finds all the related search terms for a particular node
             @param node: the node you wish to create search terms
         """
-        keywordsList = self.get_node_keywords(node)
-        terms = []
-        n = 0
-        for level in self.order:
-            try:
-                words = keywordsList[n]
-                for index in level.searchedTagsIndices():
-                    word = words[index]
-                    field = level.tags()[index]
-                    if word:
-                        word = word.replace("\\","\\\\")
-                        word = word.replace("\"","\\\"")
-                    else:
-                        continue
-                    if word == _("Unknown"):
-                        word = "__null__"
-                    terms.append("%s==\"%s\""%(field, word))
-                n += 1
-            except IndexError:
-                break
-        return terms
+        if not node:
+            return ""
+
+        queries = []
+        while node:
+            queries.append(self.model.get_value(node, 2))
+            node = self.model.iter_parent(node)
+
+        return " ".join(queries)
 
     def refresh_tags_in_tree(self, type, track, tag):
         """
@@ -693,11 +666,7 @@ class CollectionPanel(panel.Panel):
         if previously_loaded:
             return
 
-        terms = self.get_node_search_terms(parent)
-        if terms:
-            search = " ".join(terms)
-        else:
-            search = ""
+        search = self.get_node_search_terms(parent)
 
         try:
             tags = self.order[depth].tags()
@@ -741,7 +710,9 @@ class CollectionPanel(panel.Panel):
                         last_char = char
                 first = False
 
-                iter = self.model.append(parent, [image, tagval, tagvals])
+                match_query = " ".join([
+                    srtr.track.get_tag_search(t, format=True) for t in tags])
+                iter = self.model.append(parent, [image, tagval, match_query])
                 path = self.model.get_path(iter)
                 expanded = False
                 if not bottom:

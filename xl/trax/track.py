@@ -434,6 +434,39 @@ class Track(object):
 
         return retval
 
+    def get_tag_search(self, tag, format=True):
+        """
+            Get a tag value suitable for passing to the search system.
+
+            :param format: pre-format into a search query.
+        """
+        if tag == "artist":
+            if self.__tags.get('__compilation'):
+                retval = self.__tags.get('albumartist', '__null__')
+                tag = 'albumartist'
+            else:
+                retval = self.__tags.get('artist', '__null__')
+        elif tag in ('tracknumber', 'discnumber'):
+            retval = self.split_numerical(self.__tags.get(tag))[0]
+        elif tag == '__length':
+            retval = self.__tags.get('__length', 0)
+        elif tag == '__bitrate':
+            try:
+                retval = int(self.__tags['__bitrate']) / 1000
+                if retval != -1:
+                    retval = str(retval) + "k"
+            except:
+                retval = -1
+        else:
+            retval = self.__tags.get(tag, '__null__')
+
+        if format:
+            if isinstance(retval, list):
+                retval = " ".join(["%s==\"%s\""%(tag, val) for val in retval])
+            else:
+                retval = "%s==\"%s\""%(tag, retval)
+
+        return retval
 
     ### convenience funcs for rating ###
     # these dont fit in the normal set of tag access methods,

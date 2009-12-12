@@ -478,25 +478,28 @@ class Library(object):
         while len(queue) > 0:
             dir = queue.pop()
             yield dir
-            for fileinfo in dir.enumerate_children("standard::type,"
-                    "standard::is-symlink,standard::name,"
-                    "standard::symlink-target,time::modified"):
-                fil = dir.get_child(fileinfo.get_name())
-                # FIXME: recursive symlinks could cause an infinite loop
-                if fileinfo.get_is_symlink():
-                    target = fileinfo.get_symlink_target()
-                    if not "://" in target and not os.path.isabs(target):
-                        fil2 = fil.get_child(target)
-                    else:
-                        fil2 = gio.File(target)
-                    # already in the collection, we'll get it anyway
-                    if fil2.has_prefix(dir):
-                        continue
-                type = fileinfo.get_file_type()
-                if type == gio.FILE_TYPE_DIRECTORY:
-                    queue.append(fil)
-                elif type == gio.FILE_TYPE_REGULAR:
-                    yield fil
+            try:
+                for fileinfo in dir.enumerate_children("standard::type,"
+                        "standard::is-symlink,standard::name,"
+                        "standard::symlink-target,time::modified"):
+                    fil = dir.get_child(fileinfo.get_name())
+                    # FIXME: recursive symlinks could cause an infinite loop
+                    if fileinfo.get_is_symlink():
+                        target = fileinfo.get_symlink_target()
+                        if not "://" in target and not os.path.isabs(target):
+                            fil2 = fil.get_child(target)
+                        else:
+                            fil2 = gio.File(target)
+                        # already in the collection, we'll get it anyway
+                        if fil2.has_prefix(dir):
+                            continue
+                    type = fileinfo.get_file_type()
+                    if type == gio.FILE_TYPE_DIRECTORY:
+                        queue.append(fil)
+                    elif type == gio.FILE_TYPE_REGULAR:
+                        yield fil
+            except gio.Error: # why doesnt gio offer more-specific errors?
+                pass
 
     def update_track(self, gloc):
         """

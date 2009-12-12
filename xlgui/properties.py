@@ -182,7 +182,7 @@ class TrackPropertiesDialog(gobject.GObject):
             #in case a tag has been removed..
             poplist = []
             # FIXME: VERY BAD
-            for tag in self.track_refs[n]._Track.__tags:
+            for tag in self.track_refs[n]._Track__tags:
                 if tag in dialog_tags:
                     if dialog_tags[tag] is not IGNORE:
                         try:
@@ -197,7 +197,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
             for tag in poplist:
                 # FIXME: VERY BAD
-                self.track_refs[n]._Track.__tags.pop(tag)
+                self.track_refs[n]._Track__tags.pop(tag)
 
             self.track_refs[n].write_tags()
 

@@ -402,7 +402,10 @@ class Track(object):
         elif tag == '__bitrate':
             try:
                 retval = int(self.tags['__bitrate']) / 1000
-                retval = str(retval) + "k"
+                if retval == -1:
+                    retval = " "
+                else:
+                    retval = str(retval) + "k"
             except:
                 retval = " "
         else:

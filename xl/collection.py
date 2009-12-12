@@ -551,7 +551,19 @@ class Library(object):
                 if dirtracks:
                     for tr in dirtracks:
                         self._check_compilation(ccheck, compilations, tr)
+                    for (basedir, album) in compilations:
+                        base = basedir.replace('"', '\\"')
+                        alb = album.replace('"', '\\"')
+                        items = [ tr for tr in dirtracks if \
+                                tr.get_tag_raw('__basedir') == base and \
+                                # FIXME: this is ugly
+                                alb in "".join(tr.get_tag_raw('album')).lower()
+                                ]
+                        for item in items:
+                            item.set_tag_raw('__compilation', (basedir, album))
                 dirtracks = deque()
+                compilations = deque()
+                ccheck = {}
             elif type == gio.FILE_TYPE_REGULAR:
                 tr = self.update_track(fil)
                 if not tr:
@@ -581,15 +593,7 @@ class Library(object):
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)
 
-        for (basedir, album) in compilations:
-            base = basedir.replace('"', '\\"')
-            alb = album.replace('"', '\\"')
-            items = [ tr for tr in dirtracks if \
-                    tr.get_tag_raw('__basedir') == base and \
-                    # FIXME: this is ugly
-                    alb in "".join(tr.get_tag_raw('album')) ]
-            for item in items:
-                item.set_tag_raw('__compilation', (basedir, album))
+
 
         removals = deque()
         location = self.location

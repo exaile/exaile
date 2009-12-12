@@ -73,15 +73,15 @@ class Exaile(object):
         # if necessary
         self.mainloop_init()
 
+        #load the most.
+        self.__init()
+
         #initialize DbusManager
         if self.options.StartGui and self.options.Dbus:
             from xl import xldbus
             if xldbus.check_exit(self.options, self.args):
                 sys.exit(0)
             self.dbus = xldbus.DbusManager(self)
-
-        #load the rest.
-        self.__init()
 
         # On SIGTERM, quit normally.
         import signal

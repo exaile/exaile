@@ -34,6 +34,7 @@ import dbus
 import dbus.service
 import gobject
 
+from xl import event
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -166,6 +167,23 @@ class DbusManager(dbus.service.Object):
         dbus.service.Object.__init__(self, self.bus_name, '/org/exaile/Exaile')
         self.cached_track = ""
         self.cached_state = ""
+        self._connect_signals()
+        
+    def _connect_signals(self):
+        # connect events
+        event.add_callback(self.emit_state_changed, 'playback_player_end',
+            self.exaile.player)
+        event.add_callback(self.emit_state_changed, 'playback_track_start',
+            self.exaile.player)
+        event.add_callback(self.emit_state_changed, 'playback_toggle_pause',
+            self.exaile.player)
+        event.add_callback(self.emit_track_changed, 'tags_parsed',
+            self.exaile.player)
+        event.add_callback(self.emit_state_changed, 'playback_buffering',
+            self.exaile.player)
+        event.add_callback(self.emit_state_changed, 'playback_error',
+            self.exaile.player)
+        
 
     @dbus.service.method('org.exaile.Exaile', 's')
     def TestService(self, arg):
@@ -187,7 +205,7 @@ class DbusManager(dbus.service.Object):
             Returns a attribute of a track
         """
         try:
-            value = self.exaile.player.current.tags[attr]
+            value = self.exaile.player.current.get_tag_raw(attr)
         except ValueError:
             value = None
         except TypeError:
@@ -405,14 +423,16 @@ class DbusManager(dbus.service.Object):
         """
             Emitted when state change occurs: 'playing' 'paused' 'stopped'
         """
+        pass
         
     @dbus.service.signal('org.exaile.Exaile')
     def TrackChanged(self):
         """
             Emitted when track change occurs.
         """
+        pass
         
-    def emit_state_changed(self):
+    def emit_state_changed(self, type, player, object):
         """
             Called from main to emit signal
         """
@@ -421,7 +441,7 @@ class DbusManager(dbus.service.Object):
             self.cached_state = new_state
             self.StateChanged()
         
-    def emit_track_changed(self):
+    def emit_track_changed(self, type, player, object):
         """
             Called from main to emit signal
         """

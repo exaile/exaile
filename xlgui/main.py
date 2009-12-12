@@ -904,9 +904,6 @@ class MainWindow(gobject.GObject):
         if pl:
             pl.list.queue_draw()
         
-        # inform dbus client(s) of state change
-        self.controller.exaile.dbus.emit_state_changed()
-
     def close_playlist_tab(self, tab=None):
         """
             Closes the tab specified
@@ -1115,9 +1112,6 @@ class MainWindow(gobject.GObject):
         if settings.get_option('osd/enabled', True):
             self.osd.show(self.player.current)
 
-        # inform dbus client(s) of state change
-        self.controller.exaile.dbus.emit_state_changed()
-
     def on_playback_end(self, type, player, object):
         """
             Called when playback ends
@@ -1130,9 +1124,6 @@ class MainWindow(gobject.GObject):
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
-
-        # inform dbus client(s) of state change
-        self.controller.exaile.dbus.emit_state_changed()
 
     def _on_setting_change(self, name, object, option):
         """
@@ -1261,9 +1252,6 @@ class MainWindow(gobject.GObject):
             else:
                 tray_icon.set_tooltip(_("Playing %s") % tip)
                 
-        # inform dbus client(s) of track change
-        self.controller.exaile.dbus.emit_track_changed()
-
     def draw_playlist(self, *e):
         """
             Called when playback starts, redraws the playlist

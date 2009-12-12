@@ -115,7 +115,7 @@ def import_from_m3u(path):
             track_is_local = len(urlparse.urlparse(line)[0]) <= 1
             if track_is_local and not os.path.isabs(line):
                 line = os.path.join(os.path.dirname(path), line)
-            current = track.Track(line)
+            current = trax.Track(line)
 
             comma_separated = current_extinf[8:].split(",", 1)
             title = comma_separated[-1]

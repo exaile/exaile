@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-07 11:54+0000\n"
-"Last-Translator: Rafał Barański <kazislav@gmail.com>\n"
+"PO-Revision-Date: 2009-12-12 01:23+0000\n"
+"Last-Translator: Michał Markowski <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-12-08 04:38+0000\n"
+"X-Launchpad-Export-Date: 2009-12-12 04:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -97,7 +97,7 @@ msgstr "Wyświetl pozycję w obecnym utworze jako czas"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
-msgstr "Wyświetl pozycję w obecnym utworze procentowo"
+msgstr "Wyświetl pozycję w obecnym utworze w procentach"
 
 #: ../xl/main.py:329
 msgid "Volume options"
@@ -113,7 +113,7 @@ msgstr "Zmniejsza głośność o VOL%"
 
 #: ../xl/main.py:335
 msgid "Print the current volume percentage"
-msgstr "Wyświetl aktualną głośność procentowo"
+msgstr "Wyświetl aktualną głośność w procentach"
 
 #: ../xl/main.py:338
 msgid "Other options"
@@ -147,7 +147,7 @@ msgstr "Nie importuj starych danych z 0.2.x."
 
 #: ../xl/main.py:358
 msgid "Development/Debug options"
-msgstr "Opcje developerskie i debugowanie"
+msgstr "Opcje deweloperskie i debugowanie"
 
 #: ../xl/main.py:359
 msgid "Set data directory"
@@ -578,11 +578,11 @@ msgstr "Wyłącz l_osowanie"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Losuj kolejność utworów"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Losuj kolejność albumów"
 
 #: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
@@ -1222,6 +1222,8 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Nie można włączyć wtyczki:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
@@ -1278,7 +1280,7 @@ msgstr "Odtwarzacz muzyki Exaile"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Kliknij prawym przyciskiem myszy, aby zresetować ustawienia)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
@@ -1453,7 +1455,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
-msgstr ""
+msgstr "_Dalej"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"

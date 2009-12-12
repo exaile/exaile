@@ -163,17 +163,17 @@ class CollectionPanel(panel.Panel):
             Shows the properties dialog
         """
         from xlgui import properties
-        trs = self.get_selected_tracks()
+        tracks = self.get_selected_tracks()
 
         if not tracks:
             return False
 
-        tracks_sorted = trax.sort_tracks(
+        tracks = trax.sort_tracks(
 			('artist', 'date', 'album', 'discnumber', 'tracknumber'),
-			trs)
+			tracks)
 
         dialog = properties.TrackPropertiesDialog(self.parent,
-            tracks_sorted)
+            tracks)
 
     def _on_set_rating(self, widget, new_rating):
         """

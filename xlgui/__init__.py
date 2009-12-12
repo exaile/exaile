@@ -352,8 +352,7 @@ class Main(object):
         if not pl.properties_dialog():
             if self.exaile.player.current:
                 dialog = properties.TrackPropertiesDialog(self.main.window,
-                        self.exaile.player.current)
-                result = dialog.run()
+                        [self.exaile.player.current])
                 dialog.hide()
 
 

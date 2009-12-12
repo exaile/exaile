@@ -27,7 +27,9 @@
 import wave
 import sunau
 import aifc
-import sndhdr
+import os
+
+import gio
 
 from xl.metadata import BaseFormat
 
@@ -41,7 +43,9 @@ type_map = {
 class WavFormat(BaseFormat):
     def load(self):
         try:
-            opener = type_map[sndhdr.what(self.loc)]
+            loc = gio.File(self.loc).get_path()
+            ext = os.path.splitext(loc)[1][1:].lower()
+            opener = type_map[ext]
             f = opener.open(self.loc, "rb")
             length = f.getnframes() / f.getframerate()
             self.mutagen = {'__bitrate': -1, '__length': length}

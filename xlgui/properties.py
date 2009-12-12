@@ -160,8 +160,7 @@ class TrackPropertiesDialog(gobject.GObject):
                         if len(entry.split('/')) < 2:
                             t[tag][i] += '/0'
 
-            # FIXME: VERY BAD
-            for tag in track._Track__tags:
+            for tag in track.list_tags():
                 if tag not in self.def_tags:
                     tagval = track.get_tag_raw(tag)
                     if isinstance(tagval, list):
@@ -181,8 +180,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
             #in case a tag has been removed..
             poplist = []
-            # FIXME: VERY BAD
-            for tag in self.track_refs[n]._Track__tags:
+            for tag in self.track_refs[n].list_tags():
                 if tag in dialog_tags:
                     if dialog_tags[tag] is not IGNORE:
                         try:
@@ -196,8 +194,7 @@ class TrackPropertiesDialog(gobject.GObject):
                         poplist.append(tag)
 
             for tag in poplist:
-                # FIXME: VERY BAD
-                self.track_refs[n]._Track__tags.pop(tag)
+                self.track_refs[n].set_tag_raw(tag, None)
 
             self.track_refs[n].write_tags()
 

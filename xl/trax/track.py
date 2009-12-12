@@ -283,6 +283,12 @@ class Track(object):
         """
         self.__tags = deepcopy(pickle_obj)
 
+    def list_tags(self):
+        """
+            Returns a list of the names of all tags present in this Track.
+        """
+        return self.__tags.keys()
+
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
             Set the raw value of a tag.

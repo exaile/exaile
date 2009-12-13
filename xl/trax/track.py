@@ -466,6 +466,11 @@ class Track(object):
             else:
                 retval = "%s==\"%s\""%(tag, retval)
 
+        # hack to make things work - discnumber breaks without it.
+        # TODO: figure out why this happens, cleaner solution
+        if not isinstance(retval, list) and not tag.startswith("__"):
+            retval = unicode(retval)
+
         return retval
 
     ### convenience funcs for rating ###

@@ -560,7 +560,8 @@ class Library(object):
                         items = [ tr for tr in dirtracks if \
                                 tr.get_tag_raw('__basedir') == base and \
                                 # FIXME: this is ugly
-                                alb in "".join(tr.get_tag_raw('album')).lower()
+                                alb in "".join(
+                                    tr.get_tag_raw('album') or []).lower()
                                 ]
                         for item in items:
                             item.set_tag_raw('__compilation', (basedir, album))

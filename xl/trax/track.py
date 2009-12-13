@@ -59,6 +59,38 @@ _UNKNOWNSTR = _("Unknown")
 #TRANSLATORS: String multiple tag values will be joined by
 _JOINSTR =_(u' & ')
 
+class _MetadataCacher(object):
+    """
+        Cache metadata Format objects to speed up get_tag_disk
+    """
+    def __init__(self, timeout=2000, maxentries=20):
+        """
+            :param timeout: time (in ms) until the cached obj gets removed.
+            :param maxentries: maximum number of format objs to cache
+        """
+        self._cache = {}
+        self.timeout = timeout
+        self.maxentries = maxentries
+
+    def add(self, trackobj, formatobj):
+        try:
+            gobject.source_remove(self._cache[trackobj][1])
+        except KeyError:
+            pass
+        timeout_id = gobject.timeout_add(self.timeout, self.remove, trackobj)
+        self._cache[trackobj] = [formatobj, timeout_id]
+
+    def remove(self, trackobj):
+        try:
+            del self._cache[trackobj]
+        except KeyError:
+            pass
+
+    def get(self, trackobj):
+        return self._cache.get(trackobj, None)
+
+_CACHER = _MetadataCacher()
+
 class Track(object):
     """
         Represents a single track.
@@ -472,6 +504,23 @@ class Track(object):
             retval = unicode(retval)
 
         return retval
+
+    def get_tag_disk(self, tag):
+        """
+            Read a tag directly from disk. Can be slow, use with caution.
+
+            Intended for use with large fields like covers and
+            lyrics that shouldn't be loaded to the in-mem db.
+        """
+        f = _CACHER.get(self)
+        if not f:
+            try:
+                f = metadata.get_format(self.get_loc_for_io())
+            except:
+                return None
+        _CACHER.add(self, f)
+        return f.read_tags([tag])[tag]
+
 
     ### convenience funcs for rating ###
     # these dont fit in the normal set of tag access methods,

@@ -227,7 +227,7 @@ class BaseTrayIcon(object):
             pause as well as opens the context menu
         """
         if event.button == 1:
-            self.main.toggle_visible()
+            self.main.toggle_visible(bringtofront=True)
         if event.button == 2:
             self.play_pause()
         if event.button == 3:

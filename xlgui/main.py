@@ -1337,12 +1337,14 @@ class MainWindow(gobject.GObject):
         gobject.idle_add(self.controller.exaile.quit)
         return True
 
-    def toggle_visible(self):
+    def toggle_visible(self, bringtofront=False):
         """
             Toggles visibility of the main window
         """
         toggle_handled = self.emit('main-visible-toggle')
-        if not toggle_handled and self.window.get_property('visible'):
+        if not toggle_handled and (
+                (bringtofront and self.window.is_active()) or
+                (not bringtofront and self.window.get_property('visible'))):
             self.window.hide()
         elif not toggle_handled:
             self.window.deiconify()

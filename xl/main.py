@@ -82,6 +82,10 @@ class Exaile(object):
 
         #load the rest.
         self.__init()
+        
+        #connect dbus signals
+        if self.options.Dbus:
+            self.dbus._connect_signals()
 
         # On SIGTERM, quit normally.
         import signal

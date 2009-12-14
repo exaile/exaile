@@ -695,10 +695,12 @@ class CollectionPanel(panel.Panel):
         to_expand = []
 
         for srtr in srtrs:
-            tagvals = [srtr.track.get_tag_display(x) for x in tags]
-            tagval = self.order[depth].printTags(tagvals)
-            if last_val != tagval:
-                last_val = tagval
+            stagvals = [srtr.track.get_tag_sort(x) for x in tags]
+            stagval = self.order[depth].printTags(stagvals)
+            if last_val != stagval:
+                tagvals = [srtr.track.get_tag_display(x) for x in tags]
+                tagval = self.order[depth].printTags(tagvals)
+                last_val = stagval
                 if depth == 0 and draw_seps:
                     val = srtr.track.get_tag_sort(tags[0])
                     char = first_meaningful_char(val)

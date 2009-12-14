@@ -172,8 +172,6 @@ class ExailePlayer(object):
             progress = 0
         except AttributeError: # no current track
             progress = 0
-        except AttributeError:
-            progress = -1
         return progress
 
     def _get_gst_state(self):

@@ -7,27 +7,26 @@
       <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <child>
-          <object class="GtkTable" id="wooters">
+          <object class="GtkVBox" id="vbox3">
             <property name="visible">True</property>
-            <property name="border_width">3</property>
-            <property name="n_rows">3</property>
-            <property name="n_columns">3</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkVBox" id="vbox1">
+              <object class="GtkHBox" id="hbox1">
                 <property name="visible">True</property>
                 <child>
-                  <object class="GtkScrolledWindow" id="scrolledwindow1">
+                  <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="hscrollbar_policy">automatic</property>
-                    <property name="vscrollbar_policy">automatic</property>
-                    <property name="shadow_type">etched-in</property>
+                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkTreeView" id="covers/preferred_order">
+                      <object class="GtkLabel" id="label1">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="reorderable">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">Cover Search Order:</property>
                       </object>
+                      <packing>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
                     </child>
                   </object>
                   <packing>
@@ -35,80 +34,81 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label3">
+                  <object class="GtkVBox" id="vbox1">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">(drag to reorder)</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolledwindow1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hscrollbar_policy">automatic</property>
+                        <property name="vscrollbar_policy">automatic</property>
+                        <property name="shadow_type">etched-in</property>
+                        <child>
+                          <object class="GtkTreeView" id="covers/preferred_order">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="reorderable">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label3">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">(drag to reorder)</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
+                <property name="expand">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox2">
+              <object class="GtkHBox" id="hbox2">
                 <property name="visible">True</property>
                 <child>
-                  <object class="GtkLabel" id="label1">
+                  <object class="GtkCheckButton" id="covers/automatic_fetching">
+                    <property name="label" translatable="yes">Fetch covers automatically on playback start</property>
                     <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Cover Search Order:</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="draw_indicator">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label2">
-                    <property name="visible">True</property>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
+                  <placeholder/>
                 </child>
               </object>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
             </child>
             <child>
               <placeholder/>
             </child>
           </object>
           <packing>
-            <property name="expand">False</property>
             <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label4">
-            <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="position">1</property>
           </packing>
         </child>
       </object>

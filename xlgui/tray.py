@@ -24,7 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject, gtk
+import gobject
+import gtk
 
 from xl import event, settings, xdg
 from xl.nls import gettext as _
@@ -169,7 +170,7 @@ class BaseTrayIcon(object):
             Updates the tray icon
         """
         pass
-    
+
     def set_tooltip(self, tooltip_text):
         """
             Updates the tray icon tooltip
@@ -226,7 +227,7 @@ class BaseTrayIcon(object):
             pause as well as opens the context menu
         """
         if event.button == 1:
-            self.main.toggle_visible()
+            self.main.toggle_visible(bringtofront=True)
         if event.button == 2:
             self.play_pause()
         if event.button == 3:

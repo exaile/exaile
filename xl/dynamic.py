@@ -24,9 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import logging
+import os
+import random
+import time
+
 from xl.nls import gettext as _
 from xl import xdg, common, event, providers, settings, metadata
-import logging, os, random, time
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +68,8 @@ class DynamicManager(providers.ProviderHandler):
         while limit > len(tracks) and  limit > 0 and i < len(artists):
             artist = artists[i][1]
             i += 1
-            choices = self.collection.search('artist=="%s"'%artist.lower().replace('"', ''))
+            choices = self.collection.search(
+                    'artist=="%s"'%artist.lower().replace('"', ''))
             if choices == []:
                 continue
             random.shuffle(choices)

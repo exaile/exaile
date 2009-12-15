@@ -24,8 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import wave
+import sunau
+import aifc
+import os
+
+import gio
+
 from xl.metadata import BaseFormat
-import wave, sunau, aifc, sndhdr
 
 type_map = {
         "aifc": aifc,
@@ -37,7 +43,9 @@ type_map = {
 class WavFormat(BaseFormat):
     def load(self):
         try:
-            opener = type_map[sndhdr.what(self.loc)]
+            loc = gio.File(self.loc).get_path()
+            ext = os.path.splitext(loc)[1][1:].lower()
+            opener = type_map[ext]
             f = opener.open(self.loc, "rb")
             length = f.getnframes() / f.getframerate()
             self.mutagen = {'__bitrate': -1, '__length': length}

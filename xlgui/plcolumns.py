@@ -24,11 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import logging
 import gtk
+
 from xl import settings
 from xl.nls import gettext as _
 from xlgui import rating
-import logging
+
 logger = logging.getLogger(__name__)
 
 """

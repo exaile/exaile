@@ -24,16 +24,24 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, pango, gtk.gdk, gobject
+import copy
+import logging
+import os
+import os.path
+import math
+import urllib
+
+import gobject
+import gtk
+import gtk.gdk
+import pango
+
 from xlgui import guiutil, menu, plcolumns
 from xlgui import rating
 from xlgui.plcolumns import *
 from xl import playlist, event, collection, xdg, settings, trax
 from xl.nls import gettext as _
-import copy, urllib
-import logging
-import os, os.path
-import math
+
 logger = logging.getLogger(__name__)
 
 class Playlist(gtk.VBox):

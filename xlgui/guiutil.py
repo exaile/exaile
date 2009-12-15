@@ -24,13 +24,21 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, os.path, time, urllib
-import gtk.gdk, pango, gobject, gio
+import os.path
+import threading
+import time
+import urllib
+from urllib2 import urlparse
+
+import gio
+import gobject
+import gtk
+import gtk.gdk
+import pango
+
 from xl import xdg, playlist, common, settings, event, trax
 from xl.nls import gettext as _
-import threading
 from xlgui import rating
-from urllib2 import urlparse
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)

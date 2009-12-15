@@ -26,8 +26,14 @@
 
 __all__ = ['main', 'panel', 'playlist']
 
+import logging
+import os
+import urlparse
+
+import gobject
+import gtk
+
 from xl.nls import gettext as _
-import gtk, gobject, logging, os, urlparse
 logger = logging.getLogger(__name__)
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
 try:
@@ -346,8 +352,7 @@ class Main(object):
         if not pl.properties_dialog():
             if self.exaile.player.current:
                 dialog = properties.TrackPropertiesDialog(self.main.window,
-                        self.exaile.player.current)
-                result = dialog.run()
+                        [self.exaile.player.current])
                 dialog.hide()
 
 

@@ -24,9 +24,19 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import locale, logging, os, random, string, sys, threading
-import time, traceback, urlparse, subprocess
+import locale
+import logging
+import os
+import random
+import string
+import subprocess
+import sys
+import threading
+import time
+import traceback
+import urlparse
 from functools import wraps
+
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)

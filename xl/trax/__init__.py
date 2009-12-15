@@ -30,5 +30,6 @@
 from track import Track
 from trackdb import TrackDB
 from search import search_tracks, search_tracks_from_string, TracksMatcher
-from util import is_valid_track, get_tracks_from_uri, sort_tracks, sort_result_tracks
+from util import is_valid_track, get_tracks_from_uri, sort_tracks
+from util import sort_result_tracks
 

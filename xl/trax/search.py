@@ -48,7 +48,9 @@ class _Matcher(object):
         self.lower = lower
 
     def match(self, srtrack):
-        vals = srtrack.track.get_tag_raw(self.tag)
+        vals = srtrack.track.get_tag_search(self.tag, format=False)
+        if vals == '__null__':
+            vals = None
         if type(vals) != list:
             vals = [vals]
         for item in vals:
@@ -76,8 +78,12 @@ class _InMatcher(_Matcher):
         Condition for inexact (ie. containing) matches
     """
     def matches(self, value):
-        if not value: return False
-        return self.content in value
+        if not value:
+            return False
+        try:
+            return self.content in value
+        except TypeError:
+            return False
 
 class _NotMetaMatcher(object):
     """
@@ -89,7 +95,7 @@ class _NotMetaMatcher(object):
         self.matcher = matcher
 
     def match(self, srtrack):
-        return not self.matcher.matches(srtrack)
+        return not self.matcher.match(srtrack)
 
 class _OrMetaMatcher(object):
     """
@@ -101,7 +107,7 @@ class _OrMetaMatcher(object):
         self.left, self.right = left, right
 
     def match(self, srtrack):
-        return self.left.matches(srtrack) or self.right.matches(srtrack)
+        return self.left.match(srtrack) or self.right.match(srtrack)
 
 class _MultiMetaMatcher(object):
     """
@@ -235,7 +241,9 @@ class TracksMatcher(object):
                 tag, content = token.split("==", 1)
                 if content == "__null__":
                     content = None
-                matcher = _ExactMatcher(tag, lower(content), lower)
+                else:
+                    content = lower(content)
+                matcher = _ExactMatcher(tag, content, lower)
                 matchers.append(matcher)
 
             # keyword in tag

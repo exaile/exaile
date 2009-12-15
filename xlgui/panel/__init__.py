@@ -25,7 +25,10 @@
 # from your version.
 
 import os
-import gtk, gobject
+
+import gtk
+import gobject
+
 from xl import xdg
 
 class Panel(gobject.GObject):

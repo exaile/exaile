@@ -24,12 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, cairo, gobject
-from xl import xdg, common, metadata
+import cairo
+import gobject
+import gtk
+
+from xl import xdg, common, metadata, settings
 from xl.nls import gettext as _
 from xlgui import guiutil, cover
 from xlgui.main import PlaybackProgressBar
-from xl import settings
 
 class CoverWidget(guiutil.ScalableImageWidget):
     def __init__(self):

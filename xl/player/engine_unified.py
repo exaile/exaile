@@ -24,10 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.nls import gettext as _
 
-import logging, threading, time
+import logging
+import threading
+import time
+
 import gst, gobject
+
+from xl.nls import gettext as _
 from xl import event, settings, common
 from xl.player import _base, pipe
 
@@ -112,7 +116,8 @@ class UnifiedPlayer(_base.ExailePlayer):
             self.tag_func(message.parse_tag())
             if not self.current.get_tag_raw('__length'):
                 try:
-                    duration = float(self.mainbin.query_duration(gst.FORMAT_TIME, None)[0])/1000000000
+                    duration = float(self.mainbin.query_duration(
+                        gst.FORMAT_TIME, None)[0])/1000000000
                     if duration > 0:
                         self.current.set_tag_raw('__length', duration)
                 except gst.QueryError:

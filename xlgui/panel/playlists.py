@@ -24,7 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, urllib, os.path, time, gobject
+import os.path
+import time
+import urllib
+
+import gobject
+import gtk
+
 from xlgui import panel, guiutil, xdg, commondialogs
 from xlgui import menu, filtergui
 from xlgui import playlist as guiplaylist

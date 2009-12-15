@@ -68,7 +68,8 @@ class ProviderManager(object):
             if provider in self.services[servicename]:
                 self.services[servicename].remove(provider)
             logger.debug(
-                "Provider %(provider)s unregistered from service %(service)s" % {
+                "Provider %(provider)s unregistered from "
+                "service %(service)s" % {
                     'provider' : provider.name,
                     'service' : servicename
                 }

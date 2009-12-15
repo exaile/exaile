@@ -24,7 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk.gdk, hashlib, os, pango
+import hashlib
+import os
+
+import gtk.gdk
+import pango
+
 from xl.nls import gettext as _
 
 class PrefsItem(object):

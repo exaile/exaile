@@ -45,7 +45,7 @@ def disable(exaile):
     if MINIMODE:
         MINIMODE.destroy()
         MINIMODE = None
-    
+
 def get_prefs_pane():
     return minimodeprefs
 
@@ -197,7 +197,7 @@ class MiniMode(gtk.Window):
                 self.update_widgets(value)
             elif option == 'plugin/minimode/track_title_format':
                 self.formatter.set_format(value)
-    
+
     def update_position(self):
         """
             Changes the position of the mini mode window

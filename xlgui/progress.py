@@ -24,10 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import threading
+
+import gtk
 
 from xlgui import guiutil
 from xl import event
-import gtk, threading
 
 class ProgressMonitor(gtk.Frame):
     """
@@ -57,7 +59,7 @@ class ProgressMonitor(gtk.Frame):
         self.desc = desc
         if self.label:
             self.label.set_text(desc)
-        
+
     def progress_update(self, type, thread, percent):
         """
             Called when the progress has been updated

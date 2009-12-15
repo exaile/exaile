@@ -24,12 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import copy
+import datetime
+import os
+import string
+
+import gio
+import gobject
+import gtk
+import pango
+
 from xl import xdg, metadata, common
 from xl.nls import gettext as _
-import os
-import gtk
-import gio, gobject
-import pango, copy, datetime, string
 
 IGNORE = (None, None)
 
@@ -154,7 +160,7 @@ class TrackPropertiesDialog(gobject.GObject):
                         if len(entry.split('/')) < 2:
                             t[tag][i] += '/0'
 
-            for tag in track.tags:
+            for tag in track.list_tags():
                 if tag not in self.def_tags:
                     tagval = track.get_tag_raw(tag)
                     if isinstance(tagval, list):
@@ -174,7 +180,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
             #in case a tag has been removed..
             poplist = []
-            for tag in self.track_refs[n].tags:
+            for tag in self.track_refs[n].list_tags():
                 if tag in dialog_tags:
                     if dialog_tags[tag] is not IGNORE:
                         try:
@@ -188,7 +194,7 @@ class TrackPropertiesDialog(gobject.GObject):
                         poplist.append(tag)
 
             for tag in poplist:
-                self.track_refs[n].tags.pop(tag)
+                self.track_refs[n].set_tag_raw(tag, None)
 
             self.track_refs[n].write_tags()
 

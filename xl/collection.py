@@ -478,25 +478,28 @@ class Library(object):
         while len(queue) > 0:
             dir = queue.pop()
             yield dir
-            for fileinfo in dir.enumerate_children("standard::type,"
-                    "standard::is-symlink,standard::name,"
-                    "standard::symlink-target,time::modified"):
-                fil = dir.get_child(fileinfo.get_name())
-                # FIXME: recursive symlinks could cause an infinite loop
-                if fileinfo.get_is_symlink():
-                    target = fileinfo.get_symlink_target()
-                    if not "://" in target and not os.path.isabs(target):
-                        fil2 = fil.get_child(target)
-                    else:
-                        fil2 = gio.File(target)
-                    # already in the collection, we'll get it anyway
-                    if fil2.has_prefix(dir):
-                        continue
-                type = fileinfo.get_file_type()
-                if type == gio.FILE_TYPE_DIRECTORY:
-                    queue.append(fil)
-                elif type == gio.FILE_TYPE_REGULAR:
-                    yield fil
+            try:
+                for fileinfo in dir.enumerate_children("standard::type,"
+                        "standard::is-symlink,standard::name,"
+                        "standard::symlink-target,time::modified"):
+                    fil = dir.get_child(fileinfo.get_name())
+                    # FIXME: recursive symlinks could cause an infinite loop
+                    if fileinfo.get_is_symlink():
+                        target = fileinfo.get_symlink_target()
+                        if not "://" in target and not os.path.isabs(target):
+                            fil2 = fil.get_child(target)
+                        else:
+                            fil2 = gio.File(target)
+                        # already in the collection, we'll get it anyway
+                        if fil2.has_prefix(dir):
+                            continue
+                    type = fileinfo.get_file_type()
+                    if type == gio.FILE_TYPE_DIRECTORY:
+                        queue.append(fil)
+                    elif type == gio.FILE_TYPE_REGULAR:
+                        yield fil
+            except gio.Error: # why doesnt gio offer more-specific errors?
+                pass
 
     def update_track(self, gloc):
         """
@@ -551,7 +554,20 @@ class Library(object):
                 if dirtracks:
                     for tr in dirtracks:
                         self._check_compilation(ccheck, compilations, tr)
+                    for (basedir, album) in compilations:
+                        base = basedir.replace('"', '\\"')
+                        alb = album.replace('"', '\\"')
+                        items = [ tr for tr in dirtracks if \
+                                tr.get_tag_raw('__basedir') == base and \
+                                # FIXME: this is ugly
+                                alb in "".join(
+                                    tr.get_tag_raw('album') or []).lower()
+                                ]
+                        for item in items:
+                            item.set_tag_raw('__compilation', (basedir, album))
                 dirtracks = deque()
+                compilations = deque()
+                ccheck = {}
             elif type == gio.FILE_TYPE_REGULAR:
                 tr = self.update_track(fil)
                 if not tr:
@@ -581,15 +597,7 @@ class Library(object):
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)
 
-        for (basedir, album) in compilations:
-            base = basedir.replace('"', '\\"')
-            alb = album.replace('"', '\\"')
-            items = [ tr for tr in dirtracks if \
-                    tr.get_tag_raw('__basedir') == base and \
-                    # FIXME: this is ugly
-                    alb in "".join(tr.get_tag_raw('album')) ]
-            for item in items:
-                item.set_tag_raw('__compilation', (basedir, album))
+
 
         removals = deque()
         location = self.location

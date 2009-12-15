@@ -24,8 +24,16 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gio, glib, gtk, gobject, os, locale, re
+import os
+import locale
+import re
 import urllib
+
+import gio
+import glib
+import gtk
+import gobject
+
 from xl import common, trax, metadata
 from xl import settings
 from xl import event

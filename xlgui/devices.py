@@ -24,11 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.nls import gettext as _
+import logging
+import threading
+
 import gtk
+
+from xl.nls import gettext as _
 from xl import xdg, settings, event, devices
 from xlgui import collection
-import logging, threading
 
 logger = logging.getLogger(__name__)
 

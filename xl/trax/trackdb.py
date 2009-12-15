@@ -194,7 +194,8 @@ class TrackDB(object):
                             if x.startswith("tracks-")):
                         p = pdata[k]
                         tr = Track(_unpickles=p[0])
-                        data[tr.get_loc_for_io()] = TrackHolder(tr, p[1], **p[2])
+                        data[tr.get_loc_for_io()] = TrackHolder(tr,
+                                p[1], **p[2])
                     setattr(self, attr, data)
                 else:
                     setattr(self, attr, pdata[attr])
@@ -226,7 +227,8 @@ class TrackDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError(_("You did not specify a location to save the db"))
+            raise AttributeError(
+                    _("You did not specify a location to save the db"))
 
         if self._saving:
             return
@@ -240,7 +242,7 @@ class TrackDB(object):
                     protocol=common.PICKLE_PROTOCOL)
             if pdata.has_key("_dbversion"):
                 if pdata['_dbversion'] > self._dbversion:
-                    raise ValueError, "DB was created on a newer Exaile version."
+                    raise ValueError, "DB was created on a newer Exaile."
         except:
             logger.error("Failed to open music DB for write.")
             return
@@ -249,7 +251,8 @@ class TrackDB(object):
             # bad hack to allow saving of lists/dicts of Tracks
             if 'tracks' == attr:
                 for k, track in self.tracks.iteritems():
-                    if track._track._dirty or "tracks-%s"%track._key not in pdata:
+                    if track._track._dirty or \
+                            "tracks-%s"%track._key not in pdata:
                         pdata["tracks-%s"%track._key] = (
                                 track._track._pickles(),
                                 track._key,
@@ -350,7 +353,8 @@ class TrackDB(object):
         return list(self)
 
 
-    def search(self, query, sort_fields=[], return_lim=-1, tracks=None, reverse=False):
+    def search(self, query, sort_fields=[], return_lim=-1,
+            tracks=None, reverse=False):
         """
             Search the trackDB, optionally sorting by sort_field
 
@@ -363,7 +367,9 @@ class TrackDB(object):
         """
         import warnings
         warnings.warn("TrackDB.search is deprecated.", DeprecationWarning)
-        tracks = [ x.track for x in search_tracks_from_string(self, query, case_sensitive=False, keyword_tags=['artist', 'albumartist', 'album', 'title']) ]
+        tracks = [ x.track for x in search_tracks_from_string(self, query,
+                case_sensitive=False, keyword_tags=['artist', 'albumartist',
+                'album', 'title']) ]
 
         if sort_fields:
             if sort_fields == 'RANDOM':

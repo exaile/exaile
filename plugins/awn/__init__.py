@@ -157,7 +157,7 @@ class ExaileAwn(object):
             self.set_cover()
         elif option == 'plugin/awn/overlay':
             self.update_timer()
-            
+
 
 
 EXAILE_AWN = None

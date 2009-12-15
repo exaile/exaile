@@ -24,9 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import logging
+import os
+import threading
+
+import gio
+import gobject
+import gtk
+
 from xl.nls import gettext as _
-import logging, os, threading
-import gtk, gobject, gio
 from xl import event, xdg, collection
 from xlgui import commondialogs
 

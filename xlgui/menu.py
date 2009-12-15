@@ -24,7 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, gobject
+import gobject
+import gtk
+
 from xlgui import guiutil, commondialogs, rating
 from xl import event, playlist, xdg, settings
 from xl.nls import gettext as _

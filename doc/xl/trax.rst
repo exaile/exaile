@@ -8,7 +8,7 @@ Tracks
 ******
 
 .. autoclass:: Track
-    :members: get_tag_sort, get_tag_display, get_tag_raw, set_tag_raw, get_rating, set_rating, get_type, get_loc_for_io, local_file_name, set_loc, exists, read_tags, write_tags
+    :members: list_tags, get_tag_sort, get_tag_display, get_tag_raw, set_tag_raw, get_rating, set_rating, get_type, get_loc_for_io, local_file_name, set_loc, exists, read_tags, write_tags
 
 .. autofunction:: is_valid_track
 

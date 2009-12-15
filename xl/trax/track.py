@@ -59,12 +59,44 @@ _UNKNOWNSTR = _("Unknown")
 #TRANSLATORS: String multiple tag values will be joined by
 _JOINSTR =_(u' & ')
 
+class _MetadataCacher(object):
+    """
+        Cache metadata Format objects to speed up get_tag_disk
+    """
+    def __init__(self, timeout=2000, maxentries=20):
+        """
+            :param timeout: time (in ms) until the cached obj gets removed.
+            :param maxentries: maximum number of format objs to cache
+        """
+        self._cache = {}
+        self.timeout = timeout
+        self.maxentries = maxentries
+
+    def add(self, trackobj, formatobj):
+        try:
+            gobject.source_remove(self._cache[trackobj][1])
+        except KeyError:
+            pass
+        timeout_id = gobject.timeout_add(self.timeout, self.remove, trackobj)
+        self._cache[trackobj] = [formatobj, timeout_id]
+
+    def remove(self, trackobj):
+        try:
+            del self._cache[trackobj]
+        except KeyError:
+            pass
+
+    def get(self, trackobj):
+        return self._cache.get(trackobj, None)
+
+_CACHER = _MetadataCacher()
+
 class Track(object):
     """
         Represents a single track.
     """
     # save a little memory this way
-    __slots__ = ["tags", "_scan_valid",
+    __slots__ = ["__tags", "_scan_valid",
             "_dirty", "__weakref__", "__init"]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
@@ -111,7 +143,7 @@ class Track(object):
         if self.__init == False:
             return
 
-        self.tags = {}
+        self.__tags = {}
         self._scan_valid = None # whether our last tag read attempt worked
         self._dirty = False
 
@@ -130,7 +162,7 @@ class Track(object):
             Register this instance into the global registry of Track
             objects.
         """
-        self.__tracksdict[self.tags['__loc']] = self
+        self.__tracksdict[self.__tags['__loc']] = self
 
     def __unregister(self):
         """
@@ -138,7 +170,7 @@ class Track(object):
             Track objects.
         """
         try:
-            del self.__tracksdict[self.tags['__loc']]
+            del self.__tracksdict[self.__tags['__loc']]
         except KeyError:
             pass
 
@@ -150,7 +182,7 @@ class Track(object):
         """
         self.__unregister()
         gloc = gio.File(loc)
-        self.tags['__loc'] = gloc.get_uri()
+        self.__tags['__loc'] = gloc.get_uri()
         self.__register()
 
     def exists(self):
@@ -169,7 +201,7 @@ class Track(object):
             If a path is returned, it is safe to use for IO operations.
             Existence of a path does *not* guarantee file existence.
         """
-        return gio.File(self.tags['__loc']).get_path()
+        return gio.File(self.__tags['__loc']).get_path()
 
     def get_loc_for_io(self):
         """
@@ -178,7 +210,7 @@ class Track(object):
             Safe for IO operations via gio, not suitable for display to users
             as it may be in non-utf-8 encodings.
         """
-        return self.tags['__loc']
+        return self.__tags['__loc']
 
     def get_type(self):
         """
@@ -197,7 +229,7 @@ class Track(object):
             f = metadata.get_format(self.get_loc_for_io())
             if f is None:
                 return False # not a supported type
-            f.write_tags(self.tags)
+            f.write_tags(self.__tags)
             return f
         except:
             common.log_exception()
@@ -273,7 +305,7 @@ class Track(object):
 
             internal use only please
         """
-        return deepcopy(self.tags)
+        return deepcopy(self.__tags)
 
     def _unpickles(self, pickle_obj):
         """
@@ -281,7 +313,13 @@ class Track(object):
 
             internal use only please
         """
-        self.tags = deepcopy(pickle_obj)
+        self.__tags = deepcopy(pickle_obj)
+
+    def list_tags(self):
+        """
+            Returns a list of the names of all tags present in this Track.
+        """
+        return self.__tags.keys()
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
@@ -289,9 +327,10 @@ class Track(object):
 
             :param tag: The name of the tag to set.
             :param values: The value or values to set the tag to.
-            :param notify_changed: whether to send a signal to let other parts of
-                Exaile know there has been an update. Only set this to False
-                if you know that no other parts of Exaile need to be updated.
+            :param notify_changed: whether to send a signal to let other
+                parts of Exaile know there has been an update. Only set
+                this to False if you know that no other parts of Exaile
+                need to be updated.
         """
         # handle values that aren't lists
         if not isinstance(values, list):
@@ -301,17 +340,17 @@ class Track(object):
         # TODO: is this needed? why?
         # for lists, filter out empty values and convert to unicode
         if isinstance(values, list):
-            values = [common.to_unicode(x, self.tags.get('__encoding'))
+            values = [common.to_unicode(x, self.__tags.get('__encoding'))
                 for x in values if x not in (None, '')]
 
         # save some memory by not storing null values.
         if not values:
             try:
-                del self.tags[tag]
+                del self.__tags[tag]
             except KeyError:
                 pass
         else:
-            self.tags[tag] = values
+            self.__tags[tag] = values
 
         self._dirty = True
         if notify_changed:
@@ -326,7 +365,7 @@ class Track(object):
             :param join: If True, joins lists of values into a
                 single value.
         """
-        val = self.tags.get(tag)
+        val = self.__tags.get(tag)
         if join and val:
             return self.join_values(val)
         return val
@@ -343,22 +382,22 @@ class Track(object):
         # and unknown values are always sorted below all normal
         # values.
         retval = None
-        sorttag = self.tags.get(tag + "sort")
+        sorttag = self.__tags.get(tag + "sort")
         if sorttag:
             retval = sorttag
         elif tag == "artist":
-            if self.tags.get('__compilation'):
-                retval = self.tags.get('albumartist',
+            if self.__tags.get('__compilation'):
+                retval = self.__tags.get('albumartist',
                         u"\uffff\uffff\uffff\ufffe")
             else:
-                retval = self.tags.get('artist',
+                retval = self.__tags.get('artist',
                         u"\uffff\uffff\uffff\uffff")
         elif tag in ('tracknumber', 'discnumber'):
-            retval = self.split_numerical(self.tags.get(tag))[0]
+            retval = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount'):
-            retval = self.tags.get('__length', 0)
+            retval = self.__tags.get('__length', 0)
         else:
-            retval = self.tags.get(tag)
+            retval = self.__tags.get(tag)
 
         if not retval:
             retval = u"\uffff\uffff\uffff\uffff" # unknown
@@ -385,27 +424,30 @@ class Track(object):
                 single value.
         """
         if tag == '__loc':
-            uri = gio.File(self.tags['__loc']).get_parse_name()
+            uri = gio.File(self.__tags['__loc']).get_parse_name()
             return uri.decode('utf-8')
 
         retval = None
         if tag == "artist":
-            if self.tags.get('__compilation'):
-                retval = self.tags.get('albumartist', _VARIOUSARTISTSSTR)
+            if self.__tags.get('__compilation'):
+                retval = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                retval = self.tags.get('artist', _UNKNOWNSTR)
+                retval = self.__tags.get('artist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
-            retval = self.split_numerical(self.tags.get(tag))[0]
+            retval = self.split_numerical(self.__tags.get(tag))[0]
         elif tag == '__length':
-            retval = self.tags.get('__length', 0)
+            retval = self.__tags.get('__length', 0)
         elif tag == '__bitrate':
             try:
-                retval = int(self.tags['__bitrate']) / 1000
-                retval = str(retval) + "k"
+                retval = int(self.__tags['__bitrate']) / 1000
+                if retval == -1:
+                    retval = " "
+                else:
+                    retval = str(retval) + "k"
             except:
                 retval = " "
         else:
-            retval = self.tags.get(tag)
+            retval = self.__tags.get(tag)
 
         if not retval:
             if tag in ('tracknumber', 'discnumber', '__rating',
@@ -423,6 +465,61 @@ class Track(object):
             retval = self.join_values(retval, _JOINSTR)
 
         return retval
+
+    def get_tag_search(self, tag, format=True):
+        """
+            Get a tag value suitable for passing to the search system.
+
+            :param format: pre-format into a search query.
+        """
+        if tag == "artist":
+            if self.__tags.get('__compilation'):
+                retval = self.__tags.get('albumartist', '__null__')
+                tag = 'albumartist'
+            else:
+                retval = self.__tags.get('artist', '__null__')
+        elif tag in ('tracknumber', 'discnumber'):
+            retval = self.split_numerical(self.__tags.get(tag))[0]
+        elif tag == '__length':
+            retval = self.__tags.get('__length', 0)
+        elif tag == '__bitrate':
+            try:
+                retval = int(self.__tags['__bitrate']) / 1000
+                if retval != -1:
+                    retval = str(retval) + "k"
+            except:
+                retval = -1
+        else:
+            retval = self.__tags.get(tag, '__null__')
+
+        if format:
+            if isinstance(retval, list):
+                retval = " ".join(["%s==\"%s\""%(tag, val) for val in retval])
+            else:
+                retval = "%s==\"%s\""%(tag, retval)
+
+        # hack to make things work - discnumber breaks without it.
+        # TODO: figure out why this happens, cleaner solution
+        if not isinstance(retval, list) and not tag.startswith("__"):
+            retval = unicode(retval)
+
+        return retval
+
+    def get_tag_disk(self, tag):
+        """
+            Read a tag directly from disk. Can be slow, use with caution.
+
+            Intended for use with large fields like covers and
+            lyrics that shouldn't be loaded to the in-mem db.
+        """
+        f = _CACHER.get(self)
+        if not f:
+            try:
+                f = metadata.get_format(self.get_loc_for_io())
+            except:
+                return None
+        _CACHER.add(self, f)
+        return f.read_tags([tag])[tag]
 
 
     ### convenience funcs for rating ###
@@ -515,8 +612,8 @@ class Track(object):
     def strip_leading(value):
         """
             Strip special chars off the beginning of a field. If
-            stripping the chars leaves nothing the original field is returned with
-            only whitespace removed.
+            stripping the chars leaves nothing the original field is
+            returned with only whitespace removed.
         """
         stripped = value.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
         if stripped:

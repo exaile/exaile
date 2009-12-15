@@ -27,16 +27,17 @@
 """
     Queue manager dialog
 """
+from copy import copy
+import logging
+from operator import itemgetter
+import os
 
+import gtk
+
+import xl.event
 from xl import xdg
 from xl.nls import gettext as _
 from xlgui import main, playlist
-from operator import itemgetter
-from copy import copy
-import xl.event
-import os
-import gtk
-import logging
 
 LOG = logging.getLogger('exaile.xlgui.queue')
 

@@ -24,12 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import imp
+import inspect
+import logging
+import os
+import shutil
+import sys
+import tarfile
+import traceback
 
 from xl.nls import gettext as _
 from xl import xdg, common, settings
-import imp, inspect, os, shutil, sys, tarfile, traceback
 
-import logging
 logger = logging.getLogger(__name__)
 
 class InvalidPluginError(Exception):

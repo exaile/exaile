@@ -24,18 +24,21 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, os
-import gio
+import logging
+import os
 from copy import deepcopy
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
+import gio
+
 from xl import common, providers, event, metadata, settings
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
 
 class CoverData(object):
     def __init__(self, data):
@@ -131,7 +134,8 @@ class CoverDB(object):
         if not type(cover) == str and not type(cover) == unicode:
             return
         if not os.path.isfile(cover): return
-        logger.info("CoverDB: set cover %(cover)s for '%(album)s - %(artist)s'" %
+        logger.info("CoverDB: set cover %(cover)s for "
+                "'%(album)s - %(artist)s'" %
             {'cover' : cover, 'album' : album, 'artist' : artist})
         if not artist in self.artists:
             self.artists[artist] = common.idict()
@@ -152,7 +156,8 @@ class CoverDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError(_("You did not specify a location to save the db"))
+            raise AttributeError(
+                    _("You did not specify a location to save the db"))
 
         pdata = None
         for loc in [location, location+".old", location+".new"]:
@@ -186,7 +191,8 @@ class CoverDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError(_("You did not specify a location to save the db"))
+            raise AttributeError(
+                    _("You did not specify a location to save the db"))
 
         try:
             f = file(location, 'rb')

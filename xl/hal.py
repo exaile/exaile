@@ -94,7 +94,8 @@ class HAL(providers.ProviderHandler):
 
     def add_device(self, device_udi):
         if device_udi in self.hal_devices:
-            logger.warning("Device %s already in hal list, skipping." % device_udi)
+            logger.warning(
+                    "Device %s already in hal list, skipping." % device_udi)
             return
 
         handler = self.get_handler(device_udi)

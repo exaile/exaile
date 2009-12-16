@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-11-15 17:50+0100\n"
-"PO-Revision-Date: 2009-11-21 12:14+0000\n"
-"Last-Translator: Simen Heggestøyl <simen@simenh.com>\n"
+"POT-Creation-Date: 2009-11-30 12:40+0100\n"
+"PO-Revision-Date: 2009-12-16 03:08+0000\n"
+"Last-Translator: Terje Andre Arnøy <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-11-22 04:48+0000\n"
+"X-Launchpad-Export-Date: 2009-12-16 04:58+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -242,24 +242,51 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "Et veldig raskt Fritt tapsfritt lydformat med god kompresjon."
 
-#: ../xl/track.py:381
+#: ../xl/track.py:388
 msgid "Various Artists"
 msgstr "Diverse artister"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
-#: ../xl/track.py:386 ../xl/track.py:404 ../xl/playlist.py:251
-#: ../xlgui/panel/collection.py:478 ../plugins/notifyosd/__init__.py:57
-#: ../plugins/minimode/mmwidgets.py:948
+#: ../xl/track.py:393 ../xl/track.py:412 ../xl/trackformatter.py:121
+#: ../xl/playlist.py:245 ../xlgui/panel/collection.py:478
+#: ../plugins/notifyosd/__init__.py:57 ../plugins/minimode/mmwidgets.py:1015
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../xl/track.py:590
+#. TRANSLATORS: String multiple tag values will be joined by
+#: ../xl/track.py:424 ../xl/trackformatter.py:110
+#: ../plugins/minimode/mmwidgets.py:1004
+msgid " & "
+msgstr " & "
+
+#: ../xl/track.py:584
 msgid "  New song, fetching cover."
 msgstr "  Ny sang, henter omslag."
 
 #: ../xl/devices.py:141 ../xl/devices.py:147
 msgid "Device class does not support transfer."
 msgstr "Enhetsklassen støtter ikke overføring."
+
+#: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
+#: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
+msgid "Never"
+msgstr "Aldri"
+
+#: ../xl/trackformatter.py:213 ../xlgui/plcolumns.py:232
+#: ../plugins/minimode/mmwidgets.py:1087
+msgid "Today"
+msgstr "I dag"
+
+#: ../xl/trackformatter.py:215 ../xlgui/plcolumns.py:234
+#: ../plugins/minimode/mmwidgets.py:1089
+msgid "Yesterday"
+msgstr "I går"
+
+#: ../xl/trackformatter.py:217 ../xlgui/plcolumns.py:236
+#: ../plugins/minimode/mmwidgets.py:1091
+#, python-format
+msgid "%(year)d-%(month)02d-%(day)02d"
+msgstr ""
 
 #: ../xl/settings.py:94
 msgid "Settings version is newer than current."
@@ -286,7 +313,7 @@ msgstr "Et tillegg med samme navn \"%s\" er allerede installert"
 msgid "Plugin archive contains an unsafe path"
 msgstr "Plugginn arkiv inneholder en usikker bane"
 
-#: ../xl/playlist.py:395
+#: ../xl/playlist.py:386
 #, python-format
 msgid "Playlist %d"
 msgstr "Spilleliste %d"
@@ -466,49 +493,49 @@ msgstr ""
 msgid "Last Played"
 msgstr "Sist spilt"
 
-#: ../xlgui/properties.py:214
+#: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr ""
 
-#: ../xlgui/properties.py:328
+#: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
 msgstr ""
 
-#: ../xlgui/properties.py:653
+#: ../xlgui/properties.py:655
 msgid "of"
 msgstr "av"
 
-#: ../xlgui/properties.py:775
+#: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/main.py:48 ../xlgui/main.py:121 ../xlgui/main.py:1087
-#: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:735
+#: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
+#: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
 msgid "Not Playing"
 msgstr "Spiller ikke"
 
-#: ../xlgui/main.py:131 ../plugins/minimode/mmwidgets.py:755
+#: ../xlgui/main.py:130 ../plugins/minimode/mmwidgets.py:822
 msgid "Streaming..."
 msgstr ""
 
-#: ../xlgui/main.py:215
+#: ../xlgui/main.py:214
 msgid "Close tab"
 msgstr "Lukk fane"
 
-#: ../xlgui/main.py:273
+#: ../xlgui/main.py:272
 msgid "New playlist title:"
 msgstr "Ny spillelistetittel:"
 
-#: ../xlgui/main.py:273 ../xlgui/menu.py:448
+#: ../xlgui/main.py:272 ../xlgui/menu.py:448
 msgid "Rename Playlist"
 msgstr "Endre navn på Spilleliste"
 
-#: ../xlgui/main.py:282
+#: ../xlgui/main.py:281
 msgid "Custom playlist name:"
 msgstr "Egendefinert spillelistenavn:"
 
-#: ../xlgui/main.py:282
+#: ../xlgui/main.py:281
 msgid "Save As..."
 msgstr "Lagre Som..."
 
@@ -516,61 +543,69 @@ msgstr "Lagre Som..."
 msgid "Toggle: Stop after selected track"
 msgstr ""
 
-#: ../xlgui/main.py:839
+#: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
+msgid "Dynamically add similar tracks to the playlist"
+msgstr ""
+
+#: ../xlgui/main.py:706
+msgid "Requires plugins providing dynamic playlists"
+msgstr ""
+
+#: ../xlgui/main.py:862
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr ""
 
-#: ../xlgui/main.py:841
+#: ../xlgui/main.py:864
 msgid "Buffering: 100%..."
 msgstr "Buffer: 100%"
 
-#: ../xlgui/main.py:999 ../xlgui/main.py:1007 ../xlgui/main.py:1031
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
 msgstr "Omstokk A_v"
 
-#: ../xlgui/main.py:999 ../xlgui/main.py:1033
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
 msgstr "Omstokk _Spor"
 
-#: ../xlgui/main.py:999 ../xlgui/main.py:1036
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
 msgstr "Omstokk _Album"
 
-#: ../xlgui/main.py:1088 ../data/ui/main.ui.h:21
+#: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
 msgstr "Stoppet"
 
-#: ../xlgui/main.py:1186
+#: ../xlgui/main.py:1209
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr "Exaile Musikkavspiller"
 
 #. TRANSLATORS: Window title
-#: ../xlgui/main.py:1196
+#: ../xlgui/main.py:1219
 #, python-format
 msgid "%(title)s (by %(artist)s)"
 msgstr "%(title)s (av %(artist)s)"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1206
+#: ../xlgui/main.py:1229
 #, python-format
 msgid "by %s"
 msgstr "av %s"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1208
+#: ../xlgui/main.py:1231
 #, python-format
 msgid "from %s"
 msgstr "fra %s"
 
-#: ../xlgui/main.py:1219
+#: ../xlgui/main.py:1242
 #, python-format
 msgid "In pause: %s"
 msgstr ""
 
-#: ../xlgui/main.py:1221
+#: ../xlgui/main.py:1244
 #, python-format
 msgid "Playing %s"
 msgstr "Spiller %s"
@@ -580,6 +615,7 @@ msgid "Toggle Queue"
 msgstr "Endre kø"
 
 #: ../xlgui/menu.py:99 ../xlgui/menu.py:344 ../xlgui/panel/radio.py:408
+#: ../plugins/droptrayicon/__init__.py:274
 msgid "New Playlist"
 msgstr "Ny Spilleliste"
 
@@ -688,7 +724,7 @@ msgstr "ASX-Spilleliste"
 msgid "XSPF Playlist"
 msgstr "XSPF-Spilleliste"
 
-#: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:984
+#: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:985
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr "Er du sikker på at du vil slette valgte spilleliste permanent?"
 
@@ -738,7 +774,7 @@ msgstr "Ikke noe spor"
 msgid "Export current playlist..."
 msgstr "Eksporter nåværende spilleliste..."
 
-#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:939
+#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:940
 msgid "Invalid file extension, file not saved"
 msgstr "Ugyldig filendelse, fil ikke lagret"
 
@@ -854,7 +890,7 @@ msgid "Rating"
 msgstr "Vurdering"
 
 #. TRANSLATORS: Filename column in the file browser
-#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:121
+#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:120
 #: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:76
 msgid "Filename"
 msgstr "Filnavn"
@@ -866,24 +902,6 @@ msgstr "Ganger spilt"
 #: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
 msgstr "Sist spilt"
-
-#: ../xlgui/plcolumns.py:220 ../xlgui/plcolumns.py:240
-#: ../plugins/minimode/mmwidgets.py:1007
-msgid "Never"
-msgstr "Aldri"
-
-#: ../xlgui/plcolumns.py:232 ../plugins/minimode/mmwidgets.py:1020
-msgid "Today"
-msgstr "I dag"
-
-#: ../xlgui/plcolumns.py:234 ../plugins/minimode/mmwidgets.py:1022
-msgid "Yesterday"
-msgstr "I går"
-
-#: ../xlgui/plcolumns.py:236 ../plugins/minimode/mmwidgets.py:1024
-#, python-format
-msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr ""
 
 #: ../xlgui/plcolumns.py:267
 msgid "Track Number"
@@ -913,21 +931,21 @@ msgstr "Avgrens til: "
 msgid " songs"
 msgstr " sanger"
 
-#: ../xlgui/playlist.py:1145
+#: ../xlgui/playlist.py:1146
 #, python-format
 msgid "Close %s"
 msgstr "Lukk %s"
 
-#: ../xlgui/playlist.py:1146
+#: ../xlgui/playlist.py:1147
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Lagre endringer i %s før lukking?</b>"
 
-#: ../xlgui/playlist.py:1147
+#: ../xlgui/playlist.py:1148
 msgid "Your changes will be lost if you don't save them"
 msgstr "Endringene dine vil gå tapt hvis du ikke lagrer dem"
 
-#: ../xlgui/playlist.py:1149
+#: ../xlgui/playlist.py:1150
 msgid "Close Without Saving"
 msgstr "Lukk uten å Lagre"
 
@@ -1030,8 +1048,8 @@ msgid "between"
 msgstr "mellom"
 
 #: ../xlgui/panel/playlists.py:230 ../xlgui/panel/playlists.py:336
-#: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:610
-#: ../xlgui/panel/playlists.py:684
+#: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
+#: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
 msgstr "Spillelistenavnet du oppgav er allerede i bruk."
 
@@ -1043,24 +1061,24 @@ msgstr "Navn på ny egendefinert spilleliste:"
 msgid "Add To New Playlist..."
 msgstr "Legg Til Ny Spilleliste..."
 
-#: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:604
-#: ../xlgui/panel/playlists.py:677
+#: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
+#: ../xlgui/panel/playlists.py:678
 msgid "You did not enter a name for your playlist"
 msgstr "Du oppgav ikke noe navn for spillelisten din"
 
-#: ../xlgui/panel/playlists.py:552
+#: ../xlgui/panel/playlists.py:553
 msgid "Smart Playlists"
 msgstr "Smarte spillelister"
 
-#: ../xlgui/panel/playlists.py:555
+#: ../xlgui/panel/playlists.py:556
 msgid "Custom Playlists"
 msgstr "Egne spillelister"
 
-#: ../xlgui/panel/playlists.py:590
+#: ../xlgui/panel/playlists.py:591
 msgid "Add Smart Playlist"
 msgstr "Ny smart spilleliste"
 
-#: ../xlgui/panel/playlists.py:655
+#: ../xlgui/panel/playlists.py:656
 msgid "Edit Smart Playlist"
 msgstr "Rediger smart spilleliste"
 
@@ -1094,7 +1112,7 @@ msgid "Enter the name you want for your new playlist"
 msgstr "Skriv inn navnet til den nye spillelisten"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:146
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "Størrelse"
 
@@ -1222,25 +1240,25 @@ msgstr ""
 msgid "Shortcut"
 msgstr "Snarvei"
 
-#: ../xlgui/tray.py:75
-msgid "Exaile Music Player"
-msgstr "Exaile Musikkavspiller"
-
-#: ../xlgui/tray.py:98 ../data/ui/main.ui.h:16
+#: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
 msgstr "Stokk om avspillingsrekkefølgen"
 
-#: ../xlgui/tray.py:103 ../data/ui/main.ui.h:14
+#: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
 msgstr "Gjenta spilleliste"
 
-#: ../xlgui/tray.py:108
+#: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
 msgstr "Legg til lignende spor dynamisk"
 
-#: ../xlgui/tray.py:118
+#: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
 msgstr "Fjern spillende spor fra spillelisten"
+
+#: ../xlgui/tray.py:179
+msgid "Exaile Music Player"
+msgstr "Exaile Musikkavspiller"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
@@ -1278,11 +1296,7 @@ msgstr "Tøm Spilleliste"
 msgid "Click to view Queue"
 msgstr "Klikk for å vise Kø"
 
-#: ../data/ui/main.ui.h:6
-msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
-
-#: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:210
+#: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
 msgid "Next Track"
 msgstr "Neste Spor"
 
@@ -1294,7 +1308,7 @@ msgstr "Åpne _URL"
 msgid "Page 1"
 msgstr "Side 1"
 
-#: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:208
+#: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:216
 msgid "Previous Track"
 msgstr "Forrige Spor"
 
@@ -1846,33 +1860,33 @@ msgstr "Plate nummer"
 msgid "Play count"
 msgstr "Avspillingsteller"
 
-#: ../plugins/daapclient/__init__.py:163
+#: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:209
+#: ../plugins/daapclient/__init__.py:207
 msgid "Enter IP address and port for share"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:210
+#: ../plugins/daapclient/__init__.py:208
 msgid "Enter IP address and port."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:380
+#: ../plugins/daapclient/__init__.py:376
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:459
+#: ../plugins/daapclient/__init__.py:455
 msgid "Disconnect"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:477
+#: ../plugins/daapclient/__init__.py:473
 msgid "Select a save location"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:527
+#: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
 msgstr ""
 
@@ -1896,7 +1910,7 @@ msgstr "Fjern bokmerkene"
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Ready"
-msgstr ""
+msgstr "Klar"
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
@@ -1953,6 +1967,19 @@ msgstr ""
 msgid "Moodbar executable is not available."
 msgstr ""
 
+#: ../plugins/droptrayicon/__init__.py:267
+#: ../plugins/droptrayicon/drop_target_window.ui.h:1
+msgid "Drop to Choose"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:270
+msgid "Append and Play"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:272
+msgid "Append"
+msgstr ""
+
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
@@ -1987,43 +2014,43 @@ msgstr "Åpne Podkast"
 msgid "Loading %s..."
 msgstr "Laster %s..."
 
-#: ../plugins/podcasts/__init__.py:184
+#: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:200
+#: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
 msgstr "Laster Podkaster..."
 
-#: ../plugins/podcasts/__init__.py:231
+#: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
 msgstr "Kunne ikke lagre podkastfil"
 
-#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:157
-#: ../plugins/shoutcast/__init__.py:200 ../plugins/shoutcast/__init__.py:236
+#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
+#: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:113 ../plugins/shoutcast/__init__.py:117
-#: ../plugins/shoutcast/__init__.py:166 ../plugins/shoutcast/__init__.py:170
-#: ../plugins/shoutcast/__init__.py:214 ../plugins/shoutcast/__init__.py:219
-#: ../plugins/shoutcast/__init__.py:247 ../plugins/shoutcast/__init__.py:252
+#: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
+#: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
+#: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
+#: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:272
+#: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:273
+#: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:296
+#: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
 msgstr "Søkeresultater"
 
-#: ../plugins/shoutcast/__init__.py:329
+#: ../plugins/shoutcast/__init__.py:345
 msgid "Search"
 msgstr "Søk"
 
@@ -2050,11 +2077,11 @@ msgstr ""
 msgid "IPython Console"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:214
+#: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
 msgstr "Stopp Avspilling"
 
-#: ../plugins/minimode/__init__.py:218
+#: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
 msgstr ""
 
@@ -2123,26 +2150,21 @@ msgstr ""
 msgid "$title ($length)"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:156 ../plugins/minimode/mmwidgets.py:170
+#: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
 msgstr "Start Avspilling"
 
-#: ../plugins/minimode/mmwidgets.py:174
+#: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
 msgstr "Fortsett Avspilling"
 
-#: ../plugins/minimode/mmwidgets.py:177
+#: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
 msgstr "Pause Avspilling"
 
-#: ../plugins/minimode/mmwidgets.py:837
+#: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
 msgstr ""
-
-#. TRANSLATORS: String multiple tag values will be joined by
-#: ../plugins/minimode/mmwidgets.py:937
-msgid " & "
-msgstr " & "
 
 #: ../plugins/contextinfo/__init__.py:1047
 #: ../plugins/contextinfo/context.ui.h:1
@@ -2177,7 +2199,7 @@ msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:4
 msgid "Alarm:"
-msgstr ""
+msgstr "Alarm"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:5
 msgid "Enable Fading"
@@ -2797,7 +2819,7 @@ msgid "Displays the current album cover on the desktop"
 msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
-msgid "Last.fm Dynamic Search"
+msgid "Last.fm Dynamic Playlists"
 msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
@@ -2812,6 +2834,17 @@ msgstr ""
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
+msgstr ""
+
+#: ../plugins/droptrayicon/PLUGININFO:3
+msgid "Drop Trayicon"
+msgstr ""
+
+#: ../plugins/droptrayicon/PLUGININFO:4
+msgid ""
+"Provides an alternative trayicon which accepts dropped files.\n"
+"\n"
+"Depends: python-eggtrayicon"
 msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3

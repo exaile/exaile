@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-03 19:07+0000\n"
-"Last-Translator: Paco Molinero <paco@byasl.com>\n"
+"PO-Revision-Date: 2009-12-15 10:56+0000\n"
+"Last-Translator: Gonzalo Testa <gonzalogtesta@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-12-05 04:35+0000\n"
+"X-Launchpad-Export-Date: 2009-12-16 04:58+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -1070,7 +1070,7 @@ msgstr "entre"
 #: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
 #: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
-msgstr "El nombre de la lista que ha introducido está ya en uso."
+msgstr "El nombre de la lista que ha introducido ya está en uso."
 
 #: ../xlgui/panel/playlists.py:367
 msgid "New custom playlist name:"
@@ -1145,7 +1145,7 @@ msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
-"Ésta acción eliminará definitivamente las pistas seleccionadas de su disco, "
+"Esta acción eliminará definitivamente las pistas seleccionadas de su disco, "
 "¿está seguro de que desea continuar?"
 
 #: ../xlgui/panel/collection.py:200

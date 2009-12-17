@@ -461,20 +461,14 @@ class CoverWidget(gtk.EventBox):
                     update_track=True)
             except cover.NoCoverFoundException:
                 logger.warning("No covers found")
-                gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
                 return
         else:
             try:
                 item = cover.get_album_tuple(track)
-                if item[0] and item[1]:
-                    cov = self.coverdb.get_cover(item[0], item[1])
-            except TypeError: # one of the fields is missing
-                pass
-            except AttributeError:
-                pass
-
+                cov = self.covers.coverdb.get_cover(item[0], item[1])
+            except (TypeError,AttributeError):
+                return
             if not cov:
-                gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
                 return
 
         if self.player.current == self.current_track:

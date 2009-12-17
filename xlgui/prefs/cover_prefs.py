@@ -52,3 +52,7 @@ class CoverOrderPreference(widgets.OrderListPrefsItem):
             self.prefs.main.exaile.covers.set_preferred_order(
                 self.items)
         return True
+        
+class AutomaticCoverFetching(widgets.CheckPrefsItem):
+    default = True
+    name = 'covers/automatic_fetching'

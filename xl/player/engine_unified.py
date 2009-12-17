@@ -199,7 +199,7 @@ class UnifiedPlayer(_base.ExailePlayer):
                 gobject.timeout_add(timeout, self._fade_stream,
                         self.streams[self._current_stream], -1, True)
             if settings.get_option("player/crossfading", False):
-                time = int(track.get_duration()*1000 - duration)
+                time = int(track.get_tag_raw("__length")*1000 - duration)
                 gobject.timer_id = gobject.timeout_add(time,
                         self._start_crossfade)
 

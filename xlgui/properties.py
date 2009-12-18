@@ -658,7 +658,9 @@ class TagDblNumField(gtk.HBox):
             f.set_range(min, max)
             f.set_increments(step, page)
 
-        lbl = gtk.Label(_('of') + ':')
+        # TRANSLATORS: This is the 'of' between numbers in fields like
+        # tracknumber, discnumber, etc. in the tagger.
+        lbl = gtk.Label(_('of:'))
         self.all_button = [None, None]
         if all_button:
             if all_button == 1:

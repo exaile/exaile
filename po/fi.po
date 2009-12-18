@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-09 19:52+0000\n"
+"PO-Revision-Date: 2009-12-17 22:08+0000\n"
 "Last-Translator: Jussi Aalto <jta_lnx@dnainternet.net>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-12-10 04:32+0000\n"
+"X-Launchpad-Export-Date: 2009-12-18 04:31+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
 msgid "Automatic"
-msgstr ""
+msgstr "Automaattinen"
 
 #: ../xl/main.py:120
 msgid "Failed to migrate from 0.2.14"
@@ -281,7 +281,7 @@ msgstr ""
 #: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
 #: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
 msgid "Never"
-msgstr ""
+msgstr "Ei koskaan"
 
 #: ../xl/trackformatter.py:213 ../xlgui/plcolumns.py:232
 #: ../plugins/minimode/mmwidgets.py:1087
@@ -437,7 +437,7 @@ msgstr "Tyylilaji"
 #: ../xlgui/properties.py:57 ../xlgui/plcolumns.py:104
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:67
 msgid "Composer"
-msgstr ""
+msgstr "Säveltäjä"
 
 #: ../xlgui/properties.py:58
 msgid "Encoded By"
@@ -639,7 +639,7 @@ msgstr "Poista"
 #: ../xlgui/menu.py:163 ../xlgui/menu.py:248
 #: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "Properties"
-msgstr ""
+msgstr "Ominaisuudet"
 
 #: ../xlgui/menu.py:177
 msgid "Playlist"
@@ -752,11 +752,11 @@ msgstr "Käynnistys"
 
 #: ../xlgui/cover.py:347
 msgid "Show Cover"
-msgstr ""
+msgstr "Näytä kansikuva"
 
 #: ../xlgui/cover.py:348
 msgid "Fetch Cover"
-msgstr ""
+msgstr "Nouda kansikuva"
 
 #: ../xlgui/cover.py:349
 msgid "Remove Cover"
@@ -768,7 +768,7 @@ msgstr "Anna etsittävä teksti"
 
 #: ../xlgui/cover.py:723
 msgid "No covers found"
-msgstr ""
+msgstr "Kansikuvia ei löytynyt"
 
 #: ../xlgui/osd.py:205 ../xlgui/plcolumns.py:124
 #, python-format
@@ -781,7 +781,7 @@ msgstr ""
 
 #: ../xlgui/__init__.py:138
 msgid "Export current playlist..."
-msgstr ""
+msgstr "Vie nykyinen soittolista..."
 
 #: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:940
 msgid "Invalid file extension, file not saved"
@@ -848,7 +848,7 @@ msgstr ""
 
 #: ../xlgui/commondialogs.py:335
 msgid "Select File Type (By Extension)"
-msgstr ""
+msgstr "Valitse tiedostotyyppi (tiedostopäätteen perusteella)"
 
 #: ../xlgui/commondialogs.py:343
 msgid "File Type"
@@ -1016,11 +1016,11 @@ msgstr "ei sisällä"
 
 #: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:152
 msgid "greater than"
-msgstr ""
+msgstr "on suurempi kuin"
 
 #: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:153
 msgid "less than"
-msgstr ""
+msgstr "on pienempi kuin"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:104
@@ -1129,7 +1129,7 @@ msgstr "Koko"
 #: ../xlgui/panel/files.py:413
 #, python-format
 msgid "%d KB"
-msgstr ""
+msgstr "%d kt"
 
 #: ../xlgui/panel/collection.py:140
 msgid ""
@@ -1150,7 +1150,7 @@ msgstr ""
 
 #: ../xlgui/prefs/cover_prefs.py:31
 msgid "Covers"
-msgstr ""
+msgstr "Kansikuvat"
 
 #: ../xlgui/prefs/appearance_prefs.py:32
 msgid "Appearance"
@@ -1375,7 +1375,7 @@ msgstr "_Muokkaa"
 
 #: ../data/ui/main.ui.h:28
 msgid "_Export current playlist"
-msgstr ""
+msgstr "_Vie nykyinen soittolista"
 
 #: ../data/ui/main.ui.h:29
 msgid "_File"
@@ -1638,7 +1638,7 @@ msgstr "Poista kaikki"
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "&#xA9; 2009"
-msgstr ""
+msgstr "&#xA9; 2009"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "About Exaile"
@@ -1662,6 +1662,22 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"Tekijänoikeudet (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Tämä ohjelma on vapaa; tätä ohjelmaa on sallittu levittää edelleen ja "
+"muuttaa\n"
+"GNU yleisen lisenssin (GPL-lisenssin) ehtojen mukaan sellaisina kuin\n"
+"Free Software Foundation on ne julkaissut; joko Lisenssin version 2, tai\n"
+"(valinnan mukaan) minkä tahansa myöhemmän version mukaisesti.\n"
+"\n"
+"Tätä ohjelmaa levitetään siinä toivossa, että se olisi hyödyllinen,\n"
+"mutta ilman mitään takuuta; ilman edes hiljaista takuuta\n"
+"kaupallisesti hyväksyttävästä laadusta tai soveltuvuudesta\n"
+"tiettyyn tarkoitukseen. Katso GPL-lisenssistä lisää yksityiskohtia.\n"
+"\n"
+"Tämän ohjelman mukana pitäisi tulla kopio GPL-lisenssistä;\n"
+"jos näin ei ole, kirjoita osoitteeseen Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/ui/about_dialog.ui.h:19
 msgid ""
@@ -1754,7 +1770,7 @@ msgstr "<b>Kokoelma on tyhjä.</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
-msgstr ""
+msgstr "Lisää musiikkia"
 
 #: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
@@ -1790,7 +1806,7 @@ msgstr "Näytä aina välilehtipalkki"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:2
 msgid "Bottom"
-msgstr ""
+msgstr "Alhaalla"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:4
 msgid "Jump to current song on track change"
@@ -1798,7 +1814,7 @@ msgstr "Siirry seuraavaan kappaleeseen raidan vaihtuessa"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:5
 msgid "Left"
-msgstr ""
+msgstr "Vasemmalla"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:6
 msgid "Minimize to tray"
@@ -1806,7 +1822,7 @@ msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
-msgstr ""
+msgstr "Oikealla"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:8
 msgid "Show splash screen on startup"
@@ -1822,7 +1838,7 @@ msgstr "Välilehtien sijoitus"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:11
 msgid "Top"
-msgstr ""
+msgstr "Ylhäällä"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:12
 msgid "Use alpha transparency (if supported)"
@@ -1840,7 +1856,7 @@ msgstr "Herätyskello"
 #: ../plugins/equalizer/__init__.py:129 ../plugins/equalizer/equalizer.ui.h:15
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Taajuuskorjain"
 
 #: ../plugins/awn/awn_prefs.py:32
 msgid "AWN"
@@ -1920,7 +1936,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
-msgstr ""
+msgstr "Poista kirjanmerkki"
 
 #: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
@@ -1947,13 +1963,13 @@ msgstr ""
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "esittäjä %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
@@ -2067,7 +2083,7 @@ msgstr "Shoutcast-haku"
 
 #: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
-msgstr ""
+msgstr "Hakutulokset"
 
 #: ../plugins/shoutcast/__init__.py:345
 msgid "Search"
@@ -2135,7 +2151,7 @@ msgstr "Seuraava"
 
 #: ../plugins/minimode/minimodeprefs.py:51
 msgid "Track selector"
-msgstr ""
+msgstr "Kappalevalitsin"
 
 #: ../plugins/minimode/minimodeprefs.py:52
 msgid "Progress bar"
@@ -2143,11 +2159,11 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:53
 msgid "Volume"
-msgstr ""
+msgstr "Äänenvoimakkuus"
 
 #: ../plugins/minimode/minimodeprefs.py:54
 msgid "Playlist button"
-msgstr ""
+msgstr "Soittolistapainike"
 
 #: ../plugins/minimode/minimodeprefs.py:57
 msgid "Restore"
@@ -2628,7 +2644,7 @@ msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Lisävahvistus (dB)"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Additional amplification to apply to all files"

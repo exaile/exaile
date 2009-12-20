@@ -383,7 +383,7 @@ class Track(object):
         # values.
         retval = None
         sorttag = self.__tags.get(tag + "sort")
-        if sorttag:
+        if sorttag and tag != "artist":
             retval = sorttag
         elif tag == "artist":
             if self.__tags.get('__compilation'):
@@ -392,6 +392,11 @@ class Track(object):
             else:
                 retval = self.__tags.get('artist',
                         u"\uffff\uffff\uffff\uffff")
+            if sorttag and retval not in (u"\uffff\uffff\uffff\ufffe",
+                    u"\uffff\uffff\uffff\uffff"):
+                retval = sorttag
+            else:
+                sorttag = None
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount'):
@@ -409,7 +414,7 @@ class Track(object):
                 if isinstance(retval, list):
                     retval = [self.lower(v) for v in retval]
                 else:
-                    retval = self.lower(v)
+                    retval = self.lower(retval)
             if join:
                 retval = self.join_values(retval)
 

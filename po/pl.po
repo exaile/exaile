@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-12 01:23+0000\n"
-"Last-Translator: Michał Markowski <Unknown>\n"
+"PO-Revision-Date: 2009-12-20 03:29+0000\n"
+"Last-Translator: mazdac <mazdac@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-12-13 04:35+0000\n"
+"X-Launchpad-Export-Date: 2009-12-20 04:34+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -1284,7 +1284,7 @@ msgstr "(Kliknij prawym przyciskiem myszy, aby zresetować ustawienia)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Użyj detekcji na podstawie nazwy pliku"
 
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"
@@ -1451,7 +1451,7 @@ msgstr "Właściwości ścieżki"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Uzyj dużej litery na początku każdego znacznika"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
@@ -1459,11 +1459,11 @@ msgstr "_Dalej"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Poprzedni"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "Usuń znacznik"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
@@ -1721,7 +1721,7 @@ msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.ui.h:8
 msgid "Normal"
-msgstr ""
+msgstr "Normalny"
 
 #: ../data/ui/playback_prefs_pane.ui.h:9
 msgid "OSS"
@@ -1815,7 +1815,7 @@ msgstr "Zawsze pokazuj pasek kart"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:2
 msgid "Bottom"
-msgstr ""
+msgstr "Dół"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:4
 msgid "Jump to current song on track change"
@@ -1823,7 +1823,7 @@ msgstr "Przejdź do bieżącej ścieżki po zmianie utworu."
 
 #: ../data/ui/appearance_prefs_pane.ui.h:5
 msgid "Left"
-msgstr ""
+msgstr "Po lewej"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:6
 msgid "Minimize to tray"
@@ -1831,7 +1831,7 @@ msgstr "Minimalizuj do zasobnika systemowego"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
-msgstr ""
+msgstr "Po prawej"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:8
 msgid "Show splash screen on startup"
@@ -1847,7 +1847,7 @@ msgstr "Położenie kart"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:11
 msgid "Top"
-msgstr ""
+msgstr "Góra"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:12
 msgid "Use alpha transparency (if supported)"
@@ -1956,7 +1956,7 @@ msgstr "Wyczyść zakładki"
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Ready"
-msgstr ""
+msgstr "Gotowe"
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
@@ -2016,7 +2016,7 @@ msgstr "Plik wykonywalny paska nastroju jest niedostępny."
 #: ../plugins/droptrayicon/__init__.py:267
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Upuść aby wybrać"
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"
@@ -2024,7 +2024,7 @@ msgstr "Dodaj i odtwórz"
 
 #: ../plugins/droptrayicon/__init__.py:272
 msgid "Append"
-msgstr ""
+msgstr "Dołącz"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
@@ -2393,7 +2393,7 @@ msgstr "Wyświetlaj okładki"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
-msgstr ""
+msgstr "Nakładka wyświetlacza"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"

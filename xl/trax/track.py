@@ -472,10 +472,12 @@ class Track(object):
 
             :param format: pre-format into a search query.
         """
+        extraformat = ""
         if tag == "artist":
             if self.__tags.get('__compilation'):
                 retval = self.__tags.get('albumartist', '__null__')
                 tag = 'albumartist'
+                extraformat += " ! __compilation==__null__"
             else:
                 retval = self.__tags.get('artist', '__null__')
         elif tag in ('tracknumber', 'discnumber'):
@@ -497,6 +499,8 @@ class Track(object):
                 retval = " ".join(["%s==\"%s\""%(tag, val) for val in retval])
             else:
                 retval = "%s==\"%s\""%(tag, retval)
+            if extraformat:
+                retval += extraformat
 
         # hack to make things work - discnumber breaks without it.
         # TODO: figure out why this happens, cleaner solution

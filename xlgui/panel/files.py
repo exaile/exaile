@@ -230,7 +230,7 @@ class FilesPanel(panel.Panel):
             self.go_up(self.tree)
             return True
 
-        if event.keyval == gtk.keysyms.Backspace:
+        if event.keyval == gtk.keysyms.BackSpace:
             self.go_up(self.tree)
             return True
 

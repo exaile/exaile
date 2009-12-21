@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-20 03:29+0000\n"
-"Last-Translator: mazdac <mazdac@gmail.com>\n"
+"PO-Revision-Date: 2009-12-20 08:49+0000\n"
+"Last-Translator: Tomasz Trębski <kornicameister@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-12-20 04:34+0000\n"
+"X-Launchpad-Export-Date: 2009-12-21 04:42+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -41,11 +41,11 @@ msgstr "Odtwórz poprzedni utwór"
 
 #: ../xl/main.py:294
 msgid "Stop playback"
-msgstr "Zatrzymaj odtwarzanie"
+msgstr "Stop"
 
 #: ../xl/main.py:296
 msgid "Play"
-msgstr "Odtwórz"
+msgstr "Odtwarzaj"
 
 #: ../xl/main.py:298
 msgid "Toggle Play or Pause"
@@ -61,7 +61,7 @@ msgstr "Opcje utworu"
 
 #: ../xl/main.py:306
 msgid "Query player"
-msgstr "Lista odtwarzania"
+msgstr ""
 
 #: ../xl/main.py:308
 msgid "Show a popup of the currently playing track"
@@ -97,7 +97,7 @@ msgstr "Wyświetl pozycję w obecnym utworze jako czas"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
-msgstr "Wyświetl pozycję w obecnym utworze w procentach"
+msgstr "Wyświetl pozycję w obecnym utworze procentowo"
 
 #: ../xl/main.py:329
 msgid "Volume options"

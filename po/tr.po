@@ -7,202 +7,202 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-11-05 20:13+0100\n"
-"PO-Revision-Date: 2009-11-13 16:32+0000\n"
-"Last-Translator: Mustafa Yılmaz <apshalasha@gmail.com>\n"
+"POT-Creation-Date: 2009-11-30 12:40+0100\n"
+"PO-Revision-Date: 2009-12-20 07:25+0000\n"
+"Last-Translator: zeugma <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-11-14 04:39+0000\n"
+"X-Launchpad-Export-Date: 2009-12-21 04:42+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.glade.h:3
+#: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
 msgid "Automatic"
 msgstr "Otomatik"
 
-#: ../xl/main.py:130
+#: ../xl/main.py:120
 msgid "Failed to migrate from 0.2.14"
 msgstr "0.2.14'den taşıma başarısız oldu"
 
-#: ../xl/main.py:298
+#: ../xl/main.py:288
 msgid "Playback options"
 msgstr "Kayıttan Yürütme Seçenekleri"
 
-#: ../xl/main.py:300
+#: ../xl/main.py:290
 msgid "Play the next track"
 msgstr "Sonraki parçayı oynat"
 
-#: ../xl/main.py:302
+#: ../xl/main.py:292
 msgid "Play the previous track"
 msgstr "Önceki parçayı oynat"
 
-#: ../xl/main.py:304
+#: ../xl/main.py:294
 msgid "Stop playback"
 msgstr "Oynatmayı durdur"
 
-#: ../xl/main.py:306
+#: ../xl/main.py:296
 msgid "Play"
 msgstr "Oynat"
 
-#: ../xl/main.py:308
+#: ../xl/main.py:298
 msgid "Toggle Play or Pause"
 msgstr "Oynat veya Durdur."
 
-#: ../xl/main.py:311
+#: ../xl/main.py:301
 msgid "Stop playback after current track"
 msgstr "Bu parçadan sonra yürütmeyi durdur"
 
-#: ../xl/main.py:314
+#: ../xl/main.py:304
 msgid "Track options"
 msgstr "Parça Seçenekleri"
 
-#: ../xl/main.py:316
+#: ../xl/main.py:306
 msgid "Query player"
 msgstr ""
 
-#: ../xl/main.py:318
+#: ../xl/main.py:308
 msgid "Show a popup of the currently playing track"
 msgstr "Şu an çalan parçayı açılır pencerede göster"
 
-#: ../xl/main.py:320
+#: ../xl/main.py:310
 msgid "Print the title of current track"
 msgstr "Çalan parçanın başlığını görüntüle"
 
-#: ../xl/main.py:322
+#: ../xl/main.py:312
 msgid "Print the album of current track"
 msgstr "Çalan parçanın albümünü görüntüle"
 
-#: ../xl/main.py:324
+#: ../xl/main.py:314
 msgid "Print the artist of current track"
 msgstr "Çalan parçanın sanatçısını görüntüle"
 
-#: ../xl/main.py:326
+#: ../xl/main.py:316
 msgid "Print the length of current track"
 msgstr "Çalan parçanın uzunluğunu görüntüle"
 
-#: ../xl/main.py:328
+#: ../xl/main.py:318
 msgid "Set rating for current song"
 msgstr "Çalan şarkı için değerlendirme yap"
 
-#: ../xl/main.py:330
+#: ../xl/main.py:320
 msgid "Get rating for current song"
 msgstr "Çalan şarkının değerlendirmesini al"
 
-#: ../xl/main.py:333
+#: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
 msgstr ""
 
-#: ../xl/main.py:336
+#: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
 msgstr ""
 
-#: ../xl/main.py:339
+#: ../xl/main.py:329
 msgid "Volume options"
 msgstr "Ses Seçenekleri"
 
-#: ../xl/main.py:341
+#: ../xl/main.py:331
 msgid "Increases the volume by VOL%"
 msgstr "Sesi VOL% kadar yükseltir"
 
-#: ../xl/main.py:343
+#: ../xl/main.py:333
 msgid "Decreases the volume by VOL%"
 msgstr "Sesi VOL% karar alçaltır"
 
-#: ../xl/main.py:345
+#: ../xl/main.py:335
 msgid "Print the current volume percentage"
 msgstr "Şu anki ses yüzdesini yazdır"
 
-#: ../xl/main.py:348
+#: ../xl/main.py:338
 msgid "Other options"
 msgstr "Diğer seçenkler:"
 
-#: ../xl/main.py:350
+#: ../xl/main.py:340
 msgid "Start new instance"
 msgstr ""
 
-#: ../xl/main.py:353
+#: ../xl/main.py:343
 msgid "Start minimized (to tray, if possible)"
 msgstr "Küçültülmüş olarak başlar (eğer mümkünse, sistem tepsisine)"
 
-#: ../xl/main.py:355
+#: ../xl/main.py:345
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Görsel arayüzün görünürlüğünü değiştir (eğer mümkünse)"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:347
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Güvenli kipte başlat - sorunlarla karşılaştığınızda bazen kullanışlı "
 "olabilir."
 
-#: ../xl/main.py:360
+#: ../xl/main.py:350
 msgid "Force import of old data from 0.2.x. Overwrites current data."
 msgstr ""
 "Eski veriyi 0.2.x'den zorla içe aktar. Şu anki verinin üzerine yazar."
 
-#: ../xl/main.py:363
+#: ../xl/main.py:353
 msgid "Do not import old data from 0.2.x."
 msgstr "0.2.x'den eski datayı içe aktarma"
 
-#: ../xl/main.py:368
+#: ../xl/main.py:358
 msgid "Development/Debug options"
 msgstr "Geliştirme/Hata ayıklama seçenekleri"
 
-#: ../xl/main.py:369
+#: ../xl/main.py:359
 msgid "Set data directory"
 msgstr "Veri dizinini ayarla"
 
-#: ../xl/main.py:371
+#: ../xl/main.py:361
 msgid "Show debugging output"
 msgstr "Hata ayıklama çıktısını göster"
 
-#: ../xl/main.py:374
+#: ../xl/main.py:364
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr ""
 
-#: ../xl/main.py:376
+#: ../xl/main.py:366
 msgid "Filter event debug output"
 msgstr ""
 
-#: ../xl/main.py:379
+#: ../xl/main.py:369
 msgid "Reduce level of output"
 msgstr "Çıktı seviyesini azalt"
 
-#: ../xl/main.py:383
+#: ../xl/main.py:373
 msgid "Disable D-Bus support"
 msgstr "D-Bus desteğini etkisizleştir"
 
-#: ../xl/main.py:385
+#: ../xl/main.py:375
 msgid "Disable HAL support."
 msgstr "HAL desteğini etkisizleştir"
 
-#: ../xl/main.py:404
+#: ../xl/main.py:394
 msgid "Entire Library"
 msgstr "Tüm Kütüphane"
 
-#: ../xl/main.py:410
+#: ../xl/main.py:400
 #, python-format
 msgid "Random %d"
 msgstr "Rasgele %d"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:408
 #, python-format
 msgid "Rating > %d"
 msgstr "Derecelendirme > %d"
 
-#: ../xl/main.py:515
+#: ../xl/main.py:505
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
 
-#: ../xl/cover.py:131 ../xl/cover.py:165 ../xl/trackdb.py:247
+#: ../xl/cover.py:155 ../xl/cover.py:189 ../xl/trackdb.py:226
 msgid "You did not specify a location to save the db"
 msgstr "Veritabanına aktarım yapmak için bir yer belirtilmediniz"
 
-#: ../xl/cover.py:257 ../xl/lyrics.py:85
+#: ../xl/cover.py:281 ../xl/lyrics.py:85
 msgid "order must be a list or tuple"
 msgstr "sıra, liste veya değişkenler grubu olmalı"
 
@@ -250,12 +250,50 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "Çok hızlı ve kayıpsız iyi sıkıştırmaya sahip bir Özgür ses biçimi."
 
-#: ../xl/track.py:547
+#: ../xl/track.py:388
+msgid "Various Artists"
+msgstr ""
+
+#. TRANSLATORS : this replaces the title of a track when it's not known
+#: ../xl/track.py:393 ../xl/track.py:412 ../xl/trackformatter.py:121
+#: ../xl/playlist.py:245 ../xlgui/panel/collection.py:478
+#: ../plugins/notifyosd/__init__.py:57 ../plugins/minimode/mmwidgets.py:1015
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#. TRANSLATORS: String multiple tag values will be joined by
+#: ../xl/track.py:424 ../xl/trackformatter.py:110
+#: ../plugins/minimode/mmwidgets.py:1004
+msgid " & "
+msgstr ""
+
+#: ../xl/track.py:584
 msgid "  New song, fetching cover."
 msgstr "  Yeni parça, albüm kapağı alınıyor."
 
 #: ../xl/devices.py:141 ../xl/devices.py:147
 msgid "Device class does not support transfer."
+msgstr ""
+
+#: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
+#: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
+msgid "Never"
+msgstr ""
+
+#: ../xl/trackformatter.py:213 ../xlgui/plcolumns.py:232
+#: ../plugins/minimode/mmwidgets.py:1087
+msgid "Today"
+msgstr "Bugün"
+
+#: ../xl/trackformatter.py:215 ../xlgui/plcolumns.py:234
+#: ../plugins/minimode/mmwidgets.py:1089
+msgid "Yesterday"
+msgstr "Dün"
+
+#: ../xl/trackformatter.py:217 ../xlgui/plcolumns.py:236
+#: ../plugins/minimode/mmwidgets.py:1091
+#, python-format
+msgid "%(year)d-%(month)02d-%(day)02d"
 msgstr ""
 
 #: ../xl/settings.py:94
@@ -283,16 +321,7 @@ msgstr "\"%s\" adında bir eklenti zaten kurulu"
 msgid "Plugin archive contains an unsafe path"
 msgstr ""
 
-#. TRANSLATORS : this replaces the title of a track when it's not known
-#: ../xl/playlist.py:244 ../xlgui/panel/collection.py:458
-#: ../xlgui/panel/collection.py:671 ../xlgui/panel/collection.py:708
-#: ../plugins/bookmarks/__init__.py:151 ../plugins/notifyosd/__init__.py:57
-#: ../plugins/notifyosd/__init__.py:68 ../plugins/notify/__init__.py:27
-#: ../plugins/minimode/mmwidgets.py:948
-msgid "Unknown"
-msgstr "Bilinmeyen"
-
-#: ../xl/playlist.py:388
+#: ../xl/playlist.py:386
 #, python-format
 msgid "Playlist %d"
 msgstr "Çalma listesi %d"
@@ -308,138 +337,133 @@ msgid ""
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 
-#: ../xl/trackdb.py:183
+#: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
 msgstr ""
 
-#: ../xlgui/properties.py:34
+#: ../xlgui/properties.py:36
 msgid "Original Album"
-msgstr ""
+msgstr "Orjinal Albüm"
 
-#: ../xlgui/properties.py:35
+#: ../xlgui/properties.py:37
 msgid "Lyricist"
 msgstr ""
 
-#: ../xlgui/properties.py:36
-msgid "Part"
-msgstr ""
-
-#: ../xlgui/properties.py:37
+#: ../xlgui/properties.py:39
 msgid "Website"
 msgstr ""
 
-#: ../xlgui/properties.py:38
-msgid "Cover"
-msgstr ""
-
-#: ../xlgui/properties.py:39
+#: ../xlgui/properties.py:41
 msgid "Original Artist"
 msgstr ""
 
-#: ../xlgui/properties.py:40
+#: ../xlgui/properties.py:42
 msgid "Author"
-msgstr ""
+msgstr "Yazar"
 
-#: ../xlgui/properties.py:41
+#: ../xlgui/properties.py:43
 msgid "Original Date"
-msgstr ""
+msgstr "Orjinal Tarih"
 
-#: ../xlgui/properties.py:42 ../xlgui/plcolumns.py:163
+#: ../xlgui/properties.py:44 ../xlgui/plcolumns.py:163
 #: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:72
 msgid "Date"
 msgstr "Tarih"
 
-#: ../xlgui/properties.py:43
+#: ../xlgui/properties.py:45
 msgid "Arranger"
-msgstr ""
+msgstr "Düzenleyen"
 
-#: ../xlgui/properties.py:44
+#: ../xlgui/properties.py:46
 msgid "Conductor"
 msgstr ""
 
-#: ../xlgui/properties.py:45
+#: ../xlgui/properties.py:47
 msgid "Performer"
-msgstr ""
+msgstr "İcracı"
 
-#: ../xlgui/properties.py:46 ../xlgui/plcolumns.py:99
-#: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:151
-#: ../data/ui/collection_panel.glade.h:4 ../plugins/cd/cdprefs.py:95
+#: ../xlgui/properties.py:48 ../xlgui/plcolumns.py:99
+#: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:157
+#: ../data/ui/collection_panel.ui.h:4 ../plugins/cd/cdprefs.py:95
 #: ../plugins/minimode/minimodeprefs.py:66
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Artist"
 msgstr "Sanatçı"
 
-#: ../xlgui/properties.py:47 ../xlgui/plcolumns.py:109
-#: ../xlgui/panel/playlists.py:77 ../xlgui/panel/playlists.py:153
-#: ../data/ui/collection_panel.glade.h:3 ../plugins/cd/cdprefs.py:97
+#: ../xlgui/properties.py:49 ../xlgui/plcolumns.py:109
+#: ../xlgui/panel/playlists.py:77 ../xlgui/panel/playlists.py:159
+#: ../data/ui/collection_panel.ui.h:3 ../plugins/cd/cdprefs.py:97
 #: ../plugins/minimode/minimodeprefs.py:68
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Album"
 msgstr "Albüm"
 
-#: ../xlgui/properties.py:48
+#: ../xlgui/properties.py:50
 msgid "Copyright"
-msgstr ""
+msgstr "Telif Hakkı"
 
-#: ../xlgui/properties.py:49
+#: ../xlgui/properties.py:51
 msgid "Lyrics"
 msgstr ""
 
-#: ../xlgui/properties.py:50
+#: ../xlgui/properties.py:52 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
-msgstr ""
+msgstr "Parça"
 
-#: ../xlgui/properties.py:51 ../xlgui/prefs/plugin_prefs.py:98
+#: ../xlgui/properties.py:53 ../xlgui/prefs/plugin_prefs.py:98
 msgid "Version"
-msgstr ""
+msgstr "Sürüm"
 
-#: ../xlgui/properties.py:52 ../xlgui/plcolumns.py:94
-#: ../xlgui/panel/playlists.py:152 ../xlgui/panel/flatplaylist.py:98
-#: ../plugins/cd/cdprefs.py:94 ../plugins/minimode/minimodeprefs.py:65
+#: ../xlgui/properties.py:54 ../xlgui/plcolumns.py:94
+#: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:158
+#: ../xlgui/panel/flatplaylist.py:98 ../plugins/cd/cdprefs.py:94
+#: ../plugins/minimode/minimodeprefs.py:65
 msgid "Title"
 msgstr "Başlık"
 
-#: ../xlgui/properties.py:53
+#: ../xlgui/properties.py:55
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
-#: ../xlgui/properties.py:54 ../xlgui/plcolumns.py:168
-#: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:158
+#: ../xlgui/properties.py:56 ../xlgui/plcolumns.py:168
+#: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:164
 #: ../plugins/cd/cdprefs.py:102 ../plugins/minimode/minimodeprefs.py:73
 msgid "Genre"
 msgstr "Tür"
 
-#: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:104
+#: ../xlgui/properties.py:57 ../xlgui/plcolumns.py:104
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:67
 msgid "Composer"
 msgstr ""
 
-#: ../xlgui/properties.py:56
+#: ../xlgui/properties.py:58
 msgid "Encoded By"
 msgstr ""
 
-#: ../xlgui/properties.py:57
+#: ../xlgui/properties.py:59
 msgid "Organization"
-msgstr ""
+msgstr "Organizasyon"
 
-#: ../xlgui/properties.py:58 ../xlgui/plcolumns.py:134
+#: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:134
 msgid "Disc"
 msgstr "Disk"
 
-#: ../xlgui/properties.py:59 ../xlgui/plcolumns.py:204
+#: ../xlgui/properties.py:61 ../xlgui/plcolumns.py:204
 #: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimodeprefs.py:79
 msgid "BPM"
 msgstr ""
 
-#: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:173
+#: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:173
 #: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimodeprefs.py:74
 msgid "Bitrate"
 msgstr "Bit oranı"
 
-#: ../xlgui/properties.py:61
+#: ../xlgui/properties.py:63
 msgid "Date Added"
 msgstr ""
 
-#: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:114
-#: ../xlgui/panel/playlists.py:109 ../xlgui/panel/playlists.py:154
+#: ../xlgui/properties.py:64 ../xlgui/plcolumns.py:114
+#: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160
 #: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:69
 msgid "Length"
 msgstr "Uzunluk"
@@ -457,137 +481,137 @@ msgstr "Uzunluk"
 #. (_('not in the last'), (SpinDateField,
 #. lambda x, i: day_calc(x, i, 'last_played', '<'))),
 #. ]),
-#: ../xlgui/properties.py:63 ../xlgui/plcolumns.py:186
-#: ../xlgui/panel/playlists.py:128 ../xlgui/panel/playlists.py:159
+#: ../xlgui/properties.py:65 ../xlgui/plcolumns.py:186
+#: ../xlgui/panel/playlists.py:134 ../xlgui/panel/playlists.py:165
 #: ../plugins/cd/cdprefs.py:104 ../plugins/minimode/minimodeprefs.py:75
 msgid "Location"
 msgstr "Konum"
 
-#: ../xlgui/properties.py:64
-msgid "Base Directory"
-msgstr ""
-
-#: ../xlgui/properties.py:65
+#: ../xlgui/properties.py:67
 msgid "Modified"
 msgstr ""
 
-#: ../xlgui/properties.py:66
-msgid "Playtime"
-msgstr ""
-
-#: ../xlgui/properties.py:67
+#: ../xlgui/properties.py:69
 msgid "Times Played"
 msgstr ""
 
-#: ../xlgui/properties.py:68
+#: ../xlgui/properties.py:70
 msgid "Last Played"
 msgstr ""
 
-#: ../xlgui/properties.py:212
+#: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr ""
 
-#: ../xlgui/properties.py:326
+#: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
 msgstr ""
 
-#: ../xlgui/properties.py:651
+#: ../xlgui/properties.py:655
 msgid "of"
 msgstr ""
 
-#: ../xlgui/properties.py:770
+#: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/main.py:48 ../xlgui/main.py:119 ../xlgui/main.py:1084
-#: ../data/ui/main.glade.h:8 ../plugins/minimode/mmwidgets.py:735
+#: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
+#: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
 msgid "Not Playing"
 msgstr "Çalmıyor"
 
-#: ../xlgui/main.py:129 ../plugins/minimode/mmwidgets.py:755
+#: ../xlgui/main.py:130 ../plugins/minimode/mmwidgets.py:822
 msgid "Streaming..."
 msgstr ""
 
-#: ../xlgui/main.py:213
+#: ../xlgui/main.py:214
 msgid "Close tab"
 msgstr "Sekmeyi kapat"
 
-#: ../xlgui/main.py:270
+#: ../xlgui/main.py:272
 msgid "New playlist title:"
 msgstr "Yeni çalma listesi başlığı:"
 
-#: ../xlgui/main.py:270 ../xlgui/menu.py:444
+#: ../xlgui/main.py:272 ../xlgui/menu.py:448
 msgid "Rename Playlist"
 msgstr "Çalma Listesini Yeniden Adlandır"
 
-#: ../xlgui/main.py:279
+#: ../xlgui/main.py:281
 msgid "Custom playlist name:"
 msgstr "Özel çalma listesi ismi:"
 
-#: ../xlgui/main.py:279
+#: ../xlgui/main.py:281
 msgid "Save As..."
 msgstr "Farklı Kaydet..."
 
-#: ../xlgui/main.py:659
+#: ../xlgui/main.py:662
 msgid "Toggle: Stop after selected track"
 msgstr ""
 
-#: ../xlgui/main.py:836
+#: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
+msgid "Dynamically add similar tracks to the playlist"
+msgstr ""
+
+#: ../xlgui/main.py:706
+msgid "Requires plugins providing dynamic playlists"
+msgstr ""
+
+#: ../xlgui/main.py:862
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr ""
 
-#: ../xlgui/main.py:838
+#: ../xlgui/main.py:864
 msgid "Buffering: 100%..."
 msgstr ""
 
-#: ../xlgui/main.py:996 ../xlgui/main.py:1004 ../xlgui/main.py:1028
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
 msgstr ""
 
-#: ../xlgui/main.py:996 ../xlgui/main.py:1030
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
 msgstr ""
 
-#: ../xlgui/main.py:996 ../xlgui/main.py:1033
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
 msgstr ""
 
-#: ../xlgui/main.py:1085 ../data/ui/main.glade.h:21
+#: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
 msgstr "Durduruldu"
 
-#: ../xlgui/main.py:1183
+#: ../xlgui/main.py:1209
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
 
 #. TRANSLATORS: Window title
-#: ../xlgui/main.py:1205
+#: ../xlgui/main.py:1219
 #, python-format
 msgid "%(title)s (by %(artist)s)"
 msgstr ""
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1215
+#: ../xlgui/main.py:1229
 #, python-format
 msgid "by %s"
 msgstr ""
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1217
+#: ../xlgui/main.py:1231
 #, python-format
 msgid "from %s"
 msgstr ""
 
-#: ../xlgui/main.py:1228
+#: ../xlgui/main.py:1242
 #, python-format
 msgid "In pause: %s"
 msgstr ""
 
-#: ../xlgui/main.py:1230
+#: ../xlgui/main.py:1244
 #, python-format
 msgid "Playing %s"
 msgstr "Oynatılıyor %s"
@@ -596,7 +620,8 @@ msgstr "Oynatılıyor %s"
 msgid "Toggle Queue"
 msgstr ""
 
-#: ../xlgui/menu.py:99 ../xlgui/menu.py:340 ../xlgui/panel/radio.py:408
+#: ../xlgui/menu.py:99 ../xlgui/menu.py:344 ../xlgui/panel/radio.py:408
+#: ../plugins/droptrayicon/__init__.py:274
 msgid "New Playlist"
 msgstr "Yeni Çalma Listesi"
 
@@ -604,11 +629,12 @@ msgstr "Yeni Çalma Listesi"
 msgid "Add to custom playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:160 ../xlgui/menu.py:483
+#: ../xlgui/menu.py:160 ../xlgui/menu.py:487
 msgid "Remove"
 msgstr "Kaldır"
 
-#: ../xlgui/menu.py:163 ../data/ui/trackproperties_dialog.glade.h:2
+#: ../xlgui/menu.py:163 ../xlgui/menu.py:248
+#: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "Properties"
 msgstr "Özellikler"
 
@@ -616,7 +642,7 @@ msgstr "Özellikler"
 msgid "Playlist"
 msgstr "Çalma Listesi"
 
-#: ../xlgui/menu.py:212 ../data/ui/main.glade.h:32
+#: ../xlgui/menu.py:212 ../data/ui/main.ui.h:32
 msgid "_New Playlist"
 msgstr ""
 
@@ -644,72 +670,72 @@ msgstr ""
 msgid "_Close Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:242
+#: ../xlgui/menu.py:243
 msgid "Append to Current"
 msgstr "Geçerli Listeye Ekle"
 
-#: ../xlgui/menu.py:244
+#: ../xlgui/menu.py:245
 msgid "Queue Items"
 msgstr "Öğeleri Sırala"
 
-#: ../xlgui/menu.py:306
+#: ../xlgui/menu.py:310
 msgid "Delete track"
 msgstr ""
 
-#: ../xlgui/menu.py:337
+#: ../xlgui/menu.py:341
 msgid "New Station"
 msgstr ""
 
-#: ../xlgui/menu.py:342
+#: ../xlgui/menu.py:346
 msgid "New Smart Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:386
+#: ../xlgui/menu.py:390
 msgid "Open"
 msgstr "Aç"
 
-#: ../xlgui/menu.py:389
+#: ../xlgui/menu.py:393
 msgid "Rename"
 msgstr ""
 
-#: ../xlgui/menu.py:391
+#: ../xlgui/menu.py:395
 msgid "Edit"
 msgstr "Düzenle"
 
-#: ../xlgui/menu.py:394
+#: ../xlgui/menu.py:398
 msgid "Export"
 msgstr "Dışarı Aktar"
 
-#: ../xlgui/menu.py:397
+#: ../xlgui/menu.py:401
 msgid "Delete Playlist"
 msgstr "Çalma Listesini Sil"
 
-#: ../xlgui/menu.py:407
+#: ../xlgui/menu.py:411
 msgid "Export as..."
 msgstr ""
 
-#: ../xlgui/menu.py:412 ../xlgui/__init__.py:134
+#: ../xlgui/menu.py:416 ../xlgui/__init__.py:143
 msgid "M3U Playlist"
 msgstr "M3U Çalma Listesi"
 
-#: ../xlgui/menu.py:413 ../xlgui/__init__.py:135
+#: ../xlgui/menu.py:417 ../xlgui/__init__.py:144
 msgid "PLS Playlist"
 msgstr "PLS Çalma Listesi"
 
-#: ../xlgui/menu.py:414 ../xlgui/__init__.py:136
+#: ../xlgui/menu.py:418 ../xlgui/__init__.py:145
 msgid "ASX Playlist"
 msgstr "ASX Çalma Listesi"
 
-#: ../xlgui/menu.py:415 ../xlgui/__init__.py:137
+#: ../xlgui/menu.py:419 ../xlgui/__init__.py:146
 msgid "XSPF Playlist"
 msgstr "XSPF Çalma Listesi"
 
-#: ../xlgui/menu.py:430 ../xlgui/panel/playlists.py:978
+#: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:985
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr ""
 "Seçilen çalma listesini kalıcı olarak silmek istediğinize emin misiniz?"
 
-#: ../xlgui/menu.py:443
+#: ../xlgui/menu.py:447
 msgid "Enter the new name you want for your playlist"
 msgstr "Çalma listeniz için istediğiniz yeni ismi giriniz"
 
@@ -718,8 +744,7 @@ msgstr "Çalma listeniz için istediğiniz yeni ismi giriniz"
 msgid "%d covers to fetch"
 msgstr ""
 
-#: ../xlgui/cover.py:313 ../xlgui/cover.py:332
-#: ../data/ui/covermanager.glade.h:2
+#: ../xlgui/cover.py:313 ../xlgui/cover.py:332 ../data/ui/covermanager.ui.h:2
 msgid "Start"
 msgstr "Başlat"
 
@@ -752,47 +777,47 @@ msgstr ""
 msgid "No track"
 msgstr ""
 
-#: ../xlgui/__init__.py:129
+#: ../xlgui/__init__.py:138
 msgid "Export current playlist..."
 msgstr ""
 
-#: ../xlgui/__init__.py:152 ../xlgui/panel/playlists.py:933
+#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:940
 msgid "Invalid file extension, file not saved"
 msgstr "Geçersiz dosya uzantısı, dosya kaydedilmedi"
 
-#: ../xlgui/__init__.py:159
+#: ../xlgui/__init__.py:168
 msgid "Enter the URL to open"
 msgstr ""
 
-#: ../xlgui/__init__.py:160
+#: ../xlgui/__init__.py:169
 msgid "Open URL"
 msgstr ""
 
-#: ../xlgui/__init__.py:174
+#: ../xlgui/__init__.py:183
 msgid "Choose a file to open"
 msgstr ""
 
-#: ../xlgui/__init__.py:181
+#: ../xlgui/__init__.py:190
 msgid "Supported Files"
 msgstr ""
 
-#: ../xlgui/__init__.py:183
+#: ../xlgui/__init__.py:192
 msgid "Music Files"
 msgstr ""
 
-#: ../xlgui/__init__.py:185
+#: ../xlgui/__init__.py:194
 msgid "Playlist Files"
 msgstr ""
 
-#: ../xlgui/__init__.py:187 ../xlgui/prefs/plugin_prefs.py:143
+#: ../xlgui/__init__.py:196 ../xlgui/prefs/plugin_prefs.py:143
 msgid "All Files"
 msgstr ""
 
-#: ../xlgui/__init__.py:325
+#: ../xlgui/__init__.py:334
 msgid "Scanning collection..."
 msgstr "Kolleksiyon taranıyor..."
 
-#: ../xlgui/__init__.py:430
+#: ../xlgui/__init__.py:439
 #, python-format
 msgid "Scanning %s..."
 msgstr ""
@@ -865,14 +890,15 @@ msgstr ""
 msgid "0:00"
 msgstr "0:00"
 
-#: ../xlgui/plcolumns.py:140 ../xlgui/panel/playlists.py:89
-#: ../xlgui/panel/playlists.py:155 ../plugins/cd/cdprefs.py:100
+#: ../xlgui/plcolumns.py:140 ../xlgui/panel/playlists.py:95
+#: ../xlgui/panel/playlists.py:161 ../plugins/cd/cdprefs.py:100
 #: ../plugins/minimode/minimodeprefs.py:71
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Rating"
 msgstr "Derecelendirme"
 
 #. TRANSLATORS: Filename column in the file browser
-#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:102
+#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:120
 #: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:76
 msgid "Filename"
 msgstr "Dosya Adı"
@@ -883,24 +909,6 @@ msgstr "Çalma Sayısı"
 
 #: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
-msgstr ""
-
-#: ../xlgui/plcolumns.py:220 ../xlgui/plcolumns.py:240
-#: ../plugins/minimode/mmwidgets.py:1007
-msgid "Never"
-msgstr ""
-
-#: ../xlgui/plcolumns.py:232 ../plugins/minimode/mmwidgets.py:1020
-msgid "Today"
-msgstr ""
-
-#: ../xlgui/plcolumns.py:234 ../plugins/minimode/mmwidgets.py:1022
-msgid "Yesterday"
-msgstr ""
-
-#: ../xlgui/plcolumns.py:236 ../plugins/minimode/mmwidgets.py:1024
-#, python-format
-msgid "%(year)d-%(month)02d-%(day)02d"
 msgstr ""
 
 #: ../xlgui/plcolumns.py:267
@@ -931,21 +939,21 @@ msgstr ""
 msgid " songs"
 msgstr " şarkılar"
 
-#: ../xlgui/playlist.py:1150
+#: ../xlgui/playlist.py:1146
 #, python-format
 msgid "Close %s"
 msgstr ""
 
-#: ../xlgui/playlist.py:1151
+#: ../xlgui/playlist.py:1147
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Kapatmadan önce değişikllikler %s için kaydedilsin mi?</b>"
 
-#: ../xlgui/playlist.py:1152
+#: ../xlgui/playlist.py:1148
 msgid "Your changes will be lost if you don't save them"
 msgstr "Eğer kaydetmezseniz değişiklikler kaybedilecek"
 
-#: ../xlgui/playlist.py:1154
+#: ../xlgui/playlist.py:1150
 msgid "Close Without Saving"
 msgstr "Kaydetmeden Kapat"
 
@@ -977,107 +985,108 @@ msgstr "hafta"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:69 ../xlgui/panel/playlists.py:78
-#: ../xlgui/panel/playlists.py:84 ../xlgui/panel/playlists.py:112
-#: ../xlgui/panel/playlists.py:129 ../xlgui/panel/playlists.py:137
+#: ../xlgui/panel/playlists.py:84 ../xlgui/panel/playlists.py:90
+#: ../xlgui/panel/playlists.py:118 ../xlgui/panel/playlists.py:135
+#: ../xlgui/panel/playlists.py:143
 msgid "is"
 msgstr ""
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:71 ../xlgui/panel/playlists.py:79
-#: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:130
-#: ../xlgui/panel/playlists.py:138
+#: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:91
+#: ../xlgui/panel/playlists.py:136 ../xlgui/panel/playlists.py:144
 msgid "is not"
 msgstr ""
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:73 ../xlgui/panel/playlists.py:80
-#: ../xlgui/panel/playlists.py:86 ../xlgui/panel/playlists.py:131
-#: ../xlgui/panel/playlists.py:139
+#: ../xlgui/panel/playlists.py:86 ../xlgui/panel/playlists.py:92
+#: ../xlgui/panel/playlists.py:137 ../xlgui/panel/playlists.py:145
 msgid "contains"
 msgstr ""
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:81
-#: ../xlgui/panel/playlists.py:87 ../xlgui/panel/playlists.py:132
-#: ../xlgui/panel/playlists.py:140
+#: ../xlgui/panel/playlists.py:87 ../xlgui/panel/playlists.py:93
+#: ../xlgui/panel/playlists.py:138 ../xlgui/panel/playlists.py:146
 msgid "does not contain"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:90 ../xlgui/panel/playlists.py:146
+#: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:152
 msgid "greater than"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:91 ../xlgui/panel/playlists.py:147
+#: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:153
 msgid "less than"
 msgstr ""
 
 #. TRANSLATORS: Example: rating >= 5
-#: ../xlgui/panel/playlists.py:93 ../xlgui/panel/playlists.py:98
-#: ../xlgui/panel/playlists.py:110 ../xlgui/panel/playlists.py:141
+#: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:104
+#: ../xlgui/panel/playlists.py:116 ../xlgui/panel/playlists.py:147
 msgid "at least"
 msgstr "en az"
 
 #. TRANSLATORS: Example: rating <= 3
-#: ../xlgui/panel/playlists.py:95 ../xlgui/panel/playlists.py:99
-#: ../xlgui/panel/playlists.py:111 ../xlgui/panel/playlists.py:142
+#: ../xlgui/panel/playlists.py:101 ../xlgui/panel/playlists.py:105
+#: ../xlgui/panel/playlists.py:117 ../xlgui/panel/playlists.py:148
 msgid "at most"
 msgstr "en fazla"
 
-#: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:156
+#: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:162
 msgid "Plays"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:101 ../xlgui/panel/playlists.py:157
+#: ../xlgui/panel/playlists.py:107 ../xlgui/panel/playlists.py:163
 msgid "Year"
 msgstr "Yıl"
 
 #. TRANSLATORS: Example: year < 1999
-#: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:143
+#: ../xlgui/panel/playlists.py:109 ../xlgui/panel/playlists.py:149
 msgid "before"
 msgstr ""
 
 #. TRANSLATORS: Example: year > 2002
-#: ../xlgui/panel/playlists.py:105 ../xlgui/panel/playlists.py:144
+#: ../xlgui/panel/playlists.py:111 ../xlgui/panel/playlists.py:150
 msgid "after"
 msgstr ""
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
-#: ../xlgui/panel/playlists.py:107 ../xlgui/panel/playlists.py:145
+#: ../xlgui/panel/playlists.py:113 ../xlgui/panel/playlists.py:151
 msgid "between"
 msgstr "arasında"
 
-#: ../xlgui/panel/playlists.py:224 ../xlgui/panel/playlists.py:330
-#: ../xlgui/panel/playlists.py:368 ../xlgui/panel/playlists.py:604
-#: ../xlgui/panel/playlists.py:678
+#: ../xlgui/panel/playlists.py:230 ../xlgui/panel/playlists.py:336
+#: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
+#: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:361
+#: ../xlgui/panel/playlists.py:367
 msgid "New custom playlist name:"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:362
+#: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:372 ../xlgui/panel/playlists.py:598
-#: ../xlgui/panel/playlists.py:671
+#: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
+#: ../xlgui/panel/playlists.py:678
 msgid "You did not enter a name for your playlist"
 msgstr "Çalma listeniz için bir isim girmediniz"
 
-#: ../xlgui/panel/playlists.py:546
+#: ../xlgui/panel/playlists.py:553
 msgid "Smart Playlists"
 msgstr "Akıllı Çalma Listeleri"
 
-#: ../xlgui/panel/playlists.py:549
+#: ../xlgui/panel/playlists.py:556
 msgid "Custom Playlists"
 msgstr "Özel Çalma Listeleri"
 
-#: ../xlgui/panel/playlists.py:584
+#: ../xlgui/panel/playlists.py:591
 msgid "Add Smart Playlist"
 msgstr "Akıllı Çalma Listesi Ekle"
 
-#: ../xlgui/panel/playlists.py:649
+#: ../xlgui/panel/playlists.py:656
 msgid "Edit Smart Playlist"
 msgstr "Akıllı Çalma Listesi Düzenle"
 
@@ -1090,8 +1099,7 @@ msgstr ""
 msgid "Add Radio Station"
 msgstr ""
 
-#: ../xlgui/panel/radio.py:181
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
+#: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
 msgstr "URL:"
 
@@ -1112,27 +1120,23 @@ msgid "Enter the name you want for your new playlist"
 msgstr "Yeni müzik listeniz için istediğiniz bir isim giriniz"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:127
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "Boyut"
 
-#: ../xlgui/panel/files.py:394
+#: ../xlgui/panel/files.py:413
 #, python-format
 msgid "%d KB"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:120
+#: ../xlgui/panel/collection.py:140
 msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:180
+#: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
-msgstr ""
-
-#: ../xlgui/panel/collection.py:701
-msgid "Various Artists"
 msgstr ""
 
 #: ../xlgui/panel/device.py:127
@@ -1152,7 +1156,7 @@ msgstr ""
 msgid "Playback"
 msgstr ""
 
-#: ../xlgui/prefs/__init__.py:83 ../data/ui/preferences_dialog.glade.h:1
+#: ../xlgui/prefs/__init__.py:83 ../data/ui/preferences_dialog.ui.h:1
 msgid "Preferences"
 msgstr "Tercihler"
 
@@ -1160,8 +1164,8 @@ msgstr "Tercihler"
 msgid "Plugins"
 msgstr "Eklentiler"
 
-#: ../xlgui/prefs/collection_prefs.py:22 ../data/ui/device_panel.glade.h:1
-#: ../data/ui/collection_panel.glade.h:6
+#: ../xlgui/prefs/collection_prefs.py:22 ../data/ui/device_panel.ui.h:1
+#: ../data/ui/collection_panel.ui.h:6
 msgid "Collection"
 msgstr ""
 
@@ -1178,7 +1182,7 @@ msgstr ""
 msgid "Reset to defaults"
 msgstr ""
 
-#: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.glade.h:1
+#: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"
 msgstr "Çalma Listeleri"
 
@@ -1191,8 +1195,8 @@ msgid "Plugin"
 msgstr "Eklenti"
 
 #: ../xlgui/prefs/plugin_prefs.py:106
-#: ../plugins/multialarmclock/alarmclk.glade.h:6
-#: ../plugins/equalizer/equalizer.glade.h:14
+#: ../plugins/multialarmclock/alarmclk.ui.h:6
+#: ../plugins/equalizer/equalizer.ui.h:14
 msgid "Enabled"
 msgstr ""
 
@@ -1204,14 +1208,18 @@ msgstr ""
 msgid "Plugin Archives"
 msgstr ""
 
-#: ../xlgui/prefs/plugin_prefs.py:189
+#: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
-msgid "Could not enable plugin: %s"
+msgid ""
+"<b>Could not enable plugin:</b>\n"
+"%(reason)s"
 msgstr ""
 
-#: ../xlgui/prefs/plugin_prefs.py:196
+#: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
-msgid "Could not disable plugin: %s"
+msgid ""
+"<b>Could not disable plugin:</b>\n"
+"%(reason)s"
 msgstr ""
 
 #: ../xlgui/prefs/widgets.py:261
@@ -1238,99 +1246,397 @@ msgstr ""
 msgid "Shortcut"
 msgstr ""
 
-#: ../xlgui/tray.py:75
-msgid "Exaile Music Player"
-msgstr "Exaile Müzik Çalıcı"
-
-#: ../xlgui/tray.py:98 ../data/ui/main.glade.h:16
+#: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
 msgstr ""
 
-#: ../xlgui/tray.py:103 ../data/ui/main.glade.h:14
+#: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
 msgstr ""
 
-#: ../xlgui/tray.py:108
+#: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
 msgstr ""
 
-#: ../xlgui/tray.py:118
+#: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
 msgstr ""
 
-#: ../data/ui/device_manager.glade.h:1
-msgid "..."
+#: ../xlgui/tray.py:179
+msgid "Exaile Music Player"
+msgstr "Exaile Müzik Çalıcı"
+
+#: ../data/ui/collection_prefs_pane.ui.h:1
+msgid "(Right click to reset to defaults)"
 msgstr ""
 
-#: ../data/ui/device_manager.glade.h:2
-msgid "Add device"
-msgstr "Aygıt Ekle"
+#: ../data/ui/collection_prefs_pane.ui.h:2
+msgid "Use file based compilation detection"
+msgstr ""
 
-#: ../data/ui/device_manager.glade.h:3
-msgid "Custom: "
-msgstr "Özel: "
+#: ../data/ui/collection_prefs_pane.ui.h:3
+msgid "Words to strip from the beginning of artist tags (space separated):"
+msgstr ""
 
-#: ../data/ui/device_manager.glade.h:4
-msgid "Detected devices:"
-msgstr "Bulunan aygıtlar:"
+#: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
+msgid "Open last playlists on startup"
+msgstr "Başlangıçta son çalma listesini aç"
 
-#: ../data/ui/device_manager.glade.h:5
-msgid "Device Manager"
-msgstr "Aygıt Yöneticisi"
+#: ../data/ui/main.ui.h:1
+msgid "0/0 tracks"
+msgstr ""
 
-#: ../data/ui/device_manager.glade.h:6
-msgid "Type of device:"
-msgstr "Aygıt türü:"
+#: ../data/ui/main.ui.h:2
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
 
-#: ../data/ui/coverchooser.glade.h:1
-msgid "Cover Finder"
-msgstr "Albüm Kapağı Bulucu:"
+#: ../data/ui/main.ui.h:3
+msgid "C_overs"
+msgstr ""
 
-#: ../data/ui/coverchooser.glade.h:2
-msgid "New Search"
-msgstr "Yeni Arama"
+#: ../data/ui/main.ui.h:4
+msgid "Clear Playlist"
+msgstr ""
 
-#: ../data/ui/trackproperties_dialog.glade.h:1
+#: ../data/ui/main.ui.h:5
+msgid "Click to view Queue"
+msgstr ""
+
+#: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
+msgid "Next Track"
+msgstr "Sonraki Parça"
+
+#: ../data/ui/main.ui.h:9
+msgid "Open _URL"
+msgstr "Adresi _Aç"
+
+#: ../data/ui/main.ui.h:10
+msgid "Page 1"
+msgstr ""
+
+#: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:216
+msgid "Previous Track"
+msgstr "Önceki Parça"
+
+#: ../data/ui/main.ui.h:12
+msgid "Randomize the order of the current playlist"
+msgstr ""
+
+#: ../data/ui/main.ui.h:13
+msgid "Re_scan Collection"
+msgstr ""
+
+#: ../data/ui/main.ui.h:15 ../data/ui/files_panel.ui.h:6
+#: ../data/ui/collection_panel.ui.h:11
+msgid "Search: "
+msgstr "Ara: "
+
+#: ../data/ui/main.ui.h:17
+msgid "Start/Pause Playback"
+msgstr ""
+
+#: ../data/ui/main.ui.h:18
+msgid ""
+"Stop Playback\n"
+"\n"
+"Right Click for Stop After Track Feature"
+msgstr ""
+
+#: ../data/ui/main.ui.h:22
+msgid "Track _properties"
+msgstr ""
+
+#: ../data/ui/main.ui.h:23
+msgid "_Autosize"
+msgstr ""
+
+#: ../data/ui/main.ui.h:24
+msgid "_Collection"
+msgstr ""
+
+#: ../data/ui/main.ui.h:25
+msgid "_Columns"
+msgstr "_Sütunlar"
+
+#: ../data/ui/main.ui.h:26
+msgid "_Device Manager"
+msgstr ""
+
+#: ../data/ui/main.ui.h:27
+msgid "_Edit"
+msgstr "_Düzenle"
+
+#: ../data/ui/main.ui.h:28
+msgid "_Export current playlist"
+msgstr ""
+
+#: ../data/ui/main.ui.h:29
+msgid "_File"
+msgstr "_Dosya"
+
+#: ../data/ui/main.ui.h:30
+msgid "_Go to Playing Track"
+msgstr ""
+
+#: ../data/ui/main.ui.h:31
+msgid "_Help"
+msgstr "_Yardım"
+
+#: ../data/ui/main.ui.h:33
+msgid "_Queue"
+msgstr ""
+
+#: ../data/ui/main.ui.h:34
+msgid "_Randomize Playlist"
+msgstr ""
+
+#: ../data/ui/main.ui.h:35
+msgid "_Resizable"
+msgstr ""
+
+#: ../data/ui/main.ui.h:36
+msgid "_Tools"
+msgstr "_Araçlar"
+
+#: ../data/ui/main.ui.h:37
+msgid "_View"
+msgstr "_Görünüm"
+
+#: ../data/ui/flatplaylist_panel.ui.h:1
+msgid "Append All Tracks to Playlist"
+msgstr ""
+
+#: ../data/ui/flatplaylist_panel.ui.h:2
+msgid "Import CD"
+msgstr ""
+
+#: ../data/ui/flatplaylist_panel.ui.h:3 ../data/ui/radio_panel.ui.h:2
+msgid "Radio"
+msgstr "Radyo"
+
+#: ../data/ui/covermanager.ui.h:1
+msgid "Cover Manager"
+msgstr ""
+
+#: ../data/ui/covermanager.ui.h:3
+msgid "_Close"
+msgstr "_Kapat"
+
+#: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "A_dd tag"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog.glade.h:3
+#: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "Tags"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog.glade.h:4
+#: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog.glade.h:5
+#: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog.glade.h:6
+#: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog.glade.h:7
+#: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog.glade.h:8
+#: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog.glade.h:9
+#: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
 msgstr ""
 
-#: ../data/ui/about_dialog.glade.h:1
+#: ../data/ui/plugin_prefs_pane.ui.h:1
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Herhangi bir eklenti seçilmemiş</b>"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:2
+msgid "Authors:"
+msgstr ""
+
+#: ../data/ui/plugin_prefs_pane.ui.h:3
+msgid "Available Plugins"
+msgstr "Kullanılabilir Eklentiler"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:4
+msgid "Description:"
+msgstr "Tanım"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:5
+msgid "Install"
+msgstr "Yükle"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:6
+msgid "Install Updates"
+msgstr "Güncellemeleri Yükle"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:7
+msgid "Install a third party plugin from a file"
+msgstr ""
+
+#: ../data/ui/plugin_prefs_pane.ui.h:8
+msgid "Install plugin file"
+msgstr ""
+
+#: ../data/ui/plugin_prefs_pane.ui.h:9
+msgid "Installed Plugins"
+msgstr "Kurulu Eklentiler"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:10
+msgid "Updates"
+msgstr "Güncellemeler"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:11
+msgid "Version:"
+msgstr "Sürüm:"
+
+#: ../data/ui/radio_panel.ui.h:1
+msgid "Add Station"
+msgstr "İstasyon Ekle"
+
+#: ../data/ui/collection_manager.ui.h:1
+msgid "Collection Manager"
+msgstr "Kolleksiyon Yöneticisi"
+
+#: ../data/ui/device_manager.ui.h:1
+msgid "..."
+msgstr ""
+
+#: ../data/ui/device_manager.ui.h:2
+msgid "Add device"
+msgstr "Aygıt Ekle"
+
+#: ../data/ui/device_manager.ui.h:3
+msgid "Custom: "
+msgstr "Özel: "
+
+#: ../data/ui/device_manager.ui.h:4
+msgid "Detected devices:"
+msgstr "Bulunan aygıtlar:"
+
+#: ../data/ui/device_manager.ui.h:5
+msgid "Device Manager"
+msgstr "Aygıt Yöneticisi"
+
+#: ../data/ui/device_manager.ui.h:6
+msgid "Type of device:"
+msgstr "Aygıt türü:"
+
+#: ../data/ui/files_panel.ui.h:1
+msgid "Files"
+msgstr "Dosyalar"
+
+#: ../data/ui/files_panel.ui.h:2
+msgid "Home directory"
+msgstr ""
+
+#: ../data/ui/files_panel.ui.h:3
+msgid "Next visited directory"
+msgstr ""
+
+#: ../data/ui/files_panel.ui.h:4
+msgid "Previous visited directory"
+msgstr ""
+
+#: ../data/ui/files_panel.ui.h:5
+msgid "Refresh directory listing"
+msgstr ""
+
+#: ../data/ui/files_panel.ui.h:7
+msgid "Up one directory"
+msgstr ""
+
+#: ../data/ui/playlists_prefs_pane.ui.h:2
+msgid "Prompt for saving custom playlists on close"
+msgstr ""
+
+#: ../data/ui/osd_prefs_pane.ui.h:1
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to "
+"appear</b>"
+msgstr ""
+
+#: ../data/ui/osd_prefs_pane.ui.h:2
+msgid "Background Color:"
+msgstr "Arka Plan Rengi:"
+
+#: ../data/ui/osd_prefs_pane.ui.h:3
+msgid "Display OSD when hovering over tray icon"
+msgstr ""
+
+#: ../data/ui/osd_prefs_pane.ui.h:4
+msgid "Display a progressbar in the OSD"
+msgstr "OSD içinde ilerleme çubuğu göster"
+
+#: ../data/ui/osd_prefs_pane.ui.h:5
+msgid "Opacity Level:"
+msgstr "Opaklık seviyesi:"
+
+#: ../data/ui/osd_prefs_pane.ui.h:6
+msgid "Show OSD on track change"
+msgstr "Şarkı değiştiğinde OSD göster"
+
+#: ../data/ui/osd_prefs_pane.ui.h:7
+msgid "Text Color"
+msgstr "Metin Rengi"
+
+#: ../data/ui/osd_prefs_pane.ui.h:8
+msgid "Text Font:"
+msgstr "Metin Yazı tipi"
+
+#: ../data/ui/osd_prefs_pane.ui.h:9
+msgid "Window Height:"
+msgstr "Pencere Yüksekliği:"
+
+#: ../data/ui/osd_prefs_pane.ui.h:10
+msgid "Window Width:"
+msgstr "Pencere Genişliği:"
+
+#: ../data/ui/coverchooser.ui.h:1
+msgid "Cover Finder"
+msgstr "Albüm Kapağı Bulucu:"
+
+#: ../data/ui/coverchooser.ui.h:2
+msgid "New Search"
+msgstr "Yeni Arama"
+
+#: ../data/ui/cover_prefs_pane.ui.h:1
+msgid "(drag to reorder)"
+msgstr "(yeniden sıralamak için sürükleyiniz)"
+
+#: ../data/ui/cover_prefs_pane.ui.h:2
+msgid "Cover Search Order:"
+msgstr "Kapak Arama Düzeni"
+
+#: ../data/ui/queue_dialog.ui.h:1
+msgid "Close this dialog"
+msgstr ""
+
+#: ../data/ui/queue_dialog.ui.h:2
+msgid "Queue Manager"
+msgstr ""
+
+#: ../data/ui/queue_dialog.ui.h:3
+msgid "Remove All"
+msgstr ""
+
+#: ../data/ui/about_dialog.ui.h:1
 msgid "&#xA9; 2009"
 msgstr ""
 
-#: ../data/ui/about_dialog.glade.h:2
+#: ../data/ui/about_dialog.ui.h:2
 msgid "About Exaile"
 msgstr "Exaile Hakkında"
 
-#: ../data/ui/about_dialog.glade.h:3
+#: ../data/ui/about_dialog.ui.h:3
 msgid ""
 "Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
@@ -1349,58 +1655,78 @@ msgid ""
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
 
-#: ../data/ui/about_dialog.glade.h:19
+#: ../data/ui/about_dialog.ui.h:19
 msgid ""
 "Mathias Brodala\n"
 "   <info@noctus.net>\n"
 "    Translation Manager"
 msgstr ""
 
-#: ../data/ui/appearance_prefs_pane.glade.h:1
-msgid "Always show tab bar"
+#: ../data/ui/playback_prefs_pane.ui.h:1
+msgid "ALSA"
+msgstr "ALSA"
+
+#: ../data/ui/playback_prefs_pane.ui.h:2
+msgid "Audio Sink:  "
 msgstr ""
 
-#: ../data/ui/appearance_prefs_pane.glade.h:2
-msgid "Bottom"
+#: ../data/ui/playback_prefs_pane.ui.h:4
+msgid "Crossfade duration (ms):"
 msgstr ""
 
-#: ../data/ui/appearance_prefs_pane.glade.h:4
-msgid "Jump to current song on track change"
-msgstr "Şarkı değiştiğinde geçerli şarkıya atla"
-
-#: ../data/ui/appearance_prefs_pane.glade.h:5
-msgid "Left"
+#: ../data/ui/playback_prefs_pane.ui.h:5
+msgid "Fade duration (ms):"
 msgstr ""
 
-#: ../data/ui/appearance_prefs_pane.glade.h:6
-msgid "Minimize to tray"
+#: ../data/ui/playback_prefs_pane.ui.h:6
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../data/ui/playback_prefs_pane.ui.h:7
+msgid "JACK"
+msgstr "JACK"
+
+#: ../data/ui/playback_prefs_pane.ui.h:8
+msgid "Normal"
 msgstr ""
 
-#: ../data/ui/appearance_prefs_pane.glade.h:7
-msgid "Right"
+#: ../data/ui/playback_prefs_pane.ui.h:9
+msgid "OSS"
+msgstr "OSS"
+
+#: ../data/ui/playback_prefs_pane.ui.h:10
+msgid "Playback engine (requires restart): "
 msgstr ""
 
-#: ../data/ui/appearance_prefs_pane.glade.h:8
-msgid "Show splash screen on startup"
-msgstr "Açılışta hoşgeldin ekranı göster"
+#: ../data/ui/playback_prefs_pane.ui.h:11
+msgid "PulseAudio"
+msgstr "PulseAudio"
 
-#: ../data/ui/appearance_prefs_pane.glade.h:9
-msgid "Show tray icon"
-msgstr "Sistem çekmecesi simgesini göster"
-
-#: ../data/ui/appearance_prefs_pane.glade.h:10
-msgid "Tab placement:"
+#: ../data/ui/playback_prefs_pane.ui.h:12
+msgid "Resume playback in paused state"
 msgstr ""
 
-#: ../data/ui/appearance_prefs_pane.glade.h:11
-msgid "Top"
+#: ../data/ui/playback_prefs_pane.ui.h:13
+msgid "Resume playback on start"
 msgstr ""
 
-#: ../data/ui/appearance_prefs_pane.glade.h:12
-msgid "Use alpha transparency (if supported)"
+#: ../data/ui/playback_prefs_pane.ui.h:14
+msgid "These options only affect the unified engine."
 msgstr ""
 
-#: ../data/ui/osd_window.glade.h:1
+#: ../data/ui/playback_prefs_pane.ui.h:15
+msgid "Unified (unstable)"
+msgstr ""
+
+#: ../data/ui/playback_prefs_pane.ui.h:16
+msgid "Use crossfading (EXPERIMENTAL)"
+msgstr ""
+
+#: ../data/ui/playback_prefs_pane.ui.h:17
+msgid "Use fade transitions on user actions"
+msgstr ""
+
+#: ../data/ui/osd_window.ui.h:1
 msgid ""
 "<b>OSD</b>\n"
 "Drag to the location you'd like the\n"
@@ -1410,409 +1736,86 @@ msgstr ""
 "OSD' yi görünmesini istediğiniz\n"
 "yere sürükleyiniz"
 
-#: ../data/ui/osd_window.glade.h:4
+#: ../data/ui/osd_window.ui.h:4
 msgid "Popup"
 msgstr "Açılır Pencere"
 
-#: ../data/ui/radio_panel.glade.h:1
-msgid "Add Station"
-msgstr "İstasyon Ekle"
-
-#: ../data/ui/radio_panel.glade.h:2 ../data/ui/flatplaylist_panel.glade.h:3
-msgid "Radio"
-msgstr "Radyo"
-
-#: ../data/ui/covermanager.glade.h:1
-msgid "Cover Manager"
-msgstr ""
-
-#: ../data/ui/covermanager.glade.h:3
-msgid "_Close"
-msgstr "_Kapat"
-
-#: ../data/ui/osd_prefs_pane.glade.h:1
-msgid ""
-"<b>Move the On Screen Display window to the location you want it to "
-"appear</b>"
-msgstr ""
-
-#: ../data/ui/osd_prefs_pane.glade.h:2
-msgid "Background Color:"
-msgstr "Arka Plan Rengi:"
-
-#: ../data/ui/osd_prefs_pane.glade.h:3
-msgid "Display OSD when hovering over tray icon"
-msgstr ""
-
-#: ../data/ui/osd_prefs_pane.glade.h:4
-msgid "Display a progressbar in the OSD"
-msgstr "OSD içinde ilerleme çubuğu göster"
-
-#: ../data/ui/osd_prefs_pane.glade.h:5
-msgid "Opacity Level:"
-msgstr "Opaklık seviyesi:"
-
-#: ../data/ui/osd_prefs_pane.glade.h:6
-msgid "Show OSD on track change"
-msgstr "Şarkı değiştiğinde OSD göster"
-
-#: ../data/ui/osd_prefs_pane.glade.h:7
-msgid "Text Color"
-msgstr "Metin Rengi"
-
-#: ../data/ui/osd_prefs_pane.glade.h:8
-msgid "Text Font:"
-msgstr "Metin Yazı tipi"
-
-#: ../data/ui/osd_prefs_pane.glade.h:9
-msgid "Window Height:"
-msgstr "Pencere Yüksekliği:"
-
-#: ../data/ui/osd_prefs_pane.glade.h:10
-msgid "Window Width:"
-msgstr "Pencere Genişliği:"
-
-#: ../data/ui/queue_dialog.glade.h:1
-msgid "Close this dialog"
-msgstr ""
-
-#: ../data/ui/queue_dialog.glade.h:2
-msgid "Queue Manager"
-msgstr ""
-
-#: ../data/ui/queue_dialog.glade.h:3
-msgid "Remove All"
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:1
-msgid "ALSA"
-msgstr "ALSA"
-
-#: ../data/ui/playback_prefs_pane.glade.h:2
-msgid "Audio Sink:  "
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:4
-msgid "Crossfade duration (ms):"
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:5
-msgid "Fade duration (ms):"
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:6
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../data/ui/playback_prefs_pane.glade.h:7
-msgid "JACK"
-msgstr "JACK"
-
-#: ../data/ui/playback_prefs_pane.glade.h:8
-msgid "Normal"
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:9
-msgid "OSS"
-msgstr "OSS"
-
-#: ../data/ui/playback_prefs_pane.glade.h:10
-msgid "Playback engine (requires restart): "
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:11
-msgid "PulseAudio"
-msgstr "PulseAudio"
-
-#: ../data/ui/playback_prefs_pane.glade.h:12
-msgid "Resume playback in paused state"
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:13
-msgid "Resume playback on start"
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:14
-msgid "These options only affect the unified engine."
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:15
-msgid "Unified (unstable)"
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:16
-msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.glade.h:17
-msgid "Use fade transitions on user actions"
-msgstr ""
-
-#: ../data/ui/plugin_prefs_pane.glade.h:1
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Herhangi bir eklenti seçilmemiş</b>"
-
-#: ../data/ui/plugin_prefs_pane.glade.h:2
-msgid "Authors:"
-msgstr ""
-
-#: ../data/ui/plugin_prefs_pane.glade.h:3
-msgid "Available Plugins"
-msgstr "Kullanılabilir Eklentiler"
-
-#: ../data/ui/plugin_prefs_pane.glade.h:4
-msgid "Description:"
-msgstr "Tanım"
-
-#: ../data/ui/plugin_prefs_pane.glade.h:5
-msgid "Install"
-msgstr "Yükle"
-
-#: ../data/ui/plugin_prefs_pane.glade.h:6
-msgid "Install Updates"
-msgstr "Güncellemeleri Yükle"
-
-#: ../data/ui/plugin_prefs_pane.glade.h:7
-msgid "Install a third party plugin from a file"
-msgstr ""
-
-#: ../data/ui/plugin_prefs_pane.glade.h:8
-msgid "Install plugin file"
-msgstr ""
-
-#: ../data/ui/plugin_prefs_pane.glade.h:9
-msgid "Installed Plugins"
-msgstr "Kurulu Eklentiler"
-
-#: ../data/ui/plugin_prefs_pane.glade.h:10
-msgid "Updates"
-msgstr "Güncellemeler"
-
-#: ../data/ui/plugin_prefs_pane.glade.h:11
-msgid "Version:"
-msgstr "Sürüm:"
-
-#: ../data/ui/collection_prefs_pane.glade.h:1
-msgid "(Right click for reset to defaults)"
-msgstr ""
-
-#: ../data/ui/collection_prefs_pane.glade.h:2
-msgid "Use file based compilation detection"
-msgstr ""
-
-#: ../data/ui/collection_prefs_pane.glade.h:3
-msgid "Words to strip from the beginning of artist tags (space separated):"
-msgstr ""
-
-#: ../data/ui/main.glade.h:1
-msgid "0/0 tracks"
-msgstr ""
-
-#: ../data/ui/main.glade.h:2
-msgid "0:00 / 0:00"
-msgstr "0:00 / 0:00"
-
-#: ../data/ui/main.glade.h:3
-msgid "C_overs"
-msgstr ""
-
-#: ../data/ui/main.glade.h:4
-msgid "Clear Playlist"
-msgstr ""
-
-#: ../data/ui/main.glade.h:5
-msgid "Click to view Queue"
-msgstr ""
-
-#: ../data/ui/main.glade.h:6
-msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
-
-#: ../data/ui/main.glade.h:7 ../plugins/minimode/__init__.py:210
-msgid "Next Track"
-msgstr "Sonraki Parça"
-
-#: ../data/ui/main.glade.h:9
-msgid "Open _URL"
-msgstr "Adresi _Aç"
-
-#: ../data/ui/main.glade.h:10
-msgid "Page 1"
-msgstr ""
-
-#: ../data/ui/main.glade.h:11 ../plugins/minimode/__init__.py:208
-msgid "Previous Track"
-msgstr "Önceki Parça"
-
-#: ../data/ui/main.glade.h:12
-msgid "Randomize the order of the current playlist"
-msgstr ""
-
-#: ../data/ui/main.glade.h:13
-msgid "Re_scan Collection"
-msgstr ""
-
-#: ../data/ui/main.glade.h:15 ../data/ui/collection_panel.glade.h:11
-#: ../data/ui/files_panel.glade.h:6
-msgid "Search: "
-msgstr "Ara: "
-
-#: ../data/ui/main.glade.h:17
-msgid "Start/Pause Playback"
-msgstr ""
-
-#: ../data/ui/main.glade.h:18
-msgid ""
-"Stop Playback\n"
-"\n"
-"Right Click for Stop After Track Feature"
-msgstr ""
-
-#: ../data/ui/main.glade.h:22
-msgid "Track _properties"
-msgstr ""
-
-#: ../data/ui/main.glade.h:23
-msgid "_Autosize"
-msgstr ""
-
-#: ../data/ui/main.glade.h:24
-msgid "_Collection"
-msgstr ""
-
-#: ../data/ui/main.glade.h:25
-msgid "_Columns"
-msgstr "_Sütunlar"
-
-#: ../data/ui/main.glade.h:26
-msgid "_Device Manager"
-msgstr ""
-
-#: ../data/ui/main.glade.h:27
-msgid "_Edit"
-msgstr "_Düzenle"
-
-#: ../data/ui/main.glade.h:28
-msgid "_Export current playlist"
-msgstr ""
-
-#: ../data/ui/main.glade.h:29
-msgid "_File"
-msgstr "_Dosya"
-
-#: ../data/ui/main.glade.h:30
-msgid "_Go to Playing Track"
-msgstr ""
-
-#: ../data/ui/main.glade.h:31
-msgid "_Help"
-msgstr "_Yardım"
-
-#: ../data/ui/main.glade.h:33
-msgid "_Queue"
-msgstr ""
-
-#: ../data/ui/main.glade.h:34
-msgid "_Randomize Playlist"
-msgstr ""
-
-#: ../data/ui/main.glade.h:35
-msgid "_Resizable"
-msgstr ""
-
-#: ../data/ui/main.glade.h:36
-msgid "_Tools"
-msgstr "_Araçlar"
-
-#: ../data/ui/main.glade.h:37
-msgid "_View"
-msgstr "_Görünüm"
-
-#: ../data/ui/collection_manager.glade.h:1
-msgid "Collection Manager"
-msgstr "Kolleksiyon Yöneticisi"
-
-#: ../data/ui/flatplaylist_panel.glade.h:1
-msgid "Append All Tracks to Playlist"
-msgstr ""
-
-#: ../data/ui/flatplaylist_panel.glade.h:2
-msgid "Import CD"
-msgstr ""
-
-#: ../data/ui/general_prefs_pane.glade.h:1
-#: ../data/ui/playlists_prefs_pane.glade.h:1
-msgid "Open last playlists on startup"
-msgstr "Başlangıçta son çalma listesini aç"
-
-#: ../data/ui/collection_panel.glade.h:1
+#: ../data/ui/collection_panel.ui.h:1
 msgid "<b>Collection is empty.</b>"
 msgstr ""
 
-#: ../data/ui/collection_panel.glade.h:2
+#: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
 msgstr ""
 
-#: ../data/ui/collection_panel.glade.h:5
+#: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
 msgstr ""
 
-#: ../data/ui/collection_panel.glade.h:7
+#: ../data/ui/collection_panel.ui.h:7
 msgid "Genre - Album"
 msgstr ""
 
-#: ../data/ui/collection_panel.glade.h:8
+#: ../data/ui/collection_panel.ui.h:8
 msgid "Genre - Artist"
 msgstr ""
 
-#: ../data/ui/collection_panel.glade.h:9
+#: ../data/ui/collection_panel.ui.h:9
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
 
-#: ../data/ui/collection_panel.glade.h:12
+#: ../data/ui/collection_panel.ui.h:12
 msgid "Year - Album"
 msgstr ""
 
-#: ../data/ui/collection_panel.glade.h:13
+#: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Artist"
 msgstr ""
 
-#: ../data/ui/playlists_prefs_pane.glade.h:2
-msgid "Prompt for saving custom playlists on close"
+#: ../data/ui/appearance_prefs_pane.ui.h:1
+msgid "Always show tab bar"
 msgstr ""
 
-#: ../data/ui/cover_prefs_pane.glade.h:1
-msgid "(drag to reorder)"
-msgstr "(yeniden sıralamak için sürükleyiniz)"
-
-#: ../data/ui/cover_prefs_pane.glade.h:2
-msgid "Cover Search Order:"
-msgstr "Kapak Arama Düzeni"
-
-#: ../data/ui/files_panel.glade.h:1
-msgid "Files"
-msgstr "Dosyalar"
-
-#: ../data/ui/files_panel.glade.h:2
-msgid "Home directory"
+#: ../data/ui/appearance_prefs_pane.ui.h:2
+msgid "Bottom"
 msgstr ""
 
-#: ../data/ui/files_panel.glade.h:3
-msgid "Next visited directory"
+#: ../data/ui/appearance_prefs_pane.ui.h:4
+msgid "Jump to current song on track change"
+msgstr "Şarkı değiştiğinde geçerli şarkıya atla"
+
+#: ../data/ui/appearance_prefs_pane.ui.h:5
+msgid "Left"
 msgstr ""
 
-#: ../data/ui/files_panel.glade.h:4
-msgid "Previous visited directory"
+#: ../data/ui/appearance_prefs_pane.ui.h:6
+msgid "Minimize to tray"
 msgstr ""
 
-#: ../data/ui/files_panel.glade.h:5
-msgid "Refresh directory listing"
+#: ../data/ui/appearance_prefs_pane.ui.h:7
+msgid "Right"
 msgstr ""
 
-#: ../data/ui/files_panel.glade.h:7
-msgid "Up one directory"
+#: ../data/ui/appearance_prefs_pane.ui.h:8
+msgid "Show splash screen on startup"
+msgstr "Açılışta hoşgeldin ekranı göster"
+
+#: ../data/ui/appearance_prefs_pane.ui.h:9
+msgid "Show tray icon"
+msgstr "Sistem çekmecesi simgesini göster"
+
+#: ../data/ui/appearance_prefs_pane.ui.h:10
+msgid "Tab placement:"
+msgstr ""
+
+#: ../data/ui/appearance_prefs_pane.ui.h:11
+msgid "Top"
+msgstr ""
+
+#: ../data/ui/appearance_prefs_pane.ui.h:12
+msgid "Use alpha transparency (if supported)"
 msgstr ""
 
 #: ../plugins/multialarmclock/__init__.py:412
@@ -1824,9 +1827,13 @@ msgstr ""
 msgid "Alarm Clock"
 msgstr ""
 
-#: ../plugins/equalizer/__init__.py:129
-#: ../plugins/equalizer/equalizer.glade.h:15 ../plugins/equalizer/PLUGININFO:3
+#: ../plugins/equalizer/__init__.py:129 ../plugins/equalizer/equalizer.ui.h:15
+#: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
+msgstr ""
+
+#: ../plugins/awn/awn_prefs.py:32
+msgid "AWN"
 msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs.py:22
@@ -1838,7 +1845,7 @@ msgstr ""
 msgid "Enable audioscrobbling"
 msgstr ""
 
-#: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:199
+#: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:201
 msgid "Audio Disc"
 msgstr ""
 
@@ -1862,21 +1869,64 @@ msgstr ""
 msgid "Play count"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:278
+#: ../plugins/daapclient/__init__.py:161
+msgid "Manually..."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:207
+msgid "Enter IP address and port for share"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:208
+msgid "Enter IP address and port."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:376
+msgid ""
+"This server does not support multiple connections.\n"
+"You must stop playback before downloading songs."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:455
+msgid "Disconnect"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:473
+msgid "Select a save location"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:523
+msgid "Connect to DAAP..."
+msgstr ""
+
+#: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:286
+#: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:291
+#: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:295
+#: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
+msgstr ""
+
+#: ../plugins/jamendo/__init__.py:76
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
+msgid "Ready"
+msgstr ""
+
+#: ../plugins/jamendo/__init__.py:77
+msgid "Searching Jamendo catalogue..."
+msgstr ""
+
+#: ../plugins/jamendo/__init__.py:78
+msgid "Retrieving song data..."
 msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
@@ -1922,8 +1972,21 @@ msgstr ""
 msgid "Could not read moodbar."
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:494
+#: ../plugins/moodbar/__init__.py:497
 msgid "Moodbar executable is not available."
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:267
+#: ../plugins/droptrayicon/drop_target_window.ui.h:1
+msgid "Drop to Choose"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:270
+msgid "Append and Play"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:272
+msgid "Append"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs.py:32
@@ -1960,43 +2023,43 @@ msgstr ""
 msgid "Loading %s..."
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:184
+#: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:200
+#: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
 msgstr ""
 
-#: ../plugins/podcasts/__init__.py:231
+#: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:157
-#: ../plugins/shoutcast/__init__.py:200 ../plugins/shoutcast/__init__.py:236
+#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
+#: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:113 ../plugins/shoutcast/__init__.py:117
-#: ../plugins/shoutcast/__init__.py:166 ../plugins/shoutcast/__init__.py:170
-#: ../plugins/shoutcast/__init__.py:214 ../plugins/shoutcast/__init__.py:219
-#: ../plugins/shoutcast/__init__.py:247 ../plugins/shoutcast/__init__.py:252
+#: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
+#: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
+#: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
+#: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:272
+#: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:273
+#: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:296
+#: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:329
+#: ../plugins/shoutcast/__init__.py:345
 msgid "Search"
 msgstr ""
 
@@ -2023,11 +2086,11 @@ msgstr ""
 msgid "IPython Console"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:214
+#: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
 msgstr "Çalmayı durdur"
 
-#: ../plugins/minimode/__init__.py:218
+#: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
 msgstr ""
 
@@ -2096,29 +2159,24 @@ msgstr ""
 msgid "$title ($length)"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:156 ../plugins/minimode/mmwidgets.py:170
+#: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:174
+#: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:177
+#: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:837
+#: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
 msgstr ""
 
-#. TRANSLATORS: String multiple tag values will be joined by
-#: ../plugins/minimode/mmwidgets.py:937
-msgid " & "
-msgstr ""
-
 #: ../plugins/contextinfo/__init__.py:1047
-#: ../plugins/contextinfo/context.glade.h:1
+#: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
 msgstr ""
 
@@ -2134,251 +2192,331 @@ msgstr ""
 msgid "Error executing streamripper"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:1
-#: ../plugins/alarmclock/acprefs_pane.glade.h:1
+#: ../plugins/multialarmclock/alarmclk.ui.h:1
+#: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "Alarm Days:"
 msgstr "Alarm Günleri:"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:2
+#: ../plugins/multialarmclock/alarmclk.ui.h:2
 msgid "Alarm Name:"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:3
-#: ../plugins/alarmclock/acprefs_pane.glade.h:2
+#: ../plugins/multialarmclock/alarmclk.ui.h:3
+#: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Alarm Time:"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:4
+#: ../plugins/multialarmclock/alarmclk.ui.h:4
 msgid "Alarm:"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:5
+#: ../plugins/multialarmclock/alarmclk.ui.h:5
 msgid "Enable Fading"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:7
+#: ../plugins/multialarmclock/alarmclk.ui.h:7
 msgid "Fading:"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:8
-#: ../plugins/alarmclock/acprefs_pane.glade.h:3
+#: ../plugins/multialarmclock/alarmclk.ui.h:8
+#: ../plugins/alarmclock/acprefs_pane.ui.h:3
 msgid "Friday"
 msgstr "Cuma"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:9
-#: ../plugins/alarmclock/acprefs_pane.glade.h:4
+#: ../plugins/multialarmclock/alarmclk.ui.h:9
+#: ../plugins/alarmclock/acprefs_pane.ui.h:4
 msgid "Increment:"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:10
-#: ../plugins/alarmclock/acprefs_pane.glade.h:5
+#: ../plugins/multialarmclock/alarmclk.ui.h:10
+#: ../plugins/alarmclock/acprefs_pane.ui.h:5
 msgid "Maximum Volume:"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:11
-#: ../plugins/alarmclock/acprefs_pane.glade.h:6
+#: ../plugins/multialarmclock/alarmclk.ui.h:11
+#: ../plugins/alarmclock/acprefs_pane.ui.h:6
 msgid "Minimum Volume:"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:12
-#: ../plugins/alarmclock/acprefs_pane.glade.h:7
+#: ../plugins/multialarmclock/alarmclk.ui.h:12
+#: ../plugins/alarmclock/acprefs_pane.ui.h:7
 msgid "Monday"
 msgstr "Pazartesi"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:13
+#: ../plugins/multialarmclock/alarmclk.ui.h:13
 msgid "Name - Time"
 msgstr "Ad - Süre"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:14
+#: ../plugins/multialarmclock/alarmclk.ui.h:14
 msgid "Restart Playlist"
 msgstr "Çalma listesini yeniden başlat"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:15
-#: ../plugins/alarmclock/acprefs_pane.glade.h:8
+#: ../plugins/multialarmclock/alarmclk.ui.h:15
+#: ../plugins/alarmclock/acprefs_pane.ui.h:8
 msgid "Saturday"
 msgstr "Cumartesi"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:16
-#: ../plugins/alarmclock/acprefs_pane.glade.h:9
+#: ../plugins/multialarmclock/alarmclk.ui.h:16
+#: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "Sunday"
 msgstr "Pazar"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:17
-#: ../plugins/alarmclock/acprefs_pane.glade.h:10
+#: ../plugins/multialarmclock/alarmclk.ui.h:17
+#: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Thursday"
 msgstr "Perşembe"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:18
+#: ../plugins/multialarmclock/alarmclk.ui.h:18
 msgid "Time per Increment:"
 msgstr ""
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:19
-#: ../plugins/alarmclock/acprefs_pane.glade.h:12
+#: ../plugins/multialarmclock/alarmclk.ui.h:19
+#: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Tuesday"
 msgstr "Salı"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:20
-#: ../plugins/alarmclock/acprefs_pane.glade.h:14
+#: ../plugins/multialarmclock/alarmclk.ui.h:20
+#: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Wednesday"
 msgstr "Çarşamba"
 
-#: ../plugins/alarmclock/acprefs_pane.glade.h:11
+#: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Timer per Increment:"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.glade.h:13
+#: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Use Fading"
 msgstr "Sesi Alçaltarak Geç"
 
-#: ../plugins/equalizer/equalizer.glade.h:1
+#: ../plugins/equalizer/equalizer.ui.h:1
 msgid "+12 dB"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:2
+#: ../plugins/equalizer/equalizer.ui.h:2
 msgid "-24 dB"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:3
+#: ../plugins/equalizer/equalizer.ui.h:3
 msgid "0"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:4
+#: ../plugins/equalizer/equalizer.ui.h:4
 msgid "1.9K"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:5
+#: ../plugins/equalizer/equalizer.ui.h:5
 msgid "119"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:6
+#: ../plugins/equalizer/equalizer.ui.h:6
 msgid "15K"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:7
+#: ../plugins/equalizer/equalizer.ui.h:7
 msgid "227"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:8
+#: ../plugins/equalizer/equalizer.ui.h:8
 msgid "29"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:9
+#: ../plugins/equalizer/equalizer.ui.h:9
 msgid "3.8K"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:10
+#: ../plugins/equalizer/equalizer.ui.h:10
 msgid "474"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:11
+#: ../plugins/equalizer/equalizer.ui.h:11
 msgid "59"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:12
+#: ../plugins/equalizer/equalizer.ui.h:12
 msgid "7.5K"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:13
+#: ../plugins/equalizer/equalizer.ui.h:13
 msgid "947"
 msgstr ""
 
-#: ../plugins/equalizer/equalizer.glade.h:16
+#: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
 msgstr ""
 
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:1
+#: ../plugins/awn/awn_prefs_pane.ui.h:1
+msgid "Circle Display"
+msgstr ""
+
+#: ../plugins/awn/awn_prefs_pane.ui.h:2
+msgid "Display Covers"
+msgstr ""
+
+#: ../plugins/awn/awn_prefs_pane.ui.h:3
+msgid "Display Overlay:"
+msgstr ""
+
+#: ../plugins/awn/awn_prefs_pane.ui.h:4
+msgid "None"
+msgstr ""
+
+#: ../plugins/awn/awn_prefs_pane.ui.h:5
+msgid "Text Percentage"
+msgstr ""
+
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Password:"
 msgstr "Parola:"
 
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show Menuitem to toggle Submission"
 msgstr ""
 
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit tracks using Audioscrobbler"
 msgstr ""
 
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:5
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 msgid "Username:"
 msgstr "Kullanıcı adı:"
 
-#: ../plugins/cd/cdprefs_pane.glade.h:1
+#: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "AAC"
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.glade.h:2
+#: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.glade.h:3
+#: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "Import format: "
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.glade.h:4
+#: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "Import path: "
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.glade.h:5
+#: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "Import quality: "
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.glade.h:6
+#: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "MP3 (CBR)"
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.glade.h:7
+#: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "MP3 (VBR)"
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.glade.h:8
+#: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Ogg Vorbis"
 msgstr ""
 
-#: ../plugins/cd/cdprefs_pane.glade.h:9
+#: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "WavPack"
 msgstr ""
 
-#: ../plugins/bookmarks/bookmarks_pane.glade.h:1
+#: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
+msgid "Advanced"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
+msgid "Ascending"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
+msgid "Date of starring"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
+msgid "Descending"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
+msgid "Genre/Tags"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
+msgid "Number of downloads"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
+msgid "Number of listens"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
+msgid "Number of playlist additions"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
+msgid "Order By:"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
+msgid "Order Direction:"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
+msgid "Rating this month"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
+msgid "Rating this week"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
+msgid "Release date"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
+msgid "Results:"
+msgstr ""
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
+msgid "Starred"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
 msgstr "<b>İçerik</b>"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "<b>Display</b>"
 msgstr "<b>Görüntü</b>"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
 msgid "<b>Icons</b>"
 msgstr "<b>Simgeler</b>"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "Album Line:"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:5
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "Artist Line:"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "On Playback Start, Pause or Stop"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "On Track Change"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "On Tray Icon Hover"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "Summary:"
 msgstr "Özet:"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:11
 #, python-format
 msgid ""
 "The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
@@ -2386,141 +2524,141 @@ msgid ""
 "is empty."
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 msgid "Use Album Covers As Icons"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "When GUI is Focused"
 msgstr ""
 
-#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API Key:"
 msgstr ""
 
-#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret Key:"
 msgstr ""
 
-#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
 "To sign up for an Amazon AWS account and get \n"
 "this information visit http://aws.amazon.com/"
 msgstr ""
 
-#: ../plugins/desktopcover/prefs.glade.h:1
+#: ../plugins/desktopcover/prefs.ui.h:1
 msgid "Anchor:"
 msgstr ""
 
-#: ../plugins/desktopcover/prefs.glade.h:2
+#: ../plugins/desktopcover/prefs.ui.h:2
 msgid "Bottom left"
 msgstr ""
 
-#: ../plugins/desktopcover/prefs.glade.h:3
+#: ../plugins/desktopcover/prefs.ui.h:3
 msgid "Bottom right"
 msgstr ""
 
-#: ../plugins/desktopcover/prefs.glade.h:4
+#: ../plugins/desktopcover/prefs.ui.h:4
 msgid "Size:"
 msgstr ""
 
-#: ../plugins/desktopcover/prefs.glade.h:5
+#: ../plugins/desktopcover/prefs.ui.h:5
 msgid "Top left"
 msgstr ""
 
-#: ../plugins/desktopcover/prefs.glade.h:6
+#: ../plugins/desktopcover/prefs.ui.h:6
 msgid "Top right"
 msgstr ""
 
-#: ../plugins/desktopcover/prefs.glade.h:7
+#: ../plugins/desktopcover/prefs.ui.h:7
 msgid "X offset:"
 msgstr ""
 
-#: ../plugins/desktopcover/prefs.glade.h:8
+#: ../plugins/desktopcover/prefs.ui.h:8
 msgid "Y offset:"
 msgstr ""
 
-#: ../plugins/desktopcover/prefs.glade.h:9
+#: ../plugins/desktopcover/prefs.ui.h:9
 msgid "pixels"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:1
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Base color"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:2
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Base color:"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Darken played section instead of using cursor"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Darkness level:"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Show only waveform, not mood"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Use color theme "
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Use waveform style"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Additional amplification (dB):"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Additional amplification to apply to all files"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Fallback correction level (dB):"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:9
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Prefer per-album correction"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Protect against noise caused by over-amplification"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Use clipping protection"
 msgstr ""
 
-#: ../plugins/podcasts/podcasts.glade.h:1
+#: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
 msgstr ""
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:1
+#: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "<b>Body Message</b>"
 msgstr ""
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:2
+#: ../plugins/notify/notifyprefs_pane.ui.h:2
 msgid "Both artist and album"
 msgstr "Sanatçı ve albüm birlikte"
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:4
+#: ../plugins/notify/notifyprefs_pane.ui.h:4
 #, python-format
 msgid ""
 "Message that should be displayed in the body of the notification. In each "
@@ -2529,55 +2667,55 @@ msgid ""
 "in its place"
 msgstr ""
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:5
+#: ../plugins/notify/notifyprefs_pane.ui.h:5
 msgid "Only album"
 msgstr "Sadece albüm"
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:6
+#: ../plugins/notify/notifyprefs_pane.ui.h:6
 msgid "Only artist"
 msgstr "Sadece sanatçı"
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:7
+#: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Resize displayed covers"
 msgstr ""
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:8
+#: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "Summary"
 msgstr "Özet"
 
-#: ../plugins/ipconsole/ipconsole_prefs.glade.h:1
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Font:"
 msgstr ""
 
-#: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Terminal Opacity:"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:1
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:1
 msgid "Always on top"
 msgstr "Her zaman üstte"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:2
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:2
 msgid "Display window decorations"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:3
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:3
 msgid "Show in tasklist"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:4
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:4
 msgid "Show on all desktops"
 msgstr "Tüm masaüstlerinde göster"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:5
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:5
 msgid "Track title format:"
 msgstr ""
 
-#: ../plugins/streamripper/streamripper.glade.h:1
+#: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Relay Port:"
 msgstr ""
 
-#: ../plugins/streamripper/streamripper.glade.h:2
+#: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Save Location:"
 msgstr "Kaydetme Konumu:"
 
@@ -2601,6 +2739,14 @@ msgstr ""
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
+msgstr ""
+
+#: ../plugins/awn/PLUGININFO:3
+msgid "Awn"
+msgstr ""
+
+#: ../plugins/awn/PLUGININFO:4
+msgid "Sets the cover and adds some menu items to AWN for Exaile"
 msgstr ""
 
 #: ../plugins/currentsong/PLUGININFO:3
@@ -2628,12 +2774,28 @@ msgid ""
 "Requires python-cddb to look up tags."
 msgstr ""
 
+#: ../plugins/daapclient/PLUGININFO:3
+msgid "DAAP Client"
+msgstr ""
+
+#: ../plugins/daapclient/PLUGININFO:4
+msgid "Allows playing of DAAP music shares."
+msgstr ""
+
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
 msgstr ""
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
+msgstr ""
+
+#: ../plugins/jamendo/PLUGININFO:3
+msgid "Jamendo"
+msgstr ""
+
+#: ../plugins/jamendo/PLUGININFO:4
+msgid "Enables access to the Jamendo music catalogue."
 msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
@@ -2666,7 +2828,7 @@ msgid "Displays the current album cover on the desktop"
 msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
-msgid "Last.fm Dynamic Search"
+msgid "Last.fm Dynamic Playlists"
 msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
@@ -2681,6 +2843,17 @@ msgstr ""
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
+msgstr ""
+
+#: ../plugins/droptrayicon/PLUGININFO:3
+msgid "Drop Trayicon"
+msgstr ""
+
+#: ../plugins/droptrayicon/PLUGININFO:4
+msgid ""
+"Provides an alternative trayicon which accepts dropped files.\n"
+"\n"
+"Depends: python-eggtrayicon"
 msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3

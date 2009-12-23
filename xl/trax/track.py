@@ -32,6 +32,7 @@ import unicodedata
 from functools import wraps
 from copy import deepcopy
 import gio
+import gobject
 from xl.nls import gettext as _
 from xl import common, settings, event, metadata
 logger = logging.getLogger(__name__)
@@ -521,6 +522,19 @@ class Track(object):
         _CACHER.add(self, f)
         return f.read_tags([tag])[tag]
 
+    def list_tags_disk(self):
+        """
+            List all the tags directly from file metadata. Can be slow,
+            use with caution.
+        """
+        f = _CACHER.get(self)
+        if not f:
+            try:
+                f = metadata.get_format(self.get_loc_for_io())
+            except:
+                return None
+        _CACHER.add(self, f)
+        return f._get_raw().keys()
 
     ### convenience funcs for rating ###
     # these dont fit in the normal set of tag access methods,

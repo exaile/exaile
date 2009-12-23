@@ -36,10 +36,10 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    exaile.covers.add_search_method(LastFMCoverSearch())
+    providers.register('covers', LastFMCoverSearch())
 
 def disable(exaile):
-    exaile.covers.remove_search_method_by_name('lastfm')
+    providers.unregister('covers', LastFMCoverSearch())
 
 
 class LastFMCoverSearch(CoverSearchMethod):
@@ -56,6 +56,7 @@ class LastFMCoverSearch(CoverSearchMethod):
         """
             Searches last.fm for album covers
         """
+        print "CALLED"
 
         # TODO: handle multi-valued fields better
         (artist, album, title) = track.get_tag_raw('artist')[0], \
@@ -63,7 +64,7 @@ class LastFMCoverSearch(CoverSearchMethod):
                 track.get_tag_raw('title')[0]
 
         if not artist or not album or not title:
-            raise NoCoverFoundException()
+            return []
 
         for type in [['album', album], ['track', title]]:
             url_exact = self.url.replace('type', type[0]) + API_KEY
@@ -77,27 +78,21 @@ class LastFMCoverSearch(CoverSearchMethod):
 
             xml = ETree.fromstring(data)
 
+            print "FOUND"
+
             for element in xml.getiterator(type[0]):
                 if (element.find('artist').text == artist.encode("utf-8")):
                     for sub_element in element.findall('image'):
                         if (sub_element.attrib['size'] == 'extralarge'):
-                            return [self.save_cover(sub_element.text)]
+                            url = sub_element.text
+                            print url
+                            return [url]
 
-        raise NoCoverFoundException()
+        return []
 
-    def save_cover(self, cover_url):
-
+    def get_cover_data(self, cover_url):
         h = urllib.urlopen(cover_url)
         data = h.read()
         h.close()
-
-        cache_dir = self.manager.cache_dir
-
-        covername = os.path.join(cache_dir, hashlib.md5(cover_url).hexdigest())
-        covername += ".jpg"
-        h = open(covername, 'wb')
-        h.write(data)
-        h.close()
-
-        return covername
+        return data
 

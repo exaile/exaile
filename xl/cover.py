@@ -26,7 +26,7 @@
 
 import logging
 import os
-from copy import deepcopy
+import hashlib
 try:
     import cPickle as pickle
 except ImportError:
@@ -34,296 +34,92 @@ except ImportError:
 
 import gio
 
-from xl import common, providers, event, metadata, settings
+from xl import common, providers, event, settings, xdg
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
 
-class CoverData(object):
-    def __init__(self, data):
-        self.data = data
-
-def get_cover_data(info):
-    if isinstance(info, CoverData):
-        return info.data
-
-    handle = gio.File(info).read()
-    data = handle.read()
-
-    return data
-
-def get_album_tuple(track, joiner=None):
+# TODO: maybe this could go into common.py instead? could be
+# useful in other areas.
+class Cacher(object):
     """
-        Returns the album tuple for use in the coverdb
-    """
-    if joiner:
-        j = joiner
-    else:
-        # hack for backwards-compat
-        j = lambda x: u'\u0000'.join(x)
-
-    if track.get_tag_raw('albumartist'):
-        # most of the cover stuff is expecting a 2 item tuple, so we just
-        # return the albumartist twice
-        return (j(track.get_tag_raw('albumartist')),
-                j(track.get_tag_raw('album')))
-    elif track.get_tag_raw('__compilation'):
-        # this should be a 2 item tuple, containing the basedir and the
-        # album.  It is populated in
-        # collection.Collection._check_compilations
-        return track.get_tag_raw('__compilation')
-    else:
-        return (j(track.get_tag_raw('artist')),
-                j(track.get_tag_raw('album')))
-
-class NoCoverFoundException(Exception):
-    pass
-
-class CoverDB(object):
-    """
-        Manages the stored cover database
-
-        Allows you to set covers for a particular album
-    """
-    def __init__(self, location=None, pickle_attrs=[]):
-        """
-            Sets up the CoverDB
-        """
-        self.artists = common.idict()
-        self.location = location
-        self.pickle_attrs = pickle_attrs
-        self.pickle_attrs += ['artists']
-        self._dirty = False
-        if location:
-            self.load_from_location(location)
-
-    def remove_cover(self, artist, album):
-        """
-            Removes a cover for an album
-
-            @param artist: the artist
-            @param album: the album
-        """
-        try:
-            del self.artists[artist][album]
-            self._dirty = True
-        except KeyError:
-            pass
-
-    def get_cover(self, artist, album):
-        """
-            Gets the cover filename for an album
-
-            @param artist: the artist
-            @param album: the album
-            @return: the location of the cover, or None if no cover exists
-        """
-        if artist and artist in self.artists:
-            if album and album in self.artists[artist]:
-                return self.artists[artist][album]
-        return None
-
-    def set_cover(self, artist, album, cover):
-        """
-            Sets the cover filename for an album
-
-            @param artist: the artist
-            @param album: the album
-        """
-        if not type(cover) == str and not type(cover) == unicode:
-            return
-        if not os.path.isfile(cover): return
-        logger.info("CoverDB: set cover %(cover)s for "
-                "'%(album)s - %(artist)s'" %
-            {'cover' : cover, 'album' : album, 'artist' : artist})
-        if not artist in self.artists:
-            self.artists[artist] = common.idict()
-
-        self.artists[artist][album] = cover
-        self._dirty = True
-
-    def set_location(self, location):
-        self.location = location
-
-    def load_from_location(self, location=None):
-        """
-            Restores CoverDB state from the pickled representation
-            stored at the specified location.
-
-            @param location: the location to load the data from [string]
-        """
-        if not location:
-            location = self.location
-        if not location:
-            raise AttributeError(
-                    _("You did not specify a location to save the db"))
-
-        pdata = None
-        for loc in [location, location+".old", location+".new"]:
-            try:
-                f = open(loc, 'rb')
-                pdata = pickle.load(f)
-                f.close()
-            except:
-                pdata = None
-            if pdata:
-                break
-        if not pdata:
-            pdata = dict()
-
-        for attr in self.pickle_attrs:
-            try:
-                setattr(self, attr, pdata[attr])
-            except:
-                pass
-
-    def save_to_location(self, location=None):
-        """
-            Saves a pickled representation of this CoverDB to the
-            specified location.
-
-            location: the location to save the data to [string]
-        """
-        if not self._dirty:
-            return
-
-        if not location:
-            location = self.location
-        if not location:
-            raise AttributeError(
-                    _("You did not specify a location to save the db"))
-
-        try:
-            f = file(location, 'rb')
-            pdata = pickle.load(f)
-            f.close()
-        except:
-            pdata = dict()
-        for attr in self.pickle_attrs:
-            pdata[attr] = deepcopy(getattr(self, attr))
-
-        try:
-            os.remove(location + ".old")
-        except:
-            pass
-        try:
-            os.remove(location + ".new")
-        except:
-            pass
-        f = file(location + ".new", 'wb')
-        pickle.dump(pdata, f, common.PICKLE_PROTOCOL)
-        f.close()
-        try:
-            os.rename(location, location + ".old")
-        except:
-            pass # if it doesn'texist we don't care
-        os.rename(location + ".new", location)
-        try:
-            os.remove(location + ".old")
-        except:
-            pass
-
-        self._dirty = False
-
-class CoverManager(providers.ProviderHandler):
-    """
-        Cover manager.
-
-        Manages different pluggable cover interfaces
+        Simple on-disk cache.  Note that as entries are stored as
+        individual files, the data being stored should be of significant
+        size (several KB) or a lot of disk space will likely be wasted.
     """
     def __init__(self, cache_dir):
         """
-            Initializes the cover manager
-
-            @param cache_dir:  directory to save remotely downloaded art
+            :param cache_dir: directory to use for the cache
         """
-        providers.ProviderHandler.__init__(self, "covers")
-        self.methods = {}
-        self.preferred_order = settings.get_option(
-                'covers/preferred_order', [])
-        self.add_defaults()
+        try:
+            os.makedirs(cache_dir)
+        except:
+            pass
         self.cache_dir = cache_dir
-        if not os.path.isdir(cache_dir):
-            os.mkdir(cache_dir, 0755)
 
-        self.coverdb = CoverDB(location='%s/cover.db' % self.cache_dir)
-
-    def add_search_method(self, method):
+    def add(self, data):
         """
-            Adds a search method to the provider list.
+            Adds an entry to the cache.  Returns a key that can be used
+            to retrieve the data from the cache.
 
-            @param method: the search method instance
+            :param data: The data to store, as a bytestring.
         """
-        providers.register(self.servicename, method)
+        # FIXME: this doesnt handle hash collisions at all. with
+        # 2^256 possible keys its unlikely that we'll have a collision,
+        # but we should handle it anyway.
+        h = hashlib.sha256()
+        h.update(data)
+        key = h.hexdigest()
+        path = os.path.join(self.cache_dir, key)
+        open(path, "wb").write(data)
+        return key
 
-    def remove_search_method(self, method):
+    def remove(self, key):
         """
-            Removes the given search method from the provider list.
+            Remove an entry from the cache.
 
-            @param method: the search method instance
+            :param key: The key to retrieve data for.
         """
-        providers.unregister(self.servicename, method)
-
-    def remove_search_method_by_name(self, name):
-        """
-            Removes a search method from the provider list.
-
-            @param name: the search method name
-        """
+        path = os.path.join(self.cache_dir, key)
         try:
-            providers.unregister(self.servicename, self.methods[name])
-        except KeyError:
-            return
-
-    def set_preferred_order(self, order):
-        """
-            Sets the preferred search order
-
-            @param order: a list containing the order you'd like to search
-                first
-        """
-        if not type(order) in (list, tuple):
-            raise AttributeError(_("order must be a list or tuple"))
-        self.preferred_order = order
-        settings.set_option('covers/preferred_order', list(order))
-
-    def on_new_provider(self, provider):
-        """
-            Adds the new provider to the methods dict and passes a
-            reference of the manager instance to the provider.
-
-            @param provider: the provider instance being added.
-        """
-        if not provider.name in self.methods:
-            self.methods[provider.name] = provider
-            provider._set_manager(self)
-            event.log_event('cover_search_method_added', self, provider)
-
-    def on_del_provider(self, provider):
-        """
-            Remove the provider from the methods dict, and the
-            preferred_order dict if needed.
-
-            @param provider: the provider instance being removed.
-        """
-        try:
-            del self.methods[provider.name]
-            event.log_event('cover_search_method_removed', self, provider)
-        except KeyError:
-            pass
-        try:
-            self.preferred_order.remove(provider.name)
-        except (ValueError, AttributeError):
+            os.remove(path)
+        except: # FIXME
             pass
 
-    def get_methods(self):
+    def get(self, key):
+        """
+            Retrieve an entry from the cache.  Returns None if the given
+            key does not exist.
+        """
+        path = os.path.join(self.cache_dir, key)
+        if os.path.exists(path):
+            return open(path, "rb").read()
+        return None
+
+
+class CoverManager(providers.ProviderHandler):
+    def __init__(self, location=None):
+        providers.ProviderHandler.__init__(self, "covers")
+        self.__cache = Cacher(os.path.join(location, 'cache'))
+        self.location = location
+        self.methods = {}
+        self.order = settings.get_option(
+                'covers/preferred_order', ['tags', 'localfile'])
+        self.db = {}
+        self.load()
+        for method in self.get_providers():
+            self.on_new_provider(method)
+
+        providers.register('covers', TagCoverFetcher())
+        providers.register('covers', LocalFileCoverFetcher())
+
+    def _get_methods(self):
         """
             Returns a list of Methods, sorted by preference
         """
         methods = []
-
-        for name in self.preferred_order:
+        for name in self.order:
             if name in self.methods:
                 methods.append(self.methods[name])
         for k, method in self.methods.iteritems():
@@ -331,209 +127,254 @@ class CoverManager(providers.ProviderHandler):
                 methods.append(method)
         return methods
 
-    def get_cover_db(self):
+    def _get_track_key(self, track):
         """
-            Returns the cover database
+            Get the db mapping key for a track
         """
-        return self.coverdb
+        album = track.get_tag_raw("album", join=True)
+        compilation = track.get_tag_raw("__compilation")
 
-    def save_cover_db(self):
-        """
-            Saves the cover database
-        """
-        self.coverdb.save_to_location()
+        if compilation:
+            value = self.__tags.get('albumartist')
+            if value:
+                tag = 'albumartist'
+            else:
+                tag = 'compilation'
+                value = compilation
+        elif album:
+            tag = 'album'
+            value = album
+        else:
+            # no album info, cant store it
+            return None
+        return (tag, value)
 
-    def add_defaults(self):
+    def find_covers(self, track, limit=-1, local_only=False):
+        covers = []
+        for method in self._get_methods():
+            print method
+            if local_only and method.use_cache:
+                continue
+            new = method.find_covers(track, limit=limit)
+            new = ["%s:%s"%(method.name, x) for x in new]
+            covers.extend(new)
+            if limit != -1 and len(covers) >= limit:
+                break
+        return covers
+
+    def set_cover(self, track, db_string, data=None):
         """
-            Adds default search methods
+            Sets the cover for a track. This will overwrite any existing
+            entry.
+
+            db_string must be in "method:key" format
+
+            cache will be used if data is not None and the method has
+            use_cache=True. otherwise, the method's
+            get_cover_data will be called with db_string
+            when the cover is requested.
         """
-        self.add_search_method(LocalCoverSearch())
+        name, info = db_string.split(":", 1)
+        method = self.methods.get(name)
+        if method and method.use_cache and data:
+            db_string = "cache:%s"%self.__cache.add(data)
+        key = self._get_track_key(track)
+        self.db[key] = db_string
 
     def remove_cover(self, track):
         """
-            Removes the cover for a track
+            Remove the saved cover entry for a track, if it exists.
         """
-        self.coverdb.remove_cover(*get_album_tuple(track))
+        key = self._get_track_key(track)
+        db_string = self.db.get(key)
+        if db_string:
+            del self.db[key]
+            self.__cache.remove(db_string)
 
-    def set_cover(self, track, order=None):
+    def get_cover(self, track, save_cover=True, local_only=False):
         """
-            Sets the ['album_image'] for a given track
-
-            @param track:  The track to set the art for
-            @param order:  an optional [list] for preferred search order
+            get the cover for a given track.
+            if the track has no set cover, backends are
+            searched until a cover is found or we run out of backends.
+            if a cover is found and save_cover is True, a set_cover
+            call will be made to store the cover for later use.
         """
-        if type(order) in (list, tuple):
-            self.preferred_order = order
+        key = self._get_track_key(track)
+        db_string = self.db.get(key)
+        if db_string:
+            return self.get_cover_data(db_string)
 
-        try:
-            covers = self.find_covers(track)
-            track['album_image'] = covers[0]
-            return True
-        except NoCoverFoundException:
-            return False
-
-    def get_cover(self, track, update_track=False):
-        """
-            Finds one cover for a specified track.
-
-            This function first checks the cover database.  If the cover
-            is not there, it searches the available methods
-
-            @param track: the track to search for covers
-            @param update_track: if True, update the coverdb to reflect the
-                new art
-        """
-        if not track: raise NoCoverFoundException()
-
-        cover = None
-        try:
-            item = get_album_tuple(track)
-            if not item[0] or not item[1]:
-                raise NoCoverFoundException()
-            cover = self.coverdb.get_cover(item[0], item[1])
-        except TypeError: # one of the fields is missing
-            raise NoCoverFoundException()
-        except AttributeError:
-            pass
-
-        if cover:
-            return cover
-
-        covers = self.find_covers(track, limit=1)
-
+        covers = self.find_covers(track, limit=1, local_only=local_only)
         if covers:
             cover = covers[0]
+            data = self.get_cover_data(cover)
+            if save_cover:
+                self.set_cover(track, cover, data)
+            return data
+
+        return None
+
+    def get_cover_data(self, db_string):
+        source, data = db_string.split(":", 1)
+        if source == "cache":
+            return self.__cache.get(data)
         else:
-            raise NoCoverFoundException()
+            method = self.methods.get(source)
+            if method:
+                return method.get_cover_data(data)
+            return None
 
-        if update_track:
-            self.coverdb.set_cover(item[0], item[1], cover)
+    def get_default_cover(self):
+        path = xdg.get_data_path("images", "nocover.png")
+        return open(path, "rb").read()
 
-        event.log_event('cover_found', self, (track, cover))
-
-        return cover
-
-    def search_covers(self, search_string, limit=-1):
-        """
-            Finds a cover for a search string
-
-            @param search_string: the search string
-            @param limit: Set to -1 to return all covers, or to the max number
-            of covers you want returned
-        """
-        return self.find_covers(search_string, limit=-1, search=True)
-
-    def find_covers(self, track, limit=-1, search=False):
-        """
-            Finds a cover for a track.
-
-            Searches the preferred order first, and then the rest of the
-            available methods.  The first cover that is found is returned.
-
-            @param track: the track
-            @para limit: Set to -1 to return all covers, or the max number of
-                covers you want returned
-        """
-        covers = []
-        logger.info("Attempting to find covers for %s" % track)
-        for method in self.get_methods():
+    def load(self):
+        path = os.path.join(self.location, 'covers.db')
+        data = None
+        for loc in [path, path+".old", path+".new"]:
             try:
-                if not search:
-                    c = method.find_covers(track, limit)
-                else:
-                    if not hasattr(method, 'search_covers'):
-                        logger.info("%s method doesn't "
-                            "support searching, skipping" % method.name)
-                        continue
-                    c = method.search_covers(track, limit)
-
-                logger.info("Found covers from %s" % method.name)
-                covers.extend(c)
-                if limit != -1:
-                    event.log_event('cover_found', self, (covers, method.type))
-                    break
-            except NoCoverFoundException:
+                f = open(loc, 'rb')
+                data = pickle.load(f)
+                f.close()
+            except: #FIXME
                 pass
+            if data:
+                break
+        if data:
+            self.db = data
 
-        if not covers:
-            # no covers were found, raise an exception
-            raise NoCoverFoundException()
+    def save(self):
+        path = os.path.join(self.location, 'covers.db')
+        try:
+            f = open(path + ".new", 'wb')
+            pickle.dump(self.db, f, common.PICKLE_PROTOCOL)
+            f.close()
+        except:
+            return
+        try:
+            os.rename(path, path + ".old")
+        except:
+            pass # if it doesn'texist we don't care
+        os.rename(path + ".new", path)
+        try:
+            os.remove(path + ".old")
+        except:
+            pass
 
-        event.log_event('covers_found', self, covers)
-        return covers
+    def on_new_provider(self, provider):
+        self.methods[provider.name] = provider
+        if provider.name not in self.order:
+            self.order.append(provider.name)
+
+    def on_del_provider(self, provider):
+        del self.methods[provider.name]
+        if provider.name in self.order:
+            self.order.remove(provider.name)
+
+    def set_preferred_order(self, order):
+        """
+            Sets the preferred search order
+
+            :param order: a list containing the order you'd like to search
+                first
+        """
+        if not type(order) in (list, tuple):
+            raise TypeError("order must be a list or tuple")
+        self.preferred_order = order
+        settings.set_option('covers/preferred_order', list(order))
+
 
 class CoverSearchMethod(object):
     """
-        Base search method
+        Base class for creating cover search methods.
+
+        Search methods do not have to inherit from this class, it's
+        intended more as a template to demonstrate the needed interface.
+
+        class attributes:
+            use_cache - If True, use the cover cache to store the result of
+                    get_cover_data.
+            name - The name of this backend. Must be globally unique.
     """
-    name = "basesearchmethod"
-    def find_covers(self, track, limit):
-        """
-            Searches for an album cover
-
-            @param track:  the track to use to find the cover
-        """
-        return None
-
-    def _set_manager(self, manager):
-        """
-            Sets the cover manager.
-
-            Called when this method is added to the cover manager via
-            add_search_method()
-
-            @param manager: the cover manager
-        """
-        self.manager = manager
-
-class LocalCoverSearch(CoverSearchMethod):
-    """
-        Searches the local path for an album cover
-    """
-    name = 'local'
-    type = 'local'
-    def __init__(self):
-        """
-            Sets up the cover search method
-        """
-        CoverSearchMethod.__init__(self)
-        self.preferred_names = ['album.jpg', 'cover.jpg']
-        self.exts = ['.jpg', '.jpeg', '.png', '.gif']
-
+    use_cache = True
+    name = "base"
     def find_covers(self, track, limit=-1):
-        covers = []
-        if track.get_type() == 'http':
-            raise NoCoverFoundException()
-        try:
-            search_dir = gio.File(track.get_loc_for_io()).get_parent()
-        except AttributeError:
-            raise NoCoverFoundException()
+        """
+            Find the covers for a given track.
 
-        if not search_dir.query_info("standard::type").get_file_type() == \
+            :param track: The track to find covers for.
+            :param limit: Maximal number of covers to return.
+            :returns: A list of strings that can be passed to get_cover_data.
+        """
+        raise NotImplementedError
+
+    def get_cover_data(self, db_string):
+        """
+            Get the image data for a cover
+
+            :param db_string: A method-dependent string that identifies the
+                    cover to get.
+        """
+        raise NotImplementedError
+
+
+class TagCoverFetcher(CoverSearchMethod):
+    use_cache = False
+    name = "tags"
+    def find_covers(self, track, limit=-1):
+        # TODO: handle other art tags, like apev2 uses
+        try:
+            data = track.get_tag_disk("cover")
+        except KeyError:
+            return []
+        if data:
+            # path format: tagname:track_uri
+            path = "cover:%s"%track.get_loc()
+            return [path]
+        return []
+
+    def get_cover_data(self, db_string):
+        tag, uri = db_string.split(":", 1)
+        tr = trax.Track(uri, scan=False)
+        data = tr.get_tag_disk(tag)
+        return data
+
+class LocalFileCoverFetcher(CoverSearchMethod):
+    use_cache = False
+    name = "localfile"
+    uri_types = ['file', 'smb', 'sftp', 'nfs']
+    extensions = ['.png', '.jpg', '.jpeg', '.gif']
+    preferred_names = ['album', 'cover']
+    def find_covers(self, track, limit=-1):
+        # TODO: perhaps should instead check to see if its mounted in
+        # gio, rather than basing this on uri type. file:// should
+        # always be checked, obviously.
+        if track.get_type() not in self.uri_types:
+            return []
+        basedir = gio.File(track.get_loc_for_io()).get_parent()
+        if not basedir.query_info("standard::type").get_file_type() == \
                 gio.FILE_TYPE_DIRECTORY:
-            raise NoCoverFoundException()
-        for fileinfo in search_dir.enumerate_children("standard::type"
+            return []
+        covers = []
+        for fileinfo in basedir.enumerate_children("standard::type"
                 ",standard::name"):
-            gloc = search_dir.get_child(fileinfo.get_name())
+            gloc = basedir.get_child(fileinfo.get_name())
             if not fileinfo.get_file_type() == gio.FILE_TYPE_REGULAR:
                 continue
-
             filename = gloc.get_basename()
-
-            # check preferred names
-            if filename.lower() in self.preferred_names:
+            base, ext = os.path.splitext(filename)
+            if ext.lower() not in self.extensions:
+                continue
+            if base in self.preferred_names:
+                covers.insert(0, gloc.get_uri())
+            else:
                 covers.append(gloc.get_uri())
-                if limit != -1 and len(covers) == limit:
-                    return covers
-
-            # check for other names
-            (pathinfo, ext) = os.path.splitext(filename)
-            if ext.lower() in self.exts:
-                covers.append(gloc.get_uri())
-                if limit != -1 and len(covers) == limit:
-                    return covers
-
-        if covers:
+        if limit == -1:
             return covers
         else:
-            raise NoCoverFoundException()
+            return covers[:limit]
+
+    def get_cover_data(self, db_string):
+        handle = gio.File(db_string).read()
+        return handle.read()
+

@@ -185,7 +185,7 @@ class Exaile(object):
         # Cover manager
         from xl import cover
         self.covers = cover.CoverManager(
-                cache_dir=os.path.join(xdg.get_data_dirs()[0], "covers"))
+                location=os.path.join(xdg.get_data_dirs()[0], "covers"))
 
         # Radio Manager
         from xl import radio

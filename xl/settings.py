@@ -245,4 +245,5 @@ _SETTINGSMANAGER = SettingsManager(
 get_option = _SETTINGSMANAGER.get_option
 set_option = _SETTINGSMANAGER.set_option
 
+
 # vim: et sts=4 sw=4

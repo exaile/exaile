@@ -40,6 +40,12 @@ logger = logging.getLogger(__name__)
 COVER_WIDTH = 100
 NOCOVER_IMAGE = xdg.get_data_path("images", "nocover.png")
 
+def pixbuf_from_data(data):
+    loader = gtk.gdk.PixbufLoader()
+    loader.write(data)
+    return loader.get_pixbuf()
+
+
 class CoverManager(object):
     """
         Cover manager window
@@ -261,8 +267,6 @@ class CoverManager(object):
             try:
                 c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0],
                     update_track=True)
-            except cover.NoCoverFoundException:
-                continue
             except:
                 traceback.print_exc()
                 logger.warning("No cover found")
@@ -386,7 +390,7 @@ class CoverWidget(gtk.EventBox):
         self.player = player
 
         self.image.set_image_size(COVER_WIDTH, COVER_WIDTH)
-        self.image.set_image(NOCOVER_IMAGE)
+        self.image.set_image_data(covers.get_default_cover())
         self.add(self.image)
         self.image.show()
 
@@ -450,44 +454,23 @@ class CoverWidget(gtk.EventBox):
             them
         """
         self.current_track = track
-        nocover = xdg.get_data_path('images/nocover.png')
-        self.loc = nocover
-        self.emit('cover-found', nocover)
-        gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
-
-        if (settings.get_option('covers/automatic_fetching', True)):
-            try:
-                cov = self.covers.get_cover(self.current_track,
-                    update_track=True)
-            except cover.NoCoverFoundException:
-                logger.warning("No covers found")
-                return
-        else:
-            try:
-                item = cover.get_album_tuple(track)
-                cov = self.covers.coverdb.get_cover(item[0], item[1])
-            except (TypeError,AttributeError):
-                return
-            if not cov:
-                return
+        gobject.idle_add(self.set_blank)
+        fetch = not settings.get_option('covers/automatic_fetching', True)
+        cov = self.covers.get_cover(self.current_track, local_only=fetch)
+        if not cov:
+            return
 
         if self.player.current == self.current_track:
-            self.image.loc = cov
-            gobject.idle_add(self.image.set_image_data, cover.get_cover_data(cov))
-            self.loc = cov
-            gobject.idle_add(self._fire_event)
+            gobject.idle_add(self.image.set_image_data, cov)
 
-    def _fire_event(self):
-        self.emit('cover-found', self.loc)
+    def set_blank(self):
+        self.image.set_image_data(self.covers.get_default_cover())
 
     def on_playback_end(self, type, player, object):
         """
             Called when playback stops.  Resets to the nocover image
         """
-        nocover = xdg.get_data_path('images/nocover.png')
-        self.loc = nocover
-        self.image.set_image(nocover)
-        self.emit('cover-found', nocover)
+        self.set_blank()
 
 class CoverWindow(object):
     """Shows the cover in a simple image viewer"""

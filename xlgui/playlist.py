@@ -381,7 +381,7 @@ class Playlist(gtk.VBox):
         """
         ar = [song, None, None]
         for field in self.append_map:
-            value = song.get_tag_display(field)
+            value = song.get_tag_display(field, artist_compilations=False)
             if value is None:
                 value = ''
             ar.append(value)

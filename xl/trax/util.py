@@ -62,7 +62,14 @@ def sort_tracks(fields, trackiter, reverse=False):
         :param trackiter: An iterable of Track objects to be sorted.
         :param reverse: Whether to sort in reverse.
     """
-    keyfunc = lambda tr: [tr.get_tag_sort(field) for field in fields]
+    artist_compilations = True
+    try:
+        if fields.index('artist') > fields.index("album"):
+            artist_compilations = False
+    except ValueError:
+        pass
+    keyfunc = lambda tr: [tr.get_tag_sort(field,
+        artist_compilations=artist_compilations) for field in fields]
     return sorted(trackiter, key=keyfunc, reverse=reverse)
 
 
@@ -72,6 +79,13 @@ def sort_result_tracks(fields, trackiter, reverse=False):
 
         Same params as sort_tracks.
     """
-    keyfunc = lambda tr: [tr.track.get_tag_sort(field) for field in fields]
+    artist_compilations = True
+    try:
+        if fields.index('artist') > fields.index("album"):
+            artist_compilations = False
+    except ValueError:
+        pass
+    keyfunc = lambda tr: [tr.track.get_tag_sort(field,
+        artist_compilations=artist_compilations) for field in fields]
     return sorted(trackiter, key=keyfunc, reverse=reverse)
 

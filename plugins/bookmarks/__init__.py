@@ -24,6 +24,7 @@ from xl import event, xdg, trax, settings
 from xlgui import commondialogs, guiutil
 import gtk
 import gobject
+import gio
 import os
 import logging
 import bookmarksprefs
@@ -146,9 +147,23 @@ class Bookmarks:
             item = trax.Track(key)
             title = item.get_tag_display('title')
             if self.use_covers:
-                image = self.exaile.covers.get_cover(item)
-                pix = gtk.gdk.pixbuf_new_from_file_at_size(image, 16, 16)
+                try:
+                    image = self.exaile.covers.get_cover(item)
+                    # hack
+#                    pix = gtk.gdk.pixbuf_new_from_file_at_size(gio.File(image).get_path(), 16, 16)
+                    #pix = gtk.gdk.pixbuf_new_from_file_at_size(image, 16, 16)
+                    pix = gtk.gdk.PixbufLoader()
+                    pix.set_size(16,16)
+                    pix.write(gio.File(image).read().read())
+                    pix.close()
+                    pix = pix.get_pixbuf()
+                except gobject.GError:
+                    logger.warn('Could not load cover')
+                    pix = None
+                    # no cover
         except:
+            import traceback, sys
+            traceback.print_exc(file=sys.stdout)
             logger.debug('BM: Cannot open %s' % key)
             # delete offending key?
             return
@@ -160,6 +175,7 @@ class Bookmarks:
             menu_item.set_image(gtk.image_new_from_pixbuf(pix))
         menu_item.connect('activate', self.do_bookmark, (key,pos))
         menus[0].append_item(menu_item)
+        menu_item.show_all()
 
         menu_item = gtk.ImageMenuItem(label)
         if pix:

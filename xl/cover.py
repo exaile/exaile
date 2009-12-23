@@ -152,7 +152,6 @@ class CoverManager(providers.ProviderHandler):
     def find_covers(self, track, limit=-1, local_only=False):
         covers = []
         for method in self._get_methods():
-            print method
             if local_only and method.use_cache:
                 continue
             new = method.find_covers(track, limit=limit)
@@ -280,7 +279,7 @@ class CoverManager(providers.ProviderHandler):
         """
         if not type(order) in (list, tuple):
             raise TypeError("order must be a list or tuple")
-        self.preferred_order = order
+        self.order = order
         settings.set_option('covers/preferred_order', list(order))
 
 

@@ -18,7 +18,7 @@ import _ecs as ecs
 import amazonprefs
 import urllib, hashlib, time
 from xl.cover import *
-from xl import common, event, metadata
+from xl import common, event, metadata, providers
 from xl import settings
 from xl.nls import gettext as _
 import logging
@@ -32,12 +32,10 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    exaile.covers.add_search_method(
-        AmazonCoverSearch()
-    )
+    providers.register('covers', AmazonCoverSearch())
 
 def disable(exaile):
-    exaile.covers.remove_search_method_by_name('amazon')
+    providers.unregister('covers', AmazonCoverSearch())
 
 def get_prefs_pane():
     return amazonprefs
@@ -49,7 +47,6 @@ class AmazonCoverSearch(CoverSearchMethod):
         Searches amazon for an album cover
     """
     name = 'amazon'
-    type = 'remote' # fetches remotely as opposed to locally
     def __init__(self):
         self.starttime = 0
 
@@ -57,12 +54,15 @@ class AmazonCoverSearch(CoverSearchMethod):
         """
             Searches amazon for album covers
         """
-        (artist, album) = get_album_tuple(track, joiner=joiner)
+        try:
+            artist = track.get_tag_raw('artist')[0]
+            album = track.get_tag_raw('album')[0]
+        except AttributeError:
+            pass
         return self.search_covers("%s - %s" %
             (artist, album), limit)
 
     def search_covers(self, search, limit=-1):
-        cache_dir = self.manager.cache_dir
 
         # wait at least 1 second until the next attempt
         waittime = 1 - (time.time() - self.starttime)
@@ -83,32 +83,11 @@ class AmazonCoverSearch(CoverSearchMethod):
         try:
             albums = ecs.search_covers(search, api_key, secret_key)
         except ecs.AmazonSearchError, e:
-            raise NoCoverFoundException(str(e))
+            return []
+        return albums
 
-        covers = []
-        for album in albums:
-            try:
-                h = urllib.urlopen(album)
-                data = h.read()
-                h.close()
-
-                covername = os.path.join(cache_dir,
-                    hashlib.md5(album).hexdigest())
-                covername += ".jpg"
-                h = open(covername, 'w')
-                h.write(data)
-                h.close()
-
-                covers.append(covername)
-                if limit != -1 and len(covers) >= limit:
-                    return covers
-            except AttributeError:
-                continue
-            except:
-                traceback.print_exc()
-                common.log_exception()
-
-        if not covers:
-            raise NoCoverFoundException()
-
-        return covers
+    def get_cover_data(self, url):
+        h = urllib.urlopen(url)
+        data = h.read()
+        h.close()
+        return data

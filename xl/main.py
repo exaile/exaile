@@ -495,7 +495,7 @@ class Exaile(object):
         if self.gui:
             self.gui.quit()
 
-        self.covers.save_cover_db()
+        self.covers.save()
 
         self.collection.save_to_location()
 

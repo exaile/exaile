@@ -56,8 +56,6 @@ class LastFMCoverSearch(CoverSearchMethod):
         """
             Searches last.fm for album covers
         """
-        print "CALLED"
-
         # TODO: handle multi-valued fields better
         (artist, album, title) = track.get_tag_raw('artist')[0], \
                 track.get_tag_raw('album')[0], \
@@ -77,8 +75,6 @@ class LastFMCoverSearch(CoverSearchMethod):
                 continue
 
             xml = ETree.fromstring(data)
-
-            print "FOUND"
 
             for element in xml.getiterator(type[0]):
                 if (element.find('artist').text == artist.encode("utf-8")):

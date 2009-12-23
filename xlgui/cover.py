@@ -635,19 +635,13 @@ class CoverChooser(gobject.GObject):
         self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.ui'))
         self.window = self.builder.get_object('CoverChooser')
 
-        try:
-            tempartist = ' / '.join(track['artist'])
-        except TypeError:
-            tempartist = ''
-        try:
-            tempalbum = ' / '.join(track['album'])
-        except TypeError:
-            tempalbum = ''
-
+        tempartist = track.get_tag_display('artist')
+        tempalbum = track.get_tag_display('album')
         self.window.set_title("%s - %s" % (tempartist,tempalbum))
         self.window.set_transient_for(parent)
 
         self.track = track
+        self.covers = []
         self.current = 0
         self.prev = self.builder.get_object('cover_back_button')
         self.prev.connect('clicked', self.go_prev)
@@ -692,10 +686,8 @@ class CoverChooser(gobject.GObject):
         self.covers = []
         self.current = 0
 
-        if type(search) == str or type(search) == unicode:
-            covers = self.manager.search_covers(search)
-        else:
-            covers = self.manager.find_covers(search)
+        covers = self.manager.find_covers(self.track)
+        covers = [(cover, self.manager.get_cover_data(x)) for x in covers]
 
         if covers:
             self.covers = covers
@@ -711,8 +703,7 @@ class CoverChooser(gobject.GObject):
         track = self.track
         cvr = self.covers[self.current]
 
-        album_tup = cover.get_album_tuple(track)
-        self.manager.coverdb.set_cover(album_tup[0], album_tup[1], cvr)
+        self.covers.set_cover(track, cvr[0], cvr[1])
 
         self.emit('cover-chosen', cvr)
         self.window.destroy()
@@ -746,6 +737,5 @@ class CoverChooser(gobject.GObject):
         """
             Shows the current cover
         """
-        logger.info(c)
-        self.cvr.set_image_data(cover.get_cover_data(c))
+        self.cvr.set_image_data(c[1])
         self.window.show_all()

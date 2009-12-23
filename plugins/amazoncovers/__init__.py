@@ -25,6 +25,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+AMAZON = None
+
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, "exaile_loaded")
@@ -32,10 +34,12 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    providers.register('covers', AmazonCoverSearch())
+    global AMAZON
+    AMAZON = AmazonCoverSearch()
+    providers.register('covers', AMAZON)
 
 def disable(exaile):
-    providers.unregister('covers', AmazonCoverSearch())
+    providers.unregister('covers', AMAZON)
 
 def get_prefs_pane():
     return amazonprefs

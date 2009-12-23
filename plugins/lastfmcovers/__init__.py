@@ -28,6 +28,7 @@ from xl import event
 # register your own key with last.fm
 API_KEY = '3599c79a97fd61ce518b75922688bc38'
 
+LASTFM = None
 
 def enable(exaile):
     if exaile.loading:
@@ -36,10 +37,12 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    providers.register('covers', LastFMCoverSearch())
+    global LASTFM
+    LASTFM = LastFMCoverSearch()
+    providers.register('covers', LASTFM)
 
 def disable(exaile):
-    providers.unregister('covers', LastFMCoverSearch())
+    providers.unregister('covers', LASTFM)
 
 
 class LastFMCoverSearch(CoverSearchMethod):

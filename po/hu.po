@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-16 10:41+0000\n"
-"Last-Translator: Balázs Attila <battila9@freemail.hu>\n"
+"PO-Revision-Date: 2009-12-22 10:24+0000\n"
+"Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-12-17 04:42+0000\n"
+"X-Launchpad-Export-Date: 2009-12-23 04:32+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -24,7 +24,7 @@ msgstr "Automatikus"
 
 #: ../xl/main.py:120
 msgid "Failed to migrate from 0.2.14"
-msgstr "Sikertelen Migráció 0.2.14-ről"
+msgstr "Sikertelen migráció 0.2.14-ről"
 
 #: ../xl/main.py:288
 msgid "Playback options"
@@ -318,7 +318,7 @@ msgstr ""
 #: ../xl/plugins.py:91
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr ""
+msgstr "'%s' névvel már bővítmény telepítve"
 
 #: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"

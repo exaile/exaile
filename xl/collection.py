@@ -521,7 +521,7 @@ class Library(object):
             tr = track.Track(uri)
             if tr._scan_valid == True:
                 tr.set_tag_raw('__date_added', time.time())
-            self.collection.add(tr)
+                self.collection.add(tr)
         tr.set_tag_raw('__modified', mtime)
         return tr
 

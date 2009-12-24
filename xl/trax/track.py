@@ -370,28 +370,36 @@ class Track(object):
             return self.join_values(val)
         return val
 
-    def get_tag_sort(self, tag, join=True):
+    def get_tag_sort(self, tag, join=True, artist_compilations=True):
         """
             Get a tag value in a form suitable for sorting.
 
             :param tag: The name of the tag to get
             :param join: If True, joins lists of values into a
                 single value.
+            :param artist_compilations: If True, automatically handle
+                albumartist and other compilations detections when
+                tag=="artist".
         """
         # The two magic values here are to ensure that compilations
         # and unknown values are always sorted below all normal
         # values.
         retval = None
         sorttag = self.__tags.get(tag + "sort")
-        if sorttag:
+        if sorttag and tag != "artist":
             retval = sorttag
         elif tag == "artist":
-            if self.__tags.get('__compilation'):
+            if artist_compilations and self.__tags.get('__compilation'):
                 retval = self.__tags.get('albumartist',
                         u"\uffff\uffff\uffff\ufffe")
             else:
                 retval = self.__tags.get('artist',
                         u"\uffff\uffff\uffff\uffff")
+            if sorttag and retval not in (u"\uffff\uffff\uffff\ufffe",
+                    u"\uffff\uffff\uffff\uffff"):
+                retval = sorttag
+            else:
+                sorttag = None
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount'):
@@ -409,19 +417,22 @@ class Track(object):
                 if isinstance(retval, list):
                     retval = [self.lower(v) for v in retval]
                 else:
-                    retval = self.lower(v)
+                    retval = self.lower(retval)
             if join:
                 retval = self.join_values(retval)
 
         return retval
 
-    def get_tag_display(self, tag, join=True):
+    def get_tag_display(self, tag, join=True, artist_compilations=True):
         """
             Get a tag value in a form suitable for display.
 
             :param tag: The name of the tag to get
             :param join: If True, joins lists of values into a
                 single value.
+            :param artist_compilations: If True, automatically handle
+                albumartist and other compilations detections when
+                tag=="artist".
         """
         if tag == '__loc':
             uri = gio.File(self.__tags['__loc']).get_parse_name()
@@ -429,7 +440,7 @@ class Track(object):
 
         retval = None
         if tag == "artist":
-            if self.__tags.get('__compilation'):
+            if artist_compilations and self.__tags.get('__compilation'):
                 retval = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
                 retval = self.__tags.get('artist', _UNKNOWNSTR)
@@ -466,16 +477,21 @@ class Track(object):
 
         return retval
 
-    def get_tag_search(self, tag, format=True):
+    def get_tag_search(self, tag, format=True, artist_compilations=True):
         """
             Get a tag value suitable for passing to the search system.
 
             :param format: pre-format into a search query.
+            :param artist_compilations: If True, automatically handle
+                albumartist and other compilations detections when
+                tag=="artist".
         """
+        extraformat = ""
         if tag == "artist":
-            if self.__tags.get('__compilation'):
+            if artist_compilations and self.__tags.get('__compilation'):
                 retval = self.__tags.get('albumartist', '__null__')
                 tag = 'albumartist'
+                extraformat += " ! __compilation==__null__"
             else:
                 retval = self.__tags.get('artist', '__null__')
         elif tag in ('tracknumber', 'discnumber'):
@@ -497,6 +513,8 @@ class Track(object):
                 retval = " ".join(["%s==\"%s\""%(tag, val) for val in retval])
             else:
                 retval = "%s==\"%s\""%(tag, retval)
+            if extraformat:
+                retval += extraformat
 
         # hack to make things work - discnumber breaks without it.
         # TODO: figure out why this happens, cleaner solution

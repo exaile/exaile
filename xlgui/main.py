@@ -114,6 +114,9 @@ class PlaybackProgressBar(object):
         self._set_bar_text(seconds, length)
 
     def playback_start(self, type, player, object):
+        if self.timer_id:
+            gobject.source_remove(self.timer_id)
+            self.timer_id = None
         self.timer_id = gobject.timeout_add(1000, self.timer_update)
 
     def playback_toggle_pause(self, type, player, object):

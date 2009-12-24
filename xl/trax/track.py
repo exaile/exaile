@@ -88,7 +88,7 @@ class _MetadataCacher(object):
             pass
 
     def get(self, trackobj):
-        return self._cache.get(trackobj, None)
+        return self._cache.get(trackobj, [None])[0]
 
 _CACHER = _MetadataCacher()
 

@@ -34,7 +34,7 @@ except ImportError:
 
 import gio
 
-from xl import common, providers, event, settings, xdg
+from xl import common, providers, event, settings, xdg, trax
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -135,7 +135,7 @@ class CoverManager(providers.ProviderHandler):
         compilation = track.get_tag_raw("__compilation")
 
         if compilation:
-            value = self.__tags.get('albumartist')
+            value = track.get_tag_raw('albumartist')
             if value:
                 tag = 'albumartist'
             else:
@@ -328,7 +328,7 @@ class TagCoverFetcher(CoverSearchMethod):
             return []
         if data:
             # path format: tagname:track_uri
-            path = "cover:%s"%track.get_loc()
+            path = "cover:%s"%track.get_loc_for_io()
             return [path]
         return []
 

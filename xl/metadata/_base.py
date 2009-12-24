@@ -142,7 +142,10 @@ class BaseFormat(object):
                     if type(t) in [str, unicode]:
                         t = [t]
                     else:
-                        t = [unicode(u) for u in list(t)]
+                        try:
+                            t = [unicode(u) for u in list(t)]
+                        except UnicodeDecodeError:
+                            t = t
                 except (KeyError, TypeError):
                     pass
             if t == None and self.others:

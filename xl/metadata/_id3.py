@@ -82,6 +82,8 @@ class ID3Format(BaseFormat):
             for value in field:
                 ret.extend([unicode(x.replace('\n','').replace('\r','')) \
                         for x in value.url])
+        elif t == 'APIC':
+            ret = [x.data for x in field]
         else:
             for value in field:
                 try:

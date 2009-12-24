@@ -186,9 +186,8 @@ class CoverManager(object):
         items = []
         for track in tracks:
             try:
-                (artist, album) = cover.get_album_tuple(track)
-            except KeyError:
-                continue
+                artist = track.get_tag_raw('artist')[0]
+                album = track.get_tag_raw('album')[0]
             except TypeError:
                 continue
 
@@ -207,20 +206,22 @@ class CoverManager(object):
         self.items = items
         self.items.sort()
 
-        nocover = gtk.gdk.pixbuf_new_from_file(NOCOVER_IMAGE)
+        nocover = pixbuf_from_data(self.manager.get_default_cover())
         nocover = nocover.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
         self.nocover = nocover
         self.needs = 0
         for item in items:
             if not item[0] or not item[1]: continue
             try:
-                cover_avail = self.manager.coverdb.get_cover(item[0], item[1])
+                cover_avail = self.manager.get_cover(
+                        self.track_dict[item[0]][item[1]][0],
+                        local_only=True)
             except TypeError:
                 cover_avail = None
 
             if cover_avail:
                 try:
-                    image = gtk.gdk.pixbuf_new_from_file(cvr)
+                    image = pixbuf_from_data(cover_avail)
                     image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
                 except:
                     image = nocover

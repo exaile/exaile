@@ -43,7 +43,9 @@ NOCOVER_IMAGE = xdg.get_data_path("images", "nocover.png")
 def pixbuf_from_data(data):
     loader = gtk.gdk.PixbufLoader()
     loader.write(data)
-    return loader.get_pixbuf()
+    loader.close()
+    pixbuf = loader.get_pixbuf()
+    return pixbuf
 
 
 class CoverManager(object):
@@ -703,7 +705,7 @@ class CoverChooser(gobject.GObject):
         track = self.track
         cvr = self.covers[self.current]
 
-        self.covers.set_cover(track, cvr[0], cvr[1])
+        self.manager.set_cover(track, cvr[0], cvr[1])
 
         self.emit('cover-chosen', cvr)
         self.window.destroy()

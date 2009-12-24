@@ -19,8 +19,9 @@
 import pynotify, cgi, gobject, logging
 import notifyosd_cover, notifyosdprefs
 from xl import event, settings
+from xlgui import cover as guicover
 from xl.nls import gettext as _
-import gtk.gdk
+import gobject, gtk.gdk
 
 logger = logging.getLogger(__name__)
 pynotify.init('Exaile')
@@ -94,10 +95,14 @@ class ExaileNotifyOsd(object):
         else:
             self.body = ""
 
-        if icon_allowed :
-            self.notify.update(self.summary, self.body, self.cover)
-        else :
-            self.notify.update(self.summary, self.body)
+        if icon_allowed and self.cover:
+            try:
+                pixbuf = guicover.pixbuf_from_data(self.cover)
+            except gobject.GError:
+                pass
+            else:
+                self.notify.set_icon_from_pixbuf(pixbuf)
+        self.notify.update(self.summary, self.body)
 
         if settings.get_option("plugin/notifyosd/show_when_focused", True) or \
                 not self.exaile.gui.main.window.is_active():
@@ -134,12 +139,15 @@ class ExaileNotifyOsd(object):
                         return
                 self.update_track_notify(type, self.exaile.player, track)
             elif self.notify_pause and self.cover == self.stopicon: # if there is no track, then status is stopped
-                if self.use_media_icons:
-                    self.notify.update(self.summary, self.body, self.cover)
-                else:
-                    self.notify.update(self.summary, self.body)
+                if self.use_media_icons and self.cover:
+                    try:
+                        pixbuf = guicover.pixbuf_from_data(self.cover)
+                    except gobject.GError:
+                        pass
+                    else:
+                        self.notify.set_icon_from_pixbuf(pixbuf)
+                self.notify.update(self.summary, self.body)
                 self.notify.show()
-
 
     def exaile_ready(self, type = None, data1 = None, data2 = None):
         if self.exaile.gui.tray_icon:

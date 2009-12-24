@@ -32,6 +32,7 @@ import unicodedata
 from functools import wraps
 from copy import deepcopy
 import gio
+import gobject
 from xl.nls import gettext as _
 from xl import common, settings, event, metadata
 logger = logging.getLogger(__name__)
@@ -74,9 +75,11 @@ class _MetadataCacher(object):
 
     def add(self, trackobj, formatobj):
         try:
-            gobject.source_remove(self._cache[trackobj][1])
+            id = self._cache[trackobj]
         except KeyError:
             pass
+        else:
+            gobject.source_remove(id[1])
         timeout_id = gobject.timeout_add(self.timeout, self.remove, trackobj)
         self._cache[trackobj] = [formatobj, timeout_id]
 

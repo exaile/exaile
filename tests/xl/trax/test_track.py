@@ -68,3 +68,20 @@ class Test_MetadataCacher(unittest.TestCase):
 
     def tearDown(self):
         self.mox.UnsetStubs()
+
+class TestTrack(unittest.TestCase):
+
+    def setUp(self):
+        self.mox = mox.Mox()
+
+    def test_flyweight(self):
+        """There can only be one object based on a url in args"""
+        t1 = track.Track('uri')
+        t2 = track.Track(uri='uri')
+        self.assertTrue(t1 is t2, "%s is not %s" % (repr(t1), repr(t2)))
+
+    def test_none_url(self):
+        self.assertRaises(ValueError, track.Track)
+
+    def tearDown(self):
+        self.mox.UnsetStubs()

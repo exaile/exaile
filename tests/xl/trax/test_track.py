@@ -2,8 +2,13 @@ import unittest
 
 import mox
 import gobject
+try:
+    from nose.plugins.skip import SkipTest
+except ImportError:
+    SkipTest = None
 
 import xl.trax.track as track
+
 
 class Test_MetadataCacher(unittest.TestCase):
 
@@ -82,6 +87,20 @@ class TestTrack(unittest.TestCase):
 
     def test_none_url(self):
         self.assertRaises(ValueError, track.Track)
+
+    def test_unpickles(self):
+        tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
+            '__loc': u'uri'})
+        self.assertEqual(tr1.get_loc_for_io(), u'uri')
+
+    def test_unpickles_flyweight(self):
+        if SkipTest is not None:
+            raise SkipTest
+        tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
+            '__loc': u'uri'})
+        tr2 = track.Track(_unpickles={'artist': [u'my_artist'],
+            '__loc': u'uri'})
+        self.assertTrue(tr1 is tr2)
 
     def tearDown(self):
         self.mox.UnsetStubs()

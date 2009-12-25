@@ -19,6 +19,9 @@ class Test_MetadataCacher(unittest.TestCase):
         self.mox = mox.Mox()
         self.mc = track._MetadataCacher(self.TIMEOUT, self.MAX_ENTRIES)
 
+    def tearDown(self):
+        self.mox.UnsetStubs()
+
     def test_add(self):
         timeout_id = 1
         self.mox.StubOutWithMock(gobject, 'timeout_add')
@@ -70,9 +73,6 @@ class Test_MetadataCacher(unittest.TestCase):
 
     def test_remove_not_exist(self):
         self.assertEqual(self.mc.remove('foo'), None)
-
-    def tearDown(self):
-        self.mox.UnsetStubs()
 
 class TestTrack(unittest.TestCase):
 

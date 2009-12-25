@@ -88,6 +88,11 @@ class TestTrack(unittest.TestCase):
         t2 = track.Track(uri='uri')
         self.assertTrue(t1 is t2, "%s is not %s" % (repr(t1), repr(t2)))
 
+    def test_different_url_not_flyweighted(self):
+        t1 = track.Track('uri')
+        t2 = track.Track(uri='uri2')
+        self.assertTrue(t1 is not t2, "%s is %s" % (repr(t1), repr(t2)))
+
     def test_none_url(self):
         self.assertRaises(ValueError, track.Track)
 

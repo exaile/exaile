@@ -430,10 +430,20 @@ class Library(object):
         # check for compilations
         if not settings.get_option('collection/file_based_compilations', True):
             return
+
+        def joiner(value):
+            if not value or type(value) in (str, unicode):
+                return value
+            else:
+                try:
+                    return u"\u0000".join(value)
+                except TypeError:
+                    return value
+
         try:
-            basedir = metadata.j(tr.get_tag_raw('__basedir'))
-            album = metadata.j(tr.get_tag_raw('album'))
-            artist = metadata.j(tr.get_tag_raw('artist'))
+            basedir = joiner(tr.get_tag_raw('__basedir'))
+            album = joiner(tr.get_tag_raw('album'))
+            artist = joiner(tr.get_tag_raw('artist'))
         except UnicodeDecodeError: #TODO: figure out why this happens
             logger.warning("Encoding error, skipping compilation check")
             return

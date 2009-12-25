@@ -1,4 +1,5 @@
 import unittest
+import os
 
 import mox
 import gobject
@@ -8,6 +9,17 @@ except ImportError:
     SkipTest = None
 
 import xl.trax.track as track
+
+
+TEST_TRACKS = [os.path.abspath(
+    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir,
+    'data', 'music', 'delerium', 'chimera', '05 - Truly') + os.extsep + ext)
+    for ext in ('aac', 'aiff', 'au', 'flac', 'mp3', 'mpc', 'ogg', 'spx',
+                'wav', 'wma', 'wv')]
+
+def test_all_tracks_exist():
+    for track in TEST_TRACKS:
+        assert os.path.exists(track), "%s does not exist" % track
 
 
 class Test_MetadataCacher(unittest.TestCase):
@@ -109,3 +121,9 @@ class TestTrack(unittest.TestCase):
         tr2 = track.Track(_unpickles={'artist': [u'my_artist'],
             '__loc': u'uri'})
         self.assertTrue(tr1 is tr2)
+
+    def test_takes_nonurl(self):
+        for tr in TEST_TRACKS:
+            tr = track.Track(tr)
+            self.assertTrue(tr.local_file_name())
+            self.assertTrue(tr.exists())

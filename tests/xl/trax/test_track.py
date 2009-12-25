@@ -79,6 +79,9 @@ class TestTrack(unittest.TestCase):
     def setUp(self):
         self.mox = mox.Mox()
 
+    def tearDown(self):
+        self.mox.UnsetStubs()
+
     def test_flyweight(self):
         """There can only be one object based on a url in args"""
         t1 = track.Track('uri')
@@ -101,6 +104,3 @@ class TestTrack(unittest.TestCase):
         tr2 = track.Track(_unpickles={'artist': [u'my_artist'],
             '__loc': u'uri'})
         self.assertTrue(tr1 is tr2)
-
-    def tearDown(self):
-        self.mox.UnsetStubs()

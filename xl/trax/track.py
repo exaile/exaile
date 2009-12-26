@@ -116,6 +116,7 @@ class Track(object):
         else:
             uri = kwargs.get("uri")
         if uri is not None:
+            uri = gio.File(uri).get_uri()
             try:
                 tr = cls.__tracksdict[uri]
                 tr._init = False

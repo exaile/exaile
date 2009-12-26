@@ -197,7 +197,12 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
             self.h(mupd.encode())
 
         def do_GET_item(self, database, item, format):
-            fn = md_cache.get_item_by_id(item).get_original_filename()
+            try:
+                fn = md_cache.get_item_by_id(item).get_original_filename()
+            except IndexError:          # if the track isn't in the DB, we get an exception
+                self.send_error(404)    # this can be caused by left overs from previous sessions
+                return
+
             if (self.headers.has_key('Range')):
                 rs = self.headers['Range']
                 m = re.compile('bytes=([0-9]+)-([0-9]+)?').match(rs)

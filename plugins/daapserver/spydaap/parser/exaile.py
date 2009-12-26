@@ -35,14 +35,13 @@ class ExaileParser(spydaap.parser.Parser):
         'discnumber': 'daap.songdiscnumber'
         }
 
-    #file_re = re.compile(".*\\.[oO][gG]{2}$")
     def understands(self, filename):
         return true
      #   return self.file_re.match(filename)
 
     # returns a list in exaile
     def handle_int_tags(self, map, md, daap):
-        for k in md.tags.keys():
+        for k in md.list_tags():
             if map.has_key(k):
                 try:
                     tn = str(md.get_tag_raw(k)[0])
@@ -57,12 +56,23 @@ class ExaileParser(spydaap.parser.Parser):
 #                    print 'Parse Exception'
 #                    traceback.print_exc(file=sys.stdout)
 
+    # We can't use functions in __init__ because exaile tracks no longer
+    # give us access to .tags
+    def handle_string_tags(self, map, md, daap):
+        for k in md.list_tags():
+            if map.has_key(k):
+                try:
+                    tag = [ str(t) for t in md.get_tag_raw(k)]
+                    tag = [ t for t in tag if t != ""]
+                    daap.append(do(map[k], "/".join(tag)))
+                except: pass
+
     def parse(self, trk):
         try:
             #trk = mutagen.File(filename)
             d = []
-            if trk.tags != None:
-                if trk.tags.has_key('title'):
+            if len(trk.list_tags()) > 0:
+                if 'title' in trk.list_tags():
                     name = str(trk.get_tag_raw('title')[0])
                 else: name = str(trk)
                 

@@ -18,3 +18,7 @@ class NamePreference(widgets.PrefsItem):
 class EnabledPreference(widgets.CheckPrefsItem):
     default = True
     name = 'plugin/daapserver/enabled'
+    
+class HostPreference(widgets.PrefsItem):
+    default = '0.0.0.0'
+    name = 'plugin/daapserver/host'

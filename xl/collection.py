@@ -532,6 +532,11 @@ class Library(object):
             if tr._scan_valid == True:
                 tr.set_tag_raw('__date_added', time.time())
                 self.collection.add(tr)
+
+            # Track already existed. This fixes trax.get_tracks_from_uri
+            # on windows, unknown why fix isnt needed on linux.
+            elif not tr._init:
+                self.collection.add(tr)
         tr.set_tag_raw('__modified', mtime)
         return tr
 

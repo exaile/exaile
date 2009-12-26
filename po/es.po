@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-15 10:56+0000\n"
-"Last-Translator: Gonzalo Testa <gonzalogtesta@gmail.com>\n"
+"PO-Revision-Date: 2009-12-25 17:39+0000\n"
+"Last-Translator: Paco Molinero <paco@byasl.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-12-16 04:58+0000\n"
+"X-Launchpad-Export-Date: 2009-12-26 04:31+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -565,6 +565,7 @@ msgstr "Añadir pistas similares a la lista de forma dinámica"
 #: ../xlgui/main.py:706
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
+"Necesita complementos para proporcionar listas de reproducción dinámicas"
 
 #: ../xlgui/main.py:862
 #, python-format
@@ -1411,7 +1412,7 @@ msgstr "_Cola"
 
 #: ../data/ui/main.ui.h:34
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "_Lista de reproducción aleatoria"
 
 #: ../data/ui/main.ui.h:35
 msgid "_Resizable"
@@ -2010,19 +2011,19 @@ msgstr "Carátula en escritorio"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Buscando mood..."
 
 #: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr ""
+msgstr "Mood encontrado."
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "No se pudo leer moodbar."
 
 #: ../plugins/moodbar/__init__.py:497
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "El ejecutable Moodbar no se encuentra disponible"
 
 #: ../plugins/droptrayicon/__init__.py:267
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
@@ -2031,11 +2032,11 @@ msgstr ""
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"
-msgstr ""
+msgstr "Añadir y reproducir"
 
 #: ../plugins/droptrayicon/__init__.py:272
 msgid "Append"
-msgstr ""
+msgstr "Añadir"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
@@ -2400,11 +2401,11 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"
-msgstr ""
+msgstr "Mostrar carátulas"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
-msgstr ""
+msgstr "Superposición en pantalla:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"
@@ -2661,7 +2662,7 @@ msgstr "Nivel de oscuridad:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Mostrar sólo ondas, no mood"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Use color theme "
@@ -2913,7 +2914,7 @@ msgstr "Muestra la carátula del álbum actual en el escritorio"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Lista de reproducción dinámica de Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
@@ -2921,13 +2922,15 @@ msgstr "El motor de Last.fm para listas de reproducción dinámicas"
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Moodbar"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Reemplaza la barra de progreso estándar por la barra Moodbar.\n"
+"Depende: moodbar"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"

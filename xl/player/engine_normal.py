@@ -24,10 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.nls import gettext as _
+import logging
+import time
+import urllib
+import urlparse
 
-import urlparse, urllib, logging, time
 import gst, gobject
+
+from xl.nls import gettext as _
 from xl import common, event
 from xl.player import pipe, _base
 

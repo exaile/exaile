@@ -27,7 +27,7 @@
         <col id="0" translatable="yes">Year - Album</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Artist - Year - Album</col>
+        <col id="0" translatable="yes">Artist - (Year - Album)</col>
       </row>
     </data>
   </object>

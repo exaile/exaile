@@ -24,7 +24,7 @@ import threading
 import gobject
 import xlgui
 from gettext import gettext as _
-from xl import collection, event, track, common
+from xl import collection, event, trax, common
 from xlgui.panel.collection import CollectionPanel
 from xlgui import guiutil, commondialogs
 from daap import DAAPClient, DAAPError
@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 gobject.threads_init()
 
 #
-#   Check For python-avahi, we can work without 
+#   Check For python-avahi, we can work without
 #  avahi, but wont be able to discover shares.
 #
 
@@ -77,7 +77,7 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
         logger.info("DAAP: Found %s." % name)
         #Use all available info in key to avoid name conflicts.
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
-        
+
         if name in self.services:   # using only name for conflicts (for multiple adapters)
             return
 
@@ -92,7 +92,7 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
 
         if name in self.services:
-            self.remove_share_menu_item(name)        
+            self.remove_share_menu_item(name)
             del self.services[name]
 
     def new_share_menu_item(self, name):
@@ -100,27 +100,27 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
             This function is called by Avahi when a new share is detected
         on the network.  It adds the share to the Connect menu.
         '''
-        
+
         if self.menu:
             menu_item = gtk.MenuItem(name)
             menu_item.connect('activate', self.clicked, name )
             self.menu.append_item(menu_item)
             menu_item.show()
-        
+
     def remove_share_menu_item(self, name):
         '''
             This function is called by Avahi when a share is removed
             from the network.  It removes the menu entry for the share.
         '''
-        
+
         if self.menu:
             item = [x for x in self.menu.get_children() if (x.get_name() == 'GtkMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == name)]
             if len(item) > 0:
                 item[0].destroy()
-                
+
     def clicked(self, menu_item, name):
         '''
-            This function is called in response to a menu_item click.  
+            This function is called in response to a menu_item click.
         Fire away.
         '''
         gobject.idle_add(self.emit, "connect", (name,)+self.services[name])
@@ -147,8 +147,8 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
 
 class DaapManager:
     '''
-        DaapManager is a class that manages DaapConnections, both manual 
-    and avahi-generated.  
+        DaapManager is a class that manages DaapConnections, both manual
+    and avahi-generated.
     '''
     def __init__(self, exaile, menu, avahi):
         '''
@@ -157,24 +157,24 @@ class DaapManager:
         self.exaile = exaile
         self.avahi = avahi
         self.panels = {}
-        
+
         menu_item = gtk.MenuItem(_('Manually...'))
         menu_item.connect('activate', self.manual_connect)
         menu.append_item(menu_item)
 
-        
+
         if avahi is not None:
             avahi.connect("connect", self.connect_share)
 
     def connect_share(self, obj, (name, addr, port)):
         '''
             This function is called when a user wants to connec to
-        a DAAP share.  It creates a new panel for the share, and 
+        a DAAP share.  It creates a new panel for the share, and
         requests a track list.
         '''
-        
+
         conn = DaapConnection(name, addr, port)
-            
+
         conn.connect()
         library = DaapLibrary(conn)
         panel = NetworkPanel(self.exaile.gui.main.window, library, self)
@@ -183,7 +183,7 @@ class DaapManager:
         panel.refresh()             # threaded
         xlgui.controller().add_panel(*panel.get_panel())
         self.panels[name] = panel
-        
+
     def disconnect_share(self, name):
         '''
             This function is called to disconnect a previously connected
@@ -199,7 +199,7 @@ class DaapManager:
 
     def manual_connect(self, widget):
         '''
-            This function is called when the user selects the manual 
+            This function is called when the user selects the manual
         connection option from the menu.  It requests a host/ip to connect
         to.
         '''
@@ -207,7 +207,7 @@ class DaapManager:
             _("Enter IP address and port for share"),
             _("Enter IP address and port."))
         resp = dialog.run()
-            
+
         if resp == gtk.RESPONSE_OK:
             loc = dialog.get_value()
             address = str(loc.split(':')[0])
@@ -215,13 +215,13 @@ class DaapManager:
                 port = str(loc.split(':')[1])
             except IndexError:
                 port = 3689     # if no port specified, use default DAAP port
-                    
+
             nstr = 'custom%s%s' % (address, port)
     #        print nstr
             conn = DaapConnection(loc, address, port)
             self.connect_share(None, (loc, address, port))
-            
-            
+
+
     def close(self, remove=False):
         '''
             This function disconnects active DaapConnections, and optionally
@@ -230,7 +230,7 @@ class DaapManager:
         # disconnect active shares
         for panel in self.panels.values():
             panel.daap_share.disconnect()
-            
+
             # there's no point in doing this if we're just shutting down, only on
             # disable
             if remove:
@@ -331,13 +331,13 @@ class DaapConnection(object):
         for tr in self.tracks:
             if tr is not None:
                 #http://<server>:<port>/databases/<dbid>/items/<id>.<type>?session-id=<sessionid>
-                
+
                 uri = "http://%s:%s/databases/%s/items/%s.%s?session-id=%s" % \
                     (self.server, self.port, self.database.id, tr.id,
                     tr.type, self.session.sessionid)
 
                 # Don't scan tracks because gio is slow!
-                temp = track.Track(uri, scan=False)
+                temp = trax.Track(uri, scan=False)
 
                 for field in eqiv.keys():
                     try:
@@ -345,16 +345,15 @@ class DaapConnection(object):
                         if tag != 'None':
                             temp.set_tag_raw(field, [tag])
 
-                    except: 
+                    except:
                         if field is 'tracknumber':
                             temp.set_tag_raw('tracknumber', [0])
 #                        traceback.print_exc(file=sys.stdout)
 
-                
+
                 #TODO: convert year (asyr) here as well, what's the formula?
                 try:
                     temp.set_tag_raw("__length", tr.atom.getAtom('astm') / 1000)
-#                    temp.tags["__length"] = tr.time / 1000
                 except:
                     temp.set_tag_raw("__length", 0)
 
@@ -379,7 +378,7 @@ You must stop playback before downloading songs."""))
 
 class DaapLibrary(collection.Library):
     '''
-        Library subclass for better management of collection??  
+        Library subclass for better management of collection??
     Or something to do with devices or somesuch.  Ask Aren.
     '''
     def __init__(self, daap_share, col=None):
@@ -393,42 +392,42 @@ class DaapLibrary(collection.Library):
     def rescan(self, notify_interval=None):
         '''
             Called when a library needs to refresh it's track list.
-        '''    
+        '''
         if self.collection is None:
             return True
-            
+
         if self.scanning:
             return
-        t = time.time()    
+        t = time.time()
         logger.info('Scanning library: %s' % self.daap_share.name)
         self.scanning = True
         db = self.collection
-        
+
         # DAAP gives us all the tracks in one dump
         self.daap_share.reload()
         if self.daap_share.all:
             count = len(self.daap_share.all)
         else:
             count = 0
-            
+
         if count > 0:
             logger.info('Adding %d tracks from %s. (%f s)' % (count, self.daap_share.name, time.time()-t))
             self.collection.add_tracks(self.daap_share.all)
-        
-        
+
+
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)
-            
+
         # track removal?
 #        self.scanning = False
         #return True
-        
+
     # Needed to be overriden for who knows why (exceptions)
     def _count_files(self):
         count = 0
         if self.daap_share:
             count = len(self.daap_share.all)
-            
+
         return count
 
 
@@ -440,7 +439,7 @@ class NetworkPanel(CollectionPanel):
         """
             Expects a parent gtk.Window, and a daap connection.
         """
-        
+
         self.name = library.daap_share.name
         self.daap_share = library.daap_share
         self.net_collection = collection.Collection(self.name)
@@ -450,7 +449,7 @@ class NetworkPanel(CollectionPanel):
         self.all = []
 
         self.connect_id = None
-        
+
         # Throw a menu entry on the context menu that can disconnect the DAAP share
         self.menu.append(_("Disconnect"), lambda x, y: mgr.disconnect_share(self.name))
 
@@ -503,20 +502,20 @@ def enable(exaile):
         event.add_callback(__enb, 'gui_loaded')
     else:
         __enb(None, exaile, None)
-        
+
 def __enb(eventname, exaile, wat):
     gobject.idle_add(_enable, exaile)
-    
+
 def _enable(exaile):
     global MENU_ITEM, MANAGER
-    
+
 #    if not DAAP:
 #        raise Exception("DAAP could not be imported.")
 
 #    if not AVAHI:
 #        raise Exception("AVAHI could not be imported.")
-        
-    
+
+
     menu = guiutil.Menu()
 
     tools = exaile.gui.builder.get_object('tools_menu')
@@ -524,7 +523,7 @@ def _enable(exaile):
     MENU_ITEM.set_submenu(menu)
     tools.append(MENU_ITEM)
     MENU_ITEM.show_all()
-    
+
     if AVAHI:
         try:
             avahi_interface = DaapAvahiInterface(exaile, menu)
@@ -537,7 +536,7 @@ def _enable(exaile):
 
     MANAGER = DaapManager(exaile, menu, avahi_interface)
 
-    
+
 
 def teardown(exaile):
     '''
@@ -545,7 +544,7 @@ def teardown(exaile):
     '''
     if MANAGER is not None:
         MANAGER.close()
-           
+
 
 def disable(exaile):
     '''
@@ -556,8 +555,8 @@ def disable(exaile):
     if MANAGER is not None:
 #        MANAGER.clear()
         MANAGER.close(True)
-        
-    
+
+
     if MENU_ITEM:
         MENU_ITEM.hide()
         MENU_ITEM.destroy()

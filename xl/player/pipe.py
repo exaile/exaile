@@ -24,18 +24,19 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.nls import gettext as _
+
+import copy
+import logging
 
 import pygst
 pygst.require('0.10')
 import gst
 
-import copy, logging
-logger = logging.getLogger(__name__)
-
+from xl.nls import gettext as _
 from xl import event, common, settings
 from xl.providers import ProviderHandler
 
+logger = logging.getLogger(__name__)
 
 class MainBin(gst.Bin):
     """
@@ -44,7 +45,7 @@ class MainBin(gst.Bin):
     """
     def __init__(self, pre_elems=[]):
         gst.Bin.__init__(self)
-        self._elements = pre_elems
+        self._elements = pre_elems[:]
 
         self.pp = Postprocessing()
         self._elements.append(self.pp)
@@ -104,10 +105,9 @@ class ElementBin(gst.Bin):
     def setup_elements(self):
         state = self.get_state()[1]
 
-#       if self.srcpad is not None:
-#           self.srcpad.set_blocked_async(True, self._setup_finish, state)
-#       else:
-        if True:
+        if self.srcpad is not None:
+            self.srcpad.set_blocked_async(True, self._setup_finish, state)
+        else:
             self._setup_finish(None, True, state)
 
 
@@ -151,7 +151,8 @@ class ElementBin(gst.Bin):
         self.added_elems = elems
 
         self.set_state(state)
-#        self.srcpad.set_blocked_async(False, lambda *args: False, state)
+        if blocked:
+            self.srcpad.set_blocked_async(False, lambda *args: False, state)
 
     def set_state(self, state):
         if state == gst.STATE_PLAYING and \
@@ -184,7 +185,12 @@ class ProviderBin(ElementBin, ProviderHandler):
     def reset_providers(self):
         self.elements = {}
         for provider in self.get_providers():
-            self.elements[provider.index] = provider()
+            try:
+                self.elements[provider.index] = provider()
+            except:
+                logger.warning("Could not create %s element for %s." % \
+                        (provider, self.get_name()) )
+                common.log_exception(log=logger)
         #self.setup_elements()
 
     def on_new_provider(self, provider):
@@ -279,7 +285,8 @@ class AudioSink(BaseSink):
                 self.sink.set_property(param, value)
             except:
                 common.log_exception(log=logger)
-                logger.warning("Could not set parameter %(parameter)s for %(sink)s" %
+                logger.warning("Could not set parameter %(parameter)s "
+                    "for %(sink)s" %
                     {'parameter' : param, 'sink': self.sink_elem})
 
     def set_volume(self, vol):

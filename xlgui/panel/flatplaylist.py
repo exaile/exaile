@@ -24,10 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import gobject
+import gtk
+
 from xl.nls import gettext as _
 from xlgui import panel, guiutil, menu
 from xl import metadata
-import gtk, gobject
 
 class FlatPlaylistPanel(panel.Panel):
     """

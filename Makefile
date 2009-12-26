@@ -26,6 +26,8 @@ make-install-dirs:
 	mkdir -p $(EXAILELIBDIR)/xl/metadata
 	mkdir -p $(EXAILELIBDIR)/xl/player
 	mkdir -p $(EXAILELIBDIR)/xl/migrations
+	mkdir -p $(EXAILELIBDIR)/xl/migrations/database
+	mkdir -p $(EXAILELIBDIR)/xl/trax
 	mkdir -p $(EXAILELIBDIR)/xlgui
 	mkdir -p $(EXAILELIBDIR)/xlgui/panel
 	mkdir -p $(EXAILELIBDIR)/xlgui/prefs
@@ -67,6 +69,10 @@ install-target: make-install-dirs
 	install -m 644 xl/player/*.py $(EXAILELIBDIR)/xl/player
 	-install -m 644 xl/migrations/*.py[co] $(EXAILELIBDIR)/xl/migrations
 	install -m 644 xl/migrations/*.py $(EXAILELIBDIR)/xl/migrations
+	-install -m 644 xl/migrations/database/*.py[co] $(EXAILELIBDIR)/xl/migrations/database/
+	install -m 644 xl/migrations/database/*.py $(EXAILELIBDIR)/xl/migrations/database/
+	-install -m 644 xl/trax/*.py[co] $(EXAILELIBDIR)/xl/trax
+	install -m 644 xl/trax/*.py $(EXAILELIBDIR)/xl/trax
 	-install -m 644 xlgui/*.py[co] $(EXAILELIBDIR)/xlgui
 	install -m 644 xlgui/*.py $(EXAILELIBDIR)/xlgui
 	-install -m 644 xlgui/panel/*.py[co] $(EXAILELIBDIR)/xlgui/panel
@@ -113,7 +119,10 @@ install-locale:
 plugins_dist:
 	make -C plugins dist
 
+.PHONY: clean
+
 clean:
+	-find . -name "*.~[0-9]~" -exec rm -f {} \;
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	find po/* -depth -type d -exec rm -r {} \;
 	make -C plugins clean

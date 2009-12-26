@@ -71,14 +71,7 @@ if os.path.exists(os.path.join(exaile_dir, 'Makefile')):
     # insert the config dir
     config_dir = os.path.join(exaile_dir, 'data', 'config')
     config_dirs.insert(0, config_dir)
-    # Create a symlink from plugins to data/plugins.
-    plugins_dir = os.path.join(data_dir, 'plugins')
-    if not os.path.exists(plugins_dir):
-        try:
-            os.symlink(os.path.join(exaile_dir, 'plugins'), plugins_dir)
-        except (AttributeError, OSError):
-            # If the system does not support symlinks, ignore.
-            pass
+
 
 data_dirs.insert(0, data_home)
 

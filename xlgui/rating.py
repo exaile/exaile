@@ -24,8 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import gobject
+import gtk
+import gtk.gdk
+import pango
+
 from xl import settings, xdg
-import gtk, pango, gtk.gdk, gobject
 
 steps = settings.get_option('miscellaneous/rating_steps', 5)
 _rating_width = 12 * steps

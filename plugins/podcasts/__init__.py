@@ -1,6 +1,6 @@
 import gtk, gobject
 from xl import event, common, playlist
-from xl import track
+from xl import trax
 from xl.nls import gettext as _
 from xlgui import panel, main, commondialogs
 from xlgui import guiutil
@@ -163,15 +163,13 @@ class PodcastPanel(panel.Panel):
 
             tracks = []
             for e in entries:
-                tr = track.Track(e['enclosures'][0].href)
-                tr._scanning = True
+                tr = trax.Track(e['enclosures'][0].href)
                 date = e['updated_parsed']
                 tr.set_tag_raw('artist', title)
                 tr.set_tag_raw('title', e['title'])
                 tr.set_tag_raw('date', "%d-%02d-%02d" %
                         (date.tm_year, date.tm_mon, date.tm_mday))
                 tracks.append(tr)
-                tr._scanning = False
 
             pl.add_tracks(tracks)
             self._set_status('')

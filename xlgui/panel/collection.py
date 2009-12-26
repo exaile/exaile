@@ -24,16 +24,24 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging, traceback, urllib
-import gtk, gobject
-from xl import event, xdg, common, track, trackdb, metadata, settings
+import logging
+import traceback
+import urllib
+
+import gobject
+import gtk
+
 from xl.nls import gettext as _
+from xl import event, xdg, common, metadata, settings, trax
 import xlgui
 from xlgui import panel, guiutil, menu, playlist, rating
 
 logger = logging.getLogger(__name__)
 
 TRACK_NUM = 300
+
+# TODO: come up with a more customizable way to handle this
+SEARCH_TAGS = ("artist", "albumartist", "album", "title")
 
 def first_meaningful_char(s):
     for i in range(len(s)):
@@ -42,6 +50,35 @@ def first_meaningful_char(s):
         elif s[i].isalpha():
             return s[i]
     return '_'
+
+class TreeLevelTabs(object):
+    def __init__(self, level):
+
+        if type(level) is str:
+            self.__tags = [level]
+            self.__printList = [0]
+            self.__searchedTagsIndices = [0]
+            return
+        if type(level) is tuple:
+            self.__tags = level[0]
+            self.__printList = level[1]
+            self.__searchedTagsIndices = level[2]
+            return
+
+    def printTags(self, tagsValues):
+        return ''.join([(tagsValues[x] if type(x) is int else x) for x in self.__printList])
+
+    def tags(self):
+        return self.__tags
+
+    def searchedTagsIndices(self):
+        return self.__searchedTagsIndices
+
+def get_all_tags(order):
+    result = []
+    for level in order:
+        result.extend(level.tags())
+    return result
 
 class CollectionPanel(panel.Panel):
     """
@@ -54,14 +91,22 @@ class CollectionPanel(panel.Panel):
     }
 
     ui_info = ('collection_panel.ui', 'CollectionPanelWindow')
+    """
+        Each level in order is a tuple of tree lists
+        First list is list of tags, that are relevant to this level, in their sort order
+        Second list describes way of node is printed. Strings in list remain the same,
+        and values of corresponding tags are inserted instead of integers
+        Third list is list of indices of tags that tracks are searched by
+        If level is string 'tag', it's the same as (['tag'], [0], [0])
+    """
     orders = (
-        ['artist', 'album', 'tracknumber', 'title'],
-        ['album', 'tracknumber', 'title'],
-        ['genre', 'artist', 'album', 'tracknumber', 'title'],
-        ['genre', 'album', 'artist', 'tracknumber', 'title'],
-        ['date', 'artist', 'album', 'tracknumber', 'title'],
-        ['date', 'album', 'artist', 'tracknumber', 'title'],
-        ['artist', 'date', 'album', 'tracknumber', 'title'],
+        ['artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['genre', 'artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['genre', 'album', 'artist', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['date', 'artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['date', 'album', 'artist', (['discnumber', 'tracknumber', 'title'], [2], [2])],
+        ['artist', (['date', 'album'], [0, ' - ', 1], [0, 1]), (['discnumber', 'tracknumber', 'title'], [2], [2])],
     )
 
     def __init__(self, parent, collection, name=None,
@@ -91,6 +136,9 @@ class CollectionPanel(panel.Panel):
         self._check_collection_empty()
         self._setup_images()
         self._connect_events()
+        self.order = None
+        self.tracks = []
+        self.sorted_tracks = []
 
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
@@ -117,15 +165,15 @@ class CollectionPanel(panel.Panel):
         from xlgui import properties
         tracks = self.get_selected_tracks()
 
-	if not tracks:
+        if not tracks:
             return False
 
-        tracks_sorted = trackdb.sort_tracks(
-			('artist', 'date', 'album', 'discnumber', 'tracknumber'), 
+        tracks = trax.sort_tracks(
+			('artist', 'date', 'album', 'discnumber', 'tracknumber'),
 			tracks)
 
         dialog = properties.TrackPropertiesDialog(self.parent,
-            tracks_sorted)
+            tracks)
 
     def _on_set_rating(self, widget, new_rating):
         """
@@ -281,10 +329,10 @@ class CollectionPanel(panel.Panel):
         """
             Called when a drag source wants data for this drag operation
         """
-        tracks = self.get_selected_tracks()
-        for track in tracks:
+        trs = self.get_selected_tracks()
+        for track in trs:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
-        urls = guiutil.get_urls_for(tracks)
+        urls = guiutil.get_urls_for(trs)
         selection.set_uris(urls)
 
     def _setup_tree(self):
@@ -321,18 +369,20 @@ class CollectionPanel(panel.Panel):
         self.tree.set_row_separator_func(
             lambda m, i: m.get_value(i, 1) is None)
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, str)
-        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, str, str)
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
 
         self.tree.connect("row-expanded", self.on_expanded)
 
     def _find_tracks(self, iter):
         """
-            finds tracks matching a given iter. returns a resultset.
+            finds tracks matching a given iter.
         """
         self.load_subtree(iter)
-        search = " ".join(self.get_node_search_terms(iter))
-        return self.collection.search(search, tracks=self.tracks)
+        search = self.get_node_search_terms(iter)
+        matcher = trax.TracksMatcher(search)
+        srtrs = trax.search_tracks(self.tracks, [matcher])
+        return [ x.track for x in srtrs ]
 
     def get_selected_tracks(self):
         """
@@ -341,17 +391,17 @@ class CollectionPanel(panel.Panel):
 
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
-        tracks = []
+        trs = []
         for path in paths:
             iter = self.model.get_iter(path)
             newset = self._find_tracks(iter)
-            tracks.append(newset)
+            trs.append(newset)
 
-        if not tracks: return None
+        if not trs: return None
 
-        tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
+        trs = list(set(reduce(lambda x, y: list(x) + list(y), trs)))
 
-        return tracks
+        return trs
 
     def get_tracks_rating(self):
         """
@@ -434,58 +484,20 @@ class CollectionPanel(panel.Panel):
         """
         self.load_subtree(iter)
 
-    def get_node_keywords(self, parent):
-        """
-            Returns a list of keywords that are associated with this node, and
-            it's parent nodes
-
-            @param parent: the node
-            @return: a list of keywords
-        """
-        if not parent:
-            return []
-        if self.model.get_value(parent, 2):
-            values = ["\a\a" + self.model.get_value(parent, 2)]
-        else:
-            values = [self.model.get_value(parent, 1)]
-        iter = self.model.iter_parent(parent)
-        newvals = self.get_node_keywords(iter)
-        if values[0]:
-            values = newvals + values
-        else:
-            values = newvals
-        return values
-
     def get_node_search_terms(self, node):
         """
             Finds all the related search terms for a particular node
             @param node: the node you wish to create search terms
         """
-        keywords = self.get_node_keywords(node)
-        terms = []
-        n = 0
-        for field in self.order:
-            if field == 'tracknumber':
-                continue
-            try:
-                word = keywords[n]
+        if not node:
+            return ""
 
-                if word:
-                    word = word.replace("\"","\\\"")
-                else:
-                    n += 1
-                    continue
-                if word == _("Unknown"):
-                    word = "__null__"
+        queries = []
+        while node:
+            queries.append(self.model.get_value(node, 2))
+            node = self.model.iter_parent(node)
 
-                if word.startswith('\a\a'):
-                    terms.append(word[2:])
-                else:
-                    terms.append("%s==\"%s\""%(field, word))
-                n += 1
-            except IndexError:
-                break
-        return terms
+        return " ".join(queries)
 
     def refresh_tags_in_tree(self, type, track, tag):
         """
@@ -493,7 +505,7 @@ class CollectionPanel(panel.Panel):
             reloads in quick succession
         """
         if settings.get_option('gui/sync_on_tag_change', True) and \
-            tag in self.order:
+            tag in get_all_tags(self.order):
             if self._refresh_id != 0:
                 gobject.source_remove(self._refresh_id)
             self._refresh_id = gobject.timeout_add(500,
@@ -501,10 +513,18 @@ class CollectionPanel(panel.Panel):
 
     def _refresh_tags_in_tree(self):
         """
-            For now, basically calls load_tree.
+            Callback for when tags have changed and the tree
+            needs reloading.
         """
+        self.resort_tracks()
         self.load_tree()
         return False
+
+    def resort_tracks(self):
+#        import time
+#        print "sorting...", time.clock()
+        self.sorted_tracks = trax.sort_tracks(self.order[0].tags(), self.collection)
+#        print "sorted.", time.clock()
 
     def load_tree(self):
         """
@@ -518,14 +538,23 @@ class CollectionPanel(panel.Panel):
         self.tree.set_model(self.model_blank)
 
         self.root = None
-        self.order = self.orders[self.choice.get_active()]
+        oldorder = self.order
+        self.order = [TreeLevelTabs(x) for x in self.orders[self.choice.get_active()]]
+        if oldorder != self.order:
+            self.resort_tracks()
 
         # save the active view setting
         settings.set_option(
                 'gui/collection_active_view',
                 self.choice.get_active())
 
-        self.tracks = []
+        keyword = self.keyword.strip()
+        tags = list(SEARCH_TAGS)
+        tags += [t for t in get_all_tags(self.order) if t != 'tracknumber' and t not in tags]
+
+        self.tracks = list(
+                trax.search_tracks_from_string(self.sorted_tracks,
+                    keyword, case_sensitive=False, keyword_tags=tags) )
 
         self.load_subtree(None)
 
@@ -634,35 +663,22 @@ class CollectionPanel(panel.Panel):
                 previously_loaded = True
             iter_sep = self.model.iter_children(parent)
             depth = self.model.iter_depth(parent) + 1
+        if previously_loaded:
+            return
 
-        terms = self.get_node_search_terms(parent)
-        if terms:
-            search = " ".join(terms)
-        else:
-            search = ""
-        if self.keyword.strip():
-            search += " " + self.keyword
-        try:
-            if self.order.index("tracknumber") <= depth:
-                depth += 1
-        except ValueError:
-            pass # tracknumber isnt in the list
+        search = self.get_node_search_terms(parent)
 
         try:
-            tag = self.order[depth]
-            tracks = self.collection.search(search)
-            if previously_loaded:
-                return
-
-            sort_by = [tag]
-            if depth > 0 and self.order[depth-1] == "tracknumber":
-                sort_by += ['discnumber', 'tracknumber']
-            sort_by.reverse()
-            tracks = track.sort_tracks(sort_by, tracks)
+            tags = self.order[depth].tags()
+            matchers = [trax.TracksMatcher(search)]
+            srtrs = trax.search_tracks(self.tracks, matchers)
+            # sort only if we are not on top level, because tracks are already sorted by fist order
+            if depth > 0:
+                srtrs = trax.sort_result_tracks(tags, srtrs)
         except IndexError:
             return # at the bottom of the tree
         try:
-            image = getattr(self, "%s_image"%tag)
+            image = getattr(self, "%s_image"%tags[-1])
         except:
             image = None
         bottom = False
@@ -674,43 +690,60 @@ class CollectionPanel(panel.Panel):
         last_char = ''
         last_val = ''
         first = True
+        path = None
+        expanded = False
+        to_expand = []
 
-        for tr in tracks:
-            tagval = tr.get_tag_display(tag)
-            if last_val == tagval:
-                continue
-            last_val = tagval
-            if depth == 0 and draw_seps:
-                val = tr.strip_leading(tr.get_tag_sort(tag))
-                char = first_meaningful_char(val)
-                if first:
-                    last_char = char
-                else:
-                    if char != last_char and last_char != '':
-                        self.model.append(parent, [None, None, None])
-                    last_char = char
-            first = False
+        for srtr in srtrs:
+            stagvals = [unicode(srtr.track.get_tag_sort(x)) for x in tags]
+            stagval = self.order[depth].printTags(stagvals)
+            if last_val != stagval:
+                tagvals = [srtr.track.get_tag_display(x) for x in tags]
+                tagval = self.order[depth].printTags(tagvals)
+                last_val = stagval
+                if depth == 0 and draw_seps:
+                    val = srtr.track.get_tag_sort(tags[0])
+                    char = first_meaningful_char(val)
+                    if first:
+                        last_char = char
+                    else:
+                        if char != last_char and last_char != '':
+                            self.model.append(parent, [None, None, None])
+                        last_char = char
+                first = False
 
-            iter = self.model.append(parent, [image, tagval, None])
-            if not bottom:
-                self.model.append(iter, [None, None, None])
+                match_query = " ".join([
+                    srtr.track.get_tag_search(t, format=True) for t in tags])
+                iter = self.model.append(parent, [image, tagval, match_query])
+                path = self.model.get_path(iter)
+                expanded = False
+                if not bottom:
+                    self.model.append(iter, [None, None, None])
+
+            if not expanded:
+                alltags = []
+                for o in self.order[depth+1:]:
+                    alltags.extend(o.tags())
+                for t in alltags:
+                    if t in srtr.on_tags:
+                        if depth > 0:
+                            # for some reason, nested iters are always
+                            # off by one in the terminal entry.
+                            path = path[:-1] + (path[-1]-1,)
+                        to_expand.append(path)
+                        expanded = True
+
+        if settings.get_option("gui/expand_enabled", True) and \
+            len(to_expand) < \
+                    settings.get_option("gui/expand_maximum_results", 100) and \
+            len(self.keyword.strip()) >= \
+                    settings.get_option("gui/expand_minimum_term_length", 2):
+            for row in to_expand:
+                gobject.idle_add(self.tree.expand_row, row, False)
 
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
-        return #no expansion for now
-        if depth == 0 and settings.get_option("gui/expand_enabled", True) and \
-            len(values) <= settings.get_option(
-                    "gui/expand_maximum_results", 100) and \
-            len(self.keyword.strip()) >= \
-            settings.get_option("gui/expand_minimum_term_length", 3):
 
-            # the search number is an id for expanding nodes.
-            # we set the id before we try expanding the nodes because
-            # expanding can happen in the background.  If the id changes, the
-            # expanding methods will know that they need to stop because the
-            # search is no longer valid
-            self._search_num += 1
-            gobject.idle_add(self._expand_search_nodes, self._search_num)
 
 # vim: et sts=4 sw=4

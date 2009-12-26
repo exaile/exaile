@@ -20,10 +20,11 @@
 
 from __future__ import with_statement
 from xl.nls import gettext as _
-from xl import event, xdg, track as _track, settings
+from xl import event, xdg, trax, settings
 from xlgui import commondialogs, guiutil
 import gtk
 import gobject
+import gio
 import os
 import logging
 import bookmarksprefs
@@ -102,7 +103,7 @@ class Bookmarks:
         # try add by loc
         if not track:
             # use currently selected playlist (as opposed to current playlist)
-            track = _track.Track(key)
+            track = trax.Track(key)
             if track:   # make sure we got one
                 pl = exaile.gui.main.get_selected_playlist().playlist
                 exaile.queue.set_current_playlist(pl)
@@ -143,12 +144,26 @@ class Bookmarks:
         pix = None
         # add menu item
         try:
-            item = _track.Track(key)
+            item = trax.Track(key)
             title = item.get_tag_display('title')
             if self.use_covers:
-                image = self.exaile.covers.get_cover(item)
-                pix = gtk.gdk.pixbuf_new_from_file_at_size(image, 16, 16)
+                try:
+                    image = self.exaile.covers.get_cover(item)
+                    # hack
+#                    pix = gtk.gdk.pixbuf_new_from_file_at_size(gio.File(image).get_path(), 16, 16)
+                    #pix = gtk.gdk.pixbuf_new_from_file_at_size(image, 16, 16)
+                    pix = gtk.gdk.PixbufLoader()
+                    pix.set_size(16,16)
+                    pix.write(gio.File(image).read().read())
+                    pix.close()
+                    pix = pix.get_pixbuf()
+                except gobject.GError:
+                    logger.warn('Could not load cover')
+                    pix = None
+                    # no cover
         except:
+            import traceback, sys
+            traceback.print_exc(file=sys.stdout)
             logger.debug('BM: Cannot open %s' % key)
             # delete offending key?
             return
@@ -160,6 +175,7 @@ class Bookmarks:
             menu_item.set_image(gtk.image_new_from_pixbuf(pix))
         menu_item.connect('activate', self.do_bookmark, (key,pos))
         menus[0].append_item(menu_item)
+        menu_item.show_all()
 
         menu_item = gtk.ImageMenuItem(label)
         if pix:

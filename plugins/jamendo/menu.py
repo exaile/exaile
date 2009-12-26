@@ -6,11 +6,11 @@ class JamendoMenu(xlmenu.GenericTrackMenu):
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, ()),
         'download-items': (gobject.SIGNAL_RUN_LAST, None, ()),
-    }        
-        
+    }
+
     def __init__(self):
         xlmenu.GenericTrackMenu.__init__(self);
-        
+
     def _create_menu(self):
         self.append_item = self.append('Append to Current', lambda *e:
             self.on_append_items(), 'gtk-add')
@@ -22,4 +22,4 @@ class JamendoMenu(xlmenu.GenericTrackMenu):
 
     def on_download(self, selected=None):
         self.emit('download-items')
-            
+

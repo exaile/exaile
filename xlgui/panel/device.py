@@ -25,10 +25,12 @@
 # from your version.
 
 import threading
-import gtk, gobject
+
+import gobject
+import gtk
+
 from xl.nls import gettext as _
 from xl import event
-
 from xlgui import panel
 from xlgui.panel.collection import CollectionPanel
 from xlgui.panel.flatplaylist import FlatPlaylistPanel

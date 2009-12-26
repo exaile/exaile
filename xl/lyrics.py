@@ -141,15 +141,16 @@ class LyricsManager(providers.ProviderHandler):
                 1. a backend lyric plugin
                 2. the actual tags in the track
 
-            @param track: the track we want lyrics for, it
+            :param track: the track we want lyrics for, it
                 must have artist/title tags
 
-            @return: tuple of the following format (lyrics, source, url)
+            :return: tuple of the following format (lyrics, source, url)
                 where lyrics are the lyrics to the track
-                source is where it came from (file, lyrics wiki, lyrics fly, etc.)
+                source is where it came from (file, lyrics wiki,
+                lyrics fly, etc.)
                 url is a link to the lyrics (where applicable)
 
-            @raise LyricsNotFoundException: when lyrics are not
+            :raise LyricsNotFoundException: when lyrics are not
                 found
         """
         lyrics = None

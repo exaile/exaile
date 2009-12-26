@@ -24,7 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glob, gtk, os
+import glob
+import os
+
+import gtk
+
 from xl import event
 
 class IconManager(object):
@@ -74,7 +78,7 @@ class IconManager(object):
             pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
             self.add_icon_name_from_pixbuf(icon_name, pixbuf, size)
         except Exception:
-            # Happens if, e.g., librsvg is not installed (notably in Windows).
+            # Happens if, e.g., librsvg is not installed.
             pass
 
     def add_icon_name_from_pixbuf(self, icon_name, pixbuf, size=None):

@@ -24,14 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, gobject
+import gobject
+import gtk
+import threading
+
 from xlgui import panel, guiutil, commondialogs, menu
 from xlgui import playlist as guiplaylist
 import xlgui.panel.playlists as playlistpanel
-from xl import xdg, event, common
-from xl import settings
+from xl import xdg, event, common, settings
 import xl.radio
-import threading
 import xl.playlist
 from xl.nls import gettext as _
 
@@ -189,13 +190,13 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     @common.threaded
     def _do_add_playlist(self, name, uri):
-        from xl import playlist, track
+        from xl import playlist, trax
         if playlist.is_valid_playlist(uri):
             pl = playlist.import_playlist(uri)
             pl.name = name
         else:
             pl = playlist.Playlist(name)
-            tracks = track.get_tracks_from_uri(uri)
+            tracks = trax.get_tracks_from_uri(uri)
             try:
                 pl.add_tracks(tracks)
             # Catch empty directories

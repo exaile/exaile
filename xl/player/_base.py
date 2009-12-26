@@ -24,13 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import logging
+import time
+
 import pygst
 pygst.require('0.10')
 import gst
 
 from xl import event, settings
 from xl.player import pipe
-import logging, time
 logger = logging.getLogger(__name__)
 
 
@@ -55,7 +57,7 @@ class ExailePlayer(object):
         if data == "player/volume":
             self._load_volume()
 
-    def _on_track_end(self, name, object, track):
+    def _on_track_end(self, name, obj, track):
         if not track:
             return
         try:
@@ -170,8 +172,6 @@ class ExailePlayer(object):
             progress = 0
         except AttributeError: # no current track
             progress = 0
-        except AttributeError:
-            progress = -1
         return progress
 
     def _get_gst_state(self):

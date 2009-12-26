@@ -35,7 +35,7 @@ dmapCodeTypes = {
     'aeSP': ('com.apple.itunes.smart-playlist', 'b'),
     'aeSV': ('com.apple.itunes.music-sharing-version', 'i'),
     'agrp': ('daap.songgrouping', 's'),
-    'aply': ('daap.databaseplaylists', 'c'), 
+    'aply': ('daap.databaseplaylists', 'c'),
     'aprm': ('daap.playlistrepeatmode', 'b'),
     'apro': ('daap.protocolversion', 'v'),
     'apsm': ('daap.playlistshufflemode', 'b'),

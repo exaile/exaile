@@ -24,27 +24,22 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-# Playlist
-#
-# Playlist - essentially an ordered TrackDB
-#
-# SmartPlaylist - playlist that auto-populates from a collection
-#
-# PlaylistManager - playlist persistence manager
-#
-# also contains functions for saving and loading various playlist formats.
-
-from xl import trackdb, event, xdg, track, collection, settings
-import cgi, os, random, urllib
-from xl.nls import gettext as _
+import cgi
+import logging
+import os
+import random
+import urllib
+import urlparse
+import xml.etree.cElementTree as ETree
 
 try:
     import cPickle as pickle
 except:
     import pickle
 
-import logging, urlparse
-import xml.etree.cElementTree as ETree
+from xl.nls import gettext as _
+from xl import event, xdg, collection, settings, trax
+
 logger = logging.getLogger(__name__)
 
 class InvalidPlaylistTypeException(Exception):
@@ -120,7 +115,7 @@ def import_from_m3u(path):
             track_is_local = len(urlparse.urlparse(line)[0]) <= 1
             if track_is_local and not os.path.isabs(line):
                 line = os.path.join(os.path.dirname(path), line)
-            current = track.Track(line)
+            current = trax.Track(line)
 
             comma_separated = current_extinf[8:].split(",", 1)
             title = comma_separated[-1]
@@ -380,8 +375,7 @@ class PlaylistIterator(object):
 
 class Playlist(object):
     """
-        Represents a playlist, which is basically just a TrackDB
-        with ordering.
+        Represents a playlist
     """
     def __init__(self, name=_("Playlist %d"), is_custom=False):
         """
@@ -465,8 +459,7 @@ class Playlist(object):
             self.filtered = False
             return self._ordered_tracks
         else:
-            self.filtered_tracks = self.search(keyword,
-                sort_fields=('artist', 'date', 'album', 'discnumber', 'tracknumber'))
+            self.filtered_tracks = self.search(keyword)
             self.filtered = True
             return self.filtered_tracks
 
@@ -628,19 +621,23 @@ class Playlist(object):
 
     def get_next_random_track(self, mode="track"):
         """
-            Returns a valid next track if shuffle is activated based on random_mode
+            Returns a valid next track if shuffle is activated based
+            on random_mode
         """
         if mode == "album":
-            try: #Try and get the next track on the album
-                #NB If the user starts the playlist from the middle of the album
-                #some tracks of the album remain off the tracks_history, and the
-                #album can be selected again randomly from its first track
+            try:
+                # Try and get the next track on the album
+                # NB If the user starts the playlist from the middle
+                # of the album some tracks of the album remain off the
+                # tracks_history, and the album can be selected again
+                # randomly from its first track
+                curr = self.ordered_tracks[self.current_pos]
                 t = [ x for i, x in enumerate(self.ordered_tracks) \
-                        if x['album'] == self.ordered_tracks[self.current_pos]['album'] and \
-                        (x.get_track() > self.ordered_tracks[self.current_pos].get_track() or \
-                        (x.get_track() == self.ordered_tracks[self.current_pos].get_track() \
-                        and i > self.current_pos) ) ]
-                t.sort(lambda x, y: x.get_track() - y.get_track())
+                    if x.get_tag_raw('album') == curr.get_tag_raw('album') \
+                    and x.get_tag_raw('tracknumber') >= \
+                    curr.get_tag_raw('tracknumber') \
+                    and i > self.current_pos ]
+                t = trax.sort_tracks(['tracknumber'], t)
                 return t[0]
 
             except IndexError: #Pick a new album
@@ -648,13 +645,13 @@ class Playlist(object):
                         if x not in self.tracks_history ]
                 albums = []
                 for x in t:
-                    if not x['album'] in albums:
-                        albums.append(x['album'])
+                    if not x.get_tag_raw('album') in albums:
+                        albums.append(x.get_tag_raw('album'))
 
                 album = random.choice(albums)
                 t = [ x for x in self.ordered_tracks \
-                        if x['album'] == album ]
-                t.sort(lambda x, y: x.get_track() - y.get_track())
+                        if x.get_tag_raw('album') == album ]
+                t = trax.sort_tracks(['tracknumber'], t)
                 return t[0]
         else:   # track mode - dont check explicitly because the restore code
                 # sometimes gives us a None here.
@@ -735,23 +732,21 @@ class Playlist(object):
         """
             searches the playlist
         """
-        searcher = trackdb.TrackSearcher()
-
-        search_db = {}
-        for tr in self.ordered_tracks:
-            search_db[tr.get_loc_for_io()] = tr
-        tracks = searcher.search(phrase, search_db)
-        tracks = tracks.values()
+        # TODO: use shown columns
+        matcher = trax.TracksMatcher(phrase, keyword_tags=('artist',
+            'album', 'title'))
+        trs = trax.search_tracks(self.ordered_tracks, [matcher])
+        trs = (t.track for t in trs)
 
         if sort_fields:
             if sort_fields == 'RANDOM':
-                random.shuffle(tracks)
+                random.shuffle(trs)
             else:
-                tracks = track.sort_tracks(sort_fields, tracks)
+                trs = trax.sort_tracks(sort_fields, trs)
         if return_lim != -1:
-            tracks = tracks[:return_lim]
+            trs = trs[:return_lim]
 
-        return tracks
+        return trs
 
     def toggle_random(self):
         """
@@ -884,7 +879,7 @@ class Playlist(object):
                 setattr(self, item, val)
         f.close()
 
-        tracks = []
+        trs = []
 
         for loc in locs:
             meta = None
@@ -892,20 +887,18 @@ class Playlist(object):
                 (loc, meta) = loc.split('\t')
 
             tr = None
-            tr = track.Track(uri=loc)
+            tr = trax.Track(uri=loc)
 
             # readd meta
             if not tr: continue
             if not tr.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
-                tr._scanning = True
                 for k, v in meta.iteritems():
-                    tr.set_tag_raw(k, v[0])
-                tr._scanning = False
+                    tr.set_tag_raw(k, v[0], notify_changed=False)
 
-            tracks.append(tr)
+            trs.append(tr)
 
-        self.ordered_tracks = tracks
+        self.ordered_tracks = trs
 
     def randomize(self):
         """
@@ -939,7 +932,6 @@ class SmartPlaylist(object):
             Sets up a smart playlist
 
             @param collection: a reference to a TrackDB object.
-            args: See TrackDB
         """
         self.search_params = []
         self.custom_params = []
@@ -999,7 +991,8 @@ class SmartPlaylist(object):
 
     def set_or_match(self, value):
         """
-            Set to True to make this an or match: match any of the parameters
+            Set to True to make this an or match: match any of the
+            parameters
 
             value: True to match any, False to match all params
         """
@@ -1020,8 +1013,8 @@ class SmartPlaylist(object):
             @param op:     The operator.  Valid operators are:
                     >,<,>=,<=,=,!=,==,!==,>< (between) [string]
             @param value:  The value to match against [string]
-            @param index:  Where to insert the parameter in the search order.  -1
-                    to append [int]
+            @param index:  Where to insert the parameter in the search
+                    order.  -1 to append [int]
         """
         if index:
             self.search_params.insert(index, [field, op, value])
@@ -1056,8 +1049,8 @@ class SmartPlaylist(object):
         """
             Generates a playlist by querying the collection
 
-            @param collection: the collection to search (leave None to search
-                        internal ref)
+            @param collection: the collection to search (leave None to
+                    search internal ref)
         """
         if not collection:
             collection = self.collection
@@ -1065,18 +1058,21 @@ class SmartPlaylist(object):
             return
 
         search_string = self._create_search_string()
-        sort_field = None
+
+
+        matcher = trax.TracksMatcher(search_string)
+        trs = [ t.track for t in trax.search_tracks(collection, [matcher]) ]
         if self.random_sort:
-            sort_field = 'RANDOM'
+            random.shuffle(trs)
         else:
-            sort_field = ('artist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
+            sort_field = ('artist', 'date', 'album', 'discnumber',
+                    'tracknumber', 'title')
+            trs = trax.sort_tracks(sort_field, trs)
+        if len(trs) > self.track_count:
+            trs=trs[:self.track_count]
 
         pl = Playlist(name=self.get_name())
-
-        tracks = list(collection.search(search_string, sort_field,
-            self.track_count))
-
-        pl.add_tracks(tracks)
+        pl.add_tracks(trs)
 
         return pl
 
@@ -1099,21 +1095,21 @@ class SmartPlaylist(object):
                 value = float((100.0*value)/steps)
             if op == ">=" or op == "<=":
                 s += '( %(field)s%(op)s%(value)s ' \
-                    'OR %(field)s==%(value)s )' % \
+                    '| %(field)s==%(value)s )' % \
                     {
                         'field': field,
                         'value': value,
                         'op':    op[0]
                     }
             elif op == "!=" or op == "!==":
-                s += 'NOT %(field)s%(op)s"%(value)s"' % \
+                s += '! %(field)s%(op)s"%(value)s"' % \
                     {
                         'field': field,
                         'value': value,
                         'op':    op[1:]
                     }
             elif op == "><":
-                s+= '( %(field)s>%(value1)s AND ' \
+                s+= '( %(field)s>%(value1)s ' \
                     '%(field)s<%(value2)s )' % \
                     {
                         'field':  field,
@@ -1131,7 +1127,7 @@ class SmartPlaylist(object):
             params.append(s)
 
         if self.or_match:
-            return ' OR '.join(params)
+            return ' | '.join(params)
         else:
             return ' '.join(params)
 

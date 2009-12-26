@@ -1,6 +1,6 @@
 import os
 import traceback
-from xl import xdg, track, collection
+from xl import xdg, trax, collection
 from xl import settings, common
 from xl.playlist import PlaylistManager, Playlist
 from ConfigParser import SafeConfigParser
@@ -88,31 +88,30 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
     newtracks = []
     for oldtrack in oldtracks:
         # we shouldn't be checking os.path.isfile() here, since if it is a radio link, it will not be migrated
-        newtrack = track.Track()
+        newtrack = trax.Track(uri=oldtrack.loc, scan=False)
 
         if int(oldtrack._rating) > 0: 
-            newtrack['__rating'] = float((100.0*oldtrack._rating)/rating_steps)
-
-        newtrack.set_loc(oldtrack.loc)
-        newtrack['filename'] = os.path.basename(oldtrack.loc)
+            newtrack.set_tag_raw('__rating', float((100.0*oldtrack._rating)/rating_steps))
 
         db_map = {'bitrate': '__bitrate', 'artist': 'artist', 'album': 'album', 'track': 'tracknumber', 'genre': 'genre', 'date': 'date',
             'title': 'title', 'playcount': '__playcount'}
 
-        newtrack['__length'] = int(getattr(oldtrack, 'duration'))
-        
+        newtrack.set_tag_raw('__length', int(getattr(oldtrack, 'duration')))
+
         # Apparently, there is a bug in exaile 0.2.xx that dumps the time as hh:mm:YYYY, rather than hh:mm:ss. This is a workaround, that takes the seconds == 0, since this information is lost b/c of the bug
         temp_time = oldtrack.time_added;
 
         try:
-            newtrack['__date_added'] = time.mktime(time.strptime(temp_time[0:len(temp_time)-5],'%Y-%m-%d %H:%M'))
+            newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time)-5],'%Y-%m-%d %H:%M')))
         except ValueError:
-            pass
+             try:
+                 newtrack.set_tag_raw('__date_added', time.mktime(time.strptime(temp_time[0:len(temp_time)-3],'%Y-%m-%d %H:%M')))
+             except ValueError:
+                     pass
 
         for item in db_map.keys():
-            newtrack[db_map[item]] = getattr(oldtrack, item)
+            newtrack.set_tag_raw(db_map[item], getattr(oldtrack, item))
 
-        newtrack._scan_valid = True
         newtrack._dirty = True
         newtracks.append(newtrack)
 

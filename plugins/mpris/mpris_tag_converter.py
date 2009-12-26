@@ -132,7 +132,7 @@ class ExaileTagConverter(object):
         for exaile_tag in track.tags:
             if exaile_tag not in EXAILE_TAG_INFORMATION:
                 continue
-            val = ExaileTagConverter.__get_first_item(track.tags[exaile_tag])
+            val = ExaileTagConverter.__get_first_item(track.get_tag_raw(exaile_tag))
             try:
                 mpris_tag, mpris_val = ExaileTagConverter.convert_tag(
                         exaile_tag, val)

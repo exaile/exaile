@@ -24,13 +24,21 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, os.path, time, urllib
-import gtk.gdk, pango, gobject, gio
-from xl import xdg, track, playlist, common, settings, event
-from xl.nls import gettext as _
+import os.path
 import threading
-from xlgui import rating
+import time
+import urllib
 from urllib2 import urlparse
+
+import gio
+import gobject
+import gtk
+import gtk.gdk
+import pango
+
+from xl import xdg, playlist, common, settings, event, trax
+from xl.nls import gettext as _
+from xlgui import rating
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
@@ -284,21 +292,21 @@ class DragTreeView(gtk.TreeView):
                 be both in as a found track and part of a playlist)
         """
         #TODO handle if they pass in existing tracks
-        tracks = []
+        trs = []
         playlists = []
         for loc in locs:
             (found_tracks, found_playlist) = self._handle_unknown_drag_data(loc)
-            tracks.extend(found_tracks)
+            trs.extend(found_tracks)
             playlists.extend(found_playlist)
 
         if compile_tracks:
             #Add any tracks in the playlist to the master list of tracks
             for playlist in playlists:
                 for track in playlist.get_tracks():
-                    if track not in tracks:
-                        tracks.append(track)
+                    if track not in trs:
+                        trs.append(track)
 
-        return (tracks, playlists)
+        return (trs, playlists)
 
     def _handle_unknown_drag_data(self, loc):
         """
@@ -326,8 +334,8 @@ class DragTreeView(gtk.TreeView):
             except gio.Error:
                 filetype = None
 
-        if track.is_valid_track(loc) or info.scheme not in ('file', ''):
-            new_track = track.Track(loc)
+        if trax.is_valid_track(loc) or info.scheme not in ('file', ''):
+            new_track = trax.Track(loc)
             return ([new_track],[])
         elif playlist.is_valid_playlist(loc):
             #User is dragging a playlist into the playlist list
@@ -336,7 +344,7 @@ class DragTreeView(gtk.TreeView):
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
         elif filetype == gio.FILE_TYPE_DIRECTORY:
-            return (track.get_tracks_from_uri(loc), [])
+            return (trax.get_tracks_from_uri(loc), [])
         else: #We don't know what they dropped
             return ([], [])
 
@@ -817,8 +825,8 @@ class MenuRatingWidget(gtk.MenuItem):
         """
         event.remove_callback(self.on_rating_change, 'rating_changed')
 
-        tracks = self._get_tracks()
-        if tracks and tracks[0]:
+        trs = self._get_tracks()
+        if trs and trs[0]:
             steps = settings.get_option('miscellaneous/rating_steps', 5)
             (x, y) = e.get_coords()
             (u, v) =  self.translate_coordinates(self.image, int(x), int(y))
@@ -833,8 +841,8 @@ class MenuRatingWidget(gtk.MenuItem):
                 if r == self._last_calculated_rating:
                     r = 0
 
-                for track in tracks:
-                    track.set_rating (r)
+                for track in trs:
+                    track.set_rating(r)
 
                 event.log_event('rating_changed', self, r)
                 self._last_calculated_rating = r

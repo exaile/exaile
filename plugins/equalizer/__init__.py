@@ -41,6 +41,7 @@ def __enb(eventname, exaile, nothing):
     gobject.idle_add(_enable, exaile)
 
 def enable(exaile):
+    providers.register("postprocessing_element", GSTEqualizer)
     if exaile.loading:
         event.add_callback(__enb, 'exaile_loaded')
     else:
@@ -54,6 +55,7 @@ def _enable(exaile):
     EQ_MAIN = EqualizerPlugin(exaile)
 
 def disable(exaile):
+    providers.unregister("stream_element", GSTEqualizer)
     global EQ_MAIN
     EQ_MAIN.disable()
     EQ_MAIN = None
@@ -124,7 +126,6 @@ class EqualizerPlugin:
 
     def __init__(self, exaile):
         self.window = None
-        providers.register("stream_element", GSTEqualizer)
 
         self.MENU_ITEM = gtk.MenuItem(_('Equalizer'))
         self.MENU_ITEM.connect('activate', self.show_gui, exaile)
@@ -152,7 +153,6 @@ class EqualizerPlugin:
 
 
     def disable(self):
-        providers.unregister("stream_element", GSTEqualizer)
 
         if self.MENU_ITEM:
             self.MENU_ITEM.hide()

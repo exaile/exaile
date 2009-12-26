@@ -42,12 +42,17 @@ Events should be emitted AFTER the given event has taken place. Often the
 most appropriate spot is immediately before a return statement.
 """
 
-import threading, time, logging, traceback, weakref
-from new import instancemethod
 from inspect import ismethod
+import logging
+from new import instancemethod
+import re
+import threading
+import time
+import traceback
+import weakref
+
 from xl import common
 from xl.nls import gettext as _
-import re
 
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None

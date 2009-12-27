@@ -593,60 +593,6 @@ class CollectionPanel(panel.Panel):
             gobject.idle_add(self._expand_node_by_name, search_num,
                 parent, item, rest)
 
-    def _expand_to(self, search_num, track, tmporder):
-        """
-            Expands to the specified track
-
-            @param search_num: the current search id
-            @param track: the track to expand
-            @param tmporder: the ordering list
-        """
-        expand = []
-        for item in tmporder:
-            if search_num != self._search_num: return
-            try:
-                value = metadata.j(track[item])
-                expand.append(value)
-            except (TypeError, KeyError):
-                continue
-
-        if not expand: return
-
-        # if we've already expanded this node, don't expand it again
-        if tuple(expand) in self._expand_items: return
-        self._expand_items.add(tuple(expand))
-
-        gobject.idle_add(self._expand_node_by_name,
-            search_num, None, item, expand)
-
-    def _expand_search_nodes(self, search_num):
-        """
-            Expands the nodes in the tree that match the current search
-
-            @param search_num: the current search id
-        """
-        if not self.keyword.strip(): return
-
-        self._expand_items = set()
-        for track in self.tracks:
-            if search_num != self._search_num: return
-            tmporder = self.order[:]
-            if 'tracknumber' in tmporder: tmporder.remove('tracknumber')
-            for item in reversed(tmporder):
-                try:
-                    value = metadata.j(track[item])
-                    if not value: continue
-
-                    if self.keyword.strip().lower() in value.lower():
-                        self._expand_to(
-                            search_num, track, tmporder)
-
-                except (TypeError, KeyError):
-                    traceback.print_exc()
-                    continue
-
-                tmporder.pop()
-
     def load_subtree(self, parent):
         """
             Loads all the sub nodes for a specified node

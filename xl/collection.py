@@ -430,10 +430,20 @@ class Library(object):
         # check for compilations
         if not settings.get_option('collection/file_based_compilations', True):
             return
+
+        def joiner(value):
+            if not value or type(value) in (str, unicode):
+                return value
+            else:
+                try:
+                    return u"\u0000".join(value)
+                except TypeError:
+                    return value
+
         try:
-            basedir = metadata.j(tr.get_tag_raw('__basedir'))
-            album = metadata.j(tr.get_tag_raw('album'))
-            artist = metadata.j(tr.get_tag_raw('artist'))
+            basedir = joiner(tr.get_tag_raw('__basedir'))
+            album = joiner(tr.get_tag_raw('album'))
+            artist = joiner(tr.get_tag_raw('artist'))
         except UnicodeDecodeError: #TODO: figure out why this happens
             logger.warning("Encoding error, skipping compilation check")
             return
@@ -521,6 +531,11 @@ class Library(object):
             tr = track.Track(uri)
             if tr._scan_valid == True:
                 tr.set_tag_raw('__date_added', time.time())
+                self.collection.add(tr)
+
+            # Track already existed. This fixes trax.get_tracks_from_uri
+            # on windows, unknown why fix isnt needed on linux.
+            elif not tr._init:
                 self.collection.add(tr)
         tr.set_tag_raw('__modified', mtime)
         return tr

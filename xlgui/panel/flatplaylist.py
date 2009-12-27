@@ -108,7 +108,7 @@ class FlatPlaylistPanel(panel.Panel):
     def _title_data_func(self, col, cell, model, iter):
         if not model.iter_is_valid(iter): return
         item = model.get_value(iter, 2)
-        cell.set_property('text', metadata.j(item['title']))
+        cell.set_property('text', item.get_tag_display("title"))
 
     def set_playlist(self, pl):
         self.model.clear()
@@ -116,7 +116,7 @@ class FlatPlaylistPanel(panel.Panel):
         tracks = pl.get_tracks()
         self.tracks = tracks
         for i, track in enumerate(tracks):
-            self.model.append([i + 1, metadata.j(track['title']), track])
+            self.model.append([i + 1, track.get_tag_display("title"), track])
 
     def get_selected_tracks(self):
         selection = self.tree.get_selection()

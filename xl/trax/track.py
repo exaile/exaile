@@ -100,7 +100,7 @@ class Track(object):
     """
     # save a little memory this way
     __slots__ = ["__tags", "_scan_valid",
-            "_dirty", "__weakref__", "__init"]
+            "_dirty", "__weakref__", "_init"]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
     # store a copy of the settings values here - much faster (0.25 cpu
@@ -119,17 +119,18 @@ class Track(object):
         else:
             uri = kwargs.get("uri")
         if uri is not None:
+            uri = gio.File(uri).get_uri()
             try:
                 tr = cls.__tracksdict[uri]
-                tr.__init = False
+                tr._init = False
             except KeyError:
                 tr = object.__new__(cls)
                 cls.__tracksdict[uri] = tr
-                tr.__init = True
+                tr._init = True
             return tr
         else:
             tr = object.__new__(cls)
-            tr.__init = True
+            tr._init = True
             return tr
 
     def __init__(self, uri=None, scan=True, _unpickles=None):
@@ -143,7 +144,7 @@ class Track(object):
                 state. not for normal use.
         """
         # don't re-init if its a reused track. see __new__
-        if self.__init == False:
+        if self._init == False:
             return
 
         self.__tags = {}
@@ -253,6 +254,18 @@ class Track(object):
             ntags = f.read_all()
             for k,v in ntags.iteritems():
                 self.set_tag_raw(k, v)
+
+            # remove tags that have been deleted in the file, while
+            # taking into account that the db may have tags not
+            # supported by the file's tag format.
+            if f.others:
+                supported_tags = [ t for t in self.list_tags() \
+                        if not t.startswith("__") ]
+            else:
+                supported_tags = f.tag_mapping.keys()
+            for tag in supported_tags:
+                if tag not in ntags.keys():
+                    self.set_tag_raw(tag, None)
 
             # fill out file specific items
             gloc = gio.File(self.get_loc_for_io())

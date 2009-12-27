@@ -156,6 +156,8 @@ test:
 	nosetests -w tests
 
 test_coverage:
-	nosetests -w tests --with-coverage
+	rm -rf coverage/
+	rm -f .coverage
+	nosetests -w tests --with-coverage --cover-package=xl
 	mkdir -p coverage
 	coverage html -d coverage

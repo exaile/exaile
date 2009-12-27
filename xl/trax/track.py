@@ -252,6 +252,18 @@ class Track(object):
             for k,v in ntags.iteritems():
                 self.set_tag_raw(k, v)
 
+            # remove tags that have been deleted in the file, while
+            # taking into account that the db may have tags not
+            # supported by the file's tag format.
+            if f.others:
+                supported_tags = [ t for t in self.list_tags() \
+                        if not t.startswith("__") ]
+            else:
+                supported_tags = f.tag_mapping.keys()
+            for tag in supported_tags:
+                if tag not in ntags.keys():
+                    self.set_tag_raw(tag, None)
+
             # fill out file specific items
             gloc = gio.File(self.get_loc_for_io())
             mtime = gloc.query_info("time::modified").get_modification_time()

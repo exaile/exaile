@@ -209,7 +209,7 @@ class OSDWindow(object):
                             {'minutes' : value // 60, 'seconds' : value % 60}
                 elif not value: value = ''
                 elif type(value) == list or type(value) == tuple:
-                    value = metadata.j(value)
+                    value = track.get_tag_display(item)
 
                 if item.startswith('__'):
                     item = item[2:]

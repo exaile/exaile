@@ -258,14 +258,13 @@ class FilesPanel(panel.Panel):
             if not path:
                 return False
 
-            if len(self.get_selected_tracks()) >= 2:
-                model, paths = selection.get_selected_rows()
-                if path[0] in paths:
-                    if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                        return False
-                    return True
-                else:
+            model, paths = selection.get_selected_rows()
+            if path[0] in paths:
+                if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                     return False
+                return True
+            else:
+                return False
         return False
 
     def row_activated(self, *i):

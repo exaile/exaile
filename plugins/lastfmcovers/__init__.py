@@ -84,14 +84,17 @@ class LastFMCoverSearch(CoverSearchMethod):
                     for sub_element in element.findall('image'):
                         if (sub_element.attrib['size'] == 'extralarge'):
                             url = sub_element.text
-                            print url
-                            return [url]
+                            if url:
+                                return [url]
 
         return []
 
     def get_cover_data(self, cover_url):
-        h = urllib.urlopen(cover_url)
-        data = h.read()
-        h.close()
+        try:
+            h = urllib.urlopen(cover_url)
+            data = h.read()
+            h.close()
+        except IOError:
+            return None
         return data
 

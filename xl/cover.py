@@ -32,6 +32,7 @@ try:
 except ImportError:
     import pickle
 
+import gobject
 import gio
 
 from xl import common, providers, event, settings, xdg, trax
@@ -44,13 +45,16 @@ logger = logging.getLogger(__name__)
 # useful in other areas.
 class Cacher(object):
     """
-        Simple on-disk cache.  Note that as entries are stored as
+        Simple on-disk cache.
+
+        Note that as entries are stored as
         individual files, the data being stored should be of significant
         size (several KB) or a lot of disk space will likely be wasted.
     """
     def __init__(self, cache_dir):
         """
-            :param cache_dir: directory to use for the cache
+            :param cache_dir: directory to use for the cache. will be
+                created if it does not exist.
         """
         try:
             os.makedirs(cache_dir)
@@ -79,7 +83,7 @@ class Cacher(object):
         """
             Remove an entry from the cache.
 
-            :param key: The key to retrieve data for.
+            :param key: The key to remove data for.
         """
         path = os.path.join(self.cache_dir, key)
         try:
@@ -91,6 +95,8 @@ class Cacher(object):
         """
             Retrieve an entry from the cache.  Returns None if the given
             key does not exist.
+
+            :param key: The key to retrieve data for.
         """
         path = os.path.join(self.cache_dir, key)
         if os.path.exists(path):
@@ -99,7 +105,13 @@ class Cacher(object):
 
 
 class CoverManager(providers.ProviderHandler):
-    def __init__(self, location=None):
+    """
+        Handles finding covers from various sources.
+    """
+    def __init__(self, location):
+        """
+            :param location: The directory to load and store data in.
+        """
         providers.ProviderHandler.__init__(self, "covers")
         self.__cache = Cacher(os.path.join(location, 'cache'))
         self.location = location
@@ -110,6 +122,7 @@ class CoverManager(providers.ProviderHandler):
         self.load()
         for method in self.get_providers():
             self.on_new_provider(method)
+        self.__save_timer_id = 0
 
         providers.register('covers', TagCoverFetcher())
         providers.register('covers', LocalFileCoverFetcher())
@@ -147,9 +160,17 @@ class CoverManager(providers.ProviderHandler):
         else:
             # no album info, cant store it
             return None
-        return (tag, value)
+        return (tag, tuple(value))
 
     def find_covers(self, track, limit=-1, local_only=False):
+        """
+            Find all covers for a track
+
+            :param track: The track to find covers for
+            :param limit: maximum number of covers to return. -1=unlimited.
+            :param local_only: If True, will only return results from local
+                    sources.
+        """
         covers = []
         for method in self._get_methods():
             if local_only and method.use_cache:
@@ -166,12 +187,11 @@ class CoverManager(providers.ProviderHandler):
             Sets the cover for a track. This will overwrite any existing
             entry.
 
-            db_string must be in "method:key" format
-
-            cache will be used if data is not None and the method has
-            use_cache=True. otherwise, the method's
-            get_cover_data will be called with db_string
-            when the cover is requested.
+            :param track: The track to set the cover for
+            :param db_string: the string identifying the source of the
+                    cover, in "method:key" format.
+            :param data: The raw cover data to store for the track.  Will
+                    only be stored if the method has use_cache=True
         """
         name, info = db_string.split(":", 1)
         method = self.methods.get(name)
@@ -179,6 +199,7 @@ class CoverManager(providers.ProviderHandler):
             db_string = "cache:%s"%self.__cache.add(data)
         key = self._get_track_key(track)
         self.db[key] = db_string
+        self.__set_save_timeout()
 
     def remove_cover(self, track):
         """
@@ -189,14 +210,23 @@ class CoverManager(providers.ProviderHandler):
         if db_string:
             del self.db[key]
             self.__cache.remove(db_string)
+            self.__set_save_timeout()
 
+    # synchronized so that we dont try to fetch a cover more than once
+    # if multiple get_cover calls are made for the same track, eg on
+    # track playback transition. TODO: can probably be solved better.
+    @common.synchronized
     def get_cover(self, track, save_cover=True, local_only=False):
         """
             get the cover for a given track.
             if the track has no set cover, backends are
             searched until a cover is found or we run out of backends.
-            if a cover is found and save_cover is True, a set_cover
-            call will be made to store the cover for later use.
+
+            :param track: the Track to get the cover for.
+            :param save_cover: if True, a set_cover call will be made
+                    to store the cover for later use.
+            :param local_only: Only fetch covers from local methods and
+                    the cache.
         """
         key = self._get_track_key(track)
         db_string = self.db.get(key)
@@ -214,6 +244,11 @@ class CoverManager(providers.ProviderHandler):
         return None
 
     def get_cover_data(self, db_string):
+        """
+            Get the raw image data for a cover.
+
+            :param db_string: The db_string identifying the cover to get.
+        """
         source, data = db_string.split(":", 1)
         if source == "cache":
             return self.__cache.get(data)
@@ -224,10 +259,18 @@ class CoverManager(providers.ProviderHandler):
             return None
 
     def get_default_cover(self):
+        """
+            Get the raw image data for the cover to show if there is no
+            cover to display.
+        """
+        # TODO: wrap this into get_cover_data and get_cover somehow?
         path = xdg.get_data_path("images", "nocover.png")
         return open(path, "rb").read()
 
     def load(self):
+        """
+            Load the saved db
+        """
         path = os.path.join(self.location, 'covers.db')
         data = None
         for loc in [path, path+".old", path+".new"]:
@@ -243,6 +286,12 @@ class CoverManager(providers.ProviderHandler):
             self.db = data
 
     def save(self):
+        """
+            Save the db
+        """
+        if self.__save_timer_id:
+            gobject.source_remove(self.__save_timer_id)
+
         path = os.path.join(self.location, 'covers.db')
         try:
             f = open(path + ".new", 'wb')
@@ -259,6 +308,11 @@ class CoverManager(providers.ProviderHandler):
             os.remove(path + ".old")
         except:
             pass
+
+    def __set_save_timeout(self):
+        if self.__save_timer_id:
+            gobject.source_remove(self.__save_timer_id)
+        self.__save_timer_id = gobject.timeout_add(60000, self.save)
 
     def on_new_provider(self, provider):
         self.methods[provider.name] = provider
@@ -289,13 +343,10 @@ class CoverSearchMethod(object):
 
         Search methods do not have to inherit from this class, it's
         intended more as a template to demonstrate the needed interface.
-
-        class attributes:
-            use_cache - If True, use the cover cache to store the result of
-                    get_cover_data.
-            name - The name of this backend. Must be globally unique.
     """
+    #: If true, cover results will be cached for faster lookup
     use_cache = True
+    #: A name uniquely identifing the search method.
     name = "base"
     def find_covers(self, track, limit=-1):
         """
@@ -318,6 +369,9 @@ class CoverSearchMethod(object):
 
 
 class TagCoverFetcher(CoverSearchMethod):
+    """
+        Cover source that looks for images embedded in tags.
+    """
     use_cache = False
     name = "tags"
     def find_covers(self, track, limit=-1):
@@ -336,9 +390,15 @@ class TagCoverFetcher(CoverSearchMethod):
         tag, uri = db_string.split(":", 1)
         tr = trax.Track(uri, scan=False)
         data = tr.get_tag_disk(tag)
+        if type(data) == list:
+            data = data[0]
         return data
 
 class LocalFileCoverFetcher(CoverSearchMethod):
+    """
+        Cover source that looks for images in the same directory as the
+        Track.
+    """
     use_cache = False
     name = "localfile"
     uri_types = ['file', 'smb', 'sftp', 'nfs']

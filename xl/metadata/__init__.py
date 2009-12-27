@@ -28,18 +28,18 @@ import os
 import gio
 
 # do this so formats can inherit from stuff in _base
-from _base import *
+from _base import BaseFormat, NotWritable, NotReadable
 import urlparse
 
 import ape, asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex, tta, wav, wv
-
-__all__ = ['get_format', 'formats']
 
 # lossy:    aac (in m4a), ac3, mp2, mp3, musepack, speex, vorbis, wma
 # lossless: aiff, alac (in m4a), ape, flac, tta, wav, wavpack
 # chip:     669, amf, dsm, far, it, med, mod, mtm, okt, s3m, spc, stm, ult, xm
 # other:    au
 # tags not read:  midi, real, shorten (can we fix these?)
+
+#: dictionary mapping extensions to Format classes.
 formats = {
         '669'   : mod.ModFormat,
         'ac3'   : None,
@@ -82,6 +82,7 @@ formats = {
         'xm'    : mod.ModFormat,
         }
 
+# dunno why we have this, isnt it trivial to use formats.keys() instead?
 SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 
 # pass get_loc_for_io() to this.
@@ -90,7 +91,8 @@ def get_format(loc):
         get a Format object appropriate for the file at loc.
         if no suitable object can be found, None is returned.
 
-        :param loc: The location to read from.
+        :param loc: The location to read from. can be any gio-parseable
+            path or uri.
     """
     loc = gio.File(loc).get_path()
     if not loc:
@@ -115,25 +117,6 @@ def get_format(loc):
         common.log_exception(logger)
         return None
 
-def join_tags(value, join_char=u'\u0000'):
-    """
-        If a tag has more than one value, this will join them the character
-        specified in the `join_char` paramter
-
-        @param value: the tag.  Can be a str, unicode or a type that is
-            iterable
-    """
-
-    if not value: return value
-    if hasattr(value, '__iter__') and type(value) not in (str, unicode):
-        try:
-            return join_char.join(value)
-        except TypeError:
-            return value
-    else:
-        return value
-
-j = join_tags # for legacy code
 
 # vim: et sts=4 sw=4
 

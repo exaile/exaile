@@ -121,13 +121,9 @@ class CoverManager(object):
         """
 
         item = self._get_selected_item()
-        c = self.manager.coverdb.get_cover(item[0], item[1])
+        c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0])
 
-        # if there is no cover, use the nocover image from the selected widget
-        if c == None:
-            cvr = self.covers[self.get_selected_cover()]
-        else:
-            cvr = gtk.gdk.pixbuf_new_from_file(c)
+        cvr = pixbuf_from_data(c)
 
         window = CoverWindow(self.parent, cvr)
         window.show_all()
@@ -151,7 +147,7 @@ class CoverManager(object):
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
 
-        image = gtk.gdk.pixbuf_new_from_file(cvr)
+        image = pixbuf_from_data(cvr[1])
         image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
         self.covers[item] = image
         self.model.set_value(iter, 1, image)
@@ -269,18 +265,17 @@ class CoverManager(object):
 
             try:
                 c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0],
-                    update_track=True)
+                    save_cover=True)
             except:
                 traceback.print_exc()
                 logger.warning("No cover found")
                 c = None
 
             if c:
-                logger.info(c)
                 node = self.cover_nodes[item]
 
                 try:
-                    image = gtk.gdk.pixbuf_new_from_file(c)
+                    image = pixbuf_from_data(c)
                     image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
 
                     gobject.idle_add(self.model.set_value, node, 1, image)
@@ -296,7 +291,7 @@ class CoverManager(object):
 
             if self.count % 20 == 0:
                 logger.info("Saving cover database")
-                self.manager.save_cover_db()
+                self.manager.save()
 
         # we're done!
         gobject.idle_add(self._do_stop)
@@ -319,7 +314,7 @@ class CoverManager(object):
         self.progress.set_text(_('%d covers to fetch') % self.needs)
         self.progress.set_fraction(0)
         self._stopped = True
-        self.manager.save_cover_db()
+        self.manager.save()
         self.stop_button.set_use_stock(False)
         self.stop_button.set_label(_('Start'))
         self.stop_button.set_image(gtk.image_new_from_stock('gtk-yes',
@@ -625,7 +620,7 @@ class CoverChooser(gobject.GObject):
         one out of the list
     """
     __gsignals__ = {
-        'cover-chosen': (gobject.SIGNAL_RUN_LAST, None, (str,)),
+        'cover-chosen': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
     def __init__(self, parent, covers, track, search=None):
         """
@@ -690,7 +685,7 @@ class CoverChooser(gobject.GObject):
         self.current = 0
 
         covers = self.manager.find_covers(self.track)
-        covers = [(cover, self.manager.get_cover_data(x)) for x in covers]
+        covers = [(x, self.manager.get_cover_data(x)) for x in covers]
 
         if covers:
             self.covers = covers

@@ -39,9 +39,11 @@ class CoverWidget(guiutil.ScalableImageWidget):
         self.set_image_size(cover.COVER_WIDTH, cover.COVER_WIDTH)
         self.set_image(xdg.get_data_path('images/nocover.png'))
 
-    def cover_found(self, object, cover):
-        from xl import cover as c
-        self.set_image_data(c.get_cover_data(cover))
+    @common.threaded
+    def get_cover(self, covers, track):
+        data = covers.get_cover(track)
+        if data:
+            self.set_image_data(data)
 
 class OSDWindow(object):
     """
@@ -89,9 +91,7 @@ class OSDWindow(object):
         self.progress = self.builder.get_object('osd_progressbar')
 
         self.cover_widget = CoverWidget()
-        if self.cover:
-            self._cover_sig = self.cover.connect('cover-found',
-                self.cover_widget.cover_found)
+ 
         self.cover_widget.set_image_size(
             self._settings.get_option('osd/h', 95) - 8,
             self._settings.get_option('osd/h', 95) - 8)
@@ -196,6 +196,7 @@ class OSDWindow(object):
 
     def show(self, track, timeout=4000):
         if track:
+            self.cover_widget.get_cover(self.covers, track)
             text = self.text.replace('&', '&amp;')
             for item in ('title', 'artist', 'album', '__length', 'tracknumber',
                     '__bitrate', 'genre', 'year', '__rating'):
@@ -224,6 +225,7 @@ class OSDWindow(object):
             self._settings.get_option('osd/text_color', '#ffffff'),
                 text)
         self.title.set_markup(text)
+
         self.window.show_all()
         self.hide_progress()
         if self._timeout:

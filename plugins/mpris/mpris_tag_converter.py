@@ -127,9 +127,8 @@ class ExaileTagConverter(object):
         """
             Returns the Metadata for track as defined by MPRIS standard
         """
-        # FIXME: this really shouldn't access Track.tags directly...
         metadata = {}
-        for exaile_tag in track.tags:
+        for exaile_tag in track.list_tags():
             if exaile_tag not in EXAILE_TAG_INFORMATION:
                 continue
             val = ExaileTagConverter.__get_first_item(track.get_tag_raw(exaile_tag))

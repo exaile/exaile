@@ -130,6 +130,14 @@ class TestTrack(unittest.TestCase):
     def test_none_url(self):
         self.assertRaises(ValueError, track.Track)
 
+    def test_pickles(self):
+        tr = track.Track('/foo')
+        tr.set_tag_raw('artist', 'bar')
+        self.assertEqual(tr._pickles(), {
+            '__loc': u'file:///foo',
+            'artist': [u'bar']
+            })
+
     def test_unpickles(self):
         tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
             '__loc': u'uri'})
@@ -173,15 +181,57 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('foo')
         self.assertEqual(str(tr), "'Unknown' from 'Unknown' by 'Unknown'")
 
-    def test_pickles(self):
-        tr = track.Track('/foo')
-        tr.set_tag_raw('artist', 'bar')
-        self.assertEqual(tr._pickles(), {
-            '__loc': 'file:///foo',
-            'artist': [u'bar']
-            })
-    
-    ## Tag interface
+    def test_read_tags_no_perms(self):
+        # We test by creating a new file, changing the tags, writing tags
+        # and finally reopening a track with the name and seeing if it stuck
+        for tr_url in TEST_TRACKS:
+            # We run through this process with each filetype we have
+            suffix = os.extsep + tr_url.split(os.extsep)[-1]
+            # Stuff we can't actually write metadata to
+            if suffix in ('.aac', '.aiff', '.au', '.spx', '.wav'):
+                LOG.info("Skipping tag write test for " + suffix)
+                continue
+            # This fails. i don't feel like reading about it's failing for now
+            if suffix in ('.wma',):
+                LOG.critical("Skipping known failure :" + suffix)
+                continue
+            LOG.info("Testing writes for filetype: " + suffix)
+            with tempfile.NamedTemporaryFile(suffix=suffix) as temp_copy:
+                # Copy and write new file
+                shutil.copyfileobj(open(tr_url, 'r'), temp_copy)
+                tr = track.Track(temp_copy.name)
+                del tr
+                os.chmod(temp_copy.name, 0o000)
+                tr = track.Track(temp_copy.name)
+                # Remove the artist tag and reread from file. This is done
+                # because of the whole flyweight thing
+                tr.set_tag_raw('artist', '')
+                tr.read_tags()
+                self.assertEqual(tr.get_tag_raw('artist'), None)
+
+    def test_write_tags_no_perms(self):
+        # We test by creating a new file, changing the tags, writing tags
+        # and finally reopening a track with the name and seeing if it stuck
+        for tr_url in TEST_TRACKS:
+            # We run through this process with each filetype we have
+            suffix = os.extsep + tr_url.split(os.extsep)[-1]
+            # Stuff we can't actually write metadata to
+            if suffix in ('.aac', '.aiff', '.au', '.spx', '.wav'):
+                LOG.info("Skipping tag write test for " + suffix)
+                continue
+            # This fails. i don't feel like reading about it's failing for now
+            if suffix in ('.wma',):
+                LOG.critical("Skipping known failure :" + suffix)
+                continue
+            LOG.info("Testing writes for filetype: " + suffix)
+            with tempfile.NamedTemporaryFile(suffix=suffix) as temp_copy:
+                # Copy and write new file
+                shutil.copyfileobj(open(tr_url, 'r'), temp_copy)
+                os.chmod(temp_copy.name, 0o444)
+                tr = track.Track(temp_copy.name)
+                tr.set_tag_raw('artist', 'Delerium')
+                self.assertFalse(tr.write_tags())
+
     def test_write_tags(self):
         # We test by creating a new file, changing the tags, writing tags
         # and finally reopening a track with the name and seeing if it stuck

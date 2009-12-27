@@ -374,15 +374,20 @@ class TagCoverFetcher(CoverSearchMethod):
     """
     use_cache = False
     name = "tags"
+    cover_tags = ["cover", "coverart"]
     def find_covers(self, track, limit=-1):
-        # TODO: handle other art tags, like apev2 uses
-        try:
-            data = track.get_tag_disk("cover")
-        except KeyError:
-            return []
+        data = None
+        tagname = None
+        for tag in self.cover_tags:
+            try:
+                data = track.get_tag_disk(tag)
+                tagname = tag
+                break
+            except KeyError:
+                pass
         if data:
             # path format: tagname:track_uri
-            path = "cover:%s"%track.get_loc_for_io()
+            path = "%s:%s"%(tagname, track.get_loc_for_io())
             return [path]
         return []
 
@@ -390,8 +395,18 @@ class TagCoverFetcher(CoverSearchMethod):
         tag, uri = db_string.split(":", 1)
         tr = trax.Track(uri, scan=False)
         data = tr.get_tag_disk(tag)
-        if type(data) == list:
+        if isinstance(data, list):
             data = data[0]
+        b64_valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" + \
+                "01234567890+/"
+        for c in data.rstrip("="):
+            if c not in b64_valid:
+                break
+        else:
+            try:
+                data = data.decode("base64")
+            except UnicodeDecodeError:
+                pass
         return data
 
 class LocalFileCoverFetcher(CoverSearchMethod):

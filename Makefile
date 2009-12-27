@@ -158,6 +158,6 @@ test:
 test_coverage:
 	rm -rf coverage/
 	rm -f .coverage
-	nosetests -w tests --with-coverage --cover-package=xl
-	mkdir -p coverage
+	nosetests -w tests --with-coverage --cover-package=xl; \
+	mkdir -p coverage; \
 	coverage html -d coverage

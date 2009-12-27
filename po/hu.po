@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-22 10:24+0000\n"
-"Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
+"PO-Revision-Date: 2009-12-26 14:51+0000\n"
+"Last-Translator: Balázs Attila <battila9@freemail.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-12-23 04:32+0000\n"
+"X-Launchpad-Export-Date: 2009-12-27 04:31+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -441,7 +441,7 @@ msgstr "Szerző"
 
 #: ../xlgui/properties.py:58
 msgid "Encoded By"
-msgstr ""
+msgstr "Kódolta:"
 
 #: ../xlgui/properties.py:59
 msgid "Organization"
@@ -505,11 +505,11 @@ msgstr "Legutóbb Lejátszva"
 #: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "szám szerkesztése %(current)d of %(total)d"
 
 #: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
-msgstr ""
+msgstr "Bezárja anélkül hogy alkalmazná a változásokat a tagekre?"
 
 #: ../xlgui/properties.py:655
 msgid "of"
@@ -517,7 +517,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Alkalmazza a jelenlegi értéket az összes számra"
 
 #: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
 #: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
@@ -542,7 +542,7 @@ msgstr "Lejátszólista átnevezése"
 
 #: ../xlgui/main.py:281
 msgid "Custom playlist name:"
-msgstr ""
+msgstr "Lejtászólista neve:"
 
 #: ../xlgui/main.py:281
 msgid "Save As..."
@@ -554,11 +554,11 @@ msgstr "Váltás: Leállítás a kijelölt szám után"
 
 #: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Dinamikusan adja hozzá a hasonló számokat a lejátszólistához"
 
 #: ../xlgui/main.py:706
 msgid "Requires plugins providing dynamic playlists"
-msgstr ""
+msgstr "Szükséges beépülőmodulok a dinamikus lejátszólistához"
 
 #: ../xlgui/main.py:862
 #, python-format
@@ -571,15 +571,15 @@ msgstr "Pufferelés: 100%"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "Keverés_ki"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Keverés_Számok"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Keverés_Albumok"
 
 #: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
@@ -614,7 +614,7 @@ msgstr "%s albumáról"
 #: ../xlgui/main.py:1242
 #, python-format
 msgid "In pause: %s"
-msgstr ""
+msgstr "Szünet: %s"
 
 #: ../xlgui/main.py:1244
 #, python-format
@@ -632,7 +632,7 @@ msgstr "Új lejátszólista"
 
 #: ../xlgui/menu.py:157
 msgid "Add to custom playlist"
-msgstr ""
+msgstr "Hozzáadás lejátszólistához"
 
 #: ../xlgui/menu.py:160 ../xlgui/menu.py:487
 msgid "Remove"
@@ -653,15 +653,15 @@ msgstr "_Új lejátszólista"
 
 #: ../xlgui/menu.py:214
 msgid "_Rename Playlist"
-msgstr ""
+msgstr "_Lejátszólista átnevezése"
 
 #: ../xlgui/menu.py:216
 msgid "_Save As Custom Playlist"
-msgstr ""
+msgstr "_Lejátszólista mentése másként"
 
 #: ../xlgui/menu.py:218
 msgid "_Save Changes To Playlist"
-msgstr ""
+msgstr "_Változások mentése a lejtászólistába"
 
 #: ../xlgui/menu.py:219
 msgid "_Save As..."
@@ -669,11 +669,11 @@ msgstr "M_entés másként…"
 
 #: ../xlgui/menu.py:220
 msgid "C_lear All Tracks"
-msgstr ""
+msgstr "_Összes szám törlése"
 
 #: ../xlgui/menu.py:222
 msgid "_Close Playlist"
-msgstr ""
+msgstr "_Lejátszólista bezárása"
 
 #: ../xlgui/menu.py:243
 msgid "Append to Current"
@@ -693,7 +693,7 @@ msgstr "Új Állomás"
 
 #: ../xlgui/menu.py:346
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "Új okos lejátszólista"
 
 #: ../xlgui/menu.py:390
 msgid "Open"
@@ -1063,15 +1063,15 @@ msgstr "között"
 #: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
 #: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Lejátszólista név amit megadtál már létezik"
 
 #: ../xlgui/panel/playlists.py:367
 msgid "New custom playlist name:"
-msgstr ""
+msgstr "Új lejátszólista"
 
 #: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
-msgstr ""
+msgstr "Add új lejátszólistához..."
 
 #: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
 #: ../xlgui/panel/playlists.py:678
@@ -1146,7 +1146,7 @@ msgstr "A gyűjtemény átvizsgálása"
 #: ../xlgui/panel/device.py:127
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Másolás a %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:31
 msgid "Covers"
@@ -1180,7 +1180,7 @@ msgstr "Gyűjtemény"
 #. translate this to an empty string.
 #: ../xlgui/prefs/collection_prefs.py:31
 msgid "the"
-msgstr ""
+msgstr "a"
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
@@ -1210,7 +1210,7 @@ msgstr "Válassz bővítményt"
 
 #: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Beépülő arhívum"
 
 #: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
@@ -1256,15 +1256,15 @@ msgstr ""
 
 #: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
-msgstr ""
+msgstr "Lejátszólista ismétlése"
 
 #: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
-msgstr ""
+msgstr "Hasonló számok dinamikus hozzáadása"
 
 #: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
-msgstr ""
+msgstr "Aktuális szám törlése a lejátszólistáról"
 
 #: ../xlgui/tray.py:179
 msgid "Exaile Music Player"
@@ -1272,7 +1272,7 @@ msgstr "Exaile zenelejátszó"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Jobb klikk visszatérés az alapbeállításokhoz)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
@@ -1324,11 +1324,11 @@ msgstr "Előző szám"
 
 #: ../data/ui/main.ui.h:12
 msgid "Randomize the order of the current playlist"
-msgstr ""
+msgstr "Véletlenszerű elrendezés az aktuális lejátszólistán"
 
 #: ../data/ui/main.ui.h:13
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Gyűjtemény újraellenőrzése"
 
 #: ../data/ui/main.ui.h:15 ../data/ui/files_panel.ui.h:6
 #: ../data/ui/collection_panel.ui.h:11
@@ -1337,7 +1337,7 @@ msgstr "Keresés: "
 
 #: ../data/ui/main.ui.h:17
 msgid "Start/Pause Playback"
-msgstr ""
+msgstr "Lejátszás Indítása/Leállítása"
 
 #: ../data/ui/main.ui.h:18
 msgid ""
@@ -1348,7 +1348,7 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:22
 msgid "Track _properties"
-msgstr ""
+msgstr "Szám_tulajdonságai"
 
 #: ../data/ui/main.ui.h:23
 msgid "_Autosize"
@@ -1372,7 +1372,7 @@ msgstr "S_zerkesztés"
 
 #: ../data/ui/main.ui.h:28
 msgid "_Export current playlist"
-msgstr ""
+msgstr "_Aktuális lejátszólista exportálása"
 
 #: ../data/ui/main.ui.h:29
 msgid "_File"
@@ -1392,11 +1392,11 @@ msgstr "_Várólista"
 
 #: ../data/ui/main.ui.h:34
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "_Lejátszólista összekeverése"
 
 #: ../data/ui/main.ui.h:35
 msgid "_Resizable"
-msgstr ""
+msgstr "Méretezhető"
 
 #: ../data/ui/main.ui.h:36
 msgid "_Tools"
@@ -1408,7 +1408,7 @@ msgstr "_Nézet"
 
 #: ../data/ui/flatplaylist_panel.ui.h:1
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Minden szám hozzáfűzese a lejátszólistához"
 
 #: ../data/ui/flatplaylist_panel.ui.h:2
 msgid "Import CD"
@@ -1428,7 +1428,7 @@ msgstr "_Bezár"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "A_dd tag"
-msgstr ""
+msgstr "_Tag hozzáadása"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "Tags"
@@ -1440,7 +1440,7 @@ msgstr "Zeneszám Tulajdonságai"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Nagybetűs az összes első betű az összes tagban"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
@@ -1452,7 +1452,7 @@ msgstr "_Előző"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Tag törlése"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"

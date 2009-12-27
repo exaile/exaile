@@ -136,8 +136,6 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(tr1.get_loc_for_io(), u'uri')
 
     def test_unpickles_flyweight(self):
-        if SkipTest is not None:
-            raise SkipTest
         tr1 = track.Track(_unpickles={'artist': [u'my_artist'],
             '__loc': u'uri'})
         tr2 = track.Track(_unpickles={'artist': [u'my_artist'],
@@ -212,7 +210,8 @@ class TestTrack(unittest.TestCase):
                 tr.set_tag_raw('artist', '')
                 tr.read_tags()
                 self.assertEqual(tr.get_tag_raw('artist'), [u'Delerium'])
-        raise SkipTest("Skipped known failure: .wma")
+        if SkipTest is not None:
+            raise SkipTest("Skipped known failure: .wma")
 
     def test_write_tag_invalid_format(self):
         tr = track.Track('/tmp/foo.foo')
@@ -252,8 +251,6 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(tr.get_rating(), 2)
 
     def test_set_rating_invalid(self):
-        raise SkipTest("We currently do not properly do things on incorrect"
-                "values passed to set_rating")
         tr = track.Track('/bar')
         self.assertRaises(ValueError, tr.set_rating, 'foo')
 
@@ -446,4 +443,69 @@ class TestTrack(unittest.TestCase):
         tr.set_tag_raw('artist', [u'foo', u'bar'])
         self.assertEqual(tr.get_tag_display('artist', join=False),
                 [u'foo', u'bar'])
+
+    ## Sort tags
+    def test_get_search_tag_loc(self):
+        tr = track.Track('/foo')
+        self.assertEqual(tr.get_tag_search('__loc'), '__loc=="file:///foo"')
+
+    def test_get_search_tag_artist_compilation(self):
+        tr = track.Track('/foo')
+        tr.set_tag_raw('__compilation', 'foo')
+        retval = u'albumartist=="albumartist" ! __compilation==__null__'
+        tr.set_tag_raw('artist', u'hello world')
+        tr.set_tag_raw('albumartist', u'albumartist')
+        tr.set_tag_raw('artistsort', u'foo bar')
+        self.assertEqual(tr.get_tag_search('artist'), retval)
+
+    def test_get_search_tag_artist(self):
+        tr = track.Track('/foo')
+        retval = u'artist=="hello world"'
+        tr.set_tag_raw('artist', u'hello world')
+        self.assertEqual(tr.get_tag_search('artist'), retval)
+
+    def test_get_search_tag_artist_none(self):
+        tr = track.Track('/foo')
+        retval = u'artist==__null__'
+        self.assertEqual(tr.get_tag_search('artist'), retval)
+
+    def test_get_search_tag_discnumber(self):
+        tr = track.Track('/foo')
+        value = '12/15'
+        retval = 'discnumber=="12"'
+        tr.set_tag_raw('discnumber', value)
+        self.assertEqual(tr.get_tag_search('discnumber'), retval)
+
+    def test_get_search_tag_tracknumber(self):
+        tr = track.Track('/foo')
+        value = '12/15'
+        retval = 'tracknumber=="12"'
+        tr.set_tag_raw('tracknumber', value)
+        self.assertEqual(tr.get_tag_search('tracknumber'), retval)
+
+    def test_get_search_tag_length(self):
+        tr = track.Track('/foo')
+        tr.set_tag_raw('__length', 36)
+        self.assertEqual(tr.get_tag_search('__length'), '__length=="36"')
+
+    def test_get_search_tag_bitrate(self):
+        tr = track.Track('/foo')
+        tr.set_tag_raw('__bitrate', 48000)
+        self.assertEqual(tr.get_tag_search('__bitrate'), '__bitrate=="48k"')
+
+    ## Disk tags
+    def test_get_disk_tag_length(self):
+        tr_name = get_file_with_ext('.mp3')
+        tr = track.Track(tr_name)
+        self.assertEqual(tr.get_tag_disk('__length'),
+                TEST_TRACKS_SIZE[tr_name])
+
+    def test_get_disk_tag(self):
+        tr_name = get_file_with_ext('.mp3')
+        tr = track.Track(tr_name)
+        self.assertEqual(tr.get_tag_disk('artist'), [u'Delerium'])
+
+    def test_get_disk_tag_invalid_format(self):
+        tr = track.Track('/tmp/foo.bah')
+        self.assertEqual(tr.get_tag_disk('artist'), None)
 

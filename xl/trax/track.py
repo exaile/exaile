@@ -419,7 +419,7 @@ class Track(object):
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount'):
-            retval = self.__tags.get('__length', 0)
+            retval = self.__tags.get(tag, 0)
         else:
             retval = self.__tags.get(tag)
 

@@ -686,7 +686,7 @@ class MainWindow(gobject.GObject):
         if tr == self.queue.stop_track:
             self.queue.stop_track = None
         else:
-            self.queue.stop_track = track
+            self.queue.stop_track = tr
 
         self.get_selected_playlist().list.queue_draw()
 

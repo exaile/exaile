@@ -40,8 +40,17 @@ logger = logging.getLogger(__name__)
 COVER_WIDTH = 100
 NOCOVER_IMAGE = xdg.get_data_path("images", "nocover.png")
 
-def pixbuf_from_data(data):
+def pixbuf_from_data(data, scale=None):
+    """
+        Get a gtk.gdk.Pixbuf from arbitrary image data.
+
+        :param data: The raw image data
+        :param scale: Size to scale to, in (width, height) format.
+            If not specified, the image will render to its native resolution.
+    """
     loader = gtk.gdk.PixbufLoader()
+    if scale:
+        loader.set_size(scale[0],scale[1])
     loader.write(data)
     loader.close()
     pixbuf = loader.get_pixbuf()
@@ -202,8 +211,8 @@ class CoverManager(object):
         self.items = items
         self.items.sort()
 
-        nocover = pixbuf_from_data(self.manager.get_default_cover())
-        nocover = nocover.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
+        nocover = pixbuf_from_data(self.manager.get_default_cover(),
+                scale=(80,80))
         self.nocover = nocover
         self.needs = 0
         for item in items:
@@ -217,8 +226,7 @@ class CoverManager(object):
 
             if cover_avail:
                 try:
-                    image = pixbuf_from_data(cover_avail)
-                    image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
+                    image = pixbuf_from_data(cover_avail, scale=(80,80))
                 except:
                     image = nocover
             else:
@@ -275,9 +283,7 @@ class CoverManager(object):
                 node = self.cover_nodes[item]
 
                 try:
-                    image = pixbuf_from_data(c)
-                    image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
-
+                    image = pixbuf_from_data(c, scale=(80,80))
                     gobject.idle_add(self.model.set_value, node, 1, image)
                 except:
                     traceback.print_exc()

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-25 17:39+0000\n"
+"PO-Revision-Date: 2009-12-27 08:27+0000\n"
 "Last-Translator: Paco Molinero <paco@byasl.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-12-26 04:31+0000\n"
+"X-Launchpad-Export-Date: 2009-12-28 04:49+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -76,11 +76,11 @@ msgstr "Muestra el álbum de la pista actual"
 
 #: ../xl/main.py:314
 msgid "Print the artist of current track"
-msgstr "Mostrar el artista de la pista actual"
+msgstr "Muestra el artista de la pista actual"
 
 #: ../xl/main.py:316
 msgid "Print the length of current track"
-msgstr "Mostrar la duración de la pista actual"
+msgstr "Muestra la duración de la pista actual"
 
 #: ../xl/main.py:318
 msgid "Set rating for current song"
@@ -2421,7 +2421,7 @@ msgstr "Contraseña:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show Menuitem to toggle Submission"
-msgstr ""
+msgstr "Mostrar el menú de elementos para cambiar Submission"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit tracks using Audioscrobbler"
@@ -2686,7 +2686,7 @@ msgstr "Corrección para los archivos con falta información ReplayGain"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Nivel de corrección seguro (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."

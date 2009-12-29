@@ -19,25 +19,10 @@ except ImportError:
 import xl.trax.track as track
 import xl.settings as settings
 
+from tests.xl.trax import test_data
+
 
 LOG = logging.getLogger(__name__)
-TEST_TRACKS = [os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir,
-    'data', 'music', 'delerium', 'chimera', '05 - Truly') + os.extsep + ext)
-    for ext in ('aac', 'aiff', 'au', 'flac', 'mp3', 'mpc', 'ogg', 'spx',
-                'wav', 'wma', 'wv')]
-def get_file_with_ext(ext):
-    return [x for x in TEST_TRACKS if x.endswith(ext)][0]
-TEST_TRACKS_SIZE = {
-    get_file_with_ext('.mp3'): 4692,
-}
-
-def test_mp3_exists():
-    assert get_file_with_ext('.mp3')
-
-def test_all_tracks_exist():
-    for track in TEST_TRACKS:
-        assert os.path.exists(track), "%s does not exist" % track
 
 
 class Test_MetadataCacher(unittest.TestCase):
@@ -151,14 +136,14 @@ class TestTrack(unittest.TestCase):
         self.assertTrue(tr1 is tr2)
 
     def test_takes_nonurl(self):
-        for tr in TEST_TRACKS:
+        for tr in test_data.TEST_TRACKS:
             tr = track.Track(tr)
             self.assertTrue(tr.local_file_name())
             self.assertTrue(tr.exists())
     
     ## Information
     def test_local_type(self):
-        for tr in TEST_TRACKS:
+        for tr in test_data.TEST_TRACKS:
             tr = track.Track(tr)
             self.assertEqual(tr.get_type(), 'file')
 
@@ -173,9 +158,9 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(tr.is_local(), False)
 
     def test_local_filesize(self):
-        for tr_name in TEST_TRACKS_SIZE:
+        for tr_name in test_data.TEST_TRACKS_SIZE:
             tr = track.Track(tr_name)
-            self.assertEqual(tr.get_size(), TEST_TRACKS_SIZE[tr_name])
+            self.assertEqual(tr.get_size(), test_data.TEST_TRACKS_SIZE[tr_name])
 
     def test_str(self):
         tr = track.Track('foo')
@@ -184,7 +169,7 @@ class TestTrack(unittest.TestCase):
     def test_read_tags_no_perms(self):
         # We test by creating a new file, changing the tags, writing tags
         # and finally reopening a track with the name and seeing if it stuck
-        for tr_url in TEST_TRACKS:
+        for tr_url in test_data.TEST_TRACKS:
             # We run through this process with each filetype we have
             suffix = os.extsep + tr_url.split(os.extsep)[-1]
             # Stuff we can't actually write metadata to
@@ -212,7 +197,7 @@ class TestTrack(unittest.TestCase):
     def test_write_tags_no_perms(self):
         # We test by creating a new file, changing the tags, writing tags
         # and finally reopening a track with the name and seeing if it stuck
-        for tr_url in TEST_TRACKS:
+        for tr_url in test_data.TEST_TRACKS:
             # We run through this process with each filetype we have
             suffix = os.extsep + tr_url.split(os.extsep)[-1]
             # Stuff we can't actually write metadata to
@@ -235,7 +220,7 @@ class TestTrack(unittest.TestCase):
     def test_write_tags(self):
         # We test by creating a new file, changing the tags, writing tags
         # and finally reopening a track with the name and seeing if it stuck
-        for tr_url in TEST_TRACKS:
+        for tr_url in test_data.TEST_TRACKS:
             # We run through this process with each filetype we have
             suffix = os.extsep + tr_url.split(os.extsep)[-1]
             # Stuff we can't actually write metadata to
@@ -472,7 +457,7 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(tr.get_tag_display('__bitrate'), u'48k')
 
     def test_get_display_tag_bitrate_bitrateless_formate(self):
-        tr = track.Track(get_file_with_ext('.flac'))
+        tr = track.Track(test_data.get_file_with_ext('.flac'))
         self.assertEqual(tr.get_tag_display('__bitrate'), u' ')
 
     def test_get_display_tag_bitrate_bad(self):
@@ -549,13 +534,13 @@ class TestTrack(unittest.TestCase):
 
     ## Disk tags
     def test_get_disk_tag_length(self):
-        tr_name = get_file_with_ext('.mp3')
+        tr_name = test_data.get_file_with_ext('.mp3')
         tr = track.Track(tr_name)
         self.assertEqual(tr.get_tag_disk('__length'),
-                TEST_TRACKS_SIZE[tr_name])
+                test_data.TEST_TRACKS_SIZE[tr_name])
 
     def test_get_disk_tag(self):
-        tr_name = get_file_with_ext('.mp3')
+        tr_name = test_data.get_file_with_ext('.mp3')
         tr = track.Track(tr_name)
         self.assertEqual(tr.get_tag_disk('artist'), [u'Delerium'])
 

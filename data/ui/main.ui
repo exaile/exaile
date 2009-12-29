@@ -358,6 +358,8 @@
                         <property name="obey_child">False</property>
                         <child>
                           <object class="GtkEventBox" id="cover_event_box">
+                            <property name="width_request">100</property>
+                            <property name="height_request">100</property>
                             <property name="visible">True</property>
                             <child>
                               <placeholder/>

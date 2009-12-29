@@ -117,19 +117,28 @@ class CoverManager(providers.ProviderHandler):
         self.location = location
         self.methods = {}
         self.order = settings.get_option(
-                'covers/preferred_order', ['tags', 'localfile'])
+                'covers/preferred_order', [])
         self.db = {}
         self.load()
         for method in self.get_providers():
             self.on_new_provider(method)
         self.__save_timer_id = 0
 
-        providers.register('covers', TagCoverFetcher())
-        providers.register('covers', LocalFileCoverFetcher())
+        self.tag_fetcher = TagCoverFetcher()
+        self.localfile_fetcher = LocalFileCoverFetcher()
 
-    def _get_methods(self):
+        # FIXME: listen for setting changes (needed to add to ui)
+        if settings.get_option('covers/use_tags', True):
+            providers.register('covers', self.tag_fetcher)
+        if settings.get_option('covers/use_localfile', True):
+            providers.register('covers', self.localfile_fetcher)
+
+    def _get_methods(self, fixed=False):
         """
             Returns a list of Methods, sorted by preference
+
+            :param fixed: If true, include fixed-position backends in the
+                    returned list.
         """
         methods = []
         for name in self.order:
@@ -138,6 +147,18 @@ class CoverManager(providers.ProviderHandler):
         for k, method in self.methods.iteritems():
             if method not in methods:
                 methods.append(method)
+        nonfixed = [m for m in methods if not m.fixed]
+        if fixed:
+            fixed = [m for m in methods if m.fixed]
+            fixed.sort(key=lambda x: x.fixed_priority)
+            for i, v in enumerate(fixed):
+                if v.fixed_priority > 50:
+                    methods = fixed[:i] + nonfixed + fixed[i:]
+                    break
+            else:
+                methods = fixed + nonfixed
+        else:
+            methods = nonfixed
         return methods
 
     def _get_track_key(self, track):
@@ -172,7 +193,7 @@ class CoverManager(providers.ProviderHandler):
                     sources.
         """
         covers = []
-        for method in self._get_methods():
+        for method in self._get_methods(fixed=True):
             if local_only and method.use_cache:
                 continue
             new = method.find_covers(track, limit=limit)
@@ -198,8 +219,9 @@ class CoverManager(providers.ProviderHandler):
         if method and method.use_cache and data:
             db_string = "cache:%s"%self.__cache.add(data)
         key = self._get_track_key(track)
-        self.db[key] = db_string
-        self.__set_save_timeout()
+        if key:
+            self.db[key] = db_string
+            self.__set_save_timeout()
 
     def remove_cover(self, track):
         """
@@ -216,7 +238,7 @@ class CoverManager(providers.ProviderHandler):
     # if multiple get_cover calls are made for the same track, eg on
     # track playback transition. TODO: can probably be solved better.
     @common.synchronized
-    def get_cover(self, track, save_cover=True, local_only=False):
+    def get_cover(self, track, save_cover=True, set_only=False):
         """
             get the cover for a given track.
             if the track has no set cover, backends are
@@ -225,15 +247,18 @@ class CoverManager(providers.ProviderHandler):
             :param track: the Track to get the cover for.
             :param save_cover: if True, a set_cover call will be made
                     to store the cover for later use.
-            :param local_only: Only fetch covers from local methods and
-                    the cache.
+            :param set_only: Only retrieve covers that have been set
+                    in the db.
         """
         key = self._get_track_key(track)
         db_string = self.db.get(key)
         if db_string:
             return self.get_cover_data(db_string)
 
-        covers = self.find_covers(track, limit=1, local_only=local_only)
+        if set_only:
+            return None
+
+        covers = self.find_covers(track, limit=1)
         if covers:
             cover = covers[0]
             data = self.get_cover_data(cover)
@@ -348,6 +373,12 @@ class CoverSearchMethod(object):
     use_cache = True
     #: A name uniquely identifing the search method.
     name = "base"
+    #: Whether the backend should have a fixed priority instead of being
+    #  configurable.
+    fixed = False
+    #: Priority for fixed-position backends. Lower is earlier, non-fixed
+    #  backends will always be 50.
+    fixed_priority = 50
     def find_covers(self, track, limit=-1):
         """
             Find the covers for a given track.
@@ -375,6 +406,8 @@ class TagCoverFetcher(CoverSearchMethod):
     use_cache = False
     name = "tags"
     cover_tags = ["cover", "coverart"]
+    fixed = True
+    fixed_priority = 30
     def find_covers(self, track, limit=-1):
         data = None
         tagname = None
@@ -419,6 +452,8 @@ class LocalFileCoverFetcher(CoverSearchMethod):
     uri_types = ['file', 'smb', 'sftp', 'nfs']
     extensions = ['.png', '.jpg', '.jpeg', '.gif']
     preferred_names = ['album', 'cover']
+    fixed = True
+    fixed_priority = 31
     def find_covers(self, track, limit=-1):
         # TODO: perhaps should instead check to see if its mounted in
         # gio, rather than basing this on uri type. file:// should

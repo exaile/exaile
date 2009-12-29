@@ -133,6 +133,8 @@ class CoverManager(object):
         c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0])
 
         cvr = pixbuf_from_data(c)
+        if not cvr:
+            return
 
         window = CoverWindow(self.parent, cvr)
         window.show_all()
@@ -176,20 +178,19 @@ class CoverManager(object):
     def remove_cover(self, *e):
         item = self._get_selected_item()
         paths = self.icons.get_selected_items()
-        self.manager.coverdb.remove_cover(item[0], item[1])
+        track = self.track_dict[item[0]][item[1]][0]
+        self.manager.remove_cover(track)
         self.covers[item] = self.nocover
-        if not paths: return
-        iter = self.model.get_iter(paths[0])
-        self.model.set_value(iter, 1, self.nocover)
+        if paths:
+            iter = self.model.get_iter(paths[0])
+            self.model.set_value(iter, 1, self.nocover)
 
     def _find_initial(self):
         """
             Locates covers and sets the icons in the windows
         """
-        tracks = self.collection.search('') # find all tracks
-
         items = []
-        for track in tracks:
+        for track in self.collection:
             try:
                 artist = track.get_tag_raw('artist')[0]
                 album = track.get_tag_raw('album')[0]
@@ -216,34 +217,30 @@ class CoverManager(object):
         self.nocover = nocover
         self.needs = 0
         for item in items:
-            if not item[0] or not item[1]: continue
-            try:
-                cover_avail = self.manager.get_cover(
+            if not item[0] or not item[1]:
+                continue
+
+            cover_avail = self.manager.get_cover(
                         self.track_dict[item[0]][item[1]][0],
-                        local_only=True)
-            except TypeError:
-                cover_avail = None
+                        set_only=True)
 
             if cover_avail:
                 try:
                     image = pixbuf_from_data(cover_avail, scale=(80,80))
-                except:
+                except gobject.GError:
                     image = nocover
+                    self.needs += 1
             else:
                 image = nocover
-
-            if image == nocover:
                 self.needs += 1
 
             display = "%s - %s" % (item[0], item[1])
-#            if self.track_dict[item[0]][item[1]][0]['__compilation']:
-#                display = item[1]
 
             self.cover_nodes[item] = self.model.append(
                 [display, image, item])
             self.covers[item] = image
         self.icons.set_model(self.model)
-        self.progress.set_text('%d covers to fetch' % self.needs)
+        self.progress.set_text(_('%d covers to fetch') % self.needs)
 
     def _connect_events(self):
         """
@@ -271,35 +268,29 @@ class CoverManager(object):
             if not self.covers[item] == self.nocover:
                 continue
 
-            try:
-                c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0],
+            c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0],
                     save_cover=True)
-            except:
-                traceback.print_exc()
-                logger.warning("No cover found")
-                c = None
 
             if c:
                 node = self.cover_nodes[item]
-
                 try:
                     image = pixbuf_from_data(c, scale=(80,80))
+                except gobject.GError:
+                    c = None
+                else:
                     gobject.idle_add(self.model.set_value, node, 1, image)
-                except:
-                    traceback.print_exc()
 
             gobject.idle_add(self.progress.set_fraction, float(self.count) /
                 float(self.needs))
-            gobject.idle_add(self.progress.set_text, "%s/%s fetched" % (self.count,
-                self.needs))
+            gobject.idle_add(self.progress.set_text, "%s/%s fetched" %
+                    (self.count, self.needs))
 
             self.count += 1
 
             if self.count % 20 == 0:
-                logger.info("Saving cover database")
+                logger.debug("Saving cover database")
                 self.manager.save()
 
-        # we're done!
         gobject.idle_add(self._do_stop)
 
     def _calculate_needed(self):
@@ -460,7 +451,7 @@ class CoverWidget(gtk.EventBox):
         self.current_track = track
         gobject.idle_add(self.set_blank)
         fetch = not settings.get_option('covers/automatic_fetching', True)
-        cov = self.covers.get_cover(self.current_track, local_only=fetch)
+        cov = self.covers.get_cover(self.current_track, set_only=fetch)
         if not cov:
             return
 
@@ -507,11 +498,7 @@ class CoverWindow(object):
                                    self.statusbar.size_request()[1]
         self.cover_window.set_default_size(self.cover_window_width, \
                                            self.cover_window_height)
-        if type(cvr) == str or type(cvr) == unicode:
-            self.image_original_pixbuf = gtk.gdk.pixbuf_new_from_file(cvr)
-        else:
-            self.image_original_pixbuf = cvr
-
+        self.image_original_pixbuf = cvr
         self.image_pixbuf = self.image_original_pixbuf
         self.min_percent = 1
         self.max_percent = 500
@@ -697,8 +684,12 @@ class CoverChooser(gobject.GObject):
             self.covers = covers
             gobject.idle_add(self.show_cover, covers[0])
         else:
-            commondialogs.error(self.parent, _('No covers found'))
-            self.window.show_all()
+            gobject.idle_add(self.__show_no_cover_found)
+
+    def __show_no_cover_found(self):
+        # FIXME: this causes gtk to hang horribly
+        #commondialogs.error(None, _('No covers found'))
+        self.window.show_all()
 
     def on_ok(self, widget=None):
         """

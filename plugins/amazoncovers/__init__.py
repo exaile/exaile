@@ -44,8 +44,6 @@ def disable(exaile):
 def get_prefs_pane():
     return amazonprefs
 
-joiner = lambda x: " ".join(x)
-
 class AmazonCoverSearch(CoverSearchMethod):
     """
         Searches amazon for an album cover
@@ -61,32 +59,28 @@ class AmazonCoverSearch(CoverSearchMethod):
         try:
             artist = track.get_tag_raw('artist')[0]
             album = track.get_tag_raw('album')[0]
-        except AttributeError:
-            pass
-        return self.search_covers("%s - %s" %
-            (artist, album), limit)
-
-    def search_covers(self, search, limit=-1):
-
-        # wait at least 1 second until the next attempt
-        waittime = 1 - (time.time() - self.starttime)
-        if waittime > 0: time.sleep(waittime)
-
-        self.starttime = time.time()
+        except (AttributeError, TypeError):
+            return []
 
         # get the settings for amazon key and secret key
         api_key = settings.get_option(
             'plugin/amazoncovers/api_key', '')
         secret_key = settings.get_option(
             'plugin/amazoncovers/secret_key', '')
-
         if not api_key or not secret_key:
             logger.warning('Please enter your Amazon API and secret '
                 'keys in the Amazon Covers preferences')
+            return []
 
+        # wait at least 1 second until the next attempt
+        waittime = 1 - (time.time() - self.starttime)
+        if waittime > 0: time.sleep(waittime)
+        self.starttime = time.time()
+
+        search = "%s - %s" % (artist, album)
         try:
             albums = ecs.search_covers(search, api_key, secret_key)
-        except ecs.AmazonSearchError, e:
+        except ecs.AmazonSearchError:
             return []
         return albums
 

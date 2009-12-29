@@ -105,9 +105,10 @@ class ExaileNotifyOsd(object):
                 self.notify.set_icon_from_pixbuf(pixbuf)
         self.notify.update(self.summary, self.body)
 
-        if settings.get_option("plugin/notifyosd/show_when_focused", True) or \
-                not self.exaile.gui.main.window.is_active():
-            self.notify.show()
+        if track == player.current:
+            if settings.get_option("plugin/notifyosd/show_when_focused", \
+                    True) or not self.exaile.gui.main.window.is_active():
+                self.notify.show()
 
     def on_pause(self, type, player, track):
         if self.notify_pause:

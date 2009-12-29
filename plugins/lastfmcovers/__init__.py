@@ -60,9 +60,12 @@ class LastFMCoverSearch(CoverSearchMethod):
             Searches last.fm for album covers
         """
         # TODO: handle multi-valued fields better
-        (artist, album, title) = track.get_tag_raw('artist')[0], \
+        try:
+            (artist, album, title) = track.get_tag_raw('artist')[0], \
                 track.get_tag_raw('album')[0], \
                 track.get_tag_raw('title')[0]
+        except TypeError:
+            return []
 
         if not artist or not album or not title:
             return []

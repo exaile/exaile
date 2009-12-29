@@ -18,7 +18,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import pynotify, cgi, gobject, logging
 import notifyosd_cover, notifyosdprefs
-from xl import event, settings
+from xl import event, settings, common
 from xlgui import cover as guicover
 from xl.nls import gettext as _
 import gobject, gtk.gdk
@@ -62,6 +62,7 @@ class ExaileNotifyOsd(object):
         self.tray_connection= -1
         event.add_callback(self.on_tray_toggled, 'tray_icon_toggled')
 
+    @common.threaded
     def update_track_notify(self, type, player, track, media_icon = None):
         title = track.get_tag_display('title')
         artist = track.get_tag_display('artist')

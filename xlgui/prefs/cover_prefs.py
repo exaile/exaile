@@ -31,6 +31,14 @@ from xl.nls import gettext as _
 name = _('Covers')
 ui = xdg.get_data_path('ui/cover_prefs_pane.ui')
 
+class TagCoverFetching(widgets.CheckPrefsItem):
+    default = True
+    name = 'covers/use_tags'
+
+class LocalCoverFetching(widgets.CheckPrefsItem):
+    default = True
+    name = 'covers/use_localfile'
+
 class CoverOrderPreference(widgets.OrderListPrefsItem):
     """
         This little preference item shows kind of a complicated preference

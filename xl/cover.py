@@ -127,11 +127,25 @@ class CoverManager(providers.ProviderHandler):
         self.tag_fetcher = TagCoverFetcher()
         self.localfile_fetcher = LocalFileCoverFetcher()
 
-        # FIXME: listen for setting changes (needed to add to ui)
         if settings.get_option('covers/use_tags', True):
             providers.register('covers', self.tag_fetcher)
         if settings.get_option('covers/use_localfile', True):
             providers.register('covers', self.localfile_fetcher)
+
+        event.add_callback(self._on_setting_change, 'covers_option_set')
+
+    def _on_setting_change(self, name, obj, data):
+        if data == "covers/use_tags":
+            if settings.get_option("covers/use_tags"):
+                providers.register('covers', self.tag_fetcher)
+            else:
+                providers.unregister('covers', self.tag_fetcher)
+        elif data == "covers/use_localfile":
+            if settings.get_option("covers/use_localfile"):
+                providers.register('covers', self.localfile_fetcher)
+            else:
+                providers.unregister('covers', self.localfile_fetcher)
+
 
     def _get_methods(self, fixed=False):
         """
@@ -345,7 +359,10 @@ class CoverManager(providers.ProviderHandler):
             self.order.append(provider.name)
 
     def on_del_provider(self, provider):
-        del self.methods[provider.name]
+        try:
+            del self.methods[provider.name]
+        except KeyError:
+            pass
         if provider.name in self.order:
             self.order.remove(provider.name)
 

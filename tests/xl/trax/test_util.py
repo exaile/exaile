@@ -40,19 +40,30 @@ class TestGetTracksFromUri(unittest.TestCase):
     def tearDown(self):
         self.mox.UnsetStubs()
 
-    def get_anything(self, type, loc):
+    def get_anything(self, type):
         anything = self.mox.CreateMockAnything()
         anything.query_info('standard::type').AndReturn(anything)
         if type == 'f':
             anything.get_file_type().AndReturn(gio.FILE_TYPE_REGULAR)
         elif type == 'd':
             anything.get_file_type().AndReturn(gio.FILE_TYPE_DIRECTORY)
+        elif type == 'n':
+            anything.get_file_type().AndRaise(gio.Error)
         return anything
+
+    def test_invalid(self):
+        loc = '/tmp/foo'
+        self.mox.StubOutWithMock(gio, 'File')
+        f_anything = self.get_anything('n')
+        gio.File(loc).AndReturn(f_anything)
+        self.mox.ReplayAll()
+        self.assertEqual(xl.trax.util.get_tracks_from_uri(loc), [])
+        self.mox.VerifyAll()
 
     def test_single(self):
         loc = '/tmp/foo'
         self.mox.StubOutWithMock(gio, 'File')
-        f_anything = self.get_anything('f', loc)
+        f_anything = self.get_anything('f')
         gio.File(loc).AndReturn(f_anything)
         self.mox.ReplayAll()
         self.assertEqual(xl.trax.util.get_tracks_from_uri(loc),
@@ -64,7 +75,7 @@ class TestGetTracksFromUri(unittest.TestCase):
         retval = ['foo', 'bar', 'baz']
         # Gio call to find type
         self.mox.StubOutWithMock(gio, 'File')
-        d_anything = self.get_anything('d', loc)
+        d_anything = self.get_anything('d')
         gio.File(loc).AndReturn(d_anything)
 
         # scanning

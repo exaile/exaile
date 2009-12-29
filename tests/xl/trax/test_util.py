@@ -4,8 +4,9 @@ import mox
 import gio
 
 import xl.collection
-import xl.trax.util
+import xl.trax.search
 import xl.trax.track
+import xl.trax.util
 
 from tests.xl.trax import test_data
 
@@ -102,5 +103,25 @@ class TestSortTracks(unittest.TestCase):
         self.assertEqual(xl.trax.util.sort_tracks(self.fields,
             self.tracks, True), list(reversed(self.result)))
 
+class TestSortResultTracks(unittest.TestCase):
 
+    def setUp(self):
+        tracks = [xl.trax.track.Track(url) for url in
+                    ('/tmp/foo', '/tmp/bar', '/tmp/baz')]
+        for track, val in zip(tracks, 'aab'):
+            track.set_tag_raw('artist', val)
+        for track, val in zip(tracks, '212'):
+            track.set_tag_raw('discnumber', val)
+        self.tracks = [xl.trax.search.SearchResultTrack(track)
+                for track in tracks]
+        self.fields = ('artist', 'discnumber')
+        self.result = [self.tracks[1], self.tracks[0], self.tracks[2]]
+
+    def test_sorted(self):
+        self.assertEqual(xl.trax.util.sort_result_tracks(self.fields,
+            self.tracks), self.result)
+
+    def test_reversed(self):
+        self.assertEqual(xl.trax.util.sort_result_tracks(self.fields,
+            self.tracks, True), list(reversed(self.result)))
 

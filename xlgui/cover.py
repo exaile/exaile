@@ -365,7 +365,6 @@ class CoverWidget(gtk.EventBox):
         gtk.EventBox.__init__(self)
         self.image = guiutil.ScalableImageWidget()
         self.main = main
-        self.current_track = None
         self.covers = covers
         self.player = player
 
@@ -434,14 +433,13 @@ class CoverWidget(gtk.EventBox):
             Called when playback starts.  Fetches album covers, and displays
             them
         """
-        self.current_track = track
         gobject.idle_add(self.set_blank)
         fetch = not settings.get_option('covers/automatic_fetching', True)
-        cov = self.covers.get_cover(self.current_track, set_only=fetch)
+        cov = self.covers.get_cover(track, set_only=fetch)
         if not cov:
             return
 
-        if self.player.current == self.current_track:
+        if self.player.current == track:
             gobject.idle_add(self.image.set_image_data, cov)
 
     def set_blank(self):

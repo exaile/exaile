@@ -341,6 +341,9 @@ class ImageBuffer(object):
     def write(self, str):
         self.buffer+=str
 
+    def read(self):
+        return self.buffer
+
     def get_base64(self):
         return base64.b64encode(self.buffer)
 
@@ -400,10 +403,12 @@ def track_in_collection(artist, title):
     else:
         return None
 
-def get_image_data(filename, size):
+def get_image_data(data, size):
     imbuff = ImageBuffer()
-    im = Image.open(filename)
+    imbuff.write(data)
+    im = Image.open(imbuff)
     im = im.resize(size, Image.ANTIALIAS)
+    imbuff = ImageBuffer()
     im.save(imbuff, "PNG")
     return 'data:image/png;base64,%s' % imbuff.get_base64()
 
@@ -413,7 +418,7 @@ def get_track_cover(track):
         cover = ex.exaile().covers.get_cover(track)
     except: pass
     if cover == None:
-        cover = xdg.get_data_path('images/nocover.png')
+        cover = ex.exaile().covers.get_default_cover()
     return cover
 
 def get_track_tag(track, tag, default):

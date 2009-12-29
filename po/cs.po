@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-26 11:20+0000\n"
-"Last-Translator: Kuvaly <kuvaly@seznam.cz>\n"
+"PO-Revision-Date: 2009-12-28 14:29+0000\n"
+"Last-Translator: Stan Holenda <Unknown>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-12-27 04:30+0000\n"
+"X-Launchpad-Export-Date: 2009-12-29 04:33+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: CZECH REPUBLIC\n"
 "X-Poedit-Language: Czech\n"
@@ -494,7 +494,7 @@ msgstr "Upraveno"
 
 #: ../xlgui/properties.py:69
 msgid "Times Played"
-msgstr ""
+msgstr "Počet přehrání"
 
 #: ../xlgui/properties.py:70
 msgid "Last Played"
@@ -503,7 +503,7 @@ msgstr "Naposledy hráno"
 #: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "Upravuji stopu %(current)d z %(total)d"
 
 #: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
@@ -1276,7 +1276,7 @@ msgstr ""
 
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"
-msgstr ""
+msgstr "Seznam (oddělený mezerami) ignorovaných slov ze začátku jména umělce"
 
 #: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
 msgid "Open last playlists on startup"
@@ -1950,7 +1950,7 @@ msgstr ""
 
 #: ../plugins/jamendo/__init__.py:78
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Získávám informace o skladbě"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
@@ -2010,7 +2010,7 @@ msgstr ""
 
 #: ../plugins/droptrayicon/__init__.py:272
 msgid "Append"
-msgstr ""
+msgstr "Přidat"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
@@ -2451,7 +2451,7 @@ msgstr "Pokročilé"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "Vzestupně"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
@@ -2459,19 +2459,19 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "Sestupně"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Žánr"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
-msgstr ""
+msgstr "Počet stažení"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
-msgstr ""
+msgstr "Počet poslechnutí"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
@@ -2479,7 +2479,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Order By:"
-msgstr ""
+msgstr "Řadit dle"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Order Direction:"
@@ -2487,19 +2487,19 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
-msgstr ""
+msgstr "Hodnocení tento měsíc"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Rating this week"
-msgstr ""
+msgstr "Hodnocení tento týden"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
-msgstr ""
+msgstr "Datum vydání"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Results:"
-msgstr ""
+msgstr "Výsledky:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
@@ -2531,7 +2531,7 @@ msgstr "Při zahájení/pozastavení/zastavení přehrávání"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "On Track Change"
-msgstr ""
+msgstr "Při změně skladby"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "On Tray Icon Hover"
@@ -2619,7 +2619,7 @@ msgstr "Základní barva"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Base color:"
-msgstr ""
+msgstr "Základní barva:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Darken played section instead of using cursor"
@@ -2667,7 +2667,7 @@ msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Ochrana před přílišným zesílením"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Use clipping protection"
@@ -2754,6 +2754,8 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Přehrává hudbu v určený datum a čas.\n"
+"Ujistěte se, že máte naplněný seznam skladeb."
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2770,7 +2772,7 @@ msgstr ""
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "Desetipásmový ekvalizér"
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
@@ -2787,7 +2789,7 @@ msgstr "Aktuální skladba"
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
 "Sets the currently playing status in Pidgin for services that support it."
-msgstr ""
+msgstr "Zobrazí aktuálně přehrávanou skladbu jako status v Pidginu."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""

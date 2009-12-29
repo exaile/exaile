@@ -576,6 +576,8 @@ class Track(object):
                 f = metadata.get_format(self.get_loc_for_io())
             except:
                 return None
+            if not f:
+                return None
         _CACHER.add(self, f)
         return f.read_tags([tag])[tag]
 
@@ -589,6 +591,8 @@ class Track(object):
             try:
                 f = metadata.get_format(self.get_loc_for_io())
             except:
+                return None
+            if not f:
                 return None
         _CACHER.add(self, f)
         return f._get_raw().keys()

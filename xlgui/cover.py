@@ -65,7 +65,6 @@ class CoverManager(object):
         """
             Initializes the window
         """
-
         self.parent = parent
         self.collection = collection
         self.manager = covers
@@ -92,6 +91,9 @@ class CoverManager(object):
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)
 
+        self.nocover = pixbuf_from_data(self.manager.get_default_cover(),
+                scale=(80,80))
+
         self._connect_events()
         self.window.show_all()
         gobject.idle_add(self._find_initial)
@@ -109,52 +111,46 @@ class CoverManager(object):
         # select the current icon
         x, y = map(int, event.get_coords())
         path = self.icons.get_path_at_pos(x, y)
-        if not path: return
-
-        self.icons.select_path(path)
+        if path:
+            self.icons.select_path(path)
 
     def get_selected_cover(self):
         """
             Returns the currently selected cover tuple
         """
         paths = self.icons.get_selected_items()
-        if not paths: return
-        path = paths[0]
-
-        iter = self.model.get_iter(path)
-        return self.model.get_value(iter, 2)
+        if paths:
+            path = paths[0]
+            iter = self.model.get_iter(path)
+            return self.model.get_value(iter, 2)
 
     def show_cover(self, *e):
         """
             Shows the currently selected cover
         """
-
         item = self._get_selected_item()
-        c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0])
+        c = self.manager.get_cover(self.track_dict[item][0])
 
         cvr = pixbuf_from_data(c)
-        if not cvr:
-            return
-
-        window = CoverWindow(self.parent, cvr)
-        window.show_all()
+        if cvr:
+            window = CoverWindow(self.parent, cvr)
+            window.show_all()
 
     def fetch_cover(self):
         """
             Fetches a cover for the current track
         """
         item = self._get_selected_item()
-        if not item: return
-        track = self.track_dict[item[0]][item[1]][0]
-        window = CoverChooser(self.window,
-            self.manager, track)
-        window.connect('cover-chosen', self.on_cover_chosen)
+        if item:
+            track = self.track_dict[item][0]
+            window = CoverChooser(self.window, self.manager, track)
+            window.connect('cover-chosen', self.on_cover_chosen)
 
     def on_cover_chosen(self, object, cvr):
         paths = self.icons.get_selected_items()
-        if not paths: return None
+        if not paths:
+            return None
         path = paths[0]
-
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
 
@@ -168,9 +164,9 @@ class CoverManager(object):
             Returns the selected item
         """
         paths = self.icons.get_selected_items()
-        if not paths: return None
+        if not paths:
+            return None
         path = paths[0]
-
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
         return item
@@ -178,7 +174,7 @@ class CoverManager(object):
     def remove_cover(self, *e):
         item = self._get_selected_item()
         paths = self.icons.get_selected_items()
-        track = self.track_dict[item[0]][item[1]][0]
+        track = self.track_dict[item][0]
         self.manager.remove_cover(track)
         self.covers[item] = self.nocover
         if paths:
@@ -189,7 +185,7 @@ class CoverManager(object):
         """
             Locates covers and sets the icons in the windows
         """
-        items = []
+        items = set()
         for track in self.collection:
             try:
                 artist = track.get_tag_raw('artist')[0]
@@ -197,47 +193,39 @@ class CoverManager(object):
             except TypeError:
                 continue
 
-            if not album or not artist: continue
-
-            if not artist in self.track_dict:
-                self.track_dict[artist] = {}
-
-            if not album in self.track_dict[artist]:
-                self.track_dict[artist][album] = []
-
-            self.track_dict[artist][album].append(track)
-            items.append((artist, album))
-
-        items = list(set(items))
-        self.items = items
-        self.items.sort()
-
-        nocover = pixbuf_from_data(self.manager.get_default_cover(),
-                scale=(80,80))
-        self.nocover = nocover
-        self.needs = 0
-        for item in items:
-            if not item[0] or not item[1]:
+            if not album or not artist:
                 continue
 
-            cover_avail = self.manager.get_cover(
-                        self.track_dict[item[0]][item[1]][0],
+            item = (artist, album)
+
+            try:
+                self.track_dict[item].append(track)
+            except KeyError:
+                self.track_dict[item] = [track]
+
+            items.add(item)
+
+        self.items = list(items)
+        self.items.sort()
+
+        self.needs = 0
+        for item in self.items:
+            cover_avail = self.manager.get_cover(self.track_dict[item][0],
                         set_only=True)
 
             if cover_avail:
                 try:
                     image = pixbuf_from_data(cover_avail, scale=(80,80))
                 except gobject.GError:
-                    image = nocover
+                    image = self.nocover
                     self.needs += 1
             else:
-                image = nocover
+                image = self.nocover
                 self.needs += 1
 
-            display = "%s - %s" % (item[0], item[1])
+            display = "%s - %s" % item
 
-            self.cover_nodes[item] = self.model.append(
-                [display, image, item])
+            self.cover_nodes[item] = self.model.append([display, image, item])
             self.covers[item] = image
         self.icons.set_model(self.model)
         self.progress.set_text(_('%d covers to fetch') % self.needs)
@@ -268,7 +256,7 @@ class CoverManager(object):
             if not self.covers[item] == self.nocover:
                 continue
 
-            c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0],
+            c = self.manager.get_cover(self.track_dict[item][0],
                     save_cover=True)
 
             if c:

@@ -587,6 +587,10 @@ class Playlist(gtk.VBox):
             gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.pauseimg = img.scale_simple(18, 18,
             gtk.gdk.INTERP_BILINEAR)
+        img = window.render_icon('gtk-stop',
+            gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.stopimg = img.scale_simple(12, 12,
+            gtk.gdk.INTERP_BILINEAR)
 
     def column_changed(self, *e):
         """
@@ -1031,23 +1035,15 @@ class Playlist(gtk.VBox):
 
         cell.set_property('pixbuf', image)
 
-
     def stop_icon_data_func(self, col, cell, model, iter):
         """
             Sets "stop after this" icon
         """
-
         item = model.get_value(iter, 0)
         image = None
-
-        window = gtk.Window()
         if item == self.queue.stop_track:
-            image = window.render_icon('gtk-stop',
-                gtk.ICON_SIZE_MENU)
-            image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
-
+            image = self.stopimg
         cell.set_property('pixbuf', image)
-
 
     def set_cell_weight(self, cell, item):
         """

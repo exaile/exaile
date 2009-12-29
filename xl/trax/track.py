@@ -27,6 +27,7 @@
 
 import logging
 import os
+import time
 import weakref
 import unicodedata
 from functools import wraps
@@ -60,35 +61,60 @@ _UNKNOWNSTR = _("Unknown")
 #TRANSLATORS: String multiple tag values will be joined by
 _JOINSTR =_(u' & ')
 
+
 class _MetadataCacher(object):
     """
         Cache metadata Format objects to speed up get_tag_disk
     """
-    def __init__(self, timeout=2000, maxentries=20):
+    def __init__(self, timeout=10, maxentries=20):
         """
-            :param timeout: time (in ms) until the cached obj gets removed.
+            :param timeout: time (in s) until the cached obj gets removed.
             :param maxentries: maximum number of format objs to cache
         """
-        self._cache = {}
+        self._cache = []
         self.timeout = timeout
         self.maxentries = maxentries
+        self._cleanup_id = 0
+
+    def __cleanup(self):
+        if self._cleanup_id:
+            gobject.source_remove(self._cleanup_id)
+        current = time.time()
+        thresh = current - self.timeout
+        for item in self._cache[:]:
+            if item[2] < thresh:
+                self._cache.remove(item)
+        if self._cache:
+            next = min([i[2] for i in self._cache])
+            timeout = ((next + self.timeout) - current)
+            self._cleanup_id = gobject.timeout_add(timeout*1000,
+                    self.__cleanup)
 
     def add(self, trackobj, formatobj):
-        try:
-            gobject.source_remove(self._cache[trackobj][1])
-        except KeyError:
-            pass
-        timeout_id = gobject.timeout_add(self.timeout, self.remove, trackobj)
-        self._cache[trackobj] = [formatobj, timeout_id]
+        for item in self._cache:
+            if item[0] == trackobj:
+                return
+        item = [trackobj, formatobj, time.time()]
+        self._cache.append(item)
+        if len(self._cache) > self.maxentries:
+            least = min([(i[2],i) for i in self._cache])[1]
+            self._cache.remove(least)
+        if not self._cleanup_id:
+            self._cleanup_id = gobject.timeout_add(self.timeout*1000,
+                    self.__cleanup)
 
     def remove(self, trackobj):
-        try:
-            del self._cache[trackobj]
-        except KeyError:
-            pass
+        for item in self._cache:
+            if item[0] == trackobj:
+                self._cache.remove(item)
+                break
 
     def get(self, trackobj):
-        return self._cache.get(trackobj, [None])[0]
+        for item in self._cache:
+            if item[0] == trackobj:
+                item[2] = time.time()
+                return item[1]
+
 
 _CACHER = _MetadataCacher()
 

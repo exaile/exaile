@@ -353,8 +353,6 @@
                     <property name="border_width">3</property>
                     <child>
                       <object class="GtkAspectFrame" id="cover_frame">
-                        <property name="width_request">100</property>
-                        <property name="height_request">100</property>
                         <property name="visible">True</property>
                         <property name="label_xalign">0</property>
                         <property name="obey_child">False</property>

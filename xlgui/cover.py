@@ -37,9 +37,6 @@ from xlgui import guiutil, commondialogs
 logger = logging.getLogger(__name__)
 
 
-COVER_WIDTH = 100
-NOCOVER_IMAGE = xdg.get_data_path("images", "nocover.png")
-
 def pixbuf_from_data(data, scale=None):
     """
         Get a gtk.gdk.Pixbuf from arbitrary image data.
@@ -372,7 +369,8 @@ class CoverWidget(gtk.EventBox):
         self.covers = covers
         self.player = player
 
-        self.image.set_image_size(COVER_WIDTH, COVER_WIDTH)
+        width = settings.get_option("gui/cover_width", 100)
+        self.image.set_image_size(width, width)
         self.image.set_image_data(covers.get_default_cover())
         self.add(self.image)
         self.image.show()

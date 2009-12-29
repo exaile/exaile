@@ -36,7 +36,8 @@ from xlgui.main import PlaybackProgressBar
 class CoverWidget(guiutil.ScalableImageWidget):
     def __init__(self):
         guiutil.ScalableImageWidget.__init__(self)
-        self.set_image_size(cover.COVER_WIDTH, cover.COVER_WIDTH)
+        width = settings.get_option("gui/cover_width", 100)
+        self.set_image_size(width, width)
         self.set_image(xdg.get_data_path('images/nocover.png'))
 
     @common.threaded

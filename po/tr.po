@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-20 07:25+0000\n"
-"Last-Translator: zeugma <Unknown>\n"
+"PO-Revision-Date: 2009-12-29 17:52+0000\n"
+"Last-Translator: Serdar Delican <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-12-21 04:42+0000\n"
+"X-Launchpad-Export-Date: 2009-12-30 04:46+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -278,7 +278,7 @@ msgstr ""
 #: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
 #: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
 msgid "Never"
-msgstr ""
+msgstr "Asla"
 
 #: ../xl/trackformatter.py:213 ../xlgui/plcolumns.py:232
 #: ../plugins/minimode/mmwidgets.py:1087
@@ -351,7 +351,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:39
 msgid "Website"
-msgstr ""
+msgstr "Web sayfası"
 
 #: ../xlgui/properties.py:41
 msgid "Original Artist"
@@ -404,7 +404,7 @@ msgstr "Telif Hakkı"
 
 #: ../xlgui/properties.py:51
 msgid "Lyrics"
-msgstr ""
+msgstr "Şarkı Sözleri"
 
 #: ../xlgui/properties.py:52 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
@@ -438,7 +438,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:58
 msgid "Encoded By"
-msgstr ""
+msgstr "Kodlayan"
 
 #: ../xlgui/properties.py:59
 msgid "Organization"
@@ -460,7 +460,7 @@ msgstr "Bit oranı"
 
 #: ../xlgui/properties.py:63
 msgid "Date Added"
-msgstr ""
+msgstr "Eklenme Tarihi"
 
 #: ../xlgui/properties.py:64 ../xlgui/plcolumns.py:114
 #: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160

@@ -142,6 +142,22 @@ class Track(object):
             uri = args[0]
         else:
             uri = kwargs.get("uri")
+
+        # Restore uri from pickled state if possible.  This means that
+        # if a given Track is in more than one TrackDB, the first
+        # TrackDB to get loaded takes precedence, and any data in the
+        # second TrackDB is consequently ignored. Thus if at all
+        # possible, Tracks should NOT be persisted in more than one
+        # TrackDB at a time.
+        if uri is None:
+            unpickles = None
+            if len(args) > 2:
+                unpickles = args[2]
+            else:
+                unpickles = kwargs.get("_unpickles")
+            if unpickles is not None:
+                uri = unpickles.get("__loc")
+
         if uri is not None:
             uri = gio.File(uri).get_uri()
             try:
@@ -153,6 +169,8 @@ class Track(object):
                 tr._init = True
             return tr
         else:
+            # this should always fail in __init__, and will never be
+            # called in well-formed code.
             tr = object.__new__(cls)
             tr._init = True
             return tr

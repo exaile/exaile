@@ -623,8 +623,6 @@ class CoverChooser(gobject.GObject):
         self.prev.set_sensitive(False)
         self.next = self.builder.get_object('cover_forward_button')
         self.next.connect('clicked', self.go_next)
-        self.builder.get_object('cover_newsearch_button').connect('clicked',
-            self.new_search)
         self.builder.get_object('cover_cancel_button').connect('clicked',
             lambda *e: self.window.destroy())
         self.ok = self.builder.get_object('cover_ok_button')
@@ -638,20 +636,6 @@ class CoverChooser(gobject.GObject):
         self.last_search = "%s - %s"  % (tempartist,tempalbum)
 
         self.fetch_cover(track)
-
-    def new_search(self, widget=None):
-        """
-            Creates a new search string
-        """
-        dialog = commondialogs.TextEntryDialog(
-            _("Enter the search text"), _("Enter the search text"))
-        dialog.set_value(self.last_search)
-        result = dialog.run()
-        if result == gtk.RESPONSE_OK:
-            self.last_search = dialog.get_value()
-            self.window.hide()
-
-            self.fetch_cover(self.last_search)
 
     @common.threaded
     def fetch_cover(self, search):

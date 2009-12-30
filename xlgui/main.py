@@ -881,7 +881,7 @@ class MainWindow(gobject.GObject):
         """
         (tr, args) = args
         if not tr or tr.is_local():
-            playern
+            return
         if player.parse_stream_tags(tr, args):
             self._update_track_information()
             self.cover.on_playback_start('', self.player, None)

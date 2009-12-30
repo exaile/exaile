@@ -578,16 +578,15 @@ class Playlist(gtk.VBox):
         selection.set_mode(gtk.SELECTION_MULTIPLE)
         selection.connect('changed', lambda s: self.selection_changed())
 
-        window = gtk.Window()
-        img = window.render_icon('gtk-media-play',
+        img = self.list.render_icon('gtk-media-play',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.playimg = img.scale_simple(18, 18,
             gtk.gdk.INTERP_BILINEAR)
-        img = window.render_icon('gtk-media-pause',
+        img = self.list.render_icon('gtk-media-pause',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.pauseimg = img.scale_simple(18, 18,
             gtk.gdk.INTERP_BILINEAR)
-        img = window.render_icon('gtk-stop',
+        img = self.list.render_icon('gtk-stop',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.stopimg = img.scale_simple(12, 12,
             gtk.gdk.INTERP_BILINEAR)

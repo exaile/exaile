@@ -40,14 +40,14 @@ class TestGetTracksFromUri(unittest.TestCase):
     def tearDown(self):
         self.mox.UnsetStubs()
 
-    def get_anything(self, type):
+    def get_anything(self, file_type):
         anything = self.mox.CreateMockAnything()
         anything.query_info('standard::type').AndReturn(anything)
-        if type == 'f':
+        if file_type == 'f':
             anything.get_file_type().AndReturn(gio.FILE_TYPE_REGULAR)
-        elif type == 'd':
+        elif file_type == 'd':
             anything.get_file_type().AndReturn(gio.FILE_TYPE_DIRECTORY)
-        elif type == 'n':
+        elif file_type == 'n':
             anything.get_file_type().AndRaise(gio.Error)
         return anything
 

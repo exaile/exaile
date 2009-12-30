@@ -35,11 +35,12 @@ import traceback
 import urlparse
 from functools import wraps
 from collections import deque
-
+from UserDict import DictMixin
 
 logger = logging.getLogger(__name__)
 _TESTING = False  # set to True for testing
 
+#TODO: get rid of this. only plugins/cd/ uses it.
 VALID_TAGS = (
     # Ogg Vorbis spec tags
     "title version album tracknumber artist genre performer copyright "
@@ -57,7 +58,6 @@ PICKLE_PROTOCOL=2
 # use this for general logging of exceptions
 def log_exception(log=logger, message="Exception caught!"):
     log.debug(message + "\n" + traceback.format_exc())
-
 
 def to_unicode(x, default_encoding=None):
     """Force getting a unicode string from any object."""
@@ -103,7 +103,6 @@ def synchronized(func):
             rlock.release()
     return wrapper
 
-
 def profileit(func):
     """
         Decorator to profile a function
@@ -133,8 +132,6 @@ def escape_xml(text):
         text = text.replace(old, new)
     return text
 
-
-
 def random_string(n):
     """
         returns a random string of length n, comprised of ascii characters
@@ -143,8 +140,6 @@ def random_string(n):
     for i in xrange(n):
         s += random.choice(string.ascii_letters)
     return s
-
-
 
 class VersionError(Exception):
     """
@@ -181,5 +176,74 @@ def open_file_directory(path):
         subprocess.Popen(["open", f.get_parent().get_parse_name()])
     else:
         subprocess.Popen(["xdg-open", f.get_parent().get_parse_name()])
+
+class LimitedCache(DictMixin):
+    """
+        Simple cache that acts much like a dict, but has a maximum # of items
+    """
+    def __init__(self, limit):
+        self.limit = limit
+        self.order = deque()
+        self.cache = dict()
+
+    def __iter__(self):
+        return self.cache.__iter__()
+
+    def __iteritems__(self):
+        return self.cache.__iteritems__()
+
+    def __contains__(self, item):
+        return self.cache.__contains__(item)
+
+    def __delitem__(self, item):
+        del self.cache[item]
+        self.order.remove(item)
+
+    def __getitem__(self, item):
+        val = self.cache[item]
+        self.order.remove(item)
+        self.order.append(item)
+        return val
+
+    def __setitem__(self, item, value):
+        self.cache[item] = value
+        self.order.append(item)
+        while len(self) > self.limit:
+            del self.cache[self.order.popleft()]
+
+    def keys(self):
+        return self.cache.keys()
+
+class cached(object):
+    """
+        Decorator to make a function's results cached
+
+        does not cache if there is an exception.
+
+        this probably breaks on functions that modify their arguments
+    """
+    def __init__(self, limit):
+        self.limit = limit
+
+    @staticmethod
+    def _freeze(d):
+        return frozenset(d.iteritems())
+
+    def __call__(self, f):
+        try:
+            cache = f._cache
+        except AttributeError:
+            f._cache = cache = LimitedCache(self.limit)
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            try:
+                return f._cache[(args, self._freeze(kwargs))]
+            except KeyError:
+                pass
+            ret = f(*args, **kwargs)
+            f._cache[(args, self._freeze(kwargs))] = ret
+            return ret
+        return wrapper
+
 
 # vim: et sts=4 sw=4

@@ -197,6 +197,8 @@ class CoverManager(providers.ProviderHandler):
             return None
         return (tag, tuple(value))
 
+    @common.synchronized
+    @common.cached(5)
     def find_covers(self, track, limit=-1, local_only=False):
         """
             Find all covers for a track
@@ -248,10 +250,6 @@ class CoverManager(providers.ProviderHandler):
             self.__cache.remove(db_string)
             self.__set_save_timeout()
 
-    # synchronized so that we dont try to fetch a cover more than once
-    # if multiple get_cover calls are made for the same track, eg on
-    # track playback transition. TODO: can probably be solved better.
-    @common.synchronized
     def get_cover(self, track, save_cover=True, set_only=False):
         """
             get the cover for a given track.

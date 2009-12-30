@@ -58,26 +58,26 @@ class _Matcher(object):
                 item = self.lower(item)
             except:
                 pass
-            if self.matches(item):
+            if self._matches(item):
                 return True
         else:
             return False
 
-    def matches(self, value):
+    def _matches(self, value):
         raise NotImplementedError
 
 class _ExactMatcher(_Matcher):
     """
         Condition for exact matches
     """
-    def matches(self, value):
+    def _matches(self, value):
         return value == self.content
 
 class _InMatcher(_Matcher):
     """
         Condition for inexact (ie. containing) matches
     """
-    def matches(self, value):
+    def _matches(self, value):
         if not value:
             return False
         try:

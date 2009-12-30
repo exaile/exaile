@@ -8,6 +8,13 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="osd_duration_adjustment">
+    <property name="value">4000</property>
+    <property name="upper">100000</property>
+    <property name="lower">0</property>
+    <property name="step_increment">1000</property>
+    <property name="page_increment">10000</property>
+  </object>
   <object class="GtkTextBuffer" id="textbuffer1">
     <property name="text">&lt;b&gt;{title}&lt;/b&gt;
 {artist}
@@ -74,6 +81,41 @@ on {album} - {length}</property>
           </packing>
         </child>
         <child>
+          <object class="GtkHBox" id="hboxDuration">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkLabel" id="durationLabel">
+                <property name="visible">True</property>
+                <property name="ypad">5</property>
+                <property name="label" translatable="yes">Hide after (milliseconds; set to zero to disable hiding)</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="osd/duration">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="xalign">1</property>
+                <property name="adjustment">osd_duration_adjustment</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkHBox" id="hbox50">
             <property name="visible">True</property>
             <child>
@@ -104,7 +146,7 @@ on {album} - {length}</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">4</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
@@ -138,7 +180,7 @@ on {album} - {length}</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">5</property>
+            <property name="position">6</property>
           </packing>
         </child>
         <child>
@@ -175,7 +217,7 @@ on {album} - {length}</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">6</property>
+            <property name="position">7</property>
           </packing>
         </child>
         <child>
@@ -208,7 +250,7 @@ on {album} - {length}</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">7</property>
+            <property name="position">8</property>
           </packing>
         </child>
         <child>
@@ -241,7 +283,7 @@ on {album} - {length}</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">8</property>
+            <property name="position">9</property>
           </packing>
         </child>
         <child>
@@ -274,7 +316,7 @@ on {album} - {length}</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">9</property>
+            <property name="position">10</property>
           </packing>
         </child>
         <child>
@@ -294,7 +336,7 @@ on {album} - {length}</property>
             </child>
           </object>
           <packing>
-            <property name="position">10</property>
+            <property name="position">11</property>
           </packing>
         </child>
       </object>

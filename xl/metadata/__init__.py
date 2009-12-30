@@ -54,6 +54,7 @@ formats = {
         'it'    : mod.ModFormat,
         'm4a'   : mp4.MP4Format,
         'med'   : mod.ModFormat,
+        'mka'   : None,
         'mp2'   : mp3.MP3Format,
         'mp3'   : mp3.MP3Format,
         'mp4'   : mp4.MP4Format,

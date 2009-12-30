@@ -31,7 +31,7 @@ import pygst
 pygst.require('0.10')
 import gst
 
-from xl import event, settings
+from xl import event, settings, common
 from xl.player import pipe
 logger = logging.getLogger(__name__)
 
@@ -210,4 +210,55 @@ class ExailePlayer(object):
     def tag_func(self, *args):
         event.log_event('tags_parsed', self, (self.current, args[0]))
 
+    @staticmethod
+    def parse_stream_tags(track, tags):
+        """
+            Called when a tag is found in a stream.
+        """
+        newsong=False
+
+        for key in tags.keys():
+            value = tags[key]
+            try:
+                value = common.to_unicode(value)
+            except UnicodeDecodeError:
+                logger.debug('  ' + key + " [can't decode]: " + `str(value)`)
+                continue # TODO: What encoding does gst give us?
+
+            value = [value]
+
+            if key == '__bitrate':
+                track.set_tag_raw('__bitrate', int(value[0]) / 1000)
+
+            # if there's a comment, but no album, set album to the comment
+            elif key == 'comment' and not track.get_tag_raw('album'):
+                track.set_tag_raw('album', value)
+
+            elif key == 'album': track.set_tag_raw('album', value)
+            elif key == 'artist': track.set_tag_raw('artist', value)
+            elif key == 'duration': track.set_tag_raw('__length',
+                    float(value[0])/1000000000)
+            elif key == 'track-number': track.set_tag_raw('tracknumber', value)
+            elif key == 'genre': track.set_tag_raw('genre', value)
+
+            elif key == 'title':
+                try:
+                    if track.get_tag_raw('__rawtitle') != value:
+                        track.set_tag_raw('__rawtitle', value)
+                        newsong = True
+                except AttributeError:
+                    track.set_tag_raw('__rawtitle', value)
+                    newsong = True
+
+                title_array = value[0].split(' - ', 1)
+                if len(title_array) == 1 or \
+                        track.get_loc_for_io().lower().endswith(".mp3"):
+                    track.set_tag_raw('title', value)
+                else:
+                    track.set_tag_raw('artist', [title_array[0]])
+                    track.set_tag_raw('title', [title_array[1]])
+
+
+
+        return newsong
 

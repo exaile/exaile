@@ -70,6 +70,10 @@ class OsdProgressPreference(widgets.CheckPrefsItem, OSDItem):
     default = True
     name = 'osd/show_progress'
 
+class OsdDurationPreference(widgets.SpinPrefsItem, OSDItem):
+    default = 4000
+    name = 'osd/duration'
+
 class OsdTextFontPreference(widgets.FontButtonPrefsItem, OSDItem):
     default = 'Sans 11'
     name = 'osd/text_font'

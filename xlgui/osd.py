@@ -195,7 +195,9 @@ class OSDWindow(object):
     def hide(self):
         self.window.hide()
 
-    def show(self, track, timeout=4000):
+    def show(self, track, timeout=None):
+        if timeout is None:
+            timeout = self._settings.get_option('osd/duration',4000)
         if track:
             self.cover_widget.get_cover(self.covers, track)
             text = self.text.replace('&', '&amp;')

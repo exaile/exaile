@@ -686,7 +686,7 @@ class MainWindow(gobject.GObject):
         if tr == self.queue.stop_track:
             self.queue.stop_track = None
         else:
-            self.queue.stop_track = track
+            self.queue.stop_track = tr
 
         self.get_selected_playlist().list.queue_draw()
 
@@ -882,7 +882,7 @@ class MainWindow(gobject.GObject):
         (tr, args) = args
         if not tr or tr.is_local():
             return
-        if track.parse_stream_tags(tr, args):
+        if player.parse_stream_tags(tr, args):
             self._update_track_information()
             self.cover.on_playback_start('', self.player, None)
             self.get_selected_playlist().refresh_row(tr)

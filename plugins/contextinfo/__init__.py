@@ -665,14 +665,14 @@ class DefaultPage(ContextPage):
         ContextPage.__init__(self, theme, base, template, async+['last-played-tracks', 'last-played-artists', 'last-added-tracks', 'last-added-artists', 'most-played-tracks', 'most-played-artists', 'lfm-last-played', 'lfm-top-tracks', 'lfm-top-albums', 'lfm-top-artists'])
 
     def _last_played_tracks_title(self):
-        return "Rencently Played Tracks"
+        return "Recently Played Tracks"
 
     def _last_played_tracks(self, limit=10):
         tracks = get_top_tracks('__last_played', int(limit))
         return "<br/>".join(self.get_track_anchor_from_track(track, img=True) for track in tracks)
 
     def _last_played_albums_title(self):
-        return "Rencently Played Albums"
+        return "Recently Played Albums"
 
     def _last_played_albums(self, limit=5):
         cds = get_top_albums('last_played', int(limit))
@@ -681,7 +681,7 @@ class DefaultPage(ContextPage):
         return ''
 
     def _last_played_artists_title(self):
-        return "Rencently Played Artists"
+        return "Recently Played Artists"
 
     def _last_played_artists(self, limit=10):
         artists = get_top_artists('__last_played', int(limit))

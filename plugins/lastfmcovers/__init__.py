@@ -28,6 +28,7 @@ from xl import event
 # register your own key with last.fm
 API_KEY = '3599c79a97fd61ce518b75922688bc38'
 
+LASTFM = None
 
 def enable(exaile):
     if exaile.loading:
@@ -36,10 +37,12 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    exaile.covers.add_search_method(LastFMCoverSearch())
+    global LASTFM
+    LASTFM = LastFMCoverSearch()
+    providers.register('covers', LASTFM)
 
 def disable(exaile):
-    exaile.covers.remove_search_method_by_name('lastfm')
+    providers.unregister('covers', LASTFM)
 
 
 class LastFMCoverSearch(CoverSearchMethod):
@@ -56,14 +59,16 @@ class LastFMCoverSearch(CoverSearchMethod):
         """
             Searches last.fm for album covers
         """
-
         # TODO: handle multi-valued fields better
-        (artist, album, title) = track.get_tag_raw('artist')[0], \
+        try:
+            (artist, album, title) = track.get_tag_raw('artist')[0], \
                 track.get_tag_raw('album')[0], \
                 track.get_tag_raw('title')[0]
+        except TypeError:
+            return []
 
         if not artist or not album or not title:
-            raise NoCoverFoundException()
+            return []
 
         for type in [['album', album], ['track', title]]:
             url_exact = self.url.replace('type', type[0]) + API_KEY
@@ -81,23 +86,18 @@ class LastFMCoverSearch(CoverSearchMethod):
                 if (element.find('artist').text == artist.encode("utf-8")):
                     for sub_element in element.findall('image'):
                         if (sub_element.attrib['size'] == 'extralarge'):
-                            return [self.save_cover(sub_element.text)]
+                            url = sub_element.text
+                            if url:
+                                return [url]
 
-        raise NoCoverFoundException()
+        return []
 
-    def save_cover(self, cover_url):
-
-        h = urllib.urlopen(cover_url)
-        data = h.read()
-        h.close()
-
-        cache_dir = self.manager.cache_dir
-
-        covername = os.path.join(cache_dir, hashlib.md5(cover_url).hexdigest())
-        covername += ".jpg"
-        h = open(covername, 'wb')
-        h.write(data)
-        h.close()
-
-        return covername
+    def get_cover_data(self, cover_url):
+        try:
+            h = urllib.urlopen(cover_url)
+            data = h.read()
+            h.close()
+        except IOError:
+            return None
+        return data
 

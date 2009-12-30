@@ -31,6 +31,14 @@ from xl.nls import gettext as _
 name = _('Covers')
 ui = xdg.get_data_path('ui/cover_prefs_pane.ui')
 
+class TagCoverFetching(widgets.CheckPrefsItem):
+    default = True
+    name = 'covers/use_tags'
+
+class LocalCoverFetching(widgets.CheckPrefsItem):
+    default = True
+    name = 'covers/use_localfile'
+
 class CoverOrderPreference(widgets.OrderListPrefsItem):
     """
         This little preference item shows kind of a complicated preference
@@ -39,7 +47,7 @@ class CoverOrderPreference(widgets.OrderListPrefsItem):
     name = 'covers/preferred_order'
 
     def __init__(self, prefs, widget):
-        self.default = prefs.main.exaile.covers.get_methods()
+        self.default = prefs.main.exaile.covers._get_methods()
         widgets.OrderListPrefsItem.__init__(self, prefs, widget)
 
     def _set_value(self):
@@ -52,7 +60,7 @@ class CoverOrderPreference(widgets.OrderListPrefsItem):
             self.prefs.main.exaile.covers.set_preferred_order(
                 self.items)
         return True
-        
+
 class AutomaticCoverFetching(widgets.CheckPrefsItem):
     default = True
     name = 'covers/automatic_fetching'

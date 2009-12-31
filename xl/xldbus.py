@@ -205,9 +205,7 @@ class DbusManager(dbus.service.Object):
         """
         try:
             value = self.exaile.player.current.get_tag_raw(attr)
-        except ValueError:
-            value = None
-        except TypeError:
+        except (ValueError, TypeError, AttributeError):
             value = None
 
         if value:

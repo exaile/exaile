@@ -83,8 +83,7 @@ class BaseFormat(object):
             return {'title':self._get_fallback_title()}
 
     def _get_fallback_title(self):
-            path = common.local_file_from_url(self.loc)
-            return os.path.split(path)[-1]
+        return gio.File(self.loc).get_basename()
 
     def _get_tag(self, raw, tag):
         try:
@@ -142,7 +141,10 @@ class BaseFormat(object):
                     if type(t) in [str, unicode]:
                         t = [t]
                     else:
-                        t = [unicode(u) for u in list(t)]
+                        try:
+                            t = [unicode(u) for u in list(t)]
+                        except UnicodeDecodeError:
+                            t = t
                 except (KeyError, TypeError):
                     pass
             if t == None and self.others:

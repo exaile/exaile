@@ -87,18 +87,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="cover_newsearch_button">
-                <property name="label" translatable="yes">New Search</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">3</property>
-              </packing>
+              <placeholder/>
             </child>
             <child>
               <object class="GtkButton" id="cover_cancel_button">

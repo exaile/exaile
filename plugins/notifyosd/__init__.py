@@ -18,9 +18,10 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import pynotify, cgi, gobject, logging
 import notifyosd_cover, notifyosdprefs
-from xl import event, settings
+from xl import event, settings, common
+from xlgui import cover as guicover
 from xl.nls import gettext as _
-import gtk.gdk
+import gobject, gtk.gdk
 
 logger = logging.getLogger(__name__)
 pynotify.init('Exaile')
@@ -61,6 +62,7 @@ class ExaileNotifyOsd(object):
         self.tray_connection= -1
         event.add_callback(self.on_tray_toggled, 'tray_icon_toggled')
 
+    @common.threaded
     def update_track_notify(self, type, player, track, media_icon = None):
         title = track.get_tag_display('title')
         artist = track.get_tag_display('artist')
@@ -94,14 +96,19 @@ class ExaileNotifyOsd(object):
         else:
             self.body = ""
 
-        if icon_allowed :
-            self.notify.update(self.summary, self.body, self.cover)
-        else :
-            self.notify.update(self.summary, self.body)
+        if icon_allowed and self.cover:
+            try:
+                pixbuf = guicover.pixbuf_from_data(self.cover)
+            except gobject.GError:
+                pass
+            else:
+                self.notify.set_icon_from_pixbuf(pixbuf)
+        self.notify.update(self.summary, self.body)
 
-        if settings.get_option("plugin/notifyosd/show_when_focused", True) or \
-                not self.exaile.gui.main.window.is_active():
-            self.notify.show()
+        if track == player.current:
+            if settings.get_option("plugin/notifyosd/show_when_focused", \
+                    True) or not self.exaile.gui.main.window.is_active():
+                self.notify.show()
 
     def on_pause(self, type, player, track):
         if self.notify_pause:
@@ -134,12 +141,15 @@ class ExaileNotifyOsd(object):
                         return
                 self.update_track_notify(type, self.exaile.player, track)
             elif self.notify_pause and self.cover == self.stopicon: # if there is no track, then status is stopped
-                if self.use_media_icons:
-                    self.notify.update(self.summary, self.body, self.cover)
-                else:
-                    self.notify.update(self.summary, self.body)
+                if self.use_media_icons and self.cover:
+                    try:
+                        pixbuf = guicover.pixbuf_from_data(self.cover)
+                    except gobject.GError:
+                        pass
+                    else:
+                        self.notify.set_icon_from_pixbuf(pixbuf)
+                self.notify.update(self.summary, self.body)
                 self.notify.show()
-
 
     def exaile_ready(self, type = None, data1 = None, data2 = None):
         if self.exaile.gui.tray_icon:

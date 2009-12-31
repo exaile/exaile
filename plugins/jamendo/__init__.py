@@ -32,13 +32,14 @@ import menu
 import os
 import urllib
 import hashlib
-from xl import event, settings, xdg
+from xl import event, settings, xdg, providers
 from xl import trax as xltrack
-from xl.cover import CoverSearchMethod, NoCoverFoundException
+from xl.cover import CoverSearchMethod
 from xl.nls import gettext as _
 from xlgui import guiutil, panel
 
 JAMENDO_NOTEBOOK_PAGE = None
+COVERS_METHOD = None
 
 def enable(exaile):
     if (exaile.loading):
@@ -47,15 +48,16 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    global JAMENDO_NOTEBOOK_PAGE
+    global JAMENDO_NOTEBOOK_PAGE, COVERS_METHOD
     JAMENDO_NOTEBOOK_PAGE = JamendoPanel(exaile.gui.main.window, exaile)
     exaile.gui.add_panel(*JAMENDO_NOTEBOOK_PAGE.get_panel())
-    exaile.covers.add_search_method(JamendoCoverSearch())
+    COVERS_METHOD = JamendoCoverSearch()
+    providers.register('covers', COVERS_METHOD)
 
 def disable(exaile):
-    global JAMENDO_NOTEBOOK_PAGE
+    global JAMENDO_NOTEBOOK_PAGE, COVERS_METHOD
     exaile.gui.remove_panel(JAMENDO_NOTEBOOK_PAGE._child)
-    exaile.covers.remove_search_method_by_name('jamendo')
+    providers.unregister('covers', COVERS_METHOD)
 
 class JamendoPanel(panel.Panel):
 
@@ -397,32 +399,32 @@ class JamendoPanel(panel.Panel):
         pass
 
 #The following is a custom CoverSearchMethod to retrieve covers from Jamendo
-#It is designed to only to get covers for streaming tracks
+#It is designed to only to get covers for streaming tracks from jamendo
 class JamendoCoverSearch(CoverSearchMethod):
     name = 'jamendo'
-    type = 'remote'
-
-    def __init__(self):
-        CoverSearchMethod.__init__(self)
+    use_cache = False   # do this since the tracks dont stay on local.
+    fixed = True
+    fixed_priority = 5  # take precendence, since we know we are 'right'
+                        # for matching tracks.
 
     def find_covers(self, track, limit=-1):
         jamendo_url = track.get_loc_for_io()
-
-        cache_dir = self.manager.cache_dir
-        if (not jamendo_url) or (not ('http://' and 'jamendo' in jamendo_url)):
-            raise NoCoverFoundException
-
         #http://stream10.jamendo.com/stream/61541/ogg2/02%20-%20PieRreF%20-%20Hologram.ogg?u=0&h=f2b227d38d
-        split=jamendo_url.split('/')
-        track_num = split[4]
-        image_url = jamapi.get_album_image_url_from_track(track_num)
+        split = jamendo_url.split('/')
+        if len(split) > 5 and split[0] == 'http:' and \
+                split[2].endswith('.jamendo.com'):
 
-        if not image_url:
-            raise NoCoverFoundException
+            track_num = split[4]
+            image_url = jamapi.get_album_image_url_from_track(track_num)
 
-        local_name = hashlib.sha1(split[6]).hexdigest() + ".jpg"
-        covername = os.path.join(cache_dir, local_name)
-        urllib.urlretrieve(image_url, covername)
+            if image_url:
+                return [image_url]
+        return []
 
-        return [covername]
+
+    def get_cover_data(self, url):
+        h = urllib.urlopen(url)
+        data = h.read()
+        h.close()
+        return data
 

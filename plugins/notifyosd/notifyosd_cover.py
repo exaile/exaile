@@ -28,13 +28,7 @@ def notifyosd_get_image_for_track(track, exaile, resize=False):
 
     '''
     logger.debug("Getting cover for " + str(track))
-    item = cover.get_album_tuple(track)
-    image = None
-    if all(item) and hasattr(exaile, 'covers'):
-        image = exaile.covers.coverdb.get_cover(*item)
-    if image is None:
-        logger.debug("Did not find cover, using DEFAULT_COVER")
-        image = DEFAULT_COVER
-    logger.debug("Using image %s" % repr(image))
-
-    return image
+    data = exaile.covers.get_cover(track)
+    if not data:
+        data = exaile.covers.get_default_cover()
+    return data

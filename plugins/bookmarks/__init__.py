@@ -16,12 +16,13 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-# Code re-use is ftw
+
+
 
 from __future__ import with_statement
 from xl.nls import gettext as _
 from xl import event, xdg, trax, settings
-from xlgui import commondialogs, guiutil
+from xlgui import commondialogs, guiutil, cover as guicover
 import gtk
 import gobject
 import gio
@@ -57,9 +58,6 @@ class Bookmarks:
     def do_bookmark(self, widget, data):
         """
             This is called to resume a bookmark.
-            It first checks to see if the song is currently playing, then it searches
-            the current_playlist, then the currently selected playlist, then the colleciton.
-            If it's not in any of those, we try to load the file itself.
         """
         key, pos = data
         exaile = self.exaile
@@ -74,34 +72,7 @@ class Bookmarks:
                 exaile.player.unpause()
                 exaile.player.seek(pos)
                 return
-
-        # check for song in current playlist
-        pl = exaile.queue.current_playlist
-        if pl:
-            track = [ x for x in pl.get_tracks() if x.get_loc_for_io() == key ]
-            if len(track) > 0: # found one
-                track = track[0] # should only be one...
-
-        # check for song in currently selected playlist
-        pl = exaile.gui.main.get_selected_playlist().playlist
-        if pl:
-            track = [ x for x in pl.get_tracks() if x.get_loc_for_io() == key ]
-            if len(track) > 0: # found one
-                exaile.queue.set_current_playlist(pl)
-                track = track[0] # should only be one...
-
-        # search collection
-        if not track: # none or []
-            track = exaile.collection.get_track_by_loc(key)
-         #   print '
-            if track:
-                # use currently selected playlist (as opposed to current playlist)
-                pl = exaile.gui.main.get_selected_playlist().playlist
-                exaile.queue.set_current_playlist(pl)
-                exaile.queue.current_playlist.add(track)
-
-        # try add by loc
-        if not track:
+        else:
             # use currently selected playlist (as opposed to current playlist)
             track = trax.Track(key)
             if track:   # make sure we got one
@@ -147,20 +118,16 @@ class Bookmarks:
             item = trax.Track(key)
             title = item.get_tag_display('title')
             if self.use_covers:
-                try:
-                    image = self.exaile.covers.get_cover(item)
-                    # hack
-#                    pix = gtk.gdk.pixbuf_new_from_file_at_size(gio.File(image).get_path(), 16, 16)
-                    #pix = gtk.gdk.pixbuf_new_from_file_at_size(image, 16, 16)
-                    pix = gtk.gdk.PixbufLoader()
-                    pix.set_size(16,16)
-                    pix.write(gio.File(image).read().read())
-                    pix.close()
-                    pix = pix.get_pixbuf()
-                except gobject.GError:
-                    logger.warn('Could not load cover')
+                image = self.exaile.covers.get_cover(item, set_only=True)
+                if image:
+                    try:
+                        pix = guicover.pixbuf_from_data(image, scale=(16,16))
+                    except gobject.GError:
+                        logger.warn('Could not load cover')
+                        pix = None
+                        # no cover
+                else:
                     pix = None
-                    # no cover
         except:
             import traceback, sys
             traceback.print_exc(file=sys.stdout)

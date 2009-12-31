@@ -37,8 +37,22 @@ from xlgui import guiutil, commondialogs
 logger = logging.getLogger(__name__)
 
 
-COVER_WIDTH = 100
-NOCOVER_IMAGE = xdg.get_data_path("images", "nocover.png")
+def pixbuf_from_data(data, scale=None):
+    """
+        Get a gtk.gdk.Pixbuf from arbitrary image data.
+
+        :param data: The raw image data
+        :param scale: Size to scale to, in (width, height) format.
+            If not specified, the image will render to its native resolution.
+    """
+    loader = gtk.gdk.PixbufLoader()
+    if scale:
+        loader.set_size(scale[0],scale[1])
+    loader.write(data)
+    loader.close()
+    pixbuf = loader.get_pixbuf()
+    return pixbuf
+
 
 class CoverManager(object):
     """
@@ -48,7 +62,6 @@ class CoverManager(object):
         """
             Initializes the window
         """
-
         self.parent = parent
         self.collection = collection
         self.manager = covers
@@ -75,6 +88,9 @@ class CoverManager(object):
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)
 
+        self.nocover = pixbuf_from_data(self.manager.get_default_cover(),
+                scale=(80,80))
+
         self._connect_events()
         self.window.show_all()
         gobject.idle_add(self._find_initial)
@@ -92,58 +108,50 @@ class CoverManager(object):
         # select the current icon
         x, y = map(int, event.get_coords())
         path = self.icons.get_path_at_pos(x, y)
-        if not path: return
-
-        self.icons.select_path(path)
+        if path:
+            self.icons.select_path(path)
 
     def get_selected_cover(self):
         """
             Returns the currently selected cover tuple
         """
         paths = self.icons.get_selected_items()
-        if not paths: return
-        path = paths[0]
-
-        iter = self.model.get_iter(path)
-        return self.model.get_value(iter, 2)
+        if paths:
+            path = paths[0]
+            iter = self.model.get_iter(path)
+            return self.model.get_value(iter, 2)
 
     def show_cover(self, *e):
         """
             Shows the currently selected cover
         """
-
         item = self._get_selected_item()
-        c = self.manager.coverdb.get_cover(item[0], item[1])
+        c = self.manager.get_cover(self.track_dict[item][0])
 
-        # if there is no cover, use the nocover image from the selected widget
-        if c == None:
-            cvr = self.covers[self.get_selected_cover()]
-        else:
-            cvr = gtk.gdk.pixbuf_new_from_file(c)
-
-        window = CoverWindow(self.parent, cvr)
-        window.show_all()
+        cvr = pixbuf_from_data(c)
+        if cvr:
+            window = CoverWindow(self.parent, cvr)
+            window.show_all()
 
     def fetch_cover(self):
         """
             Fetches a cover for the current track
         """
         item = self._get_selected_item()
-        if not item: return
-        track = self.track_dict[item[0]][item[1]][0]
-        window = CoverChooser(self.window,
-            self.manager, track)
-        window.connect('cover-chosen', self.on_cover_chosen)
+        if item:
+            track = self.track_dict[item][0]
+            window = CoverChooser(self.window, self.manager, track)
+            window.connect('cover-chosen', self.on_cover_chosen)
 
     def on_cover_chosen(self, object, cvr):
         paths = self.icons.get_selected_items()
-        if not paths: return None
+        if not paths:
+            return None
         path = paths[0]
-
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
 
-        image = gtk.gdk.pixbuf_new_from_file(cvr)
+        image = pixbuf_from_data(cvr[1])
         image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
         self.covers[item] = image
         self.model.set_value(iter, 1, image)
@@ -153,9 +161,9 @@ class CoverManager(object):
             Returns the selected item
         """
         paths = self.icons.get_selected_items()
-        if not paths: return None
+        if not paths:
+            return None
         path = paths[0]
-
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
         return item
@@ -163,74 +171,61 @@ class CoverManager(object):
     def remove_cover(self, *e):
         item = self._get_selected_item()
         paths = self.icons.get_selected_items()
-        self.manager.coverdb.remove_cover(item[0], item[1])
+        track = self.track_dict[item][0]
+        self.manager.remove_cover(track)
         self.covers[item] = self.nocover
-        if not paths: return
-        iter = self.model.get_iter(paths[0])
-        self.model.set_value(iter, 1, self.nocover)
+        if paths:
+            iter = self.model.get_iter(paths[0])
+            self.model.set_value(iter, 1, self.nocover)
 
     def _find_initial(self):
         """
             Locates covers and sets the icons in the windows
         """
-        tracks = self.collection.search('') # find all tracks
-
-        items = []
-        for track in tracks:
+        items = set()
+        for track in self.collection:
             try:
-                (artist, album) = cover.get_album_tuple(track)
-            except KeyError:
-                continue
+                artist = track.get_tag_raw('artist')[0]
+                album = track.get_tag_raw('album')[0]
             except TypeError:
                 continue
 
-            if not album or not artist: continue
+            if not album or not artist:
+                continue
 
-            if not artist in self.track_dict:
-                self.track_dict[artist] = {}
+            item = (artist, album)
 
-            if not album in self.track_dict[artist]:
-                self.track_dict[artist][album] = []
+            try:
+                self.track_dict[item].append(track)
+            except KeyError:
+                self.track_dict[item] = [track]
 
-            self.track_dict[artist][album].append(track)
-            items.append((artist, album))
+            items.add(item)
 
-        items = list(set(items))
-        self.items = items
+        self.items = list(items)
         self.items.sort()
 
-        nocover = gtk.gdk.pixbuf_new_from_file(NOCOVER_IMAGE)
-        nocover = nocover.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
-        self.nocover = nocover
         self.needs = 0
-        for item in items:
-            if not item[0] or not item[1]: continue
-            try:
-                cover_avail = self.manager.coverdb.get_cover(item[0], item[1])
-            except TypeError:
-                cover_avail = None
+        for item in self.items:
+            cover_avail = self.manager.get_cover(self.track_dict[item][0],
+                        set_only=True)
 
             if cover_avail:
                 try:
-                    image = gtk.gdk.pixbuf_new_from_file(cvr)
-                    image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
-                except:
-                    image = nocover
+                    image = pixbuf_from_data(cover_avail, scale=(80,80))
+                except gobject.GError:
+                    image = self.nocover
+                    self.needs += 1
             else:
-                image = nocover
-
-            if image == nocover:
+                image = self.nocover
                 self.needs += 1
 
-            display = "%s - %s" % (item[0], item[1])
-#            if self.track_dict[item[0]][item[1]][0]['__compilation']:
-#                display = item[1]
+            display = "%s - %s" % item
 
-            self.cover_nodes[item] = self.model.append(
-                [display, image, item])
+            self.cover_nodes[item] = self.model.append([display, image, item])
             self.covers[item] = image
         self.icons.set_model(self.model)
-        self.progress.set_text('%d covers to fetch' % self.needs)
+        self.progress.set_text(_('%d covers to fetch') % self.needs)
 
     def _connect_events(self):
         """
@@ -258,40 +253,29 @@ class CoverManager(object):
             if not self.covers[item] == self.nocover:
                 continue
 
-            try:
-                c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0],
-                    update_track=True)
-            except cover.NoCoverFoundException:
-                continue
-            except:
-                traceback.print_exc()
-                logger.warning("No cover found")
-                c = None
+            c = self.manager.get_cover(self.track_dict[item][0],
+                    save_cover=True)
 
             if c:
-                logger.info(c)
                 node = self.cover_nodes[item]
-
                 try:
-                    image = gtk.gdk.pixbuf_new_from_file(c)
-                    image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
-
+                    image = pixbuf_from_data(c, scale=(80,80))
+                except gobject.GError:
+                    c = None
+                else:
                     gobject.idle_add(self.model.set_value, node, 1, image)
-                except:
-                    traceback.print_exc()
 
             gobject.idle_add(self.progress.set_fraction, float(self.count) /
                 float(self.needs))
-            gobject.idle_add(self.progress.set_text, "%s/%s fetched" % (self.count,
-                self.needs))
+            gobject.idle_add(self.progress.set_text, "%s/%s fetched" %
+                    (self.count, self.needs))
 
             self.count += 1
 
             if self.count % 20 == 0:
-                logger.info("Saving cover database")
-                self.manager.save_cover_db()
+                logger.debug("Saving cover database")
+                self.manager.save()
 
-        # we're done!
         gobject.idle_add(self._do_stop)
 
     def _calculate_needed(self):
@@ -312,7 +296,7 @@ class CoverManager(object):
         self.progress.set_text(_('%d covers to fetch') % self.needs)
         self.progress.set_fraction(0)
         self._stopped = True
-        self.manager.save_cover_db()
+        self.manager.save()
         self.stop_button.set_use_stock(False)
         self.stop_button.set_label(_('Start'))
         self.stop_button.set_image(gtk.image_new_from_stock('gtk-yes',
@@ -381,12 +365,12 @@ class CoverWidget(gtk.EventBox):
         gtk.EventBox.__init__(self)
         self.image = guiutil.ScalableImageWidget()
         self.main = main
-        self.current_track = None
         self.covers = covers
         self.player = player
 
-        self.image.set_image_size(COVER_WIDTH, COVER_WIDTH)
-        self.image.set_image(NOCOVER_IMAGE)
+        width = settings.get_option("gui/cover_width", 100)
+        self.image.set_image_size(width, width)
+        self.image.set_image_data(covers.get_default_cover())
         self.add(self.image)
         self.image.show()
 
@@ -423,7 +407,7 @@ class CoverWidget(gtk.EventBox):
         window.connect('cover-chosen', self.on_cover_chosen)
 
     def on_cover_chosen(self, object, cvr):
-        self.image.set_image(cvr)
+        self.image.set_image_data(cvr[1])
 
     def remove_cover(self):
         """
@@ -449,45 +433,23 @@ class CoverWidget(gtk.EventBox):
             Called when playback starts.  Fetches album covers, and displays
             them
         """
-        self.current_track = track
-        nocover = xdg.get_data_path('images/nocover.png')
-        self.loc = nocover
-        self.emit('cover-found', nocover)
-        gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
+        gobject.idle_add(self.set_blank)
+        fetch = not settings.get_option('covers/automatic_fetching', True)
+        cov = self.covers.get_cover(track, set_only=fetch)
+        if not cov:
+            return
 
-        if (settings.get_option('covers/automatic_fetching', True)):
-            try:
-                cov = self.covers.get_cover(self.current_track,
-                    update_track=True)
-            except cover.NoCoverFoundException:
-                logger.warning("No covers found")
-                return
-        else:
-            try:
-                item = cover.get_album_tuple(track)
-                cov = self.covers.coverdb.get_cover(item[0], item[1])
-            except (TypeError,AttributeError):
-                return
-            if not cov:
-                return
+        if self.player.current == track:
+            gobject.idle_add(self.image.set_image_data, cov)
 
-        if self.player.current == self.current_track:
-            self.image.loc = cov
-            gobject.idle_add(self.image.set_image_data, cover.get_cover_data(cov))
-            self.loc = cov
-            gobject.idle_add(self._fire_event)
-
-    def _fire_event(self):
-        self.emit('cover-found', self.loc)
+    def set_blank(self):
+        self.image.set_image_data(self.covers.get_default_cover())
 
     def on_playback_end(self, type, player, object):
         """
             Called when playback stops.  Resets to the nocover image
         """
-        nocover = xdg.get_data_path('images/nocover.png')
-        self.loc = nocover
-        self.image.set_image(nocover)
-        self.emit('cover-found', nocover)
+        self.set_blank()
 
 class CoverWindow(object):
     """Shows the cover in a simple image viewer"""
@@ -520,11 +482,7 @@ class CoverWindow(object):
                                    self.statusbar.size_request()[1]
         self.cover_window.set_default_size(self.cover_window_width, \
                                            self.cover_window_height)
-        if type(cvr) == str or type(cvr) == unicode:
-            self.image_original_pixbuf = gtk.gdk.pixbuf_new_from_file(cvr)
-        else:
-            self.image_original_pixbuf = cvr
-
+        self.image_original_pixbuf = cvr
         self.image_pixbuf = self.image_original_pixbuf
         self.min_percent = 1
         self.max_percent = 500
@@ -639,7 +597,7 @@ class CoverChooser(gobject.GObject):
         one out of the list
     """
     __gsignals__ = {
-        'cover-chosen': (gobject.SIGNAL_RUN_LAST, None, (str,)),
+        'cover-chosen': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
     def __init__(self, parent, covers, track, search=None):
         """
@@ -652,27 +610,19 @@ class CoverChooser(gobject.GObject):
         self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.ui'))
         self.window = self.builder.get_object('CoverChooser')
 
-        try:
-            tempartist = ' / '.join(track['artist'])
-        except TypeError:
-            tempartist = ''
-        try:
-            tempalbum = ' / '.join(track['album'])
-        except TypeError:
-            tempalbum = ''
-
+        tempartist = track.get_tag_display('artist')
+        tempalbum = track.get_tag_display('album')
         self.window.set_title("%s - %s" % (tempartist,tempalbum))
         self.window.set_transient_for(parent)
 
         self.track = track
+        self.covers = []
         self.current = 0
         self.prev = self.builder.get_object('cover_back_button')
         self.prev.connect('clicked', self.go_prev)
         self.prev.set_sensitive(False)
         self.next = self.builder.get_object('cover_forward_button')
         self.next.connect('clicked', self.go_next)
-        self.builder.get_object('cover_newsearch_button').connect('clicked',
-            self.new_search)
         self.builder.get_object('cover_cancel_button').connect('clicked',
             lambda *e: self.window.destroy())
         self.ok = self.builder.get_object('cover_ok_button')
@@ -687,20 +637,6 @@ class CoverChooser(gobject.GObject):
 
         self.fetch_cover(track)
 
-    def new_search(self, widget=None):
-        """
-            Creates a new search string
-        """
-        dialog = commondialogs.TextEntryDialog(
-            _("Enter the search text"), _("Enter the search text"))
-        dialog.set_value(self.last_search)
-        result = dialog.run()
-        if result == gtk.RESPONSE_OK:
-            self.last_search = dialog.get_value()
-            self.window.hide()
-
-            self.fetch_cover(self.last_search)
-
     @common.threaded
     def fetch_cover(self, search):
         """
@@ -709,17 +645,19 @@ class CoverChooser(gobject.GObject):
         self.covers = []
         self.current = 0
 
-        if type(search) == str or type(search) == unicode:
-            covers = self.manager.search_covers(search)
-        else:
-            covers = self.manager.find_covers(search)
+        covers = self.manager.find_covers(self.track)
+        covers = [(x, self.manager.get_cover_data(x)) for x in covers]
 
         if covers:
             self.covers = covers
             gobject.idle_add(self.show_cover, covers[0])
         else:
-            commondialogs.error(self.parent, _('No covers found'))
-            self.window.show_all()
+            gobject.idle_add(self.__show_no_cover_found)
+
+    def __show_no_cover_found(self):
+        # FIXME: this causes gtk to hang horribly
+        #commondialogs.error(None, _('No covers found'))
+        self.window.show_all()
 
     def on_ok(self, widget=None):
         """
@@ -728,8 +666,7 @@ class CoverChooser(gobject.GObject):
         track = self.track
         cvr = self.covers[self.current]
 
-        album_tup = cover.get_album_tuple(track)
-        self.manager.coverdb.set_cover(album_tup[0], album_tup[1], cvr)
+        self.manager.set_cover(track, cvr[0], cvr[1])
 
         self.emit('cover-chosen', cvr)
         self.window.destroy()
@@ -763,6 +700,5 @@ class CoverChooser(gobject.GObject):
         """
             Shows the current cover
         """
-        logger.info(c)
-        self.cvr.set_image_data(cover.get_cover_data(c))
+        self.cvr.set_image_data(c[1])
         self.window.show_all()

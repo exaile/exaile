@@ -27,6 +27,7 @@
 
 import logging
 import os
+import time
 import weakref
 import unicodedata
 from functools import wraps
@@ -60,37 +61,60 @@ _UNKNOWNSTR = _("Unknown")
 #TRANSLATORS: String multiple tag values will be joined by
 _JOINSTR =_(u' & ')
 
+
 class _MetadataCacher(object):
     """
         Cache metadata Format objects to speed up get_tag_disk
     """
-    def __init__(self, timeout=2000, maxentries=20):
+    def __init__(self, timeout=10, maxentries=20):
         """
-            :param timeout: time (in ms) until the cached obj gets removed.
+            :param timeout: time (in s) until the cached obj gets removed.
             :param maxentries: maximum number of format objs to cache
         """
-        self._cache = {}
+        self._cache = []
         self.timeout = timeout
         self.maxentries = maxentries
+        self._cleanup_id = 0
+
+    def __cleanup(self):
+        if self._cleanup_id:
+            gobject.source_remove(self._cleanup_id)
+        current = time.time()
+        thresh = current - self.timeout
+        for item in self._cache[:]:
+            if item[2] < thresh:
+                self._cache.remove(item)
+        if self._cache:
+            next = min([i[2] for i in self._cache])
+            timeout = ((next + self.timeout) - current)
+            self._cleanup_id = gobject.timeout_add(timeout*1000,
+                    self.__cleanup)
 
     def add(self, trackobj, formatobj):
-        try:
-            id = self._cache[trackobj]
-        except KeyError:
-            pass
-        else:
-            gobject.source_remove(id[1])
-        timeout_id = gobject.timeout_add(self.timeout, self.remove, trackobj)
-        self._cache[trackobj] = [formatobj, timeout_id]
+        for item in self._cache:
+            if item[0] == trackobj:
+                return
+        item = [trackobj, formatobj, time.time()]
+        self._cache.append(item)
+        if len(self._cache) > self.maxentries:
+            least = min([(i[2],i) for i in self._cache])[1]
+            self._cache.remove(least)
+        if not self._cleanup_id:
+            self._cleanup_id = gobject.timeout_add(self.timeout*1000,
+                    self.__cleanup)
 
     def remove(self, trackobj):
-        try:
-            del self._cache[trackobj]
-        except KeyError:
-            pass
+        for item in self._cache:
+            if item[0] == trackobj:
+                self._cache.remove(item)
+                break
 
     def get(self, trackobj):
-        return self._cache.get(trackobj, None)
+        for item in self._cache:
+            if item[0] == trackobj:
+                item[2] = time.time()
+                return item[1]
+
 
 _CACHER = _MetadataCacher()
 
@@ -118,6 +142,22 @@ class Track(object):
             uri = args[0]
         else:
             uri = kwargs.get("uri")
+
+        # Restore uri from pickled state if possible.  This means that
+        # if a given Track is in more than one TrackDB, the first
+        # TrackDB to get loaded takes precedence, and any data in the
+        # second TrackDB is consequently ignored. Thus if at all
+        # possible, Tracks should NOT be persisted in more than one
+        # TrackDB at a time.
+        if uri is None:
+            unpickles = None
+            if len(args) > 2:
+                unpickles = args[2]
+            else:
+                unpickles = kwargs.get("_unpickles")
+            if unpickles is not None:
+                uri = unpickles.get("__loc")
+
         if uri is not None:
             uri = gio.File(uri).get_uri()
             try:
@@ -129,6 +169,8 @@ class Track(object):
                 tr._init = True
             return tr
         else:
+            # this should always fail in __init__, and will never be
+            # called in well-formed code.
             tr = object.__new__(cls)
             tr._init = True
             return tr
@@ -431,9 +473,9 @@ class Track(object):
                 retval = self.format_sort(retval)
             else:
                 if isinstance(retval, list):
-                    retval = [self.lower(v) for v in retval]
+                    retval = [self.lower(v + u" " + v) for v in retval]
                 else:
-                    retval = self.lower(retval)
+                    retval = self.lower(retval + u" " + v)
             if join:
                 retval = self.join_values(retval)
 
@@ -552,9 +594,26 @@ class Track(object):
                 f = metadata.get_format(self.get_loc_for_io())
             except:
                 return None
+            if not f:
+                return None
         _CACHER.add(self, f)
         return f.read_tags([tag])[tag]
 
+    def list_tags_disk(self):
+        """
+            List all the tags directly from file metadata. Can be slow,
+            use with caution.
+        """
+        f = _CACHER.get(self)
+        if not f:
+            try:
+                f = metadata.get_format(self.get_loc_for_io())
+            except:
+                return None
+            if not f:
+                return None
+        _CACHER.add(self, f)
+        return f._get_raw().keys()
 
     ### convenience funcs for rating ###
     # these dont fit in the normal set of tag access methods,

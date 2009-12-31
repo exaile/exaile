@@ -473,9 +473,9 @@ class Track(object):
                 retval = self.format_sort(retval)
             else:
                 if isinstance(retval, list):
-                    retval = [self.lower(v) for v in retval]
+                    retval = [self.lower(v + u" " + v) for v in retval]
                 else:
-                    retval = self.lower(retval)
+                    retval = self.lower(retval + u" " + v)
             if join:
                 retval = self.join_values(retval)
 

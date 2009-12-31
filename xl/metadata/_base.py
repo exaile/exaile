@@ -29,6 +29,7 @@ import logging
 import os
 import urllib2
 import urlparse
+import gio
 from xl import common
 
 logger = logging.getLogger(__name__)

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-18 22:08+0000\n"
-"Last-Translator: Steve Dodier <Unknown>\n"
+"PO-Revision-Date: 2009-12-31 16:59+0000\n"
+"Last-Translator: Malaria <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2009-12-19 04:31+0000\n"
+"X-Launchpad-Export-Date: 2010-01-01 05:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -389,7 +389,7 @@ msgstr "Arrangeur"
 
 #: ../xlgui/properties.py:46
 msgid "Conductor"
-msgstr "Conducteur"
+msgstr "Chef d'orchestre"
 
 #: ../xlgui/properties.py:47
 msgid "Performer"
@@ -413,7 +413,7 @@ msgstr "Album"
 
 #: ../xlgui/properties.py:50
 msgid "Copyright"
-msgstr "Copyright"
+msgstr "Droit d'auteur"
 
 #: ../xlgui/properties.py:51
 msgid "Lyrics"
@@ -473,7 +473,7 @@ msgstr "Débit"
 
 #: ../xlgui/properties.py:63
 msgid "Date Added"
-msgstr "Date d'ajout"
+msgstr "Ajouté le"
 
 #: ../xlgui/properties.py:64 ../xlgui/plcolumns.py:114
 #: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160
@@ -502,11 +502,11 @@ msgstr "Emplacement"
 
 #: ../xlgui/properties.py:67
 msgid "Modified"
-msgstr ""
+msgstr "Modifié le"
 
 #: ../xlgui/properties.py:69
 msgid "Times Played"
-msgstr ""
+msgstr "Nombre de Lectures"
 
 #: ../xlgui/properties.py:70
 msgid "Last Played"
@@ -523,7 +523,7 @@ msgstr "Fermer sans appliquer les modifications aux tags ?"
 
 #: ../xlgui/properties.py:655
 msgid "of"
-msgstr ""
+msgstr "sur"
 
 #: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
@@ -581,15 +581,15 @@ msgstr "Mise en tampon : 100%..."
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "_Non Aléatoire"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Aléatoire par _Piste"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Aléatoire par _Album"
 
 #: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
@@ -624,7 +624,7 @@ msgstr "sur %s"
 #: ../xlgui/main.py:1242
 #, python-format
 msgid "In pause: %s"
-msgstr "EN pause: %s"
+msgstr "En pause : %s"
 
 #: ../xlgui/main.py:1244
 #, python-format
@@ -840,11 +840,11 @@ msgstr "Analyse en cours de %s..."
 
 #: ../xlgui/guiutil.py:430
 msgid "Muted"
-msgstr ""
+msgstr "Muet"
 
 #: ../xlgui/guiutil.py:439
 msgid "Full Volume"
-msgstr ""
+msgstr "Volume maximum"
 
 #: ../xlgui/guiutil.py:729
 #, python-format
@@ -1145,7 +1145,7 @@ msgstr "Taille"
 #: ../xlgui/panel/files.py:413
 #, python-format
 msgid "%d KB"
-msgstr ""
+msgstr "%d Ko"
 
 #: ../xlgui/panel/collection.py:140
 msgid ""
@@ -1200,7 +1200,7 @@ msgstr ""
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Valeurs par défaut"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"
@@ -1234,6 +1234,8 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Impossible d'activer le greffon :</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
@@ -1288,15 +1290,16 @@ msgstr "Lecteur de musique Exaile"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Clic droit pour remettre par défaut)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Détecter les compilations en se basant sur les fichiers"
 
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"
 msgstr ""
+"Mots à retirer du début des tags d'artiste (séparés par des espaces) :"
 
 #: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
 msgid "Open last playlists on startup"
@@ -1371,7 +1374,7 @@ msgstr "_Propriétés de la piste"
 
 #: ../data/ui/main.ui.h:23
 msgid "_Autosize"
-msgstr "_Auto dimensionner"
+msgstr "Taille _automatique"
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
@@ -1427,7 +1430,7 @@ msgstr "_Affichage"
 
 #: ../data/ui/flatplaylist_panel.ui.h:1
 msgid "Append All Tracks to Playlist"
-msgstr "Ajouter toutes les pistes à la liste de lecture"
+msgstr "Ajouter Toutes les Pistes à la Liste de Lecture"
 
 #: ../data/ui/flatplaylist_panel.ui.h:2
 msgid "Import CD"
@@ -1447,7 +1450,7 @@ msgstr "_Fermer"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "A_dd tag"
-msgstr ""
+msgstr "A_jouter un tag"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "Tags"
@@ -1459,19 +1462,19 @@ msgstr "Propriétés de la Piste"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Mettre en majuscule la première lettre de tous les tags"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
-msgstr ""
+msgstr "Suiva_nt"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Précédent"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Supprimer le tag"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
@@ -1877,7 +1880,7 @@ msgstr "Réveil"
 #: ../plugins/equalizer/__init__.py:129 ../plugins/equalizer/equalizer.ui.h:15
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Égaliseur"
 
 #: ../plugins/awn/awn_prefs.py:32
 msgid "AWN"
@@ -1918,7 +1921,7 @@ msgstr "Nombre de lectures"
 
 #: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
-msgstr ""
+msgstr "Manuellement..."
 
 #: ../plugins/daapclient/__init__.py:207
 msgid "Enter IP address and port for share"
@@ -1946,7 +1949,7 @@ msgstr "Choisir un emplacement pour l'enregistrement"
 
 #: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Connexion au serveur DAAP..."
 
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -1968,15 +1971,15 @@ msgstr "Supprimer les signets"
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Ready"
-msgstr ""
+msgstr "Prêt"
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "Recherche dans le catalogue Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:78
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Récupération des données de la chanson..."
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
@@ -2032,7 +2035,7 @@ msgstr ""
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"
-msgstr ""
+msgstr "Ajouter et Lire"
 
 #: ../plugins/droptrayicon/__init__.py:272
 msgid "Append"
@@ -2341,11 +2344,11 @@ msgstr "Utiliser le fondu"
 
 #: ../plugins/equalizer/equalizer.ui.h:1
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:2
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "0"
@@ -2353,55 +2356,55 @@ msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "227"
-msgstr ""
+msgstr "227"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
-msgstr ""
+msgstr "pré"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"
-msgstr ""
+msgstr "Affichage Circulaire"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"
-msgstr ""
+msgstr "Afficher les Jaquettes"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
@@ -2479,7 +2482,7 @@ msgstr "Avancé"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "Croissant"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
@@ -2491,35 +2494,35 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Genre/Tags"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
-msgstr ""
+msgstr "Nombre de téléchargements"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
-msgstr ""
+msgstr "Nombre de lectures"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Nombre d'ajouts à la liste de lecture"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Order By:"
-msgstr ""
+msgstr "Trier par :"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Order Direction:"
-msgstr ""
+msgstr "Sens de tri :"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
-msgstr ""
+msgstr "Note sur le mois"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Rating this week"
-msgstr ""
+msgstr "Note sur la semaine"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
@@ -2791,10 +2794,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Joue de la musique à des dates et heures spécifiques.\n"
-"Notez que lorsque l'heure spécifiée arrive, Exaile agira comme si vous "
-"pressiez le bouton de lecture. Assurez-vous donc que la musique que vous "
-"désirez écouter est dans la liste de lecture actuelle."
+"Joue de la musique à des dates et heures spécifiées par l'utilisateur.\n"
+"\n"
+"Notez qu'Exaile agira alors exactement comme si vous aviez pressé le bouton "
+"de lecture, assurez-vous donc que la musique que vous désirez écouter est "
+"dans votre liste de lecture."
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2804,22 +2808,24 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Joue de la musique à une date spécifique.\n"
-"Notez que lorsque l'heure spécifiée arrive, Exaile agira comme si vous "
-"pressiez le bouton de lecture. Assurez-vous donc que la musique que vous "
-"désirez écouter est dans la liste de lecture actuelle."
+"Joue de la musique à une heure spécifiée par l'utilisateur.\n"
+"\n"
+"Notez qu'Exaile agira alors exactement comme si vous aviez pressé le bouton "
+"de lecture, assurez-vous donc que la musique que vous désirez écouter est "
+"dans votre liste de lecture."
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "Un égaliseur 10 bandes"
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
-msgstr ""
+msgstr "Awn"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
 msgstr ""
+"Assigne la jaquette et ajoute quelques entrées de menu à AWN pour Exaile"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
@@ -2849,16 +2855,16 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
 msgstr ""
-"Ajout de la prise en charge de  la lecture de CD audio.\n"
-"Requiert python-cddb pour récupérer les tags."
+"Ajoute la prise en charge de la lecture de CD audio.\n"
+"Requiert python-cddb pour rechercher les tags."
 
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "Client DAAP"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Autoriser la lecture de musiques partagées."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
@@ -2876,7 +2882,7 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr ""
+msgstr "Activer l'accès au catalogue de musique Jamendo."
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -2895,9 +2901,10 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
-"Ce greffon affiche des notifications lorsqu'une piste est jouée / mise en "
-"pause / stoppée, avec soit la jaquette de cette piste, soit une icône "
-"correspondant à la dernière action effectuée.\n"
+"Ce greffon affiche des notifications lorsqu'une piste est lue, mise en pause "
+"ou stoppée, avec soit la jaquette de la piste, soit une icône indiquant la "
+"dernière action effectuée.\n"
+"\n"
 "Requiert : python-notify\n"
 "Recommande : notify-osd"
 

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-29 17:52+0000\n"
-"Last-Translator: Serdar Delican <Unknown>\n"
+"PO-Revision-Date: 2009-12-31 14:12+0000\n"
+"Last-Translator: Yusuff <yusuf21500@gmail.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-12-30 04:46+0000\n"
+"X-Launchpad-Export-Date: 2010-01-01 05:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -660,15 +660,15 @@ msgstr ""
 
 #: ../xlgui/menu.py:219
 msgid "_Save As..."
-msgstr ""
+msgstr "_Farklı Kaydet..."
 
 #: ../xlgui/menu.py:220
 msgid "C_lear All Tracks"
-msgstr ""
+msgstr "T_üm Parçaları Sil"
 
 #: ../xlgui/menu.py:222
 msgid "_Close Playlist"
-msgstr ""
+msgstr "_Oynatma Listesini Kapat"
 
 #: ../xlgui/menu.py:243
 msgid "Append to Current"
@@ -680,11 +680,11 @@ msgstr "Öğeleri Sırala"
 
 #: ../xlgui/menu.py:310
 msgid "Delete track"
-msgstr ""
+msgstr "Parçayı Sil"
 
 #: ../xlgui/menu.py:341
 msgid "New Station"
-msgstr ""
+msgstr "Yeni İstasyon Ekle"
 
 #: ../xlgui/menu.py:346
 msgid "New Smart Playlist"

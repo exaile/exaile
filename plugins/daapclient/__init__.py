@@ -18,6 +18,7 @@
 import os
 import gtk
 import dbus
+import dbus.exceptions
 import logging
 import time
 import threading
@@ -530,6 +531,10 @@ def _enable(exaile):
         except RuntimeError: # no dbus?
             avahi_interface = None
             logger.warn('AVAHI interface could not be initialized (no dbus?)')
+        except dbus.exceptions.DBusException, s:
+            avahi_interface = None
+            logger.error('Got DBUS error: %s' % s)
+            logger.error('Is avahi-daemon running?')
     else:
         avahi_interface = None
         logger.warn('AVAHI could not be imported, you will not see broadcast shares.')

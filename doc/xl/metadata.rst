@@ -7,13 +7,14 @@ Metadata
 
 .. autodata:: get_format
 
-.. autoclass:: NotWritable
-
-.. autoclass:: NotReadable
 
 
 Format Objects
 **************
+
+.. autoclass:: NotWritable
+
+.. autoclass:: NotReadable
 
 .. autoclass:: BaseFormat
     :members: read_all, read_tags, write_tags

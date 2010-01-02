@@ -27,7 +27,6 @@
 import os
 import gio
 
-# do this so formats can inherit from stuff in _base
 from _base import BaseFormat, NotWritable, NotReadable
 import urlparse
 
@@ -82,9 +81,6 @@ formats = {
         'wv'    : wv.WavpackFormat,
         'xm'    : mod.ModFormat,
         }
-
-# dunno why we have this, isnt it trivial to use formats.keys() instead?
-SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 
 # pass get_loc_for_io() to this.
 def get_format(loc):

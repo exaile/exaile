@@ -615,10 +615,6 @@ class Library(object):
 
 
         removals = deque()
-        location = self.location
-        if "://" not in location:
-            location = u"file://" + location
-
         for k, tr in self.collection.tracks.iteritems():
             tr = tr._track
             loc = tr.get_loc_for_io()

@@ -29,6 +29,7 @@ import logging
 import os
 import urllib2
 import urlparse
+import gio
 from xl import common
 
 logger = logging.getLogger(__name__)
@@ -42,13 +43,25 @@ class NotReadable(Exception):
     pass
 
 class BaseFormat(object):
+    """
+        Base class for handling loading of metadata from files.
+    """
     MutagenType = None
     tag_mapping = {}
     others = True
     writable = False
+    # TODO: can we change this to be any excessively large field? its hard
+    # to get every single cover tag name and would probably suit our needs
+    # better. perhaps any field with \n (lyrics) or >4KB (covers) would
+    # work for a condition.
     ignore_tags = ['coverart', 'cover', 'lyrics', 'Cover Art (front)']
 
     def __init__(self, loc):
+        """
+            :param loc: absolute path to the file to read
+                (note - this may change to accept gio uris in the future)
+            raises NotReadable if the file cannot be opened for some reason.
+        """
         self.loc = loc
         self.open = False
         self.mutagen = None
@@ -103,10 +116,19 @@ class BaseFormat(object):
         return keys
 
     def read_all(self):
+        """
+            Reads all non-blacklisted tags from the file.
+
+            Blacklisted tags include lyrics, covers, and any field starting
+            with __. If you need to read these, call read_tags directly.
+        """
         tags = []
         for t in self._get_keys():
             if t in self.ignore_tags:
                 continue
+            # __ is used to denote exaile's internal tags, so we skip
+            # loading them to avoid conflicts. usually this shouldn't be
+            # an issue.
             if t.startswith("__"):
                 logger.warning("Could not import tag %(tag)s from file "
                         "%(location)s because of possible conflict from "
@@ -124,7 +146,10 @@ class BaseFormat(object):
             get the values for the specified tags.
 
             returns a dict of the found values. if no value was found for a
-            requested tag it will not exist in the returned dict
+            requested tag it will not exist in the returned dict.
+
+            :param tags: a list of tag names to read
+            :returns: a dictionary of tag/value pairs.
         """
         raw = self._get_raw()
         td = {}
@@ -167,10 +192,16 @@ class BaseFormat(object):
         raw[tag] = value
 
     def write_tags(self, tagdict):
-        tagdict = copy.deepcopy(tagdict)
-        if not self.MutagenType:
+        """
+            Write a set of tags to the file. Raises a NotWritable exception
+            if the format does not support writing tags.
+
+            :param tagdict: A dictionary of tag/value pairs to write.
+        """
+        if not self.MutagenType or not self.writable:
             raise NotWritable
         else:
+            tagdict = copy.deepcopy(tagdict)
             raw = self._get_raw()
             # add tags if it doesn't have them
             try:
@@ -204,6 +235,7 @@ class BaseFormat(object):
             self.save()
 
     def get_info(self, info):
+        # TODO: add sample rate? filesize?
         if info == "__length":
             return self.get_length()
         elif info == "__bitrate":

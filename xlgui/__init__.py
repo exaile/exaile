@@ -201,9 +201,9 @@ class Main(object):
         all_file_filter = gtk.FileFilter()
         all_file_filter.set_name(_("All Files"))
 
-        for ext in metadata.SUPPORTED_MEDIA:
-            supported_file_filter.add_pattern('*' + ext)
-            audio_file_filter.add_pattern('*' + ext)
+        for ext in metadata.formats.keys():
+            supported_file_filter.add_pattern('*.' + ext)
+            audio_file_filter.add_pattern('*.' + ext)
 
         playlist_file_types = ('m3u', 'pls', 'asx', 'xspf')
         for playlist_file_type in playlist_file_types:

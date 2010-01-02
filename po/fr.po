@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-31 16:59+0000\n"
-"Last-Translator: Malaria <Unknown>\n"
+"PO-Revision-Date: 2010-01-01 21:34+0000\n"
+"Last-Translator: Steve Dodier <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2010-01-01 05:00+0000\n"
+"X-Launchpad-Export-Date: 2010-01-02 04:35+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -1115,7 +1115,7 @@ msgstr "Chargement des flux..."
 
 #: ../xlgui/panel/radio.py:178
 msgid "Add Radio Station"
-msgstr "Ajouter une station de radio"
+msgstr "Ajouter une Station de Radio"
 
 #: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
@@ -1243,6 +1243,8 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Impossible de désactiver le greffon :</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
@@ -2843,7 +2845,7 @@ msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
-"Soumettre les informations d'écoute à Last.fm et les services similaires "
+"Soumet les statistiques d'écoute à Last.fm et aux services similaires "
 "prenant AudioScrobbler en charge"
 
 #: ../plugins/cd/PLUGININFO:3
@@ -2868,13 +2870,13 @@ msgstr "Autoriser la lecture de musiques partagées."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
-msgstr "Crée un object D-Bus MPRIS pour contrôler Exaile"
+msgstr "Crée un objet D-Bus MPRIS pour contrôler Exaile"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr ""
-"Autorise la sauvegarde et le chargement de signets de position dans les "
-"fichiers audio"
+"Autorise l'enregistrement et la lecture de signets de position dans les "
+"fichiers audio."
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
@@ -2890,7 +2892,7 @@ msgstr "Jaquettes Last.fm"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr "Recherche les jaquettes sur Last.fm"
+msgstr "Recherche des jaquettes via Last.fm"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -2914,8 +2916,9 @@ msgid ""
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
 msgstr ""
-"Recherche des jaquettes sur Amazon\n"
-"Pour pouvoir utiliser ce greffon, une clé d'API AWS et une clé secrète sont "
+"Recherche des jaquettes avec Amazon\n"
+"\n"
+"Pour utiliser ce greffon, une clé d'API et une clé secrète AWS sont "
 "nécessaires."
 
 #: ../plugins/desktopcover/PLUGININFO:4
@@ -2924,11 +2927,11 @@ msgstr "Affiche la couverture de l'album courant sur le bureau"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Listes de Lecture Dynamiques Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr "Utilise le système de listes de lecture dynamique de Last.fm"
+msgstr "Le système de listes de lecture dynamiques de Last.fm"
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
@@ -2939,7 +2942,7 @@ msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
-"Remplace la barre de progrès habituelle par une barre d'état d'esprit.\n"
+"Remplace la barre de progrès normale par une barre d'état d'esprit.\n"
 "Requiert : moodbar"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
@@ -2967,17 +2970,17 @@ msgstr "Permet la prise en charge de ReplayGain"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr "Ajoute une prise en charge minimaliste des badalos"
+msgstr "Ajoute une prise en charge minimaliste des balados"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr "Pause à l'Économiseur d'Écran"
+msgstr "Pause en Économiseur d'Écran"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
 msgstr ""
-"Met la lecture en pause lorsque l'économiseur d'écran est lancé et la "
-"relance lorsqu'il est arrêté"
+"Met la lecture en pause au démarrage de l'économiseur d'écran et la relance "
+"lorsqu'il est stoppé"
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"
@@ -2985,7 +2988,7 @@ msgstr "Radio Shoutcast"
 
 #: ../plugins/shoutcast/PLUGININFO:4
 msgid "Shoutcast Radio list"
-msgstr "Liste de radios de Shoutcast"
+msgstr "Liste de Radios Shoutcast"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
@@ -3021,18 +3024,18 @@ msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr "Greffon pour récupérer les paroles depuis lyricsfly.com"
+msgstr "Greffon récupérant les paroles depuis lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr "Prise en charge USB Mass Storage"
+msgstr "Prise en charge des lecteurs USB Mass Storage"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
-"Prise en charge des lecteurs de musique portables utilisant le protocole USB "
+"Prise en charge des lecteurs portables de musique utilisant le protocole USB "
 "Mass Storage"
 
 #: ../plugins/notify/PLUGININFO:4
@@ -3045,12 +3048,12 @@ msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr "Parcourir et écouter des livres audio via Librivox.org."
+msgstr "Parcourir et écouter des livres audio depuis Librivox.org."
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
-"Fournit une console IPython pouvant être utilisée pour manipuler Exaile."
+"Fournit une console IPython qui peut être utilisée pour manipuler Exaile."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
@@ -3058,7 +3061,7 @@ msgstr "Mode compact pour Exaile avec une interface configurable"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr "Jaquettes via les tags"
+msgstr "Jaquettes de tags"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
@@ -3091,17 +3094,19 @@ msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr "Greffon pour récupérer les paroles depuis lyricwiki.org"
+msgstr "Greffon récupérant les paroles depuis lyricwiki.org"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Éditeur de tags Ex Falso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
+"Intègre l'éditeur de tags Ex Falso dans Exaile.\n"
+"Requiert : Ex Falso"
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>Général<b>"

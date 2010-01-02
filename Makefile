@@ -143,7 +143,7 @@ potball:
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \
 	    --transform s/po/./
 
-.PHONY: dist 
+.PHONY: dist test coverage
 
 dist:
 	mkdir -p dist
@@ -152,3 +152,12 @@ dist:
 	./tools/dist.sh
 	rm -rf dist/copy
 
+test:
+	nosetests -w tests
+
+test_coverage:
+	rm -rf coverage/
+	rm -f .coverage
+	nosetests -w tests --with-coverage --cover-package=xl; \
+	mkdir -p coverage; \
+	coverage html -d coverage

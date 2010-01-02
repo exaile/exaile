@@ -57,6 +57,13 @@ PICKLE_PROTOCOL=2
 
 # use this for general logging of exceptions
 def log_exception(log=logger, message="Exception caught!"):
+    """
+        Convenience function to log an exception + traceback
+
+        :param log: the logger object to use.  important to specify
+            so that it will be logged under the right module name.
+        :param message: a message describing the error condition.
+    """
     log.debug(message + "\n" + traceback.format_exc())
 
 def to_unicode(x, default_encoding=None):

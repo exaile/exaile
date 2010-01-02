@@ -58,10 +58,6 @@ class Test_MetadataCacher(unittest.TestCase):
         gobject.timeout_add(
                 mox.IsA(types.IntType),
                 mox.IsA(types.MethodType)).AndReturn(timeout_id)
-        gobject.timeout_add(
-                mox.IsA(types.IntType),
-                mox.IsA(types.MethodType)).AndReturn(timeout_id + 1)
-        gobject.source_remove(mox.IsA(types.IntType))
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
@@ -375,7 +371,7 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('/foo')
         value = u'the hello world'
         val_as = u'Foo Bar'
-        retval = u'foo bar Foo Bar'
+        retval = u'foo bar foo bar Foo Bar Foo Bar'
         tr.set_tag_raw('album', value)
         tr.set_tag_raw('albumsort', val_as)
         self.assertEqual(tr.get_tag_sort('album'), retval)
@@ -393,7 +389,7 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('/foo')
         tr.set_tag_raw('__compilation', 'foo')
         value = u'foo bar'
-        retval = u'foo bar foo bar'
+        retval = u'foo bar foo bar foo bar foo bar'
         tr.set_tag_raw('artist', u'hello world')
         tr.set_tag_raw('albumartist', u'albumartist')
         tr.set_tag_raw('artistsort', value)

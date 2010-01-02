@@ -9,37 +9,45 @@ def test_search_result_track_get_track():
     search_result_track = search.SearchResultTrack(val)
     assert search_result_track.track == val, search_result_track.track
 
+def get_search_result_track():
+    tr = track.Track('file:///foo')
+    return search.SearchResultTrack(tr)
+
+def clear_all_tracks():
+    for key in track.Track._Track__tracksdict.keys():
+        del track.Track._Track__tracksdict[key]
+
 class TestMatcher(unittest.TestCase):
 
     def setUp(self):
         self.mox = mox.Mox()
-        tr = track.Track('file:///foo')
-        tr.set_tag_raw('artist', [u'foo', u'bar'])
-        self.str = search.SearchResultTrack(tr)
+        self.str = get_search_result_track()
+        self.str.track.set_tag_raw('artist', [u'foo', u'bar'])
 
     def tearDown(self):
+        clear_all_tracks()
         self.mox.UnsetStubs()
 
     def test_match_list_true(self):
-        self.mox.StubOutWithMock(search._Matcher, 'matches')
-        search._Matcher.matches(mox.IsA(basestring)).AndReturn(True)
+        self.mox.StubOutWithMock(search._Matcher, '_matches')
+        search._Matcher._matches(mox.IsA(basestring)).AndReturn(True)
         self.mox.ReplayAll()
         matcher = search._Matcher('artist', u'bar', lambda x: x)
         self.assertTrue(matcher.match(self.str))
         self.mox.VerifyAll()
 
     def test_match_list_false(self):
-        self.mox.StubOutWithMock(search._Matcher, 'matches')
-        search._Matcher.matches(mox.IsA(basestring)).AndReturn(False)
-        search._Matcher.matches(mox.IsA(basestring)).AndReturn(False)
+        self.mox.StubOutWithMock(search._Matcher, '_matches')
+        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
+        search._Matcher._matches(mox.IsA(basestring)).AndReturn(False)
         self.mox.ReplayAll()
         matcher = search._Matcher('artist', u'bar', lambda x: x)
         self.assertFalse(matcher.match(self.str))
         self.mox.VerifyAll()
 
     def test_match_list_none(self):
-        self.mox.StubOutWithMock(search._Matcher, 'matches')
-        search._Matcher.matches(None).AndReturn(True)
+        self.mox.StubOutWithMock(search._Matcher, '_matches')
+        search._Matcher._matches(None).AndReturn(True)
         self.mox.ReplayAll()
         matcher = search._Matcher('album', None, lambda x: x)
         self.assertTrue(matcher.match(self.str))
@@ -47,35 +55,53 @@ class TestMatcher(unittest.TestCase):
 
     def test_matches(self):
         matcher = search._Matcher('album', None, lambda x: x)
-        self.assertRaises(NotImplementedError, matcher.matches, 'foo')
+        self.assertRaises(NotImplementedError, matcher._matches, 'foo')
 
 class TestExactMatcher(unittest.TestCase):
 
+    def setUp(self):
+        self.str = get_search_result_track()
+
+    def tearDown(self):
+        clear_all_tracks()
+
     def test_exact_matcher_true(self):
         matcher = search._ExactMatcher('album', 'Foo', lambda x: x)
-        self.assertTrue(matcher.matches('Foo'))
+        self.str.track.set_tag_raw('album', 'Foo')
+        self.assertTrue(matcher.match(self.str))
 
     def test_exact_matcher_false(self):
         matcher = search._ExactMatcher('album', 'Foo', lambda x: x)
-        self.assertFalse(matcher.matches('FoO'))
+        self.str.track.set_tag_raw('album', 'FoO')
+        self.assertFalse(matcher.match(self.str))
 
 class TestInMatcher(unittest.TestCase):
 
+    def setUp(self):
+        self.str = get_search_result_track()
+
+    def tearDown(self):
+        clear_all_tracks()
+
     def test_in_matcher_none(self):
         matcher = search._InMatcher('album', 'Foo', lambda x: x)
-        self.assertFalse(matcher.matches(None))
+        self.str.track.set_tag_raw('album', None)
+        self.assertFalse(matcher.match(self.str))
 
     def test_in_matcher_true(self):
         matcher = search._InMatcher('album', 'hello', lambda x: x)
-        self.assertTrue(matcher.matches('Foohelloworld'))
+        self.str.track.set_tag_raw('album', 'Foohelloworld')
+        self.assertTrue(matcher.match(self.str))
 
     def test_in_matcher_error(self):
         matcher = search._InMatcher('album', 2, lambda x: x)
-        self.assertFalse(matcher.matches('Foohelloworld'))
+        self.str.track.set_tag_raw('album', 'Foohelloworld')
+        self.assertFalse(matcher.match(self.str))
 
     def test_in_matcher_false(self):
         matcher = search._InMatcher('album', 'hello', lambda x: x)
-        self.assertFalse(matcher.matches('Fooheloworld'))
+        self.str.track.set_tag_raw('album', 'Fooheloworld')
+        self.assertFalse(matcher.match(self.str))
 
 class TestMetaMatcherClasses(unittest.TestCase):
 

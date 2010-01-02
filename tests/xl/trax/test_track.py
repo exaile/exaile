@@ -7,6 +7,7 @@ import tempfile
 import unittest
 import logging
 import weakref
+import types
 
 import mox
 import gio
@@ -42,13 +43,12 @@ class Test_MetadataCacher(unittest.TestCase):
         self.mox.StubOutWithMock(gobject, 'timeout_add')
         self.mox.StubOutWithMock(gobject, 'source_remove')
         gobject.timeout_add(
-                self.TIMEOUT,
-                self.mc.remove,
-                'foo').AndReturn(timeout_id)
+                self.TIMEOUT * 1000,
+                self.mc._MetadataCacher__cleanup).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
-        self.assertEqual(self.mc.get('foo'), ['bar', 1])
+        self.assertEqual(self.mc.get('foo'), 'bar')
         self.mox.VerifyAll()
 
     def test_double_add(self):
@@ -56,29 +56,26 @@ class Test_MetadataCacher(unittest.TestCase):
         self.mox.StubOutWithMock(gobject, 'timeout_add')
         self.mox.StubOutWithMock(gobject, 'source_remove')
         gobject.timeout_add(
-                self.TIMEOUT,
-                self.mc.remove,
-                'foo').AndReturn(timeout_id)
+                mox.IsA(types.IntType),
+                mox.IsA(types.MethodType)).AndReturn(timeout_id)
         gobject.timeout_add(
-                self.TIMEOUT,
-                self.mc.remove,
-                'foo').AndReturn(timeout_id + 1)
-        gobject.source_remove(timeout_id)
+                mox.IsA(types.IntType),
+                mox.IsA(types.MethodType)).AndReturn(timeout_id + 1)
+        gobject.source_remove(mox.IsA(types.IntType))
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')
-        self.assertEqual(self.mc.get('foo'), ['bar', 1])
+        self.assertEqual(self.mc.get('foo'), 'bar')
         self.mc.add('foo', 'bar')
-        self.assertEqual(self.mc.get('foo'), ['bar', 2])
+        self.assertEqual(self.mc.get('foo'), 'bar')
         self.mox.VerifyAll()
 
     def test_remove(self):
         timeout_id = 1
         self.mox.StubOutWithMock(gobject, 'timeout_add')
         gobject.timeout_add(
-                self.TIMEOUT,
-                self.mc.remove,
-                'foo').AndReturn(timeout_id)
+                self.TIMEOUT * 1000,
+                mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
         self.mc.add('foo', 'bar')

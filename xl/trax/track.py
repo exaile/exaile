@@ -642,14 +642,11 @@ class Track(object):
             Sets the current track rating from an integer, on the
             scale determined by the ``miscellaneous/rating_steps`` setting.
         """
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-
-        try:
-            rating = min(rating, steps)
-            rating = max(0, rating)
-            rating = float(rating * 100.0 / float(steps))
-        except (TypeError, KeyError, ValueError):
-            return
+        rating = float(rating)
+        steps = float(settings.get_option("miscellaneous/rating_steps", 5))
+        rating = min(rating, steps) 
+        rating = max(0, rating) 
+        rating = float(rating * 100.0 / steps) 
         self.set_tag_raw('__rating', rating)
 
     ### Special functions for wrangling tag values ###

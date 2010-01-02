@@ -26,6 +26,8 @@
 
 import gio
 from xl import metadata
+from xl.trax import track
+
 
 def is_valid_track(loc):
     """
@@ -41,6 +43,8 @@ def get_tracks_from_uri(uri):
     """
     tracks = []
     gloc = gio.File(uri)
+    if not gloc.query_exists():
+        return []
     type = gloc.query_info("standard::type").get_file_type()
     if type == gio.FILE_TYPE_DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj
@@ -51,14 +55,14 @@ def get_tracks_from_uri(uri):
         lib.rescan()
         tracks = tracks.get_tracks()
     else:
-        tracks = [Track(uri)]
+        tracks = [track.Track(uri)]
     return tracks
 
 def sort_tracks(fields, trackiter, reverse=False):
     """
         Sorts tracks.
 
-        :param fields: An iterable of tag names to sort by.
+        :param fields: An random access collection of tag names to sort by.
         :param trackiter: An iterable of Track objects to be sorted.
         :param reverse: Whether to sort in reverse.
     """

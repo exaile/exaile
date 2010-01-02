@@ -551,7 +551,7 @@ class Track(object):
                 tag = 'albumartist'
                 extraformat += " ! __compilation==__null__"
             else:
-                retval = self.__tags.get('artist', '__null__')
+                retval = self.__tags.get('artist')
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.__tags.get(tag))[0]
         elif tag == '__length':
@@ -564,13 +564,22 @@ class Track(object):
             except:
                 retval = -1
         else:
-            retval = self.__tags.get(tag, '__null__')
+            retval = self.__tags.get(tag)
 
+        # Quote arguments
+        if retval is None:
+            retval = '__null__'
+        elif isinstance(retval, list) and format:
+            retval = ['"%s"' % val for val in retval]
+        elif format:
+            retval = '"%s"' % retval
+
+        # Join lists
         if format:
             if isinstance(retval, list):
-                retval = " ".join(["%s==\"%s\""%(tag, val) for val in retval])
+                retval = " ".join(['%s==%s'%(tag, val) for val in retval])
             else:
-                retval = "%s==\"%s\""%(tag, retval)
+                retval = '%s==%s'%(tag, retval)
             if extraformat:
                 retval += extraformat
 

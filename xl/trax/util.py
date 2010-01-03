@@ -62,7 +62,8 @@ def sort_tracks(fields, trackiter, reverse=False):
     """
         Sorts tracks.
 
-        :param fields: An random access collection of tag names to sort by.
+        :param fields: An iterable that supports the index method of tag names
+                       to sort by.
         :param trackiter: An iterable of Track objects to be sorted.
         :param reverse: Whether to sort in reverse.
     """

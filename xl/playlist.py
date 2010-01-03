@@ -191,7 +191,7 @@ def import_from_pls(path, handle=None):
     pl = Playlist(name=name)
 
     for n in range(1,num+1):
-        tr = track.Track(linedict["file%s"%n])
+        tr = trax.Track(linedict["file%s"%n])
         if "title%s"%n in linedict:
             tr.set_tag_raw('title', linedict["title%s"%n])
         else:
@@ -252,7 +252,7 @@ def import_from_asx(path):
     pl = Playlist(name=name)
     for t in tracks:
         loc = t.find("ref").get("href")
-        tr = track.Track(loc)
+        tr = trax.Track(loc)
         try:
             tr.set_tag_raw('title', t.find("title").text.strip())
         except:
@@ -303,7 +303,7 @@ def import_from_xspf(path):
     pl = Playlist(name=name)
     for t in tracks:
         loc = t.find("%slocation"%ns).text.strip()
-        tr = track.Track(loc)
+        tr = trax.Track(loc)
         for xs, tag in XSPF_MAPPING.iteritems():
             try:
                 tr.set_tag_raw(tag, t.find("%s%s"%(ns,xs)).text.strip())

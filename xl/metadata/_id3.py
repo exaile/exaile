@@ -24,12 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import common
-from xl.metadata import BaseFormat
-from mutagen import id3
+from __future__ import absolute_import
 
-import logging
-logger = logging.getLogger(__name__)
+from ._base import BaseFormat
+from mutagen import id3
 
 
 class ID3Format(BaseFormat):
@@ -90,8 +88,7 @@ class ID3Format(BaseFormat):
                     ret.extend([unicode(x.replace('\n','').replace('\r','')) \
                         for x in value.text])
                 except:
-                    logger.warning("Can't parse ID3 field")
-                    common.log_exception(logger)
+                    pass
         return ret
 
     def _set_tag(self, raw, tag, data):

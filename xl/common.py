@@ -196,9 +196,6 @@ class LimitedCache(DictMixin):
     def __iter__(self):
         return self.cache.__iter__()
 
-    def __iteritems__(self):
-        return self.cache.__iteritems__()
-
     def __contains__(self, item):
         return self.cache.__contains__(item)
 

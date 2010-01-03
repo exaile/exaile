@@ -24,22 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from __future__ import absolute_import
 
 import logging
 import shelve
-import traceback
 from copy import deepcopy
-try:
-    import cPickle as pickle
-except:
-    import pickle
 
-from xl import common, event, xdg
+from xl import common, event
 from xl.nls import gettext as _
 
-from track import Track
-from util import sort_tracks
-from search import search_tracks_from_string
+from .track import Track
+from .util import sort_tracks
+from .search import search_tracks_from_string
 
 logger = logging.getLogger(__name__)
 
@@ -216,7 +212,7 @@ class TrackDB(object):
             :type location: string
         """
         if not self._dirty:
-            for k, track in self.tracks.iteritems():
+            for track in self.tracks.itervalues():
                 if track._track._dirty:
                     self._dirty = True
                     break
@@ -356,14 +352,7 @@ class TrackDB(object):
     def search(self, query, sort_fields=[], return_lim=-1,
             tracks=None, reverse=False):
         """
-            Search the trackDB, optionally sorting by sort_field
-
-            :param query:  the search
-            :param sort_fields:  the field(s) to sort by.  Use RANDOM to sort
-                randomly.
-            :type sort_fields: A string or list of strings
-            :param return_lim:  limit the number of tracks returned to a
-                maximum
+            DEPRECATED, DO NOT USE IN NEW CODE
         """
         import warnings
         warnings.warn("TrackDB.search is deprecated.", DeprecationWarning)
@@ -372,10 +361,7 @@ class TrackDB(object):
                 'album', 'title']) ]
 
         if sort_fields:
-            if sort_fields == 'RANDOM':
-                random.shuffle(tracks)
-            else:
-                tracks = sort_tracks(sort_fields, tracks, reverse)
+            tracks = sort_tracks(sort_fields, tracks, reverse)
         if return_lim > 0:
             tracks = tracks[:return_lim]
 

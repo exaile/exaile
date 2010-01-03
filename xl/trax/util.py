@@ -24,8 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from __future__ import absolute_import
+
 import gio
 from xl import metadata
+from .track import Track
+
 
 def is_valid_track(loc):
     """
@@ -41,8 +45,10 @@ def get_tracks_from_uri(uri):
     """
     tracks = []
     gloc = gio.File(uri)
-    type = gloc.query_info("standard::type").get_file_type()
-    if type == gio.FILE_TYPE_DIRECTORY:
+    if not gloc.query_exists():
+        return []
+    file_type = gloc.query_info("standard::type").get_file_type()
+    if file_type == gio.FILE_TYPE_DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj
         from xl.collection import Library, Collection
         tracks = Collection('scanner')
@@ -58,10 +64,12 @@ def sort_tracks(fields, trackiter, reverse=False):
     """
         Sorts tracks.
 
-        :param fields: An iterable of tag names to sort by.
+        :param fields: An iterable of tag names
+                       to sort by.
         :param trackiter: An iterable of Track objects to be sorted.
         :param reverse: Whether to sort in reverse.
     """
+    fields = list(fields) # we need the index method
     artist_compilations = True
     try:
         if fields.index('artist') > fields.index("album"):

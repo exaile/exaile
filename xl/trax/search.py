@@ -157,7 +157,7 @@ class TracksMatcher(object):
         those criteria.
     """
     __slots__ = ['matchers', 'case_sensitive', 'keyword_tags']
-    def __init__(self, search_string, case_sensitive=True, keyword_tags=[]):
+    def __init__(self, search_string, case_sensitive=True, keyword_tags=None):
         """
             :param search_string: a string describing the match conditions
             :param case_sensitive: whether to search in a case-sensitive
@@ -166,7 +166,7 @@ class TracksMatcher(object):
                 in.
         """
         self.case_sensitive = case_sensitive
-        self.keyword_tags = keyword_tags
+        self.keyword_tags = keyword_tags or []
         tokens = self.__tokenize_query(search_string)
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
@@ -224,7 +224,6 @@ class TracksMatcher(object):
                 inner = self.__tokens_to_matchers([token[1]])
                 matchers.append(_MultiMetaMatcher(inner))
             else:
-                logger.warning("Bad search token")
                 return matchers
 
         elif token == '':
@@ -233,7 +232,7 @@ class TracksMatcher(object):
         # normal token
         else:
             if not self.case_sensitive:
-                from string import lower
+                lower = lambda x: x.lower()
             else:
                 lower = lambda x: x
             # exact match in tag
@@ -281,7 +280,7 @@ class TracksMatcher(object):
                 try:
                     newsearch += search[n]
                 except IndexError:
-                    traceback.print_exc()
+                    pass
             elif in_quotes and c != "\"":
                 newsearch += c
             elif c == "\"":
@@ -330,7 +329,7 @@ class TracksMatcher(object):
             before = tokens[:start]
             inside = self.__red(tokens[start+1:end])
             after = tokens[end+1:]
-            tokens = before + [["(",inside]] + after
+            tokens = before + [["(", inside]] + after
 
         # handle NOT
         elif "!" in tokens:
@@ -347,7 +346,7 @@ class TracksMatcher(object):
             inside = [tokens[start-1], tokens[start+1]]
             before = tokens[:start-1]
             after = tokens[start+2:]
-            tokens = before + [["|",inside]] + after
+            tokens = before + [["|", inside]] + after
 
         # nothing special, so just return it
         else:
@@ -382,7 +381,7 @@ def search_tracks(trackiter, trackmatchers):
             yield srtr
 
 def search_tracks_from_string(trackiter, search_string,
-        case_sensitive=True, keyword_tags=[]):
+        case_sensitive=True, keyword_tags=None):
     """
         Convenience wrapper around search_tracks that builds matchers
         automatically from the search string.

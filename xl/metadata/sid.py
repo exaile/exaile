@@ -24,7 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.metadata import BaseFormat
+from __future__ import absolute_import
+
+from ._base import BaseFormat
 from mutagen import FileType
 
 class SidFormat(BaseFormat):

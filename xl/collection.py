@@ -45,8 +45,7 @@ import gobject
 import gio
 
 from xl.nls import gettext as _
-from xl import common, xdg, event, metadata, settings
-from xl.trax import track, trackdb
+from xl import common, xdg, event, metadata, settings, trax
 from xl.settings import SettingsManager
 
 
@@ -68,7 +67,7 @@ def get_collection_by_loc(loc):
             return c
     return None
 
-class Collection(trackdb.TrackDB):
+class Collection(trax.TrackDB):
     """
         Manages a persistent track database.
 
@@ -95,7 +94,7 @@ class Collection(trackdb.TrackDB):
         self._frozen = False
         self._libraries_dirty = False
         pickle_attrs += ['_serial_libraries']
-        trackdb.TrackDB.__init__(self, name, location=location,
+        trax.TrackDB.__init__(self, name, location=location,
                 pickle_attrs=pickle_attrs)
         COLLECTIONS.add(self)
 
@@ -330,13 +329,6 @@ class Library(object):
         self.scan_id = 0
         self.scanning = False
         self.realtime = False
-        try:
-            self.set_realtime(realtime)
-        except PyInotifyNotSupportedException:
-            logger.warning("PyInotify not installed or not supported. " +
-                "Not watching library: %s" % location)
-        except:
-            common.log_exception()
 
         self.collection = None
         self.set_rescan_interval(scan_interval)
@@ -381,7 +373,7 @@ class Library(object):
                     tr.read_tags()
                     continue
 
-            tr = track.Track(fullpath)
+            tr = trax.Track(fullpath)
             if tr._scan_valid:
                 db.add(tr)
 
@@ -497,11 +489,11 @@ class Library(object):
                     if fileinfo.get_is_symlink():
                         target = fileinfo.get_symlink_target()
                         if not "://" in target and not os.path.isabs(target):
-                            fil2 = fil.get_child(target)
+                            fil2 = dir.get_child(target)
                         else:
                             fil2 = gio.File(target)
                         # already in the collection, we'll get it anyway
-                        if fil2.has_prefix(dir):
+                        if fil2.has_prefix(root):
                             continue
                     type = fileinfo.get_file_type()
                     if type == gio.FILE_TYPE_DIRECTORY:
@@ -528,7 +520,7 @@ class Library(object):
             if tr.get_tag_raw('__modified') < mtime:
                 tr.read_tags()
         else:
-            tr = track.Track(uri)
+            tr = trax.Track(uri)
             if tr._scan_valid == True:
                 tr.set_tag_raw('__date_added', time.time())
                 self.collection.add(tr)
@@ -692,7 +684,7 @@ class Library(object):
             oldgloc.move(newgloc)
         else:
             oldgloc.copy(newgloc)
-        tr = track.Track(newgloc.get_uri())
+        tr = trax.Track(newgloc.get_uri())
         if tr._scan_valid:
             self.collection.add(tr)
 

@@ -24,7 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.metadata import BaseFormat
+from __future__ import absolute_import
+
+from ._base import BaseFormat
 from mutagen import mp4
 
 class MP4Format(BaseFormat):
@@ -60,8 +62,7 @@ class MP4Format(BaseFormat):
                 for val in value:
                     tmp = map(int, val.split('/'))
                     f[name].append(tuple(tmp))
-            except:
-                #TODO log something?
+            except TypeError:
                 pass
         else:
             f[name] = value

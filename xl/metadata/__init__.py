@@ -24,19 +24,16 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from __future__ import absolute_import
+
 import os
 import gio
 
-from _base import BaseFormat, NotWritable, NotReadable
+from ._base import BaseFormat, NotWritable, NotReadable
 import urlparse
 
-import ape, asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex, tta, wav, wv
-
-# lossy:    aac (in m4a), ac3, mp2, mp3, musepack, speex, vorbis, wma
-# lossless: aiff, alac (in m4a), ape, flac, tta, wav, wavpack
-# chip:     669, amf, dsm, far, it, med, mod, mtm, okt, s3m, spc, stm, ult, xm
-# other:    au
-# tags not read:  midi, real, shorten (can we fix these?)
+from . import (ape, asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex,
+        tta, wav, wv)
 
 #: dictionary mapping extensions to Format classes.
 formats = {
@@ -94,24 +91,21 @@ def get_format(loc):
     loc = gio.File(loc).get_path()
     if not loc:
         return None
-    (path, ext) = os.path.splitext(loc.lower())
+    ext = os.path.splitext(loc)[1]
     ext = ext[1:] # remove the pesky .
     ext = ext.lower()
 
     try:
-        format = formats[ext]
+        formatclass = formats[ext]
     except KeyError:
         return None # not supported
 
-    if format is None:
-        format = BaseFormat
+    if formatclass is None:
+        formatclass = BaseFormat
 
     try:
-        return format(loc)
+        return formatclass(loc)
     except NotReadable:
-        return None
-    except:
-        common.log_exception(logger)
         return None
 
 

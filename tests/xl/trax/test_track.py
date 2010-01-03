@@ -527,6 +527,8 @@ class TestTrack(unittest.TestCase):
 
     ## Disk tags
     def test_get_disk_tag_length(self):
+        if SkipTest is not None:
+            raise SkipTest("Metadata's do not return length. Might never.")
         tr_name = test_data.get_file_with_ext('.mp3')
         tr = track.Track(tr_name)
         self.assertEqual(tr.get_tag_disk('__length'),

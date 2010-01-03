@@ -50,7 +50,7 @@ def check_exit(options, args):
         Check to see if dbus is running, and if it is, call the appropriate
         methods
     """
-    iface = False
+    iface = None
     exaile = None
     if not options.NewInstance:
         # TODO: handle dbus stuff

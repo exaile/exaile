@@ -497,11 +497,11 @@ class Library(object):
                     if fileinfo.get_is_symlink():
                         target = fileinfo.get_symlink_target()
                         if not "://" in target and not os.path.isabs(target):
-                            fil2 = fil.get_child(target)
+                            fil2 = dir.get_child(target)
                         else:
                             fil2 = gio.File(target)
                         # already in the collection, we'll get it anyway
-                        if fil2.has_prefix(dir):
+                        if fil2.has_prefix(root):
                             continue
                     type = fileinfo.get_file_type()
                     if type == gio.FILE_TYPE_DIRECTORY:

@@ -224,7 +224,6 @@ class TracksMatcher(object):
                 inner = self.__tokens_to_matchers([token[1]])
                 matchers.append(_MultiMetaMatcher(inner))
             else:
-                logger.warning("Bad search token")
                 return matchers
 
         elif token == '':
@@ -281,7 +280,7 @@ class TracksMatcher(object):
                 try:
                     newsearch += search[n]
                 except IndexError:
-                    traceback.print_exc()
+                    pass
             elif in_quotes and c != "\"":
                 newsearch += c
             elif c == "\"":

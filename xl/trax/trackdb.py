@@ -356,14 +356,7 @@ class TrackDB(object):
     def search(self, query, sort_fields=[], return_lim=-1,
             tracks=None, reverse=False):
         """
-            Search the trackDB, optionally sorting by sort_field
-
-            :param query:  the search
-            :param sort_fields:  the field(s) to sort by.  Use RANDOM to sort
-                randomly.
-            :type sort_fields: A string or list of strings
-            :param return_lim:  limit the number of tracks returned to a
-                maximum
+            DEPRECATED, DO NOT USE IN NEW CODE
         """
         import warnings
         warnings.warn("TrackDB.search is deprecated.", DeprecationWarning)
@@ -372,10 +365,7 @@ class TrackDB(object):
                 'album', 'title']) ]
 
         if sort_fields:
-            if sort_fields == 'RANDOM':
-                random.shuffle(tracks)
-            else:
-                tracks = sort_tracks(sort_fields, tracks, reverse)
+            tracks = sort_tracks(sort_fields, tracks, reverse)
         if return_lim > 0:
             tracks = tracks[:return_lim]
 

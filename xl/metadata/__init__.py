@@ -110,9 +110,6 @@ def get_format(loc):
         return format(loc)
     except NotReadable:
         return None
-    except:
-        common.log_exception(logger)
-        return None
 
 
 # vim: et sts=4 sw=4

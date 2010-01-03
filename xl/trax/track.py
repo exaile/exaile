@@ -551,7 +551,7 @@ class Track(object):
                 tag = 'albumartist'
                 extraformat += " ! __compilation==__null__"
             else:
-                retval = self.__tags.get('artist', '__null__')
+                retval = self.__tags.get('artist')
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.__tags.get(tag))[0]
         elif tag == '__length':
@@ -564,13 +564,22 @@ class Track(object):
             except:
                 retval = -1
         else:
-            retval = self.__tags.get(tag, '__null__')
+            retval = self.__tags.get(tag)
 
+        # Quote arguments
+        if retval is None:
+            retval = '__null__'
+        elif isinstance(retval, list) and format:
+            retval = ['"%s"' % val for val in retval]
+        elif format:
+            retval = '"%s"' % retval
+
+        # Join lists
         if format:
             if isinstance(retval, list):
-                retval = " ".join(["%s==\"%s\""%(tag, val) for val in retval])
+                retval = " ".join(['%s==%s'%(tag, val) for val in retval])
             else:
-                retval = "%s==\"%s\""%(tag, retval)
+                retval = '%s==%s'%(tag, retval)
             if extraformat:
                 retval += extraformat
 
@@ -642,14 +651,11 @@ class Track(object):
             Sets the current track rating from an integer, on the
             scale determined by the ``miscellaneous/rating_steps`` setting.
         """
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-
-        try:
-            rating = min(rating, steps)
-            rating = max(0, rating)
-            rating = float(rating * 100.0 / float(steps))
-        except (TypeError, KeyError, ValueError):
-            return
+        rating = float(rating)
+        steps = float(settings.get_option("miscellaneous/rating_steps", 5))
+        rating = min(rating, steps) 
+        rating = max(0, rating) 
+        rating = float(rating * 100.0 / steps) 
         self.set_tag_raw('__rating', rating)
 
     ### Special functions for wrangling tag values ###

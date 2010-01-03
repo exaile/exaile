@@ -541,3 +541,13 @@ class TestTrack(unittest.TestCase):
         tr = track.Track('/tmp/foo.bah')
         self.assertEqual(tr.get_tag_disk('artist'), None)
 
+    def test_list_disk_tag(self):
+        tr_name = test_data.get_file_with_ext('.ogg')
+        tr = track.Track(tr_name)
+        self.assertEqual(set(tr.list_tags_disk()),
+                        set(('album', 'tracknumber', 'artist', 'title')))
+
+    def test_list_disk_tag_invalid_format(self):
+        tr_name = '/tmp/foo.foo'
+        tr = track.Track(tr_name)
+        self.assertEqual(tr.list_tags_disk(), None)

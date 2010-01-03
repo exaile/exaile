@@ -24,7 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.metadata._apev2 import ApeFormat
+from __future__ import absolute_import
+
+from ._apev2 import ApeFormat
 from mutagen import wavpack
 
 class WavpackFormat(ApeFormat):

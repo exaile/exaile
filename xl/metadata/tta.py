@@ -24,7 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.metadata._id3 import ID3Format
+from __future__ import absolute_import
+
+from ._id3 import ID3Format
 from mutagen import trueaudio
 
 class TTAFormat(ID3Format):

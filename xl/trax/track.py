@@ -26,11 +26,9 @@
 # from your version.
 
 import logging
-import os
 import time
 import weakref
 import unicodedata
-from functools import wraps
 from copy import deepcopy
 import gio
 import gobject
@@ -59,7 +57,7 @@ _sortcharmap = {
 _VARIOUSARTISTSSTR = _("Various Artists")
 _UNKNOWNSTR = _("Unknown")
 #TRANSLATORS: String multiple tag values will be joined by
-_JOINSTR =_(u' & ')
+_JOINSTR = _(u' & ')
 
 
 class _MetadataCacher(object):
@@ -85,8 +83,8 @@ class _MetadataCacher(object):
             if item[2] < thresh:
                 self._cache.remove(item)
         if self._cache:
-            next = min([i[2] for i in self._cache])
-            timeout = ((next + self.timeout) - current)
+            next_expiry = min([i[2] for i in self._cache])
+            timeout = ((next_expiry + self.timeout) - current)
             self._cleanup_id = gobject.timeout_add(timeout*1000,
                     self.__cleanup)
 
@@ -97,7 +95,7 @@ class _MetadataCacher(object):
         item = [trackobj, formatobj, time.time()]
         self._cache.append(item)
         if len(self._cache) > self.maxentries:
-            least = min([(i[2],i) for i in self._cache])[1]
+            least = min([(i[2], i) for i in self._cache])[1]
             self._cache.remove(least)
         if not self._cleanup_id:
             self._cleanup_id = gobject.timeout_add(self.timeout*1000,
@@ -294,7 +292,7 @@ class Track(object):
                 self._scan_valid = False
                 return False # not a supported type
             ntags = f.read_all()
-            for k,v in ntags.iteritems():
+            for k, v in ntags.iteritems():
                 self.set_tag_raw(k, v)
 
             # remove tags that have been deleted in the file, while
@@ -579,7 +577,7 @@ class Track(object):
             if isinstance(retval, list):
                 retval = " ".join(['%s==%s'%(tag, val) for val in retval])
             else:
-                retval = '%s==%s'%(tag, retval)
+                retval = '%s==%s' % (tag, retval)
             if extraformat:
                 retval += extraformat
 

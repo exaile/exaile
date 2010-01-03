@@ -25,14 +25,7 @@
 # from your version.
 
 import copy
-import logging
-import os
-import urllib2
-import urlparse
 import gio
-from xl import common
-
-logger = logging.getLogger(__name__)
 
 INFO_TAGS = ['__bitrate', '__length']
 
@@ -77,9 +70,6 @@ class BaseFormat(object):
             try:
                 self.mutagen = self.MutagenType(self.loc)
             except:
-                logger.error("Couldn't read tags from possibly corrupt " \
-                        "file %s" % self.loc)
-                common.log_exception(logger)
                 raise NotReadable
 
     def save(self):
@@ -130,16 +120,11 @@ class BaseFormat(object):
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
             if t.startswith("__"):
-                logger.warning("Could not import tag %(tag)s from file "
-                        "%(location)s because of possible conflict from "
-                        "leading __, please adjust your tag names if you "
-                        "want to import this tag." % \
-                                {'tag': t, 'location': self.loc})
                 continue
             tags.append(t)
-        all = self.read_tags(tags)
-        all.update(self.read_tags(INFO_TAGS))
-        return all
+        alltags = self.read_tags(tags)
+        alltags.update(self.read_tags(INFO_TAGS))
+        return alltags
 
     def read_tags(self, tags):
         """
@@ -216,7 +201,7 @@ class BaseFormat(object):
             for tag in INFO_TAGS:
                 try:
                     del tagdict[tag]
-                except:
+                except KeyError:
                     pass
 
             # tags starting with __ are internal and should not be written
@@ -224,7 +209,7 @@ class BaseFormat(object):
                 if tag.startswith("__"):
                     try:
                         del tagdict[tag]
-                    except:
+                    except KeyError:
                         pass
 
             for tag in tagdict:
@@ -246,19 +231,19 @@ class BaseFormat(object):
     def get_length(self):
         try:
             return self.mutagen.info.length
-        except:
+        except AttributeError:
             try:
                 return self.mutagen['__length']
-            except:
+            except (KeyError, TypeError):
                 return None
 
     def get_bitrate(self):
         try:
             return self.mutagen.info.bitrate
-        except:
+        except AttributeError:
             try:
                 return self.mutagen['__bitrate']
-            except:
+            except (KeyError, TypeError):
                 return None
 
 # vim: et sts=4 sw=4

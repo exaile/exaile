@@ -24,22 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from __future__ import absolute_import
 
 import logging
 import shelve
-import traceback
 from copy import deepcopy
-try:
-    import cPickle as pickle
-except:
-    import pickle
 
-from xl import common, event, xdg
+from xl import common, event
 from xl.nls import gettext as _
 
-from track import Track
-from util import sort_tracks
-from search import search_tracks_from_string
+from .track import Track
+from .util import sort_tracks
+from .search import search_tracks_from_string
 
 logger = logging.getLogger(__name__)
 
@@ -216,7 +212,7 @@ class TrackDB(object):
             :type location: string
         """
         if not self._dirty:
-            for k, track in self.tracks.iteritems():
+            for track in self.tracks.itervalues():
                 if track._track._dirty:
                     self._dirty = True
                     break

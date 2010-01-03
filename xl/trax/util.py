@@ -24,9 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from __future__ import absolute_import
+
 import gio
 from xl import metadata
-from track import Track
+from .track import Track
 
 
 def is_valid_track(loc):
@@ -45,8 +47,8 @@ def get_tracks_from_uri(uri):
     gloc = gio.File(uri)
     if not gloc.query_exists():
         return []
-    type = gloc.query_info("standard::type").get_file_type()
-    if type == gio.FILE_TYPE_DIRECTORY:
+    file_type = gloc.query_info("standard::type").get_file_type()
+    if file_type == gio.FILE_TYPE_DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj
         from xl.collection import Library, Collection
         tracks = Collection('scanner')
@@ -55,7 +57,7 @@ def get_tracks_from_uri(uri):
         lib.rescan()
         tracks = tracks.get_tracks()
     else:
-        tracks = [track.Track(uri)]
+        tracks = [Track(uri)]
     return tracks
 
 def sort_tracks(fields, trackiter, reverse=False):

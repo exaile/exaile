@@ -73,7 +73,6 @@ class Main(object):
 
             @param exaile: The Exaile instance
         """
-        import xl.main as xlmain
         from xlgui import main, panel, tray, progress
         from xlgui.panel import collection, radio, playlists, files
 
@@ -221,8 +220,8 @@ class Main(object):
         dialog.hide()
         if result == gtk.RESPONSE_OK:
             files = dialog.get_filenames()
-            for file in files:
-                self.open_uri(file, play=False)
+            for f in files:
+                self.open_uri(f, play=False)
 
     def open_uri(self, uri, play=True):
         """
@@ -245,7 +244,7 @@ class Main(object):
             pl = self.main.get_selected_playlist()
             column, descending = pl.get_sort_by()
 
-            tracks = track.get_tracks_from_uri(uri)
+            tracks = trax.get_tracks_from_uri(uri)
             tracks = trax.sort_tracks(pl.return_order_tags(column), tracks)
 
             try:
@@ -351,6 +350,7 @@ class Main(object):
         pl = self.main.get_selected_playlist()
         if not pl.properties_dialog():
             if self.exaile.player.current:
+                from xlgui import properties
                 dialog = properties.TrackPropertiesDialog(self.main.window,
                         [self.exaile.player.current])
                 dialog.hide()
@@ -387,9 +387,9 @@ class Main(object):
             return
 
         page = notebook.get_nth_page(pagenum)
-        for id, panel in self.panels.items():
+        for i, panel in self.panels.items():
             if panel._child == page:
-                settings.set_option('gui/last_selected_panel', id)
+                settings.set_option('gui/last_selected_panel', i)
                 return
 
     def show_about_dialog(self, *e):

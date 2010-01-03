@@ -26,7 +26,7 @@
 
 import gio
 from xl import metadata
-from xl.trax import track
+from track import Track
 
 
 def is_valid_track(loc):

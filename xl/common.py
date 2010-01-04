@@ -164,7 +164,10 @@ def open_file(path):
     """
     platform = sys.platform
     if platform == 'win32':
+        # pylint will error here on non-windows platforms unless we do this
+        # pylint: disable-msg=E1101
         os.startfile(path)
+        # pylint: enable-msg=E1101
     elif platform == 'darwin':
         subprocess.Popen(["open", path])
     else:

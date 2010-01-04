@@ -24,11 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from __future__ import absolute_import
-
 import gio
 from xl import metadata
-from .track import Track
+from xl.trax.track import Track
 
 
 def is_valid_track(loc):

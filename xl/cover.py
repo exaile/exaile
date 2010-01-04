@@ -207,6 +207,8 @@ class CoverManager(providers.ProviderHandler):
             :param local_only: If True, will only return results from local
                     sources.
         """
+        if track is None:
+            return
         covers = []
         for method in self._get_methods(fixed=True):
             if local_only and method.use_cache:
@@ -242,6 +244,8 @@ class CoverManager(providers.ProviderHandler):
         """
             Remove the saved cover entry for a track, if it exists.
         """
+        if track is None:
+            return
         key = self._get_track_key(track)
         db_string = self.db.get(key)
         if db_string:
@@ -261,6 +265,9 @@ class CoverManager(providers.ProviderHandler):
             :param set_only: Only retrieve covers that have been set
                     in the db.
         """
+        if track is None:
+            return None
+
         key = self._get_track_key(track)
         db_string = self.db.get(key)
         if db_string:

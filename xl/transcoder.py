@@ -116,7 +116,7 @@ FORMATS = {
 # manually write the tags after transcoding has completed.
 
 
-def get_formats(self):
+def get_formats():
     ret = {}
     for name, val in FORMATS.iteritems():
         try:
@@ -129,9 +129,9 @@ def get_formats(self):
             pass
     return ret
 
-def add_format(self, name, format):
+def add_format(name, fmt):
     global FORMATS
-    FORMATS[name] = format
+    FORMATS[name] = fmt
 
 class TranscodeError(Exception):
     pass
@@ -162,9 +162,9 @@ class Transcoder(object):
             self.quality = value
 
     def _construct_encoder(self):
-        format = FORMATS[self.dest_format]
+        fmt = FORMATS[self.dest_format]
         quality = self.quality
-        self.encoder = format["command"]%quality
+        self.encoder = fmt["command"]%quality
 
     def set_input(self, uri):
         self.input = """filesrc location="%s" """%uri

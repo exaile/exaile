@@ -82,7 +82,7 @@ class Exaile(object):
 
         #load the rest.
         self.__init()
-        
+
         #connect dbus signals
         if self.options.Dbus:
             self.dbus._connect_signals()
@@ -100,6 +100,7 @@ class Exaile(object):
         """
             Initializes Exaile
         """
+        # pylint: disable-msg=W0201
         logger.info("Loading Exaile %s..." % __version__)
 
         logger.info("Loading settings...")
@@ -231,6 +232,7 @@ class Exaile(object):
         self.loading = False
         Exaile._exaile = self
         event.log_event("exaile_loaded", self, None)
+        # pylint: enable-msg=W0201
 
     def __show_splash(self):
         """
@@ -433,7 +435,7 @@ class Exaile(object):
         gobject.threads_init()
         if self.options.Dbus:
             import dbus, dbus.mainloop.glib
-            dbus_loop = dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+            dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
             dbus.mainloop.glib.threads_init()
             dbus.mainloop.glib.gthreads_init()
         if self.options.StartGui:

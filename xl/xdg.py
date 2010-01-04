@@ -92,16 +92,16 @@ def get_cache_dir():
 
 def get_data_path(*subpath_elements):
     subpath = os.path.join(*subpath_elements)
-    for dir in data_dirs:
-        path = os.path.join(dir, subpath)
+    for d in data_dirs:
+        path = os.path.join(d, subpath)
         if os.path.exists(path):
             return path
     return None
 
 def get_config_path(*subpath_elements):
     subpath = os.path.join(*subpath_elements)
-    for dir in config_dirs:
-        path = os.path.join(dir, subpath)
+    for d in config_dirs:
+        path = os.path.join(d, subpath)
         if os.path.exists(path):
             return path
     return None

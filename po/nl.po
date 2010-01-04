@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-04 20:43+0000\n"
-"Last-Translator: rob <linuxned@gmail.com>\n"
+"PO-Revision-Date: 2010-01-03 16:29+0000\n"
+"Last-Translator: Lucky Luke <luckyluke56@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-12-05 04:35+0000\n"
+"X-Launchpad-Export-Date: 2010-01-04 04:35+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -100,7 +100,7 @@ msgstr "Vooruitgang binnen het huidige nummer weergeven als percentage"
 
 #: ../xl/main.py:329
 msgid "Volume options"
-msgstr "Volume-opties"
+msgstr "Volume opties"
 
 #: ../xl/main.py:331
 msgid "Increases the volume by VOL%"
@@ -154,7 +154,7 @@ msgstr "Stel de datamap in"
 
 #: ../xl/main.py:361
 msgid "Show debugging output"
-msgstr "Debug-uitvoer tonen"
+msgstr "Debug uitvoer tonen"
 
 #: ../xl/main.py:364
 msgid "Enable debugging of xl.event. Generates LOTS of output"
@@ -311,16 +311,16 @@ msgstr "Een onbekend type instelling werd gevonden!"
 
 #: ../xl/plugins.py:84
 msgid "Plugin archive is not in the correct format"
-msgstr "Plug-inarchief is niet in het goede formaat"
+msgstr "Pluginarchief is niet in het goede formaat"
 
 #: ../xl/plugins.py:91
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr "Een plug-in met de naam \"%s\" is al geïnstalleerd"
+msgstr "Een plugin met de naam \"%s\" is al geïnstalleerd"
 
 #: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
-msgstr "Plug-inarchief bevat een onveilig pad"
+msgstr "Pluginarchief bevat een onveilig pad"
 
 #: ../xl/playlist.py:386
 #, python-format
@@ -342,11 +342,11 @@ msgstr ""
 
 #: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
-msgstr "Je hebt geen locatie opgegeven om de db van te laden"
+msgstr "Je hebt geen locatie opgegeven om de database van de laden"
 
 #: ../xlgui/properties.py:36
 msgid "Original Album"
-msgstr "Origineel Album"
+msgstr "Originele Album"
 
 #: ../xlgui/properties.py:37
 msgid "Lyricist"
@@ -469,7 +469,7 @@ msgstr "Toegevoegd op"
 #: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160
 #: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:69
 msgid "Length"
-msgstr "Tijd"
+msgstr "Duur"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #. (_('in the last'), (SpinDateField,
@@ -505,7 +505,7 @@ msgstr "Laatst afgespeeld"
 #: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr "Bewerking nummer %(current)d van %(total)d"
+msgstr "Nummer %(current)d van de %(total)d aan het bewerken"
 
 #: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
@@ -681,7 +681,7 @@ msgstr "Toevoegen aan huidige afspeellijst"
 
 #: ../xlgui/menu.py:245
 msgid "Queue Items"
-msgstr "Items aan wachtrij toevoegen"
+msgstr "Nummers in de wachtrij zetten"
 
 #: ../xlgui/menu.py:310
 msgid "Delete track"
@@ -721,19 +721,19 @@ msgstr "Exporteren als..."
 
 #: ../xlgui/menu.py:416 ../xlgui/__init__.py:143
 msgid "M3U Playlist"
-msgstr "M3U-afspeellijst"
+msgstr "M3U afspeellijst"
 
 #: ../xlgui/menu.py:417 ../xlgui/__init__.py:144
 msgid "PLS Playlist"
-msgstr "PLS-afspeellijst"
+msgstr "PLS afspeellijst"
 
 #: ../xlgui/menu.py:418 ../xlgui/__init__.py:145
 msgid "ASX Playlist"
-msgstr "ASX-afspeellijst"
+msgstr "ASX afspeellijst"
 
 #: ../xlgui/menu.py:419 ../xlgui/__init__.py:146
 msgid "XSPF Playlist"
-msgstr "XSPF-afspeellijst"
+msgstr "XSPF afspeellijst"
 
 #: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:985
 msgid "Are you sure you want to permanently delete the selected playlist?"
@@ -1158,7 +1158,7 @@ msgstr "Albumhoezen"
 
 #: ../xlgui/prefs/appearance_prefs.py:32
 msgid "Appearance"
-msgstr "Weergave"
+msgstr "Uiterlijk"
 
 #: ../xlgui/prefs/playback_prefs.py:32
 msgid "Playback"
@@ -1170,7 +1170,7 @@ msgstr "Voorkeuren"
 
 #: ../xlgui/prefs/__init__.py:94 ../xlgui/prefs/plugin_prefs.py:34
 msgid "Plugins"
-msgstr "Plug-ins"
+msgstr "Plugins"
 
 #: ../xlgui/prefs/collection_prefs.py:22 ../data/ui/device_panel.ui.h:1
 #: ../data/ui/collection_panel.ui.h:6
@@ -1200,7 +1200,7 @@ msgstr "Infoschermvenster"
 
 #: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"
-msgstr "Plug-in"
+msgstr "Plugin"
 
 #: ../xlgui/prefs/plugin_prefs.py:106
 #: ../plugins/multialarmclock/alarmclk.ui.h:6
@@ -1210,11 +1210,11 @@ msgstr "Ingeschakeld"
 
 #: ../xlgui/prefs/plugin_prefs.py:128
 msgid "Choose a plugin"
-msgstr "Selecteer een plug-in"
+msgstr "Selecteer een plugin"
 
 #: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
-msgstr "Plug-inarchieven"
+msgstr "Plugin archieven"
 
 #: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
@@ -1222,7 +1222,7 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
-"<b>Kon plug-in niet inschakelen:</b>\n"
+"<b>Kon plugin niet inschakelen:</b>\n"
 "%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
@@ -1231,7 +1231,7 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
-"<b>Kon plug-in niet uitschakelen:</b>\n"
+"<b>Kon plugin niet uitschakelen:</b>\n"
 "%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
@@ -1280,11 +1280,11 @@ msgstr "Exaile muziekspeler"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
-msgstr "(Rechtsklik om standaardwaarden te herstellen)"
+msgstr "Rechtsklik om terug te gaan naar de standaardwaarden"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
-msgstr "Gebruik op bestanden gebaseerde collectieherkenning"
+msgstr "Gebruik op bestanden gebaseerde compilatie cd herkenning"
 
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"
@@ -1294,7 +1294,7 @@ msgstr ""
 
 #: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
 msgid "Open last playlists on startup"
-msgstr "Open de laatste afspeellijst bij opstarten"
+msgstr "Open de laatste afspeellijsten bij opstarten"
 
 #: ../data/ui/main.ui.h:1
 msgid "0/0 tracks"
@@ -1365,7 +1365,7 @@ msgstr "Nummereigenscha_ppen"
 
 #: ../data/ui/main.ui.h:23
 msgid "_Autosize"
-msgstr "_Autosize"
+msgstr "Automatische breedte"
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
@@ -1409,7 +1409,7 @@ msgstr "Afspeellijst in willekeu_rige volgorde"
 
 #: ../data/ui/main.ui.h:35
 msgid "_Resizable"
-msgstr "_Vergrootbaar"
+msgstr "Herschaalbaar"
 
 #: ../data/ui/main.ui.h:36
 msgid "_Tools"
@@ -1473,7 +1473,7 @@ msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Geen plug-in geselecteerd</b>"
+msgstr "<b>Geen plugin geselecteerd</b>"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:2
 msgid "Authors:"
@@ -1481,7 +1481,7 @@ msgstr "Auteurs:"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:3
 msgid "Available Plugins"
-msgstr "Beschikbare plug-ins"
+msgstr "Beschikbare plugins"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:4
 msgid "Description:"
@@ -1497,15 +1497,15 @@ msgstr "Updates Installeren"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:7
 msgid "Install a third party plugin from a file"
-msgstr "Installeer een plug-in van een derde partij vanuit een bestand"
+msgstr "Installeer een plugin van een derde partij vanuit een bestand"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr "Installeer plug-inbestand"
+msgstr "Installeer pluginbestand"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
-msgstr "Geïnstalleerde plug-ins"
+msgstr "Geïnstalleerde plugins"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:10
 msgid "Updates"
@@ -1587,7 +1587,8 @@ msgstr "Achtergrondkleur:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:3
 msgid "Display OSD when hovering over tray icon"
-msgstr "Infoschermvenster tonen bij rollen over systeemvakpictogram"
+msgstr ""
+"Infoschermvenster tonen als je muis op het systeemvakpictogram staat."
 
 #: ../data/ui/osd_prefs_pane.ui.h:4
 msgid "Display a progressbar in the OSD"
@@ -1705,7 +1706,7 @@ msgstr "ALSA"
 
 #: ../data/ui/playback_prefs_pane.ui.h:2
 msgid "Audio Sink:  "
-msgstr "Audio Daal:  "
+msgstr "Audio systeem:  "
 
 #: ../data/ui/playback_prefs_pane.ui.h:4
 msgid "Crossfade duration (ms):"
@@ -1749,11 +1750,11 @@ msgstr "Hervat het afspelen op start"
 
 #: ../data/ui/playback_prefs_pane.ui.h:14
 msgid "These options only affect the unified engine."
-msgstr "Deze opties beïnvloeden alleen de verenigde engine."
+msgstr "Deze opties beïnvloeden alleen de unified engine."
 
 #: ../data/ui/playback_prefs_pane.ui.h:15
 msgid "Unified (unstable)"
-msgstr "Verenigd (onstabiel)"
+msgstr "Unified (onstabiel)"
 
 #: ../data/ui/playback_prefs_pane.ui.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
@@ -1761,7 +1762,7 @@ msgstr "Gebruik overvloeien (EXPERIMENTEEL)"
 
 #: ../data/ui/playback_prefs_pane.ui.h:17
 msgid "Use fade transitions on user actions"
-msgstr "Gebruik fade overgangen op acties van gebruikers"
+msgstr "Gebruik fade overgangen op acties van gebruiker"
 
 #: ../data/ui/osd_window.ui.h:1
 msgid ""

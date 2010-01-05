@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-18 17:00+0000\n"
+"PO-Revision-Date: 2009-11-01 19:50+0000\n"
 "Last-Translator: David Hardstone <dhardstone@gmail.com>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-19 07:09+0000\n"
+"X-Launchpad-Export-Date: 2009-11-02 08:23+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
@@ -1005,7 +1005,7 @@ msgstr ""
 
 #: ../xlgui/panel/collection.py:162
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Re-scan Collection"
 
 #: ../xlgui/panel/collection.py:625
 msgid "Various Artists"

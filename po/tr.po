@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-31 14:12+0000\n"
+"PO-Revision-Date: 2010-01-05 18:27+0000\n"
 "Last-Translator: Yusuff <yusuf21500@gmail.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-01 05:00+0000\n"
+"X-Launchpad-Export-Date: 2010-01-06 04:34+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -120,7 +120,7 @@ msgstr "Diğer seçenkler:"
 
 #: ../xl/main.py:340
 msgid "Start new instance"
-msgstr ""
+msgstr "Yeni örnek başlat"
 
 #: ../xl/main.py:343
 msgid "Start minimized (to tray, if possible)"
@@ -273,7 +273,7 @@ msgstr "  Yeni parça, albüm kapağı alınıyor."
 
 #: ../xl/devices.py:141 ../xl/devices.py:147
 msgid "Device class does not support transfer."
-msgstr ""
+msgstr "Aygıt sınıf aktarımını desteklemiyor."
 
 #: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
 #: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
@@ -298,19 +298,19 @@ msgstr ""
 
 #: ../xl/settings.py:94
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "Ayarlar versiyonu mevcut versiyondan daha yeni."
 
 #: ../xl/settings.py:179
 msgid "We don't know how to store that kind of setting: "
-msgstr ""
+msgstr "Bu tür ayarın nasıl saklanacağını bilmiyoruz. "
 
 #: ../xl/settings.py:206
 msgid "An Unknown type of setting was found!"
-msgstr ""
+msgstr "Ayarların bilinmeyen bir tipi bulundu."
 
 #: ../xl/plugins.py:84
 msgid "Plugin archive is not in the correct format"
-msgstr ""
+msgstr "Eklenti arşivi doğru format değil."
 
 #: ../xl/plugins.py:91
 #, python-format
@@ -319,7 +319,7 @@ msgstr "\"%s\" adında bir eklenti zaten kurulu"
 
 #: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
-msgstr ""
+msgstr "Eklenti arşivinde güvenli olmayan bir paket vat."
 
 #: ../xl/playlist.py:386
 #, python-format
@@ -339,7 +339,7 @@ msgstr ""
 
 #: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "db yüklemenk için bir konum belirtmediniz."
 
 #: ../xlgui/properties.py:36
 msgid "Original Album"
@@ -560,11 +560,11 @@ msgstr ""
 #: ../xlgui/main.py:862
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr ""
+msgstr "Arabelleğe alınıyor: %d%%..."
 
 #: ../xlgui/main.py:864
 msgid "Buffering: 100%..."
-msgstr ""
+msgstr "Arabelleğe alınıyor: 100%..."
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
@@ -587,6 +587,8 @@ msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
+"Exaile Müzik Oynatıcı\n"
+"Çalmıyor"
 
 #. TRANSLATORS: Window title
 #: ../xlgui/main.py:1219
@@ -609,7 +611,7 @@ msgstr ""
 #: ../xlgui/main.py:1242
 #, python-format
 msgid "In pause: %s"
-msgstr ""
+msgstr "Durduruldu: %s"
 
 #: ../xlgui/main.py:1244
 #, python-format
@@ -627,7 +629,7 @@ msgstr "Yeni Çalma Listesi"
 
 #: ../xlgui/menu.py:157
 msgid "Add to custom playlist"
-msgstr ""
+msgstr "Özel çalma listesi ekle."
 
 #: ../xlgui/menu.py:160 ../xlgui/menu.py:487
 msgid "Remove"
@@ -648,15 +650,15 @@ msgstr ""
 
 #: ../xlgui/menu.py:214
 msgid "_Rename Playlist"
-msgstr ""
+msgstr "_Çalma listesini yeniden adlandır"
 
 #: ../xlgui/menu.py:216
 msgid "_Save As Custom Playlist"
-msgstr ""
+msgstr "_Özel listeyi farklı kaydet"
 
 #: ../xlgui/menu.py:218
 msgid "_Save Changes To Playlist"
-msgstr ""
+msgstr "_Özel listeyi kaydet"
 
 #: ../xlgui/menu.py:219
 msgid "_Save As..."
@@ -688,7 +690,7 @@ msgstr "Yeni İstasyon Ekle"
 
 #: ../xlgui/menu.py:346
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "Hızlı yeni çalma listesi"
 
 #: ../xlgui/menu.py:390
 msgid "Open"
@@ -712,7 +714,7 @@ msgstr "Çalma Listesini Sil"
 
 #: ../xlgui/menu.py:411
 msgid "Export as..."
-msgstr ""
+msgstr "Dışarı çıkart..."
 
 #: ../xlgui/menu.py:416 ../xlgui/__init__.py:143
 msgid "M3U Playlist"
@@ -742,7 +744,7 @@ msgstr "Çalma listeniz için istediğiniz yeni ismi giriniz"
 #: ../xlgui/cover.py:308
 #, python-format
 msgid "%d covers to fetch"
-msgstr ""
+msgstr "%d kapaklarını getir"
 
 #: ../xlgui/cover.py:313 ../xlgui/cover.py:332 ../data/ui/covermanager.ui.h:2
 msgid "Start"
@@ -775,7 +777,7 @@ msgstr ""
 
 #: ../xlgui/osd.py:219
 msgid "No track"
-msgstr ""
+msgstr "İz yok"
 
 #: ../xlgui/__init__.py:138
 msgid "Export current playlist..."
@@ -787,7 +789,7 @@ msgstr "Geçersiz dosya uzantısı, dosya kaydedilmedi"
 
 #: ../xlgui/__init__.py:168
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Açmak için bir URL girin"
 
 #: ../xlgui/__init__.py:169
 msgid "Open URL"
@@ -909,7 +911,7 @@ msgstr "Çalma Sayısı"
 
 #: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
-msgstr ""
+msgstr "Son çalınan"
 
 #: ../xlgui/plcolumns.py:267
 msgid "Track Number"
@@ -1059,15 +1061,15 @@ msgstr "arasında"
 #: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
 #: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Girilen çalma listesi ismi şuan kullanımda."
 
 #: ../xlgui/panel/playlists.py:367
 msgid "New custom playlist name:"
-msgstr ""
+msgstr "Özel çalma listesi adı:"
 
 #: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
-msgstr ""
+msgstr "Yeni çalma listesi ekle..."
 
 #: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
 #: ../xlgui/panel/playlists.py:678
@@ -1097,7 +1099,7 @@ msgstr ""
 
 #: ../xlgui/panel/radio.py:178
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Radyo istasyonu ekle"
 
 #: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
@@ -1134,6 +1136,8 @@ msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
+"Seçilen parçalar diskinizden tamamen silinecektir, devam etmek istiyor "
+"musunuz?"
 
 #: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
@@ -1142,7 +1146,7 @@ msgstr ""
 #: ../xlgui/panel/device.py:127
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Transfer ediliyor %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:31
 msgid "Covers"
@@ -1206,7 +1210,7 @@ msgstr ""
 
 #: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Eklenti Arşivleri"
 
 #: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
@@ -1248,11 +1252,11 @@ msgstr ""
 
 #: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Karışık çal"
 
 #: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
-msgstr ""
+msgstr "Çalma listesini tekrar et"
 
 #: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
@@ -1260,7 +1264,7 @@ msgstr ""
 
 #: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
-msgstr ""
+msgstr "Mevcut parçayı çalma listesinden sil."
 
 #: ../xlgui/tray.py:179
 msgid "Exaile Music Player"
@@ -1284,7 +1288,7 @@ msgstr "Başlangıçta son çalma listesini aç"
 
 #: ../data/ui/main.ui.h:1
 msgid "0/0 tracks"
-msgstr ""
+msgstr "0/0 parça"
 
 #: ../data/ui/main.ui.h:2
 msgid "0:00 / 0:00"
@@ -1292,7 +1296,7 @@ msgstr "0:00 / 0:00"
 
 #: ../data/ui/main.ui.h:3
 msgid "C_overs"
-msgstr ""
+msgstr "A_lbüm kapakları"
 
 #: ../data/ui/main.ui.h:4
 msgid "Clear Playlist"
@@ -1324,7 +1328,7 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:13
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Ko_leksiyonu tekrar tara."
 
 #: ../data/ui/main.ui.h:15 ../data/ui/files_panel.ui.h:6
 #: ../data/ui/collection_panel.ui.h:11
@@ -1333,7 +1337,7 @@ msgstr "Ara: "
 
 #: ../data/ui/main.ui.h:17
 msgid "Start/Pause Playback"
-msgstr ""
+msgstr "Çalmayı Oynat/Durdur"
 
 #: ../data/ui/main.ui.h:18
 msgid ""
@@ -1341,18 +1345,21 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Çalmayı Durdur\n"
+"\n"
+"Parça özellikleri için durduktan sonra sağ tuş tıklayın"
 
 #: ../data/ui/main.ui.h:22
 msgid "Track _properties"
-msgstr ""
+msgstr "Parça _özellikleri"
 
 #: ../data/ui/main.ui.h:23
 msgid "_Autosize"
-msgstr ""
+msgstr "_Otomatik Boyutlandırma"
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
-msgstr ""
+msgstr "_Koleksiyon"
 
 #: ../data/ui/main.ui.h:25
 msgid "_Columns"
@@ -1360,7 +1367,7 @@ msgstr "_Sütunlar"
 
 #: ../data/ui/main.ui.h:26
 msgid "_Device Manager"
-msgstr ""
+msgstr "_Aygıt Yöneticisi"
 
 #: ../data/ui/main.ui.h:27
 msgid "_Edit"
@@ -1368,7 +1375,7 @@ msgstr "_Düzenle"
 
 #: ../data/ui/main.ui.h:28
 msgid "_Export current playlist"
-msgstr ""
+msgstr "_Mevcut Çalma Listesini Dışarı Çıkart"
 
 #: ../data/ui/main.ui.h:29
 msgid "_File"
@@ -1376,7 +1383,7 @@ msgstr "_Dosya"
 
 #: ../data/ui/main.ui.h:30
 msgid "_Go to Playing Track"
-msgstr ""
+msgstr "_ Çalan Parçaya Git"
 
 #: ../data/ui/main.ui.h:31
 msgid "_Help"
@@ -1388,11 +1395,11 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:34
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "_Karışık Çalma Listesi"
 
 #: ../data/ui/main.ui.h:35
 msgid "_Resizable"
-msgstr ""
+msgstr "_Tekrar Boyutlandır."
 
 #: ../data/ui/main.ui.h:36
 msgid "_Tools"
@@ -1404,11 +1411,11 @@ msgstr "_Görünüm"
 
 #: ../data/ui/flatplaylist_panel.ui.h:1
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Tüm parçaları çalma listesine ekle."
 
 #: ../data/ui/flatplaylist_panel.ui.h:2
 msgid "Import CD"
-msgstr ""
+msgstr "CD Ekle"
 
 #: ../data/ui/flatplaylist_panel.ui.h:3 ../data/ui/radio_panel.ui.h:2
 msgid "Radio"
@@ -1432,7 +1439,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
-msgstr ""
+msgstr "Parça Özellikleri"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
@@ -1480,11 +1487,11 @@ msgstr "Güncellemeleri Yükle"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "Bir dosyadan üçüncü kısım eklentisi yükle"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "Eklenti dosyası yükle"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
@@ -1540,19 +1547,19 @@ msgstr ""
 
 #: ../data/ui/files_panel.ui.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Sonraki dizini ziyaret"
 
 #: ../data/ui/files_panel.ui.h:4
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Önceki dizini ziyaret"
 
 #: ../data/ui/files_panel.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Listelenen dizini tazele"
 
 #: ../data/ui/files_panel.ui.h:7
 msgid "Up one directory"
-msgstr ""
+msgstr "Bir üst dizine geç"
 
 #: ../data/ui/playlists_prefs_pane.ui.h:2
 msgid "Prompt for saving custom playlists on close"
@@ -1630,7 +1637,7 @@ msgstr ""
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "&#xA9; 2009"
-msgstr ""
+msgstr "&#xA9; 2009"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "About Exaile"
@@ -1654,6 +1661,21 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"Telif Hakkı (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Bu program ücretsiz bir yazılımdır. Özgür Yazılım Vakfı tarafından "
+"yayımlanşım GNU Genel Açık Lisans koşulları altında bu programı veya diğer 2 "
+"lisansı ya da isteğinize bağlı olarak sonraki versiyonu yeniden "
+"yapılandırabilir ve/veya yenileyebilirsiniz. \n"
+"\n"
+"Bu program yararlı olması umuduyla dağıtılmıştır, ama HERHANGİ BİR GARANTİSİ "
+"YOKTUR. Aynı zamanda TİCARİ veya BİR AMACA UYGUNLUK açısından da garantisi "
+"yoktur. Ayrıntılar için GNU Genel Açık Lisans'a bakınız. \n"
+"\n"
+"Bu programla birlikte GNU Genel Açık Lisans'ın bir kopyası gelmiş olması "
+"lazım. Eğer yoksa bu adrese bildiriniz: the Free Software Foundation, Inc.,\n"
+"\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA\n"
 
 #: ../data/ui/about_dialog.ui.h:19
 msgid ""
@@ -1661,6 +1683,9 @@ msgid ""
 "   <info@noctus.net>\n"
 "    Translation Manager"
 msgstr ""
+"Mathias Brodala\n"
+"   <info@noctus.net>\n"
+"    Çeviri Yöneticisi"
 
 #: ../data/ui/playback_prefs_pane.ui.h:1
 msgid "ALSA"
@@ -1696,7 +1721,7 @@ msgstr "OSS"
 
 #: ../data/ui/playback_prefs_pane.ui.h:10
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "Tekrar oynatma motoru (yeniden başlatma gerekli) "
 
 #: ../data/ui/playback_prefs_pane.ui.h:11
 msgid "PulseAudio"
@@ -1712,7 +1737,7 @@ msgstr ""
 
 #: ../data/ui/playback_prefs_pane.ui.h:14
 msgid "These options only affect the unified engine."
-msgstr ""
+msgstr "Bu seçenekler sadece birleşik motorda etkili olur."
 
 #: ../data/ui/playback_prefs_pane.ui.h:15
 msgid "Unified (unstable)"
@@ -1742,7 +1767,7 @@ msgstr "Açılır Pencere"
 
 #: ../data/ui/collection_panel.ui.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Koleksiyon boş.</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
@@ -1765,6 +1790,8 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Koleksiyon görüntüsünü yenile\n"
+"(Koleksiyonu tekrar taramak için shift tuşuna basılı tutun)"
 
 #: ../data/ui/collection_panel.ui.h:12
 msgid "Year - Album"
@@ -1792,7 +1819,7 @@ msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.ui.h:6
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Sistem alanına küçült"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
@@ -1821,7 +1848,7 @@ msgstr ""
 #: ../plugins/multialarmclock/__init__.py:412
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Çoklu Alarm Saat"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
@@ -1851,7 +1878,7 @@ msgstr ""
 
 #: ../plugins/cd/_cdguipanel.py:87
 msgid "Importing CD..."
-msgstr ""
+msgstr "CD alınıyor..."
 
 #: ../plugins/cd/cdprefs.py:32
 msgid "CD"
@@ -1906,7 +1933,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
-msgstr ""
+msgstr "Parçayı yer imine ekle."
 
 #: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
@@ -1914,7 +1941,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Yer imlerini temizle"
 
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
@@ -1937,13 +1964,13 @@ msgstr ""
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "Yazar %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
@@ -2004,7 +2031,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "Podcast tazele"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
@@ -2012,11 +2039,11 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Podcast eklemek için bir URL girin"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
-msgstr ""
+msgstr "Podcast Aç"
 
 #: ../plugins/podcasts/__init__.py:153
 #, python-format
@@ -2025,35 +2052,35 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Podcast yüklenirken hata oluştu."
 
 #: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Podcast yükleniyor..."
 
 #: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Podcast dosyası kaydedilemedi."
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
 #: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
-msgstr ""
+msgstr "Shoutcast sunucusuna bağlanıyor."
 
 #: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
 #: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
 #: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
-msgstr ""
+msgstr "Shoutcast sunucusuna bağlanırken hata oluştu."
 
 #: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Arama için bir kelime girin"
 
 #: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
-msgstr ""
+msgstr "Shoutcast Arama"
 
 #: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
@@ -2073,6 +2100,8 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"yazar %(artist)s\n"
+"albüm <i>%(album)s</i>"
 
 #: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
@@ -2080,11 +2109,11 @@ msgstr ""
 
 #: ../plugins/ipconsole/__init__.py:134
 msgid "Show IPython Console"
-msgstr ""
+msgstr "IPython konsolunu göster"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "IPython Konsolu"
 
 #: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
@@ -2092,20 +2121,20 @@ msgstr "Çalmayı durdur"
 
 #: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
-msgstr ""
+msgstr "Ana Pencereyi Tekrar Yükle"
 
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Mini Mod"
 
 #: ../plugins/minimode/minimodeprefs.py:44
 msgid "Available controls"
-msgstr ""
+msgstr "Mevcut Kontrol"
 
 #: ../plugins/minimode/minimodeprefs.py:45
 msgid "Selected controls"
-msgstr ""
+msgstr "Seçilen Kontrol"
 
 #: ../plugins/minimode/minimodeprefs.py:47
 msgid "Previous"
@@ -2125,7 +2154,7 @@ msgstr "Sonraki"
 
 #: ../plugins/minimode/minimodeprefs.py:51
 msgid "Track selector"
-msgstr ""
+msgstr "Parça Seçici"
 
 #: ../plugins/minimode/minimodeprefs.py:52
 msgid "Progress bar"
@@ -2137,7 +2166,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:54
 msgid "Playlist button"
-msgstr ""
+msgstr "Çalma Listesi butonu"
 
 #: ../plugins/minimode/minimodeprefs.py:57
 msgid "Restore"
@@ -2147,29 +2176,29 @@ msgstr ""
 #: ../plugins/minimode/minimodeprefs.py:83
 #: ../plugins/minimode/minimodeprefs.py:89
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:85
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title by $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:87
 msgid "$title ($length)"
-msgstr ""
+msgstr "$title ($length)"
 
 #: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
-msgstr ""
+msgstr "Çalmayı Başlat"
 
 #: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
-msgstr ""
+msgstr "Çalmaya Devam Et"
 
 #: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
-msgstr ""
+msgstr "Çalmayı Duraklat"
 
 #: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-04 22:40+0000\n"
-"Last-Translator: DAG Software <Unknown>\n"
+"PO-Revision-Date: 2010-01-05 17:10+0000\n"
+"Last-Translator: Aren Olson <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2010-01-05 04:37+0000\n"
+"X-Launchpad-Export-Date: 2010-01-06 04:34+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -1381,11 +1381,11 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:31
 msgid "_Help"
-msgstr "_Pomocník"
+msgstr "_Nápoveda"
 
 #: ../data/ui/main.ui.h:33
 msgid "_Queue"
-msgstr ""
+msgstr "_Fronta"
 
 #: ../data/ui/main.ui.h:34
 msgid "_Randomize Playlist"
@@ -1417,7 +1417,7 @@ msgstr "Rádio"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "Správca obalov"
 
 #: ../data/ui/covermanager.ui.h:3
 msgid "_Close"
@@ -1433,23 +1433,23 @@ msgstr "Značky"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
-msgstr ""
+msgstr "Vlastnosti skladby"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Prvé písmeno všetkých tagov veľkým"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
-msgstr ""
+msgstr "Ď_alšia"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Predchádzajúca"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Odstrániť tag"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
@@ -1457,7 +1457,7 @@ msgstr ""
 
 #: ../data/ui/plugin_prefs_pane.ui.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Nevybraný žiadny modul</b>"
+msgstr "<b>Nieje vybratý žiaden plugin</b>"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:2
 msgid "Authors:"
@@ -1465,7 +1465,7 @@ msgstr "Autori:"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:3
 msgid "Available Plugins"
-msgstr "Dostupné moduly"
+msgstr "Dostupné pluginy"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:4
 msgid "Description:"
@@ -1481,19 +1481,19 @@ msgstr "Inštalovať aktualizácie"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "Inštalovať plugin tretej strany zo súboru"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "Inštalovať súbor luginu"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
-msgstr "Nainštalované moduly"
+msgstr "Inainštalované pluginy"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:10
 msgid "Updates"
-msgstr ""
+msgstr "Aktualizácie"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:11
 msgid "Version:"
@@ -1505,11 +1505,11 @@ msgstr "Pridať stanicu"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
-msgstr ""
+msgstr "Správca kolekcie"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../data/ui/device_manager.ui.h:2
 msgid "Add device"
@@ -1563,7 +1563,7 @@ msgstr ""
 msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
-msgstr "<b>Presunte OSD na miesto, kde sa ma zobrazovat</b>"
+msgstr "<b>Presuňte OSD na miesto, kde sa má zobrazovať</b>"
 
 #: ../data/ui/osd_prefs_pane.ui.h:2
 msgid "Background Color:"
@@ -1571,7 +1571,7 @@ msgstr "Farba pozadia:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:3
 msgid "Display OSD when hovering over tray icon"
-msgstr "Zobraz OSD pri prechode nad tray ikonou"
+msgstr "Zobraziť OSD pri prechode na tray ikonu"
 
 #: ../data/ui/osd_prefs_pane.ui.h:4
 msgid "Display a progressbar in the OSD"
@@ -1591,7 +1591,7 @@ msgstr "Farba písma"
 
 #: ../data/ui/osd_prefs_pane.ui.h:8
 msgid "Text Font:"
-msgstr "Rez písma:"
+msgstr "Písmo:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:9
 msgid "Window Height:"
@@ -1603,7 +1603,7 @@ msgstr "Šírka okna:"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
-msgstr "Hľadač obalov"
+msgstr "Vyhľadávač balov"
 
 #: ../data/ui/coverchooser.ui.h:2
 msgid "New Search"
@@ -1619,15 +1619,15 @@ msgstr ""
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Close this dialog"
-msgstr "Zavrieť toto okno"
+msgstr "Zavrieť tento dialóg"
 
 #: ../data/ui/queue_dialog.ui.h:2
 msgid "Queue Manager"
-msgstr "Správca radu"
+msgstr "Správca poradia"
 
 #: ../data/ui/queue_dialog.ui.h:3
 msgid "Remove All"
-msgstr ""
+msgstr "Odstrániť všetko"
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "&#xA9; 2009"
@@ -1665,7 +1665,7 @@ msgstr ""
 
 #: ../data/ui/playback_prefs_pane.ui.h:1
 msgid "ALSA"
-msgstr ""
+msgstr "ALSA"
 
 #: ../data/ui/playback_prefs_pane.ui.h:2
 msgid "Audio Sink:  "
@@ -1681,27 +1681,27 @@ msgstr ""
 
 #: ../data/ui/playback_prefs_pane.ui.h:6
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #: ../data/ui/playback_prefs_pane.ui.h:7
 msgid "JACK"
-msgstr ""
+msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.ui.h:8
 msgid "Normal"
-msgstr ""
+msgstr "Bežný"
 
 #: ../data/ui/playback_prefs_pane.ui.h:9
 msgid "OSS"
-msgstr ""
+msgstr "OSS"
 
 #: ../data/ui/playback_prefs_pane.ui.h:10
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "Prehrávací engine (je treba reštart): "
 
 #: ../data/ui/playback_prefs_pane.ui.h:11
 msgid "PulseAudio"
-msgstr ""
+msgstr "PulseAudio"
 
 #: ../data/ui/playback_prefs_pane.ui.h:12
 msgid "Resume playback in paused state"
@@ -1733,30 +1733,33 @@ msgid ""
 "Drag to the location you'd like the\n"
 "OSD to appear"
 msgstr ""
+"<b>OSD</b>\n"
+"Pretiahnite na miesto kde chcete\n"
+"aby sa OSD zobrazovalo"
 
 #: ../data/ui/osd_window.ui.h:4
 msgid "Popup"
-msgstr "Vyskakovanie"
+msgstr "Vyskakovacie okno"
 
 #: ../data/ui/collection_panel.ui.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Kolekcia je prázdna.</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
-msgstr ""
+msgstr "Pridať hudbu"
 
 #: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
-msgstr ""
+msgstr "Interprét - Rok - Album"
 
 #: ../data/ui/collection_panel.ui.h:7
 msgid "Genre - Album"
-msgstr ""
+msgstr "Žáner - Album"
 
 #: ../data/ui/collection_panel.ui.h:8
 msgid "Genre - Artist"
-msgstr ""
+msgstr "Žáner - Interprét"
 
 #: ../data/ui/collection_panel.ui.h:9
 msgid ""
@@ -1766,43 +1769,43 @@ msgstr ""
 
 #: ../data/ui/collection_panel.ui.h:12
 msgid "Year - Album"
-msgstr ""
+msgstr "Rok - Album"
 
 #: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Artist"
-msgstr ""
+msgstr "Rok - Interprét"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:1
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Vždy ukázať panel kariet"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:2
 msgid "Bottom"
-msgstr ""
+msgstr "Spodok"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:4
 msgid "Jump to current song on track change"
-msgstr "Prejdi na túto skladbu pri zmene songu"
+msgstr "Preskočiť na aktuálnu pieseň pri zmene skladby"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:5
 msgid "Left"
-msgstr ""
+msgstr "Vľavo"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:6
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Minimalizovať do tray oblasti"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
-msgstr ""
+msgstr "Vpravo"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:8
 msgid "Show splash screen on startup"
-msgstr "Zobaz splash pri štarte"
+msgstr "Zobraziť úvodný obrázok pri štarte"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:9
 msgid "Show tray icon"
-msgstr "Ukáž tray ikonu"
+msgstr "Zobraziť tray ikonu"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:10
 msgid "Tab placement:"

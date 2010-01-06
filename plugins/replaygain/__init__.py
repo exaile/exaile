@@ -36,8 +36,12 @@ try:
 except: # fail gracefully if we cant set up the UI
     pass
 
+NEEDED_ELEMS = ["rgvolume", "rglimiter"]
 
 def enable(exaile):
+    for elem in NEEDED_ELEMS:
+        if not gst.element_factory_find(elem):
+            raise ImportError, "Needed gstreamer element %s missing."%elem
     providers.register("stream_element", ReplaygainVolume)
     providers.register("stream_element", ReplaygainLimiter)
 

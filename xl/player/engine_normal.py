@@ -109,7 +109,6 @@ class NormalPlayer(_base.ExailePlayer):
             self.setup_pipe()
             event.log_event("playback_track_end", self, curr)
             event.log_event("playback_player_end", self, curr)
-            gobject.idle_add(self.eof_func)
         elif message.type == gst.MESSAGE_BUFFERING:
             percent = message.parse_buffering()
             if not percent < 100:

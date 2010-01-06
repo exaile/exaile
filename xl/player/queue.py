@@ -169,6 +169,7 @@ class PlayQueue(playlist.Playlist):
                 return
 
         if state['state'] in ['playing', 'paused']:
+            event.log_event("playback_player_resume", self.player, None)
             vol = self.player._get_volume()
             self.player._set_volume(0)
             self.play()

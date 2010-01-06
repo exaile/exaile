@@ -83,10 +83,7 @@ class BaseFormat(object):
         if self.MutagenType:
             return self.mutagen
         else:
-            return {'title':self._get_fallback_title()}
-
-    def _get_fallback_title(self):
-        return gio.File(self.loc).get_basename()
+            return {}
 
     def _get_tag(self, raw, tag):
         try:
@@ -101,8 +98,6 @@ class BaseFormat(object):
                 keys.append(self._reverse_mapping[k])
             else:
                 keys.append(k)
-        if "title" not in keys:
-            keys.append("title")
         return keys
 
     def read_all(self):
@@ -166,8 +161,6 @@ class BaseFormat(object):
                         t = [unicode(u) for u in list(t)]
                 except (KeyError, TypeError):
                     pass
-            if t == None and tag == "title":
-                t = self._get_fallback_title()
 
             if t not in [None, []]:
                 td[tag] = t

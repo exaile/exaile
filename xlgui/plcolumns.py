@@ -131,6 +131,9 @@ class LengthColumn(Column):
         cell.set_property('text', text)
         self.playlist.set_cell_weight(cell, item)
 
+    def set_properties(self, col, cellr):
+        cellr.set_property('xalign', 1.0)
+
 class DiscNumberColumn(Column):
     size = 30
     display = _('Disc')
@@ -183,6 +186,9 @@ class BitrateColumn(Column):
         cell.set_property('text', item.get_tag_display("__bitrate"))
         self.playlist.set_cell_weight(cell, item)
 
+    def set_properties(self, col, cellr):
+        cellr.set_property('xalign', 1.0)
+
 class IoLocColumn(Column):
     size = 200
     display = _('Location')
@@ -205,6 +211,9 @@ class BPMColumn(Column):
     size = 50
     display = _('BPM')
     id = 'bpm'
+
+    def set_properties(self, col, cellr):
+        cellr.set_property('xalign', 1.0)
 
 class LastPlayedColumn(Column):
     size = 10

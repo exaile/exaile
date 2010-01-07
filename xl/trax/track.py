@@ -57,7 +57,7 @@ _sortcharmap = {
 _VARIOUSARTISTSSTR = _("Various Artists")
 _UNKNOWNSTR = _("Unknown")
 #TRANSLATORS: String multiple tag values will be joined by
-_JOINSTR = _(u' & ')
+_JOINSTR = _(u' / ')
 
 
 class _MetadataCacher(object):
@@ -426,7 +426,8 @@ class Track(object):
             return self.join_values(val)
         return val
 
-    def get_tag_sort(self, tag, join=True, artist_compilations=True):
+    def get_tag_sort(self, tag, join=True, artist_compilations=True,
+            extend_title=True):
         """
             Get a tag value in a form suitable for sorting.
 
@@ -436,6 +437,8 @@ class Track(object):
             :param artist_compilations: If True, automatically handle
                 albumartist and other compilations detections when
                 tag=="artist".
+            :param extend_title: If the title tag is unknown, try to
+                add some identifying information to it.
         """
         # The two magic values here are to ensure that compilations
         # and unknown values are always sorted below all normal
@@ -465,6 +468,9 @@ class Track(object):
 
         if not retval:
             retval = u"\uffff\uffff\uffff\uffff" # unknown
+            if tag == 'title':
+                retval = u"%s (%s)" % (retval,
+                        gio.File(self.__tags['__loc']).get_basename().lower())
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
             if not sorttag:
@@ -479,7 +485,8 @@ class Track(object):
 
         return retval
 
-    def get_tag_display(self, tag, join=True, artist_compilations=True):
+    def get_tag_display(self, tag, join=True, artist_compilations=True,
+            extend_title=True):
         """
             Get a tag value in a form suitable for display.
 
@@ -489,6 +496,8 @@ class Track(object):
             :param artist_compilations: If True, automatically handle
                 albumartist and other compilations detections when
                 tag=="artist".
+            :param extend_title: If the title tag is unknown, try to
+                add some identifying information to it.
         """
         if tag == '__loc':
             uri = gio.File(self.__tags['__loc']).get_parse_name()
@@ -522,6 +531,9 @@ class Track(object):
                 retval = "0"
             else:
                 retval = _UNKNOWNSTR
+                if tag == 'title':
+                    retval = u"%s (%s)" % (retval,
+                            gio.File(self.__tags['__loc']).get_basename())
 
         if isinstance(retval, list):
             retval = [unicode(x) for x in retval]
@@ -533,7 +545,8 @@ class Track(object):
 
         return retval
 
-    def get_tag_search(self, tag, format=True, artist_compilations=True):
+    def get_tag_search(self, tag, format=True, artist_compilations=True,
+            extend_title=True):
         """
             Get a tag value suitable for passing to the search system.
 
@@ -541,6 +554,8 @@ class Track(object):
             :param artist_compilations: If True, automatically handle
                 albumartist and other compilations detections when
                 tag=="artist".
+            :param extend_title: If the title tag is unknown, try to
+                add some identifying information to it.
         """
         extraformat = ""
         if tag == "artist":
@@ -567,6 +582,8 @@ class Track(object):
         # Quote arguments
         if retval is None:
             retval = '__null__'
+            if tag == 'title':
+                extraformat += ' __loc==\"%s\"' % self.__tags['__loc']
         elif isinstance(retval, list) and format:
             retval = ['"%s"' % val for val in retval]
         elif format:

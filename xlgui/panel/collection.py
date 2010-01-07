@@ -505,7 +505,8 @@ class CollectionPanel(panel.Panel):
             reloads in quick succession
         """
         if settings.get_option('gui/sync_on_tag_change', True) and \
-            tag in get_all_tags(self.order):
+            tag in get_all_tags(self.order) and \
+            self.collection.loc_is_member(track.get_loc_for_io()):
             if self._refresh_id != 0:
                 gobject.source_remove(self._refresh_id)
             self._refresh_id = gobject.timeout_add(500,

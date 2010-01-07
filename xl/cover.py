@@ -36,7 +36,6 @@ import gobject
 import gio
 
 from xl import common, providers, event, settings, xdg, trax
-from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -58,7 +57,7 @@ class Cacher(object):
         """
         try:
             os.makedirs(cache_dir)
-        except:
+        except OSError:
             pass
         self.cache_dir = cache_dir
 
@@ -88,7 +87,7 @@ class Cacher(object):
         path = os.path.join(self.cache_dir, key)
         try:
             os.remove(path)
-        except: # FIXME
+        except OSError:
             pass
 
     def get(self, key):
@@ -208,6 +207,8 @@ class CoverManager(providers.ProviderHandler):
             :param local_only: If True, will only return results from local
                     sources.
         """
+        if track is None:
+            return
         covers = []
         for method in self._get_methods(fixed=True):
             if local_only and method.use_cache:
@@ -230,7 +231,7 @@ class CoverManager(providers.ProviderHandler):
             :param data: The raw cover data to store for the track.  Will
                     only be stored if the method has use_cache=True
         """
-        name, info = db_string.split(":", 1)
+        name = db_string.split(":", 1)[0]
         method = self.methods.get(name)
         if method and method.use_cache and data:
             db_string = "cache:%s"%self.__cache.add(data)
@@ -243,6 +244,8 @@ class CoverManager(providers.ProviderHandler):
         """
             Remove the saved cover entry for a track, if it exists.
         """
+        if track is None:
+            return
         key = self._get_track_key(track)
         db_string = self.db.get(key)
         if db_string:
@@ -262,6 +265,9 @@ class CoverManager(providers.ProviderHandler):
             :param set_only: Only retrieve covers that have been set
                     in the db.
         """
+        if track is None:
+            return None
+
         key = self._get_track_key(track)
         db_string = self.db.get(key)
         if db_string:
@@ -315,7 +321,7 @@ class CoverManager(providers.ProviderHandler):
                 f = open(loc, 'rb')
                 data = pickle.load(f)
                 f.close()
-            except: #FIXME
+            except IOError:
                 pass
             if data:
                 break
@@ -334,16 +340,16 @@ class CoverManager(providers.ProviderHandler):
             f = open(path + ".new", 'wb')
             pickle.dump(self.db, f, common.PICKLE_PROTOCOL)
             f.close()
-        except:
+        except IOError:
             return
         try:
             os.rename(path, path + ".old")
-        except:
+        except OSError:
             pass # if it doesn'texist we don't care
         os.rename(path + ".new", path)
         try:
             os.remove(path + ".old")
-        except:
+        except OSError:
             pass
 
     def __set_save_timeout(self):

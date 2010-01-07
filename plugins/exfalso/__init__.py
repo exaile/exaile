@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import gtk
+import gio, gtk
 import quodlibet as ql
 
 # Modify Quod Libet's print_ function to default to not print anything.
@@ -93,7 +93,6 @@ class ExFalsoController:
         config.quit()
 
 import xl.event, xl.trax
-import xlgui.playlist
 from xlgui import guiutil
 
 class ExFalsoTagger:
@@ -114,15 +113,19 @@ class ExFalsoTagger:
     def on_changed(self, paths):
         get_track = self.exaile.collection.get_track_by_loc
         for path in paths:
-            uri = 'file://' + path
+            uri = gio.File(path).get_uri()
             track = get_track(uri) or xl.trax.Track(uri)
             track.read_tags()
             xl.event.log_event('track_tags_changed', track, None)
 
 PLUGIN = None
 
-# Hook to replace the properties dialog opened from playlist context menu.
-xl_properties_dialog = xlgui.playlist.Playlist.properties_dialog
+# Hook to replace the Properties dialog opened from Collection panel or playlist
+# context menu.
+from xlgui.playlist import Playlist
+from xlgui.panel.collection import CollectionPanel
+xl_playlist_properties = Playlist.properties_dialog
+xl_panel_properties = CollectionPanel.properties_dialog
 def properties_dialog(self):
     tracks = self.get_selected_tracks()
     if len(tracks) == 0:
@@ -140,13 +143,15 @@ def enable(exaile):
 def _enable(event, exaile, nothing):
     global PLUGIN
     PLUGIN = ExFalsoTagger(exaile)
-    xlgui.playlist.Playlist.properties_dialog = properties_dialog
+    Playlist.properties_dialog = properties_dialog
+    CollectionPanel.properties_dialog = properties_dialog
 
 def disable(exaile):
     global PLUGIN
     PLUGIN.destroy()
     PLUGIN = None
-    xlgui.playlist.Playlist.properties_dialog = xl_properties_dialog
+    Playlist.properties_dialog = xl_playlist_properties
+    CollectionPanel.properties_dialog = xl_panel_properties
 
 if __name__ == "__main__":
     ef = ExFalsoController()

@@ -33,9 +33,9 @@ from copy import deepcopy
 from xl import common, event
 from xl.nls import gettext as _
 
-from .track import Track
-from .util import sort_tracks
-from .search import search_tracks_from_string
+from xl.trax.track import Track
+from xl.trax.util import sort_tracks
+from xl.trax.search import search_tracks_from_string
 
 logger = logging.getLogger(__name__)
 

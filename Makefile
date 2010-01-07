@@ -6,6 +6,8 @@ EXAILELIBDIR 	= $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
 EXAILESHAREDIR 	= $(DESTDIR)$(PREFIX)/share/exaile
 EXAILECONFDIR 	= $(DESTDIR)$(XDGCONFDIR)/exaile
 
+.PHONY: dist test coverage clean sanitycheck
+
 all: compile locale
 	@echo "Ready to install..."
 
@@ -119,7 +121,6 @@ install-locale:
 plugins_dist:
 	make -C plugins dist
 
-.PHONY: clean
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;
@@ -143,7 +144,6 @@ potball:
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \
 	    --transform s/po/./
 
-.PHONY: dist test coverage
 
 dist:
 	mkdir -p dist
@@ -161,3 +161,8 @@ test_coverage:
 	nosetests -w tests --with-coverage --cover-package=xl; \
 	mkdir -p coverage; \
 	coverage html -d coverage
+
+lint_errors:
+	-pylint -e --rcfile tools/pylint.cfg xl xlgui 2> /dev/null
+
+sanitycheck: lint_errors test

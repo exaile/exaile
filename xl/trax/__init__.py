@@ -27,11 +27,9 @@
 # It is encouraged that external modules should import from here,
 # rather than directly from submodules.
 
-from __future__ import absolute_import
-
-from .track import Track
-from .trackdb import TrackDB
-from .search import search_tracks, search_tracks_from_string, TracksMatcher
-from .util import (is_valid_track, get_tracks_from_uri, sort_tracks,
+from xl.trax.track import Track
+from xl.trax.trackdb import TrackDB
+from xl.trax.search import search_tracks, search_tracks_from_string, TracksMatcher
+from xl.trax.util import (is_valid_track, get_tracks_from_uri, sort_tracks,
         sort_result_tracks)
 

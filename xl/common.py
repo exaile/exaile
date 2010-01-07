@@ -32,7 +32,6 @@ import subprocess
 import sys
 import threading
 import traceback
-import urlparse
 from functools import wraps
 from collections import deque
 from UserDict import DictMixin
@@ -97,15 +96,15 @@ def synchronized(func):
         thread is allowed to access it at a time
     """
     @wraps(func)
-    def wrapper(self,*__args,**__kw):
+    def wrapper(self, *__args, **__kw):
         try:
             rlock = self._sync_lock
         except AttributeError:
             from threading import RLock
-            rlock = self.__dict__.setdefault('_sync_lock',RLock())
+            rlock = self.__dict__.setdefault('_sync_lock', RLock())
         rlock.acquire()
         try:
-            return func(self,*__args,**__kw)
+            return func(self, *__args, **__kw)
         finally:
             rlock.release()
     return wrapper
@@ -153,6 +152,7 @@ class VersionError(Exception):
        Represents version discrepancies
     """
     def __init__(self, message):
+        Exception.__init__(self)
         self.message = message
 
     def __str__(self):
@@ -164,7 +164,10 @@ def open_file(path):
     """
     platform = sys.platform
     if platform == 'win32':
+        # pylint will error here on non-windows platforms unless we do this
+        # pylint: disable-msg=E1101
         os.startfile(path)
+        # pylint: enable-msg=E1101
     elif platform == 'darwin':
         subprocess.Popen(["open", path])
     else:
@@ -235,9 +238,9 @@ class cached(object):
 
     def __call__(self, f):
         try:
-            cache = f._cache
+            f._cache
         except AttributeError:
-            f._cache = cache = LimitedCache(self.limit)
+            f._cache = LimitedCache(self.limit)
         @wraps(f)
         def wrapper(*args, **kwargs):
             try:

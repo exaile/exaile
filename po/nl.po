@@ -7,193 +7,190 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-09-08 17:57+0200\n"
-"PO-Revision-Date: 2009-10-26 11:28+0000\n"
-"Last-Translator: Emilien Klein <emilien+ubuntu@klein.st>\n"
+"POT-Creation-Date: 2009-11-30 12:40+0100\n"
+"PO-Revision-Date: 2010-01-03 16:29+0000\n"
+"Last-Translator: Lucky Luke <luckyluke56@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-10-27 08:23+0000\n"
+"X-Launchpad-Export-Date: 2010-01-04 04:35+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../xl/player/pipe.py:198
+#: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
 msgid "Automatic"
 msgstr "Automatisch"
 
-#: ../xl/main.py:119
+#: ../xl/main.py:120
 msgid "Failed to migrate from 0.2.14"
 msgstr "Kon niet upgraden van 0.2.14"
 
-#: ../xl/main.py:298
+#: ../xl/main.py:288
 msgid "Playback options"
 msgstr "Afspeelopties"
 
-#: ../xl/main.py:273
+#: ../xl/main.py:290
 msgid "Play the next track"
 msgstr "Speel het volgende nummer"
 
-#: ../xl/main.py:275
+#: ../xl/main.py:292
 msgid "Play the previous track"
 msgstr "Speel het vorige nummer"
 
-#: ../xl/main.py:277
+#: ../xl/main.py:294
 msgid "Stop playback"
 msgstr "Stop met afspelen"
 
-#: ../xl/main.py:279
+#: ../xl/main.py:296
 msgid "Play"
 msgstr "Afspelen"
 
-#: ../xl/main.py:281
+#: ../xl/main.py:298
 msgid "Toggle Play or Pause"
 msgstr "Speel/pauze"
 
-#: ../xl/main.py:284
+#: ../xl/main.py:301
 msgid "Stop playback after current track"
 msgstr "Stop met spelen na dit nummer"
 
-#: ../xl/main.py:314
+#: ../xl/main.py:304
 msgid "Track options"
 msgstr "Nummeropties"
 
-#: ../xl/main.py:288
+#: ../xl/main.py:306
 msgid "Query player"
 msgstr "Queryspeler"
 
-#: ../xl/main.py:290
+#: ../xl/main.py:308
 msgid "Show a popup of the currently playing track"
-msgstr "Laat een popup van de het huidige nummer zien"
+msgstr "Pop-up van het huidige nummer tonen"
 
-#: ../xl/main.py:292
+#: ../xl/main.py:310
 msgid "Print the title of current track"
-msgstr "Print de titel van het huidige nummer"
+msgstr "Titel van het huidige nummer weergeven"
 
-#: ../xl/main.py:294
+#: ../xl/main.py:312
 msgid "Print the album of current track"
-msgstr "Print het album van het huidige nummer"
+msgstr "Album van het huidige nummer weergeven"
 
-#: ../xl/main.py:296
+#: ../xl/main.py:314
 msgid "Print the artist of current track"
-msgstr "Print de artiest van het huidige nummer"
+msgstr "Artiest van het huidige nummer weergeven"
 
-#: ../xl/main.py:298
+#: ../xl/main.py:316
 msgid "Print the length of current track"
-msgstr "Print de lengte van het huidige nummer"
+msgstr "Tijdsduur van het huidige nummer weergeven"
 
-#: ../xl/main.py:300
+#: ../xl/main.py:318
 msgid "Set rating for current song"
 msgstr "Stel de waardering van het huidige nummer in"
 
-#: ../xl/main.py:302
+#: ../xl/main.py:320
 msgid "Get rating for current song"
 msgstr "Haal de waardering voor het huidige nummer op"
 
-#: ../xl/main.py:305
+#: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "Positie binnen het huidige nummer weergeven als tijd"
 
-#: ../xl/main.py:308
+#: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "Vooruitgang binnen het huidige nummer weergeven als percentage"
 
-#: ../xl/main.py:339
+#: ../xl/main.py:329
 msgid "Volume options"
-msgstr "Volumeopties"
+msgstr "Volume opties"
 
-#: ../xl/main.py:312
+#: ../xl/main.py:331
 msgid "Increases the volume by VOL%"
 msgstr "Verhoogt het volume met VOL%"
 
-#: ../xl/main.py:314
+#: ../xl/main.py:333
 msgid "Decreases the volume by VOL%"
 msgstr "Verlaagt het volume met VOL%"
 
-#: ../xl/main.py:316
+#: ../xl/main.py:335
 msgid "Print the current volume percentage"
-msgstr "Print het huidige volumepercentage"
+msgstr "Volumepercentage van het huidige nummer weergeven"
 
-#: ../xl/main.py:348
+#: ../xl/main.py:338
 msgid "Other options"
 msgstr "Overige opties"
 
-#: ../xl/main.py:320
+#: ../xl/main.py:340
 msgid "Start new instance"
 msgstr "Start een nieuwe instantie"
 
-#: ../xl/main.py:323
+#: ../xl/main.py:343
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "Geminimaliseerd starten (naar het systeemvak, indien mogelijk)"
 
-#: ../xl/main.py:355
+#: ../xl/main.py:345
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Zichtbaarheid van de GUI wisselen (indien mogelijk)"
 
-#: ../xl/main.py:325
+#: ../xl/main.py:347
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
-msgstr "Start in veilige modus - soms hander wanneer je problemen hebt"
+msgstr "Start in veilige modus - soms nuttig wanneer je problemen hebt"
 
-#: ../xl/main.py:360
+#: ../xl/main.py:350
 msgid "Force import of old data from 0.2.x. Overwrites current data."
 msgstr ""
 "Forceer het importeren van oude data van 0.2.x. Overschrijft huidige data."
 
-#: ../xl/main.py:363
+#: ../xl/main.py:353
 msgid "Do not import old data from 0.2.x."
 msgstr "Geen oude data importeren van 0.2.x."
 
-#. development and debug options
-#: ../xl/main.py:368
+#: ../xl/main.py:358
 msgid "Development/Debug options"
 msgstr "Ontwikkeling/Debug opties"
 
-#. development and debug options
-#: ../xl/main.py:329
+#: ../xl/main.py:359
 msgid "Set data directory"
 msgstr "Stel de datamap in"
 
-#: ../xl/main.py:331
+#: ../xl/main.py:361
 msgid "Show debugging output"
-msgstr "Laat debuguitvoer zien"
+msgstr "Debug uitvoer tonen"
 
-#: ../xl/main.py:334
+#: ../xl/main.py:364
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr "Zet debuggen van xl.event aan. Genereert VEEL uitvoer"
 
-#: ../xl/main.py:336
+#: ../xl/main.py:366
 msgid "Filter event debug output"
-msgstr ""
+msgstr "Filter gebeurtenis debug uitvoer"
 
-#: ../xl/main.py:339
+#: ../xl/main.py:369
 msgid "Reduce level of output"
 msgstr "Verminder hoeveelheid uitvoer"
 
-#: ../xl/main.py:343
+#: ../xl/main.py:373
 msgid "Disable D-Bus support"
 msgstr "Schakel D-Bus-ondersteuning uit"
 
-#: ../xl/main.py:345
+#: ../xl/main.py:375
 msgid "Disable HAL support."
 msgstr "Schakel HAL-ondersteuning uit."
 
-#. entire playlist
-#: ../xl/main.py:362
+#: ../xl/main.py:394
 msgid "Entire Library"
 msgstr "Hele bibliotheek"
 
-#: ../xl/main.py:368
+#: ../xl/main.py:400
 #, python-format
 msgid "Random %d"
 msgstr "Willekeurig %d"
 
-#: ../xl/main.py:376
+#: ../xl/main.py:408
 #, python-format
 msgid "Rating > %d"
 msgstr "Waardering > %d"
 
-#: ../xl/main.py:473
+#: ../xl/main.py:505
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -201,527 +198,279 @@ msgstr ""
 "Exaile is nog niet klaar met laden. Misschien moet je even het exaile_loaded "
 "signaal checken?"
 
-#: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
+#: ../xl/cover.py:155 ../xl/cover.py:189 ../xl/trackdb.py:226
 msgid "You did not specify a location to save the db"
 msgstr "Je hebt geen locatie opgegeven om de database op te slaan"
 
-#: ../xl/cover.py:245 ../xl/lyrics.py:75
+#: ../xl/cover.py:281 ../xl/lyrics.py:85
 msgid "order must be a list or tuple"
 msgstr "volgorde moet een lijst of tuple zijn"
 
-#: ../xl/transcoder.py:45
+#: ../xl/transcoder.py:55
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
-"Vorbis is een opensource, lossy audio codec met hoge kwaliteit uitvoer bij "
-"een kleinere bestandsgrootte dan MP3."
+"Vorbis is een open bron, audioformaat (met verlies) met hoge kwaliteit "
+"uitvoer bij een kleinere bestandsgrootte dan MP3."
 
-#: ../xl/transcoder.py:55
+#: ../xl/transcoder.py:65
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
 msgstr ""
 "Free Lossless Audio Codec (FLAC) is een open bron codec die wel comprimeert "
-"maar niet de geluidskwaliteit verminderd."
+"maar niet de geluidskwaliteit vermindert."
 
-#: ../xl/transcoder.py:67
+#: ../xl/transcoder.py:77
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Apple's eigen lossy audioformaat dat betere geluidskwaliteit bereikt bij "
-"lagere bitrates dan MP3."
+"Apple's eigen, niet vrije, audioformaat (met verlies) dat betere "
+"geluidskwaliteit bereikt bij lagere bitrates dan MP3."
 
-#: ../xl/transcoder.py:78
+#: ../xl/transcoder.py:88
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"Een eigen en oude, maar ook populair, lossy audioformaat. VBR geeft een "
+"Een niet vrije, oud, maar populair audioformaat (met verlies). VBR geeft een "
 "hogere kwaliteit dan CBR, maar kan niet goed werken met sommige spelers."
 
-#: ../xl/transcoder.py:89
+#: ../xl/transcoder.py:99
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"Een eigen en oude, maar ook populair, lossy audioformaat. CBR geeft een "
+"Een niet vrije, oud, maar populair audioformaat (met verlies). CBR geeft een "
 "lagere kwaliteit dan VBR, maar werkt met alle spelers."
 
-#: ../xl/transcoder.py:100
+#: ../xl/transcoder.py:110
 msgid "A very fast Free lossless audio format with good compression."
-msgstr "Een erg snel vrij lossless audioformaat met goede compressie"
+msgstr ""
+"Een erg snel vrij audioformaat (zonder verlies) met goede compressie."
 
-#: ../xl/track.py:474
+#: ../xl/track.py:388
+msgid "Various Artists"
+msgstr "Diverse artiesten"
+
+#. TRANSLATORS : this replaces the title of a track when it's not known
+#: ../xl/track.py:393 ../xl/track.py:412 ../xl/trackformatter.py:121
+#: ../xl/playlist.py:245 ../xlgui/panel/collection.py:478
+#: ../plugins/notifyosd/__init__.py:57 ../plugins/minimode/mmwidgets.py:1015
+msgid "Unknown"
+msgstr "Onbekend"
+
+#. TRANSLATORS: String multiple tag values will be joined by
+#: ../xl/track.py:424 ../xl/trackformatter.py:110
+#: ../plugins/minimode/mmwidgets.py:1004
+msgid " & "
+msgstr " & "
+
+#: ../xl/track.py:584
 msgid "  New song, fetching cover."
 msgstr "  Nieuw nummer, albumhoes aan het ophalen."
 
-#: ../xl/devices.py:131 ../xl/devices.py:137
+#: ../xl/devices.py:141 ../xl/devices.py:147
 msgid "Device class does not support transfer."
-msgstr ""
+msgstr "Apparaatklasse ondersteunt geen dataverkeer."
 
-#: ../xl/settings.py:82
+#: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
+#: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
+msgid "Never"
+msgstr "Nooit"
+
+#: ../xl/trackformatter.py:213 ../xlgui/plcolumns.py:232
+#: ../plugins/minimode/mmwidgets.py:1087
+msgid "Today"
+msgstr "Vandaag"
+
+#: ../xl/trackformatter.py:215 ../xlgui/plcolumns.py:234
+#: ../plugins/minimode/mmwidgets.py:1089
+msgid "Yesterday"
+msgstr "Gisteren"
+
+#: ../xl/trackformatter.py:217 ../xlgui/plcolumns.py:236
+#: ../plugins/minimode/mmwidgets.py:1091
+#, python-format
+msgid "%(year)d-%(month)02d-%(day)02d"
+msgstr "%(day)02d-%(month)02d-%(year)d"
+
+#: ../xl/settings.py:94
 msgid "Settings version is newer than current."
 msgstr "De instellingenversie is nieuwer dan de huidige."
 
-#: ../xl/settings.py:167
+#: ../xl/settings.py:179
 msgid "We don't know how to store that kind of setting: "
 msgstr "We weten niet hoe we dat soort instelling op moeten slaan: "
 
-#: ../xl/settings.py:194
+#: ../xl/settings.py:206
 msgid "An Unknown type of setting was found!"
 msgstr "Een onbekend type instelling werd gevonden!"
 
-#: ../xl/plugins.py:73
+#: ../xl/plugins.py:84
 msgid "Plugin archive is not in the correct format"
 msgstr "Pluginarchief is niet in het goede formaat"
 
-#: ../xl/plugins.py:80
+#: ../xl/plugins.py:91
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
 msgstr "Een plugin met de naam \"%s\" is al geïnstalleerd"
 
-#: ../xl/plugins.py:85
+#: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
 msgstr "Pluginarchief bevat een onveilig pad"
 
-#. TRANSLATORS : this replaces the title of a track when it's not known
-#: ../xl/playlist.py:243 ../xlgui/panel/collection.py:395
-#: ../xlgui/panel/collection.py:595 ../xlgui/panel/collection.py:632
-#: ../plugins/bookmarks/__init__.py:151 ../plugins/notifyosd/__init__.py:57
-#: ../plugins/notifyosd/__init__.py:68 ../plugins/notify/__init__.py:27
-#: ../plugins/minimode/mmwidgets.py:820
-msgid "Unknown"
-msgstr "Onbekend"
-
-#: ../xl/playlist.py:387
+#: ../xl/playlist.py:386
 #, python-format
 msgid "Playlist %d"
-msgstr "Playlist %d"
+msgstr "Afspeellijst %d"
 
-#: ../xl/xldbus.py:75 ../xl/xldbus.py:284
+#: ../xl/xldbus.py:85 ../xl/xldbus.py:298
 msgid "Not playing."
 msgstr "Niet aan het afspelen"
 
-#: ../xl/xldbus.py:289
+#: ../xl/xldbus.py:303
 #, python-format
 msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 "status: %(status)s, titel: %(title)s, artiest: %(artist)s, album: %(album)s, "
-"lengte: %(length)s, positie: %(progress)s%% [%(position)s]"
+"tijd: %(length)s, positie: %(progress)s%% [%(position)s]"
 
-#: ../xl/trackdb.py:176
+#: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
-msgstr "Je hebt geen locatie opgegeven om de db van te laden"
+msgstr "Je hebt geen locatie opgegeven om de database van de laden"
 
-#: ../xlgui/properties.py:51 ../xlgui/osd.py:193 ../xlgui/plcolumns.py:110
-#, python-format
-msgid "%(minutes)d:%(seconds)02d"
-msgstr "%(minutes)d:%(seconds)02d"
+#: ../xlgui/properties.py:36
+msgid "Original Album"
+msgstr "Originele Album"
 
-#. TRANSLATORS: Default track length
-#: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:114
-msgid "0:00"
-msgstr "0:00"
+#: ../xlgui/properties.py:37
+msgid "Lyricist"
+msgstr "Tekstschrijver"
 
-#: ../xlgui/main.py:36 ../xlgui/main.py:107 ../xlgui/main.py:960
-#: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:630
-msgid "Not Playing"
-msgstr "Niet aan het afspelen"
+#: ../xlgui/properties.py:39
+msgid "Website"
+msgstr "Website"
 
-#: ../xlgui/main.py:117 ../plugins/minimode/mmwidgets.py:650
-msgid "Streaming..."
-msgstr "Streamen..."
+#: ../xlgui/properties.py:41
+msgid "Original Artist"
+msgstr "Originele Artiest"
 
-#: ../xlgui/main.py:198
-msgid "Close tab"
-msgstr "Tab sluiten"
+#: ../xlgui/properties.py:42
+msgid "Author"
+msgstr "Auteur"
 
-#: ../xlgui/main.py:254
-msgid "New playlist title:"
-msgstr "Titel van de nieuwe playlist:"
+#: ../xlgui/properties.py:43
+msgid "Original Date"
+msgstr "Originele Datum"
 
-#: ../xlgui/main.py:254 ../xlgui/menu.py:415
-msgid "Rename Playlist"
-msgstr "Afspeellijst hernoemen"
-
-#: ../xlgui/main.py:262
-msgid "Custom playlist name:"
-msgstr ""
-
-#: ../xlgui/main.py:262
-msgid "Save As..."
-msgstr "Opslaan als..."
-
-#: ../xlgui/main.py:620
-msgid "Toggle: Stop after selected track"
-msgstr "Aan/uit: Na geselecteerd nummer stoppen"
-
-#: ../xlgui/main.py:788
-#, python-format
-msgid "Buffering: %d%%..."
-msgstr "Bufferen: %d%%..."
-
-#: ../xlgui/main.py:790
-msgid "Buffering: 100%..."
-msgstr "Bufferen: 100%..."
-
-#: ../xlgui/main.py:961 ../data/glade/main.glade.h:22
-msgid "Stopped"
-msgstr "Gestopt"
-
-#: ../xlgui/main.py:1035
-msgid ""
-"Exaile Music Player\n"
-"Not playing"
-msgstr ""
-"Exaile Muziekspeler\n"
-"Niet aan het afspelen"
-
-#. TRANSLATORS: Window title
-#: ../xlgui/main.py:1057
-#, python-format
-msgid "%(title)s (by %(artist)s)"
-msgstr "%(title)s (door %(artist)s)"
-
-#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1067
-#, python-format
-msgid "by %s"
-msgstr "door %s"
-
-#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1069
-#, python-format
-msgid "from %s"
-msgstr "van %s"
-
-#: ../xlgui/main.py:1080
-#, python-format
-msgid "In pause: %s"
-msgstr "In pause: %s"
-
-#: ../xlgui/main.py:1082
-#, python-format
-msgid "Playing %s"
-msgstr "%s spelen"
-
-#: ../xlgui/menu.py:43
-msgid "Toggle Queue"
-msgstr "Wachtrij aan/uit zetten"
-
-#: ../xlgui/menu.py:89 ../xlgui/menu.py:311 ../xlgui/panel/radio.py:395
-msgid "New Playlist"
-msgstr "Nieuwe afspeellijst"
-
-#: ../xlgui/menu.py:147
-msgid "Add to custom playlist"
-msgstr "Voeg aan eigen afspeellijst toe"
-
-#: ../xlgui/menu.py:150 ../xlgui/menu.py:454
-msgid "Remove"
-msgstr "Verwijder"
-
-#: ../xlgui/menu.py:153
-msgid "Properties"
-msgstr "Eigenschappen"
-
-#: ../xlgui/menu.py:167
-msgid "Playlist"
-msgstr "Afspeellijst"
-
-#: ../xlgui/menu.py:201 ../data/glade/main.glade.h:34
-msgid "_New Playlist"
-msgstr "_Nieuwe afspeellijst"
-
-#: ../xlgui/menu.py:203
-msgid "_Rename Playlist"
-msgstr "Afspeellijst _hernoemen"
-
-#: ../xlgui/menu.py:205
-msgid "_Save As Custom Playlist"
-msgstr "_Opslaan als aangepaste afspeellijst"
-
-#: ../xlgui/menu.py:207
-msgid "_Save Changes To Playlist"
-msgstr ""
-
-#: ../xlgui/menu.py:208
-msgid "_Save As..."
-msgstr "_Opslaan als…"
-
-#: ../xlgui/menu.py:209
-msgid "C_lear All Tracks"
-msgstr "_Wis alle tracks"
-
-#: ../xlgui/menu.py:211
-msgid "_Close Playlist"
-msgstr "_Sluit afspeellijst"
-
-#: ../xlgui/menu.py:231
-msgid "Append to Current"
-msgstr "Toevoegen aan huidige afspeellijst"
-
-#: ../xlgui/menu.py:233
-msgid "Queue Items"
-msgstr "Voeg items toe aan wachtrij"
-
-#: ../xlgui/menu.py:277
-msgid "Delete track"
-msgstr "Nummer verwijderen"
-
-#: ../xlgui/menu.py:308
-msgid "New Station"
-msgstr "Nieuw station"
-
-#: ../xlgui/menu.py:313
-msgid "New Smart Playlist"
-msgstr "Nieuwe intelligente afspeellijst"
-
-#: ../xlgui/menu.py:357
-msgid "Open"
-msgstr "Openen"
-
-#: ../xlgui/menu.py:360
-msgid "Rename"
-msgstr "Hernoemen"
-
-#: ../xlgui/menu.py:362
-msgid "Edit"
-msgstr "Bewerken"
-
-#: ../xlgui/menu.py:365
-msgid "Export"
-msgstr "Exporteren"
-
-#: ../xlgui/menu.py:368
-msgid "Delete Playlist"
-msgstr "Verwijder afspeellijst"
-
-#: ../xlgui/menu.py:378
-msgid "Export as..."
-msgstr "Exporteren als..."
-
-#: ../xlgui/menu.py:383 ../xlgui/__init__.py:165
-msgid "M3U Playlist"
-msgstr "M3U afspeellijst"
-
-#: ../xlgui/menu.py:384 ../xlgui/__init__.py:166
-msgid "PLS Playlist"
-msgstr "PLS afspeellijst"
-
-#: ../xlgui/menu.py:385 ../xlgui/__init__.py:167
-msgid "ASX Playlist"
-msgstr "ASX afspeellijst"
-
-#: ../xlgui/menu.py:386 ../xlgui/__init__.py:168
-msgid "XSPF Playlist"
-msgstr "XSPF afspeellijst"
-
-#: ../xlgui/menu.py:401 ../xlgui/panel/playlists.py:966
-msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr ""
-"Weet je zeker dat je de geselecteerde afspeellijst definitief wilt "
-"verwijderen?"
-
-#: ../xlgui/menu.py:414
-msgid "Enter the new name you want for your playlist"
-msgstr "Geef een nieuwe naam op voor de afspeellijst"
-
-#: ../xlgui/cover.py:286
-#, python-format
-msgid "%d covers to fetch"
-msgstr "%d albumhoezen om op te halen"
-
-#: ../xlgui/cover.py:291 ../xlgui/cover.py:310
-#: ../data/glade/covermanager.glade.h:2
-msgid "Start"
-msgstr "Starten"
-
-#: ../xlgui/cover.py:325
-msgid "Show Cover"
-msgstr "Albumhoes tonen"
-
-#: ../xlgui/cover.py:326
-msgid "Fetch Cover"
-msgstr "Haal de albumhoes op"
-
-#: ../xlgui/cover.py:327
-msgid "Remove Cover"
-msgstr "Albumhoes verwijderen"
-
-#: ../xlgui/cover.py:658
-msgid "Enter the search text"
-msgstr "Voer de zoektekst in"
-
-#: ../xlgui/cover.py:684
-msgid "No covers found"
-msgstr "Geen albumhoezen gevonden"
-
-#: ../xlgui/osd.py:207
-msgid "No track"
-msgstr "Geen nummer"
-
-#: ../xlgui/__init__.py:160
-msgid "Export current playlist..."
-msgstr "Huidige afspeellijst exporteren"
-
-#: ../xlgui/__init__.py:183 ../xlgui/panel/playlists.py:921
-msgid "Invalid file extension, file not saved"
-msgstr "Ongeldige bestandsextensie, bestand niet opgeslagen"
-
-#: ../xlgui/__init__.py:190
-msgid "Enter the URL to open"
-msgstr "Vul de te openen URL in"
-
-#: ../xlgui/__init__.py:191
-msgid "Open URL"
-msgstr "URL openen"
-
-#: ../xlgui/__init__.py:205
-msgid "Choose a file to open"
-msgstr "Selecteer een bestand om te openen"
-
-#: ../xlgui/__init__.py:211
-msgid "Supported Files"
-msgstr "Ondersteunde bestanden"
-
-#: ../xlgui/__init__.py:213
-msgid "Music Files"
-msgstr "Muziekbestanden"
-
-#: ../xlgui/__init__.py:215
-msgid "Playlist Files"
-msgstr "Afspeellijstbestanden"
-
-#: ../xlgui/__init__.py:217 ../xlgui/prefs/plugin_prefs.py:134
-msgid "All Files"
-msgstr "Alle bestanden"
-
-#: ../xlgui/__init__.py:341
-msgid "Scanning collection..."
-msgstr "Collectie scannen"
-
-#: ../xlgui/__init__.py:438
-#, python-format
-msgid "Scanning %s..."
-msgstr "%s scannen..."
-
-#: ../xlgui/main.py:645
-#, python-format
-msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr "%(playlist_count)d laten zien, %(collection_count)d in collectie"
-
-#: ../xlgui/guiutil.py:717
-#, python-format
-msgid "(%d queued)"
-msgstr "(%d in wachtlijst)"
-
-#: ../xlgui/guiutil.py:650
-msgid "Rating:"
-msgstr "Waardering:"
-
-#: ../xlgui/commondialogs.py:309
-msgid "Select File Type (By Extension)"
-msgstr "Selecteer bestandstype (op extensie)"
-
-#: ../xlgui/commondialogs.py:317
-msgid "File Type"
-msgstr "Bestandstype"
-
-#: ../xlgui/commondialogs.py:320
-msgid "Extension"
-msgstr "Extensie"
-
-#: ../xlgui/devices.py:62
-msgid "Icon"
-msgstr "Pictogram"
-
-#: ../xlgui/devices.py:67
-msgid "Device"
-msgstr "Apparaat"
-
-#: ../xlgui/devices.py:74
-msgid "Driver"
-msgstr ""
-
-#: ../xlgui/collection.py:140
-msgid "Add a directory"
-msgstr "Voeg een map toe"
-
-#. our added path is a subdir of an existing path
-#: ../xlgui/collection.py:170
-msgid ""
-"Path is already in your collection, or is a subdirectory of another path in "
-"your collection"
-msgstr ""
-"Pad is al opgenomen in je collectie, of is een submap van een een ander pad "
-"in je collectie"
-
-#. TRANSLATORS: Title of the track number column
-#: ../xlgui/plcolumns.py:59 ../xlgui/panel/flatplaylist.py:78
-msgid "#"
-msgstr "#"
-
-#: ../xlgui/plcolumns.py:80 ../xlgui/panel/playlists.py:140
-#: ../xlgui/panel/flatplaylist.py:86 ../plugins/cd/cdprefs.py:84
-#: ../plugins/minimode/minimodeprefs.py:118
-msgid "Title"
-msgstr "Titel"
-
-#: ../xlgui/plcolumns.py:85 ../xlgui/panel/playlists.py:55
-#: ../xlgui/panel/playlists.py:139 ../plugins/cd/cdprefs.py:85
-#: ../plugins/minimode/minimodeprefs.py:119
-msgid "Artist"
-msgstr "Artiest"
-
-#: ../xlgui/plcolumns.py:90 ../plugins/cd/cdprefs.py:86
-#: ../plugins/minimode/minimodeprefs.py:120
-msgid "Composer"
-msgstr "Componist"
-
-#: ../xlgui/plcolumns.py:95 ../xlgui/panel/playlists.py:65
-#: ../xlgui/panel/playlists.py:141 ../plugins/cd/cdprefs.py:87
-#: ../plugins/minimode/minimodeprefs.py:121
-msgid "Album"
-msgstr "Album"
-
-#: ../xlgui/plcolumns.py:100 ../xlgui/panel/playlists.py:97
-#: ../xlgui/panel/playlists.py:142 ../plugins/cd/cdprefs.py:88
-#: ../plugins/minimode/minimodeprefs.py:122
-msgid "Length"
-msgstr "Lengte"
-
-#: ../xlgui/plcolumns.py:120
-msgid "Disc"
-msgstr "Schijf"
-
-#: ../xlgui/plcolumns.py:126 ../xlgui/panel/playlists.py:77
-#: ../xlgui/panel/playlists.py:143 ../plugins/cd/cdprefs.py:90
-#: ../plugins/minimode/minimodeprefs.py:124
-msgid "Rating"
-msgstr "Waardering"
-
-#: ../xlgui/plcolumns.py:149 ../plugins/cd/cdprefs.py:91
-#: ../plugins/minimode/minimodeprefs.py:125
+#: ../xlgui/properties.py:44 ../xlgui/plcolumns.py:163
+#: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:72
 msgid "Date"
 msgstr "Datum"
 
-#: ../xlgui/plcolumns.py:154 ../xlgui/panel/playlists.py:71
-#: ../xlgui/panel/playlists.py:146 ../plugins/cd/cdprefs.py:92
-#: ../plugins/minimode/minimodeprefs.py:126
+#: ../xlgui/properties.py:45
+msgid "Arranger"
+msgstr "Samensteller"
+
+#: ../xlgui/properties.py:46
+msgid "Conductor"
+msgstr "Dirigent"
+
+#: ../xlgui/properties.py:47
+msgid "Performer"
+msgstr "Uitvoerend artiest"
+
+#: ../xlgui/properties.py:48 ../xlgui/plcolumns.py:99
+#: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:157
+#: ../data/ui/collection_panel.ui.h:4 ../plugins/cd/cdprefs.py:95
+#: ../plugins/minimode/minimodeprefs.py:66
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
+msgid "Artist"
+msgstr "Artiest"
+
+#: ../xlgui/properties.py:49 ../xlgui/plcolumns.py:109
+#: ../xlgui/panel/playlists.py:77 ../xlgui/panel/playlists.py:159
+#: ../data/ui/collection_panel.ui.h:3 ../plugins/cd/cdprefs.py:97
+#: ../plugins/minimode/minimodeprefs.py:68
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
+msgid "Album"
+msgstr "Album"
+
+#: ../xlgui/properties.py:50
+msgid "Copyright"
+msgstr "Auteursrecht"
+
+#: ../xlgui/properties.py:51
+msgid "Lyrics"
+msgstr "Songteksten"
+
+#: ../xlgui/properties.py:52 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
+msgid "Track"
+msgstr "Nummer"
+
+#: ../xlgui/properties.py:53 ../xlgui/prefs/plugin_prefs.py:98
+msgid "Version"
+msgstr "Versie"
+
+#: ../xlgui/properties.py:54 ../xlgui/plcolumns.py:94
+#: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:158
+#: ../xlgui/panel/flatplaylist.py:98 ../plugins/cd/cdprefs.py:94
+#: ../plugins/minimode/minimodeprefs.py:65
+msgid "Title"
+msgstr "Titel"
+
+#: ../xlgui/properties.py:55
+msgid "ISRC"
+msgstr "ISRC"
+
+#: ../xlgui/properties.py:56 ../xlgui/plcolumns.py:168
+#: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:164
+#: ../plugins/cd/cdprefs.py:102 ../plugins/minimode/minimodeprefs.py:73
 msgid "Genre"
 msgstr "Genre"
 
-#: ../xlgui/plcolumns.py:159 ../plugins/cd/cdprefs.py:93
-#: ../plugins/minimode/minimodeprefs.py:127
+#: ../xlgui/properties.py:57 ../xlgui/plcolumns.py:104
+#: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:67
+msgid "Composer"
+msgstr "Componist"
+
+#: ../xlgui/properties.py:58
+msgid "Encoded By"
+msgstr "Gecodeerd door"
+
+#: ../xlgui/properties.py:59
+msgid "Organization"
+msgstr "Organisatie"
+
+#: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:134
+msgid "Disc"
+msgstr "Schijf"
+
+#: ../xlgui/properties.py:61 ../xlgui/plcolumns.py:204
+#: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimodeprefs.py:79
+msgid "BPM"
+msgstr "BPM"
+
+#: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:173
+#: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimodeprefs.py:74
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#. (_('Date Added'), [
+#: ../xlgui/properties.py:63
+msgid "Date Added"
+msgstr "Toegevoegd op"
+
+#: ../xlgui/properties.py:64 ../xlgui/plcolumns.py:114
+#: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160
+#: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:69
+msgid "Length"
+msgstr "Duur"
+
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #. (_('in the last'), (SpinDateField,
 #. lambda x, i: day_calc(x, i, 'time_added'))),
@@ -735,277 +484,658 @@ msgstr "Bitrate"
 #. (_('not in the last'), (SpinDateField,
 #. lambda x, i: day_calc(x, i, 'last_played', '<'))),
 #. ]),
-#: ../xlgui/plcolumns.py:172 ../xlgui/panel/playlists.py:116
-#: ../xlgui/panel/playlists.py:147 ../plugins/cd/cdprefs.py:94
-#: ../plugins/minimode/minimodeprefs.py:128
+#: ../xlgui/properties.py:65 ../xlgui/plcolumns.py:186
+#: ../xlgui/panel/playlists.py:134 ../xlgui/panel/playlists.py:165
+#: ../plugins/cd/cdprefs.py:104 ../plugins/minimode/minimodeprefs.py:75
 msgid "Location"
 msgstr "Locatie"
 
+#: ../xlgui/properties.py:67
+msgid "Modified"
+msgstr "Gewijzigd"
+
+#: ../xlgui/properties.py:69
+msgid "Times Played"
+msgstr "Keren gespeeld"
+
+#: ../xlgui/properties.py:70
+msgid "Last Played"
+msgstr "Laatst afgespeeld"
+
+#: ../xlgui/properties.py:216
+#, python-format
+msgid "Editing track %(current)d of %(total)d"
+msgstr "Nummer %(current)d van de %(total)d aan het bewerken"
+
+#: ../xlgui/properties.py:330
+msgid "Close without applying changes to tags?"
+msgstr "Sluiten zonder wijzigingen aan labels op te slaan?"
+
+#: ../xlgui/properties.py:655
+msgid "of"
+msgstr "van"
+
+#: ../xlgui/properties.py:777
+msgid "Apply current value to all tracks"
+msgstr "Huidige waarde op alle nummers toepassen"
+
+#: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
+#: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
+msgid "Not Playing"
+msgstr "Niet aan het afspelen"
+
+#: ../xlgui/main.py:130 ../plugins/minimode/mmwidgets.py:822
+msgid "Streaming..."
+msgstr "Streamen..."
+
+#: ../xlgui/main.py:214
+msgid "Close tab"
+msgstr "Tabblad sluiten"
+
+#: ../xlgui/main.py:272
+msgid "New playlist title:"
+msgstr "Titel van de nieuwe afspeellijst:"
+
+#: ../xlgui/main.py:272 ../xlgui/menu.py:448
+msgid "Rename Playlist"
+msgstr "Afspeellijst hernoemen"
+
+#: ../xlgui/main.py:281
+msgid "Custom playlist name:"
+msgstr "Naam aangepaste afspeellijst:"
+
+#: ../xlgui/main.py:281
+msgid "Save As..."
+msgstr "Opslaan als..."
+
+#: ../xlgui/main.py:662
+msgid "Toggle: Stop after selected track"
+msgstr "Aan/uit: Na geselecteerd nummer stoppen"
+
+#: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
+msgid "Dynamically add similar tracks to the playlist"
+msgstr "Soortgelijke nummers dynamisch aan afspeellijst toevoegen."
+
+#: ../xlgui/main.py:706
+msgid "Requires plugins providing dynamic playlists"
+msgstr "Vereist plug-ins voor dynamische afspeellijsten"
+
+#: ../xlgui/main.py:862
+#, python-format
+msgid "Buffering: %d%%..."
+msgstr "Bufferen: %d%%..."
+
+#: ../xlgui/main.py:864
+msgid "Buffering: 100%..."
+msgstr "Bufferen: 100%..."
+
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
+msgid "Shuffle _Off"
+msgstr "Willekeurig afspelen _uitschakelen"
+
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1056
+msgid "Shuffle _Tracks"
+msgstr "_Nummers in willekeurige volgorde afspelen"
+
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1059
+msgid "Shuffle _Albums"
+msgstr "_Albums in willekeurige volgorde afspelen"
+
+#: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
+msgid "Stopped"
+msgstr "Gestopt"
+
+#: ../xlgui/main.py:1209
+msgid ""
+"Exaile Music Player\n"
+"Not playing"
+msgstr ""
+"Exaile Muziekspeler\n"
+"Niet aan het afspelen"
+
+#. TRANSLATORS: Window title
+#: ../xlgui/main.py:1219
+#, python-format
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (door %(artist)s)"
+
+#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+#: ../xlgui/main.py:1229
+#, python-format
+msgid "by %s"
+msgstr "door %s"
+
+#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+#: ../xlgui/main.py:1231
+#, python-format
+msgid "from %s"
+msgstr "van %s"
+
+#: ../xlgui/main.py:1242
+#, python-format
+msgid "In pause: %s"
+msgstr "Gepauzeerd: %s"
+
+#: ../xlgui/main.py:1244
+#, python-format
+msgid "Playing %s"
+msgstr "%s spelen"
+
+#: ../xlgui/menu.py:53
+msgid "Toggle Queue"
+msgstr "Wachtrij aan/uit zetten"
+
+#: ../xlgui/menu.py:99 ../xlgui/menu.py:344 ../xlgui/panel/radio.py:408
+#: ../plugins/droptrayicon/__init__.py:274
+msgid "New Playlist"
+msgstr "Nieuwe afspeellijst"
+
+#: ../xlgui/menu.py:157
+msgid "Add to custom playlist"
+msgstr "Aan aangepaste afspeellijst toevoegen"
+
+#: ../xlgui/menu.py:160 ../xlgui/menu.py:487
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: ../xlgui/menu.py:163 ../xlgui/menu.py:248
+#: ../data/ui/trackproperties_dialog.ui.h:2
+msgid "Properties"
+msgstr "Eigenschappen"
+
+#: ../xlgui/menu.py:177
+msgid "Playlist"
+msgstr "Afspeellijst"
+
+#: ../xlgui/menu.py:212 ../data/ui/main.ui.h:32
+msgid "_New Playlist"
+msgstr "_Nieuwe afspeellijst"
+
+#: ../xlgui/menu.py:214
+msgid "_Rename Playlist"
+msgstr "Afspeellijst _hernoemen"
+
+#: ../xlgui/menu.py:216
+msgid "_Save As Custom Playlist"
+msgstr "_Opslaan als aangepaste afspeellijst"
+
+#: ../xlgui/menu.py:218
+msgid "_Save Changes To Playlist"
+msgstr "Wijzigingen aan afspeellijst _opslaan"
+
+#: ../xlgui/menu.py:219
+msgid "_Save As..."
+msgstr "_Opslaan als…"
+
+#: ../xlgui/menu.py:220
+msgid "C_lear All Tracks"
+msgstr "Alle nummers _wissen"
+
+#: ../xlgui/menu.py:222
+msgid "_Close Playlist"
+msgstr "Afspeellijst _sluiten"
+
+#: ../xlgui/menu.py:243
+msgid "Append to Current"
+msgstr "Toevoegen aan huidige afspeellijst"
+
+#: ../xlgui/menu.py:245
+msgid "Queue Items"
+msgstr "Nummers in de wachtrij zetten"
+
+#: ../xlgui/menu.py:310
+msgid "Delete track"
+msgstr "Nummer verwijderen"
+
+#: ../xlgui/menu.py:341
+msgid "New Station"
+msgstr "Nieuw station"
+
+#: ../xlgui/menu.py:346
+msgid "New Smart Playlist"
+msgstr "Nieuwe intelligente afspeellijst"
+
+#: ../xlgui/menu.py:390
+msgid "Open"
+msgstr "Openen"
+
+#: ../xlgui/menu.py:393
+msgid "Rename"
+msgstr "Hernoemen"
+
+#: ../xlgui/menu.py:395
+msgid "Edit"
+msgstr "Bewerken"
+
+#: ../xlgui/menu.py:398
+msgid "Export"
+msgstr "Exporteren"
+
+#: ../xlgui/menu.py:401
+msgid "Delete Playlist"
+msgstr "Afspeellijst verwijderen"
+
+#: ../xlgui/menu.py:411
+msgid "Export as..."
+msgstr "Exporteren als..."
+
+#: ../xlgui/menu.py:416 ../xlgui/__init__.py:143
+msgid "M3U Playlist"
+msgstr "M3U afspeellijst"
+
+#: ../xlgui/menu.py:417 ../xlgui/__init__.py:144
+msgid "PLS Playlist"
+msgstr "PLS afspeellijst"
+
+#: ../xlgui/menu.py:418 ../xlgui/__init__.py:145
+msgid "ASX Playlist"
+msgstr "ASX afspeellijst"
+
+#: ../xlgui/menu.py:419 ../xlgui/__init__.py:146
+msgid "XSPF Playlist"
+msgstr "XSPF afspeellijst"
+
+#: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:985
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Weet je zeker dat je de geselecteerde afspeellijst definitief wilt "
+"verwijderen?"
+
+#: ../xlgui/menu.py:447
+msgid "Enter the new name you want for your playlist"
+msgstr "Geef een nieuwe naam op voor de afspeellijst"
+
+#: ../xlgui/cover.py:308
+#, python-format
+msgid "%d covers to fetch"
+msgstr "%d albumhoezen om op te halen"
+
+#: ../xlgui/cover.py:313 ../xlgui/cover.py:332 ../data/ui/covermanager.ui.h:2
+msgid "Start"
+msgstr "Starten"
+
+#: ../xlgui/cover.py:347
+msgid "Show Cover"
+msgstr "Albumhoes tonen"
+
+#: ../xlgui/cover.py:348
+msgid "Fetch Cover"
+msgstr "Albumhoes ophalen"
+
+#: ../xlgui/cover.py:349
+msgid "Remove Cover"
+msgstr "Albumhoes verwijderen"
+
+#: ../xlgui/cover.py:697
+msgid "Enter the search text"
+msgstr "Voer de zoektekst in"
+
+#: ../xlgui/cover.py:723
+msgid "No covers found"
+msgstr "Geen albumhoezen gevonden"
+
+#: ../xlgui/osd.py:205 ../xlgui/plcolumns.py:124
+#, python-format
+msgid "%(minutes)d:%(seconds)02d"
+msgstr "%(minutes)d:%(seconds)02d"
+
+#: ../xlgui/osd.py:219
+msgid "No track"
+msgstr "Geen nummer"
+
+#: ../xlgui/__init__.py:138
+msgid "Export current playlist..."
+msgstr "Huidige afspeellijst exporteren..."
+
+#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:940
+msgid "Invalid file extension, file not saved"
+msgstr "Ongeldige bestandsextensie, bestand niet opgeslagen"
+
+#: ../xlgui/__init__.py:168
+msgid "Enter the URL to open"
+msgstr "Vul de te openen URL in"
+
+#: ../xlgui/__init__.py:169
+msgid "Open URL"
+msgstr "URL openen"
+
+#: ../xlgui/__init__.py:183
+msgid "Choose a file to open"
+msgstr "Selecteer een bestand om te openen"
+
+#: ../xlgui/__init__.py:190
+msgid "Supported Files"
+msgstr "Ondersteunde bestanden"
+
+#: ../xlgui/__init__.py:192
+msgid "Music Files"
+msgstr "Muziekbestanden"
+
+#: ../xlgui/__init__.py:194
+msgid "Playlist Files"
+msgstr "Afspeellijstbestanden"
+
+#: ../xlgui/__init__.py:196 ../xlgui/prefs/plugin_prefs.py:143
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: ../xlgui/__init__.py:334
+msgid "Scanning collection..."
+msgstr "Collectie herladen..."
+
+#: ../xlgui/__init__.py:439
+#, python-format
+msgid "Scanning %s..."
+msgstr "%s herladen..."
+
+#: ../xlgui/guiutil.py:430
+msgid "Muted"
+msgstr "Gedempt"
+
+#: ../xlgui/guiutil.py:439
+msgid "Full Volume"
+msgstr "Maximum volume"
+
+#: ../xlgui/guiutil.py:729
+#, python-format
+msgid "%(playlist_count)d showing, %(collection_count)d in collection"
+msgstr "%(playlist_count)d zichtbaar, %(collection_count)d in collectie"
+
+#: ../xlgui/guiutil.py:742
+#, python-format
+msgid "(%d queued)"
+msgstr "(%d in wachtlijst)"
+
+#: ../xlgui/guiutil.py:771
+msgid "Rating:"
+msgstr "Waardering:"
+
+#: ../xlgui/commondialogs.py:335
+msgid "Select File Type (By Extension)"
+msgstr "Selecteer bestandstype (op extensie)"
+
+#: ../xlgui/commondialogs.py:343
+msgid "File Type"
+msgstr "Bestandstype"
+
+#: ../xlgui/commondialogs.py:346
+msgid "Extension"
+msgstr "Extensie"
+
+#: ../xlgui/devices.py:73
+msgid "Icon"
+msgstr "Icoon"
+
+#: ../xlgui/devices.py:78
+msgid "Device"
+msgstr "Apparaat"
+
+#: ../xlgui/devices.py:85
+msgid "Driver"
+msgstr "Stuurprogramma"
+
+#: ../xlgui/collection.py:152
+msgid "Add a directory"
+msgstr "Een map toevoegen"
+
+#: ../xlgui/collection.py:169
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Pad is al opgenomen in je collectie, of is een submap van een een ander pad "
+"in je collectie"
+
+#. TRANSLATORS: Title of the track number column
+#: ../xlgui/plcolumns.py:73 ../xlgui/panel/flatplaylist.py:90
+msgid "#"
+msgstr "#"
+
+#. TRANSLATORS: Default track length
+#: ../xlgui/plcolumns.py:128
+msgid "0:00"
+msgstr "0:00"
+
+#: ../xlgui/plcolumns.py:140 ../xlgui/panel/playlists.py:95
+#: ../xlgui/panel/playlists.py:161 ../plugins/cd/cdprefs.py:100
+#: ../plugins/minimode/minimodeprefs.py:71
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
+msgid "Rating"
+msgstr "Waardering"
+
 #. TRANSLATORS: Filename column in the file browser
-#: ../xlgui/plcolumns.py:177 ../xlgui/panel/files.py:89
-#: ../plugins/cd/cdprefs.py:95 ../plugins/minimode/minimodeprefs.py:129
+#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:120
+#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:76
 msgid "Filename"
 msgstr "Bestandsnaam"
 
-#: ../xlgui/plcolumns.py:182
+#: ../xlgui/plcolumns.py:196
 msgid "Playcount"
-msgstr "Aantal malen afgespeeld"
+msgstr "Aantal keren afgespeeld"
 
-#: ../xlgui/plcolumns.py:190 ../plugins/cd/cdprefs.py:97
-#: ../plugins/minimode/minimodeprefs.py:132
-msgid "BPM"
-msgstr "BPM"
-
-#: ../xlgui/plcolumns.py:195 ../plugins/minimode/minimodeprefs.py:131
+#: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
 msgstr "Laatst afgespeeld"
 
-#: ../xlgui/plcolumns.py:206 ../xlgui/plcolumns.py:226
-#: ../plugins/minimode/mmwidgets.py:880
-msgid "Never"
-msgstr "Nooit"
-
-#: ../xlgui/plcolumns.py:218 ../plugins/minimode/mmwidgets.py:893
-msgid "Today"
-msgstr "Vandaag"
-
-#: ../xlgui/plcolumns.py:220 ../plugins/minimode/mmwidgets.py:895
-msgid "Yesterday"
-msgstr "Gisteren"
-
-#: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:897
-#, python-format
-msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr "%(day)02d-%(month)02d-%(year)d"
-
-#: ../xlgui/plcolumns.py:253
+#: ../xlgui/plcolumns.py:267
 msgid "Track Number"
 msgstr "Nummer"
 
-#: ../xlgui/plcolumns.py:255
+#: ../xlgui/plcolumns.py:269
 msgid "Disc Number"
 msgstr "Schijfnummer"
 
-#: ../xlgui/filtergui.py:51 ../xlgui/panel/radio.py:168
+#: ../xlgui/filtergui.py:60 ../xlgui/panel/radio.py:180
 msgid "Name:"
 msgstr "Naam:"
 
-#: ../xlgui/filtergui.py:65
+#: ../xlgui/filtergui.py:74
 msgid "Match any of the criteria"
 msgstr "Een of meer overeenkomende criteria"
 
-#: ../xlgui/filtergui.py:67
+#: ../xlgui/filtergui.py:76
 msgid "Randomize results"
-msgstr "Gooi de resultaten willekeurig door elkaar"
+msgstr "Resultaten in willekeurige volgorde"
 
-#: ../xlgui/filtergui.py:83
+#: ../xlgui/filtergui.py:92
 msgid "Limit to: "
 msgstr "Beperk tot: "
 
-#: ../xlgui/filtergui.py:93
+#: ../xlgui/filtergui.py:102
 msgid " songs"
 msgstr " nummers"
 
-#: ../xlgui/playlist.py:1060
+#: ../xlgui/playlist.py:1146
 #, python-format
 msgid "Close %s"
 msgstr "Sluit %s"
 
-#: ../xlgui/playlist.py:1061
+#: ../xlgui/playlist.py:1147
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Wijzigingen opslaan naar %s alvorens te sluiten?</b>"
 
-#: ../xlgui/playlist.py:1062
+#: ../xlgui/playlist.py:1148
 msgid "Your changes will be lost if you don't save them"
-msgstr "Je veranderingen zullen verlogen gaan als je ze niet opslaat"
+msgstr "De wijzigingen zullen verloren gaan als je ze niet opslaat"
 
-#: ../xlgui/playlist.py:1064
+#: ../xlgui/playlist.py:1150
 msgid "Close Without Saving"
 msgstr "Sluiten zonder opslaan"
 
-#: ../xlgui/panel/playlists.py:25 ../xlgui/panel/playlists.py:37
-#: ../xlgui/panel/playlists.py:44
+#: ../xlgui/panel/playlists.py:37 ../xlgui/panel/playlists.py:49
+#: ../xlgui/panel/playlists.py:56
 msgid "seconds"
 msgstr "seconden"
 
 #. TRANSLATORS: Logical AND used for smart playlists
-#: ../xlgui/panel/playlists.py:30
+#: ../xlgui/panel/playlists.py:42
 msgid "and"
 msgstr "en"
 
-#: ../xlgui/panel/playlists.py:34 ../xlgui/panel/playlists.py:37
+#: ../xlgui/panel/playlists.py:46 ../xlgui/panel/playlists.py:49
 msgid "days"
 msgstr "dagen"
 
-#: ../xlgui/panel/playlists.py:37
+#: ../xlgui/panel/playlists.py:49
 msgid "minutes"
 msgstr "minuten"
 
-#: ../xlgui/panel/playlists.py:37
+#: ../xlgui/panel/playlists.py:49
 msgid "hours"
 msgstr "uren"
 
-#: ../xlgui/panel/playlists.py:37
+#: ../xlgui/panel/playlists.py:49
 msgid "weeks"
 msgstr "weken"
 
 #. TRANSLATORS: True if haystack is equal to needle
-#: ../xlgui/panel/playlists.py:57 ../xlgui/panel/playlists.py:66
-#: ../xlgui/panel/playlists.py:72 ../xlgui/panel/playlists.py:100
-#: ../xlgui/panel/playlists.py:117 ../xlgui/panel/playlists.py:125
+#: ../xlgui/panel/playlists.py:69 ../xlgui/panel/playlists.py:78
+#: ../xlgui/panel/playlists.py:84 ../xlgui/panel/playlists.py:90
+#: ../xlgui/panel/playlists.py:118 ../xlgui/panel/playlists.py:135
+#: ../xlgui/panel/playlists.py:143
 msgid "is"
 msgstr "is"
 
 #. TRANSLATORS: True if haystack is not equal to needle
-#: ../xlgui/panel/playlists.py:59 ../xlgui/panel/playlists.py:67
-#: ../xlgui/panel/playlists.py:73 ../xlgui/panel/playlists.py:118
-#: ../xlgui/panel/playlists.py:126
+#: ../xlgui/panel/playlists.py:71 ../xlgui/panel/playlists.py:79
+#: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:91
+#: ../xlgui/panel/playlists.py:136 ../xlgui/panel/playlists.py:144
 msgid "is not"
 msgstr "is niet"
 
 #. TRANSLATORS: True if haystack contains needle
-#: ../xlgui/panel/playlists.py:61 ../xlgui/panel/playlists.py:68
-#: ../xlgui/panel/playlists.py:74 ../xlgui/panel/playlists.py:119
-#: ../xlgui/panel/playlists.py:127
+#: ../xlgui/panel/playlists.py:73 ../xlgui/panel/playlists.py:80
+#: ../xlgui/panel/playlists.py:86 ../xlgui/panel/playlists.py:92
+#: ../xlgui/panel/playlists.py:137 ../xlgui/panel/playlists.py:145
 msgid "contains"
 msgstr "bevat"
 
 #. TRANSLATORS: True if haystack does not contain needle
-#: ../xlgui/panel/playlists.py:63 ../xlgui/panel/playlists.py:69
-#: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:120
-#: ../xlgui/panel/playlists.py:128
+#: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:81
+#: ../xlgui/panel/playlists.py:87 ../xlgui/panel/playlists.py:93
+#: ../xlgui/panel/playlists.py:138 ../xlgui/panel/playlists.py:146
 msgid "does not contain"
 msgstr "bevat niet"
 
-#: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:134
+#: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:152
 msgid "greater than"
 msgstr "groter dan"
 
-#: ../xlgui/panel/playlists.py:79 ../xlgui/panel/playlists.py:135
+#: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:153
 msgid "less than"
-msgstr "minder dan"
+msgstr "kleiner dan"
 
 #. TRANSLATORS: Example: rating >= 5
-#: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
-#: ../xlgui/panel/playlists.py:98 ../xlgui/panel/playlists.py:129
+#: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:104
+#: ../xlgui/panel/playlists.py:116 ../xlgui/panel/playlists.py:147
 msgid "at least"
 msgstr "ten minste"
 
 #. TRANSLATORS: Example: rating <= 3
-#: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:87
-#: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:130
+#: ../xlgui/panel/playlists.py:101 ../xlgui/panel/playlists.py:105
+#: ../xlgui/panel/playlists.py:117 ../xlgui/panel/playlists.py:148
 msgid "at most"
 msgstr "hoogstens"
 
-#: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:144
+#: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:162
 msgid "Plays"
-msgstr "Malen afgespeeld"
+msgstr "Keren afgespeeld"
 
-#: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:145
+#: ../xlgui/panel/playlists.py:107 ../xlgui/panel/playlists.py:163
 msgid "Year"
 msgstr "Jaar"
 
 #. TRANSLATORS: Example: year < 1999
-#: ../xlgui/panel/playlists.py:91 ../xlgui/panel/playlists.py:131
+#: ../xlgui/panel/playlists.py:109 ../xlgui/panel/playlists.py:149
 msgid "before"
 msgstr "voor"
 
 #. TRANSLATORS: Example: year > 2002
-#: ../xlgui/panel/playlists.py:93 ../xlgui/panel/playlists.py:132
+#: ../xlgui/panel/playlists.py:111 ../xlgui/panel/playlists.py:150
 msgid "after"
 msgstr "na"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
-#: ../xlgui/panel/playlists.py:95 ../xlgui/panel/playlists.py:133
+#: ../xlgui/panel/playlists.py:113 ../xlgui/panel/playlists.py:151
 msgid "between"
 msgstr "tussen"
 
-#. name is already in use
-#: ../xlgui/panel/playlists.py:212 ../xlgui/panel/playlists.py:318
-#: ../xlgui/panel/playlists.py:356 ../xlgui/panel/playlists.py:592
-#: ../xlgui/panel/playlists.py:666
+#: ../xlgui/panel/playlists.py:230 ../xlgui/panel/playlists.py:336
+#: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
+#: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
-msgstr "De speellijstnaam die je hebt ingevuld word al gebruikt!"
+msgstr "De ingevoerde naam van de afspeellijst wordt al gebruikt!"
 
-#: ../xlgui/panel/playlists.py:349
+#: ../xlgui/panel/playlists.py:367
 msgid "New custom playlist name:"
-msgstr ""
+msgstr "Nieuwe naam aangepaste afspeellijst:"
 
-#: ../xlgui/panel/playlists.py:350
+#: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
-msgstr "Voeg toe aan nieuwe speellijst..."
+msgstr "Aan nieuwe afspeellijst toevoegen..."
 
-#: ../xlgui/panel/playlists.py:360 ../xlgui/panel/playlists.py:586
-#: ../xlgui/panel/playlists.py:659
+#: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
+#: ../xlgui/panel/playlists.py:678
 msgid "You did not enter a name for your playlist"
 msgstr "Je hebt geen naam ingevuld voor je afspeellijst"
 
-#: ../xlgui/panel/playlists.py:534
+#: ../xlgui/panel/playlists.py:553
 msgid "Smart Playlists"
 msgstr "Intelligente afspeellijsten"
 
-#: ../xlgui/panel/playlists.py:537
+#: ../xlgui/panel/playlists.py:556
 msgid "Custom Playlists"
 msgstr "Aangepaste afspeellijsten"
 
-#: ../xlgui/panel/playlists.py:572
+#: ../xlgui/panel/playlists.py:591
 msgid "Add Smart Playlist"
 msgstr "Intelligente afspeellijst toevoegen"
 
-#: ../xlgui/panel/playlists.py:637
+#: ../xlgui/panel/playlists.py:656
 msgid "Edit Smart Playlist"
 msgstr "Intelligente afspeellijst bewerken"
 
-#: ../xlgui/panel/radio.py:96 ../xlgui/panel/radio.py:453
-#: ../xlgui/panel/radio.py:529
+#: ../xlgui/panel/radio.py:108 ../xlgui/panel/radio.py:466
+#: ../xlgui/panel/radio.py:542
 msgid "Loading streams..."
-msgstr "Streams aan het laden..."
+msgstr "Streams laden..."
 
-#: ../xlgui/panel/radio.py:125 ../data/glade/radio_panel.glade.h:2
-#: ../plugins/podcasts/__init__.py:89 ../plugins/podcasts/__init__.py:212
-#: ../plugins/podcasts/__init__.py:224 ../plugins/shoutcast/__init__.py:121
-#: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:224
-#: ../plugins/shoutcast/__init__.py:257 ../plugins/podcasts/podcasts.glade.h:2
-msgid "Idle."
-msgstr "Inactief."
-
-#: ../xlgui/panel/radio.py:166
+#: ../xlgui/panel/radio.py:178
 msgid "Add Radio Station"
 msgstr "Radiostation toevoegen"
 
-#: ../xlgui/panel/radio.py:169
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
+#: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
 msgstr "URL:"
 
-#: ../xlgui/panel/radio.py:234
+#: ../xlgui/panel/radio.py:247
 msgid "Saved Stations"
-msgstr "Opgeslagen Zenders"
+msgstr "Opgeslagen stations"
 
-#: ../xlgui/panel/radio.py:235
+#: ../xlgui/panel/radio.py:248
 msgid "Radio Streams"
-msgstr "Radiostreams"
+msgstr "Radio-streams"
 
-#: ../xlgui/panel/radio.py:264
+#: ../xlgui/panel/radio.py:277
 msgid "Refresh"
 msgstr "Vernieuwen"
 
-#: ../xlgui/panel/radio.py:394
+#: ../xlgui/panel/radio.py:407
 msgid "Enter the name you want for your new playlist"
-msgstr "Vul een naam in die je wilt voor je nieuwe afspeellijst"
+msgstr "Voer een naam in voor je nieuwe afspeellijst"
 
-#. TRANSLATORS: Filesize column in the file browser
-#: ../xlgui/panel/files.py:114
+#. TRANSLATORS: File size column in the file browser
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "Grootte"
 
-#: ../xlgui/panel/files.py:347
+#: ../xlgui/panel/files.py:413
 #, python-format
-msgid "%s KB"
-msgstr "%s KB"
+msgid "%d KB"
+msgstr "%d KB"
 
-#: ../xlgui/panel/collection.py:100
+#: ../xlgui/panel/collection.py:140
 msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
@@ -1013,225 +1143,518 @@ msgstr ""
 "Dit zal de geselecteerde nummers permanent verwijderen van je schijf, weet "
 "je zeker dat je door wilt gaan?"
 
-#: ../xlgui/panel/collection.py:162
+#: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
-msgstr "Collectie opnieuw doorzoeken"
+msgstr "Collectie opnieuw laden"
 
-#: ../xlgui/panel/collection.py:625
-msgid "Various Artists"
-msgstr "Diverse artiesten"
-
-#: ../xlgui/panel/device.py:115
+#: ../xlgui/panel/device.py:127
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Overzetten naar %s..."
 
-#: ../xlgui/prefs/cover_prefs.py:21
+#: ../xlgui/prefs/cover_prefs.py:31
 msgid "Covers"
 msgstr "Albumhoezen"
 
-#: ../xlgui/prefs/appearance_prefs.py:22
+#: ../xlgui/prefs/appearance_prefs.py:32
 msgid "Appearance"
 msgstr "Uiterlijk"
 
-#: ../xlgui/prefs/playback_prefs.py:22
+#: ../xlgui/prefs/playback_prefs.py:32
 msgid "Playback"
 msgstr "Afspelen"
 
-#: ../xlgui/prefs/__init__.py:73 ../data/glade/preferences_dialog.glade.h:2
+#: ../xlgui/prefs/__init__.py:83 ../data/ui/preferences_dialog.ui.h:1
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: ../xlgui/prefs/__init__.py:84 ../xlgui/prefs/plugin_prefs.py:25
+#: ../xlgui/prefs/__init__.py:94 ../xlgui/prefs/plugin_prefs.py:34
 msgid "Plugins"
 msgstr "Plugins"
 
-#: ../xlgui/prefs/playlists_prefs.py:22
-#: ../data/glade/playlists_panel.glade.h:1
+#: ../xlgui/prefs/collection_prefs.py:22 ../data/ui/device_panel.ui.h:1
+#: ../data/ui/collection_panel.ui.h:6
+msgid "Collection"
+msgstr "Collectie"
+
+#. TRANSLATORS: Grammatical articles that are ignored while sorting the
+#. collection panel. For example, in French locales this could be
+#. the space-separated list "l' la le les".
+#. If this practice is not common in your locale, simply
+#. translate this to an empty string.
+#: ../xlgui/prefs/collection_prefs.py:31
+msgid "the"
+msgstr "de"
+
+#: ../xlgui/prefs/collection_prefs.py:53
+msgid "Reset to defaults"
+msgstr "Standaardwaarden herstellen"
+
+#: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"
 msgstr "Afspeellijsten"
 
-#: ../xlgui/prefs/osd_prefs.py:22
+#: ../xlgui/prefs/osd_prefs.py:32
 msgid "On Screen Display"
-msgstr "On Screen Display"
+msgstr "Infoschermvenster"
 
-#: ../xlgui/prefs/plugin_prefs.py:81
+#: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"
 msgstr "Plugin"
 
-#: ../xlgui/prefs/plugin_prefs.py:89
-msgid "Version"
-msgstr "Versie"
-
-#: ../xlgui/prefs/plugin_prefs.py:97
-#: ../plugins/multialarmclock/alarmclk.glade.h:6
+#: ../xlgui/prefs/plugin_prefs.py:106
+#: ../plugins/multialarmclock/alarmclk.ui.h:6
+#: ../plugins/equalizer/equalizer.ui.h:14
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
-#: ../xlgui/prefs/plugin_prefs.py:119
+#: ../xlgui/prefs/plugin_prefs.py:128
 msgid "Choose a plugin"
-msgstr "Kies een plugin"
+msgstr "Selecteer een plugin"
 
-#: ../xlgui/prefs/plugin_prefs.py:127
+#: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
-msgstr "Pluginarchieven"
+msgstr "Plugin archieven"
 
-#: ../xlgui/prefs/plugin_prefs.py:180
+#: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
-msgid "Could not enable plugin: %s"
-msgstr "Kon plugin niet inschakelen: %s"
+msgid ""
+"<b>Could not enable plugin:</b>\n"
+"%(reason)s"
+msgstr ""
+"<b>Kon plugin niet inschakelen:</b>\n"
+"%(reason)s"
 
-#: ../xlgui/prefs/plugin_prefs.py:187
+#: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
-msgid "Could not disable plugin: %s"
-msgstr "Kon plugin niet uitschakelen: %s"
+msgid ""
+"<b>Could not disable plugin:</b>\n"
+"%(reason)s"
+msgstr ""
+"<b>Kon plugin niet uitschakelen:</b>\n"
+"%(reason)s"
 
-#: ../xlgui/prefs/widgets.py:244
+#: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
 msgstr "Item toevoegen"
 
-#: ../xlgui/prefs/widgets.py:249
+#: ../xlgui/prefs/widgets.py:266
 msgid "Remove item"
 msgstr "Item verwijderen"
 
-#: ../xlgui/prefs/widgets.py:262
+#: ../xlgui/prefs/widgets.py:279
 msgid "Move selected item up"
 msgstr "Geselecteerde item omhoog verplaatsen"
 
-#: ../xlgui/prefs/widgets.py:267
+#: ../xlgui/prefs/widgets.py:284
 msgid "Move selected item down"
 msgstr "Geselecteerde item omlaag verplaatsen"
 
-#: ../xlgui/prefs/widgets.py:538
+#: ../xlgui/prefs/widgets.py:555
 msgid "Action"
-msgstr ""
+msgstr "Actie"
 
-#: ../xlgui/prefs/widgets.py:546
+#: ../xlgui/prefs/widgets.py:563
 msgid "Shortcut"
 msgstr "Sneltoets"
 
-#: ../xlgui/tray.py:73
+#: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
+msgid "Shuffle playback order"
+msgstr "In willekeurige volgorde afspelen"
+
+#: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
+msgid "Repeat playlist"
+msgstr "Afspeellijst herhalen"
+
+#: ../xlgui/tray.py:104
+msgid "Dynamically add similar tracks"
+msgstr "Soortgelijke nummers dynamisch toevoegen."
+
+#: ../xlgui/tray.py:116
+msgid "Remove current track from playlist"
+msgstr "Huidig nummer uit de afspeellijst verwijderen"
+
+#: ../xlgui/tray.py:179
 msgid "Exaile Music Player"
 msgstr "Exaile muziekspeler"
 
-#: ../xlgui/tray.py:116 ../data/glade/main.glade.h:17
-msgid "Shuffle playback order"
-msgstr "Shuffle afspeelvolgorde"
+#: ../data/ui/collection_prefs_pane.ui.h:1
+msgid "(Right click to reset to defaults)"
+msgstr "Rechtsklik om terug te gaan naar de standaardwaarden"
 
-#: ../xlgui/tray.py:121 ../data/glade/main.glade.h:15
-msgid "Repeat playlist"
-msgstr "Herhaal afspeellijst"
+#: ../data/ui/collection_prefs_pane.ui.h:2
+msgid "Use file based compilation detection"
+msgstr "Gebruik op bestanden gebaseerde compilatie cd herkenning"
 
-#: ../xlgui/tray.py:126
-msgid "Dynamically add similar tracks"
-msgstr "Voeg dynamisch gelijke nummers toe"
+#: ../data/ui/collection_prefs_pane.ui.h:3
+msgid "Words to strip from the beginning of artist tags (space separated):"
+msgstr ""
+"Woorden om weg te halen aan het begin van de artiestenlabels (gescheiden "
+"door spatie):"
 
-#: ../xlgui/tray.py:135
-msgid "Remove current track from playlist"
-msgstr "Verwijder huidig nummer van de afspeellijst"
+#: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
+msgid "Open last playlists on startup"
+msgstr "Open de laatste afspeellijsten bij opstarten"
 
-#: ../data/glade/device_manager.glade.h:1
-msgid "..."
-msgstr "..."
+#: ../data/ui/main.ui.h:1
+msgid "0/0 tracks"
+msgstr "0/0 tracks"
 
-#: ../data/glade/device_manager.glade.h:2
-msgid "Add device"
-msgstr "Apparaat toevoegen"
+#: ../data/ui/main.ui.h:2
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
 
-#: ../data/glade/device_manager.glade.h:3
-msgid "Custom: "
-msgstr "Aangepast: "
+#: ../data/ui/main.ui.h:3
+msgid "C_overs"
+msgstr "Albumh_oezen"
 
-#: ../data/glade/device_manager.glade.h:4
-msgid "Detected devices:"
-msgstr "Gedetecteerde apparaten:"
+#: ../data/ui/main.ui.h:4
+msgid "Clear Playlist"
+msgstr "Afspeellijst wissen"
 
-#: ../data/glade/device_manager.glade.h:5
-msgid "Device Manager"
-msgstr "Apparaatbeheerder"
+#: ../data/ui/main.ui.h:5
+msgid "Click to view Queue"
+msgstr "Klik om wachtrij weer te geven"
 
-#: ../data/glade/device_manager.glade.h:6
-msgid "Type of device:"
-msgstr "Type apparaat:"
+#: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
+msgid "Next Track"
+msgstr "Volgende nummer"
 
-#: ../data/glade/device_panel.glade.h:1
-#: ../data/glade/collection_panel.glade.h:10
-msgid "Collection"
-msgstr "Verzameling"
+#: ../data/ui/main.ui.h:9
+msgid "Open _URL"
+msgstr "_Url openen"
 
-#: ../data/glade/coverchooser.glade.h:1
-msgid "Cover Finder"
-msgstr "Albumhoeszoeker"
+#: ../data/ui/main.ui.h:10
+msgid "Page 1"
+msgstr "Pagina 1"
 
-#: ../data/glade/coverchooser.glade.h:2
-msgid "New Search"
-msgstr "Nieuwe zoekopdracht"
+#: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:216
+msgid "Previous Track"
+msgstr "Vorige nummer"
 
-#: ../data/glade/trackproperties_dialog.glade.h:1
-msgid "Album:"
-msgstr "Album:"
+#: ../data/ui/main.ui.h:12
+msgid "Randomize the order of the current playlist"
+msgstr "Volgorde van de huidige afspeellijst willekeurig maken"
 
-#: ../data/glade/trackproperties_dialog.glade.h:2
-msgid "Artist:"
-msgstr "Artiest:"
+#: ../data/ui/main.ui.h:13
+msgid "Re_scan Collection"
+msgstr "Collectie opnieuw _laden"
 
-#: ../data/glade/trackproperties_dialog.glade.h:3
-msgid "Basic"
-msgstr "Eenvoudig"
+#: ../data/ui/main.ui.h:15 ../data/ui/files_panel.ui.h:6
+#: ../data/ui/collection_panel.ui.h:11
+msgid "Search: "
+msgstr "Zoeken: "
 
-#: ../data/glade/trackproperties_dialog.glade.h:4
-msgid "Bitrate:"
-msgstr "Bitrate:"
+#: ../data/ui/main.ui.h:17
+msgid "Start/Pause Playback"
+msgstr "Afspelen starten/pauzeren"
 
-#: ../data/glade/trackproperties_dialog.glade.h:5
-msgid "Date:"
-msgstr "Datum:"
+#: ../data/ui/main.ui.h:18
+msgid ""
+"Stop Playback\n"
+"\n"
+"Right Click for Stop After Track Feature"
+msgstr ""
+"Afspelen stoppen\n"
+"\n"
+"Rechtsklikken om te stoppen na het huidig nummer."
 
-#: ../data/glade/trackproperties_dialog.glade.h:6
-msgid "Details"
-msgstr "Details"
+#: ../data/ui/main.ui.h:22
+msgid "Track _properties"
+msgstr "Nummereigenscha_ppen"
 
-#: ../data/glade/trackproperties_dialog.glade.h:7
-msgid "File Size:"
-msgstr "Bestandsgrootte:"
+#: ../data/ui/main.ui.h:23
+msgid "_Autosize"
+msgstr "Automatische breedte"
 
-#: ../data/glade/trackproperties_dialog.glade.h:8
-msgid "Genre:"
-msgstr "Genre:"
+#: ../data/ui/main.ui.h:24
+msgid "_Collection"
+msgstr "_Collectie"
 
-#: ../data/glade/trackproperties_dialog.glade.h:9
-msgid "Length:"
-msgstr "Lengte:"
+#: ../data/ui/main.ui.h:25
+msgid "_Columns"
+msgstr "_Kolommen"
 
-#: ../data/glade/trackproperties_dialog.glade.h:10
-msgid "Location:"
-msgstr "Locatie:"
+#: ../data/ui/main.ui.h:26
+msgid "_Device Manager"
+msgstr "_Apparaatbeheerder"
 
-#: ../data/glade/trackproperties_dialog.glade.h:11
-msgid "Play Count:"
-msgstr "Aantal maal afgespeeld:"
+#: ../data/ui/main.ui.h:27
+msgid "_Edit"
+msgstr "B_ewerken"
 
-#: ../data/glade/trackproperties_dialog.glade.h:12
-msgid "Title:"
-msgstr "Titel:"
+#: ../data/ui/main.ui.h:28
+msgid "_Export current playlist"
+msgstr "Huidige afspeellijst _exporteren"
 
-#: ../data/glade/trackproperties_dialog.glade.h:13
-msgid "Track Number:"
-msgstr "Nummer:"
+#: ../data/ui/main.ui.h:29
+msgid "_File"
+msgstr "_Bestand"
 
-#: ../data/glade/trackproperties_dialog.glade.h:14
+#: ../data/ui/main.ui.h:30
+msgid "_Go to Playing Track"
+msgstr "Naar spelend nummer _gaan"
+
+#: ../data/ui/main.ui.h:31
+msgid "_Help"
+msgstr "_Hulp"
+
+#: ../data/ui/main.ui.h:33
+msgid "_Queue"
+msgstr "_Wachtrij"
+
+#: ../data/ui/main.ui.h:34
+msgid "_Randomize Playlist"
+msgstr "Afspeellijst in willekeu_rige volgorde"
+
+#: ../data/ui/main.ui.h:35
+msgid "_Resizable"
+msgstr "Herschaalbaar"
+
+#: ../data/ui/main.ui.h:36
+msgid "_Tools"
+msgstr "E_xtra"
+
+#: ../data/ui/main.ui.h:37
+msgid "_View"
+msgstr "Beel_d"
+
+#: ../data/ui/flatplaylist_panel.ui.h:1
+msgid "Append All Tracks to Playlist"
+msgstr "Alle nummers toevoegen aan afspeellijst"
+
+#: ../data/ui/flatplaylist_panel.ui.h:2
+msgid "Import CD"
+msgstr "Importeer CD"
+
+#: ../data/ui/flatplaylist_panel.ui.h:3 ../data/ui/radio_panel.ui.h:2
+msgid "Radio"
+msgstr "Radio"
+
+#: ../data/ui/covermanager.ui.h:1
+msgid "Cover Manager"
+msgstr "Albumhoesbeheerder"
+
+#: ../data/ui/covermanager.ui.h:3
+msgid "_Close"
+msgstr "_Sluiten"
+
+#: ../data/ui/trackproperties_dialog.ui.h:1
+msgid "A_dd tag"
+msgstr "Label _toevoegen"
+
+#: ../data/ui/trackproperties_dialog.ui.h:3
+msgid "Tags"
+msgstr "Labels"
+
+#: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
 msgstr "Nummereigenschappen"
 
-#: ../data/glade/about_dialog.glade.h:1
+#: ../data/ui/trackproperties_dialog.ui.h:5
+msgid "Uppercase first letter of all tags"
+msgstr "Hoofdletter maken van eerste letter van alle labels."
+
+#: ../data/ui/trackproperties_dialog.ui.h:6
+msgid "_Next"
+msgstr "V_olgende"
+
+#: ../data/ui/trackproperties_dialog.ui.h:7
+msgid "_Previous"
+msgstr "V_orige"
+
+#: ../data/ui/trackproperties_dialog.ui.h:8
+msgid "_Remove tag"
+msgstr "Label _verwijderen"
+
+#: ../data/ui/trackproperties_dialog.ui.h:9
+msgid "ab &#x2192; A_b"
+msgstr "ab &#x2192; A_b"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:1
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Geen plugin geselecteerd</b>"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:2
+msgid "Authors:"
+msgstr "Auteurs:"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:3
+msgid "Available Plugins"
+msgstr "Beschikbare plugins"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:4
+msgid "Description:"
+msgstr "Beschrijving:"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:5
+msgid "Install"
+msgstr "Installeren"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:6
+msgid "Install Updates"
+msgstr "Updates Installeren"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:7
+msgid "Install a third party plugin from a file"
+msgstr "Installeer een plugin van een derde partij vanuit een bestand"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:8
+msgid "Install plugin file"
+msgstr "Installeer pluginbestand"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:9
+msgid "Installed Plugins"
+msgstr "Geïnstalleerde plugins"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:10
+msgid "Updates"
+msgstr "Updates"
+
+#: ../data/ui/plugin_prefs_pane.ui.h:11
+msgid "Version:"
+msgstr "Versie:"
+
+#: ../data/ui/radio_panel.ui.h:1
+msgid "Add Station"
+msgstr "Station toevoegen"
+
+#: ../data/ui/collection_manager.ui.h:1
+msgid "Collection Manager"
+msgstr "Collectiebeheerder"
+
+#: ../data/ui/device_manager.ui.h:1
+msgid "..."
+msgstr "..."
+
+#: ../data/ui/device_manager.ui.h:2
+msgid "Add device"
+msgstr "Apparaat toevoegen"
+
+#: ../data/ui/device_manager.ui.h:3
+msgid "Custom: "
+msgstr "Aangepast: "
+
+#: ../data/ui/device_manager.ui.h:4
+msgid "Detected devices:"
+msgstr "Gedetecteerde apparaten:"
+
+#: ../data/ui/device_manager.ui.h:5
+msgid "Device Manager"
+msgstr "Apparaatbeheerder"
+
+#: ../data/ui/device_manager.ui.h:6
+msgid "Type of device:"
+msgstr "Type apparaat:"
+
+#: ../data/ui/files_panel.ui.h:1
+msgid "Files"
+msgstr "Bestanden"
+
+#: ../data/ui/files_panel.ui.h:2
+msgid "Home directory"
+msgstr "Persoonlijke map"
+
+#: ../data/ui/files_panel.ui.h:3
+msgid "Next visited directory"
+msgstr "Volgende bezochte map"
+
+#: ../data/ui/files_panel.ui.h:4
+msgid "Previous visited directory"
+msgstr "Vorige bezochte map"
+
+#: ../data/ui/files_panel.ui.h:5
+msgid "Refresh directory listing"
+msgstr "Mappenlijst vernieuwen"
+
+#: ../data/ui/files_panel.ui.h:7
+msgid "Up one directory"
+msgstr "Eén map omhoog"
+
+#: ../data/ui/playlists_prefs_pane.ui.h:2
+msgid "Prompt for saving custom playlists on close"
+msgstr "Vragen om aangepaste afspeellijsten op te slaan bij het sluiten"
+
+#: ../data/ui/osd_prefs_pane.ui.h:1
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to "
+"appear</b>"
+msgstr "<b>Verplaats het Infoschermvenster naar de gewenste locatie</b>"
+
+#: ../data/ui/osd_prefs_pane.ui.h:2
+msgid "Background Color:"
+msgstr "Achtergrondkleur:"
+
+#: ../data/ui/osd_prefs_pane.ui.h:3
+msgid "Display OSD when hovering over tray icon"
+msgstr ""
+"Infoschermvenster tonen als je muis op het systeemvakpictogram staat."
+
+#: ../data/ui/osd_prefs_pane.ui.h:4
+msgid "Display a progressbar in the OSD"
+msgstr "Voortgangsbalk tonen in het Infoschermvenster"
+
+#: ../data/ui/osd_prefs_pane.ui.h:5
+msgid "Opacity Level:"
+msgstr "Doorzichtigheidsniveau:"
+
+#: ../data/ui/osd_prefs_pane.ui.h:6
+msgid "Show OSD on track change"
+msgstr "Infoschermvenster tonen bij veranderen van nummer"
+
+#: ../data/ui/osd_prefs_pane.ui.h:7
+msgid "Text Color"
+msgstr "Tekstkleur"
+
+#: ../data/ui/osd_prefs_pane.ui.h:8
+msgid "Text Font:"
+msgstr "Tekstlettertype:"
+
+#: ../data/ui/osd_prefs_pane.ui.h:9
+msgid "Window Height:"
+msgstr "Vensterhoogte:"
+
+#: ../data/ui/osd_prefs_pane.ui.h:10
+msgid "Window Width:"
+msgstr "Vensterbreedte:"
+
+#: ../data/ui/coverchooser.ui.h:1
+msgid "Cover Finder"
+msgstr "Albumhoeszoeker"
+
+#: ../data/ui/coverchooser.ui.h:2
+msgid "New Search"
+msgstr "Nieuwe zoekopdracht"
+
+#: ../data/ui/cover_prefs_pane.ui.h:1
+msgid "(drag to reorder)"
+msgstr "(slepen om opnieuw te ordenen)"
+
+#: ../data/ui/cover_prefs_pane.ui.h:2
+msgid "Cover Search Order:"
+msgstr "Volgorde albumhoes zoeken:"
+
+#: ../data/ui/queue_dialog.ui.h:1
+msgid "Close this dialog"
+msgstr "Dit dialoog sluiten"
+
+#: ../data/ui/queue_dialog.ui.h:2
+msgid "Queue Manager"
+msgstr "Wachtrijbeheerder"
+
+#: ../data/ui/queue_dialog.ui.h:3
+msgid "Remove All"
+msgstr "Alles verwijderen"
+
+#: ../data/ui/about_dialog.ui.h:1
 msgid "&#xA9; 2009"
 msgstr "&#xA9; 2009"
 
-#: ../data/glade/about_dialog.glade.h:2
+#: ../data/ui/about_dialog.ui.h:2
 msgid "About Exaile"
 msgstr "Over Exaile"
 
-#: ../data/glade/about_dialog.glade.h:3
+#: ../data/ui/about_dialog.ui.h:3
 msgid ""
 "Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
@@ -1267,7 +1690,7 @@ msgstr ""
 "Foundation, Inc.,\n"
 "51 Franklin Street, Vijfde verdieping, Boston, MA 02110-1301 USA.\n"
 
-#: ../data/glade/about_dialog.glade.h:19
+#: ../data/ui/about_dialog.ui.h:19
 msgid ""
 "Mathias Brodala\n"
 "   <info@noctus.net>\n"
@@ -1277,457 +1700,165 @@ msgstr ""
 "   <info@noctus.net>\n"
 "     Vertalingsmanager"
 
-#: ../data/glade/appearance_prefs_pane.glade.h:1
-msgid "Always show tab bar"
-msgstr "Laat altijd een tabbar zien"
+#: ../data/ui/playback_prefs_pane.ui.h:1
+msgid "ALSA"
+msgstr "ALSA"
 
-#: ../data/ui/appearance_prefs_pane.glade.h:2
-msgid "Bottom"
-msgstr ""
+#: ../data/ui/playback_prefs_pane.ui.h:2
+msgid "Audio Sink:  "
+msgstr "Audio systeem:  "
 
-#: ../data/glade/appearance_prefs_pane.glade.h:3
-msgid "Jump to current song on track change"
-msgstr "Spring naar huidige lied bij nummerwijziging"
+#: ../data/ui/playback_prefs_pane.ui.h:4
+msgid "Crossfade duration (ms):"
+msgstr "Overvloeien duur (ms):"
 
-#: ../data/ui/appearance_prefs_pane.glade.h:5
-msgid "Left"
-msgstr "Links"
+#: ../data/ui/playback_prefs_pane.ui.h:5
+msgid "Fade duration (ms):"
+msgstr "Fade duur (ms):"
 
-#: ../data/glade/appearance_prefs_pane.glade.h:8
-msgid "Minimize to tray"
-msgstr "Minimaliseren naar systeemvak"
+#: ../data/ui/playback_prefs_pane.ui.h:6
+msgid "GNOME"
+msgstr "GNOME"
 
-#: ../data/ui/appearance_prefs_pane.glade.h:7
-msgid "Right"
-msgstr "Rechts"
+#: ../data/ui/playback_prefs_pane.ui.h:7
+msgid "JACK"
+msgstr "JACK"
 
-#: ../data/glade/appearance_prefs_pane.glade.h:9
-msgid "Show splash screen on startup"
-msgstr "Openingsscherm tonen bij starten"
+#: ../data/ui/playback_prefs_pane.ui.h:8
+msgid "Normal"
+msgstr "Normaal"
 
-#: ../data/glade/appearance_prefs_pane.glade.h:10
-msgid "Show tray icon"
-msgstr "Systeemvakpictogram tonen"
+#: ../data/ui/playback_prefs_pane.ui.h:9
+msgid "OSS"
+msgstr "OSS"
 
-#: ../data/glade/appearance_prefs_pane.glade.h:11
-msgid "Tab placement:"
-msgstr "Tabplaatsing:"
+#: ../data/ui/playback_prefs_pane.ui.h:10
+msgid "Playback engine (requires restart): "
+msgstr "Afspeel-engine (vereist herstart): "
 
-#: ../data/ui/appearance_prefs_pane.glade.h:11
-msgid "Top"
-msgstr "Bovenkant"
+#: ../data/ui/playback_prefs_pane.ui.h:11
+msgid "PulseAudio"
+msgstr "PulseAudio"
 
-#: ../data/glade/appearance_prefs_pane.glade.h:12
-msgid "Use alpha transparency (if supported)"
-msgstr ""
+#: ../data/ui/playback_prefs_pane.ui.h:12
+msgid "Resume playback in paused state"
+msgstr "Hervat het afspelen in pause staat"
 
-#: ../data/glade/osd_window.glade.h:1
+#: ../data/ui/playback_prefs_pane.ui.h:13
+msgid "Resume playback on start"
+msgstr "Hervat het afspelen op start"
+
+#: ../data/ui/playback_prefs_pane.ui.h:14
+msgid "These options only affect the unified engine."
+msgstr "Deze opties beïnvloeden alleen de unified engine."
+
+#: ../data/ui/playback_prefs_pane.ui.h:15
+msgid "Unified (unstable)"
+msgstr "Unified (onstabiel)"
+
+#: ../data/ui/playback_prefs_pane.ui.h:16
+msgid "Use crossfading (EXPERIMENTAL)"
+msgstr "Gebruik overvloeien (EXPERIMENTEEL)"
+
+#: ../data/ui/playback_prefs_pane.ui.h:17
+msgid "Use fade transitions on user actions"
+msgstr "Gebruik fade overgangen op acties van gebruiker"
+
+#: ../data/ui/osd_window.ui.h:1
 msgid ""
 "<b>OSD</b>\n"
 "Drag to the location you'd like the\n"
 "OSD to appear"
 msgstr ""
-"<b>OSD</b>\n"
-"Versleep naar de locatie waar je het\n"
-"OSD wilt hebben verschijnen"
+"<b>Infoschermvenster</b>\n"
+"Versleep Infoschermvenster naar\n"
+"de gewenste locatie"
 
-#: ../data/glade/osd_window.glade.h:4
+#: ../data/ui/osd_window.ui.h:4
 msgid "Popup"
 msgstr "Popup"
 
-#: ../data/glade/radio_panel.glade.h:1
-msgid "Add Station"
-msgstr "Zender Toevoegen"
-
-#: ../data/glade/radio_panel.glade.h:3
-#: ../data/glade/flatplaylist_panel.glade.h:3
-msgid "Radio"
-msgstr "Radio"
-
-#: ../data/glade/covermanager.glade.h:1
-msgid "Cover Manager"
-msgstr "Albumhoesbeheerder"
-
-#: ../data/glade/covermanager.glade.h:3
-msgid "_Close"
-msgstr "_Sluiten"
-
-#: ../data/glade/osd_prefs_pane.glade.h:1
-msgid ""
-"<b>Move the On Screen Display window to the location you want it to "
-"appear</b>"
-msgstr ""
-"<b>Verplaats het Op Scherm Display venster naar de locatie waar je het wilt "
-"hebben verschijnen</b>"
-
-#: ../data/glade/osd_prefs_pane.glade.h:5
-msgid "Background Color:"
-msgstr "Achtergrondkleur:"
-
-#: ../data/glade/osd_prefs_pane.glade.h:6
-msgid "Display OSD when hovering over tray icon"
-msgstr "Toon informatievenster bij zweven over systeemvakpictogram"
-
-#: ../data/glade/osd_prefs_pane.glade.h:7
-msgid "Display a progressbar in the OSD"
-msgstr "Laat een voortgangsbalk zien in de OSD"
-
-#: ../data/glade/osd_prefs_pane.glade.h:8
-msgid "Opacity Level:"
-msgstr "Doorzichtigheidsniveau:"
-
-#: ../data/glade/osd_prefs_pane.glade.h:9
-msgid "Show OSD on track change"
-msgstr "Toon infovenster bij nummerwijziging"
-
-#: ../data/glade/osd_prefs_pane.glade.h:10
-msgid "Text Color"
-msgstr "Tekstkleur"
-
-#: ../data/glade/osd_prefs_pane.glade.h:11
-msgid "Text Font:"
-msgstr "Tekstlettertype:"
-
-#: ../data/glade/osd_prefs_pane.glade.h:12
-msgid "Window Height:"
-msgstr "Vensterhoogte:"
-
-#: ../data/glade/osd_prefs_pane.glade.h:13
-msgid "Window Width:"
-msgstr "Vensterbreedte:"
-
-#: ../data/glade/queue_dialog.glade.h:1
-msgid "Close this dialog"
-msgstr "Dit dialoog sluiten"
-
-#: ../data/glade/queue_dialog.glade.h:2
-msgid "Queue Manager"
-msgstr "Wachtrij Beheerder"
-
-#: ../data/glade/queue_dialog.glade.h:3
-msgid "Remove All"
-msgstr "Alles verwijderen"
-
-#: ../xl/player/pipe.py:208
-msgid "ALSA"
-msgstr "ALSA"
-
-#: ../data/glade/playback_prefs_pane.glade.h:1
-msgid "Audio Sink:  "
-msgstr ""
-
-#: ../data/glade/playback_prefs_pane.glade.h:8
-msgid "Crossfade duration (ms):"
-msgstr "Overvloeien duur (ms):"
-
-#: ../data/glade/playback_prefs_pane.glade.h:9
-msgid "Fade duration (ms):"
-msgstr "Fade duur (ms):"
-
-#: ../xl/player/pipe.py:203
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../xl/player/pipe.py:223
-msgid "JACK"
-msgstr "JACK"
-
-#: ../data/ui/playback_prefs_pane.glade.h:8
-msgid "Normal"
-msgstr "Normaal"
-
-#: ../xl/player/pipe.py:213
-msgid "OSS"
-msgstr "OSS"
-
-#: ../data/glade/playback_prefs_pane.glade.h:12
-msgid "Playback engine (requires restart): "
-msgstr "Afspeelengine (opnieuw opstarten vereist) "
-
-#: ../xl/player/pipe.py:218
-msgid "PulseAudio"
-msgstr "PulseAudio"
-
-#: ../data/glade/playback_prefs_pane.glade.h:13
-msgid "Resume playback in paused state"
-msgstr "Hervat het afspelen in pause staat"
-
-#: ../data/glade/playback_prefs_pane.glade.h:14
-msgid "Resume playback on start"
-msgstr "Hervat het afspelen op start"
-
-#: ../data/glade/playback_prefs_pane.glade.h:15
-msgid "These options only affect the unified engine."
-msgstr "Deze opties beïnvloeden alleen de verenigde engine."
-
-#: ../data/ui/playback_prefs_pane.glade.h:15
-msgid "Unified (unstable)"
-msgstr ""
-
-#: ../data/glade/playback_prefs_pane.glade.h:16
-msgid "Use crossfading (EXPERIMENTAL)"
-msgstr "Gebruik overvloeien (EXPERIMENTEEL)"
-
-#: ../data/glade/playback_prefs_pane.glade.h:17
-msgid "Use fade transitions on user actions"
-msgstr "Gebruik fade overgangen op acties van gebruikers"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:1
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Geen Plugin Geselecteerd</b>"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:2
-msgid "Authors:"
-msgstr "Auteurs:"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:3
-msgid "Available Plugins"
-msgstr "Beschikbare Plugins"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:4
-msgid "Description:"
-msgstr "Beschrijving:"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:5
-msgid "Install"
-msgstr "Installeren"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:6
-msgid "Install Updates"
-msgstr "Updates Installeren"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:7
-msgid "Install a third party plugin from a file"
-msgstr ""
-
-#: ../data/glade/plugin_prefs_pane.glade.h:8
-msgid "Install plugin file"
-msgstr "Installeer pluginbestand"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:9
-msgid "Installed Plugins"
-msgstr "Geïnstalleerde Plugins"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:10
-msgid "Updates"
-msgstr "Updates"
-
-#: ../data/glade/plugin_prefs_pane.glade.h:11
-msgid "Version:"
-msgstr "Versie:"
-
-#: ../data/glade/main.glade.h:3
-msgid "0/0 tracks"
-msgstr "0/0 tracks"
-
-#: ../data/glade/main.glade.h:4
-msgid "0:00 / 0:00"
-msgstr "0:00 / 0:00"
-
-#: ../data/glade/main.glade.h:5
-msgid "C_overs"
-msgstr "Albumh_oezen"
-
-#: ../data/glade/main.glade.h:6
-msgid "Clear Playlist"
-msgstr "Wis afspeellijst"
-
-#: ../data/ui/main.glade.h:5
-msgid "Click to view Queue"
-msgstr ""
-
-#: ../data/glade/main.glade.h:7
-msgid "Dynamically add similar tracks to the playlist"
-msgstr "Dynamisch soortgelijke tracks aan de playlist toevoegen"
-
-#: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
-msgid "Next Track"
-msgstr "Volgende track"
-
-#: ../data/glade/main.glade.h:10
-msgid "Open _URL"
-msgstr "_Url openen"
-
-#: ../data/glade/main.glade.h:11
-msgid "Page 1"
-msgstr "Pagina 1"
-
-#: ../data/glade/main.glade.h:12 ../plugins/minimode/__init__.py:203
-msgid "Previous Track"
-msgstr "Vorige Track"
-
-#: ../data/glade/main.glade.h:13
-msgid "Randomize the order of the current playlist"
-msgstr "Maak de volgorde van de huidige afspeellijst willkeurig"
-
-#: ../data/glade/main.glade.h:14
-msgid "Re_scan Collection"
-msgstr "Herlaad collectie"
-
-#: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:13
-#: ../data/glade/files_panel.glade.h:6
-msgid "Search: "
-msgstr "Zoeken: "
-
-#: ../data/glade/main.glade.h:18
-msgid "Start/Pause Playback"
-msgstr "Start/Pauzeer afspelen"
-
-#: ../data/glade/main.glade.h:19
-msgid ""
-"Stop Playback\n"
-"\n"
-"Right Click for Stop After Track Feature"
-msgstr ""
-
-#: ../data/glade/main.glade.h:23
-msgid "Track _properties"
-msgstr "Nummereigenscha_ppen"
-
-#: ../data/glade/main.glade.h:25
-msgid "_Autosize"
-msgstr ""
-
-#: ../data/glade/main.glade.h:26
-msgid "_Collection"
-msgstr "_Collectie"
-
-#: ../data/glade/main.glade.h:27
-msgid "_Columns"
-msgstr "_Kolommen"
-
-#: ../data/glade/main.glade.h:28
-msgid "_Device Manager"
-msgstr "Apparaat _manager"
-
-#: ../data/glade/main.glade.h:29
-msgid "_Edit"
-msgstr "B_ewerken"
-
-#: ../data/glade/main.glade.h:30
-msgid "_Export current playlist"
-msgstr "_Export huidige playlist"
-
-#: ../data/glade/main.glade.h:31
-msgid "_File"
-msgstr "Archie_f"
-
-#: ../data/glade/main.glade.h:32
-msgid "_Go to Playing Track"
-msgstr "Naar Spelend Nummer _Gaan"
-
-#: ../data/glade/main.glade.h:33
-msgid "_Help"
-msgstr "_Hulp"
-
-#: ../data/glade/main.glade.h:35
-msgid "_Queue"
-msgstr "_Wachtrij"
-
-#: ../data/glade/main.glade.h:36
-msgid "_Randomize Playlist"
-msgstr ""
-
-#: ../data/glade/main.glade.h:37
-msgid "_Resizable"
-msgstr ""
-
-#: ../data/glade/main.glade.h:38
-msgid "_Tools"
-msgstr "_Gereedschappen"
-
-#: ../data/glade/main.glade.h:39
-msgid "_View"
-msgstr "_Toon"
-
-#: ../data/glade/collection_manager.glade.h:1
-msgid "Collection Manager"
-msgstr "Collectie Beheerder"
-
-#: ../data/glade/flatplaylist_panel.glade.h:1
-msgid "Append All Tracks to Playlist"
-msgstr ""
-
-#: ../data/glade/flatplaylist_panel.glade.h:2
-msgid "Import CD"
-msgstr "Importeer CD"
-
-#: ../data/glade/general_prefs_pane.glade.h:1
-#: ../data/glade/playlists_prefs_pane.glade.h:1
-msgid "Open last playlists on startup"
-msgstr "Open de laatste afspeellijst bij opstarten"
-
-#: ../data/glade/collection_panel.glade.h:1
+#: ../data/ui/collection_panel.ui.h:1
 msgid "<b>Collection is empty.</b>"
 msgstr "<b>Collectie is leeg.</b>"
 
-#: ../data/glade/collection_panel.glade.h:2
+#: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
-msgstr "Voeg muziek toe"
+msgstr "Muziek toevoegen"
 
-#: ../data/ui/collection_panel.glade.h:5
+#: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
 msgstr "Artiest - Jaar - Album"
 
-#: ../data/ui/collection_panel.glade.h:7
+#: ../data/ui/collection_panel.ui.h:7
 msgid "Genre - Album"
 msgstr "Genre - Album"
 
-#: ../data/ui/collection_panel.glade.h:8
+#: ../data/ui/collection_panel.ui.h:8
 msgid "Genre - Artist"
 msgstr "Genre - Artiest"
 
-#: ../data/glade/collection_panel.glade.h:11
+#: ../data/ui/collection_panel.ui.h:9
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Getoonde collectie vernieuwen\n"
+"(Houdt Shift ingedrukt om de collectie opnieuw te laden)"
 
-#: ../data/ui/collection_panel.glade.h:12
+#: ../data/ui/collection_panel.ui.h:12
 msgid "Year - Album"
 msgstr "Jaar - Album"
 
-#: ../data/ui/collection_panel.glade.h:13
+#: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Artist"
 msgstr "Jaar - Artiest"
 
-#: ../data/glade/playlists_prefs_pane.glade.h:2
-msgid "Prompt for saving custom playlists on close"
-msgstr ""
+#: ../data/ui/appearance_prefs_pane.ui.h:1
+msgid "Always show tab bar"
+msgstr "Tabbladbalk altijd tonen"
 
-#: ../data/glade/cover_prefs_pane.glade.h:1
-msgid "(drag to reorder)"
-msgstr "(slepen om opnieuw te ordenen)"
+#: ../data/ui/appearance_prefs_pane.ui.h:2
+msgid "Bottom"
+msgstr "Onderkant"
 
-#: ../data/glade/cover_prefs_pane.glade.h:2
-msgid "Cover Search Order:"
-msgstr "Hoezen Zoek Volgorde:"
+#: ../data/ui/appearance_prefs_pane.ui.h:4
+msgid "Jump to current song on track change"
+msgstr "Spring naar huidige lied bij nummerwijziging"
 
-#: ../data/glade/files_panel.glade.h:1
-msgid "Files"
-msgstr "Bestanden"
+#: ../data/ui/appearance_prefs_pane.ui.h:5
+msgid "Left"
+msgstr "Links"
 
-#: ../data/glade/files_panel.glade.h:2
-msgid "Home directory"
-msgstr "Persoonlijke map"
+#: ../data/ui/appearance_prefs_pane.ui.h:6
+msgid "Minimize to tray"
+msgstr "Minimaliseren naar systeemvak"
 
-#: ../data/glade/files_panel.glade.h:3
-msgid "Next visited directory"
-msgstr "Volgende bezocht directory"
+#: ../data/ui/appearance_prefs_pane.ui.h:7
+msgid "Right"
+msgstr "Rechts"
 
-#: ../data/glade/files_panel.glade.h:4
-msgid "Previous visited directory"
-msgstr "Vorige bezocht directory"
+#: ../data/ui/appearance_prefs_pane.ui.h:8
+msgid "Show splash screen on startup"
+msgstr "Openingsscherm tonen bij starten"
 
-#: ../data/glade/files_panel.glade.h:5
-msgid "Refresh directory listing"
-msgstr "Directory lijst verfrissen"
+#: ../data/ui/appearance_prefs_pane.ui.h:9
+msgid "Show tray icon"
+msgstr "Systeemvakpictogram tonen"
 
-#: ../data/glade/files_panel.glade.h:7
-msgid "Up one directory"
-msgstr "Eén map omhoog"
+#: ../data/ui/appearance_prefs_pane.ui.h:10
+msgid "Tab placement:"
+msgstr "Tabbladpositie:"
 
-#: ../plugins/multialarmclock/__init__.py:410
+#: ../data/ui/appearance_prefs_pane.ui.h:11
+msgid "Top"
+msgstr "Bovenkant"
+
+#: ../data/ui/appearance_prefs_pane.ui.h:12
+msgid "Use alpha transparency (if supported)"
+msgstr "Alfa-transparantie gebruiken (indien ondersteund)"
+
+#: ../plugins/multialarmclock/__init__.py:412
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
 msgstr "Multi-Alarm Klok"
@@ -1735,6 +1866,15 @@ msgstr "Multi-Alarm Klok"
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
 msgstr "Alarmklok"
+
+#: ../plugins/equalizer/__init__.py:129 ../plugins/equalizer/equalizer.ui.h:15
+#: ../plugins/equalizer/PLUGININFO:3
+msgid "Equalizer"
+msgstr "Equalizer"
+
+#: ../plugins/awn/awn_prefs.py:32
+msgid "AWN"
+msgstr "AWN"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -1745,50 +1885,95 @@ msgstr "AudioScrobbler"
 msgid "Enable audioscrobbling"
 msgstr "Schakel audioscrobbling in"
 
-#: ../plugins/cd/__init__.py:95 ../plugins/cd/__init__.py:172
+#: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:201
 msgid "Audio Disc"
 msgstr "Audio-cd"
 
-#: ../plugins/cd/_cdguipanel.py:60
+#: ../plugins/cd/_cdguipanel.py:87
 msgid "Importing CD..."
 msgstr "CD importeren..."
 
-#: ../plugins/cd/cdprefs.py:22
+#: ../plugins/cd/cdprefs.py:32
 msgid "CD"
 msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
+#: ../plugins/cd/cdprefs.py:93 ../plugins/minimode/minimodeprefs.py:64
 msgid "Track number"
 msgstr "Nummer"
 
-#: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
+#: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:70
 msgid "Disc number"
 msgstr "Schijfnummer"
 
-#: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:130
+#: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:77
 msgid "Play count"
 msgstr "Aantal keren afgespeeld"
 
-#: ../plugins/bookmarks/__init__.py:278
+#: ../plugins/daapclient/__init__.py:161
+msgid "Manually..."
+msgstr "Handmatig..."
+
+#: ../plugins/daapclient/__init__.py:207
+msgid "Enter IP address and port for share"
+msgstr "Voer IP-adres en poort in voor delen"
+
+#: ../plugins/daapclient/__init__.py:208
+msgid "Enter IP address and port."
+msgstr "Voer IP-adres en poort in."
+
+#: ../plugins/daapclient/__init__.py:376
+msgid ""
+"This server does not support multiple connections.\n"
+"You must stop playback before downloading songs."
+msgstr ""
+"Deze server geeft geen ondersteuning voor meerdere verbindingen.\n"
+"Stop het afspelen voordat je nummers gaat downloaden."
+
+#: ../plugins/daapclient/__init__.py:455
+msgid "Disconnect"
+msgstr "Verbinding verbreken"
+
+#: ../plugins/daapclient/__init__.py:473
+msgid "Select a save location"
+msgstr "Selecteer een veilige locatie"
+
+#: ../plugins/daapclient/__init__.py:523
+msgid "Connect to DAAP..."
+msgstr "Verbinden met DAAP..."
+
+#: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr "Favorieten"
+msgstr "Bladwijzers"
 
-#: ../plugins/bookmarks/__init__.py:286
+#: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
-msgstr "Zet deze track in de favorieten"
+msgstr "Dit nummer toevoegen aan de bladwijzers"
 
-#: ../plugins/bookmarks/__init__.py:291
+#: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
-msgstr "Verwijder favoriet"
+msgstr "Bladwijzer verwijderen"
 
-#: ../plugins/bookmarks/__init__.py:295
+#: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
-msgstr "Leeg de favorieten"
+msgstr "Bladwijzers wissen"
+
+#: ../plugins/jamendo/__init__.py:76
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
+msgid "Ready"
+msgstr "Gereed"
+
+#: ../plugins/jamendo/__init__.py:77
+msgid "Searching Jamendo catalogue..."
+msgstr "Jamendo catalogus zoeken..."
+
+#: ../plugins/jamendo/__init__.py:78
+msgid "Retrieving song data..."
+msgstr "Ophalen nummerinformatie..."
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr "Notify-osd notificaties"
+msgstr "Notify-Infoschermvenster notificaties"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
@@ -1813,53 +1998,69 @@ msgstr "van %(album)s"
 msgid "Amazon Covers"
 msgstr "Amazon Albumhoezen"
 
-#: ../plugins/desktopcover/prefs.py:22 ../plugins/desktopcover/PLUGININFO:3
+#: ../plugins/desktopcover/prefs.py:21 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
 msgstr "Desktopalbumhoes"
 
+#: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr "Zoeken naar humeur..."
+msgstr "Zoeken naar gemoed..."
 
+#: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr "Humeur gevonden."
+msgstr "Gemoed gevonden."
 
+#: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr "Kon de humeurbalk niet lezen."
+msgstr "Kon gemoedsbalk niet lezen."
 
-#: ../plugins/moodbar/__init__.py:334
+#: ../plugins/moodbar/__init__.py:497
 msgid "Moodbar executable is not available."
-msgstr "Humeurbalk executable is niet beschikbaar."
+msgstr "Gemoedsbalk uitvoerbestand niet beschikbaar."
 
-#: ../plugins/replaygain/replaygainprefs.py:22
+#: ../plugins/droptrayicon/__init__.py:267
+#: ../plugins/droptrayicon/drop_target_window.ui.h:1
+msgid "Drop to Choose"
+msgstr "Versleep naar om te selecteren"
+
+#: ../plugins/droptrayicon/__init__.py:270
+msgid "Append and Play"
+msgstr "Toevoegen en afspelen"
+
+#: ../plugins/droptrayicon/__init__.py:272
+msgid "Append"
+msgstr "Toevoegen"
+
+#: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
 msgstr "ReplayGain"
 
-#: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
+#: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
 msgstr "Podcasts"
 
-#: ../plugins/podcasts/__init__.py:72
+#: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
 msgstr "Podcast"
 
-#: ../plugins/podcasts/__init__.py:81
+#: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
 msgstr "Ververs podcast"
 
-#: ../plugins/podcasts/__init__.py:82
+#: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: ../plugins/podcasts/__init__.py:120
+#: ../plugins/podcasts/__init__.py:119
 msgid "Enter the URL of the podcast to add"
 msgstr "Vul de URL van de podcast in om toe te voegen"
 
-#: ../plugins/podcasts/__init__.py:121
+#: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
 msgstr "Open podcast"
 
-#: ../plugins/podcasts/__init__.py:154
+#: ../plugins/podcasts/__init__.py:153
 #, python-format
 msgid "Loading %s..."
 msgstr "%s laden..."
@@ -1876,31 +2077,31 @@ msgstr "Podcasts laden..."
 msgid "Could not save podcast file"
 msgstr "Kon de podcast niet opslaan"
 
-#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:158
-#: ../plugins/shoutcast/__init__.py:201 ../plugins/shoutcast/__init__.py:237
+#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
+#: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
-msgstr "Contact zoeken met de Shoutcast server..."
+msgstr "Verbinden met de Shoutcast-server..."
 
-#: ../plugins/shoutcast/__init__.py:114 ../plugins/shoutcast/__init__.py:118
-#: ../plugins/shoutcast/__init__.py:167 ../plugins/shoutcast/__init__.py:171
-#: ../plugins/shoutcast/__init__.py:215 ../plugins/shoutcast/__init__.py:220
-#: ../plugins/shoutcast/__init__.py:248 ../plugins/shoutcast/__init__.py:253
+#: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
+#: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
+#: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
+#: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
-msgstr "Fout tijdens het contact zoeken met de Shoutcast server."
+msgstr "Fout tijdens het verbinden met de Shoutcast-server."
 
-#: ../plugins/shoutcast/__init__.py:273
+#: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
 msgstr "Voer de zoekwoorden in"
 
-#: ../plugins/shoutcast/__init__.py:274
+#: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
 msgstr "Shoutcast Zoeken"
 
-#: ../plugins/shoutcast/__init__.py:297
+#: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
 msgstr "Zoekresultaten"
 
-#: ../plugins/shoutcast/__init__.py:330
+#: ../plugins/shoutcast/__init__.py:345
 msgid "Search"
 msgstr "Zoeken"
 
@@ -1929,101 +2130,97 @@ msgstr "Toon IPython Console"
 msgid "IPython Console"
 msgstr "IPython Console"
 
-#: ../plugins/minimode/__init__.py:209
+#: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
 msgstr "Afspelen stoppen"
 
-#: ../plugins/minimode/__init__.py:211
+#: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
-msgstr "Hoofd venster herstellen"
+msgstr "Hoofdvenster herstellen"
 
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr "Mini Mode"
+msgstr "Mini-modus"
 
-#: ../plugins/minimode/minimodeprefs.py:97
+#: ../plugins/minimode/minimodeprefs.py:44
 msgid "Available controls"
-msgstr "Beschikbare controles"
+msgstr "Beschikbare besturing"
 
-#: ../plugins/minimode/minimodeprefs.py:98
+#: ../plugins/minimode/minimodeprefs.py:45
 msgid "Selected controls"
-msgstr "Geselecteerde controles"
+msgstr "Geselecteerde besturing"
 
-#: ../plugins/minimode/minimodeprefs.py:100
+#: ../plugins/minimode/minimodeprefs.py:47
 msgid "Previous"
 msgstr "Vorige"
 
-#: ../plugins/minimode/minimodeprefs.py:101
+#: ../plugins/minimode/minimodeprefs.py:48
 msgid "Play/Pause"
-msgstr "Afspelen/Pauzeren"
+msgstr "Afspelen/pauzeren"
 
-#: ../plugins/minimode/minimodeprefs.py:102
+#: ../plugins/minimode/minimodeprefs.py:49
 msgid "Stop"
 msgstr "Stoppen"
 
-#: ../plugins/minimode/minimodeprefs.py:103
+#: ../plugins/minimode/minimodeprefs.py:50
 msgid "Next"
 msgstr "Volgende"
 
-#: ../plugins/minimode/minimodeprefs.py:104
+#: ../plugins/minimode/minimodeprefs.py:51
 msgid "Track selector"
-msgstr "Track selector"
+msgstr "Nummerkeuze"
 
-#: ../plugins/minimode/minimodeprefs.py:105
+#: ../plugins/minimode/minimodeprefs.py:52
 msgid "Progress bar"
 msgstr "Voortgangsbalk"
 
-#: ../plugins/minimode/minimodeprefs.py:106
+#: ../plugins/minimode/minimodeprefs.py:53
 msgid "Volume"
 msgstr "Volume"
 
-#: ../plugins/minimode/minimodeprefs.py:107
+#: ../plugins/minimode/minimodeprefs.py:54
 msgid "Playlist button"
-msgstr "Speellijst knop"
+msgstr "Knop afspeellijst"
 
-#: ../plugins/minimode/minimodeprefs.py:110
+#: ../plugins/minimode/minimodeprefs.py:57
 msgid "Restore"
 msgstr "Herstellen"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:136
-#: ../plugins/minimode/minimodeprefs.py:142
+#: ../plugins/minimode/minimodeprefs.py:83
+#: ../plugins/minimode/minimodeprefs.py:89
 msgid "$tracknumber - $title"
 msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:138
+#: ../plugins/minimode/minimodeprefs.py:85
 msgid "$title by $artist"
 msgstr "$title door $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:140
+#: ../plugins/minimode/minimodeprefs.py:87
 msgid "$title ($length)"
 msgstr "$title ($length)"
 
-#: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
+#: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
-msgstr "Weergave starten"
+msgstr "Afspelen starten"
 
-#: ../plugins/minimode/mmwidgets.py:169
+#: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
-msgstr "Doorgaan met weergave"
+msgstr "Doorgaan met afspelen"
 
-#: ../plugins/minimode/mmwidgets.py:172
+#: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
 msgstr "Afspelen pauzeren"
 
-#: ../plugins/minimode/mmwidgets.py:732
+#: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
 msgstr "Zoeken: "
 
-#: ../plugins/minimode/mmwidgets.py:809
-msgid " & "
-msgstr " & "
-
-#: ../plugins/contextinfo/__init__.py:1033
-#: ../plugins/contextinfo/context.glade.h:1
+#: ../plugins/contextinfo/__init__.py:1047
+#: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
 msgstr "Context"
 
@@ -2037,229 +2234,365 @@ msgstr "Streamripper kan alleen streams opnemen."
 
 #: ../plugins/streamripper/__init__.py:87
 msgid "Error executing streamripper"
-msgstr "Fout tijdens het uitvoeren van streamripper"
+msgstr "Fout tijdens het uitvoeren van Streamripper"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:1
-#: ../plugins/alarmclock/acprefs_pane.glade.h:1
+#: ../plugins/multialarmclock/alarmclk.ui.h:1
+#: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "Alarm Days:"
 msgstr "Alarmdagen:"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:2
+#: ../plugins/multialarmclock/alarmclk.ui.h:2
 msgid "Alarm Name:"
 msgstr "Alarmnaam:"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:3
-#: ../plugins/alarmclock/acprefs_pane.glade.h:2
+#: ../plugins/multialarmclock/alarmclk.ui.h:3
+#: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Alarm Time:"
 msgstr "Alarmtijd:"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:4
+#: ../plugins/multialarmclock/alarmclk.ui.h:4
 msgid "Alarm:"
 msgstr "Alarm:"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:5
+#: ../plugins/multialarmclock/alarmclk.ui.h:5
 msgid "Enable Fading"
-msgstr "Fading Inschakelen"
+msgstr "Fading inschakelen"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:7
+#: ../plugins/multialarmclock/alarmclk.ui.h:7
 msgid "Fading:"
 msgstr "Fading:"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:8
-#: ../plugins/alarmclock/acprefs_pane.glade.h:3
+#: ../plugins/multialarmclock/alarmclk.ui.h:8
+#: ../plugins/alarmclock/acprefs_pane.ui.h:3
 msgid "Friday"
-msgstr "vrijdag"
+msgstr "Vrijdag"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:9
-#: ../plugins/alarmclock/acprefs_pane.glade.h:4
+#: ../plugins/multialarmclock/alarmclk.ui.h:9
+#: ../plugins/alarmclock/acprefs_pane.ui.h:4
 msgid "Increment:"
 msgstr "Verhogen"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:10
-#: ../plugins/alarmclock/acprefs_pane.glade.h:5
+#: ../plugins/multialarmclock/alarmclk.ui.h:10
+#: ../plugins/alarmclock/acprefs_pane.ui.h:5
 msgid "Maximum Volume:"
 msgstr "Maximumvolume:"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:11
-#: ../plugins/alarmclock/acprefs_pane.glade.h:6
+#: ../plugins/multialarmclock/alarmclk.ui.h:11
+#: ../plugins/alarmclock/acprefs_pane.ui.h:6
 msgid "Minimum Volume:"
 msgstr "Minimumvolume:"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:12
-#: ../plugins/alarmclock/acprefs_pane.glade.h:7
+#: ../plugins/multialarmclock/alarmclk.ui.h:12
+#: ../plugins/alarmclock/acprefs_pane.ui.h:7
 msgid "Monday"
-msgstr "maandag"
+msgstr "Maandag"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:13
+#: ../plugins/multialarmclock/alarmclk.ui.h:13
 msgid "Name - Time"
 msgstr "Naam - Tijd"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:14
+#: ../plugins/multialarmclock/alarmclk.ui.h:14
 msgid "Restart Playlist"
 msgstr "Afspeellijst herstarten"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:15
-#: ../plugins/alarmclock/acprefs_pane.glade.h:8
+#: ../plugins/multialarmclock/alarmclk.ui.h:15
+#: ../plugins/alarmclock/acprefs_pane.ui.h:8
 msgid "Saturday"
-msgstr "zaterdag"
+msgstr "Zaterdag"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:16
-#: ../plugins/alarmclock/acprefs_pane.glade.h:9
+#: ../plugins/multialarmclock/alarmclk.ui.h:16
+#: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "Sunday"
-msgstr "zondag"
+msgstr "Zondag"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:17
-#: ../plugins/alarmclock/acprefs_pane.glade.h:10
+#: ../plugins/multialarmclock/alarmclk.ui.h:17
+#: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Thursday"
-msgstr "donderdag"
+msgstr "Donderdag"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:18
+#: ../plugins/multialarmclock/alarmclk.ui.h:18
 msgid "Time per Increment:"
 msgstr "Tijd per verhoging:"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:19
-#: ../plugins/alarmclock/acprefs_pane.glade.h:12
+#: ../plugins/multialarmclock/alarmclk.ui.h:19
+#: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Tuesday"
-msgstr "dinsdag"
+msgstr "Dinsdag"
 
-#: ../plugins/multialarmclock/alarmclk.glade.h:20
-#: ../plugins/alarmclock/acprefs_pane.glade.h:14
+#: ../plugins/multialarmclock/alarmclk.ui.h:20
+#: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Wednesday"
-msgstr "woensdag"
+msgstr "Woensdag"
 
-#: ../plugins/alarmclock/acprefs_pane.glade.h:11
+#: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Timer per Increment:"
 msgstr "Tijd per verhoging"
 
-#: ../plugins/alarmclock/acprefs_pane.glade.h:13
+#: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Use Fading"
-msgstr "Gebruik Fading"
+msgstr "Fading gebruiken"
 
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:1
+#: ../plugins/equalizer/equalizer.ui.h:1
+msgid "+12 dB"
+msgstr "+12 dB"
+
+#: ../plugins/equalizer/equalizer.ui.h:2
+msgid "-24 dB"
+msgstr "-24 dB"
+
+#: ../plugins/equalizer/equalizer.ui.h:3
+msgid "0"
+msgstr "0"
+
+#: ../plugins/equalizer/equalizer.ui.h:4
+msgid "1.9K"
+msgstr "1.9K"
+
+#: ../plugins/equalizer/equalizer.ui.h:5
+msgid "119"
+msgstr "119"
+
+#: ../plugins/equalizer/equalizer.ui.h:6
+msgid "15K"
+msgstr "15K"
+
+#: ../plugins/equalizer/equalizer.ui.h:7
+msgid "227"
+msgstr "227"
+
+#: ../plugins/equalizer/equalizer.ui.h:8
+msgid "29"
+msgstr "29"
+
+#: ../plugins/equalizer/equalizer.ui.h:9
+msgid "3.8K"
+msgstr "3.8K"
+
+#: ../plugins/equalizer/equalizer.ui.h:10
+msgid "474"
+msgstr "474"
+
+#: ../plugins/equalizer/equalizer.ui.h:11
+msgid "59"
+msgstr "59"
+
+#: ../plugins/equalizer/equalizer.ui.h:12
+msgid "7.5K"
+msgstr "7.5K"
+
+#: ../plugins/equalizer/equalizer.ui.h:13
+msgid "947"
+msgstr "947"
+
+#: ../plugins/equalizer/equalizer.ui.h:16
+msgid "pre"
+msgstr "voorkeuze"
+
+#: ../plugins/awn/awn_prefs_pane.ui.h:1
+msgid "Circle Display"
+msgstr "Ronde weergave"
+
+#: ../plugins/awn/awn_prefs_pane.ui.h:2
+msgid "Display Covers"
+msgstr "Albumhoezen tonen"
+
+#: ../plugins/awn/awn_prefs_pane.ui.h:3
+msgid "Display Overlay:"
+msgstr "Weergave-overlapping:"
+
+#: ../plugins/awn/awn_prefs_pane.ui.h:4
+msgid "None"
+msgstr "Geen"
+
+#: ../plugins/awn/awn_prefs_pane.ui.h:5
+msgid "Text Percentage"
+msgstr "Tekstpercentage"
+
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Password:"
 msgstr "Wachtwoord:"
 
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show Menuitem to toggle Submission"
-msgstr ""
+msgstr "Menu-item tonen om Submission aan/uit te zetten"
 
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit tracks using Audioscrobbler"
-msgstr "nummers toevoegen met Audioscrobbler"
+msgstr "Nummers toevoegen met Audioscrobbler"
 
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:5
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 msgid "Username:"
 msgstr "Gebruikersnaam:"
 
-#: ../plugins/cd/cdprefs_pane.glade.h:1
+#: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "AAC"
 msgstr "AAC"
 
-#: ../plugins/cd/cdprefs_pane.glade.h:2
+#: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
 msgstr "FLAC"
 
-#: ../plugins/cd/cdprefs_pane.glade.h:1
+#: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "Import format: "
-msgstr "Importeer formaat: "
+msgstr "Importformaat: "
 
-#: ../plugins/cd/cdprefs_pane.glade.h:2
+#: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "Import path: "
-msgstr "Importeer pad: "
+msgstr "Importpad: "
 
-#: ../plugins/cd/cdprefs_pane.glade.h:3
+#: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "Import quality: "
-msgstr "Importeer kwaliteit: "
+msgstr "Importkwaliteit: "
 
-#: ../plugins/cd/cdprefs_pane.glade.h:6
+#: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "MP3 (CBR)"
 msgstr "MP3 (CBR)"
 
-#: ../plugins/cd/cdprefs_pane.glade.h:7
+#: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "MP3 (VBR)"
 msgstr "MP3 (VBR)"
 
-#: ../plugins/cd/cdprefs_pane.glade.h:8
+#: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Ogg Vorbis"
 msgstr "Ogg Vorbis"
 
-#: ../plugins/cd/cdprefs_pane.glade.h:9
+#: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "WavPack"
 msgstr "WavPack"
 
-#: ../plugins/bookmarks/bookmarks_pane.glade.h:1
+#: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
 "Gebruik albumhoezen in het bladwijzermenu (wordt toegepast na herstart)"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
+msgid "Ascending"
+msgstr "Oplopend"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
+msgid "Date of starring"
+msgstr "Datum van waardering"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
+msgid "Descending"
+msgstr "Aflopend"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
+msgid "Genre/Tags"
+msgstr "Genre/labels"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
+msgid "Number of downloads"
+msgstr "Aantal downloads"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
+msgid "Number of listens"
+msgstr "Aantal keren beluisterd"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
+msgid "Number of playlist additions"
+msgstr "Aantal keren toegevoegd aan afspeellijst"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
+msgid "Order By:"
+msgstr "Sorteren op:"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
+msgid "Order Direction:"
+msgstr "Volgorde:"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
+msgid "Rating this month"
+msgstr "Waardering deze maand"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
+msgid "Rating this week"
+msgstr "Waardering deze week"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
+msgid "Release date"
+msgstr "Uitgiftedatum"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
+msgid "Results:"
+msgstr "Resultaten:"
+
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
+msgid "Starred"
+msgstr "Met ster"
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
 msgstr "<b>Inhoud</b>"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "<b>Display</b>"
-msgstr "<b>Toon</b>"
+msgstr "<b>Weergeven</b>"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
 msgid "<b>Icons</b>"
 msgstr "<b>Iconen</b>"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "Album Line:"
 msgstr "Albumregel:"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:5
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "Artist Line:"
 msgstr "Artiestregel:"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "On Playback Start, Pause or Stop"
-msgstr "Als het afspelen start, gepauzeerd wordt of stopt"
+msgstr "Als het afspelen gestart, gepauzeerd of gestopt wordt"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "On Track Change"
 msgstr "Als het nummer verandert"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "On Tray Icon Hover"
-msgstr "Als je met de muis over het systeemvakpictogram gaat"
+msgstr "Als je met de muis over het systeemvakpictogram rolt"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "Summary:"
 msgstr "Samenvatting:"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:11
 #, python-format
 msgid ""
 "The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
 "by their respective values. The title will be replaced by \"Unknown\" if it "
 "is empty."
 msgstr ""
-"De tags \"%(title)s\", \"%(artist)s\", en \"%(album)s\" zullen worden "
+"De labels \"%(title)s\", \"%(artist)s\", en \"%(album)s\" zullen worden "
 "vervangen door hun respectievelijke waarden. De titel zal worden vervangen "
-"met \"Unknown\" als hij leeg is."
+"door \"Onbekend\" als hij leeg is."
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 msgid "Use Album Covers As Icons"
 msgstr "Gebruik albumhoezen als iconen"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr "Gebruik Media Iconen voor Pauzeren, Stoppen en Hervatten"
+msgstr "Gebruik media-iconen voor pauzeren, stoppen en hervatten"
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "When GUI is Focused"
-msgstr ""
+msgstr "Als de GUI is gefocust"
 
-#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API Key:"
-msgstr "API Sleutel:"
+msgstr "API-sleutel:"
 
-#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret Key:"
-msgstr "Geheime Sleutel:"
+msgstr "Geheime sleutel:"
 
-#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
 "To sign up for an Amazon AWS account and get \n"
 "this information visit http://aws.amazon.com/"
@@ -2267,115 +2600,117 @@ msgstr ""
 "Bezoek http://aws.amazon.com/ om deze informatie \n"
 "te verkrijgen en een Amazon AWS account te registreren"
 
-#: ../plugins/desktopcover/prefs.glade.h:1
+#: ../plugins/desktopcover/prefs.ui.h:1
 msgid "Anchor:"
 msgstr "Anker:"
 
-#: ../plugins/desktopcover/prefs.glade.h:2
+#: ../plugins/desktopcover/prefs.ui.h:2
 msgid "Bottom left"
 msgstr "Linksonder"
 
-#: ../plugins/desktopcover/prefs.glade.h:3
+#: ../plugins/desktopcover/prefs.ui.h:3
 msgid "Bottom right"
 msgstr "Rechtsonder"
 
-#: ../plugins/desktopcover/prefs.glade.h:4
+#: ../plugins/desktopcover/prefs.ui.h:4
 msgid "Size:"
 msgstr "Grootte:"
 
-#: ../plugins/desktopcover/prefs.glade.h:5
+#: ../plugins/desktopcover/prefs.ui.h:5
 msgid "Top left"
 msgstr "Linksboven"
 
-#: ../plugins/desktopcover/prefs.glade.h:6
+#: ../plugins/desktopcover/prefs.ui.h:6
 msgid "Top right"
 msgstr "Rechtsboven"
 
-#: ../plugins/desktopcover/prefs.glade.h:7
+#: ../plugins/desktopcover/prefs.ui.h:7
 msgid "X offset:"
 msgstr "Verplaatsing X:"
 
-#: ../plugins/desktopcover/prefs.glade.h:8
+#: ../plugins/desktopcover/prefs.ui.h:8
 msgid "Y offset:"
 msgstr "Verplaatsing Y:"
 
-#: ../plugins/desktopcover/prefs.glade.h:9
+#: ../plugins/desktopcover/prefs.ui.h:9
 msgid "pixels"
 msgstr "pixels"
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:1
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Base color"
 msgstr "Basiskleur"
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:2
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Base color:"
 msgstr "Basiskleur:"
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Verdonker de gespeelde sectie in plaats van een cursor te gebruiken"
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Darkness level:"
-msgstr ""
+msgstr "Donkerheidsniveau:"
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Geef enkel golfvorm weer, geen gemoed"
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Use color theme "
 msgstr "Gebruik kleurenthema "
 
-#: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Use waveform style"
-msgstr ""
+msgstr "Gebruik golfvorm-stijl"
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Extra versterking (dB):"
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Extra versterking op alle bestanden toepassen"
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
+"Terugval correctie voor bestanden die geen ReplayGain informatie bevatten"
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Terugvalcorrectieniveau (dB):"
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
 msgstr ""
+"ReplayGain's per-album correctie prefereren boven de per-nummer correctie."
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:9
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "Per-album correctie prefereren"
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Bescherm tegen ruis, ontstaan door over-versterking"
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Gebruik clipping bescherming"
 
-#: ../plugins/podcasts/podcasts.glade.h:1
+#: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
 msgstr "Podcast toevoegen"
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:1
+#: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Broodtekst</b>"
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:2
+#: ../plugins/notify/notifyprefs_pane.ui.h:2
 msgid "Both artist and album"
-msgstr ""
+msgstr "Zowel artist als album"
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:4
+#: ../plugins/notify/notifyprefs_pane.ui.h:4
 #, python-format
 msgid ""
 "Message that should be displayed in the body of the notification. In each "
@@ -2383,60 +2718,60 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place"
 msgstr ""
-"Bericht dat weergegeven zal worden in de notificatie. De tags  "
+"Bericht dat weergegeven zal worden in de notificatie. De labels  "
 "\"%(title)s\", \"%(artist)s\", en \"%(album)s\" zullen worden vervangen door "
-"hun respectievelijke waarden. Als een tag geen waarde heeft, zal \"Unknown\" "
-"worden ingevuld in zijn plaats."
+"hun respectievelijke waarden. Als een label geen waarde heeft, zal hij "
+"worden vervangen door \"Onbekend\"."
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:5
+#: ../plugins/notify/notifyprefs_pane.ui.h:5
 msgid "Only album"
 msgstr "Alleen album"
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:6
+#: ../plugins/notify/notifyprefs_pane.ui.h:6
 msgid "Only artist"
 msgstr "Alleen artiest"
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:7
+#: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Weergegeven albumhoezen herschalen"
 
-#: ../plugins/notify/notifyprefs_pane.glade.h:8
+#: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "Summary"
 msgstr "Overzicht"
 
-#: ../plugins/ipconsole/ipconsole_prefs.glade.h:1
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Font:"
 msgstr "Lettertype:"
 
-#: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Terminal Opacity:"
-msgstr ""
+msgstr "Doorzichtigheid terminal:"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:2
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:1
 msgid "Always on top"
 msgstr "Altijd op voorgrond"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:5
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:2
 msgid "Display window decorations"
-msgstr "Laat vensterdecoraties zien"
+msgstr "Vensterdecoraties tonen"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:7
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:3
 msgid "Show in tasklist"
-msgstr "Laat zien in takenlijst"
+msgstr "Tonen in takenlijst"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:8
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:4
 msgid "Show on all desktops"
-msgstr "Laat zien op alle desktops"
+msgstr "Op alle bureaubladen tonen"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:9
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:5
 msgid "Track title format:"
-msgstr ""
+msgstr "Titelformaat nummer:"
 
-#: ../plugins/streamripper/streamripper.glade.h:1
+#: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Relay Port:"
-msgstr "Doorgavepoort:"
+msgstr "Poortnummer:"
 
-#: ../plugins/streamripper/streamripper.glade.h:2
+#: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Save Location:"
 msgstr "Opslaglocatie:"
 
@@ -2448,6 +2783,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Speel muziek af op gespecificeerde momenten en dagen.\n"
+"\n"
+"Merk op dat als dat moment aanbreekt, Exaile zal veronderstellen dat je op "
+"de Afspelen-knop hebt gedrukt, dus zorg dat de muziek die je wilt horen in "
+"jouw afspeellijst staat"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2457,6 +2797,23 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Speel muziek af op een specifiek moment.\n"
+"\n"
+"Merk op dat als dat moment aanbreekt, Exaile zal veronderstellen dat je op "
+"de Afspelen-knop hebt gedrukt, dus zorg dat de muziek die je wilt horen in "
+"jouw afspeellijst staat"
+
+#: ../plugins/equalizer/PLUGININFO:4
+msgid "A 10-band equalizer"
+msgstr "Een 10-band equalizer"
+
+#: ../plugins/awn/PLUGININFO:3
+msgid "Awn"
+msgstr "Awn"
+
+#: ../plugins/awn/PLUGININFO:4
+msgid "Sets the cover and adds some menu items to AWN for Exaile"
+msgstr "Stelt de albumhoes en enige menu-items in bij AWN voor Exaile"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
@@ -2466,6 +2823,7 @@ msgstr "Huidige nummer"
 msgid ""
 "Sets the currently playing status in Pidgin for services that support it."
 msgstr ""
+"Zet de huidige afspeelstatus in Pidgin voor diensten die dat ondersteunen."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
@@ -2477,21 +2835,40 @@ msgstr ""
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "CD Afspelen"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
 msgstr ""
+"Voegt ondersteuning toe om audio CDs te kunnen spelen.\n"
+"Vereist python-cddb om labels op te zoeken."
+
+#: ../plugins/daapclient/PLUGININFO:3
+msgid "DAAP Client"
+msgstr "DAAP-client"
+
+#: ../plugins/daapclient/PLUGININFO:4
+msgid "Allows playing of DAAP music shares."
+msgstr "Maakt afspelen van DAAP muziekdelingen mogelijk."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
-msgstr ""
+msgstr "Creëert een MPRIS D-Bus object om Exaile te besturen"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr ""
+"Staat opslaan/verdergaan van bladwijzer-posities in audiobestanden toe."
+
+#: ../plugins/jamendo/PLUGININFO:3
+msgid "Jamendo"
+msgstr "Jamendo"
+
+#: ../plugins/jamendo/PLUGININFO:4
+msgid "Enables access to the Jamendo music catalogue."
+msgstr "Schakelt toegang in tot de Jamendo muziekcatalogus."
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -2499,7 +2876,7 @@ msgstr "Last.fm Albumhoezen"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr "Zoekt Last.fm af naar albumhoezen"
+msgstr "Zoekt albumhoezen op Last.fm"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -2510,6 +2887,12 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Deze plug-in geeft notificatieberichten weer wanneer een nummer "
+"gespeeld/gestopt/hervat wordt, met ofwel de albumhoes van het nummer, ofwel "
+"een media-icoon om de laatste actie aan te duiden.\n"
+"\n"
+"Vereisten: python-notify\n"
+"Aanbevolen: notify-osd"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -2519,30 +2902,47 @@ msgid ""
 msgstr ""
 "Zoekt Amazon af naar albumhoezen\n"
 "\n"
-"Om deze plugin te kunnen gebruiken is een AWS API key en een geheime sleutel "
-"nodig."
+"Om deze plug-in te kunnen gebruiken is een AWS API-sleutel en een geheime "
+"sleutel nodig."
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr "Laat de huidige albumhoes zien op het bureaublad"
+msgstr "Huidige albumhoes tonen op het bureaublad"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
-msgid "Last.fm Dynamic Search"
-msgstr "Last.fm Dynamisch Zoeken"
+msgid "Last.fm Dynamic Playlists"
+msgstr "Last.fm dynamische afspeellijsten"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "De Last.fm backend voor dynamische afspeellijsten"
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Gemoedsbalk"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Vervangt de standaard vooruitgangsbalk met een gemoedsbalk.\n"
+"Vereisten: moodbar"
+
+#: ../plugins/droptrayicon/PLUGININFO:3
+msgid "Drop Trayicon"
+msgstr "Versleep-systeemvakpictogram"
+
+#: ../plugins/droptrayicon/PLUGININFO:4
+msgid ""
+"Provides an alternative trayicon which accepts dropped files.\n"
+"\n"
+"Depends: python-eggtrayicon"
+msgstr ""
+"Voorziet een alternatief systeemvakpictogram dat versleepte bestanden "
+"accepteert.\n"
+"\n"
+"Vereisten: python-eggtrayicon"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
@@ -2550,11 +2950,11 @@ msgstr "Ondersteuning voor iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr "Een plugin voor iPodondesteuning"
+msgstr "Een plug-in voor iPod-ondersteuning"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr ""
+msgstr "Schakelt ReplayGain ondersteuning in"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
@@ -2562,11 +2962,12 @@ msgstr "Voegt simpele podcast ondersteuning toe"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr "Pauzeer bij screensaver"
+msgstr "Pauzeren bij schermbeveiliging"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
-msgstr "Pauzeert/hervat afspelen als de screensaver geactiveerd/gestopt word"
+msgstr ""
+"Pauzeer/hervat afspelen als de schermbeveiliging geactiveerd/gestopt wordt"
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"
@@ -2582,77 +2983,81 @@ msgstr "Hallo Wereld"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr "Een simpele plugin om het pluginsysteem te testen"
+msgstr "Een simpele plug-in om het plug-insysteem te testen"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr "GNOME Multimedia Toetsen"
+msgstr "GNOME-Multimediatoetsen"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
-"Voegt ondersteuning toe voor het besturen van Exaile via GNOME's multimedia "
-"toetsen systeem. Compatibel met GNOME >= 2.20.x"
+"Voegt ondersteuning toe voor het besturen van Exaile via het GNOME-"
+"multimediatoetsensysteem. Compatibel met GNOME >= 2.20.x"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "Globale sneltoetsen die gebruikmaken van xlib (mmkeys.so)"
 
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
-msgstr ""
+msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "Plug-in om songteksten op te halen van lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "USB Massa Opslag Media Speler Ondersteuning"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Ondersteuning om toegang te verkrijgen tot draagbare media spelers die het "
+"USB Massa Opslag protocol gebruiken"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
-msgstr ""
+msgstr "Geeft een notificatie wanneer het afspelen van een nummer begint"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "Zoek en luister naar audioboeken van Librivox.org."
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
+"Voorziet een IPython console die gebruikt kan worden om Exaile te "
+"manipuleren."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Compacte modus voor Exaile met een configureerbare interface"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr ""
+msgstr "Albumhoezen labelen"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
-msgstr ""
+msgstr "Zoekt nummerlabels voor albumhoezen"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Contextuele informatie"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -2660,20 +3065,37 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Toont diverse informatie over het nummer dat nu aan het spelen is.\n"
+"Vereisten: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (ook "
+"bekend als PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Maakt het mogelijk om streams op te slaan met streamripper.\n"
+"Vereisten: streamripper"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
+msgstr "Plug-in om songteksten op te halen van lyricwiki.org"
+
+#: ../plugins/exfalso/PLUGININFO:3
+msgid "Ex Falso tag editor"
+msgstr "Ex Falso-labeleditor"
+
+#: ../plugins/exfalso/PLUGININFO:4
+msgid ""
+"Integrates the Ex Falso tag editor with Exaile.\n"
+"Depends: Ex Falso."
 msgstr ""
+"Integreert de Ex Falso-labeleditor in Exaile.\n"
+"Vereisten: Ex Falso."
 
 #, python-format
 #~ msgid ""
@@ -2684,6 +3106,10 @@ msgstr ""
 #, python-format
 #~ msgid " (%(queue_count)d queued)"
 #~ msgstr " (%(queue_count)d in de rij)"
+
+#, python-format
+#~ msgid "%s KB"
+#~ msgstr "%s KB"
 
 #~ msgid ""
 #~ "Left\n"
@@ -2770,3 +3196,56 @@ msgstr ""
 
 #~ msgid "Center horizontally"
 #~ msgstr "Horizontaal centreren"
+
+#~ msgid "Location:"
+#~ msgstr "Locatie:"
+
+#~ msgid "Idle."
+#~ msgstr "Inactief."
+
+#, python-format
+#~ msgid "Could not enable plugin: %s"
+#~ msgstr "Kon plugin niet inschakelen: %s"
+
+#, python-format
+#~ msgid "Could not disable plugin: %s"
+#~ msgstr "Kon plugin niet uitschakelen: %s"
+
+#~ msgid "Basic"
+#~ msgstr "Eenvoudig"
+
+#~ msgid "Date:"
+#~ msgstr "Datum:"
+
+#~ msgid "Bitrate:"
+#~ msgstr "Bitrate:"
+
+#~ msgid "Album:"
+#~ msgstr "Album:"
+
+#~ msgid "Artist:"
+#~ msgstr "Artiest:"
+
+#~ msgid "Title:"
+#~ msgstr "Titel:"
+
+#~ msgid "File Size:"
+#~ msgstr "Bestandsgrootte:"
+
+#~ msgid "Length:"
+#~ msgstr "Lengte:"
+
+#~ msgid "Details"
+#~ msgstr "Details"
+
+#~ msgid "Play Count:"
+#~ msgstr "Aantal maal afgespeeld:"
+
+#~ msgid "Genre:"
+#~ msgstr "Genre:"
+
+#~ msgid "Track Number:"
+#~ msgstr "Nummer:"
+
+#~ msgid "Last.fm Dynamic Search"
+#~ msgstr "Last.fm Dynamisch Zoeken"

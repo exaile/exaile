@@ -64,6 +64,8 @@ class ExaileNotifyOsd(object):
 
     @common.threaded
     def update_track_notify(self, type, player, track, media_icon = None):
+        if not track:
+            return
         title = track.get_tag_display('title')
         artist = track.get_tag_display('artist')
         album = track.get_tag_display('album')

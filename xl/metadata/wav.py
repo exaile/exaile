@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from __future__ import absolute_import
+
 
 import wave
 import sunau
@@ -33,7 +33,7 @@ import os
 
 import gio
 
-from ._base import BaseFormat
+from xl.metadata._base import BaseFormat
 
 type_map = {
         "aifc": aifc,

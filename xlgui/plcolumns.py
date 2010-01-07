@@ -25,6 +25,7 @@
 # from your version.
 
 import logging
+import gio
 import gtk
 
 from xl import settings
@@ -131,10 +132,16 @@ class LengthColumn(Column):
         cell.set_property('text', text)
         self.playlist.set_cell_weight(cell, item)
 
+    def set_properties(self, col, cellr):
+        cellr.set_property('xalign', 1.0)
+
 class DiscNumberColumn(Column):
     size = 30
     display = _('Disc')
     id = 'discnumber'
+
+    def set_properties(self, col, cellr):
+        cellr.set_property('xalign', 1.0)
 
 class RatingColumn(Column):
     steps = settings.get_option('miscellaneous/rating_steps', 5)
@@ -183,6 +190,9 @@ class BitrateColumn(Column):
         cell.set_property('text', item.get_tag_display("__bitrate"))
         self.playlist.set_cell_weight(cell, item)
 
+    def set_properties(self, col, cellr):
+        cellr.set_property('xalign', 1.0)
+
 class IoLocColumn(Column):
     size = 200
     display = _('Location')
@@ -192,6 +202,12 @@ class FilenameColumn(Column):
     size = 200
     display = _('Filename')
     id = 'filename'
+
+    def data_func(self, col, cell, model, iter):
+        item = model.get_value(iter, 0)
+        cell.set_property('text',
+                gio.File(item.get_loc_for_io()).get_basename())
+        self.playlist.set_cell_weight(cell, item)
 
 class PlayCountColumn(Column):
     size = 50
@@ -205,6 +221,9 @@ class BPMColumn(Column):
     size = 50
     display = _('BPM')
     id = 'bpm'
+
+    def set_properties(self, col, cellr):
+        cellr.set_property('xalign', 1.0)
 
 class LastPlayedColumn(Column):
     size = 10

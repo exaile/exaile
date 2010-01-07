@@ -303,6 +303,7 @@ class Playlist(gtk.VBox):
         info = selection.get_selected_rows()
         # grab the first visible raw of the treeview
         firstpath = self.list.get_path_at_pos(4,4)
+        topindex = None
         if firstpath:
             topindex = firstpath[0][0]
 
@@ -315,7 +316,8 @@ class Playlist(gtk.VBox):
         self._set_tracks(self.playlist.get_tracks())
         self.list.queue_draw()
 
-        self.list.scroll_to_cell(topindex)
+        if firstpath:
+            self.list.scroll_to_cell(topindex)
         if info:
             for path in info[1]:
                 selection.select_path(path)

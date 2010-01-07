@@ -24,15 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from __future__ import absolute_import
+
 
 import os
 import gio
 
-from ._base import BaseFormat, NotWritable, NotReadable
+from xl.metadata._base import BaseFormat, NotWritable, NotReadable
 import urlparse
 
-from . import (ape, asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex,
+from xl.metadata import (ape, asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex,
         tta, wav, wv)
 
 #: dictionary mapping extensions to Format classes.

@@ -352,6 +352,7 @@ class MainWindow(gobject.GObject):
         self.queue = queue
         self.current_page = -1
         self._fullscreen = False
+        self.resuming = False
 
         if settings.get_option('gui/use_alpha', False):
             gtk_screen = gtk.gdk.screen_get_default()
@@ -766,6 +767,8 @@ class MainWindow(gobject.GObject):
             'on_clear_playlist_item_activate': self.on_clear_playlist,
         })
 
+        event.add_callback(self.on_playback_resume, 'playback_player_resume',
+            self.player)
         event.add_callback(self.on_playback_end, 'playback_player_end',
             self.player)
         event.add_callback(self.on_playback_start, 'playback_track_start',
@@ -1088,12 +1091,19 @@ class MainWindow(gobject.GObject):
             pl.playlist.set_random(settings.get_option('playback/shuffle'),
                     settings.get_option('playback/shuffle_mode'))
 
+    def on_playback_resume(self, type, player, data):
+        self.resuming = True
+
     def on_playback_start(self, type, player, object):
         """
             Called when playback starts
             Sets the currently playing track visible in the currently selected
             playlist if the user has chosen this setting
         """
+        if self.resuming:
+            self.resuming = False
+            return
+
         pl = self.get_selected_playlist()
         if player.current in pl.playlist.ordered_tracks:
             path = (pl.playlist.index(player.current),)
@@ -1206,7 +1216,6 @@ class MainWindow(gobject.GObject):
             there are already 5, it just adds one
         """
         playlist = self.get_selected_playlist().playlist
-
         self.controller.exaile.dynamic.populate_playlist(playlist)
 
     def _update_track_information(self):

@@ -24,9 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from __future__ import absolute_import
 
-from ._base import BaseFormat
+
+from xl.metadata._base import BaseFormat
 from mutagen import FileType
 
 import os
@@ -56,12 +56,12 @@ class ModFormat(BaseFormat):
                 length = modplug.ModPlug_GetLength(f) / 1000.0 or -1
                 self.mutagen = {'title': name, '__length':length}
         else:
-            self.mutagen = {'title':os.path.split(self.loc)[-1]}
+            self.mutagen = {}
 
     def get_length(self):
         try:
             return self.mutagen['__length']
-        except:
+        except KeyError:
             return -1
 
     def get_bitrate(self):

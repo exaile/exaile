@@ -46,10 +46,14 @@ class LyricsFly(LyricSearchMethod):
 
     name= "lyricsfly"
     def find_lyrics(self, track):
+        try:
+            artist = track.get_tag_raw("artist")[0]
+            title = track.get_tag_raw("title")[0]
+        except TypeError:
+            raise LyricsNotFoundException
         search = "http://lyricsfly.com/api/api.php?i=%s&a=%s&t=%s" % (
             license_key.decode('rot13').decode('base64'),
-            rep(track.get_tag_raw("artist")[0]),
-            rep(track.get_tag_raw("title")[0]))
+            rep(artist), rep(title))
         sock = urllib.urlopen(search)
         xml = sock.read()
         sock.close()

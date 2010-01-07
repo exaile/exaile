@@ -15,5 +15,6 @@ exaile-dist.tar.bz2
 exaile-po.tar.bz2
 build
 dist
+*.pyc
 
 doc/_build

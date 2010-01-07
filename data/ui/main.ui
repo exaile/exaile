@@ -62,6 +62,7 @@
                         <property name="tooltip_text" translatable="yes">Add multiple directories containing music files to your playlist</property>
                         <property name="label" translatable="yes">Open directories</property>
                         <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_open_dir_item_activate"/>
                       </object>
                     </child>
                     <child>

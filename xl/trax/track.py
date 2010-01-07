@@ -621,7 +621,10 @@ class Track(object):
             if not f:
                 return None
         _CACHER.add(self, f)
-        return f.read_tags([tag])[tag]
+        try:
+            return f.read_tags([tag])[tag]
+        except KeyError:
+            return None
 
     def list_tags_disk(self):
         """

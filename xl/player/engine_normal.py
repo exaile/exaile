@@ -47,6 +47,9 @@ class NormalPlayer(_base.ExailePlayer):
         self.playbin = None
         self.bus = None
 
+        self.fakevideo = gst.element_factory_make("fakesink")
+        self.fakevideo.set_property("sync", True)
+
         self.setup_pipe()
 
     def setup_pipe(self):
@@ -74,6 +77,7 @@ class NormalPlayer(_base.ExailePlayer):
             sets up additional gst elements
         """
         self.playbin.set_property("audio-sink", self.mainbin)
+        self.playbin.set_property("video-sink", self.fakevideo)
 
     def eof_func(self, *args):
         """

@@ -201,8 +201,8 @@ class LocalLyricSearch(LyricSearchMethod):
     name="__local"
 
     def find_lyrics(self, track):
-        # TODO do people store lyrics in other files?
-        if not track.get_tag_raw('lyrics'):
+        lyrics = track.get_tag_disk('lyrics')
+        if not lyrics:
             raise LyricsNotFoundException()
-        return (track.geT_tag_raw("lyrics")[0], "file", "")
+        return (lyrics[0], "file", "")
 

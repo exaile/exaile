@@ -157,7 +157,12 @@ class TestTrack(unittest.TestCase):
 
     def test_str(self):
         tr = track.Track('foo')
-        self.assertEqual(str(tr), "'Unknown' from 'Unknown' by 'Unknown'")
+        self.assertEqual(str(tr), 
+                "'Unknown (foo)' from 'Unknown' by 'Unknown'")
+        tr.set_tag_raw('artist', 'art')
+        tr.set_tag_raw('album', 'alb')
+        tr.set_tag_raw('title', 'title')
+        self.assertEqual(str(tr), "'title' from 'alb' by 'art'")
 
     def test_read_tags_no_perms(self):
         # We test by creating a new file, changing the tags, writing tags
@@ -468,7 +473,7 @@ class TestTrack(unittest.TestCase):
     def test_get_display_tag_join_true(self):
         tr = track.Track('/foo')
         tr.set_tag_raw('artist', [u'foo', u'bar'])
-        self.assertEqual(tr.get_tag_display('artist'), 'foo & bar')
+        self.assertEqual(tr.get_tag_display('artist'), 'foo / bar')
 
     def test_get_display_tag_join_false(self):
         tr = track.Track('/foo')

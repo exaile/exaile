@@ -61,6 +61,7 @@ class ID3Format(BaseFormat):
         "bpm": "TBPM",
         }
     writable = True
+    others = False # make this true once custom tag support actually works
 
     def _get_tag(self, raw, t):
         if not raw.tags: return []
@@ -100,6 +101,11 @@ class ID3Format(BaseFormat):
         if raw.tags is not None:
             raw.tags.add(frame)
 
+    def _del_tag(self, raw, tag):
+        if tag not in self.tag_mapping.itervalues():
+            tag = "TXXX:" + tag
+        if raw.tags is not None:
+            raw.tags.delall(tag)
 
 # vim: et sts=4 sw=4
 

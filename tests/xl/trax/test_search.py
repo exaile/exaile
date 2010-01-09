@@ -318,3 +318,68 @@ class TestTracksMatcher(unittest.TestCase):
                 self.assertFalse("We lost a search term on an or")
         else:
             self.assertFalse("We lost both parts of an or")
+
+    def test_match_true(self):
+        matcher = search.TracksMatcher("foo",
+                keyword_tags=['artist'])
+        self.str.track.set_tag_raw('artist', 'foo')
+        self.assertTrue(matcher.match(self.str))
+        self.assertEqual(self.str.on_tags, ['artist'])
+
+    def test_match_true_tag(self):
+        matcher = search.TracksMatcher("artist=foo")
+        self.str.track.set_tag_raw('artist', 'foo')
+        self.assertTrue(matcher.match(self.str))
+        self.assertEqual(self.str.on_tags, ['artist'])
+
+    def test_match_true_case_insensitive(self):
+        matcher = search.TracksMatcher("artist=FoO", case_sensitive=False)
+        self.str.track.set_tag_raw('artist', 'foo')
+        self.assertTrue(matcher.match(self.str))
+        self.assertEqual(self.str.on_tags, ['artist'])
+
+    def test_match_true_none(self):
+        matcher = search.TracksMatcher("artist==__null__")
+        self.str.track.set_tag_raw('artist', '')
+        self.assertTrue(matcher.match(self.str))
+        self.assertEqual(self.str.on_tags, ['artist'])
+
+    def test_match_false(self):
+        matcher = search.TracksMatcher("foo",
+                keyword_tags=['artist'])
+        self.str.track.set_tag_raw('artist', 'bar')
+        self.assertFalse(matcher.match(self.str))
+
+class TestSearchTracks(unittest.TestCase):
+
+    def test_search_tracks(self):
+        matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
+        tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
+        tracks = [search.SearchResultTrack(tr) for tr in tracks]
+        tracks[0].track.set_tag_raw('artist', 'foooo')
+        tracks[2].track.set_tag_raw('artist', 'foooooo')
+        gen = search.search_tracks(tracks, [matcher])
+        self.assertEqual(gen.next(), tracks[0])
+        self.assertEqual(gen.next(), tracks[2])
+        self.assertRaises(StopIteration, gen.next)
+
+    def test_take_not_srt(self):
+        matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
+        tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
+        tracks[0].set_tag_raw('artist', 'foooo')
+        tracks[2].set_tag_raw('artist', 'foooooo')
+        gen = search.search_tracks(tracks, [matcher])
+        self.assertEqual(gen.next().track, tracks[0])
+        self.assertEqual(gen.next().track, tracks[2])
+        self.assertRaises(StopIteration, gen.next)
+
+    def test_search_tracks_from_string(self):
+        matcher = search.TracksMatcher("foo", keyword_tags=['artist'])
+        tracks = [track.Track(x) for x in ('foo', 'bar', 'baz', 'quux')]
+        tracks[0].set_tag_raw('artist', 'foooo')
+        tracks[2].set_tag_raw('artist', 'foooooo')
+        gen = search.search_tracks_from_string(tracks, 'foo',
+                keyword_tags=['artist'])
+        self.assertEqual(gen.next().track, tracks[0])
+        self.assertEqual(gen.next().track, tracks[2])
+        self.assertRaises(StopIteration, gen.next)

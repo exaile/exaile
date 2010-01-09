@@ -190,6 +190,7 @@ class Main(object):
                 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         dialog.set_local_only(False) # enable gio
+        dialog.set_select_multiple(True)
 
         supported_file_filter = gtk.FileFilter()
         supported_file_filter.set_name(_("Supported Files"))
@@ -222,6 +223,25 @@ class Main(object):
             files = dialog.get_filenames()
             for f in files:
                 self.open_uri(f, play=False)
+
+    def open_dir(self, *e):
+        """
+            Shows a dialog for opening (multiple) directories
+        """
+
+        dialog = gtk.FileChooserDialog(_("Choose a file to open"),
+            self.main.window, buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+        dialog.set_select_multiple(True)
+
+        result = dialog.run()
+        dialog.hide()
+        if result == gtk.RESPONSE_OK:
+            files = dialog.get_filenames()
+            for file in files:
+                self.open_uri(file, play=False)
 
     def open_uri(self, uri, play=True):
         """

@@ -761,6 +761,7 @@ class MainWindow(gobject.GObject):
             'on_cover_manager_item_activate': self.controller.show_cover_manager,
             'on_open_item_activate': self.controller.open_dialog,
             'on_open_url_item_activate': self.controller.open_url,
+            'on_open_dir_item_activate': self.controller.open_dir,
             'on_export_current_playlist_activate': self.controller.export_current_playlist,
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
             'on_track_properties_activate':self.controller.on_track_properties,

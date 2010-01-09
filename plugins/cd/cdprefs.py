@@ -39,6 +39,8 @@ FORMAT_WIDGET = None
 
 class OutputFormatPreference(widgets.ComboPrefsItem):
     name = 'cd_import/format'
+    map = ["Ogg Vorbis", "FLAC", "AAC", "MP3 (VBR)", "MP3 (CBR)", "WavPack"]
+    default = "Ogg Vorbis"
     def __init__(self, *args):
         widgets.ComboPrefsItem.__init__(self, *args)
         global FORMAT_WIDGET
@@ -47,7 +49,6 @@ class OutputFormatPreference(widgets.ComboPrefsItem):
 
 class OutputQualityPreference(widgets.ComboPrefsItem):
     name = 'cd_import/quality'
-    default = -1
     def __init__(self, prefs, widget):
         store = gtk.ListStore(gobject.TYPE_STRING)
         widget.set_model(store)
@@ -70,8 +71,10 @@ class OutputQualityPreference(widgets.ComboPrefsItem):
         if other is not None:
             format = other.get_active_text()
         else:
-            format = prefs.settings.get_option("cd_import/format", "Ogg Vorbis")
+            format = prefs.settings.get_option("cd_import/format",
+                    OutputFormatPreference.default)
         fmt_dict = transcoder.FORMATS[format]
+        self.default = fmt_dict["default"]
         widget.get_model().clear()
 
         for kbs in fmt_dict["kbs_steps"]:

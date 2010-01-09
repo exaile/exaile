@@ -75,6 +75,14 @@ def check_exit(options, args):
                 iface.Enqueue(args)
 
     if not iface:
+        for command in ['GetArtist', 'GetTitle', 'GetAlbum', 'GetLength',
+                'GetRating', 'SetRating', 'IncreaseVolume', 'DecreaseVolume',
+                'Play', 'Stop', 'Next', 'Prev', 'PlayPause',
+                'StopAfterCurrent', 'GuiToggleVisible', 'CurrentPosition',
+                'CurrentProgress', 'GetVolume', 'Query']:
+            if getattr(options, command):
+                return True # exit if a control option is passed instead of 
+                            # starting exaile.
         return False
 
     comm = False

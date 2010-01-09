@@ -459,7 +459,7 @@ class Playlist(object):
             self.filtered = False
             return self._ordered_tracks
         else:
-            self.filtered_tracks = self.search(keyword)
+            self.filtered_tracks = list(self.search(keyword))
             self.filtered = True
             return self.filtered_tracks
 
@@ -734,7 +734,7 @@ class Playlist(object):
         """
         # TODO: use shown columns
         matcher = trax.TracksMatcher(phrase, keyword_tags=('artist',
-            'album', 'title'))
+            'album', 'title'), case_sensitive=False)
         trs = trax.search_tracks(self.ordered_tracks, [matcher])
         trs = (t.track for t in trs)
 

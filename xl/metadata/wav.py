@@ -43,6 +43,7 @@ type_map = {
         }
 
 class WavFormat(BaseFormat):
+    writable = False
     def load(self):
         try:
             loc = gio.File(self.loc).get_path()

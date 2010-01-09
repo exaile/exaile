@@ -38,6 +38,11 @@ class NotReadable(Exception):
 class BaseFormat(object):
     """
         Base class for handling loading of metadata from files.
+
+        subclasses using mutagen should set MutagenType and overload
+        the _get_tag, _set_tag, and _del_tag methods as needed.
+
+        subclasses not using mutagen should leave MutagenType as None
     """
     MutagenType = None
     tag_mapping = {}

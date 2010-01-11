@@ -84,7 +84,7 @@ class _MetadataCacher(object):
                 self._cache.remove(item)
         if self._cache:
             next_expiry = min([i[2] for i in self._cache])
-            timeout = ((next_expiry + self.timeout) - current)
+            timeout = int((next_expiry + self.timeout) - current)
             self._cleanup_id = gobject.timeout_add(timeout*1000,
                     self.__cleanup)
 

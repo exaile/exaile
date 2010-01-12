@@ -524,7 +524,7 @@ class CollectionPanel(panel.Panel):
     def resort_tracks(self):
 #        import time
 #        print "sorting...", time.clock()
-        self.sorted_tracks = trax.sort_tracks(self.order[0].tags(), self.collection)
+        self.sorted_tracks = trax.sort_tracks(self.order[0].tags(), self.collection.get_tracks())
 #        print "sorted.", time.clock()
 
     def load_tree(self):

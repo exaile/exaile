@@ -38,6 +38,11 @@ class NotReadable(Exception):
 class BaseFormat(object):
     """
         Base class for handling loading of metadata from files.
+
+        subclasses using mutagen should set MutagenType and overload
+        the _get_tag, _set_tag, and _del_tag methods as needed.
+
+        subclasses not using mutagen should leave MutagenType as None
     """
     MutagenType = None
     tag_mapping = {}
@@ -169,6 +174,9 @@ class BaseFormat(object):
     def _set_tag(self, raw, tag, value):
         raw[tag] = value
 
+    def _del_tag(self, raw, tag):
+        del raw[tag]
+
     def write_tags(self, tagdict):
         """
             Write a set of tags to the file. Raises a NotWritable exception
@@ -210,6 +218,10 @@ class BaseFormat(object):
                     self._set_tag(raw, self.tag_mapping[tag], tagdict[tag])
                 elif self.others:
                     self._set_tag(raw, tag, tagdict[tag])
+            for tag in raw:
+                tagname = self._reverse_mapping.get(tag)
+                if tagname and tagname not in tagdict:
+                    self._del_tag(raw, tag)
             self.save()
 
     def get_info(self, info):

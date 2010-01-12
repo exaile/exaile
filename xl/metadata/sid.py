@@ -30,7 +30,7 @@ from xl.metadata._base import BaseFormat
 from mutagen import FileType
 
 class SidFormat(BaseFormat):
-    MutagenType = FileType #not actually used
+    writable = False
 
     def load(self):
         f = open(self.loc, "rb")

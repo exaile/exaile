@@ -145,7 +145,7 @@ class ExailePlayer(object):
             return
 
         # If we are after the end of the track, switch to the next one
-        elif tm > self.current.get_duration():
+        elif tm > self.current.get_tag_raw('__length'):
             self._queue.next()
             return
 
@@ -172,6 +172,11 @@ class ExailePlayer(object):
             progress = 0
         except AttributeError: # no current track
             progress = 0
+        else:
+            if progress < 0:
+                progress = 0
+            elif progress > 1:
+                progress = 1
         return progress
 
     def _get_gst_state(self):

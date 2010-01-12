@@ -378,16 +378,17 @@ class DbusManager(dbus.service.Object):
         for file in filenames:
             try:
                 pl = xl.playlist.import_playlist(file)
-                tracks = pl.get_tracks()
+                tracks += pl.get_tracks()
                 continue
             except xl.playlist.InvalidPlaylistTypeException:
                 pass
             except:
                 traceback.print_exc()
+            else:
+                tracks += trax.get_tracks_from_uri(file)
 
-            tracks += trax.get_tracks_from_uri(file)
-
-        tracks = trax.sort_tracks([column], tracks)
+        if column:
+            tracks = trax.sort_tracks([column], tracks)
         self.exaile.queue.current_playlist.add_tracks(tracks)
 
         if not self.exaile.player.is_playing():

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-09 01:29+0000\n"
+"PO-Revision-Date: 2010-01-12 01:52+0000\n"
 "Last-Translator: Waluyo Adi Siswanto <Unknown>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-09 07:46+0000\n"
+"X-Launchpad-Export-Date: 2010-01-12 04:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -267,7 +267,7 @@ msgstr "Tidak Dikenal"
 #: ../xl/track.py:424 ../xl/trackformatter.py:110
 #: ../plugins/minimode/mmwidgets.py:1004
 msgid " & "
-msgstr ""
+msgstr " & "
 
 #: ../xl/track.py:584
 msgid "  New song, fetching cover."
@@ -347,7 +347,7 @@ msgstr "Anda belum merinci lokasi asal basis data"
 
 #: ../xlgui/properties.py:36
 msgid "Original Album"
-msgstr ""
+msgstr "Album Asli"
 
 #: ../xlgui/properties.py:37
 msgid "Lyricist"
@@ -359,7 +359,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:41
 msgid "Original Artist"
-msgstr ""
+msgstr "Artis Asli"
 
 #: ../xlgui/properties.py:42
 msgid "Author"
@@ -367,7 +367,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:43
 msgid "Original Date"
-msgstr ""
+msgstr "Tanggal Awal"
 
 #: ../xlgui/properties.py:44 ../xlgui/plcolumns.py:163
 #: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:72
@@ -380,11 +380,11 @@ msgstr ""
 
 #: ../xlgui/properties.py:46
 msgid "Conductor"
-msgstr ""
+msgstr "Konduktor"
 
 #: ../xlgui/properties.py:47
 msgid "Performer"
-msgstr ""
+msgstr "Pemain"
 
 #: ../xlgui/properties.py:48 ../xlgui/plcolumns.py:99
 #: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:157
@@ -442,7 +442,7 @@ msgstr "Pengarang"
 
 #: ../xlgui/properties.py:58
 msgid "Encoded By"
-msgstr ""
+msgstr "Disandikan Oleh"
 
 #: ../xlgui/properties.py:59
 msgid "Organization"
@@ -497,7 +497,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:69
 msgid "Times Played"
-msgstr ""
+msgstr "Waktu Dimainkan"
 
 #: ../xlgui/properties.py:70
 msgid "Last Played"
@@ -506,11 +506,11 @@ msgstr ""
 #: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "Track diubah %(current)d dari %(total)d"
 
 #: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
-msgstr ""
+msgstr "Menutup tanpa menulis perubahan terhadap tag?"
 
 #: ../xlgui/properties.py:655
 msgid "of"
@@ -518,7 +518,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Terapkan hasil sekarang ke semua trek"
 
 #: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
 #: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
@@ -555,11 +555,11 @@ msgstr "Beralih: Berhenti setelah lagu yang dipilih"
 
 #: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Menambah trek yang mirip kedalam daftar main yang dinamis"
 
 #: ../xlgui/main.py:706
 msgid "Requires plugins providing dynamic playlists"
-msgstr ""
+msgstr "Memerlukan plugin untuk menyediakan daftar main yang dinamis"
 
 #: ../xlgui/main.py:862
 #, python-format
@@ -718,7 +718,7 @@ msgstr "Menghapus Daftar lagu"
 
 #: ../xlgui/menu.py:411
 msgid "Export as..."
-msgstr ""
+msgstr "Ekspor sebagai..."
 
 #: ../xlgui/menu.py:416 ../xlgui/__init__.py:143
 msgid "M3U Playlist"
@@ -781,7 +781,7 @@ msgstr "%(minutes)d:%(seconds)02d"
 
 #: ../xlgui/osd.py:219
 msgid "No track"
-msgstr ""
+msgstr "Tidak ada trek"
 
 #: ../xlgui/__init__.py:138
 msgid "Export current playlist..."
@@ -839,12 +839,12 @@ msgstr ""
 #: ../xlgui/guiutil.py:729
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr ""
+msgstr "%(playlist_count)d ditampilkan, %(collection_count)d pada koleksi"
 
 #: ../xlgui/guiutil.py:742
 #, python-format
 msgid "(%d queued)"
-msgstr ""
+msgstr "(%d menunggu)"
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
@@ -913,7 +913,7 @@ msgstr "Jumlah putar"
 
 #: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
-msgstr ""
+msgstr "Terakhir dimainkan"
 
 #: ../xlgui/plcolumns.py:267
 msgid "Track Number"
@@ -946,7 +946,7 @@ msgstr " lagu"
 #: ../xlgui/playlist.py:1146
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "Tutup %s"
 
 #: ../xlgui/playlist.py:1147
 #, python-format
@@ -1063,7 +1063,7 @@ msgstr "antara"
 #: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
 #: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Nama daftar main yang anda masukkan telah digunakan."
 
 #: ../xlgui/panel/playlists.py:367
 msgid "New custom playlist name:"
@@ -1071,7 +1071,7 @@ msgstr ""
 
 #: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
-msgstr ""
+msgstr "Tambah ke Daftar Main Baru"
 
 #: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
 #: ../xlgui/panel/playlists.py:678
@@ -1101,7 +1101,7 @@ msgstr "Memuat aliran..."
 
 #: ../xlgui/panel/radio.py:178
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Tambah Stasiun Radio"
 
 #: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
@@ -1260,11 +1260,11 @@ msgstr ""
 
 #: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
-msgstr ""
+msgstr "Secara dinamis menambah trek yang mirip"
 
 #: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
-msgstr ""
+msgstr "Menghapus trek sekarang dari daftar putar"
 
 #: ../xlgui/tray.py:179
 msgid "Exaile Music Player"
@@ -1272,7 +1272,7 @@ msgstr "Pemutar Musik Exaile"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Klik kanan untuk mengembalikan ke bawaan)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
@@ -1304,7 +1304,7 @@ msgstr "hapus daftar main"
 
 #: ../data/ui/main.ui.h:5
 msgid "Click to view Queue"
-msgstr ""
+msgstr "Klik untuk melihat antrian"
 
 #: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
 msgid "Next Track"
@@ -1324,11 +1324,11 @@ msgstr "Trek sebelumnya"
 
 #: ../data/ui/main.ui.h:12
 msgid "Randomize the order of the current playlist"
-msgstr ""
+msgstr "Mengacak urutan daftar putar aktif"
 
 #: ../data/ui/main.ui.h:13
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Memindai Ulang Koleksi"
 
 #: ../data/ui/main.ui.h:15 ../data/ui/files_panel.ui.h:6
 #: ../data/ui/collection_panel.ui.h:11
@@ -1356,7 +1356,7 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
-msgstr ""
+msgstr "_Koleksi"
 
 #: ../data/ui/main.ui.h:25
 msgid "_Columns"
@@ -1364,7 +1364,7 @@ msgstr "_Kolom"
 
 #: ../data/ui/main.ui.h:26
 msgid "_Device Manager"
-msgstr ""
+msgstr "_Pengelola Perangkat"
 
 #: ../data/ui/main.ui.h:27
 msgid "_Edit"
@@ -1372,7 +1372,7 @@ msgstr "_Sunting"
 
 #: ../data/ui/main.ui.h:28
 msgid "_Export current playlist"
-msgstr ""
+msgstr "_Ekspor daftar putar"
 
 #: ../data/ui/main.ui.h:29
 msgid "_File"
@@ -1392,7 +1392,7 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:34
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "_Mengacak Daftar Putar"
 
 #: ../data/ui/main.ui.h:35
 msgid "_Resizable"
@@ -1420,7 +1420,7 @@ msgstr "Radio"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "Pengelolaan Sampul"
 
 #: ../data/ui/covermanager.ui.h:3
 msgid "_Close"
@@ -1428,7 +1428,7 @@ msgstr "_Tutup"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "A_dd tag"
-msgstr ""
+msgstr "Menam_bah tanda"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "Tags"
@@ -1452,7 +1452,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Hapus tanda"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
@@ -1623,11 +1623,11 @@ msgstr "minta pencarian cover"
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Close this dialog"
-msgstr ""
+msgstr "Tutup dialog ini"
 
 #: ../data/ui/queue_dialog.ui.h:2
 msgid "Queue Manager"
-msgstr ""
+msgstr "Pengelola Antrian"
 
 #: ../data/ui/queue_dialog.ui.h:3
 msgid "Remove All"
@@ -1659,6 +1659,24 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"Hakcipta (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Program ini adalah perangkat lunak tanpa bayaran; Anda dapat menyebarkannya "
+"dan/atau merubahnya\n"
+"di bawah persyaratan Lisensi Publik Umum GNU seperti yang diterbitkan oleh\n"
+"Free Software Foundation; baik versi 2 dari Lisensi, atau\n"
+"(menurut pilihan Anda) versi terakhir yang ada.\n"
+"\n"
+"Program ini didistribusikan dengan harapan akan bermanfaat,\n"
+"tetapi TANPA ADANYA JAMINAN; termasuk tidak ada jaminan\n"
+"PERDAGANGAN atau KESESUAIAN UNTUK TUJUAN TERTENTU. Lihat\n"
+"GNU General Public License untuk rincian lebih lanjut.\n"
+"\n"
+"Anda seharusnya telah menerima salinan dari GNU General Public License "
+"bersama\n"
+"dengan program ini, jika tidak, silahkan meminta ke Free Software "
+"Foundation, Inc,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/ui/about_dialog.ui.h:19
 msgid ""
@@ -1746,37 +1764,39 @@ msgstr "Popup"
 
 #: ../data/ui/collection_panel.ui.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Koleksi kosong.</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
-msgstr ""
+msgstr "Tambah Musik"
 
 #: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
-msgstr ""
+msgstr "Artis - Tahun - Album"
 
 #: ../data/ui/collection_panel.ui.h:7
 msgid "Genre - Album"
-msgstr ""
+msgstr "Aliran - Album"
 
 #: ../data/ui/collection_panel.ui.h:8
 msgid "Genre - Artist"
-msgstr ""
+msgstr "Aliran - Artis"
 
 #: ../data/ui/collection_panel.ui.h:9
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Segarkan tampilan koleksi\n"
+"(Tahan tombol Shift untuk memindai ulang koleksi)"
 
 #: ../data/ui/collection_panel.ui.h:12
 msgid "Year - Album"
-msgstr ""
+msgstr "Tahun - Album"
 
 #: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Artist"
-msgstr ""
+msgstr "Tahun - Artis"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:1
 msgid "Always show tab bar"
@@ -1812,7 +1832,7 @@ msgstr "Tampilkan ikon tray"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:10
 msgid "Tab placement:"
-msgstr ""
+msgstr "Penempatan tab:"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:11
 msgid "Top"
@@ -1820,12 +1840,12 @@ msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.ui.h:12
 msgid "Use alpha transparency (if supported)"
-msgstr ""
+msgstr "Gunakan transparansi alfa (jika didukung)"
 
 #: ../plugins/multialarmclock/__init__.py:412
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Jam Multi-Alarm"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
@@ -1838,7 +1858,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs.py:32
 msgid "AWN"
-msgstr ""
+msgstr "AWN"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -1855,7 +1875,7 @@ msgstr ""
 
 #: ../plugins/cd/_cdguipanel.py:87
 msgid "Importing CD..."
-msgstr ""
+msgstr "Mengimpor CD..."
 
 #: ../plugins/cd/cdprefs.py:32
 msgid "CD"
@@ -1867,7 +1887,7 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:70
 msgid "Disc number"
-msgstr ""
+msgstr "Nomor Cakram"
 
 #: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:77
 msgid "Play count"
@@ -1875,21 +1895,23 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
-msgstr ""
+msgstr "Secara manual..."
 
 #: ../plugins/daapclient/__init__.py:207
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Masukkan alamat IP dan port untuk berbagi"
 
 #: ../plugins/daapclient/__init__.py:208
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "Masukkan alamat IP dan port"
 
 #: ../plugins/daapclient/__init__.py:376
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"Server ini tidak mendukung koneksi ganda.\n"
+"Anda harus menghentikan sebelum muaturun lagu."
 
 #: ../plugins/daapclient/__init__.py:455
 msgid "Disconnect"
@@ -1897,11 +1919,11 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:473
 msgid "Select a save location"
-msgstr ""
+msgstr "Pilih lokasi menyimpan"
 
 #: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Terhubung ke DAAP..."
 
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -1910,7 +1932,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
-msgstr ""
+msgstr "Tandai trek ini"
 
 #: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
@@ -1927,15 +1949,15 @@ msgstr ""
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "Mencari katalog Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:78
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Proses menerima data lagu..."
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Pemberitahuan OSD"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
@@ -1947,22 +1969,22 @@ msgstr ""
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "oleh %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "dari %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Sampul Amazon"
 
 #: ../plugins/desktopcover/prefs.py:21 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "Sampul Destop"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
@@ -1974,7 +1996,7 @@ msgstr ""
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "Tidak bisa membaca moodbar"
 
 #: ../plugins/moodbar/__init__.py:497
 msgid "Moodbar executable is not available."
@@ -1983,11 +2005,11 @@ msgstr ""
 #: ../plugins/droptrayicon/__init__.py:267
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Letakkan untuk Memilih"
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"
-msgstr ""
+msgstr "Tambahkan dan Mainkan"
 
 #: ../plugins/droptrayicon/__init__.py:272
 msgid "Append"
@@ -2016,11 +2038,11 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Masukkan URL dari podcast untuk menambah"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
-msgstr ""
+msgstr "Membuka Podcast"
 
 #: ../plugins/podcasts/__init__.py:153
 #, python-format
@@ -2029,35 +2051,35 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Kesalahan memuat podcast."
 
 #: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Memuat Podcasts..."
 
 #: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Tidak dapat menyimpan berkas podcast"
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
 #: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
-msgstr ""
+msgstr "Menghubungi server Shoutcast..."
 
 #: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
 #: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
 #: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
-msgstr ""
+msgstr "Kesalahan menghubungi server Shoutcast."
 
 #: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Masukkan kata kunci pencarian"
 
 #: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
-msgstr ""
+msgstr "Pencarian Shoutcast"
 
 #: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
@@ -2069,7 +2091,7 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Memberitahu"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -2077,18 +2099,20 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"oleh %(artist)s\n"
+"dari <i>%(album)s</i>"
 
 #: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "Konsul IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:134
 msgid "Show IPython Console"
-msgstr ""
+msgstr "Tampilkan Konsul IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "Konsul IPython"
 
 #: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
@@ -2096,20 +2120,20 @@ msgstr "Hentikan Pemutaran"
 
 #: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
-msgstr ""
+msgstr "Kembalikan Jendela Utama"
 
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Mode Mini"
 
 #: ../plugins/minimode/minimodeprefs.py:44
 msgid "Available controls"
-msgstr ""
+msgstr "Pengendali yang tersedia"
 
 #: ../plugins/minimode/minimodeprefs.py:45
 msgid "Selected controls"
-msgstr ""
+msgstr "Pengendali yang dipilih"
 
 #: ../plugins/minimode/minimodeprefs.py:47
 msgid "Previous"
@@ -2129,7 +2153,7 @@ msgstr "Berikutnya"
 
 #: ../plugins/minimode/minimodeprefs.py:51
 msgid "Track selector"
-msgstr ""
+msgstr "Pemilih Trek"
 
 #: ../plugins/minimode/minimodeprefs.py:52
 msgid "Progress bar"
@@ -2141,7 +2165,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:54
 msgid "Playlist button"
-msgstr ""
+msgstr "Tombol daftar putar"
 
 #: ../plugins/minimode/minimodeprefs.py:57
 msgid "Restore"
@@ -2165,19 +2189,19 @@ msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
-msgstr ""
+msgstr "Memulai Memutar"
 
 #: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
-msgstr ""
+msgstr "Melanjutkan Memutar"
 
 #: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
-msgstr ""
+msgstr "Jeda Memutar"
 
 #: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
-msgstr ""
+msgstr "Mencari: "
 
 #: ../plugins/contextinfo/__init__.py:1047
 #: ../plugins/contextinfo/context.ui.h:1
@@ -2203,12 +2227,12 @@ msgstr "Hari Alarm:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:2
 msgid "Alarm Name:"
-msgstr ""
+msgstr "Nama Alarm:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:3
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Alarm Time:"
-msgstr ""
+msgstr "Waktu Alarm:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:4
 msgid "Alarm:"
@@ -2235,12 +2259,12 @@ msgstr ""
 #: ../plugins/multialarmclock/alarmclk.ui.h:10
 #: ../plugins/alarmclock/acprefs_pane.ui.h:5
 msgid "Maximum Volume:"
-msgstr ""
+msgstr "Volume Maksimum:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:11
 #: ../plugins/alarmclock/acprefs_pane.ui.h:6
 msgid "Minimum Volume:"
-msgstr ""
+msgstr "Volume Minimum:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:12
 #: ../plugins/alarmclock/acprefs_pane.ui.h:7
@@ -2249,11 +2273,11 @@ msgstr "Senin"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:13
 msgid "Name - Time"
-msgstr ""
+msgstr "Nama - Waktu"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:14
 msgid "Restart Playlist"
-msgstr ""
+msgstr "Mengulang Daftar Putar"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:15
 #: ../plugins/alarmclock/acprefs_pane.ui.h:8
@@ -2350,11 +2374,11 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"
-msgstr ""
+msgstr "Tampilan Memutar"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"
-msgstr ""
+msgstr "Tampilkan Sampul"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
@@ -2366,7 +2390,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "Text Percentage"
-msgstr ""
+msgstr "Persentase Teks"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Password:"
@@ -2423,6 +2447,7 @@ msgstr ""
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
+"Gunakan sampul di menu tandabuku (mulai berlaku saat menjalankan berikutnya)"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Advanced"
@@ -2434,7 +2459,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
-msgstr ""
+msgstr "Tanggal dibintangi"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
@@ -2442,15 +2467,15 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Aliran/Tanda"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
-msgstr ""
+msgstr "Jumlah muaturun"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
-msgstr ""
+msgstr "Jumlah didengar"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
@@ -2458,27 +2483,27 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Order By:"
-msgstr ""
+msgstr "Diurutkan berdasar:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Order Direction:"
-msgstr ""
+msgstr "Arah Pengurutan:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
-msgstr ""
+msgstr "Penilaian bulan ini"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Rating this week"
-msgstr ""
+msgstr "Penilaian minggu ini"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
-msgstr ""
+msgstr "Tanggal diluncurkan"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Results:"
-msgstr ""
+msgstr "Hasil:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
@@ -2486,7 +2511,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>Kandungan</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "<b>Display</b>"
@@ -2498,7 +2523,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "Album Line:"
-msgstr ""
+msgstr "Baris Album:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "Artist Line:"
@@ -2924,17 +2949,19 @@ msgstr ""
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "Plugin untuk mengambil lirik dari lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "Dukungan terhadap Media Pemutar dan Penyimpan USB"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Dukungan untuk mengakses media pemutar portabel menggunakan protokol "
+"penyimpanan USB"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"

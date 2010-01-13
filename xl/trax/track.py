@@ -532,8 +532,10 @@ class Track(object):
             else:
                 retval = _UNKNOWNSTR
                 if tag == 'title':
-                    retval = u"%s (%s)" % (retval,
-                            gio.File(self.__tags['__loc']).get_basename())
+                    gloc = gio.File(self.__tags['__loc'])
+                    info = gloc.query_info("standard::display-name")
+                    basename = info.get_display_name()
+                    retval = u"%s (%s)" % (retval, basename)
 
         if isinstance(retval, list):
             retval = [unicode(x) for x in retval]

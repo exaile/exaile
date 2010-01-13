@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-12 01:52+0000\n"
+"PO-Revision-Date: 2010-01-12 16:31+0000\n"
 "Last-Translator: Waluyo Adi Siswanto <Unknown>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-12 04:44+0000\n"
+"X-Launchpad-Export-Date: 2010-01-13 04:49+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -285,7 +285,7 @@ msgstr ""
 #: ../xl/trackformatter.py:213 ../xlgui/plcolumns.py:232
 #: ../plugins/minimode/mmwidgets.py:1087
 msgid "Today"
-msgstr ""
+msgstr "Hari ini"
 
 #: ../xl/trackformatter.py:215 ../xlgui/plcolumns.py:234
 #: ../plugins/minimode/mmwidgets.py:1089
@@ -748,7 +748,7 @@ msgstr "Masukkan nama baru untuk daftar lagu anda"
 #: ../xlgui/cover.py:308
 #, python-format
 msgid "%d covers to fetch"
-msgstr ""
+msgstr "%d sampul untuk diambil"
 
 #: ../xlgui/cover.py:313 ../xlgui/cover.py:332 ../data/ui/covermanager.ui.h:2
 msgid "Start"
@@ -785,7 +785,7 @@ msgstr "Tidak ada trek"
 
 #: ../xlgui/__init__.py:138
 msgid "Export current playlist..."
-msgstr ""
+msgstr "Ekspor ke daftar putar yang digunakan ..."
 
 #: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:940
 msgid "Invalid file extension, file not saved"
@@ -1138,15 +1138,17 @@ msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
+"Ini akan menghapus permanen trek yang dipilih dari cakram anda, apakah anda "
+"mau melanjutkan?"
 
 #: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Memindai Ulang Koleksi"
 
 #: ../xlgui/panel/device.py:127
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Mengirim ke %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:31
 msgid "Covers"
@@ -1158,7 +1160,7 @@ msgstr ""
 
 #: ../xlgui/prefs/playback_prefs.py:32
 msgid "Playback"
-msgstr ""
+msgstr "Putar"
 
 #: ../xlgui/prefs/__init__.py:83 ../data/ui/preferences_dialog.ui.h:1
 msgid "Preferences"
@@ -1184,7 +1186,7 @@ msgstr ""
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Kembalikan ke bawaan"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"
@@ -1206,11 +1208,11 @@ msgstr "Diaktifkan"
 
 #: ../xlgui/prefs/plugin_prefs.py:128
 msgid "Choose a plugin"
-msgstr ""
+msgstr "Pilih plugin"
 
 #: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Arsip plugin"
 
 #: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
@@ -1218,6 +1220,8 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Tidak dapat mengaktifkan plugin:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
@@ -1225,10 +1229,12 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Tidak dapat mematikan plugin:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
-msgstr ""
+msgstr "Menambah obyek"
 
 #: ../xlgui/prefs/widgets.py:266
 msgid "Remove item"
@@ -1236,11 +1242,11 @@ msgstr ""
 
 #: ../xlgui/prefs/widgets.py:279
 msgid "Move selected item up"
-msgstr ""
+msgstr "Pindahkan obyek yang dipilih ke atas"
 
 #: ../xlgui/prefs/widgets.py:284
 msgid "Move selected item down"
-msgstr ""
+msgstr "Pindahkan obyek yang dipilih ke bawah"
 
 #: ../xlgui/prefs/widgets.py:555
 msgid "Action"
@@ -1252,11 +1258,11 @@ msgstr ""
 
 #: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Acak urutan putar"
 
 #: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
-msgstr ""
+msgstr "Ulangi daftar putar"
 
 #: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
@@ -1484,11 +1490,11 @@ msgstr "Instal Perbaruan"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "Memasang plugin pihak ketiga dari berkas"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "Pasang berkas plugin"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
@@ -1684,6 +1690,9 @@ msgid ""
 "   <info@noctus.net>\n"
 "    Translation Manager"
 msgstr ""
+"Mathias Brodala\n"
+"   <info@noctus.net>\n"
+"    Pengelola Penerjemahan"
 
 #: ../data/ui/playback_prefs_pane.ui.h:1
 msgid "ALSA"
@@ -1695,11 +1704,11 @@ msgstr ""
 
 #: ../data/ui/playback_prefs_pane.ui.h:4
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Durasi pemudaran silang (ms):"
 
 #: ../data/ui/playback_prefs_pane.ui.h:5
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Durasi pemudaran (ms):"
 
 #: ../data/ui/playback_prefs_pane.ui.h:6
 msgid "GNOME"
@@ -1719,7 +1728,7 @@ msgstr "OSS"
 
 #: ../data/ui/playback_prefs_pane.ui.h:10
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "Mesin putar ulang (memerlukan dijalankan ulang): "
 
 #: ../data/ui/playback_prefs_pane.ui.h:11
 msgid "PulseAudio"
@@ -1727,11 +1736,11 @@ msgstr "PulseAudio"
 
 #: ../data/ui/playback_prefs_pane.ui.h:12
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Melanjutkan putar dari saat jeda"
 
 #: ../data/ui/playback_prefs_pane.ui.h:13
 msgid "Resume playback on start"
-msgstr ""
+msgstr "Melanjutkan putar saat memulai"
 
 #: ../data/ui/playback_prefs_pane.ui.h:14
 msgid "These options only affect the unified engine."
@@ -1743,11 +1752,11 @@ msgstr ""
 
 #: ../data/ui/playback_prefs_pane.ui.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Menggunakan pemudaran silang (UJI COBA)"
 
 #: ../data/ui/playback_prefs_pane.ui.h:17
 msgid "Use fade transitions on user actions"
-msgstr ""
+msgstr "Menggunakan transisi pudar untuk aksi pengguna"
 
 #: ../data/ui/osd_window.ui.h:1
 msgid ""
@@ -1816,7 +1825,7 @@ msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.ui.h:6
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Menyimpan ke nampan"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
@@ -1936,11 +1945,11 @@ msgstr "Tandai trek ini"
 
 #: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
-msgstr ""
+msgstr "Hapus tandabuku"
 
 #: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Bersihkan tandabuku"
 
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
@@ -2180,7 +2189,7 @@ msgstr ""
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:85
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title urutan $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:87
@@ -2236,7 +2245,7 @@ msgstr "Waktu Alarm:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:4
 msgid "Alarm:"
-msgstr ""
+msgstr "Alarm:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:5
 msgid "Enable Fading"
@@ -2567,11 +2576,11 @@ msgstr ""
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API Key:"
-msgstr ""
+msgstr "Kunci API:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret Key:"
-msgstr ""
+msgstr "Kunci Rahasia:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
@@ -2585,11 +2594,11 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.ui.h:2
 msgid "Bottom left"
-msgstr ""
+msgstr "Kiri bawah"
 
 #: ../plugins/desktopcover/prefs.ui.h:3
 msgid "Bottom right"
-msgstr ""
+msgstr "Kanan bawah"
 
 #: ../plugins/desktopcover/prefs.ui.h:4
 msgid "Size:"
@@ -2597,11 +2606,11 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.ui.h:5
 msgid "Top left"
-msgstr ""
+msgstr "Kiri atas"
 
 #: ../plugins/desktopcover/prefs.ui.h:6
 msgid "Top right"
-msgstr ""
+msgstr "Kanan atas"
 
 #: ../plugins/desktopcover/prefs.ui.h:7
 msgid "X offset:"
@@ -2617,11 +2626,11 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Base color"
-msgstr ""
+msgstr "Warna dasar"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Base color:"
-msgstr ""
+msgstr "Warna dasar:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Darken played section instead of using cursor"
@@ -2685,7 +2694,7 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
 msgid "Both artist and album"
-msgstr ""
+msgstr "Baik artis maupun album"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:4
 #, python-format
@@ -2698,15 +2707,15 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:5
 msgid "Only album"
-msgstr ""
+msgstr "Hanya album"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:6
 msgid "Only artist"
-msgstr ""
+msgstr "Hanya artis"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Sesuaikan ukuran tampilan sampul"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "Summary"
@@ -2730,11 +2739,11 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:3
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Tampilkan di daftar tugas"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:4
 msgid "Show on all desktops"
-msgstr ""
+msgstr "Tampilkan di semua destop"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:5
 msgid "Track title format:"
@@ -2746,7 +2755,7 @@ msgstr ""
 
 #: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Save Location:"
-msgstr ""
+msgstr "Lokasi Menyimpan:"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -2755,7 +2764,7 @@ msgid ""
 "Note that when the specified time arrives, Exaile will just act like you "
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
-msgstr ""
+msgstr "Putar musik pada waktu dan hari tertentu."
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2764,7 +2773,7 @@ msgid ""
 "Note that when the specified time arrives, Exaile will just act like you "
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
-msgstr ""
+msgstr "Putar musik pada waktu tertentu."
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -2776,11 +2785,11 @@ msgstr ""
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
-msgstr ""
+msgstr "Atur sampul dan tambahkan beberapa obyek menu ke AWN untuk Exaile"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr ""
+msgstr "Lagu Sekarang"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
@@ -2795,7 +2804,7 @@ msgstr ""
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "Putar CD"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
@@ -2833,7 +2842,7 @@ msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Mencari Last.fm untuk sampul"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -2854,7 +2863,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "Tampilkan sampul album saat ini ke destop"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
@@ -2887,11 +2896,11 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
-msgstr ""
+msgstr "Dukungan iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr ""
+msgstr "Plugin untuk mendukung iPod"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -2903,7 +2912,7 @@ msgstr ""
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "Jeda saat Screensaver aktif"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
@@ -3001,6 +3010,9 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Tampilkan berbagai informasi tentang trek yang sedang diputar.\n"
+"Ketergantungan: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging "
+"(a.k.a. PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
@@ -3010,11 +3022,11 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Lirik Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr ""
+msgstr "Plugin untuk mengambil lirik dari lyricwiki.org"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"

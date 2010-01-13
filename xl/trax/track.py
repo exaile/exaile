@@ -469,8 +469,10 @@ class Track(object):
         if not retval:
             retval = u"\uffff\uffff\uffff\uffff" # unknown
             if tag == 'title':
-                retval = u"%s (%s)" % (retval,
-                        gio.File(self.__tags['__loc']).get_basename().lower())
+                gloc = gio.File(self.__tags['__loc'])
+                info = gloc.query_info("standard::display-name")
+                basename = info.get_display_name().lower()
+                retval = u"%s (%s)" % (retval, basename)
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
             if not sorttag:

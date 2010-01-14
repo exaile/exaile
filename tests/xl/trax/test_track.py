@@ -96,14 +96,15 @@ class TestTrack(unittest.TestCase):
     ## Creation
     def test_flyweight(self):
         """There can only be one object based on a url in args"""
-        t1 = track.Track('uri')
-        t2 = track.Track(uri='uri')
-        self.assertTrue(t1 is t2, "%s is not %s" % (repr(t1), repr(t2)))
+        t1 = track.Track(test_data.TEST_TRACKS[0])
+        t2 = track.Track(uri=test_data.TEST_TRACKS[0])
+        self.assertTrue(t1 is t2, "%s should be %s" % (repr(t1), repr(t2)))
 
     def test_different_url_not_flyweighted(self):
-        t1 = track.Track('uri')
-        t2 = track.Track(uri='uri2')
-        self.assertTrue(t1 is not t2, "%s is %s" % (repr(t1), repr(t2)))
+        t1 = track.Track(test_data.TEST_TRACKS[0])
+        t2 = track.Track(uri=test_data.TEST_TRACKS[1])
+        self.assertTrue(t1 is not t2, "%s should not be %s" % (repr(t1),
+            repr(t2)))
 
     def test_none_url(self):
         self.assertRaises(ValueError, track.Track)
@@ -156,9 +157,12 @@ class TestTrack(unittest.TestCase):
             self.assertEqual(tr.get_size(), test_data.TEST_TRACKS_SIZE[tr_name])
 
     def test_str(self):
-        tr = track.Track('foo')
+        loc = test_data.TEST_TRACKS[0]
+        tr = track.Track(loc)
+        self.empty_track_of_tags(tr, ('__loc',))
         self.assertEqual(str(tr), 
-                "'Unknown (foo)' from 'Unknown' by 'Unknown'")
+                "'Unknown (%s)' from 'Unknown' by 'Unknown'"
+                % os.path.basename(loc))
         tr.set_tag_raw('artist', 'art')
         tr.set_tag_raw('album', 'alb')
         tr.set_tag_raw('title', 'title')
@@ -267,10 +271,20 @@ class TestTrack(unittest.TestCase):
         tr.set_tag_raw('artist', [u'foo', u'bar'])
         self.assertEqual(tr.get_tag_raw('artist', join=True), u'foo / bar')
 
+    def empty_track_of_tags(self, track, exclude=None):
+        """Removes all the tags from a track"""
+        for tag in track.list_tags():
+            if exclude is not None and tag in exclude:
+                continue
+            track.set_tag_raw(tag, None)
+
     def test_list_tags(self):
-        tr = track.Track('/foo')
-        tr.set_tag_raw('artist', 'foo')
-        tr.set_tag_raw('album', 'bar')
+        loc = test_data.TEST_TRACKS[0]
+        tr = track.Track(loc)
+        tags = {'artist': 'foo', 'album': 'bar', '__loc': loc}
+        self.empty_track_of_tags(tr, tags)
+        for tag, val in tags.iteritems():
+            tr.set_tag_raw(tag, val)
         self.assertEqual(tr.list_tags(), ['album', '__loc', 'artist'])
 
     def test_rating_empty(self):

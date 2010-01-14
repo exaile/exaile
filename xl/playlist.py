@@ -735,7 +735,7 @@ class Playlist(object):
         # TODO: use shown columns
         matcher = trax.TracksMatcher(phrase, keyword_tags=('artist',
             'album', 'title'), case_sensitive=False)
-        trs = trax.search_tracks(self.ordered_tracks, [matcher])
+        trs = trax.search_tracks(self._ordered_tracks, [matcher])
         trs = (t.track for t in trs)
 
         if sort_fields:

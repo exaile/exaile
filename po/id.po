@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-13 13:22+0000\n"
+"PO-Revision-Date: 2010-01-14 08:59+0000\n"
 "Last-Translator: Waluyo Adi Siswanto <Unknown>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-14 04:44+0000\n"
+"X-Launchpad-Export-Date: 2010-01-15 04:33+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -501,7 +501,7 @@ msgstr "Waktu Dimainkan"
 
 #: ../xlgui/properties.py:70
 msgid "Last Played"
-msgstr ""
+msgstr "Terakhir diputar"
 
 #: ../xlgui/properties.py:216
 #, python-format
@@ -826,15 +826,15 @@ msgstr "Sedang memindai koleksi..."
 #: ../xlgui/__init__.py:439
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "Memindai %s..."
 
 #: ../xlgui/guiutil.py:430
 msgid "Muted"
-msgstr ""
+msgstr "Senyap"
 
 #: ../xlgui/guiutil.py:439
 msgid "Full Volume"
-msgstr ""
+msgstr "Volume Penuh"
 
 #: ../xlgui/guiutil.py:729
 #, python-format
@@ -848,7 +848,7 @@ msgstr "(%d menunggu)"
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
-msgstr ""
+msgstr "Penilaian:"
 
 #: ../xlgui/commondialogs.py:335
 msgid "Select File Type (By Extension)"
@@ -864,15 +864,15 @@ msgstr "Ekstensi"
 
 #: ../xlgui/devices.py:73
 msgid "Icon"
-msgstr ""
+msgstr "Ikon"
 
 #: ../xlgui/devices.py:78
 msgid "Device"
-msgstr ""
+msgstr "Perangkat"
 
 #: ../xlgui/devices.py:85
 msgid "Driver"
-msgstr ""
+msgstr "Penggerak"
 
 #: ../xlgui/collection.py:152
 msgid "Add a directory"
@@ -1018,11 +1018,11 @@ msgstr "tidak mengandung"
 
 #: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:152
 msgid "greater than"
-msgstr ""
+msgstr "lebih besar dari"
 
 #: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:153
 msgid "less than"
-msgstr ""
+msgstr "kurang dari"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:104
@@ -1038,7 +1038,7 @@ msgstr "paling banyak"
 
 #: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:162
 msgid "Plays"
-msgstr ""
+msgstr "Putar"
 
 #: ../xlgui/panel/playlists.py:107 ../xlgui/panel/playlists.py:163
 msgid "Year"
@@ -1105,7 +1105,7 @@ msgstr "Tambah Stasiun Radio"
 
 #: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:247
 msgid "Saved Stations"
@@ -2945,6 +2945,8 @@ msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Menambahkan dukungan pengendalian Exaile melalui tombol multimedia GNOME. "
+"Hanya berfungsi untuk GNOME >= 2.20.x"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
@@ -3000,7 +3002,7 @@ msgstr ""
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
-msgstr ""
+msgstr "Mencari label trek untuk sampul"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"

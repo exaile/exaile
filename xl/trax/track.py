@@ -470,9 +470,13 @@ class Track(object):
             retval = u"\uffff\uffff\uffff\uffff" # unknown
             if tag == 'title':
                 gloc = gio.File(self.__tags['__loc'])
-                info = gloc.query_info("standard::display-name")
-                basename = info.get_display_name().lower()
-                retval = u"%s (%s)" % (retval, basename)
+                try:
+                    info = gloc.query_info("standard::display-name")
+                except gobject.GError:
+                    pass
+                else:
+                    basename = info.get_display_name().lower()
+                    retval = u"%s (%s)" % (retval, basename)
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
             if not sorttag:
@@ -535,9 +539,13 @@ class Track(object):
                 retval = _UNKNOWNSTR
                 if tag == 'title':
                     gloc = gio.File(self.__tags['__loc'])
-                    info = gloc.query_info("standard::display-name")
-                    basename = info.get_display_name()
-                    retval = u"%s (%s)" % (retval, basename)
+                    try:
+                        info = gloc.query_info("standard::display-name")
+                    except gobject.GError:
+                        pass
+                    else:
+                        basename = info.get_display_name()
+                        retval = u"%s (%s)" % (retval, basename)
 
         if isinstance(retval, list):
             retval = [unicode(x) for x in retval]

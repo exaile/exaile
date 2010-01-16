@@ -31,6 +31,7 @@ import weakref
 import unicodedata
 from copy import deepcopy
 import gio
+import glib
 import gobject
 from xl.nls import gettext as _
 from xl import common, settings, event, metadata
@@ -470,13 +471,8 @@ class Track(object):
             retval = u"\uffff\uffff\uffff\uffff" # unknown
             if tag == 'title':
                 gloc = gio.File(self.__tags['__loc'])
-                try:
-                    info = gloc.query_info("standard::display-name")
-                except gobject.GError:
-                    pass
-                else:
-                    basename = info.get_display_name().lower()
-                    retval = u"%s (%s)" % (retval, basename)
+                basename = glib.filename_display_name(gloc.get_basename())
+                retval = u"%s (%s)" % (retval, basename)
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
             if not sorttag:
@@ -539,13 +535,8 @@ class Track(object):
                 retval = _UNKNOWNSTR
                 if tag == 'title':
                     gloc = gio.File(self.__tags['__loc'])
-                    try:
-                        info = gloc.query_info("standard::display-name")
-                    except gobject.GError:
-                        pass
-                    else:
-                        basename = info.get_display_name()
-                        retval = u"%s (%s)" % (retval, basename)
+                    basename = glib.filename_display_name(gloc.get_basename())
+                    retval = u"%s (%s)" % (retval, basename)
 
         if isinstance(retval, list):
             retval = [unicode(x) for x in retval]
@@ -683,9 +674,9 @@ class Track(object):
         """
         rating = float(rating)
         steps = float(settings.get_option("miscellaneous/rating_steps", 5))
-        rating = min(rating, steps) 
-        rating = max(0, rating) 
-        rating = float(rating * 100.0 / steps) 
+        rating = min(rating, steps)
+        rating = max(0, rating)
+        rating = float(rating * 100.0 / steps)
         self.set_tag_raw('__rating', rating)
 
     ### Special functions for wrangling tag values ###

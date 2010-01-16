@@ -108,7 +108,7 @@ class _GtMatcher(_Matcher):
         try:
             value = float(value)
             content = float(self.content) # kinda inefficient
-        except TypeError:
+        except (TypeError, ValueError):
             return False
         return value > content
 
@@ -120,7 +120,7 @@ class _LtMatcher(_Matcher):
         try:
             value = float(value)
             content = float(self.content) # kinda inefficient
-        except TypeError:
+        except (TypeError, ValueError):
             return False
         return value < content
 

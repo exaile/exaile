@@ -115,6 +115,12 @@ def timeout_add(interval, function, *args, **kwargs):
 
     return timer
 
+def timeout_add_seconds(interval, function, *args, **kwargs):
+    timer = EventTimer(interval * 1000, function, *args, **kwargs)
+    _TIMERS.append(timer)
+
+    return timer
+
 def log_event(type, obj, data, async=True):
     """
         Sends an event.

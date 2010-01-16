@@ -93,7 +93,7 @@ class TrackDB(object):
         self._deleted_keys = []
         if location:
             self.load_from_location()
-            event.timeout_add(300000, self._timeout_save)
+            event.timeout_add_seconds(300, self._timeout_save)
 
     def __iter__(self):
         """

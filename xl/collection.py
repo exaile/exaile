@@ -665,8 +665,7 @@ class Library(object):
             if self.scan_id:
                 gobject.source_remove(self.scan_id)
 
-            self.scan_id = gobject.timeout_add(interval * 1000,
-                self.rescan)
+            self.scan_id = gobject.timeout_add_seconds(interval, self.rescan)
 
         self.scan_interval = interval
 

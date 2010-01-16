@@ -135,7 +135,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.status.set_text(message)
 
         if timeout:
-            gobject.timeout_add(timeout, self._set_status, '', 0)
+            gobject.timeout_add_seconds(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
         """
@@ -520,12 +520,12 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             try:
                 lists = driver.get_lists(no_cache=no_cache)
             except RadioException, e:
-                self._set_status(str(e), 2000)
+                self._set_status(str(e), 2)
         else:
             try:
                 lists = driver.get_items(no_cache=no_cache)
             except RadioException, e:
-                self._set_status(str(e), 2000)
+                self._set_status(str(e), 2)
 
         if not lists: return
         gobject.idle_add(self._done_loading, iter, driver, lists)

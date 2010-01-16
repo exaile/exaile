@@ -85,7 +85,7 @@ class PodcastPanel(panel.Panel):
         self.status.set_text(message)
 
         if timeout:
-            gobject.timeout_add(timeout, self._set_status, '', 0)
+            gobject.timeout_add_seconds(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
         self.builder.connect_signals({
@@ -178,7 +178,7 @@ class PodcastPanel(panel.Panel):
             self.podcast_playlists.save_playlist(pl, overwrite=True)
         except:
             traceback.print_exc()
-            self._set_status(_('Error loading podcast.'), 2000)
+            self._set_status(_('Error loading podcast.'), 2)
 
     @guiutil.idle_add()
     def _add_to_db(self, url, title):

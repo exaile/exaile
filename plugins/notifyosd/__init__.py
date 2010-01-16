@@ -159,7 +159,7 @@ class ExaileNotifyOsd(object):
 
     def on_tray_toggled(self, type, object, data):
         if data and self.tray_connection == -1:
-            gobject.timeout_add(800, self.exaile_ready)
+            gobject.timeout_add_seconds(1, self.exaile_ready)
         elif not data and self.tray_connection != -1:
             self.tray_connection = -1
 

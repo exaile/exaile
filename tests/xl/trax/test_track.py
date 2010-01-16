@@ -40,10 +40,10 @@ class Test_MetadataCacher(unittest.TestCase):
 
     def test_add(self):
         timeout_id = 1
-        self.mox.StubOutWithMock(gobject, 'timeout_add')
+        self.mox.StubOutWithMock(gobject, 'timeout_add_seconds')
         self.mox.StubOutWithMock(gobject, 'source_remove')
-        gobject.timeout_add(
-                self.TIMEOUT * 1000,
+        gobject.timeout_add_seconds(
+                self.TIMEOUT,
                 self.mc._MetadataCacher__cleanup).AndReturn(timeout_id)
 
         self.mox.ReplayAll()
@@ -53,9 +53,9 @@ class Test_MetadataCacher(unittest.TestCase):
 
     def test_double_add(self):
         timeout_id = 1
-        self.mox.StubOutWithMock(gobject, 'timeout_add')
+        self.mox.StubOutWithMock(gobject, 'timeout_add_seconds')
         self.mox.StubOutWithMock(gobject, 'source_remove')
-        gobject.timeout_add(
+        gobject.timeout_add_seconds(
                 mox.IsA(types.IntType),
                 mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
@@ -68,9 +68,9 @@ class Test_MetadataCacher(unittest.TestCase):
 
     def test_remove(self):
         timeout_id = 1
-        self.mox.StubOutWithMock(gobject, 'timeout_add')
+        self.mox.StubOutWithMock(gobject, 'timeout_add_seconds')
         gobject.timeout_add(
-                self.TIMEOUT * 1000,
+                self.TIMEOUT,
                 mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
         self.mox.ReplayAll()

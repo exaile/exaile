@@ -407,7 +407,7 @@ def _enable(exaile):
     global TIMER_ID, MENU_ITEM, ALARM_CLOCK_MAIN
     ALARM_CLOCK_MAIN = main = AlarmClock(exaile)
 
-    TIMER_ID = gobject.timeout_add(5000, check_alarms, main, exaile)
+    TIMER_ID = gobject.timeout_add_seconds(5, check_alarms, main, exaile)
 
     MENU_ITEM = gtk.MenuItem(_('Multi-Alarm Clock'))
     MENU_ITEM.connect('activate', main.show_ui, exaile)

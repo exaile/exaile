@@ -56,7 +56,7 @@ class CDImportThread(threading.Thread):
         return True
 
     def run(self):
-        id = gobject.timeout_add(1000, self.progress_update)
+        id = gobject.timeout_add_seconds(1, self.progress_update)
         self.imp.do_import()
         gobject.source_remove(id)
         self.progress_update(100)

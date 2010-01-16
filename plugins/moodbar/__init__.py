@@ -143,7 +143,7 @@ class ExModbar(object):
          self.haveMod=not needGen
 
          if self.modTimer: gobject.source_remove(self.modTimer)
-         self.modTimer = gobject.timeout_add(1000, self.updateMod)
+         self.modTimer = gobject.timeout_add_seconds(1, self.updateMod)
 
 
     def play_start(self, type, player, track):
@@ -167,7 +167,7 @@ class ExModbar(object):
               logger.debug(_("Mood found."))
               self.haveMod=True
               self.modwidth=0
-         self.modTimer = gobject.timeout_add(1000, self.updateMod)
+         self.modTimer = gobject.timeout_add_seconds(1, self.updateMod)
 
     def updateplayerpos(self):
          if self.modTimer: self.curpos=self.exaile.player.get_progress()

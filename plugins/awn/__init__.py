@@ -55,7 +55,7 @@ class ExaileAwn(object):
 
     def enable_progress(self, type, player, object):
         assert self.timer_id is None
-        gobject.timeout_add(1000, self.update_timer)
+        gobject.timeout_add_seconds(1, self.update_timer)
 
     def disable_progress(self, type, player, object, clear_menu=True):
         if self.timer_id is not None:

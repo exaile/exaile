@@ -92,8 +92,6 @@ class DBManager(object):
         self.timer_id = None
         self.p = '?'
         self.functions = []
-        if start_timer:
-            self.timer_id = gobject.timeout_add(2 * 60 * 60, self.commit)
 
         cur = self.db.cursor()
         cur.execute("PRAGMA synchronize=OFF")

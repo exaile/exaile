@@ -85,7 +85,7 @@ class _MetadataCacher(object):
         if self._cache:
             next_expiry = min([i[2] for i in self._cache])
             timeout = int((next_expiry + self.timeout) - current)
-            self._cleanup_id = gobject.timeout_add(timeout*1000,
+            self._cleanup_id = gobject.timeout_add_seconds(timeout,
                     self.__cleanup)
 
     def add(self, trackobj, formatobj):
@@ -98,7 +98,7 @@ class _MetadataCacher(object):
             least = min([(i[2], i) for i in self._cache])[1]
             self._cache.remove(least)
         if not self._cleanup_id:
-            self._cleanup_id = gobject.timeout_add(self.timeout*1000,
+            self._cleanup_id = gobject.timeout_add_seconds(self.timeout,
                     self.__cleanup)
 
     def remove(self, trackobj):

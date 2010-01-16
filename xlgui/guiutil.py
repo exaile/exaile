@@ -714,7 +714,7 @@ class Statusbar(object):
         self.message_ids += [self.status_bar.push(self.context_id, status)]
 
         if timeout > 0:
-            gobject.timeout_add(timeout, self.clear_status)
+            gobject.timeout_add_seconds(timeout, self.clear_status)
 
     def clear_status(self):
         """

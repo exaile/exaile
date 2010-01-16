@@ -95,7 +95,7 @@ class SettingsManager(RawConfigParser):
 
         # save settings every 30 seconds
         if loc is not None:
-            event.timeout_add(30000, self._timeout_save)
+            event.timeout_add_seconds(30, self._timeout_save)
 
     def _timeout_save(self):
         #logger.debug("Requesting save from timeout...")

@@ -117,14 +117,14 @@ class PlaybackProgressBar(object):
         if self.timer_id:
             gobject.source_remove(self.timer_id)
             self.timer_id = None
-        self.timer_id = gobject.timeout_add(1000, self.timer_update)
+        self.timer_id = gobject.timeout_add_seconds(1, self.timer_update)
 
     def playback_toggle_pause(self, type, player, object):
         if self.timer_id:
             gobject.source_remove(self.timer_id)
             self.timer_id = None
         if not player.is_paused():
-            self.timer_id = gobject.timeout_add(1000, self.timer_update)
+            self.timer_id = gobject.timeout_add_seconds(1, self.timer_update)
 
     def playback_end(self, type, player, object):
         if self.timer_id: gobject.source_remove(self.timer_id)
@@ -875,9 +875,9 @@ class MainWindow(gobject.GObject):
             Called when a stream is buffering
         """
         if percent < 100:
-            self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1000)
+            self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1)
         else:
-            self.statusbar.set_status(_("Buffering: 100%..."), 1000)
+            self.statusbar.set_status(_("Buffering: 100%..."), 1)
 
     def on_tags_parsed(self, type, player, args):
         """

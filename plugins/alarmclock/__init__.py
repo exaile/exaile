@@ -127,7 +127,7 @@ class Alarmclock(object):
     def enable_alarm(self):
         if self.timer_id !=  None :
             gobject.source_remove(self.timer_id)
-        self.timer_id = gobject.timeout_add(2000, self.timout_alarm)
+        self.timer_id = gobject.timeout_add_seconds(5, self.timout_alarm)
 
     def disable_alarm(self):
         gobject.source_remove(self.timer_id)

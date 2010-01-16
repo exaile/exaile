@@ -355,7 +355,7 @@ class CoverManager(providers.ProviderHandler):
     def __set_save_timeout(self):
         if self.__save_timer_id:
             gobject.source_remove(self.__save_timer_id)
-        self.__save_timer_id = gobject.timeout_add(60000, self.save)
+        self.__save_timer_id = gobject.timeout_add_seconds(60, self.save)
 
     def on_new_provider(self, provider):
         self.methods[provider.name] = provider

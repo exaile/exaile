@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-31 14:12+0000\n"
-"Last-Translator: Yusuff <yusuf21500@gmail.com>\n"
+"PO-Revision-Date: 2010-01-10 18:33+0000\n"
+"Last-Translator: shabull <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-01 05:00+0000\n"
+"X-Launchpad-Export-Date: 2010-01-11 04:54+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -92,7 +92,7 @@ msgstr "Çalan şarkının değerlendirmesini al"
 
 #: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "Yazdırma pozisyonu şu anki parçanın zamanlamasının içindedir"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
@@ -120,7 +120,7 @@ msgstr "Diğer seçenkler:"
 
 #: ../xl/main.py:340
 msgid "Start new instance"
-msgstr ""
+msgstr "Yeni örnek başlat"
 
 #: ../xl/main.py:343
 msgid "Start minimized (to tray, if possible)"
@@ -161,6 +161,7 @@ msgstr "Hata ayıklama çıktısını göster"
 #: ../xl/main.py:364
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr ""
+"xl.event'in hata ayıklama çıktısını etkinleştir. BİR ÇOK çıktı görüntüler"
 
 #: ../xl/main.py:366
 msgid "Filter event debug output"
@@ -197,6 +198,8 @@ msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile henüz yüklemeyi bitiremedi. exaile_loaded sinyalini dinliyor olabilir "
+"misin?"
 
 #: ../xl/cover.py:155 ../xl/cover.py:189 ../xl/trackdb.py:226
 msgid "You did not specify a location to save the db"
@@ -252,7 +255,7 @@ msgstr "Çok hızlı ve kayıpsız iyi sıkıştırmaya sahip bir Özgür ses bi
 
 #: ../xl/track.py:388
 msgid "Various Artists"
-msgstr ""
+msgstr "Çeşitli Sanatçılar"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
 #: ../xl/track.py:393 ../xl/track.py:412 ../xl/trackformatter.py:121
@@ -273,7 +276,7 @@ msgstr "  Yeni parça, albüm kapağı alınıyor."
 
 #: ../xl/devices.py:141 ../xl/devices.py:147
 msgid "Device class does not support transfer."
-msgstr ""
+msgstr "Aygıt sınıf aktarımını desteklemiyor."
 
 #: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
 #: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
@@ -298,19 +301,19 @@ msgstr ""
 
 #: ../xl/settings.py:94
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "Ayarlar versiyonu mevcut versiyondan daha yeni."
 
 #: ../xl/settings.py:179
 msgid "We don't know how to store that kind of setting: "
-msgstr ""
+msgstr "Bu tür ayarın nasıl saklanacağını bilmiyoruz. "
 
 #: ../xl/settings.py:206
 msgid "An Unknown type of setting was found!"
-msgstr ""
+msgstr "Ayarların bilinmeyen bir tipi bulundu."
 
 #: ../xl/plugins.py:84
 msgid "Plugin archive is not in the correct format"
-msgstr ""
+msgstr "Eklenti arşivi doğru format değil."
 
 #: ../xl/plugins.py:91
 #, python-format
@@ -319,7 +322,7 @@ msgstr "\"%s\" adında bir eklenti zaten kurulu"
 
 #: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
-msgstr ""
+msgstr "Eklenti arşivinde güvenli olmayan bir paket vat."
 
 #: ../xl/playlist.py:386
 #, python-format
@@ -339,7 +342,7 @@ msgstr ""
 
 #: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "db yüklemenk için bir konum belirtmediniz."
 
 #: ../xlgui/properties.py:36
 msgid "Original Album"
@@ -347,7 +350,7 @@ msgstr "Orjinal Albüm"
 
 #: ../xlgui/properties.py:37
 msgid "Lyricist"
-msgstr ""
+msgstr "Söz Yazarı"
 
 #: ../xlgui/properties.py:39
 msgid "Website"
@@ -434,7 +437,7 @@ msgstr "Tür"
 #: ../xlgui/properties.py:57 ../xlgui/plcolumns.py:104
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:67
 msgid "Composer"
-msgstr ""
+msgstr "Besteci"
 
 #: ../xlgui/properties.py:58
 msgid "Encoded By"
@@ -451,7 +454,7 @@ msgstr "Disk"
 #: ../xlgui/properties.py:61 ../xlgui/plcolumns.py:204
 #: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimodeprefs.py:79
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:173
 #: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimodeprefs.py:74
@@ -489,7 +492,7 @@ msgstr "Konum"
 
 #: ../xlgui/properties.py:67
 msgid "Modified"
-msgstr ""
+msgstr "Değiştirilmiş"
 
 #: ../xlgui/properties.py:69
 msgid "Times Played"
@@ -497,7 +500,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:70
 msgid "Last Played"
-msgstr ""
+msgstr "Son Çalınan"
 
 #: ../xlgui/properties.py:216
 #, python-format
@@ -560,11 +563,11 @@ msgstr ""
 #: ../xlgui/main.py:862
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr ""
+msgstr "Arabelleğe alınıyor: %d%%..."
 
 #: ../xlgui/main.py:864
 msgid "Buffering: 100%..."
-msgstr ""
+msgstr "Arabelleğe alınıyor: 100%..."
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
@@ -587,6 +590,8 @@ msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
+"Exaile Müzik Oynatıcı\n"
+"Çalmıyor"
 
 #. TRANSLATORS: Window title
 #: ../xlgui/main.py:1219
@@ -609,7 +614,7 @@ msgstr ""
 #: ../xlgui/main.py:1242
 #, python-format
 msgid "In pause: %s"
-msgstr ""
+msgstr "Durduruldu: %s"
 
 #: ../xlgui/main.py:1244
 #, python-format
@@ -627,7 +632,7 @@ msgstr "Yeni Çalma Listesi"
 
 #: ../xlgui/menu.py:157
 msgid "Add to custom playlist"
-msgstr ""
+msgstr "Özel çalma listesi ekle."
 
 #: ../xlgui/menu.py:160 ../xlgui/menu.py:487
 msgid "Remove"
@@ -644,19 +649,19 @@ msgstr "Çalma Listesi"
 
 #: ../xlgui/menu.py:212 ../data/ui/main.ui.h:32
 msgid "_New Playlist"
-msgstr ""
+msgstr "_Yeni Çalma Listesi"
 
 #: ../xlgui/menu.py:214
 msgid "_Rename Playlist"
-msgstr ""
+msgstr "_Çalma listesini yeniden adlandır"
 
 #: ../xlgui/menu.py:216
 msgid "_Save As Custom Playlist"
-msgstr ""
+msgstr "_Özel listeyi farklı kaydet"
 
 #: ../xlgui/menu.py:218
 msgid "_Save Changes To Playlist"
-msgstr ""
+msgstr "_Özel listeyi kaydet"
 
 #: ../xlgui/menu.py:219
 msgid "_Save As..."
@@ -688,7 +693,7 @@ msgstr "Yeni İstasyon Ekle"
 
 #: ../xlgui/menu.py:346
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "Hızlı yeni çalma listesi"
 
 #: ../xlgui/menu.py:390
 msgid "Open"
@@ -712,7 +717,7 @@ msgstr "Çalma Listesini Sil"
 
 #: ../xlgui/menu.py:411
 msgid "Export as..."
-msgstr ""
+msgstr "Dışarı çıkart..."
 
 #: ../xlgui/menu.py:416 ../xlgui/__init__.py:143
 msgid "M3U Playlist"
@@ -742,7 +747,7 @@ msgstr "Çalma listeniz için istediğiniz yeni ismi giriniz"
 #: ../xlgui/cover.py:308
 #, python-format
 msgid "%d covers to fetch"
-msgstr ""
+msgstr "%d kapaklarını getir"
 
 #: ../xlgui/cover.py:313 ../xlgui/cover.py:332 ../data/ui/covermanager.ui.h:2
 msgid "Start"
@@ -775,11 +780,11 @@ msgstr ""
 
 #: ../xlgui/osd.py:219
 msgid "No track"
-msgstr ""
+msgstr "İz yok"
 
 #: ../xlgui/__init__.py:138
 msgid "Export current playlist..."
-msgstr ""
+msgstr "Çalma listesini dışarıya aktar..."
 
 #: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:940
 msgid "Invalid file extension, file not saved"
@@ -787,31 +792,31 @@ msgstr "Geçersiz dosya uzantısı, dosya kaydedilmedi"
 
 #: ../xlgui/__init__.py:168
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Açmak için bir URL girin"
 
 #: ../xlgui/__init__.py:169
 msgid "Open URL"
-msgstr ""
+msgstr "Adres Aç"
 
 #: ../xlgui/__init__.py:183
 msgid "Choose a file to open"
-msgstr ""
+msgstr "Açılacak dosyayı seçin"
 
 #: ../xlgui/__init__.py:190
 msgid "Supported Files"
-msgstr ""
+msgstr "Desteklenen Dosyalar"
 
 #: ../xlgui/__init__.py:192
 msgid "Music Files"
-msgstr ""
+msgstr "Müzik Dosyaları"
 
 #: ../xlgui/__init__.py:194
 msgid "Playlist Files"
-msgstr ""
+msgstr "Çalma Listesi Dosyaları"
 
 #: ../xlgui/__init__.py:196 ../xlgui/prefs/plugin_prefs.py:143
 msgid "All Files"
-msgstr ""
+msgstr "Bütün Dosyalar"
 
 #: ../xlgui/__init__.py:334
 msgid "Scanning collection..."
@@ -820,15 +825,15 @@ msgstr "Kolleksiyon taranıyor..."
 #: ../xlgui/__init__.py:439
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "%s taranıyor..."
 
 #: ../xlgui/guiutil.py:430
 msgid "Muted"
-msgstr ""
+msgstr "Sessiz"
 
 #: ../xlgui/guiutil.py:439
 msgid "Full Volume"
-msgstr ""
+msgstr "Son Ses"
 
 #: ../xlgui/guiutil.py:729
 #, python-format
@@ -842,7 +847,7 @@ msgstr ""
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
-msgstr ""
+msgstr "Derecelendirme:"
 
 #: ../xlgui/commondialogs.py:335
 msgid "Select File Type (By Extension)"
@@ -858,15 +863,15 @@ msgstr "Uzantı"
 
 #: ../xlgui/devices.py:73
 msgid "Icon"
-msgstr ""
+msgstr "Simge"
 
 #: ../xlgui/devices.py:78
 msgid "Device"
-msgstr ""
+msgstr "Aygıt"
 
 #: ../xlgui/devices.py:85
 msgid "Driver"
-msgstr ""
+msgstr "Sürücü"
 
 #: ../xlgui/collection.py:152
 msgid "Add a directory"
@@ -909,7 +914,7 @@ msgstr "Çalma Sayısı"
 
 #: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
-msgstr ""
+msgstr "Son çalınan"
 
 #: ../xlgui/plcolumns.py:267
 msgid "Track Number"
@@ -921,7 +926,7 @@ msgstr "Disk Numarası"
 
 #: ../xlgui/filtergui.py:60 ../xlgui/panel/radio.py:180
 msgid "Name:"
-msgstr ""
+msgstr "İsim:"
 
 #: ../xlgui/filtergui.py:74
 msgid "Match any of the criteria"
@@ -942,7 +947,7 @@ msgstr " şarkılar"
 #: ../xlgui/playlist.py:1146
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "'%s' Dosyasını Kapat"
 
 #: ../xlgui/playlist.py:1147
 #, python-format
@@ -965,7 +970,7 @@ msgstr "saniye"
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:42
 msgid "and"
-msgstr ""
+msgstr "ve"
 
 #: ../xlgui/panel/playlists.py:46 ../xlgui/panel/playlists.py:49
 msgid "days"
@@ -1059,15 +1064,15 @@ msgstr "arasında"
 #: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
 #: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Girilen çalma listesi ismi şuan kullanımda."
 
 #: ../xlgui/panel/playlists.py:367
 msgid "New custom playlist name:"
-msgstr ""
+msgstr "Özel çalma listesi adı:"
 
 #: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
-msgstr ""
+msgstr "Yeni çalma listesi ekle..."
 
 #: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
 #: ../xlgui/panel/playlists.py:678
@@ -1097,7 +1102,7 @@ msgstr ""
 
 #: ../xlgui/panel/radio.py:178
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Radyo istasyonu ekle"
 
 #: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
@@ -1134,23 +1139,25 @@ msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
+"Seçilen parçalar diskinizden tamamen silinecektir, devam etmek istiyor "
+"musunuz?"
 
 #: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Koleksiyonu Yeniden Tara"
 
 #: ../xlgui/panel/device.py:127
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Transfer ediliyor %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:31
 msgid "Covers"
-msgstr ""
+msgstr "Albüm Kapakları"
 
 #: ../xlgui/prefs/appearance_prefs.py:32
 msgid "Appearance"
-msgstr ""
+msgstr "Görünüm"
 
 #: ../xlgui/prefs/playback_prefs.py:32
 msgid "Playback"
@@ -1167,7 +1174,7 @@ msgstr "Eklentiler"
 #: ../xlgui/prefs/collection_prefs.py:22 ../data/ui/device_panel.ui.h:1
 #: ../data/ui/collection_panel.ui.h:6
 msgid "Collection"
-msgstr ""
+msgstr "Koleksiyon"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -1188,7 +1195,7 @@ msgstr "Çalma Listeleri"
 
 #: ../xlgui/prefs/osd_prefs.py:32
 msgid "On Screen Display"
-msgstr ""
+msgstr "Bilgilendirme Ekranı"
 
 #: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"
@@ -1198,15 +1205,15 @@ msgstr "Eklenti"
 #: ../plugins/multialarmclock/alarmclk.ui.h:6
 #: ../plugins/equalizer/equalizer.ui.h:14
 msgid "Enabled"
-msgstr ""
+msgstr "Aktif"
 
 #: ../xlgui/prefs/plugin_prefs.py:128
 msgid "Choose a plugin"
-msgstr ""
+msgstr "Eklenti seçin"
 
 #: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Eklenti Arşivleri"
 
 #: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
@@ -1224,19 +1231,19 @@ msgstr ""
 
 #: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
-msgstr ""
+msgstr "Öge ekle"
 
 #: ../xlgui/prefs/widgets.py:266
 msgid "Remove item"
-msgstr ""
+msgstr "Ögeyi kaldır"
 
 #: ../xlgui/prefs/widgets.py:279
 msgid "Move selected item up"
-msgstr ""
+msgstr "Seçili ögeyi yukarı taşı"
 
 #: ../xlgui/prefs/widgets.py:284
 msgid "Move selected item down"
-msgstr ""
+msgstr "Seçili ögeyi aşağı taşı"
 
 #: ../xlgui/prefs/widgets.py:555
 msgid "Action"
@@ -1244,23 +1251,23 @@ msgstr ""
 
 #: ../xlgui/prefs/widgets.py:563
 msgid "Shortcut"
-msgstr ""
+msgstr "Kısayol"
 
 #: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Karışık çal"
 
 #: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
-msgstr ""
+msgstr "Çalma listesini tekrar et"
 
 #: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
-msgstr ""
+msgstr "Benzer parçaları dinamik olarak ekle."
 
 #: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
-msgstr ""
+msgstr "Mevcut parçayı çalma listesinden sil."
 
 #: ../xlgui/tray.py:179
 msgid "Exaile Music Player"
@@ -1268,7 +1275,7 @@ msgstr "Exaile Müzik Çalıcı"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Ön tanımlıları silmek için sağ tık yapınız)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
@@ -1284,7 +1291,7 @@ msgstr "Başlangıçta son çalma listesini aç"
 
 #: ../data/ui/main.ui.h:1
 msgid "0/0 tracks"
-msgstr ""
+msgstr "0/0 parça"
 
 #: ../data/ui/main.ui.h:2
 msgid "0:00 / 0:00"
@@ -1292,11 +1299,11 @@ msgstr "0:00 / 0:00"
 
 #: ../data/ui/main.ui.h:3
 msgid "C_overs"
-msgstr ""
+msgstr "A_lbüm kapakları"
 
 #: ../data/ui/main.ui.h:4
 msgid "Clear Playlist"
-msgstr ""
+msgstr "Parça Listesini Temizle"
 
 #: ../data/ui/main.ui.h:5
 msgid "Click to view Queue"
@@ -1312,7 +1319,7 @@ msgstr "Adresi _Aç"
 
 #: ../data/ui/main.ui.h:10
 msgid "Page 1"
-msgstr ""
+msgstr "Sayfa 1"
 
 #: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:216
 msgid "Previous Track"
@@ -1324,7 +1331,7 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:13
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Ko_leksiyonu tekrar tara."
 
 #: ../data/ui/main.ui.h:15 ../data/ui/files_panel.ui.h:6
 #: ../data/ui/collection_panel.ui.h:11
@@ -1333,7 +1340,7 @@ msgstr "Ara: "
 
 #: ../data/ui/main.ui.h:17
 msgid "Start/Pause Playback"
-msgstr ""
+msgstr "Çalmayı Oynat/Durdur"
 
 #: ../data/ui/main.ui.h:18
 msgid ""
@@ -1341,18 +1348,21 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Çalmayı Durdur\n"
+"\n"
+"Parça özellikleri için durduktan sonra sağ tuş tıklayın"
 
 #: ../data/ui/main.ui.h:22
 msgid "Track _properties"
-msgstr ""
+msgstr "Parça _özellikleri"
 
 #: ../data/ui/main.ui.h:23
 msgid "_Autosize"
-msgstr ""
+msgstr "_Otomatik Boyutlandırma"
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
-msgstr ""
+msgstr "_Koleksiyon"
 
 #: ../data/ui/main.ui.h:25
 msgid "_Columns"
@@ -1360,7 +1370,7 @@ msgstr "_Sütunlar"
 
 #: ../data/ui/main.ui.h:26
 msgid "_Device Manager"
-msgstr ""
+msgstr "_Aygıt Yöneticisi"
 
 #: ../data/ui/main.ui.h:27
 msgid "_Edit"
@@ -1368,7 +1378,7 @@ msgstr "_Düzenle"
 
 #: ../data/ui/main.ui.h:28
 msgid "_Export current playlist"
-msgstr ""
+msgstr "_Mevcut Çalma Listesini Dışarı Çıkart"
 
 #: ../data/ui/main.ui.h:29
 msgid "_File"
@@ -1376,7 +1386,7 @@ msgstr "_Dosya"
 
 #: ../data/ui/main.ui.h:30
 msgid "_Go to Playing Track"
-msgstr ""
+msgstr "_ Çalan Parçaya Git"
 
 #: ../data/ui/main.ui.h:31
 msgid "_Help"
@@ -1384,15 +1394,15 @@ msgstr "_Yardım"
 
 #: ../data/ui/main.ui.h:33
 msgid "_Queue"
-msgstr ""
+msgstr "_Kuyruk"
 
 #: ../data/ui/main.ui.h:34
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "_Karışık Çalma Listesi"
 
 #: ../data/ui/main.ui.h:35
 msgid "_Resizable"
-msgstr ""
+msgstr "_Tekrar Boyutlandır."
 
 #: ../data/ui/main.ui.h:36
 msgid "_Tools"
@@ -1404,11 +1414,11 @@ msgstr "_Görünüm"
 
 #: ../data/ui/flatplaylist_panel.ui.h:1
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Tüm parçaları çalma listesine ekle."
 
 #: ../data/ui/flatplaylist_panel.ui.h:2
 msgid "Import CD"
-msgstr ""
+msgstr "CD Ekle"
 
 #: ../data/ui/flatplaylist_panel.ui.h:3 ../data/ui/radio_panel.ui.h:2
 msgid "Radio"
@@ -1416,7 +1426,7 @@ msgstr "Radyo"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "Kapak Yöneticisi"
 
 #: ../data/ui/covermanager.ui.h:3
 msgid "_Close"
@@ -1424,31 +1434,31 @@ msgstr "_Kapat"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "A_dd tag"
-msgstr ""
+msgstr "Etiket ekle"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "Tags"
-msgstr ""
+msgstr "Etiketler"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
-msgstr ""
+msgstr "Parça Özellikleri"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Tüm etiketlerin ilk harfini büyük yap"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
-msgstr ""
+msgstr "_Sonraki"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Önceki"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Etiketi sil"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
@@ -1460,7 +1470,7 @@ msgstr "<b>Herhangi bir eklenti seçilmemiş</b>"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:2
 msgid "Authors:"
-msgstr ""
+msgstr "Yazarlar:"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:3
 msgid "Available Plugins"
@@ -1480,11 +1490,11 @@ msgstr "Güncellemeleri Yükle"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "Bir dosyadan üçüncü kısım eklentisi yükle"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "Eklenti dosyası yükle"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
@@ -1508,7 +1518,7 @@ msgstr "Kolleksiyon Yöneticisi"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../data/ui/device_manager.ui.h:2
 msgid "Add device"
@@ -1536,23 +1546,23 @@ msgstr "Dosyalar"
 
 #: ../data/ui/files_panel.ui.h:2
 msgid "Home directory"
-msgstr ""
+msgstr "Başlangıç dizini"
 
 #: ../data/ui/files_panel.ui.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Sonraki dizini ziyaret"
 
 #: ../data/ui/files_panel.ui.h:4
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Önceki dizini ziyaret"
 
 #: ../data/ui/files_panel.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Listelenen dizini tazele"
 
 #: ../data/ui/files_panel.ui.h:7
 msgid "Up one directory"
-msgstr ""
+msgstr "Bir üst dizine geç"
 
 #: ../data/ui/playlists_prefs_pane.ui.h:2
 msgid "Prompt for saving custom playlists on close"
@@ -1618,19 +1628,19 @@ msgstr "Kapak Arama Düzeni"
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Close this dialog"
-msgstr ""
+msgstr "Bu iletişim kutusunu kapat"
 
 #: ../data/ui/queue_dialog.ui.h:2
 msgid "Queue Manager"
-msgstr ""
+msgstr "Kuyruk Yöneticisi"
 
 #: ../data/ui/queue_dialog.ui.h:3
 msgid "Remove All"
-msgstr ""
+msgstr "Tümünü Sil"
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "&#xA9; 2009"
-msgstr ""
+msgstr "&#xA9; 2009"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "About Exaile"
@@ -1654,6 +1664,21 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"Telif Hakkı (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Bu program ücretsiz bir yazılımdır. Özgür Yazılım Vakfı tarafından "
+"yayımlanşım GNU Genel Açık Lisans koşulları altında bu programı veya diğer 2 "
+"lisansı ya da isteğinize bağlı olarak sonraki versiyonu yeniden "
+"yapılandırabilir ve/veya yenileyebilirsiniz. \n"
+"\n"
+"Bu program yararlı olması umuduyla dağıtılmıştır, ama HERHANGİ BİR GARANTİSİ "
+"YOKTUR. Aynı zamanda TİCARİ veya BİR AMACA UYGUNLUK açısından da garantisi "
+"yoktur. Ayrıntılar için GNU Genel Açık Lisans'a bakınız. \n"
+"\n"
+"Bu programla birlikte GNU Genel Açık Lisans'ın bir kopyası gelmiş olması "
+"lazım. Eğer yoksa bu adrese bildiriniz: the Free Software Foundation, Inc.,\n"
+"\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA\n"
 
 #: ../data/ui/about_dialog.ui.h:19
 msgid ""
@@ -1661,6 +1686,9 @@ msgid ""
 "   <info@noctus.net>\n"
 "    Translation Manager"
 msgstr ""
+"Mathias Brodala\n"
+"   <info@noctus.net>\n"
+"    Çeviri Yöneticisi"
 
 #: ../data/ui/playback_prefs_pane.ui.h:1
 msgid "ALSA"
@@ -1688,7 +1716,7 @@ msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.ui.h:8
 msgid "Normal"
-msgstr ""
+msgstr "Olağan"
 
 #: ../data/ui/playback_prefs_pane.ui.h:9
 msgid "OSS"
@@ -1696,7 +1724,7 @@ msgstr "OSS"
 
 #: ../data/ui/playback_prefs_pane.ui.h:10
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "Tekrar oynatma motoru (yeniden başlatma gerekli) "
 
 #: ../data/ui/playback_prefs_pane.ui.h:11
 msgid "PulseAudio"
@@ -1712,7 +1740,7 @@ msgstr ""
 
 #: ../data/ui/playback_prefs_pane.ui.h:14
 msgid "These options only affect the unified engine."
-msgstr ""
+msgstr "Bu seçenekler sadece birleşik motorda etkili olur."
 
 #: ../data/ui/playback_prefs_pane.ui.h:15
 msgid "Unified (unstable)"
@@ -1742,11 +1770,11 @@ msgstr "Açılır Pencere"
 
 #: ../data/ui/collection_panel.ui.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Koleksiyon boş.</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
-msgstr ""
+msgstr "Müzik ekle"
 
 #: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
@@ -1765,10 +1793,12 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Koleksiyon görüntüsünü yenile\n"
+"(Koleksiyonu tekrar taramak için shift tuşuna basılı tutun)"
 
 #: ../data/ui/collection_panel.ui.h:12
 msgid "Year - Album"
-msgstr ""
+msgstr "Yıl - Albüm"
 
 #: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Artist"
@@ -1776,11 +1806,11 @@ msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.ui.h:1
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Sekme çubuğunu her zaman göster"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:2
 msgid "Bottom"
-msgstr ""
+msgstr "Altta"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:4
 msgid "Jump to current song on track change"
@@ -1788,11 +1818,11 @@ msgstr "Şarkı değiştiğinde geçerli şarkıya atla"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:5
 msgid "Left"
-msgstr ""
+msgstr "Sol"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:6
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Sistem alanına küçült"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
@@ -1821,16 +1851,16 @@ msgstr ""
 #: ../plugins/multialarmclock/__init__.py:412
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Çoklu Alarm Saat"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Çalar Saat"
 
 #: ../plugins/equalizer/__init__.py:129 ../plugins/equalizer/equalizer.ui.h:15
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Ekolayzer"
 
 #: ../plugins/awn/awn_prefs.py:32
 msgid "AWN"
@@ -1847,31 +1877,31 @@ msgstr ""
 
 #: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:201
 msgid "Audio Disc"
-msgstr ""
+msgstr "Ses Diski"
 
 #: ../plugins/cd/_cdguipanel.py:87
 msgid "Importing CD..."
-msgstr ""
+msgstr "CD alınıyor..."
 
 #: ../plugins/cd/cdprefs.py:32
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:93 ../plugins/minimode/minimodeprefs.py:64
 msgid "Track number"
-msgstr ""
+msgstr "Parça numarası"
 
 #: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:70
 msgid "Disc number"
-msgstr ""
+msgstr "Disk numarası"
 
 #: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:77
 msgid "Play count"
-msgstr ""
+msgstr "Çalınma sayısı"
 
 #: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
-msgstr ""
+msgstr "El ile..."
 
 #: ../plugins/daapclient/__init__.py:207
 msgid "Enter IP address and port for share"
@@ -1879,7 +1909,7 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:208
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "IP adresini ve port numarasını giriniz."
 
 #: ../plugins/daapclient/__init__.py:376
 msgid ""
@@ -1889,7 +1919,7 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:455
 msgid "Disconnect"
-msgstr ""
+msgstr "Bağlantıyı Kes"
 
 #: ../plugins/daapclient/__init__.py:473
 msgid "Select a save location"
@@ -1902,24 +1932,24 @@ msgstr ""
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "Yer İmleri"
 
 #: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
-msgstr ""
+msgstr "Parçayı yer imine ekle."
 
 #: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
-msgstr ""
+msgstr "Yer imi sil"
 
 #: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Yer imlerini temizle"
 
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Ready"
-msgstr ""
+msgstr "Hazır"
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
@@ -1937,13 +1967,13 @@ msgstr ""
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "Yazar %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
@@ -1983,11 +2013,11 @@ msgstr ""
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"
-msgstr ""
+msgstr "Ekle ve Çal"
 
 #: ../plugins/droptrayicon/__init__.py:272
 msgid "Append"
-msgstr ""
+msgstr "Ekle"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
@@ -1996,76 +2026,76 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "Podcastlar"
 
 #: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "Podcast tazele"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Podcast eklemek için bir URL girin"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
-msgstr ""
+msgstr "Podcast Aç"
 
 #: ../plugins/podcasts/__init__.py:153
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "Yükleniyor %s..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Podcast yüklenirken hata oluştu."
 
 #: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Podcast yükleniyor..."
 
 #: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Podcast dosyası kaydedilemedi."
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
 #: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
-msgstr ""
+msgstr "Shoutcast sunucusuna bağlanıyor."
 
 #: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
 #: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
 #: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
-msgstr ""
+msgstr "Shoutcast sunucusuna bağlanırken hata oluştu."
 
 #: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Arama için bir kelime girin"
 
 #: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
-msgstr ""
+msgstr "Shoutcast Arama"
 
 #: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
-msgstr ""
+msgstr "Arama Sonuçları"
 
 #: ../plugins/shoutcast/__init__.py:345
 msgid "Search"
-msgstr ""
+msgstr "Arama"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Bildirim"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -2073,18 +2103,20 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"yazar %(artist)s\n"
+"albüm <i>%(album)s</i>"
 
 #: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "IPython Konsolu - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:134
 msgid "Show IPython Console"
-msgstr ""
+msgstr "IPython konsolunu göster"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "IPython Konsolu"
 
 #: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
@@ -2092,20 +2124,20 @@ msgstr "Çalmayı durdur"
 
 #: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
-msgstr ""
+msgstr "Ana Pencereyi Tekrar Yükle"
 
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Mini Mod"
 
 #: ../plugins/minimode/minimodeprefs.py:44
 msgid "Available controls"
-msgstr ""
+msgstr "Mevcut Kontrol"
 
 #: ../plugins/minimode/minimodeprefs.py:45
 msgid "Selected controls"
-msgstr ""
+msgstr "Seçilen Kontrol"
 
 #: ../plugins/minimode/minimodeprefs.py:47
 msgid "Previous"
@@ -2113,7 +2145,7 @@ msgstr "Önceki"
 
 #: ../plugins/minimode/minimodeprefs.py:48
 msgid "Play/Pause"
-msgstr ""
+msgstr "Çal/Duraklat"
 
 #: ../plugins/minimode/minimodeprefs.py:49
 msgid "Stop"
@@ -2125,51 +2157,51 @@ msgstr "Sonraki"
 
 #: ../plugins/minimode/minimodeprefs.py:51
 msgid "Track selector"
-msgstr ""
+msgstr "Parça Seçici"
 
 #: ../plugins/minimode/minimodeprefs.py:52
 msgid "Progress bar"
-msgstr ""
+msgstr "İlerleme çubuğu"
 
 #: ../plugins/minimode/minimodeprefs.py:53
 msgid "Volume"
-msgstr ""
+msgstr "Ses Düzeyi"
 
 #: ../plugins/minimode/minimodeprefs.py:54
 msgid "Playlist button"
-msgstr ""
+msgstr "Çalma Listesi butonu"
 
 #: ../plugins/minimode/minimodeprefs.py:57
 msgid "Restore"
-msgstr ""
+msgstr "Geri Yükle"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:83
 #: ../plugins/minimode/minimodeprefs.py:89
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:85
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title by $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:87
 msgid "$title ($length)"
-msgstr ""
+msgstr "$title ($length)"
 
 #: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
-msgstr ""
+msgstr "Çalmayı Başlat"
 
 #: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
-msgstr ""
+msgstr "Çalmaya Devam Et"
 
 #: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
-msgstr ""
+msgstr "Çalmayı Duraklat"
 
 #: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
@@ -2178,7 +2210,7 @@ msgstr ""
 #: ../plugins/contextinfo/__init__.py:1047
 #: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
-msgstr ""
+msgstr "İleti Bağlamı"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
@@ -2199,16 +2231,16 @@ msgstr "Alarm Günleri:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:2
 msgid "Alarm Name:"
-msgstr ""
+msgstr "Alarm İsmi:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:3
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Alarm Time:"
-msgstr ""
+msgstr "Alarm Zamanı:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:4
 msgid "Alarm:"
-msgstr ""
+msgstr "Alarm:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:5
 msgid "Enable Fading"
@@ -2226,17 +2258,17 @@ msgstr "Cuma"
 #: ../plugins/multialarmclock/alarmclk.ui.h:9
 #: ../plugins/alarmclock/acprefs_pane.ui.h:4
 msgid "Increment:"
-msgstr ""
+msgstr "Artış:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:10
 #: ../plugins/alarmclock/acprefs_pane.ui.h:5
 msgid "Maximum Volume:"
-msgstr ""
+msgstr "Maximum Ses Düzeyi:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:11
 #: ../plugins/alarmclock/acprefs_pane.ui.h:6
 msgid "Minimum Volume:"
-msgstr ""
+msgstr "Minimım Ses Düzeyi:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:12
 #: ../plugins/alarmclock/acprefs_pane.ui.h:7
@@ -2290,59 +2322,59 @@ msgstr "Sesi Alçaltarak Geç"
 
 #: ../plugins/equalizer/equalizer.ui.h:1
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:2
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "227"
-msgstr ""
+msgstr "227"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
-msgstr ""
+msgstr "ön"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"
@@ -2350,7 +2382,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"
-msgstr ""
+msgstr "Album Kapaklarını Göster"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
@@ -2358,7 +2390,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"
-msgstr ""
+msgstr "Hiçbiri"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "Text Percentage"
@@ -2382,11 +2414,11 @@ msgstr "Kullanıcı adı:"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "Import format: "
@@ -2402,11 +2434,11 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Ogg Vorbis"
@@ -2422,7 +2454,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Advanced"
-msgstr ""
+msgstr "Gelişmiş"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
@@ -2470,11 +2502,11 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
-msgstr ""
+msgstr "Yayınlanma tarihi"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Results:"
-msgstr ""
+msgstr "Sonuçlar:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
@@ -2538,11 +2570,11 @@ msgstr ""
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API Key:"
-msgstr ""
+msgstr "API Anahtarı:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret Key:"
-msgstr ""
+msgstr "Gizli Key:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
@@ -2552,35 +2584,35 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.ui.h:1
 msgid "Anchor:"
-msgstr ""
+msgstr "Çapa:"
 
 #: ../plugins/desktopcover/prefs.ui.h:2
 msgid "Bottom left"
-msgstr ""
+msgstr "Alt sol"
 
 #: ../plugins/desktopcover/prefs.ui.h:3
 msgid "Bottom right"
-msgstr ""
+msgstr "Alt sağ"
 
 #: ../plugins/desktopcover/prefs.ui.h:4
 msgid "Size:"
-msgstr ""
+msgstr "Boyut:"
 
 #: ../plugins/desktopcover/prefs.ui.h:5
 msgid "Top left"
-msgstr ""
+msgstr "Üst sol"
 
 #: ../plugins/desktopcover/prefs.ui.h:6
 msgid "Top right"
-msgstr ""
+msgstr "Üst sağ"
 
 #: ../plugins/desktopcover/prefs.ui.h:7
 msgid "X offset:"
-msgstr ""
+msgstr "X yerleşimi:"
 
 #: ../plugins/desktopcover/prefs.ui.h:8
 msgid "Y offset:"
-msgstr ""
+msgstr "Y yerleşimi:"
 
 #: ../plugins/desktopcover/prefs.ui.h:9
 msgid "pixels"
@@ -2588,11 +2620,11 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Base color"
-msgstr ""
+msgstr "Temel renk"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Base color:"
-msgstr ""
+msgstr "Temel Renk:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Darken played section instead of using cursor"
@@ -2608,7 +2640,7 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Use color theme "
-msgstr ""
+msgstr "Renk teması kullan "
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Use waveform style"
@@ -2648,7 +2680,7 @@ msgstr ""
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "Podcast Ekle"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "<b>Body Message</b>"
@@ -2685,7 +2717,7 @@ msgstr "Özet"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Font:"
-msgstr ""
+msgstr "Yazı tipi:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Terminal Opacity:"
@@ -2697,7 +2729,7 @@ msgstr "Her zaman üstte"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:2
 msgid "Display window decorations"
-msgstr ""
+msgstr "Pencere dekarasyonunu göster"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:3
 msgid "Show in tasklist"
@@ -2776,7 +2808,7 @@ msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "DAAP İstemcisi"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
@@ -2792,7 +2824,7 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
@@ -2833,11 +2865,11 @@ msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "Dinamik şarkı listeleri için Last.dm arka ucu"
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Moodbar"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
@@ -2858,7 +2890,7 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
-msgstr ""
+msgstr "İpod desteği"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
@@ -2890,7 +2922,7 @@ msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Merhaba Dünya"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -2898,7 +2930,7 @@ msgstr ""
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "GNOME Çokluortam Anahtarları"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
@@ -2908,7 +2940,7 @@ msgstr ""
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
@@ -2938,7 +2970,7 @@ msgstr ""
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."

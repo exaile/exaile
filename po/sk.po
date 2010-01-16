@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-03 23:43+0000\n"
-"Last-Translator: DAG Software <Unknown>\n"
+"PO-Revision-Date: 2010-01-05 17:10+0000\n"
+"Last-Translator: Aren Olson <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2010-01-04 04:35+0000\n"
+"X-Launchpad-Export-Date: 2010-01-06 04:34+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -943,7 +943,7 @@ msgstr " skladby"
 #: ../xlgui/playlist.py:1146
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "Zavrieť %s"
 
 #: ../xlgui/playlist.py:1147
 #, python-format
@@ -952,7 +952,7 @@ msgstr "<b>Uložiť zment do %s pred zavretím?</b>"
 
 #: ../xlgui/playlist.py:1148
 msgid "Your changes will be lost if you don't save them"
-msgstr "Vaše zmeny sa stratia pokiaľ ich neuložíte"
+msgstr "Vaše zmeny budú stratené ak ich neuložíte"
 
 #: ../xlgui/playlist.py:1150
 msgid "Close Without Saving"
@@ -1015,11 +1015,11 @@ msgstr "neobsahuje"
 
 #: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:152
 msgid "greater than"
-msgstr ""
+msgstr "väčšie ako"
 
 #: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:153
 msgid "less than"
-msgstr ""
+msgstr "menšie ako"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:104
@@ -1031,7 +1031,7 @@ msgstr "aspoň"
 #: ../xlgui/panel/playlists.py:101 ../xlgui/panel/playlists.py:105
 #: ../xlgui/panel/playlists.py:117 ../xlgui/panel/playlists.py:148
 msgid "at most"
-msgstr "najviax"
+msgstr "najviac"
 
 #: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:162
 msgid "Plays"
@@ -1068,37 +1068,37 @@ msgstr ""
 
 #: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
-msgstr ""
+msgstr "Vložiť do nového playlistu..."
 
 #: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
 #: ../xlgui/panel/playlists.py:678
 msgid "You did not enter a name for your playlist"
-msgstr "Nezadali ste názov vášho zoznamu skladieb"
+msgstr "Nezadali ste názov vášho playlistu"
 
 #: ../xlgui/panel/playlists.py:553
 msgid "Smart Playlists"
-msgstr "Inteligentné zoznamy skladieb"
+msgstr "Inteligentné playlisty"
 
 #: ../xlgui/panel/playlists.py:556
 msgid "Custom Playlists"
-msgstr "Vlastné zoznamy skladieb"
+msgstr "Vlastné playlisty"
 
 #: ../xlgui/panel/playlists.py:591
 msgid "Add Smart Playlist"
-msgstr "Pridať inteligentný zoznam skladieb"
+msgstr "Pridať inteligentný playlist"
 
 #: ../xlgui/panel/playlists.py:656
 msgid "Edit Smart Playlist"
-msgstr "Uprav inteligentný zoznam skladieb"
+msgstr "Upraviť inteligentný playlist"
 
 #: ../xlgui/panel/radio.py:108 ../xlgui/panel/radio.py:466
 #: ../xlgui/panel/radio.py:542
 msgid "Loading streams..."
-msgstr "Načítavajú sa prúdy..."
+msgstr "Načítavajú sa streamy..."
 
 #: ../xlgui/panel/radio.py:178
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Pridať rádio stanicu"
 
 #: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
@@ -1110,15 +1110,15 @@ msgstr "Uložené stanice"
 
 #: ../xlgui/panel/radio.py:248
 msgid "Radio Streams"
-msgstr ""
+msgstr "Stremy rádií"
 
 #: ../xlgui/panel/radio.py:277
 msgid "Refresh"
-msgstr "Refresh"
+msgstr "Obnoviť"
 
 #: ../xlgui/panel/radio.py:407
 msgid "Enter the name you want for your new playlist"
-msgstr "Zadajte názov pre váš nový zoznam skladieb"
+msgstr "Zadajte názov pre váš nový playlist"
 
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:145
@@ -1128,7 +1128,7 @@ msgstr "Veľkosť"
 #: ../xlgui/panel/files.py:413
 #, python-format
 msgid "%d KB"
-msgstr ""
+msgstr "%d KB"
 
 #: ../xlgui/panel/collection.py:140
 msgid ""
@@ -1138,7 +1138,7 @@ msgstr ""
 
 #: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
-msgstr "Preskenuj kolekciu"
+msgstr "Preskenovať kolekciu"
 
 #: ../xlgui/panel/device.py:127
 #, python-format
@@ -1147,15 +1147,15 @@ msgstr ""
 
 #: ../xlgui/prefs/cover_prefs.py:31
 msgid "Covers"
-msgstr ""
+msgstr "Obaly"
 
 #: ../xlgui/prefs/appearance_prefs.py:32
 msgid "Appearance"
-msgstr ""
+msgstr "Vzhľad"
 
 #: ../xlgui/prefs/playback_prefs.py:32
 msgid "Playback"
-msgstr ""
+msgstr "Prehrávanie"
 
 #: ../xlgui/prefs/__init__.py:83 ../data/ui/preferences_dialog.ui.h:1
 msgid "Preferences"
@@ -1163,7 +1163,7 @@ msgstr "Nastavenia"
 
 #: ../xlgui/prefs/__init__.py:94 ../xlgui/prefs/plugin_prefs.py:34
 msgid "Plugins"
-msgstr "Moduly"
+msgstr "Pluginy"
 
 #: ../xlgui/prefs/collection_prefs.py:22 ../data/ui/device_panel.ui.h:1
 #: ../data/ui/collection_panel.ui.h:6
@@ -1181,7 +1181,7 @@ msgstr ""
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Obnoviť pôvodné"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"
@@ -1189,11 +1189,11 @@ msgstr "Playlisty"
 
 #: ../xlgui/prefs/osd_prefs.py:32
 msgid "On Screen Display"
-msgstr ""
+msgstr "OSD"
 
 #: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"
-msgstr "Modul"
+msgstr "Plugin"
 
 #: ../xlgui/prefs/plugin_prefs.py:106
 #: ../plugins/multialarmclock/alarmclk.ui.h:6
@@ -1203,11 +1203,11 @@ msgstr "Povolené"
 
 #: ../xlgui/prefs/plugin_prefs.py:128
 msgid "Choose a plugin"
-msgstr ""
+msgstr "Vybrať plugin"
 
 #: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Archív pluginov"
 
 #: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
@@ -1225,35 +1225,35 @@ msgstr ""
 
 #: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
-msgstr ""
+msgstr "Pridať položku"
 
 #: ../xlgui/prefs/widgets.py:266
 msgid "Remove item"
-msgstr ""
+msgstr "Odstrániť položku"
 
 #: ../xlgui/prefs/widgets.py:279
 msgid "Move selected item up"
-msgstr ""
+msgstr "Posunúť vybratú položku vyžšie"
 
 #: ../xlgui/prefs/widgets.py:284
 msgid "Move selected item down"
-msgstr ""
+msgstr "Posunúť vybratú položku nižšie"
 
 #: ../xlgui/prefs/widgets.py:555
 msgid "Action"
-msgstr ""
+msgstr "Operácia"
 
 #: ../xlgui/prefs/widgets.py:563
 msgid "Shortcut"
-msgstr ""
+msgstr "Skratka"
 
 #: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Poprehadzovať poradie hrania"
 
 #: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
-msgstr ""
+msgstr "Opakovať playlist"
 
 #: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
@@ -1261,7 +1261,7 @@ msgstr ""
 
 #: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
-msgstr ""
+msgstr "Odstrániť práveč hranú skladbu z playlistu"
 
 #: ../xlgui/tray.py:179
 msgid "Exaile Music Player"
@@ -1285,19 +1285,19 @@ msgstr "Pri spustení otvoriť posledné playlisty"
 
 #: ../data/ui/main.ui.h:1
 msgid "0/0 tracks"
-msgstr ""
+msgstr "0/0 skladieb"
 
 #: ../data/ui/main.ui.h:2
 msgid "0:00 / 0:00"
-msgstr ""
+msgstr "0:00 / 0:00"
 
 #: ../data/ui/main.ui.h:3
 msgid "C_overs"
-msgstr ""
+msgstr "_Obaly"
 
 #: ../data/ui/main.ui.h:4
 msgid "Clear Playlist"
-msgstr "Vyčisti playlist"
+msgstr "Vyčistiť playlist"
 
 #: ../data/ui/main.ui.h:5
 msgid "Click to view Queue"
@@ -1309,15 +1309,15 @@ msgstr "Ďalšia skladba"
 
 #: ../data/ui/main.ui.h:9
 msgid "Open _URL"
-msgstr "Otvor _URL"
+msgstr "Otvoriť _URL"
 
 #: ../data/ui/main.ui.h:10
 msgid "Page 1"
-msgstr ""
+msgstr "Strana 1"
 
 #: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:216
 msgid "Previous Track"
-msgstr "Predchádzajúca stopa"
+msgstr "Predchádzajúca skladba"
 
 #: ../data/ui/main.ui.h:12
 msgid "Randomize the order of the current playlist"
@@ -1325,7 +1325,7 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:13
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Pre_skenovať kolekciu"
 
 #: ../data/ui/main.ui.h:15 ../data/ui/files_panel.ui.h:6
 #: ../data/ui/collection_panel.ui.h:11
@@ -1334,7 +1334,7 @@ msgstr "Hľadať: "
 
 #: ../data/ui/main.ui.h:17
 msgid "Start/Pause Playback"
-msgstr ""
+msgstr "Spustiť/pozastaviť prehrávanie"
 
 #: ../data/ui/main.ui.h:18
 msgid ""
@@ -1345,7 +1345,7 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:22
 msgid "Track _properties"
-msgstr ""
+msgstr "_Vlastnosti skladby"
 
 #: ../data/ui/main.ui.h:23
 msgid "_Autosize"
@@ -1353,7 +1353,7 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
-msgstr ""
+msgstr "_Kolekcia"
 
 #: ../data/ui/main.ui.h:25
 msgid "_Columns"
@@ -1361,7 +1361,7 @@ msgstr "_Stĺpce"
 
 #: ../data/ui/main.ui.h:26
 msgid "_Device Manager"
-msgstr ""
+msgstr "Správca _zariadení"
 
 #: ../data/ui/main.ui.h:27
 msgid "_Edit"
@@ -1369,7 +1369,7 @@ msgstr "_Upraviť"
 
 #: ../data/ui/main.ui.h:28
 msgid "_Export current playlist"
-msgstr ""
+msgstr "Exportovať tento playlist"
 
 #: ../data/ui/main.ui.h:29
 msgid "_File"
@@ -1381,11 +1381,11 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:31
 msgid "_Help"
-msgstr "_Pomocník"
+msgstr "_Nápoveda"
 
 #: ../data/ui/main.ui.h:33
 msgid "_Queue"
-msgstr ""
+msgstr "_Fronta"
 
 #: ../data/ui/main.ui.h:34
 msgid "_Randomize Playlist"
@@ -1417,7 +1417,7 @@ msgstr "Rádio"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "Správca obalov"
 
 #: ../data/ui/covermanager.ui.h:3
 msgid "_Close"
@@ -1433,23 +1433,23 @@ msgstr "Značky"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
-msgstr ""
+msgstr "Vlastnosti skladby"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Prvé písmeno všetkých tagov veľkým"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
-msgstr ""
+msgstr "Ď_alšia"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Predchádzajúca"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Odstrániť tag"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
@@ -1457,7 +1457,7 @@ msgstr ""
 
 #: ../data/ui/plugin_prefs_pane.ui.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Nevybraný žiadny modul</b>"
+msgstr "<b>Nieje vybratý žiaden plugin</b>"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:2
 msgid "Authors:"
@@ -1465,7 +1465,7 @@ msgstr "Autori:"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:3
 msgid "Available Plugins"
-msgstr "Dostupné moduly"
+msgstr "Dostupné pluginy"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:4
 msgid "Description:"
@@ -1481,19 +1481,19 @@ msgstr "Inštalovať aktualizácie"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "Inštalovať plugin tretej strany zo súboru"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "Inštalovať súbor luginu"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
-msgstr "Nainštalované moduly"
+msgstr "Inainštalované pluginy"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:10
 msgid "Updates"
-msgstr ""
+msgstr "Aktualizácie"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:11
 msgid "Version:"
@@ -1505,11 +1505,11 @@ msgstr "Pridať stanicu"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
-msgstr ""
+msgstr "Správca kolekcie"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../data/ui/device_manager.ui.h:2
 msgid "Add device"
@@ -1563,7 +1563,7 @@ msgstr ""
 msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
-msgstr "<b>Presunte OSD na miesto, kde sa ma zobrazovat</b>"
+msgstr "<b>Presuňte OSD na miesto, kde sa má zobrazovať</b>"
 
 #: ../data/ui/osd_prefs_pane.ui.h:2
 msgid "Background Color:"
@@ -1571,7 +1571,7 @@ msgstr "Farba pozadia:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:3
 msgid "Display OSD when hovering over tray icon"
-msgstr "Zobraz OSD pri prechode nad tray ikonou"
+msgstr "Zobraziť OSD pri prechode na tray ikonu"
 
 #: ../data/ui/osd_prefs_pane.ui.h:4
 msgid "Display a progressbar in the OSD"
@@ -1591,7 +1591,7 @@ msgstr "Farba písma"
 
 #: ../data/ui/osd_prefs_pane.ui.h:8
 msgid "Text Font:"
-msgstr "Rez písma:"
+msgstr "Písmo:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:9
 msgid "Window Height:"
@@ -1603,7 +1603,7 @@ msgstr "Šírka okna:"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
-msgstr "Hľadač obalov"
+msgstr "Vyhľadávač balov"
 
 #: ../data/ui/coverchooser.ui.h:2
 msgid "New Search"
@@ -1619,15 +1619,15 @@ msgstr ""
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Close this dialog"
-msgstr "Zavrieť toto okno"
+msgstr "Zavrieť tento dialóg"
 
 #: ../data/ui/queue_dialog.ui.h:2
 msgid "Queue Manager"
-msgstr "Správca radu"
+msgstr "Správca poradia"
 
 #: ../data/ui/queue_dialog.ui.h:3
 msgid "Remove All"
-msgstr ""
+msgstr "Odstrániť všetko"
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "&#xA9; 2009"
@@ -1665,7 +1665,7 @@ msgstr ""
 
 #: ../data/ui/playback_prefs_pane.ui.h:1
 msgid "ALSA"
-msgstr ""
+msgstr "ALSA"
 
 #: ../data/ui/playback_prefs_pane.ui.h:2
 msgid "Audio Sink:  "
@@ -1681,27 +1681,27 @@ msgstr ""
 
 #: ../data/ui/playback_prefs_pane.ui.h:6
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #: ../data/ui/playback_prefs_pane.ui.h:7
 msgid "JACK"
-msgstr ""
+msgstr "JACK"
 
 #: ../data/ui/playback_prefs_pane.ui.h:8
 msgid "Normal"
-msgstr ""
+msgstr "Bežný"
 
 #: ../data/ui/playback_prefs_pane.ui.h:9
 msgid "OSS"
-msgstr ""
+msgstr "OSS"
 
 #: ../data/ui/playback_prefs_pane.ui.h:10
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "Prehrávací engine (je treba reštart): "
 
 #: ../data/ui/playback_prefs_pane.ui.h:11
 msgid "PulseAudio"
-msgstr ""
+msgstr "PulseAudio"
 
 #: ../data/ui/playback_prefs_pane.ui.h:12
 msgid "Resume playback in paused state"
@@ -1733,30 +1733,33 @@ msgid ""
 "Drag to the location you'd like the\n"
 "OSD to appear"
 msgstr ""
+"<b>OSD</b>\n"
+"Pretiahnite na miesto kde chcete\n"
+"aby sa OSD zobrazovalo"
 
 #: ../data/ui/osd_window.ui.h:4
 msgid "Popup"
-msgstr "Vyskakovanie"
+msgstr "Vyskakovacie okno"
 
 #: ../data/ui/collection_panel.ui.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Kolekcia je prázdna.</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
-msgstr ""
+msgstr "Pridať hudbu"
 
 #: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
-msgstr ""
+msgstr "Interprét - Rok - Album"
 
 #: ../data/ui/collection_panel.ui.h:7
 msgid "Genre - Album"
-msgstr ""
+msgstr "Žáner - Album"
 
 #: ../data/ui/collection_panel.ui.h:8
 msgid "Genre - Artist"
-msgstr ""
+msgstr "Žáner - Interprét"
 
 #: ../data/ui/collection_panel.ui.h:9
 msgid ""
@@ -1766,43 +1769,43 @@ msgstr ""
 
 #: ../data/ui/collection_panel.ui.h:12
 msgid "Year - Album"
-msgstr ""
+msgstr "Rok - Album"
 
 #: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Artist"
-msgstr ""
+msgstr "Rok - Interprét"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:1
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Vždy ukázať panel kariet"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:2
 msgid "Bottom"
-msgstr ""
+msgstr "Spodok"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:4
 msgid "Jump to current song on track change"
-msgstr "Prejdi na túto skladbu pri zmene songu"
+msgstr "Preskočiť na aktuálnu pieseň pri zmene skladby"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:5
 msgid "Left"
-msgstr ""
+msgstr "Vľavo"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:6
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Minimalizovať do tray oblasti"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
-msgstr ""
+msgstr "Vpravo"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:8
 msgid "Show splash screen on startup"
-msgstr "Zobaz splash pri štarte"
+msgstr "Zobraziť úvodný obrázok pri štarte"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:9
 msgid "Show tray icon"
-msgstr "Ukáž tray ikonu"
+msgstr "Zobraziť tray ikonu"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:10
 msgid "Tab placement:"

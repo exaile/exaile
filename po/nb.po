@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-16 03:08+0000\n"
-"Last-Translator: Terje Andre Arnøy <Unknown>\n"
+"PO-Revision-Date: 2010-01-11 15:47+0000\n"
+"Last-Translator: Simen Heggestøyl <simen@simenh.com>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-12-17 04:42+0000\n"
+"X-Launchpad-Export-Date: 2010-01-12 04:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -84,11 +84,11 @@ msgstr "Skriv lengden på gjeldenende spor"
 
 #: ../xl/main.py:318
 msgid "Set rating for current song"
-msgstr "Gi vurdering til spillende sang"
+msgstr "Ranger spillende sang"
 
 #: ../xl/main.py:320
 msgid "Get rating for current song"
-msgstr "Hent vurdering av spillende sang"
+msgstr "Hent rangering av spillende sang"
 
 #: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
@@ -188,7 +188,7 @@ msgstr "Tilfeldig %d"
 #: ../xl/main.py:408
 #, python-format
 msgid "Rating > %d"
-msgstr "Vurdering > %d"
+msgstr "Rangering > %d"
 
 #: ../xl/main.py:505
 msgid ""
@@ -204,7 +204,7 @@ msgstr "Du har ikke spesifisert plassering for å lagre db"
 
 #: ../xl/cover.py:281 ../xl/lyrics.py:85
 msgid "order must be a list or tuple"
-msgstr "Rekkefølge må være en liste eller tuple"
+msgstr "rekkefølge må være en liste eller tuppel"
 
 #: ../xl/transcoder.py:55
 msgid ""
@@ -487,7 +487,7 @@ msgstr "Endret"
 
 #: ../xlgui/properties.py:69
 msgid "Times Played"
-msgstr ""
+msgstr "Ganger spilt"
 
 #: ../xlgui/properties.py:70
 msgid "Last Played"
@@ -603,7 +603,7 @@ msgstr "fra %s"
 #: ../xlgui/main.py:1242
 #, python-format
 msgid "In pause: %s"
-msgstr ""
+msgstr "Pauset: %s"
 
 #: ../xlgui/main.py:1244
 #, python-format
@@ -835,7 +835,7 @@ msgstr "(%d i kø)"
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
-msgstr "Vurdering:"
+msgstr "Rangering:"
 
 #: ../xlgui/commondialogs.py:335
 msgid "Select File Type (By Extension)"
@@ -887,7 +887,7 @@ msgstr "0:00"
 #: ../plugins/minimode/minimodeprefs.py:71
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Rating"
-msgstr "Vurdering"
+msgstr "Rangering"
 
 #. TRANSLATORS: Filename column in the file browser
 #: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:120
@@ -1182,7 +1182,7 @@ msgstr "Spillelister"
 
 #: ../xlgui/prefs/osd_prefs.py:32
 msgid "On Screen Display"
-msgstr ""
+msgstr "Skjermvisning"
 
 #: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"
@@ -1234,7 +1234,7 @@ msgstr "Flytt valgt element ned"
 
 #: ../xlgui/prefs/widgets.py:555
 msgid "Action"
-msgstr ""
+msgstr "Handling"
 
 #: ../xlgui/prefs/widgets.py:563
 msgid "Shortcut"
@@ -1262,7 +1262,7 @@ msgstr "Exaile Musikkavspiller"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Høyreklikk for å gjenopprette standardinnstillinger)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
@@ -1418,11 +1418,11 @@ msgstr "_Lukk"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "A_dd tag"
-msgstr ""
+msgstr "L_egg til knagg"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "Tags"
-msgstr ""
+msgstr "Knagger"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
@@ -1430,7 +1430,7 @@ msgstr "Spor Egenskaper"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Stor forbokstav på alle knagger"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
@@ -1442,7 +1442,7 @@ msgstr "_Forrige"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Fjern knagg"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
@@ -1482,7 +1482,7 @@ msgstr "Installer programtilleggsfil"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
-msgstr "Installerte tilleggsmoduler"
+msgstr "Installerte programtillegg"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:10
 msgid "Updates"
@@ -1510,7 +1510,7 @@ msgstr "Legg til enhet"
 
 #: ../data/ui/device_manager.ui.h:3
 msgid "Custom: "
-msgstr ""
+msgstr "Egendefinert: "
 
 #: ../data/ui/device_manager.ui.h:4
 msgid "Detected devices:"
@@ -1745,7 +1745,7 @@ msgstr "Artist - År - Album"
 
 #: ../data/ui/collection_panel.ui.h:7
 msgid "Genre - Album"
-msgstr "SJanger - Album"
+msgstr "Sjanger - Album"
 
 #: ../data/ui/collection_panel.ui.h:8
 msgid "Genre - Artist"
@@ -1767,7 +1767,7 @@ msgstr "År - Artist"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:1
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Vis alltid fanelinja"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:2
 msgid "Bottom"
@@ -1783,7 +1783,7 @@ msgstr "Venstre"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:6
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Minimer til systemkurv"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
@@ -1799,7 +1799,7 @@ msgstr "Vis systemkurvikon"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:10
 msgid "Tab placement:"
-msgstr ""
+msgstr "Faneplassering:"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:11
 msgid "Top"
@@ -1825,7 +1825,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs.py:32
 msgid "AWN"
-msgstr ""
+msgstr "AWN"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -1862,7 +1862,7 @@ msgstr "Avspillingsteller"
 
 #: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
-msgstr ""
+msgstr "Manuelt..."
 
 #: ../plugins/daapclient/__init__.py:207
 msgid "Enter IP address and port for share"
@@ -1870,7 +1870,7 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:208
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "Oppgi IP-adresse og port."
 
 #: ../plugins/daapclient/__init__.py:376
 msgid ""
@@ -1880,15 +1880,15 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:455
 msgid "Disconnect"
-msgstr ""
+msgstr "Koble fra"
 
 #: ../plugins/daapclient/__init__.py:473
 msgid "Select a save location"
-msgstr ""
+msgstr "Velg sted for lagring"
 
 #: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Koble til DAAP..."
 
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -1897,7 +1897,7 @@ msgstr "Bokmerker"
 
 #: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
-msgstr ""
+msgstr "Sett bokmerke på dette sporet"
 
 #: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
@@ -1961,7 +1961,7 @@ msgstr "Stemning funnet."
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "Kunne ikke lese stemningslinje."
 
 #: ../plugins/moodbar/__init__.py:497
 msgid "Moodbar executable is not available."
@@ -2040,7 +2040,7 @@ msgstr ""
 
 #: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Skriv inn nøkkelord for søk"
 
 #: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
@@ -2092,11 +2092,11 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:44
 msgid "Available controls"
-msgstr ""
+msgstr "Tilgjengelige kontroller"
 
 #: ../plugins/minimode/minimodeprefs.py:45
 msgid "Selected controls"
-msgstr ""
+msgstr "Valgte kontroller"
 
 #: ../plugins/minimode/minimodeprefs.py:47
 msgid "Previous"
@@ -2116,11 +2116,11 @@ msgstr "Neste"
 
 #: ../plugins/minimode/minimodeprefs.py:51
 msgid "Track selector"
-msgstr ""
+msgstr "Sporvelger"
 
 #: ../plugins/minimode/minimodeprefs.py:52
 msgid "Progress bar"
-msgstr ""
+msgstr "Fremgangslinje"
 
 #: ../plugins/minimode/minimodeprefs.py:53
 msgid "Volume"
@@ -2128,7 +2128,7 @@ msgstr "Volum"
 
 #: ../plugins/minimode/minimodeprefs.py:54
 msgid "Playlist button"
-msgstr ""
+msgstr "Spillelisteknapp"
 
 #: ../plugins/minimode/minimodeprefs.py:57
 msgid "Restore"
@@ -2169,7 +2169,7 @@ msgstr ""
 #: ../plugins/contextinfo/__init__.py:1047
 #: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
-msgstr ""
+msgstr "Kontekst"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
@@ -2281,55 +2281,55 @@ msgstr "Bruk overganger"
 
 #: ../plugins/equalizer/equalizer.ui.h:1
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:2
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "227"
-msgstr ""
+msgstr "227"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
@@ -2349,7 +2349,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"
-msgstr ""
+msgstr "Ingen"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "Text Percentage"
@@ -2373,11 +2373,11 @@ msgstr "Brukernavn:"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "Import format: "
@@ -2397,15 +2397,15 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "WavPack"
-msgstr ""
+msgstr "WavPack"
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
@@ -2413,11 +2413,11 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Advanced"
-msgstr ""
+msgstr "Avansert"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "Stigende"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
@@ -2425,15 +2425,15 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "Synkende"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Sjanger/Knagger"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
-msgstr ""
+msgstr "Antall nedlastinger"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
@@ -2453,19 +2453,19 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
-msgstr ""
+msgstr "Rangering denne måneden"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Rating this week"
-msgstr ""
+msgstr "Rangering denne uken"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
-msgstr ""
+msgstr "Utgivelsesdato"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Results:"
-msgstr ""
+msgstr "Resultater:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
@@ -2473,7 +2473,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>Innhold</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "<b>Display</b>"
@@ -2543,7 +2543,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.ui.h:1
 msgid "Anchor:"
-msgstr ""
+msgstr "Anker:"
 
 #: ../plugins/desktopcover/prefs.ui.h:2
 msgid "Bottom left"
@@ -2555,7 +2555,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.ui.h:4
 msgid "Size:"
-msgstr ""
+msgstr "Størrelse:"
 
 #: ../plugins/desktopcover/prefs.ui.h:5
 msgid "Top left"
@@ -2575,15 +2575,15 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.ui.h:9
 msgid "pixels"
-msgstr ""
+msgstr "piksler"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Base color"
-msgstr ""
+msgstr "Basisfarge"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Base color:"
-msgstr ""
+msgstr "Basisfarge:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Darken played section instead of using cursor"
@@ -2595,15 +2595,15 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Vis kun bølgeform, ikke stemning"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Use color theme "
-msgstr ""
+msgstr "Bruk fargetema "
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Use waveform style"
-msgstr ""
+msgstr "Bruk bølgeformstil"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Additional amplification (dB):"
@@ -2734,7 +2734,7 @@ msgstr ""
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
-msgstr ""
+msgstr "Awn"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -2783,7 +2783,7 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
@@ -2828,7 +2828,7 @@ msgstr ""
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Stemningslinje"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
@@ -2849,11 +2849,11 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
-msgstr ""
+msgstr "iPod-støtte"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr ""
+msgstr "Et programtillegg for iPod-støtte"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -2881,7 +2881,7 @@ msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Hallo Verden"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"

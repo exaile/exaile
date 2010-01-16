@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-11-15 17:50+0100\n"
-"PO-Revision-Date: 2009-11-19 23:15+0000\n"
+"POT-Creation-Date: 2009-11-30 12:40+0100\n"
+"PO-Revision-Date: 2010-01-05 06:54+0000\n"
 "Last-Translator: Mark Kwidzińsczi <mark@linuxcsb.org>\n"
 "Language-Team: Kashubian <csb@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-11-21 04:44+0000\n"
+"X-Launchpad-Export-Date: 2010-01-06 04:33+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -253,24 +253,51 @@ msgstr ""
 "Baro chùtczi, wòlno rozprowôdzóny ë bezstratny fòrmat audio z dobrą "
 "kòmpresëja."
 
-#: ../xl/track.py:381
+#: ../xl/track.py:388
 msgid "Various Artists"
 msgstr "Rozmajiti artisce"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
-#: ../xl/track.py:386 ../xl/track.py:404 ../xl/playlist.py:251
-#: ../xlgui/panel/collection.py:478 ../plugins/notifyosd/__init__.py:57
-#: ../plugins/minimode/mmwidgets.py:948
+#: ../xl/track.py:393 ../xl/track.py:412 ../xl/trackformatter.py:121
+#: ../xl/playlist.py:245 ../xlgui/panel/collection.py:478
+#: ../plugins/notifyosd/__init__.py:57 ../plugins/minimode/mmwidgets.py:1015
 msgid "Unknown"
 msgstr "Nieznóny"
 
-#: ../xl/track.py:590
+#. TRANSLATORS: String multiple tag values will be joined by
+#: ../xl/track.py:424 ../xl/trackformatter.py:110
+#: ../plugins/minimode/mmwidgets.py:1004
+msgid " & "
+msgstr " & "
+
+#: ../xl/track.py:584
 msgid "  New song, fetching cover."
 msgstr "  Nowi titel, ladëjã òbkłôdkã."
 
 #: ../xl/devices.py:141 ../xl/devices.py:147
 msgid "Device class does not support transfer."
 msgstr "Klasa ùrządzeniô nie wspiérô transferów."
+
+#: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
+#: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
+msgid "Never"
+msgstr "Nigdë"
+
+#: ../xl/trackformatter.py:213 ../xlgui/plcolumns.py:232
+#: ../plugins/minimode/mmwidgets.py:1087
+msgid "Today"
+msgstr "Dzysô"
+
+#: ../xl/trackformatter.py:215 ../xlgui/plcolumns.py:234
+#: ../plugins/minimode/mmwidgets.py:1089
+msgid "Yesterday"
+msgstr "Wczora"
+
+#: ../xl/trackformatter.py:217 ../xlgui/plcolumns.py:236
+#: ../plugins/minimode/mmwidgets.py:1091
+#, python-format
+msgid "%(year)d-%(month)02d-%(day)02d"
+msgstr "%(year)d-%(month)02d-%(day)02d"
 
 #: ../xl/settings.py:94
 msgid "Settings version is newer than current."
@@ -297,7 +324,7 @@ msgstr "Wtëkôcz \"%s\" ju je winstalowóny"
 msgid "Plugin archive contains an unsafe path"
 msgstr "Archiwùm wtëkôcza zamëkô w se lëchą stegną"
 
-#: ../xl/playlist.py:395
+#: ../xl/playlist.py:386
 #, python-format
 msgid "Playlist %d"
 msgstr "Lësta graniô %d"
@@ -477,49 +504,49 @@ msgstr "Wielëna graniô"
 msgid "Last Played"
 msgstr "Slédno gróné"
 
-#: ../xlgui/properties.py:214
+#: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
 msgstr "Editëjë titel %(current)d z %(total)d"
 
-#: ../xlgui/properties.py:328
+#: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
 msgstr "Zamknąc bez zapsaniô zmianów w znakòwnikach?"
 
-#: ../xlgui/properties.py:653
+#: ../xlgui/properties.py:655
 msgid "of"
 msgstr "z"
 
-#: ../xlgui/properties.py:775
+#: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/main.py:48 ../xlgui/main.py:121 ../xlgui/main.py:1087
-#: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:735
+#: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
+#: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
 msgid "Not Playing"
 msgstr "Nie grô"
 
-#: ../xlgui/main.py:131 ../plugins/minimode/mmwidgets.py:755
+#: ../xlgui/main.py:130 ../plugins/minimode/mmwidgets.py:822
 msgid "Streaming..."
 msgstr "Granie strëdżi..."
 
-#: ../xlgui/main.py:215
+#: ../xlgui/main.py:214
 msgid "Close tab"
 msgstr "Zamkni kôrtã"
 
-#: ../xlgui/main.py:273
+#: ../xlgui/main.py:272
 msgid "New playlist title:"
 msgstr "Titel nowi lëstë graniô:"
 
-#: ../xlgui/main.py:273 ../xlgui/menu.py:448
+#: ../xlgui/main.py:272 ../xlgui/menu.py:448
 msgid "Rename Playlist"
 msgstr "Zmieni miono lëstë graniô"
 
-#: ../xlgui/main.py:282
+#: ../xlgui/main.py:281
 msgid "Custom playlist name:"
 msgstr "Niestandardowé miono lëstë graniô:"
 
-#: ../xlgui/main.py:282
+#: ../xlgui/main.py:281
 msgid "Save As..."
 msgstr "Zapiszë jakno..."
 
@@ -527,32 +554,40 @@ msgstr "Zapiszë jakno..."
 msgid "Toggle: Stop after selected track"
 msgstr "Włączë/wëłączë: Zatrzëmôj pò wëbrónym titlu"
 
-#: ../xlgui/main.py:839
+#: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
+msgid "Dynamically add similar tracks to the playlist"
+msgstr "Dodôj dinamiczno zblëżoné title do lëstë graniô"
+
+#: ../xlgui/main.py:706
+msgid "Requires plugins providing dynamic playlists"
+msgstr ""
+
+#: ../xlgui/main.py:862
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Bùfòrowanié: %d%%..."
 
-#: ../xlgui/main.py:841
+#: ../xlgui/main.py:864
 msgid "Buffering: 100%..."
 msgstr "Bùfòrowanié: 100%..."
 
-#: ../xlgui/main.py:999 ../xlgui/main.py:1007 ../xlgui/main.py:1031
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
 msgstr ""
 
-#: ../xlgui/main.py:999 ../xlgui/main.py:1033
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
 msgstr ""
 
-#: ../xlgui/main.py:999 ../xlgui/main.py:1036
+#: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
 msgstr ""
 
-#: ../xlgui/main.py:1088 ../data/ui/main.ui.h:21
+#: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
 msgstr "Zatrzëmanié"
 
-#: ../xlgui/main.py:1186
+#: ../xlgui/main.py:1209
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
@@ -561,29 +596,29 @@ msgstr ""
 "Nie grô"
 
 #. TRANSLATORS: Window title
-#: ../xlgui/main.py:1196
+#: ../xlgui/main.py:1219
 #, python-format
 msgid "%(title)s (by %(artist)s)"
 msgstr "%(title)s (grô %(artist)s)"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1206
+#: ../xlgui/main.py:1229
 #, python-format
 msgid "by %s"
 msgstr "grô %s"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1208
+#: ../xlgui/main.py:1231
 #, python-format
 msgid "from %s"
 msgstr "z albùmù %s"
 
-#: ../xlgui/main.py:1219
+#: ../xlgui/main.py:1242
 #, python-format
 msgid "In pause: %s"
 msgstr "Paùza: %s"
 
-#: ../xlgui/main.py:1221
+#: ../xlgui/main.py:1244
 #, python-format
 msgid "Playing %s"
 msgstr "Granié %s"
@@ -593,6 +628,7 @@ msgid "Toggle Queue"
 msgstr "Przełaczë pòsobnicã"
 
 #: ../xlgui/menu.py:99 ../xlgui/menu.py:344 ../xlgui/panel/radio.py:408
+#: ../plugins/droptrayicon/__init__.py:274
 msgid "New Playlist"
 msgstr "Nowô lësta graniô"
 
@@ -701,7 +737,7 @@ msgstr "Lësta graniô ASX"
 msgid "XSPF Playlist"
 msgstr "Lësta graniô XSPF"
 
-#: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:984
+#: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:985
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr "Na gwës chcesz rëmnąc całowną wëbróną lësta graniô?"
 
@@ -751,7 +787,7 @@ msgstr "Felënk titla"
 msgid "Export current playlist..."
 msgstr "Ekspòrtëjë aktualną lëstã graniô..."
 
-#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:939
+#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:940
 msgid "Invalid file extension, file not saved"
 msgstr "Lëché rozszerzenié lopka, lopk ni òstôł zapisóny"
 
@@ -868,7 +904,7 @@ msgid "Rating"
 msgstr "Òbsąd"
 
 #. TRANSLATORS: Filename column in the file browser
-#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:121
+#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:120
 #: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:76
 msgid "Filename"
 msgstr "Miono lopka"
@@ -880,24 +916,6 @@ msgstr "Rechòwnik graniô"
 #: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
 msgstr "Slédno gróné"
-
-#: ../xlgui/plcolumns.py:220 ../xlgui/plcolumns.py:240
-#: ../plugins/minimode/mmwidgets.py:1007
-msgid "Never"
-msgstr "Nigdë"
-
-#: ../xlgui/plcolumns.py:232 ../plugins/minimode/mmwidgets.py:1020
-msgid "Today"
-msgstr "Dzysô"
-
-#: ../xlgui/plcolumns.py:234 ../plugins/minimode/mmwidgets.py:1022
-msgid "Yesterday"
-msgstr "Wczora"
-
-#: ../xlgui/plcolumns.py:236 ../plugins/minimode/mmwidgets.py:1024
-#, python-format
-msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr "%(year)d-%(month)02d-%(day)02d"
 
 #: ../xlgui/plcolumns.py:267
 msgid "Track Number"
@@ -927,21 +945,21 @@ msgstr "Ògrańczë do: "
 msgid " songs"
 msgstr " title"
 
-#: ../xlgui/playlist.py:1145
+#: ../xlgui/playlist.py:1146
 #, python-format
 msgid "Close %s"
 msgstr "Zamkni %s"
 
-#: ../xlgui/playlist.py:1146
+#: ../xlgui/playlist.py:1147
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Zapisac zjinaczi w %s przed zamkniãcem?</b>"
 
-#: ../xlgui/playlist.py:1147
+#: ../xlgui/playlist.py:1148
 msgid "Your changes will be lost if you don't save them"
 msgstr "Pòcësniesz swòjé zjinaczi jeżlë jich nie zapiszesz"
 
-#: ../xlgui/playlist.py:1149
+#: ../xlgui/playlist.py:1150
 msgid "Close Without Saving"
 msgstr "Zamkni bez zapisëwaniô"
 
@@ -1044,8 +1062,8 @@ msgid "between"
 msgstr "midzy"
 
 #: ../xlgui/panel/playlists.py:230 ../xlgui/panel/playlists.py:336
-#: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:610
-#: ../xlgui/panel/playlists.py:684
+#: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
+#: ../xlgui/panel/playlists.py:685
 msgid "The playlist name you entered is already in use."
 msgstr "To miono lëstë graniô ju je w brëkùnkù."
 
@@ -1057,24 +1075,24 @@ msgstr "Nowé miono lëstë graniô:"
 msgid "Add To New Playlist..."
 msgstr "Dodôj do nowi lëstë graniô..."
 
-#: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:604
-#: ../xlgui/panel/playlists.py:677
+#: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
+#: ../xlgui/panel/playlists.py:678
 msgid "You did not enter a name for your playlist"
 msgstr "Ni môsz wpisóné nowégò miona lëstë graniô."
 
-#: ../xlgui/panel/playlists.py:552
+#: ../xlgui/panel/playlists.py:553
 msgid "Smart Playlists"
 msgstr "Inteligentnô lësta graniô"
 
-#: ../xlgui/panel/playlists.py:555
+#: ../xlgui/panel/playlists.py:556
 msgid "Custom Playlists"
 msgstr "Swòjé lëstë graniô"
 
-#: ../xlgui/panel/playlists.py:590
+#: ../xlgui/panel/playlists.py:591
 msgid "Add Smart Playlist"
 msgstr "Dodôj inteligentną lëstã graniô"
 
-#: ../xlgui/panel/playlists.py:655
+#: ../xlgui/panel/playlists.py:656
 msgid "Edit Smart Playlist"
 msgstr "Editëjë inteligentną lëstã graniô"
 
@@ -1108,7 +1126,7 @@ msgid "Enter the name you want for your new playlist"
 msgstr "Wpiszë miono nowi lëstë graniô"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:146
+#: ../xlgui/panel/files.py:145
 msgid "Size"
 msgstr "Miara"
 
@@ -1238,25 +1256,25 @@ msgstr "Dzejanié"
 msgid "Shortcut"
 msgstr "Skrodzëna"
 
-#: ../xlgui/tray.py:75
-msgid "Exaile Music Player"
-msgstr "Grôcz mùzyczi Exaile"
-
-#: ../xlgui/tray.py:98 ../data/ui/main.ui.h:16
+#: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
 msgstr "Tasëjë pòsobnicã graniô"
 
-#: ../xlgui/tray.py:103 ../data/ui/main.ui.h:14
+#: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
 msgstr "Grôj lëstã graniô znowa"
 
-#: ../xlgui/tray.py:108
+#: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
 msgstr "Dodôwôj dinamiczno zblëżoné sztëczczi"
 
-#: ../xlgui/tray.py:118
+#: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
 msgstr "Rëmôj aktualny titel z lëstë graniô"
+
+#: ../xlgui/tray.py:179
+msgid "Exaile Music Player"
+msgstr "Grôcz mùzyczi Exaile"
 
 #: ../data/ui/collection_prefs_pane.ui.h:1
 msgid "(Right click to reset to defaults)"
@@ -1294,11 +1312,7 @@ msgstr "Wëczëszczë lëstã graniô"
 msgid "Click to view Queue"
 msgstr "Klëkni bë wëskrzënic żdającé"
 
-#: ../data/ui/main.ui.h:6
-msgid "Dynamically add similar tracks to the playlist"
-msgstr "Dodôj dinamiczno zblëżoné title do lëstë graniô"
-
-#: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:210
+#: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
 msgid "Next Track"
 msgstr "Pòstãpny titel"
 
@@ -1310,7 +1324,7 @@ msgstr "Òtemkni _URL"
 msgid "Page 1"
 msgstr "Starna 1"
 
-#: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:208
+#: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:216
 msgid "Previous Track"
 msgstr "Pòprzédny titel"
 
@@ -1873,33 +1887,33 @@ msgstr "Numer diskù"
 msgid "Play count"
 msgstr "Rechòwnik graniô"
 
-#: ../plugins/daapclient/__init__.py:163
+#: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:209
+#: ../plugins/daapclient/__init__.py:207
 msgid "Enter IP address and port for share"
 msgstr "Wpiszë adresã IP ë pòrt ùprzëstãpnianiô"
 
-#: ../plugins/daapclient/__init__.py:210
+#: ../plugins/daapclient/__init__.py:208
 msgid "Enter IP address and port."
 msgstr "Wpiszë adresã IP ë pòrt."
 
-#: ../plugins/daapclient/__init__.py:380
+#: ../plugins/daapclient/__init__.py:376
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:459
+#: ../plugins/daapclient/__init__.py:455
 msgid "Disconnect"
 msgstr "Òdłączë"
 
-#: ../plugins/daapclient/__init__.py:477
+#: ../plugins/daapclient/__init__.py:473
 msgid "Select a save location"
 msgstr "Wëbierzë pòłożenié zapisëwaniô"
 
-#: ../plugins/daapclient/__init__.py:527
+#: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
 msgstr "Sparłãczë z DAAP..."
 
@@ -1980,6 +1994,19 @@ msgstr "Ni mòże òdczëtac listwë czëcô."
 msgid "Moodbar executable is not available."
 msgstr "Wëkònëwólny lopk listwé czëcô nie je przëstãpny."
 
+#: ../plugins/droptrayicon/__init__.py:267
+#: ../plugins/droptrayicon/drop_target_window.ui.h:1
+msgid "Drop to Choose"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:270
+msgid "Append and Play"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:272
+msgid "Append"
+msgstr ""
+
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
@@ -2014,43 +2041,43 @@ msgstr "Òtemkni podcast"
 msgid "Loading %s..."
 msgstr "Ladowanié %s..."
 
-#: ../plugins/podcasts/__init__.py:184
+#: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
 msgstr "Fela czëtaniô podcasta"
 
-#: ../plugins/podcasts/__init__.py:200
+#: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
 msgstr "Ladowanié podcastów"
 
-#: ../plugins/podcasts/__init__.py:231
+#: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
 msgstr "Ni mòże zapisac lopka podcasta"
 
-#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:157
-#: ../plugins/shoutcast/__init__.py:200 ../plugins/shoutcast/__init__.py:236
+#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
+#: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
 msgstr "Parłãczenié z serwerã Shoutcast ..."
 
-#: ../plugins/shoutcast/__init__.py:113 ../plugins/shoutcast/__init__.py:117
-#: ../plugins/shoutcast/__init__.py:166 ../plugins/shoutcast/__init__.py:170
-#: ../plugins/shoutcast/__init__.py:214 ../plugins/shoutcast/__init__.py:219
-#: ../plugins/shoutcast/__init__.py:247 ../plugins/shoutcast/__init__.py:252
+#: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
+#: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
+#: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
+#: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
 msgstr "Fela parłãczenia z serwerã Shoutcastów"
 
-#: ../plugins/shoutcast/__init__.py:272
+#: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
 msgstr "Wpiszë szëkóné kluczowé słowò"
 
-#: ../plugins/shoutcast/__init__.py:273
+#: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
 msgstr "Szëkba w Shoutcast"
 
-#: ../plugins/shoutcast/__init__.py:296
+#: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
 msgstr "Skùtczi szëkbë"
 
-#: ../plugins/shoutcast/__init__.py:329
+#: ../plugins/shoutcast/__init__.py:345
 msgid "Search"
 msgstr "Szëkba"
 
@@ -2079,11 +2106,11 @@ msgstr "Wëskrzëni kònsolã IPython"
 msgid "IPython Console"
 msgstr "Kònsola IPython"
 
-#: ../plugins/minimode/__init__.py:214
+#: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
 msgstr "Zatrzëmôj granié"
 
-#: ../plugins/minimode/__init__.py:218
+#: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
 msgstr "Doprowôdzë przédné òkno nazôd"
 
@@ -2152,26 +2179,21 @@ msgstr "$title grô $artist"
 msgid "$title ($length)"
 msgstr "$title ($length)"
 
-#: ../plugins/minimode/mmwidgets.py:156 ../plugins/minimode/mmwidgets.py:170
+#: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
 msgstr "Naczni granié"
 
-#: ../plugins/minimode/mmwidgets.py:174
+#: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
 msgstr "Biéj dali z graniém"
 
-#: ../plugins/minimode/mmwidgets.py:177
+#: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
 msgstr "Wstrzëmôj granié"
 
-#: ../plugins/minimode/mmwidgets.py:837
+#: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
 msgstr "Przewijanié: "
-
-#. TRANSLATORS: String multiple tag values will be joined by
-#: ../plugins/minimode/mmwidgets.py:937
-msgid " & "
-msgstr " & "
 
 #: ../plugins/contextinfo/__init__.py:1047
 #: ../plugins/contextinfo/context.ui.h:1
@@ -2838,8 +2860,8 @@ msgid "Displays the current album cover on the desktop"
 msgstr "Wëskrzëniô òbkłôdkã grónegò albùmù na pùlce."
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
-msgid "Last.fm Dynamic Search"
-msgstr "Dinamicznô szëkba w Last.fm"
+msgid "Last.fm Dynamic Playlists"
+msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
@@ -2856,6 +2878,17 @@ msgid ""
 msgstr ""
 "Zmieniô standardową listwą pòkrokù na listwã czëców.\n"
 "Zanóléżnota: moodbar"
+
+#: ../plugins/droptrayicon/PLUGININFO:3
+msgid "Drop Trayicon"
+msgstr ""
+
+#: ../plugins/droptrayicon/PLUGININFO:4
+msgid ""
+"Provides an alternative trayicon which accepts dropped files.\n"
+"\n"
+"Depends: python-eggtrayicon"
+msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
@@ -3051,6 +3084,9 @@ msgstr ""
 
 #~ msgid "Bitrate:"
 #~ msgstr "Chùtkòsc transmisëji:"
+
+#~ msgid "Last.fm Dynamic Search"
+#~ msgstr "Dinamicznô szëkba w Last.fm"
 
 #~ msgid "Location:"
 #~ msgstr "Lokalizacëjô:"

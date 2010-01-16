@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2009-12-19 09:48+0000\n"
-"Last-Translator: Bondar Ye. <Unknown>\n"
+"PO-Revision-Date: 2010-01-06 18:14+0000\n"
+"Last-Translator: Denis <Unknown>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-12-20 04:34+0000\n"
+"X-Launchpad-Export-Date: 2010-01-07 04:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -129,7 +129,7 @@ msgstr "Завантажувати згорнутим (до трею, якщо �
 
 #: ../xl/main.py:345
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Змінити видимість графічного інтерфейса користувача (якщо можливо)"
 
 #: ../xl/main.py:347
 msgid ""
@@ -141,14 +141,15 @@ msgstr ""
 #: ../xl/main.py:350
 msgid "Force import of old data from 0.2.x. Overwrites current data."
 msgstr ""
+"Примусово імпортувати старі дані з версії 0.2.x. Перезаписати поточні дані."
 
 #: ../xl/main.py:353
 msgid "Do not import old data from 0.2.x."
-msgstr ""
+msgstr "Не імпортувати старі дані з версії 0.2.x"
 
 #: ../xl/main.py:358
 msgid "Development/Debug options"
-msgstr ""
+msgstr "Опції розробки/налагодження"
 
 #: ../xl/main.py:359
 msgid "Set data directory"
@@ -378,7 +379,7 @@ msgstr "Дата"
 
 #: ../xlgui/properties.py:45
 msgid "Arranger"
-msgstr ""
+msgstr "Аранжувальник"
 
 #: ../xlgui/properties.py:46
 msgid "Conductor"
@@ -429,7 +430,7 @@ msgstr "Заголовок"
 
 #: ../xlgui/properties.py:55
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../xlgui/properties.py:56 ../xlgui/plcolumns.py:168
 #: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:164
@@ -448,7 +449,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:59
 msgid "Organization"
-msgstr ""
+msgstr "Організація"
 
 #: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:134
 msgid "Disc"
@@ -495,7 +496,7 @@ msgstr "Розташування"
 
 #: ../xlgui/properties.py:67
 msgid "Modified"
-msgstr ""
+msgstr "Змінено"
 
 #: ../xlgui/properties.py:69
 msgid "Times Played"
@@ -503,7 +504,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:70
 msgid "Last Played"
-msgstr ""
+msgstr "Востаннє відтворювалося"
 
 #: ../xlgui/properties.py:216
 #, python-format
@@ -512,7 +513,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
-msgstr ""
+msgstr "Закрити без застосування змін в тегах?"
 
 #: ../xlgui/properties.py:655
 msgid "of"
@@ -835,7 +836,7 @@ msgstr ""
 
 #: ../xlgui/guiutil.py:439
 msgid "Full Volume"
-msgstr ""
+msgstr "Повна гучність"
 
 #: ../xlgui/guiutil.py:729
 #, python-format
@@ -845,7 +846,7 @@ msgstr "%(playlist_count)d показано, %(collection_count)d у колек�
 #: ../xlgui/guiutil.py:742
 #, python-format
 msgid "(%d queued)"
-msgstr ""
+msgstr "(%d поставлено в чергу)"
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
@@ -1134,7 +1135,7 @@ msgstr "Розмір"
 #: ../xlgui/panel/files.py:413
 #, python-format
 msgid "%d KB"
-msgstr ""
+msgstr "%d кБ"
 
 #: ../xlgui/panel/collection.py:140
 msgid ""
@@ -1189,7 +1190,7 @@ msgstr ""
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Скинути до типових"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"

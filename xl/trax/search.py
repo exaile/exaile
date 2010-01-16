@@ -80,7 +80,7 @@ class _ExactMatcher(_Matcher):
             try:
                 newvalue = float(value)
                 newcontent = float(self.content)
-            except TypeError:
+            except (TypeError, ValueError):
                 newvalue = value
                 newcontent = self.content
         else:

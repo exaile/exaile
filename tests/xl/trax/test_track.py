@@ -69,7 +69,7 @@ class Test_MetadataCacher(unittest.TestCase):
     def test_remove(self):
         timeout_id = 1
         self.mox.StubOutWithMock(gobject, 'timeout_add_seconds')
-        gobject.timeout_add(
+        gobject.timeout_add_seconds(
                 self.TIMEOUT,
                 mox.IsA(types.MethodType)).AndReturn(timeout_id)
 

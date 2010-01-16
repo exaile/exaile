@@ -1059,6 +1059,7 @@ class SmartPlaylist(object):
 
         search_string = self._create_search_string()
 
+        print search_string
 
         matcher = trax.TracksMatcher(search_string)
         trs = [ t.track for t in trax.search_tracks(collection, [matcher]) ]
@@ -1068,8 +1069,9 @@ class SmartPlaylist(object):
             sort_field = ('artist', 'date', 'album', 'discnumber',
                     'tracknumber', 'title')
             trs = trax.sort_tracks(sort_field, trs)
-        if len(trs) > self.track_count:
+        if self.track_count > 0 and len(trs) > self.track_count:
             trs=trs[:self.track_count]
+
 
         pl = Playlist(name=self.get_name())
         pl.add_tracks(trs)

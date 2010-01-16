@@ -51,17 +51,22 @@ class _Matcher(object):
         vals = srtrack.track.get_tag_search(self.tag, format=False)
         if vals == '__null__':
             vals = None
-        if type(vals) != list:
-            vals = [vals]
-        for item in vals:
-            try:
-                item = self.lower(item)
-            except:
-                pass
-            if self._matches(item):
+        if self.tag.startswith("__"):
+            if self._matches(vals):
                 return True
-        else:
             return False
+        else:
+            if type(vals) != list:
+                vals = [vals]
+            for item in vals:
+                try:
+                    item = self.lower(item)
+                except:
+                    pass
+                if self._matches(item):
+                    return True
+            else:
+                return False
 
     def _matches(self, value):
         raise NotImplementedError
@@ -71,7 +76,17 @@ class _ExactMatcher(_Matcher):
         Condition for exact matches
     """
     def _matches(self, value):
-        return value == self.content
+        if self.tag.startswith("__"):
+            try:
+                newvalue = float(value)
+                newcontent = float(self.content)
+            except TypeError:
+                newvalue = value
+                newcontent = self.content
+        else:
+            newvalue = value
+            newcontent = self.content
+        return newvalue == newcontent
 
 class _InMatcher(_Matcher):
     """
@@ -84,6 +99,30 @@ class _InMatcher(_Matcher):
             return self.content in value
         except TypeError:
             return False
+
+class _GtMatcher(_Matcher):
+    """
+        Condition for greater than matches.
+    """
+    def _matches(self, value):
+        try:
+            value = float(value)
+            content = float(self.content) # kinda inefficient
+        except TypeError:
+            return False
+        return value > content
+
+class _LtMatcher(_Matcher):
+    """
+        Condition for less than matches.
+    """
+    def _matches(self, value):
+        try:
+            value = float(value)
+            content = float(self.content) # kinda inefficient
+        except TypeError:
+            return False
+        return value < content
 
 class _NotMetaMatcher(object):
     """
@@ -235,6 +274,10 @@ class TracksMatcher(object):
                 lower = lambda x: x.lower()
             else:
                 lower = lambda x: x
+
+            # TODO: this stuff is kinda repetitive, can we consolidate
+            # it? Maybe move some of this into the matcher classes?
+
             # exact match in tag
             if "==" in token:
                 tag, content = token.split("==", 1)
@@ -250,6 +293,18 @@ class TracksMatcher(object):
                 tag, content = token.split("=", 1)
                 content = content.strip().strip('"')
                 matcher = _InMatcher(tag, lower(content), lower)
+                matchers.append(matcher)
+
+            elif ">" in token:
+                tag, content = token.split(">", 1)
+                content = content.strip().strip('"')
+                matcher = _GtMatcher(tag, lower(content), lower)
+                matchers.append(matcher)
+
+            elif "<" in token:
+                tag, content = token.split("<", 1)
+                content = content.strip().strip('"')
+                matcher = _LtMatcher(tag, lower(content), lower)
                 matchers.append(matcher)
 
             # plain keyword

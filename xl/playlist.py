@@ -117,13 +117,18 @@ def import_from_m3u(path):
                 line = os.path.join(os.path.dirname(path), line)
             current = trax.Track(line)
 
-            comma_separated = current_extinf[8:].split(",", 1)
-            title = comma_separated[-1]
-            if len(comma_separated) > 1:
-                length = float(comma_separated[0])
-                if length < 1:
+            if current_extinf:
+                comma_separated = current_extinf[8:].split(",", 1)
+                title = comma_separated[-1]
+                if len(comma_separated) > 1:
+                    length = float(comma_separated[0])
+                    if length < 1:
+                        length = 0
+                else:
                     length = 0
+                current_extinf = None
             else:
+                title = None
                 length = 0
             current.set_tag_raw('title', title)
             current.set_tag_raw('__length', length)

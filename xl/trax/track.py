@@ -579,7 +579,7 @@ class Track(object):
                 retval = self.__tags.get('artist')
         elif tag in ('tracknumber', 'discnumber'):
             retval = self.split_numerical(self.__tags.get(tag))[0]
-        elif tag in ('__length', '__playcount'):
+        elif tag in ('__length', '__playcount', '__rating'):
             retval = self.__tags.get(tag, 0)
         elif tag == '__bitrate':
             try:

@@ -63,7 +63,8 @@ class SpinSecondsField(filtergui.SpinLabelField):
 
 class SpinRating(filtergui.SpinLabelField):
     def __init__(self):
-        filtergui.SpinLabelField.__init__(self, '', 8, -8)
+        filtergui.SpinLabelField.__init__(self, '', 
+                settings.get_option("miscellaneous/rating_steps", 5), 0)
 
 class SpinNothing(filtergui.SpinLabelField):
     def __init__(self):

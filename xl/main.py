@@ -213,8 +213,8 @@ class Exaile(object):
                 gobject.idle_add(self.splash.destroy)
             event.log_event("gui_loaded", self, None)
 
-        self.queue._restore_player_state(
-                os.path.join(xdg.get_data_dirs()[0], 'player.state'))
+
+        restore = True
 
         if self.gui:
             # Find out if the user just passed in a list of songs
@@ -222,9 +222,14 @@ class Exaile(object):
             # using arg[2:] because arg[1:] will include --startgui
             args = [ os.path.abspath(arg) for arg in self.args ]
             if len(args) > 0:
+                restore = False
                 self.gui.open_uri(args[0], play=True)
             for arg in args[1:]:
                 self.gui.open_uri(arg)
+
+        if restore:
+            self.queue._restore_player_state(
+                    os.path.join(xdg.get_data_dirs()[0], 'player.state'))
 
         if firstrun:
             settings.set_option("general/first_run", False)

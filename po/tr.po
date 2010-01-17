@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-10 18:33+0000\n"
-"Last-Translator: shabull <Unknown>\n"
+"PO-Revision-Date: 2010-01-16 11:21+0000\n"
+"Last-Translator: Selim Sercan Suerkan <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-11 04:54+0000\n"
+"X-Launchpad-Export-Date: 2010-01-17 04:45+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -268,7 +268,7 @@ msgstr "Bilinmeyen"
 #: ../xl/track.py:424 ../xl/trackformatter.py:110
 #: ../plugins/minimode/mmwidgets.py:1004
 msgid " & "
-msgstr ""
+msgstr " & "
 
 #: ../xl/track.py:584
 msgid "  New song, fetching cover."
@@ -297,7 +297,7 @@ msgstr "Dün"
 #: ../plugins/minimode/mmwidgets.py:1091
 #, python-format
 msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr ""
+msgstr "%(year)d-%(month)02d-%(day)02d"
 
 #: ../xl/settings.py:94
 msgid "Settings version is newer than current."
@@ -339,6 +339,8 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"durum: %(status)s, başlık: %(title)s, sanatçı: %(artist)s, albüm: %(album)s, "
+"uzunluk: %(length)s, :dinlenilen %(progress)s%% [%(position)s]"
 
 #: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
@@ -509,7 +511,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
-msgstr ""
+msgstr "Başlıklardaki değişiklikler uygulanmadan kapatılsın mı?"
 
 #: ../xlgui/properties.py:655
 msgid "of"
@@ -517,7 +519,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Bütün parçalara bu değeri uygula"
 
 #: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
 #: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
@@ -526,7 +528,7 @@ msgstr "Çalmıyor"
 
 #: ../xlgui/main.py:130 ../plugins/minimode/mmwidgets.py:822
 msgid "Streaming..."
-msgstr ""
+msgstr "Yayın alınıyor..."
 
 #: ../xlgui/main.py:214
 msgid "Close tab"
@@ -554,7 +556,7 @@ msgstr ""
 
 #: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Çalma listesine benzer parça ekle"
 
 #: ../xlgui/main.py:706
 msgid "Requires plugins providing dynamic playlists"
@@ -609,7 +611,7 @@ msgstr ""
 #: ../xlgui/main.py:1231
 #, python-format
 msgid "from %s"
-msgstr ""
+msgstr "%s albümünden"
 
 #: ../xlgui/main.py:1242
 #, python-format
@@ -701,7 +703,7 @@ msgstr "Aç"
 
 #: ../xlgui/menu.py:393
 msgid "Rename"
-msgstr ""
+msgstr "Yeniden Adlandır"
 
 #: ../xlgui/menu.py:395
 msgid "Edit"
@@ -838,7 +840,7 @@ msgstr "Son Ses"
 #: ../xlgui/guiutil.py:729
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr ""
+msgstr "%(collection_count)d koleksiyonunda %(playlist_count)d oynatılıyor."
 
 #: ../xlgui/guiutil.py:742
 #, python-format
@@ -1008,14 +1010,14 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:86 ../xlgui/panel/playlists.py:92
 #: ../xlgui/panel/playlists.py:137 ../xlgui/panel/playlists.py:145
 msgid "contains"
-msgstr ""
+msgstr "içeren"
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:81
 #: ../xlgui/panel/playlists.py:87 ../xlgui/panel/playlists.py:93
 #: ../xlgui/panel/playlists.py:138 ../xlgui/panel/playlists.py:146
 msgid "does not contain"
-msgstr ""
+msgstr "içermeyen"
 
 #: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:152
 msgid "greater than"
@@ -1098,7 +1100,7 @@ msgstr "Akıllı Çalma Listesi Düzenle"
 #: ../xlgui/panel/radio.py:108 ../xlgui/panel/radio.py:466
 #: ../xlgui/panel/radio.py:542
 msgid "Loading streams..."
-msgstr ""
+msgstr "Yayınlar yükleniyor"
 
 #: ../xlgui/panel/radio.py:178
 msgid "Add Radio Station"
@@ -1187,7 +1189,7 @@ msgstr ""
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Öntanımlı ayarlara dön"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"
@@ -1221,6 +1223,8 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Eklenti etkinleştirilemedi:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
@@ -1228,6 +1232,8 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Eklenti devre dışı bırakılamadı:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
@@ -1247,7 +1253,7 @@ msgstr "Seçili ögeyi aşağı taşı"
 
 #: ../xlgui/prefs/widgets.py:555
 msgid "Action"
-msgstr ""
+msgstr "Eylem"
 
 #: ../xlgui/prefs/widgets.py:563
 msgid "Shortcut"
@@ -1307,7 +1313,7 @@ msgstr "Parça Listesini Temizle"
 
 #: ../data/ui/main.ui.h:5
 msgid "Click to view Queue"
-msgstr ""
+msgstr "Parça sırasını görmek için tıklayın"
 
 #: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
 msgid "Next Track"
@@ -1327,7 +1333,7 @@ msgstr "Önceki Parça"
 
 #: ../data/ui/main.ui.h:12
 msgid "Randomize the order of the current playlist"
-msgstr ""
+msgstr "Parça listesinin düzenini rastgele karıştır."
 
 #: ../data/ui/main.ui.h:13
 msgid "Re_scan Collection"
@@ -1696,7 +1702,7 @@ msgstr "ALSA"
 
 #: ../data/ui/playback_prefs_pane.ui.h:2
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Ses Alıcı:  "
 
 #: ../data/ui/playback_prefs_pane.ui.h:4
 msgid "Crossfade duration (ms):"
@@ -1732,11 +1738,11 @@ msgstr "PulseAudio"
 
 #: ../data/ui/playback_prefs_pane.ui.h:12
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Durdurulanı çalmaya devam et"
 
 #: ../data/ui/playback_prefs_pane.ui.h:13
 msgid "Resume playback on start"
-msgstr ""
+msgstr "Çalmaya başla"
 
 #: ../data/ui/playback_prefs_pane.ui.h:14
 msgid "These options only affect the unified engine."
@@ -1778,15 +1784,15 @@ msgstr "Müzik ekle"
 
 #: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
-msgstr ""
+msgstr "Sanatçı - Yıl - Albüm"
 
 #: ../data/ui/collection_panel.ui.h:7
 msgid "Genre - Album"
-msgstr ""
+msgstr "Tür - Albüm"
 
 #: ../data/ui/collection_panel.ui.h:8
 msgid "Genre - Artist"
-msgstr ""
+msgstr "Tür - Sanatçı"
 
 #: ../data/ui/collection_panel.ui.h:9
 msgid ""
@@ -1802,7 +1808,7 @@ msgstr "Yıl - Albüm"
 
 #: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Artist"
-msgstr ""
+msgstr "Yıl - Sanatçı"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:1
 msgid "Always show tab bar"
@@ -1846,7 +1852,7 @@ msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.ui.h:12
 msgid "Use alpha transparency (if supported)"
-msgstr ""
+msgstr "Alfa şeffaflığını kullan (Eğer destekleniyorsa)"
 
 #: ../plugins/multialarmclock/__init__.py:412
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -1923,7 +1929,7 @@ msgstr "Bağlantıyı Kes"
 
 #: ../plugins/daapclient/__init__.py:473
 msgid "Select a save location"
-msgstr ""
+msgstr "Kayıt yeri belirtin"
 
 #: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
@@ -1979,7 +1985,7 @@ msgstr "Yazar %(artist)s"
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "Albüm %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
@@ -1988,7 +1994,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.py:21 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "Masaüstü Albüm Kapakları"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
@@ -2004,7 +2010,7 @@ msgstr ""
 
 #: ../plugins/moodbar/__init__.py:497
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Moodbar çalıştırılabilir değil."
 
 #: ../plugins/droptrayicon/__init__.py:267
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
@@ -2244,11 +2250,11 @@ msgstr "Alarm:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:5
 msgid "Enable Fading"
-msgstr ""
+msgstr "Solmayı aktif et"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:7
 msgid "Fading:"
-msgstr ""
+msgstr "Solma"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:8
 #: ../plugins/alarmclock/acprefs_pane.ui.h:3
@@ -2451,6 +2457,8 @@ msgstr ""
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
+"Yer imleri menüsünde kullanılan albüm kapakları (Bir sonraki açılışta aktif "
+"olacak)"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Advanced"
@@ -2526,19 +2534,19 @@ msgstr "<b>Simgeler</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "Album Line:"
-msgstr ""
+msgstr "Albüm Satırı:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "Artist Line:"
-msgstr ""
+msgstr "Sanatçı Satırı:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "On Playback Start, Pause or Stop"
-msgstr ""
+msgstr "Oynatmayı Başlat, Duraklat veya Durdur"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "On Track Change"
-msgstr ""
+msgstr "Parça Değişikliği"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "On Tray Icon Hover"
@@ -2555,6 +2563,8 @@ msgid ""
 "by their respective values. The title will be replaced by \"Unknown\" if it "
 "is empty."
 msgstr ""
+"\"%(title)s\", \"%(artist)s\", and \"%(album)s\" etiketleri kendi değerleri "
+"ile değişecek. Eğer başlık boş bırakılırsa \"Bilinmeyen\" olacak."
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 msgid "Use Album Covers As Icons"
@@ -2562,7 +2572,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr ""
+msgstr "Duraklatmak, Durdurmak ve Oynatmak için Medya Simgelerini Kullan"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "When GUI is Focused"
@@ -2581,6 +2591,8 @@ msgid ""
 "To sign up for an Amazon AWS account and get \n"
 "this information visit http://aws.amazon.com/"
 msgstr ""
+"Bir Amazon AWS hesabı aç ve bilgi için\n"
+"http://aws.amazon.com/ ziyaret edin."
 
 #: ../plugins/desktopcover/prefs.ui.h:1
 msgid "Anchor:"

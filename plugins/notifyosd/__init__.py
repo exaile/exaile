@@ -67,7 +67,7 @@ class ExaileNotifyOsd(object):
         if not track:
             return
         title = track.get_tag_display('title')
-        artist = track.get_tag_display('artist')
+        artist = track.get_tag_display('artist', artist_compilations=False)
         album = track.get_tag_display('album')
         # Find the icon we will use
         icon_allowed = False

@@ -62,7 +62,7 @@ class ExaileNotification(object):
 
         '''
         title = track.get_tag_display('title')
-        artist = track.get_tag_display('artist')
+        artist = track.get_tag_display('artist', artist_compilations=False)
         album = track.get_tag_display('album')
         if artist and album:
             body_format = self.body_artistalbum

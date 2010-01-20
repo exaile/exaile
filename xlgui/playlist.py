@@ -326,8 +326,10 @@ class Playlist(gtk.VBox):
         """
             Called when someone removes tracks from the contained playlist
         """
-        removed = info[2]
-        self.remove_tracks(removed)
+        start = info[0]
+        end = info[1]
+        paths = [(x,) for x in range(start, end+1)]
+        self.remove_rows(iters, playlist=False)
 
     def on_add_tracks(self, type, playlist, trs, scroll=False):
         """
@@ -750,51 +752,40 @@ class Playlist(gtk.VBox):
             self.model.remove(iter)
 
     def remove_selected_tracks(self):
-        self.remove_tracks(self.get_selected_tracks())
+        selection = self.list.get_selection()
+        (model, paths) = selection.get_selected_rows()
+        self.remove_rows(paths)
 
-    def remove_tracks(self, trs):
-        event.remove_callback(self.on_remove_tracks, 'tracks_removed',
-            self.playlist)
+    def remove_rows(self, paths, playlist=True):
+        if playlist:
+            event.remove_callback(self.on_remove_tracks, 'tracks_removed',
+                    self.playlist)
+            # Make sure the callback actually gets removed before proceeding
+            event.wait_for_pending_events()
+            ranges = []
+            curstart = paths[0][0]
+            last = curstart
+            for i in paths[1:]:
+                val = i[0]
+                if val == last+1:
+                    last += 1
+                    continue
+                else:
+                    ranges.append((curstart, last))
+                    curstart = val
+                    last = val
+            ranges.append((curstart, last))
+            for start, end in ranges:
+                self.playlist.remove_tracks(start, end)
+            gobject.idle_add(event.add_callback, self.on_remove_tracks,
+                'tracks_removed', self.playlist)
 
-        # Make sure the callback actually gets removed before proceeding
-        event.wait_for_pending_events()
-        trs = set(trs) # for faster traversing
-
-        rows = []
-        iter = self.model.get_iter_first()
-        while iter:
-            value = self.model.get_value(iter, 0)
-            if value in trs: rows.append(iter)
-            iter = self.model.iter_next(iter)
-
-        nextrow = None
-        lastindex = 0
-
-        if rows:
-            nextrow = self.model.iter_next(rows[-1])
-            if nextrow is not None:
-                lastindex = self.playlist.index(self.model.get_value(rows[-1], 0))
-
-        for row in rows:
-            track = self.model.get_value(row, 0)
-            try:
-                self.playlist.remove(self.playlist.index(track))
-            except ValueError:
-                # track has already been removed from the playlist
-                pass
+        iters = [self.model.get_iter(x) for x in paths]
+        for row in iters:
             self.model.remove(row)
 
-        nextindex = lastindex - len(rows)
+        self.list.set_cursor(start)
 
-        if nextrow is not None:
-            nexttrack = self.model.get_value(nextrow, 0)
-            nextindex = self.playlist.index(nexttrack)
-
-        if nextindex > 0:
-            self.list.set_cursor(lastindex - len(rows))
-
-        gobject.idle_add(event.add_callback, self.on_remove_tracks,
-            'tracks_removed', self.playlist)
         self.emit('track-count-changed', len(self.playlist))
         self.set_needs_save(True)
 
@@ -1018,11 +1009,12 @@ class Playlist(gtk.VBox):
         """
             Sets track status (playing/paused/queued) icon
         """
-
+        path = model.get_path(iter)
         item = model.get_value(iter, 0)
         image = None
 
-        if item == self.player.current:
+        if path[0] == self.playlist.get_current_pos():
+#        if item == self.player.current:
             if self.player.is_playing():
                 image = self.playimg
             elif self.player.is_paused():
@@ -1051,6 +1043,9 @@ class Playlist(gtk.VBox):
             Sets a CellRendererText's "weight" property according to whether
             `item` is the currently playing track.
         """
+        # Doesn't play well with multiple track instances
+        # as the passed-in information doesn't let us get the index,
+        # which we need to discriminate among instances.
         if item == self.player.current:
             weight = pango.WEIGHT_HEAVY
         else:

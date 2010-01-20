@@ -260,7 +260,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
     def drag_get_data(self, w, context, selection, target_id, etime):
         tracks = self.get_selected_tracks()
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
         urls = guiutil.get_urls_for(tracks)
         selection.set_uris(urls)
 
@@ -291,7 +291,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         selected = self.get_selected_tracks()
         pl = xlgui.controller().main.get_selected_playlist()
         if pl:
-            pl.playlist.add_tracks(selected, add_duplicates=False)
+            pl.playlist.add_tracks(selected)
 
     def _navigation_requested_cb(self, view, frame, networkRequest):
         link = self.un_url(networkRequest.get_uri()).split('://', 1)

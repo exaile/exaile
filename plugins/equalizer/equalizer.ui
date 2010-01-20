@@ -333,7 +333,7 @@
                 <child>
                   <object class="GtkLabel" id="label5">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">227</property>
+                    <property name="label" translatable="yes">237</property>
                     <property name="width_chars">4</property>
                   </object>
                   <packing>

@@ -2,19 +2,25 @@ from xl import main as ex, trax, common, event, xdg, settings, providers
 from xl.nls import gettext as _
 from xlgui import panel, guiutil, playlist, menu
 import HTMLParser
+from StringIO import StringIO
 import Image
 import base64
 import gobject
 import gtk
 import os
 import pylast
+import contextprefs
 import re
 import urllib
 import webkit
 import xlgui
 from inspector import Inspector
 
-LFM_API_KEY = '3b954460f7b207e5414ffdf8c5710592'
+# Last.fm API Key for Exaile
+# if you reuse this code in a different application, please
+# register your own key with last.fm
+LFM_API_KEY = "3599c79a97fd61ce518b75922688bc38"
+
 PANEL = None
 CURPATH = os.path.realpath(__file__)
 BASEDIR = os.path.dirname(CURPATH)+os.path.sep
@@ -32,7 +38,7 @@ class ContextPopup(menu.TrackSelectMenu):
         selected = self.widget.get_selected_tracks()
         pl = xlgui.controller().main.get_selected_playlist()
         if pl:
-            pl.playlist.add_tracks(selected, add_duplicates=False)
+            pl.playlist.add_tracks(selected)
 
     def on_queue(self, selected=None):
         """
@@ -40,9 +46,9 @@ class ContextPopup(menu.TrackSelectMenu):
         """
         selected = self.widget.get_selected_tracks()
         pl = xlgui.controller().main.get_selected_playlist()
-        ex.exaile().queue.add_tracks(selected, add_duplicates=False)
+        ex.exaile().queue.add_tracks(selected)
         if pl:
-            pl.playlist.add_tracks(selected, add_duplicates=False)
+            pl.playlist.add_tracks(selected)
             pl.list.queue_draw()
 
 class BrowserPage(webkit.WebView, providers.ProviderHandler):
@@ -334,19 +340,6 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         ex.exaile().gui.panels['collection'].filter.set_text('artist=%s' % self.hover.split('://')[1])
         ex.exaile().gui.panel_notebook.set_current_page(0)
 
-class ImageBuffer(object):
-    def __init__(self):
-        self.buffer = ""
-
-    def write(self, str):
-        self.buffer+=str
-
-    def read(self):
-        return self.buffer
-
-    def get_base64(self):
-        return base64.b64encode(self.buffer)
-
 class ContextTheme(object):
 
     LOCAL_COLORS = None
@@ -403,12 +396,23 @@ def track_in_collection(artist, title):
     else:
         return None
 
+class ImageBuffer(object):
+    def __init__(self):
+        self.buffer = ""
+    
+    def write(self, str):
+        self.buffer+=str
+        
+    def get_base64(self):
+        return base64.b64encode(self.buffer)
+
 def get_image_data(data, size):
     imbuff = ImageBuffer()
-    imbuff.write(data)
-    im = Image.open(imbuff)
+    try:
+        im = Image.open(StringIO(data))
+    except Exception:
+        im = Image.open(xdg.get_data_path('images/nocover.png'))
     im = im.resize(size, Image.ANTIALIAS)
-    imbuff = ImageBuffer()
     im.save(imbuff, "PNG")
     return 'data:image/png;base64,%s' % imbuff.get_base64()
 
@@ -588,6 +592,7 @@ class ContextPage(object):
                     track_nbr = len(ex.exaile().collection.search('album=="%s"'% cd, tracks=tracks))
                 cover = get_track_cover(tr)
                 cover_data = get_image_data(cover, (60, 60))
+                
                 html+='''<tr class="cd-tr">\
 <td><a href="album://%s"><img class="cd-img" src="%s"/></a></td>\
 <td class="cd-title-td"><a href="album://%s"><b>%s</b><br/>%s</a></td>\
@@ -658,10 +663,14 @@ class ContextPage(object):
 class DefaultPage(ContextPage):
 
     def __init__(self, theme, base='default://', template='default.html', async=[]):
+        self.user = None
         try:
-            self.username = settings.get_option('plugin/ascrobbler/user')
+            self.username = settings.get_option('plugin/lastfm/user')
+            self.password_hash = pylast.md5(settings.get_option('plugin/lastfm/password'))
         except:
             self.username = None
+            self.password_hash = None
+
         ContextPage.__init__(self, theme, base, template, async+['last-played-tracks', 'last-played-artists', 'last-added-tracks', 'last-added-artists', 'most-played-tracks', 'most-played-artists', 'lfm-last-played', 'lfm-top-tracks', 'lfm-top-albums', 'lfm-top-artists'])
 
     def _last_played_tracks_title(self):
@@ -733,39 +742,44 @@ class DefaultPage(ContextPage):
         artists = get_top_artists('__playcount', int(limit))
         return ', '.join(self.get_artist_anchor(artist) for artist in artists)
 
+    def get_lfm_user(self):
+        if not self.user:
+            self.user = pylast.User(self.username, self.password_hash, pylast.network)
+        return self.user
+
     def _lfm_last_played_title(self):
         return "Last Scrobbled Tracks"
 
     def _lfm_last_played(self, limit=10):
-        if self.username:
-            tracks = pylast.User(self.username, LFM_API_KEY, None, None).get_recent_tracks(int(limit))
-            return '<br/>'.join(self.get_track_anchor_from_artist_title(tr.get_track().get_artist(), tr.get_track().get_title()) for tr in tracks)
+        if get_lfm_user():
+            tracks = self.get_lfm_user().get_recent_tracks(int(limit))
+            return '<br/>'.join(self.get_track_anchor_from_artist_title(tr.track.get_artist(), tr.track.get_title()) for tr in tracks)
         return "Enter your username in the settings"
 
     def _lfm_top_tracks_title(self):
         return "Your Top Tracks on Last.fm"
 
     def _lfm_top_tracks(self, period='overall', limit=15):
-        if self.username:
-            tracks = pylast.User(self.username, LFM_API_KEY, None, None).get_top_tracks(period)[:int(limit)]
-            return '<br/>'.join(self.get_track_anchor_from_artist_title(tr.get_item().get_artist(), tr.get_item().get_title()) for tr in tracks)
+        if self.get_lfm_user():
+            tracks = self.get_lfm_user().get_top_tracks(period, int(limit))
+            return '<br/>'.join(self.get_track_anchor_from_artist_title(tr.track.get_artist(), tr.track.get_title()) for tr in tracks)
         return "Enter your username in the settings"
 
     def _lfm_top_artists_title(self):
         return "Your Top Artists on Last.fm"
 
     def _lfm_top_artists(self, period='overall', limit=20):
-        if self.username:
-            artists = pylast.User(self.username, LFM_API_KEY, None, None).get_top_artists(period)[:int(limit)]
-            return ', '.join(self.get_artist_anchor(artist.get_item().get_name()) for artist in artists)
+        if self.get_lfm_user():
+            artists = self.get_lfm_user().get_top_artists(period,int(limit))
+            return ', '.join(self.get_artist_anchor(artist.item.get_name()) for artist in artists)
         return "Enter your username in the settings"
 
     def _lfm_top_albums_title(self):
         return "Your Top Albums on Last.fm"
 
     def _lfm_top_albums(self, period='overall', limit=10):
-        if self.username:
-            cds = [album.get_item().get_title() for album in pylast.User(self.username, LFM_API_KEY, None, None).get_top_albums(period)[:int(limit)]]
+        if self.get_lfm_user():
+            cds = [album.get_item().get_title() for album in self.get_lfm_user().get_top_albums(period,int(limit))]
             tracks = []
             if len(cds)>0:
                 for cd in cds:
@@ -777,8 +791,14 @@ class DefaultPage(ContextPage):
 class ArtistPage(DefaultPage):
     def __init__(self, theme, artist, base = 'artist://', template ='artist.html', async=[]):
         self.artist = artist
-        self.artist_tracks = get_artist_tracks(artist)
+        self.lfm_artist = None
+
         DefaultPage.__init__(self, theme, base, template, async+['compils', 'albums', 'artist-info', 'artist-img', 'artist-tags', 'similar-artists', 'top-tracks'])
+
+    def get_lfm_artist(self):
+        if not self.lfm_artist:
+            self.lfm_artist = pylast.Artist(self.artist, pylast.network)
+        return self.lfm_artist
 
     def get_template_fields(self):
         fields = ContextPage.get_template_fields(self)
@@ -810,30 +830,36 @@ class ArtistPage(DefaultPage):
     def _artist(self):
         return self.artist
 
-    def _artist_img(self, size=pylast.IMAGE_LARGE):
+    def _artist_img(self, size=pylast.COVER_LARGE):
         try:
-            url = pylast.search_for_artist(self.artist, LFM_API_KEY, None, None).get_next_page()[0].get_image_url(size)
+            url = self.get_lfm_artist().get_cover_image(size)
             return '<img id="artist-info-img" src="%s"/>' % url
         except:
             return ''
 
     def _artist_info(self):
-        bio = pylast.search_for_artist(self.artist, LFM_API_KEY, None, None).get_next_page()[0].get_bio_summary()
-        return self.LFMInfoParser(self, str(bio), self['artist']).data
+        if self.get_lfm_artist():
+            bio = self.get_lfm_artist().get_bio_summary()
+            return self.LFMInfoParser(self, str(bio), self['artist']).data
+        return ''
 
     def _top_tracks_title(self):
         return 'Top tracks by %s' % self['artist']
 
     def _top_tracks(self, limit=10):
-        doc = pylast.search_for_artist(self['artist'],LFM_API_KEY, None, None).get_next_page()[0].get_top_tracks()[:int(limit)]
-        return '<br/>'.join(self.get_track_anchor_from_artist_title(self['artist'], tr.get_item().get_title(), img=True) for tr in doc)
+        if self.get_lfm_artist():
+            doc = self.get_lfm_artist().get_top_tracks(int(limit))
+            return '<br/>'.join(self.get_track_anchor_from_artist_title(self['artist'], tr.get_item().get_title(), img=True) for tr in doc)
+        return ''
 
     def _artist_tags_title(self):
         return "Tags for %s" % self['artist']
 
     def _artist_tags(self, limit=10):
-        doc = pylast.search_for_artist(self['artist'],LFM_API_KEY, None, None).get_next_page()[0].get_top_tags()[:int(limit)]
-        return ', '.join(self.get_tag_anchor(tag) for tag in doc)
+        if self.get_lfm_artist():
+            doc = self.get_lfm_artist().get_top_tags(int(limit))
+            return ', '.join(self.get_tag_anchor(tag.item) for tag in doc)
+        return ''
 
     def _compils_title(self):
         return "Compilations with %s"%self['artist']
@@ -847,17 +873,11 @@ class ArtistPage(DefaultPage):
     def _similar_artists_title(self):
         return "Artists related to %s" % self['artist']
 
-    def _similar_artists_images(self):
-        doc = pylast.search_for_artist(self['artist'], LFM_API_KEY, None, None)
-        temp = doc.get_next_page()[0].get_similar(10)
-        data = []
-        for art in temp:
-             data.append('<img title ="%s" src="%s"/>' % (art, pylast.Artist.get_square_image(art)))
-        return ''.join(data)
-
     def _similar_artists(self, limit=10):
-        sim_artists = pylast.search_for_artist(self['artist'], LFM_API_KEY, None, None).get_next_page()[0].get_similar(int(limit))
-        return ', '.join(self.get_artist_anchor(sim_artist) for sim_artist in sim_artists)
+        if self.get_lfm_artist():
+            sim_artists = self.get_lfm_artist().get_similar(int(limit))
+            return ', '.join(self.get_artist_anchor(sim_artist.item) for sim_artist in sim_artists)
+        return ''
 
     def _albums_title(self):
         return "Albums by %s" % self['artist']
@@ -913,7 +933,14 @@ class TagPage(DefaultPage):
 
     def __init__(self, theme, tag, base='tag://', template='tag.html', async=[]):
         self.tag = tag
+        self.lfm_tag = None
+
         DefaultPage.__init__(self, theme, base, template, async+['similar-tags', 'top-artists', 'tag-top-tracks', 'tag-top-albums'])
+        
+    def get_lfm_tag(self):
+        if not self.lfm_tag:
+            self.lfm_tag = pylast.Tag(self.tag, pylast.network)
+        return self.lfm_tag
 
     def _tag(self):
         return self.tag
@@ -922,36 +949,50 @@ class TagPage(DefaultPage):
         return "Tags similar to %s" % self['tag']
 
     def _similar_tags(self):
-        tags = pylast.search_for_tag(self.tag, LFM_API_KEY, None, None).get_next_page()[0].get_similar()
-        return ', '.join(self.get_tag_anchor(tag) for tag in tags[:20])
+        if self.get_lfm_tag():
+            tags = self.get_lfm_tag().get_similar()
+            return ', '.join(self.get_tag_anchor(tag) for tag in tags[:20])
+        return ''
 
     def _top_artists_title(self):
         return "Top %s artists" % self.tag
 
     def _top_artists(self):
-        artists = pylast.search_for_tag(self.tag, LFM_API_KEY, None, None).get_next_page()[0].get_top_artists()
-        return ', '.join(self.get_artist_anchor(artist.get_item().get_name()) for artist in artists[:20])
+        if self.get_lfm_tag():
+            artists = self.get_lfm_tag().get_top_artists()
+            return ', '.join(self.get_artist_anchor(artist.item) for artist in artists[:20])
+        return ''
 
     def _tag_top_tracks_title(self):
         return "Top %s tracks" % self.tag
 
     def _tag_top_tracks(self):
-        tracks = pylast.search_for_tag(self.tag, LFM_API_KEY, None, None).get_next_page()[0].get_top_tracks()
-        return '<br/>'.join(self.get_track_anchor_from_artist_title(track.get_item().get_artist(), track.get_item().get_title()) for track in tracks[:15])
+        if self.get_lfm_tag():
+            tracks = self.get_lfm_tag().get_top_tracks()
+            return '<br/>'.join(self.get_track_anchor_from_artist_title(track.item.get_artist(), track.item.get_title()) for track in tracks[:15])
+        return ''
 
     def _tag_top_albums_title(self):
         return "Top %s albums" % self.tag
 
     def _tag_top_albums(self):
-        albums = pylast.search_for_tag(self.tag, LFM_API_KEY, None, None).get_next_page()[0].get_top_albums()
-        return '<br/>'.join("%s %s"%(self['album-ico'],self.get_album_anchor_from_artist_title(album.get_item().get_artist(), album.get_item().get_title())) for album in albums[:15])
+        if self.get_lfm_tag():
+            albums = self.get_lfm_tag().get_top_albums()
+            return '<br/>'.join("%s %s"%(self['album-ico'],self.get_album_anchor_from_artist_title(album.item.get_artist(), album.item.get_name())) for album in albums[:15])
+        return ''
 
 class PlayingPage(ArtistPage):
 
     def __init__(self, theme, track, base='playing://', template='playing.html', async=[]):
         self.track = track
+        self.lfm_track = None
         ArtistPage.__init__(self, theme, get_track_tag(self.track, 'artist', 'unknown'),base, template, async+['track-tags', 'suggested-tracks', 'similar-tracks', 'lyrics'])
         event.add_callback(self.refresh_rating, 'rating_changed')
+
+    def get_lfm_track(self):
+        if not self.lfm_track:
+            self.lfm_track = pylast.Track(get_track_tag(self.track, 'artist', 'unknown'), get_track_tag(self.track, 'title', 'unknown'), pylast.network)
+        return self.lfm_track
 
     def link_clicked(self, link):
         if link[0] == 'rate':
@@ -969,9 +1010,9 @@ class PlayingPage(ArtistPage):
         return get_track_tag(self.track, 'album', 'unknown')
 
     def _track_cover(self):
-        coverpath = get_track_cover(self.track)
-        cover = get_image_data(coverpath, (100, 100))
-        return "<a id='cover-image' href='%s'><img src='%s'></a>" % (self.get_album_href(self['album']), cover)
+        cover = get_track_cover(self.track)
+        cover_data = get_image_data(cover, (100, 100))
+        return "<a id='cover-image' href='%s'><img src='%s'></a>" % (self.get_album_href(self['album']), cover_data)
 
     def _playcount(self):
         try:
@@ -1008,9 +1049,11 @@ class PlayingPage(ArtistPage):
     def _track_tags_title(self):
         return "Tags for %s" % self['title']
 
-    def _track_tags(self):
-        tags = pylast.search_for_track(self['artist'], self['title'], LFM_API_KEY, None, None).get_next_page()[0].get_top_tags()
-        return ', '.join(self.get_tag_anchor(tag) for tag in tags)
+    def _track_tags(self, limit=10):
+        if self.get_lfm_track():
+            tags = self.get_lfm_track().get_top_tags(limit)
+            return ', '.join(self.get_tag_anchor(tag.item) for tag in tags)
+        return ''
 
     def _suggested_tracks_title(self):
         return "Suggested tracks for %s" % self['title']
@@ -1023,8 +1066,10 @@ class PlayingPage(ArtistPage):
         return 'Tracks similar to %s' % self['title']
 
     def _similar_tracks(self, limit=10):
-        doc = pylast.search_for_track(self['artist'], self['title'],LFM_API_KEY, None, None).get_next_page()[0].get_similar()[:int(limit)]
-        return '<br/>'.join(self.get_track_anchor_from_artist_title(str(tr.get_artist()), str(tr.get_title()), img=True) for tr in doc)
+        if self.get_lfm_track():
+            doc = self.get_lfm_track().get_similar(int(limit))
+            return '<br/>'.join(self.get_track_anchor_from_artist_title(str(tr.get_artist()), str(tr.get_title()), img=True) for tr in doc)
+        return ''
 
     def _lyrics_title(self):
         return "Lyrics of %s by %s" % (self['title'],self['artist'])
@@ -1056,7 +1101,8 @@ class ContextPanel(gobject.GObject):
             os.mkdir(cachedir)
 
         #TODO last.fm class
-        pylast.enable_caching(os.path.join(cachedir, 'lastfm.cache'))
+        pylast.network = pylast.get_lastfm_network(LFM_API_KEY)
+        pylast.network.enable_caching(os.path.join(cachedir, 'lastfm.cache'))
 
         self.controller = parent
 
@@ -1099,6 +1145,9 @@ class ContextPanel(gobject.GObject):
             window.destroy()
 
         return (self._child, self.name)
+        
+def get_prefs_pane():
+    return contextprefs
 
 def exaile_ready(object=None, a=None, b=None):
     global PANEL

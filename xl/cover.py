@@ -449,6 +449,8 @@ class TagCoverFetcher(CoverSearchMethod):
         tag, uri = db_string.split(":", 1)
         tr = trax.Track(uri, scan=False)
         data = tr.get_tag_disk(tag)
+        if not data:
+            return None
         if isinstance(data, list):
             data = data[0]
         b64_valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" + \
@@ -505,6 +507,10 @@ class LocalFileCoverFetcher(CoverSearchMethod):
             return covers[:limit]
 
     def get_cover_data(self, db_string):
-        handle = gio.File(db_string).read()
-        return handle.read()
+        try:
+            handle = gio.File(db_string).read()
+            data = handle.read()
+            return data
+        except gobject.GError:
+            return None
 

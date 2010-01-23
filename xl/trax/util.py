@@ -69,11 +69,6 @@ def sort_tracks(fields, trackiter, reverse=False):
     """
     fields = list(fields) # we need the index method
     artist_compilations = True
-    try:
-        if fields.index('artist') > fields.index("album"):
-            artist_compilations = False
-    except ValueError:
-        pass
     keyfunc = lambda tr: [tr.get_tag_sort(field,
         artist_compilations=artist_compilations) for field in fields]
     return sorted(trackiter, key=keyfunc, reverse=reverse)
@@ -86,11 +81,6 @@ def sort_result_tracks(fields, trackiter, reverse=False):
         Same params as sort_tracks.
     """
     artist_compilations = True
-    try:
-        if fields.index('artist') > fields.index("album"):
-            artist_compilations = False
-    except ValueError:
-        pass
     keyfunc = lambda tr: [tr.track.get_tag_sort(field,
         artist_compilations=artist_compilations) for field in fields]
     return sorted(trackiter, key=keyfunc, reverse=reverse)

@@ -1231,7 +1231,7 @@ class MainWindow(gobject.GObject):
                 tray_icon.set_tooltip(_("Exaile Music Player\nNot playing"))
             return
 
-        artist = track.get_tag_display('artist')
+        artist = track.get_tag_display('artist', artist_compilations=False)
         album = track.get_tag_display('album')
         title = track.get_tag_display('title')
 

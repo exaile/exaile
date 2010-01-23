@@ -173,6 +173,7 @@ class TrackPropertiesDialog(gobject.GObject):
         return l
 
     def _tags_write(self):
+        dialog = SavingProgressWindow(self.dialog, len(self.tracks))
         for n, track in enumerate(self.tracks):
             for tag in track:
                 if not tag.startswith("__"):
@@ -197,6 +198,8 @@ class TrackPropertiesDialog(gobject.GObject):
                 self.track_refs[n].set_tag_raw(tag, None)
 
             self.track_refs[n].write_tags()
+            dialog.step()
+        dialog.destroy()
 
     def _build_from_track(self, track):
 
@@ -804,5 +807,48 @@ class AllButton(gtk.ToggleButton):
             im = gtk.Image()
             im.set_from_stock(gtk.STOCK_DND, gtk.ICON_SIZE_BUTTON)
             self.set_image(im)
+
+
+class SavingProgressWindow(gtk.Window):
+    def __init__(self, parent, total, text=_("Saved %(count)s of %(total)s.")):
+        gtk.Window.__init__(self)
+        self.count = 0
+        self.total = total
+        self.text = text
+
+        if parent:
+            self.set_transient_for(parent)
+        self.set_modal(True)
+        self.set_decorated(False)
+        self.set_resizable(False)
+        self.set_focus_on_map(False)
+        self.add(gtk.Frame())
+        self.child.set_shadow_type(gtk.SHADOW_OUT)
+        vbox = gtk.VBox(spacing=12)
+        vbox.set_border_width(12)
+        self._label = gtk.Label()
+        self._label.set_use_markup(True)
+        self._label.set_markup(self.text % {'count': 0, 'total': self.total})
+        vbox.pack_start(self._label)
+        self._progress = gtk.ProgressBar()
+        self._progress.set_size_request(300, -1)
+        vbox.pack_start(self._progress)
+
+        self.child.add(vbox)
+
+        self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        self.show_all()
+        while gtk.events_pending():
+            gtk.main_iteration()
+
+    def step(self):
+        self.count += 1
+        self._progress.set_fraction(
+                max(0, min(1, self.count/float(self.total))))
+        self._label.set_markup(self.text % {'count': self.count,
+                'total': self.total})
+        while gtk.events_pending():
+            gtk.main_iteration()
+
 
 # vim: et sts=4 sw=4

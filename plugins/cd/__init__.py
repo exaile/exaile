@@ -138,8 +138,7 @@ class CDPlaylist(playlist.Playlist):
 
         for count, length in enumerate(lengths):
             count += 1
-            song = trax.Track()
-            song.set_loc("cdda://%d#%s" % (count, self.device))
+            song = trax.Track("cdda://%d#%s" % (count, self.device))
             song.set_tag_raw('title', "Track %d" % count)
             song.set_tag_raw('tracknumber', count)
             song.set_tag_raw('__length', length)

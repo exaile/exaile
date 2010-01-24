@@ -238,7 +238,9 @@ class ExaileScrobbler(object):
 
     @common.threaded
     def submit_to_scrobbler(self, track, time_started, time_played):
-        if scrobbler.SESSION_ID and track and time_started and time_played:
+        if scrobbler.SESSION_ID and track and time_started and time_played \
+            and track.get_tag_raw('artist') and track.get_tag_raw('title') \
+            and track.get_tag_raw('album'):
             try:
                 scrobbler.submit(
                     track.get_tag_raw('artist', join=True),

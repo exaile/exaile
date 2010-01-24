@@ -328,8 +328,8 @@ class Playlist(gtk.VBox):
         """
         start = info[0]
         end = info[1]
-        paths = [(x,) for x in range(start, end+1)]
-        self.remove_rows(iters, playlist=False)
+        paths = [(x,) for x in range(start, end-1)]
+        self.remove_rows(paths, playlist=False)
 
     def on_add_tracks(self, type, playlist, trs, scroll=False):
         """
@@ -784,7 +784,7 @@ class Playlist(gtk.VBox):
         for row in iters:
             self.model.remove(row)
 
-        self.list.set_cursor(start)
+        self.list.set_cursor(paths[0][0])
 
         self.emit('track-count-changed', len(self.playlist))
         self.set_needs_save(True)

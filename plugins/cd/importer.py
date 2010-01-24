@@ -32,7 +32,7 @@ class CDImporter(object):
     def __init__(self, tracks):
         self.tracks = [ t for t in tracks if
                 t.get_loc_for_io().startswith("cdda") ]
-        self.duration = float(sum( [ t['__length'] for t in self.tracks ] ))
+        self.duration = float(sum( [ t.get_tag_raw('__length') for t in self.tracks ] ))
         self.transcoder = transcoder.Transcoder()
         self.current = None
         self.current_len = None
@@ -64,12 +64,8 @@ class CDImporter(object):
             self.cont.clear()
             self.current = tr
             self.current_len = tr.get_tag_raw('__length')
-            tags = copy.deepcopy(tr.tags)
-            for t in tags.keys():
-                if t.startswith("__"):
-                    del tags[t]
             loc = tr.get_loc_for_io()
-            trackno, device = loc[7:].split("#")
+            trackno, device = loc[7:].split("/#")
             src = "cdparanoiasrc track=%s device=\"%s\""%(trackno, device)
             self.transcoder.set_raw_input(src)
             outloc = self.get_output_location(tr)
@@ -79,7 +75,9 @@ class CDImporter(object):
             if not self.running:
                 break
             tr2 = trax.Track("file://"+outloc)
-            tr2.tags.update(tags)
+            for t in tr.list_tags():
+                if not t.startswith("__"):
+                    tr2.set_tag_raw(t, tr.get_tag_raw(t))
             tr2.write_tags()
             try:
                 incr = tr.get_tag_raw('__length') / self.duration
@@ -100,9 +98,8 @@ class CDImporter(object):
             replacedict["$%s"%tag] = tag
         for part in parts:
             for k, v in replacedict.iteritems():
-                val = tr.get_tag_raw(v)
-                if type(val) in (list, tuple):
-                    val = u" & ".join(val)
+                val = tr.get_tag_display(v, artist_compilations=False)
+                val = val.replace('"', '\\"')
                 part = part.replace(k, str(val))
             part = part.replace(os.sep, "") # strip os.sep
             parts2.append(part)

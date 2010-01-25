@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-19 18:02+0000\n"
-"Last-Translator: Ricardo Martins <ricardo.macedo@yahoo.com.br>\n"
+"PO-Revision-Date: 2010-01-24 23:29+0000\n"
+"Last-Translator: Holverat Bortolossi <holverat@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2010-01-20 04:35+0000\n"
+"X-Launchpad-Export-Date: 2010-01-25 04:46+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -1185,7 +1185,7 @@ msgstr "Coleção"
 #. translate this to an empty string.
 #: ../xlgui/prefs/collection_prefs.py:31
 msgid "the"
-msgstr ""
+msgstr "o/a(s)"
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
@@ -1290,6 +1290,8 @@ msgstr "Usar detecção de compilação baseado em arquivo"
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"
 msgstr ""
+"Palavras para tirar a partir do começo das tags dos artista (separado por "
+"espaços):"
 
 #: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
 msgid "Open last playlists on startup"
@@ -1460,7 +1462,7 @@ msgstr "_Próxima"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Anterior"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
@@ -1468,7 +1470,7 @@ msgstr "_Remover tag"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:1
 msgid "<b>No Plugin Selected</b>"
@@ -2332,11 +2334,11 @@ msgstr "Usar Transição"
 
 #: ../plugins/equalizer/equalizer.ui.h:1
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:2
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "0"
@@ -2344,43 +2346,43 @@ msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "227"
-msgstr ""
+msgstr "227"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
@@ -2388,7 +2390,7 @@ msgstr "pre"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"
-msgstr ""
+msgstr "Mostrar Círculo"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"
@@ -2396,7 +2398,7 @@ msgstr "Mostrar Capas"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
-msgstr ""
+msgstr "Mostrar Sobreposição:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"
@@ -2412,7 +2414,7 @@ msgstr "Senha:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show Menuitem to toggle Submission"
-msgstr ""
+msgstr "Mostrar o item de menu para alterar a apresentação"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit tracks using Audioscrobbler"
@@ -2500,7 +2502,7 @@ msgstr "Ordenar por:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Order Direction:"
-msgstr ""
+msgstr "Direção de Ordem:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
@@ -2804,7 +2806,7 @@ msgstr "Um equalizador de 10 canais"
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
-msgstr ""
+msgstr "Aresta"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -3079,7 +3081,7 @@ msgstr "Plugin para obter letras do lyricwiki.org"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Ex Editor de tag falso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""

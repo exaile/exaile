@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-16 05:53+0000\n"
+"PO-Revision-Date: 2010-01-25 06:49+0000\n"
 "Last-Translator: Jussi Aalto <jta_lnx@dnainternet.net>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-01-17 04:44+0000\n"
+"X-Launchpad-Export-Date: 2010-01-26 04:49+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -157,11 +157,11 @@ msgstr ""
 
 #: ../xl/main.py:361
 msgid "Show debugging output"
-msgstr ""
+msgstr "Näytä vianjäljitystuloste"
 
 #: ../xl/main.py:364
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "Käytä xl.event-vianjäljitystä. Saa aikaan PALJON tulostetta"
 
 #: ../xl/main.py:366
 msgid "Filter event debug output"
@@ -201,7 +201,7 @@ msgstr ""
 
 #: ../xl/cover.py:155 ../xl/cover.py:189 ../xl/trackdb.py:226
 msgid "You did not specify a location to save the db"
-msgstr ""
+msgstr "Et asettanut tietokannan tallennussijaintia"
 
 #: ../xl/cover.py:281 ../xl/lyrics.py:85
 msgid "order must be a list or tuple"
@@ -744,7 +744,7 @@ msgstr "Kirjoita soittolistan uusi nimi"
 #: ../xlgui/cover.py:308
 #, python-format
 msgid "%d covers to fetch"
-msgstr ""
+msgstr "%d noudettavaa kansikuvaa"
 
 #: ../xlgui/cover.py:313 ../xlgui/cover.py:332 ../data/ui/covermanager.ui.h:2
 msgid "Start"
@@ -957,7 +957,7 @@ msgstr "Tekemäsi muutokset häviävät jos et tallenna niitä"
 
 #: ../xlgui/playlist.py:1150
 msgid "Close Without Saving"
-msgstr ""
+msgstr "Sulje tallentamatta"
 
 #: ../xlgui/panel/playlists.py:37 ../xlgui/panel/playlists.py:49
 #: ../xlgui/panel/playlists.py:56
@@ -1069,7 +1069,7 @@ msgstr ""
 
 #: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
-msgstr ""
+msgstr "Lisää uuteen soittolistaan..."
 
 #: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
 #: ../xlgui/panel/playlists.py:678
@@ -1078,7 +1078,7 @@ msgstr "Et antanut soittolistallesi nimeä"
 
 #: ../xlgui/panel/playlists.py:553
 msgid "Smart Playlists"
-msgstr "Fiksut soittolistat"
+msgstr "Älykkäät soittolistat"
 
 #: ../xlgui/panel/playlists.py:556
 msgid "Custom Playlists"
@@ -1090,7 +1090,7 @@ msgstr ""
 
 #: ../xlgui/panel/playlists.py:656
 msgid "Edit Smart Playlist"
-msgstr ""
+msgstr "Muokkaa älykästä soittolistaa"
 
 #: ../xlgui/panel/radio.py:108 ../xlgui/panel/radio.py:466
 #: ../xlgui/panel/radio.py:542
@@ -1288,7 +1288,7 @@ msgstr "Avaa viime kerran soittolistat alussa"
 
 #: ../data/ui/main.ui.h:1
 msgid "0/0 tracks"
-msgstr ""
+msgstr "0/0 kappaletta"
 
 #: ../data/ui/main.ui.h:2
 msgid "0:00 / 0:00"
@@ -1626,11 +1626,11 @@ msgstr "Kansien hakujärjestys:"
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Close this dialog"
-msgstr ""
+msgstr "Sulje tämä ikkuna"
 
 #: ../data/ui/queue_dialog.ui.h:2
 msgid "Queue Manager"
-msgstr ""
+msgstr "Jononhallinta"
 
 #: ../data/ui/queue_dialog.ui.h:3
 msgid "Remove All"
@@ -1700,7 +1700,7 @@ msgstr "Ristiinhäivytyksen aika (ms):"
 
 #: ../data/ui/playback_prefs_pane.ui.h:5
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Häivytyksen kesto (ms):"
 
 #: ../data/ui/playback_prefs_pane.ui.h:6
 msgid "GNOME"
@@ -1818,7 +1818,7 @@ msgstr "Vasemmalla"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:6
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Pienennä ilmoitusalueelle"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
@@ -1980,7 +1980,7 @@ msgstr ""
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Amazon-kansikuvat"
 
 #: ../plugins/desktopcover/prefs.py:21 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
@@ -2000,7 +2000,7 @@ msgstr ""
 
 #: ../plugins/moodbar/__init__.py:497
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Moodbarin suoritettavaa tiedostoa ei ole saatavilla"
 
 #: ../plugins/droptrayicon/__init__.py:267
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
@@ -2022,11 +2022,11 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "Podcastit"
 
 #: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
@@ -2042,7 +2042,7 @@ msgstr "Anna lisättävän podcastin URL"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
-msgstr ""
+msgstr "Avaa Podcast"
 
 #: ../plugins/podcasts/__init__.py:153
 #, python-format
@@ -2051,15 +2051,15 @@ msgstr "Ladataan %s..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Podcastia ladatessa tapahtui virhe."
 
 #: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Ladataan Podcasteja..."
 
 #: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Podcastin tallennus ei onnistunut"
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
 #: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
@@ -2143,7 +2143,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:49
 msgid "Stop"
-msgstr ""
+msgstr "Pysäytä"
 
 #: ../plugins/minimode/minimodeprefs.py:50
 msgid "Next"
@@ -2155,7 +2155,7 @@ msgstr "Kappalevalitsin"
 
 #: ../plugins/minimode/minimodeprefs.py:52
 msgid "Progress bar"
-msgstr ""
+msgstr "Edistymispalkki"
 
 #: ../plugins/minimode/minimodeprefs.py:53
 msgid "Volume"
@@ -2191,7 +2191,7 @@ msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
-msgstr ""
+msgstr "Jatka toistoa"
 
 #: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
@@ -2676,7 +2676,7 @@ msgstr ""
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "Lisää podcast"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "<b>Body Message</b>"
@@ -2745,7 +2745,7 @@ msgstr "Välitysportti:"
 
 #: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Save Location:"
-msgstr ""
+msgstr "Tallennuskohde:"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -2755,6 +2755,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Soittaa musiikkia annettuna aikana ja päivänä.\n"
+"\n"
+"Huomaa että kun annettu aika koittaa, Exaile käyttäytyy aivan kuin painaisit "
+"nappia \"toista\", joten varmista että sinulla on musiikki jonka haluat "
+"kuulla soittolistallasi"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2764,6 +2769,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Soittaa musiikkia annettuna aikana.\n"
+"\n"
+"Huomaa että kun annettu aika koittaa, Exaile käyttäytyy aivan kuin painaisit "
+"nappia \"toista\", joten varmista että sinulla on musiikki jonka haluat "
+"kuulla soittolistallasi"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -2791,6 +2801,8 @@ msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
+"Lähettää kuunteluinformaation Last.fm:ään ja muihin samankaltaisiin "
+"Audioscrobbleria tukeviin palveluihin"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -2902,7 +2914,7 @@ msgstr ""
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Lisää yksinkertaisen tuen Podcasteille"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
@@ -3002,6 +3014,9 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Näyttää erinäisiä tietoja tällä hetkellä soivasta kappaleesta.\n"
+"Riippuvuudet: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging "
+"(a.k.a. PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""

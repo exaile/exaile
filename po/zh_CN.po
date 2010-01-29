@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-16 06:26+0000\n"
-"Last-Translator: lhquark <lhquark@yahoo.com.cn>\n"
+"PO-Revision-Date: 2010-01-29 04:20+0000\n"
+"Last-Translator: Vanishing <Unknown>\n"
 "Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-17 04:45+0000\n"
+"X-Launchpad-Export-Date: 2010-01-29 04:51+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -545,7 +545,7 @@ msgstr "动态添加相似音轨到播放列表"
 
 #: ../xlgui/main.py:706
 msgid "Requires plugins providing dynamic playlists"
-msgstr ""
+msgstr "需要有动态列表功能的插件"
 
 #: ../xlgui/main.py:862
 #, python-format
@@ -1165,7 +1165,7 @@ msgstr "音乐库"
 #. translate this to an empty string.
 #: ../xlgui/prefs/collection_prefs.py:31
 msgid "the"
-msgstr ""
+msgstr "此"
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
@@ -1265,7 +1265,7 @@ msgstr "(右击以重置为默认值)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "使用基于文件编译的检测"
 
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"

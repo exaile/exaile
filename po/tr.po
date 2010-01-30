@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-16 11:21+0000\n"
-"Last-Translator: Selim Sercan Suerkan <Unknown>\n"
+"PO-Revision-Date: 2010-01-29 18:27+0000\n"
+"Last-Translator: Bugra Gokalp Okcu <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-17 04:45+0000\n"
+"X-Launchpad-Export-Date: 2010-01-30 04:38+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -360,7 +360,7 @@ msgstr "Web sayfası"
 
 #: ../xlgui/properties.py:41
 msgid "Original Artist"
-msgstr ""
+msgstr "Özgün Sanatçı"
 
 #: ../xlgui/properties.py:42
 msgid "Author"
@@ -599,7 +599,7 @@ msgstr ""
 #: ../xlgui/main.py:1219
 #, python-format
 msgid "%(title)s (by %(artist)s)"
-msgstr ""
+msgstr "%(title)s (%(artist)s)"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xlgui/main.py:1229
@@ -890,7 +890,7 @@ msgstr ""
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/plcolumns.py:73 ../xlgui/panel/flatplaylist.py:90
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #. TRANSLATORS: Default track length
 #: ../xlgui/plcolumns.py:128
@@ -1021,11 +1021,11 @@ msgstr "içermeyen"
 
 #: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:152
 msgid "greater than"
-msgstr ""
+msgstr "daha büyük"
 
 #: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:153
 msgid "less than"
-msgstr ""
+msgstr "daha küçük"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:104
@@ -1050,12 +1050,12 @@ msgstr "Yıl"
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:109 ../xlgui/panel/playlists.py:149
 msgid "before"
-msgstr ""
+msgstr "önce"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:111 ../xlgui/panel/playlists.py:150
 msgid "after"
-msgstr ""
+msgstr "sonra"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:113 ../xlgui/panel/playlists.py:151
@@ -1134,7 +1134,7 @@ msgstr "Boyut"
 #: ../xlgui/panel/files.py:413
 #, python-format
 msgid "%d KB"
-msgstr ""
+msgstr "%d KB"
 
 #: ../xlgui/panel/collection.py:140
 msgid ""
@@ -1848,7 +1848,7 @@ msgstr ""
 
 #: ../data/ui/appearance_prefs_pane.ui.h:11
 msgid "Top"
-msgstr ""
+msgstr "Üstte"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:12
 msgid "Use alpha transparency (if supported)"
@@ -1922,6 +1922,8 @@ msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"Bu sunucu çoklu bağlantıyı desteklemiyor.\n"
+"Şarkıları indirmeden önce oynatmayı durdurmalısınız."
 
 #: ../plugins/daapclient/__init__.py:455
 msgid "Disconnect"
@@ -1933,7 +1935,7 @@ msgstr "Kayıt yeri belirtin"
 
 #: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "DAAP 'ye bağlan..."
 
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -1959,11 +1961,11 @@ msgstr "Hazır"
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "Jamendo kataloğu aranıyor..."
 
 #: ../plugins/jamendo/__init__.py:78
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Şarkı verisine erişiliyor..."
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
@@ -1990,7 +1992,7 @@ msgstr "Albüm %(album)s"
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Amazon Albüm Kapakları"
 
 #: ../plugins/desktopcover/prefs.py:21 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
@@ -2211,7 +2213,7 @@ msgstr "Çalmayı Duraklat"
 
 #: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
-msgstr ""
+msgstr "Aranıyor: "
 
 #: ../plugins/contextinfo/__init__.py:1047
 #: ../plugins/contextinfo/context.ui.h:1

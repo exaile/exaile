@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-24 23:29+0000\n"
-"Last-Translator: Holverat Bortolossi <holverat@gmail.com>\n"
+"PO-Revision-Date: 2010-01-29 15:00+0000\n"
+"Last-Translator: Kym Keive Santos <kymkeive@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2010-01-26 04:49+0000\n"
+"X-Launchpad-Export-Date: 2010-01-30 04:38+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -989,14 +989,13 @@ msgstr "horas"
 msgid "weeks"
 msgstr "semanas"
 
-# Usado na criação de uma lista de reprodução automática
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:69 ../xlgui/panel/playlists.py:78
 #: ../xlgui/panel/playlists.py:84 ../xlgui/panel/playlists.py:90
 #: ../xlgui/panel/playlists.py:118 ../xlgui/panel/playlists.py:135
 #: ../xlgui/panel/playlists.py:143
 msgid "is"
-msgstr "é"
+msgstr "verdade"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:71 ../xlgui/panel/playlists.py:79

@@ -146,8 +146,10 @@ class Playlist(gtk.VBox):
             Called when a track is known to have a tag changed
         """
         if not track or not \
-            settings.get_option('gui/sync_on_tag_change', True):
+            settings.get_option('gui/sync_on_tag_change', True) or not\
+            tag in self.get_column_ids():
             return
+        
         if self._redraw_id:
             gobject.source_remove(self._redraw_id)
         self._redraw_queue.append(track)
@@ -213,6 +215,22 @@ class Playlist(gtk.VBox):
             track.set_rating(rating)
         event.log_event('rating_changed', self, r)
 
+    def get_column_ids(self):
+        column_ids = None
+        if settings.get_option('gui/trackslist_defaults_set', False):
+            ids = settings.get_option("gui/columns", [])
+            # Don't add invalid columns.
+            all_ids = frozenset(self.COLUMNS.iterkeys())
+            column_ids = frozenset(id for id in ids if id in all_ids)
+
+        if not column_ids:
+            # Use default.
+            ids = self.default_columns
+            settings.set_option('gui/trackslist_defaults_set', True)
+            settings.set_option('gui/columns', ids)
+            column_ids = frozenset(ids)
+        return column_ids
+
     def _setup_col_menus(self):
         """
             Sets up the column menus (IE, View->Column->Track, etc)
@@ -231,7 +249,7 @@ class Playlist(gtk.VBox):
         #self.not_resizable_cols.connect('activate',
         #    self.activate_cols_resizable)
 
-        column_ids = None
+        column_ids = self.get_column_ids()
         if settings.get_option('gui/trackslist_defaults_set', False):
             ids = settings.get_option("gui/columns", [])
             # Don't add invalid columns.
@@ -1079,7 +1097,6 @@ class Playlist(gtk.VBox):
         left_edge = 0
         steps = settings.get_option("miscellaneous/rating_steps", 5)
         icon_size = rating._rating_width / steps
-        cols = self.list.get_columns()
         i = 0
         #calculate rating column size and position
         for col in self.append_map:

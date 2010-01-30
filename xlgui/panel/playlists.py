@@ -455,6 +455,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.collection = collection
         self.box = self.builder.get_object('playlists_box')
 
+        self._refresh_id = 0
         self.playlist_name_info = 500
         self.track_target = ("text/uri-list", 0, 0)
         self.playlist_target = ("playlist_name", gtk.TARGET_SAME_WIDGET, self.playlist_name_info)
@@ -542,6 +543,22 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     self.edit_selected_smart_playlist())
 
     def refresh_playlists(self, type, track, tag):
+        """
+            wrapper so that multiple events dont cause multiple
+            reloads in quick succession
+        """
+        if settings.get_option('gui/sync_on_tag_change', True) and \
+            tag in ['title', 'artist']:
+            if self._refresh_id != 0:
+                gobject.source_remove(self._refresh_id)
+            self._refresh_id = gobject.timeout_add(500,
+                    self._refresh_playlists)
+
+    def _refresh_playlists(self):
+        """
+            Callback for when tags have changed and the playlists
+            need refreshing.
+        """
         if settings.get_option('gui/sync_on_tag_change', True):
             for pl in self.playlist_nodes:
                 self.update_playlist_node(pl)

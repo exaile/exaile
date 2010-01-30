@@ -829,7 +829,7 @@ class Playlist(object):
             f = open(location + ".new", "w")
         else:
             f = open(location, "w")
-        for tr in self:
+        for tr in self._ordered_tracks:
             buffer = tr.get_loc_for_io()
             # write track metadata
             meta = {}

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-25 06:49+0000\n"
+"PO-Revision-Date: 2010-01-31 14:12+0000\n"
 "Last-Translator: Jussi Aalto <jta_lnx@dnainternet.net>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-01-26 04:49+0000\n"
+"X-Launchpad-Export-Date: 2010-02-01 04:43+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -52,7 +52,7 @@ msgstr ""
 
 #: ../xl/main.py:301
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "Pysäytä toisto nykyisen kappaleen jälkeen"
 
 #: ../xl/main.py:304
 msgid "Track options"
@@ -112,7 +112,7 @@ msgstr "Laskee äänenvoimakkuutta VOL%"
 
 #: ../xl/main.py:335
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "Näytä nykyinen äänenvoimakkuustaso"
 
 #: ../xl/main.py:338
 msgid "Other options"
@@ -313,12 +313,12 @@ msgstr "Tuntemattoman tyyppinen asetus löytyi."
 
 #: ../xl/plugins.py:84
 msgid "Plugin archive is not in the correct format"
-msgstr ""
+msgstr "Liitännäisten arkisto ei ole oikeassa muodossa"
 
 #: ../xl/plugins.py:91
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr "Lisäosa nimeltään \"%s\" on jo asennettu"
+msgstr "Liitännäinen nimeltään \"%s\" on jo asennettu"
 
 #: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
@@ -346,11 +346,11 @@ msgstr ""
 
 #: ../xlgui/properties.py:36
 msgid "Original Album"
-msgstr ""
+msgstr "Alkuperäislevy"
 
 #: ../xlgui/properties.py:37
 msgid "Lyricist"
-msgstr ""
+msgstr "Sanoittaja"
 
 #: ../xlgui/properties.py:39
 msgid "Website"
@@ -375,7 +375,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:45
 msgid "Arranger"
-msgstr ""
+msgstr "Sovittaja"
 
 #: ../xlgui/properties.py:46
 msgid "Conductor"
@@ -403,15 +403,15 @@ msgstr "Albumi"
 
 #: ../xlgui/properties.py:50
 msgid "Copyright"
-msgstr ""
+msgstr "Tekijänoikeudet"
 
 #: ../xlgui/properties.py:51
 msgid "Lyrics"
-msgstr ""
+msgstr "Sanoitus"
 
 #: ../xlgui/properties.py:52 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
-msgstr ""
+msgstr "Kappale"
 
 #: ../xlgui/properties.py:53 ../xlgui/prefs/plugin_prefs.py:98
 msgid "Version"
@@ -426,7 +426,7 @@ msgstr "Nimi"
 
 #: ../xlgui/properties.py:55
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../xlgui/properties.py:56 ../xlgui/plcolumns.py:168
 #: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:164
@@ -463,7 +463,7 @@ msgstr "Näytteenottotaajuus"
 
 #: ../xlgui/properties.py:63
 msgid "Date Added"
-msgstr ""
+msgstr "Lisäyspäivä"
 
 #: ../xlgui/properties.py:64 ../xlgui/plcolumns.py:114
 #: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160
@@ -492,15 +492,15 @@ msgstr "Sijainti"
 
 #: ../xlgui/properties.py:67
 msgid "Modified"
-msgstr ""
+msgstr "Muutettu"
 
 #: ../xlgui/properties.py:69
 msgid "Times Played"
-msgstr ""
+msgstr "Soittokertoja"
 
 #: ../xlgui/properties.py:70
 msgid "Last Played"
-msgstr ""
+msgstr "Viimeksi soitettu"
 
 #: ../xlgui/properties.py:216
 #, python-format
@@ -509,7 +509,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
-msgstr ""
+msgstr "Sulje tallentamatta tunnisteiden muutoksia?"
 
 #: ../xlgui/properties.py:655
 msgid "of"
@@ -583,7 +583,7 @@ msgstr ""
 
 #: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
-msgstr "Pysähtynyt"
+msgstr "Pysäytetty"
 
 #: ../xlgui/main.py:1209
 msgid ""
@@ -707,7 +707,7 @@ msgstr "Muokkaa"
 
 #: ../xlgui/menu.py:398
 msgid "Export"
-msgstr ""
+msgstr "Vie soittolista"
 
 #: ../xlgui/menu.py:401
 msgid "Delete Playlist"
@@ -856,7 +856,7 @@ msgstr "Tiedostotyyppi"
 
 #: ../xlgui/commondialogs.py:346
 msgid "Extension"
-msgstr ""
+msgstr "Tiedostopääte"
 
 #: ../xlgui/devices.py:73
 msgid "Icon"
@@ -1086,7 +1086,7 @@ msgstr "Mukautetut soittolistat"
 
 #: ../xlgui/panel/playlists.py:591
 msgid "Add Smart Playlist"
-msgstr ""
+msgstr "Lisää älykäs soittolista"
 
 #: ../xlgui/panel/playlists.py:656
 msgid "Edit Smart Playlist"
@@ -1136,7 +1136,7 @@ msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
-"Tämä poistaa pysyvästi valitut raidat tietokoneeltasi, oletko varma että "
+"Tämä poistaa pysyvästi valitut kappaleet tietokoneeltasi, oletko varma että "
 "haluat jatkaa?"
 
 #: ../xlgui/panel/collection.py:200
@@ -1158,7 +1158,7 @@ msgstr "Ulkoasu"
 
 #: ../xlgui/prefs/playback_prefs.py:32
 msgid "Playback"
-msgstr ""
+msgstr "Toisto"
 
 #: ../xlgui/prefs/__init__.py:83 ../data/ui/preferences_dialog.ui.h:1
 msgid "Preferences"
@@ -1218,6 +1218,8 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Liitännäistä ei voitu ottaa käyttöön:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
@@ -1225,6 +1227,8 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Liitännäistä ei voitu poistaa käytöstä:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
@@ -1304,7 +1308,7 @@ msgstr "Tyhjennä soittolista"
 
 #: ../data/ui/main.ui.h:5
 msgid "Click to view Queue"
-msgstr "Klikkaa nähdäksesi jono"
+msgstr "Klikkaa nähdäksesi jonon"
 
 #: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
 msgid "Next Track"
@@ -1312,7 +1316,7 @@ msgstr "Seuraava kappale"
 
 #: ../data/ui/main.ui.h:9
 msgid "Open _URL"
-msgstr "Avaa _Osoite"
+msgstr "Avaa _osoite"
 
 #: ../data/ui/main.ui.h:10
 msgid "Page 1"
@@ -1347,15 +1351,15 @@ msgid ""
 msgstr ""
 "Lopeta toisto\n"
 "\n"
-"Klikkaa oikealla hiirennäppäimellä lopettaaksesi heti raidan jälkeen"
+"Klikkaa oikealla hiirennäppäimellä lopettaaksesi heti kappaleen jälkeen"
 
 #: ../data/ui/main.ui.h:22
 msgid "Track _properties"
-msgstr "_Raidan ominaisuudet"
+msgstr "_Kappaleen ominaisuudet"
 
 #: ../data/ui/main.ui.h:23
 msgid "_Autosize"
-msgstr "_Automaattinen Koko"
+msgstr "_Automaattinen koko"
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
@@ -1411,7 +1415,7 @@ msgstr "_Näytä"
 
 #: ../data/ui/flatplaylist_panel.ui.h:1
 msgid "Append All Tracks to Playlist"
-msgstr "Lisää kaikki raidat soittolistalle"
+msgstr "Lisää kaikki kappaleet soittolistalle"
 
 #: ../data/ui/flatplaylist_panel.ui.h:2
 msgid "Import CD"
@@ -1431,15 +1435,15 @@ msgstr "_Sulje"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "A_dd tag"
-msgstr ""
+msgstr "_Lisää tunniste"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "Tags"
-msgstr ""
+msgstr "Tunnisteet"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
-msgstr ""
+msgstr "Kappaleen tiedot"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
@@ -1447,23 +1451,23 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
-msgstr ""
+msgstr "Se_uraava"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Edellinen"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Poista tunniste"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Ei valittuja laajennoksia</b>"
+msgstr "<b>Ei valittuja liitännäisiä</b>"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:2
 msgid "Authors:"
@@ -1471,7 +1475,7 @@ msgstr "Tekijät:"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:3
 msgid "Available Plugins"
-msgstr "Saatavilla olevat laajennokset"
+msgstr "Saatavilla olevat liitännäiset"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:4
 msgid "Description:"
@@ -1491,11 +1495,11 @@ msgstr "Asenna kolmannen osapuolen liitännäinen tiedostosta"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "Asenna liitännäistiedosto"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
-msgstr "Asennetut laajennokset"
+msgstr "Asennetut liitännäiset"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:10
 msgid "Updates"
@@ -1555,7 +1559,7 @@ msgstr ""
 
 #: ../data/ui/files_panel.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Päivitä kansiolistaus"
 
 #: ../data/ui/files_panel.ui.h:7
 msgid "Up one directory"
@@ -1582,7 +1586,7 @@ msgstr ""
 
 #: ../data/ui/osd_prefs_pane.ui.h:4
 msgid "Display a progressbar in the OSD"
-msgstr "Näytä raidan eteneminen kuvaruutunäytössä"
+msgstr "Näytä kappaleen eteneminen kuvaruutunäytössä"
 
 #: ../data/ui/osd_prefs_pane.ui.h:5
 msgid "Opacity Level:"
@@ -1590,7 +1594,7 @@ msgstr "Läpinäkyvyys:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:6
 msgid "Show OSD on track change"
-msgstr "Näytä kuvaruutunäyttö raidan vaihtuessa"
+msgstr "Näytä kuvaruutunäyttö kappaleen vaihtuessa"
 
 #: ../data/ui/osd_prefs_pane.ui.h:7
 msgid "Text Color"
@@ -1598,7 +1602,7 @@ msgstr "Tekstiväri"
 
 #: ../data/ui/osd_prefs_pane.ui.h:8
 msgid "Text Font:"
-msgstr "Tekstin kirjaisin:"
+msgstr "Tekstin kirjasin:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:9
 msgid "Window Height:"
@@ -1905,7 +1909,7 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:208
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "Anna IP-osoite ja portti."
 
 #: ../plugins/daapclient/__init__.py:376
 msgid ""
@@ -2075,7 +2079,7 @@ msgstr "Virhe yhdistäessä Shoutcast-palvelimelle."
 
 #: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Kirjoita hakusanat"
 
 #: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
@@ -2131,7 +2135,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:45
 msgid "Selected controls"
-msgstr ""
+msgstr "Valitut ohjaimet"
 
 #: ../plugins/minimode/minimodeprefs.py:47
 msgid "Previous"
@@ -2199,7 +2203,7 @@ msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
-msgstr ""
+msgstr "Etsitään: "
 
 #: ../plugins/contextinfo/__init__.py:1047
 #: ../plugins/contextinfo/context.ui.h:1
@@ -2454,7 +2458,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "Nouseva"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
@@ -2462,7 +2466,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "Laskeva"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
@@ -2486,7 +2490,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Order Direction:"
-msgstr ""
+msgstr "Järjestyssuunta:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
@@ -2502,7 +2506,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Results:"
-msgstr ""
+msgstr "Tuloksia:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
@@ -2514,7 +2518,7 @@ msgstr "<b>Sisältö</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>Näyttö</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
 msgid "<b>Icons</b>"
@@ -2534,7 +2538,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "On Track Change"
-msgstr ""
+msgstr "Kappaleen vaihtuessa"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "On Tray Icon Hover"
@@ -2580,15 +2584,15 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.ui.h:1
 msgid "Anchor:"
-msgstr "Ankkuri:"
+msgstr "Ankkuroi:"
 
 #: ../plugins/desktopcover/prefs.ui.h:2
 msgid "Bottom left"
-msgstr ""
+msgstr "Alas vasemmalle"
 
 #: ../plugins/desktopcover/prefs.ui.h:3
 msgid "Bottom right"
-msgstr ""
+msgstr "Alas oikealle"
 
 #: ../plugins/desktopcover/prefs.ui.h:4
 msgid "Size:"
@@ -2596,11 +2600,11 @@ msgstr "Koko:"
 
 #: ../plugins/desktopcover/prefs.ui.h:5
 msgid "Top left"
-msgstr ""
+msgstr "Ylös vasemmalle"
 
 #: ../plugins/desktopcover/prefs.ui.h:6
 msgid "Top right"
-msgstr ""
+msgstr "Ylös oikealle"
 
 #: ../plugins/desktopcover/prefs.ui.h:7
 msgid "X offset:"
@@ -2717,7 +2721,7 @@ msgstr "Kirjasin:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Terminal Opacity:"
-msgstr ""
+msgstr "Päätteen läpinäkyvyys:"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:1
 msgid "Always on top"
@@ -2737,7 +2741,7 @@ msgstr "Näytä kaikilla työpöydillä"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:5
 msgid "Track title format:"
-msgstr ""
+msgstr "Kappaleen nimen muoto:"
 
 #: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Relay Port:"
@@ -2777,11 +2781,11 @@ msgstr ""
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "10-kanavainen taajuuskorjain"
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
-msgstr ""
+msgstr "Awn"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -2832,7 +2836,7 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."

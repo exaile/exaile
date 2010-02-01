@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-29 18:27+0000\n"
+"PO-Revision-Date: 2010-01-31 15:12+0000\n"
 "Last-Translator: Bugra Gokalp Okcu <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-30 04:38+0000\n"
+"X-Launchpad-Export-Date: 2010-02-01 04:43+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -60,7 +60,7 @@ msgstr "Parça Seçenekleri"
 
 #: ../xl/main.py:306
 msgid "Query player"
-msgstr ""
+msgstr "Oynatıcıyı sorgula"
 
 #: ../xl/main.py:308
 msgid "Show a popup of the currently playing track"
@@ -498,7 +498,7 @@ msgstr "Değiştirilmiş"
 
 #: ../xlgui/properties.py:69
 msgid "Times Played"
-msgstr ""
+msgstr "Defa Oynatıldı"
 
 #: ../xlgui/properties.py:70
 msgid "Last Played"
@@ -560,7 +560,7 @@ msgstr "Çalma listesine benzer parça ekle"
 
 #: ../xlgui/main.py:706
 msgid "Requires plugins providing dynamic playlists"
-msgstr ""
+msgstr "Dinamik oynatma listelerini sağlayan eklentiler gerektirir"
 
 #: ../xlgui/main.py:862
 #, python-format

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-23 10:35+0000\n"
-"Last-Translator: lacus <Unknown>\n"
+"PO-Revision-Date: 2010-02-02 23:06+0000\n"
+"Last-Translator: NITSCH Zoltán <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-01-24 04:49+0000\n"
+"X-Launchpad-Export-Date: 2010-02-03 04:45+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -164,7 +164,7 @@ msgstr ""
 
 #: ../xl/main.py:366
 msgid "Filter event debug output"
-msgstr ""
+msgstr "Hibakeresési kimenet szűrése"
 
 #: ../xl/main.py:369
 msgid "Reduce level of output"
@@ -206,7 +206,7 @@ msgstr "Nem adtál meg helyet a db mentéséhez"
 
 #: ../xl/cover.py:281 ../xl/lyrics.py:85
 msgid "order must be a list or tuple"
-msgstr ""
+msgstr "Sorrend lista vagy tuple legyen"
 
 #: ../xl/transcoder.py:55
 msgid ""
@@ -297,7 +297,7 @@ msgstr "Tegnap"
 #: ../plugins/minimode/mmwidgets.py:1091
 #, python-format
 msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr ""
+msgstr "%(year)d-%(month)02d-%(day)02d"
 
 #: ../xl/settings.py:94
 msgid "Settings version is newer than current."
@@ -313,7 +313,7 @@ msgstr "Egy ismeretlen típusú beállítást észleltem!"
 
 #: ../xl/plugins.py:84
 msgid "Plugin archive is not in the correct format"
-msgstr ""
+msgstr "Beépülő archívum nem a megfeleő formátumú"
 
 #: ../xl/plugins.py:91
 #, python-format
@@ -339,10 +339,12 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"Állapot: %(status)s,cím: %(title)s, előadó: %(artist)s, album: %(album)s, "
+"hossz: %(length)s, pozíció: %(progress)s%% [%(position)s]"
 
 #: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "Nem adtad meg az adatbázis betöltési helyét"
 
 #: ../xlgui/properties.py:36
 msgid "Original Album"
@@ -379,7 +381,7 @@ msgstr "Kiadó"
 
 #: ../xlgui/properties.py:46
 msgid "Conductor"
-msgstr ""
+msgstr "Karmester"
 
 #: ../xlgui/properties.py:47
 msgid "Performer"
@@ -838,7 +840,7 @@ msgstr "Teljes hangerő"
 #: ../xlgui/guiutil.py:729
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr ""
+msgstr "%(playlist_count)d látható, %(collection_count)d a gyűjteményben"
 
 #: ../xlgui/guiutil.py:742
 #, python-format
@@ -1038,7 +1040,7 @@ msgstr "legfeljebb"
 
 #: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:162
 msgid "Plays"
-msgstr ""
+msgstr "Lejátszott fájlok"
 
 #: ../xlgui/panel/playlists.py:107 ../xlgui/panel/playlists.py:163
 msgid "Year"
@@ -1138,6 +1140,8 @@ msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
+"A kijelölt számok véglegesen törölve lesznek a lemezről, biztos, hogy "
+"szeretnéd folytatni?"
 
 #: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
@@ -1218,6 +1222,8 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Nem sikerült engedélyezni a plugint:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
@@ -1225,6 +1231,8 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Nem sikerült engedélyezni a plugint:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
@@ -1252,7 +1260,7 @@ msgstr "Gyorsbillentyű"
 
 #: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Véletlenszerű lejátszás"
 
 #: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
@@ -1276,11 +1284,11 @@ msgstr "(Jobb klikk visszatérés az alapbeállításokhoz)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Felismerés fájlgyűjtemény alapján"
 
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"
-msgstr ""
+msgstr "Szavak vágása a (szóközökkel elválasztott) előadó címkék elejéről"
 
 #: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
 msgid "Open last playlists on startup"
@@ -1304,7 +1312,7 @@ msgstr "Lejátszólista törlése"
 
 #: ../data/ui/main.ui.h:5
 msgid "Click to view Queue"
-msgstr ""
+msgstr "Klikk a várólista megjelenítéséhez"
 
 #: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
 msgid "Next Track"
@@ -1345,6 +1353,9 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Lejátszás megállítása\n"
+"\n"
+"Jobb klikk a szám lejátszása utáni megállításhoz"
 
 #: ../data/ui/main.ui.h:22
 msgid "Track _properties"
@@ -1352,7 +1363,7 @@ msgstr "Szám_tulajdonságai"
 
 #: ../data/ui/main.ui.h:23
 msgid "_Autosize"
-msgstr ""
+msgstr "_Automatikus méret"
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
@@ -1456,7 +1467,7 @@ msgstr "_Tag törlése"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:1
 msgid "<b>No Plugin Selected</b>"
@@ -1488,7 +1499,7 @@ msgstr "Harmadik féltől származó beépülő telepítése, fájlból"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "Bővítményfájl telepítése"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
@@ -1560,7 +1571,7 @@ msgstr "Egy könyvtárral feljebb"
 
 #: ../data/ui/playlists_prefs_pane.ui.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Kérdés testreszabott lejátszólista bezárásakor"
 
 #: ../data/ui/osd_prefs_pane.ui.h:1
 msgid ""
@@ -1660,6 +1671,26 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"  \n"
+"Ez egy szabad szoftver; terjeszthető illetve módosítható a GNU\n"
+"Általános Közreadási Feltételek dokumentumában leírtak szerint -- 2.\n"
+"vagy későbbi verzió --, melyet a Szabad Szoftver Alapítvány ad ki.\n"
+"  \n"
+"Ez a program abban a reményben kerül közreadásra, hogy hasznos lesz,\n"
+"de minden egyéb GARANCIA NÉLKÜL, az eladhatóságra vagy valamely célra\n"
+"való alkalmazhatóságra való származtatott garanciát is beleértve.\n"
+"További részletekért lásd a GNU Általános Közreadási Feltételek "
+"dokumentumát.\n"
+"  \n"
+"A programmal együtt kellett, hogy érkezzen egy példány a GNU    \n"
+"Általános Közreadási Feltételek dokumentumából is. Ha mégsem akkor\n"
+"ezt a Szabad Szoftver Alapítványnak küldött levélben jelezni kell.\n"
+"  \n"
+"A szabad szoftver alapítvány címe:\n"
+"   Free Software Foundation, Inc., \n"
+"   59 Temple Place, Suite 330, \n"
+"   Boston, MA  02111-1307  USA.\n"
 
 #: ../data/ui/about_dialog.ui.h:19
 msgid ""
@@ -1667,6 +1698,9 @@ msgid ""
 "   <info@noctus.net>\n"
 "    Translation Manager"
 msgstr ""
+"Mathias Brodala\n"
+"   <info@noctus.net>\n"
+"    Translation Manager"
 
 #: ../data/ui/playback_prefs_pane.ui.h:1
 msgid "ALSA"
@@ -1726,11 +1760,11 @@ msgstr ""
 
 #: ../data/ui/playback_prefs_pane.ui.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Áttűnés használata (KÍSÉRLETI)"
 
 #: ../data/ui/playback_prefs_pane.ui.h:17
 msgid "Use fade transitions on user actions"
-msgstr ""
+msgstr "Áttűnés felhasználói műveleteknél"
 
 #: ../data/ui/osd_window.ui.h:1
 msgid ""
@@ -1748,7 +1782,7 @@ msgstr "Felbukkanó ablak"
 
 #: ../data/ui/collection_panel.ui.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>A gyűjtemény üres</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
@@ -1771,6 +1805,8 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Gyűjtemény nézet frissítése\n"
+"(Shift billentyűre gyűjtemény újbóli beolvasása)"
 
 #: ../data/ui/collection_panel.ui.h:12
 msgid "Year - Album"
@@ -1892,18 +1928,20 @@ msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"A kiszolgáló nem támogat többszörös kapcsolatot.\n"
+"Számok letöltése előtt meg kell állítani a lejátszást."
 
 #: ../plugins/daapclient/__init__.py:455
 msgid "Disconnect"
-msgstr ""
+msgstr "Bontás"
 
 #: ../plugins/daapclient/__init__.py:473
 msgid "Select a save location"
-msgstr ""
+msgstr "Mentési hely kiválasztása"
 
 #: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Csatalkozás DAAP-hoz"
 
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -1912,7 +1950,7 @@ msgstr "Könyvjelzők"
 
 #: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
-msgstr ""
+msgstr "Szám hozzáadása a könyvjelzőhöz"
 
 #: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
@@ -1920,7 +1958,7 @@ msgstr "Könyvjelző törlése"
 
 #: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Könyvjelző törlése"
 
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
@@ -1929,15 +1967,15 @@ msgstr "Kész"
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "Keresés a Jamendo katalógusban"
 
 #: ../plugins/jamendo/__init__.py:78
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Száminformációk lekérése..."
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Notify-osd értesítések"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
@@ -1949,18 +1987,18 @@ msgstr "%(title)s"
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "- %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "%(album)s-ból"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Amazon borítók"
 
 #: ../plugins/desktopcover/prefs.py:21 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
@@ -1989,11 +2027,11 @@ msgstr ""
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"
-msgstr ""
+msgstr "Hozzáfűzés és lejátszás"
 
 #: ../plugins/droptrayicon/__init__.py:272
 msgid "Append"
-msgstr ""
+msgstr "Hozzáfűzés"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
@@ -2044,14 +2082,14 @@ msgstr ""
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
 #: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
-msgstr ""
+msgstr "Kapcsolódás a Shoutcast kiszolgálóhoz..."
 
 #: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
 #: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
 #: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
-msgstr ""
+msgstr "Nem sikerült a Shoutcast kiszolgálóhoz kapcsolódni."
 
 #: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
@@ -2079,18 +2117,20 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"Előadó: %(artist)s\n"
+"<i>%(album)s</i> albumról"
 
 #: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "IPython konzol - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:134
 msgid "Show IPython Console"
-msgstr ""
+msgstr "IPython konzol megjelenítése"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "IPython konzol"
 
 #: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
@@ -2107,11 +2147,11 @@ msgstr "Mini Mód"
 
 #: ../plugins/minimode/minimodeprefs.py:44
 msgid "Available controls"
-msgstr ""
+msgstr "Elérhető vezérlők"
 
 #: ../plugins/minimode/minimodeprefs.py:45
 msgid "Selected controls"
-msgstr ""
+msgstr "Kiválasztott vezérlők"
 
 #: ../plugins/minimode/minimodeprefs.py:47
 msgid "Previous"
@@ -2131,7 +2171,7 @@ msgstr "Következő"
 
 #: ../plugins/minimode/minimodeprefs.py:51
 msgid "Track selector"
-msgstr ""
+msgstr "Számválasztó"
 
 #: ../plugins/minimode/minimodeprefs.py:52
 msgid "Progress bar"
@@ -2143,7 +2183,7 @@ msgstr "Hangerő"
 
 #: ../plugins/minimode/minimodeprefs.py:54
 msgid "Playlist button"
-msgstr ""
+msgstr "Lejátszólistagomb"
 
 #: ../plugins/minimode/minimodeprefs.py:57
 msgid "Restore"
@@ -2153,17 +2193,17 @@ msgstr "Visszaállítás"
 #: ../plugins/minimode/minimodeprefs.py:83
 #: ../plugins/minimode/minimodeprefs.py:89
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:85
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title by $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:87
 msgid "$title ($length)"
-msgstr ""
+msgstr "$title ($length)"
 
 #: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
@@ -2188,7 +2228,7 @@ msgstr "Kontextus"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Felvevő"
 
 #: ../plugins/streamripper/__init__.py:54
 msgid "Streamripper can only record streams."
@@ -2274,7 +2314,7 @@ msgstr "Csütörtök"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:18
 msgid "Time per Increment:"
-msgstr ""
+msgstr "Növelésenkénti idő"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:19
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
@@ -2288,7 +2328,7 @@ msgstr "Szerda"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Timer per Increment:"
-msgstr ""
+msgstr "Növelésenkénti idő"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Use Fading"
@@ -2348,7 +2388,7 @@ msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
-msgstr ""
+msgstr "Beállítások"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"

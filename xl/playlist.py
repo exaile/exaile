@@ -187,7 +187,11 @@ def import_from_pls(path, handle=None):
             return None
 
     if not linedict.has_key("version"):
-        return None
+        logger.warning("No PLS version specified, assuming 2. [%s]"%path)
+    else:
+        if linedict["version"].strip() != '2':
+            logger.error("PLS file is not a supported version!")
+            return None
     if not linedict.has_key("numberofentries"):
         return None
 

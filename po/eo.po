@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-05 07:50+0000\n"
-"Last-Translator: Stephen Brown <sbrown1992@gmail.com>\n"
+"PO-Revision-Date: 2010-01-22 19:54+0000\n"
+"Last-Translator: Kristjan <Unknown>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-01-06 04:33+0000\n"
+"X-Launchpad-Export-Date: 2010-01-23 04:42+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -250,14 +250,14 @@ msgstr "Tre rapida senperda sonformo kun bona densigo."
 
 #: ../xl/track.py:388
 msgid "Various Artists"
-msgstr "Diversaj Artistoj"
+msgstr "Diversaj artistoj"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
 #: ../xl/track.py:393 ../xl/track.py:412 ../xl/trackformatter.py:121
 #: ../xl/playlist.py:245 ../xlgui/panel/collection.py:478
 #: ../plugins/notifyosd/__init__.py:57 ../plugins/minimode/mmwidgets.py:1015
 msgid "Unknown"
-msgstr "Nekonata"
+msgstr "Nekonate"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/track.py:424 ../xl/trackformatter.py:110
@@ -2989,9 +2989,6 @@ msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Ĝeneralaj</b>"
 
 #~ msgid ""
 #~ "Artist\n"

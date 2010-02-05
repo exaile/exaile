@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-14 14:01+0000\n"
-"Last-Translator: Wille <wille@riseup.net>\n"
+"PO-Revision-Date: 2010-01-29 15:00+0000\n"
+"Last-Translator: Kym Keive Santos <kymkeive@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2010-01-15 04:33+0000\n"
+"X-Launchpad-Export-Date: 2010-01-30 04:38+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -571,15 +571,15 @@ msgstr "Carregando: 100%..."
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "Misturar _Desligado"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Misturar _Faixas"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Misturar _Álbuns"
 
 #: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
@@ -883,8 +883,8 @@ msgid ""
 "Path is already in your collection, or is a subdirectory of another path in "
 "your collection"
 msgstr ""
-"Diretório já está na sua coleção, ou é um subdiretório de outro na sua "
-"coleção"
+"O caminho já se encontra em sua coleção ou é um subdiretório de outro "
+"caminho de sua coleção"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/plcolumns.py:73 ../xlgui/panel/flatplaylist.py:90
@@ -989,14 +989,13 @@ msgstr "horas"
 msgid "weeks"
 msgstr "semanas"
 
-# Usado na criação de uma lista de reprodução automática
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:69 ../xlgui/panel/playlists.py:78
 #: ../xlgui/panel/playlists.py:84 ../xlgui/panel/playlists.py:90
 #: ../xlgui/panel/playlists.py:118 ../xlgui/panel/playlists.py:135
 #: ../xlgui/panel/playlists.py:143
 msgid "is"
-msgstr "é"
+msgstr "verdade"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:71 ../xlgui/panel/playlists.py:79
@@ -1050,12 +1049,12 @@ msgstr "Ano"
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:109 ../xlgui/panel/playlists.py:149
 msgid "before"
-msgstr "antes de"
+msgstr "antes"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:111 ../xlgui/panel/playlists.py:150
 msgid "after"
-msgstr "depois de"
+msgstr "depois"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:113 ../xlgui/panel/playlists.py:151
@@ -1079,7 +1078,7 @@ msgstr "Adicionar à Nova Lista de Reprodução..."
 #: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
 #: ../xlgui/panel/playlists.py:678
 msgid "You did not enter a name for your playlist"
-msgstr "Você não especificou um nome para sua lista de reprodução"
+msgstr "Não foi especificado um nome para sua lista de reprodução"
 
 #: ../xlgui/panel/playlists.py:553
 msgid "Smart Playlists"
@@ -1134,7 +1133,7 @@ msgstr "Tamanho"
 #: ../xlgui/panel/files.py:413
 #, python-format
 msgid "%d KB"
-msgstr ""
+msgstr "%d KB"
 
 #: ../xlgui/panel/collection.py:140
 msgid ""
@@ -1185,7 +1184,7 @@ msgstr "Coleção"
 #. translate this to an empty string.
 #: ../xlgui/prefs/collection_prefs.py:31
 msgid "the"
-msgstr ""
+msgstr "o/a(s)"
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
@@ -1201,7 +1200,7 @@ msgstr "Mensagem na Tela (OSD)"
 
 #: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"
-msgstr "Plugin"
+msgstr "Módulo"
 
 #: ../xlgui/prefs/plugin_prefs.py:106
 #: ../plugins/multialarmclock/alarmclk.ui.h:6
@@ -1285,11 +1284,13 @@ msgstr "(Clique com o botão direito para voltar ao padrão)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Usar detecção de compilação baseado em arquivo"
 
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"
 msgstr ""
+"Palavras para tirar a partir do começo das tags dos artista (separado por "
+"espaços):"
 
 #: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
 msgid "Open last playlists on startup"
@@ -1452,7 +1453,7 @@ msgstr "Propriedades da Faixa"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Define como maiúscula a primeira letra de todas as etiquetas"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
@@ -1460,7 +1461,7 @@ msgstr "_Próxima"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Anterior"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
@@ -1468,11 +1469,11 @@ msgstr "_Remover tag"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Nenhum Plugin Selecionado</b>"
+msgstr "<b>Nenhum Módulo Selecionado</b>"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:2
 msgid "Authors:"
@@ -1480,7 +1481,7 @@ msgstr "Autores:"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:3
 msgid "Available Plugins"
-msgstr "Plugins Disponíveis"
+msgstr "Módulos Disponíveis"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:4
 msgid "Description:"
@@ -1504,7 +1505,7 @@ msgstr "Instalar um arquivo de plugin"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
-msgstr "Plugins Instalados"
+msgstr "Módulos Instalados"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:10
 msgid "Updates"
@@ -1705,7 +1706,7 @@ msgstr "ALSA"
 
 #: ../data/ui/playback_prefs_pane.ui.h:2
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Redução do Áudio:  "
 
 #: ../data/ui/playback_prefs_pane.ui.h:4
 msgid "Crossfade duration (ms):"
@@ -2224,7 +2225,7 @@ msgstr "Contexto"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Gravador de fluxo"
 
 #: ../plugins/streamripper/__init__.py:54
 msgid "Streamripper can only record streams."
@@ -2310,7 +2311,7 @@ msgstr "Quinta-Feira"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:18
 msgid "Time per Increment:"
-msgstr ""
+msgstr "Tempo por Incremento:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:19
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
@@ -2324,7 +2325,7 @@ msgstr "Quarta-Feira"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Timer per Increment:"
-msgstr ""
+msgstr "Tempo por Incremento:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Use Fading"
@@ -2332,11 +2333,11 @@ msgstr "Usar Transição"
 
 #: ../plugins/equalizer/equalizer.ui.h:1
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:2
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "0"
@@ -2344,43 +2345,43 @@ msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "227"
-msgstr ""
+msgstr "227"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
@@ -2388,7 +2389,7 @@ msgstr "pre"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"
-msgstr ""
+msgstr "Mostrar Círculo"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"
@@ -2396,7 +2397,7 @@ msgstr "Mostrar Capas"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
-msgstr ""
+msgstr "Mostrar Sobreposição:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"
@@ -2412,7 +2413,7 @@ msgstr "Senha:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show Menuitem to toggle Submission"
-msgstr ""
+msgstr "Mostrar o item de menu para alterar a apresentação"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit tracks using Audioscrobbler"
@@ -2500,7 +2501,7 @@ msgstr "Ordenar por:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Order Direction:"
-msgstr ""
+msgstr "Direção de Ordem:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
@@ -2520,7 +2521,7 @@ msgstr "Resultados:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
-msgstr ""
+msgstr "Marcados com estrela"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
@@ -2804,11 +2805,11 @@ msgstr "Um equalizador de 10 canais"
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
-msgstr ""
+msgstr "Aresta"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
-msgstr ""
+msgstr "Define a capa e adiciona alguns itens de menu ao AWN para o Exaile"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
@@ -3079,7 +3080,7 @@ msgstr "Plugin para obter letras do lyricwiki.org"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Ex Editor de tag falso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""

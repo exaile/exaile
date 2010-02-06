@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-31 15:12+0000\n"
-"Last-Translator: Bugra Gokalp Okcu <Unknown>\n"
+"PO-Revision-Date: 2010-02-05 22:24+0000\n"
+"Last-Translator: Aren Olson <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-02-01 04:43+0000\n"
+"X-Launchpad-Export-Date: 2010-02-06 04:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -165,7 +165,7 @@ msgstr ""
 
 #: ../xl/main.py:366
 msgid "Filter event debug output"
-msgstr ""
+msgstr "Hata ayıklama çıktısını olaylara göre filitrele"
 
 #: ../xl/main.py:369
 msgid "Reduce level of output"
@@ -381,7 +381,7 @@ msgstr "Düzenleyen"
 
 #: ../xlgui/properties.py:46
 msgid "Conductor"
-msgstr ""
+msgstr "Orkestra Şefi"
 
 #: ../xlgui/properties.py:47
 msgid "Performer"
@@ -552,7 +552,7 @@ msgstr "Farklı Kaydet..."
 
 #: ../xlgui/main.py:662
 msgid "Toggle: Stop after selected track"
-msgstr ""
+msgstr "Seçili şarkıdan sonra dur"
 
 #: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
 msgid "Dynamically add similar tracks to the playlist"
@@ -573,15 +573,15 @@ msgstr "Arabelleğe alınıyor: 100%..."
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "Karışık _Kapalı"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Karışık _Parçalar"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Karışık _Albümler"
 
 #: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
 msgid "Stopped"
@@ -845,7 +845,7 @@ msgstr "%(collection_count)d koleksiyonunda %(playlist_count)d oynatılıyor."
 #: ../xlgui/guiutil.py:742
 #, python-format
 msgid "(%d queued)"
-msgstr ""
+msgstr "(%d kuyruğa eklenmiş)"
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
@@ -940,7 +940,7 @@ msgstr "Rastgele dağılımlı sonuçlar"
 
 #: ../xlgui/filtergui.py:92
 msgid "Limit to: "
-msgstr ""
+msgstr "Sınırlanacak: "
 
 #: ../xlgui/filtergui.py:102
 msgid " songs"
@@ -1285,7 +1285,7 @@ msgstr "(Ön tanımlıları silmek için sağ tık yapınız)"
 
 #: ../data/ui/collection_prefs_pane.ui.h:2
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Dosya tabanlı derleme algılamasını kullan"
 
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"
@@ -1572,7 +1572,7 @@ msgstr "Bir üst dizine geç"
 
 #: ../data/ui/playlists_prefs_pane.ui.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Çıkışta karışık çalma listelerini kaydetmek için bir komut"
 
 #: ../data/ui/osd_prefs_pane.ui.h:1
 msgid ""
@@ -1706,11 +1706,11 @@ msgstr "Ses Alıcı:  "
 
 #: ../data/ui/playback_prefs_pane.ui.h:4
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Şarkı geçişi süresi (ms):"
 
 #: ../data/ui/playback_prefs_pane.ui.h:5
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Azalma süresi (ms):"
 
 #: ../data/ui/playback_prefs_pane.ui.h:6
 msgid "GNOME"
@@ -1750,11 +1750,11 @@ msgstr "Bu seçenekler sadece birleşik motorda etkili olur."
 
 #: ../data/ui/playback_prefs_pane.ui.h:15
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Birleşik (kararsız)"
 
 #: ../data/ui/playback_prefs_pane.ui.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Şarkı geçişi kullan (DENEYSEL)"
 
 #: ../data/ui/playback_prefs_pane.ui.h:17
 msgid "Use fade transitions on user actions"
@@ -1844,7 +1844,7 @@ msgstr "Sistem çekmecesi simgesini göster"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:10
 msgid "Tab placement:"
-msgstr ""
+msgstr "Sekme yerleşimi:"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:11
 msgid "Top"
@@ -1875,7 +1875,7 @@ msgstr ""
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
@@ -2386,7 +2386,7 @@ msgstr "ön"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"
-msgstr ""
+msgstr "Çember Görünümü"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"
@@ -2430,15 +2430,15 @@ msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "Import format: "
-msgstr ""
+msgstr "İçe aktarım biçimi: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "Import path: "
-msgstr ""
+msgstr "İçe aktarım yolu: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "Import quality: "
-msgstr ""
+msgstr "İçe aktarım kalitesi: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "MP3 (CBR)"
@@ -2450,11 +2450,11 @@ msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "WavPack"
-msgstr ""
+msgstr "WavPack"
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
@@ -2468,7 +2468,7 @@ msgstr "Gelişmiş"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "Artan"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
@@ -2476,7 +2476,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "Azalan"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
@@ -2484,31 +2484,31 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
-msgstr ""
+msgstr "İndirme sayısı"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
-msgstr ""
+msgstr "Dinlenme sayısı"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Çalma listesi ekleri sayısı"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Order By:"
-msgstr ""
+msgstr "Sırala:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Order Direction:"
-msgstr ""
+msgstr "Sıralama Yönü:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
-msgstr ""
+msgstr "Bu ayın derecelendirmesi"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Rating this week"
-msgstr ""
+msgstr "Bu haftanın derecelendirmesi"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
@@ -2520,7 +2520,7 @@ msgstr "Sonuçlar:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
-msgstr ""
+msgstr "Yıldızlı"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
@@ -2570,7 +2570,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 msgid "Use Album Covers As Icons"
-msgstr ""
+msgstr "Albüm Kapaklarını Simge Olarak Kullan"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
@@ -2630,7 +2630,7 @@ msgstr "Y yerleşimi:"
 
 #: ../plugins/desktopcover/prefs.ui.h:9
 msgid "pixels"
-msgstr ""
+msgstr "benekler"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Base color"
@@ -2646,7 +2646,7 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Darkness level:"
-msgstr ""
+msgstr "Karanlık derecesi:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Show only waveform, not mood"
@@ -2723,7 +2723,7 @@ msgstr "Sadece sanatçı"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Görüntülenen kapakları yeniden boyutlandır"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "Summary"
@@ -2735,7 +2735,7 @@ msgstr "Yazı tipi:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Terminal Opacity:"
-msgstr ""
+msgstr "Uçbirim Şeffaflığı"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:1
 msgid "Always on top"
@@ -2747,7 +2747,7 @@ msgstr "Pencere dekarasyonunu göster"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:3
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Görev listesinde göster"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:4
 msgid "Show on all desktops"
@@ -2755,7 +2755,7 @@ msgstr "Tüm masaüstlerinde göster"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:5
 msgid "Track title format:"
-msgstr ""
+msgstr "Parça başlık formatı:"
 
 #: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Relay Port:"
@@ -2802,7 +2802,7 @@ msgstr ""
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
 "Sets the currently playing status in Pidgin for services that support it."
-msgstr ""
+msgstr "Desteklenen hizmetler için çalan şarkı durumunu Pidgin'de göster."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
@@ -2842,11 +2842,11 @@ msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr ""
+msgstr "Jamendo müzik kataloğuna erişimi etkinleştirir."
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Last.fm Albüm Kapakları"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
@@ -2871,11 +2871,11 @@ msgstr ""
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "Albüm kapağını masaüstünde göster"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Last.fm Dinamik Şarkı Listesi"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
@@ -2908,7 +2908,7 @@ msgstr "İpod desteği"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr ""
+msgstr "iPod desteği için bir eklenti"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -2916,7 +2916,7 @@ msgstr ""
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Basit Podcast Desteği Ekler"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
@@ -2940,7 +2940,7 @@ msgstr "Merhaba Dünya"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "Temel eklenti sistemini test etmek için basit bir eklenti"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
@@ -2966,7 +2966,7 @@ msgstr ""
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "Lyricsfly.com dan şarkı sözü getiren bir eklenti"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -3000,7 +3000,7 @@ msgstr ""
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr ""
+msgstr "Albüm Kapaklarını Etiketle"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
@@ -3029,7 +3029,7 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr ""
+msgstr "Lyricwiki.org 'dan şarkı sözü getiren bir eklenti"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"

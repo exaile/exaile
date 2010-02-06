@@ -31,7 +31,7 @@
 #
 # Also takes care of parsing commandline options.
 
-__version__ = '0.3.1b'
+__version__ = '0.3.1b+'
 
 import os
 import sys

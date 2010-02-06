@@ -171,6 +171,9 @@ class TrackDB(object):
                             "DB was created on a newer Exaile version."
                 elif pdata['_dbversion'] < self._dbversion:
                     logger.info("Upgrading DB format....")
+                    import shutil
+                    shutil.copyfile(self.location,
+                            self.location + "-%s.bak"%pdata['_dbversion'])
                     import xl.migrations.database as dbmig
                     dbmig.handle_migration(self, pdata, pdata['_dbversion'],
                             self._dbversion)

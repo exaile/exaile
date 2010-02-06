@@ -1076,7 +1076,7 @@ class PlayingPage(ArtistPage):
 
     def _lyrics(self):
         try:
-            l = ex.exaile().lyrics.find_lyrics(self.track, False)
+            l = ex.exaile().lyrics.find_lyrics(self.track)
             l = "%s <br/><br/>from %s" % (l[0].replace('\n', '<br/>'), l[1])
         except:
             l='No lyrics found'

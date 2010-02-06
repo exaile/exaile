@@ -148,7 +148,7 @@ potball:
 dist:
 	mkdir -p dist
 	rm -rf dist/copy
-	bzr co --lightweight ./ dist/copy
+	bzr export dist/copy/
 	./tools/dist.sh
 	rm -rf dist/copy
 

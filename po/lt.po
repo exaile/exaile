@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-05 22:27+0000\n"
-"Last-Translator: Arunas Radzvilavicius <arunas.rv@gmail.com>\n"
+"PO-Revision-Date: 2010-02-06 13:20+0000\n"
+"Last-Translator: Viktoras Jakovlevas <viktoras.jakovlevas@gmail.com>\n"
 "Language-Team: Lithuanian <lt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "(n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-02-06 04:51+0000\n"
+"X-Launchpad-Export-Date: 2010-02-07 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -37,11 +37,11 @@ msgstr "Groti kitą takelį"
 
 #: ../xl/main.py:292
 msgid "Play the previous track"
-msgstr "Groti ankstesnį takelį"
+msgstr ""
 
 #: ../xl/main.py:294
 msgid "Stop playback"
-msgstr "Sustabdyti grojimą"
+msgstr "Sustabdyti"
 
 #: ../xl/main.py:296
 msgid "Play"
@@ -85,11 +85,11 @@ msgstr "Spausdinti dabar grojamo takelio ilgį"
 
 #: ../xl/main.py:318
 msgid "Set rating for current song"
-msgstr "Nustatyti grojančios dainos reitingą"
+msgstr "Reitinguoti dabar grojamą dainą"
 
 #: ../xl/main.py:320
 msgid "Get rating for current song"
-msgstr "Gauti grojančios dainos reitingą"
+msgstr "Gauti grojamos dainos reitingą"
 
 #: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
@@ -105,11 +105,11 @@ msgstr "Garso nustatymai"
 
 #: ../xl/main.py:331
 msgid "Increases the volume by VOL%"
-msgstr "Padidina garsumą VOL%"
+msgstr "Padidina garsą VOL%"
 
 #: ../xl/main.py:333
 msgid "Decreases the volume by VOL%"
-msgstr "Sumažina garsumą VOL%"
+msgstr "Sumažina garsą VOL%"
 
 #: ../xl/main.py:335
 msgid "Print the current volume percentage"
@@ -117,7 +117,7 @@ msgstr "Spausdinti dabartinį garsumo lygį procentais"
 
 #: ../xl/main.py:338
 msgid "Other options"
-msgstr "Kitos parinktys"
+msgstr "Kiti nustatymai"
 
 #: ../xl/main.py:340
 msgid "Start new instance"
@@ -151,7 +151,7 @@ msgstr "Nustatymai programuotojams"
 
 #: ../xl/main.py:359
 msgid "Set data directory"
-msgstr "Nustatyti duomenų direktoriją"
+msgstr "Nustatyti duomenų aplanką"
 
 #: ../xl/main.py:361
 msgid "Show debugging output"
@@ -261,7 +261,7 @@ msgstr "Įvairūs atlikėjai"
 #: ../xl/playlist.py:245 ../xlgui/panel/collection.py:478
 #: ../plugins/notifyosd/__init__.py:57 ../plugins/minimode/mmwidgets.py:1015
 msgid "Unknown"
-msgstr "Nežinomas"
+msgstr "Nežinoma"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/track.py:424 ../xl/trackformatter.py:110
@@ -352,11 +352,11 @@ msgstr "Originalus Albumas"
 
 #: ../xlgui/properties.py:37
 msgid "Lyricist"
-msgstr ""
+msgstr "Teksto autorius"
 
 #: ../xlgui/properties.py:39
 msgid "Website"
-msgstr "Tinklalapis"
+msgstr "Svetainė"
 
 #: ../xlgui/properties.py:41
 msgid "Original Artist"
@@ -405,15 +405,15 @@ msgstr "Albumas"
 
 #: ../xlgui/properties.py:50
 msgid "Copyright"
-msgstr "Autoriaus teisės"
+msgstr "Autorinės teisės"
 
 #: ../xlgui/properties.py:51
 msgid "Lyrics"
-msgstr "Dainos tekstas"
+msgstr "Tekstai"
 
 #: ../xlgui/properties.py:52 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
-msgstr "Takelis"
+msgstr "Daina"
 
 #: ../xlgui/properties.py:53 ../xlgui/prefs/plugin_prefs.py:98
 msgid "Version"
@@ -434,12 +434,12 @@ msgstr "ISRC"
 #: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:164
 #: ../plugins/cd/cdprefs.py:102 ../plugins/minimode/minimodeprefs.py:73
 msgid "Genre"
-msgstr "Žanras"
+msgstr "Stilius"
 
 #: ../xlgui/properties.py:57 ../xlgui/plcolumns.py:104
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:67
 msgid "Composer"
-msgstr "Kūrėjas"
+msgstr "Kompozitorius"
 
 #: ../xlgui/properties.py:58
 msgid "Encoded By"
@@ -461,11 +461,11 @@ msgstr "BPM"
 #: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:173
 #: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimodeprefs.py:74
 msgid "Bitrate"
-msgstr "Bitų dažnis"
+msgstr "Kokybė"
 
 #: ../xlgui/properties.py:63
 msgid "Date Added"
-msgstr "Pridėjimo data"
+msgstr "Kada pridėta"
 
 #: ../xlgui/properties.py:64 ../xlgui/plcolumns.py:114
 #: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160
@@ -494,7 +494,7 @@ msgstr "Vieta"
 
 #: ../xlgui/properties.py:67
 msgid "Modified"
-msgstr "Redaguotas"
+msgstr "Pakeista"
 
 #: ../xlgui/properties.py:69
 msgid "Times Played"
@@ -507,7 +507,7 @@ msgstr "Paskutinį kartą grota"
 #: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr "Redaguojamas takelis %(current)d of %(total)d"
+msgstr "Redaguojamas takelis %(current)d iš %(total)d"
 
 #: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
@@ -532,7 +532,7 @@ msgstr ""
 
 #: ../xlgui/main.py:214
 msgid "Close tab"
-msgstr ""
+msgstr "Uždaryti kortelę"
 
 #: ../xlgui/main.py:272
 msgid "New playlist title:"
@@ -552,7 +552,7 @@ msgstr "Išsaugoti kaip..."
 
 #: ../xlgui/main.py:662
 msgid "Toggle: Stop after selected track"
-msgstr "Perjungti: Stabdyti po dabartino takelio"
+msgstr "Perjungti: Sustabdyti po dabartinės dainos"
 
 #: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
 msgid "Dynamically add similar tracks to the playlist"
@@ -630,7 +630,7 @@ msgstr ""
 #: ../xlgui/menu.py:99 ../xlgui/menu.py:344 ../xlgui/panel/radio.py:408
 #: ../plugins/droptrayicon/__init__.py:274
 msgid "New Playlist"
-msgstr ""
+msgstr "Naujas grojaraštis"
 
 #: ../xlgui/menu.py:157
 msgid "Add to custom playlist"

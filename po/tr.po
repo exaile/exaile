@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-05 22:24+0000\n"
-"Last-Translator: Aren Olson <Unknown>\n"
+"PO-Revision-Date: 2010-02-06 12:28+0000\n"
+"Last-Translator: Yiğit Ateş <yigitates52@gmail.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-02-06 04:52+0000\n"
+"X-Launchpad-Export-Date: 2010-02-07 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -96,7 +96,7 @@ msgstr "Yazdırma pozisyonu şu anki parçanın zamanlamasının içindedir"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "Şu andaki parçanın ilerlemesini yüzde olarak yazdır"
 
 #: ../xl/main.py:329
 msgid "Volume options"
@@ -515,7 +515,7 @@ msgstr "Başlıklardaki değişiklikler uygulanmadan kapatılsın mı?"
 
 #: ../xlgui/properties.py:655
 msgid "of"
-msgstr ""
+msgstr "/"
 
 #: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
@@ -1163,7 +1163,7 @@ msgstr "Görünüm"
 
 #: ../xlgui/prefs/playback_prefs.py:32
 msgid "Playback"
-msgstr ""
+msgstr "Çalma"
 
 #: ../xlgui/prefs/__init__.py:83 ../data/ui/preferences_dialog.ui.h:1
 msgid "Preferences"
@@ -1832,7 +1832,7 @@ msgstr "Sistem alanına küçült"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:7
 msgid "Right"
-msgstr ""
+msgstr "Sağ"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:8
 msgid "Show splash screen on startup"
@@ -1870,7 +1870,7 @@ msgstr "Ekolayzer"
 
 #: ../plugins/awn/awn_prefs.py:32
 msgid "AWN"
-msgstr ""
+msgstr "AWN"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -1911,7 +1911,7 @@ msgstr "El ile..."
 
 #: ../plugins/daapclient/__init__.py:207
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Paylaşım için IP adresini ve bağlantı noktasını girin"
 
 #: ../plugins/daapclient/__init__.py:208
 msgid "Enter IP address and port."

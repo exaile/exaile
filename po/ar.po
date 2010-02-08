@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-05 22:18+0000\n"
-"Last-Translator: benohb <benohamid@gmail.com>\n"
+"PO-Revision-Date: 2010-02-07 15:18+0000\n"
+"Last-Translator: faical117 <faical117@yahoo.fr>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2010-02-06 04:50+0000\n"
+"X-Launchpad-Export-Date: 2010-02-08 04:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -53,11 +53,11 @@ msgstr "إرجاع التشغيل او تشغيل"
 
 #: ../xl/main.py:301
 msgid "Stop playback after current track"
-msgstr "اوقف التشغيل بعد الانتهاء من المسار الحالي"
+msgstr "اوقف التشغيل بعد الانتهاء من المقطع الحالي"
 
 #: ../xl/main.py:304
 msgid "Track options"
-msgstr "خواص المسار"
+msgstr "خواص المقطع"
 
 #: ../xl/main.py:306
 msgid "Query player"
@@ -77,15 +77,15 @@ msgstr "طباعة الألبوم من المسار الحالي"
 
 #: ../xl/main.py:314
 msgid "Print the artist of current track"
-msgstr "طباعة الفنان من المسار الحالي"
+msgstr "طباعة الفنان من المقطع الحالي"
 
 #: ../xl/main.py:316
 msgid "Print the length of current track"
-msgstr "طباعة الطول من المسار الحالي"
+msgstr "طباعة الطول من المقطع الحالي"
 
 #: ../xl/main.py:318
 msgid "Set rating for current song"
-msgstr "حدد التصنيف الحالي للأغنية"
+msgstr "حدد التصنيف للأغنية الحالية"
 
 #: ../xl/main.py:320
 msgid "Get rating for current song"
@@ -93,11 +93,11 @@ msgstr "الحصول على التصنيف الحالي للأغنية"
 
 #: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
-msgstr "طباعة التقدم داخل المسار الحالي كوقت"
+msgstr "طباعة التموضع داخل المقطع الحالي كوقت"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
-msgstr "طباعة التقدم داخل المسار الحالي كنسبة"
+msgstr "طباعة التموضع داخل المقطع الحالي كنسبة"
 
 #: ../xl/main.py:329
 msgid "Volume options"
@@ -109,7 +109,7 @@ msgstr "زد شدّة الصوت بVOL%"
 
 #: ../xl/main.py:333
 msgid "Decreases the volume by VOL%"
-msgstr "نقصان الصوت ب%"
+msgstr "نقصان الصوت ب VOL%"
 
 #: ../xl/main.py:335
 msgid "Print the current volume percentage"
@@ -195,7 +195,7 @@ msgstr "تصنيف > %d"
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
-msgstr "اكسايل لم يتم التحميل ,ربما توجب عليك تتبع إشارة اكسال_محملات ؟"
+msgstr "اكسايل لم يكمل التحميلة,ربما عليك الاستماع لإشارة exail_loaded؟"
 
 #: ../xl/cover.py:155 ../xl/cover.py:189 ../xl/trackdb.py:226
 msgid "You did not specify a location to save the db"

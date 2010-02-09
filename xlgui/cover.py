@@ -371,6 +371,7 @@ class CoverWidget(gtk.EventBox):
         width = settings.get_option("gui/cover_width", 100)
         self.image.set_image_size(width, width)
         self.image.set_image_data(covers.get_default_cover())
+        self.emit('cover-found', None)
         self.add(self.image)
         self.image.show()
 
@@ -408,6 +409,7 @@ class CoverWidget(gtk.EventBox):
 
     def on_cover_chosen(self, object, cvr):
         self.image.set_image_data(cvr[1])
+        self.emit('cover-found', self.image.pixbuf)
 
     def remove_cover(self):
         """
@@ -440,10 +442,14 @@ class CoverWidget(gtk.EventBox):
             return
 
         if self.player.current == track:
-            gobject.idle_add(self.image.set_image_data, cov)
+            def idle():
+                self.image.set_image_data(cov)
+                self.emit('cover-found', self.image.pixbuf)
+            gobject.idle_add(idle)
 
     def set_blank(self):
         self.image.set_image_data(self.covers.get_default_cover())
+        self.emit('cover-found', None)
 
     def on_playback_end(self, type, player, object):
         """

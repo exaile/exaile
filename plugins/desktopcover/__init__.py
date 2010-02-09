@@ -120,9 +120,8 @@ class CoverDisplay:
             self.window.hide()
             return
 
-        pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
-        width = pixbuf.get_width()
-        height = pixbuf.get_height()
+        width = cover.get_width()
+        height = cover.get_height()
         if not self.use_image_size:
             settings = self.settings
             origw = float(width)
@@ -131,8 +130,8 @@ class CoverDisplay:
             scale = min(width / origw, height / origh)
             width = int(origw * scale)
             height = int(origh * scale)
-            pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
-        self.image.set_from_pixbuf(pixbuf)
+            cover = cover.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
+        self.image.set_from_pixbuf(cover)
 
         wnd = self.window
         self.set_position(force=True)
@@ -200,16 +199,11 @@ def _enable(eventname, exaile, nothing):
 
     player = exaile.player
     if player.current and (player.is_playing() or player.is_paused()):
-        _display(cover_widget.loc)
+        # FIXME: This will display the default image if the plugin is enabled
+        # while playing a song without cover.
+        cover_display.display(cover_widget.image.pixbuf)
     cover_connection = cover_widget.connect('cover-found',
-        lambda w, c: _display(c))
-
-def _display(cover):
-    global stopped
-    if 'nocover' in cover:
-        cover_display.display(None)
-    else:
-        cover_display.display(cover)
+        lambda w, c: cover_display.display(c))
 
 
 # vi: et sts=4 sw=4 tw=80

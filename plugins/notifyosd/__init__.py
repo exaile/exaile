@@ -16,12 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-import pynotify, gobject, logging, re
+import cgi, gobject, gtk.gdk, logging, pynotify
 import notifyosd_cover, notifyosdprefs
 from xl import event, settings, common
 from xlgui import cover as guicover
 from xl.nls import gettext as _
-import gobject, gtk.gdk
 
 logger = logging.getLogger(__name__)
 pynotify.init('Exaile')
@@ -58,7 +57,6 @@ class ExaileNotifyOsd(object):
         self.unknown        = _('Unknown')
         self.summary        = None
         self.body           = None
-        self.escape_pattern = re.compile('(.*?)&(?!amp;)(.*?)')
         self.gui_callback   = False
         self.tray_connection= -1
         event.add_callback(self.on_tray_toggled, 'tray_icon_toggled')
@@ -67,9 +65,11 @@ class ExaileNotifyOsd(object):
     def update_track_notify(self, type, player, track, media_icon = None):
         if not track:
             return
-        title = track.get_tag_display('title')
-        artist = track.get_tag_display('artist', artist_compilations=False)
-        album = track.get_tag_display('album')
+        title = cgi.escape(track.get_tag_display('title'))
+        artist = cgi.escape(
+            track.get_tag_display('artist', artist_compilations=False)
+        )
+        album = cgi.escape(track.get_tag_display('album'))
         # Find the icon we will use
         icon_allowed = False
         if media_icon and self.use_media_icons:
@@ -98,10 +98,6 @@ class ExaileNotifyOsd(object):
             self.body = self.format_album % {'album' : album}
         else:
             self.body = ""
-
-        # "&" is the only thing we want to escape
-        self.summary = re.sub(self.escape_pattern, r'\1&amp;\2', self.summary)
-        self.body = re.sub(self.escape_pattern, r'\1&amp;\2', self.body)
 
         if icon_allowed and self.cover:
             try:

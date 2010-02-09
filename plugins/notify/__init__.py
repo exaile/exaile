@@ -18,7 +18,6 @@ import pynotify, cgi
 import notifyprefs
 import logging
 import inspect
-import re
 import notify_cover
 from xlgui.prefs import widgets
 from xl import event, common, settings
@@ -38,7 +37,6 @@ class ExaileNotification(object):
     def __init__(self):
         self.notification_id = None
         self.exaile = None
-        self.escape_pattern = re.compile('(.*?)&(?!amp;)(.*?)')
 
     def __inner_preference(klass):
         """Function will make a property for a given subclass of PrefsItem"""
@@ -63,9 +61,12 @@ class ExaileNotification(object):
         type and player arguments are ignored.
 
         '''
-        title = track.get_tag_display('title')
-        artist = track.get_tag_display('artist', artist_compilations=False)
-        album = track.get_tag_display('album')
+        title = cgi.escape(track.get_tag_display('title'))
+        artist = cgi.escape(
+            track.get_tag_display('artist', artist_compilations=False)
+        )
+        album = cgi.escape(track.get_tag_display('album'))
+
         if artist and album:
             body_format = self.body_artistalbum
         elif artist:
@@ -74,6 +75,7 @@ class ExaileNotification(object):
             body_format = self.body_album
         else:
             body_format = ""
+
         summary = self.summary % {'title': title,
                                   'artist': artist,
                                   'album': album
@@ -82,10 +84,6 @@ class ExaileNotification(object):
                               'artist': artist,
                               'album': album
                               }
-
-        # "&" is the only thing we want to escape
-        summary = re.sub(self.escape_pattern, r'\1&amp;\2', summary)
-        body = re.sub(self.escape_pattern, r'\1&amp;\2', body)
 
         notif = pynotify.Notification(summary, body)
         notif.set_icon_from_pixbuf(notify_cover.get_image_for_track(track,

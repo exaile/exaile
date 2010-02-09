@@ -91,7 +91,6 @@ def check_exit(options, args):
         'GetTitle': 'title',
         'GetAlbum': 'album',
         'GetLength': '__length',
-        'GetRating': '__rating',
     }
 
     for command, attr in info_commands.iteritems():
@@ -103,14 +102,14 @@ def check_exit(options, args):
                 print value
             comm = True
 
-    modify_commands = {
-        'SetRating': '__rating',
-    }
+    modify_commands = [
+        'SetRating'
+    ]
 
-    for command, attr in modify_commands.iteritems():
-        value = getattr(options, command)
-        if value:
-            iface.SetTrackAttr(attr, value)
+    for command in modify_commands:
+        argument = getattr(options, command)
+        if argument is not None:
+            getattr(iface, command)(argument)
             comm = True
 
     volume_commands = (
@@ -141,6 +140,7 @@ def check_exit(options, args):
     query_commands = (
             'CurrentPosition',
             'CurrentProgress',
+            'GetRating',
             'GetVolume',
             'Query',
             )
@@ -229,6 +229,25 @@ class DbusManager(dbus.service.Object):
             self.exaile.player.current.set_tag_raw(attr, value)
         except (AttributeError, TypeError):
             pass
+
+    @dbus.service.method('org.exaile.Exaile', None, 'i')
+    def GetRating(self):
+        """
+            Returns the current track's rating
+        """
+        try:
+            rating = int(self.GetTrackAttr('__rating'))
+        except ValueError:
+            rating = 0
+
+        return rating
+
+    @dbus.service.method('org.exaile.Exaile', 'i')
+    def SetRating(self, value):
+        """
+            Sets the current track's rating
+        """
+        self.SetTrackAttr('__rating', value)
 
     @dbus.service.method('org.exaile.Exaile', 'i')
     def ChangeVolume(self, value):

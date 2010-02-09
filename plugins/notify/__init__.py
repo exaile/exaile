@@ -18,6 +18,7 @@ import pynotify, cgi
 import notifyprefs
 import logging
 import inspect
+import re
 import notify_cover
 from xlgui.prefs import widgets
 from xl import event, common, settings
@@ -37,6 +38,7 @@ class ExaileNotification(object):
     def __init__(self):
         self.notification_id = None
         self.exaile = None
+        self.escape_pattern = re.compile('(.*?)&(?!amp;)(.*?)')
 
     def __inner_preference(klass):
         """Function will make a property for a given subclass of PrefsItem"""
@@ -74,12 +76,17 @@ class ExaileNotification(object):
             body_format = ""
         summary = self.summary % {'title': title,
                                   'artist': artist,
-                                  'album': album,
+                                  'album': album
                                   }
-        body = body_format % {'title': cgi.escape(title),
-                              'artist': cgi.escape(artist),
-                              'album': cgi.escape(album),
+        body = body_format % {'title': title,
+                              'artist': artist,
+                              'album': album
                               }
+
+        # "&" is the only thing we want to escape
+        summary = re.sub(self.escape_pattern, r'\1&amp;\2', summary)
+        body = re.sub(self.escape_pattern, r'\1&amp;\2', body)
+
         notif = pynotify.Notification(summary, body)
         notif.set_icon_from_pixbuf(notify_cover.get_image_for_track(track,
                                                  self.exaile,

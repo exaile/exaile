@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-import pynotify, cgi, gobject, logging
+import pynotify, gobject, logging, re
 import notifyosd_cover, notifyosdprefs
 from xl import event, settings, common
 from xlgui import cover as guicover
@@ -54,10 +54,11 @@ class ExaileNotifyOsd(object):
         self.pauseicon      = 'notification-audio-pause'
         self.resumeicon     = 'notification-audio-play'
         self.stopicon       = 'notification-audio-stop'
-        # TRANSLATORS : this replaces the title of a track when it's not known
+        # TRANSLATORS: title of a track if it is unknown
         self.unknown        = _('Unknown')
         self.summary        = None
         self.body           = None
+        self.escape_pattern = re.compile('(.*?)&(?!amp;)(.*?)')
         self.gui_callback   = False
         self.tray_connection= -1
         event.add_callback(self.on_tray_toggled, 'tray_icon_toggled')
@@ -97,6 +98,10 @@ class ExaileNotifyOsd(object):
             self.body = self.format_album % {'album' : album}
         else:
             self.body = ""
+
+        # "&" is the only thing we want to escape
+        self.summary = re.sub(self.escape_pattern, r'\1&amp;\2', self.summary)
+        self.body = re.sub(self.escape_pattern, r'\1&amp;\2', self.body)
 
         if icon_allowed and self.cover:
             try:

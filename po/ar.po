@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-07 15:18+0000\n"
+"PO-Revision-Date: 2010-02-08 13:33+0000\n"
 "Last-Translator: faical117 <faical117@yahoo.fr>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2010-02-08 04:44+0000\n"
+"X-Launchpad-Export-Date: 2010-02-09 05:09+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -771,7 +771,7 @@ msgstr ""
 
 #: ../xlgui/osd.py:219
 msgid "No track"
-msgstr ""
+msgstr "لايوجد مقطع"
 
 #: ../xlgui/__init__.py:138
 msgid "Export current playlist..."

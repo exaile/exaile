@@ -87,12 +87,12 @@ def check_exit(options, args):
 
     comm = False
     info_commands = {
-            'GetArtist': 'artist',
-            'GetTitle': 'title',
-            'GetAlbum': 'album',
-            'GetLength': '__length',
-            'GetRating': 'rating',
-            }
+        'GetArtist': 'artist',
+        'GetTitle': 'title',
+        'GetAlbum': 'album',
+        'GetLength': '__length',
+        'GetRating': '__rating',
+    }
 
     for command, attr in info_commands.iteritems():
         if getattr(options, command):
@@ -103,14 +103,14 @@ def check_exit(options, args):
                 print value
             comm = True
 
-    modify_commands = (
-           'SetRating',
-           )
+    modify_commands = {
+        'SetRating': '__rating',
+    }
 
-    for command in modify_commands:
+    for command, attr in modify_commands.iteritems():
         value = getattr(options, command)
         if value:
-            iface.SetTrackAttr(command[4:].lower(), value)
+            iface.SetTrackAttr(attr, value)
             comm = True
 
     volume_commands = (
@@ -209,18 +209,16 @@ class DbusManager(dbus.service.Object):
     @dbus.service.method('org.exaile.Exaile', 's', 's')
     def GetTrackAttr(self, attr):
         """
-            Returns a attribute of a track
+            Returns an attribute of a track
         """
         try:
             value = self.exaile.player.current.get_tag_raw(attr)
         except (ValueError, TypeError, AttributeError):
-            value = None
+            value = ''
 
-        if value:
-            if type(value) == list:
-                return u"\n".join(value)
-            return unicode(value)
-        return value
+        if type(value) == list:
+            return u"\n".join(value)
+        return unicode(value)
 
     @dbus.service.method('org.exaile.Exaile', 'sv')
     def SetTrackAttr(self, attr, value):
@@ -228,11 +226,8 @@ class DbusManager(dbus.service.Object):
             Sets rating of a track
         """
         try:
-            set_attr = getattr(self.exaile.player.current, attr)
-            set_attr(value)
-        except AttributeError:
-            pass
-        except TypeError:
+            self.exaile.player.current.set_tag_raw(attr, value)
+        except (AttributeError, TypeError):
             pass
 
     @dbus.service.method('org.exaile.Exaile', 'i')

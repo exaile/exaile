@@ -295,9 +295,19 @@ class SelectionListPrefsItem(PrefsItem):
         move_panel = gtk.Alignment(xalign=0.5, yalign=0.5, xscale=0.0, yscale=0.0)
         move_panel.add(move_box)
 
-        widget.pack_start(available_tree)
+        available_scrollwindow = gtk.ScrolledWindow()
+        available_scrollwindow.set_property('shadow-type', gtk.SHADOW_IN)
+        available_scrollwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        available_scrollwindow.add(available_tree)
+
+        selected_scrollwindow = gtk.ScrolledWindow()
+        selected_scrollwindow.set_property('shadow-type', gtk.SHADOW_IN)
+        selected_scrollwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        selected_scrollwindow.add(selected_tree)
+
+        widget.pack_start(available_scrollwindow)
         widget.pack_start(control_panel, expand=False)
-        widget.pack_start(selected_tree)
+        widget.pack_start(selected_scrollwindow)
         widget.pack_start(move_panel, expand=False)
 
         add_button.connect('clicked', self.on_add_button_clicked)

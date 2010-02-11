@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-05 19:47+0000\n"
-"Last-Translator: Aren Olson <Unknown>\n"
+"PO-Revision-Date: 2010-02-10 13:20+0000\n"
+"Last-Translator: swatch <Unknown>\n"
 "Language-Team: Traditional Chinese <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-01-06 04:35+0000\n"
+"X-Launchpad-Export-Date: 2010-02-11 05:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -84,7 +84,7 @@ msgstr "顯示目前音軌的長度"
 
 #: ../xl/main.py:318
 msgid "Set rating for current song"
-msgstr ""
+msgstr "設定目前歌曲的評價"
 
 #: ../xl/main.py:320
 msgid "Get rating for current song"
@@ -92,11 +92,11 @@ msgstr "取得目前歌曲的評價"
 
 #: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "在目前音軌中以時間顯示現在位置"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "在目前音軌中以百分比顯示現在進度"
 
 #: ../xl/main.py:329
 msgid "Volume options"
@@ -112,7 +112,7 @@ msgstr "降低音量 VOL%"
 
 #: ../xl/main.py:335
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "顯示目前音量%"
 
 #: ../xl/main.py:338
 msgid "Other options"
@@ -124,7 +124,7 @@ msgstr ""
 
 #: ../xl/main.py:343
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "開始時最小化（至系統列，若可能的話）"
 
 #: ../xl/main.py:345
 msgid "Toggle visibility of the GUI (if possible)"
@@ -133,7 +133,7 @@ msgstr "切換使用者介面能見度（若可能的話）"
 #: ../xl/main.py:347
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
-msgstr ""
+msgstr "在安全模式下啟動 - 當您發生麻煩時有時候很有用"
 
 #: ../xl/main.py:350
 msgid "Force import of old data from 0.2.x. Overwrites current data."
@@ -149,7 +149,7 @@ msgstr "開發/除錯選項"
 
 #: ../xl/main.py:359
 msgid "Set data directory"
-msgstr ""
+msgstr "設定資料目錄"
 
 #: ../xl/main.py:361
 msgid "Show debugging output"
@@ -157,15 +157,15 @@ msgstr "顯示詳細偵錯訊息"
 
 #: ../xl/main.py:364
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "開啟 xl.event 除錯。產生「大量」訊息"
 
 #: ../xl/main.py:366
 msgid "Filter event debug output"
-msgstr ""
+msgstr "過濾事件除錯訊息"
 
 #: ../xl/main.py:369
 msgid "Reduce level of output"
-msgstr ""
+msgstr "降低訊息輸出等級"
 
 #: ../xl/main.py:373
 msgid "Disable D-Bus support"
@@ -177,7 +177,7 @@ msgstr "關閉 HAL 支援"
 
 #: ../xl/main.py:394
 msgid "Entire Library"
-msgstr ""
+msgstr "全部音樂庫"
 
 #: ../xl/main.py:400
 #, python-format

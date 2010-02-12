@@ -346,29 +346,29 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 do_add_playlist = True
         else:
             if tracks:
-                artist = tracks[0].get_tag('artist')
-                composer = tracks[0].get_tag('composer')
-                album = tracks[0].get_album_tuple()
+                artist = tracks[0].get_tag_raw('artist')
+                composer = tracks[0].get_tag_raw('composer')
+                album = tracks[0].get_tag_raw('album')
                 sameartist = True
                 samecomposer = True
                 samealbum = True
 
                 for track in tracks:
-                    if artist != track.get_tag('artist'):
+                    if artist != track.get_tag_raw('artist'):
                         sameartist = False
 
-                    if composer != track.get_tag('composer'):
+                    if composer != track.get_tag_raw('composer'):
                         samecomposer = False
 
-                    if album != track.get_album_tuple():
+                    if album != track.get_tag_raw('album'):
                         samealbum = False
 
                 if sameartist:
-                    name = " / ".join(tracks[0].get_tag('artist') or "")
+                    name = tracks[0].get_tag_display('artist', artist_compilations=False)
                 elif samecomposer and composer:
-                    name = " / ".join(tracks[0].get_tag('composer') or "")
+                    name = tracks[0].get_tag_display('composer', artist_compilations=False)
                 elif samealbum:
-                    name = ' '.join([ x.capitalize() for x in str(album[1]).split() ])
+                    name = tracks[0].get_tag_display('album', artist_compilations=False)
 
             dialog = commondialogs.TextEntryDialog(
                     _("New custom playlist name:"),

@@ -28,7 +28,7 @@
   </object>
   <object class="GtkAdjustment" id="adjustment5">
     <property name="value">9</property>
-    <property name="upper">24</property>
+    <property name="upper">23</property>
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
     <property name="page_size">1</property>
@@ -159,7 +159,6 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="draw_indicator">True</property>
-                    <signal name="clicked" handler="on_EnabledCB_clicked"/>
                     <signal name="toggled" handler="on_EnabledCB_toggled"/>
                   </object>
                   <packing>

@@ -13,7 +13,7 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import mutagen.id3, mutagen.mp3, re, spydaap, re, os, sys
+import mutagen.id3, mutagen.mp3, re, spydaap, re, os, struct, sys
 from spydaap.daap import do
 mutagen.id3.ID3.PEDANTIC = False
 
@@ -22,15 +22,16 @@ class Mp3Parser(spydaap.parser.Parser):
         'TIT1': 'daap.songgrouping',
         'TIT2': 'dmap.itemname',
         'TPE1': 'daap.songartist',
+        'TPE3': 'daap.songalbumartist',
         'TCOM': 'daap.songcomposer',
         'TCON': 'daap.songgenre',
-        'TPE1': 'daap.songartist',
         'TALB': 'daap.songalbum',
         }
 
     mp3_int_map = {
         'TBPM': 'daap.songbeatsperminute',
         'TDRC': 'daap.songyear',
+        'TCMP': 'daap.songcompilation',
         #'TLEN': 'daap.songtime',
         }
 #do('daap.songdiscnumber', 1),
@@ -40,39 +41,47 @@ class Mp3Parser(spydaap.parser.Parser):
 #        do('daap.songuserrating', 1),
                 
     def handle_rating(self, mp3, d):
-        try:
-            popm = mp3.tags.getall('POPM')
-            if popm != None:
-                rating = int(popm[0].rating * (0.39215686274509803))
-                d.append(do('daap.songuserrating', rating))
-        except: pass
+        popm = mp3.tags.getall('POPM')
+        if popm != None and len(popm) > 0:
+            rating = int(popm[0].rating * (0.39215686274509803))
+            d.append(do('daap.songuserrating', rating))
 
     def handle_track(self, mp3, d):
-        try:
-            if mp3.tags.has_key('TRCK'):
-                t = str(mp3.tags['TRCK']).split('/')
-                d.append(do('daap.songtracknumber', int(t[0])))
-                if (len(t) == 2):
-                    d.append(do('daap.songtrackcount', int(t[1])))
-        except: pass
+        tracknumber = None
+        trackcount = None
+        if mp3.tags.has_key('TRCK'):
+            t = str(mp3.tags['TRCK']).split('/')
+            tracknumber = self.my_int(t[0])
+            if (len(t) == 2):
+                trackcount = self.my_int(t[1])
+        if tracknumber: d.append(do('daap.songtracknumber', tracknumber))
+        if trackcount: d.append(do('daap.songtrackcount', trackcount))
 
     def handle_disc(self, mp3, d):
-        try:
-            if mp3.tags.has_key('TPOS'):
-                t = str(mp3.tags['TPOS']).split('/')
-                d.append(do('daap.songdiscnumber', int(t[0])))
-                if (len(t) == 2):
-                    d.append(do('daap.songdisccount', int(t[1])))
-        except: pass
+        discnumber = None
+        disccount = None
+        if mp3.tags.has_key('TPOS'):
+            t = str(mp3.tags['TPOS']).split('/')
+            discnumber = self.my_int(t[0])
+            if (len(t) == 2):
+                disccount = self.my_int(t[1])
+        if discnumber: d.append(do('daap.songdiscnumber', discnumber))
+        if disccount: d.append(do('daap.songdisccount', disccount))
 
     file_re = re.compile(".*\\.[mM][pP]3$")
     def understands(self, filename):
         return self.file_re.match(filename)
 
     def parse(self, filename):
+        d = []
+        mp3 = None
         try:
             mp3 = mutagen.mp3.MP3(filename)
-            d = []
+        except mutagen.mp3.HeaderNotFoundError:
+            pass
+        except struct.error:
+            pass
+        if mp3 != None:
             if mp3.tags != None:
                 self.handle_string_tags(self.mp3_string_map, mp3, d)
                 self.handle_int_tags(self.mp3_int_map, mp3, d)
@@ -88,6 +97,5 @@ class Mp3Parser(spydaap.parser.Parser):
                       ])
             name = self.set_itemname_if_unset(os.path.basename(filename), d)
             return (d, name)
-        except Exception, e:
-            sys.stderr.write("Caught exception: while processing %s: %s " % (filename, str(e)) )
+        else:
             return (None, None)

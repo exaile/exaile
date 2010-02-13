@@ -16,42 +16,84 @@
 import mutagen, re, spydaap, re, os, sys
 from spydaap.daap import do
 
+# * TODO Implement song.songtrackcount, song.disccount
+#daap.songbeatsperminute
+#daap.songcomment
+#daap.songdateadded
+#daap.songdatemodified,
+#daap.songdisabled,
+#daap.songeqpreset
+#daap.songformat
+#daap.songdescription
+#daap.songrelativevolume,
+#daap.songsize,
+#daap.songstarttime,
+#daap.songstoptime,
+#daap.songtime,
+#daap.songuserrating,
+#daap.songdatakind,
+#daap.songdataurl
+
 class VorbisParser(spydaap.parser.Parser):
     vorbis_string_map = {
-        'title': 'dmap.itemname',
-        'artist': 'daap.songartist',
-        'composer': 'daap.songcomposer',
-        'genre': 'daap.songgenre',
-        'album': 'daap.songalbum'
+        'grouping' : 'daap.songgrouping',
+        'title'    : 'dmap.itemname',
+        'artist'   : 'daap.songartist',
+        'composer' : 'daap.songcomposer',
+        'genre'    : 'daap.songgenre',
+        'album'    : 'daap.songalbum',
+        'albumartist': 'daap.songalbumartist',
         }
 
     vorbis_int_map = {
-        'bpm': 'daap.songbeatsperminute',
-        'date': 'daap.songyear',
-        'year': 'daap.songyear',
-        'tracknumber': 'daap.songtracknumber',
-        'tracktotal': 'daap.songtrackcount',
-        'discnumber': 'daap.songdiscnumber'
+        'bpm'         : 'daap.songbeatsperminute',
+        'date'        : 'daap.songyear',
+        'year'        : 'daap.songyear',
+        'compilation' : 'daap.songcompilation',
         }
+
+    def handle_track(self, flac, d):
+        tracknumber = None
+        trackcount = None
+        if flac.tags.has_key('tracknumber'):
+            t = str(flac.tags['tracknumber']).split('/')
+            tracknumber = self.my_int(t[0])
+            if (len(t) == 2):
+                trackcount = self.my_int(t[1])
+        if flac.tags.has_key('tracktotal'):
+            trackcount = self.my_int(flac.tags['tracktotal'])
+        if tracknumber: d.append(do('daap.songtracknumber', tracknumber))
+        if trackcount: d.append(do('daap.songtrackcount', trackcount))
+
+    def handle_disc(self, flac, d):
+        discnumber = None
+        disccount = None
+        if flac.tags.has_key('discnumber'):
+            t = unicode(flac.tags['discnumber'][0]).split('/')
+            discnumber = self.my_int(t[0])
+            if (len(t) == 2):
+                disccount = self.my_int(t[1])
+        if flac.tags.has_key('disctotal'):
+            disccount = self.my_int(flac.tags['disctotal'])
+        if discnumber: d.append(do('daap.songdiscnumber', discnumber))
+        if disccount: d.append(do('daap.songdisccount', disccount))
         
     file_re = re.compile(".*\\.([fF][lL][aA][cC]|[oO][gG]{2})$")
     def understands(self, filename):
         return self.file_re.match(filename)
 
     def parse(self, filename):
-        try:
-            md = mutagen.File(filename)
-            d = []
-            if md.tags != None:
-                self.handle_string_tags(self.vorbis_string_map, md, d)
-                self.handle_int_tags(self.vorbis_int_map, md, d)
-            self.add_file_info(filename, d)
-            d.extend([do('daap.songtime', md.info.length * 1000),
-                      do('daap.songsamplerate', md.info.sample_rate)])
-            name = self.set_itemname_if_unset(os.path.basename(filename), d)
-            if hasattr(self, 'parse_extra_vorbis'):
-                self.parse_extra_vorbis(filename, md, d)
-            return (d, name)
-        except Exception, e:
-            sys.stderr.write("Caught exception: while processing %s: %s " % (filename, str(e)) )
-            return (None, None)
+        md = mutagen.File(filename)
+        d = []
+        if md.tags != None:
+            self.handle_string_tags(self.vorbis_string_map, md, d)
+            self.handle_int_tags(self.vorbis_int_map, md, d)
+            self.handle_track(md, d)
+            self.handle_disc(md, d)
+        self.add_file_info(filename, d)
+        d.extend([do('daap.songtime', md.info.length * 1000),
+                  do('daap.songsamplerate', md.info.sample_rate)])
+        name = self.set_itemname_if_unset(os.path.basename(filename), d)
+        if hasattr(self, 'parse_extra_vorbis'):
+            self.parse_extra_vorbis(filename, md, d)
+        return (d, name)

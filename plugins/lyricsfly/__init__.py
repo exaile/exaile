@@ -4,19 +4,15 @@ import cgi, re
 from xl import event
 
 try:
-    import xml.etree.cElementTree as cETree
+    import xml.etree.cElementTree as ETree
 except:
-    import xml.etree.ElementTree as cETree
+    import xml.etree.ElementTree as ETree
 
 import urllib
 
-##
-## Notice.  Please request your own key from lyricswiki.com/api.  DO NOT USE
-## THIS KEY FOR YOUR OWN SOFTWARE.
-##
-## Yeah, key is encoded.  No, it's not a good way to protect it, but there's
-## not really a great way to do it.
-license_key = "AQLkZQWyAmMxMTHkLGR0AJVgMKuunJkyYz9lMj=="
+## Notice.  Please request your own key from lyricswiki.com/api.
+## DO NOT USE THIS KEY FOR YOUR OWN SOFTWARE.
+LYRICSFLY_KEY = "46102e76dde1a145b-exaile.org"
 
 def enable(exaile):
     """
@@ -52,36 +48,31 @@ class LyricsFly(LyricSearchMethod):
         except TypeError:
             raise LyricsNotFoundException
         search = "http://lyricsfly.com/api/api.php?i=%s&a=%s&t=%s" % (
-            license_key.decode('rot13').decode('base64'),
-            rep(artist), rep(title))
-        sock = urllib.urlopen(search)
-        xml = sock.read()
-        sock.close()
+            LYRICSFLY_KEY, rep(artist), rep(title))
         try:
-            # Lyrics fly uses xml so we must parse it
-            (lyrics, url) = self.parse_xml(xml)
-        except:
+            xml = urllib.urlopen(search).read()
+        except IOError:
             raise LyricsNotFoundException
-        if lyrics == "Not found":
-            raise LyricsNotFoundException
+
+        # Lyrics fly uses xml so we must parse it
+        (lyrics, url) = self.parse_xml(xml)
+
         return (lyrics, "Lyrics Fly", url)
 
     def parse_xml(self, xml):
         """
             Parses the xml into the lyrics and the URL
         """
-        start = cETree.XML(xml)
+        start = ETree.XML(xml)
         sg = start.find("sg")
-        #TODO determine whether we found a song or not
-        if sg.text == None:
+        if sg:
             lyrics = sg.find("tx").text
+            lyrics = lyrics.replace("[br]","")
             cs = sg.find("cs").text
-            id = sg.find("id")
+            id = sg.find("id").text
             url = "http://lyricsfly.com/search/view.php?%s&view=%s" % (
                 urllib.quote_plus(cs),
                 urllib.quote_plus(id))
-            # Take out the [br]
-            lyrics = lyrics.replace("[br]","")
             return (lyrics, url)
         else:
             raise LyricsNotFoundException

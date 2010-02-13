@@ -71,7 +71,6 @@ def check_exit(options, args):
                 if args[0] == '-':
                     args = sys.stdin.read().split('\n')
                 args = [ os.path.abspath(arg) for arg in args ]
-                print args
                 iface.Enqueue(args)
 
     if not iface:
@@ -379,6 +378,7 @@ class DbusManager(dbus.service.Object):
         """
             Adds the specified files to the current playlist
         """
+        print filenames
         import xl.playlist
         from xl import trax   # do this here to avoid loading
                               # settings when issuing dbus commands
@@ -390,16 +390,19 @@ class DbusManager(dbus.service.Object):
         playlists = []
 
         for file in filenames:
-            try:
-                pl = xl.playlist.import_playlist(file)
-                tracks += pl.get_tracks()
-                continue
-            except xl.playlist.InvalidPlaylistTypeException:
-                pass
-            except:
-                traceback.print_exc()
+            if xl.playlist.is_valid_playlist(file):
+                try:
+                    pl = xl.playlist.import_playlist(file)
+                    tracks += pl.get_tracks()
+                    continue
+                except xl.playlist.InvalidPlaylistTypeException:
+                    pass
+                except:
+                    traceback.print_exc()
             else:
                 tracks += trax.get_tracks_from_uri(file)
+
+        print tracks
 
         if column:
             tracks = trax.sort_tracks([column], tracks)

@@ -586,9 +586,11 @@ class Library(object):
                     # do this so that if we have, say, a 4000-song folder
                     # we dont get bogged down trying to keep track of them
                     # for compilation detection. Most albums have far fewer
-                    # than 100 tracks anyway, so it is unlikely that this
-                    # restriction will affect the heuristic's accuracy
-                    if len(dirtracks) > 100:
+                    # than 110 tracks anyway, so it is unlikely that this
+                    # restriction will affect the heuristic's accuracy.
+                    # 110 was chosen to accomodate "top 100"-style
+                    # compilations.
+                    if len(dirtracks) > 110:
                         logger.info("Too many files, skipping "
                                 "compilation detection heuristic.")
                         dirtracks = None

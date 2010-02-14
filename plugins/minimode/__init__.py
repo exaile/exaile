@@ -308,12 +308,6 @@ class MiniMode(gtk.Window):
             self.exaile.queue.current_playlist.set_current_pos(index)
             self.exaile.queue.play(track)
 
-    def on_format_request(self, formatter):
-        """
-            Tells the track formatter about the user preference
-        """
-        return self.get_option('plugin/minimode/track_title_format')
-
     def on_track_seeked(self, progress_bar, position):
         """
             Handles seeking in the progress bar

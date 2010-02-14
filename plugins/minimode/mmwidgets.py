@@ -51,8 +51,9 @@ class MenuItem(gtk.ImageMenuItem):
             self.set_image(gtk.gdk.image_new_from_stock(stock_id))
             event.remove_callback(self.on_stock_icon_added, 'stock_icon_added')
 
-class KeyExistsError(Exception):
-    pass
+class KeyExistsError(KeyError):
+    def __init__(self, error):
+        KeyError.__init__(self, error)
 
 class WidgetBox(gtk.HBox):
     """
@@ -156,6 +157,7 @@ class Button(gtk.Button):
         self.set_image(self.image)
         self.set_tooltip_text(tooltip_text)
         self.set_relief(gtk.RELIEF_NONE)
+        self.set_focus_on_click(False)
 
         self._clicked_id = self.connect('clicked', callback)
 
@@ -261,13 +263,12 @@ class AttachedWindow(gtk.Window):
         A window attachable to arbitrary widgets,
         follows the movement of its parent
     """
-    def __init__(self, parent, child):
+    def __init__(self, parent):
         gtk.Window.__init__(self, gtk.WINDOW_TOPLEVEL)
 
         self.set_decorated(False)
         self.set_property('skip-taskbar-hint', True)
         self.set_size_request(350, 400)
-        self.add(child)
 
         self.parent_widget = parent
 
@@ -339,6 +340,7 @@ class PlaylistButton(gtk.ToggleButton):
     def __init__(self, main, queue, formatter, change_callback):
         gtk.ToggleButton.__init__(self, '')
 
+        self.set_focus_on_click(False)
         self.set_size_request(150, -1)
         box = gtk.HBox()
         self.arrow = gtk.Arrow(gtk.ARROW_RIGHT, gtk.SHADOW_OUT)
@@ -356,7 +358,8 @@ class PlaylistButton(gtk.ToggleButton):
         self.playlist.model = playlist.model
         self.playlist.list.set_model(self.playlist.model)
         self.playlist.scroll.set_property('shadow-type', gtk.SHADOW_IN)
-        self.popup = AttachedWindow(self, self.playlist)
+        self.popup = AttachedWindow(self)
+        self.popup.add(self.playlist)
 
         self._dirty = False
         self._drag_shown = False
@@ -386,9 +389,10 @@ class PlaylistButton(gtk.ToggleButton):
         self._format_changed_id = self.formatter.connect('format-changed',
             self.on_format_changed)
 
-        event.add_callback(self.on_playback_start, 'playback_player_start')
-        event.add_callback(self.on_playback_end, 'playback_player_end')
         event.add_callback(self.on_track_start, 'playback_track_start')
+        event.add_callback(self.on_playback_start, 'playback_player_start')
+        event.add_callback(self.on_playback_start, 'playback_player_resume')
+        event.add_callback(self.on_playback_end, 'playback_player_end')
 
     def destroy(self):
         """
@@ -403,9 +407,10 @@ class PlaylistButton(gtk.ToggleButton):
         self.main.playlist_notebook.disconnect(self._switch_page_id)
         self.formatter.disconnect(self._format_changed_id)
 
-        event.remove_callback(self.on_playback_start, 'playback_player_start')
-        event.remove_callback(self.on_playback_end, 'playback_player_end')
         event.remove_callback(self.on_track_start, 'playback_track_start')
+        event.remove_callback(self.on_playback_start, 'playback_player_start')
+        event.remove_callback(self.on_playback_start, 'playback_player_resume')
+        event.remove_callback(self.on_playback_end, 'playback_player_end')
 
         gtk.ToggleButton.destroy(self)
 
@@ -432,22 +437,12 @@ class PlaylistButton(gtk.ToggleButton):
         if track:
             self.set_label(self.formatter.format(track))
 
-    def on_playback_start(self, event, player, track):
+    def on_track_start(self, event, player, track):
         """
-            Updates appearance on playback start
+            Updates appearance and cursor position
         """
         self.set_label(self.formatter.format(track))
 
-    def on_playback_end(self, event, player, track):
-        """
-            Updates appearance on playback state change
-        """
-        self.set_label('')
-
-    def on_track_start(self, event, player, track):
-        """
-            Updates the cursor position
-        """
         if track in self.playlist.playlist.ordered_tracks:
             path = (self.playlist.playlist.index(track),)
 
@@ -455,6 +450,18 @@ class PlaylistButton(gtk.ToggleButton):
                 self.playlist.list.scroll_to_cell(path)
 
             gobject.idle_add(self.playlist.list.set_cursor, path)
+
+    def on_playback_start(self, event, player, track):
+        """
+            Updates appearance on playback start/resume
+        """
+        self.set_label(self.formatter.format(track))
+
+    def on_playback_end(self, event, player, track):
+        """
+            Clears label
+        """
+        self.set_label('')
 
     def on_parent_hide(self, parent):
         """
@@ -464,7 +471,7 @@ class PlaylistButton(gtk.ToggleButton):
 
     def on_scroll(self, togglebutton, event):
         """
-            Handles scrolling on the button
+            Switches tracks on scrolling
         """
         track = None
 
@@ -971,6 +978,9 @@ class TrackFormatter(gobject.GObject):
         """
             Updates the internal template
         """
+        if format == self._format:
+            return
+
         self._format = format
         self._template = Template(self._format)
         self.emit('format-changed', self._format)
@@ -979,8 +989,10 @@ class TrackFormatter(gobject.GObject):
         """
             Updates the rating steps
         """
-        self._rating_steps = rating_steps
+        if rating_steps == self._rating_steps:
+            return
 
+        self._rating_steps = rating_steps
         rating_pattern = '%s%s' % (self._template.delimiter, 'rating')
 
         if rating_pattern in self._format:
@@ -996,11 +1008,8 @@ class TrackFormatter(gobject.GObject):
         substitutions = self._substitutions.copy()
 
         for keyword, tagname in substitutions.iteritems():
-            try:
-                #TRANSLATORS: String multiple tag values will be joined by
-                substitutions[keyword] = _(' & ').join(track.get_tag_raw(tagname))
-            except TypeError:
-                substitutions[keyword] = track.get_tag_raw(tagname)
+            substitutions[keyword] = track.get_tag_display(tagname,
+                artist_compilations=False)
 
             try:
                 format_callback = self._formattings[keyword]
@@ -1061,6 +1070,8 @@ class TrackFormatter(gobject.GObject):
             bitrate = int(bitrate)
         except TypeError:
             bitrate = 0
+        except ValueError:
+            return bitrate
 
         return '%d kbit/s' % (bitrate / 1000)
 
@@ -1069,6 +1080,11 @@ class TrackFormatter(gobject.GObject):
             Returns a properly formatted last play time
         """
         text = _('Never')
+
+        try:
+            last_played = float(last_played)
+        except ValueError:
+            last_played = None
 
         if last_played is not None:
             import time

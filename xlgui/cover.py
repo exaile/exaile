@@ -614,32 +614,31 @@ class CoverChooser(gobject.GObject):
         self.parent = parent
         self.builder = gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.ui'))
+        self.builder.connect_signals(self)
         self.window = self.builder.get_object('CoverChooser')
 
         tempartist = track.get_tag_display('artist')
         tempalbum = track.get_tag_display('album')
-        self.window.set_title("%s - %s" % (tempartist,tempalbum))
+        self.window.set_title(_("Cover options for %(artist)s - %(album)s") % {
+            'artist': tempartist,
+            'album': tempalbum
+        })
         self.window.set_transient_for(parent)
 
         self.track = track
         self.covers = []
         self.current = 0
-        self.prev = self.builder.get_object('cover_back_button')
-        self.prev.connect('clicked', self.go_prev)
-        self.prev.set_sensitive(False)
-        self.next = self.builder.get_object('cover_forward_button')
-        self.next.connect('clicked', self.go_next)
-        self.builder.get_object('cover_cancel_button').connect('clicked',
-            lambda *e: self.window.destroy())
-        self.ok = self.builder.get_object('cover_ok_button')
-        self.ok.connect('clicked',
-            self.on_ok)
-        self.box = self.builder.get_object('cover_image_box')
-        self.cvr = guiutil.ScalableImageWidget()
-        self.cvr.set_image_size(350, 350)
-        self.box.pack_start(self.cvr, True, True)
 
-        self.last_search = "%s - %s"  % (tempartist,tempalbum)
+        self.previous_button = self.builder.get_object('previous_button')
+        self.previous_button.set_sensitive(False)
+        self.next_button = self.builder.get_object('next_button')
+        self.next_button.set_sensitive(False)
+        self.box = self.builder.get_object('cover_image_box')
+        self.cover = guiutil.ScalableImageWidget()
+        self.cover.set_image_size(350, 350)
+        self.box.pack_start(self.cover, True, True)
+
+        self.last_search = "%s - %s"  % (tempartist, tempalbum)
 
         self.fetch_cover(track)
 
@@ -656,6 +655,10 @@ class CoverChooser(gobject.GObject):
 
         if covers:
             self.covers = covers
+
+            if len(covers) > 1:
+                self.next_button.set_sensitive(True)
+
             gobject.idle_add(self.show_cover, covers[0])
         else:
             gobject.idle_add(self.__show_no_cover_found)
@@ -665,46 +668,59 @@ class CoverChooser(gobject.GObject):
         #commondialogs.error(None, _('No covers found'))
         self.window.show_all()
 
-    def on_ok(self, widget=None):
-        """
-            Chooses the current cover and saves it to the database
-        """
-        track = self.track
-        cvr = self.covers[self.current]
-
-        self.manager.set_cover(track, cvr[0], cvr[1])
-
-        self.emit('cover-chosen', cvr)
-        self.window.destroy()
-
-    def go_next(self, widget):
-        """
-            Shows the next cover
-        """
-        if self.current + 1 >= len(self.covers): return
-        self.current = self.current + 1
-        self.show_cover(self.covers[self.current])
-        if self.current + 1 >= len(self.covers):
-            self.next.set_sensitive(False)
-        if self.current - 1 >= 0:
-            self.prev.set_sensitive(True)
-
-    def go_prev(self, widget):
+    def on_previous_button_clicked(self, button):
         """
             Shows the previous cover
         """
-        if self.current - 1 < 0: return
+        if self.current - 1 < 0:
+            return
+
         self.current = self.current - 1
         self.show_cover(self.covers[self.current])
 
         if self.current + 1 < len(self.covers):
-            self.next.set_sensitive(True)
-        if self.current - 1 < 0:
-            self.prev.set_sensitive(False)
+            self.next_button.set_sensitive(True)
 
-    def show_cover(self, c):
+        if self.current - 1 < 0:
+            self.previous_button.set_sensitive(False)
+
+    def on_next_button_clicked(self, button):
+        """
+            Shows the next cover
+        """
+        if self.current + 1 >= len(self.covers):
+            return
+
+        self.current = self.current + 1
+        self.show_cover(self.covers[self.current])
+
+        if self.current + 1 >= len(self.covers):
+            self.next_button.set_sensitive(False)
+
+        if self.current - 1 >= 0:
+            self.previous_button.set_sensitive(True)
+
+    def on_cancel_button_clicked(self, button):
+        """
+            Closes the cover chooser
+        """
+        self.window.destroy()
+
+    def on_ok_button_clicked(self, button):
+        """
+            Chooses the current cover and saves it to the database
+        """
+        track = self.track
+        coverdata = self.covers[self.current]
+
+        self.manager.set_cover(track, coverdata[0], coverdata[1])
+
+        self.emit('cover-chosen', coverdata)
+        self.window.destroy()
+
+    def show_cover(self, coverdata):
         """
             Shows the current cover
         """
-        self.cvr.set_image_data(c[1])
+        self.cover.set_image_data(coverdata[1])
         self.window.show_all()

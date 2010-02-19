@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-06 12:28+0000\n"
-"Last-Translator: Yiğit Ateş <yigitates52@gmail.com>\n"
+"PO-Revision-Date: 2010-02-18 18:32+0000\n"
+"Last-Translator: Mehmet <mehmeteribol@gmail.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-02-07 04:36+0000\n"
+"X-Launchpad-Export-Date: 2010-02-19 04:35+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -2000,11 +2000,11 @@ msgstr "Masaüstü Albüm Kapakları"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Kip için aranıyor..."
 
 #: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr ""
+msgstr "Kip bulundu"
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
@@ -2402,7 +2402,7 @@ msgstr "Hiçbiri"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "Text Percentage"
-msgstr ""
+msgstr "Yazı Yüzdesi"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Password:"
@@ -2480,7 +2480,7 @@ msgstr "Azalan"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Tarz/Etiket"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
@@ -2578,7 +2578,7 @@ msgstr "Duraklatmak, Durdurmak ve Oynatmak için Medya Simgelerini Kullan"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "When GUI is Focused"
-msgstr ""
+msgstr "Kullanıcı Arayüzü Odaklandığında"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API Key:"
@@ -2650,7 +2650,7 @@ msgstr "Karanlık derecesi:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Yalnızca dalga formunu göster"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Use color theme "
@@ -2658,7 +2658,7 @@ msgstr "Renk teması kullan "
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Use waveform style"
-msgstr ""
+msgstr "Dalga formu stilini kullan"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Additional amplification (dB):"

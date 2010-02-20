@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-01 08:41+0000\n"
-"Last-Translator: Matej Urbančič <Unknown>\n"
+"PO-Revision-Date: 2010-02-19 14:12+0000\n"
+"Last-Translator: Andrej Znidarsic <andrej.znidarsic@gmail.com>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2010-02-02 04:47+0000\n"
+"X-Launchpad-Export-Date: 2010-02-20 04:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: SLOVENIA\n"
 "X-Poedit-Language: Slovenian\n"
@@ -378,7 +378,7 @@ msgstr "Datum"
 
 #: ../xlgui/properties.py:45
 msgid "Arranger"
-msgstr ""
+msgstr "Urejevalnik"
 
 #: ../xlgui/properties.py:46
 msgid "Conductor"
@@ -1178,6 +1178,7 @@ msgstr "Vstavki"
 msgid "Collection"
 msgstr "Zbirka"
 
+# to mora biti prazno - sem dal presledek, da šteje kot prevedeno..
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
 #. the space-separated list "l' la le les".
@@ -2384,11 +2385,11 @@ msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
-msgstr ""
+msgstr "pred"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"
-msgstr ""
+msgstr "Prikaži krožno"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"

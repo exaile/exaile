@@ -171,15 +171,6 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkCheckMenuItem" id="playlist_utilities_bar_visible">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Playlist Utilities Bar</property>
-                        <property name="use_underline">True</property>
-                        <property name="active">True</property>
-                        <signal name="toggled" handler="on_playlist_utilities_bar_visible_toggled"/>
-                      </object>
-                    </child>
-                    <child>
                       <object class="GtkMenuItem" id="columns_menu">
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">_Columns</property>
@@ -533,7 +524,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="playlist_utilities_bar">
+                  <object class="GtkHBox" id="hbox2">
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkToggleButton" id="shuffle_button">

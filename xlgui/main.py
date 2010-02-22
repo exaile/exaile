@@ -375,15 +375,6 @@ class MainWindow(gobject.GObject):
         self.playlist_notebook.set_tab_pos(map.get(
             settings.get_option('gui/tab_placement', 'top')))
         self.splitter = self.builder.get_object('splitter')
-        
-        self.playlist_utilities_bar = self.builder.get_object('playlist_utilities_bar')
-        playlist_utilities_bar_visible = settings.get_option(
-            'gui/playlist_utilities_bar_visible', True)
-        self.builder.get_object('playlist_utilities_bar_visible').set_active(
-            playlist_utilities_bar_visible)
-        self.playlist_utilities_bar.set_property('visible', playlist_utilities_bar_visible)
-        self.playlist_utilities_bar.set_sensitive(playlist_utilities_bar_visible)
-        self.playlist_utilities_bar.set_no_show_all(not playlist_utilities_bar_visible)
 
         self._setup_position()
         self._setup_widgets()
@@ -674,13 +665,6 @@ class MainWindow(gobject.GObject):
 
         return False
 
-    def on_playlist_utilities_bar_visible_toggled(self, checkmenuitem):
-        """
-            Shows or hides the playlist utilities bar
-        """
-        settings.set_option('gui/playlist_utilities_bar_visible',
-            checkmenuitem.get_active())
-
     def on_stop_buttonpress(self, widget, event):
         """
             Called when the user clicks on the stop button.  We're looking for
@@ -782,7 +766,6 @@ class MainWindow(gobject.GObject):
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
             'on_track_properties_activate':self.controller.on_track_properties,
             'on_clear_playlist_item_activate': self.on_clear_playlist,
-            'on_playlist_utilities_bar_visible_toggled': self.on_playlist_utilities_bar_visible_toggled,
         })
 
         event.add_callback(self.on_playback_resume, 'playback_player_resume',
@@ -1177,12 +1160,6 @@ class MainWindow(gobject.GObject):
             }
             self.playlist_notebook.set_tab_pos(map.get(
                 settings.get_option(option, 'top')))
-
-        if option == 'gui/playlist_utilities_bar_visible':
-            visible = settings.get_option(option, True)
-            self.playlist_utilities_bar.set_property('visible', visible)
-            self.playlist_utilities_bar.set_sensitive(visible)
-            self.playlist_utilities_bar.set_no_show_all(not visible)
 
         if option == 'gui/use_tray':
             usetray = settings.get_option(option, False)

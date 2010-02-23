@@ -405,7 +405,7 @@ class MainWindow(gobject.GObject):
         # holds the order#'s of the already added tabs
         added_tabs = {}
         name_re = re.compile(
-                r'^order(?P<tab>\d+)\.((?P<tag>[^.]+)\.)?(?P<name>.*)$')
+                r'^order(?P<tab>\d+)\.(?P<tag>[^.]*)\.(?P<name>.*)$')
         for i, name in enumerate(names):
             match = name_re.match(name)
             if not match or not match.group('tab') or not match.group('name'):
@@ -455,10 +455,10 @@ class MainWindow(gobject.GObject):
             pl = self.playlist_notebook.get_nth_page(i).playlist
             tag = ''
             if pl is self.queue.current_playlist:
-                tag = 'playing.'
+                tag = 'playing'
             elif i == self.playlist_notebook.get_current_page():
-                tag = 'current.'
-            pl.name = "order%d.%s%s" % (i, tag, pl.name)
+                tag = 'current'
+            pl.name = "order%d.%s.%s" % (i, tag, pl.name)
             logger.debug("Saving tab %d: %s" % (i, pl.name))
 
             try:

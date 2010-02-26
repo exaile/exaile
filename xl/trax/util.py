@@ -25,7 +25,6 @@
 # from your version.
 
 import gio
-from urllib2 import urlparse
 from xl import metadata
 from xl.trax.track import Track
 
@@ -44,13 +43,14 @@ def get_tracks_from_uri(uri):
     """
     tracks = []
 
-    info = urlparse.urlparse(uri)
-    if info.scheme in ('ftp', 'http', 'mms'):
+    gloc = gio.File(uri)
+    # don't do advanced checking on streaming-type uris as it can fail or
+    # otherwise be terribly slow.
+    # TODO: move uri definition somewhere more common for easy reuse?
+
+    if gloc.get_uri_scheme() in ('http', 'mms'):
         return [Track(uri)]
 
-    gloc = gio.File(uri)
-    if not gloc.query_exists():
-        return []
     file_type = gloc.query_info("standard::type").get_file_type()
     if file_type == gio.FILE_TYPE_DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj

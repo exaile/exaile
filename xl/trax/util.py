@@ -25,6 +25,7 @@
 # from your version.
 
 import gio
+from urllib2 import urlparse
 from xl import metadata
 from xl.trax.track import Track
 
@@ -42,6 +43,11 @@ def get_tracks_from_uri(uri):
         Returns all valid tracks located at uri
     """
     tracks = []
+
+    info = urlparse.urlparse(uri)
+    if info.scheme in ('ftp', 'http', 'mms'):
+        return [Track(uri)]
+
     gloc = gio.File(uri)
     if not gloc.query_exists():
         return []

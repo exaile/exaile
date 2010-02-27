@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-05 22:20+0000\n"
-"Last-Translator: Aren Olson <Unknown>\n"
+"PO-Revision-Date: 2010-02-26 20:46+0000\n"
+"Last-Translator: Roman Horník <roman.hornik@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-02-06 04:51+0000\n"
+"X-Launchpad-Export-Date: 2010-02-27 04:45+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: CZECH REPUBLIC\n"
 "X-Poedit-Language: Czech\n"
@@ -50,7 +50,7 @@ msgstr "Přehrát"
 
 #: ../xl/main.py:298
 msgid "Toggle Play or Pause"
-msgstr "Přepínač Hrát nebo pozastavit"
+msgstr "Přehrát či pozastavit"
 
 #: ../xl/main.py:301
 msgid "Stop playback after current track"
@@ -1214,6 +1214,8 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Nelze povolit plugin:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
 #, python-format
@@ -1221,6 +1223,8 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
+"<b>Nelze zakázat plugin:</b>\n"
+"%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
 msgid "Add item"
@@ -1438,7 +1442,7 @@ msgstr "Vlastnosti skladby"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "První písmeno velké u všech tagů"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
@@ -1922,7 +1926,7 @@ msgstr "Vybrat místo uložení"
 
 #: ../plugins/daapclient/__init__.py:523
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Připojování k DAAP..."
 
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -1948,7 +1952,7 @@ msgstr "Připraveno"
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "Prohledávání katalogu Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:78
 msgid "Retrieving song data..."
@@ -2357,15 +2361,15 @@ msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "7.5K"
-msgstr ""
+msgstr "7.5k"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
@@ -2559,7 +2563,7 @@ msgstr "Použít obaly alb jako ikony"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr ""
+msgstr "Použít Media Ikony pro pauzu, stop a pokračování"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "When GUI is Focused"
@@ -2578,6 +2582,8 @@ msgid ""
 "To sign up for an Amazon AWS account and get \n"
 "this information visit http://aws.amazon.com/"
 msgstr ""
+"Pro registraci Amazon AWS účtu a získání informací, \n"
+"navštivte http://aws.amazon.com"
 
 #: ../plugins/desktopcover/prefs.ui.h:1
 msgid "Anchor:"
@@ -2778,7 +2784,7 @@ msgstr "Desetipásmový ekvalizér"
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
-msgstr ""
+msgstr "Awn"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -2813,11 +2819,11 @@ msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "Klient DAAP"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Umožňuje přehravání hudby z DAAP."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
@@ -2825,15 +2831,15 @@ msgstr "Vytvoří MPRIS D-Bus objekt, aby kontroloval Exaile"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr ""
+msgstr "Umožňuje ukládání/načítání pozicí záložek v hudebních souborech."
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr ""
+msgstr "Umožňuje přístup do hudebního katalogu Jamendo."
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -2919,6 +2925,7 @@ msgstr "Zapauzovat při spořiči obrazovky"
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
 msgstr ""
+"Pozastavuje/pokračuje v přehrávání při zapnutí/vypnutí spořiče displeje."
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-20 21:22+0000\n"
-"Last-Translator: DAG Software <Unknown>\n"
+"PO-Revision-Date: 2010-02-26 23:24+0000\n"
+"Last-Translator: Roman Horník <roman.hornik@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2010-02-21 04:54+0000\n"
+"X-Launchpad-Export-Date: 2010-02-27 04:46+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -44,7 +44,7 @@ msgstr "Zastaviť prehrávanie"
 
 #: ../xl/main.py:296
 msgid "Play"
-msgstr "Hrať"
+msgstr "Prehrať"
 
 #: ../xl/main.py:298
 msgid "Toggle Play or Pause"
@@ -539,7 +539,7 @@ msgstr "Premenovať playlist"
 
 #: ../xlgui/main.py:281
 msgid "Custom playlist name:"
-msgstr ""
+msgstr "Vlastný názov playlistu"
 
 #: ../xlgui/main.py:281
 msgid "Save As..."
@@ -1549,7 +1549,7 @@ msgstr "Predchádzajúci navštívený priečinok"
 
 #: ../data/ui/files_panel.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Obnoviť obsah priečinku"
 
 #: ../data/ui/files_panel.ui.h:7
 msgid "Up one directory"

@@ -169,7 +169,7 @@ class DirPrefsItem(PrefsItem):
             self.prefs.settings.get_option(self.name, self.default))
         if not os.path.exists(directory):
             os.makedirs(directory)
-        self.widget.set_filename(directory)
+        self.widget.set_current_folder(directory)
 
     def _get_value(self):
         return self.widget.get_filename()

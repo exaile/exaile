@@ -154,15 +154,15 @@ class DragTreeView(gtk.TreeView):
     """
         A TextView that does easy dragging/selecting/popup menu
     """
+    targets = [("text/uri-list", 0, 0)]
     dragged_data = dict()
+    
     def __init__(self, cont, receive=True, source=True):
         """
             Initializes the tree and sets up the various callbacks
         """
         gtk.TreeView.__init__(self)
         self.cont = cont
-
-        self.targets = [("text/uri-list", 0, 0)]
 
         if source:
             self.drag_source_set(
@@ -227,8 +227,8 @@ class DragTreeView(gtk.TreeView):
         selection = self.get_selection()
         if selection.count_selected_rows() > 1:
             self.drag_source_set_icon_stock('gtk-dnd-multiple')
-        else: self.drag_source_set_icon_stock('gtk-dnd')
-        return False
+        else:
+            self.drag_source_set_icon_stock('gtk-dnd')
 
     def drag_motion(self, treeview, context, x, y, timestamp):
         """

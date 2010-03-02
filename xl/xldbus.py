@@ -297,7 +297,10 @@ class DbusManager(dbus.service.Object):
         """
             Toggle Play or Pause
         """
-        self.exaile.player.toggle_pause()
+        if self.exaile.player.get_state() == 'stopped':
+            self.exaile.player.play(self.exaile.queue.get_current())
+        else:
+            self.exaile.player.toggle_pause()
 
     @dbus.service.method('org.exaile.Exaile')
     def StopAfterCurrent(self):

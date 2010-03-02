@@ -19,7 +19,7 @@ all_no_locale: compile
 compile:
 	python -m compileall -q xl xlgui
 	-python -O -m compileall -q xl xlgui
-	make -C plugins compile
+	$(MAKE) -C plugins compile
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -55,7 +55,7 @@ uninstall:
 	rm -rf $(EXAILECONFDIR)/exaile
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
-	make -C plugins uninstall
+	$(MAKE) -C plugins uninstall
 
 install: install-target install-locale
 
@@ -104,7 +104,7 @@ install-target: make-install-dirs
 	 --datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
 	 > exaile && \
 	 chmod 755 exaile
-	make -C plugins install
+	$(MAKE) -C plugins install
 
 locale:
 	cd po && find . -name "*.po" -exec ../tools/compilepo.sh {} \; && cd ..
@@ -119,14 +119,14 @@ install-locale:
 	  done
 
 plugins_dist:
-	make -C plugins dist
+	$(MAKE) -C plugins dist
 
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	find po/* -depth -type d -exec rm -r {} \;
-	make -C plugins clean
+	$(MAKE) -C plugins clean
 
 pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in

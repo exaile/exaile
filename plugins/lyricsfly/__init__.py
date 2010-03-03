@@ -67,7 +67,7 @@ class LyricsFly(LyricSearchMethod):
         sg = start.find("sg")
         if sg:
             lyrics = sg.find("tx").text
-            lyrics = lyrics.replace("[br]","")
+            lyrics = lyrics.replace("[br]","\n")
             cs = sg.find("cs").text
             id = sg.find("id").text
             url = "http://lyricsfly.com/search/view.php?%s&view=%s" % (

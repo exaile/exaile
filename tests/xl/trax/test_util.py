@@ -46,16 +46,18 @@ class TestGetTracksFromUri(unittest.TestCase):
 
     def get_anything(self, file_type):
         anything = self.mox.CreateMockAnything()
+        anything.get_uri_scheme().AndReturn("file")
         if file_type == 'f':
             file_type = gio.FILE_TYPE_REGULAR
         elif file_type == 'd':
             file_type = gio.FILE_TYPE_DIRECTORY
         elif file_type == 'n':
-            anything.query_exists().AndReturn(False)
-            return anything
+#            anything.query_exists().AndReturn(False)
+#            return anything
+            pass
         else:
             raise NotImplementedError
-        anything.query_exists().AndReturn(True)
+#        anything.query_exists().AndReturn(True)
         anything.query_info('standard::type').AndReturn(anything)
         anything.get_file_type().AndReturn(file_type)
         return anything

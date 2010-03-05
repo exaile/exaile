@@ -299,6 +299,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="position">129</property>
+            <signal name="button_press_event" handler="on_splitter_button_press_event"/>
             <child>
               <object class="GtkVBox" id="vbox6">
                 <property name="visible">True</property>

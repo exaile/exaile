@@ -582,15 +582,16 @@ class Track(object):
         else:
             retval = self.__tags.get(tag)
 
+
         # Quote arguments
         if retval is None:
             retval = '__null__'
             if tag == 'title':
                 extraformat += ' __loc==\"%s\"' % self.__tags['__loc']
         elif isinstance(retval, list) and format:
-            retval = ['"%s"' % val for val in retval]
+            retval = ['"%s"' % self.quoter(val) for val in retval]
         elif format:
-            retval = '"%s"' % retval
+            retval = '"%s"' % self.quoter(retval)
 
         # Join lists
         if format:
@@ -794,6 +795,20 @@ class Track(object):
         return value.lower() + " " + value
 
     @classmethod
+    def quoter(cls, value):
+        """
+            Escape quotes so that it's safe to put the value inside a
+            "" literal for searches.
+
+            Has no effect on non-string values.
+        """
+        try:
+            return value.replace('"', '\\\"')
+        except AttributeError:
+            return value
+
+
+    @classmethod
     def _the_cuts_cb(cls, name, obj, data):
         """
             PRIVATE
@@ -802,6 +817,7 @@ class Track(object):
         """
         if data == "collection/strip_list":
             cls.__the_cuts = settings.get_option('collection/strip_list', [])
+
 
 
 event.add_callback(Track._the_cuts_cb, 'collection_option_set')

@@ -17,9 +17,8 @@
 
 # Code based on Ingelrest FranÃ§ois' "im status" plugin
 
-import dbus, gobject, gtk, os
+import dbus
 from gettext import gettext as _
-import xl.plugins as plugins
 from xl import event
 import sys
 
@@ -91,10 +90,10 @@ def on_stop_action(type, player, track):
     client.setTune("", "", "")
 
 def on_pause_action(type, player, track):
-	if player.is_playing():
-		on_begin_action(type, player, track)
-	else:
-		on_stop_action(type, player, track)
+    if player.is_playing():
+        on_begin_action(type, player, track)
+    else:
+        on_stop_action(type, player, track)
 
 def enable(exaile):
     global client

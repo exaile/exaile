@@ -14,168 +14,145 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import subprocess, logging, os
-from xl import event, xdg
+import subprocess, logging, os, shutil
+import gtk
+from xl import event
 from xl.nls import gettext as _
 from xl import settings
-from xlgui import guiutil
-import time, sys
+from xlgui import commondialogs
 import srprefs
-
-# trying to not rely on the gui parts of exaile
-try:
-    from xlgui import commondialogs
-except ImportError:
-    commondialogs = None
 
 logger = logging.getLogger(__name__)
 
-BUTTON = None
-CURRENT_TRACK = None
-STREAMRIPPER_PID = None
-STREAMRIPPER_OUT = None
-APP = None
+STREAMRIPPER = None
 
 def get_prefs_pane():
     return srprefs
 
-def toggle_record(widget=None, event=None):
-    global STREAMRIPPER_PID, CURRENT_TRACK, STREAMRIPPER_OUT
+class Streamripper(object):
+    def __init__(self):
+        self.savedir = None
 
-    import gst
-
-    track = APP.player.current
-
-    if not STREAMRIPPER_PID:
-        if not track: return True
-        if track.is_local():
+    def toggle_record(self, add_call):
+        current_track = self.exaile.player.current
+        if not current_track:
+            return True
+        if current_track.is_local():
             logger.warning('Streamripper can only record streams')
-            if commondialogs:
-                commondialogs.error(APP.gui.main.window, _('Streamripper '
-                    'can only record streams.'))
             return True
 
-        savedir = settings.get_option(
-                    'plugin/streamripper/save_location',
-                    os.getenv('HOME'))
+        self.savedir = settings.get_option('plugin/streamripper/save_location',
+                            os.getenv('HOME'))
+        options = []
+        options.append('streamripper')
+        options.append(self.exaile.player.playbin.get_property('uri'))
+        options.append('-D')
+        options.append('%A/%a/%T')
+        if settings.get_option('plugin/streamripper/single_file', False):
+			options.append("-a")
+			options.append("-A")
+        options.append("-r")
+        options.append(settings.get_option('plugin/streamripper/relay_port', '8888'))
+        options.append("-d")
+        options.append(self.savedir)
 
         try:
-            port = int(settings.get_option(
-                'plugin/streamripper/relay_port', 8888))
-        except ValueError:
-            port = 8888
+            self.process = subprocess.Popen(options, 0, None, subprocess.PIPE,
+                        subprocess.PIPE, subprocess.PIPE)
+        except OSError:
+            logger.error('There was an error executing streamripper')
+            commondialogs.error(self.exaile.gui.main.window, _('Error '
+                    'executing streamripper'))
+            return True
 
-        outfile = "%s/streamripper.log" % xdg.get_config_dir()
-        STREAMRIPPER_OUT = open(outfile, "w+", 0)
-        STREAMRIPPER_OUT.write("Streamripper log file started: %s\n" %
-            time.strftime("%c", time.localtime()))
-        STREAMRIPPER_OUT.write(
-            "-------------------------------------------------\n\n\n")
-
-
-        APP.player.playbin.set_state(gst.STATE_NULL)
-        sub = subprocess.Popen(['streamripper',
-            APP.player.playbin.get_property('uri'), '-r',
-            str(port), '-d', savedir], stdout=STREAMRIPPER_OUT)
-        ret = sub.poll()
-
-        logger.info("Using streamripper to play location: %s" % track['__loc'])
-
-        if ret != None:
-            logger.warning('There was an error executing streamripper')
-            if commondialogs:
-                commondialogs.error(APP.gui.main.window, _("Error "
-                    "executing streamripper"))
-                return True
-
-        STREAMRIPPER_PID = sub.pid
-        logger.info("Proxy location: http://127.0.0.1:%d" % port)
-        APP.player.playbin.set_property('uri', 'http://127.0.0.1:%d' % port)
-        time.sleep(1)
-
-        APP.player.playbin.set_state(gst.STATE_PLAYING)
-        CURRENT_TRACK = track
-
+        if add_call:
+            event.add_callback(self.quit_application, 'quit_application')
+            event.add_callback(self.start_track, 'playback_track_start')
+            event.add_callback(self.stop_playback, 'playback_player_end')
         return False
-    else:
-        os.system('kill -9 %d' % STREAMRIPPER_PID)
-        APP.player.playbin.set_state(gst.STATE_READY)
-        APP.player.playbin.set_property('uri', track.get_loc_for_io())
-        CURRENT_TRACK = None
-        APP.player.playbin.set_state(gst.STATE_PLAYING)
-        STREAMRIPPER_PID = None
-        if STREAMRIPPER_OUT:
+
+    def stop_ripping(self):
+        try:
+            self.process.terminate()
+        except Exception:
+            pass
+        if settings.get_option('plugin/streamripper/delete_incomplete', True):
             try:
-                STREAMRIPPER_OUT.close()
+                shutil.rmtree(self.savedir + "/incomplete")
             except OSError:
                 pass
+                
+    def quit_application(self, type, player, track):
+        self.stop_ripping()
 
-    return False
+    def stop_playback(self, type, player, track):
+        self.stop_ripping()
+        self.button.set_active(False)
+        self.remove_callbacks()
 
-def playback_stop(type, player, object):
-    global STREAMRIPPER_OUT, STREAMRIPPER_PID
-    if BUTTON:
-        BUTTON.set_active(False)
+    def start_track(self, type, player, track):
+        self.stop_ripping()
+        if self.toggle_record(False):
+            self.button.set_active(False)
+            self.remove_callbacks()
 
-    if STREAMRIPPER_OUT:
-        try:
-            STREAMRIPPER_OUT.close()
-        except OSError:
-            pass
-        STREAMRIPPER_OUT = None
+    def remove_callbacks(self):
+        event.remove_callback(self.quit_application, 'quit_application')
+        event.remove_callback(self.start_track, 'playback_track_start')
+        event.remove_callback(self.stop_playback, 'playback_player_end')
 
-    if STREAMRIPPER_PID:
-        os.system("kill -9 %d" % STREAMRIPPER_PID)
-        STREAMRIPPER_PID = None
 
-def initialize(type, exaile, stuff=None):
-    global BUTTON, APP
-
-    APP = exaile
-
-    # if the gui is available, add the record button
-    if exaile.gui:
-        import gtk
-
-        BUTTON = gtk.ToggleButton()
-        BUTTON.connect('button-release-event', toggle_record)
+class Button(Streamripper):
+    def __init__(self, exaile):
+        self.exaile = exaile
+        self.button = gtk.ToggleButton()
         image = gtk.Image()
         image.set_from_stock('gtk-media-record', gtk.ICON_SIZE_SMALL_TOOLBAR)
-        BUTTON.set_image(image)
+        self.button.set_image(image)
 
-        toolbar = exaile.gui.play_toolbar
-        toolbar.pack_start(BUTTON, False, False)
-        toolbar.reorder_child(BUTTON, 3)
+        toolbar = self.exaile.gui.play_toolbar
+        toolbar.pack_start(self.button, False, False)
+        toolbar.reorder_child(self.button, 3)
 
-        BUTTON.show()
+        self.button.show()
 
-    event.add_callback(playback_stop, 'playback_player_end',
-        exaile.player)
+        self.button.connect('button-release-event', self.toggle_button_callback)
+
+    def toggle_button_callback(self, widget, data):
+        if widget.get_active():
+            self.stop_ripping()
+            self.remove_callbacks()
+        else:
+            if self.toggle_record(True): #couldn't record stream
+                self.button.set_active(True)
+                self.remove_callbacks()
+
+    def remove_button(self):
+        self.exaile.gui.play_toolbar.remove(self.button)
+        self.button.hide()
+        self.button.destroy()
+        self.remove_callbacks()
+
 
 def enable(exaile):
-    """
-        Enables the streamripper plugin
-    """
-    try:
+    try: #just test if streamripper is installed
         subprocess.call(['streamripper'], stdout=-1, stderr=-1)
     except OSError:
         raise NotImplementedError('Streamripper is not available.')
         return False
 
-    if exaile.loading:
-        event.add_callback(initialize, 'exaile_loaded', exaile)
+    if (exaile.loading):
+        event.add_callback(_enable, 'exaile_loaded')
     else:
-        initialize(None, exaile)
+        _enable(None, exaile, None)
+
+
+def _enable(eventname, exaile, nothing):
+    global STREAMRIPPER
+    STREAMRIPPER = Button(exaile)
+
 
 def disable(exaile):
-    global BUTTON
-
-    if BUTTON:
-        exaile.gui.play_toolbar.remove(BUTTON)
-        BUTTON.hide()
-        BUTTON.destroy()
-
-        BUTTON = None
-
-    event.remove_callback(playback_stop, 'playback_player_end',
-        exaile.player)
+    global STREAMRIPPER
+    STREAMRIPPER.remove_button()
+    STREAMRIPPER = None

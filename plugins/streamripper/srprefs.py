@@ -30,3 +30,11 @@ class SavePreference(widgets.DirPrefsItem):
 class PortPreference(widgets.PrefsItem):
     default = '8888'
     name = 'plugin/streamripper/relay_port'
+    
+class FilePreference(widgets.CheckPrefsItem):
+    default = False
+    name = 'plugin/streamripper/single_file'
+    
+class DeletePreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'plugin/streamripper/delete_incomplete'

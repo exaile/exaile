@@ -8,7 +8,7 @@ try:
 except:
     import xml.etree.ElementTree as ETree
 
-import urllib
+import urllib, htmlentitydefs
 
 ## Notice.  Please request your own key from lyricswiki.com/api.
 ## DO NOT USE THIS KEY FOR YOUR OWN SOFTWARE.
@@ -37,6 +37,38 @@ def rep(m):
         just %.  Yeah, doesn't make sense, but that's what it says
     """
     return re.sub(r"[^a-zA-Z _-]", '%', m).replace('%%', '%')
+
+
+# really kinda surprised there isn't a standard lib implementation of
+# this. :/
+def html_un_entity(text):
+    """
+        lyricsfly returns lyrics with special characters encoded at html entities, this
+        replaces the entities with their normal forms.
+    """
+    splitted = text.split("&")
+    res = []
+    for item in splitted:
+        try:
+            encoded, rest = item.split(";")
+        except ValueError: # no ;, so its not encoded
+            res.append("&" + item)
+            continue
+        print repr(encoded), repr(rest)
+        if encoded[0] == "#" and encoded[1:].isdigit(): # raw codepoint encoding
+            char = unichr(int(encoded[1:]))
+        else:
+            if not encoded.isalnum(): # all entity defs are alphanumeric
+                res.append("&" + item)
+                continue
+            else:
+                try:
+                    char = unichr(htmlentitydefs.name2codepoint[encoded])
+                except KeyError: # not a known entity
+                    res.append("&" + item)
+                    continue
+        res.append(char + rest)
+    return u"".join(res)[1:] # remove stray & at start
 
 class LyricsFly(LyricSearchMethod):
 
@@ -67,7 +99,9 @@ class LyricsFly(LyricSearchMethod):
         sg = start.find("sg")
         if sg:
             lyrics = sg.find("tx").text
+            lyrics = lyrics.replace("\n", "")
             lyrics = lyrics.replace("[br]","\n")
+            lyrics = html_un_entity(lyrics)
             cs = sg.find("cs").text
             id = sg.find("id").text
             url = "http://lyricsfly.com/search/view.php?%s&view=%s" % (

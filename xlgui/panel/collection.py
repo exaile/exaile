@@ -636,6 +636,8 @@ class CollectionPanel(panel.Panel):
         draw_seps = settings.get_option('gui/draw_separators', True)
         last_char = ''
         last_val = ''
+        last_dval = ''
+        last_matchq = ''
         first = True
         path = None
         expanded = False
@@ -647,25 +649,34 @@ class CollectionPanel(panel.Panel):
             if last_val != stagval:
                 tagvals = [srtr.track.get_tag_display(x) for x in tags]
                 tagval = self.order[depth].printTags(tagvals)
-                last_val = stagval
-                if depth == 0 and draw_seps:
-                    val = srtr.track.get_tag_sort(tags[0])
-                    char = first_meaningful_char(val)
-                    if first:
-                        last_char = char
-                    else:
-                        if char != last_char and last_char != '':
-                            self.model.append(parent, [None, None, None])
-                        last_char = char
-                first = False
-
                 match_query = " ".join([
                     srtr.track.get_tag_search(t, format=True) for t in tags])
-                iter = self.model.append(parent, [image, tagval, match_query])
-                path = self.model.get_path(iter)
-                expanded = False
-                if not bottom:
-                    self.model.append(iter, [None, None, None])
+
+                # Different *sort tags can cause stagval to not match
+                # but the below code will produce identical entries in
+                # the displayed tree.  This condition checks to ensure
+                # that new entries are added if and only if they will
+                # display different results, avoiding that problem.
+                if match_query != last_matchq or tagval != last_dval:
+                    last_val = stagval
+                    last_dval = tagval
+                    if depth == 0 and draw_seps:
+                        val = srtr.track.get_tag_sort(tags[0])
+                        char = first_meaningful_char(val)
+                        if first:
+                            last_char = char
+                        else:
+                            if char != last_char and last_char != '':
+                                self.model.append(parent, [None, None, None])
+                            last_char = char
+                    first = False
+
+                    last_matchq = match_query
+                    iter = self.model.append(parent, [image, tagval, match_query])
+                    path = self.model.get_path(iter)
+                    expanded = False
+                    if not bottom:
+                        self.model.append(iter, [None, None, None])
 
             if not expanded:
                 alltags = []

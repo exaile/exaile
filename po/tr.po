@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-18 18:32+0000\n"
-"Last-Translator: Mehmet <mehmeteribol@gmail.com>\n"
+"PO-Revision-Date: 2010-03-06 21:02+0000\n"
+"Last-Translator: crazysoilder <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-02-19 04:35+0000\n"
+"X-Launchpad-Export-Date: 2010-03-07 05:27+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -1041,7 +1041,7 @@ msgstr "en fazla"
 
 #: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:162
 msgid "Plays"
-msgstr ""
+msgstr "Çalanlar"
 
 #: ../xlgui/panel/playlists.py:107 ../xlgui/panel/playlists.py:163
 msgid "Year"
@@ -3008,7 +3008,7 @@ msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Ayrıntılı Bilgi"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -3022,10 +3022,12 @@ msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Kayıt yapabilmeniz için streamripper eklentisini kurmanız gereklidir.\n"
+"Gerekenler: streamripper"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"

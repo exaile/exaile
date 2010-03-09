@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+import gtk, gobject
 from xl.nls import gettext as _
 from xl import event, common
 from xl.lyrics import LyricsNotFoundException

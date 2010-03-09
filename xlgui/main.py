@@ -728,7 +728,6 @@ class MainWindow(gobject.GObject):
             'on_configure_event':   self.configure_event,
             'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.delete_event,
-            'on_splitter_button_press_event': self.on_splitter_button_press_event,
             'on_quit_item_activated': self.quit,
             'on_play_button_clicked': self.on_play_clicked,
             'on_next_button_clicked':
@@ -953,15 +952,6 @@ class MainWindow(gobject.GObject):
         if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:
             self.add_playlist()
 
-    def on_splitter_button_press_event(self, splitter, event):
-        """
-            Hides or shows the panes
-        """
-        # FIXME: make gtk.gdk._2BUTTON_PRESS work instead
-        if event.button == 2:
-            value = settings.get_option('gui/mainw_panes_visible', True)
-            settings.set_option('gui/mainw_panes_visible', not value)
-
     def on_search_collection_focus(self, *e):
         """
             Gives focus to the collection search bar
@@ -1156,13 +1146,6 @@ class MainWindow(gobject.GObject):
         if option == 'player/volume':
             self.volume_slider.set_value(settings.get_option(option, 1))
 
-        if option == 'gui/mainw_panes_visible':
-            panes_visible = settings.get_option(option, True)
-            position = 0
-            if panes_visible:
-                position = settings.get_option('gui/mainw_sash_pos', 200)
-            self.splitter.set_position(position)
-
         if option == 'gui/show_tabbar':
             self.playlist_notebook.set_show_tabs(
                 settings.get_option(option, True)
@@ -1347,10 +1330,6 @@ class MainWindow(gobject.GObject):
         self.window.resize(width, height)
 
         pos = settings.get_option('gui/mainw_sash_pos', 200)
-
-        if not settings.get_option('gui/mainw_panes_visible', True):
-            pos = 0
-
         self.splitter.set_position(pos)
 
     def delete_event(self, *e):
@@ -1388,14 +1367,10 @@ class MainWindow(gobject.GObject):
         """
             Called when the window is resized or moved
         """
-        position = self.splitter.get_position()
-        if position > 0:
-            settings.set_option('gui/mainw_panes_visible', True)
-            savedposition = settings.get_option('gui/mainw_sash_pos', 200)
-            if position > 10 and position != savedposition:
-                settings.set_option('gui/mainw_sash_pos', position)
-        else:
-            settings.set_option('gui/mainw_panes_visible', False)
+        pos = self.splitter.get_position()
+        if pos > 10 and pos != settings.get_option(
+                "gui/mainw_sash_pos", -1):
+            settings.set_option('gui/mainw_sash_pos', pos)
 
         # Don't save window size if it is maximized or fullscreen.
         if settings.get_option('gui/mainw_maximized', False) or \

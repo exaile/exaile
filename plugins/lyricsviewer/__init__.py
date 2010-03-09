@@ -84,4 +84,4 @@ class LyricsPanel(gtk.VBox):
         except LyricsNotFoundException:
             return
         if player.current == track and lyr:
-            self.textbuffer.set_text(lyr)
+            gobject.idle_add(self.textbuffer.set_text, lyr)

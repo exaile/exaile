@@ -6,3 +6,5 @@ sys.path.insert(0, '.')
 import exaile
 exaile.main()
 exaile = exaile.exaile
+
+print ""

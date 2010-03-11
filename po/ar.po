@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-03-03 00:39+0000\n"
+"PO-Revision-Date: 2010-03-10 13:23+0000\n"
 "Last-Translator: AhmedQatar <Unknown>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2010-03-04 04:51+0000\n"
+"X-Launchpad-Export-Date: 2010-03-11 04:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/main.py:308
@@ -225,13 +225,15 @@ msgstr ""
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
-msgstr ""
+msgstr "ملكية أبل لتنسيق صوتي ضعيف يصل لجودة صوتية أفضل من MP3 بمعدل أقل."
 
 #: ../xl/transcoder.py:88
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
+"ملكية و أكبر , لكن الأكثر شعبية,ضياع تنسيق الصوت.VBR يعطي جودة أعلى من CBR "
+",لكنه قد لا يكون متوافقا مع بعض المشغلات."
 
 #: ../xl/transcoder.py:99
 msgid ""
@@ -834,7 +836,7 @@ msgstr ""
 #: ../xlgui/guiutil.py:742
 #, python-format
 msgid "(%d queued)"
-msgstr ""
+msgstr "(اصطفاف %d)"
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
@@ -1972,7 +1974,7 @@ msgstr ""
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "من %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
@@ -2006,24 +2008,24 @@ msgstr "إغفال إختيار"
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"
-msgstr ""
+msgstr "إلحاق و تشغيل"
 
 #: ../plugins/droptrayicon/__init__.py:272
 msgid "Append"
-msgstr ""
+msgstr "إلحاق"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "كسب التشغيل"
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "النشرات الصوتية"
 
 #: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
-msgstr ""
+msgstr "النشرة الصوتية"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
@@ -2031,11 +2033,11 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "أدخل عنوان النشرة الصوتية للإضافة"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
@@ -2044,15 +2046,15 @@ msgstr ""
 #: ../plugins/podcasts/__init__.py:153
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "تحميل %s..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
-msgstr ""
+msgstr "خطأ تحميل نشرة صوتية."
 
 #: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "تحميل نشرة صوتية..."
 
 #: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"

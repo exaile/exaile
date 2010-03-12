@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-19 18:26+0000\n"
-"Last-Translator: mazdac <mazdac@gmail.com>\n"
+"PO-Revision-Date: 2010-03-11 10:27+0000\n"
+"Last-Translator: Seweryn <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-02-20 04:39+0000\n"
+"X-Launchpad-Export-Date: 2010-03-12 04:49+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -1288,7 +1288,7 @@ msgstr "Użyj detekcji na podstawie nazwy pliku"
 
 #: ../data/ui/collection_prefs_pane.ui.h:3
 msgid "Words to strip from the beginning of artist tags (space separated):"
-msgstr ""
+msgstr "Słowa do wycięcia z początku tagów wykonawcy (rozdzielone spacjami)"
 
 #: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
 msgid "Open last playlists on startup"
@@ -2357,7 +2357,7 @@ msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "3.8K"
@@ -2465,7 +2465,7 @@ msgstr "Zaawansowane"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "Rosnąco"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
@@ -2576,7 +2576,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "When GUI is Focused"
-msgstr ""
+msgstr "Gdy skupienie jest na interfejsie graficznym"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API Key:"
@@ -2775,6 +2775,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Odtwarza muzykę w określonych dniach i godzinach.\n"
+"\n"
+"Zauważ, że w określonym czasie Exaile zadziała tak, jakbyś przycisnął "
+"przycisk odtwarzania, więc upewnij się że będziesz miał wtedy na liście "
+"odtwarzania odpowiednią muzykę."
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2784,6 +2789,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Odtwarza muzykę o określonej godzinie.\n"
+"\n"
+"Zauważ, że w określonym czasie Exaile zadziała tak, jakbyś przycisnął "
+"przycisk odtwarzania, więc upewnij się że będziesz miał wtedy na liście "
+"odtwarzania odpowiednią muzykę."
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
@@ -2881,7 +2891,7 @@ msgstr "Wyświetla okładkę odtwarzanego albumu na pulpicie."
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Dynamiczne playlisty Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
@@ -2988,6 +2998,8 @@ msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Obsługa przenośnych odtwarzaczy multimediów przez protokół Pamięci Masowej "
+"USB"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
@@ -3011,7 +3023,7 @@ msgstr ""
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr ""
+msgstr "ta"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"

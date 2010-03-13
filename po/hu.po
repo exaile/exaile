@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-02-02 23:06+0000\n"
-"Last-Translator: NITSCH Zoltán <Unknown>\n"
+"PO-Revision-Date: 2010-02-10 17:27+0000\n"
+"Last-Translator: erenon <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-02-04 04:45+0000\n"
+"X-Launchpad-Export-Date: 2010-02-11 05:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -515,7 +515,7 @@ msgstr "Bezárja anélkül hogy alkalmazná a változásokat a tagekre?"
 
 #: ../xlgui/properties.py:655
 msgid "of"
-msgstr ""
+msgstr ":"
 
 #: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
@@ -845,7 +845,7 @@ msgstr "%(playlist_count)d látható, %(collection_count)d a gyűjteményben"
 #: ../xlgui/guiutil.py:742
 #, python-format
 msgid "(%d queued)"
-msgstr ""
+msgstr "(%d várólistába került)"
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
@@ -1367,7 +1367,7 @@ msgstr "_Automatikus méret"
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
-msgstr "_Gyűlytemény"
+msgstr "_Gyűjtemény"
 
 #: ../data/ui/main.ui.h:25
 msgid "_Columns"
@@ -1708,7 +1708,7 @@ msgstr "ALSA"
 
 #: ../data/ui/playback_prefs_pane.ui.h:2
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Hangkimenet:  "
 
 #: ../data/ui/playback_prefs_pane.ui.h:4
 msgid "Crossfade duration (ms):"
@@ -1736,7 +1736,7 @@ msgstr "OSS"
 
 #: ../data/ui/playback_prefs_pane.ui.h:10
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "Lejátszás alrendszere (újraindítást igényel) "
 
 #: ../data/ui/playback_prefs_pane.ui.h:11
 msgid "PulseAudio"
@@ -1752,11 +1752,11 @@ msgstr "Lejátszás folytatása indításkor"
 
 #: ../data/ui/playback_prefs_pane.ui.h:14
 msgid "These options only affect the unified engine."
-msgstr ""
+msgstr "A kapcsolók csak az egyesített alrendszert befolyásolják"
 
 #: ../data/ui/playback_prefs_pane.ui.h:15
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Egyesített (instabil)"
 
 #: ../data/ui/playback_prefs_pane.ui.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
@@ -1818,7 +1818,7 @@ msgstr "Év - Előadó"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:1
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Fülsor mindig látszik"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:2
 msgid "Bottom"
@@ -1863,7 +1863,7 @@ msgstr "Átlátszóság használata(ha támogatott)"
 #: ../plugins/multialarmclock/__init__.py:412
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Többszörös ébresztőóra"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
@@ -1885,7 +1885,7 @@ msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
-msgstr ""
+msgstr "Számkövetés bekapcsolva"
 
 #: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:201
 msgid "Audio Disc"
@@ -1913,15 +1913,15 @@ msgstr "Lejátszások száma"
 
 #: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
-msgstr ""
+msgstr "Kézi..."
 
 #: ../plugins/daapclient/__init__.py:207
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Megosztáshoz IP cím és port megadása"
 
 #: ../plugins/daapclient/__init__.py:208
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "IP cím és port megadása"
 
 #: ../plugins/daapclient/__init__.py:376
 msgid ""
@@ -2002,28 +2002,28 @@ msgstr "Amazon borítók"
 
 #: ../plugins/desktopcover/prefs.py:21 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "Borító az asztalon"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Hangulat keresése..."
 
 #: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr ""
+msgstr "Hangulatot megtaláltam"
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "A hangulatjelző nem olvasható"
 
 #: ../plugins/moodbar/__init__.py:497
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Hangulatjelző végrehajtható állománya nem elérhető"
 
 #: ../plugins/droptrayicon/__init__.py:267
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Kiválasztás ráejtéssel"
 
 #: ../plugins/droptrayicon/__init__.py:270
 msgid "Append and Play"
@@ -2036,7 +2036,7 @@ msgstr "Hozzáfűzés"
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "Automatikus hangerőszabályozás"
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -2056,11 +2056,11 @@ msgstr "Törlés"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Hozzáadandó podcast URL-jének megadása"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
-msgstr "Podcast Megnyitása"
+msgstr "Podcast megnyitása"
 
 #: ../plugins/podcasts/__init__.py:153
 #, python-format
@@ -2073,11 +2073,11 @@ msgstr "Hiba a podcast betöltésekor"
 
 #: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
-msgstr "Pdcastok Betöltése..."
+msgstr "Podcastok betöltése..."
 
 #: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "A podcast fájlt nem sikerült elmenteni"
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
 #: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
@@ -2392,15 +2392,15 @@ msgstr "Beállítások"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Circle Display"
-msgstr ""
+msgstr "Tortaszerű megjelenítés"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display Covers"
-msgstr ""
+msgstr "Borító megjelenítése"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Display Overlay:"
-msgstr ""
+msgstr "Matrica megjelenítése"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"
@@ -2408,7 +2408,7 @@ msgstr "Semmi"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "Text Percentage"
-msgstr ""
+msgstr "Szöveg aránya"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Password:"
@@ -2416,11 +2416,11 @@ msgstr "Jelszó:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show Menuitem to toggle Submission"
-msgstr ""
+msgstr "Küldés menüelem bekapcsolása"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Számok küldése a számkövetés használatával"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 msgid "Username:"
@@ -2436,11 +2436,11 @@ msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "Import format: "
-msgstr ""
+msgstr "Import formátuma "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "Import path: "
-msgstr ""
+msgstr "Import útvonala: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "Import quality: "
@@ -2460,71 +2460,71 @@ msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "WavPack"
-msgstr ""
+msgstr "WavPack"
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
-msgstr ""
+msgstr "Borító használata a könyvjelző menüben (újraindítást igényel)"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Advanced"
-msgstr ""
+msgstr "Haladó"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "Növekvő"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
-msgstr ""
+msgstr "Kedvencekhez sorolás ideje"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "Csökkenő"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Műfaj/Címkék"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
-msgstr ""
+msgstr "Letöltések száma"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
-msgstr ""
+msgstr "Hallgatások száma"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Lejátszólista hozzáfűzések száma"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Order By:"
-msgstr ""
+msgstr "Sorrend:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Order Direction:"
-msgstr ""
+msgstr "Sorrend iránya:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
-msgstr ""
+msgstr "Havi értékelés"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Rating this week"
-msgstr ""
+msgstr "Heti értékelés"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
-msgstr ""
+msgstr "Kiadás dátuma"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Results:"
-msgstr ""
+msgstr "Találatok:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
-msgstr ""
+msgstr "Kedvenc"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
@@ -2540,23 +2540,23 @@ msgstr "<b>Ikonok</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "Album Line:"
-msgstr ""
+msgstr "Album sora:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "Artist Line:"
-msgstr ""
+msgstr "Előadó sora:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "On Playback Start, Pause or Stop"
-msgstr ""
+msgstr "Lejátszásnál indulás/szünetelés v. megállításkor"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "On Track Change"
-msgstr ""
+msgstr "Számváltáskor"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "On Tray Icon Hover"
-msgstr ""
+msgstr "Tálcaikonon lebegtetéskor"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "Summary:"
@@ -2569,18 +2569,21 @@ msgid ""
 "by their respective values. The title will be replaced by \"Unknown\" if it "
 "is empty."
 msgstr ""
+"A \"%(title)s\", \"%(artist)s\", and \"%(album)s\" címkék helyettesítve "
+"lesznek a megfelelő értékeikkel. A cím \"Ismeretlen\"-nel lesz helyettesítve "
+"ha üres."
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 msgid "Use Album Covers As Icons"
-msgstr ""
+msgstr "Borító ikonként"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr ""
+msgstr "Média ikon használata lejátszás/szünet/folytatásnál"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "When GUI is Focused"
-msgstr ""
+msgstr "Ha a grafikus felület előtérben"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API Key:"
@@ -2595,6 +2598,8 @@ msgid ""
 "To sign up for an Amazon AWS account and get \n"
 "this information visit http://aws.amazon.com/"
 msgstr ""
+"Amazon AWS fiók létrehozásához  és további információért \n"
+"látogassa meg a http://aws.amazon.com/ honlapot."
 
 #: ../plugins/desktopcover/prefs.ui.h:1
 msgid "Anchor:"
@@ -2642,7 +2647,7 @@ msgstr "Alapszín:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Lejátszási rész sötétítése kurzorhasználat helyett"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Darkness level:"
@@ -2650,47 +2655,47 @@ msgstr "Sötétségi szint:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Hullámforma mutatása csak, hangulatjel nélkül"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Use color theme "
-msgstr ""
+msgstr "Színes téma használata "
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Use waveform style"
-msgstr ""
+msgstr "Hullámforma stílus"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Erősítés (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Erősítés minden fájlra"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
-msgstr ""
+msgstr "Szabályozás hangerő információval nem rendelkező fájloknál"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Alapértelmezett módosítási szint (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr ""
+msgstr "Albumszintű hangerőszabályozás számonkénti helyett"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "Albumszintű hangerőszabályozás"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Túlszabályozás okozta zajjal szembeni védelem"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Pattogás elkerülése"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
@@ -2698,11 +2703,11 @@ msgstr "Podcast hozzáadása"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Üzenet törzse</b>"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
 msgid "Both artist and album"
-msgstr ""
+msgstr "Előadó és album"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:4
 #, python-format
@@ -2712,6 +2717,9 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place"
 msgstr ""
+"Értesítés törzsében megjelenítendő üzenet . A \"%(title)s\", \"%(artist)s\", "
+"and \"%(album)s\" minden esetben a megfelelő értékekkel lesz helyettesítve. "
+"Ha a címke nem ismert, \"Ismeretlen\" szöveg lesz a helyén."
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:5
 msgid "Only album"
@@ -2723,7 +2731,7 @@ msgstr "Csak előadó"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Megjelenített borító átméretezése"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "Summary"
@@ -2735,7 +2743,7 @@ msgstr "Betűtípus:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Terminal Opacity:"
-msgstr ""
+msgstr "Terminál átlátszatlansága:"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:1
 msgid "Always on top"
@@ -2743,19 +2751,19 @@ msgstr "Mindig legfelül"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:2
 msgid "Display window decorations"
-msgstr ""
+msgstr "Ablakdekorációk mutatása"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:3
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Feladatlistában megjelenik"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:4
 msgid "Show on all desktops"
-msgstr ""
+msgstr "Minden asztalon látszik"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:5
 msgid "Track title format:"
-msgstr ""
+msgstr "Szám címformátuma:"
 
 #: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Relay Port:"
@@ -2773,6 +2781,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Zenelejátszás adott napokon és időben.\n"
+"\n"
+"Amikor az idő elérkezik, az Exaile pusztán annyit tesz mintha megnyomta "
+"volna a lejátszás gombot, ezért gondoskodni kell róla, hogy a lejátszandó "
+"zene a lejátszólistában van"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2782,33 +2795,42 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Zenét játszik le adott időben.\n"
+"\n"
+"Amikor az idő elérkezik, az Exaile pusztán annyit tesz mintha megnyomta "
+"volna a lejátszás gombot, ezért gondoskodni kell róla, hogy a lejátszandó "
+"zene a lejátszólistában van"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "10 sávos hangkiegyenlítő"
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
-msgstr ""
+msgstr "Awn"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
-msgstr ""
+msgstr "Beállítja a borítót és néhány menüelemet az AWN-ben"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr ""
+msgstr "Jelenlegi dal"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
 "Sets the currently playing status in Pidgin for services that support it."
 msgstr ""
+"Beállítja, lejátszási állapotot  a Pidgin-ben azon szolgáltatásoknál, "
+"amelyek ezt támogatják"
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
+"Zenehallgatási információkat elküldi a Last.fm-nek és hasonló számkövetést "
+"támogató szolgáltatóknak"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
@@ -2819,22 +2841,24 @@ msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
 msgstr ""
+"Audio CD lejátszás támogatása,\n"
+"Python-cddb szükséges az album-információk kinyeréséhez"
 
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "DAAP kliens"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
-msgstr ""
+msgstr "MPRIS D-Bus objektumot hoz létre az Exaile irányításához"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr ""
+msgstr "Hangfájlokban lehetővé teszi könyvjelzők mentését/folytatását"
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
@@ -2861,39 +2885,47 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Ez a bővítmény értesítő üzeneteket jelenít meg buborékban, ha egy dalt "
+"lejátszanak/megállítanak/folytatnak a dal borítójával vagy egy média "
+"ikonnal, hogy jelezze a legutolsó műveletet.\n"
+"\n"
+"Függőségek: python-notify\n"
+"Ajánlott: notify-osd"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
 "Searches Amazon for covers\n"
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
-msgstr ""
+msgstr "Borítók keresése az Amazon-on"
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "Megjeleníti a jelenlegi album borítóját az asztalon"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Last.fm dinamikus lejátszólista"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "Last.fm forrás a dinamikus lejátszólistához"
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Hangulatjelző"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"A folyamatjelzőt hangulatjelzőre cseréli.\n"
+"Függőségek: moodbar"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
-msgstr ""
+msgstr "Tálcaikon \"húzd és ejtsd\" támogatással"
 
 #: ../plugins/droptrayicon/PLUGININFO:4
 msgid ""
@@ -2901,6 +2933,9 @@ msgid ""
 "\n"
 "Depends: python-eggtrayicon"
 msgstr ""
+"Egy másik tálcaikon, amely ráejtett fájlokat is elfogad.\n"
+"\n"
+"Függőségek: python-eggtrayicon"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
@@ -2912,11 +2947,11 @@ msgstr "iPod támogatás bővítmény"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr ""
+msgstr "Automatikus hangerőszabályozás engedélyezése"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Egyszerű podcast támogatás hozzáadása"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
@@ -2925,14 +2960,15 @@ msgstr "Képernykímélő esetén szünet"
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
 msgstr ""
+"Lejátszás megállítás/folytatás képernyővédő bekapcsolásakor/végetérésekor"
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"
-msgstr ""
+msgstr "Shoutcast Radio"
 
 #: ../plugins/shoutcast/PLUGININFO:4
 msgid "Shoutcast Radio list"
-msgstr ""
+msgstr "Shoutcast Radio lista"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
@@ -2940,7 +2976,7 @@ msgstr "Hello World"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "Egyszerű bővítmény az alapvető bővítményrendszer teszteléséhez"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
@@ -2951,6 +2987,8 @@ msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Exaile irányítás támogatása GNOME multimédia billentyűzettel. GNOME 2.20.x "
+"és e felett kompatibilis."
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
@@ -2958,53 +2996,55 @@ msgstr "XBillentyűk"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "Rendszerszintű gyorsbillentyűk xlib használatával"
 
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
-msgstr ""
+msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "Bővítmény dalszöveg lyricsfly.com-ról való beszerzéséhez"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "USB meghajtós médialejátszók támogatása"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Hordozható médialejátszók hozzáférésének támogatása az USB Mass Storage "
+"protokol támogatásával"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
-msgstr ""
+msgstr "Értesít ha egy dal lejátszása elkezdődött"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "Hangoskönyvek böngészése és hallgatása a Librivox.org-ról."
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
-msgstr ""
+msgstr "Ipython konzolt biztosít az Exaile működésének befolyásolására."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Az Exaile kompakt nézete beállítható felülettel."
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
-msgstr ""
+msgstr "Fájlba mentett borítók"
 
 #: ../plugins/tagcovers/PLUGININFO:4
 msgid "Searches track tags for covers"
-msgstr ""
+msgstr "Borítót keres a dal metaadatai között"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
@@ -3016,30 +3056,35 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Információk a játszott dalról.\n"
+"Függőségek: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging "
+"(alias PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Felvétel készítése streamripper-rel.\n"
+"Függőségek: streamripper"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr ""
+msgstr "Bővítmény dalszövegek lyricwiki.org-ról történő beszerzéséhez"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Ex Falso címkeszerkesztő"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
-msgstr ""
+msgstr "Integrálja az Ex Falso címkeszerkesztőt az Exaile-vel."
 
 #~ msgid "Add to Playlist"
 #~ msgstr "Hozzáadás a lejátszólistához"

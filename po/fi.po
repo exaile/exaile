@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-31 14:12+0000\n"
-"Last-Translator: Jussi Aalto <jta_lnx@dnainternet.net>\n"
+"PO-Revision-Date: 2010-02-14 12:57+0000\n"
+"Last-Translator: Jussi Laitinen <jussilait92@gmail.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-02-01 04:43+0000\n"
+"X-Launchpad-Export-Date: 2010-02-15 04:46+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -40,7 +40,7 @@ msgstr "Soita edellinen kappale"
 
 #: ../xl/main.py:294
 msgid "Stop playback"
-msgstr ""
+msgstr "Pysäytä soitto"
 
 #: ../xl/main.py:296
 msgid "Play"
@@ -48,7 +48,7 @@ msgstr "Toista"
 
 #: ../xl/main.py:298
 msgid "Toggle Play or Pause"
-msgstr ""
+msgstr "Toista tai Pysäytä"
 
 #: ../xl/main.py:301
 msgid "Stop playback after current track"
@@ -64,7 +64,7 @@ msgstr ""
 
 #: ../xl/main.py:308
 msgid "Show a popup of the currently playing track"
-msgstr ""
+msgstr "Näytä ponnahdusikkuna tällä hetkellä toistettavasta kappaleesta"
 
 #: ../xl/main.py:310
 msgid "Print the title of current track"
@@ -72,7 +72,7 @@ msgstr "Näytä toistettavan kappaleen nimi"
 
 #: ../xl/main.py:312
 msgid "Print the album of current track"
-msgstr ""
+msgstr "Näytä albumi, johon soitettava kappale kuuluu"
 
 #: ../xl/main.py:314
 msgid "Print the artist of current track"
@@ -88,7 +88,7 @@ msgstr "Aseta toistettavalle kappaleelle arvosana"
 
 #: ../xl/main.py:320
 msgid "Get rating for current song"
-msgstr ""
+msgstr "Aseta toistettavalle raidalle arvosana"
 
 #: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
@@ -96,7 +96,7 @@ msgstr "Näytä aika kappaleen edistymisessä"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "Näytä kappaleen edistyminen prosenttina"
 
 #: ../xl/main.py:329
 msgid "Volume options"
@@ -128,7 +128,7 @@ msgstr "Aloita minimoituna (ilmoitusalueelle, jos mahdollista)"
 
 #: ../xl/main.py:345
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Aseta graafisen käyttöliittymän näkyvyys (jos mahdollista)"
 
 #: ../xl/main.py:347
 msgid ""
@@ -153,7 +153,7 @@ msgstr "Kehitys- ja vianmääritysasetukset"
 
 #: ../xl/main.py:359
 msgid "Set data directory"
-msgstr ""
+msgstr "Aseta hakemisto"
 
 #: ../xl/main.py:361
 msgid "Show debugging output"
@@ -165,7 +165,7 @@ msgstr "Käytä xl.event-vianjäljitystä. Saa aikaan PALJON tulostetta"
 
 #: ../xl/main.py:366
 msgid "Filter event debug output"
-msgstr ""
+msgstr "Suodatintapahtuman vianmääritysulostulo"
 
 #: ../xl/main.py:369
 msgid "Reduce level of output"
@@ -197,7 +197,7 @@ msgstr "Arvostelu > %d"
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
-msgstr ""
+msgstr "Exaile ei ole lopettanut lattaamista."
 
 #: ../xl/cover.py:155 ../xl/cover.py:189 ../xl/trackdb.py:226
 msgid "You did not specify a location to save the db"
@@ -255,7 +255,7 @@ msgstr "Todella nopea vapaa ääniformaatti hyvällä pakkauksella."
 
 #: ../xl/track.py:388
 msgid "Various Artists"
-msgstr ""
+msgstr "Useita artisteja"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
 #: ../xl/track.py:393 ../xl/track.py:412 ../xl/trackformatter.py:121
@@ -276,7 +276,7 @@ msgstr "  Uusi kappale, haetaan kansi."
 
 #: ../xl/devices.py:141 ../xl/devices.py:147
 msgid "Device class does not support transfer."
-msgstr ""
+msgstr "Laiteluokka ei tue tiedostojen siirtämistä."
 
 #: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
 #: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
@@ -301,11 +301,11 @@ msgstr ""
 
 #: ../xl/settings.py:94
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "Asetuksien versio on uudempi kuin nykyinen."
 
 #: ../xl/settings.py:179
 msgid "We don't know how to store that kind of setting: "
-msgstr ""
+msgstr "Emme tiedä kuinka säilöä tämänkaltaista asetusta: "
 
 #: ../xl/settings.py:206
 msgid "An Unknown type of setting was found!"
@@ -322,7 +322,7 @@ msgstr "Liitännäinen nimeltään \"%s\" on jo asennettu"
 
 #: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
-msgstr ""
+msgstr "Lisäosa-arkisto sisältää turvattoman polun"
 
 #: ../xl/playlist.py:386
 #, python-format
@@ -342,7 +342,7 @@ msgstr ""
 
 #: ../xl/trackdb.py:164
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "Et antanut sijantia, mistä tietokanta ladataan"
 
 #: ../xlgui/properties.py:36
 msgid "Original Album"
@@ -354,7 +354,7 @@ msgstr "Sanoittaja"
 
 #: ../xlgui/properties.py:39
 msgid "Website"
-msgstr ""
+msgstr "Verkkosivu"
 
 #: ../xlgui/properties.py:41
 msgid "Original Artist"
@@ -362,16 +362,16 @@ msgstr "Alkuperäinen esittäjä"
 
 #: ../xlgui/properties.py:42
 msgid "Author"
-msgstr ""
+msgstr "Tekijä"
 
 #: ../xlgui/properties.py:43
 msgid "Original Date"
-msgstr ""
+msgstr "Alkuperäinen päivämäärä"
 
 #: ../xlgui/properties.py:44 ../xlgui/plcolumns.py:163
 #: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:72
 msgid "Date"
-msgstr ""
+msgstr "Päivämäärä"
 
 #: ../xlgui/properties.py:45
 msgid "Arranger"
@@ -379,11 +379,11 @@ msgstr "Sovittaja"
 
 #: ../xlgui/properties.py:46
 msgid "Conductor"
-msgstr ""
+msgstr "Kapellimestari"
 
 #: ../xlgui/properties.py:47
 msgid "Performer"
-msgstr ""
+msgstr "Esittäjä"
 
 #: ../xlgui/properties.py:48 ../xlgui/plcolumns.py:99
 #: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:157
@@ -441,11 +441,11 @@ msgstr "Säveltäjä"
 
 #: ../xlgui/properties.py:58
 msgid "Encoded By"
-msgstr ""
+msgstr "Enkoodannut"
 
 #: ../xlgui/properties.py:59
 msgid "Organization"
-msgstr ""
+msgstr "Organisaatio"
 
 #: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:134
 msgid "Disc"
@@ -505,7 +505,7 @@ msgstr "Viimeksi soitettu"
 #: ../xlgui/properties.py:216
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "Muokataan kappaletta %(current)d / %(total)d"
 
 #: ../xlgui/properties.py:330
 msgid "Close without applying changes to tags?"
@@ -513,11 +513,11 @@ msgstr "Sulje tallentamatta tunnisteiden muutoksia?"
 
 #: ../xlgui/properties.py:655
 msgid "of"
-msgstr ""
+msgstr "/"
 
 #: ../xlgui/properties.py:777
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Aseta nykyinen arvo kaikille kappaleille"
 
 #: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
 #: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
@@ -590,6 +590,8 @@ msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
+"Exaile-musiikkisoitin\n"
+"Ei toistettavaa kappaletta"
 
 #. TRANSLATORS: Window title
 #: ../xlgui/main.py:1219
@@ -617,7 +619,7 @@ msgstr ""
 #: ../xlgui/main.py:1244
 #, python-format
 msgid "Playing %s"
-msgstr ""
+msgstr "Toistetaan %s"
 
 #: ../xlgui/menu.py:53
 msgid "Toggle Queue"
@@ -789,11 +791,11 @@ msgstr "Virheellinen tiedostopääte, tiedostoa ei tallennettu"
 
 #: ../xlgui/__init__.py:168
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Kirjoita avattava verkko-osoite"
 
 #: ../xlgui/__init__.py:169
 msgid "Open URL"
-msgstr ""
+msgstr "Avaa verkko-osoite"
 
 #: ../xlgui/__init__.py:183
 msgid "Choose a file to open"
@@ -822,15 +824,15 @@ msgstr "Tutkitaan kokoelmaa..."
 #: ../xlgui/__init__.py:439
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "Tutkitaan %s..."
 
 #: ../xlgui/guiutil.py:430
 msgid "Muted"
-msgstr ""
+msgstr "Vaimennettu"
 
 #: ../xlgui/guiutil.py:439
 msgid "Full Volume"
-msgstr ""
+msgstr "Täysi äänenvoimakkuus"
 
 #: ../xlgui/guiutil.py:729
 #, python-format
@@ -935,7 +937,7 @@ msgstr "Sekoita kappaleet"
 
 #: ../xlgui/filtergui.py:92
 msgid "Limit to: "
-msgstr ""
+msgstr "Rajoita: "
 
 #: ../xlgui/filtergui.py:102
 msgid " songs"
@@ -1103,7 +1105,7 @@ msgstr "Lisää radiokanava"
 
 #: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:247
 msgid "Saved Stations"
@@ -1141,12 +1143,12 @@ msgstr ""
 
 #: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Tarkista kokoelma uudelleen"
 
 #: ../xlgui/panel/device.py:127
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Siirretään kohteeseen %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:31
 msgid "Covers"
@@ -1184,7 +1186,7 @@ msgstr ""
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Palauta oletusasetukset"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"
@@ -1192,7 +1194,7 @@ msgstr "Soittolistat"
 
 #: ../xlgui/prefs/osd_prefs.py:32
 msgid "On Screen Display"
-msgstr ""
+msgstr "Kuvaruutunäyttö"
 
 #: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"

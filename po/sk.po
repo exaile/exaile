@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-16 06:23+0000\n"
-"Last-Translator: Aren Olson <Unknown>\n"
+"PO-Revision-Date: 2010-02-26 23:24+0000\n"
+"Last-Translator: Roman Horník <roman.hornik@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2010-01-17 04:45+0000\n"
+"X-Launchpad-Export-Date: 2010-02-28 04:51+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -44,7 +44,7 @@ msgstr "Zastaviť prehrávanie"
 
 #: ../xl/main.py:296
 msgid "Play"
-msgstr "Hrať"
+msgstr "Prehrať"
 
 #: ../xl/main.py:298
 msgid "Toggle Play or Pause"
@@ -539,7 +539,7 @@ msgstr "Premenovať playlist"
 
 #: ../xlgui/main.py:281
 msgid "Custom playlist name:"
-msgstr ""
+msgstr "Vlastný názov playlistu"
 
 #: ../xlgui/main.py:281
 msgid "Save As..."
@@ -1549,7 +1549,7 @@ msgstr "Predchádzajúci navštívený priečinok"
 
 #: ../data/ui/files_panel.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Obnoviť obsah priečinku"
 
 #: ../data/ui/files_panel.ui.h:7
 msgid "Up one directory"
@@ -1831,7 +1831,7 @@ msgstr "Budík"
 #: ../plugins/equalizer/__init__.py:129 ../plugins/equalizer/equalizer.ui.h:15
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Ekvalizér"
 
 #: ../plugins/awn/awn_prefs.py:32
 msgid "AWN"
@@ -1848,7 +1848,7 @@ msgstr ""
 
 #: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:201
 msgid "Audio Disc"
-msgstr "Zvukový disk"
+msgstr "Zvukové CD"
 
 #: ../plugins/cd/_cdguipanel.py:87
 msgid "Importing CD..."
@@ -1856,11 +1856,11 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs.py:32
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:93 ../plugins/minimode/minimodeprefs.py:64
 msgid "Track number"
-msgstr ""
+msgstr "Číslo skladby"
 
 #: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:70
 msgid "Disc number"
@@ -1868,7 +1868,7 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:77
 msgid "Play count"
-msgstr ""
+msgstr "Počet prehraní"
 
 #: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
@@ -1892,7 +1892,7 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:455
 msgid "Disconnect"
-msgstr ""
+msgstr "Odpojiť"
 
 #: ../plugins/daapclient/__init__.py:473
 msgid "Select a save location"
@@ -1905,7 +1905,7 @@ msgstr ""
 #: ../plugins/bookmarks/__init__.py:271
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "Záložky"
 
 #: ../plugins/bookmarks/__init__.py:279
 msgid "Bookmark this track"
@@ -1913,7 +1913,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:284
 msgid "Delete bookmark"
-msgstr ""
+msgstr "Zmazať záložku"
 
 #: ../plugins/bookmarks/__init__.py:288
 msgid "Clear bookmarks"
@@ -1922,7 +1922,7 @@ msgstr ""
 #: ../plugins/jamendo/__init__.py:76
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Ready"
-msgstr ""
+msgstr "Pripravený"
 
 #: ../plugins/jamendo/__init__.py:77
 msgid "Searching Jamendo catalogue..."
@@ -1940,19 +1940,19 @@ msgstr ""
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "od %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "z %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
@@ -2003,7 +2003,7 @@ msgstr "Podcasty"
 
 #: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
@@ -2011,7 +2011,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
-msgstr ""
+msgstr "Vymazať"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Enter the URL of the podcast to add"
@@ -2024,7 +2024,7 @@ msgstr ""
 #: ../plugins/podcasts/__init__.py:153
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "Načítava sa %s..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
@@ -2060,7 +2060,7 @@ msgstr ""
 
 #: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
-msgstr ""
+msgstr "Výsledky hľadania"
 
 #: ../plugins/shoutcast/__init__.py:345
 msgid "Search"
@@ -2068,7 +2068,7 @@ msgstr "Hľadať"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Oznámiť"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -2091,7 +2091,7 @@ msgstr ""
 
 #: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
-msgstr "Zastav prehrávanie"
+msgstr "Zastaviť prehrávanie"
 
 #: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
@@ -2100,7 +2100,7 @@ msgstr ""
 #: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr "Mini režim"
+msgstr "Mini mód"
 
 #: ../plugins/minimode/minimodeprefs.py:44
 msgid "Available controls"
@@ -2116,15 +2116,15 @@ msgstr "Predchádzajúca"
 
 #: ../plugins/minimode/minimodeprefs.py:48
 msgid "Play/Pause"
-msgstr "Prehrávať/Pozastaviť"
+msgstr "Prehrať/Pauza"
 
 #: ../plugins/minimode/minimodeprefs.py:49
 msgid "Stop"
-msgstr ""
+msgstr "Zastaviť"
 
 #: ../plugins/minimode/minimodeprefs.py:50
 msgid "Next"
-msgstr "Ďalej"
+msgstr "Ďalšia"
 
 #: ../plugins/minimode/minimodeprefs.py:51
 msgid "Track selector"
@@ -2136,7 +2136,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:53
 msgid "Volume"
-msgstr ""
+msgstr "Hlasitosť"
 
 #: ../plugins/minimode/minimodeprefs.py:54
 msgid "Playlist button"
@@ -2144,7 +2144,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:57
 msgid "Restore"
-msgstr ""
+msgstr "Obnoviť"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:83
@@ -2181,7 +2181,7 @@ msgstr ""
 #: ../plugins/contextinfo/__init__.py:1047
 #: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
-msgstr ""
+msgstr "Obsah"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
@@ -2224,7 +2224,7 @@ msgstr ""
 #: ../plugins/multialarmclock/alarmclk.ui.h:8
 #: ../plugins/alarmclock/acprefs_pane.ui.h:3
 msgid "Friday"
-msgstr "Piatok"
+msgstr "piatok"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:9
 #: ../plugins/alarmclock/acprefs_pane.ui.h:4
@@ -2244,7 +2244,7 @@ msgstr ""
 #: ../plugins/multialarmclock/alarmclk.ui.h:12
 #: ../plugins/alarmclock/acprefs_pane.ui.h:7
 msgid "Monday"
-msgstr "Pondelok"
+msgstr "pondelok"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:13
 msgid "Name - Time"
@@ -2257,17 +2257,17 @@ msgstr ""
 #: ../plugins/multialarmclock/alarmclk.ui.h:15
 #: ../plugins/alarmclock/acprefs_pane.ui.h:8
 msgid "Saturday"
-msgstr "Sobota"
+msgstr "sobota"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:16
 #: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "Sunday"
-msgstr "Nedeľa"
+msgstr "nedeľa"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:17
 #: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Thursday"
-msgstr "Štvrtok"
+msgstr "štvrtok"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:18
 msgid "Time per Increment:"
@@ -2276,12 +2276,12 @@ msgstr ""
 #: ../plugins/multialarmclock/alarmclk.ui.h:19
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Tuesday"
-msgstr "Utorok"
+msgstr "utorok"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:20
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Wednesday"
-msgstr "Streda"
+msgstr "streda"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Timer per Increment:"
@@ -2381,15 +2381,15 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 msgid "Username:"
-msgstr "Používateľské meno:"
+msgstr "Meno používateľa:"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "Import format: "
@@ -2405,19 +2405,19 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "WavPack"
-msgstr ""
+msgstr "WavPack"
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
@@ -2429,7 +2429,7 @@ msgstr "Rozšírené"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "Vzostupne"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
@@ -2437,7 +2437,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "Zostupne"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
@@ -2445,11 +2445,11 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
-msgstr ""
+msgstr "Počet stiahnutí"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
-msgstr ""
+msgstr "Počet vypočutí"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
@@ -2473,11 +2473,11 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
-msgstr ""
+msgstr "Dátum vydania"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Results:"
-msgstr ""
+msgstr "Výsledky:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
@@ -2485,11 +2485,11 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>Obsah</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>Zobraziť</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
 msgid "<b>Icons</b>"
@@ -2517,7 +2517,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "Summary:"
-msgstr ""
+msgstr "Zrnutie:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:11
 #, python-format
@@ -2559,23 +2559,23 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.ui.h:2
 msgid "Bottom left"
-msgstr ""
+msgstr "Vľavo dolu"
 
 #: ../plugins/desktopcover/prefs.ui.h:3
 msgid "Bottom right"
-msgstr ""
+msgstr "Vpravo dolu"
 
 #: ../plugins/desktopcover/prefs.ui.h:4
 msgid "Size:"
-msgstr ""
+msgstr "Veľkosť:"
 
 #: ../plugins/desktopcover/prefs.ui.h:5
 msgid "Top left"
-msgstr ""
+msgstr "Vľavo hore"
 
 #: ../plugins/desktopcover/prefs.ui.h:6
 msgid "Top right"
-msgstr ""
+msgstr "Vpravo hore"
 
 #: ../plugins/desktopcover/prefs.ui.h:7
 msgid "X offset:"
@@ -2587,11 +2587,11 @@ msgstr ""
 
 #: ../plugins/desktopcover/prefs.ui.h:9
 msgid "pixels"
-msgstr ""
+msgstr "pixelov"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Base color"
-msgstr ""
+msgstr "Základná farba"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Base color:"
@@ -2651,7 +2651,7 @@ msgstr ""
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "Pridať podcast"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "<b>Body Message</b>"
@@ -2684,11 +2684,11 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "Summary"
-msgstr ""
+msgstr "Zhrnutie"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Font:"
-msgstr ""
+msgstr "Písmo:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Terminal Opacity:"
@@ -2795,7 +2795,7 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
@@ -2893,7 +2893,7 @@ msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Ahoj svet"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -2941,7 +2941,7 @@ msgstr ""
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
@@ -2982,15 +2982,15 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
-msgstr ""
+msgstr "Doplnok na sťahovanie textov z lyricwiki.org"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Ex Falso tag editor"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""

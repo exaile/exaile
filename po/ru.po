@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-18 14:23+0000\n"
-"Last-Translator: Anton Lashkov <Unknown>\n"
+"PO-Revision-Date: 2010-02-27 07:54+0000\n"
+"Last-Translator: Sergey Sedov <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-01-19 04:40+0000\n"
+"X-Launchpad-Export-Date: 2010-02-28 04:51+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -33,11 +33,11 @@ msgstr "Настройки воспроизведения"
 
 #: ../xl/main.py:290
 msgid "Play the next track"
-msgstr "Воспроизвести следующую композицию"
+msgstr "Следующая дорожка"
 
 #: ../xl/main.py:292
 msgid "Play the previous track"
-msgstr "Воспроизвести предыдущую композицию"
+msgstr "Предыдущая дорожка"
 
 #: ../xl/main.py:294
 msgid "Stop playback"
@@ -53,11 +53,11 @@ msgstr "Переключить на воспроизведение или пау
 
 #: ../xl/main.py:301
 msgid "Stop playback after current track"
-msgstr "Остановить воспроизведение после текущей композиции"
+msgstr "Остановить воспроизведение после текущей дорожки"
 
 #: ../xl/main.py:304
 msgid "Track options"
-msgstr "Параметры композиции"
+msgstr "Параметры дорожки"
 
 #: ../xl/main.py:306
 msgid "Query player"
@@ -65,35 +65,35 @@ msgstr "Проигрыватель очереди"
 
 #: ../xl/main.py:308
 msgid "Show a popup of the currently playing track"
-msgstr "Показывать всплывающее уведомление о проигрываемой песне"
+msgstr "Показывать всплывающее уведомление о проигрываемой дорожке"
 
 #: ../xl/main.py:310
 msgid "Print the title of current track"
-msgstr "Показывать название текущей композиции"
+msgstr "Показывать название текущей дорожки"
 
 #: ../xl/main.py:312
 msgid "Print the album of current track"
-msgstr "Показывать название альбома для текущей композиции"
+msgstr "Показывать название альбома для текущей дорожки"
 
 #: ../xl/main.py:314
 msgid "Print the artist of current track"
-msgstr "Показывать исполнителя текущей композиции"
+msgstr "Показывать исполнителя текущей дорожки"
 
 #: ../xl/main.py:316
 msgid "Print the length of current track"
-msgstr "Показывать длину текущей композиции"
+msgstr "Показывать продолжительность текущей дорожки"
 
 #: ../xl/main.py:318
 msgid "Set rating for current song"
-msgstr "Оценить текущую композицию"
+msgstr "Оценить текущую дорожку"
 
 #: ../xl/main.py:320
 msgid "Get rating for current song"
-msgstr "Получить оценку текущей композиции"
+msgstr "Получить оценку текущей дорожки"
 
 #: ../xl/main.py:323
 msgid "Print the position inside the current track as time"
-msgstr "Отображать текущую позицию воспроизведения в виде времени"
+msgstr "Отображать текущую позицию дорожки в виде времени"
 
 #: ../xl/main.py:326
 msgid "Print the progress inside the current track as percentage"
@@ -322,7 +322,7 @@ msgstr "Не поддерживаемый формат архива"
 #: ../xl/plugins.py:91
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr "Плагин \"%s\" уже установлен"
+msgstr "Модуль \"%s\" уже установлен"
 
 #: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
@@ -475,7 +475,7 @@ msgstr "Время добавления"
 #: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160
 #: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:69
 msgid "Length"
-msgstr "Продолжительность"
+msgstr "Время"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #. (_('in the last'), (SpinDateField,
@@ -556,16 +556,16 @@ msgstr "Сохранить Как..."
 
 #: ../xlgui/main.py:662
 msgid "Toggle: Stop after selected track"
-msgstr "Переключатель: Остановить воспроизведение после выбранной композиции"
+msgstr "Переключатель: остановить воспроизведение после выбранной дорожки"
 
 #: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
 msgid "Dynamically add similar tracks to the playlist"
-msgstr "Динамически добавлять похожие композиции в список воспроизведения"
+msgstr "Добавлять похожие дорожки в список воспроизведения"
 
 #: ../xlgui/main.py:706
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
-"Требуется плагин, обеспечивающий поддержку динамических списков "
+"Требуется модуль, обеспечивающий поддержку динамических списков "
 "воспроизведения"
 
 #: ../xlgui/main.py:862
@@ -583,7 +583,7 @@ msgstr "Перемешивание _выкл."
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1056
 msgid "Shuffle _Tracks"
-msgstr "Перемешивать _Дорожки"
+msgstr "Перемешивать _дорожки"
 
 #: ../xlgui/main.py:1022 ../xlgui/main.py:1059
 msgid "Shuffle _Albums"
@@ -665,7 +665,7 @@ msgstr "_Переименовать список воспроизведения"
 
 #: ../xlgui/menu.py:216
 msgid "_Save As Custom Playlist"
-msgstr "_Сохранить Как Текущий Список Воспроизведения"
+msgstr "_Сохранить Как текущий список воспроизведения"
 
 #: ../xlgui/menu.py:218
 msgid "_Save Changes To Playlist"
@@ -677,15 +677,15 @@ msgstr "_Сохранить Как..."
 
 #: ../xlgui/menu.py:220
 msgid "C_lear All Tracks"
-msgstr "_Удалить Все Композиции"
+msgstr "_Удалить все дорожки"
 
 #: ../xlgui/menu.py:222
 msgid "_Close Playlist"
-msgstr "_Закрыть Список Воспроизведения"
+msgstr "_Закрыть список воспроизведения"
 
 #: ../xlgui/menu.py:243
 msgid "Append to Current"
-msgstr "Добавить к Текущему"
+msgstr "Добавить к текущему"
 
 #: ../xlgui/menu.py:245
 msgid "Queue Items"
@@ -693,7 +693,7 @@ msgstr "Элементы Очереди Воспроизведения"
 
 #: ../xlgui/menu.py:310
 msgid "Delete track"
-msgstr "Удалить композицию"
+msgstr "Удалить дорожку"
 
 #: ../xlgui/menu.py:341
 msgid "New Station"
@@ -701,7 +701,7 @@ msgstr "Новая Станция"
 
 #: ../xlgui/menu.py:346
 msgid "New Smart Playlist"
-msgstr "Новый 'Умный' Список Воспроизведения"
+msgstr "Новый 'умный' список воспроизведения"
 
 #: ../xlgui/menu.py:390
 msgid "Open"
@@ -721,7 +721,7 @@ msgstr "Экспортировать"
 
 #: ../xlgui/menu.py:401
 msgid "Delete Playlist"
-msgstr "Удалить Список Воспроизведения"
+msgstr "Удалить список воспроизведения"
 
 #: ../xlgui/menu.py:411
 msgid "Export as..."
@@ -729,19 +729,19 @@ msgstr "Экспортировать как..."
 
 #: ../xlgui/menu.py:416 ../xlgui/__init__.py:143
 msgid "M3U Playlist"
-msgstr "M3U Список Воспроизведения"
+msgstr "M3U список воспроизведения"
 
 #: ../xlgui/menu.py:417 ../xlgui/__init__.py:144
 msgid "PLS Playlist"
-msgstr "PLS Список Воспроизведения"
+msgstr "PLS список воспроизведения"
 
 #: ../xlgui/menu.py:418 ../xlgui/__init__.py:145
 msgid "ASX Playlist"
-msgstr "ASX Список Воспроизведения"
+msgstr "ASX список воспроизведения"
 
 #: ../xlgui/menu.py:419 ../xlgui/__init__.py:146
 msgid "XSPF Playlist"
-msgstr "XSPF Список Воспроизведения"
+msgstr "XSPF список воспроизведения"
 
 #: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:985
 msgid "Are you sure you want to permanently delete the selected playlist?"
@@ -788,7 +788,7 @@ msgstr "%(minutes)d:%(seconds)02d"
 
 #: ../xlgui/osd.py:219
 msgid "No track"
-msgstr "Композиций нет"
+msgstr "Нет дорожки"
 
 #: ../xlgui/__init__.py:138
 msgid "Export current playlist..."
@@ -816,7 +816,7 @@ msgstr "Поддерживаемые типы файлов"
 
 #: ../xlgui/__init__.py:192
 msgid "Music Files"
-msgstr "Музыкальные Файлы"
+msgstr "Музыкальные файлы"
 
 #: ../xlgui/__init__.py:194
 msgid "Playlist Files"
@@ -824,7 +824,7 @@ msgstr "Файлы Списков Воспроизведения"
 
 #: ../xlgui/__init__.py:196 ../xlgui/prefs/plugin_prefs.py:143
 msgid "All Files"
-msgstr "Все Файлы"
+msgstr "Все файлы"
 
 #: ../xlgui/__init__.py:334
 msgid "Scanning collection..."
@@ -855,15 +855,15 @@ msgstr "(%d в очереди)"
 
 #: ../xlgui/guiutil.py:771
 msgid "Rating:"
-msgstr "Оценка:"
+msgstr "Рейтинг:"
 
 #: ../xlgui/commondialogs.py:335
 msgid "Select File Type (By Extension)"
-msgstr "Выбрать Тип Файлов (По Расширению)"
+msgstr "Выбрать тип файлов (по расширению)"
 
 #: ../xlgui/commondialogs.py:343
 msgid "File Type"
-msgstr "Тип Файла"
+msgstr "Тип файла"
 
 #: ../xlgui/commondialogs.py:346
 msgid "Extension"
@@ -914,23 +914,23 @@ msgstr "Оценка"
 #: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:120
 #: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:76
 msgid "Filename"
-msgstr "Имя Файла"
+msgstr "Название файла"
 
 #: ../xlgui/plcolumns.py:196
 msgid "Playcount"
-msgstr "Количество Воспроизведений"
+msgstr "Прослушиваний"
 
 #: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
-msgstr "Последним воспроизводилось"
+msgstr "Последнее воспроизведение"
 
 #: ../xlgui/plcolumns.py:267
 msgid "Track Number"
-msgstr "Номер Композиции"
+msgstr "Номер дорожки"
 
 #: ../xlgui/plcolumns.py:269
 msgid "Disc Number"
-msgstr "Номер Диска"
+msgstr "Номер диска"
 
 #: ../xlgui/filtergui.py:60 ../xlgui/panel/radio.py:180
 msgid "Name:"
@@ -1080,7 +1080,7 @@ msgstr "Новое название текущего списка воспрои
 
 #: ../xlgui/panel/playlists.py:368
 msgid "Add To New Playlist..."
-msgstr "Добавить В Новый Список Воспроизведения...."
+msgstr "Добавить в новый список воспроизведения...."
 
 #: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
 #: ../xlgui/panel/playlists.py:678
@@ -1089,19 +1089,19 @@ msgstr "Вы не указали имя для вашего списка вос�
 
 #: ../xlgui/panel/playlists.py:553
 msgid "Smart Playlists"
-msgstr "'Умные' Списки Воспроизведения"
+msgstr "'Умные' списки воспроизведения"
 
 #: ../xlgui/panel/playlists.py:556
 msgid "Custom Playlists"
-msgstr "Текущий Список Воспроизведения"
+msgstr "Текущий список воспроизведения"
 
 #: ../xlgui/panel/playlists.py:591
 msgid "Add Smart Playlist"
-msgstr "Добавить 'Умный' Список Воспроизведения"
+msgstr "Добавить 'умный' список воспроизведения"
 
 #: ../xlgui/panel/playlists.py:656
 msgid "Edit Smart Playlist"
-msgstr "Редактировать 'Умный' Список Воспроизведения"
+msgstr "Редактировать 'умный' список воспроизведения"
 
 #: ../xlgui/panel/radio.py:108 ../xlgui/panel/radio.py:466
 #: ../xlgui/panel/radio.py:542
@@ -1110,7 +1110,7 @@ msgstr "Загрузка потоков..."
 
 #: ../xlgui/panel/radio.py:178
 msgid "Add Radio Station"
-msgstr "Добавить Радио Станцию"
+msgstr "Добавить радиостанцию"
 
 #: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
@@ -1118,11 +1118,11 @@ msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:247
 msgid "Saved Stations"
-msgstr "Сохранённые Станции"
+msgstr "Сохранённые станции"
 
 #: ../xlgui/panel/radio.py:248
 msgid "Radio Streams"
-msgstr "Радио Потоки"
+msgstr "Потоковое радио"
 
 #: ../xlgui/panel/radio.py:277
 msgid "Refresh"
@@ -1147,8 +1147,8 @@ msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
 msgstr ""
-"Эта операция полностью удалит выбранные композиции с вашего диска, вы "
-"уверены, что хотите продолжить?"
+"Эта операция полностью удалит выбранные дорожки с вашего диска, вы уверены, "
+"что хотите продолжить?"
 
 #: ../xlgui/panel/collection.py:200
 msgid "Rescan Collection"
@@ -1177,7 +1177,7 @@ msgstr "Настройки"
 
 #: ../xlgui/prefs/__init__.py:94 ../xlgui/prefs/plugin_prefs.py:34
 msgid "Plugins"
-msgstr "Плагины"
+msgstr "Модули"
 
 #: ../xlgui/prefs/collection_prefs.py:22 ../data/ui/device_panel.ui.h:1
 #: ../data/ui/collection_panel.ui.h:6
@@ -1191,7 +1191,7 @@ msgstr "Фонотека"
 #. translate this to an empty string.
 #: ../xlgui/prefs/collection_prefs.py:31
 msgid "the"
-msgstr ""
+msgstr "the"
 
 #: ../xlgui/prefs/collection_prefs.py:53
 msgid "Reset to defaults"
@@ -1199,15 +1199,15 @@ msgstr "Установки по умолчанию"
 
 #: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
 msgid "Playlists"
-msgstr "Списки Воспроизведения"
+msgstr "Списки воспроизведения"
 
 #: ../xlgui/prefs/osd_prefs.py:32
 msgid "On Screen Display"
-msgstr "Всплывающее Уведомление"
+msgstr "Всплывающие уведомления"
 
 #: ../xlgui/prefs/plugin_prefs.py:90
 msgid "Plugin"
-msgstr "Плагин"
+msgstr "Модуль"
 
 #: ../xlgui/prefs/plugin_prefs.py:106
 #: ../plugins/multialarmclock/alarmclk.ui.h:6
@@ -1217,11 +1217,11 @@ msgstr "Включен"
 
 #: ../xlgui/prefs/plugin_prefs.py:128
 msgid "Choose a plugin"
-msgstr "Выбрать плагин"
+msgstr "Выбрать модуль"
 
 #: ../xlgui/prefs/plugin_prefs.py:136
 msgid "Plugin Archives"
-msgstr "Архивы Плагинов"
+msgstr "Архивы модулей"
 
 #: ../xlgui/prefs/plugin_prefs.py:190
 #, python-format
@@ -1229,7 +1229,7 @@ msgid ""
 "<b>Could not enable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
-"<b>Невозможно включить плагин:</b>\n"
+"<b>Невозможно включить модуль:</b>\n"
 "%(reason)s"
 
 #: ../xlgui/prefs/plugin_prefs.py:197
@@ -1238,7 +1238,7 @@ msgid ""
 "<b>Could not disable plugin:</b>\n"
 "%(reason)s"
 msgstr ""
-"<b>Невозможно отвключить плагин:</b>\n"
+"<b>Невозможно отключить модуль:</b>\n"
 "%(reason)s"
 
 #: ../xlgui/prefs/widgets.py:261
@@ -1267,7 +1267,7 @@ msgstr "Комбинация клавиш"
 
 #: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
 msgid "Shuffle playback order"
-msgstr "Проигрывать композиции в случайном порядке"
+msgstr "Проигрывать дорожки случайно"
 
 #: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
 msgid "Repeat playlist"
@@ -1275,11 +1275,11 @@ msgstr "Повторять список воспроизведения"
 
 #: ../xlgui/tray.py:104
 msgid "Dynamically add similar tracks"
-msgstr "Динамически добавлять похожие композиции"
+msgstr "Добавлять похожие дорожки"
 
 #: ../xlgui/tray.py:116
 msgid "Remove current track from playlist"
-msgstr "Удалить текущую композицию из списка воспроизведения"
+msgstr "Удалить эту дорожку из списка"
 
 #: ../xlgui/tray.py:179
 msgid "Exaile Music Player"
@@ -1303,7 +1303,7 @@ msgstr "Открывать последний список воспроизве�
 
 #: ../data/ui/main.ui.h:1
 msgid "0/0 tracks"
-msgstr "0/0 композиций"
+msgstr "0/0 дорожек"
 
 #: ../data/ui/main.ui.h:2
 msgid "0:00 / 0:00"
@@ -1315,7 +1315,7 @@ msgstr "_Обложки"
 
 #: ../data/ui/main.ui.h:4
 msgid "Clear Playlist"
-msgstr "Очистить Список Воспроизведения"
+msgstr "Очистить список воспроизведения"
 
 #: ../data/ui/main.ui.h:5
 msgid "Click to view Queue"
@@ -1323,7 +1323,7 @@ msgstr "Нажмите, чтобы посмотреть Очередь"
 
 #: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
 msgid "Next Track"
-msgstr "Следующая Композиция"
+msgstr "Следующая дорожка"
 
 #: ../data/ui/main.ui.h:9
 msgid "Open _URL"
@@ -1335,12 +1335,11 @@ msgstr "Страница 1"
 
 #: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:216
 msgid "Previous Track"
-msgstr "Пердыдущая Композиция"
+msgstr "Предыдущая дорожка"
 
 #: ../data/ui/main.ui.h:12
 msgid "Randomize the order of the current playlist"
-msgstr ""
-"Случайно изменить порядок композиций в текущем списке воспроизведения"
+msgstr "Случайно изменить порядок дорожек в текущем списке воспроизведения"
 
 #: ../data/ui/main.ui.h:13
 msgid "Re_scan Collection"
@@ -1353,7 +1352,7 @@ msgstr "Поиск: "
 
 #: ../data/ui/main.ui.h:17
 msgid "Start/Pause Playback"
-msgstr "Начать/Приостановить Воспроизведение"
+msgstr "Начать/приостановить воспроизведение"
 
 #: ../data/ui/main.ui.h:18
 msgid ""
@@ -1361,17 +1360,17 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
-"Остановить Воспроизведение\n"
+"Остановить воспроизведение\n"
 "\n"
-"Щелкните правой кнопкой мыши для остановки после выделенной композиции"
+"Щёлкните правой кнопкой мыши для остановки после выделенной дорожки"
 
 #: ../data/ui/main.ui.h:22
 msgid "Track _properties"
-msgstr "Свойства _композиции"
+msgstr "Свойства _дорожки"
 
 #: ../data/ui/main.ui.h:23
 msgid "_Autosize"
-msgstr "_Автоматический Размер"
+msgstr "_Автоматический размер"
 
 #: ../data/ui/main.ui.h:24
 msgid "_Collection"
@@ -1383,7 +1382,7 @@ msgstr "С_толбцы"
 
 #: ../data/ui/main.ui.h:26
 msgid "_Device Manager"
-msgstr "_Менеджер Устройств"
+msgstr "_Менеджер устройств"
 
 #: ../data/ui/main.ui.h:27
 msgid "_Edit"
@@ -1399,7 +1398,7 @@ msgstr "_Файл"
 
 #: ../data/ui/main.ui.h:30
 msgid "_Go to Playing Track"
-msgstr "_Перейти к Проигрываемой Композиции"
+msgstr "_Перейти к проигрываемой дорожке"
 
 #: ../data/ui/main.ui.h:31
 msgid "_Help"
@@ -1411,11 +1410,11 @@ msgstr "_Очередь"
 
 #: ../data/ui/main.ui.h:34
 msgid "_Randomize Playlist"
-msgstr "_Перемешать Список Воспроизведения"
+msgstr "_Перемешать список воспроизведения"
 
 #: ../data/ui/main.ui.h:35
 msgid "_Resizable"
-msgstr "_Изменяемого Размера"
+msgstr "_Изменяемый размер"
 
 #: ../data/ui/main.ui.h:36
 msgid "_Tools"
@@ -1427,7 +1426,7 @@ msgstr "_Вид"
 
 #: ../data/ui/flatplaylist_panel.ui.h:1
 msgid "Append All Tracks to Playlist"
-msgstr "Добавить Все Композиции в Список Воспроизведения"
+msgstr "Добавить все дорожки в список воспроизведения"
 
 #: ../data/ui/flatplaylist_panel.ui.h:2
 msgid "Import CD"
@@ -1455,7 +1454,7 @@ msgstr "Теги"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
-msgstr "Свойства Композиции"
+msgstr "Свойства дорожки"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
@@ -1479,7 +1478,7 @@ msgstr "аб &#x2192; А_б"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Ни Один Плагин Не Выбран</b>"
+msgstr "<b>Ни один модуль не выбран</b>"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:2
 msgid "Authors:"
@@ -1487,7 +1486,7 @@ msgstr "Авторы:"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:3
 msgid "Available Plugins"
-msgstr "Доступные Плагины"
+msgstr "Доступные модули"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:4
 msgid "Description:"
@@ -1503,15 +1502,15 @@ msgstr "Установить Обновления"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:7
 msgid "Install a third party plugin from a file"
-msgstr "Установить сторонний плагин из файла"
+msgstr "Установить модуль из файла"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:8
 msgid "Install plugin file"
-msgstr "Установить файл плагина"
+msgstr "Установить файл модуля"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:9
 msgid "Installed Plugins"
-msgstr "Установить Плагины"
+msgstr "Установленные модули"
 
 #: ../data/ui/plugin_prefs_pane.ui.h:10
 msgid "Updates"
@@ -1523,11 +1522,11 @@ msgstr "Версия:"
 
 #: ../data/ui/radio_panel.ui.h:1
 msgid "Add Station"
-msgstr "Добавить Станцию"
+msgstr "Добавить станцию"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
-msgstr "Управление Фонотекой"
+msgstr "Управление фонотекой"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "..."
@@ -1547,11 +1546,11 @@ msgstr "Обнаруженные устройства:"
 
 #: ../data/ui/device_manager.ui.h:5
 msgid "Device Manager"
-msgstr "Менеджер Устройств"
+msgstr "Менеджер устройств"
 
 #: ../data/ui/device_manager.ui.h:6
 msgid "Type of device:"
-msgstr "Тип устройств:"
+msgstr "Тип устройства:"
 
 #: ../data/ui/files_panel.ui.h:1
 msgid "Files"
@@ -1606,7 +1605,7 @@ msgstr "Уровень Прозрачности:"
 
 #: ../data/ui/osd_prefs_pane.ui.h:6
 msgid "Show OSD on track change"
-msgstr "Показывать OSD при смене композиции"
+msgstr "Показывать OSD при смене дорожки"
 
 #: ../data/ui/osd_prefs_pane.ui.h:7
 msgid "Text Color"
@@ -1638,7 +1637,7 @@ msgstr "(переместите для изменения порядка)"
 
 #: ../data/ui/cover_prefs_pane.ui.h:2
 msgid "Cover Search Order:"
-msgstr "Порядок Поиска Обложек:"
+msgstr "Порядок поиска обложек:"
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Close this dialog"
@@ -1646,7 +1645,7 @@ msgstr "Закрыть это окно"
 
 #: ../data/ui/queue_dialog.ui.h:2
 msgid "Queue Manager"
-msgstr "Управление Очередью Воспроизведения"
+msgstr "Менеджер очереди"
 
 #: ../data/ui/queue_dialog.ui.h:3
 msgid "Remove All"
@@ -1789,7 +1788,7 @@ msgstr "<b>Фонотека пуста.</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
-msgstr "Добавить Музыку"
+msgstr "Добавить музыку"
 
 #: ../data/ui/collection_panel.ui.h:5
 msgid "Artist - Year - Album"
@@ -1829,7 +1828,7 @@ msgstr "Низ"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:4
 msgid "Jump to current song on track change"
-msgstr "Переходить к текущей композиции в списке при смене"
+msgstr "Переходить к текущей дорожке в списке при смене"
 
 #: ../data/ui/appearance_prefs_pane.ui.h:5
 msgid "Left"
@@ -1904,7 +1903,7 @@ msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:93 ../plugins/minimode/minimodeprefs.py:64
 msgid "Track number"
-msgstr "Номер композиции"
+msgstr "Номер дорожки"
 
 #: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:70
 msgid "Disc number"
@@ -1912,7 +1911,7 @@ msgstr "Номер диска"
 
 #: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:77
 msgid "Play count"
-msgstr "Количество воспроизведений"
+msgstr "Прослушиваний"
 
 #: ../plugins/daapclient/__init__.py:161
 msgid "Manually..."
@@ -2005,7 +2004,7 @@ msgstr "Обложки с Amazon"
 
 #: ../plugins/desktopcover/prefs.py:21 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr "Обложка Рабочего Стола"
+msgstr "Обложка рабочего стола"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
@@ -2137,7 +2136,7 @@ msgstr "Консоль IPython"
 
 #: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
-msgstr "Остановить Воспроизведение"
+msgstr "Остановить воспроизведение"
 
 #: ../plugins/minimode/__init__.py:226
 msgid "Restore Main Window"
@@ -2162,7 +2161,7 @@ msgstr "Предыдущая"
 
 #: ../plugins/minimode/minimodeprefs.py:48
 msgid "Play/Pause"
-msgstr "Воспроизведение/Пауза"
+msgstr "Воспроизведение/пауза"
 
 #: ../plugins/minimode/minimodeprefs.py:49
 msgid "Stop"
@@ -2174,7 +2173,7 @@ msgstr "Следующая"
 
 #: ../plugins/minimode/minimodeprefs.py:51
 msgid "Track selector"
-msgstr "Выбор композиций"
+msgstr "Выбор дорожек"
 
 #: ../plugins/minimode/minimodeprefs.py:52
 msgid "Progress bar"
@@ -2210,15 +2209,15 @@ msgstr "$title ($length)"
 
 #: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
 msgid "Start Playback"
-msgstr "Начать Воспроизведение"
+msgstr "Начать воспроизведение"
 
 #: ../plugins/minimode/mmwidgets.py:207
 msgid "Continue Playback"
-msgstr "Продолжить Воспроизведение"
+msgstr "Продолжить воспроизведение"
 
 #: ../plugins/minimode/mmwidgets.py:210
 msgid "Pause Playback"
-msgstr "Приостановить Воспроизведение"
+msgstr "Приостановить воспроизведение"
 
 #: ../plugins/minimode/mmwidgets.py:904
 msgid "Seeking: "
@@ -2298,7 +2297,7 @@ msgstr "Название - Время"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:14
 msgid "Restart Playlist"
-msgstr "Перезапустить Список Воспроизведения"
+msgstr "Перезапустить список воспроизведения"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:15
 #: ../plugins/alarmclock/acprefs_pane.ui.h:8
@@ -2423,7 +2422,7 @@ msgstr "Добавить пункт меню для включение скро�
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit tracks using Audioscrobbler"
-msgstr "Передать композиции, используя Audioscrobbler"
+msgstr "Передать дорожки, используя Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 msgid "Username:"
@@ -2443,7 +2442,7 @@ msgstr "Формат импортируемых файлов: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "Import path: "
-msgstr "Дирректория: "
+msgstr "Каталог: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "Import quality: "
@@ -2500,7 +2499,7 @@ msgstr "Количество прослушиваний"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
-msgstr "Количество добавлений в плейлист"
+msgstr "Количество добавлений в список воспроизведения"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Order By:"
@@ -2556,7 +2555,7 @@ msgstr "При Старте, Приостановке или Остановке 
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "On Track Change"
-msgstr "При Смене Композиции"
+msgstr "При смене дорожки"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "On Tray Icon Hover"
@@ -2686,7 +2685,7 @@ msgstr "Уровень восстанавливающей корректиров
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr "Предпочитать корректировать звук по албомам, а не по трекам."
+msgstr "Предпочитать корректировать звук по албомам, а не по дорожкам."
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Prefer per-album correction"
@@ -2767,7 +2766,7 @@ msgstr "Показывать на всех рабочих столах"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:5
 msgid "Track title format:"
-msgstr "Формат заголовка трека"
+msgstr "Формат заголовка дорожки:"
 
 #: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Relay Port:"
@@ -2889,7 +2888,7 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
-"Этот плагин показывает всплывающее сообщение при запуске или остановке "
+"Этот модуль показывает всплывающее сообщение при запуске или остановке "
 "воспроизведения. В сообщении показывается обложка альбома или иконка "
 "воспроизведение/пауза/стоп.\n"
 "\n"
@@ -2904,7 +2903,7 @@ msgid ""
 msgstr ""
 "Ищет обложки на Amazon\n"
 "\n"
-"Чтобы использовать этот плагин необходим ключ AWS API и секретный ключ."
+"Чтобы использовать этот модуль необходим ключ AWS API и секретный ключ."
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
@@ -2912,7 +2911,7 @@ msgstr "Отображает обложку текущего альбома на
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr "Динамические списки воспроизведения Last.fm"
+msgstr "Списки воспроизведения Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
@@ -2951,7 +2950,7 @@ msgstr "Поддержка iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr "Плагин для поддержки iPod'ов"
+msgstr "Модуль для поддержки iPod'ов"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -2979,23 +2978,23 @@ msgstr "Радиостанции Shoutcast"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr "Hello World"
+msgstr "Привет, мир"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr "Простой плагин для тестирования системы плагинов"
+msgstr "Простой модуль для тестирования системы модулей"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr "Мултимедийные клавиши GNOME"
+msgstr "Мультимедийные клавиши GNOME"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
-"Добавляет возможность управления Exaile через мульимедийные клавиши GNOME. "
-"работает в GNOME >= 2.20.x"
+"Добавляет возможность управления Exaile через мультимедийные клавиши GNOME. "
+"Работает в GNOME >= 2.20.x"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
@@ -3011,7 +3010,7 @@ msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr "Плагин достает тексты из lyricsfly.com"
+msgstr "Модуль получения текстов из lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -3025,7 +3024,7 @@ msgstr "Добавляет возможность доступа к USB-плее
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
-msgstr "Показывает всплывающе сообщение, при начале воспроизведени трека"
+msgstr "Показывает всплывающе сообщение  при начале воспроизведения дорожки"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -3061,7 +3060,7 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
-"Показывает различную информацию о проигрываемой композиции.\n"
+"Показывает различную информацию о проигрываемой дорожке.\n"
 "Зависит от: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging ( или "
 " PIL)"
 

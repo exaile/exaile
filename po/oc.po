@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-05 15:43+0000\n"
+"PO-Revision-Date: 2010-02-21 14:25+0000\n"
 "Last-Translator: Cédric VALMARY <cvalmary@yahoo.fr>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2010-01-06 04:34+0000\n"
+"X-Launchpad-Export-Date: 2010-02-22 04:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
@@ -129,44 +129,48 @@ msgstr "Aviar en minimizat (se possible dins la zòna de notificacion)"
 
 #: ../xl/main.py:345
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Afichar o amagar l'interfàcia grafica (se possible)"
 
 #: ../xl/main.py:347
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
-msgstr ""
+msgstr "Aviar en mòde sens fracàs - util quand rencontratz de problèmas"
 
 #: ../xl/main.py:350
 msgid "Force import of old data from 0.2.x. Overwrites current data."
 msgstr ""
+"Forçar l'importacion de las donadas ancianas de 0.2.x. Espotìs las donadas "
+"actualas."
 
 #: ../xl/main.py:353
 msgid "Do not import old data from 0.2.x."
-msgstr ""
+msgstr "Importar pas las donadas ancianas que provenon d'Exaile 0.2.x."
 
 #: ../xl/main.py:358
 msgid "Development/Debug options"
-msgstr ""
+msgstr "Opcions de desvolopament / desbugatge"
 
 #: ../xl/main.py:359
 msgid "Set data directory"
-msgstr ""
+msgstr "Definir lo dorsièr de donadas"
 
 #: ../xl/main.py:361
 msgid "Show debugging output"
-msgstr ""
+msgstr "Aficha la sortida de debugatge"
 
 #: ../xl/main.py:364
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr ""
+"Activar lo desbugatge de xl.event. Genèra una granda quantitat de sortidas "
+"ecran"
 
 #: ../xl/main.py:366
 msgid "Filter event debug output"
-msgstr ""
+msgstr "Filtrar la sortida de desbugatge dels eveniments"
 
 #: ../xl/main.py:369
 msgid "Reduce level of output"
-msgstr ""
+msgstr "Demesir la quantitat de sortidas ecran"
 
 #: ../xl/main.py:373
 msgid "Disable D-Bus support"

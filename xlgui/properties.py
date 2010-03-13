@@ -175,12 +175,15 @@ class TrackPropertiesDialog(gobject.GObject):
     def _tags_write(self):
         dialog = SavingProgressWindow(self.dialog, len(self.tracks))
         for n, track in enumerate(self.tracks):
+            poplist = []
             for tag in track:
                 if not tag.startswith("__"):
+                    if tag in ("tracknumber", "discnumber") and track[tag] == ["0/0"]:
+                        poplist.append(tag)
+                        continue
                     self.track_refs[n].set_tag_raw(tag, track[tag])
 
             #in case a tag has been removed..
-            poplist = []
             for tag in self.track_refs[n].list_tags():
                 if tag in dialog_tags:
                     if dialog_tags[tag] is not IGNORE:

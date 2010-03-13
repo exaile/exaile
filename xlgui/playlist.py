@@ -393,7 +393,7 @@ class Playlist(gtk.VBox):
         count = 3
         search_column = settings.get_option("gui/search_column", "Title")
         for col in self.list.get_columns():
-            if col.get_title() == search_column:
+            if col.get_title().decode('utf-8') == search_column:
                 self.list.set_search_column(count)
             count = count + 1
 
@@ -621,7 +621,8 @@ class Playlist(gtk.VBox):
         self.list.disconnect(self.changed_id)
         cols = []
         for col in self.list.get_columns():
-            cols.append(self.column_by_display[col.get_title()].id)
+            cols.append(self.column_by_display[col.get_title().
+                                               decode('utf-8')].id)
             self.list.remove_column(col)
 
         settings.set_option('gui/columns', cols)
@@ -946,7 +947,7 @@ class Playlist(gtk.VBox):
             Called when the user resizes a column
         """
         if self._is_queue: return
-        col_struct = self.column_by_display[col.get_title()]
+        col_struct = self.column_by_display[col.get_title().decode('utf-8')]
         name = 'gui/col_width_%s' % col_struct.id
         w = col.get_width()
         if w != settings.get_option(name, -1):
@@ -960,7 +961,7 @@ class Playlist(gtk.VBox):
         """
         title = column.get_title()
         for col in self.list.get_columns():
-            if title == col.get_title():
+            if title == col.get_title().decode('utf-8'):
                 order = column.get_sort_order()
                 if order == gtk.SORT_ASCENDING:
                     order = gtk.SORT_DESCENDING
@@ -1019,7 +1020,8 @@ class Playlist(gtk.VBox):
         """
         for col in self.list.get_columns():
             if col.get_sort_indicator():
-                return (self.column_by_display[col.get_title()].id,
+                return (self.column_by_display[col.get_title().
+                                               decode('utf-8')].id,
                     col.get_sort_order() == gtk.SORT_DESCENDING)
         return None, False
 

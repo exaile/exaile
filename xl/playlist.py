@@ -1201,6 +1201,7 @@ class PlaylistManager(object):
             if not name in self.playlists:
                 self.playlists.append(name)
             #self.playlists.sort()
+            self.save_order()
         else:
             raise PlaylistExists
 

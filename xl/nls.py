@@ -36,13 +36,15 @@ from xl import xdg
 locale.setlocale(locale.LC_ALL, None)
 
 try:
-    import gettext
+    import gettext as gettextmod
 
-    gettext.textdomain('exaile')
+    gettextmod.textdomain('exaile')
     if xdg.local_hack: # running from source dir, so we have to set the paths
-        gettext.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
+        gettextmod.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
 
-    gettext = gettext.gettext
+    gettextfunc = gettextmod.gettext
+    def gettext(text):
+        return gettextfunc(text).decode("utf-8")
 except ImportError:
     # gettext is not available.  Provide a dummy function instead
     def gettext(text):

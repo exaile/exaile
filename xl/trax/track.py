@@ -528,8 +528,9 @@ class Track(object):
             retval = self.__tags.get(tag)
 
         if not retval:
-            if tag in ('tracknumber', 'discnumber', '__rating',
-                    '__playcount'):
+            if tag in ['tracknumber', 'discnumber']:
+                return retval
+            elif tag in ('__rating', '__playcount'):
                 retval = "0"
             else:
                 retval = _UNKNOWNSTR
@@ -713,7 +714,7 @@ class Track(object):
             be wrapped in a list.
         """
         if not values:
-            return 0, 0
+            return None, 0
         if isinstance(values, list):
             val = values[0]
         else:
@@ -722,7 +723,7 @@ class Track(object):
         try:
             one = int(split[0])
         except ValueError:
-            one = 0
+            one = None
         try:
             two = int(split[1])
         except (IndexError, ValueError):

@@ -83,7 +83,7 @@ class TrackNumberColumn(Column):
         item = model.get_value(iter, 0)
 
         track = item.get_tag_display("tracknumber")
-        if track == -1:
+        if track is None:
             cell.set_property('text', '')
         else:
             cell.set_property('text', track)
@@ -139,6 +139,19 @@ class DiscNumberColumn(Column):
     size = 30
     display = _('Disc')
     id = 'discnumber'
+
+    def data_func(self, col, cell, model, iter):
+        """
+            Disc number
+        """
+        item = model.get_value(iter, 0)
+
+        disc = item.get_tag_display("discnumber")
+        if disc is None:
+            cell.set_property('text', '')
+        else:
+            cell.set_property('text', disc)
+        self.playlist.set_cell_weight(cell, item)
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)

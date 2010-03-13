@@ -38,13 +38,13 @@ class CoverWidget(guiutil.ScalableImageWidget):
         guiutil.ScalableImageWidget.__init__(self)
         width = settings.get_option("gui/cover_width", 100)
         self.set_image_size(width, width)
+        # FIXME: this should call covers.get_default_cover
         self.set_image(xdg.get_data_path('images/nocover.png'))
 
     @common.threaded
     def get_cover(self, covers, track):
-        data = covers.get_cover(track)
-        if data:
-            self.set_image_data(data)
+        data = covers.get_cover(track, use_default=True)
+        self.set_image_data(data)
 
 class OSDWindow(object):
     """

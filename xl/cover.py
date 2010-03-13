@@ -253,7 +253,8 @@ class CoverManager(providers.ProviderHandler):
             self.__cache.remove(db_string)
             self.__set_save_timeout()
 
-    def get_cover(self, track, save_cover=True, set_only=False):
+    def get_cover(self, track, save_cover=True, set_only=False,
+            use_default=False):
         """
             get the cover for a given track.
             if the track has no set cover, backends are
@@ -264,42 +265,49 @@ class CoverManager(providers.ProviderHandler):
                     to store the cover for later use.
             :param set_only: Only retrieve covers that have been set
                     in the db.
+            :param use_default: If True, returns the default cover instead
+                    of None when no covers are found.
         """
         if track is None:
-            return None
+            return self.get_default_cover() if use_default else None
 
         key = self._get_track_key(track)
         db_string = self.db.get(key)
         if db_string:
-            return self.get_cover_data(db_string)
+            return self.get_cover_data(db_string, use_default=use_default)
 
         if set_only:
-            return None
+            return self.get_default_cover() if use_default else None
 
         covers = self.find_covers(track, limit=1)
         if covers:
             cover = covers[0]
-            data = self.get_cover_data(cover)
-            if save_cover:
+            data = self.get_cover_data(cover, use_default=use_default)
+            if save_cover and data != self.get_default_cover():
                 self.set_cover(track, cover, data)
             return data
 
-        return None
+        return self.get_default_cover() if use_default else None
 
-    def get_cover_data(self, db_string):
+    def get_cover_data(self, db_string, use_default=False):
         """
             Get the raw image data for a cover.
 
             :param db_string: The db_string identifying the cover to get.
+            :param use_default: If True, returns the default cover instead
+                    of None when no covers are found.
         """
         source, data = db_string.split(":", 1)
+        ret = None
         if source == "cache":
-            return self.__cache.get(data)
+            ret = self.__cache.get(data)
         else:
             method = self.methods.get(source)
             if method:
-                return method.get_cover_data(data)
-            return None
+                ret = method.get_cover_data(data)
+        if ret == None and use_default == True:
+            ret = self.get_default_cover()
+        return ret
 
     def get_default_cover(self):
         """

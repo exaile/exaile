@@ -97,13 +97,10 @@ install-target: make-install-dirs
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
-	# the printf here is for bsd compat, dont use echo!
-	cd $(DESTDIR)$(PREFIX)/bin && \
-	 printf "#!/bin/sh\n\
-	 exec python $(PREFIX)$(LIBINSTALLDIR)/exaile/exaile.py \
-	 --datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
-	 > exaile && \
-	 chmod 755 exaile
+	# 2010-03-12 danfuhry: moved this to an external script to clean up syntax
+	# and avoid makefile limitations
+	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(LIBINSTALLDIR)"
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/exaile
 	$(MAKE) -C plugins install
 
 locale:

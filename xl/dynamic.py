@@ -31,6 +31,7 @@ import time
 
 from xl.nls import gettext as _
 from xl import xdg, common, event, providers, settings, metadata
+from xl.trax import search
 
 logger = logging.getLogger(__name__)
 
@@ -65,11 +66,11 @@ class DynamicManager(providers.ProviderHandler):
         tracks = []
         random.shuffle(artists)
         i = 0
-        while limit > len(tracks) and  limit > 0 and i < len(artists):
+        while (limit > len(tracks) or limit == -1) and i < len(artists):
             artist = artists[i][1]
             i += 1
-            choices = self.collection.search(
-                    'artist=="%s"'%artist.lower().replace('"', ''))
+            choices = [x.track for x in search.search_tracks_from_string(
+                self.collection, 'artist=="%s"'%artist.lower().replace('"', ''))]
             if choices == []:
                 continue
             random.shuffle(choices)

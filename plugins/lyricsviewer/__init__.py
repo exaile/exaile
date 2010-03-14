@@ -39,7 +39,7 @@ def enable(exaile):
 
 def _enable(o1, exaile, o2):
     global LYRICSPANEL
-    LYRICSPANEL = LyricsPanel(exaile.lyrics)
+    LYRICSPANEL = LyricsPanel(exaile)
     LYRICSPANEL.show_all()
     exaile.gui.add_panel(LYRICSPANEL, _('Lyrics'))
 
@@ -50,13 +50,17 @@ def disable(exaile):
 
 
 class LyricsPanel(gtk.VBox):
-    def __init__(self, lyrics):
+    def __init__(self, exaile):
         gtk.VBox.__init__(self)
-        self.lyrics = lyrics
+        self.exaile = exaile
 
         self.scroller = gtk.ScrolledWindow()
         self.scroller.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.pack_start(self.scroller, True, True, 0)
+
+        self.button = gtk.Button(stock=gtk.STOCK_REFRESH)
+        self.button.connect('clicked', self.button_cb)
+        self.pack_start(self.button, False, False, 0)
 
         self.textview = gtk.TextView()
         self.textview.set_cursor_visible(False)
@@ -69,10 +73,22 @@ class LyricsPanel(gtk.VBox):
         self.textbuffer = gtk.TextBuffer()
         self.textview.set_buffer(self.textbuffer)
 
+        self.update_textview(self.exaile.player)
+
         event.add_callback(self.playback_cb, 'playback_track_start')
         event.add_callback(self.playback_cb, 'playback_track_end')
+        event.add_callback(self.search_method_cb, 'lyrics_search_method_added')
+
+    def button_cb(self, button):
+        self.update_textview(self.exaile.player) 
 
     def playback_cb(self, eventtype, player, data):
+        self.update_textview(player)
+
+    def search_method_cb(self, eventtype, lyrics, provider):
+        self.update_textview(self.exaile.player)
+
+    def update_textview(self, player):
         self.textbuffer.set_text("")
         if player.current:
             self.get_lyrics(player, player.current)
@@ -80,7 +96,7 @@ class LyricsPanel(gtk.VBox):
     @common.threaded
     def get_lyrics(self, player, track):
         try:
-            lyr, source, url = self.lyrics.find_lyrics(track)
+            lyr, source, url = self.exaile.lyrics.find_lyrics(track)
         except LyricsNotFoundException:
             return
         if player.current == track and lyr:

@@ -54,7 +54,6 @@ def html_un_entity(text):
         except ValueError: # no ;, so its not encoded
             res.append("&" + item)
             continue
-        print repr(encoded), repr(rest)
         if encoded[0] == "#" and encoded[1:].isdigit(): # raw codepoint encoding
             char = unichr(int(encoded[1:]))
         else:

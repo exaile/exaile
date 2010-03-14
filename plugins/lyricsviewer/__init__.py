@@ -77,12 +77,16 @@ class LyricsPanel(gtk.VBox):
 
         event.add_callback(self.playback_cb, 'playback_track_start')
         event.add_callback(self.playback_cb, 'playback_track_end')
+        event.add_callback(self.search_method_cb, 'lyrics_search_method_added')
 
     def button_cb(self, button):
         self.update_textview(self.exaile.player) 
 
     def playback_cb(self, eventtype, player, data):
         self.update_textview(player)
+
+    def search_method_cb(self, eventtype, lyrics, provider):
+        self.update_textview(self.exaile.player)
 
     def update_textview(self, player):
         self.textbuffer.set_text("")

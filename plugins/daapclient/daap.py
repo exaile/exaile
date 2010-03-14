@@ -330,6 +330,7 @@ class DAAPClient(object):
             log.debug("gunzipping data")
             old_len = len(content)
             compressedstream = StringIO( content )
+            import gzip
             gunzipper = gzip.GzipFile(fileobj=compressedstream)
             content = gunzipper.read()
             log.debug("expanded from %s bytes to %s bytes", old_len, len(content))

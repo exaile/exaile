@@ -21,6 +21,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="relief">none</property>
+                <property name="focus_on_click">False</property>
                 <child>
                   <object class="GtkImage" id="image1">
                     <property name="visible">True</property>
@@ -43,6 +44,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="relief">none</property>
+                <property name="focus_on_click">False</property>
                 <child>
                   <object class="GtkImage" id="image4">
                     <property name="visible">True</property>
@@ -64,6 +66,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="relief">none</property>
+                <property name="focus_on_click">False</property>
                 <child>
                   <object class="GtkImage" id="image2">
                     <property name="visible">True</property>
@@ -85,6 +88,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="relief">none</property>
+                <property name="focus_on_click">False</property>
                 <child>
                   <object class="GtkImage" id="RefreshButtonImage">
                     <property name="visible">True</property>
@@ -107,6 +111,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="relief">none</property>
+                <property name="focus_on_click">False</property>
                 <child>
                   <object class="GtkImage" id="image3">
                     <property name="visible">True</property>

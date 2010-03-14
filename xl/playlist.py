@@ -643,10 +643,8 @@ class Playlist(object):
                 curr = self.ordered_tracks[self.current_pos]
                 t = [ x for i, x in enumerate(self.ordered_tracks) \
                     if x.get_tag_raw('album') == curr.get_tag_raw('album') \
-                    and x.get_tag_raw('tracknumber') >= \
-                    curr.get_tag_raw('tracknumber') \
                     and i > self.current_pos ]
-                t = trax.sort_tracks(['tracknumber'], t)
+                t = trax.sort_tracks(['discnumber', 'tracknumber'], t)
                 return t[0]
 
             except IndexError: #Pick a new album

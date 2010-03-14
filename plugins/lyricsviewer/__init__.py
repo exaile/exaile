@@ -42,6 +42,7 @@ def _enable(o1, exaile, o2):
     LYRICSPANEL = LyricsPanel(exaile.lyrics)
     LYRICSPANEL.show_all()
     exaile.gui.add_panel(LYRICSPANEL, _('Lyrics'))
+    LYRICSPANEL.playback_cb(None, exaile.player, None)
 
 def disable(exaile):
     global LYRICSPANEL

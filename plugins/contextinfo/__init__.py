@@ -1,4 +1,6 @@
 from xl import main as ex, trax, common, event, xdg, settings, providers
+from xl.trax import search
+from xl.trax.util import sort_tracks
 from xl.nls import gettext as _
 from xlgui import panel, guiutil, playlist, menu
 import HTMLParser
@@ -253,14 +255,21 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         return False
 
     def get_selected_tracks(self):
+        tmp = self.hover.split('://', 1)[1]
         if self.hover.split('://')[0]=='track':
             return [self.currentpage.tracks[int(self.hover.split('://', 1)[1])]]
         if self.hover.split('://')[0]=='artist':
-            return ex.exaile().collection.search('artist=="%s"' % self.hover.split('://', 1)[1], sort_fields=['album', 'tracknumber'])
+            return [x.track for x in search.search_tracks_from_string(
+                	ex.exaile().collection, ('artist=="%s"' % tmp),
+                    keyword_tags=['album', 'tracknumber'])]
         if self.hover.split('://')[0]=='album':
-            return ex.exaile().collection.search('album="%s"'%self.hover.split('://', 1)[1], sort_fields=['tracknumber'])
+    	    return [x.track for x in search.search_tracks_from_string(
+                	ex.exaile().collection, ('artist=="%s"' % tmp),
+                    keyword_tags=['tracknumber'])]
         if self.hover.split('://')[0]=='tag':
-            return ex.exaile().collection.search('genre="%s"'%self.hover.split('://', 1)[1], sort_fields=['artist', 'album', 'tracknumber'])
+    	    return [x.track for x in search.search_tracks_from_string(
+                	ex.exaile().collection, ('genre=="%s"' % tmp),
+                    keyword_tags=['artist', 'album', 'tracknumber'])]
         return []
 
     def drag_get_data(self, w, context, selection, target_id, etime):
@@ -378,19 +387,25 @@ class ContextTheme(object):
         return colors
 
 def get_artist_tracks(artist):
-    return ex.exaile().collection.search('artist=="%s"'%artist)
+    return [x.track for x in search.search_tracks_from_string(
+                ex.exaile().collection, 'artist=="%s"'%artist.lower().replace('"', ''))]
 
 def album_in_collection(artist, album):
-    return len(ex.exaile().collection.search('artist=="%s" album=="%s"'%(artist,album),return_lim=1))>0
+    return len([x.track for x in search.search_tracks_from_string(
+                ex.exaile().collection, ('artist=="%s" album=="%s"' % (artist,
+		        album)))])>0
 
 def tag_in_collection(tag):
-    return len(ex.exaile().collection.search('genre=="%s"'% tag,return_lim=1))>0
+    return len([x.track for x in search.search_tracks_from_string(
+                ex.exaile().collection, ('genre=="%s"' % tag))])>0
 
 def artist_in_collection(artist):
-    return len(ex.exaile().collection.search('artist=="%s"'%artist, return_lim=1))>0
+    return len([x.track for x in search.search_tracks_from_string(
+                ex.exaile().collection, ('artist=="%s"' % artist))])>0
 
 def track_in_collection(artist, title):
-    tracks = ex.exaile().collection.search('artist=="%s" title=="%s"'% (artist, title), return_lim=1)
+    tracks = [x.track for x in search.search_tracks_from_string(
+                ex.exaile().collection, ('artist=="%s" title=="%s"' % (artist, title)))]
     if len(tracks)>0:
         return tracks[0]
     else:
@@ -432,13 +447,22 @@ def get_track_tag(track, tag, default):
         return default
 
 def get_top_tracks(field, limit):
-        return ex.exaile().collection.search('! %s==__null__' % field, return_lim=limit,sort_fields = [field], reverse=True)
+    tracks = [x.track for x in search.search_tracks_from_string(
+                ex.exaile().collection, '! %s==__null__' % field)]
+    tracks = sort_tracks([field], tracks, True)
+    return tracks[:limit]
 
 def get_top_albums(field, limit):
-    return ex.exaile().collection.list_tag('album', '! %s==__null__' % field, sort_by = [field], reverse=True)[:limit]
+    albums = [x.track for x in search.search_tracks_from_string(
+                ex.exaile().collection, '! %s==__null__' % field)]
+    albums = sort_tracks([field], albums, True)
+    return albums[:limit]
 
 def get_top_artists(field, limit):
-    return ex.exaile().collection.list_tag('artist', '! %s==__null__' % field, sort_by = [field], reverse=True)[:limit]
+    artists = [x.artist for x in search.search_tracks_from_string(
+                ex.exaile().collection, '! %s==__null__' % field)]
+    artists = sort_tracks([field], artists, True)
+    return artists[:limit]
 
 class ContextPage(object):
 
@@ -587,9 +611,11 @@ class ContextPage(object):
                 html+='<table class="cd-table">'
                 cd=get_track_tag(tr, 'album', 'unknown')
                 if cd== 'unknown':
-                    track_nbr = len(ex.exaile().collection.search('album==__null__', tracks=tracks))
+                    track_nbr = len([x.track for x in search.search_tracks_from_string(
+                            ex.exaile().collection, 'album==__null__')])
                 else:
-                    track_nbr = len(ex.exaile().collection.search('album=="%s"'% cd, tracks=tracks))
+                    track_nbr = len([x.track for x in search.search_tracks_from_string(
+                            ex.exaile().collection, 'album=="%s"' % cd)])
                 cover = get_track_cover(tr)
                 cover_data = get_image_data(cover, (60, 60))
                 
@@ -684,9 +710,10 @@ class DefaultPage(ContextPage):
         return "Recently Played Albums"
 
     def _last_played_albums(self, limit=5):
-        cds = get_top_albums('last_played', int(limit))
+        cds = get_top_albums('__last_played', int(limit))
         if len(cds)>0:
-            return self.get_cds_html(ex.exaile().collection.search(' OR '.join('album=="%s"' % cd for cd in cds), sort_fields=['album', 'tracknumber']))
+            return self.get_cds_html([x.track for x in search.search_tracks_from_string(
+                    ex.exaile().collection, ('album=="%s"' % cd for cd in cds), ['album', 'tracknumber'])])
         return ''
 
     def _last_played_artists_title(self):
@@ -709,7 +736,8 @@ class DefaultPage(ContextPage):
     def _last_added_albums(self, limit=3):
         cds = get_top_albums('__date_added', int(limit))
         if len(cds)>0:
-            return self.get_cds_html(ex.exaile().collection.search(' OR '.join('album=="%s"' % cd for cd in cds), sort_fields=['album', 'tracknumber']))
+            return self.get_cds_html([x.track for x in search.search_tracks_from_string(
+                    ex.exaile().collection, ('album=="%s"' % cd for cd in cds), ['album', 'tracknumber'])])
         return ''
 
     def _last_added_artists_title(self):
@@ -732,7 +760,8 @@ class DefaultPage(ContextPage):
     def _most_played_albums(self, limit=5):
         cds = get_top_albums('__playcount', int(limit))
         if len(cds)>0:
-            return self.get_cds_html(ex.exaile().collection.search(' OR '.join('album=="%s"' % cd for cd in cds), sort_fields=['album', 'tracknumber']))
+            return self.get_cds_html([x.track for x in search.search_tracks_from_string(
+                    ex.exaile().collection, ('album=="%s"' % cd for cd in cds), ['album', 'tracknumber'])])
         return ''
 
     def _most_played_artists_title(self):
@@ -783,7 +812,8 @@ class DefaultPage(ContextPage):
             tracks = []
             if len(cds)>0:
                 for cd in cds:
-                    tracks+=ex.exaile().collection.search('album=="%s"' % cd, sort_fields=['tracknumber'])
+                    tracks+= [x.track for x in search.search_tracks_from_string(
+                                ex.exaile().collection, ('album=="%s"' % cd), ['tracknumber'])]
                 return self.get_cds_html(tracks)
             return ""
         return "Enter your username in the settings"
@@ -810,7 +840,8 @@ class ArtistPage(DefaultPage):
 
     def track_in_collection(self, artist, title):
         if artist == self['artist']:
-            tracks = ex.exaile().collection.search('artist=="%s" title=="%s"'%(artist, title), return_lim=1, tracks=self.artist_tracks)
+            tracks = [x.track for x in search.search_tracks_from_string(
+                    ex.exaile().collection, ('artist=="%s" title=="%s"' % (artist, title)))]
             if len(tracks)>0: return tracks[0]
             else: return None
         else:
@@ -865,9 +896,11 @@ class ArtistPage(DefaultPage):
         return "Compilations with %s"%self['artist']
 
     def _compils(self):
-        compils = ex.exaile().collection.list_tag('album', 'artist=="%s" ! __compilation==__null__' % self['artist'])
+        compils = [x.track for x in search.search_tracks_from_string(
+                    ex.exaile().collection, '! %s==__null__' % self['artist'])]
         if len(compils)>0:
-            return self.get_cds_html(ex.exaile().collection.search(' OR '.join('album=="%s"' % compil for compil in compils), sort_fields=['album', 'tracknumber']))
+            return self.get_cds_html([x.track for x in search.search_tracks_from_string(
+                    ex.exaile().collection, ('album=="%s"' % compil for compil in compils), ['album', 'tracknumber'])])
         return ''
 
     def _similar_artists_title(self):

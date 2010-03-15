@@ -31,8 +31,6 @@
 #
 # Also takes care of parsing commandline options.
 
-__version__ = '0.3.1b+'
-
 import os
 import sys
 import logging
@@ -40,6 +38,8 @@ import logging.handlers
 
 from xl.nls import gettext as _
 from xl import common, xdg, event
+
+from xl.version import __version__
 
 # initiate the logger. logger params are set later
 logger = logging.getLogger(__name__)

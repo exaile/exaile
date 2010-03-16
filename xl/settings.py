@@ -34,6 +34,8 @@ from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
 import logging
 import os
 
+import glib
+
 logger = logging.getLogger(__name__)
 
 from xl.nls import gettext as _
@@ -95,7 +97,7 @@ class SettingsManager(RawConfigParser):
 
         # save settings every 30 seconds
         if loc is not None:
-            event.timeout_add_seconds(30, self._timeout_save)
+            glib.timeout_add_seconds(30, self._timeout_save)
 
     def _timeout_save(self):
         #logger.debug("Requesting save from timeout...")

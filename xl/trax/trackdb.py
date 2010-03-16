@@ -30,6 +30,8 @@ import logging
 import shelve
 from copy import deepcopy
 
+import glib
+
 from xl import common, event
 from xl.nls import gettext as _
 
@@ -93,7 +95,7 @@ class TrackDB(object):
         self._deleted_keys = []
         if location:
             self.load_from_location()
-            event.timeout_add_seconds(300, self._timeout_save)
+            glib.timeout_add_seconds(300, self._timeout_save)
 
     def __iter__(self):
         """

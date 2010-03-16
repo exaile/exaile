@@ -37,7 +37,6 @@ from collections import deque
 from UserDict import DictMixin
 
 logger = logging.getLogger(__name__)
-_TESTING = False  # set to True for testing
 
 #TODO: get rid of this. only plugins/cd/ uses it.
 VALID_TAGS = (
@@ -79,9 +78,6 @@ def threaded(f):
     """
         A decorator that will make any function run in a new thread
     """
-
-    # TODO: make this bad hack unneeded
-    if _TESTING: return f
     @wraps(f)
     def wrapper(*args, **kwargs):
         t = threading.Thread(target=f, args=args, kwargs=kwargs)

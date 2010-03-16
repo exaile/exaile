@@ -50,76 +50,20 @@ import threading
 import time
 import traceback
 import weakref
+import gobject
 
 from xl import common
 from xl.nls import gettext as _
 
-# define these here so the interperter doesn't complain about them
+# define this here so the interperter doesn't complain
 EVENT_MANAGER = None
-IDLE_MANAGER  = None
-_TIMERS = []
-
-_TESTING = False  # this is used by the testsuite to make all events syncronous
 
 logger = logging.getLogger(__name__)
 
 class Nothing(object):
     pass
 
-_NONE = Nothing()
-
-class EventTimer(threading.Thread):
-    """
-        Runs a function after a given amount of time, or periodically.
-
-        To run the function periodically, return a True value from it. If you
-        want to stop the periodic timer, call `cancel`  or return a False value.
-
-        Set `sleeptime` if you want to set the wakeup interval (in sec). By
-        default, either the interval time or `DEFAULT_SLEEPTIME` will be used,
-        whichever is smaller.
-    """
-
-    DEFAULT_SLEEPTIME = 5
-
-    def __init__(self, interval, function, *args, **kwargs):
-        """Runs `function` every `interval` sec."""
-        threading.Thread.__init__(self)
-        self.daemon = True
-        self.interval = interval / 1000.0
-        self.function = function
-        self.args = args
-        self.kwargs = kwargs
-        self.sleeptime = min(interval, self.DEFAULT_SLEEPTIME)
-        self._stopped = False
-        self.start()
-
-    def run(self):
-        while not self._stopped:
-            endtime = time.time() + self.interval
-            while endtime > time.time():
-                time.sleep(self.sleeptime)
-                if self._stopped: return
-            try:
-                nocancel = self.function(*self.args, **self.kwargs)
-                if not nocancel: return
-            except Exception:
-                common.log_exception(logger)
-
-    def cancel(self):
-        self._stopped = True
-
-def timeout_add(interval, function, *args, **kwargs):
-    timer = EventTimer(interval, function, *args, **kwargs)
-    _TIMERS.append(timer)
-
-    return timer
-
-def timeout_add_seconds(interval, function, *args, **kwargs):
-    timer = EventTimer(interval * 1000, function, *args, **kwargs)
-    _TIMERS.append(timer)
-
-    return timer
+_NONE = Nothing() # used by event for a safe None replacement
 
 def log_event(type, obj, data, async=True):
     """
@@ -132,7 +76,7 @@ def log_event(type, obj, data, async=True):
     """
     global EVENT_MANAGER
     e = Event(type, obj, data, time.time())
-    if async and not _TESTING:
+    if async:
         EVENT_MANAGER.emit_async(e)
     else:
         EVENT_MANAGER.emit(e)
@@ -168,41 +112,6 @@ def remove_callback(function, type=None, obj=None):
     global EVENT_MANAGER
     EVENT_MANAGER.remove_callback(function, type, obj)
 
-def idle_add(func, *args):
-    """
-        Adds a function to run when there is spare processor time.
-
-        func: the function to call [function]
-
-        any additional arguments to idle_add will be passed on to the
-        called function.
-
-        do not use for long-running tasks, so as to avoid blocking other
-        functions.
-    """
-    global IDLE_MANAGER
-    IDLE_MANAGER.add(func, *args)
-
-def events_pending():
-    """
-        Returns true if there are any events pending in the IdleManager.
-    """
-    global IDLE_MANAGER
-    return IDLE_MANAGER.events_pending()
-
-def event_iteration():
-    """
-        Explicitly processes one event in the IdleManager.
-    """
-    global IDLE_MANAGER
-    IDLE_MANAGER.event_iteration()
-
-def wait_for_pending_events():
-    """
-        Blocks until there are no pending events in the IdleManager.
-    """
-    global IDLE_MANAGER
-    IDLE_MANAGER.wait_for_pending_events()
 
 class Event(object):
     """
@@ -304,86 +213,6 @@ def _getWeakRef(obj, notifyDead=None):
         return createRef(obj, notifyDead)
 
 
-class IdleManager(threading.Thread):
-    """
-        Simulates gobject's idle_add() using threads.
-    """
-    def __init__(self):
-        threading.Thread.__init__(self)
-        self.setDaemon(True)
-        self.queue = []
-        self.event = threading.Event()
-        self._stopped = False
-
-        self.start()
-
-    def stop(self):
-        """
-            Stops the thread
-        """
-        self._stopped = True
-        logger.debug("Stopping IdleManager thread...")
-
-    def _call_function(self, func, args):
-        """
-            Actually calls the function
-        """
-        try:
-            func.__call__(*args)
-        except:
-            common.log_exception(logger)
-
-    def run(self):
-        """
-            The main loop.
-        """
-        # This is quite simple. If we have a job, wake up and run it.
-        # If we run out of jobs, sleep until we have another one to do.
-        while True:
-            if self._stopped: return
-            while len(self.queue) == 0:
-                self.event.wait()
-                self.event.clear()
-            func, args = self.queue[0]
-            self.queue = self.queue[1:]
-
-            if self._stopped: return
-            self._call_function(func, args)
-
-    def events_pending(self):
-        """
-            Returns true if there are events pending in the event queue.
-        """
-        if len(self.queue) > 0:
-            return True
-        else:
-            return False
-
-    def event_iteration(self):
-        """
-            Forces an event from the event queue to be processed.
-        """
-        self.event.set()
-
-    def wait_for_pending_events(self):
-        """
-            Blocks until the event queue is empty.
-        """
-        while self.events_pending():
-            self.event_iteration()
-
-    def add(self, func, *args):
-        """
-            Adds a function to be executed.
-
-            func: the function to execute [function]
-
-            any additional arguments will be passed on to the called
-            function
-        """
-        self.queue.append((func, args))
-        self.event.set()
-
 
 class EventManager(object):
     """
@@ -391,7 +220,6 @@ class EventManager(object):
     """
     def __init__(self, use_logger=False, logger_filter=None):
         self.callbacks = {}
-        self.idle = IDLE_MANAGER
         self.use_logger = use_logger
         self.logger_filter = logger_filter
         self.lock = threading.Lock()
@@ -402,8 +230,7 @@ class EventManager(object):
 
             event: the Event to emit [Event]
         """
-        if not _TESTING:
-            self.lock.acquire()
+        self.lock.acquire()
 
         callbacks = []
         for tcall in [_NONE, event.type]:
@@ -452,20 +279,16 @@ class EventManager(object):
             except:
                 traceback.print_exc()
                 # something went wrong inside the function we're calling
-                if not _TESTING:
-                    common.log_exception(logger,
+                common.log_exception(logger,
                             message="Event callback exception caught!")
-                else:
-                    traceback.print_exc()
 
-        if not _TESTING:
-            self.lock.release()
+        self.lock.release()
 
     def emit_async(self, event):
         """
             Same as emit(), but does not block.
         """
-        self.idle.add(self.emit, event)
+        gobject.idle_add(self.emit, event)
 
     def add_callback(self, function, type, obj, args, kwargs):
         """
@@ -503,15 +326,6 @@ class EventManager(object):
             The parameters must match those given when the callback was
             registered. (minus any additional args)
         """
-        self.idle.add(self._remove_callback, function, type, obj)
-
-    def _remove_callback(self, function, type, obj):
-        """
-            Unsets a callback.
-
-            The parameters must match those given when the callback was
-            registered.
-        """
         if obj is None:
             obj = _NONE
         remove = []
@@ -534,54 +348,7 @@ class EventManager(object):
                         (function, type, obj))
 
 
-class Waiter(threading.Thread):
-    """
-        This is kind of like the built-in python Timer class, except that
-        it is possible to reset the countdown while the timer is running.
-        It is intended for cases where we want to wait a certain interval
-        of time after things stop changing before we do anything.
 
-        Waiters can be used only once.
-    """
-    def __init__(self, interval, function, *args, **kwargs):
-        threading.Thread.__init__(self)
-        self.interval = interval
-        self.function = function
-        self.args = args
-        self.kwargs = kwargs
-        self.old_time = -1
-        self.new_time = -1
-        self.setDaemon(True)
-        self.start()
-
-    def reset(self):
-        """
-            Resets the timer
-        """
-        self.new_time = time.time()
-
-    def _call_function(self):
-        try:
-            self.function(*self.args, **self.kwargs)
-        except:
-            common.log_exception()
-
-    def run(self):
-        self.old_time = time.time()
-        while True:
-            time.sleep(self.interval)
-            if self.new_time > self.old_time + self.interval:
-                self.interval = self.old_time + self.interval - \
-                        self.new_time
-                self.old_time = self.new_time
-            else:
-                break
-
-        self._call_function()
-
-# Instantiate our managers as globals. This lets us use the same instance
-# regardless of where this module is imported.
-IDLE_MANAGER  = IdleManager()
 EVENT_MANAGER = EventManager()
 
 # vim: et sts=4 sw=4

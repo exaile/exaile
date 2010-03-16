@@ -50,11 +50,6 @@ from xlgui import commondialogs, cover
 from xlgui import devices, guiutil, icons, prefs, queue
 
 
-###
-# Set up xl/event to work with the gtk event loop
-logger.info("Setting up deferred idle manager function...")
-event.IDLE_MANAGER._call_function = guiutil.idle_add()(
-    event.IDLE_MANAGER._call_function)
 
 def mainloop():
     gtk.main()

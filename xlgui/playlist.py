@@ -668,8 +668,6 @@ class Playlist(gtk.VBox):
         event.remove_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.remove_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
-        # Make sure the callbacks actually get removed before proceeding
-        event.wait_for_pending_events()
 
         self.list.unset_rows_drag_dest()
         self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL,

@@ -67,7 +67,6 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         builder.add_from_file(os.path.join(basedir, 'drop_target_window.ui'))
 
         self.exaile = exaile
-        #self.restore_icon = None
         self.drop_target_window = builder.get_object('drop_target_window')
         self.play_target = builder.get_object('play_target')
         self.append_target = builder.get_object('append_target')
@@ -145,18 +144,12 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         self.new_playlist_target.connect('drag-data-received',
             self.on_drag_data_received)
 
-        #event.add_callback(self.on_setting_change,
-        #    'option_set')
-        #event.add_callback(self.on_tray_icon_toggled,
-        #    'tray_icon_toggled')
-
         BaseTrayIcon.connect_events(self)
 
     def destroy(self):
         """
             Restores the default trayicon if required
         """
-        #self.set_active(False)
         self.hide_all()
 
     def set_from_icon_name(self, icon_name):
@@ -193,34 +186,6 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
             y -= menu_height
 
         return (x, y, False)
-
-    def set_active(self, active):
-        """
-            Toggles activation state of the tray icon
-        """
-        if self.exaile.gui.tray_icon is None:
-            return
-
-        if not isinstance(self.exaile.gui.tray_icon, type(self)):
-            self.restore_icon = self.exaile.gui.tray_icon
-
-        self.exaile.gui.tray_icon.set_visible(False)
-
-        if active:
-            self.exaile.gui.tray_icon = self
-        else:
-            self.exaile.gui.tray_icon = self.restore_icon
-
-        self.exaile.gui.tray_icon.set_visible(True)
-
-    def set_visible(self, visible):
-        """
-            Toggles visibility of the tray icon
-        """
-        if visible:
-            self.show_all()
-        else:
-            self.hide_all()
 
     def update_drop_target_window_location(self):
         """
@@ -266,11 +231,11 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
         description = _('Drop to Choose')
 
-        if widget == self.play_target:
+        if widget is self.play_target:
             description = _('Append and Play')
-        if widget == self.append_target or widget == self:
+        if widget is self.append_target or widget is self:
             description = _('Append')
-        if widget == self.new_playlist_target:
+        if widget is self.new_playlist_target:
             description = _('New Playlist')
 
         self.description_label.set_text(description)
@@ -332,26 +297,14 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         uris = selection.get_uris()
         playlist = self.exaile.gui.main.get_selected_playlist()
 
-        if widget == self.play_target:
+        if widget is self.play_target:
             event.add_callback(self.on_tracks_added, 'tracks_added')
 
-        if widget == self.new_playlist_target:
+        if widget is self.new_playlist_target:
             playlist = self.exaile.gui.main.add_playlist()
 
         playlist.drag_data_received(None, context,
             x, y, selection, info, timestamp)
-
-    def on_setting_change(self, event_name, object, option):
-        if option == 'gui/use_tray':
-            print 'GOT INTO plugins.droptrayicon'
-            #print 'Tray option active: %s' % settings.get_option(option)
-
-    def on_tray_icon_toggled(self, event_name, tray_icon, active):
-        """
-            Updates tray appearance
-        """
-        #print 'Tray active: %s' % active
-        self.set_active(active)
 
     def on_tracks_added(self, event_name, playlist, tracks):
         """

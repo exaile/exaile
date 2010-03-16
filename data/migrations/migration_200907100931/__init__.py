@@ -90,11 +90,16 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
         # we shouldn't be checking os.path.isfile() here, since if it is a radio link, it will not be migrated
         newtrack = trax.Track(uri=oldtrack.loc, scan=False)
 
-        if int(oldtrack._rating) > 0: 
+        if int(oldtrack._rating) > 0:
             newtrack.set_tag_raw('__rating', float((100.0*oldtrack._rating)/rating_steps))
 
-        db_map = {'bitrate': '__bitrate', 'artist': 'artist', 'album': 'album', 'track': 'tracknumber', 'genre': 'genre', 'date': 'date',
-            'title': 'title', 'playcount': '__playcount'}
+        db_map = {'artist': 'artist',
+                'album': 'album',
+                'track': 'tracknumber',
+                'genre': 'genre',
+                'date': 'date',
+                'title': 'title',
+                'playcount': '__playcount'}
 
         newtrack.set_tag_raw('__length', int(getattr(oldtrack, 'duration')))
 

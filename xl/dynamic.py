@@ -67,10 +67,11 @@ class DynamicManager(providers.ProviderHandler):
         random.shuffle(artists)
         i = 0
         while (limit > len(tracks) or limit == -1) and i < len(artists):
-            artist = artists[i][1]
+            artist = artists[i][1].replace('"', '\\\"')
             i += 1
-            choices = [x.track for x in search.search_tracks_from_string(
-                self.collection, 'artist=="%s"'%artist.lower().replace('"', ''))]
+            searchres = search.search_tracks_from_string(
+                self.collection, 'artist=="%s"'%artist, case_sensitive=False)
+            choices = [x.track for x in searchres]
             if choices == []:
                 continue
             random.shuffle(choices)

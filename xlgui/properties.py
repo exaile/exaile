@@ -78,7 +78,7 @@ dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
 
 class TrackPropertiesDialog(gobject.GObject):
 
-    def __init__(self, parent, tracks):
+    def __init__(self, parent, tracks, selected=None):
         gobject.GObject.__init__(self)
 
         self.builder = gtk.Builder()
@@ -93,9 +93,6 @@ class TrackPropertiesDialog(gobject.GObject):
         self.apply_button = self.builder.get_object('apply_button')
         self.prev_button = self.builder.get_object('prev_track_button')
         self.next_button = self.builder.get_object('next_track_button')
-        self.prev_button.set_sensitive(False)
-        if len(tracks) == 1:
-            self.next_button.set_sensitive(False)
 
         self.tags_table = self.builder.get_object('tags_table')
         self.properties_table = self.builder.get_object('properties_table')
@@ -124,7 +121,11 @@ class TrackPropertiesDialog(gobject.GObject):
         self.tracks = self._tags_copy(tracks)
         self.tracks_original = self._tags_copy(tracks)
 
-        self.current = 0
+        if selected:
+            self.current = selected
+        else:
+            self.current = 0
+
         self._build_from_track(self.current)
 
         self.dialog.resize(600, 350)

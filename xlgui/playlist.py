@@ -130,12 +130,16 @@ class Playlist(gtk.VBox):
         """
         from xlgui import properties
         tracks = self.get_selected_tracks()
+        selected = None
+        if len(tracks) == 1:
+            tracks = self.get_all_tracks()
+            selected = self.get_cursor()
 
         if not tracks:
             return False
 
         dialog = properties.TrackPropertiesDialog(self.main.window,
-            tracks)
+            tracks, selected)
         #result = dialog.run()
         #dialog.hide()
 
@@ -149,13 +153,12 @@ class Playlist(gtk.VBox):
             settings.get_option('gui/sync_on_tag_change', True) or not\
             tag in self.get_column_ids():
             return
-        
+
         if self._redraw_id:
             gobject.source_remove(self._redraw_id)
         self._redraw_queue.append(track)
         self._redraw_id = gobject.timeout_add(100,
                 self.__refresh_changed_tracks)
-
 
     def __refresh_changed_tracks(self):
         tracks = {}
@@ -416,13 +419,22 @@ class Playlist(gtk.VBox):
         ar = self._get_ar(track)
         self.model.append(ar)
 
+    def get_cursor(self):
+        """
+            Returns the track below the cursor
+        """
+        track_id = self.list.get_cursor()[0][0]
+        return track_id
+
     def get_selected_track(self):
         """
             Returns the currently selected track
         """
         trs = self.get_selected_tracks()
-        if not trs: return None
-        else: return trs[0]
+        if not trs:
+            return None
+        else:
+            return trs[0]
 
     def get_selected_tracks(self):
         """
@@ -437,6 +449,13 @@ class Playlist(gtk.VBox):
             songs.append(song)
 
         return songs
+
+    def get_all_tracks(self):
+        """
+            Gets the all tracks in the tree view
+        """
+        return self.playlist.get_tracks()
+
 
     def get_tracks_rating(self):
         """

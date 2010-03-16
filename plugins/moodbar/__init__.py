@@ -84,16 +84,17 @@ class ExModbar(object):
          self.mod = gtk.DrawingArea()
          self.mod.pangolayout = self.mod.create_pango_layout("")
          self.mod.set_size_request(-1, 24)
-         place.pack_start(self.mod, False, True, 0)
-         place.reorder_child(self.mod, 2)
+         place.remove(self.pr.bar)
+         place.add(self.mod)
          self.mod.realize()
-         self.pr.bar.hide()
          self.mod.show()
 
     def changeModToBar(self):
          if hasattr(self, 'mod'):
+             place=self.mod.get_parent()
+             place.remove(self.mod)
+             place.add(self.pr.bar)
              self.mod.destroy()
-             self.pr.bar.show()
 
     def setupUi(self):
               self.setuped=True
@@ -125,7 +126,7 @@ class ExModbar(object):
              self.haveMod=False
              return
 
-         self.playingTrack=str(track.get_loc())
+         self.playingTrack=str(track.get_loc_for_io())
          self.playingTrack=self.playingTrack.replace("file://","")
          modLoc=self.moodsDir+'/'+ self.playingTrack.replace('/','-')+".mood"
          modLoc=modLoc.replace("'",'')
@@ -285,20 +286,32 @@ class ExModbar(object):
            else:
                 if self.flat:
                    gc.foreground = self.mod.get_colormap().alloc_color(
-                      int(flatcolor1r*0xFFFF), int(flatcolor1g*0xFFFF), int(flatcolor1b*0xFFFF))
+                      int(flatcolor1r*0xFFFF),
+                      int(flatcolor1g*0xFFFF),
+                      int(flatcolor1b*0xFFFF)
+                   )
                 else:
                    gc.foreground = self.mod.get_colormap().alloc_color(
-                      int(r*0xFFFF), int(g*0xFFFF), int(b*0xFFFF))
+                      int(r*0xFFFF),
+                      int(g*0xFFFF),
+                      int(b*0xFFFF)
+                   )
                 self.pixmap.draw_line(gc, x, 13-waluelength, x, 12+waluelength)
 
                 if self.cursor:
                   if self.flat:
                      gc.foreground = self.mod.get_colormap().alloc_color(
-                        int(flatcolor2r*0xFFFF), int(flatcolor2g*0xFFFF), int(flatcolor2b*0xFFFF))
+                        int(flatcolor2r*0xFFFF),
+                        int(flatcolor2g*0xFFFF),
+                        int(flatcolor2b*0xFFFF)
+                     )
                   else:
                      r,g,b=colorsys.yiq_to_rgb(0.5*darkmulti,c2,c3)
                      gc.foreground = self.mod.get_colormap().alloc_color(
-                        int(r*0xFFFF), int(g*0xFFFF), int(b*0xFFFF))
+                        int(r*0xFFFF),
+                        int(g*0xFFFF),
+                        int(b*0xFFFF)
+                     )
                   self.pixmap2.draw_line(gc, x, 13-waluelength, x, 12+waluelength)
 
         #if not self.defaultstyle:
@@ -323,8 +336,11 @@ class ExModbar(object):
          bluef=self.bgcolor.blue
          #logger.info(greenf)
          this=self.mod
-         gc.foreground = this.get_colormap().alloc_color(0x0000,
-                 0x0000, 0x0000)
+         gc.foreground = this.get_colormap().alloc_color(
+             0x0000,
+             0x0000,
+             0x0000
+         )
          track = self.exaile.player.current
          if self.theme:
                 flatcolor1r,flatcolor1g,flatcolor1b=colorsys.yiq_to_rgb(0.5,self.ivalue,self.qvalue)
@@ -349,27 +365,39 @@ class ExModbar(object):
             else:
               if not self.defaultstyle:
                 for i in range(5):
-                   gc.foreground = this.get_colormap().alloc_color(int(flatcolor1r*0xFFFF*i/5+redf*((5-float(i))/5)),
-                              int(flatcolor1g*0xFFFF*i/5+greenf*((5-float(i))/5)), int(flatcolor1b*0xFFFF*i/5+bluef*((5-float(i))/5)) )
+                   gc.foreground = this.get_colormap().alloc_color(
+                       int(flatcolor1r*0xFFFF*i/5+redf*((5-float(i))/5)),
+                       int(flatcolor1g*0xFFFF*i/5+greenf*((5-float(i))/5)),
+                       int(flatcolor1b*0xFFFF*i/5+bluef*((5-float(i))/5))
+                   )
                    this.window.draw_rectangle(gc, True, 0, 0+i,
                            self.modwidth, 24-i*2)
 
               if self.modTimer and track.is_local():
-                   gc.foreground = this.get_colormap().alloc_color(flatcolor2r*0xFFFF,
-                           flatcolor2g*0xFFFF, flatcolor2b*0xFFFF)
+                   gc.foreground = this.get_colormap().alloc_color(
+                       int(flatcolor2r*0xFFFF),
+                       int(flatcolor2g*0xFFFF),
+                       int(flatcolor2b*0xFFFF)
+                   )
                    this.window.draw_rectangle(gc, True,
                              (self.modwidth/10)*(self.uptime%10),
                              5, self.modwidth/10, 14)
               if self.defaultstyle:
-                   gc.foreground = this.get_colormap().alloc_color(flatcolor1r*0xFFFF,
-                           flatcolor1g*0xFFFF, flatcolor1b*0xFFFF)
+                   gc.foreground = this.get_colormap().alloc_color(
+                       int(flatcolor1r*0xFFFF),
+                       int(flatcolor1g*0xFFFF),
+                       int(flatcolor1b*0xFFFF)
+                   )
                    this.window.draw_rectangle(gc, True,
                            0,12, self.modwidth, 2)
 
          except:
             for i in range(5):
-              gc.foreground = this.get_colormap().alloc_color(0xFFFF*i/5,
-                      0x0000, 0x0000)
+              gc.foreground = this.get_colormap().alloc_color(
+                  int(0xFFFF*i/5),
+                  0x0000,
+                  0x0000
+              )
               this.window.draw_rectangle(gc, True, 0, 0+i,
                      self.modwidth, 24-i*2)
 
@@ -387,13 +415,19 @@ class ExModbar(object):
                 if not self.haveMod:
                    if not self.defaultstyle:
                       for i in range(5):
-                          gc.foreground = this.get_colormap().alloc_color(flatcolor2r*0xFFFF*i/5+int(redf*((5-float(i))/5)),
-                              flatcolor2g*0xFFFF*i/5+int(greenf*((5-float(i))/5)), flatcolor2b*0xFFFF*i/5+int(bluef*((5-float(i))/5)) )
+                          gc.foreground = this.get_colormap().alloc_color(
+                              int(flatcolor2r*0xFFFF*i/5+int(redf*((5-float(i))/5))),
+                              int(flatcolor2g*0xFFFF*i/5+int(greenf*((5-float(i))/5))),
+                              int(flatcolor2b*0xFFFF*i/5+int(bluef*((5-float(i))/5)))
+                          )
                           this.window.draw_rectangle(gc, True, 0, 0+i,
                                  int(self.curpos*self.modwidth), 24-i*2)
                    else:
-                      gc.foreground = this.get_colormap().alloc_color(flatcolor2r*0xFFFF,
-                           flatcolor2g*0xFFFF, flatcolor2b*0xFFFF)
+                      gc.foreground = this.get_colormap().alloc_color(
+                          int(flatcolor2r*0xFFFF),
+                          int(flatcolor2g*0xFFFF),
+                          int(flatcolor2b*0xFFFF)
+                      )
                       this.window.draw_rectangle(gc, True,
                            0,12, int(self.curpos*self.modwidth), 2)
                 else:
@@ -405,22 +439,28 @@ class ExModbar(object):
                 gc.line_width=2
                 this.window.draw_arc(gc, True, int(self.curpos*self.modwidth)-15,
                         -5, 30, 30,  60*64, 60*64)
-                gc.foreground = this.get_colormap().alloc_color(0x0000,
-                    0x0000, 0x0000)
+                gc.foreground = this.get_colormap().alloc_color(
+                    0x0000,
+                    0x0000,
+                    0x0000
+                )
 
                 this.window.draw_line(gc, int(self.curpos*self.modwidth), 10,
                                       int(self.curpos*self.modwidth)-10, -5)
                 this.window.draw_line(gc, int(self.curpos*self.modwidth), 10,
                                       int(self.curpos*self.modwidth)+10, -5)
 
-            length = self.exaile.player.current.get_duration()
+            length = self.exaile.player.current.get_tag_raw('__length')
             seconds = self.exaile.player.get_time()
             remaining_seconds = length - seconds
             text = ("%d:%02d / %d:%02d" %
                 ( seconds // 60, seconds % 60, remaining_seconds // 60,
                 remaining_seconds % 60))
-            gc.foreground = this.get_colormap().alloc_color(0x0000,
-                    0x0000, 0x0000)
+            gc.foreground = this.get_colormap().alloc_color(
+                0x0000,
+                0x0000,
+                0x0000
+            )
             this.pangolayout.set_text(text)
 
             this.window.draw_layout(gc, int(self.modwidth/2)-35,
@@ -431,8 +471,11 @@ class ExModbar(object):
                      2, this.pangolayout)
             this.window.draw_layout(gc, int(self.modwidth/2)-37,
                      4, this.pangolayout)
-            gc.foreground = this.get_colormap().alloc_color(0xFFFF,
-                     0xFFFF, 0xFFFF)
+            gc.foreground = this.get_colormap().alloc_color(
+                0xFFFF,
+                0xFFFF,
+                0xFFFF
+            )
 
             this.window.draw_layout(gc, int(self.modwidth/2)-36,
                      3, this.pangolayout)
@@ -458,7 +501,7 @@ class ExModbar(object):
         if value > 1: value = 1
 
         self.curpos=value
-        length = track.get_duration()
+        length = track.get_tag_raw('__length')
         self.mod.queue_draw_area(0, 0, progress_loc, 24)
         #redrawMod(self)
 

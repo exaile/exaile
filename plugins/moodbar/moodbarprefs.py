@@ -23,7 +23,7 @@ from xl import xdg
 from xl.nls import gettext as _
 
 
-name = 'Moodbar'
+name = _('Moodbar')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "moodbarprefs_pane.ui")
 

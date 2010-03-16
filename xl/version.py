@@ -38,9 +38,14 @@ def get_latest_bzr_revno(directory):
     """
     try:
         import bzrlib.workingtree
+        import bzrlib.errors as errors
+    except ImportError:
+        return None
+
+    try:
         wt = bzrlib.workingtree.WorkingTree.open_containing(directory)[0]
         wt.lock_read()
-    except (errors.NoWorkingTree, errors.NotLocalUrl, ImportError):
+    except (errors.NoWorkingTree, errors.NotLocalUrl, errors.NotBranchError):
         return None
 
     revid = wt.last_revision()

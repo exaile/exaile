@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DIST_VERSION=`grep __version__ dist/copy/xl/main.py | head -n1 | cut -d \' -f 2` 
+DIST_VERSION=`python -c 'import xl.version; print ".".join((xl.version.major, xl.version.minor))'` 
 
 tar --gzip --format=posix --owner 0 --group 0 \
     -cf dist/exaile-$DIST_VERSION.tar.gz dist/copy \

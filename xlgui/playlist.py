@@ -796,8 +796,6 @@ class Playlist(gtk.VBox):
         if playlist:
             event.remove_callback(self.on_remove_tracks, 'tracks_removed',
                     self.playlist)
-            # Make sure the callback actually gets removed before proceeding
-            event.wait_for_pending_events()
             ranges = []
             curstart = paths[0][0]
             last = curstart

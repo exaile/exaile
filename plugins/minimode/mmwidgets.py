@@ -32,24 +32,13 @@ class MenuItem(gtk.ImageMenuItem):
         self.child.set_label(_('Mini Mode'))
 
         self._activate_id = self.connect('activate', callback)
-        event.add_callback(self.on_stock_icon_added, 'stock_icon_added')
 
     def destroy(self):
         """
             Various cleanups
         """
         self.disconnect(self._activate_id)
-        event.remove_callback(self.on_stock_icon_added, 'stock_icon_added')
-
         gtk.ImageMenuItem.destroy(self)
-
-    def on_stock_icon_added(self, iconmanager, stock_id):
-        """
-            Handles deferred icon load
-        """
-        if stock_id == 'exaile-minimode':
-            self.set_image(gtk.gdk.image_new_from_stock(stock_id))
-            event.remove_callback(self.on_stock_icon_added, 'stock_icon_added')
 
 class KeyExistsError(KeyError):
     def __init__(self, error):

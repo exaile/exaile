@@ -29,8 +29,6 @@ import os
 
 import gtk
 
-from xl import event
-
 class IconManager(object):
     """
         Provides convenience functions for adding
@@ -89,7 +87,6 @@ class IconManager(object):
             size = pixbuf.get_width()
 
         gtk.icon_theme_add_builtin_icon(icon_name, size, pixbuf)
-        event.log_event('icon_name_added', self, icon_name)
 
     def add_stock_from_directory(self, stock_id, directory):
         """
@@ -150,5 +147,4 @@ class IconManager(object):
             icon_set.add_source(icon_source)
 
         self.icon_factory.add(stock_id, icon_set)
-        event.log_event('icon_stock_added', self, stock_id)
 

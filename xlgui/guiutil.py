@@ -473,13 +473,20 @@ class VolumeControl(object):
             Changes the volume on scrolling
         """
         page_increment = self.slider_adjustment.page_increment
+        step_increment = self.slider_adjustment.step_increment
         value = self.slider.get_value()
 
         if event.direction == gtk.gdk.SCROLL_DOWN:
-            self.slider.set_value(value - page_increment)
+            if event.state & gtk.gdk.SHIFT_MASK:
+                self.slider.set_value(value - page_increment)
+            else:
+                self.slider.set_value(value - step_increment)
             return True
         elif event.direction == gtk.gdk.SCROLL_UP:
-            self.slider.set_value(value + page_increment)
+            if event.state & gtk.gdk.SHIFT_MASK:
+                self.slider.set_value(value + page_increment)
+            else:
+                self.slider.set_value(value + step_increment)
             return True
 
         return False

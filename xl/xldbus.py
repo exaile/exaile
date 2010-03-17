@@ -426,7 +426,7 @@ class DbusManager(dbus.service.Object):
         """
         self.exaile.gui.main.toggle_visible()
 
-    @dbus.service.method('org.exaile.Exaile')
+    @dbus.service.method('org.exaile.Exaile', None, 'ay')
     def GetCoverData(self):
         """
             Returns the data of the cover image of the playing track, or

@@ -598,6 +598,7 @@ class MainWindow(gobject.GObject):
         self.volume_slider.set_value(volume)
         self.volume_slider.connect('key-press-event',
             guiutil.on_slider_key_press)
+        self.update_volume_tooltip(volume)
 
         self.shuffle_toggle = self.builder.get_object('shuffle_button')
         self.shuffle_toggle.connect('button-press-event', self.on_shuffle_pressed)
@@ -706,6 +707,20 @@ class MainWindow(gobject.GObject):
             self.queue.stop_track = tr
 
         self.get_selected_playlist().list.queue_draw()
+
+    def update_volume_tooltip(self, volume):
+        tooltip = _('Muted')
+
+        if volume > 0:
+            i = int(round(volume * 2))
+            #TRANSLATORS: Volume percentage
+            tooltip = '%d%%' % (volume * 100)
+
+        if volume == 1.0:
+            tooltip = _('Full Volume')
+
+        self.volume_slider.set_tooltip_text(tooltip)
+
 
     def update_track_counts(self, *e):
         """
@@ -1161,7 +1176,9 @@ class MainWindow(gobject.GObject):
            Handles changes of settings
         """
         if option == 'player/volume':
-            self.volume_slider.set_value(settings.get_option(option, 1))
+            vol = settings.get_option(option, 1)
+            self.volume_slider.set_value(vol)
+            self.update_volume_tooltip(vol)
 
         if option == 'gui/show_tabbar':
             self.playlist_notebook.set_show_tabs(

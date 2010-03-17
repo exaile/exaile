@@ -444,42 +444,10 @@
                             <property name="xalign">1</property>
                             <property name="xscale">0</property>
                             <child>
-                              <object class="GtkHBox" id="hbox5">
+                              <object class="GtkHBox" id="volume_control">
                                 <property name="visible">True</property>
                                 <child>
-                                  <object class="GtkToggleButton" id="mute_button">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                    <property name="events">GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
-                                    <property name="relief">none</property>
-                                    <property name="focus_on_click">False</property>
-                                    <signal name="scroll_event" handler="on_mute_button_scroll_event"/>
-                                    <child>
-                                      <object class="GtkImage" id="volume_image">
-                                        <property name="visible">True</property>
-                                        <property name="icon_name">audio-volume-muted</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkHScale" id="volume_slider">
-                                    <property name="width_request">125</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="adjustment">volume_slider_adjustment</property>
-                                    <property name="draw_value">False</property>
-                                    <signal name="value_changed" handler="on_volume_slider_value_changed"/>
-                                    <signal name="scroll_event" handler="on_volume_slider_scroll_event"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="position">1</property>
-                                  </packing>
+                                  <placeholder/>
                                 </child>
                               </object>
                             </child>

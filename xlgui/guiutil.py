@@ -417,20 +417,36 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
 
     return gtk.gdk.pixbuf_new_from_file(path)
 
-class MuteButton(object):
+class VolumeControl(object):
     """
-        Allows for immediate muting of the volume and
-        indicates the current volume level via an icon
+        Encapsulates a button and a slider to
+        control the volume indicating the current
+        status via icon and tooltip
     """
-    def __init__(self, button):
-        self.button = button
+    def __init__(self, box):
         self.restore_volume = settings.get_option('player/volume', 1)
         self.icon_names = ['low', 'medium', 'high']
 
-        self.button.connect('toggled', self.on_toggled)
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path('ui/widgets/volume_control.ui'))
+        builder.connect_signals(self)
+
+        self.box = builder.get_object('volume_control')
+        parent = box.get_parent()
+        parent.remove(box)
+        self.box.reparent(parent)
+
+        self.button = builder.get_object('button')
+        self.button.add_events(gtk.gdk.KEY_PRESS_MASK)
+        self.button_image = builder.get_object('button_image')
+        self.slider = builder.get_object('slider')
+        self.slider_adjustment = builder.get_object('slider_adjustment')
+        self.__update(self.restore_volume)
+
+        #self.slider.connect('key-press-event', guiutil.on_slider_key_press)
         event.add_callback(self.on_setting_change, 'player_option_set')
 
-    def update_volume_icon(self, volume):
+    def __update(self, volume):
         """
             Sets the volume level indicator
         """
@@ -446,10 +462,30 @@ class MuteButton(object):
         if volume == 1.0:
             tooltip = _('Full Volume')
 
-        self.button.child.set_from_icon_name(icon_name, gtk.ICON_SIZE_BUTTON)
-        self.button.set_tooltip_text(tooltip)
+        if volume > 0:
+            self.button.set_active(False)
 
-    def on_toggled(self, button):
+        self.button_image.set_from_icon_name(icon_name, gtk.ICON_SIZE_BUTTON)
+        self.slider.set_value(volume)
+        self.box.set_tooltip_text(tooltip)
+
+    def on_scroll_event(self, widget, event):
+        """
+            Changes the volume on scrolling
+        """
+        page_increment = self.slider_adjustment.page_increment
+        value = self.slider.get_value()
+
+        if event.direction == gtk.gdk.SCROLL_DOWN:
+            self.slider.set_value(value - page_increment)
+            return True
+        elif event.direction == gtk.gdk.SCROLL_UP:
+            self.slider.set_value(value + page_increment)
+            return True
+
+        return False
+
+    def on_button_toggled(self, button):
         """
             Mutes or unmutes the volume
         """
@@ -459,10 +495,38 @@ class MuteButton(object):
         else:
             volume = self.restore_volume
 
-        self.update_volume_icon(volume)
-
         if self.restore_volume > 0:
             settings.set_option('player/volume', volume)
+
+    def on_slider_value_changed(self, slider):
+        """
+            Stores the preferred volume
+        """
+        settings.set_option('player/volume', slider.get_value())
+
+    def on_slider_key_press_event(self, slider, event):
+        """
+            Changes the volume on key press
+            while either button or slider are focussed
+        """
+        page_increment = slider.get_adjustment().page_increment
+        step_increment = slider.get_adjustment().step_increment
+        value = slider.get_value()
+
+        if event.keyval == gtk.keysyms.Down:
+            slider.set_value(value - step_increment)
+            return True
+        elif event.keyval == gtk.keysyms.Page_Down:
+            slider.set_value(value - page_increment)
+            return True
+        elif event.keyval == gtk.keysyms.Up:
+            slider.set_value(value + step_increment)
+            return True
+        elif event.keyval == gtk.keysyms.Page_Up:
+            slider.set_value(value + page_increment)
+            return True
+
+        return False
 
     def on_setting_change(self, event, sender, option):
         """
@@ -470,12 +534,7 @@ class MuteButton(object):
             changes the volume indicator
         """
         if option == 'player/volume':
-            volume = settings.get_option(option, 1)
-
-            if volume > 0:
-                self.button.set_active(False)
-
-            self.update_volume_icon(volume)
+            self.__update(settings.get_option(option, 1))
 
 BITMAP_CACHE = dict()
 def get_text_icon(widget, text, width, height, bgcolor='#456eac',

@@ -594,11 +594,10 @@ class MainWindow(gobject.GObject):
             Sets up the various widgets
         """
         volume = settings.get_option("player/volume", 1)
-        self.volume_slider = self.builder.get_object('volume_slider')
-        self.volume_slider.set_value(volume)
-        self.volume_slider.connect('key-press-event',
-            guiutil.on_slider_key_press)
-        self.update_volume_tooltip(volume)
+        self.volume_control = guiutil.VolumeControl(
+            self.builder.get_object('volume_control')
+        )
+        #self.volume_control.set_value(volume)
 
         self.shuffle_toggle = self.builder.get_object('shuffle_button')
         self.shuffle_toggle.connect('button-press-event', self.on_shuffle_pressed)
@@ -622,9 +621,6 @@ class MainWindow(gobject.GObject):
         attr.change(pango.AttrSize(12500, 0, 600))
         self.track_title_label.set_attributes(attr)
         self.track_info_label = self.builder.get_object('track_info_label')
-
-        self.mute_button = guiutil.MuteButton(self.builder.get_object('mute_button'))
-        self.mute_button.update_volume_icon(volume)
 
         self.progress_bar = PlaybackProgressBar(
             self.builder.get_object('playback_progressbar'),
@@ -652,28 +648,6 @@ class MainWindow(gobject.GObject):
         cur_page = self.playlist_notebook.get_children()[
                 self.playlist_notebook.get_current_page()]
         cur_page.menu.on_queue()
-
-    def on_volume_changed(self, widget):
-        """
-            Saves the preferred volume
-        """
-        settings.set_option('player/volume', widget.get_value())
-
-    def on_volume_slider_scroll_event(self, widget, event):
-        """
-            Changes the volume on scrolling
-        """
-        incr = self.volume_slider.get_adjustment().page_increment
-        value = self.volume_slider.get_value()
-
-        if event.direction == gtk.gdk.SCROLL_DOWN:
-            self.volume_slider.set_value(value - incr)
-            return True
-        elif event.direction == gtk.gdk.SCROLL_UP:
-            self.volume_slider.set_value(value + incr)
-            return True
-
-        return False
 
     def on_playlist_utilities_bar_visible_toggled(self, checkmenuitem):
         """
@@ -707,20 +681,6 @@ class MainWindow(gobject.GObject):
             self.queue.stop_track = tr
 
         self.get_selected_playlist().list.queue_draw()
-
-    def update_volume_tooltip(self, volume):
-        tooltip = _('Muted')
-
-        if volume > 0:
-            i = int(round(volume * 2))
-            #TRANSLATORS: Volume percentage
-            tooltip = '%d%%' % (volume * 100)
-
-        if volume == 1.0:
-            tooltip = _('Full Volume')
-
-        self.volume_slider.set_tooltip_text(tooltip)
-
 
     def update_track_counts(self, *e):
         """
@@ -776,9 +736,6 @@ class MainWindow(gobject.GObject):
             'on_playlist_notebook_button_press': self.on_playlist_notebook_button_press,
             'on_new_playlist_item_activated': lambda *e:
                 self.add_playlist(),
-            'on_mute_button_scroll_event': self.on_volume_slider_scroll_event,
-            'on_volume_slider_value_changed': self.on_volume_changed,
-            'on_volume_slider_scroll_event': self.on_volume_slider_scroll_event,
             'on_queue_count_clicked': self.controller.queue_manager,
             # Controller
             'on_about_item_activate': self.controller.show_about_dialog,
@@ -1175,11 +1132,6 @@ class MainWindow(gobject.GObject):
         """
            Handles changes of settings
         """
-        if option == 'player/volume':
-            vol = settings.get_option(option, 1)
-            self.volume_slider.set_value(vol)
-            self.update_volume_tooltip(vol)
-
         if option == 'gui/show_tabbar':
             self.playlist_notebook.set_show_tabs(
                 settings.get_option(option, True)

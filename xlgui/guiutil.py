@@ -443,7 +443,6 @@ class VolumeControl(object):
         self.slider_adjustment = builder.get_object('slider_adjustment')
         self.__update(self.restore_volume)
 
-        #self.slider.connect('key-press-event', guiutil.on_slider_key_press)
         event.add_callback(self.on_setting_change, 'player_option_set')
 
     def __update(self, volume):
@@ -507,7 +506,7 @@ class VolumeControl(object):
     def on_slider_key_press_event(self, slider, event):
         """
             Changes the volume on key press
-            while either button or slider are focussed
+            while the slider is focussed
         """
         page_increment = slider.get_adjustment().page_increment
         step_increment = slider.get_adjustment().step_increment
@@ -530,8 +529,7 @@ class VolumeControl(object):
 
     def on_setting_change(self, event, sender, option):
         """
-            Saves the restore volume and
-            changes the volume indicator
+            Updates the volume indication
         """
         if option == 'player/volume':
             self.__update(settings.get_option(option, 1))
@@ -936,18 +934,4 @@ def finish(repeat=True):
     while gtk.events_pending():
         gtk.main_iteration()
         if not repeat: break
-
-def on_slider_key_press(widget, ev):
-    """
-        Called when the user presses a key when the volume bar is focused
-    """
-    # Modify default HScale up/down behaviour.
-    incr = widget.get_adjustment().page_size
-    if ev.keyval in (gtk.keysyms.Down, gtk.keysyms.Page_Down):
-        widget.set_value(widget.get_value() - incr)
-        return True
-    elif ev.keyval in (gtk.keysyms.Up, gtk.keysyms.Page_Up):
-        widget.set_value(widget.get_value() + incr)
-        return True
-    return False
 

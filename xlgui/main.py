@@ -593,11 +593,9 @@ class MainWindow(gobject.GObject):
         """
             Sets up the various widgets
         """
-        volume = settings.get_option("player/volume", 1)
         self.volume_control = guiutil.VolumeControl(
             self.builder.get_object('volume_control')
         )
-        #self.volume_control.set_value(volume)
 
         self.shuffle_toggle = self.builder.get_object('shuffle_button')
         self.shuffle_toggle.connect('button-press-event', self.on_shuffle_pressed)

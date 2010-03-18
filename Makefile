@@ -42,6 +42,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/images/48x48
 	mkdir -p $(EXAILESHAREDIR)/data/images/scalable
 	mkdir -p $(EXAILESHAREDIR)/data/ui
+	mkdir -p $(EXAILESHAREDIR)/data/ui/widgets
 	mkdir -p $(EXAILESHAREDIR)/data/migrations
 	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
@@ -91,6 +92,7 @@ install-target: make-install-dirs
 	install -m 644 data/images/48x48/exaile.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 data/ui/*.ui $(EXAILESHAREDIR)/data/ui
+	install -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
 	install -m 644 data/migrations/*.py $(EXAILESHAREDIR)/data/migrations/
 	install -m 644 data/migrations/migration_200907100931/*.py \
 	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/

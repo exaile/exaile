@@ -42,6 +42,8 @@ Events should be emitted AFTER the given event has taken place. Often the
 most appropriate spot is immediately before a return statement.
 """
 
+from __future__ import with_statement
+
 from inspect import ismethod
 import logging
 from new import instancemethod
@@ -222,7 +224,10 @@ class EventManager(object):
         self.callbacks = {}
         self.use_logger = use_logger
         self.logger_filter = logger_filter
-        self.lock = threading.Lock()
+
+        # RLock is needed so that event callbacks can themselves send
+        # synchronous events and add or remove callbacks
+        self.lock = threading.RLock()
 
     def emit(self, event):
         """
@@ -230,20 +235,39 @@ class EventManager(object):
 
             event: the Event to emit [Event]
         """
-        self.lock.acquire()
+        with self.lock:
+            callbacks = set()
+            for tcall in [_NONE, event.type]:
+                for ocall in [_NONE, event.object]:
+                    try:
+                        callbacks.update(self.callbacks[tcall][ocall])
+                    except KeyError:
+                        pass
 
-        callbacks = []
-        for tcall in [_NONE, event.type]:
-            for ocall in [_NONE, event.object]:
+            # now call them
+            for cb in callbacks:
                 try:
-                    for call in self.callbacks[tcall][ocall]:
-                        # FIXME: this is inefficient
-                        if call not in callbacks:
-                            callbacks.append(call)
-                except KeyError:
-                    pass
-                except TypeError:
-                    pass
+                    if not cb.valid:
+                        try:
+                            self.callbacks[event.type][event.object].remove(cb)
+                        except KeyError:
+                            pass
+                        except ValueError:
+                            pass
+                    elif event.time >= cb.time:
+                        if self.use_logger and (not self.logger_filter or \
+                                re.search(self.logger_filter, event.type)):
+                                logger.debug("Attempting to call "
+                                    "%(function)s in response "
+                                    "to %(event)s." % {
+                                        'function': cb.wfunction(),
+                                        'event': event.type})
+                        cb.wfunction().__call__(event.type, event.object,
+                                event.data, *cb.args, **cb.kwargs)
+                except:
+                    # something went wrong inside the function we're calling
+                    common.log_exception(logger,
+                                message="Event callback exception caught!")
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter,
@@ -252,37 +276,6 @@ class EventManager(object):
                     "'%(object)s' with data '%(data)s'." %
                         {'type' : event.type, 'object' : repr(event.object),
                         'data' : repr(event.data)})
-
-        # now call them
-        for cb in callbacks:
-            try:
-                if not cb.valid:
-                    try:
-                        self.callbacks[event.type][event.object].remove(cb)
-                    except KeyError:
-                        pass
-                    except ValueError:
-                        pass
-                elif event.time >= cb.time:
-
-                    if self.use_logger:
-                        if not self.logger_filter or \
-                            re.search(self.logger_filter,
-                            event.type):
-                            logger.debug("Attempting to call "
-                                "%(function)s in response "
-                                "to %(event)s." % {
-                                    'function': cb.wfunction(),
-                                    'event': event.type})
-                    cb.wfunction().__call__(event.type, event.object,
-                            event.data, *cb.args, **cb.kwargs)
-            except:
-                traceback.print_exc()
-                # something went wrong inside the function we're calling
-                common.log_exception(logger,
-                            message="Event callback exception caught!")
-
-        self.lock.release()
 
     def emit_async(self, event):
         """
@@ -301,18 +294,19 @@ class EventManager(object):
             @param obj: The object to listen to events from. Defaults
                 to any. [string]
         """
-        # add the specified categories if needed.
-        if not self.callbacks.has_key(type):
-            self.callbacks[type] = weakref.WeakKeyDictionary()
-        if obj is None:
-            obj = _NONE
-        try:
-            callbacks = self.callbacks[type][obj]
-        except KeyError:
-            callbacks = self.callbacks[type][obj] = []
+        with self.lock:
+            # add the specified categories if needed.
+            if not self.callbacks.has_key(type):
+                self.callbacks[type] = weakref.WeakKeyDictionary()
+            if obj is None:
+                obj = _NONE
+            try:
+                callbacks = self.callbacks[type][obj]
+            except KeyError:
+                callbacks = self.callbacks[type][obj] = []
 
-        # add the actual callback
-        callbacks.append(Callback(function, time.time(), args, kwargs))
+            # add the actual callback
+            callbacks.append(Callback(function, time.time(), args, kwargs))
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):
@@ -329,18 +323,20 @@ class EventManager(object):
         if obj is None:
             obj = _NONE
         remove = []
-        try:
-            callbacks = self.callbacks[type][obj]
-            for cb in callbacks:
-                if cb.wfunction() == function:
-                    remove.append(cb)
-        except KeyError:
-            return
-        except TypeError:
-            return
 
-        for cb in remove:
-            callbacks.remove(cb)
+        with self.lock:
+            try:
+                callbacks = self.callbacks[type][obj]
+                for cb in callbacks:
+                    if cb.wfunction() == function:
+                        remove.append(cb)
+            except KeyError:
+                return
+            except TypeError:
+                return
+
+            for cb in remove:
+                callbacks.remove(cb)
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):

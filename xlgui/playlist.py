@@ -380,6 +380,7 @@ class Playlist(gtk.VBox):
         """
             Sets the tracks that this playlist should display
         """
+        self.list.set_model(None)
         self.model.clear()
 
         for track in trs:
@@ -503,6 +504,7 @@ class Playlist(gtk.VBox):
         """
         selection = self.list.get_selection()
         model, paths = selection.get_selected_rows()
+        self.list.set_model(None)
         iter = self.model.get_iter_first()
         if not iter: return
         while True:
@@ -515,6 +517,7 @@ class Playlist(gtk.VBox):
             iter = self.model.iter_next(iter)
             if not iter: break
 
+        self.list.set_model(self.model)
         self.list.queue_draw()
 
     def on_row_activated(self, *e):
@@ -699,6 +702,7 @@ class Playlist(gtk.VBox):
         (column, descending) = self.get_sort_by()
         trs = trax.sort_tracks(self.return_order_tags(column), trs, reverse=descending)
 
+        self.list.set_model(None)
         # Determine what to do with the tracks
         # by default we load all tracks.
         # TODO: should we load tracks we find in the collection from there??
@@ -720,6 +724,7 @@ class Playlist(gtk.VBox):
                         iter = self.model.insert_after(iter, ar)
                     else:
                         iter = self.model.append(ar)
+        self.list.set_model(self.model)
 
         Playlist._is_drag_source = False
         if context.action == gtk.gdk.ACTION_MOVE:
@@ -778,6 +783,7 @@ class Playlist(gtk.VBox):
         (model, paths) = sel.get_selected_rows()
         # Since we want to modify the model we make references to it
         # This allows us to remove rows without it messing up
+        self.list.set_model(None)
         rows = []
         for path in paths:
             rows.append(gtk.TreeRowReference(model, path))
@@ -786,6 +792,7 @@ class Playlist(gtk.VBox):
             #Also update the playlist we have
             track = self.model.get_value(iter, 0)
             self.model.remove(iter)
+        self.list.set_model(self.model)
 
     def remove_selected_tracks(self):
         selection = self.list.get_selection()
@@ -814,9 +821,11 @@ class Playlist(gtk.VBox):
             gobject.idle_add(event.add_callback, self.on_remove_tracks,
                 'tracks_removed', self.playlist)
 
+        self.list.set_model(None)
         iters = [self.model.get_iter(x) for x in paths]
         for row in iters:
             self.model.remove(row)
+        self.list.set_model(self.model)
 
         self.list.set_cursor(paths[0][0])
 

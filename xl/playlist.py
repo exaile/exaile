@@ -126,12 +126,9 @@ def import_from_m3u(path):
                         length = 0
                 else:
                     length = 0
+                current.set_tag_raw('title', title)
+                current.set_tag_raw('__length', length)
                 current_extinf = None
-            else:
-                title = None
-                length = 0
-            current.set_tag_raw('title', title)
-            current.set_tag_raw('__length', length)
 
             pl.add(current, ignore_missing_files=track_is_local)
             current = None

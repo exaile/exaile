@@ -44,6 +44,8 @@ class _Matcher(object):
     __slots__ = ['tag', 'content', 'lower']
     def __init__(self, tag, content, lower):
         self.tag = tag
+        if content and not self.tag.startswith("__"):
+            content = lower(content)
         self.content = content
         self.lower = lower
 
@@ -283,8 +285,6 @@ class TracksMatcher(object):
                 tag, content = token.split("==", 1)
                 if content == "__null__":
                     content = None
-                else:
-                    content = lower(content)
                 matcher = _ExactMatcher(tag, content, lower)
                 matchers.append(matcher)
 
@@ -292,19 +292,19 @@ class TracksMatcher(object):
             elif "=" in token:
                 tag, content = token.split("=", 1)
                 content = content.strip().strip('"')
-                matcher = _InMatcher(tag, lower(content), lower)
+                matcher = _InMatcher(tag, content, lower)
                 matchers.append(matcher)
 
             elif ">" in token:
                 tag, content = token.split(">", 1)
                 content = content.strip().strip('"')
-                matcher = _GtMatcher(tag, lower(content), lower)
+                matcher = _GtMatcher(tag, content, lower)
                 matchers.append(matcher)
 
             elif "<" in token:
                 tag, content = token.split("<", 1)
                 content = content.strip().strip('"')
-                matcher = _LtMatcher(tag, lower(content), lower)
+                matcher = _LtMatcher(tag, content, lower)
                 matchers.append(matcher)
 
             # plain keyword
@@ -312,7 +312,7 @@ class TracksMatcher(object):
                 content = token.strip().strip('"')
                 mmm = []
                 for tag in self.keyword_tags:
-                    matcher = _InMatcher(tag, lower(content), lower)
+                    matcher = _InMatcher(tag, content, lower)
                     mmm.append(matcher)
                 matchers.append(_ManyMultiMetaMatcher(mmm))
 

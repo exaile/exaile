@@ -237,6 +237,7 @@ class CollectionPanel(panel.Panel):
             'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
         })
         self.tree.connect('key-release-event', self.on_key_released)
+        self.tree.connect('drag-begin', self.on_drag_begin)
         event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
 
     def on_refresh_button_pressed(self, button, event):
@@ -260,8 +261,7 @@ class CollectionPanel(panel.Panel):
         """
             Called on key presses on the refresh button
         """
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname != 'Return': return False
+        if event.keyval != gtk.keysyms.Return: return False
 
         if event.state & gtk.gdk.SHIFT_MASK:
             xlgui.controller().on_rescan_collection(None)
@@ -293,6 +293,52 @@ class CollectionPanel(panel.Panel):
             return True
         return False
 
+    def on_drag_begin(self, widget, context):
+        """
+            Sets the cover of dragged tracks as drag icon
+        """
+        tracks = self.get_selected_tracks()
+
+        if tracks:
+            tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
+            pixbuf = None
+            albums = []
+            for track in tracks:
+                album = track.get_tag_raw('album', join=True)
+                if album not in albums:
+                    image_data = xlgui.controller().exaile.covers.get_cover(track)
+                    if image_data is not None:
+                        pixbuf = xlgui.cover.pixbuf_from_data(image_data)
+                        pixbuf = pixbuf.scale_simple(100, 100, gtk.gdk.INTERP_BILINEAR)
+                        albums += [album]
+                        if len(albums) == 2:
+                            break
+
+            if pixbuf is not None:
+                cover_pixbuf = pixbuf
+
+                if len(albums) > 1:
+                    cover_pixbuf = gtk.gdk.Pixbuf(
+                        gtk.gdk.COLORSPACE_RGB,
+                        True,
+                        8,
+                        110, 110
+                    )
+
+                    fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 100, 100)
+                    fill_pixbuf.fill(0xccccccff)
+
+                    fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, 100, 100)
+                    fill_pixbuf.fill(0x999999ff)
+
+                    pixbuf.copy_area(
+                        0, 0, 100, 100,
+                        cover_pixbuf,
+                        10, 10
+                    )
+
+                context.set_icon_pixbuf(cover_pixbuf, 0, 0)
+
     def on_collection_search_entry_activate(self, entry):
         """
             Searches tracks and reloads the tree
@@ -315,7 +361,7 @@ class CollectionPanel(panel.Panel):
 
     def drag_data_received(self, *e):
         """
-            stubb
+            stub
         """
         pass
 

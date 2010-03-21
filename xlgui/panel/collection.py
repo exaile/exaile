@@ -297,6 +297,14 @@ class CollectionPanel(panel.Panel):
         """
             Sets the cover of dragged tracks as drag icon
         """
+        self._on_drag_begin(widget, context)
+
+    @common.threaded
+    def _on_drag_begin(self, widget, context):
+        """
+            Async call counterpart to on_drag_begin, so that cover fetching
+            doesn't block dragging.
+        """
         tracks = self.get_selected_tracks()
 
         if tracks:
@@ -306,24 +314,29 @@ class CollectionPanel(panel.Panel):
             for track in tracks:
                 album = track.get_tag_raw('album', join=True)
                 if album not in albums:
-                    image_data = xlgui.controller().exaile.covers.get_cover(track)
+                    image_data = xlgui.controller().exaile.covers.get_cover(track, set_only=True)
                     if image_data is not None:
                         pixbuf = xlgui.cover.pixbuf_from_data(image_data)
                         pixbuf = pixbuf.scale_simple(100, 100, gtk.gdk.INTERP_BILINEAR)
                         albums += [album]
-                        if len(albums) == 2:
+                        if len(albums) >= 2:
                             break
 
             if pixbuf is not None:
                 cover_pixbuf = pixbuf
 
                 if len(albums) > 1:
+                    # create stacked-cover effect
+
                     cover_pixbuf = gtk.gdk.Pixbuf(
                         gtk.gdk.COLORSPACE_RGB,
                         True,
                         8,
                         110, 110
                     )
+
+                    fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 110, 110)
+                    fill_pixbuf.fill(0x00000000) # transparent bg
 
                     fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 100, 100)
                     fill_pixbuf.fill(0xccccccff)
@@ -336,8 +349,10 @@ class CollectionPanel(panel.Panel):
                         cover_pixbuf,
                         10, 10
                     )
+                gobject.idle_add(self._set_drag_cover, context, cover_pixbuf)
 
-                context.set_icon_pixbuf(cover_pixbuf, 0, 0)
+    def _set_drag_cover(self, context, pixbuf):
+        context.set_icon_pixbuf(pixbuf, 0, 0)
 
     def on_collection_search_entry_activate(self, entry):
         """

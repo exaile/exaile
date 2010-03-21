@@ -425,25 +425,24 @@ class SelectionListPrefsItem(PrefsItem):
 
     def on_available_tree_key_pressed(self, tree, event):
         """
+            Handles moving of items via keyboard interaction
         """
         if not event.state & gtk.gdk.MOD1_MASK: return
 
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == 'Right':
+        if event.keyval == gtk.keysyms.Right:
             self.on_add_button_clicked(None)
 
     def on_selected_tree_key_pressed(self, tree, event):
         """
+            Handles moving of items via keyboard interaction
         """
         if not event.state & gtk.gdk.MOD1_MASK: return
 
-        keyname = gtk.gdk.keyval_name(event.keyval)
-
-        if keyname == 'Left':
+        if event.keyval == gtk.keysyms.Left:
             self.on_remove_button_clicked(None)
-        elif keyname == 'Up':
+        elif event.keyval == gtk.keysyms.Up:
             self.on_up_button_clicked(None)
-        elif keyname == 'Down':
+        elif event.keyval == gtk.keysyms.Down:
             self.on_down_button_clicked(None)
 
     def on_drag_data_received(self, target_treeview, context, x, y, data, info, time):

@@ -314,7 +314,7 @@ class CollectionPanel(panel.Panel):
             for track in tracks:
                 album = track.get_tag_raw('album', join=True)
                 if album not in albums:
-                    image_data = xlgui.controller().exaile.covers.get_cover(track, set_only=True)
+                    image_data = xlgui.controller().exaile.covers.get_cover(track)
                     if image_data is not None:
                         pixbuf = xlgui.cover.pixbuf_from_data(image_data)
                         pixbuf = pixbuf.scale_simple(100, 100, gtk.gdk.INTERP_BILINEAR)

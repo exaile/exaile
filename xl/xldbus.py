@@ -80,10 +80,16 @@ def check_exit(options, args):
                 'StopAfterCurrent', 'GuiToggleVisible', 'CurrentPosition',
                 'CurrentProgress', 'GetVolume', 'Query']:
             if getattr(options, command):
-                return True # exit if a control option is passed instead of 
-                            # starting exaile.
-        return False
+                return "command"
+        return "continue"
 
+    run_commands(options, iface)
+    return "exit"
+
+def run_commands(options, iface):
+    """
+        Actually invoke any commands passed in.
+    """
     comm = False
     info_commands = {
         'GetArtist': 'artist',
@@ -156,8 +162,6 @@ def check_exit(options, args):
         if getattr(options, command):
             logger.warning("FIXME: command not implemented")
             comm = True
-
-    return True
 
 class DbusManager(dbus.service.Object):
     """

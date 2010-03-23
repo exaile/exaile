@@ -76,12 +76,21 @@ class Exaile(object):
         #initialize DbusManager
         if self.options.StartGui and self.options.Dbus:
             from xl import xldbus
-            if xldbus.check_exit(self.options, self.args):
+            exit = xldbus.check_exit(self.options, self.args)
+            if exit == "exit":
                 sys.exit(0)
+            elif exit == "command":
+                if not self.options.StartAnyway:
+                    sys.exit(0)
             self.dbus = xldbus.DbusManager(self)
 
         #load the rest.
         self.__init()
+
+        #handle delayed commands
+        if self.options.StartGui and self.options.Dbus and \
+                self.options.StartAnyway and exit == "command":
+            xldbus.run_commands(self.options, self.dbus)
 
         #connect dbus signals
         if self.options.Dbus:
@@ -376,6 +385,9 @@ class Exaile(object):
         group.add_option("--no-import", dest="NoImport",
                 action="store_true", default=False, help=_("Do not import "
                 "old data from 0.2.x."))
+        group.add_option("--start-anyway", dest="StartAnyway",
+                action="store_true", default=False, help=_("Make control "
+                "options like --play start Exaile if it is not running."))
         p.add_option_group(group)
 
         # development and debug options

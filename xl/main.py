@@ -39,7 +39,9 @@ import logging.handlers
 from xl.nls import gettext as _
 from xl import common, xdg, event
 
-from xl.version import __version__
+# placeholder, - xl.version can be slow to import, which would slow down
+# cli args. Thus we import __version__ later.
+__version__ = None
 
 # initiate the logger. logger params are set later
 logger = logging.getLogger(__name__)
@@ -83,6 +85,10 @@ class Exaile(object):
                 if not self.options.StartAnyway:
                     sys.exit(0)
             self.dbus = xldbus.DbusManager(self)
+
+        # import version, see note above
+        global __version__
+        from xl.version import __version__
 
         #load the rest.
         self.__init()
@@ -415,6 +421,7 @@ class Exaile(object):
         return p
 
     def version(self):
+        from xl.version import __version__
         print r"""   ____          _ __    __
   / __/_ _____ _(_) /__ / /
  / _/ \ \ / _ `/ / / -_)_/

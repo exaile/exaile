@@ -29,6 +29,10 @@ import logging
 logger = logging.getLogger(__name__)
 
 class ProviderManager(object):
+    """
+        The overall manager for services
+        and providers for them
+    """
     def __init__(self):
         self.services = {}
 
@@ -97,15 +101,26 @@ unregister = MANAGER.unregister_provider
 get = MANAGER.get_providers
 
 class ProviderHandler(object):
+    """
+        Base framework to handle providers
+        for one specific service including
+        notification about (un)registration
+    """
     def __init__(self, servicename):
         self.servicename = servicename
-        event.add_callback(self._new_cb, "%s_provider_added" % servicename)
-        event.add_callback(self._del_cb, "%s_provider_removed" % servicename)
+        event.add_callback(self._add_callback,
+            "%s_provider_added" % servicename)
+        event.add_callback(self._remove_callback,
+            "%s_provider_removed" % servicename)
 
-    def _new_cb(self, name, obj, provider):
-        self.on_new_provider(provider)
+    def _add_callback(self, name, obj, provider):
+        """
+            Mediator to call actual callback
+            for added providers
+        """
+        self.on_provider_added(provider)
 
-    def on_new_provider(self, provider):
+    def on_provider_added(self, provider):
         """
             Called when a new provider is added.
 
@@ -114,12 +129,16 @@ class ProviderHandler(object):
         """
         pass # for overriding
 
-    def _del_cb(self, name, obj, provider):
-        self.on_del_provider(provider)
-
-    def on_del_provider(self, provider):
+    def _remove_callback(self, name, obj, provider):
         """
-            Called when a provider is deleted.
+            Mediator to call actual callback
+            for removed providers
+        """
+        self.on_provider_removed(provider)
+
+    def on_provider_removed(self, provider):
+        """
+            Called when a provider is removed.
 
             @type provider: object
             @param provider: the removed provider

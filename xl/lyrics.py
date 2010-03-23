@@ -86,7 +86,7 @@ class LyricsManager(providers.ProviderHandler):
         self.preferred_order = order
         settings.set_option('lyrics/preferred_order', list(order))
 
-    def on_new_provider(self, provider):
+    def on_provider_added(self, provider):
         """
             Adds the new provider to the methods dict and passes a
             reference of the manager instance to the provider.
@@ -98,7 +98,7 @@ class LyricsManager(providers.ProviderHandler):
             provider._set_manager(self)
             event.log_event('lyrics_search_method_added', self, provider)
 
-    def on_del_provider(self, provider):
+    def on_provider_removed(self, provider):
         """
             Remove the provider from the methods dict, and the
             preferred_order dict if needed.

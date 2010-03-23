@@ -55,7 +55,7 @@ class RadioManager(providers.ProviderHandler):
         """
         providers.register(self.servicename, station)
 
-    def on_new_provider(self, station):
+    def on_provider_added(self, station):
         if not station.name in self.stations:
             self.stations[station.name] = station
             event.log_event('station_added', self, station)
@@ -68,7 +68,7 @@ class RadioManager(providers.ProviderHandler):
         """
         providers.unregister(self.servicename, station)
 
-    def on_del_station(self, station):
+    def on_provider_removed(self, station):
         if station.name in self.stations:
             del self.stations[station.name]
             event.log_event('station_removed', self, station)

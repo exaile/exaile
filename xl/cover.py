@@ -120,7 +120,7 @@ class CoverManager(providers.ProviderHandler):
         self.db = {}
         self.load()
         for method in self.get_providers():
-            self.on_new_provider(method)
+            self.on_provider_added(method)
         self.__save_timer_id = 0
 
         self.tag_fetcher = TagCoverFetcher()
@@ -365,12 +365,12 @@ class CoverManager(providers.ProviderHandler):
             gobject.source_remove(self.__save_timer_id)
         self.__save_timer_id = gobject.timeout_add_seconds(60, self.save)
 
-    def on_new_provider(self, provider):
+    def on_provider_added(self, provider):
         self.methods[provider.name] = provider
         if provider.name not in self.order:
             self.order.append(provider.name)
 
-    def on_del_provider(self, provider):
+    def on_provider_removed(self, provider):
         try:
             del self.methods[provider.name]
         except KeyError:

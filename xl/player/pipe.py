@@ -193,10 +193,10 @@ class ProviderBin(ElementBin, ProviderHandler):
                 common.log_exception(log=logger)
         #self.setup_elements()
 
-    def on_new_provider(self, provider):
+    def on_provider_added(self, provider):
         self.reset_providers()
 
-    def on_del_provider(self, provider):
+    def on_provider_removed(self, provider):
         self.reset_providers()
 
 

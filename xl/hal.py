@@ -55,7 +55,7 @@ class HAL(providers.ProviderHandler):
             logger.info("HAL Providers: %s" % repr(self.get_providers()))
             for p in self.get_providers():
                 try:
-                    self.on_new_provider(p)
+                    self.on_provider_added(p)
                 except:
                     logger.warning("Failed to load HAL devices for %s" % p.name)
                     common.log_exception(logger)
@@ -66,11 +66,11 @@ class HAL(providers.ProviderHandler):
             logger.warning("Failed to connect to HAL, " \
                     "autodetection of devices will be disabled.")
 
-    def on_new_provider(self, provider):
+    def on_provider_added(self, provider):
         for udi in provider.get_udis(self):
             self.add_device(udi)
 
-    def on_del_provider(self, provider):
+    def on_provider_removed(self, provider):
         pass #TODO: disconnect and remove all devices of this type
 
     def get_handler(self, udi):

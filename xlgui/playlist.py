@@ -702,7 +702,8 @@ class Playlist(gtk.VBox):
         (column, descending) = self.get_sort_by()
         trs = trax.sort_tracks(self.return_order_tags(column), trs, reverse=descending)
 
-        self.list.set_model(None)
+        if not Playlist._is_drag_source:
+            self.list.set_model(None)
         # Determine what to do with the tracks
         # by default we load all tracks.
         # TODO: should we load tracks we find in the collection from there??
@@ -724,7 +725,8 @@ class Playlist(gtk.VBox):
                         iter = self.model.insert_after(iter, ar)
                     else:
                         iter = self.model.append(ar)
-        self.list.set_model(self.model)
+        if not Playlist._is_drag_source:
+            self.list.set_model(self.model)
 
         Playlist._is_drag_source = False
         if context.action == gtk.gdk.ACTION_MOVE:

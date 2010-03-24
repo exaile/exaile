@@ -113,9 +113,9 @@ class AddToPlaylistMenu(guiutil.Menu):
 
     def on_add_new_playlist(self, selected = None):
         # TODO: use signals to do this stuff, instead of calling
-        # xlgui.controller()
+        # xlgui.get_controller()
         import xlgui
-        xlgui.controller().panels['playlists'].add_new_playlist(
+        xlgui.get_controller().panels['playlists'].add_new_playlist(
             self.widget.get_selected_tracks())
 
     def on_add_to_playlist(self, selected = None, pl_name = None):
@@ -124,13 +124,13 @@ class AddToPlaylistMenu(guiutil.Menu):
             and finally updates the playlist panel with the new tracks
         """
         # TODO: use signals to do this stuff, instead of calling
-        # xlgui.controller()
+        # xlgui.get_controller()
         import xlgui
         pl = self.playlist_manager.get_playlist(pl_name)
         tracks = self.widget.get_selected_tracks()
         pl.add_tracks(tracks)
         self.playlist_manager.save_playlist(pl, overwrite = True)
-        xlgui.controller().panels['playlists'].update_playlist_node(pl)
+        xlgui.get_controller().panels['playlists'].update_playlist_node(pl)
 
     def popup(self, event):
         """

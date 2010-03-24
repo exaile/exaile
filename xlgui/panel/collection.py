@@ -234,7 +234,7 @@ class CollectionPanel(panel.Panel):
             'on_refresh_button_pressed': self.on_refresh_button_pressed,
             'on_refresh_button_key_pressed': self.on_refresh_button_key_pressed,
             'on_collection_search_entry_activate': self.on_collection_search_entry_activate,
-            'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
+            'on_empty_collection_button_clicked': lambda *x: xlgui.get_controller().collection_manager()
         })
         self.tree.connect('key-release-event', self.on_key_released)
         self.tree.connect('drag-begin', self.on_drag_begin)
@@ -247,13 +247,13 @@ class CollectionPanel(panel.Panel):
         if event.button == 3:
             menu = guiutil.Menu()
             menu.append(_('Rescan Collection'),
-                xlgui.controller().on_rescan_collection,
+                xlgui.get_controller().on_rescan_collection,
                 'gtk-refresh')
             menu.popup(None, None, None, event.button, event.time)
             return
 
         if event.state & gtk.gdk.SHIFT_MASK:
-            xlgui.controller().on_rescan_collection(None)
+            xlgui.get_controller().on_rescan_collection(None)
         else:
             self.load_tree()
 
@@ -264,7 +264,7 @@ class CollectionPanel(panel.Panel):
         if event.keyval != gtk.keysyms.Return: return False
 
         if event.state & gtk.gdk.SHIFT_MASK:
-            xlgui.controller().on_rescan_collection(None)
+            xlgui.get_controller().on_rescan_collection(None)
         else:
             self.load_tree()
 
@@ -314,7 +314,7 @@ class CollectionPanel(panel.Panel):
             for track in tracks:
                 album = track.get_tag_raw('album', join=True)
                 if album not in albums:
-                    image_data = xlgui.controller().exaile.covers.get_cover(track)
+                    image_data = xlgui.get_controller().exaile.covers.get_cover(track)
                     if image_data is not None:
                         pixbuf = xlgui.cover.pixbuf_from_data(image_data)
                         pixbuf = pixbuf.scale_simple(100, 100, gtk.gdk.INTERP_BILINEAR)

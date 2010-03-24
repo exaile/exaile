@@ -54,7 +54,7 @@ from xlgui import devices, guiutil, icons, prefs, queue
 def mainloop():
     gtk.main()
 
-def controller():
+def get_controller():
     return Main._main
 
 class Main(object):

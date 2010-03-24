@@ -38,7 +38,7 @@ class ContextPopup(menu.TrackSelectMenu):
             Appends the selected tracks to the current playlist
         """
         selected = self.widget.get_selected_tracks()
-        pl = xlgui.controller().main.get_selected_playlist()
+        pl = xlgui.get_controller().main.get_selected_playlist()
         if pl:
             pl.playlist.add_tracks(selected)
 
@@ -47,7 +47,7 @@ class ContextPopup(menu.TrackSelectMenu):
             Called when the user clicks the "toggle queue" item
         """
         selected = self.widget.get_selected_tracks()
-        pl = xlgui.controller().main.get_selected_playlist()
+        pl = xlgui.get_controller().main.get_selected_playlist()
         ex.exaile().queue.add_tracks(selected)
         if pl:
             pl.playlist.add_tracks(selected)
@@ -304,7 +304,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             Appends the selected tracks to the current playlist
         """
         selected = self.get_selected_tracks()
-        pl = xlgui.controller().main.get_selected_playlist()
+        pl = xlgui.get_controller().main.get_selected_playlist()
         if pl:
             pl.playlist.add_tracks(selected)
 
@@ -1184,14 +1184,14 @@ def get_prefs_pane():
 
 def exaile_ready(object=None, a=None, b=None):
     global PANEL
-    PANEL = ContextPanel(xlgui.controller().main)
-    xlgui.controller().add_panel(*PANEL.get_panel())
+    PANEL = ContextPanel(xlgui.get_controller().main)
+    xlgui.get_controller().add_panel(*PANEL.get_panel())
 
 def enable(exaile):
     """
         Adds 'Contextual' tab to side panel
     """
-    if xlgui.controller():
+    if xlgui.get_controller():
         exaile_ready()
     else:
         event.add_callback(exaile_ready, 'gui_loaded')
@@ -1203,4 +1203,4 @@ def disable(exaile):
     """
     global PANEL
     event.remove_callback(exaile_ready, 'gui_loaded')
-    xlgui.controller().remove_panel(PANEL.get_panel()[0])
+    xlgui.get_controller().remove_panel(PANEL.get_panel()[0])

@@ -74,7 +74,7 @@ class Panel(gobject.GObject):
     def __del__(self):
         import xlgui
         try:
-            xlgui.controller().remove_panel(self._child)
+            xlgui.get_controller().remove_panel(self._child)
         except ValueError:
             pass
 

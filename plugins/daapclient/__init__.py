@@ -182,7 +182,7 @@ class DaapManager:
     #    cst = CollectionScanThread(None, panel.net_collection, panel)
     #    cst.start()
         panel.refresh()             # threaded
-        xlgui.controller().add_panel(*panel.get_panel())
+        xlgui.get_controller().add_panel(*panel.get_panel())
         self.panels[name] = panel
 
     def disconnect_share(self, name):
@@ -195,7 +195,7 @@ class DaapManager:
     #    panel.library.daap_share.disconnect()
         panel.daap_share.disconnect()
     #    panel.net_collection.remove_library(panel.library)
-        xlgui.controller().remove_panel(panel.get_panel()[0])
+        xlgui.get_controller().remove_panel(panel.get_panel()[0])
         del self.panels[name]
 
     def manual_connect(self, widget):
@@ -235,7 +235,7 @@ class DaapManager:
             # there's no point in doing this if we're just shutting down, only on
             # disable
             if remove:
-                xlgui.controller().remove_panel(panel.get_panel()[0])
+                xlgui.get_controller().remove_panel(panel.get_panel()[0])
 
 
 class DaapConnection(object):

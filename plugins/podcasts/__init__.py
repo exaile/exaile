@@ -35,7 +35,7 @@ def exaile_ready(event, exaile, nothing):
 
     if not PODCASTS:
         PODCASTS = PodcastPanel(main.mainwindow().window)
-        controller = xlgui.controller()
+        controller = xlgui.get_controller()
         controller.panels['podcasts'] = PODCASTS
         controller.add_panel(*PODCASTS.get_panel())
 
@@ -43,7 +43,7 @@ def disable(exaile):
     global PODCASTS
 
     if PODCASTS:
-        conroller = xlgui.controller()
+        conroller = xlgui.get_controller()
         conroller.remove_panel(PODCASTS.get_panel()[0])
         PODCASTS = None
 

@@ -888,7 +888,9 @@ class Playlist(object):
         for loc in locs:
             meta = None
             if loc.find('\t') > -1:
-                (loc, meta) = loc.split('\t')
+                splitted = loc.split('\t')
+                loc = "\t".join(splitted[:-1])
+                meta = splitted[-1]
 
             tr = None
             tr = trax.Track(uri=loc)

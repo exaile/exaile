@@ -34,7 +34,7 @@ import gtk
 from xl.nls import gettext as _
 from xl import event, xdg, common, metadata, settings, trax
 import xlgui
-from xlgui import panel, guiutil, menu, playlist, rating
+from xlgui import guiutil, icons, menu, panel, playlist, rating
 
 logger = logging.getLogger(__name__)
 
@@ -316,7 +316,7 @@ class CollectionPanel(panel.Panel):
                 if album not in albums:
                     image_data = xlgui.get_controller().exaile.covers.get_cover(track)
                     if image_data is not None:
-                        pixbuf = xlgui.cover.pixbuf_from_data(image_data)
+                        pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
                         pixbuf = pixbuf.scale_simple(100, 100, gtk.gdk.INTERP_BILINEAR)
                         albums += [album]
                         if len(albums) >= 2:

@@ -22,7 +22,7 @@
 from __future__ import with_statement
 from xl.nls import gettext as _
 from xl import event, xdg, trax, settings
-from xlgui import commondialogs, guiutil, cover as guicover
+from xlgui import commondialogs, guiutil, icons
 import gtk
 import gobject
 import gio
@@ -121,7 +121,7 @@ class Bookmarks:
                 image = self.exaile.covers.get_cover(item, set_only=True)
                 if image:
                     try:
-                        pix = guicover.pixbuf_from_data(image, scale=(16,16))
+                        pix = icons.MANAGER.pixbuf_from_data(image, size=(16,16))
                     except gobject.GError:
                         logger.warn('Could not load cover')
                         pix = None

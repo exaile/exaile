@@ -174,6 +174,25 @@ class IconManager(object):
 
         # TODO: Check if fallbacks are necessary
         return pixbuf
+    
+    def pixbuf_from_data(self, data, size=None):
+        """
+            Generates a pixbuf from arbitrary image data
+
+            :param data: The raw image data
+            :param size: Size to scale to, in (width, height) format.
+                If not specified, the image will render to its native
+                resolution.
+        """
+        loader = gtk.gdk.PixbufLoader()
+
+        if size is not None:
+            loader.set_size(scale[0],scale[1])
+
+        loader.write(data)
+        loader.close()
+
+        return loader.get_pixbuf()
 
     def pixbuf_from_text(self, text, width, height, bgcolor='#456eac',
             bordercolor=None):

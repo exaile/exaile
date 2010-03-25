@@ -33,26 +33,8 @@ import gtk
 
 from xl.nls import gettext as _
 from xl import xdg, event, cover, common, metadata, settings
-from xlgui import guiutil, commondialogs
+from xlgui import commondialogs, guiutil, icons
 logger = logging.getLogger(__name__)
-
-
-def pixbuf_from_data(data, scale=None):
-    """
-        Get a gtk.gdk.Pixbuf from arbitrary image data.
-
-        :param data: The raw image data
-        :param scale: Size to scale to, in (width, height) format.
-            If not specified, the image will render to its native resolution.
-    """
-    loader = gtk.gdk.PixbufLoader()
-    if scale:
-        loader.set_size(scale[0],scale[1])
-    loader.write(data)
-    loader.close()
-    pixbuf = loader.get_pixbuf()
-    return pixbuf
-
 
 class CoverManager(object):
     """
@@ -88,8 +70,8 @@ class CoverManager(object):
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)
 
-        self.nocover = pixbuf_from_data(self.manager.get_default_cover(),
-                scale=(80,80))
+        self.nocover = icons.MANAGER.pixbuf_from_data(
+            self.manager.get_default_cover(), size=(80,80))
 
         self._connect_events()
         self.window.show_all()
@@ -128,7 +110,7 @@ class CoverManager(object):
         item = self._get_selected_item()
         c = self.manager.get_cover(self.track_dict[item][0])
 
-        cvr = pixbuf_from_data(c)
+        cvr = icons.MANAGER.pixbuf_from_data(c)
         if cvr:
             window = CoverWindow(self.parent, cvr)
             window.show_all()
@@ -151,7 +133,7 @@ class CoverManager(object):
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
 
-        image = pixbuf_from_data(cvr[1])
+        image = icons.MANAGER.pixbuf_from_data(cvr[1])
         image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
         self.covers[item] = image
         self.model.set_value(iter, 1, image)
@@ -212,7 +194,8 @@ class CoverManager(object):
 
             if cover_avail:
                 try:
-                    image = pixbuf_from_data(cover_avail, scale=(80,80))
+                    image = icons.MANAGER.pixbuf_from_data(
+                        cover_avail, size=(80,80))
                 except gobject.GError:
                     image = self.nocover
                     self.needs += 1
@@ -259,7 +242,7 @@ class CoverManager(object):
             if c:
                 node = self.cover_nodes[item]
                 try:
-                    image = pixbuf_from_data(c, scale=(80,80))
+                    image = icons.MANAGER.pixbuf_from_data(c, size=(80,80))
                 except gobject.GError:
                     c = None
                 else:

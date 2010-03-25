@@ -19,7 +19,7 @@
 import cgi, gobject, gtk.gdk, logging, pynotify
 import notifyosd_cover, notifyosdprefs
 from xl import event, settings, common
-from xlgui import cover as guicover
+from xlgui import icons
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -101,7 +101,7 @@ class ExaileNotifyOsd(object):
 
         if icon_allowed and self.cover:
             try:
-                pixbuf = guicover.pixbuf_from_data(self.cover)
+                pixbuf = icons.MANAGER.pixbuf_from_data(self.cover)
             except gobject.GError:
                 pass
             else:
@@ -146,7 +146,7 @@ class ExaileNotifyOsd(object):
             elif self.notify_pause and self.cover == self.stopicon: # if there is no track, then status is stopped
                 if self.use_media_icons and self.cover:
                     try:
-                        pixbuf = guicover.pixbuf_from_data(self.cover)
+                        pixbuf = icons.MANAGER.pixbuf_from_data(self.cover)
                     except gobject.GError:
                         pass
                     else:

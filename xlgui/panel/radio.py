@@ -28,13 +28,12 @@ import gobject
 import gtk
 import threading
 
-from xlgui import panel, guiutil, commondialogs, menu
-from xlgui import playlist as guiplaylist
-import xlgui.panel.playlists as playlistpanel
+import xl.radio, xl.playlist
 from xl import xdg, event, common, settings
-import xl.radio
-import xl.playlist
 from xl.nls import gettext as _
+import xlgui.panel.playlists as playlistpanel
+from xlgui import commondialogs, guiutil, icons, menu, panel
+from xlgui import playlist as guiplaylist
 
 class RadioException(Exception): pass
 class ConnectionException(RadioException): pass
@@ -243,7 +242,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             xdg.get_data_path('images/track.png'))
         self.folder = self.tree.render_icon(
             gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.refresh_image = guiutil.get_icon('gtk-refresh')
+        self.refresh_image = icons.MANAGER.pixbuf_from_stock(
+            gtk.STOCK_REFRESH)
 
         self.custom = self.model.append(None, [self.folder, _("Saved Stations"), None])
         self.radio_root = self.model.append(None, [self.folder, _("Radio "

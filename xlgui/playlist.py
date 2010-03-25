@@ -36,7 +36,7 @@ import gtk
 import gtk.gdk
 import pango
 
-from xlgui import guiutil, menu, plcolumns
+from xlgui import guiutil, icons, menu, plcolumns
 from xlgui import rating
 from xlgui.plcolumns import *
 from xl import playlist, event, collection, xdg, settings, trax
@@ -1069,8 +1069,7 @@ class Playlist(gtk.VBox):
         # queued items
         elif item in self.queue.ordered_tracks:
             index = self.queue.ordered_tracks.index(item)
-            image = guiutil.get_text_icon(self.main.window,
-                str(index + 1), 18, 18)
+            image = icons.MANAGER.pixbuf_from_text(str(index + 1), 18, 18)
 
         cell.set_property('pixbuf', image)
 

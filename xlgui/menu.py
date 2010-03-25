@@ -27,7 +27,7 @@
 import gobject
 import gtk
 
-from xlgui import guiutil, commondialogs, rating
+from xlgui import commondialogs, guiutil, icons, rating
 from xl import event, playlist, xdg, settings
 from xl.nls import gettext as _
 
@@ -67,7 +67,7 @@ class GenericTrackMenu(guiutil.Menu):
         """
         window = gtk.Window()
 
-        pixbuf = guiutil.get_text_icon(window, u'\u2610', 16, 16)
+        pixbuf = icons.MANAGER.pixbuf_from_text(u'\u2610', 16, 16)
         icon_set = gtk.IconSet(pixbuf)
 
         factory = gtk.IconFactory()

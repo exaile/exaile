@@ -34,7 +34,6 @@ import gio
 import gobject
 import gtk
 import gtk.gdk
-import pango
 
 from xl import xdg, playlist, common, settings, event, trax
 from xl.nls import gettext as _
@@ -396,27 +395,6 @@ class SearchEntry(object):
         """
         return getattr(self.entry, attr)
 
-def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
-    """
-        Returns a stock icon for the specified id and size
-    """
-    theme = gtk.icon_theme_get_default()
-    try:
-        icon = theme.load_icon(id, size, gtk.ICON_LOOKUP_NO_SVG)
-        if icon: return icon
-    except gobject.GError:
-        pass
-
-    # If no stock icon exists for the specified ID, search in the "images" data
-    # directory.
-    path = xdg.get_data_path('images', id + '.png')
-
-    # Fallback to the "track.png" file.
-    if not path:
-        path = xdg.get_data_path('images', 'track.png')
-
-    return gtk.gdk.pixbuf_new_from_file(path)
-
 class VolumeControl(object):
     """
         Encapsulates a button and a slider to
@@ -540,52 +518,6 @@ class VolumeControl(object):
         """
         if option == 'player/volume':
             self.__update(settings.get_option(option, 1))
-
-BITMAP_CACHE = dict()
-def get_text_icon(widget, text, width, height, bgcolor='#456eac',
-    bordercolor=None):
-    """
-        Gets a bitmap icon with the specified text, width, and height
-    """
-    if BITMAP_CACHE.has_key("%s - %sx%s - %s" % (text, width, height, bgcolor)):
-        return BITMAP_CACHE["%s - %sx%s - %s" % (text, width, height, bgcolor)]
-
-    default_visual = gtk.gdk.visual_get_system()
-    pixmap = gtk.gdk.Pixmap(None, width, height, default_visual.depth)
-    colormap = gtk.gdk.colormap_get_system()
-    white = colormap.alloc_color(65535, 65535, 65535)
-    black = colormap.alloc_color(0, 0, 0)
-    pixmap.set_colormap(colormap)
-    gc = pixmap.new_gc(foreground=black, background=white)
-
-    if not bordercolor: bordercolor = black
-    else:
-        bordercolor = colormap.alloc_color(gtk.gdk.color_parse(bordercolor))
-    gc.set_foreground(bordercolor)
-
-    pixmap.draw_rectangle(gc, True, 0, 0, width, height)
-    fg = colormap.alloc_color(gtk.gdk.color_parse(bgcolor))
-    gc.set_foreground(fg)
-    pixmap.draw_rectangle(gc, True, 1, 1, width - 2, height - 2)
-
-    layout = widget.create_pango_layout(str(text))
-    desc = pango.FontDescription("Sans 8")
-    layout.set_font_description(desc)
-    layout.set_alignment(pango.ALIGN_RIGHT)
-
-    gc.set_foreground(white)
-    inkRect, logicalRect = layout.get_pixel_extents()
-    l, b, w, h = logicalRect
-    x = ((width) / 2 - w / 2)
-    y = ((height) / 2 - h / 2)
-    pixmap.draw_layout(gc, x, y, layout)
-
-    pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, width, height)
-    pixbuf = pixbuf.get_from_drawable(pixmap, colormap, 0, 0, 0,
-        0, width, height)
-
-    BITMAP_CACHE["%s - %sx%s - %s" % (text, width, height, bgcolor)] = pixbuf
-    return pixbuf
 
 class Menu(gtk.Menu):
     """

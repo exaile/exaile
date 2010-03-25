@@ -49,8 +49,6 @@ except ImportError:
 from xlgui import commondialogs, cover
 from xlgui import devices, guiutil, icons, prefs, queue
 
-
-
 def mainloop():
     gtk.main()
 
@@ -80,18 +78,17 @@ class Main(object):
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
-        self.icons = icons.IconManager()
-        self.icons.add_icon_name_from_directory('exaile',
+        icons.MANAGER.add_icon_name_from_directory('exaile',
             xdg.get_data_path('images'))
         gtk.window_set_default_icon_name('exaile')
-        self.icons.add_icon_name_from_directory('exaile-pause',
+        icons.MANAGER.add_icon_name_from_directory('exaile-pause',
             xdg.get_data_path('images'))
-        self.icons.add_icon_name_from_directory('exaile-play',
+        icons.MANAGER.add_icon_name_from_directory('exaile-play',
             xdg.get_data_path('images'))
 
         for name in ('dynamic', 'repeat', 'shuffle'):
             icon_name = 'media-playlist-%s' % name
-            self.icons.add_icon_name_from_directory(icon_name,
+            icons.MANAGER.add_icon_name_from_directory(icon_name,
                 xdg.get_data_path('images'))
 
         logger.info("Loading main window...")

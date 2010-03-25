@@ -28,18 +28,21 @@ import glob
 import os
 
 import gtk
+import pango
 
 class IconManager(object):
     """
-        Provides convenience functions for adding
-        single icons as well as sets of icons
+        Provides convenience functions for managing icons
     """
     def __init__(self):
         self.icon_theme = gtk.icon_theme_get_default()
         self.icon_factory = gtk.IconFactory()
         self.icon_factory.add_default()
+        # Any arbitrary widget is fine
+        self.render_widget = gtk.Button()
         # TODO: Make svg actually recognized
         self._sizes = [16, 22, 24, 32, 48, 'scalable']
+        self._cache = {}
 
     def add_icon_name_from_directory(self, icon_name, directory):
         """
@@ -148,3 +151,78 @@ class IconManager(object):
 
         self.icon_factory.add(stock_id, icon_set)
 
+    def pixbuf_from_stock(self, stock_id, size=gtk.ICON_SIZE_BUTTON):
+        """
+            Generates a pixbuf from a stock id
+
+            Returns None on failure
+        """
+        # TODO: Check if fallbacks are necessary
+        return self.render_widget.render_icon(stock_id, size)
+
+    def pixbuf_from_icon_name(self, icon_name, size=gtk.ICON_SIZE_BUTTON):
+        """
+            Generates a pixbuf from an icon name
+
+            Returns None on failure
+        """
+        try:
+            pixbuf = self.icon_theme.load_icon(
+                icon_name, size, gtk.ICON_LOOKUP_NO_SVG)
+        except gobject.GError:
+            pixbuf = None
+
+        # TODO: Check if fallbacks are necessary
+        return pixbuf
+
+    def pixbuf_from_text(self, text, width, height, bgcolor='#456eac',
+            bordercolor=None):
+        """
+            Generates a pixbuf based on a text, width and height
+        """
+        key = '%s - %sx%s - %s' % (text, width, height, bgcolor)
+        
+        if self._cache.has_key(key):
+            return self._cache[key]
+
+        default_visual = gtk.gdk.visual_get_system()
+        pixmap = gtk.gdk.Pixmap(None, width, height, default_visual.depth)
+        colormap = gtk.gdk.colormap_get_system()
+        white = colormap.alloc_color(65535, 65535, 65535)
+        black = colormap.alloc_color(0, 0, 0)
+        pixmap.set_colormap(colormap)
+        gc = pixmap.new_gc(foreground=black, background=white)
+
+        if not bordercolor:
+            bordercolor = black
+        else:
+            bordercolor = colormap.alloc_color(gtk.gdk.color_parse(bordercolor))
+        gc.set_foreground(bordercolor)
+
+        pixmap.draw_rectangle(gc, True, 0, 0, width, height)
+        fg = colormap.alloc_color(gtk.gdk.color_parse(bgcolor))
+        gc.set_foreground(fg)
+        pixmap.draw_rectangle(gc, True, 1, 1, width - 2, height - 2)
+
+        widget = gtk.Button()
+        layout = widget.create_pango_layout(str(text))
+        desc = pango.FontDescription("Sans 8")
+        layout.set_font_description(desc)
+        layout.set_alignment(pango.ALIGN_RIGHT)
+
+        gc.set_foreground(white)
+        inkRect, logicalRect = layout.get_pixel_extents()
+        l, b, w, h = logicalRect
+        x = ((width) / 2 - w / 2)
+        y = ((height) / 2 - h / 2)
+        pixmap.draw_layout(gc, x, y, layout)
+
+        pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, width, height)
+        pixbuf = pixbuf.get_from_drawable(pixmap, colormap, 0, 0, 0, 0, width, height)
+
+        self._cache[key] = pixbuf
+
+        return pixbuf
+
+MANAGER = IconManager()
+# vim: et sw=4 st=4

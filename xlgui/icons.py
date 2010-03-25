@@ -136,7 +136,7 @@ class IconManager(object):
         """
             Registers a stock icon from a pixbuf
         """
-        self.add_stock_from_pixbufs([pixbuf])
+        self.add_stock_from_pixbufs(stock_id, [pixbuf])
 
     def add_stock_from_pixbufs(self, stock_id, pixbufs):
         """
@@ -204,8 +204,7 @@ class IconManager(object):
         gc.set_foreground(fg)
         pixmap.draw_rectangle(gc, True, 1, 1, width - 2, height - 2)
 
-        widget = gtk.Button()
-        layout = widget.create_pango_layout(str(text))
+        layout = self.render_widget.create_pango_layout(str(text))
         desc = pango.FontDescription("Sans 8")
         layout.set_font_description(desc)
         layout.set_alignment(pango.ALIGN_RIGHT)

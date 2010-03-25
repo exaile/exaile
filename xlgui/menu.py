@@ -52,8 +52,8 @@ class GenericTrackMenu(guiutil.Menu):
         """
             Creates the menu
         """
-        self.queue_item = self.append(_('Toggle Queue'), lambda *e: self.on_queue(),
-            'exaile-queue-icon')
+        self.queue_item = self.append(_('Toggle Queue'),
+            lambda *e: self.on_queue(), 'exaile-queue-icon')
 
     def on_queue(self):
         """
@@ -65,14 +65,8 @@ class GenericTrackMenu(guiutil.Menu):
         """
             Creates the icon for "toggle queue"
         """
-        window = gtk.Window()
-
         pixbuf = icons.MANAGER.pixbuf_from_text(u'\u2610', 16, 16)
-        icon_set = gtk.IconSet(pixbuf)
-
-        factory = gtk.IconFactory()
-        factory.add_default()
-        factory.add('exaile-queue-icon', icon_set)
+        icons.MANAGER.add_stock_from_pixbuf('exaile-queue-icon', pixbuf)
 
     def popup(self, event):
         """

@@ -21,10 +21,13 @@ import logging
 import dbus
 import gtk
 import gobject
+import tempfile
 
 import xl.cover
 import xl.event
 import xl.settings
+
+from xlgui import icons
 
 import awn_prefs
 
@@ -106,17 +109,13 @@ class ExaileAwn(object):
         elif not self.cover_display:
             self.unset_cover()
         else:
-            try:
-                cover_full_url = self.exaile.covers.get_cover(
-                        self.exaile.player.current)
-            except xl.cover.NoCoverFoundException:
-                log.debug("No cover for current track, unsetting awn cover")
-                self.unset_cover()
-                return
-            cover_full_url = urlparse.urlparse(cover_full_url)
-            path = urllib.url2pathname(cover_full_url[2])
-            log.debug("Setting AWN cover to %s" % repr(path))
-            self.awn.SetTaskIconByXid(self.xid(), path)
+            image_data = self.exaile.covers.get_cover(self.exaile.player.current)
+
+            if image_data is not None:
+                pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
+                descriptor, path = tempfile.mkstemp()
+                pixbuf.save(path, 'png')
+                self.awn.SetTaskIconByXid(self.xid(), path)
 
     def unset_timer(self):
         self._set_timer(100)

@@ -52,6 +52,9 @@
       <row>
         <col id="0" translatable="yes">JACK</col>
       </row>
+      <row>
+        <col id="0" translatable="yes">Custom</col>
+      </row>
     </data>
   </object>
   <object class="GtkWindow" id="prefs_window">
@@ -59,6 +62,7 @@
       <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkHBox" id="hbox3">
             <property name="visible">True</property>
@@ -136,6 +140,38 @@
           </packing>
         </child>
         <child>
+          <object class="GtkHBox" id="hbox5">
+            <property name="visible">True</property>
+            <property name="tooltip_text" translatable="yes">This is a custom gstreamer pipeline to use for audio output, specified in gst-launch syntax. It will be linked to a single audio-only src pad for input. Only takes effect if "Audio Sink" is set to "Custom".</property>
+            <child>
+              <object class="GtkLabel" id="label7">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Custom sink pipeline:</property>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="player/custom_sink_pipe">
+                <property name="width_request">150</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">&#x25CF;</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkCheckButton" id="player/resume_playback">
             <property name="label" translatable="yes">Resume playback on start</property>
             <property name="visible">True</property>
@@ -148,7 +184,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
@@ -163,7 +199,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -171,7 +207,7 @@
             <property name="visible">True</property>
           </object>
           <packing>
-            <property name="position">4</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
@@ -182,7 +218,7 @@
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">5</property>
+            <property name="position">6</property>
           </packing>
         </child>
         <child>
@@ -197,7 +233,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">6</property>
+            <property name="position">7</property>
           </packing>
         </child>
         <child>
@@ -230,7 +266,7 @@
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">7</property>
+            <property name="position">8</property>
           </packing>
         </child>
         <child>
@@ -245,7 +281,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">8</property>
+            <property name="position">9</property>
           </packing>
         </child>
         <child>
@@ -281,7 +317,7 @@
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">9</property>
+            <property name="position">10</property>
           </packing>
         </child>
       </object>

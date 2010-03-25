@@ -42,9 +42,13 @@ class EnginePreference(widgets.ComboPrefsItem):
 class AudioSinkPreference(widgets.ComboPrefsItem):
     default = "auto"
     name = 'player/audiosink'
-    map = ["auto", "gconf", "alsa", "oss", "pulse", "jack"]
+    map = ["auto", "gconf", "alsa", "oss", "pulse", "jack", "custom"]
     def __init__(self, prefs, widget):
         widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+
+class CustomAudioSinkPreference(widgets.PrefsItem):
+    default = ""
+    name = "player/custom_sink_pipe"
 
 class ResumePreference(widgets.CheckPrefsItem):
     default = True

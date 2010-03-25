@@ -205,89 +205,68 @@ class Postprocessing(ProviderBin):
         ProviderBin.__init__(self, 'postprocessing_element',
                 name="Postprocessing")
 
-class BaseSink(gst.Bin):
-    pass
-
-
 SINK_PRESETS = {
         "auto"  : {
             "name"      : _("Automatic"),
-            "elem"      : "autoaudiosink",
-            "options"   : {},
+            "pipe"      : "autoaudiosink",
             },
         "gconf" : {
             "name"      : "GNOME",
-            "elem"      : "gconfaudiosink",
-            "options"   : {"profile": "music"},
+            "pipe"      : "gconfaudiosink profile=music",
         },
         "alsa"  : {
             "name"      : "ALSA",
-            "elem"      : "alsasink",
-            "options"   : {},
+            "pipe"      : "alsasink",
             },
         "oss"   : {
             "name"      : "OSS",
-            "elem"      : "osssink",
-            "options"   : {},
+            "pipe"      : "osssink",
             },
         "pulse" : {
             "name"      : "PulseAudio",
-            "elem"      : "pulsesink",
-            "options"   : {},
+            "pipe"      : "pulsesink",
             },
         "jack" : {
             "name"      : "JACK",
-            "elem"      : "jackaudiosink",
-            "options"   : {},
+            "pipe"      : "jackaudiosink",
             }
         }
 
 def sink_from_preset(preset):
+    if preset == "custom":
+        pipe = settings.get_option("player/custom_sink_pipe", "")
+        if not pipe:
+            logger.error("No custom sink pipe set.")
+            return None
+        name = _("Custom")
+    else:
+        d = SINK_PRESETS.get(preset, "")
+        if not d:
+            logger.error("Could not find sink preset %s."%preset)
+            return None
+        pipe = d['pipe']
+        name = d['name']
     try:
-        d = SINK_PRESETS[preset]
-        sink = AudioSink(d['name'], d['elem'], d['options'], preset=preset)
+        sink = AudioSink(name, pipe)
         return sink
     except:
         common.log_exception(log=logger,
-                message="Could not enable audiosink %s"%preset)
+                message="Could not enable audiosink %s."%preset)
         return None
 
-class AudioSink(BaseSink):
-    def __init__(self, name, elem, options, preset=None, *args, **kwargs):
-        BaseSink.__init__(self, *args, **kwargs)
+class AudioSink(gst.Bin):
+    def __init__(self, name, pipeline):
+        gst.Bin.__init__(self)
         self.name = name
-        self.sink_elem = elem
-        self.options = options
-        self.preset = preset
+        self.sink = elems = [gst.parse_launch(elem) for elem in pipeline.split('!')]
         self.provided = ProviderBin('sink_element')
         self.vol = gst.element_factory_make("volume")
-        self.sink = gst.element_factory_make(self.sink_elem)
-        elems = [self.provided, self.vol, self.sink]
+        elems = [self.provided, self.vol] + elems
         self.add(*elems)
         gst.element_link_many(*elems)
         self.sinkghost = gst.GhostPad("sink",
                 self.provided.get_static_pad("sink"))
         self.add_pad(self.sinkghost)
-        self.load_options()
-
-    def load_options(self):
-        # TODO: make this reset any non-explicitly set options to default
-        # this setting is a list of strings of the form "param=value"
-        optdict = copy.copy(self.options)
-        if self.preset:
-            options = settings.get_option(
-                    "audiosink/%s_options"%self.preset, "")
-            options = dict([ x.split("=") for x in options.split() ])
-            optdict.update(options)
-
-        for param, value in optdict.iteritems():
-            try:
-                self.sink.set_property(param, value)
-            except:
-                common.log_exception(log=logger)
-                logger.warning("Could not set parameter %(parameter)s "
-                    "for %(sink)s" %
-                    {'parameter' : param, 'sink': self.sink_elem})
 
     def set_volume(self, vol):
         self.vol.set_property("volume", vol)

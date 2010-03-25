@@ -58,13 +58,11 @@ class QueueManager(object):
         self._dialog.set_transient_for(parent)
         self._dialog.connect('delete-event', self.destroy)
         self.builder.connect_signals({
-            'close_dialog': self.destroy,
-            'on_remove_all_button_clicked': self.remove_all,
+            'on_clear_button_clicked': self.clear,
+            'on_close_button_clicked': self.destroy,
             })
 
-        self._playlist = playlist.Playlist(main.mainwindow(),
-            queue, queue, _column_ids=['tracknumber', 'title', 'artist'],
-            _is_queue=True)
+        self._playlist = Queue(main.mainwindow(), queue)
         self._playlist.scroll.set_shadow_type(gtk.SHADOW_ETCHED_IN)
         box = self.builder.get_object('queue_box')
         box.pack_start(self._playlist)
@@ -85,5 +83,68 @@ class QueueManager(object):
         main.mainwindow().queue_playlist_draw()
         self._dialog.hide()
 
-    def remove_all(self, button, *userparams):
+    def clear(self, button, *userparams):
         self._queue.clear()
+
+class Queue(playlist.Playlist):
+    """
+        Custom playlist for queue management
+    """
+    def __init__(self, main, queue):
+        playlist.Playlist.__init__(self, main, queue, queue,
+            column_ids=['tracknumber', 'title', 'artist'])
+
+    def setup_playlist(self, playlist):
+        """
+            Prepares the internal playlist
+        """
+        self.playlist = playlist
+
+    def _setup_column_menus(self):
+        """
+            Override to prevent menu setup
+        """
+        pass
+
+    def on_row_activated(self, *e):
+        """
+            Override to prevent playback
+            of activated rows
+        """
+        pass
+
+    def button_press(self, button, event):
+        """
+            Override to prevent context menu
+        """
+        pass
+
+    def column_changed(self, *e):
+        """
+            Override to prevent action on
+            column reordering
+        """
+        pass
+
+    def set_sort_by(self, column):
+        """
+            Override to prevent setting
+            the sort column
+        """
+        pass
+
+    def set_column_width(self, column, *e):
+        """
+            Override to prevent setting
+            the column width
+        """
+        pass
+
+    def press_header(self, widget, event):
+        """
+            Override to prevent context menu
+            of playlist headers
+        """
+        pass
+
+# vim: et sw=4 st=4

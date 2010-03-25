@@ -616,6 +616,8 @@ class CoverChooser(gobject.GObject):
         self.previous_button.set_sensitive(False)
         self.next_button = self.builder.get_object('next_button')
         self.next_button.set_sensitive(False)
+        self.ok_button = self.builder.get_object('ok_button')
+        self.ok_button.set_sensitive(False)
         self.box = self.builder.get_object('cover_image_box')
         self.cover = guiutil.ScalableImageWidget()
         self.cover.set_image_size(350, 350)
@@ -639,7 +641,9 @@ class CoverChooser(gobject.GObject):
         if covers:
             self.covers = covers
 
-            if len(covers) > 1:
+            if len(covers) > 0:
+                self.ok_button.set_sensitive(True)
+            elif len(covers) > 1:
                 self.next_button.set_sensitive(True)
 
             gobject.idle_add(self.show_cover, covers[0])

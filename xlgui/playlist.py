@@ -67,8 +67,7 @@ class Playlist(gtk.VBox):
         'track-count-changed': (gobject.SIGNAL_RUN_LAST, None, (int,)),
         'column-settings-changed': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self, main, queue, pl, _column_ids=[],
-        _is_queue=False):
+    def __init__(self, main, queue, playlist, column_ids=[]):
         """
             Initializes the playlist
 
@@ -83,25 +82,19 @@ class Playlist(gtk.VBox):
         self.queue = queue
         self.search_keyword = ''
         self.builder = main.builder
-        self._initial_column_ids = _column_ids
-        self._is_queue = _is_queue
+        self._initial_column_ids = column_ids
 
         self._redraw_queue = []
         self._redraw_id = 0
-
-        if not _is_queue:
-            self.playlist = copy.copy(pl)
-            self.playlist.ordered_tracks = pl.ordered_tracks[:]
-        else:
-            self.playlist = pl
 
         # see plcolumns.py for more information on the columns menu
         if not Playlist.menu_items:
             plcolumns.setup_menu(self.builder.get_object('columns_menu_menu'),
                 Playlist.menu_items)
 
+        self.setup_playlist(playlist)
         self._setup_tree()
-        self._setup_col_menus()
+        self._setup_column_menus()
         self._setup_columns()
         self._setup_events()
         self._set_tracks(self.playlist.get_tracks())
@@ -123,6 +116,13 @@ class Playlist(gtk.VBox):
             self.playlist)
         event.add_callback(self.refresh_changed_tracks, 'track_tags_changed')
         event.add_callback(self.on_stop_track, 'stop_track')
+
+    def setup_playlist(self, playlist):
+        """
+            Prepares the internal playlist
+        """
+        self.playlist = copy.copy(playlist)
+        self.playlist.ordered_tracks = playlist.ordered_tracks[:]
 
     def properties_dialog(self):
         """
@@ -234,7 +234,7 @@ class Playlist(gtk.VBox):
             column_ids = frozenset(ids)
         return column_ids
 
-    def _setup_col_menus(self):
+    def _setup_column_menus(self):
         """
             Sets up the column menus (IE, View->Column->Track, etc)
         """
@@ -266,17 +266,16 @@ class Playlist(gtk.VBox):
             settings.set_option('gui/columns', ids)
             column_ids = frozenset(ids)
 
-        if not self._is_queue:
-            for col_struct in self.COLUMNS.itervalues():
-                try:
-                    menu = Playlist.menu_items[col_struct.id]
-                except KeyError:
-                    logger.warning("No such column: %s" % col_struct.id)
-                    continue
+        for col_struct in self.COLUMNS.itervalues():
+            try:
+                menu = Playlist.menu_items[col_struct.id]
+            except KeyError:
+                logger.warning("No such column: %s" % col_struct.id)
+                continue
 
-                menu.set_active(col_struct.id in column_ids)
-                menu.connect('activate', self.change_column_settings,
-                    ('gui/columns', col_struct))
+            menu.set_active(col_struct.id in column_ids)
+            menu.connect('activate', self.change_column_settings,
+                ('gui/columns', col_struct))
 
     def search(self, keyword):
         """
@@ -290,7 +289,6 @@ class Playlist(gtk.VBox):
         """
             Changes column view settings
         """
-        if self._is_queue: return
         pref, col_struct = data
         id = col_struct.id
 
@@ -524,7 +522,6 @@ class Playlist(gtk.VBox):
         """
             Called when the user double clicks on a track
         """
-        if self._is_queue: return
         track = self.get_selected_track()
         if not track: return
 
@@ -581,7 +578,6 @@ class Playlist(gtk.VBox):
         """
             Called when the user clicks on the playlist
         """
-        if self._is_queue: return
         if event.button == 3:
             tab = self.main.get_current_tab()
             (x, y) = event.get_coords()
@@ -639,7 +635,6 @@ class Playlist(gtk.VBox):
         """
             Called when columns are reordered
         """
-        if self._is_queue: return
         self.list.disconnect(self.changed_id)
         cols = []
         for col in self.list.get_columns():
@@ -932,9 +927,8 @@ class Playlist(gtk.VBox):
             resizable = settings.get_option('gui/resizable_cols',
                 False)
 
-            if not self._is_queue:
-                col.connect('clicked', self.set_sort_by)
-                col.connect('notify::width', self.set_column_width)
+            col.connect('clicked', self.set_sort_by)
+            col.connect('notify::width', self.set_column_width)
             col.set_clickable(True)
             col.set_reorderable(True)
             col.set_resizable(False)
@@ -972,7 +966,6 @@ class Playlist(gtk.VBox):
         """
             Called when the user resizes a column
         """
-        if self._is_queue: return
         col_struct = self.column_by_display[col.get_title().decode('utf-8')]
         name = 'gui/col_width_%s' % col_struct.id
         w = col.get_width()

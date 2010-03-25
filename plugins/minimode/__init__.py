@@ -18,6 +18,7 @@ import gobject, gtk, os
 import minimodeprefs, mmwidgets
 from xl import event, plugins, settings, xdg
 from xl.nls import gettext as _
+from xlgui import icons
 
 MINIMODE = None
 
@@ -90,7 +91,7 @@ class MiniMode(gtk.Window):
         self.update_position()
 
         basedir = os.path.dirname(os.path.abspath(__file__))
-        self.exaile.gui.icons.add_stock_from_directory('exaile-minimode',
+        icons.MANAGER.add_stock_from_directory('exaile-minimode',
             os.path.join(basedir, 'icons'))
 
         self.menuitem = mmwidgets.MenuItem(self.on_menuitem_activate)

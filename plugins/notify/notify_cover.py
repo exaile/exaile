@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import logging
-from xlgui import cover as guicover
+from xlgui import icons
 
 logger = logging.getLogger(__name__)
 
@@ -30,9 +30,9 @@ def get_image_for_track(track, exaile, resize=False):
     '''
     data = exaile.covers.get_cover(track)
     if resize:
-        scale = (RESIZE_SIZE, RESIZE_SIZE)
+        size = (RESIZE_SIZE, RESIZE_SIZE)
     else:
-        scale = None
-    pixbuf = guicover.pixbuf_from_data(data, scale=scale)
+        size = None
+    pixbuf = icons.MANAGER.pixbuf_from_data(data, size=size)
     return pixbuf
 

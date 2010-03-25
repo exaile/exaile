@@ -187,7 +187,7 @@ class IconManager(object):
         loader = gtk.gdk.PixbufLoader()
 
         if size is not None:
-            loader.set_size(scale[0],scale[1])
+            loader.set_size(size[0], size[1])
 
         loader.write(data)
         loader.close()

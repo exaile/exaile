@@ -842,6 +842,9 @@ class MainWindow(gobject.GObject):
             self.queue.add_tracks(items)
         pl.list.queue_draw()
 
+        if not self.player.current:
+            self.queue.play(track=items[0])
+
     @guiutil.idle_add()
     def on_playback_error(self, type, player, message):
         """

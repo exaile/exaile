@@ -843,7 +843,11 @@ class MainWindow(gobject.GObject):
         pl.list.queue_draw()
 
         if not self.player.current:
-            self.queue.play(track=items[0])
+            track = items[0]
+            index = pl.playlist.index(track)
+            pl.playlist.set_current_pos(index)
+            self.queue.play(track=track)
+            self.queue.set_current_playlist(pl.playlist)
 
     @guiutil.idle_add()
     def on_playback_error(self, type, player, message):

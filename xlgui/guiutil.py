@@ -179,6 +179,7 @@ class DragTreeView(gtk.TreeView):
                 self.container.drag_data_delete)
         self.receive = receive
         self.dragging = False
+        self.show_cover_drag_icon = True
         self.connect('drag-begin', self.on_drag_begin)
         self.connect('drag-end', self.on_drag_end)
         self.connect('drag-motion', self.on_drag_motion)
@@ -227,6 +228,9 @@ class DragTreeView(gtk.TreeView):
         """
             Sets the cover of dragged tracks as drag icon
         """
+        self.dragging = True
+        context.drag_abort(gtk.get_current_event_time())
+
         self._on_drag_begin(widget, context)
 
     @common.threaded
@@ -235,52 +239,60 @@ class DragTreeView(gtk.TreeView):
             Async call counterpart to on_drag_begin, so that cover fetching
             doesn't block dragging.
         """
-        tracks = self.get_selected_tracks()
+        if self.show_cover_drag_icon:
+            tracks = self.get_selected_tracks()
+            cover_manager = xlgui.get_controller().exaile.covers
 
-        if tracks:
-            tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
-            pixbuf = None
-            albums = []
-            for track in tracks:
-                album = track.get_tag_raw('album', join=True)
-                if album not in albums:
-                    image_data = xlgui.get_controller().exaile.covers.get_cover(track)
-                    if image_data is not None:
-                        pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
-                        pixbuf = pixbuf.scale_simple(100, 100, gtk.gdk.INTERP_BILINEAR)
-                        albums += [album]
-                        if len(albums) >= 2:
-                            break
+            if tracks:
+                tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
+                pixbuf = None
+                albums = []
+                for track in tracks:
+                    album = track.get_tag_raw('album', join=True)
+                    if album not in albums:
+                        image_data = cover_manager.get_cover(track)
+                        if image_data is not None:
+                            pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
+                            pixbuf = pixbuf.scale_simple(100, 100,
+                                gtk.gdk.INTERP_BILINEAR)
+                            albums += [album]
+                            if len(albums) >= 2:
+                                break
 
-            if pixbuf is not None:
-                cover_pixbuf = pixbuf
+                if pixbuf is not None:
+                    cover_pixbuf = pixbuf
 
-                if len(albums) > 1:
-                    # create stacked-cover effect
+                    if len(albums) > 1:
+                        # create stacked-cover effect
 
-                    cover_pixbuf = gtk.gdk.Pixbuf(
-                        gtk.gdk.COLORSPACE_RGB,
-                        True,
-                        8,
-                        110, 110
-                    )
+                        cover_pixbuf = gtk.gdk.Pixbuf(
+                            gtk.gdk.COLORSPACE_RGB,
+                            True,
+                            8,
+                            110, 110
+                        )
 
-                    fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 110, 110)
-                    fill_pixbuf.fill(0x00000000) # transparent bg
+                        fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 110, 110)
+                        fill_pixbuf.fill(0x00000000) # transparent bg
 
-                    fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 100, 100)
-                    fill_pixbuf.fill(0xccccccff)
+                        fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 100, 100)
+                        fill_pixbuf.fill(0xccccccff)
 
-                    fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, 100, 100)
-                    fill_pixbuf.fill(0x999999ff)
+                        fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, 100, 100)
+                        fill_pixbuf.fill(0x999999ff)
 
-                    pixbuf.copy_area(
-                        0, 0, 100, 100,
-                        cover_pixbuf,
-                        10, 10
-                    )
+                        pixbuf.copy_area(
+                            0, 0, 100, 100,
+                            cover_pixbuf,
+                            10, 10
+                        )
 
-                gobject.idle_add(self._set_drag_cover, context, cover_pixbuf)
+                    gobject.idle_add(self._set_drag_cover, context, cover_pixbuf)
+        else:
+            if self.get_selection().count_selected_rows() > 1:
+                self.drag_source_set_icon_stock('gtk-dnd-multiple')
+            else:
+                self.drag_source_set_icon_stock('gtk-dnd')
 
     def _set_drag_cover(self, context, pixbuf):
         """

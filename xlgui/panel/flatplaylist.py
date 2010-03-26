@@ -60,23 +60,23 @@ class FlatPlaylistPanel(panel.Panel):
             'on_import_button_clicked': self._on_import_button_clicked,
         })
         self.menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.get_selected_tracks()))
+            self.emit('append-items', self.tree.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
-            self.emit('queue-items', self.get_selected_tracks()))
+            self.emit('queue-items', self.tree.get_selected_tracks()))
         self.tree.connect('row-activated', lambda *e:
-            self.emit('append-items', self.get_selected_tracks()))
+            self.emit('append-items', self.tree.get_selected_tracks()))
 
     def _on_add_button_clicked(self, *e):
         self.emit('append-items', self.tracks)
 
     def _on_import_button_clicked(self, *e):
-        tracks = self.get_selected_tracks()
+        tracks = self.tree.get_selected_tracks()
         if len(tracks) == 0: # nothing selected, do everything
             tracks = self.tracks
         self.parent.do_import(tracks)
 
     def _setup_tree(self):
-        self.tree = guiutil.DragTreeView(self, False, True)
+        self.tree = FlatPlaylistDragTreeView(self, False, True)
         selection = self.tree.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
 
@@ -118,18 +118,6 @@ class FlatPlaylistPanel(panel.Panel):
         for i, track in enumerate(tracks):
             self.model.append([i + 1, track.get_tag_display("title"), track])
 
-    def get_selected_tracks(self):
-        selection = self.tree.get_selection()
-        (model, paths) = selection.get_selected_rows()
-
-        tracks = []
-        for path in paths:
-            iter = self.model.get_iter(path)
-            track = self.model.get_value(iter, 2)
-            tracks.append(track)
-
-        return tracks
-
     def button_press(self, button, event):
         """
             Called when the user clicks on the playlist
@@ -143,7 +131,7 @@ class FlatPlaylistPanel(panel.Panel):
             if not path:
                 return False
 
-            if len(self.get_selected_tracks()) >= 2:
+            if len(self.tree.get_selected_tracks()) >= 2:
                 (mods,paths) = selection.get_selected_rows()
                 if (path[0] in paths):
                     if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
@@ -169,10 +157,28 @@ class FlatPlaylistPanel(panel.Panel):
         """
             Called when a drag source wants data for this drag operation
         """
-        tracks = self.get_selected_tracks()
+        tracks = self.tree.get_selected_tracks()
         if not tracks: return
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
-        urls = guiutil.get_urls_for(tracks)
-        selection.set_uris(urls)
+        uris = trax.util.get_uris_from_tracks(tracks)
+        selection.set_uris(uris)
+
+class FlatPlaylistDragTreeView(guiutil.DragTreeView):
+    """
+        Custom DragTreeView to retrieve data from playlists
+    """
+    def get_selected_tracks(self):
+        """
+            Returns the currently selected tracks
+        """
+        (model, paths) = self.get_selection().get_selected_rows()
+        tracks = []
+
+        for path in paths:
+            iter = model.get_iter(path)
+            track = model.get_value(iter, 2)
+            tracks.append(track)
+
+        return tracks
 

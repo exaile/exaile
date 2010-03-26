@@ -437,8 +437,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
 
-        urls = guiutil.get_urls_for(tracks)
-        selection_data.set_uris(urls)
+        uris = trax.util.get_uris_from_tracks(tracks)
+        selection_data.set_uris(uris)
 
     def drag_data_delete(self, *e):
         """

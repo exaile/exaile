@@ -843,12 +843,12 @@ class Playlist(gtk.VBox):
         """
         Playlist._is_drag_source = True
 
-        trs = self.get_selected_tracks()
-        for track in trs:
+        tracks = self.get_selected_tracks()
+        for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
 
-        locs = guiutil.get_urls_for(trs)
-        selection.set_uris(locs)
+        uris = trax.util.get_uris_from_tracks(tracks)
+        selection.set_uris(uris)
 
     def setup_model(self, map):
         """

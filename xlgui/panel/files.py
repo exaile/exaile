@@ -37,8 +37,9 @@ import gobject
 from xl import common, trax, metadata
 from xl import settings
 from xl import event
-from xlgui import panel, guiutil, xdg, menu, playlist
+from xlgui import guiutil, panel, playlist, menu, xdg
 from xl.nls import gettext as _
+import xlgui
 
 class FilesPanel(panel.Panel):
     """
@@ -66,9 +67,9 @@ class FilesPanel(panel.Panel):
         self._setup_widgets()
         self.menu = menu.FilesPanelMenu()
         self.menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.get_selected_tracks()))
+            self.emit('append-items', self.tree.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
-            self.emit('queue-items', self.get_selected_tracks()))
+            self.emit('queue-items', self.tree.get_selected_tracks()))
         self.menu.connect('rating-set', self.set_rating)
         self.menu.connect('properties', lambda *e:
             self.properties_dialog())
@@ -86,20 +87,20 @@ class FilesPanel(panel.Panel):
             Shows the properties dialog
         """
         from xlgui import properties
-        tracks = self.get_selected_tracks()
+        tracks = self.tree.get_selected_tracks()
 
         if not tracks:
             return False
 
         tracks_sorted = trax.sort_tracks(
-			('artist', 'date', 'album', 'discnumber', 'tracknumber'),
-			tracks)
+            ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
+            tracks)
 
         dialog = properties.TrackPropertiesDialog(self.parent,
             tracks_sorted)
 
     def set_rating(self, widget, rating):
-        tracks = self.get_selected_tracks()
+        tracks = self.tree.get_selected_tracks()
         for track in tracks:
             track.set_rating(rating)
 
@@ -108,7 +109,7 @@ class FilesPanel(panel.Panel):
             Sets up tree widget for the files panel
         """
         self.model = gtk.ListStore(gio.File, gtk.gdk.Pixbuf, str, str)
-        self.tree = tree = guiutil.DragTreeView(self, True, True)
+        self.tree = tree = FilesDragTreeView(self, True, True)
         tree.set_model(self.model)
         tree.connect('row-activated', self.row_activated)
         tree.connect('key-release-event', self.on_key_released)
@@ -280,7 +281,7 @@ class FilesPanel(panel.Panel):
             if ftype == gio.FILE_TYPE_DIRECTORY:
                 self.load_directory(f)
             else:
-                self.emit('append-items', self.get_selected_tracks())
+                self.emit('append-items', self.tree.get_selected_tracks())
 
     def key_release(self, *e):
         """
@@ -436,14 +437,41 @@ class FilesPanel(panel.Panel):
 
         gobject.idle_add(idle)
 
+    def drag_data_received(self, *e):
+        """
+            stub
+        """
+        pass
+
+    def drag_data_delete(self, *e):
+        """
+            stub
+        """
+        pass
+
+    def drag_get_data(self, treeview, context, selection, target_id, etime):
+        """
+            Called when a drag source wants data for this drag operation
+        """
+        tracks = self.tree.get_selected_tracks()
+        if not tracks: return
+        for track in tracks:
+            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
+        uris = trax.util.get_uris_from_tracks(tracks)
+        selection.set_uris(uris)
+
+class FilesDragTreeView(guiutil.DragTreeView):
+    """
+        Custom DragTreeView to retrieve data from files
+    """
     def get_selected_tracks(self):
         """
-            Returns the selected tracks
+            Returns the currently selected tracks
         """
-        selection = self.tree.get_selection()
+        selection = self.get_selection()
         model, paths = selection.get_selected_rows()
-
         tracks = []
+
         for path in paths:
             f = model[path][0]
             self.append_recursive(tracks, f)
@@ -475,25 +503,3 @@ class FilesPanel(panel.Panel):
         tr = trax.Track(uri)
         return tr
 
-    def drag_data_received(self, *e):
-        """
-            stub
-        """
-        pass
-
-    def drag_data_delete(self, *e):
-        """
-            stub
-        """
-        pass
-
-    def drag_get_data(self, treeview, context, selection, target_id, etime):
-        """
-            Called when a drag source wants data for this drag operation
-        """
-        tracks = self.get_selected_tracks()
-        if not tracks: return
-        for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
-        urls = guiutil.get_urls_for(tracks)
-        selection.set_uris(urls)

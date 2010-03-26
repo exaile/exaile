@@ -37,7 +37,8 @@ import gtk.gdk
 
 from xl import xdg, playlist, common, settings, event, trax
 from xl.nls import gettext as _
-from xlgui import rating
+from xlgui import icons, rating
+import xlgui
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
@@ -156,12 +157,12 @@ class DragTreeView(gtk.TreeView):
     targets = [("text/uri-list", 0, 0)]
     dragged_data = dict()
     
-    def __init__(self, cont, receive=True, source=True):
+    def __init__(self, container, receive=True, source=True):
         """
             Initializes the tree and sets up the various callbacks
         """
         gtk.TreeView.__init__(self)
-        self.cont = cont
+        self.container = container
 
         if source:
             self.drag_source_set(
@@ -173,22 +174,28 @@ class DragTreeView(gtk.TreeView):
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT|
                 gtk.gdk.ACTION_MOVE)
             self.connect('drag_data_received',
-                self.cont.drag_data_received)
+                self.container.drag_data_received)
             self.connect('drag_data_delete',
-                self.cont.drag_data_delete)
+                self.container.drag_data_delete)
         self.receive = receive
         self.dragging = False
-        self.connect('drag_begin', self.drag_begin)
-        self.connect('drag_end', self.drag_end)
-        self.connect('drag_motion', self.drag_motion)
-        self.connect('button_release_event', self.button_release)
-        self.connect('button_press_event', self.button_press)
+        self.connect('drag-begin', self.on_drag_begin)
+        self.connect('drag-end', self.on_drag_end)
+        self.connect('drag-motion', self.on_drag_motion)
+        self.connect('button-release-event', self.on_button_release)
+        self.connect('button-press-event', self.on_button_press)
 
         if source:
-            self.connect('drag_data_get', self.cont.drag_get_data)
+            self.connect('drag-data-get', self.container.drag_get_data)
             self.drag_source_set_icon_stock('gtk-dnd')
 
-    def button_release(self, button, event):
+    def get_selected_tracks(self):
+        """
+            Returns the currently selected tracks (stub)
+        """
+        pass
+
+    def on_button_release(self, button, event):
         """
             Called when a button is released
         """
@@ -207,7 +214,7 @@ class DragTreeView(gtk.TreeView):
         if not path: return False
         selection.select_path(path[0])
 
-    def drag_end(self, list, context):
+    def on_drag_end(self, list, context):
         """
             Called when the dnd is ended
         """
@@ -216,20 +223,72 @@ class DragTreeView(gtk.TreeView):
         self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
-    def drag_begin(self, list, context):
+    def on_drag_begin(self, widget, context):
         """
-            Called when dnd is started
+            Sets the cover of dragged tracks as drag icon
         """
-        self.dragging = True
+        self._on_drag_begin(widget, context)
 
-        context.drag_abort(gtk.get_current_event_time())
-        selection = self.get_selection()
-        if selection.count_selected_rows() > 1:
-            self.drag_source_set_icon_stock('gtk-dnd-multiple')
-        else:
-            self.drag_source_set_icon_stock('gtk-dnd')
+    @common.threaded
+    def _on_drag_begin(self, widget, context):
+        """
+            Async call counterpart to on_drag_begin, so that cover fetching
+            doesn't block dragging.
+        """
+        tracks = self.get_selected_tracks()
 
-    def drag_motion(self, treeview, context, x, y, timestamp):
+        if tracks:
+            tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
+            pixbuf = None
+            albums = []
+            for track in tracks:
+                album = track.get_tag_raw('album', join=True)
+                if album not in albums:
+                    image_data = xlgui.get_controller().exaile.covers.get_cover(track)
+                    if image_data is not None:
+                        pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
+                        pixbuf = pixbuf.scale_simple(100, 100, gtk.gdk.INTERP_BILINEAR)
+                        albums += [album]
+                        if len(albums) >= 2:
+                            break
+
+            if pixbuf is not None:
+                cover_pixbuf = pixbuf
+
+                if len(albums) > 1:
+                    # create stacked-cover effect
+
+                    cover_pixbuf = gtk.gdk.Pixbuf(
+                        gtk.gdk.COLORSPACE_RGB,
+                        True,
+                        8,
+                        110, 110
+                    )
+
+                    fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 110, 110)
+                    fill_pixbuf.fill(0x00000000) # transparent bg
+
+                    fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 100, 100)
+                    fill_pixbuf.fill(0xccccccff)
+
+                    fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, 100, 100)
+                    fill_pixbuf.fill(0x999999ff)
+
+                    pixbuf.copy_area(
+                        0, 0, 100, 100,
+                        cover_pixbuf,
+                        10, 10
+                    )
+
+                gobject.idle_add(self._set_drag_cover, context, cover_pixbuf)
+
+    def _set_drag_cover(self, context, pixbuf):
+        """
+            Completes drag icon setup
+        """
+        context.set_icon_pixbuf(pixbuf, 0, 0)
+
+    def on_drag_motion(self, treeview, context, x, y, timestamp):
         """
             Called when a row is dragged over this treeview
         """
@@ -241,7 +300,7 @@ class DragTreeView(gtk.TreeView):
         if not info: return
         treeview.set_drag_dest_row(info[0], info[1])
 
-    def button_press(self, button, event):
+    def on_button_press(self, button, event):
         """
             The popup menu that is displayed when you right click in the
             playlist
@@ -255,7 +314,7 @@ class DragTreeView(gtk.TreeView):
         if path:
             if event.button != 3:
                 if event.type == gtk.gdk._2BUTTON_PRESS:
-                    self.cont.button_press(button, event)
+                    self.container.button_press(button, event)
 
                 if selection.count_selected_rows() <= 1:
                     return False
@@ -270,7 +329,7 @@ class DragTreeView(gtk.TreeView):
 
             if not selection.count_selected_rows():
                 selection.select_path(path[0])
-        return self.cont.button_press(button, event)
+        return self.container.button_press(button, event)
 
     #TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
     def get_drag_data(self, locs, compile_tracks = True, existing_tracks = []):
@@ -859,12 +918,6 @@ class MenuRatingWidget(gtk.MenuItem):
         self.image.set_from_pixbuf(
             self._get_rating_pixbuf(self._last_calculated_rating))
         self.queue_draw ()
-
-def get_urls_for(items):
-    """
-        Returns the items' URLs
-    """
-    return [item.get_loc_for_io() for item in items]
 
 def finish(repeat=True):
     """

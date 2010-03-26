@@ -213,7 +213,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
             Removes the selected playlist from the UI
             and from the underlying manager
         """
-        selected_playlist = self.get_selected_playlist(raw=True)
+        selected_playlist = self.tree.get_selected_playlist(raw=True)
         if selected_playlist is not None:
             if isinstance(selected_playlist, playlist.SmartPlaylist):
                 self.smart_manager.remove_playlist(
@@ -238,71 +238,19 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 "playlist name you entered is already in use."))
             return
 
-        pl = self.get_selected_playlist()
-        if pl is not None:
-            old_name = pl.get_name()
+        playlist = self.tree.get_selected_playlist()
+        if playlist is not None:
+            old_name = playlist.get_name()
             selection = self.tree.get_selection()
             (model, iter) = selection.get_selected()
             model.set_value(iter, 1, name)
             #Update the manager aswell
-            self.playlist_manager.rename_playlist(pl, name)
+            self.playlist_manager.rename_playlist(playlist, name)
 
     def open_selected_playlist(self):
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
         self.open_item(self.tree, model.get_path(iter), None)
-
-    def get_selected_playlist(self, raw=False):
-        """
-            Retrieves the currently selected playlist in
-            the playlists panel.  If a non-playlist is
-            selected it returns None
-
-            @return: the playlist
-        """
-        item = self.get_selected_item(raw=raw)
-        if isinstance(item, (playlist.Playlist,
-            playlist.SmartPlaylist)):
-            return item
-        else:
-            return None
-
-    def get_selected_track(self):
-        item = self.get_selected_item()
-        if not item: return None
-        if isinstance(item, TrackWrapper):
-            return item.track
-        else:
-            return None
-
-    def get_selected_item(self, raw=False):
-        selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
-        if not iter: return None
-        item = model.get_value(iter, 2)
-        # for smart playlists
-        if isinstance(item, playlist.SmartPlaylist):
-            if raw: return item
-            return item.get_playlist(self.collection)
-        elif isinstance(item, playlist.Playlist) :
-            return item
-        elif isinstance(item, TrackWrapper):
-            return item
-        else:
-            return None
-
-    def get_selected_tracks(self):
-        """
-            Used by the menu, just basically gets the selected
-            playlist and returns the tracks in it
-        """
-        pl = self.get_selected_playlist()
-        if pl is not None:
-            return pl.get_tracks()
-        else:
-            return self.get_selected_track()
-
-        return None
 
     def set_rating(self, widget, rating):
         tracks = self.get_selected_tracks()
@@ -461,7 +409,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.playlist_target = ("playlist_name", gtk.TARGET_SAME_WIDGET, self.playlist_name_info)
         self.deny_targets = [('',0,0)]
 
-        self.tree = guiutil.DragTreeView(self, True, True)
+        self.tree = PlaylistDragTreeView(self)
         self.tree.connect('row-activated', self.open_item)
         self.tree.set_headers_visible(False)
         self.tree.connect('drag-motion', self.drag_motion)
@@ -560,13 +508,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             need refreshing.
         """
         if settings.get_option('gui/sync_on_tag_change', True):
-            for pl in self.playlist_nodes:
-                self.update_playlist_node(pl)
+            for playlist in self.playlist_nodes:
+                self.update_playlist_node(playlist)
 
-    def refresh_saved_playlist(self, type, object, pl):
+    def refresh_saved_playlist(self, type, object, playlist):
         for plx in self.playlist_nodes:
-            if plx.get_name() == pl.get_name():
-                self.update_playlist_node(pl)
+            if plx.get_name() == playlist.get_name():
+                self.update_playlist_node(playlist)
                 break
 
     def _load_playlists(self):
@@ -667,7 +615,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         for k, v in _NMAP.iteritems():
             _REV_NMAP[v] = k
 
-        pl = self.get_selected_playlist(raw=True)
+        pl = self.tree.get_selected_playlist(raw=True)
         if not isinstance(pl, playlist.SmartPlaylist): return
 
         params = pl.search_params
@@ -742,7 +690,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # We are being dragged a playlist so
             # we have to reorder them
             playlist_name = selection.get_text()
-            drag_source = self.get_selected_playlist()
+            drag_source = self.tree.get_selected_playlist()
             # verify names
             if drag_source is not None:
                 if drag_source.get_name() == playlist_name:
@@ -800,7 +748,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # duplicate tracks we have to perform some trickery
             # to make this work properly in all cases
             try:
-                remove_track_index = current_playlist.index(self.get_selected_track())
+                remove_track_index = current_playlist.index(self.tree.get_selected_track())
             except:
                 remove_track_index = None
             if insert_index is not None and remove_track_index is not None:
@@ -867,23 +815,23 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
         #TODO based on info determine what we set in selection_data
         if info == self.playlist_name_info:
-            pl = self.get_selected_playlist()
+            pl = self.tree.get_selected_playlist()
             if pl is not None:
                 selection_data.set(gtk.gdk.SELECTION_TYPE_STRING, 8, pl.get_name())
         else:
-            pl = self.get_selected_playlist()
+            pl = self.tree.get_selected_playlist()
             if pl is not None:
                 tracks = pl.get_tracks()
             else:
-                tracks = [self.get_selected_tracks()]
+                tracks = [self.tree.get_selected_tracks()]
 
             if not tracks: return
 
             for track in tracks:
                 guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
 
-            urls = guiutil.get_urls_for(tracks)
-            selection_data.set_uris(urls)
+            uris = trax.util.get_uris_from_tracks(tracks)
+            selection_data.set_uris(uris)
 
     def drag_motion(self, tv, context, x, y, time):
         """
@@ -903,7 +851,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         # Determine where the drag is coming from
         dragging_playlist = False
         if tv == self.tree:
-            selected_playlist = self.get_selected_playlist()
+            selected_playlist = self.tree.get_selected_playlist()
             if selected_playlist is not None:
                 dragging_playlist = True
 
@@ -956,7 +904,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             @path where we we want it to be saved, with a
                 valid extension we support
         """
-        pl = self.get_selected_playlist()
+        pl = self.tree.get_selected_playlist()
         if pl is not None:
             try:
                 playlist.export_playlist(pl, path)
@@ -1049,3 +997,66 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if not iter: break
             self.model.remove(iter)
             iter = self.model.iter_children(node)
+
+class PlaylistDragTreeView(guiutil.DragTreeView):
+    """
+        Custom DragTreeView to retrieve data from playlists
+    """
+    def get_selected_tracks(self):
+        """
+            Used by the menu, just basically gets the selected
+            playlist and returns the tracks in it
+        """
+        playlist = self.get_selected_playlist()
+
+        if playlist is not None:
+            return playlist.get_tracks()
+        else:
+            return self.get_selected_track()
+
+        return None
+
+    def get_selected_playlist(self, raw=False):
+        """
+            Retrieves the currently selected playlist in
+            the playlists panel.  If a non-playlist is
+            selected it returns None
+
+            @return: the playlist
+        """
+        item = self.get_selected_item(raw=raw)
+
+        if isinstance(item, (playlist.Playlist,
+            playlist.SmartPlaylist)):
+            return item
+        else:
+            return None
+
+    def get_selected_track(self):
+        item = self.get_selected_item()
+
+        if not item: return None
+
+        if isinstance(item, TrackWrapper):
+            return item.track
+        else:
+            return None
+
+    def get_selected_item(self, raw=False):
+        (model, iter) = self.get_selection().get_selected()
+
+        if not iter: return None
+
+        item = model.get_value(iter, 2)
+
+        # for smart playlists
+        if isinstance(item, playlist.SmartPlaylist):
+            if raw: return item
+            return item.get_playlist(self.container.collection)
+        elif isinstance(item, playlist.Playlist) :
+            return item
+        elif isinstance(item, TrackWrapper):
+            return item
+        else:
+            return None
+

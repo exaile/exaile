@@ -37,6 +37,12 @@ def is_valid_track(loc):
     extension = gio.File(loc).get_basename().split(".")[-1]
     return extension.lower() in metadata.formats
 
+def get_uris_from_tracks(tracks):
+    """
+        Returns all URIs for tracks
+    """
+    return [track.get_loc_for_io() for track in tracks]
+
 def get_tracks_from_uri(uri):
     """
         Returns all valid tracks located at uri

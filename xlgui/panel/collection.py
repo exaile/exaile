@@ -144,12 +144,12 @@ class CollectionPanel(panel.Panel):
             collection)
 
         self.menu = menu.CollectionPanelMenu(self.tree.get_selection(),
-            self.get_selected_tracks,
+            self.tree.get_selected_tracks,
             self.get_tracks_rating)
         self.menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.get_selected_tracks()))
+            self.emit('append-items', self.tree.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
-            self.emit('queue-items', self.get_selected_tracks()))
+            self.emit('queue-items', self.tree.get_selected_tracks()))
         self.menu.connect('rating-set', self._on_set_rating)
         self.menu.connect('delete-items', self._on_delete_items)
         self.menu.connect('properties', lambda *e:
@@ -163,7 +163,7 @@ class CollectionPanel(panel.Panel):
             Shows the properties dialog
         """
         from xlgui import properties
-        tracks = self.get_selected_tracks()
+        tracks = self.tree.get_selected_tracks()
 
         if not tracks:
             return False
@@ -179,7 +179,7 @@ class CollectionPanel(panel.Panel):
         """
             Called when a new rating is chosen from the rating menu
         """
-        tracks = self.get_selected_tracks()
+        tracks = self.tree.get_selected_tracks()
         rating.set_rating(tracks, new_rating)
 
     def _on_delete_items(self, *args):
@@ -190,7 +190,7 @@ class CollectionPanel(panel.Panel):
                 )
         res = dialog.run()
         if res == gtk.RESPONSE_YES:
-            tracks = self.get_selected_tracks()
+            tracks = self.tree.get_selected_tracks()
             self.collection.delete_tracks(tracks)
 
         dialog.destroy()
@@ -237,7 +237,6 @@ class CollectionPanel(panel.Panel):
             'on_empty_collection_button_clicked': lambda *x: xlgui.get_controller().collection_manager()
         })
         self.tree.connect('key-release-event', self.on_key_released)
-        self.tree.connect('drag-begin', self.on_drag_begin)
         event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
 
     def on_refresh_button_pressed(self, button, event):
@@ -293,67 +292,6 @@ class CollectionPanel(panel.Panel):
             return True
         return False
 
-    def on_drag_begin(self, widget, context):
-        """
-            Sets the cover of dragged tracks as drag icon
-        """
-        self._on_drag_begin(widget, context)
-
-    @common.threaded
-    def _on_drag_begin(self, widget, context):
-        """
-            Async call counterpart to on_drag_begin, so that cover fetching
-            doesn't block dragging.
-        """
-        tracks = self.get_selected_tracks()
-
-        if tracks:
-            tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
-            pixbuf = None
-            albums = []
-            for track in tracks:
-                album = track.get_tag_raw('album', join=True)
-                if album not in albums:
-                    image_data = xlgui.get_controller().exaile.covers.get_cover(track)
-                    if image_data is not None:
-                        pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
-                        pixbuf = pixbuf.scale_simple(100, 100, gtk.gdk.INTERP_BILINEAR)
-                        albums += [album]
-                        if len(albums) >= 2:
-                            break
-
-            if pixbuf is not None:
-                cover_pixbuf = pixbuf
-
-                if len(albums) > 1:
-                    # create stacked-cover effect
-
-                    cover_pixbuf = gtk.gdk.Pixbuf(
-                        gtk.gdk.COLORSPACE_RGB,
-                        True,
-                        8,
-                        110, 110
-                    )
-
-                    fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 110, 110)
-                    fill_pixbuf.fill(0x00000000) # transparent bg
-
-                    fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 100, 100)
-                    fill_pixbuf.fill(0xccccccff)
-
-                    fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, 100, 100)
-                    fill_pixbuf.fill(0x999999ff)
-
-                    pixbuf.copy_area(
-                        0, 0, 100, 100,
-                        cover_pixbuf,
-                        10, 10
-                    )
-                gobject.idle_add(self._set_drag_cover, context, cover_pixbuf)
-
-    def _set_drag_cover(self, context, pixbuf):
-        context.set_icon_pixbuf(pixbuf, 0, 0)
-
     def on_collection_search_entry_activate(self, entry):
         """
             Searches tracks and reloads the tree
@@ -390,17 +328,19 @@ class CollectionPanel(panel.Panel):
         """
             Called when a drag source wants data for this drag operation
         """
-        trs = self.get_selected_tracks()
-        for track in trs:
+        tracks = treeview.get_selected_tracks()
+
+        for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
-        urls = guiutil.get_urls_for(trs)
-        selection.set_uris(urls)
+
+        uris = trax.util.get_uris_from_tracks(tracks)
+        selection.set_uris(uris)
 
     def _setup_tree(self):
         """
             Sets up the tree widget
         """
-        self.tree = guiutil.DragTreeView(self)
+        self.tree = CollectionDragTreeView(self)
         self.tree.set_headers_visible(False)
         container = self.builder.get_object('CollectionPanel')
         scroll = gtk.ScrolledWindow()
@@ -444,25 +384,6 @@ class CollectionPanel(panel.Panel):
         matcher = trax.TracksMatcher(search)
         srtrs = trax.search_tracks(self.tracks, [matcher])
         return [ x.track for x in srtrs ]
-
-    def get_selected_tracks(self):
-        """
-            Finds all the selected tracks
-        """
-
-        selection = self.tree.get_selection()
-        (model, paths) = selection.get_selected_rows()
-        trs = []
-        for path in paths:
-            iter = self.model.get_iter(path)
-            newset = self._find_tracks(iter)
-            trs.append(newset)
-
-        if not trs: return None
-
-        trs = list(set(reduce(lambda x, y: list(x) + list(y), trs)))
-
-        return trs
 
     def get_tracks_rating(self):
         """
@@ -513,7 +434,7 @@ class CollectionPanel(panel.Panel):
         """
             Adds items to the current playlist
         """
-        self.emit('append-items', self.get_selected_tracks())
+        self.emit('append-items', self.tree.get_selected_tracks())
 
     def button_press(self, widget, event):
         """
@@ -763,6 +684,27 @@ class CollectionPanel(panel.Panel):
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
+class CollectionDragTreeView(guiutil.DragTreeView):
+    """
+        Custom DragTreeView to retrieve data
+        from collection tracks
+    """
+    def get_selected_tracks(self):
+        """
+            Returns the currently selected tracks
+        """
+        model, paths = self.get_selection().get_selected_rows()
+        tracks = []
 
+        for path in paths:
+            iter = model.get_iter(path)
+            newset = self.container._find_tracks(iter)
+            tracks.append(newset)
+
+        if not tracks: return None
+
+        tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
+
+        return tracks
 
 # vim: et sts=4 sw=4

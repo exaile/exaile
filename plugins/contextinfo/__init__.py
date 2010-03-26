@@ -1,6 +1,5 @@
 from xl import main as ex, trax, common, event, xdg, settings, providers
-from xl.trax import search
-from xl.trax.util import sort_tracks
+from xl.trax import search, util
 from xl.nls import gettext as _
 from xlgui import panel, guiutil, playlist, menu
 import HTMLParser
@@ -276,7 +275,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         tracks = self.get_selected_tracks()
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
-        urls = guiutil.get_urls_for(tracks)
+        urls = util.get_uris_from_tracks(tracks)
         selection.set_uris(urls)
 
     def connect_events(self):
@@ -449,19 +448,19 @@ def get_track_tag(track, tag, default):
 def get_top_tracks(field, limit):
     tracks = [x.track for x in search.search_tracks_from_string(
                 ex.exaile().collection, '! %s==__null__' % field)]
-    tracks = sort_tracks([field], tracks, True)
+    tracks = util.sort_tracks([field], tracks, True)
     return tracks[:limit]
 
 def get_top_albums(field, limit):
     albums = [x.track for x in search.search_tracks_from_string(
                 ex.exaile().collection, '! %s==__null__' % field)]
-    albums = sort_tracks([field], albums, True)
+    albums = util.sort_tracks([field], albums, True)
     return albums[:limit]
 
 def get_top_artists(field, limit):
     artists = [x.artist for x in search.search_tracks_from_string(
                 ex.exaile().collection, '! %s==__null__' % field)]
-    artists = sort_tracks([field], artists, True)
+    artists = util.sort_tracks([field], artists, True)
     return artists[:limit]
 
 class ContextPage(object):

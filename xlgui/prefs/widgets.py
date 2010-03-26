@@ -25,12 +25,15 @@
 # from your version.
 
 import hashlib
+import logging
 import os
 
 import gtk.gdk
 import pango
 
 from xl.nls import gettext as _
+
+logger = logging.getLogger(__name__)
 
 class PrefsItem(object):
     """
@@ -74,7 +77,7 @@ class PrefsItem(object):
             Sets the GUI widget up for this preference
         """
         if not self.widget:
-            xlmisc.log("Widget not found: %s" % (self.name))
+            logger.error("Widget not found: %s" % (self.name))
             return
         self.widget.set_text(str(self.prefs.settings.get_option(
             self.name, self.default)))
@@ -341,10 +344,18 @@ class SelectionListPrefsItem(PrefsItem):
             [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
             gtk.gdk.ACTION_MOVE)
 
-        available_tree.connect('drag-data-received', self.on_drag_data_received)
-        available_tree.connect('key-press-event', self.on_available_tree_key_pressed)
-        selected_tree.connect('drag-data-received', self.on_drag_data_received)
-        selected_tree.connect('key-press-event', self.on_selected_tree_key_pressed)
+        available_tree.connect('drag-data-received',
+            self.on_drag_data_received)
+        available_tree.connect('key-press-event',
+            self.on_available_tree_key_pressed)
+        available_tree.connect('button-press-event',
+            self.on_available_tree_button_press_event)
+        selected_tree.connect('drag-data-received',
+            self.on_drag_data_received)
+        selected_tree.connect('key-press-event',
+            self.on_selected_tree_key_pressed)
+        selected_tree.connect('button-press-event',
+            self.on_selected_tree_button_press_event)
 
         self.available_list.connect('row-inserted',
             self.on_available_list_row_inserted, available_tree)
@@ -445,6 +456,26 @@ class SelectionListPrefsItem(PrefsItem):
         elif event.keyval == gtk.keysyms.Down:
             self.on_down_button_clicked(None)
 
+    def on_available_tree_button_press_event(self, tree, event):
+        """
+            Adds items on double click
+        """
+        if not tree.get_path_at_pos(event.x, event.y):
+            return
+
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            self.on_add_button_clicked(None)
+
+    def on_selected_tree_button_press_event(self, tree, event):
+        """
+            Removes items on double click
+        """
+        if not tree.get_path_at_pos(event.x, event.y):
+            return
+
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            self.on_remove_button_clicked(None)
+
     def on_drag_data_received(self, target_treeview, context, x, y, data, info, time):
         """
             Handles movement of rows
@@ -458,21 +489,21 @@ class SelectionListPrefsItem(PrefsItem):
             return
 
         source_list.remove(source_iter)
-        source_iter = None
 
         target_list = target_treeview.get_model()
         target_row = target_treeview.get_dest_row_at_pos(x, y)
+
         if target_row is None:
             target_list.append([source_value])
         else:
             target_path, drop_position = target_row
             target_iter = target_list.get_iter(target_path)
+
             if drop_position == gtk.TREE_VIEW_DROP_BEFORE or \
                 drop_position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
                 target_list.insert_before(target_iter, [source_value])
             else:
                 target_list.insert_after(target_iter, [source_value])
-            target_iter = None
 
     def on_available_list_row_inserted(self, list, path, iter, tree):
         """

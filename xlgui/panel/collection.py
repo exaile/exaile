@@ -238,6 +238,8 @@ class CollectionPanel(panel.Panel):
         })
         self.tree.connect('key-release-event', self.on_key_released)
         event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
+        event.add_callback(self.refresh_tracks_in_tree, 'track_added', self.collection)
+        event.add_callback(self.refresh_tracks_in_tree, 'track_removed', self.collection)
 
     def on_refresh_button_pressed(self, button, event):
         """
@@ -493,6 +495,9 @@ class CollectionPanel(panel.Panel):
                 gobject.source_remove(self._refresh_id)
             self._refresh_id = gobject.timeout_add(500,
                     self._refresh_tags_in_tree)
+
+    def refresh_tracks_in_tree(self, type, obj, loc):
+        self._refresh_tags_in_tree()
 
     def _refresh_tags_in_tree(self):
         """

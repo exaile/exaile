@@ -117,14 +117,21 @@ class PlaybackProgressBar(object):
         if self.timer_id:
             gobject.source_remove(self.timer_id)
             self.timer_id = None
-        self.timer_id = gobject.timeout_add_seconds(1, self.timer_update)
+        self.__add_timer_update()
 
     def playback_toggle_pause(self, type, player, object):
         if self.timer_id:
             gobject.source_remove(self.timer_id)
             self.timer_id = None
         if not player.is_paused():
-            self.timer_id = gobject.timeout_add_seconds(1, self.timer_update)
+            self.__add_timer_update()
+
+    def __add_timer_update(self):
+        freq = settings.get_option("gui/progress_update_millisecs", 1000)
+        if freq % 1000 == 0:
+            self.timer_id = gobject.timeout_add_seconds(freq/1000, self.timer_update)
+        else:
+            self.timer_id = gobject.timeout_add(freq, self.timer_update)
 
     def playback_end(self, type, player, object):
         if self.timer_id: gobject.source_remove(self.timer_id)

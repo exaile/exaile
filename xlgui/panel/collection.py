@@ -625,6 +625,7 @@ class CollectionPanel(panel.Panel):
         last_val = ''
         last_dval = ''
         last_matchq = ''
+        count = 0
         first = True
         path = None
         expanded = False
@@ -645,6 +646,13 @@ class CollectionPanel(panel.Panel):
                 # that new entries are added if and only if they will
                 # display different results, avoiding that problem.
                 if match_query != last_matchq or tagval != last_dval:
+                    if path and not bottom:
+                        iter = self.model.get_iter(path)
+                        val = self.model.get_value(iter, 1)
+                        val = "%s (%s)"%(val, count)
+                        self.model.set_value(iter, 1, val)
+                        count = 0
+
                     last_val = stagval
                     last_dval = tagval
                     if depth == 0 and draw_seps:
@@ -664,7 +672,7 @@ class CollectionPanel(panel.Panel):
                     expanded = False
                     if not bottom:
                         self.model.append(iter, [None, None, None])
-
+            count += 1
             if not expanded:
                 alltags = []
                 for o in self.order[depth+1:]:
@@ -677,6 +685,13 @@ class CollectionPanel(panel.Panel):
                             path = path[:-1] + (path[-1]-1,)
                         to_expand.append(path)
                         expanded = True
+
+        if path and not bottom:
+            iter = self.model.get_iter(path)
+            val = self.model.get_value(iter, 1)
+            val = "%s (%s)"%(val, count)
+            self.model.set_value(iter, 1, val)
+            count = 0
 
         if settings.get_option("gui/expand_enabled", True) and \
             len(to_expand) < \

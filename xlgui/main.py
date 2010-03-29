@@ -1132,7 +1132,7 @@ class MainWindow(gobject.GObject):
             Called when playback ends
         """
         self.track_title_label.set_label(_('Not Playing'))
-        self.track_info_label.set_label(_('Stopped'))
+        self.track_info_label.set_label('')
         self.window.set_title('Exaile')
         self._update_track_information()
 

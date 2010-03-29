@@ -875,10 +875,8 @@ class MainWindow(gobject.GObject):
         """
             Called when a stream is buffering
         """
-        if percent < 100:
-            self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1)
-        else:
-            self.statusbar.set_status(_("Buffering: 100%..."), 1)
+        percent = min(percent, 100)
+        self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1)
 
     def on_tags_parsed(self, type, player, args):
         """

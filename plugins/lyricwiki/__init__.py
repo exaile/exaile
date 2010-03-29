@@ -45,7 +45,7 @@ class LyricWiki(LyricSearchMethod):
         artist = urllib.quote(artist.replace(' ','_'))
         title = urllib.quote(title.replace(' ','_'))
 
-        url = 'http://lyricwiki.org/%s:%s' % (artist, title)
+        url = 'http://lyricwiki.org/Special:Search?search=%s:%s' % (artist, title)
 
         try:
             html = urllib.urlopen(url).read()

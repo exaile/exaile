@@ -67,4 +67,8 @@ class FileBasedCompilationsPreference(widgets.CheckPrefsItem):
     default = True
     name = 'collection/file_based_compilations'
 
+class TrackCountsPreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'gui/display_track_counts'
+
 # vim:ts=4 et sw=4

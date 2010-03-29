@@ -620,6 +620,7 @@ class CollectionPanel(panel.Panel):
             bottom = True
 
 
+        display_counts = settings.get_option('gui/display_track_counts', True)
         draw_seps = settings.get_option('gui/draw_separators', True)
         last_char = ''
         last_val = ''
@@ -646,7 +647,7 @@ class CollectionPanel(panel.Panel):
                 # that new entries are added if and only if they will
                 # display different results, avoiding that problem.
                 if match_query != last_matchq or tagval != last_dval:
-                    if path and not bottom:
+                    if display_counts and path and not bottom:
                         iter = self.model.get_iter(path)
                         val = self.model.get_value(iter, 1)
                         val = "%s (%s)"%(val, count)
@@ -686,7 +687,7 @@ class CollectionPanel(panel.Panel):
                         to_expand.append(path)
                         expanded = True
 
-        if path and not bottom:
+        if display_counts and path and not bottom:
             iter = self.model.get_iter(path)
             val = self.model.get_value(iter, 1)
             val = "%s (%s)"%(val, count)

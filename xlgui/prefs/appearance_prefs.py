@@ -25,9 +25,10 @@
 # from your version.
 
 from xlgui.prefs import widgets
-from xl import xdg
+from xl import common, xdg
 from xl.nls import gettext as _
 from xlgui import commondialogs
+import xlgui
 
 name = _('Appearance')
 ui = xdg.get_data_path('ui/appearance_prefs_pane.ui')
@@ -43,6 +44,19 @@ class ShowTabBarPreference(widgets.CheckPrefsItem):
 class UseAlphaTransparencyPreference(widgets.CheckPrefsItem):
     default = False
     name = 'gui/use_alpha'
+
+class TrackCountsPreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'gui/display_track_counts'
+
+    def apply(self, value=None):
+        return_value = widgets.CheckPrefsItem.apply(self, value)
+        self._reload_tree()
+        return return_value
+
+    @common.threaded
+    def _reload_tree(self):
+        xlgui.get_controller().panels['collection'].load_tree()
 
 class UseTrayPreference(widgets.CheckPrefsItem):
     default = False

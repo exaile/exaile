@@ -80,7 +80,6 @@ class LyricsFly(LyricSearchMethod):
             raise LyricsNotFoundException
         search = "http://lyricsfly.com/api/api.php?i=%s&a=%s&t=%s" % (
             LYRICSFLY_KEY, rep(artist), rep(title))
-        print search
         try:
             xml = urllib.urlopen(search).read()
         except IOError:
@@ -98,7 +97,6 @@ class LyricsFly(LyricSearchMethod):
         """
             Parses the xml into the lyrics and the URL
         """
-        print repr(xml)
         start = ETree.XML(xml)
         sg = start.find("sg")
         if sg:

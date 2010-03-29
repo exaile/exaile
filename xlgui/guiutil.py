@@ -246,6 +246,7 @@ class DragTreeView(gtk.TreeView):
             if tracks:
                 tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
                 pixbuf = None
+                first_pixbuf = None
                 albums = []
                 for track in tracks:
                     album = track.get_tag_raw('album', join=True)
@@ -255,6 +256,8 @@ class DragTreeView(gtk.TreeView):
                             pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
                             pixbuf = pixbuf.scale_simple(100, 100,
                                 gtk.gdk.INTERP_BILINEAR)
+                            if first_pixbuf is None:
+                                first_pixbuf = pixbuf
                             albums += [album]
                             if len(albums) >= 2:
                                 break
@@ -278,10 +281,17 @@ class DragTreeView(gtk.TreeView):
                         fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 100, 100)
                         fill_pixbuf.fill(0xccccccff)
 
-                        fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, 100, 100)
-                        fill_pixbuf.fill(0x999999ff)
+                        if first_pixbuf != pixbuf:
+                            pixbuf.copy_area(
+                                0, 0, 100, 100,
+                                cover_pixbuf,
+                                5, 5
+                            )
+                        else:
+                            fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, 100, 100)
+                            fill_pixbuf.fill(0x999999ff)
 
-                        pixbuf.copy_area(
+                        first_pixbuf.copy_area(
                             0, 0, 100, 100,
                             cover_pixbuf,
                             10, 10

@@ -314,8 +314,8 @@ class Exaile(object):
             Get the options for exaile
         """
         from optparse import OptionParser, OptionGroup
-        usage = "Usage: %prog [option...|uri]"
-        p = OptionParser(usage=usage)
+        usage = "Usage: %prog [OPTION]... [URI]"
+        p = OptionParser(usage=usage, prog="exaile", add_help_option=False)
 
         group = OptionGroup(p, _('Playback options'))
         group.add_option("-n", "--next", dest="Next", action="store_true",
@@ -375,7 +375,10 @@ class Exaile(object):
         group = OptionGroup(p, _('Other options'))
         group.add_option("--new", dest="NewInstance", action="store_true",
                 default=False, help=_("Start new instance"))
-        group.add_option("--version", dest="ShowVersion", action="store_true")
+        group.add_option("-h", "--help", action="help",
+                help=_("Show this help message and exit"))
+        group.add_option("--version", dest="ShowVersion", action="store_true",
+                help=_("Show program's version number and exit."))
         group.add_option("--start-minimized", dest="StartMinimized",
                 action="store_true", default=False,
                 help=_("Start minimized (to tray, if possible)"))

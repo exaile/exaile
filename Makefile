@@ -8,7 +8,7 @@ EXAILECONFDIR 	= $(DESTDIR)$(XDGCONFDIR)/exaile
 
 .PHONY: dist test coverage clean sanitycheck
 
-all: compile locale
+all: compile locale manpage
 	@echo "Ready to install..."
 
 # The no_locale stuff is by request of BSD people, please ensure
@@ -47,6 +47,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
+	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
 	mkdir -p $(EXAILECONFDIR)
 
 uninstall:
@@ -56,6 +57,7 @@ uninstall:
 	rm -rf $(EXAILECONFDIR)/exaile
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
+	rm -f $(DESTDIR)$(PREFIX)/share/man/man1/exaile.1.gz
 	$(MAKE) -C plugins uninstall
 
 install: install-target install-locale
@@ -98,6 +100,7 @@ install-target: make-install-dirs
 	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
+	install -m 644 exaile.1.gz $(DESTDIR)$(PREFIX)/share/man/man1/
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	# 2010-03-12 danfuhry: moved this to an external script to clean up syntax
 	# and avoid makefile limitations
@@ -120,11 +123,22 @@ install-locale:
 plugins_dist:
 	$(MAKE) -C plugins dist
 
+# The sed call in -h removes the indent from group headers to work around
+# help2man's incompatibility with optparse's grouping.
+# The sed call in -v removes the ASCII art from Exaile's --version and
+# prints out the proper "$program $version" text.
+manpage:
+	help2man -n "music manager and player" -N \
+	  -h './exaile --help | sed "s/^  //"' \
+	  -v './exaile --version | sed -n "4 s/.* v\\(.*\\)/exaile \\1/ p"' \
+	  ./exaile \
+	  | gzip -9 > exaile.1.gz
 
 clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	find po/* -depth -type d -exec rm -r {} \;
+	rm exaile.1.gz
 	$(MAKE) -C plugins clean
 
 pot:

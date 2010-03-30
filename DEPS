@@ -23,6 +23,7 @@ Translation:
 Documentation:
 
 * sphinx
+* help2man
 
 Device detection:
 

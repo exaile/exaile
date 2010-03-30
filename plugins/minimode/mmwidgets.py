@@ -16,6 +16,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import copy, gobject, gtk, pango
+from datetime import date
 from string import Template
 from xl import event, settings
 from xl.nls import gettext as _
@@ -768,17 +769,17 @@ class ProgressBar(gtk.Alignment):
         self._motion_notify_event_id = self.bar.connect('motion-notify-event',
             self.on_motion_notify)
 
-        event.add_callback(self.on_playback_state_change, 'playback_player_start')
+        event.add_callback(self.on_playback_state_change, 'playback_track_start')
         event.add_callback(self.on_playback_state_change, 'playback_toggle_pause')
-        event.add_callback(self.on_playback_state_change, 'playback_player_end')
+        event.add_callback(self.on_playback_state_change, 'playback_track_end')
 
     def destroy(self):
         """
             Various cleanups
         """
-        event.remove_callback(self.on_playback_state_change, 'playback_player_start')
+        event.remove_callback(self.on_playback_state_change, 'playback_track_start')
         event.remove_callback(self.on_playback_state_change, 'playback_toggle_pause')
-        event.remove_callback(self.on_playback_state_change, 'playback_player_end')
+        event.remove_callback(self.on_playback_state_change, 'playback_track_end')
 
         self.disconnect(self._track_seeked_id)
         self.disconnect(self._button_press_event_id)
@@ -1071,29 +1072,20 @@ class TrackFormatter(gobject.GObject):
         text = _('Never')
 
         try:
-            last_played = float(last_played)
-        except ValueError:
-            last_played = None
-
-        if last_played is not None:
-            import time
-            ct = time.time()
-            now = time.localtime(ct)
-            yday = time.localtime(ct - 86400)
-            ydaytime = time.mktime((yday.tm_year, yday.tm_mon, yday.tm_mday, \
-                0, 0, 0, yday.tm_wday, yday.tm_yday, yday.tm_isdst))
-            lptime = time.localtime(last_played)
-            if now.tm_year == lptime.tm_year and \
-               now.tm_mon == lptime.tm_mon and \
-               now.tm_mday == lptime.tm_mday:
+            last_played = date.fromtimestamp(last_played)
+        except TypeError, ValueError:
+            text = _('Never')
+        else:
+            delta = today - last_played
+            if delta.day == 0:
                 text = _('Today')
-            elif ydaytime <= last_played:
+            elif delta.day == 1:
                 text = _('Yesterday')
             else:
                 text = _('%(year)d-%(month)02d-%(day)02d') % {
-                    'year' : lptime.tm_year,
-                    'month' : lptime.tm_mon,
-                    'day' : lptime.tm_mday
+                    'year': last_played.year,
+                    'month': last_played.month,
+                    'day': last_played.day
                 }
 
         return text

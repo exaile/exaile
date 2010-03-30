@@ -313,7 +313,7 @@ class MiniMode(gtk.Window):
         """
             Handles seeking in the progress bar
         """
-        duration = self.exaile.player.current.get_duration()
+        duration = self.exaile.player.current.get_tag_raw('__length')
         self.exaile.player.seek(duration * float(position))
 
     def on_volume_changed(self, volume_button, value):

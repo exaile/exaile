@@ -102,10 +102,8 @@ install-target: make-install-dirs
 		$(DESTDIR)$(PREFIX)/share/applications/	
 	install -m 644 exaile.1.gz $(DESTDIR)$(PREFIX)/share/man/man1/
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
-	# 2010-03-12 danfuhry: moved this to an external script to clean up syntax
-	# and avoid makefile limitations
-	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(LIBINSTALLDIR)"
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/exaile
+	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(LIBINSTALLDIR)" && \
+	  chmod 755 $(DESTDIR)$(PREFIX)/bin/exaile
 	$(MAKE) -C plugins install
 
 locale:
@@ -138,20 +136,20 @@ clean:
 	-find . -name "*.~[0-9]~" -exec rm -f {} \;
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	find po/* -depth -type d -exec rm -r {} \;
-	rm exaile.1.gz
+	rm -f exaile.1.gz
 	$(MAKE) -C plugins clean
 
+# The "[type: gettext/glade]" helps intltool recognize .ui files as glade format
 pot:
-	@echo "[encoding: UTF-8]" > po/POTFILES.in
-	find xl -name "*.py" >> po/POTFILES.in
-	find xlgui -name "*.py" >> po/POTFILES.in
-	# Help intltool recognize .ui files as glade like format
-	find data/ui/ -name "*.ui" | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in
-	find plugins -name "*.py" >> po/POTFILES.in
-	find plugins -name "*.ui" | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in
-	find plugins -name PLUGININFO >> po/POTFILES.in
-	cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
-		intltool-update --pot --gettext-package=messages --verbose && cd ..
+	echo "[encoding: UTF-8]" > po/POTFILES.in && \
+	  find xl -name "*.py" >> po/POTFILES.in && \
+	  find xlgui -name "*.py" >> po/POTFILES.in && \
+	  find data/ui/ -name "*.ui" | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
+	  find plugins -name "*.py" >> po/POTFILES.in && \
+	  find plugins -name "*.ui" | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
+	  find plugins -name PLUGININFO >> po/POTFILES.in && \
+	  cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
+	    intltool-update --pot --gettext-package=messages --verbose && cd ..
 
 potball:
 	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \

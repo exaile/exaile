@@ -186,7 +186,7 @@ class ExaileScrobbler(object):
             track.get_tag_raw('title', join=True),
             track.get_tag_raw('album', join=True),
             int(track.get_tag_raw('__length')),
-            track.split_numerical(track.get_tag_raw('tracknumber'))[0]
+            track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0
             )
 
     def on_play(self, type, player, track):
@@ -248,7 +248,7 @@ class ExaileScrobbler(object):
                     int(time_started), 'P', '',
                     int(track.get_tag_raw('__length')),
                     track.get_tag_raw('album', join=True),
-                    track.split_numerical(track.get_tag_raw('tracknumber'))[0],
+                    track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0,
                     autoflush=True,
                     )
             except:

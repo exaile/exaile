@@ -173,9 +173,9 @@ class TrackPropertiesDialog(gobject.GObject):
 
         return l
 
-    def _tags_write(self):
-        dialog = SavingProgressWindow(self.dialog, len(self.tracks))
-        for n, track in enumerate(self.tracks):
+    def _tags_write(self, data):
+        dialog = SavingProgressWindow(self.dialog, len(data))
+        for n, track in data:
             poplist = []
             for tag in track:
                 if not tag.startswith("__"):
@@ -321,8 +321,13 @@ class TrackPropertiesDialog(gobject.GObject):
         self._remove_tag_mode(self.remove_tag_button)
 
     def _on_apply(self, w):
-        if self.tracks != self.tracks_original:
-            self._tags_write()
+        modified = []
+        for n, track in enumerate(self.tracks):
+            if track != self.tracks_original[n]:
+                modified.append((n, track))
+
+        if modified:
+            self._tags_write(modified)
 
             self.tracks = None
             self.tracks_original = None

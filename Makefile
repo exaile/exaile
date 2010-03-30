@@ -100,7 +100,7 @@ install-target: make-install-dirs
 	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
-	install -m 644 exaile.1.gz $(DESTDIR)$(PREFIX)/share/man/man1/
+	-install -m 644 exaile.1.gz $(DESTDIR)$(PREFIX)/share/man/man1/
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(LIBINSTALLDIR)" && \
 	  chmod 755 $(DESTDIR)$(PREFIX)/bin/exaile

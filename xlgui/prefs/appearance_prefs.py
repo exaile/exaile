@@ -76,3 +76,17 @@ class TabPlacementPreference(widgets.ComboPrefsItem):
     map = ['left', 'right', 'top', 'bottom']
     def __init__(self, prefs, widget):
         widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+
+class ProgressBarTextFormatPreference(widgets.ComboEntryPrefsItem):
+    name = 'gui/progress_bar_text_format'
+    completion_items = {
+        '$current_time': _('Current playback position'),
+        '$remaining_time': _('Remaining playback time'),
+        '$total_time': _('Length of a track')
+    }
+    preset_items = [
+        '$current_time / $remaining_time',
+        '$current_time / $total_time'
+    ]
+    default = '$current_time / $remaining_time'
+

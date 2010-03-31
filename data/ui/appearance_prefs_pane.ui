@@ -113,7 +113,7 @@
         </child>
         <child>
           <object class="GtkCheckButton" id="gui/display_track_counts">
-            <property name="label" translatable="yes">Display track counts in collection pane</property>
+            <property name="label" translatable="yes">Display track counts in collection</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>

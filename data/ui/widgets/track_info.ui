@@ -93,7 +93,7 @@
                           <object class="GtkProgressBar" id="progressbar">
                             <property name="visible">True</property>
                             <property name="show_text">True</property>
-                            <property name="text" translatable="yes">00:00 / 00:00</property>
+                            <property name="text">00:00 / 00:00</property>
                           </object>
                         </child>
                       </object>

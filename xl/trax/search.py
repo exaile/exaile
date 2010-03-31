@@ -194,8 +194,8 @@ class _ManyMultiMetaMatcher(object):
 
 class TracksMatcher(object):
     """
-        Holds criterea and determines whether a given Track matches
-        those criteria.
+        Holds criteria and determines whether
+        a given track matches those criteria.
     """
     __slots__ = ['matchers', 'case_sensitive', 'keyword_tags']
     def __init__(self, search_string, case_sensitive=True, keyword_tags=None):

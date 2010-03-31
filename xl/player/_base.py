@@ -200,10 +200,22 @@ class ExailePlayer(object):
             return 'stopped'
 
     def is_playing(self):
+        """
+            Returns True if the player is currently playing
+        """
         return self._get_gst_state() == gst.STATE_PLAYING
 
     def is_paused(self):
+        """
+            Returns True if the player is currently paused
+        """
         return self._get_gst_state() == gst.STATE_PAUSED
+
+    def is_stopped(self):
+        """
+            Returns True if the player is currently stopped
+        """
+        return self._get_gst_state() == gst.STATE_NULL
 
     def _on_playback_error(self, message):
         """

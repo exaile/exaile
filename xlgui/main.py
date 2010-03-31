@@ -39,7 +39,7 @@ pygtk.require('2.0')
 import gtk
 import pango
 
-from xl import common, event, providers, settings, xdg, trax
+from xl import common, event, formatter, providers, settings, xdg, trax
 from xl.nls import gettext as _
 import xl.playlist
 from xlgui import playlist, cover, guiutil, menu, commondialogs, tray
@@ -52,6 +52,7 @@ class PlaybackProgressBar(object):
         self.player = player
         self.timer_id = None
         self.seeking = False
+        self.formatter = formatter.ProgressBarTextFormatter()
 
         self.bar.set_text(_('Not Playing'))
         self.bar.connect('button-press-event', self.seek_begin)
@@ -91,7 +92,7 @@ class PlaybackProgressBar(object):
         self.player.seek(seconds)
         self.seeking = False
         self.bar.set_fraction(value)
-        self._set_bar_text(seconds, length)
+        self.bar.set_text(self.formatter.format(seconds, length))
 #        self.emit('seek', seconds)
 
     def seek_motion_notify(self, widget, event):
@@ -111,7 +112,7 @@ class PlaybackProgressBar(object):
         length = tr.get_tag_raw('__length')
         seconds = float(value * length)
         remaining_seconds = length - seconds
-        self._set_bar_text(seconds, length)
+        self.bar.set_text(self.formatter.format(seconds, length))
 
     def playback_start(self, type, player, object):
         if self.timer_id:
@@ -148,37 +149,14 @@ class PlaybackProgressBar(object):
             self.bar.set_fraction(0)
             self.bar.set_text(_('Streaming...'))
             return True
-        length = tr.get_tag_raw('__length')
 
         self.bar.set_fraction(self.player.get_progress())
 
         seconds = self.player.get_time()
-        self._set_bar_text(seconds, length)
+        length = tr.get_tag_raw('__length')
+        self.bar.set_text(self.formatter.format(seconds, length))
 
         return True
-
-    def _set_bar_text(self, seconds, length):
-        """
-            Sets the text of the progress bar based on the number of seconds
-            into the song
-        """
-        remaining_seconds = length - seconds
-        time = datetime.timedelta(seconds=int(seconds))
-        time_left = datetime.timedelta(seconds=int(remaining_seconds))
-        def str_time(t):
-            """
-                Converts a datetime.timedelta object to a sensible human-
-                readable format
-            """
-            text = unicode(t)
-            if t.seconds > 3600:
-                return text
-            elif t.seconds > 60:
-                return text.lstrip("0:")
-            else:
-                # chop off first zero to get 0:20
-                return text[3:]
-        self.bar.set_text("%s / %s" % (str_time(time), str_time(time_left)))
 
 
 # Reduce the notebook tabs' close button padding size.

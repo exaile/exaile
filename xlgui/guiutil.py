@@ -245,6 +245,7 @@ class DragTreeView(gtk.TreeView):
         if self.show_cover_drag_icon:
             tracks = self.get_selected_tracks()
             cover_manager = xlgui.get_controller().exaile.covers
+            width = height = settings.get_option('gui/cover_width', 100)
 
             if tracks:
                 tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
@@ -256,7 +257,7 @@ class DragTreeView(gtk.TreeView):
                     if album not in albums:
                         image_data = cover_manager.get_cover(track)
                         if image_data is not None:
-                            pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (100, 100))
+                            pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, height))
 
                             if first_pixbuf is None:
                                 first_pixbuf = pixbuf
@@ -268,33 +269,32 @@ class DragTreeView(gtk.TreeView):
                     cover_pixbuf = pixbuf
 
                     if len(albums) > 1:
-                        # create stacked-cover effect
-
+                        # Create stacked-cover effect
                         cover_pixbuf = gtk.gdk.Pixbuf(
                             gtk.gdk.COLORSPACE_RGB,
                             True,
                             8,
-                            110, 110
+                            width + 10, height + 10
                         )
 
-                        fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 110, 110)
-                        fill_pixbuf.fill(0x00000000) # transparent bg
+                        fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, width + 10, height + 10)
+                        fill_pixbuf.fill(0x00000000) # Fill with transparent background
 
-                        fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, 100, 100)
+                        fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, width, height)
                         fill_pixbuf.fill(0xccccccff)
 
                         if first_pixbuf != pixbuf:
                             pixbuf.copy_area(
-                                0, 0, 100, 100,
+                                0, 0, width, height,
                                 cover_pixbuf,
                                 5, 5
                             )
                         else:
-                            fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, 100, 100)
+                            fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, width, height)
                             fill_pixbuf.fill(0x999999ff)
 
                         first_pixbuf.copy_area(
-                            0, 0, 100, 100,
+                            0, 0, width, height,
                             cover_pixbuf,
                             10, 10
                         )
@@ -1010,7 +1010,8 @@ class TrackInfoPane(gtk.Alignment):
         self._track = track
 
         image_data = self.covers.get_cover(track, use_default=True)
-        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (100, 100))
+        width = settings.get_option('gui/cover_width', 100)
+        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, width))
         self.cover_image.set_from_pixbuf(pixbuf)
 
         self.title_label.set_text(track.get_tag_display('title'))

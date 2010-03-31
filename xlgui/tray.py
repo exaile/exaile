@@ -42,6 +42,9 @@ class BaseTrayIcon(object):
         self.queue = main.controller.exaile.queue
         self.VOLUME_STEP = 5
 
+        self.tooltip = guiutil.TrackToolTip(
+            self, display_progress=True, auto_update=True)
+
         self.setup_menu()
         self.update_icon()
         self.connect_events()
@@ -117,10 +120,9 @@ class BaseTrayIcon(object):
         self.repeat_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
         self.dynamic_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
 
-        event.add_callback(self.on_playback_change_state, 'playback_player_start')
-        event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
         event.add_callback(self.on_playback_change_state, 'playback_player_end')
-        #event.add_callback(self.update_menu, 'playback_track_start')
+        event.add_callback(self.on_playback_change_state, 'playback_track_start')
+        event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
         event.add_callback(self.on_setting_change, 'option_set')
 
     def update_menu(self):

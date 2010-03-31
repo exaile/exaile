@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (C) 2008-2009 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
@@ -34,10 +35,12 @@ import gio
 import gobject
 import gtk
 import gtk.gdk
+import pango
 
-from xl import xdg, playlist, common, settings, event, trax
+from xl import common, event, playlist, settings, trax, xdg
 from xl.nls import gettext as _
 from xlgui import icons, rating
+import xl.main
 import xlgui
 
 def _idle_callback(func, callback, *args, **kwargs):
@@ -253,9 +256,8 @@ class DragTreeView(gtk.TreeView):
                     if album not in albums:
                         image_data = cover_manager.get_cover(track)
                         if image_data is not None:
-                            pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
-                            pixbuf = pixbuf.scale_simple(100, 100,
-                                gtk.gdk.INTERP_BILINEAR)
+                            pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (100, 100))
+
                             if first_pixbuf is None:
                                 first_pixbuf = pixbuf
                             albums += [album]
@@ -487,7 +489,8 @@ class VolumeControl(object):
         self.icon_names = ['low', 'medium', 'high']
 
         builder = gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui/widgets/volume_control.ui'))
+        builder.add_from_file(xdg.get_data_path('ui', 'widgets',
+            'volume_control.ui'))
         builder.connect_signals(self)
 
         self.box = builder.get_object('volume_control')
@@ -940,6 +943,301 @@ class MenuRatingWidget(gtk.MenuItem):
         self.image.set_from_pixbuf(
             self._get_rating_pixbuf(self._last_calculated_rating))
         self.queue_draw ()
+
+class TrackInfoPane(gtk.Alignment):
+    """
+        Displays cover art and track data
+    """
+    def __init__(self, display_progress=False, auto_update=False):
+        """
+            :param display_progress: Toggles the display
+                of the playback indicator and progress bar
+                if the current track is played
+            :param auto_update: Toggles the automatic
+                following of playback state and track changes
+        """
+        gtk.Alignment.__init__(self)
+
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path(
+            'ui', 'widgets', 'track_info.ui'))
+
+        info_box = builder.get_object('info_box')
+        info_box.reparent(self)
+
+        self._display_progress = display_progress
+        self._auto_update = auto_update
+        self._timer = None
+        self._track = None
+
+        self.cover_image = builder.get_object('cover_image')
+        self.title_label = builder.get_object('title_label')
+        self.artist_label = builder.get_object('artist_label')
+        self.album_label = builder.get_object('album_label')
+
+        if self._display_progress:
+            self.playback_box = builder.get_object('playback_box')
+            self.playback_image = builder.get_object('playback_image')
+            self.progressbar = builder.get_object('progressbar')
+
+        if self._auto_update:
+            event.add_callback(self.on_playback_player_end,
+                'playback_player_end')
+            event.add_callback(self.on_playback_track_start,
+                'playback_track_start')
+            event.add_callback(self.on_playback_toggle_pause,
+                'playback_toggle_pause')
+            event.add_callback(self.on_playback_error,
+                'playback_error')
+
+        try:
+            exaile = xl.main.exaile()
+        except AttributeError:
+            event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
+        else:
+            self.on_exaile_loaded('exaile_loaded', exaile, None)
+
+    def set_track(self, track):
+        """
+            Updates the data displayed in the info pane
+            :param track: A track to take the data from,
+                clears the info pane if track is None
+        """
+        if track is None:
+            self.clear()
+            return
+
+        self._track = track
+
+        image_data = self.covers.get_cover(track, use_default=True)
+        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (100, 100))
+        self.cover_image.set_from_pixbuf(pixbuf)
+
+        self.title_label.set_text(track.get_tag_display('title'))
+        # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+        self.artist_label.set_text(_('by %s') % track.get_tag_display('artist',
+            artist_compilations=False))
+        # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+        self.album_label.set_text(_('from %s') % track.get_tag_display('album'))
+
+        if self._display_progress:
+            state = self.player.get_state()
+
+            if track == self.player.current and not self.player.is_stopped():
+                stock_id = None
+                
+                if self.player.is_playing():
+                    stock_id = gtk.STOCK_MEDIA_PLAY
+                elif self.player.is_paused():
+                    stock_id = gtk.STOCK_MEDIA_PAUSE
+
+                self.playback_image.set_from_stock(stock_id,
+                    gtk.ICON_SIZE_SMALL_TOOLBAR)
+
+                self.__show_progress()
+            else:
+                self.__hide_progress()
+
+    def clear(self):
+        """
+            Resets the info pane
+        """
+        pixbuf = icons.MANAGER.pixbuf_from_data(
+            self.covers.get_default_cover())
+        self.cover_image.set_from_pixbuf(pixbuf)
+        self.title_label.set_text(_('Not Playing'))
+        self.artist_label.set_text('')
+        self.album_label.set_text('')
+
+        if self._display_progress:
+            self.__hide_progress()
+
+    def __enable_timer(self):
+        """
+            Enables the timer, if not already
+        """
+        if self._timer is not None:
+            return
+
+        milliseconds = settings.get_option('gui/progress_update/millisecs', 1000)
+
+        if milliseconds % 1000 == 0:
+            self._timer = gobject.timeout_add_seconds(milliseconds / 1000,
+                self.__update_progress)
+        else:
+            self._timer = gobject.timeout_add(milliseconds,
+                self.__update_progress)
+
+    def __disable_timer(self):
+        """
+            Disables the timer, if not already
+        """
+        if self._timer is None:
+            return
+
+        gobject.source_remove(self._timer)
+        self._timer = None
+
+    def __show_progress(self):
+        """
+            Shows the progress area and enables
+            updates of the progress bar
+        """
+        self.__enable_timer()
+        self.playback_box.set_no_show_all(False)
+        self.playback_box.set_property('visible', True)
+
+    def __hide_progress(self):
+        """
+            Hides the progress area and disables
+            updates of the progress bar
+        """
+        self.playback_box.set_property('visible', False)
+        self.playback_box.set_no_show_all(True)
+        self.__disable_timer()
+
+    def __update_progress(self):
+        """
+            Updates the state of the progress bar
+        """
+        track = self.player.current
+
+        if track is not self._track:
+            self.playback_box.set_property('visible', False)
+            self.playback_box.set_no_show_all(True)
+            self.__disable_timer()
+            return False
+
+        fraction = 0
+        text = ''
+
+        if track is not None:
+            total = track.get_tag_raw('__length')
+            current = self.player.get_time()
+            text = '%d:%02d / %d:%02d' % \
+                (current // 60, current % 60,
+                 total // 60, total % 60)
+
+            if self.player.is_paused():
+                self.__disable_timer()
+                fraction = self.progressbar.get_fraction()
+            elif self.player.is_playing():
+                if track.get_tag_raw('__length'):
+                    self.__enable_timer()
+                    fraction = self.player.get_progress()
+                elif not track.is_local():
+                    self.__disable_timer()
+                    text = _('Streaming...')
+
+        self.progressbar.set_fraction(fraction)
+        self.progressbar.set_text(text)
+
+        return True
+
+    def on_playback_player_end(self, event, player, track):
+        """
+            Clears the info pane on playback end
+        """
+        self.clear()
+
+    def on_playback_track_start(self, event, player, track):
+        """
+            Updates the info pane on track start
+        """
+        self.set_track(track)
+
+    def on_playback_toggle_pause(self, event, player, track):
+        """
+            Updates the info pane on playback pause/resume
+        """
+        self.set_track(track)
+
+    def on_playback_error(self, event, player, track):
+        """
+            Clears the fino pane on playback errors
+        """
+        self.clear()
+
+    def on_exaile_loaded(self, e, exaile, nothing):
+        """
+            Sets up references after controller is loaded
+        """
+        self.covers = exaile.covers
+        self.player = exaile.player
+
+        current_track = self.player.current
+
+        if self._auto_update and current_track is not None:
+            self.set_track(current_track)
+        else:
+            self.clear()
+
+        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
+
+class ToolTip(object):
+    """
+        Custom tooltip class to allow for
+        extended tooltip functionality
+    """
+    def __init__(self, parent, widget):
+        """
+            Sets up the tooltip
+            :param parent: the parent widget the tooltip
+                should be attached to
+            :param widget: the tooltip widget to be used
+                for the tooltip
+        """
+        if self.__class__.__name__ == 'ToolTip':
+            raise TypeError("cannot create instance of abstract "
+                            "(non-instantiable) type `ToolTip'")
+
+        self.__widget = widget
+        self.__widget.unparent() # Just to be sure
+
+        parent.set_has_tooltip(True)
+        parent.connect('query-tooltip', self.on_query_tooltip)
+
+    def on_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
+        """
+            Puts the custom widget into the tooltip
+        """
+        tooltip.set_custom(self.__widget)
+
+        return True
+
+class TrackToolTip(ToolTip):
+    """
+        Track specific tooltip class, displays
+        track data and progress indicators
+    """
+    def __init__(self, parent, display_progress=False, auto_update=False):
+        """
+            :param parent: the parent widget the tooltip
+                should be attached to
+            :param display_progress: Toggles the display
+                of the playback indicator and progress bar
+                if the current track is played
+            :param auto_update: Toggles the automatic
+                following of playback state and track changes
+        """
+        self.info_pane = TrackInfoPane(display_progress, auto_update)
+        self.info_pane.set_padding(6, 6, 6, 6)
+
+        ToolTip.__init__(self, parent, self.info_pane)
+    
+    def set_track(self, track):
+        """
+            Updates data displayed in the tooltip
+            :param track: A track to take the data from,
+                clears the tooltip if track is None
+        """
+        self.info_pane.set_track(track)
+
+    def clear(self):
+        """
+            Resets the tooltip
+        """
+        self.info_pane.clear()
 
 def finish(repeat=True):
     """

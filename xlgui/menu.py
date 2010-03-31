@@ -303,7 +303,7 @@ class CollectionPanelMenu(RatedTrackSelectMenu):
 
     def _create_menu(self):
         RatedTrackSelectMenu._create_menu(self)
-        self.delete_item = self.append(_('Delete track'),
+        self.delete_item = self.append(_('Delete Track from Storage'),
                 lambda *e: self.on_delete_track(), 'gtk-delete')
 
     def on_delete_track(self):

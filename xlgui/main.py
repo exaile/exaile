@@ -59,11 +59,11 @@ class PlaybackProgressBar(object):
         self.bar.connect('motion-notify-event', self.seek_motion_notify)
 
         event.add_callback(self.playback_start,
-                'playback_player_start', player)
-        event.add_callback(self.playback_toggle_pause, 'playback_toggle_pause',
-            player)
+            'playback_player_start', player)
+        event.add_callback(self.playback_toggle_pause,
+            'playback_toggle_pause', player)
         event.add_callback(self.playback_end,
-                'playback_player_end', player)
+            'playback_player_end', player)
 
     def destroy(self):
         event.remove_callback(self.playback_start,

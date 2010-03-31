@@ -826,7 +826,14 @@ class ProgressBar(gtk.Alignment):
         if self._timer is not None:
             return
 
-        self._timer = gobject.timeout_add_seconds(1, self.update_state)
+        milliseconds = settings.get_option('gui/progress_update/millisecs', 1000)
+
+        if milliseconds % 1000 == 0:
+            self._timer = gobject.timeout_add_seconds(milliseconds / 1000,
+                self.update_state)
+        else:
+            self._timer = gobject.timeout_add(milliseconds,
+                self.update_state)
 
     def disable_timer(self):
         """

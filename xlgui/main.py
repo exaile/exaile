@@ -52,7 +52,7 @@ class PlaybackProgressBar(object):
         self.player = player
         self.timer_id = None
         self.seeking = False
-        self.formatter = formatter.ProgressBarTextFormatter()
+        self.formatter = formatter.ProgressTextFormatter()
 
         self.bar.set_text(_('Not Playing'))
         self.bar.connect('button-press-event', self.seek_begin)

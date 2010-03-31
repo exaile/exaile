@@ -107,9 +107,9 @@ class DurationFormatter(Formatter):
     """
     pass
 
-class ProgressBarTextFormatter(Formatter):
+class ProgressTextFormatter(Formatter):
     """
-        A text formatter for progress bars
+        A text formatter for progress indicators
     """
     def __init__(self):
         Formatter.__init__(self, self.get_option_value())
@@ -125,18 +125,18 @@ class ProgressBarTextFormatter(Formatter):
 
     def format(self, *args):
         """
-            Returns a string suitable for progress bar texts
+            Returns a string suitable for progress indicators
             :param args: Allows for overriding of the values for
                 current time and total time, in exactly that order
         """
         try:
             current_time = args[0]
-        except KeyError:
+        except IndexError:
             current_time = self.player.get_time()
 
         try:
             total_time = args[1]
-        except KeyError:
+        except IndexError:
             total_time = self.player.current.get_tag_raw('__length')
 
         remaining_time = total_time - current_time

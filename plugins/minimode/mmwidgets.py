@@ -18,7 +18,7 @@
 import copy, gobject, gtk, pango
 from datetime import date
 from string import Template
-from xl import event, settings
+from xl import event, formatter, settings
 from xl.nls import gettext as _
 from xl.trax import Track
 from xlgui.guiutil import get_workarea_size
@@ -752,6 +752,7 @@ class ProgressBar(gtk.Alignment):
         self.add(self.bar)
 
         self.player = player
+        self.formatter = formatter.ProgressTextFormatter()
         self._timer = None
         self._press_event = None
         self.update_state()
@@ -800,9 +801,7 @@ class ProgressBar(gtk.Alignment):
         if track is not None:
             total = track.get_tag_raw('__length')
             current = self.player.get_progress() * total
-            text = '%d:%02d / %d:%02d' % \
-                (current // 60, current % 60,
-                 total // 60, total % 60)
+            text = self.formatter.format()
 
             if self.player.is_paused():
                 self.disable_timer()

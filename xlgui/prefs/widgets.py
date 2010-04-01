@@ -92,10 +92,17 @@ class PrefsItem(object):
         """
             Applies this setting
         """
-        if hasattr(self, 'done') and not self.done(): return False
+        if hasattr(self, 'done') and not self.done():
+            return False
+
+        oldvalue = self.prefs.settings.get_option(self.name, self.default)
+
         if value is None:
             value = self._get_value()
-        self.prefs.settings.set_option(self.name, value)
+
+        if value != oldvalue:
+            self.prefs.settings.set_option(self.name, value)
+
         return True
 
 class HashedPrefsItem(PrefsItem):

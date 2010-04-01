@@ -178,10 +178,6 @@ class PreferencesDialog(object):
                 if not field.apply():
                     return False
 
-        for k, v in self.panes.iteritems():
-            if hasattr(k, 'apply'):
-                k.apply(self)
-
         self.settings.copy_settings(_SETTINGSMANAGER)
 
         return True

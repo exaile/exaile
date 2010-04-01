@@ -283,7 +283,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
             else:
                 self.emit('append-items', [item.track])
 
-    def add_new_playlist(self, tracks = [], name = None):
+    def add_new_playlist(self, tracks=[], name = None):
         do_add_playlist = False
         if name:
             if name in self.playlist_manager.playlists:
@@ -294,33 +294,77 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 do_add_playlist = True
         else:
             if tracks:
-                artist = tracks[0].get_tag_raw('artist')
-                composer = tracks[0].get_tag_raw('composer')
-                album = tracks[0].get_tag_raw('album')
-                sameartist = True
-                samecomposer = True
-                samealbum = True
+                artists = []
+                composers = []
+                albums = []
 
                 for track in tracks:
-                    if artist != track.get_tag_raw('artist'):
-                        sameartist = False
+                    artist = track.get_tag_display('artist',
+                        artist_compilations=False)
 
-                    if composer != track.get_tag_raw('composer'):
-                        samecomposer = False
+                    if artist is not None:
+                        artists += [artist]
 
-                    if album != track.get_tag_raw('album'):
-                        samealbum = False
+                    composer = track.get_tag_display('composer',
+                        artist_compilations=False)
 
-                if sameartist:
-                    name = tracks[0].get_tag_display('artist', artist_compilations=False)
-                elif samecomposer and composer:
-                    name = tracks[0].get_tag_display('composer', artist_compilations=False)
-                elif samealbum:
-                    name = tracks[0].get_tag_display('album', artist_compilations=False)
+                    if composer is not None:
+                        composers += composer
+
+                    album = track.get_tag_display('album')
+
+                    if album is not None:
+                        albums += album
+
+                artists = list(set(artists))[:3]
+                composers = list(set(composers))[:3]
+                albums = list(set(albums))[:3]
+
+                if len(artists) > 0:
+                    name = artists[0]
+
+                    if len(artists) > 2:
+                        # TRANSLATORS: Playlist title suggestion with more than two values
+                        name = _('%(first)s, %(second)s and others') % {
+                            'first': artists[0], 'second': artists[1]
+                        }
+                    elif len(artists) > 1:
+                        # TRANSLATORS: Playlist title suggestion with two values
+                        name = _('%(first)s and %(second)s') % {
+                            'first': artists[0], 'second': artists[1]
+                        }
+                elif len(composers) > 0:
+                    name = composers[0]
+
+                    if len(composers) > 2:
+                        # TRANSLATORS: Playlist title suggestion with more than two values
+                        name = _('%(first)s, %(second)s and others') % {
+                            'first': composers[0], 'second': composers[1]
+                        }
+                    elif len(composers) > 1:
+                        # TRANSLATORS: Playlist title suggestion with two values
+                        name = _('%(first)s and %(second)s') % {
+                            'first': composers[0], 'second': composers[1]
+                        }
+                elif len(albums) > 0:
+                    name = albums[0]
+
+                    if len(albums) > 2:
+                        # TRANSLATORS: Playlist title suggestion with more than two values
+                        name = _('%(first)s, %(second)s and others') % {
+                            'first': albums[0], 'second': albums[1]
+                        }
+                    elif len(albums) > 1:
+                        # TRANSLATORS: Playlist title suggestion with two values
+                        name = _('%(first)s and %(second)s') % {
+                            'first': albums[0], 'second': albums[1]
+                        }
+                else:
+                    name = ''
 
             dialog = commondialogs.TextEntryDialog(
                     _("New custom playlist name:"),
-                    _("Add To New Playlist..."), name, okbutton=gtk.STOCK_ADD)
+                    _("Add to New Playlist..."), name, okbutton=gtk.STOCK_ADD)
             result = dialog.run()
             if result == gtk.RESPONSE_OK:
                 name = dialog.get_value()

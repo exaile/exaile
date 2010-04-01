@@ -28,6 +28,8 @@ import time
 import logging
 import traceback
 
+import gio
+import glib
 import gobject
 import gtk
 
@@ -361,6 +363,14 @@ class CoverWidget(gtk.EventBox):
         if main:
             self.connect('button-press-event', self._on_button_press)
 
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+            [("text/uri-list", 0, 0)],
+            gtk.gdk.ACTION_COPY |
+            gtk.gdk.ACTION_DEFAULT |
+            gtk.gdk.ACTION_MOVE)
+
+        self.connect('drag-data-received', self.on_drag_data_received)
+
         event.add_callback(self.on_playback_start,
                 'playback_track_start', player)
         event.add_callback(self.on_playback_end,
@@ -411,6 +421,29 @@ class CoverWidget(gtk.EventBox):
         elif event.button == 3:
             if self.player.current:
                 self.menu.popup(event)
+
+    def on_drag_data_received(self, widget, context, x, y, selection, info, time):
+        """
+            Sets the cover based on the dragged data
+        """
+        if self.player.current is not None:
+            uri = selection.get_uris()[0]
+            db_string = 'localfile:%s' % uri
+
+            try:
+                stream = gio.File(uri).read()
+            except gio.Error:
+                return
+
+            data = stream.read()
+            pixbuf = self.image.pixbuf
+
+            try:
+                self.image.set_image_data(data)
+            except glib.GError: # No valid image dropped
+                self.image.pixbuf = pixbuf
+            else:
+                self.covers.set_cover(self.player.current, db_string, data)
 
     @common.threaded
     def on_playback_start(self, type, player, track):

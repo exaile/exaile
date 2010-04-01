@@ -553,6 +553,7 @@ class Track(object):
             extend_title=True):
         """
             Get a tag value suitable for passing to the search system.
+            This includes quoting and list joining.
 
             :param format: pre-format into a search query.
             :param artist_compilations: If True, automatically handle

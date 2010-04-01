@@ -11,7 +11,6 @@
   <object class="GtkAdjustment" id="osd_duration_adjustment">
     <property name="value">4000</property>
     <property name="upper">100000</property>
-    <property name="lower">0</property>
     <property name="step_increment">1000</property>
     <property name="page_increment">10000</property>
   </object>
@@ -25,12 +24,14 @@ on {album} - {length}</property>
       <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">3</property>
         <child>
           <object class="GtkLabel" id="label4">
             <property name="visible">True</property>
             <property name="label" translatable="yes">&lt;b&gt;Move the On Screen Display window to the location you want it to appear&lt;/b&gt;</property>
             <property name="use_markup">True</property>
+            <property name="justify">center</property>
             <property name="wrap">True</property>
           </object>
           <packing>

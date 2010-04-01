@@ -1,4 +1,4 @@
 Version='0.0.1'
 Authors=['Andrew Stormont <astormont@svn.gnome.org>']
-Name=_('iPod support')
+Name=_('iPod Support')
 Description=_('A plugin for iPod support')

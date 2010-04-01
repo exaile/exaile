@@ -317,7 +317,7 @@ class Exaile(object):
         usage = "Usage: %prog [OPTION]... [URI]"
         p = OptionParser(usage=usage, prog="exaile", add_help_option=False)
 
-        group = OptionGroup(p, _('Playback options'))
+        group = OptionGroup(p, _('Playback Options'))
         group.add_option("-n", "--next", dest="Next", action="store_true",
                 default=False, help=_("Play the next track"))
         group.add_option("-p", "--prev", dest="Prev", action="store_true",
@@ -328,18 +328,18 @@ class Exaile(object):
                 default=False, help=_("Play"))
         group.add_option("-t", "--play-pause", dest="PlayPause",
                 action="store_true", default=False,
-                help=_("Toggle Play or Pause"))
+                help=_("Pause or resume playback"))
         group.add_option("--stop-after-current", dest="StopAfterCurrent",
                 action="store_true", default=False,
                 help=_("Stop playback after current track"))
         p.add_option_group(group)
 
-        group = OptionGroup(p, _('Track options'))
+        group = OptionGroup(p, _('Track Options'))
         group.add_option("-q", "--query", dest="Query", action="store_true",
                 default=False, help=_("Query player"))
         group.add_option("--gui-query", dest="GuiQuery",
                 action="store_true", default=False,
-                help=_("Show a popup of the currently playing track"))
+                help=_("Show a popup with data of the current track"))
         group.add_option("--get-title", dest="GetTitle", action="store_true",
                 default=False, help=_("Print the title of current track"))
         group.add_option("--get-album", dest="GetAlbum", action="store_true",
@@ -350,18 +350,18 @@ class Exaile(object):
                 default=False, help=_("Print the length of current track"))
         group.add_option('--set-rating', dest="SetRating",
                 action='store', type='int', metavar='RATING',
-                help=_('Set rating for current song'))
+                help=_('Set rating for current track'))
         group.add_option('--get-rating', dest='GetRating', action='store_true',
-                default=False, help=_('Get rating for current song'))
+                default=False, help=_('Get rating for current track'))
         group.add_option("--current-position", dest="CurrentPosition",
                 action="store_true", default=False,
-                help=_("Print the position inside the current track as time"))
+                help=_("Print the current playback position as time"))
         group.add_option("--current-progress", dest="CurrentProgress",
                 action="store_true", default=False, help=_("Print the "
-                "progress inside the current track as percentage"))
+                "current playback progress as percentage"))
         p.add_option_group(group)
 
-        group = OptionGroup(p, _('Volume options'))
+        group = OptionGroup(p, _('Volume Options'))
         group.add_option("-i", "--increase-vol", dest="IncreaseVolume",
                 action="store", type="int", metavar="VOL",
                 help=_("Increases the volume by VOL%"))
@@ -372,7 +372,7 @@ class Exaile(object):
                 default=False, help=_("Print the current volume percentage"))
         p.add_option_group(group)
 
-        group = OptionGroup(p, _('Other options'))
+        group = OptionGroup(p, _('Other Options'))
         group.add_option("--new", dest="NewInstance", action="store_true",
                 default=False, help=_("Start new instance"))
         group.add_option("-h", "--help", action="help",
@@ -390,17 +390,16 @@ class Exaile(object):
                 "useful when you're running into problems"))
         group.add_option("--force-import", dest="ForceImport",
                 action="store_true", default=False, help=_("Force import of"
-                " old data from 0.2.x. Overwrites current data."))
+                " old data from version 0.2.x (Overwrites current data)"))
         group.add_option("--no-import", dest="NoImport",
                 action="store_true", default=False, help=_("Do not import "
-                "old data from 0.2.x."))
+                "old data from version 0.2.x"))
         group.add_option("--start-anyway", dest="StartAnyway",
                 action="store_true", default=False, help=_("Make control "
-                "options like --play start Exaile if it is not running."))
+                "options like --play start Exaile if it is not running"))
         p.add_option_group(group)
 
-        # development and debug options
-        group = OptionGroup(p, _('Development/Debug options'))
+        group = OptionGroup(p, _('Development/Debug Options'))
         group.add_option("--datadir", dest="UseDataDir",
                 help=_("Set data directory"))
         group.add_option("--debug", dest="Debug", action="store_true",

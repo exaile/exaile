@@ -101,7 +101,7 @@ class FilterDialog(gtk.Dialog):
             self.lim_spin.set_sensitive(self.lim_check.get_active()))
 
         limit_area.pack_start(self.lim_spin, False)
-        limit_area.pack_start(gtk.Label(_(" songs")), False)
+        limit_area.pack_start(gtk.Label(_(" tracks")), False)
         self.vbox.pack_start(limit_area, False)
         limit_area.show_all()
 

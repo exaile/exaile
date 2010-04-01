@@ -147,7 +147,7 @@
   </object>
   <object class="GtkDialog" id="add_dialog">
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">Add device</property>
+    <property name="title" translatable="yes">Add Device</property>
     <property name="default_width">500</property>
     <property name="default_height">350</property>
     <property name="type_hint">dialog</property>
@@ -243,7 +243,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_custom">
-                    <property name="label" translatable="yes">...</property>
+                    <property name="label">...</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>

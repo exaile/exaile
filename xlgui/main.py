@@ -275,7 +275,7 @@ class NotebookTab(gtk.EventBox):
 
     def do_save_custom(self, *args):
         dialog = commondialogs.TextEntryDialog(
-            _("Custom playlist name:"), _("Save As..."),
+            _("Custom playlist name:"), _("Save as..."),
             self.title, self.main.window, okbutton=gtk.STOCK_SAVE)
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
@@ -610,7 +610,7 @@ class MainWindow(gobject.GObject):
             self.player)
 
         # Playback buttons
-        for button in ('play', 'next', 'prev', 'stop'):
+        for button in ('playpause', 'next', 'prev', 'stop'):
             setattr(self, '%s_button' % button,
                 self.builder.get_object('%s_button' % button))
 
@@ -646,7 +646,7 @@ class MainWindow(gobject.GObject):
         """
         if event.button != 3: return
         menu = guiutil.Menu()
-        menu.append(_("Toggle: Stop after selected track"), self.on_spat_clicked,
+        menu.append(_("Toggle: Stop after Selected Track"), self.on_spat_clicked,
             'gtk-stop')
         menu.popup(None, None, None, event.button, event.time)
 
@@ -703,7 +703,7 @@ class MainWindow(gobject.GObject):
             'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.delete_event,
             'on_quit_item_activated': self.quit,
-            'on_play_button_clicked': self.on_play_clicked,
+            'on_playpause_button_clicked': self.on_playpause_button_clicked,
             'on_next_button_clicked':
                 lambda *e: self.queue.next(),
             'on_prev_button_clicked':
@@ -874,13 +874,16 @@ class MainWindow(gobject.GObject):
             already begun
         """
         if player.is_paused():
-            image = gtk.image_new_from_stock('gtk-media-play',
+            image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
                 gtk.ICON_SIZE_SMALL_TOOLBAR)
+            tooltip = _('Continue Playback')
         else:
-            image = gtk.image_new_from_stock('gtk-media-pause',
+            image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
                 gtk.ICON_SIZE_SMALL_TOOLBAR)
+            tooltip = _('Pause Playback')
 
-        self.play_button.set_image(image)
+        self.playpause_button.set_image(image)
+        self.playpause_button.set_tooltip_text(tooltip)
         self._update_track_information()
 
         # refresh the current playlist
@@ -1093,8 +1096,9 @@ class MainWindow(gobject.GObject):
 
         self._update_track_information()
         self.draw_playlist(type, player, object)
-        self.play_button.set_image(gtk.image_new_from_stock('gtk-media-pause',
+        self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
+        self.playpause_button.set_tooltip_text(_('Pause Playback'))
         self.update_track_counts()
 
         if settings.get_option('playback/dynamic', False):
@@ -1113,8 +1117,9 @@ class MainWindow(gobject.GObject):
         self._update_track_information()
 
         self.draw_playlist(type, player, object)
-        self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
+        self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
+        self.playpause_button.set_tooltip_text(_('Start Playback'))
 
     def _on_setting_change(self, name, object, option):
         """
@@ -1277,7 +1282,7 @@ class MainWindow(gobject.GObject):
 
     get_current_tab = get_selected_tab
 
-    def on_play_clicked(self, *e):
+    def on_playpause_button_clicked(self, *e):
         """
             Called when the play button is clicked
         """

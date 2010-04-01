@@ -7,10 +7,12 @@
       <object class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkFrame" id="show_notifications">
             <property name="visible">True</property>
             <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
             <child>
               <object class="GtkAlignment" id="alignment2">
                 <property name="visible">True</property>
@@ -24,7 +26,7 @@
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkCheckButton" id="plugin/notifyosd/notify_play">
-                        <property name="label" translatable="yes">On Track Change</property>
+                        <property name="label" translatable="yes">On track change</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -38,7 +40,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="plugin/notifyosd/notify_pause">
-                        <property name="label" translatable="yes">On Playback Start, Pause or Stop</property>
+                        <property name="label" translatable="yes">On playback start, pause or stop</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -53,7 +55,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="plugin/notifyosd/tray_hover">
-                        <property name="label" translatable="yes">On Tray Icon Hover</property>
+                        <property name="label" translatable="yes">On tray icon hover</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -68,7 +70,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="plugin/notifyosd/show_when_focused">
-                        <property name="label" translatable="yes">When GUI is Focused</property>
+                        <property name="label" translatable="yes">When main window is focused</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -77,9 +79,6 @@
                       <packing>
                         <property name="position">3</property>
                       </packing>
-                    </child>
-                    <child>
-                      <placeholder/>
                     </child>
                   </object>
                 </child>
@@ -95,7 +94,6 @@
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="padding">5</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -103,6 +101,7 @@
           <object class="GtkFrame" id="display_icons">
             <property name="visible">True</property>
             <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
             <child>
               <object class="GtkAlignment" id="alignment3">
                 <property name="visible">True</property>
@@ -116,7 +115,7 @@
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkCheckButton" id="plugin/notifyosd/covers">
-                        <property name="label" translatable="yes">Use Album Covers As Icons</property>
+                        <property name="label" translatable="yes">Use album covers as icons</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -131,7 +130,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="plugin/notifyosd/media_icons">
-                        <property name="label" translatable="yes">Use Media Icons For Pause, Stop and Resume</property>
+                        <property name="label" translatable="yes">Use media icons for pause, stop and resume</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -157,7 +156,6 @@
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="padding">5</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -165,6 +163,7 @@
           <object class="GtkFrame" id="message_settings">
             <property name="visible">True</property>
             <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
             <child>
               <object class="GtkAlignment" id="alignment1">
                 <property name="visible">True</property>
@@ -183,7 +182,7 @@
                       <object class="GtkLabel" id="label3">
                         <property name="visible">True</property>
                         <property name="xalign">1</property>
-                        <property name="label" translatable="yes">Artist Line:</property>
+                        <property name="label" translatable="yes">Artist line:</property>
                       </object>
                       <packing>
                         <property name="top_attach">2</property>
@@ -194,10 +193,12 @@
                     <child>
                       <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">The tags "%(title)s", "%(artist)s", and "%(album)s" will be replaced by their respective values. The title will be replaced by "Unknown" if it is empty.</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">&lt;i&gt;The tags "%(title)s", "%(artist)s", and "%(album)s" will be replaced by their respective values. The title will be replaced by "Unknown" if it is empty.&lt;/i&gt;</property>
                         <property name="use_markup">True</property>
                         <property name="justify">fill</property>
                         <property name="wrap">True</property>
+                        <property name="width_chars">80</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -264,7 +265,7 @@
                       <object class="GtkLabel" id="label4">
                         <property name="visible">True</property>
                         <property name="xalign">1</property>
-                        <property name="label" translatable="yes">Album Line:</property>
+                        <property name="label" translatable="yes">Album line:</property>
                       </object>
                       <packing>
                         <property name="top_attach">3</property>
@@ -286,7 +287,6 @@
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="padding">5</property>
             <property name="position">2</property>
           </packing>
         </child>

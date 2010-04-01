@@ -39,14 +39,14 @@ from xl.nls import gettext as _
 
 IGNORE = (None, None)
 
-dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
+dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
                 'lyricist': (_('Lyricist'), 'text'),
                 'part': IGNORE, #
                 'website': (_('Website'), 'text'),
                 'cover': IGNORE, #
-                'originalartist': (_('Original Artist'), 'text'),
+                'originalartist': (_('Original artist'), 'text'),
                 'author': (_('Author'), 'text'),
-                'originaldate': (_('Original Date'), 'int', 1000, 2100),
+                'originaldate': (_('Original date'), 'int', 1000, 2100),
                 'date': (_('Date'), 'text'),
                 'arranger': (_('Arranger'), 'text'),
                 'conductor': (_('Conductor'), 'text'),
@@ -61,19 +61,19 @@ dialog_tags = { 'originalalbum': (_('Original Album'), 'text'),
                 'isrc': (_('ISRC'), 'text'),
                 'genre': (_('Genre'), 'text'),
                 'composer': (_('Composer'), 'text'),
-                'encodedby': (_('Encoded By'), 'text'),
+                'encodedby': (_('Encoded by'), 'text'),
                 'organization': (_('Organization'), 'text'),
                 'discnumber': (_('Disc'), 'int', 0, 50),
                 'bpm': (_('BPM'), 'int', 0, 300),
                 '__bitrate': (_('Bitrate'), 'prop:bitrate'),
-                '__date_added': (_('Date Added'), 'prop:datetime'),
+                '__date_added': (_('Date added'), 'prop:datetime'),
                 '__length': (_('Length'), 'prop:time'),
                 '__loc': (_('Location'), 'prop:location'),
                 '__basedir': IGNORE,
                 '__modified': (_('Modified'), 'prop:datetime'),
                 '__playtime': IGNORE,
-                '__playcount': (_('Times Played'), 'text'),
-                '__last_played': (_('Last Played'), 'prop:datetime'),
+                '__playcount': (_('Times played'), 'text'),
+                '__last_played': (_('Last played'), 'prop:datetime'),
                 }
 
 class TrackPropertiesDialog(gobject.GObject):

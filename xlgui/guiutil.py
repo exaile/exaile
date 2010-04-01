@@ -132,10 +132,7 @@ class ScalableImageWidget(gtk.Image):
         self._set_image(self.pixbuf, fill)
 
     def set_image_data(self, data, fill=False):
-        loader = gtk.gdk.PixbufLoader()
-        loader.write(data)
-        loader.close()
-        self.pixbuf = loader.get_pixbuf()
+        self.pixbuf = icons.MANAGER.pixbuf_from_data(data)
         self._set_image(self.pixbuf, fill)
 
     def _set_image(self, pixbuf, fill=False):

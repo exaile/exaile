@@ -132,7 +132,7 @@ class Main(object):
         pl = self.main.get_current_playlist ().playlist
         name = pl.get_name() + ".m3u"
 
-        dialog = commondialogs.FileOperationDialog(_("Export current playlist..."),
+        dialog = commondialogs.FileOperationDialog(_("Export Current Playlist"),
             None, gtk.FILE_CHOOSER_ACTION_SAVE,
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_SAVE, gtk.RESPONSE_OK))

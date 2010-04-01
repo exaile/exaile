@@ -259,16 +259,16 @@ def _enable(exaile):
 
     menus = [guiutil.Menu(), guiutil.Menu()]
 
-    menu_item = gtk.ImageMenuItem(_('Bookmark this track'))
+    menu_item = gtk.ImageMenuItem(_('Bookmark This Track'))
     menu_item.connect('activate', bm.add_bookmark, menus)
     menu_item.set_image(gtk.image_new_from_icon_name('bookmark-new', gtk.ICON_SIZE_MENU))
     menus[0].append_item(menu_item)
 
-    menu_item = gtk.MenuItem(_('Delete bookmark'))
+    menu_item = gtk.MenuItem(_('Delete Bookmark'))
     menu_item.set_submenu(menus[1])
     menus[0].append_item(menu_item)
 
-    menus[0].append(_('Clear bookmarks'), bm.clear, 'gtk-clear', menus)
+    menus[0].append(_('Clear Bookmarks'), bm.clear, 'gtk-clear', menus)
 
     menus[0].append_separator()
 

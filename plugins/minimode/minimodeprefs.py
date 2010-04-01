@@ -41,8 +41,8 @@ class DisplayWindowDecorationsPreference(widgets.CheckPrefsItem):
 
 class SelectedControlsPreference(widgets.SelectionListPrefsItem):
     name = 'plugin/minimode/selected_controls'
-    available_title = _('Available controls')
-    selected_title = _('Selected controls')
+    available_title = _('Available Controls')
+    selected_title = _('Selected Controls')
     available_items = {
         'previous': _('Previous'),
         'play_pause': _('Play/Pause'),

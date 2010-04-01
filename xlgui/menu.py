@@ -150,14 +150,14 @@ class PlaylistMenu(GenericTrackMenu):
         self.append_item(self.rating_item)
 
         self.add_playlist_menu = AddToPlaylistMenu(playlist, playlists)
-        self.append_menu(_('Add to custom playlist'),
-            self.add_playlist_menu, 'gtk-add')
+        self.append_menu(_('Add to Custom Playlist'),
+            self.add_playlist_menu, gtk.STOCK_ADD)
         self.append_separator()
         self.append(_('Remove'), lambda *e: self.remove_selected_tracks(),
-            'gtk-remove')
+            gtk.STOCK_REMOVE)
         self.append_separator()
         self.append(_('Properties'), lambda *e: self.emit('properties'),
-            'gtk-properties')
+            gtk.STOCK_PROPERTIES)
 
         self.playlist_tab_menu = None
         # Defer menu setup until exaile is loaded
@@ -209,10 +209,10 @@ class PlaylistTabMenu(guiutil.Menu):
         self.append_separator()
         self.append(_("_Rename Playlist"), tab.do_rename, gtk.STOCK_EDIT)
         if not custom:
-            self.append(_("_Save As Custom Playlist"), tab.do_save_custom, gtk.STOCK_SAVE)
+            self.append(_("_Save as Custom Playlist"), tab.do_save_custom, gtk.STOCK_SAVE)
         else:
-            self.append(_("_Save Changes To Playlist"), tab.do_save_changes_to_custom, gtk.STOCK_SAVE)
-            self.append(_("_Save As..."), tab.do_save_custom)
+            self.append(_("_Save Changes to Playlist"), tab.do_save_changes_to_custom, gtk.STOCK_SAVE)
+            self.append(_("_Save as..."), tab.do_save_custom)
         self.append(_("C_lear All Tracks"), tab.do_clear, gtk.STOCK_CLEAR)
         self.append_separator()
         self.append(_("_Close Playlist"), tab.do_close, gtk.STOCK_CLOSE)
@@ -383,19 +383,19 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
         self.smart = smart
 
         self.append_separator()
-        self.append(_('Open'), lambda *e: self.on_open_playlist(),
-                    'gtk-open')
+        self.append(callback=lambda *e: self.on_open_playlist(),
+                    stock_id=gtk.STOCK_OPEN)
 
         name = _('Rename')
         if self.smart:
             name = _('Edit')
         self.append(name, lambda *e: self.on_rename_playlist(),
-                    'gtk-edit')
+                    gtk.STOCK_EDIT)
         self.append(_('Export'), lambda *e: self.on_export_playlist(),
-                    'gtk-save')
+                    gtk.STOCK_SAVE)
         self.append_separator()
         self.append(_('Delete Playlist'), lambda *e: self.on_delete_playlist(),
-                    'gtk-delete')
+                    gtk.STOCK_DELETE)
 
     def on_export_playlist(self, selected = None):
         """

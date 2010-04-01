@@ -155,7 +155,7 @@ class CollectionManagerDialog(object):
         """
             Adds a path to the list
         """
-        dialog = gtk.FileChooserDialog(_("Add a directory"),
+        dialog = gtk.FileChooserDialog(_("Add a Directory"),
             self.parent, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
             (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_ADD, gtk.RESPONSE_OK))

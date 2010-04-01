@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 <interface>
-  <object class="GtkAdjustment" id="adjustment1">
-    <property name="upper">110</property>
-    <property name="lower">0</property>
-    <property name="page_increment">10</property>
-    <property name="step_increment">1</property>
-    <property name="page_size">10</property>
-    <property name="value">80</property>
-  </object>
-  <!-- interface-requires gtk+ 2.16 -->
+  <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="value">80</property>
+    <property name="upper">110</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+    <property name="page_size">10</property>
+  </object>
   <object class="GtkWindow" id="prefs_window">
     <child>
       <object class="GtkVBox" id="prefs_pane">
@@ -27,11 +26,11 @@
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Terminal Opacity:</property>
+                <property name="label" translatable="yes">Terminal opacity:</property>
               </object>
               <packing>
-                <property name="x_options"/>
-                <property name="y_options"/>
+                <property name="x_options"></property>
+                <property name="y_options"></property>
               </packing>
             </child>
             <child>

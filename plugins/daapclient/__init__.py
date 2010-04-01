@@ -470,7 +470,7 @@ class NetworkPanel(CollectionPanel):
             Save the selected tracks to disk.
         """
         items = self.get_selected_items()
-        dialog = gtk.FileChooserDialog(_("Select a save location"),
+        dialog = gtk.FileChooserDialog(_("Select a Location for Saving"),
             APP.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
             (gtk.STOCK_OPEN, gtk.RESPONSE_OK,
              gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL))

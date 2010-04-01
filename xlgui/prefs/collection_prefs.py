@@ -50,7 +50,7 @@ class CollectionStripArtistPreference(widgets.ListPrefsItem):
 
     def _populate_popup_cb(self, entry, menu):
         import gtk
-        entry = gtk.MenuItem(_('Reset to defaults'))
+        entry = gtk.MenuItem(_('Reset to Defaults'))
         entry.connect('activate', self._reset_to_defaults_cb)
         entry.show()
 

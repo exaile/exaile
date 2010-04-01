@@ -60,7 +60,7 @@
                       <object class="GtkMenuItem" id="open_dir_item">
                         <property name="visible">True</property>
                         <property name="tooltip_text" translatable="yes">Add multiple directories containing music files to your playlist</property>
-                        <property name="label" translatable="yes">Open directories</property>
+                        <property name="label" translatable="yes">Open Directories</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_open_dir_item_activate"/>
                       </object>
@@ -72,7 +72,7 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="export_current_playlist">
-                        <property name="label" translatable="yes">_Export current playlist</property>
+                        <property name="label" translatable="yes">_Export Current Playlist</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="image">image6</property>
@@ -265,7 +265,7 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="track_properties_item">
-                        <property name="label" translatable="yes">Track _properties</property>
+                        <property name="label" translatable="yes">Track _Properties</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="image">image12</property>
@@ -496,7 +496,7 @@
                     <child type="tab">
                       <object class="GtkLabel" id="label13">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Page 1</property>
+                        <property name="label">Page 1</property>
                       </object>
                       <packing>
                         <property name="tab_fill">False</property>
@@ -643,13 +643,13 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="play_button">
+                      <object class="GtkButton" id="playpause_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Start/Pause Playback</property>
+                        <property name="tooltip_text" translatable="yes">Start Playback</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="clicked" handler="on_play_button_clicked"/>
+                        <signal name="clicked" handler="on_playpause_button_clicked"/>
                         <child>
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>

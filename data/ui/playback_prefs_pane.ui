@@ -142,7 +142,7 @@
         <child>
           <object class="GtkHBox" id="hbox5">
             <property name="visible">True</property>
-            <property name="tooltip_text" translatable="yes">This is a custom gstreamer pipeline to use for audio output, specified in gst-launch syntax. It will be linked to a single audio-only src pad for input. Only takes effect if "Audio Sink" is set to "Custom".</property>
+            <property name="tooltip_text" translatable="yes">This is a custom gstreamer pipeline to use for audio output, specified in gst-launch syntax. It will be linked to a single audio-only source pad. Only takes effect if "Audio Sink" is set to "Custom".</property>
             <child>
               <object class="GtkLabel" id="label7">
                 <property name="visible">True</property>

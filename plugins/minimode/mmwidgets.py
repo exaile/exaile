@@ -21,7 +21,7 @@ from string import Template
 from xl import event, formatter, settings
 from xl.nls import gettext as _
 from xl.trax import Track
-from xlgui.guiutil import get_workarea_size
+from xlgui.guiutil import get_workarea_size, TrackToolTip
 from xlgui.playlist import Playlist
 
 class MenuItem(gtk.ImageMenuItem):
@@ -165,7 +165,7 @@ class PlayPauseButton(Button):
         appearance depending on the current playback state
     """
     def __init__(self, player, callback):
-        Button.__init__(self, 'gtk-media-play',
+        Button.__init__(self, gtk.STOCK_MEDIA_PLAY,
             _('Start Playback'), callback)
 
         self.player = player
@@ -189,14 +189,14 @@ class PlayPauseButton(Button):
         """
             Updates the appearance of this button
         """
-        stock_id = 'gtk-media-play'
+        stock_id = gtk.STOCK_MEDIA_PLAY
         tooltip_text = _('Start Playback')
 
         if self.player.current is not None:
             if self.player.is_paused():
                 tooltip_text = _('Continue Playback')
             elif self.player.is_playing():
-                stock_id = 'gtk-media-pause'
+                stock_id = gtk.STOCK_MEDIA_PAUSE
                 tooltip_text = _('Pause Playback')
 
         self.image.set_from_stock(stock_id, gtk.ICON_SIZE_BUTTON)
@@ -327,6 +327,14 @@ class PlaylistButton(gtk.ToggleButton):
         Also allows for drag and drop of files
         to add them to the playlist
     """
+    __gsignals__ = {
+        'track-changed': (
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_PYOBJECT, )
+        )
+    }
+
     def __init__(self, main, queue, formatter, change_callback):
         gtk.ToggleButton.__init__(self, '')
 
@@ -350,6 +358,8 @@ class PlaylistButton(gtk.ToggleButton):
         self.playlist.scroll.set_property('shadow-type', gtk.SHADOW_IN)
         self.popup = AttachedWindow(self)
         self.popup.add(self.playlist)
+
+        self.tooltip = TrackToolTip(self, auto_update=True)
 
         self._dirty = False
         self._drag_shown = False
@@ -379,10 +389,8 @@ class PlaylistButton(gtk.ToggleButton):
         self._format_changed_id = self.formatter.connect('format-changed',
             self.on_format_changed)
 
-        event.add_callback(self.on_track_start, 'playback_track_start')
-        event.add_callback(self.on_playback_start, 'playback_player_start')
-        event.add_callback(self.on_playback_start, 'playback_player_resume')
-        event.add_callback(self.on_playback_end, 'playback_player_end')
+        event.add_callback(self.on_playback_player_end, 'playback_player_end')
+        event.add_callback(self.on_playback_track_start, 'playback_track_start')
 
     def destroy(self):
         """
@@ -397,10 +405,8 @@ class PlaylistButton(gtk.ToggleButton):
         self.main.playlist_notebook.disconnect(self._switch_page_id)
         self.formatter.disconnect(self._format_changed_id)
 
-        event.remove_callback(self.on_track_start, 'playback_track_start')
-        event.remove_callback(self.on_playback_start, 'playback_player_start')
-        event.remove_callback(self.on_playback_start, 'playback_player_resume')
         event.remove_callback(self.on_playback_end, 'playback_player_end')
+        event.remove_callback(self.on_track_start, 'playback_track_start')
 
         gtk.ToggleButton.destroy(self)
 
@@ -409,7 +415,6 @@ class PlaylistButton(gtk.ToggleButton):
             Sets the label of the button
         """
         self.label.set_text(text)
-        self.set_tooltip_text(text)
 
     def set_arrow_direction(self, direction):
         """
@@ -427,7 +432,13 @@ class PlaylistButton(gtk.ToggleButton):
         if track:
             self.set_label(self.formatter.format(track))
 
-    def on_track_start(self, event, player, track):
+    def on_playback_player_end(self, event, player, track):
+        """
+            Clears label
+        """
+        self.set_label('')
+
+    def on_playback_track_start(self, event, player, track):
         """
             Updates appearance and cursor position
         """
@@ -440,18 +451,6 @@ class PlaylistButton(gtk.ToggleButton):
                 self.playlist.list.scroll_to_cell(path)
 
             gobject.idle_add(self.playlist.list.set_cursor, path)
-
-    def on_playback_start(self, event, player, track):
-        """
-            Updates appearance on playback start/resume
-        """
-        self.set_label(self.formatter.format(track))
-
-    def on_playback_end(self, event, player, track):
-        """
-            Clears label
-        """
-        self.set_label('')
 
     def on_parent_hide(self, parent):
         """
@@ -535,9 +534,6 @@ class PlaylistButton(gtk.ToggleButton):
             self.playlist.list.set_model(self.playlist.model)
 
 gobject.type_register(PlaylistButton)
-gobject.signal_new('track-changed', PlaylistButton,
-    gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
-    (gobject.TYPE_PYOBJECT, ))
 
 class TrackSelector(gtk.ComboBox):
     """

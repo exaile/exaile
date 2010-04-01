@@ -99,7 +99,7 @@ class BaseTrayIcon(object):
         )
         self.menu.append_item(self.rating_menuitem)
         self.remove_menuitem = self.menu.append(
-            label=_('Remove current track from playlist'),
+            label=_('Remove Current Track from Playlist'),
             stock_id='gtk-remove',
             callback=lambda *e: self.remove_current_track()
         )

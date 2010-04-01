@@ -720,7 +720,7 @@
                     <child>
                       <object class="GtkLabel" id="label2">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Install plugin file</property>
+                        <property name="label" translatable="yes">Install Plugin File</property>
                       </object>
                       <packing>
                         <property name="position">1</property>

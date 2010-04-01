@@ -127,7 +127,7 @@ class PluginManager(object):
             Shows a dialog allowing the user to choose a plugin to install
             from the filesystem
         """
-        dialog = gtk.FileChooserDialog(_('Choose a plugin'),
+        dialog = gtk.FileChooserDialog(_('Choose a Plugin'),
             self.prefs.parent,
             buttons=(
                 gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,

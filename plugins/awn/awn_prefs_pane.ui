@@ -14,7 +14,7 @@
               <object class="GtkLabel" id="overlay_lbl">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Display Overlay:</property>
+                <property name="label" translatable="yes">Display overlay:</property>
               </object>
               <packing>
                 <property name="padding">5</property>
@@ -46,7 +46,7 @@
         </child>
         <child>
           <object class="GtkCheckButton" id="plugin/awn/cover_display">
-            <property name="label" translatable="yes">Display Covers</property>
+            <property name="label" translatable="yes">Display covers</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
@@ -70,10 +70,10 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">Circle Display</col>
+        <col id="0" translatable="yes">Circle display</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Text Percentage</col>
+        <col id="0" translatable="yes">Text percentage</col>
       </row>
       <row>
         <col id="0" translatable="yes">None</col>

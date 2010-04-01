@@ -93,7 +93,7 @@
                     <child>
                       <object class="GtkLabel" id="label2">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Order By:</property>
+                        <property name="label" translatable="yes">Order by:</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -132,7 +132,7 @@
                     <child>
                       <object class="GtkLabel" id="label4">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Order Direction:</property>
+                        <property name="label" translatable="yes">Order direction:</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>

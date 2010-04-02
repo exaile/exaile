@@ -61,7 +61,7 @@ class WidgetBox(gtk.HBox):
         """
             Various cleanups
         """
-        for widget in self.__widgets:
+        for id, widget in self.__widgets.iteritems():
             widget.destroy()
 
         gtk.HBox.destroy(self)
@@ -405,8 +405,8 @@ class PlaylistButton(gtk.ToggleButton):
         self.main.playlist_notebook.disconnect(self._switch_page_id)
         self.formatter.disconnect(self._format_changed_id)
 
-        event.remove_callback(self.on_playback_end, 'playback_player_end')
-        event.remove_callback(self.on_track_start, 'playback_track_start')
+        event.remove_callback(self.on_playback_player_end, 'playback_player_end')
+        event.remove_callback(self.on_playback_track_start, 'playback_track_start')
 
         gtk.ToggleButton.destroy(self)
 
@@ -779,9 +779,9 @@ class ProgressBar(gtk.Alignment):
         event.remove_callback(self.on_playback_state_change, 'playback_track_end')
 
         self.disconnect(self._track_seeked_id)
-        self.disconnect(self._button_press_event_id)
-        self.disconnect(self._button_release_event_id)
-        self.disconnect(self._motion_notify_event_id)
+        self.bar.disconnect(self._button_press_event_id)
+        self.bar.disconnect(self._button_release_event_id)
+        self.bar.disconnect(self._motion_notify_event_id)
 
         gtk.Alignment.destroy(self)
 

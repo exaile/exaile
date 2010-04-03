@@ -415,12 +415,14 @@ class CoverWidget(gtk.EventBox):
         """
             Called when someone clicks on the cover widget
         """
+        if self.player.current is None:
+            return
+
         if event.type == gtk.gdk._2BUTTON_PRESS:
             window = CoverWindow(self.main.window, self.image.pixbuf)
             window.show_all()
         elif event.button == 3:
-            if self.player.current:
-                self.menu.popup(event)
+            self.menu.popup(event)
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
         """

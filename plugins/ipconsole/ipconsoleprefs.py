@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 import os
@@ -23,10 +23,10 @@ name = _('IPython Console')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'ipconsole_prefs.ui')
 
-class OpacityPreference(widgets.ScalePrefsItem):
+class OpacityPreference(widgets.ScalePreference):
     default = 80.0
     name = 'plugin/ipconsole/opacity'
 
-class FontPreference(widgets.FontButtonPrefsItem):
+class FontPreference(widgets.FontButtonPreference):
     default = 'Monospace 10'
     name = 'plugin/ipconsole/font'

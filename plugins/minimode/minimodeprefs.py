@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os, gtk
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import event, settings, xdg
 from xl.nls import gettext as _
 
@@ -23,23 +23,23 @@ name = _('Mini Mode')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "minimodeprefs_pane.ui")
 
-class AlwaysOnTopPreference(widgets.CheckPrefsItem):
+class AlwaysOnTopPreference(widgets.CheckPreference):
     name = 'plugin/minimode/always_on_top'
     default = True
 
-class ShowInPanelPreference(widgets.CheckPrefsItem):
+class ShowInPanelPreference(widgets.CheckPreference):
     name = 'plugin/minimode/show_in_panel'
     default = False
 
-class OnAllDesktopsPreference(widgets.CheckPrefsItem):
+class OnAllDesktopsPreference(widgets.CheckPreference):
     name = 'plugin/minimode/on_all_desktops'
     default = True
 
-class DisplayWindowDecorationsPreference(widgets.CheckPrefsItem):
+class DisplayWindowDecorationsPreference(widgets.CheckPreference):
     name = 'plugin/minimode/display_window_decorations'
     default = True
 
-class SelectedControlsPreference(widgets.SelectionListPrefsItem):
+class SelectedControlsPreference(widgets.SelectionListPreference):
     name = 'plugin/minimode/selected_controls'
     available_title = _('Available Controls')
     selected_title = _('Selected Controls')
@@ -58,7 +58,7 @@ class SelectedControlsPreference(widgets.SelectionListPrefsItem):
     }
     default = ['previous', 'play_pause', 'next', 'track_selector', 'progress_bar']
 
-class TrackTitleFormatPreference(widgets.ComboEntryPrefsItem):
+class TrackTitleFormatPreference(widgets.ComboEntryPreference):
     name = 'plugin/minimode/track_title_format'
     completion_items = {
         '$tracknumber': _('Track number'),

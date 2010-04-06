@@ -47,7 +47,7 @@ except ImportError:
         "will not be fully translated.")
 
 from xlgui import commondialogs, cover
-from xlgui import devices, guiutil, icons, prefs, queue
+from xlgui import devices, guiutil, icons, preferences, queue
 
 def mainloop():
     gtk.main()
@@ -278,7 +278,7 @@ class Main(object):
         """
             Shows the preferences dialog
         """
-        dialog = prefs.PreferencesDialog(self.main.window, self)
+        dialog = preferences.PreferencesDialog(self.main.window, self)
         dialog.run()
 
     def show_devices(self):

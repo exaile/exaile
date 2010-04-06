@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 STREAMRIPPER = None
 
-def get_prefs_pane():
+def get_preferences_pane():
     return srprefs
 
 class Streamripper(object):

@@ -20,7 +20,7 @@ import cgi, gtk, gobject, os, os.path, subprocess, colorsys
 import inspect
 from xl import event, xdg, settings
 from xl.nls import gettext as _
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import common
 import moodbarprefs
 
@@ -561,7 +561,7 @@ def disable(exaile):
     ExaileModbar.destroy()
     ExaileModbar = None
 
-def get_prefs_pane():
+def get_preferences_pane():
     return moodbarprefs
 
 #have errors from time to time:

@@ -44,7 +44,7 @@ FONT = "Luxi Mono 10"
 PLUGIN                  = None
 MENU_ITEM               = None
 
-def get_prefs_pane():
+def get_preferences_pane():
     return ipconsoleprefs
 
 class Quitter(object):

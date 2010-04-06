@@ -31,7 +31,7 @@ import gst
 
 try:
     import replaygainprefs
-    def get_prefs_pane():
+    def get_preferences_pane():
         return replaygainprefs
 except: # fail gracefully if we cant set up the UI
     pass

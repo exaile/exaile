@@ -123,6 +123,10 @@ class CoverManager(providers.ProviderHandler):
             self.on_provider_added(method)
         self.__save_timer_id = 0
 
+        default_cover_file = open(xdg.get_data_path('images', 'nocover.png'), 'rb')
+        self.default_cover_data = default_cover_file.read()
+        default_cover_file.close()
+
         self.tag_fetcher = TagCoverFetcher()
         self.localfile_fetcher = LocalFileCoverFetcher()
 
@@ -315,8 +319,7 @@ class CoverManager(providers.ProviderHandler):
             cover to display.
         """
         # TODO: wrap this into get_cover_data and get_cover somehow?
-        path = xdg.get_data_path("images", "nocover.png")
-        return open(path, "rb").read()
+        return self.default_cover_data
 
     def load(self):
         """

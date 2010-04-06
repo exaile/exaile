@@ -418,7 +418,7 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
 
         result = dialog.run()
         if result == gtk.RESPONSE_OK:
-            #TODO recover last directory from prefs
+            #TODO recover last directory from preferences
             #self.exaile.last_open_dir = dialog.get_current_folder()
             path = unicode(dialog.get_filename(), 'utf-8')
             self.emit('export-playlist', path)

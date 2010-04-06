@@ -47,7 +47,7 @@ def disable(exaile):
         MINIMODE.destroy()
         MINIMODE = None
 
-def get_prefs_pane():
+def get_preferences_pane():
     return minimodeprefs
 
 class MiniMode(gtk.Window):

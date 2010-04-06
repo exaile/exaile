@@ -19,7 +19,7 @@ import notifyprefs
 import logging
 import inspect
 import notify_cover
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import event, common, settings
 from xl.nls import gettext as _
 
@@ -39,7 +39,7 @@ class ExaileNotification(object):
         self.exaile = None
 
     def __inner_preference(klass):
-        """Function will make a property for a given subclass of PrefsItem"""
+        """Function will make a property for a given subclass of Preference"""
         def getter(self):
             return settings.get_option(klass.name, klass.default or None)
 
@@ -119,5 +119,5 @@ def enable(exaile):
 def disable(exaile):
     event.remove_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start')
 
-def get_prefs_pane():
+def get_preferences_pane():
     return notifyprefs

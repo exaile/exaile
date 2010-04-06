@@ -19,9 +19,9 @@
 {artist}
 on {album} - {length}</property>
   </object>
-  <object class="GtkWindow" id="prefs_window">
+  <object class="GtkWindow" id="preferences_window">
     <child>
-      <object class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>

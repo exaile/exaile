@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -23,18 +23,18 @@ name = _('Streamripper')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'streamripper.ui')
 
-class SavePreference(widgets.DirPrefsItem):
+class SavePreference(widgets.DirPreference):
     default = os.getenv('HOME')
     name = 'plugin/streamripper/save_location'
 
-class PortPreference(widgets.PrefsItem):
+class PortPreference(widgets.Preference):
     default = '8888'
     name = 'plugin/streamripper/relay_port'
     
-class FilePreference(widgets.CheckPrefsItem):
+class FilePreference(widgets.CheckPreference):
     default = False
     name = 'plugin/streamripper/single_file'
     
-class DeletePreference(widgets.CheckPrefsItem):
+class DeletePreference(widgets.CheckPreference):
     default = True
     name = 'plugin/streamripper/delete_incomplete'

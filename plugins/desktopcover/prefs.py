@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl.nls import gettext as _
 
 name = _('Desktop Cover')
@@ -24,21 +24,21 @@ ui = os.path.join(_basedir, "prefs.ui")
 
 _SETTINGS_PREFIX = 'plugin/desktopcover/'
 
-class AnchorPreference(widgets.ComboPrefsItem):
+class AnchorPreference(widgets.ComboPreference):
     default = 0
     name = _SETTINGS_PREFIX + 'anchor'
     def __init__(self, prefs, widget):
-        widgets.ComboPrefsItem.__init__(self, prefs, widget, use_index=True)
+        widgets.ComboPreference.__init__(self, prefs, widget, use_index=True)
 
-class XPreference(widgets.SpinPrefsItem):
+class XPreference(widgets.SpinPreference):
     default = 0
     name = _SETTINGS_PREFIX + 'x'
 
-class YPreference(widgets.SpinPrefsItem):
+class YPreference(widgets.SpinPreference):
     default = 0
     name = _SETTINGS_PREFIX + 'y'
 
-class SizePreference(widgets.SpinPrefsItem):
+class SizePreference(widgets.SpinPreference):
     default = 200
     name = _SETTINGS_PREFIX + 'size'
 

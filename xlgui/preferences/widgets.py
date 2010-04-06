@@ -35,12 +35,12 @@ from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
-class PrefsItem(object):
+class Preference(object):
     """
         Representing a gtk.Entry preferences item
     """
     default = ''
-    def __init__(self, prefs, widget):
+    def __init__(self, preferences, widget):
         """
             Initializes the preferences item
             expects the name of the widget in the designer file, the default for
@@ -50,7 +50,7 @@ class PrefsItem(object):
         """
 
         self.widget = widget
-        self.prefs = prefs
+        self.preferences = preferences
 
         self._set_value()
         self._setup_change()
@@ -79,7 +79,7 @@ class PrefsItem(object):
         if not self.widget:
             logger.error("Widget not found: %s" % (self.name))
             return
-        self.widget.set_text(str(self.prefs.settings.get_option(
+        self.widget.set_text(str(self.preferences.settings.get_option(
             self.name, self.default)))
 
     def _get_value(self):
@@ -95,22 +95,22 @@ class PrefsItem(object):
         if hasattr(self, 'done') and not self.done():
             return False
 
-        oldvalue = self.prefs.settings.get_option(self.name, self.default)
+        oldvalue = self.preferences.settings.get_option(self.name, self.default)
 
         if value is None:
             value = self._get_value()
 
         if value != oldvalue:
-            self.prefs.settings.set_option(self.name, value)
+            self.preferences.settings.set_option(self.name, value)
 
         return True
 
-class HashedPrefsItem(PrefsItem):
+class HashedPreference(Preference):
     """
         Represents a text entry with automated hashing
     """
-    def __init__(self, prefs, widget):
-        PrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        Preference.__init__(self, preferences, widget)
         self._dirty = False
 
     def _setup_change(self):
@@ -138,15 +138,15 @@ class HashedPrefsItem(PrefsItem):
             except AttributeError:
                 value = ''
 
-        self.prefs.settings.set_option(self.name, value)
+        self.preferences.settings.set_option(self.name, value)
         return True
 
-class CheckPrefsItem(PrefsItem):
+class CheckPreference(Preference):
     """
         A class to represent check boxes in the preferences window
     """
-    def __init__(self, prefs, widget):
-        PrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
         self.widget.connect('toggled',
@@ -154,19 +154,19 @@ class CheckPrefsItem(PrefsItem):
 
     def _set_value(self):
         self.widget.set_active(
-            self.prefs.settings.get_option(self.name,
+            self.preferences.settings.get_option(self.name,
             self.default))
 
     def _get_value(self):
         return self.widget.get_active()
 
 
-class DirPrefsItem(PrefsItem):
+class DirPreference(Preference):
     """
         Directory chooser button
     """
-    def __init__(self, prefs, widget):
-        PrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
         pass
@@ -176,7 +176,7 @@ class DirPrefsItem(PrefsItem):
             Sets the current directory
         """
         directory = os.path.expanduser(
-            self.prefs.settings.get_option(self.name, self.default))
+            self.preferences.settings.get_option(self.name, self.default))
         if not os.path.exists(directory):
             os.makedirs(directory)
         self.widget.set_current_folder(directory)
@@ -185,14 +185,14 @@ class DirPrefsItem(PrefsItem):
         return self.widget.get_filename()
 
 
-class OrderListPrefsItem(PrefsItem):
+class OrderListPreference(Preference):
     """
         A list box with reorderable items
     """
-    def __init__(self, prefs, widget):
+    def __init__(self, preferences, widget):
         self.model = gtk.ListStore(str)
         self.items = []
-        PrefsItem.__init__(self, prefs, widget)
+        Preference.__init__(self, preferences, widget)
         widget.set_headers_visible(False)
         widget.set_reorderable(True)
 
@@ -208,7 +208,7 @@ class OrderListPrefsItem(PrefsItem):
         """
             Sets the preferences for this widget
         """
-        items = self.prefs.settings.get_option(self.name,
+        items = self.preferences.settings.get_option(self.name,
             self.default)
 
         self.model.clear()
@@ -225,7 +225,7 @@ class OrderListPrefsItem(PrefsItem):
         return items
 
 
-class SelectionListPrefsItem(PrefsItem):
+class SelectionListPreference(Preference):
     """
         Two list boxes allowing to drag items
         to each other, reorderable
@@ -236,7 +236,7 @@ class SelectionListPrefsItem(PrefsItem):
         * available_items (Dictionary of items and their titles)
         * fixed_items (Dictionary of non-removable items and their titles)
     """
-    def __init__(self, prefs, widget):
+    def __init__(self, preferences, widget):
         self.available_list = gtk.ListStore(str)
         self.selected_list = gtk.ListStore(str)
         self._update_lists(self.default)
@@ -245,7 +245,7 @@ class SelectionListPrefsItem(PrefsItem):
         for child in widget.get_children():
             widget.remove(child)
 
-        PrefsItem.__init__(self, prefs, widget)
+        Preference.__init__(self, preferences, widget)
         widget.set_homogeneous(False)
         widget.set_spacing(6)
 
@@ -547,7 +547,7 @@ class SelectionListPrefsItem(PrefsItem):
         """
             Sets the preferences for this widget
         """
-        items = self.prefs.settings.get_option(self.name, self.default)
+        items = self.preferences.settings.get_option(self.name, self.default)
         self._update_lists(items)
 
     def _get_value(self):
@@ -591,15 +591,15 @@ class SelectionListPrefsItem(PrefsItem):
             pass
 
 
-class ShortcutListPrefsItem(PrefsItem):
+class ShortcutListPreference(Preference):
     """
         A list showing available items and allowing
         to assign/edit/remove key accelerators
     """
-    def __init__(self, prefs, widget):
+    def __init__(self, preferences, widget):
         self.list = gtk.ListStore(str, str)
 
-        PrefsItem.__init__(self, prefs, widget)
+        Preference.__init__(self, preferences, widget)
 
         self.widget.set_model(self.list)
 
@@ -648,7 +648,7 @@ class ShortcutListPrefsItem(PrefsItem):
         """
             Sets the preferences for this widget
         """
-        items = self.prefs.settings.get_option(self.name, self.default)
+        items = self.preferences.settings.get_option(self.name, self.default)
         self.update_list(items)
 
     def _get_value(self):
@@ -680,15 +680,15 @@ class ShortcutListPrefsItem(PrefsItem):
             self.list.append([action, accel])
 
 
-class TextViewPrefsItem(PrefsItem):
+class TextViewPreference(Preference):
     """
         Represents a gtk.TextView
     """
-    def __init__(self, prefs, widget):
+    def __init__(self, preferences, widget):
         """
             Initializes the object
         """
-        PrefsItem.__init__(self, prefs, widget)
+        Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
         self.widget.connect('focus-out-event', self.change)
@@ -707,7 +707,7 @@ class TextViewPrefsItem(PrefsItem):
             Sets the value of this widget
         """
         self.widget.get_buffer().set_text(str(
-            self.prefs.settings.get_option(self.name,
+            self.preferences.settings.get_option(self.name,
             default=self.default)))
 
     def _get_value(self):
@@ -717,15 +717,15 @@ class TextViewPrefsItem(PrefsItem):
         return self.get_all_text()
 
 
-class ListPrefsItem(PrefsItem):
+class ListPreference(Preference):
     """
         A class to represent a space separated list in the preferences window
     """
-    def __init__(self, prefs, widget):
-        PrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        Preference.__init__(self, preferences, widget)
 
     def _set_value(self):
-        items = self.prefs.settings.get_option(self.name,
+        items = self.preferences.settings.get_option(self.name,
             default=self.default)
         try:
             items = " ".join(items)
@@ -742,15 +742,15 @@ class ListPrefsItem(PrefsItem):
         return values
 
 
-class SpinPrefsItem(PrefsItem):
+class SpinPreference(Preference):
     """
         A class to represent a numeric entry box with stepping buttons
     """
-    def __init__(self, prefs, widget):
-        PrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        Preference.__init__(self, preferences, widget)
 
     def _set_value(self):
-        value = self.prefs.settings.get_option(self.name,
+        value = self.preferences.settings.get_option(self.name,
             default=self.default)
         self.widget.set_value(value)
 
@@ -760,48 +760,48 @@ class SpinPrefsItem(PrefsItem):
     def _get_value(self):
         return self.widget.get_value()
 
-class ScalePrefsItem(SpinPrefsItem):
+class ScalePreference(SpinPreference):
     """
         Representation of gtk.Scale widgets
     """
-    def __init__(self, prefs, widget):
-        SpinPrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        SpinPreference.__init__(self, preferences, widget)
 
-class FloatPrefsItem(PrefsItem):
+class FloatPreference(Preference):
     """
         A class to represent a floating point number in the preferences window
     """
-    def __init__(self, prefs, widget):
-        PrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        Preference.__init__(self, preferences, widget)
 
     def _set_value(self):
         self.widget.set_text(str(
-            self.prefs.settings.get_option(self.name,
+            self.preferences.settings.get_option(self.name,
             default=self.default)))
 
     def _get_value(self):
         return float(self.widget.get_text())
 
 
-class IntPrefsItem(FloatPrefsItem):
+class IntPreference(FloatPreference):
 
     def _get_value(self):
         return int(self.widget.get_text())
 
 
-class ColorButtonPrefsItem(PrefsItem):
+class ColorButtonPreference(Preference):
     """
-        A class to represent the color button in the prefs window
+        A class to represent the color button in the preferences window
     """
-    def __init__(self, prefs, widget):
-        PrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
         self.widget.connect('color-set', self.change)
 
     def _set_value(self):
         self.widget.set_color(gtk.gdk.color_parse(
-            self.prefs.settings.get_option(self.name,
+            self.preferences.settings.get_option(self.name,
             self.default)))
 
     def _get_value(self):
@@ -811,18 +811,18 @@ class ColorButtonPrefsItem(PrefsItem):
         return string
 
 
-class FontButtonPrefsItem(ColorButtonPrefsItem):
+class FontButtonPreference(ColorButtonPreference):
     """
         Font button
     """
-    def __init__(self, prefs, widget):
-        ColorButtonPrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        ColorButtonPreference.__init__(self, preferences, widget)
 
     def _setup_change(self):
         self.widget.connect('font-set', self.change)
 
     def _set_value(self):
-        font = self.prefs.settings.get_option(self.name,
+        font = self.preferences.settings.get_option(self.name,
             self.default)
         self.widget.set_font_name(font)
 
@@ -831,30 +831,30 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
         return font
 
 
-class ComboPrefsItem(PrefsItem):
+class ComboPreference(Preference):
     """
         A combo box
     """
-    def __init__(self, prefs, widget, use_index=False, use_map=False):
+    def __init__(self, preferences, widget, use_index=False, use_map=False):
         self.use_index = use_index
         self.use_map = use_map
-        PrefsItem.__init__(self, prefs, widget)
+        Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
         self.widget.connect('changed', self.change)
 
     def _set_value(self):
-        item = self.prefs.settings.get_option(self.name,
+        item = self.preferences.settings.get_option(self.name,
             self.default)
 
         if self.use_map:
-            index = self.map.index(self.prefs.settings.get_option(
+            index = self.map.index(self.preferences.settings.get_option(
                         self.name, self.default))
             self.widget.set_active(index)
             return
 
         if self.use_index:
-            index = self.prefs.settings.get_option(self.name,
+            index = self.preferences.settings.get_option(self.name,
                 self.default)
             self.widget.set_active(index)
             return
@@ -880,7 +880,7 @@ class ComboPrefsItem(PrefsItem):
             return self.widget.get_active_text()
 
 
-class ComboEntryPrefsItem(PrefsItem):
+class ComboEntryPreference(Preference):
     """
         A combo box allowing for user defined
         values, presets and auto completion
@@ -891,8 +891,8 @@ class ComboEntryPrefsItem(PrefsItem):
         * preset_items (List of preset items or
           dictionary of items and their titles)
     """
-    def __init__(self, prefs, widget):
-        PrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        Preference.__init__(self, preferences, widget)
 
         self.list = gtk.ListStore(str)
 
@@ -951,7 +951,7 @@ class ComboEntryPrefsItem(PrefsItem):
         """
             Sets the preferences for this widget
         """
-        value = self.prefs.settings.get_option(self.name, self.default)
+        value = self.preferences.settings.get_option(self.name, self.default)
         self.widget.child.set_text(str(value))
 
     def _get_value(self):

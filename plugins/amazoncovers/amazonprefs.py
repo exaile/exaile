@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -23,10 +23,10 @@ name = _('Amazon Covers')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'amazonprefs_pane.ui')
 
-class APIKeyPreference(widgets.PrefsItem):
+class APIKeyPreference(widgets.Preference):
     default = ''
     name = 'plugin/amazoncovers/api_key'
 
-class SecretKeyPreference(widgets.PrefsItem):
+class SecretKeyPreference(widgets.Preference):
     default = ''
     name = 'plugin/amazoncovers/secret_key'

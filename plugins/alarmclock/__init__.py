@@ -21,7 +21,7 @@ def disable(exaile):
     """
     if ALARM: ALARM.disable_alarm()
 
-def get_prefs_pane():
+def get_preferences_pane():
     if ALARM: ALARM.enable_alarm()
     return acprefs
 

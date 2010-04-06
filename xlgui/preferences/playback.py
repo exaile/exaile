@@ -24,55 +24,55 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 from xlgui import commondialogs
 
 name = _('Playback')
-ui = xdg.get_data_path('ui/playback_prefs_pane.ui')
+ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')
 
-class EnginePreference(widgets.ComboPrefsItem):
+class EnginePreference(widgets.ComboPreference):
     default = "normal"
     name = 'player/engine'
     map = ["normal", "unified"]
-    def __init__(self, prefs, widget):
-        widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+    def __init__(self, preferences, widget):
+        widgets.ComboPreference.__init__(self, preferences, widget, use_map=True)
 
-class AudioSinkPreference(widgets.ComboPrefsItem):
+class AudioSinkPreference(widgets.ComboPreference):
     default = "auto"
     name = 'player/audiosink'
     map = ["auto", "gconf", "alsa", "oss", "pulse", "jack", "custom"]
-    def __init__(self, prefs, widget):
-        widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+    def __init__(self, preferences, widget):
+        widgets.ComboPreference.__init__(self, preferences, widget, use_map=True)
 
-class CustomAudioSinkPreference(widgets.PrefsItem):
+class CustomAudioSinkPreference(widgets.Preference):
     default = ""
     name = "player/custom_sink_pipe"
 
-class ResumePreference(widgets.CheckPrefsItem):
+class ResumePreference(widgets.CheckPreference):
     default = True
     name = 'player/resume_playback'
 
-class PausedPreference(widgets.CheckPrefsItem):
+class PausedPreference(widgets.CheckPreference):
     default = False
     name = 'player/resume_paused'
 
 # The following only work on the Unified engine
 
-class UserFadeTogglePreference(widgets.CheckPrefsItem):
+class UserFadeTogglePreference(widgets.CheckPreference):
     default = False
     name = 'player/user_fade_enabled'
 
-class UserFadeDurationPreference(widgets.SpinPrefsItem):
+class UserFadeDurationPreference(widgets.SpinPreference):
     default = 1000
     name = 'player/user_fade'
 
-class CrossfadingPreference(widgets.CheckPrefsItem):
+class CrossfadingPreference(widgets.CheckPreference):
     default = False
     name = 'player/crossfading'
 
-class CrossfadeDurationPreference(widgets.SpinPrefsItem):
+class CrossfadeDurationPreference(widgets.SpinPreference):
     default = 1000
     name = 'player/crossfade_duration'
 

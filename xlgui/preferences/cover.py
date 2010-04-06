@@ -24,25 +24,43 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
-from xlgui import commondialogs
 
-name = _('Playlists')
-ui = xdg.get_data_path('ui/playlists_prefs_pane.ui')
+name = _('Covers')
+ui = xdg.get_data_path('ui', 'preferences', 'cover.ui')
 
-class OpenLastPreference(widgets.CheckPrefsItem):
+class TagCoverFetching(widgets.CheckPreference):
     default = True
-    name = 'playlist/open_last'
+    name = 'covers/use_tags'
 
-class AskSaveCustomPlaylistPreference(widgets.CheckPrefsItem):
+class LocalCoverFetching(widgets.CheckPreference):
     default = True
-    name = 'playlist/ask_save'
+    name = 'covers/use_localfile'
 
-#class QueueSavePreferences(widgets.CheckPrefsItem):
-#    default = True
-#    name = 'playlist/save_queue'
+class CoverOrderPreference(widgets.OrderListPreference):
+    """
+        This little preference item shows kind of a complicated preference
+        widget in action.  The defaults are dynamic.
+    """
+    name = 'covers/preferred_order'
 
-#    def change(self, *e):
-#        commondialogs.error(self.prefs.window, "Doesn't work yet")
+    def __init__(self, preferences, widget):
+        self.default = preferences.main.exaile.covers._get_methods()
+        widgets.OrderListPreference.__init__(self, preferences, widget)
+
+    def _set_value(self):
+        self.model.clear()
+        for item in self.default:
+            self.model.append([item.name])
+
+    def apply(self):
+        if widgets.OrderListPreference.apply(self):
+            self.preferences.main.exaile.covers.set_preferred_order(
+                self.items)
+        return True
+
+class AutomaticCoverFetching(widgets.CheckPreference):
+    default = True
+    name = 'covers/automatic_fetching'

@@ -14,13 +14,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 from xlgui import commondialogs
 
 name = _('Collection')
-ui = xdg.get_data_path('ui/collection_prefs_pane.ui')
+ui = xdg.get_data_path('ui', 'preferences', 'collection.ui')
 
 def _get_default_strip_list():
     #TRANSLATORS: Grammatical articles that are ignored while sorting the
@@ -31,12 +31,12 @@ def _get_default_strip_list():
     default_strip_list = _("the")
     return [v.lower() for v in default_strip_list.split(' ') if v is not '']
 
-class CollectionStripArtistPreference(widgets.ListPrefsItem):
+class CollectionStripArtistPreference(widgets.ListPreference):
     default = _get_default_strip_list()
     name = 'collection/strip_list'
 
-    def __init__(self, prefs, widget):
-        widgets.ListPrefsItem.__init__(self, prefs, widget)
+    def __init__(self, preferences, widget):
+        widgets.ListPreference.__init__(self, preferences, widget)
         self.widget.connect('populate-popup', self._populate_popup_cb)
 
     def _get_value(self):
@@ -63,7 +63,7 @@ class CollectionStripArtistPreference(widgets.ListPrefsItem):
     def _reset_to_defaults_cb(self, item):
         self.widget.set_text(' '.join(_get_default_strip_list()))
 
-class FileBasedCompilationsPreference(widgets.CheckPrefsItem):
+class FileBasedCompilationsPreference(widgets.CheckPreference):
     default = True
     name = 'collection/file_based_compilations'
 

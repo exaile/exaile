@@ -32,7 +32,7 @@ make-install-dirs:
 	mkdir -p $(EXAILELIBDIR)/xl/trax
 	mkdir -p $(EXAILELIBDIR)/xlgui
 	mkdir -p $(EXAILELIBDIR)/xlgui/panel
-	mkdir -p $(EXAILELIBDIR)/xlgui/prefs
+	mkdir -p $(EXAILELIBDIR)/xlgui/preferences
 	mkdir -p $(EXAILESHAREDIR)
 	mkdir -p $(EXAILESHAREDIR)/data
 	mkdir -p $(EXAILESHAREDIR)/data/images/16x16
@@ -42,6 +42,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/images/48x48
 	mkdir -p $(EXAILESHAREDIR)/data/images/scalable
 	mkdir -p $(EXAILESHAREDIR)/data/ui
+	mkdir -p $(EXAILESHAREDIR)/data/ui/preferences
 	mkdir -p $(EXAILESHAREDIR)/data/ui/widgets
 	mkdir -p $(EXAILESHAREDIR)/data/migrations
 	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
@@ -82,8 +83,8 @@ install-target: make-install-dirs
 	install -m 644 xlgui/*.py $(EXAILELIBDIR)/xlgui
 	-install -m 644 xlgui/panel/*.py[co] $(EXAILELIBDIR)/xlgui/panel
 	install -m 644 xlgui/panel/*.py $(EXAILELIBDIR)/xlgui/panel
-	-install -m 644 xlgui/prefs/*.py[co] $(EXAILELIBDIR)/xlgui/prefs
-	install -m 644 xlgui/prefs/*.py $(EXAILELIBDIR)/xlgui/prefs
+	-install -m 644 xlgui/preferences/*.py[co] $(EXAILELIBDIR)/xlgui/preferences
+	install -m 644 xlgui/preferences/*.py $(EXAILELIBDIR)/xlgui/preferences
 	install -m 644 data/images/16x16/*.png $(EXAILESHAREDIR)/data/images/16x16
 	install -m 644 data/images/22x22/*.png $(EXAILESHAREDIR)/data/images/22x22
 	install -m 644 data/images/24x24/*.png $(EXAILESHAREDIR)/data/images/24x24
@@ -94,6 +95,7 @@ install-target: make-install-dirs
 	install -m 644 data/images/48x48/exaile.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 data/ui/*.ui $(EXAILESHAREDIR)/data/ui
+	install -m 644 data/ui/preferences/*.ui $(EXAILESHAREDIR)/data/ui/preferences
 	install -m 644 data/ui/widgets/*.ui $(EXAILESHAREDIR)/data/ui/widgets
 	install -m 644 data/migrations/*.py $(EXAILESHAREDIR)/data/migrations/
 	install -m 644 data/migrations/migration_200907100931/*.py \

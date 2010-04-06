@@ -74,7 +74,7 @@ class ExaileAwn(object):
             self.enable_progress(type, player, object)
 
     def __inner_preference(klass):
-        """Function will make a property for a given subclass of PrefsItem"""
+        """Function will make a property for a given subclass of Preference"""
         def getter(self):
             return xl.settings.get_option(klass.name, klass.default or None)
 
@@ -199,5 +199,5 @@ def disable(exaile):
     EXAILE_AWN.unset_timer()
     EXAILE_AWN.exaile = None
 
-def get_prefs_pane():
+def get_preferences_pane():
     return awn_prefs

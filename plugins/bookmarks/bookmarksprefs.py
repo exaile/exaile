@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -24,7 +24,7 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "bookmarks_pane.ui")
 
 
-class UseCovers(widgets.CheckPrefsItem):
+class UseCovers(widgets.CheckPreference):
     default = False
     name = 'plugin/bookmarks/use_covers'
 

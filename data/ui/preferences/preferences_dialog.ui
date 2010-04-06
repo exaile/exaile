@@ -26,7 +26,7 @@
                 <property name="vscrollbar_policy">automatic</property>
                 <property name="shadow_type">in</property>
                 <child>
-                  <object class="GtkTreeView" id="prefs_tree">
+                  <object class="GtkTreeView" id="preferences_tree">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                   </object>
@@ -38,7 +38,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="prefs_box">
+              <object class="GtkVBox" id="preferences_box">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>

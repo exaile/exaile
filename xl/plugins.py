@@ -180,9 +180,9 @@ class PluginsManager(object):
         path = self.__findplugin(pluginname)
         plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
         try:
-            prefspane = plugin.get_prefs_pane()
-            for c in dir(prefspane):
-                attr = getattr(prefspane, c)
+            preferences_pane = plugin.get_preferences_pane()
+            for c in dir(preferences_pane):
+                attr = getattr(preferences_pane, c)
                 if inspect.isclass(attr):
                     try:
                         preflist[attr.name] = attr.default

@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -23,60 +23,60 @@ name = _('Alarm Clock')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "acprefs_pane.ui")
 
-class HourPreference(widgets.SpinPrefsItem):
+class HourPreference(widgets.SpinPreference):
     default = 12
     name = 'plugin/alarmclock/hour'
 
-class MinutsPreference(widgets.SpinPrefsItem):
+class MinutsPreference(widgets.SpinPreference):
     default = 30
     name = 'plugin/alarmclock/minuts'
 
-class MondayPreference(widgets.CheckPrefsItem):
+class MondayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/monday'
 
-class TuesdayPreference(widgets.CheckPrefsItem):
+class TuesdayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/tuesday'
 
-class ThursdayPreference(widgets.CheckPrefsItem):
+class ThursdayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/thursday'
 
-class WednesdayPreference(widgets.CheckPrefsItem):
+class WednesdayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/wednesday'
 
-class FridayPreference(widgets.CheckPrefsItem):
+class FridayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/friday'
 
-class SaturdayPreference(widgets.CheckPrefsItem):
+class SaturdayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/saturday'
 
 
-class SundayPreference(widgets.CheckPrefsItem):
+class SundayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/sunday'
 
-class FadingPreferencew(widgets.CheckPrefsItem):
+class FadingPreferencew(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/alarm_use_fading'
 
-class MinVolumePreference(widgets.SpinPrefsItem):
+class MinVolumePreference(widgets.SpinPreference):
     default = 0
     name = 'plugin/alarmclock/alarm_min_volume'
 
-class MaxVolumePreference(widgets.SpinPrefsItem):
+class MaxVolumePreference(widgets.SpinPreference):
     default = 100
     name = 'plugin/alarmclock/alarm_max_volume'
 
-class IncrementPreference(widgets.SpinPrefsItem):
+class IncrementPreference(widgets.SpinPreference):
     default = 1
     name = 'plugin/alarmclock/alarm_increment'
 
-class TimerperIncPreference(widgets.SpinPrefsItem):
+class TimerperIncPreference(widgets.SpinPreference):
     default = 1
     name = 'plugin/alarmclock/alarm_timer_per_inc'
 

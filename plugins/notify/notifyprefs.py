@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -24,32 +24,32 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "notifyprefs_pane.ui")
 
 
-class ResizeCovers(widgets.CheckPrefsItem):
+class ResizeCovers(widgets.CheckPreference):
     default = True
     name = 'plugin/notify/resize'
 
 
-class AttachToTray(widgets.CheckPrefsItem):
+class AttachToTray(widgets.CheckPreference):
     default = True
     name = 'plugin/notify/attach_tray'
 
 
-class BodyArtistAlbum(widgets.TextViewPrefsItem):
+class BodyArtistAlbum(widgets.TextViewPreference):
     default = _("by %(artist)s\nfrom <i>%(album)s</i>")
     name = 'plugin/notify/body_artistalbum'
 
 
-class BodyArtist(widgets.TextViewPrefsItem):
+class BodyArtist(widgets.TextViewPreference):
     default = _("by %(artist)s")
     name = 'plugin/notify/body_artist'
 
 
-class BodyAlbum(widgets.TextViewPrefsItem):
+class BodyAlbum(widgets.TextViewPreference):
     default = _("from %(album)s")
     name = 'plugin/notify/body_album'
 
 
-class Summary(widgets.TextViewPrefsItem):
+class Summary(widgets.TextViewPreference):
     default = _("%(title)s")
     name = 'plugin/notify/summary'
 

@@ -41,7 +41,7 @@ def _enable(eventname, exaile, nothing):
 def disable(exaile):
     providers.unregister('covers', AMAZON)
 
-def get_prefs_pane():
+def get_preferences_pane():
     return amazonprefs
 
 class AmazonCoverSearch(CoverSearchMethod):

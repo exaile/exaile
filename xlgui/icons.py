@@ -243,4 +243,5 @@ class IconManager(object):
         return pixbuf
 
 MANAGER = IconManager()
-# vim: et sw=4 st=4
+
+# vim: et sts=4 sw=4

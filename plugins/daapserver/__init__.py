@@ -87,7 +87,7 @@ def disable(exaile):
 # settings stuff
 import daapserverprefs
 
-def get_prefs_pane():
+def get_preferences_pane():
     return daapserverprefs
     
 def on_settings_change(event, setting, option):

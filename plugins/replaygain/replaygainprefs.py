@@ -25,7 +25,7 @@
 # from your version.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -33,19 +33,19 @@ name = _('ReplayGain')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "replaygainprefs_pane.ui")
 
-class AlbumModePreference(widgets.CheckPrefsItem):
+class AlbumModePreference(widgets.CheckPreference):
     default = True
     name = 'replaygain/album-mode'
 
-class ClippingProtectionPreference(widgets.CheckPrefsItem):
+class ClippingProtectionPreference(widgets.CheckPreference):
     default = True
     name = 'replaygain/clipping-protection'
 
-class PreAmpPreference(widgets.SpinPrefsItem):
+class PreAmpPreference(widgets.SpinPreference):
     default = 0
     name = 'replaygain/pre-amp'
 
-class FallbackGainPreference(widgets.SpinPrefsItem):
+class FallbackGainPreference(widgets.SpinPreference):
     default = 0
     name = 'replaygain/fallback-gain'
 

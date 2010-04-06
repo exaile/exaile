@@ -1178,7 +1178,7 @@ class ContextPanel(gobject.GObject):
 
         return (self._child, self.name)
         
-def get_prefs_pane():
+def get_preferences_pane():
     return contextprefs
 
 def exaile_ready(object=None, a=None, b=None):

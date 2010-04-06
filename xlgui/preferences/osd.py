@@ -24,27 +24,27 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 from xlgui import osd
 
 name = _('On Screen Display')
-ui = xdg.get_data_path('ui/osd_prefs_pane.ui')
+ui = xdg.get_data_path('ui', 'preferences', 'osd.ui')
 
-def page_enter(prefs):
+def page_enter(preferences):
     global OSD
-    OSD = osd.OSDWindow(draggable=True, settings=prefs.settings)
+    OSD = osd.OSDWindow(draggable=True, settings=preferences.settings)
     OSD.show(None, timeout=0)
 
-def page_leave(prefs):
+def page_leave(preferences):
     global OSD
     if OSD:
         OSD.destroy()
         OSD = None
 
-def apply(prefs):
-    prefs.main.main.osd.setup_osd()
+def apply(preferences):
+    preferences.main.main.osd.setup_osd()
 
 class OSDItem(object):
     """
@@ -58,47 +58,47 @@ class OSDItem(object):
             OSD.setup_osd()
             OSD.show(None, timeout=0)
 
-class OsdPreference(widgets.CheckPrefsItem, OSDItem):
+class OsdPreference(widgets.CheckPreference, OSDItem):
     default = True
     name = 'osd/enabled'
 
-class OsdHoverTrayPreference(widgets.CheckPrefsItem, OSDItem):
+class OsdHoverTrayPreference(widgets.CheckPreference, OSDItem):
     default = True
     name = 'osd/hover_tray'
 
-class OsdProgressPreference(widgets.CheckPrefsItem, OSDItem):
+class OsdProgressPreference(widgets.CheckPreference, OSDItem):
     default = True
     name = 'osd/show_progress'
 
-class OsdDurationPreference(widgets.SpinPrefsItem, OSDItem):
+class OsdDurationPreference(widgets.SpinPreference, OSDItem):
     default = 4000
     name = 'osd/duration'
 
-class OsdTextFontPreference(widgets.FontButtonPrefsItem, OSDItem):
+class OsdTextFontPreference(widgets.FontButtonPreference, OSDItem):
     default = 'Sans 11'
     name = 'osd/text_font'
 
-class OsdTextColorPreference(widgets.ColorButtonPrefsItem, OSDItem):
+class OsdTextColorPreference(widgets.ColorButtonPreference, OSDItem):
     default = '#ffffff'
     name = 'osd/text_color'
 
-class OsdBGColorPreference(widgets.ColorButtonPrefsItem, OSDItem):
+class OsdBGColorPreference(widgets.ColorButtonPreference, OSDItem):
     default = '#567ea2'
     name = 'osd/bg_color'
 
-class OsdOpacityPreference(widgets.SpinPrefsItem, OSDItem):
+class OsdOpacityPreference(widgets.SpinPreference, OSDItem):
     default = 75
     name = 'osd/opacity'
 
-class OsdWidthPreference(widgets.IntPrefsItem, OSDItem):
+class OsdWidthPreference(widgets.IntPreference, OSDItem):
     default = 400
     name = 'osd/w'
 
-class OsdHeightPreference(widgets.IntPrefsItem, OSDItem):
+class OsdHeightPreference(widgets.IntPreference, OSDItem):
     default = 95
     name = 'osd/h'
 
-class OsdTextPreference(widgets.TextViewPrefsItem, OSDItem):
+class OsdTextPreference(widgets.TextViewPreference, OSDItem):
     default = """<b>{title}</b>
 {artist}
 on {album} - {length}"""

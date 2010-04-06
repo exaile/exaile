@@ -490,7 +490,7 @@ class Exaile(object):
         """
             exits Exaile normally.
 
-            takes care of saving prefs, databases, etc.
+            takes care of saving preferences, databases, etc.
         """
         if self.quitting:
             return

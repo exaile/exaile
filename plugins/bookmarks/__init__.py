@@ -304,5 +304,5 @@ if __name__ == '__main__':
     print get_time()
 
 # vi: et ts=4 sts=4 sw=4
-def get_prefs_pane():
+def get_preferences_pane():
     return bookmarksprefs

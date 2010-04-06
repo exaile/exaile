@@ -26,7 +26,7 @@
 
 import os
 
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl.nls import gettext as _
 
 name = _("AWN")
@@ -34,15 +34,15 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "awn_prefs_pane.ui")
 
 
-class OverlayDisplay(widgets.ComboPrefsItem):
+class OverlayDisplay(widgets.ComboPreference):
     default = 'progress'
     name = 'plugin/awn/overlay'
     map = ['progress', 'text', 'none']
     def __init__(self, prefs, widget):
-        widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+        widgets.ComboPreference.__init__(self, prefs, widget, use_map=True)
 
 
-class CoverDisplay(widgets.CheckPrefsItem):
+class CoverDisplay(widgets.CheckPreference):
     default = True
     name = 'plugin/awn/cover_display'
 

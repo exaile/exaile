@@ -28,23 +28,23 @@ import locale
 import gobject
 import gtk
 
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import main, plugins, xdg
 from xlgui import commondialogs
 from xl.nls import gettext as _
 
 name = _('Plugins')
-ui = xdg.get_data_path('ui/plugin_prefs_pane.ui')
+ui = xdg.get_data_path('ui', 'preferences', 'plugin.ui')
 
 class PluginManager(object):
     """
         Gui to manage plugins
     """
-    def __init__(self, prefs, builder):
+    def __init__(self, preferences, builder):
         """
             Initializes the manager
         """
-        self.prefs = prefs
+        self.preferences = preferences
         self.builder = builder
         self.plugins = main.exaile().plugins
 
@@ -128,7 +128,7 @@ class PluginManager(object):
             from the filesystem
         """
         dialog = gtk.FileChooserDialog(_('Choose a Plugin'),
-            self.prefs.parent,
+            self.preferences.parent,
             buttons=(
                 gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
                 gtk.STOCK_ADD, gtk.RESPONSE_OK)
@@ -200,10 +200,10 @@ class PluginManager(object):
                 return
 
         if hasattr(self.plugins.loaded_plugins[plugin],
-            'get_prefs_pane'):
-            self.prefs._load_plugin_pages()
+            'get_preferences_pane'):
+            self.preferences._load_plugin_pages()
         model[path][2] = enable
         self.row_selected(self.list.get_selection())
 
-def init(prefs, xml):
-    manager = PluginManager(prefs, xml)
+def init(preferences, xml):
+    manager = PluginManager(preferences, xml)

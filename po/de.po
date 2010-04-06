@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-01 21:02+0200\n"
-"PO-Revision-Date: 2010-04-01 21:02+0100\n"
+"POT-Creation-Date: 2010-04-06 01:52+0200\n"
+"PO-Revision-Date: 2010-04-06 01:53+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,12 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: ../xl/player/pipe.py:210
-#: ../data/ui/playback_prefs_pane.ui.h:3
+#: ../data/ui/preferences/playback.ui.h:3
 msgid "Automatic"
 msgstr "Automatisch"
 
 #: ../xl/player/pipe.py:241
-#: ../data/ui/playback_prefs_pane.ui.h:5
+#: ../data/ui/preferences/playback.ui.h:5
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
@@ -238,6 +238,7 @@ msgid "A very fast Free lossless audio format with good compression."
 msgstr "Ein sehr schnelles freies und verlustfreies Audio-Format mit guter Kompression."
 
 #: ../xl/trax/track.py:58
+#: ../xlgui/guiutil.py:1262
 msgid "Various Artists"
 msgstr "Verschiedene Künstler"
 
@@ -384,7 +385,7 @@ msgid "Track"
 msgstr "Stück"
 
 #: ../xlgui/properties.py:59
-#: ../xlgui/prefs/plugin_prefs.py:100
+#: ../xlgui/preferences/plugin.py:100
 msgid "Version"
 msgstr "Version"
 
@@ -521,7 +522,7 @@ msgstr "%(count)s von %(total)s gespeichert."
 #: ../xlgui/main.py:57
 #: ../xlgui/main.py:140
 #: ../xlgui/main.py:1114
-#: ../xlgui/guiutil.py:1046
+#: ../xlgui/guiutil.py:1049
 #: ../data/ui/main.ui.h:9
 #: ../data/ui/widgets/track_info.ui.h:1
 #: ../plugins/minimode/mmwidgets.py:793
@@ -529,7 +530,7 @@ msgid "Not Playing"
 msgstr "Keine Wiedergabe"
 
 #: ../xlgui/main.py:150
-#: ../xlgui/guiutil.py:1128
+#: ../xlgui/guiutil.py:1131
 #: ../plugins/minimode/mmwidgets.py:811
 msgid "Streaming..."
 msgstr "Streamen …"
@@ -623,14 +624,14 @@ msgstr "%(title)s (von %(artist)s)"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xlgui/main.py:1236
-#: ../xlgui/guiutil.py:1016
+#: ../xlgui/guiutil.py:1019
 #, python-format
 msgid "by %s"
 msgstr "von %s"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xlgui/main.py:1238
-#: ../xlgui/guiutil.py:1019
+#: ../xlgui/guiutil.py:1022
 #, python-format
 msgid "from %s"
 msgstr "aus %s"
@@ -797,7 +798,7 @@ msgstr "Cover abrufen"
 msgid "Remove Cover"
 msgstr "Cover entfernen"
 
-#: ../xlgui/cover.py:638
+#: ../xlgui/cover.py:640
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr "Coveroptionen für %(artist)s - %(album)s"
@@ -847,7 +848,7 @@ msgid "Playlist Files"
 msgstr "Wiedergabelisten"
 
 #: ../xlgui/__init__.py:194
-#: ../xlgui/prefs/plugin_prefs.py:145
+#: ../xlgui/preferences/plugin.py:145
 msgid "All Files"
 msgstr "Alle Dateien"
 
@@ -860,33 +861,47 @@ msgstr "Bibliothek einlesen …"
 msgid "Scanning %s..."
 msgstr "%s einlesen …"
 
-#: ../xlgui/guiutil.py:512
+#: ../xlgui/guiutil.py:515
 msgid "Muted"
 msgstr "Stumm"
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/guiutil.py:518
+#: ../xlgui/guiutil.py:521
 #, python-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../xlgui/guiutil.py:521
+#: ../xlgui/guiutil.py:524
 msgid "Full Volume"
 msgstr "Volle Lautstärke"
 
-#: ../xlgui/guiutil.py:814
+#: ../xlgui/guiutil.py:817
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
 msgstr "%(playlist_count)d angezeigt, %(collection_count)d in Bibliothek"
 
-#: ../xlgui/guiutil.py:827
+#: ../xlgui/guiutil.py:830
 #, python-format
 msgid "(%d queued)"
 msgstr "(%d in Warteschlange)"
 
-#: ../xlgui/guiutil.py:856
+#: ../xlgui/guiutil.py:859
 msgid "Rating:"
 msgstr "Bewertung:"
+
+#: ../xlgui/guiutil.py:1257
+msgid "Various"
+msgstr "Verschiedene"
+
+#: ../xlgui/guiutil.py:1280
+#, python-format
+msgid "%(track_count)d in total (%(hours)d h, %(minutes)d min, %(seconds)d sec)"
+msgstr "%(track_count)d insgesamt (%(hours)d Std., %(minutes)d Min., %(seconds)d Sek.)"
+
+#: ../xlgui/guiutil.py:1288
+#, python-format
+msgid "%(track_count)d in total (%(minutes)d min, %(seconds)d sec)"
+msgstr "%(track_count)d insgesamt (%(minutes)d Min., %(seconds)d Sek.)"
 
 #: ../xlgui/commondialogs.py:338
 msgid "Select File Type (By Extension)"
@@ -899,6 +914,132 @@ msgstr "Dateityp"
 #: ../xlgui/commondialogs.py:349
 msgid "Extension"
 msgstr "Erweiterung"
+
+#: ../xlgui/preferences/playlists.py:32
+#: ../data/ui/playlists_panel.ui.h:1
+msgid "Playlists"
+msgstr "Wiedergabelisten"
+
+#: ../xlgui/preferences/cover.py:31
+msgid "Covers"
+msgstr "Cover"
+
+#: ../xlgui/preferences/playback.py:32
+msgid "Playback"
+msgstr "Wiedergabe"
+
+#: ../xlgui/preferences/osd.py:32
+msgid "On Screen Display"
+msgstr "Bildschirmanzeige"
+
+#: ../xlgui/preferences/__init__.py:90
+#: ../data/ui/preferences/preferences_dialog.ui.h:1
+msgid "Preferences"
+msgstr "Einstellungen"
+
+#: ../xlgui/preferences/__init__.py:101
+#: ../xlgui/preferences/plugin.py:36
+msgid "Plugins"
+msgstr "Plugins"
+
+#: ../xlgui/preferences/appearance.py:33
+msgid "Appearance"
+msgstr "Erscheinung"
+
+#: ../xlgui/preferences/appearance.py:83
+msgid "Current playback position"
+msgstr "Aktuelle Wiedergabeposition"
+
+#: ../xlgui/preferences/appearance.py:84
+msgid "Remaining playback time"
+msgstr "Verbleibende Wiedergabezeit"
+
+#: ../xlgui/preferences/appearance.py:85
+msgid "Length of a track"
+msgstr "Länge eines Stücks"
+
+#: ../xlgui/preferences/collection.py:22
+#: ../data/ui/device_panel.ui.h:1
+#: ../data/ui/collection_panel.ui.h:6
+msgid "Collection"
+msgstr "Bibliothek"
+
+#. TRANSLATORS: Grammatical articles that are ignored while sorting the
+#. collection panel. For example, in French locales this could be
+#. the space-separated list "l' la le les".
+#. If this practice is not common in your locale, simply
+#. translate this to an empty string.
+#: ../xlgui/preferences/collection.py:31
+msgid "the"
+msgstr "der die das"
+
+#: ../xlgui/preferences/collection.py:53
+msgid "Reset to Defaults"
+msgstr "Auf Standardwerte zurücksetzen"
+
+#: ../xlgui/preferences/plugin.py:92
+msgid "Plugin"
+msgstr "Plugin"
+
+#: ../xlgui/preferences/plugin.py:108
+#: ../plugins/multialarmclock/alarmclk.ui.h:6
+#: ../plugins/equalizer/equalizer.ui.h:14
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: ../xlgui/preferences/plugin.py:130
+msgid "Choose a Plugin"
+msgstr "Plugin auswählen"
+
+#: ../xlgui/preferences/plugin.py:138
+msgid "Plugin Archives"
+msgstr "Plugin-Archive"
+
+#: ../xlgui/preferences/plugin.py:192
+#, python-format
+msgid ""
+"<b>Could not enable plugin:</b>\n"
+"%(reason)s"
+msgstr ""
+"<b>Plugin konnte nicht aktiviert werden:</b>\n"
+"%(reason)s"
+
+#: ../xlgui/preferences/plugin.py:199
+#, python-format
+msgid ""
+"<b>Could not disable plugin:</b>\n"
+"%(reason)s"
+msgstr ""
+"<b>Plugin konnte nicht deaktiviert werden:</b>\n"
+"%(reason)s"
+
+#: ../xlgui/preferences/widgets.py:276
+#: ../data/ui/widgets/selection_list_prefs_item.ui.h:1
+msgid "Add item"
+msgstr "Element hinzufügen"
+
+#: ../xlgui/preferences/widgets.py:281
+#: ../data/ui/widgets/selection_list_prefs_item.ui.h:4
+msgid "Remove item"
+msgstr "Element entfernen"
+
+#: ../xlgui/preferences/widgets.py:294
+#: ../data/ui/widgets/selection_list_prefs_item.ui.h:3
+msgid "Move selected item up"
+msgstr "Auswahl nach oben verschieben"
+
+#: ../xlgui/preferences/widgets.py:299
+#: ../data/ui/widgets/selection_list_prefs_item.ui.h:2
+msgid "Move selected item down"
+msgstr "Auswahl nach unten verschieben"
+
+#: ../xlgui/preferences/widgets.py:607
+msgid "Action"
+msgstr "Aktion"
+
+#: ../xlgui/preferences/widgets.py:615
+msgid "Shortcut"
+msgstr "Tastenkürzel"
 
 #: ../xlgui/devices.py:76
 msgid "Icon"
@@ -1253,132 +1394,6 @@ msgstr "Bibliothek neu einlesen"
 msgid "Transferring to %s..."
 msgstr "Übertrage auf %s …"
 
-#: ../xlgui/prefs/cover_prefs.py:31
-msgid "Covers"
-msgstr "Cover"
-
-#: ../xlgui/prefs/appearance_prefs.py:33
-msgid "Appearance"
-msgstr "Erscheinung"
-
-#: ../xlgui/prefs/appearance_prefs.py:83
-msgid "Current playback position"
-msgstr "Aktuelle Wiedergabeposition"
-
-#: ../xlgui/prefs/appearance_prefs.py:84
-msgid "Remaining playback time"
-msgstr "Verbleibende Wiedergabezeit"
-
-#: ../xlgui/prefs/appearance_prefs.py:85
-msgid "Length of a track"
-msgstr "Länge eines Stücks"
-
-#: ../xlgui/prefs/playback_prefs.py:32
-msgid "Playback"
-msgstr "Wiedergabe"
-
-#: ../xlgui/prefs/__init__.py:91
-#: ../data/ui/preferences_dialog.ui.h:1
-msgid "Preferences"
-msgstr "Einstellungen"
-
-#: ../xlgui/prefs/__init__.py:102
-#: ../xlgui/prefs/plugin_prefs.py:36
-msgid "Plugins"
-msgstr "Plugins"
-
-#: ../xlgui/prefs/collection_prefs.py:22
-#: ../data/ui/device_panel.ui.h:1
-#: ../data/ui/collection_panel.ui.h:6
-msgid "Collection"
-msgstr "Bibliothek"
-
-#. TRANSLATORS: Grammatical articles that are ignored while sorting the
-#. collection panel. For example, in French locales this could be
-#. the space-separated list "l' la le les".
-#. If this practice is not common in your locale, simply
-#. translate this to an empty string.
-#: ../xlgui/prefs/collection_prefs.py:31
-msgid "the"
-msgstr "der die das"
-
-#: ../xlgui/prefs/collection_prefs.py:53
-msgid "Reset to Defaults"
-msgstr "Auf Standardwerte zurücksetzen"
-
-#: ../xlgui/prefs/playlists_prefs.py:32
-#: ../data/ui/playlists_panel.ui.h:1
-msgid "Playlists"
-msgstr "Wiedergabelisten"
-
-#: ../xlgui/prefs/osd_prefs.py:32
-msgid "On Screen Display"
-msgstr "Bildschirmanzeige"
-
-#: ../xlgui/prefs/plugin_prefs.py:92
-msgid "Plugin"
-msgstr "Plugin"
-
-#: ../xlgui/prefs/plugin_prefs.py:108
-#: ../plugins/multialarmclock/alarmclk.ui.h:6
-#: ../plugins/equalizer/equalizer.ui.h:14
-msgid "Enabled"
-msgstr "Aktiviert"
-
-#: ../xlgui/prefs/plugin_prefs.py:130
-msgid "Choose a Plugin"
-msgstr "Plugin auswählen"
-
-#: ../xlgui/prefs/plugin_prefs.py:138
-msgid "Plugin Archives"
-msgstr "Plugin-Archive"
-
-#: ../xlgui/prefs/plugin_prefs.py:192
-#, python-format
-msgid ""
-"<b>Could not enable plugin:</b>\n"
-"%(reason)s"
-msgstr ""
-"<b>Plugin konnte nicht aktiviert werden:</b>\n"
-"%(reason)s"
-
-#: ../xlgui/prefs/plugin_prefs.py:199
-#, python-format
-msgid ""
-"<b>Could not disable plugin:</b>\n"
-"%(reason)s"
-msgstr ""
-"<b>Plugin konnte nicht deaktiviert werden:</b>\n"
-"%(reason)s"
-
-#: ../xlgui/prefs/widgets.py:269
-#: ../data/ui/widgets/selection_list_prefs_item.ui.h:1
-msgid "Add item"
-msgstr "Element hinzufügen"
-
-#: ../xlgui/prefs/widgets.py:274
-#: ../data/ui/widgets/selection_list_prefs_item.ui.h:4
-msgid "Remove item"
-msgstr "Element entfernen"
-
-#: ../xlgui/prefs/widgets.py:287
-#: ../data/ui/widgets/selection_list_prefs_item.ui.h:3
-msgid "Move selected item up"
-msgstr "Auswahl nach oben verschieben"
-
-#: ../xlgui/prefs/widgets.py:292
-#: ../data/ui/widgets/selection_list_prefs_item.ui.h:2
-msgid "Move selected item down"
-msgstr "Auswahl nach unten verschieben"
-
-#: ../xlgui/prefs/widgets.py:600
-msgid "Action"
-msgstr "Aktion"
-
-#: ../xlgui/prefs/widgets.py:608
-msgid "Shortcut"
-msgstr "Tastenkürzel"
-
 #: ../xlgui/tray.py:82
 #: ../data/ui/main.ui.h:18
 msgid "Shuffle playback order"
@@ -1400,23 +1415,6 @@ msgstr "Aktuelles Stück aus der Wiedergabeliste entfernen"
 #: ../xlgui/tray.py:164
 msgid "Exaile Music Player"
 msgstr "Exaile Musikwiedergabe"
-
-#: ../data/ui/collection_prefs_pane.ui.h:1
-msgid "(Right click to reset to defaults)"
-msgstr "(Zum Wiederherstellen der Standardwerte rechtsklicken)"
-
-#: ../data/ui/collection_prefs_pane.ui.h:2
-msgid "Use file based compilation detection"
-msgstr "Dateibasierte Erkennung von Compliations"
-
-#: ../data/ui/collection_prefs_pane.ui.h:3
-msgid "Words to strip from the beginning of artist tags when sorting (space separated):"
-msgstr "Vom Anfang von Künstler-Tags zum Sortieren zu entfernende Wörter (getrennt durch Leerzeichen):"
-
-#: ../data/ui/general_prefs_pane.ui.h:1
-#: ../data/ui/playlists_prefs_pane.ui.h:1
-msgid "Open last playlists on startup"
-msgstr "Letzte Wiedergabeliste beim Starten anzeigen"
 
 #: ../data/ui/main.ui.h:1
 msgid "0/0 tracks"
@@ -1601,50 +1599,6 @@ msgstr "Tag _Entfernen"
 msgid "ab &#x2192; A_b"
 msgstr "ab &#x2192; A_b"
 
-#: ../data/ui/plugin_prefs_pane.ui.h:1
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Kein Plugin ausgewählt</b>"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:2
-msgid "Authors:"
-msgstr "Autoren:"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:3
-msgid "Available Plugins"
-msgstr "Verfügbare Plugins"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:4
-msgid "Description:"
-msgstr "Beschreibung:"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:5
-msgid "Install"
-msgstr "Installieren"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:6
-msgid "Install Plugin File"
-msgstr "Plugindatei installieren"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:7
-msgid "Install Updates"
-msgstr "Updates installieren"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:8
-msgid "Install a third party plugin from a file"
-msgstr "Plugindatei eines Drittanbieters installieren"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:9
-msgid "Installed Plugins"
-msgstr "Installierte Plugins"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:10
-msgid "Updates"
-msgstr "Updates"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:11
-msgid "Version:"
-msgstr "Version:"
-
 #: ../data/ui/radio_panel.ui.h:1
 msgid "Add Station"
 msgstr "Station hinzufügen"
@@ -1673,6 +1627,267 @@ msgstr "Gerätemanager"
 msgid "Type of device:"
 msgstr "Gerätetyp:"
 
+#: ../data/ui/preferences/playlists.ui.h:1
+#: ../data/ui/preferences/general.ui.h:1
+msgid "Open last playlists on startup"
+msgstr "Letzte Wiedergabeliste beim Starten anzeigen"
+
+#: ../data/ui/preferences/playlists.ui.h:2
+msgid "Prompt for saving custom playlists on close"
+msgstr "Beim Schließen eigener Wiedergabelisten nachfragen"
+
+#: ../data/ui/preferences/collection.ui.h:1
+msgid "(Right click to reset to defaults)"
+msgstr "(Zum Wiederherstellen der Standardwerte rechtsklicken)"
+
+#: ../data/ui/preferences/collection.ui.h:2
+msgid "Use file based compilation detection"
+msgstr "Dateibasierte Erkennung von Compliations"
+
+#: ../data/ui/preferences/collection.ui.h:3
+msgid "Words to strip from the beginning of artist tags when sorting (space separated):"
+msgstr "Vom Anfang von Künstler-Tags zum Sortieren zu entfernende Wörter (getrennt durch Leerzeichen):"
+
+#: ../data/ui/preferences/osd.ui.h:1
+msgid "<b>Move the On Screen Display window to the location you want it to appear</b>"
+msgstr "<b>Zielposition der Bildschirmanzeige durch Verschieben festlegen</b>"
+
+#: ../data/ui/preferences/osd.ui.h:2
+msgid "Background Color:"
+msgstr "Hintergrundfarbe:"
+
+#: ../data/ui/preferences/osd.ui.h:3
+msgid "Display OSD when hovering over tray icon"
+msgstr "Bildschirmanzeige beim Hovern des Benachrichtigungssymbols einblenden"
+
+#: ../data/ui/preferences/osd.ui.h:4
+msgid "Display a progressbar in the OSD"
+msgstr "Fortschrittsbalken in der Bildschirmanzeige einblenden"
+
+#: ../data/ui/preferences/osd.ui.h:5
+msgid "Hide after (milliseconds; set to zero to disable hiding)"
+msgstr "Ausblenden (Millisekunden; auf Null setzen zum deaktivieren)"
+
+#: ../data/ui/preferences/osd.ui.h:6
+msgid "Opacity Level:"
+msgstr "Sichtbarkeit:"
+
+#: ../data/ui/preferences/osd.ui.h:7
+msgid "Show OSD on track change"
+msgstr "Bildschirmanzeige beim Stückwechsel einblenden"
+
+#: ../data/ui/preferences/osd.ui.h:8
+msgid "Text Color"
+msgstr "Textfarbe"
+
+#: ../data/ui/preferences/osd.ui.h:9
+msgid "Text Font:"
+msgstr "Schriftart:"
+
+#: ../data/ui/preferences/osd.ui.h:10
+msgid "Window Height:"
+msgstr "Fensterhöhe:"
+
+#: ../data/ui/preferences/osd.ui.h:11
+msgid "Window Width:"
+msgstr "Fensterbreite:"
+
+#: ../data/ui/preferences/appearance.ui.h:1
+msgid "Always show tab bar"
+msgstr "Tableiste immer anzeigen"
+
+#: ../data/ui/preferences/appearance.ui.h:2
+msgid "Bottom"
+msgstr "Unten"
+
+#: ../data/ui/preferences/appearance.ui.h:3
+msgid "Display track counts in collection"
+msgstr "Anzahl der Stücke in der Bibliothek anzeigen"
+
+#: ../data/ui/preferences/appearance.ui.h:4
+msgid "Format of progress bar text:"
+msgstr "Format des Fortschrittbalken-Texts:"
+
+#: ../data/ui/preferences/appearance.ui.h:6
+msgid "Jump to current song on track change"
+msgstr "Aktuelles Stück sichtbar halten"
+
+#: ../data/ui/preferences/appearance.ui.h:7
+msgid "Left"
+msgstr "Links"
+
+#: ../data/ui/preferences/appearance.ui.h:8
+msgid "Minimize to tray"
+msgstr "Ins Benachrichtigungssymbol minimieren"
+
+#: ../data/ui/preferences/appearance.ui.h:9
+msgid "Right"
+msgstr "Rechts"
+
+#: ../data/ui/preferences/appearance.ui.h:10
+msgid "Show splash screen on startup"
+msgstr "Begrüßungsbildschirm beim Starten anzeigen"
+
+#: ../data/ui/preferences/appearance.ui.h:11
+msgid "Show tray icon"
+msgstr "Benachrichtigungssymbol anzeigen"
+
+#: ../data/ui/preferences/appearance.ui.h:12
+msgid "Tab placement:"
+msgstr "Platzierung der Tabs:"
+
+#: ../data/ui/preferences/appearance.ui.h:13
+msgid "Top"
+msgstr "Oben"
+
+#: ../data/ui/preferences/appearance.ui.h:14
+msgid "Use alpha transparency (if supported)"
+msgstr "Alphatransparenz nutzen (wenn möglich)"
+
+#: ../data/ui/preferences/plugin.ui.h:1
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Kein Plugin ausgewählt</b>"
+
+#: ../data/ui/preferences/plugin.ui.h:2
+msgid "Authors:"
+msgstr "Autoren:"
+
+#: ../data/ui/preferences/plugin.ui.h:3
+msgid "Available Plugins"
+msgstr "Verfügbare Plugins"
+
+#: ../data/ui/preferences/plugin.ui.h:4
+msgid "Description:"
+msgstr "Beschreibung:"
+
+#: ../data/ui/preferences/plugin.ui.h:5
+msgid "Install"
+msgstr "Installieren"
+
+#: ../data/ui/preferences/plugin.ui.h:6
+msgid "Install Plugin File"
+msgstr "Plugindatei installieren"
+
+#: ../data/ui/preferences/plugin.ui.h:7
+msgid "Install Updates"
+msgstr "Updates installieren"
+
+#: ../data/ui/preferences/plugin.ui.h:8
+msgid "Install a third party plugin from a file"
+msgstr "Plugindatei eines Drittanbieters installieren"
+
+#: ../data/ui/preferences/plugin.ui.h:9
+msgid "Installed Plugins"
+msgstr "Installierte Plugins"
+
+#: ../data/ui/preferences/plugin.ui.h:10
+msgid "Updates"
+msgstr "Updates"
+
+#: ../data/ui/preferences/plugin.ui.h:11
+msgid "Version:"
+msgstr "Version:"
+
+#: ../data/ui/preferences/playback.ui.h:1
+msgid "ALSA"
+msgstr "ALSA"
+
+#: ../data/ui/preferences/playback.ui.h:2
+msgid "Audio Sink:  "
+msgstr "Wiedergabe-Puffer:  "
+
+#: ../data/ui/preferences/playback.ui.h:4
+msgid "Crossfade duration (ms):"
+msgstr "Crossfade-Dauer (ms):"
+
+#: ../data/ui/preferences/playback.ui.h:6
+msgid "Custom sink pipeline:"
+msgstr "Benutzerdefinierte Pipeline:"
+
+#: ../data/ui/preferences/playback.ui.h:7
+msgid "Fade duration (ms):"
+msgstr "Übergangs-Dauer (ms):"
+
+#: ../data/ui/preferences/playback.ui.h:8
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../data/ui/preferences/playback.ui.h:9
+msgid "JACK"
+msgstr "JACK"
+
+#: ../data/ui/preferences/playback.ui.h:10
+msgid "Normal"
+msgstr "Normal"
+
+#: ../data/ui/preferences/playback.ui.h:11
+msgid "OSS"
+msgstr "OSS"
+
+#: ../data/ui/preferences/playback.ui.h:12
+msgid "Playback engine (requires restart): "
+msgstr "Wiedergabe-Engine (Neustart erforderlich): "
+
+#: ../data/ui/preferences/playback.ui.h:13
+msgid "PulseAudio"
+msgstr "PulseAudio"
+
+#: ../data/ui/preferences/playback.ui.h:14
+msgid "Resume playback in paused state"
+msgstr "Wiedergabe im Pausezustand wiederaufnehmen"
+
+#: ../data/ui/preferences/playback.ui.h:15
+msgid "Resume playback on start"
+msgstr "Wiedergabe beim Starten wiederaufnehmen"
+
+#: ../data/ui/preferences/playback.ui.h:16
+msgid "These options only affect the unified engine."
+msgstr "Folgende Optionen betreffen nur die Vereinigte Wiedergabe-Engine"
+
+#: ../data/ui/preferences/playback.ui.h:17
+msgid "This is a custom gstreamer pipeline to use for audio output, specified in gst-launch syntax. It will be linked to a single audio-only source pad. Only takes effect if \"Audio Sink\" is set to \"Custom\"."
+msgstr "Dies ist eine benutzerdefinierte GStreamer-Pipeline zur Audioausgabe, anzugeben in gst-launch-Syntax. Dieses wird mit einem einzelnen Quell-Pad zur Audio-Eingabe verknüpft. Kommt nur zum Einsatz, wenn „Benutzerdefiniert“ als Wiedergabe-Puffer festgelegt wurde."
+
+#: ../data/ui/preferences/playback.ui.h:18
+msgid "Unified (unstable)"
+msgstr "Vereinigt (instabil)"
+
+#: ../data/ui/preferences/playback.ui.h:19
+msgid "Use crossfading (EXPERIMENTAL)"
+msgstr "Crossfading (EXPERIMENTELL)"
+
+#: ../data/ui/preferences/playback.ui.h:20
+msgid "Use fade transitions on user actions"
+msgstr "Weiche Übergange bei Interaktion"
+
+#: ../data/ui/preferences/cover.ui.h:1
+msgid "(drag to reorder)"
+msgstr "(Verschieben zum Umsortieren)"
+
+#: ../data/ui/preferences/cover.ui.h:2
+msgid "Cover Search Order:"
+msgstr "Suchreihenfolge für Quellen:"
+
+#: ../data/ui/preferences/cover.ui.h:3
+msgid "Fetch covers automatically on playback start"
+msgstr "Cover automatisch beim Start der Wiedergabe holen"
+
+#: ../data/ui/preferences/cover.ui.h:4
+msgid ""
+"This option will search for cover image files in \n"
+"the same folder as the music file."
+msgstr ""
+"Diese Option sucht Cover im gleichen\n"
+"Verzeichnis wie das Stück."
+
+#: ../data/ui/preferences/cover.ui.h:6
+msgid "Use covers embedded in tags"
+msgstr "In Tags eingebettete Cover nutzen"
+
+#: ../data/ui/preferences/cover.ui.h:7
+msgid "Use covers from local files"
+msgstr "Cover aus lokalen Dateien nutzen"
+
 #: ../data/ui/files_panel.ui.h:1
 msgid "Files"
 msgstr "Dateien"
@@ -1697,54 +1912,6 @@ msgstr "Verzeichnisliste neu einlesen"
 msgid "Up one directory"
 msgstr "Übergeordnetes Verzeichnis"
 
-#: ../data/ui/playlists_prefs_pane.ui.h:2
-msgid "Prompt for saving custom playlists on close"
-msgstr "Beim Schließen eigener Wiedergabelisten nachfragen"
-
-#: ../data/ui/osd_prefs_pane.ui.h:1
-msgid "<b>Move the On Screen Display window to the location you want it to appear</b>"
-msgstr "<b>Zielposition des On-Screen-Display-Fensters durch Verschieben festlegen</b>"
-
-#: ../data/ui/osd_prefs_pane.ui.h:2
-msgid "Background Color:"
-msgstr "Hintergrundfarbe:"
-
-#: ../data/ui/osd_prefs_pane.ui.h:3
-msgid "Display OSD when hovering over tray icon"
-msgstr "Bildschirmanzeige beim Hovern des Benachrichtigungssymbols einblenden"
-
-#: ../data/ui/osd_prefs_pane.ui.h:4
-msgid "Display a progressbar in the OSD"
-msgstr "Fortschrittsbalken in der Bildschirmanzeige einblenden"
-
-#: ../data/ui/osd_prefs_pane.ui.h:5
-msgid "Hide after (milliseconds; set to zero to disable hiding)"
-msgstr "Ausblenden (Millisekunden; auf Null setzen zum deaktivieren)"
-
-#: ../data/ui/osd_prefs_pane.ui.h:6
-msgid "Opacity Level:"
-msgstr "Sichtbarkeit:"
-
-#: ../data/ui/osd_prefs_pane.ui.h:7
-msgid "Show OSD on track change"
-msgstr "Bildschirmanzeige beim Stückwechsel einblenden"
-
-#: ../data/ui/osd_prefs_pane.ui.h:8
-msgid "Text Color"
-msgstr "Textfarbe"
-
-#: ../data/ui/osd_prefs_pane.ui.h:9
-msgid "Text Font:"
-msgstr "Schriftart:"
-
-#: ../data/ui/osd_prefs_pane.ui.h:10
-msgid "Window Height:"
-msgstr "Fensterhöhe:"
-
-#: ../data/ui/osd_prefs_pane.ui.h:11
-msgid "Window Width:"
-msgstr "Fensterbreite:"
-
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
 msgstr "Covermanager"
@@ -1760,34 +1927,6 @@ msgstr "Vorherige Coveroption"
 #: ../data/ui/coverchooser.ui.h:4
 msgid "_Set as Cover"
 msgstr "Als Cover _festlegen"
-
-#: ../data/ui/cover_prefs_pane.ui.h:1
-msgid "(drag to reorder)"
-msgstr "(Verschieben zum Umsortieren)"
-
-#: ../data/ui/cover_prefs_pane.ui.h:2
-msgid "Cover Search Order:"
-msgstr "Suchreihenfolge für Quellen:"
-
-#: ../data/ui/cover_prefs_pane.ui.h:3
-msgid "Fetch covers automatically on playback start"
-msgstr "Cover automatisch beim Start der Wiedergabe holen"
-
-#: ../data/ui/cover_prefs_pane.ui.h:4
-msgid ""
-"This option will search for cover image files in \n"
-"the same folder as the music file."
-msgstr ""
-"Diese Option sucht Cover im gleichen\n"
-"Verzeichnis wie das Stück."
-
-#: ../data/ui/cover_prefs_pane.ui.h:6
-msgid "Use covers embedded in tags"
-msgstr "In Tags eingebettete Cover nutzen"
-
-#: ../data/ui/cover_prefs_pane.ui.h:7
-msgid "Use covers from local files"
-msgstr "Cover aus lokalen Dateien nutzen"
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Queue Manager"
@@ -1845,78 +1984,6 @@ msgstr ""
 "   <info@noctus.net>\n"
 "    Übersetzungsmanager"
 
-#: ../data/ui/playback_prefs_pane.ui.h:1
-msgid "ALSA"
-msgstr "ALSA"
-
-#: ../data/ui/playback_prefs_pane.ui.h:2
-msgid "Audio Sink:  "
-msgstr "Wiedergabe-Puffer:  "
-
-#: ../data/ui/playback_prefs_pane.ui.h:4
-msgid "Crossfade duration (ms):"
-msgstr "Crossfade-Dauer (ms):"
-
-#: ../data/ui/playback_prefs_pane.ui.h:6
-msgid "Custom sink pipeline:"
-msgstr "Benutzerdefinierte Pipeline:"
-
-#: ../data/ui/playback_prefs_pane.ui.h:7
-msgid "Fade duration (ms):"
-msgstr "Übergangs-Dauer (ms):"
-
-#: ../data/ui/playback_prefs_pane.ui.h:8
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../data/ui/playback_prefs_pane.ui.h:9
-msgid "JACK"
-msgstr "JACK"
-
-#: ../data/ui/playback_prefs_pane.ui.h:10
-msgid "Normal"
-msgstr "Normal"
-
-#: ../data/ui/playback_prefs_pane.ui.h:11
-msgid "OSS"
-msgstr "OSS"
-
-#: ../data/ui/playback_prefs_pane.ui.h:12
-msgid "Playback engine (requires restart): "
-msgstr "Wiedergabe-Engine (Neustart erforderlich): "
-
-#: ../data/ui/playback_prefs_pane.ui.h:13
-msgid "PulseAudio"
-msgstr "PulseAudio"
-
-#: ../data/ui/playback_prefs_pane.ui.h:14
-msgid "Resume playback in paused state"
-msgstr "Wiedergabe im Pausezustand wiederaufnehmen"
-
-#: ../data/ui/playback_prefs_pane.ui.h:15
-msgid "Resume playback on start"
-msgstr "Wiedergabe beim Starten wiederaufnehmen"
-
-#: ../data/ui/playback_prefs_pane.ui.h:16
-msgid "These options only affect the unified engine."
-msgstr "Folgende Optionen betreffen nur die Vereinigte Wiedergabe-Engine"
-
-#: ../data/ui/playback_prefs_pane.ui.h:17
-msgid "This is a custom gstreamer pipeline to use for audio output, specified in gst-launch syntax. It will be linked to a single audio-only source pad. Only takes effect if \"Audio Sink\" is set to \"Custom\"."
-msgstr "Dies ist eine benutzerdefinierte GStreamer-Pipeline zur Audioausgabe, anzugeben in gst-launch-Syntax. Dieses wird mit einem einzelnen Quell-Pad zur Audio-Eingabe verknüpft. Kommt nur zum Einsatz, wenn „Benutzerdefiniert“ als Wiedergabe-Puffer festgelegt wurde."
-
-#: ../data/ui/playback_prefs_pane.ui.h:18
-msgid "Unified (unstable)"
-msgstr "Vereinigt (instabil)"
-
-#: ../data/ui/playback_prefs_pane.ui.h:19
-msgid "Use crossfading (EXPERIMENTAL)"
-msgstr "Crossfading (EXPERIMENTELL)"
-
-#: ../data/ui/playback_prefs_pane.ui.h:20
-msgid "Use fade transitions on user actions"
-msgstr "Weiche Übergange bei Interaktion"
-
 #: ../data/ui/osd_window.ui.h:1
 msgid ""
 "<b>OSD</b>\n"
@@ -1966,58 +2033,6 @@ msgstr "Jahr – Album"
 #: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Artist"
 msgstr "Jahr – Künstler"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:1
-msgid "Always show tab bar"
-msgstr "Tableiste immer anzeigen"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:2
-msgid "Bottom"
-msgstr "Unten"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:3
-msgid "Display track counts in collection"
-msgstr "Anzahl der Stücke in der Bibliothek anzeigen"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:4
-msgid "Format of progress bar text:"
-msgstr "Format des Fortschrittbalken-Texts:"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:6
-msgid "Jump to current song on track change"
-msgstr "Aktuelles Stück sichtbar halten"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:7
-msgid "Left"
-msgstr "Links"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:8
-msgid "Minimize to tray"
-msgstr "Ins Benachrichtigungssymbol minimieren"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:9
-msgid "Right"
-msgstr "Rechts"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:10
-msgid "Show splash screen on startup"
-msgstr "Begrüßungsbildschirm beim Starten anzeigen"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:11
-msgid "Show tray icon"
-msgstr "Benachrichtigungssymbol anzeigen"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:12
-msgid "Tab placement:"
-msgstr "Platzierung der Tabs:"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:13
-msgid "Top"
-msgstr "Oben"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:14
-msgid "Use alpha transparency (if supported)"
-msgstr "Alphatransparenz nutzen (wenn möglich)"
 
 #: ../plugins/multialarmclock/__init__.py:412
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -2415,6 +2430,51 @@ msgstr "Streamripper"
 msgid "Error executing streamripper"
 msgstr "Fehler beim Ausführen von Streamripper"
 
+#: ../plugins/shutdown/__init__.py:32
+#: ../plugins/shutdown/PLUGININFO:3
+msgid "Shutdown after Playback"
+msgstr "Herunterfahren nach Wiedergabe"
+
+#: ../plugins/shutdown/__init__.py:34
+msgid "Shutdown computer at the end of playback"
+msgstr "Computer am Ende der Wiedergabe herunterfahren"
+
+#: ../plugins/shutdown/__init__.py:47
+msgid "<b>Shutdown scheduled</b>"
+msgstr "<b>Herunterfahren vorgemerkt</b>"
+
+#: ../plugins/shutdown/__init__.py:48
+msgid "Computer will be shutdown at the end of playback."
+msgstr "Der Computer wird am Ende der Wiedergabe heruntergefahren."
+
+#: ../plugins/shutdown/__init__.py:53
+msgid ""
+"<b>Shutdown scheduled</b>\n"
+"\n"
+"Computer will be shutdown at the end of playback."
+msgstr ""
+"<b>Herunterfahren vorgemerkt</b>\n"
+"\n"
+"Der Computer wird am Ende der Wiedergabe heruntergefahren."
+
+#: ../plugins/shutdown/__init__.py:71
+msgid "<b>Shutdown failed</b>"
+msgstr "<b>Herunterfahren fehlgeschlagen</b>"
+
+#: ../plugins/shutdown/__init__.py:72
+msgid "Computer could not be shutdown using D-Bus."
+msgstr "Der Computer konnte nicht mit Hilfe von D-Bus heruntergefahren werden."
+
+#: ../plugins/shutdown/__init__.py:77
+msgid ""
+"<b>Shutdown failed</b>\n"
+"\n"
+"Computer could not be shutdown using D-Bus."
+msgstr ""
+"<b>Herunterfahren fehlgeschlagen</b>\n"
+"\n"
+"Der Computer konnte nicht mit Hilfe von D-Bus heruntergefahren werden."
+
 #: ../plugins/multialarmclock/alarmclk.ui.h:1
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm Days</b>"
@@ -2441,27 +2501,22 @@ msgid "Fading:"
 msgstr "Überblendung:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:8
-#: ../plugins/alarmclock/acprefs_pane.ui.h:3
 msgid "Friday"
 msgstr "Freitag"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:9
-#: ../plugins/alarmclock/acprefs_pane.ui.h:4
 msgid "Increment:"
 msgstr "Schrittweite:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:10
-#: ../plugins/alarmclock/acprefs_pane.ui.h:5
 msgid "Maximum volume:"
 msgstr "Maximale Lautstärke:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:11
-#: ../plugins/alarmclock/acprefs_pane.ui.h:6
 msgid "Minimum volume:"
 msgstr "Minimale Lautstärke:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:12
-#: ../plugins/alarmclock/acprefs_pane.ui.h:7
 msgid "Monday"
 msgstr "Montag"
 
@@ -2474,32 +2529,26 @@ msgid "Restart playlist"
 msgstr "Wiedergabeliste erneut durchlaufen"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:15
-#: ../plugins/alarmclock/acprefs_pane.ui.h:8
 msgid "Saturday"
 msgstr "Samstag"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:16
-#: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "Sunday"
 msgstr "Sonntag"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:17
-#: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Thursday"
 msgstr "Donnerstag"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:18
-#: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Time per increment:"
 msgstr "Zeit pro Schritt:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:19
-#: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Tuesday"
 msgstr "Dienstag"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:20
-#: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Wednesday"
 msgstr "Mittwoch"
 
@@ -2507,9 +2556,65 @@ msgstr "Mittwoch"
 msgid "<b>Alarm time</b>"
 msgstr "<b>Alarmzeit</b>"
 
+#: ../plugins/alarmclock/acprefs_pane.ui.h:3
+msgctxt "yes"
+msgid "Friday"
+msgstr "Freitag"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:4
+msgctxt "yes"
+msgid "Increment:"
+msgstr "Schrittweite:"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:5
+msgctxt "yes"
+msgid "Maximum volume:"
+msgstr "Maximale Lautstärke:"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:6
+msgctxt "yes"
+msgid "Minimum volume:"
+msgstr "Minimale Lautstärke:"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:7
+msgctxt "yes"
+msgid "Monday"
+msgstr "Montag"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:8
+msgctxt "yes"
+msgid "Saturday"
+msgstr "Samstag"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:9
+msgctxt "yes"
+msgid "Sunday"
+msgstr "Sonntag"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:10
+msgctxt "yes"
+msgid "Thursday"
+msgstr "Donnerstag"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:11
+msgctxt "yes"
+msgid "Time per increment:"
+msgstr "Zeit pro Schritt:"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:12
+msgctxt "yes"
+msgid "Tuesday"
+msgstr "Dienstag"
+
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
+msgctxt "yes"
 msgid "Use Fading"
 msgstr "Überblendungen aktivieren"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:14
+msgctxt "yes"
+msgid "Wednesday"
+msgstr "Mittwoch"
 
 #: ../plugins/equalizer/equalizer.ui.h:1
 msgid "+12 dB"
@@ -3270,10 +3375,10 @@ msgstr ""
 "Integriert den Ex Falso Tag-Editor in Exaile.\n"
 "Benötigt: Ex Falso."
 
-#~ msgid "Various"
-#~ msgstr "Verschiedene"
-#~ msgid "%(hours)d h, %(minutes)d min, %(seconds)d sec"
-#~ msgstr "%(hours)d Std., %(minutes)d Min., %(seconds)d Sek."
+#: ../plugins/shutdown/PLUGININFO:4
+msgid "Allows for shutdown of the computer at the end of playback."
+msgstr "Ermöglicht das Herunterfahren des Computers am Ende der Wiedergabe."
+
 #~ msgid "%(minutes)d min, %(seconds)d sec"
 #~ msgstr "%(minutes)d Min., %(seconds)d Sek."
 #~ msgid "%(track_count)d in total (%(duration)s)"

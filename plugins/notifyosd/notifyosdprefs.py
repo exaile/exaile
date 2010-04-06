@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -23,38 +23,38 @@ name = _('Notify-osd notifications')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "notifyosdprefs_pane.ui")
 
-class ShowCovers(widgets.CheckPrefsItem):
+class ShowCovers(widgets.CheckPreference):
     default = True
     name = 'plugin/notifyosd/covers'
 
-class NotifyPlay(widgets.CheckPrefsItem):
+class NotifyPlay(widgets.CheckPreference):
     default = True
     name = 'plugin/notifyosd/notify_play'
 
-class NotifyPause(widgets.CheckPrefsItem):
+class NotifyPause(widgets.CheckPreference):
     default = True
     name = 'plugin/notifyosd/notify_pause'
 
-class UseMediaIcons(widgets.CheckPrefsItem):
+class UseMediaIcons(widgets.CheckPreference):
     default = True
     name = 'plugin/notifyosd/media_icons'
 
-class TrayHover(widgets.CheckPrefsItem):
+class TrayHover(widgets.CheckPreference):
     default = False
     name = 'plugin/notifyosd/tray_hover'
 
-class Summary(widgets.PrefsItem):
+class Summary(widgets.Preference):
     default = _("%(title)s")
     name = 'plugin/notifyosd/summary'
 
-class BodyArtist(widgets.PrefsItem):
+class BodyArtist(widgets.Preference):
     default = _("by %(artist)s")
     name = 'plugin/notifyosd/bodyartist'
 
-class BodyAlbum(widgets.PrefsItem):
+class BodyAlbum(widgets.Preference):
     default = _("from %(album)s")
     name = 'plugin/notifyosd/bodyalbum'
 
-class ShowWhenFocused(widgets.CheckPrefsItem):
+class ShowWhenFocused(widgets.CheckPreference):
     default = True
     name = 'plugin/notifyosd/show_when_focused'

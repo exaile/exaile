@@ -18,7 +18,7 @@
 
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -28,27 +28,27 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "moodbarprefs_pane.ui")
 
 
-class defaultstyle(widgets.CheckPrefsItem):
+class defaultstyle(widgets.CheckPreference):
     default = False
     name = 'plugin/moodbar/defaultstyle'
 
-class flat(widgets.CheckPrefsItem):
+class flat(widgets.CheckPreference):
     default = False
     name = 'plugin/moodbar/flat'
 
-class theme(widgets.CheckPrefsItem):
+class theme(widgets.CheckPreference):
     default = False
     name = 'plugin/moodbar/theme'
 
-class color(widgets.ColorButtonPrefsItem):
+class color(widgets.ColorButtonPreference):
     default =  '#AAAAAA'
     name = 'plugin/moodbar/color'
 
 
-class cursor(widgets.CheckPrefsItem):
+class cursor(widgets.CheckPreference):
     default = False
     name = 'plugin/moodbar/cursor'
-class darkness(widgets.ScalePrefsItem):
+class darkness(widgets.ScalePreference):
     default = 1
     name = 'plugin/moodbar/darkness'
 

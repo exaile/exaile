@@ -24,33 +24,33 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import common, xdg
 from xl.nls import gettext as _
 from xlgui import commondialogs
 import xlgui
 
 name = _('Appearance')
-ui = xdg.get_data_path('ui/appearance_prefs_pane.ui')
+ui = xdg.get_data_path('ui', 'preferences', 'appearance.ui')
 
-class SplashPreference(widgets.CheckPrefsItem):
+class SplashPreference(widgets.CheckPreference):
     default = True
     name = 'gui/use_splash'
 
-class ShowTabBarPreference(widgets.CheckPrefsItem):
+class ShowTabBarPreference(widgets.CheckPreference):
     default = True
     name = 'gui/show_tabbar'
 
-class UseAlphaTransparencyPreference(widgets.CheckPrefsItem):
+class UseAlphaTransparencyPreference(widgets.CheckPreference):
     default = False
     name = 'gui/use_alpha'
 
-class TrackCountsPreference(widgets.CheckPrefsItem):
+class TrackCountsPreference(widgets.CheckPreference):
     default = True
     name = 'gui/display_track_counts'
 
     def apply(self, value=None):
-        return_value = widgets.CheckPrefsItem.apply(self, value)
+        return_value = widgets.CheckPreference.apply(self, value)
         self._reload_tree()
         return return_value
 
@@ -58,26 +58,26 @@ class TrackCountsPreference(widgets.CheckPrefsItem):
     def _reload_tree(self):
         xlgui.get_controller().panels['collection'].load_tree()
 
-class UseTrayPreference(widgets.CheckPrefsItem):
+class UseTrayPreference(widgets.CheckPreference):
     default = False
     name = 'gui/use_tray'
 
-class MinimizeToTrayPreference(widgets.CheckPrefsItem):
+class MinimizeToTrayPreference(widgets.CheckPreference):
     default = False
     name = 'gui/minimize_to_tray'
 
-class EnsureVisiblePreference(widgets.CheckPrefsItem):
+class EnsureVisiblePreference(widgets.CheckPreference):
     default = True
     name = 'gui/ensure_visible'
 
-class TabPlacementPreference(widgets.ComboPrefsItem):
+class TabPlacementPreference(widgets.ComboPreference):
     default = 'top'
     name = 'gui/tab_placement'
     map = ['left', 'right', 'top', 'bottom']
-    def __init__(self, prefs, widget):
-        widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+    def __init__(self, preferences, widget):
+        widgets.ComboPreference.__init__(self, preferences, widget, use_map=True)
 
-class ProgressBarTextFormatPreference(widgets.ComboEntryPrefsItem):
+class ProgressBarTextFormatPreference(widgets.ComboEntryPreference):
     name = 'gui/progress_bar_text_format'
     completion_items = {
         '$current_time': _('Current playback position'),

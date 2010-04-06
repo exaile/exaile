@@ -4,7 +4,7 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="prefs_window">
     <child>
-      <object class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="extension_events">cursor</property>
         <property name="border_width">3</property>

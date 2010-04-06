@@ -187,7 +187,7 @@ def disable(exaile):
     cover_display.destroy()
     cover_display = None
 
-def get_prefs_pane():
+def get_preferences_pane():
     return prefs
 
 @guiutil.idle_add()

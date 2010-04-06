@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -23,22 +23,22 @@ name = _('AudioScrobbler')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "asprefs_pane.ui")
 
-class SubmitPreference(widgets.CheckPrefsItem):
+class SubmitPreference(widgets.CheckPreference):
     default = True
     name = 'plugin/ascrobbler/submit'
 
-class MenuCheck(widgets.CheckPrefsItem):
+class MenuCheck(widgets.CheckPreference):
     default = False
     name = 'plugin/ascrobbler/menu_check'
 
-class UserPreference(widgets.PrefsItem):
+class UserPreference(widgets.Preference):
     name = 'plugin/ascrobbler/user'
 
-class PassPreference(widgets.HashedPrefsItem):
+class PassPreference(widgets.HashedPreference):
     name = 'plugin/ascrobbler/password'
     type = 'md5'
 
-class UrlPreference(widgets.ComboEntryPrefsItem):
+class UrlPreference(widgets.ComboEntryPreference):
     name = 'plugin/ascrobbler/url'
     default = 'http://post.audioscrobbler.com/'
     preset_items = {

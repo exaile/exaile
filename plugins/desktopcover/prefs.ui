@@ -31,9 +31,8 @@
     <property name="upper">9999</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
-    <property name="page_size">10</property>
   </object>
-  <object class="GtkTable" id="prefs_pane">
+  <object class="GtkTable" id="preferences_pane">
     <property name="visible">True</property>
     <property name="border_width">5</property>
     <property name="n_rows">4</property>

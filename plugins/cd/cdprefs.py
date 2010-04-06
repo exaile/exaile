@@ -26,7 +26,7 @@
 
 from xl.nls import gettext as _
 import os, gtk, gobject
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import event, transcoder
 
 name = _("CD")
@@ -37,17 +37,17 @@ FORMAT_WIDGET = None
 
 # TODO: allow setting cddb server?
 
-class OutputFormatPreference(widgets.ComboPrefsItem):
+class OutputFormatPreference(widgets.ComboPreference):
     name = 'cd_import/format'
     map = ["Ogg Vorbis", "FLAC", "AAC", "MP3 (VBR)", "MP3 (CBR)", "WavPack"]
     default = "Ogg Vorbis"
     def __init__(self, *args):
-        widgets.ComboPrefsItem.__init__(self, *args)
+        widgets.ComboPreference.__init__(self, *args)
         global FORMAT_WIDGET
         FORMAT_WIDGET = self.widget
 
 
-class OutputQualityPreference(widgets.ComboPrefsItem):
+class OutputQualityPreference(widgets.ComboPreference):
     name = 'cd_import/quality'
     def __init__(self, prefs, widget):
         store = gtk.ListStore(gobject.TYPE_STRING)
@@ -58,7 +58,7 @@ class OutputQualityPreference(widgets.ComboPrefsItem):
         widget.show_all()
 
         self._update_list(None, widget, prefs)
-        widgets.ComboPrefsItem.__init__(self, prefs, widget,
+        widgets.ComboPreference.__init__(self, prefs, widget,
                 use_map=True)
 
         global FORMAT_WIDGET
@@ -90,7 +90,7 @@ class OutputQualityPreference(widgets.ComboPrefsItem):
                 fmt_dict["default"]))
 
 
-class OutputPathPreference(widgets.ComboEntryPrefsItem):
+class OutputPathPreference(widgets.ComboEntryPreference):
     name = 'cd_import/outpath'
     completion_items = {
         '$tracknumber': _('Track number'),

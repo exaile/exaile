@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os
-from xlgui.prefs import widgets
+from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
@@ -23,9 +23,9 @@ name = _('Contextinfo')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "context_pane.ui")
 
-class UserPreference(widgets.PrefsItem):
+class UserPreference(widgets.Preference):
     name = 'plugin/lastfm/user'
 
-class PassPreference(widgets.HashedPrefsItem):
+class PassPreference(widgets.HashedPreference):
     name = 'plugin/lastfm/password'
     type = 'md5'

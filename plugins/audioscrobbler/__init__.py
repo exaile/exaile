@@ -54,7 +54,7 @@ def disable(exaile):
         SCROBBLER.stop()
         SCROBBLER = None
 
-def get_prefs_pane():
+def get_preferences_pane():
     return asprefs
 
 class ExaileScrobbler(object):

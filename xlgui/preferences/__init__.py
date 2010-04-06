@@ -41,10 +41,9 @@ import gtk
 from xl.nls import gettext as _
 from xl import xdg
 from xl.settings import _SETTINGSMANAGER
-from xlgui.prefs.widgets import *
-from xlgui.prefs import playlists_prefs, osd_prefs, collection_prefs
-from xlgui.prefs import cover_prefs, playback_prefs, appearance_prefs
-from xlgui.prefs import plugin_prefs
+from xlgui.preferences.widgets import *
+from xlgui.preferences import appearance, collection, cover
+from xlgui.preferences import osd, playback, playlists, plugin
 
 logger = logging.getLogger(__name__)
 
@@ -53,8 +52,8 @@ class PreferencesDialog(object):
         Preferences Dialog
     """
 
-    PAGES = (playlists_prefs, appearance_prefs, playback_prefs,
-        collection_prefs, osd_prefs, cover_prefs)
+    PAGES = (playlists, appearance, playback,
+        collection, osd, cover)
     PREFERENCES_DIALOG = None
 
     def __init__(self, parent, main):
@@ -75,7 +74,7 @@ class PreferencesDialog(object):
         self.builder = gtk.Builder()
         self.builder.set_translation_domain('exaile')
         self.builder.add_from_file(
-            xdg.get_data_path('ui/preferences_dialog.ui'))
+            xdg.get_data_path('ui', 'preferences', 'preferences_dialog.ui'))
 
         self.window = self.builder.get_object('PreferencesDialog')
         self.window.set_transient_for(parent)
@@ -84,9 +83,9 @@ class PreferencesDialog(object):
 
         self._connect_events()
 
-        self.box = self.builder.get_object('prefs_box')
+        self.box = self.builder.get_object('preferences_box')
 
-        self.tree = self.builder.get_object('prefs_tree')
+        self.tree = self.builder.get_object('preferences_tree')
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Preferences'), text, text=0)
         self.tree.append_column(col)
@@ -99,8 +98,7 @@ class PreferencesDialog(object):
         for page in self.PAGES:
             self.model.append(None, [page.name, page])
 
-        self.plug_root = self.model.append(None, [_('Plugins'),
-            plugin_prefs])
+        self.plug_root = self.model.append(None, [_('Plugins'), plugin])
 
         self._load_plugin_pages()
 
@@ -122,9 +120,9 @@ class PreferencesDialog(object):
             name = plugin
             if plugin in plugin_manager.enabled_plugins:
                 plugin = plugin_manager.enabled_plugins[plugin]
-                if hasattr(plugin, 'get_prefs_pane'):
+                if hasattr(plugin, 'get_preferences_pane'):
                     try:
-                        plugin_pages.append(plugin.get_prefs_pane())
+                        plugin_pages.append(plugin.get_preferences_pane())
                     except:
                         logger.warning('Error loading preferences pane')
                         traceback.print_exc()
@@ -221,14 +219,14 @@ class PreferencesDialog(object):
                 try:
                     logger.warning('Please switch to gtk.Builder for preferences panes')
                     import gtk.glade
-                    builder = gtk.glade.XML(page.glade, 'prefs_pane')
+                    builder = gtk.glade.XML(page.glade, 'preferences_pane')
                     builder.get_object = builder.get_widget
                     builder.connect_signals = builder.signal_autoconnect
                 except ImportError:
                     logger.error('Importing Glade as fallback failed')
                     return
 
-            child = builder.get_object('prefs_pane')
+            child = builder.get_object('preferences_pane')
             init = getattr(page, 'init', None)
             if init: init(self, builder)
             self.panes[page] = child
@@ -256,15 +254,15 @@ class PreferencesDialog(object):
             try:
                 klass = getattr(page, attr)
                 if inspect.isclass(klass) and \
-                    issubclass(klass, widgets.PrefsItem):
+                    issubclass(klass, widgets.Preference):
                     widget = builder.get_object(klass.name)
                     if not widget:
-                        logger.warning('Invalid prefs widget: %s' % klass.name)
+                        logger.warning('Invalid preferences widget: %s' % klass.name)
                         continue
                     field = klass(self, widget)
                     self.fields[page].append(field)
             except:
-                logger.warning('Broken prefs class: %s' % attr)
+                logger.warning('Broken preferences class: %s' % attr)
                 traceback.print_exc()
 
     def run(self):

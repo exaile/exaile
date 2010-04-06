@@ -11,7 +11,7 @@
   </object>
   <object class="GtkWindow" id="prefs_window">
     <child>
-      <object class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <child>

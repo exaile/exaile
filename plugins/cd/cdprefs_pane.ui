@@ -30,7 +30,7 @@
   </object>
   <object class="GtkWindow" id="cd_prefs_window">
     <child>
-      <object class="GtkVBox" id="prefs_pane">
+      <object class="GtkVBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>

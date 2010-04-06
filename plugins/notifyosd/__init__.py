@@ -28,7 +28,7 @@ pynotify.init('Exaile')
 class ExaileNotifyOsd(object):
 
     def __inner_preference(klass):
-        """Function will make a property for a given subclass of PrefsItem"""
+        """Function will make a property for a given subclass of Preference"""
         def getter(self):
             return settings.get_option(klass.name, klass.default or None)
 
@@ -190,5 +190,5 @@ def disable(exaile):
     if EXAILE_NOTIFYOSD.gui_callback:
         event.remove_callback(EXAILE_NOTIFYOSD.exaile_ready, 'gui_loaded')
 
-def get_prefs_pane():
+def get_preferences_pane():
     return notifyosdprefs

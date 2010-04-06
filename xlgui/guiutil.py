@@ -160,6 +160,9 @@ class DragTreeView(gtk.TreeView):
     def __init__(self, container, receive=True, source=True):
         """
             Initializes the tree and sets up the various callbacks
+            :param container: The container to place the TreeView into
+            :param receive: True if the TreeView should receive drag events
+            :param source: True if the TreeView should send drag events
         """
         gtk.TreeView.__init__(self)
         self.container = container
@@ -1172,6 +1175,193 @@ class TrackInfoPane(gtk.Alignment):
 
         event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
+class TrackListInfoPane(gtk.Alignment):
+    """
+        Displays cover art and data about a list of tracks
+    """
+    def __init__(self, display_tracklist=False):
+        """
+            :param display_tracklist: Whether to display
+                a short list of tracks
+        """
+        gtk.Alignment.__init__(self)
+
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path(
+            'ui', 'widgets', 'tracklist_info.ui'))
+
+        info_box = builder.get_object('info_box')
+        info_box.reparent(self)
+
+        self._display_tracklist = display_tracklist
+
+        self.cover_image = builder.get_object('cover_image')
+        self.album_label = builder.get_object('album_label')
+        self.artist_label = builder.get_object('artist_label')
+
+        if self._display_tracklist:
+            self.tracklist_table = builder.get_object('tracklist_table')
+            self.tracklist_table.set_no_show_all(False)
+            self.tracklist_table.set_property('visible', True)
+
+            self.total_label = builder.get_object('total_label')
+            self.total_label.set_no_show_all(False)
+            self.total_label.set_property('visible', True)
+
+            self.rownumber = 1
+            self.pango_attributes = pango.AttrList()
+            self.pango_attributes.insert(
+                pango.AttrScale(pango.SCALE_SMALL, end_index=-1))
+            self.pango_attributes.insert(
+                pango.AttrStyle(pango.STYLE_ITALIC, end_index=-1))
+            self.ellipse_pango_attributes = pango.AttrList()
+            self.ellipse_pango_attributes.insert(
+                pango.AttrWeight(pango.WEIGHT_BOLD, end_index=-1))
+
+        try:
+            exaile = xl.main.exaile()
+        except AttributeError:
+            event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
+        else:
+            self.on_exaile_loaded('exaile_loaded', exaile, None)
+
+    def set_tracklist(self, tracks):
+        """
+            Updates the data displayed in the info pane
+            :param tracks: A list of tracks to take the
+                data from
+        """
+        tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
+
+        image_data = self.covers.get_cover(tracks[0], use_default=True)
+        width = settings.get_option('gui/cover_width', 100)
+        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, width))
+        self.cover_image.set_from_pixbuf(pixbuf)
+
+        albums = []
+        artists = []
+        total_length = 0
+
+        for track in tracks:
+            albums += [track.get_tag_display('album')]
+            artists += [track.get_tag_display('artist')]
+            total_length += float(track.get_tag_raw('__length'))
+
+        # Make unique
+        albums = set(albums)
+        artists = set(artists)
+
+        if len(albums) == 1:
+            self.album_label.set_text(albums.pop())
+        else:
+            self.album_label.set_text(_('Various'))
+
+        if len(artists) == 1:
+            self.artist_label.set_text(artists.pop())
+        else:
+            self.artist_label.set_text(_('Various Artists'))
+
+
+        if self._display_tracklist:
+            track_count = len(tracks)
+            # Leaves us with a maximum of three tracks to display
+            tracks = tracks[:3] + [None]
+
+            for track in tracks:
+                self.__append_row(track)
+
+            self.tracklist_table.show_all()
+
+            total_hours = total_length // 3600
+            total_minutes = (total_length - total_hours * 3600) // 60
+            total_seconds = (total_length - total_hours * 3600) % 60
+
+            if total_hours > 0:
+                text = _('%(track_count)d in total '
+                    '(%(hours)d h, %(minutes)d min, %(seconds)d sec)') % {
+                    'track_count': track_count,
+                    'hours': total_hours,
+                    'minutes': total_minutes,
+                    'seconds': total_seconds
+                }
+            else:
+                text = _('%(track_count)d in total '
+                    '(%(minutes)d min, %(seconds)d sec)') % {
+                    'track_count': track_count,
+                    'minutes': total_minutes,
+                    'seconds': total_seconds
+                }
+
+            self.total_label.set_text(text)
+
+    def clear(self):
+        """
+            Resets the info pane
+        """
+        pixbuf = icons.MANAGER.pixbuf_from_data(
+            self.covers.get_default_cover())
+        self.cover_image.set_from_pixbuf(pixbuf)
+        self.album_label.set_text('')
+        self.artist_label.set_text('')
+
+        if self._display_tracklist:
+            items = self.tracklist_table.get_children()
+
+            for item in items:
+                self.tracklist_table.remove(item)
+            self.rownumber = 1
+
+            self.total_label.set_text('')
+
+    def __append_row(self, track):
+        """
+            Appends a row to the internal
+            track list table
+            :param track: A track to build the row from,
+                None to insert an ellipse
+        """
+        if track is None:
+            ellipse_label = gtk.Label('⋮')
+            ellipse_label.set_attributes(self.ellipse_pango_attributes)
+            self.tracklist_table.attach(ellipse_label,
+                1, 2, self.rownumber - 1, self.rownumber)
+        else:
+            tracknumber_label = gtk.Label('%02d' % \
+                int(track.get_tag_display('tracknumber')))
+            tracknumber_label.set_attributes(self.pango_attributes)
+            tracknumber_label.props.xalign = 0
+            self.tracklist_table.attach(tracknumber_label,
+                0, 1, self.rownumber - 1, self.rownumber)
+
+            title_label = gtk.Label(track.get_tag_display('title'))
+            title_label.set_attributes(self.pango_attributes)
+            self.tracklist_table.attach(title_label,
+                1, 2, self.rownumber - 1, self.rownumber)
+
+            length = float(track.get_tag_display('__length'))
+            hours = length // 3600
+            minutes = (length - hours * 3600) // 60
+            seconds = (length - hours * 3600) % 60
+            if hours > 0:
+                length = '%02d:%02d:%02d' % (hours, minutes, seconds)
+            else:
+                length = '%02d:%02d' % (minutes, seconds)
+            length_label = gtk.Label(length)
+            length_label.set_attributes(self.pango_attributes)
+            length_label.props.xalign = 0.9
+            self.tracklist_table.attach(length_label,
+                2, 3, self.rownumber - 1, self.rownumber)
+
+        self.rownumber += 1
+
+    def on_exaile_loaded(self, e, exaile, nothing):
+        """
+            Sets up references after controller is loaded
+        """
+        self.covers = exaile.covers
+        self.clear()
+        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
+
 class ToolTip(object):
     """
         Custom tooltip class to allow for
@@ -1179,7 +1369,6 @@ class ToolTip(object):
     """
     def __init__(self, parent, widget):
         """
-            Sets up the tooltip
             :param parent: the parent widget the tooltip
                 should be attached to
             :param widget: the tooltip widget to be used
@@ -1237,6 +1426,26 @@ class TrackToolTip(ToolTip):
         """
         self.info_pane.clear()
 
+class TrackListToolTip(ToolTip):
+
+    def __init__(self, parent, display_tracklist=False):
+        """
+            :param parent: the parent widget the tooltip
+                should be attached to
+            :param display_tracklist: Whether to display
+                a short list of tracks
+        """
+        self.info_pane = TrackListInfoPane(display_tracklist)
+        self.info_pane.set_padding(6, 6, 6, 6)
+
+        ToolTip.__init__(self, parent, self.info_pane)
+
+    def set_tracklist(self, tracks):
+        self.info_pane.set_tracklist(tracks)
+
+    def clear(self):
+        self.info_pane.clear()
+
 def finish(repeat=True):
     """
         Waits for current pending gtk events to finish
@@ -1245,3 +1454,4 @@ def finish(repeat=True):
         gtk.main_iteration()
         if not repeat: break
 
+# vim: et sts=4 sw=4

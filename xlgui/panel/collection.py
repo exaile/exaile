@@ -710,6 +710,17 @@ class CollectionDragTreeView(guiutil.DragTreeView):
         Custom DragTreeView to retrieve data
         from collection tracks
     """
+    def __init__(self, container, receive=True, source=True):
+        """
+            :param container: The container to place the TreeView into
+            :param receive: True if the TreeView should receive drag events
+            :param source: True if the TreeView should send drag events
+        """
+        guiutil.DragTreeView.__init__(self, container, receive, source)
+
+        # TODO: Make faster
+        #self.tooltip = CollectionToolTip(self)
+
     def get_selected_tracks(self):
         """
             Returns the currently selected tracks
@@ -727,5 +738,36 @@ class CollectionDragTreeView(guiutil.DragTreeView):
         tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
 
         return tracks
+
+class CollectionToolTip(guiutil.TrackListToolTip):
+    """
+        Custom collection specific tooltip
+    """
+    def __init__(self, parent):
+        """
+            :param parent: the parent widget the tooltip
+                should be attached to
+        """
+        guiutil.TrackListToolTip.__init__(self, parent)
+
+    def on_query_tooltip(self, tree, x, y, keyboard_mode, tooltip):
+        """
+            Determines if the tooltip should be shown
+            and feeds the required data to it
+        """
+        path = tree.get_path_at_pos(x, y)
+
+        if path is None:
+            return False
+
+        model = tree.get_model()
+        iter = model.get_iter(path[0])
+        tracks = tree.container._find_tracks(iter)
+
+        self.clear()
+        self.set_tracklist(tracks)
+
+        return guiutil.TrackListToolTip.on_query_tooltip(
+            self, tree, x, y, keyboard_mode, tooltip)
 
 # vim: et sts=4 sw=4

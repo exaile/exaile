@@ -224,6 +224,7 @@ class TrackSelectMenu(GenericTrackMenu):
     """
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'replace-items': (gobject.SIGNAL_RUN_LAST, None, ()),
         'properties': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     def __init__(self):
@@ -236,25 +237,15 @@ class TrackSelectMenu(GenericTrackMenu):
         """
             Actually adds the menu items
         """
-        self.append_item = self.append(_('Append to Current'), lambda *e:
-            self.on_append_items(), 'gtk-add')
-        self.queue_item = self.append(_('Queue Items'), lambda *e: self.on_queue(),
-            'exaile-queue-icon')
+        self.append_item = self.append(_('Append to Current'),
+            lambda *e: self.emit('append-items'), gtk.STOCK_ADD)
+        self.replace_item = self.append(_('Replace Current'),
+            lambda *e: self.emit('replace-items'))
+        self.queue_item = self.append(_('Queue Items'),
+            lambda *e: self.emit('queue-items'), 'exaile-queue-icon')
         self.append_separator()
         self.append(_('Properties'), lambda *e: self.emit('properties'),
-            'gtk-properties')
-
-    def on_append_items(self, selected=None):
-        """
-            Appends the selected tracks to the current playlist
-        """
-        self.emit('append-items')
-
-    def on_queue(self, selected=None):
-        """
-            Called when the user clicks the "toggle queue" item
-        """
-        self.emit('queue-items')
+            gtk.STOCK_PROPERTIES)
 
 class RatedTrackSelectMenu(TrackSelectMenu):
     """

@@ -37,6 +37,7 @@ class FlatPlaylistPanel(panel.Panel):
     """
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
@@ -61,6 +62,8 @@ class FlatPlaylistPanel(panel.Panel):
         })
         self.menu.connect('append-items', lambda *e:
             self.emit('append-items', self.tree.get_selected_tracks()))
+        self.menu.connect('replace-items', lambda *e:
+            self.emit('replace-items', self.tree.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.tree.get_selected_tracks()))
         self.tree.connect('row-activated', lambda *e:

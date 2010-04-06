@@ -451,6 +451,8 @@ class Main(object):
             self.main.on_append_items(items, sort=sort))
         panel.connect('queue-items', lambda panel, items, sort=sort:
             self.main.on_append_items(items, queue=True, sort=sort))
+        panel.connect('replace-items', lambda panel, items, sort=sort:
+            self.main.on_append_items(items, replace=True, sort=sort))
 
         self.device_panels[device.get_name()] = panel
         gobject.idle_add(self.add_panel, *panel.get_panel())

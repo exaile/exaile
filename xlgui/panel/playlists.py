@@ -197,6 +197,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
         'playlist-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'tracks-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
     def __init__(self):
@@ -517,6 +518,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if item != 'default':
                 menu.connect('append-items', lambda *e:
                     self.emit('append-items', self.get_selected_tracks()))
+                menu.connect('replace-items', lambda *e:
+                    self.emit('replace-items', self.get_selected_tracks()))
                 menu.connect('queue-items', lambda *e:
                     self.emit('queue-items', self.get_selected_tracks()))
                 menu.connect('rating-set', self.set_rating)

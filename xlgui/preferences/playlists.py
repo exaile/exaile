@@ -40,9 +40,15 @@ class AskSaveCustomPlaylistPreference(widgets.CheckPreference):
     default = True
     name = 'playlist/ask_save'
 
+class ReplaceContentPreference(widgets.CheckPreference):
+    default = False
+    name = 'playlist/replace_content'
+
 #class QueueSavePreferences(widgets.CheckPreference):
 #    default = True
 #    name = 'playlist/save_queue'
 
 #    def change(self, *e):
 #        commondialogs.error(self.preferences.window, "Doesn't work yet")
+
+# vim: et sts=4 sw=4

@@ -785,11 +785,16 @@ class MainWindow(gobject.GObject):
         for panel_name in ('playlists', 'radio', 'files', 'collection'):
             panel = panels[panel_name]
             sort = False
-            if panel_name in ('files', 'collection'): sort = True
+
+            if panel_name in ('files', 'collection'):
+                sort = True
+
             panel.connect('append-items', lambda panel, items, sort=sort:
                 self.on_append_items(items, sort=sort))
             panel.connect('queue-items', lambda panel, items, sort=sort:
                 self.on_append_items(items, queue=True, sort=sort))
+            panel.connect('replace-items', lambda panel, items, sort=sort:
+                self.on_append_items(items, replace=True, sort=sort))
 
         ## Collection Panel
         panel = panels['collection']
@@ -809,26 +814,38 @@ class MainWindow(gobject.GObject):
         ## Files Panel
         panel = panels['files']
 
-    def on_append_items(self, items, queue=False, sort=False):
+    def on_append_items(self, tracks, queue=False, sort=False, replace=False):
         """
-            Called when a panel (or other component) has tracks to append and
-            possibly queue
+            Called when a panel (or other component)
+            has tracks to append and possibly queue
+
+            :param tracks: The tracks to append
+            :param queue: Additionally queue tracks
+            :param sort: Sort before adding
+            :param replace: Clear playlist before adding
         """
-        if not items: return
+        if not tracks:
+            return
+
         pl = self.get_selected_playlist()
 
         if sort:
-            items = trax.sort_tracks(
+            tracks = trax.sort_tracks(
                 ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
-                items)
+                tracks)
 
-        pl.playlist.add_tracks(items)
+        if replace:
+            pl.playlist.clear()
+
+        pl.playlist.add_tracks(tracks)
+
         if queue:
-            self.queue.add_tracks(items)
+            self.queue.add_tracks(tracks)
+
         pl.list.queue_draw()
 
         if not self.player.current:
-            track = items[0]
+            track = tracks[0]
             index = pl.playlist.index(track)
             pl.playlist.set_current_pos(index)
             self.queue.play(track=track)

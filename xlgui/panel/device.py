@@ -96,6 +96,7 @@ class DevicePanel(panel.Panel):
     """
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
@@ -117,6 +118,8 @@ class DevicePanel(panel.Panel):
 
         self.collectionpanel.connect('append-items',
             lambda *e: self.emit('append-items', *e[1:]))
+        self.collectionpanel.connect('replace-items',
+            lambda *e: self.emit('replace-items', *e[1:]))
         self.collectionpanel.connect('queue-items',
             lambda *e: self.emit('queue-items', *e[1:]))
         self.collectionpanel.connect('collection-tree-loaded',

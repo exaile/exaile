@@ -86,6 +86,7 @@ class CollectionPanel(panel.Panel):
     """
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
@@ -148,6 +149,8 @@ class CollectionPanel(panel.Panel):
             self.get_tracks_rating)
         self.menu.connect('append-items', lambda *e:
             self.emit('append-items', self.tree.get_selected_tracks()))
+        self.menu.connect('replace-items', lambda *e:
+            self.emit('replace-items', self.tree.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.tree.get_selected_tracks()))
         self.menu.connect('rating-set', self._on_set_rating)
@@ -432,11 +435,14 @@ class CollectionPanel(panel.Panel):
 
         return rating # only one rating in the tracks, returning it
 
-    def append_to_playlist(self, item=None, event=None):
+    def append_to_playlist(self, item=None, event=None, replace=False):
         """
             Adds items to the current playlist
         """
-        self.emit('append-items', self.tree.get_selected_tracks())
+        if replace:
+            self.emit('replace-items', self.tree.get_selected_tracks())
+        else:
+            self.emit('append-items', self.tree.get_selected_tracks())
 
     def button_press(self, widget, event):
         """
@@ -446,7 +452,11 @@ class CollectionPanel(panel.Panel):
         (x, y) = map(int, event.get_coords())
         path = self.tree.get_path_at_pos(x, y)
         if event.type == gtk.gdk._2BUTTON_PRESS:
-            self.append_to_playlist()
+            replace = settings.get_option('playlist/replace_content', False)
+            self.append_to_playlist(replace=replace)
+            return False
+        elif event.button == 2:
+            self.append_to_playlist(replace=True)
             return False
         elif event.button == 3:
             self.menu.popup(event)

@@ -45,6 +45,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     __gsignals__ = {
         'playlist-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
     ui_info = ('radio_panel.ui', 'RadioPanelWindow')
@@ -148,6 +149,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
         menu.connect('append-items', lambda *e:
             self.emit('append-items', self.get_selected_tracks()))
+        menu.connect('replace-items', lambda *e:
+            self.emit('replace-items', self.get_selected_tracks()))
         menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.get_selected_tracks()))
         menu.connect('open-playlist', lambda *e:

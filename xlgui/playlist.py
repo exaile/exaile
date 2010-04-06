@@ -824,7 +824,8 @@ class Playlist(gtk.VBox):
             self.model.remove(row)
         self.list.set_model(self.model)
 
-        self.list.set_cursor(paths[0][0])
+        if paths:
+            self.list.set_cursor(paths[0][0])
 
         self.emit('track-count-changed', len(self.playlist))
         self.set_needs_save(True)

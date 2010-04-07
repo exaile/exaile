@@ -514,6 +514,10 @@ class CollectionPanel(panel.Panel):
             Callback for when tags have changed and the tree
             needs reloading.
         """
+        # Trying to reload while we're rescanning is really inefficient,
+        # so we delay it until we're done scanning.
+        if self.collection._scanning:
+            return True
         self.resort_tracks()
         self.load_tree()
         return False

@@ -93,7 +93,7 @@ class AddToPlaylistMenu(guiutil.Menu):
 
     def _create_add_playlist_menu(self):
         self.append(_('New Playlist'), lambda *e: self.on_add_new_playlist(),
-            'gtk-new')
+            gtk.STOCK_NEW)
         # As for the list of playlists, we have to redo it every time
         # the user right clicks
         self.add_dynamic_builder(self._create_playlist_menu_items)
@@ -295,7 +295,7 @@ class CollectionPanelMenu(RatedTrackSelectMenu):
     def _create_menu(self):
         RatedTrackSelectMenu._create_menu(self)
         self.delete_item = self.append(_('Delete Track from Storage'),
-                lambda *e: self.on_delete_track(), 'gtk-delete')
+                lambda *e: self.on_delete_track(), gtk.STOCK_DELETE)
 
     def on_delete_track(self):
         self.emit('delete-items')
@@ -326,12 +326,12 @@ class PlaylistsPanelMenu(guiutil.Menu):
     def _create_playlist_menu(self):
         if self.radio:
             self.append(_('New Station'), lambda *e: self.on_add_playlist(),
-                        'gtk-new')
+                        gtk.STOCK_NEW)
         else:
             self.append(_('New Playlist'), lambda *e: self.on_add_playlist(),
-                        'gtk-new')
+                        gtk.STOCK_NEW)
             self.append(_('New Smart Playlist'), lambda *e: self.on_add_smart_playlist(),
-                        'gtk-new')
+                        gtk.STOCK_NEW)
 
     def on_add_playlist(self, selected = None):
         self.emit('add-playlist')
@@ -472,7 +472,7 @@ class PlaylistsPanelTrackMenu(guiutil.Menu):
         guiutil.Menu.__init__(self)
 
         self.append(_('Remove'), lambda *e: self.on_remove_track(),
-                    'gtk-remove')
+                    gtk.STOCK_REMOVE)
 
     def on_remove_track(self, selected = None):
         self.emit('remove-track')

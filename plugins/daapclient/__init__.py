@@ -55,7 +55,7 @@ except TypeError:
 except:
     AUTH = True
 
-#PLUGIN_ICON = gtk.Button().render_icon('gtk-network', gtk.ICON_SIZE_MENU)
+#PLUGIN_ICON = gtk.Button().render_icon(gtk.STOCK_NETWORK, gtk.ICON_SIZE_MENU)
 
 # Globals Warming
 MENU_ITEM = None

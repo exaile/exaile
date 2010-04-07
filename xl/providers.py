@@ -40,10 +40,10 @@ class ProviderManager(object):
         """
             Registers a provider.
 
-            @type servicename: string
-            @param servicename: the name of the service [string]
-            @type provider: object
-            @param provider: the object that is the provider [object]
+            :param servicename: the name of the service [string]
+            :type servicename: string
+            :param provider: the object that is the provider [object]
+            :type provider: object
         """
         if servicename not in self.services:
             self.services[servicename] = []
@@ -60,10 +60,10 @@ class ProviderManager(object):
         """
             Unregisters a provider.
 
-            @type servicename: string
-            @param servicename: the name of the service
-            @type provider: object
-            @param provider: the provider to be removed
+            :param servicename: the name of the service
+            :type servicename: string
+            :param provider: the provider to be removed
+            :type provider: object
         """
         if servicename not in self.services:
             return
@@ -85,15 +85,37 @@ class ProviderManager(object):
         """
             Returns a list of providers for the specified servicename.
 
-            @type servicename: strring
-            @param servicename: the service name to get providers for
-            @rtype: list of objects
-            @return: list of providers
+            :param servicename: the service name to get providers for
+            :type servicename: string
+            :returns: list of providers
+            :rtype: list of objects
         """
         try:
             return self.services[servicename][:]
         except KeyError:
             return []
+
+    def get_provider(self, servicename, providername):
+        """
+            Returns a single identified provider
+
+            :param servicename: The service name to get the provider for
+            :type servicename: string
+            :param providername: The provider name to identify the provider
+            :type providername: string
+            :returns: A provider or None
+            :rtype: object
+        """
+        try:
+            providers = self.services[servicename]
+        except KeyError:
+            return None
+        else:
+            for provider in providers:
+                if provider.name == providername:
+                    return provider
+
+        return None
 
 MANAGER = ProviderManager()
 register = MANAGER.register_provider
@@ -124,8 +146,8 @@ class ProviderHandler(object):
         """
             Called when a new provider is added.
 
-            @type provider: object
-            @param provider: the new provider
+            :param provider: the new provider
+            :type provider: object
         """
         pass # for overriding
 
@@ -140,8 +162,8 @@ class ProviderHandler(object):
         """
             Called when a provider is removed.
 
-            @type provider: object
-            @param provider: the removed provider
+            :param provider: the removed provider
+            :type provider: object
         """
         pass # for overriding
 
@@ -149,11 +171,21 @@ class ProviderHandler(object):
         """
             Returns a list of providers for this service.
 
-            @rtype: list of objects
-            @return: list of providers
+            :returns: list of providers
+            :rtype: list of objects
         """
         return MANAGER.get_providers(self.servicename)
 
+    def get_provider(self, providername):
+        """
+            Returns a provider for this service.
+            
+            :param providername: The provider name to identify the provider
+            :type providername: string
+            :returns: A provider or None
+            :rtype: object
+        """
+        return MANAGER.get_provider(self.servicename, providername)
 
 # vim: et sts=4 sw=4
 

@@ -122,7 +122,7 @@ class ProgressMonitor(gtk.Frame):
 
         button = gtk.Button()
         img = gtk.Image()
-        img.set_from_stock('gtk-stop', gtk.ICON_SIZE_SMALL_TOOLBAR)
+        img.set_from_stock(gtk.STOCK_STOP, gtk.ICON_SIZE_SMALL_TOOLBAR)
         button.set_image(img)
 
         pbox.pack_start(button, False, False)

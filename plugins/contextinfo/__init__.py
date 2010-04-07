@@ -79,7 +79,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.drag_source_set(
                     gtk.gdk.BUTTON1_MASK, self.targets,
                     gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
-        self.drag_source_set_icon_stock('gtk-dnd')
+        self.drag_source_set_icon_stock(gtk.STOCK_DND)
 
         event.add_callback(self.on_playback_start, 'playback_track_start',
             ex.exaile().player)
@@ -171,7 +171,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
 
     def on_page_loaded(self, type=None, obj=None, data=None):
         self.refresh_button.set_sensitive(True)
-        self.refresh_button_image.set_from_stock('gtk-refresh', 1)
+        self.refresh_button_image.set_from_stock(gtk.STOCK_REFRESH, 1)
 
     def on_field_refresh(self, type=None, obj=None, data=None):
         self.execute_script(self.refresh_script % (data[0], u'%s' % data[1].replace('"', '\\"').replace('\n', '\\\n'), data[0]))
@@ -242,15 +242,15 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
 
     def drag_begin(self, w, context):
         if self.hover == None:
-            self.drag_source_set_icon_stock("gtk-cancel")
+            self.drag_source_set_icon_stock(gtk.STOCK_CANCEL)
             return True
         self.dragging = True
 
         context.drag_abort(gtk.get_current_event_time())
         selection = self.get_selected_tracks()
         if len(selection)>1:
-            self.drag_source_set_icon_stock('gtk-dnd-multiple')
-        elif len(selection)>0: self.drag_source_set_icon_stock('gtk-dnd')
+            self.drag_source_set_icon_stock(gtk.STOCK_DND_MULTIPLE)
+        elif len(selection)>0: self.drag_source_set_icon_stock(gtk.STOCK_DND)
         return False
 
     def get_selected_tracks(self):
@@ -467,8 +467,10 @@ class ContextPage(object):
 
     TRACK_ICO_PATH = xdg.get_data_path('images/track.png')
     ARTIST_ICO_PATH = xdg.get_data_path("images/artist.png")
-    SEARCH_ICO_PATH = gtk.icon_theme_get_default().lookup_icon('gtk-find', gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG).get_filename()
-    ALBUM_ICO_PATH = gtk.icon_theme_get_default().lookup_icon('gtk-cdrom', gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG).get_filename()
+    SEARCH_ICO_PATH = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_FIND,
+        gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG).get_filename()
+    ALBUM_ICO_PATH = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_CDROM,
+        gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG).get_filename()
 
     def __init__(self, theme, base, template, async=[]):
         templatefile = open(theme.path+template)

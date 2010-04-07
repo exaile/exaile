@@ -268,7 +268,7 @@ def _enable(exaile):
     menu_item.set_submenu(menus[1])
     menus[0].append_item(menu_item)
 
-    menus[0].append(_('Clear Bookmarks'), bm.clear, 'gtk-clear', menus)
+    menus[0].append(_('Clear Bookmarks'), bm.clear, gtk.STOCK_CLEAR, menus)
 
     menus[0].append_separator()
 

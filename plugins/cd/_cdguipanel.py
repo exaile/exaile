@@ -84,7 +84,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         imp = importer.CDImporter(tracks)
         impthread = CDImportThread(imp, self)
         self.main.controller.progress_manager.add_monitor(impthread,
-                _("Importing CD..."), 'gtk-harddisk')
+                _("Importing CD..."), gtk.STOCK_HARDDISK)
 
 
     def _import_finish(self):

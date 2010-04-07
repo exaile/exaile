@@ -68,13 +68,13 @@ class BaseTrayIcon(object):
         """
         self.menu = guiutil.Menu()
 
-        self.playpause_menuitem = self.menu.append(stock_id='gtk-media-play',
+        self.playpause_menuitem = self.menu.append(stock_id=gtk.STOCK_MEDIA_PLAY,
             callback=lambda *e: self._play_pause_clicked())
-        self.menu.append(stock_id='gtk-media-next',
+        self.menu.append(stock_id=gtk.STOCK_MEDIA_NEXT,
             callback=lambda *e: self.queue.next())
-        self.menu.append(stock_id='gtk-media-previous',
+        self.menu.append(stock_id=gtk.STOCK_MEDIA_PREVIOUS,
             callback=lambda *e: self.queue.prev())
-        self.menu.append(stock_id='gtk-media-stop',
+        self.menu.append(stock_id=gtk.STOCK_MEDIA_STOP,
             callback=lambda *e: self.player.stop())
 
         self.menu.append_separator()
@@ -100,13 +100,13 @@ class BaseTrayIcon(object):
         self.menu.append_item(self.rating_menuitem)
         self.remove_menuitem = self.menu.append(
             label=_('Remove Current Track from Playlist'),
-            stock_id='gtk-remove',
+            stock_id=gtk.STOCK_REMOVE,
             callback=lambda *e: self.remove_current_track()
         )
 
         self.menu.append_separator()
 
-        self.menu.append(stock_id='gtk-quit',
+        self.menu.append(stock_id=gtk.STOCK_QUIT,
             callback=lambda *e: self.main.quit())
 
     def connect_events(self):
@@ -135,13 +135,13 @@ class BaseTrayIcon(object):
         if current_track is None or not self.player.is_playing():
             self.playpause_menuitem.destroy()
             self.playpause_menuitem = self.menu.prepend(
-                stock_id='gtk-media-play',
+                stock_id=gtk.STOCK_MEDIA_PLAY,
                 callback=lambda *e: self.play_pause()
             )
         elif self.player.is_playing():
             self.playpause_menuitem.destroy()
             self.playpause_menuitem = self.menu.prepend(
-                stock_id='gtk-media-pause',
+                stock_id=gtk.STOCK_MEDIA_PAUSE,
                 callback=lambda *e: self.play_pause()
             )
 

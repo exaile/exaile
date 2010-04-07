@@ -107,7 +107,7 @@ class Button(Streamripper):
         self.exaile = exaile
         self.button = gtk.ToggleButton()
         image = gtk.Image()
-        image.set_from_stock('gtk-media-record', gtk.ICON_SIZE_SMALL_TOOLBAR)
+        image.set_from_stock(gtk.STOCK_MEDIA_RECORD, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.button.set_image(image)
 
         toolbar = self.exaile.gui.play_toolbar

@@ -618,17 +618,19 @@ class Playlist(gtk.VBox):
         selection.set_mode(gtk.SELECTION_MULTIPLE)
         selection.connect('changed', lambda s: self.selection_changed())
 
-        img = self.list.render_icon('gtk-media-play',
-            gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.playimg = img.scale_simple(18, 18,
+        self.playimg = icons.MANAGER.pixbuf_from_stock(
+            gtk.STOCK_MEDIA_PLAY, gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.playimg = self.playimg.scale_simple(18, 18,
             gtk.gdk.INTERP_BILINEAR)
-        img = self.list.render_icon('gtk-media-pause',
-            gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.pauseimg = img.scale_simple(18, 18,
+
+        self.pauseimg = icons.MANAGER.pixbuf_from_stock(
+            gtk.STOCK_MEDIA_PAUSE, gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.pauseimg = self.pauseimg.scale_simple(18, 18,
             gtk.gdk.INTERP_BILINEAR)
-        img = self.list.render_icon('gtk-stop',
-            gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.stopimg = img.scale_simple(12, 12,
+
+        self.stopimg = icons.MANAGER.pixbuf_from_stock(
+            gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.stopimg = self.stopimg.scale_simple(12, 12,
             gtk.gdk.INTERP_BILINEAR)
 
     def column_changed(self, *e):

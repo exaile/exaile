@@ -342,5 +342,5 @@ class ShoutcastRadioStation(RadioStation):
         """
         self._parent = parent
         menu = parent.get_menu()
-        menu.append(_("Search"), lambda *e: self.on_search(), 'gtk-find')
+        menu.append(_("Search"), lambda *e: self.on_search(), gtk.STOCK_FIND)
         return menu

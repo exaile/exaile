@@ -212,7 +212,7 @@ class NotebookTab(gtk.EventBox):
         btn.connect('clicked', self.do_close)
         btn.connect('button_press_event', self.on_button_press)
         image = gtk.Image()
-        image.set_from_stock('gtk-close', gtk.ICON_SIZE_MENU)
+        image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
         btn.add(image)
         hbox.pack_end(btn, False, False)
 
@@ -647,7 +647,7 @@ class MainWindow(gobject.GObject):
         if event.button != 3: return
         menu = guiutil.Menu()
         menu.append(_("Toggle: Stop after Selected Track"), self.on_spat_clicked,
-            'gtk-stop')
+            gtk.STOCK_STOP)
         menu.popup(None, None, None, event.button, event.time)
 
     def on_spat_clicked(self, *e):

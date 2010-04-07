@@ -191,7 +191,7 @@ class DragTreeView(gtk.TreeView):
 
         if source:
             self.connect('drag-data-get', self.container.drag_get_data)
-            self.drag_source_set_icon_stock('gtk-dnd')
+            self.drag_source_set_icon_stock(gtk.STOCK_DND)
 
     def get_selected_tracks(self):
         """
@@ -302,9 +302,9 @@ class DragTreeView(gtk.TreeView):
                     gobject.idle_add(self._set_drag_cover, context, cover_pixbuf)
         else:
             if self.get_selection().count_selected_rows() > 1:
-                self.drag_source_set_icon_stock('gtk-dnd-multiple')
+                self.drag_source_set_icon_stock(gtk.STOCK_DND_MULTIPLE)
             else:
-                self.drag_source_set_icon_stock('gtk-dnd')
+                self.drag_source_set_icon_stock(gtk.STOCK_DND)
 
     def _set_drag_cover(self, context, pixbuf):
         """

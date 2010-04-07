@@ -252,7 +252,7 @@ class CollectionPanel(panel.Panel):
             menu = guiutil.Menu()
             menu.append(_('Rescan Collection'),
                 xlgui.get_controller().on_rescan_collection,
-                'gtk-refresh')
+                gtk.STOCK_REFRESH)
             menu.popup(None, None, None, event.button, event.time)
             return
 
@@ -309,13 +309,16 @@ class CollectionPanel(panel.Panel):
         """
             Sets up the various images that will be used in the tree
         """
-        window = gtk.Window()
-        self.artist_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path("images/artist.png"))
-        self.date_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/year.png'))
-        self.album_image = window.render_icon('gtk-cdrom',
-            gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.title_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))
-        self.genre_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/genre.png'))
+        self.artist_image = gtk.gdk.pixbuf_new_from_file(
+            xdg.get_data_path("images/artist.png"))
+        self.date_image = gtk.gdk.pixbuf_new_from_file(
+            xdg.get_data_path('images/year.png'))
+        self.album_image = icons.MANAGER.pixbuf_from_stock(
+            gtk.STOCK_CDROM, gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.title_image = gtk.gdk.pixbuf_new_from_file(
+            xdg.get_data_path('images/track.png'))
+        self.genre_image = gtk.gdk.pixbuf_new_from_file(
+            xdg.get_data_path('images/genre.png'))
 
     def drag_data_received(self, *e):
         """

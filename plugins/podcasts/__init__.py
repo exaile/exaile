@@ -77,8 +77,8 @@ class PodcastPanel(panel.Panel):
         self.status = self.builder.get_object('podcast_statusbar')
 
         self.menu = guiutil.Menu()
-        self.menu.append(_('Refresh Podcast'), self._on_refresh, 'gtk-refresh')
-        self.menu.append(_('Delete'), self._on_delete, 'gtk-delete')
+        self.menu.append(_('Refresh Podcast'), self._on_refresh, gtk.STOCK_REFRESH)
+        self.menu.append(_('Delete'), self._on_delete, gtk.STOCK_DELETE)
 
     @guiutil.idle_add()
     def _set_status(self, message, timeout=0):

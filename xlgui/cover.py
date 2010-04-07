@@ -284,7 +284,7 @@ class CoverManager(object):
         self.manager.save()
         self.stop_button.set_use_stock(False)
         self.stop_button.set_label(_('Start'))
-        self.stop_button.set_image(gtk.image_new_from_stock('gtk-yes',
+        self.stop_button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES,
             gtk.ICON_SIZE_BUTTON))
 
     def _on_destroy(self, *e):
@@ -297,13 +297,13 @@ class CoverManager(object):
         """
         if self._stopped:
             self.stop_button.set_use_stock(True)
-            self.stop_button.set_label('gtk-stop')
+            self.stop_button.set_label(gtk.STOCK_STOP)
             self._find_covers()
         else:
             self._stopped = True
             self.stop_button.set_use_stock(False)
             self.stop_button.set_label(_('Start'))
-            self.stop_button.set_image(gtk.image_new_from_stock('gtk-yes',
+            self.stop_button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES,
                 gtk.ICON_SIZE_BUTTON))
 
 class CoverMenu(guiutil.Menu):

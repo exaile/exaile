@@ -278,7 +278,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             Returns the menu that all radio stations use
         """
         menu = guiutil.Menu()
-        menu.append(_("Refresh"), self.on_reload, 'gtk-refresh')
+        menu.append(_("Refresh"), self.on_reload, gtk.STOCK_REFRESH)
         return menu
 
     def on_key_released(self, widget, event):

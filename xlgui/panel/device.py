@@ -129,7 +129,7 @@ class DevicePanel(panel.Panel):
         self.device.add_tracks(tracks)
         thread = DeviceTransferThread(self.device, self.main, self)
         self.main.controller.progress_manager.add_monitor(thread,
-                _("Transferring to %s...")%self.name, 'gtk-go-up')
+                _("Transferring to %s...")%self.name, gtk.STOCK_GO_UP)
 
     def get_panel(self):
         return self.collectionpanel.get_panel()

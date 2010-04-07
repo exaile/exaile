@@ -71,15 +71,17 @@ class Collection(trax.TrackDB):
     """
         Manages a persistent track database.
 
-        :param args: see :class:`xl.trackdb.TrackDB`
+        :param args: see :class:`xl.trax.trackdb.TrackDB`
 
         Simple usage:
 
         >>> from xl.collection import *
-        >>> c = Collection("Test Collection")
-        >>> c.add_library(Library("./tests/data"))
-        >>> c.rescan_libraries()
-        >>> tracks = list(c.search('artist="TestArtist"'))
+        >>> from xl.trax import search
+        >>> collection = Collection("Test Collection")
+        >>> collection.add_library(Library("./tests/data"))
+        >>> collection.rescan_libraries()
+        >>> tracks = [i.track for i in search.search_tracks_from_string(
+        ...     collection, ('artist==TestArtist'))]
         >>> print len(tracks)
         5
         >>>

@@ -139,7 +139,7 @@ class JamendoPanel(panel.Panel):
         #setup images
         window = gtk.Window()
         self.artist_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path("images/artist.png"))
-        self.album_image = window.render_icon('gtk-cdrom', gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.album_image = window.render_icon(gtk.STOCK_CDROM, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.title_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))
 
         #setup search combobox

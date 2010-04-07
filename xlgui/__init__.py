@@ -352,7 +352,7 @@ class Main(object):
             thread = CollectionScanThread(self, self.exaile.collection,
                     self.panels['collection'])
             self.progress_manager.add_monitor(thread,
-                _("Scanning collection..."), 'gtk-refresh')
+                _("Scanning collection..."), gtk.STOCK_REFRESH)
 
     def on_randomize_playlist(self, *e):
         pl = self.main.get_selected_playlist()
@@ -459,7 +459,7 @@ class Main(object):
         thread = collection.CollectionScanThread(self.main,
                 device.get_collection(), panel)
         self.progress_manager.add_monitor(thread,
-                _("Scanning %s..."%device.name), 'gtk-refresh')
+                _("Scanning %s..."%device.name), gtk.STOCK_REFRESH)
 
     @guiutil.idle_add()
     def remove_device_panel(self, type, obj, device):

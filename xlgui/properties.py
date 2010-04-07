@@ -769,7 +769,7 @@ class PropertyField(gtk.HBox):
             output = str( val / 1000.0 ) + ' Kbps'
         elif self.property_type == 'prop:datetime':
             d = datetime.datetime.fromtimestamp(val)
-            output = d.strftime("%Y/%m/%d %H:%M:%S")
+            output = d.strftime("%x %X")
         elif self.property_type == 'prop:time':
             output = "%(m)d:%(s)02d" % {'m': val // 60, 's': val % 60}
         elif self.property_type == 'prop:location':

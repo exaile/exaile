@@ -158,7 +158,7 @@ class Exaile(object):
         from xl import collection
         try:
             self.collection = collection.Collection("Collection",
-                    location=xdg.get_data_path('music.db'))
+                    location=os.path.join(xdg.get_data_dir(), 'music.db'))
         except common.VersionError:
             common.log_exception(log=logger)
             exit(1)
@@ -168,7 +168,7 @@ class Exaile(object):
         from xl.player import queue
         self.player = player.get_player()()
         self.queue = queue.PlayQueue(self.player,
-                location=xdg.get_data_path('queue.state'))
+                location=os.path.join(xdg.get_data_dir(), 'queue.state'))
         event.log_event("player_loaded", self, None)
 
         # Initalize playlist manager
@@ -201,7 +201,7 @@ class Exaile(object):
         # Cover manager
         from xl import cover
         self.covers = cover.CoverManager(
-                location=xdg.get_data_path("covers"))
+                location=os.path.join(xdg.get_data_dir(), "covers"))
 
         # Radio Manager
         from xl import radio
@@ -244,7 +244,7 @@ class Exaile(object):
 
         if restore:
             self.queue._restore_player_state(
-                    xdg.get_data_path('player.state'))
+                    os.path.join(xdg.get_data_dir(), 'player.state'))
 
         if firstrun:
             settings.set_option("general/first_run", False)
@@ -281,7 +281,7 @@ class Exaile(object):
         logging.basicConfig(level=loglevel, format=console_format)
 
         # Create log directory
-        logdir = xdg.get_data_path('logs')
+        logdir = os.path.join(xdg.get_data_dir(), 'logs')
         if not os.path.exists(logdir):
             os.makedirs(logdir)
 
@@ -527,9 +527,9 @@ class Exaile(object):
 
         # save player, queue
         self.queue._save_player_state(
-            xdg.get_data_path('player.state'))
+                os.path.join(xdg.get_data_dir(), 'player.state') )
         self.queue.save_to_location(
-            xdg.get_data_path('queue.state'))
+                os.path.join(xdg.get_data_dir(), 'queue.state') )
         self.player.stop()
 
         from xl import settings

@@ -171,10 +171,15 @@ class PreferencesDialog(object):
         """
             Applies settings
         """
-        for page in self.fields.values():
-            for field in page:
+        for page, fields in self.fields.iteritems():
+            for field in fields:
                 if not field.apply():
                     return False
+
+            if hasattr(page, 'apply'):
+                func = getattr(page, 'apply')
+                if callable(func):
+                    func(self)
 
         self.settings.copy_settings(_SETTINGSMANAGER)
 

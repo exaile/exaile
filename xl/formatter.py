@@ -378,12 +378,15 @@ class TrackNumberTagFormatter(TagFormatter):
         """
         value = track.get_tag_raw(self.name, join=True)
 
-        try: # Valid number
-            value = '%02d' % int(value)
-        except TypeError: # None
-            value = ''
-        except ValueError: # 'N/N'
+        if value is None:
+            return ''
+
+        try: # n/n
+            value, count = value.split('/')
+        except ValueError: # n
             pass
+
+        value = '%02d' % int(value)
 
         return value
 

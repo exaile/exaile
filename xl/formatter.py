@@ -42,6 +42,7 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
       (?P<invalid>)              # Other ill-formed delimiter exprs
     )
     """
+    # Allows for $tag, ${tag}, ${tag:parameter} and ${tag:parameter=argument}
     match_pattern = r"""
     %(delim)s(?:
       (?P<escaped>%(delim)s) |   # Escape sequence of two delimiters
@@ -50,8 +51,11 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
         (?P<braced>%(id)s)       # Delimiter and a braced identifier
         (!?:
           (?P<parameters>
-            %(id)s               # First optional parameter marked with ':'
-            (!?,\s*%(id)s)*         # Further optional parameters separated with ','
+            %(id)s               # First optional parameter indicated with ':'
+            (!?=[^,}=]*)?        # Optional argument indicated with '='
+            (!?,\s*%(id)s        # Further optional parameters separated with ','
+              (!?=[^,}=]*)?      # Optional argument indicated with '='
+            )*      
           )
         )?
       }                      |
@@ -95,7 +99,7 @@ class ParameterTemplate(Template):
     """
     __metaclass__ = _ParameterTemplateMetaclass
 
-    idpattern_param = r'[_a-z][_a-z0-9:]*'
+    idpattern_param = r'[_a-z][_a-z0-9:=]*'
 
     def __init__(self, template):
         """
@@ -313,11 +317,17 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
                 continue
 
             id = tag
-            parameters = []
+            parameters = {}
 
             if groups['parameters'] is not None:
-                parameters = groups['parameters'].split(',')
-                parameters = [parameter.strip() for parameter in parameters]
+                parameter_groups = groups['parameters'].split(',')
+
+                for parameter_group in parameter_groups:
+                    parameter = parameter_group.split('=')
+                    parameter = [p.strip() for p in parameter]
+                    parameter += [True]
+
+                    parameters[parameter[0]] = parameter[1]
                 id = '%s:%s' % (tag, groups['parameters'])
 
             tags[id] = (tag, parameters)
@@ -352,7 +362,10 @@ class TagFormatter():
             :param track: The track to get the tag from
             :type value: xl.trax.Track
             :param parameters: Optionally passed parameters
-            :type parameters: list of strings
+            :type parameters: dictionary
+                Parameters specified via 'parameter=value'
+                will be directly mapped into the dictionary,
+                parameters without argument will be set to True
             :returns: The formatted value
             :rtype: string
         """
@@ -372,13 +385,22 @@ class TrackNumberTagFormatter(TagFormatter):
             :param track: The track to get the tag from
             :type track: xl.trax.Track
             :param parameters: Optionally passed parameters
-            :type parameters: list of strings
+                Possible values are:
+                * pad: n [n being an arbitrary number]
+                  Influences the amount of zeros used for padding
+            :type parameters: dictionary
             :returns: The formatted value
             :rtype: string
         """
         value = track.get_tag_raw(self.name, join=True)
+        pad = parameters.get('pad', 1)
 
-        if value is None:
+        try:
+            pad = int(pad)
+        except ValueError: # No int
+            pad = 1
+
+        if not value:
             return ''
 
         try: # n/n
@@ -386,7 +408,12 @@ class TrackNumberTagFormatter(TagFormatter):
         except ValueError: # n
             pass
 
-        value = '%02d' % int(value)
+        format_string = '%%0%(pad)dd' % {'pad': pad}
+
+        try:
+            value = format_string % int(value)
+        except ValueError: # Invalid number
+            pass
 
         return value
 
@@ -406,10 +433,12 @@ class LengthTagFormatter(TagFormatter):
             :param track: The track to get the tag from
             :type track: xl.trax.Track
             :param parameters: Optionally passed parameters
-            :type parameters: list of strings
                 Possible values are:
-                * long: 1h, 2m, 42s
-                * verbose: 1 hour, 2 minutes, 42 seconds
+                * format: (short|long|verbose)
+                  Yields "1:02:42",
+                  "1h, 2m, 42s" or
+                  "1 hour, 2 minutes, 42 seconds"
+            :type parameters: dictionary
             :returns: The formatted value
             :rtype: string
         """
@@ -418,24 +447,27 @@ class LengthTagFormatter(TagFormatter):
         return self.format_value(value, parameters)
 
     @staticmethod
-    def format_value(value, parameters=[]):
+    def format_value(value, parameters={}):
         """
             Formats a length value
 
             :param value: The length in seconds
             :type value: float
             :param parameters: Optionally passed parameters
-            :type parameters: list of strings
                 Possible values are:
-                * long: 1h, 2m, 42s
-                * verbose: 1 hour, 2 minutes, 42 seconds
+                * format: (short|long|verbose)
+                  Yields "1:02:42",
+                  "1h, 2m, 42s" or
+                  "1 hour, 2 minutes, 42 seconds"
+            :type parameters: dictionary
             :returns: The formatted value
             :rtype: string
         """
         span = TimeSpan(value)
+        format = parameters.get('format', 'short')
         text = ''
 
-        if 'verbose' in parameters:
+        if format == 'verbose':
             if span.years > 0:
                 text += ngettext('%d year, ', '%d years, ', span.years) % span.years
 
@@ -447,7 +479,7 @@ class LengthTagFormatter(TagFormatter):
 
             text += ngettext('%d minute, ', '%d minutes, ', span.minutes) % span.minutes
             text += ngettext('%d second', '%d seconds', span.seconds) % span.seconds
-        elif 'long' in parameters:
+        elif format == 'long':
             if span.years > 0:
                 # TRANSLATORS: Short form of an amount of years
                 text += _('%dy, ') % span.years
@@ -464,7 +496,7 @@ class LengthTagFormatter(TagFormatter):
             text += _('%dm, ') % span.minutes
             # TRANSLATORS: Short form of an amount of seconds
             text += _('%ds') % span.seconds
-        else:
+        elif format == 'short':
             durations = []
 
             if span.years > 0:
@@ -483,6 +515,10 @@ class LengthTagFormatter(TagFormatter):
             values = ['%d' % first] + values
 
             text = ':'.join(values)
+        else:
+            raise ValueError('Invalid argument "%s" passed to "format" '
+                'parameter for tag __length, possible arguments are '
+                '"short", "long" and "verbose"' % format)
 
         return text
 
@@ -507,7 +543,7 @@ class RatingTagFormatter(TagFormatter):
             :param track: The track to get the tag from
             :type track: xl.trax.Track
             :param parameters: Optionally passed parameters
-            :type parameters: list of strings
+            :type parameters: dictionary
             :returns: The formatted value
             :rtype: string
         """
@@ -547,7 +583,7 @@ class LastPlayedTagFormatter(TagFormatter):
             :param track: The track to get the tag from
             :type track: xl.trax.Track
             :param parameters: Optionally passed parameters
-            :type parameters: list of strings
+            :type parameters: dictionary
             :returns: The formatted value
             :rtype: string
         """
@@ -586,7 +622,7 @@ class FilenameTagFormatter(TagFormatter):
             :param track: The track to get the tag from
             :type track: xl.trax.Track
             :param parameters: Optionally passed parameters
-            :type parameters: list of strings
+            :type parameters: dictionary
             :returns: The formatted value
             :rtype: string
         """

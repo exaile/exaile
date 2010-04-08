@@ -66,16 +66,16 @@ class TrackTitleFormatPreference(widgets.ComboEntryPreference):
         '$artist': _('Artist'),
         '$composer': _('Composer'),
         '$album': _('Album'),
-        '$length': _('Length'),
+        '$__length': _('Length'),
         '$discnumber': _('Disc number'),
-        '$rating': _('Rating'),
+        '$__rating': _('Rating'),
         '$date': _('Date'),
         '$genre': _('Genre'),
         '$bitrate': _('Bitrate'),
-        '$location': _('Location'),
+        '$__location': _('Location'),
         '$filename': _('Filename'),
-        '$playcount': _('Play count'),
-        '$last_played': _('Last played'),
+        '$__playcount': _('Play count'),
+        '$__last_played': _('Last played'),
         '$bpm': _('BPM'),
     }
     preset_items = [
@@ -84,6 +84,6 @@ class TrackTitleFormatPreference(widgets.ComboEntryPreference):
         # TRANSLATORS: Mini mode track selector title preset
         _('$title by $artist'),
         # TRANSLATORS: Mini mode track selector title preset
-        _('$title ($length)')
+        _('$title ($__length)')
     ]
     default = _('$tracknumber - $title')

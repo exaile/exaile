@@ -88,27 +88,67 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox5">
+          <object class="GtkFrame" id="frame1">
             <property name="visible">True</property>
-            <property name="spacing">3</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
             <child>
-              <object class="GtkLabel" id="label4">
+              <object class="GtkVBox" id="vbox1">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Track title format:</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">3</property>
+                <child>
+                  <object class="GtkComboBoxEntry" id="plugin/minimode/track_title_format">
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkHBox" id="hbox1">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkImage" id="image1">
+                        <property name="visible">True</property>
+                        <property name="stock">gtk-info</property>
+                        <property name="icon-size">6</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label1">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Every tag can be used with &lt;b&gt;$tag&lt;/b&gt; or &lt;b&gt;${tag}&lt;/b&gt;. Internal tags like &lt;b&gt;$__length&lt;/b&gt; need to be specified with two leading underdashes.</property>
+                        <property name="use_markup">True</property>
+                        <property name="wrap">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
             </child>
-            <child>
-              <object class="GtkComboBoxEntry" id="plugin/minimode/track_title_format">
+            <child type="label">
+              <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Track Title Format&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
               </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
             </child>
           </object>
           <packing>

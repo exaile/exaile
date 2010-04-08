@@ -33,7 +33,7 @@ import locale, os
 from xl import xdg
 
 # set the locale to LANG, or the user's default
-locale.setlocale(locale.LC_ALL, None)
+locale.setlocale(locale.LC_ALL, '')
 
 try:
     import gettext as gettextmod
@@ -43,10 +43,24 @@ try:
         gettextmod.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
 
     gettextfunc = gettextmod.gettext
+
     def gettext(text):
         return gettextfunc(text).decode("utf-8")
+
+    ngettextfunc = gettextmod.ngettext
+
+    def ngettext(singular, plural, n):
+        return ngettextfunc(singular, plural, n).decode('utf-8')
+
 except ImportError:
     # gettext is not available.  Provide a dummy function instead
     def gettext(text):
         return text
 
+    def ngettext(singular, plural, n):
+        if n == 1:
+            return singular
+        else:
+            return plural
+
+# vim: et sts=4 sw=4

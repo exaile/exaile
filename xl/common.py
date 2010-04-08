@@ -248,5 +248,43 @@ class cached(object):
             return ret
         return wrapper
 
+class TimeSpan:
+    """
+        Calculates the amount of years, days,
+        hours, minutes and seconds of a time span
+    """
+    _seconds_per_minute = 60.0
+    _seconds_per_hour = 60 * _seconds_per_minute
+    _seconds_per_day = 24 * _seconds_per_hour
+    # XXX: Check leap years
+    _seconds_per_year = 365 * _seconds_per_day
+
+    def __init__(self, span):
+        """
+            :param span: Time span in seconds
+            :type span: float
+        """
+        self.years = span // self._seconds_per_year
+        span %= self._seconds_per_year
+
+        self.days = span // self._seconds_per_day
+        span %= self._seconds_per_day
+
+        self.hours = span // self._seconds_per_hour
+        span %= self._seconds_per_hour
+
+        self.minutes = span // self._seconds_per_minute
+        span %= self._seconds_per_minute
+
+        self.seconds = span
+
+    def __repr__(self):
+        return str(self)
+
+    def __str__(self):
+        return '%dy, %dd, %dh, %dm, %ds' % (
+            self.years, self.days, self.hours,
+            self.minutes, self.seconds
+        )
 
 # vim: et sts=4 sw=4

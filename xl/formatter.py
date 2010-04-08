@@ -25,17 +25,94 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject
-from string import Template
-from xl import event, main, settings
-from xl.nls import gettext as _
+import gobject, re
+from datetime import date
+from string import Template, _TemplateMetaclass
+
+from xl import event, main, providers, settings, trax
+from xl.common import TimeSpan
+from xl.nls import gettext as _, ngettext
+
+class _ParameterTemplateMetaclass(_TemplateMetaclass):
+    pattern = r"""
+    %(delim)s(?:
+      (?P<escaped>%(delim)s) |   # Escape sequence of two delimiters
+      (?P<named>%(id)s)      |   # delimiter and a Python identifier
+      {(?P<braced>%(id_param)s)}   |   # delimiter and a braced identifier
+      (?P<invalid>)              # Other ill-formed delimiter exprs
+    )
+    """
+    match_pattern = r"""
+    %(delim)s(?:
+      (?P<escaped>%(delim)s) |   # Escape sequence of two delimiters
+      (?P<named>%(id)s)      |   # Delimiter and a Python identifier
+      {
+        (?P<braced>%(id)s)       # Delimiter and a braced identifier
+        (!?:
+          (?P<parameters>
+            %(id)s               # First optional parameter marked with ':'
+            (!?,\s*%(id)s)*         # Further optional parameters separated with ','
+          )
+        )?
+      }                      |
+      (?P<invalid>)              # Other ill-formed delimiter expressions
+    )
+    """
+
+    def __init__(cls, name, bases, dct):
+        super(_ParameterTemplateMetaclass, cls).__init__(name, bases, dct)
+        if 'pattern' in dct:
+            pattern = cls.pattern
+        else:
+            pattern = _ParameterTemplateMetaclass.pattern % {
+                'delim'   : re.escape(cls.delimiter),
+                'id'      : cls.idpattern,
+                'id_param': cls.idpattern_param
+            }
+        cls.pattern = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
+
+        if 'match_pattern' in dct:
+            match_pattern = cls.match_pattern
+        else:
+            match_pattern = _ParameterTemplateMetaclass.match_pattern % {
+                'delim'   : re.escape(cls.delimiter),
+                'id'      : cls.idpattern
+            }
+        cls.match_pattern = re.compile(match_pattern, re.IGNORECASE | re.VERBOSE)
+
+class ParameterTemplate(Template):
+    """
+        An extended template class which additionally
+        accepts parameters assigned to identifiers.
+        
+        This introduces another pattern group named
+        "parameters" in addition to the groups
+        created by string.Template.
+
+        Examples:
+        * ${foo:parameter1}
+        * ${bar:parameter1, parameter2}
+    """
+    __metaclass__ = _ParameterTemplateMetaclass
+
+    idpattern_param = r'[_a-z][_a-z0-9:]*'
+
+    def __init__(self, template):
+        """
+            :param template: The template string
+        """
+        Template.__init__(self, template)
 
 class Formatter(gobject.GObject):
     """
         A generic text formatter based on a format string
     """
     __gsignals__ = {
-        'format-changed': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING,))
+        'format-changed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_STRING,)
+        )
     }
     __gproperties__ = {
         'format': (
@@ -50,14 +127,14 @@ class Formatter(gobject.GObject):
         """
             :param format: The initial format, see the documentation
                 of string.Template for details
+            :type format: string
         """
         if self.__class__.__name__ == 'Formatter':
             raise TypeError("cannot create instance of abstract "
                             "(non-instantiable) type `Formatter'")
         gobject.GObject.__init__(self)
 
-        self._format = format
-        self._template = Template(self._format)
+        self._template = ParameterTemplate(format)
         self._substitutions = {}
 
     def do_get_property(self, property):
@@ -65,7 +142,7 @@ class Formatter(gobject.GObject):
             Gets GObject properties
         """
         if property.name == 'format':
-            return self._format
+            return self._template.template
         else:
             raise AttributeError('unkown property %s' % property.name)
 
@@ -74,18 +151,22 @@ class Formatter(gobject.GObject):
             Sets GObject properties
         """
         if property.name == 'format':
-            self._format = value
-            self._template = Template(self._format)
-            self.emit('format-changed', self._format)
+            if value != self._template.template:
+                self._template.template = value
+                self.emit('format-changed', value)
         else:
             raise AttributeError('unkown property %s' % property.name)
 
     def substitute(self, text, replacement):
         """
             Returns the replacement of a text
+
             :param text: The text to replace
-            :param replacement: The replacement, can
-                also be a method or function
+            :type text: string
+            :param replacement: The replacement
+            :type replacement: string or callable
+            :returns: The replacement
+            :rtype: string
         """
         if callable(replacement):
             return replacement(text)
@@ -95,17 +176,12 @@ class Formatter(gobject.GObject):
     def format(self, *args):
         """
             Returns a string by formatting the passed data
+
             :param args: Data to base the formatting on
+            :returns: The formatted text
+            :rtype: string
         """
         pass
-
-class DurationFormatter(Formatter):
-    """
-        A generic text formatter for durations
-        E. g. 1 day, 2 hours, 34 minutes, 21 seconds
-        E. g. 45:20
-    """
-    pass
 
 class ProgressTextFormatter(Formatter):
     """
@@ -128,6 +204,9 @@ class ProgressTextFormatter(Formatter):
             Returns a string suitable for progress indicators
             :param args: Allows for overriding of the values for
                 current time and total time, in exactly that order
+            :type args: float, float
+            :returns: The formatted text
+            :rtype: string
         """
         try:
             current_time = args[0]
@@ -160,6 +239,7 @@ class ProgressTextFormatter(Formatter):
         """
             Returns a properly formatted duration
             :param duration: The duration to format, in seconds
+            :type duration: float
         """
         hours = duration // 3600
         remainder = duration - hours * 3600
@@ -188,3 +268,305 @@ class ProgressTextFormatter(Formatter):
 
         event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
+class TrackFormatter(Formatter, providers.ProviderHandler):
+    """
+        A formatter for track data
+    """
+    def __init__(self, format):
+        """
+            :param format: The initial format, see the documentation
+                of string.Template for details
+            :type format: string
+        """
+        Formatter.__init__(self, format)
+        providers.ProviderHandler.__init__(self, 'tag_formatting')
+
+    def format(self, *args):
+        """
+            Returns a string suitable for progress indicators
+
+            :param args: A single track to take data from
+            :type args: xl.trax.Track
+            :returns: The formatted text
+            :rtype: string
+        """
+        track = args[0]
+
+        if not isinstance(track, trax.Track):
+            raise TypeError('First argument to format() needs '
+                            'to be of type xl.trax.Track')
+
+        matches = self._template.match_pattern.finditer(self._template.template)
+        tags = {}
+        self._substitutions = {}
+
+        # Extract list of tags contained in the format string
+        for match in matches:
+            groups = match.groupdict()
+
+            # We don't care about escaped and invalid
+            if groups['braced'] is not None:
+                tag = groups['braced']
+            elif groups['named'] is not None:
+                tag = groups['named']
+            else:
+                continue
+
+            id = tag
+            parameters = []
+
+            if groups['parameters'] is not None:
+                parameters = groups['parameters'].split(',')
+                parameters = [parameter.strip() for parameter in parameters]
+                id = '%s:%s' % (tag, groups['parameters'])
+
+            tags[id] = (tag, parameters)
+
+        for id, (tag, parameters) in tags.iteritems():
+            provider = self.get_provider(tag)
+
+            if provider is None:
+                self._substitutions[id] = track.get_tag_display(tag)
+            else:
+                self._substitutions[id] = provider.format(track, parameters)
+
+        return self._template.safe_substitute(self._substitutions)
+
+class TagFormatter():
+    """
+        A formatter for a tag of a track
+    """
+    def __init__(self, name):
+        """
+            :param name: The name of the tag
+            :type name: string
+        """
+        self.name = name
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value. Accepts optional
+            parameters to manipulate the formatting
+            process.
+
+            :param track: The track to get the tag from
+            :type value: xl.trax.Track
+            :param parameters: Optionally passed parameters
+            :type parameters: list of strings
+            :returns: The formatted value
+            :rtype: string
+        """
+        pass
+
+class TrackNumberTagFormatter(TagFormatter):
+    """
+        A formatter for the tracknumber of a track
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, 'tracknumber')
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: The track to get the tag from
+            :type track: xl.trax.Track
+            :param parameters: Optionally passed parameters
+            :type parameters: list of strings
+            :returns: The formatted value
+            :rtype: string
+        """
+        value = track.get_tag_raw(self.name, join=True)
+
+        try: # Valid number
+            value = '%02d' % int(value)
+        except TypeError: # None
+            value = '00'
+        except ValueError: # 'N/N'
+            pass
+
+        return value
+
+providers.register('tag_formatting', TrackNumberTagFormatter())
+
+class LengthTagFormatter(TagFormatter):
+    """
+        A formatter for the length of a track
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, '__length')
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: The track to get the tag from
+            :type track: xl.trax.Track
+            :param parameters: Optionally passed parameters
+            :type parameters: list of strings
+                Possible values are:
+                * long: 1h, 2m, 42s
+                * verbose: 1 hour, 2 minutes, 42 seconds
+            :returns: The formatted value
+            :rtype: string
+        """
+        value = track.get_tag_raw(self.name)
+
+        return self.format_value(value, parameters)
+
+    @staticmethod
+    def format_value(value, parameters=[]):
+        """
+            Formats a length value
+
+            :param value: The length in seconds
+            :type value: float
+            :param parameters: Optionally passed parameters
+            :type parameters: list of strings
+                Possible values are:
+                * long: 1h, 2m, 42s
+                * verbose: 1 hour, 2 minutes, 42 seconds
+            :returns: The formatted value
+            :rtype: string
+        """
+        span = TimeSpan(value)
+        text = ''
+
+        if 'verbose' in parameters:
+            if span.years > 0:
+                text += ngettext('%d year, ', '%d years, ', span.years) % span.years
+
+            if span.days > 0:
+                text += ngettext('%d day, ', '%d days, ', span.days) % span.days
+
+            if span.hours > 0:
+                text += ngettext('%d hour, ', '%d hours, ', span.hours) % span.hours
+
+            text += ngettext('%d minute, ', '%d minutes, ', span.minutes) % span.minutes
+            text += ngettext('%d second', '%d seconds', span.seconds) % span.seconds
+        elif 'long' in parameters:
+            if span.years > 0:
+                # TRANSLATORS: Short form of an amount of years
+                text += _('%dy, ') % span.years
+
+            if span.days > 0:
+                # TRANSLATORS: Short form of an amount of days
+                text += _('%dd, ') % span.days
+
+            if span.hours > 0:
+                # TRANSLATORS: Short form of an amount of hours
+                text += _('%dh, ') % span.hours
+
+            # TRANSLATORS: Short form of an amount of minutes
+            text += _('%dm, ') % span.minutes
+            # TRANSLATORS: Short form of an amount of seconds
+            text += _('%ds') % span.seconds
+        else:
+            durations = []
+
+            if span.years > 0:
+                durations += [span.years]
+
+            if span.days > 0:
+                durations += [span.days]
+
+            if span.hours > 0:
+                durations += [span.hours]
+
+            durations += [span.minutes, span.seconds]
+
+            first = durations.pop(0)
+            values = ['%02d' % duration for duration in durations]
+            values = ['%d' % first] + values
+
+            text = ':'.join(values)
+
+        return text
+
+providers.register('tag_formatting', LengthTagFormatter())
+
+class RatingTagFormatter(TagFormatter):
+    """
+        A formatter for the rating of a track
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, '__rating')
+
+        self._rating_steps = 5
+        self.on_option_set('option_set', settings,
+            'miscellaneous/rating_steps')
+        event.add_callback(self.on_option_set, 'option_set')
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: The track to get the tag from
+            :type track: xl.trax.Track
+            :param parameters: Optionally passed parameters
+            :type parameters: list of strings
+            :returns: The formatted value
+            :rtype: string
+        """
+        value = track.get_tag_raw(self.name)
+
+        try:
+            value = float(value) / 100
+        except TypeError:
+            value = 0
+
+        value *= self._rating_steps
+        filled = '★' * int(value)
+        empty = '☆' * int(self._rating_steps - value)
+
+        return ('%s%s' % (filled, empty)).decode('utf-8')
+
+    def on_option_set(self, event, settings, option):
+        """
+            Updates the internal rating steps value
+        """
+        if option == 'miscellaneous/rating_steps':
+            self._rating_steps = settings.get_option(option, 5)
+
+providers.register('tag_formatting', RatingTagFormatter())
+
+class LastPlayedTagFormatter(TagFormatter):
+    """
+        A formatter for the last time a track was played
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, '__last_played')
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: The track to get the tag from
+            :type track: xl.trax.Track
+            :param parameters: Optionally passed parameters
+            :type parameters: list of strings
+            :returns: The formatted value
+            :rtype: string
+        """
+        value = track.get_tag_raw(self.name)
+        text = _('Never')
+
+        try:
+            last_played = date.fromtimestamp(value)
+        except TypeError, ValueError:
+            text = _('Never')
+        else:
+            today = date.today()
+            delta = today - last_played
+
+            if delta.days == 0:
+                text = _('Today')
+            elif delta.days == 1:
+                text = _('Yesterday')
+            else:
+                text = last_played.strftime('%x')
+
+        return text
+providers.register('tag_formatting', LastPlayedTagFormatter())
+
+# vim: et sts=4 sw=4

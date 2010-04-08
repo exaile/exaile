@@ -17,6 +17,7 @@
 import gobject, gtk, os
 import minimodeprefs, mmwidgets
 from xl import event, plugins, settings, xdg
+from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
 
@@ -73,7 +74,7 @@ class MiniMode(gtk.Window):
         self.set_title('Exaile')
         self.set_resizable(False)
 
-        self.formatter = mmwidgets.TrackFormatter(
+        self.formatter = TrackFormatter(
             self.get_option('plugin/minimode/track_title_format')
         )
 
@@ -197,7 +198,7 @@ class MiniMode(gtk.Window):
                 value += self.fixed_items
                 self.update_widgets(value)
             elif option == 'plugin/minimode/track_title_format':
-                self.formatter.set_format(value)
+                self.formatter.set_property('format', value)
 
     def update_position(self):
         """

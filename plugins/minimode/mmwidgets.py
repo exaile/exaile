@@ -540,6 +540,13 @@ class TrackSelector(gtk.ComboBox):
         Control which updates its content automatically
         on playlist actions, track display is configurable
     """
+    __gsignals__ = {
+        'track-changed': (
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_PYOBJECT, )
+        )
+    }
     def __init__(self, main, queue, formatter, changed_callback):
         gtk.ComboBox.__init__(self)
 
@@ -730,9 +737,6 @@ class TrackSelector(gtk.ComboBox):
             self._dirty = True
 
 gobject.type_register(TrackSelector)
-gobject.signal_new('track-changed', TrackSelector,
-    gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
-    (gobject.TYPE_PYOBJECT, ))
 
 class ProgressBar(gtk.Alignment):
     """
@@ -925,170 +929,4 @@ class TrackBar(TrackSelector, ProgressBar):
         Track selector + progress bar = WIN
     """
     pass
-
-class TrackFormatter(gobject.GObject):
-    """
-        Formats track titles based on a format string
-    """
-    __gsignals__ = {
-        'format-changed': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_STRING,))
-    }
-
-    def __init__(self, format):
-        gobject.GObject.__init__(self)
-
-        self._format = format
-        self._template = Template(self._format)
-        self._substitutions = {
-            'tracknumber': 'tracknumber',
-            'title': 'title',
-            'artist': 'artist',
-            'composer': 'composer',
-            'album': 'album',
-            'length': '__length',
-            'discnumber': 'discnumber',
-            'rating': '__rating',
-            'date': 'date',
-            'genre': 'genre',
-            'bitrate': '__bitrate',
-            'location': '__location',
-            'filename': 'filename',
-            'playcount': '__playcount',
-            'last_played': '__last_played',
-            'bpm': 'bpm',
-        }
-        self._formattings = {
-            'tracknumber': self.__format_tracknumber,
-            'length': self.__format_length,
-            'rating': self.__format_rating,
-            'bitrate': self.__format_bitrate,
-            'last_played': self.__format_last_played,
-        }
-        self._rating_steps = 5.0
-
-    def set_format(self, format):
-        """
-            Updates the internal template
-        """
-        if format == self._format:
-            return
-
-        self._format = format
-        self._template = Template(self._format)
-        self.emit('format-changed', self._format)
-
-    def set_rating_steps(self, rating_steps):
-        """
-            Updates the rating steps
-        """
-        if rating_steps == self._rating_steps:
-            return
-
-        self._rating_steps = rating_steps
-        rating_pattern = '%s%s' % (self._template.delimiter, 'rating')
-
-        if rating_pattern in self._format:
-            self.emit('format-changed', self._format)
-
-    def format(self, track):
-        """
-            Returns the formatted title of a track
-        """
-        if not isinstance(track, Track):
-            return None
-
-        substitutions = self._substitutions.copy()
-
-        for keyword, tagname in substitutions.iteritems():
-            substitutions[keyword] = track.get_tag_display(tagname,
-                artist_compilations=False)
-
-            try:
-                format_callback = self._formattings[keyword]
-                substitutions[keyword] = format_callback(substitutions[keyword])
-            except KeyError:
-                pass
-
-            if substitutions[keyword] is None:
-                substitutions[keyword] = _('Unknown')
-
-        return self._template.safe_substitute(substitutions)
-
-    def __format_tracknumber(self, tracknumber):
-        """
-            Returns a properly formatted tracknumber
-        """
-        try: # Valid number
-            tracknumber = '%02d' % int(tracknumber)
-        except TypeError: # None
-            tracknumber = '00'
-        except ValueError: # 'N/N'
-            pass
-
-        return tracknumber
-
-    def __format_length(self, length):
-        """
-            Returns a properly formatted track length
-        """
-        try:
-            length = float(length)
-        except TypeError:
-            length = 0
-
-        return '%d:%02d' % (length // 60, length % 60)
-
-    def __format_rating(self, rating):
-        """
-            Returns a properly formatted rating
-        """
-        try:
-            rating = float(rating) / 100
-        except TypeError:
-            rating = 0
-
-        rating *= self._rating_steps
-
-        return '%s%s' % (
-            '★' * int(rating),
-            '☆' * int(self._rating_steps - rating)
-        )
-
-    def __format_bitrate(self, bitrate):
-        """
-            Returns a properly formatted bitrate
-        """
-        try:
-            bitrate = int(bitrate)
-        except TypeError:
-            bitrate = 0
-        except ValueError:
-            return bitrate
-
-        return '%d kbit/s' % (bitrate / 1000)
-
-    def __format_last_played(self, last_played):
-        """
-            Returns a properly formatted last play time
-        """
-        text = _('Never')
-
-        try:
-            last_played = date.fromtimestamp(last_played)
-        except TypeError, ValueError:
-            text = _('Never')
-        else:
-            delta = today - last_played
-            if delta.day == 0:
-                text = _('Today')
-            elif delta.day == 1:
-                text = _('Yesterday')
-            else:
-                text = _('%(year)d-%(month)02d-%(day)02d') % {
-                    'year': last_played.year,
-                    'month': last_played.month,
-                    'day': last_played.day
-                }
-
-        return text
 

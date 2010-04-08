@@ -29,6 +29,7 @@ import gio
 import gtk
 
 from xl import settings
+from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import rating
 
@@ -48,6 +49,7 @@ class Column(object):
     display = ''
     renderer = gtk.CellRendererText
     size = 10 # default size
+    formatter = TrackFormatter('')
 
     def __init__(self, playlist):
         self.playlist = playlist
@@ -80,13 +82,10 @@ class TrackNumberColumn(Column):
         """
             Track number
         """
-        item = model.get_value(iter, 0)
+        track = model.get_value(iter, 0)
 
-        track = item.get_tag_display("tracknumber")
-        if track is None:
-            cell.set_property('text', '')
-        else:
-            cell.set_property('text', track)
+        self.formatter.set_property('format', '$%s' % self.id)
+        cell.set_property('text', self.formatter.format(track))
         self.playlist.set_cell_weight(cell, item)
 
     def set_properties(self, col, cellr):
@@ -121,15 +120,10 @@ class LengthColumn(Column):
         """
             Formats the track length
         """
-        item = model.get_value(iter, 0)
-        try:
-            seconds = item.get_tag_raw("__length")
-            text = _("%(minutes)d:%(seconds)02d") % \
-                {'minutes' : seconds // 60, 'seconds' : seconds % 60}
-        except:
-            #TRANSLATORS: Default track length
-            text = _("0:00")
-        cell.set_property('text', text)
+        track = model.get_value(iter, 0)
+
+        self.formatter.set_property('format', '$%s' % self.id)
+        cell.set_property('text', self.formatter.format(track))
         self.playlist.set_cell_weight(cell, item)
 
     def set_properties(self, col, cellr):
@@ -217,9 +211,10 @@ class FilenameColumn(Column):
     id = 'filename'
 
     def data_func(self, col, cell, model, iter):
-        item = model.get_value(iter, 0)
-        cell.set_property('text',
-                gio.File(item.get_loc_for_io()).get_basename())
+        track = model.get_value(iter, 0)
+
+        self.formatter.set_property('format', '$%s' % self.id)
+        cell.set_property('text', self.formatter.format(track))
         self.playlist.set_cell_weight(cell, item)
 
 class PlayCountColumn(Column):
@@ -247,32 +242,10 @@ class LastPlayedColumn(Column):
         """
             Formats the last played time string
         """
-        item = model.get_value(iter, 0)
-        #TRANSLATORS: Time strings for today, yesterday, default
-        try:
-            if item.get_tag_raw('__last_played') is None:
-                text = _("Never")
-            else:
-                import time
-                ct = time.time()
-                now = time.localtime(ct)
-                yday = time.localtime(ct - 86400)
-                ydaytime = time.mktime((yday.tm_year, yday.tm_mon, yday.tm_mday, \
-                    0, 0, 0, yday.tm_wday, yday.tm_yday, yday.tm_isdst))
-                lptime = time.localtime(item.get_tag_raw('__last_played'))
-                if now.tm_year == lptime.tm_year and \
-                   now.tm_mon == lptime.tm_mon and \
-                   now.tm_mday == lptime.tm_mday:
-                    text = _("Today")
-                elif ydaytime <= item.get_tag_raw('__last_played'):
-                    text = _("Yesterday")
-                else:
-                    text = _("%(year)d-%(month)02d-%(day)02d") % \
-                    {'year' : lptime.tm_year , 'month' : lptime.tm_mon, \
-                     'day' : lptime.tm_mday}
-        except:
-            text = _("Never")
-        cell.set_property('text', text)
+        track = model.get_value(iter, 0)
+
+        self.formatter.set_property('format', '$%s' % self.id)
+        cell.set_property('text', self.formatter.format(track))
         self.playlist.set_cell_weight(cell, item)
 
 # this is where everything gets set up, including the menu items

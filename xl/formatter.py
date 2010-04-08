@@ -25,7 +25,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject, re
+import gio, gobject, re
 from datetime import date
 from string import Template, _TemplateMetaclass
 
@@ -381,7 +381,7 @@ class TrackNumberTagFormatter(TagFormatter):
         try: # Valid number
             value = '%02d' % int(value)
         except TypeError: # None
-            value = '00'
+            value = ''
         except ValueError: # 'N/N'
             pass
 
@@ -568,5 +568,28 @@ class LastPlayedTagFormatter(TagFormatter):
 
         return text
 providers.register('tag_formatting', LastPlayedTagFormatter())
+
+class FilenameTagFormatter(TagFormatter):
+    """
+        A formatter for the filename of a track
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, 'filename')
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: The track to get the tag from
+            :type track: xl.trax.Track
+            :param parameters: Optionally passed parameters
+            :type parameters: list of strings
+            :returns: The formatted value
+            :rtype: string
+        """
+        gfile = gio.File(track.get_loc_for_io())
+
+        return gfile.get_basename()
+providers.register('tag_formatting', FilenameTagFormatter())
 
 # vim: et sts=4 sw=4

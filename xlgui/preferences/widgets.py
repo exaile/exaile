@@ -467,7 +467,7 @@ class SelectionListPreference(Preference):
         """
             Adds items on double click
         """
-        if not tree.get_path_at_pos(event.x, event.y):
+        if not tree.get_path_at_pos(int(event.x), int(event.y)):
             return
 
         if event.type == gtk.gdk._2BUTTON_PRESS:
@@ -477,7 +477,7 @@ class SelectionListPreference(Preference):
         """
             Removes items on double click
         """
-        if not tree.get_path_at_pos(event.x, event.y):
+        if not tree.get_path_at_pos(int(event.x), int(event.y)):
             return
 
         if event.type == gtk.gdk._2BUTTON_PRESS:

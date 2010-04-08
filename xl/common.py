@@ -264,6 +264,11 @@ class TimeSpan:
             :param span: Time span in seconds
             :type span: float
         """
+        try:
+            span = float(span)
+        except:
+            span = 0
+
         self.years = span // self._seconds_per_year
         span %= self._seconds_per_year
 

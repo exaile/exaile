@@ -443,28 +443,26 @@ class LengthTagFormatter(TagFormatter):
             :rtype: string
         """
         value = track.get_tag_raw(self.name)
+        format = parameters.get('format', 'short')
 
-        return self.format_value(value, parameters)
+        return self.format_value(value, format)
 
     @staticmethod
-    def format_value(value, parameters={}):
+    def format_value(value, format='short'):
         """
             Formats a length value
 
             :param value: The length in seconds
             :type value: float
-            :param parameters: Optionally passed parameters
-                Possible values are:
-                * format: (short|long|verbose)
-                  Yields "1:02:42",
-                  "1h, 2m, 42s" or
-                  "1 hour, 2 minutes, 42 seconds"
+            :param format: Verbosity of the output
+                Possible values are short, long or verbose
+                yielding "1:02:42", "1h, 2m, 42s" or
+                "1 hour, 2 minutes, 42 seconds"
             :type parameters: dictionary
             :returns: The formatted value
             :rtype: string
         """
         span = TimeSpan(value)
-        format = parameters.get('format', 'short')
         text = ''
 
         if format == 'verbose':
@@ -516,8 +514,8 @@ class LengthTagFormatter(TagFormatter):
 
             text = ':'.join(values)
         else:
-            raise ValueError('Invalid argument "%s" passed to "format" '
-                'parameter for tag __length, possible arguments are '
+            raise ValueError('Invalid argument "%s" passed to parameter '
+                '"format" for tag "__length", possible arguments are '
                 '"short", "long" and "verbose"' % format)
 
         return text

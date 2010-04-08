@@ -1065,9 +1065,7 @@ class SmartPlaylist(object):
 
         search_string = self._create_search_string()
 
-        print search_string
-
-        matcher = trax.TracksMatcher(search_string)
+        matcher = trax.TracksMatcher(search_string, case_sensitive=False)
         trs = [ t.track for t in trax.search_tracks(collection, [matcher]) ]
         if self.random_sort:
             random.shuffle(trs)

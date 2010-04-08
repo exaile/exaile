@@ -743,6 +743,14 @@ class ProgressBar(gtk.Alignment):
         Wrapper class which updates itself
         based on the current track
     """
+    __gsignals__ = {
+        'track-seeked': (
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_FLOAT, )
+        )
+    }
+
     def __init__(self, player, callback):
         gtk.Alignment.__init__(self)
         self.set_padding(3, 3, 0, 0)
@@ -908,25 +916,4 @@ class ProgressBar(gtk.Alignment):
         self.bar.set_text(text)
 
 gobject.type_register(ProgressBar)
-gobject.signal_new('track-seeked', ProgressBar,
-    gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
-    (gobject.TYPE_FLOAT, ))
-
-class PlaylistProgressBar(gtk.HBox):
-    """
-        A progress bar with a button for
-        management of the current playlist
-    """
-    def __init__(self, main, queue, player, playlist, formatter,
-            change_callback, seeked_callback):
-        # button, bar
-        #button = PlaylistButton(main, queue, playlist, formatter, change_callback)
-        #self.pack_start(button, expand=False)
-        pass
-
-class TrackBar(TrackSelector, ProgressBar):
-    """
-        Track selector + progress bar = WIN
-    """
-    pass
 

@@ -60,11 +60,22 @@ class TreeLevelTabs(object):
             self.__searchedTagsIndices = [0]
             return
         if type(level) is tuple:
+            # searched tags
             self.__tags = level[0]
+            # formatting of the result string
             self.__printList = level[1]
+            # indexes of the searched tags
             self.__searchedTagsIndices = level[2]
+            # example list of levels: ['artist', (['date', 'album'], [0, ' - ', 1], [0, 1]), (['discnumber', 'tracknumber', 'title'], [2], [2])]
             return
 
+    def __hash__(self):
+        data = str((self.__tags, self.__printList, self.__searchedTagsIndices))
+        return hash(data)
+        
+    def __eq__(self, other):
+        return hash(self) == hash(other)
+        
     def printTags(self, tagsValues):
         return ''.join([(tagsValues[x] if type(x) is int else x) for x in self.__printList])
 
@@ -538,6 +549,7 @@ class CollectionPanel(panel.Panel):
             Loads tracks based on the current keyword, or all the tracks in
             the collection associated with this panel
         """
+        logger.debug("Reloading collection tree")
         self.current_start_count = self.start_count
         self.model.clear()
         self.tree.set_model(self.model_blank)
@@ -545,7 +557,7 @@ class CollectionPanel(panel.Panel):
         self.root = None
         oldorder = self.order
         self.order = [TreeLevelTabs(x) for x in self.orders[self.choice.get_active()]]
-        if oldorder != self.order:
+        if not oldorder or set(oldorder) != set(self.order):
             self.resort_tracks()
 
         # save the active view setting

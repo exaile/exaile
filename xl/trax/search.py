@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import time
+
 __all__ = ['TracksMatcher', 'search_tracks']
 
 class SearchResultTrack(object):
@@ -434,6 +436,14 @@ def search_tracks(trackiter, trackmatchers):
                 break
         else:
             yield srtr
+
+        # On large collections, searching can take a while. Due to
+        # peculiarities in python's GIL that means the now-cpu-bound
+        # thread running the search can end up blocking other threads.
+        # Calling out to time.sleep forces a release of the GIL and
+        # allows other threads to run. Benchmarks show this has no
+        # noticable effect on search speed.
+        time.sleep(0)
 
 def search_tracks_from_string(trackiter, search_string,
         case_sensitive=True, keyword_tags=None):

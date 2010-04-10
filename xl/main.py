@@ -268,7 +268,8 @@ class Exaile(object):
         loglevel = logging.INFO
         if self.options.Debug:
             loglevel = logging.DEBUG
-            console_format += " (%(name)s)" # add module name in debug mode
+            console_format = "%(asctime)s,%(msecs)3d:" + console_format
+            console_format += " (%(name)s)" # add module name
         elif self.options.Quiet:
             loglevel = logging.WARNING
         # Logfile level should always be INFO or higher
@@ -277,8 +278,11 @@ class Exaile(object):
         else:
             logfilelevel = loglevel
 
+        datefmt = "%H:%M:%S"
+
         # Logging to terminal
-        logging.basicConfig(level=loglevel, format=console_format)
+        logging.basicConfig(level=loglevel, format=console_format,
+                datefmt=datefmt)
 
         # Create log directory
         logdir = os.path.join(xdg.get_data_dir(), 'logs')
@@ -305,7 +309,7 @@ class Exaile(object):
         logfile.setLevel(logfilelevel)
         formatter = logging.Formatter(
                 '%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
-                datefmt="%m-%d %H:%M")
+                datefmt=datefmt)
         logfile.setFormatter(formatter)
         logging.getLogger("").addHandler(logfile)
 

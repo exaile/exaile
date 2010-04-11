@@ -90,21 +90,23 @@ def get_data_dirs():
 def get_cache_dir():
     return cache_home
 
-def get_data_path(*subpath_elements):
+
+def _get_path(basedirs, *subpath_elements):
     subpath = os.path.join(*subpath_elements)
-    for d in data_dirs:
+    for d in basedirs:
         path = os.path.join(d, subpath)
         if os.path.exists(path):
             return path
     return None
 
+def get_data_path(*subpath_elements):
+    return _get_path(data_dirs, *subpath_elements)
+
 def get_config_path(*subpath_elements):
-    subpath = os.path.join(*subpath_elements)
-    for d in config_dirs:
-        path = os.path.join(d, subpath)
-        if os.path.exists(path):
-            return path
-    return None
+    return _get_path(config_dirs, *subpath_elements)
+
+def get_data_home_path(*subpath_elements):
+    return _get_path([data_home], *subpath_elements)
 
 def get_last_dir():
     return lastdir

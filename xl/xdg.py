@@ -73,7 +73,7 @@ def get_config_dir():
     return config_home
 
 def get_config_dirs():
-    return config_dirs
+    return config_dirs[:]
 
 def get_data_dir():
     return data_home
@@ -85,22 +85,23 @@ def get_cache_dir():
     return cache_home
 
 
-def _get_path(basedirs, *subpath_elements):
+def _get_path(basedirs, *subpath_elements, **kwargs):
+    check_exists = kwargs.get("check_exists", True)
     subpath = os.path.join(*subpath_elements)
     for d in basedirs:
         path = os.path.join(d, subpath)
-        if os.path.exists(path):
+        if not check_exists or os.path.exists(path):
             return path
     return None
 
-def get_data_path(*subpath_elements):
-    return _get_path(data_dirs, *subpath_elements)
+def get_data_path(*subpath_elements, **kwargs):
+    return _get_path(data_dirs, *subpath_elements, **kwargs)
 
-def get_config_path(*subpath_elements):
-    return _get_path(config_dirs, *subpath_elements)
+def get_config_path(*subpath_elements, **kwargs):
+    return _get_path(config_dirs, *subpath_elements, **kwargs)
 
-def get_data_home_path(*subpath_elements):
-    return _get_path([data_home], *subpath_elements)
+def get_data_home_path(*subpath_elements, **kwargs):
+    return _get_path([data_home], *subpath_elements, **kwargs)
 
 def get_last_dir():
     return lastdir

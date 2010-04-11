@@ -198,11 +198,6 @@ class Exaile(object):
         else:
             self.hal = None
 
-        # Cover manager
-        from xl import cover
-        self.covers = cover.CoverManager(
-                location=os.path.join(xdg.get_data_dir(), "covers"))
-
         # Radio Manager
         from xl import radio
         self.stations = playlist.PlaylistManager('radio_stations')
@@ -521,7 +516,8 @@ class Exaile(object):
         if self.gui:
             self.gui.quit()
 
-        self.covers.save()
+        from xl import covers
+        covers.MANAGER.save()
 
         self.collection.save_to_location()
 

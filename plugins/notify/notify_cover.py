@@ -16,19 +16,20 @@
 
 import logging
 from xlgui import icons
+from xl import covers
 
 logger = logging.getLogger(__name__)
 
 RESIZE_SIZE = 48
 
-def get_image_for_track(track, exaile, resize=False):
+def get_image_for_track(track, resize=False):
     '''Get a Pixbuf for a track
 
     If resize is True, the image will be resized so the maximum dimension is
     RESIZE_SIZE
 
     '''
-    data = exaile.covers.get_cover(track)
+    data = covers.MANAGER.get_cover(track)
     if resize:
         size = (RESIZE_SIZE, RESIZE_SIZE)
     else:

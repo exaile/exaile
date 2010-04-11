@@ -36,6 +36,7 @@ import gtk
 from xl.nls import gettext as _
 logger = logging.getLogger(__name__)
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
+from xl import covers
 try:
     import gtk.glade
     gtk.glade.textdomain('exaile')
@@ -93,7 +94,7 @@ class Main(object):
 
         logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.builder,
-            exaile.collection, exaile.player, exaile.queue, exaile.covers)
+            exaile.collection, exaile.player, exaile.queue, covers.MANAGER)
         self.panel_notebook = self.builder.get_object('panel_notebook')
         self.play_toolbar = self.builder.get_object('play_toolbar')
 
@@ -271,7 +272,7 @@ class Main(object):
         """
             Shows the cover manager
         """
-        window = cover.CoverManager(self.main.window, self.exaile.covers,
+        window = cover.CoverManager(self.main.window,
             self.exaile.collection)
 
     def show_preferences(self):

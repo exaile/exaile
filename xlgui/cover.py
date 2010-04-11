@@ -34,7 +34,7 @@ import gobject
 import gtk
 
 from xl.nls import gettext as _
-from xl import xdg, event, cover, common, metadata, settings
+from xl import xdg, event, covers, common, metadata, settings
 from xlgui import commondialogs, guiutil, icons
 logger = logging.getLogger(__name__)
 
@@ -42,13 +42,13 @@ class CoverManager(object):
     """
         Cover manager window
     """
-    def __init__(self, parent, covers, collection):
+    def __init__(self, parent, collection):
         """
             Initializes the window
         """
         self.parent = parent
         self.collection = collection
-        self.manager = covers
+        self.manager = covers.MANAGER
 
         self.cover_nodes = {}
         self.covers = {}

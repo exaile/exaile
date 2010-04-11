@@ -525,3 +525,8 @@ class LocalFileCoverFetcher(CoverSearchMethod):
         except gobject.GError:
             return None
 
+
+
+MANAGER = CoverManager(location=xdg.get_data_home_path("covers"))
+
+

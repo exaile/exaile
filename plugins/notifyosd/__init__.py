@@ -83,7 +83,7 @@ class ExaileNotifyOsd(object):
                 icon_allowed = True
             elif self.show_covers:
                 self.cover = notifyosd_cover.notifyosd_get_image_for_track(
-                    track, self.exaile)
+                    track)
                 icon_allowed = True
 
         # Setup the summary and body for the notification

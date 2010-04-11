@@ -20,8 +20,7 @@ try:
 except:
     import xml.etree.ElementTree as ETree
 import hashlib, urllib
-from xl.cover import *
-from xl import event
+from xl import event, covers, providers
 
 # Last.fm API Key for Exaile
 # if you reuse this code in a different application, please
@@ -45,7 +44,7 @@ def disable(exaile):
     providers.unregister('covers', LASTFM)
 
 
-class LastFMCoverSearch(CoverSearchMethod):
+class LastFMCoverSearch(covers.CoverSearchMethod):
     """
         Searches Last.fm for covers
     """

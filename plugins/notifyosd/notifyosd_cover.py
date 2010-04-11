@@ -16,19 +16,19 @@
 
 import gtk.gdk
 import logging
-from xl import xdg, cover
+from xl import xdg, covers
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_COVER = xdg.get_data_path('images/nocover.png')
 RESIZE_SIZE = 48
 
-def notifyosd_get_image_for_track(track, exaile, resize=False):
+def notifyosd_get_image_for_track(track, resize=False):
     '''Get a path for a track
 
     '''
     logger.debug("Getting cover for " + str(track))
-    data = exaile.covers.get_cover(track)
+    data = covers.MANAGER.get_cover(track)
     if not data:
-        data = exaile.covers.get_default_cover()
+        data = covers.MANAGER.get_default_cover()
     return data

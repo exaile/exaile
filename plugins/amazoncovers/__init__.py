@@ -17,9 +17,8 @@
 import _ecs as ecs
 import amazonprefs
 import urllib, hashlib, time
-from xl.cover import *
 from xl import common, event, metadata, providers
-from xl import settings
+from xl import settings, covers
 from xl.nls import gettext as _
 import logging
 
@@ -44,7 +43,7 @@ def disable(exaile):
 def get_preferences_pane():
     return amazonprefs
 
-class AmazonCoverSearch(CoverSearchMethod):
+class AmazonCoverSearch(covers.CoverSearchMethod):
     """
         Searches amazon for an album cover
     """

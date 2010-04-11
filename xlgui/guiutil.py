@@ -37,7 +37,7 @@ import gtk
 import gtk.gdk
 import pango
 
-from xl import common, event, playlist, settings, trax, xdg
+from xl import common, event, playlist, settings, trax, xdg, covers
 from xl.nls import gettext as _
 from xlgui import icons, rating
 import xl.main
@@ -244,7 +244,7 @@ class DragTreeView(gtk.TreeView):
         """
         if self.show_cover_drag_icon:
             tracks = self.get_selected_tracks()
-            cover_manager = xlgui.get_controller().exaile.covers
+            cover_manager = covers.MANAGER
             width = height = settings.get_option('gui/cover_width', 100)
 
             if tracks:
@@ -1163,7 +1163,7 @@ class TrackInfoPane(gtk.Alignment):
         """
             Sets up references after controller is loaded
         """
-        self.covers = exaile.covers
+        self.covers = covers.MANAGER
         self.player = exaile.player
 
         current_track = self.player.current

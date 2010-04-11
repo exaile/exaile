@@ -23,7 +23,7 @@ import gtk
 import gobject
 import tempfile
 
-import xl.cover
+from xl import covers
 import xl.event
 import xl.settings
 
@@ -109,7 +109,7 @@ class ExaileAwn(object):
         elif not self.cover_display:
             self.unset_cover()
         else:
-            image_data = self.exaile.covers.get_cover(self.exaile.player.current)
+            image_data = covers.MANAGER.get_cover(self.exaile.player.current)
 
             if image_data is not None:
                 pixbuf = icons.MANAGER.pixbuf_from_data(image_data)

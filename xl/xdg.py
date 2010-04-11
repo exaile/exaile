@@ -24,28 +24,22 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os
+import os, glib
 
 homedir = os.path.expanduser("~")
 lastdir = homedir
 
-data_home = os.getenv("XDG_DATA_HOME")
-if data_home == None:
-    data_home = os.path.join(homedir, ".local", "share")
+data_home = glib.get_user_data_dir()
 data_home = os.path.join(data_home, "exaile")
 if not os.path.exists(data_home):
     os.makedirs(data_home)
 
-config_home = os.getenv("XDG_CONFIG_HOME")
-if config_home == None:
-    config_home = os.path.join(homedir, ".config")
+config_home = glib.get_user_config_dir()
 config_home = os.path.join(config_home, "exaile")
 if not os.path.exists(config_home):
     os.makedirs(config_home)
 
-cache_home = os.getenv("XDG_CACHE_HOME")
-if cache_home == None:
-    cache_home = os.path.join(homedir, ".cache")
+cache_home = glib.get_user_cache_dir()
 cache_home = os.path.join(cache_home, "exaile")
 if not os.path.exists(cache_home):
     os.makedirs(cache_home)

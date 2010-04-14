@@ -140,7 +140,7 @@ class ExModbar(object):
          else: needGen=True
          if needGen:
              self.pid = subprocess.Popen(['/usr/bin/moodbar',
-                 self.playingTrack, '-o', modLoc])
+                 track.local_file_name(), '-o', modLoc])
          self.haveMod=not needGen
 
          if self.modTimer: gobject.source_remove(self.modTimer)

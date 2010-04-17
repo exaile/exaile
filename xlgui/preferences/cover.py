@@ -25,7 +25,7 @@
 # from your version.
 
 from xlgui.preferences import widgets
-from xl import xdg
+from xl import xdg, covers
 from xl.nls import gettext as _
 
 name = _('Covers')
@@ -47,7 +47,7 @@ class CoverOrderPreference(widgets.OrderListPreference):
     name = 'covers/preferred_order'
 
     def __init__(self, preferences, widget):
-        self.default = preferences.main.exaile.covers._get_methods()
+        self.default = covers.MANAGER._get_methods()
         widgets.OrderListPreference.__init__(self, preferences, widget)
 
     def _set_value(self):
@@ -57,7 +57,7 @@ class CoverOrderPreference(widgets.OrderListPreference):
 
     def apply(self):
         if widgets.OrderListPreference.apply(self):
-            self.preferences.main.exaile.covers.set_preferred_order(
+            covers.MANAGER.set_preferred_order(
                 self.items)
         return True
 

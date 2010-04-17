@@ -157,12 +157,14 @@ class DragTreeView(gtk.TreeView):
     targets = [("text/uri-list", 0, 0)]
     dragged_data = dict()
     
-    def __init__(self, container, receive=True, source=True):
+    def __init__(self, container, receive=True, source=True, drop_pos=None):
         """
             Initializes the tree and sets up the various callbacks
             :param container: The container to place the TreeView into
             :param receive: True if the TreeView should receive drag events
             :param source: True if the TreeView should send drag events
+            :param drop_pos: Indicates where a drop operation should occur
+                    w.r.t. existing entries: 'into', 'between', or None (both).
         """
         gtk.TreeView.__init__(self)
         self.container = container
@@ -173,6 +175,7 @@ class DragTreeView(gtk.TreeView):
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
         if receive:
+            self.drop_pos = drop_pos
             self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT|
                 gtk.gdk.ACTION_MOVE)
@@ -317,12 +320,30 @@ class DragTreeView(gtk.TreeView):
             Called when a row is dragged over this treeview
         """
         if not self.receive:
-            return
+            return False
         self.enable_model_drag_dest(self.targets,
             gtk.gdk.ACTION_DEFAULT)
+        if self.drop_pos is None:
+            return False
         info = treeview.get_dest_row_at_pos(x, y)
-        if not info: return
-        treeview.set_drag_dest_row(info[0], info[1])
+        if not info:
+            return False
+        path, pos = info
+        if self.drop_pos == 'into':
+            # Only allow dropping into entries.
+            if pos == gtk.TREE_VIEW_DROP_BEFORE:
+                pos = gtk.TREE_VIEW_DROP_INTO_OR_BEFORE
+            elif pos == gtk.TREE_VIEW_DROP_AFTER:
+                pos = gtk.TREE_VIEW_DROP_INTO_OR_AFTER
+        elif self.drop_pos == 'between':
+            # Only allow dropping between entries.
+            if pos == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
+                pos = gtk.TREE_VIEW_DROP_BEFORE
+            elif pos == gtk.TREE_VIEW_DROP_INTO_OR_AFTER:
+                pos = gtk.TREE_VIEW_DROP_AFTER
+        treeview.set_drag_dest_row(path, pos)
+        context.drag_status(context.suggested_action, timestamp)
+        return True
 
     def on_button_press(self, button, event):
         """

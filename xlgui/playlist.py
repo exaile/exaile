@@ -603,7 +603,7 @@ class Playlist(gtk.VBox):
         """
             Sets up the TreeView for this Playlist
         """
-        self.list = guiutil.DragTreeView(self)
+        self.list = guiutil.DragTreeView(self, drop_pos='between')
         self.list.set_rules_hint(True)
         self.list.set_enable_search(True)
         self.list.connect('row-activated', self.on_row_activated)

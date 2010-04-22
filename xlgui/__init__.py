@@ -478,15 +478,17 @@ def show_splash(show=True):
         @param show: [bool] show the splash screen
     """
     if not show: return
-    image = gtk.Image()
-    image.set_from_file(xdg.get_data_path("images/splash.png"))
     builder = gtk.Builder()
     builder.add_from_file(xdg.get_data_path("ui/splash.ui"))
+    image = builder.get_object('splash_image')
+    image.set_from_file(xdg.get_data_path("images/splash.png"))
     splash_screen = builder.get_object('SplashScreen')
-    box = builder.get_object('splash_box')
-    box.pack_start(image, True, True)
     splash_screen.set_transient_for(None)
+
+    # Show the splash screen without causing startup notification.
+    gtk.window_set_auto_startup_notification(False)
     splash_screen.show_all()
+    gtk.window_set_auto_startup_notification(True)
 
     #ensure that the splash gets completely drawn before we move on
     while gtk.events_pending():

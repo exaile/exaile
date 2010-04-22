@@ -8,15 +8,13 @@
     <property name="resizable">False</property>
     <property name="window_position">GTK_WIN_POS_CENTER</property>
     <property name="destroy_with_parent">True</property>
+    <property name="type_hint">GDK_WINDOW_TYPE_HINT_SPLASHSCREEN</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
     <property name="decorated">False</property>
     <child>
-      <object class="GtkHBox" id="splash_box">
+      <object class="GtkImage" id="splash_image">
         <property name="visible">True</property>
-        <child>
-          <placeholder/>
-        </child>
       </object>
     </child>
   </object>

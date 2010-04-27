@@ -86,7 +86,7 @@ class TrackNumberColumn(Column):
 
         self.formatter.set_property('format', '$%s' % self.id)
         cell.set_property('text', self.formatter.format(track))
-        self.playlist.set_cell_weight(cell, item)
+        self.playlist.set_cell_weight(cell, track)
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
@@ -124,7 +124,7 @@ class LengthColumn(Column):
 
         self.formatter.set_property('format', '$%s' % self.id)
         cell.set_property('text', self.formatter.format(track))
-        self.playlist.set_cell_weight(cell, item)
+        self.playlist.set_cell_weight(cell, track)
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
@@ -138,14 +138,14 @@ class DiscNumberColumn(Column):
         """
             Disc number
         """
-        item = model.get_value(iter, 0)
+        track = model.get_value(iter, 0)
 
-        disc = item.get_tag_display("discnumber")
+        disc = track.get_tag_display("discnumber")
         if disc is None:
             cell.set_property('text', '')
         else:
             cell.set_property('text', disc)
-        self.playlist.set_cell_weight(cell, item)
+        self.playlist.set_cell_weight(cell, track)
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
@@ -158,9 +158,9 @@ class RatingColumn(Column):
     id = '__rating'
 
     def data_func(self, col, cell, model, iter):
-        item = model.get_value(iter, 0)
+        track = model.get_value(iter, 0)
         try:
-            idx = item.get_rating()
+            idx = track.get_rating()
             cell.set_property('pixbuf',
                 rating.rating_images[idx])
         except IndexError:
@@ -193,9 +193,9 @@ class BitrateColumn(Column):
         """
             Shows the bitrate
         """
-        item = model.get_value(iter, 0)
-        cell.set_property('text', item.get_tag_display("__bitrate"))
-        self.playlist.set_cell_weight(cell, item)
+        track = model.get_value(iter, 0)
+        cell.set_property('text', track.get_tag_display("__bitrate"))
+        self.playlist.set_cell_weight(cell, track)
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
@@ -215,7 +215,7 @@ class FilenameColumn(Column):
 
         self.formatter.set_property('format', '$%s' % self.id)
         cell.set_property('text', self.formatter.format(track))
-        self.playlist.set_cell_weight(cell, item)
+        self.playlist.set_cell_weight(cell, track)
 
 class PlayCountColumn(Column):
     size = 50
@@ -246,7 +246,7 @@ class LastPlayedColumn(Column):
 
         self.formatter.set_property('format', '$%s' % self.id)
         cell.set_property('text', self.formatter.format(track))
-        self.playlist.set_cell_weight(cell, item)
+        self.playlist.set_cell_weight(cell, track)
 
 # this is where everything gets set up, including the menu items
 COLUMNS = {}

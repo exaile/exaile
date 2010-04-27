@@ -420,10 +420,17 @@ class Playlist(gtk.VBox):
 
     def get_cursor(self):
         """
-            Returns the track below the cursor
+            Returns the row number of the cursor.
         """
-        track_id = self.list.get_cursor()[0][0]
-        return track_id
+        path = self.list.get_cursor()[0]
+        if path is None:
+            # TODO: Should probably find the first selected row here.
+            # Not fixing for now, since this method isn't actually used for
+            # anything interesting.
+            row = -1
+        else:
+            row = path[0]
+        return row
 
     def get_selected_track(self):
         """

@@ -220,11 +220,11 @@ class ProgressTextFormatter(Formatter):
         try:
             total_time = args[1]
         except IndexError:
-            try:
-                total_time = self.player.current.get_tag_raw('__length')
-                remaining_time = total_time - current_time
-            except TypeError:
-                total_time = remaining_time = 0
+            total_time = self.player.current.get_tag_raw('__length')
+        if total_time is None:
+            total_time = remaining_time = 0
+        else:
+            remaining_time = total_time - current_time
 
         self._substitutions = {
             'current_time': self.format_duration(current_time),

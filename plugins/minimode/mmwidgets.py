@@ -171,17 +171,17 @@ class PlayPauseButton(Button):
         self.player = player
         self.update_state()
 
-        event.add_callback(self.on_playback_state_change, 'playback_player_start')
-        event.add_callback(self.on_playback_state_change, 'playback_toggle_pause')
         event.add_callback(self.on_playback_state_change, 'playback_player_end')
+        event.add_callback(self.on_playback_state_change, 'playback_track_start')
+        event.add_callback(self.on_playback_state_change, 'playback_toggle_pause')
 
     def destroy(self):
         """
             Various cleanups
         """
-        event.remove_callback(self.on_playback_state_change, 'playback_player_start')
-        event.remove_callback(self.on_playback_state_change, 'playback_toggle_pause')
         event.remove_callback(self.on_playback_state_change, 'playback_player_end')
+        event.remove_callback(self.on_playback_state_change, 'playback_track_start')
+        event.remove_callback(self.on_playback_state_change, 'playback_toggle_pause')
 
         Button.destroy(self)
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-28 21:39+0200\n"
+"POT-Creation-Date: 2010-04-29 00:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,35 +243,35 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 
-#: ../xl/formatter.py:472
+#: ../xl/formatter.py:487
 #, python-format
 msgid "%d year, "
 msgid_plural "%d years, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xl/formatter.py:475
+#: ../xl/formatter.py:490
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xl/formatter.py:478
+#: ../xl/formatter.py:493
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xl/formatter.py:480
+#: ../xl/formatter.py:495
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xl/formatter.py:481
+#: ../xl/formatter.py:496
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -279,48 +279,48 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: Short form of an amount of years
-#: ../xl/formatter.py:485
+#: ../xl/formatter.py:500
 #, python-format
 msgid "%dy, "
 msgstr ""
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:489
+#: ../xl/formatter.py:504
 #, python-format
 msgid "%dd, "
 msgstr ""
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:493
+#: ../xl/formatter.py:508
 #, python-format
 msgid "%dh, "
 msgstr ""
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:496
+#: ../xl/formatter.py:511
 #, python-format
 msgid "%dm, "
 msgstr ""
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:498
+#: ../xl/formatter.py:513
 #, python-format
 msgid "%ds"
 msgstr ""
 
-#: ../xl/formatter.py:591 ../xl/formatter.py:596
+#: ../xl/formatter.py:606 ../xl/formatter.py:611
 msgid "Never"
 msgstr ""
 
-#: ../xl/formatter.py:602
+#: ../xl/formatter.py:617
 msgid "Today"
 msgstr ""
 
-#: ../xl/formatter.py:604
+#: ../xl/formatter.py:619
 msgid "Yesterday"
 msgstr ""
 
-#: ../xl/trax/track.py:58 ../xlgui/guiutil.py:1283
+#: ../xl/trax/track.py:58 ../xlgui/guiutil.py:1276
 msgid "Various Artists"
 msgstr ""
 
@@ -572,12 +572,12 @@ msgid "Saved %(count)s of %(total)s."
 msgstr ""
 
 #: ../xlgui/main.py:57 ../xlgui/main.py:140 ../xlgui/main.py:1131
-#: ../xlgui/guiutil.py:1070 ../data/ui/main.ui.h:9
+#: ../xlgui/guiutil.py:1071 ../data/ui/main.ui.h:9
 #: ../data/ui/widgets/track_info.ui.h:1 ../plugins/minimode/mmwidgets.py:805
 msgid "Not Playing"
 msgstr ""
 
-#: ../xlgui/main.py:150 ../xlgui/guiutil.py:1152
+#: ../xlgui/main.py:150 ../xlgui/guiutil.py:1153
 #: ../plugins/minimode/mmwidgets.py:823
 msgid "Streaming..."
 msgstr ""
@@ -590,7 +590,7 @@ msgstr ""
 msgid "New playlist title:"
 msgstr ""
 
-#: ../xlgui/main.py:269 ../xlgui/menu.py:457
+#: ../xlgui/main.py:269 ../xlgui/menu.py:456
 msgid "Rename Playlist"
 msgstr ""
 
@@ -658,13 +658,13 @@ msgid "%(title)s (by %(artist)s)"
 msgstr ""
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1253 ../xlgui/guiutil.py:1040
+#: ../xlgui/main.py:1253 ../xlgui/guiutil.py:1041
 #, python-format
 msgid "by %s"
 msgstr ""
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1255 ../xlgui/guiutil.py:1043
+#: ../xlgui/main.py:1255 ../xlgui/guiutil.py:1044
 #, python-format
 msgid "from %s"
 msgstr ""
@@ -683,7 +683,7 @@ msgstr ""
 msgid "Toggle Queue"
 msgstr ""
 
-#: ../xlgui/menu.py:95 ../xlgui/menu.py:353 ../xlgui/panel/radio.py:412
+#: ../xlgui/menu.py:95 ../xlgui/menu.py:352 ../xlgui/panel/radio.py:412
 #: ../plugins/droptrayicon/__init__.py:239
 msgid "New Playlist"
 msgstr ""
@@ -692,7 +692,7 @@ msgstr ""
 msgid "Add to Custom Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:156 ../xlgui/menu.py:496
+#: ../xlgui/menu.py:156 ../xlgui/menu.py:495
 msgid "Remove"
 msgstr ""
 
@@ -749,55 +749,55 @@ msgstr ""
 msgid "Delete Track from Storage"
 msgstr ""
 
-#: ../xlgui/menu.py:350
+#: ../xlgui/menu.py:349
 msgid "New Station"
 msgstr ""
 
-#: ../xlgui/menu.py:355
+#: ../xlgui/menu.py:354
 msgid "New Smart Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:402
+#: ../xlgui/menu.py:401
 msgid "Rename"
 msgstr ""
 
-#: ../xlgui/menu.py:404
+#: ../xlgui/menu.py:403
 msgid "Edit"
 msgstr ""
 
-#: ../xlgui/menu.py:407
+#: ../xlgui/menu.py:406
 msgid "Export"
 msgstr ""
 
-#: ../xlgui/menu.py:410
+#: ../xlgui/menu.py:409
 msgid "Delete Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:420
+#: ../xlgui/menu.py:419
 msgid "Export as..."
 msgstr ""
 
-#: ../xlgui/menu.py:425 ../xlgui/__init__.py:141
+#: ../xlgui/menu.py:424 ../xlgui/__init__.py:141
 msgid "M3U Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:426 ../xlgui/__init__.py:142
+#: ../xlgui/menu.py:425 ../xlgui/__init__.py:142
 msgid "PLS Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:427 ../xlgui/__init__.py:143
+#: ../xlgui/menu.py:426 ../xlgui/__init__.py:143
 msgid "ASX Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:428 ../xlgui/__init__.py:144
+#: ../xlgui/menu.py:427 ../xlgui/__init__.py:144
 msgid "XSPF Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:443 ../xlgui/panel/playlists.py:1008
+#: ../xlgui/menu.py:442 ../xlgui/panel/playlists.py:1008
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr ""
 
-#: ../xlgui/menu.py:456
+#: ../xlgui/menu.py:455
 msgid "Enter the new name you want for your playlist"
 msgstr ""
 
@@ -881,47 +881,41 @@ msgstr ""
 msgid "Scanning %s..."
 msgstr ""
 
-#: ../xlgui/guiutil.py:536
+#: ../xlgui/guiutil.py:537
 msgid "Muted"
 msgstr ""
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/guiutil.py:542
+#: ../xlgui/guiutil.py:543
 #, python-format
 msgid "%d%%"
 msgstr ""
 
-#: ../xlgui/guiutil.py:545
+#: ../xlgui/guiutil.py:546
 msgid "Full Volume"
 msgstr ""
 
-#: ../xlgui/guiutil.py:838
+#: ../xlgui/guiutil.py:839
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
 msgstr ""
 
-#: ../xlgui/guiutil.py:851
+#: ../xlgui/guiutil.py:852
 #, python-format
 msgid "(%d queued)"
 msgstr ""
 
-#: ../xlgui/guiutil.py:880
+#: ../xlgui/guiutil.py:881
 msgid "Rating:"
 msgstr ""
 
-#: ../xlgui/guiutil.py:1278
+#: ../xlgui/guiutil.py:1271
 msgid "Various"
 msgstr ""
 
-#: ../xlgui/guiutil.py:1301
+#: ../xlgui/guiutil.py:1289
 #, python-format
-msgid ""
-"%(track_count)d in total (%(hours)d h, %(minutes)d min, %(seconds)d sec)"
-msgstr ""
-
-#: ../xlgui/guiutil.py:1309
-#, python-format
-msgid "%(track_count)d in total (%(minutes)d min, %(seconds)d sec)"
+msgid "%(track_count)d in total (%(total_duration)s)"
 msgstr ""
 
 #: ../xlgui/commondialogs.py:338

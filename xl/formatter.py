@@ -389,21 +389,36 @@ class TrackNumberTagFormatter(TagFormatter):
             :param parameters: Optionally passed parameters
                 Possible values are:
                 * pad: n [n being an arbitrary number]
-                  Influences the amount of zeros used for padding
+                  Influences the amount of leading zeros
             :type parameters: dictionary
             :returns: The formatted value
             :rtype: string
         """
         value = track.get_tag_raw(self.name, join=True)
+
+        if not value:
+            return ''
+
         pad = parameters.get('pad', 1)
 
+        return self.format_value(value, pad)
+
+    @staticmethod
+    def format_value(value, pad=1):
+        """
+            Formats a tracknumber value
+
+            :param value: A tracknumber
+            :type value: int or string
+            :param pad: Amount of leading zeros
+            :type pad: int
+            :returns: The formatted value
+            :rtype: string
+        """
         try:
             pad = int(pad)
         except ValueError: # No int
             pad = 1
-
-        if not value:
-            return ''
 
         try: # n/n
             value, count = value.split('/')
@@ -460,7 +475,7 @@ class LengthTagFormatter(TagFormatter):
                 Possible values are short, long or verbose
                 yielding "1:02:42", "1h, 2m, 42s" or
                 "1 hour, 2 minutes, 42 seconds"
-            :type parameters: dictionary
+            :type format: string
             :returns: The formatted value
             :rtype: string
         """

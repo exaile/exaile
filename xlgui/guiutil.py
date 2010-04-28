@@ -38,6 +38,7 @@ import gtk.gdk
 import pango
 
 from xl import common, event, playlist, settings, trax, xdg, covers
+from xl.formatter import TrackNumberTagFormatter, LengthTagFormatter
 from xl.nls import gettext as _
 from xlgui import icons, rating
 import xl.main
@@ -1274,7 +1275,6 @@ class TrackListInfoPane(gtk.Alignment):
         else:
             self.artist_label.set_text(_('Various Artists'))
 
-
         if self._display_tracklist:
             track_count = len(tracks)
             # Leaves us with a maximum of three tracks to display
@@ -1284,26 +1284,12 @@ class TrackListInfoPane(gtk.Alignment):
                 self.__append_row(track)
 
             self.tracklist_table.show_all()
+            total_duration = LengthTagFormatter.format_value(total_length, 'long')
 
-            total_hours = total_length // 3600
-            total_minutes = (total_length - total_hours * 3600) // 60
-            total_seconds = (total_length - total_hours * 3600) % 60
-
-            if total_hours > 0:
-                text = _('%(track_count)d in total '
-                    '(%(hours)d h, %(minutes)d min, %(seconds)d sec)') % {
-                    'track_count': track_count,
-                    'hours': total_hours,
-                    'minutes': total_minutes,
-                    'seconds': total_seconds
-                }
-            else:
-                text = _('%(track_count)d in total '
-                    '(%(minutes)d min, %(seconds)d sec)') % {
-                    'track_count': track_count,
-                    'minutes': total_minutes,
-                    'seconds': total_seconds
-                }
+            text = _('%(track_count)d in total (%(total_duration)s)') % {
+                'track_count': track_count,
+                'total_duration': total_duration
+            }
 
             self.total_label.set_text(text)
 
@@ -1339,8 +1325,9 @@ class TrackListInfoPane(gtk.Alignment):
             self.tracklist_table.attach(ellipse_label,
                 1, 2, self.rownumber - 1, self.rownumber)
         else:
-            tracknumber_label = gtk.Label('%02d' % \
-                int(track.get_tag_display('tracknumber')))
+            tracknumber = track.get_tag_display('tracknumber')
+            tracknumber = TrackNumberTagFormatter.format_value(tracknumber)
+            tracknumber_label = gtk.Label(tracknumber)
             tracknumber_label.set_attributes(self.pango_attributes)
             tracknumber_label.props.xalign = 0
             self.tracklist_table.attach(tracknumber_label,
@@ -1352,13 +1339,7 @@ class TrackListInfoPane(gtk.Alignment):
                 1, 2, self.rownumber - 1, self.rownumber)
 
             length = float(track.get_tag_display('__length'))
-            hours = length // 3600
-            minutes = (length - hours * 3600) // 60
-            seconds = (length - hours * 3600) % 60
-            if hours > 0:
-                length = '%02d:%02d:%02d' % (hours, minutes, seconds)
-            else:
-                length = '%02d:%02d' % (minutes, seconds)
+            length = LengthTagFormatter.format_value(length, 'short')
             length_label = gtk.Label(length)
             length_label.set_attributes(self.pango_attributes)
             length_label.props.xalign = 0.9

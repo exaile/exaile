@@ -56,7 +56,7 @@ class SelectedControlsPreference(widgets.SelectionListPreference):
     fixed_items = {
         'restore': _('Restore')
     }
-    default = ['previous', 'play_pause', 'next', 'track_selector', 'progress_bar']
+    default = ['previous', 'play_pause', 'next', 'playlist_button', 'progress_bar']
 
 class TrackTitleFormatPreference(widgets.ComboEntryPreference):
     name = 'plugin/minimode/track_title_format'

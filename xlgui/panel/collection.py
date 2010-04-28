@@ -166,6 +166,7 @@ class CollectionPanel(panel.Panel):
             self.emit('queue-items', self.tree.get_selected_tracks()))
         self.menu.connect('rating-set', self._on_set_rating)
         self.menu.connect('delete-items', self._on_delete_items)
+        self.menu.connect('view-items', self._on_view_items)
         self.menu.connect('properties', lambda *e:
             self.properties_dialog())
 
@@ -209,6 +210,14 @@ class CollectionPanel(panel.Panel):
 
         dialog.destroy()
         gobject.idle_add(self.load_tree)
+
+
+    def _on_view_items(self, *args):
+        """
+            Opens a file manager in the containing directory
+        """
+        track = self.tree.get_selected_tracks()[0]
+        common.open_file_directory(track.get_loc_for_io())
 
 
     def _setup_widgets(self):

@@ -76,6 +76,8 @@ class FilesPanel(panel.Panel):
         self.menu.connect('rating-set', self.set_rating)
         self.menu.connect('properties', lambda *e:
             self.properties_dialog())
+        self.menu.connect('view-items', lambda *e:
+            self._on_view_items())
 
         self.key_id = None
         self.i = 0
@@ -101,6 +103,13 @@ class FilesPanel(panel.Panel):
 
         dialog = properties.TrackPropertiesDialog(self.parent,
             tracks_sorted)
+
+    def _on_view_items(self, *args):
+        """
+            Opens a file manager in the containing directory
+        """
+        track = self.tree.get_selected_tracks()[0]
+        common.open_file_directory(track.get_loc_for_io())
 
     def set_rating(self, widget, rating):
         tracks = self.tree.get_selected_tracks()

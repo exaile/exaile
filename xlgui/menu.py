@@ -288,22 +288,43 @@ class RatedTrackSelectMenu(TrackSelectMenu):
 class CollectionPanelMenu(RatedTrackSelectMenu):
     __gsignals__ = {
         'delete-items': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'view-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     def __init__(self, *args):
         RatedTrackSelectMenu.__init__(self, *args)
 
     def _create_menu(self):
         RatedTrackSelectMenu._create_menu(self)
+        self.open_in_filemanager_item = self.append(_('Open in File Manager'),
+            lambda *e: self.on_open_in_file_manager_item_clicked(),
+            gtk.STOCK_DIRECTORY)
         self.delete_item = self.append(_('Delete Track from Storage'),
-                lambda *e: self.on_delete_track(), gtk.STOCK_DELETE)
+            lambda *e: self.on_delete_track(),
+            gtk.STOCK_DELETE)
 
     def on_delete_track(self):
         self.emit('delete-items')
 
-
+    def on_open_in_file_manager_item_clicked(self):
+        self.emit('view-items')
 
 # these are stubbs for now
 FilesPanelMenu = TrackSelectMenu
+class FilesPanelMenu(TrackSelectMenu):
+    __gsignals__ = {
+        'view-items': (gobject.SIGNAL_RUN_LAST, None, ()),
+    }
+    def __init__(self, *args):
+        TrackSelectMenu.__init__(self, *args)
+
+    def _create_menu(self):
+        TrackSelectMenu._create_menu(self)
+        self.open_in_filemanager_item = self.append(_('Open in File Manager'),
+            lambda *e: self.on_open_in_file_manager_item_clicked(),
+            gtk.STOCK_DIRECTORY)
+
+    def on_open_in_file_manager_item_clicked(self):
+        self.emit('view-items')
 
 
 class PlaylistsPanelMenu(guiutil.Menu):

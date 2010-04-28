@@ -1030,7 +1030,7 @@ class TrackInfoPane(gtk.Alignment):
 
         self._track = track
 
-        image_data = self.covers.get_cover(track, use_default=True)
+        image_data = covers.MANAGER.get_cover(track, use_default=True)
         width = settings.get_option('gui/cover_width', 100)
         pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, width))
         self.cover_image.set_from_pixbuf(pixbuf)
@@ -1065,7 +1065,7 @@ class TrackInfoPane(gtk.Alignment):
             Resets the info pane
         """
         pixbuf = icons.MANAGER.pixbuf_from_data(
-            self.covers.get_default_cover())
+            covers.MANAGER.get_default_cover())
         self.cover_image.set_from_pixbuf(pixbuf)
         self.title_label.set_text(_('Not Playing'))
         self.artist_label.set_text('')
@@ -1184,7 +1184,6 @@ class TrackInfoPane(gtk.Alignment):
         """
             Sets up references after controller is loaded
         """
-        self.covers = covers.MANAGER
         self.player = exaile.player
 
         current_track = self.player.current
@@ -1239,13 +1238,6 @@ class TrackListInfoPane(gtk.Alignment):
             self.ellipse_pango_attributes.insert(
                 pango.AttrWeight(pango.WEIGHT_BOLD, end_index=-1))
 
-        try:
-            exaile = xl.main.exaile()
-        except AttributeError:
-            event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
-        else:
-            self.on_exaile_loaded('exaile_loaded', exaile, None)
-
     def set_tracklist(self, tracks):
         """
             Updates the data displayed in the info pane
@@ -1254,7 +1246,7 @@ class TrackListInfoPane(gtk.Alignment):
         """
         tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
 
-        image_data = self.covers.get_cover(tracks[0], use_default=True)
+        image_data = covers.MANAGER.get_cover(tracks[0], use_default=True)
         width = settings.get_option('gui/cover_width', 100)
         pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, width))
         self.cover_image.set_from_pixbuf(pixbuf)
@@ -1320,7 +1312,7 @@ class TrackListInfoPane(gtk.Alignment):
             Resets the info pane
         """
         pixbuf = icons.MANAGER.pixbuf_from_data(
-            self.covers.get_default_cover())
+            covers.MANAGER.get_default_cover())
         self.cover_image.set_from_pixbuf(pixbuf)
         self.album_label.set_text('')
         self.artist_label.set_text('')
@@ -1374,14 +1366,6 @@ class TrackListInfoPane(gtk.Alignment):
                 2, 3, self.rownumber - 1, self.rownumber)
 
         self.rownumber += 1
-
-    def on_exaile_loaded(self, e, exaile, nothing):
-        """
-            Sets up references after controller is loaded
-        """
-        self.covers = exaile.covers
-        self.clear()
-        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
 class ToolTip(object):
     """

@@ -786,7 +786,7 @@ class CollectionToolTip(guiutil.TrackListToolTip):
             :param parent: the parent widget the tooltip
                 should be attached to
         """
-        guiutil.TrackListToolTip.__init__(self, parent)
+        guiutil.TrackListToolTip.__init__(self, parent, display_tracklist=True)
 
     def on_query_tooltip(self, tree, x, y, keyboard_mode, tooltip):
         """

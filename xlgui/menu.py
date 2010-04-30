@@ -295,9 +295,9 @@ class CollectionPanelMenu(RatedTrackSelectMenu):
 
     def _create_menu(self):
         RatedTrackSelectMenu._create_menu(self)
-        self.open_in_filemanager_item = self.append(_('Open in File Manager'),
+        self.open_in_filemanager_item = self.append(_('Open Directory'),
             lambda *e: self.on_open_in_file_manager_item_clicked(),
-            gtk.STOCK_DIRECTORY)
+            gtk.STOCK_OPEN)
         self.delete_item = self.append(_('Delete Track from Storage'),
             lambda *e: self.on_delete_track(),
             gtk.STOCK_DELETE)
@@ -319,9 +319,9 @@ class FilesPanelMenu(TrackSelectMenu):
 
     def _create_menu(self):
         TrackSelectMenu._create_menu(self)
-        self.open_in_filemanager_item = self.append(_('Open in File Manager'),
+        self.open_in_filemanager_item = self.append(_('Open Directory'),
             lambda *e: self.on_open_in_file_manager_item_clicked(),
-            gtk.STOCK_DIRECTORY)
+            gtk.STOCK_OPEN)
 
     def on_open_in_file_manager_item_clicked(self):
         self.emit('view-items')

@@ -225,7 +225,7 @@ class MiniMode(gtk.Window):
             'volume': (mmwidgets.VolumeButton,
                 [self.exaile.player, self.on_volume_changed]),
             'restore': (mmwidgets.Button,
-                [gtk.STOCK_FULLSCREEN, _('Restore Main Window'), self.on_restore]),
+                [gtk.STOCK_LEAVE_FULLSCREEN, _('Restore Main Window'), self.on_restore]),
             'progress_bar': (mmwidgets.ProgressBar,
                 [self.exaile.player, self.on_track_seeked]),
             'track_selector': (mmwidgets.TrackSelector,

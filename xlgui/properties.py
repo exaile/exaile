@@ -755,10 +755,9 @@ class PropertyField(gtk.HBox):
 
         if self.property_type == 'prop:location':
             self.folder_button = gtk.Button()
-            self.folder_button.set_tooltip_text(_('Open in File Manager'))
-            im = gtk.Image()
-            im.set_from_stock(gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_BUTTON)
-            self.folder_button.set_image(im)
+            self.folder_button.set_tooltip_text(_('Open Directory'))
+            self.folder_button.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_OPEN, gtk.ICON_SIZE_BUTTON)
             self.pack_start(self.folder_button, expand=False, fill=False)
             self.folder_button.connect("clicked", self.folder_button_clicked)
 

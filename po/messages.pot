@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-29 00:21+0200\n"
+"POT-Creation-Date: 2010-04-30 20:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -559,14 +559,14 @@ msgid "of:"
 msgstr ""
 
 #: ../xlgui/properties.py:758 ../xlgui/menu.py:298 ../xlgui/menu.py:322
-msgid "Open in File Manager"
+msgid "Open Directory"
 msgstr ""
 
-#: ../xlgui/properties.py:798
+#: ../xlgui/properties.py:797
 msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../xlgui/properties.py:823
+#: ../xlgui/properties.py:822
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr ""

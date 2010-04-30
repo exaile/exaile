@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-29 00:21+0200\n"
-"PO-Revision-Date: 2010-04-29 00:22+0100\n"
+"POT-Creation-Date: 2010-04-30 20:05+0200\n"
+"PO-Revision-Date: 2010-04-30 20:06+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -590,14 +590,14 @@ msgstr "von:"
 #: ../xlgui/properties.py:758
 #: ../xlgui/menu.py:298
 #: ../xlgui/menu.py:322
-msgid "Open in File Manager"
-msgstr "Im Dateimanager öffnen"
+msgid "Open Directory"
+msgstr "Verzeichnis öffnen"
 
-#: ../xlgui/properties.py:798
+#: ../xlgui/properties.py:797
 msgid "Apply current value to all tracks"
 msgstr "Aktuellen Wert allen Stücken zuweisen"
 
-#: ../xlgui/properties.py:823
+#: ../xlgui/properties.py:822
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "%(count)s von %(total)s gespeichert."
@@ -3444,6 +3444,8 @@ msgstr ""
 msgid "Allows for shutdown of the computer at the end of playback."
 msgstr "Ermöglicht das Herunterfahren des Computers am Ende der Wiedergabe."
 
+#~ msgid "Open in File Manager"
+#~ msgstr "Im Dateimanager öffnen"
 #~ msgid ""
 #~ "%(track_count)d in total (%(hours)d h, %(minutes)d min, %(seconds)d sec)"
 #~ msgstr ""

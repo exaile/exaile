@@ -757,7 +757,7 @@ class PropertyField(gtk.HBox):
             self.folder_button = gtk.Button()
             self.folder_button.set_tooltip_text(_('Open Directory'))
             self.folder_button.set_image(gtk.image_new_from_stock(
-                gtk.STOCK_OPEN, gtk.ICON_SIZE_BUTTON)
+                gtk.STOCK_OPEN, gtk.ICON_SIZE_BUTTON))
             self.pack_start(self.folder_button, expand=False, fill=False)
             self.folder_button.connect("clicked", self.folder_button_clicked)
 

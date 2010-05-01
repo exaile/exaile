@@ -99,7 +99,7 @@ class ParameterTemplate(Template):
     """
     __metaclass__ = _ParameterTemplateMetaclass
 
-    idpattern_param = r'[_a-z][_a-z0-9:=]*'
+    idpattern_param = r'[_a-z][_a-z0-9:=,]*'
 
     def __init__(self, template):
         """
@@ -318,21 +318,16 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
             else:
                 continue
 
-            id = tag
+            idparts = [tag]
             parameters = {}
 
             if groups['parameters'] is not None:
-                parameter_groups = groups['parameters'].split(',')
+                parameters = groups['parameters'].split(',')
+                # Turns [['foo', 'arg'], ['bar']] into {'foo': 'arg', 'bar': True}
+                parameters = dict([(p.split('=', 1) + [True])[:2] for p in parameters])
+                idparts += [groups['parameters']]
 
-                for parameter_group in parameter_groups:
-                    parameter = parameter_group.split('=')
-                    parameter = [p.strip() for p in parameter]
-                    parameter += [True]
-
-                    parameters[parameter[0]] = parameter[1]
-                id = '%s:%s' % (tag, groups['parameters'])
-
-            tags[id] = (tag, parameters)
+            tags[':'.join(idparts)] = (tag, parameters)
 
         for id, (tag, parameters) in tags.iteritems():
             provider = self.get_provider(tag)

@@ -334,6 +334,11 @@ class CoverManager(providers.ProviderHandler):
                 f.close()
             except IOError:
                 pass
+            except EOFError:
+                try:
+                    os.remove(loc)
+                except:
+                    pass
             if data:
                 break
         if data:

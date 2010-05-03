@@ -265,7 +265,7 @@ class MiniMode(gtk.Window):
             Shows mini mode on activation of a menu item
         """
         self.toggle_visible()
-        self._active = True
+        self._active = not self._active
 
     def on_previous(self, button):
         """

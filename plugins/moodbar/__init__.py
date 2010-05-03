@@ -1,5 +1,5 @@
 # Moodbar -  Replace standard progress bar with moodbar
-# Copyright (C) 2009  Solyianov Michael <crantisz@gmail.com>
+# Copyright (C) 2010  Solyianov Michael <crantisz@gmail.com>
 #
 # this program is free software; you can redistribute it and/or modify
 # it under the terms of the gnu general public license as published by

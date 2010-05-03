@@ -1,4 +1,4 @@
-#Copyright (C) 2009 Erik Hetzner
+#Copyright (C) 2010 Erik Hetzner
 
 #This file is part of Spydaap. Spydaap is free software: you can
 #redistribute it and/or modify it under the terms of the GNU General

@@ -1,8 +1,8 @@
 # Simplified Chinese translation for exaile
-# Copyright (c) 2009 Free Software Foundation, Inc.
+# Copyright (c) 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the exaile package.
-# Aron Xu <aronxu@gnome.org>, 2009.
-# fujianwzh <fujianwzh@gmail.com>, 2009.
+# Aron Xu <aronxu@gnome.org>, 2010.
+# fujianwzh <fujianwzh@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
@@ -1240,8 +1240,8 @@ msgid "New Search"
 msgstr "新建搜索"
 
 #: ../data/glade/about_dialog.glade.h:1
-msgid "&#xA9; 2009"
-msgstr "&#xA9; 2009"
+msgid "&#xA9; 2010"
+msgstr "&#xA9; 2010"
 
 #: ../data/glade/about_dialog.glade.h:2
 msgid "About Exaile"
@@ -1249,7 +1249,7 @@ msgstr "关于 Exaile"
 
 #: ../data/glade/about_dialog.glade.h:3
 msgid ""
-"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"Copyright (C) 2008-2010 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -1265,7 +1265,7 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
-"版权所有 (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"版权所有 (C) 2008-2010 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
 "本程序为自由软件；您可以在自由软件基金会所发布的 GNU 通用公共许可证 (GPL) 第二版或之后任意版本之下自由修改/重发布此软件。\n"
 "\n"

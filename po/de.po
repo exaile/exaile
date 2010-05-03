@@ -1,5 +1,5 @@
 # German translation of Exaile music playyer.
-# Copyright (C) 2009 Adam Olsen
+# Copyright (C) 2010 Adam Olsen
 # This file is distributed under the same license as the Exaile package.
 # Mathias Brodala <info@noctus.net>
 #
@@ -2003,7 +2003,7 @@ msgstr "Über Exaile"
 
 #: ../data/ui/about_dialog.ui.h:3
 msgid ""
-"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"Copyright (C) 2008-2010 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -2019,7 +2019,7 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
-"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"Copyright (C) 2008-2010 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
 "Dieses Programm ist freie Software. Sie können es unter den Bedingungen der GNU\n"
 "General Public License, wie von der Free Software Foundation veröffentlicht,\n"

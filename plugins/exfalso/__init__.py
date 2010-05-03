@@ -1,5 +1,5 @@
 # exaile/exfalso - Tagger plugin for Exaile using the Ex Falso app
-# Copyright (C) 2009  Johannes Sasongko <sasongko@gmail.com>
+# Copyright (C) 2010  Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

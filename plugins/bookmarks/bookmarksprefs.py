@@ -1,4 +1,4 @@
-# Copyright (C) 2009 Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
+# Copyright (C) 2010 Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

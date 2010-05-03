@@ -1,7 +1,7 @@
 # Russian translation for exaile
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the exaile package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
@@ -1652,8 +1652,8 @@ msgid "Remove All"
 msgstr "Удалить Всё"
 
 #: ../data/ui/about_dialog.ui.h:1
-msgid "&#xA9; 2009"
-msgstr "&#xA9; 2009"
+msgid "&#xA9; 2010"
+msgstr "&#xA9; 2010"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "About Exaile"
@@ -1661,7 +1661,7 @@ msgstr "Об Exaile"
 
 #: ../data/ui/about_dialog.ui.h:3
 msgid ""
-"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"Copyright (C) 2008-2010 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -1677,7 +1677,7 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
-"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"Copyright (C) 2008-2010 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"

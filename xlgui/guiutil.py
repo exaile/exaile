@@ -1011,6 +1011,8 @@ class TrackInfoPane(gtk.Alignment):
                 'playback_toggle_pause')
             event.add_callback(self.on_playback_error,
                 'playback_error')
+            event.add_callback(self.on_track_tags_changed,
+                'track_tags_changed')
 
         try:
             exaile = xl.main.exaile()
@@ -1177,9 +1179,16 @@ class TrackInfoPane(gtk.Alignment):
 
     def on_playback_error(self, event, player, track):
         """
-            Clears the fino pane on playback errors
+            Clears the info pane on playback errors
         """
         self.clear()
+
+    def on_track_tags_changed(self, event, track, tag):
+        """
+            Updates the info pane on tag changes
+        """
+        if track is self._track:
+            self.set_track(track)
 
     def on_exaile_loaded(self, e, exaile, nothing):
         """

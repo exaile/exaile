@@ -750,6 +750,7 @@ class MainWindow(gobject.GObject):
             self.player)
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
             self.player)
+        event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
         event.add_callback(self.on_buffering, 'playback_buffering',
             self.player)
         event.add_callback(self.on_playback_error, 'playback_error',
@@ -884,6 +885,13 @@ class MainWindow(gobject.GObject):
             self._update_track_information()
             self.cover.on_playback_start('', self.player, None)
             self.get_selected_playlist().refresh_row(tr)
+
+    def on_track_tags_changed(self, type, track, tag):
+        """
+            Called when tags are changed
+        """
+        if track is self.player.current:
+            self._update_track_information()
 
     def on_toggle_pause(self, type, player, object):
         """

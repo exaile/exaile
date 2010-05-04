@@ -367,6 +367,9 @@ class Exaile(object):
         group.add_option("-l", "--decrease-vol", dest="DecreaseVolume",
                 action="store", type="int", metavar="VOL",
                 help=_("Decreases the volume by VOL%"))
+        group.add_option("-m", "--toggle-mute", dest="ToggleMute",
+                action="store_true", default=False,
+                help=_("Mutes or unmutes the volume"))
         group.add_option("--get-volume", dest="GetVolume", action="store_true",
                 default=False, help=_("Print the current volume percentage"))
         p.add_option_group(group)

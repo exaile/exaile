@@ -135,7 +135,8 @@ def run_commands(options, iface):
             'Prev',
             'PlayPause',
             'StopAfterCurrent',
-            'GuiToggleVisible'
+            'GuiToggleVisible',
+            'ToggleMute'
             )
     for command in run_commands:
         if getattr(options, command):
@@ -178,6 +179,7 @@ class DbusManager(dbus.service.Object):
         dbus.service.Object.__init__(self, self.bus_name, '/org/exaile/Exaile')
         self.cached_track = ""
         self.cached_state = ""
+        self.cached_volume = -1
 
     def _connect_signals(self):
         # connect events
@@ -259,6 +261,21 @@ class DbusManager(dbus.service.Object):
         """
         player = self.exaile.player
         player.set_volume(player.get_volume() + value)
+        self.cached_volume = -1
+
+    @dbus.service.method('org.exaile.Exaile')
+    def ToggleMute(self):
+        """
+            Mutes or unmutes the volume
+        """
+        player = self.exaile.player
+
+        if self.cached_volume == -1:
+            self.cached_volume = player.get_volume()
+            player.set_volume(0)
+        else:
+            player.set_volume(self.cached_volume)
+            self.cached_volume = -1
 
     @dbus.service.method('org.exaile.Exaile', 'd')
     def Seek(self, value):
@@ -480,3 +497,4 @@ class DbusManager(dbus.service.Object):
             self.cached_track = new_track
             self.TrackChanged()
 
+# vim: et sts=4 sw=4

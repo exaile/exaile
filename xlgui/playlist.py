@@ -666,6 +666,8 @@ class Playlist(gtk.VBox):
         """
             Called when data is recieved
         """
+        previous_trackcount = len(self.playlist)
+
         if self.playlist.ordered_tracks:
             curtrack = self.playlist.get_current()
         else:
@@ -732,14 +734,15 @@ class Playlist(gtk.VBox):
         if not Playlist._is_drag_source:
             self.list.set_model(self.model)
 
-        Playlist._is_drag_source = False
-        if context.action == gtk.gdk.ACTION_MOVE:
+        if context.action == gtk.gdk.ACTION_MOVE or \
+            Playlist._is_drag_source:
             # On a move action the second True makes the
             # drag_data_delete function called
             context.finish(True, True, etime)
         else:
             context.finish(True, False, etime)
 
+        Playlist._is_drag_source = False
         iter = self.model.get_iter_first()
         if not iter:
             # Do we need to reactivate the callbacks when this happens?
@@ -766,7 +769,11 @@ class Playlist(gtk.VBox):
             self.set_needs_save(True)
 
         gobject.idle_add(self.add_track_callbacks)
-        self.emit('track-count-changed', len(self.playlist))
+
+        current_trackcount = len(self.playlist)
+
+        if current_trackcount != previous_trackcount:
+            self.emit('track-count-changed', current_trackcount)
 
         if curtrack is not None:
             index = self.playlist.index(curtrack)

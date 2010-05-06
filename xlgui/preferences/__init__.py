@@ -79,7 +79,7 @@ class PreferencesDialog(object):
         self.window = self.builder.get_object('PreferencesDialog')
         self.window.set_transient_for(parent)
         self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        self.window.connect('delete-event', lambda *e: self.cancel())
+        self.window.connect('delete-event', lambda *e: self.close())
 
         self._connect_events()
 
@@ -150,42 +150,16 @@ class PreferencesDialog(object):
         """
             Connects the various events to their handlers
         """
-        self.builder.connect_signals({
-            'on_cancel_button_clicked': lambda *e: self.cancel(),
-            'on_apply_button_clicked': self.apply,
-            'on_ok_button_clicked': self.ok,
-        })
+        self.builder.connect_signals(self)
 
-    def ok(self, widget):
+    def on_close_button_clicked(self, widget):
         """
             Called when the user clicks 'ok'
         """
-        if self.apply(None):
-            self.cancel()
-            self.window.hide()
-            self.window.destroy()
-            if hasattr(self.last_page, 'page_leave'):
-                self.last_page.page_leave(self)
-
-    def apply(self, widget):
-        """
-            Applies settings
-        """
-        for page, fields in self.fields.iteritems():
-            for field in fields:
-                if not field.apply():
-                    return False
-
-            if hasattr(page, 'apply'):
-                func = getattr(page, 'apply')
-                if callable(func):
-                    func(self)
-
         self.settings.copy_settings(_SETTINGSMANAGER)
+        self.close()
 
-        return True
-
-    def cancel(self):
+    def close(self):
         """
             Closes the preferences dialog, ensuring that the osd popup isn't
             still showing

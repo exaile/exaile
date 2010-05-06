@@ -28,6 +28,7 @@ import hashlib
 import logging
 import os
 
+import gobject
 import gtk.gdk
 import pango
 
@@ -111,35 +112,83 @@ class HashedPreference(Preference):
     """
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
-        self._dirty = False
+
+        self.widget.set_visibility(True)
+        self._delete_text_id = self.widget.connect('delete-text',
+            self.on_delete_text)
+        self._insert_text_id = self.widget.connect('insert-text',
+            self.on_insert_text)
 
     def _setup_change(self):
-        self.widget.connect('changed', self.change)
+        """
+            Sets up the function to be called when this preference is changed
+        """
+        self.widget.connect('focus-out-event', lambda *e: self.apply())
 
-    def change(self, *e):
-        self._dirty = True
-        self.apply()
+    def done(self):
+        """
+            Determines if changes are to be expected
+        """
+        if self._delete_text_id is None and \
+           self._insert_text_id is None:
+            return True
+
+        return False
 
     def apply(self, value=None):
         """
             Applies this setting
         """
-        if hasattr(self, 'done') and not self.done(): return False
+        if hasattr(self, 'done') and not self.done():
+            return False
+
         if value is None:
             value = self._get_value()
         if value is None:
             return True
 
-        if self._dirty:
-            try:
-                hashfunc = getattr(hashlib, self.type)
-                value = hashfunc(value).hexdigest()
-                self._dirty = False
-            except AttributeError:
-                value = ''
+        try:
+            hashfunc = getattr(hashlib, self.type)
+            value = hashfunc(value).hexdigest()
+            self._dirty = False
+        except AttributeError:
+            value = ''
+
+        self.widget.set_visibility(True)
+        self.widget.set_text(value)
+        self._delete_text_id = self.widget.connect('delete-text',
+            self.on_delete_text)
+        self._insert_text_id = self.widget.connect('insert-text',
+            self.on_insert_text)
 
         self.preferences.settings.set_option(self.name, value)
+
         return True
+
+    def on_delete_text(self, widget, start, end):
+        """
+            Clears the text entry and makes following input invisible
+        """
+        self.widget.disconnect(self._delete_text_id)
+        self.widget.disconnect(self._insert_text_id)
+        self._delete_text_id = self._insert_text_id = None
+
+        self.widget.set_visibility(False)
+        # Defer to after returning from this method
+        gobject.idle_add(self.widget.set_text, '')
+
+    def on_insert_text(self, widget, text, length, position):
+        """
+            Clears the text entry and makes following input invisible
+        """
+        self.widget.disconnect(self._delete_text_id)
+        self.widget.disconnect(self._insert_text_id)
+        self._delete_text_id = self._insert_text_id = None
+
+        self.widget.set_visibility(False)
+        # Defer to after returning from this method
+        gobject.idle_add(self.widget.set_text, text)
+        gobject.idle_add(self.widget.set_position, length)
 
 class CheckPreference(Preference):
     """
@@ -1004,3 +1053,4 @@ class ComboEntryPreference(Preference):
 
         return True
 
+# vim: et sts=4 sw=4

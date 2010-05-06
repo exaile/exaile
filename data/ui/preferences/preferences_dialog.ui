@@ -60,14 +60,14 @@
             <property name="visible">True</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton" id="ok_button">
+              <object class="GtkButton" id="close_button">
                 <property name="label">gtk-close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_ok_button_clicked"/>
+                <signal name="clicked" handler="on_close_button_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -85,7 +85,7 @@
       </object>
     </child>
     <action-widgets>
-      <action-widget response="-5">ok_button</action-widget>
+      <action-widget response="-5">close_button</action-widget>
     </action-widgets>
   </object>
 </interface>

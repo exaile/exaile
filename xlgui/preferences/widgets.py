@@ -177,8 +177,7 @@ class HashedPreference(Preference):
         self._delete_text_id = self._insert_text_id = None
 
         self.widget.set_visibility(False)
-        # Defer to after returning from this method
-        gobject.idle_add(self.widget.set_text, '')
+        self.widget.set_text('')
 
     def on_insert_text(self, widget, text, length, position):
         """

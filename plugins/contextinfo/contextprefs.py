@@ -28,4 +28,3 @@ class UserPreference(widgets.Preference):
 
 class PassPreference(widgets.HashedPreference):
     name = 'plugin/lastfm/password'
-    type = 'md5'

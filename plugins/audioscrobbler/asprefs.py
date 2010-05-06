@@ -36,7 +36,6 @@ class UserPreference(widgets.Preference):
 
 class PassPreference(widgets.HashedPreference):
     name = 'plugin/ascrobbler/password'
-    type = 'md5'
 
 class UrlPreference(widgets.ComboEntryPreference):
     name = 'plugin/ascrobbler/url'

@@ -154,7 +154,8 @@ class HashedPreference(Preference):
         if value is None:
             return True
 
-        value = self.hashfunc(value).hexdigest()
+        if value != '':
+            value = self.hashfunc(value).hexdigest()
 
         self.widget.set_text(value)
         self.preferences.settings.set_option(self.name, value)

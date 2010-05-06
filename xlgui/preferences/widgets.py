@@ -109,7 +109,12 @@ class Preference(object):
 class HashedPreference(Preference):
     """
         Represents a text entry with automated hashing
+
+        Options:
+        * type (Which hashfunction to use, default: md5)
     """
+    type = 'md5'
+
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
@@ -118,6 +123,8 @@ class HashedPreference(Preference):
             self.on_delete_text)
         self._insert_text_id = self.widget.connect('insert-text',
             self.on_insert_text)
+
+        self.hashfunc = getattr(hashlib, self.type)
 
     def _setup_change(self):
         """
@@ -139,7 +146,7 @@ class HashedPreference(Preference):
         """
             Applies this setting
         """
-        if hasattr(self, 'done') and not self.done():
+        if not self.done():
             return False
 
         if value is None:
@@ -147,21 +154,16 @@ class HashedPreference(Preference):
         if value is None:
             return True
 
-        try:
-            hashfunc = getattr(hashlib, self.type)
-            value = hashfunc(value).hexdigest()
-            self._dirty = False
-        except AttributeError:
-            value = ''
+        value = self.hashfunc(value).hexdigest()
+
+        self.widget.set_text(value)
+        self.preferences.settings.set_option(self.name, value)
 
         self.widget.set_visibility(True)
-        self.widget.set_text(value)
         self._delete_text_id = self.widget.connect('delete-text',
             self.on_delete_text)
         self._insert_text_id = self.widget.connect('insert-text',
             self.on_insert_text)
-
-        self.preferences.settings.set_option(self.name, value)
 
         return True
 

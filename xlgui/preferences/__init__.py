@@ -229,15 +229,23 @@ class PreferencesDialog(object):
         self.fields[page] = []
 
         attributes = dir(page)
+
         for attr in attributes:
             try:
                 klass = getattr(page, attr)
+
                 if inspect.isclass(klass) and \
                     issubclass(klass, widgets.Preference):
                     widget = builder.get_object(klass.name)
+
                     if not widget:
                         logger.warning('Invalid preferences widget: %s' % klass.name)
                         continue
+
+                    if issubclass(klass, widgets.Conditional):
+                        klass.condition_widget = builder.get_object(
+                            klass.condition_preference_name)
+
                     field = klass(self, widget)
                     self.fields[page].append(field)
             except:
@@ -254,3 +262,5 @@ class PreferencesDialog(object):
         else:
             PreferencesDialog.PREFERENCES_DIALOG = self
             self.window.show_all()
+
+# vim: et sts=4 sw=4

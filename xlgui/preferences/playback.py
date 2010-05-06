@@ -35,20 +35,40 @@ ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')
 class EnginePreference(widgets.ComboPreference):
     default = "normal"
     name = 'player/engine'
-    map = ["normal", "unified"]
+
     def __init__(self, preferences, widget):
-        widgets.ComboPreference.__init__(self, preferences, widget, use_map=True)
+        widgets.ComboPreference.__init__(self, preferences, widget)
 
 class AudioSinkPreference(widgets.ComboPreference):
     default = "auto"
     name = 'player/audiosink'
-    map = ["auto", "gconf", "alsa", "oss", "pulse", "jack", "custom"]
-    def __init__(self, preferences, widget):
-        widgets.ComboPreference.__init__(self, preferences, widget, use_map=True)
 
-class CustomAudioSinkPreference(widgets.Preference):
+    def __init__(self, preferences, widget):
+        widgets.ComboPreference.__init__(self, preferences, widget)
+
+class CustomAudioSinkPreference(widgets.Preference, widgets.Conditional):
     default = ""
     name = "player/custom_sink_pipe"
+    condition_preference_name = 'player/audiosink'
+
+    def __init__(self, preferences, widget):
+        widgets.Preference.__init__(self, preferences, widget)
+        widgets.Conditional.__init__(self)
+
+    def on_check_condition(self):
+        """
+            Specifies a condition to meet
+
+            :returns: Whether the condition is met or not
+            :rtype: bool
+        """
+        iter = self.condition_widget.get_active_iter()
+        value = self.condition_widget.get_model().get_value(iter, 0)
+
+        if value == 'custom':
+            return True
+
+        return False
 
 class ResumePreference(widgets.CheckPreference):
     default = True
@@ -58,21 +78,61 @@ class PausedPreference(widgets.CheckPreference):
     default = False
     name = 'player/resume_paused'
 
-# The following only work on the Unified engine
+class UnifiedConditional(widgets.Conditional):
+    """
+        True if the unified engine is selected
+    """
+    condition_preference_name = 'player/engine'
 
-class UserFadeTogglePreference(widgets.CheckPreference):
+    def on_check_condition(self):
+        """
+            Specifies the condition to meet
+
+            :returns: Whether the condition is met or not
+            :rtype: bool
+        """
+        iter = self.condition_widget.get_active_iter()
+        value = self.condition_widget.get_model().get_value(iter, 0)
+
+        if value == 'unified':
+            return True
+
+        return False
+
+class UserFadeTogglePreference(widgets.CheckPreference, UnifiedConditional):
     default = False
     name = 'player/user_fade_enabled'
+    condition_preference_name = 'player/engine'
 
-class UserFadeDurationPreference(widgets.SpinPreference):
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        UnifiedConditional.__init__(self)
+
+class UserFadeDurationPreference(widgets.SpinPreference, UnifiedConditional):
     default = 1000
     name = 'player/user_fade'
+    condition_preference_name = 'player/engine'
 
-class CrossfadingPreference(widgets.CheckPreference):
+    def __init__(self, preferences, widget):
+        widgets.SpinPreference.__init__(self, preferences, widget)
+        UnifiedConditional.__init__(self)
+
+class CrossfadingPreference(widgets.CheckPreference, UnifiedConditional):
     default = False
     name = 'player/crossfading'
+    condition_preference_name = 'player/engine'
 
-class CrossfadeDurationPreference(widgets.SpinPreference):
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        UnifiedConditional.__init__(self)
+
+class CrossfadeDurationPreference(widgets.SpinPreference, UnifiedConditional):
     default = 1000
     name = 'player/crossfade_duration'
+    condition_preference_name = 'player/engine'
 
+    def __init__(self, preferences, widget):
+        widgets.SpinPreference.__init__(self, preferences, widget)
+        UnifiedConditional.__init__(self)
+
+# vim: et sts=4 sw=4

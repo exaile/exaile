@@ -29,7 +29,7 @@
                 <child>
                   <object class="GtkCellRendererText" id="cellrenderertext1"/>
                   <attributes>
-                    <attribute name="text">0</attribute>
+                    <attribute name="text">1</attribute>
                   </attributes>
                 </child>
               </object>
@@ -65,18 +65,23 @@
   <object class="GtkToggleAction" id="toggleaction1"/>
   <object class="GtkListStore" id="overlay_liststore">
     <columns>
-      <!-- column-name gchararray -->
+      <!-- column-name item -->
+      <column type="gchararray"/>
+      <!-- column-name title -->
       <column type="gchararray"/>
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">Circle display</col>
+        <col id="0">progress</col>
+        <col id="1" translatable="yes">Circle display</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Text percentage</col>
+        <col id="0">text</col>
+        <col id="1" translatable="yes">Text percentage</col>
       </row>
       <row>
-        <col id="0" translatable="yes">None</col>
+        <col id="0">none</col>
+        <col id="1" translatable="yes">None</col>
       </row>
     </data>
   </object>

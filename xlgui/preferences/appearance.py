@@ -62,20 +62,27 @@ class UseTrayPreference(widgets.CheckPreference):
     default = False
     name = 'gui/use_tray'
 
-class MinimizeToTrayPreference(widgets.CheckPreference):
+class MinimizeToTrayPreference(widgets.CheckPreference, widgets.CheckConditional):
     default = False
     name = 'gui/minimize_to_tray'
+    condition_preference_name = 'gui/use_tray'
+
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
 
 class EnsureVisiblePreference(widgets.CheckPreference):
     default = True
     name = 'gui/ensure_visible'
 
-class TabPlacementPreference(widgets.ComboPreference):
+class TabPlacementPreference(widgets.ComboPreference, widgets.CheckConditional):
     default = 'top'
     name = 'gui/tab_placement'
-    map = ['left', 'right', 'top', 'bottom']
+    condition_preference_name = 'gui/show_tabbar'
+
     def __init__(self, preferences, widget):
-        widgets.ComboPreference.__init__(self, preferences, widget, use_map=True)
+        widgets.ComboPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
 
 class ProgressBarTextFormatPreference(widgets.ComboEntryPreference):
     name = 'gui/progress_bar_text_format'
@@ -90,3 +97,4 @@ class ProgressBarTextFormatPreference(widgets.ComboEntryPreference):
     ]
     default = '$current_time / $remaining_time'
 
+# vim: et sts=4 sw=4

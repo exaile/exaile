@@ -14,55 +14,13 @@
     <property name="step_increment">50</property>
     <property name="page_increment">50</property>
   </object>
-  <object class="GtkListStore" id="model1">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Normal</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Unified (unstable)</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model2">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Automatic</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">GNOME</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">ALSA</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">OSS</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">PulseAudio</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">JACK</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Custom</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkWindow" id="preferences_window">
     <child>
       <object class="GtkVBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <property name="orientation">vertical</property>
+        <property name="spacing">3</property>
         <child>
           <object class="GtkHBox" id="hbox3">
             <property name="visible">True</property>
@@ -85,7 +43,7 @@
                 <child>
                   <object class="GtkCellRendererText" id="renderer1"/>
                   <attributes>
-                    <attribute name="text">0</attribute>
+                    <attribute name="text">1</attribute>
                   </attributes>
                 </child>
               </object>
@@ -123,7 +81,7 @@
                 <child>
                   <object class="GtkCellRendererText" id="renderer2"/>
                   <attributes>
-                    <attribute name="text">0</attribute>
+                    <attribute name="text">1</attribute>
                   </attributes>
                 </child>
               </object>
@@ -203,124 +161,192 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label5">
+          <object class="GtkHBox" id="hbox6">
             <property name="visible">True</property>
+            <child>
+              <object class="GtkCheckButton" id="player/user_fade_enabled">
+                <property name="label" translatable="yes">Use fade transitions on user actions</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkAlignment" id="alignment1">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="xscale">0</property>
+                <child>
+                  <object class="GtkHBox" id="hbox1">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkLabel" id="label2">
+                        <property name="visible">True</property>
+                        <property name="xalign">0.89999997615814209</property>
+                        <property name="label" translatable="yes">Fade duration (ms):</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="padding">3</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="player/user_fade">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="xalign">1</property>
+                        <property name="adjustment">adjustment1</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
             <property name="position">5</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label4">
+          <object class="GtkHBox" id="hbox7">
             <property name="visible">True</property>
-            <property name="xalign">0</property>
-            <property name="label" translatable="yes">These options only affect the unified engine.</property>
+            <child>
+              <object class="GtkCheckButton" id="player/crossfading">
+                <property name="label" translatable="yes">Use crossfading (EXPERIMENTAL)</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkAlignment" id="alignment2">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="xscale">0</property>
+                <child>
+                  <object class="GtkHBox" id="hbox2">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkLabel" id="label3">
+                        <property name="visible">True</property>
+                        <property name="xalign">0.89999997615814209</property>
+                        <property name="label" translatable="yes">Crossfade duration (ms):</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="padding">3</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="player/crossfade_duration">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="xalign">1</property>
+                        <property name="adjustment">adjustment2</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">False</property>
             <property name="position">6</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="player/user_fade_enabled">
-            <property name="label" translatable="yes">Use fade transitions on user actions</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">7</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox1">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkLabel" id="label2">
-                <property name="visible">True</property>
-                <property name="xalign">0.89999997615814209</property>
-                <property name="label" translatable="yes">Fade duration (ms):</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="padding">3</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="player/user_fade">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="xalign">1</property>
-                <property name="adjustment">adjustment1</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">8</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="player/crossfading">
-            <property name="label" translatable="yes">Use crossfading (EXPERIMENTAL)</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">9</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox2">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkLabel" id="label3">
-                <property name="visible">True</property>
-                <property name="xalign">0.89999997615814209</property>
-                <property name="label" translatable="yes">Crossfade duration (ms):</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="padding">3</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="player/crossfade_duration">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="xalign">1</property>
-                <property name="adjustment">adjustment2</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">10</property>
           </packing>
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="model2">
+    <columns>
+      <!-- column-name item -->
+      <column type="gchararray"/>
+      <!-- column-name title -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">auto</col>
+        <col id="1" translatable="yes">Automatic</col>
+      </row>
+      <row>
+        <col id="0">gconf</col>
+        <col id="1" translatable="yes">GNOME</col>
+      </row>
+      <row>
+        <col id="0">alsa</col>
+        <col id="1" translatable="yes">ALSA</col>
+      </row>
+      <row>
+        <col id="0">oss</col>
+        <col id="1" translatable="yes">OSS</col>
+      </row>
+      <row>
+        <col id="0">pulse</col>
+        <col id="1" translatable="yes">PulseAudio</col>
+      </row>
+      <row>
+        <col id="0">jack</col>
+        <col id="1" translatable="yes">JACK</col>
+      </row>
+      <row>
+        <col id="0">custom</col>
+        <col id="1" translatable="yes">Custom</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model1">
+    <columns>
+      <!-- column-name item -->
+      <column type="gchararray"/>
+      <!-- column-name title -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">normal</col>
+        <col id="1" translatable="yes">Normal</col>
+      </row>
+      <row>
+        <col id="0">unified</col>
+        <col id="1" translatable="yes">Unified (unstable)</col>
+      </row>
+    </data>
   </object>
 </interface>

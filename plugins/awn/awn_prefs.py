@@ -37,9 +37,8 @@ ui = os.path.join(basedir, "awn_prefs_pane.ui")
 class OverlayDisplay(widgets.ComboPreference):
     default = 'progress'
     name = 'plugin/awn/overlay'
-    map = ['progress', 'text', 'none']
     def __init__(self, prefs, widget):
-        widgets.ComboPreference.__init__(self, prefs, widget, use_map=True)
+        widgets.ComboPreference.__init__(self, prefs, widget)
 
 
 class CoverDisplay(widgets.CheckPreference):

@@ -33,6 +33,7 @@ import gtk.gdk
 import pango
 
 from xl.nls import gettext as _
+from xl import event, settings
 
 logger = logging.getLogger(__name__)
 
@@ -105,6 +106,65 @@ class Preference(object):
             self.preferences.settings.set_option(self.name, value)
 
         return True
+
+class Conditional(object):
+    """
+        Allows for reactions on changes
+        of other preference items
+    """
+    condition_preference_name = ''
+    condition_widget = None
+
+    def __init__(self):
+        event.add_callback(self.on_option_set, 'option_set')
+        gobject.idle_add(self.on_option_set,
+            'option_set', settings, self.condition_preference_name)
+
+    def on_check_condition(self):
+        """
+            Specifies the condition to meet
+
+            :returns: Whether the condition is met or not
+            :rtype: bool
+        """
+        pass
+
+    def on_condition_met(self):
+        """
+            Called as soon as the
+            specified condition is met
+        """
+        self.widget.set_sensitive(True)
+
+    def on_condition_failed(self):
+        """
+            Called as soon as the specified
+            condition is not met anymore
+        """
+        self.widget.set_sensitive(False)
+
+    def on_option_set(self, event, settings, option):
+        """
+            Called as soon as options change
+        """
+        if option == self.condition_preference_name:
+            if self.on_check_condition():
+                self.on_condition_met()
+            else:
+                self.on_condition_failed()
+
+class CheckConditional(Conditional):
+    """
+        True if the conditional widget is active
+    """
+    def on_check_condition(self):
+        """
+            Specifies the condition to meet
+
+            :returns: Whether the condition is met or not
+            :rtype: bool
+        """
+        return self.condition_widget.get_active()
 
 class HashedPreference(Preference):
     """
@@ -211,7 +271,6 @@ class CheckPreference(Preference):
     def _get_value(self):
         return self.widget.get_active()
 
-
 class DirPreference(Preference):
     """
         Directory chooser button
@@ -234,7 +293,6 @@ class DirPreference(Preference):
 
     def _get_value(self):
         return self.widget.get_filename()
-
 
 class OrderListPreference(Preference):
     """
@@ -267,14 +325,15 @@ class OrderListPreference(Preference):
             self.model.append([item])
 
     def _get_value(self):
-        items = []
-        iter = self.model.get_iter_first()
-        while iter:
-            items.append(self.model.get_value(iter, 0))
-            iter = self.model.iter_next(iter)
-        self.items = items
-        return items
+        """
+            Value to be stored into the settings file
+        """
+        self.items = []
 
+        for row in self.model:
+            self.items += [row[0]]
+
+        return items
 
 class SelectionListPreference(Preference):
     """
@@ -641,7 +700,6 @@ class SelectionListPreference(Preference):
         except AttributeError:
             pass
 
-
 class ShortcutListPreference(Preference):
     """
         A list showing available items and allowing
@@ -730,7 +788,6 @@ class ShortcutListPreference(Preference):
                 accel = ''
             self.list.append([action, accel])
 
-
 class TextViewPreference(Preference):
     """
         Represents a gtk.TextView
@@ -767,7 +824,6 @@ class TextViewPreference(Preference):
         """
         return self.get_all_text()
 
-
 class ListPreference(Preference):
     """
         A class to represent a space separated list in the preferences window
@@ -791,7 +847,6 @@ class ListPreference(Preference):
         values = shlex.split(self.widget.get_text())
         values = [unicode(value, 'utf-8') for value in values]
         return values
-
 
 class SpinPreference(Preference):
     """
@@ -833,12 +888,10 @@ class FloatPreference(Preference):
     def _get_value(self):
         return float(self.widget.get_text())
 
-
 class IntPreference(FloatPreference):
 
     def _get_value(self):
         return int(self.widget.get_text())
-
 
 class ColorButtonPreference(Preference):
     """
@@ -861,7 +914,6 @@ class ColorButtonPreference(Preference):
             color.blue / 257)
         return string
 
-
 class FontButtonPreference(ColorButtonPreference):
     """
         Font button
@@ -881,55 +933,37 @@ class FontButtonPreference(ColorButtonPreference):
         font = self.widget.get_font_name()
         return font
 
-
 class ComboPreference(Preference):
     """
         A combo box
     """
-    def __init__(self, preferences, widget, use_index=False, use_map=False):
-        self.use_index = use_index
-        self.use_map = use_map
+    def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
         self.widget.connect('changed', self.change)
 
     def _set_value(self):
+        """
+            Sets the preferences for this widget
+        """
         item = self.preferences.settings.get_option(self.name,
             self.default)
 
-        if self.use_map:
-            index = self.map.index(self.preferences.settings.get_option(
-                        self.name, self.default))
-            self.widget.set_active(index)
-            return
-
-        if self.use_index:
-            index = self.preferences.settings.get_option(self.name,
-                self.default)
-            self.widget.set_active(index)
-            return
-
         model = self.widget.get_model()
-        iter = model.get_iter_first()
-        count = 0
-        while True:
-            value = model.get_value(iter, 0)
-            if value == item:
-                self.widget.set_active(count)
-                break
-            count += 1
-            iter = model.iter_next(iter)
-            if not iter: break
+
+        for row in model:
+            if item == row[0]:
+                self.widget.set_active_iter(row.iter)
 
     def _get_value(self):
-        if self.use_map:
-            return self.map[self.widget.get_active()]
-        elif self.use_index:
-            return self.widget.get_active()
-        else:
-            return self.widget.get_active_text()
+        """
+            Value to be stored into the settings file
+        """
+        model = self.widget.get_model()
+        iter = self.widget.get_active_iter()
 
+        return model.get_value(iter, 0)
 
 class ComboEntryPreference(Preference):
     """

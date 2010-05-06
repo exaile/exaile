@@ -39,56 +39,55 @@ FORMAT_WIDGET = None
 
 class OutputFormatPreference(widgets.ComboPreference):
     name = 'cd_import/format'
-    map = ["Ogg Vorbis", "FLAC", "AAC", "MP3 (VBR)", "MP3 (CBR)", "WavPack"]
-    default = "Ogg Vorbis"
-    def __init__(self, *args):
-        widgets.ComboPreference.__init__(self, *args)
-        global FORMAT_WIDGET
-        FORMAT_WIDGET = self.widget
 
-
-class OutputQualityPreference(widgets.ComboPreference):
+class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
     name = 'cd_import/quality'
-    def __init__(self, prefs, widget):
-        store = gtk.ListStore(gobject.TYPE_STRING)
-        widget.set_model(store)
-        cell = gtk.CellRendererText()
-        widget.pack_start(cell, True)
-        widget.add_attribute(cell, 'text', 0)
-        widget.show_all()
+    condition_preference_name = 'cd_import/format'
 
-        self._update_list(None, widget, prefs)
-        widgets.ComboPreference.__init__(self, prefs, widget,
-                use_map=True)
+    def __init__(self, preferences, widget):
+        widgets.ComboPreference.__init__(self, preferences, widget)
+        widgets.Conditional.__init__(self)
 
-        global FORMAT_WIDGET
-        FORMAT_WIDGET.connect('changed', self._update_list, widget, prefs)
+    def _setup_change(self):
+        """
+            Sets up the function to be called when this preference is changed
+        """
+        pass
 
-    def _update_list(self, other, widget, prefs):
-        oldindex = widget.get_active()
-        oldval = widget.get_active_text()
+    def on_check_condition(self):
+        """
+            Specifies the condition to meet
 
-        if other is not None:
-            format = other.get_active_text()
+            :returns: Whether the condition is met or not
+            :rtype: bool
+        """
+        model = self.widget.get_model()
+        format = self.condition_widget.get_active_text()
+        formatinfo = transcoder.FORMATS[format]
+        self.default = formatinfo['default'] # raw value
+        default_title = formatinfo['kbs_steps'][
+            formatinfo['raw_steps'].index(self.default)]
+        active_iter = self.widget.get_active_iter()
+
+        if active_iter is not None:
+            active_title = int(model.get_value(active_iter, 1))
         else:
-            format = prefs.settings.get_option("cd_import/format",
-                    OutputFormatPreference.default)
-        fmt_dict = transcoder.FORMATS[format]
-        self.default = fmt_dict["default"]
-        widget.get_model().clear()
+            active_title = default_title
 
-        for kbs in fmt_dict["kbs_steps"]:
-            widget.append_text(str(kbs))
+        model.clear()
 
-        self.map = list(fmt_dict["raw_steps"])
-        self.use_map = True
+        steps = zip(formatinfo['raw_steps'], formatinfo['kbs_steps'])
 
-        if oldval in self.map:
-            widget.set_active(self.map.index(oldval))
-        else:
-            widget.set_active(fmt_dict["raw_steps"].index(
-                fmt_dict["default"]))
+        for item, title in steps:
+            iter = model.append([item, title])
 
+        if active_title not in formatinfo['kbs_steps']:
+            active_title = default_title
+
+        index = formatinfo['kbs_steps'].index(active_title)
+        self.widget.set_active(index)
+
+        return True
 
 class OutputPathPreference(widgets.ComboEntryPreference):
     name = 'cd_import/outpath'
@@ -113,3 +112,5 @@ class OutputPathPreference(widgets.ComboEntryPreference):
         "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")
     ]
     default = "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")
+
+# vim: et sts=4 sw=4

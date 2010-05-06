@@ -50,6 +50,7 @@
               <object class="GtkComboBox" id="cd_import/format">
                 <property name="visible">True</property>
                 <property name="model">model1</property>
+                <property name="active">0</property>
                 <child>
                   <object class="GtkCellRendererText" id="renderer1"/>
                   <attributes>
@@ -87,6 +88,13 @@
             <child>
               <object class="GtkComboBox" id="cd_import/quality">
                 <property name="visible">True</property>
+                <property name="model">model2</property>
+                <child>
+                  <object class="GtkCellRendererText" id="renderer2"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -135,5 +143,13 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="model2">
+    <columns>
+      <!-- column-name item -->
+      <column type="gint"/>
+      <!-- column-name title -->
+      <column type="gchararray"/>
+    </columns>
   </object>
 </interface>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-04 14:34+0200\n"
+"POT-Creation-Date: 2010-05-06 21:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -377,11 +377,11 @@ msgstr ""
 msgid "Playlist %d"
 msgstr ""
 
-#: ../xl/xldbus.py:105 ../xl/xldbus.py:366
+#: ../xl/xldbus.py:105 ../xl/xldbus.py:367
 msgid "Not playing."
 msgstr ""
 
-#: ../xl/xldbus.py:371
+#: ../xl/xldbus.py:372
 #, python-format
 msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
@@ -413,7 +413,7 @@ msgid "Original date"
 msgstr ""
 
 #: ../xlgui/properties.py:50 ../xlgui/plcolumns.py:179
-#: ../plugins/cd/cdprefs.py:104 ../plugins/minimode/minimodeprefs.py:72
+#: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimodeprefs.py:72
 msgid "Date"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgstr ""
 #: ../xlgui/properties.py:54 ../xlgui/plcolumns.py:101
 #: ../xlgui/panel/playlists.py:74 ../xlgui/panel/playlists.py:164
 #: ../data/ui/widgets/tracklist_info.ui.h:2 ../data/ui/collection_panel.ui.h:4
-#: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:66
+#: ../plugins/cd/cdprefs.py:97 ../plugins/minimode/minimodeprefs.py:66
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Artist"
 msgstr ""
@@ -440,7 +440,7 @@ msgstr ""
 #: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:111
 #: ../xlgui/panel/playlists.py:84 ../xlgui/panel/playlists.py:166
 #: ../data/ui/widgets/tracklist_info.ui.h:1 ../data/ui/collection_panel.ui.h:3
-#: ../plugins/cd/cdprefs.py:100 ../plugins/minimode/minimodeprefs.py:68
+#: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:68
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Album"
 msgstr ""
@@ -463,7 +463,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:96
 #: ../xlgui/panel/playlists.py:90 ../xlgui/panel/playlists.py:165
-#: ../xlgui/panel/flatplaylist.py:103 ../plugins/cd/cdprefs.py:97
+#: ../xlgui/panel/flatplaylist.py:103 ../plugins/cd/cdprefs.py:96
 #: ../plugins/minimode/minimodeprefs.py:65
 msgid "Title"
 msgstr ""
@@ -474,12 +474,12 @@ msgstr ""
 
 #: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:184
 #: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:171
-#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:73
+#: ../plugins/cd/cdprefs.py:104 ../plugins/minimode/minimodeprefs.py:73
 msgid "Genre"
 msgstr ""
 
 #: ../xlgui/properties.py:63 ../xlgui/plcolumns.py:106
-#: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:67
+#: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:67
 msgid "Composer"
 msgstr ""
 
@@ -496,12 +496,12 @@ msgid "Disc"
 msgstr ""
 
 #: ../xlgui/properties.py:67 ../xlgui/plcolumns.py:230
-#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimodeprefs.py:79
+#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimodeprefs.py:79
 msgid "BPM"
 msgstr ""
 
 #: ../xlgui/properties.py:68 ../xlgui/plcolumns.py:189
-#: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:74
+#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:74
 msgid "Bitrate"
 msgstr ""
 
@@ -511,7 +511,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:70 ../xlgui/plcolumns.py:116
 #: ../xlgui/panel/playlists.py:122 ../xlgui/panel/playlists.py:167
-#: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:69
+#: ../plugins/cd/cdprefs.py:100 ../plugins/minimode/minimodeprefs.py:69
 msgid "Length"
 msgstr ""
 
@@ -530,7 +530,7 @@ msgstr ""
 #. ]),
 #: ../xlgui/properties.py:71 ../xlgui/plcolumns.py:205
 #: ../xlgui/panel/playlists.py:141 ../xlgui/panel/playlists.py:172
-#: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimodeprefs.py:75
+#: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:75
 msgid "Location"
 msgstr ""
 
@@ -963,15 +963,15 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
-#: ../xlgui/preferences/appearance.py:83
+#: ../xlgui/preferences/appearance.py:90
 msgid "Current playback position"
 msgstr ""
 
-#: ../xlgui/preferences/appearance.py:84
+#: ../xlgui/preferences/appearance.py:91
 msgid "Remaining playback time"
 msgstr ""
 
-#: ../xlgui/preferences/appearance.py:85
+#: ../xlgui/preferences/appearance.py:92
 msgid "Length of a track"
 msgstr ""
 
@@ -1025,31 +1025,31 @@ msgid ""
 "%(reason)s"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:276
+#: ../xlgui/preferences/widgets.py:386
 #: ../data/ui/widgets/selection_list_prefs_item.ui.h:1
 msgid "Add item"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:281
+#: ../xlgui/preferences/widgets.py:391
 #: ../data/ui/widgets/selection_list_prefs_item.ui.h:4
 msgid "Remove item"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:294
+#: ../xlgui/preferences/widgets.py:404
 #: ../data/ui/widgets/selection_list_prefs_item.ui.h:3
 msgid "Move selected item up"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:299
+#: ../xlgui/preferences/widgets.py:409
 #: ../data/ui/widgets/selection_list_prefs_item.ui.h:2
 msgid "Move selected item down"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:607
+#: ../xlgui/preferences/widgets.py:716
 msgid "Action"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:615
+#: ../xlgui/preferences/widgets.py:724
 msgid "Shortcut"
 msgstr ""
 
@@ -1081,7 +1081,7 @@ msgid "#"
 msgstr ""
 
 #: ../xlgui/plcolumns.py:156 ../xlgui/panel/playlists.py:102
-#: ../xlgui/panel/playlists.py:168 ../plugins/cd/cdprefs.py:103
+#: ../xlgui/panel/playlists.py:168 ../plugins/cd/cdprefs.py:102
 #: ../plugins/minimode/minimodeprefs.py:71
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Rating"
@@ -1089,7 +1089,7 @@ msgstr ""
 
 #. TRANSLATORS: Filename column in the file browser
 #: ../xlgui/plcolumns.py:210 ../xlgui/panel/files.py:140
-#: ../plugins/cd/cdprefs.py:108 ../plugins/minimode/minimodeprefs.py:76
+#: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimodeprefs.py:76
 msgid "Filename"
 msgstr ""
 
@@ -1125,21 +1125,21 @@ msgstr ""
 msgid " tracks"
 msgstr ""
 
-#: ../xlgui/playlist.py:1168
+#: ../xlgui/playlist.py:1175
 #, python-format
 msgid "Close %s"
 msgstr ""
 
-#: ../xlgui/playlist.py:1169
+#: ../xlgui/playlist.py:1176
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr ""
 
-#: ../xlgui/playlist.py:1170
+#: ../xlgui/playlist.py:1177
 msgid "Your changes will be lost if you don't save them"
 msgstr ""
 
-#: ../xlgui/playlist.py:1172
+#: ../xlgui/playlist.py:1179
 msgid "Close Without Saving"
 msgstr ""
 
@@ -1796,25 +1796,21 @@ msgid "Resume playback on start"
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui.h:16
-msgid "These options only affect the unified engine."
-msgstr ""
-
-#: ../data/ui/preferences/playback.ui.h:17
 msgid ""
 "This is a custom gstreamer pipeline to use for audio output, specified in "
 "gst-launch syntax. It will be linked to a single audio-only source pad. Only "
 "takes effect if \"Audio Sink\" is set to \"Custom\"."
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:18
+#: ../data/ui/preferences/playback.ui.h:17
 msgid "Unified (unstable)"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:19
+#: ../data/ui/preferences/playback.ui.h:18
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:20
+#: ../data/ui/preferences/playback.ui.h:19
 msgid "Use fade transitions on user actions"
 msgstr ""
 
@@ -2006,15 +2002,15 @@ msgstr ""
 msgid "CD"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:64
+#: ../plugins/cd/cdprefs.py:95 ../plugins/minimode/minimodeprefs.py:64
 msgid "Track number"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:102 ../plugins/minimode/minimodeprefs.py:70
+#: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:70
 msgid "Disc number"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimodeprefs.py:77
+#: ../plugins/cd/cdprefs.py:108 ../plugins/minimode/minimodeprefs.py:77
 msgid "Play count"
 msgstr ""
 

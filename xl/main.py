@@ -333,6 +333,11 @@ class Exaile(object):
                 help=_("Stop playback after current track"))
         p.add_option_group(group)
 
+        group = OptionGroup(p, _('Collection Options'))
+        group.add_option("--import", dest="Import", action="store",
+                metavar="LOCATION", help=_("Import tracks from LOCATION"))
+        p.add_option_group(group)
+
         group = OptionGroup(p, _('Track Options'))
         group.add_option("-q", "--query", dest="Query", action="store_true",
                 default=False, help=_("Query player"))

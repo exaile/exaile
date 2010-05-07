@@ -32,6 +32,7 @@ import traceback
 
 import dbus
 import dbus.service
+import gio
 import gobject
 
 from xl import event
@@ -108,7 +109,8 @@ def run_commands(options, iface):
             comm = True
 
     modify_commands = [
-        'SetRating'
+        'SetRating',
+        'Import'
     ]
 
     for command in modify_commands:
@@ -398,11 +400,11 @@ class DbusManager(dbus.service.Object):
         self.exaile.gui.open_uri(filename)
 
     @dbus.service.method('org.exaile.Exaile', 'as')
-    def Enqueue(self, filenames):
+    def Enqueue(self, locations):
         """
-            Adds the specified files to the current playlist
+            Adds the tracks at the specified locations
+            to the current playlist
         """
-        print filenames
         import xl.playlist
         from xl import trax   # do this here to avoid loading
                               # settings when issuing dbus commands
@@ -414,12 +416,12 @@ class DbusManager(dbus.service.Object):
         play_track = None
         playlists = []
 
-        for file in filenames:
+        for location in locations:
             tracks = []
 
-            if xl.playlist.is_valid_playlist(file):
+            if xl.playlist.is_valid_playlist(location):
                 try:
-                    pl = xl.playlist.import_playlist(file)
+                    pl = xl.playlist.import_playlist(location)
                     tracks = pl.get_tracks()
                     continue
                 except xl.playlist.InvalidPlaylistTypeException:
@@ -427,7 +429,7 @@ class DbusManager(dbus.service.Object):
                 except:
                     traceback.print_exc()
             else:
-                tracks = trax.get_tracks_from_uri(file)
+                tracks = trax.get_tracks_from_uri(location)
 
             if tracks:
                 tracks = trax.sort_tracks(['album', column], tracks, descending)
@@ -440,6 +442,39 @@ class DbusManager(dbus.service.Object):
             pos = self.exaile.queue.current_playlist.index(play_track)
             self.exaile.queue.current_playlist.set_current_pos(pos)
             self.exaile.queue.play()
+
+    @dbus.service.method('org.exaile.Exaile', 's')
+    def Import(self, location):
+        """
+            Imports the tracks at the specified location
+        """
+        from xl.collection import CollectionScanThread, Library
+        collection = self.exaile.collection
+
+        collection.freeze_libraries()
+
+        libraries = collection.get_libraries()
+        libraries = [(library, gio.File(library.get_location())) \
+            for library in libraries]
+        import_glocation = gio.File(location)
+
+        for library, glocation in libraries:
+            if import_glocation.has_prefix(glocation):
+                break
+            elif glocation.has_prefix(import_glocation):
+                collection.remove_library(library)
+        else:
+            collection.add_library(Library(location))
+
+        collection.thaw_libraries()
+
+        import gtk
+        import xlgui
+        main = xlgui.get_controller()
+
+        thread = CollectionScanThread(collection)
+        main.progress_manager.add_monitor(thread,
+            _("Scanning collection..."), gtk.STOCK_REFRESH)
 
     @dbus.service.method('org.exaile.Exaile')
     def GuiToggleVisible(self):

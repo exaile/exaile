@@ -49,8 +49,19 @@ class ProgressMonitor(gtk.Frame):
         self._setup_widgets()
         self.show_all()
 
-        event.add_callback(self.progress_update, 'progress_update', thread)
+        self.progress_update_id = self.thread.connect('progress-update',
+            self.on_progress_update)
+        self.done_id = self.thread.connect('done', self.on_done)
         thread.start()
+
+    def destroy(self):
+        """
+            Cleans up
+        """
+        self.thread.disconnect(self.progress_update_id)
+        self.thread.disconnect(self.done_id)
+
+        gtk.Frame.destroy(self)
 
     def set_description(self, desc):
         """
@@ -60,7 +71,7 @@ class ProgressMonitor(gtk.Frame):
         if self.label:
             self.label.set_text(desc)
 
-    def progress_update(self, type, thread, percent):
+    def on_progress_update(self, thread, percent):
         """
             Called when the progress has been updated
         """
@@ -69,18 +80,18 @@ class ProgressMonitor(gtk.Frame):
         if fraction >= 0 and fraction <= 1.0:
             self.progress.set_fraction(float(percent) / 100)
             self.progress.set_text('%d%%' % percent)
-        if percent == 100 or percent == 'complete':
-            if hasattr(self.thread, 'thread_complete'):
-                self.thread.thread_complete()
-            #self.stop_monitor()
-            self.manager.remove_monitor(self)
+
+    def on_done(self, thread):
+        """
+            Called when the thread is finished
+        """
+        self.manager.remove_monitor(self)
 
     def stop_monitor(self, *e):
         """
             Stops this monitor, removes it from the progress area
         """
-        self.thread.stop_thread()
-        self.manager.remove_monitor(self)
+        self.thread.stop()
 
     def _setup_widgets(self):
         """
@@ -159,7 +170,8 @@ class ProgressManager(object):
             @param stock_icon: the icon to display
         """
         monitor = ProgressMonitor(self, thread, description, stock_icon)
-        self.box.pack_start(monitor, False, False)
+        self.box.pack_start(monitor, expand=False, fill=False)
+
         return monitor
 
     def remove_monitor(self, monitor):
@@ -169,3 +181,4 @@ class ProgressManager(object):
         monitor.hide()
         monitor.destroy()
         #self.box.remove(monitor)
+

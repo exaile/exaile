@@ -34,12 +34,13 @@ A library finds tracks in a specified directory and adds them to an associated
 collection.
 """
 
+from collections import deque
+import logging
 import os
-import time
 import os.path
 import shutil
-import logging
-from collections import deque
+import time
+import threading
 
 import gobject
 import gio
@@ -53,7 +54,6 @@ logger = logging.getLogger(__name__)
 
 COLLECTIONS = set()
 
-
 def get_collection_by_loc(loc):
     """
         gets the collection by a location.
@@ -66,6 +66,66 @@ def get_collection_by_loc(loc):
         if c.loc_is_member(loc):
             return c
     return None
+
+class CollectionScanThread(threading.Thread, gobject.GObject):
+    """
+        Scans the collection
+    """
+    __gsignals__ = {
+        'progress-update': (
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        ),
+        # TODO: Check if 'stopped' is required
+        'done': (
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            ()
+        )
+    }
+
+    def __init__(self, collection):
+        """
+            Initializes the thread
+
+            @param colleciton: the collection to scan
+        """
+        threading.Thread.__init__(self)
+        gobject.GObject.__init__(self)
+        self.setDaemon(True)
+
+        self.collection = collection
+        self.stopped = False
+
+    def stop(self):
+        """
+            Stops the thread
+        """
+        self.collection.stop_scan()
+        self.emit('done')
+
+    def on_scan_progress_update(self, type, collection, progress):
+        """
+            Notifies about progress changes
+        """
+        if progress < 100:
+            self.emit('progress-update', progress)
+        else:
+            self.emit('done')
+            # gobject.idle_add(self.panel.load_tree)
+
+    def run(self):
+        """
+            Runs the thread
+        """
+        event.add_callback(self.on_scan_progress_update,
+            'scan_progress_update')
+
+        self.collection.rescan_libraries()
+
+        event.remove_callback(self.on_scan_progress_update,
+            'scan_progress_update')
 
 class Collection(trax.TrackDB):
     """

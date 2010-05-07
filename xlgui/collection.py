@@ -26,7 +26,6 @@
 
 import logging
 import os
-import threading
 
 import gio
 import gobject
@@ -37,51 +36,6 @@ from xl import event, xdg, collection
 from xlgui import commondialogs
 
 logger = logging.getLogger(__name__)
-
-class CollectionScanThread(threading.Thread):
-    """
-        Scans the collection
-    """
-    def __init__(self, main, collection, panel):
-        """
-            Initializes the thread
-
-            @param colleciton: the collection to scan
-        """
-        threading.Thread.__init__(self)
-        self.setDaemon(True)
-
-        self.collection = collection
-        self.main = main
-        self.stopped = False
-        self.panel = panel
-
-    def stop_thread(self):
-        """
-            Stops the thread
-        """
-        self.collection.stop_scan()
-
-    def progress_update(self, type, collection, progress):
-        event.log_event('progress_update', self, progress)
-
-    def thread_complete(self):
-        """
-            Called when the thread has finished normally
-        """
-        gobject.idle_add(self.panel.load_tree)
-
-    def run(self):
-        """
-            Runs the thread
-        """
-        event.add_callback(self.progress_update, 'scan_progress_update',
-            self.collection)
-
-        self.collection.rescan_libraries()
-
-        event.remove_callback(self.progress_update, 'scan_progress_update',
-            self.collection)
 
 class CollectionManagerDialog(object):
     """
@@ -102,10 +56,7 @@ class CollectionManagerDialog(object):
         self.remove_list = []
         self.dialog.set_transient_for(self.parent)
 
-        self.builder.connect_signals({
-            'on_add_button_clicked': self.on_add,
-            'on_remove_button_clicked': self.on_remove
-        })
+        self.builder.connect_signals(self)
 
         items = collection.libraries.keys()
         self.list.set_rows(items)
@@ -135,23 +86,7 @@ class CollectionManagerDialog(object):
         """
         return self.list.rows
 
-    def on_remove(self, widget):
-        """
-            removes a path from the list
-        """
-        item = self.list.get_selection()
-        if item is None:
-            return
-
-        index = self.list.rows.index(item)
-        self.list.remove(item)
-        selection = self.list.list.get_selection()
-        if index > len(self.list.rows):
-            selection.select_path(index - 1)
-        else:
-            selection.select_path(index)
-
-    def on_add(self, widget):
+    def on_add_button_clicked(self, widget):
         """
             Adds a path to the list
         """
@@ -185,3 +120,20 @@ class CollectionManagerDialog(object):
                     except:
                         pass
         dialog.destroy()
+
+    def on_remove_button_clicked(self, widget):
+        """
+            removes a path from the list
+        """
+        item = self.list.get_selection()
+        if item is None:
+            return
+
+        index = self.list.rows.index(item)
+        self.list.remove(item)
+        selection = self.list.list.get_selection()
+        if index > len(self.list.rows):
+            selection.select_path(index - 1)
+        else:
+            selection.select_path(index)
+

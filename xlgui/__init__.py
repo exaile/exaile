@@ -37,6 +37,7 @@ from xl.nls import gettext as _
 logger = logging.getLogger(__name__)
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
 from xl import covers
+
 try:
     import gtk.glade
     gtk.glade.textdomain('exaile')
@@ -349,11 +350,18 @@ class Main(object):
             Called when the user wishes to rescan the collection
         """
         if not self.exaile.collection._scanning:
-            from xlgui.collection import CollectionScanThread
-            thread = CollectionScanThread(self, self.exaile.collection,
-                    self.panels['collection'])
+            from xl.collection import CollectionScanThread
+
+            thread = CollectionScanThread(self.exaile.collection)
+            thread.connect('done', self.on_rescan_done)
             self.progress_manager.add_monitor(thread,
                 _("Scanning collection..."), gtk.STOCK_REFRESH)
+
+    def on_rescan_done(self, thread):
+        """
+            Called when the rescan has finished
+        """
+        gobject.idle_add(self.panels['collection'].load_tree)
 
     def on_randomize_playlist(self, *e):
         pl = self.main.get_selected_playlist()
@@ -434,6 +442,7 @@ class Main(object):
 
     @guiutil.idle_add()
     def add_device_panel(self, type, obj, device):
+        from xl.collection import CollectionScanThread
         from xlgui.panel.device import DevicePanel, FlatPlaylistDevicePanel
         import xlgui.panel
 
@@ -457,10 +466,10 @@ class Main(object):
 
         self.device_panels[device.get_name()] = panel
         gobject.idle_add(self.add_panel, *panel.get_panel())
-        thread = collection.CollectionScanThread(self.main,
-                device.get_collection(), panel)
+        thread = CollectionScanThread(self.main,
+            device.get_collection())
         self.progress_manager.add_monitor(thread,
-                _("Scanning %s..."%device.name), gtk.STOCK_REFRESH)
+            _("Scanning %s..." % device.name), gtk.STOCK_REFRESH)
 
     @guiutil.idle_add()
     def remove_device_panel(self, type, obj, device):

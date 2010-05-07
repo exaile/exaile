@@ -411,34 +411,35 @@ class DbusManager(dbus.service.Object):
         pl = self.exaile.gui.main.get_selected_playlist()
         column, descending = pl.get_sort_by()
         tracks = []
+        play_track = None
         playlists = []
 
         for file in filenames:
+            tracks = []
+
             if xl.playlist.is_valid_playlist(file):
                 try:
                     pl = xl.playlist.import_playlist(file)
-                    tracks += pl.get_tracks()
+                    tracks = pl.get_tracks()
                     continue
                 except xl.playlist.InvalidPlaylistTypeException:
                     pass
                 except:
                     traceback.print_exc()
             else:
-                tracks += trax.get_tracks_from_uri(file)
+                tracks = trax.get_tracks_from_uri(file)
 
-        print tracks
+            if tracks:
+                tracks = trax.sort_tracks(['album', column], tracks, descending)
+                self.exaile.queue.current_playlist.add_tracks(tracks)
 
-        if column:
-            tracks = trax.sort_tracks([column], tracks)
-        self.exaile.queue.current_playlist.add_tracks(tracks)
+                if play_track is None:
+                    play_track = tracks[0]
 
-        if not self.exaile.player.is_playing():
-            try:
-                pos = self.exaile.queue.current_playlist.index(tracks[0])
-                self.exaile.queue.current_playlist.set_current_pos(pos)
-                self.exaile.queue.play()
-            except IndexError:
-                pass
+        if self.exaile.player.is_stopped() and play_track is not None:
+            pos = self.exaile.queue.current_playlist.index(play_track)
+            self.exaile.queue.current_playlist.set_current_pos(pos)
+            self.exaile.queue.play()
 
     @dbus.service.method('org.exaile.Exaile')
     def GuiToggleVisible(self):

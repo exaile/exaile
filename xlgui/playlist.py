@@ -1056,7 +1056,7 @@ class Playlist(gtk.VBox):
                 return (self.column_by_display[col.get_title().
                                                decode('utf-8')].id,
                     col.get_sort_order() == gtk.SORT_DESCENDING)
-        return None, False
+        return 'tracknumber', False
 
     def icon_data_func(self, col, cell, model, iter):
         """

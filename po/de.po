@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-07 16:07+0200\n"
-"PO-Revision-Date: 2010-05-07 16:08+0100\n"
+"PO-Revision-Date: 2010-05-07 17:14+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -1652,11 +1652,11 @@ msgstr "Ersten Buchstaben aller Tags groß schreiben"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
-msgstr "Weiter"
+msgstr "Nächstes"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr "Vorheriger"
+msgstr "Vorheriges"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"

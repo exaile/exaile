@@ -1,4 +1,4 @@
-Version='0.0.6'
+Version='0.0.7'
 Authors=['Solyanov Michael <Crantisz@gmail.com>']
 Name=_('Moodbar')
 Description=_('Replaces the standard progress bar with a moodbar.\nDepends: moodbar')

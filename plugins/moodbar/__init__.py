@@ -63,13 +63,13 @@ class ExModbar(object):
 
         return property(getter, setter)
 
-    defaultstyle = __inner_preference(moodbarprefs.defaultstyle)
-    flat = __inner_preference(moodbarprefs.flat)
-    theme = __inner_preference(moodbarprefs.theme)
-    cursor = __inner_preference(moodbarprefs.cursor)
+    defaultstyle = __inner_preference(moodbarprefs.DefaultStylePreference)
+    flat = __inner_preference(moodbarprefs.FlatPreference)
+    theme = __inner_preference(moodbarprefs.ThemePreference)
+    cursor = __inner_preference(moodbarprefs.CursorPreference)
 
-    darkness = __inner_preference(moodbarprefs.darkness)
-    color = __inner_preference(moodbarprefs.color)
+    darkness = __inner_preference(moodbarprefs.DarknessPreference)
+    color = __inner_preference(moodbarprefs.ColorPreference)
     def set_ex(self, ex):
          self.exaile=ex
 

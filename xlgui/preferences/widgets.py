@@ -665,14 +665,15 @@ class SelectionListPreference(Preference):
             Value to be stored into the settings file
         """
         items = []
-        iter = self.selected_list.get_iter_first()
-        while iter:
-            selected_value = self.selected_list.get_value(iter, 0)
+
+        for row in self.selected_list:
+            selected_value = row[0]
+
             for id, title in self.available_items.iteritems():
                 if selected_value == title:
                     items.append(id)
                     break
-            iter = self.selected_list.iter_next(iter)
+
         return items
 
     def _update_lists(self, items):

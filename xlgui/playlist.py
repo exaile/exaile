@@ -169,12 +169,12 @@ class Playlist(gtk.VBox):
         selection = self.list.get_selection()
         info = selection.get_selected_rows()
 
-        it = self.model.get_iter_first()
-        while it:
-            loc = self.model.get_value(it, 0).get_loc_for_io()
-            if loc in tracks:
-                self.update_iter(it, tracks[loc])
-            it = self.model.iter_next(it)
+        for row in self.model:
+            location = row[0].get_loc_for_io()
+
+            if location in tracks:
+                self.update_iter(row.iter, tracks[location])
+
         self.list.queue_draw()
 
         if info:
@@ -495,32 +495,29 @@ class Playlist(gtk.VBox):
         return rating # only one rating in the tracks, returning it
 
 
-    def update_iter(self, iter, song):
+    def update_iter(self, iter, track):
         """
             Updates the track at "iter"
         """
-        ar = self._get_ar(song)
+        ar = self._get_ar(track)
         self.model.insert_after(iter, ar)
         self.model.remove(iter)
 
-    def refresh_row(self, song):
+    def refresh_row(self, refresh_track):
         """
             Refreshes the text for the specified row
         """
         selection = self.list.get_selection()
         model, paths = selection.get_selected_rows()
         self.list.set_model(None)
-        iter = self.model.get_iter_first()
-        if not iter: return
-        while True:
-            check = self.model.get_value(iter, 0)
-            if not check: break
-            if check == song or \
-                    check.get_loc_for_io() == song.get_loc_for_io():
-                self.update_iter(iter, song)
+
+        for row in self.list:
+            if not row[0]:
                 break
-            iter = self.model.iter_next(iter)
-            if not iter: break
+
+            if row[0] == refresh_track or \
+               row[0].get_loc_for_io() == refresh_track.get_loc_for_io():
+                self.update_iter(row.iter, refresh_track)
 
         self.list.set_model(self.model)
         self.list.queue_draw()

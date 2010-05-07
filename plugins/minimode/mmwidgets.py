@@ -642,14 +642,11 @@ class TrackSelector(gtk.ComboBox):
         iter = self.list.get_iter_first()
 
         self._updating = True
-        while iter is not None:
-            track = self.list.get_value(iter, 0)
 
-            if track == active_track:
-                self.set_active_iter(iter)
-                break
+        for row in self.list:
+            if row[0] == active_track:
+                self.set_active_iter(row.iter)
 
-            iter = self.list.iter_next(iter)
         self._updating = False
 
     def text_data_func(self, celllayout, cell, model, iter):

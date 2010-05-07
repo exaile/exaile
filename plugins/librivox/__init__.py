@@ -289,13 +289,9 @@ class LVPanel():
             else:
                 iter = current_playlist.model.insert_after(iter, ar)
         #re add to ordered playlist
-        iter = current_playlist.model.get_iter_first()
         current_playlist.playlist.ordered_tracks = []
-        while True:
-            track = current_playlist.model.get_value(iter, 0)
-            current_playlist.playlist.ordered_tracks.append(track)
-            iter = current_playlist.model.iter_next(iter)
-            if not iter: break
+        for row in current_playlist.model:
+            current_playlist.playlist.ordered_tracks.append(row[0])
         current_playlist.main.update_track_counts()
         if curtrack is not None:
             index = current_playlist.playlist.index(curtrack)

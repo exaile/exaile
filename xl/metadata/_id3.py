@@ -95,8 +95,14 @@ class ID3Format(BaseFormat):
     def _set_tag(self, raw, tag, data):
         if tag not in self.tag_mapping.itervalues():
             tag = "TXXX:" + tag
+
         if raw.tags is not None:
             raw.tags.delall(tag)
+
+        # FIXME: Properly set and retrieve multiple values
+        if tag == 'USLT':
+            data = data[0]
+
         frame = id3.Frames[tag](encoding=3, text=data)
         if raw.tags is not None:
             raw.tags.add(frame)

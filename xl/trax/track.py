@@ -394,10 +394,6 @@ class Track(object):
             if not tag.startswith("__"): # internal tags dont have to be lists
                 values = [values]
 
-        # XXX: Needed due to lyrics being read via get_tag_disk
-        if tag == 'lyrics':
-            values = values[0]
-
         # TODO: is this needed? why?
         # for lists, filter out empty values and convert to unicode
         if isinstance(values, list):

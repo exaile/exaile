@@ -531,10 +531,10 @@ class TagRow(object):
             gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON)
         )
         self.clear_button.connect("clicked", self.clear)
+
         if not isinstance(field, PropertyField):
-            alignment = gtk.Alignment(yalign=0.5, yscale=0)
-            alignment.add(self.clear_button)
-            self.field.pack_start(alignment, expand=False, fill=False)
+            self.field.pack_start(self.clear_button, expand=False, fill=False)
+
         self.field.show_all()
 
         #Remove mode settings
@@ -552,7 +552,7 @@ class TagRow(object):
     def set_remove_mode(self, val):
         if self.tag not in self.parent.def_tags or self.multi_id != 0:
             if val and not self.remove_mode:
-                self.field.remove(self.clear_button.get_parent())
+                self.field.remove(self.clear_button)
                 self.field.pack_start(self.remove_button, expand=False, fill=False)
                 self.field.show_all()
                 self.remove_mode = True
@@ -560,9 +560,7 @@ class TagRow(object):
             if not val and self.remove_mode:
                 self.field.remove(self.remove_button)
                 self.remove_mode = False
-                alignment = gtk.Alignment(yalign=0.5, yscale=0)
-                alignment.add(self.clear_button)
-                self.field.pack_start(alignment, expand=False, fill=False)
+                self.field.pack_start(self.clear_button, expand=False, fill=False)
                 self.field.show_all()
 
     def clear(self, w):
@@ -633,9 +631,7 @@ class TagTextField(gtk.HBox):
         self.all_button = None
         if all_button:
             self.all_button = AllButton(self)
-            alignment = gtk.Alignment(yalign=0.5, yscale=0)
-            alignment.add(self.all_button)
-            self.pack_start(alignment, expand=False, fill=False)
+            self.pack_start(self.all_button, expand=False, fill=False)
 
     def register_parent_row(self, parent_row):
         self.parent_row = parent_row

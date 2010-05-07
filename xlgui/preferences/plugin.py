@@ -79,6 +79,9 @@ class PluginManager(object):
                 plugin))
         plugins_list.sort(key=lambda x: locale.strxfrm(x[0]))
 
+        self.list.set_model(None)
+        self.model.clear()
+
         for plugin in plugins_list:
             self.model.append(plugin)
 

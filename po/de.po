@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 21:31+0200\n"
-"PO-Revision-Date: 2010-05-06 21:31+0100\n"
+"POT-Creation-Date: 2010-05-07 16:07+0200\n"
+"PO-Revision-Date: 2010-05-07 16:08+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -326,7 +326,7 @@ msgstr "Verschiedene Künstler"
 
 #. TRANSLATORS: title of a track if it is unknown
 #: ../xl/trax/track.py:59
-#: ../xl/playlist.py:246
+#: ../xl/playlist.py:248
 #: ../plugins/notifyosd/__init__.py:57
 msgid "Unknown"
 msgstr "Unbekannt"
@@ -369,10 +369,38 @@ msgstr "Ein Plugin namens „%s“ ist bereits installiert"
 msgid "Plugin archive contains an unsafe path"
 msgstr "Plugin-Archiv enthält einen unsicheren Pfad"
 
-#: ../xl/playlist.py:386
+#: ../xl/playlist.py:388
 #, python-format
 msgid "Playlist %d"
 msgstr "Wiedergabeliste %d"
+
+#: ../xl/playlist.py:1095
+#: ../xlgui/panel/playlists.py:43
+#: ../xlgui/panel/playlists.py:55
+#: ../xlgui/panel/playlists.py:62
+msgid "seconds"
+msgstr "Sekunden"
+
+#: ../xl/playlist.py:1096
+#: ../xlgui/panel/playlists.py:55
+msgid "minutes"
+msgstr "Minuten"
+
+#: ../xl/playlist.py:1097
+#: ../xlgui/panel/playlists.py:55
+msgid "hours"
+msgstr "Stunden"
+
+#: ../xl/playlist.py:1098
+#: ../xlgui/panel/playlists.py:52
+#: ../xlgui/panel/playlists.py:55
+msgid "days"
+msgstr "Tage"
+
+#: ../xl/playlist.py:1099
+#: ../xlgui/panel/playlists.py:55
+msgid "weeks"
+msgstr "Wochen"
 
 #: ../xl/xldbus.py:105
 #: ../xl/xldbus.py:367
@@ -430,7 +458,7 @@ msgstr "Interpret"
 #: ../xlgui/properties.py:54
 #: ../xlgui/plcolumns.py:101
 #: ../xlgui/panel/playlists.py:74
-#: ../xlgui/panel/playlists.py:164
+#: ../xlgui/panel/playlists.py:162
 #: ../data/ui/widgets/tracklist_info.ui.h:2
 #: ../data/ui/collection_panel.ui.h:4
 #: ../plugins/cd/cdprefs.py:97
@@ -442,7 +470,7 @@ msgstr "Künstler"
 #: ../xlgui/properties.py:55
 #: ../xlgui/plcolumns.py:111
 #: ../xlgui/panel/playlists.py:84
-#: ../xlgui/panel/playlists.py:166
+#: ../xlgui/panel/playlists.py:164
 #: ../data/ui/widgets/tracklist_info.ui.h:1
 #: ../data/ui/collection_panel.ui.h:3
 #: ../plugins/cd/cdprefs.py:99
@@ -473,7 +501,7 @@ msgstr "Version"
 #: ../xlgui/properties.py:60
 #: ../xlgui/plcolumns.py:96
 #: ../xlgui/panel/playlists.py:90
-#: ../xlgui/panel/playlists.py:165
+#: ../xlgui/panel/playlists.py:163
 #: ../xlgui/panel/flatplaylist.py:103
 #: ../plugins/cd/cdprefs.py:96
 #: ../plugins/minimode/minimodeprefs.py:65
@@ -487,7 +515,7 @@ msgstr "ISRC"
 #: ../xlgui/properties.py:62
 #: ../xlgui/plcolumns.py:184
 #: ../xlgui/panel/playlists.py:96
-#: ../xlgui/panel/playlists.py:171
+#: ../xlgui/panel/playlists.py:169
 #: ../plugins/cd/cdprefs.py:104
 #: ../plugins/minimode/minimodeprefs.py:73
 msgid "Genre"
@@ -528,34 +556,23 @@ msgid "Bitrate"
 msgstr "Bitrate"
 
 #: ../xlgui/properties.py:69
+#: ../xlgui/panel/playlists.py:127
+#: ../xlgui/panel/playlists.py:170
 msgid "Date added"
 msgstr "Hinzufügedatum"
 
 #: ../xlgui/properties.py:70
 #: ../xlgui/plcolumns.py:116
 #: ../xlgui/panel/playlists.py:122
-#: ../xlgui/panel/playlists.py:167
+#: ../xlgui/panel/playlists.py:165
 #: ../plugins/cd/cdprefs.py:100
 #: ../plugins/minimode/minimodeprefs.py:69
 msgid "Length"
 msgstr "Länge"
 
-#. TRANSLATORS: Example: track has been added in the last 2 days
-#. (_('in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'time_added'))),
-#. TRANSLATORS: Example: track has not been added in the last 5 hours
-#. (_('not in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'time_added', '<'))),
-#. ]),
-#. (_('Last Played'), [
-#. (_('in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'last_played'))),
-#. (_('not in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'last_played', '<'))),
-#. ]),
 #: ../xlgui/properties.py:71
 #: ../xlgui/plcolumns.py:205
-#: ../xlgui/panel/playlists.py:141
+#: ../xlgui/panel/playlists.py:137
 #: ../xlgui/panel/playlists.py:172
 #: ../plugins/cd/cdprefs.py:106
 #: ../plugins/minimode/minimodeprefs.py:75
@@ -572,6 +589,8 @@ msgstr "Wiedergabeanzahl"
 
 #: ../xlgui/properties.py:76
 #: ../xlgui/plcolumns.py:238
+#: ../xlgui/panel/playlists.py:133
+#: ../xlgui/panel/playlists.py:171
 #: ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
 msgstr "Letzte Wiedergabe"
@@ -1154,7 +1173,7 @@ msgstr "Nr."
 
 #: ../xlgui/plcolumns.py:156
 #: ../xlgui/panel/playlists.py:102
-#: ../xlgui/panel/playlists.py:168
+#: ../xlgui/panel/playlists.py:166
 #: ../plugins/cd/cdprefs.py:102
 #: ../plugins/minimode/minimodeprefs.py:71
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
@@ -1220,33 +1239,10 @@ msgstr "Änderungen gehen ohne Sicherung verloren."
 msgid "Close Without Saving"
 msgstr "Schließen, ohne zu speichern"
 
-#: ../xlgui/panel/playlists.py:43
-#: ../xlgui/panel/playlists.py:55
-#: ../xlgui/panel/playlists.py:62
-msgid "seconds"
-msgstr "Sekunden"
-
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:48
 msgid "and"
 msgstr "und"
-
-#: ../xlgui/panel/playlists.py:52
-#: ../xlgui/panel/playlists.py:55
-msgid "days"
-msgstr "Tage"
-
-#: ../xlgui/panel/playlists.py:55
-msgid "minutes"
-msgstr "Minuten"
-
-#: ../xlgui/panel/playlists.py:55
-msgid "hours"
-msgstr "Stunden"
-
-#: ../xlgui/panel/playlists.py:55
-msgid "weeks"
-msgstr "Wochen"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:76
@@ -1254,8 +1250,8 @@ msgstr "Wochen"
 #: ../xlgui/panel/playlists.py:91
 #: ../xlgui/panel/playlists.py:97
 #: ../xlgui/panel/playlists.py:125
-#: ../xlgui/panel/playlists.py:142
-#: ../xlgui/panel/playlists.py:150
+#: ../xlgui/panel/playlists.py:138
+#: ../xlgui/panel/playlists.py:146
 msgid "is"
 msgstr "ist"
 
@@ -1264,8 +1260,8 @@ msgstr "ist"
 #: ../xlgui/panel/playlists.py:86
 #: ../xlgui/panel/playlists.py:92
 #: ../xlgui/panel/playlists.py:98
-#: ../xlgui/panel/playlists.py:143
-#: ../xlgui/panel/playlists.py:151
+#: ../xlgui/panel/playlists.py:139
+#: ../xlgui/panel/playlists.py:147
 msgid "is not"
 msgstr "ist nicht"
 
@@ -1274,8 +1270,8 @@ msgstr "ist nicht"
 #: ../xlgui/panel/playlists.py:87
 #: ../xlgui/panel/playlists.py:93
 #: ../xlgui/panel/playlists.py:99
-#: ../xlgui/panel/playlists.py:144
-#: ../xlgui/panel/playlists.py:152
+#: ../xlgui/panel/playlists.py:140
+#: ../xlgui/panel/playlists.py:148
 msgid "contains"
 msgstr "enthält"
 
@@ -1284,18 +1280,18 @@ msgstr "enthält"
 #: ../xlgui/panel/playlists.py:88
 #: ../xlgui/panel/playlists.py:94
 #: ../xlgui/panel/playlists.py:100
-#: ../xlgui/panel/playlists.py:145
-#: ../xlgui/panel/playlists.py:153
+#: ../xlgui/panel/playlists.py:141
+#: ../xlgui/panel/playlists.py:149
 msgid "does not contain"
 msgstr "enthält nicht"
 
 #: ../xlgui/panel/playlists.py:103
-#: ../xlgui/panel/playlists.py:159
+#: ../xlgui/panel/playlists.py:155
 msgid "greater than"
 msgstr "größer als"
 
 #: ../xlgui/panel/playlists.py:104
-#: ../xlgui/panel/playlists.py:160
+#: ../xlgui/panel/playlists.py:156
 msgid "less than"
 msgstr "kleiner als"
 
@@ -1303,7 +1299,7 @@ msgstr "kleiner als"
 #: ../xlgui/panel/playlists.py:106
 #: ../xlgui/panel/playlists.py:111
 #: ../xlgui/panel/playlists.py:123
-#: ../xlgui/panel/playlists.py:154
+#: ../xlgui/panel/playlists.py:150
 msgid "at least"
 msgstr "mindestens"
 
@@ -1311,37 +1307,51 @@ msgstr "mindestens"
 #: ../xlgui/panel/playlists.py:108
 #: ../xlgui/panel/playlists.py:112
 #: ../xlgui/panel/playlists.py:124
-#: ../xlgui/panel/playlists.py:155
+#: ../xlgui/panel/playlists.py:151
 msgid "at most"
 msgstr "höchstens"
 
 #: ../xlgui/panel/playlists.py:110
-#: ../xlgui/panel/playlists.py:169
+#: ../xlgui/panel/playlists.py:167
 msgid "Plays"
 msgstr "Wiedergaben"
 
 #: ../xlgui/panel/playlists.py:114
-#: ../xlgui/panel/playlists.py:170
+#: ../xlgui/panel/playlists.py:168
 msgid "Year"
 msgstr "Jahr"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:116
-#: ../xlgui/panel/playlists.py:156
+#: ../xlgui/panel/playlists.py:152
 msgid "before"
 msgstr "vor"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:118
-#: ../xlgui/panel/playlists.py:157
+#: ../xlgui/panel/playlists.py:153
 msgid "after"
 msgstr "nach"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:120
-#: ../xlgui/panel/playlists.py:158
+#: ../xlgui/panel/playlists.py:154
 msgid "between"
 msgstr "zwischen"
+
+#. TRANSLATORS: Example: track has been added in the last 2 days
+#: ../xlgui/panel/playlists.py:129
+#: ../xlgui/panel/playlists.py:134
+#: ../xlgui/panel/playlists.py:157
+msgid "in the last"
+msgstr "in den letzten"
+
+#. TRANSLATORS: Example: track has not been added in the last 5 hours
+#: ../xlgui/panel/playlists.py:131
+#: ../xlgui/panel/playlists.py:135
+#: ../xlgui/panel/playlists.py:158
+msgid "not in the last"
+msgstr "nicht in den letzten"
 
 #: ../xlgui/panel/playlists.py:238
 #: ../xlgui/panel/playlists.py:292
@@ -2264,7 +2274,7 @@ msgstr "Stimmungsleiste konnte nicht eingelesen werden."
 msgid "Moodbar executable is not available."
 msgstr "Moodbar-Anwendung ist nicht verfügbar."
 
-#: ../plugins/moodbar/moodbarprefs.py:26
+#: ../plugins/moodbar/moodbarprefs.py:23
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Stimmungsleiste"
@@ -3443,243 +3453,4 @@ msgstr ""
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
 msgstr "Ermöglicht das Herunterfahren des Computers am Ende der Wiedergabe."
-
-#~ msgid "These options only affect the unified engine."
-#~ msgstr "Folgende Optionen betreffen nur die Vereinigte Wiedergabe-Engine"
-#~ msgid "Open in File Manager"
-#~ msgstr "Im Dateimanager öffnen"
-#~ msgid ""
-#~ "%(track_count)d in total (%(hours)d h, %(minutes)d min, %(seconds)d sec)"
-#~ msgstr ""
-#~ "%(track_count)d insgesamt (%(hours)d Std., %(minutes)d Min., %(seconds)d "
-#~ "Sek.)"
-#~ msgid "%(track_count)d in total (%(minutes)d min, %(seconds)d sec)"
-#~ msgstr "%(track_count)d insgesamt (%(minutes)d Min., %(seconds)d Sek.)"
-#~ msgid "0:00"
-#~ msgstr "0:00"
-#~ msgid "%(year)d-%(month)02d-%(day)02d"
-#~ msgstr "%(day)02d. %(month)02d. %(year)d"
-#~ msgid "%d min, "
-#~ msgstr "%d Min., "
-#~ msgid "%d sec"
-#~ msgstr "%d Sek."
-#~ msgid "%(minutes)d min, %(seconds)d sec"
-#~ msgstr "%(minutes)d Min., %(seconds)d Sek."
-#~ msgid "Summary"
-#~ msgstr "Zusammenfassung"
-
-#, fuzzy
-#~ msgid "Timer per increment:"
-#~ msgstr "Zeit pro Schritt:"
-#~ msgid "Close this dialog"
-#~ msgstr "Diesen Dialog schließen"
-#~ msgid "..."
-#~ msgstr "…"
-#~ msgid "Page 1"
-#~ msgstr "Seite 1"
-#~ msgid "Track _properties"
-#~ msgstr "_Eigenschaften des Stücks"
-#~ msgid " songs"
-#~ msgstr " Stücke"
-#~ msgid "_Export current playlist"
-#~ msgstr "Aktuelle Wiedergabeliste exportieren"
-#~ msgid "Open"
-#~ msgstr "Öffnen"
-#~ msgid "Start/Pause Playback"
-#~ msgstr "Wiedergabe starten/pausieren"
-#~ msgid " & "
-#~ msgstr " & "
-#~ msgid "Print the position inside the current track as time"
-#~ msgstr "Wiedergabeposition des aktuellen Stücks als Zeitpunkt ausgeben"
-#~ msgid "Print the progress inside the current track as percentage"
-#~ msgstr "Wiedergabefortschritt des aktuellen Stücks in Prozent ausgeben"
-#~ msgid "Toggle Play or Pause"
-#~ msgstr "Wiedergabe oder Pause"
-#~ msgid "Last Played"
-#~ msgstr "Letzte Wiedergabe"
-
-#, fuzzy
-#~ msgid "00:00 / 00:00"
-#~ msgstr "0:00 / 0:00"
-#~ msgid "Buffering: 100%..."
-#~ msgstr "Puffern: 100% …"
-#~ msgid "Stopped"
-#~ msgstr "Gestoppt"
-#~ msgid "Delete track"
-#~ msgstr "Stück löschen"
-#~ msgid "Remove All"
-#~ msgstr "Alle entfernen"
-#~ msgid "Streamripper can only record streams."
-#~ msgstr "Streamripper kann nur Streams aufnehmen."
-#~ msgid "order must be a list or tuple"
-#~ msgstr "oder muss vom Typ Liste oder Tupel sein"
-#~ msgid "Device class does not support transfer."
-#~ msgstr "Geräteklasse unterstützt keine Transfers."
-#~ msgid "Enter the search text"
-#~ msgstr "Suchtext eingeben"
-#~ msgid "No covers found"
-#~ msgstr "Keine Cover gefunden"
-#~ msgid "New Search"
-#~ msgstr "Neue Suche"
-#~ msgid "Tag Covers"
-#~ msgstr "Tag-Cover"
-#~ msgid "Searches track tags for covers"
-#~ msgstr "Durchsucht Tags von Stücken nach Covern"
-#~ msgid "  New song, fetching cover."
-#~ msgstr "  Neues Stück, rufe Cover ab."
-#~ msgid "%(description)s (%(progress)d%%)"
-#~ msgstr "%(description)s (%(progress)d%%)"
-
-#, fuzzy
-#~ msgid "asc"
-#~ msgstr "Allgemein"
-
-#, fuzzy
-#~ msgid "playlisted"
-#~ msgstr "Wiedergabeliste"
-
-#, fuzzy
-#~ msgid "rating"
-#~ msgstr "Bewertung"
-
-#, fuzzy
-#~ msgid "ratingweek"
-#~ msgstr "Bewertung"
-
-#, fuzzy
-#~ msgid "10"
-#~ msgstr "0"
-#~ msgid "100"
-#~ msgstr "100"
-
-#, fuzzy
-#~ msgid "150"
-#~ msgstr "15K"
-
-#, fuzzy
-#~ msgid "20"
-#~ msgstr "0"
-#~ msgid "200"
-#~ msgstr "200"
-
-#, fuzzy
-#~ msgid "30"
-#~ msgstr "0"
-
-#, fuzzy
-#~ msgid "50"
-#~ msgstr "0"
-
-#, fuzzy
-#~ msgid "75"
-#~ msgstr "7.5K"
-#~ msgid "Cover"
-#~ msgstr "Cover"
-#~ msgid "Playtime"
-#~ msgstr "Wiedergabezeit"
-#~ msgid "New tag:"
-#~ msgstr "Neuer Tag:"
-#~ msgid "_Prev"
-#~ msgstr "Zurück"
-#~ msgid "Idle."
-#~ msgstr "Inaktiv"
-#~ msgid "Album:"
-#~ msgstr "Album:"
-#~ msgid "Artist:"
-#~ msgstr "Künstler:"
-#~ msgid "Bitrate:"
-#~ msgstr "Bitrate:"
-#~ msgid "Date:"
-#~ msgstr "Datum:"
-#~ msgid "Details"
-#~ msgstr "Details"
-#~ msgid "File Size:"
-#~ msgstr "Dateigröße:"
-#~ msgid "Genre:"
-#~ msgstr "Genre:"
-#~ msgid "Length:"
-#~ msgstr "Länge:"
-#~ msgid "Location:"
-#~ msgstr "Ort:"
-#~ msgid "Play Count:"
-#~ msgstr "Wiedergabeanzahl:"
-#~ msgid "Title:"
-#~ msgstr "Title:"
-#~ msgid "Track Number:"
-#~ msgstr "Stücknummer:"
-#~ msgid ""
-#~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
-#~ msgstr ""
-#~ "Exaile nutzt nun absolute URIs, bitte das %s-Verzeichnis löschen/"
-#~ "umbenennen."
-#~ msgid ""
-#~ "Left\n"
-#~ "Right\n"
-#~ "Top\n"
-#~ "Bottom"
-#~ msgstr ""
-#~ "Links\n"
-#~ "Rechts\n"
-#~ "Oben\n"
-#~ "Unten"
-#~ msgid ""
-#~ "<b>{title}</b>\n"
-#~ "{artist}\n"
-#~ "on {album} - {length}"
-#~ msgstr ""
-#~ "<b>{title}</b>\n"
-#~ "{artist}\n"
-#~ "aus {album} - {length}"
-#~ msgid ""
-#~ "Automatic\n"
-#~ "GNOME\n"
-#~ "ALSA\n"
-#~ "OSS\n"
-#~ "PulseAudio\n"
-#~ "JACK"
-#~ msgstr ""
-#~ "Automatisch\n"
-#~ "GNOME\n"
-#~ "ALSA\n"
-#~ "OSS\n"
-#~ "PulseAudio\n"
-#~ "JACK"
-#~ msgid " + "
-#~ msgstr " + "
-#~ msgid " - "
-#~ msgstr " - "
-#~ msgid "Vol:"
-#~ msgstr "Lautstärke:"
-#~ msgid ""
-#~ "Artist\n"
-#~ "Album\n"
-#~ "Genre - Artist\n"
-#~ "Genre - Album\n"
-#~ "Year - Artist\n"
-#~ "Year - Album\n"
-#~ "Artist - Year - Album"
-#~ msgstr ""
-#~ "Künstler\n"
-#~ "Album\n"
-#~ "Genre – Künstler\n"
-#~ "Genre – Album\n"
-#~ "Jahr – Künstler\n"
-#~ "Jahr – Album\n"
-#~ "Künstler – Jahr – Album"
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Allgemein</b>"
-#~ msgid "<b>Position</b>"
-#~ msgstr "<b>Position</b>"
-#~ msgid "Center horizontally"
-#~ msgstr "Horizontal zentrieren"
-#~ msgid "Center vertically"
-#~ msgstr "Vertikal zentrieren"
-#~ msgid "Horizontal:"
-#~ msgstr "Horizontal:"
-#~ msgid "Vertical:"
-#~ msgstr "Vertikal:"
-#~ msgid "MPRIS"
-#~ msgstr "MPRIS"
-#~ msgid "el l' la le les los the"
-#~ msgstr "el l' la le les los the der die das"
 

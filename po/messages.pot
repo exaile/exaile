@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 21:31+0200\n"
+"POT-Creation-Date: 2010-05-07 16:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -329,7 +329,7 @@ msgid "Various Artists"
 msgstr ""
 
 #. TRANSLATORS: title of a track if it is unknown
-#: ../xl/trax/track.py:59 ../xl/playlist.py:246
+#: ../xl/trax/track.py:59 ../xl/playlist.py:248
 #: ../plugins/notifyosd/__init__.py:57
 msgid "Unknown"
 msgstr ""
@@ -372,9 +372,31 @@ msgstr ""
 msgid "Plugin archive contains an unsafe path"
 msgstr ""
 
-#: ../xl/playlist.py:386
+#: ../xl/playlist.py:388
 #, python-format
 msgid "Playlist %d"
+msgstr ""
+
+#: ../xl/playlist.py:1095 ../xlgui/panel/playlists.py:43
+#: ../xlgui/panel/playlists.py:55 ../xlgui/panel/playlists.py:62
+msgid "seconds"
+msgstr ""
+
+#: ../xl/playlist.py:1096 ../xlgui/panel/playlists.py:55
+msgid "minutes"
+msgstr ""
+
+#: ../xl/playlist.py:1097 ../xlgui/panel/playlists.py:55
+msgid "hours"
+msgstr ""
+
+#: ../xl/playlist.py:1098 ../xlgui/panel/playlists.py:52
+#: ../xlgui/panel/playlists.py:55
+msgid "days"
+msgstr ""
+
+#: ../xl/playlist.py:1099 ../xlgui/panel/playlists.py:55
+msgid "weeks"
 msgstr ""
 
 #: ../xl/xldbus.py:105 ../xl/xldbus.py:367
@@ -430,7 +452,7 @@ msgid "Performer"
 msgstr ""
 
 #: ../xlgui/properties.py:54 ../xlgui/plcolumns.py:101
-#: ../xlgui/panel/playlists.py:74 ../xlgui/panel/playlists.py:164
+#: ../xlgui/panel/playlists.py:74 ../xlgui/panel/playlists.py:162
 #: ../data/ui/widgets/tracklist_info.ui.h:2 ../data/ui/collection_panel.ui.h:4
 #: ../plugins/cd/cdprefs.py:97 ../plugins/minimode/minimodeprefs.py:66
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
@@ -438,7 +460,7 @@ msgid "Artist"
 msgstr ""
 
 #: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:111
-#: ../xlgui/panel/playlists.py:84 ../xlgui/panel/playlists.py:166
+#: ../xlgui/panel/playlists.py:84 ../xlgui/panel/playlists.py:164
 #: ../data/ui/widgets/tracklist_info.ui.h:1 ../data/ui/collection_panel.ui.h:3
 #: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:68
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
@@ -462,7 +484,7 @@ msgid "Version"
 msgstr ""
 
 #: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:96
-#: ../xlgui/panel/playlists.py:90 ../xlgui/panel/playlists.py:165
+#: ../xlgui/panel/playlists.py:90 ../xlgui/panel/playlists.py:163
 #: ../xlgui/panel/flatplaylist.py:103 ../plugins/cd/cdprefs.py:96
 #: ../plugins/minimode/minimodeprefs.py:65
 msgid "Title"
@@ -473,7 +495,7 @@ msgid "ISRC"
 msgstr ""
 
 #: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:184
-#: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:171
+#: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:169
 #: ../plugins/cd/cdprefs.py:104 ../plugins/minimode/minimodeprefs.py:73
 msgid "Genre"
 msgstr ""
@@ -505,31 +527,19 @@ msgstr ""
 msgid "Bitrate"
 msgstr ""
 
-#: ../xlgui/properties.py:69
+#: ../xlgui/properties.py:69 ../xlgui/panel/playlists.py:127
+#: ../xlgui/panel/playlists.py:170
 msgid "Date added"
 msgstr ""
 
 #: ../xlgui/properties.py:70 ../xlgui/plcolumns.py:116
-#: ../xlgui/panel/playlists.py:122 ../xlgui/panel/playlists.py:167
+#: ../xlgui/panel/playlists.py:122 ../xlgui/panel/playlists.py:165
 #: ../plugins/cd/cdprefs.py:100 ../plugins/minimode/minimodeprefs.py:69
 msgid "Length"
 msgstr ""
 
-#. TRANSLATORS: Example: track has been added in the last 2 days
-#. (_('in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'time_added'))),
-#. TRANSLATORS: Example: track has not been added in the last 5 hours
-#. (_('not in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'time_added', '<'))),
-#. ]),
-#. (_('Last Played'), [
-#. (_('in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'last_played'))),
-#. (_('not in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'last_played', '<'))),
-#. ]),
 #: ../xlgui/properties.py:71 ../xlgui/plcolumns.py:205
-#: ../xlgui/panel/playlists.py:141 ../xlgui/panel/playlists.py:172
+#: ../xlgui/panel/playlists.py:137 ../xlgui/panel/playlists.py:172
 #: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:75
 msgid "Location"
 msgstr ""
@@ -543,6 +553,7 @@ msgid "Times played"
 msgstr ""
 
 #: ../xlgui/properties.py:76 ../xlgui/plcolumns.py:238
+#: ../xlgui/panel/playlists.py:133 ../xlgui/panel/playlists.py:171
 #: ../plugins/minimode/minimodeprefs.py:78
 msgid "Last played"
 msgstr ""
@@ -1081,7 +1092,7 @@ msgid "#"
 msgstr ""
 
 #: ../xlgui/plcolumns.py:156 ../xlgui/panel/playlists.py:102
-#: ../xlgui/panel/playlists.py:168 ../plugins/cd/cdprefs.py:102
+#: ../xlgui/panel/playlists.py:166 ../plugins/cd/cdprefs.py:102
 #: ../plugins/minimode/minimodeprefs.py:71
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Rating"
@@ -1143,102 +1154,93 @@ msgstr ""
 msgid "Close Without Saving"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:43 ../xlgui/panel/playlists.py:55
-#: ../xlgui/panel/playlists.py:62
-msgid "seconds"
-msgstr ""
-
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:48
 msgid "and"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:52 ../xlgui/panel/playlists.py:55
-msgid "days"
-msgstr ""
-
-#: ../xlgui/panel/playlists.py:55
-msgid "minutes"
-msgstr ""
-
-#: ../xlgui/panel/playlists.py:55
-msgid "hours"
-msgstr ""
-
-#: ../xlgui/panel/playlists.py:55
-msgid "weeks"
-msgstr ""
-
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:76 ../xlgui/panel/playlists.py:85
 #: ../xlgui/panel/playlists.py:91 ../xlgui/panel/playlists.py:97
-#: ../xlgui/panel/playlists.py:125 ../xlgui/panel/playlists.py:142
-#: ../xlgui/panel/playlists.py:150
+#: ../xlgui/panel/playlists.py:125 ../xlgui/panel/playlists.py:138
+#: ../xlgui/panel/playlists.py:146
 msgid "is"
 msgstr ""
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:86
 #: ../xlgui/panel/playlists.py:92 ../xlgui/panel/playlists.py:98
-#: ../xlgui/panel/playlists.py:143 ../xlgui/panel/playlists.py:151
+#: ../xlgui/panel/playlists.py:139 ../xlgui/panel/playlists.py:147
 msgid "is not"
 msgstr ""
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:80 ../xlgui/panel/playlists.py:87
 #: ../xlgui/panel/playlists.py:93 ../xlgui/panel/playlists.py:99
-#: ../xlgui/panel/playlists.py:144 ../xlgui/panel/playlists.py:152
+#: ../xlgui/panel/playlists.py:140 ../xlgui/panel/playlists.py:148
 msgid "contains"
 msgstr ""
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/panel/playlists.py:82 ../xlgui/panel/playlists.py:88
 #: ../xlgui/panel/playlists.py:94 ../xlgui/panel/playlists.py:100
-#: ../xlgui/panel/playlists.py:145 ../xlgui/panel/playlists.py:153
+#: ../xlgui/panel/playlists.py:141 ../xlgui/panel/playlists.py:149
 msgid "does not contain"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:159
+#: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:155
 msgid "greater than"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:104 ../xlgui/panel/playlists.py:160
+#: ../xlgui/panel/playlists.py:104 ../xlgui/panel/playlists.py:156
 msgid "less than"
 msgstr ""
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:106 ../xlgui/panel/playlists.py:111
-#: ../xlgui/panel/playlists.py:123 ../xlgui/panel/playlists.py:154
+#: ../xlgui/panel/playlists.py:123 ../xlgui/panel/playlists.py:150
 msgid "at least"
 msgstr ""
 
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/panel/playlists.py:108 ../xlgui/panel/playlists.py:112
-#: ../xlgui/panel/playlists.py:124 ../xlgui/panel/playlists.py:155
+#: ../xlgui/panel/playlists.py:124 ../xlgui/panel/playlists.py:151
 msgid "at most"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:110 ../xlgui/panel/playlists.py:169
+#: ../xlgui/panel/playlists.py:110 ../xlgui/panel/playlists.py:167
 msgid "Plays"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:114 ../xlgui/panel/playlists.py:170
+#: ../xlgui/panel/playlists.py:114 ../xlgui/panel/playlists.py:168
 msgid "Year"
 msgstr ""
 
 #. TRANSLATORS: Example: year < 1999
-#: ../xlgui/panel/playlists.py:116 ../xlgui/panel/playlists.py:156
+#: ../xlgui/panel/playlists.py:116 ../xlgui/panel/playlists.py:152
 msgid "before"
 msgstr ""
 
 #. TRANSLATORS: Example: year > 2002
-#: ../xlgui/panel/playlists.py:118 ../xlgui/panel/playlists.py:157
+#: ../xlgui/panel/playlists.py:118 ../xlgui/panel/playlists.py:153
 msgid "after"
 msgstr ""
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
-#: ../xlgui/panel/playlists.py:120 ../xlgui/panel/playlists.py:158
+#: ../xlgui/panel/playlists.py:120 ../xlgui/panel/playlists.py:154
 msgid "between"
+msgstr ""
+
+#. TRANSLATORS: Example: track has been added in the last 2 days
+#: ../xlgui/panel/playlists.py:129 ../xlgui/panel/playlists.py:134
+#: ../xlgui/panel/playlists.py:157
+msgid "in the last"
+msgstr ""
+
+#. TRANSLATORS: Example: track has not been added in the last 5 hours
+#: ../xlgui/panel/playlists.py:131 ../xlgui/panel/playlists.py:135
+#: ../xlgui/panel/playlists.py:158
+msgid "not in the last"
 msgstr ""
 
 #: ../xlgui/panel/playlists.py:238 ../xlgui/panel/playlists.py:292
@@ -2121,7 +2123,7 @@ msgstr ""
 msgid "Moodbar executable is not available."
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs.py:26 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr ""
 

@@ -493,5 +493,9 @@ class SpinButtonAndComboField(gtk.HBox):
             self.combo.set_active(index)
 
     def get_state(self):
-        return [self.entry.get_value(),
-            unicode(self.items[self.combo.get_active()], 'utf-8')]
+        active_item = self.items[self.combo.get_active()]
+
+        if not isinstance(active_item, unicode):
+            active_item = unicode(active_item, 'utf-8')
+
+        return [self.entry.get_value(), active_item]

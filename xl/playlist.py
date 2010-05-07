@@ -25,9 +25,11 @@
 # from your version.
 
 import cgi
+from datetime import datetime, timedelta
 import logging
 import os
 import random
+import time
 import urllib
 import urlparse
 import xml.etree.cElementTree as ETree
@@ -1089,6 +1091,13 @@ class SmartPlaylist(object):
 
         params = [] # parameter list
         steps = settings.get_option('miscellaneous/rating_steps', 5)
+        durations = {
+            _('seconds'): lambda value: timedelta(seconds=value),
+            _('minutes'): lambda value: timedelta(minutes=value),
+            _('hours'): lambda value: timedelta(hours=value),
+            _('days'): lambda value: timedelta(days=value),
+            _('weeks'): lambda value: timedelta(weeks=value),
+        }
 
         for param in self.search_params:
             if type(param) == str:
@@ -1099,6 +1108,12 @@ class SmartPlaylist(object):
 
             if field == '__rating':
                 value = float((100.0*value)/steps)
+            elif field in ('__date_added', '__last_played'):
+                duration, unit = value
+                delta = durations[unit](duration)
+                point = datetime.now() - delta
+                value = time.mktime(point.timetuple())
+
             if op == ">=" or op == "<=":
                 s += '( %(field)s%(op)s%(value)s ' \
                     '| %(field)s==%(value)s )' % \

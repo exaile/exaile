@@ -124,20 +124,16 @@ CRITERIA = [
         (_('at most'), SpinSecondsField),
         (_('is'), SpinSecondsField),
     ]),
-#    (_('Date Added'), [
+    (_('Date added'), [
         # TRANSLATORS: Example: track has been added in the last 2 days
-#        (_('in the last'), (SpinDateField,
-#            lambda x, i: day_calc(x, i, 'time_added'))),
+        (_('in the last'), SpinDateField),
         # TRANSLATORS: Example: track has not been added in the last 5 hours
-#        (_('not in the last'), (SpinDateField,
-#            lambda x, i: day_calc(x, i, 'time_added', '<'))),
-#        ]),
-#    (_('Last Played'), [
-#        (_('in the last'), (SpinDateField,
-#            lambda x, i: day_calc(x, i, 'last_played'))),
-#        (_('not in the last'), (SpinDateField,
-#            lambda x, i: day_calc(x, i, 'last_played', '<'))),
-#        ]),
+        (_('not in the last'), SpinDateField),
+    ]),
+    (_('Last played'), [
+        (_('in the last'), SpinDateField),
+        (_('not in the last'), SpinDateField),
+    ]),
     (_('Location'), [
         (_('is'), EntryField),
         (_('is not'), EntryField),
@@ -158,6 +154,8 @@ _TRANS = {
     _('between'): '><',
     _('greater than'): '>',
     _('less than'): '<',
+    _('in the last'): '>=',
+    _('not in the last'): '<',
 }
 
 _NMAP = {
@@ -169,6 +167,8 @@ _NMAP = {
     _('Plays'): '__playcount',
     _('Year'): 'date',
     _('Genre'): 'genre',
+    _('Date added'): '__date_added',
+    _('Last played'): '__last_played',
     _('Location'): '__loc',
 }
 

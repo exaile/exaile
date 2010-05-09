@@ -55,6 +55,7 @@ class ExaileNotification(object):
     summary = __inner_preference(notifyprefs.Summary)
     attach_tray = __inner_preference(notifyprefs.AttachToTray)
 
+    @common.threaded
     def on_play(self, type, player, track):
         '''Callback when we want to display a notification
 

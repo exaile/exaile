@@ -75,7 +75,7 @@ class UnifiedPlayer(_base.ExailePlayer):
         # collections are on slower media can increase it to preserve
         # gapless, at the expense of UI lag.
         self.audio_queue.set_property("max-size-time",
-                settings.get_option("player/queue_duration", 100000))
+                settings.get_option("player/queue_duration", 1000000))
 
     def _setup_pipeline(self):
         self.pipe.add(

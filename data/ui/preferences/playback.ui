@@ -347,6 +347,10 @@
         <col id="0">unified</col>
         <col id="1" translatable="yes">Unified (unstable)</col>
       </row>
+      <row>
+        <col id="0" translatable="yes">normal2</col>
+        <col id="1" translatable="yes">Normal2 (incomplete)</col>
+      </row>
     </data>
   </object>
 </interface>

@@ -30,6 +30,7 @@ import logging
 import os
 import urlparse
 
+import gio
 import gobject
 import gtk
 
@@ -168,6 +169,15 @@ class Main(object):
         _('Open URL'))
         dialog.set_transient_for(self.main.window)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+
+        clipboard = gtk.clipboard_get()
+        text = clipboard.wait_for_text()
+
+        if text is not None:
+            location = gio.File(uri=text)
+
+            if location.get_uri_scheme() is not None:
+                dialog.set_value(text)
 
         result = dialog.run()
         dialog.hide()

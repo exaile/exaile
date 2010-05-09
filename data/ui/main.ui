@@ -162,6 +162,7 @@
                         <property name="use_underline">True</property>
                         <property name="image">image8</property>
                         <property name="use_stock">False</property>
+                        <accelerator key="J" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_goto_playing_track_activate"/>
                       </object>
                     </child>

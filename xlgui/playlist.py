@@ -448,13 +448,9 @@ class Playlist(gtk.VBox):
         """
         selection = self.list.get_selection()
         (model, paths) = selection.get_selected_rows()
-        songs = []
-        for path in paths:
-            iter = self.model.get_iter(path)
-            song = self.model.get_value(iter, 0)
-            songs.append(song)
+        tracks = [model[path][0] for path in paths]
 
-        return songs
+        return tracks
 
     def get_all_tracks(self):
         """
@@ -534,6 +530,27 @@ class Playlist(gtk.VBox):
         self.queue.play(track=track)
         self.queue.set_current_playlist(self.playlist)
 
+    def on_key_press_event(self, widget, event):
+        """
+            Starts playback of the selected track or pauses it
+        """
+        if event.keyval == gtk.keysyms.space:
+
+            if self.player.is_stopped():
+                track = self.get_selected_track()
+                
+                if track is not None:
+                    index = self.playlist.index(track)
+                    self.playlist.set_current_pos(index)
+                    self.queue.play(track=track)
+                    self.queue.set_current_playlist(self.playlist)
+            else:
+                self.player.toggle_pause()
+
+            return True
+
+        return False
+
     def on_closing(self):
         """
             Called by the NotebookTab when this playlist
@@ -611,6 +628,7 @@ class Playlist(gtk.VBox):
         self.list.set_rules_hint(True)
         self.list.set_enable_search(True)
         self.list.connect('row-activated', self.on_row_activated)
+        self.list.connect('key-press-event', self.on_key_press_event)
 
         self.scroll = gtk.ScrolledWindow()
         self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)

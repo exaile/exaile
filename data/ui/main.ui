@@ -87,6 +87,14 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkMenuItem" id="restart_item">
+                        <property name="no_show_all">True</property>
+                        <property name="label" translatable="yes">Restart</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_restart_item_activate"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkImageMenuItem" id="quit_item">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>

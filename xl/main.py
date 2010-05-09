@@ -493,11 +493,13 @@ class Exaile(object):
         """
         return __version__
 
-    def quit(self):
+    def quit(self, restart=False):
         """
-            exits Exaile normally.
+            Exits Exaile normally. Takes care of saving
+            preferences, databases, etc.
 
-            takes care of saving preferences, databases, etc.
+            :param restart: Whether to directly restart
+            :type restart: bool
         """
         if self.quitting:
             return
@@ -543,6 +545,11 @@ class Exaile(object):
         from xl import settings
 
         settings._SETTINGSMANAGER.save()
+
+        if restart:
+            logger.info("Restarting...")
+            python = sys.executable
+            os.execl(python, python, *sys.argv)
 
         logger.info("Bye!")
         logging.shutdown()

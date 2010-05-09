@@ -578,6 +578,12 @@ class MainWindow(gobject.GObject):
         """
             Sets up the various widgets
         """
+        if self.controller.exaile.options.Debug:
+            logger.info("Enabling Restart menu item")
+            restart_item = self.builder.get_object('restart_item')
+            restart_item.set_property('visible', True)
+            restart_item.set_no_show_all(False)
+
         self.volume_control = guiutil.VolumeControl(
             self.builder.get_object('volume_control')
         )
@@ -703,6 +709,7 @@ class MainWindow(gobject.GObject):
             'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.delete_event,
             'on_quit_item_activated': self.quit,
+            'on_restart_item_activate': self.on_restart_item_activate,
             'on_playpause_button_clicked': self.on_playpause_button_clicked,
             'on_next_button_clicked':
                 lambda *e: self.queue.next(),
@@ -1354,11 +1361,18 @@ class MainWindow(gobject.GObject):
 
     def quit(self, *e):
         """
-            quits exaile
+            Quits Exaile
         """
         self.window.hide()
         gobject.idle_add(self.controller.exaile.quit)
         return True
+
+    def on_restart_item_activate(self, menuitem):
+        """
+            Restarts Exaile
+        """
+        self.window.hide()
+        gobject.idle_add(self.controller.exaile.quit, True)
 
     def toggle_visible(self, bringtofront=False):
         """

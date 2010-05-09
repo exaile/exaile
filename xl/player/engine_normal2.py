@@ -87,7 +87,7 @@ class NormalPlayer2(_base.ExailePlayer):
         self._queue.next()
 
     def on_about_to_finish(self, pbin):
-        print "ABOUT TO FINISH!"
+        #print "ABOUT TO FINISH!"
         tr = self._queue.next(player=False)
         self.play(tr, stop_last=False)
 
@@ -125,8 +125,8 @@ class NormalPlayer2(_base.ExailePlayer):
                 logger.info('Buffering complete')
             if percent % 5 == 0:
                 event.log_event('playback_buffering', self, percent)
-        elif message.type not in (gst.MESSAGE_STATE_CHANGED,):
-            logger.debug("GSTREAMER: " + repr(message))
+        #elif message.type not in (gst.MESSAGE_STATE_CHANGED,):
+        #    logger.debug("GSTREAMER: " + repr(message))
         return True
 
     def _get_current(self):

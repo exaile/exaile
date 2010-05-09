@@ -75,14 +75,12 @@ class EnsureVisiblePreference(widgets.CheckPreference):
     default = True
     name = 'gui/ensure_visible'
 
-class TabPlacementPreference(widgets.ComboPreference, widgets.CheckConditional):
+class TabPlacementPreference(widgets.ComboPreference):
     default = 'top'
     name = 'gui/tab_placement'
-    condition_preference_name = 'gui/show_tabbar'
 
     def __init__(self, preferences, widget):
         widgets.ComboPreference.__init__(self, preferences, widget)
-        widgets.CheckConditional.__init__(self)
 
 class ProgressBarTextFormatPreference(widgets.ComboEntryPreference):
     name = 'gui/progress_bar_text_format'

@@ -109,7 +109,7 @@ install-target: make-install-dirs
 	$(MAKE) -C plugins install
 
 locale:
-	cd po && find . -name "*.po" -exec ../tools/compilepo.sh {} \; && cd ..
+	$(MAKE) -C po locale
 
 install-locale:
 	for f in `find po -name exaile.mo` ; do \

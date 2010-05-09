@@ -142,7 +142,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             Connects events used in this panel
         """
         self.track_menu.connect('remove-track', lambda *e:
-            self.remove_selected_tracks())
+            self.remove_selected_track())
 
         menu = self.playlist_menu
         menu.connect('add-playlist', self._on_add_button_clicked)

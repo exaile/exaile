@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-10 19:00+0200\n"
+"POT-Creation-Date: 2010-05-10 23:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -977,17 +977,14 @@ msgstr ""
 msgid "Playback"
 msgstr ""
 
-#: ../xlgui/preferences/playback.py:62
-msgid "Restart required"
-msgstr ""
-
-#: ../xlgui/preferences/playback.py:63
+#: ../xlgui/preferences/playback.py:49
 msgid ""
-"This change requires a restart of Exaile to take effect.\n"
-"<b>Do you want to restart now?</b>"
+"<big><b>Restart Exaile?</b></big>\n"
+"\n"
+"A restart is required for this change to take effect."
 msgstr ""
 
-#: ../xlgui/preferences/playback.py:67 ../data/ui/main.ui.h:17
+#: ../xlgui/preferences/playback.py:53 ../data/ui/main.ui.h:17
 msgid "Restart"
 msgstr ""
 

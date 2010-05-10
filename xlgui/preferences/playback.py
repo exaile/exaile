@@ -46,14 +46,14 @@ class EnginePreference(widgets.ComboPreference):
             self.preferences.window,
             gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
             gtk.MESSAGE_QUESTION)
-        self.dialog.set_title(_('Restart required'))
-        self.dialog.set_markup(_('This change requires a restart '
-                            'of Exaile to take effect.\n'
-                            '<b>Do you want to restart now?</b>'))
+        self.dialog.set_markup(_('<big><b>Restart Exaile?</b></big>\n\n'
+                                 'A restart is required for this change '
+                                 'to take effect.'))
         self.dialog.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
         button = self.dialog.add_button(_('Restart'), gtk.RESPONSE_ACCEPT)
         button.set_image(gtk.image_new_from_stock(
             gtk.STOCK_REFRESH, gtk.ICON_SIZE_BUTTON))
+        button.grab_default()
 
     def apply(self, value=None):
         """

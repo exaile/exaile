@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-10 19:00+0200\n"
-"PO-Revision-Date: 2010-05-10 19:01+0100\n"
+"POT-Creation-Date: 2010-05-10 23:11+0200\n"
+"PO-Revision-Date: 2010-05-10 23:16+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -1057,19 +1057,17 @@ msgstr "Cover"
 msgid "Playback"
 msgstr "Wiedergabe"
 
-#: ../xlgui/preferences/playback.py:62
-msgid "Restart required"
-msgstr "Neustart erforderlich"
-
-#: ../xlgui/preferences/playback.py:63
+#: ../xlgui/preferences/playback.py:49
 msgid ""
-"This change requires a restart of Exaile to take effect.\n"
-"<b>Do you want to restart now?</b>"
+"<big><b>Restart Exaile?</b></big>\n"
+"\n"
+"A restart is required for this change to take effect."
 msgstr ""
-"Diese Änderung erfordert einen Neustart von Exaile.\n"
-"<b>Jetzt neustarten?</b>"
+"<big><b>Exaile neustarten?</b></big>\n"
+"\n"
+"Ein Neustart ist erforderlich, um diese Änderung durchzuführen."
 
-#: ../xlgui/preferences/playback.py:67
+#: ../xlgui/preferences/playback.py:53
 #: ../data/ui/main.ui.h:17
 msgid "Restart"
 msgstr "Neustarten"
@@ -3502,4 +3500,13 @@ msgstr ""
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
 msgstr "Ermöglicht das Herunterfahren des Computers am Ende der Wiedergabe."
+
+#~ msgid "Restart required"
+#~ msgstr "Neustart erforderlich"
+#~ msgid ""
+#~ "This change requires a restart of Exaile to take effect.\n"
+#~ "<b>Do you want to restart now?</b>"
+#~ msgstr ""
+#~ "Diese Änderung erfordert einen Neustart von Exaile.\n"
+#~ "<b>Jetzt neustarten?</b>"
 

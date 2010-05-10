@@ -1440,7 +1440,7 @@ class MainWindow(gobject.GObject):
         toggle_handled = self.emit('main-visible-toggle')
 
         if not toggle_handled:
-            if bringtofront and self.window.is_active() or
+            if bringtofront and self.window.is_active() or \
                not bringtofront and self.window.get_property('visible'):
                 self.window.hide()
             elif not toggle_handled:

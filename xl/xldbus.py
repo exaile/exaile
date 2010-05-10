@@ -481,7 +481,7 @@ class DbusManager(dbus.service.Object):
         """
             Toggles visibility of the GUI, if possible
         """
-        self.exaile.gui.main.toggle_visible()
+        self.exaile.gui.main.toggle_visible(bringtofront=True)
 
     @dbus.service.method('org.exaile.Exaile', None, 'ay')
     def GetCoverData(self):

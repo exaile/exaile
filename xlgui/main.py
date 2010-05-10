@@ -1438,13 +1438,14 @@ class MainWindow(gobject.GObject):
             Toggles visibility of the main window
         """
         toggle_handled = self.emit('main-visible-toggle')
-        if not toggle_handled and (
-                (bringtofront and self.window.is_active()) or
-                (not bringtofront and self.window.get_property('visible'))):
-            self.window.hide()
-        elif not toggle_handled:
-            self.window.deiconify()
-            self.window.present()
+
+        if not toggle_handled:
+            if bringtofront and self.window.is_active() or
+               not bringtofront and self.window.get_property('visible'):
+                self.window.hide()
+            elif not toggle_handled:
+                self.window.deiconify()
+                self.window.present()
 
     def configure_event(self, *e):
         """

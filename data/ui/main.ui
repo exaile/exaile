@@ -91,6 +91,7 @@
                         <property name="no_show_all">True</property>
                         <property name="label" translatable="yes">Restart</property>
                         <property name="use_underline">True</property>
+                        <accelerator key="r" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_restart_item_activate"/>
                       </object>
                     </child>
@@ -545,10 +546,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Repeat playlist</property>
+                        <property name="tooltip_text" translatable="yes">Repeat playback</property>
                         <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="toggled" handler="on_repeat_button_toggled"/>
                         <child>
                           <object class="GtkImage" id="repeat_button_image">
                             <property name="visible">True</property>

@@ -106,6 +106,34 @@ def get_workarea_size():
 
     return rootwindow.property_get(workarea)[2][2:4] # W,H
 
+def gtk_widget_replace(widget, replacement):
+    """
+        Replaces one widget with another and
+        places it exactly at the original position
+
+        :param widget: The original widget
+        :type widget: :class:`gtk.Widget`
+        :param replacement: The new widget
+        :type widget: :class:`gtk.Widget`
+    """
+    parent = widget.get_parent()
+
+    try:
+        position = parent.get_children().index(widget)
+    except AttributeError: # None, not gtk.Container
+        return
+    else:
+        parent.remove(widget)
+        replacement.unparent()
+        parent.add(replacement)
+
+        try:
+            parent.reorder_child(replacement, position)
+        except AttributeError: # Not gtk.Box
+            pass
+
+        replacement.show_all()
+
 class ScalableImageWidget(gtk.Image):
     """
         Custom resizeable image widget

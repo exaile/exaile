@@ -44,9 +44,7 @@ def disable(exaile):
         Disables the mini mode plugin
     """
     global MINIMODE
-    if MINIMODE:
-        MINIMODE.destroy()
-        MINIMODE = None
+    del MINIMODE
 
 def get_preferences_pane():
     return minimodeprefs
@@ -114,7 +112,7 @@ class MiniMode(gtk.Window):
         self.exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
 
-    def destroy(self):
+    def __del__(self):
         """
             Cleans up and hides
             the mini mode window

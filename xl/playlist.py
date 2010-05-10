@@ -403,14 +403,15 @@ class Playlist(object):
         self.random_enabled = False
         self.random_mode = "track"
         self.repeat_enabled = False
+        self.repeat_mode = "playlist"
         self.dynamic_enabled = False
         self._is_custom = is_custom
         self._needs_save = False
         self.name = name
         self.tracks_history = []
         self.extra_save_items = ['random_enabled', 'random_mode',
-                'repeat_enabled', 'dynamic_enabled', 'current_pos',
-                'name', '_is_custom', '_needs_save']
+            'repeat_enabled', 'repeat_mode', 'dynamic_enabled',
+            'current_pos', 'name', '_is_custom', '_needs_save']
 
     def get_name(self):
         return self.name
@@ -615,13 +616,18 @@ class Playlist(object):
 
     def peek(self):
         """
-            returns the next track that will be played
+            Returns the next track that will be played
         """
         if self.random_enabled:
             return None #peek() is meaningless with random
-        nextpos = self.current_pos + 1
+
+        if self.repeat_enabled and self.repeat_mode == 'track':
+            nextpos = self.current_pos
+        else:
+            nextpos = self.current_pos + 1
+
         if nextpos >= len(self):
-            if self.repeat_enabled:
+            if self.repeat_enabled and self.repeat_mode == 'playlist':
                 nextpos = 0
             else:
                 return None # end of playlist
@@ -674,8 +680,8 @@ class Playlist(object):
         if self.random_enabled:
             if self.current_pos != -1:
                 self.tracks_history.append(self.get_current())
-                if self.repeat_enabled and len(self.tracks_history) >= \
-                        len(self.ordered_tracks):
+                if self.repeat_enabled and \
+                    len(self.tracks_history) >= len(self.ordered_tracks):
                     self.tracks_history = []
             if len(self.ordered_tracks) == 1 and \
                     len(self.tracks_history) == 1:
@@ -691,14 +697,15 @@ class Playlist(object):
                 self.tracks_history = []
                 return None
             self.current_pos = self.ordered_tracks.index(next)
-
+        elif self.repeat_enabled and self.repeat_mode == 'track':
+            pass # Stay where we are
         else:
             if len(self.ordered_tracks) == 0:
                 return None
             self.current_pos += 1
 
         if self.current_pos >= len(self.ordered_tracks):
-            if self.repeat_enabled:
+            if self.repeat_enabled and self.repeat_mode == 'playlist':
                 self.current_pos = 0
             else:
                 self.current_pos = -1
@@ -724,7 +731,7 @@ class Playlist(object):
         else:
             self.current_pos -= 1
             if self.current_pos < 0:
-                if self.repeat_enabled:
+                if self.repeat_enabled and self.repeat_mode == 'playlist':
                     self.current_pos = len(self.ordered_tracks) - 1
                 else:
                     self.current_pos = 0
@@ -781,7 +788,7 @@ class Playlist(object):
         """
             Enables random mode if it isn't already enabled
 
-            @param value: [bool]
+            :param value: [bool]
         """
         if not self.random_enabled:
             self.tracks_history = []
@@ -792,13 +799,14 @@ class Playlist(object):
             self.random_mode = mode
         self._dirty = True
 
-    def set_repeat(self, value):
+    def set_repeat(self, value, mode="playlist"):
         """
             Enables repeat mode if it isn't already enabled
 
-            @param value: [bool]
+            :param value: [bool]
         """
         self.repeat_enabled = value
+        self.repeat_mode = mode
         self._dirty = True
 
     def set_dynamic(self, value):

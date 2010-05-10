@@ -594,6 +594,7 @@ class MainWindow(gobject.GObject):
         self.shuffle_image = self.builder.get_object('shuffle_button_image')
 
         self.repeat_toggle = self.builder.get_object('repeat_button')
+        self.repeat_toggle.connect('button-press-event', self.on_repeat_pressed)
         self.repeat_toggle.set_active(settings.get_option('playback/repeat', False))
 
         self.dynamic_toggle = self.builder.get_object('dynamic_button')
@@ -1060,12 +1061,55 @@ class MainWindow(gobject.GObject):
                 menu.append(sep)
                 sep.show()
 
-        menu.popup(None, None, self.shuffle_menu_set_pos, event.button, event.time, widget)
+        menu.popup(None, None, self.mode_menu_set_pos, event.button, event.time, widget)
         #Call reposition as the menu's width is required in calculation and
         #it needs a "refresh"
         menu.reposition()
 
-    def shuffle_menu_set_pos(self, menu, button):
+    def on_repeat_pressed(self, widget, event):
+        """
+            Called when the repeat button is clicked
+        """
+        #Make it appear pressed in when the menu pops up (looks a bit nicer)
+        self.repeat_toggle.set_active(True)
+
+        #Get the current setting so the right radio button is chosen
+        sel = [False, False, False]
+        if settings.get_option('playback/repeat', False) == True:
+            if settings.get_option('playback/repeat_mode') == 'playlist':
+                sel[1] = True
+            else:
+                sel[2] = True
+        else:
+            sel[0] = True
+
+
+        #REPEAT POPUP MENU
+        menu = gtk.Menu()
+
+        #Connect signal to make sure the toggle goes back to how it should be
+        #after we changed it when the menu was popped up for asthetics
+        menu.connect("deactivate", lambda *e: self.repeat_toggle.set_active(
+                    settings.get_option('playback/repeat', False)))
+        texts = (_("Repeat _Off"), _("Repeat _Playlist"), _("Repeat _Track"))
+        r = None
+        for num, text in enumerate(texts):
+            r = gtk.RadioMenuItem(r, text)
+            r.set_active(sel[num])
+            menu.append(r)
+            r.connect("activate", self.repeat_mode_selected, text)
+            r.show()
+            if text == _("Repeat _Off"):
+                sep = gtk.SeparatorMenuItem()
+                menu.append(sep)
+                sep.show()
+
+        menu.popup(None, None, self.mode_menu_set_pos, event.button, event.time, widget)
+        #Call reposition as the menu's width is required in calculation and
+        #it needs a "refresh"
+        menu.reposition()
+
+    def mode_menu_set_pos(self, menu, button):
         """
             Nicely position the shuffle popup menu with the button's corner
         """
@@ -1088,6 +1132,17 @@ class MainWindow(gobject.GObject):
             settings.set_option('playback/shuffle', True)
             settings.set_option('playback/shuffle_mode', 'album')
 
+    def repeat_mode_selected(self, widget, mode):
+
+        if mode == _("Repeat _Off"):
+            settings.set_option('playback/repeat', False)
+        elif mode == _("Repeat _Playlist"):
+            settings.set_option('playback/repeat', True)
+            settings.set_option('playback/repeat_mode', 'playlist')
+        elif mode == _("Repeat _Track"):
+            settings.set_option('playback/repeat', True)
+            settings.set_option('playback/repeat_mode', 'track')
+
     def set_mode_toggles(self, *e):
         """
             Called when the user clicks one of the playback mode buttons
@@ -1100,9 +1155,10 @@ class MainWindow(gobject.GObject):
     def set_playlist_modes(self):
         pl = self.get_selected_playlist()
         if pl:
-            pl.playlist.set_repeat(settings.get_option('playback/repeat'))
             pl.playlist.set_random(settings.get_option('playback/shuffle'),
-                    settings.get_option('playback/shuffle_mode'))
+                settings.get_option('playback/shuffle_mode'))
+            pl.playlist.set_repeat(settings.get_option('playback/repeat'),
+                settings.get_option('playback/repeat_mode'))
 
     def on_playback_resume(self, type, player, data):
         self.resuming = True
@@ -1222,6 +1278,9 @@ class MainWindow(gobject.GObject):
         if option == 'playback/repeat':
             self.repeat_toggle.set_active(settings.get_option(option, False))
 
+            self.set_playlist_modes()
+
+        if option == 'playback/repeat_mode':
             self.set_playlist_modes()
 
 

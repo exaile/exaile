@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-10 23:11+0200\n"
+"POT-Creation-Date: 2010-05-11 12:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -953,15 +953,15 @@ msgstr ""
 msgid "%(track_count)d in total (%(total_duration)s)"
 msgstr ""
 
-#: ../xlgui/commondialogs.py:338
+#: ../xlgui/commondialogs.py:339
 msgid "Select File Type (By Extension)"
 msgstr ""
 
-#: ../xlgui/commondialogs.py:346
+#: ../xlgui/commondialogs.py:347
 msgid "File Type"
 msgstr ""
 
-#: ../xlgui/commondialogs.py:349
+#: ../xlgui/commondialogs.py:350
 msgid "Extension"
 msgstr ""
 
@@ -977,14 +977,15 @@ msgstr ""
 msgid "Playback"
 msgstr ""
 
-#: ../xlgui/preferences/playback.py:49
-msgid ""
-"<big><b>Restart Exaile?</b></big>\n"
-"\n"
-"A restart is required for this change to take effect."
+#: ../xlgui/preferences/playback.py:49 ../xlgui/preferences/playback.py:57
+msgid "Restart Exaile?"
 msgstr ""
 
-#: ../xlgui/preferences/playback.py:53 ../data/ui/main.ui.h:17
+#: ../xlgui/preferences/playback.py:51 ../xlgui/preferences/playback.py:59
+msgid "A restart is required for this change to take effect."
+msgstr ""
+
+#: ../xlgui/preferences/playback.py:63 ../data/ui/main.ui.h:17
 msgid "Restart"
 msgstr ""
 
@@ -1837,20 +1838,14 @@ msgid "Resume playback on start"
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui.h:17
-msgid ""
-"This is a custom gstreamer pipeline to use for audio output, specified in "
-"gst-launch syntax. It will be linked to a single audio-only source pad."
-msgstr ""
-
-#: ../data/ui/preferences/playback.ui.h:18
 msgid "Unified (unstable)"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:19
+#: ../data/ui/preferences/playback.ui.h:18
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:20
+#: ../data/ui/preferences/playback.ui.h:19
 msgid "Use fade transitions on user actions"
 msgstr ""
 

@@ -42,18 +42,27 @@ class EnginePreference(widgets.ComboPreference):
     def __init__(self, preferences, widget):
         widgets.ComboPreference.__init__(self, preferences, widget)
 
-        self.dialog = gtk.MessageDialog(
-            self.preferences.window,
-            gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-            gtk.MESSAGE_QUESTION)
-        self.dialog.set_markup(_('<big><b>Restart Exaile?</b></big>\n\n'
-                                 'A restart is required for this change '
-                                 'to take effect.'))
-        self.dialog.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
-        button = self.dialog.add_button(_('Restart'), gtk.RESPONSE_ACCEPT)
+        if hasattr(commondialogs, 'MessageBar'):
+            self.message = commondialogs.MessageBar(
+                parent=preferences.builder.get_object('preferences_box'),
+                type=gtk.MESSAGE_QUESTION,
+                text=_('Restart Exaile?'))
+            self.message.set_secondary_text(
+                _('A restart is required for this change to take effect.'))
+        else:
+            self.message = gtk.MessageDialog(
+                parent=self.preferences.window,
+                flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                type=gtk.MESSAGE_QUESTION,
+                message_format=_('Restart Exaile?'))
+            self.message.format_secondary_text(
+                _('A restart is required for this change to take effect.'))
+
+        self.message.connect('response', self.on_message_response)
+        self.message.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+        button = self.message.add_button(_('Restart'), gtk.RESPONSE_ACCEPT)
         button.set_image(gtk.image_new_from_stock(
             gtk.STOCK_REFRESH, gtk.ICON_SIZE_BUTTON))
-        button.grab_default()
 
     def apply(self, value=None):
         """
@@ -68,13 +77,18 @@ class EnginePreference(widgets.ComboPreference):
         if value != oldvalue:
             self.preferences.settings.set_option(self.name, value)
 
-            response = self.dialog.run()
-            self.dialog.hide()
-
-            if response == gtk.RESPONSE_ACCEPT:
-                gobject.idle_add(main.exaile().quit, True)
+            self.message.show()
 
         return True
+
+    def on_message_response(self, widget, response):
+        """
+            Restarts Exaile if requested
+        """
+        widget.hide()
+
+        if response == gtk.RESPONSE_ACCEPT:
+            gobject.idle_add(main.exaile().quit, True)
 
 class AudioSinkPreference(widgets.ComboPreference):
     default = "auto"

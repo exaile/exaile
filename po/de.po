@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-10 23:11+0200\n"
-"PO-Revision-Date: 2010-05-10 23:16+0100\n"
+"POT-Creation-Date: 2010-05-11 12:53+0200\n"
+"PO-Revision-Date: 2010-05-11 12:54+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -1032,15 +1032,15 @@ msgstr "Verschiedene"
 msgid "%(track_count)d in total (%(total_duration)s)"
 msgstr "%(track_count)d insgesamt (%(total_duration)s)"
 
-#: ../xlgui/commondialogs.py:338
+#: ../xlgui/commondialogs.py:339
 msgid "Select File Type (By Extension)"
 msgstr "Dateityp wählen (nach Erweiterung)"
 
-#: ../xlgui/commondialogs.py:346
+#: ../xlgui/commondialogs.py:347
 msgid "File Type"
 msgstr "Dateityp"
 
-#: ../xlgui/commondialogs.py:349
+#: ../xlgui/commondialogs.py:350
 msgid "Extension"
 msgstr "Erweiterung"
 
@@ -1058,16 +1058,16 @@ msgid "Playback"
 msgstr "Wiedergabe"
 
 #: ../xlgui/preferences/playback.py:49
-msgid ""
-"<big><b>Restart Exaile?</b></big>\n"
-"\n"
-"A restart is required for this change to take effect."
-msgstr ""
-"<big><b>Exaile neustarten?</b></big>\n"
-"\n"
-"Ein Neustart ist erforderlich, um diese Änderung durchzuführen."
+#: ../xlgui/preferences/playback.py:57
+msgid "Restart Exaile?"
+msgstr "Exaile neustarten?"
 
-#: ../xlgui/preferences/playback.py:53
+#: ../xlgui/preferences/playback.py:51
+#: ../xlgui/preferences/playback.py:59
+msgid "A restart is required for this change to take effect."
+msgstr "Ein Neustart ist erforderlich, um diese Änderung durchzuführen."
+
+#: ../xlgui/preferences/playback.py:63
 #: ../data/ui/main.ui.h:17
 msgid "Restart"
 msgstr "Neustarten"
@@ -1963,18 +1963,14 @@ msgid "Resume playback on start"
 msgstr "Wiedergabe beim Starten wiederaufnehmen"
 
 #: ../data/ui/preferences/playback.ui.h:17
-msgid "This is a custom gstreamer pipeline to use for audio output, specified in gst-launch syntax. It will be linked to a single audio-only source pad."
-msgstr "Dies ist eine benutzerdefinierte GStreamer-Pipeline zur Audioausgabe, anzugeben in gst-launch-Syntax. Dieses wird mit einem einzelnen Quell-Pad zur Audio-Eingabe verknüpft."
-
-#: ../data/ui/preferences/playback.ui.h:18
 msgid "Unified (unstable)"
 msgstr "Vereinigt (instabil)"
 
-#: ../data/ui/preferences/playback.ui.h:19
+#: ../data/ui/preferences/playback.ui.h:18
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr "Crossfading (EXPERIMENTELL)"
 
-#: ../data/ui/preferences/playback.ui.h:20
+#: ../data/ui/preferences/playback.ui.h:19
 msgid "Use fade transitions on user actions"
 msgstr "Weiche Übergange bei Interaktion"
 
@@ -3501,6 +3497,13 @@ msgstr ""
 msgid "Allows for shutdown of the computer at the end of playback."
 msgstr "Ermöglicht das Herunterfahren des Computers am Ende der Wiedergabe."
 
+#~ msgid ""
+#~ "This is a custom gstreamer pipeline to use for audio output, specified in "
+#~ "gst-launch syntax. It will be linked to a single audio-only source pad."
+#~ msgstr ""
+#~ "Dies ist eine benutzerdefinierte GStreamer-Pipeline zur Audioausgabe, "
+#~ "anzugeben in gst-launch-Syntax. Dieses wird mit einem einzelnen Quell-Pad "
+#~ "zur Audio-Eingabe verknüpft."
 #~ msgid "Restart required"
 #~ msgstr "Neustart erforderlich"
 #~ msgid ""

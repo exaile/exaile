@@ -29,6 +29,7 @@ import os.path
 import pygtk
 pygtk.require('2.0')
 import gtk
+import pango
 
 from xl import xdg
 from xl.nls import gettext as _
@@ -392,3 +393,189 @@ class FileOperationDialog(gtk.FileChooserDialog):
         for key in keys:
             self.liststore.append([extensions[key], key])
 
+if hasattr(gtk, 'InfoBar'):
+    class MessageBar(gtk.InfoBar):
+        type_map = {
+            gtk.MESSAGE_INFO: gtk.STOCK_DIALOG_INFO,
+            gtk.MESSAGE_QUESTION: gtk.STOCK_DIALOG_QUESTION,
+            gtk.MESSAGE_WARNING: gtk.STOCK_DIALOG_WARNING,
+            gtk.MESSAGE_ERROR: gtk.STOCK_DIALOG_ERROR,
+        }
+        buttons_map = {
+            gtk.BUTTONS_OK: [
+                (gtk.STOCK_OK, gtk.RESPONSE_OK)
+            ],
+            gtk.BUTTONS_CLOSE: [
+                (gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+            ],
+            gtk.BUTTONS_CANCEL: [
+                (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
+            ],
+            gtk.BUTTONS_YES_NO: [
+                (gtk.STOCK_NO, gtk.RESPONSE_NO),
+                (gtk.STOCK_YES, gtk.RESPONSE_YES)
+            ],
+            gtk.BUTTONS_OK_CANCEL: [
+                (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL),
+                (gtk.STOCK_OK, gtk.RESPONSE_OK)
+            ]
+        }
+        def __init__(self, parent=None, type=gtk.MESSAGE_INFO,
+                     buttons=gtk.BUTTONS_NONE, text=None):
+            """
+                Report important messages to the user
+
+                :param parent: the parent container
+                :type parent: :class:`gtk.Container`
+                :param type: the type of message: gtk.MESSAGE_INFO,
+                    gtk.MESSAGE_WARNING, gtk.MESSAGE_QUESTION or
+                    gtk.MESSAGE_ERROR.
+                :param buttons: the predefined set of buttons to
+                    use: gtk.BUTTONS_NONE, gtk.BUTTONS_OK,
+                    gtk.BUTTONS_CLOSE, gtk.BUTTONS_CANCEL,
+                    gtk.BUTTONS_YES_NO, gtk.BUTTONS_OK_CANCEL
+                :param text: a string containing the message
+                    text or None
+            """
+            if parent is not None and not isinstance(parent, gtk.Container):
+                raise TypeError('Parent needs to be of type gtk.Container')
+
+            gtk.InfoBar.__init__(self)
+            self.set_no_show_all(True)
+
+            parent.add(self)
+            parent.reorder_child(self, 0)
+            parent.child_set_property(self, 'expand', False)
+
+            self.image = gtk.Image()
+            self.image.set_property('yalign', 0)
+            self.set_message_type(type)
+
+            self.primary_text = gtk.Label(text)
+            self.primary_text.set_property('xalign', 0)
+            self.secondary_text = gtk.Label()
+            self.secondary_text.set_property('xalign', 0)
+            text_box = gtk.VBox(spacing=12)
+            text_box.pack_start(self.primary_text, False, False)
+            text_box.pack_start(self.secondary_text, False, False)
+
+            self.message_area = gtk.HBox(spacing=6)
+            self.message_area.pack_start(self.image, False, False)
+            self.message_area.pack_start(text_box, False, False)
+
+            content_area = self.get_content_area()
+            content_area.add(self.message_area)
+            content_area.show_all()
+
+            if buttons != gtk.BUTTONS_NONE:
+                for text, response in self.buttons_map[buttons]:
+                    self.add_button(text, response)
+
+            self.primary_text_attributes = pango.AttrList()
+            self.primary_text_attributes.insert(
+                pango.AttrWeight(pango.WEIGHT_NORMAL, 0, -1))
+            self.primary_text_attributes.insert(
+                pango.AttrScale(pango.SCALE_MEDIUM, 0, -1))
+
+            self.primary_text_emphasized_attributes = pango.AttrList()
+            self.primary_text_emphasized_attributes.insert(
+                pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1))
+            self.primary_text_emphasized_attributes.insert(
+                pango.AttrScale(pango.SCALE_LARGE, 0, -1))
+
+            self.action_area = self.get_action_area()
+            self.action_area.set_property('layout-style', gtk.BUTTONBOX_START)
+
+        def set_markup(self, markup):
+            """
+                Sets the text of the message bar
+                to the contents of markup
+
+                :param markup: a markup string
+                :type markup: string
+            """
+            self.primary_text.set_markup(markup)
+
+        def set_secondary_text(self, text):
+            """
+                Sets the secondary text to the text
+                specified by message_format
+
+                :param text: The text to be displayed
+                    as the secondary text or None.
+                :type text: string
+            """
+            self.secondary_text.set_text(text)
+
+            if text is None:
+                self.primary_text.set_attributes(
+                    self.primary_text_attributes)
+            else:
+                self.primary_text.set_attributes(
+                    self.primary_text_emphasized_attributes)
+
+        def set_secondary_markup(self, markup):
+            """
+                Sets the secondary text to the markup text
+                specified by text.
+
+                :param text: A string containing the
+                    pango markup to use as secondary text.
+                :type text: string
+            """
+            self.secondary_text.set_markup(markup)
+
+            if markup is None:
+                self.primary_text.set_attributes(
+                    self.primary_text_attributes)
+            else:
+                self.primary_text.set_attributes(
+                    self.primary_text_emphasized_attributes)
+
+        def set_image(self, image):
+            """
+                Sets the contained image to the :class:`gtk.Widget`
+                specified by image.
+
+                :param image: the image widget
+                :type image: :class:`gtk.Widget`
+            """
+            self.message_area.remove(self.image)
+            self.image = image
+            self.message_area.pack_start(self.image)
+            self.message_area.reorder_child(self.image, 0)
+
+        def get_image(self):
+            """
+                Gets the contained image
+            """
+            return self.image
+
+        def add_button(self, button_text, response_id):
+            """
+                Overrides :class:`gtk.InfoBar` to prepend
+                instead of append to the action area
+
+                :param button_text: text of button, or stock ID
+                :type button_text: string
+                :param response_id: response ID for the button
+                :type response_id: int
+            """
+            button = gtk.InfoBar.add_button(self, button_text, response_id)
+            self.action_area.reorder_child(button, 0)
+            
+            return button
+
+        def set_message_type(self, type):
+            """
+                Sets the message type of the message area.
+
+                :param type: the type of message: gtk.MESSAGE_INFO,
+                    gtk.MESSAGE_WARNING, gtk.MESSAGE_QUESTION or
+                    gtk.MESSAGE_ERROR.
+            """
+            if type != gtk.MESSAGE_OTHER:
+                self.image.set_from_stock(self.type_map[type],
+                    gtk.ICON_SIZE_DIALOG)
+
+            gtk.InfoBar.set_message_type(self, type)

@@ -166,6 +166,9 @@ def run_commands(options, iface):
             logger.warning("FIXME: command not implemented")
             comm = True
 
+    if not comm:
+        iface.GuiToggleVisible()
+
 class DbusManager(dbus.service.Object):
     """
         The dbus interface object for Exaile

@@ -1444,7 +1444,6 @@ class MainWindow(gobject.GObject):
                not bringtofront and self.window.get_property('visible'):
                 self.window.hide()
             elif not toggle_handled:
-                self.window.deiconify()
                 self.window.present()
 
     def configure_event(self, *e):

@@ -678,7 +678,7 @@ class CoverChooser(gobject.GObject):
 
             if len(covers) > 0:
                 self.ok_button.set_sensitive(True)
-            elif len(covers) > 1:
+            if len(covers) > 1:
                 self.next_button.set_sensitive(True)
 
             gobject.idle_add(self.show_cover, covers[0])

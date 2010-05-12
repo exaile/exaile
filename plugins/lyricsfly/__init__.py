@@ -72,6 +72,8 @@ def html_un_entity(text):
 class LyricsFly(LyricSearchMethod):
 
     name= "lyricsfly"
+    display_name = "Lyrics Fly"
+    
     def find_lyrics(self, track):
         try:
             artist = track.get_tag_raw("artist")[0]
@@ -91,7 +93,7 @@ class LyricsFly(LyricSearchMethod):
         except SyntaxError: #happens if it gives us something wierd, like a 403
             raise LyricsNotFoundException
 
-        return (lyrics, "Lyrics Fly", url)
+        return (lyrics, self.name, url)
 
     def parse_xml(self, xml):
         """

@@ -29,6 +29,7 @@
 #
 from xl import providers, event
 from xl import settings
+from xl.nls import gettext as _
 
 class LyricsNotFoundException(Exception):
     pass
@@ -46,6 +47,15 @@ class LyricsManager(providers.ProviderHandler):
         self.preferred_order = settings.get_option(
                 'lyrics/preferred_order', [])
         self.add_defaults()
+
+    def get_method_names(self):
+        """
+            Returns a list of methods names in a readable format
+        """
+        methods=[]
+        for k, method in self.methods.iteritems():
+            methods.append(method.display_name)
+        return methods
 
     def add_search_method(self, method):
         """
@@ -172,6 +182,39 @@ class LyricsManager(providers.ProviderHandler):
 
         return (lyrics, source, url)
 
+    def find_all_lyrics(self, track):
+        """
+            Like find_lyrics but fetches all sources and returns
+            a list of lyrics.
+
+            :param track: the track we want lyrics for, it
+                must have artist/title tags
+
+            :return: list of tuples in the same format as
+                find_lyrics's return value
+
+            :raise LyricsNotFoundException: when lyrics are not
+                found from all sources.
+        """
+        lyrics_found=[]
+
+        for method in self.get_methods():
+            lyrics = None
+            source = None
+            url = None
+            try:
+                (lyrics, source, url) = method.find_lyrics(track)
+            except LyricsNotFoundException:
+                pass
+            if lyrics:
+                lyrics = lyrics.strip()
+                lyrics_found.append((method.display_name,lyrics, source, url))
+
+        if not lyrics_found:
+            # no lyrics were found, raise an exception
+            raise LyricsNotFoundException()
+
+        return lyrics_found
 
 class LyricSearchMethod(object):
     """
@@ -199,10 +242,11 @@ class LyricSearchMethod(object):
 class LocalLyricSearch(LyricSearchMethod):
 
     name="__local"
+    display_name=_("Local")
 
     def find_lyrics(self, track):
         lyrics = track.get_tag_disk('lyrics')
         if not lyrics:
             raise LyricsNotFoundException()
-        return (lyrics[0], "file", "")
+        return (lyrics[0], self.name, "")
 

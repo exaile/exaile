@@ -32,6 +32,8 @@ def disable(exaile):
 class LyricWiki(LyricSearchMethod):
 
     name= "lyricwiki"
+    display_name = "Lyric Wiki"
+
     def find_lyrics(self, track):
         try:
             (artist, title) = track.get_tag_raw('artist')[0], \
@@ -61,7 +63,7 @@ class LyricWiki(LyricSearchMethod):
 
         lyrics = str(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES))
 
-        return (lyrics, "Lyric Wiki", url)
+        return (lyrics, self.name, url)
 
     def remove_html_tags(self, data):
         p = re.compile(r'<[^<]*?/?>')

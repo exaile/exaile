@@ -673,18 +673,21 @@ class CollectionPanel(panel.Panel):
         for srtr in srtrs:
             stagvals = [unicode(srtr.track.get_tag_sort(x)) for x in tags]
             stagval = self.order[depth].printTags(stagvals)
-            if last_val != stagval:
+            if (last_val != stagval or bottom):
                 tagvals = [srtr.track.get_tag_display(x) for x in tags]
                 tagval = self.order[depth].printTags(tagvals)
                 match_query = " ".join([
                     srtr.track.get_tag_search(t, format=True) for t in tags])
+                if bottom:
+                    match_query += " " + \
+                            srtr.track.get_tag_search("__loc", format=True)
 
                 # Different *sort tags can cause stagval to not match
                 # but the below code will produce identical entries in
                 # the displayed tree.  This condition checks to ensure
                 # that new entries are added if and only if they will
                 # display different results, avoiding that problem.
-                if match_query != last_matchq or tagval != last_dval:
+                if match_query != last_matchq or tagval != last_dval or bottom:
                     if display_counts and path and not bottom:
                         iter = self.model.get_iter(path)
                         val = self.model.get_value(iter, 1)

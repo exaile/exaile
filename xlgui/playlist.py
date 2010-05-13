@@ -544,6 +544,10 @@ class Playlist(gtk.VBox):
                     self.playlist.set_current_pos(index)
                     self.queue.play(track=track)
                     self.queue.set_current_playlist(self.playlist)
+                elif len(self.playlist) > 0:
+                    self.playlist.set_current_pos(0)
+                    self.queue.play()
+                    self.queue.set_current_playlist(self.playlist)
             else:
                 self.player.toggle_pause()
 

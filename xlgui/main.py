@@ -621,8 +621,13 @@ class MainWindow(gobject.GObject):
             setattr(self, '%s_button' % button,
                 self.builder.get_object('%s_button' % button))
 
+        self.stop_button.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.stop_button.connect('motion-notify-event',
+            self.on_stop_button_motion_notify_event)
+        self.stop_button.connect('leave-notify-event',
+            self.on_stop_button_leave_notify_event)
         self.stop_button.connect('button-press-event',
-            self.on_stop_buttonpress)
+            self.on_stop_button_press_event)
 
         # Status bar
         self.statusbar = guiutil.Statusbar(self.builder.get_object('status_bar'))
@@ -646,16 +651,39 @@ class MainWindow(gobject.GObject):
         settings.set_option('gui/playlist_utilities_bar_visible',
             checkmenuitem.get_active())
 
-    def on_stop_buttonpress(self, widget, event):
+    def on_stop_button_motion_notify_event(self, widget, event):
+        """
+            Sets the hover state and shows SPAT icon
+        """
+        if event.state & gtk.gdk.SHIFT_MASK:
+            widget.set_data('hovered', True)
+            widget.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+        else:
+            widget.set_data('hovered', False)
+            widget.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_stop_button_leave_notify_event(self, widget, event):
+        """
+            Unsets the hover state and resets the button icon
+        """
+        widget.set_data('hovered', False)
+        widget.set_image(gtk.image_new_from_stock(
+            gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_stop_button_press_event(self, widget, event):
         """
             Called when the user clicks on the stop button.  We're looking for
             a right click so we can display the SPAT menu
         """
-        if event.button != 3: return
-        menu = guiutil.Menu()
-        menu.append(_("Toggle: Stop after Selected Track"), self.on_spat_clicked,
-            gtk.STOCK_STOP)
-        menu.popup(None, None, None, event.button, event.time)
+        if event.button == 1 and event.state & gtk.gdk.SHIFT_MASK:
+            self.on_spat_clicked()
+        elif event.button == 3:
+            menu = guiutil.Menu()
+            menu.append(_("Toggle: Stop after Selected Track"), self.on_spat_clicked,
+                gtk.STOCK_STOP)
+            menu.popup(None, None, None, event.button, event.time)
 
     def on_spat_clicked(self, *e):
         """

@@ -53,6 +53,7 @@ def _enable(o1, exaile, o2):
 
 def disable(exaile):
     global LYRICSPANEL
+    LYRICSPANEL.remove_callbacks()
     exaile.gui.remove_panel(LYRICSPANEL)
     LYRICSPANEL = None
 
@@ -140,7 +141,13 @@ class LyricsPanel(gtk.VBox):
         self.pack_start(self.lyrics_source_text, False, False, 0)
        #end text url and source
     #end initialize_widgets
-
+    
+    def remove_callbacks(self):
+        event.remove_callback(self.playback_cb, 'playback_track_start')
+        event.remove_callback(self.stop_cb, 'playback_track_end')
+        event.remove_callback(self.end_cb, 'playback_player_end')
+        event.remove_callback(self.search_method_added_cb, 'lyrics_search_method_added')
+        
     def search_method_added_cb(self, eventtype, lyrics, provider):
         self.update_lyrics(self.exaile.player)
 
@@ -204,6 +211,7 @@ class LyricsPanel(gtk.VBox):
             self.update_lyrics_text()
 
     def update_lyrics(self, player):
+        self.track_text_buffer.set_text("")
         self.lyrics_text_buffer.set_text("")
         self.lyrics_source_text_buffer.set_text("")
         self.lyrics_found=[]
@@ -212,7 +220,6 @@ class LyricsPanel(gtk.VBox):
             self.get_lyrics(player, player.current)
         else:
             gobject.idle_add(self.lyrics_text_buffer.set_text, _('Not playing.'))
-            self.track_text_buffer.set_text("")
 
 
     @common.threaded

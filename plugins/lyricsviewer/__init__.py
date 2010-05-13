@@ -77,6 +77,7 @@ class LyricsPanel(gtk.VBox):
 
         event.add_callback(self.playback_cb, 'playback_track_start')
         event.add_callback(self.stop_cb, 'playback_track_end')
+        event.add_callback(self.end_cb, 'playback_player_end')
         event.add_callback(self.search_method_added_cb, 'lyrics_search_method_added')
 
         self.update_lyrics(exaile.player)
@@ -148,6 +149,9 @@ class LyricsPanel(gtk.VBox):
 
     def stop_cb(self, eventtype, player, data):
         self.setup_top_box()
+
+    def end_cb(self, eventtype, player, data):
+        self.setup_top_box()
         self.update_lyrics(player)
 
     def on_lst_motion_event(self, textview, event):
@@ -208,6 +212,8 @@ class LyricsPanel(gtk.VBox):
             self.get_lyrics(player, player.current)
         else:
             gobject.idle_add(self.lyrics_text_buffer.set_text, _('Not playing.'))
+            self.track_text_buffer.set_text("")
+
 
     @common.threaded
     def get_lyrics(self, player, track):

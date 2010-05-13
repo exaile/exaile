@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-11 12:53+0200\n"
-"PO-Revision-Date: 2010-05-11 12:54+0100\n"
+"POT-Creation-Date: 2010-05-13 17:21+0200\n"
+"PO-Revision-Date: 2010-05-13 17:22+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -364,6 +364,10 @@ msgstr "Folgende Einstellung konnte nicht gespeichert werden: "
 msgid "An Unknown type of setting was found!"
 msgstr "Unbekannter Einstellungs-Typ gefunden!"
 
+#: ../xl/lyrics.py:245
+msgid "Local"
+msgstr "Lokal"
+
 #: ../xl/plugins.py:92
 msgid "Plugin archive is not in the correct format"
 msgstr "Inkorrektes Format des Plugin-Archivs"
@@ -411,16 +415,17 @@ msgid "weeks"
 msgstr "Wochen"
 
 #: ../xl/xldbus.py:106
-#: ../xl/xldbus.py:369
+#: ../xl/xldbus.py:372
+#: ../plugins/lyricsviewer/__init__.py:210
 msgid "Not playing."
 msgstr "Keine Wiedergabe."
 
-#: ../xl/xldbus.py:374
+#: ../xl/xldbus.py:377
 #, python-format
 msgid "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr "Status: %(status)s, Titel: %(title)s, Künstler: %(artist)s, Album: %(album)s, Länge: %(length)s, Position: %(progress)s%% [%(position)s]"
 
-#: ../xl/xldbus.py:477
+#: ../xl/xldbus.py:480
 #: ../xlgui/__init__.py:368
 msgid "Scanning collection..."
 msgstr "Bibliothek einlesen …"
@@ -497,7 +502,7 @@ msgid "Copyright"
 msgstr "Copyright"
 
 #: ../xlgui/properties.py:57
-#: ../plugins/lyricsviewer/__init__.py:44
+#: ../plugins/lyricsviewer/__init__.py:49
 msgid "Lyrics"
 msgstr "Liedtexte"
 
@@ -640,7 +645,7 @@ msgstr "%(count)s von %(total)s gespeichert."
 
 #: ../xlgui/main.py:57
 #: ../xlgui/main.py:140
-#: ../xlgui/main.py:1202
+#: ../xlgui/main.py:1265
 #: ../xlgui/guiutil.py:1101
 #: ../data/ui/main.ui.h:9
 #: ../data/ui/widgets/track_info.ui.h:1
@@ -675,75 +680,75 @@ msgstr "Name der eigenen Wiedergabeliste:"
 msgid "Save as..."
 msgstr "Speichern unter …"
 
-#: ../xlgui/main.py:656
+#: ../xlgui/main.py:718
 msgid "Toggle: Stop after Selected Track"
 msgstr "Umschalten: nach diesem Stück stoppen"
 
-#: ../xlgui/main.py:695
+#: ../xlgui/main.py:758
 #: ../data/ui/main.ui.h:7
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dynamisch ähnliche Stücke der Wiedergabeliste hinzufügen"
 
-#: ../xlgui/main.py:700
+#: ../xlgui/main.py:763
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Erfordert Plugins welche dynamische Wiedergabelisten bereitstellen"
 
-#: ../xlgui/main.py:883
+#: ../xlgui/main.py:946
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Puffern: %d%% …"
 
-#: ../xlgui/main.py:912
+#: ../xlgui/main.py:975
 #: ../plugins/minimode/mmwidgets.py:197
 msgid "Continue Playback"
 msgstr "Wiedergabe fortsetzen"
 
-#: ../xlgui/main.py:916
-#: ../xlgui/main.py:1189
+#: ../xlgui/main.py:979
+#: ../xlgui/main.py:1252
 #: ../plugins/minimode/mmwidgets.py:200
 msgid "Pause Playback"
 msgstr "Wiedergabe unterbrechen"
 
-#: ../xlgui/main.py:1051
-#: ../xlgui/main.py:1059
-#: ../xlgui/main.py:1126
+#: ../xlgui/main.py:1114
+#: ../xlgui/main.py:1122
+#: ../xlgui/main.py:1189
 msgid "Shuffle _Off"
 msgstr "Zufallswiedergabe a_us"
 
-#: ../xlgui/main.py:1051
-#: ../xlgui/main.py:1128
+#: ../xlgui/main.py:1114
+#: ../xlgui/main.py:1191
 msgid "Shuffle _Tracks"
 msgstr "Zufallswiedergabe von _Stücken"
 
-#: ../xlgui/main.py:1051
-#: ../xlgui/main.py:1131
+#: ../xlgui/main.py:1114
+#: ../xlgui/main.py:1194
 msgid "Shuffle _Albums"
 msgstr "Zufallswiedergabe von _Alben"
 
-#: ../xlgui/main.py:1094
-#: ../xlgui/main.py:1102
-#: ../xlgui/main.py:1137
+#: ../xlgui/main.py:1157
+#: ../xlgui/main.py:1165
+#: ../xlgui/main.py:1200
 msgid "Repeat _Off"
 msgstr "Wiederholung a_us"
 
-#: ../xlgui/main.py:1094
-#: ../xlgui/main.py:1139
+#: ../xlgui/main.py:1157
+#: ../xlgui/main.py:1202
 msgid "Repeat _Playlist"
 msgstr "Wiederholung der _Wiedergabeliste"
 
-#: ../xlgui/main.py:1094
-#: ../xlgui/main.py:1142
+#: ../xlgui/main.py:1157
+#: ../xlgui/main.py:1205
 msgid "Repeat _Track"
 msgstr "Wiederholung des _Stücks"
 
-#: ../xlgui/main.py:1210
+#: ../xlgui/main.py:1273
 #: ../data/ui/main.ui.h:20
 #: ../plugins/minimode/mmwidgets.py:169
 #: ../plugins/minimode/mmwidgets.py:193
 msgid "Start Playback"
 msgstr "Wiedergabe starten"
 
-#: ../xlgui/main.py:1307
+#: ../xlgui/main.py:1370
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
@@ -752,31 +757,31 @@ msgstr ""
 "Keine Wiedergabe"
 
 #. TRANSLATORS: Window title
-#: ../xlgui/main.py:1317
+#: ../xlgui/main.py:1380
 #, python-format
 msgid "%(title)s (by %(artist)s)"
 msgstr "%(title)s (von %(artist)s)"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1327
+#: ../xlgui/main.py:1390
 #: ../xlgui/guiutil.py:1071
 #, python-format
 msgid "by %s"
 msgstr "von %s"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1329
+#: ../xlgui/main.py:1392
 #: ../xlgui/guiutil.py:1074
 #, python-format
 msgid "from %s"
 msgstr "aus %s"
 
-#: ../xlgui/main.py:1340
+#: ../xlgui/main.py:1403
 #, python-format
 msgid "In pause: %s"
 msgstr "Pausiert: %s"
 
-#: ../xlgui/main.py:1342
+#: ../xlgui/main.py:1405
 #, python-format
 msgid "Playing %s"
 msgstr "Spiele %s"
@@ -1261,21 +1266,21 @@ msgstr "Begrenzen auf: "
 msgid " tracks"
 msgstr " Stücke"
 
-#: ../xlgui/playlist.py:1190
+#: ../xlgui/playlist.py:1194
 #, python-format
 msgid "Close %s"
 msgstr "%s schließen"
 
-#: ../xlgui/playlist.py:1191
+#: ../xlgui/playlist.py:1195
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Änderungen an %s vor dem Schließen speichern?</b>"
 
-#: ../xlgui/playlist.py:1192
+#: ../xlgui/playlist.py:1196
 msgid "Your changes will be lost if you don't save them"
 msgstr "Änderungen gehen ohne Sicherung verloren."
 
-#: ../xlgui/playlist.py:1194
+#: ../xlgui/playlist.py:1198
 msgid "Close Without Saving"
 msgstr "Schließen, ohne zu speichern"
 
@@ -2448,12 +2453,28 @@ msgstr "IPython-Konsole anzeigen"
 msgid "IPython Console"
 msgstr "IPython-Konsole"
 
+#: ../plugins/lyricsviewer/__init__.py:99
+msgid "Refresh Lyrics"
+msgstr "Liedtexte aktualisieren"
+
+#: ../plugins/lyricsviewer/__init__.py:236
+msgid "No lyrics found."
+msgstr "Keine Liedtexte gefunden."
+
+#: ../plugins/lyricsviewer/__init__.py:260
+msgid "Go to: "
+msgstr "Gehe zu: "
+
+#: ../plugins/lyricsviewer/__init__.py:309
+msgid "Any"
+msgstr "Beliebig"
+
 #: ../plugins/minimode/__init__.py:222
 msgid "Stop Playback"
 msgstr "Wiedergabe beenden"
 
 #: ../plugins/minimode/__init__.py:226
-msgid "Restore Main Window"
+msgid "Restore main window"
 msgstr "Hauptfenster wiederherstellen"
 
 #: ../plugins/minimode/minimodeprefs.py:22

@@ -626,6 +626,10 @@ class MainWindow(gobject.GObject):
             self.on_stop_button_motion_notify_event)
         self.stop_button.connect('leave-notify-event',
             self.on_stop_button_leave_notify_event)
+        self.stop_button.connect('key-press-event',
+            self.on_stop_button_key_press_event)
+        self.stop_button.connect('key-release-event',
+            self.on_stop_button_key_release_event)
         self.stop_button.connect('button-press-event',
             self.on_stop_button_press_event)
 
@@ -672,16 +676,35 @@ class MainWindow(gobject.GObject):
         widget.set_image(gtk.image_new_from_stock(
             gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
 
+    def on_stop_button_key_press_event(self, widget, event):
+        """
+            Shows SPAT icon on Shift key press
+        """
+        if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
+            widget.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+
+        if event.keyval in (gtk.keysyms.space, gtk.keysyms.Return):
+            self.on_spat_clicked()
+
+    def on_stop_button_key_release_event(self, widget, event):
+        """
+            Resets the button icon
+        """
+        if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
+            widget.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
     def on_stop_button_press_event(self, widget, event):
         """
-            Called when the user clicks on the stop button.  We're looking for
-            a right click so we can display the SPAT menu
+            Called when the user clicks on the stop button
         """
         if event.button == 1 and event.state & gtk.gdk.SHIFT_MASK:
             self.on_spat_clicked()
         elif event.button == 3:
             menu = guiutil.Menu()
-            menu.append(_("Toggle: Stop after Selected Track"), self.on_spat_clicked,
+            menu.append(_("Toggle: Stop after Selected Track"),
+                self.on_spat_clicked,
                 gtk.STOCK_STOP)
             menu.popup(None, None, None, event.button, event.time)
 

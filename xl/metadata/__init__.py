@@ -61,6 +61,7 @@ formats = {
         'mtm'   : mod.ModFormat,
         'oga'   : ogg.OggFormat,
         'ogg'   : ogg.OggFormat,
+        'ogx'   : ogg.OggFormat,
         'okt'   : mod.ModFormat,
         'ra'    : None,
         'ram'   : None,

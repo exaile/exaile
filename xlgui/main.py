@@ -630,6 +630,8 @@ class MainWindow(gobject.GObject):
             self.on_stop_button_key_press_event)
         self.stop_button.connect('key-release-event',
             self.on_stop_button_key_release_event)
+        self.stop_button.connect('focus-out-event',
+            self.on_stop_button_focus_out_event)
         self.stop_button.connect('button-press-event',
             self.on_stop_button_press_event)
 
@@ -659,12 +661,11 @@ class MainWindow(gobject.GObject):
         """
             Sets the hover state and shows SPAT icon
         """
+        widget.set_data('hovered', True)
         if event.state & gtk.gdk.SHIFT_MASK:
-            widget.set_data('hovered', True)
             widget.set_image(gtk.image_new_from_stock(
                 gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
         else:
-            widget.set_data('hovered', False)
             widget.set_image(gtk.image_new_from_stock(
                 gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
 
@@ -673,8 +674,10 @@ class MainWindow(gobject.GObject):
             Unsets the hover state and resets the button icon
         """
         widget.set_data('hovered', False)
-        widget.set_image(gtk.image_new_from_stock(
-            gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+        if not widget.is_focus() and \
+           ~(event.state & gtk.gdk.SHIFT_MASK):
+            widget.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
 
     def on_stop_button_key_press_event(self, widget, event):
         """
@@ -692,6 +695,15 @@ class MainWindow(gobject.GObject):
             Resets the button icon
         """
         if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
+            widget.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_stop_button_focus_out_event(self, widget, event):
+        """
+            Resets the button icon unless
+            the button is still hovered
+        """
+        if not widget.get_data('hovered'):
             widget.set_image(gtk.image_new_from_stock(
                 gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
 

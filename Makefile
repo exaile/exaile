@@ -147,9 +147,9 @@ pot:
 	  find xl -name "*.py" >> po/POTFILES.in && \
 	  find xlgui -name "*.py" >> po/POTFILES.in && \
 	  find data/ui/ -name "*.ui" | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
-	  find plugins -name "*.py" >> po/POTFILES.in && \
-	  find plugins -name "*.ui" | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
-	  find plugins -name PLUGININFO >> po/POTFILES.in && \
+	  find plugins -name "*.py" | grep -v treeviewtest >> po/POTFILES.in && \
+	  find plugins -name "*.ui" | grep -v treeviewtest | sed 's/^/[type: gettext\/glade]/' >> po/POTFILES.in && \
+	  find plugins -name PLUGININFO | grep -v treeviewtest >> po/POTFILES.in && \
 	  cd po && XGETTEXT_ARGS="--language=Python --add-comments=TRANSLATORS" \
 	    intltool-update --pot --gettext-package=messages --verbose && cd ..
 

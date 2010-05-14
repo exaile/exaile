@@ -175,7 +175,7 @@ cover_widget = None
 
 def enable(exaile):
     if exaile.loading:
-        event.add_callback(_enable, 'exaile_loaded')
+        event.add_callback(_enable, 'gui_loaded')
     else:
         _enable(None, exaile, None)
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-14 19:31+0200\n"
-"PO-Revision-Date: 2010-05-14 19:32+0100\n"
+"POT-Creation-Date: 2010-05-14 19:53+0200\n"
+"PO-Revision-Date: 2010-05-14 19:53+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -35,214 +35,222 @@ msgstr "Benutzerdefiniert"
 msgid "Failed to migrate from 0.2.14"
 msgstr "Migration von 0.2.14 fehlgeschlagen"
 
-#: ../xl/main.py:319
+#: ../xl/main.py:321
+msgid "Usage: exaile [OPTION]... [URI]"
+msgstr "Aufruf: exaile [OPTION]... [URI]"
+
+#: ../xl/main.py:322
+msgid "Options"
+msgstr "Optionen"
+
+#: ../xl/main.py:326
 msgid "Playback Options"
 msgstr "Wiedergabe-Optionen"
 
-#: ../xl/main.py:321
+#: ../xl/main.py:328
 msgid "Play the next track"
 msgstr "Nächstes Stück spielen"
 
-#: ../xl/main.py:323
+#: ../xl/main.py:330
 msgid "Play the previous track"
 msgstr "Vorheriges Stück spielen"
 
-#: ../xl/main.py:325
+#: ../xl/main.py:332
 msgid "Stop playback"
 msgstr "Wiedergabe beenden"
 
-#: ../xl/main.py:327
+#: ../xl/main.py:334
 msgid "Play"
 msgstr "Wiedergabe"
 
-#: ../xl/main.py:330
+#: ../xl/main.py:337
 msgid "Pause or resume playback"
 msgstr "Wiedergabe pausieren oder wieder aufnehmen"
 
-#: ../xl/main.py:333
+#: ../xl/main.py:340
 msgid "Stop playback after current track"
 msgstr "Wiedergabe nach dem aktuellen Stück beenden"
 
-#: ../xl/main.py:336
+#: ../xl/main.py:343
 msgid "Collection Options"
 msgstr "Bibliotheks-Optionen"
 
 #. TRANSLATORS: Meta variable for --import
-#: ../xl/main.py:339
+#: ../xl/main.py:346
 msgid "LOCATION"
 msgstr "ORT"
 
-#: ../xl/main.py:339
+#: ../xl/main.py:346
 msgid "Import tracks from LOCATION"
 msgstr "Stücke vom ORT importieren"
 
-#: ../xl/main.py:342
+#: ../xl/main.py:349
 msgid "Track Options"
 msgstr "Stück-Optionen"
 
-#: ../xl/main.py:344
+#: ../xl/main.py:351
 msgid "Query player"
 msgstr "Abfrage"
 
-#: ../xl/main.py:347
+#: ../xl/main.py:354
 msgid "Show a popup with data of the current track"
 msgstr "Grafische Abfrage von Daten des aktuellen Stücks"
 
-#: ../xl/main.py:349
+#: ../xl/main.py:356
 msgid "Print the title of current track"
 msgstr "Titel des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:351
+#: ../xl/main.py:358
 msgid "Print the album of current track"
 msgstr "Album des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:353
+#: ../xl/main.py:360
 msgid "Print the artist of current track"
 msgstr "Künstler des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:355
+#: ../xl/main.py:362
 msgid "Print the length of current track"
 msgstr "Länge des aktuellen Stücks ausgeben"
 
 #. TRANSLATORS: Variable for command line options with arguments
-#: ../xl/main.py:358
-#: ../xl/main.py:373
-#: ../xl/main.py:377
+#: ../xl/main.py:365
+#: ../xl/main.py:380
+#: ../xl/main.py:384
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:359
+#: ../xl/main.py:366
 msgid "Set rating for current track to N%"
 msgstr "Bewertung für das aktuelle Stück auf N% festlegen"
 
-#: ../xl/main.py:361
+#: ../xl/main.py:368
 msgid "Get rating for current track"
 msgstr "Bewertung des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:364
+#: ../xl/main.py:371
 msgid "Print the current playback position as time"
 msgstr "Aktuelle Wiedergabeposition als Zeit ausgeben"
 
-#: ../xl/main.py:366
+#: ../xl/main.py:373
 msgid "Print the current playback progress as percentage"
 msgstr "Aktuellen Wiedergabefortschritt in Prozent ausgeben"
 
-#: ../xl/main.py:370
+#: ../xl/main.py:377
 msgid "Volume Options"
 msgstr "Lautstärke-Optionen"
 
-#: ../xl/main.py:374
+#: ../xl/main.py:381
 msgid "Increases the volume by N%"
 msgstr "Lautstärke um N% erhöhen"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:379
+#: ../xl/main.py:386
 msgid "Decreases the volume by N%"
 msgstr "Lautstärke um N% verringern"
 
-#: ../xl/main.py:382
+#: ../xl/main.py:389
 msgid "Mutes or unmutes the volume"
 msgstr "Lautstärke stumm schalten oder wiederherstellen"
 
-#: ../xl/main.py:384
+#: ../xl/main.py:391
 msgid "Print the current volume percentage"
 msgstr "Aktuelle Lautstärke in Prozent ausgeben"
 
-#: ../xl/main.py:387
+#: ../xl/main.py:394
 msgid "Other Options"
 msgstr "Andere Optionen"
 
-#: ../xl/main.py:389
+#: ../xl/main.py:396
 msgid "Start new instance"
 msgstr "Neue Instanz starten"
 
-#: ../xl/main.py:391
+#: ../xl/main.py:398
 msgid "Show this help message and exit"
 msgstr "Diesen Hilfetext anzeigen und beenden"
 
-#: ../xl/main.py:393
+#: ../xl/main.py:400
 msgid "Show program's version number and exit."
 msgstr "Programmversion anzeigen und beenden"
 
-#: ../xl/main.py:396
+#: ../xl/main.py:403
 msgid "Start minimized (to tray, if possible)"
 msgstr "Minimiert starten (im Benachrichtigungssymbol, wenn möglich)"
 
-#: ../xl/main.py:399
+#: ../xl/main.py:406
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Sichtbarkeit der GUI wechseln (wenn möglich)"
 
-#: ../xl/main.py:401
+#: ../xl/main.py:408
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Im abgesicherten Modus starten (nützlich bei Problemen)"
 
-#: ../xl/main.py:404
+#: ../xl/main.py:411
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr "Import alter Daten aus Version 0.2.x erzwingen (Überschreibt aktuelle Daten)"
 
-#: ../xl/main.py:407
+#: ../xl/main.py:414
 msgid "Do not import old data from version 0.2.x"
 msgstr "Alte Daten aus Version 0.2.x nicht importieren"
 
-#: ../xl/main.py:410
+#: ../xl/main.py:417
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr "Führt in jedem Fall zum Start von Exaile durch Kontroll-Optionen wie --play"
 
-#: ../xl/main.py:414
+#: ../xl/main.py:421
 msgid "Development/Debug Options"
 msgstr "Entwicklungs-/Debug-Optionen"
 
-#: ../xl/main.py:416
+#: ../xl/main.py:423
 msgid "DIRECTORY"
 msgstr "VERZEICHNIS"
 
-#: ../xl/main.py:416
+#: ../xl/main.py:423
 msgid "Set data directory"
 msgstr "Datenverzeichnis festlegen"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:425
 msgid "Show debugging output"
 msgstr "Debugging-Informationen ausgeben"
 
-#: ../xl/main.py:420
+#: ../xl/main.py:427
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr "Aktiviere Debugging von xl.event; sorgt für ENORM viel Ausgabe"
 
-#: ../xl/main.py:423
+#: ../xl/main.py:430
 msgid "TYPE"
 msgstr "TYP"
 
-#: ../xl/main.py:424
+#: ../xl/main.py:431
 msgid "Limits event debug to output of TYPE"
 msgstr "Ereignis-Debugging-Ausgabe auf TYP beschränken"
 
-#: ../xl/main.py:426
+#: ../xl/main.py:433
 msgid "Reduce level of output"
 msgstr "Verringert die Menge der Ausgaben"
 
-#: ../xl/main.py:430
+#: ../xl/main.py:437
 msgid "Disable D-Bus support"
 msgstr "D-Bus-Unterstützung deaktivieren"
 
-#: ../xl/main.py:432
+#: ../xl/main.py:439
 msgid "Disable HAL support."
 msgstr "HAL-Unterstützung deaktivieren"
 
-#: ../xl/main.py:452
+#: ../xl/main.py:459
 msgid "Entire Library"
 msgstr "Gesamte Bibliothek"
 
-#: ../xl/main.py:458
+#: ../xl/main.py:465
 #, python-format
 msgid "Random %d"
 msgstr "Zufällige %d"
 
-#: ../xl/main.py:466
+#: ../xl/main.py:473
 #, python-format
 msgid "Rating > %d"
 msgstr "Bewertung > %d"
 
-#: ../xl/main.py:565
+#: ../xl/main.py:572
 msgid "Exaile is not yet finished loading. Perhaps you should listen for the exaile_loaded signal?"
 msgstr "Exaile wurde noch nicht vollständig geladen. Vielleicht sollte auf das Signal „exaile_loaded“ gewartet werden?"
 

@@ -312,9 +312,19 @@ class Exaile(object):
         """
             Get the options for exaile
         """
-        from optparse import OptionParser, OptionGroup
-        usage = "Usage: %prog [OPTION]... [URI]"
-        p = OptionParser(usage=usage, prog="exaile", add_help_option=False)
+        from optparse import OptionParser, OptionGroup, IndentedHelpFormatter
+
+        class OverrideHelpFormatter(IndentedHelpFormatter):
+            """
+                Merely for translation purposes
+            """
+            def format_usage(self, usage):
+                return '%s\n' % usage
+
+        usage = _("Usage: exaile [OPTION]... [URI]")
+        optionlabel = _('Options') # Merely for translation purposes
+        p = OptionParser(usage=usage, add_help_option=False,
+            formatter=OverrideHelpFormatter())
 
         group = OptionGroup(p, _('Playback Options'))
         group.add_option("-n", "--next", dest="Next", action="store_true",

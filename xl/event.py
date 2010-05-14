@@ -83,6 +83,10 @@ def log_event(type, obj, data, async=True):
     else:
         EVENT_MANAGER.emit(e)
 
+def log_event_sync(type, obj, data, async=False):
+    # same as log_event, but defaults to synchronous
+    log_event(type, obj, data, async)
+
 def add_callback(function, type=None, obj=None, *args, **kwargs):
     """
         Sets an Event callback

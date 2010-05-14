@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-13 17:21+0200\n"
+"POT-Creation-Date: 2010-05-14 19:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,161 +61,180 @@ msgstr ""
 msgid "Collection Options"
 msgstr ""
 
-#: ../xl/main.py:338
+#. TRANSLATORS: Meta variable for --import
+#: ../xl/main.py:339
+msgid "LOCATION"
+msgstr ""
+
+#: ../xl/main.py:339
 msgid "Import tracks from LOCATION"
 msgstr ""
 
-#: ../xl/main.py:341
+#: ../xl/main.py:342
 msgid "Track Options"
 msgstr ""
 
-#: ../xl/main.py:343
+#: ../xl/main.py:344
 msgid "Query player"
 msgstr ""
 
-#: ../xl/main.py:346
+#: ../xl/main.py:347
 msgid "Show a popup with data of the current track"
 msgstr ""
 
-#: ../xl/main.py:348
+#: ../xl/main.py:349
 msgid "Print the title of current track"
 msgstr ""
 
-#: ../xl/main.py:350
+#: ../xl/main.py:351
 msgid "Print the album of current track"
 msgstr ""
 
-#: ../xl/main.py:352
+#: ../xl/main.py:353
 msgid "Print the artist of current track"
 msgstr ""
 
-#: ../xl/main.py:354
+#: ../xl/main.py:355
 msgid "Print the length of current track"
 msgstr ""
 
-#: ../xl/main.py:357
-msgid "Set rating for current track"
+#. TRANSLATORS: Variable for command line options with arguments
+#: ../xl/main.py:358 ../xl/main.py:373 ../xl/main.py:377
+msgid "N"
 msgstr ""
 
 #: ../xl/main.py:359
+msgid "Set rating for current track to N%"
+msgstr ""
+
+#: ../xl/main.py:361
 msgid "Get rating for current track"
 msgstr ""
 
-#: ../xl/main.py:362
+#: ../xl/main.py:364
 msgid "Print the current playback position as time"
 msgstr ""
 
-#: ../xl/main.py:364
+#: ../xl/main.py:366
 msgid "Print the current playback progress as percentage"
 msgstr ""
 
-#: ../xl/main.py:368
+#: ../xl/main.py:370
 msgid "Volume Options"
 msgstr ""
 
-#: ../xl/main.py:371
-msgid "Increases the volume by VOL%"
-msgstr ""
-
 #: ../xl/main.py:374
-msgid "Decreases the volume by VOL%"
+msgid "Increases the volume by N%"
 msgstr ""
 
-#: ../xl/main.py:377
-msgid "Mutes or unmutes the volume"
-msgstr ""
-
+#. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:379
-msgid "Print the current volume percentage"
+msgid "Decreases the volume by N%"
 msgstr ""
 
 #: ../xl/main.py:382
-msgid "Other Options"
+msgid "Mutes or unmutes the volume"
 msgstr ""
 
 #: ../xl/main.py:384
+msgid "Print the current volume percentage"
+msgstr ""
+
+#: ../xl/main.py:387
+msgid "Other Options"
+msgstr ""
+
+#: ../xl/main.py:389
 msgid "Start new instance"
 msgstr ""
 
-#: ../xl/main.py:386
+#: ../xl/main.py:391
 msgid "Show this help message and exit"
 msgstr ""
 
-#: ../xl/main.py:388
+#: ../xl/main.py:393
 msgid "Show program's version number and exit."
 msgstr ""
 
-#: ../xl/main.py:391
+#: ../xl/main.py:396
 msgid "Start minimized (to tray, if possible)"
 msgstr ""
 
-#: ../xl/main.py:394
+#: ../xl/main.py:399
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr ""
 
-#: ../xl/main.py:396
+#: ../xl/main.py:401
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 
-#: ../xl/main.py:399
+#: ../xl/main.py:404
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
 
-#: ../xl/main.py:402
+#: ../xl/main.py:407
 msgid "Do not import old data from version 0.2.x"
 msgstr ""
 
-#: ../xl/main.py:405
+#: ../xl/main.py:410
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 
-#: ../xl/main.py:409
+#: ../xl/main.py:414
 msgid "Development/Debug Options"
 msgstr ""
 
-#: ../xl/main.py:411
+#: ../xl/main.py:416
+msgid "DIRECTORY"
+msgstr ""
+
+#: ../xl/main.py:416
 msgid "Set data directory"
 msgstr ""
 
-#: ../xl/main.py:413
+#: ../xl/main.py:418
 msgid "Show debugging output"
 msgstr ""
 
-#: ../xl/main.py:415
+#: ../xl/main.py:420
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr ""
 
-#: ../xl/main.py:418
-msgid "Filter event debug output"
+#: ../xl/main.py:423
+msgid "TYPE"
 msgstr ""
 
-#: ../xl/main.py:421
+#: ../xl/main.py:424
+msgid "Limits event debug to output of TYPE"
+msgstr ""
+
+#: ../xl/main.py:426
 msgid "Reduce level of output"
 msgstr ""
 
-#: ../xl/main.py:425
+#: ../xl/main.py:430
 msgid "Disable D-Bus support"
 msgstr ""
 
-#: ../xl/main.py:427
+#: ../xl/main.py:432
 msgid "Disable HAL support."
 msgstr ""
 
-#: ../xl/main.py:447
+#: ../xl/main.py:452
 msgid "Entire Library"
 msgstr ""
 
-#: ../xl/main.py:453
+#: ../xl/main.py:458
 #, python-format
 msgid "Random %d"
 msgstr ""
 
-#: ../xl/main.py:461
+#: ../xl/main.py:466
 #, python-format
 msgid "Rating > %d"
 msgstr ""
 
-#: ../xl/main.py:560
+#: ../xl/main.py:565
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -412,7 +431,7 @@ msgid "weeks"
 msgstr ""
 
 #: ../xl/xldbus.py:106 ../xl/xldbus.py:372
-#: ../plugins/lyricsviewer/__init__.py:210
+#: ../plugins/lyricsviewer/__init__.py:222
 msgid "Not playing."
 msgstr ""
 
@@ -2280,19 +2299,19 @@ msgstr ""
 msgid "IPython Console"
 msgstr ""
 
-#: ../plugins/lyricsviewer/__init__.py:99
+#: ../plugins/lyricsviewer/__init__.py:101
 msgid "Refresh Lyrics"
 msgstr ""
 
-#: ../plugins/lyricsviewer/__init__.py:236
+#: ../plugins/lyricsviewer/__init__.py:249
 msgid "No lyrics found."
 msgstr ""
 
-#: ../plugins/lyricsviewer/__init__.py:260
+#: ../plugins/lyricsviewer/__init__.py:273
 msgid "Go to: "
 msgstr ""
 
-#: ../plugins/lyricsviewer/__init__.py:309
+#: ../plugins/lyricsviewer/__init__.py:322
 msgid "Any"
 msgstr ""
 

@@ -335,7 +335,8 @@ class Exaile(object):
 
         group = OptionGroup(p, _('Collection Options'))
         group.add_option("--import", dest="Import", action="store",
-                metavar="LOCATION", help=_("Import tracks from LOCATION"))
+                # TRANSLATORS: Meta variable for --import
+                metavar=_("LOCATION"), help=_("Import tracks from LOCATION"))
         p.add_option_group(group)
 
         group = OptionGroup(p, _('Track Options'))
@@ -353,8 +354,9 @@ class Exaile(object):
         group.add_option("--get-length", dest="GetLength", action="store_true",
                 default=False, help=_("Print the length of current track"))
         group.add_option('--set-rating', dest="SetRating",
-                action='store', type='int', metavar='RATING',
-                help=_('Set rating for current track'))
+                # TRANSLATORS: Variable for command line options with arguments
+                action='store', type='int', metavar=_('N'),
+                help=_('Set rating for current track to N%'))
         group.add_option('--get-rating', dest='GetRating', action='store_true',
                 default=False, help=_('Get rating for current track'))
         group.add_option("--current-position", dest="CurrentPosition",
@@ -367,11 +369,14 @@ class Exaile(object):
 
         group = OptionGroup(p, _('Volume Options'))
         group.add_option("-i", "--increase-vol", dest="IncreaseVolume",
-                action="store", type="int", metavar="VOL",
-                help=_("Increases the volume by VOL%"))
+                # TRANSLATORS: Variable for command line options with arguments
+                action="store", type="int", metavar=_("N"),
+                help=_("Increases the volume by N%"))
         group.add_option("-l", "--decrease-vol", dest="DecreaseVolume",
-                action="store", type="int", metavar="VOL",
-                help=_("Decreases the volume by VOL%"))
+                # TRANSLATORS: Variable for command line options with arguments
+                action="store", type="int", metavar=_("N"),
+                # TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
+                help=_("Decreases the volume by N%"))
         group.add_option("-m", "--toggle-mute", dest="ToggleMute",
                 action="store_true", default=False,
                 help=_("Mutes or unmutes the volume"))
@@ -408,15 +413,15 @@ class Exaile(object):
 
         group = OptionGroup(p, _('Development/Debug Options'))
         group.add_option("--datadir", dest="UseDataDir",
-                help=_("Set data directory"))
+                metavar=_('DIRECTORY'), help=_("Set data directory"))
         group.add_option("--debug", dest="Debug", action="store_true",
                 default=False, help=_("Show debugging output"))
         group.add_option("--eventdebug", dest="DebugEvent",
                 action="store_true", default=False, help=_("Enable debugging"
                 " of xl.event. Generates LOTS of output"))
         group.add_option("--eventfilter", dest="EventFilter",
-                action='store', type='string', help=_("Filter event debug "
-                "output"))
+                action='store', type='string', metavar=_('TYPE'),
+                help=_("Limits event debug to output of TYPE"))
         group.add_option("--quiet", dest="Quiet", action="store_true",
                 default=False, help=_("Reduce level of output"))
         group.add_option('--startgui', dest='StartGui', action='store_true',

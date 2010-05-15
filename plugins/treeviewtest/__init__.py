@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, gobject
+import gtk, gobject, pango
 import collections
 import os
 from xl.nls import gettext as _
@@ -54,24 +54,171 @@ class TestWindow(object):
         trs = exaile.collection
         pl = Playlist("test", trs)
         self.window = gtk.Window()
-        self.swindow = gtk.ScrolledWindow()
-        self.tview = gtk.TreeView()
-        self.model = PlaylistModel(pl)
-
-        for idx, col in enumerate(self.model.columns):
-            cell = gtk.CellRendererText()
-            tvcol = gtk.TreeViewColumn(col, cell, text=idx)
-            self.tview.append_column(tvcol)
-
-
-        self.window.add(self.swindow)
-        self.swindow.add(self.tview)
-        self.tview.set_model(self.model)
+        self.tabs = PlaylistNotebook()
+        self.tabs.create_tab_from_playlist(pl)
+        pl2 = exaile.gui.main.get_current_playlist().playlist
+        self.tabs.create_tab_from_playlist(pl2)
+        self.window.add(self.tabs)
+        self.window.resize(800, 600)
         self.window.show_all()
 
     def destroy(self):
         self.window.destroy()
 
+class SmartNotebook(gtk.Notebook):
+    def __init__(self):
+        gtk.Notebook.__init__(self)
+        self.tab_menu_items = []
+
+    def get_active_tab(self):
+        pass
+
+class PlaylistNotebook(SmartNotebook):
+    def __init__(self):
+        SmartNotebook.__init__(self)
+        self._new_playlist_item = gtk.MenuItem(_("New Playlist"))
+        self._new_playlist_item.connect('activate', self.create_new_playlist)
+        self.tab_menu_items.append(self._new_playlist_item)
+
+    def create_tab_from_playlist(self, playlist):
+        page = PlaylistPage(playlist)
+        tab = NotebookTab(self, page)
+        self.append_page(page, tab)
+        return tab
+
+    def create_new_playlist(self, *args):
+        pl = Playlist("Playlist")
+        return self.create_tab_from_playlist(pl)
+
+
+class NotebookTab(gtk.EventBox):
+    """
+        Class to represent a generic tab in a gtk.Notebook.
+
+    """
+    def __init__(self, notebook, page):
+        gtk.EventBox.__init__(self)
+        self.set_visible_window(False)
+
+        self.notebook = notebook
+        self.page = page
+        page.set_tab(self)
+
+        self.tab_menu_items = []
+
+        self.connect('button_press_event', self.on_button_press)
+
+
+        self.hbox = hbox = gtk.HBox(False, 2)
+        self.add(hbox)
+
+        self.icon = gtk.Image()
+        self.icon.set_property("visible", False)
+        hbox.pack_start(self.icon, False, False)
+
+        self.label = gtk.Label("UNNAMED TAB")
+        self.label.set_max_width_chars(20)
+        self.label.set_ellipsize(pango.ELLIPSIZE_END)
+        hbox.pack_start(self.label, False, False)
+
+        self.button = button = gtk.Button()
+        button.set_name("tabCloseButton")
+        button.set_relief(gtk.RELIEF_NONE)
+        button.set_focus_on_click(False)
+        button.set_tooltip_text(_("Close tab"))
+        button.connect('clicked', self.close)
+        button.connect('button_press_event', self.on_button_press)
+        image = gtk.Image()
+        image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
+        button.add(image)
+        hbox.pack_end(button, False, False)
+
+        self.show_all()
+
+    def on_button_press(self, widget, event):
+        if event.button == 3:
+            menu = self._construct_menu()
+            menu.show_all()
+            menu.popup(None, None, None, event.button, event.time)
+            menu.connect('deactivate', self._deconstruct_menu)
+            return True
+        elif event.button == 2:
+            self.close()
+            return True
+        elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+            pass
+            # playlists have rename here
+
+    def _deconstruct_menu(self, menu):
+        children = menu.get_children()
+        for c in children:
+            menu.remove(c)
+
+    def _construct_menu(self):
+        menu = gtk.Menu()
+        for item in self.notebook.tab_menu_items:
+            menu.append(item)
+        menu.append(gtk.SeparatorMenuItem())
+        for item in self.page.tab_menu_items:
+            menu.append(item)
+        menu.append(gtk.SeparatorMenuItem())
+        for item in self.tab_menu_items:
+            menu.append(item)
+        return menu
+
+    def close(self, *args):
+        if self.page.handle_close():
+            self.notebook.remove_page(self.notebook.page_num(self.page))
+
+
+class NotebookPage(object):
+    def __init__(self):
+        self.tab_menu_items = []
+        self.tab = None
+
+    def set_tab(self, tab):
+        self.tab = tab
+
+    def handle_close(self):
+        """
+            Called when the tab is about to be closed. This can be used to
+            handle showing a save dialog or similar actions. Should return
+            True if we're OK with continuing to close, or False to abort
+            the close.
+        """
+        raise NotImplementedError
+
+class PlaylistPage(gtk.VBox, NotebookPage):
+    """
+        Displays a playlist and associated controls.
+    """
+    def __init__(self, playlist):
+        gtk.VBox.__init__(self)
+        NotebookPage.__init__(self)
+        self.playlist = playlist
+        self._clear_menu_item = gtk.MenuItem(_("Clear All Tracks"))
+        self._clear_menu_item.connect('activate', self.clear)
+        self.tab_menu_items.append(self._clear_menu_item)
+
+        self.model = PlaylistModel(playlist)
+        self.view = gtk.TreeView()
+        self.swindow = gtk.ScrolledWindow()
+
+        for idx, col in enumerate(self.model.columns):
+            cell = gtk.CellRendererText()
+            tvcol = gtk.TreeViewColumn(col, cell, text=idx)
+            self.view.append_column(tvcol)
+
+        self.swindow.add(self.view)
+        self.pack_start(self.swindow, True, True)
+        self.view.set_model(self.model)
+        self.show_all()
+
+    def handle_close(self):
+        return True
+
+    def clear(self, *args):
+        self.playlist.clear()
 
 
 class PlaylistModel(gtk.GenericTreeModel):

@@ -29,6 +29,7 @@ import collections
 import os
 from xl.nls import gettext as _
 from xl import event, common, trax
+from xlgui import guiutil
 
 WINDOW = None
 
@@ -57,8 +58,6 @@ class TestWindow(object):
         self.window = gtk.Window()
         self.tabs = PlaylistNotebook()
         self.tabs.create_tab_from_playlist(pl)
-        pl2 = exaile.gui.main.get_current_playlist().playlist
-        self.tabs.create_tab_from_playlist(pl2)
         self.window.add(self.tabs)
         self.window.resize(800, 600)
         self.window.show_all()
@@ -203,8 +202,11 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.tab_menu_items.append(self._clear_menu_item)
 
         self.model = PlaylistModel(playlist)
-        self.view = gtk.TreeView()
+        self.view = guiutil.DragTreeView(self, drop_pos='between')
+        self.view.set_rules_hint(True)
+        self.view.set_enable_search(True)
         self.swindow = gtk.ScrolledWindow()
+        self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
         for idx, col in enumerate(self.model.columns):
             cell = gtk.CellRendererText()
@@ -221,6 +223,38 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
     def clear(self, *args):
         self.playlist.clear()
+
+    def get_selected_tracks(self):
+        selection = self.view.get_selection()
+        model, paths = selection.get_selected_rows()
+        tracks = [model.get_track(path) for path in paths]
+        return tracks
+
+    ### needed for DragTreeView ###
+
+    def drag_data_received(self, view, context, x, y, selection, info, etime):
+        print "data recieved"
+        context.finish(True, False, etime)
+
+    def drag_data_delete(self, view, context):
+        print "data delete"
+        pass
+
+    def drag_get_data(self, view, context, selection, target_id, etime):
+        print "get data"
+        tracks = self.get_selected_tracks()
+        for track in tracks:
+            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
+
+        uris = trax.get_uris_from_tracks(tracks)
+        selection.set_uris(uris)
+
+
+
+    def button_press(self, button, event):
+        pass
+
+    ### end DragTreeView ###
 
 
 class PlaylistModel(gtk.GenericTreeModel):
@@ -294,14 +328,16 @@ class PlaylistModel(gtk.GenericTreeModel):
 
 
     def on_tracks_added(self, typ, playlist, tracktups):
-        print typ, tracktups
         for idx, tr in tracktups:
             self.row_inserted((idx,), self.get_iter((idx,)))
 
     def on_tracks_removed(self, typ, playlist, tracktups):
-        print typ, tracktups
+        tracktups.reverse()
         for idx, tr in tracktups:
             self.row_deleted((idx,))
+
+    def get_track(self, path):
+        return self.playlist[path[0]]
 
 
 
@@ -319,6 +355,9 @@ class Playlist(object):
     """
     def __init__(self, name, initial_tracks=[]):
         # MUST copy here, hence the :
+        for tr in initial_tracks:
+            if not isinstance(tr, trax.Track):
+                raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
         self.__tracks = list(initial_tracks)
         self.__random_mode = "disabled"
         self.__repeat_mode = "disabled"
@@ -337,7 +376,7 @@ class Playlist(object):
     dirty = property(lambda self: self.__dirty)
 
     def clear(self):
-        self[:] = []
+        del self[:]
 
     def get_current_pos(self):
         return self.__current_pos
@@ -447,10 +486,10 @@ class Playlist(object):
         """
         (start, end, step) = i.indices(len(self))
         # Replace (0, -1, 1) with (0, 0, 1) (misfeature in .indices()).
-        if step == 1:
-            if end < start:
-                end = start
-                step = None
+        #if step == 1:
+        #    if end < start:
+        #        end = start
+        #        step = None
         if i.step == None:
             step = 1
         return (start, end, step)
@@ -479,11 +518,12 @@ class Playlist(object):
             event.log_event_sync('playlist_tracks_added', self, [(i, value)])
 
     def __delitem__(self, i):
+        if isinstance(i, slice):
+            (start, end, step) = self.__tuple_from_slice(i)
         oldtracks = self.__getitem__(i)
         self.__tracks.__delitem__(i)
 
         if isinstance(i, slice):
-            (start, end, step) = self.__tuple_from_slice(i)
             event.log_event_sync('playlist_tracks_removed', self,
                     zip(range(start, end, step), oldtracks))
         else:

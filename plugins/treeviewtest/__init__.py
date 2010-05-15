@@ -201,56 +201,35 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self._clear_menu_item.connect('activate', self.clear)
         self.tab_menu_items.append(self._clear_menu_item)
 
+
+        uifile = os.path.join(os.path.dirname(__file__), "playlist.ui")
+        self.builder = build = gtk.Builder()
+        build.add_from_file(uifile)
+        plpage = build.get_object("playlist_page")
+        for child in plpage.get_children():
+            plpage.remove(child)
+
+        self.plwin = build.get_object("playlist_window")
+        self.controls = build.get_object("controls_box")
+        self.pack_start(self.plwin, True, True, padding=2)
+        self.pack_start(self.controls, False, False, padding=2)
+
+        self.view = build.get_object("playlist_view")
+        self.shuffle_button = build.get_object("shuffle_button")
+        self.repeat_button = build.get_object("repeat_button")
+        self.dynamic_button = build.get_object("dynamic_button")
+
+
         self.model = PlaylistModel(playlist)
-        self.view = guiutil.DragTreeView(self, drop_pos='between')
         self.view.set_rules_hint(True)
         self.view.set_enable_search(True)
-        self.swindow = gtk.ScrolledWindow()
-        self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
         for idx, col in enumerate(self.model.columns):
             cell = gtk.CellRendererText()
             tvcol = gtk.TreeViewColumn(col, cell, text=idx)
             self.view.append_column(tvcol)
 
-        self.swindow.add(self.view)
-        self.pack_start(self.swindow, True, True)
         self.view.set_model(self.model)
-
-
-        self.controls = gtk.HBox()
-        ctrl_pad = 2
-        self.shuffle_btn = gtk.ToggleButton()
-        self.shuffle_btn.set_image(gtk.image_new_from_icon_name(
-            'media-playlist-shuffle', gtk.ICON_SIZE_BUTTON
-        ))
-        self.shuffle_btn.set_relief(gtk.RELIEF_NONE)
-        self.controls.pack_start(self.shuffle_btn, False, False, padding=ctrl_pad)
-
-        self.repeat_btn = gtk.ToggleButton()
-        self.repeat_btn.set_image(gtk.image_new_from_icon_name(
-            'media-playlist-repeat', gtk.ICON_SIZE_BUTTON
-        ))
-        self.repeat_btn.set_relief(gtk.RELIEF_NONE)
-        self.controls.pack_start(self.repeat_btn, False, False, padding=ctrl_pad)
-
-        self.dynamic_btn = gtk.ToggleButton()
-        self.dynamic_btn.set_image(gtk.image_new_from_icon_name(
-            'media-playlist-dynamic', gtk.ICON_SIZE_BUTTON
-        ))
-        self.dynamic_btn.set_relief(gtk.RELIEF_NONE)
-        self.controls.pack_start(self.dynamic_btn, False, False, padding=ctrl_pad)
-
-        self.alignment = gtk.Alignment()
-        self.controls.pack_start(self.alignment, True, True)
-
-        self.search_label = gtk.Label("Search:")
-        self.controls.pack_start(self.search_label, False, False, padding=ctrl_pad)
-
-        self.search_entry = gtk.Entry()
-        self.controls.pack_start(self.search_entry, True, True, padding=ctrl_pad)
-
-        self.pack_start(self.controls, False, False, padding=5)
 
         self.show_all()
 
@@ -418,7 +397,8 @@ class Playlist(object):
         return self.__current_pos
 
     def set_current_pos(self, pos):
-        pass
+        self.__current_pos = pos
+        event.log_event("playlist_current_pos_changed", self, pos)
 
     current_pos = property(get_current_pos, set_current_pos)
 
@@ -428,10 +408,12 @@ class Playlist(object):
     current = property(get_current)
 
     def next(self):
-        pass
+        self.current_pos += 1
+        return self.get_current()
 
     def prev(self):
-        pass
+        self.current_pos -= 1
+        return self.get_current()
 
     def get_random_mode(self):
         return self.__random_mode

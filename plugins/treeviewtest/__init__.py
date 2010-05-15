@@ -221,26 +221,23 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.controls = gtk.HBox()
         ctrl_pad = 2
         self.shuffle_btn = gtk.ToggleButton()
-        shuffle_img = gtk.Image()
-        shuffle_img.set_from_pixbuf(
-                icons.MANAGER.pixbuf_from_icon_name("media-playlist-shuffle"))
-        self.shuffle_btn.set_image(shuffle_img)
+        self.shuffle_btn.set_image(gtk.image_new_from_icon_name(
+            'media-playlist-shuffle', gtk.ICON_SIZE_BUTTON
+        ))
         self.shuffle_btn.set_relief(gtk.RELIEF_NONE)
         self.controls.pack_start(self.shuffle_btn, False, False, padding=ctrl_pad)
 
         self.repeat_btn = gtk.ToggleButton()
-        repeat_img = gtk.Image()
-        repeat_img.set_from_pixbuf(
-                icons.MANAGER.pixbuf_from_icon_name("media-playlist-repeat"))
-        self.repeat_btn.set_image(repeat_img)
+        self.repeat_btn.set_image(gtk.image_new_from_icon_name(
+            'media-playlist-repeat', gtk.ICON_SIZE_BUTTON
+        ))
         self.repeat_btn.set_relief(gtk.RELIEF_NONE)
         self.controls.pack_start(self.repeat_btn, False, False, padding=ctrl_pad)
 
         self.dynamic_btn = gtk.ToggleButton()
-        dynamic_img = gtk.Image()
-        dynamic_img.set_from_pixbuf(
-                icons.MANAGER.pixbuf_from_icon_name("media-playlist-dynamic"))
-        self.dynamic_btn.set_image(dynamic_img)
+        self.dynamic_btn.set_image(gtk.image_new_from_icon_name(
+            'media-playlist-dynamic', gtk.ICON_SIZE_BUTTON
+        ))
         self.dynamic_btn.set_relief(gtk.RELIEF_NONE)
         self.controls.pack_start(self.dynamic_btn, False, False, padding=ctrl_pad)
 

@@ -29,7 +29,7 @@ import collections
 import os
 from xl.nls import gettext as _
 from xl import event, common, trax
-from xlgui import guiutil
+from xlgui import guiutil, icons
 
 WINDOW = None
 
@@ -216,6 +216,45 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.swindow.add(self.view)
         self.pack_start(self.swindow, True, True)
         self.view.set_model(self.model)
+
+
+        self.controls = gtk.HBox()
+        ctrl_pad = 2
+        self.shuffle_btn = gtk.ToggleButton()
+        shuffle_img = gtk.Image()
+        shuffle_img.set_from_pixbuf(
+                icons.MANAGER.pixbuf_from_icon_name("media-playlist-shuffle"))
+        self.shuffle_btn.set_image(shuffle_img)
+        self.shuffle_btn.set_relief(gtk.RELIEF_NONE)
+        self.controls.pack_start(self.shuffle_btn, False, False, padding=ctrl_pad)
+
+        self.repeat_btn = gtk.ToggleButton()
+        repeat_img = gtk.Image()
+        repeat_img.set_from_pixbuf(
+                icons.MANAGER.pixbuf_from_icon_name("media-playlist-repeat"))
+        self.repeat_btn.set_image(repeat_img)
+        self.repeat_btn.set_relief(gtk.RELIEF_NONE)
+        self.controls.pack_start(self.repeat_btn, False, False, padding=ctrl_pad)
+
+        self.dynamic_btn = gtk.ToggleButton()
+        dynamic_img = gtk.Image()
+        dynamic_img.set_from_pixbuf(
+                icons.MANAGER.pixbuf_from_icon_name("media-playlist-dynamic"))
+        self.dynamic_btn.set_image(dynamic_img)
+        self.dynamic_btn.set_relief(gtk.RELIEF_NONE)
+        self.controls.pack_start(self.dynamic_btn, False, False, padding=ctrl_pad)
+
+        self.alignment = gtk.Alignment()
+        self.controls.pack_start(self.alignment, True, True)
+
+        self.search_label = gtk.Label("Search:")
+        self.controls.pack_start(self.search_label, False, False, padding=ctrl_pad)
+
+        self.search_entry = gtk.Entry()
+        self.controls.pack_start(self.search_entry, True, True, padding=ctrl_pad)
+
+        self.pack_start(self.controls, False, False, padding=5)
+
         self.show_all()
 
     def handle_close(self):

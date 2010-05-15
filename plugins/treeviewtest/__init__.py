@@ -53,6 +53,7 @@ class TestWindow(object):
         self.exaile = exaile
         trs = exaile.collection
         pl = Playlist("test", trs)
+        exaile.shortcut = pl
         self.window = gtk.Window()
         self.tabs = PlaylistNotebook()
         self.tabs.create_tab_from_playlist(pl)
@@ -148,6 +149,7 @@ class NotebookTab(gtk.EventBox):
         elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
             pass
             # playlists have rename here
+            # rename idea: replace label with textbox, edit in-place?
 
     def _deconstruct_menu(self, menu):
         children = menu.get_children()
@@ -229,6 +231,11 @@ class PlaylistModel(gtk.GenericTreeModel):
         gtk.GenericTreeModel.__init__(self)
         self.playlist = playlist
 
+        event.add_callback(self.on_tracks_added,
+                "playlist_tracks_added", playlist)
+        event.add_callback(self.on_tracks_removed,
+                "playlist_tracks_removed", playlist)
+
     def on_get_flags(self):
         return gtk.TREE_MODEL_LIST_ONLY
 
@@ -284,6 +291,17 @@ class PlaylistModel(gtk.GenericTreeModel):
 
     def on_iter_parent(self, child):
         return None
+
+
+    def on_tracks_added(self, typ, playlist, tracktups):
+        print typ, tracktups
+        for idx, tr in tracktups:
+            self.row_inserted((idx,), self.get_iter((idx,)))
+
+    def on_tracks_removed(self, typ, playlist, tracktups):
+        print typ, tracktups
+        for idx, tr in tracktups:
+            self.row_deleted((idx,))
 
 
 
@@ -434,7 +452,7 @@ class Playlist(object):
                 end = start
                 step = None
         if i.step == None:
-            step = None
+            step = 1
         return (start, end, step)
 
     def __getitem__(self, i):
@@ -450,9 +468,9 @@ class Playlist(object):
 
             (start, end, step) = self.__tuple_from_slice(i)
             event.log_event_sync('playlist_tracks_removed', self,
-                    zip(range(start, end, stop), oldtracks))
+                    zip(range(start, end, step), oldtracks))
             event.log_event_sync('playlist_tracks_added', self,
-                    zip(range(start, end, stop), value))
+                    zip(range(start, end, step), value))
         else:
             if not isinstance(value, trax.Track):
                 raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
@@ -464,10 +482,10 @@ class Playlist(object):
         oldtracks = self.__getitem__(i)
         self.__tracks.__delitem__(i)
 
-        if ininstance(i, slice):
+        if isinstance(i, slice):
             (start, end, step) = self.__tuple_from_slice(i)
             event.log_event_sync('playlist_tracks_removed', self,
-                    zip(range(start, end, step)), oldtracks)
+                    zip(range(start, end, step), oldtracks))
         else:
             event.log_event_sync('playlist_tracks_removed', self,
                     [(i, oldtracks)])

@@ -26,7 +26,7 @@
 
 import glob
 import os
-
+import cairo
 import gtk
 import pango
 
@@ -40,6 +40,8 @@ class IconManager(object):
         self.icon_factory.add_default()
         # Any arbitrary widget is fine
         self.render_widget = gtk.Button()
+        self.system_visual = gtk.gdk.visual_get_system()
+        self.system_colormap = gtk.gdk.colormap_get_system()
         # TODO: Make svg actually recognized
         self._sizes = [16, 22, 24, 32, 48, 'scalable']
         self._cache = {}
@@ -194,49 +196,56 @@ class IconManager(object):
 
         return loader.get_pixbuf()
 
-    def pixbuf_from_text(self, text, width, height, bgcolor='#456eac',
-            bordercolor=None):
+    def pixbuf_from_text(self, text, size, background_color='#456eac',
+            border_color='#000', text_color='#fff'):
         """
             Generates a pixbuf based on a text, width and height
+
+            :param size: A tuple describing width and height
+            :type size: tuple of int
+            :param background_color: The color of the background as
+                hexadecimal value
+            :type background_color: string
+            :param border_color: The color of the border as
+                hexadecimal value
+            :type border_color: string
+            :param text_color: The color of the text as
+                hexadecimal value
+            :type text_color: string
         """
-        key = '%s - %sx%s - %s' % (text, width, height, bgcolor)
+        pixmap_width, pixmap_height = size
+        key = '%s - %sx%s - %s' % (text, pixmap_width, pixmap_height,
+            background_color)
         
         if self._cache.has_key(key):
             return self._cache[key]
 
-        default_visual = gtk.gdk.visual_get_system()
-        pixmap = gtk.gdk.Pixmap(None, width, height, default_visual.depth)
-        colormap = gtk.gdk.colormap_get_system()
-        white = colormap.alloc_color(65535, 65535, 65535)
-        black = colormap.alloc_color(0, 0, 0)
-        pixmap.set_colormap(colormap)
-        gc = pixmap.new_gc(foreground=black, background=white)
+        pixmap = gtk.gdk.Pixmap(None, pixmap_width, pixmap_height,
+            self.system_visual.depth)
+        context = pixmap.cairo_create()
 
-        if not bordercolor:
-            bordercolor = black
-        else:
-            bordercolor = colormap.alloc_color(gtk.gdk.color_parse(bordercolor))
-        gc.set_foreground(bordercolor)
+        context.set_source_color(gtk.gdk.Color(background_color))
+        context.set_line_width(1)
+        context.rectangle(1, 1, pixmap_width - 2, pixmap_height - 2)
+        context.fill()
 
-        pixmap.draw_rectangle(gc, True, 0, 0, width, height)
-        fg = colormap.alloc_color(gtk.gdk.color_parse(bgcolor))
-        gc.set_foreground(fg)
-        pixmap.draw_rectangle(gc, True, 1, 1, width - 2, height - 2)
+        context.set_source_color(gtk.gdk.Color(text_color))
+        context.select_font_face('sans-serif 10')
+        x_bearing, y_bearing, width, height = context.text_extents(text)[:4]
+        x = pixmap_width / 2 - width / 2 - x_bearing
+        y = pixmap_height / 2 - height / 2 - y_bearing
+        context.move_to(x, y)
+        context.show_text(text)
 
-        layout = self.render_widget.create_pango_layout(str(text))
-        desc = pango.FontDescription("Sans 8")
-        layout.set_font_description(desc)
-        layout.set_alignment(pango.ALIGN_RIGHT)
+        context.set_source_color(gtk.gdk.Color(border_color))
+        context.set_antialias(cairo.ANTIALIAS_NONE)
+        context.rectangle(0, 0, pixmap_width - 1, pixmap_height - 1)
+        context.stroke()
 
-        gc.set_foreground(white)
-        inkRect, logicalRect = layout.get_pixel_extents()
-        l, b, w, h = logicalRect
-        x = ((width) / 2 - w / 2)
-        y = ((height) / 2 - h / 2)
-        pixmap.draw_layout(gc, x, y, layout)
-
-        pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, width, height)
-        pixbuf = pixbuf.get_from_drawable(pixmap, colormap, 0, 0, 0, 0, width, height)
+        pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8,
+            pixmap_width, pixmap_height)
+        pixbuf = pixbuf.get_from_drawable(pixmap, self.system_colormap,
+            0, 0, 0, 0, pixmap_width, pixmap_height)
 
         self._cache[key] = pixbuf
 

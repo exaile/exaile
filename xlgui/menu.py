@@ -65,7 +65,7 @@ class GenericTrackMenu(guiutil.Menu):
         """
             Creates the icon for "toggle queue"
         """
-        pixbuf = icons.MANAGER.pixbuf_from_text(u'\u2610', 16, 16)
+        pixbuf = icons.MANAGER.pixbuf_from_text(u'\u2610', (16, 16))
         icons.MANAGER.add_stock_from_pixbuf('exaile-queue-icon', pixbuf)
 
     def popup(self, event):

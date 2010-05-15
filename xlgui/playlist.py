@@ -1098,7 +1098,7 @@ class Playlist(gtk.VBox):
         # queued items
         elif item in self.queue.ordered_tracks:
             index = self.queue.ordered_tracks.index(item)
-            image = icons.MANAGER.pixbuf_from_text(str(index + 1), 18, 18)
+            image = icons.MANAGER.pixbuf_from_text(str(index + 1), (18, 18))
 
         cell.set_property('pixbuf', image)
 

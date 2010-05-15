@@ -393,7 +393,6 @@ class CollectionPanel(panel.Panel):
             import pango
             cell.set_property('ellipsize-set', True)
             cell.set_property('ellipsize', pango.ELLIPSIZE_END)
-            self.tree.set_tooltip_column(1)
 
         self.tree.set_row_separator_func(
             lambda m, i: m.get_value(i, 1) is None)
@@ -759,6 +758,8 @@ class CollectionDragTreeView(guiutil.DragTreeView):
         """
         guiutil.DragTreeView.__init__(self, container, receive, source)
 
+        self.set_has_tooltip(True)
+        self.connect('query-tooltip', self.on_query_tooltip)
         # TODO: Make faster
         #self.tooltip = CollectionToolTip(self)
 
@@ -779,6 +780,22 @@ class CollectionDragTreeView(guiutil.DragTreeView):
         tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
 
         return tracks
+
+    def on_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
+        """
+            Sets up a basic tooltip
+            Required to have "&" in tooltips working
+        """
+        if not widget.get_tooltip_context(x, y, keyboard_mode):
+            return False
+
+        path = widget.get_path_at_pos(x, y)[0]
+
+        model = widget.get_model()
+        tooltip.set_text(model[path][1]) # 1: title
+        widget.set_tooltip_row(tooltip, path)
+
+        return True
 
 class CollectionToolTip(guiutil.TrackListToolTip):
     """
@@ -801,14 +818,18 @@ class CollectionToolTip(guiutil.TrackListToolTip):
         if path is None:
             return False
 
+        path = path[0]
         model = tree.get_model()
-        iter = model.get_iter(path[0])
+        iter = model.get_iter(path)
         tracks = tree.container._find_tracks(iter)
 
         self.clear()
         self.set_tracklist(tracks)
 
-        return guiutil.TrackListToolTip.on_query_tooltip(
+        guiutil.TrackListToolTip.on_query_tooltip(
             self, tree, x, y, keyboard_mode, tooltip)
+        #tree.set_tooltip_row(tooltip, path)
+
+        return True
 
 # vim: et sts=4 sw=4

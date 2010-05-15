@@ -15,12 +15,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import copy, gobject, gtk, pango
-from datetime import date
-from string import Template
+import copy
+import gobject
+import gtk
+import pango
+
 from xl import event, formatter, settings
 from xl.nls import gettext as _
-from xl.trax import Track
 from xlgui.guiutil import get_workarea_size, TrackToolTip
 from xlgui.playlist import Playlist
 

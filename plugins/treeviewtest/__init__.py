@@ -503,11 +503,18 @@ class Playlist(object):
             for x in value:
                 if not isinstance(x, trax.Track):
                     raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
-            self.__tracks.__setitem__(i, value)
-
             (start, end, step) = self.__tuple_from_slice(i)
-            event.log_event_sync('playlist_tracks_removed', self,
-                    zip(range(start, end, step), oldtracks))
+            if step != 1:
+                if len(value) != len(oldtracks):
+                    raise ValueError, "Extended slice assignment must match sizes."
+                self.__tracks.__setitem__(i, value)
+                event.log_event_sync('playlist_tracks_removed', self,
+                        zip(range(start, end, step), oldtracks))
+            else:
+                self.__tracks.__setitem__(i, value)
+                event.log_event_sync('playlist_tracks_removed', self,
+                        zip(range(start, end, step), oldtracks))
+                end = start + len(value)
             event.log_event_sync('playlist_tracks_added', self,
                     zip(range(start, end, step), value))
         else:

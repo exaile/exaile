@@ -771,6 +771,7 @@ Right Click for Stop After Track Feature</property>
             <child>
               <object class="GtkEventBox" id="queue_count_box">
                 <property name="visible">True</property>
+                <property name="visible_window">False</property>
                 <signal name="button_press_event" handler="on_queue_count_clicked"/>
                 <child>
                   <object class="GtkLabel" id="queue_count_label">

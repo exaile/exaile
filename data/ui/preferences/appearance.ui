@@ -113,10 +113,11 @@
             <property name="spacing">6</property>
             <child>
               <object class="GtkCheckButton" id="gui/use_alpha">
-                <property name="label" translatable="yes">Use alpha transparency:</property>
+                <property name="label" translatable="yes" comments="TRANSLATORS: Remark at the alpha transparency option">Use alpha transparency:</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Warning: this option can cause display errors if used with a window manager without compositing support.</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -131,7 +132,6 @@
                 <property name="can_focus">True</property>
                 <property name="adjustment">transparency_adjustment</property>
                 <property name="draw_value">False</property>
-                <property name="value_pos">right</property>
               </object>
               <packing>
                 <property name="position">1</property>

@@ -14,12 +14,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gobject, gtk, os
-import minimodeprefs, mmwidgets
+import cairo
+import gobject
+import gtk
+import os
+
 from xl import event, plugins, settings, xdg
 from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
+
+import minimodeprefs, mmwidgets
 
 MINIMODE = None
 
@@ -58,6 +63,10 @@ class MiniMode(gtk.Window):
             Sets up the mini mode main window and
             options to access it
         """
+        gtk.Window.__init__(self)
+        self.set_title('Exaile')
+        self.set_resizable(False)
+
         self.exaile = exaile
         self._active = False
         self.defaults = self.exaile.plugins.get_plugin_default_preferences('minimode')
@@ -68,19 +77,15 @@ class MiniMode(gtk.Window):
         self.available_controls = controlpref.available_items.keys() or []
         self.fixed_items = controlpref.fixed_items.keys() or []
 
-        gtk.Window.__init__(self)
-        self.set_title('Exaile')
-        self.set_resizable(False)
-
         self.formatter = TrackFormatter(
             self.get_option('plugin/minimode/track_title_format')
         )
 
         self.box = mmwidgets.WidgetBox(spacing=3)
-        frame = gtk.Frame()
-        frame.set_shadow_type(gtk.SHADOW_OUT)
-        frame.add(self.box)
-        self.add(frame)
+        self.border_frame = gtk.Frame()
+        self.border_frame.set_shadow_type(gtk.SHADOW_NONE)
+        self.border_frame.add(self.box)
+        self.add(self.border_frame)
 
         self.register_widgets()
         controls = self.get_option('plugin/minimode/selected_controls')
@@ -108,6 +113,8 @@ class MiniMode(gtk.Window):
         self._main_visible_toggle_id = None
 
         self.connect('show', self.on_show)
+        self.connect('expose-event', self.on_expose_event)
+        self.connect('screen-changed', self.on_screen_changed)
         self.connect('delete-event', self.on_delete_event)
         self.exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
@@ -187,7 +194,27 @@ class MiniMode(gtk.Window):
                 if value: self.stick()
                 else: self.unstick()
             elif option == 'plugin/minimode/display_window_decorations':
-                self.set_decorated(value)
+                if value:
+                    decoration_type = self.get_option('plugin/minimode/window_decoration_type')
+
+                    if decoration_type == 'full':
+                        self.set_decorated(True)
+                        self.border_frame.set_shadow_type(gtk.SHADOW_NONE)
+                    elif decoration_type == 'simple':
+                        self.set_decorated(False)
+                        self.border_frame.set_shadow_type(gtk.SHADOW_OUT)
+                else:
+                    self.set_decorated(False)
+                    self.border_frame.set_shadow_type(gtk.SHADOW_NONE)
+            elif option == 'plugin/minimode/use_alpha':
+                self.unrealize()
+
+                screen = self.get_screen()
+                colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
+                self.set_colormap(colormap)
+                self.set_app_paintable(value)
+
+                self.realize()
             elif option == 'plugin/minimode/horizontal_position':
                 self.update_position()
             elif option == 'plugin/minimode/vertical_position':
@@ -347,6 +374,30 @@ class MiniMode(gtk.Window):
         """
         self.resize(*self.size_request())
         self.queue_draw()
+
+    def on_expose_event(self, widget, event):
+        """
+            Paints the window alpha transparency
+        """
+        opacity = 1 - self.get_option('plugin/minimode/transparency')
+        context = widget.window.cairo_create()
+        background = widget.style.bg[gtk.STATE_NORMAL]
+        context.set_source_rgba(
+            float(background.red) / 256**2,
+            float(background.green) / 256**2,
+            float(background.blue) / 256**2,
+            opacity
+        )
+        context.set_operator(cairo.OPERATOR_SOURCE)
+        context.paint()
+
+    def on_screen_changed(self, widget, event):
+        """
+            Updates the colormap on screen change
+        """
+        screen = widget.get_screen()
+        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
+        self.window.set_colormap(rgbamap)
 
     def on_delete_event(self, widget, event):
         """

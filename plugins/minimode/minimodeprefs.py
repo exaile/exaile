@@ -39,6 +39,29 @@ class DisplayWindowDecorationsPreference(widgets.CheckPreference):
     name = 'plugin/minimode/display_window_decorations'
     default = True
 
+class WindowDecorationTypePreference(widgets.ComboPreference,
+        widgets.CheckConditional):
+    name = 'plugin/minimode/window_decoration_type'
+    default = 'full'
+    condition_preference_name = 'plugin/minimode/display_window_decorations'
+
+    def __init__(self, preferences, widget):
+        widgets.ComboPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
+
+class UseAlphaTransparencyPreference(widgets.CheckPreference):
+    default = False
+    name = 'plugin/minimode/use_alpha'
+
+class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional):
+    default = 0.3
+    name = 'plugin/minimode/transparency'
+    condition_preference_name = 'plugin/minimode/use_alpha'
+
+    def __init__(self, preferences, widget):
+        widgets.ScalePreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
+
 class SelectedControlsPreference(widgets.SelectionListPreference):
     name = 'plugin/minimode/selected_controls'
     available_title = _('Available Controls')

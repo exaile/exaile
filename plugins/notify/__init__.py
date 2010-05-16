@@ -87,9 +87,9 @@ class ExaileNotification(object):
                               }
 
         notif = pynotify.Notification(summary, body)
-        notif.set_icon_from_pixbuf(notify_cover.get_image_for_track(track,
-                                                 self.resize,
-                                                 ))
+        pixbuf = notify_cover.get_image_for_track(track, self.resize)
+        if pixbuf is not None:
+            notif.set_icon_from_pixbuf()
         # Attach to tray, if that's how we roll
         if ATTACH_COVERS_OPTION_ALLOWED:
             logger.debug("Attaching to tray")

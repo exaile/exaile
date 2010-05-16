@@ -825,6 +825,7 @@ class Statusbar(object):
         frame.remove(label)
         hbox.pack_start(label, True, True)
         frame.add(hbox)
+
         for widget in children[1:]:
             # Bug in old PyGTK versions: Statusbar.remove hides
             # Container.remove.
@@ -1162,25 +1163,26 @@ class TrackInfoPane(gtk.Alignment):
             return False
 
         fraction = 0
-        text = ''
+        text = _('Not Playing')
 
         if track is not None:
             total = track.get_tag_raw('__length')
-            current = self.player.get_time()
-            text = '%d:%02d / %d:%02d' % \
-                (current // 60, current % 60,
-                 total // 60, total % 60)
 
-            if self.player.is_paused():
-                self.__disable_timer()
-                fraction = self.progressbar.get_fraction()
-            elif self.player.is_playing():
-                if track.get_tag_raw('__length'):
+            if total is not None:
+                current = self.player.get_time()
+                text = '%d:%02d / %d:%02d' % \
+                    (current // 60, current % 60,
+                     total // 60, total % 60)
+
+                if self.player.is_paused():
+                    self.__disable_timer()
+                    fraction = self.progressbar.get_fraction()
+                elif self.player.is_playing():
                     self.__enable_timer()
                     fraction = self.player.get_progress()
-                elif not track.is_local():
-                    self.__disable_timer()
-                    text = _('Streaming...')
+            elif not track.is_local():
+                self.__disable_timer()
+                text = _('Streaming...')
 
         self.progressbar.set_fraction(fraction)
         self.progressbar.set_text(text)

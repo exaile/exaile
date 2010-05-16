@@ -806,19 +806,19 @@ class ProgressBar(gtk.Alignment):
 
         if track is not None:
             total = track.get_tag_raw('__length')
-            current = self.player.get_progress() * total
-            text = self.formatter.format()
 
-            if self.player.is_paused():
-                self.disable_timer()
-                fraction = self.bar.get_fraction()
-            elif self.player.is_playing():
-                if track.get_tag_raw('__length'):
+            if total is not None:
+                text = self.formatter.format()
+
+                if self.player.is_paused():
+                    self.disable_timer()
+                    fraction = self.bar.get_fraction()
+                elif self.player.is_playing():
                     self.enable_timer()
                     fraction = self.player.get_progress()
-                elif not track.is_local():
-                    self.disable_timer()
-                    text = _('Streaming...')
+            elif not track.is_local():
+                self.disable_timer()
+                text = _('Streaming...')
 
         self.bar.set_fraction(fraction)
         self.bar.set_text(text)

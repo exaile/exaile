@@ -34,6 +34,9 @@ def get_image_for_track(track, resize=False):
         size = (RESIZE_SIZE, RESIZE_SIZE)
     else:
         size = None
-    pixbuf = icons.MANAGER.pixbuf_from_data(data, size=size)
-    return pixbuf
+
+    if data is None:
+        return None
+
+    return icons.MANAGER.pixbuf_from_data(data, size=size)
 

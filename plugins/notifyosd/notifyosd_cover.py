@@ -20,7 +20,6 @@ from xl import xdg, covers
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_COVER = xdg.get_data_path('images/nocover.png')
 RESIZE_SIZE = 48
 
 def notifyosd_get_image_for_track(track, resize=False):

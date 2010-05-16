@@ -36,7 +36,7 @@ def get_image_for_track(track, resize=False):
         size = None
 
     if data is None:
-        return None
+        data = covers.MANAGER.get_default_cover()
 
     return icons.MANAGER.pixbuf_from_data(data, size=size)
 

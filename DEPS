@@ -12,9 +12,8 @@ Essential:
 * gstreamer-plugins-good 0.10
 * mutagen (>= 1.10)
 * dbus-python
-* pygtk (>= 2.14, built against gtk >= 2.16)
+* pygtk (>= 2.17)
 * pygobject (>= 2.18, built with gio support)
-
 
 Translation:
 

@@ -888,7 +888,7 @@ class Statusbar(object):
             self.queue_count_label.hide_all()
             self.queue_count_label.set_no_show_all(True)
 
-    def get_window_edge(self, widget):
+    def get_grip_edge(self, widget):
         """
             Taken from GTK source, retrieves the
             preferred edge for the resize grip
@@ -925,7 +925,7 @@ class Statusbar(object):
             transparency work properly
         """
         if widget.get_has_resize_grip():
-            edge = self.get_window_edge(widget)
+            edge = self.get_grip_edge(widget)
             rect = self.get_grip_rect(widget)
 
             widget.style.paint_resize_grip(

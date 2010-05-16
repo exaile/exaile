@@ -38,64 +38,12 @@ ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')
 class EnginePreference(widgets.ComboPreference):
     default = "normal"
     name = 'player/engine'
-
-    def __init__(self, preferences, widget):
-        widgets.ComboPreference.__init__(self, preferences, widget)
-
-        if hasattr(commondialogs, 'MessageBar'):
-            self.message = commondialogs.MessageBar(
-                parent=preferences.builder.get_object('preferences_box'),
-                type=gtk.MESSAGE_QUESTION,
-                text=_('Restart Exaile?'))
-            self.message.set_secondary_text(
-                _('A restart is required for this change to take effect.'))
-        else:
-            self.message = gtk.MessageDialog(
-                parent=self.preferences.window,
-                flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-                type=gtk.MESSAGE_QUESTION,
-                message_format=_('Restart Exaile?'))
-            self.message.format_secondary_text(
-                _('A restart is required for this change to take effect.'))
-
-        self.message.connect('response', self.on_message_response)
-        self.message.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
-        button = self.message.add_button(_('Restart'), gtk.RESPONSE_ACCEPT)
-        button.set_image(gtk.image_new_from_stock(
-            gtk.STOCK_REFRESH, gtk.ICON_SIZE_BUTTON))
-
-    def apply(self, value=None):
-        """
-            Applies this setting
-        """
-        oldvalue = self.preferences.settings.get_option(
-            self.name, self.default)
-
-        if value is None:
-            value = self._get_value()
-
-        if value != oldvalue:
-            self.preferences.settings.set_option(self.name, value)
-
-            self.message.show()
-
-        return True
-
-    def on_message_response(self, widget, response):
-        """
-            Restarts Exaile if requested
-        """
-        widget.hide()
-
-        if response == gtk.RESPONSE_ACCEPT:
-            gobject.idle_add(main.exaile().quit, True)
+    restart_required = True
 
 class AudioSinkPreference(widgets.ComboPreference):
     default = "auto"
     name = 'player/audiosink'
-
-    def __init__(self, preferences, widget):
-        widgets.ComboPreference.__init__(self, preferences, widget)
+    restart_required = True
 
 class CustomAudioSinkPreference(widgets.Preference, widgets.Conditional):
     default = ""

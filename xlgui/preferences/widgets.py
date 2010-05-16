@@ -29,11 +29,12 @@ import logging
 import os
 
 import gobject
-import gtk.gdk
+import gtk
 import pango
 
 from xl.nls import gettext as _
-from xl import event, settings
+from xl import event, main, settings, xdg
+from xlgui import commondialogs
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +43,8 @@ class Preference(object):
         Representing a gtk.Entry preferences item
     """
     default = ''
+    restart_required = False
+
     def __init__(self, preferences, widget):
         """
             Initializes the preferences item
@@ -53,6 +56,20 @@ class Preference(object):
 
         self.widget = widget
         self.preferences = preferences
+
+        if self.restart_required:
+            self.message = commondialogs.MessageBar(
+                parent=preferences.builder.get_object('preferences_box'),
+                type=gtk.MESSAGE_QUESTION,
+                text=_('Restart Exaile?'))
+            self.message.set_secondary_text(
+                _('A restart is required for this change to take effect.'))
+
+            self.message.connect('response', self.on_message_response)
+            self.message.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+            button = self.message.add_button(_('Restart'), gtk.RESPONSE_ACCEPT)
+            button.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_REFRESH, gtk.ICON_SIZE_BUTTON))
 
         self._set_value()
         self._setup_change()
@@ -105,7 +122,19 @@ class Preference(object):
         if value != oldvalue:
             self.preferences.settings.set_option(self.name, value)
 
+            if self.restart_required:
+                self.message.show()
+
         return True
+
+    def on_message_response(self, widget, response):
+        """
+            Restarts Exaile if requested
+        """
+        widget.hide()
+
+        if response == gtk.RESPONSE_ACCEPT:
+            gobject.idle_add(main.exaile().quit, True)
 
 class Conditional(object):
     """
@@ -184,7 +213,7 @@ class HashedPreference(Preference):
         self._insert_text_id = self.widget.connect('insert-text',
             self.on_insert_text)
 
-        self.hashfunc = getattr(hashlib, self.type)
+        self.hashfunc = hashlib.new(self.type)
 
     def _setup_change(self):
         """
@@ -380,38 +409,38 @@ class SelectionListPreference(Preference):
             pass
         selected_tree.append_column(selected_col)
 
-        add_button = gtk.Button()
-        add_button.set_image(gtk.image_new_from_stock(
+        self.add_button = gtk.Button()
+        self.add_button.set_image(gtk.image_new_from_stock(
             gtk.STOCK_GO_FORWARD, gtk.ICON_SIZE_BUTTON))
-        add_button.set_tooltip_text(_('Add item'))
-        add_button.set_sensitive(False)
-        remove_button = gtk.Button()
-        remove_button.set_image(gtk.image_new_from_stock(
+        self.add_button.set_tooltip_text(_('Add item'))
+        self.add_button.set_sensitive(False)
+        self.remove_button = gtk.Button()
+        self.remove_button.set_image(gtk.image_new_from_stock(
             gtk.STOCK_GO_BACK, gtk.ICON_SIZE_BUTTON))
-        remove_button.set_tooltip_text(_('Remove item'))
-        remove_button.set_sensitive(False)
+        self.remove_button.set_tooltip_text(_('Remove item'))
+        self.remove_button.set_sensitive(False)
 
         control_box = gtk.VBox(spacing=3)
-        control_box.pack_start(add_button, expand=False)
-        control_box.pack_start(remove_button, expand=False)
+        control_box.pack_start(self.add_button, expand=False)
+        control_box.pack_start(self.remove_button, expand=False)
         control_panel = gtk.Alignment(xalign=0.5, yalign=0.5,
             xscale=0.0, yscale=0.0)
         control_panel.add(control_box)
 
-        up_button = gtk.Button()
-        up_button.set_image(gtk.image_new_from_stock(
+        self.up_button = gtk.Button()
+        self.up_button.set_image(gtk.image_new_from_stock(
             gtk.STOCK_GO_UP, gtk.ICON_SIZE_BUTTON))
-        up_button.set_tooltip_text(_('Move selected item up'))
-        up_button.set_sensitive(False)
-        down_button = gtk.Button()
-        down_button.set_image(gtk.image_new_from_stock(
+        self.up_button.set_tooltip_text(_('Move selected item up'))
+        self.up_button.set_sensitive(False)
+        self.down_button = gtk.Button()
+        self.down_button.set_image(gtk.image_new_from_stock(
             gtk.STOCK_GO_DOWN, gtk.ICON_SIZE_BUTTON))
-        down_button.set_tooltip_text(_('Move selected item down'))
-        down_button.set_sensitive(False)
+        self.down_button.set_tooltip_text(_('Move selected item down'))
+        self.down_button.set_sensitive(False)
 
         move_box = gtk.VBox(spacing=3)
-        move_box.pack_start(up_button, expand=False)
-        move_box.pack_start(down_button, expand=False)
+        move_box.pack_start(self.up_button, expand=False)
+        move_box.pack_start(self.down_button, expand=False)
         move_panel = gtk.Alignment(xalign=0.5, yalign=0.5, xscale=0.0, yscale=0.0)
         move_panel.add(move_box)
 
@@ -430,17 +459,15 @@ class SelectionListPreference(Preference):
         widget.pack_start(selected_scrollwindow)
         widget.pack_start(move_panel, expand=False)
 
-        add_button.connect('clicked', self.on_add_button_clicked)
-        remove_button.connect('clicked', self.on_remove_button_clicked)
-        up_button.connect('clicked', self.on_up_button_clicked)
-        down_button.connect('clicked', self.on_down_button_clicked)
+        self.add_button.connect('clicked', self.on_add_button_clicked)
+        self.remove_button.connect('clicked', self.on_remove_button_clicked)
+        self.up_button.connect('clicked', self.on_up_button_clicked)
+        self.down_button.connect('clicked', self.on_down_button_clicked)
 
         self.available_selection.connect('changed',
-            self.on_available_selection_changed,
-            [add_button])
+            self.on_available_selection_changed)
         self.selected_selection.connect('changed',
-            self.on_selected_selection_changed,
-            [remove_button, up_button, down_button])
+            self.on_selected_selection_changed)
 
         # Allow to send rows to selected
         available_tree.enable_model_drag_source(
@@ -479,23 +506,33 @@ class SelectionListPreference(Preference):
         self.selected_list.connect('row-inserted',
             self.on_selected_list_row_inserted, selected_tree)
 
-    def on_available_selection_changed(self, selection, buttons):
+    def on_available_selection_changed(self, selection):
         """
-            Enables buttons if there is at least one row selected
+            Enables buttons based on the current selection
+        """
+        row_selected = (selection.count_selected_rows() > 0)
+        self.add_button.set_sensitive(row_selected)
+
+    def on_selected_selection_changed(self, selection):
+        """
+            Enables buttons based on the current selection
         """
         row_selected = (selection.count_selected_rows() > 0)
 
-        for button in buttons:
-            button.set_sensitive(row_selected)
+        self.remove_button.set_sensitive(row_selected)
 
-    def on_selected_selection_changed(self, selection, buttons):
-        """
-            Enables buttons if there is at least one row selected
-        """
-        row_selected = (selection.count_selected_rows() > 0)
+        if row_selected:
+            first_iter = self.selected_list.get_iter_first()
+            last_iter = None
 
-        for button in buttons:
-            button.set_sensitive(row_selected)
+            for row in self.selected_list:
+                last_iter = row.iter
+
+            first_selected = selection.iter_is_selected(first_iter)
+            last_selected = selection.iter_is_selected(last_iter)
+
+            self.up_button.set_sensitive(not first_selected)
+            self.down_button.set_sensitive(not last_selected)
 
     def on_add_button_clicked(self, button):
         """
@@ -537,6 +574,7 @@ class SelectionListPreference(Preference):
             return
 
         list.swap(upper_iter, iter)
+        self.on_selected_selection_changed(self.selected_selection)
 
     def on_down_button_clicked(self, button):
         """
@@ -550,6 +588,7 @@ class SelectionListPreference(Preference):
             return
 
         list.swap(iter, lower_iter)
+        self.on_selected_selection_changed(self.selected_selection)
 
     def on_available_tree_key_pressed(self, tree, event):
         """

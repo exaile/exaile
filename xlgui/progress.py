@@ -24,12 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import threading
-
+import gobject
 import gtk
-
-from xlgui import guiutil
-from xl import event
 
 class ProgressMonitor(gtk.Frame):
     """
@@ -48,6 +44,8 @@ class ProgressMonitor(gtk.Frame):
 
         self._setup_widgets()
         self.show_all()
+
+        self.timeout_id = gobject.timeout_add(100, self.on_timeout)
 
         self.progress_update_id = self.thread.connect('progress-update',
             self.on_progress_update)
@@ -71,10 +69,23 @@ class ProgressMonitor(gtk.Frame):
         if self.label:
             self.label.set_text(desc)
 
+    def on_timeout(self):
+        """
+            Pulses the progress indicator until
+            the first status update is received
+        """
+        self.progress.pulse()
+
+        return True
+
     def on_progress_update(self, thread, percent):
         """
             Called when the progress has been updated
         """
+        if self.timeout_id is not None:
+            gobject.source_remove(self.timeout_id)
+            self.timeout_id = None
+
         fraction = float(percent) / 100
 
         if fraction >= 0 and fraction <= 1.0:

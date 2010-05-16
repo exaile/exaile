@@ -1112,15 +1112,14 @@ class Playlist(gtk.VBox):
             image = self.stopimg
         cell.set_property('pixbuf', image)
 
-    def set_cell_weight(self, cell, item):
+    def set_cell_weight(self, cell, item, iter):
         """
             Sets a CellRendererText's "weight" property according to whether
             `item` is the currently playing track.
         """
         # Doesn't play well with multiple track instances
-        # as the passed-in information doesn't let us get the index,
-        # which we need to discriminate among instances.
-        if item == self.player.current:
+        idx = self.model.get_path(iter)[0]
+        if item == self.player.current and idx == self.playlist.get_current_pos():
             weight = pango.WEIGHT_HEAVY
         else:
             weight = pango.WEIGHT_NORMAL

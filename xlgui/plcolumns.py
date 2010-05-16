@@ -63,7 +63,7 @@ class Column(object):
         """
         if not model.iter_is_valid(iter): return
         item = model.get_value(iter, 0)
-        self.playlist.set_cell_weight(cell, item)
+        self.playlist.set_cell_weight(cell, item, iter)
 
     def set_properties(self, col, cellr):
         return
@@ -86,7 +86,7 @@ class TrackNumberColumn(Column):
 
         self.formatter.set_property('format', '$%s' % self.id)
         cell.set_property('text', self.formatter.format(track))
-        self.playlist.set_cell_weight(cell, track)
+        self.playlist.set_cell_weight(cell, track, iter)
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
@@ -124,7 +124,7 @@ class LengthColumn(Column):
 
         self.formatter.set_property('format', '$%s' % self.id)
         cell.set_property('text', self.formatter.format(track))
-        self.playlist.set_cell_weight(cell, track)
+        self.playlist.set_cell_weight(cell, track, iter)
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
@@ -145,7 +145,7 @@ class DiscNumberColumn(Column):
             cell.set_property('text', '')
         else:
             cell.set_property('text', disc)
-        self.playlist.set_cell_weight(cell, track)
+        self.playlist.set_cell_weight(cell, track, iter)
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
@@ -195,7 +195,7 @@ class BitrateColumn(Column):
         """
         track = model.get_value(iter, 0)
         cell.set_property('text', track.get_tag_display("__bitrate"))
-        self.playlist.set_cell_weight(cell, track)
+        self.playlist.set_cell_weight(cell, track, iter)
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
@@ -246,7 +246,7 @@ class LastPlayedColumn(Column):
 
         self.formatter.set_property('format', '$%s' % self.id)
         cell.set_property('text', self.formatter.format(track))
-        self.playlist.set_cell_weight(cell, track)
+        self.playlist.set_cell_weight(cell, track, iter)
 
 # this is where everything gets set up, including the menu items
 COLUMNS = {}

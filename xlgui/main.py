@@ -30,6 +30,7 @@ import os
 import re
 import threading
 
+import cairo
 import gobject
 import pygst
 pygst.require('0.10')
@@ -339,15 +340,21 @@ class MainWindow(gobject.GObject):
         self._fullscreen = False
         self.resuming = False
 
-        if settings.get_option('gui/use_alpha', False):
-            gtk_screen = gtk.gdk.screen_get_default()
-            rgbamap = gtk_screen.get_rgba_colormap()
-            if rgbamap is not None:
-                gtk.widget_set_default_colormap(rgbamap)
-
         self.builder = builder
         self.window = self.builder.get_object('ExaileWindow')
         self.window.set_title('Exaile')
+
+        if settings.get_option('gui/use_alpha', False):
+            screen = self.window.get_screen()
+            colormap = screen.get_rgba_colormap()
+
+            if colormap is not None:
+                self.window.set_app_paintable(True)
+                self.window.set_colormap(colormap)
+
+                self.window.connect('expose-event', self.on_expose_event)
+                self.window.connect('screen-changed', self.on_screen_changed)
+
         self.playlist_notebook = self.builder.get_object('playlist_notebook')
         self.playlist_notebook.remove_page(0)
         self.playlist_notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
@@ -641,6 +648,30 @@ class MainWindow(gobject.GObject):
         # Search filter
         self.filter = guiutil.SearchEntry(
             self.builder.get_object('playlist_search_entry'))
+
+    def on_expose_event(self, widget, event):
+        """
+            Paints the window alpha transparency
+        """
+        opacity = 1 - settings.get_option('gui/transparency', 0.3)
+        context = widget.window.cairo_create()
+        background = widget.style.bg[gtk.STATE_NORMAL]
+        context.set_source_rgba(
+            float(background.red) / 256**2,
+            float(background.green) / 256**2,
+            float(background.blue) / 256**2,
+            opacity
+        )
+        context.set_operator(cairo.OPERATOR_SOURCE)
+        context.paint()
+
+    def on_screen_changed(self, widget, event):
+        """
+            Updates the colormap on screen change
+        """
+        screen = widget.get_screen()
+        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
+        self.window.set_colormap(rgbamap)
 
     def on_queue(self):
         """

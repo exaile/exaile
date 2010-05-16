@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import gobject
+
 from xlgui.preferences import widgets
 from xl import common, xdg
 from xl.nls import gettext as _
@@ -44,6 +46,23 @@ class ShowTabBarPreference(widgets.CheckPreference):
 class UseAlphaTransparencyPreference(widgets.CheckPreference):
     default = False
     name = 'gui/use_alpha'
+    restart_required = True
+
+class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional):
+    default = 0.3
+    name = 'gui/transparency'
+    condition_preference_name = 'gui/use_alpha'
+
+    def __init__(self, preferences, widget):
+        widgets.ScalePreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
+        self.main_window = xlgui.get_controller().main.window
+
+    def apply(self, value=None):
+        return_value = widgets.ScalePreference.apply(self, value)
+        gobject.idle_add(self.main_window.queue_draw)
+
+        return return_value
 
 class TrackCountsPreference(widgets.CheckPreference):
     default = True
@@ -52,6 +71,7 @@ class TrackCountsPreference(widgets.CheckPreference):
     def apply(self, value=None):
         return_value = widgets.CheckPreference.apply(self, value)
         self._reload_tree()
+
         return return_value
 
     @common.threaded

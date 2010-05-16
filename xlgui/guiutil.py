@@ -185,7 +185,7 @@ class DragTreeView(gtk.TreeView):
     """
     targets = [("text/uri-list", 0, 0)]
     dragged_data = dict()
-    
+
     def __init__(self, container, receive=True, source=True, drop_pos=None):
         """
             Initializes the tree and sets up the various callbacks

@@ -14,13 +14,7 @@
             <property name="hscrollbar_policy">automatic</property>
             <property name="vscrollbar_policy">automatic</property>
             <child>
-              <object class="GtkTreeView" id="playlist_view">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="reorderable">True</property>
-                <property name="rules_hint">True</property>
-                <property name="rubber_banding">True</property>
-              </object>
+              <placeholder/>
             </child>
           </object>
           <packing>

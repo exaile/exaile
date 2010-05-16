@@ -214,7 +214,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.pack_start(self.plwin, True, True, padding=2)
         self.pack_start(self.controls, False, False, padding=2)
 
-        self.view = build.get_object("playlist_view")
+        self.view = guiutil.DragTreeView(self, drop_pos="between")
+        self.plwin.add(self.view)
         self.shuffle_button = build.get_object("shuffle_button")
         self.repeat_button = build.get_object("repeat_button")
         self.dynamic_button = build.get_object("dynamic_button")
@@ -230,6 +231,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
             self.view.append_column(tvcol)
 
         self.view.set_model(self.model)
+        self.view.connect("drag-drop", self.on_drag_drop)
 
         self.show_all()
 
@@ -244,6 +246,12 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         model, paths = selection.get_selected_rows()
         tracks = [model.get_track(path) for path in paths]
         return tracks
+
+    def on_drag_drop(self, view, context, x, y, etime):
+        self.drag_data_received(view, context, x, y,
+                view.get_selection(), None, etime)
+        context.finish(True, False)
+        return True
 
     ### needed for DragTreeView ###
 
@@ -263,8 +271,6 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
         uris = trax.get_uris_from_tracks(tracks)
         selection.set_uris(uris)
-
-
 
     def button_press(self, button, event):
         pass
@@ -353,7 +359,6 @@ class PlaylistModel(gtk.GenericTreeModel):
 
     def get_track(self, path):
         return self.playlist[path[0]]
-
 
 
 class Playlist(object):

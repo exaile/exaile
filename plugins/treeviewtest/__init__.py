@@ -30,6 +30,7 @@ import os
 from xl.nls import gettext as _
 from xl import event, common, trax
 from xlgui import guiutil, icons
+import plcolumns
 
 WINDOW = None
 
@@ -194,6 +195,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     """
         Displays a playlist and associated controls.
     """
+    default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
+
     def __init__(self, playlist, exaile):
         gtk.VBox.__init__(self)
         NotebookPage.__init__(self)
@@ -225,7 +228,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.dynamic_button = build.get_object("dynamic_button")
 
 
-        self.model = PlaylistModel(playlist)
+        self.model = PlaylistModel(playlist, self.default_columns)
         self.view.set_rules_hint(True)
         self.view.set_enable_search(True)
         self.selection = self.view.get_selection()
@@ -233,9 +236,16 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
 
         for idx, col in enumerate(self.model.columns):
-            cell = gtk.CellRendererText()
-            tvcol = gtk.TreeViewColumn(col, cell, text=idx)
-            self.view.append_column(tvcol)
+            plcol = plcolumns.COLUMNS[col](self)
+            cellr = plcol.renderer()
+            gcol = gtk.TreeViewColumn(plcol.display, cellr, text=idx)
+
+            gcol.set_cell_data_func(cellr, plcol.data_func)
+            plcol.set_properties(gcol, cellr)
+
+            gcol.set_fixed_width(int(plcol.size))
+
+            self.view.append_column(gcol)
 
         self.view.set_model(self.model)
         self.view.connect("drag-drop", self.on_drag_drop)
@@ -243,6 +253,20 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.view.connect("row-activated", self.on_row_activated)
 
         self.show_all()
+
+    def set_cell_weight(self, cell, iter):
+        """
+            Called by columns in plcolumns to set a CellRendererText's
+            weight property for the playing track.
+        """
+        path = self.model.get_path(iter)
+        track = self.model.get_track(path)
+        if track == self.exaile.player.current and \
+                path[0] == self.playlist.get_current_pos():
+            weight = pango.WEIGHT_HEAVY
+        else:
+            weight = pango.WEIGHT_NORMAL
+        cell.set_property('weight', weight)
 
     def handle_close(self):
         return True
@@ -300,10 +324,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
 
 class PlaylistModel(gtk.GenericTreeModel):
-    columns = ['tracknumber', 'title', 'album', 'artist']
-    column_types = (str, str, str, str)
-
-    def __init__(self, playlist):
+    def __init__(self, playlist, columns):
         gtk.GenericTreeModel.__init__(self)
         self.playlist = playlist
 
@@ -312,6 +333,8 @@ class PlaylistModel(gtk.GenericTreeModel):
         event.add_callback(self.on_tracks_removed,
                 "playlist_tracks_removed", playlist)
 
+        self.columns = columns
+
     def on_get_flags(self):
         return gtk.TREE_MODEL_LIST_ONLY
 
@@ -319,7 +342,7 @@ class PlaylistModel(gtk.GenericTreeModel):
         return len(self.columns)
 
     def on_get_column_type(self, index):
-        return self.column_types[index]
+        return str
 
     def on_get_iter(self, path):
         rowref = path[0]

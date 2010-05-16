@@ -62,12 +62,13 @@ class Exaile(object):
         if self.options.UseDataDir:
             xdg.data_dirs.insert(1, self.options.UseDataDir)
 
+        if self.options.EventFilter:
+            event.EVENT_MANAGER.logger_filter = self.options.EventFilter
+            self.options.DebugEvent = True
+
         if self.options.DebugEvent:
             event.EVENT_MANAGER.use_logger = True
             self.options.Debug = True
-
-        if self.options.EventFilter:
-            event.EVENT_MANAGER.logger_filter = self.options.EventFilter
 
         # set up logging
         self.setup_logging()

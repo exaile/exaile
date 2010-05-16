@@ -1117,7 +1117,6 @@ class Playlist(gtk.VBox):
             Sets a CellRendererText's "weight" property according to whether
             `item` is the currently playing track.
         """
-        # Doesn't play well with multiple track instances
         idx = self.model.get_path(iter)[0]
         if item == self.player.current and idx == self.playlist.get_current_pos():
             weight = pango.WEIGHT_HEAVY

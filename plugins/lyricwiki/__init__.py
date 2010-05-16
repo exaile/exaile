@@ -1,3 +1,5 @@
+import HTMLParser
+
 from xl.lyrics import LyricSearchMethod
 from xl.lyrics import LyricsNotFoundException
 from xl import event
@@ -54,7 +56,10 @@ class LyricWiki(LyricSearchMethod):
         except:
             raise LyricsNotFoundException
 
-        soup = BeautifulSoup.BeautifulSoup(html)
+        try:
+            soup = BeautifulSoup.BeautifulSoup(html)
+        except HTMLParser.HTMLParseError:
+            raise LyricsNotFoundException
         lyrics = soup.findAll(attrs= {"class" : "lyricbox"})
         if lyrics:
             lyrics = re.sub(r' Send.*?Ringtone to your Cell ','','\n'.join(self.remove_html_tags(lyrics[0].renderContents().replace('<br />','\n')).replace('\n\n\n','').split('\n')[0:-7]))

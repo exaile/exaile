@@ -228,6 +228,9 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.model = PlaylistModel(playlist)
         self.view.set_rules_hint(True)
         self.view.set_enable_search(True)
+        self.selection = self.view.get_selection()
+        self.selection.set_mode(gtk.SELECTION_MULTIPLE)
+
 
         for idx, col in enumerate(self.model.columns):
             cell = gtk.CellRendererText()
@@ -283,7 +286,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
     def drag_get_data(self, view, context, selection, target_id, etime):
         print "get data"
-        tracks = self.get_selected_tracks()
+        tracks = [ x[1] for x in self.get_selected_tracks() ]
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
 
@@ -393,10 +396,11 @@ class Playlist(object):
     """
     def __init__(self, name, initial_tracks=[]):
         # MUST copy here, hence the :
+        self.__tracks = []
         for tr in initial_tracks:
             if not isinstance(tr, trax.Track):
                 raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
-        self.__tracks = list(initial_tracks)
+            self.__tracks.append(tr)
         self.__random_mode = "disabled"
         self.__repeat_mode = "disabled"
         self.__dynamic_mode = "disabled"
@@ -506,8 +510,6 @@ class Playlist(object):
     # appropriate actions when these conditions are in effect.
 
     def filter(self):
-        # filters the playlist. acts on current view if new filter is a
-        # superset of the old one, and on the entire list if it is not.
         pass
 
 

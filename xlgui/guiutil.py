@@ -838,6 +838,9 @@ class Statusbar(object):
         self.context_id = self.status_bar.get_context_id('status')
         self.message_ids = []
 
+        self.status_bar.set_app_paintable(True)
+        self.status_bar.connect('expose-event', self.on_expose_event)
+
     def set_status(self, status, timeout=0):
         """
             Sets the status message
@@ -884,6 +887,64 @@ class Statusbar(object):
         else:
             self.queue_count_label.hide_all()
             self.queue_count_label.set_no_show_all(True)
+
+    def get_window_edge(self, widget):
+        """
+            Taken from GTK source, retrieves the
+            preferred edge for the resize grip
+        """
+        if widget.get_direction() == gtk.TEXT_DIR_LTR:
+            edge = gtk.gdk.WINDOW_EDGE_SOUTH_EAST
+        else:
+            edge = gtk.gdk.WINDOW_EDGE_SOUTH_WEST
+        return edge
+
+    def get_grip_rect(self, widget):
+        """
+            Taken from GTK source, retrieves the
+            rectangle to draw the resize grip on
+        """
+        width = height = 18
+        allocation = widget.get_allocation()
+
+        width = min(width, allocation.width)
+        height = min(height, allocation.height - widget.style.ythickness)
+
+        if widget.get_direction() == gtk.TEXT_DIR_LTR:
+            x = allocation.x + allocation.width - width
+        else:
+            x = allocation.x + widget.style.xthickness
+
+        y = allocation.y + allocation.height - height
+
+        return gtk.gdk.Rectangle(x, y, width, height)
+
+    def on_expose_event(self, widget, event):
+        """
+            Override required to make alpha
+            transparency work properly
+        """
+        if widget.get_has_resize_grip():
+            edge = self.get_window_edge(widget)
+            rect = self.get_grip_rect(widget)
+
+            widget.style.paint_resize_grip(
+                widget.window,
+                widget.get_state(),
+                event.area,
+                widget,
+                'statusbar',
+                edge,
+                rect.x, rect.y,
+                rect.width - widget.style.xthickness,
+                rect.height - widget.style.ythickness
+            )
+
+            frame = widget.get_children()[0]
+            box = frame.get_children()[0]
+            box.send_expose(event) # Bypass frame
+
+        return True
 
 class MenuRatingWidget(gtk.MenuItem):
     """

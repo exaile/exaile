@@ -56,7 +56,7 @@ class TestWindow(object):
         pl = Playlist("test", trs)
         exaile.shortcut = pl
         self.window = gtk.Window()
-        self.tabs = PlaylistNotebook()
+        self.tabs = PlaylistNotebook(exaile)
         self.tabs.create_tab_from_playlist(pl)
         self.window.add(self.tabs)
         self.window.resize(800, 600)
@@ -74,14 +74,15 @@ class SmartNotebook(gtk.Notebook):
         pass
 
 class PlaylistNotebook(SmartNotebook):
-    def __init__(self):
+    def __init__(self, exaile):
         SmartNotebook.__init__(self)
+        self.exaile = exaile
         self._new_playlist_item = gtk.MenuItem(_("New Playlist"))
         self._new_playlist_item.connect('activate', self.create_new_playlist)
         self.tab_menu_items.append(self._new_playlist_item)
 
     def create_tab_from_playlist(self, playlist):
-        page = PlaylistPage(playlist)
+        page = PlaylistPage(playlist, self.exaile)
         tab = NotebookTab(self, page)
         self.append_page(page, tab)
         return tab
@@ -193,9 +194,12 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     """
         Displays a playlist and associated controls.
     """
-    def __init__(self, playlist):
+    def __init__(self, playlist, exaile):
         gtk.VBox.__init__(self)
         NotebookPage.__init__(self)
+
+        self.exaile = exaile #TODO: remove the need for this!
+
         self.playlist = playlist
         self._clear_menu_item = gtk.MenuItem(_("Clear All Tracks"))
         self._clear_menu_item.connect('activate', self.clear)
@@ -233,6 +237,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.view.set_model(self.model)
         self.view.connect("drag-drop", self.on_drag_drop)
 
+        self.view.connect("row-activated", self.on_row_activated)
+
         self.show_all()
 
     def handle_close(self):
@@ -244,7 +250,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     def get_selected_tracks(self):
         selection = self.view.get_selection()
         model, paths = selection.get_selected_rows()
-        tracks = [model.get_track(path) for path in paths]
+        tracks = [(path[0], model.get_track(path)) for path in paths]
         return tracks
 
     def on_drag_drop(self, view, context, x, y, etime):
@@ -252,6 +258,18 @@ class PlaylistPage(gtk.VBox, NotebookPage):
                 view.get_selection(), None, etime)
         context.finish(True, False)
         return True
+
+    def on_row_activated(self, *args):
+        try:
+            idx, track = self.get_selected_tracks()[0]
+        except IndexError:
+            return
+
+        self.playlist.set_current_pos(idx)
+        self.exaile.queue.play(track=track)
+        self.exaile.queue.set_current_playlist(self.playlist)
+
+
 
     ### needed for DragTreeView ###
 

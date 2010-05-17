@@ -27,54 +27,63 @@
 import gobject
 import gtk
 
-class ProgressMonitor(gtk.Frame):
+from xl import xdg
+from xlgui import commondialogs, icons
+from xlgui.commondialogs import MessageBar
+
+class ProgressMonitor(MessageBar):
     """
-        A progress monitor
+        A graphical progress monitor
     """
-    def __init__(self, manager, thread, desc, icon):
+    def __init__(self, manager, thread, description):
         """
             Initializes the monitor
+
+            :param manager: the parent manager
+            :type manager: :class:`ProgressManager`
+            :param thread: the thread to run
+            :type thread: :class:`threading.Thread`
+            :param description: the description for this process
+            :type description: string
         """
-        gtk.Frame.__init__(self)
+        MessageBar.__init__(self, buttons=gtk.BUTTONS_CANCEL,
+            text=description)
+        self.set_no_show_all(False)
+
         self.manager = manager
         self.thread = thread
-        self.desc = desc
-        self.icon = icon
-        self.label = None
 
-        self._setup_widgets()
+        self.progressbar = gtk.ProgressBar()
+        self.progressbar.pulse()
+        self.get_message_area().pack_start(self.progressbar, False)
+
         self.show_all()
 
+        self.connect('response', self.on_response)
         self.timeout_id = gobject.timeout_add(100, self.on_timeout)
-
         self.progress_update_id = self.thread.connect('progress-update',
             self.on_progress_update)
         self.done_id = self.thread.connect('done', self.on_done)
-        thread.start()
+        self.thread.start()
 
     def destroy(self):
         """
             Cleans up
         """
+        if self.timeout_id is not None:
+            gobject.source_remove(self.timeout_id)
+
         self.thread.disconnect(self.progress_update_id)
         self.thread.disconnect(self.done_id)
 
-        gtk.Frame.destroy(self)
-
-    def set_description(self, desc):
-        """
-            Changes the description of the monitor
-        """
-        self.desc = desc
-        if self.label:
-            self.label.set_text(desc)
+        MessageBar.destroy(self)
 
     def on_timeout(self):
         """
             Pulses the progress indicator until
             the first status update is received
         """
-        self.progress.pulse()
+        self.progressbar.pulse()
 
         return True
 
@@ -88,9 +97,11 @@ class ProgressMonitor(gtk.Frame):
 
         fraction = float(percent) / 100
 
-        if fraction >= 0 and fraction <= 1.0:
-            self.progress.set_fraction(float(percent) / 100)
-            self.progress.set_text('%d%%' % percent)
+        fraction = max(0, fraction)
+        fraction = min(fraction, 1.0)
+
+        self.progressbar.set_fraction(fraction)
+        self.progressbar.set_text('%d%%' % percent)
 
     def on_done(self, thread):
         """
@@ -98,60 +109,14 @@ class ProgressMonitor(gtk.Frame):
         """
         self.manager.remove_monitor(self)
 
-    def stop_monitor(self, *e):
+    def on_response(self, widget, response):
         """
-            Stops this monitor, removes it from the progress area
+            Stops the running thread
         """
-        self.thread.stop()
-
-    def _setup_widgets(self):
-        """
-            Sets up the various widgets for this object
-        """
-        self.set_shadow_type(gtk.SHADOW_NONE)
-        desc = self.desc
-        icon = self.icon
-
-        box = gtk.VBox()
-        box.set_border_width(3)
-        label = gtk.Label(desc)
-        label.set_use_markup(True)
-        label.set_alignment(0, 0.5)
-        label.set_padding(3, 0)
-        box.pack_start(label, False, False)
-        self.label = label
-
-        pbox = gtk.HBox()
-        pbox.set_spacing(3)
-
-        img = gtk.Image()
-        img.set_from_stock(icon, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        img.set_size_request(32, 32)
-        pbox.pack_start(img, False, False)
-
-        ibox = gtk.VBox()
-        l = gtk.Label()
-        l.set_size_request(2, 2)
-        ibox.pack_start(l, False, False)
-        self.progress = gtk.ProgressBar()
-        self.progress.set_text(' ')
-
-        ibox.pack_start(self.progress, True, False)
-        l = gtk.Label()
-        l.set_size_request(2, 2)
-        ibox.pack_start(l, False, False)
-        pbox.pack_start(ibox, True, True)
-
-        button = gtk.Button()
-        img = gtk.Image()
-        img.set_from_stock(gtk.STOCK_STOP, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        button.set_image(img)
-
-        pbox.pack_start(button, False, False)
-        button.connect('clicked', self.stop_monitor)
-
-        box.pack_start(pbox, True, True)
-        self.add(box)
+        if response == gtk.RESPONSE_CANCEL:
+            widget.hide()
+            widget.destroy()
+            self.thread.stop()
 
 class ProgressManager(object):
     """
@@ -166,22 +131,24 @@ class ProgressManager(object):
         """
             Initializes the manager
 
-            @param container: the gtk.VBox that will be holding the different
+            :param container: the gtk.VBox that will be holding the different
             progress indicators
         """
         self.box = container
 
-    def add_monitor(self, thread, description, stock_icon):
+    def add_monitor(self, thread, description, stock_id):
         """
             Adds a progress box
 
-            @param thread: the ProgressThread that should be run once the
+            :param thread: the ProgressThread that should be run once the
                 monitor is started
-            @param description: a description of the event
-            @param stock_icon: the icon to display
+            :param description: a description of the event
+            :param stock_id: the stock id of an icon to display
         """
-        monitor = ProgressMonitor(self, thread, description, stock_icon)
-        self.box.pack_start(monitor, expand=False, fill=False)
+        monitor = ProgressMonitor(self, thread, description)
+        image = gtk.image_new_from_stock(stock_id, gtk.ICON_SIZE_DIALOG)
+        monitor.set_image(image)
+        self.box.pack_start(monitor)
 
         return monitor
 
@@ -191,5 +158,4 @@ class ProgressManager(object):
         """
         monitor.hide()
         monitor.destroy()
-        #self.box.remove(monitor)
 

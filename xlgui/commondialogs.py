@@ -442,9 +442,10 @@ class MessageBar(gtk.InfoBar):
         gtk.InfoBar.__init__(self)
         self.set_no_show_all(True)
 
-        parent.add(self)
-        parent.reorder_child(self, 0)
-        parent.child_set_property(self, 'expand', False)
+        if parent is not None:
+            parent.add(self)
+            parent.reorder_child(self, 0)
+            parent.child_set_property(self, 'expand', False)
 
         self.image = gtk.Image()
         self.image.set_property('yalign', 0)
@@ -454,16 +455,18 @@ class MessageBar(gtk.InfoBar):
         self.primary_text.set_property('xalign', 0)
         self.secondary_text = gtk.Label()
         self.secondary_text.set_property('xalign', 0)
-        text_box = gtk.VBox(spacing=12)
-        text_box.pack_start(self.primary_text, False, False)
-        text_box.pack_start(self.secondary_text, False, False)
+        self.secondary_text.set_no_show_all(True)
 
-        self.message_area = gtk.HBox(spacing=6)
-        self.message_area.pack_start(self.image, False, False)
-        self.message_area.pack_start(text_box, False, False)
+        self.message_area = gtk.VBox(spacing=12)
+        self.message_area.pack_start(self.primary_text, False, False)
+        self.message_area.pack_start(self.secondary_text, False, False)
+
+        box = gtk.HBox(spacing=6)
+        box.pack_start(self.image, False)
+        box.pack_start(self.message_area)
 
         content_area = self.get_content_area()
-        content_area.add(self.message_area)
+        content_area.add(box)
         content_area.show_all()
 
         if buttons != gtk.BUTTONS_NONE:
@@ -482,8 +485,8 @@ class MessageBar(gtk.InfoBar):
         self.primary_text_emphasized_attributes.insert(
             pango.AttrScale(pango.SCALE_LARGE, 0, -1))
 
-        self.action_area = self.get_action_area()
-        self.action_area.set_property('layout-style', gtk.BUTTONBOX_START)
+        self.get_action_area().set_property('layout-style',
+            gtk.BUTTONBOX_START)
 
     def set_markup(self, markup):
         """
@@ -507,9 +510,11 @@ class MessageBar(gtk.InfoBar):
         self.secondary_text.set_text(text)
 
         if text is None:
+            self.secondary_text.hide()
             self.primary_text.set_attributes(
                 self.primary_text_attributes)
         else:
+            self.secondary_text.show()
             self.primary_text.set_attributes(
                 self.primary_text_emphasized_attributes)
 
@@ -539,10 +544,12 @@ class MessageBar(gtk.InfoBar):
             :param image: the image widget
             :type image: :class:`gtk.Widget`
         """
-        self.message_area.remove(self.image)
+        box = self.image.get_parent()
+        box.remove(self.image)
         self.image = image
-        self.message_area.pack_start(self.image)
-        self.message_area.reorder_child(self.image, 0)
+        box.pack_start(self.image, False)
+        box.reorder_child(self.image, 0)
+        self.image.show()
 
     def get_image(self):
         """
@@ -561,7 +568,7 @@ class MessageBar(gtk.InfoBar):
             :type response_id: int
         """
         button = gtk.InfoBar.add_button(self, button_text, response_id)
-        self.action_area.reorder_child(button, 0)
+        self.get_action_area().reorder_child(button, 0)
         
         return button
 
@@ -578,3 +585,10 @@ class MessageBar(gtk.InfoBar):
                 gtk.ICON_SIZE_DIALOG)
 
         gtk.InfoBar.set_message_type(self, type)
+
+    def get_message_area(self):
+        """
+            Retrieves the message area
+        """
+        return self.message_area
+        

@@ -213,8 +213,6 @@ class HashedPreference(Preference):
         self._insert_text_id = self.widget.connect('insert-text',
             self.on_insert_text)
 
-        self.hashfunc = hashlib.new(self.type)
-
     def _setup_change(self):
         """
             Sets up the function to be called when this preference is changed
@@ -244,7 +242,9 @@ class HashedPreference(Preference):
             return True
 
         if value != '':
-            value = self.hashfunc(value).hexdigest()
+            hashfunc = hashlib.new(self.type)
+            hashfunc.update(value)
+            value = hashfunc.hexdigest()
 
         self.widget.set_text(value)
         self.preferences.settings.set_option(self.name, value)
@@ -506,6 +506,83 @@ class SelectionListPreference(Preference):
         self.selected_list.connect('row-inserted',
             self.on_selected_list_row_inserted, selected_tree)
 
+    def iter_prev(self, iter, model):
+        """
+            Returns the previous iter
+            Taken from PyGtk FAQ 13.51
+        """
+        path = model.get_path(iter)
+        position = path[-1]
+
+        if position == 0:
+            return None
+
+        prev_path = list(path)[:-1]
+        prev_path.append(position - 1)
+        prev = model.get_iter(tuple(prev_path))
+
+        return prev
+
+    def _update_lists(self, items):
+        """
+            Updates the two lists
+        """
+        available_set = set(self.available_items.keys())
+        available_set = available_set.difference(set(items))
+
+        self.available_list.clear()
+
+        for id in available_set:
+            self.available_list.append([self.available_items[id]])
+
+        self.selected_list.clear()
+
+        for id in items:
+            try:
+                self.selected_list.append([self.available_items[id]])
+            except KeyError:
+              pass
+        try:
+            for id, title in self.fixed_items.iteritems():
+                self.selected_list.append([title])
+        except AttributeError:
+            pass
+
+    def _setup_change(self):
+        """
+            Sets up the function to be called
+            when this preference is changed
+        """
+        self.selected_list.connect('row-deleted',
+            self.change, self.name, self._get_value())
+        self.selected_list.connect('row-inserted',
+            self.change, self.name, self._get_value())
+        self.selected_list.connect('rows-reordered',
+            self.change, self.name, self._get_value())
+
+    def _set_value(self):
+        """
+            Sets the preferences for this widget
+        """
+        items = self.preferences.settings.get_option(self.name, self.default)
+        self._update_lists(items)
+
+    def _get_value(self):
+        """
+            Value to be stored into the settings file
+        """
+        items = []
+
+        for row in self.selected_list:
+            selected_value = row[0]
+
+            for id, title in self.available_items.iteritems():
+                if selected_value == title:
+                    items.append(id)
+                    break
+
+        return items
+
     def on_available_selection_changed(self, selection):
         """
             Enables buttons based on the current selection
@@ -674,71 +751,6 @@ class SelectionListPreference(Preference):
         """
         self.selected_selection.select_path(path)
         tree.grab_focus()
-
-    def iter_prev(self, iter, model):
-        """
-            Returns the previous iter
-            Taken from PyGtk FAQ 13.51
-        """
-        path = model.get_path(iter)
-        position = path[-1]
-
-        if position == 0:
-            return None
-
-        prev_path = list(path)[:-1]
-        prev_path.append(position - 1)
-        prev = model.get_iter(tuple(prev_path))
-
-        return prev
-
-    def _set_value(self):
-        """
-            Sets the preferences for this widget
-        """
-        items = self.preferences.settings.get_option(self.name, self.default)
-        self._update_lists(items)
-
-    def _get_value(self):
-        """
-            Value to be stored into the settings file
-        """
-        items = []
-
-        for row in self.selected_list:
-            selected_value = row[0]
-
-            for id, title in self.available_items.iteritems():
-                if selected_value == title:
-                    items.append(id)
-                    break
-
-        return items
-
-    def _update_lists(self, items):
-        """
-            Updates the two lists
-        """
-        available_set = set(self.available_items.keys())
-        available_set = available_set.difference(set(items))
-
-        self.available_list.clear()
-
-        for id in available_set:
-            self.available_list.append([self.available_items[id]])
-
-        self.selected_list.clear()
-
-        for id in items:
-            try:
-                self.selected_list.append([self.available_items[id]])
-            except KeyError:
-              pass
-        try:
-            for id, title in self.fixed_items.iteritems():
-                self.selected_list.append([title])
-        except AttributeError:
-            pass
 
 class ShortcutListPreference(Preference):
     """
@@ -1071,6 +1083,14 @@ class ComboEntryPreference(Preference):
                 self.completion_list.append(item)
         except AttributeError:
             pass
+
+    def _setup_change(self):
+        """
+            Sets up the function to be called
+            when this preference is changed
+        """
+        self.widget.connect('changed', self.change, self.name,
+            self._get_value())
 
     def _set_value(self):
         """

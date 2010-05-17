@@ -663,11 +663,11 @@ class Library(object):
 
             # progress update
             if notify_interval is not None and count % notify_interval == 0:
-                event.log_event('tracks_scanned', self, count)
+                event.log_event_sync('tracks_scanned', self, count)
 
         # final progress update
         if notify_interval is not None:
-            event.log_event('tracks_scanned', self, count)
+            event.log_event_sync('tracks_scanned', self, count)
 
 
 

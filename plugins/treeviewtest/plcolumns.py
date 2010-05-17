@@ -62,7 +62,8 @@ class Column(object):
         return TrackFormatter('$%s'%cls.id)
 
     def data_func(self, col, cell, model, iter):
-        self.container.set_cell_weight(cell, iter)
+        if type(cell) == gtk.CellRendererText:
+            self.container.set_cell_weight(cell, iter)
 
     def __repr__(self):
         return '%s(%s, %s, %s)' % (self.__class__.__name__,

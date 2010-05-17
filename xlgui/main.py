@@ -40,10 +40,25 @@ pygtk.require('2.0')
 import gtk
 import pango
 
-from xl import common, event, formatter, providers, settings, xdg, trax
+from xl import (
+    common,
+    event,
+    formatter,
+    providers,
+    settings,
+    trax,
+    xdg
+)
 from xl.nls import gettext as _
 import xl.playlist
-from xlgui import playlist, cover, guiutil, menu, commondialogs, tray
+from xlgui import (
+    commondialogs,
+    cover,
+    guiutil,
+    menu,
+    playlist,
+    tray
+)
 
 logger = logging.getLogger(__name__)
 
@@ -591,6 +606,12 @@ class MainWindow(gobject.GObject):
             restart_item.set_property('visible', True)
             restart_item.set_no_show_all(False)
 
+        self.message = commondialogs.MessageBar(
+            parent=self.builder.get_object('player_box'),
+            buttons=gtk.BUTTONS_CLOSE
+        )
+        self.message.connect('response', self.on_messagebar_response)
+
         self.volume_control = guiutil.VolumeControl(
             self.builder.get_object('volume_control')
         )
@@ -672,6 +693,13 @@ class MainWindow(gobject.GObject):
         screen = widget.get_screen()
         colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
         self.window.set_colormap(rgbamap)
+
+    def on_messagebar_response(self, widget, response):
+        """
+            Hides the messagebar if requested
+        """
+        if response == gtk.RESPONSE_CLOSE:
+            self.message.hide()
 
     def on_queue(self):
         """
@@ -954,20 +982,14 @@ class MainWindow(gobject.GObject):
             self.queue.play(track=track)
             self.queue.set_current_playlist(pl.playlist)
 
-    @guiutil.idle_add()
     def on_playback_error(self, type, player, message):
         """
             Called when there has been a playback error
         """
-        # for some reason using the gtk.MessageDialog.run() and
-        # gtk.MessageDialog.hide() here causes the whole system to lock up, so
-        # instead we just connect to the response method and hide it when the
-        # ok button is clicked
-        dialog = gtk.MessageDialog(self.window, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
-            gtk.BUTTONS_OK)
-        dialog.set_markup(message)
-        dialog.connect('response', lambda dialog=dialog, *e: dialog.hide())
-        dialog.show_all()
+        self.message.set_message_type(gtk.MESSAGE_ERROR)
+        self.message.set_text(_('Playback error encountered!'))
+        self.message.set_secondary_text(message)
+        self.message.show()
 
     def on_buffering(self, type, player, percent):
         """

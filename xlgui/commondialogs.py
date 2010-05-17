@@ -488,10 +488,18 @@ class MessageBar(gtk.InfoBar):
         self.get_action_area().set_property('layout-style',
             gtk.BUTTONBOX_START)
 
+    def set_text(self, text):
+        """
+            Sets the primary text of the message bar
+
+            :param markup: a regular text string
+            :type markup: string
+        """
+        self.primary_text.set_text(text)
+
     def set_markup(self, markup):
         """
-            Sets the text of the message bar
-            to the contents of markup
+            Sets the primary markup text of the message bar
 
             :param markup: a markup string
             :type markup: string

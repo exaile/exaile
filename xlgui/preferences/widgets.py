@@ -61,15 +61,16 @@ class Preference(object):
             self.message = commondialogs.MessageBar(
                 parent=preferences.builder.get_object('preferences_box'),
                 type=gtk.MESSAGE_QUESTION,
+                buttons=gtk.BUTTONS_CLOSE,
                 text=_('Restart Exaile?'))
             self.message.set_secondary_text(
                 _('A restart is required for this change to take effect.'))
 
-            self.message.connect('response', self.on_message_response)
-            self.message.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
             button = self.message.add_button(_('Restart'), gtk.RESPONSE_ACCEPT)
             button.set_image(gtk.image_new_from_stock(
                 gtk.STOCK_REFRESH, gtk.ICON_SIZE_BUTTON))
+
+            self.message.connect('response', self.on_message_response)
 
         self._set_value()
         self._setup_change()

@@ -47,8 +47,6 @@ class Column(object):
     display = ''
     renderer = gtk.CellRendererText
     size = 10 # default size
-    formatter = TrackFormatter('')
-    alignment = 'left'
     datatype = str
     dataproperty = 'text'
     cellproperties = {}
@@ -131,8 +129,6 @@ class RatingFormatter(object):
             return rating.rating_images[0]
 
 class RatingColumn(Column):
-    steps = settings.get_option('miscellaneous/rating_steps', 5)
-    size = 12 * steps
     display = _('Rating')
     renderer = gtk.CellRendererPixbuf
     id = '__rating'

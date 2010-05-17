@@ -88,7 +88,7 @@ class ParameterTemplate(Template):
     """
         An extended template class which additionally
         accepts parameters assigned to identifiers.
-        
+
         This introduces another pattern group named
         "parameters" in addition to the groups
         created by string.Template.

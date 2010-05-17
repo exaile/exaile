@@ -28,7 +28,7 @@ import gtk, gobject, pango
 import collections
 import os
 from xl.nls import gettext as _
-from xl import event, common, trax
+from xl import event, common, trax, formatter
 from xlgui import guiutil, icons
 import plcolumns
 
@@ -195,7 +195,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     """
         Displays a playlist and associated controls.
     """
-    default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
+    default_columns = ['tracknumber', 'title', 'album', 'artist', '__rating', '__length']
 
     def __init__(self, playlist, exaile):
         gtk.VBox.__init__(self)
@@ -234,20 +234,13 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.selection = self.view.get_selection()
         self.selection.set_mode(gtk.SELECTION_MULTIPLE)
 
+        self.view.set_model(self.model)
 
         for idx, col in enumerate(self.model.columns):
             plcol = plcolumns.COLUMNS[col](self)
-            cellr = plcol.renderer()
-            gcol = gtk.TreeViewColumn(plcol.display, cellr, text=idx)
-
-            gcol.set_cell_data_func(cellr, plcol.data_func)
-            plcol.set_properties(gcol, cellr)
-
-            gcol.set_fixed_width(int(plcol.size))
-
+            gcol = plcol.get_column(idx)
             self.view.append_column(gcol)
 
-        self.view.set_model(self.model)
         self.view.connect("drag-drop", self.on_drag_drop)
 
         self.view.connect("row-activated", self.on_row_activated)
@@ -327,6 +320,7 @@ class PlaylistModel(gtk.GenericTreeModel):
     def __init__(self, playlist, columns):
         gtk.GenericTreeModel.__init__(self)
         self.playlist = playlist
+        self.formatter = formatter.TrackFormatter('')
 
         event.add_callback(self.on_tracks_added,
                 "playlist_tracks_added", playlist)
@@ -342,7 +336,7 @@ class PlaylistModel(gtk.GenericTreeModel):
         return len(self.columns)
 
     def on_get_column_type(self, index):
-        return str
+        return plcolumns.COLUMNS[self.columns[index]].datatype
 
     def on_get_iter(self, path):
         rowref = path[0]
@@ -355,7 +349,10 @@ class PlaylistModel(gtk.GenericTreeModel):
         return (rowref,)
 
     def on_get_value(self, rowref, column):
-        return self.playlist[rowref].get_tag_display(self.columns[column])
+        tagname = self.columns[column]
+        track = self.playlist[rowref]
+        formatter = plcolumns.FORMATTERS[tagname]
+        return formatter.format(track)
 
     def on_iter_next(self, rowref):
         rowref = rowref+1

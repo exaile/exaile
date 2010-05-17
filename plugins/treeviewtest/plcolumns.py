@@ -48,6 +48,10 @@ class Column(object):
     renderer = gtk.CellRendererText
     size = 10 # default size
     formatter = TrackFormatter('')
+    alignment = 'left'
+    datatype = str
+    dataproperty = 'text'
+    cellproperties = {}
 
     def __init__(self, container):
         self.container = container
@@ -55,37 +59,34 @@ class Column(object):
             raise NotImplementedError("Can't instantiate "
                 "abstract class xlgui.container.Column")
 
-    def data_func(self, col, cell, model, iter):
-        """
-            Generic data function
-        """
-        self.container.set_cell_weight(cell, iter)
+    @classmethod
+    def get_formatter(cls):
+        return TrackFormatter('$%s'%cls.id)
 
-    def set_properties(self, col, cellr):
-        return
+    def data_func(self, col, cell, model, iter):
+        self.container.set_cell_weight(cell, iter)
 
     def __repr__(self):
         return '%s(%s, %s, %s)' % (self.__class__.__name__,
             `self.id`, `self.display`, `self.size`)
+
+    def get_column(self, index):
+        cellr = self.renderer()
+        gcol = gtk.TreeViewColumn(self.display, cellr,
+                **{self.dataproperty: index})
+        gcol.set_cell_data_func(cellr, self.data_func)
+        for name, val in self.cellproperties.iteritems():
+            cellr.set_property(name, val)
+        gcol.set_fixed_width(int(self.size))
+        return gcol
+
 
 class TrackNumberColumn(Column):
     size = '30'
     #TRANSLATORS: Title of the track number column
     display = _('#')
     id = 'tracknumber'
-
-    def data_func(self, col, cell, model, iter):
-        """
-            Track number
-        """
-        track = model.get_track(model.get_path(iter))
-
-        self.formatter.set_property('format', '$%s' % self.id)
-        cell.set_property('text', self.formatter.format(track))
-        self.container.set_cell_weight(cell, iter)
-
-    def set_properties(self, col, cellr):
-        cellr.set_property('xalign', 1.0)
+    cellproperties = {'xalign': 1.0}
 
 class TitleColumn(Column):
     size = 200
@@ -111,40 +112,23 @@ class LengthColumn(Column):
     size = 50
     display = _('Length')
     id = '__length'
-
-    def data_func(self, col, cell, model, iter):
-        """
-            Formats the track length
-        """
-        track = model.get_track(model.get_path(iter))
-
-        self.formatter.set_property('format', '$%s' % self.id)
-        cell.set_property('text', self.formatter.format(track))
-        self.container.set_cell_weight(cell, iter)
-
-    def set_properties(self, col, cellr):
-        cellr.set_property('xalign', 1.0)
+    cellproperties = {'xalign': 1.0}
 
 class DiscNumberColumn(Column):
     size = 30
     display = _('Disc')
     id = 'discnumber'
+    cellproperties = {'xalign': 1.0}
 
-    def data_func(self, col, cell, model, iter):
-        """
-            Disc number
-        """
-        track = model.get_track(model.get_path(iter))
 
-        disc = track.get_tag_display("discnumber")
-        if disc is None:
-            cell.set_property('text', '')
-        else:
-            cell.set_property('text', disc)
-        self.container.set_cell_weight(cell, iter)
-
-    def set_properties(self, col, cellr):
-        cellr.set_property('xalign', 1.0)
+class RatingFormatter(object):
+    def format(self, track):
+        idx = track.get_rating()
+        try:
+            return rating.rating_images[idx]
+        except IndexError:
+            logger.debug("IDX error! got %s." % idx)
+            return rating.rating_images[0]
 
 class RatingColumn(Column):
     steps = settings.get_option('miscellaneous/rating_steps', 5)
@@ -152,6 +136,13 @@ class RatingColumn(Column):
     display = _('Rating')
     renderer = gtk.CellRendererPixbuf
     id = '__rating'
+    datatype = gtk.gdk.Pixbuf
+    dataproperty = 'pixbuf'
+    cellproperties = {'follow-state': False}
+
+    @classmethod
+    def get_formatter(cls):
+        return RatingFormatter()
 
     def data_func(self, col, cell, model, iter):
         track = model.get_track(model.get_path(iter))
@@ -168,7 +159,6 @@ class RatingColumn(Column):
 
     def set_properties(self, col, cellr):
         cellr.set_property('follow-state', False)
-        col.set_attributes(cellr, pixbuf=1)
 
 class DateColumn(Column):
     size = 50
@@ -184,17 +174,7 @@ class BitrateColumn(Column):
     size = 30
     display = _('Bitrate')
     id = '__bitrate'
-
-    def data_func(self, col, cell, model, iter):
-        """
-            Shows the bitrate
-        """
-        track = model.get_track(model.get_path(iter))
-        cell.set_property('text', track.get_tag_display("__bitrate"))
-        self.container.set_cell_weight(cell, iter)
-
-    def set_properties(self, col, cellr):
-        cellr.set_property('xalign', 1.0)
+    cellproperties = {'xalign': 1.0}
 
 class IoLocColumn(Column):
     size = 200
@@ -206,46 +186,28 @@ class FilenameColumn(Column):
     display = _('Filename')
     id = 'filename'
 
-    def data_func(self, col, cell, model, iter):
-        track = model.get_track(model.get_path(iter))
-
-        self.formatter.set_property('format', '$%s' % self.id)
-        cell.set_property('text', self.formatter.format(track))
-        self.container.set_cell_weight(cell, iter)
-
 class PlayCountColumn(Column):
     size = 50
     display = _('Playcount')
     id = '__playcount'
-
-    def set_properties(self, col, cellr):
-        cellr.set_property('xalign', 1.0)
+    cellproperties = {'xalign': 1.0}
 
 class BPMColumn(Column):
     size = 50
     display = _('BPM')
     id = 'bpm'
-
-    def set_properties(self, col, cellr):
-        cellr.set_property('xalign', 1.0)
+    cellproperties = {'xalign': 1.0}
 
 class LastPlayedColumn(Column):
     size = 10
     display = _('Last played')
     id = '__last_played'
 
-    def data_func(self, col, cell, model, iter):
-        """
-            Formats the last played time string
-        """
-        track = model.get_track(model.get_path(iter))
 
-        self.formatter.set_property('format', '$%s' % self.id)
-        cell.set_property('text', self.formatter.format(track))
-        self.container.set_cell_weight(cell, iter)
 
 # this is where everything gets set up, including the menu items
 COLUMNS = {}
+FORMATTERS = {}
 
 items = globals()
 keys = items.keys()
@@ -254,6 +216,7 @@ for key in keys:
         'Column' in key and key != 'Column':
         item = items[key]
         COLUMNS[item.id] = item
+        FORMATTERS[item.id] = item.get_formatter()
 
 COLUMNS_BY_DISPLAY = {}
 for col in COLUMNS.values():

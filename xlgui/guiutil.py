@@ -38,7 +38,7 @@ import gtk.gdk
 import pango
 
 from xl import common, event, playlist, settings, trax, xdg, covers
-from xl.formatter import TrackNumberTagFormatter, LengthTagFormatter
+from xl.formatter import TrackFormatter, TrackNumberTagFormatter, LengthTagFormatter
 from xl.nls import gettext as _
 from xlgui import icons, rating
 import xl.main
@@ -1081,14 +1081,17 @@ class TrackInfoPane(gtk.Alignment):
         self._auto_update = auto_update
         self._timer = None
         self._track = None
+        self._formatter = TrackFormatter(
+            _('<span size="x-large" weight="bold">$title</span>\n'
+              'by $artist\n'
+              'from $album')
+        )
 
         self.cover_image = builder.get_object('cover_image')
-        self.title_label = builder.get_object('title_label')
-        self.artist_label = builder.get_object('artist_label')
-        self.album_label = builder.get_object('album_label')
+        self.info_label = builder.get_object('info_label')
 
         if self._display_progress:
-            self.playback_box = builder.get_object('playback_box')
+            self.progress_box = builder.get_object('progress_box')
             self.playback_image = builder.get_object('playback_image')
             self.progressbar = builder.get_object('progressbar')
 
@@ -1111,11 +1114,30 @@ class TrackInfoPane(gtk.Alignment):
         else:
             self.on_exaile_loaded('exaile_loaded', exaile, None)
 
+    def get_info_format(self):
+        """
+            Gets the current format used
+            to display the track data
+        """
+        return self._formatter.get_property('format')
+
+    def set_info_format(self, format):
+        """
+            Sets the format used to display the track data
+
+            :param format: the format, see the documentation
+                of :class:`string.Template` for details
+            :type format: string
+        """
+        self._formatter.set_property('format', format)
+
     def set_track(self, track):
         """
             Updates the data displayed in the info pane
+
             :param track: A track to take the data from,
                 clears the info pane if track is None
+            :type track: :class:`xl.trax.Track`
         """
         if track is None:
             self.clear()
@@ -1128,12 +1150,7 @@ class TrackInfoPane(gtk.Alignment):
         pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, width))
         self.cover_image.set_from_pixbuf(pixbuf)
 
-        self.title_label.set_text(track.get_tag_display('title'))
-        # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-        self.artist_label.set_text(_('by %s') % track.get_tag_display('artist',
-            artist_compilations=False))
-        # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-        self.album_label.set_text(_('from %s') % track.get_tag_display('album'))
+        self.info_label.set_markup(self._formatter.format(track))
 
         if self._display_progress:
             state = self.player.get_state()
@@ -1160,9 +1177,8 @@ class TrackInfoPane(gtk.Alignment):
         pixbuf = icons.MANAGER.pixbuf_from_data(
             covers.MANAGER.get_default_cover())
         self.cover_image.set_from_pixbuf(pixbuf)
-        self.title_label.set_text(_('Not Playing'))
-        self.artist_label.set_text('')
-        self.album_label.set_text('')
+        self.info_label.set_markup('<span size="x-large" '
+            'weight="bold">%s</span>' % _('Not Playing'))
 
         if self._display_progress:
             self.__hide_progress()
@@ -1174,7 +1190,8 @@ class TrackInfoPane(gtk.Alignment):
         if self._timer is not None:
             return
 
-        milliseconds = settings.get_option('gui/progress_update/millisecs', 1000)
+        milliseconds = settings.get_option(
+            'gui/progress_update/millisecs', 1000)
 
         if milliseconds % 1000 == 0:
             self._timer = gobject.timeout_add_seconds(milliseconds / 1000,
@@ -1199,16 +1216,16 @@ class TrackInfoPane(gtk.Alignment):
             updates of the progress bar
         """
         self.__enable_timer()
-        self.playback_box.set_no_show_all(False)
-        self.playback_box.set_property('visible', True)
+        self.progress_box.set_no_show_all(False)
+        self.progress_box.set_property('visible', True)
 
     def __hide_progress(self):
         """
             Hides the progress area and disables
             updates of the progress bar
         """
-        self.playback_box.set_property('visible', False)
-        self.playback_box.set_no_show_all(True)
+        self.progress_box.set_property('visible', False)
+        self.progress_box.set_no_show_all(True)
         self.__disable_timer()
 
     def __update_progress(self):
@@ -1218,9 +1235,7 @@ class TrackInfoPane(gtk.Alignment):
         track = self.player.current
 
         if track is not self._track:
-            self.playback_box.set_property('visible', False)
-            self.playback_box.set_no_show_all(True)
-            self.__disable_timer()
+            self.__hide_progress()
             return False
 
         fraction = 0

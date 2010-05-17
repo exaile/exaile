@@ -37,8 +37,6 @@ import ipython_view as ip
 import pango
 import __builtin__, site
 
-# FIXME: make font, colors into settings?
-
 FONT = "Luxi Mono 10"
 
 PLUGIN                  = None

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-16 15:03+0200\n"
+"POT-Creation-Date: 2010-05-17 20:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -359,7 +359,7 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: ../xl/trax/track.py:58 ../xlgui/guiutil.py:1376
+#: ../xl/trax/track.py:58 ../xlgui/guiutil.py:1391
 msgid "Various Artists"
 msgstr ""
 
@@ -630,122 +630,126 @@ msgstr ""
 msgid "Saved %(count)s of %(total)s."
 msgstr ""
 
-#: ../xlgui/main.py:58 ../xlgui/main.py:141 ../xlgui/main.py:1296
-#: ../xlgui/guiutil.py:1163 ../xlgui/guiutil.py:1227 ../data/ui/main.ui.h:9
-#: ../data/ui/widgets/track_info.ui.h:1 ../plugins/minimode/mmwidgets.py:803
+#: ../xlgui/main.py:73 ../xlgui/main.py:156 ../xlgui/main.py:1318
+#: ../xlgui/guiutil.py:1181 ../xlgui/guiutil.py:1242 ../data/ui/main.ui.h:9
+#: ../plugins/minimode/mmwidgets.py:803
 msgid "Not Playing"
 msgstr ""
 
-#: ../xlgui/main.py:151 ../xlgui/guiutil.py:1246
+#: ../xlgui/main.py:166 ../xlgui/guiutil.py:1261
 #: ../plugins/minimode/mmwidgets.py:821
 msgid "Streaming..."
 msgstr ""
 
-#: ../xlgui/main.py:212
+#: ../xlgui/main.py:227
 msgid "Close tab"
 msgstr ""
 
-#: ../xlgui/main.py:270
+#: ../xlgui/main.py:285
 msgid "New playlist title:"
 msgstr ""
 
-#: ../xlgui/main.py:270 ../xlgui/menu.py:456
+#: ../xlgui/main.py:285 ../xlgui/menu.py:456
 msgid "Rename Playlist"
 msgstr ""
 
-#: ../xlgui/main.py:279
+#: ../xlgui/main.py:294
 msgid "Custom playlist name:"
 msgstr ""
 
-#: ../xlgui/main.py:279
+#: ../xlgui/main.py:294
 msgid "Save as..."
 msgstr ""
 
-#: ../xlgui/main.py:749
+#: ../xlgui/main.py:777
 msgid "Toggle: Stop after Selected Track"
 msgstr ""
 
-#: ../xlgui/main.py:789 ../data/ui/main.ui.h:7
+#: ../xlgui/main.py:817 ../data/ui/main.ui.h:7
 msgid "Dynamically add similar tracks to the playlist"
 msgstr ""
 
-#: ../xlgui/main.py:794
+#: ../xlgui/main.py:822
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
 
-#: ../xlgui/main.py:977
+#: ../xlgui/main.py:990
+msgid "Playback error encountered!"
+msgstr ""
+
+#: ../xlgui/main.py:999
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr ""
 
-#: ../xlgui/main.py:1006 ../plugins/minimode/mmwidgets.py:198
+#: ../xlgui/main.py:1028 ../plugins/minimode/mmwidgets.py:198
 msgid "Continue Playback"
 msgstr ""
 
-#: ../xlgui/main.py:1010 ../xlgui/main.py:1283
+#: ../xlgui/main.py:1032 ../xlgui/main.py:1305
 #: ../plugins/minimode/mmwidgets.py:201
 msgid "Pause Playback"
 msgstr ""
 
-#: ../xlgui/main.py:1145 ../xlgui/main.py:1153 ../xlgui/main.py:1220
+#: ../xlgui/main.py:1167 ../xlgui/main.py:1175 ../xlgui/main.py:1242
 msgid "Shuffle _Off"
 msgstr ""
 
-#: ../xlgui/main.py:1145 ../xlgui/main.py:1222
+#: ../xlgui/main.py:1167 ../xlgui/main.py:1244
 msgid "Shuffle _Tracks"
 msgstr ""
 
-#: ../xlgui/main.py:1145 ../xlgui/main.py:1225
+#: ../xlgui/main.py:1167 ../xlgui/main.py:1247
 msgid "Shuffle _Albums"
 msgstr ""
 
-#: ../xlgui/main.py:1188 ../xlgui/main.py:1196 ../xlgui/main.py:1231
+#: ../xlgui/main.py:1210 ../xlgui/main.py:1218 ../xlgui/main.py:1253
 msgid "Repeat _Off"
 msgstr ""
 
-#: ../xlgui/main.py:1188 ../xlgui/main.py:1233
+#: ../xlgui/main.py:1210 ../xlgui/main.py:1255
 msgid "Repeat _Playlist"
 msgstr ""
 
-#: ../xlgui/main.py:1188 ../xlgui/main.py:1236
+#: ../xlgui/main.py:1210 ../xlgui/main.py:1258
 msgid "Repeat _Track"
 msgstr ""
 
-#: ../xlgui/main.py:1304 ../data/ui/main.ui.h:20
+#: ../xlgui/main.py:1326 ../data/ui/main.ui.h:20
 #: ../plugins/minimode/mmwidgets.py:170 ../plugins/minimode/mmwidgets.py:194
 msgid "Start Playback"
 msgstr ""
 
-#: ../xlgui/main.py:1401
+#: ../xlgui/main.py:1423
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
 
 #. TRANSLATORS: Window title
-#: ../xlgui/main.py:1411
+#: ../xlgui/main.py:1433
 #, python-format
 msgid "%(title)s (by %(artist)s)"
 msgstr ""
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1421 ../xlgui/guiutil.py:1133
+#: ../xlgui/main.py:1443
 #, python-format
 msgid "by %s"
 msgstr ""
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1423 ../xlgui/guiutil.py:1136
+#: ../xlgui/main.py:1445
 #, python-format
 msgid "from %s"
 msgstr ""
 
-#: ../xlgui/main.py:1434
+#: ../xlgui/main.py:1456
 #, python-format
 msgid "In pause: %s"
 msgstr ""
 
-#: ../xlgui/main.py:1436
+#: ../xlgui/main.py:1458
 #, python-format
 msgid "Playing %s"
 msgstr ""
@@ -976,11 +980,18 @@ msgstr ""
 msgid "Rating:"
 msgstr ""
 
-#: ../xlgui/guiutil.py:1371
+#: ../xlgui/guiutil.py:1085
+msgid ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"by $artist\n"
+"from $album"
+msgstr ""
+
+#: ../xlgui/guiutil.py:1386
 msgid "Various"
 msgstr ""
 
-#: ../xlgui/guiutil.py:1389
+#: ../xlgui/guiutil.py:1404
 #, python-format
 msgid "%(track_count)d in total (%(total_duration)s)"
 msgstr ""
@@ -1088,43 +1099,43 @@ msgid ""
 "%(reason)s"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:64
+#: ../xlgui/preferences/widgets.py:65
 msgid "Restart Exaile?"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:66
+#: ../xlgui/preferences/widgets.py:67
 msgid "A restart is required for this change to take effect."
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:70 ../data/ui/main.ui.h:17
+#: ../xlgui/preferences/widgets.py:69 ../data/ui/main.ui.h:17
 msgid "Restart"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:415
+#: ../xlgui/preferences/widgets.py:416
 #: ../data/ui/widgets/selection_list_preference.ui.h:1
 msgid "Add item"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:420
+#: ../xlgui/preferences/widgets.py:421
 #: ../data/ui/widgets/selection_list_preference.ui.h:4
 msgid "Remove item"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:433
+#: ../xlgui/preferences/widgets.py:434
 #: ../data/ui/widgets/selection_list_preference.ui.h:3
 msgid "Move selected item up"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:438
+#: ../xlgui/preferences/widgets.py:439
 #: ../data/ui/widgets/selection_list_preference.ui.h:2
 msgid "Move selected item down"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:756
+#: ../xlgui/preferences/widgets.py:769
 msgid "Action"
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:764
+#: ../xlgui/preferences/widgets.py:777
 msgid "Shortcut"
 msgstr ""
 
@@ -1454,7 +1465,7 @@ msgstr ""
 msgid "Click to view Queue"
 msgstr ""
 
-#: ../data/ui/main.ui.h:8 ../plugins/minimode/__init__.py:245
+#: ../data/ui/main.ui.h:8 ../plugins/minimode/__init__.py:244
 msgid "Next Track"
 msgstr ""
 
@@ -1470,7 +1481,7 @@ msgstr ""
 msgid "Playlist Utilities Bar"
 msgstr ""
 
-#: ../data/ui/main.ui.h:13 ../plugins/minimode/__init__.py:243
+#: ../data/ui/main.ui.h:13 ../plugins/minimode/__init__.py:242
 msgid "Previous Track"
 msgstr ""
 
@@ -2056,7 +2067,7 @@ msgstr ""
 msgid "AWN"
 msgstr ""
 
-#: ../plugins/audioscrobbler/asprefs.py:22
+#: ../plugins/audioscrobbler/asprefs.py:27
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
 msgstr ""
@@ -2303,11 +2314,11 @@ msgstr ""
 msgid "DAAP Server"
 msgstr ""
 
-#: ../plugins/ipconsole/__init__.py:77
+#: ../plugins/ipconsole/__init__.py:75
 msgid "IPython Console - Exaile"
 msgstr ""
 
-#: ../plugins/ipconsole/__init__.py:134
+#: ../plugins/ipconsole/__init__.py:132
 msgid "Show IPython Console"
 msgstr ""
 
@@ -2331,11 +2342,11 @@ msgstr ""
 msgid "Any"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:249
+#: ../plugins/minimode/__init__.py:248
 msgid "Stop Playback"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:253
+#: ../plugins/minimode/__init__.py:252
 msgid "Restore main window"
 msgstr ""
 

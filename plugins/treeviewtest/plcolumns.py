@@ -144,22 +144,6 @@ class RatingColumn(Column):
     def get_formatter(cls):
         return RatingFormatter()
 
-    def data_func(self, col, cell, model, iter):
-        track = model.get_track(model.get_path(iter))
-        try:
-            idx = track.get_rating()
-            cell.set_property('pixbuf',
-                rating.rating_images[idx])
-        except IndexError:
-            logger.debug("idx_error")
-            if idx > steps: idx = steps
-            elif idx < 0: idx = 0
-            cell.set_property('pixbuf',
-                rating.rating_images[idx])
-
-    def set_properties(self, col, cellr):
-        cellr.set_property('follow-state', False)
-
 class DateColumn(Column):
     size = 50
     display = _('Date')

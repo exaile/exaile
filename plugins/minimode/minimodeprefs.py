@@ -53,7 +53,7 @@ class UseAlphaTransparencyPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/minimode/use_alpha'
 
-class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional):
+class TransparencyPreference(widgets.ScalePreference, widgets.CheckConditional):
     default = 0.3
     name = 'plugin/minimode/transparency'
     condition_preference_name = 'plugin/minimode/use_alpha'

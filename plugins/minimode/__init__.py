@@ -83,7 +83,6 @@ class MiniMode(gtk.Window):
 
         self.box = mmwidgets.WidgetBox(spacing=3)
         self.border_frame = gtk.Frame()
-        self.border_frame.set_shadow_type(gtk.SHADOW_NONE)
         self.border_frame.add(self.box)
         self.add(self.border_frame)
 

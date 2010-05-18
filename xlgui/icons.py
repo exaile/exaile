@@ -49,6 +49,11 @@ class IconManager(object):
     def add_icon_name_from_directory(self, icon_name, directory):
         """
             Registers an icon name from files found in a directory
+            
+            :param icon_name: the name for the icon
+            :type icon_name: string
+            :param directory: the location to search for icons
+            :type directory: string
         """
         for size in self._sizes:
             try: # WxH/icon_name.png and scalable/icon_name.svg
@@ -76,6 +81,13 @@ class IconManager(object):
     def add_icon_name_from_file(self, icon_name, filename, size=None):
         """
             Registers an icon name from a filename
+            
+            :param icon_name: the name for the icon
+            :type icon_name: string
+            :param filename: the filename of an image
+            :type filename: string
+            :param size: the size the icon shall be registered for
+            :type size: int
         """
         try:
             pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
@@ -87,6 +99,13 @@ class IconManager(object):
     def add_icon_name_from_pixbuf(self, icon_name, pixbuf, size=None):
         """
             Registers an icon name from a pixbuf
+            
+            :param icon_name: the name for the icon
+            :type icon_name: string
+            :param pixbuf: the pixbuf of an image
+            :type pixbuf: :class:`gtk.gdk.Pixbuf`
+            :param size: the size the icon shall be registered for
+            :type size: int
         """
         if size is None:
             size = pixbuf.get_width()
@@ -96,6 +115,11 @@ class IconManager(object):
     def add_stock_from_directory(self, stock_id, directory):
         """
             Registers a stock icon from files found in a directory
+
+            :param stock_id: the stock id for the icon
+            :type stock_id: string
+            :param directory: the location to search for icons
+            :type directory: string
         """
         files = []
         self._sizes.reverse() # Prefer small over downscaled icons
@@ -124,12 +148,22 @@ class IconManager(object):
     def add_stock_from_file(self, stock_id, filename):
         """
             Registers a stock icon from a filename
+
+            :param stock_id: the stock id for the icon
+            :type stock_id: string
+            :param filename: the filename of an image
+            :type filename: string
         """
         self.add_stock_from_files([filename])
 
     def add_stock_from_files(self, stock_id, filenames):
         """
             Registers a stock icon from filenames
+
+            :param stock_id: the stock id for the icon
+            :type stock_id: string
+            :param filenames: the filenames of images
+            :type filenames: list of string
         """
         pixbufs = [gtk.gdk.pixbuf_new_from_file(filename) for filename in filenames]
         self.add_stock_from_pixbufs(stock_id, pixbufs)
@@ -137,12 +171,22 @@ class IconManager(object):
     def add_stock_from_pixbuf(self, stock_id, pixbuf):
         """
             Registers a stock icon from a pixbuf
+
+            :param stock_id: the stock id for the icon
+            :type stock_id: string
+            :param pixbuf: the pixbuf of an image
+            :type pixbuf: :class:`gtk.gdk.Pixbuf`
         """
         self.add_stock_from_pixbufs(stock_id, [pixbuf])
 
     def add_stock_from_pixbufs(self, stock_id, pixbufs):
         """
             Registers a stock icon from pixbufs
+
+            :param stock_id: the stock id for the icon
+            :type stock_id: string
+            :param pixbuf: the pixbufs of images
+            :type pixbuf: list of :class:`gtk.gdk.Pixbuf`
         """
         icon_set = gtk.IconSet()
 
@@ -157,7 +201,13 @@ class IconManager(object):
         """
             Generates a pixbuf from a stock id
 
-            Returns None on failure
+            :param stock_id: a stock id
+            :type stock_id: string
+            :param size: the size of the icon
+            :type size: GtkIconSize
+
+            :returns: the generated pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf` or None
         """
         # TODO: Check if fallbacks are necessary
         return self.render_widget.render_icon(stock_id, size)
@@ -166,7 +216,13 @@ class IconManager(object):
         """
             Generates a pixbuf from an icon name
 
-            Returns None on failure
+            :param stock_id: an icon name
+            :type stock_id: string
+            :param size: the size of the icon
+            :type size: GtkIconSize
+
+            :returns: the generated pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf` or None
         """
         try:
             pixbuf = self.icon_theme.load_icon(
@@ -177,20 +233,49 @@ class IconManager(object):
         # TODO: Check if fallbacks are necessary
         return pixbuf
     
-    def pixbuf_from_data(self, data, size=None):
+    def pixbuf_from_data(self, data, size=None, keep_ratio=True, upscale=False):
         """
             Generates a pixbuf from arbitrary image data
 
             :param data: The raw image data
-            :param size: Size to scale to, in (width, height) format.
-                If not specified, the image will render to its native
-                resolution.
+            :type data: byte
+            :param size: Size to scale to; if not specified,
+                the image will render to its native size
+            :type size: tuple of int
+            :param keep_ratio: Whether to keep the original
+                image ratio on resizing operations
+            :type keep_ratio: bool
+            :param upscale: Whether to upscale if the requested
+                size exceeds the native size
+            :type upscale: bool
+
+            :returns: the generated pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
         """
+        def on_size_prepared(loader, width, height):
+            """
+                Keeps the ratio if requested
+            """
+            if size is not None:
+                if keep_ratio:
+                    scale = min(size[0] / float(width), size[1] / float(height))
+
+                    if scale > 1.0 and upscale:
+                        width = int(width * scale)
+                        height = int(height * scale)
+                    elif scale <= 1.0:
+                        width = int(width * scale)
+                        height = int(height * scale)
+                else:
+                    if upscale:
+                        width, height = size
+                    else:
+                        width = height = max(width, height)
+
+            loader.set_size(width, height)
+
         loader = gtk.gdk.PixbufLoader()
-
-        if size is not None:
-            loader.set_size(size[0], size[1])
-
+        loader.connect('size-prepared', on_size_prepared)
         loader.write(data)
         loader.close()
 

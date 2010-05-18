@@ -344,7 +344,6 @@ class MainWindow(gobject.GObject):
         """
         gobject.GObject.__init__(self)
 
-        from xlgui import osd
         self.controller = controller
         self.covers = covers
         self.collection =  collection
@@ -397,6 +396,7 @@ class MainWindow(gobject.GObject):
         self._setup_hotkeys()
         logger.info("Connecting main window events...")
         self._connect_events()
+        from xlgui import osd
         self.osd = osd.OSDWindow(self.player)
         self.tab_manager = xl.playlist.PlaylistManager(
             'saved_tabs')
@@ -1407,11 +1407,8 @@ class MainWindow(gobject.GObject):
             Sets track information
         """
         track = self.player.current
-        tray_icon = self.controller.tray_icon
 
         if not track:
-            if tray_icon:
-                tray_icon.set_tooltip(_("Exaile Music Player\nNot playing"))
             return
 
         artist = track.get_tag_display('artist', artist_compilations=False)
@@ -1425,14 +1422,6 @@ class MainWindow(gobject.GObject):
                 { 'title': title, 'artist': artist } + " - Exaile")
         else:
             self.window.set_title(title + " - Exaile")
-
-        if tray_icon:
-            tip = title
-            if desc: tip += '\n' + desc
-            if self.player.is_paused():
-                tray_icon.set_tooltip(_("In pause: %s") % tip)
-            else:
-                tray_icon.set_tooltip(_("Playing %s") % tip)
 
     def draw_playlist(self, *e):
         """

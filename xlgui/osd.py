@@ -28,9 +28,15 @@ import cairo
 import gobject
 import gtk
 
-from xl import xdg, common, metadata, settings
+from xl import (
+    common,
+    covers,
+    metadata,
+    settings,
+    xdg
+)
 from xl.nls import gettext as _
-from xlgui import guiutil, cover
+from xlgui import guiutil
 from xlgui.main import PlaybackProgressBar
 
 class CoverWidget(guiutil.ScalableImageWidget):
@@ -38,40 +44,33 @@ class CoverWidget(guiutil.ScalableImageWidget):
         guiutil.ScalableImageWidget.__init__(self)
         width = settings.get_option("gui/cover_width", 100)
         self.set_image_size(width, width)
-        # FIXME: this should call covers.get_default_cover
-        self.set_image(xdg.get_data_path('images/nocover.png'))
+        self.set_image_data(covers.MANAGER.get_default_cover())
 
     @common.threaded
-    def get_cover(self, covers, track):
-        data = covers.get_cover(track, use_default=True)
+    def get_cover(self, track):
+        data = covers.MANAGER.get_cover(track, use_default=True)
         self.set_image_data(data)
 
 class OSDWindow(object):
     """
         A popup window to show information on the current playing track
     """
-    def __init__(self, cover=None, covers=None,
-        player=None, draggable=False, settings=settings):
+    def __init__(self, player=None, draggable=False):
         """
             Initializes the popup
         """
         self.draggable = draggable
         self.player = player
-        self.covers = covers
-        self.cover = cover
         self.progress_widget = None
         self._settings = settings
         self.setup_osd()
         self._handler = None
-        self._cover_sig = None
         self._timeout = None
 
     def destroy(self):
         if self.progress_widget:
             self.progress_widget.destroy()
             self.progress_widget = None
-        if self._cover_sig:
-            self.cover.disconnect(self._cover_sig)
         self.window.destroy()
 
     def setup_osd(self):
@@ -199,7 +198,7 @@ class OSDWindow(object):
         if timeout is None:
             timeout = int(self._settings.get_option('osd/duration',4000))
         if track:
-            self.cover_widget.get_cover(self.covers, track)
+            self.cover_widget.get_cover(track)
             text = self.text.replace('&', '&amp;')
             for item in ('title', 'artist', 'album', '__length', 'tracknumber',
                     '__bitrate', 'genre', 'year', '__rating'):

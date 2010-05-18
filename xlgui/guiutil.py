@@ -123,11 +123,17 @@ def gtk_widget_replace(widget, replacement):
     except AttributeError: # None, not gtk.Container
         return
     else:
+        try:
+            expand, fill, padding, pack_type = parent.query_child_packing(widget)
+        except: # Not gtk.Box
+            pass
+
         parent.remove(widget)
         replacement.unparent()
         parent.add(replacement)
 
         try:
+            parent.set_child_packing(replacement, expand, fill, padding, pack_type)
             parent.reorder_child(replacement, position)
         except AttributeError: # Not gtk.Box
             pass
@@ -528,13 +534,15 @@ class SearchEntry(object):
         """
         return getattr(self.entry, attr)
 
-class VolumeControl(object):
+class VolumeControl(gtk.Alignment):
     """
         Encapsulates a button and a slider to
         control the volume indicating the current
         status via icon and tooltip
     """
-    def __init__(self, box):
+    def __init__(self):
+        gtk.Alignment.__init__(self, xalign=1)
+
         self.restore_volume = settings.get_option('player/volume', 1)
         self.icon_names = ['low', 'medium', 'high']
 
@@ -543,10 +551,8 @@ class VolumeControl(object):
             'volume_control.ui'))
         builder.connect_signals(self)
 
-        self.box = builder.get_object('volume_control')
-        parent = box.get_parent()
-        parent.remove(box)
-        self.box.reparent(parent)
+        box = builder.get_object('volume_control')
+        box.reparent(self)
 
         self.button = builder.get_object('button')
         self.button.add_events(gtk.gdk.KEY_PRESS_MASK)
@@ -578,7 +584,7 @@ class VolumeControl(object):
 
         self.button_image.set_from_icon_name(icon_name, gtk.ICON_SIZE_BUTTON)
         self.slider.set_value(volume)
-        self.box.set_tooltip_text(tooltip)
+        self.set_tooltip_text(tooltip)
 
     def on_scroll_event(self, widget, event):
         """
@@ -1068,7 +1074,7 @@ class TrackInfoPane(gtk.Alignment):
             :param auto_update: Toggles the automatic
                 following of playback state and track changes
         """
-        gtk.Alignment.__init__(self)
+        gtk.Alignment.__init__(self, xscale=1, yscale=1)
 
         builder = gtk.Builder()
         builder.add_from_file(xdg.get_data_path(
@@ -1089,6 +1095,7 @@ class TrackInfoPane(gtk.Alignment):
 
         self.cover_image = builder.get_object('cover_image')
         self.info_label = builder.get_object('info_label')
+        self.action_area = builder.get_object('action_area')
 
         if self._display_progress:
             self.progress_box = builder.get_object('progress_box')
@@ -1118,6 +1125,8 @@ class TrackInfoPane(gtk.Alignment):
         """
             Gets the current format used
             to display the track data
+
+            :rtype: string
         """
         return self._formatter.get_property('format')
 
@@ -1182,6 +1191,15 @@ class TrackInfoPane(gtk.Alignment):
 
         if self._display_progress:
             self.__hide_progress()
+
+    def get_action_area(self):
+        """
+            Retrieves the action area
+            at the end of the pane
+
+            :rtype: :class:`gtk.VBox`
+        """
+        return self.action_area
 
     def __enable_timer(self):
         """
@@ -1293,7 +1311,7 @@ class TrackInfoPane(gtk.Alignment):
         """
             Updates the info pane on tag changes
         """
-        if track is self._track:
+        if not self.player.is_stopped() and track is self._track:
             self.set_track(track)
 
     def on_exaile_loaded(self, e, exaile, nothing):

@@ -397,7 +397,7 @@ class MainWindow(gobject.GObject):
         self._setup_hotkeys()
         logger.info("Connecting main window events...")
         self._connect_events()
-        self.osd = osd.OSDWindow(self.cover, self.covers, self.player)
+        self.osd = osd.OSDWindow(self.player)
         self.tab_manager = xl.playlist.PlaylistManager(
             'saved_tabs')
         self.load_saved_tabs()
@@ -612,9 +612,14 @@ class MainWindow(gobject.GObject):
         )
         self.message.connect('response', self.on_messagebar_response)
 
-        self.volume_control = guiutil.VolumeControl(
-            self.builder.get_object('volume_control')
-        )
+        self.info_area = guiutil.TrackInfoPane(auto_update=True)
+        self.info_area.set_padding(3, 3, 3, 3)
+        guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
+
+        self.cover = cover.CoverWidget(self.info_area.cover_image, self.player)
+
+        self.volume_control = guiutil.VolumeControl()
+        self.info_area.get_action_area().pack_start(self.volume_control)
 
         self.shuffle_toggle = self.builder.get_object('shuffle_button')
         self.shuffle_toggle.connect('button-press-event', self.on_shuffle_pressed)
@@ -629,22 +634,11 @@ class MainWindow(gobject.GObject):
         self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
         self.update_dynamic_toggle()
 
-        # Cover box
-        self.cover_event_box = self.builder.get_object('cover_event_box')
-        self.cover = cover.CoverWidget(self, self.covers, self.player)
-        self.cover_event_box.add(self.cover)
-        self.track_title_label = self.builder.get_object('track_title_label')
-        attr = pango.AttrList()
-        attr.change(pango.AttrWeight(pango.WEIGHT_BOLD, 0, 800))
-        attr.change(pango.AttrSize(12500, 0, 600))
-        self.track_title_label.set_attributes(attr)
-        self.track_info_label = self.builder.get_object('track_info_label')
-
         self.progress_bar = PlaybackProgressBar(
             self.builder.get_object('playback_progressbar'),
-            self.player)
+            self.player
+        )
 
-        # Playback buttons
         for button in ('playpause', 'next', 'prev', 'stop'):
             setattr(self, '%s_button' % button,
                 self.builder.get_object('%s_button' % button))
@@ -663,10 +657,8 @@ class MainWindow(gobject.GObject):
         self.stop_button.connect('button-press-event',
             self.on_stop_button_press_event)
 
-        # Status bar
         self.statusbar = guiutil.Statusbar(self.builder.get_object('status_bar'))
 
-        # Search filter
         self.filter = guiutil.SearchEntry(
             self.builder.get_object('playlist_search_entry'))
 
@@ -699,7 +691,7 @@ class MainWindow(gobject.GObject):
             Hides the messagebar if requested
         """
         if response == gtk.RESPONSE_CLOSE:
-            self.message.hide()
+            widget.hide()
 
     def on_queue(self):
         """
@@ -1315,8 +1307,6 @@ class MainWindow(gobject.GObject):
         """
             Called when playback ends
         """
-        self.track_title_label.set_label(_('Not Playing'))
-        self.track_info_label.set_label('')
         self.window.set_title('Exaile')
         self._update_track_information()
 
@@ -1435,20 +1425,6 @@ class MainWindow(gobject.GObject):
         else:
             self.window.set_title(title + " - Exaile")
 
-        # Update track info display and tray tooltip.
-        self.track_title_label.set_label(title)
-        if album or artist:
-            desc = []
-            # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-            if artist: desc.append(_("by %s") % artist)
-            # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-            if album: desc.append(_("from %s") % album)
-
-            desc = '\n'.join(desc)
-            self.track_info_label.set_label(desc)
-        else:
-            self.track_info_label.set_label("")
-            desc = None
         if tray_icon:
             tip = title
             if desc: tip += '\n' + desc

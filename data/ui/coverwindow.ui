@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
@@ -9,6 +9,7 @@
     <child>
       <object class="GtkVBox" id="vbox">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkToolbar" id="toolbar">
             <property name="visible">True</property>
@@ -17,6 +18,7 @@
               <object class="GtkToolButton" id="zoom_in">
                 <property name="visible">True</property>
                 <property name="stock_id">gtk-zoom-in</property>
+                <signal name="clicked" handler="on_zoom_in_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -27,6 +29,7 @@
               <object class="GtkToolButton" id="zoom_out">
                 <property name="visible">True</property>
                 <property name="stock_id">gtk-zoom-out</property>
+                <signal name="clicked" handler="on_zoom_out_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -37,6 +40,7 @@
               <object class="GtkToolButton" id="zoom_100">
                 <property name="visible">True</property>
                 <property name="stock_id">gtk-zoom-100</property>
+                <signal name="clicked" handler="on_zoom_100_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -47,6 +51,7 @@
               <object class="GtkToolButton" id="zoom_fit">
                 <property name="visible">True</property>
                 <property name="stock_id">gtk-zoom-fit</property>
+                <signal name="clicked" handler="on_zoom_fit_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

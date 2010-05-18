@@ -34,7 +34,7 @@ ui = xdg.get_data_path('ui', 'preferences', 'osd.ui')
 
 def page_enter(preferences):
     global OSD
-    OSD = osd.OSDWindow(draggable=True, settings=preferences.settings)
+    OSD = osd.OSDWindow(draggable=True)
     OSD.show(None, timeout=0)
 
 def page_leave(preferences):

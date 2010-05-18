@@ -34,7 +34,14 @@ import gobject
 import gtk
 
 from xl.nls import gettext as _
-from xl import xdg, event, covers, common, metadata, settings
+from xl import (
+    common,
+    event,
+    metadata,
+    settings,
+    xdg
+)
+from xl.covers import MANAGER as cover_manager
 from xlgui import commondialogs, guiutil, icons
 logger = logging.getLogger(__name__)
 
@@ -48,7 +55,6 @@ class CoverManager(object):
         """
         self.parent = parent
         self.collection = collection
-        self.manager = covers.MANAGER
 
         self.cover_nodes = {}
         self.covers = {}
@@ -73,7 +79,7 @@ class CoverManager(object):
         self.icons.set_pixbuf_column(1)
 
         self.nocover = icons.MANAGER.pixbuf_from_data(
-            self.manager.get_default_cover(), size=(80,80))
+            cover_manager.get_default_cover(), size=(80,80))
 
         self._connect_events()
         self.window.show_all()
@@ -110,7 +116,7 @@ class CoverManager(object):
             Shows the currently selected cover
         """
         item = self._get_selected_item()
-        c = self.manager.get_cover(self.track_dict[item][0])
+        c = cover_manager.get_cover(self.track_dict[item][0])
 
         cvr = icons.MANAGER.pixbuf_from_data(c)
         if cvr:
@@ -124,7 +130,7 @@ class CoverManager(object):
         item = self._get_selected_item()
         if item:
             track = self.track_dict[item][0]
-            window = CoverChooser(self.window, self.manager, track)
+            window = CoverChooser(self.window, track)
             window.connect('cover-chosen', self.on_cover_chosen)
 
     def on_cover_chosen(self, object, cvr):
@@ -156,7 +162,7 @@ class CoverManager(object):
         item = self._get_selected_item()
         paths = self.icons.get_selected_items()
         track = self.track_dict[item][0]
-        self.manager.remove_cover(track)
+        cover_manager.remove_cover(track)
         self.covers[item] = self.nocover
         if paths:
             iter = self.model.get_iter(paths[0])
@@ -191,8 +197,8 @@ class CoverManager(object):
 
         self.needs = 0
         for item in self.items:
-            cover_avail = self.manager.get_cover(self.track_dict[item][0],
-                        set_only=True)
+            cover_avail = cover_manager.get_cover(self.track_dict[item][0],
+                set_only=True)
 
             if cover_avail:
                 try:
@@ -238,7 +244,7 @@ class CoverManager(object):
             if not self.covers[item] == self.nocover:
                 continue
 
-            c = self.manager.get_cover(self.track_dict[item][0],
+            c = cover_manager.get_cover(self.track_dict[item][0],
                     save_cover=True)
 
             if c:
@@ -259,7 +265,7 @@ class CoverManager(object):
 
             if self.count % 20 == 0:
                 logger.debug("Saving cover database")
-                self.manager.save()
+                cover_manager.save()
 
         gobject.idle_add(self._do_stop)
 
@@ -281,7 +287,7 @@ class CoverManager(object):
         self.progress.set_text(_('%d covers to fetch') % self.needs)
         self.progress.set_fraction(0)
         self._stopped = True
-        self.manager.save()
+        cover_manager.save()
         self.stop_button.set_use_stock(False)
         self.stop_button.set_label(_('Start'))
         self.stop_button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES,
@@ -340,28 +346,25 @@ class CoverWidget(gtk.EventBox):
     __gsignals__ = {
         'cover-found': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
-    def __init__(self, main, covers, player):
+    def __init__(self, image, player):
         """
             Initializes the widget
 
-            @param main: The Main window
-            @param player: the xl.player.Player object
+            :param image: the image to wrap
+            :type image: :class:`gtk.Image`
+            :param player: the player
+            :type player: :class: `xl.player.Player`
         """
         gtk.EventBox.__init__(self)
-        self.image = guiutil.ScalableImageWidget()
-        self.main = main
-        self.covers = covers
+        self.image = image 
         self.player = player
+        self.menu = CoverMenu(self)
+        self.parent_window = image.get_toplevel()
 
-        width = settings.get_option("gui/cover_width", 100)
-        self.image.set_image_size(width, width)
-        self.image.set_image_data(covers.get_default_cover())
-        self.emit('cover-found', None)
+        guiutil.gtk_widget_replace(image, self)
         self.add(self.image)
+        self.set_blank()
         self.image.show()
-
-        if main:
-            self.connect('button-press-event', self._on_button_press)
 
         self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
             [("text/uri-list", 0, 0)],
@@ -369,13 +372,13 @@ class CoverWidget(gtk.EventBox):
             gtk.gdk.ACTION_DEFAULT |
             gtk.gdk.ACTION_MOVE)
 
+        self.connect('button-press-event', self.on_button_press)
         self.connect('drag-data-received', self.on_drag_data_received)
 
         event.add_callback(self.on_playback_start,
                 'playback_track_start', player)
         event.add_callback(self.on_playback_end,
                 'playback_player_end', player)
-        self.menu = CoverMenu(self)
 
     def destroy(self):
         event.remove_callback(self.on_playback_start,
@@ -387,7 +390,7 @@ class CoverWidget(gtk.EventBox):
         """
             Shows the current cover
         """
-        window = CoverWindow(self.main.window, self.image.pixbuf)
+        window = CoverWindow(self.parent_window, self.image.get_pixbuf())
         window.show_all()
 
     def fetch_cover(self):
@@ -395,34 +398,47 @@ class CoverWidget(gtk.EventBox):
             Fetches a cover for the current track
         """
         if not self.player.current: return
-        window = CoverChooser(self.main.window,
-            self.covers,
-            self.player.current)
+        window = CoverChooser(self.parent_window, self.player.current)
         window.connect('cover-chosen', self.on_cover_chosen)
-
-    def on_cover_chosen(self, object, cvr):
-        self.image.set_image_data(cvr[1])
-        self.emit('cover-found', self.image.pixbuf)
 
     def remove_cover(self):
         """
             Removes the cover for the current track from the database
         """
-        self.covers.remove_cover(self.player.current)
-        self.on_playback_end(None, None, None)
+        cover_manager.remove_cover(self.player.current)
+        self.set_blank()
 
-    def _on_button_press(self, button, event):
+    def set_blank(self):
+        """
+            Sets the default cover to display
+        """
+        pixbuf = icons.MANAGER.pixbuf_from_data(cover_manager.get_default_cover())
+        self.image.set_from_pixbuf(pixbuf)
+        self.emit('cover-found', None)
+
+    def on_button_press(self, button, event):
         """
             Called when someone clicks on the cover widget
         """
-        if self.player.current is None:
+        if self.player.current is None or self.parent_window is None:
             return
 
         if event.type == gtk.gdk._2BUTTON_PRESS:
-            window = CoverWindow(self.main.window, self.image.pixbuf)
+            window = CoverWindow(self.parent_window, self.image.get_pixbuf())
             window.show_all()
         elif event.button == 3:
             self.menu.popup(event)
+
+    def on_cover_chosen(self, object, cover_data):
+        """
+            Called when a cover is selected
+            from the coverchooser
+        """
+        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
+        width = settings.get_option('gui/cover_width', 100)
+        pixbuf = pixbuf.scale_simple(width, width, gtk.gdk.INTERP_BILINEAR)
+        self.image.set_from_pixbuf(pixbuf)
+        self.emit('cover-found', pixbuf)
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
         """
@@ -445,7 +461,7 @@ class CoverWidget(gtk.EventBox):
             except glib.GError: # No valid image dropped
                 self.image.pixbuf = pixbuf
             else:
-                self.covers.set_cover(self.player.current, db_string, data)
+                cover_manager.set_cover(self.player.current, db_string, data)
 
     @common.threaded
     def on_playback_start(self, type, player, track):
@@ -455,19 +471,12 @@ class CoverWidget(gtk.EventBox):
         """
         gobject.idle_add(self.set_blank)
         fetch = not settings.get_option('covers/automatic_fetching', True)
-        cov = self.covers.get_cover(track, set_only=fetch)
-        if not cov:
+        cover_data = cover_manager.get_cover(track, set_only=fetch)
+        if not cover_data:
             return
 
         if self.player.current == track:
-            def idle():
-                self.image.set_image_data(cov)
-                self.emit('cover-found', self.image.pixbuf)
-            gobject.idle_add(idle)
-
-    def set_blank(self):
-        self.image.set_image_data(self.covers.get_default_cover())
-        self.emit('cover-found', None)
+            gobject.idle_add(self.on_cover_chosen, None, cover_data)
 
     def on_playback_end(self, type, player, object):
         """
@@ -487,13 +496,9 @@ class CoverWindow(object):
         self.layout = self.builder.get_object('layout')
         self.toolbar = self.builder.get_object('toolbar')
         self.zoom_in = self.builder.get_object('zoom_in')
-        self.zoom_in.connect('clicked', self.zoom_in_clicked)
         self.zoom_out = self.builder.get_object('zoom_out')
-        self.zoom_out.connect('clicked', self.zoom_out_clicked)
         self.zoom_100 = self.builder.get_object('zoom_100')
-        self.zoom_100.connect('clicked', self.zoom_100_clicked)
         self.zoom_fit = self.builder.get_object('zoom_fit')
-        self.zoom_fit.connect('clicked', self.zoom_fit_clicked)
         self.image = self.builder.get_object('image')
         self.statusbar = self.builder.get_object('statusbar')
         self.scrolledwindow = self.builder.get_object('scrolledwindow')
@@ -586,22 +591,22 @@ class CoverWindow(object):
     def cover_window_destroy(self, widget):
         self.cover_window.destroy()
 
-    def zoom_in_clicked(self, widget):
+    def on_zoom_in_clicked(self, widget):
         self.image_fitted = False
         self.image_ratio *= self.ratio
         self.update_widgets()
 
-    def zoom_out_clicked(self, widget):
+    def on_zoom_out_clicked(self, widget):
         self.image_fitted = False
         self.image_ratio *= 1 / self.ratio
         self.update_widgets()
 
-    def zoom_100_clicked(self, widget):
+    def on_zoom_100_clicked(self, widget):
         self.image_fitted = False
         self.image_ratio = 1
         self.update_widgets()
 
-    def zoom_fit_clicked(self, widget):
+    def on_zoom_fit_clicked(self, widget):
         self.image_fitted = True
         self.set_ratio_to_fit()
         self.update_widgets()
@@ -623,12 +628,11 @@ class CoverChooser(gobject.GObject):
     __gsignals__ = {
         'cover-chosen': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
-    def __init__(self, parent, covers, track, search=None):
+    def __init__(self, parent, track, search=None):
         """
             Expects the parent control, a track, an an optional search string
         """
         gobject.GObject.__init__(self)
-        self.manager = covers
         self.parent = parent
         self.builder = gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.ui'))
@@ -670,8 +674,8 @@ class CoverChooser(gobject.GObject):
         self.covers = []
         self.current = 0
 
-        covers = self.manager.find_covers(self.track)
-        covers = [(x, self.manager.get_cover_data(x)) for x in covers]
+        covers = cover_manager.find_covers(self.track)
+        covers = [(x, cover_manager.get_cover_data(x)) for x in covers]
 
         if covers:
             self.covers = covers
@@ -735,9 +739,9 @@ class CoverChooser(gobject.GObject):
         track = self.track
         coverdata = self.covers[self.current]
 
-        self.manager.set_cover(track, coverdata[0], coverdata[1])
+        cover_manager.set_cover(track, coverdata[0], coverdata[1])
 
-        self.emit('cover-chosen', coverdata)
+        self.emit('cover-chosen', coverdata[1])
         self.window.destroy()
 
     def show_cover(self, coverdata):
@@ -746,3 +750,4 @@ class CoverChooser(gobject.GObject):
         """
         self.cover.set_image_data(coverdata[1])
         self.window.show_all()
+

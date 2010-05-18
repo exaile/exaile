@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
@@ -13,8 +13,8 @@
             <property name="receives_default">True</property>
             <property name="relief">none</property>
             <property name="focus_on_click">False</property>
-            <signal name="toggled" handler="on_button_toggled"/>
-            <signal name="scroll_event" handler="on_scroll_event"/>
+            <signal name="toggled" handler="on_button_toggled" swapped="no"/>
+            <signal name="scroll-event" handler="on_scroll_event" swapped="no"/>
             <child>
               <object class="GtkImage" id="button_image">
                 <property name="visible">True</property>
@@ -35,12 +35,11 @@
             <property name="can_focus">True</property>
             <property name="adjustment">slider_adjustment</property>
             <property name="draw_value">False</property>
-            <signal name="value_changed" handler="on_slider_value_changed"/>
-            <signal name="key_press_event" handler="on_slider_key_press_event"/>
-            <signal name="scroll_event" handler="on_scroll_event"/>
+            <signal name="value-changed" handler="on_slider_value_changed" swapped="no"/>
+            <signal name="key-press-event" handler="on_slider_key_press_event" swapped="no"/>
+            <signal name="scroll-event" handler="on_scroll_event" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">False</property>
             <property name="position">1</property>
           </packing>
         </child>

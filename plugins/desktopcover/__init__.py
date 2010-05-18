@@ -201,7 +201,7 @@ def _enable(eventname, exaile, nothing):
     if player.current and (player.is_playing() or player.is_paused()):
         # FIXME: This will display the default image if the plugin is enabled
         # while playing a song without cover.
-        cover_display.display(cover_widget.image.pixbuf)
+        cover_display.display(cover_widget.image.get_pixbuf())
     cover_connection = cover_widget.connect('cover-found',
         lambda w, c: cover_display.display(c))
 

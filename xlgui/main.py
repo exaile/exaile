@@ -606,6 +606,7 @@ class MainWindow(gobject.GObject):
             restart_item.set_property('visible', True)
             restart_item.set_no_show_all(False)
 
+        # TODO: Maybe make this stackable
         self.message = commondialogs.MessageBar(
             parent=self.builder.get_object('player_box'),
             buttons=gtk.BUTTONS_CLOSE

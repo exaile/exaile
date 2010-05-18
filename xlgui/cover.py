@@ -42,7 +42,12 @@ from xl import (
     xdg
 )
 from xl.covers import MANAGER as cover_manager
-from xlgui import commondialogs, guiutil, icons
+import xlgui
+from xlgui import (
+    commondialogs,
+    guiutil,
+    icons
+)
 logger = logging.getLogger(__name__)
 
 class CoverManager(object):
@@ -78,8 +83,9 @@ class CoverManager(object):
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)
 
+        width = settings.get_option('gui/cover_width', 100)
         self.nocover = icons.MANAGER.pixbuf_from_data(
-            cover_manager.get_default_cover(), size=(80,80))
+            cover_manager.get_default_cover(), (width, width))
 
         self._connect_events()
         self.window.show_all()
@@ -116,11 +122,12 @@ class CoverManager(object):
             Shows the currently selected cover
         """
         item = self._get_selected_item()
-        c = cover_manager.get_cover(self.track_dict[item][0])
+        cover_data = cover_manager.get_cover(self.track_dict[item][0])
 
-        cvr = icons.MANAGER.pixbuf_from_data(c)
-        if cvr:
-            window = CoverWindow(self.parent, cvr)
+        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
+
+        if pixbuf:
+            window = CoverWindow(self.parent, pixbuf)
             window.show_all()
 
     def fetch_cover(self):
@@ -133,18 +140,18 @@ class CoverManager(object):
             window = CoverChooser(self.window, track)
             window.connect('cover-chosen', self.on_cover_chosen)
 
-    def on_cover_chosen(self, object, cvr):
+    def on_cover_chosen(self, object, cover_data):
         paths = self.icons.get_selected_items()
         if not paths:
             return None
-        path = paths[0]
-        iter = self.model.get_iter(path)
-        item = self.model.get_value(iter, 2)
+        row = self.model[paths[0]]
+        item = row[2]
 
-        image = icons.MANAGER.pixbuf_from_data(cvr[1])
-        image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
-        self.covers[item] = image
-        self.model.set_value(iter, 1, image)
+        width = settings.get_option('gui/cover_width', 100)
+        pixbuf = icons.MANAGER.pixbuf_from_data(
+            cover_data[1], (width, width))
+        self.covers[item] = pixbuf
+        row[1] = pixbuf
 
     def _get_selected_item(self):
         """
@@ -412,7 +419,8 @@ class CoverWidget(gtk.EventBox):
         """
             Sets the default cover to display
         """
-        pixbuf = icons.MANAGER.pixbuf_from_data(cover_manager.get_default_cover())
+        pixbuf = icons.MANAGER.pixbuf_from_data(
+            cover_manager.get_default_cover())
         self.image.set_from_pixbuf(pixbuf)
         self.emit('cover-found', None)
 
@@ -434,9 +442,8 @@ class CoverWidget(gtk.EventBox):
             Called when a cover is selected
             from the coverchooser
         """
-        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
         width = settings.get_option('gui/cover_width', 100)
-        pixbuf = pixbuf.scale_simple(width, width, gtk.gdk.INTERP_BILINEAR)
+        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, (width, width))
         self.image.set_from_pixbuf(pixbuf)
         self.emit('cover-found', pixbuf)
 
@@ -692,7 +699,11 @@ class CoverChooser(gobject.GObject):
     def __show_no_cover_found(self):
         # FIXME: this causes gtk to hang horribly
         #commondialogs.error(None, _('No covers found'))
-        self.window.show_all()
+        #self.window.show_all()
+        message = xlgui.main.mainwindow().message
+        message.set_message_type(gtk.MESSAGE_INFO)
+        message.set_text(_('No covers found.'))
+        message.show()
 
     def on_previous_button_clicked(self, button):
         """

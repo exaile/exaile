@@ -167,6 +167,9 @@ class ScalableImageWidget(gtk.Image):
         self._set_image(self.pixbuf, fill)
 
     def set_image_data(self, data, fill=False):
+        if not data:
+            return
+
         self.pixbuf = icons.MANAGER.pixbuf_from_data(data)
         self._set_image(self.pixbuf, fill)
 

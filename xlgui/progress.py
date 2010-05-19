@@ -26,8 +26,9 @@
 
 import gobject
 import gtk
+import time
 
-from xl import xdg
+from xl import common, xdg
 from xlgui import commondialogs, icons
 from xlgui.commondialogs import MessageBar
 
@@ -52,15 +53,16 @@ class ProgressMonitor(MessageBar):
 
         self.manager = manager
         self.thread = thread
+        self._progress_updated = False
 
         self.progressbar = gtk.ProgressBar()
-        self.progressbar.pulse()
+        self.progressbar.set_pulse_step(0.05)
         self.get_message_area().pack_start(self.progressbar, False)
 
         self.show_all()
+        self.pulsate_progress()
 
         self.connect('response', self.on_response)
-        self.timeout_id = gobject.timeout_add(100, self.on_timeout)
         self.progress_update_id = self.thread.connect('progress-update',
             self.on_progress_update)
         self.done_id = self.thread.connect('done', self.on_done)
@@ -70,33 +72,30 @@ class ProgressMonitor(MessageBar):
         """
             Cleans up
         """
-        if self.timeout_id is not None:
-            gobject.source_remove(self.timeout_id)
+        self._progress_updated = True
 
         self.thread.disconnect(self.progress_update_id)
         self.thread.disconnect(self.done_id)
 
         MessageBar.destroy(self)
 
-    def on_timeout(self):
+    @common.threaded
+    def pulsate_progress(self):
         """
             Pulses the progress indicator until
             the first status update is received
         """
-        self.progressbar.pulse()
-
-        return True
+        while not self._progress_updated:
+            self.progressbar.pulse()
+            time.sleep(0.05)
 
     def on_progress_update(self, thread, percent):
         """
             Called when the progress has been updated
         """
-        if self.timeout_id is not None:
-            gobject.source_remove(self.timeout_id)
-            self.timeout_id = None
+        self._progress_updated = True
 
         fraction = float(percent) / 100
-
         fraction = max(0, fraction)
         fraction = min(fraction, 1.0)
 

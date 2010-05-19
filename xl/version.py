@@ -45,7 +45,10 @@ def get_latest_bzr_revno(directory):
     try:
         wt = bzrlib.workingtree.WorkingTree.open_containing(directory)[0]
         wt.lock_read()
-    except (errors.NoWorkingTree, errors.NotLocalUrl, errors.NotBranchError):
+    except (errors.NoWorkingTree,
+            errors.NotLocalUrl,
+            errors.NotBranchError,
+            errors.LockContention):
         return None
 
     revid = wt.last_revision()

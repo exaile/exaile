@@ -31,7 +31,7 @@ import gtk
 from xlgui.preferences import widgets
 from xl import main, plugins, xdg
 from xlgui import commondialogs
-from xl.nls import gettext as _
+from xl.nls import gettext as _, ngettext
 
 name = _('Plugins')
 ui = xdg.get_data_path('ui', 'preferences', 'plugin.ui')
@@ -73,12 +73,15 @@ class PluginManager(object):
         """
         plugins = self.plugins.list_installed_plugins()
         plugins_list = []
+        failed_list = []
 
         for plugin in plugins:
             try:
                 info = self.plugins.get_plugin_info(plugin)
-            except IOError:
+            except Exception, e:
+                failed_list += [plugin]
                 continue
+
             enabled = plugin in self.plugins.enabled_plugins
             plugins_list.append((plugin, info['Name'], info['Version'], enabled))
 
@@ -91,6 +94,18 @@ class PluginManager(object):
             self.model.append(plugin)
 
         self.list.set_model(self.model)
+
+        if failed_list:
+            self.message.set_message_type(gtk.MESSAGE_ERROR)
+            self.message.set_text(_('Could not load plugin info!'))
+            self.message.set_secondary_text(
+                ngettext(
+                    'Failed plugin: %s',
+                    'Failed plugins: %s',
+                    len(failed_list)
+                ) % ', '.join(failed_list)
+            )
+            self.message.show()
 
     def on_messagebar_response(self, widget, response):
         """
@@ -133,7 +148,7 @@ class PluginManager(object):
             except plugins.InvalidPluginError, e:
                 self.message.set_message_type(gtk.MESSAGE_ERROR)
                 self.message.set_text(_('Plugin file installation failed!'))
-                self.message.set_secondary_text(e.message)
+                self.message.set_secondary_text(str(e))
                 self.message.show()
 
                 return

@@ -39,7 +39,8 @@ from xl import xdg, common, settings
 logger = logging.getLogger(__name__)
 
 class InvalidPluginError(Exception):
-    pass
+    def __str__(self):
+        return str(self.args[0])
 
 class PluginsManager(object):
     def __init__(self, exaile, load=True):
@@ -89,20 +90,20 @@ class PluginsManager(object):
         try:
             tar = tarfile.open(path, "r:*") #transparently supports gz, bz2
         except (tarfile.ReadError, OSError):
-            raise InvalidPluginError(_('Plugin archive is not in the correct '
-                'format'))
+            raise InvalidPluginError(
+                _('Plugin archive is not in the correct format.'))
 
         #ensure the paths in the archive are sane
         mems = tar.getmembers()
-        base = os.path.basename(path)[:-4].split("-")[0]
+        base = os.path.basename(path).split('.')[0]
         if os.path.isdir(os.path.join(self.plugindirs[0], base)):
-            raise InvalidPluginError(_('A plugin with the name "%s" is '
-                'already installed') % base)
+            raise InvalidPluginError(
+                _('A plugin with the name "%s" is already installed.') % base)
 
         for m in mems:
             if not m.name.startswith(base):
-                raise InvalidPluginError(_("Plugin archive contains an unsafe"
-                    " path"))
+                raise InvalidPluginError(
+                    _('Plugin archive contains an unsafe path.'))
 
         tar.extractall(self.plugindirs[0])
 

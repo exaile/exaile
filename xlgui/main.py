@@ -979,10 +979,7 @@ class MainWindow(gobject.GObject):
         """
             Called when there has been a playback error
         """
-        self.message.set_message_type(gtk.MESSAGE_ERROR)
-        self.message.set_text(_('Playback error encountered!'))
-        self.message.set_secondary_text(message)
-        self.message.show()
+        self.message.show_error(_('Playback error encountered!'), message)
 
     def on_buffering(self, type, player, percent):
         """

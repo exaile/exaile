@@ -31,8 +31,6 @@ from xlgui import commondialogs, guiutil, icons, rating
 from xl import event, playlist, xdg, settings
 from xl.nls import gettext as _
 
-#settings = settings.SettingsManager.settings
-
 class GenericTrackMenu(guiutil.Menu):
     """
         A menu that can be subclassed to use on any widget that displays

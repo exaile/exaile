@@ -47,8 +47,6 @@ import gio
 
 from xl.nls import gettext as _
 from xl import common, xdg, event, metadata, settings, trax
-from xl.settings import SettingsManager
-
 
 logger = logging.getLogger(__name__)
 

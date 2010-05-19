@@ -96,16 +96,13 @@ class PluginManager(object):
         self.list.set_model(self.model)
 
         if failed_list:
-            self.message.set_message_type(gtk.MESSAGE_ERROR)
-            self.message.set_text(_('Could not load plugin info!'))
-            self.message.set_secondary_text(
+            self.message.show_error(_('Could not load plugin info!'),
                 ngettext(
                     'Failed plugin: %s',
                     'Failed plugins: %s',
                     len(failed_list)
                 ) % ', '.join(failed_list)
             )
-            self.message.show()
 
     def on_messagebar_response(self, widget, response):
         """
@@ -146,10 +143,8 @@ class PluginManager(object):
             try:
                 self.plugins.install_plugin(dialog.get_filename())
             except plugins.InvalidPluginError, e:
-                self.message.set_message_type(gtk.MESSAGE_ERROR)
-                self.message.set_text(_('Plugin file installation failed!'))
-                self.message.set_secondary_text(str(e))
-                self.message.show()
+                self.message.show_error(
+                    _('Plugin file installation failed!'), str(e))
 
                 return
 
@@ -185,21 +180,13 @@ class PluginManager(object):
             try:
                 self.plugins.enable_plugin(plugin)
             except Exception, e:
-                self.message.set_message_type(gtk.MESSAGE_ERROR)
-                self.message.set_text(_('Could not enable plugin!'))
-                self.message.set_secondary_text(str(e))
-                self.message.show()
-
+                self.message.show_error(_('Could not enable plugin!'), str(e))
                 return
         else:
             try:
                 self.plugins.disable_plugin(plugin)
             except Exception, e:
-                self.message.set_message_type(gtk.MESSAGE_ERROR)
-                self.message.set_text(_('Could not disable plugin!'))
-                self.message.set_secondary_text(str(e))
-                self.message.show()
-
+                self.message.show_error(_('Could not disable plugin!'), str(e))
                 return
 
         if hasattr(self.plugins.loaded_plugins[plugin],

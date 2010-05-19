@@ -697,13 +697,8 @@ class CoverChooser(gobject.GObject):
             gobject.idle_add(self.__show_no_cover_found)
 
     def __show_no_cover_found(self):
-        # FIXME: this causes gtk to hang horribly
-        #commondialogs.error(None, _('No covers found'))
-        #self.window.show_all()
         message = xlgui.main.mainwindow().message
-        message.set_message_type(gtk.MESSAGE_INFO)
-        message.set_text(_('No covers found.'))
-        message.show()
+        message.show_info(_('No covers found.'))
 
     def on_previous_button_clicked(self, button):
         """

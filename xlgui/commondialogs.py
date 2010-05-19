@@ -28,6 +28,7 @@ import os.path
 
 import pygtk
 pygtk.require('2.0')
+import gobject
 import gtk
 import pango
 
@@ -469,6 +470,10 @@ class MessageBar(gtk.InfoBar):
         content_area.add(box)
         content_area.show_all()
 
+        self.action_area = self.get_action_area()
+        self.action_area.set_property('layout-style',
+            gtk.BUTTONBOX_START)
+
         if buttons != gtk.BUTTONS_NONE:
             for text, response in self.buttons_map[buttons]:
                 self.add_button(text, response)
@@ -484,9 +489,6 @@ class MessageBar(gtk.InfoBar):
             pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1))
         self.primary_text_emphasized_attributes.insert(
             pango.AttrScale(pango.SCALE_LARGE, 0, -1))
-
-        self.get_action_area().set_property('layout-style',
-            gtk.BUTTONBOX_START)
 
     def set_text(self, text):
         """
@@ -515,13 +517,12 @@ class MessageBar(gtk.InfoBar):
                 as the secondary text or None.
             :type text: string
         """
-        self.secondary_text.set_text(text)
-
         if text is None:
             self.secondary_text.hide()
             self.primary_text.set_attributes(
                 self.primary_text_attributes)
         else:
+            self.secondary_text.set_text(text)
             self.secondary_text.show()
             self.primary_text.set_attributes(
                 self.primary_text_emphasized_attributes)
@@ -576,9 +577,17 @@ class MessageBar(gtk.InfoBar):
             :type response_id: int
         """
         button = gtk.InfoBar.add_button(self, button_text, response_id)
-        self.get_action_area().reorder_child(button, 0)
+        self.action_area.reorder_child(button, 0)
         
         return button
+
+    def clear_buttons(self):
+        """
+            Removes all buttons currently
+            placed in the action area
+        """
+        for button in self.action_area:
+            self.action_area.remove(button)
 
     def set_message_type(self, type):
         """
@@ -599,4 +608,57 @@ class MessageBar(gtk.InfoBar):
             Retrieves the message area
         """
         return self.message_area
-        
+
+    def show_info(self, text, secondary_text=None):
+        """
+            Convenience method which sets all
+            required flags for a info message
+            
+            :param text: the message to display
+            :param secondary_text: additional information
+        """
+        self.set_message_type(gtk.MESSAGE_INFO)
+        self.set_text(text)
+        self.set_secondary_text(secondary_text)
+        self.show()
+        gobject.timeout_add_seconds(5, self.hide)
+
+    def show_question(self, text, secondary_text=None):
+        """
+            Convenience method which sets all
+            required flags for a question message
+            
+            :param text: the message to display
+            :param secondary_text: additional information
+        """
+        self.set_message_type(gtk.MESSAGE_QUESTION)
+        self.set_text(text)
+        self.set_secondary_text(secondary_text)
+        self.show()
+
+    def show_warning(self, text, secondary_text=None):
+        """
+            Convenience method which sets all
+            required flags for a warning message
+            
+            :param text: the message to display
+            :param secondary_text: additional information
+        """
+        self.set_message_type(gtk.MESSAGE_WARNING)
+        self.set_text(text)
+        self.set_secondary_text(secondary_text)
+        self.show()
+
+    def show_error(self, text, secondary_text=None):
+        """
+            Convenience method which sets all
+            required flags for a warning message
+            
+            :param text: the message to display
+            :param secondary_text: additional information
+        """
+        self.set_message_type(gtk.MESSAGE_ERROR)
+        self.set_text(text)
+        self.set_secondary_text(secondary_text)
+        self.show()
+

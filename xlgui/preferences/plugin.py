@@ -192,7 +192,7 @@ class PluginManager(object):
             self.preferences._load_plugin_pages()
 
         self.model[path][3] = enable
-        self.selection_changed(self.list.get_selection())
+        self.on_selection_changed(self.list.get_selection())
 
 def init(preferences, xml):
     manager = PluginManager(preferences, xml)

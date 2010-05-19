@@ -49,7 +49,8 @@ def disable(exaile):
         Disables the mini mode plugin
     """
     global MINIMODE
-    del MINIMODE
+    MINIMODE.destroy()
+    MINIMODE = None
 
 def get_preferences_pane():
     return minimodeprefs
@@ -118,7 +119,7 @@ class MiniMode(gtk.Window):
         self.exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
 
-    def __del__(self):
+    def destroy(self):
         """
             Cleans up and hides
             the mini mode window
@@ -256,8 +257,8 @@ class MiniMode(gtk.Window):
                 [self.exaile.gui.main, self.exaile.queue, self.formatter,
                  self.on_track_change]),
             'playlist_button': (mmwidgets.PlaylistButton,
-                [self.exaile.gui.main, self.exaile.queue, self.formatter,
-                 self.on_track_change])
+                [self.exaile.gui.main, self.exaile.player, self.exaile.queue,
+                 self.formatter, self.on_track_change])
         }
         # TODO: PlaylistProgressBar
 

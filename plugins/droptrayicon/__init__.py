@@ -45,7 +45,8 @@ def disable(exaile):
         Disables the drop trayicon plugin
     """
     global DROPTRAYICON
-    del DROPTRAYICON
+    DROPTRAYICON.destroy()
+    DROPTRAYICON = None
 
 class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
     """
@@ -79,11 +80,12 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         self.setup_drag_destinations()
         self.show_all()
 
-    def __del__(self):
+    def destroy(self):
         """
             Hides the tray icon
         """
         self.hide_all()
+        EggTrayIcon.destroy(self)
 
     def setup_drag_destinations(self):
         """

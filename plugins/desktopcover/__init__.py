@@ -47,7 +47,7 @@ def disable(exaile):
         Disables the desktop cover plugin
     """
     global DESKTOPCOVER
-    del DESKTOPCOVER
+    DESKTOPCOVER.destroy()
 
 def get_preferences_pane():
     return prefs
@@ -80,10 +80,14 @@ class DesktopCover(gtk.Window):
         self._cross_fade_id = None
         self._cross_fade_step = 0
 
-        event.add_callback(self.on_playback_player_start, 'playback_player_start')
-        event.add_callback(self.on_playback_track_start, 'playback_track_start')
-        event.add_callback(self.on_playback_player_end, 'playback_player_end')
-        event.add_callback(self.on_option_set, 'option_set')
+        event.add_callback(self.on_playback_player_start,
+            'playback_player_start')
+        event.add_callback(self.on_playback_track_start,
+            'playback_track_start')
+        event.add_callback(self.on_playback_player_end,
+            'playback_player_end')
+        event.add_callback(self.on_option_set,
+            'option_set')
 
         try:
             exaile = main.exaile()
@@ -91,6 +95,21 @@ class DesktopCover(gtk.Window):
             event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
         else:
             self.on_exaile_loaded('exaile_loaded', exaile, None)
+
+    def destroy(self):
+        """
+            Cleanups
+        """
+        event.remove_callback(self.on_option_set,
+            'option_set')
+        event.remove_callback(self.on_playback_player_end,
+            'playback_player_end')
+        event.remove_callback(self.on_playback_track_start,
+            'playback_track_start')
+        event.remove_callback(self.on_playback_player_start,
+            'playback_player_start')
+
+        gtk.Window.destroy(self)
 
     def set_cover_from_track(self, track):
         """

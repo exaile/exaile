@@ -336,7 +336,7 @@ class PlaylistButton(gtk.ToggleButton):
         )
     }
 
-    def __init__(self, main, queue, formatter, change_callback):
+    def __init__(self, main, player, queue, formatter, change_callback):
         gtk.ToggleButton.__init__(self, '')
 
         self.set_focus_on_click(False)
@@ -383,15 +383,21 @@ class PlaylistButton(gtk.ToggleButton):
             self.on_drag_leave)
         self._drag_motion_id = self.connect('drag-motion',
             self.on_drag_motion)
-        self._drag_data_received_id = self.playlist.list.connect('drag-data-received',
-            self.on_playlist_drag_data_received)
-        self._switch_page_id = self.main.playlist_notebook.connect('switch-page',
-            self.on_playlist_notebook_switch)
-        self._format_changed_id = self.formatter.connect('format-changed',
-            self.on_format_changed)
+        self._drag_data_received_id = self.playlist.list.connect(
+            'drag-data-received', self.on_playlist_drag_data_received)
+        self._switch_page_id = self.main.playlist_notebook.connect(
+            'switch-page', self.on_playlist_notebook_switch)
+        self._format_changed_id = self.formatter.connect(
+            'format-changed', self.on_format_changed)
 
-        event.add_callback(self.on_playback_player_end, 'playback_player_end')
-        event.add_callback(self.on_playback_track_start, 'playback_track_start')
+        event.add_callback(self.on_playback_player_end,
+            'playback_player_end')
+        event.add_callback(self.on_playback_track_start,
+            'playback_track_start')
+
+        if player.current is not None:
+            self.on_playback_track_start('playback_track_start',
+                player, player.current)
 
     def destroy(self):
         """

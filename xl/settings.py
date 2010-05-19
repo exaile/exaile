@@ -24,13 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-# Settings
-#
-# stores settings
-
-
 from __future__ import with_statement
-from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
+from ConfigParser import (
+    RawConfigParser,
+    NoSectionError,
+    NoOptionError
+)
 import logging
 import os
 
@@ -38,65 +37,68 @@ import glib
 
 logger = logging.getLogger(__name__)
 
-from xl.nls import gettext as _
 from xl import event, xdg
 from xl.common import VersionError
+from xl.nls import gettext as _
 
 TYPE_MAPPING = {
-        'I': int,
-        'S': str,
-        'F': float,
-        'B': bool,
-        'L': list,
-        'D': dict,
-        'U': unicode
-        }
+    'I': int,
+    'S': str,
+    'F': float,
+    'B': bool,
+    'L': list,
+    'D': dict,
+    'U': unicode
+}
 
 _SETTINGSMANAGER = None
 
 class SettingsManager(RawConfigParser):
     """
-        Manages exaile's settings
+        Manages Exaile's settings
     """
     settings = None
     __version__ = 1
-    def __init__(self, loc, defaultloc=None):
+
+    def __init__(self, location=None, default_location=None):
         """
-            Sets up the SettingsManager. Expects a loc to a file
-            where settings will be stored.
+            Sets up the settings manager. Expects a location
+            to a file where settings will be stored.
 
-            If loc is None, these settings will never be stored nor read from a
-            file
-
-            defaultloc is a loc to initialize settings from
+            :param location: the location to save the settings to,
+                settings will never be stored if this is None
+            :type location: str or None
+            :param default_location: the default location to
+                initialize settings from
         """
         RawConfigParser.__init__(self)
-        self.loc = loc
+
+        self.location = location
         self._saving = False
         self._dirty = False
 
-        if defaultloc is not None:
+        if default_location is not None:
             try:
-                self.read(defaultloc)
+                self.read(default_location)
             except:
                 pass
 
-        if loc is not None:
+        if location is not None:
             try:
-                self.read(self.loc) or \
-                    self.read(self.loc + ".new") or \
-                    self.read(self.loc + ".old")
+                self.read(self.location) or \
+                    self.read(self.location + ".new") or \
+                    self.read(self.location + ".old")
             except:
                 pass
 
-        if not self.get_option('settings/version', 0):
+        if self.get_option('settings/version', 0) is None:
             self.set_option('settings/version', self.__version__)
 
         if self.get_option('settings/version', 0) > self.__version__:
             raise VersionError(_('Settings version is newer than current.'))
 
         # save settings every 30 seconds
-        if loc is not None:
+        if location is not None:
             glib.timeout_add_seconds(30, self._timeout_save)
 
     def _timeout_save(self):
@@ -106,8 +108,11 @@ class SettingsManager(RawConfigParser):
 
     def copy_settings(self, settings):
         """
-            Copies one all of the settings contained in this instance to
-            another
+            Copies one all of the settings contained
+            in this instance to another
+
+            :param settings: the settings object to copy to
+            :type settings: :class:`xl.settings.SettingsManager`
         """
         for section in self.sections():
             for (key, value) in self.items(section):
@@ -124,18 +129,25 @@ class SettingsManager(RawConfigParser):
     def set_option(self, option, value):
         """
             Set an option (in section/key syntax) to the specified value.
+
+            :param option: the full path to an option
+            :type option: string
+            :param value: the value the option should be assigned
         """
         value = self._val_to_str(value)
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]
+
         try:
             self.set(section, key, value)
         except NoSectionError:
             self.add_section(section)
             self.set(section, key, value)
+
         self._dirty = True
+
         event.log_event('option_set', self, option)
-        event.log_event('%s_option_set'%section, self, option)
+        event.log_event('%s_option_set' % section, self, option)
 
     def get_option(self, option, default=None):
         """
@@ -144,6 +156,7 @@ class SettingsManager(RawConfigParser):
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]
+
         try:
             value = self.get(section, key)
             value = self._str_to_val(value)
@@ -151,20 +164,33 @@ class SettingsManager(RawConfigParser):
             value = default
         except NoOptionError:
             value = default
+
         return value
 
-    def _set_direct(self, option, value):
+    def remove_option(self, option):
         """
-            Sets the option directly to the value, only for use in copying
-            settings.
+            Removes an option (in section/key syntax),
+            thus will not be saved anymore
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]
+
+        RawConfigParser.remove_option(self, section, key)
+
+    def _set_direct(self, option, value):
+        """
+            Sets the option directly to the value,
+            only for use in copying settings.
+        """
+        splitvals = option.split('/')
+        section, key = "/".join(splitvals[:-1]), splitvals[-1]
+
         try:
             self.set(section, key, value)
         except NoSectionError:
             self.add_section(section)
             self.set(section, key, value)
+
         event.log_event('option_set', self, option)
 
     def _val_to_str(self, value):
@@ -178,8 +204,9 @@ class SettingsManager(RawConfigParser):
                     return k + ": " + repr(value)
                 else:
                     return k + ": " + str(value)
-        raise ValueError(_("We don't know how to store that kind of setting: "),
-            type(value))
+
+        raise ValueError(_("We don't know how to store that '
+            'kind of setting: "), type(value))
 
     def _str_to_val(self, value):
         """
@@ -190,19 +217,17 @@ class SettingsManager(RawConfigParser):
         except ValueError:
             return ''
 
-        # Lists are special case
-        if kind == 'L':
-            return eval(value)
-
-        # So are dictionaries
-        if kind == 'D':
+        # Lists and dictionaries are special case
+        if kind in ('L', 'D'):
             return eval(value)
 
         if kind in TYPE_MAPPING.keys():
             if kind == 'B':
                 if value != 'True':
                     return False
+
             value = TYPE_MAPPING[kind](value)
+
             return value
         else:
             raise ValueError(_("An Unknown type of setting was found!"))
@@ -211,28 +236,38 @@ class SettingsManager(RawConfigParser):
         """
             Save the settings to disk
         """
-        if self.loc is None:
-            logger.debug("Save requested but not saving settings, loc is None")
+        if self.location is None:
+            logger.debug("Save requested but not saving settings, '
+                'location is None")
             return
-        if self._saving or not self._dirty: return
+
+        if self._saving or not self._dirty:
+            return
+
         self._saving = True
 
         logger.debug("Saving settings...")
-        with open(self.loc + ".new", 'w') as f:
+
+        with open(self.location + ".new", 'w') as f:
             self.write(f)
+
             try:
                 # make it readable by current user only, to protect private data
                 os.fchmod(f.fileno(), 384)
             except:
                 pass # fail gracefully, eg if on windows
+
             f.flush()
+
         try:
-            os.rename(self.loc, self.loc + ".old")
+            os.rename(self.location, self.location + ".old")
         except:
             pass # if it doesn'texist we don't care
-        os.rename(self.loc + ".new", self.loc)
+
+        os.rename(self.location + ".new", self.location)
+
         try:
-            os.remove(self.loc + ".old")
+            os.remove(self.location + ".old")
         except:
             pass
 
@@ -240,12 +275,11 @@ class SettingsManager(RawConfigParser):
         self._dirty = False
 
 _SETTINGSMANAGER = SettingsManager(
-        os.path.join(xdg.get_config_dir(), "settings.ini" ),
-        xdg.get_config_path("settings.ini")
-        )
+    os.path.join(xdg.get_config_dir(), "settings.ini" ),
+    xdg.get_config_path("settings.ini")
+)
 
 get_option = _SETTINGSMANAGER.get_option
 set_option = _SETTINGSMANAGER.set_option
-
 
 # vim: et sts=4 sw=4

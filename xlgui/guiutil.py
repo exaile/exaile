@@ -1096,11 +1096,9 @@ class TrackInfoPane(gtk.Alignment):
         self.cover_image = builder.get_object('cover_image')
         self.info_label = builder.get_object('info_label')
         self.action_area = builder.get_object('action_area')
-
-        if self._display_progress:
-            self.progress_box = builder.get_object('progress_box')
-            self.playback_image = builder.get_object('playback_image')
-            self.progressbar = builder.get_object('progressbar')
+        self.progress_box = builder.get_object('progress_box')
+        self.playback_image = builder.get_object('playback_image')
+        self.progressbar = builder.get_object('progressbar')
 
         if self._auto_update:
             event.add_callback(self.on_playback_player_end,
@@ -1139,6 +1137,25 @@ class TrackInfoPane(gtk.Alignment):
             :type format: string
         """
         self._formatter.set_property('format', format)
+
+    def get_display_progress(self):
+        """
+            Returns whether the progress indicator
+            is currently visible or not
+        """
+        return self._display_progress
+
+    def set_display_progress(self, display_progress):
+        """
+            Shows or hides the progress indicator. The
+            indicator will not be displayed if the
+            currently displayed track is not playing.
+
+            :param display_progress: Whether to show
+                or hide the progress indicator
+            :type display_progress: bool
+        """
+        self._display_progress = display_progress
 
     def set_track(self, track):
         """

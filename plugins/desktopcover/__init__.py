@@ -102,19 +102,24 @@ class DesktopCover(gtk.Window):
             self.hide()
             return
 
+        if not self.props.visible:
+            self.show()
+
         size = settings.get_option('plugin/desktopcover/size', 200)
         upscale = settings.get_option('plugin/desktopcover/override_size', False)
         pixbuf = icons.MANAGER.pixbuf_from_data(
             cover_data, size=(size, size), upscale=upscale)
         fading = settings.get_option('plugin/desktopcover/fading', False)
 
-        if fading and self._cross_fade_id is None:
+        if fading and self.image.get_pixbuf() is not None and \
+                self._cross_fade_id is None:
             duration = settings.get_option(
                 'plugin/desktopcover/fading_duration', 50)
             self._cross_fade_id = gobject.timeout_add(
                 int(duration), self.cross_fade, pixbuf, duration)
         else:
             self.image.set_from_pixbuf(pixbuf)
+            self.show_all()
 
         width = pixbuf.get_width()
         height = pixbuf.get_height()
@@ -233,12 +238,6 @@ class DesktopCover(gtk.Window):
         """
         if self._cross_fade_step < duration:
             pixbuf = self.image.get_pixbuf()
-
-            if pixbuf is None:
-                self.image.set_from_pixbuf(next_pixbuf)
-
-                return False
-
             alpha = (255.0 / duration) * self._cross_fade_step
 
             next_pixbuf.composite(
@@ -266,8 +265,6 @@ class DesktopCover(gtk.Window):
         """
             Shows the window
         """
-        self.set_cover_from_track(track)
-        self.update_position()
         self.show()
 
     def on_playback_track_start(self, type, player, track):
@@ -301,12 +298,6 @@ class DesktopCover(gtk.Window):
             Sets up references after controller is loaded
         """
         self.player = exaile.player
-
-        if self.player.current is not None:
-            self.set_cover_from_track(self.player.current)
-            self.update_position()
-            self.set_opacity(0)
-            self.show()
 
         event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 

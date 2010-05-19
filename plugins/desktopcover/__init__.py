@@ -37,14 +37,14 @@ DESKTOPCOVER = None
 
 def enable(exaile):
     """
-        Enables the mini mode plugin
+        Enables the desktop cover plugin
     """
     global DESKTOPCOVER
     DESKTOPCOVER = DesktopCover()
 
 def disable(exaile):
     """
-        Disables the mini mode plugin
+        Disables the desktop cover plugin
     """
     global DESKTOPCOVER
     del DESKTOPCOVER
@@ -74,6 +74,7 @@ class DesktopCover(gtk.Window):
         self.set_skip_pager_hint(True)
         self.set_skip_taskbar_hint(True)
         self.set_title("Exaile desktop cover")
+
         self._fade_in_id = None
         self._fade_out_id = None
         self._cross_fade_id = None
@@ -102,7 +103,7 @@ class DesktopCover(gtk.Window):
             return
 
         size = settings.get_option('plugin/desktopcover/size', 200)
-        upscale = settings.get_option('plugin/desktopcover/override_size')
+        upscale = settings.get_option('plugin/desktopcover/override_size', False)
         pixbuf = icons.MANAGER.pixbuf_from_data(
             cover_data, size=(size, size), upscale=upscale)
         fading = settings.get_option('plugin/desktopcover/fading', False)
@@ -126,7 +127,7 @@ class DesktopCover(gtk.Window):
         """
         gravity = settings.get_option('plugin/desktopcover/anchor', 'topleft')
 
-        # Try to migrate old integer gravitys
+        # Try to migrate old integer gravities
         if gravity not in self.gravity_map:
             gravities = self.gravity_map.keys()
             
@@ -142,16 +143,15 @@ class DesktopCover(gtk.Window):
 
         gravity = self.get_gravity()
         allocation = self.get_allocation()
+        workarea_size = guiutil.get_workarea_size()
 
         if gravity in (gtk.gdk.GRAVITY_NORTH_EAST,
                 gtk.gdk.GRAVITY_SOUTH_EAST):
-            workarea_width = guiutil.get_workarea_size()[0]
-            x = workarea_width - allocation.width - x
+            x = workarea_size[0] - allocation.width - x
 
         if gravity in (gtk.gdk.GRAVITY_SOUTH_EAST,
                 gtk.gdk.GRAVITY_SOUTH_WEST):
-            workarea_height = guiutil.get_workarea_size()[1]
-            y = workarea_height - allocation.height - y
+            y = workarea_size[1] - allocation.height - y
 
         self.move(int(x), int(y))
 
@@ -266,7 +266,6 @@ class DesktopCover(gtk.Window):
         """
             Shows the window
         """
-        print 'GOT HERE'
         self.set_cover_from_track(track)
         self.update_position()
         self.show()
@@ -294,6 +293,7 @@ class DesktopCover(gtk.Window):
             self.update_position()
         elif option in ('plugin/desktopcover/override_size',
                 'plugin/desktopcover/size'):
+            # FIXME: Triggers redraw issue
             self.set_cover_from_track(self.player.current)
 
     def on_exaile_loaded(self, e, exaile, nothing):

@@ -35,10 +35,29 @@ import prefs
 
 DESKTOPCOVER = None
 
+def __migrate_anchor_setting():
+    """
+        Migrates gravity setting from the old
+        integer values to the new string values
+    """
+    gravity = settings.get_option('plugin/desktopcover/anchor', 'topleft')
+
+    if gravity not in DesktopCover.gravity_map:
+        gravities = DesktopCover.gravity_map.keys()
+        
+        try:
+            gravity = DesktopCover.gravity_map[gravities[gravity]]
+        except IndexError, TypeError:
+            gravity = 'topleft'
+
+        settings.set_option('plugin/desktopcover/anchor', gravity)
+
 def enable(exaile):
     """
         Enables the desktop cover plugin
     """
+    __migrate_anchor_setting()
+
     global DESKTOPCOVER
     DESKTOPCOVER = DesktopCover()
 
@@ -143,23 +162,10 @@ class DesktopCover(gtk.Window):
             Updates the position based
             on gravity and offsets
         """
-        gravity = settings.get_option('plugin/desktopcover/anchor', 'topleft')
-
-        # Try to migrate old integer gravities
-        if gravity not in self.gravity_map:
-            gravities = self.gravity_map.keys()
-            
-            try:
-                gravity = self.gravity_map[gravities[gravity]]
-            except IndexError:
-                gravity = 'topleft'
-
-        self.set_gravity(self.gravity_map[gravity])
-
+        gravity = self.gravity_map[settings.get_option(
+            'plugin/desktopcover/anchor', 'topleft')]
         x = settings.get_option('plugin/desktopcover/x', 0)
         y = settings.get_option('plugin/desktopcover/y', 0)
-
-        gravity = self.get_gravity()
         allocation = self.get_allocation()
         workarea_size = guiutil.get_workarea_size()
 
@@ -171,6 +177,7 @@ class DesktopCover(gtk.Window):
                 gtk.gdk.GRAVITY_SOUTH_WEST):
             y = workarea_size[1] - allocation.height - y
 
+        self.set_gravity(gravity)
         self.move(int(x), int(y))
 
     def show(self):

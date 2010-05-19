@@ -205,8 +205,8 @@ class SettingsManager(RawConfigParser):
                 else:
                     return k + ": " + str(value)
 
-        raise ValueError(_("We don't know how to store that '
-            'kind of setting: "), type(value))
+        raise ValueError(_("We don't know how to store that "
+            "kind of setting: "), type(value))
 
     def _str_to_val(self, value):
         """
@@ -237,8 +237,8 @@ class SettingsManager(RawConfigParser):
             Save the settings to disk
         """
         if self.location is None:
-            logger.debug("Save requested but not saving settings, '
-                'location is None")
+            logger.debug("Save requested but not saving settings, "
+                "location is None")
             return
 
         if self._saving or not self._dirty:

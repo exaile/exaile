@@ -45,39 +45,44 @@ class PluginManager(object):
             Initializes the manager
         """
         self.preferences = preferences
-        self.builder = builder
+        builder.connect_signals(self)
         self.plugins = main.exaile().plugins
 
-        self.list = self.builder.get_object('plugin_tree')
-        #self.configure_button = self.builder.get_object('configure_button')
+        self.message = commondialogs.MessageBar(
+            parent=builder.get_object('preferences_pane'),
+            buttons=gtk.BUTTONS_CLOSE
+        )
+        self.message.connect('response', self.on_messagebar_response)
 
-        self.version_label = self.builder.get_object('version_label')
-        self.author_label = self.builder.get_object('author_label')
-        self.name_label = self.builder.get_object('name_label')
-        self.description = self.builder.get_object('description_view')
-        self.model = gtk.ListStore(str, str, bool, object)
+        self.list = builder.get_object('plugin_tree')
 
-        self._connect_signals()
-        self._setup_tree()
+        self.version_label = builder.get_object('version_label')
+        self.author_label = builder.get_object('author_label')
+        self.name_label = builder.get_object('name_label')
+        self.description = builder.get_object('description_view')
+        self.model = builder.get_object('model')
+
+        selection = self.list.get_selection()
+        selection.connect('changed', self.on_selection_changed)
         self._load_plugin_list()
-        self.list.get_selection().select_path((0,))
+        selection.select_path((0,))
 
     def _load_plugin_list(self):
         """
             Loads the plugin list
         """
         plugins = self.plugins.list_installed_plugins()
-
         plugins_list = []
+
         for plugin in plugins:
             try:
                 info = self.plugins.get_plugin_info(plugin)
             except IOError:
                 continue
             enabled = plugin in self.plugins.enabled_plugins
-            plugins_list.append((info['Name'], info['Version'], enabled,
-                plugin))
-        plugins_list.sort(key=lambda x: locale.strxfrm(x[0]))
+            plugins_list.append((plugin, info['Name'], info['Version'], enabled))
+
+        plugins_list.sort(key=lambda x: locale.strxfrm(x[1]))
 
         self.list.set_model(None)
         self.model.clear()
@@ -87,45 +92,14 @@ class PluginManager(object):
 
         self.list.set_model(self.model)
 
-    def _setup_tree(self):
+    def on_messagebar_response(self, widget, response):
         """
-            Sets up the tree view for plugins
+            Hides the messagebar if requested
         """
-        text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_('Plugin'), text, text=0)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        col.set_fixed_width(1)
-        col.set_expand(True)
+        if response == gtk.RESPONSE_CLOSE:
+            widget.hide()
 
-        self.list.append_column(col)
-
-        text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_('Version'), text, text=1)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
-
-        self.list.append_column(col)
-
-        text = gtk.CellRendererToggle()
-        text.set_property('activatable', True)
-        text.connect('toggled', self.toggle_cb, self.model)
-        col = gtk.TreeViewColumn(_('Enabled'), text)
-        col.add_attribute(text, 'active', 2)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
-        self.list.append_column(col)
-
-        selection = self.list.get_selection()
-        selection.connect('changed', self.row_selected)
-
-    def _connect_signals(self):
-        """
-            Connects signals
-        """
-        self.builder.connect_signals({
-            'on_install_plugin_button_clicked': lambda *e:
-                self.choose_plugin_dialog(),
-        })
-
-    def choose_plugin_dialog(self):
+    def on_install_plugin_button_clicked(self, button):
         """
             Shows a dialog allowing the user to choose a plugin to install
             from the filesystem
@@ -134,8 +108,9 @@ class PluginManager(object):
             self.preferences.parent,
             buttons=(
                 gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                gtk.STOCK_ADD, gtk.RESPONSE_OK)
+                gtk.STOCK_ADD, gtk.RESPONSE_OK
             )
+        )
 
         filter = gtk.FileFilter()
         filter.set_name(_('Plugin Archives'))
@@ -151,62 +126,73 @@ class PluginManager(object):
 
         result = dialog.run()
         dialog.hide()
+
         if result == gtk.RESPONSE_OK:
             try:
                 self.plugins.install_plugin(dialog.get_filename())
             except plugins.InvalidPluginError, e:
-                commondialogs.error(self.builder.get_object('PreferencesDialog'), e.message)
+                self.message.set_message_type(gtk.MESSAGE_ERROR)
+                self.message.set_text(_('Plugin file installation failed!'))
+                self.message.set_secondary_text(e.message)
+                self.message.show()
+
                 return
 
             self._load_plugin_list()
 
-    def row_selected(self, selection, user_data=None):
+    def on_selection_changed(self, selection, user_data=None):
         """
             Called when a row is selected
         """
-        (model, iter) = selection.get_selected()
-        if not iter: return
+        model, paths = selection.get_selected_rows()
+        if not paths:
+            return
 
-        pluginname = model.get_value(iter, 3)
-        info = self.plugins.get_plugin_info(pluginname)
+        row = model[paths[0]]
+
+        info = self.plugins.get_plugin_info(row[0])
+
         self.author_label.set_label(",\n".join(info['Authors']))
+
         self.description.get_buffer().set_text(
             info['Description'].replace(r'\n', "\n"))
-        self.name_label.set_markup("<b>%s</b>" % info['Name'])
-        (model, iter) = selection.get_selected()
-        pluginname = model.get(iter, 2)[0]
-        #if self.__configure_available(pluginname):
-        #    self.configure_button.set_sensitive(True)
-        #else:
-        #    self.configure_button.set_sensitive(False)
 
-    def toggle_cb(self, cell, path, model):
+        self.name_label.set_markup("<b>%s</b>" % info['Name'])
+
+    def on_enabled_cellrenderer_toggled(self, cellrenderer, path):
         """
             Called when the checkbox is toggled
         """
-        plugin = model[path][3]
-        enable = not model[path][2]
+        plugin = self.model[path][0]
+        enable = not self.model[path][3]
 
         if enable:
             try:
                 self.plugins.enable_plugin(plugin)
             except Exception, e:
-                commondialogs.error(self.builder.get_object('PreferencesDialog'),
-                    _('<b>Could not enable plugin:</b>\n%(reason)s') % {'reason': str(e)})
+                self.message.set_message_type(gtk.MESSAGE_ERROR)
+                self.message.set_text(_('Could not enable plugin!'))
+                self.message.set_secondary_text(str(e))
+                self.message.show()
+
                 return
         else:
             try:
                 self.plugins.disable_plugin(plugin)
             except Exception, e:
-                commondialogs.error(self.builder.get_object('PreferencesDialog'),
-                    _('<b>Could not disable plugin:</b>\n%(reason)s') % {'reason': str(e)})
+                self.message.set_message_type(gtk.MESSAGE_ERROR)
+                self.message.set_text(_('Could not disable plugin!'))
+                self.message.set_secondary_text(str(e))
+                self.message.show()
+
                 return
 
         if hasattr(self.plugins.loaded_plugins[plugin],
             'get_preferences_pane'):
             self.preferences._load_plugin_pages()
-        model[path][2] = enable
-        self.row_selected(self.list.get_selection())
+
+        self.model[path][3] = enable
+        self.selection_changed(self.list.get_selection())
 
 def init(preferences, xml):
     manager = PluginManager(preferences, xml)

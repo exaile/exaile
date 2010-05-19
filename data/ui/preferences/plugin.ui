@@ -2,14 +2,24 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkListStore" id="model">
+    <columns>
+      <!-- column-name plugin -->
+      <column type="PyObject"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+      <!-- column-name version -->
+      <column type="gchararray"/>
+      <!-- column-name enabled -->
+      <column type="gboolean"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="preferences_window">
     <child>
       <object class="GtkVBox" id="preferences_pane">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
-        <child>
-          <placeholder/>
-        </child>
+        <property name="spacing">6</property>
         <child>
           <object class="GtkNotebook" id="plugin_notebook">
             <property name="visible">True</property>
@@ -32,7 +42,47 @@
                       <object class="GtkTreeView" id="plugin_tree">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="model">model</property>
                         <property name="enable_search">False</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="name_column">
+                            <property name="sizing">fixed</property>
+                            <property name="title">Plugin</property>
+                            <property name="expand">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                              <attributes>
+                                <attribute name="text">1</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="version_column">
+                            <property name="sizing">autosize</property>
+                            <property name="title">Version</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="cellrenderertext2"/>
+                              <attributes>
+                                <attribute name="text">2</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="enabled_column">
+                            <property name="sizing">autosize</property>
+                            <property name="title">Enabled</property>
+                            <child>
+                              <object class="GtkCellRendererToggle" id="enabled_cellrenderer">
+                                <signal name="toggled" handler="on_enabled_cellrenderer_toggled"/>
+                              </object>
+                              <attributes>
+                                <attribute name="active">3</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -99,8 +149,10 @@
                         <child type="label">
                           <object class="GtkLabel" id="name_label">
                             <property name="visible">True</property>
-                            <property name="label" translatable="yes">&lt;b&gt;No Plugin Selected&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
+                            <property name="label" translatable="yes">No Plugin Selected</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
                           </object>
                         </child>
                       </object>
@@ -678,31 +730,18 @@
             </child>
           </object>
           <packing>
-            <property name="position">1</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox7">
+          <object class="GtkHButtonBox" id="hbuttonbox1">
             <property name="visible">True</property>
-            <property name="border_width">5</property>
-            <property name="spacing">3</property>
-            <child>
-              <object class="GtkLabel" id="label5">
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
+            <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="install_plugin_button">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Install a third party plugin from a file</property>
                 <signal name="clicked" handler="on_install_plugin_button_clicked"/>
                 <child>
                   <object class="GtkHBox" id="hbox2">
@@ -732,14 +771,13 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">2</property>
+                <property name="position">0</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">2</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>

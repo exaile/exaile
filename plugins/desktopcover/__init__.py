@@ -79,15 +79,16 @@ class DesktopCover(gtk.Window):
         self._fade_out_id = None
         self._cross_fade_id = None
         self._cross_fade_step = 0
+        self._events = [
+            'playback_track_start',
+            'playback_player_end',
+            'cover_set',
+            'cover_removed',
+            'option_set'
+        ]
 
-        event.add_callback(self.on_playback_player_start,
-            'playback_player_start')
-        event.add_callback(self.on_playback_track_start,
-            'playback_track_start')
-        event.add_callback(self.on_playback_player_end,
-            'playback_player_end')
-        event.add_callback(self.on_option_set,
-            'option_set')
+        for e in self._events:
+            event.add_callback(getattr(self, 'on_%s' % e), e)
 
         try:
             exaile = main.exaile()
@@ -100,14 +101,8 @@ class DesktopCover(gtk.Window):
         """
             Cleanups
         """
-        event.remove_callback(self.on_option_set,
-            'option_set')
-        event.remove_callback(self.on_playback_player_end,
-            'playback_player_end')
-        event.remove_callback(self.on_playback_track_start,
-            'playback_track_start')
-        event.remove_callback(self.on_playback_player_start,
-            'playback_player_start')
+        for e in self._events:
+            event.remove_callback(getattr(self, 'on_%s' % e), e)
 
         gtk.Window.destroy(self)
 
@@ -138,7 +133,6 @@ class DesktopCover(gtk.Window):
                 int(duration), self.cross_fade, pixbuf, duration)
         else:
             self.image.set_from_pixbuf(pixbuf)
-            self.show_all()
 
         width = pixbuf.get_width()
         height = pixbuf.get_height()
@@ -280,12 +274,6 @@ class DesktopCover(gtk.Window):
         
         return False
 
-    def on_playback_player_start(self, type, player, track):
-        """
-            Shows the window
-        """
-        self.show()
-
     def on_playback_track_start(self, type, player, track):
         """
             Updates the cover image and shows the window
@@ -296,6 +284,19 @@ class DesktopCover(gtk.Window):
     def on_playback_player_end(self, type, player, track):
         """
             Hides the window at the end of playback
+        """
+        self.hide()
+
+    def on_cover_set(self, type, covers, track):
+        """
+           Updates the cover image after cover selection
+        """
+        self.set_cover_from_track(track)
+        self.update_position()
+
+    def on_cover_removed(self, type, covers, track):
+        """
+            Hides the window after cover removal
         """
         self.hide()
 

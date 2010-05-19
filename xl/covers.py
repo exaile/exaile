@@ -243,6 +243,7 @@ class CoverManager(providers.ProviderHandler):
         if key:
             self.db[key] = db_string
             self.__set_save_timeout()
+            event.log_event('cover_set', self, track)
 
     def remove_cover(self, track):
         """
@@ -256,6 +257,7 @@ class CoverManager(providers.ProviderHandler):
             del self.db[key]
             self.__cache.remove(db_string)
             self.__set_save_timeout()
+            event.log_event('cover_removed', self, track)
 
     def get_cover(self, track, save_cover=True, set_only=False,
             use_default=False):

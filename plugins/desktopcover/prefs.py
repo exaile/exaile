@@ -19,27 +19,46 @@ from xlgui.preferences import widgets
 from xl.nls import gettext as _
 
 name = _('Desktop Cover')
-_basedir = os.path.dirname(os.path.realpath(__file__))
-ui = os.path.join(_basedir, "prefs.ui")
-
-_SETTINGS_PREFIX = 'plugin/desktopcover/'
+basedir = os.path.dirname(os.path.realpath(__file__))
+ui = os.path.join(basedir, "prefs.ui")
 
 class AnchorPreference(widgets.ComboPreference):
-    default = 0
-    name = _SETTINGS_PREFIX + 'anchor'
-    def __init__(self, prefs, widget):
-        widgets.ComboPreference.__init__(self, prefs, widget, use_index=True)
+    default = 'topleft'
+    name = 'plugin/desktopcover/anchor'
 
 class XPreference(widgets.SpinPreference):
     default = 0
-    name = _SETTINGS_PREFIX + 'x'
+    name = 'plugin/desktopcover/x'
 
 class YPreference(widgets.SpinPreference):
     default = 0
-    name = _SETTINGS_PREFIX + 'y'
+    name = 'plugin/desktopcover/y'
 
-class SizePreference(widgets.SpinPreference):
+class OverrideSizePreference(widgets.CheckPreference):
+    default = False
+    name = 'plugin/desktopcover/override_size'
+
+class SizePreference(widgets.SpinPreference, widgets.CheckConditional):
     default = 200
-    name = _SETTINGS_PREFIX + 'size'
+    name = 'plugin/desktopcover/size'
+    condition_preference_name = 'plugin/desktopcover/override_size'
+
+    def __init__(self, preferences, widget):
+        widgets.SpinPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
+
+class FadingPreference(widgets.CheckPreference):
+    default = False
+    name = 'plugin/desktopcover/fading'
+
+class FadingDurationPreference(widgets.SpinPreference,
+        widgets.CheckConditional):
+    default = 50
+    name = 'plugin/desktopcover/fading_duration'
+    condition_preference_name = 'plugin/desktopcover/fading'
+
+    def __init__(self, preferences, widget):
+        widgets.SpinPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
 
 # vi: et sts=4 sw=4 tw=80

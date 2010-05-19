@@ -15,195 +15,299 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import gobject, gtk
-from xl import event, settings
+import gobject
+import gtk
+
+from xl import (
+    common,
+    covers,
+    event,
+    main,
+    settings
+)
 from xl.nls import gettext as _
-from xlgui import guiutil
+from xlgui import (
+    guiutil,
+    icons
+)
+
 import prefs
 
-
-class CoverDisplay:
-    DEFAULT_SETTINGS = dict(x=0, y=0, width=200, height=200,
-        gravity=gtk.gdk.GRAVITY_NORTH_WEST)
-    GRAVITY_SIGNS = {
-        gtk.gdk.GRAVITY_NORTH_WEST: ('+', '+'),
-        gtk.gdk.GRAVITY_NORTH_EAST: ('-', '+'),
-        gtk.gdk.GRAVITY_SOUTH_WEST: ('+', '-'),
-        gtk.gdk.GRAVITY_SOUTH_EAST: ('-', '-'),
-    }
-
-    def __init__(self, settings=None):
-        self.window = wnd = gtk.Window()
-        wnd.set_accept_focus(False)
-        wnd.set_decorated(False)
-        #wnd.set_keep_below(True)
-        wnd.set_resizable(False)
-        wnd.set_role('desktopcover')
-        wnd.set_skip_pager_hint(True)
-        wnd.set_skip_taskbar_hint(True)
-        wnd.set_title("")
-        #wnd.stick()
-
-        if settings is None:
-            self.settings = self.DEFAULT_SETTINGS.copy()
-        else:
-            self.settings = settings
-        self.cover = None
-        self.set_use_image_size()
-        self.set_keep_center()
-
-        self.image = img = gtk.Image()
-        wnd.add(img)
-        img.show()
-
-    def set_keep_center(self, keep_center=False):
-        self.keep_center = keep_center
-        #~ gtk_do_events()
-        if keep_center:
-            self.window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
-        else:
-            self.window.set_position(gtk.WIN_POS_NONE)
-            self.set_position()
-
-    def set_gravity(self, gravity=None):
-        #~ gtk_do_events()
-        if gravity is None:
-            gravity = self.settings['gravity']
-        else:
-            self.settings['gravity'] = gravity
-        self.window.set_gravity(gravity)
-        return gravity
-
-    def set_position(self, x=None, y=None, force=False):
-        settings = self.settings
-        if x is None or y is None:
-            x = settings['x']
-            y = settings['y']
-        else:
-            settings['x'] = x
-            settings['y'] = y
-
-        #~ gtk_do_events()
-        if not self.keep_center and (force or self.window.props.visible):
-            gravity = self.set_gravity()
-            xsgn, ysgn = self.GRAVITY_SIGNS[gravity]
-            #~ gtk_do_events()
-            #~ self.window.parse_geometry('%s%s%s%s' % (xsgn, x, ysgn, y))
-            width, height = self.window.get_size()
-            if xsgn == '-':
-                x = gtk.gdk.screen_get_default().get_width() - width - x
-            if ysgn == '-':
-                y = gtk.gdk.screen_get_default().get_height() - height - y
-            self.window.move(int(x), int(y))
-
-    def set_use_image_size(self, use_image_size=False):
-        self.use_image_size = use_image_size
-
-    def set_size(self, width, height):
-        settings = self.settings
-        settings['width'] = width
-        settings['height'] = height
-        self.display(self.cover)
-
-    def display(self, cover):
-        if self.cover != cover:
-            self.cover = cover
-            gobject.timeout_add_seconds(1, self._display, cover)
-
-    def _display(self, cover):
-        # Only process the last request.
-        if cover != self.cover: return True
-
-        if cover is None:
-            self.image.clear()
-            #~ gtk_do_events()
-            self.window.hide()
-            return
-
-        width = cover.get_width()
-        height = cover.get_height()
-        if not self.use_image_size:
-            settings = self.settings
-            origw = float(width)
-            origh = float(height)
-            width, height = settings['width'], settings['height']
-            scale = min(width / origw, height / origh)
-            width = int(origw * scale)
-            height = int(origh * scale)
-            cover = cover.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
-        self.image.set_from_pixbuf(cover)
-
-        wnd = self.window
-        self.set_position(force=True)
-        #~ gtk_do_events()
-        if not wnd.props.visible:
-            wnd.show()
-            #~ gtk_do_events()
-            # May be reset by the WM.
-            wnd.set_keep_below(True)
-            wnd.stick()
-
-        return False # Stop GLib timeout.
-
-    def destroy(self):
-        self.window.destroy()
-
-
-SETTINGS_PREFIX = 'plugin/desktopcover/'
-GRAVITIES = [
-    gtk.gdk.GRAVITY_NORTH_WEST,
-    gtk.gdk.GRAVITY_NORTH_EAST,
-    gtk.gdk.GRAVITY_SOUTH_WEST,
-    gtk.gdk.GRAVITY_SOUTH_EAST,
-]
-
-class SettingsBridge:
-    settings_map = dict(width='size', height='size', gravity='anchor')
-    def __getitem__(self, key):
-        settings_key = self.settings_map.get(key, key)
-        default = CoverDisplay.DEFAULT_SETTINGS[key]
-        if key == 'gravity':
-            default = GRAVITIES.index(default)
-        value = settings.get_option(SETTINGS_PREFIX + settings_key, default)
-        if key == 'gravity':
-            value = GRAVITIES[value]
-        return value
-
-cover_display = None
-cover_connection = None
-cover_widget = None
+DESKTOPCOVER = None
 
 def enable(exaile):
-    if exaile.loading:
-        event.add_callback(_enable, 'gui_loaded')
-    else:
-        _enable(None, exaile, None)
+    """
+        Enables the mini mode plugin
+    """
+    global DESKTOPCOVER
+    DESKTOPCOVER = DesktopCover()
 
 def disable(exaile):
-    global cover_display, cover_connection
-    if cover_widget:
-        cover_widget.disconnect(cover_connection)
-        cover_connection = None
-    cover_display.destroy()
-    cover_display = None
+    """
+        Disables the mini mode plugin
+    """
+    global DESKTOPCOVER
+    del DESKTOPCOVER
 
 def get_preferences_pane():
     return prefs
 
-@guiutil.idle_add()
-def _enable(eventname, exaile, nothing):
-    global cover_display, cover_connection, cover_widget
+class DesktopCover(gtk.Window):
+    gravity_map = {
+        'topleft': gtk.gdk.GRAVITY_NORTH_WEST,
+        'topright': gtk.gdk.GRAVITY_NORTH_EAST,
+        'bottomleft': gtk.gdk.GRAVITY_SOUTH_WEST,
+        'bottomright': gtk.gdk.GRAVITY_SOUTH_EAST
+    }
 
-    cover_display = CoverDisplay(settings=SettingsBridge())
-    cover_widget = exaile.gui.main.cover
+    def __init__(self):
+        gtk.Window.__init__(self)
 
-    player = exaile.player
-    if player.current and (player.is_playing() or player.is_paused()):
-        # FIXME: This will display the default image if the plugin is enabled
-        # while playing a song without cover.
-        cover_display.display(cover_widget.image.get_pixbuf())
-    cover_connection = cover_widget.connect('cover-found',
-        lambda w, c: cover_display.display(c))
+        self.image = gtk.Image()
+        self.add(self.image)
+        self.image.show()
 
+        self.set_accept_focus(False)
+        self.set_decorated(False)
+        self.set_resizable(False)
+        self.set_role("desktopcover")
+        self.set_skip_pager_hint(True)
+        self.set_skip_taskbar_hint(True)
+        self.set_title("Exaile desktop cover")
+        self._fade_in_id = None
+        self._fade_out_id = None
+        self._cross_fade_id = None
+        self._cross_fade_step = 0
+
+        event.add_callback(self.on_playback_player_start, 'playback_player_start')
+        event.add_callback(self.on_playback_track_start, 'playback_track_start')
+        event.add_callback(self.on_playback_player_end, 'playback_player_end')
+        event.add_callback(self.on_option_set, 'option_set')
+
+        try:
+            exaile = main.exaile()
+        except AttributeError:
+            event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
+        else:
+            self.on_exaile_loaded('exaile_loaded', exaile, None)
+
+    def set_cover_from_track(self, track):
+        """
+            Updates the cover image and triggers cross-fading
+        """
+        cover_data = covers.MANAGER.get_cover(track)
+
+        if cover_data is None:
+            self.hide()
+            return
+
+        size = settings.get_option('plugin/desktopcover/size', 200)
+        upscale = settings.get_option('plugin/desktopcover/override_size')
+        pixbuf = icons.MANAGER.pixbuf_from_data(
+            cover_data, size=(size, size), upscale=upscale)
+        fading = settings.get_option('plugin/desktopcover/fading', False)
+
+        if fading and self._cross_fade_id is None:
+            duration = settings.get_option(
+                'plugin/desktopcover/fading_duration', 50)
+            self._cross_fade_id = gobject.timeout_add(
+                int(duration), self.cross_fade, pixbuf, duration)
+        else:
+            self.image.set_from_pixbuf(pixbuf)
+
+        width = pixbuf.get_width()
+        height = pixbuf.get_height()
+        self.set_size_request(width, height)
+
+    def update_position(self):
+        """
+            Updates the position based
+            on gravity and offsets
+        """
+        gravity = settings.get_option('plugin/desktopcover/anchor', 'topleft')
+
+        # Try to migrate old integer gravitys
+        if gravity not in self.gravity_map:
+            gravities = self.gravity_map.keys()
+            
+            try:
+                gravity = self.gravity_map[gravities[gravity]]
+            except IndexError:
+                gravity = 'topleft'
+
+        self.set_gravity(self.gravity_map[gravity])
+
+        x = settings.get_option('plugin/desktopcover/x', 0)
+        y = settings.get_option('plugin/desktopcover/y', 0)
+
+        gravity = self.get_gravity()
+        allocation = self.get_allocation()
+
+        if gravity in (gtk.gdk.GRAVITY_NORTH_EAST,
+                gtk.gdk.GRAVITY_SOUTH_EAST):
+            workarea_width = guiutil.get_workarea_size()[0]
+            x = workarea_width - allocation.width - x
+
+        if gravity in (gtk.gdk.GRAVITY_SOUTH_EAST,
+                gtk.gdk.GRAVITY_SOUTH_WEST):
+            workarea_height = guiutil.get_workarea_size()[1]
+            y = workarea_height - allocation.height - y
+
+        self.move(int(x), int(y))
+
+    def show(self):
+        """
+            Override to ensure WM hints and fade-in
+        """
+        self.set_keep_below(True)
+        self.stick()
+
+        fading = settings.get_option('plugin/desktopcover/fading', False)
+
+        if fading and self._fade_in_id is None:
+            self.set_opacity(0)
+
+        gtk.Window.show(self)
+
+        if fading and self._fade_in_id is None:
+            duration = settings.get_option(
+                'plugin/desktopcover/fading_duration', 50)
+            self._fade_in_id = gobject.timeout_add(
+                int(duration), self.fade_in)
+
+    def hide(self):
+        """
+            Override for fade-out
+        """
+        fading = settings.get_option('plugin/desktopcover/fading', False)
+
+        if fading and self._fade_out_id is None:
+            duration = settings.get_option(
+                'plugin/desktopcover/fading_duration', 50)
+            self._fade_out_id = gobject.timeout_add(
+                int(duration), self.fade_out)
+        else:
+            gtk.Window.hide(self)
+            self.image.set_from_pixbuf(None)
+
+    def fade_in(self):
+        """
+            Increases opacity until completely opaque
+        """
+        opacity = self.get_opacity()
+
+        if opacity == 1:
+            self._fade_in_id = None
+
+            return False
+
+        self.set_opacity(opacity + 0.1)
+
+        return True
+
+    def fade_out(self):
+        """
+            Decreases opacity until transparent
+        """
+        opacity = self.get_opacity()
+
+        if opacity == 0:
+            gtk.Window.hide(self)
+            self.image.set_from_pixbuf(None)
+            self._fade_out_id = None
+
+            return False
+
+        self.set_opacity(opacity - 0.1)
+
+        return True
+
+    def cross_fade(self, next_pixbuf, duration):
+        """
+            Fades between two cover images
+
+            :param next_pixbuf: the cover image pixbuf to fade to
+            :type next_pixbuf: :class:`gtk.gdk.Pixbuf`
+            :param duration: the overall time for the fading
+            :type duration: int
+        """
+        if self._cross_fade_step < duration:
+            pixbuf = self.image.get_pixbuf()
+
+            if pixbuf is None:
+                self.image.set_from_pixbuf(next_pixbuf)
+
+                return False
+
+            alpha = (255.0 / duration) * self._cross_fade_step
+
+            next_pixbuf.composite(
+                dest=pixbuf,
+                dest_x=0, dest_y=0,
+                dest_width=pixbuf.get_width(),
+                dest_height=pixbuf.get_height(),
+                offset_x=0, offset_y=0,
+                scale_x=1, scale_y=1,
+                interp_type=gtk.gdk.INTERP_BILINEAR,
+                overall_alpha=int(alpha)
+            )
+
+            self.image.queue_draw()
+            self._cross_fade_step += 1
+
+            return True
+
+        self._cross_fade_id = None
+        self._cross_fade_step = 0
+        
+        return False
+
+    def on_playback_player_start(self, type, player, track):
+        """
+            Shows the window
+        """
+        print 'GOT HERE'
+        self.set_cover_from_track(track)
+        self.update_position()
+        self.show()
+
+    def on_playback_track_start(self, type, player, track):
+        """
+            Updates the cover image and shows the window
+        """
+        self.set_cover_from_track(track)
+        self.update_position()
+
+    def on_playback_player_end(self, type, player, track):
+        """
+            Hides the window at the end of playback
+        """
+        self.hide()
+
+    def on_option_set(self, type, settings, option):
+        """
+            Updates the appearance
+        """
+        if option in ('plugin/desktopcover/anchor',
+                'plugin/desktopcover/x',
+                'plugin/desktopcover/y'):
+            self.update_position()
+        elif option in ('plugin/desktopcover/override_size',
+                'plugin/desktopcover/size'):
+            self.set_cover_from_track(self.player.current)
+
+    def on_exaile_loaded(self, e, exaile, nothing):
+        """
+            Sets up references after controller is loaded
+        """
+        self.player = exaile.player
+
+        if self.player.current is not None:
+            self.set_cover_from_track(self.player.current)
+            self.update_position()
+            self.set_opacity(0)
+            self.show()
+
+        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
 # vi: et sts=4 sw=4 tw=80

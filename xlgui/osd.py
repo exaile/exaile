@@ -62,7 +62,6 @@ class OSDWindow(object):
         self.draggable = draggable
         self.player = player
         self.progress_widget = None
-        self._settings = settings
         self.setup_osd()
         self._handler = None
         self._timeout = None
@@ -84,7 +83,7 @@ class OSDWindow(object):
         self.window = self.builder.get_object('OSDWindow')
 
         self.color = gtk.gdk.color_parse(
-                self._settings.get_option('osd/bg_color', '#567ea2'))
+                settings.get_option('osd/bg_color', '#567ea2'))
         self.event = self.builder.get_object('osd_event_box')
         self.box = self.builder.get_object('image_box')
 
@@ -93,8 +92,8 @@ class OSDWindow(object):
         self.cover_widget = CoverWidget()
  
         self.cover_widget.set_image_size(
-            self._settings.get_option('osd/h', 95) - 8,
-            self._settings.get_option('osd/h', 95) - 8)
+            settings.get_option('osd/h', 95) - 8,
+            settings.get_option('osd/h', 95) - 8)
 
         if self.player:
             self.progress_widget = PlaybackProgressBar(self.progress,
@@ -124,19 +123,19 @@ class OSDWindow(object):
 
         self.title = self.builder.get_object('osd_title_label')
         text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
-            (self._settings.get_option('osd/text_font', 'Sans 11'),
-            self._settings.get_option('osd/text_color', '#ffffff'),
-            self._settings.get_option('osd/display_text',
+            (settings.get_option('osd/text_font', 'Sans 11'),
+            settings.get_option('osd/text_color', '#ffffff'),
+            settings.get_option('osd/display_text',
                 "<b>{title}</b>\n{artist}\non {album} - {length}"))
         self.title.set_markup(text)
         self.text = text
 
         self.window.set_size_request(
-            self._settings.get_option('osd/w', 400),
-            self._settings.get_option('osd/h', 95))
+            settings.get_option('osd/w', 400),
+            settings.get_option('osd/h', 95))
         self.window.move(
-            self._settings.get_option('osd/x', 0),
-            self._settings.get_option('osd/y', 0))
+            settings.get_option('osd/x', 0),
+            settings.get_option('osd/y', 0))
 
         self.event.connect('button_press_event', self.start_dragging)
         self.event.connect('button_release_event', self.stop_dragging)
@@ -150,7 +149,7 @@ class OSDWindow(object):
             event.area.width, event.area.height)
         cr.clip()
 
-        opacity = int(self._settings.get_option('osd/opacity', 75))
+        opacity = int(settings.get_option('osd/opacity', 75))
 
         cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0,
                 self.color.blue/65535.0, opacity/100.0)
@@ -182,7 +181,7 @@ class OSDWindow(object):
                             ('osd/y', int(y)),
                             ('osd/h', int(h)),
                             ('osd/w', int(w))):
-            self._settings.set_option(key, val)
+            settings.set_option(key, val)
 
     def dragging(self, widget, event):
         """
@@ -196,7 +195,7 @@ class OSDWindow(object):
 
     def show(self, track, timeout=None):
         if timeout is None:
-            timeout = int(self._settings.get_option('osd/duration',4000))
+            timeout = int(settings.get_option('osd/duration',4000))
         if track:
             self.cover_widget.get_cover(track)
             text = self.text.replace('&', '&amp;')
@@ -223,8 +222,8 @@ class OSDWindow(object):
             text = text.replace("\\}", "}")
         else: text = _("No track")
         text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
-            (self._settings.get_option('osd/text_font', 'Sans 11'),
-            self._settings.get_option('osd/text_color', '#ffffff'),
+            (settings.get_option('osd/text_font', 'Sans 11'),
+            settings.get_option('osd/text_color', '#ffffff'),
                 text)
         self.title.set_markup(text)
 
@@ -236,6 +235,6 @@ class OSDWindow(object):
             self._timeout = gobject.timeout_add(timeout, self.hide)
 
     def hide_progress(self, *args):
-        if not self._settings.get_option('osd/show_progress', True):
+        if not settings.get_option('osd/show_progress', True):
             self.progress.hide_all()
 

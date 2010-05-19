@@ -24,10 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glob
-import os
 import cairo
+import glob
+import gobject
 import gtk
+import os
 import pango
 
 class IconManager(object):
@@ -250,8 +251,11 @@ class IconManager(object):
             :type upscale: bool
 
             :returns: the generated pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :rtype: :class:`gtk.gdk.Pixbuf` or None
         """
+        if not data:
+            return None
+
         def on_size_prepared(loader, width, height):
             """
                 Keeps the ratio if requested
@@ -276,8 +280,11 @@ class IconManager(object):
 
         loader = gtk.gdk.PixbufLoader()
         loader.connect('size-prepared', on_size_prepared)
-        loader.write(data)
-        loader.close()
+        try:
+            loader.write(data)
+            loader.close()
+        except gobject.GError:
+            return None
 
         return loader.get_pixbuf()
 

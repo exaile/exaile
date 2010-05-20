@@ -244,8 +244,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.view.set_model(self.model)
 
         for idx, col in enumerate(self.model.columns):
-            if idx < 1: # Data object column (track)
-                continue
+            idx += 1 # offset for pixbuf column
             plcol = plcolumns.COLUMNS[col](self)
             gcol = plcol.get_column(idx)
             self.view.append_column(gcol)

@@ -27,10 +27,16 @@
 import gtk, gobject, pango
 import collections
 import os
+import random
+
 from xl.nls import gettext as _
-from xl import event, common, trax, formatter
+from xl import event, common, trax, formatter, settings
 from xlgui import guiutil, icons
 import plcolumns
+
+import logging
+logger = logging.getLogger(__name__)
+
 
 WINDOW = None
 
@@ -216,6 +222,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         for child in plpage.get_children():
             plpage.remove(child)
 
+        build.connect_signals(self)
+
         self.plwin = build.get_object("playlist_window")
         self.controls = build.get_object("controls_box")
         self.pack_start(self.plwin, True, True, padding=2)
@@ -226,7 +234,6 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.shuffle_button = build.get_object("shuffle_button")
         self.repeat_button = build.get_object("repeat_button")
         self.dynamic_button = build.get_object("dynamic_button")
-
 
         self.model = PlaylistModel(playlist, self.default_columns)
         self.view.set_rules_hint(True)
@@ -244,6 +251,12 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.view.connect("drag-drop", self.on_drag_drop)
 
         self.view.connect("row-activated", self.on_row_activated)
+
+        event.add_callback(self.on_shuffle_mode_changed, 
+                "playlist_shuffle_mode_changed", self.playlist)
+
+        event.add_callback(self.on_repeat_mode_changed, 
+                "playlist_repeat_mode_changed", self.playlist)
 
         self.show_all()
 
@@ -290,6 +303,67 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.exaile.queue.set_current_playlist(self.playlist)
 
 
+    def on_shuffle_button_press_event(self, widget, event):
+        self.__show_toggle_menu(Playlist.shuffle_modes,
+                Playlist.shuffle_mode_names, self.on_shuffle_mode_set,
+                'shuffle_mode', widget, event)
+
+    def on_repeat_button_press_event(self, widget, event):
+        self.__show_toggle_menu(Playlist.repeat_modes,
+                Playlist.repeat_mode_names, self.on_repeat_mode_set,
+                'repeat_mode', widget, event)
+
+    def on_dynamic_button_toggled(self, widget):
+        pass
+
+    def __show_toggle_menu(self, names, display_names, callback, attr,
+            widget, event):
+        widget.set_active(True)
+        menu = gtk.Menu()
+        prev = None
+        mode = getattr(self.playlist, attr)
+        for name, disp in zip(names, display_names):
+            item = gtk.RadioMenuItem(prev, disp)
+            if name == mode:
+                item.set_active(True)
+            item.connect('activate', callback, name)
+            menu.append(item)
+            if prev is None:
+                menu.append(gtk.SeparatorMenuItem())
+            prev = item
+        menu.show_all()
+        menu.popup(None, None, self.mode_menu_set_pos,
+                event.button, event.time, widget)
+        menu.reposition()
+
+    def mode_menu_set_pos(self, menu, button):
+        """
+            Nicely position the shuffle/repeat popup menu with the button's corner
+        """
+        w = self.window.get_position()
+        b = button.get_allocation()
+        m = menu.get_allocation()
+        pos = (w[0]+b.x+1, w[1]+b.y-m.height-1)
+        return (pos[0], pos[1], True)
+
+    def on_shuffle_mode_set(self, widget, mode):
+        self.playlist.shuffle_mode = mode
+
+    def on_shuffle_mode_changed(self, evtype, playlist, mode):
+        if mode == 'disabled':
+            self.shuffle_button.set_active(False)
+        else:
+            self.shuffle_button.set_active(True)
+
+    def on_repeat_mode_set(self, widget, mode):
+        self.playlist.repeat_mode = mode
+
+    def on_repeat_mode_changed(self, evtype, playlist, mode):
+        if mode == 'disabled':
+            self.repeat_button.set_active(False)
+        else:
+            self.repeat_button.set_active(True)
+
 
     ### needed for DragTreeView ###
 
@@ -320,14 +394,12 @@ class PlaylistModel(gtk.GenericTreeModel):
     def __init__(self, playlist, columns):
         gtk.GenericTreeModel.__init__(self)
         self.playlist = playlist
-        self.formatter = formatter.TrackFormatter('')
+        self.columns = columns
 
         event.add_callback(self.on_tracks_added,
                 "playlist_tracks_added", playlist)
         event.add_callback(self.on_tracks_removed,
                 "playlist_tracks_removed", playlist)
-
-        self.columns = columns
 
     def on_get_flags(self):
         return gtk.TREE_MODEL_LIST_ONLY
@@ -388,7 +460,6 @@ class PlaylistModel(gtk.GenericTreeModel):
     def on_iter_parent(self, child):
         return None
 
-
     def on_tracks_added(self, typ, playlist, tracktups):
         for idx, tr in tracktups:
             self.row_inserted((idx,), self.get_iter((idx,)))
@@ -402,37 +473,61 @@ class PlaylistModel(gtk.GenericTreeModel):
         return self.playlist[path[0]]
 
 
+
 class Playlist(object):
+    shuffle_modes = ['disabled', 'track', 'album']
+    shuffle_mode_names = [_('Shuffle Off'),
+            _('Shuffle Tracks'), _('Shuffle Albums')]
+    repeat_modes = ['disabled', 'all', 'track']
+    repeat_mode_names = [_('Repeat Off'), _('Repeat All'), _('Repeat One')]
+    dynamic_modes = ['disabled', 'enabled']
+    dynamic_mode_names = [_('Dynamic Off'), _('Dynamic On')]
     """
-
-
-        EVENTS:
-            playlist_track_added
+        EVENTS: (all events are synchronous)
+            playlist_tracks_added
                 fired: after tracks are added
                 data: list of tuples of (index, track)
-            playlist_track_removed
+            playlist_tracks_removed
                 fired: after tracks are removed
                 data: list of tuples of (index, track)
+            playlist_current_pos_changed
+            playlist_shuffle_mode_changed
+            playlist_random_mode_changed
+            playlist_dynamic_mode_changed
     """
+    save_attrs = ['shuffle_mode', 'repeat_mode', 'dynamic_mode',
+            'current_pos', 'name']
+    __playlist_format_version = [2, 0]
     def __init__(self, name, initial_tracks=[]):
-        # MUST copy here, hence the :
         self.__tracks = []
         for tr in initial_tracks:
             if not isinstance(tr, trax.Track):
                 raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
             self.__tracks.append(tr)
-        self.__random_mode = "disabled"
-        self.__repeat_mode = "disabled"
-        self.__dynamic_mode = "disabled"
+        self.__shuffle_mode = self.shuffle_modes[0]
+        self.__repeat_mode = self.repeat_modes[0]
+        self.__dynamic_mode = self.dynamic_modes[0]
+
+        # dirty: any change that would alter the on-disk
+        #   representation should set this
+        # needs_save: changes to list content should set this.
+        #   Determines when the 'unsaved' indicator is shown to the user.
         self.__dirty = False
+        self.__needs_save = False
         self.__name = name
-        self.__tracks_history = collections.deque()
         self.__current_pos = -1
+
+        # FIXME: this is not ideal since duplicate tracks are not
+        # weighted appropriately when shuffling, however without a
+        # proper api for reordering this is basically impossible to fix.
+        self.__tracks_history = collections.deque()
 
     ### playlist-specific API ###
 
     def _set_name(self, name):
         self.__name = name
+        self.__needs_save = self.__dirty = True
+        event.log_event_sync("playlist_name_changed", self, name)
 
     name = property(lambda self: self.__name, _set_name)
     dirty = property(lambda self: self.__dirty)
@@ -445,7 +540,8 @@ class Playlist(object):
 
     def set_current_pos(self, pos):
         self.__current_pos = pos
-        event.log_event("playlist_current_pos_changed", self, pos)
+        self.__dirty = True
+        event.log_event_sync("playlist_current_pos_changed", self, pos)
 
     current_pos = property(get_current_pos, set_current_pos)
 
@@ -454,35 +550,151 @@ class Playlist(object):
 
     current = property(get_current)
 
+    def __next_random_track(self, mode="track"):
+        """
+            Returns a valid next track if shuffle is activated based
+            on random_mode
+        """
+        if mode == "album":
+            # TODO: we really need proper album-level operations in
+            # xl.trax for this
+            try:
+                # Try and get the next track on the album
+                # NB If the user starts the playlist from the middle
+                # of the album some tracks of the album remain off the
+                # tracks_history, and the album can be selected again
+                # randomly from its first track
+                curr = self.current
+                t = [ x for i, x in enumerate(self) \
+                    if x.get_tag_raw('album') == curr.get_tag_raw('album') \
+                    and i > self.current_pos ]
+                t = trax.sort_tracks(['discnumber', 'tracknumber'], t)
+                return t[0]
+
+            except IndexError: #Pick a new album
+                t = [ x for x in self \
+                        if x not in self.__tracks_history ]
+                albums = []
+                for x in t:
+                    if not x.get_tag_raw('album') in albums:
+                        albums.append(x.get_tag_raw('album'))
+
+                album = random.choice(albums)
+                t = [ x for x in self.ordered_tracks \
+                        if x.get_tag_raw('album') == album ]
+                t = trax.sort_tracks(['tracknumber'], t)
+                return t[0]
+        else:
+            return random.choice([ x for x in self \
+                    if x not in self.__tracks_history])
+
     def next(self):
-        self.current_pos += 1
-        return self.get_current()
+        repeat_mode = self.repeat_mode
+        shuffle_mode = self.shuffle_mode
+        if repeat_mode == 'track':
+            return self.current
+        else:
+            next = None
+            if shuffle_mode != 'disabled':
+                next = self.__next_random_track(shuffle_mode)
+                if next is not None:
+                    self.current_pos = self.index(next)
+            else:
+                try:
+                    next = self[self.current_pos+1]
+                    self.current_pos += 1
+                except IndexError:
+                    next = None
+                    self.current_pos = -1
+
+            if next is not None:
+                self.__tracks_history.append(next)
+            if repeat_mode == 'all':
+                if next is None:
+                    self.__tracks_history = []
+                    if len(self) > 0:
+                        return self.next()
+
+            return next
 
     def prev(self):
-        self.current_pos -= 1
+        repeat_mode = self.repeat_mode
+        shuffle_mode = self.shuffle_mode
+        if repeat_mode == 'track':
+            return self.current
+
+        if random_mode != 'disabled':
+            try:
+                prev = self.tracks_history[-1]
+            except IndexError:
+                return self.get_current()
+            self.tracks_history = self.tracks_history[:-1]
+            self.current_pos = self.index(prev) #FIXME
+        else:
+            pos = self.current_pos - 1
+            if pos < 0:
+                if repeat_mode == 'all':
+                    self.current_pos = len(self) - 1
+                else:
+                    self.current_pos = 0
         return self.get_current()
 
-    def get_random_mode(self):
-        return self.__random_mode
+    ### track advance modes ###
+    # This code may look a little overkill, but it's this way to
+    # maximize forwards-compatibility. get_ methods will not overwrite
+    # currently-set modes which may be from a future version, while set_
+    # methods explicitly disallow modes not supported in this version.
+    # This ensures that 1) saved modes are never clobbered unless a
+    # known mode is to be set, and 2) the values returned in _mode will
+    # always be supported in the running version.
 
-    def set_random_mode(self, mode):
-        pass
+    def get_shuffle_mode(self):
+        if self.__shuffle_mode in self.shuffle_modes:
+            return self.__shuffle_mode
+        else:
+            return self.shuffle_modes[0]
 
-    random_mode = property(get_random_mode, set_random_mode)
+    def set_shuffle_mode(self, mode):
+        if mode not in self.shuffle_modes:
+            raise TypeError, "Shuffle mode %s is invalid" % mode
+        else:
+            if mode == 'disabled':
+                self.__tracks_history = []
+            self.__dirty = True
+            self.__shuffle_mode = mode
+            event.log_event_sync("playlist_shuffle_mode_changed", self, mode)
+
+    shuffle_mode = property(get_shuffle_mode, set_shuffle_mode)
 
     def get_repeat_mode(self):
-        return self.__repeat_mode
+        if self.__repeat_mode in self.repeat_modes:
+            return self.__repeat_mode
+        else:
+            return self.repeat_modes[0]
 
     def set_repeat_mode(self, mode):
-        pass
+        if mode not in self.repeat_modes:
+            raise TypeError, "Repeat mode %s is invalid" % mode
+        else:
+            self.__dirty = True
+            self.__repeat_mode = mode
+            event.log_event_sync("playlist_repeat_mode_changed", self, mode)
 
     repeat_mode = property(get_repeat_mode, set_repeat_mode)
 
     def get_dynamic_mode(self):
-        return self.__dynamic_mode
+        if self.__dynamic_mode in self.dynamic_modes:
+            return self.__dynamic_mode
+        else:
+            return self.dynamic_modes[0]
 
     def set_dynamic_mode(self, mode):
-        pass
+        if mode not in self.dynamic_modes:
+            raise TypeError, "Dynamic mode %s is invalid" % mode
+        else:
+            self.__dirty = True
+            self.__dynamic_mode = mode
+            event.log_event_sync("dynamic_repeat_mode_changed", self, mode)
 
     dynamic_mode = property(get_dynamic_mode, set_dynamic_mode)
 
@@ -500,10 +712,104 @@ class Playlist(object):
     # perhaps?
 
     def save_to_location(self, location):
-        pass
+        if os.path.exists(location):
+            f = open(location + ".new", "w")
+        else:
+            f = open(location, "w")
+        for tr in self.__tracks:
+            buffer = tr.get_loc_for_io()
+            # write track metadata
+            meta = {}
+            items = ('artist', 'album', 'tracknumber',
+                    'title', 'genre', 'date')
+            for item in items:
+                value = tr.get_tag_raw(item)
+                if value is not None:
+                    meta[item] = value[0]
+            buffer += '\t%s\n' % urllib.urlencode(meta)
+            try:
+                f.write(buffer.encode('utf-8'))
+            except UnicodeDecodeError:
+                continue
+
+        f.write("EOF\n")
+        for item in self.save_attrs:
+            val = getattr(self, item)
+            try:
+                strn = settings._SETTINGSMANAGER._val_to_str(val)
+            except ValueError:
+                strn = ""
+
+            f.write("%s=%s\n"%(item,strn))
+        f.close()
+        if os.path.exists(location + ".new"):
+            os.remove(location)
+            os.rename(location + ".new", location)
+        self.__needs_save = self.__dirty = False
 
     def load_from_location(self, location):
-        pass
+        # note - this is not guaranteed to fire events when it sets
+        # attributes. It is intended ONLY for initial setup, not for
+        # realoding a playlist inline.
+        f = None
+        for loc in [location, location+".new"]:
+            try:
+                f = open(loc, 'r')
+                break
+            except:
+                pass
+        if not f:
+            return
+        locs = []
+        while True:
+            line = f.readline()
+            if line == "EOF\n" or line == "":
+                break
+            locs.append(line.strip())
+        items = {}
+        while True:
+            line = f.readline()
+            if line == "":
+                break
+            item, strn = line[:-1].split("=",1)
+            val = settings._SETTINGSMANAGER._str_to_val(strn)
+            items[item] = val
+
+        ver = items.get("__playlist_format_version", [1])
+        if ver[0] == 1:
+            if items.get("repeat_mode") == "playlist":
+                items['repeat_mode'] = "all"
+        elif ver[0] > self.__playlist_format_version[0]:
+            raise IOError, "Cannot load playlist, unknown format"
+        elif ver > self.__playlist_format_version:
+            logger.warning("Playlist created on a newer Exaile version, some attributes may not be handled.")
+        for item, val in items.iteritems():
+            if item in self.save_attrs:
+                setattr(self, item, val)
+        f.close()
+
+        trs = []
+
+        for loc in locs:
+            meta = None
+            if loc.find('\t') > -1:
+                splitted = loc.split('\t')
+                loc = "\t".join(splitted[:-1])
+                meta = splitted[-1]
+
+            tr = None
+            tr = trax.Track(uri=loc)
+
+            # readd meta
+            if not tr: continue
+            if not tr.is_local() and meta is not None:
+                meta = cgi.parse_qs(meta)
+                for k, v in meta.iteritems():
+                    tr.set_tag_raw(k, v[0], notify_changed=False)
+
+            trs.append(tr)
+
+        self.__tracks = trs
 
     ### view API ###
 
@@ -548,11 +854,6 @@ class Playlist(object):
             Get (start, end, step) tuple from slice object.
         """
         (start, end, step) = i.indices(len(self))
-        # Replace (0, -1, 1) with (0, 0, 1) (misfeature in .indices()).
-        #if step == 1:
-        #    if end < start:
-        #        end = start
-        #        step = None
         if i.step == None:
             step = 1
         return (start, end, step)
@@ -586,6 +887,7 @@ class Playlist(object):
             self.__tracks[i] = value
             event.log_event_sync('playlist_tracks_removed', self, [(i, oldtracks)])
             event.log_event_sync('playlist_tracks_added', self, [(i, value)])
+        self.__needs_save = self.__dirty = True
 
     def __delitem__(self, i):
         if isinstance(i, slice):
@@ -599,6 +901,7 @@ class Playlist(object):
         else:
             event.log_event_sync('playlist_tracks_removed', self,
                     [(i, oldtracks)])
+        self.__needs_save = self.__dirty = True
 
     def append(self, other):
         self[len(self):len(self)] = [other]

@@ -76,8 +76,8 @@ class Column(object):
             icon_cellr = gtk.CellRendererPixbuf()
             icon_cellr.set_fixed_size(20, 20)
             icon_cellr.set_property('xalign', 0.0)
-            gcol.pack_start(icon_cellr)
-            gcol.pack_start(cellr)
+            gcol.pack_start(icon_cellr, False)
+            gcol.pack_start(cellr, True)
             gcol.set_fixed_width(int(self.size)+20)
             gcol.set_attributes(icon_cellr, pixbuf=0)
             gcol.set_attributes(cellr, **{self.dataproperty: index})
@@ -92,7 +92,7 @@ class Column(object):
 
 
 class TrackNumberColumn(Column):
-    size = '30'
+    size = 30
     #TRANSLATORS: Title of the track number column
     display = _('#')
     id = 'tracknumber'

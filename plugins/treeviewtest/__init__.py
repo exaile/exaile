@@ -32,7 +32,7 @@ import random
 from xl.nls import gettext as _
 from xl import event, common, trax, formatter, settings
 from xlgui import guiutil, icons
-import plcolumns
+import playlist_columns
 
 import logging
 logger = logging.getLogger(__name__)
@@ -245,7 +245,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
         for idx, col in enumerate(self.model.columns):
             idx += 1 # offset for pixbuf column
-            plcol = plcolumns.COLUMNS[col](self)
+            plcol = playlist_columns.COLUMNS[col](self)
             gcol = plcol.get_column(idx)
             self.view.append_column(gcol)
 
@@ -263,7 +263,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
     def set_cell_weight(self, cell, iter):
         """
-            Called by columns in plcolumns to set a CellRendererText's
+            Called by columns in playlist_columns to set a CellRendererText's
             weight property for the playing track.
         """
         path = self.model.get_path(iter)
@@ -437,7 +437,7 @@ class PlaylistModel(gtk.GenericTreeModel):
         if index == 0:
             return gtk.gdk.Pixbuf
         else:
-            return plcolumns.COLUMNS[self.columns[index-1]].datatype
+            return playlist_columns.COLUMNS[self.columns[index-1]].datatype
 
     def on_get_iter(self, path):
         rowref = path[0]
@@ -459,7 +459,7 @@ class PlaylistModel(gtk.GenericTreeModel):
         else:
             tagname = self.columns[column-1]
             track = self.playlist[rowref]
-            formatter = plcolumns.FORMATTERS[tagname]
+            formatter = playlist_columns.FORMATTERS[tagname]
             return formatter.format(track)
 
     def on_iter_next(self, rowref):

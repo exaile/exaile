@@ -71,12 +71,23 @@ class Column(object):
 
     def get_column(self, index):
         cellr = self.renderer()
-        gcol = gtk.TreeViewColumn(self.display, cellr,
+        if index == 1:
+            gcol = gtk.TreeViewColumn(self.display)
+            icon_cellr = gtk.CellRendererPixbuf()
+            icon_cellr.set_fixed_size(20, 20)
+            icon_cellr.set_property('xalign', 0.0)
+            gcol.pack_start(icon_cellr)
+            gcol.pack_start(cellr)
+            gcol.set_fixed_width(int(self.size)+20)
+            gcol.set_attributes(icon_cellr, pixbuf=0)
+            gcol.set_attributes(cellr, **{self.dataproperty: index})
+        else:
+            gcol = gtk.TreeViewColumn(self.display, cellr,
                 **{self.dataproperty: index})
+            gcol.set_fixed_width(int(self.size))
         gcol.set_cell_data_func(cellr, self.data_func)
         for name, val in self.cellproperties.iteritems():
             cellr.set_property(name, val)
-        gcol.set_fixed_width(int(self.size))
         return gcol
 
 

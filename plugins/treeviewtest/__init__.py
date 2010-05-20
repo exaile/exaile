@@ -243,7 +243,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
         self.view.set_model(self.model)
 
-        for idx, col in enumerate(self.model.columns):
+        for idx, col in enumerate(self.model.columns, 1):
             plcol = plcolumns.COLUMNS[col](self)
             gcol = plcol.get_column(idx)
             self.view.append_column(gcol)
@@ -401,14 +401,42 @@ class PlaylistModel(gtk.GenericTreeModel):
         event.add_callback(self.on_tracks_removed,
                 "playlist_tracks_removed", playlist)
 
+        get_img = lambda name, size: icons.MANAGER.pixbuf_from_stock(
+            name, gtk.ICON_SIZE_SMALL_TOOLBAR).scale_simple(
+            size, size, gtk.gdk.INTERP_BILINEAR)
+
+        self.playimg = get_img(gtk.STOCK_MEDIA_PLAY, 18)
+        self.pauseimg = get_img(gtk.STOCK_MEDIA_PAUSE, 18)
+
+        self.stopimg = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 18, 18)
+        self.stopimg.fill(0x00000000)
+        stopimg = get_img(gtk.STOCK_STOP, 14)
+        stopimg.copy_area(0, 0, 14, 14, self.stopimg, 2, 2)
+
+        stopicon = get_img(gtk.STOCK_STOP, 9)
+        stopoverlay = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 18, 18)
+        stopoverlay.fill(0x00000000)
+        stopicon.copy_area(0, 0, 9, 9, stopoverlay, 9, 9)
+        self.playstopimg = get_img(gtk.STOCK_MEDIA_PLAY, 18)
+        stopoverlay.composite(self.playstopimg, 0, 0, 18, 18, 0, 0, 1, 1, gtk.gdk.INTERP_BILINEAR, 255)
+        self.pausestopimg = get_img(gtk.STOCK_MEDIA_PAUSE, 18)
+        stopoverlay.composite(self.pausestopimg, 0, 0, 18, 18, 0, 0, 1, 1, gtk.gdk.INTERP_BILINEAR, 255)
+
+        self.clearimg = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 18, 18)
+        self.clearimg.fill(0x00000000)
+
+
     def on_get_flags(self):
         return gtk.TREE_MODEL_LIST_ONLY
 
     def on_get_n_columns(self):
-        return len(self.columns)
+        return len(self.columns)+1
 
     def on_get_column_type(self, index):
-        return plcolumns.COLUMNS[self.columns[index]].datatype
+        if index == 0:
+            return gtk.gdk.Pixbuf
+        else:
+            return plcolumns.COLUMNS[self.columns[index-1]].datatype
 
     def on_get_iter(self, path):
         rowref = path[0]
@@ -421,10 +449,17 @@ class PlaylistModel(gtk.GenericTreeModel):
         return (rowref,)
 
     def on_get_value(self, rowref, column):
-        tagname = self.columns[column]
-        track = self.playlist[rowref]
-        formatter = plcolumns.FORMATTERS[tagname]
-        return formatter.format(track)
+        if column == 0:
+            try:
+                return [self.playimg, self.pauseimg, self.stopimg,
+                        self.playstopimg, self.pausestopimg][rowref]
+            except IndexError:
+                return self.clearimg
+        else:
+            tagname = self.columns[column-1]
+            track = self.playlist[rowref]
+            formatter = plcolumns.FORMATTERS[tagname]
+            return formatter.format(track)
 
     def on_iter_next(self, rowref):
         rowref = rowref+1

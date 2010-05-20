@@ -69,7 +69,7 @@ class BaseTrayIcon(object):
         self.menu = guiutil.Menu()
 
         self.playpause_menuitem = self.menu.append(stock_id=gtk.STOCK_MEDIA_PLAY,
-            callback=lambda *e: self._play_pause_clicked())
+            callback=lambda *e: self.play_pause())
         self.menu.append(stock_id=gtk.STOCK_MEDIA_NEXT,
             callback=lambda *e: self.queue.next())
         self.menu.append(stock_id=gtk.STOCK_MEDIA_PREVIOUS,
@@ -131,19 +131,14 @@ class BaseTrayIcon(object):
         """
         current_track = self.player.current
 
-        # TODO: Do better than this
-        if current_track is None or not self.player.is_playing():
-            self.playpause_menuitem.destroy()
-            self.playpause_menuitem = self.menu.prepend(
-                stock_id=gtk.STOCK_MEDIA_PLAY,
-                callback=lambda *e: self.play_pause()
-            )
-        elif self.player.is_playing():
-            self.playpause_menuitem.destroy()
-            self.playpause_menuitem = self.menu.prepend(
-                stock_id=gtk.STOCK_MEDIA_PAUSE,
-                callback=lambda *e: self.play_pause()
-            )
+        playpause_image = self.playpause_menuitem.get_image()
+
+        if self.player.is_stopped() or self.player.is_playing():
+            stock_id = gtk.STOCK_MEDIA_PLAY
+        elif self.player.is_paused():
+            stock_id = gtk.STOCK_MEDIA_PAUSE
+
+        playpause_image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
 
         self.rating_menuitem.on_rating_change()
 

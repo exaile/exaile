@@ -73,9 +73,9 @@ class MultiTextEntryDialog(gtk.Dialog):
         self.left.pack_start(label, False, False)
 
         entry = gtk.Entry()
-        entry.connect('activate', lambda *e:
-            self.response(gtk.RESPONSE_OK))
         entry.set_width_chars(30)
+        entry.set_icon_activatable(gtk.ENTRY_ICON_SECONDARY, False)
+        entry.connect('activate', lambda *e: self.response(gtk.RESPONSE_OK))
         self.right.pack_start(entry, True, True)
         label.show()
         entry.show()
@@ -93,8 +93,34 @@ class MultiTextEntryDialog(gtk.Dialog):
             Shows the dialog, runs, hides, and returns
         """
         self.show_all()
-        response = gtk.Dialog.run(self)
+
+        while True:
+            response = gtk.Dialog.run(self)
+
+            if response in (gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT):
+                break
+
+            if response == gtk.RESPONSE_OK:
+                # Leave loop if all fields where filled
+                if len(min([f.get_text() for f in self.fields])) > 0:
+                    break
+
+                # At least one field was not filled
+                for field in self.fields:
+                    if len(field.get_text()) > 0:
+                        # Unset possible previous marks
+                        field.set_icon_from_stock(
+                            gtk.ENTRY_ICON_SECONDARY,
+                            None
+                        )
+                    else:
+                        # Mark via warning
+                        field.set_icon_from_stock(
+                            gtk.ENTRY_ICON_SECONDARY,
+                            gtk.STOCK_DIALOG_WARNING
+                        )
         self.hide()
+
         return response
 
 class TextEntryDialog(gtk.Dialog):

@@ -89,7 +89,10 @@ class NormalPlayer2(_base.ExailePlayer):
     def on_about_to_finish(self, pbin):
         #print "ABOUT TO FINISH!"
         tr = self._queue.next(player=False)
-        self.play(tr, stop_last=False)
+        if tr:
+            self.play(tr, stop_last=False)
+        else:
+            gobject.idle_add(self.stop)
 
     def on_message(self, bus, message, reading_tag = False):
         """

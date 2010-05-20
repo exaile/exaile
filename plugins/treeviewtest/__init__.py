@@ -863,6 +863,8 @@ class Playlist(object):
 
     def __setitem__(self, i, value):
         oldtracks = self.__getitem__(i)
+        removed = []
+        added = []
         if isinstance(i, slice):
             for x in value:
                 if not isinstance(x, trax.Track):
@@ -872,21 +874,28 @@ class Playlist(object):
                 if len(value) != len(oldtracks):
                     raise ValueError, "Extended slice assignment must match sizes."
                 self.__tracks.__setitem__(i, value)
-                event.log_event_sync('playlist_tracks_removed', self,
-                        zip(range(start, end, step), oldtracks))
+                removed = zip(range(start, end, step), oldtracks)
             else:
                 self.__tracks.__setitem__(i, value)
-                event.log_event_sync('playlist_tracks_removed', self,
-                        zip(range(start, end, step), oldtracks))
+                removed = zip(range(start, end, step), oldtracks)
                 end = start + len(value)
-            event.log_event_sync('playlist_tracks_added', self,
-                    zip(range(start, end, step), value))
+            added = zip(range(start, end, step), value)
         else:
             if not isinstance(value, trax.Track):
                 raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
             self.__tracks[i] = value
-            event.log_event_sync('playlist_tracks_removed', self, [(i, oldtracks)])
-            event.log_event_sync('playlist_tracks_added', self, [(i, value)])
+            removed = [(i, oldtracks)]
+            added = [(i, value)]
+        pos = self.current_pos
+        for idx, tr in removed[::-1]:
+            if pos > idx:
+                pos -= 1
+        for idx, tr in added:
+            if pos > idx:
+                pos += 1
+        self.current_pos = pos
+        event.log_event_sync('playlist_tracks_removed', self, removed)
+        event.log_event_sync('playlist_tracks_added', self, added)
         self.__needs_save = self.__dirty = True
 
     def __delitem__(self, i):
@@ -894,13 +903,17 @@ class Playlist(object):
             (start, end, step) = self.__tuple_from_slice(i)
         oldtracks = self.__getitem__(i)
         self.__tracks.__delitem__(i)
-
+        removed = []
         if isinstance(i, slice):
-            event.log_event_sync('playlist_tracks_removed', self,
-                    zip(range(start, end, step), oldtracks))
+            removed = zip(range(start, end, step), oldtracks)
         else:
-            event.log_event_sync('playlist_tracks_removed', self,
-                    [(i, oldtracks)])
+            removed = [(i, oldtracks)]
+        pos = self.current_pos
+        for idx, tr in removed[::-1]:
+            if pos > idx:
+                pos -= 1
+        self.current_pos = pos
+        event.log_event_sync('playlist_tracks_removed', self, removed)
         self.__needs_save = self.__dirty = True
 
     def append(self, other):

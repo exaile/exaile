@@ -31,7 +31,7 @@ from xlgui import (
     icons
 )
 
-import prefs
+import preferences
 
 DESKTOPCOVER = None
 
@@ -41,12 +41,13 @@ def __migrate_anchor_setting():
         integer values to the new string values
     """
     gravity = settings.get_option('plugin/desktopcover/anchor', 'topleft')
+    gravity_map = DesktopCover.gravity_map
 
-    if gravity not in DesktopCover.gravity_map:
-        gravities = DesktopCover.gravity_map.keys()
+    if gravity not in gravity_map:
+        gravities = gravity_map.keys()
         
         try:
-            gravity = DesktopCover.gravity_map[gravities[gravity]]
+            gravity = gravity_map[gravities[gravity]]
         except IndexError, TypeError:
             gravity = 'topleft'
 
@@ -69,7 +70,7 @@ def disable(exaile):
     DESKTOPCOVER.destroy()
 
 def get_preferences_pane():
-    return prefs
+    return preferences
 
 class DesktopCover(gtk.Window):
     gravity_map = {

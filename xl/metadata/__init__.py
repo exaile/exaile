@@ -29,54 +29,6 @@ import gio
 import os
 import urlparse
 
-from xl.metadata import (ape, asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex,
-    tta, wav, wv)
-
-#: dictionary mapping extensions to Format classes.
-formats = {
-    '669'   : mod.ModFormat,
-    'ac3'   : None,
-    'aif'   : wav.WavFormat,
-    'aiff'  : wav.WavFormat,
-    'ape'   : ape.MonkeysFormat,
-    'amf'   : mod.ModFormat,
-    'au'    : wav.WavFormat,
-    'dsm'   : mod.ModFormat,
-    'far'   : mod.ModFormat,
-    'flac'  : flac.FlacFormat,
-    'it'    : mod.ModFormat,
-    'm4a'   : mp4.MP4Format,
-    'med'   : mod.ModFormat,
-    'mka'   : None,
-    'mp2'   : mp3.MP3Format,
-    'mp3'   : mp3.MP3Format,
-    'mp4'   : mp4.MP4Format,
-    'mpc'   : mpc.MpcFormat,
-    'mid'   : None,
-    'midi'  : None,
-    'mod'   : mod.ModFormat,
-    'mtm'   : mod.ModFormat,
-    'oga'   : ogg.OggFormat,
-    'ogg'   : ogg.OggFormat,
-    'ogx'   : ogg.OggFormat,
-    'okt'   : mod.ModFormat,
-    'ra'    : None,
-    'ram'   : None,
-    's3m'   : mod.ModFormat,
-    'sid'   : sid.SidFormat,
-    'shn'   : None,
-    'snd'   : wav.WavFormat,
-    'spc'   : None,
-    'spx'   : speex.SpeexFormat,
-    'stm'   : mod.ModFormat,
-    'tta'   : tta.TTAFormat,
-    'ult'   : mod.ModFormat,
-    'wav'   : wav.WavFormat,
-    'wma'   : asf.AsfFormat,
-    'wv'    : wv.WavpackFormat,
-    'xm'    : mod.ModFormat,
-}
-
 # pass get_loc_for_io() to this.
 def get_format(loc):
     """
@@ -329,6 +281,54 @@ class BaseFormat(object):
                 return self.mutagen['__bitrate']
             except (KeyError, TypeError):
                 return None
+
+from xl.metadata import (ape, asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex,
+    tta, wav, wv)
+
+#: dictionary mapping extensions to Format classes.
+formats = {
+    '669'   : mod.ModFormat,
+    'ac3'   : None,
+    'aif'   : wav.WavFormat,
+    'aiff'  : wav.WavFormat,
+    'ape'   : ape.MonkeysFormat,
+    'amf'   : mod.ModFormat,
+    'au'    : wav.WavFormat,
+    'dsm'   : mod.ModFormat,
+    'far'   : mod.ModFormat,
+    'flac'  : flac.FlacFormat,
+    'it'    : mod.ModFormat,
+    'm4a'   : mp4.MP4Format,
+    'med'   : mod.ModFormat,
+    'mka'   : None,
+    'mp2'   : mp3.MP3Format,
+    'mp3'   : mp3.MP3Format,
+    'mp4'   : mp4.MP4Format,
+    'mpc'   : mpc.MpcFormat,
+    'mid'   : None,
+    'midi'  : None,
+    'mod'   : mod.ModFormat,
+    'mtm'   : mod.ModFormat,
+    'oga'   : ogg.OggFormat,
+    'ogg'   : ogg.OggFormat,
+    'ogx'   : ogg.OggFormat,
+    'okt'   : mod.ModFormat,
+    'ra'    : None,
+    'ram'   : None,
+    's3m'   : mod.ModFormat,
+    'sid'   : sid.SidFormat,
+    'shn'   : None,
+    'snd'   : wav.WavFormat,
+    'spc'   : None,
+    'spx'   : speex.SpeexFormat,
+    'stm'   : mod.ModFormat,
+    'tta'   : tta.TTAFormat,
+    'ult'   : mod.ModFormat,
+    'wav'   : wav.WavFormat,
+    'wma'   : asf.AsfFormat,
+    'wv'    : wv.WavpackFormat,
+    'xm'    : mod.ModFormat,
+}
 
 # vim: et sts=4 sw=4
 

@@ -114,49 +114,103 @@ class NotebookTab(gtk.EventBox):
 
         self.tab_menu_items = []
 
-        self.connect('button_press_event', self.on_button_press)
+        self.connect('button-press-event', self.on_button_press)
 
-
-        self.hbox = hbox = gtk.HBox(False, 2)
-        self.add(hbox)
+        box = gtk.HBox(False, 2)
+        self.add(box)
 
         self.icon = gtk.Image()
         self.icon.set_property("visible", False)
-        hbox.pack_start(self.icon, False, False)
+        box.pack_start(self.icon, False, False)
 
-        self.label = gtk.Label("UNNAMED TAB")
+        self.label = gtk.Label(self.page.playlist.name)
         self.label.set_max_width_chars(20)
         self.label.set_ellipsize(pango.ELLIPSIZE_END)
-        hbox.pack_start(self.label, False, False)
+        box.pack_start(self.label, False, False)
+
+        self.entry = gtk.Entry()
+        self.entry.set_width_chars(self.label.get_max_width_chars())
+        self.entry.set_text(self.label.get_text())
+        self.entry.connect('activate', self.on_entry_activate)
+        self.entry.connect('focus-out-event', self.on_entry_focus_out_event)
+        self.entry.connect('key-press-event', self.on_entry_key_press_event)
+        self.entry.set_no_show_all(True)
+        box.pack_start(self.entry, False, False)
 
         self.button = button = gtk.Button()
         button.set_name("tabCloseButton")
         button.set_relief(gtk.RELIEF_NONE)
         button.set_focus_on_click(False)
         button.set_tooltip_text(_("Close tab"))
+        button.add(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU))
         button.connect('clicked', self.close)
-        button.connect('button_press_event', self.on_button_press)
-        image = gtk.Image()
-        image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
-        button.add(image)
-        hbox.pack_end(button, False, False)
+        button.connect('button-press-event', self.on_button_press)
+        box.pack_start(button, False, False)
 
         self.show_all()
 
     def on_button_press(self, widget, event):
-        if event.button == 3:
+        """
+            Triggers renaming, closing and menu of tabs
+        """
+        if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+            self.start_rename()
+        elif event.button == 2:
+            self.close()
+        elif event.button == 3:
             menu = self._construct_menu()
             menu.show_all()
             menu.popup(None, None, None, event.button, event.time)
             menu.connect('deactivate', self._deconstruct_menu)
             return True
-        elif event.button == 2:
-            self.close()
+
+    def on_entry_activate(self, entry):
+        """
+            Triggers rename of the current playlist tab
+        """
+        self.entry.props.editing_canceled = False
+        self.end_rename()
+
+    def on_entry_focus_out_event(self, widget, event):
+        """
+            Activates the entry
+        """
+        if not self.entry.props.editing_canceled:
+            widget.activate()
+
+    def on_entry_key_press_event(self, widget, event):
+        """
+            Cancels the editing if requested
+        """
+        if event.keyval == gtk.keysyms.Escape:
+            self.entry.props.editing_canceled = True
+            self.end_rename()
             return True
-        elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
-            pass
-            # playlists have rename here
-            # rename idea: replace label with textbox, edit in-place?
+
+    def start_rename(self):
+        """
+            Initiates the renaming of a playlist tab
+        """
+        self.entry.set_text(self.label.get_text())
+        self.label.hide()
+        self.entry.show()
+        self.entry.select_region(0, -1)
+        self.entry.grab_focus()
+
+    def end_rename(self, cancel=False):
+        """
+            Finishes or cancels the renaming
+        """
+        name = self.entry.get_text()
+
+        if not self.entry.props.editing_canceled:
+            self.page.playlist.name = name 
+            self.label.set_text(name)
+
+        self.entry.hide()
+        self.label.show()
+
+        self.entry.props.editing_canceled = False
 
     def _deconstruct_menu(self, menu):
         children = menu.get_children()
@@ -216,24 +270,24 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
 
         uifile = os.path.join(os.path.dirname(__file__), "playlist.ui")
-        self.builder = build = gtk.Builder()
-        build.add_from_file(uifile)
-        plpage = build.get_object("playlist_page")
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(uifile)
+        plpage = self.builder.get_object("playlist_page")
         for child in plpage.get_children():
             plpage.remove(child)
 
-        build.connect_signals(self)
+        self.builder.connect_signals(self)
 
-        self.plwin = build.get_object("playlist_window")
-        self.controls = build.get_object("controls_box")
+        self.plwin = self.builder.get_object("playlist_window")
+        self.controls = self.builder.get_object("controls_box")
         self.pack_start(self.plwin, True, True, padding=2)
         self.pack_start(self.controls, False, False, padding=2)
 
         self.view = guiutil.DragTreeView(self, drop_pos="between")
         self.plwin.add(self.view)
-        self.shuffle_button = build.get_object("shuffle_button")
-        self.repeat_button = build.get_object("repeat_button")
-        self.dynamic_button = build.get_object("dynamic_button")
+        self.shuffle_button = self.builder.get_object("shuffle_button")
+        self.repeat_button = self.builder.get_object("repeat_button")
+        self.dynamic_button = self.builder.get_object("dynamic_button")
 
         self.model = PlaylistModel(playlist, self.default_columns)
         self.view.set_rules_hint(True)
@@ -315,6 +369,9 @@ class PlaylistPage(gtk.VBox, NotebookPage):
                 'repeat_mode', widget, event)
 
     def on_dynamic_button_toggled(self, widget):
+        pass
+
+    def on_search_entry_activate(self, entry):
         pass
 
     def __show_toggle_menu(self, names, display_names, callback, attr,

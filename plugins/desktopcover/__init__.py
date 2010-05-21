@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
+from __future__ import division
 import gobject
 import gtk
 
@@ -31,7 +31,7 @@ from xlgui import (
     icons
 )
 
-import preferences
+import desktopcover_preferences
 
 DESKTOPCOVER = None
 
@@ -70,7 +70,7 @@ def disable(exaile):
     DESKTOPCOVER.destroy()
 
 def get_preferences_pane():
-    return preferences
+    return desktopcover_preferences
 
 class DesktopCover(gtk.Window):
     gravity_map = {
@@ -89,11 +89,13 @@ class DesktopCover(gtk.Window):
 
         self.set_accept_focus(False)
         self.set_decorated(False)
+        self.set_keep_below(True)
         self.set_resizable(False)
         self.set_role("desktopcover")
         self.set_skip_pager_hint(True)
         self.set_skip_taskbar_hint(True)
         self.set_title("Exaile desktop cover")
+        self.stick()
 
         self._fade_in_id = None
         self._fade_out_id = None
@@ -141,22 +143,24 @@ class DesktopCover(gtk.Window):
 
         size = settings.get_option('plugin/desktopcover/size', 200)
         upscale = settings.get_option('plugin/desktopcover/override_size', False)
-        pixbuf = icons.MANAGER.pixbuf_from_data(
+        pixbuf = self.image.get_pixbuf()
+        next_pixbuf = icons.MANAGER.pixbuf_from_data(
             cover_data, size=(size, size), upscale=upscale)
         fading = settings.get_option('plugin/desktopcover/fading', False)
 
-        if fading and self.image.get_pixbuf() is not None and \
-                self._cross_fade_id is None:
+        if fading and pixbuf is not None and self._cross_fade_id is None:
             duration = settings.get_option(
                 'plugin/desktopcover/fading_duration', 50)
-            self._cross_fade_id = gobject.timeout_add(
-                int(duration), self.cross_fade, pixbuf, duration)
-        else:
+
+            # Prescale to allow for proper crossfading
+            width, height = next_pixbuf.get_width(), next_pixbuf.get_height()
+            pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
             self.image.set_from_pixbuf(pixbuf)
 
-        width = pixbuf.get_width()
-        height = pixbuf.get_height()
-        self.set_size_request(width, height)
+            self._cross_fade_id = gobject.timeout_add(
+                int(duration), self.cross_fade, next_pixbuf, duration)
+        else:
+            self.image.set_from_pixbuf(next_pixbuf)
 
     def update_position(self):
         """
@@ -183,11 +187,8 @@ class DesktopCover(gtk.Window):
 
     def show(self):
         """
-            Override to ensure WM hints and fade-in
+            Override for fade-in
         """
-        self.set_keep_below(True)
-        self.stick()
-
         fading = settings.get_option('plugin/desktopcover/fading', False)
 
         if fading and self._fade_in_id is None:
@@ -259,13 +260,13 @@ class DesktopCover(gtk.Window):
         """
         if self._cross_fade_step < duration:
             pixbuf = self.image.get_pixbuf()
-            alpha = (255.0 / duration) * self._cross_fade_step
+            width, height = pixbuf.get_width(), pixbuf.get_height()
+            alpha = (255 / duration) * self._cross_fade_step
 
             next_pixbuf.composite(
                 dest=pixbuf,
                 dest_x=0, dest_y=0,
-                dest_width=pixbuf.get_width(),
-                dest_height=pixbuf.get_height(),
+                dest_width=width, dest_height=height,
                 offset_x=0, offset_y=0,
                 scale_x=1, scale_y=1,
                 interp_type=gtk.gdk.INTERP_BILINEAR,
@@ -318,7 +319,6 @@ class DesktopCover(gtk.Window):
             self.update_position()
         elif option in ('plugin/desktopcover/override_size',
                 'plugin/desktopcover/size'):
-            # FIXME: Triggers redraw issue
             self.set_cover_from_track(self.player.current)
 
     def on_exaile_loaded(self, e, exaile, nothing):

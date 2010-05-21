@@ -123,7 +123,7 @@ class BaseTrayIcon(object):
         event.add_callback(self.on_playback_change_state, 'playback_player_end')
         event.add_callback(self.on_playback_change_state, 'playback_track_start')
         event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
-        event.add_callback(self.on_setting_change, 'option_set')
+        event.add_callback(self.on_setting_change, 'playback_option_set')
 
     def update_menu(self):
         """

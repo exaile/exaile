@@ -167,7 +167,7 @@ class MiniMode(gtk.Window):
         self.show_all()
         if self._configure_id is None:
             self._configure_id = self.connect('configure-event',
-                self.on_configure)
+                self.on_configure_event)
 
     def toggle_visible(self):
         """
@@ -240,17 +240,21 @@ class MiniMode(gtk.Window):
         """
         widgets = {
             'previous': (mmwidgets.Button,
-                [gtk.STOCK_MEDIA_PREVIOUS, _('Previous Track'), self.on_previous]),
+                [gtk.STOCK_MEDIA_PREVIOUS, _('Previous Track'),
+                    self.on_previous_clicked]),
             'next': (mmwidgets.Button,
-                [gtk.STOCK_MEDIA_NEXT, _('Next Track'), self.on_next]),
+                [gtk.STOCK_MEDIA_NEXT, _('Next Track'),
+                    self.on_next_clicked]),
             'play_pause': (mmwidgets.PlayPauseButton,
-                [self.exaile.player, self.on_play_pause]),
+                [self.exaile.player, self.on_play_pause_clicked]),
             'stop': (mmwidgets.Button,
-                [gtk.STOCK_MEDIA_STOP, _('Stop Playback'), self.on_stop]),
+                [gtk.STOCK_MEDIA_STOP, _('Stop Playback'),
+                    self.on_stop_clicked]),
             'volume': (mmwidgets.VolumeButton,
                 [self.exaile.player, self.on_volume_changed]),
             'restore': (mmwidgets.Button,
-                [gtk.STOCK_LEAVE_FULLSCREEN, _('Restore main window'), self.on_restore]),
+                [gtk.STOCK_LEAVE_FULLSCREEN, _('Restore main window'),
+                    self.on_restore_clicked]),
             'progress_bar': (mmwidgets.ProgressBar,
                 [self.exaile.player, self.on_track_seeked]),
             'track_selector': (mmwidgets.TrackSelector,
@@ -292,19 +296,19 @@ class MiniMode(gtk.Window):
         self.toggle_visible()
         self._active = not self._active
 
-    def on_previous(self, button):
+    def on_previous_clicked(self, button):
         """
             Jumps to the previous track
         """
         self.exaile.queue.prev()
 
-    def on_next(self, button):
+    def on_next_clicked(self, button):
         """
             Jumps to the next track
         """
         self.exaile.queue.next()
 
-    def on_play_pause(self, button):
+    def on_play_pause_clicked(self, button):
         """
             Toggles between playback and pause mode
         """
@@ -313,13 +317,13 @@ class MiniMode(gtk.Window):
         else:
             self.exaile.queue.play()
 
-    def on_stop(self, button):
+    def on_stop_clicked(self, button):
         """
             Stops playback
         """
         self.exaile.player.stop()
 
-    def on_restore(self, button):
+    def on_restore_clicked(self, button):
         """
             Hides mini mode on button click
         """
@@ -360,7 +364,7 @@ class MiniMode(gtk.Window):
             return True
         return False
 
-    def on_configure(self, widget, event):
+    def on_configure_event(self, widget, event):
         """
             Handles movement of the window
         """
@@ -379,9 +383,14 @@ class MiniMode(gtk.Window):
         """
             Paints the window alpha transparency
         """
-        opacity = 1 - self.get_option('plugin/minimode/transparency')
         context = widget.window.cairo_create()
+
+        context.rectangle(event.area.x, event.area.y,
+            event.area.width, event.area.height)
+        context.clip()
+
         background = widget.style.bg[gtk.STATE_NORMAL]
+        opacity = 1 - self.get_option('plugin/minimode/transparency')
         context.set_source_rgba(
             float(background.red) / 256**2,
             float(background.green) / 256**2,
@@ -389,6 +398,7 @@ class MiniMode(gtk.Window):
             opacity
         )
         context.set_operator(cairo.OPERATOR_SOURCE)
+
         context.paint()
 
     def on_screen_changed(self, widget, event):

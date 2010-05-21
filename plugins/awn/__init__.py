@@ -182,7 +182,7 @@ def enable(exaile):
             'playback_player_end')
     xl.event.add_callback(EXAILE_AWN.toggle_pause_progress,
             'playback_toggle_pause')
-    xl.event.add_callback(EXAILE_AWN.on_option_set, 'option_set')
+    xl.event.add_callback(EXAILE_AWN.on_option_set, 'plugin_awn_option_set')
     EXAILE_AWN.set_cover()
 
 def disable(exaile):

@@ -148,7 +148,7 @@ def on_setting_change(event, settings, option):
 
 def __enb(evt, exaile, nothing):
     gobject.idle_add(_enable, exaile)
-    event.add_callback(on_setting_change, 'option_set')
+    event.add_callback(on_setting_change, 'plugin_ipconsole_option_set')
 
 def enable(exaile):
     """

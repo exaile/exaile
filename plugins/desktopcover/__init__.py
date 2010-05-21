@@ -105,12 +105,12 @@ class DesktopCover(gtk.Window):
             'playback_track_start',
             'playback_player_end',
             'cover_set',
-            'cover_removed',
-            'option_set'
+            'cover_removed'
         ]
 
         for e in self._events:
             event.add_callback(getattr(self, 'on_%s' % e), e)
+        event.add_callback(self.on_option_set, 'plugin_desktopcover_option_set')
 
         try:
             exaile = main.exaile()
@@ -125,6 +125,7 @@ class DesktopCover(gtk.Window):
         """
         for e in self._events:
             event.remove_callback(getattr(self, 'on_%s' % e), e)
+        event.remove_callback(self.on_option_set, 'plugin_desktopcover_option_set')
 
         gtk.Window.destroy(self)
 

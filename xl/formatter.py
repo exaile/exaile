@@ -194,7 +194,7 @@ class ProgressTextFormatter(Formatter):
     def __init__(self):
         Formatter.__init__(self, self.get_option_value())
 
-        event.add_callback(self.on_option_set, 'option_set')
+        event.add_callback(self.on_option_set, 'gui_option_set')
 
         try:
             exaile = main.exaile()
@@ -544,7 +544,7 @@ class RatingTagFormatter(TagFormatter):
         self._rating_steps = 5
         self.on_option_set('option_set', settings,
             'miscellaneous/rating_steps')
-        event.add_callback(self.on_option_set, 'option_set')
+        event.add_callback(self.on_option_set, 'miscellaneous_option_set')
 
     def format(self, track, parameters):
         """

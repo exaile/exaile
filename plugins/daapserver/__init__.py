@@ -53,7 +53,7 @@ def _enable(exaile):
     # real enable
     global ds
     
-    event.add_callback(on_settings_change, 'option_set')
+    event.add_callback(on_settings_change, 'plugin_daapserver_option_set')
     
     port = int(settings.get_option('plugin/daapserver/port', 3689))
     name = settings.get_option('plugin/daapserver/name', 'Exaile Share')

@@ -123,7 +123,7 @@ class NotebookTab(gtk.EventBox):
         self.icon.set_property("visible", False)
         box.pack_start(self.icon, False, False)
 
-        self.label = gtk.Label(self.page.playlist.name)
+        self.label = gtk.Label(self.page.get_name())
         self.label.set_max_width_chars(20)
         self.label.set_ellipsize(pango.ELLIPSIZE_END)
         box.pack_start(self.label, False, False)
@@ -191,8 +191,11 @@ class NotebookTab(gtk.EventBox):
         """
             Initiates the renaming of a playlist tab
         """
-        self.entry.set_text(self.label.get_text())
+        if not hasattr(self.page, 'set_name'):
+            return
+        self.entry.set_text(self.page.get_name())
         self.label.hide()
+        self.button.hide()
         self.entry.show()
         self.entry.select_region(0, -1)
         self.entry.grab_focus()
@@ -204,11 +207,12 @@ class NotebookTab(gtk.EventBox):
         name = self.entry.get_text()
 
         if not self.entry.props.editing_canceled:
-            self.page.playlist.name = name 
+            self.page.set_name(name)
             self.label.set_text(name)
 
         self.entry.hide()
         self.label.show()
+        self.button.show()
 
         self.entry.props.editing_canceled = False
 
@@ -314,6 +318,12 @@ class PlaylistPage(gtk.VBox, NotebookPage):
                 "playlist_repeat_mode_changed", self.playlist)
 
         self.show_all()
+
+    def get_name(self):
+        return self.playlist.name
+
+    def set_name(self, name):
+        self.playlist.name = name
 
     def set_cell_weight(self, cell, iter):
         """

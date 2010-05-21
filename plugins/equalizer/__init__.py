@@ -81,11 +81,11 @@ class GSTEqualizer(ElementBin):
         self.setup_elements()
 
         event.add_callback(self._on_setting_change,
-                "plugin/equalizer_option_set")
+                "plugin_equalizer_option_set")
 
         setts = ["band%s" for n in xrange(10)] + ["pre", "enabled"]
         for setting in setts:
-            self._on_setting_change("plugin/equalizer_option_set", None,
+            self._on_setting_change("plugin_equalizer_option_set", None,
                 "plugin/equalizer/%s"%setting)
 
     def _on_setting_change(self, name, object, data):

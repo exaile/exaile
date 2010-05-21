@@ -74,7 +74,7 @@ class ExaileScrobbler(object):
         self.get_options('','','plugin/ascrobbler/cache_size')
         self.get_options('','','plugin/ascrobbler/user')
         self.load_cache()
-        event.add_callback(self.get_options, 'option_set')
+        event.add_callback(self.get_options, 'plugin_ascrobbler_option_set')
         event.add_callback(self._save_cache_cb, 'quit_application')
 
     def get_options(self, type, sm, option):

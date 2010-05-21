@@ -146,6 +146,8 @@ class SettingsManager(RawConfigParser):
 
         self._dirty = True
 
+        section = section.replace('/', '_')
+
         event.log_event('option_set', self, option)
         event.log_event('%s_option_set' % section, self, option)
 

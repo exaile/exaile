@@ -122,12 +122,14 @@ class CoverManager(object):
             Shows the currently selected cover
         """
         item = self._get_selected_item()
-        cover_data = cover_manager.get_cover(self.track_dict[item][0])
+        track = self.track_dict[item][0]
+        cover_data = cover_manager.get_cover(track)
 
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
 
         if pixbuf:
-            window = CoverWindow(self.parent, pixbuf)
+            window = CoverWindow(self.parent, pixbuf,
+                track.get_tag_display('title'))
             window.show_all()
 
     def fetch_cover(self):
@@ -397,8 +399,13 @@ class CoverWidget(gtk.EventBox):
         """
             Shows the current cover
         """
-        window = CoverWindow(self.parent_window, self.image.get_pixbuf())
-        window.show_all()
+        cover_data = cover_manager.get_cover(self.player.current)
+        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
+
+        if pixbuf:
+            window = CoverWindow(self.parent_window, pixbuf,
+                self.player.current.get_tag_display('title'))
+            window.show_all()
 
     def fetch_cover(self):
         """
@@ -432,8 +439,7 @@ class CoverWidget(gtk.EventBox):
             return
 
         if event.type == gtk.gdk._2BUTTON_PRESS:
-            window = CoverWindow(self.parent_window, self.image.get_pixbuf())
-            window.show_all()
+            self.show_cover()
         elif event.button == 3:
             self.menu.popup(event)
 
@@ -461,13 +467,11 @@ class CoverWidget(gtk.EventBox):
                 return
 
             data = stream.read()
-            pixbuf = self.image.pixbuf
+            width = settings.get_option('gui/cover_width', 100)
+            pixbuf = icons.MANAGER.pixbuf_from_data(data, (width, width))
 
-            try:
-                self.image.set_image_data(data)
-            except glib.GError: # No valid image dropped
-                self.image.pixbuf = pixbuf
-            else:
+            if pixbuf is not None:
+                self.image.set_from_pixbuf(pixbuf)
                 cover_manager.set_cover(self.player.current, db_string, data)
 
     @common.threaded
@@ -494,11 +498,12 @@ class CoverWidget(gtk.EventBox):
 class CoverWindow(object):
     """Shows the cover in a simple image viewer"""
 
-    def __init__(self, parent, cvr, title=''):
+    def __init__(self, parent, pixbuf, title=None):
         """Initializes and shows the cover"""
         self.builder = gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.ui'))
         self.builder.connect_signals(self)
+
         self.cover_window = self.builder.get_object('CoverWindow')
         self.layout = self.builder.get_object('layout')
         self.toolbar = self.builder.get_object('toolbar')
@@ -511,6 +516,12 @@ class CoverWindow(object):
         self.scrolledwindow = self.builder.get_object('scrolledwindow')
         self.scrolledwindow.set_hadjustment(self.layout.get_hadjustment())
         self.scrolledwindow.set_vadjustment(self.layout.get_vadjustment())
+
+        if title is None:
+            title = _('Cover')
+        else:
+            title = _('Cover for %s') % title
+
         self.cover_window.set_title(title)
         self.cover_window.set_transient_for(parent)
         self.cover_window_width = 500
@@ -518,7 +529,8 @@ class CoverWindow(object):
                                    self.statusbar.size_request()[1]
         self.cover_window.set_default_size(self.cover_window_width, \
                                            self.cover_window_height)
-        self.image_original_pixbuf = cvr
+
+        self.image_original_pixbuf = pixbuf
         self.image_pixbuf = self.image_original_pixbuf
         self.min_percent = 1
         self.max_percent = 500

@@ -91,7 +91,7 @@ class ExaileScrobbler(object):
                 'http://post.audioscrobbler.com/')
             self.submit = settings.get_option('plugin/ascrobbler/submit', True)
 
-            if self.use_menu and self.menu_entry:
+            if self.use_menu:
                 self.menu_entry.set_active(self.submit)
 
             if (not self.connecting and not self.connected) and self.submit:
@@ -101,9 +101,9 @@ class ExaileScrobbler(object):
 
         if option == 'plugin/ascrobbler/menu_check':
             self.use_menu = settings.get_option('plugin/ascrobbler/menu_check', False)
-            if self.use_menu and not self.menu_entry:
+            if self.use_menu:
                 self.setup_menu()
-            elif self.menu_entry and not self.use_menu:
+            elif self.menu_entry:
                 self.remove_menu()
 
     def setup_menu(self):

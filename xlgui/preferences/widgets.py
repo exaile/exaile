@@ -247,9 +247,12 @@ class HashedPreference(Preference):
             hashfunc.update(value)
             value = hashfunc.hexdigest()
 
-        self.widget.set_text(value)
-        self.preferences.settings.set_option(self.name, value)
+        oldvalue = self.preferences.settings.get_option(self.name, self.default)
 
+        if value != oldvalue:
+            self.preferences.settings.set_option(self.name, value)
+
+        self.widget.set_text(value)
         self.widget.set_visibility(True)
         self._delete_text_id = self.widget.connect('delete-text',
             self.on_delete_text)
@@ -554,12 +557,9 @@ class SelectionListPreference(Preference):
             Sets up the function to be called
             when this preference is changed
         """
-        self.selected_list.connect('row-deleted',
-            self.change, self.name, self._get_value())
-        self.selected_list.connect('row-inserted',
-            self.change, self.name, self._get_value())
-        self.selected_list.connect('rows-reordered',
-            self.change, self.name, self._get_value())
+        self.selected_list.connect('row-deleted', self.change)
+        self.selected_list.connect('row-inserted', self.change)
+        self.selected_list.connect('rows-reordered', self.change)
 
     def _set_value(self):
         """

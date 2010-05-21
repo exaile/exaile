@@ -98,6 +98,9 @@ class PlaylistNotebook(SmartNotebook):
         pl = Playlist("Playlist")
         return self.create_tab_from_playlist(pl)
 
+    def get_tab_menu_items(self):
+        return self.tab_menu_items
+
 
 class NotebookTab(gtk.EventBox):
     """
@@ -111,8 +114,6 @@ class NotebookTab(gtk.EventBox):
         self.notebook = notebook
         self.page = page
         page.set_tab(self)
-
-        self.tab_menu_items = []
 
         self.connect('button-press-event', self.on_button_press)
 
@@ -191,7 +192,7 @@ class NotebookTab(gtk.EventBox):
         """
             Initiates the renaming of a playlist tab
         """
-        if not hasattr(self.page, 'set_name'):
+        if not self.can_rename():
             return
         self.entry.set_text(self.page.get_name())
         self.label.hide()
@@ -216,6 +217,9 @@ class NotebookTab(gtk.EventBox):
 
         self.entry.props.editing_canceled = False
 
+    def can_rename(self):
+        return hasattr(self.page, 'set_name')
+
     def _deconstruct_menu(self, menu):
         children = menu.get_children()
         for c in children:
@@ -223,19 +227,30 @@ class NotebookTab(gtk.EventBox):
 
     def _construct_menu(self):
         menu = gtk.Menu()
-        for item in self.notebook.tab_menu_items:
+        for item in self.notebook.get_tab_menu_items():
             menu.append(item)
         menu.append(gtk.SeparatorMenuItem())
-        for item in self.page.tab_menu_items:
+        for item in self.page.get_tab_menu_items():
             menu.append(item)
         menu.append(gtk.SeparatorMenuItem())
-        for item in self.tab_menu_items:
+        for item in self.get_tab_menu_items():
             menu.append(item)
         return menu
 
     def close(self, *args):
         if self.page.handle_close():
             self.notebook.remove_page(self.notebook.page_num(self.page))
+
+    def get_tab_menu_items(self):
+        items = []
+        if self.can_rename():
+            rename_item = gtk.MenuItem(_("Rename"))
+            rename_item.connect('activate', lambda x: self.start_rename())
+            items.append(rename_item)
+        close_item = gtk.MenuItem(_("Close"))
+        close_item.connect('activate', self.close)
+        items.append(close_item)
+        return items
 
 
 class NotebookPage(object):
@@ -254,6 +269,9 @@ class NotebookPage(object):
             the close.
         """
         raise NotImplementedError
+
+    def get_tab_menu_items(self):
+        return self.tab_menu_items
 
 class PlaylistPage(gtk.VBox, NotebookPage):
     """

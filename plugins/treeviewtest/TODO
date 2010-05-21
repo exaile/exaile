@@ -1,0 +1,54 @@
+
+backend:
+    playlist:
+        sort
+        reverse?
+        filter
+        dynamic
+        SPAT
+
+    queue:
+        rebase on new playlist
+
+
+ui:
+    playlist:
+        automatic names (playlist 1, playlist 2...)
+        save to saved playlists
+        columns respect settings
+        columns context-menu
+        tracks context-menu
+        link up dynamic
+        link up search
+        search field clear button
+        SPAT
+            icon
+                - in same column as play/pause, use overlay for combine
+            button/menuitem?
+            grey out tracks below SPAT designation
+                - cell.set_sensitive(False)
+                - only if (not shuffling AND current_pos <= spat_pos)
+        accept dropped tracks/uris
+        play/pause icon
+
+        minor:
+            fix track # minimum width to enough for 3 digits - avoid width bump
+            fix width allocated to icons - avoid playlist render jump on change
+
+    tabs:
+        middle-click empty space to create new
+        play icon in active tab (bold name?)
+        support tabs as DnD targets
+
+        tab reordering?
+    
+    queue:
+        create new ui for queue in a tab
+        make queue tab show itself whenever items are enqueued
+        count of queued items in tab
+
+
+
+
+random:
+    CellRendererToggleImage - http://pastebin.com/NNCu207Y

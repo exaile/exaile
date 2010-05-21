@@ -26,7 +26,7 @@
 
 
 
-from xl.metadata._base import BaseFormat
+from xl.metadata import BaseFormat
 from mutagen import oggspeex
 
 class SpeexFormat(BaseFormat):

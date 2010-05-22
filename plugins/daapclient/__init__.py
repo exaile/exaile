@@ -33,7 +33,7 @@ from xlgui.panel.collection import CollectionPanel
 from xlgui import guiutil, commondialogs
 
 logger = logging.getLogger(__name__)
-glib.threads_init()
+gobject.threads_init()
 
 #
 #   Check For python-avahi, we can work without

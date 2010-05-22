@@ -70,8 +70,8 @@ def disable(exaile):
 
 
 def test():
-    import glib
-    glib.threads_init()
+    import glib, gobject
+    gobject.threads_init()
     import dbus.mainloop.glib as dbgl
     dbgl.DBusGMainLoop(set_as_default=True)
 

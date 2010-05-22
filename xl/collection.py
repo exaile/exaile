@@ -146,7 +146,7 @@ class Collection(trax.TrackDB):
     """
     def __init__(self, name, location=None, pickle_attrs=[]):
         global COLLECTIONS
-        self.libraries = dict()
+        self.libraries = {}
         self._scanning = False
         self._scan_stopped = False
         self._running_count = 0
@@ -265,7 +265,7 @@ class Collection(trax.TrackDB):
 
         scan_interval = 20
 
-        for library in self.libraries.values():
+        for library in self.libraries.itervalues():
             event.add_callback(self._progress_update, 'tracks_scanned',
                 library)
             library.rescan(notify_interval=scan_interval)
@@ -326,7 +326,7 @@ class Collection(trax.TrackDB):
         for k, v in self.libraries.iteritems():
             l = {}
             l['location'] = v.location
-            l['realtime'] = v.realtime
+            l['monitored'] = v.monitored
             l['scan_interval'] = v.scan_interval
             _serial_libraries.append(l)
         return _serial_libraries
@@ -339,7 +339,7 @@ class Collection(trax.TrackDB):
         """
         for l in _serial_libraries:
             self.add_library( Library( l['location'],
-                        l['realtime'], l['scan_interval'] ))
+                        l['monitored'], l['scan_interval'] ))
 
     _serial_libraries = property(serialize_libraries, unserialize_libraries)
 
@@ -363,8 +363,13 @@ class Library(object):
 
         :param location: the directory this library will scan
         :type location: string
-        :param collection: the Collection to associate with
+        :param collection: the collection to associate with
         :type collection: :class:`Collection`
+        :param monitored: whether the library should update its
+            collection at changes within the library's path
+        :type monitored: bool
+        :param scan_interval: the interval for automatic rescanning
+        :type scan_interval: int
 
         Simple usage:
 
@@ -380,7 +385,7 @@ class Library(object):
         5
         >>>
     """
-    def __init__(self, location, realtime=False, scan_interval=0):
+    def __init__(self, location, monitored=False, scan_interval=0):
         """
             Sets up the Library
         """
@@ -388,7 +393,10 @@ class Library(object):
         self.scan_interval = scan_interval
         self.scan_id = 0
         self.scanning = False
-        self.realtime = False
+        self.monitor = None
+        self._monitored = False
+        self.set_monitored(monitored)
+        print 'Monitored: %s' % self.monitored
 
         self.collection = None
         self.set_rescan_interval(scan_interval)
@@ -415,42 +423,85 @@ class Library(object):
 
         self.collection = collection
 
-    def _scan_locations(self, locations):
+    def get_monitored(self):
         """
-            Scans locations for tracks and adds them to the collection
-
-            :param locations: a list of locations to check
+            Whether the library should be monitored for changes
         """
-        db = self.collection
-        for fullpath in locations:
-            tr = db.get_track_by_loc(fullpath)
-            if tr:
-                # check to see if we need to scan this track
-                mtime = os.path.getmtime(fullpath)
-                if unicode(mtime) == tr['__modified']:
-                    continue
-                else:
-                    tr.read_tags()
-                    continue
+        return self._monitored
 
-            tr = trax.Track(fullpath)
-            if tr._scan_valid:
-                db.add(tr)
-
-    def _remove_locations(self, locations):
+    def set_monitored(self, monitored):
         """
-            Removes tracks at the specified locations from the collection
-
-            :param locations: the paths to remove
+            Enables or disables monitoring of the library
+            
+            :param monitored: Whether to monitor the library
+            :type monitored: bool
         """
-        for loc in locations:
-            try:
-                track = self.collection.tracks[loc]
-            except KeyError:
-                common.log_exception(log=logger)
-                continue
+        if monitored == self._monitored:
+            return
 
-            self.collection.remove(track)
+        if monitored:
+            gfile = gio.File(self.location)
+            self.monitor = gfile.monitor_directory()
+            self.monitor.connect('changed', self.on_location_changed)
+        else:
+            self.monitor.cancel()
+            del self.monitor
+            self.monitor = None
+
+        self._monitored = monitored
+
+    monitored = property(get_monitored, set_monitored)
+
+    def on_location_changed(self, monitor, gfile, other_gfile, event):
+        """
+            Updates the library on changes of the location
+        """
+        if event == gio.FILE_MONITOR_EVENT_CREATED:
+            added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
+            self.collection.add_tracks(added_tracks)
+        elif event == gio.FILE_MONITOR_EVENT_DELETED:
+            removed_tracks = []
+
+            track = trax.Track(gfile.get_uri())
+
+            if track in self.collection:
+                # Deleted file was a regular track
+                removed_tracks += [track]
+            else:
+                # Deleted file was most likely a directory
+                for track in self.collection:
+                    track_gfile = gio.File(track.get_loc_for_io())
+
+                    if track_gfile.has_prefix(gfile):
+                        removed_tracks += [track]
+
+            self.collection.remove_tracks(removed_tracks)
+
+    def get_rescan_interval(self):
+        """
+            :return: the scan interval in seconds
+        """
+        return self.scan_interval
+
+    def set_rescan_interval(self, interval):
+        """
+            Sets the scan interval in seconds.  If the interval is 0 seconds,
+            the scan interval is stopped
+
+            :param interval: scan interval in seconds
+            :type interval: int
+        """
+        if not interval:
+            if self.scan_id:
+                glib.source_remove(self.scan_id)
+                self.scan_id = 0
+        else:
+            if self.scan_id:
+                glib.source_remove(self.scan_id)
+
+            self.scan_id = glib.timeout_add_seconds(interval, self.rescan)
+
+        self.scan_interval = interval
 
     def _count_files(self):
         """
@@ -670,7 +721,7 @@ class Library(object):
 
 
         removals = deque()
-        for k, tr in self.collection.tracks.iteritems():
+        for tr in self.collection.tracks.itervalues():
             tr = tr._track
             loc = tr.get_loc_for_io()
             if not loc:
@@ -690,47 +741,6 @@ class Library(object):
             logger.debug(u"Removing %s"%unicode(tr))
             self.collection.remove(tr)
         self.scanning = False
-
-    def is_realtime(self):
-        """
-            :return: True if this is library is being watched
-        """
-        return self.realtime
-
-    def set_realtime(self, realtime):
-        """
-            Set to True if you want this library to be monitored
-
-            :raises PyInotifyNotSupportedException: The collection is not set
-                to realtime or :mod:`pyinotify` is not available
-        """
-        pass # TODO: reimplement with gio.FileMonitor
-
-    def get_rescan_interval(self):
-        """
-            :return: the scan interval in seconds
-        """
-        return self.scan_interval
-
-    def set_rescan_interval(self, interval):
-        """
-            Sets the scan interval in seconds.  If the interval is 0 seconds,
-            the scan interval is stopped
-
-            :param interval: scan interval in seconds
-            :type interval: int
-        """
-        if not interval:
-            if self.scan_id:
-                glib.source_remove(self.scan_id)
-                self.scan_id = 0
-        else:
-            if self.scan_id:
-                glib.source_remove(self.scan_id)
-
-            self.scan_id = glib.timeout_add_seconds(interval, self.rescan)
-
-        self.scan_interval = interval
 
     def add(self, loc, move=False):
         """

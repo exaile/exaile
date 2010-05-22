@@ -1088,6 +1088,7 @@ class TrackInfoPane(gtk.Alignment):
         self._display_progress = display_progress
         self._auto_update = auto_update
         self._timer = None
+        self.player = None
         self._track = None
         self._formatter = TrackFormatter(
             _('<span size="x-large" weight="bold">$title</span>\n'
@@ -1330,7 +1331,9 @@ class TrackInfoPane(gtk.Alignment):
         """
             Updates the info pane on tag changes
         """
-        if not self.player.is_stopped() and track is self._track:
+        if self.player is not None and \
+           not self.player.is_stopped() and \
+           track is self._track:
             self.set_track(track)
 
     def on_exaile_loaded(self, e, exaile, nothing):

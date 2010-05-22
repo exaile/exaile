@@ -26,13 +26,13 @@
 
 import gtk, gobject, pango
 import collections
-import os
+import os, sys
 import random
 
 from xl.nls import gettext as _
 from xl import event, common, trax, formatter, settings
 from xlgui import guiutil, icons
-import playlist_columns
+import playlist_columns, menu as plmenu
 
 import logging
 logger = logging.getLogger(__name__)
@@ -159,6 +159,13 @@ class NotebookTab(gtk.EventBox):
         elif event.button == 2:
             self.close()
         elif event.button == 3:
+            m = plmenu.Menu(self)
+            item = plmenu.simple_menu_item('test', [], "Test", 'tab-new', lambda *args: False)
+            m.add_item(item)
+            item = plmenu.simple_menu_item('test2', [], "Test much much longer", 'add', lambda *args: sys.stdout.write("test\n"))
+            m.add_item(item)
+            gobject.idle_add(m.popup, None, None, None, event.button, event.time)
+            return True
             menu = self._construct_menu()
             menu.show_all()
             menu.popup(None, None, None, event.button, event.time)
@@ -329,10 +336,10 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
         self.view.connect("row-activated", self.on_row_activated)
 
-        event.add_callback(self.on_shuffle_mode_changed, 
+        event.add_callback(self.on_shuffle_mode_changed,
                 "playlist_shuffle_mode_changed", self.playlist)
 
-        event.add_callback(self.on_repeat_mode_changed, 
+        event.add_callback(self.on_repeat_mode_changed,
                 "playlist_repeat_mode_changed", self.playlist)
 
         self.show_all()

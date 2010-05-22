@@ -179,7 +179,7 @@ class ProviderHandler(object):
     def get_provider(self, providername):
         """
             Returns a provider for this service.
-            
+
             :param providername: The provider name to identify the provider
             :type providername: string
             :returns: A provider or None

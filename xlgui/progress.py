@@ -93,7 +93,8 @@ class ProgressMonitor(MessageBar):
         """
             Called when the progress has been updated
         """
-        self._progress_updated = True
+        if percent > 0:
+            self._progress_updated = True
 
         fraction = float(percent) / 100
         fraction = max(0, fraction)

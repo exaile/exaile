@@ -333,8 +333,6 @@ class TrackDB(object):
             self.tracks[location] = TrackHolder(tr, self._key)
             self._key += 1
 
-            event.log_event('track_added', self, location)
-
         event.log_event('tracks_added', self, locations)
 
         self._dirty = True
@@ -359,8 +357,6 @@ class TrackDB(object):
             locations += [location]
             self._deleted_keys.append(self.tracks[location]._key)
             del self.tracks[location]
-
-            event.log_event('track_removed', self, location)
 
         event.log_event('tracks_removed', self, locations)
 

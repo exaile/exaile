@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-import cgi, gobject, gtk.gdk, logging, pynotify
+import cgi, glib, gtk.gdk, logging, pynotify
 import notifyosd_cover, notifyosdprefs
 from xl import event, settings, common
 from xlgui import icons
@@ -102,7 +102,7 @@ class ExaileNotifyOsd(object):
         if icon_allowed and self.cover:
             try:
                 pixbuf = icons.MANAGER.pixbuf_from_data(self.cover)
-            except gobject.GError:
+            except glib.GError:
                 pass
             else:
                 self.notify.set_icon_from_pixbuf(pixbuf)
@@ -147,7 +147,7 @@ class ExaileNotifyOsd(object):
                 if self.use_media_icons and self.cover:
                     try:
                         pixbuf = icons.MANAGER.pixbuf_from_data(self.cover)
-                    except gobject.GError:
+                    except glib.GError:
                         pass
                     else:
                         self.notify.set_icon_from_pixbuf(pixbuf)
@@ -160,7 +160,7 @@ class ExaileNotifyOsd(object):
 
     def on_tray_toggled(self, type, object, data):
         if data and self.tray_connection == -1:
-            gobject.timeout_add_seconds(1, self.exaile_ready)
+            glib.timeout_add_seconds(1, self.exaile_ready)
         elif not data and self.tray_connection != -1:
             self.tray_connection = -1
 

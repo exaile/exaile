@@ -24,13 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject
+import glib
 
-from xlgui.preferences import widgets
 from xl import common, xdg
 from xl.nls import gettext as _
-from xlgui import commondialogs
 import xlgui
+from xlgui import commondialogs
+from xlgui.preferences import widgets
 
 name = _('Appearance')
 ui = xdg.get_data_path('ui', 'preferences', 'appearance.ui')
@@ -60,7 +60,7 @@ class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional)
 
     def apply(self, value=None):
         return_value = widgets.ScalePreference.apply(self, value)
-        gobject.idle_add(self.main_window.queue_draw)
+        glib.idle_add(self.main_window.queue_draw)
 
         return return_value
 

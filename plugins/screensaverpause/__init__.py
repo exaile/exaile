@@ -70,8 +70,8 @@ def disable(exaile):
 
 
 def test():
-    import gobject
-    gobject.threads_init()
+    import glib
+    glib.threads_init()
     import dbus.mainloop.glib as dbgl
     dbgl.DBusGMainLoop(set_as_default=True)
 
@@ -89,7 +89,7 @@ def test():
         return None
     assert proxy
     interface = dbus.Interface(proxy, service['dbus_interface'])
-    mainloop = gobject.MainLoop()
+    mainloop = glib.MainLoop()
 
     def active_changed(new_value):
         if not new_value:

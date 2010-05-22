@@ -18,7 +18,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from __future__ import with_statement
-import gtk, time, gobject, thread, os
+import gtk, time, glib, thread, os
 from xl.nls import gettext as _
 from xl import event, xdg
 from xl import settings
@@ -391,7 +391,7 @@ def check_alarms(main, exaile):
 ###><><><### Plugin Handling Functions ###><><><###
 
 def __enb(eventname, exaile, nothing):
-    gobject.idle_add(_enable, exaile)
+    glib.idle_add(_enable, exaile)
 
 def enable(exaile):
 
@@ -407,7 +407,7 @@ def _enable(exaile):
     global TIMER_ID, MENU_ITEM, ALARM_CLOCK_MAIN
     ALARM_CLOCK_MAIN = main = AlarmClock(exaile)
 
-    TIMER_ID = gobject.timeout_add_seconds(5, check_alarms, main, exaile)
+    TIMER_ID = glib.timeout_add_seconds(5, check_alarms, main, exaile)
 
     MENU_ITEM = gtk.MenuItem(_('Multi-Alarm Clock'))
     MENU_ITEM.connect('activate', main.show_ui, exaile)
@@ -431,7 +431,7 @@ def disable(exaile):
 #        main = None
 
     if TIMER_ID is not None:
-        gobject.source_remove(TIMER_ID)
+        glib.source_remove(TIMER_ID)
         TIMER_ID = None
 
     if MENU_ITEM:

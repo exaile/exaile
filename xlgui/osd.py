@@ -25,7 +25,7 @@
 # from your version.
 
 import cairo
-import gobject
+import glib
 import gtk
 
 from xl import (
@@ -230,9 +230,9 @@ class OSDWindow(object):
         self.window.show_all()
         self.hide_progress()
         if self._timeout:
-            gobject.source_remove(self._timeout)
+            glib.source_remove(self._timeout)
         if timeout != 0:
-            self._timeout = gobject.timeout_add(timeout, self.hide)
+            self._timeout = glib.timeout_add(timeout, self.hide)
 
     def hide_progress(self, *args):
         if not settings.get_option('osd/show_progress', True):

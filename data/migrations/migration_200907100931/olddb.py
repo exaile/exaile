@@ -34,7 +34,7 @@ except ImportError:
 
 #sqlite.enable_shared_cache(True)
 
-import gobject
+import glib
 
 class DBOperationalError(Exception):
     
@@ -168,7 +168,7 @@ class DBManager(object):
             Closes the connection
         """
         if self.timer_id:
-            gobject.source_remove(self.timer_id)
+            glib.source_remove(self.timer_id)
 
     def execute(self, query, args=None):
         """
@@ -228,7 +228,7 @@ class DBManager(object):
         if threading.currentThread().getName() == 'MainThread':
             self.db.commit()
         else:
-            gobject.idle_add(self.db.commit)
+            glib.idle_add(self.db.commit)
 
     def read_one(self, table, items, where, args):
         """

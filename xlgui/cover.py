@@ -89,7 +89,7 @@ class CoverManager(object):
 
         self._connect_events()
         self.window.show_all()
-        gobject.idle_add(self._find_initial)
+        glib.idle_add(self._find_initial)
         self.menu = CoverMenu(self)
 
     def _on_button_press(self, button, event):
@@ -213,7 +213,7 @@ class CoverManager(object):
                 try:
                     image = icons.MANAGER.pixbuf_from_data(
                         cover_avail, size=(80,80))
-                except gobject.GError:
+                except glib.GError:
                     image = self.nocover
                     self.needs += 1
             else:
@@ -247,7 +247,7 @@ class CoverManager(object):
         self._stopped = False
         for item in self.items:
             if self._stopped:
-                gobject.idle_add(self._do_stop)
+                glib.idle_add(self._do_stop)
                 return
             starttime = time.time()
             if not self.covers[item] == self.nocover:
@@ -260,14 +260,14 @@ class CoverManager(object):
                 node = self.cover_nodes[item]
                 try:
                     image = icons.MANAGER.pixbuf_from_data(c, size=(80,80))
-                except gobject.GError:
+                except glib.GError:
                     c = None
                 else:
-                    gobject.idle_add(self.model.set_value, node, 1, image)
+                    glib.idle_add(self.model.set_value, node, 1, image)
 
-            gobject.idle_add(self.progress.set_fraction, float(self.count) /
+            glib.idle_add(self.progress.set_fraction, float(self.count) /
                 float(self.needs))
-            gobject.idle_add(self.progress.set_text, "%s/%s fetched" %
+            glib.idle_add(self.progress.set_text, "%s/%s fetched" %
                     (self.count, self.needs))
 
             self.count += 1
@@ -276,7 +276,7 @@ class CoverManager(object):
                 logger.debug("Saving cover database")
                 cover_manager.save()
 
-        gobject.idle_add(self._do_stop)
+        glib.idle_add(self._do_stop)
 
     def _calculate_needed(self):
         """
@@ -480,14 +480,14 @@ class CoverWidget(gtk.EventBox):
             Called when playback starts.  Fetches album covers, and displays
             them
         """
-        gobject.idle_add(self.set_blank)
+        glib.idle_add(self.set_blank)
         fetch = not settings.get_option('covers/automatic_fetching', True)
         cover_data = cover_manager.get_cover(track, set_only=fetch)
         if not cover_data:
             return
 
         if self.player.current == track:
-            gobject.idle_add(self.on_cover_chosen, None, cover_data)
+            glib.idle_add(self.on_cover_chosen, None, cover_data)
 
     def on_playback_end(self, type, player, object):
         """
@@ -704,9 +704,9 @@ class CoverChooser(gobject.GObject):
             if len(covers) > 1:
                 self.next_button.set_sensitive(True)
 
-            gobject.idle_add(self.show_cover, covers[0])
+            glib.idle_add(self.show_cover, covers[0])
         else:
-            gobject.idle_add(self.__show_no_cover_found)
+            glib.idle_add(self.__show_no_cover_found)
 
     def __show_no_cover_found(self):
         message = xlgui.main.mainwindow().message

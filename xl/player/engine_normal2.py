@@ -25,7 +25,7 @@
 # from your version.
 
 import gst
-import gobject
+import glib
 import logging
 import time
 import urllib
@@ -92,7 +92,7 @@ class NormalPlayer2(BasePlayer):
         if tr:
             self.play(tr, stop_last=False)
         else:
-            gobject.idle_add(self.stop)
+            glib.idle_add(self.stop)
 
     def on_message(self, bus, message, reading_tag = False):
         """
@@ -113,7 +113,7 @@ class NormalPlayer2(BasePlayer):
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
             a = message.parse_error()[0]
-            gobject.idle_add(self._on_playback_error, a.message)
+            glib.idle_add(self._on_playback_error, a.message)
 
             # TODO: merge this into stop() and make it engine-agnostic somehow
             curr = self.current

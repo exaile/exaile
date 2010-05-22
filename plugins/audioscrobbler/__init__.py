@@ -18,7 +18,7 @@ import _scrobbler as scrobbler
 import asprefs
 from xl import common, event, xdg, metadata, settings
 from xl.nls import gettext as _
-import gobject, logging, time, pickle, os, gtk
+import glib, logging, time, pickle, os, gtk
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +38,7 @@ def enable(exaile):
         __enb(None, exaile, None)
 
 def __enb(eventname, exaile, nothing):
-    gobject.idle_add(_enable, exaile)
+    glib.idle_add(_enable, exaile)
 
 def _enable(exaile):
     SCROBBLER.exaile_menu = exaile.gui.builder.get_object('tools_menu')

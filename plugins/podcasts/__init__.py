@@ -1,4 +1,4 @@
-import gtk, gobject
+import gtk, glib
 from xl import event, common, playlist
 from xl import trax
 from xl.nls import gettext as _
@@ -85,7 +85,7 @@ class PodcastPanel(panel.Panel):
         self.status.set_text(message)
 
         if timeout:
-            gobject.timeout_add_seconds(timeout, self._set_status, '', 0)
+            glib.timeout_add_seconds(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
         self.builder.connect_signals({

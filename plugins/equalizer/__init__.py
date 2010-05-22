@@ -32,13 +32,13 @@ from xl.player.pipe import ElementBin
 
 from xl.nls import gettext as _
 
-import gst, gtk, gobject
+import gst, gtk, glib
 import os, string
 
 #xl.xdg.get_config_dir()
 
 def __enb(eventname, exaile, nothing):
-    gobject.idle_add(_enable, exaile)
+    glib.idle_add(_enable, exaile)
 
 def enable(exaile):
     providers.register("postprocessing_element", GSTEqualizer)

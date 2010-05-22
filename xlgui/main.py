@@ -31,6 +31,7 @@ import re
 import threading
 
 import cairo
+import glib
 import gobject
 import pygst
 pygst.require('0.10')
@@ -132,13 +133,13 @@ class PlaybackProgressBar(object):
 
     def playback_start(self, type, player, object):
         if self.timer_id:
-            gobject.source_remove(self.timer_id)
+            glib.source_remove(self.timer_id)
             self.timer_id = None
         self.__add_timer_update()
 
     def playback_toggle_pause(self, type, player, object):
         if self.timer_id:
-            gobject.source_remove(self.timer_id)
+            glib.source_remove(self.timer_id)
             self.timer_id = None
         if not player.is_paused():
             self.__add_timer_update()
@@ -146,12 +147,12 @@ class PlaybackProgressBar(object):
     def __add_timer_update(self):
         freq = settings.get_option("gui/progress_update_millisecs", 1000)
         if freq % 1000 == 0:
-            self.timer_id = gobject.timeout_add_seconds(freq/1000, self.timer_update)
+            self.timer_id = glib.timeout_add_seconds(freq/1000, self.timer_update)
         else:
-            self.timer_id = gobject.timeout_add(freq, self.timer_update)
+            self.timer_id = glib.timeout_add(freq, self.timer_update)
 
     def playback_end(self, type, player, object):
-        if self.timer_id: gobject.source_remove(self.timer_id)
+        if self.timer_id: glib.source_remove(self.timer_id)
         self.timer_id = None
         self.bar.set_text(_('Not Playing'))
         self.bar.set_fraction(0)
@@ -1286,7 +1287,7 @@ class MainWindow(gobject.GObject):
             if settings.get_option('gui/ensure_visible', True):
                 pl.list.scroll_to_cell(path)
 
-            gobject.idle_add(pl.list.set_cursor, path)
+            glib.idle_add(pl.list.set_cursor, path)
 
         self._update_track_information()
         self.draw_playlist(type, player, object)
@@ -1426,7 +1427,7 @@ class MainWindow(gobject.GObject):
         """
         page = self.playlist_notebook.get_current_page()
         page = self.playlist_notebook.get_nth_page(page)
-        gobject.idle_add(page.queue_draw)
+        glib.idle_add(page.queue_draw)
 
     def get_selected_playlist(self):
         """
@@ -1502,7 +1503,7 @@ class MainWindow(gobject.GObject):
             Quits Exaile
         """
         self.window.hide()
-        gobject.idle_add(self.controller.exaile.quit)
+        glib.idle_add(self.controller.exaile.quit)
         return True
 
     def on_restart_item_activate(self, menuitem):
@@ -1510,7 +1511,7 @@ class MainWindow(gobject.GObject):
             Restarts Exaile
         """
         self.window.hide()
-        gobject.idle_add(self.controller.exaile.quit, True)
+        glib.idle_add(self.controller.exaile.quit, True)
 
     def toggle_visible(self, bringtofront=False):
         """

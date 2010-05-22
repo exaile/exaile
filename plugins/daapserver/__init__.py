@@ -1,6 +1,6 @@
 
 import logging
-import gobject
+import glib
 from xl import collection, event, settings
 import spydaap.parser.exaile
 
@@ -67,7 +67,7 @@ def _enable(exaile):
     
 
 def __enb(evname, exaile, wat):
-    gobject.idle_add(_enable, exaile)
+    glib.idle_add(_enable, exaile)
 
 
 def enable(exaile):

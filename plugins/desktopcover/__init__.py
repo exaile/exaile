@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import division
-import gobject
+import glib
 import gtk
 
 from xl import (
@@ -158,7 +158,7 @@ class DesktopCover(gtk.Window):
             pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
             self.image.set_from_pixbuf(pixbuf)
 
-            self._cross_fade_id = gobject.timeout_add(
+            self._cross_fade_id = glib.timeout_add(
                 int(duration), self.cross_fade, next_pixbuf, duration)
         else:
             self.image.set_from_pixbuf(next_pixbuf)
@@ -200,7 +200,7 @@ class DesktopCover(gtk.Window):
         if fading and self._fade_in_id is None:
             duration = settings.get_option(
                 'plugin/desktopcover/fading_duration', 50)
-            self._fade_in_id = gobject.timeout_add(
+            self._fade_in_id = glib.timeout_add(
                 int(duration), self.fade_in)
 
     def hide(self):
@@ -212,7 +212,7 @@ class DesktopCover(gtk.Window):
         if fading and self._fade_out_id is None:
             duration = settings.get_option(
                 'plugin/desktopcover/fading_duration', 50)
-            self._fade_out_id = gobject.timeout_add(
+            self._fade_out_id = glib.timeout_add(
                 int(duration), self.fade_out)
         else:
             gtk.Window.hide(self)

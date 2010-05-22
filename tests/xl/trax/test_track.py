@@ -11,7 +11,7 @@ import types
 
 import mox
 import gio
-import gobject
+import glib
 try:
     from nose.plugins.skip import SkipTest
 except ImportError:
@@ -40,9 +40,9 @@ class Test_MetadataCacher(unittest.TestCase):
 
     def test_add(self):
         timeout_id = 1
-        self.mox.StubOutWithMock(gobject, 'timeout_add_seconds')
-        self.mox.StubOutWithMock(gobject, 'source_remove')
-        gobject.timeout_add_seconds(
+        self.mox.StubOutWithMock(glib, 'timeout_add_seconds')
+        self.mox.StubOutWithMock(glib, 'source_remove')
+        glib.timeout_add_seconds(
                 self.TIMEOUT,
                 self.mc._MetadataCacher__cleanup).AndReturn(timeout_id)
 
@@ -53,9 +53,9 @@ class Test_MetadataCacher(unittest.TestCase):
 
     def test_double_add(self):
         timeout_id = 1
-        self.mox.StubOutWithMock(gobject, 'timeout_add_seconds')
-        self.mox.StubOutWithMock(gobject, 'source_remove')
-        gobject.timeout_add_seconds(
+        self.mox.StubOutWithMock(glib, 'timeout_add_seconds')
+        self.mox.StubOutWithMock(glib, 'source_remove')
+        glib.timeout_add_seconds(
                 mox.IsA(types.IntType),
                 mox.IsA(types.MethodType)).AndReturn(timeout_id)
 
@@ -68,8 +68,8 @@ class Test_MetadataCacher(unittest.TestCase):
 
     def test_remove(self):
         timeout_id = 1
-        self.mox.StubOutWithMock(gobject, 'timeout_add_seconds')
-        gobject.timeout_add_seconds(
+        self.mox.StubOutWithMock(glib, 'timeout_add_seconds')
+        glib.timeout_add_seconds(
                 self.TIMEOUT,
                 mox.IsA(types.MethodType)).AndReturn(timeout_id)
 

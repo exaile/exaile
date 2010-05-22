@@ -31,7 +31,7 @@ import os
 import urlparse
 
 import gio
-import gobject
+import glib
 import gtk
 
 from xl.nls import gettext as _
@@ -371,7 +371,7 @@ class Main(object):
         """
             Called when the rescan has finished
         """
-        gobject.idle_add(self.panels['collection'].load_tree)
+        glib.idle_add(self.panels['collection'].load_tree)
 
     def on_randomize_playlist(self, *e):
         pl = self.main.get_selected_playlist()
@@ -475,7 +475,7 @@ class Main(object):
             self.main.on_append_items(items, replace=True, sort=sort))
 
         self.device_panels[device.get_name()] = panel
-        gobject.idle_add(self.add_panel, *panel.get_panel())
+        glib.idle_add(self.add_panel, *panel.get_panel())
         thread = CollectionScanThread(self.main,
             device.get_collection())
         self.progress_manager.add_monitor(thread,

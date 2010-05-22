@@ -24,26 +24,32 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject
+import glib
+import gtk
 import inspect
 import logging
 import os
+import pygtk
+pygtk.require('2.0')
 import shlex
 import string
 import thread
 import traceback
 import urllib2
 
-import pygtk
-pygtk.require('2.0')
-import gtk
-
-from xl.nls import gettext as _
 from xl import xdg
+from xl.nls import gettext as _
 from xl.settings import _SETTINGSMANAGER
 from xlgui.preferences.widgets import *
-from xlgui.preferences import appearance, collection, cover
-from xlgui.preferences import osd, playback, playlists, plugin
+from xlgui.preferences import (
+    appearance,
+    collection,
+    cover,
+    osd,
+    playback,
+    playlists,
+    plugin
+)
 
 logger = logging.getLogger(__name__)
 
@@ -109,7 +115,7 @@ class PreferencesDialog(object):
         selection.set_select_function(lambda path:
             self.model[path][1] is not None)
 
-        gobject.idle_add(selection.select_path, select_path)
+        glib.idle_add(selection.select_path, select_path)
 
     def _load_plugin_pages(self):
         self._clear_children(self.plug_root)
@@ -133,7 +139,7 @@ class PreferencesDialog(object):
         for page in plugin_pages:
             self.model.append(self.plug_root, [page.name, page])
 
-        gobject.idle_add(self.tree.expand_row,
+        glib.idle_add(self.tree.expand_row,
             self.model.get_path(self.plug_root), False)
 
     def _clear_children(self, node):

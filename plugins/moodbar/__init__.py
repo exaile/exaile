@@ -16,7 +16,7 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 import moodbarprefs
-import cgi, gtk, gobject, os, os.path, subprocess, colorsys
+import cgi, gtk, glib, os, os.path, subprocess, colorsys
 import inspect
 from xl import event, xdg, settings
 from xl.nls import gettext as _
@@ -116,7 +116,7 @@ class ExModbar(object):
               self.lookformod(track)
 
     def destroy(self):
-         if self.modTimer: gobject.source_remove(self.modTimer)
+         if self.modTimer: glib.source_remove(self.modTimer)
 
 
     #playing ----------------------------------------------------------------
@@ -143,15 +143,15 @@ class ExModbar(object):
                  track.local_file_name(), '-o', modLoc])
          self.haveMod=not needGen
 
-         if self.modTimer: gobject.source_remove(self.modTimer)
-         self.modTimer = gobject.timeout_add_seconds(1, self.updateMod)
+         if self.modTimer: glib.source_remove(self.modTimer)
+         self.modTimer = glib.timeout_add_seconds(1, self.updateMod)
 
 
     def play_start(self, type, player, track):
          self.lookformod(track)
 
     def play_end (self, type, player, track):
-         if self.modTimer: gobject.source_remove(self.modTimer)
+         if self.modTimer: glib.source_remove(self.modTimer)
          self.modTimer = None
          self.haveMod = False
          self.mod.queue_draw_area(0, 0, self.get_size(), 24)
@@ -168,7 +168,7 @@ class ExModbar(object):
               logger.debug(_("Mood found."))
               self.haveMod=True
               self.modwidth=0
-         self.modTimer = gobject.timeout_add_seconds(1, self.updateMod)
+         self.modTimer = glib.timeout_add_seconds(1, self.updateMod)
 
     def updateplayerpos(self):
          if self.modTimer: self.curpos=self.exaile.player.get_progress()

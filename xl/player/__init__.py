@@ -32,8 +32,8 @@ __all__ = [
 ]
 
 import gst
-import gobject
-gobject.threads_init()
+import glib
+glib.threads_init()
 import logging
 import pygst
 pygst.require('0.10')

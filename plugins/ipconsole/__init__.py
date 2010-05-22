@@ -21,7 +21,7 @@
 
 import sys
 import gtk
-import gobject
+import glib
 import ipconsoleprefs
 from xl import settings
 
@@ -147,7 +147,7 @@ def on_setting_change(event, settings, option):
         PLUGIN.ipv.modify_font(pango.FontDescription(value))
 
 def __enb(evt, exaile, nothing):
-    gobject.idle_add(_enable, exaile)
+    glib.idle_add(_enable, exaile)
     event.add_callback(on_setting_change, 'plugin_ipconsole_option_set')
 
 def enable(exaile):

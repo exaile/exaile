@@ -35,15 +35,15 @@ collection.
 """
 
 from collections import deque
+import glib
+import gobject
+import gio
 import logging
 import os
 import os.path
 import shutil
-import time
 import threading
-
-import gobject
-import gio
+import time
 
 from xl.nls import gettext as _
 from xl import common, xdg, event, metadata, settings, trax
@@ -111,7 +111,7 @@ class CollectionScanThread(threading.Thread, gobject.GObject):
             self.emit('progress-update', progress)
         else:
             self.emit('done')
-            # gobject.idle_add(self.panel.load_tree)
+            # glib.idle_add(self.panel.load_tree)
 
     def run(self):
         """
@@ -722,13 +722,13 @@ class Library(object):
         """
         if not interval:
             if self.scan_id:
-                gobject.source_remove(self.scan_id)
+                glib.source_remove(self.scan_id)
                 self.scan_id = 0
         else:
             if self.scan_id:
-                gobject.source_remove(self.scan_id)
+                glib.source_remove(self.scan_id)
 
-            self.scan_id = gobject.timeout_add_seconds(interval, self.rescan)
+            self.scan_id = glib.timeout_add_seconds(interval, self.rescan)
 
         self.scan_interval = interval
 

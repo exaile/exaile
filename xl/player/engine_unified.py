@@ -25,7 +25,7 @@
 # from your version.
 
 import gst
-import gobject
+import glib
 import logging
 import threading
 import time
@@ -186,20 +186,20 @@ class UnifiedPlayer(BasePlayer):
 
         self.pipe.set_state(gst.STATE_PLAYING)
         self.streams[next]._settle_flag = 1
-        gobject.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
-        gobject.idle_add(self._set_state, self.pipe, gst.STATE_PLAYING)
+        glib.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
+        glib.idle_add(self._set_state, self.pipe, gst.STATE_PLAYING)
 
         if fading:
             timeout = int(float(duration)/float(100))
             if self.streams[next]:
-                gobject.timeout_add(timeout, self._fade_stream,
+                glib.timeout_add(timeout, self._fade_stream,
                         self.streams[next], 1)
             if self.streams[self._current_stream]:
-                gobject.timeout_add(timeout, self._fade_stream,
+                glib.timeout_add(timeout, self._fade_stream,
                         self.streams[self._current_stream], -1, True)
             if settings.get_option("player/crossfading", False):
                 time = int(track.get_tag_raw("__length")*1000 - duration)
-                gobject.timer_id = gobject.timeout_add(time,
+                glib.timer_id = glib.timeout_add(time,
                         self._start_crossfade)
 
         self._current_stream = next
@@ -230,16 +230,16 @@ class UnifiedPlayer(BasePlayer):
         if tr is not None:
             self.play(tr, user=False)
         if self._timer_id:
-            gobject.source_remove(self._timer_id)
+            glib.source_remove(self._timer_id)
         if tr is None:
-            self._timer_id = gobject.timeout_add(1000 * \
+            self._timer_id = glib.timeout_add(1000 * \
                     (self.current.get_tag_raw('__length') - self.get_time()),
                     self.stop)
         return False
 
     def _reset_crossfade_timer(self):
         if self._timer_id:
-            gobject.source_remove(self._timer_id)
+            glib.source_remove(self._timer_id)
         if not self.is_playing():
             return
         if not settings.get_option("player/crossfading", False):
@@ -248,9 +248,9 @@ class UnifiedPlayer(BasePlayer):
         time = int( self.current.get_tag_raw('__length')*1000 - \
                 (self.get_time()*1000 + duration) )
         if time < duration: # start crossfade now, we're late!
-            gobject.idle_add(self._start_crossfade)
+            glib.idle_add(self._start_crossfade)
         else:
-            self._timer_id = gobject.timeout_add(time, self._start_crossfade)
+            self._timer_id = glib.timeout_add(time, self._start_crossfade)
 
     def unlink_stream(self, stream):
         try:
@@ -261,7 +261,7 @@ class UnifiedPlayer(BasePlayer):
                 self.adder.release_request_pad(pad)
             except TypeError:
                 pass
-            gobject.idle_add(stream.set_state, gst.STATE_NULL)
+            glib.idle_add(stream.set_state, gst.STATE_NULL)
             try:
                 self.pipe.remove(stream)
             except gst.RemoveError:
@@ -501,7 +501,7 @@ class AudioStream(gst.Bin):
             gst.Bin.set_state(self, gst.STATE_NULL)
             event.log_event("stream_settled", self, None)
             return
-        gobject.idle_add(self._settle_state_sub)
+        glib.idle_add(self._settle_state_sub)
 
     @common.threaded
     def _settle_state_sub(self):

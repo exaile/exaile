@@ -26,7 +26,7 @@
 
 import cairo
 import glob
-import gobject
+import glib
 import gtk
 import os
 import pango
@@ -228,7 +228,7 @@ class IconManager(object):
         try:
             pixbuf = self.icon_theme.load_icon(
                 icon_name, size, gtk.ICON_LOOKUP_NO_SVG)
-        except gobject.GError:
+        except glib.GError:
             pixbuf = None
 
         # TODO: Check if fallbacks are necessary
@@ -283,7 +283,7 @@ class IconManager(object):
         try:
             loader.write(data)
             loader.close()
-        except gobject.GError:
+        except glib.GError:
             return None
 
         return loader.get_pixbuf()

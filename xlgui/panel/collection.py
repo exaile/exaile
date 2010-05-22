@@ -28,6 +28,7 @@ import logging
 import traceback
 import urllib
 
+import glib
 import gobject
 import gtk
 
@@ -209,7 +210,7 @@ class CollectionPanel(panel.Panel):
             self.collection.delete_tracks(tracks)
 
         dialog.destroy()
-        gobject.idle_add(self.load_tree)
+        glib.idle_add(self.load_tree)
 
 
     def _on_view_items(self, *args):
@@ -524,8 +525,8 @@ class CollectionPanel(panel.Panel):
             tag in get_all_tags(self.order) and \
             self.collection.loc_is_member(track.get_loc_for_io()):
             if self._refresh_id != 0:
-                gobject.source_remove(self._refresh_id)
-            self._refresh_id = gobject.timeout_add(500,
+                glib.source_remove(self._refresh_id)
+            self._refresh_id = glib.timeout_add(500,
                     self._refresh_tags_in_tree)
 
     def refresh_tracks_in_tree(self, type, obj, loc):
@@ -615,7 +616,7 @@ class CollectionPanel(panel.Panel):
 
         if rest:
             item = rest.pop(0)
-            gobject.idle_add(self._expand_node_by_name, search_num,
+            glib.idle_add(self._expand_node_by_name, search_num,
                 parent, item, rest)
 
     def load_subtree(self, parent):
@@ -740,7 +741,7 @@ class CollectionPanel(panel.Panel):
             len(self.keyword.strip()) >= \
                     settings.get_option("gui/expand_minimum_term_length", 2):
             for row in to_expand:
-                gobject.idle_add(self.tree.expand_row, row, False)
+                glib.idle_add(self.tree.expand_row, row, False)
 
         if iter_sep is not None:
             self.model.remove(iter_sep)

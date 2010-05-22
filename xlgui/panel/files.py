@@ -31,8 +31,8 @@ import urllib
 
 import gio
 import glib
-import gtk
 import gobject
+import gtk
 
 from xl import common, trax, metadata
 from xl import settings
@@ -301,10 +301,10 @@ class FilesPanel(panel.Panel):
             Sets up a timer to simulate live-search
         """
         if self.key_id:
-            gobject.source_remove(self.key_id)
+            glib.source_remove(self.key_id)
             self.key_id = None
 
-        self.key_id = gobject.timeout_add(700, lambda *e:
+        self.key_id = glib.timeout_add(700, lambda *e:
             self.load_directory(self.current, history=False,
             keyword=unicode(self.search.get_text(), 'utf-8')))
 
@@ -447,7 +447,7 @@ class FilesPanel(panel.Panel):
                 self.forward.set_sensitive(False)
             self.up.set_sensitive(bool(directory.get_parent()))
 
-        gobject.idle_add(idle)
+        glib.idle_add(idle)
 
     def drag_data_received(self, *e):
         """

@@ -15,23 +15,25 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os
+from daap import DAAPClient, DAAPError
+import glib
+import gobject
 import gtk
 import dbus
 import dbus.exceptions
 import logging
-import time
+import os
 import threading
-import gobject
-import xlgui
-from gettext import gettext as _
+import time
+
 from xl import collection, event, trax, common
+from xl.nls import gettext as _
+import xlgui
 from xlgui.panel.collection import CollectionPanel
 from xlgui import guiutil, commondialogs
-from daap import DAAPClient, DAAPError
 
 logger = logging.getLogger(__name__)
-gobject.threads_init()
+glib.threads_init()
 
 #
 #   Check For python-avahi, we can work without
@@ -124,7 +126,7 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
             This function is called in response to a menu_item click.
         Fire away.
         '''
-        gobject.idle_add(self.emit, "connect", (name,)+self.services[name])
+        glib.idle_add(self.emit, "connect", (name,)+self.services[name])
 
     def __init__(self, exaile, menu):
         """
@@ -462,7 +464,7 @@ class NetworkPanel(CollectionPanel):
         # Since we don't use a ProgressManager/Thingy, we have to call these w/out
         #  a ScanThread
         self.net_collection.rescan_libraries()
-        gobject.idle_add(self.load_tree)
+        glib.idle_add(self.load_tree)
 
 
     def save_selected(self, widget=None, event=None):
@@ -505,7 +507,7 @@ def enable(exaile):
         __enb(None, exaile, None)
 
 def __enb(eventname, exaile, wat):
-    gobject.idle_add(_enable, exaile)
+    glib.idle_add(_enable, exaile)
 
 def _enable(exaile):
     global MENU_ITEM, MANAGER

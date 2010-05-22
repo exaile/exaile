@@ -6,6 +6,7 @@ import HTMLParser
 from StringIO import StringIO
 import Image
 import base64
+import glib
 import gobject
 import gtk
 import os
@@ -97,7 +98,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         except:
             pass
 
-        gobject.idle_add(self.on_home_clicked)
+        glib.idle_add(self.on_home_clicked)
 
         # javascript debugger
         inspector = Inspector(self.get_web_inspector())

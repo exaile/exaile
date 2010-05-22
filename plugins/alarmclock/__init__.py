@@ -1,4 +1,4 @@
-import gtk, time, gobject, thread
+import gtk, time, glib, thread
 from gettext import gettext as _
 from xl import player
 from xl.plugins import PluginsManager
@@ -126,8 +126,8 @@ class Alarmclock(object):
 
     def enable_alarm(self):
         if self.timer_id !=  None :
-            gobject.source_remove(self.timer_id)
-        self.timer_id = gobject.timeout_add_seconds(5, self.timout_alarm)
+            glib.source_remove(self.timer_id)
+        self.timer_id = glib.timeout_add_seconds(5, self.timout_alarm)
 
     def disable_alarm(self):
-        gobject.source_remove(self.timer_id)
+        glib.source_remove(self.timer_id)

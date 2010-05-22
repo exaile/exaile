@@ -32,7 +32,7 @@ try:
 except ImportError:
     import pickle
 
-import gobject
+import glib
 import gio
 
 from xl import common, providers, event, settings, xdg, trax
@@ -351,7 +351,7 @@ class CoverManager(providers.ProviderHandler):
             Save the db
         """
         if self.__save_timer_id:
-            gobject.source_remove(self.__save_timer_id)
+            glib.source_remove(self.__save_timer_id)
 
         path = os.path.join(self.location, 'covers.db')
         try:
@@ -372,8 +372,8 @@ class CoverManager(providers.ProviderHandler):
 
     def __set_save_timeout(self):
         if self.__save_timer_id:
-            gobject.source_remove(self.__save_timer_id)
-        self.__save_timer_id = gobject.timeout_add_seconds(60, self.save)
+            glib.source_remove(self.__save_timer_id)
+        self.__save_timer_id = glib.timeout_add_seconds(60, self.save)
 
     def on_provider_added(self, provider):
         self.methods[provider.name] = provider
@@ -529,7 +529,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
             handle = gio.File(db_string).read()
             data = handle.read()
             return data
-        except gobject.GError:
+        except glib.GError:
             return None
 
 

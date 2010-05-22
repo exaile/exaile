@@ -26,6 +26,7 @@
 
 import threading
 
+import glib
 import gobject
 import gtk
 
@@ -52,7 +53,7 @@ class DeviceTransferThread(threading.Thread):
         """
             Called when the thread has finished normally
         """
-        gobject.idle_add(self.panel.load_tree)
+        glib.idle_add(self.panel.load_tree)
 
     def progress_update(self, type, transfer, progress):
         event.log_event('progress_update', self, progress)

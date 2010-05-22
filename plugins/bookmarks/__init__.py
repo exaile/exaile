@@ -24,7 +24,7 @@ from xl.nls import gettext as _
 from xl import event, xdg, trax, settings
 from xlgui import commondialogs, guiutil, icons
 import gtk
-import gobject
+import glib
 import gio
 import os
 import logging
@@ -122,7 +122,7 @@ class Bookmarks:
                 if image:
                     try:
                         pix = icons.MANAGER.pixbuf_from_data(image, size=(16,16))
-                    except gobject.GError:
+                    except glib.GError:
                         logger.warn('Could not load cover')
                         pix = None
                         # no cover
@@ -229,7 +229,7 @@ class Bookmarks:
 
 
 def __enb(eventname, exaile, nothing):
-    gobject.idle_add(_enable, exaile)
+    glib.idle_add(_enable, exaile)
 
 def enable(exaile):
     """

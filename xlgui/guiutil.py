@@ -32,9 +32,8 @@ import urllib
 from urllib2 import urlparse
 
 import gio
-import gobject
+import glib
 import gtk
-import gtk.gdk
 import pango
 
 from xl import common, event, playlist, settings, trax, xdg, covers
@@ -51,7 +50,7 @@ def _idle_callback(func, callback, *args, **kwargs):
 
 def idle_add(callback=None):
     """
-        A decorator that will wrap the function in a gobject.idle_add call
+        A decorator that will wrap the function in a glib.idle_add call
 
         NOTE: Although this decorator will probably work in more cases than
         the gtkrun decorator does, you CANNOT expect to get a return value
@@ -64,7 +63,7 @@ def idle_add(callback=None):
     """
     def wrap(f):
         def wrapped(*args, **kwargs):
-            gobject.idle_add(_idle_callback, f, callback,
+            glib.idle_add(_idle_callback, f, callback,
                 *args, **kwargs)
 
         return wrapped
@@ -340,7 +339,7 @@ class DragTreeView(gtk.TreeView):
                             10, 10
                         )
 
-                    gobject.idle_add(self._set_drag_cover, context, cover_pixbuf)
+                    glib.idle_add(self._set_drag_cover, context, cover_pixbuf)
         else:
             if self.get_selection().count_selected_rows() > 1:
                 self.drag_source_set_icon_stock(gtk.STOCK_DND_MULTIPLE)
@@ -513,9 +512,9 @@ class SearchEntry(object):
             Called when the entry changes
         """
         if self.change_id:
-            gobject.source_remove(self.change_id)
+            glib.source_remove(self.change_id)
 
-        self.change_id = gobject.timeout_add(self.timeout,
+        self.change_id = glib.timeout_add(self.timeout,
             self.entry_activate)
 
     def on_entry_icon_press(self, entry, icon_pos, event):
@@ -857,7 +856,7 @@ class Statusbar(object):
         self.message_ids += [self.status_bar.push(self.context_id, status)]
 
         if timeout > 0:
-            gobject.timeout_add_seconds(timeout, self.clear_status)
+            glib.timeout_add_seconds(timeout, self.clear_status)
 
     def clear_status(self):
         """
@@ -1232,10 +1231,10 @@ class TrackInfoPane(gtk.Alignment):
             'gui/progress_update/millisecs', 1000)
 
         if milliseconds % 1000 == 0:
-            self._timer = gobject.timeout_add_seconds(milliseconds / 1000,
+            self._timer = glib.timeout_add_seconds(milliseconds / 1000,
                 self.__update_progress)
         else:
-            self._timer = gobject.timeout_add(milliseconds,
+            self._timer = glib.timeout_add(milliseconds,
                 self.__update_progress)
 
     def __disable_timer(self):
@@ -1245,7 +1244,7 @@ class TrackInfoPane(gtk.Alignment):
         if self._timer is None:
             return
 
-        gobject.source_remove(self._timer)
+        glib.source_remove(self._timer)
         self._timer = None
 
     def __show_progress(self):

@@ -28,7 +28,7 @@ import os.path
 
 import pygtk
 pygtk.require('2.0')
-import gobject
+import glib
 import gtk
 import pango
 
@@ -651,7 +651,7 @@ class MessageBar(gtk.InfoBar):
         self.set_text(text)
         self.set_secondary_text(secondary_text)
         self.show()
-        gobject.timeout_add_seconds(5, self.hide)
+        glib.timeout_add_seconds(5, self.hide)
 
     def show_question(self, text, secondary_text=None):
         """

@@ -32,7 +32,7 @@ import unicodedata
 from copy import deepcopy
 import gio
 import glib
-import gobject
+import glib
 from xl.nls import gettext as _
 from xl import common, settings, event, metadata
 logger = logging.getLogger(__name__)
@@ -77,7 +77,7 @@ class _MetadataCacher(object):
 
     def __cleanup(self):
         if self._cleanup_id:
-            gobject.source_remove(self._cleanup_id)
+            glib.source_remove(self._cleanup_id)
         current = time.time()
         thresh = current - self.timeout
         for item in self._cache[:]:
@@ -86,7 +86,7 @@ class _MetadataCacher(object):
         if self._cache:
             next_expiry = min([i[2] for i in self._cache])
             timeout = int((next_expiry + self.timeout) - current)
-            self._cleanup_id = gobject.timeout_add_seconds(timeout,
+            self._cleanup_id = glib.timeout_add_seconds(timeout,
                     self.__cleanup)
 
     def add(self, trackobj, formatobj):
@@ -99,7 +99,7 @@ class _MetadataCacher(object):
             least = min([(i[2], i) for i in self._cache])[1]
             self._cache.remove(least)
         if not self._cleanup_id:
-            self._cleanup_id = gobject.timeout_add_seconds(self.timeout,
+            self._cleanup_id = glib.timeout_add_seconds(self.timeout,
                     self.__cleanup)
 
     def remove(self, trackobj):

@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, gobject, pango
+import gtk, glib, pango
 import os
 import webbrowser
 from xl.nls import gettext as _
@@ -219,7 +219,7 @@ class LyricsPanel(gtk.VBox):
             self.set_top_box_widgets(False)
             self.get_lyrics(player, player.current)
         else:
-            gobject.idle_add(self.lyrics_text_buffer.set_text, _('Not playing.'))
+            glib.idle_add(self.lyrics_text_buffer.set_text, _('Not playing.'))
 
 
     @common.threaded
@@ -256,7 +256,7 @@ class LyricsPanel(gtk.VBox):
                     lyrics, source, url=lyr, sou, ur
                     break
         if track_playing==track:
-            gobject.idle_add(self.lyrics_text_buffer.set_text, lyrics)
+            glib.idle_add(self.lyrics_text_buffer.set_text, lyrics)
             self.update_source_text(source, url)
 
     def update_source_text(self, source, url):
@@ -342,13 +342,13 @@ class LyricsMethodsComboBox(gtk.ComboBox):
     def remove_item(self, name):
         index=self.search_item(name)
         if index:
-            gobject.idle_add(self.remove_text, index)
+            glib.idle_add(self.remove_text, index)
             return True
         return False
 
     def append_item(self, name):
         if not self.search_item(name):
-            gobject.idle_add(self.append_text, name)
+            glib.idle_add(self.append_text, name)
             return True
         return False
 

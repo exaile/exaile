@@ -31,6 +31,7 @@ import os.path
 import math
 import urllib
 
+import glib
 import gobject
 import gtk
 import gtk.gdk
@@ -155,9 +156,9 @@ class Playlist(gtk.VBox):
             return
 
         if self._redraw_id:
-            gobject.source_remove(self._redraw_id)
+            glib.source_remove(self._redraw_id)
         self._redraw_queue.append(track)
-        self._redraw_id = gobject.timeout_add(100,
+        self._redraw_id = glib.timeout_add(100,
                 self.__refresh_changed_tracks)
 
     def __refresh_changed_tracks(self):
@@ -765,7 +766,7 @@ class Playlist(gtk.VBox):
         iter = self.model.get_iter_first()
         if not iter:
             # Do we need to reactivate the callbacks when this happens?
-            gobject.idle_add(self.add_track_callbacks)
+            glib.idle_add(self.add_track_callbacks)
             return
 
         self.playlist.add_tracks(trs)
@@ -774,7 +775,7 @@ class Playlist(gtk.VBox):
         # become ordered
         iter = self.model.get_iter_first()
         if not iter:
-            gobject.idle_add(self.add_track_callbacks)
+            glib.idle_add(self.add_track_callbacks)
             return
 
         self.playlist.ordered_tracks = []
@@ -787,7 +788,7 @@ class Playlist(gtk.VBox):
         if trs:
             self.set_needs_save(True)
 
-        gobject.idle_add(self.add_track_callbacks)
+        glib.idle_add(self.add_track_callbacks)
 
         current_trackcount = len(self.playlist)
 
@@ -850,7 +851,7 @@ class Playlist(gtk.VBox):
             ranges.append((curstart, last))
             for start, end in ranges:
                 self.playlist.remove_tracks(start, end)
-            gobject.idle_add(event.add_callback, self.on_remove_tracks,
+            glib.idle_add(event.add_callback, self.on_remove_tracks,
                 'tracks_removed', self.playlist)
 
         self.list.set_model(None)

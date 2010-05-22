@@ -2,7 +2,7 @@ import re, urllib, os
 from xl.radio import *
 from xl import common, playlist, xdg, event
 from xlgui import guiutil, commondialogs
-import gtk, gobject
+import gtk, glib
 from xl.nls import gettext as _
 import httplib
 import urllib2
@@ -301,7 +301,7 @@ class ShoutcastRadioStation(RadioStation):
         """
         lists = self.search(keyword)
 
-        gobject.idle_add(self.search_done, keyword, lists)
+        glib.idle_add(self.search_done, keyword, lists)
 
     @guiutil.idle_add()
     def search_done(self, keyword, lists):
@@ -330,7 +330,7 @@ class ShoutcastRadioStation(RadioStation):
         if not pl: return
         pl.name = keyword
 
-        gobject.idle_add(self.done_getting_playlist, pl)
+        glib.idle_add(self.done_getting_playlist, pl)
 
     @guiutil.idle_add()
     def done_getting_playlist(self, pl):

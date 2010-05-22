@@ -34,7 +34,7 @@ import imp, os
 importer = imp.load_source("importer",
         os.path.join(os.path.dirname(__file__), "importer.py"))
 
-import gobject
+import glib
 import logging, threading
 logger = logging.getLogger(__name__)
 
@@ -56,9 +56,9 @@ class CDImportThread(threading.Thread):
         return True
 
     def run(self):
-        id = gobject.timeout_add_seconds(1, self.progress_update)
+        id = glib.timeout_add_seconds(1, self.progress_update)
         self.imp.do_import()
-        gobject.source_remove(id)
+        glib.source_remove(id)
         self.progress_update(100)
 
 

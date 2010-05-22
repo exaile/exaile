@@ -35,7 +35,7 @@ be listened for by ANY object. Events may be emitted either syncronously
 or asyncronously, the default is asyncronous.
 
 The events module also provides an idle_add() function similar to that of
-gobject's. However this should not be used for long-running tasks as they
+glib. However this should not be used for long-running tasks as they
 may block other events queued via idle_add().
 
 Events should be emitted AFTER the given event has taken place. Often the
@@ -52,7 +52,7 @@ import threading
 import time
 import traceback
 import weakref
-import gobject
+import glib
 
 from xl import common
 from xl.nls import gettext as _
@@ -285,7 +285,7 @@ class EventManager(object):
         """
             Same as emit(), but does not block.
         """
-        gobject.idle_add(self.emit, event)
+        glib.idle_add(self.emit, event)
 
     def add_callback(self, function, type, obj, args, kwargs):
         """

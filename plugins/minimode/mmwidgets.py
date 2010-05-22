@@ -16,6 +16,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import copy
+import glib
 import gobject
 import gtk
 import pango
@@ -457,7 +458,7 @@ class PlaylistButton(gtk.ToggleButton):
             if settings.get_option('gui/ensure_visible', True):
                 self.playlist.list.scroll_to_cell(path)
 
-            gobject.idle_add(self.playlist.list.set_cursor, path)
+            glib.idle_add(self.playlist.list.set_cursor, path)
 
     def on_parent_hide(self, parent):
         """
@@ -503,7 +504,7 @@ class PlaylistButton(gtk.ToggleButton):
             pointer leaves the button prematurely
         """
         if self._drag_motion_id is not None:
-            gobject.source_remove(self._drag_motion_id)
+            glib.source_remove(self._drag_motion_id)
             self._drag_motion_id = None
 
     def on_drag_motion(self, togglebutton, context, x, y, timestamp):
@@ -511,7 +512,7 @@ class PlaylistButton(gtk.ToggleButton):
             Sets up a timeout to show the playlist
         """
         if self._drag_motion_id is None:
-            self._drag_motion_id = gobject.timeout_add(500,
+            self._drag_motion_id = glib.timeout_add(500,
                 self.drag_motion_finish)
 
     def drag_motion_finish(self):
@@ -840,10 +841,10 @@ class ProgressBar(gtk.Alignment):
         milliseconds = settings.get_option('gui/progress_update/millisecs', 1000)
 
         if milliseconds % 1000 == 0:
-            self._timer = gobject.timeout_add_seconds(milliseconds / 1000,
+            self._timer = glib.timeout_add_seconds(milliseconds / 1000,
                 self.update_state)
         else:
-            self._timer = gobject.timeout_add(milliseconds,
+            self._timer = glib.timeout_add(milliseconds,
                 self.update_state)
 
     def disable_timer(self):
@@ -853,7 +854,7 @@ class ProgressBar(gtk.Alignment):
         if self._timer is None:
             return
 
-        gobject.source_remove(self._timer)
+        glib.source_remove(self._timer)
         self._timer = None
 
     def on_playback_state_change(self, event, player, track):

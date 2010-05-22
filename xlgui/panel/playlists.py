@@ -28,6 +28,7 @@ import os.path
 import time
 import urllib
 
+import glib
 import gobject
 import gtk
 
@@ -545,8 +546,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if settings.get_option('gui/sync_on_tag_change', True) and \
             tag in ['title', 'artist']:
             if self._refresh_id != 0:
-                gobject.source_remove(self._refresh_id)
-            self._refresh_id = gobject.timeout_add(500,
+                glib.source_remove(self._refresh_id)
+            self._refresh_id = glib.timeout_add(500,
                     self._refresh_playlists)
 
     def _refresh_playlists(self):

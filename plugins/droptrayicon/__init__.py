@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gobject, gtk, os
+import glib, gtk, os
 from egg.trayicon import TrayIcon as EggTrayIcon
 from xl import event, playlist, providers, settings
 from xl.nls import gettext as _
@@ -248,12 +248,12 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
 
         # Defer display of drop target
         if self._drag_motion_id is None:
-            self._drag_motion_id = gobject.timeout_add(500,
+            self._drag_motion_id = glib.timeout_add(500,
                 self.drag_motion_finish)
 
         # Prevent hiding of drop target
         if self._drag_leave_id is not None:
-            gobject.source_remove(self._drag_leave_id)
+            glib.source_remove(self._drag_leave_id)
             self._drag_leave_id = None
 
     def drag_motion_finish(self):
@@ -269,13 +269,13 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
         # Enable display of drop target on re-enter
         if self._drag_motion_id is not None:
-            gobject.source_remove(self._drag_motion_id)
+            glib.source_remove(self._drag_motion_id)
             self._drag_motion_id = None
 
         # Defer hiding of drop target
         if self._drag_leave_id is not None:
-            gobject.source_remove(self._drag_leave_id)
-        self._drag_leave_id = gobject.timeout_add(500,
+            glib.source_remove(self._drag_leave_id)
+        self._drag_leave_id = glib.timeout_add(500,
             self.drag_leave_finish)
 
     def drag_leave_finish(self):
@@ -290,12 +290,12 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
         # Enable display of drop target on re-enter
         if self._drag_motion_id is not None:
-            gobject.source_remove(self._drag_motion_id)
+            glib.source_remove(self._drag_motion_id)
             self._drag_motion_id = None
 
         # Enable hiding of drop target on re-enter
         if self._drag_leave_id is not None:
-            gobject.source_remove(self._drag_leave_id)
+            glib.source_remove(self._drag_leave_id)
             self._drag_leave_id = None
 
         self.drop_target_window.hide()

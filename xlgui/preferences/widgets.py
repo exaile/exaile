@@ -28,7 +28,7 @@ import hashlib
 import logging
 import os
 
-import gobject
+import glib
 import gtk
 import pango
 
@@ -135,7 +135,7 @@ class Preference(object):
         widget.hide()
 
         if response == gtk.RESPONSE_ACCEPT:
-            gobject.idle_add(main.exaile().quit, True)
+            glib.idle_add(main.exaile().quit, True)
 
 class Conditional(object):
     """
@@ -147,7 +147,7 @@ class Conditional(object):
 
     def __init__(self):
         event.add_callback(self.on_option_set, 'option_set')
-        gobject.idle_add(self.on_option_set,
+        glib.idle_add(self.on_option_set,
             'option_set', settings, self.condition_preference_name)
 
     def on_check_condition(self):
@@ -282,8 +282,8 @@ class HashedPreference(Preference):
 
         self.widget.set_visibility(False)
         # Defer to after returning from this method
-        gobject.idle_add(self.widget.set_text, text)
-        gobject.idle_add(self.widget.set_position, length)
+        glib.idle_add(self.widget.set_text, text)
+        glib.idle_add(self.widget.set_position, length)
 
 class CheckPreference(Preference):
     """

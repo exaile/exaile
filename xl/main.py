@@ -220,9 +220,9 @@ class Exaile(object):
                 self.gui.main.window.iconify()
             self.gui.main.window.show_all()
 
-            import gobject
+            import glib
             if self.splash is not None:
-                gobject.idle_add(self.splash.destroy)
+                glib.idle_add(self.splash.destroy)
             event.log_event("gui_loaded", self, None)
 
 
@@ -481,8 +481,8 @@ class Exaile(object):
             self.smart_playlists.save_playlist(pl, overwrite=True)
 
     def mainloop_init(self):
-        import gobject
-        gobject.threads_init()
+        import glib
+        glib.threads_init()
         if self.options.Dbus:
             import dbus, dbus.mainloop.glib
             dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
@@ -492,7 +492,7 @@ class Exaile(object):
             import gtk
             gtk.gdk.threads_init()
         else:
-            loop = gobject.MainLoop()
+            loop = glib.MainLoop()
             context = loop.get_context()
             self.__mainloop(context)
 

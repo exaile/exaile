@@ -39,7 +39,7 @@ class ProtocolError(Exception):
    pass
 
 def login( user, password, hashpw=False, client=('exa', '0.3.0'),
-   post_url='post.audioscrobbler.com' ):
+   post_url='http://post.audioscrobbler.com/' ):
    """Authencitate with AS (The Handshake)
 
    @param user:     The username

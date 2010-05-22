@@ -55,11 +55,11 @@ from xlgui import icons
 
 """
 
-def simple_menu_item(id, after, display_name, icon_name, callback):
+def simple_menu_item(name, after, display_name, icon_name, callback):
     """
         Factory function that should handle most cases for menus
 
-        :param id: Internal name for the item. must be unique within the menu.
+        :param name: Internal name for the item. must be unique within the menu.
         :param after: List of ids which come before this item, this item will
                 be placed after the lowest of these.
         :param display_name: Name as it is to appear in the menu.
@@ -78,13 +78,13 @@ def simple_menu_item(id, after, display_name, icon_name, callback):
             item = gtk.MenuItem(display_name)
         item.connect('activate', callback, parent_obj, parent_context)
         return item
-    return MenuItem(id, factory, after=after or [])
+    return MenuItem(name, factory, after=after or [])
 
 
 
 class MenuItem(object):
-    def __init__(self, id, factory, after=[]):
-        self.id = id
+    def __init__(self, name, factory, after=[]):
+        self.name = name
         self.after = after
         self.factory = factory
 
@@ -104,12 +104,12 @@ class Menu(gtk.Menu):
         if not item.after:
             self._items.append(item)
             return
-        id = item.id
-        if id in [i.id for i in self._items]:
+        id = item.name
+        if id in [i.name for i in self._items]:
             raise ValueError, "Menu already has an element with id %s."%id
         put_after = None
         for idx, i in enumerate(items):
-            if i.id in item.after:
+            if i.name in item.after:
                 put_after = idx
         if put_after is None:
             self._items.append(item)
@@ -136,11 +136,21 @@ class Menu(gtk.Menu):
 
 
 class ProviderMenu(providers.ProviderHandler, Menu):
-    pass
+    def __init__(self, name, parent):
+        providers.ProviderHandler.__init__(self, name)
+        Menu.__init__(self, parent)
+        for p in self.get_providers():
+            self.on_provider_added(p)
+
+    def on_provider_added(self, provider):
+        self.add_item(provider)
+
+    def on_provider_removed(self, provider):
+        self.remove_item(provider)
 
 
+testmenu = ProviderMenu("test", None)
+providers.register("test", simple_menu_item("test", [], "Test Providers", None,
+    lambda *args: False))
 
-if __name__ == '__main__':
-    menu = Menu()
-    item = simple_menu_item('test', [], "Test", 'new', lambda *args: False)
-    gobject.idle_add(menu.popup, None, None, None, 1, 1)
+

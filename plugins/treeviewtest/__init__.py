@@ -159,6 +159,10 @@ class NotebookTab(gtk.EventBox):
         elif event.button == 2:
             self.close()
         elif event.button == 3:
+            memu = plmenu.testmenu
+            gobject.idle_add(memu.popup, None, None, None, event.button, event.time)
+            return True
+
             m = plmenu.Menu(self)
             item = plmenu.simple_menu_item('test', [], "Test", 'tab-new', lambda *args: False)
             m.add_item(item)

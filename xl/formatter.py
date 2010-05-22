@@ -25,7 +25,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gio, gobject, re
+import gio
+import glib
+import gobject
+import re
 from datetime import date
 from string import Template, _TemplateMetaclass
 
@@ -96,6 +99,7 @@ class ParameterTemplate(Template):
         Examples:
         * ${foo:parameter1}
         * ${bar:parameter1, parameter2}
+        * ${qux:parameter1=argument1, parameter2}
     """
     __metaclass__ = _ParameterTemplateMetaclass
 
@@ -203,24 +207,23 @@ class ProgressTextFormatter(Formatter):
         else:
             self.on_exaile_loaded('exaile_loaded', exaile, None)
 
-    def format(self, *args):
+    def format(self, current_time=None, total_time=None):
         """
             Returns a string suitable for progress indicators
-            :param args: Allows for overriding of the values for
-                current time and total time, in exactly that order
-            :type args: float, float
+
+            :param current_time: the current progress
+            :type current_time: float
+            :param total_time: the total length of a track
+            :type total_time: float
             :returns: The formatted text
             :rtype: string
         """
-        try:
-            current_time = args[0]
-        except IndexError:
+        if current_time is None:
             current_time = self.player.get_time()
 
-        try:
-            total_time = args[1]
-        except IndexError:
+        if total_time is None:
             total_time = self.player.current.get_tag_raw('__length')
+
         if total_time is None:
             total_time = remaining_time = 0
         else:
@@ -244,6 +247,7 @@ class ProgressTextFormatter(Formatter):
     def format_duration(self, duration):
         """
             Returns a properly formatted duration
+
             :param duration: The duration to format, in seconds
             :type duration: float
         """
@@ -287,17 +291,18 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
         Formatter.__init__(self, format)
         providers.ProviderHandler.__init__(self, 'tag_formatting')
 
-    def format(self, *args):
+    def format(self, track, markup_escape=False):
         """
             Returns a string suitable for progress indicators
 
-            :param args: A single track to take data from
-            :type args: xl.trax.Track
+            :param track: A single track to take data from
+            :type track: :class:`xl.trax.Track`
+            :param markup_escape: Whether to escape markup-like
+                characters in tag values
+            :type markup_escape: bool
             :returns: The formatted text
             :rtype: string
         """
-        track = args[0]
-
         if not isinstance(track, trax.Track):
             raise TypeError('First argument to format() needs '
                             'to be of type xl.trax.Track')
@@ -336,6 +341,11 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
                 self._substitutions[id] = track.get_tag_display(tag)
             else:
                 self._substitutions[id] = provider.format(track, parameters)
+
+        if markup_escape:
+            for id in self._substitutions.iterkeys():
+                self._substitutions[id] = glib.markup_escape_text(
+                    self._substitutions[id])
 
         return self._template.safe_substitute(self._substitutions)
 

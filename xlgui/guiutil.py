@@ -1179,7 +1179,7 @@ class TrackInfoPane(gtk.Alignment):
         pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, width))
         self.cover_image.set_from_pixbuf(pixbuf)
 
-        self.info_label.set_markup(self._formatter.format(track))
+        self.info_label.set_markup(self._formatter.format(track, markup_escape=True))
 
         if self._display_progress:
             state = self.player.get_state()

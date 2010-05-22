@@ -480,8 +480,10 @@ class MessageBar(gtk.InfoBar):
 
         self.primary_text = gtk.Label(text)
         self.primary_text.set_property('xalign', 0)
+        self.primary_text.set_line_wrap(True)
         self.secondary_text = gtk.Label()
         self.secondary_text.set_property('xalign', 0)
+        self.secondary_text.set_line_wrap(True)
         self.secondary_text.set_no_show_all(True)
 
         self.message_area = gtk.VBox(spacing=12)
@@ -515,6 +517,8 @@ class MessageBar(gtk.InfoBar):
             pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1))
         self.primary_text_emphasized_attributes.insert(
             pango.AttrScale(pango.SCALE_LARGE, 0, -1))
+
+        self.connect('response', self.on_response)
 
     def set_text(self, text):
         """
@@ -687,4 +691,11 @@ class MessageBar(gtk.InfoBar):
         self.set_text(text)
         self.set_secondary_text(secondary_text)
         self.show()
+
+    def on_response(self, widget, response):
+        """
+            Handles the response for closing
+        """
+        if response == gtk.RESPONSE_CLOSE:
+            self.hide()
 

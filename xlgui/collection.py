@@ -56,6 +56,11 @@ class CollectionManagerDialog(object):
         self.remove_list = []
         self.dialog.set_transient_for(self.parent)
 
+        self.message = commondialogs.MessageBar(
+            parent=self.builder.get_object('content_area'),
+            buttons=gtk.BUTTONS_CLOSE
+        )
+
         self.builder.connect_signals(self)
 
         items = collection.libraries.keys()
@@ -106,9 +111,12 @@ class CollectionManagerDialog(object):
             removes = []
             for gitem, item in items:
                 if gloc.has_prefix(gitem):
-                    commondialogs.error(self.parent,
-                        _('Path is already in your collection, or is a '
-                        'subdirectory of another path in your collection'))
+                    self.message.show_warning(
+                        _('Directory not added.'),
+                        _('The directory is already in your collection '
+                          'or is a subdirectory of another directory in '
+                          'your collection.')
+                    )
                     break
                 elif gitem.has_prefix(gloc):
                     removes.append(item)

@@ -9,7 +9,7 @@
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox11">
+      <object class="GtkVBox" id="content_area">
         <property name="visible">True</property>
         <child>
           <object class="GtkHBox" id="hbox17">

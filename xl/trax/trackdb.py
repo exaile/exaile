@@ -325,10 +325,18 @@ class TrackDB(object):
         """
             Like add(), but takes a list of :class:`xl.track.Track`
         """
+        locations = []
+
         for tr in tracks:
-            self.tracks[tr.get_loc_for_io()] = TrackHolder(tr, self._key)
+            location = tr.get_loc_for_io()
+            locations += [location]
+            self.tracks[location] = TrackHolder(tr, self._key)
             self._key += 1
-            event.log_event("track_added", self, tr.get_loc_for_io())
+
+            event.log_event('track_added', self, location)
+
+        event.log_event('tracks_added', self, locations)
+
         self._dirty = True
 
     def remove(self, track):
@@ -344,10 +352,18 @@ class TrackDB(object):
         """
             Like remove(), but takes a list of :class:`xl.track.Track`
         """
+        locations = []
+
         for tr in tracks:
-            self._deleted_keys.append(self.tracks[tr.get_loc_for_io()]._key)
-            del self.tracks[tr.get_loc_for_io()]
-            event.log_event("track_removed", self, tr.get_loc_for_io())
+            location = tr.get_loc_for_io()
+            locations += [location]
+            self._deleted_keys.append(self.tracks[location]._key)
+            del self.tracks[location]
+
+            event.log_event('track_removed', self, location)
+
+        event.log_event('tracks_removed', self, locations)
+
         self._dirty = True
 
     def get_tracks(self):

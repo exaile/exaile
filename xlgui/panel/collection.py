@@ -262,8 +262,8 @@ class CollectionPanel(panel.Panel):
         })
         self.tree.connect('key-release-event', self.on_key_released)
         event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
-        event.add_callback(self.refresh_tracks_in_tree, 'track_added', self.collection)
-        event.add_callback(self.refresh_tracks_in_tree, 'track_removed', self.collection)
+        event.add_callback(self.refresh_tracks_in_tree, 'tracks_added', self.collection)
+        event.add_callback(self.refresh_tracks_in_tree, 'tracks_removed', self.collection)
 
     def on_refresh_button_pressed(self, button, event):
         """
@@ -399,7 +399,6 @@ class CollectionPanel(panel.Panel):
             lambda m, i: m.get_value(i, 1) is None)
 
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
-        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
 
         self.tree.connect("row-expanded", self.on_expanded)
 
@@ -548,7 +547,8 @@ class CollectionPanel(panel.Panel):
     def resort_tracks(self):
 #        import time
 #        print "sorting...", time.clock()
-        self.sorted_tracks = trax.sort_tracks(self.order[0].tags(), self.collection.get_tracks())
+        self.sorted_tracks = trax.sort_tracks(self.order[0].tags(),
+            self.collection.get_tracks())
 #        print "sorted.", time.clock()
 
     def load_tree(self):
@@ -560,12 +560,14 @@ class CollectionPanel(panel.Panel):
         """
         logger.debug("Reloading collection tree")
         self.current_start_count = self.start_count
+        self.tree.set_model(None)
         self.model.clear()
-        self.tree.set_model(self.model_blank)
 
         self.root = None
         oldorder = self.order
-        self.order = [TreeLevelTabs(x) for x in self.orders[self.choice.get_active()]]
+        self.order = [TreeLevelTabs(x) \
+            for x in self.orders[self.choice.get_active()]]
+
         if not oldorder or set(oldorder) != set(self.order):
             self.resort_tracks()
 
@@ -576,7 +578,8 @@ class CollectionPanel(panel.Panel):
 
         keyword = self.keyword.strip()
         tags = list(SEARCH_TAGS)
-        tags += [t for t in get_all_tags(self.order) if t != 'tracknumber' and t not in tags]
+        tags += [t for t in get_all_tags(self.order) \
+            if t != 'tracknumber' and t not in tags]
 
         self.tracks = list(
                 trax.search_tracks_from_string(self.sorted_tracks,

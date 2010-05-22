@@ -395,10 +395,9 @@ class Library(object):
         self.scanning = False
         self.monitor = None
         self._monitored = False
-        self.set_monitored(monitored)
-        print 'Monitored: %s' % self.monitored
 
         self.collection = None
+        self.set_monitored(monitored)
         self.set_rescan_interval(scan_interval)
 
     def set_location(self, location):

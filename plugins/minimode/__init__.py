@@ -24,7 +24,7 @@ from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
 
-import minimodeprefs, mmwidgets
+import minimode_preferences, mmwidgets
 
 MINIMODE = None
 
@@ -53,7 +53,7 @@ def disable(exaile):
     MINIMODE = None
 
 def get_preferences_pane():
-    return minimodeprefs
+    return minimode_preferences
 
 class MiniMode(gtk.Window):
     """
@@ -74,7 +74,7 @@ class MiniMode(gtk.Window):
         self.defaults['plugin/minimode/horizontal_position'] = 10
         self.defaults['plugin/minimode/vertical_position'] = 10
 
-        controlpref = minimodeprefs.SelectedControlsPreference
+        controlpref = minimode_preferences.SelectedControlsPreference
         self.available_controls = controlpref.available_items.keys() or []
         self.fixed_items = controlpref.fixed_items.keys() or []
 

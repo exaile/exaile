@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-23 11:36+0200\n"
+"POT-Creation-Date: 2010-05-23 11:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -665,7 +665,7 @@ msgstr ""
 msgid "Toggle: Stop after Selected Track"
 msgstr ""
 
-#: ../xlgui/main.py:811 ../data/ui/main.ui.h:7
+#: ../xlgui/main.py:811 ../data/ui/main.ui.h:8
 msgid "Dynamically add similar tracks to the playlist"
 msgstr ""
 
@@ -715,7 +715,7 @@ msgstr ""
 msgid "Repeat _Track"
 msgstr ""
 
-#: ../xlgui/main.py:1317 ../data/ui/main.ui.h:19
+#: ../xlgui/main.py:1317 ../data/ui/main.ui.h:20
 #: ../plugins/minimode/mmwidgets.py:171 ../plugins/minimode/mmwidgets.py:195
 msgid "Start Playback"
 msgstr ""
@@ -752,7 +752,7 @@ msgstr ""
 msgid "Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:206 ../data/ui/main.ui.h:33
+#: ../xlgui/menu.py:206 ../data/ui/main.ui.h:34
 msgid "_New Playlist"
 msgstr ""
 
@@ -1035,7 +1035,7 @@ msgid "Length of a track"
 msgstr ""
 
 #: ../xlgui/preferences/collection.py:22 ../data/ui/device_panel.ui.h:1
-#: ../data/ui/collection_panel.ui.h:6
+#: ../data/ui/collection_panel.ui.h:7
 msgid "Collection"
 msgstr ""
 
@@ -1091,7 +1091,7 @@ msgstr ""
 msgid "A restart is required for this change to take effect."
 msgstr ""
 
-#: ../xlgui/preferences/widgets.py:69 ../data/ui/main.ui.h:16
+#: ../xlgui/preferences/widgets.py:69 ../data/ui/main.ui.h:17
 msgid "Restart"
 msgstr ""
 
@@ -1405,7 +1405,7 @@ msgstr ""
 msgid "Transferring to %s..."
 msgstr ""
 
-#: ../xlgui/tray.py:85 ../data/ui/main.ui.h:18
+#: ../xlgui/tray.py:85 ../data/ui/main.ui.h:19
 msgid "Shuffle playback order"
 msgstr ""
 
@@ -1445,111 +1445,115 @@ msgstr ""
 msgid "Clear Playlist"
 msgstr ""
 
-#: ../data/ui/main.ui.h:6
+#: ../data/ui/main.ui.h:6 ../data/ui/collection_panel.ui.h:6
+msgid "Clear Search Field"
+msgstr ""
+
+#: ../data/ui/main.ui.h:7
 msgid "Click to view Queue"
 msgstr ""
 
-#: ../data/ui/main.ui.h:8 ../plugins/minimode/__init__.py:246
+#: ../data/ui/main.ui.h:9 ../plugins/minimode/__init__.py:246
 msgid "Next Track"
 msgstr ""
 
-#: ../data/ui/main.ui.h:9
+#: ../data/ui/main.ui.h:10
 msgid "Open Directories"
 msgstr ""
 
-#: ../data/ui/main.ui.h:10
+#: ../data/ui/main.ui.h:11
 msgid "Open _URL"
 msgstr ""
 
-#: ../data/ui/main.ui.h:11
+#: ../data/ui/main.ui.h:12
 msgid "Playlist Utilities Bar"
 msgstr ""
 
-#: ../data/ui/main.ui.h:12 ../plugins/minimode/__init__.py:243
+#: ../data/ui/main.ui.h:13 ../plugins/minimode/__init__.py:243
 msgid "Previous Track"
 msgstr ""
 
-#: ../data/ui/main.ui.h:13
+#: ../data/ui/main.ui.h:14
 msgid "Randomize the order of the current playlist"
 msgstr ""
 
-#: ../data/ui/main.ui.h:14
+#: ../data/ui/main.ui.h:15
 msgid "Re_scan Collection"
 msgstr ""
 
-#: ../data/ui/main.ui.h:15
+#: ../data/ui/main.ui.h:16
 msgid "Repeat playback"
 msgstr ""
 
-#: ../data/ui/main.ui.h:17 ../data/ui/files_panel.ui.h:6
-#: ../data/ui/collection_panel.ui.h:11
+#: ../data/ui/main.ui.h:18 ../data/ui/files_panel.ui.h:6
+#: ../data/ui/collection_panel.ui.h:12
 msgid "Search: "
 msgstr ""
 
-#: ../data/ui/main.ui.h:20
+#: ../data/ui/main.ui.h:21
 msgid ""
 "Stop Playback\n"
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
 
-#: ../data/ui/main.ui.h:23
+#: ../data/ui/main.ui.h:24
 msgid "Track _Properties"
 msgstr ""
 
-#: ../data/ui/main.ui.h:24
+#: ../data/ui/main.ui.h:25
 msgid "_Autosize"
 msgstr ""
 
-#: ../data/ui/main.ui.h:25
+#: ../data/ui/main.ui.h:26
 msgid "_Collection"
 msgstr ""
 
-#: ../data/ui/main.ui.h:26
+#: ../data/ui/main.ui.h:27
 msgid "_Columns"
 msgstr ""
 
-#: ../data/ui/main.ui.h:27
+#: ../data/ui/main.ui.h:28
 msgid "_Device Manager"
 msgstr ""
 
-#: ../data/ui/main.ui.h:28
+#: ../data/ui/main.ui.h:29
 msgid "_Edit"
 msgstr ""
 
-#: ../data/ui/main.ui.h:29
+#: ../data/ui/main.ui.h:30
 msgid "_Export Current Playlist"
 msgstr ""
 
-#: ../data/ui/main.ui.h:30
+#: ../data/ui/main.ui.h:31
 msgid "_File"
 msgstr ""
 
-#: ../data/ui/main.ui.h:31
+#: ../data/ui/main.ui.h:32
 msgid "_Go to Playing Track"
 msgstr ""
 
-#: ../data/ui/main.ui.h:32
+#: ../data/ui/main.ui.h:33
 msgid "_Help"
 msgstr ""
 
-#: ../data/ui/main.ui.h:34
+#: ../data/ui/main.ui.h:35
 msgid "_Queue"
 msgstr ""
 
-#: ../data/ui/main.ui.h:35
+#: ../data/ui/main.ui.h:36
 msgid "_Randomize Playlist"
 msgstr ""
 
-#: ../data/ui/main.ui.h:36
+#: ../data/ui/main.ui.h:37
 msgid "_Resizable"
 msgstr ""
 
-#: ../data/ui/main.ui.h:37
+#: ../data/ui/main.ui.h:38
 msgid "_Tools"
 msgstr ""
 
-#: ../data/ui/main.ui.h:38
+#: ../data/ui/main.ui.h:39
 msgid "_View"
 msgstr ""
 
@@ -2011,25 +2015,25 @@ msgstr ""
 msgid "Artist - (Year - Album)"
 msgstr ""
 
-#: ../data/ui/collection_panel.ui.h:7
+#: ../data/ui/collection_panel.ui.h:8
 msgid "Genre - Album"
 msgstr ""
 
-#: ../data/ui/collection_panel.ui.h:8
+#: ../data/ui/collection_panel.ui.h:9
 msgid "Genre - Artist"
 msgstr ""
 
-#: ../data/ui/collection_panel.ui.h:9
+#: ../data/ui/collection_panel.ui.h:10
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
 
-#: ../data/ui/collection_panel.ui.h:12
+#: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Album"
 msgstr ""
 
-#: ../data/ui/collection_panel.ui.h:13
+#: ../data/ui/collection_panel.ui.h:14
 msgid "Year - Artist"
 msgstr ""
 

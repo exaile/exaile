@@ -515,7 +515,7 @@
                         <property name="secondary_icon_stock">gtk-clear</property>
                         <property name="secondary_icon_activatable">True</property>
                         <property name="secondary_icon_sensitive">True</property>
-                        <property name="secondary_icon_tooltip_text">Clear Search Field</property>
+                        <property name="secondary_icon_tooltip_text" translatable="yes">Clear Search Field</property>
                         <signal name="activate" handler="on_playlist_search_entry_activate" swapped="no"/>
                       </object>
                       <packing>

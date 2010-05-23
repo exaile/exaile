@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-23 11:35+0200\n"
-"PO-Revision-Date: 2010-05-23 11:36+0100\n"
+"POT-Creation-Date: 2010-05-23 11:46+0200\n"
+"PO-Revision-Date: 2010-05-23 11:47+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "Language: de\n"
@@ -712,7 +712,7 @@ msgid "Toggle: Stop after Selected Track"
 msgstr "Umschalten: nach diesem Stück stoppen"
 
 #: ../xlgui/main.py:811
-#: ../data/ui/main.ui.h:7
+#: ../data/ui/main.ui.h:8
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dynamisch ähnliche Stücke der Wiedergabeliste hinzufügen"
 
@@ -773,7 +773,7 @@ msgid "Repeat _Track"
 msgstr "Wiederholung des _Stücks"
 
 #: ../xlgui/main.py:1317
-#: ../data/ui/main.ui.h:19
+#: ../data/ui/main.ui.h:20
 #: ../plugins/minimode/mmwidgets.py:171
 #: ../plugins/minimode/mmwidgets.py:195
 msgid "Start Playback"
@@ -816,7 +816,7 @@ msgid "Playlist"
 msgstr "Wiedergabeliste"
 
 #: ../xlgui/menu.py:206
-#: ../data/ui/main.ui.h:33
+#: ../data/ui/main.ui.h:34
 msgid "_New Playlist"
 msgstr "_Neue Wiedergabeliste"
 
@@ -1116,7 +1116,7 @@ msgstr "Länge eines Stücks"
 
 #: ../xlgui/preferences/collection.py:22
 #: ../data/ui/device_panel.ui.h:1
-#: ../data/ui/collection_panel.ui.h:6
+#: ../data/ui/collection_panel.ui.h:7
 msgid "Collection"
 msgstr "Bibliothek"
 
@@ -1173,7 +1173,7 @@ msgid "A restart is required for this change to take effect."
 msgstr "Ein Neustart ist erforderlich, um diese Änderung durchzuführen."
 
 #: ../xlgui/preferences/widgets.py:69
-#: ../data/ui/main.ui.h:16
+#: ../data/ui/main.ui.h:17
 msgid "Restart"
 msgstr "Neustarten"
 
@@ -1522,7 +1522,7 @@ msgid "Transferring to %s..."
 msgstr "Übertrage auf %s …"
 
 #: ../xlgui/tray.py:85
-#: ../data/ui/main.ui.h:18
+#: ../data/ui/main.ui.h:19
 msgid "Shuffle playback order"
 msgstr "Zufällige Reihenfolge der Wiedergabe"
 
@@ -1563,50 +1563,55 @@ msgid "Clear Playlist"
 msgstr "Wiedergabeliste leeren"
 
 #: ../data/ui/main.ui.h:6
+#: ../data/ui/collection_panel.ui.h:6
+msgid "Clear Search Field"
+msgstr "Suchfeld leeren"
+
+#: ../data/ui/main.ui.h:7
 msgid "Click to view Queue"
 msgstr "Klicken zum Anzeigen der Wartschlange"
 
-#: ../data/ui/main.ui.h:8
+#: ../data/ui/main.ui.h:9
 #: ../plugins/minimode/__init__.py:246
 msgid "Next Track"
 msgstr "Nächstes Stück"
 
-#: ../data/ui/main.ui.h:9
+#: ../data/ui/main.ui.h:10
 msgid "Open Directories"
 msgstr "Verzeichnisse öffnen"
 
-#: ../data/ui/main.ui.h:10
+#: ../data/ui/main.ui.h:11
 msgid "Open _URL"
 msgstr "_Adresse öffnen"
 
-#: ../data/ui/main.ui.h:11
+#: ../data/ui/main.ui.h:12
 msgid "Playlist Utilities Bar"
 msgstr "Wiedergabewerkzeugleiste"
 
-#: ../data/ui/main.ui.h:12
+#: ../data/ui/main.ui.h:13
 #: ../plugins/minimode/__init__.py:243
 msgid "Previous Track"
 msgstr "Vorheriges Stück"
 
-#: ../data/ui/main.ui.h:13
+#: ../data/ui/main.ui.h:14
 msgid "Randomize the order of the current playlist"
 msgstr "Inhalt der aktuellen Wiedergabeliste mischen"
 
-#: ../data/ui/main.ui.h:14
+#: ../data/ui/main.ui.h:15
 msgid "Re_scan Collection"
 msgstr "Bibliothek neu einlesen"
 
-#: ../data/ui/main.ui.h:15
+#: ../data/ui/main.ui.h:16
 msgid "Repeat playback"
 msgstr "Wiedergabe wiederholen"
 
-#: ../data/ui/main.ui.h:17
+#: ../data/ui/main.ui.h:18
 #: ../data/ui/files_panel.ui.h:6
-#: ../data/ui/collection_panel.ui.h:11
+#: ../data/ui/collection_panel.ui.h:12
 msgid "Search: "
 msgstr "Suche: "
 
-#: ../data/ui/main.ui.h:20
+#: ../data/ui/main.ui.h:21
 msgid ""
 "Stop Playback\n"
 "\n"
@@ -1616,63 +1621,63 @@ msgstr ""
 "\n"
 "Rechtsklick zum Stoppen nach dem gewählten Stück"
 
-#: ../data/ui/main.ui.h:23
+#: ../data/ui/main.ui.h:24
 msgid "Track _Properties"
 msgstr "Eigenschaften des Stücks"
 
-#: ../data/ui/main.ui.h:24
+#: ../data/ui/main.ui.h:25
 msgid "_Autosize"
 msgstr "_Automatische Größe"
 
-#: ../data/ui/main.ui.h:25
+#: ../data/ui/main.ui.h:26
 msgid "_Collection"
 msgstr "Bibliothek"
 
-#: ../data/ui/main.ui.h:26
+#: ../data/ui/main.ui.h:27
 msgid "_Columns"
 msgstr "_Spalten"
 
-#: ../data/ui/main.ui.h:27
+#: ../data/ui/main.ui.h:28
 msgid "_Device Manager"
 msgstr "Gerätemanager"
 
-#: ../data/ui/main.ui.h:28
+#: ../data/ui/main.ui.h:29
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
-#: ../data/ui/main.ui.h:29
+#: ../data/ui/main.ui.h:30
 msgid "_Export Current Playlist"
 msgstr "Aktuelle Wiedergabeliste _exportieren"
 
-#: ../data/ui/main.ui.h:30
+#: ../data/ui/main.ui.h:31
 msgid "_File"
 msgstr "_Datei"
 
-#: ../data/ui/main.ui.h:31
+#: ../data/ui/main.ui.h:32
 msgid "_Go to Playing Track"
 msgstr "Zum laufenden Stück springen"
 
-#: ../data/ui/main.ui.h:32
+#: ../data/ui/main.ui.h:33
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: ../data/ui/main.ui.h:34
+#: ../data/ui/main.ui.h:35
 msgid "_Queue"
 msgstr "_Warteschlange"
 
-#: ../data/ui/main.ui.h:35
+#: ../data/ui/main.ui.h:36
 msgid "_Randomize Playlist"
 msgstr "Wiedergabeliste mischen"
 
-#: ../data/ui/main.ui.h:36
+#: ../data/ui/main.ui.h:37
 msgid "_Resizable"
 msgstr "Größe veränderlich"
 
-#: ../data/ui/main.ui.h:37
+#: ../data/ui/main.ui.h:38
 msgid "_Tools"
 msgstr "_Werkzeuge"
 
-#: ../data/ui/main.ui.h:38
+#: ../data/ui/main.ui.h:39
 msgid "_View"
 msgstr "_Ansicht"
 
@@ -2150,15 +2155,15 @@ msgstr "Musik hinzufügen"
 msgid "Artist - (Year - Album)"
 msgstr "Künstler (Jahr – Album)"
 
-#: ../data/ui/collection_panel.ui.h:7
+#: ../data/ui/collection_panel.ui.h:8
 msgid "Genre - Album"
 msgstr "Genre – Album"
 
-#: ../data/ui/collection_panel.ui.h:8
+#: ../data/ui/collection_panel.ui.h:9
 msgid "Genre - Artist"
 msgstr "Genre – Künstler"
 
-#: ../data/ui/collection_panel.ui.h:9
+#: ../data/ui/collection_panel.ui.h:10
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
@@ -2166,11 +2171,11 @@ msgstr ""
 "Bibliotheksansicht aktualisieren\n"
 "(Umschalt-Taste gedrückt halten um die Bibliothek neu einzulesen)"
 
-#: ../data/ui/collection_panel.ui.h:12
+#: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Album"
 msgstr "Jahr – Album"
 
-#: ../data/ui/collection_panel.ui.h:13
+#: ../data/ui/collection_panel.ui.h:14
 msgid "Year - Artist"
 msgstr "Jahr – Künstler"
 

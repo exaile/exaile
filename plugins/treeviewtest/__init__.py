@@ -30,7 +30,7 @@ import os, sys
 import random
 
 from xl.nls import gettext as _
-from xl import event, common, trax, formatter, settings
+from xl import event, common, trax, formatter, settings, providers
 from xlgui import guiutil, icons
 import playlist_columns, menu as plmenu
 
@@ -75,7 +75,6 @@ class TestWindow(object):
 class SmartNotebook(gtk.Notebook):
     def __init__(self):
         gtk.Notebook.__init__(self)
-        self.tab_menu_items = []
 
     def get_active_tab(self):
         pass
@@ -84,9 +83,6 @@ class PlaylistNotebook(SmartNotebook):
     def __init__(self, exaile):
         SmartNotebook.__init__(self)
         self.exaile = exaile
-        self._new_playlist_item = gtk.MenuItem(_("New Playlist"))
-        self._new_playlist_item.connect('activate', self.create_new_playlist)
-        self.tab_menu_items.append(self._new_playlist_item)
 
     def create_tab_from_playlist(self, playlist):
         page = PlaylistPage(playlist, self.exaile)
@@ -98,15 +94,13 @@ class PlaylistNotebook(SmartNotebook):
         pl = Playlist("Playlist")
         return self.create_tab_from_playlist(pl)
 
-    def get_tab_menu_items(self):
-        return self.tab_menu_items
-
 
 class NotebookTab(gtk.EventBox):
     """
         Class to represent a generic tab in a gtk.Notebook.
 
     """
+    menu_provider_name = 'notebooktab' # Change this in subclasses!
     def __init__(self, notebook, page):
         gtk.EventBox.__init__(self)
         self.set_visible_window(False)
@@ -114,6 +108,8 @@ class NotebookTab(gtk.EventBox):
         self.notebook = notebook
         self.page = page
         page.set_tab(self)
+
+        self.menu = plmenu.ProviderMenu(self.menu_provider_name, self)
 
         self.connect('button-press-event', self.on_button_press)
 
@@ -159,21 +155,8 @@ class NotebookTab(gtk.EventBox):
         elif event.button == 2:
             self.close()
         elif event.button == 3:
-            memu = plmenu.testmenu
-            gobject.idle_add(memu.popup, None, None, None, event.button, event.time)
-            return True
-
-            m = plmenu.Menu(self)
-            item = plmenu.simple_menu_item('test', [], "Test", 'tab-new', lambda *args: False)
-            m.add_item(item)
-            item = plmenu.simple_menu_item('test2', [], "Test much much longer", 'add', lambda *args: sys.stdout.write("test\n"))
-            m.add_item(item)
-            gobject.idle_add(m.popup, None, None, None, event.button, event.time)
-            return True
-            menu = self._construct_menu()
-            menu.show_all()
-            menu.popup(None, None, None, event.button, event.time)
-            menu.connect('deactivate', self._deconstruct_menu)
+            self.page.tab_menu.popup( None, None, None,
+                    event.button, event.time)
             return True
 
     def on_entry_activate(self, entry):
@@ -231,43 +214,16 @@ class NotebookTab(gtk.EventBox):
     def can_rename(self):
         return hasattr(self.page, 'set_name')
 
-    def _deconstruct_menu(self, menu):
-        children = menu.get_children()
-        for c in children:
-            menu.remove(c)
-
-    def _construct_menu(self):
-        menu = gtk.Menu()
-        for item in self.notebook.get_tab_menu_items():
-            menu.append(item)
-        menu.append(gtk.SeparatorMenuItem())
-        for item in self.page.get_tab_menu_items():
-            menu.append(item)
-        menu.append(gtk.SeparatorMenuItem())
-        for item in self.get_tab_menu_items():
-            menu.append(item)
-        return menu
-
     def close(self, *args):
         if self.page.handle_close():
             self.notebook.remove_page(self.notebook.page_num(self.page))
 
-    def get_tab_menu_items(self):
-        items = []
-        if self.can_rename():
-            rename_item = gtk.MenuItem(_("Rename"))
-            rename_item.connect('activate', lambda x: self.start_rename())
-            items.append(rename_item)
-        close_item = gtk.MenuItem(_("Close"))
-        close_item.connect('activate', self.close)
-        items.append(close_item)
-        return items
-
 
 class NotebookPage(object):
+    menu_provider_name = 'tab-context' #override this in subclasses
     def __init__(self):
-        self.tab_menu_items = []
         self.tab = None
+        self.tab_menu = plmenu.ProviderMenu(self.menu_provider_name, self)
 
     def set_tab(self, tab):
         self.tab = tab
@@ -284,11 +240,31 @@ class NotebookPage(object):
     def get_tab_menu_items(self):
         return self.tab_menu_items
 
+# do this in a function to avoid polluting the global namespace
+def __create_playlist_context_menu():
+    smi = plmenu.simple_menu_item
+    sep = plmenu.simple_separator
+    items = []
+    items.append(smi('new-tab', [], _("New Playlist"), 'tab-new',
+        lambda w, o, c: o.tab.notebook.create_new_playlist()))
+    items.append(sep('new-tab-sep', ['new-tab']))
+    items.append(smi('rename', ['new-tab-sep'], _("Rename"), 'gtk-edit',
+        lambda w, o, c: o.tab.start_rename()))
+    items.append(smi('clear', ['rename'], _("Clear"), 'gtk-clear',
+        lambda w, o, c: o.playlist.clear()))
+    items.append(sep('tab-close-sep', ['clear']))
+    items.append(smi('tab-close', ['tab-close-sep'], _("Close"), 'gtk-close',
+        lambda w, o, c: o.tab.close()))
+    for item in items:
+        providers.register('playlist-tab-context', item)
+__create_playlist_context_menu()
+
 class PlaylistPage(gtk.VBox, NotebookPage):
     """
         Displays a playlist and associated controls.
     """
     default_columns = ['tracknumber', 'title', 'album', 'artist', '__rating', '__length']
+    menu_provider_name = 'playlist-tab-context'
 
     def __init__(self, playlist, exaile):
         gtk.VBox.__init__(self)
@@ -297,10 +273,6 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.exaile = exaile #TODO: remove the need for this!
 
         self.playlist = playlist
-        self._clear_menu_item = gtk.MenuItem(_("Clear All Tracks"))
-        self._clear_menu_item.connect('activate', self.clear)
-        self.tab_menu_items.append(self._clear_menu_item)
-
 
         uifile = os.path.join(os.path.dirname(__file__), "playlist.ui")
         self.builder = gtk.Builder()

@@ -55,6 +55,12 @@ from xlgui import icons
 
 """
 
+def simple_separator(name, after):
+    def factory(menu, parent_obj, parent_context):
+        item = gtk.SeparatorMenuItem()
+        return item
+    return MenuItem(name, factory, after=after)
+
 def simple_menu_item(name, after, display_name, icon_name, callback):
     """
         Factory function that should handle most cases for menus
@@ -62,7 +68,7 @@ def simple_menu_item(name, after, display_name, icon_name, callback):
         :param name: Internal name for the item. must be unique within the menu.
         :param after: List of ids which come before this item, this item will
                 be placed after the lowest of these.
-        :param display_name: Name as it is to appear in the menu.
+        :param display_name: Name as ito.close is to appear in the menu.
         :param icon_name: Name of the icon to display, or None for no icon.
         :param callback: The function to call when the menu item is activated.
                 signature: callback(widget, parent_obj, parent_context)
@@ -78,12 +84,12 @@ def simple_menu_item(name, after, display_name, icon_name, callback):
             item = gtk.MenuItem(display_name)
         item.connect('activate', callback, parent_obj, parent_context)
         return item
-    return MenuItem(name, factory, after=after or [])
+    return MenuItem(name, factory, after=after)
 
 
 
 class MenuItem(object):
-    def __init__(self, name, factory, after=[]):
+    def __init__(self, name, factory, after):
         self.name = name
         self.after = after
         self.factory = factory
@@ -108,7 +114,7 @@ class Menu(gtk.Menu):
         if id in [i.name for i in self._items]:
             raise ValueError, "Menu already has an element with id %s."%id
         put_after = None
-        for idx, i in enumerate(items):
+        for idx, i in enumerate(self._items):
             if i.name in item.after:
                 put_after = idx
         if put_after is None:
@@ -129,8 +135,7 @@ class Menu(gtk.Menu):
     def regenerate_menu(self, *args):
         context = self.get_parent_context()
         for item in self._items:
-            print item
-            self.append(item.factory(self, self.parent, context))
+            self.append(item.factory(self, self._parent, context))
         self.show_all()
 
 

@@ -453,7 +453,7 @@ class ArtistTagFormatter(TagFormatter):
             Formats a raw tag value
 
             :param track: the track to get the tag from
-            :typ track: :class:`xl.trax.Track`
+            :type track: :class:`xl.trax.Track`
             :param parameters: optionally passed parameters
                 Possible values are:
                 * compilate:

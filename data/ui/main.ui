@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="ExaileWindow">
     <property name="width_request">700</property>
     <property name="height_request">400</property>
-    <signal name="configure-event" handler="on_configure_event" swapped="no"/>
-    <signal name="delete-event" handler="on_delete_event" swapped="no"/>
-    <signal name="window-state-event" handler="on_window_state_event" swapped="no"/>
+    <signal name="configure_event" handler="on_configure_event"/>
+    <signal name="delete_event" handler="on_delete_event"/>
+    <signal name="window_state_event" handler="on_window_state_event"/>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -30,7 +30,7 @@
                         <property name="image">image5</property>
                         <property name="use_stock">False</property>
                         <accelerator key="T" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_new_playlist_item_activated" swapped="no"/>
+                        <signal name="activate" handler="on_new_playlist_item_activated"/>
                       </object>
                     </child>
                     <child>
@@ -44,7 +44,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_open_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_open_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -53,7 +53,7 @@
                         <property name="label" translatable="yes">Open _URL</property>
                         <property name="use_underline">True</property>
                         <accelerator key="o" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_open_url_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_open_url_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -62,7 +62,7 @@
                         <property name="tooltip_text" translatable="yes">Add multiple directories containing music files to your playlist</property>
                         <property name="label" translatable="yes">Open Directories</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_open_dir_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_open_dir_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -78,7 +78,7 @@
                         <property name="image">image6</property>
                         <property name="use_stock">False</property>
                         <accelerator key="S" signal="activate" modifiers="GDK_CONTROL_MASK | GDK_MOD1_MASK"/>
-                        <signal name="activate" handler="on_export_current_playlist_activate" swapped="no"/>
+                        <signal name="activate" handler="on_export_current_playlist_activate"/>
                       </object>
                     </child>
                     <child>
@@ -92,7 +92,7 @@
                         <property name="label" translatable="yes">Restart</property>
                         <property name="use_underline">True</property>
                         <accelerator key="r" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_restart_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_restart_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -102,7 +102,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_quit_item_activated" swapped="no"/>
+                        <signal name="activate" handler="on_quit_item_activated"/>
                       </object>
                     </child>
                   </object>
@@ -123,7 +123,7 @@
                         <property name="use_underline">True</property>
                         <property name="image">image7</property>
                         <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_collection_manager_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_collection_manager_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -133,7 +133,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
                         <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_queue_manager_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_queue_manager_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -141,7 +141,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">C_overs</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_cover_manager_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_cover_manager_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -150,7 +150,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_preferences_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_preferences_item_activate"/>
                       </object>
                     </child>
                   </object>
@@ -172,7 +172,7 @@
                         <property name="image">image8</property>
                         <property name="use_stock">False</property>
                         <accelerator key="J" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_goto_playing_track_activate" swapped="no"/>
+                        <signal name="activate" handler="on_goto_playing_track_activate"/>
                       </object>
                     </child>
                     <child>
@@ -186,7 +186,7 @@
                         <property name="label" translatable="yes">Playlist Utilities Bar</property>
                         <property name="use_underline">True</property>
                         <property name="active">True</property>
-                        <signal name="toggled" handler="on_playlist_utilities_bar_visible_toggled" swapped="no"/>
+                        <signal name="toggled" handler="on_playlist_utilities_bar_visible_toggled"/>
                       </object>
                     </child>
                     <child>
@@ -230,7 +230,7 @@
                         <property name="image">image9</property>
                         <property name="use_stock">False</property>
                         <accelerator key="l" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_clear_playlist_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_clear_playlist_item_activate"/>
                       </object>
                     </child>
                   </object>
@@ -251,7 +251,7 @@
                         <property name="use_underline">True</property>
                         <property name="image">image10</property>
                         <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_device_manager_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_device_manager_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -260,7 +260,7 @@
                         <property name="tooltip_text" translatable="yes">Randomize the order of the current playlist</property>
                         <property name="label" translatable="yes">_Randomize Playlist</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_randomize_playlist_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_randomize_playlist_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -270,7 +270,7 @@
                         <property name="use_underline">True</property>
                         <property name="image">image11</property>
                         <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_scan_collection_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_scan_collection_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -280,7 +280,7 @@
                         <property name="use_underline">True</property>
                         <property name="image">image12</property>
                         <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_track_properties_activate" swapped="no"/>
+                        <signal name="activate" handler="on_track_properties_activate"/>
                       </object>
                     </child>
                   </object>
@@ -300,7 +300,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_about_item_activate" swapped="no"/>
+                        <signal name="activate" handler="on_about_item_activate"/>
                       </object>
                     </child>
                   </object>
@@ -328,7 +328,7 @@
                     <property name="can_focus">True</property>
                     <property name="tab_pos">left</property>
                     <property name="scrollable">True</property>
-                    <signal name="switch-page" handler="on_panel_notebook_switch_page" swapped="no"/>
+                    <signal name="switch_page" handler="on_panel_notebook_switch_page"/>
                     <child>
                       <object class="GtkHBox" id="hbox7">
                         <property name="visible">True</property>
@@ -394,9 +394,9 @@
                     <property name="can_focus">True</property>
                     <property name="border_width">3</property>
                     <property name="scrollable">True</property>
-                    <signal name="button-press-event" handler="on_playlist_notebook_button_press" swapped="no"/>
-                    <signal name="remove" handler="on_playlist_notebook_remove" swapped="no"/>
-                    <signal name="switch-page" handler="on_playlist_notebook_switch" swapped="no"/>
+                    <signal name="button_press_event" handler="on_playlist_notebook_button_press"/>
+                    <signal name="remove" handler="on_playlist_notebook_remove"/>
+                    <signal name="switch_page" handler="on_playlist_notebook_switch"/>
                     <child>
                       <object class="GtkVBox" id="placeholder">
                         <property name="visible">True</property>
@@ -472,7 +472,7 @@
                         <property name="tooltip_text" translatable="yes">Dynamically add similar tracks to the playlist</property>
                         <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="toggled" handler="on_dynamic_button_toggled" swapped="no"/>
+                        <signal name="toggled" handler="on_dynamic_button_toggled"/>
                         <child>
                           <object class="GtkImage" id="dynamic_button_image">
                             <property name="visible">True</property>
@@ -511,12 +511,12 @@
                       <object class="GtkEntry" id="playlist_search_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
+                        <property name="invisible_char">&#x25CF;</property>
                         <property name="secondary_icon_stock">gtk-clear</property>
                         <property name="secondary_icon_activatable">True</property>
                         <property name="secondary_icon_sensitive">True</property>
                         <property name="secondary_icon_tooltip_text" translatable="yes">Clear Search Field</property>
-                        <signal name="activate" handler="on_playlist_search_entry_activate" swapped="no"/>
+                        <signal name="activate" handler="on_playlist_search_entry_activate"/>
                       </object>
                       <packing>
                         <property name="padding">3</property>
@@ -540,7 +540,7 @@
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Previous Track</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="clicked" handler="on_prev_button_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_prev_button_clicked"/>
                         <child>
                           <object class="GtkImage" id="image1">
                             <property name="visible">True</property>
@@ -560,7 +560,7 @@
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Start Playback</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="clicked" handler="on_playpause_button_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_playpause_button_clicked"/>
                         <child>
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>
@@ -582,7 +582,6 @@
 
 Right Click for Stop After Track Feature</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="clicked" handler="on_stop_button_clicked" swapped="no"/>
                         <child>
                           <object class="GtkImage" id="image2">
                             <property name="visible">True</property>
@@ -602,7 +601,7 @@ Right Click for Stop After Track Feature</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Next Track</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="clicked" handler="on_next_button_clicked" swapped="no"/>
+                        <signal name="clicked" handler="on_next_button_clicked"/>
                         <child>
                           <object class="GtkImage" id="image4">
                             <property name="visible">True</property>
@@ -674,7 +673,7 @@ Right Click for Stop After Track Feature</property>
               <object class="GtkEventBox" id="queue_count_box">
                 <property name="visible">True</property>
                 <property name="visible_window">False</property>
-                <signal name="button-press-event" handler="on_queue_count_clicked" swapped="no"/>
+                <signal name="button_press_event" handler="on_queue_count_clicked"/>
                 <child>
                   <object class="GtkLabel" id="queue_count_label">
                     <property name="visible">True</property>

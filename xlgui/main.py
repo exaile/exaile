@@ -739,9 +739,13 @@ class MainWindow(gobject.GObject):
         if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
             widget.set_image(gtk.image_new_from_stock(
                 gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+            widget.set_data('toggle_spat', True)
 
         if event.keyval in (gtk.keysyms.space, gtk.keysyms.Return):
-            self.on_spat_clicked()
+            if widget.get_data('toggle_spat'):
+                self.on_spat_clicked()
+            else:
+                self.player.stop()
 
     def on_stop_button_key_release_event(self, widget, event):
         """
@@ -750,6 +754,7 @@ class MainWindow(gobject.GObject):
         if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
             widget.set_image(gtk.image_new_from_stock(
                 gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+            widget.set_data('toggle_spat', False)
 
     def on_stop_button_focus_out_event(self, widget, event):
         """
@@ -764,8 +769,11 @@ class MainWindow(gobject.GObject):
         """
             Called when the user clicks on the stop button
         """
-        if event.button == 1 and event.state & gtk.gdk.SHIFT_MASK:
-            self.on_spat_clicked()
+        if event.button == 1:
+            if event.state & gtk.gdk.SHIFT_MASK:
+                self.on_spat_clicked()
+            else:
+                self.player.stop()
         elif event.button == 3:
             menu = guiutil.Menu()
             menu.append(_("Toggle: Stop after Selected Track"),
@@ -832,8 +840,6 @@ class MainWindow(gobject.GObject):
                 lambda *e: self.queue.next(),
             'on_prev_button_clicked':
                 lambda *e: self.queue.prev(),
-            'on_stop_button_clicked':
-                lambda *e: self.player.stop(),
             'on_repeat_button_toggled': self.set_mode_toggles,
             'on_dynamic_button_toggled': self.set_mode_toggles,
             'on_playlist_search_entry_activate': self.on_playlist_search_entry_activate,

@@ -359,7 +359,8 @@ class Main(object):
         """
             Called when the user wishes to rescan the collection
         """
-        if not self.exaile.collection._scanning:
+        libraries = self.exaile.collection.get_libraries()
+        if not self.exaile.collection._scanning and len(libraries) > 0:
             from xl.collection import CollectionScanThread
 
             thread = CollectionScanThread(self.exaile.collection)

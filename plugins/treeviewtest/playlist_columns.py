@@ -71,20 +71,21 @@ class Column(object):
 
     def get_column(self, index):
         cellr = self.renderer()
+        extrasize = 0
         if index == 1:
             gcol = gtk.TreeViewColumn(self.display)
             icon_cellr = gtk.CellRendererPixbuf()
             icon_cellr.set_fixed_size(20, 20)
             icon_cellr.set_property('xalign', 0.0)
+            extrasize = 20
             gcol.pack_start(icon_cellr, False)
             gcol.pack_start(cellr, True)
-            gcol.set_fixed_width(int(self.size)+20)
             gcol.set_attributes(icon_cellr, pixbuf=0)
             gcol.set_attributes(cellr, **{self.dataproperty: index})
         else:
             gcol = gtk.TreeViewColumn(self.display, cellr,
                 **{self.dataproperty: index})
-            gcol.set_fixed_width(int(self.size))
+        gcol.set_fixed_width(self.size+extrasize)
         gcol.set_cell_data_func(cellr, self.data_func)
         for name, val in self.cellproperties.iteritems():
             cellr.set_property(name, val)
@@ -96,7 +97,7 @@ class TrackNumberColumn(Column):
     #TRANSLATORS: Title of the track number column
     display = _('#')
     id = 'tracknumber'
-    cellproperties = {'xalign': 1.0}
+    cellproperties = {'xalign': 1.0, 'width-chars': 4}
 
 class TitleColumn(Column):
     size = 200

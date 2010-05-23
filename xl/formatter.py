@@ -291,7 +291,7 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
         Formatter.__init__(self, format)
         providers.ProviderHandler.__init__(self, 'tag_formatting')
 
-    def format(self, track, markup_escape=False, artist_compilations=True):
+    def format(self, track, markup_escape=False):
         """
             Returns a string suitable for progress indicators
 
@@ -300,10 +300,6 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
             :param markup_escape: Whether to escape markup-like
                 characters in tag values
             :type markup_escape: bool
-            :param artist_compilations: If True, automatically handle
-                albumartist and other compilations detections for artist
-                tags.
-            :type artist_compilations: bool
             :returns: The formatted text
             :rtype: string
         """
@@ -342,7 +338,7 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
             provider = self.get_provider(tag)
 
             if provider is None:
-                self._substitutions[id] = track.get_tag_display(tag, artist_compilations=artist_compilations)
+                self._substitutions[id] = track.get_tag_display(tag)
             else:
                 self._substitutions[id] = provider.format(track, parameters)
 
@@ -370,14 +366,14 @@ class TagFormatter():
             parameters to manipulate the formatting
             process.
 
-            :param track: The track to get the tag from
-            :type value: xl.trax.Track
-            :param parameters: Optionally passed parameters
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
             :type parameters: dictionary
                 Parameters specified via 'parameter=value'
                 will be directly mapped into the dictionary,
                 parameters without argument will be set to True
-            :returns: The formatted value
+            :returns: the formatted value
             :rtype: string
         """
         pass
@@ -393,14 +389,14 @@ class TrackNumberTagFormatter(TagFormatter):
         """
             Formats a raw tag value
 
-            :param track: The track to get the tag from
-            :type track: xl.trax.Track
-            :param parameters: Optionally passed parameters
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
                 Possible values are:
                 * pad: n [n being an arbitrary number]
                   Influences the amount of leading zeros
             :type parameters: dictionary
-            :returns: The formatted value
+            :returns: the formatted value
             :rtype: string
         """
         value = track.get_tag_raw(self.name, join=True)
@@ -421,7 +417,7 @@ class TrackNumberTagFormatter(TagFormatter):
             :type value: int or string
             :param pad: Amount of leading zeros
             :type pad: int
-            :returns: The formatted value
+            :returns: the formatted value
             :rtype: string
         """
         try:
@@ -445,6 +441,36 @@ class TrackNumberTagFormatter(TagFormatter):
 
 providers.register('tag_formatting', TrackNumberTagFormatter())
 
+class ArtistTagFormatter(TagFormatter):
+    """
+        A formatter for the artist of a track
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, 'artist')
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: the track to get the tag from
+            :typ track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
+                Possible values are:
+                * compilate:
+                  Allows for proper handling of compilations,
+                  either via albumartist tag, a fallback value,
+                  or simply all artists
+            :returns: the formatted value
+            :rtype: string
+        """
+        compilate = parameters.get('compilate', False)
+        value = track.get_tag_display(self.name,
+            artist_compilations=compilate)
+
+        return value
+
+providers.register('tag_formatting', ArtistTagFormatter())
+
 class LengthTagFormatter(TagFormatter):
     """
         A formatter for the length of a track
@@ -456,16 +482,16 @@ class LengthTagFormatter(TagFormatter):
         """
             Formats a raw tag value
 
-            :param track: The track to get the tag from
-            :type track: xl.trax.Track
-            :param parameters: Optionally passed parameters
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
                 Possible values are:
                 * format: (short|long|verbose)
                   Yields "1:02:42",
                   "1h, 2m, 42s" or
                   "1 hour, 2 minutes, 42 seconds"
             :type parameters: dictionary
-            :returns: The formatted value
+            :returns: the formatted value
             :rtype: string
         """
         value = track.get_tag_raw(self.name)
@@ -485,7 +511,7 @@ class LengthTagFormatter(TagFormatter):
                 yielding "1:02:42", "1h, 2m, 42s" or
                 "1 hour, 2 minutes, 42 seconds"
             :type format: string
-            :returns: The formatted value
+            :returns: the formatted value
             :rtype: string
         """
         span = TimeSpan(value)
@@ -564,11 +590,11 @@ class RatingTagFormatter(TagFormatter):
         """
             Formats a raw tag value
 
-            :param track: The track to get the tag from
-            :type track: xl.trax.Track
-            :param parameters: Optionally passed parameters
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
             :type parameters: dictionary
-            :returns: The formatted value
+            :returns: the formatted value
             :rtype: string
         """
         value = track.get_tag_raw(self.name)
@@ -604,11 +630,11 @@ class LastPlayedTagFormatter(TagFormatter):
         """
             Formats a raw tag value
 
-            :param track: The track to get the tag from
-            :type track: xl.trax.Track
-            :param parameters: Optionally passed parameters
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
             :type parameters: dictionary
-            :returns: The formatted value
+            :returns: the formatted value
             :rtype: string
         """
         value = track.get_tag_raw(self.name)
@@ -643,11 +669,11 @@ class FilenameTagFormatter(TagFormatter):
         """
             Formats a raw tag value
 
-            :param track: The track to get the tag from
-            :type track: xl.trax.Track
-            :param parameters: Optionally passed parameters
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
             :type parameters: dictionary
-            :returns: The formatted value
+            :returns: the formatted value
             :rtype: string
         """
         gfile = gio.File(track.get_loc_for_io())

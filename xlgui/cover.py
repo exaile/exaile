@@ -26,6 +26,7 @@
 
 import time
 import logging
+import tempfile
 import traceback
 
 import gio
@@ -365,10 +366,11 @@ class CoverWidget(gtk.EventBox):
             :type player: :class: `xl.player.Player`
         """
         gtk.EventBox.__init__(self)
-        self.image = image 
+        self.image = image
         self.player = player
         self.menu = CoverMenu(self)
         self.parent_window = image.get_toplevel()
+        self.filename = tempfile.mkstemp(prefix='exaile_cover_')[1]
 
         guiutil.gtk_widget_replace(image, self)
         self.add(self.image)
@@ -376,12 +378,21 @@ class CoverWidget(gtk.EventBox):
         self.image.show()
 
         self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
-            [("text/uri-list", 0, 0)],
+            [('text/uri-list', 0, 0)],
             gtk.gdk.ACTION_COPY |
             gtk.gdk.ACTION_DEFAULT |
-            gtk.gdk.ACTION_MOVE)
+            gtk.gdk.ACTION_MOVE
+        )
+        self.drag_source_set(gtk.gdk.BUTTON1_MASK,
+            [('text/uri-list', 0, 0)],
+            gtk.gdk.ACTION_COPY |
+            gtk.gdk.ACTION_DEFAULT |
+            gtk.gdk.ACTION_MOVE
+        )
 
         self.connect('button-press-event', self.on_button_press)
+        self.connect('drag-begin', self.on_drag_begin)
+        self.connect('drag-data-get', self.on_drag_data_get)
         self.connect('drag-data-received', self.on_drag_data_received)
 
         event.add_callback(self.on_playback_start,
@@ -452,6 +463,24 @@ class CoverWidget(gtk.EventBox):
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, (width, width))
         self.image.set_from_pixbuf(pixbuf)
         self.emit('cover-found', pixbuf)
+
+    def on_drag_begin(self, widget, context):
+        """
+            Sets the cover as drag icon
+        """
+        widget.drag_source_set_icon_pixbuf(self.image.get_pixbuf())
+
+    def on_drag_data_get(self, widget, context, selection, info, time):
+        """
+            Fills the selection with the current cover
+        """
+        """
+        cover_data = cover_manager.get_cover(self.player.current)
+        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
+        """
+        pixbuf = self.image.get_pixbuf()
+        pixbuf.save(self.filename, 'png')
+        selection.set_uris([gio.File(self.filename).get_uri()])
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):
         """

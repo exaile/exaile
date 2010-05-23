@@ -235,15 +235,14 @@ class TrackDB(object):
             return
         self._saving = True
 
-        logger.debug("Saving %(name)s DB to %(location)s." %
-            {'name' : self.name, 'location' : location or self.location})
+        logger.debug("Saving %s DB to %s." % (self.name, self.location))
 
         try:
             pdata = shelve.open(self.location, flag='c',
                     protocol=common.PICKLE_PROTOCOL)
-            if pdata.has_key("_dbversion"):
-                if pdata['_dbversion'] > self._dbversion:
-                    raise ValueError, "DB was created on a newer Exaile."
+            if pdata.get('_dbversion', self._dbversion) > self._dbversion:
+                raise common.VersionError, \
+                    "DB was created on a newer Exaile."
         except:
             logger.error("Failed to open music DB for write.")
             return
@@ -252,27 +251,28 @@ class TrackDB(object):
             # bad hack to allow saving of lists/dicts of Tracks
             if 'tracks' == attr:
                 for k, track in self.tracks.iteritems():
-                    if track._track._dirty or \
-                            "tracks-%s"%track._key not in pdata:
-                        pdata["tracks-%s"%track._key] = (
-                                track._track._pickles(),
-                                track._key,
-                                deepcopy(track._attrs))
+                    key = "tracks-%s" % track._key
+                    if track._track._dirty or key not in pdata:
+                        pdata[key] = (
+                            track._track._pickles(),
+                            track._key,
+                            deepcopy(track._attrs)
+                        )
             else:
                 pdata[attr] = deepcopy(getattr(self, attr))
 
         pdata['_dbversion'] = self._dbversion
 
         for key in self._deleted_keys:
-            if "tracks-%s"%key in pdata:
-                del pdata["tracks-%s"%key]
+            key = "tracks-%s" % key
+            if key in pdata:
+                del pdata[key]
 
         pdata.sync()
         pdata.close()
 
         for track in self.tracks.itervalues():
-            if track._track._dirty:
-                track._dirty = False
+            track._track._dirty = False
 
         self._dirty = False
         self._saving = False

@@ -63,6 +63,7 @@
                 <property name="visible">True</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-close</property>
+                <accelerator key="Escape" signal="clicked"/>
                 <signal name="clicked" handler="on_close_button_clicked"/>
               </object>
               <packing>

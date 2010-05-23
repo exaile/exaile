@@ -1,5 +1,5 @@
-# desktopcover - displays Exaile album covers on the desktop
 # Copyright (C) 2006-2010  Johannes Sasongko <sasongko@gmail.com>
+# Copyright (C) 2010  Mathias Brodala <info@noctus.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import division
+import cairo
 import glib
 import gtk
 
@@ -88,6 +89,7 @@ class DesktopCover(gtk.Window):
         self.image.show()
 
         self.set_accept_focus(False)
+        self.set_app_paintable(True)
         self.set_decorated(False)
         self.set_keep_below(True)
         self.set_resizable(False)
@@ -108,9 +110,16 @@ class DesktopCover(gtk.Window):
             'cover_removed'
         ]
 
+        screen = self.get_screen()
+        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
+        self.set_colormap(colormap)
+
         for e in self._events:
             event.add_callback(getattr(self, 'on_%s' % e), e)
         event.add_callback(self.on_option_set, 'plugin_desktopcover_option_set')
+
+        self.connect('expose-event', self.on_expose_event)
+        self.connect('screen-changed', self.on_screen_changed)
 
         try:
             exaile = main.exaile()
@@ -283,6 +292,30 @@ class DesktopCover(gtk.Window):
         self._cross_fade_step = 0
         
         return False
+
+    def on_expose_event(self, widget, event):
+        """
+            Takes care of drawing the window
+            transparently, if possible
+        """
+        context = widget.window.cairo_create()
+
+        context.rectangle(event.area.x, event.area.y,
+            event.area.width, event.area.height)
+        context.clip()
+
+        context.set_source_rgba(1, 1, 1, 0)
+        context.set_operator(cairo.OPERATOR_SOURCE)
+
+        context.paint()
+
+    def on_screen_changed(self, widget, event):
+        """
+            Updates the colormap
+        """
+        screen = widget.get_screen()
+        colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
+        self.window.set_colormap(rgbamap)
 
     def on_playback_track_start(self, type, player, track):
         """

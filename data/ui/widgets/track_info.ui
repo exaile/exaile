@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
@@ -41,6 +41,7 @@
                     <property name="xalign">0</property>
                     <property name="yalign">0</property>
                     <property name="use_markup">True</property>
+                    <property name="ellipsize">end</property>
                   </object>
                 </child>
               </object>

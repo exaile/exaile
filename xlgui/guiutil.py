@@ -1185,11 +1185,9 @@ class TrackInfoPane(gtk.Alignment):
             state = self.player.get_state()
 
             if track == self.player.current and not self.player.is_stopped():
-                stock_id = None
+                stock_id = gtk.STOCK_MEDIA_PLAY
                 
-                if self.player.is_playing():
-                    stock_id = gtk.STOCK_MEDIA_PLAY
-                elif self.player.is_paused():
+                if self.player.is_paused():
                     stock_id = gtk.STOCK_MEDIA_PAUSE
 
                 self.playback_image.set_from_stock(stock_id,
@@ -1550,6 +1548,7 @@ class TrackToolTip(ToolTip):
         """
         self.info_pane = TrackInfoPane(display_progress, auto_update)
         self.info_pane.set_padding(6, 6, 6, 6)
+        self.info_pane.info_label.set_ellipsize(pango.ELLIPSIZE_NONE)
 
         ToolTip.__init__(self, parent, self.info_pane)
     

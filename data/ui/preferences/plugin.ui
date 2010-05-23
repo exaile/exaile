@@ -47,7 +47,7 @@
                         <child>
                           <object class="GtkTreeViewColumn" id="name_column">
                             <property name="sizing">fixed</property>
-                            <property name="title">Plugin</property>
+                            <property name="title" translatable="yes">Plugin</property>
                             <property name="expand">True</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext1"/>
@@ -60,7 +60,7 @@
                         <child>
                           <object class="GtkTreeViewColumn" id="version_column">
                             <property name="sizing">autosize</property>
-                            <property name="title">Version</property>
+                            <property name="title" translatable="yes">Version</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext2"/>
                               <attributes>
@@ -72,7 +72,7 @@
                         <child>
                           <object class="GtkTreeViewColumn" id="enabled_column">
                             <property name="sizing">autosize</property>
-                            <property name="title">Enabled</property>
+                            <property name="title" translatable="yes">Enabled</property>
                             <child>
                               <object class="GtkCellRendererToggle" id="enabled_cellrenderer">
                                 <signal name="toggled" handler="on_enabled_cellrenderer_toggled"/>
@@ -135,6 +135,8 @@
                                     <property name="can_focus">True</property>
                                     <property name="editable">False</property>
                                     <property name="wrap_mode">word</property>
+                                    <property name="left_margin">3</property>
+                                    <property name="right_margin">3</property>
                                     <property name="cursor_visible">False</property>
                                   </object>
                                 </child>

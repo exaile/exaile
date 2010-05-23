@@ -78,6 +78,7 @@
                         <signal name="clicked" handler="on_add_tag_button_clicked"/>
                       </object>
                       <packing>
+                        <property name="expand">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -93,7 +94,6 @@
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="fill">False</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
@@ -119,7 +119,6 @@
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="fill">False</property>
                         <property name="position">4</property>
                       </packing>
                     </child>

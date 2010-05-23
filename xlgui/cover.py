@@ -536,10 +536,11 @@ class CoverWindow(object):
         self.cover_window = self.builder.get_object('CoverWindow')
         self.layout = self.builder.get_object('layout')
         self.toolbar = self.builder.get_object('toolbar')
-        self.zoom_in = self.builder.get_object('zoom_in')
-        self.zoom_out = self.builder.get_object('zoom_out')
-        self.zoom_100 = self.builder.get_object('zoom_100')
-        self.zoom_fit = self.builder.get_object('zoom_fit')
+        self.zoom_in_button = self.builder.get_object('zoom_in_button')
+        self.zoom_out_button = self.builder.get_object('zoom_out_button')
+        self.zoom_100_button = self.builder.get_object('zoom_100_button')
+        self.zoom_fit_button = self.builder.get_object('zoom_fit_button')
+        self.close_button = self.builder.get_object('close_button')
         self.image = self.builder.get_object('image')
         self.statusbar = self.builder.get_object('statusbar')
         self.scrolledwindow = self.builder.get_object('scrolledwindow')
@@ -608,8 +609,8 @@ class CoverWindow(object):
         message = str(self.image_original_pixbuf.get_width()) + " x " + \
                       str(self.image_original_pixbuf.get_height()) + \
                       " pixels " + str(percent) + '%'
-        self.zoom_in.set_sensitive(percent < self.max_percent)
-        self.zoom_out.set_sensitive(percent > self.min_percent)
+        self.zoom_in_button.set_sensitive(percent < self.max_percent)
+        self.zoom_out_button.set_sensitive(percent > self.min_percent)
         self.statusbar.pop(self.statusbar.get_context_id(''))
         self.statusbar.push(self.statusbar.get_context_id(''), message)
         self.image.set_from_pixbuf(self.image_pixbuf)
@@ -636,28 +637,43 @@ class CoverWindow(object):
                              self.available_image_height()
         self.image_ratio = 1 / max(1, width_ratio, height_ratio)
 
-    def cover_window_destroy(self, widget):
-        self.cover_window.destroy()
-
-    def on_zoom_in_clicked(self, widget):
+    def on_zoom_in_button_clicked(self, widget):
+        """
+            Zooms into the image
+        """
         self.image_fitted = False
         self.image_ratio *= self.ratio
         self.update_widgets()
 
-    def on_zoom_out_clicked(self, widget):
+    def on_zoom_out_button_clicked(self, widget):
+        """
+            Zooms out of the image
+        """
         self.image_fitted = False
         self.image_ratio *= 1 / self.ratio
         self.update_widgets()
 
-    def on_zoom_100_clicked(self, widget):
+    def on_zoom_100_button_clicked(self, widget):
+        """
+            Restores the original image zoom
+        """
         self.image_fitted = False
         self.image_ratio = 1
         self.update_widgets()
 
-    def on_zoom_fit_clicked(self, widget):
+    def on_zoom_fit_button_clicked(self, widget):
+        """
+            Zooms the image to fit the window width
+        """
         self.image_fitted = True
         self.set_ratio_to_fit()
         self.update_widgets()
+
+    def on_close_button_clicked(self, widget):
+        """
+            Hides the window
+        """
+        self.cover_window.hide_all()
 
     def cover_window_size_allocate(self, widget, allocation):
         if self.cover_window_width != allocation.width or \

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
@@ -15,10 +15,10 @@
             <property name="visible">True</property>
             <property name="toolbar_style">both</property>
             <child>
-              <object class="GtkToolButton" id="zoom_in">
+              <object class="GtkToolButton" id="zoom_in_button">
                 <property name="visible">True</property>
                 <property name="stock_id">gtk-zoom-in</property>
-                <signal name="clicked" handler="on_zoom_in_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_zoom_in_button_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -26,10 +26,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="zoom_out">
+              <object class="GtkToolButton" id="zoom_out_button">
                 <property name="visible">True</property>
                 <property name="stock_id">gtk-zoom-out</property>
-                <signal name="clicked" handler="on_zoom_out_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_zoom_out_button_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -37,10 +37,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="zoom_100">
+              <object class="GtkToolButton" id="zoom_100_button">
                 <property name="visible">True</property>
                 <property name="stock_id">gtk-zoom-100</property>
-                <signal name="clicked" handler="on_zoom_100_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_zoom_100_button_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -48,10 +48,22 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="zoom_fit">
+              <object class="GtkToolButton" id="zoom_fit_button">
                 <property name="visible">True</property>
                 <property name="stock_id">gtk-zoom-fit</property>
-                <signal name="clicked" handler="on_zoom_fit_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_zoom_fit_button_clicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="close_button">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-close</property>
+                <signal name="clicked" handler="on_close_button_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>

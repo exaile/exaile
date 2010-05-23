@@ -1009,6 +1009,9 @@ class MainWindow(gobject.GObject):
             self.cover.on_playback_start('', self.player, None)
             self.get_selected_playlist().refresh_row(tr)
 
+        if settings.get_option('osd/enabled', True):
+            self.osd.show(player.current)
+
     def on_track_tags_changed(self, type, track, tag):
         """
             Called when tags are changed

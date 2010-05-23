@@ -291,7 +291,7 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
         Formatter.__init__(self, format)
         providers.ProviderHandler.__init__(self, 'tag_formatting')
 
-    def format(self, track, markup_escape=False):
+    def format(self, track, markup_escape=False, artist_compilations=True):
         """
             Returns a string suitable for progress indicators
 
@@ -300,6 +300,10 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
             :param markup_escape: Whether to escape markup-like
                 characters in tag values
             :type markup_escape: bool
+            :param artist_compilations: If True, automatically handle
+                albumartist and other compilations detections for artist
+                tags.
+            :type artist_compilations: bool
             :returns: The formatted text
             :rtype: string
         """
@@ -338,7 +342,7 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
             provider = self.get_provider(tag)
 
             if provider is None:
-                self._substitutions[id] = track.get_tag_display(tag)
+                self._substitutions[id] = track.get_tag_display(tag, artist_compilations=artist_compilations)
             else:
                 self._substitutions[id] = provider.format(track, parameters)
 

@@ -485,6 +485,7 @@ class MessageBar(gtk.InfoBar):
         self.secondary_text.set_property('xalign', 0)
         self.secondary_text.set_line_wrap(True)
         self.secondary_text.set_no_show_all(True)
+        self.secondary_text.set_selectable(True)
 
         self.message_area = gtk.VBox(spacing=12)
         self.message_area.pack_start(self.primary_text, False, False)

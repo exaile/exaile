@@ -3,8 +3,7 @@ To install:
   $ make
   # make install
 
-The "make" step is optional and only compiles the modules, translations, and the
-mmkeys extension.
+The "make" step is optional and only compiles the modules and translations.
 
 There is also an install_no_locale target if you wish to install without 
 translations.

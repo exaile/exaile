@@ -98,7 +98,7 @@ def add_callback(function, type=None, obj=None, *args, **kwargs):
 
         @param function: the function to call when the event happens [function]
         @param type: the 'type' or 'name' of the event to listen for, eg
-                "track_added",  "cover_changed". Defaults to any event if
+                "tracks_added",  "cover_changed". Defaults to any event if
                 not specified. [string]
         @param obj: the object to listen to events from, eg exaile.collection,
                 exaile.cover_manager. Defaults to any object if not

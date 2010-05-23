@@ -868,6 +868,8 @@ class MainWindow(gobject.GObject):
             self.player)
         event.add_callback(self.on_playback_end, 'playback_player_end',
             self.player)
+        event.add_callback(self.on_playback_end, 'playback_error',
+            self.player)
         event.add_callback(self.on_playback_start, 'playback_track_start',
             self.player)
         event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',

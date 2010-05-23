@@ -84,8 +84,8 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
             Hides the tray icon
         """
-        self.hide_all()
         EggTrayIcon.destroy(self)
+        BaseTrayIcon.destroy(self)
 
     def setup_drag_destinations(self):
         """
@@ -152,12 +152,6 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
 
         BaseTrayIcon.connect_events(self)
 
-    def destroy(self):
-        """
-            Restores the default trayicon if required
-        """
-        self.hide_all()
-
     def set_from_icon_name(self, icon_name):
         """
             Updates the tray icon
@@ -169,6 +163,15 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
             Updates the tray icon tooltip
         """
         self.set_tooltip_text(tooltip_text)
+
+    def set_visible(self, visible):
+        """
+            Shows or hides the tray icon
+        """
+        if visible:
+            self.show_all()
+        else:
+            self.hide_all()
 
     def get_menu_position(self, menu, icon):
         """

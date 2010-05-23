@@ -58,8 +58,11 @@ class BaseTrayIcon(object):
         if not self.main.window.get_property('visible'):
             self.main.window.deiconify()
             self.main.window.present()
+
+        self.disconnect_events()
         self.set_visible(False)
-        self.menu = None
+        del self.menu
+
         event.log_event('tray_icon_toggled', self, False)
 
     def setup_menu(self):
@@ -111,7 +114,7 @@ class BaseTrayIcon(object):
 
     def connect_events(self):
         """
-            Connects various events with callbacks
+            Connects various callbacks with events
         """
         self.connect('button-press-event', self.on_button_press_event)
         self.connect('scroll-event', self.on_scroll_event)
@@ -123,7 +126,18 @@ class BaseTrayIcon(object):
         event.add_callback(self.on_playback_change_state, 'playback_player_end')
         event.add_callback(self.on_playback_change_state, 'playback_track_start')
         event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
+        event.add_callback(self.on_playback_change_state, 'playback_error')
         event.add_callback(self.on_setting_change, 'playback_option_set')
+
+    def disconnect_events(self):
+        """
+            Disconnects various callbacks from events
+        """
+        event.remove_callback(self.on_playback_change_state, 'playback_player_end')
+        event.remove_callback(self.on_playback_change_state, 'playback_track_start')
+        event.remove_callback(self.on_playback_change_state, 'playback_toggle_pause')
+        event.remove_callback(self.on_playback_change_state, 'playback_error')
+        event.remove_callback(self.on_setting_change, 'playback_option_set')
 
     def update_menu(self):
         """
@@ -171,6 +185,12 @@ class BaseTrayIcon(object):
     def set_tooltip(self, tooltip_text):
         """
             Updates the tray icon tooltip
+        """
+        pass
+
+    def set_visible(self, visible):
+        """
+            Shows or hides the tray icon
         """
         pass
 

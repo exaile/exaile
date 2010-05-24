@@ -77,8 +77,6 @@ class SmartNotebook(gtk.Notebook):
     def __init__(self):
         gtk.Notebook.__init__(self)
 
-    def get_active_tab(self):
-        pass
 
 class PlaylistNotebook(SmartNotebook):
     def __init__(self, exaile):

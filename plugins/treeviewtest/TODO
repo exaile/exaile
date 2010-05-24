@@ -30,10 +30,6 @@ ui:
         accept dropped tracks/uris
         rename in dialog/messagebar if tabs are hidden
 
-        minor:
-            fix track # minimum width to enough for 3 digits - avoid width bump
-            fix width allocated to icons - avoid playlist render jump on change
-
     tabs:
         middle-click empty space to create new
         play icon in active tab (bold name?)

@@ -33,9 +33,10 @@ __all__ = [
 
 import gobject
 gobject.threads_init()
-
+import os
 from xl.nls import gettext as _
-from xl import settings
+from xl import settings, xdg
+import queue
 import logging
 logger = logging.getLogger(__name__)
 
@@ -58,4 +59,10 @@ def get_player():
                 "falling back to normal.")
         from xl.player.engine_normal import NormalPlayer
         return NormalPlayer
+
+
+# TODO: write a better interface than this
+PLAYER = get_player()()
+QUEUE = queue.PlayQueue(PLAYER,
+        location=os.path.join(xdg.get_data_dir(), 'queue.state'))
 

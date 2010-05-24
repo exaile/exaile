@@ -36,6 +36,12 @@ backwards-incompatible changes to make (0.4?):
             - more future-proof, extensible, and compatible
             - use XML namespaces to separate exaile-specific tags?
 
+    event:
+        make events capable of sending variable numbers of arguments
+        change argument order to be more like gobject signals?
+        make all events synchronous - event listeners can add async trivially
+                with glib.idle_add or @common.threaded
+
 
 TODO: figure out some way of dealing with Collections that have overlapping
     sets of Tracks - right now if you load both from disk one after the other

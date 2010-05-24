@@ -1,0 +1,43 @@
+NOTE: This file is for significant code changes and improvements that have a 
+high probability of happening.  General feature requests and bugs should go
+on launchpad instead.
+
+
+add good album-level handling to xl.trax
+    - what features are needed here?
+    - current modules that need this:
+        xl.covers
+        xl.playlist (for album shuffle)
+
+
+backwards-incompatible changes to make (0.4?):
+    database:
+        use tuples instead of lists to store multiple values (saves 
+                16 bytes or more per use)
+        divide tracknumber and discnumber into separate tags 
+                instead of using /
+            - tracknumber/trackcount, discnumber/disccount?
+        get rid of __basedir and __compilation as they are unnecessary 
+                and waste LOTS of space
+            - replace __compilation with just an __is_compilation boolean 
+                    flag, move heuristics elsewhere
+            - basedir can be gotten with gio.File.get_basedir, no need to 
+                    store it
+        make db into a dir so it can be split into multiple files as needed
+            db/
+                music
+                music-libraries
+                music-blacklist
+        use pickle instead of shelve to persist the database
+            - scales better, more compact
+
+    playlists:
+        remove internal format in favor of an extension of XSPF
+            - more future-proof, extensible, and compatible
+            - use XML namespaces to separate exaile-specific tags?
+
+
+TODO: figure out some way of dealing with Collections that have overlapping
+    sets of Tracks - right now if you load both from disk one after the other
+    one's data for the intersecting Tracks gets clobbered
+

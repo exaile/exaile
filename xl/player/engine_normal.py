@@ -192,6 +192,8 @@ class NormalPlayer(_base.ExailePlayer):
             return False
         elif stop_last:
             self.stop(fire=False)
+        else:
+            self.stop(fire=False, onlyfire=True)
 
         playing = self.is_playing()
 
@@ -213,14 +215,16 @@ class NormalPlayer(_base.ExailePlayer):
 
         return True
 
-    def stop(self, fire=True):
+    # FIXME: these parameters are really bad
+    def stop(self, fire=True, onlyfire=False):
         """
             stop playback
         """
         if self.is_playing() or self.is_paused():
             self.update_playtime()
             current = self.current
-            self.playbin.set_state(gst.STATE_NULL)
+            if not onlyfire:
+                self.playbin.set_state(gst.STATE_NULL)
             self._current = None
             event.log_event('playback_track_end', self, current)
             if fire:

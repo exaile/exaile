@@ -33,7 +33,7 @@ import os
 
 import gio
 
-from xl.metadata import BaseFormat
+from xl.metadata._base import BaseFormat
 
 type_map = {
         "aifc": aifc,

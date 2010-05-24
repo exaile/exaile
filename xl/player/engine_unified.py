@@ -24,21 +24,21 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gst
-import glib
 import logging
 import threading
 import time
 
-from xl import event, settings, common
+import gst, gobject, glib
+
 from xl.nls import gettext as _
-from xl.player import pipe, BasePlayer
+from xl import event, settings, common
+from xl.player import _base, pipe
 
 logger = logging.getLogger(__name__)
 
-class UnifiedPlayer(BasePlayer):
+class UnifiedPlayer(_base.ExailePlayer):
     def __init__(self):
-        BasePlayer.__init__(self)
+        _base.ExailePlayer.__init__(self)
         self._current_stream = 1
         self._timer_id = 0
 

@@ -24,24 +24,24 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gst
-import glib
 import logging
 import time
 import urllib
 import urlparse
 
-from xl import common, event
+import gst, gobject, glib
+
 from xl.nls import gettext as _
-from xl.player import pipe, BasePlayer 
+from xl import common, event
+from xl.player import pipe, _base
 
 logger = logging.getLogger(__name__)
 
 
-class NormalPlayer2(BasePlayer):
+class NormalPlayer2(_base.ExailePlayer):
     def __init__(self):
-        BasePlayer.__init__(self,
-            pre_elems=[pipe.ProviderBin("stream_element")])
+        _base.ExailePlayer.__init__(self,
+                pre_elems=[pipe.ProviderBin("stream_element")])
 
         self._current = None
         self.playbin = None

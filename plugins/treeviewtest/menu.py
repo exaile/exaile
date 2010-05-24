@@ -59,7 +59,9 @@ def simple_separator(name, after):
     def factory(menu, parent_obj, parent_context):
         item = gtk.SeparatorMenuItem()
         return item
-    return MenuItem(name, factory, after=after)
+    item = MenuItem(name, factory, after=after)
+    item.pos = 'last'
+    return item
 
 def simple_menu_item(name, after, display_name, icon_name, callback):
     """
@@ -93,6 +95,11 @@ class MenuItem(object):
         self.name = name
         self.after = after
         self.factory = factory
+        self._pos = 'normal' # Don't change this unless you have a REALLY good
+                             # reason to. after= is the 'supported'
+                             # method of ordering, this property is not
+                             # considered public api and may change
+                             # without warning.
 
 class Menu(gtk.Menu):
     def __init__(self, parent):
@@ -107,20 +114,8 @@ class Menu(gtk.Menu):
         return {}
 
     def add_item(self, item):
-        if not item.after:
-            self._items.append(item)
-            return
-        id = item.name
-        if id in [i.name for i in self._items]:
-            raise ValueError, "Menu already has an element with id %s."%id
-        put_after = None
-        for idx, i in enumerate(self._items):
-            if i.name in item.after:
-                put_after = idx
-        if put_after is None:
-            self._items.append(item)
-        else:
-            self._items.insert(idx+1, item)
+        self._items.append(item)
+        self.reorder_items()
 
     def remove_item(self, item):
         self._items.remove(item)
@@ -131,6 +126,27 @@ class Menu(gtk.Menu):
         children = self.get_children()
         for c in children:
             self.remove(c)
+
+    def reorder_items(self):
+        pmap = {'first': 0, 'normal': 1, 'last': 2}
+        items = [(pmap[i._pos], i) for i in self._items]
+        items.sort()
+        newitems = []
+        for item in items:
+            item = item[1]
+            if not item.after:
+                newitems.append(item)
+                continue
+            id = item.name
+            put_after = None
+            for idx, i in enumerate(newitems):
+                if i.name in item.after:
+                    put_after = idx
+            if put_after is None:
+                newitems.append(item)
+            else:
+                newitems.insert(put_after+1, item)
+        self._items = newitems
 
     def regenerate_menu(self, *args):
         context = self.get_parent_context()

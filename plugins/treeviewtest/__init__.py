@@ -291,7 +291,6 @@ def __create_playlist_context_menu():
     def remove_tracks_cb(widget, playlistpage, context):
         # TODO: detect adjacent blocks of tracks and remove them in one
         # chunk - will be faster.
-        print context
         tracks = context['selected-tracks']
         pl = playlistpage.playlist
         for idx, tr in tracks[::-1]:
@@ -503,6 +502,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     def button_press(self, button, event):
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
+            return True
         return False
 
     ### end DragTreeView ###

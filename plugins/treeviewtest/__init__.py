@@ -91,7 +91,23 @@ class PlaylistNotebook(SmartNotebook):
         return tab
 
     def create_new_playlist(self, *args):
-        pl = Playlist("Playlist")
+        seen = []
+        for n in range(self.get_n_pages()):
+            page = self.get_nth_page(n)
+            name = page.get_name()
+            if name.startswith('Playlist '):
+                try:
+                    val = int(name[9:])
+                except:
+                    pass
+                else:
+                    seen.append(val)
+        n = 1
+        while True:
+            if n not in seen:
+                break
+            n += 1
+        pl = Playlist("Playlist %d"%n)
         return self.create_tab_from_playlist(pl)
 
 

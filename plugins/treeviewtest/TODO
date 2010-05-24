@@ -13,7 +13,6 @@ backend:
 
 ui:
     playlist:
-        automatic names (playlist 1, playlist 2...)
         save to saved playlists
         columns respect settings
         columns context-menu

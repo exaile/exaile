@@ -110,7 +110,7 @@ def run_commands(options, iface):
 
     modify_commands = [
         'SetRating',
-        'Import'
+        'Add'
     ]
 
     for command in modify_commands:
@@ -447,37 +447,15 @@ class DbusManager(dbus.service.Object):
             self.exaile.queue.play()
 
     @dbus.service.method('org.exaile.Exaile', 's')
-    def Import(self, location):
+    def Add(self, location):
         """
-            Imports the tracks at the specified location
+            Adds the tracks at the specified
+            location to the collection
         """
-        from xl.collection import CollectionScanThread, Library
-        collection = self.exaile.collection
+        from xl import trax
 
-        collection.freeze_libraries()
-
-        libraries = collection.get_libraries()
-        libraries = [(library, gio.File(library.get_location())) \
-            for library in libraries]
-        import_glocation = gio.File(location)
-
-        for library, glocation in libraries:
-            if import_glocation.has_prefix(glocation):
-                break
-            elif glocation.has_prefix(import_glocation):
-                collection.remove_library(library)
-        else:
-            collection.add_library(Library(location))
-
-        collection.thaw_libraries()
-
-        import gtk
-        import xlgui
-        main = xlgui.get_controller()
-
-        thread = CollectionScanThread(collection)
-        main.progress_manager.add_monitor(thread,
-            _("Scanning collection..."), gtk.STOCK_REFRESH)
+        tracks = trax.get_tracks_from_uri(location)
+        self.exaile.collection.add_tracks(tracks)
 
     @dbus.service.method('org.exaile.Exaile')
     def GuiToggleVisible(self):

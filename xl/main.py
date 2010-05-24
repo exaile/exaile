@@ -344,9 +344,10 @@ class Exaile(object):
         p.add_option_group(group)
 
         group = OptionGroup(p, _('Collection Options'))
-        group.add_option("--import", dest="Import", action="store",
-                # TRANSLATORS: Meta variable for --import
-                metavar=_("LOCATION"), help=_("Import tracks from LOCATION"))
+        group.add_option("--add", dest="Add", action="store",
+                # TRANSLATORS: Meta variable for --add
+                metavar=_("LOCATION"), help=_("Add tracks from LOCATION "
+                                              "to the collection"))
         p.add_option_group(group)
 
         group = OptionGroup(p, _('Track Options'))

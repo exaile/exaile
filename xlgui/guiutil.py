@@ -563,7 +563,7 @@ class VolumeControl(gtk.Alignment):
         self.slider_adjustment = builder.get_object('slider_adjustment')
         self.__update(self.restore_volume)
 
-        event.add_callback(self.on_setting_change, 'player_option_set')
+        event.add_callback(self.on_option_set, 'player_option_set')
 
     def __update(self, volume):
         """
@@ -654,7 +654,7 @@ class VolumeControl(gtk.Alignment):
 
         return False
 
-    def on_setting_change(self, event, sender, option):
+    def on_option_set(self, event, sender, option):
         """
             Updates the volume indication
         """

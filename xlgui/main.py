@@ -903,7 +903,7 @@ class MainWindow(gobject.GObject):
         event.add_callback(self.queue_playlist_draw, 'stop_track', self.queue)
 
         # Settings
-        event.add_callback(self._on_setting_change, 'option_set')
+        event.add_callback(self._on_option_set, 'option_set')
 
     def queue_playlist_draw(self, *e):
         self.get_selected_playlist().list.queue_draw()
@@ -1065,8 +1065,8 @@ class MainWindow(gobject.GObject):
         playlist = self.get_selected_playlist()
         self.queue.set_current_playlist(playlist.playlist)
         self.set_playlist_modes()
-        self._on_setting_change(None, None, 'playback/shuffle')
-        self._on_setting_change(None, None, 'playback/shuffle_mode')
+        self._on_option_set(None, None, 'playback/shuffle')
+        self._on_option_set(None, None, 'playback/shuffle_mode')
         self.update_track_counts()
 
     def on_playlist_notebook_remove(self, notebook, widget):
@@ -1325,7 +1325,7 @@ class MainWindow(gobject.GObject):
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
         self.playpause_button.set_tooltip_text(_('Start Playback'))
 
-    def _on_setting_change(self, name, object, option):
+    def _on_option_set(self, name, object, option):
         """
            Handles changes of settings
         """

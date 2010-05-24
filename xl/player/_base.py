@@ -50,10 +50,10 @@ class ExailePlayer(object):
         self.mainbin = pipe.MainBin(pre_elems=pre_elems)
 
         self._load_volume()
-        event.add_callback(self._on_setting_change, 'player_option_set')
+        event.add_callback(self._on_option_set, 'player_option_set')
         event.add_callback(self._on_track_end, 'playback_track_end', self)
 
-    def _on_setting_change(self, name, object, data):
+    def _on_option_set(self, name, object, data):
         if data == "player/volume":
             self._load_volume()
 

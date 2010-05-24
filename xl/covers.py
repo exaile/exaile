@@ -135,9 +135,9 @@ class CoverManager(providers.ProviderHandler):
         if settings.get_option('covers/use_localfile', True):
             providers.register('covers', self.localfile_fetcher)
 
-        event.add_callback(self._on_setting_change, 'covers_option_set')
+        event.add_callback(self._on_option_set, 'covers_option_set')
 
-    def _on_setting_change(self, name, obj, data):
+    def _on_option_set(self, name, obj, data):
         if data == "covers/use_tags":
             if settings.get_option("covers/use_tags"):
                 providers.register('covers', self.tag_fetcher)

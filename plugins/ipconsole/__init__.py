@@ -136,7 +136,7 @@ def _enable(exaile):
     MENU_ITEM.show()
 #    return True    # bad! crashes compiz
 
-def on_setting_change(event, settings, option):
+def on_option_set(event, settings, option):
     if option == 'plugin/ipconsole/opacity' and PLUGIN:
         value = settings.get_option(option, 80.0)
         value = float(value) / 100.0
@@ -148,7 +148,7 @@ def on_setting_change(event, settings, option):
 
 def __enb(evt, exaile, nothing):
     glib.idle_add(_enable, exaile)
-    event.add_callback(on_setting_change, 'plugin_ipconsole_option_set')
+    event.add_callback(on_option_set, 'plugin_ipconsole_option_set')
 
 def enable(exaile):
     """

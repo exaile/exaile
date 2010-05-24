@@ -127,7 +127,7 @@ class BaseTrayIcon(object):
         event.add_callback(self.on_playback_change_state, 'playback_track_start')
         event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
         event.add_callback(self.on_playback_change_state, 'playback_error')
-        event.add_callback(self.on_setting_change, 'playback_option_set')
+        event.add_callback(self.on_option_set, 'playback_option_set')
 
     def disconnect_events(self):
         """
@@ -137,7 +137,7 @@ class BaseTrayIcon(object):
         event.remove_callback(self.on_playback_change_state, 'playback_track_start')
         event.remove_callback(self.on_playback_change_state, 'playback_toggle_pause')
         event.remove_callback(self.on_playback_change_state, 'playback_error')
-        event.remove_callback(self.on_setting_change, 'playback_option_set')
+        event.remove_callback(self.on_option_set, 'playback_option_set')
 
     def update_menu(self):
         """
@@ -290,7 +290,7 @@ class BaseTrayIcon(object):
         """
         self.update_icon()
 
-    def on_setting_change(self, event, object, option):
+    def on_option_set(self, event, object, option):
         """
             Updates the toggle states
         """

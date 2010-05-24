@@ -256,7 +256,7 @@ class NotebookPage(object):
         return self.tab_menu_items
 
 # do this in a function to avoid polluting the global namespace
-def __create_playlist_context_menu():
+def __create_playlist_tab_context_menu():
     smi = plmenu.simple_menu_item
     sep = plmenu.simple_separator
     items = []
@@ -272,6 +272,35 @@ def __create_playlist_context_menu():
         lambda w, o, c: o.tab.close()))
     for item in items:
         providers.register('playlist-tab-context', item)
+__create_playlist_tab_context_menu()
+
+
+class PlaylistContextMenu(plmenu.ProviderMenu):
+    def __init__(self, page):
+        plmenu.ProviderMenu.__init__(self, 'playlist-context', page)
+
+    def get_parent_context(self):
+        ctx = {}
+        ctx['selected-tracks'] = self._parent.get_selected_tracks()
+        return ctx
+
+def __create_playlist_context_menu():
+    smi = plmenu.simple_menu_item
+    sep = plmenu.simple_separator
+    items = []
+    def remove_tracks_cb(widget, playlistpage, context):
+        # TODO: detect adjacent blocks of tracks and remove them in one
+        # chunk - will be faster.
+        print context
+        tracks = context['selected-tracks']
+        pl = playlistpage.playlist
+        for idx, tr in tracks[::-1]:
+            del pl[idx]
+    items.append(smi('remove-tracks', [], _("Remove"), 'gtk-remove',
+        remove_tracks_cb))
+    for item in items:
+        providers.register('playlist-context', item)
+
 __create_playlist_context_menu()
 
 class PlaylistPage(gtk.VBox, NotebookPage):
@@ -288,6 +317,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.exaile = exaile #TODO: remove the need for this!
 
         self.playlist = playlist
+
+        self.menu = PlaylistContextMenu(self)
 
         uifile = os.path.join(os.path.dirname(__file__), "playlist.ui")
         self.builder = gtk.Builder()
@@ -470,7 +501,9 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         selection.set_uris(uris)
 
     def button_press(self, button, event):
-        pass
+        if event.button == 3:
+            self.menu.popup(None, None, None, event.button, event.time)
+        return False
 
     ### end DragTreeView ###
 

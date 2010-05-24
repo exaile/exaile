@@ -62,10 +62,6 @@ class OsdPreference(widgets.CheckPreference, OSDItem):
     default = True
     name = 'osd/enabled'
 
-class OsdHoverTrayPreference(widgets.CheckPreference, OSDItem):
-    default = True
-    name = 'osd/hover_tray'
-
 class OsdProgressPreference(widgets.CheckPreference, OSDItem):
     default = True
     name = 'osd/show_progress'

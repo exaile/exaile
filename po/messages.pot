@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-23 11:46+0200\n"
+"POT-Creation-Date: 2010-05-24 17:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,220 +30,220 @@ msgstr ""
 msgid "Failed to migrate from 0.2.14"
 msgstr ""
 
-#: ../xl/main.py:326
+#: ../xl/main.py:324
 msgid "Usage: exaile [OPTION]... [URI]"
 msgstr ""
 
-#: ../xl/main.py:327
+#: ../xl/main.py:325
 msgid "Options"
 msgstr ""
 
-#: ../xl/main.py:331
+#: ../xl/main.py:329
 msgid "Playback Options"
 msgstr ""
 
-#: ../xl/main.py:333
+#: ../xl/main.py:331
 msgid "Play the next track"
 msgstr ""
 
-#: ../xl/main.py:335
+#: ../xl/main.py:333
 msgid "Play the previous track"
 msgstr ""
 
-#: ../xl/main.py:337
+#: ../xl/main.py:335
 msgid "Stop playback"
 msgstr ""
 
-#: ../xl/main.py:339
+#: ../xl/main.py:337
 msgid "Play"
 msgstr ""
 
-#: ../xl/main.py:342
+#: ../xl/main.py:340
 msgid "Pause or resume playback"
 msgstr ""
 
-#: ../xl/main.py:345
+#: ../xl/main.py:343
 msgid "Stop playback after current track"
 msgstr ""
 
-#: ../xl/main.py:348
+#: ../xl/main.py:346
 msgid "Collection Options"
 msgstr ""
 
-#. TRANSLATORS: Meta variable for --import
-#: ../xl/main.py:351
+#. TRANSLATORS: Meta variable for --add
+#: ../xl/main.py:349
 msgid "LOCATION"
 msgstr ""
 
-#: ../xl/main.py:351
-msgid "Import tracks from LOCATION"
+#: ../xl/main.py:349
+msgid "Add tracks from LOCATION to the collection"
 msgstr ""
 
-#: ../xl/main.py:354
+#: ../xl/main.py:353
 msgid "Track Options"
 msgstr ""
 
-#: ../xl/main.py:356
+#: ../xl/main.py:355
 msgid "Query player"
 msgstr ""
 
-#: ../xl/main.py:359
+#: ../xl/main.py:358
 msgid "Show a popup with data of the current track"
 msgstr ""
 
-#: ../xl/main.py:361
+#: ../xl/main.py:360
 msgid "Print the title of current track"
 msgstr ""
 
-#: ../xl/main.py:363
+#: ../xl/main.py:362
 msgid "Print the album of current track"
 msgstr ""
 
-#: ../xl/main.py:365
+#: ../xl/main.py:364
 msgid "Print the artist of current track"
 msgstr ""
 
-#: ../xl/main.py:367
+#: ../xl/main.py:366
 msgid "Print the length of current track"
 msgstr ""
 
 #. TRANSLATORS: Variable for command line options with arguments
-#: ../xl/main.py:370 ../xl/main.py:385 ../xl/main.py:389
+#: ../xl/main.py:369 ../xl/main.py:384 ../xl/main.py:388
 msgid "N"
 msgstr ""
 
-#: ../xl/main.py:371
+#: ../xl/main.py:370
 msgid "Set rating for current track to N%"
 msgstr ""
 
-#: ../xl/main.py:373
+#: ../xl/main.py:372
 msgid "Get rating for current track"
 msgstr ""
 
-#: ../xl/main.py:376
+#: ../xl/main.py:375
 msgid "Print the current playback position as time"
 msgstr ""
 
-#: ../xl/main.py:378
+#: ../xl/main.py:377
 msgid "Print the current playback progress as percentage"
 msgstr ""
 
-#: ../xl/main.py:382
+#: ../xl/main.py:381
 msgid "Volume Options"
 msgstr ""
 
-#: ../xl/main.py:386
+#: ../xl/main.py:385
 msgid "Increases the volume by N%"
 msgstr ""
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:391
+#: ../xl/main.py:390
 msgid "Decreases the volume by N%"
 msgstr ""
 
-#: ../xl/main.py:394
+#: ../xl/main.py:393
 msgid "Mutes or unmutes the volume"
 msgstr ""
 
-#: ../xl/main.py:396
+#: ../xl/main.py:395
 msgid "Print the current volume percentage"
 msgstr ""
 
-#: ../xl/main.py:399
+#: ../xl/main.py:398
 msgid "Other Options"
 msgstr ""
 
-#: ../xl/main.py:401
+#: ../xl/main.py:400
 msgid "Start new instance"
 msgstr ""
 
-#: ../xl/main.py:403
+#: ../xl/main.py:402
 msgid "Show this help message and exit"
 msgstr ""
 
-#: ../xl/main.py:405
+#: ../xl/main.py:404
 msgid "Show program's version number and exit."
 msgstr ""
 
-#: ../xl/main.py:408
+#: ../xl/main.py:407
 msgid "Start minimized (to tray, if possible)"
 msgstr ""
 
-#: ../xl/main.py:411
+#: ../xl/main.py:410
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr ""
 
-#: ../xl/main.py:413
+#: ../xl/main.py:412
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 
-#: ../xl/main.py:416
+#: ../xl/main.py:415
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
 
-#: ../xl/main.py:419
+#: ../xl/main.py:418
 msgid "Do not import old data from version 0.2.x"
 msgstr ""
 
-#: ../xl/main.py:422
+#: ../xl/main.py:421
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 
-#: ../xl/main.py:426
+#: ../xl/main.py:425
 msgid "Development/Debug Options"
 msgstr ""
 
-#: ../xl/main.py:428
+#: ../xl/main.py:427
 msgid "DIRECTORY"
 msgstr ""
 
-#: ../xl/main.py:428
+#: ../xl/main.py:427
 msgid "Set data directory"
 msgstr ""
 
-#: ../xl/main.py:430
+#: ../xl/main.py:429
 msgid "Show debugging output"
 msgstr ""
 
-#: ../xl/main.py:432
+#: ../xl/main.py:431
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr ""
 
-#: ../xl/main.py:435
+#: ../xl/main.py:434
 msgid "TYPE"
 msgstr ""
 
-#: ../xl/main.py:436
+#: ../xl/main.py:435
 msgid "Limits event debug to output of TYPE"
 msgstr ""
 
-#: ../xl/main.py:438
+#: ../xl/main.py:437
 msgid "Reduce level of output"
 msgstr ""
 
-#: ../xl/main.py:442
+#: ../xl/main.py:441
 msgid "Disable D-Bus support"
 msgstr ""
 
-#: ../xl/main.py:444
+#: ../xl/main.py:443
 msgid "Disable HAL support."
 msgstr ""
 
-#: ../xl/main.py:464
+#: ../xl/main.py:463
 msgid "Entire Library"
 msgstr ""
 
-#: ../xl/main.py:470
+#: ../xl/main.py:469
 #, python-format
 msgid "Random %d"
 msgstr ""
 
-#: ../xl/main.py:478
+#: ../xl/main.py:477
 #, python-format
 msgid "Rating > %d"
 msgstr ""
 
-#: ../xl/main.py:577
+#: ../xl/main.py:576
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -360,7 +360,7 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: ../xl/trax/track.py:58 ../xlgui/guiutil.py:1431
+#: ../xl/trax/track.py:58 ../xlgui/guiutil.py:1429
 msgid "Various Artists"
 msgstr ""
 
@@ -451,10 +451,6 @@ msgid ""
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 
-#: ../xl/xldbus.py:480 ../xlgui/__init__.py:368
-msgid "Scanning collection..."
-msgstr ""
-
 #: ../xlgui/properties.py:42
 msgid "Original album"
 msgstr ""
@@ -480,7 +476,7 @@ msgid "Original date"
 msgstr ""
 
 #: ../xlgui/properties.py:50 ../xlgui/plcolumns.py:179
-#: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimodeprefs.py:95
+#: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimode_preferences.py:95
 msgid "Date"
 msgstr ""
 
@@ -499,7 +495,7 @@ msgstr ""
 #: ../xlgui/properties.py:54 ../xlgui/plcolumns.py:101
 #: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:163
 #: ../data/ui/widgets/tracklist_info.ui.h:2 ../data/ui/collection_panel.ui.h:4
-#: ../plugins/cd/cdprefs.py:97 ../plugins/minimode/minimodeprefs.py:89
+#: ../plugins/cd/cdprefs.py:97 ../plugins/minimode/minimode_preferences.py:89
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Artist"
 msgstr ""
@@ -507,7 +503,7 @@ msgstr ""
 #: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:111
 #: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:165
 #: ../data/ui/widgets/tracklist_info.ui.h:1 ../data/ui/collection_panel.ui.h:3
-#: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:91
+#: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimode_preferences.py:91
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Album"
 msgstr ""
@@ -524,14 +520,14 @@ msgstr ""
 msgid "Track"
 msgstr ""
 
-#: ../xlgui/properties.py:59
+#: ../xlgui/properties.py:59 ../data/ui/preferences/plugin.ui.h:13
 msgid "Version"
 msgstr ""
 
 #: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:96
 #: ../xlgui/panel/playlists.py:91 ../xlgui/panel/playlists.py:164
 #: ../xlgui/panel/flatplaylist.py:103 ../plugins/cd/cdprefs.py:96
-#: ../plugins/minimode/minimodeprefs.py:88
+#: ../plugins/minimode/minimode_preferences.py:88
 msgid "Title"
 msgstr ""
 
@@ -541,12 +537,12 @@ msgstr ""
 
 #: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:184
 #: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:170
-#: ../plugins/cd/cdprefs.py:104 ../plugins/minimode/minimodeprefs.py:96
+#: ../plugins/cd/cdprefs.py:104 ../plugins/minimode/minimode_preferences.py:96
 msgid "Genre"
 msgstr ""
 
 #: ../xlgui/properties.py:63 ../xlgui/plcolumns.py:106
-#: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:90
+#: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimode_preferences.py:90
 msgid "Composer"
 msgstr ""
 
@@ -563,12 +559,13 @@ msgid "Disc"
 msgstr ""
 
 #: ../xlgui/properties.py:67 ../xlgui/plcolumns.py:230
-#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimodeprefs.py:102
+#: ../plugins/cd/cdprefs.py:109
+#: ../plugins/minimode/minimode_preferences.py:102
 msgid "BPM"
 msgstr ""
 
 #: ../xlgui/properties.py:68 ../xlgui/plcolumns.py:189
-#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:97
+#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimode_preferences.py:97
 msgid "Bitrate"
 msgstr ""
 
@@ -579,13 +576,13 @@ msgstr ""
 
 #: ../xlgui/properties.py:70 ../xlgui/plcolumns.py:116
 #: ../xlgui/panel/playlists.py:123 ../xlgui/panel/playlists.py:166
-#: ../plugins/cd/cdprefs.py:100 ../plugins/minimode/minimodeprefs.py:92
+#: ../plugins/cd/cdprefs.py:100 ../plugins/minimode/minimode_preferences.py:92
 msgid "Length"
 msgstr ""
 
 #: ../xlgui/properties.py:71 ../xlgui/plcolumns.py:205
 #: ../xlgui/panel/playlists.py:138 ../xlgui/panel/playlists.py:173
-#: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:98
+#: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimode_preferences.py:98
 msgid "Location"
 msgstr ""
 
@@ -599,7 +596,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:76 ../xlgui/plcolumns.py:238
 #: ../xlgui/panel/playlists.py:134 ../xlgui/panel/playlists.py:172
-#: ../plugins/minimode/minimodeprefs.py:101
+#: ../plugins/minimode/minimode_preferences.py:101
 msgid "Last played"
 msgstr ""
 
@@ -631,13 +628,13 @@ msgstr ""
 msgid "Saved %(count)s of %(total)s."
 msgstr ""
 
-#: ../xlgui/main.py:74 ../xlgui/main.py:157 ../xlgui/guiutil.py:1210
-#: ../xlgui/guiutil.py:1280 ../plugins/minimode/mmwidgets.py:810
+#: ../xlgui/main.py:74 ../xlgui/main.py:157 ../xlgui/guiutil.py:1208
+#: ../xlgui/guiutil.py:1278 ../plugins/minimode/mmwidgets.py:936
 msgid "Not Playing"
 msgstr ""
 
-#: ../xlgui/main.py:167 ../xlgui/guiutil.py:1299
-#: ../plugins/minimode/mmwidgets.py:828
+#: ../xlgui/main.py:167 ../xlgui/guiutil.py:1297
+#: ../plugins/minimode/mmwidgets.py:954
 msgid "Streaming..."
 msgstr ""
 
@@ -661,67 +658,67 @@ msgstr ""
 msgid "Save as..."
 msgstr ""
 
-#: ../xlgui/main.py:771
+#: ../xlgui/main.py:779
 msgid "Toggle: Stop after Selected Track"
 msgstr ""
 
-#: ../xlgui/main.py:811 ../data/ui/main.ui.h:8
+#: ../xlgui/main.py:819 ../data/ui/main.ui.h:8
 msgid "Dynamically add similar tracks to the playlist"
 msgstr ""
 
-#: ../xlgui/main.py:816
+#: ../xlgui/main.py:824
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
 
-#: ../xlgui/main.py:985
+#: ../xlgui/main.py:991
 msgid "Playback error encountered!"
 msgstr ""
 
-#: ../xlgui/main.py:992
+#: ../xlgui/main.py:998
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr ""
 
-#: ../xlgui/main.py:1021 ../plugins/minimode/mmwidgets.py:199
+#: ../xlgui/main.py:1030 ../plugins/minimode/mmwidgets.py:199
 msgid "Continue Playback"
 msgstr ""
 
-#: ../xlgui/main.py:1025 ../xlgui/main.py:1298
+#: ../xlgui/main.py:1034 ../xlgui/main.py:1307
 #: ../plugins/minimode/mmwidgets.py:202
 msgid "Pause Playback"
 msgstr ""
 
-#: ../xlgui/main.py:1160 ../xlgui/main.py:1168 ../xlgui/main.py:1235
+#: ../xlgui/main.py:1169 ../xlgui/main.py:1177 ../xlgui/main.py:1244
 msgid "Shuffle _Off"
 msgstr ""
 
-#: ../xlgui/main.py:1160 ../xlgui/main.py:1237
+#: ../xlgui/main.py:1169 ../xlgui/main.py:1246
 msgid "Shuffle _Tracks"
 msgstr ""
 
-#: ../xlgui/main.py:1160 ../xlgui/main.py:1240
+#: ../xlgui/main.py:1169 ../xlgui/main.py:1249
 msgid "Shuffle _Albums"
 msgstr ""
 
-#: ../xlgui/main.py:1203 ../xlgui/main.py:1211 ../xlgui/main.py:1246
+#: ../xlgui/main.py:1212 ../xlgui/main.py:1220 ../xlgui/main.py:1255
 msgid "Repeat _Off"
 msgstr ""
 
-#: ../xlgui/main.py:1203 ../xlgui/main.py:1248
+#: ../xlgui/main.py:1212 ../xlgui/main.py:1257
 msgid "Repeat _Playlist"
 msgstr ""
 
-#: ../xlgui/main.py:1203 ../xlgui/main.py:1251
+#: ../xlgui/main.py:1212 ../xlgui/main.py:1260
 msgid "Repeat _Track"
 msgstr ""
 
-#: ../xlgui/main.py:1317 ../data/ui/main.ui.h:20
+#: ../xlgui/main.py:1326 ../data/ui/main.ui.h:20
 #: ../plugins/minimode/mmwidgets.py:171 ../plugins/minimode/mmwidgets.py:195
 msgid "Start Playback"
 msgstr ""
 
 #. TRANSLATORS: Window title
-#: ../xlgui/main.py:1421
+#: ../xlgui/main.py:1430
 #, python-format
 msgid "%(title)s (by %(artist)s)"
 msgstr ""
@@ -730,7 +727,7 @@ msgstr ""
 msgid "Toggle Queue"
 msgstr ""
 
-#: ../xlgui/menu.py:93 ../xlgui/menu.py:350 ../xlgui/panel/radio.py:419
+#: ../xlgui/menu.py:93 ../xlgui/menu.py:350 ../xlgui/panel/radio.py:425
 #: ../plugins/droptrayicon/__init__.py:248
 msgid "New Playlist"
 msgstr ""
@@ -848,42 +845,42 @@ msgstr ""
 msgid "Enter the new name you want for your playlist"
 msgstr ""
 
-#: ../xlgui/cover.py:228 ../xlgui/cover.py:296
+#: ../xlgui/cover.py:229 ../xlgui/cover.py:297
 #, python-format
 msgid "%d covers to fetch"
 msgstr ""
 
-#: ../xlgui/cover.py:301 ../xlgui/cover.py:320 ../data/ui/covermanager.ui.h:2
+#: ../xlgui/cover.py:302 ../xlgui/cover.py:321 ../data/ui/covermanager.ui.h:2
 msgid "Start"
 msgstr ""
 
-#: ../xlgui/cover.py:335
+#: ../xlgui/cover.py:336
 msgid "Show Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:336
+#: ../xlgui/cover.py:337
 msgid "Fetch Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:337
+#: ../xlgui/cover.py:338
 msgid "Remove Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:521
+#: ../xlgui/cover.py:572
 msgid "Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:523
+#: ../xlgui/cover.py:574
 #, python-format
 msgid "Cover for %s"
 msgstr ""
 
-#: ../xlgui/cover.py:663
+#: ../xlgui/cover.py:729
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr ""
 
-#: ../xlgui/cover.py:713
+#: ../xlgui/cover.py:779
 msgid "No covers found."
 msgstr ""
 
@@ -932,7 +929,11 @@ msgstr ""
 msgid "All Files"
 msgstr ""
 
-#: ../xlgui/__init__.py:482
+#: ../xlgui/__init__.py:369
+msgid "Scanning collection..."
+msgstr ""
+
+#: ../xlgui/__init__.py:483
 #, python-format
 msgid "Scanning %s..."
 msgstr ""
@@ -972,11 +973,11 @@ msgid ""
 "from $album"
 msgstr ""
 
-#: ../xlgui/guiutil.py:1426
+#: ../xlgui/guiutil.py:1424
 msgid "Various"
 msgstr ""
 
-#: ../xlgui/guiutil.py:1444
+#: ../xlgui/guiutil.py:1442
 #, python-format
 msgid "%(track_count)d in total (%(total_duration)s)"
 msgstr ""
@@ -1152,14 +1153,14 @@ msgstr ""
 
 #: ../xlgui/plcolumns.py:156 ../xlgui/panel/playlists.py:103
 #: ../xlgui/panel/playlists.py:167 ../plugins/cd/cdprefs.py:102
-#: ../plugins/minimode/minimodeprefs.py:94
+#: ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Rating"
 msgstr ""
 
 #. TRANSLATORS: Filename column in the file browser
 #: ../xlgui/plcolumns.py:210 ../xlgui/panel/files.py:140
-#: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimodeprefs.py:99
+#: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimode_preferences.py:99
 msgid "Filename"
 msgstr ""
 
@@ -1175,7 +1176,7 @@ msgstr ""
 msgid "Disc Number"
 msgstr ""
 
-#: ../xlgui/filtergui.py:62 ../xlgui/panel/radio.py:190
+#: ../xlgui/filtergui.py:62 ../xlgui/panel/radio.py:196
 msgid "Name:"
 msgstr ""
 
@@ -1351,32 +1352,32 @@ msgstr ""
 msgid "Edit Smart Playlist"
 msgstr ""
 
-#: ../xlgui/panel/radio.py:116 ../xlgui/panel/radio.py:477
-#: ../xlgui/panel/radio.py:553
+#: ../xlgui/panel/radio.py:122 ../xlgui/panel/radio.py:483
+#: ../xlgui/panel/radio.py:559
 msgid "Loading streams..."
 msgstr ""
 
-#: ../xlgui/panel/radio.py:188
+#: ../xlgui/panel/radio.py:194
 msgid "Add Radio Station"
 msgstr ""
 
-#: ../xlgui/panel/radio.py:191 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
+#: ../xlgui/panel/radio.py:197 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 msgid "URL:"
 msgstr ""
 
-#: ../xlgui/panel/radio.py:258
+#: ../xlgui/panel/radio.py:264
 msgid "Saved Stations"
 msgstr ""
 
-#: ../xlgui/panel/radio.py:259
+#: ../xlgui/panel/radio.py:265
 msgid "Radio Streams"
 msgstr ""
 
-#: ../xlgui/panel/radio.py:288
+#: ../xlgui/panel/radio.py:294
 msgid "Refresh"
 msgstr ""
 
-#: ../xlgui/panel/radio.py:418
+#: ../xlgui/panel/radio.py:424
 msgid "Enter the name you want for your new playlist"
 msgstr ""
 
@@ -1681,38 +1682,34 @@ msgid "Background Color:"
 msgstr ""
 
 #: ../data/ui/preferences/osd.ui.h:3
-msgid "Display OSD when hovering over tray icon"
-msgstr ""
-
-#: ../data/ui/preferences/osd.ui.h:4
 msgid "Display a progressbar in the OSD"
 msgstr ""
 
-#: ../data/ui/preferences/osd.ui.h:5
+#: ../data/ui/preferences/osd.ui.h:4
 msgid "Hide after (milliseconds; set to zero to disable hiding)"
 msgstr ""
 
-#: ../data/ui/preferences/osd.ui.h:6
+#: ../data/ui/preferences/osd.ui.h:5
 msgid "Opacity Level:"
 msgstr ""
 
-#: ../data/ui/preferences/osd.ui.h:7
+#: ../data/ui/preferences/osd.ui.h:6
 msgid "Show OSD on track change"
 msgstr ""
 
-#: ../data/ui/preferences/osd.ui.h:8
+#: ../data/ui/preferences/osd.ui.h:7
 msgid "Text Color"
 msgstr ""
 
-#: ../data/ui/preferences/osd.ui.h:9
+#: ../data/ui/preferences/osd.ui.h:8
 msgid "Text Font:"
 msgstr ""
 
-#: ../data/ui/preferences/osd.ui.h:10
+#: ../data/ui/preferences/osd.ui.h:9
 msgid "Window Height:"
 msgstr ""
 
-#: ../data/ui/preferences/osd.ui.h:11
+#: ../data/ui/preferences/osd.ui.h:10
 msgid "Window Width:"
 msgstr ""
 
@@ -1765,12 +1762,12 @@ msgid "Top"
 msgstr ""
 
 #: ../data/ui/preferences/appearance.ui.h:15
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:9
+#: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Use alpha transparency:"
 msgstr ""
 
 #: ../data/ui/preferences/appearance.ui.h:16
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:11
+#: ../plugins/minimode/minimode_preferences.ui.h:11
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
@@ -1793,30 +1790,40 @@ msgid "Description:"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:5
-msgid "Install"
+#: ../plugins/multialarmclock/alarmclk.ui.h:6
+#: ../plugins/equalizer/equalizer.ui.h:14
+msgid "Enabled"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:6
-msgid "Install Plugin File"
+msgid "Install"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:7
-msgid "Install Updates"
+msgid "Install Plugin File"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:8
-msgid "Installed Plugins"
+msgid "Install Updates"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:9
-msgid "No Plugin Selected"
+msgid "Installed Plugins"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:10
-msgid "Updates"
+msgid "No Plugin Selected"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:11
+msgid "Plugin"
+msgstr ""
+
+#: ../data/ui/preferences/plugin.ui.h:12
+msgid "Updates"
+msgstr ""
+
+#: ../data/ui/preferences/plugin.ui.h:14
 msgid "Version:"
 msgstr ""
 
@@ -1853,38 +1860,34 @@ msgid "Normal"
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui.h:11
-msgid "Normal2 (incomplete)"
-msgstr ""
-
-#: ../data/ui/preferences/playback.ui.h:12
 msgid "OSS"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:13
+#: ../data/ui/preferences/playback.ui.h:12
 msgid "Playback engine (requires restart): "
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:14
+#: ../data/ui/preferences/playback.ui.h:13
 msgid "PulseAudio"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:15
+#: ../data/ui/preferences/playback.ui.h:14
 msgid "Resume playback in paused state"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:16
+#: ../data/ui/preferences/playback.ui.h:15
 msgid "Resume playback on start"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:17
+#: ../data/ui/preferences/playback.ui.h:16
 msgid "Unified (unstable)"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:18
+#: ../data/ui/preferences/playback.ui.h:17
 msgid "Use crossfading (EXPERIMENTAL)"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:19
+#: ../data/ui/preferences/playback.ui.h:18
 msgid "Use fade transitions on user actions"
 msgstr ""
 
@@ -2076,15 +2079,16 @@ msgstr ""
 msgid "CD"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:95 ../plugins/minimode/minimodeprefs.py:87
+#: ../plugins/cd/cdprefs.py:95 ../plugins/minimode/minimode_preferences.py:87
 msgid "Track number"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:93
+#: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimode_preferences.py:93
 msgid "Disc number"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:108 ../plugins/minimode/minimodeprefs.py:100
+#: ../plugins/cd/cdprefs.py:108
+#: ../plugins/minimode/minimode_preferences.py:100
 msgid "Play count"
 msgstr ""
 
@@ -2339,73 +2343,74 @@ msgstr ""
 msgid "Restore main window"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:35
+#: ../plugins/minimode/mmwidgets.py:35
+#: ../plugins/minimode/minimode_preferences.py:22
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:67
+#: ../plugins/minimode/mmwidgets.py:1043
+msgid "Seeking: "
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.py:67
 msgid "Available Controls"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:68
+#: ../plugins/minimode/minimode_preferences.py:68
 msgid "Selected Controls"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:70
+#: ../plugins/minimode/minimode_preferences.py:70
 msgid "Previous"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:71
+#: ../plugins/minimode/minimode_preferences.py:71
 msgid "Play/Pause"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:72
+#: ../plugins/minimode/minimode_preferences.py:72
 msgid "Stop"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:73
+#: ../plugins/minimode/minimode_preferences.py:73
 msgid "Next"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:74
+#: ../plugins/minimode/minimode_preferences.py:74
 msgid "Track selector"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:75
+#: ../plugins/minimode/minimode_preferences.py:75
 msgid "Progress bar"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:76
+#: ../plugins/minimode/minimode_preferences.py:76
 msgid "Volume"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:77
+#: ../plugins/minimode/minimode_preferences.py:77
 msgid "Playlist button"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:80
+#: ../plugins/minimode/minimode_preferences.py:80
 msgid "Restore"
 msgstr ""
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:106
-#: ../plugins/minimode/minimodeprefs.py:112
+#: ../plugins/minimode/minimode_preferences.py:106
+#: ../plugins/minimode/minimode_preferences.py:112
 msgid "$tracknumber - $title"
 msgstr ""
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:108
+#: ../plugins/minimode/minimode_preferences.py:108
 msgid "$title by $artist"
 msgstr ""
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:110
+#: ../plugins/minimode/minimode_preferences.py:110
 msgid "$title ($__length)"
-msgstr ""
-
-#: ../plugins/minimode/mmwidgets.py:917
-msgid "Seeking: "
 msgstr ""
 
 #: ../plugins/contextinfo/__init__.py:1132
@@ -2482,11 +2487,6 @@ msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:5
 msgid "Enable fading"
-msgstr ""
-
-#: ../plugins/multialarmclock/alarmclk.ui.h:6
-#: ../plugins/equalizer/equalizer.ui.h:14
-msgid "Enabled"
 msgstr ""
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:7
@@ -3044,37 +3044,37 @@ msgstr ""
 msgid "Terminal opacity:"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:1
+#: ../plugins/minimode/minimode_preferences.ui.h:1
 msgid "<b>Track Title Format</b>"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:2
+#: ../plugins/minimode/minimode_preferences.ui.h:2
 msgid "Always on top"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:3
+#: ../plugins/minimode/minimode_preferences.ui.h:3
 msgid "Display window decorations:"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:4
+#: ../plugins/minimode/minimode_preferences.ui.h:4
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underdashes."
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:5
+#: ../plugins/minimode/minimode_preferences.ui.h:5
 msgid "Full"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:6
+#: ../plugins/minimode/minimode_preferences.ui.h:6
 msgid "Show in tasklist"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:7
+#: ../plugins/minimode/minimode_preferences.ui.h:7
 msgid "Show on all desktops"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.ui.h:8
+#: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Simple"
 msgstr ""
 

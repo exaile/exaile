@@ -24,16 +24,29 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import glib
 import gobject
 import gtk
 import threading
 
 import xl.radio, xl.playlist
-from xl import xdg, event, common, settings
+from xl import (
+    event,
+    common,
+    settings,
+    trax,
+    xdg
+)
 from xl.nls import gettext as _
 import xlgui.panel.playlists as playlistpanel
-from xlgui import commondialogs, guiutil, icons, menu, panel
-from xlgui import playlist as guiplaylist
+from xlgui import (
+    commondialogs,
+    guiutil,
+    icons,
+    menu,
+    panel,
+    playlist as guiplaylist
+)
 
 class RadioException(Exception): pass
 class ConnectionException(RadioException): pass
@@ -135,7 +148,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.status.set_text(message)
 
         if timeout:
-            gobject.timeout_add_seconds(timeout, self._set_status, '', 0)
+            glib.timeout_add_seconds(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
         """
@@ -148,11 +161,11 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         menu.connect('add-playlist', self._on_add_button_clicked)
 
         menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.get_selected_tracks()))
+            self.emit('append-items', self.tree.get_selected_tracks()))
         menu.connect('replace-items', lambda *e:
-            self.emit('replace-items', self.get_selected_tracks()))
+            self.emit('replace-items', self.tree.get_selected_tracks()))
         menu.connect('queue-items', lambda *e:
-            self.emit('queue-items', self.get_selected_tracks()))
+            self.emit('queue-items', self.tree.get_selected_tracks()))
         menu.connect('open-playlist', lambda *e:
             self.open_selected_playlist())
         menu.connect('export-playlist', lambda widget, path:
@@ -219,7 +232,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             Sets up the tree that displays the radio panel
         """
         box = self.builder.get_object('RadioPanel')
-        self.tree = guiutil.DragTreeView(self, True, True)
+        self.tree = playlistpanel.PlaylistDragTreeView(self, True, True)
         self.tree.set_headers_visible(False)
 
         self.targets = [('text/uri-list', 0, 0)]
@@ -429,11 +442,11 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             CAlled when the user drags a playlist from the radio panel
         """
-        pl = self.get_selected_playlist()
+        pl = self.tree.get_selected_playlist()
         if pl:
             tracks = pl.get_tracks()
         else:
-            tracks = self.get_selected_tracks()
+            tracks = [self.tree.get_selected_tracks()]
 
         if not tracks: return
 
@@ -531,7 +544,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 self._set_status(str(e), 2)
 
         if not lists: return
-        gobject.idle_add(self._done_loading, iter, driver, lists)
+        glib.idle_add(self._done_loading, iter, driver, lists)
 
     def _done_loading(self, iter, object, items):
         """

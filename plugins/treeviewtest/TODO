@@ -28,7 +28,6 @@ ui:
                 - cell.set_sensitive(False)
                 - only if (not shuffling AND current_pos <= spat_pos)
         accept dropped tracks/uris
-        play/pause icon
         rename in dialog/messagebar if tabs are hidden
 
         minor:

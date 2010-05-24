@@ -30,7 +30,8 @@ import os, sys
 import random
 
 from xl.nls import gettext as _
-from xl import event, common, trax, formatter, settings, providers
+from xl import (event, common, trax, formatter, settings, providers,
+        player)
 from xlgui import guiutil, icons
 import playlist_columns, menu as plmenu
 
@@ -350,7 +351,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         path = self.model.get_path(iter)
         track = self.model.get_track(path)
         if track == self.exaile.player.current and \
-                path[0] == self.playlist.get_current_pos():
+                path[0] == self.playlist.get_current_pos() and \
+                self.playlist == player.QUEUE.current_playlist:
             weight = pango.WEIGHT_HEAVY
         else:
             weight = pango.WEIGHT_NORMAL
@@ -535,11 +537,15 @@ class PlaylistModel(gtk.GenericTreeModel):
 
     def on_get_value(self, rowref, column):
         if column == 0:
-            try:
-                return [self.playimg, self.pauseimg, self.stopimg,
-                        self.playstopimg, self.pausestopimg][rowref]
-            except IndexError:
-                return self.clearimg
+            if self.playlist.current_pos == rowref and \
+                    self.playlist[rowref] == player.PLAYER.current and \
+                    self.playlist == player.QUEUE.current_playlist:
+                state = player.PLAYER.get_state()
+                if state == 'playing':
+                    return self.playimg
+                elif state == 'paused':
+                    return self.pauseimg
+            return self.clearimg
         else:
             tagname = self.columns[column-1]
             track = self.playlist[rowref]

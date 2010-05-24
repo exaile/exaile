@@ -61,7 +61,8 @@ class NormalPlayer(_base.ExailePlayer):
         """
             setup the playbin to use for playback
         """
-        self.playbin = gst.element_factory_make("playbin", "player")
+        self.playbin = gst.element_factory_make("playbin2", "player")
+        self.playbin.connect("about-to-finish", self.on_about_to_finish)
 
     def setup_bus(self):
         """
@@ -84,6 +85,14 @@ class NormalPlayer(_base.ExailePlayer):
             called at the end of a stream
         """
         self._queue.next()
+
+    def on_about_to_finish(self, pbin):
+        #print "ABOUT TO FINISH!"
+        tr = self._queue.next(player=False)
+        if tr:
+            self.play(tr, stop_last=False)
+        else:
+            glib.idle_add(self.stop)
 
     def on_message(self, bus, message, reading_tag = False):
         """
@@ -119,6 +128,8 @@ class NormalPlayer(_base.ExailePlayer):
                 logger.info('Buffering complete')
             if percent % 5 == 0:
                 event.log_event('playback_buffering', self, percent)
+        #elif message.type not in (gst.MESSAGE_STATE_CHANGED,):
+        #    logger.debug("GSTREAMER: " + repr(message))
         return True
 
     def _get_current(self):
@@ -170,7 +181,7 @@ class NormalPlayer(_base.ExailePlayer):
         source.set_property('device', device)
         self.playbin.disconnect(self.notify_id)
 
-    def play(self, track):
+    def play(self, track, stop_last=True):
         """
             plays the specified track, overriding any currently playing track
 
@@ -179,7 +190,7 @@ class NormalPlayer(_base.ExailePlayer):
         if track is None:
             self.stop()
             return False
-        else:
+        elif stop_last:
             self.stop(fire=False)
 
         playing = self.is_playing()

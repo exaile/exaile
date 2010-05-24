@@ -46,10 +46,6 @@ def get_player():
         logger.debug("Normal playback engine selected.")
         from xl.player.engine_normal import NormalPlayer
         return NormalPlayer
-    elif pname == "normal2":
-        logger.debug("Normal2 playback engine selected.")
-        from xl.player.engine_normal2 import NormalPlayer2
-        return NormalPlayer2
     elif pname == "unified":
         logger.debug("Unified playback engine selected.")
         from xl.player.engine_unified import UnifiedPlayer

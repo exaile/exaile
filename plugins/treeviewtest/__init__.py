@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, gobject, pango
+import gtk, gobject, glib, pango
 import collections
 import os, sys
 import random
@@ -159,6 +159,8 @@ class NotebookTab(gtk.EventBox):
         button.connect('button-press-event', self.on_button_press)
         box.pack_start(button, False, False)
 
+        self.page.connect('tab-icon-changed', self.on_icon_changed)
+
         self.show_all()
 
     def on_button_press(self, widget, event):
@@ -196,6 +198,13 @@ class NotebookTab(gtk.EventBox):
             self.entry.props.editing_canceled = True
             self.end_rename()
             return True
+
+    def on_icon_changed(self, page, icon):
+        if icon is None:
+            self.icon.set_property("visible", False)
+        else:
+            self.icon.set_from_pixbuf(icon)
+            self.icon.set_property("visible", True)
 
     def start_rename(self):
         """
@@ -328,6 +337,9 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     """
     default_columns = ['tracknumber', 'title', 'album', 'artist', '__rating', '__length']
     menu_provider_name = 'playlist-tab-context'
+    __gsignals__ = {
+        'tab-icon-changed': (gobject.SIGNAL_RUN_LAST, None, (gtk.gdk.Pixbuf,))
+    }
 
     def __init__(self, playlist, exaile):
         gtk.VBox.__init__(self)
@@ -336,7 +348,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.exaile = exaile #TODO: remove the need for this!
 
         self.playlist = playlist
-
+        self.icon = None
         self.menu = PlaylistContextMenu(self)
 
         uifile = os.path.join(os.path.dirname(__file__), "playlist.ui")
@@ -374,14 +386,14 @@ class PlaylistPage(gtk.VBox, NotebookPage):
             self.view.append_column(gcol)
 
         self.view.connect("drag-drop", self.on_drag_drop)
-
         self.view.connect("row-activated", self.on_row_activated)
 
         event.add_callback(self.on_shuffle_mode_changed,
                 "playlist_shuffle_mode_changed", self.playlist)
-
         event.add_callback(self.on_repeat_mode_changed,
                 "playlist_repeat_mode_changed", self.playlist)
+        event.add_callback(self.on_current_pos_changed,
+                "playlist_current_pos_changed", self.playlist)
 
         self.show_all()
 
@@ -499,6 +511,16 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         else:
             self.repeat_button.set_active(True)
 
+    def on_current_pos_changed(self, typ, playlist, pos):
+        glib.idle_add(self.__on_current_pos_changed, pos)
+
+    def __on_current_pos_changed(self, pos):
+        iter = self.model.get_iter((pos[0],))
+        icon = self.model.get_value(iter, 0)
+        if icon == self.model.clearimg:
+            icon = None
+        self.icon = icon
+        self.emit('tab-icon-changed', icon)
 
     ### needed for DragTreeView ###
 
@@ -660,7 +682,7 @@ class PlaylistModel(gtk.GenericTreeModel):
         tracktups.reverse()
         for idx, tr in tracktups:
             self.row_deleted((idx,))
-    
+
     def on_pos_changed(self, typ, playlist, pos):
         for p in pos:
             path = (p,)
@@ -1112,8 +1134,8 @@ class Playlist(object):
                 curpos += 1
             if spatpos > idx:
                 spatpos += 1
-        self.current_pos = curpos
         self.spat_pos = spatpos
+        self.current_pos = curpos
         event.log_event_sync('playlist_tracks_removed', self, removed)
         event.log_event_sync('playlist_tracks_added', self, added)
         self.__needs_save = self.__dirty = True
@@ -1135,8 +1157,8 @@ class Playlist(object):
                 curpos -= 1
             if spatpos > idx:
                 spatpos -= 1
-        self.current_pos = curpos
         self.spat_pos = spatpos
+        self.current_pos = curpos
         event.log_event_sync('playlist_tracks_removed', self, removed)
         self.__needs_save = self.__dirty = True
 

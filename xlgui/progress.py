@@ -28,15 +28,14 @@ import gobject
 import gtk
 import time
 
-from xl import common, xdg
-from xlgui import commondialogs, icons
-from xlgui.commondialogs import MessageBar
+from xl import common
+from xl.nls import gettext as _
 
-class ProgressMonitor(MessageBar):
+class ProgressMonitor(gtk.VBox):
     """
         A graphical progress monitor
     """
-    def __init__(self, manager, thread, description):
+    def __init__(self, manager, thread, description, image=None):
         """
             Initializes the monitor
 
@@ -47,22 +46,42 @@ class ProgressMonitor(MessageBar):
             :param description: the description for this process
             :type description: string
         """
-        MessageBar.__init__(self, buttons=gtk.BUTTONS_CANCEL,
-            text=description)
-        self.set_no_show_all(False)
+        gtk.VBox.__init__(self, spacing=3)
 
         self.manager = manager
         self.thread = thread
         self._progress_updated = False
 
+        box = gtk.HBox(spacing=6)
+        self.pack_start(box)
+
+        if image is not None:
+            box.pack_start(image, False)
+
+        label = gtk.Label(description)
+        label.props.xalign = 0
+        box.pack_start(label)
+
+        box = gtk.HBox(spacing=3)
+        self.pack_start(box)
+
+        alignment = gtk.Alignment(xscale=1, yscale=1)
+        alignment.set_padding(3, 3, 0, 0)
         self.progressbar = gtk.ProgressBar()
         self.progressbar.set_pulse_step(0.05)
-        self.get_message_area().pack_start(self.progressbar, False)
+        alignment.add(self.progressbar)
+        box.pack_start(alignment)
+
+        button = gtk.Button()
+        button.set_image(gtk.image_new_from_stock(
+            gtk.STOCK_CANCEL, gtk.ICON_SIZE_BUTTON))
+        button.set_tooltip_text(_('Cancel'))
+        button.connect('clicked', self.on_button_clicked)
+        box.pack_start(button, False)
 
         self.show_all()
         self.pulsate_progress()
 
-        self.connect('response', self.on_response)
         self.progress_update_id = self.thread.connect('progress-update',
             self.on_progress_update)
         self.done_id = self.thread.connect('done', self.on_done)
@@ -76,8 +95,6 @@ class ProgressMonitor(MessageBar):
 
         self.thread.disconnect(self.progress_update_id)
         self.thread.disconnect(self.done_id)
-
-        MessageBar.destroy(self)
 
     @common.threaded
     def pulsate_progress(self):
@@ -109,14 +126,13 @@ class ProgressMonitor(MessageBar):
         """
         self.manager.remove_monitor(self)
 
-    def on_response(self, widget, response):
+    def on_button_clicked(self, widget):
         """
             Stops the running thread
         """
-        if response == gtk.RESPONSE_CANCEL:
-            widget.hide()
-            widget.destroy()
-            self.thread.stop()
+        self.hide()
+        self.thread.stop()
+        self.destroy()
 
 class ProgressManager(object):
     """
@@ -145,10 +161,9 @@ class ProgressManager(object):
             :param description: a description of the event
             :param stock_id: the stock id of an icon to display
         """
-        monitor = ProgressMonitor(self, thread, description)
-        image = gtk.image_new_from_stock(stock_id, gtk.ICON_SIZE_DIALOG)
-        monitor.set_image(image)
-        self.box.pack_start(monitor)
+        image = gtk.image_new_from_stock(stock_id, gtk.ICON_SIZE_BUTTON)
+        monitor = ProgressMonitor(self, thread, description, image)
+        self.box.pack_start(monitor, False)
 
         return monitor
 

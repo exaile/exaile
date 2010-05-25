@@ -291,7 +291,12 @@ def __create_playlist_context_menu():
     items.append(smi('append-queue', [], _("Append to Queue"), 'gtk-add',
             lambda w, o, c: player.QUEUE.add_tracks(
             [t[1] for t in c['selected-tracks']])))
-    items.append(plmenu.RatingMenuItem('rating', ['append-queue'],
+    def toggle_spat_cb(widget, playlistpage, context):
+        print context['selected-tracks'][0][0]
+        playlistpage.playlist.spat_pos = context['selected-tracks'][0][0]
+    items.append(smi('toggle-spat', ['append-queue'],
+            _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
+    items.append(plmenu.RatingMenuItem('rating', ['toggle-spat'],
             lambda o, c: [t[1] for t in c['selected-tracks']]))
     # TODO: rating item here
     # TODO: custom playlist item here
@@ -587,10 +592,19 @@ class PlaylistModel(gtk.GenericTreeModel):
                     self.playlist[rowref] == player.PLAYER.current and \
                     self.playlist == player.QUEUE.current_playlist:
                 state = player.PLAYER.get_state()
+                spat = self.playlist.spat_pos == rowref
                 if state == 'playing':
-                    return self.playimg
+                    if spat:
+                        return self.playstopimg
+                    else:
+                        return self.playimg
                 elif state == 'paused':
-                    return self.pauseimg
+                    if spat:
+                        return self.pausestopimg
+                    else:
+                        return self.pauseimg
+            if self.playlist.spat_pos == rowref:
+                return self.stopimg
             return self.clearimg
         else:
             tagname = self.columns[column-1]
@@ -688,6 +702,7 @@ class Playlist(object):
         self.__needs_save = False
         self.__name = name
         self.__current_pos = -1
+        self.__spat_pos = -1
 
         # FIXME: this is not ideal since duplicate tracks are not
         # weighted appropriately when shuffling, however without a
@@ -716,6 +731,16 @@ class Playlist(object):
         event.log_event_sync("playlist_current_pos_changed", self, pos)
 
     current_pos = property(get_current_pos, set_current_pos)
+
+    def get_spat_pos(self):
+        return self.__spat_pos
+
+    def set_spat_pos(self, pos):
+        self.__spat_pos = pos
+        self.__dirty = True
+        event.log_event_sync("playlist_spat_pos_changed", self, pos)
+
+    spat_pos = property(get_spat_pos, set_spat_pos)
 
     def get_current(self):
         return self.__tracks[self.current_pos]
@@ -763,6 +788,10 @@ class Playlist(object):
     def next(self):
         repeat_mode = self.repeat_mode
         shuffle_mode = self.shuffle_mode
+        if self.current_pos == self.spat_pos:
+            self.spat_pos = -1
+            return None
+
         if repeat_mode == 'track':
             return self.current
         else:
@@ -1058,14 +1087,20 @@ class Playlist(object):
             self.__tracks[i] = value
             removed = [(i, oldtracks)]
             added = [(i, value)]
-        pos = self.current_pos
+        curpos = self.current_pos
+        spatpos = self.spat_pos
         for idx, tr in removed[::-1]:
-            if pos > idx:
-                pos -= 1
+            if curpos > idx:
+                curpos -= 1
+            if spatpos > idx:
+                spatpos -= 1
         for idx, tr in added:
-            if pos > idx:
-                pos += 1
-        self.current_pos = pos
+            if curpos > idx:
+                curpos += 1
+            if spatpos > idx:
+                spatpos += 1
+        self.current_pos = curpos
+        self.spat_pos = spatpos
         event.log_event_sync('playlist_tracks_removed', self, removed)
         event.log_event_sync('playlist_tracks_added', self, added)
         self.__needs_save = self.__dirty = True
@@ -1080,11 +1115,15 @@ class Playlist(object):
             removed = zip(range(start, end, step), oldtracks)
         else:
             removed = [(i, oldtracks)]
-        pos = self.current_pos
+        curpos = self.current_pos
+        spatpos = self.spat_pos
         for idx, tr in removed[::-1]:
-            if pos > idx:
-                pos -= 1
-        self.current_pos = pos
+            if curpos > idx:
+                curpos -= 1
+            if spatpos > idx:
+                spatpos -= 1
+        self.current_pos = curpos
+        self.spat_pos = spatpos
         event.log_event_sync('playlist_tracks_removed', self, removed)
         self.__needs_save = self.__dirty = True
 

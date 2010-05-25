@@ -31,30 +31,6 @@ from xl import providers, settings
 from xlgui import icons, rating
 from xl.nls import gettext as _
 
-"""
-    what we need to describe a menu item:
-        - internal name
-        - display name
-        - callback
-
-
-    menus itself supplies all items with a certain list of parameters
-        - the parent object (playlist, collection, etc.)
-        - the selected object(s) (tracks, tab, etc.)
-
-    duties of the factory func:
-        create the menu item
-        set up any needed callbacks
-
-    if a factory func fails to complete (raises error, returns something
-        other than a valid gtk.MenuItem), that entry will be omitted from
-        the resulting menu
-
-
-    factory(menu, parent_obj, parent_context={prop:val, prop:val...})
-
-
-"""
 
 def simple_separator(name, after):
     def factory(menu, parent_obj, parent_context):
@@ -90,7 +66,6 @@ def simple_menu_item(name, after, display_name, icon_name, callback):
     return MenuItem(name, factory, after=after)
 
 
-
 class MenuItem(object):
     def __init__(self, name, factory, after):
         self.name = name
@@ -101,6 +76,7 @@ class MenuItem(object):
                              # method of ordering, this property is not
                              # considered public api and may change
                              # without warning.
+
 
 class RatingMenuItem(MenuItem):
     def __init__(self, name, after, tracks_func):
@@ -147,6 +123,8 @@ class RatingMenuItem(MenuItem):
         except ValueError:
             return
 
+        # TODO: Figure out what the hell all this is doing exactly, and
+        # write a proper comment describing it.
         if -12 <= u < 0:
             r = 0
         elif 0 <= u < (steps+1)*12:
@@ -174,12 +152,12 @@ class RatingMenuItem(MenuItem):
         image.set_from_pixbuf(cls._get_pixbuf(ratingnum))
         widget.queue_draw()
 
+
 class Menu(gtk.Menu):
     def __init__(self, parent):
         gtk.Menu.__init__(self)
         self._parent = parent
         self._items = []
-
         self.connect('map', self.regenerate_menu)
         self.connect('unmap', self.clear_menu)
 
@@ -228,7 +206,6 @@ class Menu(gtk.Menu):
         self.show_all()
 
 
-
 class ProviderMenu(providers.ProviderHandler, Menu):
     def __init__(self, name, parent):
         providers.ProviderHandler.__init__(self, name)
@@ -241,10 +218,5 @@ class ProviderMenu(providers.ProviderHandler, Menu):
 
     def on_provider_removed(self, provider):
         self.remove_item(provider)
-
-
-testmenu = ProviderMenu("test", None)
-providers.register("test", simple_menu_item("test", [], "Test Providers", None,
-    lambda *args: False))
 
 

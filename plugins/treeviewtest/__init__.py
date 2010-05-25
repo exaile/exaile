@@ -288,15 +288,30 @@ def __create_playlist_context_menu():
     smi = plmenu.simple_menu_item
     sep = plmenu.simple_separator
     items = []
+    items.append(smi('append-queue', [], _("Append to Queue"), 'gtk-add',
+            lambda w, o, c: player.QUEUE.add_tracks(
+            [t[1] for t in c['selected-tracks']])))
+    items.append(plmenu.RatingMenuItem('rating', ['append-queue'],
+            lambda o, c: [t[1] for t in c['selected-tracks']]))
+    # TODO: rating item here
+    # TODO: custom playlist item here
+    items.append(sep('sep1', ['rating']))
     def remove_tracks_cb(widget, playlistpage, context):
-        # TODO: detect adjacent blocks of tracks and remove them in one
-        # chunk - will be faster.
         tracks = context['selected-tracks']
         pl = playlistpage.playlist
-        for idx, tr in tracks[::-1]:
-            del pl[idx]
-    items.append(smi('remove-tracks', [], _("Remove"), 'gtk-remove',
+        # If it's all one block, just delete it in one chunk for
+        # maximum speed.
+        idxs = [t[0] for t in tracks]
+        if idxs == range(idxs[0], idxs[0]+len(idxs)+1):
+            del pl[idxs[0]:idxs[0]+len(idxs)+1]
+        else:
+            for idx, tr in tracks[::-1]:
+                del pl[idx]
+    items.append(smi('remove', ['sep1'], _("Remove"), 'gtk-remove',
         remove_tracks_cb))
+    items.append(sep('sep2', ['remove']))
+    items.append(smi('properties', ['sep2'], _("Properties"), 'gtk-properties',
+        lambda w, o, c: False))
     for item in items:
         providers.register('playlist-context', item)
 

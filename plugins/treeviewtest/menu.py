@@ -27,8 +27,9 @@
 import gobject
 import gtk
 
-from xl import providers
-from xlgui import icons
+from xl import providers, settings
+from xlgui import icons, rating
+from xl.nls import gettext as _
 
 """
     what we need to describe a menu item:
@@ -100,6 +101,78 @@ class MenuItem(object):
                              # method of ordering, this property is not
                              # considered public api and may change
                              # without warning.
+
+class RatingMenuItem(MenuItem):
+    def __init__(self, name, after, tracks_func):
+        # tracks_func(parent, context) -> list of tracks
+        MenuItem.__init__(self, name, self._factory, after)
+        self.tracks_func = tracks_func
+
+    def _factory(self, menu, parent_obj, parent_context):
+        item = gtk.MenuItem()
+        tracks = self.tracks_func(parent_obj, parent_context)
+        ratingnum = self._get_tracks_rating(tracks)
+
+        hbox = gtk.HBox(spacing=3)
+        hbox.pack_start(gtk.Label(_("Rating:")), False, False)
+        image = gtk.image_new_from_pixbuf(self._get_pixbuf(ratingnum))
+        hbox.pack_start(image)
+        item.add(hbox)
+
+        item.connect('button-release-event',
+                self._update_rating, image, tracks)
+        item.connect('motion-notify-event', self._motion_notify, image)
+        item.connect('leave-notify-event',
+                self._leave_notify, image, ratingnum)
+        return item
+
+    @staticmethod
+    def _get_tracks_rating(tracks):
+        ratingnum = tracks[0].get_rating()
+        for tr in tracks:
+            if tr.get_rating() != ratingnum:
+                return 0
+        return ratingnum
+
+    @staticmethod
+    def _get_pixbuf(num):
+        return rating.rating_images[num]
+
+    @staticmethod
+    def _event_to_r(widget, event, image):
+        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        (x, y) = event.get_coords()
+        try:
+            (u, v) =  widget.translate_coordinates(image, int(x), int(y))
+        except ValueError:
+            return
+
+        if -12 <= u < 0:
+            r = 0
+        elif 0 <= u < (steps+1)*12:
+            r = (u / 12)
+        else:
+            r = -1
+        return r
+
+    @classmethod
+    def _update_rating(cls, widget, event, image, tracks):
+        r = cls._event_to_r(widget, event, image)
+        if r >= 0:
+            for tr in tracks:
+                tr.set_rating(r)
+
+    @classmethod
+    def _motion_notify(cls, widget, event, image):
+        r = cls._event_to_r(widget, event, image)
+        if r >= 0:
+            image.set_from_pixbuf(cls._get_pixbuf(r))
+            widget.queue_draw()
+
+    @classmethod
+    def _leave_notify(cls, widget, event, image, ratingnum):
+        image.set_from_pixbuf(cls._get_pixbuf(ratingnum))
+        widget.queue_draw()
 
 class Menu(gtk.Menu):
     def __init__(self, parent):

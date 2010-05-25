@@ -538,6 +538,10 @@ class PlaylistModel(gtk.GenericTreeModel):
                 "playlist_tracks_added", playlist)
         event.add_callback(self.on_tracks_removed,
                 "playlist_tracks_removed", playlist)
+        event.add_callback(self.on_pos_changed,
+                "playlist_current_pos_changed", playlist)
+        event.add_callback(self.on_pos_changed,
+                "playlist_spat_pos_changed", playlist)
 
         get_img = lambda name, size: icons.MANAGER.pixbuf_from_stock(
             name, gtk.ICON_SIZE_SMALL_TOOLBAR).scale_simple(
@@ -563,6 +567,8 @@ class PlaylistModel(gtk.GenericTreeModel):
         self.clearimg = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 18, 18)
         self.clearimg.fill(0x00000000)
 
+    def get_track(self, path):
+        return self.playlist[path[0]]
 
     def on_get_flags(self):
         return gtk.TREE_MODEL_LIST_ONLY
@@ -654,10 +660,15 @@ class PlaylistModel(gtk.GenericTreeModel):
         tracktups.reverse()
         for idx, tr in tracktups:
             self.row_deleted((idx,))
-
-    def get_track(self, path):
-        return self.playlist[path[0]]
-
+    
+    def on_pos_changed(self, typ, playlist, pos):
+        for p in pos:
+            path = (p,)
+            try:
+                iter = self.get_iter(path)
+            except ValueError:
+                continue
+            self.row_changed(path, iter)
 
 
 class Playlist(object):
@@ -726,9 +737,10 @@ class Playlist(object):
         return self.__current_pos
 
     def set_current_pos(self, pos):
+        oldpos = self.__current_pos
         self.__current_pos = pos
         self.__dirty = True
-        event.log_event_sync("playlist_current_pos_changed", self, pos)
+        event.log_event_sync("playlist_current_pos_changed", self, (pos, oldpos))
 
     current_pos = property(get_current_pos, set_current_pos)
 
@@ -736,9 +748,10 @@ class Playlist(object):
         return self.__spat_pos
 
     def set_spat_pos(self, pos):
+        oldpos = self.__spat_pos
         self.__spat_pos = pos
         self.__dirty = True
-        event.log_event_sync("playlist_spat_pos_changed", self, pos)
+        event.log_event_sync("playlist_spat_pos_changed", self, (pos, oldpos))
 
     spat_pos = property(get_spat_pos, set_spat_pos)
 

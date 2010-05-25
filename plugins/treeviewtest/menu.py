@@ -92,7 +92,7 @@ class RatingMenuItem(MenuItem):
         hbox = gtk.HBox(spacing=3)
         hbox.pack_start(gtk.Label(_("Rating:")), False, False)
         image = gtk.image_new_from_pixbuf(self._get_pixbuf(ratingnum))
-        hbox.pack_start(image)
+        hbox.pack_start(image, False, False, 12)
         item.add(hbox)
 
         item.connect('button-release-event',
@@ -123,14 +123,11 @@ class RatingMenuItem(MenuItem):
         except ValueError:
             return
 
-        # TODO: Figure out what the hell all this is doing exactly, and
-        # write a proper comment describing it.
-        if -12 <= u < 0:
-            r = 0
-        elif 0 <= u < (steps+1)*12:
-            r = (u / 12)
+        # Determine which star the cursor is over and return its index
+        if 0 <= u < steps*12:
+            r = (u / 12) + 1
         else:
-            r = -1
+            r = 0
         return r
 
     @classmethod

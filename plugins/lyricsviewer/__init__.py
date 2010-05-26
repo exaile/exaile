@@ -44,21 +44,23 @@ def enable(exaile):
 
 def _enable(o1, exaile, o2):
     global LYRICSPANEL
-    LYRICSPANEL = LyricsPanel(exaile)
-    LYRICSPANEL.show_all()
+    global LYRICSVIEWER
+    LYRICSVIEWER = LyricsViewer(exaile)
+    LYRICSPANEL=LYRICSVIEWER.get_panel()
     exaile.gui.add_panel(LYRICSPANEL, _('Lyrics'))
 #I set the style of the text view containing the lyrics here cause
 #the style of the top level is not really available until the panel is added.
-    LYRICSPANEL.set_lyrics_view_style()
+    LYRICSVIEWER.set_lyrics_text_style()
 
 def disable(exaile):
     global LYRICSPANEL
-    LYRICSPANEL.remove_callbacks()
+    global LYRICSVIEWER
+    LYRICSVIEWER.remove_callbacks()
     exaile.gui.remove_panel(LYRICSPANEL)
+    LYRICSVIEWER = None
     LYRICSPANEL = None
 
-
-class LyricsPanel(gtk.VBox):
+class LyricsViewer(object):
 
     track_title_font='sans bold 10'
     lyrics_font='sans 9'
@@ -67,95 +69,86 @@ class LyricsPanel(gtk.VBox):
     bars_text_color='#fefefe'
 
     loading_image='loading.gif'
+    ui='lyricsviewer.ui'
 
     def __init__(self, exaile):
-        gtk.VBox.__init__(self, False, 3)
-        self.set_border_width(3)
         self.exaile = exaile
         self.url_source=""
         self.lyrics_found=[]
+        
         self._initialize_widgets()
 
         event.add_callback(self.playback_cb, 'playback_track_start')
-        event.add_callback(self.stop_cb, 'playback_track_end')
         event.add_callback(self.end_cb, 'playback_player_end')
-        event.add_callback(self.search_method_added_cb, 'lyrics_search_method_added')
+        event.add_callback(self.search_method_added_cb,
+                'lyrics_search_method_added')
 
         self.update_lyrics(exaile.player)
 
     def _initialize_widgets(self):
-       #lyrics top box contains the refresh button and the combo
-        self.lyrics_top_box=gtk.HBox()
+        builder = gtk.Builder()
+        builder.add_from_file(os.path.join(BASEDIR, self.ui))
+        builder.connect_signals({
+            'on_RefreshButton_clicked' : self.on_refresh_button_clicked,
+            'on_LyricsSourceText_motion_notify_event' : self.on_lst_motion_event,
+            'on_UrlTag_event' : self.on_url_tag_event
+        })
+
+        self.window=builder.get_object('LyricsViewerWindow')
+
+        self.lyrics_top_box=builder.get_object('LyricsTopBox')
         self.lyrics_methods_combo=LyricsMethodsComboBox(self.exaile)
         self.lyrics_top_box.pack_start(self.lyrics_methods_combo, True, True, 0)
         self.lyrics_methods_combo.connect('changed', self.on_combo_active_changed)
 
-        self.refresh_button=gtk.Button()
-        self.refresh_button.set_size_request(34, 34)
-
-        self.refresh_button_image=gtk.image_new_from_stock(gtk.STOCK_REFRESH, 2)
-        self.refresh_button.set_image(self.refresh_button_image)
-
+        self.refresh_button=builder.get_object('RefreshButton')
+        self.refresh_button_image=builder.get_object('RefreshLyrics')
+        self.loading_animation = gtk.gdk.PixbufAnimation(
+                os.path.join(IMAGEDIR, self.loading_image))
+        
         self.setup_top_box()
-        self.refresh_button.connect('clicked', self.on_refresh_button_pressed)
-        self.refresh_button.set_tooltip_text(_('Refresh Lyrics'))
-        self.loading_animation = gtk.gdk.PixbufAnimation(os.path.join(IMAGEDIR, self.loading_image))
-
-        self.lyrics_top_box.pack_start(self.refresh_button, False, False, 0)
-        self.pack_start(self.lyrics_top_box, False, False,0)
 
        #track name title text
-        self.track_text_buffer = gtk.TextBuffer()
-        self.track_text = TextView(self.track_text_buffer, self.track_title_font)
-        self.track_text.modify_look(gtk.STATE_NORMAL, self.bars_base_color, self.bars_text_color)
-
-        self.pack_start(self.track_text, False, False, 0)
+        self.track_text = builder.get_object('TrackText')
+        self.track_text.modify_font(pango.FontDescription(self.track_title_font))
+        self.modify_textview_look(self.track_text,gtk.STATE_NORMAL, 
+                self.bars_base_color, self.bars_text_color)
+        self.track_text_buffer = builder.get_object('TrackTextBuffer')
        #trackname end
 
-       #scroller for lyricstextview
-        self.scroller = gtk.ScrolledWindow()
-        self.scroller.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-
-        self.pack_start(self.scroller, True, True, 5)
-       #end scroller
-
        #the textview which cointains the lyrics
-        self.lyrics_text_buffer = gtk.TextBuffer()
-        self.lyrics_text=TextView(self.lyrics_text_buffer, self.lyrics_font)
-
-        self.scroller.add(self.lyrics_text)
+        self.lyrics_text=builder.get_object('LyricsText')
+        self.lyrics_text.modify_font(pango.FontDescription(self.lyrics_font))
+        self.lyrics_text_buffer = builder.get_object('LyricsTextBuffer')
        #end lyrictextview
 
        #text url and source
-        self.lyrics_source_text_buffer=gtk.TextBuffer()
-        self.lyrics_source_text =TextView(self.lyrics_source_text_buffer, self.source_font)
-        self.lyrics_source_text.modify_look(gtk.STATE_NORMAL, self.bars_base_color, self.bars_text_color)
-       #handling a motion and leave event on the TextView lyrics_source_text
-        self._changed_cursor = False
-        self.lyrics_source_text.connect("motion-notify-event", self.on_lst_motion_event)
-       #the tag to create a hyperlink in a textbuffer
-        self.url_tag=self.lyrics_source_text_buffer.create_tag("url")
-        self.url_tag.connect("event", self.on_url_tag_event)
-        self.url_tag.set_property("underline", True)
-
-        self.pack_start(self.lyrics_source_text, False, False, 0)
+        self.lyrics_source_text = builder.get_object('LyricsSourceText')
+        self.lyrics_source_text.modify_font(pango.FontDescription(self.source_font))
+        self.modify_textview_look(self.lyrics_source_text,gtk.STATE_NORMAL,
+                self.bars_base_color, self.bars_text_color)
+        self.lyrics_source_text_buffer=builder.get_object('LyricsSourceTextBuffer')
+        
+        #the tag to create a hyperlink in a textbuffer
+        lyrics_source_tag_table=builder.get_object('LyricsSourceTagTable')
+        self.url_tag=builder.get_object('UrlTag')
+        lyrics_source_tag_table.add(self.url_tag)
        #end text url and source
+        self._changed_cursor = False
     #end initialize_widgets
     
     def remove_callbacks(self):
         event.remove_callback(self.playback_cb, 'playback_track_start')
-        event.remove_callback(self.stop_cb, 'playback_track_end')
         event.remove_callback(self.end_cb, 'playback_player_end')
-        event.remove_callback(self.search_method_added_cb, 'lyrics_search_method_added')
+        event.remove_callback(self.search_method_added_cb,
+                'lyrics_search_method_added')
+        self.lyrics_methods_combo.remove_callbacks()
         
     def search_method_added_cb(self, eventtype, lyrics, provider):
         self.update_lyrics(self.exaile.player)
 
     def playback_cb(self, eventtype, player, data):
         self.update_lyrics(player)
-
-    def stop_cb(self, eventtype, player, data):
-        self.setup_top_box()
 
     def end_cb(self, eventtype, player, data):
         self.setup_top_box()
@@ -189,17 +182,20 @@ class LyricsPanel(gtk.VBox):
             window.set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
             self.lyrics_source_text.set_tooltip_text(None)
             self._changed_cursor = False
-
-
+            
     def on_url_tag_event(self, tag, widget, event, iter):
         """
             Catches when the user clicks the url_tag .
             Opens a new page (or tab) in the preferred browser.
         """
         if event.type == gtk.gdk.BUTTON_RELEASE:
-            webbrowser.open_new_tab(self.url_source)
+            self.open_url(self.url_source)
+            
+    @common.threaded        
+    def open_url(self,url):
+        webbrowser.open_new_tab(url)
 
-    def on_refresh_button_pressed(self, button):
+    def on_refresh_button_clicked(self, button):
         self.update_lyrics(self.exaile.player)
 
     def on_combo_active_changed(self, combobox):
@@ -221,7 +217,6 @@ class LyricsPanel(gtk.VBox):
         else:
             glib.idle_add(self.lyrics_text_buffer.set_text, _('Not playing.'))
 
-
     @common.threaded
     def get_lyrics(self, player, track):
         try:
@@ -229,22 +224,24 @@ class LyricsPanel(gtk.VBox):
                 text_track=(track.get_tag_raw('artist')[0]+\
                                      " - "+track.get_tag_raw('title')[0])
             except Exception:
-                return
+                raise LyricsNotFoundException
             self.track_text_buffer.set_text(text_track)
-            self.lyrics_found = self.exaile.lyrics.find_all_lyrics(track)
+            lyrics_found = self.exaile.lyrics.find_all_lyrics(track)
         except LyricsNotFoundException:
+            lyrics_found=[]
             return
         finally:
             if player.current==track :
+                self.lyrics_found=lyrics_found
                 self.update_lyrics_text(player.current, track)
                 self.set_top_box_widgets(True)
-
 
     def update_lyrics_text(self, track_playing=None, track=None):
         """
             Update the lyrics text view, showing the lyrics from the
             lyrics search method specified by the input param
-            @param lyrics_search_method: if not specified means any alowed
+            
+            :param lyrics_search_method: if not specified means any alowed
         """
         lyrics=_("No lyrics found.")
         source=""
@@ -258,24 +255,25 @@ class LyricsPanel(gtk.VBox):
         if track_playing==track:
             glib.idle_add(self.lyrics_text_buffer.set_text, lyrics)
             self.update_source_text(source, url)
-
+    
+    @common.synchronized
     def update_source_text(self, source, url):
         """
             Sets the url tag in the source text buffer
             to the value of the source
 
-            @param source: the name to display as url tag
-            @param url: the url string of the source
+            :param source: the name to display as url tag
+            :param url: the url string of the source
         """
-        self.lyrics_source_text_buffer.set_text("")
         if url!="":
-            iter = self.lyrics_source_text_buffer.get_start_iter()
-            self.lyrics_source_text_buffer.insert(iter, _("Go to: "))
+            self.lyrics_source_text_buffer.set_text(_("Go to: "))
             iter = self.lyrics_source_text_buffer.get_end_iter()
             self.lyrics_source_text_buffer.insert_with_tags(
                     iter, source, self.url_tag)
             self.url_source=url
-
+        else:
+            self.lyrics_source_text_buffer.set_text("")
+            
     def setup_top_box(self):
         self.refresh_button.set_sensitive(False)
         self.lyrics_methods_combo.set_sensitive(True)
@@ -283,27 +281,37 @@ class LyricsPanel(gtk.VBox):
 
     def set_top_box_widgets(self, state):
         if state:
-            self.refresh_button_image.set_from_stock(gtk.STOCK_REFRESH, 2)
+            glib.idle_add(self.refresh_button_image.set_from_stock,
+                    gtk.STOCK_REFRESH, 2)
         else:
-            self.refresh_button_image.set_from_animation(self.loading_animation)
+            glib.idle_add(self.refresh_button_image.set_from_animation,
+                    self.loading_animation)
 
         self.refresh_button.set_sensitive(state)
         self.lyrics_methods_combo.set_sensitive(state)
 
-    def set_lyrics_view_style(self):
+    def set_lyrics_text_style(self):
         """
             Sets the style of the lyrics text view with the style of the toplevel
         """
-        properties=[gtk.STATE_NORMAL, gtk.STATE_ACTIVE, gtk.STATE_PRELIGHT,  \
+        properties=[gtk.STATE_NORMAL, gtk.STATE_ACTIVE, gtk.STATE_PRELIGHT,
                     gtk.STATE_SELECTED, gtk.STATE_INSENSITIVE]
-        toplevel_style=self.get_toplevel().style
+        toplevel_style=self.window.get_toplevel().style
         for property in properties:
-            self.lyrics_text.modify_look(property,
+            self.modify_textview_look(self.lyrics_text, property,
                     toplevel_style.bg[property].to_string(),
                     toplevel_style.fg[property].to_string())
+    
+    def modify_textview_look(self, textview,state, base_color, text_color):
+        textview.modify_base(state, gtk.gdk.color_parse(base_color))
+        textview.modify_text(state, gtk.gdk.color_parse(text_color))
 
-
-
+    def get_panel(self):
+        panel=self.window.get_child()
+        self.window.remove(panel)
+        panel.show_all()
+        return(panel)
+        
 class LyricsMethodsComboBox(gtk.ComboBox):
     """
         An extended gtk.ComboBox class.
@@ -329,8 +337,13 @@ class LyricsMethodsComboBox(gtk.ComboBox):
 
         event.add_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
-
         event.add_callback(self.search_method_removed_cb,
+                'lyrics_search_method_removed')
+    
+    def remove_callbacks(self):
+        event.remove_callback(self.search_method_added_cb, 
+                'lyrics_search_method_added')
+        event.remove_callback(self.search_method_removed_cb,
                 'lyrics_search_method_removed')
 
     def search_method_added_cb(self, eventtype, lyrics, provider):
@@ -366,19 +379,3 @@ class LyricsMethodsComboBox(gtk.ComboBox):
             return (active, self.model[active][0])
         else:
             return (None, None)
-
-class TextView(gtk.TextView):
-    def __init__(self, text_buffer, font_description):
-        gtk.TextView.__init__(self, text_buffer)
-        self.set_cursor_visible(False)
-        self.set_editable(False)
-        self.set_wrap_mode(gtk.WRAP_WORD)
-        self.set_justification(gtk.JUSTIFY_CENTER)
-        self.set_left_margin(3)
-        self.set_right_margin(3)
-        self.modify_font(pango.FontDescription(font_description))
-
-    def modify_look(self, state, base_color, text_color):
-        self.modify_base(state, gtk.gdk.color_parse(base_color))
-        self.modify_text(state, gtk.gdk.color_parse(text_color))
-

@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="LyricsViewerWindow">
+    <property name="extension_events">all</property>
+    <property name="title" translatable="yes">Lyrics</property>
+    <property name="default_width">100</property>
+    <property name="default_height">100</property>
+    <child>
+      <object class="GtkVBox" id="LyricsPanel">
+        <property name="visible">True</property>
+        <property name="border_width">3</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">3</property>
+        <child>
+          <object class="GtkHBox" id="LyricsTopBox">
+            <property name="visible">True</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <object class="GtkButton" id="RefreshButton">
+                <property name="width_request">34</property>
+                <property name="height_request">34</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip_text" translatable="yes">Refresh Lyrics</property>
+                <signal name="clicked" handler="on_RefreshButton_clicked"/>
+                <child>
+                  <object class="GtkImage" id="RefreshLyrics">
+                    <property name="visible">True</property>
+                    <property name="stock">gtk-refresh</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="TrackText">
+            <property name="width_request">1</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="editable">False</property>
+            <property name="wrap_mode">word</property>
+            <property name="justification">center</property>
+            <property name="left_margin">3</property>
+            <property name="right_margin">3</property>
+            <property name="cursor_visible">False</property>
+            <property name="buffer">TrackTextBuffer</property>
+            <property name="accepts_tab">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="ScrolledWindow">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">automatic</property>
+            <property name="vscrollbar_policy">automatic</property>
+            <child>
+              <object class="GtkTextView" id="LyricsText">
+                <property name="width_request">1</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="editable">False</property>
+                <property name="wrap_mode">word</property>
+                <property name="justification">center</property>
+                <property name="left_margin">3</property>
+                <property name="right_margin">3</property>
+                <property name="cursor_visible">False</property>
+                <property name="buffer">LyricsTextBuffer</property>
+                <property name="accepts_tab">False</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="padding">5</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="LyricsSourceText">
+            <property name="width_request">1</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="editable">False</property>
+            <property name="wrap_mode">word</property>
+            <property name="justification">center</property>
+            <property name="left_margin">3</property>
+            <property name="right_margin">5</property>
+            <property name="cursor_visible">False</property>
+            <property name="buffer">LyricsSourceTextBuffer</property>
+            <property name="accepts_tab">False</property>
+            <signal name="motion_notify_event" handler="on_LyricsSourceText_motion_notify_event"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkTextBuffer" id="LyricsTextBuffer"/>
+  <object class="GtkTextBuffer" id="TrackTextBuffer"/>
+  <object class="GtkTextTag" id="UrlTag">
+    <property name="name">url_tag</property>
+    <property name="editable">False</property>
+    <property name="underline">single</property>
+    <signal name="event" handler="on_UrlTag_event"/>
+  </object>
+  <object class="GtkTextTagTable" id="LyricsSourceTagTable"/>
+  <object class="GtkTextBuffer" id="LyricsSourceTextBuffer">
+    <property name="tag_table">LyricsSourceTagTable</property>
+  </object>
+</interface>

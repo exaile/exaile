@@ -159,9 +159,14 @@ class NotebookTab(gtk.EventBox):
         button.connect('button-press-event', self.on_button_press)
         box.pack_start(button, False, False)
 
-        self.page.connect('tab-icon-changed', self.on_icon_changed)
-
         self.show_all()
+
+    def set_icon(self, pixbuf):
+        if pixbuf is None:
+            self.icon.set_property("visible", False)
+        else:
+            self.icon.set_from_pixbuf(pixbuf)
+            self.icon.set_property("visible", True)
 
     def on_button_press(self, widget, event):
         """
@@ -198,13 +203,6 @@ class NotebookTab(gtk.EventBox):
             self.entry.props.editing_canceled = True
             self.end_rename()
             return True
-
-    def on_icon_changed(self, page, icon):
-        if icon is None:
-            self.icon.set_property("visible", False)
-        else:
-            self.icon.set_from_pixbuf(icon)
-            self.icon.set_property("visible", True)
 
     def start_rename(self):
         """
@@ -301,13 +299,15 @@ def __create_playlist_context_menu():
             lambda w, o, c: player.QUEUE.add_tracks(
             [t[1] for t in c['selected-tracks']])))
     def toggle_spat_cb(widget, playlistpage, context):
-        print context['selected-tracks'][0][0]
-        playlistpage.playlist.spat_pos = context['selected-tracks'][0][0]
+        pos = context['selected-tracks'][0][0]
+        if pos != playlistpage.playlist.spat_pos:
+            playlistpage.playlist.spat_pos = pos
+        else:
+            playlistpage.playlist.spat_pos = -1
     items.append(smi('toggle-spat', ['append-queue'],
             _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
     items.append(plmenu.RatingMenuItem('rating', ['toggle-spat'],
             lambda o, c: [t[1] for t in c['selected-tracks']]))
-    # TODO: rating item here
     # TODO: custom playlist item here
     items.append(sep('sep1', ['rating']))
     def remove_tracks_cb(widget, playlistpage, context):
@@ -337,9 +337,6 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     """
     default_columns = ['tracknumber', 'title', 'album', 'artist', '__rating', '__length']
     menu_provider_name = 'playlist-tab-context'
-    __gsignals__ = {
-        'tab-icon-changed': (gobject.SIGNAL_RUN_LAST, None, (gtk.gdk.Pixbuf,))
-    }
 
     def __init__(self, playlist, exaile):
         gtk.VBox.__init__(self)
@@ -392,8 +389,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
                 "playlist_shuffle_mode_changed", self.playlist)
         event.add_callback(self.on_repeat_mode_changed,
                 "playlist_repeat_mode_changed", self.playlist)
-        event.add_callback(self.on_current_pos_changed,
-                "playlist_current_pos_changed", self.playlist)
+        self.model.connect('row-changed', self.on_row_changed)
 
         self.show_all()
 
@@ -442,9 +438,9 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         except IndexError:
             return
 
-        self.playlist.set_current_pos(idx)
         self.exaile.queue.play(track=track)
         self.exaile.queue.set_current_playlist(self.playlist)
+        self.playlist.set_current_pos(idx)
 
 
     def on_shuffle_button_press_event(self, widget, event):
@@ -511,16 +507,12 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         else:
             self.repeat_button.set_active(True)
 
-    def on_current_pos_changed(self, typ, playlist, pos):
-        glib.idle_add(self.__on_current_pos_changed, pos)
-
-    def __on_current_pos_changed(self, pos):
-        iter = self.model.get_iter((pos[0],))
-        icon = self.model.get_value(iter, 0)
-        if icon == self.model.clearimg:
-            icon = None
-        self.icon = icon
-        self.emit('tab-icon-changed', icon)
+    def on_row_changed(self, model, path, iter):
+        if path[0] == self.playlist.current_pos:
+            img = model.get_value(iter, 0)
+            if img == model.clearimg:
+                img = None
+            self.tab.set_icon(img)
 
     ### needed for DragTreeView ###
 
@@ -564,6 +556,14 @@ class PlaylistModel(gtk.GenericTreeModel):
                 "playlist_current_pos_changed", playlist)
         event.add_callback(self.on_pos_changed,
                 "playlist_spat_pos_changed", playlist)
+        event.add_callback(self.on_playback_state_change,
+                "playback_track_start")
+        event.add_callback(self.on_playback_state_change,
+                "playback_track_end")
+        event.add_callback(self.on_playback_state_change,
+                "playback_player_pause")
+        event.add_callback(self.on_playback_state_change,
+                "playback_player_resume")
 
         get_img = lambda name, size: icons.MANAGER.pixbuf_from_stock(
             name, gtk.ICON_SIZE_SMALL_TOOLBAR).scale_simple(
@@ -691,6 +691,11 @@ class PlaylistModel(gtk.GenericTreeModel):
             except ValueError:
                 continue
             self.row_changed(path, iter)
+
+    def on_playback_state_change(self, typ, player, tr):
+        path = (self.playlist.current_pos,)
+        iter = self.get_iter(path)
+        self.row_changed(path, iter)
 
 
 class Playlist(object):

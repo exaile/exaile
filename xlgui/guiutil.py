@@ -33,15 +33,27 @@ from urllib2 import urlparse
 
 import gio
 import glib
+import gobject
 import gtk
 import pango
 
-from xl import common, event, playlist, settings, trax, xdg, covers
-from xl.formatter import TrackFormatter, TrackNumberTagFormatter, LengthTagFormatter
+from xl import (
+    common,
+    covers,
+    event,
+    playlist,
+    settings,
+    trax,
+    xdg,
+)
+from xl.formatter import (
+    TrackFormatter,
+    TrackNumberTagFormatter,
+    LengthTagFormatter
+)
 from xl.nls import gettext as _
 from xlgui import icons, rating
 import xl.main
-import xlgui
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
@@ -248,15 +260,18 @@ class DragTreeView(gtk.TreeView):
             return True
         if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
             return True
+
+        """
         selection = self.get_selection()
         selection.unselect_all()
 
-        x, y = event.get_coords()
-        x = int(x); y = int(y)
+        path = self.get_path_at_pos(int(event.x), int(event.y))
 
-        path = self.get_path_at_pos(x, y)
-        if not path: return False
+        if not path:
+            return False
+
         selection.select_path(path[0])
+        """
 
     def on_drag_end(self, list, context):
         """
@@ -292,16 +307,19 @@ class DragTreeView(gtk.TreeView):
                 pixbuf = None
                 first_pixbuf = None
                 albums = []
+
                 for track in tracks:
                     album = track.get_tag_raw('album', join=True)
                     if album not in albums:
                         image_data = cover_manager.get_cover(track)
                         if image_data is not None:
-                            pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, height))
+                            pixbuf = icons.MANAGER.pixbuf_from_data(
+                                image_data, (width, height))
 
                             if first_pixbuf is None:
                                 first_pixbuf = pixbuf
                             albums += [album]
+
                             if len(albums) >= 2:
                                 break
 
@@ -317,10 +335,12 @@ class DragTreeView(gtk.TreeView):
                             width + 10, height + 10
                         )
 
-                        fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, width + 10, height + 10)
+                        fill_pixbuf = cover_pixbuf.subpixbuf(
+                            0, 0, width + 10, height + 10)
                         fill_pixbuf.fill(0x00000000) # Fill with transparent background
 
-                        fill_pixbuf = cover_pixbuf.subpixbuf(0, 0, width, height)
+                        fill_pixbuf = cover_pixbuf.subpixbuf(
+                            0, 0, width, height)
                         fill_pixbuf.fill(0xccccccff)
 
                         if first_pixbuf != pixbuf:
@@ -330,7 +350,8 @@ class DragTreeView(gtk.TreeView):
                                 5, 5
                             )
                         else:
-                            fill_pixbuf = cover_pixbuf.subpixbuf(5, 5, width, height)
+                            fill_pixbuf = cover_pixbuf.subpixbuf(
+                                5, 5, width, height)
                             fill_pixbuf.fill(0x999999ff)
 
                         first_pixbuf.copy_area(
@@ -1585,6 +1606,262 @@ class TrackListToolTip(ToolTip):
 
     def clear(self):
         self.info_pane.clear()
+
+class RatingWidget(gtk.EventBox):
+    """
+        A rating widget which displays a row of
+        images and allows for selecting the rating
+    """
+    __gproperties__ = {
+        'rating': (
+            gobject.TYPE_INT,
+            'rating',
+            'The selected rating',
+            0, # Minimum
+            65535, # Maximum
+            0, # Default
+            gobject.PARAM_READWRITE
+        )
+    }
+    __gsignals__ = {
+        'rating-changed': (
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        )
+    }
+
+    def __init__(self, rating=0, auto_update=True):
+        """
+            :param rating: the optional initial rating
+            :type rating: int
+            :param auto_update: whether to automatically
+                retrieve the rating of the currently playing
+                track if a rating was changed
+            :type auto_update: bool
+        """
+        gtk.EventBox.__init__(self)
+
+        self.set_visible_window(False)
+        self.set_above_child(True)
+        self.add_events(gtk.gdk.POINTER_MOTION_MASK)
+
+        self._image = gtk.Image()
+        self.add(self._image)
+
+        self._rating = -1
+        self.props.rating = rating
+
+        self.connect('motion-notify-event', self.on_motion_notify_event)
+        self.connect('leave-notify-event', self.on_leave_notify_event)
+        self.connect('button-release-event', self.on_button_release_event)
+
+        if auto_update:
+            try:
+                exaile = xl.main.exaile()
+            except AttributeError:
+                event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
+            else:
+                self.on_exaile_loaded('exaile_loaded', exaile, None)
+
+            for event_name in ('playback_track_start', 'playback_player_end',
+                               'rating_changed'):
+                event.add_callback(self.on_rating_update, event_name)
+
+    def do_get_property(self, property):
+        """
+            Getter for custom properties
+        """
+        if property.name == 'rating':
+            return self._rating
+        else:
+            raise AttributeError('unkown property %s' % property.name)
+
+    def do_set_property(self, property, value):
+        """
+            Setter for custom properties
+        """
+        if property.name == 'rating':
+            if value == self._rating:
+                value = 0
+            else:
+                maximum = settings.get_option('miscellaneous/rating_steps', 5)
+                value = max(0, value)
+                value = min(value, maximum)
+
+            self._rating = value
+            self._image.set_from_pixbuf(
+                icons.MANAGER.pixbuf_from_rating(value))
+            self.emit('rating-changed', value)
+        else:
+            raise AttributeError('unkown property %s' % property.name)
+
+    def destroy(self):
+        """
+            Cleanups
+        """
+        for event_name in ('playback_track_start', 'playback_player_start',
+                           'rating_changed'):
+            event.remove_callback(self.on_rating_update, event_name)
+
+    def on_motion_notify_event(self, widget, event):
+        """
+            Temporarily updates the displayed rating
+        """
+        allocation = widget.get_allocation()
+        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        pixbuf_width = self._image.get_pixbuf().get_width()
+        # Activate pixbuf if half of it has been passed
+        threshold = (pixbuf_width / maximum) / 2
+        position = (event.x + threshold) / allocation.width
+        rating = int(position * maximum)
+
+        self._image.set_from_pixbuf(
+            icons.MANAGER.pixbuf_from_rating(rating))
+
+    def on_leave_notify_event(self, widget, event):
+        """
+            Restores the original rating
+        """
+        self._image.set_from_pixbuf(
+            icons.MANAGER.pixbuf_from_rating(self._rating))
+
+    def on_button_release_event(self, widget, event):
+        """
+            Applies the selected rating
+        """
+        allocation = widget.get_allocation()
+        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        pixbuf_width = self._image.get_pixbuf().get_width()
+        # Activate pixbuf if half of it has been passed
+        threshold = (pixbuf_width / maximum) / 2
+        position = (event.x + threshold) / allocation.width
+        self.props.rating = int(position * maximum)
+
+    def on_exaile_loaded(self, event_type, exaile, nothing):
+        """
+            Sets up the internal reference to the player
+        """
+        self.player = exaile.player
+        self.on_rating_update('rating_changed', None, None)
+
+        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
+
+    def on_rating_update(self, event_type, sender, data):
+        """
+            Updates the rating from the current track
+        """
+        if self.player.current is not None:
+            self._rating = self.player.current.get_rating()
+            self._image.set_from_pixbuf(
+                icons.MANAGER.pixbuf_from_rating(self._rating))
+
+            self.set_sensitive(True)
+        else:
+            self.set_sensitive(False)
+
+class RatingMenuItem(gtk.MenuItem):
+    """
+        A menuitem containing a rating widget
+    """
+    __gproperties__ = {
+        'rating': (
+            gobject.TYPE_INT,
+            'rating',
+            'The selected rating',
+            0, # Minimum
+            65535, # Maximum
+            0, # Default
+            gobject.PARAM_READWRITE
+        )
+    }
+    __gsignals__ = {
+        'rating-changed': (
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        )
+    }
+    def __init__(self, rating=0, auto_update=True):
+        """
+            :param rating: the optional initial rating
+            :type rating: int
+            :param auto_update: whether to automatically
+                retrieve the rating of the currently playing
+                track if a rating was changed
+            :type auto_update: bool
+        """
+        gtk.MenuItem.__init__(self)
+
+        box = gtk.HBox(spacing=6)
+        box.pack_start(gtk.Label(_('Rating:')), False, False)
+        self.rating_widget = RatingWidget(rating, auto_update)
+        box.pack_start(self.rating_widget, False, False)
+
+        self.add(box)
+
+        self.rating_widget.connect('rating-changed',
+            self.on_rating_changed)
+        self.connect('motion-notify-event',
+            self.on_motion_notify_event)
+        self.connect('leave-notify-event',
+            self.on_leave_notify_event)
+        self.connect('button-release-event',
+            self.on_button_release_event)
+
+    def do_get_property(self, property):
+        """
+            Getter for custom properties
+        """
+        if property.name == 'rating':
+            return self.rating_widget.props.rating
+        else:
+            raise AttributeError('unkown property %s' % property.name)
+
+    def do_set_property(self, property, value):
+        """
+            Setter for custom properties
+        """
+        if property.name == 'rating':
+            self.rating_widget.props.rating = value
+        else:
+            raise AttributeError('unkown property %s' % property.name)
+
+    def on_rating_changed(self, widget, rating):
+        """
+            Forwards the event
+        """
+        self.emit('rating-changed', rating)
+
+    def on_motion_notify_event(self, widget, event):
+        """
+            Forwards the event to the rating widget
+        """
+        allocation = self.rating_widget.get_allocation()
+
+        if allocation.x < event.x < allocation.x + allocation.width:
+            x, y = widget.translate_coordinates(self.rating_widget,
+                int(event.x), int(event.y))
+            event.x, event.y = float(x), float(y)
+            self.rating_widget.emit('motion-notify-event', event)
+
+    def on_leave_notify_event(self, widget, event):
+        """
+            Forwards the event to the rating widget
+        """
+        self.rating_widget.emit('leave-notify-event', event)
+
+    def on_button_release_event(self, widget, event):
+        """
+            Forwards the event to the rating widget
+        """
+        allocation = self.rating_widget.get_allocation()
+
+        if allocation.x < event.x < allocation.x + allocation.width:
+            x, y = widget.translate_coordinates(self.rating_widget,
+                int(event.x), int(event.y))
+            event.x, event.y = float(x), float(y)
+            self.rating_widget.emit('button-release-event', event)
 
 def finish(repeat=True):
     """

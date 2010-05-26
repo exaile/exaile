@@ -246,7 +246,7 @@ class DbusManager(dbus.service.Object):
             Returns the current track's rating
         """
         try:
-            rating = int(self.GetTrackAttr('__rating'))
+            rating = int(float(self.GetTrackAttr('__rating')))
         except ValueError:
             rating = 0
 
@@ -258,6 +258,7 @@ class DbusManager(dbus.service.Object):
             Sets the current track's rating
         """
         self.SetTrackAttr('__rating', value)
+        event.log_event('rating_changed', self, value)
 
     @dbus.service.method('org.exaile.Exaile', 'i')
     def ChangeVolume(self, value):

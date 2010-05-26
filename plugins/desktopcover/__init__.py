@@ -48,7 +48,7 @@ def __migrate_anchor_setting():
         gravities = gravity_map.keys()
         
         try:
-            gravity = gravity_map[gravities[gravity]]
+            gravity = gravities[gravity]
         except IndexError, TypeError:
             gravity = 'topleft'
 

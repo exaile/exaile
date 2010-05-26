@@ -272,7 +272,10 @@ class DragTreeView(gtk.TreeView):
 
         selection.select_path(path[0])
 
-        return self.container.button_release(button, event)
+        try:
+            return self.container.button_release(button, event)
+        except AttributeError:
+            pass
 
     def on_drag_end(self, list, context):
         """

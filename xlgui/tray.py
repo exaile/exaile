@@ -30,6 +30,7 @@ import gtk
 from xl import event, settings, xdg
 from xl.nls import gettext as _
 from xlgui import guiutil
+from xlgui.widgets import rating
 import xlgui.main
 
 class BaseTrayIcon(object):
@@ -96,7 +97,7 @@ class BaseTrayIcon(object):
 
         self.menu.append_separator()
 
-        self.rating_menuitem = guiutil.RatingMenuItem()
+        self.rating_menuitem = rating.RatingMenuItem()
         self.menu.append_item(self.rating_menuitem)
 
         self.remove_menuitem = self.menu.append(

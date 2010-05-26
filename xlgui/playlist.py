@@ -949,10 +949,12 @@ class Playlist(gtk.VBox):
                 col.set_attributes(stop_pb, pixbuf=2)
                 col.set_cell_data_func(pb, self.icon_data_func)
                 col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
+            elif column.id == '__rating': # FIXME: Make this dynamic
+                col = gtk.TreeViewColumn(column.display, cellr)
+                cellr.connect('rating-changed', self.on_rating_changed)
             else:
                 col = gtk.TreeViewColumn(column.display, cellr, text=count)
 
-            col.set_data('id', column.id)
             col.set_cell_data_func(cellr, column.data_func)
             column.set_properties(col, cellr)
 
@@ -1142,58 +1144,19 @@ class Playlist(gtk.VBox):
             print track.get_loc_for_display()
         print '---Done printing playlist'
 
-    def get_column_at_pos(self, x, y):
+    def on_rating_changed(self, widget, path, rating):
         """
-            Returns the column located at the given position
+            Updates the rating of the selected track
         """
-        position = 0
-
-        for column in self.list.get_columns():
-            width = column.get_width()
-
-            if position <= x < (position + width):
-                return column
-            
-            position += width
-
-        return None
-
-    def button_release(self, widget, e):
-        """
-            Called when the user clicks on the playlist. If the user
-            clicked on rating column the rating of the selected track
-            is updated.
-        """
-        column = self.get_column_at_pos(int(e.x), int(e.y))
-
-        if column is None or column.get_data('id') != '__rating':
-            return
-
-        path = widget.get_path_at_pos(int(e.x), int(e.y))
-
-        if path is None:
-            return
-
-        path, column, x, y = path
-
-        maximum = settings.get_option('miscellaneous/rating_steps', 5)
-        rating_pixbuf_width = icons.MANAGER.pixbuf_from_rating(0).get_width()
-        # Activate pixbuf if it has been hovered
-        threshold = rating_pixbuf_width / maximum
-        rating = int((float(x + threshold) / rating_pixbuf_width) * maximum)
-
-        track = self.get_selected_track()
-
-        if track is None:
-            return
-
+        track = self.model[path][0]
         oldrating = track.get_rating()
 
         if rating == oldrating:
             rating = 0
 
         track.set_rating(rating)
-        event.log_event('rating_changed', self, float(rating) / maximum * 100)
+        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        event.log_event('rating_changed', self, rating / maximum * 100)
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """

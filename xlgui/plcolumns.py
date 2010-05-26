@@ -32,6 +32,7 @@ from xl import settings
 from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
+from xlgui.widgets import rating
 
 logger = logging.getLogger(__name__)
 
@@ -152,18 +153,15 @@ class DiscNumberColumn(Column):
 
 class RatingColumn(Column):
     display = _('Rating')
-    renderer = gtk.CellRendererPixbuf
+    renderer = rating.RatingCellRenderer
     id = '__rating'
 
     def data_func(self, col, cell, model, iter):
         track = model.get_value(iter, 0)
-        cell.props.pixbuf = icons.MANAGER.pixbuf_from_rating(
-            track.get_rating())
+        cell.props.rating = track.get_rating()
 
     def set_properties(self, col, cellr):
         cellr.set_property('follow-state', False)
-        cellr.set_property('xalign', 0)
-        col.set_attributes(cellr, pixbuf=1)
 
 class DateColumn(Column):
     size = 50

@@ -25,6 +25,7 @@ from xl import event, formatter, settings
 from xl.nls import gettext as _
 from xlgui import guiutil
 from xlgui.playlist import Playlist
+from xlgui.widgets import rating
 
 class MenuItem(gtk.ImageMenuItem):
     """
@@ -543,13 +544,13 @@ class PlaylistButton(gtk.ToggleButton):
 
 gobject.type_register(PlaylistButton)
 
-class RatingWidget(guiutil.RatingWidget):
+class RatingWidget(rating.RatingWidget):
     """
         A wrapper which updates the current
         track on rating selection
     """
     def __init__(self):
-        guiutil.RatingWidget.__init__(self)
+        rating.RatingWidget.__init__(self)
 
         self.connect('rating-changed', self.on_rating_changed)
 

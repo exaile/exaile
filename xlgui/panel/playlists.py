@@ -32,12 +32,21 @@ import glib
 import gobject
 import gtk
 
-from xlgui import guiutil, panel, xdg
-from xlgui import menu, filtergui
-from xlgui import playlist as guiplaylist
+from xlgui import (
+    guiutil,
+    menu,
+    panel,
+    playlist as guiplaylist,
+    xdg
+)
 from xlgui.widgets import dialogs
-from xl import event, playlist, settings, trax
-from xlgui.filtergui import MultiEntryField, EntryField
+from xlgui.widgets.filter import *
+from xl import (
+    event,
+    playlist,
+    settings,
+    trax
+)
 from xl.nls import gettext as _
 
 class EntrySecondsField(MultiEntryField):
@@ -55,22 +64,22 @@ class EntryDaysField(MultiEntryField):
 
 DATE_FIELDS = [
     _('seconds'), _('minutes'), _('hours'), _('days'), _('weeks')]
-class SpinDateField(filtergui.SpinButtonAndComboField):
+class SpinDateField(SpinButtonAndComboField):
     def __init__(self):
-        filtergui.SpinButtonAndComboField.__init__(self, DATE_FIELDS)
+        SpinButtonAndComboField.__init__(self, DATE_FIELDS)
 
-class SpinSecondsField(filtergui.SpinLabelField):
+class SpinSecondsField(SpinLabelField):
     def __init__(self):
-        filtergui.SpinLabelField.__init__(self, _('seconds'))
+        SpinLabelField.__init__(self, _('seconds'))
 
-class SpinRating(filtergui.SpinLabelField):
+class SpinRating(SpinLabelField):
     def __init__(self):
-        filtergui.SpinLabelField.__init__(self, '', 
+        SpinLabelField.__init__(self, '', 
                 settings.get_option("miscellaneous/rating_steps", 5), 0)
 
-class SpinNothing(filtergui.SpinLabelField):
+class SpinNothing(SpinLabelField):
     def __init__(self):
-        filtergui.SpinLabelField.__init__(self, '')
+        SpinLabelField.__init__(self, '')
 
 CRITERIA = [
     (_('Artist'), [
@@ -613,7 +622,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
             Adds a new smart playlist
         """
-        dialog = filtergui.FilterDialog(_('Add Smart Playlist'), self.parent,
+        dialog = FilterDialog(_('Add Smart Playlist'), self.parent,
             CRITERIA)
 
         dialog.set_transient_for(self.parent)
@@ -678,7 +687,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
         state.reverse()
 
-        dialog = filtergui.FilterDialog(_('Edit Smart Playlist'), self.parent,
+        dialog = FilterDialog(_('Edit Smart Playlist'), self.parent,
             CRITERIA)
 
         dialog.set_transient_for(self.parent)

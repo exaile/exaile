@@ -617,8 +617,6 @@ class Playlist(gtk.VBox):
 
     def _setup_events(self):
         self.list.connect('key-press-event', self.key_pressed)
-        self.list.connect('button-release-event',
-            self.on_button_release_event)
 
     def key_pressed(self, widget, event):
         if event.keyval == gtk.keysyms.Delete:
@@ -1160,7 +1158,7 @@ class Playlist(gtk.VBox):
 
         return None
 
-    def on_button_release_event(self, widget, e):
+    def button_release(self, widget, e):
         """
             Called when the user clicks on the playlist. If the user
             clicked on rating column the rating of the selected track

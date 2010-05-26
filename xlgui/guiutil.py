@@ -272,6 +272,8 @@ class DragTreeView(gtk.TreeView):
 
         selection.select_path(path[0])
 
+        return self.container.button_release(button, event)
+
     def on_drag_end(self, list, context):
         """
             Called when the dnd is ended

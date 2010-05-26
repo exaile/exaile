@@ -59,7 +59,7 @@ from xlgui import (
     playlist,
     tray
 )
-from xlgui.widgets import dialogs
+from xlgui.widgets import dialogs, info
 
 logger = logging.getLogger(__name__)
 
@@ -614,7 +614,7 @@ class MainWindow(gobject.GObject):
         )
         self.message.connect('response', self.on_messagebar_response)
 
-        self.info_area = guiutil.TrackInfoPane(auto_update=True)
+        self.info_area = info.TrackInfoPane(auto_update=True)
         self.info_area.set_padding(3, 3, 3, 3)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
 

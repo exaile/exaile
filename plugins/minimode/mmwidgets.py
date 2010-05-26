@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2010 Mathias Brodala
 #
 # This program is free software; you can redistribute it and/or modify
@@ -23,9 +22,9 @@ import pango
 
 from xl import event, formatter, settings
 from xl.nls import gettext as _
-from xlgui import guiutil
+from xlgui.guiutil import get_workarea_size
 from xlgui.playlist import Playlist
-from xlgui.widgets import rating
+from xlgui.widgets import info, rating
 
 class MenuItem(gtk.ImageMenuItem):
     """
@@ -285,7 +284,7 @@ class AttachedWindow(gtk.Window):
             Makes sure the window is
             always fully visible
         """
-        workarea_width, workarea_height = guiutil.get_workarea_size() # 1280, 974
+        workarea_width, workarea_height = get_workarea_size() # 1280, 974
         width, height = self.size_request() #  350, 400
         # FIXME: AttributeError: 'NoneType' object has no attribute 'get_origin'
         parent_window_x, parent_window_y = self.parent_widget.get_window().get_origin()
@@ -362,7 +361,7 @@ class PlaylistButton(gtk.ToggleButton):
         self.popup = AttachedWindow(self)
         self.popup.add(self.playlist)
 
-        self.tooltip = guiutil.TrackToolTip(self, auto_update=True)
+        self.tooltip = info.TrackToolTip(self, auto_update=True)
 
         self._dirty = False
         self._drag_shown = False

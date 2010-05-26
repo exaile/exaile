@@ -33,9 +33,24 @@ import gobject
 import gtk
 
 from xl.nls import gettext as _
-from xl import event, xdg, common, metadata, settings, trax
+from xl import (
+    common,
+    event,
+    metadata,
+    settings,
+    trax,
+    xdg
+)
 import xlgui
-from xlgui import guiutil, icons, menu, panel, playlist, rating
+from xlgui import (
+    guiutil,
+    icons,
+    menu,
+    panel,
+    playlist,
+    rating
+)
+from xlgui.widgets import info
 
 logger = logging.getLogger(__name__)
 
@@ -801,7 +816,7 @@ class CollectionDragTreeView(guiutil.DragTreeView):
 
         return True
 
-class CollectionToolTip(guiutil.TrackListToolTip):
+class CollectionToolTip(info.TrackListToolTip):
     """
         Custom collection specific tooltip
     """
@@ -810,7 +825,7 @@ class CollectionToolTip(guiutil.TrackListToolTip):
             :param parent: the parent widget the tooltip
                 should be attached to
         """
-        guiutil.TrackListToolTip.__init__(self, parent, display_tracklist=True)
+        info.TrackListToolTip.__init__(self, parent, display_tracklist=True)
 
     def on_query_tooltip(self, tree, x, y, keyboard_mode, tooltip):
         """
@@ -830,7 +845,7 @@ class CollectionToolTip(guiutil.TrackListToolTip):
         self.clear()
         self.set_tracklist(tracks)
 
-        guiutil.TrackListToolTip.on_query_tooltip(
+        info.TrackListToolTip.on_query_tooltip(
             self, tree, x, y, keyboard_mode, tooltip)
         #tree.set_tooltip_row(tooltip, path)
 

@@ -30,7 +30,7 @@ import gtk
 from xl import event, settings, xdg
 from xl.nls import gettext as _
 from xlgui import guiutil
-from xlgui.widgets import rating
+from xlgui.widgets import info, rating
 import xlgui.main
 
 class BaseTrayIcon(object):
@@ -43,7 +43,7 @@ class BaseTrayIcon(object):
         self.queue = main.controller.exaile.queue
         self.VOLUME_STEP = 5
 
-        self.tooltip = guiutil.TrackToolTip(
+        self.tooltip = info.TrackToolTip(
             self, display_progress=True, auto_update=True)
 
         self.setup_menu()

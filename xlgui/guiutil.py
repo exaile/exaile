@@ -258,10 +258,10 @@ class DragTreeView(gtk.TreeView):
         if event.button != 1 or self.dragging:
             self.dragging = False
             return True
+
         if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
             return True
 
-        """
         selection = self.get_selection()
         selection.unselect_all()
 
@@ -271,7 +271,6 @@ class DragTreeView(gtk.TreeView):
             return False
 
         selection.select_path(path[0])
-        """
 
     def on_drag_end(self, list, context):
         """

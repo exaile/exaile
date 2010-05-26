@@ -162,6 +162,7 @@ class RatingColumn(Column):
 
     def set_properties(self, col, cellr):
         cellr.set_property('follow-state', False)
+        cellr.set_property('xalign', 0)
         col.set_attributes(cellr, pixbuf=1)
 
 class DateColumn(Column):

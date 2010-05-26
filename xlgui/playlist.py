@@ -84,7 +84,6 @@ class Playlist(gtk.VBox):
         self.search_keyword = ''
         self.builder = main.builder
         self._initial_column_ids = column_ids
-        self.rating_cellrenderer = None
 
         self._redraw_queue = []
         self._redraw_id = 0
@@ -936,9 +935,6 @@ class Playlist(gtk.VBox):
             column = self.COLUMNS[col](self)
             cellr = column.renderer()
 
-            if col == '__rating':
-                self.rating_cellrenderer = cellr
-
             if first_col:
                 first_col = False
                 pb = gtk.CellRendererPixbuf()
@@ -958,6 +954,7 @@ class Playlist(gtk.VBox):
             else:
                 col = gtk.TreeViewColumn(column.display, cellr, text=count)
 
+            col.set_data('id', column.id)
             col.set_cell_data_func(cellr, column.data_func)
             column.set_properties(col, cellr)
 
@@ -1147,13 +1144,31 @@ class Playlist(gtk.VBox):
             print track.get_loc_for_display()
         print '---Done printing playlist'
 
+    def get_column_at_pos(self, x, y):
+        """
+            Returns the column located at the given position
+        """
+        position = 0
+
+        for column in self.list.get_columns():
+            width = column.get_width()
+
+            if position <= x < (position + width):
+                return column
+            
+            position += width
+
+        return None
+
     def on_button_release_event(self, widget, e):
         """
             Called when the user clicks on the playlist. If the user
             clicked on rating column the rating of the selected track
             is updated.
         """
-        if self.rating_cellrenderer is None:
+        column = self.get_column_at_pos(int(e.x), int(e.y))
+
+        if column is None or column.get_data('id') != '__rating':
             return
 
         path = widget.get_path_at_pos(int(e.x), int(e.y))
@@ -1163,19 +1178,17 @@ class Playlist(gtk.VBox):
 
         path, column, x, y = path
 
-        position = column.cell_get_position(self.rating_cellrenderer)
-
-        if position is None:
-            return
-
-        cellrenderer_width = position[1]
         maximum = settings.get_option('miscellaneous/rating_steps', 5)
-        rating_pixbuf_width = self.rating_cellrenderer.props.pixbuf.get_width()
+        rating_pixbuf_width = icons.MANAGER.pixbuf_from_rating(0).get_width()
         # Activate pixbuf if it has been hovered
         threshold = rating_pixbuf_width / maximum
-        rating = int((float(x + threshold) / cellrenderer_width) * maximum)
+        rating = int((float(x + threshold) / rating_pixbuf_width) * maximum)
 
         track = self.get_selected_track()
+
+        if track is None:
+            return
+
         oldrating = track.get_rating()
 
         if rating == oldrating:

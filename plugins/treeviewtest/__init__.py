@@ -864,7 +864,7 @@ class Playlist(object):
         if repeat_mode == 'track':
             return self.current
 
-        if random_mode != 'disabled':
+        if shuffle_mode != 'disabled':
             try:
                 prev = self.tracks_history[-1]
             except IndexError:
@@ -875,9 +875,10 @@ class Playlist(object):
             pos = self.current_pos - 1
             if pos < 0:
                 if repeat_mode == 'all':
-                    self.current_pos = len(self) - 1
+                    pos = len(self) - 1
                 else:
-                    self.current_pos = 0
+                    pos = 0
+            self.current_pos = pos
         return self.get_current()
 
     ### track advance modes ###

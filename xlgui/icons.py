@@ -31,9 +31,174 @@ import gtk
 import os
 import pango
 
+from xl import event, settings, xdg
+
+class ExtendedPixbuf(gtk.gdk.Pixbuf):
+    """
+        A Pixbuf wrapper class allowing
+        for modification using addition
+        and multiplication
+    """
+    def __init__(self, pixbuf):
+        gtk.gdk.Pixbuf.__init__(self,
+            pixbuf.get_colorspace(),
+            pixbuf.get_has_alpha(),
+            pixbuf.get_bits_per_sample(),
+            pixbuf.get_width(),
+            pixbuf.get_height()
+        )
+        pixbuf.copy_area(0, 0, self.get_width(), self.get_height(),
+            self, 0, 0)
+
+    def __add__(self, other):
+        """
+            Horizontally appends a pixbuf to the current
+            
+            :param other: the pixbuf to append
+            :type other: :class:`gtk.gdk.Pixbuf`
+        """
+        return self.add_horizontal(other)
+
+    def add_horizontal(self, other, spacing=0):
+        """
+            Horizontally appends a pixbuf to the current
+            
+            :param other: the pixbuf to append
+            :type other: :class:`gtk.gdk.Pixbuf`
+            :param spacing: amount of pixels between the pixbufs
+            :type spacing: int
+        """
+        height = max(self.get_height(), other.get_height())
+        spacing = max(0, spacing)
+
+        new_pixbuf = gtk.gdk.Pixbuf(
+            self.get_colorspace(),
+            self.get_has_alpha(),
+            self.get_bits_per_sample(),
+            self.get_width() + spacing + other.get_width(),
+            height
+        )
+        new_pixbuf.fill(0xffffff00)
+
+        self.copy_area(
+            0, 0, self.get_width(), self.get_height(),
+            new_pixbuf, 0, 0
+        )
+        other.copy_area(
+            0, 0, other.get_width(), other.get_height(),
+            new_pixbuf, self.get_width() + spacing, 0
+        )
+
+        return ExtendedPixbuf(new_pixbuf)
+
+    def add_vertical(self, other, spacing=0):
+        """
+            Vertically appends a pixbuf to the current
+            
+            :param other: the pixbuf to append
+            :type other: :class:`gtk.gdk.Pixbuf`
+            :param spacing: amount of pixels between the pixbufs
+            :type spacing: int
+        """
+        width = max(self.get_width(), other.get_width())
+        spacing = max(0, spacing)
+
+        new_pixbuf = gtk.gdk.Pixbuf(
+            self.get_colorspace(),
+            self.get_has_alpha(),
+            self.get_bits_per_sample(),
+            width,
+            self.get_height() + spacing + other.get_height()
+        )
+        new_pixbuf.fill(0xffffff00)
+
+        self.copy_area(
+            0, 0, self.get_width(), self.get_height(),
+            new_pixbuf, 0, 0
+        )
+        other.copy_area(
+            0, 0, other.get_width(), other.get_height(),
+            new_pixbuf, 0, self.get_height() + spacing
+        )
+
+        return ExtendedPixbuf(new_pixbuf)
+
+    def __mul__(self, multiplier):
+        """
+            Horizontally multiplies the current pixbuf content
+
+            :param multiplier: How often the pixbuf
+                shall be multiplied
+            :type multiplier: int
+        """
+        return self.multiply_horizontal(multiplier)
+
+    def multiply_horizontal(self, multiplier, spacing=0):
+        """
+            Horizontally multiplies the current pixbuf content
+
+            :param multiplier: How often the pixbuf
+                shall be multiplied
+            :type multiplier: int
+            :param spacing: amount of pixels between the pixbufs
+            :type spacing: int
+        """
+        spacing = max(0, spacing)
+        new_pixbuf = gtk.gdk.Pixbuf(
+            self.get_colorspace(),
+            self.get_has_alpha(),
+            self.get_bits_per_sample(),
+            self.get_width() * multiplier + spacing * multiplier,
+            self.get_height()
+        )
+        new_pixbuf.fill(0xffffff00)
+
+        for n in xrange(0, multiplier):
+            self.copy_area(
+                0, 0, self.get_width(), self.get_height(),
+                new_pixbuf, n * self.get_width() + n * spacing, 0
+            )
+
+        return ExtendedPixbuf(new_pixbuf)
+
+    def multiply_vertical(self, multiplier, spacing=0):
+        """
+            Vertically multiplies the current pixbuf content
+
+            :param multiplier: How often the pixbuf
+                shall be multiplied
+            :type multiplier: int
+            :param spacing: amount of pixels between the pixbufs
+            :type spacing: int
+        """
+        spacing = max(0, spacing)
+        new_pixbuf = gtk.gdk.Pixbuf(
+            self.get_colorspace(),
+            self.get_has_alpha(),
+            self.get_bits_per_sample(),
+            self.get_width(),
+            self.get_height() * multiplier + spacing * multiplier
+        )
+        new_pixbuf.fill(0xffffff00)
+
+        for n in xrange(0, multiplier):
+            self.copy_area(
+                0, 0, self.get_width(), self.get_height(),
+                new_pixbuf, 0, n * self.get_height() + n * spacing
+            )
+
+        return ExtendedPixbuf(new_pixbuf)
+
+    def copy(self):
+        """
+            Override to return same type
+        """
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.copy(self))
+
 class IconManager(object):
     """
-        Provides convenience functions for managing icons
+        Provides convenience functions for
+        managing icons and images in general
     """
     def __init__(self):
         self.icon_theme = gtk.icon_theme_get_default()
@@ -46,6 +211,20 @@ class IconManager(object):
         # TODO: Make svg actually recognized
         self._sizes = [16, 22, 24, 32, 48, 'scalable']
         self._cache = {}
+
+        self.rating_active_pixbuf = ExtendedPixbuf(
+            gtk.gdk.pixbuf_new_from_file(
+                xdg.get_data_path('images', 'star.png')))
+        self.rating_inactive_pixbuf = self.rating_active_pixbuf.copy()
+        self.rating_inactive_pixbuf.saturate_and_pixelate(
+            self.rating_inactive_pixbuf, 0, False) # Desaturate
+        self.rating_inactive_pixbuf.saturate_and_pixelate(
+            self.rating_inactive_pixbuf, 20, False) # Brighten
+        self.rating_pixbufs = []
+        self._generate_rating_pixbufs()
+
+        event.add_callback(self.on_option_set,
+            'on_miscellaneous_option_set')
 
     def add_icon_name_from_directory(self, icon_name, directory):
         """
@@ -342,6 +521,46 @@ class IconManager(object):
         self._cache[key] = pixbuf
 
         return pixbuf
+
+    def pixbuf_from_rating(self, rating):
+        """
+            Returns a pixbuf representing a rating
+
+            :param rating: the rating
+            :type rating: int
+
+            :returns: the rating pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
+        """
+        rating = max(0, rating)
+        rating = min(rating, len(self.rating_pixbufs) - 1)
+
+        return self.rating_pixbufs[rating]
+
+    def _generate_rating_pixbufs(self):
+        """
+            Generates the pixbufs for
+            the various rating stages
+        """
+        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        width = self.rating_active_pixbuf.get_width()
+        height = self.rating_active_pixbuf.get_height()
+
+        self.rating_pixbufs = [self.rating_inactive_pixbuf * maximum]
+
+        for n in xrange(1, maximum):
+            active_pixbufs = self.rating_active_pixbuf * n
+            inactive_pixbufs = self.rating_inactive_pixbuf * (maximum - n)
+            self.rating_pixbufs += [active_pixbufs + inactive_pixbufs]
+
+        self.rating_pixbufs += [self.rating_active_pixbuf * maximum]
+
+    def on_option_set(self, event_type, settings, option):
+        """
+            Regenerates the rating pixbufs
+        """
+        if option == 'miscellaneous/rating_steps':
+            self._generate_rating_pixbufs()
 
 MANAGER = IconManager()
 

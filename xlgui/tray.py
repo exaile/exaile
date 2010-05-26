@@ -96,11 +96,9 @@ class BaseTrayIcon(object):
 
         self.menu.append_separator()
 
-        self.rating_menuitem = guiutil.MenuRatingWidget(
-            lambda: [self.player.current],
-            self.get_current_track_rating
-        )
+        self.rating_menuitem = guiutil.RatingMenuItem()
         self.menu.append_item(self.rating_menuitem)
+
         self.remove_menuitem = self.menu.append(
             label=_('Remove Current Track from Playlist'),
             stock_id=gtk.STOCK_REMOVE,
@@ -122,6 +120,8 @@ class BaseTrayIcon(object):
         self.shuffle_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
         self.repeat_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
         self.dynamic_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
+        self._rating_changed_id = self.rating_menuitem.connect('rating-changed',
+            self.on_rating_changed)
 
         event.add_callback(self.on_playback_change_state, 'playback_player_end')
         event.add_callback(self.on_playback_change_state, 'playback_track_start')
@@ -153,8 +153,6 @@ class BaseTrayIcon(object):
             stock_id = gtk.STOCK_MEDIA_PAUSE
 
         playpause_image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
-
-        self.rating_menuitem.on_rating_change()
 
         if current_track is None:
             self.rating_menuitem.set_sensitive(False)
@@ -259,6 +257,12 @@ class BaseTrayIcon(object):
         settings.set_option('playback/shuffle', self.shuffle_menuitem.get_active())
         settings.set_option('playback/repeat', self.repeat_menuitem.get_active())
         settings.set_option('playback/dynamic', self.dynamic_menuitem.get_active())
+
+    def on_rating_changed(self, widget, rating):
+        """
+            Applies the selected rating to the current track
+        """
+        self.player.current.set_rating(rating)
 
     def on_scroll_event(self, widget, event):
         """

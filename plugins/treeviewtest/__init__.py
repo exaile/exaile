@@ -533,11 +533,14 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         uris = trax.get_uris_from_tracks(tracks)
         selection.set_uris(uris)
 
-    def button_press(self, button, event):
+    def button_press(self, widget, event):
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
             return True
         return False
+
+    def button_release(self, widget, event):
+        pass
 
     ### end DragTreeView ###
 
@@ -837,6 +840,9 @@ class Playlist(object):
         else:
             next = None
             if shuffle_mode != 'disabled':
+                curr = self.current
+                if curr is not None:
+                    self.__tracks_history.append(curr)
                 next = self.__next_random_track(shuffle_mode)
                 if next is not None:
                     self.current_pos = self.index(next)
@@ -848,8 +854,6 @@ class Playlist(object):
                     next = None
                     self.current_pos = -1
 
-            if next is not None:
-                self.__tracks_history.append(next)
             if repeat_mode == 'all':
                 if next is None:
                     self.__tracks_history = []
@@ -866,10 +870,10 @@ class Playlist(object):
 
         if shuffle_mode != 'disabled':
             try:
-                prev = self.tracks_history[-1]
+                prev = self.__tracks_history[-1]
             except IndexError:
                 return self.get_current()
-            self.tracks_history = self.tracks_history[:-1]
+            self.__tracks_history = self.__tracks_history[:-1]
             self.current_pos = self.index(prev) #FIXME
         else:
             pos = self.current_pos - 1

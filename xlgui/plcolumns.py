@@ -31,7 +31,7 @@ import gtk
 from xl import settings
 from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
-from xlgui import rating
+from xlgui import icons
 
 logger = logging.getLogger(__name__)
 
@@ -151,24 +151,14 @@ class DiscNumberColumn(Column):
         cellr.set_property('xalign', 1.0)
 
 class RatingColumn(Column):
-    steps = settings.get_option('miscellaneous/rating_steps', 5)
-    size = 12 * steps
     display = _('Rating')
     renderer = gtk.CellRendererPixbuf
     id = '__rating'
 
     def data_func(self, col, cell, model, iter):
         track = model.get_value(iter, 0)
-        try:
-            idx = track.get_rating()
-            cell.set_property('pixbuf',
-                rating.rating_images[idx])
-        except IndexError:
-            logger.debug("idx_error")
-            if idx > steps: idx = steps
-            elif idx < 0: idx = 0
-            cell.set_property('pixbuf',
-                rating.rating_images[idx])
+        cell.props.pixbuf = icons.MANAGER.pixbuf_from_rating(
+            track.get_rating())
 
     def set_properties(self, col, cellr):
         cellr.set_property('follow-state', False)

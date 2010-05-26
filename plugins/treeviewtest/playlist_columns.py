@@ -31,7 +31,7 @@ import gtk
 from xl import settings
 from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
-from xlgui import rating
+from xlgui import icons
 
 logger = logging.getLogger(__name__)
 
@@ -134,12 +134,9 @@ class DiscNumberColumn(Column):
 
 class RatingFormatter(object):
     def format(self, track):
-        idx = track.get_rating()
-        try:
-            return rating.rating_images[idx]
-        except IndexError:
-            logger.debug("IDX error! got %s." % idx)
-            return rating.rating_images[0]
+        rating = track.get_rating()
+
+        return icons.MANAGER.pixbuf_from_rating(rating)
 
 class RatingColumn(Column):
     display = _('Rating')

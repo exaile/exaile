@@ -84,6 +84,7 @@ class Playlist(gtk.VBox):
         self.search_keyword = ''
         self.builder = main.builder
         self._initial_column_ids = column_ids
+        self.rating_cellrenderer = None
 
         self._redraw_queue = []
         self._redraw_id = 0
@@ -617,7 +618,8 @@ class Playlist(gtk.VBox):
 
     def _setup_events(self):
         self.list.connect('key-press-event', self.key_pressed)
-        self.list.connect('button-release-event', self.update_rating)
+        self.list.connect('button-release-event',
+            self.on_button_release_event)
 
     def key_pressed(self, widget, event):
         if event.keyval == gtk.keysyms.Delete:
@@ -934,6 +936,9 @@ class Playlist(gtk.VBox):
             column = self.COLUMNS[col](self)
             cellr = column.renderer()
 
+            if col == '__rating':
+                self.rating_cellrenderer = cellr
+
             if first_col:
                 first_col = False
                 pb = gtk.CellRendererPixbuf()
@@ -1142,43 +1147,42 @@ class Playlist(gtk.VBox):
             print track.get_loc_for_display()
         print '---Done printing playlist'
 
-    def update_rating(self, w, e):
+    def on_button_release_event(self, widget, e):
         """
             Called when the user clicks on the playlist. If the user
             clicked on rating column the rating of the selected track
             is updated.
         """
-        rating_col_width = 0
-        left_edge = 0
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-        icon_size = rating._rating_width / steps
-        i = 0
-        #calculate rating column size and position
-        for col in self.append_map:
-            gui_col = self.list.get_column(i)
-            if col == "__rating":
-                rating_col_width = gui_col.get_width()
-                break
-            else:
-                left_edge = left_edge + gui_col.get_width()
-            i = i + 1
+        if self.rating_cellrenderer is None:
+            return
 
-        (x, y) = e.get_coords()
-        #check if the click is within rating column and on a list entry
-        if self.list.get_path_at_pos(int(x), int(y)) \
-            and left_edge < x < left_edge + rating_col_width:
-                track = self.get_selected_track()
-                leftpadding = (rating_col_width - rating._rating_width) / 2
-                i = int(math.ceil((x-left_edge-leftpadding)/icon_size))
-                new_rating = float((100*i)/steps)
-                if track.get_tag_raw('__rating') == new_rating:
-                    track.set_tag_raw('__rating', 0.0)
-                else:
-                    track.set_tag_raw('__rating', new_rating)
-                if hasattr(w, 'queue_draw'):
-                    w.queue_draw()
-                event.log_event('rating_changed', self, i)
+        path = widget.get_path_at_pos(int(e.x), int(e.y))
 
+        if path is None:
+            return
+
+        path, column, x, y = path
+
+        position = column.cell_get_position(self.rating_cellrenderer)
+
+        if position is None:
+            return
+
+        cellrenderer_width = position[1]
+        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        rating_pixbuf_width = self.rating_cellrenderer.props.pixbuf.get_width()
+        # Activate pixbuf if it has been hovered
+        threshold = rating_pixbuf_width / maximum
+        rating = int((float(x + threshold) / cellrenderer_width) * maximum)
+
+        track = self.get_selected_track()
+        oldrating = track.get_rating()
+
+        if rating == oldrating:
+            rating = 0
+
+        track.set_rating(rating)
+        event.log_event('rating_changed', self, float(rating) / maximum * 100)
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """

@@ -1,7 +1,8 @@
 import re, urllib, os
 from xl.radio import *
 from xl import common, playlist, xdg, event
-from xlgui import guiutil, commondialogs
+from xlgui import guiutil
+from xlgui.widgets import dialogs
 import gtk, glib
 from xl.nls import gettext as _
 import httplib
@@ -285,7 +286,7 @@ class ShoutcastRadioStation(RadioStation):
         """
             Called when the user wants to search for a specific stream
         """
-        dialog = commondialogs.TextEntryDialog(_("Enter the search keywords"),
+        dialog = dialogs.TextEntryDialog(_("Enter the search keywords"),
             _("Shoutcast Search"))
 
         result = dialog.run()
@@ -309,7 +310,7 @@ class ShoutcastRadioStation(RadioStation):
             Called when the search is finished
         """
         if not lists: return
-        dialog = commondialogs.ListDialog(_("Search Results"))
+        dialog = dialogs.ListDialog(_("Search Results"))
         dialog.set_items(lists)
         dialog.connect('response', self._search_response)
         dialog.show_all()

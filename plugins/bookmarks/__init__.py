@@ -22,7 +22,8 @@
 from __future__ import with_statement
 from xl.nls import gettext as _
 from xl import event, xdg, trax, settings
-from xlgui import commondialogs, guiutil, icons
+from xlgui import guiutil, icons
+from xlgui.widgets import dialogs
 import gtk
 import glib
 import gio
@@ -38,7 +39,7 @@ MENU_ITEM                   = None
 
 def error(text):
     logger.error("%s: %s" % ('Bookmarks', text))
-    commondialogs.error(None, exaile.gui.main, text)
+    dialogs.error(None, exaile.gui.main, text)
 
 class Bookmarks:
     def __init__(self, exaile):

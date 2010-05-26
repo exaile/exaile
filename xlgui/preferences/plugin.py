@@ -30,7 +30,7 @@ import gtk
 
 from xlgui.preferences import widgets
 from xl import main, plugins, xdg
-from xlgui import commondialogs
+from xlgui.widgets import dialogs
 from xl.nls import gettext as _, ngettext
 
 name = _('Plugins')
@@ -48,7 +48,7 @@ class PluginManager(object):
         builder.connect_signals(self)
         self.plugins = main.exaile().plugins
 
-        self.message = commondialogs.MessageBar(
+        self.message = dialogs.MessageBar(
             parent=builder.get_object('preferences_pane'),
             buttons=gtk.BUTTONS_CLOSE
         )

@@ -19,7 +19,7 @@ try:
     import pynotify
 except ImportError:
     pynotify = None
-    from xlgui import commondialogs
+    from xlgui.widgets import dialogs
 from xl import event
 from xl.nls import gettext as _
 from xlgui import icons
@@ -50,7 +50,7 @@ class Shutdown():
                     gtk.STOCK_QUIT, gtk.ICON_SIZE_DIALOG))
                 notification.show()
             else:
-                commondialogs.info(None, _('<b>Shutdown scheduled</b>\n\n'
+                dialogs.info(None, _('<b>Shutdown scheduled</b>\n\n'
                     'Computer will be shutdown at the end of playback.'))
         else:
             event.remove_callback(self.on_playback_player_end, 'playback_player_end')
@@ -74,7 +74,7 @@ class Shutdown():
                     gtk.STOCK_DIALOG_ERROR, gtk.ICON_SIZE_DIALOG))
                 notification.show()
             else:
-                commondialogs.error(None, _('<b>Shutdown failed</b>\n\n'
+                dialogs.error(None, _('<b>Shutdown failed</b>\n\n'
                     'Computer could not be shutdown using D-Bus.'))
 
     def destroy(self):

@@ -2,8 +2,9 @@ import gtk, glib
 from xl import event, common, playlist
 from xl import trax
 from xl.nls import gettext as _
-from xlgui import panel, main, commondialogs
+from xlgui import panel, main
 from xlgui import guiutil
+from xlgui.widgets import dialogs
 from xl import xdg
 import xlgui, os, os.path
 import _feedparser as fp
@@ -116,7 +117,7 @@ class PodcastPanel(panel.Panel):
         self._load_podcasts()
 
     def on_add_podcast(self, *e):
-        dialog = commondialogs.TextEntryDialog(_('Enter the URL of the '
+        dialog = dialogs.TextEntryDialog(_('Enter the URL of the '
             'podcast to add'), _('Open Podcast'))
         dialog.set_transient_for(self.parent)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
@@ -225,7 +226,7 @@ class PodcastPanel(panel.Panel):
         try:
             h = open(self.podcast_file, 'w')
         except (OSError, IOError):
-            commondialogs.error(self.parent, _('Could not save podcast file'))
+            dialogs.error(self.parent, _('Could not save podcast file'))
             return
 
         for (title, url) in self.podcasts:

@@ -33,7 +33,7 @@ import gtk
 
 from xl.nls import gettext as _
 from xl import event, xdg, collection
-from xlgui import commondialogs
+from xlgui.widgets import dialogs
 
 logger = logging.getLogger(__name__)
 
@@ -51,12 +51,12 @@ class CollectionManagerDialog(object):
         self.builder = gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui/collection_manager.ui'))
         self.dialog = self.builder.get_object('CollectionManager')
-        self.list = commondialogs.ListBox(self.builder.get_object('lm_list_box'))
+        self.list = dialogs.ListBox(self.builder.get_object('lm_list_box'))
         self.add_list = []
         self.remove_list = []
         self.dialog.set_transient_for(self.parent)
 
-        self.message = commondialogs.MessageBar(
+        self.message = dialogs.MessageBar(
             parent=self.builder.get_object('content_area'),
             buttons=gtk.BUTTONS_CLOSE
         )

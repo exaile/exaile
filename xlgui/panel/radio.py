@@ -40,13 +40,13 @@ from xl import (
 from xl.nls import gettext as _
 import xlgui.panel.playlists as playlistpanel
 from xlgui import (
-    commondialogs,
     guiutil,
     icons,
     menu,
     panel,
     playlist as guiplaylist
 )
+from xlgui.widgets import dialogs
 
 class RadioException(Exception): pass
 class ConnectionException(RadioException): pass
@@ -190,7 +190,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 self.manager)
 
     def _on_add_button_clicked(self, *e):
-        dialog = commondialogs.MultiTextEntryDialog(self.parent,
+        dialog = dialogs.MultiTextEntryDialog(self.parent,
             _("Add Radio Station"))
 
         dialog.add_field(_("Name:"))
@@ -420,7 +420,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         #After processing playlist proceed to ask the user for the
         #name of the new playlist to add and add the tracks to it
         if len(tracks) > 0:
-            dialog = commondialogs.TextEntryDialog(
+            dialog = dialogs.TextEntryDialog(
             _("Enter the name you want for your new playlist"),
             _("New Playlist"))
             result = dialog.run()

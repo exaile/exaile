@@ -30,7 +30,6 @@ import gtk
 from xlgui.preferences import widgets
 from xl import main, xdg
 from xl.nls import gettext as _
-from xlgui import commondialogs
 
 name = _('Playback')
 ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')

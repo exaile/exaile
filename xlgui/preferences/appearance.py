@@ -29,7 +29,6 @@ import glib
 from xl import common, xdg
 from xl.nls import gettext as _
 import xlgui
-from xlgui import commondialogs
 from xlgui.preferences import widgets
 
 name = _('Appearance')

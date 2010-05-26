@@ -27,7 +27,6 @@
 from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
-from xlgui import commondialogs
 
 name = _('Playlists')
 ui = xdg.get_data_path('ui', 'preferences', 'playlists.ui')
@@ -44,11 +43,12 @@ class ReplaceContentPreference(widgets.CheckPreference):
     default = False
     name = 'playlist/replace_content'
 
+# FIXME: Is this still relevant?
 #class QueueSavePreferences(widgets.CheckPreference):
 #    default = True
 #    name = 'playlist/save_queue'
 
 #    def change(self, *e):
-#        commondialogs.error(self.preferences.window, "Doesn't work yet")
+#        dialogs.error(self.preferences.window, "Doesn't work yet")
 
 # vim: et sts=4 sw=4

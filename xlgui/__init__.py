@@ -49,8 +49,9 @@ except ImportError:
         "Failed to import gtk.glade, interface "
         "will not be fully translated.")
 
-from xlgui import commondialogs, cover
+from xlgui import cover
 from xlgui import devices, guiutil, icons, preferences, queue
+from xlgui.widgets import dialogs
 
 def mainloop():
     gtk.main()
@@ -135,7 +136,7 @@ class Main(object):
         pl = self.main.get_current_playlist ().playlist
         name = pl.get_name() + ".m3u"
 
-        dialog = commondialogs.FileOperationDialog(_("Export Current Playlist"),
+        dialog = dialogs.FileOperationDialog(_("Export Current Playlist"),
             None, gtk.FILE_CHOOSER_ACTION_SAVE,
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_SAVE, gtk.RESPONSE_OK))
@@ -158,14 +159,14 @@ class Main(object):
                 try:
                     _xpl.export_playlist(pl, path)
                 except _xpl.InvalidPlaylistTypeException:
-                    commondialogs.error(None, _('Invalid file extension, file not saved'))
+                    dialogs.error(None, _('Invalid file extension, file not saved'))
         dialog.destroy()
 
     def open_url(self, *e):
         """
             Displays a dialog to open a url
         """
-        dialog = commondialogs.TextEntryDialog(_('Enter the URL to open'),
+        dialog = dialogs.TextEntryDialog(_('Enter the URL to open'),
         _('Open URL'))
         dialog.set_transient_for(self.main.window)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)

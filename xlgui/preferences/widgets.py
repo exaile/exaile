@@ -34,7 +34,7 @@ import pango
 
 from xl.nls import gettext as _
 from xl import event, main, settings, xdg
-from xlgui import commondialogs
+from xlgui.widgets import dialogs
 
 logger = logging.getLogger(__name__)
 
@@ -58,7 +58,7 @@ class Preference(object):
         self.preferences = preferences
 
         if self.restart_required:
-            self.message = commondialogs.MessageBar(
+            self.message = dialogs.MessageBar(
                 parent=preferences.builder.get_object('preferences_box'),
                 type=gtk.MESSAGE_QUESTION,
                 buttons=gtk.BUTTONS_CLOSE,

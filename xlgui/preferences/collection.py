@@ -17,7 +17,6 @@
 from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
-from xlgui import commondialogs
 
 name = _('Collection')
 ui = xdg.get_data_path('ui', 'preferences', 'collection.ui')

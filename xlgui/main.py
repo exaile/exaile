@@ -53,13 +53,13 @@ from xl import (
 from xl.nls import gettext as _
 import xl.playlist
 from xlgui import (
-    commondialogs,
     cover,
     guiutil,
     menu,
     playlist,
     tray
 )
+from xlgui.widgets import dialogs
 
 logger = logging.getLogger(__name__)
 
@@ -282,7 +282,7 @@ class NotebookTab(gtk.EventBox):
         self.main.add_playlist()
 
     def do_rename(self, *args):
-        dialog = commondialogs.TextEntryDialog(
+        dialog = dialogs.TextEntryDialog(
             _("New playlist title:"), _("Rename Playlist"),
             self.title, self.main.window)
         response = dialog.run()
@@ -291,7 +291,7 @@ class NotebookTab(gtk.EventBox):
             self.page.playlist.set_name(self.title)
 
     def do_save_custom(self, *args):
-        dialog = commondialogs.TextEntryDialog(
+        dialog = dialogs.TextEntryDialog(
             _("Custom playlist name:"), _("Save as..."),
             self.title, self.main.window, okbutton=gtk.STOCK_SAVE)
         response = dialog.run()
@@ -608,7 +608,7 @@ class MainWindow(gobject.GObject):
             restart_item.set_no_show_all(False)
 
         # TODO: Maybe make this stackable
-        self.message = commondialogs.MessageBar(
+        self.message = dialogs.MessageBar(
             parent=self.builder.get_object('player_box'),
             buttons=gtk.BUTTONS_CLOSE
         )

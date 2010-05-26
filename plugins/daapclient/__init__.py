@@ -30,7 +30,8 @@ from xl import collection, event, trax, common
 from xl.nls import gettext as _
 import xlgui
 from xlgui.panel.collection import CollectionPanel
-from xlgui import guiutil, commondialogs
+from xlgui import guiutil
+from xlgui.widgets import dialogs
 
 logger = logging.getLogger(__name__)
 gobject.threads_init()
@@ -206,7 +207,7 @@ class DaapManager:
         connection option from the menu.  It requests a host/ip to connect
         to.
         '''
-        dialog = commondialogs.TextEntryDialog(
+        dialog = dialogs.TextEntryDialog(
             _("Enter IP address and port for share"),
             _("Enter IP address and port."))
         resp = dialog.run()

@@ -45,7 +45,6 @@ from xl import (
 from xl.covers import MANAGER as cover_manager
 import xlgui
 from xlgui import (
-    commondialogs,
     guiutil,
     icons
 )

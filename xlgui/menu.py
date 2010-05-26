@@ -27,7 +27,8 @@
 import gobject
 import gtk
 
-from xlgui import commondialogs, guiutil, icons, rating
+from xlgui import guiutil, icons, rating
+from xlgui.widgets import dialogs
 from xl import event, playlist, xdg, settings
 from xl.nls import gettext as _
 
@@ -414,7 +415,7 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
             operation, export type is determined by the extension
             entered
         """
-        dialog = commondialogs.FileOperationDialog(_("Export as..."),
+        dialog = dialogs.FileOperationDialog(_("Export as..."),
             None, gtk.FILE_CHOOSER_ACTION_SAVE,
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_SAVE, gtk.RESPONSE_OK))
@@ -449,7 +450,7 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
             return
 
         # Ask for new name
-        dialog = commondialogs.TextEntryDialog(
+        dialog = dialogs.TextEntryDialog(
             _("Enter the new name you want for your playlist"),
             _("Rename Playlist"))
         result = dialog.run()

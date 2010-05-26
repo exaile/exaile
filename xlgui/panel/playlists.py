@@ -32,9 +32,10 @@ import glib
 import gobject
 import gtk
 
-from xlgui import panel, guiutil, xdg, commondialogs
+from xlgui import guiutil, panel, xdg
 from xlgui import menu, filtergui
 from xlgui import playlist as guiplaylist
+from xlgui.widgets import dialogs
 from xl import event, playlist, settings, trax
 from xlgui.filtergui import MultiEntryField, EntryField
 from xl.nls import gettext as _
@@ -236,7 +237,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
         """
         if name in self.playlist_manager.playlists:
             # name is already in use
-            commondialogs.error(self.parent, _("The "
+            dialogs.error(self.parent, _("The "
                 "playlist name you entered is already in use."))
             return
 
@@ -290,7 +291,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
         if name:
             if name in self.playlist_manager.playlists:
                 # name is already in use
-                commondialogs.error(self.parent, _("The "
+                dialogs.error(self.parent, _("The "
                     "playlist name you entered is already in use."))
             else:
                 do_add_playlist = True
@@ -364,7 +365,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 else:
                     name = ''
 
-            dialog = commondialogs.TextEntryDialog(
+            dialog = dialogs.TextEntryDialog(
                     _("New custom playlist name:"),
                     _("Add to New Playlist..."), name, okbutton=gtk.STOCK_ADD)
             result = dialog.run()
@@ -372,11 +373,11 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 name = dialog.get_value()
                 if name in self.playlist_manager.playlists:
                     # name is already in use
-                    commondialogs.error(self.parent, _("The "
+                    dialogs.error(self.parent, _("The "
                         "playlist name you entered is already in use."))
                     return
                 elif name == "":
-                    commondialogs.error(self.parent, _("You did "
+                    dialogs.error(self.parent, _("You did "
                         "not enter a name for your playlist"))
                 else:
                     do_add_playlist = True
@@ -626,13 +627,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             random = dialog.get_random()
 
             if not name:
-                commondialogs.error(self.parent, _("You did "
+                dialogs.error(self.parent, _("You did "
                     "not enter a name for your playlist"))
                 return
 
             try:
                 pl = self.smart_manager.get_playlist(name)
-                commondialogs.error(self.parent, _("The "
+                dialogs.error(self.parent, _("The "
                     "playlist name you entered is already in use."))
                 return
             except ValueError:
@@ -699,14 +700,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             random = dialog.get_random()
 
             if not name:
-                commondialogs.error(self.parent, _("You did "
+                dialogs.error(self.parent, _("You did "
                     "not enter a name for your playlist"))
                 return
 
             if not name == pl.name:
                 try:
                     pl = self.smart_manager.get_playlist(name)
-                    commondialogs.error(self.parent, _("The "
+                    dialogs.error(self.parent, _("The "
                         "playlist name you entered is already in use."))
                     return
                 except ValueError:
@@ -961,7 +962,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 try:
                     playlist.export_playlist(pl, path)
                 except playlist.InvalidPlaylistTypeException:
-                    commondialogs.error(None, _('Invalid file extension, file not saved'))
+                    dialogs.error(None, _('Invalid file extension, file not saved'))
 
     def on_key_released(self, widget, event):
         """

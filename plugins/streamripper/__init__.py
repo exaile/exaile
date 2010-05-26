@@ -19,7 +19,7 @@ import gtk
 from xl import event
 from xl.nls import gettext as _
 from xl import settings
-from xlgui import commondialogs
+from xlgui.widgets import dialogs
 import srprefs
 
 logger = logging.getLogger(__name__)
@@ -61,7 +61,7 @@ class Streamripper(object):
                         subprocess.PIPE, subprocess.PIPE)
         except OSError:
             logger.error('There was an error executing streamripper')
-            commondialogs.error(self.exaile.gui.main.window, _('Error '
+            dialogs.error(self.exaile.gui.main.window, _('Error '
                     'executing streamripper'))
             return True
 

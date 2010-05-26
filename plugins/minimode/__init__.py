@@ -262,9 +262,9 @@ class MiniMode(gtk.Window):
                  self.on_track_change]),
             'playlist_button': (mmwidgets.PlaylistButton,
                 [self.exaile.gui.main, self.exaile.player, self.exaile.queue,
-                 self.formatter, self.on_track_change])
+                 self.formatter, self.on_track_change]),
+            'rating': (mmwidgets.RatingWidget, [])
         }
-        # TODO: PlaylistProgressBar
 
         self.box.register_widgets(widgets)
 

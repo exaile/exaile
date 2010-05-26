@@ -75,6 +75,7 @@ class SelectedControlsPreference(widgets.SelectionListPreference):
         'progress_bar': _('Progress bar'),
         'volume': _('Volume'),
         'playlist_button': _('Playlist button'),
+        'rating': _('Rating'),
     }
     fixed_items = {
         'restore': _('Restore')

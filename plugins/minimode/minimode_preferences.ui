@@ -83,9 +83,6 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
-            </child>
-            <child>
               <object class="GtkCheckButton" id="plugin/minimode/use_alpha">
                 <property name="label" translatable="yes">Use alpha transparency:</property>
                 <property name="visible">True</property>
@@ -112,6 +109,9 @@
                 <property name="top_attach">3</property>
                 <property name="bottom_attach">4</property>
               </packing>
+            </child>
+            <child>
+              <placeholder/>
             </child>
           </object>
           <packing>
@@ -171,13 +171,13 @@
                     <child>
                       <object class="GtkLabel" id="label1">
                         <property name="visible">True</property>
+                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Every tag can be used with &lt;b&gt;$tag&lt;/b&gt; or &lt;b&gt;${tag}&lt;/b&gt;. Internal tags like &lt;b&gt;$__length&lt;/b&gt; need to be specified with two leading underdashes.</property>
                         <property name="use_markup">True</property>
                         <property name="wrap">True</property>
+                        <property name="wrap_mode">word-char</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>

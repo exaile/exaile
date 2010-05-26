@@ -23,7 +23,7 @@ import pango
 
 from xl import event, formatter, settings
 from xl.nls import gettext as _
-from xlgui.guiutil import get_workarea_size, TrackToolTip
+from xlgui import guiutil
 from xlgui.playlist import Playlist
 
 class MenuItem(gtk.ImageMenuItem):
@@ -284,7 +284,7 @@ class AttachedWindow(gtk.Window):
             Makes sure the window is
             always fully visible
         """
-        workarea_width, workarea_height = get_workarea_size() # 1280, 974
+        workarea_width, workarea_height = guiutil.get_workarea_size() # 1280, 974
         width, height = self.size_request() #  350, 400
         # FIXME: AttributeError: 'NoneType' object has no attribute 'get_origin'
         parent_window_x, parent_window_y = self.parent_widget.get_window().get_origin()
@@ -361,7 +361,7 @@ class PlaylistButton(gtk.ToggleButton):
         self.popup = AttachedWindow(self)
         self.popup.add(self.playlist)
 
-        self.tooltip = TrackToolTip(self, auto_update=True)
+        self.tooltip = guiutil.TrackToolTip(self, auto_update=True)
 
         self._dirty = False
         self._drag_shown = False
@@ -542,6 +542,23 @@ class PlaylistButton(gtk.ToggleButton):
             self.playlist.list.set_model(self.playlist.model)
 
 gobject.type_register(PlaylistButton)
+
+class RatingWidget(guiutil.RatingWidget):
+    """
+        A wrapper which updates the current
+        track on rating selection
+    """
+    def __init__(self):
+        guiutil.RatingWidget.__init__(self)
+
+        self.connect('rating-changed', self.on_rating_changed)
+
+    def on_rating_changed(self, widget, rating):
+        """
+            Updates the rating of the currently playing track
+        """
+        if self.player.current is not None:
+            self.player.current.set_rating(rating)
 
 class TrackSelector(gtk.ComboBox):
     """

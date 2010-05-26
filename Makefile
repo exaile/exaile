@@ -33,6 +33,7 @@ make-install-dirs:
 	mkdir -p $(EXAILELIBDIR)/xlgui
 	mkdir -p $(EXAILELIBDIR)/xlgui/panel
 	mkdir -p $(EXAILELIBDIR)/xlgui/preferences
+	mkdir -p $(EXAILELIBDIR)/xlgui/widgets
 	mkdir -p $(EXAILESHAREDIR)
 	mkdir -p $(EXAILESHAREDIR)/data
 	mkdir -p $(EXAILESHAREDIR)/data/images/16x16
@@ -85,6 +86,8 @@ install-target: make-install-dirs
 	install -m 644 xlgui/panel/*.py $(EXAILELIBDIR)/xlgui/panel
 	-install -m 644 xlgui/preferences/*.py[co] $(EXAILELIBDIR)/xlgui/preferences
 	install -m 644 xlgui/preferences/*.py $(EXAILELIBDIR)/xlgui/preferences
+	-install -m 644 xlgui/widgets/*.py[co] $(EXAILELIBDIR)/xlgui/widgets
+	install -m 644 xlgui/widgets/*.py $(EXAILELIBDIR)/xlgui/widgets
 	install -m 644 data/images/16x16/*.png $(EXAILESHAREDIR)/data/images/16x16
 	install -m 644 data/images/22x22/*.png $(EXAILESHAREDIR)/data/images/22x22
 	install -m 644 data/images/24x24/*.png $(EXAILESHAREDIR)/data/images/24x24

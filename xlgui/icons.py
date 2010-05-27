@@ -35,9 +35,8 @@ from xl import event, settings, xdg
 
 class ExtendedPixbuf(gtk.gdk.Pixbuf):
     """
-        A Pixbuf wrapper class allowing
-        for modification using addition
-        and multiplication
+        A Pixbuf wrapper class allowing for
+        interaction using standard operators
     """
     def __init__(self, pixbuf):
         gtk.gdk.Pixbuf.__init__(self,
@@ -47,8 +46,12 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             pixbuf.get_width(),
             pixbuf.get_height()
         )
-        pixbuf.copy_area(0, 0, self.get_width(), self.get_height(),
-            self, 0, 0)
+        pixbuf.copy_area(
+            src_x=0, src_y=0,
+            width=self.get_width(), height=self.get_height(),
+            dest_pixbuf=self,
+            dest_x=0, dest_y=0
+        )
 
     def __add__(self, other):
         """
@@ -56,8 +59,90 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             
             :param other: the pixbuf to append
             :type other: :class:`gtk.gdk.Pixbuf`
+            :returns: the new pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
         """
         return self.add_horizontal(other)
+
+    def __mul__(self, multiplier):
+        """
+            Horizontally multiplies the current pixbuf content
+
+            :param multiplier: How often the pixbuf
+                shall be multiplied
+            :type multiplier: int
+            :returns: the new pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
+        """
+        return self.multiply_horizontal(multiplier)
+
+    def __and__(self, other):
+        """
+            Composites a pixbuf on the current
+            pixbuf at the location (0, 0)
+            
+            :param other: the pixbuf to composite
+            :type other: :class:`gtk.gdk.Pixbuf`
+            :returns: the new pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
+        """
+        return self.composite_simple(other)
+
+    def __lt__(self, other):
+        """
+            True if the size (width * height) of the current
+            pixbuf is lower than the size of the other pixbuf
+        """
+        self_size = self.get_width() * self.get_height()
+        other_size = other.get_width() * other.get_height()
+
+        return self_size < other_size
+
+    def __le__(self, other):
+        """
+            True if the size (width * height) of the current
+            pixbuf is lower than or equal to the size of the
+            other pixbuf
+        """
+        self_size = self.get_width() * self.get_height()
+        other_size = other.get_width() * other.get_height()
+
+        return self_size <= other_size
+
+    def __gt__(self, other):
+        """
+            True if the size (width * height) of the current
+            pixbuf is higher than the size of the other pixbuf
+        """
+        self_size = self.get_width() * self.get_height()
+        other_size = other.get_width() * other.get_height()
+
+        return self_size > other_size
+
+    def __ge__(self, other):
+        """
+            True if the size (width * height) of the current
+            pixbuf is higher than or equal to the size of the
+            other pixbuf
+        """
+        self_size = self.get_width() * self.get_height()
+        other_size = other.get_width() * other.get_height()
+
+        return self_size >= other_size
+
+    def __eq__(self, other):
+        """
+            True if the pixels of the current pixbuf are
+            the same as the pixels from the other pixbuf
+        """
+        return self.get_pixels() == other.get_pixels()
+
+    def __ne__(self, other):
+        """
+            True if the pixels of the current pixbuf are
+            not the same as the pixels from the other pixbuf
+        """
+        return not self.__eq__(other)
 
     def add_horizontal(self, other, spacing=0):
         """
@@ -67,6 +152,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :type other: :class:`gtk.gdk.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
+            :returns: the new pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
         """
         height = max(self.get_height(), other.get_height())
         spacing = max(0, spacing)
@@ -81,12 +168,16 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
         new_pixbuf.fill(0xffffff00)
 
         self.copy_area(
-            0, 0, self.get_width(), self.get_height(),
-            new_pixbuf, 0, 0
+            src_x=0, src_y=0,
+            width=self.get_width(), height=self.get_height(),
+            dest_pixbuf=new_pixbuf,
+            dest_x=0, dest_y=0
         )
         other.copy_area(
-            0, 0, other.get_width(), other.get_height(),
-            new_pixbuf, self.get_width() + spacing, 0
+            src_x=0, src_y=0,
+            width=other.get_width(), height=other.get_height(),
+            dest_pixbuf=new_pixbuf,
+            dest_x=self.get_width() + spacing, dest_y=0
         )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -99,6 +190,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :type other: :class:`gtk.gdk.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
+            :returns: the new pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
         """
         width = max(self.get_width(), other.get_width())
         spacing = max(0, spacing)
@@ -113,25 +206,19 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
         new_pixbuf.fill(0xffffff00)
 
         self.copy_area(
-            0, 0, self.get_width(), self.get_height(),
-            new_pixbuf, 0, 0
+            src_x=0, src_y=0,
+            width=self.get_width(), height=self.get_height(),
+            dest_pixbuf=new_pixbuf,
+            dest_x=0, dest_y=0
         )
         other.copy_area(
-            0, 0, other.get_width(), other.get_height(),
-            new_pixbuf, 0, self.get_height() + spacing
+            src_x=0, src_y=0,
+            width=other.get_width(), height=other.get_height(),
+            dest_pixbuf=new_pixbuf,
+            dest_x=0, dest_y=self.get_height() + spacing
         )
 
         return ExtendedPixbuf(new_pixbuf)
-
-    def __mul__(self, multiplier):
-        """
-            Horizontally multiplies the current pixbuf content
-
-            :param multiplier: How often the pixbuf
-                shall be multiplied
-            :type multiplier: int
-        """
-        return self.multiply_horizontal(multiplier)
 
     def multiply_horizontal(self, multiplier, spacing=0):
         """
@@ -142,6 +229,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :type multiplier: int
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
+            :returns: the new pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
         """
         spacing = max(0, spacing)
         new_pixbuf = gtk.gdk.Pixbuf(
@@ -155,8 +244,10 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
 
         for n in xrange(0, multiplier):
             self.copy_area(
-                0, 0, self.get_width(), self.get_height(),
-                new_pixbuf, n * self.get_width() + n * spacing, 0
+                src_x=0, src_y=0,
+                width=self.get_width(), height=self.get_height(),
+                dest_pixbuf=new_pixbuf,
+                dest_x=n * self.get_width() + n * spacing, dest_y=0
             )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -170,6 +261,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :type multiplier: int
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
+            :returns: the new pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
         """
         spacing = max(0, spacing)
         new_pixbuf = gtk.gdk.Pixbuf(
@@ -183,8 +276,45 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
 
         for n in xrange(0, multiplier):
             self.copy_area(
-                0, 0, self.get_width(), self.get_height(),
-                new_pixbuf, 0, n * self.get_height() + n * spacing
+                src_x=0, src_y=0,
+                width=self.get_width(), height=self.get_height(),
+                dest_pixbuf=new_pixbuf,
+                dest_x=0, dest_y=n * self.get_height() + n * spacing
+            )
+
+        return ExtendedPixbuf(new_pixbuf)
+
+    def composite_simple(self, other)
+        """
+            Composites a pixbuf on the current
+            pixbuf at the location (0, 0)
+            
+            :param other: the pixbuf to composite
+            :type other: :class:`gtk.gdk.Pixbuf`
+            :returns: the new pixbuf
+            :rtype: :class:`gtk.gdk.Pixbuf`
+        """
+        width = max(self.get_width(), other.get_width())
+        height = max(self.get_height(), other.get_height())
+
+        new_pixbuf = gtk.gdk.Pixbuf(
+            self.get_colorspace(),
+            self.get_has_alpha(),
+            self.get_bits_per_sample(),
+            width, height
+        )
+        new_pixbuf.fill(0xffffff00)
+
+        for pixbuf in (self, other):
+            pixbuf.composite(
+                dest=new_pixbuf,
+                dest_x=0, dest_y=0,
+                dest_width=new_pixbuf.get_width(),
+                dest_height=new_pixbuf.get_height(),
+                offset_x=0, offset_y=0,
+                scale_x=1, scale_y=1,
+                interp_type=gtk.gdk.INTERP_BILINEAR,
+                overall_alpha=255 # Alpha needs to be embedded
             )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -194,6 +324,19 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             Override to return same type
         """
         return ExtendedPixbuf(gtk.gdk.Pixbuf.copy(self))
+
+def extended_pixbuf_new_from_file(filename):
+    """
+        Returns a new ExtendedPixbuf containing
+        an image loaded from the specified file
+
+        :param filename: the name of the file
+            containing the image to load
+        :type filename: string
+        :returns: a new pixbuf
+        :rtype: :class:`ExtendedPixbuf`
+    """
+    return ExtendedPixbuf(gtk.gdk.pixbuf_new_from_file(filename))
 
 class IconManager(object):
     """

@@ -70,16 +70,13 @@ class RatingWidget(gtk.EventBox):
         self.set_visible_window(False)
         self.set_above_child(True)
         self.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.set_flags(self.flags() | gtk.CAN_FOCUS)
 
         self._image = gtk.Image()
         self.add(self._image)
 
         self._rating = -1
         self.props.rating = rating
-
-        self.connect('motion-notify-event', self.on_motion_notify_event)
-        self.connect('leave-notify-event', self.on_leave_notify_event)
-        self.connect('button-release-event', self.on_button_release_event)
 
         if auto_update:
             try:
@@ -92,6 +89,14 @@ class RatingWidget(gtk.EventBox):
             for event_name in ('playback_track_start', 'playback_player_end',
                                'rating_changed'):
                 event.add_callback(self.on_rating_update, event_name)
+
+    def destroy(self):
+        """
+            Cleanups
+        """
+        for event_name in ('playback_track_start', 'playback_player_start',
+                           'rating_changed'):
+            event.remove_callback(self.on_rating_update, event_name)
 
     def do_get_property(self, property):
         """
@@ -111,29 +116,40 @@ class RatingWidget(gtk.EventBox):
                 value = 0
             else:
                 maximum = settings.get_option('miscellaneous/rating_steps', 5)
-                value = max(0, value)
                 value = min(value, maximum)
 
             self._rating = value
             self._image.set_from_pixbuf(
                 icons.MANAGER.pixbuf_from_rating(value))
+
             self.emit('rating-changed', value)
         else:
             raise AttributeError('unkown property %s' % property.name)
 
-    def destroy(self):
+    def do_expose_event(self, event):
         """
-            Cleanups
+            Takes care of painting the focus indicator
         """
-        for event_name in ('playback_track_start', 'playback_player_start',
-                           'rating_changed'):
-            event.remove_callback(self.on_rating_update, event_name)
+        if self.is_focus():
+            self.style.paint_focus(
+                window=self.window,
+                state_type=self.get_state(),
+                area=event.area,
+                widget=self,
+                detail='button', # Borrow style from GtkButton
+                x=event.area.x,
+                y=event.area.y,
+                width=event.area.width,
+                height=event.area.height
+            )
 
-    def on_motion_notify_event(self, widget, event):
+        gtk.EventBox.do_expose_event(self, event)
+
+    def do_motion_notify_event(self, event):
         """
             Temporarily updates the displayed rating
         """
-        allocation = widget.get_allocation()
+        allocation = self.get_allocation()
         maximum = settings.get_option('miscellaneous/rating_steps', 5)
         pixbuf_width = self._image.get_pixbuf().get_width()
         # Activate pixbuf if half of it has been passed
@@ -144,24 +160,48 @@ class RatingWidget(gtk.EventBox):
         self._image.set_from_pixbuf(
             icons.MANAGER.pixbuf_from_rating(rating))
 
-    def on_leave_notify_event(self, widget, event):
+    def do_leave_notify_event(self, event):
         """
             Restores the original rating
         """
         self._image.set_from_pixbuf(
             icons.MANAGER.pixbuf_from_rating(self._rating))
 
-    def on_button_release_event(self, widget, event):
+    def do_button_release_event(self, event):
         """
             Applies the selected rating
         """
-        allocation = widget.get_allocation()
+        allocation = self.get_allocation()
         maximum = settings.get_option('miscellaneous/rating_steps', 5)
         pixbuf_width = self._image.get_pixbuf().get_width()
         # Activate pixbuf if half of it has been passed
         threshold = (pixbuf_width / maximum) / 2
         position = (event.x + threshold) / allocation.width
         self.props.rating = int(position * maximum)
+
+    def do_key_press_event(self, event):
+        """
+            Changes the rating on keyboard interaction
+            * Alt+Up/Right: increases the rating
+            * Alt+Down/Left: decreases the rating
+        """
+        if not event.state & gtk.gdk.MOD1_MASK:
+            return
+
+        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
+            rating = self.props.rating + 1
+        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
+            rating = self.props.rating - 1
+        else:
+            return
+
+        rating = max(0, rating)
+
+        # Prevents unsetting rating if maximum is reached
+        if rating == self.props.rating:
+            return
+
+        self.props.rating = rating
 
     def on_exaile_loaded(self, event_type, exaile, nothing):
         """
@@ -227,12 +267,6 @@ class RatingMenuItem(gtk.MenuItem):
 
         self.rating_widget.connect('rating-changed',
             self.on_rating_changed)
-        self.connect('motion-notify-event',
-            self.on_motion_notify_event)
-        self.connect('leave-notify-event',
-            self.on_leave_notify_event)
-        self.connect('button-release-event',
-            self.on_button_release_event)
 
     def do_get_property(self, property):
         """
@@ -252,41 +286,41 @@ class RatingMenuItem(gtk.MenuItem):
         else:
             raise AttributeError('unkown property %s' % property.name)
 
-    def on_rating_changed(self, widget, rating):
-        """
-            Forwards the event
-        """
-        self.emit('rating-changed', rating)
-
-    def on_motion_notify_event(self, widget, event):
+    def do_motion_notify_event(self, event):
         """
             Forwards the event to the rating widget
         """
         allocation = self.rating_widget.get_allocation()
 
         if allocation.x < event.x < allocation.x + allocation.width:
-            x, y = widget.translate_coordinates(self.rating_widget,
+            x, y = self.translate_coordinates(self.rating_widget,
                 int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
             self.rating_widget.emit('motion-notify-event', event)
 
-    def on_leave_notify_event(self, widget, event):
+    def do_leave_notify_event(self, event):
         """
             Forwards the event to the rating widget
         """
         self.rating_widget.emit('leave-notify-event', event)
 
-    def on_button_release_event(self, widget, event):
+    def do_button_release_event(self, event):
         """
             Forwards the event to the rating widget
         """
         allocation = self.rating_widget.get_allocation()
 
         if allocation.x < event.x < allocation.x + allocation.width:
-            x, y = widget.translate_coordinates(self.rating_widget,
+            x, y = self.translate_coordinates(self.rating_widget,
                 int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
             self.rating_widget.emit('button-release-event', event)
+
+    def on_rating_changed(self, widget, rating):
+        """
+            Forwards the event
+        """
+        self.emit('rating-changed', rating)
 
 class RatingCellRenderer(gtk.CellRendererPixbuf):
     """

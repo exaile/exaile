@@ -28,10 +28,11 @@ import logging
 import gio
 import gtk
 
-from xl import settings
+from xl import event, settings
 from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
+from xlgui.widgets import rating
 
 logger = logging.getLogger(__name__)
 
@@ -131,24 +132,41 @@ class DiscNumberColumn(Column):
     id = 'discnumber'
     cellproperties = {'xalign': 1.0}
 
-
-class RatingFormatter(object):
-    def format(self, track):
-        rating = track.get_rating()
-
-        return icons.MANAGER.pixbuf_from_rating(rating)
-
 class RatingColumn(Column):
     display = _('Rating')
-    renderer = gtk.CellRendererPixbuf
+    renderer = rating.RatingCellRenderer
     id = '__rating'
-    datatype = gtk.gdk.Pixbuf
-    dataproperty = 'pixbuf'
+    datatype = int
+    dataproperty = 'rating'
     cellproperties = {'follow-state': False}
 
-    @classmethod
-    def get_formatter(cls):
-        return RatingFormatter()
+    def data_func(self, col, cell, model, iter):
+        track = model.get_track(model.get_path(iter))
+        cell.props.rating = track.get_rating()
+
+    def get_column(self, index):
+        """
+            Connects to the signals of the rating cell renderer
+        """
+        column = Column.get_column(self, index)
+        column.get_cell_renderers()[0].connect('rating-changed',
+            self.on_rating_changed)
+
+        return column
+
+    def on_rating_changed(self, widget, path, rating):
+        """
+            Updates the rating of the selected track
+        """
+        track = self.container.model.get_track(path)
+        oldrating = track.get_rating()
+
+        if rating == oldrating:
+            rating = 0
+
+        track.set_rating(rating)
+        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        event.log_event('rating_changed', self, rating / maximum * 100)
 
 class DateColumn(Column):
     size = 50

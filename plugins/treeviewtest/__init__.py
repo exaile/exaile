@@ -64,7 +64,7 @@ class TestWindow(object):
         pl = Playlist("test", trs)
         exaile.shortcut = pl
         self.window = gtk.Window()
-        self.tabs = PlaylistNotebook(exaile)
+        self.tabs = PlaylistNotebook()
         self.tabs.create_tab_from_playlist(pl)
         self.window.add(self.tabs)
         self.window.resize(800, 600)
@@ -73,23 +73,37 @@ class TestWindow(object):
     def destroy(self):
         self.window.destroy()
 
-class SmartNotebook(gtk.Notebook):
+
+class PlaylistNotebook(gtk.Notebook):
     def __init__(self):
         gtk.Notebook.__init__(self)
 
+    def add_tab(self, tab, page):
+        """
+            Add a tab to the notebook. It will be given focus.
 
-class PlaylistNotebook(SmartNotebook):
-    def __init__(self, exaile):
-        SmartNotebook.__init__(self)
-        self.exaile = exaile
+            :param tab: The tab to use
+            :type tab: NotebookTab
+            :param page: The page to use
+            :type page: NotebookPage
+        """
+        self.append_page(page, tab)
+        self.set_current_page(self.page_num(page))
 
     def create_tab_from_playlist(self, playlist):
-        page = PlaylistPage(playlist, self.exaile)
+        """
+            Create a tab that will contain the passed-in playlist
+        """
+        page = PlaylistPage(playlist)
         tab = NotebookTab(self, page)
-        self.append_page(page, tab)
+        self.add_tab(tab, page)
         return tab
 
     def create_new_playlist(self, *args):
+        """
+            Create a new tab containing a blank playlist. The tab will
+            be automatically given a unique name.
+        """
         seen = []
         for n in range(self.get_n_pages()):
             page = self.get_nth_page(n)
@@ -113,10 +127,13 @@ class PlaylistNotebook(SmartNotebook):
 class NotebookTab(gtk.EventBox):
     """
         Class to represent a generic tab in a gtk.Notebook.
-
     """
     menu_provider_name = 'notebooktab' # Change this in subclasses!
     def __init__(self, notebook, page):
+        """
+            :param notebook: The notebook this tab will belong to
+            :param page: The page this tab will be associated with
+        """
         gtk.EventBox.__init__(self)
         self.set_visible_window(False)
 
@@ -338,11 +355,9 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     default_columns = ['tracknumber', 'title', 'album', 'artist', '__rating', '__length']
     menu_provider_name = 'playlist-tab-context'
 
-    def __init__(self, playlist, exaile):
+    def __init__(self, playlist):
         gtk.VBox.__init__(self)
         NotebookPage.__init__(self)
-
-        self.exaile = exaile #TODO: remove the need for this!
 
         self.playlist = playlist
         self.icon = None
@@ -406,7 +421,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         """
         path = self.model.get_path(iter)
         track = self.model.get_track(path)
-        if track == self.exaile.player.current and \
+        if track == player.PLAYER.current and \
                 path[0] == self.playlist.get_current_pos() and \
                 self.playlist == player.QUEUE.current_playlist:
             weight = pango.WEIGHT_HEAVY
@@ -427,8 +442,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         return tracks
 
     def on_drag_drop(self, view, context, x, y, etime):
-        self.drag_data_received(view, context, x, y,
-                view.get_selection(), None, etime)
+        #self.drag_data_received(view, context, x, y,
+        #        view.get_selection(), None, etime)
         context.finish(True, False)
         return True
 
@@ -438,8 +453,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         except IndexError:
             return
 
-        self.exaile.queue.play(track=track)
-        self.exaile.queue.set_current_playlist(self.playlist)
+        player.QUEUE.play(track=track)
+        player.QUEUE.set_current_playlist(self.playlist)
         self.playlist.set_current_pos(idx)
 
 
@@ -518,6 +533,17 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
     def drag_data_received(self, view, context, x, y, selection, info, etime):
         print "data recieved"
+        self.view.unset_rows_drag_dest()
+        self.view.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+            self.view.targets,
+            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+        locs = list(selection.get_uris())
+        drop_info = view.get_dest_row_at_pos(x, y)
+        if drop_info:
+            path, position = drop_info
+            iter = self.model.get_iter(path)
+        trs, playlists = self.view.get_drag_data(locs)
+        print locs, trs, playlists, drop_info
         context.finish(True, False, etime)
 
     def drag_data_delete(self, view, context):

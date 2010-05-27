@@ -59,8 +59,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             
             :param other: the pixbuf to append
             :type other: :class:`gtk.gdk.Pixbuf`
-            :returns: the new pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :returns: a new pixbuf
+            :rtype: :class:`ExtendedPixbuf`
         """
         return self.add_horizontal(other)
 
@@ -71,8 +71,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :param multiplier: How often the pixbuf
                 shall be multiplied
             :type multiplier: int
-            :returns: the new pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :returns: a new pixbuf
+            :rtype: :class:`ExtendedPixbuf`
         """
         return self.multiply_horizontal(multiplier)
 
@@ -83,8 +83,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             
             :param other: the pixbuf to composite
             :type other: :class:`gtk.gdk.Pixbuf`
-            :returns: the new pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :returns: a new pixbuf
+            :rtype: :class:`ExtendedPixbuf`
         """
         return self.composite_simple(other)
 
@@ -152,8 +152,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :type other: :class:`gtk.gdk.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
-            :returns: the new pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :returns: a new pixbuf
+            :rtype: :class:`ExtendedPixbuf`
         """
         height = max(self.get_height(), other.get_height())
         spacing = max(0, spacing)
@@ -190,8 +190,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :type other: :class:`gtk.gdk.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
-            :returns: the new pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :returns: a new pixbuf
+            :rtype: :class:`ExtendedPixbuf`
         """
         width = max(self.get_width(), other.get_width())
         spacing = max(0, spacing)
@@ -229,8 +229,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :type multiplier: int
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
-            :returns: the new pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :returns: a new pixbuf
+            :rtype: :class:`ExtendedPixbuf`
         """
         spacing = max(0, spacing)
         new_pixbuf = gtk.gdk.Pixbuf(
@@ -261,8 +261,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :type multiplier: int
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
-            :returns: the new pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :returns: a new pixbuf
+            :rtype: :class:`ExtendedPixbuf`
         """
         spacing = max(0, spacing)
         new_pixbuf = gtk.gdk.Pixbuf(
@@ -284,15 +284,15 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
 
         return ExtendedPixbuf(new_pixbuf)
 
-    def composite_simple(self, other)
+    def composite_simple(self, other):
         """
             Composites a pixbuf on the current
             pixbuf at the location (0, 0)
             
             :param other: the pixbuf to composite
             :type other: :class:`gtk.gdk.Pixbuf`
-            :returns: the new pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :returns: a new pixbuf
+            :rtype: :class:`ExtendedPixbuf`
         """
         width = max(self.get_width(), other.get_width())
         height = max(self.get_height(), other.get_height())
@@ -319,11 +319,97 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
 
         return ExtendedPixbuf(new_pixbuf)
 
+    def move(self, offset_x, offset_y, resize=False):
+        """
+            Moves the content of the current pixbuf within
+            its boundaries (clips overlapping data) and
+            optionally resizes the pixbuf to contain the
+            movement
+
+            :param offset_x: the amount of pixels to move
+                in horizontal direction
+            :type offset_x: int
+            :param offset_y: the amount of pixels to move
+                in vertical direction
+            :type offset_y: int
+            :param resize: whether to resize the pixbuf
+                on movement
+            :type resize: bool
+            :returns: a new pixbuf
+            :rtype: :class:`ExtendedPixbuf`
+        """
+        width = self.get_width()
+        height = self.get_height()
+
+        if resize:
+            width += offset_x
+            height += offset_y
+
+        new_pixbuf = gtk.gdk.Pixbuf(
+            self.get_colorspace(),
+            self.get_has_alpha(),
+            self.get_bits_per_sample(),
+            width, height
+        )
+        new_pixbuf.fill(0xffffff00)
+
+        self.copy_area(
+            src_x=0, src_y=0,
+            width=self.get_width(),
+            height=self.get_height(),
+            dest_pixbuf=new_pixbuf,
+            dest_x=offset_x, dest_y=offset_y
+        )
+
+        return ExtendedPixbuf(new_pixbuf)
+
     def copy(self):
         """
             Override to return same type
         """
         return ExtendedPixbuf(gtk.gdk.Pixbuf.copy(self))
+
+    def add_alpha(self, substitute_color, r, g, b):
+        """
+            Override to return same type
+        """
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.add_alpha(
+            self, substitute_color, r, g, b))
+
+    def scale_simple(self, dest_width, dest_height, interp_type):
+        """
+            Override to return same type
+        """
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.scale_simple(
+            self, dest_width, dest_height, interp_type))
+
+    def composite_color_simple(self, dest_width, dest_height, interp_type,
+                               overall_alpha, check_size, color1, color2):
+        """
+            Override to return same type
+        """
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.composite_color_simple(
+            self, dest_width, dest_height, interp_type,
+            overall_alpha, check_size, color1, color2))
+
+    def subpixbuf(self, src_x, src_y, width, height):
+        """
+            Override to return same type
+        """
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.subpixbuf(
+            self, src_x, src_y, width, height))
+
+    def rotate_simple(self, angle):
+        """
+            Override to return same type
+        """
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.rotate_simple(self, angle))
+
+    def flip(self, horizontal):
+        """
+            Override to return sampe type
+        """
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.flip(self, horizontal))
 
 def extended_pixbuf_new_from_file(filename):
     """

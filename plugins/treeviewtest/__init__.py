@@ -524,10 +524,10 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
     def on_row_changed(self, model, path, iter):
         if path[0] == self.playlist.current_pos:
-            img = model.get_value(iter, 0)
-            if img == model.clearimg:
-                img = None
-            self.tab.set_icon(img)
+            pixbuf = model.get_value(iter, 0)
+            if pixbuf == model.clear_pixbuf:
+                pixbuf = None
+            self.tab.set_icon(pixbuf)
 
     ### needed for DragTreeView ###
 
@@ -594,29 +594,18 @@ class PlaylistModel(gtk.GenericTreeModel):
         event.add_callback(self.on_playback_state_change,
                 "playback_player_resume")
 
-        get_img = lambda name, size: icons.MANAGER.pixbuf_from_stock(
-            name, gtk.ICON_SIZE_SMALL_TOOLBAR).scale_simple(
-            size, size, gtk.gdk.INTERP_BILINEAR)
-
-        self.playimg = get_img(gtk.STOCK_MEDIA_PLAY, 18)
-        self.pauseimg = get_img(gtk.STOCK_MEDIA_PAUSE, 18)
-
-        self.stopimg = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 18, 18)
-        self.stopimg.fill(0x00000000)
-        stopimg = get_img(gtk.STOCK_STOP, 14)
-        stopimg.copy_area(0, 0, 14, 14, self.stopimg, 2, 2)
-
-        stopicon = get_img(gtk.STOCK_STOP, 9)
-        stopoverlay = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 18, 18)
-        stopoverlay.fill(0x00000000)
-        stopicon.copy_area(0, 0, 9, 9, stopoverlay, 9, 9)
-        self.playstopimg = get_img(gtk.STOCK_MEDIA_PLAY, 18)
-        stopoverlay.composite(self.playstopimg, 0, 0, 18, 18, 0, 0, 1, 1, gtk.gdk.INTERP_BILINEAR, 255)
-        self.pausestopimg = get_img(gtk.STOCK_MEDIA_PAUSE, 18)
-        stopoverlay.composite(self.pausestopimg, 0, 0, 18, 18, 0, 0, 1, 1, gtk.gdk.INTERP_BILINEAR, 255)
-
-        self.clearimg = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 18, 18)
-        self.clearimg.fill(0x00000000)
+        self.play_pixbuf = icons.ExtendedPixbuf(
+            icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PLAY))
+        self.pause_pixbuf = icons.ExtendedPixbuf(
+            icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PAUSE))
+        self.stop_pixbuf = icons.ExtendedPixbuf(
+            icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP))
+        stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(8, 8, gtk.gdk.INTERP_BILINEAR)
+        stop_overlay_pixbuf = stop_overlay_pixbuf.move(offset_x=8, offset_y=8, resize=True)
+        self.play_stop_pixbuf = self.play_pixbuf & stop_overlay_pixbuf
+        self.pause_stop_pixbuf = self.pause_pixbuf & stop_overlay_pixbuf
+        self.clear_pixbuf = self.play_pixbuf.copy()
+        self.clear_pixbuf.fill(0x00000000)
 
     def get_track(self, path):
         return self.playlist[path[0]]
@@ -652,17 +641,17 @@ class PlaylistModel(gtk.GenericTreeModel):
                 spat = self.playlist.spat_pos == rowref
                 if state == 'playing':
                     if spat:
-                        return self.playstopimg
+                        return self.play_stop_pixbuf
                     else:
-                        return self.playimg
+                        return self.play_pixbuf
                 elif state == 'paused':
                     if spat:
-                        return self.pausestopimg
+                        return self.pause_stop_pixbuf
                     else:
-                        return self.pauseimg
+                        return self.pause_pixbuf
             if self.playlist.spat_pos == rowref:
-                return self.stopimg
-            return self.clearimg
+                return self.stop_pixbuf
+            return self.clear_pixbuf
         else:
             tagname = self.columns[column-1]
             track = self.playlist[rowref]

@@ -739,11 +739,13 @@ class CollectionPanel(panel.Panel):
                     alltags.extend(o.tags())
                 for t in alltags:
                     if t in srtr.on_tags:
+                        # keep original path intact for following block
+                        newpath = path
                         if depth > 0:
                             # for some reason, nested iters are always
                             # off by one in the terminal entry.
-                            path = path[:-1] + (path[-1]-1,)
-                        to_expand.append(path)
+                            newpath = newpath[:-1] + (newpath[-1]-1,)
+                        to_expand.append(newpath)
                         expanded = True
 
         if display_counts and path and not bottom:

@@ -148,9 +148,8 @@ class CoverManager(object):
         row = self.model[paths[0]]
         item = row[2]
 
-        width = settings.get_option('gui/cover_width', 100)
         pixbuf = icons.MANAGER.pixbuf_from_data(
-            cover_data, (width, width))
+            cover_data, (80, 80))
         self.covers[item] = pixbuf
         row[1] = pixbuf
 

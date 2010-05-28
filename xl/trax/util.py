@@ -107,7 +107,10 @@ def get_rating_from_tracks(tracks):
         :param tracks: an iterable containing objects
             of type :class:`xl.trax.Track`
     """
-    if 0 < len(tracks) <= settings.get_option('rating/track_limit', 100):
+    if len(tracks) < 1:
+        return 0
+
+    if len(tracks) > settings.get_option('rating/tracks_limit', 100):
         return 0
 
     rating = tracks[0].get_rating()

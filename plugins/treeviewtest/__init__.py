@@ -102,7 +102,7 @@ class PlaylistNotebook(gtk.Notebook):
         self.add_tab(tab, page)
         return tab
 
-    def create_new_playlist(self, *args):
+    def create_new_playlist(self):
         """
             Create a new tab containing a blank playlist. The tab will
             be automatically given a unique name.
@@ -714,6 +714,8 @@ class PlaylistModel(gtk.GenericTreeModel):
 
     def on_pos_changed(self, typ, playlist, pos):
         for p in pos:
+            if p < 0:
+                continue
             path = (p,)
             try:
                 iter = self.get_iter(path)
@@ -721,9 +723,12 @@ class PlaylistModel(gtk.GenericTreeModel):
                 continue
             self.row_changed(path, iter)
 
-    def on_playback_state_change(self, typ, player, tr):
+    def on_playback_state_change(self, typ, player_obj, tr):
         path = (self.playlist.current_pos,)
-        iter = self.get_iter(path)
+        try:
+            iter = self.get_iter(path)
+        except ValueError:
+            return
         self.row_changed(path, iter)
 
 

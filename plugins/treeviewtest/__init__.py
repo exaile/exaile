@@ -270,12 +270,33 @@ class NotebookTab(gtk.EventBox):
 
 
 class NotebookPage(object):
+    """
+        Base class representing a page. Should never be used directly.
+
+        Subclasses will also need to inherit from gtk.VBox or some
+        other gtk widget, as Pages are generally directly added to the
+        Notebook.
+    """
     menu_provider_name = 'tab-context' #override this in subclasses
     def __init__(self):
         self.tab = None
         self.tab_menu = plmenu.ProviderMenu(self.menu_provider_name, self)
 
+    def get_name(self):
+        """
+            Returns the name of this tab. Should be overriden in subclasses.
+
+            Subclasses can also implement set_name(self, name) to allow
+            renaming, but this is not mandatory.
+        """
+        return "UNNAMED PAGE"
+
     def set_tab(self, tab):
+        """
+            Set the tab that holds this page.  This will be called directly
+            from the tab itself when it is created, and should not be used
+            outside of that.
+        """
         self.tab = tab
 
     def handle_close(self):
@@ -287,8 +308,6 @@ class NotebookPage(object):
         """
         raise NotImplementedError
 
-    def get_tab_menu_items(self):
-        return self.tab_menu_items
 
 # do this in a function to avoid polluting the global namespace
 def __create_playlist_tab_context_menu():
@@ -312,6 +331,10 @@ __create_playlist_tab_context_menu()
 
 class PlaylistContextMenu(plmenu.ProviderMenu):
     def __init__(self, page):
+        """
+            :param page: The :class:`PlaylistPage` this menu is
+                associated with.
+        """
         plmenu.ProviderMenu.__init__(self, 'playlist-context', page)
 
     def get_parent_context(self):
@@ -356,8 +379,8 @@ def __create_playlist_context_menu():
         lambda w, o, c: False))
     for item in items:
         providers.register('playlist-context', item)
-
 __create_playlist_context_menu()
+
 
 class PlaylistPage(gtk.VBox, NotebookPage):
     """
@@ -367,6 +390,10 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     menu_provider_name = 'playlist-tab-context'
 
     def __init__(self, playlist):
+        """
+            :param playlist: The :class:`xl.playlist.Playlist` to display
+                in this page.
+        """
         gtk.VBox.__init__(self)
         NotebookPage.__init__(self)
 
@@ -447,6 +474,10 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.playlist.clear()
 
     def get_selected_tracks(self):
+        """
+            Returns a list of :class:`xl.trax.Track` which are currently
+            slected in the playlist.
+        """
         selection = self.view.get_selection()
         model, paths = selection.get_selected_rows()
         tracks = [(path[0], model.get_track(path)) for path in paths]
@@ -487,6 +518,19 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
     def __show_toggle_menu(self, names, display_names, callback, attr,
             widget, event):
+        """
+            Display the menu on the shuffle/repeat toggle buttons
+
+            :param names: The list of names of the menu entries
+            :param display_names: The list of names to display on
+                each menu entry.
+            :param callback: The function to call when a menu item is
+                activated. It will be passed the name of the activated item.
+            :param attr: The attribute of self.playlist to look at to
+                determine the currently-selected item.
+            :param widget: The ToggleButton to display the menu on
+            :param event: The gtk event that triggered the menu display
+        """
         widget.set_active(True)
         menu = gtk.Menu()
         prev = None
@@ -501,13 +545,14 @@ class PlaylistPage(gtk.VBox, NotebookPage):
                 menu.append(gtk.SeparatorMenuItem())
             prev = item
         menu.show_all()
-        menu.popup(None, None, self.mode_menu_set_pos,
+        menu.popup(None, None, self._mode_menu_set_pos,
                 event.button, event.time, widget)
         menu.reposition()
 
-    def mode_menu_set_pos(self, menu, button):
+    def _mode_menu_set_pos(self, menu, button):
         """
-            Nicely position the shuffle/repeat popup menu with the button's corner
+            Nicely position the shuffle/repeat popup menu with the
+            button's corner.
         """
         w = self.window.get_position()
         b = button.get_allocation()
@@ -516,24 +561,39 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         return (pos[0], pos[1], True)
 
     def on_shuffle_mode_set(self, widget, mode):
+        """
+            Callback for the Shuffle mode menu
+        """
         self.playlist.shuffle_mode = mode
 
     def on_shuffle_mode_changed(self, evtype, playlist, mode):
+        """
+            Updates the UI to reflect changes in the shuffle mode
+        """
         if mode == 'disabled':
             self.shuffle_button.set_active(False)
         else:
             self.shuffle_button.set_active(True)
 
     def on_repeat_mode_set(self, widget, mode):
+        """
+            Callback for the Repeat mode menu
+        """
         self.playlist.repeat_mode = mode
 
     def on_repeat_mode_changed(self, evtype, playlist, mode):
+        """
+            Updates the UI to reflect changes in the repeat mode
+        """
         if mode == 'disabled':
             self.repeat_button.set_active(False)
         else:
             self.repeat_button.set_active(True)
 
     def on_row_changed(self, model, path, iter):
+        """
+            Sets the tab icon to reflect the playback status
+        """
         if path[0] == self.playlist.current_pos:
             pixbuf = model.get_value(iter, 0)
             if pixbuf == model.clear_pixbuf:
@@ -606,20 +666,28 @@ class PlaylistModel(gtk.GenericTreeModel):
                 "playback_player_resume")
 
         self.play_pixbuf = icons.ExtendedPixbuf(
-            icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PLAY))
+                icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PLAY))
         self.pause_pixbuf = icons.ExtendedPixbuf(
-            icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PAUSE))
+                icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PAUSE))
         self.stop_pixbuf = icons.ExtendedPixbuf(
-            icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP))
-        stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(8, 8, gtk.gdk.INTERP_BILINEAR)
-        stop_overlay_pixbuf = stop_overlay_pixbuf.move(offset_x=8, offset_y=8, resize=True)
+                icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP))
+        stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
+                8, 8, gtk.gdk.INTERP_BILINEAR)
+        stop_overlay_pixbuf = stop_overlay_pixbuf.move(
+                offset_x=8, offset_y=8, resize=True)
         self.play_stop_pixbuf = self.play_pixbuf & stop_overlay_pixbuf
         self.pause_stop_pixbuf = self.pause_pixbuf & stop_overlay_pixbuf
         self.clear_pixbuf = self.play_pixbuf.copy()
         self.clear_pixbuf.fill(0x00000000)
 
     def get_track(self, path):
+        """
+            Returns the Track object associated with the given path. Raises
+            IndexError if there is no such track.
+        """
         return self.playlist[path[0]]
+
+    ### API for GenericTreeModel ###
 
     def on_get_flags(self):
         return gtk.TREE_MODEL_LIST_ONLY
@@ -703,6 +771,9 @@ class PlaylistModel(gtk.GenericTreeModel):
     def on_iter_parent(self, child):
         return None
 
+
+    ### Event callbacks to keep the model in sync with the playlist ###
+
     def on_tracks_added(self, typ, playlist, tracktups):
         for idx, tr in tracktups:
             self.row_inserted((idx,), self.get_iter((idx,)))
@@ -740,7 +811,12 @@ class Playlist(object):
     repeat_mode_names = [_('Repeat Off'), _('Repeat All'), _('Repeat One')]
     dynamic_modes = ['disabled', 'enabled']
     dynamic_mode_names = [_('Dynamic Off'), _('Dynamic On')]
+    # TODO: how do we document properties/events in sphinx?
     """
+
+        PROPERTIES:
+            name: playlist name. read/write.
+
         EVENTS: (all events are synchronous)
             playlist_tracks_added
                 fired: after tracks are added
@@ -1027,7 +1103,7 @@ class Playlist(object):
     def load_from_location(self, location):
         # note - this is not guaranteed to fire events when it sets
         # attributes. It is intended ONLY for initial setup, not for
-        # realoding a playlist inline.
+        # reloading a playlist inline.
         f = None
         for loc in [location, location+".new"]:
             try:
@@ -1188,7 +1264,7 @@ class Playlist(object):
         self.__tracks.__delitem__(i)
         removed = []
         if isinstance(i, slice):
-            removed = zip(range(start, end, step), oldtracks)
+            removed = zip(xrange(start, end, step), oldtracks)
         else:
             removed = [(i, oldtracks)]
         curpos = self.current_pos

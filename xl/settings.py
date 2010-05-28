@@ -155,6 +155,9 @@ class SettingsManager(RawConfigParser):
         """
             Get the value of an option (in section/key syntax), returning
             default if the key does not exist yet.
+
+            :returns: the option value or default
+            :rtype: any
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]
@@ -169,10 +172,28 @@ class SettingsManager(RawConfigParser):
 
         return value
 
+    def has_option(self, option):
+        """
+            Returns information about the existence
+            of a particular option
+
+            :param option: the option path
+            :type option: string
+            :returns: whether the option exists or not
+            :rtype: bool
+        """
+        splitvals = option.split('/')
+        section, key = "/".join(splitvals[:-1]), splitvals[-1]
+
+        return RawConfigParser.has_option(self, section, key)
+
     def remove_option(self, option):
         """
             Removes an option (in section/key syntax),
             thus will not be saved anymore
+
+            :param option: the option path
+            :type option: string
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]
@@ -183,6 +204,11 @@ class SettingsManager(RawConfigParser):
         """
             Sets the option directly to the value,
             only for use in copying settings.
+
+            :param option: the option path
+            :type option: string
+            :param value: the value to set
+            :type value: any
         """
         splitvals = option.split('/')
         section, key = "/".join(splitvals[:-1]), splitvals[-1]

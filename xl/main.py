@@ -560,7 +560,7 @@ class Exaile(object):
 
         from xl import settings
 
-        settings._SETTINGSMANAGER.save()
+        settings.MANAGER.save()
 
         if restart:
             logger.info("Restarting...")

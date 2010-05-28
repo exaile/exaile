@@ -235,7 +235,7 @@ def migrate(force=False):
 
     _migrate_old_tracks(oldsettings, db, newdb)
     _migrate_old_settings(oldsettings)
-    settings._SETTINGSMANAGER.save()
+    settings.MANAGER.save()
 
     playlists = PlaylistManager()
 

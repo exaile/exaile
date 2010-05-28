@@ -858,7 +858,7 @@ class Playlist(object):
         for item in self.extra_save_items:
             val = getattr(self, item)
             try:
-                strn = settings._SETTINGSMANAGER._val_to_str(val)
+                strn = settings.MANAGER._val_to_str(val)
             except ValueError:
                 strn = ""
 
@@ -888,7 +888,7 @@ class Playlist(object):
             if line == "":
                 break
             item, strn = line[:-1].split("=",1)
-            val = settings._SETTINGSMANAGER._str_to_val(strn)
+            val = settings.MANAGER._str_to_val(strn)
             if hasattr(self, item):
                 setattr(self, item, val)
         f.close()
@@ -1098,7 +1098,7 @@ class SmartPlaylist(object):
         """
 
         params = [] # parameter list
-        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        maximum = settings.get_option('rating/maximum', 5)
         durations = {
             _('seconds'): lambda value: timedelta(seconds=value),
             _('minutes'): lambda value: timedelta(minutes=value),
@@ -1115,7 +1115,7 @@ class SmartPlaylist(object):
             s = ""
 
             if field == '__rating':
-                value = float((100.0*value)/steps)
+                value = float((100.0*value)/maximum)
             elif field in ('__date_added', '__last_played'):
                 duration, unit = value
                 delta = durations[unit](duration)

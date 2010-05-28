@@ -92,7 +92,7 @@ class PlaylistNotebook(gtk.Notebook):
 
     def create_tab_from_playlist(self, playlist):
         """
-            Create a tab that will contain the passed-in playlis
+            Create a tab that will contain the passed-in playlist
 
             :param playlist: The playlist to create tab from
             :type playlist: :class:`xl.playlist.Playlist`
@@ -1013,7 +1013,7 @@ class Playlist(object):
         for item in self.save_attrs:
             val = getattr(self, item)
             try:
-                strn = settings._SETTINGSMANAGER._val_to_str(val)
+                strn = settings.MANAGER._val_to_str(val)
             except ValueError:
                 strn = ""
 
@@ -1049,7 +1049,7 @@ class Playlist(object):
             if line == "":
                 break
             item, strn = line[:-1].split("=",1)
-            val = settings._SETTINGSMANAGER._str_to_val(strn)
+            val = settings.MANAGER._str_to_val(strn)
             items[item] = val
 
         ver = items.get("__playlist_format_version", [1])

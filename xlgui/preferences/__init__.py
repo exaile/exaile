@@ -39,7 +39,7 @@ import urllib2
 
 from xl import xdg
 from xl.nls import gettext as _
-from xl.settings import _SETTINGSMANAGER
+from xl.settings import MANAGER
 from xlgui.preferences.widgets import *
 from xlgui.preferences import (
     appearance,
@@ -70,7 +70,7 @@ class PreferencesDialog(object):
         self.last_child = None
         self.last_page = None
         self.parent = parent
-        self.settings = _SETTINGSMANAGER
+        self.settings = MANAGER
         self.plugins = self.main.exaile.plugins.list_installed_plugins()
         self.fields = {}
         self.panes = {}
@@ -162,7 +162,7 @@ class PreferencesDialog(object):
         """
             Called when the user clicks 'ok'
         """
-        self.settings.copy_settings(_SETTINGSMANAGER)
+        self.settings.copy_settings(MANAGER)
         self.close()
 
     def close(self):

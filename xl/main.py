@@ -145,6 +145,10 @@ class Exaile(object):
                 common.log_exception(log=logger,
                         message=_("Failed to migrate from 0.2.14"))
 
+        # Migrate old rating options
+        from xl.migrations.settings import rating
+        rating.migrate()
+
         # Initialize plugin manager
         if not self.options.SafeMode:
             from xl import plugins

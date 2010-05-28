@@ -213,8 +213,8 @@ class Playlist(gtk.VBox):
 
     def set_rating(self, widget, rating):
         trs = self.get_selected_tracks()
-        steps = settings.get_option('miscellaneous/rating_steps', 5)
-        r = float((100.0*rating)/steps)
+        maximum = settings.get_option('rating/maximum', 5)
+        r = float((100.0*rating)/maximum)
         for track in trs:
             track.set_rating(rating)
         event.log_event('rating_changed', self, r)
@@ -480,7 +480,7 @@ class Playlist(gtk.VBox):
         if rating == 0:
             return 0 # if first song has 0 as a rating, we know the final result
 
-        if len(paths) > settings.get_option('miscellaneous/rating_widget_tracks_limit', 100):
+        if len(paths) > settings.get_option('rating/tracks_limit', 100):
             return 0 # too many tracks, skipping
 
         for path in paths:
@@ -1155,7 +1155,7 @@ class Playlist(gtk.VBox):
             rating = 0
 
         track.set_rating(rating)
-        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        maximum = settings.get_option('rating/maximum', 5)
         event.log_event('rating_changed', self, rating / maximum * 100)
 
 class ConfirmCloseDialog(gtk.MessageDialog):

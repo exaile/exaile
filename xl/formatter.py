@@ -581,11 +581,6 @@ class RatingTagFormatter(TagFormatter):
     def __init__(self):
         TagFormatter.__init__(self, '__rating')
 
-        self._rating_steps = 5
-        self.on_option_set('option_set', settings,
-            'miscellaneous/rating_steps')
-        event.add_callback(self.on_option_set, 'miscellaneous_option_set')
-
     def format(self, track, parameters):
         """
             Formats a raw tag value
@@ -597,25 +592,13 @@ class RatingTagFormatter(TagFormatter):
             :returns: the formatted value
             :rtype: string
         """
-        value = track.get_tag_raw(self.name)
+        rating = track.get_rating()
+        maximum = settings.get_option('rating/maximum', 5)
 
-        try:
-            value = float(value) / 100
-        except TypeError:
-            value = 0
-
-        value *= self._rating_steps
-        filled = '★' * int(value)
-        empty = '☆' * int(self._rating_steps - value)
+        filled = '★' * int(rating)
+        empty = '☆' * int(maximum - rating)
 
         return ('%s%s' % (filled, empty)).decode('utf-8')
-
-    def on_option_set(self, event, settings, option):
-        """
-            Updates the internal rating steps value
-        """
-        if option == 'miscellaneous/rating_steps':
-            self._rating_steps = settings.get_option(option, 5)
 
 providers.register('tag_formatting', RatingTagFormatter())
 

@@ -116,7 +116,7 @@ class RatingMenuItem(MenuItem):
 
     @staticmethod
     def _event_to_r(widget, event, image):
-        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        maximum = settings.get_option('rating/maximum', 5)
         (x, y) = event.get_coords()
         try:
             (u, v) =  widget.translate_coordinates(image, int(x), int(y))
@@ -124,7 +124,7 @@ class RatingMenuItem(MenuItem):
             return
 
         # Determine which star the cursor is over and return its index
-        if 0 <= u < steps*12:
+        if 0 <= u < maximum*12:
             r = (u / 12) + 1
         else:
             r = 0

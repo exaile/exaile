@@ -75,7 +75,7 @@ class SpinSecondsField(SpinLabelField):
 class SpinRating(SpinLabelField):
     def __init__(self):
         SpinLabelField.__init__(self, '', 
-                settings.get_option("miscellaneous/rating_steps", 5), 0)
+                settings.get_option("rating/maximum", 5), 0)
 
 class SpinNothing(SpinLabelField):
     def __init__(self):
@@ -266,9 +266,10 @@ class BasePlaylistPanelMixin(gobject.GObject):
 
     def set_rating(self, widget, rating):
         tracks = self.get_selected_tracks()
-        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        maximum = settings.get_option('rating/maximum', 5)
         for track in tracks:
-            track['__rating'] = float((100.0*rating)/steps)
+            # FIXME: WTF?
+            track['__rating'] = float((100.0*rating)/maximum)
 
     def open_item(self, tree, path, col):
         """

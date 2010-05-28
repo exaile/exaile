@@ -977,7 +977,7 @@ class MenuRatingWidget(gtk.MenuItem):
         @param: _get_tracks_rating is a function that should return an int
            representing the rating of the tracks which are meant to be linked to
            this widget. Should return 0 if two tracks have a different rating or
-           if it contains over miscellaneous/rating_widget_tracks_limit tracks.
+           if it contains over rating/tracks_limit tracks.
            Default limit: 100
     """
 
@@ -1004,7 +1004,7 @@ class MenuRatingWidget(gtk.MenuItem):
         event.add_callback(self.on_rating_change, 'rating_changed')
 
     def _motion_notify(self, widget, e):
-        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        maximum = settings.get_option('rating/maximum', 5)
         (x, y) = e.get_coords()
         try:
             (u, v) =  self.translate_coordinates(self.image, int(x), int(y))
@@ -1012,7 +1012,7 @@ class MenuRatingWidget(gtk.MenuItem):
 
         if -12 <= u < 0:
             r = 0
-        elif 0 <= u < steps*12:
+        elif 0 <= u < maximum*12:
             r = (u / 12) + 1
         else:
             r = -1
@@ -1040,12 +1040,12 @@ class MenuRatingWidget(gtk.MenuItem):
 
         trs = self._get_tracks()
         if trs and trs[0]:
-            steps = settings.get_option('miscellaneous/rating_steps', 5)
+            maximum = settings.get_option('rating/maximum', 5)
             (x, y) = e.get_coords()
             (u, v) =  self.translate_coordinates(self.image, int(x), int(y))
             if -12 <= u < 0:
                 r = 0
-            elif 0 <= u < steps*12:
+            elif 0 <= u < maximum*12:
                 r = (u / 12) + 1
             else:
                 r = -1

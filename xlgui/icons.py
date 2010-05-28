@@ -314,7 +314,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
                 offset_x=0, offset_y=0,
                 scale_x=1, scale_y=1,
                 interp_type=gtk.gdk.INTERP_BILINEAR,
-                overall_alpha=255 # Alpha needs to be embedded
+                # Alpha needs to be embedded in the pixbufs
+                overall_alpha=255
             )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -452,8 +453,7 @@ class IconManager(object):
         self.rating_pixbufs = []
         self._generate_rating_pixbufs()
 
-        event.add_callback(self.on_option_set,
-            'on_miscellaneous_option_set')
+        event.add_callback(self.on_option_set, 'rating_option_set')
 
     def add_icon_name_from_directory(self, icon_name, directory):
         """
@@ -771,7 +771,7 @@ class IconManager(object):
             Generates the pixbufs for
             the various rating stages
         """
-        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        maximum = settings.get_option('rating/maximum', 5)
         width = self.rating_active_pixbuf.get_width()
         height = self.rating_active_pixbuf.get_height()
 
@@ -788,7 +788,7 @@ class IconManager(object):
         """
             Regenerates the rating pixbufs
         """
-        if option == 'miscellaneous/rating_steps':
+        if option == 'rating/maximum':
             self._generate_rating_pixbufs()
 
 MANAGER = IconManager()

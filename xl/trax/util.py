@@ -25,7 +25,7 @@
 # from your version.
 
 import gio
-from xl import metadata
+from xl import metadata, settings
 from xl.trax.track import Track
 
 
@@ -97,3 +97,23 @@ def sort_result_tracks(fields, trackiter, reverse=False):
         artist_compilations=artist_compilations) for field in fields]
     return sorted(trackiter, key=keyfunc, reverse=reverse)
 
+def get_rating_from_tracks(tracks):
+    """
+        Returns the common rating for all tracks or
+        simply 0 if not all tracks have the same
+        rating. Same goes if the amount of tracks
+        is 0 or more than the internal limit.
+
+        :param tracks: an iterable containing objects
+            of type :class:`xl.trax.Track`
+    """
+    if 0 < len(tracks) <= settings.get_option('rating/track_limit', 100):
+        return 0
+
+    rating = tracks[0].get_rating()
+
+    for track in tracks:
+        if track.get_rating() != rating:
+            return 0
+
+    return rating

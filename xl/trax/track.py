@@ -655,17 +655,17 @@ class Track(object):
     def get_rating(self):
         """
             Returns the current track rating as an integer, as
-            determined by the ``miscellaneous/rating_steps`` setting.
+            determined by the ``rating/maximum`` setting.
         """
         try:
             rating = float(self.get_tag_raw('__rating'))
         except (TypeError, KeyError, ValueError):
             return 0
 
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-        rating = int(round(rating*float(steps)/100.0))
+        maximum = settings.get_option("rating/maximum", 5)
+        rating = int(round(rating*float(maximum)/100.0))
 
-        if rating > steps: return int(steps)
+        if rating > maximum: return int(maximum)
         elif rating < 0: return 0
 
         return rating
@@ -673,13 +673,13 @@ class Track(object):
     def set_rating(self, rating):
         """
             Sets the current track rating from an integer, on the
-            scale determined by the ``miscellaneous/rating_steps`` setting.
+            scale determined by the ``rating/maximum`` setting.
         """
         rating = float(rating)
-        steps = float(settings.get_option("miscellaneous/rating_steps", 5))
-        rating = min(rating, steps)
+        maximum = float(settings.get_option("rating/maximum", 5))
+        rating = min(rating, maximum)
         rating = max(0, rating)
-        rating = float(rating * 100.0 / steps)
+        rating = float(rating * 100.0 / maximum)
         self.set_tag_raw('__rating', rating)
 
     ### Special functions for wrangling tag values ###

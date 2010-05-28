@@ -165,7 +165,7 @@ class RatingColumn(Column):
             rating = 0
 
         track.set_rating(rating)
-        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        maximum = settings.get_option('rating/maximum', 5)
         event.log_event('rating_changed', self, rating / maximum * 100)
 
 class DateColumn(Column):

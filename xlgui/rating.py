@@ -31,8 +31,8 @@ import pango
 
 from xl import settings, xdg
 
-steps = settings.get_option('miscellaneous/rating_steps', 5)
-_rating_width = 12 * steps
+maximum = settings.get_option('rating/maximum', 5)
+_rating_width = 12 * maximum
 
 # creates the rating images for the caller
 def create_rating_images(rating_width):
@@ -41,8 +41,8 @@ def create_rating_images(rating_width):
     """
     if rating_width != 0:
         rating_images = []
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-        icon_size = rating_width / steps
+        maximum = settings.get_option("rating/maximum", 5)
+        icon_size = rating_width / maximum
 
         icon = gtk.gdk.pixbuf_new_from_file_at_size(
             xdg.get_data_path('images/star.png'), icon_size, icon_size)
@@ -52,8 +52,8 @@ def create_rating_images(rating_width):
         icons_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8,
             rating_width, icon_size)
         icons_image.fill(0xffffff00) # transparent white
-        for x in range(0, steps + 1):
-            for y in range(0, steps):
+        for x in range(0, maximum + 1):
+            for y in range(0, maximum):
                 if y < x:
                     icon.copy_area(0, 0, icon_size, icon_size, icons_image, icon_size * y, 0)
                 else:
@@ -66,8 +66,8 @@ def create_rating_images(rating_width):
         return rating_images
 
 def set_rating(tracks, new_rating):
-    steps = settings.get_option('miscellaneous/rating_steps', 5)
+    maximum = settings.get_option('rating/maximum', 5)
     for track in tracks:
-        track['__rating'] = float((100.0*rating)/steps)
+        track['__rating'] = float((100.0*rating)/maximum)
 
 rating_images = create_rating_images(_rating_width)

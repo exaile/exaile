@@ -595,10 +595,10 @@ class ContextPage(object):
         html=''
         star = xdg.get_data_path("images", "star.png")
         bstar = xdg.get_data_path("images", "brightstar.png")
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
+        maximum = settings.get_option("rating/maximum", 5)
         for i in range(rating):
             html+='<a href="rate://%d"><img src="file://%s"/></a>' % (i+1, star)
-        for i in range(steps-rating):
+        for i in range(maximum-rating):
             html+='<a href="rate://%d"><img src="file://%s"/></a>' % (rating+i+1, bstar)
         return html
 

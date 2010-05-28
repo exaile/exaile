@@ -559,6 +559,8 @@ class RatingWidget(rating.RatingWidget):
         """
         if self.player.current is not None:
             self.player.current.set_rating(rating)
+            maximum = settings.get_option('rating/maximum', 5)
+            event.log_event('rating_changed', self, rating / maximum * 100)
 
 class TrackSelector(gtk.ComboBox):
     """

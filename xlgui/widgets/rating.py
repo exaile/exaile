@@ -115,8 +115,7 @@ class RatingWidget(gtk.EventBox):
             if value == self._rating:
                 value = 0
             else:
-                maximum = settings.get_option('miscellaneous/rating_steps', 5)
-                value = min(value, maximum)
+                value = min(value, settings.get_option('rating/maximum', 5))
 
             self._rating = value
             self._image.set_from_pixbuf(
@@ -150,7 +149,7 @@ class RatingWidget(gtk.EventBox):
             Temporarily updates the displayed rating
         """
         allocation = self.get_allocation()
-        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        maximum = settings.get_option('rating/maximum', 5)
         pixbuf_width = self._image.get_pixbuf().get_width()
         # Activate pixbuf if half of it has been passed
         threshold = (pixbuf_width / maximum) / 2
@@ -172,7 +171,7 @@ class RatingWidget(gtk.EventBox):
             Applies the selected rating
         """
         allocation = self.get_allocation()
-        maximum = settings.get_option('miscellaneous/rating_steps', 5)
+        maximum = settings.get_option('rating/maximum', 5)
         pixbuf_width = self._image.get_pixbuf().get_width()
         # Activate pixbuf if half of it has been passed
         threshold = (pixbuf_width / maximum) / 2
@@ -394,7 +393,7 @@ class RatingCellRenderer(gtk.CellRendererPixbuf):
         if 0 <= event.x <= click_area.width and \
            0 <= event.y <= click_area.height:
             fraction = event.x / click_area.width
-            maximum = settings.get_option('miscellaneous/rating_steps', 5)
+            maximum = settings.get_option('rating/maximum', 5)
             rating = fraction * maximum + 1
             self.emit('rating-changed', (int(path),), rating)
 

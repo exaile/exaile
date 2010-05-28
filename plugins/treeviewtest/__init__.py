@@ -92,7 +92,10 @@ class PlaylistNotebook(gtk.Notebook):
 
     def create_tab_from_playlist(self, playlist):
         """
-            Create a tab that will contain the passed-in playlist
+            Create a tab that will contain the passed-in playlis
+
+            :param playlist: The playlist to create tab from
+            :type playlist: :class:`xl.playlist.Playlist`
         """
         page = PlaylistPage(playlist)
         tab = NotebookTab(self, page)
@@ -179,6 +182,12 @@ class NotebookTab(gtk.EventBox):
         self.show_all()
 
     def set_icon(self, pixbuf):
+        """
+            Set the primary icon for the tab.
+
+            :param pixbuf: The icon to use, or None to hide
+            :type pixbuf: :class:`gtk.gdk.Pixbuf`
+        """
         if pixbuf is None:
             self.icon.set_property("visible", False)
         else:
@@ -187,7 +196,9 @@ class NotebookTab(gtk.EventBox):
 
     def on_button_press(self, widget, event):
         """
-            Triggers renaming, closing and menu of tabs
+            Handles mouse button events on the tab.
+
+            Typically triggers renaming, closing and menu.
         """
         if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
             self.start_rename()
@@ -200,21 +211,21 @@ class NotebookTab(gtk.EventBox):
 
     def on_entry_activate(self, entry):
         """
-            Triggers rename of the current playlist tab
+            Handles end of editing and triggers the actual rename.
         """
         self.entry.props.editing_canceled = False
         self.end_rename()
 
     def on_entry_focus_out_event(self, widget, event):
         """
-            Activates the entry
+            Make defocusing the rename box equivalent to activating it.
         """
         if not self.entry.props.editing_canceled:
             widget.activate()
 
     def on_entry_key_press_event(self, widget, event):
         """
-            Cancels the editing if requested
+            Cancel rename if Escape is pressed
         """
         if event.keyval == gtk.keysyms.Escape:
             self.entry.props.editing_canceled = True
@@ -223,7 +234,7 @@ class NotebookTab(gtk.EventBox):
 
     def start_rename(self):
         """
-            Initiates the renaming of a playlist tab
+            Initiates the renaming of a tab, if the page supports this.
         """
         if not self.can_rename():
             return

@@ -316,14 +316,14 @@ class TrackDB(object):
         """
             Adds a track to the database of tracks
 
-            :param track: The :class:`xl.track.Track` to add
+            :param track: The :class:`xl.trax.Track` to add
         """
         self.add_tracks([track])
 
     @common.synchronized
     def add_tracks(self, tracks):
         """
-            Like add(), but takes a list of :class:`xl.track.Track`
+            Like add(), but takes a list of :class:`xl.trax.Track`
         """
         locations = []
 
@@ -341,14 +341,14 @@ class TrackDB(object):
         """
             Removes a track from the database
 
-            :param track: the :class:`xl.track.Track` to remove
+            :param track: the :class:`xl.trax.Track` to remove
         """
         self.remove_tracks([track])
 
     @common.synchronized
     def remove_tracks(self, tracks):
         """
-            Like remove(), but takes a list of :class:`xl.track.Track`
+            Like remove(), but takes a list of :class:`xl.trax.Track`
         """
         locations = []
 

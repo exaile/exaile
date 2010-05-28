@@ -83,9 +83,8 @@ class CoverManager(object):
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)
 
-        width = settings.get_option('gui/cover_width', 100)
         self.nocover = icons.MANAGER.pixbuf_from_data(
-            cover_manager.get_default_cover(), (width, width))
+            cover_manager.get_default_cover(), (80, 80))
 
         self._connect_events()
         self.window.show_all()
@@ -151,7 +150,7 @@ class CoverManager(object):
 
         width = settings.get_option('gui/cover_width', 100)
         pixbuf = icons.MANAGER.pixbuf_from_data(
-            cover_data[1], (width, width))
+            cover_data, (width, width))
         self.covers[item] = pixbuf
         row[1] = pixbuf
 

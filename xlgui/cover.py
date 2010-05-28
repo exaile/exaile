@@ -396,6 +396,9 @@ class CoverWidget(gtk.EventBox):
         """
             Shows the current cover
         """
+        if not self.get_data('cover-set'):
+            return
+
         cover_data = cover_manager.get_cover(self.player.current)
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
 
@@ -427,6 +430,7 @@ class CoverWidget(gtk.EventBox):
             cover_manager.get_default_cover())
         self.image.set_from_pixbuf(pixbuf)
         self.set_drag_enabled(False)
+        self.set_data('cover-set', False)
 
         self.emit('cover-found', None)
 
@@ -481,6 +485,7 @@ class CoverWidget(gtk.EventBox):
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, (width, width))
         self.image.set_from_pixbuf(pixbuf)
         self.set_drag_enabled(True)
+        self.set_data('cover-set', True)
 
         self.emit('cover-found', pixbuf)
 

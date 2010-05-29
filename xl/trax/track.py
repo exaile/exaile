@@ -136,6 +136,11 @@ class Track(object):
             if there is already a Track for a given uri, we just return
             that Track instance instead of creating a new one.
         """
+        # subclassing interferes with the one-track-per-uri scheme and
+        # with save and restore of tracks, so we disallow it.
+        if cls != Track:
+            raise TypeError, "Track cannot be subclassed!"
+
         uri = None
         if len(args) > 0:
             uri = args[0]

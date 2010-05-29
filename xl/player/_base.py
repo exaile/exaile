@@ -130,7 +130,7 @@ class ExailePlayer(object):
         else:
             self.pause()
 
-        event.log_event("playback_toggle_pause", self, self.current)
+        event.log_event_sync("playback_toggle_pause", self, self.current)
 
     def seek(self, value):
         raise NotImplementedError
@@ -221,11 +221,11 @@ class ExailePlayer(object):
         """
             Called when there is an error during playback
         """
-        event.log_event('playback_error', self, message, async=False)
+        event.log_event_sync('playback_error', self, message, async=False)
         self.stop()
 
     def tag_func(self, *args):
-        event.log_event('tags_parsed', self, (self.current, args[0]))
+        event.log_event_sync('tags_parsed', self, (self.current, args[0]))
 
     @staticmethod
     def parse_stream_tags(track, tags):

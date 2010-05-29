@@ -120,14 +120,14 @@ class NormalPlayer(_base.ExailePlayer):
             self._current = None
             self.playbin.set_state(gst.STATE_NULL)
             self.setup_pipe()
-            event.log_event("playback_track_end", self, curr)
-            event.log_event("playback_player_end", self, curr)
+            event.log_event_sync("playback_track_end", self, curr)
+            event.log_event_sync("playback_player_end", self, curr)
         elif message.type == gst.MESSAGE_BUFFERING:
             percent = message.parse_buffering()
             if not percent < 100:
                 logger.info('Buffering complete')
             if percent % 5 == 0:
-                event.log_event('playback_buffering', self, percent)
+                event.log_event_sync('playback_buffering', self, percent)
         #elif message.type not in (gst.MESSAGE_STATE_CHANGED,):
         #    logger.debug("GSTREAMER: " + repr(message))
         return True
@@ -210,8 +210,8 @@ class NormalPlayer(_base.ExailePlayer):
 
         self.playbin.set_state(gst.STATE_PLAYING)
         if not playing:
-            event.log_event('playback_player_start', self, track)
-        event.log_event('playback_track_start', self, track)
+            event.log_event_sync('playback_player_start', self, track)
+        event.log_event_sync('playback_track_start', self, track)
 
         return True
 
@@ -226,9 +226,9 @@ class NormalPlayer(_base.ExailePlayer):
             if not onlyfire:
                 self.playbin.set_state(gst.STATE_NULL)
             self._current = None
-            event.log_event('playback_track_end', self, current)
+            event.log_event_sync('playback_track_end', self, current)
             if fire:
-                event.log_event('playback_player_end', self, current)
+                event.log_event_sync('playback_player_end', self, current)
             return True
         return False
 
@@ -240,7 +240,7 @@ class NormalPlayer(_base.ExailePlayer):
             self.update_playtime()
             self.playbin.set_state(gst.STATE_PAUSED)
             self.reset_playtime_stamp()
-            event.log_event('playback_player_pause', self, self.current)
+            event.log_event_sync('playback_player_pause', self, self.current)
             return True
         return False
 
@@ -258,7 +258,7 @@ class NormalPlayer(_base.ExailePlayer):
                 self.playbin.set_state(gst.STATE_READY)
 
             self.playbin.set_state(gst.STATE_PLAYING)
-            event.log_event('playback_player_resume', self, self.current)
+            event.log_event_sync('playback_player_resume', self, self.current)
             return True
         return False
 

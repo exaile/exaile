@@ -1,6 +1,6 @@
 
 import logging
-import glib
+import gobject
 from xl import collection, event, settings
 import spydaap.parser.exaile
 
@@ -49,6 +49,7 @@ class CollectionWrapper:
 from server import DaapServer
 
 ds = None
+
 def _enable(exaile):
     # real enable
     global ds
@@ -63,11 +64,9 @@ def _enable(exaile):
     ds = DaapServer(CollectionWrapper(exaile.collection), port=port, name=name, host=host)
     if( settings.get_option('plugin/daapserver/enabled', True) ):
         ds.start()
-    
-    
 
 def __enb(evname, exaile, wat):
-    glib.idle_add(_enable, exaile)
+    gobject.idle_add(_enable, exaile)
 
 
 def enable(exaile):

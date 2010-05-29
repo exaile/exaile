@@ -15,23 +15,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from daap import DAAPClient, DAAPError
-import glib
-import gobject
+import os
 import gtk
 import dbus
 import dbus.exceptions
 import logging
-import os
-import threading
 import time
-
-from xl import collection, event, trax, common
-from xl.nls import gettext as _
+import threading
+import gobject
 import xlgui
+from gettext import gettext as _
+from xl import collection, event, trax, common
 from xlgui.panel.collection import CollectionPanel
-from xlgui import guiutil
-from xlgui.widgets import dialogs
+from xlgui import guiutil, commondialogs
+from daap import DAAPClient, DAAPError
 
 logger = logging.getLogger(__name__)
 gobject.threads_init()
@@ -127,7 +124,7 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
             This function is called in response to a menu_item click.
         Fire away.
         '''
-        glib.idle_add(self.emit, "connect", (name,)+self.services[name])
+        gobject.idle_add(self.emit, "connect", (name,)+self.services[name])
 
     def __init__(self, exaile, menu):
         """
@@ -207,7 +204,7 @@ class DaapManager:
         connection option from the menu.  It requests a host/ip to connect
         to.
         '''
-        dialog = dialogs.TextEntryDialog(
+        dialog = commondialogs.TextEntryDialog(
             _("Enter IP address and port for share"),
             _("Enter IP address and port."))
         resp = dialog.run()
@@ -225,6 +222,20 @@ class DaapManager:
             conn = DaapConnection(loc, address, port)
             self.connect_share(None, (loc, address, port))
 
+    def refresh_share(self, name):
+        panel = self.panels[name]
+        rev = panel.daap_share.session.revision
+        
+        # check for changes
+        panel.daap_share.session.update()
+        logger.debug('DAAP Server %s returned revision %d ( old: %d ) after update request'
+                % (name, panel.daap_share.session.revision, rev))
+        
+        # if changes, refresh
+        if rev != panel.daap_share.session.revision:
+            logger.info('DAAP Server %s changed, refreshing... (revision %d)' 
+                % (name, panel.daap_share.session.revision))
+            panel.refresh()
 
     def close(self, remove=False):
         '''
@@ -347,19 +358,19 @@ class DaapConnection(object):
                     try:
                         tag = u'%s'%tr.atom.getAtom(eqiv[field])
                         if tag != 'None':
-                            temp.set_tag_raw(field, [tag])
+                            temp.set_tag_raw(field, [tag], notify_changed=False)
 
                     except:
                         if field is 'tracknumber':
-                            temp.set_tag_raw('tracknumber', [0])
+                            temp.set_tag_raw('tracknumber', [0], notify_changed=False)
 #                        traceback.print_exc(file=sys.stdout)
 
 
                 #TODO: convert year (asyr) here as well, what's the formula?
                 try:
-                    temp.set_tag_raw("__length", tr.atom.getAtom('astm') / 1000)
+                    temp.set_tag_raw("__length", tr.atom.getAtom('astm') / 1000, notify_changed=False)
                 except:
-                    temp.set_tag_raw("__length", 0)
+                    temp.set_tag_raw("__length", 0, notify_changed=False)
 
                 self.all.append(temp)
 
@@ -423,7 +434,7 @@ class DaapLibrary(collection.Library):
             event.log_event('tracks_scanned', self, count)
 
         # track removal?
-#        self.scanning = False
+        self.scanning = False
         #return True
 
     # Needed to be overriden for who knows why (exceptions)
@@ -454,8 +465,15 @@ class NetworkPanel(CollectionPanel):
 
         self.connect_id = None
 
+        # Remove the local collection specific menu entries
+        kids = self.menu.get_children()
+        self.menu.remove(kids[-1])
+        self.menu.remove(kids[-2])
+        self.menu.remove(kids[-3])
+
         # Throw a menu entry on the context menu that can disconnect the DAAP share
-        self.menu.append(_("Disconnect"), lambda x, y: mgr.disconnect_share(self.name))
+        self.menu.append(_("Refresh Server List"), lambda x, y: mgr.refresh_share(self.name))
+        self.menu.append(_("Disconnect from Server"), lambda x, y: mgr.disconnect_share(self.name))
 
     @common.threaded
     def refresh(self):
@@ -465,7 +483,7 @@ class NetworkPanel(CollectionPanel):
         # Since we don't use a ProgressManager/Thingy, we have to call these w/out
         #  a ScanThread
         self.net_collection.rescan_libraries()
-        glib.idle_add(self.load_tree)
+        gobject.idle_add(self._refresh_tags_in_tree)
 
 
     def save_selected(self, widget=None, event=None):
@@ -508,7 +526,7 @@ def enable(exaile):
         __enb(None, exaile, None)
 
 def __enb(eventname, exaile, wat):
-    glib.idle_add(_enable, exaile)
+    gobject.idle_add(_enable, exaile)
 
 def _enable(exaile):
     global MENU_ITEM, MANAGER

@@ -862,7 +862,7 @@ class Playlist(object):
     def _set_name(self, name):
         self.__name = name
         self.__needs_save = self.__dirty = True
-        event.log_event_sync("playlist_name_changed", self, name)
+        event.log_event("playlist_name_changed", self, name)
 
     name = property(lambda self: self.__name, _set_name)
     dirty = property(lambda self: self.__dirty)
@@ -877,7 +877,7 @@ class Playlist(object):
         oldpos = self.__current_pos
         self.__current_pos = pos
         self.__dirty = True
-        event.log_event_sync("playlist_current_pos_changed", self, (pos, oldpos))
+        event.log_event("playlist_current_pos_changed", self, (pos, oldpos))
 
     current_pos = property(get_current_pos, set_current_pos)
 
@@ -888,7 +888,7 @@ class Playlist(object):
         oldpos = self.__spat_pos
         self.__spat_pos = pos
         self.__dirty = True
-        event.log_event_sync("playlist_spat_pos_changed", self, (pos, oldpos))
+        event.log_event("playlist_spat_pos_changed", self, (pos, oldpos))
 
     spat_pos = property(get_spat_pos, set_spat_pos)
 
@@ -1015,7 +1015,7 @@ class Playlist(object):
                 self.__tracks_history = []
             self.__dirty = True
             self.__shuffle_mode = mode
-            event.log_event_sync("playlist_shuffle_mode_changed", self, mode)
+            event.log_event("playlist_shuffle_mode_changed", self, mode)
 
     shuffle_mode = property(get_shuffle_mode, set_shuffle_mode)
 
@@ -1031,7 +1031,7 @@ class Playlist(object):
         else:
             self.__dirty = True
             self.__repeat_mode = mode
-            event.log_event_sync("playlist_repeat_mode_changed", self, mode)
+            event.log_event("playlist_repeat_mode_changed", self, mode)
 
     repeat_mode = property(get_repeat_mode, set_repeat_mode)
 
@@ -1047,7 +1047,7 @@ class Playlist(object):
         else:
             self.__dirty = True
             self.__dynamic_mode = mode
-            event.log_event_sync("dynamic_repeat_mode_changed", self, mode)
+            event.log_event("dynamic_repeat_mode_changed", self, mode)
 
     dynamic_mode = property(get_dynamic_mode, set_dynamic_mode)
 
@@ -1253,8 +1253,8 @@ class Playlist(object):
                 spatpos += 1
         self.spat_pos = spatpos
         self.current_pos = curpos
-        event.log_event_sync('playlist_tracks_removed', self, removed)
-        event.log_event_sync('playlist_tracks_added', self, added)
+        event.log_event('playlist_tracks_removed', self, removed)
+        event.log_event('playlist_tracks_added', self, added)
         self.__needs_save = self.__dirty = True
 
     def __delitem__(self, i):
@@ -1276,7 +1276,7 @@ class Playlist(object):
                 spatpos -= 1
         self.spat_pos = spatpos
         self.current_pos = curpos
-        event.log_event_sync('playlist_tracks_removed', self, removed)
+        event.log_event('playlist_tracks_removed', self, removed)
         self.__needs_save = self.__dirty = True
 
     def append(self, other):

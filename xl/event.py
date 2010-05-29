@@ -31,12 +31,7 @@ Provides a signals-like system for sending and listening for 'events'
 Events are kind of like signals, except they may be listened for on a
 global scale, rather than connected on a per-object basis like signals
 are. This means that ANY object can emit ANY event, and these events may
-be listened for by ANY object. Events may be emitted either syncronously
-or asyncronously, the default is asyncronous.
-
-The events module also provides an idle_add() function similar to that of
-glib. However this should not be used for long-running tasks as they
-may block other events queued via idle_add().
+be listened for by ANY object.
 
 Events should be emitted AFTER the given event has taken place. Often the
 most appropriate spot is immediately before a return statement.
@@ -67,25 +62,17 @@ class Nothing(object):
 
 _NONE = Nothing() # used by event for a safe None replacement
 
-def log_event(type, obj, data, async=True):
+def log_event(type, obj, data):
     """
         Sends an event.
 
         type: the 'type' or 'name' of the event. [string]
         obj: the object sending the event. [object]
         data: some data about the event, None if not required [object]
-        async: whether or not to emit asyncronously. [bool]
     """
     global EVENT_MANAGER
     e = Event(type, obj, data, time.time())
-    if async:
-        EVENT_MANAGER.emit_async(e)
-    else:
-        EVENT_MANAGER.emit(e)
-
-def log_event_sync(type, obj, data, async=False):
-    # same as log_event, but defaults to synchronous
-    log_event(type, obj, data, async)
+    EVENT_MANAGER.emit(e)
 
 def add_callback(function, type=None, obj=None, *args, **kwargs):
     """

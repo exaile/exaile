@@ -672,9 +672,13 @@ class PlaylistModel(gtk.GenericTreeModel):
         self.stop_pixbuf = icons.ExtendedPixbuf(
                 icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP))
         stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
-                8, 8, gtk.gdk.INTERP_BILINEAR)
+                dest_width=self.stop_pixbuf.get_width() / 2,
+                dest_height=self.stop_pixbuf.get_height() / 2,
+                interp_type=gtk.gdk.INTERP_BILINEAR)
         stop_overlay_pixbuf = stop_overlay_pixbuf.move(
-                offset_x=8, offset_y=8, resize=True)
+                offset_x=stop_overlay_pixbuf.get_width(),
+                offset_y=stop_overlay_pixbuf.get_height(),
+                resize=True)
         self.play_stop_pixbuf = self.play_pixbuf & stop_overlay_pixbuf
         self.pause_stop_pixbuf = self.pause_pixbuf & stop_overlay_pixbuf
         self.clear_pixbuf = self.play_pixbuf.copy()

@@ -18,7 +18,7 @@ import BaseHTTPServer, SocketServer, getopt, grp, httplib, logging, os, pwd, sel
 import spydaap.daap, spydaap.metadata, spydaap.containers, spydaap.cache, spydaap.server, spydaap.zeroconf
 from spydaap.daap import do
 from threading import Thread
-from xl import common
+from xl import common, event
 import config
 
 logging.basicConfig()
@@ -50,6 +50,16 @@ class DaapServer():
         self.library = library
         self.name = name
         self.httpd = None
+        self.handler = None
+        
+        # Set a callback that will let us propagate library changes to clients
+        event.add_callback( self.update_rev, 'libraries_modified', library.collection) 
+        
+    def update_rev(self, *args):
+        if self.handler is not None:
+            # Updating the server revision, so if a client checks it can see the library has changed
+            self.handler.daap_server_revision += 1
+            log.info('Libraries Changed, incrementing revision to %d.' % self.handler.daap_server_revision )
         
     def set(self, **kwargs):
         for key in kwargs:
@@ -62,8 +72,9 @@ class DaapServer():
                                                 stype="_daap._tcp")
         self.zeroconf.publish()
         log.warn("Listening.")
+        self.handler = spydaap.server.makeDAAPHandlerClass(str(self.name), [], self.library, [])
         self.httpd = MyThreadedHTTPServer((self.host, self.port), 
-                                     spydaap.server.makeDAAPHandlerClass(str(self.name), [], self.library, []))
+                                     self.handler)
         
         #signal.signal(signal.SIGTERM, make_shutdown(httpd))
         #signal.signal(signal.SIGHUP, rebuild_cache)

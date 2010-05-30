@@ -19,9 +19,9 @@ from spydaap.daap import do
 def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
     session_id = 1
     log = logging.getLogger('spydaap.server')
-    daap_server_revision = 1
 
     class DAAPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+        daap_server_revision = 1
         protocol_version = "HTTP/1.1"
 
         def h(self, data, **kwargs):
@@ -192,7 +192,7 @@ def makeDAAPHandlerClass(server_name, cache, md_cache, container_cache):
         def do_GET_update(self):
             mupd = do('dmap.updateresponse',
                       [ do('dmap.status', 200),
-                        do('dmap.serverrevision', daap_server_revision),
+                        do('dmap.serverrevision', self.daap_server_revision),
                         ])
             self.h(mupd.encode())
 

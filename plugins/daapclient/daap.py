@@ -400,7 +400,8 @@ class DAAPSession(object):
 
     def update(self):
         response = self.request("/update")
-        #response.printTree()
+	self.revision = response.getAtom('musr')
+#        return response
 
     def databases(self):
         response = self.request("/databases")
@@ -541,8 +542,12 @@ if __name__ == '__main__':
             # demo - save the first track to disk
             #print("Saving %s by %s to disk as 'track.mp3'"%(tracks[0].name, tracks[0].artist))
             #tracks[0].save("track.mp3")
-
-            tracks[0].atom.printTree()
+            if len(tracks) > 0 :
+                tracks[0].atom.printTree()
+            else:
+                print 'No Tracks'
+            session.update()
+            print session.revision
 
         finally:
             # this here, so we logout even if there's an error somewhere,

@@ -309,8 +309,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             pixbuf.composite(
                 dest=new_pixbuf,
                 dest_x=0, dest_y=0,
-                dest_width=new_pixbuf.get_width(),
-                dest_height=new_pixbuf.get_height(),
+                dest_width=pixbuf.get_width(),
+                dest_height=pixbuf.get_height(),
                 offset_x=0, offset_y=0,
                 scale_x=1, scale_y=1,
                 interp_type=gtk.gdk.INTERP_BILINEAR,

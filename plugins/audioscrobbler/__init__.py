@@ -181,13 +181,16 @@ class ExaileScrobbler(object):
             return
 
         logger.info("Attempting to submit \"Now Playing\" information to AudioScrobbler...")
-        scrobbler.now_playing(
-            track.get_tag_raw('artist', join=True),
-            track.get_tag_raw('title', join=True),
-            track.get_tag_raw('album', join=True),
-            int(track.get_tag_raw('__length')),
-            track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0
+        try:
+            scrobbler.now_playing(
+                track.get_tag_raw('artist', join=True),
+                track.get_tag_raw('title', join=True),
+                track.get_tag_raw('album', join=True),
+                int(track.get_tag_raw('__length')),
+                track.split_numerical(track.get_tag_raw('tracknumber'))[0] or 0
             )
+        except Exception, e:
+            logger.warning("Error submitting \"Now Playing\": %s" % e)
 
     def on_play(self, type, player, track):
         track.set_tag_raw('__audioscrobbler_playtime',

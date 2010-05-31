@@ -160,6 +160,9 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
    if trackno != "" and type(trackno) != type(1):
       raise TypeError("trackno should be of type int")
 
+   if None in (artist, track, album):
+      raise ValueError('artist, title and album need to be set')
+
    values = {'s': SESSION_ID,
              'a': unicode(artist).encode('utf-8'),
              't': unicode(track).encode('utf-8'),

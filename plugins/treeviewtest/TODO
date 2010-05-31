@@ -5,7 +5,6 @@ backend:
         reverse?
         filter
         dynamic
-        SPAT
 
     queue:
         rebase on new playlist
@@ -21,27 +20,22 @@ ui:
         link up search
         search field clear button
         SPAT
-            icon
-                - in same column as play/pause, use overlay for combine
-            button/menuitem?
             grey out tracks below SPAT designation
                 - cell.set_sensitive(False)
                 - only if (not shuffling AND current_pos <= spat_pos)
         accept dropped tracks/uris
+        DnD to reorder
         rename in dialog/messagebar if tabs are hidden
 
     tabs:
         middle-click empty space to create new
-        play icon in active tab (bold name?)
         support tabs as DnD targets
-
-        tab reordering?
+        tab reordering
     
     queue:
         create new ui for queue in a tab
         make queue tab show itself whenever items are enqueued
         count of queued items in tab
-
 
 
 

@@ -802,6 +802,7 @@ class PlaylistModel(gtk.GenericTreeModel):
         path = (self.playlist.current_pos,)
         try:
             iter = self.get_iter(path)
+            print path
         except ValueError:
             return
         self.row_changed(path, iter)
@@ -837,7 +838,7 @@ class Playlist(object):
             'current_pos', 'name']
     __playlist_format_version = [2, 0]
     def __init__(self, name, initial_tracks=[]):
-        self.__tracks = []
+        self.__tracks = MetadataList()
         for tr in initial_tracks:
             if not isinstance(tr, trax.Track):
                 raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
@@ -1166,7 +1167,7 @@ class Playlist(object):
 
             trs.append(tr)
 
-        self.__tracks = trs
+        self.__tracks[:] = trs
 
     ### view API ###
 
@@ -1204,7 +1205,7 @@ class Playlist(object):
         return len(self.__tracks)
 
     def __contains__(self, track):
-        return self.__tracks.__contains__(track)
+        return track in self.__tracks
 
     def __tuple_from_slice(self, i):
         """
@@ -1220,23 +1221,29 @@ class Playlist(object):
 
     def __setitem__(self, i, value):
         oldtracks = self.__getitem__(i)
-        removed = []
-        added = []
+        removed = MetadataList()
+        added = MetadataList()
         if isinstance(i, slice):
             for x in value:
                 if not isinstance(x, trax.Track):
                     raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
             (start, end, step) = self.__tuple_from_slice(i)
+            if isinstance(value, MetadataList):
+                metadata = value.metadata
+            else:
+                metadata = [None] * len(value)
             if step != 1:
                 if len(value) != len(oldtracks):
                     raise ValueError, "Extended slice assignment must match sizes."
                 self.__tracks.__setitem__(i, value)
-                removed = zip(range(start, end, step), oldtracks)
+                removed = MetadataList(zip(range(start, end, step), oldtracks),
+                        oldtracks.metadata)
             else:
                 self.__tracks.__setitem__(i, value)
-                removed = zip(range(start, end, step), oldtracks)
+                removed = MetadataList(zip(range(start, end, step), oldtracks),
+                        oldtracks.metadata)
                 end = start + len(value)
-            added = zip(range(start, end, step), value)
+            added = MetadataList(zip(range(start, end, step), value), metadata)
         else:
             if not isinstance(value, trax.Track):
                 raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
@@ -1266,9 +1273,10 @@ class Playlist(object):
             (start, end, step) = self.__tuple_from_slice(i)
         oldtracks = self.__getitem__(i)
         self.__tracks.__delitem__(i)
-        removed = []
+        removed = MetadataList()
         if isinstance(i, slice):
-            removed = zip(xrange(start, end, step), oldtracks)
+            removed = MetadataList(zip(xrange(start, end, step), oldtracks),
+                    oldtracks.metadata)
         else:
             removed = [(i, oldtracks)]
         curpos = self.current_pos
@@ -1299,5 +1307,105 @@ class Playlist(object):
             return self.__tracks.index(item, start, end)
 
 
+class MetadataList(object):
+    __slots__ = ['__list', 'metadata']
+    """
+        Like a list, but also associates an arbitrary object of metadata
+        with each entry.
 
+        To set metadata, just set it on the metadata property. eg.
+        >>> l = MetadataList()
+        >>> l.append('test')
+        >>> l.metadata[0] = 'foo'
+        >>> l.insert(0, 'bar')
+        >>> l[0], l.metadata[0]
+        'bar', None
+        >>> l[1], l.metadata[1]
+        'test', 'foo'
+
+        Do NOT attempt to overwrite or resize the metadata property itself,
+        you are allowed only to assign by index or same-size slice. Other
+        modifications are unsupported and will probably break things.
+
+        List aspects that are not supported:
+            sort
+            comparisons other than equality
+            multiply
+    """
+    def __init__(self, iterable=[], metadata=[]):
+        self.__list = list(iterable)
+        meta = list(metadata)
+        if meta and len(meta) != len(self.__list):
+            raise ValueError, "Length of metadata must match length of items."
+        if not meta:
+            meta = [None] * len(self.__list)
+        self.metadata = meta
+
+    def __repr__(self):
+        return "MetadataList(%s)"%self.__list
+
+    def __len__(self):
+        return len(self.__list)
+
+    def __iter__(self):
+        return self.__list.__iter__()
+
+    def __add__(self, other):
+        l = MetadataList(self, self.metadata)
+        l.extend(other)
+        return l
+
+    def __iadd__(self, other):
+        self.extend(other)
+        return self
+
+    def __eq__(self, other):
+        return self.__list == other
+
+    def __getitem__(self, i):
+        val = self.__list.__getitem__(i)
+        if isinstance(i, slice):
+            return MetadataList(val, self.metadata.__getitem__(i))
+        else:
+            return val
+
+    def __setitem__(self, i, value):
+        self.__list.__setitem__(i, value)
+        if isinstance(value, MetadataList):
+            metadata = list(value.metadata)
+        else:
+            metadata = [None]*len(value)
+        self.metadata.__setitem__(i, metadata)
+
+    def __delitem__(self, i):
+        self.__list.__delitem__(i)
+        self.metadata.__delitem__(i)
+
+    def append(self, other, metadata=None):
+        self.insert(len(self), other, metadata=metadata)
+
+    def extend(self, other):
+        self[len(self):len(self)] = other
+
+    def insert(self, i, item, metadata=None):
+        self[i:i] = [item]
+        self.metadata[i:i] = [metadata]
+
+    def pop(self, i=-1):
+        item = self[i]
+        del self[i]
+        return item
+
+    def remove(self, item):
+        del self[self.index(item)]
+
+    def reverse(self):
+        self.__list.reverse()
+        self.metadata.reverse()
+
+    def index(self, i):
+        return self.__list.index(i)
+
+    def count(self, i):
+        return self.__list.count(i)
 

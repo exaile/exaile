@@ -27,10 +27,17 @@
 import gobject
 import gtk
 
-from xlgui import guiutil, icons, rating
-from xlgui.widgets import dialogs
-from xl import event, playlist, xdg, settings
+from xlgui import guiutil, icons
+from xlgui.widgets import dialogs, rating
+from xl import (
+    common,
+    event,
+    playlist,
+    settings,
+    xdg
+)
 from xl.nls import gettext as _
+from xl.trax.util import get_rating_from_tracks
 
 class GenericTrackMenu(guiutil.Menu):
     """
@@ -38,8 +45,11 @@ class GenericTrackMenu(guiutil.Menu):
         tracks and defines the "get_selected_tracks" method
     """
     __gsignals__ = {
-        'rating-set': (gobject.SIGNAL_RUN_LAST, None, (int,)),
-        'queue-items': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'queue-items': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            ()
+        ),
     }
     def __init__(self):
         guiutil.Menu.__init__(self)
@@ -136,17 +146,36 @@ class PlaylistMenu(GenericTrackMenu):
         Menu for xlgui.playlist.Playlist
     """
     __gsignals__ = {
-        'remove-items': (gobject.SIGNAL_RUN_LAST, None, ()),
-        'properties': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'rating-changed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        ),
+        'rating-tracks-get': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_PYOBJECT,
+            ()
+        ),
+        'remove-items': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            ()
+        ),
+        'properties': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            ()
+        ),
     }
     def __init__(self, playlist, playlists):
         GenericTrackMenu.__init__(self)
         self.playlist = playlist
 
-        self.rating_item = guiutil.MenuRatingWidget(
-            self.playlist.get_selected_tracks, self.playlist.get_tracks_rating)
-
+        self.rating_item = rating.RatingMenuItem(auto_update=False)
+        self._rating_changed_id = self.rating_item.connect('rating-changed',
+            self.on_rating_changed)
         self.append_item(self.rating_item)
+        self._updating_rating = False
 
         self.add_playlist_menu = AddToPlaylistMenu(playlist, playlists)
         self.append_menu(_('Add to Custom Playlist'),
@@ -161,16 +190,6 @@ class PlaylistMenu(GenericTrackMenu):
         self.playlist_tab_menu = None
         # Defer menu setup until exaile is loaded
         event.add_callback(self.on_exaile_loaded, 'gui_loaded')
-
-    def on_exaile_loaded(self, event, exaile, nothing):
-        """
-            Finalizes the menu setup
-        """
-        tab = self.playlist.main.get_current_tab()
-        if tab:
-            self.playlist_tab_menu = PlaylistTabMenu(tab)
-            self.playlist_tab_menu = self.append_menu(_('Playlist'),
-                self.playlist_tab_menu)
 
     def remove_selected_tracks(self):
         """
@@ -192,8 +211,32 @@ class PlaylistMenu(GenericTrackMenu):
           else:
               if pagecount == 1:
                   self.playlist_tab_menu.show_all()
-        self.rating_item.on_rating_change()
+
+        # Update rating menu item
+        tracks = self.emit('rating-tracks-get')
+        rating = get_rating_from_tracks(tracks)
+        self.rating_item.disconnect(self._rating_changed_id)
+        self.rating_item.props.rating = rating
+        self._rating_changed_id = self.rating_item.connect('rating-changed',
+            self.on_rating_changed)
+
         GenericTrackMenu.popup(self, event)
+
+    def on_rating_changed(self, widget, rating):
+        """
+            Passes the 'rating-changed' signal
+        """
+        self.emit('rating-changed', rating)
+
+    def on_exaile_loaded(self, event, exaile, nothing):
+        """
+            Finalizes the menu setup
+        """
+        tab = self.playlist.main.get_current_tab()
+        if tab:
+            self.playlist_tab_menu = PlaylistTabMenu(tab)
+            self.playlist_tab_menu = self.append_menu(_('Playlist'),
+                self.playlist_tab_menu)
 
 class PlaylistTabMenu(guiutil.Menu):
     """
@@ -251,11 +294,18 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         Menu for any panel that operates on selecting tracks
         including an option to rate tracks
     """
-    def __init__(self, tree_selection, get_selected_tracks, get_tracks_rating):
-
-        self.tree_selection = tree_selection
-        self.rating_item = guiutil.MenuRatingWidget(
-            get_selected_tracks, get_tracks_rating)
+    __gsignals__ = {
+        'rating-changed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        )
+    }
+    def __init__(self):
+        self.rating_item = rating.RatingMenuItem(auto_update=False)
+        self._rating_changed_id = self.rating_item.connect('rating-changed',
+            self.on_rating_changed)
+        self._updating = False
 
         TrackSelectMenu.__init__(self)
 
@@ -263,34 +313,27 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         """
             Actually adds the menu items
         """
-        TrackSelectMenu._create_menu(self)
         gtk.Menu.append(self, self.rating_item)
         self.rating_item.show_all()
-        self.changed_id = -1
 
+        TrackSelectMenu._create_menu(self)
 
-    def popup(self, event):
+    def on_rating_changed(self, widget, rating):
         """
-            Displays the menu
+            Passes the 'rating-changed' signal
         """
-        self.rating_item.on_rating_change()
-        self.changed_id = self.tree_selection.connect('changed', self.rating_item.on_rating_change)
-        TrackSelectMenu.popup(self, event)
+        self.emit('rating-changed', rating)
 
-    def popdown(self, event):
-        """
-            Displays the menu
-        """
-        self.tree_selection.disconnect(self.changed_id)
-        TrackSelectMenu.popdown(self, event)
+        self.rating_item.disconnect(self._rating_changed_id)
+        self.rating_item.props.rating = 0
+        self._rating_changed_id = self.rating_item.connect('rating-changed',
+            self.on_rating_changed)
 
 class CollectionPanelMenu(RatedTrackSelectMenu):
     __gsignals__ = {
         'delete-items': (gobject.SIGNAL_RUN_LAST, None, ()),
         'view-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self, *args):
-        RatedTrackSelectMenu.__init__(self, *args)
 
     def _create_menu(self):
         RatedTrackSelectMenu._create_menu(self)
@@ -307,14 +350,12 @@ class CollectionPanelMenu(RatedTrackSelectMenu):
     def on_open_in_file_manager_item_clicked(self):
         self.emit('view-items')
 
-# these are stubbs for now
-FilesPanelMenu = TrackSelectMenu
-class FilesPanelMenu(TrackSelectMenu):
+class FilesPanelMenu(RatedTrackSelectMenu):
     __gsignals__ = {
         'view-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     def __init__(self, *args):
-        TrackSelectMenu.__init__(self, *args)
+        RatedTrackSelectMenu.__init__(self, *args)
 
     def _create_menu(self):
         TrackSelectMenu._create_menu(self)
@@ -365,7 +406,7 @@ class PlaylistsPanelMenu(guiutil.Menu):
         """
         guiutil.Menu.popup(self, None, None, None, event.button, event.time)
 
-class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
+class PlaylistsPanelPlaylistMenu(RatedTrackSelectMenu, PlaylistsPanelMenu):
     """
         Menu for xlgui.panel.playlists.PlaylistsPanel, for
         when the user right clicks on an actual playlist
@@ -390,7 +431,7 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
         PlaylistsPanelMenu.__init__(self, radio)
         self.append_separator()
         #Adds track menu options (like append, queue)
-        TrackSelectMenu.__init__(self)
+        RatedTrackSelectMenu.__init__(self)
         self.smart = smart
 
         self.append_separator()

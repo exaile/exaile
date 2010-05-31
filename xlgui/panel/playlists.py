@@ -264,12 +264,17 @@ class BasePlaylistPanelMixin(gobject.GObject):
         (model, iter) = selection.get_selected()
         self.open_item(self.tree, model.get_path(iter), None)
 
-    def set_rating(self, widget, rating):
+    def on_rating_changed(self, widget, rating):
+        """
+            Updates the rating of the selected tracks
+        """
         tracks = self.get_selected_tracks()
-        maximum = settings.get_option('rating/maximum', 5)
+
         for track in tracks:
-            # FIXME: WTF?
-            track['__rating'] = float((100.0*rating)/maximum)
+            track.set_rating(rating)
+
+        maximum = settings.get_option('rating/maximum', 5)
+        event.log_event('rating_changed', self, rating / maximum * 100)
 
     def open_item(self, tree, path, col):
         """
@@ -529,12 +534,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             if item != 'default':
                 menu.connect('append-items', lambda *e:
-                    self.emit('append-items', self.get_selected_tracks()))
+                    self.emit('append-items', self.tree.get_selected_tracks()))
                 menu.connect('replace-items', lambda *e:
-                    self.emit('replace-items', self.get_selected_tracks()))
+                    self.emit('replace-items', self.tree.get_selected_tracks()))
                 menu.connect('queue-items', lambda *e:
-                    self.emit('queue-items', self.get_selected_tracks()))
-                menu.connect('rating-set', self.set_rating)
+                    self.emit('queue-items', self.tree.get_selected_tracks()))
+                menu.connect('rating-changed', self.on_rating_changed)
 
                 menu.connect('open-playlist', lambda *e:
                     self.open_selected_playlist())

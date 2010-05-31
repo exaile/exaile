@@ -101,7 +101,8 @@ class Playlist(gtk.VBox):
         self._set_tracks(self.playlist.get_tracks())
 
         self.menu = menu.PlaylistMenu(self, main.playlist_manager)
-        self.menu.connect('rating-set', self.set_rating)
+        self.menu.connect('rating-changed', self.on_menu_rating_changed)
+        self.menu.connect('rating-tracks-get', self.on_rating_tracks_get)
         self.menu.connect('remove-items', lambda *e:
             self.remove_selected_tracks())
         self.menu.connect('queue-items', lambda *e:
@@ -211,13 +212,40 @@ class Playlist(gtk.VBox):
         self.emit('track-count-changed', len(self.playlist))
         self.list.queue_draw()
 
-    def set_rating(self, widget, rating):
-        trs = self.get_selected_tracks()
+    def on_cell_rating_changed(self, widget, path, rating):
+        """
+            Updates the rating of the selected track
+            (Triggered by the rating cell renderer)
+        """
+        track = self.model[path][0]
+        oldrating = track.get_rating()
+
+        if rating == oldrating:
+            rating = 0
+
+        track.set_rating(rating)
         maximum = settings.get_option('rating/maximum', 5)
-        r = float((100.0*rating)/maximum)
-        for track in trs:
+        event.log_event('rating_changed', self, rating / maximum * 100)
+
+    def on_menu_rating_changed(self, widget, rating):
+        """
+            Updates the rating of the selected tracks
+            (Triggered by the rating menu item)
+        """
+        tracks = self.get_selected_tracks()
+
+        for track in tracks:
             track.set_rating(rating)
-        event.log_event('rating_changed', self, r)
+
+        maximum = settings.get_option('rating/maximum', 5)
+        event.log_event('rating_changed', self, rating / maximum * 100)
+
+    def on_rating_tracks_get(self, widget):
+        """
+            Retrieves the currently selected
+            tracks for the rating menu item
+        """
+        return self.get_selected_tracks()
 
     def get_column_ids(self):
         column_ids = None
@@ -951,7 +979,7 @@ class Playlist(gtk.VBox):
                 col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
             elif column.id == '__rating': # FIXME: Make this dynamic
                 col = gtk.TreeViewColumn(column.display, cellr)
-                cellr.connect('rating-changed', self.on_rating_changed)
+                cellr.connect('rating-changed', self.on_cell_rating_changed)
             else:
                 col = gtk.TreeViewColumn(column.display, cellr, text=count)
 
@@ -1143,20 +1171,6 @@ class Playlist(gtk.VBox):
         for track in trs:
             print track.get_loc_for_display()
         print '---Done printing playlist'
-
-    def on_rating_changed(self, widget, path, rating):
-        """
-            Updates the rating of the selected track
-        """
-        track = self.model[path][0]
-        oldrating = track.get_rating()
-
-        if rating == oldrating:
-            rating = 0
-
-        track.set_rating(rating)
-        maximum = settings.get_option('rating/maximum', 5)
-        event.log_event('rating_changed', self, rating / maximum * 100)
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """

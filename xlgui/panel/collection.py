@@ -171,16 +171,14 @@ class CollectionPanel(panel.Panel):
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
 
-        self.menu = menu.CollectionPanelMenu(self.tree.get_selection(),
-            self.tree.get_selected_tracks,
-            self.get_tracks_rating)
+        self.menu = menu.CollectionPanelMenu()
         self.menu.connect('append-items', lambda *e:
             self.emit('append-items', self.tree.get_selected_tracks()))
         self.menu.connect('replace-items', lambda *e:
             self.emit('replace-items', self.tree.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.tree.get_selected_tracks()))
-        self.menu.connect('rating-set', self._on_set_rating)
+        self.menu.connect('rating-changed', self.on_rating_changed)
         self.menu.connect('delete-items', self._on_delete_items)
         self.menu.connect('view-items', self._on_view_items)
         self.menu.connect('properties', lambda *e:
@@ -206,12 +204,14 @@ class CollectionPanel(panel.Panel):
         dialog = properties.TrackPropertiesDialog(self.parent,
             tracks)
 
-    def _on_set_rating(self, widget, new_rating):
+    def on_rating_changed(self, widget, rating):
         """
-            Called when a new rating is chosen from the rating menu
+            Updates the rating of the selected tracks
         """
         tracks = self.tree.get_selected_tracks()
-        rating.set_rating(tracks, new_rating)
+
+        for track in tracks:
+            track.set_rating(rating)
 
     def _on_delete_items(self, *args):
         dialog = gtk.MessageDialog(type=gtk.MESSAGE_QUESTION,

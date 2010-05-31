@@ -73,7 +73,7 @@ class FilesPanel(panel.Panel):
             self.emit('replace-items', self.tree.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.tree.get_selected_tracks()))
-        self.menu.connect('rating-set', self.set_rating)
+        self.menu.connect('rating-changed', self.set_rating)
         self.menu.connect('properties', lambda *e:
             self.properties_dialog())
         self.menu.connect('view-items', lambda *e:

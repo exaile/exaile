@@ -2,13 +2,13 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkWindow" id="equalizer/main-window">
+  <object class="GtkWindow" id="main-window">
     <property name="title" translatable="yes">Equalizer</property>
     <property name="window_position">center</property>
     <property name="default_width">480</property>
     <property name="default_height">260</property>
     <property name="type_hint">utility</property>
-    <signal name="destroy" handler="on_equalizer/main-window_destroy"/>
+    <signal name="destroy" handler="on_main-window_destroy"/>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -17,23 +17,23 @@
           <object class="GtkHBox" id="hbox2">
             <property name="visible">True</property>
             <child>
-              <object class="GtkComboBoxEntry" id="equalizer/combo-presets">
+              <object class="GtkComboBoxEntry" id="combo-presets">
                 <property name="visible">True</property>
-                <signal name="changed" handler="on_equalizer/combo-presets_changed"/>
+                <signal name="changed" handler="on_combo-presets_changed"/>
               </object>
               <packing>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="equalizer/add-preset">
+              <object class="GtkButton" id="add-preset">
                 <property name="label">gtk-add</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
                 <property name="image_position">right</property>
-                <signal name="clicked" handler="on_equalizer/add-preset_clicked"/>
+                <signal name="clicked" handler="on_add-preset_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -41,13 +41,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="equalizer/remove-preset">
+              <object class="GtkButton" id="remove-preset">
                 <property name="label">gtk-remove</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_equalizer/remove-preset_clicked"/>
+                <signal name="clicked" handler="on_remove-preset_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -83,13 +83,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="equalizer/chk-enabled">
+              <object class="GtkCheckButton" id="chk-enabled">
                 <property name="label" translatable="yes">Enabled</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
-                <signal name="toggled" handler="on_equalizer/chk-enabled_toggled"/>
+                <signal name="toggled" handler="on_chk-enabled_toggled"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -115,13 +115,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/pre">
+                  <object class="GtkVScale" id="pre">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-pre</property>
+                    <property name="adjustment">adj-pre</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/pre_format_value"/>
+                    <signal name="format_value" handler="on_pre_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -219,13 +219,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band0">
+                  <object class="GtkVScale" id="band0">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band0</property>
+                    <property name="adjustment">adj-band0</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band0_format_value"/>
+                    <signal name="format_value" handler="on_band0_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -252,13 +252,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band1">
+                  <object class="GtkVScale" id="band1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band1</property>
+                    <property name="adjustment">adj-band1</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band1_format_value"/>
+                    <signal name="format_value" handler="on_band1_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -285,13 +285,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band2">
+                  <object class="GtkVScale" id="band2">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band2</property>
+                    <property name="adjustment">adj-band2</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band2_format_value"/>
+                    <signal name="format_value" handler="on_band2_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -318,13 +318,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band3">
+                  <object class="GtkVScale" id="band3">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band3</property>
+                    <property name="adjustment">adj-band3</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band3_format_value"/>
+                    <signal name="format_value" handler="on_band3_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -351,13 +351,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band4">
+                  <object class="GtkVScale" id="band4">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band4</property>
+                    <property name="adjustment">adj-band4</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band4_format_value"/>
+                    <signal name="format_value" handler="on_band4_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -384,13 +384,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band5">
+                  <object class="GtkVScale" id="band5">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band5</property>
+                    <property name="adjustment">adj-band5</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band5_format_value"/>
+                    <signal name="format_value" handler="on_band5_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -417,13 +417,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band6">
+                  <object class="GtkVScale" id="band6">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band6</property>
+                    <property name="adjustment">adj-band6</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band6_format_value"/>
+                    <signal name="format_value" handler="on_band6_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -450,13 +450,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band7">
+                  <object class="GtkVScale" id="band7">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band7</property>
+                    <property name="adjustment">adj-band7</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band7_format_value"/>
+                    <signal name="format_value" handler="on_band7_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -483,13 +483,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band8">
+                  <object class="GtkVScale" id="band8">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band8</property>
+                    <property name="adjustment">adj-band8</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band8_format_value"/>
+                    <signal name="format_value" handler="on_band8_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -516,13 +516,13 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkVScale" id="equalizer/band9">
+                  <object class="GtkVScale" id="band9">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="orientation">vertical</property>
-                    <property name="adjustment">equalizer/adj-band9</property>
+                    <property name="adjustment">adj-band9</property>
                     <property name="inverted">True</property>
-                    <signal name="format_value" handler="on_equalizer/band9_format_value"/>
+                    <signal name="format_value" handler="on_band9_format_value"/>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -553,69 +553,69 @@
       </object>
     </child>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-pre">
+  <object class="GtkAdjustment" id="adj-pre">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band0">
+  <object class="GtkAdjustment" id="adj-band0">
     <property name="value">0.001</property>
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band1">
+  <object class="GtkAdjustment" id="adj-band1">
     <property name="value">0.001</property>
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band2">
+  <object class="GtkAdjustment" id="adj-band2">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band3">
+  <object class="GtkAdjustment" id="adj-band3">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band4">
+  <object class="GtkAdjustment" id="adj-band4">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band5">
+  <object class="GtkAdjustment" id="adj-band5">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band6">
+  <object class="GtkAdjustment" id="adj-band6">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band7">
+  <object class="GtkAdjustment" id="adj-band7">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band8">
+  <object class="GtkAdjustment" id="adj-band8">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="equalizer/adj-band9">
+  <object class="GtkAdjustment" id="adj-band9">
     <property name="lower">-24</property>
     <property name="upper">12</property>
     <property name="step_increment">0.10000000000000001</property>

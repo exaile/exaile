@@ -156,9 +156,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     """
         Displays a playlist and associated controls.
     """
-    default_columns = ['tracknumber', 'title', 'album', 'artist', '__rating', '__length']
     menu_provider_name = 'playlist-tab-context'
-
     def __init__(self, playlist):
         """
             :param playlist: The :class:`xl.playlist.Playlist` to display
@@ -169,7 +167,6 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
         self.playlist = playlist
         self.icon = None
-        self.menu = PlaylistContextMenu(self)
 
         uifile = os.path.join(os.path.dirname(__file__), "playlist.ui")
         self.builder = gtk.Builder()
@@ -185,36 +182,18 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.pack_start(self.plwin, True, True, padding=2)
         self.pack_start(self.controls, False, False, padding=2)
 
-        self.view = guiutil.DragTreeView(self, drop_pos="between")
+        self.view = PlaylistView(playlist)
         self.plwin.add(self.view)
-        self.shuffle_button = self.builder.get_object("shuffle_button")
-        self.repeat_button = self.builder.get_object("repeat_button")
-        self.dynamic_button = self.builder.get_object("dynamic_button")
-
-        self.model = PlaylistModel(playlist, self.default_columns)
-        self.view.set_rules_hint(True)
-        self.view.set_enable_search(True)
-        self.selection = self.view.get_selection()
-        self.selection.set_mode(gtk.SELECTION_MULTIPLE)
-
-        self.view.set_model(self.model)
-
-        for idx, col in enumerate(self.model.columns):
-            idx += 1 # offset for pixbuf column
-            plcol = playlist_columns.COLUMNS[col](self)
-            gcol = plcol.get_column(idx)
-            self.view.append_column(gcol)
-
-        self.view.connect("drag-drop", self.on_drag_drop)
-        self.view.connect("row-activated", self.on_row_activated)
 
         event.add_callback(self.on_shuffle_mode_changed,
                 "playlist_shuffle_mode_changed", self.playlist)
         event.add_callback(self.on_repeat_mode_changed,
                 "playlist_repeat_mode_changed", self.playlist)
-        self.model.connect('row-changed', self.on_row_changed)
+        self.view.model.connect('row-changed', self.on_row_changed)
 
         self.show_all()
+
+    ## NotebookPage API ##
 
     def get_name(self):
         return self.playlist.name
@@ -222,53 +201,10 @@ class PlaylistPage(gtk.VBox, NotebookPage):
     def set_name(self, name):
         self.playlist.name = name
 
-    def set_cell_weight(self, cell, iter):
-        """
-            Called by columns in playlist_columns to set a CellRendererText's
-            weight property for the playing track.
-        """
-        path = self.model.get_path(iter)
-        track = self.model.get_track(path)
-        if track == player.PLAYER.current and \
-                path[0] == self.playlist.get_current_pos() and \
-                self.playlist == player.QUEUE.current_playlist:
-            weight = pango.WEIGHT_HEAVY
-        else:
-            weight = pango.WEIGHT_NORMAL
-        cell.set_property('weight', weight)
-
     def handle_close(self):
         return True
 
-    def clear(self, *args):
-        self.playlist.clear()
-
-    def get_selected_tracks(self):
-        """
-            Returns a list of :class:`xl.trax.Track` which are currently
-            slected in the playlist.
-        """
-        selection = self.view.get_selection()
-        model, paths = selection.get_selected_rows()
-        tracks = [(path[0], model.get_track(path)) for path in paths]
-        return tracks
-
-    def on_drag_drop(self, view, context, x, y, etime):
-        #self.drag_data_received(view, context, x, y,
-        #        view.get_selection(), None, etime)
-        context.finish(True, False)
-        return True
-
-    def on_row_activated(self, *args):
-        try:
-            idx, track = self.get_selected_tracks()[0]
-        except IndexError:
-            return
-
-        player.QUEUE.play(track=track)
-        player.QUEUE.set_current_playlist(self.playlist)
-        self.playlist.set_current_pos(idx)
-
+    ## End NotebookPage ##
 
     def on_shuffle_button_press_event(self, widget, event):
         self.__show_toggle_menu(Playlist.shuffle_modes,
@@ -370,46 +306,79 @@ class PlaylistPage(gtk.VBox, NotebookPage):
                 pixbuf = None
             self.tab.set_icon(pixbuf)
 
-    ### needed for DragTreeView ###
 
-    def drag_data_received(self, view, context, x, y, selection, info, etime):
-        print "data recieved"
-        self.view.unset_rows_drag_dest()
-        self.view.drag_dest_set(gtk.DEST_DEFAULT_ALL,
-            self.view.targets,
-            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
-        locs = list(selection.get_uris())
-        drop_info = view.get_dest_row_at_pos(x, y)
-        if drop_info:
-            path, position = drop_info
-            iter = self.model.get_iter(path)
-        trs, playlists = self.view.get_drag_data(locs)
-        print locs, trs, playlists, drop_info
-        context.finish(True, False, etime)
+class PlaylistView(gtk.TreeView):
+    default_columns = ['tracknumber', 'title', 'album', 'artist', '__rating', '__length']
+    def __init__(self, playlist):
+        gtk.TreeView.__init__(self)
+        self.playlist = playlist
+        self.model = PlaylistModel(playlist, self.default_columns)
+        self.menu = PlaylistContextMenu(self)
 
-    def drag_data_delete(self, view, context):
-        print "data delete"
-        pass
+        self.set_rules_hint(True)
+        self.set_enable_search(True)
+        self.selection = self.get_selection()
+        self.selection.set_mode(gtk.SELECTION_MULTIPLE)
 
-    def drag_get_data(self, view, context, selection, target_id, etime):
-        print "get data"
-        tracks = [ x[1] for x in self.get_selected_tracks() ]
-        for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
+        self.set_model(self.model)
 
-        uris = trax.get_uris_from_tracks(tracks)
-        selection.set_uris(uris)
+        for idx, col in enumerate(self.model.columns):
+            idx += 1 # offset for pixbuf column
+            plcol = playlist_columns.COLUMNS[col](self)
+            gcol = plcol.get_column(idx)
+            self.append_column(gcol)
 
-    def button_press(self, widget, event):
+        self.connect("drag-drop", self.on_drag_drop)
+        self.connect("row-activated", self.on_row_activated)
+
+    def set_cell_weight(self, cell, iter):
+        """
+            Called by columns in playlist_columns to set a CellRendererText's
+            weight property for the playing track.
+        """
+        path = self.model.get_path(iter)
+        track = self.model.get_track(path)
+        if track == player.PLAYER.current and \
+                path[0] == self.playlist.get_current_pos() and \
+                self.playlist == player.QUEUE.current_playlist:
+            weight = pango.WEIGHT_HEAVY
+        else:
+            weight = pango.WEIGHT_NORMAL
+        cell.set_property('weight', weight)
+
+    def get_selected_tracks(self):
+        """
+            Returns a list of :class:`xl.trax.Track` which are currently
+            slected in the playlist.
+        """
+        selection = self.get_selection()
+        model, paths = selection.get_selected_rows()
+        tracks = [(path[0], model.get_track(path)) for path in paths]
+        return tracks
+
+    def on_drag_drop(self, view, context, x, y, etime):
+        #self.drag_data_received(view, context, x, y,
+        #        view.get_selection(), None, etime)
+        context.finish(True, False)
+        return True
+
+    def on_row_activated(self, *args):
+        try:
+            idx, track = self.get_selected_tracks()[0]
+        except IndexError:
+            return
+
+        player.QUEUE.play(track=track)
+        player.QUEUE.set_current_playlist(self.playlist)
+        self.playlist.set_current_pos(idx)
+
+    def on_button_press(self, widget, event):
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
             return True
         return False
+ 
 
-    def button_release(self, widget, event):
-        pass
-
-    ### end DragTreeView ###
 
 
 class PlaylistModel(gtk.GenericTreeModel):

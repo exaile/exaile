@@ -611,12 +611,24 @@ class Playlist(gtk.VBox):
 
     def _setup_events(self):
         self.list.connect('key-press-event', self.key_pressed)
+        self.list.connect('key-release-event', self.on_key_release_event)
 
     def key_pressed(self, widget, event):
         if event.keyval == gtk.keysyms.Delete:
             self.remove_selected_tracks()
 
         return False
+
+    def on_key_release_event(self, widget, event):
+        """
+            Handles key release events
+        """
+        if event.keyval == gtk.keysyms.Menu:
+            button_press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
+            button_press_event.button = 3
+            button_press_event.time = event.time
+
+            self.list.emit('button-press-event', button_press_event)
 
     def _setup_tree(self):
         """

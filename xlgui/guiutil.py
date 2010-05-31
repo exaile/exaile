@@ -598,8 +598,9 @@ class VolumeControl(gtk.Alignment):
             self.button.set_active(False)
 
         self.button_image.set_from_icon_name(icon_name, gtk.ICON_SIZE_BUTTON)
+        self.button.set_tooltip_text(tooltip)
         self.slider.set_value(volume)
-        self.set_tooltip_text(tooltip)
+        self.slider.set_tooltip_text(tooltip)
 
     def on_scroll_event(self, widget, event):
         """

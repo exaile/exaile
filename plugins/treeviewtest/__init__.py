@@ -24,15 +24,27 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk, gobject, glib, pango
 import collections
-import os, sys
+import glib
+import gobject
+import gtk
+import os
+import pango
 import random
+import sys
 
 from xl.nls import gettext as _
-from xl import (event, common, trax, formatter, settings, providers,
-        player)
+from xl import (
+    common,
+    event,
+    formatter,
+    player,
+    providers,
+    settings,
+    trax
+)
 from xlgui import guiutil, icons
+
 import playlist_columns, menu as plmenu
 
 import logging
@@ -357,8 +369,7 @@ def __create_playlist_context_menu():
             playlistpage.playlist.spat_pos = -1
     items.append(smi('toggle-spat', ['append-queue'],
             _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
-    items.append(plmenu.RatingMenuItem('rating', ['toggle-spat'],
-            lambda o, c: [t[1] for t in c['selected-tracks']]))
+    items.append(plmenu.RatingMenuItem('rating', ['toggle-spat']))
     # TODO: custom playlist item here
     items.append(sep('sep1', ['rating']))
     def remove_tracks_cb(widget, playlistpage, context):

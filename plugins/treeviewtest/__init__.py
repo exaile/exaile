@@ -1371,6 +1371,8 @@ class MetadataList(object):
         return self
 
     def __eq__(self, other):
+        if isinstance(other, MetadataList):
+            other = list(other)
         return self.__list == other
 
     def __getitem__(self, i):

@@ -36,7 +36,7 @@ import gst, gtk, glib
 import os, string
 
 def enable(exaile):
-    providers.register("stream_element", GSTEqualizer)
+    providers.register("postprocessing_element", GSTEqualizer)
     if exaile.loading:
         event.add_callback(_enable, 'gui_loaded')
     else:
@@ -50,7 +50,7 @@ def _enable(event_type, exaile, nothing):
     EQ_MAIN = EqualizerPlugin(exaile)
 
 def disable(exaile):
-    providers.unregister("stream_element", GSTEqualizer)
+    providers.unregister("postprocessing_element", GSTEqualizer)
     global EQ_MAIN
     EQ_MAIN.disable()
     EQ_MAIN = None

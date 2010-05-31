@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import gio
 import glib
 import gobject
 import gtk
@@ -194,7 +195,16 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             _("Add Radio Station"))
 
         dialog.add_field(_("Name:"))
-        dialog.add_field(_("URL:"))
+        url_field = dialog.add_field(_("URL:"))
+
+        clipboard = gtk.clipboard_get()
+        text = clipboard.wait_for_text()
+
+        if text is not None:
+            location = gio.File(uri=text)
+
+            if location.get_uri_scheme() is not None:
+                url_field.set_text(text)
 
         result = dialog.run()
         dialog.hide()

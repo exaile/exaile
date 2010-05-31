@@ -66,8 +66,12 @@ class MultiTextEntryDialog(gtk.Dialog):
     def add_field(self, label):
         """
             Adds a field and corresponding label
+
+            :param label: the label to display
+            :returns: the newly created entry
+            :rtype: :class:`gtk.Entry`
         """
-        label = gtk.Label(label + "     ")
+        label = gtk.Label(label)
         label.set_alignment(0, 0)
         label.set_padding(0, 5)
         self.left.pack_start(label, False, False)
@@ -81,6 +85,8 @@ class MultiTextEntryDialog(gtk.Dialog):
         entry.show()
 
         self.fields.append(entry)
+
+        return entry
 
     def get_values(self):
         """

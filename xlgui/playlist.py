@@ -38,7 +38,6 @@ import gtk.gdk
 import pango
 
 from xlgui import guiutil, icons, menu, plcolumns
-from xlgui import rating
 from xlgui.plcolumns import *
 from xl import playlist, event, collection, xdg, settings, trax
 from xl.nls import gettext as _
@@ -486,39 +485,6 @@ class Playlist(gtk.VBox):
             Gets the all tracks in the tree view
         """
         return self.playlist.get_tracks()
-
-
-    def get_tracks_rating(self):
-        """
-            Returns the rating of the selected tracks in the tree view
-            Returns 0 if not all tracks have the same rating or if the selection
-            is too big
-        """
-        rating = 0
-        selection = self.list.get_selection()
-        (model, paths) = selection.get_selected_rows()
-
-        if paths != None and len(paths) > 0:
-            iter = self.model.get_iter(paths[0])
-            song = self.model.get_value(iter, 0)
-            rating = song.get_rating ()
-        else:
-            return 0 # no tracks
-
-        if rating == 0:
-            return 0 # if first song has 0 as a rating, we know the final result
-
-        if len(paths) > settings.get_option('rating/tracks_limit', 100):
-            return 0 # too many tracks, skipping
-
-        for path in paths:
-            iter = self.model.get_iter(path)
-            song = self.model.get_value(iter, 0)
-            if song.get_rating() != rating:
-                return 0 # different ratings
-
-        return rating # only one rating in the tracks, returning it
-
 
     def update_iter(self, iter, track):
         """

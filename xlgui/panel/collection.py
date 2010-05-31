@@ -47,8 +47,7 @@ from xlgui import (
     icons,
     menu,
     panel,
-    playlist,
-    rating
+    playlist
 )
 from xlgui.widgets import info
 
@@ -426,51 +425,6 @@ class CollectionPanel(panel.Panel):
         matcher = trax.TracksMatcher(search)
         srtrs = trax.search_tracks(self.tracks, [matcher])
         return [ x.track for x in srtrs ]
-
-    def get_tracks_rating(self):
-        """
-            Returns the rating of the selected tracks
-            Returns 0 if there is no selection, if tracks have different ratings
-            or if the selection is too big
-        """
-        rating = 0
-        selection = self.tree.get_selection()
-        (model, paths) = selection.get_selected_rows()
-        tracks_limit = settings.get_option('rating/tracks_limit', 0)
-        if tracks_limit == 0: return 0
-        current_count = 0
-
-        if paths and paths[0]:
-            iter = self.model.get_iter(paths[0])
-            newset = self._find_tracks(iter)
-            current_count += len (newset)
-            if current_count > tracks_limit:
-                return 0 # too many tracks
-
-            if newset and newset[0]:
-                rating = newset[0].get_rating ()
-
-            if rating == 0:
-                return 0 # if first song has 0 as a rating, we know the result
-
-            for song in newset:
-                if song.get_rating() != rating:
-                    return 0 # different ratings
-        else:
-            return 0 # no tracks
-
-        for path in paths[1:]:
-            iter = self.model.get_iter(path)
-            newset = self._find_tracks(iter)
-            current_count += len (newset)
-            if current_count > tracks_limit:
-                return 0 # too many tracks
-
-            for song in newset:
-                if song.get_rating() != rating:
-                    return 0 # different ratings
-
-        return rating # only one rating in the tracks, returning it
 
     def append_to_playlist(self, item=None, event=None, replace=False):
         """

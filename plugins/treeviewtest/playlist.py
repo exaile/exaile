@@ -59,6 +59,7 @@ class PlaylistNotebook(SmartNotebook):
             be automatically given a unique name.
         """
         seen = []
+
         for n in range(self.get_n_pages()):
             page = self.get_nth_page(n)
             name = page.get_name()
@@ -70,11 +71,14 @@ class PlaylistNotebook(SmartNotebook):
                 else:
                     seen.append(val)
         n = 1
+
         while True:
             if n not in seen:
                 break
             n += 1
+
         pl = Playlist("Playlist %d"%n)
+
         return self.create_tab_from_playlist(pl)
 
 
@@ -109,9 +113,10 @@ class PlaylistContextMenu(plmenu.ProviderMenu):
         plmenu.ProviderMenu.__init__(self, 'playlist-context', page)
 
     def get_parent_context(self):
-        ctx = {}
-        ctx['selected-tracks'] = self._parent.get_selected_tracks()
-        return ctx
+        context = {}
+        context['selected-tracks'] = self._parent.get_selected_tracks()
+
+        return context
 
 def __create_playlist_context_menu():
     smi = plmenu.simple_menu_item
@@ -121,11 +126,11 @@ def __create_playlist_context_menu():
             lambda w, o, c: player.QUEUE.add_tracks(
             [t[1] for t in c['selected-tracks']])))
     def toggle_spat_cb(widget, playlistpage, context):
-        pos = context['selected-tracks'][0][0]
-        if pos != playlistpage.playlist.spat_pos:
-            playlistpage.playlist.spat_pos = pos
+        position = context['selected-tracks'][0][0]
+        if position != playlistpage.playlist.spat_position:
+            playlistpage.playlist.spat_position = position
         else:
-            playlistpage.playlist.spat_pos = -1
+            playlistpage.playlist.spat_position = -1
     items.append(smi('toggle-spat', ['append-queue'],
             _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
     items.append(plmenu.RatingMenuItem('rating', ['toggle-spat']))
@@ -133,15 +138,15 @@ def __create_playlist_context_menu():
     items.append(sep('sep1', ['rating']))
     def remove_tracks_cb(widget, playlistpage, context):
         tracks = context['selected-tracks']
-        pl = playlistpage.playlist
+        playlist = playlistpage.playlist
         # If it's all one block, just delete it in one chunk for
         # maximum speed.
-        idxs = [t[0] for t in tracks]
-        if idxs == range(idxs[0], idxs[0]+len(idxs)+1):
-            del pl[idxs[0]:idxs[0]+len(idxs)+1]
+        positions = [t[0] for t in tracks]
+        if positions == range(positions[0], positions[0]+len(positions)+1):
+            del playlist[positions[0]:positions[0]+len(positions)+1]
         else:
-            for idx, tr in tracks[::-1]:
-                del pl[idx]
+            for position, track in tracks[::-1]:
+                del playlist[position]
     items.append(smi('remove', ['sep1'], _("Remove"), 'gtk-remove',
         remove_tracks_cb))
     items.append(sep('sep2', ['remove']))
@@ -260,11 +265,15 @@ class PlaylistPage(gtk.VBox, NotebookPage):
             Nicely position the shuffle/repeat popup menu with the
             button's corner.
         """
-        w = self.window.get_position()
-        b = button.get_allocation()
-        m = menu.get_allocation()
-        pos = (w[0]+b.x+1, w[1]+b.y-m.height-1)
-        return (pos[0], pos[1], True)
+        window_x, window_y = self.window.get_position()
+        button_allocation = button.get_allocation()
+        menu_allocation = menu.get_allocation()
+        position = (
+            window_x + button_allocation.x + 1,
+            window_y + button_allocation.y - menu_allocation.height - 1
+        )
+
+        return (position[0], position[1], True)
 
     def on_shuffle_mode_set(self, widget, mode):
         """
@@ -300,7 +309,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         """
             Sets the tab icon to reflect the playback status
         """
-        if path[0] == self.playlist.current_pos:
+        if path[0] == self.playlist.current_position:
             pixbuf = model.get_value(iter, 0)
             if pixbuf == model.clear_pixbuf:
                 pixbuf = None
@@ -322,15 +331,15 @@ class PlaylistView(gtk.TreeView):
 
         self.set_model(self.model)
 
-        for idx, col in enumerate(self.model.columns):
-            idx += 1 # offset for pixbuf column
-            plcol = playlist_columns.COLUMNS[col](self)
-            gcol = plcol.get_column(idx)
-            self.append_column(gcol)
+        for position, column in enumerate(self.model.columns):
+            position += 1 # offset for pixbuf column
+            playlist_column = playlist_columns.COLUMNS[column](self)
+            view_column = playlist_column.get_column(position)
+            self.append_column(view_column)
 
         self.connect("row-activated", self.on_row_activated)
 
-        self.targets = [("exaile-idx-list", gtk.TARGET_SAME_WIDGET, 0),
+        self.targets = [("exaile-index-list", gtk.TARGET_SAME_WIDGET, 0),
                 ("text/uri-list", 0, 0)]
         self.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
@@ -358,7 +367,7 @@ class PlaylistView(gtk.TreeView):
         path = self.model.get_path(iter)
         track = self.model.get_track(path)
         if track == player.PLAYER.current and \
-                path[0] == self.playlist.get_current_pos() and \
+                path[0] == self.playlist.get_current_position() and \
                 self.playlist == player.QUEUE.current_playlist:
             weight = pango.WEIGHT_HEAVY
         else:
@@ -377,13 +386,13 @@ class PlaylistView(gtk.TreeView):
 
     def on_row_activated(self, *args):
         try:
-            idx, track = self.get_selected_tracks()[0]
+            position, track = self.get_selected_tracks()[0]
         except IndexError:
             return
 
         player.QUEUE.play(track=track)
         player.QUEUE.set_current_playlist(self.playlist)
-        self.playlist.set_current_pos(idx)
+        self.playlist.set_current_position(position)
 
     def on_button_press(self, widget, event):
         if event.button == 3:
@@ -401,9 +410,9 @@ class PlaylistView(gtk.TreeView):
         pass
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
-        if selection.target == "exaile-idx-list":
-            idxs = [ x[0] for x in self.get_selected_tracks() ]
-            s = ",".join(str(i) for i in idxs)
+        if selection.target == "exaile-index-list":
+            positions = [ x[0] for x in self.get_selected_tracks() ]
+            s = ",".join(str(i) for i in positions)
             selection.set(selection.target, 8, s)
         elif selection.target == "text/uri-list":
             tracks = [ x[1] for x in self.get_selected_tracks() ]
@@ -426,50 +435,54 @@ class PlaylistView(gtk.TreeView):
         self.stop_emission('drag-data-received')
         drop_info = self.get_dest_row_at_pos(x, y)
         if drop_info:
-            path, pos = drop_info
-            insert_idx = path[0]
-            if pos in (gtk.TREE_VIEW_DROP_AFTER, gtk.TREE_VIEW_DROP_INTO_OR_AFTER):
-                insert_idx += 1
+            path, position = drop_info
+            insert_position = path[0]
+            if position in (gtk.TREE_VIEW_DROP_AFTER, gtk.TREE_VIEW_DROP_INTO_OR_AFTER):
+                insert_position += 1
         else:
-            insert_idx = -1
-        if selection.target == "exaile-idx-list":
-            idxs = [int(x) for x in selection.data.split(",")]
+            insert_position = -1
+        if selection.target == "exaile-index-list":
+            positions = [int(x) for x in selection.data.split(",")]
             tracks = MetadataList()
             # TODO: this can probably be made more-efficient
-            for i in idxs:
+            for i in positions:
                 tracks.extend(self.playlist[i:i+1])
-            if insert_idx >= 0:
-                self.playlist[insert_idx:insert_idx] = tracks
-                for i, idx in enumerate(idxs[:]):
-                    if idx >= insert_idx:
-                        idx += len(tracks)
-                        idxs[i] = idx
+            if insert_position >= 0:
+                self.playlist[insert_position:insert_position] = tracks
+                for i, position in enumerate(positions[:]):
+                    if position >= insert_position:
+                        position += len(tracks)
+                        positions[i] = position
             else:
                 self.playlist.extend(tracks)
-            for i in idxs[::-1]:
+            for i in positions[::-1]:
                 del self.playlist[i]
         elif selection.target == "text/uri-list":
             uris = selection.get_uris()
             tracks = []
             for u in uris:
                 tracks.extend(trax.get_tracks_from_uri(u))
-            if insert_idx >= 0:
-                self.playlist[insert_idx:insert_idx] = tracks
+            if insert_position >= 0:
+                self.playlist[insert_position:insert_position] = tracks
             else:
                 self.playlist.extend(tracks)
         context.finish(True, False, etime)
 
     def on_drag_motion(self, widget, context, x, y, etime):
         info = self.get_dest_row_at_pos(x, y)
+
         if not info:
             return False
-        path, pos = info
-        if pos == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
-            pos = gtk.TREE_VIEW_DROP_BEFORE
-        elif pos == gtk.TREE_VIEW_DROP_INTO_OR_AFTER:
-            pos = gtk.TREE_VIEW_DROP_AFTER
 
-        self.set_drag_dest_row(path, pos)
+        path, position = info
+
+        if position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
+            position = gtk.TREE_VIEW_DROP_BEFORE
+        elif position == gtk.TREE_VIEW_DROP_INTO_OR_AFTER:
+            position = gtk.TREE_VIEW_DROP_AFTER
+
+        self.set_drag_dest_row(path, position)
+
         return True
 
 class PlaylistModel(gtk.GenericTreeModel):
@@ -482,10 +495,10 @@ class PlaylistModel(gtk.GenericTreeModel):
                 "playlist_tracks_added", playlist)
         event.add_callback(self.on_tracks_removed,
                 "playlist_tracks_removed", playlist)
-        event.add_callback(self.on_pos_changed,
-                "playlist_current_pos_changed", playlist)
-        event.add_callback(self.on_pos_changed,
-                "playlist_spat_pos_changed", playlist)
+        event.add_callback(self.on_current_position_changed,
+                "playlist_current_position_changed", playlist)
+        event.add_callback(self.on_current_position_changed,
+                "playlist_spat_position_changed", playlist)
         event.add_callback(self.on_playback_state_change,
                 "playback_track_start")
         event.add_callback(self.on_playback_state_change,
@@ -547,11 +560,11 @@ class PlaylistModel(gtk.GenericTreeModel):
 
     def on_get_value(self, rowref, column):
         if column == 0:
-            if self.playlist.current_pos == rowref and \
+            if self.playlist.current_position == rowref and \
                     self.playlist[rowref] == player.PLAYER.current and \
                     self.playlist == player.QUEUE.current_playlist:
                 state = player.PLAYER.get_state()
-                spat = self.playlist.spat_pos == rowref
+                spat = self.playlist.spat_position == rowref
                 if state == 'playing':
                     if spat:
                         return self.play_stop_pixbuf
@@ -562,7 +575,7 @@ class PlaylistModel(gtk.GenericTreeModel):
                         return self.pause_stop_pixbuf
                     else:
                         return self.pause_pixbuf
-            if self.playlist.spat_pos == rowref:
+            if self.playlist.spat_position == rowref:
                 return self.stop_pixbuf
             return self.clear_pixbuf
         else:
@@ -608,28 +621,28 @@ class PlaylistModel(gtk.GenericTreeModel):
 
     ### Event callbacks to keep the model in sync with the playlist ###
 
-    def on_tracks_added(self, typ, playlist, tracktups):
-        for idx, tr in tracktups:
-            self.row_inserted((idx,), self.get_iter((idx,)))
+    def on_tracks_added(self, event_type, playlist, tracks):
+        for position, track in tracks:
+            self.row_inserted((position,), self.get_iter((position,)))
 
-    def on_tracks_removed(self, typ, playlist, tracktups):
+    def on_tracks_removed(self, event_type, playlist, tracks):
         tracktups.reverse()
-        for idx, tr in tracktups:
-            self.row_deleted((idx,))
+        for position, track in tracks:
+            self.row_deleted((position,))
 
-    def on_pos_changed(self, typ, playlist, pos):
-        for p in pos:
-            if p < 0:
+    def on_current_position_changed(self, event_type, playlist, positions):
+        for position in positions:
+            if position < 0:
                 continue
-            path = (p,)
+            path = (position,)
             try:
                 iter = self.get_iter(path)
             except ValueError:
                 continue
             self.row_changed(path, iter)
 
-    def on_playback_state_change(self, typ, player_obj, tr):
-        path = (self.playlist.current_pos,)
+    def on_playback_state_change(self, event_type, player_obj, track):
+        path = (self.playlist.current_position,)
         try:
             iter = self.get_iter(path)
         except ValueError:
@@ -658,20 +671,20 @@ class Playlist(object):
             playlist_tracks_removed
                 fired: after tracks are removed
                 data: list of tuples of (index, track)
-            playlist_current_pos_changed
+            playlist_current_position_changed
             playlist_shuffle_mode_changed
             playlist_random_mode_changed
             playlist_dynamic_mode_changed
     """
     save_attrs = ['shuffle_mode', 'repeat_mode', 'dynamic_mode',
-            'current_pos', 'name']
+            'current_position', 'name']
     __playlist_format_version = [2, 0]
     def __init__(self, name, initial_tracks=[]):
         self.__tracks = MetadataList()
-        for tr in initial_tracks:
-            if not isinstance(tr, trax.Track):
-                raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
-            self.__tracks.append(tr)
+        for track in initial_tracks:
+            if not isinstance(track, trax.Track):
+                raise ValueError, "Need trax.Track object, got %s" % repr(type(x))
+            self.__tracks.append(track)
         self.__shuffle_mode = self.shuffle_modes[0]
         self.__repeat_mode = self.repeat_modes[0]
         self.__dynamic_mode = self.dynamic_modes[0]
@@ -683,8 +696,8 @@ class Playlist(object):
         self.__dirty = False
         self.__needs_save = False
         self.__name = name
-        self.__current_pos = -1
-        self.__spat_pos = -1
+        self.__current_position = -1
+        self.__spat_position = -1
 
         # FIXME: this is not ideal since duplicate tracks are not
         # weighted appropriately when shuffling, however without a
@@ -704,30 +717,30 @@ class Playlist(object):
     def clear(self):
         del self[:]
 
-    def get_current_pos(self):
-        return self.__current_pos
+    def get_current_position(self):
+        return self.__current_position
 
-    def set_current_pos(self, pos):
-        oldpos = self.__current_pos
-        self.__current_pos = pos
+    def set_current_position(self, position):
+        oldposition = self.__current_position
+        self.__current_position = position
         self.__dirty = True
-        event.log_event("playlist_current_pos_changed", self, (pos, oldpos))
+        event.log_event("playlist_current_position_changed", self, (position, oldposition))
 
-    current_pos = property(get_current_pos, set_current_pos)
+    current_position = property(get_current_position, set_current_position)
 
-    def get_spat_pos(self):
-        return self.__spat_pos
+    def get_spat_position(self):
+        return self.__spat_position
 
-    def set_spat_pos(self, pos):
-        oldpos = self.__spat_pos
-        self.__spat_pos = pos
+    def set_spat_position(self, position):
+        oldposition = self.__spat_position
+        self.__spat_position = position
         self.__dirty = True
-        event.log_event("playlist_spat_pos_changed", self, (pos, oldpos))
+        event.log_event("playlist_spat_position_changed", self, (position, oldposition))
 
-    spat_pos = property(get_spat_pos, set_spat_pos)
+    spat_position = property(get_spat_position, set_spat_position)
 
     def get_current(self):
-        return self.__tracks[self.current_pos]
+        return self.__tracks[self.current_position]
 
     current = property(get_current)
 
@@ -748,7 +761,7 @@ class Playlist(object):
                 curr = self.current
                 t = [ x for i, x in enumerate(self) \
                     if x.get_tag_raw('album') == curr.get_tag_raw('album') \
-                    and i > self.current_pos ]
+                    and i > self.current_position ]
                 t = trax.sort_tracks(['discnumber', 'tracknumber'], t)
                 return t[0]
 
@@ -772,8 +785,8 @@ class Playlist(object):
     def next(self):
         repeat_mode = self.repeat_mode
         shuffle_mode = self.shuffle_mode
-        if self.current_pos == self.spat_pos:
-            self.spat_pos = -1
+        if self.current_position == self.spat_position:
+            self.spat_position = -1
             return None
 
         if repeat_mode == 'track':
@@ -786,14 +799,14 @@ class Playlist(object):
                     self.__tracks_history.append(curr)
                 next = self.__next_random_track(shuffle_mode)
                 if next is not None:
-                    self.current_pos = self.index(next)
+                    self.current_position = self.index(next)
             else:
                 try:
-                    next = self[self.current_pos+1]
-                    self.current_pos += 1
+                    next = self[self.current_position+1]
+                    self.current_position += 1
                 except IndexError:
                     next = None
-                    self.current_pos = -1
+                    self.current_position = -1
 
             if repeat_mode == 'all':
                 if next is None:
@@ -815,15 +828,15 @@ class Playlist(object):
             except IndexError:
                 return self.get_current()
             self.__tracks_history = self.__tracks_history[:-1]
-            self.current_pos = self.index(prev) #FIXME
+            self.current_position = self.index(prev) #FIXME
         else:
-            pos = self.current_pos - 1
-            if pos < 0:
+            position = self.current_position - 1
+            if position < 0:
                 if repeat_mode == 'all':
-                    pos = len(self) - 1
+                    position = len(self) - 1
                 else:
-                    pos = 0
-            self.current_pos = pos
+                    position = 0
+            self.current_position = position
         return self.get_current()
 
     ### track advance modes ###
@@ -903,14 +916,14 @@ class Playlist(object):
             f = open(location + ".new", "w")
         else:
             f = open(location, "w")
-        for tr in self.__tracks:
-            buffer = tr.get_loc_for_io()
+        for track in self.__tracks:
+            buffer = track.get_loc_for_io()
             # write track metadata
             meta = {}
             items = ('artist', 'album', 'tracknumber',
                     'title', 'genre', 'date')
             for item in items:
-                value = tr.get_tag_raw(item)
+                value = track.get_tag_raw(item)
                 if value is not None:
                     meta[item] = value[0]
             buffer += '\t%s\n' % urllib.urlencode(meta)
@@ -984,17 +997,17 @@ class Playlist(object):
                 loc = "\t".join(splitted[:-1])
                 meta = splitted[-1]
 
-            tr = None
-            tr = trax.Track(uri=loc)
+            track = None
+            track = trax.Track(uri=loc)
 
             # readd meta
-            if not tr: continue
-            if not tr.is_local() and meta is not None:
+            if not track: continue
+            if not track.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
                 for k, v in meta.iteritems():
-                    tr.set_tag_raw(k, v[0], notify_changed=False)
+                    track.set_tag_raw(k, v[0], notify_changed=False)
 
-            trs.append(tr)
+            trs.append(track)
 
         self.__tracks[:] = trs
 
@@ -1052,15 +1065,19 @@ class Playlist(object):
         oldtracks = self.__getitem__(i)
         removed = MetadataList()
         added = MetadataList()
+
         if isinstance(i, slice):
             for x in value:
                 if not isinstance(x, trax.Track):
                     raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
+
             (start, end, step) = self.__tuple_from_slice(i)
+
             if isinstance(value, MetadataList):
                 metadata = value.metadata
             else:
                 metadata = [None] * len(value)
+
             if step != 1:
                 if len(value) != len(oldtracks):
                     raise ValueError, "Extended slice assignment must match sizes."
@@ -1072,6 +1089,7 @@ class Playlist(object):
                 removed = MetadataList(zip(range(start, end, step), oldtracks),
                         oldtracks.metadata)
                 end = start + len(value)
+
             added = MetadataList(zip(range(start, end, step), value), metadata)
         else:
             if not isinstance(value, trax.Track):
@@ -1079,20 +1097,19 @@ class Playlist(object):
             self.__tracks[i] = value
             removed = [(i, oldtracks)]
             added = [(i, value)]
-        curpos = self.current_pos
-        spatpos = self.spat_pos
-        for idx, tr in removed[::-1]:
-            if curpos > idx:
-                curpos -= 1
-            if spatpos > idx:
-                spatpos -= 1
-        for idx, tr in added:
-            if curpos > idx:
-                curpos += 1
-            if spatpos > idx:
-                spatpos += 1
-        self.spat_pos = spatpos
-        self.current_pos = curpos
+
+        for position, track in removed[::-1]:
+            if self.current_position > position:
+                self.current_position -= 1
+            if self.spat_position > position:
+                self.spat_position -= 1
+
+        for position, track in added:
+            if self.current_position > position:
+                self.current_position += 1
+            if self.spat_position > position:
+                self.spat_position += 1
+
         event.log_event('playlist_tracks_removed', self, removed)
         event.log_event('playlist_tracks_added', self, added)
         self.__needs_save = self.__dirty = True
@@ -1103,20 +1120,19 @@ class Playlist(object):
         oldtracks = self.__getitem__(i)
         self.__tracks.__delitem__(i)
         removed = MetadataList()
+
         if isinstance(i, slice):
             removed = MetadataList(zip(xrange(start, end, step), oldtracks),
                     oldtracks.metadata)
         else:
             removed = [(i, oldtracks)]
-        curpos = self.current_pos
-        spatpos = self.spat_pos
-        for idx, tr in removed[::-1]:
-            if curpos > idx:
-                curpos -= 1
-            if spatpos > idx:
-                spatpos -= 1
-        self.spat_pos = spatpos
-        self.current_pos = curpos
+
+        for position, track in removed[::-1]:
+            if self.current_position > position:
+                self.current_position -= 1
+            if self.spat_position > position:
+                self.spat_position -= 1
+
         event.log_event('playlist_tracks_removed', self, removed)
         self.__needs_save = self.__dirty = True
 

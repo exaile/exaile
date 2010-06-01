@@ -24,9 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import time
 import logging
+import os
+import os.path
 import tempfile
+import time
 import traceback
 
 import gio
@@ -367,17 +369,12 @@ class CoverWidget(gtk.EventBox):
         self.player = player
         self.menu = CoverMenu(self)
         self.parent_window = image.get_toplevel()
-        self.filename = tempfile.mkstemp(prefix='exaile_cover_')[1]
+        self.filename = None
 
         guiutil.gtk_widget_replace(image, self)
         self.add(self.image)
         self.set_blank()
         self.image.show()
-
-        self.connect('button-press-event', self.on_button_press)
-        self.connect('drag-begin', self.on_drag_begin)
-        self.connect('drag-data-get', self.on_drag_data_get)
-        self.connect('drag-data-received', self.on_drag_data_received)
 
         event.add_callback(self.on_playback_start,
                 'playback_track_start', player)
@@ -385,6 +382,13 @@ class CoverWidget(gtk.EventBox):
                 'playback_player_end', player)
 
     def destroy(self):
+        """
+            Cleanups
+        """
+        if self.filename is not None and os.path.exists(self.filename):
+            os.remove(self.filename)
+            self.filename = None
+
         event.remove_callback(self.on_playback_start,
                 'playback_track_start', player)
         event.remove_callback(self.on_playback_end,
@@ -462,7 +466,7 @@ class CoverWidget(gtk.EventBox):
 
         self.set_data('drag_enabled', drag_enabled)
 
-    def on_button_press(self, button, event):
+    def do_button_press_event(self, event):
         """
             Called when someone clicks on the cover widget
         """
@@ -487,16 +491,18 @@ class CoverWidget(gtk.EventBox):
 
         self.emit('cover-found', pixbuf)
 
-    def on_drag_begin(self, widget, context):
+    def do_drag_begin(self, context):
         """
             Sets the cover as drag icon
         """
-        widget.drag_source_set_icon_pixbuf(self.image.get_pixbuf())
+        self.drag_source_set_icon_pixbuf(self.image.get_pixbuf())
 
-    def on_drag_data_get(self, widget, context, selection, info, time):
+    def do_drag_data_get(self, context, selection, info, time):
         """
             Fills the selection with the current cover
         """
+        if self.filename is None:
+            self.filename = tempfile.mkstemp(prefix='exaile_cover_')[1]
         """
         cover_data = cover_manager.get_cover(self.player.current)
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
@@ -505,7 +511,15 @@ class CoverWidget(gtk.EventBox):
         pixbuf.save(self.filename, 'png')
         selection.set_uris([gio.File(self.filename).get_uri()])
 
-    def on_drag_data_received(self, widget, context, x, y, selection, info, time):
+    def do_drag_end(self, context):
+        """
+            Cleans up after drag from cover widget
+        """
+        if self.filename is not None and os.path.exists(self.filename):
+            os.remove(self.filename)
+            self.filename = None
+
+    def do_drag_data_received(self, context, x, y, selection, info, time):
         """
             Sets the cover based on the dragged data
         """

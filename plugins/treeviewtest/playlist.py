@@ -330,7 +330,8 @@ class PlaylistView(gtk.TreeView):
 
         self.connect("row-activated", self.on_row_activated)
 
-        self.targets = [("text/uri-list", 0, 0)]
+        self.targets = [("text/exaile-idx-list", gtk.TARGET_SAME_WIDGET, 0),
+                ("text/uri-list", 0, 0)]
         self.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
@@ -363,7 +364,7 @@ class PlaylistView(gtk.TreeView):
     def get_selected_tracks(self):
         """
             Returns a list of :class:`xl.trax.Track` which are currently
-            slected in the playlist.
+            selected in the playlist.
         """
         selection = self.get_selection()
         model, paths = selection.get_selected_rows()
@@ -394,9 +395,14 @@ class PlaylistView(gtk.TreeView):
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
         print "DRAG DATA GET"
-        tracks = [ x[1] for x in self.get_selected_tracks() ]
-        uris = trax.util.get_uris_from_tracks(tracks)
-        selection.set_uris(uris)
+        if selection.target == "text/exaile-idx-list":
+            idxs = [ x[0] for x in self.get_selected_tracks() ]
+            s = ",".join(str(i) for i in idxs)
+            selection.set(selection.target, 8, s)
+        elif selection.target == "text/uri-list":
+            tracks = [ x[1] for x in self.get_selected_tracks() ]
+            uris = trax.util.get_uris_from_tracks(tracks)
+            selection.set_uris(uris)
 
     def on_drag_end(self, widget, context):
         print "DRAG END"
@@ -413,8 +419,14 @@ class PlaylistView(gtk.TreeView):
         print "DRAG DATA RECEIVED"
         # stop default handler from running
         self.stop_emission('drag-data-received')
-
-        print selection.get_uris()
+        if selection.target == "text/exaile-idx-list":
+            print selection.data
+        elif selection.target == "text/uri-list":
+            uris = selection.get_uris()
+            tracks = []
+            for u in uris:
+                tracks.extend(trax.get_tracks_from_uri(u))
+            self.playlist.extend(tracks)
 
     def on_drag_motion(self, widget, context, x, y, etime):
         info = self.get_dest_row_at_pos(x, y)

@@ -330,7 +330,7 @@ class PlaylistView(gtk.TreeView):
 
         self.connect("row-activated", self.on_row_activated)
 
-        self.targets = [("text/exaile-idx-list", gtk.TARGET_SAME_WIDGET, 0),
+        self.targets = [("exaile-idx-list", gtk.TARGET_SAME_WIDGET, 0),
                 ("text/uri-list", 0, 0)]
         self.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
@@ -346,6 +346,7 @@ class PlaylistView(gtk.TreeView):
         self.connect("drag-drop", self.on_drag_drop)
         self.connect("drag-data-get", self.on_drag_data_get)
         self.connect("drag-data-received", self.on_drag_data_received)
+        self.connect("drag-data-delete", self.on_drag_data_delete)
         self.connect("drag-end", self.on_drag_end)
         self.connect("drag-motion", self.on_drag_motion)
 
@@ -400,7 +401,7 @@ class PlaylistView(gtk.TreeView):
         pass
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
-        if selection.target == "text/exaile-idx-list":
+        if selection.target == "exaile-idx-list":
             idxs = [ x[0] for x in self.get_selected_tracks() ]
             s = ",".join(str(i) for i in idxs)
             selection.set(selection.target, 8, s)
@@ -408,6 +409,9 @@ class PlaylistView(gtk.TreeView):
             tracks = [ x[1] for x in self.get_selected_tracks() ]
             uris = trax.util.get_uris_from_tracks(tracks)
             selection.set_uris(uris)
+
+    def on_drag_data_delete(self, widget, context):
+        self.stop_emission('drag-data-delete')
 
     def on_drag_end(self, widget, context):
         pass
@@ -428,7 +432,7 @@ class PlaylistView(gtk.TreeView):
                 insert_idx += 1
         else:
             insert_idx = -1
-        if selection.target == "text/exaile-idx-list":
+        if selection.target == "exaile-idx-list":
             idxs = [int(x) for x in selection.data.split(",")]
             tracks = MetadataList()
             # TODO: this can probably be made more-efficient

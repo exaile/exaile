@@ -23,9 +23,8 @@ ui:
             grey out tracks below SPAT designation
                 - cell.set_sensitive(False)
                 - only if (not shuffling AND current_pos <= spat_pos)
-        accept dropped tracks/uris
-        DnD to reorder
         rename in dialog/messagebar if tabs are hidden
+        fix selection interaction
 
     tabs:
         middle-click empty space to create new
@@ -37,7 +36,3 @@ ui:
         make queue tab show itself whenever items are enqueued
         count of queued items in tab
 
-
-
-random:
-    CellRendererToggleImage - http://pastebin.com/NNCu207Y

@@ -35,6 +35,7 @@ from xl import (
     common,
     covers,
     event,
+    formatter,
     playlist,
     settings,
     trax,
@@ -967,6 +968,29 @@ class Statusbar(object):
             box.send_expose(event) # Bypass frame
 
         return True
+
+class ProgressBarFormatter(formatter.ProgressTextFormatter):
+    """
+        A formatter for progress bars
+    """
+    def __init__(self):
+        formatter.ProgressTextFormatter.__init__(self, self.get_option_value())
+
+        event.add_callback(self.on_option_set, 'gui_option_set')
+
+    def get_option_value(self):
+        """
+            Returns the current option value
+        """
+        return settings.get_option('gui/progress_bar_text_format',
+            '$current_time / $remaining_time')
+
+    def on_option_set(self, event, settings, option):
+        """
+            Updates the internal format on setting change
+        """
+        if option == 'gui/progress_bar_text_format':
+            self.props.format = self.get_option_value()
 
 def finish(repeat=True):
     """

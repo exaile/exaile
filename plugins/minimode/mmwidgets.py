@@ -20,9 +20,17 @@ import gobject
 import gtk
 import pango
 
-from xl import event, formatter, settings
+from xl import (
+    event,
+    formatter,
+    player,
+    settings
+)
 from xl.nls import gettext as _
-from xlgui.guiutil import get_workarea_size
+from xlgui.guiutil import (
+    get_workarea_size,
+    ProgressBarFormatter
+)
 from xlgui.playlist import Playlist
 from xlgui.widgets import info, rating
 
@@ -331,7 +339,7 @@ class PlaylistButton(gtk.ToggleButton):
     """
     __gsignals__ = {
         'track-changed': (
-            gobject.SIGNAL_RUN_FIRST,
+            gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_NONE,
             (gobject.TYPE_PYOBJECT, )
         )
@@ -374,22 +382,17 @@ class PlaylistButton(gtk.ToggleButton):
             gtk.gdk.ACTION_DEFAULT |
             gtk.gdk.ACTION_MOVE)
 
-        self._track_changed_id = self.connect('track-changed',
-            change_callback)
-        self._scroll_event_id = self.connect('scroll-event',
-            self.on_scroll)
-        self._toggled_id = self.connect('toggled',
-            self.on_toggled)
-        self._drag_leave_id = self.connect('drag-leave',
-            self.on_drag_leave)
-        self._drag_motion_id = self.connect('drag-motion',
-            self.on_drag_motion)
-        self._drag_data_received_id = self.playlist.list.connect(
-            'drag-data-received', self.on_playlist_drag_data_received)
-        self._switch_page_id = self.main.playlist_notebook.connect(
-            'switch-page', self.on_playlist_notebook_switch)
-        self._format_changed_id = self.formatter.connect(
-            'format-changed', self.on_format_changed)
+        self.connect('track-changed', change_callback)
+        self.connect('scroll-event', self.on_scroll)
+        self.connect('toggled', self.on_toggled)
+        self.connect('drag-leave', self.on_drag_leave)
+        self.connect('drag-motion', self.on_drag_motion)
+        self.playlist.list.connect('drag-data-received',
+            self.on_playlist_drag_data_received)
+        self.main.playlist_notebook.connect('switch-page',
+            self.on_playlist_notebook_switch)
+        self.formatter.connect('format-changed',
+            self.on_format_changed)
 
         event.add_callback(self.on_playback_player_end,
             'playback_player_end')
@@ -404,15 +407,6 @@ class PlaylistButton(gtk.ToggleButton):
         """
             Various cleanups
         """
-        self.disconnect(self._track_changed_id)
-        self.disconnect(self._scroll_event_id)
-        self.disconnect(self._toggled_id)
-        self.disconnect(self._drag_leave_id)
-        self.disconnect(self._drag_motion_id)
-        self.playlist.list.disconnect(self._drag_data_received_id)
-        self.main.playlist_notebook.disconnect(self._switch_page_id)
-        self.formatter.disconnect(self._format_changed_id)
-
         event.remove_callback(self.on_playback_player_end, 'playback_player_end')
         event.remove_callback(self.on_playback_track_start, 'playback_track_start')
 
@@ -541,8 +535,6 @@ class PlaylistButton(gtk.ToggleButton):
             self.playlist.model = playlist.model
             self.playlist.list.set_model(self.playlist.model)
 
-gobject.type_register(PlaylistButton)
-
 class RatingWidget(rating.RatingWidget):
     """
         A wrapper which updates the current
@@ -562,6 +554,162 @@ class RatingWidget(rating.RatingWidget):
             maximum = settings.get_option('rating/maximum', 5)
             event.log_event('rating_changed', self, rating / maximum * 100)
 
+class ProgressButton(gtk.EventBox):
+    """
+        A button which allows displaying a playlist
+        via click and seeking via right-click.
+        Scrolling to switch tracks is also supported
+        as well as dropping media files to add them
+        to the playlist. Behold!
+    """
+    __gsignals__ = {
+        'seeked': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_FLOAT, )
+        ),
+        'track-changed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_PYOBJECT, )
+        )
+    }
+    def __init__(self, main, track_formatter, change_callback):
+        gtk.EventBox.__init__(self)
+
+        self.set_visible_window(False)
+        self.set_above_child(True)
+
+        self._dirty = False
+        self._drag_shown = False
+        self._parent_hide_id = None
+        self._drag_motion_id = None
+        self.main = main
+        # TODO
+        __format = '$title ($current_time / $total_time'
+        self.track_formatter = formatter.TrackFormatter('')
+        self.progress_formatter = formatter.ProgressTextFormatter('')
+        self.button = gtk.ToggleButton()
+        self.arrow = gtk.Arrow(gtk.ARROW_RIGHT, gtk.SHADOW_IN)
+        self.progress = gtk.ProgressBar()
+        self.progress.add_events(gtk.gdk.BUTTON_PRESS_MASK |
+            gtk.gdk.BUTTON_RELEASE_MASK |
+            gtk.gdk.POINTER_MOTION_MASK)
+        self.tooltip = info.TrackToolTip(self, auto_update=True)
+
+        playlist = self.main.get_selected_playlist()
+        self.playlist = Playlist(main, player.QUEUE, playlist.playlist)
+        self.playlist.model = playlist.model
+        self.playlist.list.set_model(self.playlist.model)
+        self.playlist.scroll.set_property('shadow-type', gtk.SHADOW_IN)
+        self.popup = AttachedWindow(self)
+        self.popup.add(self.playlist)
+
+        self.tooltip = info.TrackToolTip(self, auto_update=True)
+
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+            self.playlist.list.targets,
+            gtk.gdk.ACTION_COPY |
+            gtk.gdk.ACTION_DEFAULT |
+            gtk.gdk.ACTION_MOVE)
+
+        box = gtk.HBox(spacing=6)
+        box.pack_start(self.arrow, expand=False)
+        box.pack_start(self.progress)
+        self.button.add(box)
+        self.add(self.button)
+
+        self.connect('button-press-event', self.on_button_press_event)
+        self.connect('button-release-event', self.on_button_release_event)
+        self.connect('motion-notify-event', self.on_motion_notify_event)
+        self.connect('track-changed', change_callback)
+        self.connect('scroll-event', self.on_scroll_event)
+        self.connect('toggled', self.on_toggled)
+        self.connect('drag-leave', self.on_drag_leave)
+        self.connect('drag-motion', self.on_drag_motion)
+        self.button.connect('toggled', self.on_button_toggled)
+
+        self.playlist.list.connect('drag-data-received',
+            self.on_playlist_drag_data_received)
+        self.main.playlist_notebook.connect('switch-page',
+            self.on_playlist_notebook_switch)
+
+        event.add_callback(self.on_playback_player_end,
+            'playback_player_end')
+        event.add_callback(self.on_playback_track_start,
+            'playback_track_start')
+
+        if player.PLAYER.current is not None:
+            self.on_playback_track_start('playback_track_start',
+                player.PLAYER, player.PLAYER.current)
+
+    def translate_coordinates(self, child, x, y, clamp=True):
+        """
+            Translates coordinates to child coordinates
+
+            :param clamp: Use allocation to limit the values
+        """
+        x, y = gtk.EventBox.translate_coordinates(self, child, x, y)
+
+        if clamp:
+            allocation = child.get_allocation()
+            x = max(0, x)
+            x = min(x, allocation.width)
+            y = max(0, y)
+            y = min(y, allocation.height)
+
+        return x, y
+
+    def on_button_press_event(self, widget, event):
+        """
+            Shows the attached window or starts
+            seeking to the desired position
+        """
+        if event.button == 1:
+            self.button.set_active(not self.button.get_active())
+            self.set_data('seeking', False)
+        elif event.button == 3:
+            allocation = self.progress.get_allocation()
+            x, y = self.translate_coordinates(
+                self.progress, int(event.x), int(event.y))
+            self.progress.set_fraction(float(x) / allocation.width)
+            self.set_data('seeking', True)
+
+    def on_button_release_event(self, widget, event):
+        """
+            Seeks to the desired position
+        """
+        if event.button == 3:
+            allocation = self.progress.get_allocation()
+            x, y = self.translate_coordinates(
+                self.progress, int(event.x), int(event.y))
+
+            self.emit('seeked', float(x) / allocation.width)
+
+        self.set_data('seeking', False)
+
+    def on_motion_notify_event(self, widget, event):
+        """
+            Visualizes seeking
+        """
+        if self.get_data('seeking'):
+            press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
+            press_event.button = 3
+            press_event.x = event.x
+            press_event.y = event.y
+
+            self.emit('button-press-event', press_event)
+
+    def on_button_toggled(self, button):
+        """
+            Changes the arrow and shows
+            or hides the attached window
+        """
+        if button.get_active():
+            self.arrow.set_property('arrow-type', gtk.ARROW_DOWN)
+        else:
+            self.arrow.set_property('arrow-type', gtk.ARROW_RIGHT)
+
 class TrackSelector(gtk.ComboBox):
     """
         Control which updates its content automatically
@@ -569,7 +717,7 @@ class TrackSelector(gtk.ComboBox):
     """
     __gsignals__ = {
         'track-changed': (
-            gobject.SIGNAL_RUN_FIRST,
+            gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_NONE,
             (gobject.TYPE_PYOBJECT, )
         )
@@ -760,23 +908,21 @@ class TrackSelector(gtk.ComboBox):
         else:
             self._dirty = True
 
-gobject.type_register(TrackSelector)
-
 class ProgressBar(gtk.Alignment):
     """
         Wrapper class which updates itself
         based on the current track
     """
     __gsignals__ = {
-        'track-seeked': (
-            gobject.SIGNAL_RUN_FIRST,
+        'seeked': (
+            gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_NONE,
             (gobject.TYPE_FLOAT, )
         )
     }
 
     def __init__(self, player, callback):
-        gtk.Alignment.__init__(self)
+        gtk.Alignment.__init__(self, xscale=1, yscale=1)
         self.set_padding(3, 3, 0, 0)
 
         self.bar = gtk.ProgressBar()
@@ -784,7 +930,7 @@ class ProgressBar(gtk.Alignment):
         self.add(self.bar)
 
         self.player = player
-        self.formatter = formatter.ProgressTextFormatter()
+        self.formatter = ProgressBarFormatter()
         self._timer = None
         self._press_event = None
         self.update_state()
@@ -793,7 +939,7 @@ class ProgressBar(gtk.Alignment):
             gtk.gdk.BUTTON_RELEASE_MASK |
             gtk.gdk.POINTER_MOTION_MASK)
 
-        self._track_seeked_id = self.connect('track-seeked',
+        self._seeked_id = self.connect('seeked',
             callback)
         self._button_press_event_id = self.bar.connect('button-press-event',
             self.on_button_press)
@@ -814,7 +960,7 @@ class ProgressBar(gtk.Alignment):
         event.remove_callback(self.on_playback_state_change, 'playback_toggle_pause')
         event.remove_callback(self.on_playback_state_change, 'playback_track_end')
 
-        self.disconnect(self._track_seeked_id)
+        self.disconnect(self._seeked_id)
         self.bar.disconnect(self._button_press_event_id)
         self.bar.disconnect(self._button_release_event_id)
         self.bar.disconnect(self._motion_notify_event_id)
@@ -898,8 +1044,7 @@ class ProgressBar(gtk.Alignment):
 
     def on_button_release(self, widget, event):
         """
-            Completes seeking and emits
-            the 'track-seeked' event
+            Completes seeking and emits the 'seeked' signal
         """
         if self._press_event is None:
             return True
@@ -909,7 +1054,7 @@ class ProgressBar(gtk.Alignment):
         event.x = float(min(event.x, width - 1))
 
         self.bar.set_fraction(event.x / width)
-        self.emit('track-seeked', event.x / width)
+        self.emit('seeked', event.x / width)
 
         self._press_event = None
         self.enable_timer()
@@ -931,14 +1076,12 @@ class ProgressBar(gtk.Alignment):
 
         self.disable_timer()
 
-        total = self.player.current.get_duration()
+        total = self.player.current.get_tag_raw('__length')
         seekpos = (event.x / width) * total
         text = _('Seeking: ')
         text += '%d:%02d' % (seekpos // 60, seekpos % 60)
 
         self.bar.set_fraction(event.x / width)
         self.bar.set_text(text)
-
-gobject.type_register(ProgressBar)
 
 # vim: et sts=4 sw=4

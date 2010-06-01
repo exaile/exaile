@@ -44,7 +44,6 @@ import pango
 from xl import (
     common,
     event,
-    formatter,
     providers,
     settings,
     trax,
@@ -69,7 +68,7 @@ class PlaybackProgressBar(object):
         self.player = player
         self.timer_id = None
         self.seeking = False
-        self.formatter = formatter.ProgressTextFormatter()
+        self.formatter = guiutil.ProgressBarFormatter()
 
         self.bar.set_text(_('Not Playing'))
         self.bar.connect('button-press-event', self.seek_begin)

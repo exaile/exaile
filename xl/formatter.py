@@ -195,10 +195,13 @@ class ProgressTextFormatter(Formatter):
     """
         A text formatter for progress indicators
     """
-    def __init__(self):
-        Formatter.__init__(self, self.get_option_value())
-
-        event.add_callback(self.on_option_set, 'gui_option_set')
+    def __init__(self, format):
+        """
+            :param format: The initial format, see the documentation
+                of string.Template for details
+            :type format: string
+        """
+        Formatter.__init__(self, format)
 
         try:
             exaile = main.exaile()
@@ -230,52 +233,18 @@ class ProgressTextFormatter(Formatter):
             remaining_time = total_time - current_time
 
         self._substitutions = {
-            'current_time': self.format_duration(current_time),
-            'remaining_time': self.format_duration(remaining_time),
-            'total_time': self.format_duration(total_time)
+            'current_time': LengthTagFormatter.format_value(current_time),
+            'remaining_time': LengthTagFormatter.format_value(remaining_time),
+            'total_time': LengthTagFormatter.format_value(total_time)
         }
         
         return self._template.safe_substitute(self._substitutions)
-
-    def get_option_value(self):
-        """
-            Returns the current option value
-        """
-        return settings.get_option('gui/progress_bar_text_format',
-            '$current_time / $remaining_time')
-
-    def format_duration(self, duration):
-        """
-            Returns a properly formatted duration
-
-            :param duration: The duration to format, in seconds
-            :type duration: float
-        """
-        hours = duration // 3600
-        remainder = duration - hours * 3600
-        minutes = remainder // 60
-        seconds = remainder % 60
-
-        if hours > 0:
-            text = '%d:%02d:%02d' % (hours, minutes, seconds)
-        else:
-            text = '%d:%02d' % (minutes, seconds)
-
-        return text
-
-    def on_option_set(self, event, settings, option):
-        """
-            Updates the internal format on setting change
-        """
-        if option == 'gui/progress_bar_text_format':
-            self.props.format = self.get_option_value()
 
     def on_exaile_loaded(self, e, exaile, nothing):
         """
             Sets up references after controller is loaded
         """
         self.player = exaile.player
-
         event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
 class TrackFormatter(Formatter, providers.ProviderHandler):

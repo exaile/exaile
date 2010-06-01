@@ -256,7 +256,7 @@ class MiniMode(gtk.Window):
                 [gtk.STOCK_LEAVE_FULLSCREEN, _('Restore main window'),
                     self.on_restore_clicked]),
             'progress_bar': (mmwidgets.ProgressBar,
-                [self.exaile.player, self.on_track_seeked]),
+                [self.exaile.player, self.on_seeked]),
             'track_selector': (mmwidgets.TrackSelector,
                 [self.exaile.gui.main, self.exaile.queue, self.formatter,
                  self.on_track_change]),
@@ -339,7 +339,7 @@ class MiniMode(gtk.Window):
             self.exaile.queue.current_playlist.set_current_pos(index)
             self.exaile.queue.play(track)
 
-    def on_track_seeked(self, progress_bar, position):
+    def on_seeked(self, progress_bar, position):
         """
             Handles seeking in the progress bar
         """

@@ -328,8 +328,22 @@ class PlaylistView(gtk.TreeView):
             gcol = plcol.get_column(idx)
             self.append_column(gcol)
 
-        self.connect("drag-drop", self.on_drag_drop)
         self.connect("row-activated", self.on_row_activated)
+
+        self.targets = [("text/uri-list", 0, 0)]
+        self.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
+                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
+                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT|
+                gtk.gdk.ACTION_MOVE)
+
+        self.connect("drag-begin", self.on_drag_begin)
+        self.connect("drag-drop", self.on_drag_drop)
+        self.connect("drag-data-get", self.on_drag_data_get)
+        self.connect("drag-data-received", self.on_drag_data_received)
+        self.connect("drag-end", self.on_drag_end)
+        self.connect("drag-motion", self.on_drag_motion)
 
     def set_cell_weight(self, cell, iter):
         """
@@ -356,12 +370,6 @@ class PlaylistView(gtk.TreeView):
         tracks = [(path[0], model.get_track(path)) for path in paths]
         return tracks
 
-    def on_drag_drop(self, view, context, x, y, etime):
-        #self.drag_data_received(view, context, x, y,
-        #        view.get_selection(), None, etime)
-        context.finish(True, False)
-        return True
-
     def on_row_activated(self, *args):
         try:
             idx, track = self.get_selected_tracks()[0]
@@ -377,9 +385,49 @@ class PlaylistView(gtk.TreeView):
             self.menu.popup(None, None, None, event.button, event.time)
             return True
         return False
- 
 
+    ### DND handlers ###
+    ## Source
+    def on_drag_begin(self, widget, context):
+        print "DRAG BEGIN"
+        pass
 
+    def on_drag_data_get(self, widget, context, selection, info, etime):
+        print "DRAG DATA GET"
+        tracks = [ x[1] for x in self.get_selected_tracks() ]
+        uris = trax.util.get_uris_from_tracks(tracks)
+        selection.set_uris(uris)
+
+    def on_drag_end(self, widget, context):
+        print "DRAG END"
+        pass
+
+    ## Dest
+    def on_drag_drop(self, widget, context, x, y, etime):
+        print "DRAG DROP"
+        #context.finish(True, False)
+        return True
+
+    def on_drag_data_received(self, widget, context, x, y, selection,
+            info, etime):
+        print "DRAG DATA RECEIVED"
+        # stop default handler from running
+        self.stop_emission('drag-data-received')
+
+        print selection.get_uris()
+
+    def on_drag_motion(self, widget, context, x, y, etime):
+        info = self.get_dest_row_at_pos(x, y)
+        if not info:
+            return False
+        path, pos = info
+        if pos == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
+            pos = gtk.TREE_VIEW_DROP_BEFORE
+        elif pos == gtk.TREE_VIEW_DROP_INTO_OR_AFTER:
+            pos = gtk.TREE_VIEW_DROP_AFTER
+
+        self.set_drag_dest_row(path, pos)
+        return True
 
 class PlaylistModel(gtk.GenericTreeModel):
     def __init__(self, playlist, columns):

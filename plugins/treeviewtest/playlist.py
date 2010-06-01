@@ -339,6 +339,9 @@ class PlaylistView(gtk.TreeView):
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT|
                 gtk.gdk.ACTION_MOVE)
 
+        self.connect("button-press-event", self.on_button_press)
+        self.connect("button-release-event", self.on_button_release)
+
         self.connect("drag-begin", self.on_drag_begin)
         self.connect("drag-drop", self.on_drag_drop)
         self.connect("drag-data-get", self.on_drag_data_get)
@@ -385,6 +388,9 @@ class PlaylistView(gtk.TreeView):
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
             return True
+        return False
+
+    def on_button_release(self, widget, event):
         return False
 
     ### DND handlers ###

@@ -456,7 +456,6 @@ class CoverWidget(gtk.EventBox):
             )
             self.drag_source_set(gtk.gdk.BUTTON1_MASK,
                 [('text/uri-list', 0, 0)],
-                gtk.gdk.ACTION_COPY |
                 gtk.gdk.ACTION_DEFAULT |
                 gtk.gdk.ACTION_MOVE
             )
@@ -511,7 +510,7 @@ class CoverWidget(gtk.EventBox):
         pixbuf.save(self.filename, 'png')
         selection.set_uris([gio.File(self.filename).get_uri()])
 
-    def do_drag_end(self, context):
+    def do_drag_data_delete(self, context):
         """
             Cleans up after drag from cover widget
         """

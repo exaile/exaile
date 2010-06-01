@@ -626,7 +626,7 @@ class PlaylistModel(gtk.GenericTreeModel):
             self.row_inserted((position,), self.get_iter((position,)))
 
     def on_tracks_removed(self, event_type, playlist, tracks):
-        tracktups.reverse()
+        tracks.reverse()
         for position, track in tracks:
             self.row_deleted((position,))
 
@@ -1098,17 +1098,21 @@ class Playlist(object):
             removed = [(i, oldtracks)]
             added = [(i, value)]
 
+        # copy here so we only send one change event at the end
+        current_position = self.current_position
+        spat_position = self.spat_position
         for position, track in removed[::-1]:
-            if self.current_position > position:
-                self.current_position -= 1
-            if self.spat_position > position:
-                self.spat_position -= 1
-
+            if current_position > position:
+                current_position -= 1
+            if spat_position > position:
+                spat_position -= 1
         for position, track in added:
-            if self.current_position > position:
-                self.current_position += 1
-            if self.spat_position > position:
-                self.spat_position += 1
+            if current_position > position:
+                current_position += 1
+            if spat_position > position:
+                spat_position += 1
+        self.current_position = current_position
+        self.spat_position = spat_position
 
         event.log_event('playlist_tracks_removed', self, removed)
         event.log_event('playlist_tracks_added', self, added)
@@ -1127,11 +1131,16 @@ class Playlist(object):
         else:
             removed = [(i, oldtracks)]
 
+        # copy here so we only send one change event at the end
+        current_position = self.current_position
+        spat_position = self.spat_position
         for position, track in removed[::-1]:
-            if self.current_position > position:
-                self.current_position -= 1
-            if self.spat_position > position:
-                self.spat_position -= 1
+            if current_position > position:
+                current_position -= 1
+            if spat_position > position:
+                spat_position -= 1
+        self.current_position = current_position
+        self.spat_position = spat_position
 
         event.log_event('playlist_tracks_removed', self, removed)
         self.__needs_save = self.__dirty = True

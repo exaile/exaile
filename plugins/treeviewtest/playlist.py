@@ -390,11 +390,10 @@ class PlaylistView(gtk.TreeView):
     ### DND handlers ###
     ## Source
     def on_drag_begin(self, widget, context):
-        print "DRAG BEGIN"
+        # TODO: set drag icon
         pass
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
-        print "DRAG DATA GET"
         if selection.target == "text/exaile-idx-list":
             idxs = [ x[0] for x in self.get_selected_tracks() ]
             s = ",".join(str(i) for i in idxs)
@@ -405,28 +404,50 @@ class PlaylistView(gtk.TreeView):
             selection.set_uris(uris)
 
     def on_drag_end(self, widget, context):
-        print "DRAG END"
         pass
 
     ## Dest
     def on_drag_drop(self, widget, context, x, y, etime):
-        print "DRAG DROP"
-        #context.finish(True, False)
         return True
 
     def on_drag_data_received(self, widget, context, x, y, selection,
             info, etime):
-        print "DRAG DATA RECEIVED"
         # stop default handler from running
         self.stop_emission('drag-data-received')
+        drop_info = self.get_dest_row_at_pos(x, y)
+        if drop_info:
+            path, pos = drop_info
+            insert_idx = path[0]
+            if pos in (gtk.TREE_VIEW_DROP_AFTER, gtk.TREE_VIEW_DROP_INTO_OR_AFTER):
+                insert_idx += 1
+        else:
+            insert_idx = -1
         if selection.target == "text/exaile-idx-list":
-            print selection.data
+            idxs = [int(x) for x in selection.data.split(",")]
+            tracks = MetadataList()
+            # TODO: this can probably be made more-efficient
+            for i in idxs:
+                tracks.extend(self.playlist[i:i+1])
+            if insert_idx >= 0:
+                self.playlist[insert_idx:insert_idx] = tracks
+                for i, idx in enumerate(idxs[:]):
+                    if idx >= insert_idx:
+                        idx += len(tracks)
+                        idxs[i] = idx
+            else:
+                self.playlist.extend(tracks)
+            for i in idxs[::-1]:
+                del self.playlist[i]
         elif selection.target == "text/uri-list":
             uris = selection.get_uris()
             tracks = []
             for u in uris:
                 tracks.extend(trax.get_tracks_from_uri(u))
-            self.playlist.extend(tracks)
+            if insert_idx >= 0:
+                self.playlist[insert_idx:insert_idx] = tracks
+            else:
+                self.playlist.extend(tracks)
+        context.finish(True, False, etime)
 
     def on_drag_motion(self, widget, context, x, y, etime):
         info = self.get_dest_row_at_pos(x, y)
@@ -601,7 +622,6 @@ class PlaylistModel(gtk.GenericTreeModel):
         path = (self.playlist.current_pos,)
         try:
             iter = self.get_iter(path)
-            print path
         except ValueError:
             return
         self.row_changed(path, iter)

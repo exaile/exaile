@@ -380,6 +380,8 @@ class CoverWidget(gtk.EventBox):
                 'playback_track_start', player)
         event.add_callback(self.on_playback_end,
                 'playback_player_end', player)
+        event.add_callback(self.on_quit_application,
+                'quit_application')
 
     def destroy(self):
         """
@@ -393,6 +395,8 @@ class CoverWidget(gtk.EventBox):
                 'playback_track_start', player)
         event.remove_callback(self.on_playback_end,
                 'playback_player_end', player)
+        event.remove_callback(self.on_quit_application,
+                'quit-application')
 
     def show_cover(self):
         """
@@ -559,6 +563,14 @@ class CoverWidget(gtk.EventBox):
             Called when playback stops.  Resets to the nocover image
         """
         self.set_blank()
+
+    def on_quit_application(self, type, exaile, nothing):
+        """
+            Cleans up temporary files
+        """
+        if self.filename is not None and os.path.exists(self.filename):
+            os.remove(self.filename)
+            self.filename = None
 
 class CoverWindow(object):
     """Shows the cover in a simple image viewer"""

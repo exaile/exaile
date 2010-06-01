@@ -1081,13 +1081,10 @@ class Playlist(object):
             if step != 1:
                 if len(value) != len(oldtracks):
                     raise ValueError, "Extended slice assignment must match sizes."
-                self.__tracks.__setitem__(i, value)
-                removed = MetadataList(zip(range(start, end, step), oldtracks),
-                        oldtracks.metadata)
-            else:
-                self.__tracks.__setitem__(i, value)
-                removed = MetadataList(zip(range(start, end, step), oldtracks),
-                        oldtracks.metadata)
+            self.__tracks.__setitem__(i, value)
+            removed = MetadataList(zip(range(start, end, step), oldtracks),
+                    oldtracks.metadata)
+            if step == 1:
                 end = start + len(value)
 
             added = MetadataList(zip(range(start, end, step), value), metadata)

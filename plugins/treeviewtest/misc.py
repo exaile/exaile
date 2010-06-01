@@ -28,22 +28,12 @@
 class MetadataList(object):
     __slots__ = ['__list', 'metadata']
     """
-        Like a list, but also associates an arbitrary object of metadata
+        Like a list, but also associates an object of metadata
         with each entry.
 
-        To set metadata, just set it on the metadata property. eg.
-        >>> l = MetadataList()
-        >>> l.append('test')
-        >>> l.metadata[0] = 'foo'
-        >>> l.insert(0, 'bar')
-        >>> l[0], l.metadata[0]
-        'bar', None
-        >>> l[1], l.metadata[1]
-        'test', 'foo'
-
-        Do NOT attempt to overwrite or resize the metadata property itself,
-        you are allowed only to assign by index or same-size slice. Other
-        modifications are unsupported and will probably break things.
+        (get|set|del)_meta_key are the metadata interface - they
+        allow the metadata to act much like a dictionary, with a few
+        optimizations.
 
         List aspects that are not supported:
             sort
@@ -134,3 +124,19 @@ class MetadataList(object):
     def count(self, i):
         return self.__list.count(i)
 
+    def get_meta_key(self, index, key, default=None):
+        if not self.metadata[index]:
+            return default
+        return self.metadata[index].get(key, default)
+
+    def set_meta_key(self, index, key, value):
+        if not self.metadata[index]:
+            self.metadata[index] = {}
+        self.metadata[index][key] = value
+
+    def del_meta_key(self, index, key):
+        if not self.metadata[index]:
+            raise KeyError, key
+        del self.metadata[index][key]
+        if not self.metadata[index]:
+            self.metadata[index] = None

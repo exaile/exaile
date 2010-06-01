@@ -74,10 +74,6 @@ class MiniMode(gtk.Window):
         self.defaults['plugin/minimode/horizontal_position'] = 10
         self.defaults['plugin/minimode/vertical_position'] = 10
 
-        controlpref = minimode_preferences.SelectedControlsPreference
-        self.available_controls = controlpref.available_items.keys() or []
-        self.fixed_items = controlpref.fixed_items.keys() or []
-
         self.formatter = TrackFormatter(
             self.get_option('plugin/minimode/track_title_format')
         )
@@ -88,10 +84,7 @@ class MiniMode(gtk.Window):
         self.add(self.border_frame)
 
         self.register_widgets()
-        controls = self.get_option('plugin/minimode/selected_controls')
-        controls += self.fixed_items
-        self.update_widgets(controls)
-
+        self.update_widgets(self.get_option('plugin/minimode/selected_controls'))
         self.update_position()
 
         basedir = os.path.dirname(os.path.abspath(__file__))
@@ -220,7 +213,6 @@ class MiniMode(gtk.Window):
             elif option == 'plugin/minimode/vertical_position':
                 self.update_position()
             elif option == 'plugin/minimode/selected_controls':
-                value += self.fixed_items
                 self.update_widgets(value)
             elif option == 'plugin/minimode/track_title_format':
                 self.formatter.set_property('format', value)

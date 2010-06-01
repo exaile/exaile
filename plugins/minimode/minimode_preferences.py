@@ -64,23 +64,40 @@ class TransparencyPreference(widgets.ScalePreference, widgets.CheckConditional):
 
 class SelectedControlsPreference(widgets.SelectionListPreference):
     name = 'plugin/minimode/selected_controls'
-    available_title = _('Available Controls')
-    selected_title = _('Selected Controls')
-    available_items = {
-        'previous': _('Previous'),
-        'play_pause': _('Play/Pause'),
-        'stop': _('Stop'),
-        'next': _('Next'),
-        'track_selector': _('Track selector'),
-        'progress_bar': _('Progress bar'),
-        'volume': _('Volume'),
-        'playlist_button': _('Playlist button'),
-        'rating': _('Rating'),
-    }
-    fixed_items = {
-        'restore': _('Restore')
-    }
     default = ['previous', 'play_pause', 'next', 'playlist_button', 'progress_bar']
+    items = [
+        widgets.SelectionListPreference.Item(
+            id='previous', title=_('Previous'),
+            description=_('Go to the previous track')),
+        widgets.SelectionListPreference.Item(
+            id='play_pause', title=_('Play/Pause'),
+            description=_('Start, pause or resume the playback')),
+        widgets.SelectionListPreference.Item(
+            id='stop', title=_('Stop'),
+            description=_('Stop the playback')),
+        widgets.SelectionListPreference.Item(
+            id='next', title=_('Next'),
+            description=_('Go to the next track')),
+        widgets.SelectionListPreference.Item(
+            id='track_selector', title=_('Track selector'),
+            description=_('Simple track list selector')),
+        widgets.SelectionListPreference.Item(
+            id='progress_bar', title=_('Progress bar'),
+            description=_('Playback progress and seeking')),
+        widgets.SelectionListPreference.Item(
+            id='volume', title=_('Volume'),
+            description=_('Change the volume')),
+        widgets.SelectionListPreference.Item(
+            id='playlist_button', title=_('Playlist button'),
+            description=_('Access the current playlist')),
+        widgets.SelectionListPreference.Item(
+            id='rating', title=_('Rating'),
+            description=_('Select rating of the current track')),
+        widgets.SelectionListPreference.Item(
+            id='restore', title=_('Restore'),
+            description=_('Restore main window'),
+            fixed=True),
+    ]
 
 class TrackTitleFormatPreference(widgets.ComboEntryPreference):
     name = 'plugin/minimode/track_title_format'

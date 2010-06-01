@@ -34,6 +34,7 @@ import pango
 
 from xl.nls import gettext as _
 from xl import event, main, settings, xdg
+from xlgui import guiutil
 from xlgui.widgets import dialogs
 
 logger = logging.getLogger(__name__)
@@ -92,6 +93,12 @@ class Preference(object):
         except TypeError:
             pass
 
+    def _get_value(self):
+        """
+            Value to be stored into the settings file
+        """
+        return unicode(self.widget.get_text(), 'utf-8')
+
     def _set_value(self):
         """
             Sets the GUI widget up for this preference
@@ -101,12 +108,6 @@ class Preference(object):
             return
         self.widget.set_text(str(self.preferences.settings.get_option(
             self.name, self.default)))
-
-    def _get_value(self):
-        """
-            Value to be stored into the settings file
-        """
-        return unicode(self.widget.get_text(), 'utf-8')
 
     def apply(self, value=None):
         """
@@ -370,145 +371,140 @@ class OrderListPreference(Preference):
 
 class SelectionListPreference(Preference):
     """
-        Two list boxes allowing to drag items
-        to each other, reorderable
+        A list allowing for enabling/disabling
+        as well as reordering of items
 
         Options:
-        * available_title (Title of the list of available items)
-        * selected_title (Title of the list of selected items)
-        * available_items (Dictionary of items and their titles)
-        * fixed_items (Dictionary of non-removable items and their titles)
+        * items: list of :class:`SelectionListPreference.Item` objects
+        * default: list of item ids
     """
+    class Item(object):
+        """
+            Convenience class for preference item description
+        """
+        def __init__(self, id, title, description=None, fixed=False):
+            """
+                :param id: the unique identifier
+                :type id: string
+                :param title: the readable title
+                :type title: string
+                :param description: optional description of the item
+                :type description: string
+                :param fixed: whether the item should be removable
+                :type fixed: bool
+            """
+            self.__id = id
+            self.__title = title
+            self.__description = description
+            self.__fixed = fixed
+
+        id = property(lambda self: self.__id)
+        title = property(lambda self: self.__title)
+        description = property(lambda self: self.__description)
+        fixed = property(lambda self: self.__fixed)
+
     def __init__(self, preferences, widget):
-        self.available_list = gtk.ListStore(str)
-        self.selected_list = gtk.ListStore(str)
-        self._update_lists(self.default)
+        self.model = gtk.ListStore(
+            str,  # 0: item
+            str,  # 1: title
+            str,  # 2: description
+            bool, # 3: enabled
+            bool  # 4: fixed
+        )
 
-        # Make sure container is empty
-        for child in widget.get_children():
-            widget.remove(child)
+        for item in self.items:
+            self.model.append([item.id, item.title, item.description,
+                True, item.fixed])
 
-        Preference.__init__(self, preferences, widget)
-        widget.set_homogeneous(False)
-        widget.set_spacing(6)
-
-        text = gtk.CellRendererText()
-        available_tree = gtk.TreeView(self.available_list)
-        available_tree.set_reorderable(True)
-        self.available_selection = available_tree.get_selection()
-        available_col = gtk.TreeViewColumn(None, text, text=0)
-        try:
-            available_col.set_title(self.available_title)
-        except AttributeError:
-            pass
-        available_tree.append_column(available_col)
-
-        selected_tree = gtk.TreeView(self.selected_list)
-        selected_tree.set_reorderable(True)
-        self.selected_selection = selected_tree.get_selection()
-        selected_col = gtk.TreeViewColumn(None, text, text=0)
-        try:
-            selected_col.set_title(self.selected_title)
-        except AttributeError:
-            pass
-        selected_tree.append_column(selected_col)
-
-        self.add_button = gtk.Button()
-        self.add_button.set_image(gtk.image_new_from_stock(
-            gtk.STOCK_GO_FORWARD, gtk.ICON_SIZE_BUTTON))
-        self.add_button.set_tooltip_text(_('Add item'))
-        self.add_button.set_sensitive(False)
-        self.remove_button = gtk.Button()
-        self.remove_button.set_image(gtk.image_new_from_stock(
-            gtk.STOCK_GO_BACK, gtk.ICON_SIZE_BUTTON))
-        self.remove_button.set_tooltip_text(_('Remove item'))
-        self.remove_button.set_sensitive(False)
-
-        control_box = gtk.VBox(spacing=3)
-        control_box.pack_start(self.add_button, expand=False)
-        control_box.pack_start(self.remove_button, expand=False)
-        control_panel = gtk.Alignment(xalign=0.5, yalign=0.5,
-            xscale=0.0, yscale=0.0)
-        control_panel.add(control_box)
-
-        self.up_button = gtk.Button()
-        self.up_button.set_image(gtk.image_new_from_stock(
-            gtk.STOCK_GO_UP, gtk.ICON_SIZE_BUTTON))
-        self.up_button.set_tooltip_text(_('Move selected item up'))
-        self.up_button.set_sensitive(False)
-        self.down_button = gtk.Button()
-        self.down_button.set_image(gtk.image_new_from_stock(
-            gtk.STOCK_GO_DOWN, gtk.ICON_SIZE_BUTTON))
-        self.down_button.set_tooltip_text(_('Move selected item down'))
-        self.down_button.set_sensitive(False)
-
-        move_box = gtk.VBox(spacing=3)
-        move_box.pack_start(self.up_button, expand=False)
-        move_box.pack_start(self.down_button, expand=False)
-        move_panel = gtk.Alignment(xalign=0.5, yalign=0.5, xscale=0.0, yscale=0.0)
-        move_panel.add(move_box)
-
-        available_scrollwindow = gtk.ScrolledWindow()
-        available_scrollwindow.set_property('shadow-type', gtk.SHADOW_IN)
-        available_scrollwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        available_scrollwindow.add(available_tree)
-
-        selected_scrollwindow = gtk.ScrolledWindow()
-        selected_scrollwindow.set_property('shadow-type', gtk.SHADOW_IN)
-        selected_scrollwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        selected_scrollwindow.add(selected_tree)
-
-        widget.pack_start(available_scrollwindow)
-        widget.pack_start(control_panel, expand=False)
-        widget.pack_start(selected_scrollwindow)
-        widget.pack_start(move_panel, expand=False)
-
-        self.add_button.connect('clicked', self.on_add_button_clicked)
-        self.remove_button.connect('clicked', self.on_remove_button_clicked)
-        self.up_button.connect('clicked', self.on_up_button_clicked)
-        self.down_button.connect('clicked', self.on_down_button_clicked)
-
-        self.available_selection.connect('changed',
-            self.on_available_selection_changed)
-        self.selected_selection.connect('changed',
-            self.on_selected_selection_changed)
-
-        # Allow to send rows to selected
-        available_tree.enable_model_drag_source(
+        tree = gtk.TreeView(self.model)
+        tree.set_headers_visible(False)
+        tree.set_rules_hint(True)
+        tree.enable_model_drag_source(
             gtk.gdk.BUTTON1_MASK,
-            [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
-            gtk.gdk.ACTION_MOVE)
-        # Allow to receive rows from selected
-        available_tree.enable_model_drag_dest(
-            [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
-            gtk.gdk.ACTION_MOVE)
-        # Allow to send rows to available
-        selected_tree.enable_model_drag_source(
-            gtk.gdk.BUTTON1_MASK,
-            [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
-            gtk.gdk.ACTION_MOVE)
-        # Allow to receive rows from available
-        selected_tree.enable_model_drag_dest(
-            [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
-            gtk.gdk.ACTION_MOVE)
+            [('GTK_TREE_MODEL_ROW', gtk.TARGET_SAME_WIDGET, 0)],
+            gtk.gdk.ACTION_MOVE
+        )
+        tree.enable_model_drag_dest(
+            [('GTK_TREE_MODEL_ROW', gtk.TARGET_SAME_WIDGET, 0)],
+            gtk.gdk.ACTION_MOVE
+        )
+        tree.connect('row-activated', self.on_row_activated)
+        tree.connect('key-press-event', self.on_key_press_event)
+        tree.connect('drag-end', self.change)
 
-        available_tree.connect('drag-data-received',
-            self.on_drag_data_received)
-        available_tree.connect('key-press-event',
-            self.on_available_tree_key_pressed)
-        available_tree.connect('button-press-event',
-            self.on_available_tree_button_press_event)
-        selected_tree.connect('drag-data-received',
-            self.on_drag_data_received)
-        selected_tree.connect('key-press-event',
-            self.on_selected_tree_key_pressed)
-        selected_tree.connect('button-press-event',
-            self.on_selected_tree_button_press_event)
+        toggle_renderer = gtk.CellRendererToggle()
+        toggle_renderer.connect('toggled', self.on_toggled)
+        enabled_column = gtk.TreeViewColumn('Enabled', toggle_renderer, active=3)
+        enabled_column.set_cell_data_func(toggle_renderer,
+            self.enabled_data_function)
+        tree.append_column(enabled_column)
 
-        self.available_list.connect('row-inserted',
-            self.on_available_list_row_inserted, available_tree)
-        self.selected_list.connect('row-inserted',
-            self.on_selected_list_row_inserted, selected_tree)
+        text_renderer = gtk.CellRendererText()
+        text_renderer.props.ypad = 6
+        title_column = gtk.TreeViewColumn('Title', text_renderer, text=1)
+        title_column.set_cell_data_func(text_renderer,
+            self.title_data_function)
+        tree.append_column(title_column)
+
+        scroll = gtk.ScrolledWindow()
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll.set_shadow_type(gtk.SHADOW_IN)
+        scroll.add(tree)
+
+        guiutil.gtk_widget_replace(widget, scroll)
+        Preference.__init__(self, preferences, scroll)
+
+    def _get_value(self):
+        """
+            Value to be stored in the settings
+        """
+        return [row[0] for row in self.model if row[3]]
+
+    def _set_value(self):
+        """
+            Updates the internal representation
+        """
+        selected_items = settings.get_option(self.name, self.default)
+        # Get list of available items
+        available_items = [row[0] for row in self.model]
+        # Cut out unselected items
+        unselected_items = [item for item in available_items \
+            if item not in selected_items]
+        # Move unselected items to the end
+        items = selected_items + unselected_items
+        new_order = [available_items.index(item) for item in items]
+        self.model.reorder(new_order)
+
+        # Disable unselected items
+        for row in self.model:
+            if row[0] in unselected_items and not row[4]:
+                row[3] = False
+            else:
+                row[3] = True
+
+    def enabled_data_function(self, column, cell, model, iter):
+        """
+            Prepares sensitivity
+            of the enabled column
+        """
+        path = model.get_path(iter)
+        fixed = model[path][4]
+        cell.props.sensitive = not fixed
+
+    def title_data_function(self, column, cell, model, iter):
+        """
+            Prepares the markup to be
+            used for the title column
+        """
+        path = model.get_path(iter)
+        title, description = model[path][1], model[path][2]
+
+        markup = '<b>%s</b>' % title
+
+        if description is not None:
+            markup += '\n<span size="small">%s</span>' % description
+
+        cell.props.markup = markup
 
     def iter_prev(self, iter, model):
         """
@@ -527,231 +523,51 @@ class SelectionListPreference(Preference):
 
         return prev
 
-    def _update_lists(self, items):
+    def on_row_activated(self, tree, path, column):
         """
-            Updates the two lists
+            Updates the enabled column
         """
-        available_set = set(self.available_items.keys())
-        available_set = available_set.difference(set(items))
+        model = tree.get_model()
 
-        self.available_list.clear()
-
-        for id in available_set:
-            self.available_list.append([self.available_items[id]])
-
-        self.selected_list.clear()
-
-        for id in items:
-            try:
-                self.selected_list.append([self.available_items[id]])
-            except KeyError:
-              pass
-        try:
-            for id, title in self.fixed_items.iteritems():
-                self.selected_list.append([title])
-        except AttributeError:
-            pass
-
-    def _setup_change(self):
-        """
-            Sets up the function to be called
-            when this preference is changed
-        """
-        self.selected_list.connect('row-deleted', self.change)
-        self.selected_list.connect('row-inserted', self.change)
-        self.selected_list.connect('rows-reordered', self.change)
-
-    def _set_value(self):
-        """
-            Sets the preferences for this widget
-        """
-        items = self.preferences.settings.get_option(self.name, self.default)
-        self._update_lists(items)
-
-    def _get_value(self):
-        """
-            Value to be stored into the settings file
-        """
-        items = []
-
-        for row in self.selected_list:
-            selected_value = row[0]
-
-            for id, title in self.available_items.iteritems():
-                if selected_value == title:
-                    items.append(id)
-                    break
-
-        return items
-
-    def on_available_selection_changed(self, selection):
-        """
-            Enables buttons based on the current selection
-        """
-        row_selected = (selection.count_selected_rows() > 0)
-        self.add_button.set_sensitive(row_selected)
-
-    def on_selected_selection_changed(self, selection):
-        """
-            Enables buttons based on the current selection
-        """
-        row_selected = (selection.count_selected_rows() > 0)
-
-        self.remove_button.set_sensitive(row_selected)
-
-        if row_selected:
-            first_iter = self.selected_list.get_iter_first()
-            last_iter = None
-
-            for row in self.selected_list:
-                last_iter = row.iter
-
-            first_selected = selection.iter_is_selected(first_iter)
-            last_selected = selection.iter_is_selected(last_iter)
-
-            self.up_button.set_sensitive(not first_selected)
-            self.down_button.set_sensitive(not last_selected)
-
-    def on_add_button_clicked(self, button):
-        """
-            Moves the selected rows to
-            the list of selected items
-        """
-        available_list, paths = self.available_selection.get_selected_rows()
-        iter = available_list.get_iter(paths[0])
-        value = available_list.get_value(iter, 0)
-
-        available_list.remove(iter)
-        iter = None
-
-        self.selected_list.append([value])
-
-    def on_remove_button_clicked(self, button):
-        """
-            Moves the selected rows to
-            the list of available items
-        """
-        selected_list, paths = self.selected_selection.get_selected_rows()
-        iter = selected_list.get_iter(paths[0])
-        value = selected_list.get_value(iter, 0)
-
-        selected_list.remove(iter)
-        iter = None
-
-        self.available_list.append([value])
-
-    def on_up_button_clicked(self, button):
-        """
-            Moves the selected rows upwards
-        """
-        list, paths = self.selected_selection.get_selected_rows()
-        iter = list.get_iter(paths[0])
-        upper_iter = self.iter_prev(iter, list)
-
-        if upper_iter is None:
+        if model[path][4]:
             return
 
-        list.swap(upper_iter, iter)
-        self.on_selected_selection_changed(self.selected_selection)
+        enabled = not model[path][3]
+        model[path][3] = enabled
 
-    def on_down_button_clicked(self, button):
+    def on_key_press_event(self, tree, event):
         """
-            Moves the selected rows downwards
+            Allows for reordering via keyboard (Alt+<direction>)
         """
-        list, paths = self.selected_selection.get_selected_rows()
-        iter = list.get_iter(paths[0])
-        lower_iter = list.iter_next(iter)
-
-        if lower_iter is None:
+        if not event.state & gtk.gdk.MOD1_MASK:
             return
 
-        list.swap(iter, lower_iter)
-        self.on_selected_selection_changed(self.selected_selection)
+        if event.keyval not in (gtk.keysyms.Up, gtk.keysyms.Down):
+            return
 
-    def on_available_tree_key_pressed(self, tree, event):
-        """
-            Handles moving of items via keyboard interaction
-        """
-        if not event.state & gtk.gdk.MOD1_MASK: return
+        model, selected_iter = tree.get_selection().get_selected()
 
-        if event.keyval == gtk.keysyms.Right:
-            self.on_add_button_clicked(None)
-
-    def on_selected_tree_key_pressed(self, tree, event):
-        """
-            Handles moving of items via keyboard interaction
-        """
-        if not event.state & gtk.gdk.MOD1_MASK: return
-
-        if event.keyval == gtk.keysyms.Left:
-            self.on_remove_button_clicked(None)
-        elif event.keyval == gtk.keysyms.Up:
-            self.on_up_button_clicked(None)
+        if event.keyval == gtk.keysyms.Up:
+            previous_iter = self.iter_prev(selected_iter, model)
+            model.move_before(selected_iter, previous_iter)
         elif event.keyval == gtk.keysyms.Down:
-            self.on_down_button_clicked(None)
+            next_iter = model.iter_next(selected_iter)
+            model.move_after(selected_iter, next_iter)
 
-    def on_available_tree_button_press_event(self, tree, event):
+        self.apply()
+
+    def on_toggled(self, cell, path):
         """
-            Adds items on double click
+            Updates the enabled column
         """
-        if not tree.get_path_at_pos(int(event.x), int(event.y)):
+        if self.model[path][4]:
             return
 
-        if event.type == gtk.gdk._2BUTTON_PRESS:
-            self.on_add_button_clicked(None)
+        active = not cell.get_active()
+        cell.set_active(active)
+        self.model[path][3] = active
 
-    def on_selected_tree_button_press_event(self, tree, event):
-        """
-            Removes items on double click
-        """
-        if not tree.get_path_at_pos(int(event.x), int(event.y)):
-            return
-
-        if event.type == gtk.gdk._2BUTTON_PRESS:
-            self.on_remove_button_clicked(None)
-
-    def on_drag_data_received(self, target_treeview, context, x, y, data, info, time):
-        """
-            Handles movement of rows
-        """
-        source_treeview = context.get_source_widget()
-        source_list, paths = source_treeview.get_selection().get_selected_rows()
-        source_iter = source_list.get_iter(paths[0])
-        source_value = source_list.get_value(source_iter, 0)
-
-        if source_value in self.fixed_items.values():
-            return
-
-        source_list.remove(source_iter)
-
-        target_list = target_treeview.get_model()
-        target_row = target_treeview.get_dest_row_at_pos(x, y)
-
-        if target_row is None:
-            target_list.append([source_value])
-        else:
-            target_path, drop_position = target_row
-            target_iter = target_list.get_iter(target_path)
-
-            if drop_position == gtk.TREE_VIEW_DROP_BEFORE or \
-                drop_position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
-                target_list.insert_before(target_iter, [source_value])
-            else:
-                target_list.insert_after(target_iter, [source_value])
-
-    def on_available_list_row_inserted(self, list, path, iter, tree):
-        """
-            Selects moved rows and focuses tree
-        """
-        self.available_selection.select_path(path)
-        tree.grab_focus()
-
-    def on_selected_list_row_inserted(self, list, path, iter, tree):
-        """
-            Selects moved rows and focuses tree
-        """
-        self.selected_selection.select_path(path)
-        tree.grab_focus()
+        self.apply()
 
 class ShortcutListPreference(Preference):
     """

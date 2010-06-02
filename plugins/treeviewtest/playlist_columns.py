@@ -85,13 +85,21 @@ class Column(gtk.TreeViewColumn):
             pass
         for name, val in self.cellproperties.iteritems():
             self.cellr.set_property(name, val)
+        self.set_reorderable(True)
         self.setup_sizing()
 
         event.add_callback(self.on_option_set, "gui_option_set")
+        self.connect('notify::width', self.on_width_changed)
 
     def on_option_set(self, typ, obj, data):
         if data in ("gui/resizable_cols", "gui/col_width_%s"%self.id):
             self.setup_sizing()
+
+    def on_width_changed(self, column, *e):
+        width = self.get_width()
+        name = "gui/col_width_%s"%self.id
+        if width != settings.get_option(name, -1):
+            settings.set_option(name, width)
 
     def setup_sizing(self):
         if settings.get_option('gui/resizable_cols', False):

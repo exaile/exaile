@@ -432,8 +432,8 @@ class PlaylistView(gtk.TreeView):
             self.append_column(view_column)
 
     def on_option_set(self, typ, obj, data):
-        if data == "gui/columns":
-            glib.idle_add(self._refresh_columns)
+        if data in ("gui/columns", "gui/resizable_cols"):
+            glib.idle_add(self._refresh_columns, priority=glib.PRIORITY_DEFAULT)
 
     def on_row_activated(self, *args):
         try:

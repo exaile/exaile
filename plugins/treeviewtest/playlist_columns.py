@@ -27,6 +27,7 @@
 import logging
 import gio
 import gtk
+import pango
 
 from xl import event, settings
 from xl.formatter import TrackFormatter
@@ -48,15 +49,16 @@ class Column(object):
     display = ''
     renderer = gtk.CellRendererText
     size = 10 # default size
+    autoexpand = False # whether to expand to fit space in Autosize mode
     datatype = str
     dataproperty = 'text'
     cellproperties = {}
 
     def __init__(self, container):
         self.container = container
-        if self.__class__.__name__ == 'Column':
+        if self.__class__ == Column:
             raise NotImplementedError("Can't instantiate "
-                "abstract class xlgui.container.Column")
+                "abstract class %s"%repr(self.__class__))
 
     @classmethod
     def get_formatter(cls):
@@ -94,6 +96,23 @@ class Column(object):
         gcol.set_cell_data_func(cellr, self.data_func)
         for name, val in self.cellproperties.iteritems():
             cellr.set_property(name, val)
+        if settings.get_option('gui/resizable_cols', False):
+            gcol.set_resizable(True)
+            gcol.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+            width = settings.get_option("gui/col_width_%s"%self.id,
+                    self.size+extrasize)
+            gcol.set_fixed_width(width)
+        else:
+            if self.autoexpand:
+                gcol.set_expand(True)
+                gcol.set_fixed_width(1)
+                gcol.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+            else:
+                gcol.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+            try:
+                cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
+            except TypeError: #cellr doesn't do ellipsize - eg. rating
+                pass
         return gcol
 
 
@@ -108,21 +127,25 @@ class TitleColumn(Column):
     size = 200
     display = _('Title')
     id = 'title'
+    autoexpand = True
 
 class ArtistColumn(Column):
     size = 150
     display = _('Artist')
     id = 'artist'
+    autoexpand = True
 
 class ComposerColumn(Column):
     size = 150
     display = _('Composer')
     id = 'composer'
+    autoexpand = True
 
 class AlbumColumn(Column):
     size = 150
     display = _('Album')
     id = 'album'
+    autoexpand = True
 
 class LengthColumn(Column):
     size = 50
@@ -131,10 +154,10 @@ class LengthColumn(Column):
     cellproperties = {'xalign': 1.0}
 
 class DiscNumberColumn(Column):
-    size = 30
+    size = 40
     display = _('Disc')
     id = 'discnumber'
-    cellproperties = {'xalign': 1.0}
+    cellproperties = {'xalign': 1.0, 'width-chars': 2}
 
 class RatingColumn(Column):
     display = _('Rating')
@@ -181,9 +204,10 @@ class GenreColumn(Column):
     size = 100
     display = _('Genre')
     id = 'genre'
+    autoexpand = True
 
 class BitrateColumn(Column):
-    size = 30
+    size = 45
     display = _('Bitrate')
     id = '__bitrate'
     cellproperties = {'xalign': 1.0}
@@ -192,11 +216,13 @@ class IoLocColumn(Column):
     size = 200
     display = _('Location')
     id = '__loc'
+    autoexpand = True
 
 class FilenameColumn(Column):
     size = 200
     display = _('Filename')
     id = 'filename'
+    autoexpand = True
 
 class PlayCountColumn(Column):
     size = 50

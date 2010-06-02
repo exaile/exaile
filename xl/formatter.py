@@ -410,6 +410,72 @@ class TrackNumberTagFormatter(TagFormatter):
 
 providers.register('tag_formatting', TrackNumberTagFormatter())
 
+
+
+class DiscNumberTagFormatter(TagFormatter):
+    """
+        A formatter for the tracknumber of a track
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, 'discnumber')
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
+                Possible values are:
+                * pad: n [n being an arbitrary number]
+                  Influences the amount of leading zeros
+            :type parameters: dictionary
+            :returns: the formatted value
+            :rtype: string
+        """
+        value = track.get_tag_raw(self.name, join=True)
+        if not value:
+            return ''
+        pad = parameters.get('pad', 1)
+        return self.format_value(value, pad)
+
+    @staticmethod
+    def format_value(value, pad=1):
+        """
+            Formats a tracknumber value
+
+            :param value: A tracknumber
+            :type value: int or string
+            :param pad: Amount of leading zeros
+            :type pad: int
+            :returns: the formatted value
+            :rtype: string
+        """
+        try:
+            pad = int(pad)
+        except ValueError: # No int
+            pad = 1
+
+        try: # n/n
+            value, count = value.split('/')
+        except ValueError: # n
+            pass
+
+        format_string = '%%0%(pad)dd' % {'pad': pad}
+
+        try:
+            value = format_string % int(value)
+        except ValueError: # Invalid number
+            pass
+
+        return value
+
+providers.register('tag_formatting', DiscNumberTagFormatter())
+
+
+
+
+
 class ArtistTagFormatter(TagFormatter):
     """
         A formatter for the artist of a track

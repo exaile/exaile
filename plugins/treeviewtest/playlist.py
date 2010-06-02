@@ -427,12 +427,11 @@ class PlaylistView(gtk.TreeView):
 
         for position, column in enumerate(col_ids):
             position += 1 # offset for pixbuf column
-            playlist_column = playlist_columns.COLUMNS[column](self)
-            view_column = playlist_column.get_column(position)
-            self.append_column(view_column)
+            playlist_column = playlist_columns.COLUMNS[column](self, position)
+            self.append_column(playlist_column)
 
     def on_option_set(self, typ, obj, data):
-        if data in ("gui/columns", "gui/resizable_cols"):
+        if data == "gui/columns":
             glib.idle_add(self._refresh_columns, priority=glib.PRIORITY_DEFAULT)
 
     def on_row_activated(self, *args):

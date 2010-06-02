@@ -44,7 +44,7 @@ logger = logging.getLogger(__name__)
 """
 
 # various column definitions
-class Column(object):
+class Column(gtk.TreeViewColumn):
     id = ''
     display = ''
     renderer = gtk.CellRendererText
@@ -54,11 +54,63 @@ class Column(object):
     dataproperty = 'text'
     cellproperties = {}
 
-    def __init__(self, container):
+    def __init__(self, container, index):
         self.container = container
         if self.__class__ == Column:
             raise NotImplementedError("Can't instantiate "
                 "abstract class %s"%repr(self.__class__))
+        cellr = self.renderer()
+        self.extrasize = 0
+        if index == 1:
+            gtk.TreeViewColumn.__init__(self, self.display)
+            icon_cellr = gtk.CellRendererPixbuf()
+            # TODO: figure out why this returns the wrong value
+            # and switch to it.
+            #pbufsize = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
+            pbufsize = icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP).get_width()
+            icon_cellr.set_fixed_size(pbufsize, pbufsize)
+            icon_cellr.set_property('xalign', 0.0)
+            self.extrasize = pbufsize
+            self.pack_start(icon_cellr, False)
+            self.pack_start(cellr, True)
+            self.set_attributes(icon_cellr, pixbuf=0)
+            self.set_attributes(cellr, **{self.dataproperty: index})
+        else:
+            gtk.TreeViewColumn.__init__(self, self.display, cellr,
+                **{self.dataproperty: index})
+        self.set_cell_data_func(cellr, self.data_func)
+        for name, val in self.cellproperties.iteritems():
+            cellr.set_property(name, val)
+        try:
+            cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
+        except TypeError: #cellr doesn't do ellipsize - eg. rating
+            pass
+        self.setup_sizing()
+
+        event.add_callback(self.on_option_set, "gui_option_set")
+
+    def on_option_set(self, typ, obj, data):
+        if data in ("gui/resizable_cols", "gui/col_width_%s"%self.id):
+            self.setup_sizing()
+
+    def setup_sizing(self):
+        if settings.get_option('gui/resizable_cols', False):
+            self.set_resizable(True)
+            self.set_expand(False)
+            width = settings.get_option("gui/col_width_%s"%self.id,
+                    self.size+self.extrasize)
+            self.set_fixed_width(width)
+            self.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        else:
+            self.set_resizable(False)
+            if self.autoexpand:
+                self.set_expand(True)
+                self.set_fixed_width(1)
+                self.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+            else:
+                self.set_expand(False)
+                self.set_fixed_width(self.size+self.extrasize)
+                self.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
 
     @classmethod
     def get_formatter(cls):
@@ -72,48 +124,6 @@ class Column(object):
         return '%s(%s, %s, %s)' % (self.__class__.__name__,
             `self.id`, `self.display`, `self.size`)
 
-    def get_column(self, index):
-        cellr = self.renderer()
-        extrasize = 0
-        if index == 1:
-            gcol = gtk.TreeViewColumn(self.display)
-            icon_cellr = gtk.CellRendererPixbuf()
-            # TODO: figure out why this returns the wrong value
-            # and switch to it.
-            #pbufsize = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
-            pbufsize = icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP).get_width()
-            icon_cellr.set_fixed_size(pbufsize, pbufsize)
-            icon_cellr.set_property('xalign', 0.0)
-            extrasize = pbufsize
-            gcol.pack_start(icon_cellr, False)
-            gcol.pack_start(cellr, True)
-            gcol.set_attributes(icon_cellr, pixbuf=0)
-            gcol.set_attributes(cellr, **{self.dataproperty: index})
-        else:
-            gcol = gtk.TreeViewColumn(self.display, cellr,
-                **{self.dataproperty: index})
-        gcol.set_fixed_width(self.size+extrasize)
-        gcol.set_cell_data_func(cellr, self.data_func)
-        for name, val in self.cellproperties.iteritems():
-            cellr.set_property(name, val)
-        if settings.get_option('gui/resizable_cols', False):
-            gcol.set_resizable(True)
-            gcol.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-            width = settings.get_option("gui/col_width_%s"%self.id,
-                    self.size+extrasize)
-            gcol.set_fixed_width(width)
-        else:
-            if self.autoexpand:
-                gcol.set_expand(True)
-                gcol.set_fixed_width(1)
-                gcol.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-            else:
-                gcol.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
-            try:
-                cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
-            except TypeError: #cellr doesn't do ellipsize - eg. rating
-                pass
-        return gcol
 
 
 class TrackNumberColumn(Column):
@@ -250,11 +260,12 @@ FORMATTERS = {}
 items = globals()
 keys = items.keys()
 for key in keys:
-    if type(items[key]) == type and \
-        'Column' in key and key != 'Column':
+    if 'Column' in key and key != 'Column':
         item = items[key]
         COLUMNS[item.id] = item
         FORMATTERS[item.id] = item.get_formatter()
+
+print COLUMNS
 
 COLUMNS_BY_DISPLAY = {}
 for col in COLUMNS.values():

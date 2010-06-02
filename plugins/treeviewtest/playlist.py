@@ -81,7 +81,8 @@ class PlaylistNotebook(SmartNotebook):
 
         return self.create_tab_from_playlist(pl)
 
-
+    def add_default_tab(self):
+        return self.create_new_playlist()
 
 
 # do this in a function to avoid polluting the global namespace

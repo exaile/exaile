@@ -30,6 +30,10 @@ from xl.nls import gettext as _
 import menu as plmenu
 
 class SmartNotebook(gtk.Notebook):
+    def __init__(self):
+        gtk.Notebook.__init__(self)
+        self.connect('button-press-event', self.on_button_press)
+
     def add_tab(self, tab, page):
         """
             Add a tab to the notebook. It will be given focus.
@@ -41,6 +45,20 @@ class SmartNotebook(gtk.Notebook):
         """
         self.append_page(page, tab)
         self.set_current_page(self.page_num(page))
+
+    def add_default_tab(self):
+        """
+            Action taken when a generic "new tab" option is triggered.
+            Subclasses need to override this if they want new tab
+            functionality to work automatically.
+
+            :return: The NotebookTab created, or None
+        """
+        pass
+
+    def on_button_press(self, widget, event):
+        if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:
+            self.add_default_tab()
 
 
 class NotebookTab(gtk.EventBox):

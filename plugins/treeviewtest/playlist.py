@@ -332,6 +332,7 @@ class PlaylistView(gtk.TreeView):
         self.selection.set_mode(gtk.SELECTION_MULTIPLE)
 
         self.set_model(self.model)
+        self.columns_changed_id = 0
         self._setup_columns()
 
         self.targets = [("exaile-index-list", gtk.TARGET_SAME_WIDGET, 0),
@@ -404,12 +405,14 @@ class PlaylistView(gtk.TreeView):
         if firstpath:
             topindex = firstpath[0][0]
 
-        #self.list.disconnect(self.changed_id)
+        self.disconnect(self.columns_changed_id)
         columns = self.get_columns()
         for col in columns:
             self.remove_column(col)
 
         self._setup_columns()
+        self.columns_changed_id = self.connect("columns-changed",
+                self.on_columns_changed)
         self.queue_draw()
 
         if firstpath:
@@ -429,6 +432,11 @@ class PlaylistView(gtk.TreeView):
             position += 1 # offset for pixbuf column
             playlist_column = playlist_columns.COLUMNS[column](self, position)
             self.append_column(playlist_column)
+
+    def on_columns_changed(self, widget):
+        columns = [c.id for c in self.get_columns()]
+        if columns != settings.get_option('gui/columns', []):
+            settings.set_option('gui/columns', columns)
 
     def on_option_set(self, typ, obj, data):
         if data == "gui/columns":

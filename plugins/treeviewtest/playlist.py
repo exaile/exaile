@@ -29,7 +29,7 @@ import collections
 import os
 import random
 
-import gtk, pango
+import glib, gtk, pango
 
 from xl.nls import gettext as _
 
@@ -318,7 +318,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
 
 class PlaylistView(gtk.TreeView):
-    default_columns = ['tracknumber', 'title', 'album', 'artist', '__rating', '__length']
+    default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
     def __init__(self, playlist):
         gtk.TreeView.__init__(self)
         self.playlist = playlist
@@ -332,24 +332,18 @@ class PlaylistView(gtk.TreeView):
         self.selection.set_mode(gtk.SELECTION_MULTIPLE)
 
         self.set_model(self.model)
-
-        for position, column in enumerate(self.model.columns):
-            position += 1 # offset for pixbuf column
-            playlist_column = playlist_columns.COLUMNS[column](self)
-            view_column = playlist_column.get_column(position)
-            self.append_column(view_column)
-
-        self.connect("row-activated", self.on_row_activated)
+        self._setup_columns()
 
         self.targets = [("exaile-index-list", gtk.TARGET_SAME_WIDGET, 0),
                 ("text/uri-list", 0, 0)]
         self.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
-
         self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT|
                 gtk.gdk.ACTION_MOVE)
 
+        event.add_callback(self.on_option_set, "gui_option_set")
+        self.connect("row-activated", self.on_row_activated)
         self.connect("button-press-event", self.on_button_press)
         self.connect("button-release-event", self.on_button_release)
 
@@ -400,6 +394,46 @@ class PlaylistView(gtk.TreeView):
         paths = self.get_selected_paths()
         tracks = [(path[0], self.model.get_track(path)) for path in paths]
         return tracks
+
+    def _refresh_columns(self):
+        selection = self.get_selection()
+        info = selection.get_selected_rows()
+        # grab the first visible raw of the treeview
+        firstpath = self.get_path_at_pos(4,4)
+        topindex = None
+        if firstpath:
+            topindex = firstpath[0][0]
+
+        #self.list.disconnect(self.changed_id)
+        columns = self.get_columns()
+        for col in columns:
+            self.remove_column(col)
+
+        self._setup_columns()
+        self.queue_draw()
+
+        if firstpath:
+            self.scroll_to_cell(topindex)
+        if info:
+            for path in info[1]:
+                selection.select_path(path)
+
+    def _setup_columns(self):
+        col_ids = settings.get_option("gui/columns", self.default_columns)
+        col_ids = [col for col in col_ids if col in playlist_columns.COLUMNS]
+        if not col_ids:
+            col_ids = self.default_columns
+        self.model.columns = col_ids
+
+        for position, column in enumerate(col_ids):
+            position += 1 # offset for pixbuf column
+            playlist_column = playlist_columns.COLUMNS[column](self)
+            view_column = playlist_column.get_column(position)
+            self.append_column(view_column)
+
+    def on_option_set(self, typ, obj, data):
+        if data == "gui/columns":
+            glib.idle_add(self._refresh_columns)
 
     def on_row_activated(self, *args):
         try:

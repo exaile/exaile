@@ -28,10 +28,26 @@ import minimode_preferences, mmwidgets
 
 MINIMODE = None
 
+def __migrate_fixed_controls():
+    """
+        Makes sure fixed controls are selected,
+        mostly for migration from older versions
+    """
+    option_name = 'plugin/minimode/selected_controls'
+
+    if settings.MANAGER.has_option(option_name):
+        selected_controls = settings.get_option(option_name)
+
+        if not 'restore' in selected_controls:
+            selected_controls += ['restore']
+            settings.set_option(option_name, selected_controls)
+
 def enable(exaile):
     """
         Enables the mini mode plugin
     """
+    __migrate_fixed_controls()
+
     if exaile.loading:
         event.add_callback(_enable, 'gui_loaded')
     else:

@@ -101,6 +101,7 @@ class TabPlacementPreference(widgets.ComboPreference):
     def __init__(self, preferences, widget):
         widgets.ComboPreference.__init__(self, preferences, widget)
 
+"""
 class ProgressBarTextFormatPreference(widgets.ComboEntryPreference):
     name = 'gui/progress_bar_text_format'
     completion_items = {
@@ -113,5 +114,6 @@ class ProgressBarTextFormatPreference(widgets.ComboEntryPreference):
         '$current_time / $total_time'
     ]
     default = '$current_time / $remaining_time'
+"""
 
 # vim: et sts=4 sw=4

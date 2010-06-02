@@ -114,7 +114,7 @@ class PlaylistContextMenu(plmenu.ProviderMenu):
 
     def get_parent_context(self):
         context = {}
-        context['selected-tracks'] = self._parent.get_selected_tracks()
+        context['selected-tracks'] = self._parent.get_selected_items()
 
         return context
 
@@ -323,6 +323,7 @@ class PlaylistView(gtk.TreeView):
         self.playlist = playlist
         self.model = PlaylistModel(playlist, self.default_columns)
         self.menu = PlaylistContextMenu(self)
+        self.dragging = False
 
         self.set_rules_hint(True)
         self.set_enable_search(True)
@@ -376,17 +377,32 @@ class PlaylistView(gtk.TreeView):
 
     def get_selected_tracks(self):
         """
-            Returns a list of :class:`xl.trax.Track` which are currently
-            selected in the playlist.
+            Returns a list of :class:`xl.trax.Track`
+            which are currently selected in the playlist.
+        """
+        return [x[1] for x in self.get_selected_items()]
+
+    def get_selected_paths(self):
+        """
+            Returns a list of pairs of treepaths
+            which are currently selected in the playlist.
         """
         selection = self.get_selection()
         model, paths = selection.get_selected_rows()
-        tracks = [(path[0], model.get_track(path)) for path in paths]
+        return paths
+
+    def get_selected_items(self):
+        """
+            Returns a list of pairs of indices and :class:`xl.trax.Track`
+            which are currently selected in the playlist.
+        """
+        paths = self.get_selected_paths()
+        tracks = [(path[0], self.model.get_track(path)) for path in paths]
         return tracks
 
     def on_row_activated(self, *args):
         try:
-            position, track = self.get_selected_tracks()[0]
+            position, track = self.get_selected_items()[0]
         except IndexError:
             return
 
@@ -398,24 +414,54 @@ class PlaylistView(gtk.TreeView):
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
             return True
+        elif event.button == 1:
+            selection = self.get_selection()
+            path = self.get_path_at_pos(int(event.x), int(event.y))
+            if path:
+                if selection.count_selected_rows() <= 1:
+                    return False
+                else:
+                    if selection.path_is_selected(path[0]):
+                        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                            selection.unselect_path(path[0])
+                        return True
+                    elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                        return True
+                    return False
+                if not selection.count_selected_rows():
+                    selection.select_path(path[0])
         return False
 
     def on_button_release(self, widget, event):
+        if event.button != 1 or self.dragging:
+            self.dragging = False
+            return True
+
+        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+            return True
+
+        selection = self.get_selection()
+        selection.unselect_all()
+
+        path = self.get_path_at_pos(int(event.x), int(event.y))
+        if path:
+            selection.select_path(path[0])
+
         return False
 
     ### DND handlers ###
     ## Source
     def on_drag_begin(self, widget, context):
         # TODO: set drag icon
-        pass
+        self.dragging = True
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
         if selection.target == "exaile-index-list":
-            positions = [ x[0] for x in self.get_selected_tracks() ]
-            s = ",".join(str(i) for i in positions)
+            positions = self.get_selected_paths()
+            s = ",".join(str(i[0]) for i in positions)
             selection.set(selection.target, 8, s)
         elif selection.target == "text/uri-list":
-            tracks = [ x[1] for x in self.get_selected_tracks() ]
+            tracks = self.get_selected_tracks()
             uris = trax.util.get_uris_from_tracks(tracks)
             selection.set_uris(uris)
 
@@ -423,7 +469,7 @@ class PlaylistView(gtk.TreeView):
         self.stop_emission('drag-data-delete')
 
     def on_drag_end(self, widget, context):
-        pass
+        self.dragging = False
 
     ## Dest
     def on_drag_drop(self, widget, context, x, y, etime):

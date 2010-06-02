@@ -15,7 +15,6 @@ ui:
         save to saved playlists
         columns respect settings
         columns context-menu
-        tracks context-menu
         link up dynamic
         link up search
         search field clear button
@@ -24,7 +23,6 @@ ui:
                 - cell.set_sensitive(False)
                 - only if (not shuffling AND current_pos <= spat_pos)
         rename in dialog/messagebar if tabs are hidden
-        fix selection interaction
 
     tabs:
         middle-click empty space to create new

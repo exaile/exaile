@@ -59,7 +59,7 @@ class Column(gtk.TreeViewColumn):
         if self.__class__ == Column:
             raise NotImplementedError("Can't instantiate "
                 "abstract class %s"%repr(self.__class__))
-        cellr = self.renderer()
+        self.cellr = self.renderer()
         self.extrasize = 0
         if index == 1:
             gtk.TreeViewColumn.__init__(self, self.display)
@@ -72,19 +72,19 @@ class Column(gtk.TreeViewColumn):
             icon_cellr.set_property('xalign', 0.0)
             self.extrasize = pbufsize
             self.pack_start(icon_cellr, False)
-            self.pack_start(cellr, True)
+            self.pack_start(self.cellr, True)
             self.set_attributes(icon_cellr, pixbuf=0)
-            self.set_attributes(cellr, **{self.dataproperty: index})
+            self.set_attributes(self.cellr, **{self.dataproperty: index})
         else:
-            gtk.TreeViewColumn.__init__(self, self.display, cellr,
+            gtk.TreeViewColumn.__init__(self, self.display, self.cellr,
                 **{self.dataproperty: index})
-        self.set_cell_data_func(cellr, self.data_func)
-        for name, val in self.cellproperties.iteritems():
-            cellr.set_property(name, val)
+        self.set_cell_data_func(self.cellr, self.data_func)
         try:
-            cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
+            self.cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
         except TypeError: #cellr doesn't do ellipsize - eg. rating
             pass
+        for name, val in self.cellproperties.iteritems():
+            self.cellr.set_property(name, val)
         self.setup_sizing()
 
         event.add_callback(self.on_option_set, "gui_option_set")
@@ -176,20 +176,13 @@ class RatingColumn(Column):
     datatype = int
     dataproperty = 'rating'
     cellproperties = {'follow-state': False}
+    def __init__(self, *args):
+        Column.__init__(self, *args)
+        self.cellr.connect('rating-changed', self.on_rating_changed)
 
     def data_func(self, col, cell, model, iter):
         track = model.get_track(model.get_path(iter))
         cell.props.rating = track.get_rating()
-
-    def get_column(self, index):
-        """
-            Connects to the signals of the rating cell renderer
-        """
-        column = Column.get_column(self, index)
-        column.get_cell_renderers()[0].connect('rating-changed',
-            self.on_rating_changed)
-
-        return column
 
     def on_rating_changed(self, widget, path, rating):
         """

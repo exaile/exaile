@@ -2,340 +2,471 @@
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# Kenji <kenji@3g.ua>, 2010.
+# Sergiy Gavrylov <sergiovana@bigmir.net>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-11-30 12:40+0100\n"
-"PO-Revision-Date: 2010-01-16 06:25+0000\n"
-"Last-Translator: Aren Olson <Unknown>\n"
+"POT-Creation-Date: 2010-05-23 11:46+0200\n"
+"PO-Revision-Date: 2010-05-23 19:16+0000\n"
+"Last-Translator: Sergiy Gavrylov <sergiovana@bigmir.net>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-01-17 04:45+0000\n"
+"X-Launchpad-Export-Date: 2010-05-24 03:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../xl/player/pipe.py:208 ../data/ui/playback_prefs_pane.ui.h:3
+#: ../xl/player/pipe.py:210 ../data/ui/preferences/playback.ui.h:3
 msgid "Automatic"
 msgstr "Автоматично"
 
-#: ../xl/main.py:120
+#: ../xl/player/pipe.py:241 ../data/ui/preferences/playback.ui.h:5
+msgid "Custom"
+msgstr "Довільно"
+
+#: ../xl/main.py:146
 msgid "Failed to migrate from 0.2.14"
 msgstr "Не вдалося мігрувати з 0.2.14"
 
-#: ../xl/main.py:288
-msgid "Playback options"
-msgstr "Налаштування відтворення"
+#: ../xl/main.py:326
+msgid "Usage: exaile [OPTION]... [URI]"
+msgstr "Використання: exaile [OPTION]... [URI]"
 
-#: ../xl/main.py:290
+#: ../xl/main.py:327
+msgid "Options"
+msgstr "Параметри"
+
+#: ../xl/main.py:331
+msgid "Playback Options"
+msgstr "Параметри відтворення"
+
+#: ../xl/main.py:333
 msgid "Play the next track"
-msgstr "Відтворити наступну композицію"
+msgstr "Відтворити наступну доріжку"
 
-#: ../xl/main.py:292
+#: ../xl/main.py:335
 msgid "Play the previous track"
-msgstr "Відтворити попередню композицію"
+msgstr "Відтворити попередню доріжку"
 
-#: ../xl/main.py:294
+#: ../xl/main.py:337
 msgid "Stop playback"
 msgstr "Зупинити відтворення"
 
-#: ../xl/main.py:296
+#: ../xl/main.py:339
 msgid "Play"
 msgstr "Відтворити"
 
-#: ../xl/main.py:298
-msgid "Toggle Play or Pause"
-msgstr "Грати/Пауза"
+#: ../xl/main.py:342
+msgid "Pause or resume playback"
+msgstr "Призупинити або відновити відтворення"
 
-#: ../xl/main.py:301
+#: ../xl/main.py:345
 msgid "Stop playback after current track"
 msgstr "Зупинити відтворення після поточної доріжки"
 
-#: ../xl/main.py:304
-msgid "Track options"
-msgstr "Опції доріжки"
+#: ../xl/main.py:348
+msgid "Collection Options"
+msgstr "Параметри збірки"
 
-#: ../xl/main.py:306
+#. TRANSLATORS: Meta variable for --import
+#: ../xl/main.py:351
+msgid "LOCATION"
+msgstr "АДРЕСА"
+
+#: ../xl/main.py:351
+msgid "Import tracks from LOCATION"
+msgstr "Імпортування доріжок з АДРЕСИ"
+
+#: ../xl/main.py:354
+msgid "Track Options"
+msgstr "Параметри доріжки"
+
+#: ../xl/main.py:356
 msgid "Query player"
 msgstr "Опитати програвача"
 
-#: ../xl/main.py:308
-msgid "Show a popup of the currently playing track"
-msgstr "Показувати зринаюче повідомлення про поточну композицію"
+#: ../xl/main.py:359
+msgid "Show a popup with data of the current track"
+msgstr "Показувати повідомлення з даними про поточну композицію"
 
-#: ../xl/main.py:310
+#: ../xl/main.py:361
 msgid "Print the title of current track"
-msgstr "Показати назву поточної композиції"
+msgstr "Показувати назву поточної композиції"
 
-#: ../xl/main.py:312
+#: ../xl/main.py:363
 msgid "Print the album of current track"
-msgstr "Показати назву альбому поточної композиції"
+msgstr "Показувати назву альбому поточної композиції"
 
-#: ../xl/main.py:314
+#: ../xl/main.py:365
 msgid "Print the artist of current track"
-msgstr "Показати ім'я виконавця поточної композиції"
+msgstr "Показувати виконавця поточної композиції"
 
-#: ../xl/main.py:316
+#: ../xl/main.py:367
 msgid "Print the length of current track"
-msgstr "Показати тривалість поточної композиції"
+msgstr "Показувати тривалість поточної композиції"
 
-#: ../xl/main.py:318
-msgid "Set rating for current song"
-msgstr "Оцінити поточний трек"
+#. TRANSLATORS: Variable for command line options with arguments
+#: ../xl/main.py:370 ../xl/main.py:385 ../xl/main.py:389
+msgid "N"
+msgstr "N"
 
-#: ../xl/main.py:320
-msgid "Get rating for current song"
-msgstr "Запитати оцінку поточоного треку"
+#: ../xl/main.py:371
+msgid "Set rating for current track to N%"
+msgstr "Встановити рейтинг поточної композиції N%"
 
-#: ../xl/main.py:323
-msgid "Print the position inside the current track as time"
-msgstr "Показувати поточну позицію відтворювання у вигляді часу"
+#: ../xl/main.py:373
+msgid "Get rating for current track"
+msgstr "Отримати рейтинг поточної композиції"
 
-#: ../xl/main.py:326
-msgid "Print the progress inside the current track as percentage"
-msgstr "Показувати поточну позицію відтворювання у процентному вигляді"
+#: ../xl/main.py:376
+msgid "Print the current playback position as time"
+msgstr "Показувати позицію відтворення, як час"
 
-#: ../xl/main.py:329
-msgid "Volume options"
-msgstr "Опції гучності"
+#: ../xl/main.py:378
+msgid "Print the current playback progress as percentage"
+msgstr "Показувати позицію відтворення у відсотках"
 
-#: ../xl/main.py:331
-msgid "Increases the volume by VOL%"
-msgstr "Збільшує гучність на VOL%"
+#: ../xl/main.py:382
+msgid "Volume Options"
+msgstr "Параметри гучності"
 
-#: ../xl/main.py:333
-msgid "Decreases the volume by VOL%"
-msgstr "Зменшує гучність на VOL%"
+#: ../xl/main.py:386
+msgid "Increases the volume by N%"
+msgstr "Збільшити гучність на N%"
 
-#: ../xl/main.py:335
+#. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
+#: ../xl/main.py:391
+msgid "Decreases the volume by N%"
+msgstr "Зменшити гучність на N%"
+
+#: ../xl/main.py:394
+msgid "Mutes or unmutes the volume"
+msgstr "Приглушити або увімкнути гучність"
+
+#: ../xl/main.py:396
 msgid "Print the current volume percentage"
 msgstr "Показувати поточний рівень гучності"
 
-#: ../xl/main.py:338
-msgid "Other options"
+#: ../xl/main.py:399
+msgid "Other Options"
 msgstr "Інші параметри"
 
-#: ../xl/main.py:340
+#: ../xl/main.py:401
 msgid "Start new instance"
-msgstr "Завантажувати ще одну копію програми"
+msgstr "Запускати новий екзкмпляр"
 
-#: ../xl/main.py:343
+#: ../xl/main.py:403
+msgid "Show this help message and exit"
+msgstr "Показати довідкове повідомлення і вийти"
+
+#: ../xl/main.py:405
+msgid "Show program's version number and exit."
+msgstr "Показати номер версії програми і вийти."
+
+#: ../xl/main.py:408
 msgid "Start minimized (to tray, if possible)"
-msgstr "Завантажувати згорнутим (до трею, якщо можливо)"
+msgstr "Запускати згорнутим (у лоток, якщо можливо)"
 
-#: ../xl/main.py:345
+#: ../xl/main.py:411
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr "Змінити видимість графічного інтерфейса користувача (якщо можливо)"
+msgstr "Змінити видимість ГІП (якщо можливо)"
 
-#: ../xl/main.py:347
+#: ../xl/main.py:413
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
-"Завантажувати у безпечному режимі: може стати в нагоді, якщо виникають "
-"проблеми з модулями"
+"Запускати у безпечному режимі — іноді корисно, якщо виникають проблеми"
 
-#: ../xl/main.py:350
-msgid "Force import of old data from 0.2.x. Overwrites current data."
+#: ../xl/main.py:416
+msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
-"Примусово імпортувати старі дані з версії 0.2.x. Перезаписати поточні дані."
+"Швидке імпортування старих даних з версії 0.2.x (перезапише чинні дані)"
 
-#: ../xl/main.py:353
-msgid "Do not import old data from 0.2.x."
-msgstr "Не імпортувати старі дані з версії 0.2.x"
+#: ../xl/main.py:419
+msgid "Do not import old data from version 0.2.x"
+msgstr "Не імпортувати старі дані з версії 0.2.х"
 
-#: ../xl/main.py:358
-msgid "Development/Debug options"
-msgstr "Опції розробки/налагодження"
+#: ../xl/main.py:422
+msgid "Make control options like --play start Exaile if it is not running"
+msgstr ""
+"Встановити параметри подібні до --play для запуску Exaile, якщо він не працює"
 
-#: ../xl/main.py:359
+#: ../xl/main.py:426
+msgid "Development/Debug Options"
+msgstr "Параметри розробки та налагодження"
+
+#: ../xl/main.py:428
+msgid "DIRECTORY"
+msgstr "КАТАЛОГ"
+
+#: ../xl/main.py:428
 msgid "Set data directory"
-msgstr "Визначити каталог даних"
+msgstr "Встановити каталог з даними"
 
-#: ../xl/main.py:361
+#: ../xl/main.py:430
 msgid "Show debugging output"
-msgstr "Показувати відлагоджувальне виведення"
+msgstr "Показувати вивід налагодження"
 
-#: ../xl/main.py:364
+#: ../xl/main.py:432
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
-"Дозволити відлагоджування xl.event. Генерує ВЕЛИКУ кількість виведення"
+msgstr "Увімкнути налагодження xl.event. Генерує ВЕЛИКУ кількість виведення"
 
-#: ../xl/main.py:366
-msgid "Filter event debug output"
-msgstr "Фільтрувати виведення відлагоджування подій"
+#: ../xl/main.py:435
+msgid "TYPE"
+msgstr "ТИП"
 
-#: ../xl/main.py:369
+#: ../xl/main.py:436
+msgid "Limits event debug to output of TYPE"
+msgstr "Обмежити результат налагодження виведенням ТИПУ"
+
+#: ../xl/main.py:438
 msgid "Reduce level of output"
 msgstr "Понизити рівень сигналу"
 
-#: ../xl/main.py:373
+#: ../xl/main.py:442
 msgid "Disable D-Bus support"
 msgstr "Вимкнути підтримку D-Bus"
 
-#: ../xl/main.py:375
+#: ../xl/main.py:444
 msgid "Disable HAL support."
-msgstr "Вимкнути підтримку HAL"
+msgstr "Вимкнути підтримку HAL."
 
-#: ../xl/main.py:394
+#: ../xl/main.py:464
 msgid "Entire Library"
-msgstr "Уся бібліотека"
+msgstr "Вся фонотека"
 
-#: ../xl/main.py:400
+#: ../xl/main.py:470
 #, python-format
 msgid "Random %d"
 msgstr "Випадковий %d"
 
-#: ../xl/main.py:408
+#: ../xl/main.py:478
 #, python-format
 msgid "Rating > %d"
 msgstr "Рейтинг > %d"
 
-#: ../xl/main.py:505
+#: ../xl/main.py:577
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
-"Завантаження Exaile ще не завершилося. Можливо, ви чуєте сигнал "
-"exaile_loaded?"
-
-#: ../xl/cover.py:155 ../xl/cover.py:189 ../xl/trackdb.py:226
-msgid "You did not specify a location to save the db"
-msgstr "Ви не вказали місце для збереження бази даних"
-
-#: ../xl/cover.py:281 ../xl/lyrics.py:85
-msgid "order must be a list or tuple"
-msgstr "порядок мусить бути списком або кортежем"
+"Завантаження Exaile ще не завершилося. Можливо, варто дочекатись сигналу "
+"exaile_loaded."
 
 #: ../xl/transcoder.py:55
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
-"Vorbis -  відкритий формат для компресії цифрового звуку з втратами, котрий "
-"забезпечує дещо кращу якість відтворення і менші розміри аудіофайлів "
-"порівняно до формату MP3."
+"Vorbis — відкритий аудіо кодек для стиснення звуку зі втратами. Забезпечує "
+"високу якість та менший розмір файла порівняно з MP3."
 
 #: ../xl/transcoder.py:65
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
-msgstr ""
-"FLAC - відкритий формат для компресії цифрового звуку без втрат якості."
+msgstr "FLAC — відкритий аудіо кодек для стиснення звуку без втрат якості."
 
 #: ../xl/transcoder.py:77
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Формат Apple аудіо з втратами, який дає кращу якість на нижчих частотах, ніж "
-" MP3."
+"Закритий (власність Apple) формат стиснення звуку з втратами. Дає кращу, ніж "
+"MP3 якість, при меншій бітовій швидкості."
 
 #: ../xl/transcoder.py:88
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"Закритий, застарілий, але все ж популярний формат аудіо з втратами. VBR дає "
-"кращу якість, ніж CBR, але він може бути несумісним з деякими аудіо "
-"програвачами."
+"Закритий та застарілий, але все ще популярний аудіо формат з втратами. VBR "
+"дає кращу якість, ніж CBR, але не несумісний з деякими програвачами."
 
 #: ../xl/transcoder.py:99
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"Закритий, застарілий, але все ж популярний формат аудіо із втратами. CBR дає "
-"гіршу якість, ніж VBR, але він сумісний зі всіма аудіо програвачами."
+"Закритий та застарілий, але все ще популярний аудіо формат з втратами. VBR "
+"дає гіршу якість, ніж CBR, але сумісний з усіма програвачами."
 
 #: ../xl/transcoder.py:110
 msgid "A very fast Free lossless audio format with good compression."
-msgstr "Дуже швидкий вільний формат аудіо без втрат та гарним стисненням."
+msgstr "Вільний формат стиснення звуку без втрат з високою швидкістю."
 
-#: ../xl/track.py:388
+#: ../xl/formatter.py:522
+#, python-format
+msgid "%d year, "
+msgid_plural "%d years, "
+msgstr[0] "%d рік, "
+msgstr[1] "%d роки, "
+msgstr[2] "%d років, "
+
+#: ../xl/formatter.py:525
+#, python-format
+msgid "%d day, "
+msgid_plural "%d days, "
+msgstr[0] "%d день, "
+msgstr[1] "%d дні, "
+msgstr[2] "%d днів, "
+
+#: ../xl/formatter.py:528
+#, python-format
+msgid "%d hour, "
+msgid_plural "%d hours, "
+msgstr[0] "%d година, "
+msgstr[1] "%d години, "
+msgstr[2] "%d годин, "
+
+#: ../xl/formatter.py:530
+#, python-format
+msgid "%d minute, "
+msgid_plural "%d minutes, "
+msgstr[0] "%d хвилина, "
+msgstr[1] "%d хвилини, "
+msgstr[2] "%d хвилин, "
+
+#: ../xl/formatter.py:531
+#, python-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d секунда"
+msgstr[1] "%d секунди"
+msgstr[2] "%d секунд"
+
+#. TRANSLATORS: Short form of an amount of years
+#: ../xl/formatter.py:535
+#, python-format
+msgid "%dy, "
+msgstr "%dy, "
+
+#. TRANSLATORS: Short form of an amount of days
+#: ../xl/formatter.py:539
+#, python-format
+msgid "%dd, "
+msgstr "%dd, "
+
+#. TRANSLATORS: Short form of an amount of hours
+#: ../xl/formatter.py:543
+#, python-format
+msgid "%dh, "
+msgstr "%dh, "
+
+#. TRANSLATORS: Short form of an amount of minutes
+#: ../xl/formatter.py:546
+#, python-format
+msgid "%dm, "
+msgstr "%dm, "
+
+#. TRANSLATORS: Short form of an amount of seconds
+#: ../xl/formatter.py:548
+#, python-format
+msgid "%ds"
+msgstr "%ds"
+
+#: ../xl/formatter.py:641 ../xl/formatter.py:646
+msgid "Never"
+msgstr "Ніколи"
+
+#: ../xl/formatter.py:652
+msgid "Today"
+msgstr "Сьогодні"
+
+#: ../xl/formatter.py:654
+msgid "Yesterday"
+msgstr "Вчора"
+
+#: ../xl/trax/track.py:58 ../xlgui/guiutil.py:1431
 msgid "Various Artists"
 msgstr "Різні виконавці"
 
-#. TRANSLATORS : this replaces the title of a track when it's not known
-#: ../xl/track.py:393 ../xl/track.py:412 ../xl/trackformatter.py:121
-#: ../xl/playlist.py:245 ../xlgui/panel/collection.py:478
-#: ../plugins/notifyosd/__init__.py:57 ../plugins/minimode/mmwidgets.py:1015
+#. TRANSLATORS: title of a track if it is unknown
+#: ../xl/trax/track.py:59 ../xl/playlist.py:248
+#: ../plugins/notifyosd/__init__.py:57
 msgid "Unknown"
 msgstr "Невідомо"
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/track.py:424 ../xl/trackformatter.py:110
-#: ../plugins/minimode/mmwidgets.py:1004
-msgid " & "
-msgstr ""
+#: ../xl/trax/track.py:61
+msgid " / "
+msgstr " / "
 
-#: ../xl/track.py:584
-msgid "  New song, fetching cover."
-msgstr "  Новий трек! Завантажується обкладинка."
+#: ../xl/trax/trackdb.py:165
+msgid "You did not specify a location to load the db from"
+msgstr "Ви не вказали розташування бази даних"
 
-#: ../xl/devices.py:141 ../xl/devices.py:147
-msgid "Device class does not support transfer."
-msgstr "Клас пристрою не підтримує передавання."
+#: ../xl/trax/trackdb.py:232
+msgid "You did not specify a location to save the db"
+msgstr "Ви не вказали місце для збереження бази даних"
 
-#: ../xl/trackformatter.py:200 ../xlgui/plcolumns.py:220
-#: ../xlgui/plcolumns.py:240 ../plugins/minimode/mmwidgets.py:1074
-msgid "Never"
-msgstr "Ніколи"
-
-#: ../xl/trackformatter.py:213 ../xlgui/plcolumns.py:232
-#: ../plugins/minimode/mmwidgets.py:1087
-msgid "Today"
-msgstr "Сьогодні"
-
-#: ../xl/trackformatter.py:215 ../xlgui/plcolumns.py:234
-#: ../plugins/minimode/mmwidgets.py:1089
-msgid "Yesterday"
-msgstr "Вчора"
-
-#: ../xl/trackformatter.py:217 ../xlgui/plcolumns.py:236
-#: ../plugins/minimode/mmwidgets.py:1091
-#, python-format
-msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr "%(year)d-%(month)02d-%(day)02d"
-
-#: ../xl/settings.py:94
+#: ../xl/settings.py:98
 msgid "Settings version is newer than current."
-msgstr "Версія параметрів новіша за поточну."
+msgstr "Версія параметрів новіша за чинну."
 
-#: ../xl/settings.py:179
+#: ../xl/settings.py:210
 msgid "We don't know how to store that kind of setting: "
-msgstr "Ми не знаємо, як зберігати такий тип налаштувань: "
+msgstr "Не знаю, як зберігати такий тип параметрів: "
 
-#: ../xl/settings.py:206
+#: ../xl/settings.py:235
 msgid "An Unknown type of setting was found!"
-msgstr "Знайдено невідомий тип налаштування!"
+msgstr "Знайдено невідомий тип параметрів!"
 
-#: ../xl/plugins.py:84
-msgid "Plugin archive is not in the correct format"
-msgstr "Некоректний архів плагіна"
+#: ../xl/lyrics.py:245
+msgid "Local"
+msgstr "Локальні"
 
-#: ../xl/plugins.py:91
+#: ../xl/plugins.py:94
+msgid "Plugin archive is not in the correct format."
+msgstr "Архів модуля має не коректний формат"
+
+#: ../xl/plugins.py:101
 #, python-format
-msgid "A plugin with the name \"%s\" is already installed"
-msgstr "Плагін \"%s\" вже встановлено"
+msgid "A plugin with the name \"%s\" is already installed."
+msgstr "Модуль під назвою \"%s\" вже встановлений."
 
-#: ../xl/plugins.py:96
-msgid "Plugin archive contains an unsafe path"
-msgstr "Архів з плагіном містить небезпечний шлях"
+#: ../xl/plugins.py:106
+msgid "Plugin archive contains an unsafe path."
+msgstr "Архів модуля містить ненадійний шлях."
 
-#: ../xl/playlist.py:386
+#: ../xl/playlist.py:388
 #, python-format
 msgid "Playlist %d"
-msgstr "Список програвання %d"
+msgstr "Список відтворення %d"
 
-#: ../xl/xldbus.py:85 ../xl/xldbus.py:298
+#: ../xl/playlist.py:1103 ../xlgui/panel/playlists.py:44
+#: ../xlgui/panel/playlists.py:56 ../xlgui/panel/playlists.py:63
+msgid "seconds"
+msgstr "секунд"
+
+#: ../xl/playlist.py:1104 ../xlgui/panel/playlists.py:56
+msgid "minutes"
+msgstr "хвилин"
+
+#: ../xl/playlist.py:1105 ../xlgui/panel/playlists.py:56
+msgid "hours"
+msgstr "години"
+
+#: ../xl/playlist.py:1106 ../xlgui/panel/playlists.py:53
+#: ../xlgui/panel/playlists.py:56
+msgid "days"
+msgstr "днів"
+
+#: ../xl/playlist.py:1107 ../xlgui/panel/playlists.py:56
+msgid "weeks"
+msgstr "тижнiв"
+
+#: ../xl/xldbus.py:106 ../xl/xldbus.py:372
+#: ../plugins/lyricsviewer/__init__.py:222
 msgid "Not playing."
-msgstr "Не програється."
+msgstr "Не відтворюється."
 
-#: ../xl/xldbus.py:303
+#: ../xl/xldbus.py:377
 #, python-format
 msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
@@ -344,953 +475,984 @@ msgstr ""
 "статус: %(status)s, назва: %(title)s, виконавець: %(artist)s, альбом: "
 "%(album)s, довжина: %(length)s, позиція: %(progress)s%% [%(position)s]"
 
-#: ../xl/trackdb.py:164
-msgid "You did not specify a location to load the db from"
-msgstr "Ви не вказали місцерозташування бази даних"
+#: ../xl/xldbus.py:480 ../xlgui/__init__.py:368
+msgid "Scanning collection..."
+msgstr "Сканування збірки..."
 
-#: ../xlgui/properties.py:36
-msgid "Original Album"
-msgstr "Оригінальна назва альбома"
+#: ../xlgui/properties.py:42
+msgid "Original album"
+msgstr "Оригінальний альбом"
 
-#: ../xlgui/properties.py:37
+#: ../xlgui/properties.py:43
 msgid "Lyricist"
-msgstr ""
+msgstr "Автор тексту"
 
-#: ../xlgui/properties.py:39
+#: ../xlgui/properties.py:45
 msgid "Website"
 msgstr "Веб-сайт"
 
-#: ../xlgui/properties.py:41
-msgid "Original Artist"
-msgstr "Оригінальна назва артиста"
+#: ../xlgui/properties.py:47
+msgid "Original artist"
+msgstr "Початковий виконавець"
 
-#: ../xlgui/properties.py:42
+#: ../xlgui/properties.py:48
 msgid "Author"
 msgstr "Автор"
 
-#: ../xlgui/properties.py:43
-msgid "Original Date"
-msgstr "Дата оригіналу"
+#: ../xlgui/properties.py:49
+msgid "Original date"
+msgstr "Початкова дата"
 
-#: ../xlgui/properties.py:44 ../xlgui/plcolumns.py:163
-#: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:72
+#: ../xlgui/properties.py:50 ../xlgui/plcolumns.py:179
+#: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimodeprefs.py:95
 msgid "Date"
 msgstr "Дата"
 
-#: ../xlgui/properties.py:45
+#: ../xlgui/properties.py:51
 msgid "Arranger"
 msgstr "Аранжувальник"
 
-#: ../xlgui/properties.py:46
+#: ../xlgui/properties.py:52
 msgid "Conductor"
 msgstr "Диригент"
 
-#: ../xlgui/properties.py:47
+#: ../xlgui/properties.py:53
 msgid "Performer"
 msgstr "Виконавець"
 
-#: ../xlgui/properties.py:48 ../xlgui/plcolumns.py:99
-#: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:157
-#: ../data/ui/collection_panel.ui.h:4 ../plugins/cd/cdprefs.py:95
-#: ../plugins/minimode/minimodeprefs.py:66
+#: ../xlgui/properties.py:54 ../xlgui/plcolumns.py:101
+#: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:163
+#: ../data/ui/widgets/tracklist_info.ui.h:2 ../data/ui/collection_panel.ui.h:4
+#: ../plugins/cd/cdprefs.py:97 ../plugins/minimode/minimodeprefs.py:89
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Artist"
 msgstr "Виконавець"
 
-#: ../xlgui/properties.py:49 ../xlgui/plcolumns.py:109
-#: ../xlgui/panel/playlists.py:77 ../xlgui/panel/playlists.py:159
-#: ../data/ui/collection_panel.ui.h:3 ../plugins/cd/cdprefs.py:97
-#: ../plugins/minimode/minimodeprefs.py:68
+#: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:111
+#: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:165
+#: ../data/ui/widgets/tracklist_info.ui.h:1 ../data/ui/collection_panel.ui.h:3
+#: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:91
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Album"
 msgstr "Альбом"
 
-#: ../xlgui/properties.py:50
+#: ../xlgui/properties.py:56
 msgid "Copyright"
 msgstr "Авторські права"
 
-#: ../xlgui/properties.py:51
+#: ../xlgui/properties.py:57 ../plugins/lyricsviewer/__init__.py:49
 msgid "Lyrics"
 msgstr "Тексти пісень"
 
-#: ../xlgui/properties.py:52 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
+#: ../xlgui/properties.py:58 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
-msgstr "Композиція"
+msgstr "Доріжка"
 
-#: ../xlgui/properties.py:53 ../xlgui/prefs/plugin_prefs.py:98
+#: ../xlgui/properties.py:59
 msgid "Version"
 msgstr "Версія"
 
-#: ../xlgui/properties.py:54 ../xlgui/plcolumns.py:94
-#: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:158
-#: ../xlgui/panel/flatplaylist.py:98 ../plugins/cd/cdprefs.py:94
-#: ../plugins/minimode/minimodeprefs.py:65
+#: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:96
+#: ../xlgui/panel/playlists.py:91 ../xlgui/panel/playlists.py:164
+#: ../xlgui/panel/flatplaylist.py:103 ../plugins/cd/cdprefs.py:96
+#: ../plugins/minimode/minimodeprefs.py:88
 msgid "Title"
-msgstr "Заголовок"
+msgstr "Назва"
 
-#: ../xlgui/properties.py:55
+#: ../xlgui/properties.py:61
 msgid "ISRC"
-msgstr "ISRC"
+msgstr "Код ISRC"
 
-#: ../xlgui/properties.py:56 ../xlgui/plcolumns.py:168
-#: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:164
-#: ../plugins/cd/cdprefs.py:102 ../plugins/minimode/minimodeprefs.py:73
+#: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:184
+#: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:170
+#: ../plugins/cd/cdprefs.py:104 ../plugins/minimode/minimodeprefs.py:96
 msgid "Genre"
 msgstr "Жанр"
 
-#: ../xlgui/properties.py:57 ../xlgui/plcolumns.py:104
-#: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:67
+#: ../xlgui/properties.py:63 ../xlgui/plcolumns.py:106
+#: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:90
 msgid "Composer"
-msgstr "Автор"
+msgstr "Композитор"
 
-#: ../xlgui/properties.py:58
-msgid "Encoded By"
-msgstr ""
+#: ../xlgui/properties.py:64
+msgid "Encoded by"
+msgstr "Кодований"
 
-#: ../xlgui/properties.py:59
+#: ../xlgui/properties.py:65
 msgid "Organization"
 msgstr "Організація"
 
-#: ../xlgui/properties.py:60 ../xlgui/plcolumns.py:134
+#: ../xlgui/properties.py:66 ../xlgui/plcolumns.py:134
 msgid "Disc"
 msgstr "Диск"
 
-#: ../xlgui/properties.py:61 ../xlgui/plcolumns.py:204
-#: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimodeprefs.py:79
+#: ../xlgui/properties.py:67 ../xlgui/plcolumns.py:230
+#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimodeprefs.py:102
 msgid "BPM"
 msgstr "Бітів за хвилину"
 
-#: ../xlgui/properties.py:62 ../xlgui/plcolumns.py:173
-#: ../plugins/cd/cdprefs.py:103 ../plugins/minimode/minimodeprefs.py:74
+#: ../xlgui/properties.py:68 ../xlgui/plcolumns.py:189
+#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:97
 msgid "Bitrate"
 msgstr "Бітова швидкість"
 
-#: ../xlgui/properties.py:63
-msgid "Date Added"
+#: ../xlgui/properties.py:69 ../xlgui/panel/playlists.py:128
+#: ../xlgui/panel/playlists.py:171
+msgid "Date added"
 msgstr "Дата додавання"
 
-#: ../xlgui/properties.py:64 ../xlgui/plcolumns.py:114
-#: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:160
-#: ../plugins/cd/cdprefs.py:98 ../plugins/minimode/minimodeprefs.py:69
+#: ../xlgui/properties.py:70 ../xlgui/plcolumns.py:116
+#: ../xlgui/panel/playlists.py:123 ../xlgui/panel/playlists.py:166
+#: ../plugins/cd/cdprefs.py:100 ../plugins/minimode/minimodeprefs.py:92
 msgid "Length"
-msgstr "Довжина"
+msgstr "Тривалість"
 
-#. TRANSLATORS: Example: track has been added in the last 2 days
-#. (_('in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'time_added'))),
-#. TRANSLATORS: Example: track has not been added in the last 5 hours
-#. (_('not in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'time_added', '<'))),
-#. ]),
-#. (_('Last Played'), [
-#. (_('in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'last_played'))),
-#. (_('not in the last'), (SpinDateField,
-#. lambda x, i: day_calc(x, i, 'last_played', '<'))),
-#. ]),
-#: ../xlgui/properties.py:65 ../xlgui/plcolumns.py:186
-#: ../xlgui/panel/playlists.py:134 ../xlgui/panel/playlists.py:165
-#: ../plugins/cd/cdprefs.py:104 ../plugins/minimode/minimodeprefs.py:75
+#: ../xlgui/properties.py:71 ../xlgui/plcolumns.py:205
+#: ../xlgui/panel/playlists.py:138 ../xlgui/panel/playlists.py:173
+#: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:98
 msgid "Location"
 msgstr "Розташування"
 
-#: ../xlgui/properties.py:67
+#: ../xlgui/properties.py:73
 msgid "Modified"
 msgstr "Змінено"
 
-#: ../xlgui/properties.py:69
-msgid "Times Played"
-msgstr ""
+#: ../xlgui/properties.py:75
+msgid "Times played"
+msgstr "Кількість відтворень"
 
-#: ../xlgui/properties.py:70
-msgid "Last Played"
-msgstr "Востаннє відтворювалося"
+#: ../xlgui/properties.py:76 ../xlgui/plcolumns.py:238
+#: ../xlgui/panel/playlists.py:134 ../xlgui/panel/playlists.py:172
+#: ../plugins/minimode/minimodeprefs.py:101
+msgid "Last played"
+msgstr "Останнє відтворення"
 
-#: ../xlgui/properties.py:216
+#: ../xlgui/properties.py:229
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "Редагування доріжки %(current)d з %(total)d"
 
-#: ../xlgui/properties.py:330
+#: ../xlgui/properties.py:351
 msgid "Close without applying changes to tags?"
-msgstr "Закрити без застосування змін в тегах?"
+msgstr "Закрити без збереження змін?"
 
-#: ../xlgui/properties.py:655
-msgid "of"
-msgstr ""
+#. TRANSLATORS: This is the 'of' between numbers in fields like
+#. tracknumber, discnumber, etc. in the tagger.
+#: ../xlgui/properties.py:735
+msgid "of:"
+msgstr "з:"
 
-#: ../xlgui/properties.py:777
+#: ../xlgui/properties.py:818 ../xlgui/menu.py:296 ../xlgui/menu.py:320
+msgid "Open Directory"
+msgstr "Відкрити каталог"
+
+#: ../xlgui/properties.py:857
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Застосувати чинне значення до всіх доріжок"
 
-#: ../xlgui/main.py:47 ../xlgui/main.py:120 ../xlgui/main.py:1110
-#: ../data/ui/main.ui.h:8 ../plugins/minimode/mmwidgets.py:802
+#: ../xlgui/properties.py:882
+#, python-format
+msgid "Saved %(count)s of %(total)s."
+msgstr "Збережено %(count)s з %(total)s."
+
+#: ../xlgui/main.py:74 ../xlgui/main.py:157 ../xlgui/guiutil.py:1210
+#: ../xlgui/guiutil.py:1280 ../plugins/minimode/mmwidgets.py:810
 msgid "Not Playing"
-msgstr "Не граю"
+msgstr "Нічого не відтворюється"
 
-#: ../xlgui/main.py:130 ../plugins/minimode/mmwidgets.py:822
+#: ../xlgui/main.py:167 ../xlgui/guiutil.py:1299
+#: ../plugins/minimode/mmwidgets.py:828
 msgid "Streaming..."
 msgstr "Потокова трансляція..."
 
-#: ../xlgui/main.py:214
+#: ../xlgui/main.py:228
 msgid "Close tab"
 msgstr "Закрити вкладку"
 
-#: ../xlgui/main.py:272
+#: ../xlgui/main.py:286
 msgid "New playlist title:"
 msgstr "Нова назва списку відтворення:"
 
-#: ../xlgui/main.py:272 ../xlgui/menu.py:448
+#: ../xlgui/main.py:286 ../xlgui/menu.py:454
 msgid "Rename Playlist"
 msgstr "Перейменувати список відтворення"
 
-#: ../xlgui/main.py:281
+#: ../xlgui/main.py:295
 msgid "Custom playlist name:"
-msgstr "Назва поточного списку відтворення:"
+msgstr "Назва спеціального списку відтворення:"
 
-#: ../xlgui/main.py:281
-msgid "Save As..."
+#: ../xlgui/main.py:295
+msgid "Save as..."
 msgstr "Зберегти як..."
 
-#: ../xlgui/main.py:662
-msgid "Toggle: Stop after selected track"
-msgstr "Зупинити після завершення вибраного треку"
+#: ../xlgui/main.py:771
+msgid "Toggle: Stop after Selected Track"
+msgstr "Перемкнути: зупинити після вибраної доріжки"
 
-#: ../xlgui/main.py:701 ../data/ui/main.ui.h:6
+#: ../xlgui/main.py:811 ../data/ui/main.ui.h:8
 msgid "Dynamically add similar tracks to the playlist"
-msgstr "Динамічно додавати схожі композиції до списку відтворювання"
+msgstr "Додавати схожі композиції до списку відтворення"
 
-#: ../xlgui/main.py:706
+#: ../xlgui/main.py:816
 msgid "Requires plugins providing dynamic playlists"
-msgstr ""
+msgstr "Потребує модулів для підтримки динамічних списків відтворення"
 
-#: ../xlgui/main.py:862
+#: ../xlgui/main.py:985
+msgid "Playback error encountered!"
+msgstr "Виникла помилка відтворення!"
+
+#: ../xlgui/main.py:992
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr "Буферизація: %d%%..."
 
-#: ../xlgui/main.py:864
-msgid "Buffering: 100%..."
-msgstr "Буферизація: 100%..."
+#: ../xlgui/main.py:1021 ../plugins/minimode/mmwidgets.py:199
+msgid "Continue Playback"
+msgstr "Продовжити вітворення"
 
-#: ../xlgui/main.py:1022 ../xlgui/main.py:1030 ../xlgui/main.py:1054
+#: ../xlgui/main.py:1025 ../xlgui/main.py:1298
+#: ../plugins/minimode/mmwidgets.py:202
+msgid "Pause Playback"
+msgstr "Призупинити відтворення"
+
+#: ../xlgui/main.py:1160 ../xlgui/main.py:1168 ../xlgui/main.py:1235
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "Перемішування в_имкнене"
 
-#: ../xlgui/main.py:1022 ../xlgui/main.py:1056
+#: ../xlgui/main.py:1160 ../xlgui/main.py:1237
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Перемішувати ко_мпозиції"
 
-#: ../xlgui/main.py:1022 ../xlgui/main.py:1059
+#: ../xlgui/main.py:1160 ../xlgui/main.py:1240
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Перемішувати _альбоми"
 
-#: ../xlgui/main.py:1111 ../data/ui/main.ui.h:21
-msgid "Stopped"
-msgstr "Зупинено"
+#: ../xlgui/main.py:1203 ../xlgui/main.py:1211 ../xlgui/main.py:1246
+msgid "Repeat _Off"
+msgstr "Вимкнут_и повтор"
 
-#: ../xlgui/main.py:1209
-msgid ""
-"Exaile Music Player\n"
-"Not playing"
-msgstr ""
-"Програвач музики Exaile\n"
-"Нічого не відтворюється"
+#: ../xlgui/main.py:1203 ../xlgui/main.py:1248
+msgid "Repeat _Playlist"
+msgstr "Повторювати _список відтворення"
+
+#: ../xlgui/main.py:1203 ../xlgui/main.py:1251
+msgid "Repeat _Track"
+msgstr "Повторюва_ти композицію"
+
+#: ../xlgui/main.py:1317 ../data/ui/main.ui.h:20
+#: ../plugins/minimode/mmwidgets.py:171 ../plugins/minimode/mmwidgets.py:195
+msgid "Start Playback"
+msgstr "Почати відтворення"
 
 #. TRANSLATORS: Window title
-#: ../xlgui/main.py:1219
+#: ../xlgui/main.py:1421
 #, python-format
 msgid "%(title)s (by %(artist)s)"
-msgstr "%(title)s (%(artist)s)"
-
-#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1229
-#, python-format
-msgid "by %s"
-msgstr "від %s"
-
-#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-#: ../xlgui/main.py:1231
-#, python-format
-msgid "from %s"
-msgstr "з альбому %s"
-
-#: ../xlgui/main.py:1242
-#, python-format
-msgid "In pause: %s"
-msgstr "Призупинено: %s"
-
-#: ../xlgui/main.py:1244
-#, python-format
-msgid "Playing %s"
-msgstr "Відтворюється %s"
+msgstr "%(title)s (by %(artist)s)"
 
 #: ../xlgui/menu.py:53
 msgid "Toggle Queue"
 msgstr "Перемкнути чергу відтворення"
 
-#: ../xlgui/menu.py:99 ../xlgui/menu.py:344 ../xlgui/panel/radio.py:408
-#: ../plugins/droptrayicon/__init__.py:274
+#: ../xlgui/menu.py:93 ../xlgui/menu.py:350 ../xlgui/panel/radio.py:419
+#: ../plugins/droptrayicon/__init__.py:248
 msgid "New Playlist"
 msgstr "Новий список відтворення"
 
-#: ../xlgui/menu.py:157
-msgid "Add to custom playlist"
-msgstr "Додати до поточного списку відтворення"
+#: ../xlgui/menu.py:151
+msgid "Add to Custom Playlist"
+msgstr "Додати спеціальний список відтворення"
 
-#: ../xlgui/menu.py:160 ../xlgui/menu.py:487
+#: ../xlgui/menu.py:154 ../xlgui/menu.py:493
 msgid "Remove"
-msgstr "Видалити"
+msgstr "Вилучити"
 
-#: ../xlgui/menu.py:163 ../xlgui/menu.py:248
+#: ../xlgui/menu.py:157 ../xlgui/menu.py:245
 #: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "Properties"
 msgstr "Властивості"
 
-#: ../xlgui/menu.py:177
+#: ../xlgui/menu.py:171
 msgid "Playlist"
 msgstr "Список відтворення"
 
-#: ../xlgui/menu.py:212 ../data/ui/main.ui.h:32
+#: ../xlgui/menu.py:206 ../data/ui/main.ui.h:34
 msgid "_New Playlist"
 msgstr "_Новий список відтворення"
 
-#: ../xlgui/menu.py:214
+#: ../xlgui/menu.py:208
 msgid "_Rename Playlist"
-msgstr "_Переіменувати список відтворення"
+msgstr "Пе_рейменувати список відтворення"
 
-#: ../xlgui/menu.py:216
-msgid "_Save As Custom Playlist"
-msgstr "_Зберегти як поточний список відтворення"
+#: ../xlgui/menu.py:210
+msgid "_Save as Custom Playlist"
+msgstr "_Зберегти як спеціальний список відтворення"
 
-#: ../xlgui/menu.py:218
-msgid "_Save Changes To Playlist"
-msgstr "_Зберегти зміни до списку відтворення"
+#: ../xlgui/menu.py:212
+msgid "_Save Changes to Playlist"
+msgstr "_Зберегти зміни в списку відтворення"
 
-#: ../xlgui/menu.py:219
-msgid "_Save As..."
+#: ../xlgui/menu.py:213
+msgid "_Save as..."
 msgstr "_Зберегти як..."
 
-#: ../xlgui/menu.py:220
+#: ../xlgui/menu.py:214
 msgid "C_lear All Tracks"
-msgstr "В_идалити усі композиції"
+msgstr "Ви_лучити усі доріжки"
 
-#: ../xlgui/menu.py:222
+#: ../xlgui/menu.py:216
 msgid "_Close Playlist"
-msgstr "_Закрити список відтворення"
+msgstr "Закрити _список відтворення"
 
-#: ../xlgui/menu.py:243
+#: ../xlgui/menu.py:238
 msgid "Append to Current"
 msgstr "Додати до поточного"
 
-#: ../xlgui/menu.py:245
+#: ../xlgui/menu.py:240
+msgid "Replace Current"
+msgstr "Замінити поточний"
+
+#: ../xlgui/menu.py:242
 msgid "Queue Items"
 msgstr "Елементи черги відтворення"
 
-#: ../xlgui/menu.py:310
-msgid "Delete track"
-msgstr "Видалити композицію"
+#: ../xlgui/menu.py:299
+msgid "Delete Track from Storage"
+msgstr "Вилучити доріжку з пам’яті"
 
-#: ../xlgui/menu.py:341
+#: ../xlgui/menu.py:347
 msgid "New Station"
 msgstr "Нова станція"
 
-#: ../xlgui/menu.py:346
+#: ../xlgui/menu.py:352
 msgid "New Smart Playlist"
-msgstr "Новий розумний список відтворення"
+msgstr "Новий «розумний» список відтворення"
 
-#: ../xlgui/menu.py:390
-msgid "Open"
-msgstr "Вiдкрити"
-
-#: ../xlgui/menu.py:393
+#: ../xlgui/menu.py:399
 msgid "Rename"
-msgstr "Змiнити iм'я"
+msgstr "Перейменувати"
 
-#: ../xlgui/menu.py:395
+#: ../xlgui/menu.py:401
 msgid "Edit"
 msgstr "Змiнити"
 
-#: ../xlgui/menu.py:398
+#: ../xlgui/menu.py:404
 msgid "Export"
 msgstr "Експортувати"
 
-#: ../xlgui/menu.py:401
+#: ../xlgui/menu.py:407
 msgid "Delete Playlist"
-msgstr "Видалити список відтворення"
+msgstr "Вилучити список відтворення"
 
-#: ../xlgui/menu.py:411
+#: ../xlgui/menu.py:417
 msgid "Export as..."
 msgstr "Експортувати як..."
 
-#: ../xlgui/menu.py:416 ../xlgui/__init__.py:143
+#: ../xlgui/menu.py:422 ../xlgui/__init__.py:143
 msgid "M3U Playlist"
 msgstr "Список відтворення M3U"
 
-#: ../xlgui/menu.py:417 ../xlgui/__init__.py:144
+#: ../xlgui/menu.py:423 ../xlgui/__init__.py:144
 msgid "PLS Playlist"
 msgstr "Список відтворення PLS"
 
-#: ../xlgui/menu.py:418 ../xlgui/__init__.py:145
+#: ../xlgui/menu.py:424 ../xlgui/__init__.py:145
 msgid "ASX Playlist"
 msgstr "Список відтворення ASX"
 
-#: ../xlgui/menu.py:419 ../xlgui/__init__.py:146
+#: ../xlgui/menu.py:425 ../xlgui/__init__.py:146
 msgid "XSPF Playlist"
 msgstr "Список відтворення XSPF"
 
-#: ../xlgui/menu.py:434 ../xlgui/panel/playlists.py:985
+#: ../xlgui/menu.py:440 ../xlgui/panel/playlists.py:1009
 msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr "Дійсно хочете назавжди видалити вибрані списки відтворення?"
+msgstr "Вилучити назавжди вибрані списки відтворення?"
 
-#: ../xlgui/menu.py:447
+#: ../xlgui/menu.py:453
 msgid "Enter the new name you want for your playlist"
-msgstr "Введіть назву для вашого списку відтворення"
+msgstr "Введіть нову назву списку відтворення"
 
-#: ../xlgui/cover.py:308
+#: ../xlgui/cover.py:228 ../xlgui/cover.py:296
 #, python-format
 msgid "%d covers to fetch"
 msgstr "%d обкладинок для завантаження"
 
-#: ../xlgui/cover.py:313 ../xlgui/cover.py:332 ../data/ui/covermanager.ui.h:2
+#: ../xlgui/cover.py:301 ../xlgui/cover.py:320 ../data/ui/covermanager.ui.h:2
 msgid "Start"
-msgstr "Запустити"
+msgstr "Запуск"
 
-#: ../xlgui/cover.py:347
+#: ../xlgui/cover.py:335
 msgid "Show Cover"
 msgstr "Показати обкладинку"
 
-#: ../xlgui/cover.py:348
+#: ../xlgui/cover.py:336
 msgid "Fetch Cover"
 msgstr "Завантажити обкладинку"
 
-#: ../xlgui/cover.py:349
+#: ../xlgui/cover.py:337
 msgid "Remove Cover"
-msgstr "Видалити обкладинку"
+msgstr "Вилучити обкладинку"
 
-#: ../xlgui/cover.py:697
-msgid "Enter the search text"
-msgstr "Введіть текст для пошуку"
+#: ../xlgui/cover.py:521
+msgid "Cover"
+msgstr "Обкладинка"
 
-#: ../xlgui/cover.py:723
-msgid "No covers found"
-msgstr "Обкладинок не знайдено"
+#: ../xlgui/cover.py:523
+#, python-format
+msgid "Cover for %s"
+msgstr "Обкладинка для %s"
 
-#: ../xlgui/osd.py:205 ../xlgui/plcolumns.py:124
+#: ../xlgui/cover.py:663
+#, python-format
+msgid "Cover options for %(artist)s - %(album)s"
+msgstr "Варіанти обкладинок для %(artist)s - %(album)s"
+
+#: ../xlgui/cover.py:713
+msgid "No covers found."
+msgstr "Обкладинки не знайдені."
+
+#: ../xlgui/osd.py:209
 #, python-format
 msgid "%(minutes)d:%(seconds)02d"
 msgstr "%(minutes)d:%(seconds)02d"
 
-#: ../xlgui/osd.py:219
+#: ../xlgui/osd.py:223
 msgid "No track"
-msgstr "Нема композицій"
+msgstr "Немає доріжки"
 
 #: ../xlgui/__init__.py:138
-msgid "Export current playlist..."
-msgstr "Експортувати поточний список відтворення..."
+msgid "Export Current Playlist"
+msgstr "Експорт чинного списку відтворення"
 
-#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:940
+#: ../xlgui/__init__.py:161 ../xlgui/panel/playlists.py:964
 msgid "Invalid file extension, file not saved"
-msgstr "Неправильне розширення файлу, файл не збережено"
+msgstr "Неправильне розширення файла; файл не збережено"
 
 #: ../xlgui/__init__.py:168
 msgid "Enter the URL to open"
-msgstr "Введіть URL, який потрібно відкрити"
+msgstr "Введіть URL, яку потрібно відкрити"
 
 #: ../xlgui/__init__.py:169
 msgid "Open URL"
 msgstr "Вiдкрити URL"
 
-#: ../xlgui/__init__.py:183
+#: ../xlgui/__init__.py:192 ../xlgui/__init__.py:236
 msgid "Choose a file to open"
-msgstr "Оберiть файл"
+msgstr "Виберіть файл, щоб відкрити"
 
-#: ../xlgui/__init__.py:190
+#: ../xlgui/__init__.py:200
 msgid "Supported Files"
-msgstr "Файли якi пiдтримуються"
+msgstr "Підтримувані типи файлів"
 
-#: ../xlgui/__init__.py:192
+#: ../xlgui/__init__.py:202
 msgid "Music Files"
 msgstr "Музичні файли"
 
-#: ../xlgui/__init__.py:194
+#: ../xlgui/__init__.py:204
 msgid "Playlist Files"
-msgstr "Файли списку відтворення"
+msgstr "Файли списків відтворення"
 
-#: ../xlgui/__init__.py:196 ../xlgui/prefs/plugin_prefs.py:143
+#: ../xlgui/__init__.py:206 ../xlgui/preferences/plugin.py:135
 msgid "All Files"
 msgstr "Усі файли"
 
-#: ../xlgui/__init__.py:334
-msgid "Scanning collection..."
-msgstr "Сканування колекції..."
-
-#: ../xlgui/__init__.py:439
+#: ../xlgui/__init__.py:482
 #, python-format
 msgid "Scanning %s..."
 msgstr "Сканування %s..."
 
-#: ../xlgui/guiutil.py:430
+#: ../xlgui/guiutil.py:573
 msgid "Muted"
-msgstr ""
+msgstr "Приглушено"
 
-#: ../xlgui/guiutil.py:439
+#. TRANSLATORS: Volume percentage
+#: ../xlgui/guiutil.py:579
+#, python-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: ../xlgui/guiutil.py:582
 msgid "Full Volume"
 msgstr "Повна гучність"
 
-#: ../xlgui/guiutil.py:729
+#: ../xlgui/guiutil.py:879
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr "%(playlist_count)d показано, %(collection_count)d у колекції"
+msgstr "%(playlist_count)d показано, %(collection_count)d в збірці"
 
-#: ../xlgui/guiutil.py:742
+#: ../xlgui/guiutil.py:892
 #, python-format
 msgid "(%d queued)"
-msgstr "(%d поставлено в чергу)"
+msgstr "(%d в черзі)"
 
-#: ../xlgui/guiutil.py:771
+#: ../xlgui/guiutil.py:979
 msgid "Rating:"
 msgstr "Рейтинг:"
 
-#: ../xlgui/commondialogs.py:335
+#: ../xlgui/guiutil.py:1094
+msgid ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"by ${artist:compilate}\n"
+"from $album"
+msgstr ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"виконує ${artist:compilate}\n"
+"з альбому $album"
+
+#: ../xlgui/guiutil.py:1426
+msgid "Various"
+msgstr "Різне"
+
+#: ../xlgui/guiutil.py:1444
+#, python-format
+msgid "%(track_count)d in total (%(total_duration)s)"
+msgstr "%(track_count)d загальною тривалістю (%(total_duration)s)"
+
+#: ../xlgui/commondialogs.py:366
 msgid "Select File Type (By Extension)"
-msgstr "Обрати тип файлів (за розширенням)"
+msgstr "Вибрати тип файла (за розширенням)"
 
-#: ../xlgui/commondialogs.py:343
+#: ../xlgui/commondialogs.py:374
 msgid "File Type"
-msgstr "Тип файлу"
+msgstr "Тип файла"
 
-#: ../xlgui/commondialogs.py:346
+#: ../xlgui/commondialogs.py:377
 msgid "Extension"
 msgstr "Розширення"
 
-#: ../xlgui/devices.py:73
-msgid "Icon"
-msgstr "Піктограма"
+#: ../xlgui/preferences/playlists.py:32 ../data/ui/playlists_panel.ui.h:1
+msgid "Playlists"
+msgstr "Списки відтворення"
 
-#: ../xlgui/devices.py:78
-msgid "Device"
-msgstr "Пристрій"
-
-#: ../xlgui/devices.py:85
-msgid "Driver"
-msgstr "Драйвер"
-
-#: ../xlgui/collection.py:152
-msgid "Add a directory"
-msgstr "Додати директорію"
-
-#: ../xlgui/collection.py:169
-msgid ""
-"Path is already in your collection, or is a subdirectory of another path in "
-"your collection"
-msgstr ""
-"Каталог вже присутній, або це підкаталог одного з присутніх у вашій колекції "
-"каталогів"
-
-#. TRANSLATORS: Title of the track number column
-#: ../xlgui/plcolumns.py:73 ../xlgui/panel/flatplaylist.py:90
-msgid "#"
-msgstr "№"
-
-#. TRANSLATORS: Default track length
-#: ../xlgui/plcolumns.py:128
-msgid "0:00"
-msgstr "0:00"
-
-#: ../xlgui/plcolumns.py:140 ../xlgui/panel/playlists.py:95
-#: ../xlgui/panel/playlists.py:161 ../plugins/cd/cdprefs.py:100
-#: ../plugins/minimode/minimodeprefs.py:71
-#: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
-msgid "Rating"
-msgstr "Оцінка"
-
-#. TRANSLATORS: Filename column in the file browser
-#: ../xlgui/plcolumns.py:191 ../xlgui/panel/files.py:120
-#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimodeprefs.py:76
-msgid "Filename"
-msgstr "Назва файлу"
-
-#: ../xlgui/plcolumns.py:196
-msgid "Playcount"
-msgstr "Рахунок програвання"
-
-#: ../xlgui/plcolumns.py:209 ../plugins/minimode/minimodeprefs.py:78
-msgid "Last played"
-msgstr "Останнє відтворення"
-
-#: ../xlgui/plcolumns.py:267
-msgid "Track Number"
-msgstr "Номер треку"
-
-#: ../xlgui/plcolumns.py:269
-msgid "Disc Number"
-msgstr "Номер диску"
-
-#: ../xlgui/filtergui.py:60 ../xlgui/panel/radio.py:180
-msgid "Name:"
-msgstr "Назва:"
-
-#: ../xlgui/filtergui.py:74
-msgid "Match any of the criteria"
-msgstr "Додати згідно критерію"
-
-#: ../xlgui/filtergui.py:76
-msgid "Randomize results"
-msgstr "Випадкові результати"
-
-#: ../xlgui/filtergui.py:92
-msgid "Limit to: "
-msgstr "Обмежено до: "
-
-#: ../xlgui/filtergui.py:102
-msgid " songs"
-msgstr " пісні"
-
-#: ../xlgui/playlist.py:1146
-#, python-format
-msgid "Close %s"
-msgstr "Закрити %s"
-
-#: ../xlgui/playlist.py:1147
-#, python-format
-msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>Зберегти зміни в %s перед виходом?<b>"
-
-#: ../xlgui/playlist.py:1148
-msgid "Your changes will be lost if you don't save them"
-msgstr "Ваші змінни буде втрачено, якщо ви їх не збережете"
-
-#: ../xlgui/playlist.py:1150
-msgid "Close Without Saving"
-msgstr "Закрити без збереження"
-
-#: ../xlgui/panel/playlists.py:37 ../xlgui/panel/playlists.py:49
-#: ../xlgui/panel/playlists.py:56
-msgid "seconds"
-msgstr "секунд"
-
-#. TRANSLATORS: Logical AND used for smart playlists
-#: ../xlgui/panel/playlists.py:42
-msgid "and"
-msgstr "та"
-
-#: ../xlgui/panel/playlists.py:46 ../xlgui/panel/playlists.py:49
-msgid "days"
-msgstr "днів"
-
-#: ../xlgui/panel/playlists.py:49
-msgid "minutes"
-msgstr "хвилин"
-
-#: ../xlgui/panel/playlists.py:49
-msgid "hours"
-msgstr "годин"
-
-#: ../xlgui/panel/playlists.py:49
-msgid "weeks"
-msgstr "тижнiв"
-
-#. TRANSLATORS: True if haystack is equal to needle
-#: ../xlgui/panel/playlists.py:69 ../xlgui/panel/playlists.py:78
-#: ../xlgui/panel/playlists.py:84 ../xlgui/panel/playlists.py:90
-#: ../xlgui/panel/playlists.py:118 ../xlgui/panel/playlists.py:135
-#: ../xlgui/panel/playlists.py:143
-msgid "is"
-msgstr "збігається з"
-
-#. TRANSLATORS: True if haystack is not equal to needle
-#: ../xlgui/panel/playlists.py:71 ../xlgui/panel/playlists.py:79
-#: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:91
-#: ../xlgui/panel/playlists.py:136 ../xlgui/panel/playlists.py:144
-msgid "is not"
-msgstr "не співпадає з"
-
-#. TRANSLATORS: True if haystack contains needle
-#: ../xlgui/panel/playlists.py:73 ../xlgui/panel/playlists.py:80
-#: ../xlgui/panel/playlists.py:86 ../xlgui/panel/playlists.py:92
-#: ../xlgui/panel/playlists.py:137 ../xlgui/panel/playlists.py:145
-msgid "contains"
-msgstr "містить"
-
-#. TRANSLATORS: True if haystack does not contain needle
-#: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:81
-#: ../xlgui/panel/playlists.py:87 ../xlgui/panel/playlists.py:93
-#: ../xlgui/panel/playlists.py:138 ../xlgui/panel/playlists.py:146
-msgid "does not contain"
-msgstr "не містить"
-
-#: ../xlgui/panel/playlists.py:96 ../xlgui/panel/playlists.py:152
-msgid "greater than"
-msgstr "більше, ніж"
-
-#: ../xlgui/panel/playlists.py:97 ../xlgui/panel/playlists.py:153
-msgid "less than"
-msgstr "менше, ніж"
-
-#. TRANSLATORS: Example: rating >= 5
-#: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:104
-#: ../xlgui/panel/playlists.py:116 ../xlgui/panel/playlists.py:147
-msgid "at least"
-msgstr "щонайменше"
-
-#. TRANSLATORS: Example: rating <= 3
-#: ../xlgui/panel/playlists.py:101 ../xlgui/panel/playlists.py:105
-#: ../xlgui/panel/playlists.py:117 ../xlgui/panel/playlists.py:148
-msgid "at most"
-msgstr "щонайбільше"
-
-#: ../xlgui/panel/playlists.py:103 ../xlgui/panel/playlists.py:162
-msgid "Plays"
-msgstr "Відтворює"
-
-#: ../xlgui/panel/playlists.py:107 ../xlgui/panel/playlists.py:163
-msgid "Year"
-msgstr "Рік"
-
-#. TRANSLATORS: Example: year < 1999
-#: ../xlgui/panel/playlists.py:109 ../xlgui/panel/playlists.py:149
-msgid "before"
-msgstr "перед"
-
-#. TRANSLATORS: Example: year > 2002
-#: ../xlgui/panel/playlists.py:111 ../xlgui/panel/playlists.py:150
-msgid "after"
-msgstr "після"
-
-#. TRANSLATORS: Example: 1980 <= year <= 1987
-#: ../xlgui/panel/playlists.py:113 ../xlgui/panel/playlists.py:151
-msgid "between"
-msgstr "між"
-
-#: ../xlgui/panel/playlists.py:230 ../xlgui/panel/playlists.py:336
-#: ../xlgui/panel/playlists.py:374 ../xlgui/panel/playlists.py:611
-#: ../xlgui/panel/playlists.py:685
-msgid "The playlist name you entered is already in use."
-msgstr "Назва списку, який ви ввели, вже використовується"
-
-#: ../xlgui/panel/playlists.py:367
-msgid "New custom playlist name:"
-msgstr "Нова власна назва списку відтворення:"
-
-#: ../xlgui/panel/playlists.py:368
-msgid "Add To New Playlist..."
-msgstr "Додати до нового списку відтворення..."
-
-#: ../xlgui/panel/playlists.py:378 ../xlgui/panel/playlists.py:605
-#: ../xlgui/panel/playlists.py:678
-msgid "You did not enter a name for your playlist"
-msgstr "Ви не вказали назви для списку відтворення"
-
-#: ../xlgui/panel/playlists.py:553
-msgid "Smart Playlists"
-msgstr "Розумні списки відтворювань"
-
-#: ../xlgui/panel/playlists.py:556
-msgid "Custom Playlists"
-msgstr "Власні списки відтворювань"
-
-#: ../xlgui/panel/playlists.py:591
-msgid "Add Smart Playlist"
-msgstr "Додати розумний список відтворювання"
-
-#: ../xlgui/panel/playlists.py:656
-msgid "Edit Smart Playlist"
-msgstr "Редагувати розумний список відтворювання"
-
-#: ../xlgui/panel/radio.py:108 ../xlgui/panel/radio.py:466
-#: ../xlgui/panel/radio.py:542
-msgid "Loading streams..."
-msgstr "Завантаження потоків..."
-
-#: ../xlgui/panel/radio.py:178
-msgid "Add Radio Station"
-msgstr "Додати радіостанцію"
-
-#: ../xlgui/panel/radio.py:181 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
-msgid "URL:"
-msgstr "URL:"
-
-#: ../xlgui/panel/radio.py:247
-msgid "Saved Stations"
-msgstr "Збережені станції"
-
-#: ../xlgui/panel/radio.py:248
-msgid "Radio Streams"
-msgstr "Радіопотоки"
-
-#: ../xlgui/panel/radio.py:277
-msgid "Refresh"
-msgstr "Оновити"
-
-#: ../xlgui/panel/radio.py:407
-msgid "Enter the name you want for your new playlist"
-msgstr "Введіть назву нового списку відтворення"
-
-#. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:145
-msgid "Size"
-msgstr "Розмір"
-
-#: ../xlgui/panel/files.py:413
-#, python-format
-msgid "%d KB"
-msgstr "%d кБ"
-
-#: ../xlgui/panel/collection.py:140
-msgid ""
-"This will permanantly delete the selected tracks from your disk, are you "
-"sure you wish to continue?"
-msgstr ""
-"Це назавжди видалить помічені композиції з вашого диску, ви впевнені, що "
-"бажаєте продовжити?"
-
-#: ../xlgui/panel/collection.py:200
-msgid "Rescan Collection"
-msgstr "Пересканувати колекцiю"
-
-#: ../xlgui/panel/device.py:127
-#, python-format
-msgid "Transferring to %s..."
-msgstr "Передача до %s..."
-
-#: ../xlgui/prefs/cover_prefs.py:31
+#: ../xlgui/preferences/cover.py:31
 msgid "Covers"
 msgstr "Обкладинки"
 
-#: ../xlgui/prefs/appearance_prefs.py:32
-msgid "Appearance"
-msgstr "Зовнішній вигляд"
-
-#: ../xlgui/prefs/playback_prefs.py:32
+#: ../xlgui/preferences/playback.py:35
 msgid "Playback"
 msgstr "Відтворення"
 
-#: ../xlgui/prefs/__init__.py:83 ../data/ui/preferences_dialog.ui.h:1
+#: ../xlgui/preferences/osd.py:32
+msgid "On Screen Display"
+msgstr "Повідомлення на екрані"
+
+#: ../xlgui/preferences/__init__.py:96
+#: ../data/ui/preferences/preferences_dialog.ui.h:1
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: ../xlgui/prefs/__init__.py:94 ../xlgui/prefs/plugin_prefs.py:34
+#: ../xlgui/preferences/__init__.py:107 ../xlgui/preferences/plugin.py:36
 msgid "Plugins"
-msgstr "Доповнення"
+msgstr "Модулі"
 
-#: ../xlgui/prefs/collection_prefs.py:22 ../data/ui/device_panel.ui.h:1
-#: ../data/ui/collection_panel.ui.h:6
+#: ../xlgui/preferences/appearance.py:35
+msgid "Appearance"
+msgstr "Зовнішній вигляд"
+
+#: ../xlgui/preferences/appearance.py:108
+msgid "Current playback position"
+msgstr "Позиція чинного відтворення"
+
+#: ../xlgui/preferences/appearance.py:109
+msgid "Remaining playback time"
+msgstr "Час відтворення, що залишився"
+
+#: ../xlgui/preferences/appearance.py:110
+msgid "Length of a track"
+msgstr "Довжина доріжки"
+
+#: ../xlgui/preferences/collection.py:22 ../data/ui/device_panel.ui.h:1
+#: ../data/ui/collection_panel.ui.h:7
 msgid "Collection"
-msgstr "Колекція"
+msgstr "Фонотека"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
 #. the space-separated list "l' la le les".
 #. If this practice is not common in your locale, simply
 #. translate this to an empty string.
-#: ../xlgui/prefs/collection_prefs.py:31
+#: ../xlgui/preferences/collection.py:31
 msgid "the"
-msgstr ""
+msgstr "the"
 
-#: ../xlgui/prefs/collection_prefs.py:53
-msgid "Reset to defaults"
-msgstr "Скинути до типових"
+#: ../xlgui/preferences/collection.py:53
+msgid "Reset to Defaults"
+msgstr "Відновити типові параметри"
 
-#: ../xlgui/prefs/playlists_prefs.py:32 ../data/ui/playlists_panel.ui.h:1
-msgid "Playlists"
-msgstr "Списки відтворення"
+#: ../xlgui/preferences/plugin.py:99
+msgid "Could not load plugin info!"
+msgstr "Не вдалось завантажити інфо про модуль!"
 
-#: ../xlgui/prefs/osd_prefs.py:32
-msgid "On Screen Display"
-msgstr "Екранна панель"
+#: ../xlgui/preferences/plugin.py:101
+#, python-format
+msgid "Failed plugin: %s"
+msgid_plural "Failed plugins: %s"
+msgstr[0] "Помилка в модулі: %s"
+msgstr[1] "Помилки в модулі: %s"
+msgstr[2] "Помилок в модулі: %s"
 
-#: ../xlgui/prefs/plugin_prefs.py:90
-msgid "Plugin"
-msgstr "Доповнення"
+#: ../xlgui/preferences/plugin.py:119
+msgid "Choose a Plugin"
+msgstr "Виберіть модуль"
 
-#: ../xlgui/prefs/plugin_prefs.py:106
-#: ../plugins/multialarmclock/alarmclk.ui.h:6
-#: ../plugins/equalizer/equalizer.ui.h:14
-msgid "Enabled"
-msgstr "Увімкнено"
-
-#: ../xlgui/prefs/plugin_prefs.py:128
-msgid "Choose a plugin"
-msgstr "Оберiть доповнення"
-
-#: ../xlgui/prefs/plugin_prefs.py:136
+#: ../xlgui/preferences/plugin.py:128
 msgid "Plugin Archives"
-msgstr "Архіви плагінів"
+msgstr "Архіви модулів"
 
-#: ../xlgui/prefs/plugin_prefs.py:190
-#, python-format
-msgid ""
-"<b>Could not enable plugin:</b>\n"
-"%(reason)s"
-msgstr ""
+#: ../xlgui/preferences/plugin.py:147
+msgid "Plugin file installation failed!"
+msgstr "Файл завантаження модуля пошкоджений!"
 
-#: ../xlgui/prefs/plugin_prefs.py:197
-#, python-format
-msgid ""
-"<b>Could not disable plugin:</b>\n"
-"%(reason)s"
-msgstr ""
+#: ../xlgui/preferences/plugin.py:183
+msgid "Could not enable plugin!"
+msgstr "Не вдалось увімкнути модуль!"
 
-#: ../xlgui/prefs/widgets.py:261
+#: ../xlgui/preferences/plugin.py:189
+msgid "Could not disable plugin!"
+msgstr "Не вдалось вимкнути модуль!"
+
+#: ../xlgui/preferences/widgets.py:65
+msgid "Restart Exaile?"
+msgstr "Перезапустити Exaile?"
+
+#: ../xlgui/preferences/widgets.py:67
+msgid "A restart is required for this change to take effect."
+msgstr "Необхідний перезапуск, щоб зміни набрали чинності."
+
+#: ../xlgui/preferences/widgets.py:69 ../data/ui/main.ui.h:17
+msgid "Restart"
+msgstr "Перезапустити"
+
+#: ../xlgui/preferences/widgets.py:419
 msgid "Add item"
 msgstr "Додати елемент"
 
-#: ../xlgui/prefs/widgets.py:266
+#: ../xlgui/preferences/widgets.py:424
 msgid "Remove item"
 msgstr "Вилучити елемент"
 
-#: ../xlgui/prefs/widgets.py:279
+#: ../xlgui/preferences/widgets.py:437
 msgid "Move selected item up"
-msgstr "Пересунути вибраний елемент вище"
+msgstr "Пересунути вибраний елемент вверх"
 
-#: ../xlgui/prefs/widgets.py:284
+#: ../xlgui/preferences/widgets.py:442
 msgid "Move selected item down"
 msgstr "Пересунути вибраний елемент вниз"
 
-#: ../xlgui/prefs/widgets.py:555
+#: ../xlgui/preferences/widgets.py:769
 msgid "Action"
 msgstr "Дія"
 
-#: ../xlgui/prefs/widgets.py:563
+#: ../xlgui/preferences/widgets.py:777
 msgid "Shortcut"
-msgstr "Ярлик"
+msgstr "Комбінації клавіш"
 
-#: ../xlgui/tray.py:96 ../data/ui/main.ui.h:16
+#: ../xlgui/devices.py:76
+msgid "Icon"
+msgstr "Значок"
+
+#: ../xlgui/devices.py:81
+msgid "Device"
+msgstr "Пристрій"
+
+#: ../xlgui/devices.py:88
+msgid "Driver"
+msgstr "Драйвер"
+
+#: ../xlgui/collection.py:98
+msgid "Add a Directory"
+msgstr "Додати теку"
+
+#: ../xlgui/collection.py:115
+msgid "Directory not added."
+msgstr "Тека не додана."
+
+#: ../xlgui/collection.py:116
+msgid ""
+"The directory is already in your collection or is a subdirectory of another "
+"directory in your collection."
+msgstr "Ця тека вже є у фонотеці або це під-тека в іншому каталозі фонотеки."
+
+#. TRANSLATORS: Title of the track number column
+#: ../xlgui/plcolumns.py:78 ../xlgui/panel/flatplaylist.py:95
+msgid "#"
+msgstr "№"
+
+#: ../xlgui/plcolumns.py:156 ../xlgui/panel/playlists.py:103
+#: ../xlgui/panel/playlists.py:167 ../plugins/cd/cdprefs.py:102
+#: ../plugins/minimode/minimodeprefs.py:94
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
+msgid "Rating"
+msgstr "Рейтинг"
+
+#. TRANSLATORS: Filename column in the file browser
+#: ../xlgui/plcolumns.py:210 ../xlgui/panel/files.py:140
+#: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimodeprefs.py:99
+msgid "Filename"
+msgstr "Назва файла"
+
+#: ../xlgui/plcolumns.py:222
+msgid "Playcount"
+msgstr "Кількість відтворень"
+
+#: ../xlgui/plcolumns.py:274
+msgid "Track Number"
+msgstr "Номер доріжки"
+
+#: ../xlgui/plcolumns.py:276
+msgid "Disc Number"
+msgstr "Номер диска"
+
+#: ../xlgui/filtergui.py:62 ../xlgui/panel/radio.py:190
+msgid "Name:"
+msgstr "Назва:"
+
+#: ../xlgui/filtergui.py:76
+msgid "Match any of the criteria"
+msgstr "Збіг за будь-якими критеріями"
+
+#: ../xlgui/filtergui.py:78
+msgid "Randomize results"
+msgstr "Випадкові результати"
+
+#: ../xlgui/filtergui.py:94
+msgid "Limit to: "
+msgstr "Обмежено до: "
+
+#: ../xlgui/filtergui.py:104
+msgid " tracks"
+msgstr " композицій"
+
+#: ../xlgui/playlist.py:1193
+#, python-format
+msgid "Close %s"
+msgstr "Закрити %s"
+
+#: ../xlgui/playlist.py:1194
+#, python-format
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Зберегти зміни в %s перед закриттям?<b>"
+
+#: ../xlgui/playlist.py:1195
+msgid "Your changes will be lost if you don't save them"
+msgstr "Зміни будуть втрачені, якщо ви їх не збережете"
+
+#: ../xlgui/playlist.py:1197
+msgid "Close Without Saving"
+msgstr "Закрити без збереження"
+
+#. TRANSLATORS: Logical AND used for smart playlists
+#: ../xlgui/panel/playlists.py:49
+msgid "and"
+msgstr "та"
+
+#. TRANSLATORS: True if haystack is equal to needle
+#: ../xlgui/panel/playlists.py:77 ../xlgui/panel/playlists.py:86
+#: ../xlgui/panel/playlists.py:92 ../xlgui/panel/playlists.py:98
+#: ../xlgui/panel/playlists.py:126 ../xlgui/panel/playlists.py:139
+#: ../xlgui/panel/playlists.py:147
+msgid "is"
+msgstr "збігається з"
+
+#. TRANSLATORS: True if haystack is not equal to needle
+#: ../xlgui/panel/playlists.py:79 ../xlgui/panel/playlists.py:87
+#: ../xlgui/panel/playlists.py:93 ../xlgui/panel/playlists.py:99
+#: ../xlgui/panel/playlists.py:140 ../xlgui/panel/playlists.py:148
+msgid "is not"
+msgstr "не збігається з"
+
+#. TRANSLATORS: True if haystack contains needle
+#: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:88
+#: ../xlgui/panel/playlists.py:94 ../xlgui/panel/playlists.py:100
+#: ../xlgui/panel/playlists.py:141 ../xlgui/panel/playlists.py:149
+msgid "contains"
+msgstr "містить"
+
+#. TRANSLATORS: True if haystack does not contain needle
+#: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:89
+#: ../xlgui/panel/playlists.py:95 ../xlgui/panel/playlists.py:101
+#: ../xlgui/panel/playlists.py:142 ../xlgui/panel/playlists.py:150
+msgid "does not contain"
+msgstr "не містить"
+
+#: ../xlgui/panel/playlists.py:104 ../xlgui/panel/playlists.py:156
+msgid "greater than"
+msgstr "більше, ніж"
+
+#: ../xlgui/panel/playlists.py:105 ../xlgui/panel/playlists.py:157
+msgid "less than"
+msgstr "менше, ніж"
+
+#. TRANSLATORS: Example: rating >= 5
+#: ../xlgui/panel/playlists.py:107 ../xlgui/panel/playlists.py:112
+#: ../xlgui/panel/playlists.py:124 ../xlgui/panel/playlists.py:151
+msgid "at least"
+msgstr "щонайменше"
+
+#. TRANSLATORS: Example: rating <= 3
+#: ../xlgui/panel/playlists.py:109 ../xlgui/panel/playlists.py:113
+#: ../xlgui/panel/playlists.py:125 ../xlgui/panel/playlists.py:152
+msgid "at most"
+msgstr "щонайбільше"
+
+#: ../xlgui/panel/playlists.py:111 ../xlgui/panel/playlists.py:168
+msgid "Plays"
+msgstr "Відтворення"
+
+#: ../xlgui/panel/playlists.py:115 ../xlgui/panel/playlists.py:169
+msgid "Year"
+msgstr "Рік"
+
+#. TRANSLATORS: Example: year < 1999
+#: ../xlgui/panel/playlists.py:117 ../xlgui/panel/playlists.py:153
+msgid "before"
+msgstr "перед"
+
+#. TRANSLATORS: Example: year > 2002
+#: ../xlgui/panel/playlists.py:119 ../xlgui/panel/playlists.py:154
+msgid "after"
+msgstr "після"
+
+#. TRANSLATORS: Example: 1980 <= year <= 1987
+#: ../xlgui/panel/playlists.py:121 ../xlgui/panel/playlists.py:155
+msgid "between"
+msgstr "між"
+
+#. TRANSLATORS: Example: track has been added in the last 2 days
+#: ../xlgui/panel/playlists.py:130 ../xlgui/panel/playlists.py:135
+#: ../xlgui/panel/playlists.py:158
+msgid "in the last"
+msgstr "за останні"
+
+#. TRANSLATORS: Example: track has not been added in the last 5 hours
+#: ../xlgui/panel/playlists.py:132 ../xlgui/panel/playlists.py:136
+#: ../xlgui/panel/playlists.py:159
+msgid "not in the last"
+msgstr "не за останні"
+
+#: ../xlgui/panel/playlists.py:239 ../xlgui/panel/playlists.py:293
+#: ../xlgui/panel/playlists.py:375 ../xlgui/panel/playlists.py:635
+#: ../xlgui/panel/playlists.py:709
+msgid "The playlist name you entered is already in use."
+msgstr "Назва списку, яку ви ввели, вже використовується."
+
+#. TRANSLATORS: Playlist title suggestion with more than two values
+#: ../xlgui/panel/playlists.py:330 ../xlgui/panel/playlists.py:343
+#: ../xlgui/panel/playlists.py:356
+#, python-format
+msgid "%(first)s, %(second)s and others"
+msgstr "%(first)s, %(second)s та інші"
+
+#. TRANSLATORS: Playlist title suggestion with two values
+#: ../xlgui/panel/playlists.py:335 ../xlgui/panel/playlists.py:348
+#: ../xlgui/panel/playlists.py:361
+#, python-format
+msgid "%(first)s and %(second)s"
+msgstr "%(first)s та %(second)s"
+
+#: ../xlgui/panel/playlists.py:368
+msgid "New custom playlist name:"
+msgstr "Нова власна назва списку відтворення:"
+
+#: ../xlgui/panel/playlists.py:369
+msgid "Add to New Playlist..."
+msgstr "Додати до нового списку відтворення..."
+
+#: ../xlgui/panel/playlists.py:379 ../xlgui/panel/playlists.py:629
+#: ../xlgui/panel/playlists.py:702
+msgid "You did not enter a name for your playlist"
+msgstr "Ви не вказали назву списку відтворення"
+
+#: ../xlgui/panel/playlists.py:573
+msgid "Smart Playlists"
+msgstr "«Розумні» списки відтворення"
+
+#: ../xlgui/panel/playlists.py:576
+msgid "Custom Playlists"
+msgstr "Власні списки відтворення"
+
+#: ../xlgui/panel/playlists.py:615
+msgid "Add Smart Playlist"
+msgstr "Додати «розумний» список відтворення"
+
+#: ../xlgui/panel/playlists.py:680
+msgid "Edit Smart Playlist"
+msgstr "Редагувати «розумний» список відтворення"
+
+#: ../xlgui/panel/radio.py:116 ../xlgui/panel/radio.py:477
+#: ../xlgui/panel/radio.py:553
+msgid "Loading streams..."
+msgstr "Завантаження потоків..."
+
+#: ../xlgui/panel/radio.py:188
+msgid "Add Radio Station"
+msgstr "Додати радіостанцію"
+
+#: ../xlgui/panel/radio.py:191 ../plugins/audioscrobbler/asprefs_pane.ui.h:4
+msgid "URL:"
+msgstr "Адреса URL:"
+
+#: ../xlgui/panel/radio.py:258
+msgid "Saved Stations"
+msgstr "Збережені станції"
+
+#: ../xlgui/panel/radio.py:259
+msgid "Radio Streams"
+msgstr "Потокове радіо"
+
+#: ../xlgui/panel/radio.py:288
+msgid "Refresh"
+msgstr "Оновити"
+
+#: ../xlgui/panel/radio.py:418
+msgid "Enter the name you want for your new playlist"
+msgstr "Введіть назву нового списку відтворення"
+
+#. TRANSLATORS: File size column in the file browser
+#: ../xlgui/panel/files.py:165
+msgid "Size"
+msgstr "Розмір"
+
+#: ../xlgui/panel/files.py:436
+#, python-format
+msgid "%d KB"
+msgstr "%d Кбайт"
+
+#: ../xlgui/panel/collection.py:204
+msgid ""
+"This will permanantly delete the selected tracks from your disk, are you "
+"sure you wish to continue?"
+msgstr ""
+"Ця дія назавжди вилучить виділені доріжки з диска. Ви впевнені, продовжити?"
+
+#: ../xlgui/panel/collection.py:274
+msgid "Rescan Collection"
+msgstr "Пересканувати збірку"
+
+#: ../xlgui/panel/device.py:133
+#, python-format
+msgid "Transferring to %s..."
+msgstr "Передача до %s..."
+
+#: ../xlgui/tray.py:85 ../data/ui/main.ui.h:19
 msgid "Shuffle playback order"
-msgstr "Перемішати порядок програвання"
+msgstr "Відтворювати випадково"
 
-#: ../xlgui/tray.py:100 ../data/ui/main.ui.h:14
+#: ../xlgui/tray.py:89
 msgid "Repeat playlist"
-msgstr "Повторяти список відтворювання"
+msgstr "Повторювати список відтворення"
 
-#: ../xlgui/tray.py:104
+#: ../xlgui/tray.py:93
 msgid "Dynamically add similar tracks"
 msgstr "Динамічно додавати схожі композиції"
 
-#: ../xlgui/tray.py:116
-msgid "Remove current track from playlist"
-msgstr "Видалити поточну композицію зі списку відтворювання"
+#: ../xlgui/tray.py:105
+msgid "Remove Current Track from Playlist"
+msgstr "Вилучити поточну композицію зі списку відтворення"
 
-#: ../xlgui/tray.py:179
+#: ../xlgui/tray.py:173
 msgid "Exaile Music Player"
 msgstr "Музичний програвач Exaile"
-
-#: ../data/ui/collection_prefs_pane.ui.h:1
-msgid "(Right click to reset to defaults)"
-msgstr ""
-
-#: ../data/ui/collection_prefs_pane.ui.h:2
-msgid "Use file based compilation detection"
-msgstr ""
-
-#: ../data/ui/collection_prefs_pane.ui.h:3
-msgid "Words to strip from the beginning of artist tags (space separated):"
-msgstr ""
-
-#: ../data/ui/general_prefs_pane.ui.h:1 ../data/ui/playlists_prefs_pane.ui.h:1
-msgid "Open last playlists on startup"
-msgstr "Відкривати останній список відтворення при старті"
 
 #: ../data/ui/main.ui.h:1
 msgid "0/0 tracks"
@@ -1301,124 +1463,135 @@ msgid "0:00 / 0:00"
 msgstr "0:00 / 0:00"
 
 #: ../data/ui/main.ui.h:3
+msgid "Add multiple directories containing music files to your playlist"
+msgstr "Додати інші теки з музичними файлами до списку відтворення"
+
+#: ../data/ui/main.ui.h:4
 msgid "C_overs"
 msgstr "О_бкладинки"
 
-#: ../data/ui/main.ui.h:4
-msgid "Clear Playlist"
-msgstr "Очистити список відтворювання"
-
 #: ../data/ui/main.ui.h:5
-msgid "Click to view Queue"
-msgstr ""
+msgid "Clear Playlist"
+msgstr "Очистити список відтворення"
 
-#: ../data/ui/main.ui.h:7 ../plugins/minimode/__init__.py:218
+#: ../data/ui/main.ui.h:6 ../data/ui/collection_panel.ui.h:6
+msgid "Clear Search Field"
+msgstr "Очистити пошукове поле"
+
+#: ../data/ui/main.ui.h:7
+msgid "Click to view Queue"
+msgstr "Натисніть, щоб побачити чергу"
+
+#: ../data/ui/main.ui.h:9 ../plugins/minimode/__init__.py:246
 msgid "Next Track"
 msgstr "Наступна доріжка"
 
-#: ../data/ui/main.ui.h:9
-msgid "Open _URL"
-msgstr "Відкрити _посилання"
-
 #: ../data/ui/main.ui.h:10
-msgid "Page 1"
-msgstr "Сторінка 1"
+msgid "Open Directories"
+msgstr "Відкрити теку"
 
-#: ../data/ui/main.ui.h:11 ../plugins/minimode/__init__.py:216
+#: ../data/ui/main.ui.h:11
+msgid "Open _URL"
+msgstr "Відкрити _URL"
+
+#: ../data/ui/main.ui.h:12
+msgid "Playlist Utilities Bar"
+msgstr "Панель інструментів списків відтворення"
+
+#: ../data/ui/main.ui.h:13 ../plugins/minimode/__init__.py:243
 msgid "Previous Track"
 msgstr "Попередня доріжка"
 
-#: ../data/ui/main.ui.h:12
+#: ../data/ui/main.ui.h:14
 msgid "Randomize the order of the current playlist"
-msgstr ""
-"Змінити випадковим чином порядок композицій поточного списку відтворювання"
+msgstr "Випадково перемішати доріжки у чинному списку відтворення"
 
-#: ../data/ui/main.ui.h:13
+#: ../data/ui/main.ui.h:15
 msgid "Re_scan Collection"
-msgstr "Пе_ресканувати колекцію"
+msgstr "Пе_ресканувати збірку"
 
-#: ../data/ui/main.ui.h:15 ../data/ui/files_panel.ui.h:6
-#: ../data/ui/collection_panel.ui.h:11
+#: ../data/ui/main.ui.h:16
+msgid "Repeat playback"
+msgstr "Повторити відтворення"
+
+#: ../data/ui/main.ui.h:18 ../data/ui/files_panel.ui.h:6
+#: ../data/ui/collection_panel.ui.h:12
 msgid "Search: "
 msgstr "Пошук: "
 
-#: ../data/ui/main.ui.h:17
-msgid "Start/Pause Playback"
-msgstr "Почати/Призупинити відтворювання"
-
-#: ../data/ui/main.ui.h:18
+#: ../data/ui/main.ui.h:21
 msgid ""
 "Stop Playback\n"
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
-"Зупинити відтворювання\n"
+"Зупинити відтворення\n"
 "\n"
-"Клацання правою клавішею миші для зупинки після композиции"
+"Натисніть праву кнопку миші для зупинки після відтворення"
 
-#: ../data/ui/main.ui.h:22
-msgid "Track _properties"
-msgstr "Властивості _композиції"
+#: ../data/ui/main.ui.h:24
+msgid "Track _Properties"
+msgstr "В_ластивості доріжки"
 
-#: ../data/ui/main.ui.h:23
+#: ../data/ui/main.ui.h:25
 msgid "_Autosize"
 msgstr "_Автоматичний розмір"
 
-#: ../data/ui/main.ui.h:24
+#: ../data/ui/main.ui.h:26
 msgid "_Collection"
-msgstr "_Колекція"
+msgstr "_Фонотека"
 
-#: ../data/ui/main.ui.h:25
+#: ../data/ui/main.ui.h:27
 msgid "_Columns"
 msgstr "_Стовпчики"
 
-#: ../data/ui/main.ui.h:26
+#: ../data/ui/main.ui.h:28
 msgid "_Device Manager"
 msgstr "_Менеджер пристроїв"
 
-#: ../data/ui/main.ui.h:27
-msgid "_Edit"
-msgstr "_Редагувати"
-
-#: ../data/ui/main.ui.h:28
-msgid "_Export current playlist"
-msgstr "_Експорт поточного списку відтворювання"
-
 #: ../data/ui/main.ui.h:29
+msgid "_Edit"
+msgstr "_Правка"
+
+#: ../data/ui/main.ui.h:30
+msgid "_Export Current Playlist"
+msgstr "_Експорт чинного списку відтворення"
+
+#: ../data/ui/main.ui.h:31
 msgid "_File"
 msgstr "_Файл"
 
-#: ../data/ui/main.ui.h:30
+#: ../data/ui/main.ui.h:32
 msgid "_Go to Playing Track"
 msgstr "_Перейти до відтворюваної композиції"
 
-#: ../data/ui/main.ui.h:31
+#: ../data/ui/main.ui.h:33
 msgid "_Help"
 msgstr "_Довідка"
 
-#: ../data/ui/main.ui.h:33
+#: ../data/ui/main.ui.h:35
 msgid "_Queue"
 msgstr "_Черга"
 
-#: ../data/ui/main.ui.h:34
+#: ../data/ui/main.ui.h:36
 msgid "_Randomize Playlist"
-msgstr "_Випадково перемішати список відтворювання"
+msgstr "_Випадковий список відтворення"
 
-#: ../data/ui/main.ui.h:35
+#: ../data/ui/main.ui.h:37
 msgid "_Resizable"
 msgstr "_Змінюваний розмір"
 
-#: ../data/ui/main.ui.h:36
+#: ../data/ui/main.ui.h:38
 msgid "_Tools"
 msgstr "_Інструменти"
 
-#: ../data/ui/main.ui.h:37
+#: ../data/ui/main.ui.h:39
 msgid "_View"
 msgstr "_Вигляд"
 
 #: ../data/ui/flatplaylist_panel.ui.h:1
 msgid "Append All Tracks to Playlist"
-msgstr "Додати усі композиції до списку відтворювання"
+msgstr "Додати усі композиції до списку відтворення"
 
 #: ../data/ui/flatplaylist_panel.ui.h:2
 msgid "Import CD"
@@ -1438,79 +1611,35 @@ msgstr "_Закрити"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "A_dd tag"
-msgstr ""
+msgstr "_Додати позначку"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "Tags"
-msgstr ""
+msgstr "Позначки"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "Track Properties"
-msgstr "Властивості композиції"
+msgstr "Властивості доріжки"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Велика перша буква у всіх позначках"
 
 #: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "_Next"
-msgstr ""
+msgstr "_Вперед"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "_Previous"
-msgstr ""
+msgstr "_Назад"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Вилучити позначку"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "ab &#x2192; A_b"
-msgstr ""
-
-#: ../data/ui/plugin_prefs_pane.ui.h:1
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Не вибрано жодного плагіну</b>"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:2
-msgid "Authors:"
-msgstr "Автори:"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:3
-msgid "Available Plugins"
-msgstr "Доступні модулі"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:4
-msgid "Description:"
-msgstr "Опис:"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:5
-msgid "Install"
-msgstr "Встановлення"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:6
-msgid "Install Updates"
-msgstr "Встановити оновлення"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:7
-msgid "Install a third party plugin from a file"
-msgstr "Встановити сторонній плагін з файлу"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:8
-msgid "Install plugin file"
-msgstr "Встановити файл плагіну"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:9
-msgid "Installed Plugins"
-msgstr "Встановлені модулі"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:10
-msgid "Updates"
-msgstr "Оновлення"
-
-#: ../data/ui/plugin_prefs_pane.ui.h:11
-msgid "Version:"
-msgstr "Версія:"
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/radio_panel.ui.h:1
 msgid "Add Station"
@@ -1518,31 +1647,312 @@ msgstr "Додати станцію"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
-msgstr "Управління колекцією"
+msgstr "Керування фонотекою"
 
 #: ../data/ui/device_manager.ui.h:1
-msgid "..."
-msgstr "..."
-
-#: ../data/ui/device_manager.ui.h:2
-msgid "Add device"
+msgid "Add Device"
 msgstr "Додати пристрій"
 
-#: ../data/ui/device_manager.ui.h:3
+#: ../data/ui/device_manager.ui.h:2
 msgid "Custom: "
 msgstr "Власний: "
 
-#: ../data/ui/device_manager.ui.h:4
+#: ../data/ui/device_manager.ui.h:3
 msgid "Detected devices:"
 msgstr "Виявлені пристрої:"
 
-#: ../data/ui/device_manager.ui.h:5
+#: ../data/ui/device_manager.ui.h:4
 msgid "Device Manager"
-msgstr "Управління пристроями"
+msgstr "Керування пристроями"
 
-#: ../data/ui/device_manager.ui.h:6
+#: ../data/ui/device_manager.ui.h:5
 msgid "Type of device:"
-msgstr "Тип пристрою"
+msgstr "Тип пристрою:"
+
+#: ../data/ui/preferences/playlists.ui.h:1
+msgid ""
+"Instead of appending, tracks added via double click in the panes will "
+"replace the content of the current playlist."
+msgstr ""
+"Композиції, які додаються через подвійний клік в панелях, замість додавання, "
+"змінюють вміст чинного списку відтворення."
+
+#: ../data/ui/preferences/playlists.ui.h:2
+#: ../data/ui/preferences/general.ui.h:1
+msgid "Open last playlists on startup"
+msgstr "Після запуску, відкривати останній список відтворення"
+
+#: ../data/ui/preferences/playlists.ui.h:3
+msgid "Prompt for saving custom playlists on close"
+msgstr "Запитувати про збереження списку відтворювання під час закривання"
+
+#: ../data/ui/preferences/playlists.ui.h:4
+msgid "Replace content on pane double click"
+msgstr "Замінити вміст подвійним клацанням на панелі"
+
+#: ../data/ui/preferences/collection.ui.h:1
+msgid "(Right click to reset to defaults)"
+msgstr "(Клацання правою кнопкою миші повертає типові параметри)"
+
+#: ../data/ui/preferences/collection.ui.h:2
+msgid "Use file based compilation detection"
+msgstr "Виявляти файли по вмісту"
+
+#: ../data/ui/preferences/collection.ui.h:3
+msgid ""
+"Words to strip from the beginning of artist tags when sorting (space "
+"separated):"
+msgstr ""
+"Під час сортування брати початкові слова з позначок виконавця (через пробіл):"
+
+#: ../data/ui/preferences/osd.ui.h:1
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to "
+"appear</b>"
+msgstr ""
+"<b>Розташуйте вікно з повідомленням про композицію в бажаному місці</b>"
+
+#: ../data/ui/preferences/osd.ui.h:2
+msgid "Background Color:"
+msgstr "Колір фону:"
+
+#: ../data/ui/preferences/osd.ui.h:3
+msgid "Display OSD when hovering over tray icon"
+msgstr "Показувати OSD, коли вказівник наведений на значок в лотку"
+
+#: ../data/ui/preferences/osd.ui.h:4
+msgid "Display a progressbar in the OSD"
+msgstr "Показувати рядок поступу у вікні OSD"
+
+#: ../data/ui/preferences/osd.ui.h:5
+msgid "Hide after (milliseconds; set to zero to disable hiding)"
+msgstr "Приховати після (в мс; значення «0» вимикає приховування)"
+
+#: ../data/ui/preferences/osd.ui.h:6
+msgid "Opacity Level:"
+msgstr "Рівень прозорості:"
+
+#: ../data/ui/preferences/osd.ui.h:7
+msgid "Show OSD on track change"
+msgstr "Показувати OSD під час зміни композиції"
+
+#: ../data/ui/preferences/osd.ui.h:8
+msgid "Text Color"
+msgstr "Колір тексту"
+
+#: ../data/ui/preferences/osd.ui.h:9
+msgid "Text Font:"
+msgstr "Шрифт тексту:"
+
+#: ../data/ui/preferences/osd.ui.h:10
+msgid "Window Height:"
+msgstr "Висота вікна:"
+
+#: ../data/ui/preferences/osd.ui.h:11
+msgid "Window Width:"
+msgstr "Ширина вікна:"
+
+#: ../data/ui/preferences/appearance.ui.h:1
+msgid "Always show tab bar"
+msgstr "Завжди показувати рядок вкладок"
+
+#: ../data/ui/preferences/appearance.ui.h:2
+msgid "Bottom"
+msgstr "Внизу"
+
+#: ../data/ui/preferences/appearance.ui.h:3
+msgid "Display track counts in collection"
+msgstr "Показувати номер доріжки в збірці"
+
+#: ../data/ui/preferences/appearance.ui.h:4
+msgid "Format of progress bar text:"
+msgstr "Формат тексту в рядку поступу:"
+
+#: ../data/ui/preferences/appearance.ui.h:6
+msgid "Jump to current song on track change"
+msgstr "Переходити до поточної композиції під час зміни доріжки"
+
+#: ../data/ui/preferences/appearance.ui.h:7
+msgid "Left"
+msgstr "Ліворуч"
+
+#: ../data/ui/preferences/appearance.ui.h:8
+msgid "Minimize to tray"
+msgstr "Згорнути до лотка"
+
+#: ../data/ui/preferences/appearance.ui.h:9
+msgid "Right"
+msgstr "Праворуч"
+
+#: ../data/ui/preferences/appearance.ui.h:10
+msgid "Show splash screen on startup"
+msgstr "Показувати заставку під час запуску"
+
+#: ../data/ui/preferences/appearance.ui.h:11
+msgid "Show tray icon"
+msgstr "Показувати значок в лотку"
+
+#: ../data/ui/preferences/appearance.ui.h:12
+msgid "Tab placement:"
+msgstr "Розташування вкладки:"
+
+#: ../data/ui/preferences/appearance.ui.h:13
+msgid "Top"
+msgstr "Вверху"
+
+#: ../data/ui/preferences/appearance.ui.h:15
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:9
+msgid "Use alpha transparency:"
+msgstr "Використовувати альфа-прозорість:"
+
+#: ../data/ui/preferences/appearance.ui.h:16
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:11
+msgid ""
+"Warning: this option can cause display errors if used with a window manager "
+"without compositing support."
+msgstr ""
+"Попередження: цей параметр може викликати помилки, якщо використовується "
+"віконний менеджер без підтримки композиції."
+
+#: ../data/ui/preferences/plugin.ui.h:1
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Модуль не вибраний</b>"
+
+#: ../data/ui/preferences/plugin.ui.h:2
+msgid "Authors:"
+msgstr "Автори:"
+
+#: ../data/ui/preferences/plugin.ui.h:3
+msgid "Available Plugins"
+msgstr "Доступні модулі"
+
+#: ../data/ui/preferences/plugin.ui.h:4
+msgid "Description:"
+msgstr "Опис:"
+
+#: ../data/ui/preferences/plugin.ui.h:5
+msgid "Install"
+msgstr "Встановити"
+
+#: ../data/ui/preferences/plugin.ui.h:6
+msgid "Install Plugin File"
+msgstr "Встановити файл модуля"
+
+#: ../data/ui/preferences/plugin.ui.h:7
+msgid "Install Updates"
+msgstr "Встановити оновлення"
+
+#: ../data/ui/preferences/plugin.ui.h:8
+msgid "Installed Plugins"
+msgstr "Встановлені модулі"
+
+#: ../data/ui/preferences/plugin.ui.h:9
+msgid "No Plugin Selected"
+msgstr "Модуль не вибраний"
+
+#: ../data/ui/preferences/plugin.ui.h:10
+msgid "Updates"
+msgstr "Оновлення"
+
+#: ../data/ui/preferences/plugin.ui.h:11
+msgid "Version:"
+msgstr "Версія:"
+
+#: ../data/ui/preferences/playback.ui.h:1
+msgid "ALSA"
+msgstr "ALSA"
+
+#: ../data/ui/preferences/playback.ui.h:2
+msgid "Audio Sink:  "
+msgstr "Аудіопристрій:  "
+
+#: ../data/ui/preferences/playback.ui.h:4
+msgid "Crossfade duration (ms):"
+msgstr "Тривалість перехресного згасання (мс):"
+
+#: ../data/ui/preferences/playback.ui.h:6
+msgid "Custom sink pipeline:"
+msgstr "Нетиповий конвеєр пристрою:"
+
+#: ../data/ui/preferences/playback.ui.h:7
+msgid "Fade duration (ms):"
+msgstr "Тривалість плавного затухання (мс):"
+
+#: ../data/ui/preferences/playback.ui.h:8
+msgid "GNOME"
+msgstr "Середовище GNOME"
+
+#: ../data/ui/preferences/playback.ui.h:9
+msgid "JACK"
+msgstr "JACK"
+
+#: ../data/ui/preferences/playback.ui.h:10
+msgid "Normal"
+msgstr "Normal"
+
+#: ../data/ui/preferences/playback.ui.h:11
+msgid "Normal2 (incomplete)"
+msgstr "Normal2 (незавершиний)"
+
+#: ../data/ui/preferences/playback.ui.h:12
+msgid "OSS"
+msgstr "OSS"
+
+#: ../data/ui/preferences/playback.ui.h:13
+msgid "Playback engine (requires restart): "
+msgstr "Рушій відтворення (потрібен перезапуск): "
+
+#: ../data/ui/preferences/playback.ui.h:14
+msgid "PulseAudio"
+msgstr "PulseAudio"
+
+#: ../data/ui/preferences/playback.ui.h:15
+msgid "Resume playback in paused state"
+msgstr "Відновити відтворення у призупиненому стані"
+
+#: ../data/ui/preferences/playback.ui.h:16
+msgid "Resume playback on start"
+msgstr "Продовжити відтворення після запуску"
+
+#: ../data/ui/preferences/playback.ui.h:17
+msgid "Unified (unstable)"
+msgstr "Об’єднане (нестабільно)"
+
+#: ../data/ui/preferences/playback.ui.h:18
+msgid "Use crossfading (EXPERIMENTAL)"
+msgstr "Використовувати перехресне згасання (ПРОБА)"
+
+#: ../data/ui/preferences/playback.ui.h:19
+msgid "Use fade transitions on user actions"
+msgstr "Використовувати плавні переходи під час дій користувача"
+
+#: ../data/ui/preferences/cover.ui.h:1
+msgid "(drag to reorder)"
+msgstr "(перемістити для перевпорядкування)"
+
+#: ../data/ui/preferences/cover.ui.h:2
+msgid "Cover Search Order:"
+msgstr "Порядок пошуку обкладинок:"
+
+#: ../data/ui/preferences/cover.ui.h:3
+msgid "Fetch covers automatically on playback start"
+msgstr "Отримувати обкладинки автоматично після початку відтворення"
+
+#: ../data/ui/preferences/cover.ui.h:4
+msgid ""
+"This option will search for cover image files in \n"
+"the same folder as the music file."
+msgstr ""
+"Пошук файлів із зображенням обкладинок \n"
+"вестиметься в теці з музичними файлами."
+
+#: ../data/ui/preferences/cover.ui.h:6
+msgid "Use covers embedded in tags"
+msgstr "Використовувати обкладинки вказані в позначках"
+
+#: ../data/ui/preferences/cover.ui.h:7
+msgid "Use covers from local files"
+msgstr "Отримувати обкладинки з локальних файлів"
 
 #: ../data/ui/files_panel.ui.h:1
 msgid "Files"
@@ -1550,103 +1960,47 @@ msgstr "Файли"
 
 #: ../data/ui/files_panel.ui.h:2
 msgid "Home directory"
-msgstr "Домашня директорія"
+msgstr "Домашній каталог"
 
 #: ../data/ui/files_panel.ui.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Наступна оглянута тека"
 
 #: ../data/ui/files_panel.ui.h:4
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Попередня оглянута тека"
 
 #: ../data/ui/files_panel.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Оновити вміст каталогу"
 
 #: ../data/ui/files_panel.ui.h:7
 msgid "Up one directory"
-msgstr ""
-
-#: ../data/ui/playlists_prefs_pane.ui.h:2
-msgid "Prompt for saving custom playlists on close"
-msgstr ""
-"Запитувати про збереження власного списку відтворювання пред закриванням"
-
-#: ../data/ui/osd_prefs_pane.ui.h:1
-msgid ""
-"<b>Move the On Screen Display window to the location you want it to "
-"appear</b>"
-msgstr ""
-"<b>Перенесіть вікно Екранного Дисплею туди, де воно повинно з'являтися</b>"
-
-#: ../data/ui/osd_prefs_pane.ui.h:2
-msgid "Background Color:"
-msgstr "Колір тла:"
-
-#: ../data/ui/osd_prefs_pane.ui.h:3
-msgid "Display OSD when hovering over tray icon"
-msgstr "При наведенні на значок в треї відобразати спливаюче вікно OSD"
-
-#: ../data/ui/osd_prefs_pane.ui.h:4
-msgid "Display a progressbar in the OSD"
-msgstr "Показувати рядок відтворення на OSD"
-
-#: ../data/ui/osd_prefs_pane.ui.h:5
-msgid "Opacity Level:"
-msgstr "Рівень прозорості:"
-
-#: ../data/ui/osd_prefs_pane.ui.h:6
-msgid "Show OSD on track change"
-msgstr "Показувати Екранне Сповіщення при зміні композиції"
-
-#: ../data/ui/osd_prefs_pane.ui.h:7
-msgid "Text Color"
-msgstr "Колір тексту"
-
-#: ../data/ui/osd_prefs_pane.ui.h:8
-msgid "Text Font:"
-msgstr "Шрифт тексту:"
-
-#: ../data/ui/osd_prefs_pane.ui.h:9
-msgid "Window Height:"
-msgstr "Висота вікна:"
-
-#: ../data/ui/osd_prefs_pane.ui.h:10
-msgid "Window Width:"
-msgstr "Ширина вікна:"
+msgstr "Вверх на один каталог"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
 msgstr "Пошук обкладинок"
 
 #: ../data/ui/coverchooser.ui.h:2
-msgid "New Search"
-msgstr "Новий пошук"
+msgid "Next cover option"
+msgstr "Наступний варіант обкладинки"
 
-#: ../data/ui/cover_prefs_pane.ui.h:1
-msgid "(drag to reorder)"
-msgstr "(перемістіть для зміни порядку)"
+#: ../data/ui/coverchooser.ui.h:3
+msgid "Previous cover option"
+msgstr "Попередній варіант обкладинки"
 
-#: ../data/ui/cover_prefs_pane.ui.h:2
-msgid "Cover Search Order:"
-msgstr ""
+#: ../data/ui/coverchooser.ui.h:4
+msgid "_Set as Cover"
+msgstr "В_становити як обкладинку"
 
 #: ../data/ui/queue_dialog.ui.h:1
-msgid "Close this dialog"
-msgstr "Закрити це вікно"
-
-#: ../data/ui/queue_dialog.ui.h:2
 msgid "Queue Manager"
-msgstr "Управлiння чергою"
-
-#: ../data/ui/queue_dialog.ui.h:3
-msgid "Remove All"
-msgstr "Вилучити все"
+msgstr "Керування чергою"
 
 #: ../data/ui/about_dialog.ui.h:1
-msgid "&#xA9; 2010"
-msgstr "&#xA9; 2010"
+msgid "&#xA9; 2009-2010"
+msgstr "&#xA9; 2009-2010"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "About Exaile"
@@ -1672,19 +2026,20 @@ msgid ""
 msgstr ""
 "Copyright (C) 2008-2010 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
+"Ця програма є вільним ПЗ; ви можете розповсюджувати і/або\n"
+"змінювати її за умовами ліцензії GNU General Public License, як\n"
+"опубліковано у Free Software Foundation; або у версії 2 цієї\n"
+"ліцензії, або (на ваш вибір) у пізнішій версії.\n"
 "\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
+"Ця програма розповсюджується із сподіванням, що вона буде\n"
+"корисною, але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; навіть без непрямих\n"
+"гарантій ПРИДАТНОСТІ ДЛЯ ВИЗНАЧЕНОЇ МЕТИ.  Детальніше\n"
+"дивіться GNU General Public License.\n"
 "\n"
-"You should have received a copy of the GNU General Public License along\n"
-"with this program; if not, write to the Free Software Foundation, Inc.,\n"
-"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+"Ви мали отримати копію GNU General Public License разом з\n"
+"цією програмою; якщо ні, напишіть листа за адресою Free\n"
+"Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA\n"
+"02110-1301 USA.\n"
 
 #: ../data/ui/about_dialog.ui.h:19
 msgid ""
@@ -1694,71 +2049,7 @@ msgid ""
 msgstr ""
 "Mathias Brodala\n"
 "   <info@noctus.net>\n"
-"    Translation Manager"
-
-#: ../data/ui/playback_prefs_pane.ui.h:1
-msgid "ALSA"
-msgstr "ALSA"
-
-#: ../data/ui/playback_prefs_pane.ui.h:2
-msgid "Audio Sink:  "
-msgstr "Аудіопристрій:  "
-
-#: ../data/ui/playback_prefs_pane.ui.h:4
-msgid "Crossfade duration (ms):"
-msgstr "Тривалість плавного змішування (мс):"
-
-#: ../data/ui/playback_prefs_pane.ui.h:5
-msgid "Fade duration (ms):"
-msgstr "Тривалість плавного затухання (мс):"
-
-#: ../data/ui/playback_prefs_pane.ui.h:6
-msgid "GNOME"
-msgstr "Середовище GNOME"
-
-#: ../data/ui/playback_prefs_pane.ui.h:7
-msgid "JACK"
-msgstr "JACK"
-
-#: ../data/ui/playback_prefs_pane.ui.h:8
-msgid "Normal"
-msgstr "Звичайний"
-
-#: ../data/ui/playback_prefs_pane.ui.h:9
-msgid "OSS"
-msgstr "OSS"
-
-#: ../data/ui/playback_prefs_pane.ui.h:10
-msgid "Playback engine (requires restart): "
-msgstr "Модуль відтворення (потрібен перезапуск) "
-
-#: ../data/ui/playback_prefs_pane.ui.h:11
-msgid "PulseAudio"
-msgstr "PulseAudio"
-
-#: ../data/ui/playback_prefs_pane.ui.h:12
-msgid "Resume playback in paused state"
-msgstr "Відновити відтворення у призупиненому стані"
-
-#: ../data/ui/playback_prefs_pane.ui.h:13
-msgid "Resume playback on start"
-msgstr "Відновлювати відтворення при запуску програми"
-
-#: ../data/ui/playback_prefs_pane.ui.h:14
-msgid "These options only affect the unified engine."
-msgstr "Ці налаштування впливають лише на універсальний модуль відтворення."
-
-#: ../data/ui/playback_prefs_pane.ui.h:15
-msgid "Unified (unstable)"
-msgstr ""
-
-#: ../data/ui/playback_prefs_pane.ui.h:16
-msgid "Use crossfading (EXPERIMENTAL)"
-msgstr "Використовувати змішування (ЕКСПЕРИМЕНТАЛЬНО)"
-
-#: ../data/ui/playback_prefs_pane.ui.h:17
-msgid "Use fade transitions on user actions"
-msgstr "Використовувати плавні переходи при діях користувача"
+"    Керування перекладами"
 
 #: ../data/ui/osd_window.ui.h:1
 msgid ""
@@ -1776,204 +2067,162 @@ msgstr "Контекстне вікно"
 
 #: ../data/ui/collection_panel.ui.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr "<b>Колекція порожня.</b>"
+msgstr "<b>Фонотека порожня.</b>"
 
 #: ../data/ui/collection_panel.ui.h:2
 msgid "Add Music"
 msgstr "Додати музику"
 
 #: ../data/ui/collection_panel.ui.h:5
-msgid "Artist - Year - Album"
-msgstr ""
-
-#: ../data/ui/collection_panel.ui.h:7
-msgid "Genre - Album"
-msgstr ""
+msgid "Artist - (Year - Album)"
+msgstr "Виконавець - (Рік - Альбом)"
 
 #: ../data/ui/collection_panel.ui.h:8
-msgid "Genre - Artist"
-msgstr ""
+msgid "Genre - Album"
+msgstr "Жанр - Альбом"
 
 #: ../data/ui/collection_panel.ui.h:9
+msgid "Genre - Artist"
+msgstr "Жанр - Виконавець"
+
+#: ../data/ui/collection_panel.ui.h:10
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
-"Оновити панель колекції\n"
-"(Затисніть Shift для повторного сканування колекції)"
+"Оновити вигляд фонотеки\n"
+"(Утримуйте клавішу Shift, щоб пересканувати фонотеку)"
 
-#: ../data/ui/collection_panel.ui.h:12
+#: ../data/ui/collection_panel.ui.h:13
 msgid "Year - Album"
 msgstr "Рік - Альбом"
 
-#: ../data/ui/collection_panel.ui.h:13
+#: ../data/ui/collection_panel.ui.h:14
 msgid "Year - Artist"
-msgstr ""
-
-#: ../data/ui/appearance_prefs_pane.ui.h:1
-msgid "Always show tab bar"
-msgstr "Всегда показувати рядок вкладок"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:2
-msgid "Bottom"
-msgstr "Знизу"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:4
-msgid "Jump to current song on track change"
-msgstr "Відображати поточний трек в списку відтворення"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:5
-msgid "Left"
-msgstr "Зліва"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:6
-msgid "Minimize to tray"
-msgstr "Згорнути до трею"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:7
-msgid "Right"
-msgstr "Справа"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:8
-msgid "Show splash screen on startup"
-msgstr "Показувати заставку під час запуску"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:9
-msgid "Show tray icon"
-msgstr "Показувати піктограму в лотку"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:10
-msgid "Tab placement:"
-msgstr "Розташування вкладки:"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:11
-msgid "Top"
-msgstr "Зверху"
-
-#: ../data/ui/appearance_prefs_pane.ui.h:12
-msgid "Use alpha transparency (if supported)"
-msgstr "Використовувати прозорість (якщо підтримується)"
+msgstr "Рік - Виконавець"
 
 #: ../plugins/multialarmclock/__init__.py:412
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Багатофункціональний будильник"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
 msgstr "Будильник"
 
-#: ../plugins/equalizer/__init__.py:129 ../plugins/equalizer/equalizer.ui.h:15
+#: ../plugins/equalizer/__init__.py:130 ../plugins/equalizer/equalizer.ui.h:15
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Еквалайзер"
 
 #: ../plugins/awn/awn_prefs.py:32
 msgid "AWN"
-msgstr ""
+msgstr "AWN"
 
-#: ../plugins/audioscrobbler/asprefs.py:22
+#: ../plugins/audioscrobbler/asprefs.py:27
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
-msgstr ""
+msgstr "Увімкнути audioscrobbling"
 
-#: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:201
+#: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:200
 msgid "Audio Disc"
 msgstr "Звуковий диск"
 
 #: ../plugins/cd/_cdguipanel.py:87
 msgid "Importing CD..."
-msgstr ""
+msgstr "Імпортування CD..."
 
 #: ../plugins/cd/cdprefs.py:32
 msgid "CD"
-msgstr "Компакт-диск"
+msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:93 ../plugins/minimode/minimodeprefs.py:64
+#: ../plugins/cd/cdprefs.py:95 ../plugins/minimode/minimodeprefs.py:87
 msgid "Track number"
-msgstr "Номер композиції"
+msgstr "Номер доріжки"
 
-#: ../plugins/cd/cdprefs.py:99 ../plugins/minimode/minimodeprefs.py:70
+#: ../plugins/cd/cdprefs.py:101 ../plugins/minimode/minimodeprefs.py:93
 msgid "Disc number"
-msgstr "Номер диску"
+msgstr "Номер диска"
 
-#: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimodeprefs.py:77
+#: ../plugins/cd/cdprefs.py:108 ../plugins/minimode/minimodeprefs.py:100
 msgid "Play count"
 msgstr "Кількість відтворень"
 
-#: ../plugins/daapclient/__init__.py:161
+#: ../plugins/daapclient/__init__.py:164
 msgid "Manually..."
-msgstr ""
+msgstr "Вручну..."
 
-#: ../plugins/daapclient/__init__.py:207
+#: ../plugins/daapclient/__init__.py:210
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Введіть IP адресу та порт для спільних файлів"
 
-#: ../plugins/daapclient/__init__.py:208
+#: ../plugins/daapclient/__init__.py:211
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "Введіть IP адресу та порт."
 
-#: ../plugins/daapclient/__init__.py:376
+#: ../plugins/daapclient/__init__.py:378
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"Цей сервер не підтримує численні з'єднання.\n"
+"Зупиніть відтворення перед завантаженням пісень."
 
-#: ../plugins/daapclient/__init__.py:455
+#: ../plugins/daapclient/__init__.py:457
 msgid "Disconnect"
-msgstr ""
+msgstr "Роз'єднати"
 
-#: ../plugins/daapclient/__init__.py:473
-msgid "Select a save location"
-msgstr ""
+#: ../plugins/daapclient/__init__.py:475
+msgid "Select a Location for Saving"
+msgstr "Виберіть місце для збереження"
 
-#: ../plugins/daapclient/__init__.py:523
+#: ../plugins/daapclient/__init__.py:525
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Під’єднатись до DAAP..."
 
-#: ../plugins/bookmarks/__init__.py:271
+#: ../plugins/bookmarks/__init__.py:254
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: ../plugins/bookmarks/__init__.py:279
-msgid "Bookmark this track"
-msgstr ""
+#: ../plugins/bookmarks/__init__.py:262
+msgid "Bookmark This Track"
+msgstr "Додати в закладки цю доріжку"
 
-#: ../plugins/bookmarks/__init__.py:284
-msgid "Delete bookmark"
-msgstr ""
+#: ../plugins/bookmarks/__init__.py:267
+msgid "Delete Bookmark"
+msgstr "Вилучити закладку"
 
-#: ../plugins/bookmarks/__init__.py:288
-msgid "Clear bookmarks"
-msgstr ""
-
-#: ../plugins/jamendo/__init__.py:76
-#: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
-msgid "Ready"
-msgstr ""
-
-#: ../plugins/jamendo/__init__.py:77
-msgid "Searching Jamendo catalogue..."
-msgstr ""
+#: ../plugins/bookmarks/__init__.py:271
+msgid "Clear Bookmarks"
+msgstr "Очистити закладки"
 
 #: ../plugins/jamendo/__init__.py:78
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
+msgid "Ready"
+msgstr "Завершено"
+
+#: ../plugins/jamendo/__init__.py:79
+msgid "Searching Jamendo catalogue..."
+msgstr "Пошук в каталозі Jamendo..."
+
+#: ../plugins/jamendo/__init__.py:80
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Отримання даних пісні..."
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Повідомлення про доріжку"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:43
@@ -1985,111 +2234,116 @@ msgstr "у виконанні %(artist)s"
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "з альбому %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Обкладинки з Amazon"
 
-#: ../plugins/desktopcover/prefs.py:21 ../plugins/desktopcover/PLUGININFO:3
+#: ../plugins/desktopcover/desktopcover_preferences.py:21
+#: ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "Обкладинка на стільницю"
 
-#: ../plugins/moodbar/__init__.py:163
+#: ../plugins/moodbar/__init__.py:164
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Підбирання настрою..."
 
-#: ../plugins/moodbar/__init__.py:167
+#: ../plugins/moodbar/__init__.py:168
 msgid "Mood found."
-msgstr ""
+msgstr "Настрій вибраний."
 
-#: ../plugins/moodbar/__init__.py:199
+#: ../plugins/moodbar/__init__.py:200
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "Не вдалось прочитати смужку настрою."
 
-#: ../plugins/moodbar/__init__.py:497
+#: ../plugins/moodbar/__init__.py:540
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Смужка настрою не доступна."
 
-#: ../plugins/droptrayicon/__init__.py:267
+#: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
+msgid "Moodbar"
+msgstr "Смужка настрою"
+
+#: ../plugins/droptrayicon/__init__.py:241
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Скинути для вибору"
 
-#: ../plugins/droptrayicon/__init__.py:270
+#: ../plugins/droptrayicon/__init__.py:244
 msgid "Append and Play"
-msgstr ""
+msgstr "Додати і відтворити"
 
-#: ../plugins/droptrayicon/__init__.py:272
+#: ../plugins/droptrayicon/__init__.py:246
 msgid "Append"
-msgstr ""
+msgstr "Додати"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr "Підсилення при програванні"
+msgstr "ReplayGain"
 
 #: ../plugins/podcasts/__init__.py:54 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr "Радіотрансляції"
+msgstr "Подкасти"
 
 #: ../plugins/podcasts/__init__.py:71
 msgid "Podcast"
-msgstr "Радіотрансляція"
+msgstr "Подкаст"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Refresh Podcast"
-msgstr "Оновити радіотрансляції"
+msgstr "Оновити подкаст"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Delete"
-msgstr "Видалити"
+msgstr "Вилучити"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Enter the URL of the podcast to add"
-msgstr "Введіть URL для додавання радіотрансляції"
+msgstr "Введіть URL для додавання подкаста"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Open Podcast"
-msgstr "Відкрити радіотрансляцію"
+msgstr "Відкрити подкаст"
 
 #: ../plugins/podcasts/__init__.py:153
 #, python-format
 msgid "Loading %s..."
 msgstr "Завантаження %s..."
 
-#: ../plugins/podcasts/__init__.py:183
+#: ../plugins/podcasts/__init__.py:181
 msgid "Error loading podcast."
-msgstr "Помилка завантаження радіотрансляції"
+msgstr "Помилка завантаження подкаста."
 
-#: ../plugins/podcasts/__init__.py:199
+#: ../plugins/podcasts/__init__.py:197
 msgid "Loading Podcasts..."
-msgstr "Завантаження радіотрансляцій..."
+msgstr "Завантаження подкастів..."
 
-#: ../plugins/podcasts/__init__.py:230
+#: ../plugins/podcasts/__init__.py:228
 msgid "Could not save podcast file"
-msgstr "Не вдалося зберегти файл радіотрансляції"
+msgstr "Не вдалося зберегти файл подкаста"
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:161
 #: ../plugins/shoutcast/__init__.py:208 ../plugins/shoutcast/__init__.py:248
 msgid "Contacting Shoutcast server..."
-msgstr ""
+msgstr "Під’єднання до сервера Shoutcast"
 
 #: ../plugins/shoutcast/__init__.py:117 ../plugins/shoutcast/__init__.py:121
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:178
 #: ../plugins/shoutcast/__init__.py:226 ../plugins/shoutcast/__init__.py:231
 #: ../plugins/shoutcast/__init__.py:263 ../plugins/shoutcast/__init__.py:268
 msgid "Error connecting to Shoutcast server."
-msgstr ""
+msgstr "Помилка під’єднання до сервера Shoutcast."
 
 #: ../plugins/shoutcast/__init__.py:288
 msgid "Enter the search keywords"
-msgstr "Введіть ключові слова для пошуку"
+msgstr "Введіть ключове слово для пошуку"
 
 #: ../plugins/shoutcast/__init__.py:289
 msgid "Shoutcast Search"
-msgstr ""
+msgstr "Пошук радіостанцій Shoutcast"
 
 #: ../plugins/shoutcast/__init__.py:312
 msgid "Search Results"
@@ -2112,172 +2366,224 @@ msgstr ""
 "у виконанні %(artist)s\n"
 "з альбому <i>%(album)s</i>"
 
-#: ../plugins/ipconsole/__init__.py:77
-msgid "IPython Console - Exaile"
-msgstr ""
+#: ../plugins/daapserver/daapserverprefs.py:6
+#: ../plugins/daapserver/PLUGININFO:3
+msgid "DAAP Server"
+msgstr "Сервер DAAP"
 
-#: ../plugins/ipconsole/__init__.py:134
+#: ../plugins/ipconsole/__init__.py:75
+msgid "IPython Console - Exaile"
+msgstr "Консоль IPython - Exaile"
+
+#: ../plugins/ipconsole/__init__.py:132
 msgid "Show IPython Console"
-msgstr ""
+msgstr "Показувати консоль IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "Консоль IPython"
 
-#: ../plugins/minimode/__init__.py:222
+#: ../plugins/lyricsviewer/__init__.py:101
+msgid "Refresh Lyrics"
+msgstr "Оновити текст пісні"
+
+#: ../plugins/lyricsviewer/__init__.py:249
+msgid "No lyrics found."
+msgstr "Текст пісні не знайдений."
+
+#: ../plugins/lyricsviewer/__init__.py:273
+msgid "Go to: "
+msgstr "Перейти до: "
+
+#: ../plugins/lyricsviewer/__init__.py:322
+msgid "Any"
+msgstr "Будь-який"
+
+#: ../plugins/minimode/__init__.py:251
 msgid "Stop Playback"
-msgstr "Зупини програвання"
+msgstr "Зупини відтворення"
 
-#: ../plugins/minimode/__init__.py:226
-msgid "Restore Main Window"
-msgstr ""
+#: ../plugins/minimode/__init__.py:256
+msgid "Restore main window"
+msgstr "Відновити основне вікно"
 
-#: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
+#: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:35
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Компактний режим"
 
-#: ../plugins/minimode/minimodeprefs.py:44
-msgid "Available controls"
-msgstr ""
+#: ../plugins/minimode/minimodeprefs.py:67
+msgid "Available Controls"
+msgstr "Доступні елементи керування"
 
-#: ../plugins/minimode/minimodeprefs.py:45
-msgid "Selected controls"
-msgstr ""
+#: ../plugins/minimode/minimodeprefs.py:68
+msgid "Selected Controls"
+msgstr "Вибрані елементи керування"
 
-#: ../plugins/minimode/minimodeprefs.py:47
+#: ../plugins/minimode/minimodeprefs.py:70
 msgid "Previous"
-msgstr "Попередній"
+msgstr "Попередня"
 
-#: ../plugins/minimode/minimodeprefs.py:48
+#: ../plugins/minimode/minimodeprefs.py:71
 msgid "Play/Pause"
-msgstr ""
+msgstr "Відтворення/пауза"
 
-#: ../plugins/minimode/minimodeprefs.py:49
+#: ../plugins/minimode/minimodeprefs.py:72
 msgid "Stop"
-msgstr ""
+msgstr "Зупинити"
 
-#: ../plugins/minimode/minimodeprefs.py:50
+#: ../plugins/minimode/minimodeprefs.py:73
 msgid "Next"
-msgstr "Наступний"
+msgstr "Наступна"
 
-#: ../plugins/minimode/minimodeprefs.py:51
+#: ../plugins/minimode/minimodeprefs.py:74
 msgid "Track selector"
-msgstr ""
+msgstr "Вибір доріжок"
 
-#: ../plugins/minimode/minimodeprefs.py:52
+#: ../plugins/minimode/minimodeprefs.py:75
 msgid "Progress bar"
-msgstr ""
+msgstr "Смужка поступу"
 
-#: ../plugins/minimode/minimodeprefs.py:53
+#: ../plugins/minimode/minimodeprefs.py:76
 msgid "Volume"
-msgstr ""
+msgstr "Гучність"
 
-#: ../plugins/minimode/minimodeprefs.py:54
+#: ../plugins/minimode/minimodeprefs.py:77
 msgid "Playlist button"
-msgstr ""
+msgstr "Кнопка списку відтворення"
 
-#: ../plugins/minimode/minimodeprefs.py:57
+#: ../plugins/minimode/minimodeprefs.py:80
 msgid "Restore"
-msgstr ""
+msgstr "Відновити"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:83
-#: ../plugins/minimode/minimodeprefs.py:89
+#: ../plugins/minimode/minimodeprefs.py:106
+#: ../plugins/minimode/minimodeprefs.py:112
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:85
+#: ../plugins/minimode/minimodeprefs.py:108
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title виконує $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:87
-msgid "$title ($length)"
-msgstr ""
+#: ../plugins/minimode/minimodeprefs.py:110
+msgid "$title ($__length)"
+msgstr "$title ($__length)"
 
-#: ../plugins/minimode/mmwidgets.py:179 ../plugins/minimode/mmwidgets.py:203
-msgid "Start Playback"
-msgstr ""
-
-#: ../plugins/minimode/mmwidgets.py:207
-msgid "Continue Playback"
-msgstr ""
-
-#: ../plugins/minimode/mmwidgets.py:210
-msgid "Pause Playback"
-msgstr ""
-
-#: ../plugins/minimode/mmwidgets.py:904
+#: ../plugins/minimode/mmwidgets.py:917
 msgid "Seeking: "
-msgstr ""
+msgstr "Шукати: "
 
-#: ../plugins/contextinfo/__init__.py:1047
+#: ../plugins/contextinfo/__init__.py:1132
 #: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
-msgstr ""
+msgstr "Зміст"
+
+#: ../plugins/contextinfo/contextprefs.py:22
+msgid "Contextinfo"
+msgstr "Контекстна інформація"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Запис аудіопотоку"
 
-#: ../plugins/streamripper/__init__.py:54
-msgid "Streamripper can only record streams."
-msgstr "Streamripper може записувати тiльки потоки."
-
-#: ../plugins/streamripper/__init__.py:87
+#: ../plugins/streamripper/__init__.py:64
 msgid "Error executing streamripper"
-msgstr "Помилка при виконаннi streamripper"
+msgstr "Помилка виконання запису аудіопотоку"
+
+#: ../plugins/shutdown/__init__.py:32 ../plugins/shutdown/PLUGININFO:3
+msgid "Shutdown after Playback"
+msgstr "Вимкнути після відтворення"
+
+#: ../plugins/shutdown/__init__.py:34
+msgid "Shutdown computer at the end of playback"
+msgstr "Вимкнути комп'ютер після завершення відтворення"
+
+#: ../plugins/shutdown/__init__.py:47
+msgid "<b>Shutdown scheduled</b>"
+msgstr "<b>Заплановане вимикання</b>"
+
+#: ../plugins/shutdown/__init__.py:48
+msgid "Computer will be shutdown at the end of playback."
+msgstr "Комп’ютер вимкнеться після завершення відтворення."
+
+#: ../plugins/shutdown/__init__.py:53
+msgid ""
+"<b>Shutdown scheduled</b>\n"
+"\n"
+"Computer will be shutdown at the end of playback."
+msgstr ""
+"<b>Заплановане вимикання</b>\n"
+"\n"
+"Комп’ютер вимкнеться після завершення відтворення."
+
+#: ../plugins/shutdown/__init__.py:71
+msgid "<b>Shutdown failed</b>"
+msgstr "<b>Вимкнути не вдалось</b>"
+
+#: ../plugins/shutdown/__init__.py:72
+msgid "Computer could not be shutdown using D-Bus."
+msgstr "Комп'ютер не може бути вимкнений через D-Bus."
+
+#: ../plugins/shutdown/__init__.py:77
+msgid ""
+"<b>Shutdown failed</b>\n"
+"\n"
+"Computer could not be shutdown using D-Bus."
+msgstr ""
+"<b>Вимкнути не вдалось</b>\n"
+"\n"
+"Комп'ютер не може бути вимкнений через D-Bus."
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:1
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
-msgid "Alarm Days:"
-msgstr ""
+msgid "<b>Alarm Days</b>"
+msgstr "<b>Дні нагадування</b>"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:2
-msgid "Alarm Name:"
-msgstr ""
+msgid "Alarm name:"
+msgstr "Назва нагадування:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:3
-#: ../plugins/alarmclock/acprefs_pane.ui.h:2
-msgid "Alarm Time:"
-msgstr ""
+msgid "Alarm time:"
+msgstr "Час нагадування:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:4
 msgid "Alarm:"
-msgstr ""
+msgstr "Нагадування:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:5
-msgid "Enable Fading"
-msgstr ""
+msgid "Enable fading"
+msgstr "Увімкнути затухання"
+
+#: ../plugins/multialarmclock/alarmclk.ui.h:6
+#: ../plugins/equalizer/equalizer.ui.h:14
+msgid "Enabled"
+msgstr "Активний"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:7
 msgid "Fading:"
-msgstr ""
+msgstr "Затухання:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:8
-#: ../plugins/alarmclock/acprefs_pane.ui.h:3
 msgid "Friday"
 msgstr "П'ятниця"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:9
-#: ../plugins/alarmclock/acprefs_pane.ui.h:4
 msgid "Increment:"
-msgstr ""
+msgstr "Збільшення:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:10
-#: ../plugins/alarmclock/acprefs_pane.ui.h:5
-msgid "Maximum Volume:"
-msgstr "Максимальна гучнiсть"
+msgid "Maximum volume:"
+msgstr "Максимальна гучність:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:11
-#: ../plugins/alarmclock/acprefs_pane.ui.h:6
-msgid "Minimum Volume:"
-msgstr "Мiнiмальна гучнiсть"
+msgid "Minimum volume:"
+msgstr "Мінімальна гучність:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:12
-#: ../plugins/alarmclock/acprefs_pane.ui.h:7
 msgid "Monday"
 msgstr "Понеділок"
 
@@ -2286,476 +2592,604 @@ msgid "Name - Time"
 msgstr "Назва - Час"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:14
-msgid "Restart Playlist"
-msgstr ""
+msgid "Restart playlist"
+msgstr "Перезапуск списку відтворення"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:15
-#: ../plugins/alarmclock/acprefs_pane.ui.h:8
 msgid "Saturday"
 msgstr "Субота"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:16
-#: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "Sunday"
 msgstr "Неділя"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:17
-#: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Thursday"
 msgstr "Четвер"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:18
-msgid "Time per Increment:"
-msgstr ""
+msgid "Time per increment:"
+msgstr "Приріст часу:"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:19
-#: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Tuesday"
 msgstr "Вівторок"
 
 #: ../plugins/multialarmclock/alarmclk.ui.h:20
-#: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Wednesday"
 msgstr "Середа"
 
+#: ../plugins/alarmclock/acprefs_pane.ui.h:2
+msgid "<b>Alarm time</b>"
+msgstr "<b>Час нагадування</b>"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:3
+msgctxt "yes"
+msgid "Friday"
+msgstr "П'ятниця"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:4
+msgctxt "yes"
+msgid "Increment:"
+msgstr "Збільшення:"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:5
+msgctxt "yes"
+msgid "Maximum volume:"
+msgstr "Максимальна гучність:"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:6
+msgctxt "yes"
+msgid "Minimum volume:"
+msgstr "Мінімальна гучність:"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:7
+msgctxt "yes"
+msgid "Monday"
+msgstr "Понеділок"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:8
+msgctxt "yes"
+msgid "Saturday"
+msgstr "Субота"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:9
+msgctxt "yes"
+msgid "Sunday"
+msgstr "Неділя"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:10
+msgctxt "yes"
+msgid "Thursday"
+msgstr "Четвер"
+
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
-msgid "Timer per Increment:"
-msgstr ""
+msgctxt "yes"
+msgid "Time per increment:"
+msgstr "Приріст часу:"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:12
+msgctxt "yes"
+msgid "Tuesday"
+msgstr "Вівторок"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
+msgctxt "yes"
 msgid "Use Fading"
-msgstr "Затухання треку"
+msgstr "Використовувати затухання"
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:14
+msgctxt "yes"
+msgid "Wednesday"
+msgstr "Середа"
 
 #: ../plugins/equalizer/equalizer.ui.h:1
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:2
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
-msgid "227"
-msgstr ""
+msgid "237"
+msgstr "237"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "pre"
-msgstr ""
+msgstr "до"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
-msgid "Circle Display"
-msgstr ""
+msgid "Circle display"
+msgstr "Показувати коло"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
-msgid "Display Covers"
-msgstr ""
+msgid "Display covers"
+msgstr "Показувати обкладинки"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
-msgid "Display Overlay:"
-msgstr ""
+msgid "Display overlay:"
+msgstr "Показувати трафарет:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "None"
-msgstr ""
+msgstr "Немає"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
-msgid "Text Percentage"
-msgstr ""
+msgid "Text percentage"
+msgstr "Відсоток тексту"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
+#: ../plugins/contextinfo/context_pane.ui.h:1
 msgid "Password:"
 msgstr "Пароль:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
-msgid "Show Menuitem to toggle Submission"
-msgstr ""
+msgid "Show menuitem to toggle submission"
+msgstr "Показати пункт меню для перемикання відправлення"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Передавати доріжки через Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
+#: ../plugins/contextinfo/context_pane.ui.h:4
 msgid "Username:"
 msgstr "Ім’я користувача:"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "Import format: "
-msgstr ""
+msgstr "Формат імпортованих файлів: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "Import path: "
-msgstr ""
+msgstr "Шлях для імпортованого: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "Import quality: "
-msgstr ""
+msgstr "Якість імпортованого: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "WavPack"
-msgstr ""
+msgstr "WavPack"
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
+"Використовувати обкладинки в меню закладок (набирає чинності після "
+"перезапуску)"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Advanced"
-msgstr ""
+msgstr "Додатково"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Ascending"
-msgstr ""
+msgstr "За зростанням"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Date of starring"
-msgstr ""
+msgstr "Дата оцінки"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "За спаданням"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Жанр/позначки"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Number of downloads"
-msgstr ""
+msgstr "Кількість завантажень"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Number of listens"
-msgstr ""
+msgstr "Кількість прослуховувань"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Кількість додавань до списку відтворення"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
-msgid "Order By:"
-msgstr ""
+msgid "Order by:"
+msgstr "Упорядкувати за:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
-msgid "Order Direction:"
-msgstr ""
+msgid "Order direction:"
+msgstr "Напрямок упорядкування:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Rating this month"
-msgstr ""
+msgstr "Рейтинг місяця"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Rating this week"
-msgstr ""
+msgstr "Рейтинг тижня"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Release date"
-msgstr ""
+msgstr "Дата випуску"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Results:"
-msgstr ""
+msgstr "Результати:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Starred"
-msgstr ""
+msgstr "Оцінені"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>Вміст</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>Показ</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
 msgid "<b>Icons</b>"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
-msgid "Album Line:"
-msgstr ""
+msgstr "<b>Значки</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
-msgid "Artist Line:"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
-msgid "On Playback Start, Pause or Stop"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
-msgid "On Track Change"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
-msgid "On Tray Icon Hover"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
-msgid "Summary:"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:11
 #, python-format
 msgid ""
-"The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
-"by their respective values. The title will be replaced by \"Unknown\" if it "
-"is empty."
+"<i>The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be "
+"replaced by their respective values. The title will be replaced by "
+"\"Unknown\" if it is empty.</i>"
 msgstr ""
+"<i>Позначки \"%(title)s\", \"%(artist)s\" та \"%(album)s\" будуть замінені "
+"відповідними значеннями. Якщо назви немає, буде підставлене значення "
+"«Невідомо».</i>"
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
+msgid "Album line:"
+msgstr "Рядок альбому:"
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
+msgid "Artist line:"
+msgstr "Рядок виконавця:"
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
+msgid "On playback start, pause or stop"
+msgstr "Під час запуску, паузи або зупинки відтворення"
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
+msgid "On track change"
+msgstr "Під час зміни доріжки"
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:10
+msgid "On tray icon hover"
+msgstr "Під час наведення на значок в лотку"
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:11
+#: ../plugins/notify/notifyprefs_pane.ui.h:8
+msgid "Summary:"
+msgstr "Зведення:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
-msgid "Use Album Covers As Icons"
-msgstr ""
+msgid "Use album covers as icons"
+msgstr "Використовувати обкладинки альбомів як значки"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
-msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr ""
+msgid "Use media icons for pause, stop and resume"
+msgstr "Використовувати значки пристроїв для паузи, зупинки та відновлення"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
-msgid "When GUI is Focused"
-msgstr ""
+msgid "When main window is focused"
+msgstr "Якщо головне вікно у фокусі"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
-msgid "API Key:"
+msgid ""
+"<i>To sign up for an Amazon AWS account and get \n"
+"this information visit <a "
+"href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a></i>"
 msgstr ""
-
-#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
-msgid "Secret Key:"
-msgstr ""
+"<i>Щоб отримати інформацію про реєстрацію облікового\n"
+"запису Amazon AWS, відвідайте <a "
+"href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a></i>"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
-msgid ""
-"To sign up for an Amazon AWS account and get \n"
-"this information visit http://aws.amazon.com/"
-msgstr ""
+msgid "API key:"
+msgstr "API ключ:"
 
-#: ../plugins/desktopcover/prefs.ui.h:1
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:4
+msgid "Secret key:"
+msgstr "Секретний ключ:"
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
 msgid "Anchor:"
-msgstr ""
+msgstr "Прив’язка:"
 
-#: ../plugins/desktopcover/prefs.ui.h:2
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:2
 msgid "Bottom left"
-msgstr ""
+msgstr "Внизу ліворуч"
 
-#: ../plugins/desktopcover/prefs.ui.h:3
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:3
 msgid "Bottom right"
-msgstr ""
+msgstr "Внизу праворуч"
 
-#: ../plugins/desktopcover/prefs.ui.h:4
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:4
+msgid "Fading duration:"
+msgstr "Тривалість затухання:"
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
+msgid "Override cover size"
+msgstr "Розмір обкладинки для заміни"
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
 msgid "Size:"
-msgstr ""
+msgstr "Розмір:"
 
-#: ../plugins/desktopcover/prefs.ui.h:5
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:7
 msgid "Top left"
-msgstr ""
+msgstr "Вгорі ліворуч"
 
-#: ../plugins/desktopcover/prefs.ui.h:6
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:8
 msgid "Top right"
-msgstr ""
+msgstr "Вгорі праворуч"
 
-#: ../plugins/desktopcover/prefs.ui.h:7
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:9
+msgid "Use fading"
+msgstr "Використовувати затухання"
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:10
 msgid "X offset:"
-msgstr ""
+msgstr "Зміщення по осі X:"
 
-#: ../plugins/desktopcover/prefs.ui.h:8
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:11
 msgid "Y offset:"
-msgstr ""
+msgstr "Зміщення по осі Y:"
 
-#: ../plugins/desktopcover/prefs.ui.h:9
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:12
+msgid "ms"
+msgstr "мс"
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:13
 msgid "pixels"
-msgstr ""
+msgstr "пікселів"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Base color"
-msgstr ""
+msgstr "Основний колір"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Base color:"
-msgstr ""
+msgstr "Основний колір:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Затінювати відтворену частину замість показу курсору"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Darkness level:"
-msgstr ""
+msgstr "Рівень затінення:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Показувати хвилю а не смужку настрою"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Use color theme "
-msgstr ""
+msgstr "Використовувати кольорову тему "
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Use waveform style"
-msgstr ""
+msgstr "Використовувати стиль хвилі"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Додаткове підсилення (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Додаткове підсилення для всіх файлів"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
-msgstr ""
+msgstr "Вносити коригування у файли, в яких відсутня інформація ReplayGain"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Рівень внесення коригування (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr ""
+msgstr "Коригувати ReplayGain за альбомами а не за доріжками."
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "Віддавати перевагу коригуванню за альбомами"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Захист від шумів спричинених надмірною гучністю"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Захист від обрізки звуку"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "Додати подкаст"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Тіло повідомлення</b>"
 
-#: ../plugins/notify/notifyprefs_pane.ui.h:2
-msgid "Both artist and album"
-msgstr ""
-
-#: ../plugins/notify/notifyprefs_pane.ui.h:4
+#: ../plugins/notify/notifyprefs_pane.ui.h:3
 #, python-format
 msgid ""
-"Message that should be displayed in the body of the notification. In each "
+"<i>Message that should be displayed in the body of the notification. In each "
 "case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced by "
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
-"in its place"
+"in its place.</i>"
 msgstr ""
+"<i>Повідомлення, яке буде показане в тілі повідомлення. У всіх випадках, "
+"позначки \"%(title)s\", \"%(artist)s\" та \"%(album)s\" будуть замінені "
+"відповідними значеннями. Якщо немає позначки назви, буде підставлене "
+"значення «Невідомо».</i>"
+
+#: ../plugins/notify/notifyprefs_pane.ui.h:4
+msgid "Both artist and album:"
+msgstr "І виконавець, і альбом:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:5
-msgid "Only album"
-msgstr ""
+msgid "Only album:"
+msgstr "Лише альбом:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:6
-msgid "Only artist"
-msgstr ""
+msgid "Only artist:"
+msgstr "Лише виконавець:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Змінити розмір обкладинок"
 
-#: ../plugins/notify/notifyprefs_pane.ui.h:8
-msgid "Summary"
-msgstr ""
+#: ../plugins/daapserver/daapserver_prefs.ui.h:1
+msgid "Port:"
+msgstr "Порт:"
+
+#: ../plugins/daapserver/daapserver_prefs.ui.h:2
+msgid "Server enabled"
+msgstr "Сервер увімкнений"
+
+#: ../plugins/daapserver/daapserver_prefs.ui.h:3
+msgid "Server host:"
+msgstr "Головний сервер:"
+
+#: ../plugins/daapserver/daapserver_prefs.ui.h:4
+msgid "Server name:"
+msgstr "Назва серверу:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Font:"
-msgstr ""
+msgstr "Шрифт:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
-msgid "Terminal Opacity:"
-msgstr ""
+msgid "Terminal opacity:"
+msgstr "Прозорість терміналу:"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:1
-msgid "Always on top"
-msgstr ""
+msgid "<b>Track Title Format</b>"
+msgstr "<b>Формат назви доріжки</b>"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:2
-msgid "Display window decorations"
-msgstr ""
+msgid "Always on top"
+msgstr "Завжди поверх інших вікон"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:3
-msgid "Show in tasklist"
-msgstr ""
+msgid "Display window decorations:"
+msgstr "Показувати обрамлення вікна:"
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:4
-msgid "Show on all desktops"
+msgid ""
+"Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
+"<b>$__length</b> need to be specified with two leading underdashes."
 msgstr ""
+"Використовуйте позначки як <b>$tag</b> або <b>${tag}</b>. Внутрішні "
+"позначки, подібні до <b>$__length</b>, потрібно зазначати подвійним "
+"підкресленням."
 
 #: ../plugins/minimode/minimodeprefs_pane.ui.h:5
-msgid "Track title format:"
-msgstr ""
+msgid "Full"
+msgstr "Повністю"
+
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:6
+msgid "Show in tasklist"
+msgstr "Показувати в списку завдань"
+
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:7
+msgid "Show on all desktops"
+msgstr "Показувати на всіх стільницях"
+
+#: ../plugins/minimode/minimodeprefs_pane.ui.h:8
+msgid "Simple"
+msgstr "Спрощено"
+
+#: ../plugins/contextinfo/context_pane.ui.h:2
+msgid "Please enter your Last.fm authentication:"
+msgstr "Введіть дані реєстрації на Last.fm:"
+
+#: ../plugins/contextinfo/context_pane.ui.h:3
+msgid "Sign up for Last.fm"
+msgstr "Зареєструватись на Last.fm"
 
 #: ../plugins/streamripper/streamripper.ui.h:1
-msgid "Relay Port:"
-msgstr ""
+msgid "Delete incomplete files"
+msgstr "Вилучити неповні файли"
 
 #: ../plugins/streamripper/streamripper.ui.h:2
-msgid "Save Location:"
-msgstr ""
+msgid "Relay port:"
+msgstr "Порт передачі:"
+
+#: ../plugins/streamripper/streamripper.ui.h:3
+msgid "Rip to single file"
+msgstr "Витягти в один файл"
+
+#: ../plugins/streamripper/streamripper.ui.h:4
+msgid "Save location:"
+msgstr "Зберегти адресу:"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -2765,6 +3199,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Відтворює музику у вказаний час та дні.\n"
+"\n"
+"Зауважимо, що коли настане вказаний час, Exaile почне діяти, якщо ви "
+"натиснете кнопку відтворення, переконайтесь, що музика, яку ви хочете почути "
+"є в списку відтворення"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -2774,75 +3213,97 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Відтворює музику у вказаний час.\n"
+"\n"
+"Зауважимо, що коли настане вказаний час, Exaile почне діяти, якщо ви "
+"натиснете кнопку відтворення, переконайтесь, що музика, яку ви хочете почути "
+"є в списку відтворення"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "10-смуговий еквалайзер"
 
 #: ../plugins/awn/PLUGININFO:3
 msgid "Awn"
-msgstr ""
+msgstr "Awn"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
-msgstr ""
+msgstr "Встановлює обкладинку та додає деякі пункти в меню AWN для Exaile"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr ""
+msgstr "Поточна пісня"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
-"Sets the currently playing status in Pidgin for services that support it."
+"Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
+"out the suppported services."
 msgstr ""
+"Встановлює статус відтворюваної на цей час музики в Pidgin. Перегляньте "
+"розділ FAQ в Pidgin, щоб знайти підтримувані служби."
+
+#: ../plugins/karaoke/PLUGININFO:3
+msgid "Karaoke"
+msgstr "Караоке"
+
+#: ../plugins/karaoke/PLUGININFO:4
+msgid "Removes voice from audio"
+msgstr "Вилучає голос з аудіо запису"
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
+"Надсилає інформацію про прослуховування на Last.fm та аналогічні служби, що "
+"підтримують Audioscrobbler"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "Відтворення CD"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
 msgstr ""
+"Додає підтримку для відтворення аудіо CD.\n"
+"Для пошуку позначок потрібно python-cddb."
 
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "Клієнт DAAP"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Дає змогу прослуховувати спільну музику через DAAP."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
-msgstr ""
+msgstr "Створює об’єкт MPRIS D-Bus для керування Exaile"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr ""
+"Дає змогу запам'ятовувати та відтворювати музику в аудіо файлі з певного "
+"місця."
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr ""
+msgstr "Надає доступ до музичного каталогу Jamendo."
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Обкладинки з Last.fm"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Пошук обкладинок на Last.fm"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -2853,6 +3314,11 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Модуль показує повідомлення під час відтворення, зупинки та відновлення "
+"пісні з обкладинкою або значком пристрою та показом останньої дії.\n"
+"\n"
+"Залежить від: python-notify\n"
+"Рекомендується: notify-osd"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -2860,32 +3326,33 @@ msgid ""
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
 msgstr ""
+"Шукає обкладинки на Amazon\n"
+"\n"
+"Щоб користуватись цим модулем, потрібний AWS API-ключ та секретний ключ."
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "Показує обкладинку відтворюваного альбому на стільниці"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Динамічні списки відтворення Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
-
-#: ../plugins/moodbar/PLUGININFO:3
-msgid "Moodbar"
-msgstr ""
+msgstr "Оболонка Last.fm для динамічних списків відтворення"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Замінює стандартну смужку поступу на смужку настрою.\n"
+"Залежить від: moodbar"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
-msgstr ""
+msgstr "Drop Trayicon"
 
 #: ../plugins/droptrayicon/PLUGININFO:4
 msgid ""
@@ -2893,114 +3360,131 @@ msgid ""
 "\n"
 "Depends: python-eggtrayicon"
 msgstr ""
+"Надає інший значок в лоток, що приймає скинуті на нього файли.\n"
+"\n"
+"Залежить від: python-eggtrayicon"
 
 #: ../plugins/ipod/PLUGININFO:3
-msgid "iPod support"
-msgstr ""
+msgid "iPod Support"
+msgstr "Підтримка iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr ""
+msgstr "Модуль для підтримки iPod"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr ""
+msgstr "Вмикає підтримку ReplayGain"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Додає підтримку для простих подкастів"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "Пауза під час активації зберігача екрана"
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
 msgstr ""
+"Призупиняє та відновлює відтворення під час активації та деактивації "
+"зберігача екрана"
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"
-msgstr ""
+msgstr "Радіо Shoutcast"
 
 #: ../plugins/shoutcast/PLUGININFO:4
 msgid "Shoutcast Radio list"
-msgstr ""
+msgstr "Список радіостанцій Shoutcast"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Hello World"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "Простий модуль для тестування базової системи модулів"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "Мультимедійні клавіші GNOME"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Надає підтримку для керування Exaile через системні мультимедійні клавіші "
+"GNOME. Сумісний з GNOME >= 2.20.x"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "Глобальні «гарячі клавіші» через xlib (mmkeys.so)"
 
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
-msgstr ""
+msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "Модуль для пошуку текстів пісень на lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "USB Mass Storage Media Player Support"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Підтримка доступу до портативних медіа-плеєрів через протокол USB Mass "
+"Storage"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
-msgstr ""
+msgstr "Показує повідомлення про початок відтворення доріжки"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
+msgstr "Перегляд та прослуховування аудіо-книг з Librivox.org."
+
+#: ../plugins/daapserver/PLUGININFO:4
+msgid ""
+"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"a collection can be shared over DAAP."
 msgstr ""
+"Цей модуль інтегрує функцію spydaap (http://launchpad.net/spydaap) в Exaile "
+"для спільного використання фонотеки через DAAP."
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
-msgstr ""
+msgstr "Надає консоль IPython, через яку можна керувати програвачем Exaile."
+
+#: ../plugins/lyricsviewer/PLUGININFO:3
+msgid "Lyrics Viewer"
+msgstr "Lyrics Viewer"
+
+#: ../plugins/lyricsviewer/PLUGININFO:4
+msgid "Adds a side tab displaying lyrics for the currently playing track."
+msgstr "Додає бічну вкладку для показу тексту відтворюваної пісні."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
-
-#: ../plugins/tagcovers/PLUGININFO:3
-msgid "Tag Covers"
-msgstr ""
-
-#: ../plugins/tagcovers/PLUGININFO:4
-msgid "Searches track tags for covers"
-msgstr ""
+msgstr "Компактний режим Exaile з налаштовним інтерфейсом"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Contextual Info"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -3008,30 +3492,45 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Показує різноманітну інформацію про відтворювану доріжку.\n"
+"Залежить від: libwebkit >= 1.0.1, python-webkit >= 1.1.2 та python-imaging "
+"(також відому як PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Дає змогу записувати аудіопотоки через streamripper.\n"
+"Залежить від: streamripper"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
-msgid "Plugin to fetch lyrics from lyricwiki.org"
+msgid ""
+"Plugin to fetch lyrics from lyricwiki.org\n"
+"Depends: python-beautifulsoup"
 msgstr ""
+"Модуль для пошуку текстів пісень на lyricwiki.org\n"
+"Залежить від: python-beautifulsoup"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Редактор позначок Ex Falso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
+"Інтегрує редактор позначок Ex Falso з Exaile.\n"
+"Залежить від: Ex Falso."
+
+#: ../plugins/shutdown/PLUGININFO:4
+msgid "Allows for shutdown of the computer at the end of playback."
+msgstr "Дає змогу вимкнути комп’ютер після завершення відтворення."
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>Загальне</b>"
@@ -3053,6 +3552,9 @@ msgstr ""
 #~ "Рік - Альбом\n"
 #~ "Виконавець - Рік - Альбом"
 
+#~ msgid "New Search"
+#~ msgstr "Новий пошук"
+
 #~ msgid ""
 #~ "<b>{title}</b>\n"
 #~ "{artist}\n"
@@ -3062,11 +3564,68 @@ msgstr ""
 #~ "{artist}\n"
 #~ "з {album} - {length}"
 
+#~ msgid "Stopped"
+#~ msgstr "Зупинено"
+
+#~ msgid "Use Fading"
+#~ msgstr "Затухання треку"
+
+#~ msgid "Buffering: 100%..."
+#~ msgstr "Буферизація: 100%..."
+
+#~ msgid " songs"
+#~ msgstr " пісні"
+
+#~ msgid "0:00"
+#~ msgstr "0:00"
+
+#~ msgid "No covers found"
+#~ msgstr "Обкладинок не знайдено"
+
+#~ msgid "Enter the search text"
+#~ msgstr "Введіть текст для пошуку"
+
+#~ msgid "Add a directory"
+#~ msgstr "Додати директорію"
+
+#~ msgid "Add device"
+#~ msgstr "Додати пристрій"
+
+#~ msgid "Toggle Play or Pause"
+#~ msgstr "Грати/Пауза"
+
+#~ msgid "Set rating for current song"
+#~ msgstr "Оцінити поточний трек"
+
+#~ msgid "Get rating for current song"
+#~ msgstr "Запитати оцінку поточоного треку"
+
+#~ msgid "  New song, fetching cover."
+#~ msgstr "  Новий трек! Завантажується обкладинка."
+
+#~ msgid "Toggle: Stop after selected track"
+#~ msgstr "Зупинити після завершення вибраного треку"
+
+#~ msgid "Open"
+#~ msgstr "Вiдкрити"
+
+#~ msgid "Choose a plugin"
+#~ msgstr "Оберiть доповнення"
+
+#~ msgid "Minimum Volume:"
+#~ msgstr "Мiнiмальна гучнiсть"
+
+#~ msgid "Maximum Volume:"
+#~ msgstr "Максимальна гучнiсть"
+
 #~ msgid " - "
 #~ msgstr " - "
 
 #~ msgid " + "
 #~ msgstr " + "
+
+#~ msgid "Streamripper can only record streams."
+#~ msgstr "Streamripper може записувати тiльки потоки."
 
 #, python-format
 #~ msgid ""
@@ -3075,8 +3634,76 @@ msgstr ""
 #~ "Exaile тепер використовує абсолютні URL, будь-ласка, видаліть/переіменуйте "
 #~ "ваш каталог %s"
 
+#, python-format
+#~ msgid "Playing %s"
+#~ msgstr "Відтворюється %s"
+
+#~ msgid "Show a popup of the currently playing track"
+#~ msgstr "Показувати зринаюче повідомлення про поточну композицію"
+
 #~ msgid "Vol:"
 #~ msgstr "Гусність:"
+
+#, python-format
+#~ msgid "from %s"
+#~ msgstr "з альбому %s"
+
+#, python-format
+#~ msgid "by %s"
+#~ msgstr "від %s"
+
+#~ msgid "Decreases the volume by VOL%"
+#~ msgstr "Зменшує гучність на VOL%"
+
+#~ msgid "Increases the volume by VOL%"
+#~ msgstr "Збільшує гучність на VOL%"
+
+#~ msgid "Filter event debug output"
+#~ msgstr "Фільтрувати виведення відлагоджування подій"
+
+#~ msgid "Print the position inside the current track as time"
+#~ msgstr "Показувати поточну позицію відтворювання у вигляді часу"
+
+#~ msgid "Print the progress inside the current track as percentage"
+#~ msgstr "Показувати поточну позицію відтворювання у процентному вигляді"
+
+#~ msgid "order must be a list or tuple"
+#~ msgstr "порядок мусить бути списком або кортежем"
+
+#~ msgid "Device class does not support transfer."
+#~ msgstr "Клас пристрою не підтримує передавання."
+
+#~ msgid "Add to custom playlist"
+#~ msgstr "Додати до поточного списку відтворення"
+
+#, python-format
+#~ msgid "In pause: %s"
+#~ msgstr "Призупинено: %s"
+
+#~ msgid "Save As..."
+#~ msgstr "Зберегти як..."
+
+#~ msgid "_Save As..."
+#~ msgstr "_Зберегти як..."
+
+#~ msgid "_Save Changes To Playlist"
+#~ msgstr "_Зберегти зміни до списку відтворення"
+
+#~ msgid "_Save As Custom Playlist"
+#~ msgstr "_Зберегти як поточний список відтворення"
+
+#~ msgid "Delete track"
+#~ msgstr "Видалити композицію"
+
+#~ msgid "Export current playlist..."
+#~ msgstr "Експортувати поточний список відтворення..."
+
+#, python-format
+#~ msgid "%(year)d-%(month)02d-%(day)02d"
+#~ msgstr "%(year)d-%(month)02d-%(day)02d"
+
+#~ msgid "Add To New Playlist..."
+#~ msgstr "Додати до нового списку відтворення..."
 
 #~ msgid "Idle."
 #~ msgstr "Бездіяльність."
@@ -3092,6 +3719,12 @@ msgstr ""
 #, python-format
 #~ msgid "Could not disable plugin: %s"
 #~ msgstr "Не вдається вимкнути плагін: %s"
+
+#~ msgid "Remove current track from playlist"
+#~ msgstr "Видалити поточну композицію зі списку відтворювання"
+
+#~ msgid "..."
+#~ msgstr "..."
 
 #~ msgid "File Size:"
 #~ msgstr "Розмір файлу:"
@@ -3131,3 +3764,73 @@ msgstr ""
 
 #~ msgid "Track Number:"
 #~ msgstr "Номер композиції:"
+
+#~ msgid "Remove All"
+#~ msgstr "Вилучити все"
+
+#~ msgid "Use alpha transparency (if supported)"
+#~ msgstr "Використовувати прозорість (якщо підтримується)"
+
+#~ msgid "Close this dialog"
+#~ msgstr "Закрити це вікно"
+
+#~ msgid "These options only affect the unified engine."
+#~ msgstr "Ці налаштування впливають лише на універсальний модуль відтворення."
+
+#~ msgid "Page 1"
+#~ msgstr "Сторінка 1"
+
+#~ msgid "Install plugin file"
+#~ msgstr "Встановити файл плагіну"
+
+#~ msgid "Track _properties"
+#~ msgstr "Властивості _композиції"
+
+#~ msgid "_Export current playlist"
+#~ msgstr "_Експорт поточного списку відтворювання"
+
+#~ msgid "Start/Pause Playback"
+#~ msgstr "Почати/Призупинити відтворювання"
+
+#~ msgid "Other options"
+#~ msgstr "Інші параметри"
+
+#~ msgid "Playback options"
+#~ msgstr "Налаштування відтворення"
+
+#~ msgid "Volume options"
+#~ msgstr "Опції гучності"
+
+#~ msgid "Track options"
+#~ msgstr "Опції доріжки"
+
+#~ msgid "Original Date"
+#~ msgstr "Дата оригіналу"
+
+#~ msgid "Original Artist"
+#~ msgstr "Оригінальна назва артиста"
+
+#~ msgid "Original Album"
+#~ msgstr "Оригінальна назва альбома"
+
+#~ msgid "Date Added"
+#~ msgstr "Дата додавання"
+
+#~ msgid "Force import of old data from 0.2.x. Overwrites current data."
+#~ msgstr ""
+#~ "Примусово імпортувати старі дані з версії 0.2.x. Перезаписати поточні дані."
+
+#~ msgid "Do not import old data from 0.2.x."
+#~ msgstr "Не імпортувати старі дані з версії 0.2.x"
+
+#~ msgid "Development/Debug options"
+#~ msgstr "Опції розробки/налагодження"
+
+#~ msgid "Last Played"
+#~ msgstr "Востаннє відтворювалося"
+
+#~ msgid "Reset to defaults"
+#~ msgstr "Скинути до типових"
+
+#~ msgid "&#xA9; 2010"
+#~ msgstr "&#xA9; 2010"

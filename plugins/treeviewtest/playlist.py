@@ -181,6 +181,10 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         for child in plpage.get_children():
             plpage.remove(child)
 
+        self.shuffle_button = self.builder.get_object("shuffle_button")
+        self.repeat_button = self.builder.get_object("repeat_button")
+        self.dynamic_button = self.builder.get_object("dynamic_button")
+
         self.builder.connect_signals(self)
 
         self.plwin = self.builder.get_object("playlist_window")
@@ -245,6 +249,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         """
         widget.set_active(True)
         menu = gtk.Menu()
+        menu.connect('deactivate', self._mode_menu_set_toggle, widget, attr)
         prev = None
         mode = getattr(self.playlist, attr)
         for name, disp in zip(names, display_names):
@@ -275,6 +280,13 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         )
 
         return (position[0], position[1], True)
+
+    def _mode_menu_set_toggle(self, menu, button, name):
+        mode = getattr(self.playlist, name)
+        if mode == 'disabled':
+            button.set_active(False)
+        else:
+            button.set_active(True)
 
     def on_shuffle_mode_set(self, widget, mode):
         """

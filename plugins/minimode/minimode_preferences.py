@@ -64,7 +64,8 @@ class TransparencyPreference(widgets.ScalePreference, widgets.CheckConditional):
 
 class SelectedControlsPreference(widgets.SelectionListPreference):
     name = 'plugin/minimode/selected_controls'
-    default = ['previous', 'play_pause', 'next', 'playlist_button', 'progress_bar']
+    default = ['previous', 'play_pause', 'next', 'playlist_button',
+               'progress_bar', 'restore']
     items = [
         widgets.SelectionListPreference.Item(
             id='previous', title=_('Previous'),

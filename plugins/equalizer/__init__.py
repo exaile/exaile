@@ -154,6 +154,10 @@ class EqualizerPlugin:
             self.MENU_ITEM.destroy()
             self.MENU_ITEM = None
 
+        if self.window:
+            self.window.hide()
+            self.window.destroy()
+
     def load_presets(self):
         """
         Populate the GTK ListStore with presets

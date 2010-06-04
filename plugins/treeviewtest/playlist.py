@@ -979,56 +979,46 @@ class Playlist(object):
     # known mode is to be set, and 2) the values returned in _mode will
     # always be supported in the running version.
 
-    # TODO: there has GOT to be a better way to handle this - there's a
-    # ton of duplicated code here.
+    def __get_mode(self, modename):
+        mode = getattr(self, "_Playlist__%s_mode"%modename)
+        modes = getattr(self, "%s_modes"%modename)
+        if mode in modes:
+            return mode
+        else:
+            return modes[0]
+
+    def __set_mode(self, modename, mode):
+        modes = getattr(self, "%s_modes"%modename)
+        if mode not in modes:
+            raise TypeError, "Mode %s is invalid" % mode
+        else:
+            self.__dirty = True
+            setattr(self, "_Playlist__%s_mode"%modename, mode)
+            event.log_event("playlist_%s_mode_changed"%modename, self, mode)
 
     def get_shuffle_mode(self):
-        if self.__shuffle_mode in self.shuffle_modes:
-            return self.__shuffle_mode
-        else:
-            return self.shuffle_modes[0]
+        return self.__get_mode("shuffle")
 
     def set_shuffle_mode(self, mode):
-        if mode not in self.shuffle_modes:
-            raise TypeError, "Shuffle mode %s is invalid" % mode
-        else:
-            if mode == 'disabled':
-                self.__tracks_history = []
-            self.__dirty = True
-            self.__shuffle_mode = mode
-            event.log_event("playlist_shuffle_mode_changed", self, mode)
+        self.__set_mode("shuffle", mode)
+        if mode == 'disabled':
+            self.__tracks_history = []
 
     shuffle_mode = property(get_shuffle_mode, set_shuffle_mode)
 
     def get_repeat_mode(self):
-        if self.__repeat_mode in self.repeat_modes:
-            return self.__repeat_mode
-        else:
-            return self.repeat_modes[0]
+        return self.__get_mode('repeat')
 
     def set_repeat_mode(self, mode):
-        if mode not in self.repeat_modes:
-            raise TypeError, "Repeat mode %s is invalid" % mode
-        else:
-            self.__dirty = True
-            self.__repeat_mode = mode
-            event.log_event("playlist_repeat_mode_changed", self, mode)
+        self.__set_mode("repeat", mode)
 
     repeat_mode = property(get_repeat_mode, set_repeat_mode)
 
     def get_dynamic_mode(self):
-        if self.__dynamic_mode in self.dynamic_modes:
-            return self.__dynamic_mode
-        else:
-            return self.dynamic_modes[0]
+        return self.__get_mode("dynamic")
 
     def set_dynamic_mode(self, mode):
-        if mode not in self.dynamic_modes:
-            raise TypeError, "Dynamic mode %s is invalid" % mode
-        else:
-            self.__dirty = True
-            self.__dynamic_mode = mode
-            event.log_event("dynamic_repeat_mode_changed", self, mode)
+        self.__set_mode("dynamic", mode)
 
     dynamic_mode = property(get_dynamic_mode, set_dynamic_mode)
 

@@ -325,6 +325,9 @@ class PlaylistView(gtk.TreeView):
         self.model = PlaylistModel(playlist, self.default_columns)
         self.menu = PlaylistContextMenu(self)
         self.dragging = False
+        self.button_held = False    # used by columns to determine whether
+                                    # a notify::width event was initiated
+                                    # by the user.
 
         self.set_rules_hint(True)
         self.set_enable_search(True)
@@ -453,6 +456,7 @@ class PlaylistView(gtk.TreeView):
         self.playlist.set_current_position(position)
 
     def on_button_press(self, widget, event):
+        self.button_held = True
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
             return True
@@ -475,6 +479,7 @@ class PlaylistView(gtk.TreeView):
         return False
 
     def on_button_release(self, widget, event):
+        self.button_held = False
         if event.button != 1 or self.dragging:
             self.dragging = False
             return True

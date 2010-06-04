@@ -59,6 +59,7 @@ class Column(gtk.TreeViewColumn):
         if self.__class__ == Column:
             raise NotImplementedError("Can't instantiate "
                 "abstract class %s"%repr(self.__class__))
+        self.settings_width_name = "gui/col_width_%s"%self.id
         self.cellr = self.renderer()
         self.extrasize = 0
         if index == 1:
@@ -86,26 +87,32 @@ class Column(gtk.TreeViewColumn):
         for name, val in self.cellproperties.iteritems():
             self.cellr.set_property(name, val)
         self.set_reorderable(True)
+        self.set_clickable(True)
+
+        self.connect('notify::width', self.on_width_changed)
         self.setup_sizing()
 
         event.add_callback(self.on_option_set, "gui_option_set")
-        self.connect('notify::width', self.on_width_changed)
+
 
     def on_option_set(self, typ, obj, data):
-        if data in ("gui/resizable_cols", "gui/col_width_%s"%self.id):
+        if data == "gui/resizable_cols":
+            self.setup_sizing()
+        elif data == self.settings_width_name:
             self.setup_sizing()
 
-    def on_width_changed(self, column, *e):
+    def on_width_changed(self, column, wid):
+        if not self.container.button_held:
+            return
         width = self.get_width()
-        name = "gui/col_width_%s"%self.id
-        if width != settings.get_option(name, -1):
-            settings.set_option(name, width)
+        if width != settings.get_option(self.settings_width_name, -1):
+            settings.set_option(self.settings_width_name, width)
 
     def setup_sizing(self):
         if settings.get_option('gui/resizable_cols', False):
             self.set_resizable(True)
             self.set_expand(False)
-            width = settings.get_option("gui/col_width_%s"%self.id,
+            width = settings.get_option(self.settings_width_name,
                     self.size+self.extrasize)
             self.set_fixed_width(width)
             self.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
@@ -265,8 +272,6 @@ for key in keys:
         item = items[key]
         COLUMNS[item.id] = item
         FORMATTERS[item.id] = item.get_formatter()
-
-print COLUMNS
 
 COLUMNS_BY_DISPLAY = {}
 for col in COLUMNS.values():

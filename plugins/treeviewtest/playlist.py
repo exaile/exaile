@@ -826,8 +826,14 @@ class Playlist(object):
         return self.__current_position
 
     def set_current_position(self, position):
-        oldposition = self.__current_position
+        oldposition = self.current_position
+        self.__tracks.set_meta_key(position, "playlist_current_position", True)
         self.__current_position = position
+        if oldposition != -1:
+            try:
+                self.__tracks.del_meta_key(oldposition, "playlist_current_position")
+            except KeyError:
+                pass
         self.__dirty = True
         event.log_event("playlist_current_position_changed", self, (position, oldposition))
 
@@ -837,8 +843,14 @@ class Playlist(object):
         return self.__spat_position
 
     def set_spat_position(self, position):
-        oldposition = self.__spat_position
+        oldposition = self.spat_position
+        self.__tracks.set_meta_key(position, "playlist_spat_position", True)
         self.__spat_position = position
+        if oldposition != -1:
+            try:
+                self.__tracks.del_meta_key(oldposition, "playlist_spat_position")
+            except KeyError:
+                pass
         self.__dirty = True
         event.log_event("playlist_spat_position_changed", self, (position, oldposition))
 
@@ -848,6 +860,20 @@ class Playlist(object):
         return self.__tracks[self.current_position]
 
     current = property(get_current)
+
+    def on_tracks_changed(self, *args):
+        for idx in xrange(len(self.__tracks)):
+            if self.__tracks.get_meta_key(idx, "playlist_current_position"):
+                self.__current_position = idx
+                break
+        else:
+            self.__current_position = -1
+        for idx in xrange(len(self.__tracks)):
+            if self.__tracks.get_meta_key(idx, "playlist_spat_position"):
+                self.__spat_position = idx
+                break
+        else:
+            self.__spat_position = -1
 
     def __next_random_track(self, mode="track"):
         """
@@ -952,6 +978,9 @@ class Playlist(object):
     # This ensures that 1) saved modes are never clobbered unless a
     # known mode is to be set, and 2) the values returned in _mode will
     # always be supported in the running version.
+
+    # TODO: there has GOT to be a better way to handle this - there's a
+    # ton of duplicated code here.
 
     def get_shuffle_mode(self):
         if self.__shuffle_mode in self.shuffle_modes:
@@ -1200,22 +1229,7 @@ class Playlist(object):
             removed = [(i, oldtracks)]
             added = [(i, value)]
 
-        # copy here so we only send one change event at the end
-        current_position = self.current_position
-        spat_position = self.spat_position
-        for position, track in removed[::-1]:
-            if current_position > position:
-                current_position -= 1
-            if spat_position > position:
-                spat_position -= 1
-        for position, track in added:
-            if current_position > position:
-                current_position += 1
-            if spat_position > position:
-                spat_position += 1
-        self.current_position = current_position
-        self.spat_position = spat_position
-
+        self.on_tracks_changed()
         event.log_event('playlist_tracks_removed', self, removed)
         event.log_event('playlist_tracks_added', self, added)
         self.__needs_save = self.__dirty = True
@@ -1233,17 +1247,7 @@ class Playlist(object):
         else:
             removed = [(i, oldtracks)]
 
-        # copy here so we only send one change event at the end
-        current_position = self.current_position
-        spat_position = self.spat_position
-        for position, track in removed[::-1]:
-            if current_position > position:
-                current_position -= 1
-            if spat_position > position:
-                spat_position -= 1
-        self.current_position = current_position
-        self.spat_position = spat_position
-
+        self.on_tracks_changed()
         event.log_event('playlist_tracks_removed', self, removed)
         self.__needs_save = self.__dirty = True
 

@@ -43,7 +43,7 @@ def simple_separator(name, after):
         item = gtk.SeparatorMenuItem()
         return item
     item = MenuItem(name, factory, after=after)
-    item.pos = 'last'
+    item._pos = 'last'
     return item
 
 def simple_menu_item(name, after, display_name, icon_name, callback):
@@ -80,6 +80,32 @@ def check_menu_item(name, after, display_name, checked_func, callback):
         return item
     return MenuItem(name, factory, after=after)
 
+def radio_menu_item(name, after, display_name, groupname, selected_func,
+        callback):
+
+    def factory(menu, parent_obj, parent_context):
+        for index, item in enumerate(menu._items):
+            if hasattr(item, 'groupname') and item.groupname == groupname:
+                break
+        else:
+            index = None
+        if index is not None:
+            try:
+                group_parent = menu.get_children()[index]
+            except IndexError:
+                group_parent = None
+
+        item = gtk.RadioMenuItem(label=display_name)
+        active = selected_func(name, parent_obj, parent_context)
+        item.set_active(active)
+        if group_parent:
+            item.set_group(group_parent)
+        item.connect('activate', callback, name, parent_obj, parent_context)
+        return item
+    return RadioMenuItem(name, factory, after=after, groupname=groupname)
+
+
+
 
 class MenuItem(object):
     def __init__(self, name, factory, after):
@@ -91,6 +117,11 @@ class MenuItem(object):
                              # method of ordering, this property is not
                              # considered public api and may change
                              # without warning.
+
+class RadioMenuItem(MenuItem):
+    def __init__(self, name, factory, after, groupname):
+        MenuItem.__init__(self, name, factory, after)
+        self.groupname = groupname
 
 class RatingMenuItem(MenuItem):
     """

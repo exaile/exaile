@@ -284,10 +284,11 @@ for col in COLUMNS.values():
 
 def __create_playlist_columns_menu():
     cmi = plmenu.check_menu_item
+    rmi = plmenu.radio_menu_item
     sep = plmenu.simple_separator
+
     def item_checked_cb(name, parent_obj, parent_context):
         return name in settings.get_option("gui/columns")
-
     def column_item_activated(widget, name, parent_obj, parent_context):
         cols = settings.get_option("gui/columns")
         if name not in cols:
@@ -295,16 +296,15 @@ def __create_playlist_columns_menu():
         else:
             cols.remove(name)
         settings.set_option("gui/columns", cols)
-
     columns = ['tracknumber', 'title', 'artist', 'album',
         '__length', 'genre', '__rating', 'date']
     for key in COLUMNS.keys():
         if not key in columns:
             columns.append(key)
-
     items = []
-    previous = []
+    previous = ['spurious-name-to-start-off-with']
     for column in columns:
+        print previous
         col = COLUMNS[column]
         display = col.display
         if column == 'tracknumber':
@@ -312,7 +312,21 @@ def __create_playlist_columns_menu():
         elif column == 'discnumber':
             display = _('Disc Number')
         items.append(cmi(col.id, previous, display, item_checked_cb, column_item_activated))
-        previous = [col.id]
+        previous[0] = col.id
+
+    print "END", previous
+    items.append(sep('columns_separator', previous))
+
+    def sizing_selected_cb(name, parent_obj, parent_context):
+        val = settings.get_option("gui/resizable_cols", False)
+        if name == 'resizable':
+            return val
+        else:
+            return not val
+    def sizing_item_activated(widget, name, parent_obj, parent_context):
+        settings.set_option("gui/resizable_cols", name == "resizable")
+    items.append(rmi('resizable', ['columns_separator'], _("Resizable"), 'column-sizing', sizing_selected_cb, sizing_item_activated))
+    items.append(rmi('autosize', ['resizable'], _("Autosize"), 'column-sizing', sizing_selected_cb, sizing_item_activated))
 
     for item in items:
         providers.register('playlist-columns-menu', item)

@@ -29,7 +29,7 @@ import collections
 import os
 import random
 
-import glib, gtk, pango
+import glib, gobject, gtk, pango
 
 from xl.nls import gettext as _
 
@@ -143,7 +143,7 @@ def __create_playlist_context_menu():
         # If it's all one block, just delete it in one chunk for
         # maximum speed.
         positions = [t[0] for t in tracks]
-        if positions == range(positions[0], positions[0]+len(positions)+1):
+        if positions == range(positions[0], positions[0]+len(positions)):
             del playlist[positions[0]:positions[0]+len(positions)+1]
         else:
             for position, track in tracks[::-1]:
@@ -235,7 +235,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
     def on_search_entry_activate(self, entry):
         self._filter_string = entry.get_text()
-        glib.idle_add(self.modelfilter.refilter)
+        self.modelfilter.refilter()
 
     def __show_toggle_menu(self, names, display_names, callback, attr,
             widget, event):
@@ -356,6 +356,7 @@ class PlaylistView(gtk.TreeView):
                                     # a notify::width event was initiated
                                     # by the user.
 
+        self.set_fixed_height_mode(True) # MASSIVE speedup - don't disable this!
         self.set_rules_hint(True)
         self.set_enable_search(True)
         self.selection = self.get_selection()

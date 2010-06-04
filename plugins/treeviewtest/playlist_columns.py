@@ -90,6 +90,7 @@ class Column(gtk.TreeViewColumn):
             self.cellr.set_property(name, val)
         self.set_reorderable(True)
         self.set_clickable(True)
+        self.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED) # needed for fixed-height mode
 
         self.set_widget(gtk.Label(self.display))
 
@@ -119,17 +120,14 @@ class Column(gtk.TreeViewColumn):
             width = settings.get_option(self.settings_width_name,
                     self.size+self.extrasize)
             self.set_fixed_width(width)
-            self.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         else:
             self.set_resizable(False)
             if self.autoexpand:
                 self.set_expand(True)
                 self.set_fixed_width(1)
-                self.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
             else:
                 self.set_expand(False)
                 self.set_fixed_width(self.size+self.extrasize)
-                self.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
 
     @classmethod
     def get_formatter(cls):

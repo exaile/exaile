@@ -118,8 +118,12 @@ class MetadataList(object):
         self.__list.reverse()
         self.metadata.reverse()
 
-    def index(self, i):
-        return self.__list.index(i)
+    def index(self, i, start=0, end=None):
+        if end is None:
+            return self.__list.index(i, start)
+        else:
+            return self.__list.index(i, start, end)
+
 
     def count(self, i):
         return self.__list.count(i)

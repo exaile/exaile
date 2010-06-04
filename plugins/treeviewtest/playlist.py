@@ -463,9 +463,9 @@ class PlaylistView(gtk.TreeView):
         except IndexError:
             return
 
+        self.playlist.set_current_position(position)
         player.QUEUE.play(track=track)
         player.QUEUE.set_current_playlist(self.playlist)
-        self.playlist.set_current_position(position)
 
     def on_button_press(self, widget, event):
         self.button_held = True
@@ -803,11 +803,8 @@ class Playlist(object):
         self.__name = name
         self.__current_position = -1
         self.__spat_position = -1
-
-        # FIXME: this is not ideal since duplicate tracks are not
-        # weighted appropriately when shuffling, however without a
-        # proper api for reordering this is basically impossible to fix.
-        self.__tracks_history = collections.deque()
+        self.__shuffle_history_counter = 1 # start positive so we can
+                                # just do an if directly on the value
 
     ### playlist-specific API ###
 
@@ -827,7 +824,8 @@ class Playlist(object):
 
     def set_current_position(self, position):
         oldposition = self.current_position
-        self.__tracks.set_meta_key(position, "playlist_current_position", True)
+        if position != -1:
+            self.__tracks.set_meta_key(position, "playlist_current_position", True)
         self.__current_position = position
         if oldposition != -1:
             try:
@@ -857,6 +855,8 @@ class Playlist(object):
     spat_position = property(get_spat_position, set_spat_position)
 
     def get_current(self):
+        if self.current_position == -1:
+            return None
         return self.__tracks[self.current_position]
 
     current = property(get_current)
@@ -874,6 +874,17 @@ class Playlist(object):
                 break
         else:
             self.__spat_position = -1
+
+    def get_shuffle_history(self):
+        return  [ (i, self.__tracks[i]) for i in range(len(self)) if \
+                self.__tracks.get_meta_key(i, 'playlist_shuffle_history') ]
+
+    def clear_shuffle_history(self):
+        for i in xrange(len(self)):
+            try:
+                self.__tracks.del_meta_key(i, "playlist_shuffle_history")
+            except:
+                pass
 
     def __next_random_track(self, mode="track"):
         """
@@ -894,29 +905,31 @@ class Playlist(object):
                     if x.get_tag_raw('album') == curr.get_tag_raw('album') \
                     and i > self.current_position ]
                 t = trax.sort_tracks(['discnumber', 'tracknumber'], t)
-                return t[0]
+                return self.__tracks.index(t[0]), t[0]
 
             except IndexError: #Pick a new album
-                t = [ x for x in self \
-                        if x not in self.__tracks_history ]
+                t = self.get_shuffle_history()
                 albums = []
-                for x in t:
+                for i, x in t:
                     if not x.get_tag_raw('album') in albums:
                         albums.append(x.get_tag_raw('album'))
 
                 album = random.choice(albums)
-                t = [ x for x in self.ordered_tracks \
-                        if x.get_tag_raw('album') == album ]
+                t = [ x for x in self if x.get_tag_raw('album') == album ]
                 t = trax.sort_tracks(['tracknumber'], t)
-                return t[0]
+                return self.__tracks.index(t[0]), t[0]
         else:
-            return random.choice([ x for x in self \
-                    if x not in self.__tracks_history])
+            hist = set([ i for i, tr in self.get_shuffle_history() ])
+            try:
+                return random.choice([ (i, self.__tracks[i]) for i, tr in enumerate(self.__tracks)
+                        if i not in hist])
+            except IndexError: # no more tracks
+                return None, None
 
     def next(self):
         repeat_mode = self.repeat_mode
         shuffle_mode = self.shuffle_mode
-        if self.current_position == self.spat_position:
+        if self.current_position == self.spat_position and self.current_position != -1:
             self.spat_position = -1
             return None
 
@@ -925,27 +938,28 @@ class Playlist(object):
         else:
             next = None
             if shuffle_mode != 'disabled':
-                curr = self.current
-                if curr is not None:
-                    self.__tracks_history.append(curr)
-                next = self.__next_random_track(shuffle_mode)
+                if self.current is not None:
+                    self.__tracks.set_meta_key(self.current_position,
+                            "playlist_shuffle_history", self.__shuffle_history_counter)
+                    self.__shuffle_history_counter += 1
+                next_index, next = self.__next_random_track(shuffle_mode)
                 if next is not None:
-                    self.current_position = self.index(next)
+                    self.current_position = next_index
+                else:
+                    self.clear_shuffle_history()
             else:
                 try:
                     next = self[self.current_position+1]
                     self.current_position += 1
                 except IndexError:
                     next = None
-                    self.current_position = -1
 
-            if repeat_mode == 'all':
-                if next is None:
-                    self.__tracks_history = []
-                    if len(self) > 0:
-                        return self.next()
-
-            return next
+            if next is None:
+                self.current_position = -1
+                if repeat_mode == 'all' and len(self) > 0:
+                    return self.next()
+            else:
+                return next
 
     def prev(self):
         repeat_mode = self.repeat_mode
@@ -955,11 +969,11 @@ class Playlist(object):
 
         if shuffle_mode != 'disabled':
             try:
-                prev = self.__tracks_history[-1]
+                prev_index, prev = max(self.get_shuffle_history())
             except IndexError:
                 return self.get_current()
-            self.__tracks_history = self.__tracks_history[:-1]
-            self.current_position = self.index(prev) #FIXME
+            self.__tracks.del_meta_key(prev_index, 'playlist_shuffle_history')
+            self.current_position = prev_index
         else:
             position = self.current_position - 1
             if position < 0:
@@ -1002,7 +1016,7 @@ class Playlist(object):
     def set_shuffle_mode(self, mode):
         self.__set_mode("shuffle", mode)
         if mode == 'disabled':
-            self.__tracks_history = []
+            self.clear_shuffle_history()
 
     shuffle_mode = property(get_shuffle_mode, set_shuffle_mode)
 

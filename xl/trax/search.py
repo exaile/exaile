@@ -458,3 +458,9 @@ def search_tracks_from_string(trackiter, search_string,
         keyword_tags=keyword_tags)]
     return search_tracks(trackiter, matchers)
 
+
+def match_track_from_string(track, search_string,
+        case_sensitive=True, keyword_tags=None):
+    matcher = TracksMatcher(search_string, case_sensitive=case_sensitive,
+        keyword_tags=keyword_tags)
+    return matcher.match(SearchResultTrack(track))

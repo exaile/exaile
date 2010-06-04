@@ -64,7 +64,7 @@ class Column(gtk.TreeViewColumn):
         self.settings_width_name = "gui/col_width_%s"%self.id
         self.cellr = self.renderer()
         self.extrasize = 0
-        if index == 1:
+        if index == 2:
             gtk.TreeViewColumn.__init__(self, self.display)
             icon_cellr = gtk.CellRendererPixbuf()
             # TODO: figure out why this returns the wrong value
@@ -76,7 +76,7 @@ class Column(gtk.TreeViewColumn):
             self.extrasize = pbufsize
             self.pack_start(icon_cellr, False)
             self.pack_start(self.cellr, True)
-            self.set_attributes(icon_cellr, pixbuf=0)
+            self.set_attributes(icon_cellr, pixbuf=1)
             self.set_attributes(self.cellr, **{self.dataproperty: index})
         else:
             gtk.TreeViewColumn.__init__(self, self.display, self.cellr,

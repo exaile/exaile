@@ -29,7 +29,15 @@
 
 from xl.trax.track import Track
 from xl.trax.trackdb import TrackDB
-from xl.trax.search import search_tracks, search_tracks_from_string, TracksMatcher
-from xl.trax.util import (is_valid_track, get_tracks_from_uri,
-        get_uris_from_tracks, sort_tracks, sort_result_tracks)
+from xl.trax.search import (
+        search_tracks,
+        search_tracks_from_string,
+        TracksMatcher,
+        match_track_from_string)
+from xl.trax.util import (
+        is_valid_track,
+        get_tracks_from_uri,
+        get_uris_from_tracks,
+        sort_tracks,
+        sort_result_tracks)
 

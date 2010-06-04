@@ -194,6 +194,10 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
         self.view = PlaylistView(playlist)
         self.plwin.add(self.view)
+        self._filter_string = ""
+        self.modelfilter = self.view.model.filter_new()
+        self.modelfilter.set_visible_func(self.model_visible_func)
+        self.view.set_model(self.modelfilter)
 
         event.add_callback(self.on_shuffle_mode_changed,
                 "playlist_shuffle_mode_changed", self.playlist)
@@ -230,7 +234,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         pass
 
     def on_search_entry_activate(self, entry):
-        pass
+        self._filter_string = entry.get_text()
+        glib.idle_add(self.modelfilter.refilter)
 
     def __show_toggle_menu(self, names, display_names, callback, attr,
             widget, event):
@@ -323,10 +328,20 @@ class PlaylistPage(gtk.VBox, NotebookPage):
             Sets the tab icon to reflect the playback status
         """
         if path[0] == self.playlist.current_position:
-            pixbuf = model.get_value(iter, 0)
+            pixbuf = model.get_value(iter, 1)
             if pixbuf == model.clear_pixbuf:
                 pixbuf = None
             self.tab.set_icon(pixbuf)
+
+    def model_visible_func(self, model, iter):
+        if self._filter_string == "":
+            return True
+        return trax.match_track_from_string(
+                model.get_value(iter, 0), self._filter_string,
+                case_sensitive=False, keyword_tags=['artist', 'title', 'album'])
+                # FIXME: use currently-visible columns + base
+                # tags for filter
+
 
 
 class PlaylistView(gtk.TreeView):
@@ -376,8 +391,9 @@ class PlaylistView(gtk.TreeView):
             Called by columns in playlist_columns to set a CellRendererText's
             weight property for the playing track.
         """
-        path = self.model.get_path(iter)
-        track = self.model.get_track(path)
+        model = self.get_model()
+        path = model.get_path(iter)
+        track = model.get_value(iter, 0)
         if track == player.PLAYER.current and \
                 path[0] == self.playlist.get_current_position() and \
                 self.playlist == player.QUEUE.current_playlist:
@@ -408,7 +424,8 @@ class PlaylistView(gtk.TreeView):
             which are currently selected in the playlist.
         """
         paths = self.get_selected_paths()
-        tracks = [(path[0], self.model.get_track(path)) for path in paths]
+        model = self.get_model()
+        tracks = [(path[0], model.get_value(model.get_iter(path), 0)) for path in paths]
         return tracks
 
     def _refresh_columns(self):
@@ -444,7 +461,7 @@ class PlaylistView(gtk.TreeView):
         self.model.columns = col_ids
 
         for position, column in enumerate(col_ids):
-            position += 1 # offset for pixbuf column
+            position += 2 # offset for pixbuf column
             playlist_column = playlist_columns.COLUMNS[column](self, position)
             self.append_column(playlist_column)
             header = playlist_column.get_widget()
@@ -641,13 +658,6 @@ class PlaylistModel(gtk.GenericTreeModel):
         self.clear_pixbuf = self.play_pixbuf.copy()
         self.clear_pixbuf.fill(0x00000000)
 
-    def get_track(self, path):
-        """
-            Returns the Track object associated with the given path. Raises
-            IndexError if there is no such track.
-        """
-        return self.playlist[path[0]]
-
     ### API for GenericTreeModel ###
 
     def on_get_flags(self):
@@ -658,9 +668,11 @@ class PlaylistModel(gtk.GenericTreeModel):
 
     def on_get_column_type(self, index):
         if index == 0:
+            return object
+        elif index == 1:
             return gtk.gdk.Pixbuf
         else:
-            return playlist_columns.COLUMNS[self.columns[index-1]].datatype
+            return playlist_columns.COLUMNS[self.columns[index-2]].datatype
 
     def on_get_iter(self, path):
         rowref = path[0]
@@ -674,6 +686,8 @@ class PlaylistModel(gtk.GenericTreeModel):
 
     def on_get_value(self, rowref, column):
         if column == 0:
+            return self.playlist[rowref]
+        elif column == 1:
             if self.playlist.current_position == rowref and \
                     self.playlist[rowref] == player.PLAYER.current and \
                     self.playlist == player.QUEUE.current_playlist:
@@ -693,7 +707,7 @@ class PlaylistModel(gtk.GenericTreeModel):
                 return self.stop_pixbuf
             return self.clear_pixbuf
         else:
-            tagname = self.columns[column-1]
+            tagname = self.columns[column-2]
             track = self.playlist[rowref]
             formatter = playlist_columns.FORMATTERS[tagname]
             return formatter.format(track)
@@ -706,12 +720,7 @@ class PlaylistModel(gtk.GenericTreeModel):
             return None
 
     def on_iter_children(self, parent):
-        if rowref:
-            return None
-        try:
-            return self.playlist[0]
-        except IndexError:
-            return None
+        return None
 
     def on_iter_has_child(self, rowref):
         return False
@@ -725,7 +734,8 @@ class PlaylistModel(gtk.GenericTreeModel):
         if parent:
             return None
         try:
-            return self.playlist[n]
+            t = self.playlist[n]
+            return n
         except IndexError:
             return None
 

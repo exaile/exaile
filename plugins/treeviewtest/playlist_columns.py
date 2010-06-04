@@ -304,7 +304,6 @@ def __create_playlist_columns_menu():
     items = []
     previous = ['spurious-name-to-start-off-with']
     for column in columns:
-        print previous
         col = COLUMNS[column]
         display = col.display
         if column == 'tracknumber':
@@ -314,7 +313,6 @@ def __create_playlist_columns_menu():
         items.append(cmi(col.id, previous, display, item_checked_cb, column_item_activated))
         previous[0] = col.id
 
-    print "END", previous
     items.append(sep('columns_separator', previous))
 
     def sizing_selected_cb(name, parent_obj, parent_context):

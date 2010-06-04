@@ -56,7 +56,7 @@ def simple_menu_item(name, after, display_name, icon_name, callback):
         :param display_name: Name as ito.close is to appear in the menu.
         :param icon_name: Name of the icon to display, or None for no icon.
         :param callback: The function to call when the menu item is activated.
-                signature: callback(widget, parent_obj, parent_context)
+                signature: callback(widget, name, parent_obj, parent_context)
     """
     def factory(menu, parent_obj, parent_context):
         item = None
@@ -67,9 +67,7 @@ def simple_menu_item(name, after, display_name, icon_name, callback):
             item.set_image(image)
         else:
             item = gtk.MenuItem(display_name)
-        # FIXME: add name here too, as with check_menu_item, for
-        # consistency
-        item.connect('activate', callback, parent_obj, parent_context)
+        item.connect('activate', callback, name, parent_obj, parent_context)
         return item
     return MenuItem(name, factory, after=after)
 
@@ -81,7 +79,6 @@ def check_menu_item(name, after, display_name, checked_func, callback):
         item.connect('activate', callback, name, parent_obj, parent_context)
         return item
     return MenuItem(name, factory, after=after)
-
 
 
 class MenuItem(object):

@@ -91,15 +91,15 @@ def __create_playlist_tab_context_menu():
     sep = plmenu.simple_separator
     items = []
     items.append(smi('new-tab', [], _("New Playlist"), 'tab-new',
-        lambda w, o, c: o.tab.notebook.create_new_playlist()))
+        lambda w, n, o, c: o.tab.notebook.create_new_playlist()))
     items.append(sep('new-tab-sep', ['new-tab']))
     items.append(smi('rename', ['new-tab-sep'], _("Rename"), 'gtk-edit',
-        lambda w, o, c: o.tab.start_rename()))
+        lambda w, n, o, c: o.tab.start_rename()))
     items.append(smi('clear', ['rename'], _("Clear"), 'gtk-clear',
-        lambda w, o, c: o.playlist.clear()))
+        lambda w, n, o, c: o.playlist.clear()))
     items.append(sep('tab-close-sep', ['clear']))
     items.append(smi('tab-close', ['tab-close-sep'], _("Close"), 'gtk-close',
-        lambda w, o, c: o.tab.close()))
+        lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('playlist-tab-context', item)
 __create_playlist_tab_context_menu()
@@ -124,9 +124,9 @@ def __create_playlist_context_menu():
     sep = plmenu.simple_separator
     items = []
     items.append(smi('append-queue', [], _("Append to Queue"), 'gtk-add',
-            lambda w, o, c: player.QUEUE.add_tracks(
+            lambda w, n, o, c: player.QUEUE.add_tracks(
             [t[1] for t in c['selected-tracks']])))
-    def toggle_spat_cb(widget, playlistpage, context):
+    def toggle_spat_cb(widget, name, playlistpage, context):
         position = context['selected-tracks'][0][0]
         if position != playlistpage.playlist.spat_position:
             playlistpage.playlist.spat_position = position
@@ -137,7 +137,7 @@ def __create_playlist_context_menu():
     items.append(plmenu.RatingMenuItem('rating', ['toggle-spat']))
     # TODO: custom playlist item here
     items.append(sep('sep1', ['rating']))
-    def remove_tracks_cb(widget, playlistpage, context):
+    def remove_tracks_cb(widget, name, playlistpage, context):
         tracks = context['selected-tracks']
         playlist = playlistpage.playlist
         # If it's all one block, just delete it in one chunk for
@@ -152,7 +152,7 @@ def __create_playlist_context_menu():
         remove_tracks_cb))
     items.append(sep('sep2', ['remove']))
     items.append(smi('properties', ['sep2'], _("Properties"), 'gtk-properties',
-        lambda w, o, c: False))
+        lambda w, n, o, c: False))
     for item in items:
         providers.register('playlist-context', item)
 __create_playlist_context_menu()

@@ -44,6 +44,7 @@ class SmartNotebook(gtk.Notebook):
             :type page: NotebookPage
         """
         self.append_page(page, tab)
+        self.set_tab_reorderable(page, page.reorderable)
         self.set_current_page(self.page_num(page))
 
     def add_default_tab(self):
@@ -66,6 +67,7 @@ class NotebookTab(gtk.EventBox):
         Class to represent a generic tab in a gtk.Notebook.
     """
     menu_provider_name = 'notebooktab' # Change this in subclasses!
+    reorderable = True
     def __init__(self, notebook, page):
         """
             :param notebook: The notebook this tab will belong to
@@ -212,6 +214,7 @@ class NotebookPage(object):
         Notebook.
     """
     menu_provider_name = 'tab-context' #override this in subclasses
+    reorderable = True
     def __init__(self):
         self.tab = None
         self.tab_menu = plmenu.ProviderMenu(self.menu_provider_name, self)
@@ -242,3 +245,9 @@ class NotebookPage(object):
         """
         raise NotImplementedError
 
+    def is_current_page(self):
+        """
+            Returns True if this page is the currently-visible page in
+            the Notebook.
+        """
+        return self.tab.get_nth_page(self.tab.get_current_page()) == self

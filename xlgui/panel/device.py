@@ -145,6 +145,7 @@ class DevicePanel(panel.Panel):
 class FlatPlaylistDevicePanel(panel.Panel):
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
@@ -163,6 +164,8 @@ class FlatPlaylistDevicePanel(panel.Panel):
 
         self.fppanel.connect('append-items',
             lambda *e: self.emit('append-items', *e[1:]))
+        self.fppanel.connect('replace-items',
+            lambda *e: self.emit('replace-items', *e[1:]))
         self.fppanel.connect('queue-items',
             lambda *e: self.emit('queue-items', *e[1:]))
 

@@ -13,8 +13,6 @@ backend:
 ui:
     playlist:
         save to saved playlists
-        columns respect settings
-        columns context-menu
         link up dynamic
         link up search
         search field clear button
@@ -25,9 +23,7 @@ ui:
         rename in dialog/messagebar if tabs are hidden
 
     tabs:
-        middle-click empty space to create new
         support tabs as DnD targets
-        tab reordering
     
     queue:
         create new ui for queue in a tab

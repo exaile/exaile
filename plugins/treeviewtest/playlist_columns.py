@@ -29,11 +29,13 @@ import gio
 import gtk
 import pango
 
-from xl import event, settings
+from xl import event, settings, providers
 from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.widgets import rating
+
+import menu as plmenu
 
 logger = logging.getLogger(__name__)
 
@@ -88,6 +90,8 @@ class Column(gtk.TreeViewColumn):
             self.cellr.set_property(name, val)
         self.set_reorderable(True)
         self.set_clickable(True)
+
+        self.set_widget(gtk.Label(self.display))
 
         self.connect('notify::width', self.on_width_changed)
         self.setup_sizing()
@@ -277,24 +281,41 @@ COLUMNS_BY_DISPLAY = {}
 for col in COLUMNS.values():
     COLUMNS_BY_DISPLAY[col.display] = col
 
-def setup_menu(menu, menu_items):
-    items = ['tracknumber', 'title', 'artist', 'album',
-        '__length', 'genre', '__rating', 'date']
 
+def __create_playlist_columns_menu():
+    cmi = plmenu.check_menu_item
+    sep = plmenu.simple_separator
+    def item_checked_cb(name, parent_obj, parent_context):
+        return name in settings.get_option("gui/columns")
+
+    def column_item_activated(widget, name, parent_obj, parent_context):
+        cols = settings.get_option("gui/columns")
+        if name not in cols:
+            cols.append(name)
+        else:
+            cols.remove(name)
+        settings.set_option("gui/columns", cols)
+
+    columns = ['tracknumber', 'title', 'artist', 'album',
+        '__length', 'genre', '__rating', 'date']
     for key in COLUMNS.keys():
-        if not key in items:
-            items.append(key)
+        if not key in columns:
+            columns.append(key)
+
+    items = []
+    previous = []
+    for column in columns:
+        col = COLUMNS[column]
+        display = col.display
+        if column == 'tracknumber':
+            display = _('Track Number')
+        elif column == 'discnumber':
+            display = _('Disc Number')
+        items.append(cmi(col.id, previous, display, item_checked_cb, column_item_activated))
+        previous = [col.id]
 
     for item in items:
-        col = COLUMNS[item]
-        display = col.display
-        if col.id == 'tracknumber':
-            display = _('Track Number')
-        elif col.id == 'discnumber':
-            display = _('Disc Number')
+        providers.register('playlist-columns-menu', item)
+__create_playlist_columns_menu()
 
-        menu_item = gtk.CheckMenuItem(display)
-        menu_item.set_name('%s_col' % col.id)
-        menu.insert(menu_item, items.index(item))
 
-        menu_items[col.id] = menu_item

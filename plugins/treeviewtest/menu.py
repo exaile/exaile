@@ -67,9 +67,21 @@ def simple_menu_item(name, after, display_name, icon_name, callback):
             item.set_image(image)
         else:
             item = gtk.MenuItem(display_name)
+        # FIXME: add name here too, as with check_menu_item, for
+        # consistency
         item.connect('activate', callback, parent_obj, parent_context)
         return item
     return MenuItem(name, factory, after=after)
+
+def check_menu_item(name, after, display_name, checked_func, callback):
+    def factory(menu, parent_obj, parent_context):
+        item = gtk.CheckMenuItem(display_name)
+        active = checked_func(name, parent_obj, parent_context)
+        item.set_active(active)
+        item.connect('activate', callback, name, parent_obj, parent_context)
+        return item
+    return MenuItem(name, factory, after=after)
+
 
 
 class MenuItem(object):

@@ -447,6 +447,15 @@ class PlaylistView(gtk.TreeView):
             position += 1 # offset for pixbuf column
             playlist_column = playlist_columns.COLUMNS[column](self, position)
             self.append_column(playlist_column)
+            header = playlist_column.get_widget()
+            header.show()
+            header.get_ancestor(gtk.Button).connect('button-press-event', self.on_header_button_press)
+
+    def on_header_button_press(self, widget, event):
+        if event.button == 3:
+            menu = plmenu.ProviderMenu('playlist-columns-menu', self)
+            menu.popup(None, None, None, event.button, event.time)
+            return True
 
     def on_columns_changed(self, widget):
         columns = [c.id for c in self.get_columns()]

@@ -233,7 +233,10 @@ class PlaylistPage(gtk.VBox, NotebookPage):
                 'repeat_mode', widget, event)
 
     def on_dynamic_button_toggled(self, widget):
-        pass
+        if widget.get_active():
+            self.playlist.dynamic_mode = self.playlist.dynamic_modes[1]
+        else:
+            self.playlist.dynamic_mode = self.playlist.dynamic_modes[0]
 
     def on_search_entry_activate(self, entry):
         self._filter_string = entry.get_text()
@@ -907,6 +910,10 @@ class Playlist(object):
                 self.__tracks.del_meta_key(i, "playlist_shuffle_history")
             except:
                 pass
+
+    @common.threaded
+    def fetch_dynamic_tracks(self):
+        pass # implement when merging - requires updates to dynamic.py
 
     def __next_random_track(self, mode="track"):
         """

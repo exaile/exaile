@@ -3,7 +3,6 @@ backend:
     playlist:
         sort
         reverse?
-        filter
         dynamic
 
     queue:
@@ -14,8 +13,6 @@ ui:
     playlist:
         save to saved playlists
         link up dynamic
-        link up search
-        search field clear button
         SPAT
             grey out tracks below SPAT designation
                 - cell.set_sensitive(False)

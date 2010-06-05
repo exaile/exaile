@@ -184,6 +184,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.shuffle_button = self.builder.get_object("shuffle_button")
         self.repeat_button = self.builder.get_object("repeat_button")
         self.dynamic_button = self.builder.get_object("dynamic_button")
+        self.search_entry = guiutil.SearchEntry(
+                self.builder.get_object("search_entry"))
 
         self.builder.connect_signals(self)
 

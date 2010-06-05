@@ -369,8 +369,11 @@ class MainWindow(gobject.GObject):
                 self.window.connect('expose-event', self.on_expose_event)
                 self.window.connect('screen-changed', self.on_screen_changed)
 
-        self.playlist_notebook = self.builder.get_object('playlist_notebook')
-        self.playlist_notebook.remove_page(0)
+        playlist_area = self.builder.get_object('playlist_area')
+        self.playlist_notebook = playlist.PlaylistNotebook('saved_tabs')
+        playlist_area.pack_start(self.playlist_notebook)
+
+        # TODO: move these into SmartNotebook/PlaylistNotebook?
         self.playlist_notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
         map = {
             'left': gtk.POS_LEFT,
@@ -380,16 +383,8 @@ class MainWindow(gobject.GObject):
         }
         self.playlist_notebook.set_tab_pos(map.get(
             settings.get_option('gui/tab_placement', 'top')))
+
         self.splitter = self.builder.get_object('splitter')
-        
-        self.playlist_utilities_bar = self.builder.get_object('playlist_utilities_bar')
-        playlist_utilities_bar_visible = settings.get_option(
-            'gui/playlist_utilities_bar_visible', True)
-        self.builder.get_object('playlist_utilities_bar_visible').set_active(
-            playlist_utilities_bar_visible)
-        self.playlist_utilities_bar.set_property('visible', playlist_utilities_bar_visible)
-        self.playlist_utilities_bar.set_sensitive(playlist_utilities_bar_visible)
-        self.playlist_utilities_bar.set_no_show_all(not playlist_utilities_bar_visible)
 
         self._setup_position()
         self._setup_widgets()
@@ -398,181 +393,7 @@ class MainWindow(gobject.GObject):
         self._connect_events()
         from xlgui import osd
         self.osd = osd.OSDWindow(self.player)
-        self.tab_manager = xl.playlist.PlaylistManager(
-            'saved_tabs')
-        self.load_saved_tabs()
         MainWindow._mainwindow = self
-
-    def load_saved_tabs(self):
-        """
-            Loads the saved tabs
-        """
-        if not settings.get_option('playlist/open_last', False):
-            self.add_playlist()
-            return
-        names = self.tab_manager.list_playlists()
-        if not names:
-            self.add_playlist()
-            return
-
-        count = -1
-        count2 = 0
-        names.sort()
-        # holds the order#'s of the already added tabs
-        added_tabs = {}
-        name_re = re.compile(
-                r'^order(?P<tab>\d+)\.(?P<tag>[^.]*)\.(?P<name>.*)$')
-        for i, name in enumerate(names):
-            match = name_re.match(name)
-            if not match or not match.group('tab') or not match.group('name'):
-                logger.error("%s did not match valid playlist file"
-                        % repr(name))
-                continue
-
-            logger.debug("Adding playlist %d: %s" % (i, name))
-            logger.debug("Tab:%s; Tag:%s; Name:%s" % (match.group('tab'),
-                                                     match.group('tag'),
-                                                     match.group('name'),
-                                                     ))
-            pl = self.tab_manager.get_playlist(name)
-            pl.name = match.group('name')
-
-            if match.group('tab') not in added_tabs:
-                pl = self.add_playlist(pl, erase_empty=False)
-                added_tabs[match.group('tab')] = pl
-            pl = added_tabs[match.group('tab')]
-
-            if match.group('tag') == 'current':
-                count = i
-                if self.queue.current_playlist is None:
-                    self.queue.set_current_playlist(pl.playlist)
-            elif match.group('tag') == 'playing':
-                count2 = i
-                self.queue.set_current_playlist(pl.playlist)
-
-        # If there's no selected playlist saved, use the currently
-        # playing
-        if count == -1:
-            count = count2
-
-        self.playlist_notebook.set_current_page(count)
-
-    def save_current_tabs(self):
-        """
-            Saves the open tabs
-        """
-        # first, delete the current tabs
-        names = self.tab_manager.list_playlists()
-        for name in names:
-            logger.debug("Removing tab %s" % name)
-            self.tab_manager.remove_playlist(name)
-
-        for i in range(self.playlist_notebook.get_n_pages()):
-            pl = self.playlist_notebook.get_nth_page(i).playlist
-            tag = ''
-            if pl is self.queue.current_playlist:
-                tag = 'playing'
-            elif i == self.playlist_notebook.get_current_page():
-                tag = 'current'
-            pl.name = "order%d.%s.%s" % (i, tag, pl.name)
-            logger.debug("Saving tab %d: %s" % (i, pl.name))
-
-            try:
-                self.tab_manager.save_playlist(pl, True)
-            except:
-                # an exception here could cause exaile to be unable to quit.
-                # Catch all exceptions.
-                import traceback
-                traceback.print_exc()
-
-    def add_playlist(self, pl=None, erase_empty=True):
-        """
-            Adds a playlist to the playlist tab
-
-            @param pl: the xl.playlist.Playlist instance to add
-        """
-        new_empty_pl = False
-        if pl is None:
-            pl = xl.playlist.Playlist()
-            new_empty_pl = True
-        if len(pl.get_tracks()) == 0:
-            new_empty_pl = True
-
-        name = pl.get_name()
-        nb = self.playlist_notebook
-        if pl.get_is_custom():
-            for n in range(nb.get_n_pages()):
-                nth = nb.get_nth_page(n)
-                if nth.playlist.get_is_custom() and not nth.get_needs_save() \
-                        and nth.playlist.get_name() == pl.get_name():
-                    nb.set_current_page(n)
-                    return
-
-        pl = playlist.Playlist(self, self.queue, pl)
-        self._connect_playlist_events(pl)
-
-        # Get displayed names for all open playlists, then find a free "slot",
-        # e.g. "Playlist 3" if 1 and 2 already exist.
-        names = frozenset(nb.get_tab_label(nb.get_nth_page(i)).label.get_text()
-            for i in xrange(nb.get_n_pages()))
-        i = 1
-        try:
-            while (name % i) in names:
-                i += 1
-        except TypeError:
-            pass
-        else:
-            name = name % i
-
-        tab = NotebookTab(self, nb, name, pl)
-        # We check if the current playlist is empty, to know if it should be replaced
-        cur = nb.get_current_page()
-        remove_cur = False
-        curpl = nb.get_nth_page(cur)
-        if curpl and len(curpl.playlist.get_tracks()) == 0:
-            remove_cur = True
-
-        nb.append_page(pl, tab)
-        nb.set_tab_reorderable(pl, True)
-        if remove_cur and not new_empty_pl and erase_empty:
-            nb.remove_page(cur)
-            nb.reorder_child(pl, cur)
-            nb.set_current_page(cur)
-        else:
-            nb.set_current_page(nb.get_n_pages() - 1)
-        self.set_playlist_modes()
-
-        # Always show tab bar for more than one tab
-        if nb.get_n_pages() > 1:
-            nb.set_show_tabs(True)
-
-        self.queue.set_current_playlist(pl.playlist)
-
-        return pl
-
-    def _connect_playlist_events(self, pl):
-        pl.connect('track-count-changed', lambda *e:
-            self.update_track_counts())
-        pl.connect('column-settings-changed', self._column_settings_changed)
-        pl.list.connect('key-press-event', self._on_pl_key_pressed)
-
-    def _on_pl_key_pressed(self, widget, event):
-        if event.keyval == gtk.keysyms.Left:
-            # Modifying current position
-            if not self.player.current: return
-            self.player.scroll(-10)
-            self.progress_bar.timer_update() # Needed to evade progressbar lag
-        elif event.keyval == gtk.keysyms.Right:
-            # Modifying current position
-            if not self.player.current: return
-            self.player.scroll(10)
-            self.progress_bar.timer_update() # Needed to evade progressbar lag
-
-        return False
-
-    def _column_settings_changed(self, *e):
-        for page in self.playlist_notebook:
-            page.update_col_settings()
 
     def _setup_hotkeys(self):
         """
@@ -622,19 +443,6 @@ class MainWindow(gobject.GObject):
         self.volume_control = guiutil.VolumeControl()
         self.info_area.get_action_area().pack_start(self.volume_control)
 
-        self.shuffle_toggle = self.builder.get_object('shuffle_button')
-        self.shuffle_toggle.connect('button-press-event', self.on_shuffle_pressed)
-        self.shuffle_toggle.set_active(settings.get_option('playback/shuffle', False))
-        self.shuffle_image = self.builder.get_object('shuffle_button_image')
-
-        self.repeat_toggle = self.builder.get_object('repeat_button')
-        self.repeat_toggle.connect('button-press-event', self.on_repeat_pressed)
-        self.repeat_toggle.set_active(settings.get_option('playback/repeat', False))
-
-        self.dynamic_toggle = self.builder.get_object('dynamic_button')
-        self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
-        self.update_dynamic_toggle()
-
         self.progress_bar = PlaybackProgressBar(
             self.builder.get_object('playback_progressbar'),
             self.player
@@ -660,8 +468,6 @@ class MainWindow(gobject.GObject):
 
         self.statusbar = guiutil.Statusbar(self.builder.get_object('status_bar'))
 
-        self.filter = guiutil.SearchEntry(
-            self.builder.get_object('playlist_search_entry'))
 
     def on_expose_event(self, widget, event):
         """
@@ -693,21 +499,6 @@ class MainWindow(gobject.GObject):
         """
         if response == gtk.RESPONSE_CLOSE:
             widget.hide()
-
-    def on_queue(self):
-        """
-            Toggles queue on the current playlist
-        """
-        cur_page = self.playlist_notebook.get_children()[
-                self.playlist_notebook.get_current_page()]
-        cur_page.menu.on_queue()
-
-    def on_playlist_utilities_bar_visible_toggled(self, checkmenuitem):
-        """
-            Shows or hides the playlist utilities bar
-        """
-        settings.set_option('gui/playlist_utilities_bar_visible',
-            checkmenuitem.get_active())
 
     def on_stop_button_motion_notify_event(self, widget, event):
         """
@@ -806,22 +597,6 @@ class MainWindow(gobject.GObject):
             self.collection.get_count())
         self.statusbar.set_queue_count(len(self.queue))
 
-    def update_dynamic_toggle(self, *e):
-        """
-            Shows or hides the dynamic toggle button
-            based on the amount of providers available
-        """
-        providers_available = len(providers.get('dynamic_playlists')) > 0
-        if providers_available:
-            self.dynamic_toggle.set_sensitive(True)
-            self.dynamic_toggle.set_tooltip_text(
-                _('Dynamically add similar tracks to the playlist')
-            )
-        else:
-            self.dynamic_toggle.set_sensitive(False)
-            self.dynamic_toggle.set_tooltip_text(
-                _('Requires plugins providing dynamic playlists')
-            )
 
     def _connect_events(self):
         """
@@ -839,10 +614,6 @@ class MainWindow(gobject.GObject):
                 lambda *e: self.queue.next(),
             'on_prev_button_clicked':
                 lambda *e: self.queue.prev(),
-            'on_repeat_button_toggled': self.set_mode_toggles,
-            'on_dynamic_button_toggled': self.set_mode_toggles,
-            'on_playlist_search_entry_activate': self.on_playlist_search_entry_activate,
-            'on_clear_playlist_button_clicked': self.on_clear_playlist,
             'on_playlist_notebook_switch':  self.on_playlist_notebook_switch,
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
             'on_playlist_notebook_button_press': self.on_playlist_notebook_button_press,
@@ -866,7 +637,6 @@ class MainWindow(gobject.GObject):
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
             'on_track_properties_activate':self.controller.on_track_properties,
             'on_clear_playlist_item_activate': self.on_clear_playlist,
-            'on_playlist_utilities_bar_visible_toggled': self.on_playlist_utilities_bar_visible_toggled,
         })
 
         event.add_callback(self.on_playback_resume, 'playback_player_resume',
@@ -887,25 +657,14 @@ class MainWindow(gobject.GObject):
         event.add_callback(self.on_playback_error, 'playback_error',
             self.player)
 
-        # Dynamic toggle button
-        event.add_callback(self.update_dynamic_toggle,
-            'dynamic_playlists_provider_added')
-        event.add_callback(self.update_dynamic_toggle,
-            'dynamic_playlists_provider_removed')
-
         # Monitor the queue
         event.add_callback(self.update_track_counts,
             'tracks_added', self.queue)
         event.add_callback(self.update_track_counts,
             'tracks_removed', self.queue)
 
-        event.add_callback(self.queue_playlist_draw, 'stop_track', self.queue)
-
         # Settings
         event.add_callback(self._on_option_set, 'option_set')
-
-    def queue_playlist_draw(self, *e):
-        self.get_selected_playlist().list.queue_draw()
 
     def _connect_panel_events(self):
         """
@@ -1095,14 +854,6 @@ class MainWindow(gobject.GObject):
         """
         self.filter.grab_focus()
 
-    def on_playlist_search_entry_activate(self, entry):
-        """
-            Starts searching the current playlist
-        """
-        playlist = self.get_selected_playlist()
-        if playlist:
-            playlist.search(unicode(entry.get_text(), 'utf-8'))
-
     def on_save_playlist(self, *e):
         """
             Called when the user presses Ctrl+S
@@ -1139,143 +890,6 @@ class MainWindow(gobject.GObject):
         playlist = self.get_selected_playlist()
         if not playlist: return
         playlist.playlist.clear()
-
-    def on_shuffle_pressed(self, widget, event):
-        """
-            Called when the shuffle button is clicked
-        """
-        #Make it appear pressed in when the menu pops up (looks a bit nicer)
-        self.shuffle_toggle.set_active(True)
-
-        #Get the current setting so the right radio button is chosen
-        sel = [False, False, False]
-        if settings.get_option('playback/shuffle', False) == True:
-            if settings.get_option('playback/shuffle_mode') == 'track':
-                sel[1] = True
-            else:
-                sel[2] = True
-        else:
-            sel[0] = True
-
-
-        #SHUFFLE POPUP MENU
-        menu = gtk.Menu()
-
-        #Connect signal to make sure the toggle goes back to how it should be
-        #after we changed it when the menu was popped up for asthetics
-        menu.connect("deactivate", lambda *e: self.shuffle_toggle.set_active(
-                    settings.get_option('playback/shuffle', False)))
-        texts = (_("Shuffle _Off"), _("Shuffle _Tracks"), _("Shuffle _Albums"))
-        r = None
-        for num, text in enumerate(texts):
-            r = gtk.RadioMenuItem(r, text)
-            r.set_active(sel[num])
-            menu.append(r)
-            r.connect("activate", self.shuffle_mode_selected, text)
-            r.show()
-            if text == _("Shuffle _Off"):
-                sep = gtk.SeparatorMenuItem()
-                menu.append(sep)
-                sep.show()
-
-        menu.popup(None, None, self.mode_menu_set_pos, event.button, event.time, widget)
-        #Call reposition as the menu's width is required in calculation and
-        #it needs a "refresh"
-        menu.reposition()
-
-    def on_repeat_pressed(self, widget, event):
-        """
-            Called when the repeat button is clicked
-        """
-        #Make it appear pressed in when the menu pops up (looks a bit nicer)
-        self.repeat_toggle.set_active(True)
-
-        #Get the current setting so the right radio button is chosen
-        sel = [False, False, False]
-        if settings.get_option('playback/repeat', False) == True:
-            if settings.get_option('playback/repeat_mode') == 'playlist':
-                sel[1] = True
-            else:
-                sel[2] = True
-        else:
-            sel[0] = True
-
-
-        #REPEAT POPUP MENU
-        menu = gtk.Menu()
-
-        #Connect signal to make sure the toggle goes back to how it should be
-        #after we changed it when the menu was popped up for asthetics
-        menu.connect("deactivate", lambda *e: self.repeat_toggle.set_active(
-                    settings.get_option('playback/repeat', False)))
-        texts = (_("Repeat _Off"), _("Repeat _Playlist"), _("Repeat _Track"))
-        r = None
-        for num, text in enumerate(texts):
-            r = gtk.RadioMenuItem(r, text)
-            r.set_active(sel[num])
-            menu.append(r)
-            r.connect("activate", self.repeat_mode_selected, text)
-            r.show()
-            if text == _("Repeat _Off"):
-                sep = gtk.SeparatorMenuItem()
-                menu.append(sep)
-                sep.show()
-
-        menu.popup(None, None, self.mode_menu_set_pos, event.button, event.time, widget)
-        #Call reposition as the menu's width is required in calculation and
-        #it needs a "refresh"
-        menu.reposition()
-
-    def mode_menu_set_pos(self, menu, button):
-        """
-            Nicely position the shuffle popup menu with the button's corner
-        """
-        w = self.window.get_position()
-        b = button.get_allocation()
-        m = menu.get_allocation()
-        pos = (w[0] + b.x + 1,
-                w[1] + b.y + b.height - m.height - 3)
-
-        return (pos[0], pos[1], True)
-
-    def shuffle_mode_selected(self, widget, mode):
-
-        if mode == _("Shuffle _Off"):
-            settings.set_option('playback/shuffle', False)
-        elif mode == _("Shuffle _Tracks"):
-            settings.set_option('playback/shuffle', True)
-            settings.set_option('playback/shuffle_mode', 'track')
-        elif mode == _("Shuffle _Albums"):
-            settings.set_option('playback/shuffle', True)
-            settings.set_option('playback/shuffle_mode', 'album')
-
-    def repeat_mode_selected(self, widget, mode):
-
-        if mode == _("Repeat _Off"):
-            settings.set_option('playback/repeat', False)
-        elif mode == _("Repeat _Playlist"):
-            settings.set_option('playback/repeat', True)
-            settings.set_option('playback/repeat_mode', 'playlist')
-        elif mode == _("Repeat _Track"):
-            settings.set_option('playback/repeat', True)
-            settings.set_option('playback/repeat_mode', 'track')
-
-    def set_mode_toggles(self, *e):
-        """
-            Called when the user clicks one of the playback mode buttons
-        """
-        settings.set_option('playback/repeat',
-                self.repeat_toggle.get_active())
-        settings.set_option('playback/dynamic',
-                self.dynamic_toggle.get_active())
-
-    def set_playlist_modes(self):
-        pl = self.get_selected_playlist()
-        if pl:
-            pl.playlist.set_random(settings.get_option('playback/shuffle'),
-                settings.get_option('playback/shuffle_mode'))
-            pl.playlist.set_repeat(settings.get_option('playback/repeat'),
-                settings.get_option('playback/repeat_mode'))
 
     def on_playback_resume(self, type, player, data):
         self.resuming = True
@@ -1343,12 +957,6 @@ class MainWindow(gobject.GObject):
             self.playlist_notebook.set_tab_pos(map.get(
                 settings.get_option(option, 'top')))
 
-        if option == 'gui/playlist_utilities_bar_visible':
-            visible = settings.get_option(option, True)
-            self.playlist_utilities_bar.set_property('visible', visible)
-            self.playlist_utilities_bar.set_sensitive(visible)
-            self.playlist_utilities_bar.set_no_show_all(not visible)
-
         if option == 'gui/use_tray':
             usetray = settings.get_option(option, False)
             if self.controller.tray_icon and not usetray:
@@ -1356,59 +964,6 @@ class MainWindow(gobject.GObject):
                 self.controller.tray_icon = None
             elif not self.controller.tray_icon and usetray:
                 self.controller.tray_icon = tray.TrayIcon(self)
-
-        if option == 'playback/dynamic':
-            self.dynamic_toggle.set_active(settings.get_option(option, False))
-
-        if option == 'playback/shuffle':
-            self.shuffle_toggle.set_active(settings.get_option(option, False))
-            if settings.get_option(option, False) == False:
-                self.shuffle_image.set_from_icon_name('media-playlist-shuffle',
-                        gtk.ICON_SIZE_BUTTON)
-            else:
-                if settings.get_option('playback/shuffle_mode') == "track":
-                    self.shuffle_image.set_from_icon_name('media-playlist-shuffle',
-                            gtk.ICON_SIZE_BUTTON)
-                else:
-                    self.shuffle_image.set_from_icon_name('media-optical',
-                            gtk.ICON_SIZE_BUTTON)
-
-            self.set_playlist_modes()
-
-
-        if option == 'playback/shuffle_mode':
-            if settings.get_option(option) == "track":
-                self.shuffle_image.set_from_icon_name('media-playlist-shuffle',
-                        gtk.ICON_SIZE_BUTTON)
-            else:
-                if settings.get_option('playback/shuffle'):
-                    self.shuffle_image.set_from_icon_name('media-optical',
-                            gtk.ICON_SIZE_BUTTON)
-                else:
-                    self.shuffle_image.set_from_icon_name('media-playlist-shuffle',
-                            gtk.ICON_SIZE_BUTTON)
-
-            self.set_playlist_modes()
-
-        if option == 'playback/repeat':
-            self.repeat_toggle.set_active(settings.get_option(option, False))
-
-            self.set_playlist_modes()
-
-        if option == 'playback/repeat_mode':
-            self.set_playlist_modes()
-
-
-    @common.threaded
-    def _get_dynamic_tracks(self):
-        """
-            Gets some dynamic tracks from the dynamic manager.
-
-            This tries to keep at least 5 tracks the current playlist... if
-            there are already 5, it just adds one
-        """
-        playlist = self.get_selected_playlist().playlist
-        self.controller.exaile.dynamic.populate_playlist(playlist)
 
     def _update_track_information(self):
         """
@@ -1430,38 +985,6 @@ class MainWindow(gobject.GObject):
                 { 'title': title, 'artist': artist } + " - Exaile")
         else:
             self.window.set_title(title + " - Exaile")
-
-    def draw_playlist(self, *e):
-        """
-            Called when playback starts, redraws the playlist
-        """
-        page = self.playlist_notebook.get_current_page()
-        page = self.playlist_notebook.get_nth_page(page)
-        glib.idle_add(page.queue_draw)
-
-    def get_selected_playlist(self):
-        """
-            Returns the currently selected playlist
-        """
-        page = self.playlist_notebook.get_nth_page(self.current_page)
-        if page: return page
-        num = self.playlist_notebook.get_current_page()
-        page = self.playlist_notebook.get_nth_page(num)
-        return page
-
-    get_current_playlist = get_selected_playlist
-
-    def get_selected_tab(self):
-        """
-            Returns the currently selected tab
-        """
-        page = self.playlist_notebook.get_nth_page(self.current_page)
-        if not page:
-            num = self.playlist_notebook.get_current_page()
-            page = self.playlist_notebook.get_nth_page(num)
-        return self.playlist_notebook.get_tab_label(page)
-
-    get_current_tab = get_selected_tab
 
     def on_playpause_button_clicked(self, *e):
         """
@@ -1595,7 +1118,7 @@ def get_playlist_notebook():
     return MainWindow._mainwindow.playlist_notebook
 
 def get_selected_playlist():
-    return MainWindow._mainwindow.get_selected_playlist()
+    return MainWindow._mainwindow.playlist_notebook.get_current_playlist()
 
 def mainwindow():
     return MainWindow._mainwindow

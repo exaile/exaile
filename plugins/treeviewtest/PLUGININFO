@@ -1,4 +1,0 @@
-Version='0.1.0'
-Authors=['Aren Olson <reacocard@gmail.com>']
-Name='AA Playlist Tree Model Test'
-Description='Proof of concept for a playlist using a custom tree model.'

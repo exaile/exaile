@@ -34,6 +34,9 @@ class SmartNotebook(gtk.Notebook):
         gtk.Notebook.__init__(self)
         self.connect('button-press-event', self.on_button_press)
 
+    def get_current_tab(self):
+        return self.get_nth_child(self.get_current_page)
+
     def add_tab(self, tab, page):
         """
             Add a tab to the notebook. It will be given focus.

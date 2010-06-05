@@ -40,7 +40,8 @@ except:
     import pickle
 
 from xl.nls import gettext as _
-from xl import event, xdg, collection, settings, trax
+from xl import common, event, xdg, collection, settings, trax
+from xl.common import MetadataList
 
 logger = logging.getLogger(__name__)
 
@@ -70,8 +71,8 @@ def save_to_m3u(playlist, path):
     handle = open(path, "w")
 
     handle.write("#EXTM3U\n")
-    if playlist.get_name() != '':
-        handle.write("#PLAYLIST: %s\n" % playlist.get_name())
+    if playlist.name != '':
+        handle.write("#PLAYLIST: %s\n" % playlist.name)
 
     for track in playlist:
         rawlen = track.get_tag_raw('__length')
@@ -225,10 +226,10 @@ def save_to_asx(playlist, path):
     handle = open(path, "w")
 
     handle.write("<asx version=\"3.0\">\n")
-    if playlist.get_name() == '':
+    if playlist.name == '':
         name = ''
     else:
-        name = playlist.get_name()
+        name = playlist.name
     handle.write("  <title>%s</title>\n" % name)
 
     for track in playlist:
@@ -283,8 +284,8 @@ def save_to_xspf(playlist, path):
 
     handle.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
     handle.write("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">\n")
-    if playlist.get_name() != '':
-        handle.write("  <title>%s</title>\n" % playlist.get_name())
+    if playlist.name != '':
+        handle.write("  <title>%s</title>\n" % playlist.name)
 
     handle.write("  <trackList>\n")
     for track in playlist:
@@ -368,484 +369,290 @@ def export_playlist(playlist, path):
         raise InvalidPlaylistTypeException()
 
 
-class PlaylistIterator(object):
-    def __init__(self, pl):
-        self.pos = -1
-        self.pl = pl
-    def __iter__(self):
-        return self
-    def next(self):
-        self.pos+=1
-        try:
-            return self.pl.ordered_tracks[self.pos]
-        except:
-            raise StopIteration
 
 class Playlist(object):
+    shuffle_modes = ['disabled', 'track', 'album']
+    shuffle_mode_names = [_('Shuffle Off'),
+            _('Shuffle Tracks'), _('Shuffle Albums')]
+    repeat_modes = ['disabled', 'all', 'track']
+    repeat_mode_names = [_('Repeat Off'), _('Repeat All'), _('Repeat One')]
+    dynamic_modes = ['disabled', 'enabled']
+    dynamic_mode_names = [_('Dynamic Off'), _('Dynamic On')]
+    # TODO: how do we document properties/events in sphinx?
     """
-        Represents a playlist
+
+        PROPERTIES:
+            name: playlist name. read/write.
+
+        EVENTS: (all events are synchronous)
+            playlist_tracks_added
+                fired: after tracks are added
+                data: list of tuples of (index, track)
+            playlist_tracks_removed
+                fired: after tracks are removed
+                data: list of tuples of (index, track)
+            playlist_current_position_changed
+            playlist_shuffle_mode_changed
+            playlist_random_mode_changed
+            playlist_dynamic_mode_changed
     """
-    def __init__(self, name=_("Playlist %d"), is_custom=False):
-        """
-            Sets up the Playlist
+    save_attrs = ['shuffle_mode', 'repeat_mode', 'dynamic_mode',
+            'current_position', 'name']
+    __playlist_format_version = [2, 0]
+    def __init__(self, name, initial_tracks=[]):
+        self.__tracks = MetadataList()
+        for track in initial_tracks:
+            if not isinstance(track, trax.Track):
+                raise ValueError, "Need trax.Track object, got %s" % repr(type(x))
+            self.__tracks.append(track)
+        self.__shuffle_mode = self.shuffle_modes[0]
+        self.__repeat_mode = self.repeat_modes[0]
+        self.__dynamic_mode = self.dynamic_modes[0]
 
-            Events:
-                - tracks_added - Sent when tracks are added
-                - tracks_removed - Sent when tracks are removed
+        # dirty: any change that would alter the on-disk
+        #   representation should set this
+        # needs_save: changes to list content should set this.
+        #   Determines when the 'unsaved' indicator is shown to the user.
+        self.__dirty = False
+        self.__needs_save = False
+        self.__name = name
+        self.__current_position = -1
+        self.__spat_position = -1
+        self.__shuffle_history_counter = 1 # start positive so we can
+                                # just do an if directly on the value
 
-            @param name: the name of this playlist [string]
-        """
-        self._ordered_tracks = []
-        self.filtered_tracks = []
-        self.filtered = False
-        self.current_pos = -1
-        self.current_playing = False
-        self.random_enabled = False
-        self.random_mode = "track"
-        self.repeat_enabled = False
-        self.repeat_mode = "playlist"
-        self.dynamic_enabled = False
-        self._is_custom = is_custom
-        self._needs_save = False
-        self.name = name
-        self.tracks_history = []
-        self.extra_save_items = ['random_enabled', 'random_mode',
-            'repeat_enabled', 'repeat_mode', 'dynamic_enabled',
-            'current_pos', 'name', '_is_custom', '_needs_save']
+    ### playlist-specific API ###
 
-    def get_name(self):
-        return self.name
+    def _set_name(self, name):
+        self.__name = name
+        self.__needs_save = self.__dirty = True
+        event.log_event("playlist_name_changed", self, name)
 
-    def set_name(self, name):
-        self.name = name
-
-    def get_is_custom(self):
-        return self._is_custom
-
-    def set_is_custom(self, val):
-        self._is_custom = val
-
-    def get_needs_save(self):
-        return self._needs_save
-
-    def set_needs_save(self, val=True):
-        self._needs_save = val
-
-    def get_ordered_tracks(self):
-        """
-            Returns _ordered_tracks, or filtered tracks if it's been set
-        """
-        if self.filtered:
-            return self.filtered_tracks
-        else:
-            return self._ordered_tracks
-
-    def _set_ordered_tracks(self, tracks):
-        """
-            Sets the ordered tracks
-        """
-        if self.filtered:
-            self.filtered_tracks = tracks
-        else:
-            self._ordered_tracks = tracks
-
-    def set_ordered_tracks(self, tracks):
-        """
-            Sets the ordered tracks, triggers
-            the 'tracks_reordered' event
-        """
-        self._set_ordered_tracks(tracks)
-        event.log_event('tracks_reordered', self, tracks)
-
-    ordered_tracks = property(get_ordered_tracks,
-        set_ordered_tracks)
-
-    def filter(self, keyword):
-        """
-            Filters the ordered tracks based on a keyword
-        """
-        if not keyword:
-            self.filtered = False
-            return self._ordered_tracks
-        else:
-            self.filtered_tracks = list(self.search(keyword))
-            self.filtered = True
-            return self.filtered_tracks
-
-    def __len__(self):
-        """
-            Returns the length of the playlist.
-        """
-        return len(self.ordered_tracks)
-
-    def __iter__(self):
-        """
-            Allows "for song in playlist" syntax
-
-            Warning: assumes playlist doesn't change while iterating.
-            behavior is undefined if playlist changes while iterating.
-        """
-        return PlaylistIterator(self)
-
-    def __contains__(self, track):
-        return track in self._ordered_tracks
-
-    def __getitem__(self, item):
-        return self.ordered_tracks.__getitem__(item)
-
-    def __getslice__(self, one, two):
-        return self.ordered_tracks.__getslice__(one, two)
-
-    def add(self, track, location=None, ignore_missing_files=True):
-        """
-            insert the track into the playlist at the specified
-            location (default: append). by default it the track can
-            not be found by the os it is not added
-
-            @param ignore_missing_files:
-                if true tracks that cannot be found are ignored
-            track: the track to add [Track]
-            location: the index to insert at [int]
-        """
-        if track.exists() or not ignore_missing_files:
-            self.add_tracks([track], location)
-
-    def add_tracks(self, tracks, location=None):
-        """
-            like add(), but takes a list of tracks instead of a single one
-
-            @param tracks: the tracks to add [iterable of Track]
-            @param location: the index to insert at [int]
-            @param add_duplicates: Set to [False] if you wouldn't like to add
-                tracks that are already in the playlist
-        """
-        if location == None:
-            self.ordered_tracks.extend(tracks)
-        else:
-            neworder = self.ordered_tracks[:location]
-            neworder.extend(tracks)
-            neworder.extend(self.ordered_tracks[location:])
-            self.ordered_tracks = neworder
-
-        if location != None and location <= self.current_pos:
-            self.current_pos += len(tracks)
-
-        event.log_event('tracks_added', self, tracks)
-
-    def remove(self, index):
-        """
-            removes the track at the specified index from the playlist
-
-            index: the index to remove at [int]
-        """
-        self.remove_tracks(index, index)
-
-    def index(self, track):
-        """
-            Gets the index of a specific track
-        """
-        return self.ordered_tracks.index(track)
-
-    def remove_tracks(self, start, end):
-        """
-            remove the specified range of tracks from the playlist
-
-            @param start: index to start at [int]
-            @param end: index to end at (inclusive) [int]
-        """
-        end = end + 1
-        removed = self.ordered_tracks[start:end]
-        self.ordered_tracks = self.ordered_tracks[:start] + \
-                self.ordered_tracks[end:]
-
-        if end <= self.current_pos:
-            self.current_pos -= len(removed)
-        elif start <= self.current_pos < end:
-            self.current_pos = start-1
-
-        event.log_event('tracks_removed', self, (start, end, removed))
+    name = property(lambda self: self.__name, _set_name)
+    dirty = property(lambda self: self.__dirty)
 
     def clear(self):
-        """
-            Clears the playlist of any tracks
-        """
-        self.remove_tracks(0, len(self))
+        del self[:]
 
-    def set_tracks(self, tracks):
-        """
-            Clears the playlist and adds the specified tracks
+    def get_current_position(self):
+        return self.__current_position
 
-            @param tracks: the tracks to add
-        """
-        self.clear()
-        self.add_tracks(tracks)
+    def set_current_position(self, position):
+        oldposition = self.current_position
+        if position != -1:
+            self.__tracks.set_meta_key(position, "playlist_current_position", True)
+        self.__current_position = position
+        if oldposition != -1:
+            try:
+                self.__tracks.del_meta_key(oldposition, "playlist_current_position")
+            except KeyError:
+                pass
+        self.__dirty = True
+        event.log_event("playlist_current_position_changed", self, (position, oldposition))
 
-    def get_tracks(self):
-        """
-            gets the list of tracks in this playlist, in order
+    current_position = property(get_current_position, set_current_position)
 
-            returns: [list of Track]
-        """
-        return self.ordered_tracks[:]
+    def get_spat_position(self):
+        return self.__spat_position
 
-    def get_current_pos(self):
-        """
-            gets current playback position, -1 if not playing
+    def set_spat_position(self, position):
+        oldposition = self.spat_position
+        self.__tracks.set_meta_key(position, "playlist_spat_position", True)
+        self.__spat_position = position
+        if oldposition != -1:
+            try:
+                self.__tracks.del_meta_key(oldposition, "playlist_spat_position")
+            except KeyError:
+                pass
+        self.__dirty = True
+        event.log_event("playlist_spat_position_changed", self, (position, oldposition))
 
-            returns: the position [int]
-        """
-        return self.current_pos
-
-    def set_current_pos(self, pos):
-        if pos > -1 and pos < len(self.ordered_tracks):
-            self.current_pos = pos
-        event.log_event('playlist_current_changed', self,
-            self.ordered_tracks[pos])
+    spat_position = property(get_spat_position, set_spat_position)
 
     def get_current(self):
-        """
-            gets the currently-playing Track, or None if no current
-
-            returns: the current track [Track]
-        """
-        if self.current_pos >= len(self.ordered_tracks) or \
-                self.current_pos == -1:
+        if self.current_position == -1:
             return None
+        return self.__tracks[self.current_position]
+
+    current = property(get_current)
+
+    def on_tracks_changed(self, *args):
+        for idx in xrange(len(self.__tracks)):
+            if self.__tracks.get_meta_key(idx, "playlist_current_position"):
+                self.__current_position = idx
+                break
         else:
-            return self.ordered_tracks[self.current_pos]
-
-    def peek(self):
-        """
-            Returns the next track that will be played
-        """
-        if self.random_enabled:
-            return None #peek() is meaningless with random
-
-        if self.repeat_enabled and self.repeat_mode == 'track':
-            nextpos = self.current_pos
+            self.__current_position = -1
+        for idx in xrange(len(self.__tracks)):
+            if self.__tracks.get_meta_key(idx, "playlist_spat_position"):
+                self.__spat_position = idx
+                break
         else:
-            nextpos = self.current_pos + 1
+            self.__spat_position = -1
 
-        if nextpos >= len(self):
-            if self.repeat_enabled and self.repeat_mode == 'playlist':
-                nextpos = 0
-            else:
-                return None # end of playlist
-        return self.ordered_tracks[nextpos]
+    def get_shuffle_history(self):
+        return  [ (i, self.__tracks[i]) for i in range(len(self)) if \
+                self.__tracks.get_meta_key(i, 'playlist_shuffle_history') ]
 
-    def get_next_random_track(self, mode="track"):
+    def clear_shuffle_history(self):
+        for i in xrange(len(self)):
+            try:
+                self.__tracks.del_meta_key(i, "playlist_shuffle_history")
+            except:
+                pass
+
+    @common.threaded
+    def fetch_dynamic_tracks(self):
+        pass # implement when merging - requires updates to dynamic.py
+
+    def __next_random_track(self, mode="track"):
         """
             Returns a valid next track if shuffle is activated based
             on random_mode
         """
         if mode == "album":
+            # TODO: we really need proper album-level operations in
+            # xl.trax for this
             try:
                 # Try and get the next track on the album
                 # NB If the user starts the playlist from the middle
                 # of the album some tracks of the album remain off the
                 # tracks_history, and the album can be selected again
                 # randomly from its first track
-                curr = self.ordered_tracks[self.current_pos]
-                t = [ x for i, x in enumerate(self.ordered_tracks) \
+                curr = self.current
+                t = [ x for i, x in enumerate(self) \
                     if x.get_tag_raw('album') == curr.get_tag_raw('album') \
-                    and i > self.current_pos ]
+                    and i > self.current_position ]
                 t = trax.sort_tracks(['discnumber', 'tracknumber'], t)
-                return t[0]
+                return self.__tracks.index(t[0]), t[0]
 
             except IndexError: #Pick a new album
-                t = [ x for x in self.ordered_tracks \
-                        if x not in self.tracks_history ]
+                t = self.get_shuffle_history()
                 albums = []
-                for x in t:
+                for i, x in t:
                     if not x.get_tag_raw('album') in albums:
                         albums.append(x.get_tag_raw('album'))
 
                 album = random.choice(albums)
-                t = [ x for x in self.ordered_tracks \
-                        if x.get_tag_raw('album') == album ]
+                t = [ x for x in self if x.get_tag_raw('album') == album ]
                 t = trax.sort_tracks(['tracknumber'], t)
-                return t[0]
-        else:   # track mode - dont check explicitly because the restore code
-                # sometimes gives us a None here.
-            return random.choice([ x for x in self.ordered_tracks \
-                    if x not in self.tracks_history])
-
+                return self.__tracks.index(t[0]), t[0]
+        else:
+            hist = set([ i for i, tr in self.get_shuffle_history() ])
+            try:
+                return random.choice([ (i, self.__tracks[i]) for i, tr in enumerate(self.__tracks)
+                        if i not in hist])
+            except IndexError: # no more tracks
+                return None, None
 
     def next(self):
-        """
-            moves to the next track in the playlist
-
-            returns: the next track [Track], None if no more tracks
-        """
-        if self.random_enabled:
-            if self.current_pos != -1:
-                self.tracks_history.append(self.get_current())
-                if self.repeat_enabled and \
-                    len(self.tracks_history) >= len(self.ordered_tracks):
-                    self.tracks_history = []
-            if len(self.ordered_tracks) == 1 and \
-                    len(self.tracks_history) == 1:
-                return None
-
-            try:
-                next = self.get_next_random_track(self.random_mode)
-
-            except IndexError:
-                logger.debug('Ran out of tracks to shuffle')
-                # clear this so we restart the shuffle cycle next time a
-                # track is played
-                self.tracks_history = []
-                return None
-            self.current_pos = self.ordered_tracks.index(next)
-        elif self.repeat_enabled and self.repeat_mode == 'track':
-            pass # Stay where we are
-        else:
-            if len(self.ordered_tracks) == 0:
-                return None
-            self.current_pos += 1
-
-        if self.current_pos >= len(self.ordered_tracks):
-            if self.repeat_enabled and self.repeat_mode == 'playlist':
-                self.current_pos = 0
-            else:
-                self.current_pos = -1
-
-        self._dirty = True
-        event.log_event('playlist_current_changed', self,
-            self.ordered_tracks[self.current_pos])
-        return self.get_current()
+        repeat_mode = self.repeat_mode
+        shuffle_mode = self.shuffle_mode
+        if self.current_position == self.spat_position and self.current_position != -1:
+            self.spat_position = -1
+            return None
 
     def prev(self):
-        """
-            moves to the previous track in the playlist
+        repeat_mode = self.repeat_mode
+        shuffle_mode = self.shuffle_mode
+        if repeat_mode == 'track':
+            return self.current
 
-            returns: the previous track [Track]
-        """
-        if self.random_enabled:
+        if shuffle_mode != 'disabled':
             try:
-                prev = self.tracks_history[-1]
-            except:
+                prev_index, prev = max(self.get_shuffle_history())
+            except IndexError:
                 return self.get_current()
-            self.tracks_history = self.tracks_history[:-1]
-            self.current_pos = self.ordered_tracks.index(prev)
+            self.__tracks.del_meta_key(prev_index, 'playlist_shuffle_history')
+            self.current_position = prev_index
         else:
-            self.current_pos -= 1
-            if self.current_pos < 0:
-                if self.repeat_enabled and self.repeat_mode == 'playlist':
-                    self.current_pos = len(self.ordered_tracks) - 1
+            position = self.current_position - 1
+            if position < 0:
+                if repeat_mode == 'all':
+                    position = len(self) - 1
                 else:
-                    self.current_pos = 0
-
-        self._dirty = True
-        event.log_event('playlist_current_changed', self,
-            self.ordered_tracks[self.current_pos])
+                    position = 0
+            self.current_position = position
         return self.get_current()
 
-    def search(self, phrase, sort_fields=None, return_lim=-1):
-        """
-            searches the playlist
-        """
-        # TODO: use shown columns
-        matcher = trax.TracksMatcher(phrase, keyword_tags=('artist',
-            'album', 'title'), case_sensitive=False)
-        trs = trax.search_tracks(self._ordered_tracks, [matcher])
-        trs = (t.track for t in trs)
+    ### track advance modes ###
+    # This code may look a little overkill, but it's this way to
+    # maximize forwards-compatibility. get_ methods will not overwrite
+    # currently-set modes which may be from a future version, while set_
+    # methods explicitly disallow modes not supported in this version.
+    # This ensures that 1) saved modes are never clobbered unless a
+    # known mode is to be set, and 2) the values returned in _mode will
+    # always be supported in the running version.
 
-        if sort_fields:
-            if sort_fields == 'RANDOM':
-                random.shuffle(trs)
-            else:
-                trs = trax.sort_tracks(sort_fields, trs)
-        if return_lim != -1:
-            trs = trs[:return_lim]
+    def __get_mode(self, modename):
+        mode = getattr(self, "_Playlist__%s_mode"%modename)
+        modes = getattr(self, "%s_modes"%modename)
+        if mode in modes:
+            return mode
+        else:
+            return modes[0]
 
-        return trs
+    def __set_mode(self, modename, mode):
+        modes = getattr(self, "%s_modes"%modename)
+        if mode not in modes:
+            raise TypeError, "Mode %s is invalid" % mode
+        else:
+            self.__dirty = True
+            setattr(self, "_Playlist__%s_mode"%modename, mode)
+            event.log_event("playlist_%s_mode_changed"%modename, self, mode)
 
-    def toggle_random(self):
-        """
-            toggle random playback order
-        """
-        if not self.random_enabled:
-            self.tracks_history = []
-        self.random_enabled = not self.random_enabled
-        self._dirty = True
+    def get_shuffle_mode(self):
+        return self.__get_mode("shuffle")
 
-    def toggle_repeat(self):
-        """
-            toggle repeat playback
-        """
-        self.repeat_enabled = not self.repeat_enabled
-        self._dirty = True
+    def set_shuffle_mode(self, mode):
+        self.__set_mode("shuffle", mode)
+        if mode == 'disabled':
+            self.clear_shuffle_history()
 
-    def toggle_dynamic(self):
-        """
-            toggle dynamic adding of similar tracks to the playlist
-        """
-        self.dynamic_enabled = not self.repeat_enabled
-        self._dirty = True
+    shuffle_mode = property(get_shuffle_mode, set_shuffle_mode)
 
-    def set_random(self, value, mode="track"):
-        """
-            Enables random mode if it isn't already enabled
+    def get_repeat_mode(self):
+        return self.__get_mode('repeat')
 
-            :param value: [bool]
-        """
-        if not self.random_enabled:
-            self.tracks_history = []
-        self.random_enabled = value
-        if mode != self.random_mode:
-            #Makes shuffle a bit more interesting if switching random mode
-            self.tracks_history = []
-            self.random_mode = mode
-        self._dirty = True
+    def set_repeat_mode(self, mode):
+        self.__set_mode("repeat", mode)
 
-    def set_repeat(self, value, mode="playlist"):
-        """
-            Enables repeat mode if it isn't already enabled
+    repeat_mode = property(get_repeat_mode, set_repeat_mode)
 
-            :param value: [bool]
-        """
-        self.repeat_enabled = value
-        self.repeat_mode = mode
-        self._dirty = True
+    def get_dynamic_mode(self):
+        return self.__get_mode("dynamic")
 
-    def set_dynamic(self, value):
-        """
-            Enables dynamic mode if it isn't already enabled
+    def set_dynamic_mode(self, mode):
+        self.__set_mode("dynamic", mode)
 
-            @param value: [bool]
-        """
-        self.dynamic_enabled = value
-        self._dirty = True
+    dynamic_mode = property(get_dynamic_mode, set_dynamic_mode)
 
-    def is_random(self):
-        return self.random_enabled
+    def randomize(self):
+        # TODO: add support for randomizing a subset of the list?
+        trs = zip(self.__tracks, self.__tracks.metadata)
+        random.shuffle(trs)
+        self[:] = MetadataList([x[0] for x in trs], [x[1] for x in trs])
 
-    def is_repeat(self):
-        return self.repeat_enabled
 
-    def is_dynamic(self):
-        return self.dynamic_enabled
+    # TODO[0.4?]: drop our custom disk playlist format in favor of an
+    # extended XSPF playlist (using xml namespaces?).
 
-    def __str__(self):
-        """
-            Returns the name of the playlist
-        """
-        return "%s: %s" % (type(self), self.name)
+    # TODO: add timeout saving support. 5-10 seconds after last change,
+    # perhaps?
 
     def save_to_location(self, location):
         if os.path.exists(location):
             f = open(location + ".new", "w")
         else:
             f = open(location, "w")
-        for tr in self._ordered_tracks:
-            buffer = tr.get_loc_for_io()
+        for track in self.__tracks:
+            buffer = track.get_loc_for_io()
             # write track metadata
             meta = {}
-            items = ('artist', 'album', 'tracknumber', 'title', 'genre',
-                'date')
+            items = ('artist', 'album', 'tracknumber',
+                    'title', 'genre', 'date')
             for item in items:
-                value = tr.get_tag_raw(item)
+                value = track.get_tag_raw(item)
                 if value is not None:
                     meta[item] = value[0]
             buffer += '\t%s\n' % urllib.urlencode(meta)
@@ -855,7 +662,7 @@ class Playlist(object):
                 continue
 
         f.write("EOF\n")
-        for item in self.extra_save_items:
+        for item in self.save_attrs:
             val = getattr(self, item)
             try:
                 strn = settings.MANAGER._val_to_str(val)
@@ -867,8 +674,12 @@ class Playlist(object):
         if os.path.exists(location + ".new"):
             os.remove(location)
             os.rename(location + ".new", location)
+        self.__needs_save = self.__dirty = False
 
     def load_from_location(self, location):
+        # note - this is not guaranteed to fire events when it sets
+        # attributes. It is intended ONLY for initial setup, not for
+        # reloading a playlist inline.
         f = None
         for loc in [location, location+".new"]:
             try:
@@ -876,20 +687,33 @@ class Playlist(object):
                 break
             except:
                 pass
+        if not f:
+            return
         locs = []
-        if not f: return
         while True:
             line = f.readline()
             if line == "EOF\n" or line == "":
                 break
             locs.append(line.strip())
+        items = {}
         while True:
             line = f.readline()
             if line == "":
                 break
             item, strn = line[:-1].split("=",1)
             val = settings.MANAGER._str_to_val(strn)
-            if hasattr(self, item):
+            items[item] = val
+
+        ver = items.get("__playlist_format_version", [1])
+        if ver[0] == 1:
+            if items.get("repeat_mode") == "playlist":
+                items['repeat_mode'] = "all"
+        elif ver[0] > self.__playlist_format_version[0]:
+            raise IOError, "Cannot load playlist, unknown format"
+        elif ver > self.__playlist_format_version:
+            logger.warning("Playlist created on a newer Exaile version, some attributes may not be handled.")
+        for item, val in items.iteritems():
+            if item in self.save_attrs:
                 setattr(self, item, val)
         f.close()
 
@@ -902,27 +726,454 @@ class Playlist(object):
                 loc = "\t".join(splitted[:-1])
                 meta = splitted[-1]
 
-            tr = None
-            tr = trax.Track(uri=loc)
+            track = None
+            track = trax.Track(uri=loc)
 
             # readd meta
-            if not tr: continue
-            if not tr.is_local() and meta is not None:
+            if not track: continue
+            if not track.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
                 for k, v in meta.iteritems():
-                    tr.set_tag_raw(k, v[0], notify_changed=False)
+                    track.set_tag_raw(k, v[0], notify_changed=False)
 
-            trs.append(tr)
+            trs.append(track)
 
-        self.ordered_tracks = trs
+        self.__tracks[:] = trs
+
+    def reverse(self):
+        # reverses current view
+        pass
+
+    def sort(self, tags, reverse=False):
+        data = zip(self.__tracks, self.__tracks.metadata)
+        data = trax.sort_tracks(tags, data,
+                trackfunc=lambda tr: tr[0], reverse=reverse)
+        l = MetadataList()
+        l.extend([x[0] for x in data])
+        l.metadata = [x[1] for x in data]
+        self[:] = l
+
+
+    ### list-like API methods ###
+    # parts of this section are taken from
+    # http://code.activestate.com/recipes/440656-list-mixin/
+
+    def __len__(self):
+        return len(self.__tracks)
+
+    def __contains__(self, track):
+        return track in self.__tracks
+
+    def __tuple_from_slice(self, i):
+        """
+            Get (start, end, step) tuple from slice object.
+        """
+        (start, end, step) = i.indices(len(self))
+        if i.step == None:
+            step = 1
+        return (start, end, step)
+
+    def __getitem__(self, i):
+        return self.__tracks.__getitem__(i)
+
+    def __setitem__(self, i, value):
+        oldtracks = self.__getitem__(i)
+        removed = MetadataList()
+        added = MetadataList()
+
+        if isinstance(i, slice):
+            for x in value:
+                if not isinstance(x, trax.Track):
+                    raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
+
+            (start, end, step) = self.__tuple_from_slice(i)
+
+            if isinstance(value, MetadataList):
+                metadata = value.metadata
+            else:
+                metadata = [None] * len(value)
+
+            if step != 1:
+                if len(value) != len(oldtracks):
+                    raise ValueError, "Extended slice assignment must match sizes."
+            self.__tracks.__setitem__(i, value)
+            removed = MetadataList(zip(range(start, end, step), oldtracks),
+                    oldtracks.metadata)
+            if step == 1:
+                end = start + len(value)
+
+            added = MetadataList(zip(range(start, end, step), value), metadata)
+        else:
+            if not isinstance(value, trax.Track):
+                raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
+            self.__tracks[i] = value
+            removed = [(i, oldtracks)]
+            added = [(i, value)]
+
+        self.on_tracks_changed()
+        event.log_event('playlist_tracks_removed', self, removed)
+        event.log_event('playlist_tracks_added', self, added)
+        self.__needs_save = self.__dirty = True
+
+    def __delitem__(self, i):
+        if isinstance(i, slice):
+            (start, end, step) = self.__tuple_from_slice(i)
+        oldtracks = self.__getitem__(i)
+        self.__tracks.__delitem__(i)
+        removed = MetadataList()
+
+        if isinstance(i, slice):
+            removed = MetadataList(zip(xrange(start, end, step), oldtracks),
+                    oldtracks.metadata)
+        else:
+            removed = [(i, oldtracks)]
+
+        self.on_tracks_changed()
+        event.log_event('playlist_tracks_removed', self, removed)
+        self.__needs_save = self.__dirty = True
+
+    def append(self, other):
+        self[len(self):len(self)] = [other]
+
+    def extend(self, other):
+        self[len(self):len(self)] = other
+
+    def count(self, other):
+        return self.__tracks.count(other)
+
+    def index(self, item, start=0, end=None):
+        if end is None:
+            return self.__tracks.index(item, start)
+        else:
+            return self.__tracks.index(item, start, end)
+
+
+        if repeat_mode == 'track':
+            return self.current
+        else:
+            next = None
+            if shuffle_mode != 'disabled':
+                if self.current is not None:
+                    self.__tracks.set_meta_key(self.current_position,
+                            "playlist_shuffle_history", self.__shuffle_history_counter)
+                    self.__shuffle_history_counter += 1
+                next_index, next = self.__next_random_track(shuffle_mode)
+                if next is not None:
+                    self.current_position = next_index
+                else:
+                    self.clear_shuffle_history()
+            else:
+                try:
+                    next = self[self.current_position+1]
+                    self.current_position += 1
+                except IndexError:
+                    next = None
+
+            if next is None:
+                self.current_position = -1
+                if repeat_mode == 'all' and len(self) > 0:
+                    return self.next()
+            else:
+                return next
+
+    def prev(self):
+        repeat_mode = self.repeat_mode
+        shuffle_mode = self.shuffle_mode
+        if repeat_mode == 'track':
+            return self.current
+
+        if shuffle_mode != 'disabled':
+            try:
+                prev_index, prev = max(self.get_shuffle_history())
+            except IndexError:
+                return self.get_current()
+            self.__tracks.del_meta_key(prev_index, 'playlist_shuffle_history')
+            self.current_position = prev_index
+        else:
+            position = self.current_position - 1
+            if position < 0:
+                if repeat_mode == 'all':
+                    position = len(self) - 1
+                else:
+                    position = 0
+            self.current_position = position
+        return self.get_current()
+
+    ### track advance modes ###
+    # This code may look a little overkill, but it's this way to
+    # maximize forwards-compatibility. get_ methods will not overwrite
+    # currently-set modes which may be from a future version, while set_
+    # methods explicitly disallow modes not supported in this version.
+    # This ensures that 1) saved modes are never clobbered unless a
+    # known mode is to be set, and 2) the values returned in _mode will
+    # always be supported in the running version.
+
+    def __get_mode(self, modename):
+        mode = getattr(self, "_Playlist__%s_mode"%modename)
+        modes = getattr(self, "%s_modes"%modename)
+        if mode in modes:
+            return mode
+        else:
+            return modes[0]
+
+    def __set_mode(self, modename, mode):
+        modes = getattr(self, "%s_modes"%modename)
+        if mode not in modes:
+            raise TypeError, "Mode %s is invalid" % mode
+        else:
+            self.__dirty = True
+            setattr(self, "_Playlist__%s_mode"%modename, mode)
+            event.log_event("playlist_%s_mode_changed"%modename, self, mode)
+
+    def get_shuffle_mode(self):
+        return self.__get_mode("shuffle")
+
+    def set_shuffle_mode(self, mode):
+        self.__set_mode("shuffle", mode)
+        if mode == 'disabled':
+            self.clear_shuffle_history()
+
+    shuffle_mode = property(get_shuffle_mode, set_shuffle_mode)
+
+    def get_repeat_mode(self):
+        return self.__get_mode('repeat')
+
+    def set_repeat_mode(self, mode):
+        self.__set_mode("repeat", mode)
+
+    repeat_mode = property(get_repeat_mode, set_repeat_mode)
+
+    def get_dynamic_mode(self):
+        return self.__get_mode("dynamic")
+
+    def set_dynamic_mode(self, mode):
+        self.__set_mode("dynamic", mode)
+
+    dynamic_mode = property(get_dynamic_mode, set_dynamic_mode)
 
     def randomize(self):
-        """
-            Randomize the track order
-        """
-        trs = self.ordered_tracks
+        # TODO: add support for randomizing a subset of the list?
+        trs = zip(self.__tracks, self.__tracks.metadata)
         random.shuffle(trs)
-        self.ordered_tracks = trs
+        self[:] = MetadataList([x[0] for x in trs], [x[1] for x in trs])
+
+
+    # TODO[0.4?]: drop our custom disk playlist format in favor of an
+    # extended XSPF playlist (using xml namespaces?).
+
+    # TODO: add timeout saving support. 5-10 seconds after last change,
+    # perhaps?
+
+    def save_to_location(self, location):
+        if os.path.exists(location):
+            f = open(location + ".new", "w")
+        else:
+            f = open(location, "w")
+        for track in self.__tracks:
+            buffer = track.get_loc_for_io()
+            # write track metadata
+            meta = {}
+            items = ('artist', 'album', 'tracknumber',
+                    'title', 'genre', 'date')
+            for item in items:
+                value = track.get_tag_raw(item)
+                if value is not None:
+                    meta[item] = value[0]
+            buffer += '\t%s\n' % urllib.urlencode(meta)
+            try:
+                f.write(buffer.encode('utf-8'))
+            except UnicodeDecodeError:
+                continue
+
+        f.write("EOF\n")
+        for item in self.save_attrs:
+            val = getattr(self, item)
+            try:
+                strn = settings.MANAGER._val_to_str(val)
+            except ValueError:
+                strn = ""
+
+            f.write("%s=%s\n"%(item,strn))
+        f.close()
+        if os.path.exists(location + ".new"):
+            os.remove(location)
+            os.rename(location + ".new", location)
+        self.__needs_save = self.__dirty = False
+
+    def load_from_location(self, location):
+        # note - this is not guaranteed to fire events when it sets
+        # attributes. It is intended ONLY for initial setup, not for
+        # reloading a playlist inline.
+        f = None
+        for loc in [location, location+".new"]:
+            try:
+                f = open(loc, 'r')
+                break
+            except:
+                pass
+        if not f:
+            return
+        locs = []
+        while True:
+            line = f.readline()
+            if line == "EOF\n" or line == "":
+                break
+            locs.append(line.strip())
+        items = {}
+        while True:
+            line = f.readline()
+            if line == "":
+                break
+            item, strn = line[:-1].split("=",1)
+            val = settings.MANAGER._str_to_val(strn)
+            items[item] = val
+
+        ver = items.get("__playlist_format_version", [1])
+        if ver[0] == 1:
+            if items.get("repeat_mode") == "playlist":
+                items['repeat_mode'] = "all"
+        elif ver[0] > self.__playlist_format_version[0]:
+            raise IOError, "Cannot load playlist, unknown format"
+        elif ver > self.__playlist_format_version:
+            logger.warning("Playlist created on a newer Exaile version, some attributes may not be handled.")
+
+        f.close()
+
+        trs = []
+
+        for loc in locs:
+            meta = None
+            if loc.find('\t') > -1:
+                splitted = loc.split('\t')
+                loc = "\t".join(splitted[:-1])
+                meta = splitted[-1]
+
+            track = None
+            track = trax.Track(uri=loc)
+
+            # readd meta
+            if not track: continue
+            if not track.is_local() and meta is not None:
+                meta = cgi.parse_qs(meta)
+                for k, v in meta.iteritems():
+                    track.set_tag_raw(k, v[0], notify_changed=False)
+
+            trs.append(track)
+        for item, val in items.iteritems():
+            if item in self.save_attrs:
+                try:
+                    setattr(self, item, val)
+                except:
+                    pass
+        self.__tracks[:] = trs
+
+    def reverse(self):
+        # reverses current view
+        pass
+
+    def sort(self, tags, reverse=False):
+        data = zip(self.__tracks, self.__tracks.metadata)
+        data = trax.sort_tracks(tags, data,
+                trackfunc=lambda tr: tr[0], reverse=reverse)
+        l = MetadataList()
+        l.extend([x[0] for x in data])
+        l.metadata = [x[1] for x in data]
+        self[:] = l
+
+
+    ### list-like API methods ###
+    # parts of this section are taken from
+    # http://code.activestate.com/recipes/440656-list-mixin/
+
+    def __len__(self):
+        return len(self.__tracks)
+
+    def __contains__(self, track):
+        return track in self.__tracks
+
+    def __tuple_from_slice(self, i):
+        """
+            Get (start, end, step) tuple from slice object.
+        """
+        (start, end, step) = i.indices(len(self))
+        if i.step == None:
+            step = 1
+        return (start, end, step)
+
+    def __getitem__(self, i):
+        return self.__tracks.__getitem__(i)
+
+    def __setitem__(self, i, value):
+        oldtracks = self.__getitem__(i)
+        removed = MetadataList()
+        added = MetadataList()
+
+        if isinstance(i, slice):
+            for x in value:
+                if not isinstance(x, trax.Track):
+                    raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
+
+            (start, end, step) = self.__tuple_from_slice(i)
+
+            if isinstance(value, MetadataList):
+                metadata = value.metadata
+            else:
+                metadata = [None] * len(value)
+
+            if step != 1:
+                if len(value) != len(oldtracks):
+                    raise ValueError, "Extended slice assignment must match sizes."
+            self.__tracks.__setitem__(i, value)
+            removed = MetadataList(zip(range(start, end, step), oldtracks),
+                    oldtracks.metadata)
+            if step == 1:
+                end = start + len(value)
+
+            added = MetadataList(zip(range(start, end, step), value), metadata)
+        else:
+            if not isinstance(value, trax.Track):
+                raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
+            self.__tracks[i] = value
+            removed = [(i, oldtracks)]
+            added = [(i, value)]
+
+        self.on_tracks_changed()
+        event.log_event('playlist_tracks_removed', self, removed)
+        event.log_event('playlist_tracks_added', self, added)
+        self.__needs_save = self.__dirty = True
+
+    def __delitem__(self, i):
+        if isinstance(i, slice):
+            (start, end, step) = self.__tuple_from_slice(i)
+        oldtracks = self.__getitem__(i)
+        self.__tracks.__delitem__(i)
+        removed = MetadataList()
+
+        if isinstance(i, slice):
+            removed = MetadataList(zip(xrange(start, end, step), oldtracks),
+                    oldtracks.metadata)
+        else:
+            removed = [(i, oldtracks)]
+
+        self.on_tracks_changed()
+        event.log_event('playlist_tracks_removed', self, removed)
+        self.__needs_save = self.__dirty = True
+
+    def append(self, other):
+        self[len(self):len(self)] = [other]
+
+    def extend(self, other):
+        self[len(self):len(self)] = other
+
+    def count(self, other):
+        return self.__tracks.count(other)
+
+    def index(self, item, start=0, end=None):
+        if end is None:
+            return self.__tracks.index(item, start)
+        else:
+            return self.__tracks.index(item, start, end)
+
 
 
 class SmartPlaylist(object):
@@ -1087,7 +1338,7 @@ class SmartPlaylist(object):
             trs=trs[:self.track_count]
 
 
-        pl = Playlist(name=self.get_name())
+        pl = Playlist(name=self.name)
         pl.add_tracks(trs)
 
         return pl
@@ -1211,7 +1462,7 @@ class PlaylistManager(object):
             @param overwrite: Set to [True] if you wish to overwrite a
                 playlist should it happen to already exist
         """
-        name = pl.get_name()
+        name = pl.name
         if overwrite or name not in self.playlists:
             pl.save_to_location(os.path.join(self.playlist_dir,
                 encode_filename(name)))
@@ -1245,7 +1496,7 @@ class PlaylistManager(object):
         """
             Renames the playlist to new_name
         """
-        old_name = playlist.get_name()
+        old_name = playlist.name
         if old_name in self.playlists:
             self.remove_playlist(old_name)
             playlist.set_name(new_name)
@@ -1260,7 +1511,7 @@ class PlaylistManager(object):
         for f in os.listdir(self.playlist_dir):
             # everything except the order file shold be a playlist
             if f != os.path.basename(self.order_file):
-                pl = self.playlist_class()
+                pl = self.playlist_class(f)
                 pl.load_from_location(os.path.join(self.playlist_dir, f))
                 existing.append(pl.name)
 

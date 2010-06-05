@@ -450,7 +450,7 @@ class Main(object):
         """
 
         # save open tabs
-        self.main.save_current_tabs()
+        self.main.playlist_notebook.save_current_tabs()
 
     @guiutil.idle_add()
     def add_device_panel(self, type, obj, device):

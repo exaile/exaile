@@ -44,6 +44,7 @@ import pango
 from xl import (
     common,
     event,
+    player,
     providers,
     settings,
     trax,
@@ -175,159 +176,6 @@ class PlaybackProgressBar(object):
         return True
 
 
-# Reduce the notebook tabs' close button padding size.
-gtk.rc_parse_string("""
-    style "thinWidget" {
-        xthickness = 0
-        ythickness = 0
-    }
-    widget "*.tabCloseButton" style "thinWidget"
-    """)
-class NotebookTab(gtk.EventBox):
-    """
-        A notebook tab, complete with a close button
-    """
-    def __init__(self, main, notebook, title, page):
-        """
-            Initializes the tab
-        """
-        gtk.EventBox.__init__(self)
-        self.set_visible_window(False)
-
-        self.main = main
-        self.nb = notebook
-        self.page = page
-        self.already_needs_save = self.page.playlist.get_is_custom() and self.page.get_needs_save()
-
-        self.connect('button_press_event', self.on_button_press)
-        self.page.connect('playlist-content-changed', lambda widget, dirty:
-                    self.on_playlist_content_change(dirty))
-        self.page.connect('customness-changed', lambda widget, custom:
-                    self.on_customness_change(custom))
-        event.add_callback(self.on_playlist_removed, 'playlist_removed')
-
-        self.hbox = hbox = gtk.HBox(False, 2)
-        self.add(hbox)
-
-        if self.already_needs_save and self.page.playlist.get_is_custom():
-            self.label = gtk.Label("*" + title)
-        else:
-            self.label = gtk.Label(title)
-        self.label.set_max_width_chars(20)
-        self.label.set_ellipsize(pango.ELLIPSIZE_END)
-        self.label.set_tooltip_text(self.label.get_text())
-        hbox.pack_start(self.label, False, False)
-
-        self.menu = menu.PlaylistTabMenu(self, self.page.playlist.get_is_custom())
-
-        self.button = btn = gtk.Button()
-        btn.set_name('tabCloseButton')
-        btn.set_relief(gtk.RELIEF_NONE)
-        btn.set_focus_on_click(False)
-        btn.set_tooltip_text(_("Close tab"))
-        btn.connect('clicked', self.do_close)
-        btn.connect('button_press_event', self.on_button_press)
-        image = gtk.Image()
-        image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
-        btn.add(image)
-        hbox.pack_end(btn, False, False)
-
-        self.show_all()
-
-    def get_title(self):
-        return unicode(self.label.get_text(), 'utf-8')
-    def set_title(self, title):
-        self.label.set_text(title)
-        self.label.set_tooltip_text(self.label.get_text())
-    title = property(get_title, set_title)
-
-    def on_customness_change(self, custom):
-        self.menu.destroy()
-        self.menu = None
-        self.menu = menu.PlaylistTabMenu(self, custom)
-
-    def on_playlist_removed(self, type, object, name):
-        if name == self.page.playlist.name and self.page.playlist.get_is_custom():
-            self.page.playlist.set_needs_save(False)
-            self.on_playlist_content_change(False)
-            self.page.playlist.set_is_custom(False)
-            self.on_customness_change(False)
-
-    def on_playlist_content_change(self, dirty):
-        if self.page.playlist.get_is_custom():
-            if dirty and not self.already_needs_save:
-                self.already_needs_save = True
-                self.label.set_text('*' + self.label.get_text())
-            elif not dirty and self.already_needs_save:
-                self.already_needs_save = False
-                if self.label.get_text()[0] == '*':
-                    self.label.set_text(self.label.get_text()[1:])
-
-    def on_button_press(self, widget, event):
-        """
-            Called when the user clicks on the tab
-        """
-        if event.button == 3:
-            self.menu.popup(None, None, None, event.button, event.time)
-            return True
-        elif event.button == 2:
-            self.do_close()
-            return True
-        elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
-            self.do_rename()
-            return True # stop the event propagating
-
-    def do_new_playlist(self, *args):
-        self.main.add_playlist()
-
-    def do_rename(self, *args):
-        dialog = dialogs.TextEntryDialog(
-            _("New playlist title:"), _("Rename Playlist"),
-            self.title, self.main.window)
-        response = dialog.run()
-        if response == gtk.RESPONSE_OK:
-            self.title = dialog.get_value()
-            self.page.playlist.set_name(self.title)
-
-    def do_save_custom(self, *args):
-        dialog = dialogs.TextEntryDialog(
-            _("Custom playlist name:"), _("Save as..."),
-            self.title, self.main.window, okbutton=gtk.STOCK_SAVE)
-        response = dialog.run()
-        if response == gtk.RESPONSE_OK:
-            self.title = dialog.get_value()
-            pl = self.main.get_selected_playlist()
-            pl.set_name(self.title)
-            pl.playlist.set_name(self.title)
-            self.main.controller.panels['playlists'].add_new_playlist(pl.playlist.get_tracks(), self.title)
-            pl.playlist.set_is_custom(True)
-            pl.emit('customness-changed', True)
-            pl.set_needs_save(False)
-            event.log_event('custom_playlist_saved', self, pl.playlist)
-
-    def do_save_changes_to_custom(self, *args):
-        pl = self.main.get_selected_playlist()
-        pl.set_needs_save(False)
-        self.main.playlist_manager.save_playlist(pl.playlist, overwrite = True)
-        event.log_event('custom_playlist_saved', self, pl.playlist)
-
-    def do_close(self, *args):
-        """
-            Called when the user clicks the close button on the tab
-        """
-        if self.page.on_closing():
-            if self.main.queue.current_playlist == self.page.playlist:
-                self.main.queue.set_current_playlist(None)
-            num = self.nb.page_num(self.page)
-            self.nb.remove_page(num)
-
-    def do_clear(self, *args):
-        """
-            Clears the current playlist tab
-        """
-        playlist = self.main.get_selected_playlist()
-        if not playlist: return
-        playlist.playlist.clear()
 
 class MainWindow(gobject.GObject):
     """
@@ -593,9 +441,9 @@ class MainWindow(gobject.GObject):
         if not self.get_selected_playlist(): return
 
         self.statusbar.set_track_count(
-            len(self.get_selected_playlist().playlist),
+            len(get_selected_playlist().playlist),
             self.collection.get_count())
-        self.statusbar.set_queue_count(len(self.queue))
+        self.statusbar.set_queue_count(len(player.QUEUE))
 
 
     def _connect_events(self):

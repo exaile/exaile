@@ -64,7 +64,14 @@ class SmartNotebook(gtk.Notebook):
         if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:
             self.add_default_tab()
 
-
+# Reduce the notebook tabs' close button padding size.
+gtk.rc_parse_string("""
+    style "thinWidget" {
+        xthickness = 0
+        ythickness = 0
+    }
+    widget "*.tabCloseButton" style "thinWidget"
+    """)
 class NotebookTab(gtk.EventBox):
     """
         Class to represent a generic tab in a gtk.Notebook.

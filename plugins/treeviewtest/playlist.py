@@ -33,7 +33,7 @@ import glib, gobject, gtk, pango
 
 from xl.nls import gettext as _
 
-from xl import (event, player, providers, settings, trax)
+from xl import (common, event, player, providers, settings, trax)
 from xlgui import guiutil, icons
 import playlist_columns, menu as plmenu
 from misc import MetadataList
@@ -1067,9 +1067,9 @@ class Playlist(object):
 
     def randomize(self):
         # TODO: add support for randomizing a subset of the list?
-        trs = self[:]
+        trs = zip(self.__tracks, self.__tracks.metadata)
         random.shuffle(trs)
-        self[:] = trs
+        self[:] = MetadataList([x[0] for x in trs], [x[1] for x in trs])
 
 
     # TODO[0.4?]: drop our custom disk playlist format in favor of an
@@ -1178,32 +1178,18 @@ class Playlist(object):
 
         self.__tracks[:] = trs
 
-    ### view API ###
-
-    # how views need to work:
-    #   when the following methods are called, they do NOT affect the
-    #   underlying order, only the 'apparent' order. HOWEVER, if the
-    #   structure is modified when a view is in effect, the view
-    #   replaces the current order.
-
     def reverse(self):
         # reverses current view
         pass
 
-    def sort(self):
-        # sorts current view
-        pass
-
-    # filter acts like a view method, EXCEPT that when it is active, it
-    # is illegal to add or reorder items in the playlist. attempting to do
-    # so will raise a <TODO>Exception. Deletion while a filter is active
-    # is allowed, however items deleted must be visible under the
-    # filter.
-    # GUI should disable (grey out, beocme insensitive to DnD, etc.)
-    # appropriate actions when these conditions are in effect.
-
-    def filter(self):
-        pass
+    def sort(self, tags, reverse=False):
+        data = zip(self.__tracks, self.__tracks.metadata)
+        data = trax.sort_tracks(tags, data,
+                trackfunc=lambda tr: tr[0], reverse=reverse)
+        l = MetadataList()
+        l.extend([x[0] for x in data])
+        l.metadata = [x[1] for x in data]
+        self[:] = l
 
 
     ### list-like API methods ###

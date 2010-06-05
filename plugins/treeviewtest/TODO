@@ -1,8 +1,6 @@
 
 backend:
     playlist:
-        sort
-        reverse?
         dynamic
 
     queue:

@@ -70,20 +70,24 @@ def get_tracks_from_uri(uri):
         tracks = [Track(uri)]
     return tracks
 
-def sort_tracks(fields, trackiter, reverse=False):
+def sort_tracks(fields, iter, trackfunc=None, reverse=False):
     """
         Sorts tracks.
 
         :param fields: An iterable of tag names
                        to sort by.
-        :param trackiter: An iterable of Track objects to be sorted.
+        :param iter: The iterable to sort. Must be either Track objects, or
+                    trackfunc must be specified.
+        :param trackfunc: Function to get a Track from an item in the iter.
         :param reverse: Whether to sort in reverse.
     """
     fields = list(fields) # we need the index method
     artist_compilations = True
-    keyfunc = lambda tr: [tr.get_tag_sort(field,
+    if trackfunc is None:
+        trackfunc = lambda tr: tr
+    keyfunc = lambda tr: [trackfunc(tr).get_tag_sort(field,
         artist_compilations=artist_compilations) for field in fields]
-    return sorted(trackiter, key=keyfunc, reverse=reverse)
+    return sorted(iter, key=keyfunc, reverse=reverse)
 
 
 def sort_result_tracks(fields, trackiter, reverse=False):
@@ -92,10 +96,7 @@ def sort_result_tracks(fields, trackiter, reverse=False):
 
         Same params as sort_tracks.
     """
-    artist_compilations = True
-    keyfunc = lambda tr: [tr.track.get_tag_sort(field,
-        artist_compilations=artist_compilations) for field in fields]
-    return sorted(trackiter, key=keyfunc, reverse=reverse)
+    return sort_tracks(fields, trackiter, lambda tr: tr.track, reverse)
 
 def get_rating_from_tracks(tracks):
     """

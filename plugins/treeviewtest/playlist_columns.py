@@ -91,7 +91,9 @@ class Column(gtk.TreeViewColumn):
         self.set_reorderable(True)
         self.set_clickable(True)
         self.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED) # needed for fixed-height mode
+        self.set_sort_order(gtk.SORT_DESCENDING)
 
+        # hack to allow button press events on the header to be detected
         self.set_widget(gtk.Label(self.display))
 
         self.connect('notify::width', self.on_width_changed)
@@ -175,7 +177,7 @@ class AlbumColumn(Column):
     autoexpand = True
 
 class LengthColumn(Column):
-    size = 50
+    size = 70
     display = _('Length')
     id = '__length'
     cellproperties = {'xalign': 1.0}

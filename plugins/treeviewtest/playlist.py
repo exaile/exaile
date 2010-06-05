@@ -351,6 +351,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
 class PlaylistView(gtk.TreeView):
     default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
+    base_sort_tags = ['artist', 'date', 'album', 'discnumber',
+            'tracknumber', 'title']
     def __init__(self, playlist):
         gtk.TreeView.__init__(self)
         self.playlist = playlist
@@ -469,6 +471,7 @@ class PlaylistView(gtk.TreeView):
         for position, column in enumerate(col_ids):
             position += 2 # offset for pixbuf column
             playlist_column = playlist_columns.COLUMNS[column](self, position)
+            playlist_column.connect('clicked', self.on_column_clicked)
             self.append_column(playlist_column)
             header = playlist_column.get_widget()
             header.show()
@@ -484,6 +487,23 @@ class PlaylistView(gtk.TreeView):
         columns = [c.id for c in self.get_columns()]
         if columns != settings.get_option('gui/columns', []):
             settings.set_option('gui/columns', columns)
+
+    def on_column_clicked(self, column):
+        order = None
+        for col in self.get_columns():
+            if col.id == column.id:
+                order = column.get_sort_order()
+                if order == gtk.SORT_ASCENDING:
+                    order = gtk.SORT_DESCENDING
+                else:
+                    order = gtk.SORT_ASCENDING
+                col.set_sort_indicator(True)
+                col.set_sort_order(order)
+            else:
+                col.set_sort_indicator(False)
+                col.set_sort_order(gtk.SORT_DESCENDING)
+        reverse = order == gtk.SORT_DESCENDING
+        self.playlist.sort([column.id] + self.base_sort_tags, reverse=reverse)
 
     def on_option_set(self, typ, obj, data):
         if data == "gui/columns":

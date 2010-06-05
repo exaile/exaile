@@ -1,4 +1,4 @@
-# Copyright (C) 2010 Aren Olson
+# Copyright (C) 2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 
 import gtk, pango
 from xl.nls import gettext as _
-import menu as plmenu
+from xlgui.widgets import menu
 
 class SmartNotebook(gtk.Notebook):
     def __init__(self):
@@ -80,7 +80,7 @@ class NotebookTab(gtk.EventBox):
         self.page = page
         page.set_tab(self)
 
-        self.menu = plmenu.ProviderMenu(self.menu_provider_name, self)
+        self.menu = menu.ProviderMenu(self.menu_provider_name, self)
 
         self.connect('button-press-event', self.on_button_press)
 
@@ -217,7 +217,7 @@ class NotebookPage(object):
     reorderable = True
     def __init__(self):
         self.tab = None
-        self.tab_menu = plmenu.ProviderMenu(self.menu_provider_name, self)
+        self.tab_menu = menu.ProviderMenu(self.menu_provider_name, self)
 
     def get_name(self):
         """

@@ -33,9 +33,7 @@ from xl import event, settings, providers
 from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
-from xlgui.widgets import rating
-
-import menu as plmenu
+from xlgui.widgets import rating, menu
 
 logger = logging.getLogger(__name__)
 
@@ -283,9 +281,9 @@ for col in COLUMNS.values():
 
 
 def __create_playlist_columns_menu():
-    cmi = plmenu.check_menu_item
-    rmi = plmenu.radio_menu_item
-    sep = plmenu.simple_separator
+    cmi = menu.check_menu_item
+    rmi = menu.radio_menu_item
+    sep = menu.simple_separator
 
     def item_checked_cb(name, parent_obj, parent_context):
         return name in settings.get_option("gui/columns")

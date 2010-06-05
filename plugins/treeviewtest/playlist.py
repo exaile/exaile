@@ -35,9 +35,10 @@ from xl.nls import gettext as _
 
 from xl import (common, event, player, providers, settings, trax)
 from xlgui import guiutil, icons
-import playlist_columns, menu as plmenu
-from misc import MetadataList
-from notebook import SmartNotebook, NotebookPage, NotebookTab
+import playlist_columns
+from xl.common import MetadataList
+from xlgui.widgets.notebook import SmartNotebook, NotebookPage, NotebookTab
+from xlgui.widgets import menu
 
 
 class PlaylistNotebook(SmartNotebook):
@@ -87,8 +88,8 @@ class PlaylistNotebook(SmartNotebook):
 
 # do this in a function to avoid polluting the global namespace
 def __create_playlist_tab_context_menu():
-    smi = plmenu.simple_menu_item
-    sep = plmenu.simple_separator
+    smi = menu.simple_menu_item
+    sep = menu.simple_separator
     items = []
     items.append(smi('new-tab', [], _("New Playlist"), 'tab-new',
         lambda w, n, o, c: o.tab.notebook.create_new_playlist()))
@@ -105,13 +106,13 @@ def __create_playlist_tab_context_menu():
 __create_playlist_tab_context_menu()
 
 
-class PlaylistContextMenu(plmenu.ProviderMenu):
+class PlaylistContextMenu(menu.ProviderMenu):
     def __init__(self, page):
         """
             :param page: The :class:`PlaylistPage` this menu is
                 associated with.
         """
-        plmenu.ProviderMenu.__init__(self, 'playlist-context', page)
+        menu.ProviderMenu.__init__(self, 'playlist-context', page)
 
     def get_parent_context(self):
         context = {}
@@ -120,8 +121,8 @@ class PlaylistContextMenu(plmenu.ProviderMenu):
         return context
 
 def __create_playlist_context_menu():
-    smi = plmenu.simple_menu_item
-    sep = plmenu.simple_separator
+    smi = menu.simple_menu_item
+    sep = menu.simple_separator
     items = []
     items.append(smi('append-queue', [], _("Append to Queue"), 'gtk-add',
             lambda w, n, o, c: player.QUEUE.add_tracks(
@@ -134,7 +135,7 @@ def __create_playlist_context_menu():
             playlistpage.playlist.spat_position = -1
     items.append(smi('toggle-spat', ['append-queue'],
             _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
-    items.append(plmenu.RatingMenuItem('rating', ['toggle-spat']))
+    items.append(menu.RatingMenuItem('rating', ['toggle-spat']))
     # TODO: custom playlist item here
     items.append(sep('sep1', ['rating']))
     def remove_tracks_cb(widget, name, playlistpage, context):
@@ -479,8 +480,8 @@ class PlaylistView(gtk.TreeView):
 
     def on_header_button_press(self, widget, event):
         if event.button == 3:
-            menu = plmenu.ProviderMenu('playlist-columns-menu', self)
-            menu.popup(None, None, None, event.button, event.time)
+            m = menu.ProviderMenu('playlist-columns-menu', self)
+            m.popup(None, None, None, event.button, event.time)
             return True
 
     def on_columns_changed(self, widget):

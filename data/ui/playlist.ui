@@ -24,7 +24,6 @@
         <child>
           <object class="GtkHBox" id="controls_box">
             <property name="visible">True</property>
-            <property name="spacing">3</property>
             <child>
               <object class="GtkToggleButton" id="shuffle_button">
                 <property name="visible">True</property>

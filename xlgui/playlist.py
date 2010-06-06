@@ -264,9 +264,12 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         uifile = xdg.get_data_path("ui", "playlist.ui")
         self.builder = gtk.Builder()
         self.builder.add_from_file(uifile)
-        plpage = self.builder.get_object("playlist_page")
-        for child in plpage.get_children():
-            plpage.remove(child)
+        playlist_page = self.builder.get_object("playlist_page")
+
+        for child in playlist_page.get_children():
+            packing = playlist_page.query_child_packing(child)
+            child.reparent(self)
+            self.set_child_packing(child, *packing)
 
         self.shuffle_button = self.builder.get_object("shuffle_button")
         self.repeat_button = self.builder.get_object("repeat_button")
@@ -278,8 +281,6 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
         self.plwin = self.builder.get_object("playlist_window")
         self.controls = self.builder.get_object("controls_box")
-        self.pack_start(self.plwin, True, True, padding=2)
-        self.pack_start(self.controls, False, False, padding=2)
 
         self.view = PlaylistView(playlist)
         self.plwin.add(self.view)

@@ -60,6 +60,11 @@ class SmartNotebook(gtk.Notebook):
         """
         pass
 
+    def remove_page(self, page_num):
+        gtk.Notebook.remove_page(self, page_num)
+        if self.get_n_pages() == 0:
+            self.add_default_tab()
+
     def on_button_press(self, widget, event):
         if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:
             self.add_default_tab()

@@ -353,7 +353,7 @@
                 <child>
                   <object class="GtkAlignment" id="alignment3">
                     <property name="visible">True</property>
-                    <property name="top_padding">6</property>
+                    <property name="top_padding">4</property>
                     <property name="left_padding">6</property>
                     <child>
                       <object class="GtkVBox" id="progress_box">

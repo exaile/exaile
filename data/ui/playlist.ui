@@ -22,6 +22,15 @@
           </packing>
         </child>
         <child>
+          <object class="GtkHSeparator" id="hseparator1">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkHBox" id="controls_box">
             <property name="visible">True</property>
             <child>
@@ -98,6 +107,8 @@
             <child>
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="xpad">3</property>
                 <property name="label" translatable="yes">Search:</property>
               </object>
               <packing>
@@ -125,7 +136,7 @@
             <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="padding">4</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>

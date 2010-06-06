@@ -466,7 +466,7 @@ class MainWindow(gobject.GObject):
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
             'on_playlist_notebook_button_press': self.on_playlist_notebook_button_press,
             'on_new_playlist_item_activated': lambda *e:
-                self.add_playlist(),
+                self.playlist_notebook.create_new_playlist(),
             'on_queue_count_clicked': self.controller.queue_manager,
             # Controller
             'on_about_item_activate': self.controller.show_about_dialog,
@@ -576,19 +576,17 @@ class MainWindow(gobject.GObject):
         if replace:
             pl.playlist.clear()
 
-        pl.playlist.add_tracks(tracks)
+        pl.playlist.extend(tracks)
 
         if queue:
-            self.queue.add_tracks(tracks)
-
-        pl.list.queue_draw()
+            self.queue.extend(tracks)
 
         if not self.player.current:
             track = tracks[0]
             index = pl.playlist.index(track)
-            pl.playlist.set_current_pos(index)
-            self.queue.play(track=track)
-            self.queue.set_current_playlist(pl.playlist)
+            pl.playlist.current_pos = index
+            player.QUEUE.play(track=track)
+            player.QUEUE.set_current_playlist(pl.playlist)
 
     def on_playback_error(self, type, player, message):
         """
@@ -962,11 +960,14 @@ class MainWindow(gobject.GObject):
 
         return False
 
+    def get_selected_playlist(self):
+        return get_selected_playlist()
+
 def get_playlist_notebook():
     return MainWindow._mainwindow.playlist_notebook
 
 def get_selected_playlist():
-    return MainWindow._mainwindow.playlist_notebook.get_current_playlist()
+    return MainWindow._mainwindow.playlist_notebook.get_current_tab()
 
 def mainwindow():
     return MainWindow._mainwindow

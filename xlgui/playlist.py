@@ -52,9 +52,6 @@ class PlaylistNotebook(SmartNotebook):
         self.tab_manager = PlaylistManager(manager_name)
         self.load_saved_tabs()
 
-    def get_current_playlist(self):
-        return self.get_current_tab().page
-
     def create_tab_from_playlist(self, playlist):
         """
             Create a tab that will contain the passed-in playlist

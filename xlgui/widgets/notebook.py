@@ -35,7 +35,7 @@ class SmartNotebook(gtk.Notebook):
         self.connect('button-press-event', self.on_button_press)
 
     def get_current_tab(self):
-        return self.get_nth_child(self.get_current_page)
+        return self.get_nth_page(self.get_current_page())
 
     def add_tab(self, tab, page):
         """

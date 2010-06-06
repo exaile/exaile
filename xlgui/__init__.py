@@ -478,8 +478,7 @@ class Main(object):
 
         self.device_panels[device.get_name()] = panel
         glib.idle_add(self.add_panel, *panel.get_panel())
-        thread = CollectionScanThread(self.main,
-            device.get_collection())
+        thread = CollectionScanThread(device.get_collection())
         thread.connect('done', panel.load_tree)
         self.progress_manager.add_monitor(thread,
             _("Scanning %s..." % device.name), gtk.STOCK_REFRESH)

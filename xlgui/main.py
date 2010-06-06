@@ -643,8 +643,6 @@ class MainWindow(gobject.GObject):
 
         # refresh the current playlist
         pl = self.get_selected_playlist()
-        if pl:
-            pl.list.queue_draw()
 
     def close_playlist_tab(self, tab=None):
         """
@@ -751,16 +749,16 @@ class MainWindow(gobject.GObject):
             return
 
         pl = self.get_selected_playlist()
-        if player.current in pl.playlist.ordered_tracks:
+        if player.current in pl.playlist:
             path = (pl.playlist.index(player.current),)
 
-            if settings.get_option('gui/ensure_visible', True):
-                pl.list.scroll_to_cell(path)
+            # FIXME: move this into PlaylistView
+            #if settings.get_option('gui/ensure_visible', True):
+            #    pl.list.scroll_to_cell(path)
 
-            glib.idle_add(pl.list.set_cursor, path)
+            #glib.idle_add(pl.list.set_cursor, path)
 
         self._update_track_information()
-        self.draw_playlist(type, player, object)
         self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
         self.playpause_button.set_tooltip_text(_('Pause Playback'))
@@ -779,7 +777,6 @@ class MainWindow(gobject.GObject):
         self.window.set_title('Exaile')
         self._update_track_information()
 
-        self.draw_playlist(type, player, object)
         self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
         self.playpause_button.set_tooltip_text(_('Start Playback'))

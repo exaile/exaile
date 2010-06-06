@@ -47,7 +47,6 @@ class PlayQueue(playlist.Playlist):
         playlist.Playlist.__init__(self, name="Queue")
         self.player = player
         player._set_queue(self)
-        self.stop_track = None
         if location is not None:
             self.load_from_location(location)
 
@@ -56,13 +55,6 @@ class PlayQueue(playlist.Playlist):
 
     def set_current_pl_track(self, track):
         self.current_pl_track = track
-
-    def peek(self):
-        track = playlist.Playlist.peek(self)
-        if track == None:
-            if self.current_playlist:
-                track = self.current_playlist.peek()
-        return track
 
     def next(self, player=True, track=None):
         """
@@ -73,29 +65,20 @@ class PlayQueue(playlist.Playlist):
             :param track: if passed, play this track
         """
         if not track:
-            if self.player.current and self.player.current == self.stop_track:
-                self.player.stop()
-                event.log_event('stop_track', self, self.stop_track)
-                self.stop_track = None
-                return None
-
-            if not self.ordered_tracks:
-                if self.current_playlist:
-                    track = self.current_playlist.next()
-                    self.current_playlist.current_playing = True
-                    self.current_playing = False
-            else:
-                track = self.ordered_tracks.pop(0)
+            try:
+                track = self.pop(0)
                 self.current_pos = 0
                 self.current_playing = True
                 if self.current_playlist:
                     self.current_playlist.current_playing = False
+            except IndexError:
+                if self.current_playlist:
+                    track = self.current_playlist.next()
+                    self.current_playlist.current_playing = True
+                    self.current_playing = False
+                else:
+                    track = None
         if player:
-            if not track:
-                self.player.stop()
-                event.log_event("playback_playlist_end", self,
-                        self.current_playlist)
-                return
             self.player.play(track)
         if not track:
             event.log_event("playback_playlist_end", self,
@@ -105,13 +88,12 @@ class PlayQueue(playlist.Playlist):
     def prev(self):
         track = None
         if self.player.current:
-            if self.player.get_time() < 5:
-                if self.current_playlist:
-                    track = self.current_playlist.prev()
+            if self.player.get_time() < 5 and self.current_playlist:
+                track = self.current_playlist.prev()
             else:
                 track = self.player.current
         else:
-            track = self.get_current()
+            track = self.current
         self.player.play(track)
         return track
 
@@ -124,8 +106,11 @@ class PlayQueue(playlist.Playlist):
                 current = self.current_playlist.get_current()
         return current
 
-    def get_current_pos(self):
+    def get_current_position(self):
         return 0
+
+    def set_current_position(self, position):
+        return
 
     def play(self, track=None):
         """
@@ -135,11 +120,11 @@ class PlayQueue(playlist.Playlist):
         if self.player.is_playing() and not track:
             return
         if not track:
-            track = self.get_current()
+            track = self.current
         if track:
             self.player.play(track)
-            if track in self.ordered_tracks:
-                self.ordered_tracks.remove(track)
+            if track in self:
+                self.remove(track)
         else:
             self.next()
 

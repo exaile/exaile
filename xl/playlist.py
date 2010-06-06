@@ -1174,6 +1174,11 @@ class Playlist(object):
         else:
             return self.__tracks.index(item, start, end)
 
+    def pop(self, i=-1):
+        item = self[i]
+        del self[i]
+        return item
+
 
 
 class SmartPlaylist(object):

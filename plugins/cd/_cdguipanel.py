@@ -24,19 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-
-from xl.nls import gettext as _
-
-from xlgui.panel import device
-from xl import event
-
-import imp, os
+import gtk
+import glib
+import imp
 importer = imp.load_source("importer",
         os.path.join(os.path.dirname(__file__), "importer.py"))
-
-import glib
 import logging, threading
 logger = logging.getLogger(__name__)
+import os
+
+from xl import event
+from xl.nls import gettext as _
+from xlgui.panel import device
 
 class CDImportThread(threading.Thread):
     def __init__(self, imp, panel):

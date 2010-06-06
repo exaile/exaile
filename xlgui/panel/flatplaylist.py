@@ -27,9 +27,9 @@
 import gobject
 import gtk
 
+from xl import metadata, trax
 from xl.nls import gettext as _
 from xlgui import panel, guiutil, menu
-from xl import metadata
 
 class FlatPlaylistPanel(panel.Panel):
     """

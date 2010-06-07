@@ -239,7 +239,7 @@ def __create_playlist_context_menu():
         remove_tracks_cb))
     items.append(sep('sep2', ['remove']))
     items.append(smi('properties', ['sep2'], _("Properties"), 'gtk-properties',
-        lambda w, n, o, c: False))
+        lambda w, n, o, c: o.show_properties_dialog()))
     for item in items:
         providers.register('playlist-context', item)
 __create_playlist_context_menu()
@@ -434,6 +434,8 @@ class PlaylistPage(gtk.VBox, NotebookPage):
                 case_sensitive=False, keyword_tags=['artist', 'title', 'album'])
                 # FIXME: use currently-visible columns + base
                 # tags for filter
+
+
 
 
 
@@ -729,6 +731,18 @@ class PlaylistView(gtk.TreeView):
         self.set_drag_dest_row(path, position)
 
         return True
+
+    def show_properties_dialog(self):
+        from xlgui import properties
+        tracks = self.get_selected_tracks()
+        selected = None
+        if len(tracks) == 1:
+            tracks = self.playlist[:]
+            selected = self.get_cursor()[0][0]
+
+        if tracks:
+            dialog = properties.TrackPropertiesDialog(None,
+                    tracks, selected)
 
 class PlaylistModel(gtk.GenericTreeModel):
     def __init__(self, playlist, columns):

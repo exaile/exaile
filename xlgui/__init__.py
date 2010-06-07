@@ -133,8 +133,8 @@ class Main(object):
         Main._main = self
 
     def export_current_playlist(self, *e):
-        pl = self.main.get_current_playlist ().playlist
-        name = pl.get_name() + ".m3u"
+        pl = self.main.get_selected_playlist().playlist
+        name = pl.name + ".m3u"
 
         dialog = dialogs.FileOperationDialog(_("Export Current Playlist"),
             None, gtk.FILE_CHOOSER_ACTION_SAVE,
@@ -147,7 +147,7 @@ class Main(object):
                        'xspf' : _('XSPF Playlist') }
 
         dialog.add_extensions(extensions)
-        dialog.set_current_name (name)
+        dialog.set_current_name(name)
 
         result = dialog.run()
         if result == gtk.RESPONSE_OK:

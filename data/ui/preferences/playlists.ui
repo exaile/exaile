@@ -39,7 +39,7 @@
         </child>
         <child>
           <object class="GtkCheckButton" id="playlist/replace_content">
-            <property name="label" translatable="yes">Replace content on pane double click</property>
+            <property name="label" translatable="yes">Replace content on side pane double click</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>

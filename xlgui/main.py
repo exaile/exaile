@@ -59,7 +59,7 @@ from xlgui import (
     playlist,
     tray
 )
-from xlgui.widgets import dialogs, info
+from xlgui.widgets import dialogs, info, menu as wmenu
 
 logger = logging.getLogger(__name__)
 
@@ -203,8 +203,12 @@ class MainWindow(gobject.GObject):
         self.resuming = False
 
         self.builder = builder
+
         self.window = self.builder.get_object('ExaileWindow')
         self.window.set_title('Exaile')
+
+        playlist_columns_menu = wmenu.ProviderMenu('playlist-columns-menu', self.window)
+        builder.get_object('columns_menu').set_submenu(playlist_columns_menu)
 
         if settings.get_option('gui/use_alpha', False):
             screen = self.window.get_screen()

@@ -194,32 +194,6 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">_Columns</property>
                         <property name="use_underline">True</property>
-                        <child type="submenu">
-                          <object class="GtkMenu" id="columns_menu_menu">
-                            <child>
-                              <object class="GtkSeparatorMenuItem" id="separator2">
-                                <property name="visible">True</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="col_resizable_item">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">_Resizable</property>
-                                <property name="use_underline">True</property>
-                                <property name="active">True</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="col_not_resizable_item">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">_Autosize</property>
-                                <property name="use_underline">True</property>
-                                <property name="active">True</property>
-                                <property name="group">col_resizable_item</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
                       </object>
                     </child>
                     <child>

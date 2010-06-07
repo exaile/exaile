@@ -40,7 +40,7 @@ except:
     import pickle
 
 from xl.nls import gettext as _
-from xl import common, event, xdg, collection, settings, trax
+from xl import common, dynamic, event, xdg, collection, settings, trax
 from xl.common import MetadataList
 
 logger = logging.getLogger(__name__)
@@ -420,6 +420,8 @@ class Playlist(object):
         self.__spat_position = -1
         self.__shuffle_history_counter = 1 # start positive so we can
                                 # just do an if directly on the value
+        event.add_callback(self.fetch_dynamic_tracks,
+                "playback_track_start")
 
     ### playlist-specific API ###
 
@@ -501,9 +503,15 @@ class Playlist(object):
             except:
                 pass
 
+    def fetch_dynamic_tracks(self, *args):
+        from xl import player
+        if player.QUEUE.current_playlist == self:
+            if self.dynamic_mode != 'disabled':
+                self.__fetch_dynamic_tracks()
+
     @common.threaded
-    def fetch_dynamic_tracks(self):
-        pass # implement when merging - requires updates to dynamic.py
+    def __fetch_dynamic_tracks(self):
+        dynamic.MANAGER.populate_playlist(self)
 
     def __next_random_track(self, mode="track"):
         """
@@ -551,6 +559,34 @@ class Playlist(object):
         if self.current_position == self.spat_position and self.current_position != -1:
             self.spat_position = -1
             return None
+
+        if repeat_mode == 'track':
+            return self.current
+        else:
+            next = None
+            if shuffle_mode != 'disabled':
+                if self.current is not None:
+                    self.__tracks.set_meta_key(self.current_position,
+                            "playlist_shuffle_history", self.__shuffle_history_counter)
+                    self.__shuffle_history_counter += 1
+                next_index, next = self.__next_random_track(shuffle_mode)
+                if next is not None:
+                    self.current_position = next_index
+                else:
+                    self.clear_shuffle_history()
+            else:
+                try:
+                    next = self[self.current_position+1]
+                    self.current_position += 1
+                except IndexError:
+                    next = None
+
+            if next is None:
+                self.current_position = -1
+                if repeat_mode == 'all' and len(self) > 0:
+                    next = self.next()
+
+            return next
 
     def prev(self):
         repeat_mode = self.repeat_mode

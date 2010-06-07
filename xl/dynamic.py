@@ -39,7 +39,7 @@ class DynamicManager(providers.ProviderHandler):
     """
         handles matching of songs for dynamic playlists
     """
-    def __init__(self, collection):
+    def __init__(self, collection=[]):
         providers.ProviderHandler.__init__(self, "dynamic_playlists")
         self.buffersize = settings.get_option("playback/dynamic_buffer", 5)
         self.collection = collection
@@ -144,26 +144,34 @@ class DynamicManager(providers.ProviderHandler):
             adds tracks to playlists as needed.
             called when the position of a playlist changes.
         """
-        if not playlist: # or not playlist.is_dynamic():
+        if not playlist:
             return
-        current_pos = playlist.get_current_pos()
+        current_pos = playlist.current_position
         if current_pos < 0 or current_pos >= len(playlist):
             return
         needed = self.buffersize - (len(playlist) - current_pos)
 
         if needed < 1:
             needed = 1
-        curr = playlist.get_current()
-        tracks = self.find_similar_tracks(curr, needed,
-                playlist.get_tracks())
+        curr = playlist.current
 
-        time.sleep(5)   # wait five seconds before adding to allow for skips
-                        # we're searching for new tracks during this time
-                        # anyway so its not wasted
-        if playlist.get_current_pos() != current_pos:
+        starttime = time.time()
+        tracks = self.find_similar_tracks(curr, needed,
+                playlist)
+
+        remainingtime = 5 - (time.time()-starttime)
+
+        if remainingtime > 0:
+            time.sleep(remainingtime)
+
+        if playlist.current_position != current_pos:
             return # we skipped in that 5 seconds, so ignore it
-        playlist.add_tracks(tracks)
+        playlist.extend(tracks)
         logger.debug("Added %s tracks." % len(tracks))
+
+
+MANAGER = DynamicManager()
+
 
 class DynamicSource(object):
     def __init__(self):

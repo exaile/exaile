@@ -186,7 +186,7 @@ class Exaile(object):
 
         # Initialize dynamic playlist support
         from xl import dynamic
-        self.dynamic = dynamic.DynamicManager(self.collection)
+        dynamic.MANAGER.collection = self.collection
 
         # Initalize device manager
         logger.info("Loading devices...")

@@ -171,8 +171,8 @@ class Button(gtk.Button):
 
 class PlayPauseButton(Button):
     """
-        Special Button which automatically sets its
-        appearance depending on the current playback state
+        Button which automatically sets its appearance
+        depending on the current playback state
     """
     def __init__(self, player, callback):
         Button.__init__(self, gtk.STOCK_MEDIA_PLAY,
@@ -217,6 +217,18 @@ class PlayPauseButton(Button):
             Updates appearance on playback state change
         """
         self.update_state()
+
+class RestoreButton(Button):
+    """
+        Button which allows to restore the main window
+    """
+    def __init__(self, accel_group, callback):
+        Button.__init__(self, gtk.STOCK_LEAVE_FULLSCREEN,
+            _('Restore main window'), callback)
+
+        key, modifier = gtk.accelerator_parse('<Control><Alt>M')
+        self.add_accelerator('clicked', accel_group,
+            key, modifier, gtk.ACCEL_VISIBLE)
 
 class VolumeButton(gtk.VolumeButton):
     """

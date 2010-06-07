@@ -348,12 +348,11 @@ class Main(object):
             pass
 
     def on_goto_playing_track(self, *e):
-        track = self.exaile.queue.get_current()
-        pl = self.main.get_current_playlist()
-        if track in pl.playlist:
-            index = pl.playlist.index(track)
-            pl.list.scroll_to_cell(index)
-            pl.list.set_cursor(index)
+        # TODO: move into PlaylistPage (or maybe View)
+        pl = self.main.get_selected_playlist()
+        if pl.playlist == self.exaile.queue.current_playlist:
+            pl.view.scroll_to_cell(pl.playlist.current_position)
+            pl.view.set_cursor(pl.playlist.current_position)
         #TODO implement a way to browse through all playlists and search for the track
 
     def on_rescan_collection(self, *e):

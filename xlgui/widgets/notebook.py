@@ -32,6 +32,7 @@ from xlgui.widgets import menu
 class SmartNotebook(gtk.Notebook):
     def __init__(self):
         gtk.Notebook.__init__(self)
+        self.set_scrollable(True)
         self.connect('button-press-event', self.on_button_press)
 
     def get_current_tab(self):
@@ -128,7 +129,7 @@ class NotebookTab(gtk.EventBox):
         button.add(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU))
         button.connect('clicked', self.close)
         button.connect('button-press-event', self.on_button_press)
-        box.pack_start(button, False, False)
+        box.pack_end(button, False, False)
 
         self.show_all()
 

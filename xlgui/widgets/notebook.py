@@ -92,6 +92,8 @@ class NotebookTab(gtk.EventBox):
         gtk.EventBox.__init__(self)
         self.set_visible_window(False)
 
+        self.closable = True
+
         self.notebook = notebook
         self.page = page
         page.set_tab(self)
@@ -145,6 +147,10 @@ class NotebookTab(gtk.EventBox):
         else:
             self.icon.set_from_pixbuf(pixbuf)
             self.icon.set_property("visible", True)
+
+    def set_closable(self, closable):
+        self.closable = closable
+        self.button.set_sensitive(closable)
 
     def on_button_press(self, widget, event):
         """
@@ -217,7 +223,7 @@ class NotebookTab(gtk.EventBox):
         return hasattr(self.page, 'set_name')
 
     def close(self, *args):
-        if self.page.handle_close():
+        if self.closable and self.page.handle_close():
             self.notebook.remove_page(self.notebook.page_num(self.page))
 
 

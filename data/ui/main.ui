@@ -402,6 +402,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Previous Track</property>
+                        <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_prev_button_clicked"/>
                         <child>
@@ -422,6 +423,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Start Playback</property>
+                        <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_playpause_button_clicked"/>
                         <child>
@@ -444,6 +446,7 @@
                         <property name="tooltip_text" translatable="yes">Stop Playback
 
 Right Click for Stop After Track Feature</property>
+                        <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <child>
                           <object class="GtkImage" id="image2">
@@ -463,6 +466,7 @@ Right Click for Stop After Track Feature</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Next Track</property>
+                        <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_next_button_clicked"/>
                         <child>

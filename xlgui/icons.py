@@ -442,14 +442,10 @@ class IconManager(object):
         self._sizes = [16, 22, 24, 32, 48, 'scalable']
         self._cache = {}
 
-        self.rating_active_pixbuf = ExtendedPixbuf(
-            gtk.gdk.pixbuf_new_from_file(
-                xdg.get_data_path('images', 'star.png')))
-        self.rating_inactive_pixbuf = self.rating_active_pixbuf.copy()
-        self.rating_inactive_pixbuf.saturate_and_pixelate(
-            self.rating_inactive_pixbuf, 0, False) # Desaturate
-        self.rating_inactive_pixbuf.saturate_and_pixelate(
-            self.rating_inactive_pixbuf, 20, False) # Brighten
+        self.rating_active_pixbuf = extended_pixbuf_new_from_file(
+                xdg.get_data_path('images', 'star.png'))
+        self.rating_inactive_pixbuf = extended_pixbuf_new_from_file(
+            xdg.get_data_path('images', 'emptystar.png'))
         self.rating_pixbufs = []
         self._generate_rating_pixbufs()
 

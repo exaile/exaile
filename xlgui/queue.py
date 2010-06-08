@@ -24,9 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import gtk
 
 from xl.nls import gettext as _
+from xl import providers
 from xlgui import main, playlist
+from xlgui.widgets import menu
 from xlgui.widgets.notebook import NotebookPage
 
 
@@ -42,11 +45,11 @@ def __create_queue_tab_context_menu():
         lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('queue-tab-context', item)
-__create_playlist_tab_context_menu()
+__create_queue_tab_context_menu()
 
 
 class QueuePage(gtk.VBox, NotebookPage):
-    menu-provider-name = 'playlist-tab-context'
+    menu_provider_name = 'playlist-tab-context'
     def __init__(self):
         gtk.VBox.__init__(self)
         NotebookPage.__init__(self)

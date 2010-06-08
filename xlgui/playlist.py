@@ -289,10 +289,19 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         self.modelfilter.set_visible_func(self.model_visible_func)
         self.view.set_model(self.modelfilter)
 
-        event.add_callback(self.on_shuffle_mode_changed,
-                "playlist_shuffle_mode_changed", self.playlist)
-        event.add_callback(self.on_repeat_mode_changed,
-                "playlist_repeat_mode_changed", self.playlist)
+        event.add_callback(self.on_mode_changed,
+                "playlist_shuffle_mode_changed", self.playlist,
+                self.shuffle_button)
+        event.add_callback(self.on_mode_changed,
+                "playlist_repeat_mode_changed", self.playlist,
+                self.repeat_button)
+        event.add_callback(self.on_mode_changed,
+                "playlist_repeat_mode_changed", self.playlist,
+                self.dynamic_button)
+
+        self.on_mode_changed(None, None, self.playlist.shuffle_mode, self.shuffle_button)
+        self.on_mode_changed(None, None, self.playlist.repeat_mode, self.repeat_button)
+        self.on_mode_changed(None, None, self.playlist.dynamic_mode, self.dynamic_button)
         self.view.model.connect('row-changed', self.on_row_changed)
 
         self.show_all()
@@ -381,10 +390,7 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
     def _mode_menu_set_toggle(self, menu, button, name):
         mode = getattr(self.playlist, name)
-        if mode == 'disabled':
-            button.set_active(False)
-        else:
-            button.set_active(True)
+        self.on_mode_changed(None, None, mode, button)
 
     def on_shuffle_mode_set(self, widget, mode):
         """
@@ -392,29 +398,14 @@ class PlaylistPage(gtk.VBox, NotebookPage):
         """
         self.playlist.shuffle_mode = mode
 
-    def on_shuffle_mode_changed(self, evtype, playlist, mode):
-        """
-            Updates the UI to reflect changes in the shuffle mode
-        """
-        if mode == 'disabled':
-            self.shuffle_button.set_active(False)
-        else:
-            self.shuffle_button.set_active(True)
-
     def on_repeat_mode_set(self, widget, mode):
         """
             Callback for the Repeat mode menu
         """
         self.playlist.repeat_mode = mode
 
-    def on_repeat_mode_changed(self, evtype, playlist, mode):
-        """
-            Updates the UI to reflect changes in the repeat mode
-        """
-        if mode == 'disabled':
-            self.repeat_button.set_active(False)
-        else:
-            self.repeat_button.set_active(True)
+    def on_mode_changed(self, evtype, playlist, mode, button):
+        button.set_active(mode != 'disabled')
 
     def on_row_changed(self, model, path, iter):
         """

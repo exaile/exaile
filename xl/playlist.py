@@ -79,7 +79,10 @@ def save_to_m3u(playlist, path):
             leng = round(float(rawlen))
         if not rawlen or leng < 1:
             leng = -1
+        artist = track.get_tag_raw('artist', join=True)
         title = track.get_tag_raw('title', join=True)
+        if artist:
+            title = artist + ' - ' + title
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
             title, track.get_loc_for_io()))
 
@@ -128,7 +131,12 @@ def import_from_m3u(path):
                         length = 0
                 else:
                     length = 0
-                current.set_tag_raw('title', title)
+                artist_title = title.split(' - ', 1)
+                if len(artist_title) > 1:
+                    current.set_tag_raw('artist', artist_title[0])
+                    current.set_tag_raw('title', artist_title[1])
+                else:
+                    current.set_tag_raw('title', title)
                 current.set_tag_raw('__length', length)
                 current_extinf = None
 

@@ -171,8 +171,8 @@ class Button(gtk.Button):
 
 class PlayPauseButton(Button):
     """
-        Special Button which automatically sets its
-        appearance depending on the current playback state
+        Button which automatically sets its appearance
+        depending on the current playback state
     """
     def __init__(self, player, callback):
         Button.__init__(self, gtk.STOCK_MEDIA_PLAY,
@@ -217,6 +217,18 @@ class PlayPauseButton(Button):
             Updates appearance on playback state change
         """
         self.update_state()
+
+class RestoreButton(Button):
+    """
+        Button which allows to restore the main window
+    """
+    def __init__(self, accel_group, callback):
+        Button.__init__(self, gtk.STOCK_LEAVE_FULLSCREEN,
+            _('Restore main window'), callback)
+
+        key, modifier = gtk.accelerator_parse('<Control><Alt>M')
+        self.add_accelerator('clicked', accel_group,
+            key, modifier, gtk.ACCEL_VISIBLE)
 
 class VolumeButton(gtk.VolumeButton):
     """
@@ -268,7 +280,9 @@ class AttachedWindow(gtk.Window):
 
         self.set_decorated(False)
         self.set_property('skip-taskbar-hint', True)
-        self.set_size_request(350, 400)
+
+        self.realize()
+        self.window.set_functions(gtk.gdk.FUNC_RESIZE) # Only allow resizing
 
         self.parent_widget = parent
 
@@ -367,7 +381,12 @@ class PlaylistButton(gtk.ToggleButton):
         self.playlist.list.set_model(self.playlist.model)
         self.playlist.scroll.set_property('shadow-type', gtk.SHADOW_IN)
         self.popup = AttachedWindow(self)
+        self.popup.resize(
+            settings.get_option('plugin/minimode/playlist_button_popup_width', 350),
+            settings.get_option('plugin/minimode/playlist_button_popup_height', 400)
+        )
         self.popup.add(self.playlist)
+        self.popup.connect('configure-event', self.on_popup_configure_event)
 
         self.tooltip = info.TrackToolTip(self, auto_update=True)
 
@@ -534,6 +553,24 @@ class PlaylistButton(gtk.ToggleButton):
         if playlist is not None:
             self.playlist.model = playlist.model
             self.playlist.list.set_model(self.playlist.model)
+
+    def on_popup_configure_event(self, widget, event):
+        """
+            Saves the window size after resizing
+        """
+        width = settings.get_option(
+            'plugin/minimode/playlist_button_popup_width', 350)
+        height = settings.get_option(
+            'plugin/minimode/playlist_button_popup_height', 400)
+        allocation = widget.get_allocation()
+
+        if allocation.width != width:
+            settings.set_option('plugin/minimode/playlist_button_popup_width',
+                allocation.width)
+
+        if allocation.height != height:
+            settings.set_option('plugin/minimode/playlist_button_popup_height',
+                allocation.height)
 
 class RatingWidget(rating.RatingWidget):
     """

@@ -124,7 +124,7 @@ def gtk_widget_replace(widget, replacement):
         return
     else:
         try:
-            expand, fill, padding, pack_type = parent.query_child_packing(widget)
+            packing = parent.query_child_packing(widget)
         except: # Not gtk.Box
             pass
 
@@ -133,7 +133,7 @@ def gtk_widget_replace(widget, replacement):
         parent.add(replacement)
 
         try:
-            parent.set_child_packing(replacement, expand, fill, padding, pack_type)
+            parent.set_child_packing(replacement, *packing)
             parent.reorder_child(replacement, position)
         except AttributeError: # Not gtk.Box
             pass

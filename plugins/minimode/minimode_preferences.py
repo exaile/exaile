@@ -96,7 +96,7 @@ class SelectedControlsPreference(widgets.SelectionListPreference):
             description=_('Select rating of the current track')),
         widgets.SelectionListPreference.Item(
             id='restore', title=_('Restore'),
-            description=_('Restore main window'),
+            description=_('Restore the main window'),
             fixed=True),
     ]
 

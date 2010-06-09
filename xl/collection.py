@@ -46,7 +46,14 @@ import threading
 import time
 
 from xl.nls import gettext as _
-from xl import common, xdg, event, metadata, settings, trax
+from xl import (
+    common,
+    event,
+    metadata,
+    settings,
+    trax,
+    xdg
+)
 
 logger = logging.getLogger(__name__)
 
@@ -65,43 +72,26 @@ def get_collection_by_loc(loc):
             return c
     return None
 
-class CollectionScanThread(threading.Thread, gobject.GObject):
+class CollectionScanThread(common.ProgressThread):
     """
         Scans the collection
     """
-    __gsignals__ = {
-        'progress-update': (
-            gobject.SIGNAL_RUN_FIRST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
-        ),
-        # TODO: Check if 'stopped' is required
-        'done': (
-            gobject.SIGNAL_RUN_FIRST,
-            gobject.TYPE_NONE,
-            ()
-        )
-    }
-
     def __init__(self, collection):
         """
             Initializes the thread
 
-            @param colleciton: the collection to scan
+            :param collection: the collection to scan
         """
-        threading.Thread.__init__(self)
-        gobject.GObject.__init__(self)
-        self.setDaemon(True)
+        common.ProgressThread.__init__(self)
 
         self.collection = collection
-        self.stopped = False
 
     def stop(self):
         """
             Stops the thread
         """
         self.collection.stop_scan()
-        self.emit('done')
+        common.ProgressThread.stop(self)
 
     def on_scan_progress_update(self, type, collection, progress):
         """
@@ -111,7 +101,6 @@ class CollectionScanThread(threading.Thread, gobject.GObject):
             self.emit('progress-update', progress)
         else:
             self.emit('done')
-            # glib.idle_add(self.panel.load_tree)
 
     def run(self):
         """
@@ -122,7 +111,9 @@ class CollectionScanThread(threading.Thread, gobject.GObject):
 
         self.collection.rescan_libraries()
 
-        event.remove_callback(self.on_scan_progress_update,
+        # idle_add is a hack to ensure it only gets removed AFTER all
+        # events have been sent. remove when we get a better solution.
+        glib.idle_add(event.remove_callback, self.on_scan_progress_update,
             'scan_progress_update')
 
 class Collection(trax.TrackDB):
@@ -713,11 +704,11 @@ class Library(object):
 
             # progress update
             if notify_interval is not None and count % notify_interval == 0:
-                event.log_event('tracks_scanned', self, count)
+                event.log_event_sync('tracks_scanned', self, count)
 
         # final progress update
         if notify_interval is not None:
-            event.log_event('tracks_scanned', self, count)
+            event.log_event_sync('tracks_scanned', self, count)
 
 
 

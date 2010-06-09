@@ -44,6 +44,7 @@ import pango
 from xl import (
     common,
     event,
+    formatter,
     player,
     providers,
     settings,
@@ -206,6 +207,8 @@ class MainWindow(gobject.GObject):
 
         self.window = self.builder.get_object('ExaileWindow')
         self.window.set_title('Exaile')
+        self.title_formatter = formatter.TrackFormatter(settings.get_option(
+            'gui/main_window_title_format', _('$title (by $artist)')))
 
         playlist_columns_menu = wmenu.ProviderMenu('playlist-columns-menu', self.window)
         builder.get_object('columns_menu').set_submenu(playlist_columns_menu)
@@ -789,6 +792,10 @@ class MainWindow(gobject.GObject):
         """
            Handles changes of settings
         """
+        if option == 'gui/main_window_title_format':
+            self.title_formatter.props.format = settings.get_option(
+                option, self.title_formatter.props.format)
+
         if option == 'gui/show_tabbar':
             self.playlist_notebook.set_show_tabs(
                 settings.get_option(option, True)
@@ -821,17 +828,7 @@ class MainWindow(gobject.GObject):
         if not track:
             return
 
-        artist = track.get_tag_display('artist', artist_compilations=False)
-        album = track.get_tag_display('album')
-        title = track.get_tag_display('title')
-
-        # Update window title.
-        if artist:
-            # TRANSLATORS: Window title
-            self.window.set_title(_("%(title)s (by %(artist)s)") %
-                { 'title': title, 'artist': artist } + " - Exaile")
-        else:
-            self.window.set_title(title + " - Exaile")
+        self.window.set_title(self.title_formatter.format(track))
 
     def on_playpause_button_clicked(self, *e):
         """

@@ -99,10 +99,6 @@ class MiniMode(gtk.Window):
         self.border_frame.add(self.box)
         self.add(self.border_frame)
 
-        self.register_widgets()
-        self.update_widgets(self.get_option('plugin/minimode/selected_controls'))
-        self.update_position()
-
         basedir = os.path.dirname(os.path.abspath(__file__))
         icons.MANAGER.add_stock_from_directory('exaile-minimode',
             os.path.join(basedir, 'icons'))
@@ -117,6 +113,10 @@ class MiniMode(gtk.Window):
             key, modifier, gtk.ACCEL_VISIBLE)
         self.exaile.gui.main.window.add_accel_group(self.accel_group)
         self.add_accel_group(self.accel_group)
+
+        self.register_widgets()
+        self.update_widgets(self.get_option('plugin/minimode/selected_controls'))
+        self.update_position()
 
         self._configure_id = None
         self._main_visible_toggle_id = None
@@ -260,9 +260,8 @@ class MiniMode(gtk.Window):
                     self.on_stop_clicked]),
             'volume': (mmwidgets.VolumeButton,
                 [self.exaile.player, self.on_volume_changed]),
-            'restore': (mmwidgets.Button,
-                [gtk.STOCK_LEAVE_FULLSCREEN, _('Restore main window'),
-                    self.on_restore_clicked]),
+            'restore': (mmwidgets.RestoreButton,
+                [self.accel_group, self.on_restore_clicked]),
             'progress_bar': (mmwidgets.ProgressBar,
                 [self.exaile.player, self.on_seeked]),
             'track_selector': (mmwidgets.TrackSelector,

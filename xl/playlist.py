@@ -80,7 +80,10 @@ def save_to_m3u(playlist, path):
             leng = round(float(rawlen))
         if not rawlen or leng < 1:
             leng = -1
+        artist = track.get_tag_raw('artist', join=True)
         title = track.get_tag_raw('title', join=True)
+        if artist:
+            title = artist + ' - ' + title
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
             title, track.get_loc_for_io()))
 
@@ -129,7 +132,12 @@ def import_from_m3u(path):
                         length = 0
                 else:
                     length = 0
-                current.set_tag_raw('title', title)
+                artist_title = title.split(' - ', 1)
+                if len(artist_title) > 1:
+                    current.set_tag_raw('artist', artist_title[0])
+                    current.set_tag_raw('title', artist_title[1])
+                else:
+                    current.set_tag_raw('title', title)
                 current.set_tag_raw('__length', length)
                 current_extinf = None
 
@@ -152,11 +160,14 @@ def save_to_pls(playlist, path):
     count = 1
 
     for track in playlist:
+        artist = track.get_tag_raw('artist', join=True)
+        title = track.get_tag_raw('title', join=True)
+        if artist:
+            title = artist + ' - ' + title
         handle.write("File%d=%s\n" % (count, track.get_loc_for_io()))
-        handle.write("Title%d=%s\n" % (count,
-                track.get_tag_raw('title', join=True)))
+        handle.write("Title%d=%s\n" % (count, title))
         length = round(float(track.get_tag_raw('__length') or -1))
-        if length < 1:
+        if length < 0:
             length = -1
         handle.write("Length%d=%d\n\n" % (count, length))
         count += 1
@@ -200,16 +211,21 @@ def import_from_pls(path, handle=None):
     pl = Playlist(name=name)
 
     for n in range(1,num+1):
-        tr = trax.Track(linedict["file%s"%n])
-        if "title%s"%n in linedict:
-            tr.set_tag_raw('title', linedict["title%s"%n])
+        tr = trax.Track(linedict["file" + n])
+        if ("title" + n) in linedict:
+            title = linedict["title" + n]
+            artist_title = title.split(' - ', 1)
+            if len(artist_title) > 1:
+                artist, title = artist_title
+                tr.set_tag_raw('artist', artist)
         else:
-            tr.set_tag_raw('title', linedict["file%s"%n].split("/")[-1])
-        if "__length%s"%n in linedict:
-            length = float(linedict["__length%s"%n])
+            title = os.path.splitext(os.path.basename(linedict["file" + n]))[0]
+        tr.set_tag_raw('title', title)
+        if ("Length" + n) in linedict:
+            length = float(linedict["Length" + n])
+            if length < 0:
+                length = 0
         else:
-            length = 0
-        if length < 1:
             length = 0
         tr.set_tag_raw('__length', length)
         pl.add(tr, ignore_missing_files=False)

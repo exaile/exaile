@@ -24,43 +24,51 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-
-from xl.nls import gettext as _
-
-from xlgui.panel import device
-from xl import event
-
-import imp, os
+import gtk
+import glib
+import os
+import imp
 importer = imp.load_source("importer",
         os.path.join(os.path.dirname(__file__), "importer.py"))
-
-import glib
-import logging, threading
+import logging
 logger = logging.getLogger(__name__)
 
-class CDImportThread(threading.Thread):
-    def __init__(self, imp, panel):
-        threading.Thread.__init__(self)
-        self.setDaemon(True)
+from xl import common, event
+from xl.nls import gettext as _
+from xlgui.panel import device
 
-        self.imp = imp
-        self.panel = panel
+class CDImportThread(common.ProgressThread):
+    def __init__(self, cd_importer):
+        common.ProgressThread.__init__(self)
 
-    def stop_thread(self):
-        self.imp.stop()
+        self.cd_importer = cd_importer
 
-    def progress_update(self, progress=None):
+    def stop(self):
+        """
+            Stops the thread
+        """
+        self.cd_importer.stop()
+        common.ProgressThread.stop(self)
+
+    def on_progress_update(self, progress=None):
+        """
+            Notifies about progress changes
+        """
         if progress is None:
-            progress = self.imp.get_progress()*100
-        event.log_event("progress_update", self, progress)
+            progress = self.cd_importer.get_progress() * 100
+
+        self.emit('progress-update', int(progress))
+
         return True
 
     def run(self):
-        id = glib.timeout_add_seconds(1, self.progress_update)
-        self.imp.do_import()
-        glib.source_remove(id)
-        self.progress_update(100)
-
+        """
+            Runs the thread
+        """
+        progress_id = glib.timeout_add_seconds(1, self.on_progress_update)
+        self.cd_importer.do_import()
+        glib.source_remove(progress_id)
+        self.emit('done')
 
 class CDPanel(device.FlatPlaylistDevicePanel):
     def __init__(self, *args):
@@ -81,9 +89,9 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         if self.__importing:
             return
         self.__importing = True
-        imp = importer.CDImporter(tracks)
-        impthread = CDImportThread(imp, self)
-        self.main.controller.progress_manager.add_monitor(impthread,
+        cd_importer = importer.CDImporter(tracks)
+        thread = CDImportThread(cd_importer)
+        self.main.controller.progress_manager.add_monitor(thread,
                 _("Importing CD..."), gtk.STOCK_HARDDISK)
 
 

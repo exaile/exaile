@@ -538,7 +538,7 @@ class Exaile(object):
         # to be saved in any particular order. modules that might be
         # touched by events triggered here should be added statically
         # below.
-        event.log_event("quit_application", self, None)
+        event.log_event("quit_application", self, None, async=False)
 
         logger.info("Saving state...")
         self.plugins.save_enabled()

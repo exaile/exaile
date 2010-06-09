@@ -99,8 +99,9 @@ class CDImporter(object):
         for part in parts:
             for k, v in replacedict.iteritems():
                 val = tr.get_tag_display(v, artist_compilations=False)
-                val = val.replace('"', '\\"')
-                part = part.replace(k, str(val))
+                if val:
+                    val = val.replace('"', '\\"')
+                    part = part.replace(k, str(val))
             part = part.replace(os.sep, "") # strip os.sep
             parts2.append(part)
         dirpath = "/" + os.path.join(*parts2[:-1])

@@ -554,6 +554,8 @@ class SelectionListPreference(Preference):
             next_iter = model.iter_next(selected_iter)
             model.move_after(selected_iter, next_iter)
 
+        tree.scroll_to_cell(model.get_path(selected_iter))
+
         self.apply()
 
     def on_toggled(self, cell, path):

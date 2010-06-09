@@ -366,6 +366,7 @@ class CoverWidget(gtk.EventBox):
         """
         gtk.EventBox.__init__(self)
         self.image = image
+        self.cover_data = None
         self.player = player
         self.menu = CoverMenu(self)
         self.parent_window = image.get_toplevel()
@@ -402,11 +403,10 @@ class CoverWidget(gtk.EventBox):
         """
             Shows the current cover
         """
-        if not self.get_data('cover-set'):
+        if not self.cover_data:
             return
 
-        cover_data = cover_manager.get_cover(self.player.current)
-        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
+        pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data)
 
         if pixbuf:
             window = CoverWindow(self.parent_window, pixbuf,
@@ -436,7 +436,7 @@ class CoverWidget(gtk.EventBox):
             cover_manager.get_default_cover())
         self.image.set_from_pixbuf(pixbuf)
         self.set_drag_enabled(False)
-        self.set_data('cover-set', False)
+        self.cover_data = None
 
         self.emit('cover-found', None)
 
@@ -490,7 +490,7 @@ class CoverWidget(gtk.EventBox):
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, (width, width))
         self.image.set_from_pixbuf(pixbuf)
         self.set_drag_enabled(True)
-        self.set_data('cover-set', True)
+        self.cover_data = cover_data
 
         self.emit('cover-found', pixbuf)
 
@@ -506,11 +506,8 @@ class CoverWidget(gtk.EventBox):
         """
         if self.filename is None:
             self.filename = tempfile.mkstemp(prefix='exaile_cover_')[1]
-        """
-        cover_data = cover_manager.get_cover(self.player.current)
-        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
-        """
-        pixbuf = self.image.get_pixbuf()
+
+        pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data)
         pixbuf.save(self.filename, 'png')
         selection.set_uris([gio.File(self.filename).get_uri()])
 
@@ -535,13 +532,15 @@ class CoverWidget(gtk.EventBox):
             except gio.Error:
                 return
 
-            data = stream.read()
+            self.cover_data = stream.read()
             width = settings.get_option('gui/cover_width', 100)
-            pixbuf = icons.MANAGER.pixbuf_from_data(data, (width, width))
+            pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data,
+                (width, width))
 
             if pixbuf is not None:
                 self.image.set_from_pixbuf(pixbuf)
-                cover_manager.set_cover(self.player.current, db_string, data)
+                cover_manager.set_cover(self.player.current, db_string,
+                    self.cover_data)
 
     @common.threaded
     def on_playback_start(self, type, player, track):
@@ -552,6 +551,7 @@ class CoverWidget(gtk.EventBox):
         glib.idle_add(self.set_blank)
         fetch = not settings.get_option('covers/automatic_fetching', True)
         cover_data = cover_manager.get_cover(track, set_only=fetch)
+
         if not cover_data:
             return
 

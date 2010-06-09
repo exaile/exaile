@@ -407,7 +407,7 @@ class MainWindow(gobject.GObject):
         """
             Loads the saved tabs
         """
-        if not settings.get_option('playlist/open_last', False):
+        if not settings.get_option('playlist/open_last', True):
             self.add_playlist()
             return
         names = self.tab_manager.list_playlists()

@@ -102,10 +102,15 @@ class ElementBin(gst.Bin):
         self.src = None
         self.sink = None
 
+        event.add_callback(self.on_reconfigure_bins, 'playback_reconfigure_bins')
+
+    def on_reconfigure_bins(self, *args):
+        self.setup_elements()
+
     def setup_elements(self):
         state = self.get_state()[1]
 
-        if self.srcpad is not None:
+        if False: #self.srcpad is not None:
             self.srcpad.set_blocked_async(True, self._setup_finish, state)
         else:
             self._setup_finish(None, True, state)

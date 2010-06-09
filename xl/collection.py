@@ -111,9 +111,7 @@ class CollectionScanThread(common.ProgressThread):
 
         self.collection.rescan_libraries()
 
-        # idle_add is a hack to ensure it only gets removed AFTER all
-        # events have been sent. remove when we get a better solution.
-        glib.idle_add(event.remove_callback, self.on_scan_progress_update,
+        event.remove_callback(self.on_scan_progress_update,
             'scan_progress_update')
 
 class Collection(trax.TrackDB):
@@ -704,11 +702,11 @@ class Library(object):
 
             # progress update
             if notify_interval is not None and count % notify_interval == 0:
-                event.log_event_sync('tracks_scanned', self, count)
+                event.log_event('tracks_scanned', self, count)
 
         # final progress update
         if notify_interval is not None:
-            event.log_event_sync('tracks_scanned', self, count)
+            event.log_event('tracks_scanned', self, count)
 
 
 

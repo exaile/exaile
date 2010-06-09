@@ -193,19 +193,23 @@ class RatingColumn(Column):
     datatype = int
     dataproperty = 'rating'
     cellproperties = {'follow-state': False}
+    size = settings.get_option('rating/maximum', 5) * 16 + 2
     def __init__(self, *args):
         Column.__init__(self, *args)
         self.cellr.connect('rating-changed', self.on_rating_changed)
+        self.saved_model = None
 
     def data_func(self, col, cell, model, iter):
-        track = model.get_track(model.get_path(iter))
+        track = model.get_value(iter, 0)
         cell.props.rating = track.get_rating()
+        self.saved_model = model
 
     def on_rating_changed(self, widget, path, rating):
         """
             Updates the rating of the selected track
         """
-        track = self.container.model.get_track(path)
+        iter = self.saved_model.get_iter(path)
+        track = self.saved_model.get_value(iter, 0)
         oldrating = track.get_rating()
 
         if rating == oldrating:

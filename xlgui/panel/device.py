@@ -30,45 +30,48 @@ import glib
 import gobject
 import gtk
 
+from xl import common, event
 from xl.nls import gettext as _
-from xl import event
 from xlgui import panel
 from xlgui.panel.collection import CollectionPanel
 from xlgui.panel.flatplaylist import FlatPlaylistPanel
 
-
-class DeviceTransferThread(threading.Thread):
-    def __init__(self, device, main, panel):
-        threading.Thread.__init__(self)
-        self.setDaemon(True)
+class DeviceTransferThread(common.ProgressThread):
+    """
+        Transfers tracks from devices
+    """
+    def __init__(self, device):
+        common.ProgressThread.__init__(self)
 
         self.device = device
-        self.main = main
-        self.panel = panel
 
-    def stop_thread(self):
+    def stop(self):
+        """
+            Stops the thread
+        """
         self.device.transfer.cancel()
+        common.ProgressThread.stop(self)
 
-    def thread_complete(self):
+    def on_track_transfer_progress(self, type, transfer, progress):
         """
-            Called when the thread has finished normally
+            Notifies about progress changes
         """
-        glib.idle_add(self.panel.load_tree)
-
-    def progress_update(self, type, transfer, progress):
-        event.log_event('progress_update', self, progress)
+        if progress < 100:
+            self.emit('progress-update', progress)
+        else:
+            self.emit('done')
 
     def run(self):
         """
             Runs the thread
         """
-        event.add_callback(self.progress_update, 'track_transfer_progress',
-            self.device.transfer)
+        event.add_callback(self.on_track_transfer_progress,
+            'track_transfer_progress', self.device.transfer)
         try:
             self.device.start_transfer()
         finally:
-            event.remove_callback(self.progress_update, 'track_transfer_progress',
-                self.device.transfer)
+            event.remove_callback(self.on_track_transfer_progress,
+                'track_transfer_progress', self.device.transfer)
 
 class ReceptiveCollectionPanel(CollectionPanel):
     def drag_data_received(self, widget, context, x, y, data, info, stamp):
@@ -128,9 +131,10 @@ class DevicePanel(panel.Panel):
 
     def add_tracks_func(self, tracks):
         self.device.add_tracks(tracks)
-        thread = DeviceTransferThread(self.device, self.main, self)
+        thread = DeviceTransferThread(self.device)
+        thread.connect('done', lambda *e: self.load_tree())
         self.main.controller.progress_manager.add_monitor(thread,
-                _("Transferring to %s...")%self.name, gtk.STOCK_GO_UP)
+                _("Transferring to %s...") % self.name, gtk.STOCK_GO_UP)
 
     def get_panel(self):
         return self.collectionpanel.get_panel()

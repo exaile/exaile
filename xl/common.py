@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import gobject
 import logging
 import os
 import random
@@ -291,5 +292,41 @@ class TimeSpan:
             self.years, self.days, self.hours,
             self.minutes, self.seconds
         )
+
+class ProgressThread(gobject.GObject, threading.Thread):
+    """
+        A basic thread with progress updates
+    """
+    __gsignals__ = {
+        'progress-update': (
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        ),
+        # TODO: Check if 'stopped' is required
+        'done': (
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            ()
+        )
+    }
+
+    def __init__(self):
+        gobject.GObject.__init__(self)
+        threading.Thread.__init__(self)
+        self.setDaemon(True)
+
+    def stop(self):
+        """
+            Stops the thread
+        """
+        self.emit('done')
+
+    def run(self):
+        """
+            Override and make sure that the 'progress-update'
+            signal is emitted regularly with the progress
+        """
+        pass
 
 # vim: et sts=4 sw=4

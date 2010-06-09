@@ -60,9 +60,22 @@ class QueuePage(gtk.VBox, NotebookPage):
         self.view = playlist.PlaylistView(player.QUEUE)
         self.swindow.add(self.view)
 
+        self.show_all()
+
+    ## NotebookPage API ##
+
+    def get_name(self):
+        return "Queue (%s)"%len(player.QUEUE)
+
+    def handle_close(self):
+        return False
+
     def set_tab(self, tab):
         NotebookPage.set_tab(self, tab)
         tab.set_closable(False)
+
+    ## End NotebookPage ##
+
 
 
 # vim: et sw=4 st=4

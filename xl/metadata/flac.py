@@ -36,5 +36,13 @@ class FlacFormat(BaseFormat):
     def get_bitrate(self):
         return -1
 
+    def read_tags(self, tags):
+        td = super(FlacFormat, self).read_tags(tags)
+        if "cover" in tags:
+            for image in self.mutagen.pictures:
+                if image.type == 3:              # front cover
+                    td["cover"] = image.data
+        return td
+
 # vim: et sts=4 sw=4
 

@@ -378,11 +378,14 @@ class Playlist(gtk.VBox):
         paths = [(x,) for x in range(start, end-1)]
         self.remove_rows(paths, playlist=False)
 
-    def on_add_tracks(self, type, playlist, trs, scroll=False):
+    def on_add_tracks(self, type, playlist, tracks):
         """
             Called when someone adds tracks to the contained playlist
         """
-        for track in trs:
+        if not tracks:
+            return
+
+        for track in tracks:
             self._append_track(track)
 
         newlength = len(self.playlist)
@@ -392,7 +395,7 @@ class Playlist(gtk.VBox):
         if range:
             offset = range[1][0] - range[0][0]
 
-        if trs and scroll:
+        if settings.get_option('gui/scroll_when_appending_tracks', False):
             try:
                 if offset > newlength:
                     self.list.scroll_to_cell(self.playlist.index(tracks[-1]))

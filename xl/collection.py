@@ -384,8 +384,8 @@ class Library(object):
         self.scan_interval = scan_interval
         self.scan_id = 0
         self.scanning = False
-        self.monitor = None
         self._monitored = False
+        self.monitors = {}
 
         self.collection = None
         self.set_monitored(monitored)
@@ -430,13 +430,14 @@ class Library(object):
             return
 
         if monitored:
-            gfile = gio.File(self.location)
-            self.monitor = gfile.monitor_directory()
-            self.monitor.connect('changed', self.on_location_changed)
+            for directory in self._walk_directories(gio.File(self.location)):
+                monitor = directory.monitor_directory()
+                monitor.connect('changed', self.on_location_changed)
+                self.monitors[directory] = monitor
         else:
-            self.monitor.cancel()
-            del self.monitor
-            self.monitor = None
+            for directory in self.monitors:
+                self.monitors[directory].cancel()
+            self.monitors = {}
 
         self._monitored = monitored
 
@@ -449,6 +450,15 @@ class Library(object):
         if event == gio.FILE_MONITOR_EVENT_CREATED:
             added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
             self.collection.add_tracks(added_tracks)
+
+            # Set up new monitor if directory
+            fileinfo = gfile.query_info('standard::type')
+
+            if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY and \
+               gfile not in self.monitors:
+                monitor = gfile.monitor_directory()
+                monitor.connect('changed', self.on_location_changed)
+                self.monitors[gfile] = monitor
         elif event == gio.FILE_MONITOR_EVENT_DELETED:
             removed_tracks = []
 
@@ -466,6 +476,14 @@ class Library(object):
                         removed_tracks += [track]
 
             self.collection.remove_tracks(removed_tracks)
+
+            # Remove obsolete monitors
+            removed_directories = [d for d in self.monitors \
+                if d == gfile or d.has_prefix(gfile)]
+
+            for directory in removed_directories:
+                self.monitors[directory].cancel()
+                del self.monitors[directory]
 
     def get_rescan_interval(self):
         """
@@ -564,16 +582,18 @@ class Library(object):
 
     def _walk(self, root):
         """
-            Walk through a gio directory, returning each file in turn.
+            Walk through a Gio directory, yielding each file
 
-            Files are enumerated in the following order: first the directory,
-            then the files in that directory. Once one directory's files have
-            all been listed, it moves on to the next directory. Order of files
-            within a dir and order of dir traversal is not specified.
+            Files are enumerated in the following order: first the
+            directory, then the files in that directory. Once one
+            directory's files have all been listed, it moves on to
+            the next directory. Order of files within a directory
+            and order of directory traversal is not specified.
 
-            :root: A gio.File representing the directory to walk through
-
-            returns a generator object that yields each gio.File in turn
+            :param root: a :class:`gio.File` representing the
+                directory to walk through
+            :returns: a generator object
+            :rtype: :class:`gio.File`
         """
         queue = deque()
         queue.append(root)
@@ -603,6 +623,28 @@ class Library(object):
                         yield fil
             except gio.Error: # why doesnt gio offer more-specific errors?
                 pass
+
+    def _walk_directories(self, root):
+        """
+            Walk through a Gio directory, yielding each subdirectory
+
+            :param root: a :class:`gio.File` representing the
+                directory to walk through
+            :returns: a generator object
+            :rtype: :class:`gio.File`
+        """
+        yield root
+
+        try:
+            for fileinfo in root.enumerate_children(
+                    'standard::name,standard::type'):
+                if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY:
+                    directory = root.get_child(fileinfo.get_name())
+
+                    for subdirectory in self._walk_directories(directory):
+                        yield subdirectory
+        except gio.Error:
+            pass
 
     def update_track(self, gloc):
         """

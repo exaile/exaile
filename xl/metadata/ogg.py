@@ -28,10 +28,23 @@
 
 from xl.metadata._base import BaseFormat
 from mutagen import oggvorbis
+import mutagen.flac
+import base64
 
 class OggFormat(BaseFormat):
     MutagenType = oggvorbis.OggVorbis
     writable = True
 
+    def read_tags(self, tags):        
+        if "cover" in tags:
+            tags[tags.index("cover")]= "metadata_block_picture" 
+        td = super(OggFormat, self).read_tags(tags)        
+        data = td["metadata_block_picture"]
+        if data:
+            for d in data:
+                image = mutagen.flac.Picture(base64.standard_b64decode(d))
+                if image.type == 3:
+                    td["cover"] = image.data
+        return td
 # vim: et sts=4 sw=4
 

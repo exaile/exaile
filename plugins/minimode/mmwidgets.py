@@ -562,15 +562,14 @@ class PlaylistButton(gtk.ToggleButton):
             'plugin/minimode/playlist_button_popup_width', 350)
         height = settings.get_option(
             'plugin/minimode/playlist_button_popup_height', 400)
-        allocation = widget.get_allocation()
 
-        if allocation.width != width:
+        if event.width != width:
             settings.set_option('plugin/minimode/playlist_button_popup_width',
-                allocation.width)
+                event.width)
 
-        if allocation.height != height:
+        if event.height != height:
             settings.set_option('plugin/minimode/playlist_button_popup_height',
-                allocation.height)
+                event.height)
 
 class RatingWidget(rating.RatingWidget):
     """

@@ -37,10 +37,23 @@ import gtk
 import gtk.gdk
 import pango
 
-from xlgui import guiutil, icons, menu, plcolumns
-from xlgui.plcolumns import *
-from xl import playlist, event, collection, xdg, settings, trax
+from xl import (
+    collection,
+    event,
+    playlist,
+    settings,
+    trax,
+    xdg
+)
 from xl.nls import gettext as _
+from xlgui import (
+    guiutil,
+    icons,
+    menu,
+    plcolumns
+)
+from xlgui.plcolumns import *
+from xlgui.widgets import dialogs
 
 logger = logging.getLogger(__name__)
 
@@ -582,7 +595,7 @@ class Playlist(gtk.VBox):
 
                 if dirty == True and self.playlist.get_is_custom() \
                     and settings.get_option('playlist/ask_save', True):
-                    dialog = ConfirmCloseDialog(self.playlist.get_name())
+                    dialog = dialogs.ConfirmCloseDialog(self.playlist.get_name())
                     result = dialog.run()
                     if result == 110:
                         # Save the playlist then close
@@ -1152,28 +1165,5 @@ class Playlist(gtk.VBox):
         for track in trs:
             print track.get_loc_for_display()
         print '---Done printing playlist'
-
-class ConfirmCloseDialog(gtk.MessageDialog):
-    """
-        Shows the dialog to confirm closing of the playlist
-    """
-    def __init__(self, document_name):
-        """
-            Initializes the dialog
-        """
-        gtk.MessageDialog.__init__(self, type = gtk.MESSAGE_WARNING)
-
-        self.set_title(_('Close %s' % document_name))
-        self.set_markup(_('<b>Save changes to %s before closing?</b>') % document_name)
-        self.format_secondary_text(_('Your changes will be lost if you don\'t save them'))
-
-        self.add_buttons(_('Close Without Saving'), 100, gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                        gtk.STOCK_SAVE, 110)
-
-    def run(self):
-        self.show_all()
-        response = gtk.Dialog.run(self)
-        self.hide()
-        return response
 
 # vim: et sts=4 sw=4

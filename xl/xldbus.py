@@ -35,7 +35,7 @@ import dbus.service
 import gio
 import gobject
 
-from xl import event
+from xl import covers, event, player
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -188,18 +188,18 @@ class DbusManager(dbus.service.Object):
 
     def _connect_signals(self):
         # connect events
-        event.add_callback(self.emit_state_changed, 'playback_player_end',
-            self.exaile.player)
-        event.add_callback(self.emit_state_changed, 'playback_track_start',
-            self.exaile.player)
-        event.add_callback(self.emit_state_changed, 'playback_toggle_pause',
-            self.exaile.player)
-        event.add_callback(self.emit_track_changed, 'tags_parsed',
-            self.exaile.player)
-        event.add_callback(self.emit_state_changed, 'playback_buffering',
-            self.exaile.player)
-        event.add_callback(self.emit_state_changed, 'playback_error',
-            self.exaile.player)
+        event.add_callback(self.emit_state_changed,
+            'playback_player_end', player.PLAYER)
+        event.add_callback(self.emit_state_changed,
+            'playback_track_start', player.PLAYER)
+        event.add_callback(self.emit_state_changed,
+            'playback_toggle_pause', player.PLAYER)
+        event.add_callback(self.emit_track_changed,
+            'tags_parsed', player.PLAYER)
+        event.add_callback(self.emit_state_changed,
+            'playback_buffering', player.PLAYER)
+        event.add_callback(self.emit_state_changed,
+            'playback_error', player.PLAYER)
 
 
     @dbus.service.method('org.exaile.Exaile', 's')
@@ -222,7 +222,7 @@ class DbusManager(dbus.service.Object):
             Returns an attribute of a track
         """
         try:
-            value = self.exaile.player.current.get_tag_raw(attr)
+            value = player.PLAYER.current.get_tag_raw(attr)
         except (ValueError, TypeError, AttributeError):
             value = ''
 
@@ -236,7 +236,7 @@ class DbusManager(dbus.service.Object):
             Sets rating of a track
         """
         try:
-            self.exaile.player.current.set_tag_raw(attr, value)
+            player.PLAYER.current.set_tag_raw(attr, value)
         except (AttributeError, TypeError):
             pass
 
@@ -274,13 +274,11 @@ class DbusManager(dbus.service.Object):
         """
             Mutes or unmutes the volume
         """
-        player = self.exaile.player
-
         if self.cached_volume == -1:
-            self.cached_volume = player.get_volume()
-            player.set_volume(0)
+            self.cached_volume = player.PLAYER.get_volume()
+            player.PLAYER.set_volume(0)
         else:
-            player.set_volume(self.cached_volume)
+            player.PLAYER.set_volume(self.cached_volume)
             self.cached_volume = -1
 
     @dbus.service.method('org.exaile.Exaile', 'd')
@@ -288,61 +286,59 @@ class DbusManager(dbus.service.Object):
         """
             Seeks to the given position in seconds
         """
-        player = self.exaile.player
-        player.seek(value)
+        player.PLAYER.seek(value)
 
     @dbus.service.method('org.exaile.Exaile')
     def Prev(self):
         """
             Jumps to the previous track
         """
-        self.exaile.queue.prev()
+        player.QUEUE.prev()
 
     @dbus.service.method('org.exaile.Exaile')
     def Stop(self):
         """
             Stops playback
         """
-        self.exaile.player.stop()
+        player.PLAYER.stop()
 
     @dbus.service.method('org.exaile.Exaile')
     def Next(self):
         """
             Jumps to the next track
         """
-        self.exaile.queue.next()
+        player.QUEUE.next()
 
     @dbus.service.method('org.exaile.Exaile')
     def Play(self):
         """
             Starts playback
         """
-        self.exaile.queue.play()
+        player.QUEUE.play()
 
     @dbus.service.method('org.exaile.Exaile')
     def PlayPause(self):
         """
             Toggle Play or Pause
         """
-        if self.exaile.player.get_state() == 'stopped':
-            self.exaile.player.play(self.exaile.queue.get_current())
+        if player.PLAYER.get_state() == 'stopped':
+            player.PLAYER.play(player.QUEUE.get_current())
         else:
-            self.exaile.player.toggle_pause()
+            player.PLAYER.toggle_pause()
 
     @dbus.service.method('org.exaile.Exaile')
     def StopAfterCurrent(self):
         """
             Toggle stopping after current track
         """
-        current_track = self.exaile.queue.get_current()
-        self.exaile.queue.stop_track = current_track
+        player.QUEUE.stop_track = player.QUEUE.get_current()
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
     def CurrentProgress(self):
         """
             Returns the progress into the current track (in percent)
         """
-        progress = self.exaile.player.get_progress()
+        progress = player.PLAYER.get_progress()
         if progress == -1:
             return ""
         return str(int(progress * 100))
@@ -352,7 +348,7 @@ class DbusManager(dbus.service.Object):
         """
             Returns the position inside the current track (as time)
         """
-        progress = self.exaile.player.get_time()
+        progress = player.PLAYER.get_time()
         return '%d:%02d' % (progress // 60, progress % 60)
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
@@ -360,16 +356,15 @@ class DbusManager(dbus.service.Object):
         """
             Returns the current volume level (in percent)
         """
-        return str(self.exaile.player.get_volume())
+        return str(player.PLAYER.get_volume())
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
     def Query(self):
         """
             Returns information about the currently playing track
         """
-        current_track = self.exaile.queue.get_current()
-        if current_track is None or not \
-           (self.exaile.player.is_playing() or self.exaile.player.is_paused()):
+        current_track = player.QUEUE.get_current()
+        if current_track is None or player.PLAYER.is_stopped():
             return _('Not playing.')
 
         length = float(self.GetTrackAttr('__length'))
@@ -378,7 +373,7 @@ class DbusManager(dbus.service.Object):
         result = _('status: %(status)s, title: %(title)s, artist: %(artist)s,'
                    ' album: %(album)s, length: %(length)s,'
                    ' position: %(progress)s%% [%(position)s]') % {
-                         'status': self.exaile.player.get_state(),
+                         'status': player.PLAYER.get_state(),
                          'title': self.GetTrackAttr('title'),
                          'artist': self.GetTrackAttr('artist'),
                          'album': self.GetTrackAttr('album'),
@@ -437,15 +432,15 @@ class DbusManager(dbus.service.Object):
 
             if tracks:
                 tracks = trax.sort_tracks(['album', column], tracks, descending)
-                self.exaile.queue.current_playlist.add_tracks(tracks)
+                player.QUEUE.current_playlist.add_tracks(tracks)
 
                 if play_track is None:
                     play_track = tracks[0]
 
-        if self.exaile.player.is_stopped() and play_track is not None:
-            pos = self.exaile.queue.current_playlist.index(play_track)
-            self.exaile.queue.current_playlist.set_current_pos(pos)
-            self.exaile.queue.play()
+        if player.PLAYER.is_stopped() and play_track is not None:
+            pos = player.QUEUE.current_playlist.index(play_track)
+            player.QUEUE.current_playlist.set_current_pos(pos)
+            player.QUEUE.play()
 
     @dbus.service.method('org.exaile.Exaile', 's')
     def Add(self, location):
@@ -471,7 +466,7 @@ class DbusManager(dbus.service.Object):
             Returns the data of the cover image of the playing track, or
             an empty string if there is no cover available.
         """
-        cover = self.exaile.covers.get_cover(self.exaile.player.current)
+        cover = covers.MANAGER.get_cover(player.PLAYER.current)
         if not cover:
             cover = ''
         return cover
@@ -481,7 +476,7 @@ class DbusManager(dbus.service.Object):
         """
             Returns the surrent verbatim state (unlocalized)
         """
-        return self.exaile.player.get_state()
+        return player.PLAYER.get_state()
 
     @dbus.service.signal('org.exaile.Exaile')
     def StateChanged(self):
@@ -501,7 +496,7 @@ class DbusManager(dbus.service.Object):
         """
             Called from main to emit signal
         """
-        new_state = self.exaile.player.get_state()
+        new_state = player.get_state()
         if self.cached_state != new_state:
             self.cached_state = new_state
             self.StateChanged()

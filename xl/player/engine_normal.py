@@ -29,6 +29,8 @@ import time
 import urllib
 import urlparse
 
+import pygst
+pygst.require('0.10')
 import gst, gobject, glib
 
 from xl.nls import gettext as _

@@ -255,9 +255,8 @@ class MiniMode(gtk.Window):
                     self.on_next_clicked]),
             'play_pause': (mmwidgets.PlayPauseButton,
                 [self.exaile.player, self.on_play_pause_clicked]),
-            'stop': (mmwidgets.Button,
-                [gtk.STOCK_MEDIA_STOP, _('Stop Playback'),
-                    self.on_stop_clicked]),
+            'stop': (mmwidgets.StopButton,
+                [self.exaile.player, self.exaile.queue]),
             'volume': (mmwidgets.VolumeButton,
                 [self.exaile.player, self.on_volume_changed]),
             'restore': (mmwidgets.RestoreButton,
@@ -323,12 +322,6 @@ class MiniMode(gtk.Window):
             self.exaile.player.toggle_pause()
         else:
             self.exaile.queue.play()
-
-    def on_stop_clicked(self, button):
-        """
-            Stops playback
-        """
-        self.exaile.player.stop()
 
     def on_restore_clicked(self, button):
         """

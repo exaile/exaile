@@ -27,6 +27,7 @@ from xl import (
     settings
 )
 from xl.nls import gettext as _
+from xlgui import main
 from xlgui.guiutil import (
     get_workarea_size,
     ProgressBarFormatter
@@ -159,15 +160,8 @@ class Button(gtk.Button):
         self.set_relief(gtk.RELIEF_NONE)
         self.set_focus_on_click(False)
 
-        self._clicked_id = self.connect('clicked', callback)
-
-    def destroy(self):
-        """
-            Various cleanups
-        """
-        self.disconnect(self._clicked_id)
-
-        gtk.Button.destroy(self)
+        if callback is not None:
+            self.connect('clicked', callback)
 
 class PlayPauseButton(Button):
     """
@@ -217,6 +211,125 @@ class PlayPauseButton(Button):
             Updates appearance on playback state change
         """
         self.update_state()
+
+class StopButton(Button):
+    """
+        Button which allows to stop the playback
+        as well as trigger the SPAT feature
+    """
+    def __init__(self, player, queue):
+        Button.__init__(self, gtk.STOCK_MEDIA_STOP,
+            _('Stop Playback\n\n'
+              'Right Click for Stop After Track Feature'), None)
+
+        self.player = player
+        self.queue = queue
+
+        self.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.connect('motion-notify-event',
+            self.on_motion_notify_event)
+        self.connect('leave-notify-event',
+            self.on_leave_notify_event)
+        self.connect('key-press-event',
+            self.on_key_press_event)
+        self.connect('key-release-event',
+            self.on_key_release_event)
+        self.connect('focus-out-event',
+            self.on_focus_out_event)
+        self.connect('button-press-event',
+            self.on_button_press_event)
+
+    def on_motion_notify_event(self, widget, event):
+        """
+            Sets the hover state and shows SPAT icon
+        """
+        self.set_data('hovered', True)
+
+        if event.state & gtk.gdk.SHIFT_MASK:
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+        else:
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_leave_notify_event(self, widget, event):
+        """
+            Unsets the hover state and resets the button icon
+        """
+        self.set_data('hovered', False)
+
+        if not self.is_focus() and \
+           ~(event.state & gtk.gdk.SHIFT_MASK):
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_key_press_event(self, widget, event):
+        """
+            Shows SPAT icon on Shift key press
+        """
+        if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+            self.set_data('toggle_spat', True)
+
+        if event.keyval in (gtk.keysyms.space, gtk.keysyms.Return):
+            if self.get_data('toggle_spat'):
+                self.set_spat()
+            else:
+                self.player.stop()
+        pass
+
+    def on_key_release_event(self, widget, event):
+        """
+            Resets the button icon
+        """
+        if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+            self.set_data('toggle_spat', False)
+
+    def on_focus_out_event(self, widget, event):
+        """
+            Resets the button icon unless
+            the button is still hovered
+        """
+        if not self.get_data('hovered'):
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_button_press_event(self, widget, event):
+        """
+            Called when the user clicks on the stop button
+        """
+        if event.button == 1:
+            if event.state & gtk.gdk.SHIFT_MASK:
+                self.set_spat()
+            else:
+                self.player.stop()
+        elif event.button == 3:
+            menu = guiutil.Menu()
+            menu.append(_("Toggle: Stop after Selected Track"),
+                self.clicked,
+                gtk.STOCK_STOP)
+            menu.popup(None, None, None, event.button, event.time)
+
+    def set_spat(self):
+        """
+            Called when the user clicks on the SPAT item
+        """
+        tracks = main.get_selected_playlist().get_selected_tracks()
+
+        if not tracks:
+            return
+
+        track = tracks[0]
+
+        if track == self.queue.stop_track:
+            self.queue.stop_track = None
+        else:
+            self.queue.stop_track = track
+
+        main.get_selected_playlist().list.queue_draw()
 
 class RestoreButton(Button):
     """

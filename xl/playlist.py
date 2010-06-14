@@ -685,6 +685,14 @@ class Playlist(object):
         random.shuffle(trs)
         self[:] = MetadataList([x[0] for x in trs], [x[1] for x in trs])
 
+    def sort(self, tags, reverse=False):
+        data = zip(self.__tracks, self.__tracks.metadata)
+        data = trax.sort_tracks(tags, data,
+                trackfunc=lambda tr: tr[0], reverse=reverse)
+        l = MetadataList()
+        l.extend([x[0] for x in data])
+        l.metadata = [x[1] for x in data]
+        self[:] = l
 
     # TODO[0.4?]: drop our custom disk playlist format in favor of an
     # extended XSPF playlist (using xml namespaces?).
@@ -760,6 +768,9 @@ class Playlist(object):
         if ver[0] == 1:
             if items.get("repeat_mode") == "playlist":
                 items['repeat_mode'] = "all"
+            for m in ['random', 'repeat', 'dynamic']:
+                if not items.get("%s_enabled"%m):
+                    items['%s_mode'%m] = 'disabled'
         elif ver[0] > self.__playlist_format_version[0]:
             raise IOError, "Cannot load playlist, unknown format"
         elif ver > self.__playlist_format_version:
@@ -1002,135 +1013,6 @@ class Playlist(object):
         self.__set_mode("dynamic", mode)
 
     dynamic_mode = property(get_dynamic_mode, set_dynamic_mode)
-
-    def randomize(self):
-        # TODO: add support for randomizing a subset of the list?
-        trs = zip(self.__tracks, self.__tracks.metadata)
-        random.shuffle(trs)
-        self[:] = MetadataList([x[0] for x in trs], [x[1] for x in trs])
-
-
-    # TODO[0.4?]: drop our custom disk playlist format in favor of an
-    # extended XSPF playlist (using xml namespaces?).
-
-    # TODO: add timeout saving support. 5-10 seconds after last change,
-    # perhaps?
-
-    def save_to_location(self, location):
-        if os.path.exists(location):
-            f = open(location + ".new", "w")
-        else:
-            f = open(location, "w")
-        for track in self.__tracks:
-            buffer = track.get_loc_for_io()
-            # write track metadata
-            meta = {}
-            items = ('artist', 'album', 'tracknumber',
-                    'title', 'genre', 'date')
-            for item in items:
-                value = track.get_tag_raw(item)
-                if value is not None:
-                    meta[item] = value[0]
-            buffer += '\t%s\n' % urllib.urlencode(meta)
-            try:
-                f.write(buffer.encode('utf-8'))
-            except UnicodeDecodeError:
-                continue
-
-        f.write("EOF\n")
-        for item in self.save_attrs:
-            val = getattr(self, item)
-            try:
-                strn = settings.MANAGER._val_to_str(val)
-            except ValueError:
-                strn = ""
-
-            f.write("%s=%s\n"%(item,strn))
-        f.close()
-        if os.path.exists(location + ".new"):
-            os.remove(location)
-            os.rename(location + ".new", location)
-        self.__needs_save = self.__dirty = False
-
-    def load_from_location(self, location):
-        # note - this is not guaranteed to fire events when it sets
-        # attributes. It is intended ONLY for initial setup, not for
-        # reloading a playlist inline.
-        f = None
-        for loc in [location, location+".new"]:
-            try:
-                f = open(loc, 'r')
-                break
-            except:
-                pass
-        if not f:
-            return
-        locs = []
-        while True:
-            line = f.readline()
-            if line == "EOF\n" or line == "":
-                break
-            locs.append(line.strip())
-        items = {}
-        while True:
-            line = f.readline()
-            if line == "":
-                break
-            item, strn = line[:-1].split("=",1)
-            val = settings.MANAGER._str_to_val(strn)
-            items[item] = val
-
-        ver = items.get("__playlist_format_version", [1])
-        if ver[0] == 1:
-            if items.get("repeat_mode") == "playlist":
-                items['repeat_mode'] = "all"
-        elif ver[0] > self.__playlist_format_version[0]:
-            raise IOError, "Cannot load playlist, unknown format"
-        elif ver > self.__playlist_format_version:
-            logger.warning("Playlist created on a newer Exaile version, some attributes may not be handled.")
-
-        f.close()
-
-        trs = []
-
-        for loc in locs:
-            meta = None
-            if loc.find('\t') > -1:
-                splitted = loc.split('\t')
-                loc = "\t".join(splitted[:-1])
-                meta = splitted[-1]
-
-            track = None
-            track = trax.Track(uri=loc)
-
-            # readd meta
-            if not track: continue
-            if not track.is_local() and meta is not None:
-                meta = cgi.parse_qs(meta)
-                for k, v in meta.iteritems():
-                    track.set_tag_raw(k, v[0], notify_changed=False)
-
-            trs.append(track)
-        for item, val in items.iteritems():
-            if item in self.save_attrs:
-                try:
-                    setattr(self, item, val)
-                except:
-                    pass
-        self.__tracks[:] = trs
-
-    def reverse(self):
-        # reverses current view
-        pass
-
-    def sort(self, tags, reverse=False):
-        data = zip(self.__tracks, self.__tracks.metadata)
-        data = trax.sort_tracks(tags, data,
-                trackfunc=lambda tr: tr[0], reverse=reverse)
-        l = MetadataList()
-        l.extend([x[0] for x in data])
-        l.metadata = [x[1] for x in data]
-        self[:] = l
 
 
     ### list-like API methods ###

@@ -24,11 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl.nls import gettext as _
-import os, gtk, gobject
-from xlgui.preferences import widgets
-from xl import event, transcoder, settings
+from __future__ import with_statement
+import gobject
+import gtk
+import os
 import warnings 
+
+from xl import event, settings, transcoder
+from xl.nls import gettext as _
+from xlgui.preferences import widgets
 
 name = _("CD")
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -52,12 +56,6 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         self.default = settings.get_option("cd_import/quality", None)
         self._changed_id=None
 
-    def _setup_change(self):
-        """
-            Sets up the function to be called when this preference is changed
-        """
-        pass
-
     def on_check_condition(self):
         """
             Specifies the condition to meet
@@ -79,7 +77,7 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         active_iter = self.widget.get_active_iter()
 
         if active_iter is not None:
-            active_title = int(model.get_value(active_iter, 1))
+            active_title = float(model.get_value(active_iter, 1))
         else:
             active_title = default_title
         
@@ -114,15 +112,16 @@ class OutputPathPreference(widgets.ComboEntryPreference):
         '$artist': _('Artist'),
         '$composer': _('Composer'),
         '$album': _('Album'),
-        '$length': _('Length'),
+        '$__length': _('Length'),
         '$discnumber': _('Disc number'),
-        '$rating': _('Rating'),
+        '$__rating': _('Rating'),
         '$date': _('Date'),
         '$genre': _('Genre'),
         '$bitrate': _('Bitrate'),
-        '$location': _('Location'),
+        '$__location': _('Location'),
         '$filename': _('Filename'),
-        '$playcount': _('Play count'),
+        '$__playcount': _('Play count'),
+        '$__last_played': _('Last played'),
         '$bpm': _('BPM'),
     }
     preset_items = [

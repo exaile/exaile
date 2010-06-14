@@ -219,6 +219,7 @@ class LyricsViewer(object):
 
     @common.threaded
     def get_lyrics(self, player, track):
+        lyrics_found=[]
         try:
             try:
                 text_track=(track.get_tag_raw('artist')[0]+\

@@ -199,6 +199,9 @@ class NormalPlayer(_base.ExailePlayer):
 
         playing = self.is_playing()
 
+        if not playing:
+            event.log_event_sync('playback_reconfigure_bins', self, None)
+
         self._current = track
 
         uri = track.get_loc_for_io()

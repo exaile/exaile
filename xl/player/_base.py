@@ -179,6 +179,23 @@ class ExailePlayer(object):
                 progress = 1
         return progress
 
+    def set_progress(self, progress):
+        """
+            Seeks to the progress position
+
+            :param progress: value ranged at 0..1
+            :type progress: float
+        """
+        seek_position = 0
+
+        try:
+            length = self.current.get_tag_raw('__length')
+            seek_position = length * progress
+        except TypeError, AttributeError:
+            pass
+
+        self.seek(seek_position)
+
     def _get_gst_state(self):
         """
             Returns the raw GStreamer state

@@ -92,6 +92,10 @@ class SelectedControlsPreference(widgets.SelectionListPreference):
             id='playlist_button', title=_('Playlist button'),
             description=_('Access the current playlist')),
         widgets.SelectionListPreference.Item(
+            id='progress_button', title=_('Progress button'),
+            description=_('Playback progress and access to '
+                          'the current playlist')),
+        widgets.SelectionListPreference.Item(
             id='rating', title=_('Rating'),
             description=_('Select rating of the current track')),
         widgets.SelectionListPreference.Item(

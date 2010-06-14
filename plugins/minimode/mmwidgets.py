@@ -521,6 +521,8 @@ class PlaylistButton(gtk.ToggleButton):
         self.connect('drag-motion', self.on_drag_motion)
         self.playlist.list.connect('drag-data-received',
             self.on_playlist_drag_data_received)
+        self.playlist.connect('track-count-changed',
+            self.on_track_count_changed)
         self.main.playlist_notebook.connect('switch-page',
             self.on_playlist_notebook_switch)
         self.formatter.connect('format-changed',
@@ -617,8 +619,8 @@ class PlaylistButton(gtk.ToggleButton):
                 'hide', self.on_parent_hide)
 
         if self.get_active():
-            self.popup.update_location()
             self.set_arrow_direction(gtk.ARROW_DOWN)
+            self.popup.update_location()
             self.popup.show()
         else:
             self.popup.hide()
@@ -656,6 +658,13 @@ class PlaylistButton(gtk.ToggleButton):
         if self._drag_shown:
             self.set_active(False)
             self._drag_shown = False
+
+    def on_track_count_changed(self, playlist, track_count):
+        """
+            Synchronizes models
+        """
+        self.playlist.model = playlist.model
+        self.playlist.list.set_model(self.playlist.model)
 
     def on_playlist_notebook_switch(self, notebook, page, page_num):
         """
@@ -723,36 +732,48 @@ class ProgressButton(gtk.EventBox):
             (gobject.TYPE_PYOBJECT, )
         )
     }
-    def __init__(self, main, track_formatter, change_callback):
+    def __init__(self, change_callback, seek_callback):
         gtk.EventBox.__init__(self)
 
         self.set_visible_window(False)
         self.set_above_child(True)
+        self.set_size_request(300, -1)
 
         self._dirty = False
         self._drag_shown = False
         self._parent_hide_id = None
         self._drag_motion_id = None
-        self.main = main
-        # TODO
-        __format = '$title ($current_time / $total_time'
+        self._timer = None
+
+        title_format = settings.get_option(
+            'plugin/minimode/progress_button_title_format',
+            _('$title ($current_time / $total_time)'))
+
         self.track_formatter = formatter.TrackFormatter('')
-        self.progress_formatter = formatter.ProgressTextFormatter('')
+        self.progress_formatter = formatter.ProgressTextFormatter(title_format)
         self.button = gtk.ToggleButton()
         self.arrow = gtk.Arrow(gtk.ARROW_RIGHT, gtk.SHADOW_IN)
         self.progress = gtk.ProgressBar()
+        self.progress.set_size_request(self.progress.size_request()[0], 1)
+        self.progress.set_text(_('Not Playing'))
+        self.progress.set_ellipsize(pango.ELLIPSIZE_END)
         self.progress.add_events(gtk.gdk.BUTTON_PRESS_MASK |
             gtk.gdk.BUTTON_RELEASE_MASK |
             gtk.gdk.POINTER_MOTION_MASK)
         self.tooltip = info.TrackToolTip(self, auto_update=True)
 
-        playlist = self.main.get_selected_playlist()
-        self.playlist = Playlist(main, player.QUEUE, playlist.playlist)
+        playlist = main.get_selected_playlist()
+        self.playlist = Playlist(main.mainwindow(), player.QUEUE, playlist.playlist)
         self.playlist.model = playlist.model
         self.playlist.list.set_model(self.playlist.model)
-        self.playlist.scroll.set_property('shadow-type', gtk.SHADOW_IN)
+        self.playlist.scroll.props.shadow_type = gtk.SHADOW_IN
         self.popup = AttachedWindow(self)
+        self.popup.resize(
+            settings.get_option('plugin/minimode/progress_button_popup_width', 350),
+            settings.get_option('plugin/minimode/progress_button_popup_height', 400)
+        )
         self.popup.add(self.playlist)
+        self.popup.connect('configure-event', self.on_popup_configure_event)
 
         self.tooltip = info.TrackToolTip(self, auto_update=True)
 
@@ -772,25 +793,38 @@ class ProgressButton(gtk.EventBox):
         self.connect('button-release-event', self.on_button_release_event)
         self.connect('motion-notify-event', self.on_motion_notify_event)
         self.connect('track-changed', change_callback)
+        self.connect('seeked', seek_callback)
         self.connect('scroll-event', self.on_scroll_event)
-        self.connect('toggled', self.on_toggled)
         self.connect('drag-leave', self.on_drag_leave)
         self.connect('drag-motion', self.on_drag_motion)
         self.button.connect('toggled', self.on_button_toggled)
 
         self.playlist.list.connect('drag-data-received',
             self.on_playlist_drag_data_received)
-        self.main.playlist_notebook.connect('switch-page',
+        self.playlist.connect('track-count-changed',
+            self.on_track_count_changed)
+        main.get_playlist_notebook().connect('switch-page',
             self.on_playlist_notebook_switch)
 
-        event.add_callback(self.on_playback_player_end,
-            'playback_player_end')
         event.add_callback(self.on_playback_track_start,
             'playback_track_start')
+        event.add_callback(self.on_playback_player_end,
+            'playback_player_end')
+        event.add_callback(self.on_option_set,
+            'plugin_minimode_option_set')
 
         if player.PLAYER.current is not None:
             self.on_playback_track_start('playback_track_start',
                 player.PLAYER, player.PLAYER.current)
+
+    def destroy():
+        """
+            Various cleanups
+        """
+        event.remove_callback(self.on_playback_player_end, 'playback_player_end')
+        event.remove_callback(self.on_playback_track_start, 'playback_track_start')
+
+        gtk.EventBox.destroy(self)
 
     def translate_coordinates(self, child, x, y, clamp=True):
         """
@@ -809,6 +843,52 @@ class ProgressButton(gtk.EventBox):
 
         return x, y
 
+    def set_label_from_track(self, track):
+        """
+            Updates label based on data taken from track
+
+            :param track: the track object
+            :type track: :class:`xl.trax.Track`
+        """
+        if not self.get_data('seeking'):
+            text = _('Not Playing')
+
+            if track is not None:
+                text = self.progress_formatter.format()
+                self.track_formatter.props.format = text
+                text = self.track_formatter.format(player.PLAYER.current)
+
+            self.progress.set_fraction(player.PLAYER.get_progress())
+            self.progress.set_text(text)
+
+        return True
+
+    def enable_timer(self):
+        """
+            Enables the timer, if not already
+        """
+        if self._timer is not None:
+            return
+
+        milliseconds = settings.get_option('gui/progress_update/millisecs', 1000)
+
+        if milliseconds % 1000 == 0:
+            self._timer = glib.timeout_add_seconds(milliseconds / 1000,
+                self.set_label_from_track, player.PLAYER.current)
+        else:
+            self._timer = glib.timeout_add(milliseconds,
+                self.set_label_from_track, player.PLAYER.current)
+
+    def disable_timer(self):
+        """
+            Disables the timer, if not already
+        """
+        if self._timer is None:
+            return
+
+        glib.source_remove(self._timer)
+        self._timer = None
+
     def on_button_press_event(self, widget, event):
         """
             Shows the attached window or starts
@@ -818,17 +898,26 @@ class ProgressButton(gtk.EventBox):
             self.button.set_active(not self.button.get_active())
             self.set_data('seeking', False)
         elif event.button == 3:
+            if player.PLAYER.current is None:
+                return True
+
             allocation = self.progress.get_allocation()
             x, y = self.translate_coordinates(
                 self.progress, int(event.x), int(event.y))
-            self.progress.set_fraction(float(x) / allocation.width)
+            fraction = float(x) / allocation.width
+            self.progress.set_fraction(fraction)
+
+            length = player.PLAYER.current.get_tag_raw('__length')
+            seek_position = formatter.LengthTagFormatter.format_value(length * fraction)
+            self.progress.set_text(_('Seeking: %s') % seek_position)
+
             self.set_data('seeking', True)
 
     def on_button_release_event(self, widget, event):
         """
             Seeks to the desired position
         """
-        if event.button == 3:
+        if event.button == 3 and self.get_data('seeking'):
             allocation = self.progress.get_allocation()
             x, y = self.translate_coordinates(
                 self.progress, int(event.x), int(event.y))
@@ -849,15 +938,153 @@ class ProgressButton(gtk.EventBox):
 
             self.emit('button-press-event', press_event)
 
+    def on_scroll_event(self, widget, event):
+        """
+            Switches to the previous or next track
+        """
+        track = None
+
+        if event.direction == gtk.gdk.SCROLL_UP:
+            track = self.playlist.playlist.prev()
+        elif event.direction == gtk.gdk.SCROLL_DOWN:
+            track = self.playlist.playlist.next()
+
+        self.emit('track-changed', track)
+
+    def on_drag_leave(self, widget, event):
+        """
+            Prevents showing the playlist if the
+            pointer leaves the button prematurely
+        """
+        if self._drag_motion_id is not None:
+            glib.source_remove(self._drag_motion_id)
+            self._drag_motion_id = None
+
+    def on_drag_motion(self, widget, event):
+        """
+            Sets up a timeout to show the playlist
+        """
+        if self._drag_motion_id is None:
+            self._drag_motion_id = glib.timeout_add(500,
+                self.drag_motion_finish)
+
+    def drag_motion_finish(self):
+        """
+            Shows the playlist
+        """
+        self.set_active(True)
+        self._drag_shown = True
+
+    def on_playlist_drag_data_received(self, *e):
+        """
+            Hides the playlist if it has
+            been opened via drag events
+        """
+        if self._drag_shown:
+            self.set_active(False)
+            self._drag_shown = False
+
+    def on_track_count_changed(self, playlist, track_count):
+        """
+            Synchronizes models
+        """
+        self.playlist.model = playlist.model
+        self.playlist.list.set_model(self.playlist.model)
+
+    def on_playlist_notebook_switch(self, notebook, page, page_num):
+        """
+            Updates the internal playlist
+        """
+        playlist = notebook.get_nth_page(page_num)
+
+        if playlist is not None:
+            self.playlist.model = playlist.model
+            self.playlist.list.set_model(self.playlist.model)
+
     def on_button_toggled(self, button):
         """
             Changes the arrow and shows
             or hides the attached window
         """
+        if self.popup.get_transient_for() is None:
+            self.popup.set_transient_for(self.get_toplevel())
+
+        if self._parent_hide_id is None:
+            self._parent_hide_id = self.get_toplevel().connect(
+                'hide', self.on_parent_hide)
+
         if button.get_active():
-            self.arrow.set_property('arrow-type', gtk.ARROW_DOWN)
+            self.arrow.props.arrow_type = gtk.ARROW_DOWN
+            self.popup.update_location()
+            self.popup.show()
         else:
-            self.arrow.set_property('arrow-type', gtk.ARROW_RIGHT)
+            self.popup.hide()
+            self.arrow.props.arrow_type = gtk.ARROW_RIGHT
+
+    def on_popup_configure_event(self, widget, event):
+        """
+            Saves the window size after resizing
+        """
+        width = settings.get_option(
+            'plugin/minimode/progress_button_popup_width', 350)
+        height = settings.get_option(
+            'plugin/minimode/progress_button_popup_height', 400)
+
+        if event.width != width:
+            settings.set_option('plugin/minimode/progress_button_popup_width',
+                event.width)
+
+        if event.height != height:
+            settings.set_option('plugin/minimode/progress_button_popup_height',
+                event.height)
+
+    def on_parent_hide(self, parent):
+        """
+            Makes sure to hide the popup
+        """
+        self.button.set_active(False)
+
+    def on_format_changed(self, formatter, format):
+        """
+            Updates the playlist button
+            on track title format changes
+        """
+        track = self.playlist.playlist.get_current()
+
+        if track:
+            self.set_label_from_track(track)
+
+    def on_playback_track_start(self, event, player, track):
+        """
+            Updates appearance and cursor position
+        """
+        self.set_label_from_track(track)
+        self.enable_timer()
+
+        if track in self.playlist.playlist.ordered_tracks:
+            path = (self.playlist.playlist.index(track),)
+
+            if settings.get_option('gui/ensure_visible', True):
+                self.playlist.list.scroll_to_cell(path)
+
+            glib.idle_add(self.playlist.list.set_cursor, path)
+
+    def on_playback_player_end(self, event, player, track):
+        """
+            Clears label
+        """
+        self.disable_timer()
+        self.set_label_from_track(None)
+
+    def on_option_set(self, event, settings, option):
+        """
+            Updates the title format
+        """
+        if option == 'plugin/minimode/progress_button_title_format':
+            title_format = settings.get_option(option,
+                _('$title ($current_time / $total_time)'))
+            self.progress_formatter.props.format = title_format
+            self.set_label_from_track(player.PLAYER.current)
 
 class TrackSelector(gtk.ComboBox):
     """

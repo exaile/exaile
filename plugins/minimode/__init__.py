@@ -269,6 +269,8 @@ class MiniMode(gtk.Window):
             'playlist_button': (mmwidgets.PlaylistButton,
                 [self.exaile.gui.main, self.exaile.player, self.exaile.queue,
                  self.formatter, self.on_track_change]),
+            'progress_button': (mmwidgets.ProgressButton,
+                [self.on_track_change, self.on_seeked]),
             'rating': (mmwidgets.RatingWidget, [])
         }
 
@@ -343,8 +345,7 @@ class MiniMode(gtk.Window):
         """
             Handles seeking in the progress bar
         """
-        duration = self.exaile.player.current.get_tag_raw('__length')
-        self.exaile.player.seek(duration * float(position))
+        self.exaile.player.set_progress(position)
 
     def on_volume_changed(self, volume_button, value):
         """

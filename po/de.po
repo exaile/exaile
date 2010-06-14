@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-09 17:20+0200\n"
-"PO-Revision-Date: 2010-06-09 17:20+0100\n"
+"POT-Creation-Date: 2010-06-14 12:39+0200\n"
+"PO-Revision-Date: 2010-06-14 12:40+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "Language: de\n"
@@ -22,12 +22,12 @@ msgstr ""
 "X-Poedit-Language: German\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../xl/player/pipe.py:215
+#: ../xl/player/pipe.py:210
 #: ../data/ui/preferences/playback.ui.h:3
 msgid "Automatic"
 msgstr "Automatisch"
 
-#: ../xl/player/pipe.py:246
+#: ../xl/player/pipe.py:241
 #: ../data/ui/preferences/playback.ui.h:5
 msgid "Custom"
 msgstr "Benutzerdefiniert"
@@ -282,39 +282,39 @@ msgstr "Ein sehr schnelles freies und verlustfreies Audio-Format mit guter Kompr
 #: ../xl/formatter.py:232
 #: ../xlgui/main.py:167
 #: ../xlgui/widgets/info.py:303
-#: ../plugins/minimode/mmwidgets.py:1005
+#: ../plugins/minimode/mmwidgets.py:1369
 msgid "Streaming..."
 msgstr "Streamen …"
 
-#: ../xl/formatter.py:560
+#: ../xl/formatter.py:551
 #, python-format
 msgid "%d year, "
 msgid_plural "%d years, "
 msgstr[0] "%d Jahr, "
 msgstr[1] "%d Jahre, "
 
-#: ../xl/formatter.py:563
+#: ../xl/formatter.py:554
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
 msgstr[0] "%d Tag, "
 msgstr[1] "%d Tage, "
 
-#: ../xl/formatter.py:566
+#: ../xl/formatter.py:557
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
 msgstr[0] "%d Stunde, "
 msgstr[1] "%d Stunden, "
 
-#: ../xl/formatter.py:568
+#: ../xl/formatter.py:559
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
 msgstr[0] "%d Minute, "
 msgstr[1] "%d Minuten, "
 
-#: ../xl/formatter.py:569
+#: ../xl/formatter.py:560
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -322,45 +322,45 @@ msgstr[0] "%d Sekunde"
 msgstr[1] "%d Sekunden"
 
 #. TRANSLATORS: Short form of an amount of years
-#: ../xl/formatter.py:573
+#: ../xl/formatter.py:564
 #, python-format
 msgid "%dy, "
 msgstr "%d J., "
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:577
+#: ../xl/formatter.py:568
 #, python-format
 msgid "%dd, "
 msgstr "%d T., "
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:581
+#: ../xl/formatter.py:572
 #, python-format
 msgid "%dh, "
 msgstr "%d Std., "
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:584
+#: ../xl/formatter.py:575
 #, python-format
 msgid "%dm, "
 msgstr "%d Min., "
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:586
+#: ../xl/formatter.py:577
 #, python-format
 msgid "%ds"
 msgstr "%d Sek."
 
-#: ../xl/formatter.py:662
-#: ../xl/formatter.py:667
+#: ../xl/formatter.py:651
+#: ../xl/formatter.py:656
 msgid "Never"
 msgstr "Niemals"
 
-#: ../xl/formatter.py:673
+#: ../xl/formatter.py:662
 msgid "Today"
 msgstr "Heute"
 
-#: ../xl/formatter.py:675
+#: ../xl/formatter.py:664
 msgid "Yesterday"
 msgstr "Gestern"
 
@@ -488,8 +488,8 @@ msgstr "Originaldatum"
 
 #: ../xlgui/properties.py:50
 #: ../xlgui/plcolumns.py:168
-#: ../plugins/cd/cdprefs.py:103
-#: ../plugins/minimode/minimode_preferences.py:114
+#: ../plugins/cd/cdprefs.py:97
+#: ../plugins/minimode/minimode_preferences.py:118
 msgid "Date"
 msgstr "Datum"
 
@@ -511,8 +511,8 @@ msgstr "Interpret"
 #: ../xlgui/panel/playlists.py:173
 #: ../data/ui/widgets/tracklist_info.ui.h:2
 #: ../data/ui/collection_panel.ui.h:4
-#: ../plugins/cd/cdprefs.py:97
-#: ../plugins/minimode/minimode_preferences.py:108
+#: ../plugins/cd/cdprefs.py:91
+#: ../plugins/minimode/minimode_preferences.py:112
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Artist"
 msgstr "Künstler"
@@ -523,8 +523,8 @@ msgstr "Künstler"
 #: ../xlgui/panel/playlists.py:175
 #: ../data/ui/widgets/tracklist_info.ui.h:1
 #: ../data/ui/collection_panel.ui.h:3
-#: ../plugins/cd/cdprefs.py:99
-#: ../plugins/minimode/minimode_preferences.py:110
+#: ../plugins/cd/cdprefs.py:93
+#: ../plugins/minimode/minimode_preferences.py:114
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Album"
 msgstr "Album"
@@ -554,8 +554,8 @@ msgstr "Version"
 #: ../xlgui/panel/playlists.py:101
 #: ../xlgui/panel/playlists.py:174
 #: ../xlgui/panel/flatplaylist.py:103
-#: ../plugins/cd/cdprefs.py:96
-#: ../plugins/minimode/minimode_preferences.py:107
+#: ../plugins/cd/cdprefs.py:90
+#: ../plugins/minimode/minimode_preferences.py:111
 msgid "Title"
 msgstr "Titel"
 
@@ -567,15 +567,15 @@ msgstr "ISRC"
 #: ../xlgui/plcolumns.py:173
 #: ../xlgui/panel/playlists.py:107
 #: ../xlgui/panel/playlists.py:180
-#: ../plugins/cd/cdprefs.py:104
-#: ../plugins/minimode/minimode_preferences.py:115
+#: ../plugins/cd/cdprefs.py:98
+#: ../plugins/minimode/minimode_preferences.py:119
 msgid "Genre"
 msgstr "Genre"
 
 #: ../xlgui/properties.py:63
 #: ../xlgui/plcolumns.py:107
-#: ../plugins/cd/cdprefs.py:98
-#: ../plugins/minimode/minimode_preferences.py:109
+#: ../plugins/cd/cdprefs.py:92
+#: ../plugins/minimode/minimode_preferences.py:113
 msgid "Composer"
 msgstr "Komponist"
 
@@ -594,15 +594,15 @@ msgstr "Disk"
 
 #: ../xlgui/properties.py:67
 #: ../xlgui/plcolumns.py:219
-#: ../plugins/cd/cdprefs.py:109
-#: ../plugins/minimode/minimode_preferences.py:121
+#: ../plugins/cd/cdprefs.py:104
+#: ../plugins/minimode/minimode_preferences.py:125
 msgid "BPM"
 msgstr "BPM"
 
 #: ../xlgui/properties.py:68
 #: ../xlgui/plcolumns.py:178
-#: ../plugins/cd/cdprefs.py:105
-#: ../plugins/minimode/minimode_preferences.py:116
+#: ../plugins/cd/cdprefs.py:99
+#: ../plugins/minimode/minimode_preferences.py:120
 msgid "Bitrate"
 msgstr "Bitrate"
 
@@ -616,8 +616,8 @@ msgstr "Hinzufügedatum"
 #: ../xlgui/plcolumns.py:117
 #: ../xlgui/panel/playlists.py:133
 #: ../xlgui/panel/playlists.py:176
-#: ../plugins/cd/cdprefs.py:100
-#: ../plugins/minimode/minimode_preferences.py:111
+#: ../plugins/cd/cdprefs.py:94
+#: ../plugins/minimode/minimode_preferences.py:115
 msgid "Length"
 msgstr "Länge"
 
@@ -625,8 +625,8 @@ msgstr "Länge"
 #: ../xlgui/plcolumns.py:194
 #: ../xlgui/panel/playlists.py:148
 #: ../xlgui/panel/playlists.py:183
-#: ../plugins/cd/cdprefs.py:106
-#: ../plugins/minimode/minimode_preferences.py:117
+#: ../plugins/cd/cdprefs.py:100
+#: ../plugins/minimode/minimode_preferences.py:121
 msgid "Location"
 msgstr "Ort"
 
@@ -642,7 +642,8 @@ msgstr "Wiedergabeanzahl"
 #: ../xlgui/plcolumns.py:227
 #: ../xlgui/panel/playlists.py:144
 #: ../xlgui/panel/playlists.py:182
-#: ../plugins/minimode/minimode_preferences.py:120
+#: ../plugins/cd/cdprefs.py:103
+#: ../plugins/minimode/minimode_preferences.py:124
 msgid "Last played"
 msgstr "Letzte Wiedergabe"
 
@@ -680,7 +681,9 @@ msgstr "%(count)s von %(total)s gespeichert."
 #: ../xlgui/main.py:157
 #: ../xlgui/widgets/info.py:214
 #: ../xlgui/widgets/info.py:284
-#: ../plugins/minimode/mmwidgets.py:987
+#: ../plugins/minimode/mmwidgets.py:758
+#: ../plugins/minimode/mmwidgets.py:854
+#: ../plugins/minimode/mmwidgets.py:1351
 msgid "Not Playing"
 msgstr "Keine Wiedergabe"
 
@@ -710,6 +713,7 @@ msgid "$title (by $artist)"
 msgstr "$title (von $artist)"
 
 #: ../xlgui/main.py:781
+#: ../plugins/minimode/mmwidgets.py:311
 msgid "Toggle: Stop after Selected Track"
 msgstr "Umschalten: nach diesem Stück stoppen"
 
@@ -732,13 +736,13 @@ msgid "Buffering: %d%%..."
 msgstr "Puffern: %d%% …"
 
 #: ../xlgui/main.py:1032
-#: ../plugins/minimode/mmwidgets.py:207
+#: ../plugins/minimode/mmwidgets.py:201
 msgid "Continue Playback"
 msgstr "Wiedergabe fortsetzen"
 
 #: ../xlgui/main.py:1036
 #: ../xlgui/main.py:1309
-#: ../plugins/minimode/mmwidgets.py:210
+#: ../plugins/minimode/mmwidgets.py:204
 msgid "Pause Playback"
 msgstr "Wiedergabe unterbrechen"
 
@@ -776,8 +780,8 @@ msgstr "Wiederholung des _Stücks"
 
 #: ../xlgui/main.py:1328
 #: ../data/ui/main.ui.h:20
-#: ../plugins/minimode/mmwidgets.py:179
-#: ../plugins/minimode/mmwidgets.py:203
+#: ../plugins/minimode/mmwidgets.py:173
+#: ../plugins/minimode/mmwidgets.py:197
 msgid "Start Playback"
 msgstr "Wiedergabe starten"
 
@@ -987,6 +991,24 @@ msgstr "Dateityp"
 #: ../xlgui/widgets/dialogs.py:383
 msgid "Extension"
 msgstr "Erweiterung"
+
+#: ../xlgui/widgets/dialogs.py:439
+#, python-format
+msgid "Close %s"
+msgstr "%s schließen"
+
+#: ../xlgui/widgets/dialogs.py:440
+#, python-format
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Änderungen an %s vor dem Schließen speichern?</b>"
+
+#: ../xlgui/widgets/dialogs.py:441
+msgid "Your changes will be lost if you don't save them"
+msgstr "Änderungen gehen ohne Sicherung verloren."
+
+#: ../xlgui/widgets/dialogs.py:443
+msgid "Close Without Saving"
+msgstr "Schließen, ohne zu speichern"
 
 #: ../xlgui/widgets/info.py:74
 msgid ""
@@ -1231,9 +1253,9 @@ msgstr "Nr."
 #: ../xlgui/plcolumns.py:155
 #: ../xlgui/panel/playlists.py:113
 #: ../xlgui/panel/playlists.py:177
-#: ../plugins/cd/cdprefs.py:102
-#: ../plugins/minimode/minimode_preferences.py:95
-#: ../plugins/minimode/minimode_preferences.py:113
+#: ../plugins/cd/cdprefs.py:96
+#: ../plugins/minimode/minimode_preferences.py:99
+#: ../plugins/minimode/minimode_preferences.py:117
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Rating"
 msgstr "Bewertung"
@@ -1241,8 +1263,8 @@ msgstr "Bewertung"
 #. TRANSLATORS: Filename column in the file browser
 #: ../xlgui/plcolumns.py:199
 #: ../xlgui/panel/files.py:140
-#: ../plugins/cd/cdprefs.py:107
-#: ../plugins/minimode/minimode_preferences.py:118
+#: ../plugins/cd/cdprefs.py:101
+#: ../plugins/minimode/minimode_preferences.py:122
 msgid "Filename"
 msgstr "Dateiname"
 
@@ -1257,24 +1279,6 @@ msgstr "Stücknummer"
 #: ../xlgui/plcolumns.py:265
 msgid "Disc Number"
 msgstr "CD-Nummer"
-
-#: ../xlgui/playlist.py:1163
-#, python-format
-msgid "Close %s"
-msgstr "%s schließen"
-
-#: ../xlgui/playlist.py:1164
-#, python-format
-msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>Änderungen an %s vor dem Schließen speichern?</b>"
-
-#: ../xlgui/playlist.py:1165
-msgid "Your changes will be lost if you don't save them"
-msgstr "Änderungen gehen ohne Sicherung verloren."
-
-#: ../xlgui/playlist.py:1167
-msgid "Close Without Saving"
-msgstr "Schließen, ohne zu speichern"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:59
@@ -1541,7 +1545,7 @@ msgstr "Wiedergabeliste leeren"
 
 #: ../data/ui/main.ui.h:6
 #: ../data/ui/collection_panel.ui.h:6
-msgid "Clear Search Field"
+msgid "Clear search field"
 msgstr "Suchfeld leeren"
 
 #: ../data/ui/main.ui.h:7
@@ -1589,6 +1593,7 @@ msgid "Search: "
 msgstr "Suche: "
 
 #: ../data/ui/main.ui.h:21
+#: ../plugins/minimode/mmwidgets.py:222
 msgid ""
 "Stop Playback\n"
 "\n"
@@ -2188,7 +2193,7 @@ msgstr "Audioscrobbler aktivieren"
 msgid "Audio Disc"
 msgstr "Audio-CD"
 
-#: ../plugins/cd/_cdguipanel.py:95
+#: ../plugins/cd/_cdguipanel.py:96
 msgid "Importing CD..."
 msgstr "CD importieren …"
 
@@ -2196,18 +2201,18 @@ msgstr "CD importieren …"
 msgid "CD"
 msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:95
-#: ../plugins/minimode/minimode_preferences.py:106
+#: ../plugins/cd/cdprefs.py:89
+#: ../plugins/minimode/minimode_preferences.py:110
 msgid "Track number"
 msgstr "Stücknummer"
 
-#: ../plugins/cd/cdprefs.py:101
-#: ../plugins/minimode/minimode_preferences.py:112
+#: ../plugins/cd/cdprefs.py:95
+#: ../plugins/minimode/minimode_preferences.py:116
 msgid "Disc number"
 msgstr "CD-Nummer"
 
-#: ../plugins/cd/cdprefs.py:108
-#: ../plugins/minimode/minimode_preferences.py:119
+#: ../plugins/cd/cdprefs.py:102
+#: ../plugins/minimode/minimode_preferences.py:123
 msgid "Play count"
 msgstr "Wiedergabeanzahl"
 
@@ -2458,33 +2463,39 @@ msgstr "IPython-Konsole anzeigen"
 msgid "IPython Console"
 msgstr "IPython-Konsole"
 
-#: ../plugins/lyricsviewer/__init__.py:246
+#: ../plugins/lyricsviewer/__init__.py:247
 msgid "No lyrics found."
 msgstr "Keine Liedtexte gefunden."
 
-#: ../plugins/lyricsviewer/__init__.py:269
+#: ../plugins/lyricsviewer/__init__.py:270
 msgid "Go to: "
 msgstr "Gehe zu: "
 
-#: ../plugins/lyricsviewer/__init__.py:330
+#: ../plugins/lyricsviewer/__init__.py:331
 msgid "Any"
 msgstr "Beliebig"
 
-#: ../plugins/minimode/__init__.py:259
-msgid "Stop Playback"
-msgstr "Wiedergabe beenden"
-
-#: ../plugins/minimode/mmwidgets.py:43
+#: ../plugins/minimode/mmwidgets.py:44
 #: ../plugins/minimode/minimode_preferences.py:22
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
 msgstr "Minimodus"
 
-#: ../plugins/minimode/mmwidgets.py:227
+#: ../plugins/minimode/mmwidgets.py:340
 msgid "Restore main window"
 msgstr "Hauptfenster wiederherstellen"
 
-#: ../plugins/minimode/mmwidgets.py:1093
+#: ../plugins/minimode/mmwidgets.py:750
+#: ../plugins/minimode/mmwidgets.py:1085
+msgid "$title ($current_time / $total_time)"
+msgstr "$title ($current_time / $total_time)"
+
+#: ../plugins/minimode/mmwidgets.py:912
+#, python-format
+msgid "Seeking: %s"
+msgstr "Spulen: %s"
+
+#: ../plugins/minimode/mmwidgets.py:1457
 msgid "Seeking: "
 msgstr "Suchen: "
 
@@ -2552,31 +2563,39 @@ msgstr "Wiedergabelisten-Knopf"
 msgid "Access the current playlist"
 msgstr "Zugriff auf die aktuelle Wiedergabeliste"
 
+#: ../plugins/minimode/minimode_preferences.py:95
+msgid "Progress button"
+msgstr "Fortschrittsknopf"
+
 #: ../plugins/minimode/minimode_preferences.py:96
+msgid "Playback progress and access to the current playlist"
+msgstr "Wiedergabefortschritt und Zugriff auf die aktuelle Wiedergabeliste"
+
+#: ../plugins/minimode/minimode_preferences.py:100
 msgid "Select rating of the current track"
 msgstr "Bewertung des aktuellen Stücks festlegen"
 
-#: ../plugins/minimode/minimode_preferences.py:98
+#: ../plugins/minimode/minimode_preferences.py:102
 msgid "Restore"
 msgstr "Wiederherstellen"
 
-#: ../plugins/minimode/minimode_preferences.py:99
+#: ../plugins/minimode/minimode_preferences.py:103
 msgid "Restore the main window"
 msgstr "Das Hauptfenster wiederherstellen"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimode_preferences.py:125
-#: ../plugins/minimode/minimode_preferences.py:131
+#: ../plugins/minimode/minimode_preferences.py:129
+#: ../plugins/minimode/minimode_preferences.py:135
 msgid "$tracknumber - $title"
 msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimode_preferences.py:127
+#: ../plugins/minimode/minimode_preferences.py:131
 msgid "$title by $artist"
 msgstr "$title von $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimode_preferences.py:129
+#: ../plugins/minimode/minimode_preferences.py:133
 msgid "$title ($__length)"
 msgstr "$title ($__length)"
 
@@ -3578,4 +3597,7 @@ msgstr ""
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
 msgstr "Ermöglicht das Herunterfahren des Computers am Ende der Wiedergabe."
+
+#~ msgid "Stop Playback"
+#~ msgstr "Wiedergabe beenden"
 

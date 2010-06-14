@@ -27,7 +27,8 @@
 from xl.nls import gettext as _
 import os, gtk, gobject
 from xlgui.preferences import widgets
-from xl import event, transcoder
+from xl import event, transcoder, settings
+import warnings 
 
 name = _("CD")
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -47,6 +48,9 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
     def __init__(self, preferences, widget):
         widgets.ComboPreference.__init__(self, preferences, widget)
         widgets.Conditional.__init__(self)
+        self.format = settings.get_option("cd_import/format", None)
+        self.default = settings.get_option("cd_import/quality", None)
+        self._changed_id=None
 
     def _setup_change(self):
         """
@@ -64,7 +68,12 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         model = self.widget.get_model()
         format = self.condition_widget.get_active_text()
         formatinfo = transcoder.FORMATS[format]
-        self.default = formatinfo['default'] # raw value
+        if self.format != format:
+            self.format=format
+            default=formatinfo['default']
+            if self.default != default:
+                self.default = default # raw value
+
         default_title = formatinfo['kbs_steps'][
             formatinfo['raw_steps'].index(self.default)]
         active_iter = self.widget.get_active_iter()
@@ -73,8 +82,16 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
             active_title = int(model.get_value(active_iter, 1))
         else:
             active_title = default_title
-
+        
+        if self._changed_id:
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore")
+                    self.widget.disconnect(self._changed_id)
+                self._changed_id=None
         model.clear()
+        
+        if not self._changed_id:
+            self._changed_id=self.widget.connect('changed', self.change)
 
         steps = zip(formatinfo['raw_steps'], formatinfo['kbs_steps'])
 

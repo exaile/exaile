@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkListStore" id="model1">
+  <object class="GtkListStore" id="format_model">
     <columns>
       <!-- column-name gchararray -->
       <column type="gchararray"/>
@@ -49,7 +49,7 @@
             <child>
               <object class="GtkComboBox" id="cd_import/format">
                 <property name="visible">True</property>
-                <property name="model">model1</property>
+                <property name="model">format_model</property>
                 <property name="active">0</property>
                 <child>
                   <object class="GtkCellRendererText" id="renderer1"/>
@@ -88,7 +88,7 @@
             <child>
               <object class="GtkComboBox" id="cd_import/quality">
                 <property name="visible">True</property>
-                <property name="model">model2</property>
+                <property name="model">quality_model</property>
                 <child>
                   <object class="GtkCellRendererText" id="renderer2"/>
                   <attributes>
@@ -144,10 +144,10 @@
       </object>
     </child>
   </object>
-  <object class="GtkListStore" id="model2">
+  <object class="GtkListStore" id="quality_model">
     <columns>
       <!-- column-name item -->
-      <column type="gint"/>
+      <column type="gdouble"/>
       <!-- column-name title -->
       <column type="gchararray"/>
     </columns>

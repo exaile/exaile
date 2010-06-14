@@ -54,7 +54,6 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         widgets.Conditional.__init__(self)
         self.format = settings.get_option("cd_import/format", None)
         self.default = settings.get_option("cd_import/quality", None)
-        self._changed_id=None
 
     def on_check_condition(self):
         """
@@ -67,8 +66,9 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
         format = self.condition_widget.get_active_text()
         formatinfo = transcoder.FORMATS[format]
         if self.format != format:
-            self.format=format
-            default=formatinfo['default']
+            self.format = format
+            default = formatinfo['default']
+
             if self.default != default:
                 self.default = default # raw value
 
@@ -80,21 +80,16 @@ class OutputQualityPreference(widgets.ComboPreference, widgets.Conditional):
             active_title = float(model.get_value(active_iter, 1))
         else:
             active_title = default_title
-        
-        if self._changed_id:
-                with warnings.catch_warnings():
-                    warnings.simplefilter("ignore")
-                    self.widget.disconnect(self._changed_id)
-                self._changed_id=None
+
+        self.widget.set_model(None)
         model.clear()
-        
-        if not self._changed_id:
-            self._changed_id=self.widget.connect('changed', self.change)
 
         steps = zip(formatinfo['raw_steps'], formatinfo['kbs_steps'])
 
         for item, title in steps:
             iter = model.append([item, title])
+
+        self.widget.set_model(model)
 
         if active_title not in formatinfo['kbs_steps']:
             active_title = default_title

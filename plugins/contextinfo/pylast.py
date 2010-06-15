@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # pylast - A Python interface to Last.fm (and other API compatible social networks)
-# Copyright (C) 2008-2010  Amr Hassan
+# Copyright (C) 2008-2009  Amr Hassan
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
     
 __version__ = '0.4'
 __author__ = 'Amr Hassan'
-__copyright__ = "Copyright (C) 2008-2010  Amr Hassan"
+__copyright__ = "Copyright (C) 2008-2009  Amr Hassan"
 __license__ = "gpl"
 __email__ = 'amr.hassan@gmail.com'
 

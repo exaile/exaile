@@ -283,10 +283,11 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         box.pack_start(scroll, True, True)
 
     def on_row_activated(self, tree, path, column):
-        iter = self.model.get_iter(path)
-        item = self.model.get_value(iter, 2)
+        item = self.model[path][2]
         if isinstance(item, xl.radio.RadioItem):
             self.emit('playlist-selected', item.get_playlist())
+        elif isinstance(item, playlistpanel.TrackWrapper):
+            self.emit('playlist-selected', item.playlist)
         elif isinstance(item, xl.playlist.Playlist):
             self.open_station(item)
 

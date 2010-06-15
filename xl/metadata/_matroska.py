@@ -228,7 +228,7 @@ class Ebml:
         while self.tell() < to:
             try:
                 id = self.readID()
-            except EbmlException as e:
+            except EbmlException, e:
                 # Invalid EBML header. We can't reliably get any more data from
                 # this level, so just return anything we have.
                 print "ERROR:", e
@@ -255,7 +255,7 @@ class Ebml:
                         value = BinaryData(self.readBytes(size))
                     else:
                         assert False
-                except (EbmlException, UnicodeDecodeError) as e:
+                except (EbmlException, UnicodeDecodeError), e:
                     print "WARNING:", e
                 try:
                     parentval = node[key]

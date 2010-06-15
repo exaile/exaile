@@ -319,7 +319,7 @@ class Collection(trax.TrackDB):
             l = {}
             l['location'] = v.location
             l['monitored'] = v.monitored
-            l['_realtime'] = v.monitored
+            l['realtime'] = v.monitored
             l['scan_interval'] = v.scan_interval
             _serial_libraries.append(l)
         return _serial_libraries
@@ -332,7 +332,7 @@ class Collection(trax.TrackDB):
         """
         for l in _serial_libraries:
             self.add_library( Library( l['location'],
-                    l.get('monitored', l.get('_realtime')),
+                    l.get('monitored', l.get('realtime')),
                     l['scan_interval'] ))
 
     _serial_libraries = property(serialize_libraries, unserialize_libraries)

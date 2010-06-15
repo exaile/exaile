@@ -32,6 +32,14 @@ import glib
 import gobject
 import gtk
 
+from xl import (
+    event,
+    playlist,
+    radio,
+    settings,
+    trax
+)
+from xl.nls import gettext as _
 from xlgui import (
     guiutil,
     menu,
@@ -41,13 +49,6 @@ from xlgui import (
 )
 from xlgui.widgets import dialogs
 from xlgui.widgets.filter import *
-from xl import (
-    event,
-    playlist,
-    settings,
-    trax
-)
-from xl.nls import gettext as _
 
 class EntrySecondsField(MultiEntryField):
     def __init__(self):
@@ -1080,7 +1081,7 @@ class PlaylistDragTreeView(guiutil.DragTreeView):
         if playlist is not None:
             return playlist.get_tracks()
         else:
-            return self.get_selected_track()
+            return [self.get_selected_track()]
 
         return None
 
@@ -1121,7 +1122,10 @@ class PlaylistDragTreeView(guiutil.DragTreeView):
         if isinstance(item, playlist.SmartPlaylist):
             if raw: return item
             return item.get_playlist(self.container.collection)
-        elif isinstance(item, playlist.Playlist) :
+        if isinstance(item, radio.RadioItem):
+            if raw: return item
+            return item.get_playlist()
+        elif isinstance(item, playlist.Playlist):
             return item
         elif isinstance(item, TrackWrapper):
             return item

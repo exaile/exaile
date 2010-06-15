@@ -452,13 +452,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Called when the user drags a playlist from the radio panel
         """
-        pl = self.tree.get_selected_playlist()
-        if pl:
-            tracks = pl.get_tracks()
-        else:
-            tracks = [self.tree.get_selected_tracks()]
-
-        tracks = [t for t in tracks if t is not None]
+        tracks = self.tree.get_selected_tracks()
 
         if not tracks:
             return

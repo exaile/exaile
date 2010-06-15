@@ -34,6 +34,7 @@ A library finds tracks in a specified directory and adds them to an associated
 collection.
 """
 
+from __future__ import with_statement
 from collections import deque
 import glib
 import gobject
@@ -349,20 +350,141 @@ class Collection(trax.TrackDB):
             for prefix, lib in self.libraries.iteritems():
                 lib.delete(tr.get_loc_for_io())
 
+class LibraryMonitor(gobject.GObject):
+    """
+        Monitors library locations for changes
+    """
+    __gproperties__ = {
+        'monitored': (
+            gobject.TYPE_BOOLEAN,
+            'monitoring state',
+            'Whether to monitor this library',
+            False,
+            gobject.PARAM_READWRITE
+        )
+    }
+    __gsignals__ = {
+        'location-added': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            [gio.File]
+        ),
+        'location-removed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            [gio.File]
+        )
+    }
+    
+    def __init__(self, library):
+        """
+            :param root: the library to monitor
+            :type root: :class:`Library`
+        """
+        gobject.GObject.__init__(self)
+
+        self.__library = library
+        self.__root = gio.File(library.location)
+        self.__monitored = False
+        self.__monitors = {}
+        self.__lock = threading.RLock()
+
+    def do_get_property(self, property):
+        """
+            Gets GObject properties
+        """
+        if property.name == 'monitored':
+            return self.__monitored
+        else:
+            raise AttributeError('unkown property %s' % property.name)
+
+    def do_set_property(self, property, value):
+        """
+            Sets GObject properties
+        """
+        if property.name == 'monitored':
+            if value != self.__monitored:
+                self.__monitored = value
+                update_thread = threading.Thread(target=self.__update_monitors)
+                update_thread.daemon = True
+                update_thread.start()
+        else:
+            raise AttributeError('unkown property %s' % property.name)
+
+    def __update_monitors(self):
+        """
+            Sets up or removes library monitors
+        """
+        with self.__lock:
+            if self.props.monitored:
+                logger.debug('Setting up library monitors')
+
+                for directory in common.walk_directories(self.__root):
+                    monitor = directory.monitor_directory()
+                    monitor.connect('changed', self.on_location_changed)
+                    self.__monitors[directory] = monitor
+
+                    self.emit('location-added', directory)
+            else:
+                logger.debug('Removing library monitors')
+
+                for directory, monitor in self.__monitors.iteritems():
+                    monitor.cancel()
+
+                    self.emit('location-removed', directory)
+
+                self.__monitors = {}
+
+    def on_location_changed(self, monitor, gfile, other_gfile, event):
+        """
+            Updates the library on changes of the location
+        """
+        if event == gio.FILE_MONITOR_EVENT_CREATED:
+            added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
+            self.__library.collection.add_tracks(added_tracks)
+
+            # Set up new monitor if directory
+            fileinfo = gfile.query_info('standard::type')
+
+            if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY and \
+               gfile not in self.__monitors:
+                monitor = gfile.monitor_directory()
+                monitor.connect('changed', self.on_location_changed)
+                self.__monitors[gfile] = monitor
+
+                self.emit('location-added', gfile)
+        elif event == gio.FILE_MONITOR_EVENT_DELETED:
+            removed_tracks = []
+
+            track = trax.Track(gfile.get_uri())
+
+            if track in self.__library.collection:
+                # Deleted file was a regular track
+                removed_tracks += [track]
+            else:
+                # Deleted file was most likely a directory
+                for track in self.collection:
+                    track_gfile = gio.File(track.get_loc_for_io())
+
+                    if track_gfile.has_prefix(gfile):
+                        removed_tracks += [track]
+
+            self.__library.collection.remove_tracks(removed_tracks)
+
+            # Remove obsolete monitors
+            removed_directories = [d for d in self.__monitors \
+                if d == gfile or d.has_prefix(gfile)]
+
+            for directory in removed_directories:
+                self.__monitors[directory].cancel()
+                del self.__monitors[directory]
+                
+                self.emit('location-removed', directory)
+
 class Library(object):
     """
         Scans and watches a folder for tracks, and adds them to
         a Collection.
-
-        :param location: the directory this library will scan
-        :type location: string
-        :param collection: the collection to associate with
-        :type collection: :class:`Collection`
-        :param monitored: whether the library should update its
-            collection at changes within the library's path
-        :type monitored: bool
-        :param scan_interval: the interval for automatic rescanning
-        :type scan_interval: int
 
         Simple usage:
 
@@ -381,16 +503,25 @@ class Library(object):
     def __init__(self, location, monitored=False, scan_interval=0):
         """
             Sets up the Library
+
+            :param location: the directory this library will scan
+            :type location: string
+            :param collection: the collection to associate with
+            :type collection: :class:`Collection`
+            :param monitored: whether the library should update its
+                collection at changes within the library's path
+            :type monitored: bool
+            :param scan_interval: the interval for automatic rescanning
+            :type scan_interval: int
         """
         self.location = location
         self.scan_interval = scan_interval
         self.scan_id = 0
         self.scanning = False
-        self._monitored = False
-        self.monitors = {}
+        self.monitor = LibraryMonitor(self)
+        self.monitor.props.monitored = monitored
 
         self.collection = None
-        self.set_monitored(monitored)
         self.set_rescan_interval(scan_interval)
 
     def set_location(self, location):
@@ -419,7 +550,7 @@ class Library(object):
         """
             Whether the library should be monitored for changes
         """
-        return self._monitored
+        return self.monitor.props.monitored
 
     def set_monitored(self, monitored):
         """
@@ -428,64 +559,9 @@ class Library(object):
             :param monitored: Whether to monitor the library
             :type monitored: bool
         """
-        if monitored == self._monitored:
-            return
-
-        if monitored:
-            for directory in self._walk_directories(gio.File(self.location)):
-                monitor = directory.monitor_directory()
-                monitor.connect('changed', self.on_location_changed)
-                self.monitors[directory] = monitor
-        else:
-            for directory in self.monitors:
-                self.monitors[directory].cancel()
-            self.monitors = {}
-
-        self._monitored = monitored
+        self.monitor.props.monitored = monitored
 
     monitored = property(get_monitored, set_monitored)
-
-    def on_location_changed(self, monitor, gfile, other_gfile, event):
-        """
-            Updates the library on changes of the location
-        """
-        if event == gio.FILE_MONITOR_EVENT_CREATED:
-            added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
-            self.collection.add_tracks(added_tracks)
-
-            # Set up new monitor if directory
-            fileinfo = gfile.query_info('standard::type')
-
-            if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY and \
-               gfile not in self.monitors:
-                monitor = gfile.monitor_directory()
-                monitor.connect('changed', self.on_location_changed)
-                self.monitors[gfile] = monitor
-        elif event == gio.FILE_MONITOR_EVENT_DELETED:
-            removed_tracks = []
-
-            track = trax.Track(gfile.get_uri())
-
-            if track in self.collection:
-                # Deleted file was a regular track
-                removed_tracks += [track]
-            else:
-                # Deleted file was most likely a directory
-                for track in self.collection:
-                    track_gfile = gio.File(track.get_loc_for_io())
-
-                    if track_gfile.has_prefix(gfile):
-                        removed_tracks += [track]
-
-            self.collection.remove_tracks(removed_tracks)
-
-            # Remove obsolete monitors
-            removed_directories = [d for d in self.monitors \
-                if d == gfile or d.has_prefix(gfile)]
-
-            for directory in removed_directories:
-                self.monitors[directory].cancel()
-                del self.monitors[directory]
 
     def get_rescan_interval(self):
         """
@@ -518,7 +594,7 @@ class Library(object):
             Counts the number of files present in this directory
         """
         count = 0
-        for file in self._walk(gio.File(self.location)):
+        for file in common.walk(gio.File(self.location)):
             if self.collection:
                 if self.collection._scan_stopped:
                     break
@@ -582,72 +658,6 @@ class Library(object):
 
         ccheck[basedir][album].append(artist)
 
-    def _walk(self, root):
-        """
-            Walk through a Gio directory, yielding each file
-
-            Files are enumerated in the following order: first the
-            directory, then the files in that directory. Once one
-            directory's files have all been listed, it moves on to
-            the next directory. Order of files within a directory
-            and order of directory traversal is not specified.
-
-            :param root: a :class:`gio.File` representing the
-                directory to walk through
-            :returns: a generator object
-            :rtype: :class:`gio.File`
-        """
-        queue = deque()
-        queue.append(root)
-
-        while len(queue) > 0:
-            dir = queue.pop()
-            yield dir
-            try:
-                for fileinfo in dir.enumerate_children("standard::type,"
-                        "standard::is-symlink,standard::name,"
-                        "standard::symlink-target,time::modified"):
-                    fil = dir.get_child(fileinfo.get_name())
-                    # FIXME: recursive symlinks could cause an infinite loop
-                    if fileinfo.get_is_symlink():
-                        target = fileinfo.get_symlink_target()
-                        if not "://" in target and not os.path.isabs(target):
-                            fil2 = dir.get_child(target)
-                        else:
-                            fil2 = gio.File(target)
-                        # already in the collection, we'll get it anyway
-                        if fil2.has_prefix(root):
-                            continue
-                    type = fileinfo.get_file_type()
-                    if type == gio.FILE_TYPE_DIRECTORY:
-                        queue.append(fil)
-                    elif type == gio.FILE_TYPE_REGULAR:
-                        yield fil
-            except gio.Error: # why doesnt gio offer more-specific errors?
-                pass
-
-    def _walk_directories(self, root):
-        """
-            Walk through a Gio directory, yielding each subdirectory
-
-            :param root: a :class:`gio.File` representing the
-                directory to walk through
-            :returns: a generator object
-            :rtype: :class:`gio.File`
-        """
-        yield root
-
-        try:
-            for fileinfo in root.enumerate_children(
-                    'standard::name,standard::type'):
-                if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY:
-                    directory = root.get_child(fileinfo.get_name())
-
-                    for subdirectory in self._walk_directories(directory):
-                        yield subdirectory
-        except gio.Error:
-            pass
-
     def update_track(self, gloc):
         """
             Rescan the track at a given location
@@ -700,7 +710,7 @@ class Library(object):
         dirtracks = deque()
         compilations = deque()
         ccheck = {}
-        for fil in self._walk(libloc):
+        for fil in common.walk(libloc):
             count += 1
             type = fil.query_info("standard::type").get_file_type()
             if type == gio.FILE_TYPE_DIRECTORY:

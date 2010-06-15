@@ -35,7 +35,10 @@ import dbus.service
 import gio
 import gobject
 
-from xl import covers, event, player
+# Be VERY careful what you import here! This module gets loaded even if
+# we are just issuing a dbus command to a running instance, so we need
+# to keep imports as light as possible.
+from xl import event
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -188,6 +191,7 @@ class DbusManager(dbus.service.Object):
 
     def _connect_signals(self):
         # connect events
+        from xl import player
         event.add_callback(self.emit_state_changed,
             'playback_player_end', player.PLAYER)
         event.add_callback(self.emit_state_changed,
@@ -221,6 +225,7 @@ class DbusManager(dbus.service.Object):
         """
             Returns an attribute of a track
         """
+        from xl import player
         try:
             value = player.PLAYER.current.get_tag_raw(attr)
         except (ValueError, TypeError, AttributeError):
@@ -235,6 +240,7 @@ class DbusManager(dbus.service.Object):
         """
             Sets rating of a track
         """
+        from xl import player
         try:
             player.PLAYER.current.set_tag_raw(attr, value)
         except (AttributeError, TypeError):
@@ -265,7 +271,7 @@ class DbusManager(dbus.service.Object):
         """
             Changes volume by the specified amount (in percent, can be negative)
         """
-        player = self.exaile.player
+        from xl import player
         player.set_volume(player.get_volume() + value)
         self.cached_volume = -1
 
@@ -274,6 +280,7 @@ class DbusManager(dbus.service.Object):
         """
             Mutes or unmutes the volume
         """
+        from xl import player
         if self.cached_volume == -1:
             self.cached_volume = player.PLAYER.get_volume()
             player.PLAYER.set_volume(0)
@@ -286,6 +293,7 @@ class DbusManager(dbus.service.Object):
         """
             Seeks to the given position in seconds
         """
+        from xl import player
         player.PLAYER.seek(value)
 
     @dbus.service.method('org.exaile.Exaile')
@@ -293,6 +301,7 @@ class DbusManager(dbus.service.Object):
         """
             Jumps to the previous track
         """
+        from xl import player
         player.QUEUE.prev()
 
     @dbus.service.method('org.exaile.Exaile')
@@ -300,6 +309,7 @@ class DbusManager(dbus.service.Object):
         """
             Stops playback
         """
+        from xl import player
         player.PLAYER.stop()
 
     @dbus.service.method('org.exaile.Exaile')
@@ -307,6 +317,7 @@ class DbusManager(dbus.service.Object):
         """
             Jumps to the next track
         """
+        from xl import player
         player.QUEUE.next()
 
     @dbus.service.method('org.exaile.Exaile')
@@ -314,6 +325,7 @@ class DbusManager(dbus.service.Object):
         """
             Starts playback
         """
+        from xl import player
         player.QUEUE.play()
 
     @dbus.service.method('org.exaile.Exaile')
@@ -321,6 +333,7 @@ class DbusManager(dbus.service.Object):
         """
             Toggle Play or Pause
         """
+        from xl import player
         if player.PLAYER.get_state() == 'stopped':
             player.PLAYER.play(player.QUEUE.get_current())
         else:
@@ -331,6 +344,7 @@ class DbusManager(dbus.service.Object):
         """
             Toggle stopping after current track
         """
+        from xl import player
         player.QUEUE.stop_track = player.QUEUE.get_current()
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
@@ -338,6 +352,7 @@ class DbusManager(dbus.service.Object):
         """
             Returns the progress into the current track (in percent)
         """
+        from xl import player
         progress = player.PLAYER.get_progress()
         if progress == -1:
             return ""
@@ -348,6 +363,7 @@ class DbusManager(dbus.service.Object):
         """
             Returns the position inside the current track (as time)
         """
+        from xl import player
         progress = player.PLAYER.get_time()
         return '%d:%02d' % (progress // 60, progress % 60)
 
@@ -356,6 +372,7 @@ class DbusManager(dbus.service.Object):
         """
             Returns the current volume level (in percent)
         """
+        from xl import player
         return str(player.PLAYER.get_volume())
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
@@ -363,6 +380,7 @@ class DbusManager(dbus.service.Object):
         """
             Returns information about the currently playing track
         """
+        from xl import player
         current_track = player.QUEUE.get_current()
         if current_track is None or player.PLAYER.is_stopped():
             return _('Not playing.')
@@ -405,6 +423,7 @@ class DbusManager(dbus.service.Object):
             to the current playlist
         """
         import xl.playlist
+        from xl import player
         from xl import trax   # do this here to avoid loading
                               # settings when issuing dbus commands
         # FIXME: Get rid of dependency on xlgui
@@ -466,6 +485,7 @@ class DbusManager(dbus.service.Object):
             Returns the data of the cover image of the playing track, or
             an empty string if there is no cover available.
         """
+        from xl import covers
         cover = covers.MANAGER.get_cover(player.PLAYER.current)
         if not cover:
             cover = ''
@@ -476,6 +496,7 @@ class DbusManager(dbus.service.Object):
         """
             Returns the surrent verbatim state (unlocalized)
         """
+        from xl import player
         return player.PLAYER.get_state()
 
     @dbus.service.signal('org.exaile.Exaile')

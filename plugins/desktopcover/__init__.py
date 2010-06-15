@@ -167,8 +167,8 @@ class DesktopCover(gtk.Window):
             pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
             self.image.set_from_pixbuf(pixbuf)
 
-            self._cross_fade_id = glib.timeout_add(
-                int(duration), self.cross_fade, next_pixbuf, duration)
+            self._cross_fade_id = glib.timeout_add(int(duration),
+                self.cross_fade, pixbuf, next_pixbuf, duration)
         else:
             self.image.set_from_pixbuf(next_pixbuf)
 
@@ -259,17 +259,18 @@ class DesktopCover(gtk.Window):
 
         return True
 
-    def cross_fade(self, next_pixbuf, duration):
+    def cross_fade(self, pixbuf, next_pixbuf, duration):
         """
             Fades between two cover images
 
+            :param pixbuf: the current cover image pixbuf
+            :type pixbuf: :class:`gtk.gdk.Pixbuf`
             :param next_pixbuf: the cover image pixbuf to fade to
             :type next_pixbuf: :class:`gtk.gdk.Pixbuf`
             :param duration: the overall time for the fading
             :type duration: int
         """
         if self._cross_fade_step < duration:
-            pixbuf = self.image.get_pixbuf()
             width, height = pixbuf.get_width(), pixbuf.get_height()
             alpha = (255 / duration) * self._cross_fade_step
 

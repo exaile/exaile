@@ -40,6 +40,7 @@ import pango
 from xl import (
     collection,
     event,
+    player,
     playlist,
     settings,
     trax,
@@ -1113,7 +1114,7 @@ class Playlist(gtk.VBox):
         item = model.get_value(iter, 0)
         image = None
 
-        if path[0] == self.playlist.get_current_pos():
+        if path[0] == self.playlist.get_current_pos() and item == player.PLAYER.current and self.playlist == player.QUEUE.current_playlist:
 #        if item == self.player.current:
             if self.player.is_playing():
                 image = self.playimg

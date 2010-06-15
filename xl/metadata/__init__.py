@@ -32,7 +32,7 @@ import gio
 from xl.metadata._base import BaseFormat, NotWritable, NotReadable
 import urlparse
 
-from xl.metadata import (ape, asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex,
+from xl.metadata import (ape, asf, flac, mka, mod, mp3, mp4, mpc, ogg, sid, speex,
         tta, wav, wv)
 
 #: dictionary mapping extensions to Format classes.
@@ -50,7 +50,7 @@ formats = {
         'it'    : mod.ModFormat,
         'm4a'   : mp4.MP4Format,
         'med'   : mod.ModFormat,
-        'mka'   : None,
+        'mka'   : mka.MkaFormat,
         'mp2'   : mp3.MP3Format,
         'mp3'   : mp3.MP3Format,
         'mp4'   : mp4.MP4Format,

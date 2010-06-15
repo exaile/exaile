@@ -378,8 +378,8 @@ class LibraryMonitor(gobject.GObject):
     
     def __init__(self, library):
         """
-            :param root: the library to monitor
-            :type root: :class:`Library`
+            :param library: the library to monitor
+            :type library: :class:`Library`
         """
         gobject.GObject.__init__(self)
 
@@ -448,11 +448,13 @@ class LibraryMonitor(gobject.GObject):
 
             if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY and \
                gfile not in self.__monitors:
-                monitor = gfile.monitor_directory()
-                monitor.connect('changed', self.on_location_changed)
-                self.__monitors[gfile] = monitor
+                for directory in common.walk_directories(gfile):
+                    monitor = directory.monitor_directory()
+                    monitor.connect('changed', self.on_location_changed)
+                    self.__monitors[directory] = monitor
 
-                self.emit('location-added', gfile)
+                    self.emit('location-added', directory)
+
         elif event == gio.FILE_MONITOR_EVENT_DELETED:
             removed_tracks = []
 

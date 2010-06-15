@@ -450,7 +450,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def drag_get_data(self, tv, context, selection_data, info, time):
         """
-            CAlled when the user drags a playlist from the radio panel
+            Called when the user drags a playlist from the radio panel
         """
         pl = self.tree.get_selected_playlist()
         if pl:
@@ -458,7 +458,10 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         else:
             tracks = [self.tree.get_selected_tracks()]
 
-        if not tracks: return
+        tracks = [t for t in tracks if t is not None]
+
+        if not tracks:
+            return
 
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track

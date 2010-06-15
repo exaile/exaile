@@ -94,6 +94,10 @@ class TrackInfoPane(gtk.Alignment):
                 'playback_error')
             event.add_callback(self.on_track_tags_changed,
                 'track_tags_changed')
+            event.add_callback(self.on_cover_changed,
+                'cover_set')
+            event.add_callback(self.on_cover_changed,
+                'cover_removed')
 
         try:
             exaile = main.exaile()
@@ -101,6 +105,28 @@ class TrackInfoPane(gtk.Alignment):
             event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
         else:
             self.on_exaile_loaded('exaile_loaded', exaile, None)
+
+    def destroy(self):
+        """
+            Cleanups
+        """
+        if self._auto_update:
+            event.remove_callback(self.on_playback_player_end,
+                'playback_player_end')
+            event.remove_callback(self.on_playback_track_start,
+                'playback_track_start')
+            event.remove_callback(self.on_playback_toggle_pause,
+                'playback_toggle_pause')
+            event.remove_callback(self.on_playback_error,
+                'playback_error')
+            event.remove_callback(self.on_track_tags_changed,
+                'track_tags_changed')
+            event.remove_callback(self.on_cover_changed,
+                'cover_set')
+            event.remove_callback(self.on_cover_changed,
+                'cover_removed')
+
+        gtk.Alignment.destroy(self)
 
     def get_info_format(self):
         """
@@ -312,6 +338,13 @@ class TrackInfoPane(gtk.Alignment):
         if self.player is not None and \
            not self.player.is_stopped() and \
            track is self._track:
+            self.set_track(track)
+
+    def on_cover_changed(self, event, covers, track):
+        """
+            Updates the info pane on cover set/removal
+        """
+        if track is self._track:
             self.set_track(track)
 
     def on_exaile_loaded(self, e, exaile, nothing):

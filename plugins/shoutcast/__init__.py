@@ -113,7 +113,7 @@ class ShoutcastRadioStation(RadioStation):
                 c = httplib.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent':
-                    _USERAGENT})
+                    self.user_agent})
                 response = c.getresponse()
             except (socket.timeout, socket.error):
                 raise radio.RadioException(
@@ -170,7 +170,7 @@ class ShoutcastRadioStation(RadioStation):
             c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
-                headers={'User-Agent': _USERAGENT})
+                headers={'User-Agent': self.user_agent})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             raise radio.RadioException(
@@ -222,7 +222,7 @@ class ShoutcastRadioStation(RadioStation):
         try:
             print "Reading %s" % url
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
-                headers={'User-Agent': _USERAGENT})
+                headers={'User-Agent': self.user_agent})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             set_status(
@@ -259,7 +259,7 @@ class ShoutcastRadioStation(RadioStation):
             c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
-                headers={'User-Agent': _USERAGENT})
+                headers={'User-Agent': self.user_agent})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             set_status(

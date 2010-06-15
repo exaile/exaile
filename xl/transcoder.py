@@ -39,7 +39,8 @@ from xl.nls import gettext as _
     kbs_steps:  a value defining the quality of encoding that will be displayed
                 to the user. must be a one-to-one mapping with raw_steps.
     command:    the gstreamer pipeline to execute. should contain exactly one
-                %s, which will be replaced with the value from raw_steps.
+                python string format operator, like %s or %f, which will be 
+                replaced with the value from raw_steps.
     plugins:    the gstreamer plugins needed for this transcode pipeline
     desc:       a description of the encoder to display to the user
 """
@@ -49,7 +50,7 @@ FORMATS = {
             "default"   : 0.5,
             "raw_steps" : [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
             "kbs_steps" : [64, 80, 96, 112, 128, 160, 192, 224, 256, 320],
-            "command"   : "vorbisenc quality=%s ! oggmux",
+            "command"   : "vorbisenc quality=%1.1f ! oggmux",
             "extension" : "ogg",
             "plugins"   : ["vorbisenc", "oggmux"],
             "desc"      : _("Vorbis is an open source, lossy audio codec with "
@@ -59,7 +60,7 @@ FORMATS = {
             "default"   : 5,
             "raw_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
             "kbs_steps" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-            "command"   : "flacenc quality=%s",
+            "command"   : "flacenc quality=%i",
             "extension" : "flac",
             "plugins"   : ["flacenc"],
             "desc"      : _("Free Lossless Audio Codec (FLAC) is an open "
@@ -71,7 +72,7 @@ FORMATS = {
             "raw_steps" : [32000, 48000, 64000, 96000, 128000, 160000,
                     192000, 224000, 256000, 320000],
             "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-            "command"   : "faac bitrate=%s ! ffmux_mp4",
+            "command"   : "faac bitrate=%i ! ffmux_mp4",
             "extension" : "m4a",
             "plugins"   : ["faac", "ffmux_mp4"],
             "desc"      : _("Apple's proprietary lossy audio format that "
@@ -82,7 +83,7 @@ FORMATS = {
             "default"   : 160,
             "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
             "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-            "command"   : "lame vbr=4 vbr-mean-bitrate=%s",
+            "command"   : "lame vbr=4 vbr-mean-bitrate=%i",
             "extension" : "mp3",
             "plugins"   : ["lame"],
             "desc"      : _("A proprietary and older, but also popular, lossy "
@@ -93,7 +94,7 @@ FORMATS = {
             "default"   : 160,
             "raw_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
             "kbs_steps" : [32, 48, 64, 96, 128, 160, 192, 224, 256, 320],
-            "command"   : "lame bitrate=%s",
+            "command"   : "lame bitrate=%i",
             "extension" : "mp3",
             "plugins"   : ["lame"],
             "desc"      : _("A proprietary and older, but also popular, "
@@ -104,7 +105,7 @@ FORMATS = {
             "default"   : 2,
             "raw_steps" : [1,2,3,4],
             "kbs_steps" : [1,2,3,4],
-            "command"   : "wavpackenc mode=%s",
+            "command"   : "wavpackenc mode=%i",
             "extension" : "wv",
             "plugins"   : ["wavpackenc"],
             "desc"      : _("A very fast Free lossless audio format with "

@@ -272,7 +272,7 @@ class DbusManager(dbus.service.Object):
             Changes volume by the specified amount (in percent, can be negative)
         """
         from xl import player
-        player.set_volume(player.get_volume() + value)
+        player.PLAYER.set_volume(player.PLAYER.get_volume() + value)
         self.cached_volume = -1
 
     @dbus.service.method('org.exaile.Exaile')

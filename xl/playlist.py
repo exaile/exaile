@@ -551,12 +551,15 @@ class Playlist(object):
                 return self.__tracks.index(t[0]), t[0]
 
             except IndexError: #Pick a new album
-                t = self.get_shuffle_history()
+                hist = set(self.get_shuffle_history())
                 albums = []
-                for i, x in t:
+                for i, x in enumerate(self):
+                    if (i, x) in hist:
+                        continue
                     if not x.get_tag_raw('album') in albums:
                         albums.append(x.get_tag_raw('album'))
-
+                if not albums:
+                    return None
                 album = random.choice(albums)
                 t = [ x for x in self if x.get_tag_raw('album') == album ]
                 t = trax.sort_tracks(['tracknumber'], t)

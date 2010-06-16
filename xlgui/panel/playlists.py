@@ -419,9 +419,8 @@ class BasePlaylistPanelMixin(gobject.GObject):
             self.model.get_path(self.playlist_nodes[playlist]))
 
         self._clear_node(self.playlist_nodes[playlist])
-        tracks = playlist.ordered_tracks
         parent = self.playlist_nodes[playlist]
-        for track in tracks:
+        for track in playlist:
             if not track: continue
             wrapper = TrackWrapper(track, playlist)
             ar = [self.track_image, str(wrapper), wrapper]

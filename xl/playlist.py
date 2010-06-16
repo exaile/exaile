@@ -211,18 +211,18 @@ def import_from_pls(path, handle=None):
     pl = Playlist(name=name)
 
     for n in range(1,num+1):
-        tr = trax.Track(linedict["file" + n])
-        if ("title" + n) in linedict:
-            title = linedict["title" + n]
+        tr = trax.Track(linedict["file%d" % n])
+        if ("title%d" % n) in linedict:
+            title = linedict["title%d" % n]
             artist_title = title.split(' - ', 1)
             if len(artist_title) > 1:
                 artist, title = artist_title
                 tr.set_tag_raw('artist', artist)
         else:
-            title = os.path.splitext(os.path.basename(linedict["file" + n]))[0]
+            title = os.path.splitext(os.path.basename(linedict["file%d" % n]))[0]
         tr.set_tag_raw('title', title)
-        if ("Length" + n) in linedict:
-            length = float(linedict["Length" + n])
+        if ("Length%d" % n) in linedict:
+            length = float(linedict["Length%d" % n])
             if length < 0:
                 length = 0
         else:

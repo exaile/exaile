@@ -63,9 +63,9 @@ class BaseFormat(object):
         self.loc = loc
         self.open = False
         self.mutagen = None
-        self.load()
         self._reverse_mapping = dict((
             (v,k) for k,v in self.tag_mapping.iteritems() ))
+        self.load()
 
     def load(self):
         """
@@ -119,7 +119,7 @@ class BaseFormat(object):
             # __ is used to denote exaile's internal tags, so we skip
             # loading them to avoid conflicts. usually this shouldn't be
             # an issue.
-            if t.startswith("__"):
+            if isinstance(t, basestring) and t.startswith("__"):
                 continue
             tags.append(t)
         alltags = self.read_tags(tags)
@@ -238,7 +238,7 @@ class BaseFormat(object):
             return self.mutagen.info.length
         except AttributeError:
             try:
-                return self.mutagen['__length']
+                return self._get_raw()['__length']
             except (KeyError, TypeError):
                 return None
 
@@ -247,7 +247,7 @@ class BaseFormat(object):
             return self.mutagen.info.bitrate
         except AttributeError:
             try:
-                return self.mutagen['__bitrate']
+                return self._get_raw()['__bitrate']
             except (KeyError, TypeError):
                 return None
 

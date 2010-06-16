@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Bookmark plugin for Exaile media player
-# Copyright (C) 2010 Brian Parma
+# Copyright (C) 2009-2010 Brian Parma
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,20 +17,27 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
-
 from __future__ import with_statement
-from xl.nls import gettext as _
-from xl import event, xdg, trax, settings
-from xlgui import guiutil, icons
-from xlgui.widgets import dialogs
-import gtk
-import glib
 import gio
+import glib
+import gtk
 import os
 import logging
-import bookmarksprefs
 logger = logging.getLogger(__name__)
+
+from xl import (
+    covers,
+    event,
+    player,
+    settings,
+    trax,
+    xdg,
+)
+from xl.nls import gettext as _
+from xlgui import guiutil, icons
+from xlgui.widgets import dialogs
+
+import bookmarksprefs
 
 
 MENU_ITEM                   = None
@@ -67,29 +74,29 @@ class Bookmarks:
             return
 
         # check if it's already playing
-        track = exaile.player.current
+        track = player.PLAYER.current
         if track:
             if track.get_loc_for_io() == key:
-                exaile.player.unpause()
-                exaile.player.seek(pos)
+                player.PLAYER.unpause()
+                player.PLAYER.seek(pos)
                 return
         else:
             # use currently selected playlist (as opposed to current playlist)
             track = trax.Track(key)
             if track:   # make sure we got one
                 pl = exaile.gui.main.get_selected_playlist().playlist
-                exaile.queue.set_current_playlist(pl)
-                exaile.queue.current_playlist.add(track)
+                player.QUEUE.set_current_playlist(pl)
+                player.QUEUE.current_playlist.add(track)
 
         # try and play/seek
         if track:
 #            print 'bk: seeking to ', pos,type(pos)
-            idx = exaile.queue.current_playlist.index(track)
-            exaile.queue.current_playlist.set_current_pos(idx)
-            #exaile.player.stop()   # prevents crossfading
-            exaile.queue.play(track)
-            exaile.player.unpause()
-            exaile.player.seek(pos)
+            idx = player.QUEUE.current_playlist.index(track)
+            player.QUEUE.current_playlist.set_current_pos(idx)
+            #player.PLAYER.stop()   # prevents crossfading
+            player.QUEUE.play(track)
+            player.PLAYER.unpause()
+            player.PLAYER.seek(pos)
 
 
     def add_bookmark(self, widget, menus):
@@ -97,12 +104,12 @@ class Bookmarks:
             Create bookmark for current track/position.
         """
         # get currently playing track
-        track = self.exaile.player.current
+        track = player.PLAYER.current
         if track is None:
             error('Need a playing track to Bookmark.')
             return
 
-        pos = self.exaile.player.get_time()
+        pos = player.PLAYER.get_time()
         key = track.get_loc_for_io()
         self.bookmarks.append((key,pos))
         self.display_bookmark(key, pos, menus)
@@ -119,7 +126,7 @@ class Bookmarks:
             item = trax.Track(key)
             title = item.get_tag_display('title')
             if self.use_covers:
-                image = self.exaile.covers.get_cover(item, set_only=True)
+                image = covers.MANAGER.get_cover(item, set_only=True)
                 if image:
                     try:
                         pix = icons.MANAGER.pixbuf_from_data(image, size=(16,16))

@@ -3,7 +3,7 @@
 # This plugin is adapted from the Python Console plugin and the IPython
 # cookbook at:
 #   http://ipython.scipy.org/moin/Cookbook/EmbeddingInGTK
-# Copyright (C) 2010 Brian Parma
+# Copyright (C) 2009-2010 Brian Parma
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

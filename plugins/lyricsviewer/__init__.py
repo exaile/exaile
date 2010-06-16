@@ -1,4 +1,4 @@
-# Copyright (C) 2010 Aren Olson
+# Copyright (C) 2009-2010 Aren Olson
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -219,6 +219,7 @@ class LyricsViewer(object):
 
     @common.threaded
     def get_lyrics(self, player, track):
+        lyrics_found=[]
         try:
             try:
                 text_track=(track.get_tag_raw('artist')[0]+\

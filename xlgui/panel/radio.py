@@ -283,10 +283,11 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         box.pack_start(scroll, True, True)
 
     def on_row_activated(self, tree, path, column):
-        iter = self.model.get_iter(path)
-        item = self.model.get_value(iter, 2)
+        item = self.model[path][2]
         if isinstance(item, xl.radio.RadioItem):
             self.emit('playlist-selected', item.get_playlist())
+        elif isinstance(item, playlistpanel.TrackWrapper):
+            self.emit('playlist-selected', item.playlist)
         elif isinstance(item, xl.playlist.Playlist):
             self.open_station(item)
 
@@ -450,15 +451,12 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     def drag_get_data(self, tv, context, selection_data, info, time):
         """
-            CAlled when the user drags a playlist from the radio panel
+            Called when the user drags a playlist from the radio panel
         """
-        pl = self.tree.get_selected_playlist()
-        if pl:
-            tracks = pl.get_tracks()
-        else:
-            tracks = [self.tree.get_selected_tracks()]
+        tracks = self.tree.get_selected_tracks()
 
-        if not tracks: return
+        if not tracks:
+            return
 
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track

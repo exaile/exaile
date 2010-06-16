@@ -228,6 +228,9 @@ class ProgressTextFormatter(Formatter):
             total_time = self.player.current.get_tag_raw('__length')
 
         if total_time is None:
+            if not self.player.current.is_local():
+                return _('Streaming...')
+
             total_time = remaining_time = 0
         else:
             remaining_time = total_time - current_time
@@ -407,10 +410,7 @@ class TrackNumberTagFormatter(TagFormatter):
             pass
 
         return value
-
 providers.register('tag_formatting', TrackNumberTagFormatter())
-
-
 
 class DiscNumberTagFormatter(TagFormatter):
     """
@@ -469,12 +469,7 @@ class DiscNumberTagFormatter(TagFormatter):
             pass
 
         return value
-
 providers.register('tag_formatting', DiscNumberTagFormatter())
-
-
-
-
 
 class ArtistTagFormatter(TagFormatter):
     """
@@ -503,7 +498,6 @@ class ArtistTagFormatter(TagFormatter):
             artist_compilations=compilate)
 
         return value
-
 providers.register('tag_formatting', ArtistTagFormatter())
 
 class LengthTagFormatter(TagFormatter):
@@ -606,7 +600,6 @@ class LengthTagFormatter(TagFormatter):
                 '"short", "long" and "verbose"' % format)
 
         return text
-
 providers.register('tag_formatting', LengthTagFormatter())
 
 class RatingTagFormatter(TagFormatter):
@@ -634,7 +627,6 @@ class RatingTagFormatter(TagFormatter):
         empty = '☆' * int(maximum - rating)
 
         return ('%s%s' % (filled, empty)).decode('utf-8')
-
 providers.register('tag_formatting', RatingTagFormatter())
 
 class LastPlayedTagFormatter(TagFormatter):

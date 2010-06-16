@@ -1,24 +1,27 @@
-import re, urllib, os
-from xl.radio import *
-from xl import common, playlist, xdg, event
-from xlgui import guiutil
-from xlgui.widgets import dialogs
-import gtk, glib
-from xl.nls import gettext as _
+
+import glib
+import gtk
 import httplib
-import urllib2
-import socket
-urlparse = urllib2.urlparse
 import logging
 logger = logging.getLogger(__name__)
+import os
+import re
+import socket
+import urllib
+from urllib2 import urlparse
+
+from xl import common, event, main, playlist, xdg
+from xl.radio import *
+from xl.nls import gettext as _
+from xlgui import guiutil
+from xlgui.widgets import dialogs
 
 try:
     import StringIO
 except ImportError:
     import cStringIO as StringIO
 
-_PLUGINVERSION = None
-_USERAGENT = "Exaile Shoutcast Plugin/%s +http://www.exaile.org"
+STATION = None
 
 def enable(exaile):
     if exaile.loading:
@@ -26,13 +29,8 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
-STATION = None
 def _enable(devicename, exaile, nothing):
-    global STATION, _PLUGINVERSION, _USERAGENT
-
-    _PLUGINVERSION = exaile.plugins.get_plugin_info('shoutcast')['Version']
-    _USERAGENT = _USERAGENT % _PLUGINVERSION
-    logger.debug(_USERAGENT)
+    global STATION
 
     STATION = ShoutcastRadioStation()
     exaile.radio.add_station(STATION)
@@ -65,6 +63,8 @@ class ShoutcastRadioStation(RadioStation):
         """
             Initializes the shoutcast radio station
         """
+        self.user_agent = 'Exaile Shoutcast Plugin/%s +http://www.exaile.org' % \
+            main.exaile().plugins.get_plugin_info('shoutcast')['Version']
         self.genre_url = 'http://www.shoutcast.com/sbin/newxml.phtml'
         self.cat_url = 'http://www.shoutcast.com/sbin/newxml.phtml?genre=%(genre)s'
         self.playlist_url = 'http://www.shoutcast.com/sbin/tunein-station.pls?id=%(id)s'
@@ -74,6 +74,8 @@ class ShoutcastRadioStation(RadioStation):
         self._load_cache()
         self.subs = {}
         self.playlists = {}
+
+        logger.debug(self.user_agent)
 
     def _load_cache(self):
         """
@@ -111,7 +113,7 @@ class ShoutcastRadioStation(RadioStation):
                 c = httplib.HTTPConnection(hostinfo.netloc)
             try:
                 c.request('GET', hostinfo.path, headers={'User-Agent':
-                    _USERAGENT})
+                    self.user_agent})
                 response = c.getresponse()
             except (socket.timeout, socket.error):
                 raise radio.RadioException(
@@ -168,7 +170,7 @@ class ShoutcastRadioStation(RadioStation):
             c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
-                headers={'User-Agent': _USERAGENT})
+                headers={'User-Agent': self.user_agent})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             raise radio.RadioException(
@@ -220,7 +222,7 @@ class ShoutcastRadioStation(RadioStation):
         try:
             print "Reading %s" % url
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
-                headers={'User-Agent': _USERAGENT})
+                headers={'User-Agent': self.user_agent})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             set_status(
@@ -257,7 +259,7 @@ class ShoutcastRadioStation(RadioStation):
             c = httplib.HTTPConnection(hostinfo.netloc)
         try:
             c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
-                headers={'User-Agent': _USERAGENT})
+                headers={'User-Agent': self.user_agent})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             set_status(

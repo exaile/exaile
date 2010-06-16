@@ -1,4 +1,4 @@
-# Copyright (C) 2010
+# Copyright (C) 2009-2010
 #	Adam Olsen <arolsen@gmail.com>
 #	Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
 #	Steve Dodier <sidnioulzg@gmail.com>
@@ -16,11 +16,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-import cgi, glib, gtk.gdk, logging, pynotify
-import notifyosd_cover, notifyosdprefs
-from xl import event, settings, common
-from xlgui import icons
+
+import cgi
+import glib
+import gtk.gdk
+import logging
+import pynotify
+
+from xl import common, covers, event, settings
 from xl.nls import gettext as _
+from xlgui import icons
+
+import notifyosdprefs
 
 logger = logging.getLogger(__name__)
 pynotify.init('Exaile')
@@ -82,8 +89,8 @@ class ExaileNotifyOsd(object):
                 self.cover = self.resumeicon
                 icon_allowed = True
             elif self.show_covers:
-                self.cover = notifyosd_cover.notifyosd_get_image_for_track(
-                    track)
+                cover_data = covers.MANAGER.get_cover(track, use_default=True)
+                self.cover = icons.MANAGER.pixbuf_from_data(cover_data)
                 icon_allowed = True
 
         # Setup the summary and body for the notification

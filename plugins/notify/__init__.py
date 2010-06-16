@@ -1,4 +1,4 @@
-# Copyright (C) 2010 Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
+# Copyright (C) 2009-2010 Abhishek Mukherjee <abhishek.mukher.g@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,14 +14,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import pynotify, cgi
-import notifyprefs
-import logging
+import cgi
 import inspect
-import notify_cover
-from xlgui.preferences import widgets
-from xl import event, common, settings
+import logging
+import pynotify
+
+from xl import covers, event, common, settings
 from xl.nls import gettext as _
+from xlgui import icons
+from xlgui.preferences import widgets
+
+import notifyprefs
 
 logger = logging.getLogger(__name__)
 
@@ -87,9 +90,10 @@ class ExaileNotification(object):
                               }
 
         notif = pynotify.Notification(summary, body)
-        pixbuf = notify_cover.get_image_for_track(track, self.resize)
-        if pixbuf is not None:
-            notif.set_icon_from_pixbuf(pixbuf)
+        cover_data = covers.MANAGER.get_cover(track, use_default=True)
+        size = (48, 48) if self.resize else None
+        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, size)
+        notif.set_icon_from_pixbuf(pixbuf)
         # Attach to tray, if that's how we roll
         if ATTACH_COVERS_OPTION_ALLOWED:
             logger.debug("Attaching to tray")

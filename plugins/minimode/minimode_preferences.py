@@ -1,4 +1,4 @@
-# Copyright (C) 2010 Mathias Brodala
+# Copyright (C) 2009-2010 Mathias Brodala
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -91,6 +91,10 @@ class SelectedControlsPreference(widgets.SelectionListPreference):
         widgets.SelectionListPreference.Item(
             id='playlist_button', title=_('Playlist button'),
             description=_('Access the current playlist')),
+        widgets.SelectionListPreference.Item(
+            id='progress_button', title=_('Progress button'),
+            description=_('Playback progress and access to '
+                          'the current playlist')),
         widgets.SelectionListPreference.Item(
             id='rating', title=_('Rating'),
             description=_('Select rating of the current track')),

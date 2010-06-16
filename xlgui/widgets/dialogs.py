@@ -426,6 +426,29 @@ class FileOperationDialog(gtk.FileChooserDialog):
         for key in keys:
             self.liststore.append([extensions[key], key])
 
+class ConfirmCloseDialog(gtk.MessageDialog):
+    """
+        Shows the dialog to confirm closing of the playlist
+    """
+    def __init__(self, document_name):
+        """
+            Initializes the dialog
+        """
+        gtk.MessageDialog.__init__(self, type = gtk.MESSAGE_WARNING)
+
+        self.set_title(_('Close %s' % document_name))
+        self.set_markup(_('<b>Save changes to %s before closing?</b>') % document_name)
+        self.format_secondary_text(_('Your changes will be lost if you don\'t save them'))
+
+        self.add_buttons(_('Close Without Saving'), 100, gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                        gtk.STOCK_SAVE, 110)
+
+    def run(self):
+        self.show_all()
+        response = gtk.Dialog.run(self)
+        self.hide()
+        return response
+
 class MessageBar(gtk.InfoBar):
     type_map = {
         gtk.MESSAGE_INFO: gtk.STOCK_DIALOG_INFO,

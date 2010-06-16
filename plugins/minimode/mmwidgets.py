@@ -1,4 +1,4 @@
-# Copyright (C) 2010 Mathias Brodala
+# Copyright (C) 2009-2010 Mathias Brodala
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@ from xl import (
     settings
 )
 from xl.nls import gettext as _
+from xlgui import main
 from xlgui.guiutil import (
     get_workarea_size,
     ProgressBarFormatter
@@ -159,15 +160,8 @@ class Button(gtk.Button):
         self.set_relief(gtk.RELIEF_NONE)
         self.set_focus_on_click(False)
 
-        self._clicked_id = self.connect('clicked', callback)
-
-    def destroy(self):
-        """
-            Various cleanups
-        """
-        self.disconnect(self._clicked_id)
-
-        gtk.Button.destroy(self)
+        if callback is not None:
+            self.connect('clicked', callback)
 
 class PlayPauseButton(Button):
     """
@@ -217,6 +211,125 @@ class PlayPauseButton(Button):
             Updates appearance on playback state change
         """
         self.update_state()
+
+class StopButton(Button):
+    """
+        Button which allows to stop the playback
+        as well as trigger the SPAT feature
+    """
+    def __init__(self, player, queue):
+        Button.__init__(self, gtk.STOCK_MEDIA_STOP,
+            _('Stop Playback\n\n'
+              'Right Click for Stop After Track Feature'), None)
+
+        self.player = player
+        self.queue = queue
+
+        self.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.connect('motion-notify-event',
+            self.on_motion_notify_event)
+        self.connect('leave-notify-event',
+            self.on_leave_notify_event)
+        self.connect('key-press-event',
+            self.on_key_press_event)
+        self.connect('key-release-event',
+            self.on_key_release_event)
+        self.connect('focus-out-event',
+            self.on_focus_out_event)
+        self.connect('button-press-event',
+            self.on_button_press_event)
+
+    def on_motion_notify_event(self, widget, event):
+        """
+            Sets the hover state and shows SPAT icon
+        """
+        self.set_data('hovered', True)
+
+        if event.state & gtk.gdk.SHIFT_MASK:
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+        else:
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_leave_notify_event(self, widget, event):
+        """
+            Unsets the hover state and resets the button icon
+        """
+        self.set_data('hovered', False)
+
+        if not self.is_focus() and \
+           ~(event.state & gtk.gdk.SHIFT_MASK):
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_key_press_event(self, widget, event):
+        """
+            Shows SPAT icon on Shift key press
+        """
+        if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+            self.set_data('toggle_spat', True)
+
+        if event.keyval in (gtk.keysyms.space, gtk.keysyms.Return):
+            if self.get_data('toggle_spat'):
+                self.set_spat()
+            else:
+                self.player.stop()
+        pass
+
+    def on_key_release_event(self, widget, event):
+        """
+            Resets the button icon
+        """
+        if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+            self.set_data('toggle_spat', False)
+
+    def on_focus_out_event(self, widget, event):
+        """
+            Resets the button icon unless
+            the button is still hovered
+        """
+        if not self.get_data('hovered'):
+            self.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_button_press_event(self, widget, event):
+        """
+            Called when the user clicks on the stop button
+        """
+        if event.button == 1:
+            if event.state & gtk.gdk.SHIFT_MASK:
+                self.set_spat()
+            else:
+                self.player.stop()
+        elif event.button == 3:
+            menu = guiutil.Menu()
+            menu.append(_("Toggle: Stop after Selected Track"),
+                self.clicked,
+                gtk.STOCK_STOP)
+            menu.popup(None, None, None, event.button, event.time)
+
+    def set_spat(self):
+        """
+            Called when the user clicks on the SPAT item
+        """
+        tracks = main.get_selected_playlist().get_selected_tracks()
+
+        if not tracks:
+            return
+
+        track = tracks[0]
+
+        if track == self.queue.stop_track:
+            self.queue.stop_track = None
+        else:
+            self.queue.stop_track = track
+
+        main.get_selected_playlist().list.queue_draw()
 
 class RestoreButton(Button):
     """
@@ -408,6 +521,8 @@ class PlaylistButton(gtk.ToggleButton):
         self.connect('drag-motion', self.on_drag_motion)
         self.playlist.list.connect('drag-data-received',
             self.on_playlist_drag_data_received)
+        self.playlist.connect('track-count-changed',
+            self.on_track_count_changed)
         self.main.playlist_notebook.connect('switch-page',
             self.on_playlist_notebook_switch)
         self.formatter.connect('format-changed',
@@ -504,8 +619,8 @@ class PlaylistButton(gtk.ToggleButton):
                 'hide', self.on_parent_hide)
 
         if self.get_active():
-            self.popup.update_location()
             self.set_arrow_direction(gtk.ARROW_DOWN)
+            self.popup.update_location()
             self.popup.show()
         else:
             self.popup.hide()
@@ -543,6 +658,13 @@ class PlaylistButton(gtk.ToggleButton):
         if self._drag_shown:
             self.set_active(False)
             self._drag_shown = False
+
+    def on_track_count_changed(self, playlist, track_count):
+        """
+            Synchronizes models
+        """
+        self.playlist.model = playlist.model
+        self.playlist.list.set_model(self.playlist.model)
 
     def on_playlist_notebook_switch(self, notebook, page, page_num):
         """
@@ -610,36 +732,48 @@ class ProgressButton(gtk.EventBox):
             (gobject.TYPE_PYOBJECT, )
         )
     }
-    def __init__(self, main, track_formatter, change_callback):
+    def __init__(self, change_callback, seek_callback):
         gtk.EventBox.__init__(self)
 
         self.set_visible_window(False)
         self.set_above_child(True)
+        self.set_size_request(300, -1)
 
         self._dirty = False
         self._drag_shown = False
         self._parent_hide_id = None
         self._drag_motion_id = None
-        self.main = main
-        # TODO
-        __format = '$title ($current_time / $total_time'
+        self._timer = None
+
+        title_format = settings.get_option(
+            'plugin/minimode/progress_button_title_format',
+            _('$title ($current_time / $total_time)'))
+
         self.track_formatter = formatter.TrackFormatter('')
-        self.progress_formatter = formatter.ProgressTextFormatter('')
+        self.progress_formatter = formatter.ProgressTextFormatter(title_format)
         self.button = gtk.ToggleButton()
         self.arrow = gtk.Arrow(gtk.ARROW_RIGHT, gtk.SHADOW_IN)
         self.progress = gtk.ProgressBar()
+        self.progress.set_size_request(self.progress.size_request()[0], 1)
+        self.progress.set_text(_('Not Playing'))
+        self.progress.set_ellipsize(pango.ELLIPSIZE_END)
         self.progress.add_events(gtk.gdk.BUTTON_PRESS_MASK |
             gtk.gdk.BUTTON_RELEASE_MASK |
             gtk.gdk.POINTER_MOTION_MASK)
         self.tooltip = info.TrackToolTip(self, auto_update=True)
 
-        playlist = self.main.get_selected_playlist()
-        self.playlist = Playlist(main, player.QUEUE, playlist.playlist)
+        playlist = main.get_selected_playlist()
+        self.playlist = Playlist(main.mainwindow(), player.QUEUE, playlist.playlist)
         self.playlist.model = playlist.model
         self.playlist.list.set_model(self.playlist.model)
-        self.playlist.scroll.set_property('shadow-type', gtk.SHADOW_IN)
+        self.playlist.scroll.props.shadow_type = gtk.SHADOW_IN
         self.popup = AttachedWindow(self)
+        self.popup.resize(
+            settings.get_option('plugin/minimode/progress_button_popup_width', 350),
+            settings.get_option('plugin/minimode/progress_button_popup_height', 400)
+        )
         self.popup.add(self.playlist)
+        self.popup.connect('configure-event', self.on_popup_configure_event)
 
         self.tooltip = info.TrackToolTip(self, auto_update=True)
 
@@ -659,25 +793,38 @@ class ProgressButton(gtk.EventBox):
         self.connect('button-release-event', self.on_button_release_event)
         self.connect('motion-notify-event', self.on_motion_notify_event)
         self.connect('track-changed', change_callback)
+        self.connect('seeked', seek_callback)
         self.connect('scroll-event', self.on_scroll_event)
-        self.connect('toggled', self.on_toggled)
         self.connect('drag-leave', self.on_drag_leave)
         self.connect('drag-motion', self.on_drag_motion)
         self.button.connect('toggled', self.on_button_toggled)
 
         self.playlist.list.connect('drag-data-received',
             self.on_playlist_drag_data_received)
-        self.main.playlist_notebook.connect('switch-page',
+        self.playlist.connect('track-count-changed',
+            self.on_track_count_changed)
+        main.get_playlist_notebook().connect('switch-page',
             self.on_playlist_notebook_switch)
 
-        event.add_callback(self.on_playback_player_end,
-            'playback_player_end')
         event.add_callback(self.on_playback_track_start,
             'playback_track_start')
+        event.add_callback(self.on_playback_player_end,
+            'playback_player_end')
+        event.add_callback(self.on_option_set,
+            'plugin_minimode_option_set')
 
         if player.PLAYER.current is not None:
             self.on_playback_track_start('playback_track_start',
                 player.PLAYER, player.PLAYER.current)
+
+    def destroy():
+        """
+            Various cleanups
+        """
+        event.remove_callback(self.on_playback_player_end, 'playback_player_end')
+        event.remove_callback(self.on_playback_track_start, 'playback_track_start')
+
+        gtk.EventBox.destroy(self)
 
     def translate_coordinates(self, child, x, y, clamp=True):
         """
@@ -696,6 +843,52 @@ class ProgressButton(gtk.EventBox):
 
         return x, y
 
+    def set_label_from_track(self, track):
+        """
+            Updates label based on data taken from track
+
+            :param track: the track object
+            :type track: :class:`xl.trax.Track`
+        """
+        if not self.get_data('seeking'):
+            text = _('Not Playing')
+
+            if track is not None:
+                text = self.progress_formatter.format()
+                self.track_formatter.props.format = text
+                text = self.track_formatter.format(player.PLAYER.current)
+
+            self.progress.set_fraction(player.PLAYER.get_progress())
+            self.progress.set_text(text)
+
+        return True
+
+    def enable_timer(self):
+        """
+            Enables the timer, if not already
+        """
+        if self._timer is not None:
+            return
+
+        milliseconds = settings.get_option('gui/progress_update/millisecs', 1000)
+
+        if milliseconds % 1000 == 0:
+            self._timer = glib.timeout_add_seconds(milliseconds / 1000,
+                self.set_label_from_track, player.PLAYER.current)
+        else:
+            self._timer = glib.timeout_add(milliseconds,
+                self.set_label_from_track, player.PLAYER.current)
+
+    def disable_timer(self):
+        """
+            Disables the timer, if not already
+        """
+        if self._timer is None:
+            return
+
+        glib.source_remove(self._timer)
+        self._timer = None
+
     def on_button_press_event(self, widget, event):
         """
             Shows the attached window or starts
@@ -705,17 +898,26 @@ class ProgressButton(gtk.EventBox):
             self.button.set_active(not self.button.get_active())
             self.set_data('seeking', False)
         elif event.button == 3:
+            if player.PLAYER.current is None:
+                return True
+
             allocation = self.progress.get_allocation()
             x, y = self.translate_coordinates(
                 self.progress, int(event.x), int(event.y))
-            self.progress.set_fraction(float(x) / allocation.width)
+            fraction = float(x) / allocation.width
+            self.progress.set_fraction(fraction)
+
+            length = player.PLAYER.current.get_tag_raw('__length')
+            seek_position = formatter.LengthTagFormatter.format_value(length * fraction)
+            self.progress.set_text(_('Seeking: %s') % seek_position)
+
             self.set_data('seeking', True)
 
     def on_button_release_event(self, widget, event):
         """
             Seeks to the desired position
         """
-        if event.button == 3:
+        if event.button == 3 and self.get_data('seeking'):
             allocation = self.progress.get_allocation()
             x, y = self.translate_coordinates(
                 self.progress, int(event.x), int(event.y))
@@ -736,15 +938,153 @@ class ProgressButton(gtk.EventBox):
 
             self.emit('button-press-event', press_event)
 
+    def on_scroll_event(self, widget, event):
+        """
+            Switches to the previous or next track
+        """
+        track = None
+
+        if event.direction == gtk.gdk.SCROLL_UP:
+            track = self.playlist.playlist.prev()
+        elif event.direction == gtk.gdk.SCROLL_DOWN:
+            track = self.playlist.playlist.next()
+
+        self.emit('track-changed', track)
+
+    def on_drag_leave(self, widget, event):
+        """
+            Prevents showing the playlist if the
+            pointer leaves the button prematurely
+        """
+        if self._drag_motion_id is not None:
+            glib.source_remove(self._drag_motion_id)
+            self._drag_motion_id = None
+
+    def on_drag_motion(self, widget, event):
+        """
+            Sets up a timeout to show the playlist
+        """
+        if self._drag_motion_id is None:
+            self._drag_motion_id = glib.timeout_add(500,
+                self.drag_motion_finish)
+
+    def drag_motion_finish(self):
+        """
+            Shows the playlist
+        """
+        self.set_active(True)
+        self._drag_shown = True
+
+    def on_playlist_drag_data_received(self, *e):
+        """
+            Hides the playlist if it has
+            been opened via drag events
+        """
+        if self._drag_shown:
+            self.set_active(False)
+            self._drag_shown = False
+
+    def on_track_count_changed(self, playlist, track_count):
+        """
+            Synchronizes models
+        """
+        self.playlist.model = playlist.model
+        self.playlist.list.set_model(self.playlist.model)
+
+    def on_playlist_notebook_switch(self, notebook, page, page_num):
+        """
+            Updates the internal playlist
+        """
+        playlist = notebook.get_nth_page(page_num)
+
+        if playlist is not None:
+            self.playlist.model = playlist.model
+            self.playlist.list.set_model(self.playlist.model)
+
     def on_button_toggled(self, button):
         """
             Changes the arrow and shows
             or hides the attached window
         """
+        if self.popup.get_transient_for() is None:
+            self.popup.set_transient_for(self.get_toplevel())
+
+        if self._parent_hide_id is None:
+            self._parent_hide_id = self.get_toplevel().connect(
+                'hide', self.on_parent_hide)
+
         if button.get_active():
-            self.arrow.set_property('arrow-type', gtk.ARROW_DOWN)
+            self.arrow.props.arrow_type = gtk.ARROW_DOWN
+            self.popup.update_location()
+            self.popup.show()
         else:
-            self.arrow.set_property('arrow-type', gtk.ARROW_RIGHT)
+            self.popup.hide()
+            self.arrow.props.arrow_type = gtk.ARROW_RIGHT
+
+    def on_popup_configure_event(self, widget, event):
+        """
+            Saves the window size after resizing
+        """
+        width = settings.get_option(
+            'plugin/minimode/progress_button_popup_width', 350)
+        height = settings.get_option(
+            'plugin/minimode/progress_button_popup_height', 400)
+
+        if event.width != width:
+            settings.set_option('plugin/minimode/progress_button_popup_width',
+                event.width)
+
+        if event.height != height:
+            settings.set_option('plugin/minimode/progress_button_popup_height',
+                event.height)
+
+    def on_parent_hide(self, parent):
+        """
+            Makes sure to hide the popup
+        """
+        self.button.set_active(False)
+
+    def on_format_changed(self, formatter, format):
+        """
+            Updates the playlist button
+            on track title format changes
+        """
+        track = self.playlist.playlist.get_current()
+
+        if track:
+            self.set_label_from_track(track)
+
+    def on_playback_track_start(self, event, player, track):
+        """
+            Updates appearance and cursor position
+        """
+        self.set_label_from_track(track)
+        self.enable_timer()
+
+        if track in self.playlist.playlist.ordered_tracks:
+            path = (self.playlist.playlist.index(track),)
+
+            if settings.get_option('gui/ensure_visible', True):
+                self.playlist.list.scroll_to_cell(path)
+
+            glib.idle_add(self.playlist.list.set_cursor, path)
+
+    def on_playback_player_end(self, event, player, track):
+        """
+            Clears label
+        """
+        self.disable_timer()
+        self.set_label_from_track(None)
+
+    def on_option_set(self, event, settings, option):
+        """
+            Updates the title format
+        """
+        if option == 'plugin/minimode/progress_button_title_format':
+            title_format = settings.get_option(option,
+                _('$title ($current_time / $total_time)'))
+            self.progress_formatter.props.format = title_format
+            self.set_label_from_track(player.PLAYER.current)
 
 class TrackSelector(gtk.ComboBox):
     """

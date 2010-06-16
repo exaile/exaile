@@ -28,6 +28,8 @@ import logging
 import threading
 import time
 
+import pygst
+pygst.require('0.10')
 import gst, gobject, glib
 
 from xl.nls import gettext as _

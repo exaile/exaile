@@ -36,7 +36,6 @@ import glib
 import gobject
 import gtk
 
-from xl.nls import gettext as _
 from xl import (
     common,
     event,
@@ -45,6 +44,7 @@ from xl import (
     xdg
 )
 from xl.covers import MANAGER as cover_manager
+from xl.nls import gettext as _
 import xlgui
 from xlgui import (
     guiutil,

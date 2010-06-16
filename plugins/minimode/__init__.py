@@ -1,4 +1,4 @@
-# Copyright (C) 2010 Mathias Brodala
+# Copyright (C) 2009-2010 Mathias Brodala
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -255,9 +255,8 @@ class MiniMode(gtk.Window):
                     self.on_next_clicked]),
             'play_pause': (mmwidgets.PlayPauseButton,
                 [self.exaile.player, self.on_play_pause_clicked]),
-            'stop': (mmwidgets.Button,
-                [gtk.STOCK_MEDIA_STOP, _('Stop Playback'),
-                    self.on_stop_clicked]),
+            'stop': (mmwidgets.StopButton,
+                [self.exaile.player, self.exaile.queue]),
             'volume': (mmwidgets.VolumeButton,
                 [self.exaile.player, self.on_volume_changed]),
             'restore': (mmwidgets.RestoreButton,
@@ -270,6 +269,8 @@ class MiniMode(gtk.Window):
             'playlist_button': (mmwidgets.PlaylistButton,
                 [self.exaile.gui.main, self.exaile.player, self.exaile.queue,
                  self.formatter, self.on_track_change]),
+            'progress_button': (mmwidgets.ProgressButton,
+                [self.on_track_change, self.on_seeked]),
             'rating': (mmwidgets.RatingWidget, [])
         }
 
@@ -324,12 +325,6 @@ class MiniMode(gtk.Window):
         else:
             self.exaile.queue.play()
 
-    def on_stop_clicked(self, button):
-        """
-            Stops playback
-        """
-        self.exaile.player.stop()
-
     def on_restore_clicked(self, button):
         """
             Hides mini mode on button click
@@ -350,8 +345,7 @@ class MiniMode(gtk.Window):
         """
             Handles seeking in the progress bar
         """
-        duration = self.exaile.player.current.get_tag_raw('__length')
-        self.exaile.player.seek(duration * float(position))
+        self.exaile.player.set_progress(position)
 
     def on_volume_changed(self, volume_button, value):
         """

@@ -39,8 +39,8 @@ class OggFormat(BaseFormat):
         if "cover" in tags:
             tags[tags.index("cover")]= "metadata_block_picture" 
         td = super(OggFormat, self).read_tags(tags)        
-        data = td["metadata_block_picture"]
-        if data:
+        if 'metadata_block_picture' in td:
+            data = td["metadata_block_picture"]
             for d in data:
                 image = mutagen.flac.Picture(base64.standard_b64decode(d))
                 if image.type == 3:

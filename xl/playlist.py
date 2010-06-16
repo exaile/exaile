@@ -775,9 +775,6 @@ class Playlist(object):
             raise IOError, "Cannot load playlist, unknown format"
         elif ver > self.__playlist_format_version:
             logger.warning("Playlist created on a newer Exaile version, some attributes may not be handled.")
-        for item, val in items.iteritems():
-            if item in self.save_attrs:
-                setattr(self, item, val)
         f.close()
 
         trs = []
@@ -802,6 +799,11 @@ class Playlist(object):
             trs.append(track)
 
         self.__tracks[:] = trs
+
+
+        for item, val in items.iteritems():
+            if item in self.save_attrs:
+                setattr(self, item, val)
 
     def reverse(self):
         # reverses current view

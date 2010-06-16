@@ -456,7 +456,7 @@ class Playlist(object):
         return self.__current_position
 
     def set_current_position(self, position):
-        oldposition = self.current_position
+        oldposition = self.__current_position
         if position != -1:
             self.__tracks.set_meta_key(position, "playlist_current_position", True)
         self.__current_position = position

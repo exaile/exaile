@@ -583,6 +583,7 @@ class MainWindow(gobject.GObject):
         if replace:
             pl.playlist.clear()
 
+        offset = len(pl.playlist)
         pl.playlist.extend(tracks)
 
         if queue:
@@ -590,10 +591,9 @@ class MainWindow(gobject.GObject):
 
         if not self.player.current:
             track = tracks[0]
-            index = pl.playlist.index(track)
-            pl.playlist.current_pos = index
-            player.QUEUE.play(track=track)
+            pl.playlist.current_position = offset
             player.QUEUE.set_current_playlist(pl.playlist)
+            player.QUEUE.play(track=track)
 
     def on_playback_error(self, type, player, message):
         """

@@ -23,49 +23,118 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHSeparator" id="hseparator1">
+          <object class="GtkVBox" id="playlist_utilities_bar">
             <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="controls_box">
-            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkToggleButton" id="shuffle_button">
+              <object class="GtkHSeparator" id="hseparator1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="relief">none</property>
-                <signal name="button_press_event" handler="on_shuffle_button_press_event"/>
-                <child>
-                  <object class="GtkImage" id="shuffle_button_image">
-                    <property name="visible">True</property>
-                    <property name="icon_name">media-playlist-shuffle</property>
-                  </object>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="fill">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkToggleButton" id="repeat_button">
+              <object class="GtkHBox" id="controls_box">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="relief">none</property>
-                <signal name="button_press_event" handler="on_repeat_button_press_event"/>
                 <child>
-                  <object class="GtkImage" id="repeat_button_image">
+                  <object class="GtkToggleButton" id="shuffle_button">
                     <property name="visible">True</property>
-                    <property name="icon_name">media-playlist-repeat</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="relief">none</property>
+                    <signal name="button_press_event" handler="on_shuffle_button_press_event"/>
+                    <child>
+                      <object class="GtkImage" id="shuffle_button_image">
+                        <property name="visible">True</property>
+                        <property name="icon_name">media-playlist-shuffle</property>
+                      </object>
+                    </child>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="repeat_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="relief">none</property>
+                    <signal name="button_press_event" handler="on_repeat_button_press_event"/>
+                    <child>
+                      <object class="GtkImage" id="repeat_button_image">
+                        <property name="visible">True</property>
+                        <property name="icon_name">media-playlist-repeat</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="dynamic_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="relief">none</property>
+                    <signal name="toggled" handler="on_dynamic_button_toggled"/>
+                    <child>
+                      <object class="GtkImage" id="dynamic_button_image">
+                        <property name="visible">True</property>
+                        <property name="icon_name">media-playlist-dynamic</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="alignment1">
+                    <property name="visible">True</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label4">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="xpad">3</property>
+                    <property name="label" translatable="yes">Search:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="search_entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="secondary_icon_stock">gtk-clear</property>
+                    <property name="secondary_icon_activatable">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
+                    <signal name="activate" handler="on_search_entry_activate"/>
+                  </object>
+                  <packing>
+                    <property name="position">5</property>
+                  </packing>
                 </child>
               </object>
               <packing>
@@ -74,69 +143,10 @@
                 <property name="position">1</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkToggleButton" id="dynamic_button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="relief">none</property>
-                <signal name="toggled" handler="on_dynamic_button_toggled"/>
-                <child>
-                  <object class="GtkImage" id="dynamic_button_image">
-                    <property name="visible">True</property>
-                    <property name="icon_name">media-playlist-dynamic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkAlignment" id="alignment1">
-                <property name="visible">True</property>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="position">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label4">
-                <property name="visible">True</property>
-                <property name="xalign">0</property>
-                <property name="xpad">3</property>
-                <property name="label" translatable="yes">Search:</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">4</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="search_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
-                <property name="secondary_icon_stock">gtk-clear</property>
-                <property name="secondary_icon_activatable">True</property>
-                <property name="secondary_icon_sensitive">True</property>
-                <signal name="activate" handler="on_search_entry_activate"/>
-              </object>
-              <packing>
-                <property name="position">5</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">2</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>

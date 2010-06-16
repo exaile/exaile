@@ -239,6 +239,9 @@ class MainWindow(gobject.GObject):
         self.playlist_notebook.set_tab_pos(map.get(
             settings.get_option('gui/tab_placement', 'top')))
 
+        visible = settings.get_option('gui/playlist_utilities_bar_visible', True)
+        self.builder.get_object('playlist_utilities_bar_visible').set_active(visible)
+
         self.splitter = self.builder.get_object('splitter')
 
         self._setup_position()
@@ -475,6 +478,8 @@ class MainWindow(gobject.GObject):
             'on_new_playlist_item_activated': lambda *e:
                 self.playlist_notebook.create_new_playlist(),
             'on_queue_count_clicked': self.controller.queue_manager,
+            'on_clear_playlist_item_activate': self.on_clear_playlist,
+            'on_playlist_utilities_bar_visible_toggled': self.on_playlist_utilities_bar_visible_toggled,
             # Controller
             'on_about_item_activate': self.controller.show_about_dialog,
             'on_scan_collection_item_activate': self.controller.on_rescan_collection,
@@ -491,7 +496,6 @@ class MainWindow(gobject.GObject):
             'on_export_current_playlist_activate': self.controller.export_current_playlist,
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
             'on_track_properties_activate':self.controller.on_track_properties,
-            'on_clear_playlist_item_activate': self.on_clear_playlist,
         })
 
         event.add_callback(self.on_playback_resume, 'playback_player_resume',
@@ -741,6 +745,13 @@ class MainWindow(gobject.GObject):
         playlist = self.get_selected_playlist()
         if not playlist: return
         playlist.playlist.clear()
+
+    def on_playlist_utilities_bar_visible_toggled(self, checkmenuitem):
+        """
+            Shows or hides the playlist utilities bar
+        """
+        settings.set_option('gui/playlist_utilities_bar_visible',
+            checkmenuitem.get_active())
 
     def on_playback_resume(self, type, player, data):
         self.resuming = True

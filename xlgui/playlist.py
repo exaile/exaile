@@ -279,29 +279,33 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
         self.builder.connect_signals(self)
 
-        self.plwin = self.builder.get_object("playlist_window")
-        self.controls = self.builder.get_object("controls_box")
+        self.playlist_window = self.builder.get_object("playlist_window")
+        self.playlist_utilities_bar = self.builder.get_object(
+            'playlist_utilities_bar')
 
         self.view = PlaylistView(playlist)
-        self.plwin.add(self.view)
+        self.playlist_window.add(self.view)
         self._filter_string = ""
         self.modelfilter = self.view.model.filter_new()
         self.modelfilter.set_visible_func(self.model_visible_func)
         self.view.set_model(self.modelfilter)
 
         event.add_callback(self.on_mode_changed,
-                "playlist_shuffle_mode_changed", self.playlist,
-                self.shuffle_button)
+            'playlist_shuffle_mode_changed', self.playlist,
+            self.shuffle_button)
         event.add_callback(self.on_mode_changed,
-                "playlist_repeat_mode_changed", self.playlist,
-                self.repeat_button)
+            'playlist_repeat_mode_changed', self.playlist,
+            self.repeat_button)
         event.add_callback(self.on_mode_changed,
-                "playlist_repeat_mode_changed", self.playlist,
-                self.dynamic_button)
+            'playlist_repeat_mode_changed', self.playlist,
+            self.dynamic_button)
+        event.add_callback(self.on_option_set,
+            'gui_option_set')
 
         self.on_mode_changed(None, None, self.playlist.shuffle_mode, self.shuffle_button)
         self.on_mode_changed(None, None, self.playlist.repeat_mode, self.repeat_button)
         self.on_mode_changed(None, None, self.playlist.dynamic_mode, self.dynamic_button)
+        self.on_option_set('gui_option_set', settings, 'gui/playlist_utilities_bar_visible')
         self.view.model.connect('row-changed', self.on_row_changed)
 
         self.show_all()
@@ -406,6 +410,16 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
     def on_mode_changed(self, evtype, playlist, mode, button):
         button.set_active(mode != 'disabled')
+
+    def on_option_set(self, evtype, settings, option):
+        """
+            Handles option changes
+        """
+        if option == 'gui/playlist_utilities_bar_visible':
+            visible = settings.get_option(option, True)
+            self.playlist_utilities_bar.props.visible = visible
+            self.playlist_utilities_bar.set_sensitive(visible)
+            self.playlist_utilities_bar.set_no_show_all(not visible)
 
     def on_row_changed(self, model, path, iter):
         """

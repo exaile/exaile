@@ -24,22 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os
-import locale
-import re
-import urllib
+import locale, logging, os, re, urllib
 
-import gio
-import glib
-import gobject
-import gtk
+import gio, glib, gobject, gtk
 
-from xl import common, trax, metadata
-from xl import settings
-from xl import event
+from xl import common, event, metadata, settings, trax
 from xlgui import guiutil, panel, playlist, menu, xdg
 from xl.nls import gettext as _
-import xlgui
+
+logger = logging.getLogger(__name__)
 
 class FilesPanel(panel.Panel):
     """
@@ -324,7 +317,8 @@ class FilesPanel(panel.Panel):
         f = gio.file_parse_name(path)
         try:
             ftype = f.query_info('standard::type').get_file_type()
-        except glib.GError:
+        except glib.GError, e:
+            logger.error(e)
             self.entry.set_text(self.current.get_parse_name())
             return
         if ftype != gio.FILE_TYPE_DIRECTORY:
@@ -386,8 +380,9 @@ class FilesPanel(panel.Panel):
         try:
             infos = directory.enumerate_children('standard::is-hidden,'
                 'standard::name,standard::display-name,standard::type')
-        except gio.Error:
-            if directory.get_path() != xdg.homedir:
+        except gio.Error, e:
+            logger.error(e)
+            if directory.get_path() != xdg.homedir: # Avoid infinite recursion.
                 return self.load_directory(
                     gio.File(xdg.homedir), history, keyword)
         if self.current != directory: # Modified from another thread.

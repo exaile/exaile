@@ -7,6 +7,7 @@
       <object class="GtkVBox" id="playlist_page">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
+        <property name="spacing">3</property>
         <child>
           <object class="GtkScrolledWindow" id="playlist_window">
             <property name="visible">True</property>
@@ -18,7 +19,6 @@
             </child>
           </object>
           <packing>
-            <property name="padding">2</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -99,41 +99,24 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkAlignment" id="alignment1">
+                  <object class="GtkAlignment" id="alignment2">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
+                    <property name="xscale">0.5</property>
                     <child>
-                      <placeholder/>
+                      <object class="GtkEntry" id="search_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="secondary_icon_stock">gtk-clear</property>
+                        <property name="secondary_icon_activatable">True</property>
+                        <property name="secondary_icon_sensitive">True</property>
+                        <signal name="activate" handler="on_search_entry_activate"/>
+                      </object>
                     </child>
                   </object>
                   <packing>
                     <property name="position">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label4">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="xpad">3</property>
-                    <property name="label" translatable="yes">Search:</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">4</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="search_entry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
-                    <property name="secondary_icon_stock">gtk-clear</property>
-                    <property name="secondary_icon_activatable">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
-                    <signal name="activate" handler="on_search_entry_activate"/>
-                  </object>
-                  <packing>
-                    <property name="position">5</property>
                   </packing>
                 </child>
               </object>

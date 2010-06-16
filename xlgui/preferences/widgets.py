@@ -334,7 +334,6 @@ class OrderListPreference(Preference):
     """
     def __init__(self, preferences, widget):
         self.model = gtk.ListStore(str)
-        self.items = []
         Preference.__init__(self, preferences, widget)
         widget.set_headers_visible(False)
         widget.set_reorderable(True)
@@ -362,10 +361,10 @@ class OrderListPreference(Preference):
         """
             Value to be stored into the settings file
         """
-        self.items = []
+        items = []
 
         for row in self.model:
-            self.items += [row[0]]
+            items += [row[0]]
 
         return items
 

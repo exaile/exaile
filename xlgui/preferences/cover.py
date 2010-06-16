@@ -58,7 +58,7 @@ class CoverOrderPreference(widgets.OrderListPreference):
     def apply(self):
         if widgets.OrderListPreference.apply(self):
             covers.MANAGER.set_preferred_order(
-                self.items)
+                self._get_value())
         return True
 
 class AutomaticCoverFetching(widgets.CheckPreference):

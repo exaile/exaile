@@ -477,6 +477,7 @@ class PlaylistView(gtk.TreeView):
                 gtk.gdk.ACTION_MOVE)
 
         event.add_callback(self.on_option_set, "gui_option_set")
+        event.add_callback(self.on_playback_start, "playback_track_start")
         self.connect("row-activated", self.on_row_activated)
         self.connect("button-press-event", self.on_button_press)
         self.connect("button-release-event", self.on_button_release)
@@ -603,6 +604,17 @@ class PlaylistView(gtk.TreeView):
     def on_option_set(self, typ, obj, data):
         if data == "gui/columns":
             glib.idle_add(self._refresh_columns, priority=glib.PRIORITY_DEFAULT)
+
+    def on_playback_start(self, typ, obj, data):
+        if player.QUEUE.current_playlist == self.playlist and \
+                player.PLAYER.current == self.playlist.current and \
+                settings.get_option('gui/ensure_visible', True):
+            glib.idle_add(self.scroll_to_current)
+
+    def scroll_to_current(self):
+        path = (self.playlist.current_position,)
+        self.scroll_to_cell(path)
+        self.set_cursor(path)
 
     def on_row_activated(self, *args):
         try:

@@ -186,7 +186,7 @@ class Exaile(object):
 
         # Initialize dynamic playlist support
         from xl import dynamic
-        self.dynamic = dynamic.DynamicManager(self.collection)
+        dynamic.MANAGER.collection = self.collection
 
         # Initalize device manager
         logger.info("Loading devices...")
@@ -538,7 +538,7 @@ class Exaile(object):
         # to be saved in any particular order. modules that might be
         # touched by events triggered here should be added statically
         # below.
-        event.log_event("quit_application", self, None, async=False)
+        event.log_event("quit_application", self, None)
 
         logger.info("Saving state...")
         self.plugins.save_enabled()

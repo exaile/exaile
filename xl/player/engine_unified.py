@@ -177,7 +177,7 @@ class UnifiedPlayer(_base.ExailePlayer):
                 self.unlink_stream(self.streams[self._current_stream])
 
         if not playing:
-            event.log_event_sync('playback_reconfigure_bins', self, None)
+            event.log_event('playback_reconfigure_bins', self, None)
 
         self.streams[next] = AudioStream("Stream%s"%(next), caps=self.caps)
         self.streams[next].dec.connect("drained", self._on_drained,

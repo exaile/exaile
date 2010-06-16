@@ -133,8 +133,8 @@ class Main(object):
         Main._main = self
 
     def export_current_playlist(self, *e):
-        pl = self.main.get_current_playlist ().playlist
-        name = pl.get_name() + ".m3u"
+        pl = self.main.get_selected_playlist().playlist
+        name = pl.name + ".m3u"
 
         dialog = dialogs.FileOperationDialog(_("Export Current Playlist"),
             None, gtk.FILE_CHOOSER_ACTION_SAVE,
@@ -147,7 +147,7 @@ class Main(object):
                        'xspf' : _('XSPF Playlist') }
 
         dialog.add_extensions(extensions)
-        dialog.set_current_name (name)
+        dialog.set_current_name(name)
 
         result = dialog.run()
         if result == gtk.RESPONSE_OK:
@@ -348,12 +348,11 @@ class Main(object):
             pass
 
     def on_goto_playing_track(self, *e):
-        track = self.exaile.queue.get_current()
-        pl = self.main.get_current_playlist()
-        if track in pl.playlist:
-            index = pl.playlist.index(track)
-            pl.list.scroll_to_cell(index)
-            pl.list.set_cursor(index)
+        # TODO: move into PlaylistPage (or maybe View)
+        pl = self.main.get_selected_playlist()
+        if pl.playlist == self.exaile.queue.current_playlist:
+            pl.view.scroll_to_cell(pl.playlist.current_position)
+            pl.view.set_cursor(pl.playlist.current_position)
         #TODO implement a way to browse through all playlists and search for the track
 
     def on_rescan_collection(self, *e):
@@ -383,13 +382,7 @@ class Main(object):
 
     def on_track_properties(self, *e):
         pl = self.main.get_selected_playlist()
-        if not pl.properties_dialog():
-            if self.exaile.player.current:
-                from xlgui import properties
-                dialog = properties.TrackPropertiesDialog(self.main.window,
-                        [self.exaile.player.current])
-                dialog.hide()
-
+        pl.view.show_properties_dialog()
 
     def add_panel(self, child, name):
         """
@@ -450,7 +443,7 @@ class Main(object):
         """
 
         # save open tabs
-        self.main.save_current_tabs()
+        self.main.playlist_notebook.save_current_tabs()
 
     @guiutil.idle_add()
     def add_device_panel(self, type, obj, device):

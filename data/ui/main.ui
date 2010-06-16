@@ -194,32 +194,6 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">_Columns</property>
                         <property name="use_underline">True</property>
-                        <child type="submenu">
-                          <object class="GtkMenu" id="columns_menu_menu">
-                            <child>
-                              <object class="GtkSeparatorMenuItem" id="separator2">
-                                <property name="visible">True</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="col_resizable_item">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">_Resizable</property>
-                                <property name="use_underline">True</property>
-                                <property name="active">True</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="col_not_resizable_item">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">_Autosize</property>
-                                <property name="use_underline">True</property>
-                                <property name="active">True</property>
-                                <property name="group">col_resizable_item</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
                       </object>
                     </child>
                     <child>
@@ -353,7 +327,7 @@
                 <child>
                   <object class="GtkAlignment" id="alignment3">
                     <property name="visible">True</property>
-                    <property name="top_padding">6</property>
+                    <property name="top_padding">4</property>
                     <property name="left_padding">6</property>
                     <child>
                       <object class="GtkVBox" id="progress_box">
@@ -395,30 +369,10 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkNotebook" id="playlist_notebook">
+                  <object class="GtkHBox" id="playlist_area">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="border_width">3</property>
-                    <property name="scrollable">True</property>
-                    <signal name="button_press_event" handler="on_playlist_notebook_button_press"/>
-                    <signal name="remove" handler="on_playlist_notebook_remove"/>
-                    <signal name="switch_page" handler="on_playlist_notebook_switch"/>
                     <child>
-                      <object class="GtkVBox" id="placeholder">
-                        <property name="visible">True</property>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                    </child>
-                    <child type="tab">
-                      <object class="GtkLabel" id="label13">
-                        <property name="visible">True</property>
-                        <property name="label">Page 1</property>
-                      </object>
-                      <packing>
-                        <property name="tab_fill">False</property>
-                      </packing>
+                      <placeholder/>
                     </child>
                   </object>
                   <packing>
@@ -426,21 +380,14 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="playlist_utilities_bar">
+                  <object class="GtkHBox" id="play_toolbar">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkToggleButton" id="shuffle_button">
+                      <object class="GtkAlignment" id="alignment1">
+                        <property name="width_request">3</property>
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Shuffle playback order</property>
-                        <property name="relief">none</property>
-                        <property name="focus_on_click">False</property>
                         <child>
-                          <object class="GtkImage" id="shuffle_button_image">
-                            <property name="visible">True</property>
-                            <property name="icon_name">media-playlist-shuffle</property>
-                          </object>
+                          <placeholder/>
                         </child>
                       </object>
                       <packing>
@@ -450,101 +397,12 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToggleButton" id="repeat_button">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Repeat playback</property>
-                        <property name="relief">none</property>
-                        <property name="focus_on_click">False</property>
-                        <child>
-                          <object class="GtkImage" id="repeat_button_image">
-                            <property name="visible">True</property>
-                            <property name="icon_name">media-playlist-repeat</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToggleButton" id="dynamic_button">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Dynamically add similar tracks to the playlist</property>
-                        <property name="relief">none</property>
-                        <property name="focus_on_click">False</property>
-                        <signal name="toggled" handler="on_dynamic_button_toggled"/>
-                        <child>
-                          <object class="GtkImage" id="dynamic_button_image">
-                            <property name="visible">True</property>
-                            <property name="icon_name">media-playlist-dynamic</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkAlignment" id="alignment1">
-                        <property name="visible">True</property>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label6">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Search: </property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="position">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="playlist_search_entry">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
-                        <property name="secondary_icon_stock">gtk-clear</property>
-                        <property name="secondary_icon_activatable">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
-                        <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
-                        <signal name="activate" handler="on_playlist_search_entry_activate"/>
-                      </object>
-                      <packing>
-                        <property name="padding">3</property>
-                        <property name="position">5</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkHBox" id="play_toolbar">
-                    <property name="visible">True</property>
-                    <child>
                       <object class="GtkButton" id="prev_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Previous Track</property>
+                        <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_prev_button_clicked"/>
                         <child>
@@ -556,7 +414,7 @@
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="position">0</property>
+                        <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
@@ -565,6 +423,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Start Playback</property>
+                        <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_playpause_button_clicked"/>
                         <child>
@@ -576,7 +435,7 @@
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                     <child>
@@ -587,6 +446,7 @@
                         <property name="tooltip_text" translatable="yes">Stop Playback
 
 Right Click for Stop After Track Feature</property>
+                        <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <child>
                           <object class="GtkImage" id="image2">
@@ -597,7 +457,7 @@ Right Click for Stop After Track Feature</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="position">2</property>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                     <child>
@@ -606,6 +466,7 @@ Right Click for Stop After Track Feature</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Next Track</property>
+                        <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_next_button_clicked"/>
                         <child>
@@ -618,7 +479,7 @@ Right Click for Stop After Track Feature</property>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
-                        <property name="position">3</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                     <child>
@@ -640,14 +501,14 @@ Right Click for Stop After Track Feature</property>
                         </child>
                       </object>
                       <packing>
-                        <property name="position">4</property>
+                        <property name="position">5</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
-                    <property name="position">3</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>

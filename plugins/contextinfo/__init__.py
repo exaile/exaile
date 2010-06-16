@@ -519,7 +519,7 @@ class ContextPage(object):
     def async_update_field(self, field):
         field = field.split(':')
         self.update_field(field[0], *field[1:])
-        event.log_event('loading_finished', self, None, async=True)
+        event.log_event('loading_finished', self, None)
 
     def update_field(self, name, *params):
         try:
@@ -527,7 +527,7 @@ class ContextPage(object):
         except:
             self[name] = ''
         if name in [f[0] for f in self.get_template_fields()]:
-            event.log_event('field_refresh', self, (name, self[name]), async=True)
+            event.log_event('field_refresh', self, (name, self[name]))
 
     def fill_fields(self):
         for field in self.get_template_fields():
@@ -539,7 +539,7 @@ class ContextPage(object):
         for field in self.get_template_fields():
             if field[0] in self.async and field[0] not in self.data.keys():
                 self.update_field(*field)
-        event.log_event('loading_finished', self, None, async=True)
+        event.log_event('loading_finished', self, None)
 
     def format_template(self):
         temp = self.data.copy()
@@ -1035,7 +1035,7 @@ class PlayingPage(ArtistPage):
             self.refresh_rating()
             for field in ['rating', 'track-info']:
                 if field in self.get_template_fields():
-                    event.log_event('field_refresh', self, (field, str(self[field])), async=False)
+                    event.log_event('field_refresh', self, (field, str(self[field])))
             return True
 
     def _title(self):

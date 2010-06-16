@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 Adam Olsen
+# Copyright (C) 2010 Aren Olson
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,1025 +24,555 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import copy
-import logging
+
+import collections
 import os
-import os.path
-import math
-import urllib
+import random
+import re
 
-import glib
-import gobject
-import gtk
-import gtk.gdk
-import pango
+import glib, gobject, gtk, pango
 
-from xl import (
-    collection,
-    event,
-    player,
-    playlist,
-    settings,
-    trax,
-    xdg
-)
 from xl.nls import gettext as _
-from xlgui import (
-    guiutil,
-    icons,
-    menu,
-    plcolumns
-)
-from xlgui.plcolumns import *
-from xlgui.widgets import dialogs
 
+from xl import (common, event, player, providers, settings, trax, xdg)
+from xl.playlist import Playlist, PlaylistManager
+from xlgui import guiutil, icons
+import playlist_columns
+from xl.common import MetadataList
+from xlgui.widgets.notebook import SmartNotebook, NotebookPage, NotebookTab
+from xlgui.widgets import menu
+
+import logging
 logger = logging.getLogger(__name__)
 
-class Playlist(gtk.VBox):
-    """
-        Represents an xl.playlist.Playlist in the GUI
 
-        If you want to add a possible column to the display of each playlist,
-        just define a class for it in plcolumns.py and the rest will be done
-        automatically
-    """
-    COLUMNS = plcolumns.COLUMNS
-    column_by_display = {}
-    for col in COLUMNS.values():
-        column_by_display[col.display] = col
+class PlaylistNotebook(SmartNotebook):
+    def __init__(self, manager_name):
+        SmartNotebook.__init__(self)
+        self.tab_manager = PlaylistManager(manager_name)
+        self.load_saved_tabs()
 
-    default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
-    menu_items = {}
-    _is_drag_source = False
-
-    __gsignals__ = {
-        'playlist-content-changed': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
-        'customness-changed': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
-        'track-count-changed': (gobject.SIGNAL_RUN_LAST, None, (int,)),
-        'column-settings-changed': (gobject.SIGNAL_RUN_LAST, None, ()),
-    }
-    def __init__(self, main, queue, playlist, column_ids=[]):
+    def create_tab_from_playlist(self, playlist):
         """
-            Initializes the playlist
+            Create a tab that will contain the passed-in playlist
 
-            @param pl: the playlist.Playlist instace to represent
+            :param playlist: The playlist to create tab from
+            :type playlist: :class:`xl.playlist.Playlist`
+        """
+        page = PlaylistPage(playlist)
+        tab = NotebookTab(self, page)
+        self.add_tab(tab, page)
+        return tab
+
+    def create_new_playlist(self):
+        """
+            Create a new tab containing a blank playlist. The tab will
+            be automatically given a unique name.
+        """
+        seen = []
+
+        for n in range(self.get_n_pages()):
+            page = self.get_nth_page(n)
+            name = page.get_name()
+            if name.startswith('Playlist '):
+                try:
+                    val = int(name[9:])
+                except:
+                    pass
+                else:
+                    seen.append(val)
+        n = 1
+
+        while True:
+            if n not in seen:
+                break
+            n += 1
+
+        pl = Playlist("Playlist %d"%n)
+
+        return self.create_tab_from_playlist(pl)
+
+    def add_default_tab(self):
+        return self.create_new_playlist()
+
+    def load_saved_tabs(self):
+        names = self.tab_manager.list_playlists()
+        if not names:
+            self.add_default_tab()
+            return
+
+        count = -1
+        count2 = 0
+        names.sort()
+        # holds the order#'s of the already added tabs
+        added_tabs = {}
+        name_re = re.compile(
+                r'^order(?P<tab>\d+)\.(?P<tag>[^.]*)\.(?P<name>.*)$')
+        for i, name in enumerate(names):
+            match = name_re.match(name)
+            if not match or not match.group('tab') or not match.group('name'):
+                logger.error("%s did not match valid playlist file"
+                        % repr(name))
+                continue
+
+            logger.debug("Adding playlist %d: %s" % (i, name))
+            logger.debug("Tab:%s; Tag:%s; Name:%s" % (match.group('tab'),
+                                                     match.group('tag'),
+                                                     match.group('name'),
+                                                     ))
+            pl = self.tab_manager.get_playlist(name)
+            pl.name = match.group('name')
+
+            if match.group('tab') not in added_tabs:
+                self.create_tab_from_playlist(pl)
+                added_tabs[match.group('tab')] = pl
+            pl = added_tabs[match.group('tab')]
+
+            if match.group('tag') == 'current':
+                count = i
+                if player.QUEUE.current_playlist is None:
+                    player.QUEUE.set_current_playlist(pl)
+            elif match.group('tag') == 'playing':
+                count2 = i
+                player.QUEUE.set_current_playlist(pl)
+
+        # If there's no selected playlist saved, use the currently
+        # playing
+        if count == -1:
+            count = count2
+
+        self.set_current_page(count)
+
+    def save_current_tabs(self):
+        """
+            Saves the open tabs
+        """
+        # first, delete the current tabs
+        names = self.tab_manager.list_playlists()
+        for name in names:
+            logger.debug("Removing tab %s" % name)
+            self.tab_manager.remove_playlist(name)
+
+        for i in range(self.get_n_pages()):
+            pl = self.get_nth_page(i).playlist
+            tag = ''
+            if pl is player.QUEUE.current_playlist:
+                tag = 'playing'
+            elif i == self.get_current_page():
+                tag = 'current'
+            pl.name = "order%d.%s.%s" % (i, tag, pl.name)
+            logger.debug("Saving tab %d: %s" % (i, pl.name))
+
+            try:
+                self.tab_manager.save_playlist(pl, True)
+            except:
+                # an exception here could cause exaile to be unable to quit.
+                # Catch all exceptions.
+                import traceback
+                traceback.print_exc()
+
+
+# do this in a function to avoid polluting the global namespace
+def __create_playlist_tab_context_menu():
+    smi = menu.simple_menu_item
+    sep = menu.simple_separator
+    items = []
+    items.append(smi('new-tab', [], _("New Playlist"), 'tab-new',
+        lambda w, n, o, c: o.tab.notebook.create_new_playlist()))
+    items.append(sep('new-tab-sep', ['new-tab']))
+    items.append(smi('rename', ['new-tab-sep'], _("Rename"), 'gtk-edit',
+        lambda w, n, o, c: o.tab.start_rename()))
+    items.append(smi('clear', ['rename'], _("Clear"), 'gtk-clear',
+        lambda w, n, o, c: o.playlist.clear()))
+    items.append(sep('tab-close-sep', ['clear']))
+    items.append(smi('tab-close', ['tab-close-sep'], _("Close"), 'gtk-close',
+        lambda w, n, o, c: o.tab.close()))
+    for item in items:
+        providers.register('playlist-tab-context', item)
+__create_playlist_tab_context_menu()
+
+
+class PlaylistContextMenu(menu.ProviderMenu):
+    def __init__(self, page):
+        """
+            :param page: The :class:`PlaylistPage` this menu is
+                associated with.
+        """
+        menu.ProviderMenu.__init__(self, 'playlist-context', page)
+
+    def get_parent_context(self):
+        context = {}
+        context['selected-tracks'] = self._parent.get_selected_items()
+
+        return context
+
+def __create_playlist_context_menu():
+    smi = menu.simple_menu_item
+    sep = menu.simple_separator
+    items = []
+    items.append(smi('append-queue', [], _("Append to Queue"), 'gtk-add',
+            lambda w, n, o, c: player.QUEUE.add_tracks(
+            [t[1] for t in c['selected-tracks']])))
+    def toggle_spat_cb(widget, name, playlistpage, context):
+        position = context['selected-tracks'][0][0]
+        if position != playlistpage.playlist.spat_position:
+            playlistpage.playlist.spat_position = position
+        else:
+            playlistpage.playlist.spat_position = -1
+    items.append(smi('toggle-spat', ['append-queue'],
+            _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
+    items.append(menu.RatingMenuItem('rating', ['toggle-spat']))
+    # TODO: custom playlist item here
+    items.append(sep('sep1', ['rating']))
+    def remove_tracks_cb(widget, name, playlistpage, context):
+        tracks = context['selected-tracks']
+        playlist = playlistpage.playlist
+        # If it's all one block, just delete it in one chunk for
+        # maximum speed.
+        positions = [t[0] for t in tracks]
+        if positions == range(positions[0], positions[0]+len(positions)):
+            del playlist[positions[0]:positions[0]+len(positions)+1]
+        else:
+            for position, track in tracks[::-1]:
+                del playlist[position]
+    items.append(smi('remove', ['sep1'], _("Remove"), 'gtk-remove',
+        remove_tracks_cb))
+    items.append(sep('sep2', ['remove']))
+    items.append(smi('properties', ['sep2'], _("Properties"), 'gtk-properties',
+        lambda w, n, o, c: o.show_properties_dialog()))
+    for item in items:
+        providers.register('playlist-context', item)
+__create_playlist_context_menu()
+
+
+class PlaylistPage(gtk.VBox, NotebookPage):
+    """
+        Displays a playlist and associated controls.
+    """
+    menu_provider_name = 'playlist-tab-context'
+    def __init__(self, playlist):
+        """
+            :param playlist: The :class:`xl.playlist.Playlist` to display
+                in this page.
         """
         gtk.VBox.__init__(self)
+        NotebookPage.__init__(self)
 
-        self.exaile = main.controller.exaile
+        self.playlist = playlist
+        self.icon = None
 
-        self.main = main
-        self.player = self.exaile.player
-        self.queue = queue
-        self.search_keyword = ''
-        self.builder = main.builder
-        self._initial_column_ids = column_ids
+        uifile = xdg.get_data_path("ui", "playlist.ui")
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(uifile)
+        playlist_page = self.builder.get_object("playlist_page")
 
-        self._redraw_queue = []
-        self._redraw_id = 0
+        for child in playlist_page.get_children():
+            packing = playlist_page.query_child_packing(child)
+            child.reparent(self)
+            self.set_child_packing(child, *packing)
 
-        # see plcolumns.py for more information on the columns menu
-        if not Playlist.menu_items:
-            plcolumns.setup_menu(self.builder.get_object('columns_menu_menu'),
-                Playlist.menu_items)
+        self.shuffle_button = self.builder.get_object("shuffle_button")
+        self.repeat_button = self.builder.get_object("repeat_button")
+        self.dynamic_button = self.builder.get_object("dynamic_button")
+        self.search_entry = guiutil.SearchEntry(
+                self.builder.get_object("search_entry"))
 
-        self.setup_playlist(playlist)
-        self._setup_tree()
-        self._setup_column_menus()
-        self._setup_columns()
-        self._setup_events()
-        self._set_tracks(self.playlist.get_tracks())
+        self.builder.connect_signals(self)
 
-        self.menu = menu.PlaylistMenu(self, main.playlist_manager)
-        self.menu.connect('rating-changed', self.on_menu_rating_changed)
-        self.menu.connect('rating-tracks-get', self.on_rating_tracks_get)
-        self.menu.connect('remove-items', lambda *e:
-            self.remove_selected_tracks())
-        self.menu.connect('queue-items', lambda *e:
-            self.queue_selected_tracks())
-        self.menu.connect('properties', lambda *e:
-            self.properties_dialog())
+        self.plwin = self.builder.get_object("playlist_window")
+        self.controls = self.builder.get_object("controls_box")
+
+        self.view = PlaylistView(playlist)
+        self.plwin.add(self.view)
+        self._filter_string = ""
+        self.modelfilter = self.view.model.filter_new()
+        self.modelfilter.set_visible_func(self.model_visible_func)
+        self.view.set_model(self.modelfilter)
+
+        event.add_callback(self.on_mode_changed,
+                "playlist_shuffle_mode_changed", self.playlist,
+                self.shuffle_button)
+        event.add_callback(self.on_mode_changed,
+                "playlist_repeat_mode_changed", self.playlist,
+                self.repeat_button)
+        event.add_callback(self.on_mode_changed,
+                "playlist_repeat_mode_changed", self.playlist,
+                self.dynamic_button)
+
+        self.on_mode_changed(None, None, self.playlist.shuffle_mode, self.shuffle_button)
+        self.on_mode_changed(None, None, self.playlist.repeat_mode, self.repeat_button)
+        self.on_mode_changed(None, None, self.playlist.dynamic_mode, self.dynamic_button)
+        self.view.model.connect('row-changed', self.on_row_changed)
 
         self.show_all()
 
-        # watch the playlist for changes
-        event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
-        event.add_callback(self.on_remove_tracks, 'tracks_removed',
-            self.playlist)
-        event.add_callback(self.refresh_changed_tracks, 'track_tags_changed')
-        event.add_callback(self.on_stop_track, 'stop_track')
+    ## NotebookPage API ##
 
-    def setup_playlist(self, playlist):
-        """
-            Prepares the internal playlist
-        """
-        self.playlist = copy.copy(playlist)
-        self.playlist.ordered_tracks = playlist.ordered_tracks[:]
+    def get_name(self):
+        return self.playlist.name
 
-    def properties_dialog(self):
-        """
-            Shows the properties dialog
-        """
-        from xlgui import properties
-        tracks = self.get_selected_tracks()
-        selected = None
-        if len(tracks) == 1:
-            tracks = self.get_all_tracks()
-            selected = self.get_cursor()
+    def set_name(self, name):
+        self.playlist.name = name
 
-        if not tracks:
-            return False
+    def handle_close(self):
+        return True
 
-        dialog = properties.TrackPropertiesDialog(self.main.window,
-            tracks, selected)
-        #result = dialog.run()
-        #dialog.hide()
+    ## End NotebookPage ##
 
-        #return True
+    def on_shuffle_button_press_event(self, widget, event):
+        self.__show_toggle_menu(Playlist.shuffle_modes,
+                Playlist.shuffle_mode_names, self.on_shuffle_mode_set,
+                'shuffle_mode', widget, event)
 
-    def refresh_changed_tracks(self, type, track, tag):
-        """
-            Called when a track is known to have a tag changed
-        """
-        if not track or not \
-            settings.get_option('gui/sync_on_tag_change', True) or not\
-            tag in self.get_column_ids():
-            return
+    def on_repeat_button_press_event(self, widget, event):
+        self.__show_toggle_menu(Playlist.repeat_modes,
+                Playlist.repeat_mode_names, self.on_repeat_mode_set,
+                'repeat_mode', widget, event)
 
-        if self._redraw_id:
-            glib.source_remove(self._redraw_id)
-        self._redraw_queue.append(track)
-        self._redraw_id = glib.timeout_add(100,
-                self.__refresh_changed_tracks)
-
-    def __refresh_changed_tracks(self):
-        tracks = {}
-        for tr in self._redraw_queue:
-            tracks[tr.get_loc_for_io()] = tr
-        self._redraw_queue = []
-
-        selection = self.list.get_selection()
-        info = selection.get_selected_rows()
-
-        for row in self.model:
-            location = row[0].get_loc_for_io()
-
-            if location in tracks:
-                self.update_iter(row.iter, tracks[location])
-
-        self.list.queue_draw()
-
-        if info:
-            for path in info[1]:
-                selection.select_path(path)
-
-    def selection_changed(self):
-        trs = self.get_selected_tracks()
-        self.builder.get_object('track_properties_item').set_sensitive(bool(trs))
-
-    def on_stop_track(self, event, queue, stop_track):
-        """
-            Makes sure to select the next track in the
-            playlist after playback has stopped due to SPAT
-        """
-        next_track = self.playlist.next()
-        next_index = self.playlist.index(next_track)
-        self.list.set_cursor(next_index)
-
-    def queue_selected_tracks(self):
-        """
-            Toggles queue of selected tracks
-        """
-        trs = self.get_selected_tracks()
-
-        queue_tracks = self.queue.ordered_tracks
-        for track in trs:
-            if track in queue_tracks:
-                queue_tracks.remove(track)
-            else:
-                queue_tracks.append(track)
-
-        self.emit('track-count-changed', len(self.playlist))
-        self.list.queue_draw()
-
-    def on_cell_rating_changed(self, widget, path, rating):
-        """
-            Updates the rating of the selected track
-            (Triggered by the rating cell renderer)
-        """
-        track = self.model[path][0]
-        oldrating = track.get_rating()
-
-        if rating == oldrating:
-            rating = 0
-
-        track.set_rating(rating)
-        maximum = settings.get_option('rating/maximum', 5)
-        event.log_event('rating_changed', self, rating / maximum * 100)
-
-    def on_menu_rating_changed(self, widget, rating):
-        """
-            Updates the rating of the selected tracks
-            (Triggered by the rating menu item)
-        """
-        tracks = self.get_selected_tracks()
-
-        for track in tracks:
-            track.set_rating(rating)
-
-        maximum = settings.get_option('rating/maximum', 5)
-        event.log_event('rating_changed', self, rating / maximum * 100)
-
-    def on_rating_tracks_get(self, widget):
-        """
-            Retrieves the currently selected
-            tracks for the rating menu item
-        """
-        return self.get_selected_tracks()
-
-    def get_column_ids(self):
-        column_ids = None
-        if settings.get_option('gui/trackslist_defaults_set', False):
-            ids = settings.get_option("gui/columns", [])
-            # Don't add invalid columns.
-            all_ids = frozenset(self.COLUMNS.iterkeys())
-            column_ids = frozenset(id for id in ids if id in all_ids)
-
-        if not column_ids:
-            # Use default.
-            ids = self.default_columns
-            settings.set_option('gui/trackslist_defaults_set', True)
-            settings.set_option('gui/columns', ids)
-            column_ids = frozenset(ids)
-        return column_ids
-
-    def _setup_column_menus(self):
-        """
-            Sets up the column menus (IE, View->Column->Track, etc)
-        """
-        self.resizable_cols = self.builder.get_object('col_resizable_item')
-        self.not_resizable_cols = \
-            self.builder.get_object('col_not_resizable_item')
-        if not self.resizable_cols and not self.not_resizable_cols:
-            return # potentially dangerous if someone breaks the gladefile...
-        self.resizable_cols.set_active(
-                settings.get_option('gui/resizable_cols', False))
-        self.not_resizable_cols.set_active(not \
-            settings.get_option('gui/resizable_cols', False))
-        self.resizable_cols.connect('activate', self.activate_cols_resizable)
-        # activate_cols_resizable will be called by resizable_cols anyway, no need to call it twice
-        #self.not_resizable_cols.connect('activate',
-        #    self.activate_cols_resizable)
-
-        column_ids = self.get_column_ids()
-        if settings.get_option('gui/trackslist_defaults_set', False):
-            ids = settings.get_option("gui/columns", [])
-            # Don't add invalid columns.
-            all_ids = frozenset(self.COLUMNS.iterkeys())
-            column_ids = frozenset(id for id in ids if id in all_ids)
-
-        if not column_ids:
-            # Use default.
-            ids = self.default_columns
-            settings.set_option('gui/trackslist_defaults_set', True)
-            settings.set_option('gui/columns', ids)
-            column_ids = frozenset(ids)
-
-        for col_struct in self.COLUMNS.itervalues():
-            try:
-                menu = Playlist.menu_items[col_struct.id]
-            except KeyError:
-                logger.warning("No such column: %s" % col_struct.id)
-                continue
-
-            menu.set_active(col_struct.id in column_ids)
-            menu.connect('activate', self.change_column_settings,
-                ('gui/columns', col_struct))
-
-    def search(self, keyword):
-        """
-            Filter the playlist with a keyword
-        """
-        trs = self.playlist.filter(keyword)
-        self._set_tracks(trs)
-        self.search_keyword = keyword
-
-    def change_column_settings(self, item, data):
-        """
-            Changes column view settings
-        """
-        pref, col_struct = data
-        id = col_struct.id
-
-        column_ids = list(settings.get_option(pref, []))
-        if item.get_active():
-            if id not in column_ids:
-                logger.info("Adding %(column_id)s column to %(preference)s" %
-                    {'column_id' : id, 'preference' : pref})
-                column_ids.append(id)
+    def on_dynamic_button_toggled(self, widget):
+        if widget.get_active():
+            self.playlist.dynamic_mode = self.playlist.dynamic_modes[1]
         else:
-            if col_struct.id in column_ids:
-                logger.info("Removing %(column_id)s column from %(preference)s" %
-                    {'column_id' : id, 'preference' : pref})
-                column_ids.remove(id)
-        settings.set_option(pref, column_ids)
-        self.emit('column-settings-changed')
+            self.playlist.dynamic_mode = self.playlist.dynamic_modes[0]
 
-    def activate_cols_resizable(self, widget, event=None):
-        """
-            Called when the user chooses whether or not columns can be
-            resizable
-        """
-        settings.set_option('gui/resizable_cols', widget.get_active())
-        self.emit('column-settings-changed')
+    def on_search_entry_activate(self, entry):
+        self._filter_string = entry.get_text()
+        self.modelfilter.refilter()
 
-    def update_col_settings(self):
+    def __show_toggle_menu(self, names, display_names, callback, attr,
+            widget, event):
         """
-            Updates the settings for a specific column
+            Display the menu on the shuffle/repeat toggle buttons
+
+            :param names: The list of names of the menu entries
+            :param display_names: The list of names to display on
+                each menu entry.
+            :param callback: The function to call when a menu item is
+                activated. It will be passed the name of the activated item.
+            :param attr: The attribute of self.playlist to look at to
+                determine the currently-selected item.
+            :param widget: The ToggleButton to display the menu on
+            :param event: The gtk event that triggered the menu display
         """
-        selection = self.list.get_selection()
+        widget.set_active(True)
+        menu = gtk.Menu()
+        menu.connect('deactivate', self._mode_menu_set_toggle, widget, attr)
+        prev = None
+        mode = getattr(self.playlist, attr)
+        for name, disp in zip(names, display_names):
+            item = gtk.RadioMenuItem(prev, disp)
+            if name == mode:
+                item.set_active(True)
+            item.connect('activate', callback, name)
+            menu.append(item)
+            if prev is None:
+                menu.append(gtk.SeparatorMenuItem())
+            prev = item
+        menu.show_all()
+        menu.popup(None, None, self._mode_menu_set_pos,
+                event.button, event.time, widget)
+        menu.reposition()
+
+    def _mode_menu_set_pos(self, menu, button):
+        """
+            Nicely position the shuffle/repeat popup menu with the
+            button's corner.
+        """
+        window_x, window_y = self.window.get_position()
+        button_allocation = button.get_allocation()
+        menu_allocation = menu.get_allocation()
+        position = (
+            window_x + button_allocation.x + 1,
+            window_y + button_allocation.y - menu_allocation.height - 1
+        )
+
+        return (position[0], position[1], True)
+
+    def _mode_menu_set_toggle(self, menu, button, name):
+        mode = getattr(self.playlist, name)
+        self.on_mode_changed(None, None, mode, button)
+
+    def on_shuffle_mode_set(self, widget, mode):
+        """
+            Callback for the Shuffle mode menu
+        """
+        self.playlist.shuffle_mode = mode
+
+    def on_repeat_mode_set(self, widget, mode):
+        """
+            Callback for the Repeat mode menu
+        """
+        self.playlist.repeat_mode = mode
+
+    def on_mode_changed(self, evtype, playlist, mode, button):
+        button.set_active(mode != 'disabled')
+
+    def on_row_changed(self, model, path, iter):
+        """
+            Sets the tab icon to reflect the playback status
+        """
+        if path[0] == self.playlist.current_position:
+            pixbuf = model.get_value(iter, 1)
+            if pixbuf == model.clear_pixbuf:
+                pixbuf = None
+            self.tab.set_icon(pixbuf)
+
+    def model_visible_func(self, model, iter):
+        if self._filter_string == "":
+            return True
+        return trax.match_track_from_string(
+                model.get_value(iter, 0), self._filter_string,
+                case_sensitive=False, keyword_tags=['artist', 'title', 'album'])
+                # FIXME: use currently-visible columns + base
+                # tags for filter
+
+
+
+
+
+class PlaylistView(gtk.TreeView):
+    default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
+    base_sort_tags = ['artist', 'date', 'album', 'discnumber',
+            'tracknumber', 'title']
+    def __init__(self, playlist):
+        gtk.TreeView.__init__(self)
+        self.playlist = playlist
+        self.model = PlaylistModel(playlist, self.default_columns)
+        self.menu = PlaylistContextMenu(self)
+        self.dragging = False
+        self.button_held = False    # used by columns to determine whether
+                                    # a notify::width event was initiated
+                                    # by the user.
+
+        self.set_fixed_height_mode(True) # MASSIVE speedup - don't disable this!
+        self.set_rules_hint(True)
+        self.set_enable_search(True)
+        self.selection = self.get_selection()
+        self.selection.set_mode(gtk.SELECTION_MULTIPLE)
+
+        self.set_model(self.model)
+        self.columns_changed_id = 0
+        self._setup_columns()
+
+        self.targets = [("exaile-index-list", gtk.TARGET_SAME_WIDGET, 0),
+                ("text/uri-list", 0, 0)]
+        self.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
+                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
+                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT|
+                gtk.gdk.ACTION_MOVE)
+
+        event.add_callback(self.on_option_set, "gui_option_set")
+        self.connect("row-activated", self.on_row_activated)
+        self.connect("button-press-event", self.on_button_press)
+        self.connect("button-release-event", self.on_button_release)
+
+        self.connect("drag-begin", self.on_drag_begin)
+        self.connect("drag-drop", self.on_drag_drop)
+        self.connect("drag-data-get", self.on_drag_data_get)
+        self.connect("drag-data-received", self.on_drag_data_received)
+        self.connect("drag-data-delete", self.on_drag_data_delete)
+        self.connect("drag-end", self.on_drag_end)
+        self.connect("drag-motion", self.on_drag_motion)
+
+    def set_cell_weight(self, cell, iter):
+        """
+            Called by columns in playlist_columns to set a CellRendererText's
+            weight property for the playing track.
+        """
+        model = self.get_model()
+        path = model.get_path(iter)
+        track = model.get_value(iter, 0)
+        if track == player.PLAYER.current and \
+                path[0] == self.playlist.get_current_position() and \
+                self.playlist == player.QUEUE.current_playlist:
+            weight = pango.WEIGHT_HEAVY
+        else:
+            weight = pango.WEIGHT_NORMAL
+        cell.set_property('weight', weight)
+
+    def get_selected_tracks(self):
+        """
+            Returns a list of :class:`xl.trax.Track`
+            which are currently selected in the playlist.
+        """
+        return [x[1] for x in self.get_selected_items()]
+
+    def get_selected_paths(self):
+        """
+            Returns a list of pairs of treepaths
+            which are currently selected in the playlist.
+        """
+        selection = self.get_selection()
+        model, paths = selection.get_selected_rows()
+        return paths
+
+    def get_selected_items(self):
+        """
+            Returns a list of pairs of indices and :class:`xl.trax.Track`
+            which are currently selected in the playlist.
+        """
+        paths = self.get_selected_paths()
+        model = self.get_model()
+        tracks = [(path[0], model.get_value(model.get_iter(path), 0)) for path in paths]
+        return tracks
+
+    def _refresh_columns(self):
+        selection = self.get_selection()
         info = selection.get_selected_rows()
         # grab the first visible raw of the treeview
-        firstpath = self.list.get_path_at_pos(4,4)
+        firstpath = self.get_path_at_pos(4,4)
         topindex = None
         if firstpath:
             topindex = firstpath[0][0]
 
-        self.list.disconnect(self.changed_id)
-        columns = self.list.get_columns()
+        self.disconnect(self.columns_changed_id)
+        columns = self.get_columns()
         for col in columns:
-            self.list.remove_column(col)
+            self.remove_column(col)
 
         self._setup_columns()
-        self._set_tracks(self.playlist.get_tracks())
-        self.list.queue_draw()
+        self.columns_changed_id = self.connect("columns-changed",
+                self.on_columns_changed)
+        self.queue_draw()
 
         if firstpath:
-            self.list.scroll_to_cell(topindex)
+            self.scroll_to_cell(topindex)
         if info:
             for path in info[1]:
                 selection.select_path(path)
 
-    def on_remove_tracks(self, type, playlist, info):
-        """
-            Called when someone removes tracks from the contained playlist
-        """
-        start = info[0]
-        end = info[1]
-        paths = [(x,) for x in range(start, end-1)]
-        self.remove_rows(paths, playlist=False)
-
-    def on_add_tracks(self, type, playlist, tracks):
-        """
-            Called when someone adds tracks to the contained playlist
-        """
-        if not tracks:
-            return
-
-        for track in tracks:
-            self._append_track(track)
-
-        newlength = len(self.playlist)
-        self.emit('track-count-changed', newlength)
-        range = self.list.get_visible_range()
-        offset = 0
-        if range:
-            offset = range[1][0] - range[0][0]
-
-        if settings.get_option('gui/scroll_when_appending_tracks', False):
-            try:
-                if offset > newlength:
-                    self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
-                else:
-                    self.list.scroll_to_cell(self.playlist.index(tracks[offset]))
-            except IndexError:
-                self.list.scroll_to_cell(self.playlist.index(tracks[0]))
-        self.set_needs_save(True)
-
-    def _set_tracks(self, trs):
-        """
-            Sets the tracks that this playlist should display
-        """
-        self.list.set_model(None)
-        self.model.clear()
-
-        for track in trs:
-            self._append_track(track)
-
-        self.list.set_model(self.model)
-        self.emit('track-count-changed', len(self.playlist))
-
-        #Whenever we reset the model of the list
-        #we need to mark the search column again
-        self._set_search_column()
-
-    def _set_search_column(self):
-        count = 3
-        search_column = settings.get_option("gui/search_column", "Title")
-        for col in self.list.get_columns():
-            if col.get_title().decode('utf-8') == search_column:
-                self.list.set_search_column(count)
-            count = count + 1
-
-    def _get_ar(self, song):
-        """
-            Creates the array to be added to the model in the correct order
-        """
-        ar = [song, None, None]
-        for field in self.append_map:
-            value = song.get_tag_display(field, artist_compilations=False)
-            if value is None:
-                value = ''
-            ar.append(value)
-        return ar
-
-    def _append_track(self, track):
-        """
-            Adds a track to this view
-        """
-        ar = self._get_ar(track)
-        self.model.append(ar)
-
-    def get_cursor(self):
-        """
-            Returns the row number of the cursor.
-        """
-        path = self.list.get_cursor()[0]
-        if path is None:
-            # TODO: Should probably find the first selected row here.
-            # Not fixing for now, since this method isn't actually used for
-            # anything interesting.
-            row = -1
-        else:
-            row = path[0]
-        return row
-
-    def get_selected_track(self):
-        """
-            Returns the currently selected track
-        """
-        trs = self.get_selected_tracks()
-        if not trs:
-            return None
-        else:
-            return trs[0]
-
-    def get_selected_tracks(self):
-        """
-            Gets the selected tracks in the tree view
-        """
-        selection = self.list.get_selection()
-        (model, paths) = selection.get_selected_rows()
-        tracks = [model[path][0] for path in paths]
-
-        return tracks
-
-    def get_all_tracks(self):
-        """
-            Gets the all tracks in the tree view
-        """
-        return self.playlist.get_tracks()
-
-    def update_iter(self, iter, track):
-        """
-            Updates the track at "iter"
-        """
-        ar = self._get_ar(track)
-        self.model.insert_after(iter, ar)
-        self.model.remove(iter)
-
-    def refresh_row(self, refresh_track):
-        """
-            Refreshes the text for the specified row
-        """
-        selection = self.list.get_selection()
-        model, paths = selection.get_selected_rows()
-        self.list.set_model(None)
-
-        for row in self.list:
-            if not row[0]:
-                break
-
-            if row[0] == refresh_track or \
-               row[0].get_loc_for_io() == refresh_track.get_loc_for_io():
-                self.update_iter(row.iter, refresh_track)
-
-        self.list.set_model(self.model)
-        self.list.queue_draw()
-
-    def on_row_activated(self, *e):
-        """
-            Called when the user double clicks on a track
-        """
-        track = self.get_selected_track()
-        if not track: return
-
-        index = self.playlist.index(track)
-        self.playlist.set_current_pos(index)
-        self.queue.play(track=track)
-        self.queue.set_current_playlist(self.playlist)
-
-    def on_key_press_event(self, widget, event):
-        """
-            Starts playback of the selected track or pauses it
-        """
-        if event.keyval == gtk.keysyms.space:
-
-            if self.player.is_stopped():
-                track = self.get_selected_track()
-                
-                if track is not None:
-                    index = self.playlist.index(track)
-                    self.playlist.set_current_pos(index)
-                    self.queue.play(track=track)
-                    self.queue.set_current_playlist(self.playlist)
-                elif len(self.playlist) > 0:
-                    self.playlist.set_current_pos(0)
-                    self.queue.play()
-                    self.queue.set_current_playlist(self.playlist)
-            else:
-                self.player.toggle_pause()
-
-            return True
-
-        return False
-
-    def on_closing(self):
-        """
-            Called by the NotebookTab when this playlist
-            is about to be closed.  Handles such things
-            as confirming a close on a modified playlist
-
-            @return: True if we should continue to close,
-                False otherwise
-        """
-        # Before closing check whether the playlist
-        # changed, and if it did give the user an option to do something
-        if self.get_needs_save():
-            try:
-                current_tracks = self.playlist.get_tracks()
-                original_tracks = self.main.playlist_manager.get_playlist \
-                    (self.playlist.get_name()).get_tracks()
-                dirty = False
-                if len(current_tracks) != len(original_tracks):
-                    dirty = True
-                else:
-                    for i in range(0, len(original_tracks)):
-                        o_track = original_tracks[i]
-                        c_track = current_tracks[i]
-                        if o_track != c_track:
-                            dirty = True
-                            break
-
-                if dirty == True and self.playlist.get_is_custom() \
-                    and settings.get_option('playlist/ask_save', True):
-                    dialog = dialogs.ConfirmCloseDialog(self.playlist.get_name())
-                    result = dialog.run()
-                    if result == 110:
-                        # Save the playlist then close
-                        self.set_needs_save(False)
-                        self.main.playlist_manager.save_playlist(
-                            self.playlist, overwrite = True)
-                        return True
-                    elif result == gtk.RESPONSE_CANCEL:
-                        return False
-            except ValueError:
-                # Usually means that it was a smart playlist
-                pass
-        return True
-
-    def button_press(self, button, event):
-        """
-            Called when the user clicks on the playlist
-        """
-        if event.button == 3:
-            tab = self.main.get_current_tab()
-            (x, y) = event.get_coords()
-            path = self.list.get_path_at_pos(int(x), int(y))
-            if path:
-                self.menu.popup(event)
-            else:
-                tab.menu.popup(None, None, None, event.button, event.time)
-            if len(self.get_selected_tracks()) > 1: return True
-        return False
-
-    def _setup_events(self):
-        self.list.connect('key-press-event', self.key_pressed)
-        self.list.connect('key-release-event', self.on_key_release_event)
-
-    def key_pressed(self, widget, event):
-        if event.keyval == gtk.keysyms.Delete:
-            self.remove_selected_tracks()
-
-        return False
-
-    def on_key_release_event(self, widget, event):
-        """
-            Handles key release events
-        """
-        if event.keyval == gtk.keysyms.Menu:
-            button_press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
-            button_press_event.button = 3
-            button_press_event.time = event.time
-
-            self.list.emit('button-press-event', button_press_event)
-
-    def _setup_tree(self):
-        """
-            Sets up the TreeView for this Playlist
-        """
-        self.list = guiutil.DragTreeView(self, drop_pos='between')
-        self.list.set_rules_hint(True)
-        self.list.set_enable_search(True)
-        self.list.connect('row-activated', self.on_row_activated)
-        self.list.connect('key-press-event', self.on_key_press_event)
-
-        self.scroll = gtk.ScrolledWindow()
-        self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.scroll.add(self.list)
-        self.pack_start(self.scroll, True, True)
-        self.scroll.show_all()
-
-        selection = self.list.get_selection()
-        selection.set_mode(gtk.SELECTION_MULTIPLE)
-        selection.connect('changed', lambda s: self.selection_changed())
-
-        self.playimg = icons.MANAGER.pixbuf_from_stock(
-            gtk.STOCK_MEDIA_PLAY, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.playimg = self.playimg.scale_simple(18, 18,
-            gtk.gdk.INTERP_BILINEAR)
-
-        self.pauseimg = icons.MANAGER.pixbuf_from_stock(
-            gtk.STOCK_MEDIA_PAUSE, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.pauseimg = self.pauseimg.scale_simple(18, 18,
-            gtk.gdk.INTERP_BILINEAR)
-
-        self.stopimg = icons.MANAGER.pixbuf_from_stock(
-            gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.stopimg = self.stopimg.scale_simple(12, 12,
-            gtk.gdk.INTERP_BILINEAR)
-
-    def column_changed(self, *e):
-        """
-            Called when columns are reordered
-        """
-        self.list.disconnect(self.changed_id)
-        cols = []
-        for col in self.list.get_columns():
-            cols.append(self.column_by_display[col.get_title().
-                                               decode('utf-8')].id)
-            self.list.remove_column(col)
-
-        settings.set_option('gui/columns', cols)
-        self._setup_columns()
-        self._set_tracks(self.playlist.get_tracks())
-
-    def get_needs_save(self):
-        return self.playlist.get_needs_save()
-
-    def set_needs_save(self, val=True):
-        self.playlist.set_needs_save(val)
-        self.emit('playlist-content-changed', self.get_needs_save())
-
-    def drag_data_received(self, tv, context, x, y, selection, info, etime):
-        """
-            Called when data is recieved
-        """
-        previous_trackcount = len(self.playlist)
-
-        if self.playlist.ordered_tracks:
-            curtrack = self.playlist.get_current()
-        else:
-            curtrack = None
-
-        # Remove callbacks so they are not fired when we perform actions
-        event.remove_callback(self.on_add_tracks, 'tracks_added', self.playlist)
-        event.remove_callback(self.on_remove_tracks, 'tracks_removed',
-            self.playlist)
-
-        self.list.unset_rows_drag_dest()
-        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL,
-            self.list.targets,
-            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
-
-        locs = list(selection.get_uris())
-
-        if context.action != gtk.gdk.ACTION_MOVE:
-            pass
-
-        try:
-            drop_info = tv.get_dest_row_at_pos(x, y)
-
-            if drop_info:
-                path, position = drop_info
-                iter = self.model.get_iter(path)
-                if (position == gtk.TREE_VIEW_DROP_BEFORE or
-                    position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
-                    first = False
-                else:
-                    first = True
-        except AttributeError:
-            drop_info = None
-            pass
-
-        (trs, playlists) = self.list.get_drag_data(locs)
-
-        (column, descending) = self.get_sort_by()
-        trs = trax.sort_tracks(self.return_order_tags(column), trs, reverse=descending)
-
-        if not Playlist._is_drag_source:
-            self.list.set_model(None)
-        # Determine what to do with the tracks
-        # by default we load all tracks.
-        # TODO: should we load tracks we find in the collection from there??
-        for track in trs:
-            if not drop_info:
-                self._append_track(track)
-            else:
-                if not first:
-                    first = True
-                    ar = self._get_ar(track)
-                    if self.model.iter_is_valid(iter):
-                        iter = self.model.insert_before(iter, ar)
-                    else:
-                        iter = self.model.append(ar)
-                else:
-                    ar = self._get_ar(track)
-                    path = self.model.get_path(iter)
-                    if self.model.iter_is_valid(iter):
-                        iter = self.model.insert_after(iter, ar)
-                    else:
-                        iter = self.model.append(ar)
-        if not Playlist._is_drag_source:
-            self.list.set_model(self.model)
-
-        if context.action == gtk.gdk.ACTION_MOVE or \
-            Playlist._is_drag_source:
-            # On a move action the second True makes the
-            # drag_data_delete function called
-            context.finish(True, True, etime)
-        else:
-            context.finish(True, False, etime)
-
-        Playlist._is_drag_source = False
-        iter = self.model.get_iter_first()
-        if not iter:
-            # Do we need to reactivate the callbacks when this happens?
-            glib.idle_add(self.add_track_callbacks)
-            return
-
-        self.playlist.add_tracks(trs)
-
-        # Re add all of the tracks so that they
-        # become ordered
-        iter = self.model.get_iter_first()
-        if not iter:
-            glib.idle_add(self.add_track_callbacks)
-            return
-
-        self.playlist.ordered_tracks = []
-        while True:
-            track = self.model.get_value(iter, 0)
-            self.playlist.ordered_tracks.append(track)
-            iter = self.model.iter_next(iter)
-            if not iter: break
-
-        if trs:
-            self.set_needs_save(True)
-
-        glib.idle_add(self.add_track_callbacks)
-
-        current_trackcount = len(self.playlist)
-
-        if current_trackcount != previous_trackcount:
-            self.emit('track-count-changed', current_trackcount)
-
-        if curtrack is not None:
-            index = self.playlist.index(curtrack)
-            self.playlist.set_current_pos(index)
-
-    def add_track_callbacks(self):
-        """
-            Adds callbacks for added and removed tracks.
-        """
-        event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
-        event.add_callback(self.on_remove_tracks, 'tracks_removed',
-            self.playlist)
-
-    def _remove_selected_nodes(self):
-        """
-            Simply removes the selected nodes from the tree.  Does NOT remove
-            tracks from the contained playlist
-        """
-        sel = self.list.get_selection()
-        (model, paths) = sel.get_selected_rows()
-        # Since we want to modify the model we make references to it
-        # This allows us to remove rows without it messing up
-        self.list.set_model(None)
-        rows = []
-        for path in paths:
-            rows.append(gtk.TreeRowReference(model, path))
-        for row in rows:
-            iter = self.model.get_iter(row.get_path())
-            #Also update the playlist we have
-            track = self.model.get_value(iter, 0)
-            self.model.remove(iter)
-        self.list.set_model(self.model)
-
-    def remove_selected_tracks(self):
-        selection = self.list.get_selection()
-        (model, paths) = selection.get_selected_rows()
-        self.remove_rows(paths)
-
-    def remove_rows(self, paths, playlist=True):
-        if playlist:
-            event.remove_callback(self.on_remove_tracks, 'tracks_removed',
-                    self.playlist)
-            ranges = []
-            curstart = paths[0][0]
-            last = curstart
-            for i in paths[1:]:
-                val = i[0]
-                if val == last+1:
-                    last += 1
-                    continue
-                else:
-                    ranges.append((curstart, last))
-                    curstart = val
-                    last = val
-            ranges.append((curstart, last))
-            for start, end in ranges:
-                self.playlist.remove_tracks(start, end)
-            glib.idle_add(event.add_callback, self.on_remove_tracks,
-                'tracks_removed', self.playlist)
-
-        self.list.set_model(None)
-        iters = [self.model.get_iter(x) for x in paths]
-        for row in iters:
-            self.model.remove(row)
-        self.list.set_model(self.model)
-
-        if paths:
-            self.list.set_cursor(paths[0][0])
-
-        self.emit('track-count-changed', len(self.playlist))
-        self.set_needs_save(True)
-
-    def drag_data_delete(self, tv, context):
-        """
-            Called after a drag data operation is complete
-            and we want to delete the source data
-        """
-        if context.drag_drop_succeeded():
-            self._remove_selected_nodes()
-
-    def drag_get_data(self, treeview, context, selection, target_id, etime):
-        """
-            Called when a drag source wants data for this drag operation
-        """
-        Playlist._is_drag_source = True
-
-        tracks = self.get_selected_tracks()
-        for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
-
-        uris = trax.util.get_uris_from_tracks(tracks)
-        selection.set_uris(uris)
-
-    def setup_model(self, map):
-        """
-            Gets the array to build the two models
-        """
-        ar = [object, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf]
-
-        for item in map:
-            ar.append(str)
-
-        self.model = gtk.ListStore(*ar)
-        self.list.set_model(self.model)
-
     def _setup_columns(self):
-        """
-            Sets up the columns for this table
-        """
-
-        self._col_count = 0
-
-        col_ids = settings.get_option("gui/columns", [])
-
-        if self._initial_column_ids:
-            col_ids = self._initial_column_ids
-
-        search_column = settings.get_option("gui/search_column", "Title")
-
-        # make sure all the entries are good
-        if col_ids:
-            cols = []
-            for col in col_ids:
-                if col in self.COLUMNS:
-                    cols.append(col)
-            col_ids = cols
-
+        col_ids = settings.get_option("gui/columns", self.default_columns)
+        col_ids = [col for col in col_ids if col in playlist_columns.COLUMNS]
         if not col_ids:
             col_ids = self.default_columns
+        self.model.columns = col_ids
 
-        self.append_map = col_ids
-        self.setup_model(col_ids)
+        for position, column in enumerate(col_ids):
+            position += 2 # offset for pixbuf column
+            playlist_column = playlist_columns.COLUMNS[column](self, position)
+            playlist_column.connect('clicked', self.on_column_clicked)
+            self.append_column(playlist_column)
+            header = playlist_column.get_widget()
+            header.show()
+            header.get_ancestor(gtk.Button).connect('button-press-event', self.on_header_button_press)
 
-        count = 3
-        first_col = True
+    def on_header_button_press(self, widget, event):
+        if event.button == 3:
+            m = menu.ProviderMenu('playlist-columns-menu', self)
+            m.popup(None, None, None, event.button, event.time)
+            return True
 
-        for col in col_ids:
-            column = self.COLUMNS[col](self)
-            cellr = column.renderer()
+    def on_columns_changed(self, widget):
+        columns = [c.id for c in self.get_columns()]
+        if columns != settings.get_option('gui/columns', []):
+            settings.set_option('gui/columns', columns)
 
-            if first_col:
-                first_col = False
-                pb = gtk.CellRendererPixbuf()
-                pb.set_fixed_size(20, 20)
-                pb.set_property('xalign', 0.0)
-                stop_pb = gtk.CellRendererPixbuf()
-                stop_pb.set_fixed_size(12, 12)
-                col = gtk.TreeViewColumn(column.display)
-                col.pack_start(pb, False)
-                col.pack_start(stop_pb, False)
-                col.pack_start(cellr, True)
-                col.set_attributes(cellr, text=count)
-                col.set_attributes(pb, pixbuf=1)
-                col.set_attributes(stop_pb, pixbuf=2)
-                col.set_cell_data_func(pb, self.icon_data_func)
-                col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
-            elif column.id == '__rating': # FIXME: Make this dynamic
-                col = gtk.TreeViewColumn(column.display, cellr)
-                cellr.connect('rating-changed', self.on_cell_rating_changed)
-            else:
-                col = gtk.TreeViewColumn(column.display, cellr, text=count)
-
-            col.set_cell_data_func(cellr, column.data_func)
-            column.set_properties(col, cellr)
-
-            setting_name = "gui/col_width_%s" % column.id
-            width = settings.get_option(setting_name,
-                column.size)
-            col.set_fixed_width(int(width))
-
-            resizable = settings.get_option('gui/resizable_cols',
-                False)
-
-            col.connect('clicked', self.set_sort_by)
-            col.connect('notify::width', self.set_column_width)
-            col.set_clickable(True)
-            col.set_reorderable(True)
-            col.set_resizable(False)
-            col.set_sort_indicator(False)
-            # hack to make sorting work right. does not sort.
-            col.set_sort_order(gtk.SORT_DESCENDING)
-
-            if not resizable:
-                if column.id in ('title', 'artist', 'album', '__loc', 'genre'):
-                    if column.id != 'genre':
-                        col.set_expand(True)
-                        col.set_fixed_width(1)
-                    else:
-                        col.set_fixed_width(80)
-                    col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-                    cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
-                else:
-                    col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
-            else:
-                col.set_resizable(True)
-                col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-
-            # Update which column to search for when columns are changed
-            if column.display == search_column:
-                self.list.set_search_column(count)
-            col.set_widget(gtk.Label(column.display))
-            col.get_widget().show()
-            self.list.append_column(col)
-            col.get_widget().get_ancestor(gtk.Button).connect('button_press_event',
-                self.press_header)
-            count = count + 1
-        self.changed_id = self.list.connect('columns-changed', self.column_changed)
-
-    def set_column_width(self, col, *e):
-        """
-            Called when the user resizes a column
-        """
-        col_struct = self.column_by_display[col.get_title().decode('utf-8')]
-        name = 'gui/col_width_%s' % col_struct.id
-        w = col.get_width()
-        if w != settings.get_option(name, -1):
-            settings.set_option(name, w)
-
-    # sort functions courtesy of listen (http://listengnome.free.fr), which
-    # are in turn, courtesy of quodlibet.
-    def set_sort_by(self, column):
-        """
-            Sets the sort column
-        """
-        title = column.get_title()
-        for col in self.list.get_columns():
-            if title == col.get_title().decode('utf-8'):
+    def on_column_clicked(self, column):
+        order = None
+        for col in self.get_columns():
+            if col.id == column.id:
                 order = column.get_sort_order()
                 if order == gtk.SORT_ASCENDING:
                     order = gtk.SORT_DESCENDING
@@ -1053,120 +583,316 @@ class Playlist(gtk.VBox):
             else:
                 col.set_sort_indicator(False)
                 col.set_sort_order(gtk.SORT_DESCENDING)
+        reverse = order == gtk.SORT_DESCENDING
+        self.playlist.sort([column.id] + self.base_sort_tags, reverse=reverse)
 
-        trs = self.reorder_songs()
-        self._set_tracks(trs)
+    def on_option_set(self, typ, obj, data):
+        if data == "gui/columns":
+            glib.idle_add(self._refresh_columns, priority=glib.PRIORITY_DEFAULT)
 
-        if not self.playlist.ordered_tracks: return
+    def on_row_activated(self, *args):
         try:
-            curtrack = \
-                self.playlist.ordered_tracks[self.playlist.get_current_pos()]
+            position, track = self.get_selected_items()[0]
         except IndexError:
-            curtrack = self.playlist.ordered_tracks[0]
-        self.playlist.ordered_tracks = trs
-        index = self.playlist.index(curtrack)
-        self.playlist.set_current_pos(index)
+            return
 
-    def return_order_tags(self, newtag = None):
-        """
-            Returns a list of tags, which sorting will be used to sort tracks
-            If newtag isn't set, only returns the list, otherwise adds it to the
-            head of the list and saves it into the settings
-        """
-        tags = ['artist', 'date', 'album', 'discnumber', 'tracknumber', 'title']
+        self.playlist.set_current_position(position)
+        player.QUEUE.play(track=track)
+        player.QUEUE.set_current_playlist(self.playlist)
 
-        if newtag:
-            if newtag in tags:
-                tags.remove (newtag)
-            tags.insert (0, newtag)
+    def on_button_press(self, widget, event):
+        self.button_held = True
+        if event.button == 3:
+            self.menu.popup(None, None, None, event.button, event.time)
+            return True
+        elif event.button == 1:
+            selection = self.get_selection()
+            path = self.get_path_at_pos(int(event.x), int(event.y))
+            if path:
+                if selection.count_selected_rows() <= 1:
+                    return False
+                else:
+                    if selection.path_is_selected(path[0]):
+                        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                            selection.unselect_path(path[0])
+                        return True
+                    elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                        return True
+                    return False
+                if not selection.count_selected_rows():
+                    selection.select_path(path[0])
+        return False
 
-        return tags
+    def on_button_release(self, widget, event):
+        self.button_held = False
+        if event.button != 1 or self.dragging:
+            self.dragging = False
+            return True
 
-    def reorder_songs(self):
-        """
-            Resorts all songs
-        """
-        attr, reverse = self.get_sort_by()
+        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+            return True
 
-        songs = self.playlist.search(self.search_keyword,
-            tuple (self.return_order_tags (attr)))
+        selection = self.get_selection()
+        selection.unselect_all()
 
-        if reverse:
-            songs.reverse()
-        return songs
+        path = self.get_path_at_pos(int(event.x), int(event.y))
+        if path:
+            selection.select_path(path[0])
 
-    def get_sort_by(self):
-        """
-            Gets the sort order
-        """
-        for col in self.list.get_columns():
-            if col.get_sort_indicator():
-                return (self.column_by_display[col.get_title().
-                                               decode('utf-8')].id,
-                    col.get_sort_order() == gtk.SORT_DESCENDING)
-        return 'tracknumber', False
+        return False
 
-    def icon_data_func(self, col, cell, model, iter):
-        """
-            Sets track status (playing/paused/queued) icon
-        """
-        path = model.get_path(iter)
-        item = model.get_value(iter, 0)
-        image = None
+    ### DND handlers ###
+    ## Source
+    def on_drag_begin(self, widget, context):
+        # TODO: set drag icon
+        self.dragging = True
 
-        if path[0] == self.playlist.get_current_pos() and \
-           item == player.PLAYER.current and \
-           self.playlist == player.QUEUE.current_playlist:
-#        if item == self.player.current:
-            if self.player.is_playing():
-                image = self.playimg
-            elif self.player.is_paused():
-                image = self.pauseimg
+    def on_drag_data_get(self, widget, context, selection, info, etime):
+        if selection.target == "exaile-index-list":
+            positions = self.get_selected_paths()
+            s = ",".join(str(i[0]) for i in positions)
+            selection.set(selection.target, 8, s)
+        elif selection.target == "text/uri-list":
+            tracks = self.get_selected_tracks()
+            uris = trax.util.get_uris_from_tracks(tracks)
+            selection.set_uris(uris)
 
-        # queued items
-        elif item in self.queue.ordered_tracks:
-            index = self.queue.ordered_tracks.index(item)
-            image = icons.MANAGER.pixbuf_from_text(str(index + 1), (18, 18))
+    def on_drag_data_delete(self, widget, context):
+        self.stop_emission('drag-data-delete')
 
-        cell.set_property('pixbuf', image)
+    def on_drag_end(self, widget, context):
+        self.dragging = False
 
-    def stop_icon_data_func(self, col, cell, model, iter):
-        """
-            Sets "stop after this" icon
-        """
-        item = model.get_value(iter, 0)
-        image = None
-        if item == self.queue.stop_track:
-            image = self.stopimg
-        cell.set_property('pixbuf', image)
-
-    def set_cell_weight(self, cell, item, iter):
-        """
-            Sets a CellRendererText's "weight" property according to whether
-            `item` is the currently playing track.
-        """
-        idx = self.model.get_path(iter)[0]
-        if item == self.player.current and idx == self.playlist.get_current_pos():
-            weight = pango.WEIGHT_HEAVY
-        else:
-            weight = pango.WEIGHT_NORMAL
-        cell.set_property('weight', weight)
-
-    def press_header(self, widget, event):
-        if event.button != 3:
-            return False
-        menu = self.builder.get_object('columns_menu_menu')
-        menu.popup(None, None, None, event.button, event.time)
+    ## Dest
+    def on_drag_drop(self, widget, context, x, y, etime):
         return True
 
-    def _print_playlist(self, banner = ''):
-        """
-            Debug - prints the current playlist to stdout
-        """
-        print banner
-        trs = self.playlist.get_tracks()
-        for track in trs:
-            print track.get_loc_for_display()
-        print '---Done printing playlist'
+    def on_drag_data_received(self, widget, context, x, y, selection,
+            info, etime):
+        # stop default handler from running
+        self.stop_emission('drag-data-received')
+        drop_info = self.get_dest_row_at_pos(x, y)
+        if drop_info:
+            path, position = drop_info
+            insert_position = path[0]
+            if position in (gtk.TREE_VIEW_DROP_AFTER, gtk.TREE_VIEW_DROP_INTO_OR_AFTER):
+                insert_position += 1
+        else:
+            insert_position = -1
+        if selection.target == "exaile-index-list":
+            positions = [int(x) for x in selection.data.split(",")]
+            tracks = MetadataList()
+            # TODO: this can probably be made more-efficient
+            for i in positions:
+                tracks.extend(self.playlist[i:i+1])
+            if insert_position >= 0:
+                self.playlist[insert_position:insert_position] = tracks
+                for i, position in enumerate(positions[:]):
+                    if position >= insert_position:
+                        position += len(tracks)
+                        positions[i] = position
+            else:
+                self.playlist.extend(tracks)
+            for i in positions[::-1]:
+                del self.playlist[i]
+        elif selection.target == "text/uri-list":
+            uris = selection.get_uris()
+            tracks = []
+            for u in uris:
+                tracks.extend(trax.get_tracks_from_uri(u))
+            if insert_position >= 0:
+                self.playlist[insert_position:insert_position] = tracks
+            else:
+                self.playlist.extend(tracks)
+        context.finish(True, False, etime)
 
-# vim: et sts=4 sw=4
+    def on_drag_motion(self, widget, context, x, y, etime):
+        info = self.get_dest_row_at_pos(x, y)
+
+        if not info:
+            return False
+
+        path, position = info
+
+        if position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
+            position = gtk.TREE_VIEW_DROP_BEFORE
+        elif position == gtk.TREE_VIEW_DROP_INTO_OR_AFTER:
+            position = gtk.TREE_VIEW_DROP_AFTER
+
+        self.set_drag_dest_row(path, position)
+
+        return True
+
+    def show_properties_dialog(self):
+        from xlgui import properties
+        tracks = self.get_selected_tracks()
+        selected = None
+        if len(tracks) == 1:
+            tracks = self.playlist[:]
+            selected = self.get_cursor()[0][0]
+
+        if tracks:
+            dialog = properties.TrackPropertiesDialog(None,
+                    tracks, selected)
+
+class PlaylistModel(gtk.GenericTreeModel):
+    def __init__(self, playlist, columns):
+        gtk.GenericTreeModel.__init__(self)
+        self.playlist = playlist
+        self.columns = columns
+
+        event.add_callback(self.on_tracks_added,
+                "playlist_tracks_added", playlist)
+        event.add_callback(self.on_tracks_removed,
+                "playlist_tracks_removed", playlist)
+        event.add_callback(self.on_current_position_changed,
+                "playlist_current_position_changed", playlist)
+        event.add_callback(self.on_current_position_changed,
+                "playlist_spat_position_changed", playlist)
+        event.add_callback(self.on_playback_state_change,
+                "playback_track_start")
+        event.add_callback(self.on_playback_state_change,
+                "playback_track_end")
+        event.add_callback(self.on_playback_state_change,
+                "playback_player_pause")
+        event.add_callback(self.on_playback_state_change,
+                "playback_player_resume")
+
+        self.play_pixbuf = icons.ExtendedPixbuf(
+                icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PLAY))
+        self.pause_pixbuf = icons.ExtendedPixbuf(
+                icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PAUSE))
+        self.stop_pixbuf = icons.ExtendedPixbuf(
+                icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP))
+        stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
+                dest_width=self.stop_pixbuf.get_width() / 2,
+                dest_height=self.stop_pixbuf.get_height() / 2,
+                interp_type=gtk.gdk.INTERP_BILINEAR)
+        stop_overlay_pixbuf = stop_overlay_pixbuf.move(
+                offset_x=stop_overlay_pixbuf.get_width(),
+                offset_y=stop_overlay_pixbuf.get_height(),
+                resize=True)
+        self.play_stop_pixbuf = self.play_pixbuf & stop_overlay_pixbuf
+        self.pause_stop_pixbuf = self.pause_pixbuf & stop_overlay_pixbuf
+        self.clear_pixbuf = self.play_pixbuf.copy()
+        self.clear_pixbuf.fill(0x00000000)
+
+    ### API for GenericTreeModel ###
+
+    def on_get_flags(self):
+        return gtk.TREE_MODEL_LIST_ONLY
+
+    def on_get_n_columns(self):
+        return len(self.columns)+1
+
+    def on_get_column_type(self, index):
+        if index == 0:
+            return object
+        elif index == 1:
+            return gtk.gdk.Pixbuf
+        else:
+            return playlist_columns.COLUMNS[self.columns[index-2]].datatype
+
+    def on_get_iter(self, path):
+        rowref = path[0]
+        if rowref < len(self.playlist):
+            return rowref
+        else:
+            return None
+
+    def on_get_path(self, rowref):
+        return (rowref,)
+
+    def on_get_value(self, rowref, column):
+        if column == 0:
+            return self.playlist[rowref]
+        elif column == 1:
+            if self.playlist.current_position == rowref and \
+                    self.playlist[rowref] == player.PLAYER.current and \
+                    self.playlist == player.QUEUE.current_playlist:
+                state = player.PLAYER.get_state()
+                spat = self.playlist.spat_position == rowref
+                if state == 'playing':
+                    if spat:
+                        return self.play_stop_pixbuf
+                    else:
+                        return self.play_pixbuf
+                elif state == 'paused':
+                    if spat:
+                        return self.pause_stop_pixbuf
+                    else:
+                        return self.pause_pixbuf
+            if self.playlist.spat_position == rowref:
+                return self.stop_pixbuf
+            return self.clear_pixbuf
+        else:
+            tagname = self.columns[column-2]
+            track = self.playlist[rowref]
+            formatter = playlist_columns.FORMATTERS[tagname]
+            return formatter.format(track)
+
+    def on_iter_next(self, rowref):
+        rowref = rowref+1
+        if rowref < len(self.playlist):
+            return rowref
+        else:
+            return None
+
+    def on_iter_children(self, parent):
+        return None
+
+    def on_iter_has_child(self, rowref):
+        return False
+
+    def on_iter_n_children(self, rowref):
+        if rowref:
+            return 0
+        return len(self.playlist)
+
+    def on_iter_nth_child(self, parent, n):
+        if parent:
+            return None
+        try:
+            t = self.playlist[n]
+            return n
+        except IndexError:
+            return None
+
+    def on_iter_parent(self, child):
+        return None
+
+
+    ### Event callbacks to keep the model in sync with the playlist ###
+
+    def on_tracks_added(self, event_type, playlist, tracks):
+        for position, track in tracks:
+            self.row_inserted((position,), self.get_iter((position,)))
+
+    def on_tracks_removed(self, event_type, playlist, tracks):
+        tracks.reverse()
+        for position, track in tracks:
+            self.row_deleted((position,))
+
+    def on_current_position_changed(self, event_type, playlist, positions):
+        for position in positions:
+            if position < 0:
+                continue
+            path = (position,)
+            try:
+                iter = self.get_iter(path)
+            except ValueError:
+                continue
+            self.row_changed(path, iter)
+
+    def on_playback_state_change(self, event_type, player_obj, track):
+        path = (self.playlist.current_position,)
+        if path < 0 or path >= len(self):
+            return
+        try:
+            iter = self.get_iter(path)
+        except ValueError:
+            return
+        self.row_changed(path, iter)
+
+
+

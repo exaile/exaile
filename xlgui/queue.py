@@ -24,127 +24,58 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-"""
-    Queue manager dialog
-"""
-from copy import copy
-import logging
-from operator import itemgetter
-import os
-
 import gtk
 
-import xl.event
-from xl import xdg
 from xl.nls import gettext as _
+from xl import providers
 from xlgui import main, playlist
+from xlgui.widgets import menu
+from xlgui.widgets.notebook import NotebookPage
 
-LOG = logging.getLogger('exaile.xlgui.queue')
 
-class QueueManager(object):
 
-    """
-        GUI to manage a queue
-    """
+def __create_queue_tab_context_menu():
+    smi = menu.simple_menu_item
+    sep = menu.simple_separator
+    items = []
+    items.append(smi('clear', [], _("Clear"), 'gtk-clear',
+        lambda w, n, o, c: o.playlist.clear()))
+    items.append(sep('tab-close-sep', ['clear']))
+    items.append(smi('tab-close', ['tab-close-sep'], _("Close"), 'gtk-close',
+        lambda w, n, o, c: o.tab.close()))
+    for item in items:
+        providers.register('queue-tab-context', item)
+__create_queue_tab_context_menu()
 
-    def __init__(self, parent, queue):
-        self._queue = queue
 
-        self.builder = gtk.Builder()
-        self.builder.add_from_file(
-            xdg.get_data_path(os.path.join('ui', 'queue_dialog.ui')))
+class QueuePage(gtk.VBox, NotebookPage):
+    menu_provider_name = 'playlist-tab-context'
+    def __init__(self):
+        gtk.VBox.__init__(self)
+        NotebookPage.__init__(self)
 
-        self._dialog = self.builder.get_object('QueueManagerDialog')
-        self._dialog.set_transient_for(parent)
-        self._dialog.connect('delete-event', self.destroy)
-        self.builder.connect_signals({
-            'on_clear_button_clicked': self.clear,
-            'on_close_button_clicked': self.destroy,
-            })
+        self.swindow = gtk.ScrolledWindow()
+        self.pack_start(self.swindow, True, True)
 
-        self._playlist = Queue(main.mainwindow(), queue)
-        self._playlist.scroll.set_shadow_type(gtk.SHADOW_ETCHED_IN)
-        box = self.builder.get_object('queue_box')
-        box.pack_start(self._playlist)
+        self.view = playlist.PlaylistView(player.QUEUE)
+        self.swindow.add(self.view)
 
-    def show(self):
-        """
-            Displays this window
-        """
-        self._dialog.show_all()
+        self.show_all()
 
-    def run(self):
-        return self._dialog.run()
+    ## NotebookPage API ##
 
-    def destroy(self, *e):
-        """
-            Destroys this window
-        """
-        main.mainwindow().queue_playlist_draw()
-        self._dialog.hide()
+    def get_name(self):
+        return "Queue (%s)"%len(player.QUEUE)
 
-    def clear(self, button, *userparams):
-        self._queue.clear()
+    def handle_close(self):
+        return False
 
-class Queue(playlist.Playlist):
-    """
-        Custom playlist for queue management
-    """
-    def __init__(self, main, queue):
-        playlist.Playlist.__init__(self, main, queue, queue,
-            column_ids=['tracknumber', 'title', 'artist'])
+    def set_tab(self, tab):
+        NotebookPage.set_tab(self, tab)
+        tab.set_closable(False)
 
-    def setup_playlist(self, playlist):
-        """
-            Prepares the internal playlist
-        """
-        self.playlist = playlist
+    ## End NotebookPage ##
 
-    def _setup_column_menus(self):
-        """
-            Override to prevent menu setup
-        """
-        pass
 
-    def on_row_activated(self, *e):
-        """
-            Override to prevent playback
-            of activated rows
-        """
-        pass
-
-    def button_press(self, button, event):
-        """
-            Override to prevent context menu
-        """
-        pass
-
-    def column_changed(self, *e):
-        """
-            Override to prevent action on
-            column reordering
-        """
-        pass
-
-    def set_sort_by(self, column):
-        """
-            Override to prevent setting
-            the sort column
-        """
-        pass
-
-    def set_column_width(self, column, *e):
-        """
-            Override to prevent setting
-            the column width
-        """
-        pass
-
-    def press_header(self, widget, event):
-        """
-            Override to prevent context menu
-            of playlist headers
-        """
-        pass
 
 # vim: et sw=4 st=4

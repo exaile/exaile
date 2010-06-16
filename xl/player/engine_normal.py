@@ -200,7 +200,7 @@ class NormalPlayer(_base.ExailePlayer):
         playing = self.is_playing()
 
         if not playing:
-            event.log_event_sync('playback_reconfigure_bins', self, None)
+            event.log_event('playback_reconfigure_bins', self, None)
 
         self._current = track
 

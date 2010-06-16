@@ -845,17 +845,17 @@ class MainWindow(gobject.GObject):
         """
             Called when the play button is clicked
         """
-        if self.player.is_paused() or self.player.is_playing():
-            self.player.toggle_pause()
+        if player.PLAYER.is_paused() or player.PLAYER.is_playing():
+            player.PLAYER.toggle_pause()
         else:
             pl = self.get_selected_playlist()
-            self.queue.set_current_playlist(pl.playlist)
-            if pl:
-                track = pl.get_selected_track()
-                if track:
-                    pl.playlist.set_current_pos(
-                        pl.playlist.index(track))
-            self.queue.play()
+            player.QUEUE.set_current_playlist(pl.playlist)
+            try:
+                trackpath = pl.view.get_selected_paths()[0]
+                pl.playlist.current_position = trackpath[0]
+            except IndexError:
+                pass
+            player.QUEUE.play(track=pl.playlist.current)
 
     def _setup_position(self):
         """

@@ -41,75 +41,49 @@ class BinaryData(str): pass
 class UnknownData: pass
 
 class Ebml:
-    DefaultBuffer = 65536
-    FlushBuffer = 65536
+    """EBML parser.
 
-    ## Constructor
+    Usage: Ebml(path, tags).parse()
+    tags is a dictionary of the form { id: (name, type) }.
+    """
 
-    def __init__(self, filename, tags):
-        self.filename = filename
+    ## Constructor and destructor
+
+    def __init__(self, path, tags):
         self.tags = tags
 
-        self.buffersize = self.DefaultBuffer
-        self.buffer = ''
-        self.bufferpos = 0
+        self.open(path)
 
-        self.filehandle = f = open(filename, 'rb')
+        self.seek(0, 2)
+        self.filesize = self.tell()
+        self.seek(0, 0)
 
-        f.seek(0, 2)
-        self.filesize = f.tell()
-        f.seek(0, 0)
+    def __del__(self):
+        self.close()
 
-    ## File access
+    ## File access.
+    ## These can be overridden to provide network support.
 
-    def readToBuffer(self):
-        temp = self.filehandle.read(self.buffersize)
-        self.buffer += temp
-        return len(temp)
+    def open(self, path):
+        self.file = f = open(path, 'rb')
+        return f
 
-    def flush(self):
-        if self.bufferpos >= self.FlushBuffer:
-            # XXX: Is this just self.buffer = '' ?
-            self.buffer = self.buffer[self.bufferpos:]
-            self.bufferpos = 0
-
-    def seek(self, offset, relative=False):
-        bufferEnd = self.filehandle.tell()
-        bufferBegin = bufferEnd - len(self.buffer)
-        outsideTell = bufferBegin + self.bufferpos
-        absOffset = offset
-        if relative:
-            absOffset += outsideTell
-        if absOffset >= bufferBegin and absOffset < bufferEnd:
-            # The requested position is within the buffer
-            self.bufferpos = absOffset - bufferBegin
-        else:
-            # Buffer is of no use any more
-            self.bufferpos = 0
-            self.buffer = ''
-            self.filehandle.seek(absOffset)
+    def seek(self, offset, mode):
+        self.file.seek(offset, mode)
 
     def tell(self):
-        # Same as standard tell()
-        return self.filehandle.tell() - len(self.buffer) + self.bufferpos
+        return self.file.tell()
+
+    def read(self, length):
+        return self.file.read(length)
+
+    def close(self):
+        self.file.close()
 
     ## Element reading
 
-    def readBytes(self, length):
-        while self.bufferpos + length > len(self.buffer):
-            # The buffer is not long enough to return the amount of stuff requested; make it longer!
-            if not self.readToBuffer():
-                break
-                #die "ERROR: Can't read past end of file";
-                #return '';
-        # The buffer is now long enough to grab the thigie out of
-        returnThis = self.buffer[self.bufferpos : (self.bufferpos + length)]
-        self.bufferpos += length
-        self.flush()
-        return returnThis
-
     def readSize(self):
-        b1 = self.readBytes(1)
+        b1 = self.read(1)
         b1b = ord(b1)
         if b1b & 0x80:
             # 1 byte
@@ -117,35 +91,35 @@ class Ebml:
         elif b1b & 0x40:
             # 2 bytes
             # JS: BE-ushort
-            return unpack(">H", chr(0x40 ^ b1b) + self.readBytes(1))[0]
+            return unpack(">H", chr(0x40 ^ b1b) + self.read(1))[0]
         elif b1b & 0x20:
             # 3 bytes
             # JS: BE-ulong
-            return unpack(">L", "\0" + chr(0x20 ^ b1b) + self.readBytes(2))[0]
+            return unpack(">L", "\0" + chr(0x20 ^ b1b) + self.read(2))[0]
         elif b1b & 0x10:
             # 4 bytes
             # JS: BE-ulong
-            return unpack(">L", chr(0x10 ^ b1b) + self.readBytes(3))[0]
+            return unpack(">L", chr(0x10 ^ b1b) + self.read(3))[0]
         elif b1b & 0x08:
             # 5 bytes
             # JS: uchar BE-ulong. We change this to BE uchar ulong.
-            high, low = unpack(">BL", chr(0x08 ^ b1b) + self.readBytes(4))
+            high, low = unpack(">BL", chr(0x08 ^ b1b) + self.read(4))
             return high * 4294967296 + low
         elif b1b & 0x04:
             # 6 bytes
             # JS: BE-slong BE-ulong
-            high, low = unpack(">HL", chr(0x04 ^ b1b) + self.readBytes(5))
+            high, low = unpack(">HL", chr(0x04 ^ b1b) + self.read(5))
             return high * 4294967296 + low
         elif b1b & 0x02:
             # 7 bytes
             # JS: BE-ulong BE-ulong
             high, low = unpack(">LL",
-                    "\0" + chr(0x02 ^ b1b) + self.readBytes(6))
+                    "\0" + chr(0x02 ^ b1b) + self.read(6))
             return high * 4294967296 + low
         elif b1b & 0x01:
             # 8 bytes
             # JS: BE-ulong BE-ulong
-            high, low = unpack(">LL", chr(0x01 ^ b1b) + self.readBytes(7))
+            high, low = unpack(">LL", chr(0x01 ^ b1b) + self.read(7))
             return high * 4294967296 + low
         else:
             raise EbmlException(
@@ -154,31 +128,31 @@ class Ebml:
     def readInteger(self, length):
         if length == 1:
             # 1 byte
-            return ord(self.readBytes(1))
+            return ord(self.read(1))
         elif length == 2:
             # 2 bytes
-            return unpack(">H", self.readBytes(2))[0]
+            return unpack(">H", self.read(2))[0]
         elif length == 3:
             # 3 bytes
-            return unpack(">L", "\0" + self.readBytes(3))[0]
+            return unpack(">L", "\0" + self.read(3))[0]
         elif length == 4:
             # 4 bytes
-            return unpack(">L", self.readBytes(4))[0]
+            return unpack(">L", self.read(4))[0]
         elif length == 5:
             # 5 bytes
-            high, low = unpack(">BL", self.readBytes(5))
+            high, low = unpack(">BL", self.read(5))
             return high * 4294967296 + low
         elif length == 6:
             # 6 bytes
-            high, low = unpack(">HL", self.readBytes(6))
+            high, low = unpack(">HL", self.read(6))
             return high * 4294967296 + low
         elif length == 7:
             # 7 bytes
-            high, low = unpack(">LL", "\0" + (self.readBytes(7)))
+            high, low = unpack(">LL", "\0" + (self.read(7)))
             return high * 4294967296 + low
         elif length == 8:
             # 8 bytes
-            high, low = unpack(">LL", self.readBytes(8))
+            high, low = unpack(">LL", self.read(8))
             return high * 4294967296 + low
         else:
             raise EbmlException(
@@ -188,10 +162,10 @@ class Ebml:
         # Need to reverse the bytes for little-endian machines
         if length == 4:
             # single
-            return unpack('@f', self.readBytes(4)[::-1])[0]
+            return unpack('@f', self.read(4)[::-1])[0]
         elif length == 8:
             # double
-            return unpack('@d', self.readBytes(8)[::-1])[0]
+            return unpack('@d', self.read(8)[::-1])[0]
         elif length == 10:
             # extended (don't know how to handle it)
             return 'EXTENDED'
@@ -199,20 +173,20 @@ class Ebml:
             raise EbmlException("don't know how to read %d-byte float" % length)
 
     def readID(self):
-        b1 = self.readBytes(1)
+        b1 = self.read(1)
         b1b = ord(b1)
         if b1b & 0x80:
             # 1 byte
             return b1b & 0x7f
         elif b1b & 0x40:
             # 2 bytes
-            return unpack(">H", chr(0x40 ^ b1b) + self.readBytes(1))[0]
+            return unpack(">H", chr(0x40 ^ b1b) + self.read(1))[0]
         elif b1b & 0x20:
             # 3 bytes
-            return unpack(">L", "\0" + chr(0x20 ^ b1b) + self.readBytes(2))[0]
+            return unpack(">L", "\0" + chr(0x20 ^ b1b) + self.read(2))[0]
         elif b1b & 0x10:
             # 4 bytes
-            return unpack(">L", chr(0x10 ^ b1b) + self.readBytes(3))[0]
+            return unpack(">L", chr(0x10 ^ b1b) + self.read(3))[0]
         else:
             raise EbmlException(
                     "invalid element ID with leading byte 0x%X" % b1b)
@@ -248,11 +222,11 @@ class Ebml:
                     elif type_ is FLOAT:
                         value = self.readFloat(size)
                     elif type_ is STRING:
-                        value = unicode(self.readBytes(size), 'ascii')
+                        value = unicode(self.read(size), 'ascii')
                     elif type_ is UTF8:
-                        value = unicode(self.readBytes(size), 'utf-8')
+                        value = unicode(self.read(size), 'utf-8')
                     elif type_ is BINARY:
-                        value = BinaryData(self.readBytes(size))
+                        value = BinaryData(self.read(size))
                     else:
                         assert False
                 except (EbmlException, UnicodeDecodeError), e:

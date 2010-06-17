@@ -1287,7 +1287,7 @@ class SmartPlaylist(object):
 
 
         pl = Playlist(name=self.name)
-        pl.add_tracks(trs)
+        pl.extend(trs)
 
         return pl
 

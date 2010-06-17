@@ -554,12 +554,12 @@ class MainWindow(gobject.GObject):
         ## Playlist Panel
         panel = panels['playlists']
         panel.connect('playlist-selected',
-            lambda panel, playlist: self.add_playlist(playlist))
+            lambda panel, playlist: self.playlist_notebook.create_tab_from_playlist(playlist))
 
         ## Radio Panel
         panel = panels['radio']
         panel.connect('playlist-selected',
-            lambda panel, playlist: self.add_playlist(playlist))
+            lambda panel, playlist: self.playlist_notebook.create_tab_from_playlist(playlist))
 
         ## Files Panel
         panel = panels['files']

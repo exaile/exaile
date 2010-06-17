@@ -444,12 +444,13 @@ class PlaylistPage(gtk.VBox, NotebookPage):
 
 
 
-class PlaylistView(gtk.TreeView):
+class PlaylistView(gtk.TreeView, providers.ProviderHandler):
     default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
     base_sort_tags = ['artist', 'date', 'album', 'discnumber',
             'tracknumber', 'title']
     def __init__(self, playlist):
         gtk.TreeView.__init__(self)
+        providers.ProviderHandler.__init__(self, 'playlist-columns')
         self.playlist = playlist
         self.model = PlaylistModel(playlist, self.default_columns)
         self.menu = PlaylistContextMenu(self)
@@ -750,6 +751,12 @@ class PlaylistView(gtk.TreeView):
         if tracks:
             dialog = properties.TrackPropertiesDialog(None,
                     tracks, selected)
+
+    def on_provider_removed(self, provider):
+        """
+            Called when a column provider is removed
+        """
+        self._refresh_columns()
 
 class PlaylistModel(gtk.GenericTreeModel):
     def __init__(self, playlist, columns):

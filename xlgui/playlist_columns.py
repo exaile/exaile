@@ -154,6 +154,12 @@ class Column(gtk.TreeViewColumn):
         return '%s(%s, %s, %s)' % (self.__class__.__name__,
             `self.name`, `self.display`, `self.size`)
 
+class TestColumn(Column):
+    name = 'test'
+    display = 'TEST'
+    size = 100
+    autoexpand = True
+
 class TrackNumberColumn(Column):
     name = 'tracknumber'
     #TRANSLATORS: Title of the track number column

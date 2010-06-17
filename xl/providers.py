@@ -145,7 +145,7 @@ class ProviderHandler(object):
 
     def on_provider_added(self, provider):
         """
-            Called when a new provider is added.
+            Called when a new provider is added
 
             :param provider: the new provider
             :type provider: object
@@ -161,7 +161,7 @@ class ProviderHandler(object):
 
     def on_provider_removed(self, provider):
         """
-            Called when a provider is removed.
+            Called when a provider is removed
 
             :param provider: the removed provider
             :type provider: object
@@ -170,7 +170,7 @@ class ProviderHandler(object):
 
     def get_providers(self):
         """
-            Returns a list of providers for this service.
+            Returns a list of providers for this service
 
             :returns: list of providers
             :rtype: list of objects
@@ -181,7 +181,8 @@ class ProviderHandler(object):
         """
             Returns a provider for this service.
 
-            :param providername: The provider name to identify the provider
+            :param providername: The provider name to
+                identify the provider
             :type providername: string
             :returns: A provider or None
             :rtype: object

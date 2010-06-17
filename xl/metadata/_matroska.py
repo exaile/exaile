@@ -31,6 +31,7 @@
 # revision 858 (2004-10-03), under "/trunk/Perl.Parser/MatroskaParser.pm".
 
 
+import sys
 from struct import unpack
 
 SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
@@ -43,20 +44,15 @@ class UnknownData: pass
 class Ebml:
     """EBML parser.
 
-    Usage: Ebml(path, tags).parse()
+    Usage: Ebml(location, tags).parse()
     tags is a dictionary of the form { id: (name, type) }.
     """
 
     ## Constructor and destructor
 
-    def __init__(self, path, tags):
+    def __init__(self, location, tags):
         self.tags = tags
-
-        self.open(path)
-
-        self.seek(0, 2)
-        self.filesize = self.tell()
-        self.seek(0, 0)
+        self.open(location)
 
     def __del__(self):
         self.close()
@@ -64,9 +60,13 @@ class Ebml:
     ## File access.
     ## These can be overridden to provide network support.
 
-    def open(self, path):
-        self.file = f = open(path, 'rb')
-        return f
+    def open(self, location):
+        """Open a location and set self.size."""
+        self.file = f = open(location, 'rb')
+        f = self.file
+        f.seek(0, 2)
+        self.size = f.tell()
+        f.seek(0, 0)
 
     def seek(self, offset, mode):
         self.file.seek(offset, mode)
@@ -156,7 +156,7 @@ class Ebml:
             return high * 4294967296 + low
         else:
             raise EbmlException(
-                    "don't know how to read %d-byte integer" % length)
+                    "don't know how to read %r-byte integer" % length)
 
     def readFloat(self, length):
         # Need to reverse the bytes for little-endian machines
@@ -170,7 +170,7 @@ class Ebml:
             # extended (don't know how to handle it)
             return 'EXTENDED'
         else:
-            raise EbmlException("don't know how to read %d-byte float" % length)
+            raise EbmlException("don't know how to read %r-byte float" % length)
 
     def readID(self):
         b1 = self.read(1)
@@ -194,8 +194,13 @@ class Ebml:
     ## Parsing
 
     def parse(self, from_=0, to=None):
+        """Parses EBML from `from_` to `to`.
+
+        Note that not all streams support seeking backwards, so prepare to handle
+        an exception if you try to parse from arbitrary position.
+        """
         if to is None:
-            to = self.filesize
+            to = self.size
         self.seek(from_, 0)
         node = {}
         # Iterate over current node's children.
@@ -205,7 +210,7 @@ class Ebml:
             except EbmlException, e:
                 # Invalid EBML header. We can't reliably get any more data from
                 # this level, so just return anything we have.
-                print "ERROR:", e
+                print >>sys.stderr, "ERROR:", e
                 return node
             size = self.readSize()
             try:
@@ -230,13 +235,54 @@ class Ebml:
                     else:
                         assert False
                 except (EbmlException, UnicodeDecodeError), e:
-                    print "WARNING:", e
+                    print >>sys.stderr, "WARNING:", e
                 try:
                     parentval = node[key]
                 except KeyError:
                     parentval = node[key] = []
                 parentval.append(value)
         return node
+
+
+## GIO-specific code
+
+import gio
+
+class GioEbml(Ebml):
+    # NOTE: All seeks are faked using InputStream.skip because we need to use
+    # BufferedInputStream but it does not implement Seekable.
+
+    def open(self, location):
+        f = gio.File(location)
+        self.buffer = gio.BufferedInputStream(f.read())
+        self._tell = 0
+
+        self.size = f.query_info('standard::size').get_size()
+
+    def seek(self, offset, mode):
+        if mode == 0:
+            skip = offset - self._tell
+        elif mode == 1:
+            skip = offset
+        elif mode == 2:
+            skip = self.size - self._tell + offset
+        else:
+            raise ValueError("invalid seek mode: %r" % offset)
+        if skip < 0:
+            raise gio.Error("cannot seek backwards from %d" % self._tell)
+        self._tell += skip
+        self.buffer.skip(skip)
+
+    def tell(self):
+        return self._tell
+
+    def read(self, length):
+        result = self.buffer.read(length)
+        self._tell += len(result)
+        return result
+
+    def close(self):
+        self.buffer.close()
 
 
 ## Matroska-specific code
@@ -330,16 +376,16 @@ MatroskaTags = {
     0x0485: ('TagBinary', BINARY),
 }
 
-def parse(path):
-    return Ebml(path, MatroskaTags).parse()
+def parse(location):
+    return GioEbml(location, MatroskaTags).parse()
 
-def dump(path):
+def dump(location):
     from pprint import pprint
-    pprint(parse(path))
+    pprint(parse(location))
 
-def dump_tags(path):
+def dump_tags(location):
     from pprint import pprint
-    mka = parse(path)
+    mka = parse(location)
     segment = mka['Segment'][0]
     info = segment['Info'][0]
     length = info['Duration'][0] * info['TimecodeScale'][0] / 1e9
@@ -347,8 +393,16 @@ def dump_tags(path):
     pprint(segment['Tags'][0]['Tag'])
 
 if __name__ == '__main__':
-    from sys import argv
-    dump_tags(argv[1])
+    import sys
+    location = sys.argv[1]
+    if sys.platform == 'win32' and '://' not in location:
+        # XXX: This is most likely a bug in the Win32 GIO port; it converts
+        # paths into UTF-8 and requires them to be specified in UTF-8 as well.
+        # Here we decode the path according to the FS encoding to get the
+        # Unicode representation first. If the path is in a different encoding,
+        # this step will fail.
+        location = location.decode(sys.getfilesystemencoding()).encode('utf-8')
+    dump_tags(location)
 
 
 # vi: et sts=4 sw=4 ts=4

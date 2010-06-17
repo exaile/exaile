@@ -29,7 +29,14 @@ import gio
 import gtk
 import pango
 
-from xl import event, settings, providers
+from xl import (
+    common,
+    event,
+    player,
+    settings,
+    providers
+)
+from xl.common import classproperty
 from xl.formatter import TrackFormatter
 from xl.nls import gettext as _
 from xlgui import icons
@@ -37,17 +44,12 @@ from xlgui.widgets import rating, menu
 
 logger = logging.getLogger(__name__)
 
-"""
-    If you want to add a column to the Playlist object, or to the view columns
-    menu(s), you just define the class here and have it inherit from "Column".
-    The rest will be done automatically
-"""
-
-# various column definitions
 class Column(gtk.TreeViewColumn):
-    id = ''
+    name = ''
     display = ''
+    menu_title = classproperty(lambda c: c.display)
     renderer = gtk.CellRendererText
+    formatter = classproperty(lambda c: TrackFormatter('$%s' % c.name))
     size = 10 # default size
     autoexpand = False # whether to expand to fit space in Autosize mode
     datatype = str
@@ -55,13 +57,15 @@ class Column(gtk.TreeViewColumn):
     cellproperties = {}
 
     def __init__(self, container, index):
-        self.container = container
         if self.__class__ == Column:
             raise NotImplementedError("Can't instantiate "
-                "abstract class %s"%repr(self.__class__))
-        self.settings_width_name = "gui/col_width_%s"%self.id
-        self.cellr = self.renderer()
+                "abstract class %s" % repr(self.__class__))
+
+        self.container = container
+        self.settings_width_name = "gui/col_width_%s" % self.name
+        self.cellrenderer = self.renderer()
         self.extrasize = 0
+
         if index == 2:
             gtk.TreeViewColumn.__init__(self, self.display)
             icon_cellr = gtk.CellRendererPixbuf()
@@ -73,19 +77,22 @@ class Column(gtk.TreeViewColumn):
             icon_cellr.set_property('xalign', 0.0)
             self.extrasize = pbufsize
             self.pack_start(icon_cellr, False)
-            self.pack_start(self.cellr, True)
+            self.pack_start(self.cellrenderer, True)
             self.set_attributes(icon_cellr, pixbuf=1)
-            self.set_attributes(self.cellr, **{self.dataproperty: index})
+            self.set_attributes(self.cellrenderer, **{self.dataproperty: index})
         else:
-            gtk.TreeViewColumn.__init__(self, self.display, self.cellr,
+            gtk.TreeViewColumn.__init__(self, self.display, self.cellrenderer,
                 **{self.dataproperty: index})
-        self.set_cell_data_func(self.cellr, self.data_func)
+        self.set_cell_data_func(self.cellrenderer, self.data_func)
+
         try:
-            self.cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
-        except TypeError: #cellr doesn't do ellipsize - eg. rating
+            self.cellrenderer.set_property('ellipsize', pango.ELLIPSIZE_END)
+        except TypeError: #cellrenderer doesn't do ellipsize - eg. rating
             pass
+
         for name, val in self.cellproperties.iteritems():
-            self.cellr.set_property(name, val)
+            self.cellrenderer.set_property(name, val)
+
         self.set_reorderable(True)
         self.set_clickable(True)
         self.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED) # needed for fixed-height mode
@@ -107,7 +114,7 @@ class Column(gtk.TreeViewColumn):
             self.setup_sizing()
 
     def on_width_changed(self, column, wid):
-        if not self.container.button_held:
+        if not self.container.button_pressed:
             return
         width = self.get_width()
         if width != settings.get_option(self.settings_width_name, -1):
@@ -129,80 +136,104 @@ class Column(gtk.TreeViewColumn):
                 self.set_expand(False)
                 self.set_fixed_width(self.size+self.extrasize)
 
-    @classmethod
-    def get_formatter(cls):
-        return TrackFormatter('$%s'%cls.id)
-
     def data_func(self, col, cell, model, iter):
         if type(cell) == gtk.CellRendererText:
-            self.container.set_cell_weight(cell, iter)
+            path = model.get_path(iter)
+            track = model.get_value(iter, 0)
+
+            if track == player.PLAYER.current and \
+               path == self.container.playlist.get_current_position() and \
+               self.container.playlist == player.QUEUE.current_playlist:
+                weight = pango.WEIGHT_HEAVY
+            else:
+                weight = pango.WEIGHT_NORMAL
+
+            cell.set_property('weight', weight)
 
     def __repr__(self):
         return '%s(%s, %s, %s)' % (self.__class__.__name__,
-            `self.id`, `self.display`, `self.size`)
-
-
+            `self.name`, `self.display`, `self.size`)
 
 class TrackNumberColumn(Column):
-    size = 30
+    name = 'tracknumber'
     #TRANSLATORS: Title of the track number column
     display = _('#')
-    id = 'tracknumber'
+    menu_title = _('Track Number')
+    size = 30
     cellproperties = {'xalign': 1.0, 'width-chars': 4}
+providers.register('playlist-columns', TrackNumberColumn)
 
 class TitleColumn(Column):
-    size = 200
+    name = 'title'
     display = _('Title')
-    id = 'title'
+    size = 200
     autoexpand = True
+providers.register('playlist-columns', TitleColumn)
 
 class ArtistColumn(Column):
-    size = 150
+    name = 'artist'
     display = _('Artist')
-    id = 'artist'
+    size = 150
     autoexpand = True
+providers.register('playlist-columns', ArtistColumn)
 
 class ComposerColumn(Column):
-    size = 150
+    name = 'composer'
     display = _('Composer')
-    id = 'composer'
+    size = 150
     autoexpand = True
+providers.register('playlist-columns', ComposerColumn)
 
 class AlbumColumn(Column):
-    size = 150
+    name = 'album'
     display = _('Album')
-    id = 'album'
+    size = 150
     autoexpand = True
+providers.register('playlist-columns', AlbumColumn)
 
 class LengthColumn(Column):
-    size = 70
+    name = '__length'
     display = _('Length')
-    id = '__length'
+    size = 70
     cellproperties = {'xalign': 1.0}
+providers.register('playlist-columns', LengthColumn)
 
 class DiscNumberColumn(Column):
-    size = 40
+    name = 'discnumber'
     display = _('Disc')
-    id = 'discnumber'
+    menu_title = _('Disc Number')
+    size = 40
     cellproperties = {'xalign': 1.0, 'width-chars': 2}
+providers.register('playlist-columns', DiscNumberColumn)
 
 class RatingColumn(Column):
+    name = '__rating'
     display = _('Rating')
     renderer = rating.RatingCellRenderer
-    id = '__rating'
     datatype = int
     dataproperty = 'rating'
     cellproperties = {'follow-state': False}
-    size = settings.get_option('rating/maximum', 5) * 16 + 2
+
     def __init__(self, *args):
         Column.__init__(self, *args)
-        self.cellr.connect('rating-changed', self.on_rating_changed)
+        self.cellrenderer.connect('rating-changed', self.on_rating_changed)
         self.saved_model = None
 
     def data_func(self, col, cell, model, iter):
         track = model.get_value(iter, 0)
         cell.props.rating = track.get_rating()
         self.saved_model = model
+
+    def __get_size(self):
+        """
+            Retrieves the optimal size
+        """
+        size = icons.MANAGER.pixbuf_from_rating(0).get_width()
+        size += 2 # FIXME: Find the source of this
+
+        return size
+
+    size = property(__get_size)
 
     def on_rating_changed(self, widget, path, rating):
         """
@@ -218,118 +249,136 @@ class RatingColumn(Column):
         track.set_rating(rating)
         maximum = settings.get_option('rating/maximum', 5)
         event.log_event('rating_changed', self, rating / maximum * 100)
+providers.register('playlist-columns', RatingColumn)
 
 class DateColumn(Column):
-    size = 50
+    name = 'date'
     display = _('Date')
-    id = 'date'
+    size = 50
+providers.register('playlist-columns', DateColumn)
 
 class GenreColumn(Column):
-    size = 100
+    name = 'genre'
     display = _('Genre')
-    id = 'genre'
+    size = 100
     autoexpand = True
+providers.register('playlist-columns', GenreColumn)
 
 class BitrateColumn(Column):
-    size = 45
+    name = '__bitrate'
     display = _('Bitrate')
-    id = '__bitrate'
+    size = 45
     cellproperties = {'xalign': 1.0}
+providers.register('playlist-columns', BitrateColumn)
 
 class IoLocColumn(Column):
-    size = 200
+    name = '__loc'
     display = _('Location')
-    id = '__loc'
+    size = 200
     autoexpand = True
+providers.register('playlist-columns', IoLocColumn)
 
 class FilenameColumn(Column):
-    size = 200
+    name = 'filename'
     display = _('Filename')
-    id = 'filename'
+    size = 200
     autoexpand = True
+providers.register('playlist-columns', FilenameColumn)
 
 class PlayCountColumn(Column):
-    size = 50
+    name = '__playcount'
     display = _('Playcount')
-    id = '__playcount'
+    size = 50
     cellproperties = {'xalign': 1.0}
+providers.register('playlist-columns', PlayCountColumn)
 
 class BPMColumn(Column):
-    size = 50
+    name = 'bpm'
     display = _('BPM')
-    id = 'bpm'
+    size = 50
     cellproperties = {'xalign': 1.0}
+providers.register('playlist-columns', BPMColumn)
 
 class LastPlayedColumn(Column):
-    size = 10
+    name = '__last_played'
     display = _('Last played')
-    id = '__last_played'
+    size = 10
+providers.register('playlist-columns', LastPlayedColumn)
 
+def __register_playlist_columns_menuitems():
+    """
+        Registers standard menu items for playlist columns
+    """
+    def is_column_selected(name, parent, context):
+        """
+            Returns whether a menu item should be checked
+        """
+        return name in settings.get_option('gui/columns')
 
+    def is_resizable(name, parent, context):
+        """
+            Returns whether manual or automatic sizing is requested
+        """
+        resizable = settings.get_option('gui/resizable_cols', False)
 
-# this is where everything gets set up, including the menu items
-COLUMNS = {}
-FORMATTERS = {}
-
-items = globals()
-keys = items.keys()
-for key in keys:
-    if 'Column' in key and key != 'Column':
-        item = items[key]
-        COLUMNS[item.id] = item
-        FORMATTERS[item.id] = item.get_formatter()
-
-COLUMNS_BY_DISPLAY = {}
-for col in COLUMNS.values():
-    COLUMNS_BY_DISPLAY[col.display] = col
-
-
-def __create_playlist_columns_menu():
-    cmi = menu.check_menu_item
-    rmi = menu.radio_menu_item
-    sep = menu.simple_separator
-
-    def item_checked_cb(name, parent_obj, parent_context):
-        return name in settings.get_option("gui/columns")
-    def column_item_activated(widget, name, parent_obj, parent_context):
-        cols = settings.get_option("gui/columns")
-        if name not in cols:
-            cols.append(name)
-        else:
-            cols.remove(name)
-        settings.set_option("gui/columns", cols)
-    columns = ['tracknumber', 'title', 'artist', 'album',
-        '__length', 'genre', '__rating', 'date']
-    for key in COLUMNS.keys():
-        if not key in columns:
-            columns.append(key)
-    items = []
-    previous = ['spurious-name-to-start-off-with']
-    for column in columns:
-        col = COLUMNS[column]
-        display = col.display
-        if column == 'tracknumber':
-            display = _('Track Number')
-        elif column == 'discnumber':
-            display = _('Disc Number')
-        items.append(cmi(col.id, previous, display, item_checked_cb, column_item_activated))
-        previous[0] = col.id
-
-    items.append(sep('columns_separator', previous))
-
-    def sizing_selected_cb(name, parent_obj, parent_context):
-        val = settings.get_option("gui/resizable_cols", False)
         if name == 'resizable':
-            return val
+            return resizable
+        elif name == 'autosize':
+            return not resizable
+
+    def on_column_item_activate(menu_item, name, parent_obj, parent_context):
+        """
+            Updates columns setting
+        """
+        columns = settings.get_option('gui/columns')
+
+        if name in columns:
+            columns.remove(name)
         else:
-            return not val
-    def sizing_item_activated(widget, name, parent_obj, parent_context):
-        settings.set_option("gui/resizable_cols", name == "resizable")
-    items.append(rmi('resizable', ['columns_separator'], _("Resizable"), 'column-sizing', sizing_selected_cb, sizing_item_activated))
-    items.append(rmi('autosize', ['resizable'], _("Autosize"), 'column-sizing', sizing_selected_cb, sizing_item_activated))
+            columns.append(name)
 
-    for item in items:
-        providers.register('playlist-columns-menu', item)
-__create_playlist_columns_menu()
+        settings.set_option('gui/columns', columns)
 
+    def on_sizing_item_activate(menu_item, name, parent_obj, parent_context):
+        """
+            Updates column sizing setting
+        """
+        if name == 'resizable':
+            settings.set_option('gui/resizable_cols', True)
+        elif name == 'autosize':
+            settings.set_option('gui/resizable_cols', False)
+
+    columns = ['tracknumber', 'title', 'artist', 'album',
+               '__length', 'genre', '__rating', 'date']
+
+    for provider in providers.get('playlist-columns'):
+        if provider.name not in columns:
+            columns += [provider.name]
+
+    menu_items = []
+    after = 'spurious-name-to-start-off-with'
+
+    for name in columns:
+        column = providers.get_provider('playlist-columns', name)
+        menu_item = menu.check_menu_item(column.name, [after],
+            column.menu_title, is_column_selected, on_column_item_activate)
+        menu_items += [menu_item]
+        after = menu_item.name
+
+    separator_item = menu.simple_separator('columns_separator', [after])
+    menu_items += [separator_item]
+    after = separator_item.name
+
+    sizing_item = menu.radio_menu_item('resizable', [after], _('_Resizable'),
+        'column-sizing', is_resizable, on_sizing_item_activate)
+    menu_items += [sizing_item]
+    after = sizing_item.name
+
+    sizing_item = menu.radio_menu_item('autosize', [after], _('_Autosize'),
+        'column-sizing', is_resizable, on_sizing_item_activate)
+    menu_items += [sizing_item]
+
+    for menu_item in menu_items:
+        providers.register('playlist-columns-menu', menu_item)
+__register_playlist_columns_menuitems()
 

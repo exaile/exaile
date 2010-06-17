@@ -121,6 +121,7 @@ MANAGER = ProviderManager()
 register = MANAGER.register_provider
 unregister = MANAGER.unregister_provider
 get = MANAGER.get_providers
+get_provider = MANAGER.get_provider
 
 class ProviderHandler(object):
     """

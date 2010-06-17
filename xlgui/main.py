@@ -56,11 +56,10 @@ import xl.playlist
 from xlgui import (
     cover,
     guiutil,
-    menu,
     playlist,
     tray
 )
-from xlgui.widgets import dialogs, info, menu as wmenu
+from xlgui.widgets import dialogs, info, menu
 
 logger = logging.getLogger(__name__)
 
@@ -210,7 +209,7 @@ class MainWindow(gobject.GObject):
         self.title_formatter = formatter.TrackFormatter(settings.get_option(
             'gui/main_window_title_format', _('$title (by $artist)')))
 
-        playlist_columns_menu = wmenu.ProviderMenu('playlist-columns-menu', self.window)
+        playlist_columns_menu = menu.ProviderMenu('playlist-columns-menu', self.window)
         builder.get_object('columns_menu').set_submenu(playlist_columns_menu)
 
         if settings.get_option('gui/use_alpha', False):
@@ -226,7 +225,7 @@ class MainWindow(gobject.GObject):
 
         playlist_area = self.builder.get_object('playlist_area')
         self.playlist_notebook = playlist.PlaylistNotebook('saved_tabs')
-        playlist_area.pack_start(self.playlist_notebook)
+        playlist_area.pack_start(self.playlist_notebook, padding=3)
 
         # TODO: move these into SmartNotebook/PlaylistNotebook?
         self.playlist_notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))

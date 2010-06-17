@@ -53,7 +53,7 @@ def simple_menu_item(name, after, display_name, icon_name, callback):
         :param name: Internal name for the item. must be unique within the menu.
         :param after: List of ids which come before this item, this item will
                 be placed after the lowest of these.
-        :param display_name: Name as ito.close is to appear in the menu.
+        :param display_name: Name as is to appear in the menu.
         :param icon_name: Name of the icon to display, or None for no icon.
         :param callback: The function to call when the menu item is activated.
                 signature: callback(widget, name, parent_obj, parent_context)

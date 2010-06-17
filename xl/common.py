@@ -126,6 +126,16 @@ def profileit(func):
         return res
     return wrapper
 
+class classproperty(object):
+    """
+        Decorator allowing for class property access
+    """
+    def __init__(self, function):
+        self.function = function
+
+    def __get__(self, obj, type):
+        return self.function(type)
+
 def escape_xml(text):
     """
         Replaces &, <, and > with their entity references

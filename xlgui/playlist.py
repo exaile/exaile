@@ -454,7 +454,7 @@ class PlaylistView(gtk.TreeView):
         self.model = PlaylistModel(playlist, self.default_columns)
         self.menu = PlaylistContextMenu(self)
         self.dragging = False
-        self.button_held = False    # used by columns to determine whether
+        self.button_pressed = False # used by columns to determine whether
                                     # a notify::width event was initiated
                                     # by the user.
 
@@ -465,8 +465,9 @@ class PlaylistView(gtk.TreeView):
         self.selection.set_mode(gtk.SELECTION_MULTIPLE)
 
         self.set_model(self.model)
-        self.columns_changed_id = 0
         self._setup_columns()
+        self.columns_changed_id = self.connect("columns-changed",
+                self.on_columns_changed)
 
         self.targets = [("exaile-index-list", gtk.TARGET_SAME_WIDGET, 0),
                 ("text/uri-list", 0, 0)]
@@ -489,22 +490,6 @@ class PlaylistView(gtk.TreeView):
         self.connect("drag-data-delete", self.on_drag_data_delete)
         self.connect("drag-end", self.on_drag_end)
         self.connect("drag-motion", self.on_drag_motion)
-
-    def set_cell_weight(self, cell, iter):
-        """
-            Called by columns in playlist_columns to set a CellRendererText's
-            weight property for the playing track.
-        """
-        model = self.get_model()
-        path = model.get_path(iter)
-        track = model.get_value(iter, 0)
-        if track == player.PLAYER.current and \
-                path[0] == self.playlist.get_current_position() and \
-                self.playlist == player.QUEUE.current_playlist:
-            weight = pango.WEIGHT_HEAVY
-        else:
-            weight = pango.WEIGHT_NORMAL
-        cell.set_property('weight', weight)
 
     def get_selected_tracks(self):
         """
@@ -532,6 +517,27 @@ class PlaylistView(gtk.TreeView):
         tracks = [(path[0], model.get_value(model.get_iter(path), 0)) for path in paths]
         return tracks
 
+    def _setup_columns(self):
+        columns = settings.get_option('gui/columns', self.default_columns)
+        provider_names = [p.name for p in providers.get('playlist-columns')]
+        columns = [name for name in columns if name in provider_names]
+
+        if not columns:
+            columns = self.default_columns
+
+        self.model.columns = columns
+
+        for position, column in enumerate(columns):
+            position += 2 # offset for pixbuf column
+            playlist_column = providers.get_provider(
+                'playlist-columns', column)(self, position)
+            playlist_column.connect('clicked', self.on_column_clicked)
+            self.append_column(playlist_column)
+            header = playlist_column.get_widget()
+            header.show()
+            header.get_ancestor(gtk.Button).connect('button-press-event',
+                self.on_header_button_press)
+
     def _refresh_columns(self):
         selection = self.get_selection()
         info = selection.get_selected_rows()
@@ -557,22 +563,6 @@ class PlaylistView(gtk.TreeView):
             for path in info[1]:
                 selection.select_path(path)
 
-    def _setup_columns(self):
-        col_ids = settings.get_option("gui/columns", self.default_columns)
-        col_ids = [col for col in col_ids if col in playlist_columns.COLUMNS]
-        if not col_ids:
-            col_ids = self.default_columns
-        self.model.columns = col_ids
-
-        for position, column in enumerate(col_ids):
-            position += 2 # offset for pixbuf column
-            playlist_column = playlist_columns.COLUMNS[column](self, position)
-            playlist_column.connect('clicked', self.on_column_clicked)
-            self.append_column(playlist_column)
-            header = playlist_column.get_widget()
-            header.show()
-            header.get_ancestor(gtk.Button).connect('button-press-event', self.on_header_button_press)
-
     def on_header_button_press(self, widget, event):
         if event.button == 3:
             m = menu.ProviderMenu('playlist-columns-menu', self)
@@ -580,14 +570,14 @@ class PlaylistView(gtk.TreeView):
             return True
 
     def on_columns_changed(self, widget):
-        columns = [c.id for c in self.get_columns()]
+        columns = [c.name for c in self.get_columns()]
         if columns != settings.get_option('gui/columns', []):
             settings.set_option('gui/columns', columns)
 
     def on_column_clicked(self, column):
         order = None
         for col in self.get_columns():
-            if col.id == column.id:
+            if col.name == column.name:
                 order = column.get_sort_order()
                 if order == gtk.SORT_ASCENDING:
                     order = gtk.SORT_DESCENDING
@@ -599,7 +589,7 @@ class PlaylistView(gtk.TreeView):
                 col.set_sort_indicator(False)
                 col.set_sort_order(gtk.SORT_DESCENDING)
         reverse = order == gtk.SORT_DESCENDING
-        self.playlist.sort([column.id] + self.base_sort_tags, reverse=reverse)
+        self.playlist.sort([column.name] + self.base_sort_tags, reverse=reverse)
 
     def on_option_set(self, typ, obj, data):
         if data == "gui/columns":
@@ -627,7 +617,7 @@ class PlaylistView(gtk.TreeView):
         player.QUEUE.set_current_playlist(self.playlist)
 
     def on_button_press(self, widget, event):
-        self.button_held = True
+        self.button_pressed = True
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
             return True
@@ -650,7 +640,7 @@ class PlaylistView(gtk.TreeView):
         return False
 
     def on_button_release(self, widget, event):
-        self.button_held = False
+        self.button_pressed = False
         if event.button != 1 or self.dragging:
             self.dragging = False
             return True
@@ -817,7 +807,10 @@ class PlaylistModel(gtk.GenericTreeModel):
         elif index == 1:
             return gtk.gdk.Pixbuf
         else:
-            return playlist_columns.COLUMNS[self.columns[index-2]].datatype
+            column = providers.get_provider(
+                'playlist-columns', self.columns[index - 2])
+
+            return column.datatype
 
     def on_get_iter(self, path):
         rowref = path[0]
@@ -852,10 +845,10 @@ class PlaylistModel(gtk.GenericTreeModel):
                 return self.stop_pixbuf
             return self.clear_pixbuf
         else:
-            tagname = self.columns[column-2]
             track = self.playlist[rowref]
-            formatter = playlist_columns.FORMATTERS[tagname]
-            return formatter.format(track)
+            name = self.columns[column - 2]
+            column = providers.get_provider('playlist-columns', name)
+            return column.formatter.format(track)
 
     def on_iter_next(self, rowref):
         rowref = rowref+1

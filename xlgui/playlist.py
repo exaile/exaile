@@ -70,17 +70,31 @@ class PlaylistNotebook(SmartNotebook):
             be automatically given a unique name.
         """
         seen = []
+        default_playlist_name = _('Playlist %d')
+        # Split into 'Playlist ' and ''
+        default_name_parts = default_playlist_name.split('%d')
 
         for n in range(self.get_n_pages()):
             page = self.get_nth_page(n)
             name = page.get_name()
-            if name.startswith('Playlist '):
+            name_parts = [
+                # 'Playlist 99' => 'Playlist '
+                name[0:len(default_name_parts[0])],
+                # 'Playlist 99' => ''
+                name[len(name) - len(default_name_parts[1]):]
+            ]
+
+            # Playlist name matches our format
+            if name_parts == default_name_parts:
+                # Extract possible number between name parts
+                number = name[len(name_parts[0]):len(name) - len(name_parts[1])]
+
                 try:
-                    val = int(name[9:])
-                except:
+                    number = int(number)
+                except ValueError:
                     pass
                 else:
-                    seen.append(val)
+                    seen += [number]
         n = 1
 
         while True:
@@ -88,9 +102,9 @@ class PlaylistNotebook(SmartNotebook):
                 break
             n += 1
 
-        pl = Playlist("Playlist %d"%n)
+        playlist = Playlist(default_playlist_name % n)
 
-        return self.create_tab_from_playlist(pl)
+        return self.create_tab_from_playlist(playlist)
 
     def add_default_tab(self):
         return self.create_new_playlist()

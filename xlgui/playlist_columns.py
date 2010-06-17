@@ -194,7 +194,7 @@ providers.register('playlist-columns', AlbumColumn)
 class LengthColumn(Column):
     name = '__length'
     display = _('Length')
-    size = 70
+    size = 50
     cellproperties = {'xalign': 1.0}
 providers.register('playlist-columns', LengthColumn)
 

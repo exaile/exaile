@@ -25,7 +25,7 @@
 # from your version.
 
 
-import gtk, pango
+import gtk, gobject, pango
 from xl.nls import gettext as _
 from xlgui.widgets import menu
 
@@ -38,7 +38,7 @@ class SmartNotebook(gtk.Notebook):
     def get_current_tab(self):
         return self.get_nth_page(self.get_current_page())
 
-    def add_tab(self, tab, page, position=-1):
+    def add_tab(self, tab, page, position=-1, switch=True):
         """
             Add a tab to the notebook. It will be given focus.
 
@@ -51,7 +51,8 @@ class SmartNotebook(gtk.Notebook):
         """
         self.insert_page(page, tab, position=position)
         self.set_tab_reorderable(page, page.reorderable)
-        self.set_current_page(self.page_num(page))
+        if switch:
+            self.set_current_page(self.page_num(page))
 
     def add_default_tab(self):
         """
@@ -135,6 +136,7 @@ class NotebookTab(gtk.EventBox):
         box.pack_end(button, False, False)
 
         page.set_tab(self)
+        page.connect('name-changed', self.on_name_changed)
         self.show_all()
 
     def set_icon(self, pixbuf):
@@ -192,6 +194,9 @@ class NotebookTab(gtk.EventBox):
             self.end_rename()
             return True
 
+    def on_name_changed(self, *args):
+        self.label.set_text(self.page.get_name())
+
     def start_rename(self):
         """
             Initiates the renaming of a tab, if the page supports this.
@@ -229,7 +234,7 @@ class NotebookTab(gtk.EventBox):
             self.notebook.remove_page(self.notebook.page_num(self.page))
 
 
-class NotebookPage(object):
+class NotebookPage(gtk.VBox):
     """
         Base class representing a page. Should never be used directly.
 
@@ -239,7 +244,15 @@ class NotebookPage(object):
     """
     menu_provider_name = 'tab-context' #override this in subclasses
     reorderable = True
+    __gsignals__ = {
+        'name-changed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            tuple()
+        )
+    }
     def __init__(self):
+        gtk.VBox.__init__(self)
         self.tab = None
         self.tab_menu = menu.ProviderMenu(self.menu_provider_name, self)
 
@@ -275,3 +288,6 @@ class NotebookPage(object):
             the Notebook.
         """
         return self.tab.get_nth_page(self.tab.get_current_page()) == self
+
+    def name_changed(self):
+        self.emit('name-changed')

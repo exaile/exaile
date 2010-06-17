@@ -53,11 +53,14 @@ class PlaylistNotebook(SmartNotebook):
         self.load_saved_tabs()
         self.queuepage = queue.QueuePage()
         self.queuetab = NotebookTab(self, self.queuepage)
+        if len(player.QUEUE) > 0:
+            self.show_queue()
 
-    def show_queue(self):
+    def show_queue(self, switch=True):
         if self.queuepage not in self.get_children():
             self.add_tab(self.queuetab, self.queuepage, position=0)
-        self.set_current_page(self.page_num(self.queuepage)) # should always be 0, but doesn't hurt to be safe...
+        if switch:
+            self.set_current_page(self.page_num(self.queuepage)) # should always be 0, but doesn't hurt to be safe...
 
     def create_tab_from_playlist(self, playlist):
         """
@@ -174,8 +177,12 @@ class PlaylistNotebook(SmartNotebook):
             logger.debug("Removing tab %s" % name)
             self.tab_manager.remove_playlist(name)
 
+        # TODO: make this generic enough to save other kinds of tabs
         for i in range(self.get_n_pages()):
-            pl = self.get_nth_page(i).playlist
+            page = self.get_nth_page(i)
+            if not isinstance(page, PlaylistPage):
+                continue
+            pl = page.playlist
             tag = ''
             if pl is player.QUEUE.current_playlist:
                 tag = 'playing'
@@ -232,7 +239,7 @@ def __create_playlist_context_menu():
     sep = menu.simple_separator
     items = []
     items.append(smi('append-queue', [], _("Append to Queue"), 'gtk-add',
-            lambda w, n, o, c: player.QUEUE.add_tracks(
+            lambda w, n, o, c: player.QUEUE.extend(
             [t[1] for t in c['selected-tracks']])))
     def toggle_spat_cb(widget, name, playlistpage, context):
         position = context['selected-tracks'][0][0]
@@ -266,7 +273,7 @@ def __create_playlist_context_menu():
 __create_playlist_context_menu()
 
 
-class PlaylistPage(gtk.VBox, NotebookPage):
+class PlaylistPage(NotebookPage):
     """
         Displays a playlist and associated controls.
     """
@@ -276,7 +283,6 @@ class PlaylistPage(gtk.VBox, NotebookPage):
             :param playlist: The :class:`xl.playlist.Playlist` to display
                 in this page.
         """
-        gtk.VBox.__init__(self)
         NotebookPage.__init__(self)
 
         self.playlist = playlist

@@ -27,7 +27,7 @@
 import gtk
 
 from xl.nls import gettext as _
-from xl import providers, player
+from xl import providers, player, event
 from xlgui.widgets import menu
 from xlgui.widgets.notebook import NotebookPage
 
@@ -46,20 +46,32 @@ def __create_queue_tab_context_menu():
         providers.register('queue-tab-context', item)
 __create_queue_tab_context_menu()
 
-class QueuePage(gtk.VBox, NotebookPage):
+class QueuePage(NotebookPage):
     menu_provider_name = 'queue-tab-context'
     def __init__(self):
-        gtk.VBox.__init__(self)
         NotebookPage.__init__(self)
 
         self.swindow = gtk.ScrolledWindow()
+        self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.pack_start(self.swindow, True, True)
 
         from xlgui import playlist # avoid circular import
         self.view = playlist.PlaylistView(player.QUEUE)
         self.swindow.add(self.view)
 
+        event.add_callback(self.on_length_changed, "playlist_tracks_added", player.QUEUE)
+        event.add_callback(self.on_length_changed, "playlist_tracks_removed", player.QUEUE)
+
         self.show_all()
+
+    def on_length_changed(self, *args):
+        self.name_changed()
+        if len(player.QUEUE) == 0:
+            self.tab.set_closable(True)
+        else:
+            self.tab.notebook.show_queue(switch=False)
+            self.tab.set_closable(False)
+
 
     ## NotebookPage API ##
 
@@ -67,7 +79,7 @@ class QueuePage(gtk.VBox, NotebookPage):
         return "Queue (%s)"%len(player.QUEUE)
 
     def handle_close(self):
-        return False
+        return len(player.QUEUE) == 0
 
     def set_tab(self, tab):
         NotebookPage.set_tab(self, tab)

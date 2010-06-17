@@ -245,7 +245,7 @@ def __create_playlist_context_menu():
         # maximum speed.
         positions = [t[0] for t in tracks]
         if positions == range(positions[0], positions[0]+len(positions)):
-            del playlist[positions[0]:positions[0]+len(positions)+1]
+            del playlist[positions[0]:positions[0]+len(positions)]
         else:
             for position, track in tracks[::-1]:
                 del playlist[position]

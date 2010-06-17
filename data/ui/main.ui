@@ -384,7 +384,7 @@
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkAlignment" id="alignment1">
-                        <property name="width_request">3</property>
+                        <property name="width_request">6</property>
                         <property name="visible">True</property>
                         <child>
                           <placeholder/>

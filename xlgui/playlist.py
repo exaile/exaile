@@ -36,7 +36,7 @@ from xl.nls import gettext as _
 
 from xl import (common, event, player, providers, settings, trax, xdg)
 from xl.playlist import Playlist, PlaylistManager
-from xlgui import guiutil, icons
+from xlgui import guiutil, icons, queue
 import playlist_columns
 from xl.common import MetadataList
 from xlgui.widgets.notebook import SmartNotebook, NotebookPage, NotebookTab
@@ -51,6 +51,13 @@ class PlaylistNotebook(SmartNotebook):
         SmartNotebook.__init__(self)
         self.tab_manager = PlaylistManager(manager_name)
         self.load_saved_tabs()
+        self.queuepage = queue.QueuePage()
+        self.queuetab = NotebookTab(self, self.queuepage)
+
+    def show_queue(self):
+        if self.queuepage not in self.get_children():
+            self.add_tab(self.queuetab, self.queuepage, position=0)
+        self.set_current_page(self.page_num(self.queuepage)) # should always be 0, but doesn't hurt to be safe...
 
     def create_tab_from_playlist(self, playlist):
         """

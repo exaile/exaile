@@ -38,7 +38,7 @@ class SmartNotebook(gtk.Notebook):
     def get_current_tab(self):
         return self.get_nth_page(self.get_current_page())
 
-    def add_tab(self, tab, page):
+    def add_tab(self, tab, page, position=-1):
         """
             Add a tab to the notebook. It will be given focus.
 
@@ -46,8 +46,10 @@ class SmartNotebook(gtk.Notebook):
             :type tab: NotebookTab
             :param page: The page to use
             :type page: NotebookPage
+            :param position: index to insert page at, or -1 for append
+            :type position: int
         """
-        self.append_page(page, tab)
+        self.insert_page(page, tab, position=position)
         self.set_tab_reorderable(page, page.reorderable)
         self.set_current_page(self.page_num(page))
 
@@ -96,7 +98,6 @@ class NotebookTab(gtk.EventBox):
 
         self.notebook = notebook
         self.page = page
-        page.set_tab(self)
 
         self.menu = menu.ProviderMenu(self.menu_provider_name, self)
 
@@ -133,6 +134,7 @@ class NotebookTab(gtk.EventBox):
         button.connect('button-press-event', self.on_button_press)
         box.pack_end(button, False, False)
 
+        page.set_tab(self)
         self.show_all()
 
     def set_icon(self, pixbuf):

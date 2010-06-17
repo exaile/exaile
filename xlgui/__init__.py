@@ -299,8 +299,7 @@ class Main(object):
         dialog.run()
 
     def queue_manager(self, *e):
-        dialog = queue.QueueManager(self.main.window, self.exaile.queue)
-        dialog.run()
+        self.main.playlist_notebook.show_queue()
 
     def collection_manager(self, *e):
         """

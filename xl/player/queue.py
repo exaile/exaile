@@ -123,8 +123,10 @@ class PlayQueue(playlist.Playlist):
             track = self.current
         if track:
             self.player.play(track)
-            if track in self:
-                self.remove(track)
+            try:
+                del self[self.index(track)]
+            except ValueError:
+                pass
         else:
             self.next()
 

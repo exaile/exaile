@@ -227,17 +227,6 @@ class MainWindow(gobject.GObject):
         self.playlist_notebook = playlist.PlaylistNotebook('saved_tabs')
         playlist_area.pack_start(self.playlist_notebook, padding=3)
 
-        # TODO: move these into SmartNotebook/PlaylistNotebook?
-        self.playlist_notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
-        map = {
-            'left': gtk.POS_LEFT,
-            'right': gtk.POS_RIGHT,
-            'top': gtk.POS_TOP,
-            'bottom': gtk.POS_BOTTOM
-        }
-        self.playlist_notebook.set_tab_pos(map.get(
-            settings.get_option('gui/tab_placement', 'top')))
-
         visible = settings.get_option('gui/playlist_utilities_bar_visible', True)
         self.builder.get_object('playlist_utilities_bar_visible').set_active(visible)
 

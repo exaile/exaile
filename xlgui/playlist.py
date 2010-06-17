@@ -56,11 +56,26 @@ class PlaylistNotebook(SmartNotebook):
         if len(player.QUEUE) > 0:
             self.show_queue()
 
+        self.tab_placement_map = {
+            'left': gtk.POS_LEFT,
+            'right': gtk.POS_RIGHT,
+            'top': gtk.POS_TOP,
+            'bottom': gtk.POS_BOTTOM
+        }
+
+        self.connect('page-added', self.on_page_added)
+        self.connect('page-removed', self.on_page_removed)
+
+        self.on_option_set('gui_option_set', settings, 'gui/show_tabbar')
+        self.on_option_set('gui_option_set', settings, 'gui/tab_placement')
+        event.add_callback(self.on_option_set, 'gui_option_set')
+
     def show_queue(self, switch=True):
         if self.queuepage not in self.get_children():
             self.add_tab(self.queuetab, self.queuepage, position=0)
         if switch:
-            self.set_current_page(self.page_num(self.queuepage)) # should always be 0, but doesn't hurt to be safe...
+            # should always be 0, but doesn't hurt to be safe...
+            self.set_current_page(self.page_num(self.queuepage))
 
     def create_tab_from_playlist(self, playlist):
         """
@@ -199,6 +214,37 @@ class PlaylistNotebook(SmartNotebook):
                 import traceback
                 traceback.print_exc()
 
+    def on_page_added(self, notebook, child, page_number):
+        """
+            Updates appearance on page add
+        """
+        if self.get_n_pages() > 1:
+            # Enforce tabbar visibility
+            self.set_show_tabs(True)
+
+    def on_page_removed(self, notebook, child, page_number):
+        """
+            Updates appearance on page removal
+        """
+        if page_number == 1:
+            self.set_show_tabs(settings.get_option('gui/show_tabbar', True))
+
+    def on_option_set(self, event, settings, option):
+        """
+            Updates appearance on setting change
+        """
+        if option == 'gui/show_tabbar':
+            show_tabbar = settings.get_option(option, True)
+
+            if not show_tabbar:
+                if self.get_n_pages() > 1:
+                    show_tabbar = True
+
+            self.set_show_tabs(show_tabbar)
+
+        if option == 'gui/tab_placement':
+            tab_placement = settings.get_option(option, 'top')
+            self.set_tab_pos(self.tab_placement_map[tab_placement])
 
 # do this in a function to avoid polluting the global namespace
 def __create_playlist_tab_context_menu():

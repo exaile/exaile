@@ -544,6 +544,8 @@ class Playlist(object):
                 # tracks_history, and the album can be selected again
                 # randomly from its first track
                 curr = self.current
+                if not curr:
+                    raise IndexError
                 t = [ x for i, x in enumerate(self) \
                     if x.get_tag_raw('album') == curr.get_tag_raw('album') \
                     and i > self.current_position ]
@@ -552,15 +554,17 @@ class Playlist(object):
 
             except IndexError: #Pick a new album
                 hist = set(self.get_shuffle_history())
-                albums = []
+                albums = set()
                 for i, x in enumerate(self):
                     if (i, x) in hist:
                         continue
-                    if not x.get_tag_raw('album') in albums:
-                        albums.append(x.get_tag_raw('album'))
+                    alb = x.get_tag_raw('album')
+                    if alb:
+                        albums.add(tuple(alb))
+                print albums
                 if not albums:
-                    return None
-                album = random.choice(albums)
+                    return None, None
+                album = list(random.choice(list(albums)))
                 t = [ x for x in self if x.get_tag_raw('album') == album ]
                 t = trax.sort_tracks(['tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]

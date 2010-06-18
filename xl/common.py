@@ -525,4 +525,54 @@ class ProgressThread(gobject.GObject, threading.Thread):
         """
         pass
 
+
+class PosetItem(object):
+    def __init__(self, name, after, priority, value=None):
+        """
+            :param name: unique identifier for this item
+            :type name: string
+            :param after: which items this item comes after
+            :type after: list of string
+            :param priority: tiebreaker, higher values come later
+            :type priority: int
+            :param value: arbitrary data associated with the item
+        """
+        self.name = name
+        self.after = after
+        self.priority = priority
+        self.children = []
+        self.value = value
+
+def order_poset(items):
+    """
+        :param items: poset to order
+        :type items: list of PosetItem
+    """
+    items = dict([(i.name, i) for i in items])
+    for name, item in items.iteritems():
+        for after in item.after:
+            i = items.get(after)
+            if i:
+                i.children.append(item)
+    result = []
+    next = [i[1] for i in items.items() if not i[1].after]
+    while next:
+        current = [(i.priority, i) for i in next]
+        current.sort()
+        result.extend([i[1] for i in current])
+        nextset = dict()
+        for i in current:
+            for c in i[1].children:
+                nextset[c.name] = c
+        removals = []
+        for name, item in nextset.iteritems():
+            for after in item.after:
+                if after in nextset:
+                    removals.append(name)
+                    break
+        for r in removals:
+            del nextset[r]
+        next = nextset.values()
+    return result
+
 # vim: et sts=4 sw=4

@@ -28,6 +28,7 @@ import gobject
 import gtk
 
 from xl import (
+    common,
     event,
     providers,
     settings,
@@ -189,48 +190,9 @@ class Menu(gtk.Menu):
 
     def reorder_items(self):
         pmap = {'first': 0, 'normal': 1, 'last': 2}
-        items = [(pmap[i._pos], i) for i in self._items]
-        items.sort()
-        newitems = []
-
-        for newitem in items:
-            newitem = newitem[1]
-
-            # Properly insert new item
-            if newitem.after:
-                newindex = None
-
-                # Get index to put the new item after
-                for index, item in enumerate(newitems):
-                    if item.name in newitem.after:
-                        newindex = index + 1
-
-                if newindex is None:
-                    newitems.append(newitem)
-                    newindex = newitems.index(newitem)
-                else:
-                    newitems.insert(newindex, newitem)
-            else:
-                newitems.append(newitem)
-                newindex = newitems.index(newitem)
-
-            after_indices = []
-
-            # Get indices of items to be put after the new item
-            for index, item in enumerate(newitems):
-                if newitem.name in item.after:
-                    after_indices += [index]
-
-            # Reverse order to keep indices valid after popping
-            after_indices.reverse()
-            # Get all items to be put after the new item
-            after_items = [newitems.pop(i) for i in after_indices]
-
-            # Reorder existing items
-            for item in after_items:
-                newitems.insert(newindex + 1, item)
-
-        self._items = newitems
+        items = [common.PosetItem(i.name, i.after, pmap[i._pos], value=i) for i in self._items]
+        items = common.order_poset(items)
+        self._items = [i.value for i in items]
 
     def regenerate_menu(self, *args):
         context = self.get_parent_context()

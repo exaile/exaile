@@ -853,7 +853,11 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         """
             Called when a column provider is removed
         """
-        self._refresh_columns()
+        columns = settings.get_option('gui/columns')
+
+        if provider.name in columns:
+            columns.remove(provider.name)
+            settings.set_option('gui/columns', columns)
 
 class PlaylistModel(gtk.GenericTreeModel):
     def __init__(self, playlist, columns):

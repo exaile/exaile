@@ -305,6 +305,57 @@ class LastPlayedColumn(Column):
     size = 10
 providers.register('playlist-columns', LastPlayedColumn)
 
+class ColumnMenuItem(menu.MenuItem):
+    """
+        A menu item dedicated to display the
+        status of a column and change it
+    """
+    def __init__(self, column, after=None):
+        """
+            Sets up the menu item from a column description
+
+            :param column: the playlist column
+            :type column: :class:`Column`
+            :param after: enumeration of menu
+                items before this one
+            :type after: list of strings
+        """
+        menu.MenuItem.__init__(self, column.name, self.factory, after)
+        self.title = column.menu_title
+
+    def factory(self, menu, parent_obj, parent_context):
+        """
+            Creates the menu item
+        """
+        item = gtk.CheckMenuItem(self.title)
+        active = self.is_selected(self.name, parent_obj, parent_context)
+        item.set_active(active)
+        item.connect('activate', self.on_item_activate,
+            self.name, parent_obj, parent_context)
+
+        return item
+
+    def is_selected(self, name, parent, context):
+        """
+            Returns whether a column is selected
+
+            :rtype: bool
+        """
+        return name in settings.get_option('gui/columns')
+
+    def on_item_activate(self, menu_item, name, parent_obj, parent_context):
+        """
+            Updates the columns setting
+        """
+        columns = settings.get_option('gui/columns')
+
+        if name in columns:
+            columns.remove(name)
+        else:
+            columns.append(name)
+
+        settings.set_option('gui/columns', columns)
+
 def __register_playlist_columns_menuitems():
     """
         Registers standard menu items for playlist columns
@@ -356,25 +407,24 @@ def __register_playlist_columns_menuitems():
             columns += [provider.name]
 
     menu_items = []
-    after = 'spurious-name-to-start-off-with'
+    after = []
 
     for name in columns:
         column = providers.get_provider('playlist-columns', name)
-        menu_item = menu.check_menu_item(column.name, [after],
-            column.menu_title, is_column_selected, on_column_item_activate)
+        menu_item = ColumnMenuItem(column, after)
         menu_items += [menu_item]
-        after = menu_item.name
+        after = [menu_item.name]
 
-    separator_item = menu.simple_separator('columns_separator', [after])
+    separator_item = menu.simple_separator('columns_separator', after)
     menu_items += [separator_item]
-    after = separator_item.name
+    after = [separator_item.name]
 
-    sizing_item = menu.radio_menu_item('resizable', [after], _('_Resizable'),
+    sizing_item = menu.radio_menu_item('resizable', after, _('_Resizable'),
         'column-sizing', is_resizable, on_sizing_item_activate)
     menu_items += [sizing_item]
-    after = sizing_item.name
+    after = [sizing_item.name]
 
-    sizing_item = menu.radio_menu_item('autosize', [after], _('_Autosize'),
+    sizing_item = menu.radio_menu_item('autosize', after, _('_Autosize'),
         'column-sizing', is_resizable, on_sizing_item_activate)
     menu_items += [sizing_item]
 

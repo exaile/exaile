@@ -192,20 +192,44 @@ class Menu(gtk.Menu):
         items = [(pmap[i._pos], i) for i in self._items]
         items.sort()
         newitems = []
-        for item in items:
-            item = item[1]
-            if not item.after:
-                newitems.append(item)
-                continue
-            id = item.name
-            put_after = None
-            for idx, i in enumerate(newitems):
-                if i.name in item.after:
-                    put_after = idx
-            if put_after is None:
-                newitems.append(item)
+
+        for newitem in items:
+            newitem = newitem[1]
+
+            # Properly insert new item
+            if newitem.after:
+                newindex = None
+
+                # Get index to put the new item after
+                for index, item in enumerate(newitems):
+                    if item.name in newitem.after:
+                        newindex = index + 1
+
+                if newindex is None:
+                    newitems.append(newitem)
+                    newindex = newitems.index(newitem)
+                else:
+                    newitems.insert(newindex, newitem)
             else:
-                newitems.insert(put_after+1, item)
+                newitems.append(newitem)
+                newindex = newitems.index(newitem)
+
+            after_indices = []
+
+            # Get indices of items to be put after the new item
+            for index, item in enumerate(newitems):
+                if newitem.name in item.after:
+                    after_indices += [index]
+
+            # Reverse order to keep indices valid after popping
+            after_indices.reverse()
+            # Get all items to be put after the new item
+            after_items = [newitems.pop(i) for i in after_indices]
+
+            # Reorder existing items
+            for item in after_items:
+                newitems.insert(newindex + 1, item)
+
         self._items = newitems
 
     def regenerate_menu(self, *args):

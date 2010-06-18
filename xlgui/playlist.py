@@ -556,6 +556,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         self.connect("row-activated", self.on_row_activated)
         self.connect("button-press-event", self.on_button_press)
         self.connect("button-release-event", self.on_button_release)
+        self.connect("key-press-event", self.on_key_press_event)
 
         self.connect("drag-begin", self.on_drag_begin)
         self.connect("drag-drop", self.on_drag_drop)
@@ -736,6 +737,15 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             selection.select_path(path[0])
 
         return False
+
+    def on_key_press_event(self, widget, event):
+        if event.keyval == gtk.keysyms.Delete:
+            indexes = [x[0] for x in self.get_selected_paths()]
+            if indexes and indexes == range(indexes[0], indexes[0]+len(indexes)):
+                del self.playlist[indexes[0]:indexes[0]+len(indexes)]
+            else:
+                for i in indexes[::-1]:
+                    del self.playlist[i]
 
     ### DND handlers ###
     ## Source

@@ -372,12 +372,17 @@ class PlaylistPage(NotebookPage):
         event.add_callback(self.on_mode_changed,
             'playlist_repeat_mode_changed', self.playlist,
             self.dynamic_button)
+        event.add_callback(self.on_dynamic_playlists_provider_changed,
+            'dynamic_playlists_provider_added')
+        event.add_callback(self.on_dynamic_playlists_provider_changed,
+            'dynamic_playlists_provider_removed')
         event.add_callback(self.on_option_set,
             'gui_option_set')
 
         self.on_mode_changed(None, None, self.playlist.shuffle_mode, self.shuffle_button)
         self.on_mode_changed(None, None, self.playlist.repeat_mode, self.repeat_button)
         self.on_mode_changed(None, None, self.playlist.dynamic_mode, self.dynamic_button)
+        self.on_dynamic_playlists_provider_changed(None, None, None)
         self.on_option_set('gui_option_set', settings, 'gui/playlist_utilities_bar_visible')
         self.view.model.connect('row-changed', self.on_row_changed)
 
@@ -483,6 +488,21 @@ class PlaylistPage(NotebookPage):
 
     def on_mode_changed(self, evtype, playlist, mode, button):
         button.set_active(mode != 'disabled')
+
+    def on_dynamic_playlists_provider_changed(self, evtype, manager, provider):
+        """
+            Updates the dynamic button on provider changes
+        """
+        providers_available = len(providers.get('dynamic_playlists')) > 0
+
+        if providers_available:
+            self.dynamic_button.set_sensitive(True)
+            self.dynamic_button.set_tooltip_text(
+                _('Dynamically add similar tracks to the playlist'))
+        else:
+            self.dynamic_button.set_sensitive(False)
+            self.dynamic_button.set_tooltip_text(
+                _('Requires plugins providing dynamic playlists'))
 
     def on_option_set(self, evtype, settings, option):
         """

@@ -388,10 +388,10 @@ def export_playlist(playlist, path):
 
 class Playlist(object):
     shuffle_modes = ['disabled', 'track', 'album']
-    shuffle_mode_names = [_('Shuffle Off'),
-            _('Shuffle Tracks'), _('Shuffle Albums')]
+    shuffle_mode_names = [_('Shuffle _Off'),
+            _('Shuffle _Tracks'), _('Shuffle _Albums')]
     repeat_modes = ['disabled', 'all', 'track']
-    repeat_mode_names = [_('Repeat Off'), _('Repeat All'), _('Repeat One')]
+    repeat_mode_names = [_('Repeat _Off'), _('Repeat _All'), _('Repeat _One')]
     dynamic_modes = ['disabled', 'enabled']
     dynamic_mode_names = [_('Dynamic Off'), _('Dynamic On')]
     # TODO: how do we document properties/events in sphinx?

@@ -91,8 +91,8 @@ class PlaylistNotebook(SmartNotebook):
 
     def create_new_playlist(self):
         """
-            Create a new tab containing a blank playlist. The tab will
-            be automatically given a unique name.
+            Create a new tab containing a blank playlist.
+            The tab will be automatically given a unique name.
         """
         seen = []
         default_playlist_name = _('Playlist %d')

@@ -112,7 +112,7 @@ class ParameterTemplate(Template):
                 try:
                     # We use this idiom instead of str() because the latter
                     # will fail if val is a Unicode containing non-ASCII
-                    return '%s' % (mapping[named],)
+                    return '%s' % mapping[named]
                 except KeyError:
                     return self.delimiter + named
 
@@ -126,7 +126,7 @@ class ParameterTemplate(Template):
                     parts += [parameters]
 
                 try:
-                    return '%s' % (mapping[':'.join(parts)],)
+                    return '%s' % mapping[':'.join(parts)]
                 except KeyError:
                     return self.delimiter + '{' + ':'.join(parts) + '}'
 
@@ -301,18 +301,16 @@ class ProgressTextFormatter(Formatter):
             total_time = self.player.current.get_tag_raw('__length')
 
         if total_time is None:
-            if not self.player.current.is_local():
-                return _('Streaming...')
-
             total_time = remaining_time = 0
         else:
             remaining_time = total_time - current_time
 
-        self._substitutions = {
-            'current_time': LengthTagFormatter.format_value(current_time),
-            'remaining_time': LengthTagFormatter.format_value(remaining_time),
-            'total_time': LengthTagFormatter.format_value(total_time)
-        }
+        self._substitutions['current_time'] = \
+            LengthTagFormatter.format_value(current_time),
+        self._substitutions['remaining_time'] = \
+            LengthTagFormatter.format_value(remaining_time),
+        self._substitutions['total_time'] = \
+            LengthTagFormatter.format_value(total_time),
         
         return self._template.safe_substitute(self._substitutions)
 

@@ -36,12 +36,14 @@ from xl import (
     covers,
     event,
     formatter,
+    player,
     playlist,
     settings,
     trax,
     xdg,
 )
 from xl.nls import gettext as _
+import xlgui
 from xlgui import icons
 
 def _idle_callback(func, callback, *args, **kwargs):
@@ -837,6 +839,32 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
         formatter.ProgressTextFormatter.__init__(self, self.get_option_value())
 
         event.add_callback(self.on_option_set, 'gui_option_set')
+
+    def format(self, current_time=None, total_time=None):
+        """
+            Returns a string suitable for progress indicators
+
+            :param current_time: the current progress
+            :type current_time: float
+            :param total_time: the total length of a track
+            :type total_time: float
+            :returns: The formatted text
+            :rtype: string
+        """
+        playlist = xlgui.main.get_selected_playlist().playlist
+
+        if playlist.current_position < 0:
+            return ''
+
+        tracks = playlist[playlist.current_position:]
+        duration = sum([t.get_tag_raw('__length') for t in tracks \
+            if t.get_tag_raw('__length')])
+        duration -= player.PLAYER.get_time()
+
+        self._substitutions['total_remaining_time'] = \
+            formatter.LengthTagFormatter.format_value(duration)
+
+        return formatter.ProgressTextFormatter.format(self, current_time, total_time)
 
     def get_option_value(self):
         """

@@ -571,7 +571,12 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             Returns a list of :class:`xl.trax.Track`
             which are currently selected in the playlist.
         """
-        return [x[1] for x in self.get_selected_items()]
+        selected_items = self.get_selected_items()
+
+        if selected_items:
+            return [x[1] for x in selected_items]
+
+        return []
 
     def get_selected_paths(self):
         """

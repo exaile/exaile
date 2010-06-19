@@ -73,6 +73,8 @@ class Main(object):
         from xlgui import main, panel, tray, progress
         from xlgui.panel import collection, radio, playlists, files
 
+        gtk.gdk.set_program_class("exaile")
+
         self.exaile = exaile
         self.first_removed = False
         self.tray_icon = None

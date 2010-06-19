@@ -30,19 +30,18 @@ import gtk
 import pango
 
 from xl import (
+    covers,
     event,
+    formatter,
     main,
+    player,
     settings,
     trax,
     xdg
 )
-from xl.formatter import (
-    TrackFormatter,
-    LengthTagFormatter,
-    TrackNumberTagFormatter
-)
 from xl.nls import gettext as _
-from xlgui import covers, icons
+import xlgui
+from xlgui import icons
 
 class TrackInfoPane(gtk.Alignment):
     """
@@ -70,7 +69,7 @@ class TrackInfoPane(gtk.Alignment):
         self._timer = None
         self.player = None
         self._track = None
-        self._formatter = TrackFormatter(
+        self._formatter = formatter.TrackFormatter(
             _('<span size="x-large" weight="bold">$title</span>\n'
               'by ${artist:compilate}\n'
               'from $album')
@@ -451,7 +450,8 @@ class TrackListInfoPane(gtk.Alignment):
                 self.__append_row(track)
 
             self.tracklist_table.show_all()
-            total_duration = LengthTagFormatter.format_value(total_length, 'long')
+            total_duration = formatter.LengthTagFormatter.format_value(
+                total_length, 'long')
 
             text = _('%(track_count)d in total (%(total_duration)s)') % {
                 'track_count': track_count,
@@ -493,7 +493,8 @@ class TrackListInfoPane(gtk.Alignment):
                 1, 2, self.rownumber - 1, self.rownumber)
         else:
             tracknumber = track.get_tag_display('tracknumber')
-            tracknumber = TrackNumberTagFormatter.format_value(tracknumber)
+            tracknumber = formatter.TrackNumberTagFormatter.format_value(
+                tracknumber)
             tracknumber_label = gtk.Label(tracknumber)
             tracknumber_label.set_attributes(self.pango_attributes)
             tracknumber_label.props.xalign = 0
@@ -506,7 +507,7 @@ class TrackListInfoPane(gtk.Alignment):
                 1, 2, self.rownumber - 1, self.rownumber)
 
             length = float(track.get_tag_display('__length'))
-            length = LengthTagFormatter.format_value(length, 'short')
+            length = formatter.LengthTagFormatter.format_value(length, 'short')
             length_label = gtk.Label(length)
             length_label.set_attributes(self.pango_attributes)
             length_label.props.xalign = 0.9
@@ -599,4 +600,233 @@ class TrackListToolTip(ToolTip):
 
     def clear(self):
         self.info_pane.clear()
+
+class StatusbarTextFormatter(formatter.Formatter):
+    """
+        A text formatter for status indicators
+    """
+    def __init__(self, format):
+        """
+            :param format: The initial format, see the documentation
+                of string.Template for details
+            :type format: string
+        """
+        formatter.Formatter.__init__(self, format)
+
+        self._substitutions = {
+            'collection_count': self.get_collection_count,
+            'playlist_count': self.get_playlist_count,
+            'playlist_duration': self.get_playlist_duration
+        }
+
+    def get_collection_count(self):
+        """
+            Retrieves the collection count
+        """
+        return _('%d in collection') % main.exaile().collection.get_count()
+
+    def get_playlist_count(self, selection='none'):
+        """
+            Retrieves the count of tracks in either the
+            full playlist or the current selection
+
+            :param selection_mode: 'none' for playlist count only,
+                'override' for selection count if tracks are selected,
+                playlist count otherwise, 'only' for selection count only
+            :type selection_mode: string
+        """
+        playlist = xlgui.main.get_selected_playlist()
+        playlist_count = len(playlist.playlist)
+        selection_count = len(playlist.view.get_selected_tracks())
+
+        if selection == 'none':
+            count = playlist_count
+            text = _('%d showing')
+        elif selection == 'override':
+            if selection_count:
+                count = selection_count
+                text = _('%d selected')
+            else:
+                count = playlist_count
+                text = _('%d showing')
+            count = selection_count or playlist_count
+        elif selection == 'only':
+            count = selection_count
+            text = _('%d selected')
+        else:
+            raise ValueError('Invalid argument "%s" passed to parameter '
+                '"selection" for "playlist_count", possible arguments are '
+                '"none", "override" and "only"' % selection_mode)
+
+        if count == 0:
+            return ''
+
+        return text % count
+
+    def get_playlist_duration(self, format='short', selection='none'):
+        """
+            Retrieves the duration of all tracks in
+            the playlist or within the selection
+
+            :param format: Verbosity of the output
+                Possible values are short, long or verbose
+                yielding "1:02:42", "1h, 2m, 42s" or
+                "1 hour, 2 minutes, 42 seconds"
+            :type format: string
+            :param selection_mode: 'none' for playlist count only,
+                'override' for selection count if tracks are selected,
+                playlist count otherwise, 'only' for selection count only
+            :type selection_mode: string
+        """
+        playlist = xlgui.main.get_selected_playlist()
+        playlist_duration = sum([t.get_tag_raw('__length') \
+            for t in playlist.playlist if t.get_tag_raw('__length')])
+        selection_duration = sum([t.get_tag_raw('__length') \
+            for t in playlist.view.get_selected_tracks() \
+            if t.get_tag_raw('__length')])
+
+        if selection == 'none':
+            duration = playlist_duration
+        elif selection == 'override':
+            if selection_duration:
+                duration = selection_duration
+            else:
+                duration = playlist_duration
+        elif selection == 'only':
+            duration = selection_duration
+        else:
+            raise ValueError('Invalid argument "%s" passed to parameter '
+                '"selection" for "playlist_duration", possible arguments are '
+                '"none", "override" and "only"' % selection_mode)
+
+        if duration == 0:
+            return ''
+
+        return formatter.LengthTagFormatter.format_value(duration, format)
+
+class Statusbar(object):
+    """
+        Convenient access to multiple status labels
+    """
+    def __init__(self, status_bar):
+        """
+            Initialises the status bar
+        """
+        # The first child of the status bar is a frame containing a label. We
+        # create an HBox, pack it inside the frame, and move the label and other
+        # widgets of the status bar into it.
+        self.status_bar = status_bar
+        self.formatter = StatusbarTextFormatter(
+            settings.get_option('gui/statusbar_info_format',
+                '${playlist_count:selection=override} '
+                '(${playlist_duration:selection=override,format=long}), '
+                '$collection_count'))
+        children = status_bar.get_children()
+        frame = children[0]
+        label = frame.child
+        hbox = gtk.HBox(False, 0)
+        frame.remove(label)
+        hbox.pack_start(label, True, True)
+        frame.add(hbox)
+
+        for widget in children[1:]:
+            # Bug in old PyGTK versions: Statusbar.remove hides
+            # Container.remove.
+            gtk.Container.remove(status_bar, widget)
+            hbox.pack_start(widget, False, True)
+
+        self.info_label = children[1]
+
+        self.context_id = self.status_bar.get_context_id('status')
+        self.message_ids = []
+
+        self.status_bar.set_app_paintable(True)
+        self.status_bar.connect('expose-event', self.on_expose_event)
+
+    def set_status(self, status, timeout=0):
+        """
+            Sets the status message
+        """
+        self.message_ids += [self.status_bar.push(self.context_id, status)]
+
+        if timeout > 0:
+            glib.timeout_add_seconds(timeout, self.clear_status)
+
+    def clear_status(self):
+        """
+            Clears the status message
+        """
+        try:
+            for message_id in self.message_ids:
+                self.status_bar.remove_message(self.context_id, message_id)
+        except AttributeError:
+            for message_id in self.message_ids:
+                self.status_bar.remove(self.context_id, message_id)
+
+        del self.message_ids[:]
+        self.message_ids = []
+
+    def update_info(self):
+        """
+            Updates the info label text
+        """
+        self.info_label.set_label(self.formatter.format())
+
+    def __get_grip_edge(self, widget):
+        """
+            Taken from GTK source, retrieves the
+            preferred edge for the resize grip
+        """
+        if widget.get_direction() == gtk.TEXT_DIR_LTR:
+            edge = gtk.gdk.WINDOW_EDGE_SOUTH_EAST
+        else:
+            edge = gtk.gdk.WINDOW_EDGE_SOUTH_WEST
+        return edge
+
+    def __get_grip_rect(self, widget):
+        """
+            Taken from GTK source, retrieves the
+            rectangle to draw the resize grip on
+        """
+        width = height = 18
+        allocation = widget.get_allocation()
+
+        width = min(width, allocation.width)
+        height = min(height, allocation.height - widget.style.ythickness)
+
+        if widget.get_direction() == gtk.TEXT_DIR_LTR:
+            x = allocation.x + allocation.width - width
+        else:
+            x = allocation.x + widget.style.xthickness
+
+        y = allocation.y + allocation.height - height
+
+        return gtk.gdk.Rectangle(x, y, width, height)
+
+    def on_expose_event(self, widget, event):
+        """
+            Override required to make alpha
+            transparency work properly
+        """
+        if widget.get_has_resize_grip():
+            edge = self.__get_grip_edge(widget)
+            rect = self.__get_grip_rect(widget)
+
+            widget.style.paint_resize_grip(
+                widget.window,
+                widget.get_state(),
+                event.area,
+                widget,
+                'statusbar',
+                edge,
+                rect.x, rect.y,
+                rect.width - widget.style.xthickness,
+                rect.height - widget.style.ythickness
+            )
+
+            frame = widget.get_children()[0]
+            box = frame.get_children()[0]
+            box.send_expose(event) # Bypass frame
+
+        return True
 

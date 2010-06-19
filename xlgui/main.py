@@ -209,31 +209,8 @@ class MainWindow(gobject.GObject):
         self.title_formatter = formatter.TrackFormatter(settings.get_option(
             'gui/main_window_title_format', _('$title (by $artist)')))
 
-        playlist_columns_menu = menu.ProviderMenu('playlist-columns-menu', self.window)
-        builder.get_object('columns_menu').set_submenu(playlist_columns_menu)
-
-        if settings.get_option('gui/use_alpha', False):
-            screen = self.window.get_screen()
-            colormap = screen.get_rgba_colormap()
-
-            if colormap is not None:
-                self.window.set_app_paintable(True)
-                self.window.set_colormap(colormap)
-
-                self.window.connect('expose-event', self.on_expose_event)
-                self.window.connect('screen-changed', self.on_screen_changed)
-
-        playlist_area = self.builder.get_object('playlist_area')
-        self.playlist_notebook = playlist.PlaylistNotebook('saved_tabs')
-        playlist_area.pack_start(self.playlist_notebook, padding=3)
-
-        visible = settings.get_option('gui/playlist_utilities_bar_visible', True)
-        self.builder.get_object('playlist_utilities_bar_visible').set_active(visible)
-
-        self.splitter = self.builder.get_object('splitter')
-
-        self._setup_position()
         self._setup_widgets()
+        self._setup_position()
         self._setup_hotkeys()
         logger.info("Connecting main window events...")
         self._connect_events()
@@ -246,14 +223,13 @@ class MainWindow(gobject.GObject):
             Sets up accelerators that haven't been set up in UI designer
         """
         hotkeys = (
-            ('<Control>W', lambda *e: self.close_playlist_tab()),
+            ('<Control>W', lambda *e: self.close_playlist_tab()), # FIXME
             ('<Control>S', lambda *e: self.on_save_playlist()),
             ('<Shift><Control>S', lambda *e: self.on_save_playlist_as()),
             ('<Control>F', lambda *e: self.on_search_collection_focus()),
-            ('<Control>G', lambda *e: self.on_search_playlist_focus()),
-            ('<Control>D', lambda *e: self.on_queue()),
-            ('<Control><Alt>l', lambda *e: self.on_clear_queue()),
-            ('Left', lambda *e: self._on_left_pressed()),
+            ('<Control>G', lambda *e: self.on_search_playlist_focus()), # FIXME
+            ('<Control>D', lambda *e: self.on_queue()), # FIXME
+            ('<Control><Alt>l', lambda *e: self.on_clear_queue()), # FIXME
         )
 
         self.accel_group = gtk.AccelGroup()
@@ -273,6 +249,9 @@ class MainWindow(gobject.GObject):
             restart_item.set_property('visible', True)
             restart_item.set_no_show_all(False)
 
+        playlist_columns_menu = menu.ProviderMenu('playlist-columns-menu', self.window)
+        self.builder.get_object('columns_menu').set_submenu(playlist_columns_menu)
+
         # TODO: Maybe make this stackable
         self.message = dialogs.MessageBar(
             parent=self.builder.get_object('player_box'),
@@ -288,6 +267,32 @@ class MainWindow(gobject.GObject):
 
         self.volume_control = guiutil.VolumeControl()
         self.info_area.get_action_area().pack_start(self.volume_control)
+
+        if settings.get_option('gui/use_alpha', False):
+            screen = self.window.get_screen()
+            colormap = screen.get_rgba_colormap()
+
+            if colormap is not None:
+                self.window.set_app_paintable(True)
+                self.window.set_colormap(colormap)
+
+                self.window.connect('expose-event', self.on_expose_event)
+                self.window.connect('screen-changed', self.on_screen_changed)
+
+        playlist_area = self.builder.get_object('playlist_area')
+        self.playlist_notebook = playlist.PlaylistNotebook('saved_tabs')
+        self.playlist_notebook.connect_after('switch-page',
+            self.on_playlist_notebook_switch_page)
+        playlist_area.pack_start(self.playlist_notebook, padding=3)
+        page_num = self.playlist_notebook.get_current_page()
+        page = self.playlist_notebook.get_nth_page(page_num)
+        selection = page.view.get_selection()
+        selection.connect('changed', self.on_playlist_view_selection_changed)
+
+        visible = settings.get_option('gui/playlist_utilities_bar_visible', True)
+        self.builder.get_object('playlist_utilities_bar_visible').set_active(visible)
+
+        self.splitter = self.builder.get_object('splitter')
 
         self.progress_bar = PlaybackProgressBar(
             self.builder.get_object('playback_progressbar'),
@@ -312,8 +317,121 @@ class MainWindow(gobject.GObject):
         self.stop_button.connect('button-press-event',
             self.on_stop_button_press_event)
 
-        self.statusbar = guiutil.Statusbar(self.builder.get_object('status_bar'))
+        self.statusbar = info.Statusbar(self.builder.get_object('status_bar'))
+        event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
 
+    def _connect_events(self):
+        """
+            Connects the various events to their handlers
+        """
+        self.splitter.connect('notify::position', self.configure_event)
+        self.builder.connect_signals({
+            'on_configure_event':   self.configure_event,
+            'on_window_state_event': self.window_state_change_event,
+            'on_delete_event':      self.delete_event,
+            'on_quit_item_activated': self.quit,
+            'on_restart_item_activate': self.on_restart_item_activate,
+            'on_playpause_button_clicked': self.on_playpause_button_clicked,
+            'on_next_button_clicked':
+                lambda *e: self.queue.next(),
+            'on_prev_button_clicked':
+                lambda *e: self.queue.prev(),
+            'on_new_playlist_item_activated': lambda *e:
+                self.playlist_notebook.create_new_playlist(),
+            'on_queue_count_clicked': self.controller.queue_manager,
+            'on_clear_playlist_item_activate': self.on_clear_playlist,
+            'on_playlist_utilities_bar_visible_toggled': self.on_playlist_utilities_bar_visible_toggled,
+            # Controller
+            'on_about_item_activate': self.controller.show_about_dialog,
+            'on_scan_collection_item_activate': self.controller.on_rescan_collection,
+            'on_randomize_playlist_item_activate': self.controller.on_randomize_playlist,
+            'on_collection_manager_item_activate': self.controller.collection_manager,
+            'on_goto_playing_track_activate': self.controller.on_goto_playing_track,
+            'on_queue_manager_item_activate': self.controller.queue_manager,
+            'on_preferences_item_activate': lambda *e: self.controller.show_preferences(),
+            'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
+            'on_cover_manager_item_activate': self.controller.show_cover_manager,
+            'on_open_item_activate': self.controller.open_dialog,
+            'on_open_url_item_activate': self.controller.open_url,
+            'on_open_dir_item_activate': self.controller.open_dir,
+            'on_export_current_playlist_activate': self.controller.export_current_playlist,
+            'on_panel_notebook_switch_page': self.controller.on_panel_switch,
+            'on_track_properties_activate':self.controller.on_track_properties,
+        })
+
+        event.add_callback(self.on_playback_resume, 'playback_player_resume',
+            self.player)
+        event.add_callback(self.on_playback_end, 'playback_player_end',
+            self.player)
+        event.add_callback(self.on_playback_end, 'playback_error',
+            self.player)
+        event.add_callback(self.on_playback_start, 'playback_track_start',
+            self.player)
+        event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
+            self.player)
+        event.add_callback(self.on_tags_parsed, 'tags_parsed',
+            self.player)
+        event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
+        event.add_callback(self.on_buffering, 'playback_buffering',
+            self.player)
+        event.add_callback(self.on_playback_error, 'playback_error',
+            self.player)
+
+        event.add_callback(self.on_playlist_tracks_added,
+            'playlist_tracks_added')
+        event.add_callback(self.on_playlist_tracks_removed,
+            'playlist_tracks_removed')
+
+        # Settings
+        event.add_callback(self._on_option_set, 'option_set')
+
+    def _connect_panel_events(self):
+        """
+            Sets up panel events
+        """
+        # panels
+        panels = self.controller.panels
+
+        for panel_name in ('playlists', 'radio', 'files', 'collection'):
+            panel = panels[panel_name]
+            sort = False
+
+            if panel_name in ('files', 'collection'):
+                sort = True
+
+            panel.connect('append-items', lambda panel, items, sort=sort:
+                self.on_append_items(items, sort=sort))
+            panel.connect('queue-items', lambda panel, items, sort=sort:
+                self.on_append_items(items, queue=True, sort=sort))
+            panel.connect('replace-items', lambda panel, items, sort=sort:
+                self.on_append_items(items, replace=True, sort=sort))
+
+        ## Collection Panel
+        panel = panels['collection']
+        panel.connect('collection-tree-loaded', lambda *e:
+            self.update_track_counts())
+
+        ## Playlist Panel
+        panel = panels['playlists']
+        panel.connect('playlist-selected',
+            lambda panel, playlist:
+                self.playlist_notebook.create_tab_from_playlist(playlist))
+
+        ## Radio Panel
+        panel = panels['radio']
+        panel.connect('playlist-selected',
+            lambda panel, playlist:
+                self.playlist_notebook.create_tab_from_playlist(playlist))
+
+        ## Files Panel
+        panel = panels['files']
+
+    def on_exaile_loaded(self, event_type, exaile, nothing):
+        """
+            Updates information on exaile load
+        """
+        self.statusbar.update_info()
+        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
     def on_expose_event(self, widget, event):
         """
@@ -432,126 +550,6 @@ class MainWindow(gobject.GObject):
 
         self.get_selected_playlist().list.queue_draw()
 
-    def update_track_counts(self, *e):
-        """
-            Updates the track count information
-        """
-        if not self.get_selected_playlist(): return
-
-        self.statusbar.set_track_count(
-            len(get_selected_playlist().playlist),
-            self.collection.get_count())
-        self.statusbar.set_queue_count(len(player.QUEUE))
-
-
-    def _connect_events(self):
-        """
-            Connects the various events to their handlers
-        """
-        self.splitter.connect('notify::position', self.configure_event)
-        self.builder.connect_signals({
-            'on_configure_event':   self.configure_event,
-            'on_window_state_event': self.window_state_change_event,
-            'on_delete_event':      self.delete_event,
-            'on_quit_item_activated': self.quit,
-            'on_restart_item_activate': self.on_restart_item_activate,
-            'on_playpause_button_clicked': self.on_playpause_button_clicked,
-            'on_next_button_clicked':
-                lambda *e: self.queue.next(),
-            'on_prev_button_clicked':
-                lambda *e: self.queue.prev(),
-            'on_playlist_notebook_switch':  self.on_playlist_notebook_switch,
-            'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
-            'on_playlist_notebook_button_press': self.on_playlist_notebook_button_press,
-            'on_new_playlist_item_activated': lambda *e:
-                self.playlist_notebook.create_new_playlist(),
-            'on_queue_count_clicked': self.controller.queue_manager,
-            'on_clear_playlist_item_activate': self.on_clear_playlist,
-            'on_playlist_utilities_bar_visible_toggled': self.on_playlist_utilities_bar_visible_toggled,
-            # Controller
-            'on_about_item_activate': self.controller.show_about_dialog,
-            'on_scan_collection_item_activate': self.controller.on_rescan_collection,
-            'on_randomize_playlist_item_activate': self.controller.on_randomize_playlist,
-            'on_collection_manager_item_activate': self.controller.collection_manager,
-            'on_goto_playing_track_activate': self.controller.on_goto_playing_track,
-            'on_queue_manager_item_activate': self.controller.queue_manager,
-            'on_preferences_item_activate': lambda *e: self.controller.show_preferences(),
-            'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
-            'on_cover_manager_item_activate': self.controller.show_cover_manager,
-            'on_open_item_activate': self.controller.open_dialog,
-            'on_open_url_item_activate': self.controller.open_url,
-            'on_open_dir_item_activate': self.controller.open_dir,
-            'on_export_current_playlist_activate': self.controller.export_current_playlist,
-            'on_panel_notebook_switch_page': self.controller.on_panel_switch,
-            'on_track_properties_activate':self.controller.on_track_properties,
-        })
-
-        event.add_callback(self.on_playback_resume, 'playback_player_resume',
-            self.player)
-        event.add_callback(self.on_playback_end, 'playback_player_end',
-            self.player)
-        event.add_callback(self.on_playback_end, 'playback_error',
-            self.player)
-        event.add_callback(self.on_playback_start, 'playback_track_start',
-            self.player)
-        event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
-            self.player)
-        event.add_callback(self.on_tags_parsed, 'tags_parsed',
-            self.player)
-        event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
-        event.add_callback(self.on_buffering, 'playback_buffering',
-            self.player)
-        event.add_callback(self.on_playback_error, 'playback_error',
-            self.player)
-
-        # Monitor the queue
-        event.add_callback(self.update_track_counts,
-            'tracks_added', self.queue)
-        event.add_callback(self.update_track_counts,
-            'tracks_removed', self.queue)
-
-        # Settings
-        event.add_callback(self._on_option_set, 'option_set')
-
-    def _connect_panel_events(self):
-        """
-            Sets up panel events
-        """
-        # panels
-        panels = self.controller.panels
-
-        for panel_name in ('playlists', 'radio', 'files', 'collection'):
-            panel = panels[panel_name]
-            sort = False
-
-            if panel_name in ('files', 'collection'):
-                sort = True
-
-            panel.connect('append-items', lambda panel, items, sort=sort:
-                self.on_append_items(items, sort=sort))
-            panel.connect('queue-items', lambda panel, items, sort=sort:
-                self.on_append_items(items, queue=True, sort=sort))
-            panel.connect('replace-items', lambda panel, items, sort=sort:
-                self.on_append_items(items, replace=True, sort=sort))
-
-        ## Collection Panel
-        panel = panels['collection']
-        panel.connect('collection-tree-loaded', lambda *e:
-            self.update_track_counts())
-
-        ## Playlist Panel
-        panel = panels['playlists']
-        panel.connect('playlist-selected',
-            lambda panel, playlist: self.playlist_notebook.create_tab_from_playlist(playlist))
-
-        ## Radio Panel
-        panel = panels['radio']
-        panel.connect('playlist-selected',
-            lambda panel, playlist: self.playlist_notebook.create_tab_from_playlist(playlist))
-
-        ## Files Panel
-        panel = panels['files']
-
     def on_append_items(self, tracks, queue=False, sort=False, replace=False):
         """
             Called when a panel (or other component)
@@ -622,6 +620,18 @@ class MainWindow(gobject.GObject):
         if track is self.player.current:
             self._update_track_information()
 
+    def on_playlist_tracks_added(self, type, playlist, tracks):
+        """
+            Updates information on track add
+        """
+        self.statusbar.update_info()
+
+    def on_playlist_tracks_removed(self, type, playlist, tracks):
+        """
+            Updates information on track removal
+        """
+        self.statusbar.update_info()
+
     def on_toggle_pause(self, type, player, object):
         """
             Called when the user clicks the play button after playback has
@@ -657,38 +667,31 @@ class MainWindow(gobject.GObject):
                 self.queue.current_playlist = None
             self.playlist_notebook.remove_page(tab)
 
-    def on_playlist_notebook_switch(self, notebook, page, page_num):
+    def on_collection_tree_loaded(self, tree):
         """
-            Called when the page is changed in the playlist notebook
+            Updates info after collection tree load
         """
-        page = notebook.get_nth_page(page_num)
-        self.current_page = page_num
-        playlist = self.get_selected_playlist()
-        self.queue.set_current_playlist(playlist.playlist)
-        self.set_playlist_modes()
-        self._on_option_set(None, None, 'playback/shuffle')
-        self._on_option_set(None, None, 'playback/shuffle_mode')
-        self.update_track_counts()
+        self.statusbar.update_info()
 
-    def on_playlist_notebook_remove(self, notebook, widget):
+    def on_playlist_notebook_switch_page(self, notebook, page, page_num):
         """
-            Called when a tab is removed from the playlist notebook
+            Updates info after notebook page switch
         """
-        pagecount = notebook.get_n_pages()
-        if pagecount == 1:
-            notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
-        elif pagecount == 0:
-            self.add_playlist()
+        page = self.playlist_notebook.get_nth_page(page_num)
+        selection = page.view.get_selection()
+        selection.connect('changed', self.on_playlist_view_selection_changed)
+        self.statusbar.update_info()
 
-    def on_playlist_notebook_button_press(self, notebook, event):
-        if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:
-            self.add_playlist()
+    def on_playlist_view_selection_changed(self, selection):
+        """
+            Updates info after playlist page selection change
+        """
+        self.statusbar.update_info()
 
     def on_search_collection_focus(self, *e):
         """
             Gives focus to the collection search bar
         """
-
         self.controller.panels['collection'].filter.grab_focus()
 
     def on_search_playlist_focus(self, *e):
@@ -754,16 +757,6 @@ class MainWindow(gobject.GObject):
             self.resuming = False
             return
 
-        pl = self.get_selected_playlist()
-        if player.current in pl.playlist:
-            path = (pl.playlist.index(player.current),)
-
-            # FIXME: move this into PlaylistView
-            #if settings.get_option('gui/ensure_visible', True):
-            #    pl.list.scroll_to_cell(path)
-
-            #glib.idle_add(pl.list.set_cursor, path)
-
         self._update_track_information()
         self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
@@ -794,21 +787,6 @@ class MainWindow(gobject.GObject):
         if option == 'gui/main_window_title_format':
             self.title_formatter.props.format = settings.get_option(
                 option, self.title_formatter.props.format)
-
-        if option == 'gui/show_tabbar':
-            self.playlist_notebook.set_show_tabs(
-                settings.get_option(option, True)
-            )
-
-        if option == 'gui/tab_placement':
-            map = {
-                'left': gtk.POS_LEFT,
-                'right': gtk.POS_RIGHT,
-                'top': gtk.POS_TOP,
-                'bottom': gtk.POS_BOTTOM
-            }
-            self.playlist_notebook.set_tab_pos(map.get(
-                settings.get_option(option, 'top')))
 
         if option == 'gui/use_tray':
             usetray = settings.get_option(option, False)

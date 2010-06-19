@@ -526,33 +526,13 @@ Right Click for Stop After Track Feature</property>
           <object class="GtkStatusbar" id="status_bar">
             <property name="visible">True</property>
             <child>
-              <object class="GtkLabel" id="track_count_label">
+              <object class="GtkLabel" id="info_label">
                 <property name="visible">True</property>
                 <property name="xpad">3</property>
-                <property name="label" translatable="yes">0/0 tracks</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEventBox" id="queue_count_box">
-                <property name="visible">True</property>
-                <property name="visible_window">False</property>
-                <signal name="button_press_event" handler="on_queue_count_clicked"/>
-                <child>
-                  <object class="GtkLabel" id="queue_count_label">
-                    <property name="visible">True</property>
-                    <property name="tooltip_text" translatable="yes">Click to view Queue</property>
-                    <property name="xpad">3</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">2</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>

@@ -165,21 +165,66 @@ class Formatter(gobject.GObject):
         else:
             raise AttributeError('unkown property %s' % property.name)
 
-    def substitute(self, text, replacement):
+    def extract(self):
         """
-            Returns the replacement of a text
+            Retrieves the placeholders and their optional parameters
 
-            :param text: The text to replace
-            :type text: string
-            :param replacement: The replacement
-            :type replacement: string or callable
-            :returns: The replacement
+            Format of the returned dictionary:
+            extractions = {
+                'placeholder1': (
+                    'placeholder1, {}),
+                'placeholder2:parameter': (
+                    'placeholder2', {'parameter': True}),
+                'placeholder3:parameter=argument': (
+                    'placeholder3', {'parameter': 'argument'})
+            }
+
+            :returns: the extractions
+            :rtype: dict
+        """
+        matches = self._template.match_pattern.finditer(self._template.template)
+        extractions = {}
+
+        # Extract list of placeholders and parameters from the format string
+        for match in matches:
+            groups = match.groupdict()
+
+            # We only care about braced and named, not escaped and invalid
+            placeholder = groups['braced'] or groups['named']
+
+            if placeholder is None:
+                continue
+
+            placeholder_parts = [placeholder]
+            parameters = {}
+
+            if groups['parameters'] is not None:
+                parameters = groups['parameters'].split(',')
+                # Turns [['foo', 'arg'], ['bar']] into {'foo': 'arg', 'bar': True}
+                parameters = dict([(p.split('=', 1) + [True])[:2] for p in parameters])
+                placeholder_parts += [groups['parameters']]
+
+            # Required to make multiple occurences of the same
+            # placeholder with different parameters work
+            extractions[':'.join(placeholder_parts)] = (placeholder, parameters)
+
+        return extractions
+
+    def substitute(self, substitutions):
+        """
+            Processes substitutions and
+            calls functions if requested
+
+            :param substitutinos: The substitutions
+            :type substitutions: dict
+            :returns: The formatted string
             :rtype: string
         """
-        if callable(replacement):
-            return replacement(text)
+        for needle in substitutions:
+            if callable(substitutions[needle]):
+                substitutions[needle] = substitutions[needle](needle)
 
-        return replacement
+        return self._template.safe_substitute(substitutions)
 
     def format(self, *args):
         """
@@ -279,32 +324,8 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
             raise TypeError('First argument to format() needs '
                             'to be of type xl.trax.Track')
 
-        matches = self._template.match_pattern.finditer(self._template.template)
-        tags = {}
+        tags = self.extract()
         self._substitutions = {}
-
-        # Extract list of tags contained in the format string
-        for match in matches:
-            groups = match.groupdict()
-
-            # We don't care about escaped and invalid
-            if groups['braced'] is not None:
-                tag = groups['braced']
-            elif groups['named'] is not None:
-                tag = groups['named']
-            else:
-                continue
-
-            idparts = [tag]
-            parameters = {}
-
-            if groups['parameters'] is not None:
-                parameters = groups['parameters'].split(',')
-                # Turns [['foo', 'arg'], ['bar']] into {'foo': 'arg', 'bar': True}
-                parameters = dict([(p.split('=', 1) + [True])[:2] for p in parameters])
-                idparts += [groups['parameters']]
-
-            tags[':'.join(idparts)] = (tag, parameters)
 
         for id, (tag, parameters) in tags.iteritems():
             provider = self.get_provider(tag)

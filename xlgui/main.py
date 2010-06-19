@@ -408,8 +408,7 @@ class MainWindow(gobject.GObject):
 
         ## Collection Panel
         panel = panels['collection']
-        panel.connect('collection-tree-loaded', lambda *e:
-            self.update_track_counts())
+        panel.connect('collection-tree-loaded', self.on_collection_tree_loaded)
 
         ## Playlist Panel
         panel = panels['playlists']
@@ -425,13 +424,6 @@ class MainWindow(gobject.GObject):
 
         ## Files Panel
         panel = panels['files']
-
-    def on_exaile_loaded(self, event_type, exaile, nothing):
-        """
-            Updates information on exaile load
-        """
-        self.statusbar.update_info()
-        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
     def on_expose_event(self, widget, event):
         """
@@ -620,6 +612,19 @@ class MainWindow(gobject.GObject):
         if track is self.player.current:
             self._update_track_information()
 
+    def on_collection_tree_loaded(self, tree):
+        """
+            Updates information on collection tree load
+        """
+        self.statusbar.update_info()
+
+    def on_exaile_loaded(self, event_type, exaile, nothing):
+        """
+            Updates information on exaile load
+        """
+        self.statusbar.update_info()
+        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
+
     def on_playlist_tracks_added(self, type, playlist, tracks):
         """
             Updates information on track add
@@ -761,7 +766,6 @@ class MainWindow(gobject.GObject):
         self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
         self.playpause_button.set_tooltip_text(_('Pause Playback'))
-        self.update_track_counts()
 
         if settings.get_option('playback/dynamic', False):
             self._get_dynamic_tracks()

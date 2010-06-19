@@ -92,7 +92,7 @@ class ParameterTemplate(Template):
 
     def safe_substitute(self, *args, **kwargs):
         """
-            Overridden to allow for parametrized placeholders
+            Overridden to allow for parametrized identifiers
         """
         if len(args) > 1:
             raise TypeError('Too many positional arguments')
@@ -194,16 +194,16 @@ class Formatter(gobject.GObject):
 
     def extract(self):
         """
-            Retrieves the placeholders and their optional parameters
+            Retrieves the identifiers and their optional parameters
 
             Format of the returned dictionary:
             extractions = {
-                'placeholder1': (
-                    'placeholder1', {}),
-                'placeholder2:parameter': (
-                    'placeholder2', {'parameter': True}),
-                'placeholder3:parameter=argument': (
-                    'placeholder3', {'parameter': 'argument'})
+                'identifier1': (
+                    'identifier1', {}),
+                'identifier2:parameter': (
+                    'identifier2', {'parameter': True}),
+                'identifier3:parameter=argument': (
+                    'identifier3', {'parameter': 'argument'})
             }
 
             :returns: the extractions
@@ -212,28 +212,28 @@ class Formatter(gobject.GObject):
         matches = self._template.pattern.finditer(self._template.template)
         extractions = {}
 
-        # Extract list of placeholders and parameters from the format string
+        # Extract list of identifiers and parameters from the format string
         for match in matches:
             groups = match.groupdict()
 
             # We only care about braced and named, not escaped and invalid
-            placeholder = groups['braced'] or groups['named']
+            identifier = groups['braced'] or groups['named']
 
-            if placeholder is None:
+            if identifier is None:
                 continue
 
-            placeholder_parts = [placeholder]
+            identifier_parts = [identifier]
             parameters = {}
 
             if groups['parameters'] is not None:
                 parameters = [p.lstrip() for p in groups['parameters'].split(',')]
                 # Turns [['foo', 'arg'], ['bar']] into {'foo': 'arg', 'bar': True}
                 parameters = dict([(p.split('=', 1) + [True])[:2] for p in parameters])
-                placeholder_parts += [groups['parameters']]
+                identifier_parts += [groups['parameters']]
 
             # Required to make multiple occurences of the same
-            # placeholder with different parameters work
-            extractions[':'.join(placeholder_parts)] = (placeholder, parameters)
+            # identifier with different parameters work
+            extractions[':'.join(identifier_parts)] = (identifier, parameters)
 
         return extractions
 
@@ -248,11 +248,11 @@ class Formatter(gobject.GObject):
         extractions = self.extract()
         substitutions = {}
 
-        for needle, (placeholder, parameters) in extractions.iteritems():
-            if placeholder in self._substitutions:
+        for needle, (identifier, parameters) in extractions.iteritems():
+            if identifier in self._substitutions:
                 prefix = parameters.pop('prefix', '')
                 suffix = parameters.pop('suffix', '')
-                substitute = self._substitutions[placeholder]
+                substitute = self._substitutions[identifier]
 
                 if callable(substitute):
                     substitute = substitute(*args, **parameters)
@@ -352,23 +352,28 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
             raise TypeError('First argument to format() needs '
                             'to be of type xl.trax.Track')
 
-        tags = self.extract()
-        self._substitutions = {}
+        extractions = self.extract()
+        substitutions = {}
 
-        for id, (tag, parameters) in tags.iteritems():
+        for identifier, (tag, parameters) in extractions.iteritems():
+            prefix = parameters.pop('prefix', '')
+            suffix = parameters.pop('suffix', '')
             provider = self.get_provider(tag)
 
             if provider is None:
-                self._substitutions[id] = track.get_tag_display(tag)
+                substitute = track.get_tag_display(tag)
             else:
-                self._substitutions[id] = provider.format(track, parameters)
+                substitute = provider.format(track, parameters)
 
-        if markup_escape:
-            for id in self._substitutions.iterkeys():
-                self._substitutions[id] = glib.markup_escape_text(
-                    self._substitutions[id])
+            if substitute:
+                substitute = '%s%s%s' % (prefix, substitute, suffix)
 
-        return self._template.safe_substitute(self._substitutions)
+            if markup_escape:
+                substitute = glib.markup_escape_text(substitute)
+
+            substitutions[identifier] = substitute
+
+        return self._template.safe_substitute(substitutions)
 
 class TagFormatter():
     """

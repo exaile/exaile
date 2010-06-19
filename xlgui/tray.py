@@ -27,11 +27,16 @@
 import gobject
 import gtk
 
-from xl import event, settings, xdg
+from xl import (
+    event,
+    player,
+    settings,
+    xdg
+)
 from xl.nls import gettext as _
 from xlgui import guiutil
-from xlgui.widgets import info, rating
-import xlgui.main
+from xlgui.widgets.info import TrackToolTip
+from xlgui.widgets import rating
 
 class BaseTrayIcon(object):
     """
@@ -39,11 +44,9 @@ class BaseTrayIcon(object):
     """
     def __init__(self, main):
         self.main = main
-        self.player = main.controller.exaile.player
-        self.queue = main.controller.exaile.queue
         self.VOLUME_STEP = 5
 
-        self.tooltip = info.TrackToolTip(
+        self.tooltip = TrackToolTip(
             self, display_progress=True, auto_update=True)
 
         self.setup_menu()
@@ -75,11 +78,11 @@ class BaseTrayIcon(object):
         self.playpause_menuitem = self.menu.append(stock_id=gtk.STOCK_MEDIA_PLAY,
             callback=lambda *e: self.play_pause())
         self.menu.append(stock_id=gtk.STOCK_MEDIA_NEXT,
-            callback=lambda *e: self.queue.next())
+            callback=lambda *e: player.QUEUE.next())
         self.menu.append(stock_id=gtk.STOCK_MEDIA_PREVIOUS,
-            callback=lambda *e: self.queue.prev())
+            callback=lambda *e: player.QUEUE.prev())
         self.menu.append(stock_id=gtk.STOCK_MEDIA_STOP,
-            callback=lambda *e: self.player.stop())
+            callback=lambda *e: player.PLAYER.stop())
 
         self.menu.append_separator()
 
@@ -144,13 +147,13 @@ class BaseTrayIcon(object):
         """
             Updates the context menu
         """
-        current_track = self.player.current
+        current_track = player.PLAYER.current
 
         playpause_image = self.playpause_menuitem.get_image()
 
-        if self.player.is_stopped() or self.player.is_playing():
+        if player.PLAYER.is_stopped() or player.PLAYER.is_playing():
             stock_id = gtk.STOCK_MEDIA_PLAY
-        elif self.player.is_paused():
+        elif player.PLAYER.is_paused():
             stock_id = gtk.STOCK_MEDIA_PAUSE
 
         playpause_image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
@@ -167,10 +170,10 @@ class BaseTrayIcon(object):
             Updates icon appearance based
             on current playback state
         """
-        if self.player.current is None:
+        if player.PLAYER.current is None:
             self.set_from_icon_name('exaile')
             self.set_tooltip(_('Exaile Music Player'))
-        elif self.player.is_paused():
+        elif player.PLAYER.is_paused():
             self.set_from_icon_name('exaile-pause')
         else:
             self.set_from_icon_name('exaile-play')
@@ -204,20 +207,20 @@ class BaseTrayIcon(object):
         """
             Starts or pauses playback
         """
-        if self.player.is_paused() or self.player.is_playing():
-            self.player.toggle_pause()
+        if player.PLAYER.is_paused() or player.PLAYER.is_playing():
+            player.PLAYER.toggle_pause()
         else:
-            gplaylist = xlgui.main.get_selected_playlist()
+            gplaylist = self.main.get_selected_playlist()
             playlist = gplaylist.playlist
 
             if gplaylist is not None:
-                self.queue.set_current_playlist(playlist)
+                player.QUEUE.set_current_playlist(playlist)
                 track = gplaylist.get_selected_track()
 
                 if track is not None:
                     playlist.set_current_pos(playlist.index(track))
 
-            self.queue.play()
+            player.QUEUE.play()
 
     def remove_current_track(self):
         """
@@ -225,17 +228,8 @@ class BaseTrayIcon(object):
         """
         playlist = self.main.get_selected_playlist()
 
-        if playlist is not None and self.player.current is not None:
-            playlist.remove_tracks([self.player.current])
-
-    def get_current_track_rating(self):
-        """
-            Returns the rating of the current track
-        """
-        if self.player.current is not None:
-            return self.player.current.get_rating()
-
-        return 0
+        if playlist is not None and player.PLAYER.current is not None:
+            playlist.remove_tracks([player.PLAYER.current])
 
     def on_button_press_event(self, widget, event):
         """
@@ -263,7 +257,7 @@ class BaseTrayIcon(object):
         """
             Applies the selected rating to the current track
         """
-        self.player.current.set_rating(rating)
+        player.PLAYER.current.set_rating(rating)
 
     def on_scroll_event(self, widget, event):
         """
@@ -271,22 +265,22 @@ class BaseTrayIcon(object):
         """
         if event.state & gtk.gdk.SHIFT_MASK:
             if event.direction == gtk.gdk.SCROLL_UP:
-                self.queue.prev()
+                player.QUEUE.prev()
             elif event.direction == gtk.gdk.SCROLL_DOWN:
-                self.queue.next()
+                player.QUEUE.next()
         else:
             if event.direction == gtk.gdk.SCROLL_UP:
-                volume = self.player.get_volume()
-                self.player.set_volume(volume + self.VOLUME_STEP)
+                volume = player.PLAYER.get_volume()
+                player.PLAYER.set_volume(volume + self.VOLUME_STEP)
                 return True
             elif event.direction == gtk.gdk.SCROLL_DOWN:
-                volume = self.player.get_volume()
-                self.player.set_volume(volume - self.VOLUME_STEP)
+                volume = player.PLAYER.get_volume()
+                player.PLAYER.set_volume(volume - self.VOLUME_STEP)
                 return True
             elif event.direction == gtk.gdk.SCROLL_LEFT:
-                self.queue.prev()
+                player.QUEUE.prev()
             elif event.direction == gtk.gdk.SCROLL_RIGHT:
-                self.queue.next()
+                player.QUEUE.next()
 
     def on_playback_change_state(self, event, player, current):
         """

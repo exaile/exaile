@@ -137,9 +137,6 @@ class Formatter(gobject.GObject):
                 of string.Template for details
             :type format: string
         """
-        if self.__class__.__name__ == 'Formatter':
-            raise TypeError("cannot create instance of abstract "
-                            "(non-instantiable) type `Formatter'")
         gobject.GObject.__init__(self)
 
         self._template = ParameterTemplate(format)
@@ -172,7 +169,7 @@ class Formatter(gobject.GObject):
             Format of the returned dictionary:
             extractions = {
                 'placeholder1': (
-                    'placeholder1, {}),
+                    'placeholder1', {}),
                 'placeholder2:parameter': (
                     'placeholder2', {'parameter': True}),
                 'placeholder3:parameter=argument': (
@@ -210,22 +207,6 @@ class Formatter(gobject.GObject):
 
         return extractions
 
-    def substitute(self, substitutions):
-        """
-            Processes substitutions and
-            calls functions if requested
-
-            :param substitutinos: The substitutions
-            :type substitutions: dict
-            :returns: The formatted string
-            :rtype: string
-        """
-        for needle in substitutions:
-            if callable(substitutions[needle]):
-                substitutions[needle] = substitutions[needle](needle)
-
-        return self._template.safe_substitute(substitutions)
-
     def format(self, *args):
         """
             Returns a string by formatting the passed data
@@ -234,7 +215,19 @@ class Formatter(gobject.GObject):
             :returns: The formatted text
             :rtype: string
         """
-        pass
+        extractions = self.extract()
+        substitutions = {}
+
+        for needle, (placeholder, parameters) in extractions.iteritems():
+            if placeholder in self._substitutions:
+                substitute = self._substitutions[placeholder]
+
+                if callable(substitute):
+                    substitute = substitute(*args, **parameters)
+
+                substitutions[needle] = substitute
+        
+        return self._template.safe_substitute(substitutions)
 
 class ProgressTextFormatter(Formatter):
     """

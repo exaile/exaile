@@ -718,8 +718,8 @@ class Statusbar(object):
         self.status_bar = status_bar
         self.formatter = StatusbarTextFormatter(
             settings.get_option('gui/statusbar_info_format',
-                '${playlist_count:selection=override} '
-                '(${playlist_duration:selection=override,format=long}), '
+                '${playlist_count:selection=override}'
+                '${playlist_duration:selection=override, format=long, prefix= (, suffix=) }'
                 '$collection_count'))
         children = status_bar.get_children()
         frame = children[0]

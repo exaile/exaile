@@ -37,16 +37,8 @@ from xl.common import TimeSpan
 from xl.nls import gettext as _, ngettext
 
 class _ParameterTemplateMetaclass(_TemplateMetaclass):
-    pattern = r"""
-    %(delim)s(?:
-      (?P<escaped>%(delim)s) |   # Escape sequence of two delimiters
-      (?P<named>%(id)s)      |   # delimiter and a Python identifier
-      {(?P<braced>%(id_param)s)}   |   # delimiter and a braced identifier
-      (?P<invalid>)              # Other ill-formed delimiter exprs
-    )
-    """
     # Allows for $tag, ${tag}, ${tag:parameter} and ${tag:parameter=argument}
-    match_pattern = r"""
+    pattern = r"""
     %(delim)s(?:
       (?P<escaped>%(delim)s) |   # Escape sequence of two delimiters
       (?P<named>%(id)s)      |   # Delimiter and a Python identifier
@@ -65,7 +57,6 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
       (?P<invalid>)              # Other ill-formed delimiter expressions
     )
     """
-
     def __init__(cls, name, bases, dct):
         super(_ParameterTemplateMetaclass, cls).__init__(name, bases, dct)
         if 'pattern' in dct:
@@ -74,18 +65,8 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
             pattern = _ParameterTemplateMetaclass.pattern % {
                 'delim'   : re.escape(cls.delimiter),
                 'id'      : cls.idpattern,
-                'id_param': cls.idpattern_param
             }
         cls.pattern = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
-
-        if 'match_pattern' in dct:
-            match_pattern = cls.match_pattern
-        else:
-            match_pattern = _ParameterTemplateMetaclass.match_pattern % {
-                'delim'   : re.escape(cls.delimiter),
-                'id'      : cls.idpattern
-            }
-        cls.match_pattern = re.compile(match_pattern, re.IGNORECASE | re.VERBOSE)
 
 class ParameterTemplate(Template):
     """
@@ -94,7 +75,7 @@ class ParameterTemplate(Template):
 
         This introduces another pattern group named
         "parameters" in addition to the groups
-        created by string.Template.
+        created by :class:`string.Template`
 
         Examples:
         * ${foo:parameter1}
@@ -103,13 +84,62 @@ class ParameterTemplate(Template):
     """
     __metaclass__ = _ParameterTemplateMetaclass
 
-    idpattern_param = r'[_a-z][_a-z0-9:=,]*'
-
     def __init__(self, template):
         """
             :param template: The template string
         """
         Template.__init__(self, template)
+
+    def safe_substitute(self, *args, **kwargs):
+        """
+            Overridden to allow for parametrized placeholders
+        """
+        if len(args) > 1:
+            raise TypeError('Too many positional arguments')
+
+        if not args:
+            mapping = kwargs
+        elif kwargs:
+            mapping = _multimap(kwargs, args[0])
+        else:
+            mapping = args[0]
+
+        # Helper function for .sub()
+        def convert(mo):
+            named = mo.group('named')
+
+            if named is not None:
+                try:
+                    # We use this idiom instead of str() because the latter
+                    # will fail if val is a Unicode containing non-ASCII
+                    return '%s' % (mapping[named],)
+                except KeyError:
+                    return self.delimiter + named
+
+            braced = mo.group('braced')
+
+            if braced is not None:
+                parts = [braced]
+                parameters = mo.group('parameters')
+
+                if parameters is not None:
+                    parts += [parameters]
+
+                try:
+                    return '%s' % (mapping[':'.join(parts)],)
+                except KeyError:
+                    return self.delimiter + '{' + ':'.join(parts) + '}'
+
+            if mo.group('escaped') is not None:
+                return self.delimiter
+
+            if mo.group('invalid') is not None:
+                return self.delimiter
+
+            raise ValueError('Unrecognized named group in pattern',
+                             self.pattern)
+
+        return self.pattern.sub(convert, self.template)
 
 class Formatter(gobject.GObject):
     """
@@ -179,7 +209,7 @@ class Formatter(gobject.GObject):
             :returns: the extractions
             :rtype: dict
         """
-        matches = self._template.match_pattern.finditer(self._template.template)
+        matches = self._template.pattern.finditer(self._template.template)
         extractions = {}
 
         # Extract list of placeholders and parameters from the format string
@@ -196,7 +226,7 @@ class Formatter(gobject.GObject):
             parameters = {}
 
             if groups['parameters'] is not None:
-                parameters = groups['parameters'].split(',')
+                parameters = [p.lstrip() for p in groups['parameters'].split(',')]
                 # Turns [['foo', 'arg'], ['bar']] into {'foo': 'arg', 'bar': True}
                 parameters = dict([(p.split('=', 1) + [True])[:2] for p in parameters])
                 placeholder_parts += [groups['parameters']]
@@ -220,13 +250,18 @@ class Formatter(gobject.GObject):
 
         for needle, (placeholder, parameters) in extractions.iteritems():
             if placeholder in self._substitutions:
+                prefix = parameters.pop('prefix', '')
+                suffix = parameters.pop('suffix', '')
                 substitute = self._substitutions[placeholder]
 
                 if callable(substitute):
                     substitute = substitute(*args, **parameters)
 
+                if substitute:
+                    substitute = '%s%s%s' % (prefix, substitute, suffix)
+
                 substitutions[needle] = substitute
-        
+
         return self._template.safe_substitute(substitutions)
 
 class ProgressTextFormatter(Formatter):

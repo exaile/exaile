@@ -31,6 +31,7 @@ import tempfile
 import time
 import traceback
 
+import cairo
 import gio
 import glib
 import gobject
@@ -40,6 +41,7 @@ from xl import (
     common,
     event,
     metadata,
+    player,
     settings,
     xdg
 )
@@ -355,19 +357,16 @@ class CoverWidget(gtk.EventBox):
     __gsignals__ = {
         'cover-found': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
-    def __init__(self, image, player):
+    def __init__(self, image):
         """
             Initializes the widget
 
             :param image: the image to wrap
             :type image: :class:`gtk.Image`
-            :param player: the player
-            :type player: :class: `xl.player.Player`
         """
         gtk.EventBox.__init__(self)
         self.image = image
         self.cover_data = None
-        self.player = player
         self.menu = CoverMenu(self)
         self.parent_window = image.get_toplevel()
         self.filename = None
@@ -378,11 +377,14 @@ class CoverWidget(gtk.EventBox):
         self.image.show()
 
         event.add_callback(self.on_playback_start,
-                'playback_track_start', player)
+                'playback_track_start', player.PLAYER)
         event.add_callback(self.on_playback_end,
-                'playback_player_end', player)
+                'playback_player_end', player.PLAYER)
         event.add_callback(self.on_quit_application,
                 'quit_application')
+
+        if settings.get_option('gui/use_alpha', False):
+            self.set_app_paintable(True)
 
     def destroy(self):
         """
@@ -393,9 +395,9 @@ class CoverWidget(gtk.EventBox):
             self.filename = None
 
         event.remove_callback(self.on_playback_start,
-                'playback_track_start', player)
+                'playback_track_start', player.PLAYER)
         event.remove_callback(self.on_playback_end,
-                'playback_player_end', player)
+                'playback_player_end', player.PLAYER)
         event.remove_callback(self.on_quit_application,
                 'quit-application')
 
@@ -410,22 +412,22 @@ class CoverWidget(gtk.EventBox):
 
         if pixbuf:
             window = CoverWindow(self.parent_window, pixbuf,
-                self.player.current.get_tag_display('title'))
+                player.PLAYER.current.get_tag_display('title'))
             window.show_all()
 
     def fetch_cover(self):
         """
             Fetches a cover for the current track
         """
-        if not self.player.current: return
-        window = CoverChooser(self.parent_window, self.player.current)
+        if not player.PLAYER.current: return
+        window = CoverChooser(self.parent_window, player.PLAYER.current)
         window.connect('cover-chosen', self.on_cover_chosen)
 
     def remove_cover(self):
         """
             Removes the cover for the current track from the database
         """
-        cover_manager.remove_cover(self.player.current)
+        cover_manager.remove_cover(player.PLAYER.current)
         self.set_blank()
 
     def set_blank(self):
@@ -473,7 +475,7 @@ class CoverWidget(gtk.EventBox):
         """
             Called when someone clicks on the cover widget
         """
-        if self.player.current is None or self.parent_window is None:
+        if player.PLAYER.current is None or self.parent_window is None:
             return
 
         if event.type == gtk.gdk._2BUTTON_PRESS:
@@ -481,18 +483,23 @@ class CoverWidget(gtk.EventBox):
         elif event.button == 3:
             self.menu.popup(event)
 
-    def on_cover_chosen(self, object, cover_data):
+    def do_expose_event(self, event):
         """
-            Called when a cover is selected
-            from the coverchooser
+            Paints alpha transparency
         """
-        width = settings.get_option('gui/cover_width', 100)
-        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, (width, width))
-        self.image.set_from_pixbuf(pixbuf)
-        self.set_drag_enabled(True)
-        self.cover_data = cover_data
+        opacity = 1 - settings.get_option('gui/transparency', 0.3)
+        context = self.window.cairo_create()
+        background = self.style.bg[gtk.STATE_NORMAL]
+        context.set_source_rgba(
+            float(background.red) / 256**2,
+            float(background.green) / 256**2,
+            float(background.blue) / 256**2,
+            opacity
+        )
+        context.set_operator(cairo.OPERATOR_SOURCE)
+        context.paint()
 
-        self.emit('cover-found', pixbuf)
+        gtk.EventBox.do_expose_event(self, event)
 
     def do_drag_begin(self, context):
         """
@@ -523,7 +530,7 @@ class CoverWidget(gtk.EventBox):
         """
             Sets the cover based on the dragged data
         """
-        if self.player.current is not None:
+        if player.PLAYER.current is not None:
             uri = selection.get_uris()[0]
             db_string = 'localfile:%s' % uri
 
@@ -539,8 +546,21 @@ class CoverWidget(gtk.EventBox):
 
             if pixbuf is not None:
                 self.image.set_from_pixbuf(pixbuf)
-                cover_manager.set_cover(self.player.current, db_string,
+                cover_manager.set_cover(player.PLAYER.current, db_string,
                     self.cover_data)
+
+    def on_cover_chosen(self, object, cover_data):
+        """
+            Called when a cover is selected
+            from the coverchooser
+        """
+        width = settings.get_option('gui/cover_width', 100)
+        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, (width, width))
+        self.image.set_from_pixbuf(pixbuf)
+        self.set_drag_enabled(True)
+        self.cover_data = cover_data
+
+        self.emit('cover-found', pixbuf)
 
     @common.threaded
     def on_playback_start(self, type, player, track):
@@ -555,7 +575,7 @@ class CoverWidget(gtk.EventBox):
         if not cover_data:
             return
 
-        if self.player.current == track:
+        if player.current == track:
             glib.idle_add(self.on_cover_chosen, None, cover_data)
 
     def on_playback_end(self, type, player, object):

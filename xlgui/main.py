@@ -263,7 +263,7 @@ class MainWindow(gobject.GObject):
         self.info_area.set_padding(3, 3, 3, 3)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
 
-        self.cover = cover.CoverWidget(self.info_area.cover_image, self.player)
+        self.cover = cover.CoverWidget(self.info_area.cover_image)
 
         self.volume_control = guiutil.VolumeControl()
         self.info_area.get_action_area().pack_start(self.volume_control)

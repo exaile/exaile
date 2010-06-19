@@ -393,7 +393,7 @@ class Playlist(object):
     repeat_modes = ['disabled', 'all', 'track']
     repeat_mode_names = [_('Repeat _Off'), _('Repeat _All'), _('Repeat _One')]
     dynamic_modes = ['disabled', 'enabled']
-    dynamic_mode_names = [_('Dynamic Off'), _('Dynamic On')]
+    dynamic_mode_names = [_('Dynamic Playlists O_ff'), _('Dynamic Playlists O_n')]
     # TODO: how do we document properties/events in sphinx?
     """
 

@@ -26,6 +26,7 @@
 
 import cgi
 from datetime import datetime, timedelta
+import gio
 import logging
 import os
 import random
@@ -123,26 +124,26 @@ class M3UConverter(FormatConverter):
             :param path: the target path
             :type path: string
         """
-        handle = open(path, "w")
+        gfile = gio.File(path)
+        stream = gfile.replace('', False)
 
-        handle.write("#EXTM3U\n")
-        if playlist.name != '':
-            handle.write("#PLAYLIST: %s\n" % playlist.name)
+        stream.write("#EXTM3U\n")
+
+        if playlist.name:
+            stream.write("#PLAYLIST: %s\n" % playlist.name)
 
         for track in playlist:
-            rawlen = track.get_tag_raw('__length')
-            if rawlen:
-                leng = round(float(rawlen))
-            if not rawlen or leng < 1:
-                leng = -1
+            length = round(float(track.get_tag_raw('__length') or -1))
+            title = [track.get_tag_raw('title', join=True)]
             artist = track.get_tag_raw('artist', join=True)
-            title = track.get_tag_raw('title', join=True)
-            if artist:
-                title = artist + ' - ' + title
-            handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
-                title, track.get_loc_for_io()))
 
-        handle.close()
+            if artist:
+                title += [artist]
+
+            stream.write("#EXTINF:%d,%s\n%s\n" % (
+                length, ' - '.join(title), track.get_loc_for_io()))
+
+        stream.close()
 
     def import_from_file(self, path):
         """
@@ -164,48 +165,67 @@ class M3UConverter(FormatConverter):
             name = url_parsed[2].split('/')[-1].replace('.m3u', '')
             is_local = False
 
-        #if not handle.readline().startswith("#EXTM3U"):
-        #    return None
+        gfile = gio.File(path)
 
-        playlist = Playlist(name=name)
+        if gfile.is_native():
+            name = os.path.basename(gfile.get_path())
+        else:
+            name = gfile.get_uri().split('/')[-1]
 
-        extinf = None
-        for line in handle:
-            line = line.strip()
-            if line == "":
-                pass
-            elif line.startswith("#Playlist: "):
-                playlist.set_name(line[12:])
-            elif line.startswith("#EXTINF:"):
-                extinf = line
-            elif line.startswith("#"):
+        for extension in self.file_extensions:
+            try:
+                name = name[:name.rindex('.%s' % extension)]
+            except ValueError:
                 pass
             else:
-                track_is_local = len(urlparse.urlparse(line)[0]) <= 1
-                if track_is_local and not os.path.isabs(line):
-                    line = os.path.join(os.path.dirname(path), line)
-                track = trax.Track(line)
+                break
 
-                if extinf:
-                    comma_separated = extinf[8:].split(",", 1)
-                    title = comma_separated[-1]
-                    if len(comma_separated) > 1:
-                        length = float(comma_separated[0])
-                        if length < 1:
-                            length = 0
-                    else:
-                        length = 0
-                    artist_title = title.split(' - ', 1)
-                    if len(artist_title) > 1:
-                        track.set_tag_raw('artist', artist_title[0])
-                        track.set_tag_raw('title', artist_title[1])
-                    else:
-                        track.set_tag_raw('title', title)
-                    track.set_tag_raw('__length', length)
+        playlist = Playlist(name)
+
+        stream = gio.DataInputStream(gfile.read())
+
+        while True:
+            line = stream.read_line()
+
+            if not line:
+                break
+
+            line = line.strip()
+
+            if not line:
+                continue
+
+            if line.upper().startswith('#PLAYLIST: '):
+                playlist.name = line[len('#PLAYLIST: '):]
+            elif line.startswith('#EXTINF:'):
+                extinf_line = line[len('#EXTINF:'):]
+                uri = stream.read_line()
+
+                if uri is None:
+                    continue
+
+                track = trax.Track(uri)
+
+                parts = extinf_line.split(',', 1)
+                length = 0
+
+                if len(parts) > 1 and int(parts[0]) > 0:
+                    length = parts[0]
+
+                track.set_tag_raw('__length', float(length))
+
+                parts = parts[-1].rsplit(' - ', 1)
+                track.set_tag_raw('title', parts[-1])
+
+                if len(parts) > 1:
+                    track.set_tag_raw('artist', parts[0])
 
                 playlist.append(track)
 
-        handle.close()
+            elif line.startswith('#'):
+                continue
+
+        stream.close()
 
         return playlist
 providers.register('playlist-format-converter', M3UConverter())

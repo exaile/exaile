@@ -43,6 +43,7 @@ import pango
 
 from xl import (
     common,
+    covers,
     event,
     formatter,
     player,
@@ -66,7 +67,6 @@ logger = logging.getLogger(__name__)
 class PlaybackProgressBar(object):
     def __init__(self, bar, player):
         self.bar = bar
-        self.player = player
         self.timer_id = None
         self.seeking = False
         self.formatter = guiutil.ProgressBarFormatter()
@@ -85,9 +85,9 @@ class PlaybackProgressBar(object):
 
     def destroy(self):
         event.remove_callback(self.playback_start,
-                'playback_player_start', self.player)
+                'playback_player_start', player.PLAYER)
         event.remove_callback(self.playback_end,
-                'playback_player_end', self.player)
+                'playback_player_end', player.PLAYER)
 
     def seek_begin(self, *e):
         self.seeking = True
@@ -100,20 +100,20 @@ class PlaybackProgressBar(object):
         if value < 0: value = 0
         if value > 1: value = 1
 
-        tr = self.player.current
+        tr = player.PLAYER.current
         if not tr or not (tr.is_local() or \
                 tr.get_tag_raw('__length')): return
         length = tr.get_tag_raw('__length')
 
         seconds = float(value * length)
-        self.player.seek(seconds)
+        player.PLAYER.seek(seconds)
         self.seeking = False
         self.bar.set_fraction(value)
         self.bar.set_text(self.formatter.format(seconds, length))
 #        self.emit('seek', seconds)
 
     def seek_motion_notify(self, widget, event):
-        tr = self.player.current
+        tr = player.PLAYER.current
         if not tr or not(tr.is_local() or \
                 tr.get_tag_raw('__length')): return
 
@@ -158,7 +158,7 @@ class PlaybackProgressBar(object):
         self.bar.set_fraction(0)
 
     def timer_update(self, *e):
-        tr = self.player.current
+        tr = player.PLAYER.current
         if not tr: return
         if self.seeking: return True
 
@@ -167,9 +167,9 @@ class PlaybackProgressBar(object):
             self.bar.set_text(_('Streaming...'))
             return True
 
-        self.bar.set_fraction(self.player.get_progress())
+        self.bar.set_fraction(player.PLAYER.get_progress())
 
-        seconds = self.player.get_time()
+        seconds = player.PLAYER.get_time()
         length = tr.get_tag_raw('__length')
         self.bar.set_text(self.formatter.format(seconds, length))
 
@@ -183,8 +183,7 @@ class MainWindow(gobject.GObject):
     """
     __gsignals__ = {'main-visible-toggle': (gobject.SIGNAL_RUN_LAST, bool, ())}
     _mainwindow = None
-    def __init__(self, controller, builder, collection,
-        player, queue, covers):
+    def __init__(self, controller, builder, collection):
         """
             Initializes the main window
 
@@ -193,11 +192,8 @@ class MainWindow(gobject.GObject):
         gobject.GObject.__init__(self)
 
         self.controller = controller
-        self.covers = covers
         self.collection =  collection
-        self.player = player
         self.playlist_manager = controller.exaile.playlists
-        self.queue = queue
         self.current_page = -1
         self._fullscreen = False
         self.resuming = False
@@ -215,7 +211,7 @@ class MainWindow(gobject.GObject):
         logger.info("Connecting main window events...")
         self._connect_events()
         from xlgui import osd
-        self.osd = osd.OSDWindow(self.player)
+        self.osd = osd.OSDWindow(player.PLAYER)
         MainWindow._mainwindow = self
 
     def _setup_hotkeys(self):
@@ -296,7 +292,7 @@ class MainWindow(gobject.GObject):
 
         self.progress_bar = PlaybackProgressBar(
             self.builder.get_object('playback_progressbar'),
-            self.player
+            player.PLAYER
         )
 
         for button in ('playpause', 'next', 'prev', 'stop'):
@@ -333,9 +329,9 @@ class MainWindow(gobject.GObject):
             'on_restart_item_activate': self.on_restart_item_activate,
             'on_playpause_button_clicked': self.on_playpause_button_clicked,
             'on_next_button_clicked':
-                lambda *e: self.queue.next(),
+                lambda *e: player.QUEUE.next(),
             'on_prev_button_clicked':
-                lambda *e: self.queue.prev(),
+                lambda *e: player.QUEUE.prev(),
             'on_new_playlist_item_activated': lambda *e:
                 self.playlist_notebook.create_new_playlist(),
             'on_queue_count_clicked': self.controller.queue_manager,
@@ -360,22 +356,22 @@ class MainWindow(gobject.GObject):
         })
 
         event.add_callback(self.on_playback_resume, 'playback_player_resume',
-            self.player)
+            player.PLAYER)
         event.add_callback(self.on_playback_end, 'playback_player_end',
-            self.player)
+            player.PLAYER)
         event.add_callback(self.on_playback_end, 'playback_error',
-            self.player)
+            player.PLAYER)
         event.add_callback(self.on_playback_start, 'playback_track_start',
-            self.player)
+            player.PLAYER)
         event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
-            self.player)
+            player.PLAYER)
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
-            self.player)
+            player.PLAYER)
         event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
         event.add_callback(self.on_buffering, 'playback_buffering',
-            self.player)
+            player.PLAYER)
         event.add_callback(self.on_playback_error, 'playback_error',
-            self.player)
+            player.PLAYER)
 
         event.add_callback(self.on_playlist_tracks_added,
             'playlist_tracks_added')
@@ -491,7 +487,7 @@ class MainWindow(gobject.GObject):
             if widget.get_data('toggle_spat'):
                 self.on_spat_clicked()
             else:
-                self.player.stop()
+                player.PLAYER.stop()
 
     def on_stop_button_key_release_event(self, widget, event):
         """
@@ -519,7 +515,7 @@ class MainWindow(gobject.GObject):
             if event.state & gtk.gdk.SHIFT_MASK:
                 self.on_spat_clicked()
             else:
-                self.player.stop()
+                player.PLAYER.stop()
         elif event.button == 3:
             menu = guiutil.Menu()
             menu.append(_("Toggle: Stop after Selected Track"),
@@ -535,10 +531,10 @@ class MainWindow(gobject.GObject):
         if not trs: return
         tr = trs[0]
 
-        if tr == self.queue.stop_track:
-            self.queue.stop_track = None
+        if tr == player.QUEUE.stop_track:
+            player.QUEUE.stop_track = None
         else:
-            self.queue.stop_track = tr
+            player.QUEUE.stop_track = tr
 
         self.get_selected_page().list.queue_draw()
 
@@ -569,9 +565,9 @@ class MainWindow(gobject.GObject):
         pl.playlist.extend(tracks)
 
         if queue:
-            self.queue.extend(tracks)
+            player.QUEUE.extend(tracks)
 
-        if not self.player.current:
+        if not player.PLAYER.current:
             track = tracks[0]
             pl.playlist.current_position = offset
             player.QUEUE.set_current_playlist(pl.playlist)
@@ -599,7 +595,7 @@ class MainWindow(gobject.GObject):
             return
         if player.parse_stream_tags(tr, args):
             self._update_track_information()
-            self.cover.on_playback_start('', self.player, None)
+            self.cover.on_playback_start('', player.PLAYER, None)
             self.get_selected_page().refresh_row(tr)
 
         if settings.get_option('osd/enabled', True):
@@ -609,7 +605,7 @@ class MainWindow(gobject.GObject):
         """
             Called when tags are changed
         """
-        if track is self.player.current:
+        if track is player.PLAYER.current:
             self._update_track_information()
 
     def on_collection_tree_loaded(self, tree):
@@ -668,8 +664,8 @@ class MainWindow(gobject.GObject):
             tab = self.playlist_notebook.get_current_page()
         pl = self.playlist_notebook.get_nth_page(tab)
         if pl.on_closing():
-            if self.queue.current_playlist == pl.playlist:
-                self.queue.current_playlist = None
+            if player.QUEUE.current_playlist == pl.playlist:
+                player.QUEUE.current_playlist = None
             self.playlist_notebook.remove_page(tab)
 
     def on_collection_tree_loaded(self, tree):
@@ -731,8 +727,8 @@ class MainWindow(gobject.GObject):
         """
             Called when the user requests to clear the queue
         """
-        self.queue.clear()
-        self.queue_playlist_draw()
+        player.QUEUE.clear()
+        player.QUEUE_playlist_draw()
 
     def on_clear_playlist(self, *e):
         """
@@ -771,7 +767,7 @@ class MainWindow(gobject.GObject):
             self._get_dynamic_tracks()
 
         if settings.get_option('osd/enabled', True):
-            self.osd.show(self.player.current)
+            self.osd.show(player.PLAYER.current)
 
     def on_playback_end(self, type, player, object):
         """
@@ -804,7 +800,7 @@ class MainWindow(gobject.GObject):
         """
             Sets track information
         """
-        track = self.player.current
+        track = player.PLAYER.current
 
         if not track:
             return

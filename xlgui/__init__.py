@@ -34,10 +34,7 @@ import gio
 import glib
 import gtk
 
-from xl.nls import gettext as _
-logger = logging.getLogger(__name__)
-from xl import xdg, common, event, metadata, settings, playlist as _xpl
-from xl import covers
+from xl import xdg
 
 try:
     import gtk.glade
@@ -49,9 +46,28 @@ except ImportError:
         "Failed to import gtk.glade, interface "
         "will not be fully translated.")
 
-from xlgui import cover
-from xlgui import devices, guiutil, icons, preferences, queue
+from xl import (
+    common,
+    covers,
+    event,
+    metadata,
+    playlist as _xpl,
+    player,
+    settings
+)
+from xl.nls import gettext as _
+
+from xlgui import (
+    cover,
+    devices,
+    guiutil,
+    icons,
+    preferences,
+    queue
+)
 from xlgui.widgets import dialogs
+
+logger = logging.getLogger(__name__)
 
 def mainloop():
     gtk.main()
@@ -98,8 +114,7 @@ class Main(object):
                 xdg.get_data_path('images'))
 
         logger.info("Loading main window...")
-        self.main = main.MainWindow(self, self.builder,
-            exaile.collection, exaile.player, exaile.queue, covers.MANAGER)
+        self.main = main.MainWindow(self, self.builder, exaile.collection)
         self.panel_notebook = self.builder.get_object('panel_notebook')
         self.play_toolbar = self.builder.get_object('play_toolbar')
 
@@ -262,22 +277,35 @@ class Main(object):
             starts playing it
         """
         from xl import playlist, trax
+
         if playlist.is_valid_playlist(uri):
-            pl = playlist.import_playlist(uri)
-            self.main.add_playlist(pl)
+            playlist = playlist.import_playlist(uri)
+            self.main.playlist_notebook.create_tab_from_playlist(playlist)
+
+            # FIXME
             if play:
-                self.exaile.queue.play()
+                player.QUEUE.current_playlist = playlist
+                player.QUEUE.play(playlist[0])
         else:
-            pl = self.main.get_selected_page()
-            column, descending = pl.get_sort_by()
+            page = self.main.get_selected_page()
+            column = page.view.get_sort_column()
+            reverse = False
+            sort_by = page.view.base_sort_tags
+
+            if column:
+                reverse = column.get_sort_order() == gtk.SORT_DESCENDING
+                sort_by = [column.name] + sort_by
 
             tracks = trax.get_tracks_from_uri(uri)
-            tracks = trax.sort_tracks(pl.return_order_tags(column), tracks)
+            tracks = trax.sort_tracks(sort_by, tracks, reverse=reverse)
 
             try:
-                pl.playlist.add_tracks(tracks)
-                pl.playlist.set_current_pos(len(pl.playlist) - len(tracks))
-                self.exaile.queue.play()
+                page.playlist.extend(tracks)
+                page.playlist.current_position = len(page.playlist) - len(tracks)
+
+                if play:
+                    player.QUEUE.current_playlist = page.playlist
+                    player.QUEUE.play(tracks[0])
             # Catch empty directories
             except IndexError:
                 pass
@@ -351,7 +379,7 @@ class Main(object):
     def on_goto_playing_track(self, *e):
         # TODO: move into PlaylistPage (or maybe View)
         pl = self.main.get_selected_page()
-        if pl.playlist == self.exaile.queue.current_playlist:
+        if pl.playlist == player.QUEUE.current_playlist:
             pl.view.scroll_to_cell(pl.playlist.current_position)
             pl.view.set_cursor(pl.playlist.current_position)
         #TODO implement a way to browse through all playlists and search for the track

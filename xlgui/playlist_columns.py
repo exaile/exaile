@@ -154,8 +154,7 @@ class Column(gtk.TreeViewColumn):
 
             cell.props.weight = weight
 
-            if playlist.spat_position > -1 and \
-               path[0] > playlist.spat_position:
+            if -1 < playlist.spat_position < path[0]:
                 cell.props.sensitive = False
             else:
                 cell.props.sensitive = True

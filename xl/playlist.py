@@ -39,9 +39,18 @@ try:
 except:
     import pickle
 
-from xl.nls import gettext as _
-from xl import common, dynamic, event, xdg, collection, settings, trax
+from xl import (
+    collection,
+    common,
+    dynamic,
+    event,
+    providers,
+    settings,
+    trax,
+    xdg,
+)
 from xl.common import MetadataList
+from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -63,328 +72,453 @@ def encode_filename(name):
 
     return name
 
-
-def save_to_m3u(playlist, path):
+class FormatConverter(object):
     """
-        Saves a Playlist to an m3u file
+        Base class for all converters allowing to
+        import from and export to a specific format
     """
-    handle = open(path, "w")
+    file_extensions = property(lambda self: [self.name])
 
-    handle.write("#EXTM3U\n")
-    if playlist.name != '':
-        handle.write("#PLAYLIST: %s\n" % playlist.name)
+    def __init__(self, name):
+        self.name = name
 
-    for track in playlist:
-        rawlen = track.get_tag_raw('__length')
-        if rawlen:
-            leng = round(float(rawlen))
-        if not rawlen or leng < 1:
-            leng = -1
-        artist = track.get_tag_raw('artist', join=True)
-        title = track.get_tag_raw('title', join=True)
-        if artist:
-            title = artist + ' - ' + title
-        handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
-            title, track.get_loc_for_io()))
+    def export_to_file(self, playlist, path):
+        """
+            Export a playlist to a given path
 
-    handle.close()
+            :param playlist: the playlist
+            :type playlist: :class:`Playlist`
+            :param path: the target path
+            :type path: string
+        """
+        pass
 
-def import_from_m3u(path):
-    url_parsed = urlparse.urlparse(path)
-    # Local file, possibly on Windows ?
-    if not url_parsed[0] or len(url_parsed[0]) == 1:
-        handle = open(path, 'r')
-        name = os.path.basename(path).replace(".m3u","")
-        is_local = True
-    else:
-        handle = urllib.urlopen(path)
-        name = url_parsed[2].split('/')[-1].replace('.m3u', '')
-        is_local = False
+    def import_from_file(self, path):
+        """
+            Import a playlist from a given path
 
-    #if not handle.readline().startswith("#EXTM3U"):
-    #    return None
+            :param path: the source path
+            :type path: string
+            :returns: the playlist
+            :rtype: :class:`Playlist`
+        """
+        pass
 
-    pl = Playlist(name=name)
+class M3UConverter(FormatConverter):
+    """
+        Import from and export to M3U format
+    """
+    def __init__(self):
+        FormatConverter.__init__(self, 'm3u')
 
-    current_extinf = None
-    for line in handle:
-        line = line.strip()
-        if line == "":
-            pass
-        elif line.startswith("#Playlist: "):
-            pl.set_name(line[12:])
-        elif line.startswith("#EXTINF:"):
-            current_extinf = line
-        elif line.startswith("#"):
-            pass
+    def export_to_file(self, playlist, path):
+        """
+            Export a playlist to a given path
+
+            :param playlist: the playlist
+            :type playlist: :class:`Playlist`
+            :param path: the target path
+            :type path: string
+        """
+        handle = open(path, "w")
+
+        handle.write("#EXTM3U\n")
+        if playlist.name != '':
+            handle.write("#PLAYLIST: %s\n" % playlist.name)
+
+        for track in playlist:
+            rawlen = track.get_tag_raw('__length')
+            if rawlen:
+                leng = round(float(rawlen))
+            if not rawlen or leng < 1:
+                leng = -1
+            artist = track.get_tag_raw('artist', join=True)
+            title = track.get_tag_raw('title', join=True)
+            if artist:
+                title = artist + ' - ' + title
+            handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
+                title, track.get_loc_for_io()))
+
+        handle.close()
+
+    def import_from_file(self, path):
+        """
+            Import a playlist from a given path
+
+            :param path: the source path
+            :type path: string
+            :returns: the playlist
+            :rtype: :class:`Playlist`
+        """
+        url_parsed = urlparse.urlparse(path)
+        # Local file, possibly on Windows ?
+        if not url_parsed[0] or len(url_parsed[0]) == 1:
+            handle = open(path, 'r')
+            name = os.path.basename(path).replace(".m3u","")
+            is_local = True
         else:
-            track_is_local = len(urlparse.urlparse(line)[0]) <= 1
-            if track_is_local and not os.path.isabs(line):
-                line = os.path.join(os.path.dirname(path), line)
-            current = trax.Track(line)
+            handle = urllib.urlopen(path)
+            name = url_parsed[2].split('/')[-1].replace('.m3u', '')
+            is_local = False
 
-            if current_extinf:
-                comma_separated = current_extinf[8:].split(",", 1)
-                title = comma_separated[-1]
-                if len(comma_separated) > 1:
-                    length = float(comma_separated[0])
-                    if length < 1:
+        #if not handle.readline().startswith("#EXTM3U"):
+        #    return None
+
+        playlist = Playlist(name=name)
+
+        extinf = None
+        for line in handle:
+            line = line.strip()
+            if line == "":
+                pass
+            elif line.startswith("#Playlist: "):
+                playlist.set_name(line[12:])
+            elif line.startswith("#EXTINF:"):
+                extinf = line
+            elif line.startswith("#"):
+                pass
+            else:
+                track_is_local = len(urlparse.urlparse(line)[0]) <= 1
+                if track_is_local and not os.path.isabs(line):
+                    line = os.path.join(os.path.dirname(path), line)
+                track = trax.Track(line)
+
+                if extinf:
+                    comma_separated = extinf[8:].split(",", 1)
+                    title = comma_separated[-1]
+                    if len(comma_separated) > 1:
+                        length = float(comma_separated[0])
+                        if length < 1:
+                            length = 0
+                    else:
                         length = 0
-                else:
-                    length = 0
+                    artist_title = title.split(' - ', 1)
+                    if len(artist_title) > 1:
+                        track.set_tag_raw('artist', artist_title[0])
+                        track.set_tag_raw('title', artist_title[1])
+                    else:
+                        track.set_tag_raw('title', title)
+                    track.set_tag_raw('__length', length)
+
+                playlist.append(track)
+
+        handle.close()
+
+        return playlist
+providers.register('playlist-format-converter', M3UConverter())
+
+class PLSConverter(FormatConverter):
+    """
+        Import from and export to PLS format
+    """
+    def __init__(self):
+        FormatConverter.__init__(self, 'pls')
+
+    def export_to_file(self, playlist, path):
+        """
+            Export a playlist to a given path
+
+            :param playlist: the playlist
+            :type playlist: :class:`Playlist`
+            :param path: the target path
+            :type path: string
+        """
+        handle = open(path, "w")
+
+        handle.write("[playlist]\n")
+        handle.write("NumberOfEntries=%d\n\n" % len(playlist))
+
+        count = 1
+
+        for track in playlist:
+            artist = track.get_tag_raw('artist', join=True)
+            title = track.get_tag_raw('title', join=True)
+            if artist:
+                title = artist + ' - ' + title
+            handle.write("File%d=%s\n" % (count, track.get_loc_for_io()))
+            handle.write("Title%d=%s\n" % (count, title))
+            length = round(float(track.get_tag_raw('__length') or -1))
+            if length < 0:
+                length = -1
+            handle.write("Length%d=%d\n\n" % (count, length))
+            count += 1
+
+        handle.write("Version=2")
+        handle.close()
+
+    def import_from_file(self, path):
+        """
+            Import a playlist from a given path
+
+            :param path: the source path
+            :type path: string
+            :returns: the playlist
+            :rtype: :class:`Playlist`
+        """
+        if not handle: handle = urllib.urlopen(path)
+
+        #PLS doesn't store a name, so assume the filename is the name
+        name = os.path.split(path)[-1].replace(".pls","")
+
+        line = handle.readline().strip()
+        if line != '[playlist]':
+            return None # not a valid pls playlist
+
+        linedict = {}
+
+        for line in handle:
+            newline = line.strip()
+            if newline == "":
+                continue
+            try:
+                entry, value = newline.split("=",1)
+                linedict[entry.lower()] = value
+            except:
+                return None
+
+        if not linedict.has_key("version"):
+            logger.warning("No PLS version specified, "
+                           "assuming 2. [%s]" % path)
+        else:
+            if linedict["version"].strip() != '2':
+                logger.error("PLS file is not a supported version!")
+                return None
+        if not linedict.has_key("numberofentries"):
+            return None
+
+        num = int(linedict["numberofentries"])
+
+        playlist = Playlist(name=name)
+
+        for n in range(1,num+1):
+            track = trax.Track(linedict["file%d" % n])
+            if ("title%d" % n) in linedict:
+                title = linedict["title%d" % n]
                 artist_title = title.split(' - ', 1)
                 if len(artist_title) > 1:
-                    current.set_tag_raw('artist', artist_title[0])
-                    current.set_tag_raw('title', artist_title[1])
-                else:
-                    current.set_tag_raw('title', title)
-                current.set_tag_raw('__length', length)
-                current_extinf = None
-
-            pl.add(current, ignore_missing_files=track_is_local)
-            current = None
-
-    handle.close()
-
-    return pl
-
-def save_to_pls(playlist, path):
-    """
-        Saves a Playlist to an pls file
-    """
-    handle = open(path, "w")
-
-    handle.write("[playlist]\n")
-    handle.write("NumberOfEntries=%d\n\n" % len(playlist))
-
-    count = 1
-
-    for track in playlist:
-        artist = track.get_tag_raw('artist', join=True)
-        title = track.get_tag_raw('title', join=True)
-        if artist:
-            title = artist + ' - ' + title
-        handle.write("File%d=%s\n" % (count, track.get_loc_for_io()))
-        handle.write("Title%d=%s\n" % (count, title))
-        length = round(float(track.get_tag_raw('__length') or -1))
-        if length < 0:
-            length = -1
-        handle.write("Length%d=%d\n\n" % (count, length))
-        count += 1
-
-    handle.write("Version=2")
-    handle.close()
-
-def import_from_pls(path, handle=None):
-    if not handle: handle = urllib.urlopen(path)
-
-    #PLS doesn't store a name, so assume the filename is the name
-    name = os.path.split(path)[-1].replace(".pls","")
-
-    line = handle.readline().strip()
-    if line != '[playlist]':
-        return None # not a valid pls playlist
-
-    linedict = {}
-
-    for line in handle:
-        newline = line.strip()
-        if newline == "":
-            continue
-        try:
-            entry, value = newline.split("=",1)
-            linedict[entry.lower()] = value
-        except:
-            return None
-
-    if not linedict.has_key("version"):
-        logger.warning("No PLS version specified, assuming 2. [%s]"%path)
-    else:
-        if linedict["version"].strip() != '2':
-            logger.error("PLS file is not a supported version!")
-            return None
-    if not linedict.has_key("numberofentries"):
-        return None
-
-    num = int(linedict["numberofentries"])
-
-    pl = Playlist(name=name)
-
-    for n in range(1,num+1):
-        tr = trax.Track(linedict["file%d" % n])
-        if ("title%d" % n) in linedict:
-            title = linedict["title%d" % n]
-            artist_title = title.split(' - ', 1)
-            if len(artist_title) > 1:
-                artist, title = artist_title
-                tr.set_tag_raw('artist', artist)
-        else:
-            title = os.path.splitext(os.path.basename(linedict["file%d" % n]))[0]
-        tr.set_tag_raw('title', title)
-        if ("Length%d" % n) in linedict:
-            length = float(linedict["Length%d" % n])
-            if length < 0:
+                    artist, title = artist_title
+                    track.set_tag_raw('artist', artist)
+            else:
+                title = os.path.splitext(
+                    os.path.basename(linedict["file%d" % n]))[0]
+            track.set_tag_raw('title', title)
+            if ("Length%d" % n) in linedict:
+                length = float(linedict["Length%d" % n])
+                if length < 0:
+                    length = 0
+            else:
                 length = 0
+            track.set_tag_raw('__length', length)
+            playlist.append(track)
+
+        handle.close()
+
+        return playlist
+providers.register('playlist-format-converter', PLSConverter())
+
+class ASXConverter(FormatConverter):
+    """
+        Import from and export to ASX format
+    """
+    def __init__(self):
+        FormatConverter.__init__(self, 'asx')
+
+    def export_to_file(self, playlist, path):
+        """
+            Export a playlist to a given path
+
+            :param playlist: the playlist
+            :type playlist: :class:`Playlist`
+            :param path: the target path
+            :type path: string
+        """
+        handle = open(path, "w")
+
+        handle.write("<asx version=\"3.0\">\n")
+        if playlist.name == '':
+            name = ''
         else:
-            length = 0
-        tr.set_tag_raw('__length', length)
-        pl.add(tr, ignore_missing_files=False)
+            name = playlist.name
+        handle.write("  <title>%s</title>\n" % name)
 
-    handle.close()
+        for track in playlist:
+            handle.write("<entry>\n")
+            handle.write("  <title>%s</title>\n" % \
+                    track.get_tag_raw('title', join=True))
+            handle.write("  <ref href=\"%s\" />\n" % track.get_loc_for_io())
+            handle.write("</entry>\n")
 
-    return pl
+        handle.write("</asx>")
+        handle.close()
 
+    def import_from_file(self, path):
+        """
+            Import a playlist from a given path
 
-def save_to_asx(playlist, path):
-    """
-        Saves a Playlist to an asx file
-    """
-    handle = open(path, "w")
+            :param path: the source path
+            :type path: string
+            :returns: the playlist
+            :rtype: :class:`Playlist`
+        """
+        tree = ETree.ElementTree(file=urllib.urlopen(path))
+        # bad hack to support non-lowercase elems. FIXME
+        trys = [lambda x: x, lambda x: x.upper(), lambda x: x[0].upper() + x[1:]]
+        name = _("Unknown")
+        nodes = []
 
-    handle.write("<asx version=\"3.0\">\n")
-    if playlist.name == '':
-        name = ''
-    else:
-        name = playlist.name
-    handle.write("  <title>%s</title>\n" % name)
-
-    for track in playlist:
-        handle.write("<entry>\n")
-        handle.write("  <title>%s</title>\n" % \
-                track.get_tag_raw('title', join=True))
-        handle.write("  <ref href=\"%s\" />\n" % track.get_loc_for_io())
-        handle.write("</entry>\n")
-
-    handle.write("</asx>")
-    handle.close()
-
-def import_from_asx(path):
-    tree = ETree.ElementTree(file=urllib.urlopen(path))
-    # bad hack to support non-lowercase elems. FIXME
-    trys = [lambda x: x, lambda x: x.upper(), lambda x: x[0].upper() + x[1:]]
-    name = _("Unknown")
-    tracks = []
-    for ty in trys:
-        try:
-            name = tree.find(ty("title")).text.strip()
-        except:
-            continue
-        break
-    for ty in trys:
-        tracks = tree.findall(ty("entry"))
-        if tracks != []:
-            break
-    pl = Playlist(name=name)
-    for t in tracks:
-        loc = t.find("ref").get("href")
-        tr = trax.Track(loc)
-        try:
-            tr.set_tag_raw('title', t.find("title").text.strip())
-        except:
-            pass
-        pl.add(tr, ignore_missing_files=False)
-    return pl
-
-XSPF_MAPPING = {
-        'title': 'title',
-        'creator': 'artist',
-        'album': 'album',
-        'trackNum': 'tracknumber'}
-# TODO: support image tag for CoverManager
-
-def save_to_xspf(playlist, path):
-    """
-        Saves a Playlist to a xspf file
-    """
-    handle = open(path, "w")
-
-    handle.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-    handle.write("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">\n")
-    if playlist.name != '':
-        handle.write("  <title>%s</title>\n" % playlist.name)
-
-    handle.write("  <trackList>\n")
-    for track in playlist:
-        handle.write("    <track>\n")
-        for xs, tag in XSPF_MAPPING.iteritems():
-            if not track.get_tag_raw(tag):
-                continue
-            handle.write("      <%s>%s</%s>\n" % (xs,
-                track.get_tag_raw(tag, join=True),xs) )
-        url = track.get_loc_for_io()
-        handle.write("      <location>%s</location>\n" % url)
-        handle.write("    </track>\n")
-
-    handle.write("  </trackList>\n")
-    handle.write("</playlist>\n")
-    handle.close()
-
-def import_from_xspf(path):
-    #TODO: support content resolution
-    tree = ETree.ElementTree(file=urllib.urlopen(path))
-    ns = "{http://xspf.org/ns/0/}"
-    tracks = tree.find("%strackList"%ns).findall("%strack"%ns)
-    name = tree.find("%stitle"%ns).text.strip()
-    pl = Playlist(name=name)
-    for t in tracks:
-        loc = t.find("%slocation"%ns).text.strip()
-        tr = trax.Track(loc)
-        for xs, tag in XSPF_MAPPING.iteritems():
+        for ty in trys:
             try:
-                tr.set_tag_raw(tag, t.find("%s%s"%(ns,xs)).text.strip())
+                name = tree.find(ty("title")).text.strip()
+            except:
+                continue
+            break
+
+        for ty in trys:
+            nodes = tree.findall(ty("entry"))
+            if nodes != []:
+                break
+
+        playlist = Playlist(name=name)
+
+        for n in nodes:
+            loc = n.find("ref").get("href")
+            track = trax.Track(loc)
+            try:
+                track.set_tag_raw('title', n.find("title").text.strip())
             except:
                 pass
-        pl.add(tr)
-    return pl
+            playlist.append(track)
 
-def is_valid_playlist(loc):
+        return playlist
+providers.register('playlist-format-converter', ASXConverter())
+
+class XSPFConverter(FormatConverter):
     """
-        Returns whether the file at loc is a valid playlist
-        right now determines based on file extension but
-        possibly could be extended to actually opening
-        the file and determining
+        Import from and export to XSPF format
     """
-    sections = loc.split('.')
-    return sections[-1] in ['m3u', 'pls','asx', 'xspf']
+    def __init__(self):
+        FormatConverter.__init__(self, 'xspf')
+        # TODO: support image tag for CoverManager
+        self.tags = {
+            'title': 'title',
+            'creator': 'artist',
+            'album': 'album',
+            'trackNum': 'tracknumber'
+        }
+
+    def export_to_file(self, playlist, path):
+        """
+            Export a playlist to a given path
+
+            :param playlist: the playlist
+            :type playlist: :class:`Playlist`
+            :param path: the target path
+            :type path: string
+        """
+        handle = open(path, "w")
+
+        handle.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+        handle.write("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">\n")
+        if playlist.name != '':
+            handle.write("  <title>%s</title>\n" % playlist.name)
+
+        handle.write("  <trackList>\n")
+        for track in playlist:
+            handle.write("    <track>\n")
+            for element, tag in self.tags.iteritems():
+                if not track.get_tag_raw(tag):
+                    continue
+                handle.write("      <%s>%s</%s>\n" % (
+                    element,
+                    track.get_tag_raw(tag, join=True),
+                    element
+                ))
+            url = track.get_loc_for_io()
+            handle.write("      <location>%s</location>\n" % url)
+            handle.write("    </track>\n")
+
+        handle.write("  </trackList>\n")
+        handle.write("</playlist>\n")
+        handle.close()
+
+    def import_from_file(self, path):
+        """
+            Import a playlist from a given path
+
+            :param path: the source path
+            :type path: string
+            :returns: the playlist
+            :rtype: :class:`Playlist`
+        """
+        #TODO: support content resolution
+        tree = ETree.ElementTree(file=urllib.urlopen(path))
+        ns = "{http://xspf.org/ns/0/}"
+        nodes = tree.find("%strackList" % ns).findall("%strack" % ns)
+        name = tree.find("%stitle" % ns).text.strip()
+        playlist = Playlist(name=name)
+
+        for n in nodes:
+            loc = n.find("%slocation" % ns).text.strip()
+            track = trax.Track(loc)
+            for element, tag in self.tags.iteritems():
+                try:
+                    track.set_tag_raw(tag,
+                        n.find("%s%s" % (ns, element)).text.strip())
+                except:
+                    pass
+            playlist.append(track)
+
+        return playlist
+providers.register('playlist-format-converter', XSPFConverter())
+
+def is_valid_playlist(path):
+    """
+        Returns whether the file at a given path is a valid
+        playlist. Based on file extension but could possibly
+        be extended to actual content sniffing.
+
+        :param path: the source path
+        :type path: string
+    """
+    file_extension = path.split('.')[-1]
+
+    for provider in providers.get('playlist-format-converter'):
+        if file_extension in provider.file_extensions:
+            return True
+
+    return False
 
 def import_playlist(path):
     """
-        Determines what type of playlist it is and
-        based on that calls the appropriate import
-        function
+        Determines the type of playlist and creates
+        a playlist from it
+
+        :param path: the source path
+        :type path: string
+        :returns: the playlist
+        :rtype: :class:`Playlist`
     """
-    sections = path.split('.')
-    extension = sections[-1]
-    if extension == 'm3u':
-        return import_from_m3u(path)
-    elif extension == 'pls':
-        return import_from_pls(path)
-    elif extension == 'asx':
-        return import_from_asx(path)
-    elif extension == 'xspf':
-        return import_from_xspf(path)
-    else:
-        raise InvalidPlaylistTypeException()
+    file_extension = path.split('.')[-1]
+
+    for provider in providers.get('playlist-format-converter'):
+        if file_extension in provider.file_extensions:
+            return provider.import_from_file(path)
+
+    raise InvalidPlaylistTypeException()
 
 def export_playlist(playlist, path):
     """
         Exact same as @see import_playlist except
         it exports
     """
-    sections = path.split('.')
-    extension = sections[-1]
-    if extension == 'm3u':
-        return save_to_m3u(playlist, path)
-    elif extension == 'pls':
-        return save_to_pls(playlist, path)
-    elif extension == 'asx':
-        return save_to_asx(playlist, path)
-    elif extension == 'xspf':
-        return save_to_xspf(playlist, path)
+    file_extension = path.split('.')[-1]
+
+    for provider in providers.get('playlist-format-converter'):
+        if file_extension in provider.file_extensions:
+            provider.export_to_file(playlist, path)
+            break
     else:
         raise InvalidPlaylistTypeException()
-
-
 
 class Playlist(object):
     shuffle_modes = ['disabled', 'track', 'album']

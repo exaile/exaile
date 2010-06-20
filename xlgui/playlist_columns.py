@@ -156,9 +156,13 @@ class Column(gtk.TreeViewColumn):
 
             if -1 < playlist.spat_position < path[0] and \
                 playlist.shuffle_mode == 'disabled':
-                cell.props.sensitive = False
+                sensitive = False
             else:
-                cell.props.sensitive = True
+                sensitive = True
+
+            if sensitive != cell.props.sensitive:
+                cell.props.sensitive = sensitive
+                model.emit('row-changed', path, iter)
 
     def __repr__(self):
         return '%s(%s, %s, %s)' % (self.__class__.__name__,

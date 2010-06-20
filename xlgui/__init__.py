@@ -53,6 +53,7 @@ from xl import (
     metadata,
     playlist as _xpl,
     player,
+    providers,
     settings
 )
 from xl.nls import gettext as _
@@ -158,10 +159,10 @@ class Main(object):
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_SAVE, gtk.RESPONSE_OK))
 
-        extensions = { 'm3u' : _('M3U Playlist'),
-                       'pls' : _('PLS Playlist'),
-                       'asx' : _('ASX Playlist'),
-                       'xspf' : _('XSPF Playlist') }
+        extensions = {}
+
+        for provider in providers.get('playlist-format-converter'):
+            extensions[provider.name] = provider.title
 
         dialog.add_extensions(extensions)
         dialog.set_current_name(name)
@@ -227,7 +228,11 @@ class Main(object):
             supported_file_filter.add_pattern('*.' + ext)
             audio_file_filter.add_pattern('*.' + ext)
 
-        playlist_file_types = ('m3u', 'pls', 'asx', 'xspf')
+        playlist_file_types = []
+
+        for provider in providers.get('playlist-format-converter'):
+            playlist_file_types += provider.file_extensions
+
         for playlist_file_type in playlist_file_types:
             supported_file_filter.add_pattern('*.' + playlist_file_type)
             playlist_file_filter.add_pattern('*.' + playlist_file_type)

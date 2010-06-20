@@ -77,6 +77,7 @@ class FormatConverter(object):
         Base class for all converters allowing to
         import from and export to a specific format
     """
+    title = _('Playlist')
     file_extensions = property(lambda self: [self.name])
 
     def __init__(self, name):
@@ -108,6 +109,8 @@ class M3UConverter(FormatConverter):
     """
         Import from and export to M3U format
     """
+    title = _('M3U Playlist')
+
     def __init__(self):
         FormatConverter.__init__(self, 'm3u')
 
@@ -211,6 +214,8 @@ class PLSConverter(FormatConverter):
     """
         Import from and export to PLS format
     """
+    title = _('PLS Playlist')
+
     def __init__(self):
         FormatConverter.__init__(self, 'pls')
 
@@ -320,6 +325,8 @@ class ASXConverter(FormatConverter):
     """
         Import from and export to ASX format
     """
+    title = _('ASX Playlist')
+
     def __init__(self):
         FormatConverter.__init__(self, 'asx')
 
@@ -396,6 +403,8 @@ class XSPFConverter(FormatConverter):
     """
         Import from and export to XSPF format
     """
+    title = _('XSPF Playlist')
+
     def __init__(self):
         FormatConverter.__init__(self, 'xspf')
         # TODO: support image tag for CoverManager

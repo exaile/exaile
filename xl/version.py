@@ -26,9 +26,9 @@
 
 import xdg
 
-major = "0.3.1"
-minor = "999"
-extra = "-rc1"
+major = "0.3.3"
+minor = "0"
+extra = "-dev"
 
 def get_latest_bzr_revno(directory):
     """

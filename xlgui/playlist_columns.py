@@ -154,7 +154,8 @@ class Column(gtk.TreeViewColumn):
 
             cell.props.weight = weight
 
-            if -1 < playlist.spat_position < path[0]:
+            if -1 < playlist.spat_position < path[0] and \
+                playlist.shuffle_mode == 'disabled':
                 cell.props.sensitive = False
             else:
                 cell.props.sensitive = True

@@ -53,6 +53,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <property name="tooltip_text" translatable="yes">Shuffle playback order</property>
                                 <property name="relief">none</property>
                                 <signal name="button_press_event" handler="on_shuffle_button_press_event"/>
                                 <child>
@@ -73,6 +74,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <property name="tooltip_text" translatable="yes">Repeat playback</property>
                                 <property name="relief">none</property>
                                 <signal name="button_press_event" handler="on_repeat_button_press_event"/>
                                 <child>

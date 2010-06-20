@@ -248,28 +248,31 @@ class PLSConverter(FormatConverter):
             :param path: the target path
             :type path: string
         """
-        handle = open(path, "w")
+        gfile = gio.File(path)
+        stream = gfile.replace('', False)
 
-        handle.write("[playlist]\n")
-        handle.write("NumberOfEntries=%d\n\n" % len(playlist))
+        stream.write('[playlist]\n')
+        stream.write('NumberOfEntries=%d\n\n' % len(playlist))
 
-        count = 1
-
-        for track in playlist:
+        for index, track in enumerate(playlist):
+            position = index + 1
+            title = [track.get_tag_raw('title', join=True)]
             artist = track.get_tag_raw('artist', join=True)
-            title = track.get_tag_raw('title', join=True)
+
             if artist:
-                title = artist + ' - ' + title
-            handle.write("File%d=%s\n" % (count, track.get_loc_for_io()))
-            handle.write("Title%d=%s\n" % (count, title))
+                title = [artist] + title
+
             length = round(float(track.get_tag_raw('__length') or -1))
+
             if length < 0:
                 length = -1
-            handle.write("Length%d=%d\n\n" % (count, length))
-            count += 1
 
-        handle.write("Version=2")
-        handle.close()
+            stream.write('File%d=%s\n' % (position, track.get_loc_for_io()))
+            stream.write('Title%d=%s\n' % (position, ' - '.join(title)))
+            stream.write('Length%d=%d\n\n' % (position, length))
+
+        stream.write('Version=2')
+        stream.close()
 
     def import_from_file(self, path):
         """
@@ -987,204 +990,6 @@ class Playlist(object):
         l.extend([x[0] for x in data])
         l.metadata = [x[1] for x in data]
         self[:] = l
-
-
-    ### list-like API methods ###
-    # parts of this section are taken from
-    # http://code.activestate.com/recipes/440656-list-mixin/
-
-    def __len__(self):
-        return len(self.__tracks)
-
-    def __contains__(self, track):
-        return track in self.__tracks
-
-    def __tuple_from_slice(self, i):
-        """
-            Get (start, end, step) tuple from slice object.
-        """
-        (start, end, step) = i.indices(len(self))
-        if i.step == None:
-            step = 1
-        return (start, end, step)
-
-    def __getitem__(self, i):
-        return self.__tracks.__getitem__(i)
-
-    def __setitem__(self, i, value):
-        oldtracks = self.__getitem__(i)
-        removed = MetadataList()
-        added = MetadataList()
-
-        if isinstance(i, slice):
-            for x in value:
-                if not isinstance(x, trax.Track):
-                    raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
-
-            (start, end, step) = self.__tuple_from_slice(i)
-
-            if isinstance(value, MetadataList):
-                metadata = value.metadata
-            else:
-                metadata = [None] * len(value)
-
-            if step != 1:
-                if len(value) != len(oldtracks):
-                    raise ValueError, "Extended slice assignment must match sizes."
-            self.__tracks.__setitem__(i, value)
-            removed = MetadataList(zip(range(start, end, step), oldtracks),
-                    oldtracks.metadata)
-            if step == 1:
-                end = start + len(value)
-
-            added = MetadataList(zip(range(start, end, step), value), metadata)
-        else:
-            if not isinstance(value, trax.Track):
-                raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
-            self.__tracks[i] = value
-            removed = [(i, oldtracks)]
-            added = [(i, value)]
-
-        self.on_tracks_changed()
-        event.log_event('playlist_tracks_removed', self, removed)
-        event.log_event('playlist_tracks_added', self, added)
-        self.__needs_save = self.__dirty = True
-
-    def __delitem__(self, i):
-        if isinstance(i, slice):
-            (start, end, step) = self.__tuple_from_slice(i)
-        oldtracks = self.__getitem__(i)
-        self.__tracks.__delitem__(i)
-        removed = MetadataList()
-
-        if isinstance(i, slice):
-            removed = MetadataList(zip(xrange(start, end, step), oldtracks),
-                    oldtracks.metadata)
-        else:
-            removed = [(i, oldtracks)]
-
-        self.on_tracks_changed()
-        event.log_event('playlist_tracks_removed', self, removed)
-        self.__needs_save = self.__dirty = True
-
-    def append(self, other):
-        self[len(self):len(self)] = [other]
-
-    def extend(self, other):
-        self[len(self):len(self)] = other
-
-    def count(self, other):
-        return self.__tracks.count(other)
-
-    def index(self, item, start=0, end=None):
-        if end is None:
-            return self.__tracks.index(item, start)
-        else:
-            return self.__tracks.index(item, start, end)
-
-
-        if repeat_mode == 'track':
-            return self.current
-        else:
-            next = None
-            if shuffle_mode != 'disabled':
-                if self.current is not None:
-                    self.__tracks.set_meta_key(self.current_position,
-                            "playlist_shuffle_history", self.__shuffle_history_counter)
-                    self.__shuffle_history_counter += 1
-                next_index, next = self.__next_random_track(shuffle_mode)
-                if next is not None:
-                    self.current_position = next_index
-                else:
-                    self.clear_shuffle_history()
-            else:
-                try:
-                    next = self[self.current_position+1]
-                    self.current_position += 1
-                except IndexError:
-                    next = None
-
-            if next is None:
-                self.current_position = -1
-                if repeat_mode == 'all' and len(self) > 0:
-                    return self.next()
-            else:
-                return next
-
-    def prev(self):
-        repeat_mode = self.repeat_mode
-        shuffle_mode = self.shuffle_mode
-        if repeat_mode == 'track':
-            return self.current
-
-        if shuffle_mode != 'disabled':
-            try:
-                prev_index, prev = max(self.get_shuffle_history())
-            except IndexError:
-                return self.get_current()
-            self.__tracks.del_meta_key(prev_index, 'playlist_shuffle_history')
-            self.current_position = prev_index
-        else:
-            position = self.current_position - 1
-            if position < 0:
-                if repeat_mode == 'all':
-                    position = len(self) - 1
-                else:
-                    position = 0
-            self.current_position = position
-        return self.get_current()
-
-    ### track advance modes ###
-    # This code may look a little overkill, but it's this way to
-    # maximize forwards-compatibility. get_ methods will not overwrite
-    # currently-set modes which may be from a future version, while set_
-    # methods explicitly disallow modes not supported in this version.
-    # This ensures that 1) saved modes are never clobbered unless a
-    # known mode is to be set, and 2) the values returned in _mode will
-    # always be supported in the running version.
-
-    def __get_mode(self, modename):
-        mode = getattr(self, "_Playlist__%s_mode"%modename)
-        modes = getattr(self, "%s_modes"%modename)
-        if mode in modes:
-            return mode
-        else:
-            return modes[0]
-
-    def __set_mode(self, modename, mode):
-        modes = getattr(self, "%s_modes"%modename)
-        if mode not in modes:
-            raise TypeError, "Mode %s is invalid" % mode
-        else:
-            self.__dirty = True
-            setattr(self, "_Playlist__%s_mode"%modename, mode)
-            event.log_event("playlist_%s_mode_changed"%modename, self, mode)
-
-    def get_shuffle_mode(self):
-        return self.__get_mode("shuffle")
-
-    def set_shuffle_mode(self, mode):
-        self.__set_mode("shuffle", mode)
-        if mode == 'disabled':
-            self.clear_shuffle_history()
-
-    shuffle_mode = property(get_shuffle_mode, set_shuffle_mode)
-
-    def get_repeat_mode(self):
-        return self.__get_mode('repeat')
-
-    def set_repeat_mode(self, mode):
-        self.__set_mode("repeat", mode)
-
-    repeat_mode = property(get_repeat_mode, set_repeat_mode)
-
-    def get_dynamic_mode(self):
-        return self.__get_mode("dynamic")
-
-    def set_dynamic_mode(self, mode):
-        self.__set_mode("dynamic", mode)
-
-    dynamic_mode = property(get_dynamic_mode, set_dynamic_mode)
 
 
     ### list-like API methods ###

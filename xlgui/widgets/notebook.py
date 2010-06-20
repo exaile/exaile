@@ -230,7 +230,7 @@ class NotebookTab(gtk.EventBox):
         return hasattr(self.page, 'set_name')
 
     def close(self, *args):
-        if self.closable and self.page.handle_close():
+        if self.closable and not self.page.emit('closing'):
             self.notebook.remove_page(self.notebook.page_num(self.page))
 
 
@@ -248,7 +248,12 @@ class NotebookPage(gtk.VBox):
         'name-changed': (
             gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_NONE,
-            tuple()
+            ()
+        ),
+        'closing': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            ()
         )
     }
     def __init__(self):
@@ -272,15 +277,6 @@ class NotebookPage(gtk.VBox):
             outside of that.
         """
         self.tab = tab
-
-    def handle_close(self):
-        """
-            Called when the tab is about to be closed. This can be used to
-            handle showing a save dialog or similar actions. Should return
-            True if we're OK with continuing to close, or False to abort
-            the close.
-        """
-        raise NotImplementedError
 
     def is_current_page(self):
         """

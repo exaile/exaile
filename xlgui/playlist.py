@@ -396,9 +396,6 @@ class PlaylistPage(NotebookPage):
     def set_name(self, name):
         self.playlist.name = name
 
-    def handle_close(self):
-        return True
-
     ## End NotebookPage ##
 
     def on_shuffle_button_press_event(self, widget, event):

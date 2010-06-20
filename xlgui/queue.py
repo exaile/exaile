@@ -78,12 +78,15 @@ class QueuePage(NotebookPage):
     def get_name(self):
         return _("Queue (%d)") % len(player.QUEUE)
 
-    def handle_close(self):
-        return len(player.QUEUE) == 0
-
     def set_tab(self, tab):
         NotebookPage.set_tab(self, tab)
         tab.set_closable(False)
+
+    def do_closing(self):
+        """
+            Allows closing only if the queue is empty
+        """
+        return len(player.QUEUE) != 0
 
     ## End NotebookPage ##
 

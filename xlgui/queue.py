@@ -76,7 +76,7 @@ class QueuePage(NotebookPage):
     ## NotebookPage API ##
 
     def get_name(self):
-        return "Queue (%s)"%len(player.QUEUE)
+        return _("Queue (%d)") % len(player.QUEUE)
 
     def handle_close(self):
         return len(player.QUEUE) == 0

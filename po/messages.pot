@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-19 20:27+0200\n"
+"POT-Creation-Date: 2010-06-20 03:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,40 +283,35 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 
-#: ../xl/formatter.py:270 ../xlgui/main.py:167 ../xlgui/widgets/info.py:302
-#: ../plugins/minimode/mmwidgets.py:1365
-msgid "Streaming..."
-msgstr ""
-
-#: ../xl/formatter.py:565
+#: ../xl/formatter.py:603
 #, python-format
 msgid "%d year, "
 msgid_plural "%d years, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xl/formatter.py:568
+#: ../xl/formatter.py:606
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xl/formatter.py:571
+#: ../xl/formatter.py:609
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xl/formatter.py:573
+#: ../xl/formatter.py:611
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../xl/formatter.py:574
+#: ../xl/formatter.py:612
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -324,44 +319,44 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANSLATORS: Short form of an amount of years
-#: ../xl/formatter.py:578
+#: ../xl/formatter.py:616
 #, python-format
 msgid "%dy, "
 msgstr ""
 
 #. TRANSLATORS: Short form of an amount of days
-#: ../xl/formatter.py:582
+#: ../xl/formatter.py:620
 #, python-format
 msgid "%dd, "
 msgstr ""
 
 #. TRANSLATORS: Short form of an amount of hours
-#: ../xl/formatter.py:586
+#: ../xl/formatter.py:624
 #, python-format
 msgid "%dh, "
 msgstr ""
 
 #. TRANSLATORS: Short form of an amount of minutes
-#: ../xl/formatter.py:589
+#: ../xl/formatter.py:627
 #, python-format
 msgid "%dm, "
 msgstr ""
 
 #. TRANSLATORS: Short form of an amount of seconds
-#: ../xl/formatter.py:591
+#: ../xl/formatter.py:629
 #, python-format
 msgid "%ds"
 msgstr ""
 
-#: ../xl/formatter.py:665 ../xl/formatter.py:670
+#: ../xl/formatter.py:703 ../xl/formatter.py:708
 msgid "Never"
 msgstr ""
 
-#: ../xl/formatter.py:676
+#: ../xl/formatter.py:714
 msgid "Today"
 msgstr ""
 
-#: ../xl/formatter.py:678
+#: ../xl/formatter.py:716
 msgid "Yesterday"
 msgstr ""
 
@@ -716,33 +711,38 @@ msgstr ""
 msgid "Not Playing"
 msgstr ""
 
+#: ../xlgui/main.py:167 ../xlgui/widgets/info.py:302
+#: ../plugins/minimode/mmwidgets.py:1365
+msgid "Streaming..."
+msgstr ""
+
 #: ../xlgui/main.py:210
 msgid "$title (by $artist)"
 msgstr ""
 
-#: ../xlgui/main.py:533 ../plugins/minimode/mmwidgets.py:311
+#: ../xlgui/main.py:525 ../plugins/minimode/mmwidgets.py:311
 msgid "Toggle: Stop after Selected Track"
 msgstr ""
 
-#: ../xlgui/main.py:592
+#: ../xlgui/main.py:584
 msgid "Playback error encountered!"
 msgstr ""
 
-#: ../xlgui/main.py:599
+#: ../xlgui/main.py:591
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr ""
 
-#: ../xlgui/main.py:643 ../plugins/minimode/mmwidgets.py:201
+#: ../xlgui/main.py:648 ../plugins/minimode/mmwidgets.py:201
 msgid "Continue Playback"
 msgstr ""
 
-#: ../xlgui/main.py:647 ../xlgui/main.py:763
+#: ../xlgui/main.py:652 ../xlgui/main.py:768
 #: ../plugins/minimode/mmwidgets.py:204
 msgid "Pause Playback"
 msgstr ""
 
-#: ../xlgui/main.py:781 ../data/ui/main.ui.h:13
+#: ../xlgui/main.py:785 ../data/ui/main.ui.h:13
 #: ../plugins/minimode/mmwidgets.py:173 ../plugins/minimode/mmwidgets.py:197
 msgid "Start Playback"
 msgstr ""
@@ -873,42 +873,42 @@ msgstr ""
 msgid "Rename Playlist"
 msgstr ""
 
-#: ../xlgui/cover.py:228 ../xlgui/cover.py:296
+#: ../xlgui/cover.py:230 ../xlgui/cover.py:298
 #, python-format
 msgid "%d covers to fetch"
 msgstr ""
 
-#: ../xlgui/cover.py:301 ../xlgui/cover.py:320 ../data/ui/covermanager.ui.h:2
+#: ../xlgui/cover.py:303 ../xlgui/cover.py:322 ../data/ui/covermanager.ui.h:2
 msgid "Start"
 msgstr ""
 
-#: ../xlgui/cover.py:335
+#: ../xlgui/cover.py:337
 msgid "Show Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:336
+#: ../xlgui/cover.py:338
 msgid "Fetch Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:337
+#: ../xlgui/cover.py:339
 msgid "Remove Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:599
+#: ../xlgui/cover.py:619
 msgid "Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:601
+#: ../xlgui/cover.py:621
 #, python-format
 msgid "Cover for %s"
 msgstr ""
 
-#: ../xlgui/cover.py:756
+#: ../xlgui/cover.py:776
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
 msgstr ""
 
-#: ../xlgui/cover.py:806
+#: ../xlgui/cover.py:826
 msgid "No covers found."
 msgstr ""
 
@@ -1063,17 +1063,22 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: ../xlgui/guiutil.py:587
+#: ../xlgui/queue.py:79
+#, python-format
+msgid "Queue (%d)"
+msgstr ""
+
+#: ../xlgui/guiutil.py:589
 msgid "Muted"
 msgstr ""
 
 #. TRANSLATORS: Volume percentage
-#: ../xlgui/guiutil.py:593
+#: ../xlgui/guiutil.py:595
 #, python-format
 msgid "%d%%"
 msgstr ""
 
-#: ../xlgui/guiutil.py:596
+#: ../xlgui/guiutil.py:598
 msgid "Full Volume"
 msgstr ""
 

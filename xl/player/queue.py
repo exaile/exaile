@@ -159,7 +159,7 @@ class PlayQueue(playlist.Playlist):
             event.log_event("playback_player_resume", self.player, None)
             vol = self.player._get_volume()
             self.player._set_volume(0)
-            self.play()
+            self.play(self.get_current())
 
             if self.player.current:
                 self.player.seek(state['position'])

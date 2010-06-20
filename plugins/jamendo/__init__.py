@@ -383,7 +383,7 @@ class JamendoPanel(panel.Panel):
             tr.set_tag_raw('artist', track.artist_name)
             tr.set_tag_raw('album', track.album_name)
             xltrack_list.append(tr)
-        self.exaile.gui.main.get_selected_playlist().playlist.add_tracks(xltrack_list)
+        self.exaile.gui.main.get_selected_page().playlist.add_tracks(xltrack_list)
 
     #dragdrop stuff
     def drag_data_received(self, *e):

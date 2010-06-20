@@ -370,7 +370,7 @@ def check_alarms(main, exaile):
             if exaile.queue.current_playlist:
                 count += len(exaile.queue.current_playlist.get_tracks())
             else:
-                count += len(exaile.gui.main.get_selected_playlist().playlist.get_tracks())
+                count += len(exaile.gui.main.get_selected_page().playlist.get_tracks())
             print 'count:', count
             if count == 0 or exaile.player.is_playing(): return True    # Check if there are songs in playlist and if it is already playing
             if main.fading:
@@ -379,7 +379,7 @@ def check_alarms(main, exaile):
                 if exaile.queue.current_playlist:
                     exaile.queue.current_playlist.set_current_pos(0)
                 else:
-                    exaile.queue.set_current_playlist(exaile.gui.main.get_selected_playlist())
+                    exaile.queue.set_current_playlist(exaile.gui.main.get_selected_page())
 
             exaile.queue.play()
 

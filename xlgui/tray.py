@@ -210,7 +210,7 @@ class BaseTrayIcon(object):
         if player.PLAYER.is_paused() or player.PLAYER.is_playing():
             player.PLAYER.toggle_pause()
         else:
-            gplaylist = self.main.get_selected_playlist()
+            gplaylist = self.main.get_selected_page()
             playlist = gplaylist.playlist
 
             if gplaylist is not None:
@@ -226,7 +226,7 @@ class BaseTrayIcon(object):
         """
             Removes the currently playing track
         """
-        playlist = self.main.get_selected_playlist()
+        playlist = self.main.get_selected_page()
 
         if playlist is not None and player.PLAYER.current is not None:
             playlist.remove_tracks([player.PLAYER.current])

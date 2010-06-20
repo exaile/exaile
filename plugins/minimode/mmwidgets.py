@@ -317,7 +317,7 @@ class StopButton(Button):
         """
             Called when the user clicks on the SPAT item
         """
-        tracks = main.get_selected_playlist().get_selected_tracks()
+        tracks = main.get_selected_page().get_selected_tracks()
 
         if not tracks:
             return
@@ -329,7 +329,7 @@ class StopButton(Button):
         else:
             self.queue.stop_track = track
 
-        main.get_selected_playlist().list.queue_draw()
+        main.get_selected_page().list.queue_draw()
 
 class RestoreButton(Button):
     """
@@ -488,7 +488,7 @@ class PlaylistButton(gtk.ToggleButton):
 
         self.main = main
         self.formatter = formatter
-        playlist = self.main.get_selected_playlist()
+        playlist = self.main.get_selected_page()
         self.playlist = Playlist(main, queue, playlist.playlist)
         self.playlist.model = playlist.model
         self.playlist.list.set_model(self.playlist.model)
@@ -762,7 +762,7 @@ class ProgressButton(gtk.EventBox):
             gtk.gdk.POINTER_MOTION_MASK)
         self.tooltip = info.TrackToolTip(self, auto_update=True)
 
-        playlist = main.get_selected_playlist()
+        playlist = main.get_selected_page()
         self.playlist = Playlist(main.mainwindow(), player.QUEUE, playlist.playlist)
         self.playlist.model = playlist.model
         self.playlist.list.set_model(self.playlist.model)

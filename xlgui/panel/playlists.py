@@ -226,7 +226,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
             Removes the selected playlist from the UI
             and from the underlying manager
         """
-        selected_playlist = self.tree.get_selected_playlist(raw=True)
+        selected_playlist = self.tree.get_selected_page(raw=True)
         if selected_playlist is not None:
             if isinstance(selected_playlist, playlist.SmartPlaylist):
                 self.smart_manager.remove_playlist(
@@ -251,7 +251,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 "playlist name you entered is already in use."))
             return
 
-        playlist = self.tree.get_selected_playlist()
+        playlist = self.tree.get_selected_page()
         if playlist is not None:
             old_name = playlist.get_name()
             selection = self.tree.get_selection()
@@ -679,7 +679,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         for k, v in _NMAP.iteritems():
             _REV_NMAP[v] = k
 
-        pl = self.tree.get_selected_playlist(raw=True)
+        pl = self.tree.get_selected_page(raw=True)
         if not isinstance(pl, playlist.SmartPlaylist): return
 
         params = pl.search_params
@@ -754,7 +754,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # We are being dragged a playlist so
             # we have to reorder them
             playlist_name = selection.get_text()
-            drag_source = self.tree.get_selected_playlist()
+            drag_source = self.tree.get_selected_page()
             # verify names
             if drag_source is not None:
                 if drag_source.get_name() == playlist_name:
@@ -879,11 +879,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
         #TODO based on info determine what we set in selection_data
         if info == self.playlist_name_info:
-            pl = self.tree.get_selected_playlist()
+            pl = self.tree.get_selected_page()
             if pl is not None:
                 selection_data.set(gtk.gdk.SELECTION_TYPE_STRING, 8, pl.get_name())
         else:
-            pl = self.tree.get_selected_playlist()
+            pl = self.tree.get_selected_page()
             if pl is not None:
                 tracks = pl.get_tracks()
             else:
@@ -915,7 +915,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         # Determine where the drag is coming from
         dragging_playlist = False
         if tv == self.tree:
-            selected_playlist = self.tree.get_selected_playlist()
+            selected_playlist = self.tree.get_selected_page()
             if selected_playlist is not None:
                 dragging_playlist = True
 
@@ -968,7 +968,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             @path where we we want it to be saved, with a
                 valid extension we support
         """
-        pl = self.tree.get_selected_playlist()
+        pl = self.tree.get_selected_page()
         if pl is not None:
             try:
                 playlist.export_playlist(pl, path)
@@ -1075,7 +1075,7 @@ class PlaylistDragTreeView(guiutil.DragTreeView):
             Used by the menu, just basically gets the selected
             playlist and returns the tracks in it
         """
-        playlist = self.get_selected_playlist()
+        playlist = self.get_selected_page()
 
         if playlist is not None:
             return playlist.get_tracks()
@@ -1084,7 +1084,7 @@ class PlaylistDragTreeView(guiutil.DragTreeView):
 
         return None
 
-    def get_selected_playlist(self, raw=False):
+    def get_selected_page(self, raw=False):
         """
             Retrieves the currently selected playlist in
             the playlists panel.  If a non-playlist is

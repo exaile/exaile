@@ -304,7 +304,7 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         self.drop_target_window.hide()
 
         uris = selection.get_uris()
-        playlist = self.exaile.gui.main.get_selected_playlist()
+        playlist = self.exaile.gui.main.get_selected_page()
 
         if widget is self.play_target:
             event.add_callback(self.on_tracks_added, 'tracks_added')

@@ -38,7 +38,7 @@ class ContextPopup(menu.TrackSelectMenu):
             Appends the selected tracks to the current playlist
         """
         selected = self.widget.get_selected_tracks()
-        pl = xlgui.get_controller().main.get_selected_playlist()
+        pl = xlgui.get_controller().main.get_selected_page()
         if pl:
             pl.playlist.add_tracks(selected)
 
@@ -47,7 +47,7 @@ class ContextPopup(menu.TrackSelectMenu):
             Called when the user clicks the "toggle queue" item
         """
         selected = self.widget.get_selected_tracks()
-        pl = xlgui.get_controller().main.get_selected_playlist()
+        pl = xlgui.get_controller().main.get_selected_page()
         ex.exaile().queue.add_tracks(selected)
         if pl:
             pl.playlist.add_tracks(selected)
@@ -304,7 +304,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             Appends the selected tracks to the current playlist
         """
         selected = self.get_selected_tracks()
-        pl = xlgui.get_controller().main.get_selected_playlist()
+        pl = xlgui.get_controller().main.get_selected_page()
         if pl:
             pl.playlist.add_tracks(selected)
 

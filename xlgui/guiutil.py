@@ -851,7 +851,7 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
             :returns: The formatted text
             :rtype: string
         """
-        playlist = xlgui.main.get_selected_playlist().playlist
+        playlist = xlgui.main.get_selected_page().playlist
 
         if playlist.current_position < 0:
             return ''

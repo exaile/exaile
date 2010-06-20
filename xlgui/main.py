@@ -531,7 +531,7 @@ class MainWindow(gobject.GObject):
         """
             Called when the user clicks on the SPAT item
         """
-        trs = self.get_selected_playlist().get_selected_tracks()
+        trs = self.get_selected_page().get_selected_tracks()
         if not trs: return
         tr = trs[0]
 
@@ -540,7 +540,7 @@ class MainWindow(gobject.GObject):
         else:
             self.queue.stop_track = tr
 
-        self.get_selected_playlist().list.queue_draw()
+        self.get_selected_page().list.queue_draw()
 
     def on_append_items(self, tracks, queue=False, sort=False, replace=False):
         """
@@ -555,7 +555,7 @@ class MainWindow(gobject.GObject):
         if not tracks:
             return
 
-        pl = self.get_selected_playlist()
+        pl = self.get_selected_page()
 
         if sort:
             tracks = trax.sort_tracks(
@@ -600,7 +600,7 @@ class MainWindow(gobject.GObject):
         if player.parse_stream_tags(tr, args):
             self._update_track_information()
             self.cover.on_playback_start('', self.player, None)
-            self.get_selected_playlist().refresh_row(tr)
+            self.get_selected_page().refresh_row(tr)
 
         if settings.get_option('osd/enabled', True):
             self.osd.show(player.current)
@@ -656,7 +656,7 @@ class MainWindow(gobject.GObject):
         self._update_track_information()
 
         # refresh the current playlist
-        pl = self.get_selected_playlist()
+        pl = self.get_selected_page()
 
     def close_playlist_tab(self, tab=None):
         """
@@ -738,7 +738,7 @@ class MainWindow(gobject.GObject):
         """
             Clears the current playlist tab
         """
-        playlist = self.get_selected_playlist()
+        playlist = self.get_selected_page()
         if not playlist: return
         playlist.playlist.clear()
 
@@ -818,7 +818,7 @@ class MainWindow(gobject.GObject):
         if player.PLAYER.is_paused() or player.PLAYER.is_playing():
             player.PLAYER.toggle_pause()
         else:
-            pl = self.get_selected_playlist()
+            pl = self.get_selected_page()
             player.QUEUE.set_current_playlist(pl.playlist)
             try:
                 trackpath = pl.view.get_selected_paths()[0]
@@ -939,13 +939,13 @@ class MainWindow(gobject.GObject):
 
         return False
 
-    def get_selected_playlist(self):
-        return get_selected_playlist()
+    def get_selected_page(self):
+        return get_selected_page()
 
 def get_playlist_notebook():
     return MainWindow._mainwindow.playlist_notebook
 
-def get_selected_playlist():
+def get_selected_page():
     return MainWindow._mainwindow.playlist_notebook.get_current_tab()
 
 def mainwindow():

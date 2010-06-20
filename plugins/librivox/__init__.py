@@ -190,7 +190,7 @@ class LVPanel():
             self.add_to_playlist([chapter], location=None)
 
     def add_to_playlist(self, chapters, location=None):
-        current_playlist=self.controller.get_selected_playlist().playlist
+        current_playlist=self.controller.get_selected_page().playlist
         tracks=self.generate_tracks(chapters)
         current_playlist.add_tracks(tracks, location)
 
@@ -233,8 +233,8 @@ class LVPanel():
             else:
                 if book.is_loading:
                     return
-                current_playlist=self.controller.get_selected_playlist()
-                current_playlist_tv=self.controller.get_selected_playlist().list
+                current_playlist=self.controller.get_selected_page()
+                current_playlist_tv=self.controller.get_selected_page().list
 
                 (x,y)=current_playlist_tv.get_pointer()
                 rect=current_playlist_tv.get_allocation()

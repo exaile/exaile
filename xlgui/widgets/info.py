@@ -635,7 +635,7 @@ class StatusbarTextFormatter(formatter.Formatter):
                 playlist count otherwise, 'only' for selection count only
             :type selection_mode: string
         """
-        playlist = xlgui.main.get_selected_playlist()
+        page = xlgui.main.get_selected_page()
         playlist_count = len(playlist.playlist)
         selection_count = len(playlist.view.get_selected_tracks())
 
@@ -680,7 +680,7 @@ class StatusbarTextFormatter(formatter.Formatter):
                 playlist count otherwise, 'only' for selection count only
             :type selection_mode: string
         """
-        playlist = xlgui.main.get_selected_playlist()
+        playlist = xlgui.main.get_selected_page()
         playlist_duration = sum([t.get_tag_raw('__length') \
             for t in playlist.playlist \
             if t.get_tag_raw('__length')])

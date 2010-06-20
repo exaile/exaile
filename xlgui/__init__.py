@@ -135,7 +135,7 @@ class Main(object):
         Main._main = self
 
     def export_current_playlist(self, *e):
-        pl = self.main.get_selected_playlist().playlist
+        pl = self.main.get_selected_page().playlist
         name = pl.name + ".m3u"
 
         dialog = dialogs.FileOperationDialog(_("Export Current Playlist"),
@@ -268,7 +268,7 @@ class Main(object):
             if play:
                 self.exaile.queue.play()
         else:
-            pl = self.main.get_selected_playlist()
+            pl = self.main.get_selected_page()
             column, descending = pl.get_sort_by()
 
             tracks = trax.get_tracks_from_uri(uri)
@@ -350,7 +350,7 @@ class Main(object):
 
     def on_goto_playing_track(self, *e):
         # TODO: move into PlaylistPage (or maybe View)
-        pl = self.main.get_selected_playlist()
+        pl = self.main.get_selected_page()
         if pl.playlist == self.exaile.queue.current_playlist:
             pl.view.scroll_to_cell(pl.playlist.current_position)
             pl.view.set_cursor(pl.playlist.current_position)
@@ -376,13 +376,13 @@ class Main(object):
         glib.idle_add(self.panels['collection'].load_tree)
 
     def on_randomize_playlist(self, *e):
-        pl = self.main.get_selected_playlist()
+        pl = self.main.get_selected_page()
         pl.playlist.randomize()
         pl._set_tracks(pl.playlist.get_tracks())
         pl.reorder_songs()
 
     def on_track_properties(self, *e):
-        pl = self.main.get_selected_playlist()
+        pl = self.main.get_selected_page()
         pl.view.show_properties_dialog()
 
     def add_panel(self, child, name):

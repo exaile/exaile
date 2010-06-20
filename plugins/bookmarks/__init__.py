@@ -84,7 +84,7 @@ class Bookmarks:
             # use currently selected playlist (as opposed to current playlist)
             track = trax.Track(key)
             if track:   # make sure we got one
-                pl = exaile.gui.main.get_selected_playlist().playlist
+                pl = exaile.gui.main.get_selected_page().playlist
                 player.QUEUE.set_current_playlist(pl)
                 player.QUEUE.current_playlist.add(track)
 

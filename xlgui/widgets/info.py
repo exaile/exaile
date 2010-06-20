@@ -643,16 +643,18 @@ class StatusbarTextFormatter(formatter.Formatter):
             count = playlist_count
             text = _('%d showing')
         elif selection == 'override':
-            if selection_count:
+            if selection_count > 1:
                 count = selection_count
                 text = _('%d selected')
             else:
                 count = playlist_count
                 text = _('%d showing')
-            count = selection_count or playlist_count
         elif selection == 'only':
-            count = selection_count
-            text = _('%d selected')
+            if selection_count > 1:
+                count = selection_count
+                text = _('%d selected')
+            else:
+                count = 0
         else:
             raise ValueError('Invalid argument "%s" passed to parameter '
                 '"selection" for "playlist_count", possible arguments are '
@@ -680,20 +682,26 @@ class StatusbarTextFormatter(formatter.Formatter):
         """
         playlist = xlgui.main.get_selected_playlist()
         playlist_duration = sum([t.get_tag_raw('__length') \
-            for t in playlist.playlist if t.get_tag_raw('__length')])
+            for t in playlist.playlist \
+            if t.get_tag_raw('__length')])
+        selection_tracks = playlist.view.get_selected_tracks()
+        selection_count = len(selection_tracks)
         selection_duration = sum([t.get_tag_raw('__length') \
-            for t in playlist.view.get_selected_tracks() \
+            for t in selection_tracks \
             if t.get_tag_raw('__length')])
 
         if selection == 'none':
             duration = playlist_duration
         elif selection == 'override':
-            if selection_duration:
+            if selection_count > 1:
                 duration = selection_duration
             else:
                 duration = playlist_duration
         elif selection == 'only':
-            duration = selection_duration
+            if selection_count > 1:
+                duration = selection_duration
+            else:
+                duration = 0
         else:
             raise ValueError('Invalid argument "%s" passed to parameter '
                 '"selection" for "playlist_duration", possible arguments are '

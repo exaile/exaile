@@ -588,12 +588,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             Returns a list of :class:`xl.trax.Track`
             which are currently selected in the playlist.
         """
-        selected_items = self.get_selected_items()
-
-        if selected_items:
-            return [x[1] for x in selected_items]
-
-        return []
+        return [x[1] for x in self.get_selected_items()]
 
     def get_selected_paths(self):
         """
@@ -893,7 +888,7 @@ class PlaylistModel(gtk.GenericTreeModel):
                 "playlist_tracks_removed", playlist)
         event.add_callback(self.on_current_position_changed,
                 "playlist_current_position_changed", playlist)
-        event.add_callback(self.on_current_position_changed,
+        event.add_callback(self.on_spat_position_changed,
                 "playlist_spat_position_changed", playlist)
         event.add_callback(self.on_playback_state_change,
                 "playback_track_start")
@@ -1026,6 +1021,17 @@ class PlaylistModel(gtk.GenericTreeModel):
         for position in positions:
             if position < 0:
                 continue
+            path = (position,)
+            try:
+                iter = self.get_iter(path)
+            except ValueError:
+                continue
+            self.row_changed(path, iter)
+
+    def on_spat_position_changed(self, event_type, playlist, positions):
+        spat_position = max(positions)
+
+        for position in xrange(spat_position, len(self)):
             path = (position,)
             try:
                 iter = self.get_iter(path)

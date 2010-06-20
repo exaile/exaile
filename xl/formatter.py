@@ -112,7 +112,7 @@ class ParameterTemplate(Template):
                 try:
                     # We use this idiom instead of str() because the latter
                     # will fail if val is a Unicode containing non-ASCII
-                    return '%s' % mapping[named]
+                    return '%s' % (mapping[named],)
                 except KeyError:
                     return self.delimiter + named
 
@@ -126,7 +126,7 @@ class ParameterTemplate(Template):
                     parts += [parameters]
 
                 try:
-                    return '%s' % mapping[':'.join(parts)]
+                    return '%s' % (mapping[':'.join(parts)],)
                 except KeyError:
                     return self.delimiter + '{' + ':'.join(parts) + '}'
 
@@ -249,13 +249,32 @@ class Formatter(gobject.GObject):
         substitutions = {}
 
         for needle, (identifier, parameters) in extractions.iteritems():
-            if identifier in self._substitutions:
+            substitute = None
+
+            if needle in self._substitutions:
+                substitute = self._substitutions[needle]
+            elif identifier in self._substitutions:
+                substitute = self._substitutions[identifier]
+
+            if substitute is not None:
                 prefix = parameters.pop('prefix', '')
                 suffix = parameters.pop('suffix', '')
-                substitute = self._substitutions[identifier]
+                pad = int(parameters.pop('pad', 0))
+                padstring = parameters.pop('padstring', '')
 
                 if callable(substitute):
                     substitute = substitute(*args, **parameters)
+
+                if pad > 0 and padstring:
+                    # Decrease pad length by value length
+                    pad = max(0, pad - len(substitute))
+                    # Retrieve the maximum multiplier for the pad string
+                    padcount = pad / len(padstring) + 1
+                    # Generate pad string
+                    padstring = padcount * padstring
+                    # Clamp pad string
+                    padstring = padstring[0:pad]
+                    substitute = '%s%s' % (padstring, substitute)
 
                 if substitute:
                     substitute = '%s%s%s' % (prefix, substitute, suffix)
@@ -306,13 +325,13 @@ class ProgressTextFormatter(Formatter):
             remaining_time = total_time - current_time
 
         self._substitutions['current_time'] = \
-            LengthTagFormatter.format_value(current_time),
+            LengthTagFormatter.format_value(current_time)
         self._substitutions['remaining_time'] = \
-            LengthTagFormatter.format_value(remaining_time),
+            LengthTagFormatter.format_value(remaining_time)
         self._substitutions['total_time'] = \
-            LengthTagFormatter.format_value(total_time),
-        
-        return self._template.safe_substitute(self._substitutions)
+            LengthTagFormatter.format_value(total_time)
+
+        return Formatter.format(self)
 
     def on_exaile_loaded(self, e, exaile, nothing):
         """
@@ -321,19 +340,10 @@ class ProgressTextFormatter(Formatter):
         self.player = exaile.player
         event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
-class TrackFormatter(Formatter, providers.ProviderHandler):
+class TrackFormatter(Formatter):
     """
         A formatter for track data
     """
-    def __init__(self, format):
-        """
-            :param format: The initial format, see the documentation
-                of string.Template for details
-            :type format: string
-        """
-        Formatter.__init__(self, format)
-        providers.ProviderHandler.__init__(self, 'tag_formatting')
-
     def format(self, track, markup_escape=False):
         """
             Returns a string suitable for progress indicators
@@ -351,27 +361,22 @@ class TrackFormatter(Formatter, providers.ProviderHandler):
                             'to be of type xl.trax.Track')
 
         extractions = self.extract()
-        substitutions = {}
+        self._substitutions = {}
 
         for identifier, (tag, parameters) in extractions.iteritems():
-            prefix = parameters.pop('prefix', '')
-            suffix = parameters.pop('suffix', '')
-            provider = self.get_provider(tag)
+            provider = providers.get_provider('tag-formatting', tag)
 
             if provider is None:
                 substitute = track.get_tag_display(tag)
             else:
                 substitute = provider.format(track, parameters)
 
-            if substitute:
-                substitute = '%s%s%s' % (prefix, substitute, suffix)
-
             if markup_escape:
                 substitute = glib.markup_escape_text(substitute)
 
-            substitutions[identifier] = substitute
+            self._substitutions[identifier] = substitute
 
-        return self._template.safe_substitute(substitutions)
+        return Formatter.format(self)
 
 class TagFormatter():
     """
@@ -416,9 +421,6 @@ class TrackNumberTagFormatter(TagFormatter):
             :param track: the track to get the tag from
             :type track: :class:`xl.trax.Track`
             :param parameters: optionally passed parameters
-                Possible values are:
-                * pad: n [n being an arbitrary number]
-                  Influences the amount of leading zeros
             :type parameters: dictionary
             :returns: the formatted value
             :rtype: string
@@ -428,41 +430,13 @@ class TrackNumberTagFormatter(TagFormatter):
         if not value:
             return ''
 
-        pad = parameters.get('pad', 1)
-
-        return self.format_value(value, pad)
-
-    @staticmethod
-    def format_value(value, pad=1):
-        """
-            Formats a tracknumber value
-
-            :param value: A tracknumber
-            :type value: int or string
-            :param pad: Amount of leading zeros
-            :type pad: int
-            :returns: the formatted value
-            :rtype: string
-        """
-        try:
-            pad = int(pad)
-        except ValueError: # No int
-            pad = 1
-
         try: # n/n
             value, count = value.split('/')
         except ValueError: # n
             pass
 
-        format_string = '%%0%(pad)dd' % {'pad': pad}
-
-        try:
-            value = format_string % int(value)
-        except ValueError: # Invalid number
-            pass
-
-        return value
-providers.register('tag_formatting', TrackNumberTagFormatter())
+        return '%d' % int(value)
+providers.register('tag-formatting', TrackNumberTagFormatter())
 
 class DiscNumberTagFormatter(TagFormatter):
     """
@@ -478,50 +452,22 @@ class DiscNumberTagFormatter(TagFormatter):
             :param track: the track to get the tag from
             :type track: :class:`xl.trax.Track`
             :param parameters: optionally passed parameters
-                Possible values are:
-                * pad: n [n being an arbitrary number]
-                  Influences the amount of leading zeros
             :type parameters: dictionary
             :returns: the formatted value
             :rtype: string
         """
         value = track.get_tag_raw(self.name, join=True)
+
         if not value:
             return ''
-        pad = parameters.get('pad', 1)
-        return self.format_value(value, pad)
-
-    @staticmethod
-    def format_value(value, pad=1):
-        """
-            Formats a tracknumber value
-
-            :param value: A tracknumber
-            :type value: int or string
-            :param pad: Amount of leading zeros
-            :type pad: int
-            :returns: the formatted value
-            :rtype: string
-        """
-        try:
-            pad = int(pad)
-        except ValueError: # No int
-            pad = 1
 
         try: # n/n
             value, count = value.split('/')
         except ValueError: # n
             pass
 
-        format_string = '%%0%(pad)dd' % {'pad': pad}
-
-        try:
-            value = format_string % int(value)
-        except ValueError: # Invalid number
-            pass
-
-        return value
-providers.register('tag_formatting', DiscNumberTagFormatter())
+        return '%d' % int(value)
+providers.register('tag-formatting', DiscNumberTagFormatter())
 
 class ArtistTagFormatter(TagFormatter):
     """
@@ -550,7 +496,7 @@ class ArtistTagFormatter(TagFormatter):
             artist_compilations=compilate)
 
         return value
-providers.register('tag_formatting', ArtistTagFormatter())
+providers.register('tag-formatting', ArtistTagFormatter())
 
 class LengthTagFormatter(TagFormatter):
     """
@@ -652,7 +598,7 @@ class LengthTagFormatter(TagFormatter):
                 '"short", "long" and "verbose"' % format)
 
         return text
-providers.register('tag_formatting', LengthTagFormatter())
+providers.register('tag-formatting', LengthTagFormatter())
 
 class RatingTagFormatter(TagFormatter):
     """
@@ -679,7 +625,7 @@ class RatingTagFormatter(TagFormatter):
         empty = '☆' * int(maximum - rating)
 
         return ('%s%s' % (filled, empty)).decode('utf-8')
-providers.register('tag_formatting', RatingTagFormatter())
+providers.register('tag-formatting', RatingTagFormatter())
 
 class LastPlayedTagFormatter(TagFormatter):
     """
@@ -718,7 +664,7 @@ class LastPlayedTagFormatter(TagFormatter):
                 text = last_played.strftime('%x')
 
         return text
-providers.register('tag_formatting', LastPlayedTagFormatter())
+providers.register('tag-formatting', LastPlayedTagFormatter())
 
 class FilenameTagFormatter(TagFormatter):
     """
@@ -741,6 +687,6 @@ class FilenameTagFormatter(TagFormatter):
         gfile = gio.File(track.get_loc_for_io())
 
         return gfile.get_basename()
-providers.register('tag_formatting', FilenameTagFormatter())
+providers.register('tag-formatting', FilenameTagFormatter())
 
 # vim: et sts=4 sw=4

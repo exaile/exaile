@@ -138,12 +138,14 @@ class Column(gtk.TreeViewColumn):
 
     def data_func(self, col, cell, model, iter):
         if type(cell) == gtk.CellRendererText:
+            if self.container.playlist is not player.QUEUE.current_playlist:
+                return
+
             path = model.get_path(iter)
             track = model.get_value(iter, 0)
 
             if track == player.PLAYER.current and \
-               path == self.container.playlist.get_current_position() and \
-               self.container.playlist == player.QUEUE.current_playlist:
+               path[0] == self.container.playlist.get_current_position():
                 weight = pango.WEIGHT_HEAVY
             else:
                 weight = pango.WEIGHT_NORMAL

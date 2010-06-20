@@ -41,7 +41,7 @@ from xl import (
 )
 from xl.nls import gettext as _
 import xlgui
-from xlgui import icons
+from xlgui import icons, playlist
 
 class TrackInfoPane(gtk.Alignment):
     """
@@ -636,8 +636,12 @@ class StatusbarTextFormatter(formatter.Formatter):
             :type selection_mode: string
         """
         page = xlgui.main.get_selected_page()
-        playlist_count = len(playlist.playlist)
-        selection_count = len(playlist.view.get_selected_tracks())
+
+        if not isinstance(page, playlist.PlaylistPage):
+            return ''
+        
+        playlist_count = len(page.playlist)
+        selection_count = len(page.view.get_selected_tracks())
 
         if selection == 'none':
             count = playlist_count
@@ -680,11 +684,15 @@ class StatusbarTextFormatter(formatter.Formatter):
                 playlist count otherwise, 'only' for selection count only
             :type selection_mode: string
         """
-        playlist = xlgui.main.get_selected_page()
+        page = xlgui.main.get_selected_page()
+
+        if not isinstance(page, playlist.PlaylistPage):
+            return ''
+
         playlist_duration = sum([t.get_tag_raw('__length') \
-            for t in playlist.playlist \
+            for t in page.playlist \
             if t.get_tag_raw('__length')])
-        selection_tracks = playlist.view.get_selected_tracks()
+        selection_tracks = page.view.get_selected_tracks()
         selection_count = len(selection_tracks)
         selection_duration = sum([t.get_tag_raw('__length') \
             for t in selection_tracks \

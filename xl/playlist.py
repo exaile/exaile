@@ -80,6 +80,7 @@ class FormatConverter(object):
         import from and export to a specific format
     """
     title = _('Playlist')
+    content_types = []
     file_extensions = property(lambda self: [self.name])
 
     def __init__(self, name):
@@ -142,6 +143,7 @@ class M3UConverter(FormatConverter):
 
     def __init__(self):
         FormatConverter.__init__(self, 'm3u')
+        self.content_types = ['audio/x-mpegurl', 'audio/mpegurl']
 
     def export_to_file(self, playlist, path):
         """
@@ -197,6 +199,7 @@ class M3UConverter(FormatConverter):
                 break
 
         playlist = Playlist(name)
+        extinf = {}
 
         with closing(gio.DataInputStream(gfile.read())) as stream:
             while True:
@@ -214,12 +217,6 @@ class M3UConverter(FormatConverter):
                     playlist.name = line[len('#PLAYLIST: '):]
                 elif line.startswith('#EXTINF:'):
                     extinf_line = line[len('#EXTINF:'):]
-                    uri = stream.read_line()
-
-                    if uri is None:
-                        continue
-
-                    track = trax.Track(uri)
 
                     parts = extinf_line.split(',', 1)
                     length = 0
@@ -227,22 +224,25 @@ class M3UConverter(FormatConverter):
                     if len(parts) > 1 and int(parts[0]) > 0:
                         length = parts[0]
 
-                    if track.get_tag_raw('__length') is None:
-                        track.set_tag_raw('__length', float(length))
+                    extinf['__length'] = length
 
                     parts = parts[-1].rsplit(' - ', 1)
 
-                    if track.get_tag_raw('title') is None:
-                        track.set_tag_raw('title', parts[-1])
+                    extinf['title'] = parts[-1]
 
                     if len(parts) > 1:
-                        if track.get_tag_raw('artist') is None:
-                            track.set_tag_raw('artist', parts[0])
-
-                    playlist.append(track)
-
+                        extinf['artist'] = parts[0]
                 elif line.startswith('#'):
                     continue
+                else:
+                    track = trax.Track(line)
+
+                    if extinf:
+                        for tag, value in extinf.iteritems():
+                            if track.get_tag_raw(tag) is None:
+                                track.set_tag_raw(tag, value)
+
+                    playlist.append(track)
 
         return playlist
 providers.register('playlist-format-converter', M3UConverter())
@@ -255,6 +255,7 @@ class PLSConverter(FormatConverter):
 
     def __init__(self):
         FormatConverter.__init__(self, 'pls')
+        self.content_types = ['audio/x-scpls']
 
     def export_to_file(self, playlist, path):
         """
@@ -388,6 +389,7 @@ class ASXConverter(FormatConverter):
 
     def __init__(self):
         FormatConverter.__init__(self, 'asx')
+        self.content_types = ['video/x-ms-asf']
 
     def export_to_file(self, playlist, path):
         """
@@ -479,6 +481,8 @@ class XSPFConverter(FormatConverter):
 
     def __init__(self):
         FormatConverter.__init__(self, 'xspf')
+        self.content_types = ['application/xspf+xml']
+
         # TODO: support image tag for CoverManager
         self.tags = {
             'title': 'title',

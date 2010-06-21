@@ -176,11 +176,11 @@ class Main(object):
             path = unicode(dialog.get_filename(), 'utf-8')
             try:
                 _xpl.export_playlist(pl, path)
-            except _xpl.InvalidPlaylistTypeException:
+            except _xpl.InvalidPlaylistTypeError:
                 path = path + ".m3u"
                 try:
                     _xpl.export_playlist(pl, path)
-                except _xpl.InvalidPlaylistTypeException:
+                except _xpl.InvalidPlaylistTypeError:
                     dialogs.error(None, _('Invalid file extension, file not saved'))
         dialog.destroy()
 
@@ -288,13 +288,17 @@ class Main(object):
         from xl import playlist, trax
 
         if playlist.is_valid_playlist(uri):
-            playlist = playlist.import_playlist(uri)
-            self.main.playlist_notebook.create_tab_from_playlist(playlist)
+            try:
+                playlist = playlist.import_playlist(uri)
+            except playlist.InvalidPlaylistTypeError:
+                pass
+            else:
+                self.main.playlist_notebook.create_tab_from_playlist(playlist)
 
-            # FIXME
-            if play:
-                player.QUEUE.current_playlist = playlist
-                player.QUEUE.play(playlist[0])
+                # FIXME
+                if play:
+                    player.QUEUE.current_playlist = playlist
+                    player.QUEUE.play(playlist[0])
         else:
             page = self.main.get_selected_page()
             column = page.view.get_sort_column()

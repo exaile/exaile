@@ -972,12 +972,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if pl is not None:
             try:
                 playlist.export_playlist(pl, path)
-            except playlist.InvalidPlaylistTypeException:
+            except playlist.InvalidPlaylistTypeError:
                 path = path + ".m3u"
                 try:
                     playlist.export_playlist(pl, path)
-                except playlist.InvalidPlaylistTypeException:
-                    dialogs.error(None, _('Invalid file extension, file not saved'))
+                except playlist.InvalidPlaylistTypeError, e:
+                    dialogs.error(None, str(e))
 
     def on_key_released(self, widget, event):
         """

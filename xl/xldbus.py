@@ -442,7 +442,7 @@ class DbusManager(dbus.service.Object):
                     pl = xl.playlist.import_playlist(location)
                     tracks = pl.get_tracks()
                     continue
-                except xl.playlist.InvalidPlaylistTypeException:
+                except xl.playlist.InvalidPlaylistTypeError:
                     pass
                 except:
                     traceback.print_exc()

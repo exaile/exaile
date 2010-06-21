@@ -116,6 +116,10 @@ class Main(object):
 
         logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.builder, exaile.collection)
+
+        if self.exaile.options.StartMinimized:
+            self.main.window.iconify()
+
         self.panel_notebook = self.builder.get_object('panel_notebook')
         self.play_toolbar = self.builder.get_object('play_toolbar')
 

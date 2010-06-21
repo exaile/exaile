@@ -37,14 +37,13 @@ import logging
 import logging.handlers
 
 from xl.nls import gettext as _
-from xl import common, xdg, event
+from xl import common, xdg
 
 # placeholder, - xl.version can be slow to import, which would slow down
 # cli args. Thus we import __version__ later.
 __version__ = None
 
-# initiate the logger. logger params are set later
-logger = logging.getLogger(__name__)
+logger = None
 
 class Exaile(object):
     _exaile = None
@@ -56,11 +55,19 @@ class Exaile(object):
         self.quitting = False
         self.loading = True
         (self.options, self.args) = self.get_options().parse_args()
+
+        self.setup_logging()
+        global logger
+        logger = logging.getLogger(__name__)
+
         if self.options.ShowVersion:
             self.version()
 
         if self.options.UseDataDir:
             xdg.data_dirs.insert(1, self.options.UseDataDir)
+
+        # Late import ensures xl.event uses correct logger
+        from xl import event
 
         if self.options.EventFilter:
             event.EVENT_MANAGER.logger_filter = self.options.EventFilter
@@ -69,9 +76,6 @@ class Exaile(object):
         if self.options.DebugEvent:
             event.EVENT_MANAGER.use_logger = True
             self.options.Debug = True
-
-        # set up logging
-        self.setup_logging()
 
         # initial mainloop setup. The actual loop is started later,
         # if necessary
@@ -169,6 +173,7 @@ class Exaile(object):
             common.log_exception(log=logger)
             exit(1)
 
+        from xl import event
         # Set up the player and playback queue
         from xl import player
         self.player = player.PLAYER
@@ -218,8 +223,6 @@ class Exaile(object):
 
             import xlgui
             self.gui = xlgui.Main(self)
-            if self.options.StartMinimized:
-                self.gui.main.window.iconify()
             self.gui.main.window.show_all()
 
             import glib
@@ -265,12 +268,14 @@ class Exaile(object):
     def setup_logging(self):
         console_format = "%(levelname)-8s: %(message)s"
         loglevel = logging.INFO
+
         if self.options.Debug:
             loglevel = logging.DEBUG
             console_format = "%(asctime)s,%(msecs)3d:" + console_format
             console_format += " (%(name)s)" # add module name
         elif self.options.Quiet:
             loglevel = logging.WARNING
+
         # Logfile level should always be INFO or higher
         if self.options.Quiet:
             logfilelevel = logging.INFO
@@ -282,6 +287,35 @@ class Exaile(object):
         # Logging to terminal
         logging.basicConfig(level=loglevel, format=console_format,
                 datefmt=datefmt)
+
+        class FilterLogger(logging.Logger):
+            class Filter(logging.Filter):
+                def filter(self, record):
+                    pass_record = True
+
+                    if FilterLogger.module is not None:
+                        pass_record = record.name == self.module
+
+                    if FilterLogger.level != logging.NOTSET and pass_record:
+                        pass_record = record.levelno == self.level
+
+                    return pass_record
+
+            module = None
+            level = logging.NOTSET
+
+            def __init__(self, name):
+                logging.Logger.__init__(self, name)
+
+                log_filter = self.Filter(name)
+                log_filter.module = FilterLogger.module
+                log_filter.level = FilterLogger.level
+                self.addFilter(log_filter)
+
+        FilterLogger.module = self.options.ModuleFilter
+        if self.options.LevelFilter is not None:
+            FilterLogger.level = getattr(logging, self.options.LevelFilter)
+        logging.setLoggerClass(FilterLogger)
 
         # Create log directory
         logdir = os.path.join(xdg.get_data_dir(), 'logs')
@@ -429,6 +463,13 @@ class Exaile(object):
         group = OptionGroup(p, _('Development/Debug Options'))
         group.add_option("--datadir", dest="UseDataDir",
                 metavar=_('DIRECTORY'), help=_("Set data directory"))
+        group.add_option("--modulefilter", dest="ModuleFilter",
+                action="store", type="string", metavar=_('MODULE'),
+                help=_('Limit log output to MODULE'))
+        group.add_option("--levelfilter", dest="LevelFilter",
+                action="store", metavar=_('LEVEL'),
+                help=_('Limit log output to LEVEL'),
+                choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'])
         group.add_option("--debug", dest="Debug", action="store_true",
                 default=False, help=_("Show debugging output"))
         group.add_option("--eventdebug", dest="DebugEvent",
@@ -436,7 +477,7 @@ class Exaile(object):
                 " of xl.event. Generates LOTS of output"))
         group.add_option("--eventfilter", dest="EventFilter",
                 action='store', type='string', metavar=_('TYPE'),
-                help=_("Limits event debug to output of TYPE"))
+                help=_("Limit xl.event debug to output of TYPE"))
         group.add_option("--quiet", dest="Quiet", action="store_true",
                 default=False, help=_("Reduce level of output"))
         group.add_option('--startgui', dest='StartGui', action='store_true',
@@ -534,6 +575,7 @@ class Exaile(object):
                 except:
                     pass
 
+        from xl import event
         # this event should be used by modules that dont need
         # to be saved in any particular order. modules that might be
         # touched by events triggered here should be added statically

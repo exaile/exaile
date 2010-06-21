@@ -24,9 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import locale
+import glib
 import gobject
 import gtk
+import locale
 
 from xlgui.preferences import widgets
 from xl import main, plugins, xdg
@@ -65,7 +66,8 @@ class PluginManager(object):
         selection = self.list.get_selection()
         selection.connect('changed', self.on_selection_changed)
         self._load_plugin_list()
-        selection.select_path((0,))
+        glib.idle_add(selection.select_path, (0,))
+        glib.idle_add(self.list.grab_focus)
 
     def _load_plugin_list(self):
         """

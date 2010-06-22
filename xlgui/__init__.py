@@ -154,36 +154,6 @@ class Main(object):
         logger.info("Done loading main window...")
         Main._main = self
 
-    def export_current_playlist(self, *e):
-        pl = self.main.get_selected_page().playlist
-        name = pl.name + ".m3u"
-
-        dialog = dialogs.FileOperationDialog(_("Export Current Playlist"),
-            None, gtk.FILE_CHOOSER_ACTION_SAVE,
-            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_SAVE, gtk.RESPONSE_OK))
-
-        extensions = {}
-
-        for provider in providers.get('playlist-format-converter'):
-            extensions[provider.name] = provider.title
-
-        dialog.add_extensions(extensions)
-        dialog.set_current_name(name)
-
-        result = dialog.run()
-        if result == gtk.RESPONSE_OK:
-            path = unicode(dialog.get_filename(), 'utf-8')
-            try:
-                _xpl.export_playlist(pl, path)
-            except _xpl.InvalidPlaylistTypeError:
-                path = path + ".m3u"
-                try:
-                    _xpl.export_playlist(pl, path)
-                except _xpl.InvalidPlaylistTypeError:
-                    dialogs.error(None, _('Invalid file extension, file not saved'))
-        dialog.destroy()
-
     def open_url(self, *e):
         """
             Displays a dialog to open a url

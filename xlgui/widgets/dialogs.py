@@ -24,16 +24,39 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os.path
-
-import pygtk
-pygtk.require('2.0')
 import glib
+import gobject
 import gtk
 import pango
+import os.path
 
-from xl import xdg
+from xl import providers, xdg
+from xl.playlist import (
+    is_valid_playlist,
+    export_playlist,
+    InvalidPlaylistTypeError
+)
 from xl.nls import gettext as _
+
+def error(parent, message, _flags=gtk.DIALOG_MODAL):
+    """
+        Shows an error dialog
+    """
+    dialog = gtk.MessageDialog(parent, _flags, gtk.MESSAGE_ERROR,
+        gtk.BUTTONS_CLOSE)
+    dialog.set_markup(message)
+    dialog.run()
+    dialog.destroy()
+
+def info(parent, message):
+    """
+        Shows an info dialog
+    """
+    dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
+        gtk.BUTTONS_OK)
+    dialog.set_markup(message)
+    dialog.run()
+    dialog.destroy()
 
 class MultiTextEntryDialog(gtk.Dialog):
     """
@@ -263,26 +286,6 @@ class ListDialog(gtk.Dialog):
         object = model.get_value(iter, 0)
         cell.set_property('text', str(object))
 
-def error(parent, message, _flags=gtk.DIALOG_MODAL):
-    """
-        Shows an error dialog
-    """
-    dialog = gtk.MessageDialog(parent, _flags, gtk.MESSAGE_ERROR,
-        gtk.BUTTONS_CLOSE)
-    dialog.set_markup(message)
-    dialog.run()
-    dialog.destroy()
-
-def info(parent, message):
-    """
-        Shows an info dialog
-    """
-    dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
-        gtk.BUTTONS_OK)
-    dialog.set_markup(message)
-    dialog.run()
-    dialog.destroy()
-
 # TODO: combine this and list dialog
 class ListBox(object):
     """
@@ -360,7 +363,6 @@ class FileOperationDialog(gtk.FileChooserDialog):
         valid file extensions that the file can be
         saved in. (similar to the one in GIMP)
     """
-
     def __init__(self, title=None, parent=None, action=gtk.FILE_CHOOSER_ACTION_OPEN,
                  buttons=None, backend=None):
         """
@@ -425,6 +427,82 @@ class FileOperationDialog(gtk.FileChooserDialog):
         keys = extensions.keys()
         for key in keys:
             self.liststore.append([extensions[key], key])
+
+class PlaylistExportDialog(FileOperationDialog):
+    """
+        A dialog specialized for playlist export
+    """
+    __gsignals__ = {
+        'message': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (gobject.TYPE_PYOBJECT, gobject.TYPE_STRING),
+            gobject.signal_accumulator_true_handled
+        )
+    }
+
+    def __init__(self, playlist, parent=None):
+        """
+            :param playlist: the playlist to export
+            :type playlist: :class:`xl.playlist.Playlist`
+        """
+        FileOperationDialog.__init__(self,
+            title=_('Export Current Playlist'),
+            parent=parent,
+            action=gtk.FILE_CHOOSER_ACTION_SAVE,
+            buttons=(
+                gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_SAVE, gtk.RESPONSE_OK))
+
+        self.playlist = playlist
+
+        extensions = {}
+
+        for provider in providers.get('playlist-format-converter'):
+            extensions[provider.name] = provider.title
+
+        self.add_extensions(extensions)
+        self.set_current_name('%s.m3u' % playlist.name)
+
+        self.connect('response', self.on_response)
+
+    def run(self):
+        """
+            Override to take care of the response
+        """
+        response = FileOperationDialog.run(self)
+        self.emit('response', response)
+
+    def do_message(self, message_type, message):
+        """
+            Displays simple dialogs on messages
+        """
+        if message_type == gtk.MESSAGE_INFO:
+            info(None, message)
+        elif message_type == gtk.MESSAGE_ERROR:
+            error(None, message)
+
+    def on_response(self, dialog, response):
+        """
+            Exports the playlist if requested
+        """
+        self.hide()
+
+        if response == gtk.RESPONSE_OK:
+            path = unicode(self.get_filename(), 'utf-8')
+            
+            if not is_valid_playlist(path):
+                path = '%s.m3u' % path
+            
+            try:
+                export_playlist(self.playlist, path)
+            except InvalidPlaylistTypeError, e:
+                self.emit('message', gtk.MESSAGE_ERROR, str(e))
+            else:
+                self.emit('message', gtk.MESSAGE_INFO,
+                    _('Playlist saved as <b>%s</b>.') % path)
+
+        self.destroy()
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """
@@ -596,12 +674,13 @@ class MessageBar(gtk.InfoBar):
                 pango markup to use as secondary text.
             :type text: string
         """
-        self.secondary_text.set_markup(markup)
-
         if markup is None:
+            self.secondary_text.hide()
             self.primary_text.set_attributes(
                 self.primary_text_attributes)
         else:
+            self.secondary_text.set_markup(markup)
+            self.secondary_text.show()
             self.primary_text.set_attributes(
                 self.primary_text_emphasized_attributes)
 
@@ -678,8 +757,8 @@ class MessageBar(gtk.InfoBar):
             :param secondary_text: additional information
         """
         self.set_message_type(gtk.MESSAGE_INFO)
-        self.set_text(text)
-        self.set_secondary_text(secondary_text)
+        self.set_markup(text)
+        self.set_secondary_markup(secondary_text)
         self.show()
         glib.timeout_add_seconds(5, self.hide)
 
@@ -692,8 +771,8 @@ class MessageBar(gtk.InfoBar):
             :param secondary_text: additional information
         """
         self.set_message_type(gtk.MESSAGE_QUESTION)
-        self.set_text(text)
-        self.set_secondary_text(secondary_text)
+        self.set_markup(text)
+        self.set_secondary_markup(secondary_text)
         self.show()
 
     def show_warning(self, text, secondary_text=None):
@@ -705,8 +784,8 @@ class MessageBar(gtk.InfoBar):
             :param secondary_text: additional information
         """
         self.set_message_type(gtk.MESSAGE_WARNING)
-        self.set_text(text)
-        self.set_secondary_text(secondary_text)
+        self.set_markup(text)
+        self.set_secondary_markup(secondary_text)
         self.show()
 
     def show_error(self, text, secondary_text=None):
@@ -718,8 +797,8 @@ class MessageBar(gtk.InfoBar):
             :param secondary_text: additional information
         """
         self.set_message_type(gtk.MESSAGE_ERROR)
-        self.set_text(text)
-        self.set_secondary_text(secondary_text)
+        self.set_markup(text)
+        self.set_secondary_markup(secondary_text)
         self.show()
 
     def on_response(self, widget, response):

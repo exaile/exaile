@@ -336,6 +336,7 @@ class MainWindow(gobject.GObject):
                 self.playlist_notebook.create_new_playlist(),
             'on_queue_count_clicked': self.controller.queue_manager,
             'on_clear_playlist_item_activate': self.on_clear_playlist,
+            'on_export_current_playlist_activate': self.on_export_current_playlist_activate,
             'on_playlist_utilities_bar_visible_toggled': self.on_playlist_utilities_bar_visible_toggled,
             # Controller
             'on_about_item_activate': self.controller.show_about_dialog,
@@ -350,7 +351,6 @@ class MainWindow(gobject.GObject):
             'on_open_item_activate': self.controller.open_dialog,
             'on_open_url_item_activate': self.controller.open_url,
             'on_open_dir_item_activate': self.controller.open_dir,
-            'on_export_current_playlist_activate': self.controller.export_current_playlist,
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
             'on_track_properties_activate':self.controller.on_track_properties,
         })
@@ -734,9 +734,36 @@ class MainWindow(gobject.GObject):
         """
             Clears the current playlist tab
         """
-        playlist = self.get_selected_page()
-        if not playlist: return
-        playlist.playlist.clear()
+        page = self.get_selected_page()
+
+        if not page:
+            return
+
+        page.playlist.clear()
+
+    def on_export_current_playlist_activate(self, menuitem):
+        """
+            Shows a dialog to export the current playlist
+        """
+        page = self.get_selected_page()
+
+        if not page or not isinstance(page, playlist.PlaylistPage):
+            return
+
+        def on_message(dialog, message_type, message):
+            """
+                Show messages in the main window message area
+            """
+            if message_type == gtk.MESSAGE_INFO:
+                self.message.show_info(message)
+            elif message_type == gtk.MESSAGE_ERROR:
+                self.message.show_error(_('Playlist export failed!'), message)
+
+            return True
+
+        dialog = dialogs.PlaylistExportDialog(page.playlist, self.window)
+        dialog.connect('message', on_message)
+        dialog.show()
 
     def on_playlist_utilities_bar_visible_toggled(self, checkmenuitem):
         """

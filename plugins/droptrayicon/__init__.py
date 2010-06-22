@@ -14,12 +14,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import glib, gtk, os
+import glib
+import gtk
+import os
 from egg.trayicon import TrayIcon as EggTrayIcon
-from xl import event, playlist, providers, settings
+
+from xl import (
+    event,
+    player,
+    providers,
+    settings
+)
 from xl.nls import gettext as _
 from xl.trax import Track, is_valid_track
+import xlgui
 from xlgui.guiutil import get_workarea_size
+from xlgui.playlist import PlaylistPage
 from xlgui.tray import BaseTrayIcon
 
 DROPTRAYICON = None
@@ -287,7 +297,7 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
         self.drop_target_window.hide()
 
-    def on_drag_data_received(self, widget, context, x, y, selection, info, timestamp):
+    def on_drag_data_received(self, widget, context, x, y, selection, info, time):
         """
             Handles dropped data
         """
@@ -304,25 +314,31 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         self.drop_target_window.hide()
 
         uris = selection.get_uris()
-        playlist = self.exaile.gui.main.get_selected_page()
+        page = xlgui.main.get_selected_page()
 
         if widget is self.play_target:
-            event.add_callback(self.on_tracks_added, 'tracks_added')
+            event.add_callback(self.on_playlist_tracks_added,
+                'playlist_tracks_added')
 
         if widget is self.new_playlist_target:
-            playlist = self.exaile.gui.main.add_playlist()
+            playlist_notebook = xlgui.main.get_playlist_notebook()
+            page = playlist_notebook.create_new_playlist().page
 
-        playlist.drag_data_received(None, context,
-            x, y, selection, info, timestamp)
+        if not isinstance(page, PlaylistPage):
+            return
 
-    def on_tracks_added(self, event_name, playlist, tracks):
+        page.view.emit('drag-data-received',
+            context, x, y, selection, info, time)
+
+    def on_playlist_tracks_added(self, event_name, playlist, tracks):
         """
             Starts playing the newly added tracks
         """
-        if tracks[0] is not None:
-            index = playlist.index(tracks[0])
-            playlist.set_current_pos(index)
-            self.exaile.queue.play(tracks[0])
+        if tracks:
+            position, track = tracks[0]
+            playlist.current_position = position
+            player.QUEUE.play(track)
 
-        event.remove_callback(self.on_tracks_added, 'tracks_added')
+        event.remove_callback(self.on_playlist_tracks_added,
+            'playlist_tracks_added')
 

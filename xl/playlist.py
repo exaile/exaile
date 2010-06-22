@@ -140,10 +140,10 @@ class M3UConverter(FormatConverter):
         Import from and export to M3U format
     """
     title = _('M3U Playlist')
+    content_types = ['audio/x-mpegurl', 'audio/mpegurl']
 
     def __init__(self):
         FormatConverter.__init__(self, 'm3u')
-        self.content_types = ['audio/x-mpegurl', 'audio/mpegurl']
 
     def export_to_file(self, playlist, path):
         """
@@ -243,6 +243,7 @@ class M3UConverter(FormatConverter):
                                 track.set_tag_raw(tag, value)
 
                     playlist.append(track)
+                    extinf = {}
 
         return playlist
 providers.register('playlist-format-converter', M3UConverter())
@@ -252,10 +253,10 @@ class PLSConverter(FormatConverter):
         Import from and export to PLS format
     """
     title = _('PLS Playlist')
+    content_types = ['audio/x-scpls']
 
     def __init__(self):
         FormatConverter.__init__(self, 'pls')
-        self.content_types = ['audio/x-scpls']
 
     def export_to_file(self, playlist, path):
         """
@@ -309,12 +310,33 @@ class PLSConverter(FormatConverter):
         """
         from ConfigParser import RawConfigParser
 
+        playlist = Playlist(self.name_from_path(path))
         pls_playlist = RawConfigParser()
         pls_playlist.read(path)
 
         if not pls_playlist.has_section('playlist'):
-            raise InvalidPlaylistTypeError(
-                _('Invalid format for %s.') % self.title)
+            # Most likely version 1, thus only a list of URIs
+            gfile = gio.File(path)
+
+            with closing(gio.DataInputStream(gfile.read())) as stream:
+                line = stream.read_line()
+
+                if not line:
+                    break
+
+                line = line.strip()
+
+                if not line:
+                    continue
+
+                track = trax.Track(line)
+                
+                if track.get_tag_raw('title') is None:
+                    track.set_tag_raw('title', self.name_from_path(line))
+
+                playlist.append(track)
+
+            return playlist
 
         if not pls_playlist.has_option('playlist', 'version'):
             logger.warning('No PLS version specified, '
@@ -333,7 +355,6 @@ class PLSConverter(FormatConverter):
                 _('Invalid format for %s.') % self.title)
 
         # PLS playlists store no name, thus retrieve from path
-        playlist = Playlist(self.name_from_path(path))
         numberofentries = pls_playlist.getint('playlist',
             'numberofentries')
 
@@ -386,10 +407,11 @@ class ASXConverter(FormatConverter):
         Import from and export to ASX format
     """
     title = _('ASX Playlist')
+    content_types = ['video/x-ms-asf', 'audio/x-ms-wax', 'video/x-ms-wvx']
+    file_extensions = ['asx', 'wax', 'wvx']
 
     def __init__(self):
         FormatConverter.__init__(self, 'asx')
-        self.content_types = ['video/x-ms-asf']
 
     def export_to_file(self, playlist, path):
         """

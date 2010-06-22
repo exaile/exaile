@@ -310,31 +310,32 @@ class PLSConverter(FormatConverter):
         """
         from ConfigParser import RawConfigParser
 
-        playlist = Playlist(self.name_from_path(path))
         pls_playlist = RawConfigParser()
         pls_playlist.read(path)
 
         if not pls_playlist.has_section('playlist'):
             # Most likely version 1, thus only a list of URIs
+            playlist = Playlist(self.name_from_path(path))
             gfile = gio.File(path)
 
             with closing(gio.DataInputStream(gfile.read())) as stream:
-                line = stream.read_line()
+                while True:
+                    line = stream.read_line()
 
-                if not line:
-                    break
+                    if not line:
+                        break
 
-                line = line.strip()
+                    line = line.strip()
 
-                if not line:
-                    continue
+                    if not line:
+                        continue
 
-                track = trax.Track(line)
-                
-                if track.get_tag_raw('title') is None:
-                    track.set_tag_raw('title', self.name_from_path(line))
+                    track = trax.Track(line)
+                    
+                    if track.get_tag_raw('title') is None:
+                        track.set_tag_raw('title', self.name_from_path(line))
 
-                playlist.append(track)
+                    playlist.append(track)
 
             return playlist
 
@@ -355,6 +356,7 @@ class PLSConverter(FormatConverter):
                 _('Invalid format for %s.') % self.title)
 
         # PLS playlists store no name, thus retrieve from path
+        playlist = Playlist(self.name_from_path(path))
         numberofentries = pls_playlist.getint('playlist',
             'numberofentries')
 

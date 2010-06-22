@@ -435,6 +435,8 @@ class TrackNumberTagFormatter(TagFormatter):
         except ValueError: # n
             pass
 
+        if value == "":
+            return ""
         return '%d' % int(value)
 providers.register('tag-formatting', TrackNumberTagFormatter())
 
@@ -466,6 +468,8 @@ class DiscNumberTagFormatter(TagFormatter):
         except ValueError: # n
             pass
 
+        if value == "":
+            return ""
         return '%d' % int(value)
 providers.register('tag-formatting', DiscNumberTagFormatter())
 

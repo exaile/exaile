@@ -308,12 +308,13 @@ class PLSConverter(FormatConverter):
             :returns: the playlist
             :rtype: :class:`Playlist`
         """
-        from ConfigParser import RawConfigParser
+        from ConfigParser import RawConfigParser, MissingSectionHeaderError
 
         pls_playlist = RawConfigParser()
-        pls_playlist.read(path)
 
-        if not pls_playlist.has_section('playlist'):
+        try:
+            pls_playlist.read(path)
+        except MissingSectionHeaderError:
             # Most likely version 1, thus only a list of URIs
             playlist = Playlist(self.name_from_path(path))
             gfile = gio.File(path)
@@ -338,6 +339,10 @@ class PLSConverter(FormatConverter):
                     playlist.append(track)
 
             return playlist
+
+        if not pls_playlist.has_section('playlist'):
+            raise InvalidPlaylistTypeError(
+                _('Invalid format for %s.') % self.title)
 
         if not pls_playlist.has_option('playlist', 'version'):
             logger.warning('No PLS version specified, '

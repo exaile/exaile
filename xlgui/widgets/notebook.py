@@ -119,6 +119,7 @@ class NotebookTab(gtk.EventBox):
         self.entry = gtk.Entry()
         self.entry.set_width_chars(self.label.get_max_width_chars())
         self.entry.set_text(self.label.get_text())
+        self.entry.set_inner_border(gtk.Border(left=1, right=1))
         self.entry.connect('activate', self.on_entry_activate)
         self.entry.connect('focus-out-event', self.on_entry_focus_out_event)
         self.entry.connect('key-press-event', self.on_entry_key_press_event)

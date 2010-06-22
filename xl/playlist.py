@@ -74,6 +74,69 @@ def encode_filename(name):
 
     return name
 
+def is_valid_playlist(path):
+    """
+        Returns whether the file at a given path is a valid
+        playlist. Checks for content type and falls back to
+        file extension if unknown.
+
+        :param path: the source path
+        :type path: string
+    """
+    content_type = gio.content_type_guess(path)
+
+    if not gio.content_type_is_unknown(content_type):
+        for provider in providers.get('playlist-format-converter'):
+            if content_type in provider.content_types:
+                return True
+
+    file_extension = path.split('.')[-1]
+
+    for provider in providers.get('playlist-format-converter'):
+        if file_extension in provider.file_extensions:
+            return True
+
+    return False
+
+def import_playlist(path):
+    """
+        Determines the type of playlist and creates
+        a playlist from it
+
+        :param path: the source path
+        :type path: string
+        :returns: the playlist
+        :rtype: :class:`Playlist`
+    """
+    content_type = gio.content_type_guess(path)
+
+    if not gio.content_type_is_unknown(content_type):
+        for provider in providers.get('playlist-format-converter'):
+            if content_type in provider.content_types:
+                return provider.import_from_file(path)
+
+    file_extension = path.split('.')[-1]
+
+    for provider in providers.get('playlist-format-converter'):
+        if file_extension in provider.file_extensions:
+            return provider.import_from_file(path)
+
+    raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
+
+def export_playlist(playlist, path):
+    """
+        Exact same as @see import_playlist except
+        it exports
+    """
+    file_extension = path.split('.')[-1]
+
+    for provider in providers.get('playlist-format-converter'):
+        if file_extension in provider.file_extensions:
+            provider.export_to_file(playlist, path)
+            break
+    else:
+        raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
+
 class FormatConverter(object):
     """
         Base class for all converters allowing to
@@ -119,11 +182,7 @@ class FormatConverter(object):
             :rtype: string
         """
         gfile = gio.File(path)
-
-        if gfile.is_native():
-            name = os.path.basename(gfile.get_path())
-        else:
-            name = gfile.get_uri().split('/')[-1]
+        name = gfile.get_basename()
 
         for extension in self.file_extensions:
             try:
@@ -414,7 +473,8 @@ class ASXConverter(FormatConverter):
         Import from and export to ASX format
     """
     title = _('ASX Playlist')
-    content_types = ['video/x-ms-asf', 'audio/x-ms-wax', 'video/x-ms-wvx']
+    content_types = ['video/x-ms-asf', 'audio/x-ms-asx',
+                     'audio/x-ms-wax', 'video/x-ms-wvx']
     file_extensions = ['asx', 'wax', 'wvx']
 
     def __init__(self):
@@ -507,10 +567,10 @@ class XSPFConverter(FormatConverter):
         Import from and export to XSPF format
     """
     title = _('XSPF Playlist')
+    content_types = ['application/xspf+xml']
 
     def __init__(self):
         FormatConverter.__init__(self, 'xspf')
-        self.content_types = ['application/xspf+xml']
 
         # TODO: support image tag for CoverManager
         self.tags = {
@@ -585,55 +645,6 @@ class XSPFConverter(FormatConverter):
 
         return playlist
 providers.register('playlist-format-converter', XSPFConverter())
-
-def is_valid_playlist(path):
-    """
-        Returns whether the file at a given path is a valid
-        playlist. Based on file extension but could possibly
-        be extended to actual content sniffing.
-
-        :param path: the source path
-        :type path: string
-    """
-    file_extension = path.split('.')[-1]
-
-    for provider in providers.get('playlist-format-converter'):
-        if file_extension in provider.file_extensions:
-            return True
-
-    return False
-
-def import_playlist(path):
-    """
-        Determines the type of playlist and creates
-        a playlist from it
-
-        :param path: the source path
-        :type path: string
-        :returns: the playlist
-        :rtype: :class:`Playlist`
-    """
-    file_extension = path.split('.')[-1]
-
-    for provider in providers.get('playlist-format-converter'):
-        if file_extension in provider.file_extensions:
-            return provider.import_from_file(path)
-
-    raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
-
-def export_playlist(playlist, path):
-    """
-        Exact same as @see import_playlist except
-        it exports
-    """
-    file_extension = path.split('.')[-1]
-
-    for provider in providers.get('playlist-format-converter'):
-        if file_extension in provider.file_extensions:
-            provider.export_to_file(playlist, path)
-            break
-    else:
-        raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
 
 class Playlist(object):
     shuffle_modes = ['disabled', 'track', 'album']

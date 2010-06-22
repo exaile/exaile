@@ -34,8 +34,21 @@ import glib, gobject, gtk, pango
 
 from xl.nls import gettext as _
 
-from xl import (common, event, player, providers, settings, trax, xdg)
-from xl.playlist import Playlist, PlaylistManager
+from xl import (
+    common,
+    event,
+    player,
+    providers,
+    settings,
+    trax,
+    xdg
+)
+from xl.playlist import (
+    Playlist,
+    PlaylistManager,
+    is_valid_playlist,
+    import_playlist,
+)
 from xlgui import guiutil, icons, queue
 import playlist_columns
 from xl.common import MetadataList
@@ -821,8 +834,11 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         elif selection.target == "text/uri-list":
             uris = selection.get_uris()
             tracks = []
-            for u in uris:
-                tracks.extend(trax.get_tracks_from_uri(u))
+            for uri in uris:
+                if is_valid_playlist(uri):
+                    tracks.extend(import_playlist(uri))
+                    continue
+                tracks.extend(trax.get_tracks_from_uri(uri))
             sortcol = self.get_sort_column()
             if sortcol:
                 reverse = sortcol.get_sort_order() == gtk.SORT_DESCENDING

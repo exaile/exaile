@@ -285,7 +285,7 @@ class TestTrack(unittest.TestCase):
         self.empty_track_of_tags(tr, tags)
         for tag, val in tags.iteritems():
             tr.set_tag_raw(tag, val)
-        self.assertEqual(tr.list_tags(), ['album', '__loc', 'artist'])
+        self.assertEqual(set(tr.list_tags()), set(['album', '__loc', 'artist', '__basename']))
 
     def test_rating_empty(self):
         """Test get_rating when no rating has been set"""
@@ -303,19 +303,19 @@ class TestTrack(unittest.TestCase):
 
     ## Tag Getting helper methods
     def test_split_numerical_none(self):
-        self.assertEqual(track.Track.split_numerical(None), (0, 0))
+        self.assertEqual(track.Track.split_numerical(None), (None, 0))
 
     def test_split_numerical_str(self):
         fn = track.Track.split_numerical
         self.assertEqual(fn('12/15'), (12, 15))
-        self.assertEqual(fn('foo/15'), (0, 15))
+        self.assertEqual(fn('foo/15'), (None, 15))
         self.assertEqual(fn('12/foo'), (12, 0))
         self.assertEqual(fn('12/15/2009'), (12, 15))
 
     def test_split_numerical_list(self):
         fn = track.Track.split_numerical
         self.assertEqual(fn(['12/15']), (12, 15))
-        self.assertEqual(fn(['foo/15']), (0, 15))
+        self.assertEqual(fn(['foo/15']), (None, 15))
         self.assertEqual(fn(['12/foo']), (12, 0))
         self.assertEqual(fn(['12/15/2009']), (12, 15))
 
@@ -479,8 +479,8 @@ class TestTrack(unittest.TestCase):
 
     def test_get_display_tag_numeric_zero(self):
         tr = track.Track('/foo')
-        self.assertEqual(tr.get_tag_display('tracknumber'), u'0')
-        self.assertEqual(tr.get_tag_display('discnumber'), u'0')
+        self.assertEqual(tr.get_tag_display('tracknumber'), u'')
+        self.assertEqual(tr.get_tag_display('discnumber'), u'')
         self.assertEqual(tr.get_tag_display('__rating'), u'0')
         self.assertEqual(tr.get_tag_display('__playcount'), u'0')
 

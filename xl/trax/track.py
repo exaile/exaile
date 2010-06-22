@@ -582,7 +582,7 @@ class Track(object):
 
         if not value:
             if tag in ['tracknumber', 'discnumber']:
-                return value
+                return u""
             elif tag in ('__rating', '__playcount'):
                 value = "0"
             else:

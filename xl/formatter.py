@@ -666,27 +666,4 @@ class LastPlayedTagFormatter(TagFormatter):
         return text
 providers.register('tag-formatting', LastPlayedTagFormatter())
 
-class FilenameTagFormatter(TagFormatter):
-    """
-        A formatter for the filename of a track
-    """
-    def __init__(self):
-        TagFormatter.__init__(self, 'filename')
-
-    def format(self, track, parameters):
-        """
-            Formats a raw tag value
-
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
-        """
-        gfile = gio.File(track.get_loc_for_io())
-
-        return gfile.get_basename()
-providers.register('tag-formatting', FilenameTagFormatter())
-
 # vim: et sts=4 sw=4

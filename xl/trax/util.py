@@ -89,7 +89,6 @@ def sort_tracks(fields, iter, trackfunc=None, reverse=False):
         artist_compilations=artist_compilations) for field in fields]
     return sorted(iter, key=keyfunc, reverse=reverse)
 
-
 def sort_result_tracks(fields, trackiter, reverse=False):
     """
         Sorts SearchResultTracks, ie. the output from a search.

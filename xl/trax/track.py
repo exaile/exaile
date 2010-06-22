@@ -25,16 +25,23 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging
-import time
-import weakref
-import unicodedata
 from copy import deepcopy
 import gio
 import glib
-import glib
+import logging
+import os.path
+import time
+import unicodedata
+import weakref
+
+from xl import (
+    common,
+    event,
+    metadata,
+    settings
+)
 from xl.nls import gettext as _
-from xl import common, settings, event, metadata
+
 logger = logging.getLogger(__name__)
 
 # map chars to appropriate subsitutes for sorting
@@ -234,6 +241,7 @@ class Track(object):
         gloc = gio.File(loc)
         self.__tags['__loc'] = gloc.get_uri()
         self.__register()
+        event.log_event('track_tags_changed', self, '__loc')
 
     def exists(self):
         """
@@ -241,6 +249,15 @@ class Track(object):
             This can be very slow, use with caution!
         """
         return gio.File(self.get_loc_for_io()).query_exists()
+
+    def get_loc_for_io(self):
+        """
+            Gets the location as a full uri.
+
+            Safe for IO operations via gio, not suitable for display to users
+            as it may be in non-utf-8 encodings.
+        """
+        return self.__tags['__loc']
 
     def local_file_name(self):
         """
@@ -251,16 +268,27 @@ class Track(object):
             If a path is returned, it is safe to use for IO operations.
             Existence of a path does *not* guarantee file existence.
         """
-        return gio.File(self.__tags['__loc']).get_path()
+        raise DeprecationWarning('get_local_path() is '
+            'preferred over local_file_name()')
+        return self.get_local_path()
 
-    def get_loc_for_io(self):
+    def get_local_path(self):
         """
-            Gets the location as a full uri.
+            If the file is accessible on a local filesystem, retrieves
+            the full path to it, otherwise nothing.
 
-            Safe for IO operations via gio, not suitable for display to users
-            as it may be in non-utf-8 encodings.
+            :returns: the file path or None
+            :rtype: string or NoneType
         """
-        return self.__tags['__loc']
+        return gio.File(self.get_loc_for_io()).get_path()
+
+    def get_basename(self):
+        """
+            Returns the base name of a resource
+        """
+        gfile = gio.File(self.get_loc_for_io())
+
+        return gfile.get_basename()
 
     def get_type(self):
         """
@@ -333,7 +361,8 @@ class Track(object):
             Determines whether a file is accessible on the local filesystem.
         """
         # TODO: determine this better
-        if self.local_file_name():
+        # Maybe use gio.File.is_native()?
+        if self.get_local_path():
             return True
         return False
 
@@ -381,7 +410,7 @@ class Track(object):
         """
             Returns a list of the names of all tags present in this Track.
         """
-        return self.__tags.keys()
+        return self.__tags.keys() + ['__basename']
 
     def set_tag_raw(self, tag, values, notify_changed=True):
         """
@@ -394,6 +423,15 @@ class Track(object):
                 this to False if you know that no other parts of Exaile
                 need to be updated.
         """
+        if tag == '__loc':
+            logger.warning('Setting "__loc" directly is forbidden, '
+                           'use set_loc() instead.')
+            return
+
+        if tag in ('__basename',):
+            logger.warning('Setting "%s" directly is forbidden.' % tag)
+            return
+
         # handle values that aren't lists
         if not isinstance(values, list):
             if not tag.startswith("__"): # internal tags dont have to be lists
@@ -427,10 +465,15 @@ class Track(object):
             :param join: If True, joins lists of values into a
                 single value.
         """
-        val = self.__tags.get(tag)
-        if join and val:
-            return self.join_values(val)
-        return val
+        if tag == '__basename':
+            value = self.get_basename()
+        else:
+            value = self.__tags.get(tag)
+
+        if join and value:
+            return self.join_values(value)
+
+        return value
 
     def get_tag_sort(self, tag, join=True, artist_compilations=True,
             extend_title=True):
@@ -449,48 +492,51 @@ class Track(object):
         # The two magic values here are to ensure that compilations
         # and unknown values are always sorted below all normal
         # values.
-        retval = None
+        value = None
         sorttag = self.__tags.get(tag + "sort")
         if sorttag and tag != "artist":
-            retval = sorttag
+            value = sorttag
         elif tag == "artist":
             if artist_compilations and self.__tags.get('__compilation'):
-                retval = self.__tags.get('albumartist',
+                value = self.__tags.get('albumartist',
                         u"\uffff\uffff\uffff\ufffe")
             else:
-                retval = self.__tags.get('artist',
+                value = self.__tags.get('artist',
                         u"\uffff\uffff\uffff\uffff")
-            if sorttag and retval not in (u"\uffff\uffff\uffff\ufffe",
+            if sorttag and value not in (u"\uffff\uffff\uffff\ufffe",
                     u"\uffff\uffff\uffff\uffff"):
-                retval = sorttag
+                value = sorttag
             else:
                 sorttag = None
         elif tag in ('tracknumber', 'discnumber'):
-            retval = self.split_numerical(self.__tags.get(tag))[0]
+            value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount'):
-            retval = self.__tags.get(tag, 0)
+            value = self.__tags.get(tag, 0)
+        elif tag == '__basename':
+            # TODO: Check if unicode() is required
+            value = self.get_basename()
         else:
-            retval = self.__tags.get(tag)
+            value = self.__tags.get(tag)
 
-        if not retval:
-            retval = u"\uffff\uffff\uffff\uffff" # unknown
+        if not value:
+            value = u"\uffff\uffff\uffff\uffff" # unknown
             if tag == 'title':
                 gloc = gio.File(self.__tags['__loc'])
                 basename = glib.filename_display_name(gloc.get_basename())
-                retval = u"%s (%s)" % (retval, basename)
+                value = u"%s (%s)" % (value, basename)
         elif not tag.startswith("__") and \
                 tag not in ('tracknumber', 'discnumber'):
             if not sorttag:
-                retval = self.format_sort(retval)
+                value = self.format_sort(value)
             else:
-                if isinstance(retval, list):
-                    retval = [self.lower(v + u" " + v) for v in retval]
+                if isinstance(value, list):
+                    value = [self.lower(v + u" " + v) for v in value]
                 else:
-                    retval = self.lower(retval + u" " + v)
+                    value = self.lower(value + u" " + v)
             if join:
-                retval = self.join_values(retval)
+                value = self.join_values(value)
 
-        return retval
+        return value
 
     def get_tag_display(self, tag, join=True, artist_compilations=True,
             extend_title=True):
@@ -510,49 +556,51 @@ class Track(object):
             uri = gio.File(self.__tags['__loc']).get_parse_name()
             return uri.decode('utf-8')
 
-        retval = None
+        value = None
         if tag == "artist":
             if artist_compilations and self.__tags.get('__compilation'):
-                retval = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
+                value = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
-                retval = self.__tags.get('artist', _UNKNOWNSTR)
+                value = self.__tags.get('artist', _UNKNOWNSTR)
         elif tag in ('tracknumber', 'discnumber'):
-            retval = self.split_numerical(self.__tags.get(tag))[0]
+            value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag == '__length':
-            retval = self.__tags.get('__length', 0)
+            value = self.__tags.get('__length', 0)
         elif tag == '__bitrate':
             try:
-                retval = int(self.__tags['__bitrate']) / 1000
-                if retval == -1:
-                    retval = " "
+                value = int(self.__tags['__bitrate']) / 1000
+                if value == -1:
+                    value = " "
                 else:
-                    retval = str(retval) + "k"
+                    value = str(value) + "k"
             except:
-                retval = " "
+                value = " "
+        elif tag == '__basename':
+            value = self.get_basename()
         else:
-            retval = self.__tags.get(tag)
+            value = self.__tags.get(tag)
 
-        if not retval:
+        if not value:
             if tag in ['tracknumber', 'discnumber']:
-                return retval
+                return value
             elif tag in ('__rating', '__playcount'):
-                retval = "0"
+                value = "0"
             else:
-                retval = _UNKNOWNSTR
+                value = _UNKNOWNSTR
                 if tag == 'title':
                     gloc = gio.File(self.__tags['__loc'])
                     basename = glib.filename_display_name(gloc.get_basename())
-                    retval = u"%s (%s)" % (retval, basename)
+                    value = u"%s (%s)" % (value, basename)
 
-        if isinstance(retval, list):
-            retval = [unicode(x) for x in retval]
+        if isinstance(value, list):
+            value = [unicode(x) for x in value]
         else:
-            retval = unicode(retval)
+            value = unicode(value)
 
         if join:
-            retval = self.join_values(retval, _JOINSTR)
+            value = self.join_values(value, _JOINSTR)
 
-        return retval
+        return value
 
     def get_tag_search(self, tag, format=True, artist_compilations=True,
             extend_title=True):
@@ -570,51 +618,53 @@ class Track(object):
         extraformat = ""
         if tag == "artist":
             if artist_compilations and self.__tags.get('__compilation'):
-                retval = self.__tags.get('albumartist', '__null__')
+                value = self.__tags.get('albumartist', '__null__')
                 tag = 'albumartist'
                 extraformat += " ! __compilation==__null__"
             else:
-                retval = self.__tags.get('artist')
+                value = self.__tags.get('artist')
         elif tag in ('tracknumber', 'discnumber'):
-            retval = self.split_numerical(self.__tags.get(tag))[0]
+            value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount', '__rating'):
-            retval = self.__tags.get(tag, 0)
+            value = self.__tags.get(tag, 0)
         elif tag == '__bitrate':
             try:
-                retval = int(self.__tags['__bitrate']) / 1000
-                if retval != -1:
-                    retval = str(retval) + "k"
+                value = int(self.__tags['__bitrate']) / 1000
+                if value != -1:
+                    value = str(value) + "k"
             except:
-                retval = -1
+                value = -1
+        elif tag == '__basename':
+            value = self.get_basename()
         else:
-            retval = self.__tags.get(tag)
+            value = self.__tags.get(tag)
 
 
         # Quote arguments
-        if retval is None:
-            retval = '__null__'
+        if value is None:
+            value = '__null__'
             if tag == 'title':
                 extraformat += ' __loc==\"%s\"' % self.__tags['__loc']
-        elif isinstance(retval, list) and format:
-            retval = ['"%s"' % self.quoter(val) for val in retval]
+        elif isinstance(value, list) and format:
+            value = ['"%s"' % self.quoter(val) for val in value]
         elif format:
-            retval = '"%s"' % self.quoter(retval)
+            value = '"%s"' % self.quoter(value)
 
         # Join lists
         if format:
-            if isinstance(retval, list):
-                retval = " ".join(['%s==%s'%(tag, val) for val in retval])
+            if isinstance(value, list):
+                value = " ".join(['%s==%s' % (tag, v) for v in value])
             else:
-                retval = '%s==%s' % (tag, retval)
+                value = '%s==%s' % (tag, value)
             if extraformat:
-                retval += extraformat
+                value += extraformat
 
         # hack to make things work - discnumber breaks without it.
         # TODO: figure out why this happens, cleaner solution
-        if not isinstance(retval, list) and not tag.startswith("__"):
-            retval = unicode(retval)
+        if not isinstance(value, list) and not tag.startswith("__"):
+            value = unicode(value)
 
-        return retval
+        return value
 
     def get_tag_disk(self, tag):
         """

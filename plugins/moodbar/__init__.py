@@ -140,7 +140,7 @@ class ExModbar(object):
          else: needGen=True
          if needGen:
              self.pid = subprocess.Popen(['/usr/bin/moodbar',
-                 track.local_file_name(), '-o', modLoc])
+                 track.get_local_path(), '-o', modLoc])
          self.haveMod=not needGen
 
          if self.modTimer: glib.source_remove(self.modTimer)

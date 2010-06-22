@@ -132,7 +132,7 @@ class TestTrack(unittest.TestCase):
     def test_takes_nonurl(self):
         for tr in test_data.TEST_TRACKS:
             tr = track.Track(tr)
-            self.assertTrue(tr.local_file_name())
+            self.assertTrue(tr.get_local_path())
             self.assertTrue(tr.exists())
     
     ## Information

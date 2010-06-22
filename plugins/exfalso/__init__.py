@@ -109,7 +109,7 @@ class ExFalsoTagger:
             ef = self.exfalso = ExFalsoController(self.on_changed)
             ef.window.connect('destroy', self.destroy)
         ef.window.present()
-        ef.select(track.local_file_name() for track in tracks)
+        ef.select(track.get_local_path() for track in tracks)
     def on_changed(self, paths):
         get_track = self.exaile.collection.get_track_by_loc
         for path in paths:

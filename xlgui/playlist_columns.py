@@ -289,7 +289,7 @@ class IoLocColumn(Column):
 providers.register('playlist-columns', IoLocColumn)
 
 class FilenameColumn(Column):
-    name = 'filename'
+    name = '__basename'
     display = _('Filename')
     size = 200
     autoexpand = True

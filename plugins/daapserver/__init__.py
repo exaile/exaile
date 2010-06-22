@@ -22,7 +22,7 @@ class CollectionWrapper:
             return self.daap
 
         def get_original_filename(self):
-            return self.track.local_file_name()
+            return self.track.get_local_path()
 
     def __init__(self, collection):
         self.collection = collection

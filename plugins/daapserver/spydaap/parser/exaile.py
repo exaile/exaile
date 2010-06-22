@@ -88,7 +88,7 @@ class ExaileParser(spydaap.parser.Parser):
                       do('daap.songtime', trk.get_tag_raw('__length') * 1000),
 #                      do('daap.songbitrate', trk.get_tag_raw('__bitrate') / 1000),
 #                      do('daap.songsamplerate', ogg.info.sample_rate), # todo ??
-                      do('daap.songformat', trk.local_file_name().split('.')[-1]), # todo ??
+                      do('daap.songformat', trk.get_local_path().split('.')[-1]), # todo ??
                       do('daap.songdescription', 'Exaile Streaming Audio'),
                       ])
             return (d, name)

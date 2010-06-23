@@ -1,0 +1,48 @@
+
+use cases:
+    global:
+        playback controls:
+            play/pause
+            stop
+            prev
+            next
+        open (can we reduce the number of open menu items too?)
+        new playlist
+        quit?
+    current playlist:
+        mode:
+            shuffle
+            repeat
+            dynamic
+        append
+        enqueue
+        export?
+        clear
+    current track:
+        rating
+        SPAT
+
+widgets to produce:
+    menu items (new style)
+    buttons
+    (also needs to be activatable sans widget)
+
+types of actions:
+    pure action - 'activate' only
+        example: stop, clear
+        representation:
+            button - button
+            menuitem - menuitem
+    toggle action - toggles a state on and off
+        example: play/pause, dynamic mode
+        representation:
+            button - togglebutton
+            menuitem - checkmenuitem
+    choice action - selects among several choices for a state
+        example: shuffle/repeat mode
+        representation:
+            button - (toggle) button with pop-up menu for choices
+            menuitem - item with submenu of choices as radio items
+            (submenu and pop-up menu should be identical)
+
+

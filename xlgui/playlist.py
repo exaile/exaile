@@ -111,6 +111,8 @@ class PlaylistNotebook(SmartNotebook):
                     pass
                 else:
                     seen += [number]
+
+        seen.sort()
         n = 1
 
         while True:
@@ -217,7 +219,7 @@ class PlaylistNotebook(SmartNotebook):
         """
             Updates appearance on page removal
         """
-        if page_number == 1:
+        if self.get_n_pages() == 1:
             self.set_show_tabs(settings.get_option('gui/show_tabbar', True))
 
     def on_page_reordered(self, notebook, child, page_number):

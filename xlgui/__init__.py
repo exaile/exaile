@@ -29,7 +29,6 @@ __all__ = ['main', 'panel', 'playlist']
 import logging
 import os
 
-import gio
 import glib
 import gtk
 
@@ -40,22 +39,20 @@ from xl import xdg
 #       not work however.
 try:
     import gtk.glade
-    gtk.glade.textdomain('exaile')
-    if xdg.local_hack:
-        gtk.glade.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
 except ImportError:
     logger.warning(
         "Failed to import gtk.glade, interface "
         "will not be fully translated.")
+else:
+    gtk.glade.textdomain('exaile')
+    if xdg.local_hack:
+        import os
+        gtk.glade.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
 
 from xl import (
-    common,
-    covers,
     event,
-    metadata,
     playlist as _xpl,
     player,
-    providers,
     settings
 )
 from xl.nls import gettext as _

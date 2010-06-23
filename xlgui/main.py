@@ -66,6 +66,7 @@ from xlgui.widgets import (
     menu,
     playback
 )
+from xlgui.widgets.playlist import PlaylistPage
 
 logger = logging.getLogger(__name__)
 
@@ -674,7 +675,7 @@ class MainWindow(gobject.GObject):
         """
         page = self.get_selected_page()
 
-        if not page or not isinstance(page, playlist.PlaylistPage):
+        if not page or not isinstance(page, PlaylistPage):
             return
 
         def on_message(dialog, message_type, message):

@@ -831,54 +831,6 @@ class Menu(gtk.Menu):
         else:
             gtk.Menu.popup(self, *e)
 
-class ProgressBarFormatter(formatter.ProgressTextFormatter):
-    """
-        A formatter for progress bars
-    """
-    def __init__(self):
-        formatter.ProgressTextFormatter.__init__(self, self.get_option_value())
-
-        event.add_callback(self.on_option_set, 'gui_option_set')
-
-    def format(self, current_time=None, total_time=None):
-        """
-            Returns a string suitable for progress indicators
-
-            :param current_time: the current progress
-            :type current_time: float
-            :param total_time: the total length of a track
-            :type total_time: float
-            :returns: The formatted text
-            :rtype: string
-        """
-        playlist = xlgui.main.get_selected_page().playlist
-
-        if playlist.current_position < 0:
-            return ''
-
-        tracks = playlist[playlist.current_position:]
-        duration = sum([t.get_tag_raw('__length') for t in tracks \
-            if t.get_tag_raw('__length')])
-        duration -= player.PLAYER.get_time()
-
-        self._substitutions['total_remaining_time'] = \
-            formatter.LengthTagFormatter.format_value(duration)
-
-        return formatter.ProgressTextFormatter.format(self, current_time, total_time)
-
-    def get_option_value(self):
-        """
-            Returns the current option value
-        """
-        return settings.get_option('gui/progress_bar_text_format',
-            '$current_time / $remaining_time')
-
-    def on_option_set(self, event, settings, option):
-        """
-            Updates the internal format on setting change
-        """
-        if option == 'gui/progress_bar_text_format':
-            self.props.format = self.get_option_value()
 
 def finish(repeat=True):
     """

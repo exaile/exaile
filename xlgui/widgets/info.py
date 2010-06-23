@@ -41,7 +41,9 @@ from xl import (
 )
 from xl.nls import gettext as _
 import xlgui
-from xlgui import icons, playlist
+from xlgui import icons, playlist, guiutil
+from xlgui.widgets.playback import PlaybackProgressBar
+
 
 class TrackInfoPane(gtk.Alignment):
     """
@@ -80,7 +82,8 @@ class TrackInfoPane(gtk.Alignment):
         self.action_area = builder.get_object('action_area')
         self.progress_box = builder.get_object('progress_box')
         self.playback_image = builder.get_object('playback_image')
-        self.progressbar = builder.get_object('progressbar')
+        self.progressbar = PlaybackProgressBar()
+        guiutil.gtk_widget_replace(builder.get_object('progressbar'), self.progressbar)
 
         if self._auto_update:
             event.add_callback(self.on_playback_player_end,
@@ -187,14 +190,11 @@ class TrackInfoPane(gtk.Alignment):
         self.info_label.set_markup(self._formatter.format(track, markup_escape=True))
 
         if self._display_progress:
-            state = self.player.get_state()
-
             if track == self.player.current and not self.player.is_stopped():
+
                 stock_id = gtk.STOCK_MEDIA_PLAY
-                
                 if self.player.is_paused():
                     stock_id = gtk.STOCK_MEDIA_PAUSE
-
                 self.playback_image.set_from_stock(stock_id,
                     gtk.ICON_SIZE_SMALL_TOOLBAR)
 
@@ -224,39 +224,11 @@ class TrackInfoPane(gtk.Alignment):
         """
         return self.action_area
 
-    def __enable_timer(self):
-        """
-            Enables the timer, if not already
-        """
-        if self._timer is not None:
-            return
-
-        milliseconds = settings.get_option(
-            'gui/progress_update/millisecs', 1000)
-
-        if milliseconds % 1000 == 0:
-            self._timer = glib.timeout_add_seconds(milliseconds / 1000,
-                self.__update_progress)
-        else:
-            self._timer = glib.timeout_add(milliseconds,
-                self.__update_progress)
-
-    def __disable_timer(self):
-        """
-            Disables the timer, if not already
-        """
-        if self._timer is None:
-            return
-
-        glib.source_remove(self._timer)
-        self._timer = None
-
     def __show_progress(self):
         """
             Shows the progress area and enables
             updates of the progress bar
         """
-        self.__enable_timer()
         self.progress_box.set_no_show_all(False)
         self.progress_box.set_property('visible', True)
 
@@ -267,44 +239,6 @@ class TrackInfoPane(gtk.Alignment):
         """
         self.progress_box.set_property('visible', False)
         self.progress_box.set_no_show_all(True)
-        self.__disable_timer()
-
-    def __update_progress(self):
-        """
-            Updates the state of the progress bar
-        """
-        track = self.player.current
-
-        if track is not self._track:
-            self.__hide_progress()
-            return False
-
-        fraction = 0
-        text = _('Not Playing')
-
-        if track is not None:
-            total = track.get_tag_raw('__length')
-
-            if total is not None:
-                current = self.player.get_time()
-                text = '%d:%02d / %d:%02d' % \
-                    (current // 60, current % 60,
-                     total // 60, total % 60)
-
-                if self.player.is_paused():
-                    self.__disable_timer()
-                    fraction = self.progressbar.get_fraction()
-                elif self.player.is_playing():
-                    self.__enable_timer()
-                    fraction = self.player.get_progress()
-            elif not track.is_local():
-                self.__disable_timer()
-                text = _('Streaming...')
-
-        self.progressbar.set_fraction(fraction)
-        self.progressbar.set_text(text)
-
-        return True
 
     def on_playback_player_end(self, event, player, track):
         """

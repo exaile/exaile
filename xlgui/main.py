@@ -62,119 +62,11 @@ from xlgui import (
 )
 
 from xlgui.widgets import dialogs, info, menu
+from xlgui.widgets.playback import PlaybackProgressBar
 
 logger = logging.getLogger(__name__)
 
-class PlaybackProgressBar(object):
-    def __init__(self, bar, player):
-        self.bar = bar
-        self.timer_id = None
-        self.seeking = False
-        self.formatter = guiutil.ProgressBarFormatter()
 
-        self.bar.set_text(_('Not Playing'))
-        self.bar.connect('button-press-event', self.seek_begin)
-        self.bar.connect('button-release-event', self.seek_end)
-        self.bar.connect('motion-notify-event', self.seek_motion_notify)
-
-        event.add_callback(self.playback_start,
-            'playback_player_start', player)
-        event.add_callback(self.playback_toggle_pause,
-            'playback_toggle_pause', player)
-        event.add_callback(self.playback_end,
-            'playback_player_end', player)
-
-    def destroy(self):
-        event.remove_callback(self.playback_start,
-                'playback_player_start', player.PLAYER)
-        event.remove_callback(self.playback_end,
-                'playback_player_end', player.PLAYER)
-
-    def seek_begin(self, *e):
-        self.seeking = True
-
-    def seek_end(self, widget, event):
-        mouse_x, mouse_y = event.get_coords()
-        progress_loc = self.bar.get_allocation()
-
-        value = mouse_x / progress_loc.width
-        if value < 0: value = 0
-        if value > 1: value = 1
-
-        tr = player.PLAYER.current
-        if not tr or not (tr.is_local() or \
-                tr.get_tag_raw('__length')): return
-        length = tr.get_tag_raw('__length')
-
-        seconds = float(value * length)
-        player.PLAYER.seek(seconds)
-        self.seeking = False
-        self.bar.set_fraction(value)
-        self.bar.set_text(self.formatter.format(seconds, length))
-#        self.emit('seek', seconds)
-
-    def seek_motion_notify(self, widget, event):
-        tr = player.PLAYER.current
-        if not tr or not(tr.is_local() or \
-                tr.get_tag_raw('__length')): return
-
-        mouse_x, mouse_y = event.get_coords()
-        progress_loc = self.bar.get_allocation()
-
-        value = mouse_x / progress_loc.width
-
-        if value < 0: value = 0
-        if value > 1: value = 1
-
-        self.bar.set_fraction(value)
-        length = tr.get_tag_raw('__length')
-        seconds = float(value * length)
-        remaining_seconds = length - seconds
-        self.bar.set_text(self.formatter.format(seconds, length))
-
-    def playback_start(self, type, player, object):
-        if self.timer_id:
-            glib.source_remove(self.timer_id)
-            self.timer_id = None
-        self.__add_timer_update()
-
-    def playback_toggle_pause(self, type, player, object):
-        if self.timer_id:
-            glib.source_remove(self.timer_id)
-            self.timer_id = None
-        if not player.is_paused():
-            self.__add_timer_update()
-
-    def __add_timer_update(self):
-        freq = settings.get_option("gui/progress_update_millisecs", 1000)
-        if freq % 1000 == 0:
-            self.timer_id = glib.timeout_add_seconds(freq/1000, self.timer_update)
-        else:
-            self.timer_id = glib.timeout_add(freq, self.timer_update)
-
-    def playback_end(self, type, player, object):
-        if self.timer_id: glib.source_remove(self.timer_id)
-        self.timer_id = None
-        self.bar.set_text(_('Not Playing'))
-        self.bar.set_fraction(0)
-
-    def timer_update(self, *e):
-        tr = player.PLAYER.current
-        if not tr: return
-        if self.seeking: return True
-
-        if not tr.is_local() and not tr.get_tag_raw('__length'):
-            self.bar.set_fraction(0)
-            self.bar.set_text(_('Streaming...'))
-            return True
-
-        self.bar.set_fraction(player.PLAYER.get_progress())
-
-        seconds = player.PLAYER.get_time()
-        length = tr.get_tag_raw('__length')
-        self.bar.set_text(self.formatter.format(seconds, length))
-
-        return True
 
 
 
@@ -291,10 +183,9 @@ class MainWindow(gobject.GObject):
 
         self.splitter = self.builder.get_object('splitter')
 
-        self.progress_bar = PlaybackProgressBar(
-            self.builder.get_object('playback_progressbar'),
-            player.PLAYER
-        )
+        self.progress_bar = PlaybackProgressBar()
+        guiutil.gtk_widget_replace(self.builder.get_object('playback_progressbar'), self.progress_bar)
+
 
         for button in ('playpause', 'next', 'prev', 'stop'):
             setattr(self, '%s_button' % button,
@@ -795,7 +686,7 @@ class MainWindow(gobject.GObject):
             self._get_dynamic_tracks()
 
         if settings.get_option('osd/enabled', True):
-            self.osd.show(player.PLAYER.current)
+            self.osd.show(player.current)
 
     def on_playback_end(self, type, player, object):
         """

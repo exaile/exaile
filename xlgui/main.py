@@ -57,9 +57,10 @@ import xl.playlist
 from xlgui import (
     cover,
     guiutil,
+    tray,
     playlist,
-    tray
 )
+
 from xlgui.widgets import dialogs, info, menu
 
 logger = logging.getLogger(__name__)

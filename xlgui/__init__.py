@@ -64,7 +64,6 @@ from xlgui import (
     guiutil,
     icons,
     preferences,
-    queue
 )
 from xlgui.widgets import dialogs
 

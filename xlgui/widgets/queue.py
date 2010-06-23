@@ -30,6 +30,7 @@ from xl.nls import gettext as _
 from xl import providers, player, event
 from xlgui.widgets import menu
 from xlgui.widgets.notebook import NotebookPage
+from xlgui.widgets.playlist import PlaylistView
 
 
 
@@ -55,8 +56,7 @@ class QueuePage(NotebookPage):
         self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.pack_start(self.swindow, True, True)
 
-        from xlgui import playlist # avoid circular import
-        self.view = playlist.PlaylistView(player.QUEUE)
+        self.view = PlaylistView(player.QUEUE)
         self.swindow.add(self.view)
 
         event.add_callback(self.on_length_changed, "playlist_tracks_added", player.QUEUE)

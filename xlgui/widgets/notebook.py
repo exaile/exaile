@@ -238,10 +238,6 @@ class NotebookTab(gtk.EventBox):
 class NotebookPage(gtk.VBox):
     """
         Base class representing a page. Should never be used directly.
-
-        Subclasses will also need to inherit from gtk.VBox or some
-        other gtk widget, as Pages are generally directly added to the
-        Notebook.
     """
     menu_provider_name = 'tab-context' #override this in subclasses
     reorderable = True

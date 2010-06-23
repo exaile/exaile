@@ -53,7 +53,7 @@ class Action(gobject.GObject):
 
     def create_button(self):
         b = gtk.Button(label=self.display_name, stock=self.icon_name)
-        b.connect('activate', lambda *args: self.activate())
+        b.connect('activate', self.on_button_activate)
         return b
 
     def on_button_activate(self, button):

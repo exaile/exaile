@@ -544,19 +544,6 @@ class MainWindow(gobject.GObject):
         # refresh the current playlist
         pl = self.get_selected_page()
 
-    def close_playlist_tab(self, tab=None):
-        """
-            Closes the tab specified
-            @param tab: the tab number to close.  If no number is specified,
-                the currently selected tab is closed
-        """
-        if tab is None:
-            tab = self.playlist_notebook.get_current_page()
-        pl = self.playlist_notebook.get_nth_page(tab)
-        if pl.on_closing():
-            if player.QUEUE.current_playlist == pl.playlist:
-                player.QUEUE.current_playlist = None
-            self.playlist_notebook.remove_page(tab)
 
     def on_collection_tree_loaded(self, tree):
         """
@@ -618,11 +605,8 @@ class MainWindow(gobject.GObject):
             Clears the current playlist tab
         """
         page = self.get_selected_page()
-
-        if not page:
-            return
-
-        page.playlist.clear()
+        if page:
+            page.playlist.clear()
 
     def on_open_item_activate(self, menuitem):
         """

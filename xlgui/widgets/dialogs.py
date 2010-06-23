@@ -24,13 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import gio
 import glib
 import gobject
 import gtk
 import pango
 import os.path
 
-from xl import providers, xdg
+from xl import (
+    metadata, 
+    providers,
+    xdg
+)
 from xl.playlist import (
     is_valid_playlist,
     export_playlist,
@@ -57,6 +62,29 @@ def info(parent, message):
     dialog.set_markup(message)
     dialog.run()
     dialog.destroy()
+
+class AboutDialog(object):
+    """
+        A dialog showing program info and more
+    """
+    def __init__(self, parent=None):
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path('ui', 'about_dialog.ui'))
+
+        self.dialog = builder.get_object('AboutDialog')
+        self.dialog.set_transient_for(parent)
+        logo = gtk.gdk.pixbuf_new_from_file(
+            xdg.get_data_path('images', 'exailelogo.png'))
+        self.dialog.set_logo(logo)
+        from xl.main import __version__
+        self.dialog.set_version('\n%s' % __version__)
+        self.dialog.connect('response', lambda dialog, response: dialog.destroy())
+
+    def show(self):
+        """
+            Shows the dialog
+        """
+        self.dialog.show()
 
 class MultiTextEntryDialog(gtk.Dialog):
     """
@@ -206,6 +234,102 @@ class TextEntryDialog(gtk.Dialog):
         response = gtk.Dialog.run(self)
         self.hide()
         return response
+
+class URIOpenDialog(TextEntryDialog):
+    """
+        A dialog specialized for opening an URI
+    """
+    __gsignals__ = {
+        'uri-selected': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (gobject.TYPE_PYOBJECT,),
+            gobject.signal_accumulator_true_handled
+        )
+    }
+    def __init__(self, parent=None):
+        """
+            :param parent: a parent window for modal operation or None
+            :type parent: :class:`gtk.Window`
+        """
+        TextEntryDialog.__init__(self,
+            message=_('Enter the URL to open'),
+            title=_('Open URL'),
+            parent=parent)
+
+        self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+
+        self.connect('response', self.on_response)
+
+    def run(self):
+        """
+            Override to take care of the response
+        """
+        clipboard = gtk.clipboard_get()
+        text = clipboard.wait_for_text()
+
+        if text is not None:
+            location = gio.File(uri=text)
+
+            if location.get_uri_scheme() is not None:
+                self.set_value(text)
+
+        self.show_all()
+        response = TextEntryDialog.run(self)
+        self.emit('response', response)
+
+    def show(self):
+        """
+            Override to capture clipboard content
+        """
+        clipboard = gtk.clipboard_get()
+        text = clipboard.wait_for_text()
+
+        if text is not None:
+            location = gio.File(uri=text)
+
+            if location.get_uri_scheme() is not None:
+                self.set_value(text)
+
+        TextEntryDialog.show_all(self)
+
+    def do_uri_selected(self, uri):
+        """
+            Destroys the dialog
+        """
+        self.destroy()
+
+    def on_response(self, dialog, response):
+        """
+            Notifies about the selected URI
+        """
+        self.hide()
+
+        if response == gtk.RESPONSE_OK:
+            self.emit('uri-selected', self.get_value())
+
+        #self.destroy()
+    '''
+        dialog = dialogs.TextEntryDialog(_('Enter the URL to open'),
+        _('Open URL'))
+        dialog.set_transient_for(self.main.window)
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+
+        clipboard = gtk.clipboard_get()
+        text = clipboard.wait_for_text()
+
+        if text is not None:
+            location = gio.File(uri=text)
+
+            if location.get_uri_scheme() is not None:
+                dialog.set_value(text)
+
+        result = dialog.run()
+        dialog.hide()
+        if result == gtk.RESPONSE_OK:
+            url = dialog.get_value()
+            self.open_uri(url, play=False)
+    '''
 
 class ListDialog(gtk.Dialog):
     """
@@ -371,7 +495,7 @@ class FileOperationDialog(gtk.FileChooserDialog):
         """
         gtk.FileChooserDialog.__init__(self, title, parent, action, buttons, backend)
 
-        self.expander = gtk.Expander(_('Select File Type (By Extension)'))
+        self.expander = gtk.Expander(_('Select File Type (by Extension)'))
 
         #Create the list that will hold the file type/extensions pair
         self.liststore = gtk.ListStore(str, str)
@@ -428,6 +552,168 @@ class FileOperationDialog(gtk.FileChooserDialog):
         for key in keys:
             self.liststore.append([extensions[key], key])
 
+class MediaOpenDialog(gtk.FileChooserDialog):
+    """
+        A dialog for opening general media
+    """
+    __gsignals__ = {
+        'uris-selected': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (gobject.TYPE_PYOBJECT,),
+            gobject.signal_accumulator_true_handled
+        )
+    }
+    _last_location = None
+
+    def __init__(self, parent=None):
+        """
+            :param parent: a parent window for modal operation or None
+            :type parent: :class:`gtk.Window`
+        """
+        gtk.FileChooserDialog.__init__(self,
+            title=_('Choose Media to Open'),
+            parent=parent,
+            buttons=(
+                gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+
+        self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        #self.set_local_only(False) # TODO: Properly support this
+        self.set_select_multiple(True)
+
+        supported_filter = gtk.FileFilter()
+        supported_filter.set_name(_('Supported Files'))
+        audio_filter = gtk.FileFilter()
+        audio_filter.set_name(_('Music Files'))
+        playlist_filter = gtk.FileFilter()
+        playlist_filter.set_name(_('Playlist Files'))
+        all_filter = gtk.FileFilter()
+        all_filter.set_name(_('All Files'))
+        all_filter.add_pattern('*')
+
+        for extension in metadata.formats.iterkeys():
+            pattern = '*.%s' % extension
+            supported_filter.add_pattern(pattern)
+            audio_filter.add_pattern(pattern)
+
+        playlist_file_extensions = sum([p.file_extensions \
+            for p in providers.get('playlist-format-converter')], [])
+
+        for extension in playlist_file_extensions:
+            pattern = '*.%s' % extension
+            supported_filter.add_pattern(pattern)
+            playlist_filter.add_pattern(pattern)
+
+        self.add_filter(supported_filter)
+        self.add_filter(audio_filter)
+        self.add_filter(playlist_filter)
+        self.add_filter(all_filter)
+
+        self.connect('response', self.on_response)
+
+    def run(self):
+        """
+            Override to take care of the response
+        """
+        if MediaOpenDialog._last_location is not None:
+            self.set_current_folder_uri(MediaOpenDialog._last_location)
+
+        response = gtk.FileChooserDialog.run(self)
+        self.emit('response', response)
+
+    def show(self):
+        """
+            Override to restore last location
+        """
+        if MediaOpenDialog._last_location is not None:
+            self.set_current_folder_uri(MediaOpenDialog._last_location)
+
+        gtk.FileChooserDialog.show(self)
+
+    def do_uris_selected(self, uris):
+        """
+            Destroys the dialog
+        """
+        self.destroy()
+
+    def on_response(self, dialog, response):
+        """
+            Notifies about selected URIs
+        """
+        self.hide()
+
+        if response == gtk.RESPONSE_OK:
+            MediaOpenDialog._last_location = self.get_current_folder_uri()
+            self.emit('uris-selected', self.get_uris())
+
+        #self.destroy()
+
+class DirectoryOpenDialog(gtk.FileChooserDialog):
+    """
+        A dialog specialized for opening directories
+    """
+    __gsignals__ = {
+        'uris-selected': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (gobject.TYPE_PYOBJECT,),
+            gobject.signal_accumulator_true_handled
+        )
+    }
+    _last_location = None
+
+    def __init__(self, parent=None):
+        gtk.FileChooserDialog.__init__(self,
+            title=_('Choose Directory to Open'),
+            parent=parent,
+            buttons=(
+                gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+
+        self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        self.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+        self.set_select_multiple(True)
+
+        self.connect('response', self.on_response)
+
+    def run(self):
+        """
+            Override to take care of the response
+        """
+        if DirectoryOpenDialog._last_location is not None:
+            self.set_current_folder_uri(DirectoryOpenDialog._last_location)
+
+        response = gtk.FileChooserDialog.run(self)
+        self.emit('response', response)
+
+    def show(self):
+        """
+            Override to restore last location
+        """
+        if DirectoryOpenDialog._last_location is not None:
+            self.set_current_folder_uri(DirectoryOpenDialog._last_location)
+
+        gtk.FileChooserDialog.show(self)
+
+    def do_uris_selected(self, uris):
+        """
+            Destroys the dialog
+        """
+        self.destroy()
+
+    def on_response(self, dialog, response):
+        """
+            Notifies about selected URIs
+        """
+        self.hide()
+
+        if response == gtk.RESPONSE_OK:
+            DirectoryOpenDialog._last_location = self.get_current_folder_uri()
+            self.emit('uris-selected', self.get_uris())
+
+        #self.destroy()
+
 class PlaylistExportDialog(FileOperationDialog):
     """
         A dialog specialized for playlist export
@@ -445,6 +731,8 @@ class PlaylistExportDialog(FileOperationDialog):
         """
             :param playlist: the playlist to export
             :type playlist: :class:`xl.playlist.Playlist`
+            :param parent: a parent window for modal operation or None
+            :type parent: :class:`gtk.Window`
         """
         FileOperationDialog.__init__(self,
             title=_('Export Current Playlist'),
@@ -502,7 +790,7 @@ class PlaylistExportDialog(FileOperationDialog):
                 self.emit('message', gtk.MESSAGE_INFO,
                     _('Playlist saved as <b>%s</b>.') % path)
 
-        self.destroy()
+        #self.destroy()
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """

@@ -11,7 +11,6 @@
     <property name="has_separator">False</property>
     <property name="program_name">Exaile</property>
     <property name="copyright" translatable="yes">&#xA9; 2009-2010</property>
-    <property name="comments">Exaile</property>
     <property name="website">http://www.exaile.org</property>
     <property name="license" translatable="yes">Copyright (C) 2008-2010 Adam Olsen &lt;arolsen@gmail.com&gt; 
 

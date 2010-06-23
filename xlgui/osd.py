@@ -37,7 +37,7 @@ from xl import (
 )
 from xl.nls import gettext as _
 from xlgui import guiutil
-from xlgui.main import PlaybackProgressBar
+from xlgui.widgets.playback import PlaybackProgressBar
 
 class CoverWidget(guiutil.ScalableImageWidget):
     def __init__(self):

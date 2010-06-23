@@ -780,3 +780,42 @@ class Statusbar(object):
 
         return True
 
+# TODO: Check if we can get a progress indicator in here somehow
+class Splash(object):
+    """
+        A splash screen suitable for indicating startup;
+        will automatically be destroyed after GUI startup
+    """
+    def __init__(self):
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path('ui', 'splash.ui'))
+
+        image = builder.get_object('splash_image')
+        image.set_from_file(xdg.get_data_path('images', 'splash.png'))
+
+        self.window = builder.get_object('SplashScreen')
+
+    def destroy(self):
+        """
+            Destroys the splash screen
+        """
+        self.window.destroy()
+
+    def show(self):
+        """
+            Shows the splash screen
+        """
+        # Show the splash screen without causing startup notification.
+        gtk.window_set_auto_startup_notification(False)
+        self.window.show_all()
+        gtk.window_set_auto_startup_notification(True)
+
+        # Ensure the splash is completely drawn before moving on
+        while gtk.events_pending():
+            gtk.main_iteration()
+
+    def hide(self):
+        """
+            Hides the splash screen
+        """
+        self.window.hide()

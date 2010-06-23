@@ -57,18 +57,17 @@ import xl.playlist
 from xlgui import (
     cover,
     guiutil,
-    tray,
-    playlist,
+    tray
+)
+from xlgui.playlist import PlaylistNotebook
+from xlgui.widgets import (
+    dialogs,
+    info,
+    menu,
+    playback
 )
 
-from xlgui.widgets import dialogs, info, menu
-from xlgui.widgets.playback import PlaybackProgressBar
-
 logger = logging.getLogger(__name__)
-
-
-
-
 
 class MainWindow(gobject.GObject):
     """
@@ -117,8 +116,7 @@ class MainWindow(gobject.GObject):
             ('<Shift><Control>S', lambda *e: self.on_save_playlist_as()),
             ('<Control>F', lambda *e: self.on_search_collection_focus()),
             ('<Control>G', lambda *e: self.on_search_playlist_focus()), # FIXME
-            ('<Control>D', lambda *e: self.on_queue()), # FIXME
-            ('<Control><Alt>l', lambda *e: self.on_clear_queue()), # FIXME
+            ('<Control><Alt>l', lambda *e: player.QUEUE.clear()), # FIXME
         )
 
         self.accel_group = gtk.AccelGroup()
@@ -154,7 +152,7 @@ class MainWindow(gobject.GObject):
 
         self.cover = cover.CoverWidget(self.info_area.cover_image)
 
-        self.volume_control = guiutil.VolumeControl()
+        self.volume_control = playback.VolumeControl()
         self.info_area.get_action_area().pack_start(self.volume_control)
 
         if settings.get_option('gui/use_alpha', False):
@@ -169,7 +167,7 @@ class MainWindow(gobject.GObject):
                 self.window.connect('screen-changed', self.on_screen_changed)
 
         playlist_area = self.builder.get_object('playlist_area')
-        self.playlist_notebook = playlist.PlaylistNotebook('saved_tabs')
+        self.playlist_notebook = PlaylistNotebook('saved_tabs')
         self.playlist_notebook.connect_after('switch-page',
             self.on_playlist_notebook_switch_page)
         playlist_area.pack_start(self.playlist_notebook, padding=3)
@@ -183,7 +181,7 @@ class MainWindow(gobject.GObject):
 
         self.splitter = self.builder.get_object('splitter')
 
-        self.progress_bar = PlaybackProgressBar()
+        self.progress_bar = playback.PlaybackProgressBar()
         guiutil.gtk_widget_replace(self.builder.get_object('playback_progressbar'), self.progress_bar)
 
 
@@ -226,23 +224,22 @@ class MainWindow(gobject.GObject):
                 lambda *e: player.QUEUE.prev(),
             'on_new_playlist_item_activated': lambda *e:
                 self.playlist_notebook.create_new_playlist(),
-            'on_queue_count_clicked': self.controller.queue_manager,
             'on_clear_playlist_item_activate': self.on_clear_playlist,
+            'on_open_item_activate': self.on_open_item_activate,
+            'on_open_url_item_activate': self.on_open_url_item_activate,
+            'on_open_directories_item_activate': self.on_open_directories_item_activate,
             'on_export_current_playlist_activate': self.on_export_current_playlist_activate,
             'on_playlist_utilities_bar_visible_toggled': self.on_playlist_utilities_bar_visible_toggled,
+            'on_show_playing_track_item_activate': self.on_show_playing_track_item_activate,
+            'on_about_item_activate': self.on_about_item_activate,
             # Controller
-            'on_about_item_activate': self.controller.show_about_dialog,
             'on_scan_collection_item_activate': self.controller.on_rescan_collection,
             'on_randomize_playlist_item_activate': self.controller.on_randomize_playlist,
             'on_collection_manager_item_activate': self.controller.collection_manager,
-            'on_goto_playing_track_activate': self.controller.on_goto_playing_track,
             'on_queue_manager_item_activate': self.controller.queue_manager,
             'on_preferences_item_activate': lambda *e: self.controller.show_preferences(),
             'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
             'on_cover_manager_item_activate': self.controller.show_cover_manager,
-            'on_open_item_activate': self.controller.open_dialog,
-            'on_open_url_item_activate': self.controller.open_url,
-            'on_open_dir_item_activate': self.controller.open_dir,
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
             'on_track_properties_activate':self.controller.on_track_properties,
         })
@@ -615,13 +612,6 @@ class MainWindow(gobject.GObject):
         if not tab: return
         tab.do_save_custom()
 
-    def on_clear_queue(self):
-        """
-            Called when the user requests to clear the queue
-        """
-        player.QUEUE.clear()
-        player.QUEUE_playlist_draw()
-
     def on_clear_playlist(self, *e):
         """
             Clears the current playlist tab
@@ -632,6 +622,51 @@ class MainWindow(gobject.GObject):
             return
 
         page.playlist.clear()
+
+    def on_open_item_activate(self, menuitem):
+        """
+            Shows a dialog to open media
+        """
+        def on_uris_selected(dialog, uris):
+            uris.reverse()
+
+            if len(uris) > 0:
+                self.controller.open_uri(uris.pop(), play=True)
+
+            for uri in uris:
+                self.controller.open_uri(uri, play=False)
+
+        dialog = dialogs.MediaOpenDialog(self.window)
+        dialog.connect('uris-selected', on_uris_selected)
+        dialog.show()
+
+    def on_open_url_item_activate(self, menuitem):
+        """
+            Shows a dialog to open an URI
+        """
+        def on_uri_selected(dialog, uri):
+            self.controller.open_uri(uri, play=False)
+
+        dialog = dialogs.URIOpenDialog(self.window)
+        dialog.connect('uri-selected', on_uri_selected)
+        dialog.show()
+
+    def on_open_directories_item_activate(self, menuitem):
+        """
+            Shows a dialog to open directories
+        """
+        def on_uris_selected(dialog, uris):
+            uris.reverse()
+
+            if len(uris) > 0:
+                self.controller.open_uri(uris.pop(), play=True)
+
+            for uri in uris:
+                self.controller.open_uri(uri, play=False)
+
+        dialog = dialogs.DirectoryOpenDialog(self.window)
+        dialog.connect('uris-selected', on_uris_selected)
+        dialog.show()
 
     def on_export_current_playlist_activate(self, menuitem):
         """
@@ -664,6 +699,19 @@ class MainWindow(gobject.GObject):
         settings.set_option('gui/playlist_utilities_bar_visible',
             checkmenuitem.get_active())
 
+    def on_show_playing_track_item_activate(self, menuitem):
+        """
+            Tries to show the currently playing track
+        """
+        self.playlist_notebook.show_current_track()
+
+    def on_about_item_activate(self, menuitem):
+        """
+            Shows the about dialog
+        """
+        dialog = dialogs.AboutDialog(self.window)
+        dialog.show()
+
     def on_playback_resume(self, type, player, data):
         self.resuming = True
 
@@ -676,6 +724,8 @@ class MainWindow(gobject.GObject):
         if self.resuming:
             self.resuming = False
             return
+
+        self.builder.get_object('show_playing_track_item').set_sensitive(True)
 
         self._update_track_information()
         self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
@@ -694,6 +744,8 @@ class MainWindow(gobject.GObject):
         """
         self.window.set_title('Exaile')
         self._update_track_information()
+
+        self.builder.get_object('show_playing_track_item').set_sensitive(False)
 
         self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
                 gtk.ICON_SIZE_SMALL_TOOLBAR))

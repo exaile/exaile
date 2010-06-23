@@ -28,7 +28,6 @@ __all__ = ['main', 'panel', 'playlist']
 
 import logging
 import os
-import urlparse
 
 import gio
 import glib
@@ -36,6 +35,9 @@ import gtk
 
 from xl import xdg
 
+# TODO: Should actually be unnecessary thanks
+#       to gettext.bindtextdomain, which does
+#       not work however.
 try:
     import gtk.glade
     gtk.glade.textdomain('exaile')
@@ -153,96 +155,6 @@ class Main(object):
         logger.info("Done loading main window...")
         Main._main = self
 
-    def open_url(self, *e):
-        """
-            Displays a dialog to open a url
-        """
-        dialog = dialogs.TextEntryDialog(_('Enter the URL to open'),
-        _('Open URL'))
-        dialog.set_transient_for(self.main.window)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-
-        clipboard = gtk.clipboard_get()
-        text = clipboard.wait_for_text()
-
-        if text is not None:
-            location = gio.File(uri=text)
-
-            if location.get_uri_scheme() is not None:
-                dialog.set_value(text)
-
-        result = dialog.run()
-        dialog.hide()
-        if result == gtk.RESPONSE_OK:
-            url = dialog.get_value()
-            self.open_uri(url, play=False)
-
-    def open_dialog(self, *e):
-        """
-            Shows a dialog for opening playlists and tracks
-        """
-        dialog = gtk.FileChooserDialog(_("Choose a file to open"),
-            self.main.window, buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        dialog.set_local_only(False) # enable gio
-        dialog.set_select_multiple(True)
-
-        supported_file_filter = gtk.FileFilter()
-        supported_file_filter.set_name(_("Supported Files"))
-        audio_file_filter = gtk.FileFilter()
-        audio_file_filter.set_name(_("Music Files"))
-        playlist_file_filter = gtk.FileFilter()
-        playlist_file_filter.set_name(_("Playlist Files"))
-        all_file_filter = gtk.FileFilter()
-        all_file_filter.set_name(_("All Files"))
-
-        for ext in metadata.formats.keys():
-            supported_file_filter.add_pattern('*.' + ext)
-            audio_file_filter.add_pattern('*.' + ext)
-
-        playlist_file_types = []
-
-        for provider in providers.get('playlist-format-converter'):
-            playlist_file_types += provider.file_extensions
-
-        for playlist_file_type in playlist_file_types:
-            supported_file_filter.add_pattern('*.' + playlist_file_type)
-            playlist_file_filter.add_pattern('*.' + playlist_file_type)
-
-        all_file_filter.add_pattern('*')
-
-        dialog.add_filter(supported_file_filter)
-        dialog.add_filter(audio_file_filter)
-        dialog.add_filter(playlist_file_filter)
-        dialog.add_filter(all_file_filter)
-
-        result = dialog.run()
-        dialog.hide()
-        if result == gtk.RESPONSE_OK:
-            files = dialog.get_filenames()
-            for f in files:
-                self.open_uri(f, play=False)
-
-    def open_dir(self, *e):
-        """
-            Shows a dialog for opening (multiple) directories
-        """
-
-        dialog = gtk.FileChooserDialog(_("Choose a file to open"),
-            self.main.window, buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        dialog.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
-        dialog.set_select_multiple(True)
-
-        result = dialog.run()
-        dialog.hide()
-        if result == gtk.RESPONSE_OK:
-            files = dialog.get_filenames()
-            for file in files:
-                self.open_uri(file, play=False)
-
     def open_uri(self, uri, play=True):
         """
             Proxy for _open_uri
@@ -264,9 +176,9 @@ class Main(object):
             else:
                 self.main.playlist_notebook.create_tab_from_playlist(playlist)
 
-                # FIXME
                 if play:
                     player.QUEUE.current_playlist = playlist
+                    player.QUEUE.current_playlist.current_position = 0
                     player.QUEUE.play(playlist[0])
         else:
             page = self.main.get_selected_page()
@@ -358,14 +270,6 @@ class Main(object):
         except KeyError:
             pass
 
-    def on_goto_playing_track(self, *e):
-        # TODO: move into PlaylistPage (or maybe View)
-        pl = self.main.get_selected_page()
-        if pl.playlist == player.QUEUE.current_playlist:
-            pl.view.scroll_to_cell(pl.playlist.current_position)
-            pl.view.set_cursor(pl.playlist.current_position)
-        #TODO implement a way to browse through all playlists and search for the track
-
     def on_rescan_collection(self, *e):
         """
             Called when the user wishes to rescan the collection
@@ -388,8 +292,6 @@ class Main(object):
     def on_randomize_playlist(self, *e):
         pl = self.main.get_selected_page()
         pl.playlist.randomize()
-        pl._set_tracks(pl.playlist.get_tracks())
-        pl.reorder_songs()
 
     def on_track_properties(self, *e):
         pl = self.main.get_selected_page()
@@ -402,14 +304,6 @@ class Main(object):
         label = gtk.Label(name)
         label.set_angle(90)
         self.panel_notebook.append_page(child, label)
-
-        if not self.first_removed:
-            self.first_removed = True
-
-            # the first tab in the panel is a stub that just stops libglade from
-            # complaining
-            # TODO: Check if this is valid for GtkBuilder
-            self.panel_notebook.remove_page(0)
 
     def remove_panel(self, child):
         for n in range(self.panel_notebook.get_n_pages()):
@@ -430,23 +324,6 @@ class Main(object):
             if panel._child == page:
                 settings.set_option('gui/last_selected_panel', i)
                 return
-
-    def show_about_dialog(self, *e):
-        """
-            Displays the about dialog
-        """
-        import xl.main as xlmain
-        builder = gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui/about_dialog.ui'))
-        dialog = builder.get_object('AboutDialog')
-        logo = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/exailelogo.png'))
-        dialog.set_logo(logo)
-        dialog.set_program_name('Exaile')
-        dialog.set_version("\n" + str(xlmain.__version__))
-        dialog.set_transient_for(self.main.window)
-        dialog.connect('response', lambda d, r: d.destroy())
-        dialog.show()
 
     def quit(self):
         """
@@ -496,27 +373,3 @@ class Main(object):
             logger.debug("Couldn't remove panel for %s"%device.get_name())
         del self.device_panels[device.get_name()]
 
-def show_splash(show=True):
-    """
-        Show a splash screen
-
-        @param show: [bool] show the splash screen
-    """
-    if not show: return
-    builder = gtk.Builder()
-    builder.add_from_file(xdg.get_data_path("ui/splash.ui"))
-    image = builder.get_object('splash_image')
-    image.set_from_file(xdg.get_data_path("images/splash.png"))
-    splash_screen = builder.get_object('SplashScreen')
-    splash_screen.set_transient_for(None)
-
-    # Show the splash screen without causing startup notification.
-    gtk.window_set_auto_startup_notification(False)
-    splash_screen.show_all()
-    gtk.window_set_auto_startup_notification(True)
-
-    #ensure that the splash gets completely drawn before we move on
-    while gtk.events_pending():
-        gtk.main_iteration()
-
-    return splash_screen

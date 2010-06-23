@@ -57,12 +57,12 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="open_dir_item">
+                      <object class="GtkMenuItem" id="open_directories_item">
                         <property name="visible">True</property>
                         <property name="tooltip_text" translatable="yes">Add multiple directories containing music files to your playlist</property>
                         <property name="label" translatable="yes">Open Directories</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_open_dir_item_activate"/>
+                        <signal name="activate" handler="on_open_directories_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -165,14 +165,15 @@
                 <child type="submenu">
                   <object class="GtkMenu" id="view_menu">
                     <child>
-                      <object class="GtkImageMenuItem" id="goto_playing_item">
-                        <property name="label" translatable="yes">_Go to Playing Track</property>
+                      <object class="GtkImageMenuItem" id="show_playing_track_item">
+                        <property name="label" translatable="yes">_Show Playing Track</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="use_underline">True</property>
                         <property name="image">image8</property>
                         <property name="use_stock">False</property>
                         <accelerator key="J" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_goto_playing_track_activate"/>
+                        <signal name="activate" handler="on_show_playing_track_item_activate"/>
                       </object>
                     </child>
                     <child>
@@ -304,20 +305,10 @@
                     <property name="scrollable">True</property>
                     <signal name="switch_page" handler="on_panel_notebook_switch_page"/>
                     <child>
-                      <object class="GtkHBox" id="hbox7">
-                        <property name="visible">True</property>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
+                      <placeholder/>
                     </child>
                     <child type="tab">
-                      <object class="GtkLabel" id="label11">
-                        <property name="visible">True</property>
-                      </object>
-                      <packing>
-                        <property name="tab_fill">False</property>
-                      </packing>
+                      <placeholder/>
                     </child>
                   </object>
                   <packing>

@@ -31,13 +31,13 @@
 #
 # Also takes care of parsing commandline options.
 
-import os
-import sys
 import logging
 import logging.handlers
+import os
+import sys
 
-from xl.nls import gettext as _
 from xl import common, xdg
+from xl.nls import gettext as _
 
 # placeholder, - xl.version can be slow to import, which would slow down
 # cli args. Thus we import __version__ later.
@@ -131,9 +131,16 @@ class Exaile(object):
             common.log_exception(log=logger)
             exit(1)
 
-        # Splash screen
+        splash = None
+
         if self.options.StartGui:
-            self.__show_splash()
+            from xl import settings
+
+            if settings.get_option('gui/use_splash', True):
+                from xlgui.widgets.info import Splash
+
+                splash = Splash()
+                splash.show()
 
         firstrun = settings.get_option("general/first_run", True)
 
@@ -224,12 +231,10 @@ class Exaile(object):
             import xlgui
             self.gui = xlgui.Main(self)
             self.gui.main.window.show_all()
-
-            import glib
-            if self.splash is not None:
-                glib.idle_add(self.splash.destroy)
             event.log_event("gui_loaded", self, None)
 
+            if splash is not None:
+                splash.destroy()
 
         restore = True
 
@@ -260,10 +265,15 @@ class Exaile(object):
         """
             Displays the splash screen
         """
-        import xlgui
         from xl import settings
-        self.splash = xlgui.show_splash(
-            show=settings.get_option('gui/use_splash', True))
+
+        if not settings.get_option('gui/use_splash', True):
+            return
+
+        from xlgui.widgets.info import Splash
+
+        splash = Splash()
+        splash.show()
 
     def setup_logging(self):
         console_format = "%(levelname)-8s: %(message)s"

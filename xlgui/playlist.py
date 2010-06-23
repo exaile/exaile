@@ -186,26 +186,43 @@ class PlaylistNotebook(SmartNotebook):
             self.tab_manager.remove_playlist(name)
 
         # TODO: make this generic enough to save other kinds of tabs
-        for i in range(self.get_n_pages()):
-            page = self.get_nth_page(i)
+        for n, page in enumerate(self):
             if not isinstance(page, PlaylistPage):
                 continue
-            pl = page.playlist
+
             tag = ''
-            if pl is player.QUEUE.current_playlist:
+
+            if page.playlist is player.QUEUE.current_playlist:
                 tag = 'playing'
-            elif i == self.get_current_page():
+            elif n == self.get_current_page():
                 tag = 'current'
-            pl.name = "order%d.%s.%s" % (i, tag, pl.name)
-            logger.debug("Saving tab %d: %s" % (i, pl.name))
+
+            page.playlist.name = 'order%d.%s.%s' % (n, tag, page.playlist.name)
+            logger.debug('Saving tab %d: %s' % (n, page.playlist.name))
 
             try:
-                self.tab_manager.save_playlist(pl, True)
+                self.tab_manager.save_playlist(page.playlist, True)
             except:
                 # an exception here could cause exaile to be unable to quit.
                 # Catch all exceptions.
                 import traceback
                 traceback.print_exc()
+
+    def show_current_track(self):
+        """
+            Tries to find the currently playing track
+            and selects it and its containing tab page
+        """
+        for n, page in enumerate(self):
+            if not isinstance(page, PlaylistPage):
+                continue
+
+            if page.playlist is not player.QUEUE.current_playlist:
+                continue
+
+            self.set_current_page(n)
+            page.view.scroll_to_cell(page.playlist.current_position)
+            page.view.set_cursor(page.playlist.current_position)
 
     def on_page_added(self, notebook, child, page_number):
         """

@@ -94,6 +94,11 @@ class PlaybackProgressBar(gtk.ProgressBar):
         self.formatter = ProgressBarFormatter()
 
         self.set_text(_('Not Playing'))
+
+        self.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+        self.add_events(gtk.gdk.BUTTON_RELEASE_MASK)
+        self.add_events(gtk.gdk.BUTTON_MOTION_MASK)
+
         self.connect('button-press-event', self.seek_begin)
         self.connect('button-release-event', self.seek_end)
         self.connect('motion-notify-event', self.seek_motion_notify)

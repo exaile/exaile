@@ -55,6 +55,7 @@ class PlaylistNotebook(SmartNotebook):
 
         self.connect('page-added', self.on_page_added)
         self.connect('page-removed', self.on_page_removed)
+        self.connect('page-reordered', self.on_page_reordered)
 
         self.on_option_set('gui_option_set', settings, 'gui/show_tabbar')
         self.on_option_set('gui_option_set', settings, 'gui/tab_placement')
@@ -218,6 +219,10 @@ class PlaylistNotebook(SmartNotebook):
         """
         if page_number == 1:
             self.set_show_tabs(settings.get_option('gui/show_tabbar', True))
+
+    def on_page_reordered(self, notebook, child, page_number):
+        if self.page_num(self.queuepage) != 0:
+            self.reorder_child(self.queuepage, 0)
 
     def on_option_set(self, event, settings, option):
         """

@@ -80,7 +80,7 @@ class QueuePage(NotebookPage):
 
     def set_tab(self, tab):
         NotebookPage.set_tab(self, tab)
-        tab.set_closable(False)
+        tab.set_closable(not self.do_closing())
 
     def do_closing(self):
         """

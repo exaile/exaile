@@ -24,37 +24,44 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-
+import gobject
 import logging
 try:
     import cPickle as pickle
 except:
     import pickle
 
-from xl import playlist, settings, event, common
+from xl import (
+    common,
+    event,
+    playlist,
+    settings
+)
 
 logger = logging.getLogger(__name__)
 
-class PlayQueue(playlist.Playlist):
+class PlayQueue(playlist.Playlist, gobject.GObject):
 
     """
         Manages the queue of songs to be played
     """
+    current_playlist = gobject.property(
+        type=gobject.TYPE_PYOBJECT, default=None,
+        nick='currently processed playlist',
+        blurb='Contains the current playlist processed by the queue')
 
     def __init__(self, player, location=None):
-        self.current_playlist = None
-        self.current_pl_track = None
         playlist.Playlist.__init__(self, name="Queue")
+        gobject.GObject.__init__(self)
+
         self.player = player
         player._set_queue(self)
+
         if location is not None:
             self.load_from_location(location)
 
     def set_current_playlist(self, playlist):
         self.current_playlist = playlist
-
-    def set_current_pl_track(self, track):
-        self.current_pl_track = track
 
     def next(self, player=True, track=None):
         """

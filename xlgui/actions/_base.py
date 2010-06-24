@@ -129,7 +129,7 @@ class ChoiceAction(BaseAction):
         'active-choice': {
             gobject.TYPE_INT,
             'active-choice',
-            'The index of the currently active choice'
+            'The index of the currently active choice',
             0,
             65536,
             0,

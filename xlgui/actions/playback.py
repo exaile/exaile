@@ -87,7 +87,7 @@ class PlayPauseButton(gtk.Button):
     def __init__(self):
         gtk.Button.__init__(self)
         self.setup_image()
-        for ev in ['player_end', 'track_start', 'toggle_pause', 'error']
+        for ev in ['player_end', 'track_start', 'toggle_pause', 'error']:
             event.add_callback('playback_%s'%ev, self.setup_image)
 
     def setup_image(self, *args):

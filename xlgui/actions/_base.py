@@ -92,8 +92,8 @@ class ToggleAction(Action):
         )
     }
 
-    def __init__(self, name, display_name, active=False):
-        Action.__init__(self, name, display_name, None)
+    def __init__(self, name, display_name, icon_name, active=False):
+        Action.__init__(self, name, display_name, icon_name)
         self.set_property('active', active)
 
     def create_menu_item(self, after):
@@ -106,7 +106,7 @@ class ToggleAction(Action):
         self.toggle()
 
     def create_button(self):
-        b = gtk.ToggleButton(label=self.display_name)
+        b = gtk.ToggleButton(label=self.display_name, stock=self.icon_name)
         b.connect('toggled', lambda *args: self.toggled())
         return b
 
@@ -126,7 +126,7 @@ class ChoiceAction(BaseAction):
     }
 
     __gproperties__ = {
-        'active-choice': {
+        'active-choice': (
             gobject.TYPE_INT,
             'active-choice',
             'The index of the currently active choice',
@@ -151,17 +151,21 @@ class ChoiceAction(BaseAction):
     def set_active_choice(self, index):
         if not index < len(self.choices):
             raise IndexError, "Choice index out of range."
-        if self.choices[index].startswith("----"):
+        if self.choices[index] == "----":
             raise ValueError, "Cannot chose a separator."
-        self.props.active-choice = index
+        self.props.active_choice = index
         self.emit('changed', index)
 
     def create_submenu(self):
         m = menu.Menu(self)
         previous = None
+        sep_count = 0
         for choice, display in zip(self.choices, self.choice_displays):
             after = [previous] if previous else []
-            if choice.startswith("----"):
+            if choice == "----":
+                # force sep names to be unique
+                choice = choice + str(sep_count)
+                sep_count += 1
                 item = menu.simple_separator(choice, after)
             else:
                 item = menu.radio_menu_item(choice, after, display, self.name, self.choice_selected_func, self.on_choice_activated)
@@ -170,7 +174,7 @@ class ChoiceAction(BaseAction):
         return m
 
     def choice_selected_func(self, name, parent_obj, parent_context):
-        return name == self.choices[self.props.active-choice]:
+        return name == self.choices[self.props.active-choice]
 
     def on_choice_activated(self, name, parent_obj, parent_context):
         self.set_active_choice(self.choices.index(name))

@@ -25,8 +25,33 @@
 # from your version.
 
 
+from xl.playlist import Playlist
 
 from xlgui.actions import _base
+from xlgui import main
+from xlgui.widgets.playlist import PlaylistPage
 
+def get_current_playlist():
+    page = main.mainwindow().get_current_page()
+    if not isinstance(page, PlaylistPage):
+        return None
+    return page
+
+def insert_sep(l, pos=1):
+    l = l[:]
+    l.insert(pos, "----")
+    return l
+
+shuffle_mode = _base.ChoiceAction("playlist-shuffle", _("Shuffle"),
+    "media-playlist-shuffle", insert_sep(Playlist.shuffle_modes),
+    insert_sep(Playlist.shuffle_mode_names))
+
+repeat_mode = _base.ChoiceAction("playlist-repeat", _("Shuffle"),
+    "media-playlist-repeat", insert_sep(Playlist.repeat_modes),
+    insert_sep(Playlist.repeat_mode_names))
+
+dynamic_mode = _base.ChoiceAction("playlist-dynamic", _("Shuffle"),
+    "media-playlist-dynamic", insert_sep(Playlist.dynamic_modes),
+    insert_sep(Playlist.dynamic_mode_names))
 
 

@@ -651,9 +651,9 @@ class Playlist(object):
     shuffle_mode_names = [_('Shuffle _Off'),
             _('Shuffle _Tracks'), _('Shuffle _Albums')]
     repeat_modes = ['disabled', 'all', 'track']
-    repeat_mode_names = [_('Repeat _Off'), _('Repeat _All'), _('Repeat _One')]
+    repeat_mode_names = [_('Repeat _Off'), _('Repeat _All'), _('Repeat O_ne')]
     dynamic_modes = ['disabled', 'enabled']
-    dynamic_mode_names = [_('Dynamic Playlists O_ff'), _('Dynamic Playlists O_n')]
+    dynamic_mode_names = [_('Dynamic Playlists _Off'), _('Dynamic Playlists O_n')]
     # TODO: how do we document properties/events in sphinx?
     """
 

@@ -48,10 +48,12 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="open_url_item">
-                        <property name="visible">True</property>
+                      <object class="GtkImageMenuItem" id="open_url_item">
                         <property name="label" translatable="yes">Open _URL</property>
+                        <property name="visible">True</property>
                         <property name="use_underline">True</property>
+                        <property name="image">image13</property>
+                        <property name="use_stock">False</property>
                         <accelerator key="o" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_open_url_item_activate"/>
                       </object>
@@ -578,5 +580,9 @@ Right Click for Stop After Track Feature</property>
     <property name="upper">1</property>
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">0.20000000000000001</property>
+  </object>
+  <object class="GtkImage" id="image13">
+    <property name="visible">True</property>
+    <property name="icon_name">applications-internet</property>
   </object>
 </interface>

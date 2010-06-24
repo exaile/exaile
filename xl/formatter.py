@@ -40,21 +40,21 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
     # Allows for $tag, ${tag}, ${tag:parameter} and ${tag:parameter=argument}
     pattern = r"""
     %(delim)s(?:
-      (?P<escaped>%(delim)s) |   # Escape sequence of two delimiters
-      (?P<named>%(id)s)      |   # Delimiter and a Python identifier
+      (?P<escaped>%(delim)s) |     # Escape sequence of two delimiters
+      (?P<named>%(id)s)      |     # Delimiter and a Python identifier
       {
-        (?P<braced>%(id)s)       # Delimiter and a braced identifier
+        (?P<braced>%(id)s)         # Delimiter and a braced identifier
         (!?:
           (?P<parameters>
-            %(id)s               # First optional parameter indicated with ':'
-            (!?=(!?[^,}=]|\,|\}|\=)+)?        # Optional argument indicated with '='
-            (!?,\s*%(id)s        # Further optional parameters separated with ','
-              (!?=(!?[^,}=]|\,|\}|\=)+)?      # Optional argument indicated with '='
+            %(id)s                 # First optional parameter indicated with ':'
+            (!?=(!?%(arg)s)+?)?    # Optional argument indicated with '='
+            (!?,\s*%(id)s          # Further optional parameters separated with ','
+              (!?=(!?%(arg)s)+?)?  # Optional argument indicated with '='
             )*      
           )
         )?
       }                      |
-      (?P<invalid>)              # Other ill-formed delimiter expressions
+      (?P<invalid>)                # Other ill-formed delimiter expressions
     )
     """
     def __init__(cls, name, bases, dct):
@@ -63,8 +63,9 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
             pattern = cls.pattern
         else:
             pattern = _ParameterTemplateMetaclass.pattern % {
-                'delim'   : re.escape(cls.delimiter),
-                'id'      : cls.idpattern,
+                'delim': re.escape(cls.delimiter),
+                'id': cls.idpattern,
+                'arg': cls.argpattern,
             }
         cls.pattern = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
 
@@ -83,6 +84,7 @@ class ParameterTemplate(Template):
         * ${qux:parameter1=argument1, parameter2}
     """
     __metaclass__ = _ParameterTemplateMetaclass
+    argpattern = r'[^,}=]|\,|\}|\='
 
     def __init__(self, template):
         """
@@ -227,10 +229,12 @@ class Formatter(gobject.GObject):
 
             if groups['parameters'] is not None:
                 # Split parameters on unescaped comma
-                parameters = [p.lstrip() for p in re.split(r'(?<!\\),', groups['parameters'])]
+                parameters = [p.lstrip() \
+                    for p in re.split(r'(?<!\\),', groups['parameters'])]
                 # Split arguments on unescaped equals sign
-                parameters = [(re.split(r'(?<!\\)=', p, 1) + [True])[:2] for p in parameters]
-                # Turns [['foo', 'arg'], ['bar']] into {'foo': 'arg', 'bar': True}
+                parameters = [(re.split(r'(?<!\\)=', p, 1) + [True])[:2] \
+                    for p in parameters]
+                # Turn list of lists into a proper dictionary
                 parameters = dict(parameters)
 
                 # Remove now obsolete escapes

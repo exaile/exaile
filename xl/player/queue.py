@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject
 import logging
 try:
     import cPickle as pickle
@@ -40,20 +39,16 @@ from xl import (
 
 logger = logging.getLogger(__name__)
 
-class PlayQueue(playlist.Playlist, gobject.GObject):
+class PlayQueue(playlist.Playlist):
 
     """
         Manages the queue of songs to be played
     """
-    current_playlist = gobject.property(
-        type=gobject.TYPE_PYOBJECT, default=None,
-        nick='currently processed playlist',
-        blurb='Contains the current playlist processed by the queue')
 
     def __init__(self, player, location=None):
         playlist.Playlist.__init__(self, name="Queue")
-        gobject.GObject.__init__(self)
 
+        self.__current_playlist = None
         self.player = player
         player._set_queue(self)
 
@@ -61,7 +56,11 @@ class PlayQueue(playlist.Playlist, gobject.GObject):
             self.load_from_location(location)
 
     def set_current_playlist(self, playlist):
-        self.current_playlist = playlist
+        self.__current_playlist = playlist
+        event.log_event('queue_current_playlist_changed', self, playlist)
+
+    current_playlist = property(lambda self: self.__current_playlist,
+        set_current_playlist)
 
     def next(self, player=True, track=None):
         """

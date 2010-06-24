@@ -671,7 +671,6 @@ class DirectoryOpenDialog(gtk.FileChooserDialog):
                 gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
                 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 
-        self.props.create_folders = False # Useless here
         self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
         self.set_select_multiple(True)

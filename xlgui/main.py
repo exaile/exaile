@@ -650,6 +650,8 @@ class MainWindow(gobject.GObject):
                 self.controller.open_uri(uri, play=False)
 
         dialog = dialogs.DirectoryOpenDialog(self.window)
+        # Selecting empty folders is useless
+        dialog.props.create_folders = False
         dialog.connect('uris-selected', on_uris_selected)
         dialog.show()
 

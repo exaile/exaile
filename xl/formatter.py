@@ -239,9 +239,13 @@ class Formatter(gobject.GObject):
 
                 # Remove now obsolete escapes
                 for p in parameters:
-                    parameters[p] = parameters[p].replace(r'\,', ',')
-                    parameters[p] = parameters[p].replace(r'\}', '}')
-                    parameters[p] = parameters[p].replace(r'\=', '=')
+                    argument = parameters[p]
+
+                    if type(argument) is not bool:
+                        argument = argument.replace(r'\,', ',')
+                        argument = argument.replace(r'\}', '}')
+                        argument = argument.replace(r'\=', '=')
+                        parameters[p] = argument
 
                 identifier_parts += [groups['parameters']]
 

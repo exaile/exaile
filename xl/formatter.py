@@ -47,9 +47,9 @@ class _ParameterTemplateMetaclass(_TemplateMetaclass):
         (!?:
           (?P<parameters>
             %(id)s               # First optional parameter indicated with ':'
-            (!?=[^,}=]*)?        # Optional argument indicated with '='
+            (!?=(!?[^,}=]|\,|\}|\=)+)?        # Optional argument indicated with '='
             (!?,\s*%(id)s        # Further optional parameters separated with ','
-              (!?=[^,}=]*)?      # Optional argument indicated with '='
+              (!?=(!?[^,}=]|\,|\}|\=)+)?      # Optional argument indicated with '='
             )*      
           )
         )?
@@ -226,9 +226,19 @@ class Formatter(gobject.GObject):
             parameters = {}
 
             if groups['parameters'] is not None:
-                parameters = [p.lstrip() for p in groups['parameters'].split(',')]
+                # Split parameters on unescaped comma
+                parameters = [p.lstrip() for p in re.split(r'(?<!\\),', groups['parameters'])]
+                # Split arguments on unescaped equals sign
+                parameters = [(re.split(r'(?<!\\)=', p, 1) + [True])[:2] for p in parameters]
                 # Turns [['foo', 'arg'], ['bar']] into {'foo': 'arg', 'bar': True}
-                parameters = dict([(p.split('=', 1) + [True])[:2] for p in parameters])
+                parameters = dict(parameters)
+
+                # Remove now obsolete escapes
+                for p in parameters:
+                    parameters[p] = parameters[p].replace(r'\,', ',')
+                    parameters[p] = parameters[p].replace(r'\}', '}')
+                    parameters[p] = parameters[p].replace(r'\=', '=')
+
                 identifier_parts += [groups['parameters']]
 
             # Required to make multiple occurences of the same

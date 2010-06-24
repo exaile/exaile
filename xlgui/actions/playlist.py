@@ -25,13 +25,8 @@
 # from your version.
 
 
+
 from xlgui.actions import _base
 
-
-quit = _base.Action('quit', 'Quit', 'gtk-quit')
-def on_quit_activate(action):
-    from xlgui import main
-    main.mainwindow().quit()
-quit.connect('activate', on_quit_activate)
 
 

@@ -30,7 +30,18 @@ import gobject, gtk
 from xlgui.widgets import menu
 
 
-class Action(gobject.GObject):
+class BaseAction(gobject.GObject):
+    def __init__(self, name):
+        gobject.GObject.__init__(self)
+        self.name = name
+
+    def create_menu_item(self, after):
+        raise NotImplementedError
+
+    def create_button(self):
+        raise NotImplementedError
+
+class Action(BaseAction):
     __gsignals__ = {
         'activate': (
             gobject.SIGNAL_RUN_LAST,
@@ -40,8 +51,7 @@ class Action(gobject.GObject):
     }
 
     def __init__(self, name, display_name, icon_name):
-        gobject.GObject.__init__(self)
-        self.name = name
+        BaseAction.__init__(self, name)
         self.display_name = display_name
         self.icon_name = icon_name
 
@@ -106,5 +116,67 @@ class ToggleAction(Action):
         if self.props.active:
             self.activate()
 
-class ChoiceAction(Action):
-    pass
+class ChoiceAction(BaseAction):
+    __gsignals__ = {
+        'changed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (int,)
+        )
+    }
+
+    __gproperties__ = {
+        'active-choice': {
+            gobject.TYPE_INT,
+            'active-choice',
+            'The index of the currently active choice'
+            0,
+            65536,
+            0,
+            gobject.PARAM_READONLY
+        )
+    }
+
+    # choice starting with "----" means separator
+    # choices MUST be unique
+
+    def __init__(self, name, display_name, icon_name, choices, choice_displays, active_choice=0):
+        BaseAction.__init__(self, name)
+        self.display_name = display_name
+        self.icon_name = icon_name
+        self.choices = choices[:]
+        self.choice_displays = choice_displays[:]
+        self.set_active_choice(index)
+
+    def set_active_choice(self, index):
+        if not index < len(self.choices):
+            raise IndexError, "Choice index out of range."
+        if self.choices[index].startswith("----"):
+            raise ValueError, "Cannot chose a separator."
+        self.props.active-choice = index
+        self.emit('changed', index)
+
+    def create_submenu(self):
+        m = menu.Menu(self)
+        previous = None
+        for choice, display in zip(self.choices, self.choice_displays):
+            after = [previous] if previous else []
+            if choice.startswith("----"):
+                item = menu.simple_separator(choice, after)
+            else:
+                item = menu.radio_menu_item(choice, after, display, self.name, self.choice_selected_func, self.on_choice_activated)
+            m.add_item(item)
+            previous = choice
+        return m
+
+    def choice_selected_func(self, name, parent_obj, parent_context):
+        return name == self.choices[self.props.active-choice]:
+
+    def on_choice_activated(self, name, parent_obj, parent_context):
+        self.set_active_choice(self.choices.index(name))
+
+    def create_menu_item(self, after):
+        return menu.simple_menu_item(self.name, after, self.display_name, self.icon_name, lambda *args: None, self.create_submenu())
+
+    def create_button(self):
+        pass

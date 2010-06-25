@@ -56,6 +56,9 @@ class PlayQueue(playlist.Playlist):
             self.load_from_location(location)
 
     def set_current_playlist(self, playlist):
+        if playlist is self.__current_playlist:
+            return
+
         self.__current_playlist = playlist
         event.log_event('queue_current_playlist_changed', self, playlist)
 

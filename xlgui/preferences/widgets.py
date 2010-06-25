@@ -466,6 +466,10 @@ class SelectionListPreference(Preference):
         selected_items = settings.get_option(self.name, self.default)
         # Get list of available items
         available_items = [row[0] for row in self.model]
+
+        if not available_items:
+            return
+
         # Cut out unselected items
         unselected_items = [item for item in available_items \
             if item not in selected_items]

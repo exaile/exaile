@@ -46,17 +46,29 @@ shuffle_mode = _base.ChoiceAction("playlist-shuffle", _("Shuffle"),
     "media-playlist-shuffle", insert_sep(Playlist.shuffle_modes),
     insert_sep(Playlist.shuffle_mode_names))
 def on_shuffle_mode_changed(action, index):
-    get_current_playlist().shuffle_mode = action.choices[index]
+    page = get_current_playlist()
+    if page:
+        page.shuffle_mode = action.choices[index]
 shuffle_mode.connect('changed', on_shuffle_mode_changed)
 
 repeat_mode = _base.ChoiceAction("playlist-repeat", _("Repeat"),
     "media-playlist-repeat", insert_sep(Playlist.repeat_modes),
     insert_sep(Playlist.repeat_mode_names))
 def on_repeat_mode_changed(action, index):
-    get_current_playlist().repeat_mode = action.choices[index]
+    page = get_current_playlist()
+    if page:
+        page.repeat_mode = action.choices[index]
 repeat_mode.connect('changed', on_shuffle_mode_changed)
 
 dynamic_mode = _base.ToggleAction("playlist-dynamic", _("Dynamic"),
     "media-playlist-dynamic")
+def on_dynamic_mode_toggled(action):
+    page = get_current_playlist()
+    if page:
+        if action.props.active:
+            page.dynamic_mode = 'enabled'
+        else:
+            page.dynamic_mode = 'disabled'
+dynamic_mode.connect('toggled', on_dynamic_mode_toggled)
 
 

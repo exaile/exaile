@@ -214,11 +214,11 @@
     <data>
       <row>
         <col id="0">full</col>
-        <col id="1" translatable="yes">Full</col>
+        <col id="1" translatable="yes" comments="TRANSLATORS: Minimode window decoration option">Full</col>
       </row>
       <row>
         <col id="0">simple</col>
-        <col id="1" translatable="yes">Simple</col>
+        <col id="1" translatable="yes" comments="TRANSLATORS: Minimode window decoration option">Simple</col>
       </row>
     </data>
   </object>

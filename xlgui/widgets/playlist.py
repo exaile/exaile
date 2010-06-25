@@ -676,11 +676,11 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         selected = None
         if len(tracks) == 1:
             tracks = self.playlist[:]
-            selected = self.get_cursor()[0][0]
+            current_position = self.get_cursor()[0][0]
 
         if tracks:
             dialog = properties.TrackPropertiesDialog(None,
-                    tracks, selected)
+                    tracks, current_position)
 
     def on_provider_removed(self, provider):
         """

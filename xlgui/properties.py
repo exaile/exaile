@@ -78,7 +78,16 @@ dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
 
 class TrackPropertiesDialog(gobject.GObject):
 
-    def __init__(self, parent, tracks, selected=None):
+    def __init__(self, parent, tracks, current_position=0):
+        """
+            :param parent: the parent window for modal operation
+            :type parent: :class:`gtk.Window`
+            :param tracks: the tracks to process
+            :type tracks: list of :class:`xl.trax.Track` objects
+            :param current_position: the position of the currently
+                selected track in the list
+            :type current_position: int
+        """
         gobject.GObject.__init__(self)
 
         self.builder = gtk.Builder()
@@ -120,11 +129,7 @@ class TrackPropertiesDialog(gobject.GObject):
         self.track_refs = tracks
         self.tracks = self._tags_copy(tracks)
         self.tracks_original = self._tags_copy(tracks)
-
-        if selected:
-            self.current = selected
-        else:
-            self.current = 0
+        self.current_position = current_position
 
         self._build_from_track(self.current)
 
@@ -179,7 +184,8 @@ class TrackPropertiesDialog(gobject.GObject):
             poplist = []
             for tag in track:
                 if not tag.startswith("__"):
-                    if tag in ("tracknumber", "discnumber") and track[tag] == ["0/0"]:
+                    if tag in ("tracknumber", "discnumber") \
+                       and track[tag] == ["0/0"]:
                         poplist.append(tag)
                         continue
                     self.track_refs[n].set_tag_raw(tag, track[tag])
@@ -247,15 +253,19 @@ class TrackPropertiesDialog(gobject.GObject):
                 f = None
                 if dialog_tags[tag][1] == 'int':
                     if tag == 'tracknumber':
-                        f = TagDblNumField(dialog_tags[tag][2], dialog_tags[tag][3], all_button=ab_dbl)
+                        f = TagDblNumField(dialog_tags[tag][2],
+                            dialog_tags[tag][3], all_button=ab_dbl)
                     elif tag == 'discnumber':
-                        f = TagDblNumField(dialog_tags[tag][2], dialog_tags[tag][3], all_button=ab_dbl)
+                        f = TagDblNumField(dialog_tags[tag][2],
+                            dialog_tags[tag][3], all_button=ab_dbl)
                     else:
-                        f = TagNumField(dialog_tags[tag][2], dialog_tags[tag][3], all_button=ab)
+                        f = TagNumField(dialog_tags[tag][2],
+                            dialog_tags[tag][3], all_button=ab)
                 else:
                     f = TagField(all_button=ab)
 
-                self.rows.append(TagRow(self, self.tags_table, f, tag, entry, i))
+                self.rows.append(
+                    TagRow(self, self.tags_table, f, tag, entry, i))
 
         for tag in t:
             if tag not in self.def_tags:
@@ -278,12 +288,14 @@ class TrackPropertiesDialog(gobject.GObject):
                                 else:
                                     f = TagField(all_button=ab)
 
-                            self.rows.append(TagRow(self, self.tags_table, f, tag, entry, i))
+                            self.rows.append(TagRow(self,
+                                self.tags_table, f, tag, entry, i))
 
                         else:
                             f = PropertyField(fieldtype)
 
-                            self.rows.append(TagRow(self, self.properties_table, f, tag, entry, i))
+                            self.rows.append(TagRow(self,
+                                self.properties_table, f, tag, entry, i))
 
 
         self._check_for_changes()
@@ -313,7 +325,8 @@ class TrackPropertiesDialog(gobject.GObject):
 
             for col, content in enumerate(columns):
                 row.table.attach(content, col, col + 1, cur_row[row.table],
-                        cur_row[row.table] + 1, xoptions=paddings[col], yoptions=0)
+                        cur_row[row.table] + 1,
+                        xoptions=paddings[col], yoptions=0)
 
             cur_row[row.table] += 1
             row.table.resize(cur_row[row.table] + 1, 4)
@@ -359,16 +372,17 @@ class TrackPropertiesDialog(gobject.GObject):
             self.dialog.destroy()
 
     def _on_prev(self, widget):
-        self.current -= 1
-        self._build_from_track(self.current)
+        self.current_position -= 1
+        self._build_from_track(self.current_position)
 
     def _on_next(self, widget):
-        self.current += 1
-        self._build_from_track(self.current)
+        self.current_position += 1
+        self._build_from_track(self.current_position)
 
     def _title_case(self, w):
         for row in self.rows:
-            if isinstance(row.field, TagField) or isinstance(row.field, TagTextField):
+            if isinstance(row.field, TagField) \
+               or isinstance(row.field, TagTextField):
                 val = row.field.get_value()
                 val = string.capwords(val, ' ')
                 row.field.set_value(val)
@@ -383,13 +397,13 @@ class TrackPropertiesDialog(gobject.GObject):
         else:
             tag = self.new_tag_combo.get_child().get_text()
 
-        t = self.tracks[self.current]
+        t = self.tracks[self.current_position]
         try:
             t[tag].append('')
         except KeyError:
             t[tag] = ['']
 
-        self._build_from_track(self.current)
+        self._build_from_track(self.current_position)
 
     def _remove_tag_mode(self, widget):
         for row in self.rows:
@@ -416,19 +430,21 @@ class TrackPropertiesDialog(gobject.GObject):
 
     def update_tag(self, widget, tag, multi_id, val):
 
-        t = self.tracks[self.current]
-        o = self.tracks_original[self.current]
+        t = self.tracks[self.current_position]
+        o = self.tracks_original[self.current_position]
         t[tag][multi_id] = val()
 
         for row in self.rows:
             if row.tag == tag and row.multi_id == 0:
                 try:
                     if t[tag] != o[tag]:
-                        row.label.set_markup('<i>' + row.name.capitalize() + ':</i>')
+                        row.label.set_markup(
+                            '<i>' + row.name.capitalize() + ':</i>')
                     else:
                         row.label.set_markup(row.name + ':')
                 except KeyError:
-                    row.label.set_markup('<i>' + row.name.capitalize() + ':</i>')
+                    row.label.set_markup(
+                        '<i>' + row.name.capitalize() + ':</i>')
 
 
             if row.tag == tag and row.multi_id == multi_id:
@@ -474,11 +490,11 @@ class TrackPropertiesDialog(gobject.GObject):
         for row in self.rows:
             if row.tag == tag and row.multi_id == multi_id:
                 self.rows.remove(row)
-                self.tracks[self.current][tag].pop(multi_id)
-                if len(self.tracks[self.current][tag]) == 0:
-                    self.tracks[self.current].pop(tag)
+                self.tracks[self.current_position][tag].pop(multi_id)
+                if len(self.tracks[self.current_position][tag]) == 0:
+                    self.tracks[self.current_position].pop(tag)
 
-        self._build_from_track(self.current)
+        self._build_from_track(self.current_position)
 
     def run(self):
         return self.dialog.run()
@@ -518,8 +534,8 @@ class TagRow(object):
             self.label.create_pango_context()
             self.label.set_alignment(0.0, .50)
             try:
-                if parent.tracks[parent.current][self.tag] != \
-                        parent.tracks_original[parent.current][self.tag]:
+                if parent.tracks[parent.current_position][self.tag] != \
+                        parent.tracks_original[parent.current_position][self.tag]:
                     self.label.set_markup('<i>' + name.capitalize() + '</i>:')
             except KeyError:
                 self.label.set_markup('<i>' + name.capitalize() + '</i>:')

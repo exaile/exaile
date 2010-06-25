@@ -27,7 +27,7 @@
 import gobject
 import gtk
 
-from xl import event, settings
+from xl import event, player, settings
 from xl.nls import gettext as _
 import xl.main
 from xlgui import icons
@@ -79,16 +79,11 @@ class RatingWidget(gtk.EventBox):
         self.props.rating = rating
 
         if auto_update:
-            try:
-                exaile = xl.main.exaile()
-            except AttributeError:
-                event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
-            else:
-                self.on_exaile_loaded('exaile_loaded', exaile, None)
-
             for event_name in ('playback_track_start', 'playback_player_end',
                                'rating_changed'):
                 event.add_callback(self.on_rating_update, event_name)
+
+            self.on_rating_update('rating_changed', None, None)
 
     def destroy(self):
         """
@@ -214,21 +209,12 @@ class RatingWidget(gtk.EventBox):
 
         self.props.rating = rating
 
-    def on_exaile_loaded(self, event_type, exaile, nothing):
-        """
-            Sets up the internal reference to the player
-        """
-        self.player = exaile.player
-        self.on_rating_update('rating_changed', None, None)
-
-        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
-
     def on_rating_update(self, event_type, sender, data):
         """
             Updates the rating from the current track
         """
-        if self.player.current is not None:
-            self._rating = self.player.current.get_rating()
+        if player.PLAYER.current is not None:
+            self._rating = player.PLAYER.current.get_rating()
             self._image.set_from_pixbuf(
                 icons.MANAGER.pixbuf_from_rating(self._rating))
 

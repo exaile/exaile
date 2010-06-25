@@ -1143,8 +1143,12 @@ class Playlist(object):
             added = [(i, value)]
 
         self.on_tracks_changed()
-        event.log_event('playlist_tracks_removed', self, removed)
-        event.log_event('playlist_tracks_added', self, added)
+
+        if removed:
+            event.log_event('playlist_tracks_removed', self, removed)
+        if added:
+            event.log_event('playlist_tracks_added', self, added)
+
         self.__needs_save = self.__dirty = True
 
     def __delitem__(self, i):

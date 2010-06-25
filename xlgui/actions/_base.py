@@ -137,8 +137,8 @@ class ChoiceAction(BaseAction):
         )
     }
 
-    # choice starting with "----" means separator
-    # choices MUST be unique
+    # choice name of "----" means separator
+    # choices MUST be unique (except for separators)
 
     def __init__(self, name, display_name, icon_name, choices, choice_displays, active_choice=0):
         BaseAction.__init__(self, name)
@@ -152,7 +152,7 @@ class ChoiceAction(BaseAction):
         if not index < len(self.choices):
             raise IndexError, "Choice index out of range."
         if self.choices[index] == "----":
-            raise ValueError, "Cannot chose a separator."
+            raise ValueError, "Cannot choose a separator."
         self.props.active_choice = index
         self.emit('changed', index)
 

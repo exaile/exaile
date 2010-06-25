@@ -30,6 +30,7 @@ import gtk
 from xl import (
     event,
     player,
+    providers,
     settings,
     xdg
 )
@@ -157,6 +158,11 @@ class BaseTrayIcon(object):
             stock_id = gtk.STOCK_MEDIA_PAUSE
 
         playpause_image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
+
+        if len(providers.get('dynamic_playlists')) > 0:
+            self.dynamic_menuitem.set_sensitive(True)
+        else:
+            self.dynamic_menuitem.set_sensitive(False)
 
         if current_track is None:
             self.rating_menuitem.set_sensitive(False)

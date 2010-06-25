@@ -108,7 +108,8 @@ class ExaileNotifyOsd(object):
 
         if icon_allowed and self.cover:
             try:
-                pixbuf = icons.MANAGER.pixbuf_from_data(self.cover)
+                cover_data = covers.MANAGER.get_cover(track, use_default=True)
+                pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
             except glib.GError:
                 pass
             else:

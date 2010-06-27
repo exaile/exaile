@@ -16,7 +16,7 @@ backwards-incompatible changes to make (0.4?):
                 16 bytes or more per use)
         divide tracknumber and discnumber into separate tags 
                 instead of using /
-            - tracknumber/trackcount, discnumber/disccount?
+            - tracknumber/tracktotal, discnumber/disctotal, as picard uses
         get rid of __basedir and __compilation as they are unnecessary 
                 and waste LOTS of space
             - replace __compilation with just an __is_compilation boolean 

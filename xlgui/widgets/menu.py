@@ -132,33 +132,36 @@ class RatingMenuItem(MenuItem):
         A menu item displaying rating images
         and allowing for selection of ratings
     """
-    def __init__(self, name, after):
+    def __init__(self, name, after, get_tracks_func):
         MenuItem.__init__(self, name, self.factory, after)
+        self.get_tracks_func = get_tracks_func
 
     def factory(self, menu, parent_obj, parent_context):
         item = rating.RatingMenuItem(auto_update=False)
-        item.connect('show', self.on_show, parent_context)
+        item.connect('show', self.on_show, menu, parent_obj, parent_context)
         self._rating_changed_id = item.connect('rating-changed',
-            self.on_rating_changed, parent_context)
+            self.on_rating_changed, menu, parent_obj, parent_context)
 
         return item
 
-    def on_show(self, widget, context):
+    def on_show(self, widget, menu, parent_obj, context):
         """
             Updates the menu item on show
         """
         widget.disconnect(self._rating_changed_id)
-        tracks = [row[1] for row in context['selected-tracks']]
+        tracks = self.get_tracks_func(menu, parent_obj, context)
+#        tracks = [row[1] for row in context['selected-tracks']]
         rating = trax.util.get_rating_from_tracks(tracks)
         widget.props.rating = rating
         self._rating_changed_id = widget.connect('rating-changed',
-            self.on_rating_changed, context)
+            self.on_rating_changed, menu, parent_obj, context)
 
-    def on_rating_changed(self, widget, rating, context):
+    def on_rating_changed(self, widget, rating, menu, parent_obj, context):
         """
             Passes the 'rating-changed' signal
         """
-        tracks = [row[1] for row in context['selected-tracks']]
+        tracks = self.get_tracks_func(menu, parent_obj, context)
+        #tracks = [row[1] for row in context['selected-tracks']]
 
         for track in tracks:
             track.set_rating(rating)

@@ -50,6 +50,8 @@ from xlgui import (
 from xlgui.widgets import dialogs
 from xlgui.widgets.filter import *
 
+def N_(x): return x
+
 class EntrySecondsField(MultiEntryField):
     def __init__(self):
         MultiEntryField.__init__(self, (50, _('seconds')))
@@ -64,7 +66,7 @@ class EntryDaysField(MultiEntryField):
         MultiEntryField.__init__(self, (50, _('days')))
 
 DATE_FIELDS = [
-    _('seconds'), _('minutes'), _('hours'), _('days'), _('weeks')]
+    N_('seconds'), N_('minutes'), N_('hours'), N_('days'), N_('weeks')]
 class SpinDateField(SpinButtonAndComboField):
     def __init__(self):
         SpinButtonAndComboField.__init__(self, DATE_FIELDS)
@@ -82,106 +84,116 @@ class SpinNothing(SpinLabelField):
     def __init__(self):
         SpinLabelField.__init__(self, '')
 
+# NOTE: The following strings are already marked for translation in _TRANS and
+# _NMAP, and will be really translated by filtergui; no need to clutter the
+# code here.
+
 CRITERIA = [
-    (_('Artist'), [
-        # TRANSLATORS: True if haystack is equal to needle
-        (_('is'), EntryField),
-        # TRANSLATORS: True if haystack is not equal to needle
-        (_('is not'), EntryField),
-        # TRANSLATORS: True if haystack contains needle
-        (_('contains'), EntryField),
-        # TRANSLATORS: True if haystack does not contain needle
-        (_('does not contain'), EntryField)
+    ('Artist', [
+        ('is', EntryField),
+        ('is not', EntryField),
+        ('contains', EntryField),
+        ('does not contain', EntryField)
     ]),
-    (_('Album'), [
-        (_('is'), EntryField),
-        (_('is not'), EntryField),
-        (_('contains'), EntryField),
-        (_('does not contain'), EntryField),
+    ('Album', [
+        ('is', EntryField),
+        ('is not', EntryField),
+        ('contains', EntryField),
+        ('does not contain', EntryField),
     ]),
-    (_('Title'), [
-        (_('is'), EntryField),
-        (_('is not'), EntryField),
-        (_('contains'), EntryField),
-        (_('does not contain'), EntryField),
+    ('Title', [
+        ('is', EntryField),
+        ('is not', EntryField),
+        ('contains', EntryField),
+        ('does not contain', EntryField),
     ]),
-    (_('Genre'), [
-        (_('is'), EntryField),
-        (_('is not'), EntryField),
-        (_('contains'), EntryField),
-        (_('does not contain'), EntryField),
+    ('Genre', [
+        ('is', EntryField),
+        ('is not', EntryField),
+        ('contains', EntryField),
+        ('does not contain', EntryField),
     ]),
-    (_('Rating'), [
-        (_('greater than'), SpinRating),
-        (_('less than'), SpinRating),
-        # TRANSLATORS: Example: rating >= 5
-        (_('at least'), SpinRating),
-        # TRANSLATORS: Example: rating <= 3
-        (_('at most'), SpinRating),
+    ('Rating', [
+        ('greater than', SpinRating),
+        ('less than', SpinRating),
+        ('at least', SpinRating),
+        ('at most', SpinRating),
     ]),
-    (_('Plays'), [
-        (_('at least'), SpinNothing),
-        (_('at most'), SpinNothing),
+    ('Plays', [
+        ('at least', SpinNothing),
+        ('at most', SpinNothing),
     ]),
-    (_('Year'), [
-        # TRANSLATORS: Example: year < 1999
-        (_('before'), EntryField),
-        # TRANSLATORS: Example: year > 2002
-        (_('after'), EntryField),
-        # TRANSLATORS: Example: 1980 <= year <= 1987
-        (_('between'), EntryAndEntryField),
+    ('Year', [
+        ('before', EntryField),
+        ('after', EntryField),
+        ('between', EntryAndEntryField),
     ]),
-    (_('Length'), [
-        (_('at least'), SpinSecondsField),
-        (_('at most'), SpinSecondsField),
-        (_('is'), SpinSecondsField),
+    ('Length', [
+        ('at least', SpinSecondsField),
+        ('at most', SpinSecondsField),
+        ('is', SpinSecondsField),
     ]),
-    (_('Date added'), [
-        # TRANSLATORS: Example: track has been added in the last 2 days
-        (_('in the last'), SpinDateField),
-        # TRANSLATORS: Example: track has not been added in the last 5 hours
-        (_('not in the last'), SpinDateField),
+    ('Date added', [
+        ('in the last', SpinDateField),
+        ('not in the last', SpinDateField),
     ]),
-    (_('Last played'), [
-        (_('in the last'), SpinDateField),
-        (_('not in the last'), SpinDateField),
+    ('Last played', [
+        ('in the last', SpinDateField),
+        ('not in the last', SpinDateField),
     ]),
-    (_('Location'), [
-        (_('is'), EntryField),
-        (_('is not'), EntryField),
-        (_('contains'), EntryField),
-        (_('does not contain'), EntryField),
+    ('Location', [
+        ('is', EntryField),
+        ('is not', EntryField),
+        ('contains', EntryField),
+        ('does not contain', EntryField),
     ]),
 ]
 
+# NOTE: We use N_ (fake gettext) because these strings are translated later by
+# the filter GUI. If we use _ (real gettext) here, filtergui will try to
+# translate already-translated strings, which makes no sense. This is partly due
+# to the old design of storing untranslated strings (instead of operators) in
+# the dynamic playlist database.
+
 _TRANS = {
-    _('is'): '==',
-    _('is not'): '!==',
-    _('contains'): '=',
-    _('does not contain'): '!=',
-    _('at least'): '>=',
-    _('at most'): '<=',
-    _('before'): '<',
-    _('after'): '>',
-    _('between'): '><',
-    _('greater than'): '>',
-    _('less than'): '<',
-    _('in the last'): '>=',
-    _('not in the last'): '<',
+    # TRANSLATORS: True if haystack is equal to needle
+    N_('is'): '==',
+    # TRANSLATORS: True if haystack is not equal to needle
+    N_('is not'): '!==',
+    # TRANSLATORS: True if haystack contains needle
+    N_('contains'): '=',
+    # TRANSLATORS: True if haystack does not contain needle
+    N_('does not contain'): '!=',
+    # TRANSLATORS: Example: rating >= 5
+    N_('at least'): '>=',
+    # TRANSLATORS: Example: rating <= 3
+    N_('at most'): '<=',
+    # TRANSLATORS: Example: year < 1999
+    N_('before'): '<',
+    # TRANSLATORS: Example: year > 2002
+    N_('after'): '>',
+    # TRANSLATORS: Example: 1980 <= year <= 1987
+    N_('between'): '><',
+    N_('greater than'): '>',
+    N_('less than'): '<',
+    # TRANSLATORS: Example: track has been added in the last 2 days
+    N_('in the last'): '>=',
+    # TRANSLATORS: Example: track has not been added in the last 5 hours
+    N_('not in the last'): '<',
 }
 
 _NMAP = {
-    _('Artist'): 'artist',
-    _('Title'): 'title',
-    _('Album'): 'album',
-    _('Length'): '__length',
-    _('Rating'): '__rating',
-    _('Plays'): '__playcount',
-    _('Year'): 'date',
-    _('Genre'): 'genre',
-    _('Date added'): '__date_added',
-    _('Last played'): '__last_played',
-    _('Location'): '__loc',
+    N_('Artist'): 'artist',
+    N_('Title'): 'title',
+    N_('Album'): 'album',
+    N_('Length'): '__length',
+    N_('Rating'): '__rating',
+    N_('Plays'): '__playcount',
+    N_('Year'): 'date',
+    N_('Genre'): 'genre',
+    N_('Date added'): '__date_added',
+    N_('Last played'): '__last_played',
+    N_('Location'): '__loc',
 }
 
 class TrackWrapper(object):

@@ -72,12 +72,9 @@ def __create_tray_context_menu():
         rating_get_tracks_func))
     # Remove
     def remove_current_cb(widget, menuobj, parent_obj, context):
-        from xlgui import main
-        page = main.mainwindow().get_selected_page()
-        if not isinstance(page, playlist.PlaylistPage):
-            return
-        if page.playlist.current == player.PLAYER.current:
-            del page.playlist[page.playlist.current_position]
+        pl = player.QUEUE.current_playlist
+        if pl and pl.current == player.PLAYER.current:
+            del pl[pl.current_position]
     items.append(menu.simple_menu_item('remove-current', [items[-1].name],
         _("Remove Current Track From Playlist"), 'gtk-remove', remove_current_cb))
     # ----

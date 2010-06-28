@@ -150,7 +150,6 @@ class RatingMenuItem(MenuItem):
         """
         widget.disconnect(self._rating_changed_id)
         tracks = self.get_tracks_func(menu, parent_obj, context)
-#        tracks = [row[1] for row in context['selected-tracks']]
         rating = trax.util.get_rating_from_tracks(tracks)
         widget.props.rating = rating
         self._rating_changed_id = widget.connect('rating-changed',
@@ -161,7 +160,6 @@ class RatingMenuItem(MenuItem):
             Passes the 'rating-changed' signal
         """
         tracks = self.get_tracks_func(menu, parent_obj, context)
-        #tracks = [row[1] for row in context['selected-tracks']]
 
         for track in tracks:
             track.set_rating(rating)

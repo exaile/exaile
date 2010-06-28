@@ -89,7 +89,7 @@ class PlaylistContextMenu(menu.ProviderMenu):
 
     def get_parent_context(self):
         context = {}
-        context['selected-tracks'] = self._parent.get_selected_items()
+        context['selected-items'] = self._parent.get_selected_items()
 
         return context
 
@@ -99,9 +99,9 @@ def __create_playlist_context_menu():
     items = []
     items.append(smi('append-queue', [], _("Append to Queue"), 'gtk-add',
             lambda w, n, o, c: player.QUEUE.extend(
-            [t[1] for t in c['selected-tracks']])))
+            [t[1] for t in c['selected-items']])))
     def toggle_spat_cb(widget, name, playlistpage, context):
-        position = context['selected-tracks'][0][0]
+        position = context['selected-items'][0][0]
         if position != playlistpage.playlist.spat_position:
             playlistpage.playlist.spat_position = position
         else:
@@ -109,13 +109,13 @@ def __create_playlist_context_menu():
     items.append(smi('toggle-spat', ['append-queue'],
             _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
     def rating_get_tracks_func(menuobj, parent_obj, context):
-        return [row[1] for row in context['selected-tracks']]
+        return [row[1] for row in context['selected-items']]
     items.append(menu.RatingMenuItem('rating', ['toggle-spat'],
         rating_get_tracks_func))
     # TODO: custom playlist item here
     items.append(sep('sep1', ['rating']))
     def remove_tracks_cb(widget, name, playlistpage, context):
-        tracks = context['selected-tracks']
+        tracks = context['selected-items']
         playlist = playlistpage.playlist
         # If it's all one block, just delete it in one chunk for
         # maximum speed.

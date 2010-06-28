@@ -823,7 +823,6 @@ class Playlist(object):
                     alb = x.get_tag_raw('album')
                     if alb:
                         albums.add(tuple(alb))
-                print albums
                 if not albums:
                     return None, None
                 album = list(random.choice(list(albums)))
@@ -1108,7 +1107,6 @@ class Playlist(object):
         return (start, end, step)
 
     def __adjust_current_pos(self, oldpos, removed, added):
-        print oldpos, removed, added
         for i, tr in removed[::-1]:
             if i <= oldpos:
                 oldpos -= 1

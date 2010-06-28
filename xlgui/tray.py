@@ -35,9 +35,41 @@ from xl import (
     xdg
 )
 from xl.nls import gettext as _
-from xlgui import guiutil
+from xlgui import guiutil, actions
 from xlgui.widgets.info import TrackToolTip
-from xlgui.widgets import rating
+from xlgui.widgets import rating, menu
+
+
+def __create_tray_context_menu():
+    sep = menu.simple_separator
+    items = []
+    # Play
+    items.append(actions.playback.playpause.create_menu_item(after=[]))
+    # Next
+    items.append(actions.playback.next.create_menu_item(after=[items[-1].name]))
+    # Prev
+    items.append(actions.playback.prev.create_menu_item(after=[items[-1].name]))
+    # Stop
+    items.append(actions.playback.stop.create_menu_item(after=[items[-1].name]))
+    # ---
+    items.append(sep('playback-sep', [items[-1].name]))
+    # Shuffle
+    items.append(actions.playlist.shuffle_mode.create_menu_item(after=[items[-1].name]))
+    # Repeat
+    items.append(actions.playlist.repeat_mode.create_menu_item(after=[items[-1].name]))
+    # Dynamic
+    items.append(actions.playlist.dynamic_mode.create_menu_item(after=[items[-1].name]))
+    # ---
+    items.append(sep('playlist-mode-sep', [items[-1].name]))
+    # Rating
+    # Remove
+    # ---
+    items.append(sep('misc-actions-sep', [items[-1].name]))
+    # Quit
+    items.append(actions.application.quit.create_menu_item(after=[items[-1].name]))
+    for item in items:
+        providers.register('tray-icon-context', item)
+__create_tray_context_menu()
 
 class BaseTrayIcon(object):
     """
@@ -74,6 +106,9 @@ class BaseTrayIcon(object):
         """
             Sets up the popup menu for the tray icon
         """
+        self.menu = menu.ProviderMenu('tray-icon-context', self)
+        return
+
         self.menu = guiutil.Menu()
 
         self.playpause_menuitem = self.menu.append(stock_id=gtk.STOCK_MEDIA_PLAY,
@@ -122,11 +157,11 @@ class BaseTrayIcon(object):
         self.connect('button-press-event', self.on_button_press_event)
         self.connect('scroll-event', self.on_scroll_event)
 
-        self.shuffle_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
-        self.repeat_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
-        self.dynamic_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
-        self._rating_changed_id = self.rating_menuitem.connect('rating-changed',
-            self.on_rating_changed)
+        #self.shuffle_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
+        #self.repeat_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
+        #self.dynamic_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
+        #self._rating_changed_id = self.rating_menuitem.connect('rating-changed',
+        #    self.on_rating_changed)
 
         event.add_callback(self.on_playback_change_state, 'playback_player_end')
         event.add_callback(self.on_playback_change_state, 'playback_track_start')
@@ -148,6 +183,8 @@ class BaseTrayIcon(object):
         """
             Updates the context menu
         """
+        return
+
         current_track = player.PLAYER.current
 
         playpause_image = self.playpause_menuitem.get_image()

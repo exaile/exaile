@@ -171,8 +171,8 @@ class Menu(gtk.Menu):
         gtk.Menu.__init__(self)
         self._parent = parent
         self._items = []
-        self.connect('map', self.regenerate_menu)
-        self.connect('unmap', self.clear_menu)
+        self.connect('show', self.regenerate_menu)
+        self.connect('hide', self.clear_menu)
 
     def get_parent_context(self):
         return {}

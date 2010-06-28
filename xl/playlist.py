@@ -718,6 +718,8 @@ class Playlist(object):
     def set_current_position(self, position):
         oldposition = self.__current_position
         if position != -1:
+            if position >= len(self.__tracks):
+                raise IndexError, "Cannot set position past end of playlist"
             self.__tracks.set_meta_key(position, "playlist_current_position", True)
         self.__current_position = position
         if oldposition != -1:

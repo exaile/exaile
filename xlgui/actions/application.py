@@ -24,11 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+    Actions that act on the application as a whole.
+"""
 
 from xlgui.actions import _base
 
 
-quit = _base.Action('global-quit', 'Quit', 'gtk-quit')
+quit = _base.Action('application-quit', 'Quit', 'gtk-quit')
 def on_quit_activate(action):
     from xlgui import main
     main.mainwindow().quit()

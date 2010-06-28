@@ -34,6 +34,7 @@ class BaseAction(gobject.GObject):
     def __init__(self, name):
         gobject.GObject.__init__(self)
         self.name = name
+        self._props = {}
 
     def create_menu_item(self, after):
         raise NotImplementedError
@@ -82,15 +83,7 @@ class ToggleAction(Action):
             tuple()
         )
     }
-    __gproperties__ = {
-        'active': (
-            gobject.TYPE_BOOLEAN,
-            'active',
-            'Whether the Action is active',
-            False,
-            gobject.PARAM_READWRITE
-        )
-    }
+    active = gobject.property(type=gobject.TYPE_BOOLEAN, default=False)
 
     def __init__(self, name, display_name, icon_name, active=False):
         Action.__init__(self, name, display_name, icon_name)
@@ -110,11 +103,16 @@ class ToggleAction(Action):
         b.connect('toggled', lambda *args: self.toggled())
         return b
 
+    def set_active(self, active):
+        if self.props.active != active:
+            self.toggle()
+
     def toggle(self):
         self.props.active = not self.props.active
         self.emit('toggled')
         if self.props.active:
             self.activate()
+
 
 class ChoiceAction(BaseAction):
     __gsignals__ = {
@@ -125,17 +123,7 @@ class ChoiceAction(BaseAction):
         )
     }
 
-    __gproperties__ = {
-        'active-choice': (
-            gobject.TYPE_INT,
-            'active-choice',
-            'The index of the currently active choice',
-            0,
-            65536,
-            0,
-            gobject.PARAM_READONLY
-        )
-    }
+    active_choice = gobject.property(type=gobject.TYPE_INT)
 
     # choice name of "----" means separator
     # choices MUST be unique (except for separators)
@@ -146,15 +134,17 @@ class ChoiceAction(BaseAction):
         self.icon_name = icon_name
         self.choices = choices[:]
         self.choice_displays = choice_displays[:]
-        self.set_active_choice(index)
+        self.set_active_choice(active_choice)
 
     def set_active_choice(self, index):
         if not index < len(self.choices):
             raise IndexError, "Choice index out of range."
         if self.choices[index] == "----":
             raise ValueError, "Cannot choose a separator."
-        self.props.active_choice = index
-        self.emit('changed', index)
+        oldval = self.get_property('active-choice')
+        if oldval != index: # only emit if changed, helps avoid event loops
+            self.set_property('active-choice', index)
+            self.emit('changed', index)
 
     def create_submenu(self):
         m = menu.Menu(self)
@@ -174,9 +164,9 @@ class ChoiceAction(BaseAction):
         return m
 
     def choice_selected_func(self, name, parent_obj, parent_context):
-        return name == self.choices[self.props.active-choice]
+        return name == self.choices[self.props.active_choice]
 
-    def on_choice_activated(self, name, parent_obj, parent_context):
+    def on_choice_activated(self, widget, name, parent_obj, parent_context):
         self.set_active_choice(self.choices.index(name))
 
     def create_menu_item(self, after):
@@ -184,3 +174,5 @@ class ChoiceAction(BaseAction):
 
     def create_button(self):
         pass
+
+

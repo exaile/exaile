@@ -24,13 +24,18 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+    Actions that control playback and queue
+"""
+
+import gtk
 
 from xlgui.actions import _base
 from xlgui.widgets import menu, playlist
 
 from xl import player
+from xl.nls import gettext as _
 
-from xlgui import main
 
 
 class PlayPauseAction(_base.BaseAction):
@@ -40,27 +45,35 @@ class PlayPauseAction(_base.BaseAction):
     def create_menu_item(self, after):
         return play_pause_menuitem(self.name, after, self.on_menu_activate)
 
+    def on_menu_activate(self, widget, name, parent_obj, parent_context):
+        self.activate()
+
     def create_button(self):
         b = PlayPauseButton()
         b.connect('activate', self.on_button_activate)
         return b
 
+    def on_button_activate(self, button):
+        self.activate()
+
     def activate(self):
         if player.PLAYER.get_state() in ('playing', 'paused'):
             player.PLAYER.toggle_pause()
         else:
+            from xlgui import main
             m = main.mainwindow()
             page = m.get_selected_page()
             if isinstance(page, playlist.PlaylistPage):
-                playlist = page.playlist
-                player.QUEUE.set_current_playlist(playlist)
+                pl = page.playlist
+                if len(pl) == 0:
+                    return
                 try:
-                    idx = page.view.get_selected_paths()[0]
+                    idx = page.view.get_selected_paths()[0][0]
                 except IndexError:
                     idx = 0
-                playlist.current_position = idx
-                player.QUEUE.play()
-        _base.Action.activate(self)
+                player.QUEUE.set_current_playlist(pl)
+                pl.current_position = idx
+                player.QUEUE.play(track=pl.current)
 
 
 playpause = PlayPauseAction('playback-playpause')
@@ -70,10 +83,10 @@ playpause = PlayPauseAction('playback-playpause')
 def play_pause_menuitem(name, after, callback):
     def factory(menu, parent_obj, parent_context):
         if player.PLAYER.is_playing():
-            icon = gtk.STOCK_MEDIA_PAUSE
+            icon = 'gtk-media-pause-ltr'
             display = _("Pause")
         else:
-            icon = gtk.STOCK_MEDIA_PLAY
+            icon = 'gtk-media-play-ltr'
             display = _("Play")
         item = gtk.ImageMenuItem(display)
         image = gtk.image_new_from_icon_name(icon,
@@ -81,7 +94,7 @@ def play_pause_menuitem(name, after, callback):
         item.set_image(image)
         item.connect('activate', callback, name, parent_obj, parent_context)
         return item
-    return menu.Menuitem(name, factory, after=after)
+    return menu.MenuItem(name, factory, after=after)
 
 class PlayPauseButton(gtk.Button):
     def __init__(self):
@@ -99,12 +112,12 @@ class PlayPauseButton(gtk.Button):
                 size=gtk.ICON_SIZE_BUTTON)
         self.set_image(image)
 
-next = _base.Action('playback-next', _('Next'), 'gtk-media-next')
+next = _base.Action('playback-next', _('Next'), 'gtk-media-next-ltr')
 def on_next_activate(action):
     player.QUEUE.next()
 next.connect('activate', on_next_activate)
 
-prev = _base.Action('playback-prev', _('Previous'), 'gtk-media-prev')
+prev = _base.Action('playback-prev', _('Previous'), 'gtk-media-previous-ltr')
 def on_prev_activate(action):
     player.QUEUE.prev()
 prev.connect('activate', on_prev_activate)

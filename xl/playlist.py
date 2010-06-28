@@ -1107,6 +1107,18 @@ class Playlist(object):
             step = 1
         return (start, end, step)
 
+    def __adjust_current_pos(self, oldpos, removed, added):
+        print oldpos, removed, added
+        for i, tr in removed[::-1]:
+            if i <= oldpos:
+                oldpos -= 1
+        for i, tr in added[::-1]:
+            if i <= oldpos:
+                oldpos += 1
+        if oldpos < 0:
+            oldpos = -1
+        self.current_position = oldpos
+
     def __getitem__(self, i):
         return self.__tracks.__getitem__(i)
 
@@ -1114,6 +1126,7 @@ class Playlist(object):
         oldtracks = self.__getitem__(i)
         removed = MetadataList()
         added = MetadataList()
+        oldpos = self.current_position
 
         if isinstance(i, slice):
             for x in value:
@@ -1150,6 +1163,7 @@ class Playlist(object):
             event.log_event('playlist_tracks_removed', self, removed)
         if added:
             event.log_event('playlist_tracks_added', self, added)
+        self.__adjust_current_pos(oldpos, removed, added)
 
         self.__needs_save = self.__dirty = True
 
@@ -1157,6 +1171,7 @@ class Playlist(object):
         if isinstance(i, slice):
             (start, end, step) = self.__tuple_from_slice(i)
         oldtracks = self.__getitem__(i)
+        oldpos = self.current_position
         self.__tracks.__delitem__(i)
         removed = MetadataList()
 
@@ -1168,6 +1183,7 @@ class Playlist(object):
 
         self.on_tracks_changed()
         event.log_event('playlist_tracks_removed', self, removed)
+        self.__adjust_current_pos(oldpos, removed, [])
         self.__needs_save = self.__dirty = True
 
     def append(self, other):

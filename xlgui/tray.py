@@ -43,7 +43,7 @@ from xlgui.widgets import rating, menu, playlist
 def __create_tray_context_menu():
     sep = menu.simple_separator
     items = []
-    # Play
+    # Play/Pause
     items.append(actions.playback.playpause.create_menu_item(after=[]))
     # Next
     items.append(actions.playback.next.create_menu_item(after=[items[-1].name]))
@@ -85,6 +85,7 @@ def __create_tray_context_menu():
         providers.register('tray-icon-context', item)
 __create_tray_context_menu()
 
+
 class BaseTrayIcon(object):
     """
         Trayicon base, needs to be derived from
@@ -96,7 +97,7 @@ class BaseTrayIcon(object):
         self.tooltip = TrackToolTip(
             self, display_progress=True, auto_update=True)
 
-        self.setup_menu()
+        self.menu = menu.ProviderMenu('tray-icon-context', self)
         self.update_icon()
         self.connect_events()
         event.log_event('tray_icon_toggled', self, True)
@@ -112,57 +113,8 @@ class BaseTrayIcon(object):
 
         self.disconnect_events()
         self.set_visible(False)
-        del self.menu
 
         event.log_event('tray_icon_toggled', self, False)
-
-    def setup_menu(self):
-        """
-            Sets up the popup menu for the tray icon
-        """
-        self.menu = menu.ProviderMenu('tray-icon-context', self)
-        return
-
-        self.menu = guiutil.Menu()
-
-        self.playpause_menuitem = self.menu.append(stock_id=gtk.STOCK_MEDIA_PLAY,
-            callback=lambda *e: self.play_pause())
-        self.menu.append(stock_id=gtk.STOCK_MEDIA_NEXT,
-            callback=lambda *e: player.QUEUE.next())
-        self.menu.append(stock_id=gtk.STOCK_MEDIA_PREVIOUS,
-            callback=lambda *e: player.QUEUE.prev())
-        self.menu.append(stock_id=gtk.STOCK_MEDIA_STOP,
-            callback=lambda *e: player.PLAYER.stop())
-
-        self.menu.append_separator()
-
-        self.shuffle_menuitem = gtk.CheckMenuItem(_('Shuffle playback order'))
-        self.shuffle_menuitem.set_active(settings.get_option('playback/shuffle', False))
-        self.menu.append_item(self.shuffle_menuitem)
-
-        self.repeat_menuitem = gtk.CheckMenuItem(_('Repeat playlist'))
-        self.repeat_menuitem.set_active(settings.get_option('playback/repeat', False))
-        self.menu.append_item(self.repeat_menuitem)
-
-        self.dynamic_menuitem = gtk.CheckMenuItem(_('Dynamically add similar tracks'))
-        self.dynamic_menuitem.set_active(settings.get_option('playback/dynamic', False))
-        self.menu.append_item(self.dynamic_menuitem)
-
-        self.menu.append_separator()
-
-        self.rating_menuitem = rating.RatingMenuItem()
-        self.menu.append_item(self.rating_menuitem)
-
-        self.remove_menuitem = self.menu.append(
-            label=_('Remove Current Track from Playlist'),
-            stock_id=gtk.STOCK_REMOVE,
-            callback=lambda *e: self.remove_current_track()
-        )
-
-        self.menu.append_separator()
-
-        self.menu.append(stock_id=gtk.STOCK_QUIT,
-            callback=lambda *e: self.main.quit())
 
     def connect_events(self):
         """
@@ -171,17 +123,10 @@ class BaseTrayIcon(object):
         self.connect('button-press-event', self.on_button_press_event)
         self.connect('scroll-event', self.on_scroll_event)
 
-        #self.shuffle_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
-        #self.repeat_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
-        #self.dynamic_menuitem.connect('toggled', self.on_checkmenuitem_toggled)
-        #self._rating_changed_id = self.rating_menuitem.connect('rating-changed',
-        #    self.on_rating_changed)
-
         event.add_callback(self.on_playback_change_state, 'playback_player_end')
         event.add_callback(self.on_playback_change_state, 'playback_track_start')
         event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
         event.add_callback(self.on_playback_change_state, 'playback_error')
-        event.add_callback(self.on_option_set, 'playback_option_set')
 
     def disconnect_events(self):
         """
@@ -191,36 +136,6 @@ class BaseTrayIcon(object):
         event.remove_callback(self.on_playback_change_state, 'playback_track_start')
         event.remove_callback(self.on_playback_change_state, 'playback_toggle_pause')
         event.remove_callback(self.on_playback_change_state, 'playback_error')
-        event.remove_callback(self.on_option_set, 'playback_option_set')
-
-    def update_menu(self):
-        """
-            Updates the context menu
-        """
-        return
-
-        current_track = player.PLAYER.current
-
-        playpause_image = self.playpause_menuitem.get_image()
-
-        if player.PLAYER.is_stopped() or player.PLAYER.is_playing():
-            stock_id = gtk.STOCK_MEDIA_PLAY
-        elif player.PLAYER.is_paused():
-            stock_id = gtk.STOCK_MEDIA_PAUSE
-
-        playpause_image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
-
-        if len(providers.get('dynamic_playlists')) > 0:
-            self.dynamic_menuitem.set_sensitive(True)
-        else:
-            self.dynamic_menuitem.set_sensitive(False)
-
-        if current_track is None:
-            self.rating_menuitem.set_sensitive(False)
-            self.remove_menuitem.set_sensitive(False)
-        else:
-            self.rating_menuitem.set_sensitive(True)
-            self.remove_menuitem.set_sensitive(True)
 
     def update_icon(self):
         """
@@ -260,34 +175,6 @@ class BaseTrayIcon(object):
         """
         return (0, 0, False)
 
-    def play_pause(self):
-        """
-            Starts or pauses playback
-        """
-        if player.PLAYER.is_paused() or player.PLAYER.is_playing():
-            player.PLAYER.toggle_pause()
-        else:
-            gplaylist = self.main.get_selected_page()
-            playlist = gplaylist.playlist
-
-            if gplaylist is not None:
-                player.QUEUE.set_current_playlist(playlist)
-                track = gplaylist.get_selected_track()
-
-                if track is not None:
-                    playlist.set_current_pos(playlist.index(track))
-
-            player.QUEUE.play()
-
-    def remove_current_track(self):
-        """
-            Removes the currently playing track
-        """
-        playlist = self.main.get_selected_page()
-
-        if playlist is not None and player.PLAYER.current is not None:
-            playlist.remove_tracks([player.PLAYER.current])
-
     def on_button_press_event(self, widget, event):
         """
             Toggles main window visibility and
@@ -296,25 +183,10 @@ class BaseTrayIcon(object):
         if event.button == 1:
             self.main.toggle_visible(bringtofront=True)
         if event.button == 2:
-            self.play_pause()
+            actions.playback.playpause.activate()
         if event.button == 3:
-            self.update_menu()
             self.menu.popup(None, None, self.get_menu_position,
                 event.button, event.time, self)
-
-    def on_checkmenuitem_toggled(self, widget):
-        """
-            Updates Shuffle, Repeat and Dynamic states
-        """
-        settings.set_option('playback/shuffle', self.shuffle_menuitem.get_active())
-        settings.set_option('playback/repeat', self.repeat_menuitem.get_active())
-        settings.set_option('playback/dynamic', self.dynamic_menuitem.get_active())
-
-    def on_rating_changed(self, widget, rating):
-        """
-            Applies the selected rating to the current track
-        """
-        player.PLAYER.current.set_rating(rating)
 
     def on_scroll_event(self, widget, event):
         """
@@ -322,9 +194,9 @@ class BaseTrayIcon(object):
         """
         if event.state & gtk.gdk.SHIFT_MASK:
             if event.direction == gtk.gdk.SCROLL_UP:
-                player.QUEUE.prev()
+                actions.playback.prev.activate()
             elif event.direction == gtk.gdk.SCROLL_DOWN:
-                player.QUEUE.next()
+                actions.playback.next.activate()
         else:
             if event.direction == gtk.gdk.SCROLL_UP:
                 volume = player.PLAYER.get_volume()
@@ -335,9 +207,9 @@ class BaseTrayIcon(object):
                 player.PLAYER.set_volume(volume - self.VOLUME_STEP)
                 return True
             elif event.direction == gtk.gdk.SCROLL_LEFT:
-                player.QUEUE.prev()
+                actions.playback.prev.activate()
             elif event.direction == gtk.gdk.SCROLL_RIGHT:
-                player.QUEUE.next()
+                actions.playback.next.activate()
 
     def on_playback_change_state(self, event, player, current):
         """
@@ -346,18 +218,6 @@ class BaseTrayIcon(object):
         """
         self.update_icon()
 
-    def on_option_set(self, event, object, option):
-        """
-            Updates the toggle states
-        """
-        if option == 'playback/shuffle':
-            self.shuffle_menuitem.set_active(settings.get_option(option, False))
-
-        if option == 'playback/repeat':
-            self.repeat_menuitem.set_active(settings.get_option(option, False))
-
-        if option == 'playback/dynamic':
-            self.dynamic_menuitem.set_active(settings.get_option(option, False))
 
 class TrayIcon(gtk.StatusIcon, BaseTrayIcon):
     """

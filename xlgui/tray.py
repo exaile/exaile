@@ -37,7 +37,7 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui import guiutil, actions
 from xlgui.widgets.info import TrackToolTip
-from xlgui.widgets import rating, menu
+from xlgui.widgets import rating, menu, playlist
 
 
 def __create_tray_context_menu():
@@ -51,7 +51,7 @@ def __create_tray_context_menu():
     items.append(actions.playback.prev.create_menu_item(after=[items[-1].name]))
     # Stop
     items.append(actions.playback.stop.create_menu_item(after=[items[-1].name]))
-    # ---
+    # ----
     items.append(sep('playback-sep', [items[-1].name]))
     # Shuffle
     items.append(actions.playlist.shuffle_mode.create_menu_item(after=[items[-1].name]))
@@ -59,7 +59,7 @@ def __create_tray_context_menu():
     items.append(actions.playlist.repeat_mode.create_menu_item(after=[items[-1].name]))
     # Dynamic
     items.append(actions.playlist.dynamic_mode.create_menu_item(after=[items[-1].name]))
-    # ---
+    # ----
     items.append(sep('playlist-mode-sep', [items[-1].name]))
     # Rating
     def rating_get_tracks_func(menuobj, parent_obj, context):
@@ -71,7 +71,16 @@ def __create_tray_context_menu():
     items.append(menu.RatingMenuItem('rating', [items[-1].name],
         rating_get_tracks_func))
     # Remove
-    # ---
+    def remove_current_cb(widget, menuobj, parent_obj, context):
+        from xlgui import main
+        page = main.mainwindow().get_selected_page()
+        if not isinstance(page, playlist.PlaylistPage):
+            return
+        if page.playlist.current == player.PLAYER.current:
+            del page.playlist[page.playlist.current_position]
+    items.append(menu.simple_menu_item('remove-current', [items[-1].name],
+        _("Remove Current Track From Playlist"), 'gtk-remove', remove_current_cb))
+    # ----
     items.append(sep('misc-actions-sep', [items[-1].name]))
     # Quit
     items.append(actions.application.quit.create_menu_item(after=[items[-1].name]))

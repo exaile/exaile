@@ -97,7 +97,7 @@ def __create_playlist_context_menu():
     smi = menu.simple_menu_item
     sep = menu.simple_separator
     items = []
-    items.append(smi('append-queue', [], _("Append to Queue"), 'gtk-add',
+    items.append(smi('enqueue', [], _("Enqueue"), 'gtk-add',
             lambda w, n, o, c: player.QUEUE.extend(
             [t[1] for t in c['selected-items']])))
     def toggle_spat_cb(widget, name, playlistpage, context):
@@ -106,7 +106,7 @@ def __create_playlist_context_menu():
             playlistpage.playlist.spat_position = position
         else:
             playlistpage.playlist.spat_position = -1
-    items.append(smi('toggle-spat', ['append-queue'],
+    items.append(smi('toggle-spat', ['enqueue'],
             _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
     def rating_get_tracks_func(menuobj, parent_obj, context):
         return [row[1] for row in context['selected-items']]

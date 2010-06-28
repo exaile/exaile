@@ -183,7 +183,7 @@ class PlaylistPage(NotebookPage):
             'playlist_repeat_mode_changed', self.playlist,
             self.repeat_button)
         event.add_callback(self.on_mode_changed,
-            'playlist_repeat_mode_changed', self.playlist,
+            'playlist_dynamic_mode_changed', self.playlist,
             self.dynamic_button)
         event.add_callback(self.on_dynamic_playlists_provider_changed,
             'dynamic_playlists_provider_added')

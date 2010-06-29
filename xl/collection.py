@@ -463,7 +463,7 @@ class LibraryMonitor(gobject.GObject):
                 removed_tracks += [track]
             else:
                 # Deleted file was most likely a directory
-                for track in self.collection:
+                for track in self.__library.collection:
                     track_gfile = gio.File(track.get_loc_for_io())
 
                     if track_gfile.has_prefix(gfile):

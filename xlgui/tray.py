@@ -44,13 +44,17 @@ def __create_tray_context_menu():
     sep = menu.simple_separator
     items = []
     # Play/Pause
-    items.append(actions.playback.playpause.create_menu_item(after=[]))
+    items.append(menuitems.PlayPauseMenuItem('playback-playpause', after=[]))
+#    items.append(actions.playback.playpause.create_menu_item(after=[]))
     # Next
-    items.append(actions.playback.next.create_menu_item(after=[items[-1].name]))
+    items.append(menuitems.NextMenuItem('playback-next', after=[items[-1].name]))
+#    items.append(actions.playback.next.create_menu_item(after=[items[-1].name]))
     # Prev
-    items.append(actions.playback.prev.create_menu_item(after=[items[-1].name]))
+    items.append(menuitems.PrevMenuItem('playback-prev', after=[items[-1].name]))
+#    items.append(actions.playback.prev.create_menu_item(after=[items[-1].name]))
     # Stop
-    items.append(actions.playback.stop.create_menu_item(after=[items[-1].name]))
+    items.append(menuitems.StopMenuItem('playback-stop', after=[items[-1].name]))
+#    items.append(actions.playback.stop.create_menu_item(after=[items[-1].name]))
     # ----
     items.append(sep('playback-sep', [items[-1].name]))
     # Shuffle

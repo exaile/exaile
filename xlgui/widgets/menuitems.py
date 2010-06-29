@@ -31,8 +31,10 @@
 # TODO: how should we document standardization of context's
 # selected-(items|tracks) ?
 
+import gtk
+
 from xl.nls import gettext as _
-from xl import event, settings, trax
+from xl import event, settings, trax, player
 
 from xlgui.widgets import rating
 from xlgui.widgets.menu import MenuItem, simple_menu_item
@@ -96,3 +98,52 @@ def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
             _enqueue_cb, callback_args=[get_tracks_func])
 
 ### END TRACKS ITEMS ###
+
+### PLAYBACK MENU ITEMS ###
+
+
+def _play_pause_cb(widget, name, parent_obj, parent_context):
+    from xlgui import actions
+    actions.playback.playpause.activate()
+
+def PlayPauseMenuItem(name, after):
+    def factory(menu, parent_obj, parent_context):
+        if player.PLAYER.is_playing():
+            icon = 'gtk-media-pause'
+            display = _("Pause")
+        else:
+            icon = 'gtk-media-play-ltr'
+            display = _("Play")
+        item = gtk.ImageMenuItem(display)
+        image = gtk.image_new_from_icon_name(icon,
+                size=gtk.ICON_SIZE_MENU)
+        item.set_image(image)
+        item.connect('activate', _play_pause_cb, name, parent_obj, parent_context)
+        return item
+    return MenuItem(name, factory, after=after)
+
+def _next_cb(widget, name, parent_obj, parent_context):
+    from xlgui import actions
+    actions.playback.next.activate()
+
+def NextMenuItem(name, after):
+    return simple_menu_item(name, after, _("Next"),
+            'gtk-media-next-ltr', _next_cb)
+
+def _prev_cb(widget, name, parent_obj, parent_context):
+    from xlgui import actions
+    actions.playback.prev.activate()
+
+def PrevMenuItem(name, after):
+    return simple_menu_item(name, after, _("Previous"),
+            'gtk-media-previous-ltr', _prev_cb)
+
+def _stop_cb(widget, name, parent_obj, parent_context):
+    from xlgui import actions
+    actions.playback.stop.activate()
+
+def StopMenuItem(name, after):
+    return simple_menu_item(name, after, _("Stop"),
+            'gtk-media-stop', _stop_cb)
+
+

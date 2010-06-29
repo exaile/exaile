@@ -31,7 +31,7 @@
 import gtk
 
 from xlgui.actions import _base
-from xlgui.widgets import menu, playlist
+from xlgui.widgets import menu
 
 from xl import player
 from xl.nls import gettext as _
@@ -129,6 +129,23 @@ stop.connect('activate', on_stop_activate)
 
 
 
+def _playpause():
+    if player.PLAYER.get_state() in ('playing', 'paused'):
+        player.PLAYER.toggle_pause()
+    else:
+        from xlgui import main
+        page = main.get_current_playlist()
+        if page:
+            pl = page.playlist
+            if len(pl) == 0:
+                return
+            try:
+                idx = page.view.get_selected_paths()[0][0]
+            except IndexError:
+                idx = 0
+            player.QUEUE.set_current_playlist(pl)
+            pl.current_position = idx
+            player.QUEUE.play(track=pl.current)
 
 
 def enqueue(tracks):

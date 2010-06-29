@@ -37,13 +37,7 @@ from xlgui.widgets.playlist import PlaylistPage
 
 def get_current_playlist():
     from xlgui import main
-    try:
-        page = main.mainwindow().get_selected_page()
-    except AttributeError:
-        return None
-    if not isinstance(page, PlaylistPage):
-        return None
-    return page
+    return main.get_current_playlist()
 
 def insert_sep(l, pos=1):
     l = l[:]

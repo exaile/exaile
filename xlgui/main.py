@@ -59,7 +59,7 @@ from xlgui import (
     guiutil,
     tray
 )
-from xlgui.playlist import PlaylistNotebook
+from xlgui.playlist import PlaylistNotebook, PlaylistPage
 from xlgui.widgets import (
     dialogs,
     info,
@@ -901,6 +901,15 @@ def get_playlist_notebook():
 
 def get_selected_page():
     return MainWindow._mainwindow.playlist_notebook.get_current_tab()
+
+def get_current_playlist():
+    try:
+        page = get_selected_page()
+    except AttributeError:
+        return None
+    if not isinstance(page, PlaylistPage):
+        return None
+    return page
 
 def mainwindow():
     return MainWindow._mainwindow

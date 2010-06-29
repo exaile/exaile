@@ -97,9 +97,10 @@ def __create_playlist_context_menu():
     smi = menu.simple_menu_item
     sep = menu.simple_separator
     items = []
-    items.append(smi('enqueue', [], _("Enqueue"), 'gtk-add',
-            lambda w, n, o, c: player.QUEUE.extend(
-            [t[1] for t in c['selected-items']])))
+#    items.append(smi('enqueue', [], _("Enqueue"), 'gtk-add',
+#            lambda w, n, o, c: player.QUEUE.extend(
+#            [t[1] for t in c['selected-items']])))
+    items.append(menuitems.EnqueueMenuItem('enqueue', []))
     def toggle_spat_cb(widget, name, playlistpage, context):
         position = context['selected-items'][0][0]
         if position != playlistpage.playlist.spat_position:

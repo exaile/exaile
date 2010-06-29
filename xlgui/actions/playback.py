@@ -128,3 +128,9 @@ def on_stop_activate(action):
 stop.connect('activate', on_stop_activate)
 
 
+
+
+
+def enqueue(tracks):
+    player.QUEUE.extend(tracks)
+

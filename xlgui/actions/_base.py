@@ -170,7 +170,7 @@ class ChoiceAction(BaseAction):
         self.set_active_choice(self.choices.index(name))
 
     def create_menu_item(self, after):
-        return menu.simple_menu_item(self.name, after, self.display_name, self.icon_name, lambda *args: None, self.create_submenu())
+        return menu.simple_menu_item(self.name, after, self.display_name, self.icon_name, lambda *args: None, submenu=self.create_submenu())
 
     def create_button(self):
         pass

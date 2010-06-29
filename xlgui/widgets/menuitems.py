@@ -31,13 +31,19 @@
 # TODO: how should we document standardization of context's
 # selected-(items|tracks) ?
 
+from xl.nls import gettext as _
 from xl import event, settings, trax
 
 from xlgui.widgets import rating
-from xlgui.widgets.menu import MenuItem
+from xlgui.widgets.menu import MenuItem, simple_menu_item
 
 
-def generic_get_tracks_func(menu, parent_obj, parent_context):
+### TRACKS ITEMS ###
+# These items act on a set of Tracks, by default 'selected-tracks' from
+# the parent's context, but custom accessors are allowed via the
+# get_tracks_func kwarg
+
+def generic_get_tracks_func(parent_obj, parent_context):
     return parent_context.get('selected-tracks', [])
 
 class RatingMenuItem(MenuItem):
@@ -62,7 +68,7 @@ class RatingMenuItem(MenuItem):
             Updates the menu item on show
         """
         widget.disconnect(self._rating_changed_id)
-        tracks = self.get_tracks_func(menu, parent_obj, context)
+        tracks = self.get_tracks_func(parent_obj, context)
         rating = trax.util.get_rating_from_tracks(tracks)
         widget.props.rating = rating
         self._rating_changed_id = widget.connect('rating-changed',
@@ -72,7 +78,7 @@ class RatingMenuItem(MenuItem):
         """
             Passes the 'rating-changed' signal
         """
-        tracks = self.get_tracks_func(menu, parent_obj, context)
+        tracks = self.get_tracks_func(parent_obj, context)
 
         for track in tracks:
             track.set_rating(rating)
@@ -80,3 +86,13 @@ class RatingMenuItem(MenuItem):
         maximum = settings.get_option('rating/maximum', 5)
         event.log_event('rating_changed', self, rating / maximum * 100)
 
+def _enqueue_cb(widget, name, parent, context, get_tracks_func):
+    from xlgui import actions
+    tracks = get_tracks_func(parent, context)
+    actions.playback.enqueue(tracks)
+
+def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
+    return simple_menu_item(name, after, _("Enqueue"), 'gtk-add',
+            _enqueue_cb, callback_args=[get_tracks_func])
+
+### END TRACKS ITEMS ###

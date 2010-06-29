@@ -62,7 +62,7 @@ def __create_tray_context_menu():
     # ----
     items.append(sep('playlist-mode-sep', [items[-1].name]))
     # Rating
-    def rating_get_tracks_func(menuobj, parent_obj, context):
+    def rating_get_tracks_func(parent_obj, context):
         current = player.PLAYER.current
         if current:
             return [current]

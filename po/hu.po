@@ -1235,7 +1235,7 @@ msgstr "%s bezárása"
 #: ../xlgui/playlist.py:1164
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>Elmenti %s változásait, mielőtt kilép?<b>"
+msgstr "<b>Elmenti %s változásait, mielőtt kilép?</b>"
 
 #: ../xlgui/playlist.py:1165
 msgid "Your changes will be lost if you don't save them"
@@ -2064,7 +2064,7 @@ msgid ""
 "Drag to the location you'd like the\n"
 "OSD to appear"
 msgstr ""
-"<b>OSD<b>\n"
+"<b>OSD</b>\n"
 "Húzza oda, ahol szeretné,\n"
 "hogy az OSD megjelenjen"
 

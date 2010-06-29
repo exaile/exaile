@@ -110,8 +110,7 @@ def __create_playlist_context_menu():
             _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
     def rating_get_tracks_func(menuobj, parent_obj, context):
         return [row[1] for row in context['selected-items']]
-    items.append(menuitems.RatingMenuItem('rating', ['toggle-spat'],
-        rating_get_tracks_func))
+    items.append(menuitems.RatingMenuItem('rating', ['toggle-spat']))
     # TODO: custom playlist item here
     items.append(sep('sep1', ['rating']))
     def remove_tracks_cb(widget, name, playlistpage, context):

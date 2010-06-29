@@ -36,12 +36,16 @@ from xl import event, settings, trax
 from xlgui.widgets import rating
 from xlgui.widgets.menu import MenuItem
 
+
+def generic_get_tracks_func(menu, parent_obj, parent_context):
+    return parent_context.get('selected-tracks', [])
+
 class RatingMenuItem(MenuItem):
     """
         A menu item displaying rating images
         and allowing for selection of ratings
     """
-    def __init__(self, name, after, get_tracks_func):
+    def __init__(self, name, after, get_tracks_func=generic_get_tracks_func):
         MenuItem.__init__(self, name, self.factory, after)
         self.get_tracks_func = get_tracks_func
 

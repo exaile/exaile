@@ -105,6 +105,7 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
 
 
 class MenuItem(object):
+    __slots__ = ['name', 'after', 'factory', '_pos']
     def __init__(self, name, factory, after):
         self.name = name
         self.after = after
@@ -116,6 +117,7 @@ class MenuItem(object):
                              # without warning.
 
 class RadioMenuItem(MenuItem):
+    __slots__ = ['groupname']
     def __init__(self, name, factory, after, groupname):
         MenuItem.__init__(self, name, factory, after)
         self.groupname = groupname
@@ -143,6 +145,7 @@ class Menu(gtk.Menu):
         # due to saved parent_contexts.
         children = self.get_children()
         for c in children:
+            c.remove_submenu()
             self.remove(c)
 
     def reorder_items(self):

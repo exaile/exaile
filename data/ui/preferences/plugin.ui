@@ -44,6 +44,7 @@
                         <property name="can_focus">True</property>
                         <property name="model">model</property>
                         <property name="search_column">1</property>
+                        <signal name="row_activated" handler="on_plugin_tree_row_activated"/>
                         <child>
                           <object class="GtkTreeViewColumn" id="name_column">
                             <property name="sizing">fixed</property>

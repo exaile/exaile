@@ -56,6 +56,7 @@ class PluginManager(object):
         self.message.connect('response', self.on_messagebar_response)
 
         self.list = builder.get_object('plugin_tree')
+        self.enabled_cellrenderer = builder.get_object('enabled_cellrenderer')
 
         self.version_label = builder.get_object('version_label')
         self.author_label = builder.get_object('author_label')
@@ -112,6 +113,12 @@ class PluginManager(object):
         """
         if response == gtk.RESPONSE_CLOSE:
             widget.hide()
+
+    def on_plugin_tree_row_activated(self, tree, path, column):
+        """
+            Enables or disables the selected plugin
+        """
+        self.enabled_cellrenderer.emit('toggled', path[0])
 
     def on_install_plugin_button_clicked(self, button):
         """

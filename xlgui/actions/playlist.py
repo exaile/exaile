@@ -82,7 +82,7 @@ def on_playlist_repeat_mode_changed(typ, pl, val):
 event.add_callback(on_playlist_repeat_mode_changed, "playlist_repeat_mode_changed")
 
 
-dynamic_mode = _base.ToggleAction("playlist-dynamic", _("Dynamic"),
+dynamic_mode = _base.ToggleAction("playlist-dynamic", _("Dynamically Add Tracks"),
     "media-playlist-dynamic")
 def on_dynamic_mode_toggled(action):
     page = get_current_playlist()

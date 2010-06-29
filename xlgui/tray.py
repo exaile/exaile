@@ -37,7 +37,7 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui import guiutil, actions
 from xlgui.widgets.info import TrackToolTip
-from xlgui.widgets import rating, menu, playlist
+from xlgui.widgets import rating, menu, menuitems, playlist
 
 
 def __create_tray_context_menu():
@@ -68,7 +68,7 @@ def __create_tray_context_menu():
             return [current]
         else:
             return []
-    items.append(menu.RatingMenuItem('rating', [items[-1].name],
+    items.append(menuitems.RatingMenuItem('rating', [items[-1].name],
         rating_get_tracks_func))
     # Remove
     def remove_current_cb(widget, menuobj, parent_obj, context):

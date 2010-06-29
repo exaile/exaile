@@ -53,7 +53,7 @@ from xlgui import guiutil, icons
 from xlgui.widgets import playlist_columns
 from xl.common import MetadataList
 from xlgui.widgets.notebook import NotebookPage
-from xlgui.widgets import menu
+from xlgui.widgets import menu, menuitems
 
 import logging
 logger = logging.getLogger(__name__)
@@ -90,7 +90,7 @@ class PlaylistContextMenu(menu.ProviderMenu):
     def get_parent_context(self):
         context = {}
         context['selected-items'] = self._parent.get_selected_items()
-
+        context['selected-tracks'] = [t[1] for t in context['selected-items']]
         return context
 
 def __create_playlist_context_menu():
@@ -110,7 +110,7 @@ def __create_playlist_context_menu():
             _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
     def rating_get_tracks_func(menuobj, parent_obj, context):
         return [row[1] for row in context['selected-items']]
-    items.append(menu.RatingMenuItem('rating', ['toggle-spat'],
+    items.append(menuitems.RatingMenuItem('rating', ['toggle-spat'],
         rating_get_tracks_func))
     # TODO: custom playlist item here
     items.append(sep('sep1', ['rating']))

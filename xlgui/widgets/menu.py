@@ -27,16 +27,9 @@
 import gobject
 import gtk
 
-from xl import (
-    common,
-    event,
-    providers,
-    settings,
-    trax
-)
+from xl import common, providers
 from xl.nls import gettext as _
 from xlgui import icons
-from xlgui.widgets import rating
 
 
 def simple_separator(name, after):
@@ -126,46 +119,6 @@ class RadioMenuItem(MenuItem):
     def __init__(self, name, factory, after, groupname):
         MenuItem.__init__(self, name, factory, after)
         self.groupname = groupname
-
-class RatingMenuItem(MenuItem):
-    """
-        A menu item displaying rating images
-        and allowing for selection of ratings
-    """
-    def __init__(self, name, after, get_tracks_func):
-        MenuItem.__init__(self, name, self.factory, after)
-        self.get_tracks_func = get_tracks_func
-
-    def factory(self, menu, parent_obj, parent_context):
-        item = rating.RatingMenuItem(auto_update=False)
-        item.connect('show', self.on_show, menu, parent_obj, parent_context)
-        self._rating_changed_id = item.connect('rating-changed',
-            self.on_rating_changed, menu, parent_obj, parent_context)
-
-        return item
-
-    def on_show(self, widget, menu, parent_obj, context):
-        """
-            Updates the menu item on show
-        """
-        widget.disconnect(self._rating_changed_id)
-        tracks = self.get_tracks_func(menu, parent_obj, context)
-        rating = trax.util.get_rating_from_tracks(tracks)
-        widget.props.rating = rating
-        self._rating_changed_id = widget.connect('rating-changed',
-            self.on_rating_changed, menu, parent_obj, context)
-
-    def on_rating_changed(self, widget, rating, menu, parent_obj, context):
-        """
-            Passes the 'rating-changed' signal
-        """
-        tracks = self.get_tracks_func(menu, parent_obj, context)
-
-        for track in tracks:
-            track.set_rating(rating)
-
-        maximum = settings.get_option('rating/maximum', 5)
-        event.log_event('rating_changed', self, rating / maximum * 100)
 
 class Menu(gtk.Menu):
     def __init__(self, parent):

@@ -33,7 +33,7 @@ import locale, os
 from xl import xdg
 
 # set the locale to LANG, or the user's default
-locale.setlocale(locale.LC_ALL, '')
+locale.setlocale(locale.LC_ALL, None)
 
 try:
     import gettext as gettextmod

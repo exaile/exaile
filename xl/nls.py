@@ -29,17 +29,14 @@
     code in a gettext fashion without a hard depend on gettext itself.
 """
 
-import locale, os
 from xl import xdg
-
-# set the locale to LANG, or the user's default
-locale.setlocale(locale.LC_ALL, None)
 
 try:
     import gettext as gettextmod
 
     gettextmod.textdomain('exaile')
     if xdg.local_hack: # running from source dir, so we have to set the paths
+        import os.path
         gettextmod.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
 
     gettextfunc = gettextmod.gettext

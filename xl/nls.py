@@ -29,7 +29,14 @@
     code in a gettext fashion without a hard depend on gettext itself.
 """
 
+import locale
 from xl import xdg
+
+try:
+    # Set to user default, gracefully fallback on C otherwise
+    locale.setlocale(locale.LC_ALL, '')
+except locale.Error:
+    pass
 
 try:
     import gettext as gettextmod

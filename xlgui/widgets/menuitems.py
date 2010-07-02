@@ -96,9 +96,8 @@ class RatingMenuItem(MenuItem):
         event.log_event('rating_changed', self, rating / maximum * 100)
 
 def _enqueue_cb(widget, name, parent, context, get_tracks_func):
-    from xlgui import actions
     tracks = get_tracks_func(parent, context)
-    actions.playback.enqueue(tracks)
+    player.QUEUE.extend(tracks)
 
 def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return simple_menu_item(name, after, _("Enqueue"), 'gtk-add',
@@ -109,9 +108,25 @@ def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
 ### PLAYBACK MENU ITEMS ###
 
 
+# TODO: figure out somehwere more generic to put this
 def _play_pause_cb(widget, name, parent_obj, parent_context):
-    from xlgui import actions
-    actions.playback.playpause.activate()
+    if player.PLAYER.get_state() in ('playing', 'paused'):
+        player.PLAYER.toggle_pause()
+    else:
+        from xlgui import main
+        page = main.get_current_playlist()
+        if page:
+            pl = page.playlist
+            if len(pl) == 0:
+                return
+            try:
+                idx = page.view.get_selected_paths()[0][0]
+            except IndexError:
+                idx = 0
+            player.QUEUE.set_current_playlist(pl)
+            pl.current_position = idx
+            player.QUEUE.play(track=pl.current)
+
 
 def PlayPauseMenuItem(name, after):
     def factory(menu, parent_obj, parent_context):
@@ -130,24 +145,21 @@ def PlayPauseMenuItem(name, after):
     return MenuItem(name, factory, after=after)
 
 def _next_cb(widget, name, parent_obj, parent_context):
-    from xlgui import actions
-    actions.playback.next.activate()
+    player.QUEUE.next()
 
 def NextMenuItem(name, after):
     return simple_menu_item(name, after, _("Next"),
             'gtk-media-next-ltr', _next_cb)
 
 def _prev_cb(widget, name, parent_obj, parent_context):
-    from xlgui import actions
-    actions.playback.prev.activate()
+    player.QUEUE.prev()
 
 def PrevMenuItem(name, after):
     return simple_menu_item(name, after, _("Previous"),
             'gtk-media-previous-ltr', _prev_cb)
 
 def _stop_cb(widget, name, parent_obj, parent_context):
-    from xlgui import actions
-    actions.playback.stop.activate()
+    player.PLAYER.stop()
 
 def StopMenuItem(name, after):
     return simple_menu_item(name, after, _("Stop"),
@@ -225,3 +237,6 @@ class RepeatModesMenuItem(ModesMenuItem):
 class DynamicModesMenuItem(ModesMenuItem):
     modetype = 'dynamic'
     display_name = _("Dynamic")
+
+
+### END PLAYLIST ###

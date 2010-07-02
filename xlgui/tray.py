@@ -35,7 +35,7 @@ from xl import (
     xdg
 )
 from xl.nls import gettext as _
-from xlgui import guiutil, actions
+from xlgui import guiutil
 from xlgui.widgets.info import TrackToolTip
 from xlgui.widgets import rating, menu, menuitems, playlist
 
@@ -80,7 +80,11 @@ def __create_tray_context_menu():
     # ----
     items.append(sep('misc-actions-sep', [items[-1].name]))
     # Quit
-    items.append(actions.application.quit.create_menu_item(after=[items[-1].name]))
+    def quit_cb(*args):
+        from xl import main
+        main.exaile().quit()
+    items.append(menu.simple_menu_item('quit-application', [items[-1].name],
+        _("Quit"), 'gtk-quit', quit_cb))
     for item in items:
         providers.register('tray-icon-context', item)
 __create_tray_context_menu()
@@ -183,7 +187,7 @@ class BaseTrayIcon(object):
         if event.button == 1:
             self.main.toggle_visible(bringtofront=True)
         if event.button == 2:
-            actions.playback.playpause.activate()
+            menuitems._play_pause_cb(None, None, None, None)
         if event.button == 3:
             self.menu.popup(None, None, self.get_menu_position,
                 event.button, event.time, self)
@@ -194,9 +198,9 @@ class BaseTrayIcon(object):
         """
         if event.state & gtk.gdk.SHIFT_MASK:
             if event.direction == gtk.gdk.SCROLL_UP:
-                actions.playback.prev.activate()
+                player.QUEUE.prev()
             elif event.direction == gtk.gdk.SCROLL_DOWN:
-                actions.playback.next.activate()
+                player.QUEUE.next()
         else:
             if event.direction == gtk.gdk.SCROLL_UP:
                 volume = player.PLAYER.get_volume()
@@ -207,9 +211,9 @@ class BaseTrayIcon(object):
                 player.PLAYER.set_volume(volume - self.VOLUME_STEP)
                 return True
             elif event.direction == gtk.gdk.SCROLL_LEFT:
-                actions.playback.prev.activate()
+                player.QUEUE.prev()
             elif event.direction == gtk.gdk.SCROLL_RIGHT:
-                actions.playback.next.activate()
+                player.QUEUE.next()
 
     def on_playback_change_state(self, event, player, current):
         """

@@ -37,28 +37,28 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui import guiutil
 from xlgui.widgets.info import TrackToolTip
-from xlgui.widgets import rating, menu, menuitems, playlist
+from xlgui.widgets import rating, menu, menuitems, playlist, playback
 
 
 def __create_tray_context_menu():
     sep = menu.simple_separator
     items = []
     # Play/Pause
-    items.append(menuitems.PlayPauseMenuItem('playback-playpause', after=[]))
+    items.append(playback.PlayPauseMenuItem('playback-playpause', after=[]))
     # Next
-    items.append(menuitems.NextMenuItem('playback-next', after=[items[-1].name]))
+    items.append(playback.NextMenuItem('playback-next', after=[items[-1].name]))
     # Prev
-    items.append(menuitems.PrevMenuItem('playback-prev', after=[items[-1].name]))
+    items.append(playback.PrevMenuItem('playback-prev', after=[items[-1].name]))
     # Stop
-    items.append(menuitems.StopMenuItem('playback-stop', after=[items[-1].name]))
+    items.append(playback.StopMenuItem('playback-stop', after=[items[-1].name]))
     # ----
     items.append(sep('playback-sep', [items[-1].name]))
     # Shuffle
-    items.append(menuitems.ShuffleModesMenuItem('playlist-mode-shuffle', after=[items[-1].name]))
+    items.append(playlist.ShuffleModesMenuItem('playlist-mode-shuffle', after=[items[-1].name]))
     # Repeat
-    items.append(menuitems.RepeatModesMenuItem('playlist-mode-repeat', after=[items[-1].name]))
+    items.append(playlist.RepeatModesMenuItem('playlist-mode-repeat', after=[items[-1].name]))
     # Dynamic
-    items.append(menuitems.DynamicModesMenuItem('playlist-mode-dynamic', after=[items[-1].name]))
+    items.append(playlist.DynamicModesMenuItem('playlist-mode-dynamic', after=[items[-1].name]))
     # ----
     items.append(sep('playlist-mode-sep', [items[-1].name]))
     # Rating
@@ -187,7 +187,7 @@ class BaseTrayIcon(object):
         if event.button == 1:
             self.main.toggle_visible(bringtofront=True)
         if event.button == 2:
-            menuitems._play_pause_cb(None, None, None, None)
+            playback.playpause()
         if event.button == 3:
             self.menu.popup(None, None, self.get_menu_position,
                 event.button, event.time, self)

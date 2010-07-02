@@ -36,6 +36,8 @@ from xl import (
 )
 from xl.nls import gettext as _
 
+from xlgui.widgets import menu
+
 class ProgressBarFormatter(formatter.ProgressTextFormatter):
     """
         A formatter for progress bars
@@ -326,4 +328,63 @@ class VolumeControl(gtk.Alignment):
         """
         if option == 'player/volume':
             self.__update(settings.get_option(option, 1))
+
+
+
+def playpause():
+    if player.PLAYER.get_state() in ('playing', 'paused'):
+        player.PLAYER.toggle_pause()
+    else:
+        from xlgui import main
+        page = main.get_current_playlist()
+        if page:
+            pl = page.playlist
+            if len(pl) == 0:
+                return
+            try:
+                idx = page.view.get_selected_paths()[0][0]
+            except IndexError:
+                idx = 0
+            player.QUEUE.set_current_playlist(pl)
+            pl.current_position = idx
+            player.QUEUE.play(track=pl.current)
+
+
+def PlayPauseMenuItem(name, after):
+    def factory(menu, parent_obj, parent_context):
+        if player.PLAYER.is_playing():
+            icon = 'gtk-media-pause'
+            display = _("Pause")
+        else:
+            icon = 'gtk-media-play-ltr'
+            display = _("Play")
+        item = gtk.ImageMenuItem(display)
+        image = gtk.image_new_from_icon_name(icon,
+                size=gtk.ICON_SIZE_MENU)
+        item.set_image(image)
+        item.connect('activate', lambda *args: playpause(), name,
+                parent_obj, parent_context)
+        return item
+    return menu.MenuItem(name, factory, after=after)
+
+def _next_cb(widget, name, parent_obj, parent_context):
+    player.QUEUE.next()
+
+def NextMenuItem(name, after):
+    return menu.simple_menu_item(name, after, _("Next"),
+            'gtk-media-next-ltr', _next_cb)
+
+def _prev_cb(widget, name, parent_obj, parent_context):
+    player.QUEUE.prev()
+
+def PrevMenuItem(name, after):
+    return menu.simple_menu_item(name, after, _("Previous"),
+            'gtk-media-previous-ltr', _prev_cb)
+
+def _stop_cb(widget, name, parent_obj, parent_context):
+    player.PLAYER.stop()
+
+def StopMenuItem(name, after):
+    return menu.simple_menu_item(name, after, _("Stop"),
+            'gtk-media-stop', _stop_cb)
 

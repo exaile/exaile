@@ -25,14 +25,21 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from datetime import date
 import gio
 import glib
 import gobject
 import re
-from datetime import date
 from string import Template, _TemplateMetaclass
 
-from xl import event, main, providers, settings, trax
+from xl import (
+    event,
+    main,
+    player,
+    providers,
+    settings,
+    trax
+)
 from xl.common import TimeSpan
 from xl.nls import gettext as _, ngettext
 
@@ -313,13 +320,6 @@ class ProgressTextFormatter(Formatter):
         """
         Formatter.__init__(self, format)
 
-        try:
-            exaile = main.exaile()
-        except AttributeError:
-            event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
-        else:
-            self.on_exaile_loaded('exaile_loaded', exaile, None)
-
     def format(self, current_time=None, total_time=None):
         """
             Returns a string suitable for progress indicators
@@ -332,10 +332,13 @@ class ProgressTextFormatter(Formatter):
             :rtype: string
         """
         if current_time is None:
-            current_time = self.player.get_time()
+            current_time = player.PLAYER.get_time()
 
         if total_time is None:
-            total_time = self.player.current.get_tag_raw('__length')
+            track = player.PLAYER.current
+
+            if track is not None:
+                total_time = track.get_tag_raw('__length')
 
         if total_time is None:
             total_time = remaining_time = 0
@@ -350,13 +353,6 @@ class ProgressTextFormatter(Formatter):
             LengthTagFormatter.format_value(total_time)
 
         return Formatter.format(self)
-
-    def on_exaile_loaded(self, e, exaile, nothing):
-        """
-            Sets up references after controller is loaded
-        """
-        self.player = exaile.player
-        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
 class TrackFormatter(Formatter):
     """

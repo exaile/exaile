@@ -76,7 +76,7 @@ def __create_tray_context_menu():
         if pl and pl.current == player.PLAYER.current:
             del pl[pl.current_position]
     items.append(menu.simple_menu_item('remove-current', [items[-1].name],
-        _("Remove Current Track From Playlist"), 'gtk-remove', remove_current_cb))
+        _("Remove Current Track From Playlist"), gtk.STOCK_REMOVE, remove_current_cb))
     # ----
     items.append(sep('misc-actions-sep', [items[-1].name]))
     # Quit
@@ -84,7 +84,7 @@ def __create_tray_context_menu():
         from xl import main
         main.exaile().quit()
     items.append(menu.simple_menu_item('quit-application', [items[-1].name],
-        _("Quit"), 'gtk-quit', quit_cb))
+        icon_name=gtk.STOCK_QUIT, callback=quit_cb))
     for item in items:
         providers.register('tray-icon-context', item)
 __create_tray_context_menu()

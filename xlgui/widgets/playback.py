@@ -353,17 +353,13 @@ def playpause():
 def PlayPauseMenuItem(name, after):
     def factory(menu, parent_obj, parent_context):
         if player.PLAYER.is_playing():
-            icon = 'gtk-media-pause'
-            display = _("Pause")
+            stock_id = gtk.STOCK_MEDIA_PAUSE
         else:
-            icon = 'gtk-media-play-ltr'
-            display = _("Play")
-        item = gtk.ImageMenuItem(display)
-        image = gtk.image_new_from_icon_name(icon,
-                size=gtk.ICON_SIZE_MENU)
-        item.set_image(image)
-        item.connect('activate', lambda *args: playpause(), name,
-                parent_obj, parent_context)
+            stock_id = gtk.STOCK_MEDIA_PLAY
+
+        item = gtk.ImageMenuItem(stock_id)
+        item.connect('activate', lambda *args: playpause(), name, parent_obj, parent_context)
+
         return item
     return menu.MenuItem(name, factory, after=after)
 
@@ -371,20 +367,20 @@ def _next_cb(widget, name, parent_obj, parent_context):
     player.QUEUE.next()
 
 def NextMenuItem(name, after):
-    return menu.simple_menu_item(name, after, _("Next"),
-            'gtk-media-next-ltr', _next_cb)
+    return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_NEXT,
+        callback=_next_cb)
 
 def _prev_cb(widget, name, parent_obj, parent_context):
     player.QUEUE.prev()
 
 def PrevMenuItem(name, after):
-    return menu.simple_menu_item(name, after, _("Previous"),
-            'gtk-media-previous-ltr', _prev_cb)
+    return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_PREVIOUS,
+        callback=_prev_cb)
 
 def _stop_cb(widget, name, parent_obj, parent_context):
     player.PLAYER.stop()
 
 def StopMenuItem(name, after):
-    return menu.simple_menu_item(name, after, _("Stop"),
-            'gtk-media-stop', _stop_cb)
+    return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_STOP,
+        callback=_stop_cb)
 

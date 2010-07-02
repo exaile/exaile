@@ -31,9 +31,10 @@
 # TODO: how should we document standardization of context's
 # selected-(items|tracks) ?
 
-from xl.nls import gettext as _
-from xl import trax, player
+import gtk
 
+from xl import player, trax
+from xl.nls import gettext as _
 from xlgui.widgets import rating, menu
 
 
@@ -87,7 +88,7 @@ def _enqueue_cb(widget, name, parent, context, get_tracks_func):
     player.QUEUE.extend(tracks)
 
 def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
-    return menu.simple_menu_item(name, after, _("Enqueue"), 'gtk-add',
+    return menu.simple_menu_item(name, after, _("Enqueue"), gtk.STOCK_ADD,
             _enqueue_cb, callback_args=[get_tracks_func])
 
 ### END TRACKS ITEMS ###

@@ -40,7 +40,8 @@ def simple_separator(name, after):
     item._pos = 'last'
     return item
 
-def simple_menu_item(name, after, display_name, icon_name, callback, callback_args=[], submenu=None):
+def simple_menu_item(name, after, display_name=None, icon_name=None,
+                     callback=None, callback_args=[], submenu=None):
     """
         Factory function that should handle most cases for menus
 
@@ -55,16 +56,25 @@ def simple_menu_item(name, after, display_name, icon_name, callback, callback_ar
     """
     def factory(menu, parent_obj, parent_context):
         item = None
-        if icon_name is not None:
-            item = gtk.ImageMenuItem(display_name)
-            image = gtk.image_new_from_icon_name(icon_name,
-                    size=gtk.ICON_SIZE_MENU)
-            item.set_image(image)
+
+        if display_name is not None:
+            if icon_name is not None:
+                item = gtk.ImageMenuItem(display_name)
+                image = gtk.image_new_from_icon_name(icon_name,
+                        size=gtk.ICON_SIZE_MENU)
+                item.set_image(image)
+            else:
+                item = gtk.MenuItem(display_name)
         else:
-            item = gtk.MenuItem(display_name)
+            item = gtk.ImageMenuItem(icon_name)
+
         if submenu is not None:
             item.set_submenu(submenu)
-        item.connect('activate', callback, name, parent_obj, parent_context, *callback_args)
+
+        if callback is not None:
+            item.connect('activate', callback, name,
+                parent_obj, parent_context, *callback_args)
+
         return item
     return MenuItem(name, factory, after=after)
 

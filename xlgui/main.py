@@ -215,7 +215,7 @@ class MainWindow(gobject.GObject):
         self.builder.connect_signals({
             'on_configure_event':   self.configure_event,
             'on_window_state_event': self.window_state_change_event,
-            'on_delete_event':      self.delete_event,
+            'on_delete_event':      self.on_delete_event,
             'on_quit_item_activated': self.quit,
             'on_restart_item_activate': self.on_restart_item_activate,
             'on_playpause_button_clicked': self.on_playpause_button_clicked,
@@ -800,11 +800,12 @@ class MainWindow(gobject.GObject):
         pos = settings.get_option('gui/mainw_sash_pos', 200)
         self.splitter.set_position(pos)
 
-    def delete_event(self, *e):
+    def on_delete_event(self, *e):
         """
             Called when the user attempts to close the window
         """
-        if self.controller.tray_icon:
+        if settings.get_option('gui/use_tray', False) and \
+           settings.get_option('gui/close_to_tray', False):
             self.window.hide()
         else:
             self.quit()

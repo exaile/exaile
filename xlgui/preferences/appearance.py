@@ -90,6 +90,15 @@ class MinimizeToTrayPreference(widgets.CheckPreference, widgets.CheckConditional
         widgets.CheckPreference.__init__(self, preferences, widget)
         widgets.CheckConditional.__init__(self)
 
+class CloseToTrayPreference(widgets.CheckPreference, widgets.CheckConditional):
+    default = False
+    name = 'gui/close_to_tray'
+    condition_preference_name = 'gui/use_tray'
+
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
+
 class EnsureVisiblePreference(widgets.CheckPreference):
     default = True
     name = 'gui/ensure_visible'

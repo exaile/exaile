@@ -44,6 +44,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <accelerator key="o" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_open_item_activate"/>
                       </object>
                     </child>
@@ -54,7 +55,7 @@
                         <property name="use_underline">True</property>
                         <property name="image">image13</property>
                         <property name="use_stock">False</property>
-                        <accelerator key="o" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <accelerator key="o" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_open_url_item_activate"/>
                       </object>
                     </child>

@@ -105,16 +105,19 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
 
 
 class MenuItem(object):
-    __slots__ = ['name', 'after', 'factory', '_pos']
+    __slots__ = ['name', 'after', '_factory', '_pos']
     def __init__(self, name, factory, after):
         self.name = name
         self.after = after
-        self.factory = factory
+        self._factory = factory
         self._pos = 'normal' # Don't change this unless you have a REALLY good
                              # reason to. after= is the 'supported'
                              # method of ordering, this property is not
                              # considered public api and may change
                              # without warning.
+
+    def factory(self, menu, parent_obj, parent_context):
+        return self._factory(menu, parent_obj, parent_context)
 
 class RadioMenuItem(MenuItem):
     __slots__ = ['groupname']
@@ -123,15 +126,19 @@ class RadioMenuItem(MenuItem):
         self.groupname = groupname
 
 class Menu(gtk.Menu):
-    def __init__(self, parent):
+    def __init__(self, parent, context_func=None):
         gtk.Menu.__init__(self)
         self._parent = parent
         self._items = []
+        self.context_func = context_func
         self.connect('show', self.regenerate_menu)
         self.connect('hide', self.clear_menu)
 
     def get_parent_context(self):
-        return {}
+        if self.context_func is None:
+            return {}
+        else:
+            return self.context_func(self._parent)
 
     def add_item(self, item):
         self._items.append(item)

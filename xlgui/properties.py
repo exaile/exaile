@@ -131,7 +131,7 @@ class TrackPropertiesDialog(gobject.GObject):
         self.tracks_original = self._tags_copy(tracks)
         self.current_position = current_position
 
-        self._build_from_track(self.current)
+        self._build_from_track(self.current_position)
 
         self.dialog.resize(600, 350)
         self.dialog.show()
@@ -233,7 +233,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self.cur_track_label.set_text(
             _("Editing track %(current)d of %(total)d") % {
-                'current': self.current + 1,
+                'current': self.current_position + 1,
                 'total': len(self.track_refs)
             }
         )

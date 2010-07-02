@@ -45,24 +45,20 @@ def __create_tray_context_menu():
     items = []
     # Play/Pause
     items.append(menuitems.PlayPauseMenuItem('playback-playpause', after=[]))
-#    items.append(actions.playback.playpause.create_menu_item(after=[]))
     # Next
     items.append(menuitems.NextMenuItem('playback-next', after=[items[-1].name]))
-#    items.append(actions.playback.next.create_menu_item(after=[items[-1].name]))
     # Prev
     items.append(menuitems.PrevMenuItem('playback-prev', after=[items[-1].name]))
-#    items.append(actions.playback.prev.create_menu_item(after=[items[-1].name]))
     # Stop
     items.append(menuitems.StopMenuItem('playback-stop', after=[items[-1].name]))
-#    items.append(actions.playback.stop.create_menu_item(after=[items[-1].name]))
     # ----
     items.append(sep('playback-sep', [items[-1].name]))
     # Shuffle
-    items.append(actions.playlist.shuffle_mode.create_menu_item(after=[items[-1].name]))
+    items.append(menuitems.ShuffleModesMenuItem('playlist-mode-shuffle', after=[items[-1].name]))
     # Repeat
-    items.append(actions.playlist.repeat_mode.create_menu_item(after=[items[-1].name]))
+    items.append(menuitems.RepeatModesMenuItem('playlist-mode-repeat', after=[items[-1].name]))
     # Dynamic
-    items.append(actions.playlist.dynamic_mode.create_menu_item(after=[items[-1].name]))
+    items.append(menuitems.DynamicModesMenuItem('playlist-mode-dynamic', after=[items[-1].name]))
     # ----
     items.append(sep('playlist-mode-sep', [items[-1].name]))
     # Rating

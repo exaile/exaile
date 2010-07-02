@@ -34,10 +34,17 @@
 import gtk
 
 from xl.nls import gettext as _
-from xl import event, settings, trax, player
+from xl import event, settings, trax, player, playlist
 
 from xlgui.widgets import rating
-from xlgui.widgets.menu import MenuItem, simple_menu_item
+from xlgui.widgets.menu import (
+        radio_menu_item,
+        simple_menu_item,
+        simple_separator,
+        MenuItem,
+        Menu,
+        ProviderMenu
+    )
 
 
 ### TRACKS ITEMS ###
@@ -146,4 +153,75 @@ def StopMenuItem(name, after):
     return simple_menu_item(name, after, _("Stop"),
             'gtk-media-stop', _stop_cb)
 
+### END PLAYBACK ###
 
+### CURRENT PLAYLIST ITEMS ###
+
+def default_get_playlist_func(parent, parent_context):
+    return player.QUEUE.current_playlist
+
+class ModesMenuItem(MenuItem):
+    """
+        A menu item having a submenu containing entries for shuffle modes.
+
+        Defaults to adjusting the currently-playing playlist.
+    """
+    modetype = ''
+    display_name = ""
+    def __init__(self, name, after, get_playlist_func=default_get_playlist_func):
+        MenuItem.__init__(self, name, None, after)
+        self.get_playlist_func = get_playlist_func
+
+    def factory(self, menu, parent_obj, parent_context):
+        item = gtk.ImageMenuItem(self.display_name)
+        image = gtk.image_new_from_icon_name('media-playlist-'+self.modetype,
+                size=gtk.ICON_SIZE_MENU)
+        item.set_image(image)
+        submenu = self.create_mode_submenu(item)
+        item.set_submenu(submenu)
+        pl = self.get_playlist_func(parent_obj, parent_context)
+        item.set_sensitive(pl != None)
+        return item
+
+    def create_mode_submenu(self, parent_item):
+        names = getattr(playlist.Playlist, "%s_modes"%self.modetype)
+        displays = getattr(playlist.Playlist, "%s_mode_names"%self.modetype)
+        items = []
+        previous = None
+        for name, display in zip(names, displays):
+            after = [previous] if previous else []
+            item = radio_menu_item(name, after, display,
+                    '%s_modes'%self.modetype, self.mode_is_selected,
+                    self.on_mode_activated)
+            items.append(item)
+            if previous is None:
+                items.append(simple_separator("sep", [items[-1].name]))
+            previous = items[-1].name
+        menu = Menu(parent_item)
+        for item in items:
+            menu.add_item(item)
+        return menu
+
+    def mode_is_selected(self, name, parent_obj, parent_context):
+        pl = self.get_playlist_func(parent_obj, parent_context)
+        if pl is None:
+            return False
+        return getattr(pl, "%s_mode"%self.modetype) == name
+
+    def on_mode_activated(self, widget, name, parent_obj, parent_context):
+        pl = self.get_playlist_func(parent_obj, parent_context)
+        if pl is None:
+            return False
+        setattr(pl, "%s_mode"%self.modetype, name)
+
+class ShuffleModesMenuItem(ModesMenuItem):
+    modetype = 'shuffle'
+    display_name = _("Shuffle")
+
+class RepeatModesMenuItem(ModesMenuItem):
+    modetype = 'repeat'
+    display_name = _("Repeat")
+
+class DynamicModesMenuItem(ModesMenuItem):
+    modetype = 'dynamic'
+    display_name = _("Dynamic")

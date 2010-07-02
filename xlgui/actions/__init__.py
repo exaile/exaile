@@ -24,6 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-__all__ = ['application', 'playback', 'playlist']
+__all__ = ['application', 'playback']
 
 from xlgui.actions import *

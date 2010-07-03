@@ -69,11 +69,10 @@ class TrackInfoPane(gtk.Alignment):
         self._display_progress = display_progress
         self._auto_update = auto_update
         self._timer = None
-        self.player = None
         self._track = None
         self._formatter = formatter.TrackFormatter(
             _('<span size="x-large" weight="bold">$title</span>\n'
-              'by ${artist:compilate}\n'
+              'by $artist\n'
               'from $album')
         )
 
@@ -101,12 +100,10 @@ class TrackInfoPane(gtk.Alignment):
             event.add_callback(self.on_cover_changed,
                 'cover_removed')
 
-        try:
-            exaile = main.exaile()
-        except AttributeError:
-            event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
-        else:
-            self.on_exaile_loaded('exaile_loaded', exaile, None)
+            if player.PLAYER.current is not None:
+                self.set_track(player.PLAYER.current)
+            else:
+                self.clear()
 
     def destroy(self):
         """
@@ -190,10 +187,10 @@ class TrackInfoPane(gtk.Alignment):
         self.info_label.set_markup(self._formatter.format(track, markup_escape=True))
 
         if self._display_progress:
-            if track == self.player.current and not self.player.is_stopped():
+            if track == player.PLAYER.current and not player.PLAYER.is_stopped():
 
                 stock_id = gtk.STOCK_MEDIA_PLAY
-                if self.player.is_paused():
+                if player.PLAYER.is_paused():
                     stock_id = gtk.STOCK_MEDIA_PAUSE
                 self.playback_image.set_from_stock(stock_id,
                     gtk.ICON_SIZE_SMALL_TOOLBAR)
@@ -268,8 +265,8 @@ class TrackInfoPane(gtk.Alignment):
         """
             Updates the info pane on tag changes
         """
-        if self.player is not None and \
-           not self.player.is_stopped() and \
+        if player.PLAYER is not None and \
+           not player.PLAYER.is_stopped() and \
            track is self._track:
             self.set_track(track)
 
@@ -279,21 +276,6 @@ class TrackInfoPane(gtk.Alignment):
         """
         if track is self._track:
             self.set_track(track)
-
-    def on_exaile_loaded(self, e, exaile, nothing):
-        """
-            Sets up references after controller is loaded
-        """
-        self.player = exaile.player
-
-        current_track = self.player.current
-
-        if self._auto_update and current_track is not None:
-            self.set_track(current_track)
-        else:
-            self.clear()
-
-        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
 # TODO: Use single info label and formatter
 class TrackListInfoPane(gtk.Alignment):
@@ -564,10 +546,10 @@ class StatusbarTextFormatter(formatter.Formatter):
             Retrieves the count of tracks in either the
             full playlist or the current selection
 
-            :param selection_mode: 'none' for playlist count only,
+            :param selection: 'none' for playlist count only,
                 'override' for selection count if tracks are selected,
                 playlist count otherwise, 'only' for selection count only
-            :type selection_mode: string
+            :type selection: string
         """
         page = xlgui.main.get_selected_page()
 
@@ -596,7 +578,7 @@ class StatusbarTextFormatter(formatter.Formatter):
         else:
             raise ValueError('Invalid argument "%s" passed to parameter '
                 '"selection" for "playlist_count", possible arguments are '
-                '"none", "override" and "only"' % selection_mode)
+                '"none", "override" and "only"' % selection)
 
         if count == 0:
             return ''
@@ -613,10 +595,10 @@ class StatusbarTextFormatter(formatter.Formatter):
                 yielding "1:02:42", "1h, 2m, 42s" or
                 "1 hour, 2 minutes, 42 seconds"
             :type format: string
-            :param selection_mode: 'none' for playlist count only,
+            :param selection: 'none' for playlist count only,
                 'override' for selection count if tracks are selected,
                 playlist count otherwise, 'only' for selection count only
-            :type selection_mode: string
+            :type selection: string
         """
         page = xlgui.main.get_selected_page()
 
@@ -647,7 +629,7 @@ class StatusbarTextFormatter(formatter.Formatter):
         else:
             raise ValueError('Invalid argument "%s" passed to parameter '
                 '"selection" for "playlist_duration", possible arguments are '
-                '"none", "override" and "only"' % selection_mode)
+                '"none", "override" and "only"' % selection)
 
         if duration == 0:
             return ''

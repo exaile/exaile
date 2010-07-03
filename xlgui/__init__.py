@@ -226,31 +226,51 @@ class Main(object):
         """
             Invokes the collection manager dialog
         """
-        from xl import collection
-        from xlgui import collection as guicol
-        dialog = guicol.CollectionManagerDialog(self.main.window,
-            self, self.exaile.collection)
+        from xl.collection import Library
+        from xlgui.collection import CollectionManagerDialog
+
+        dialog = CollectionManagerDialog(self.main.window,
+            self.exaile.collection)
         result = dialog.run()
-        dialog.dialog.hide()
+        dialog.hide()
+
         if result == gtk.RESPONSE_APPLY:
-            items = dialog.get_items()
-            dialog.destroy()
+            collection = self.exaile.collection
+            collection.freeze_libraries()
 
-            coll = self.exaile.collection
-            coll.freeze_libraries()
+            collection_libraries = [(l.location, l.monitored) \
+                for l in collection.libraries.itervalues()]
+            collection_libraries.sort()
+            new_libraries = dialog.get_items()
+            new_libraries.sort()
 
-            for item in items:
-                if not item in coll.libraries:
-                    coll.add_library(collection.Library(item))
+            if collection_libraries != new_libraries:
+                collection_locations = [location \
+                    for location, monitored in collection_libraries]
+                new_locations = [location \
+                    for location, monitored in new_libraries]
 
-            remove = []
-            for k, library in coll.libraries.iteritems():
-                if not k in items:
-                    remove.append(library)
-            map(coll.remove_library, remove)
+                if collection_locations != new_locations:
+                    for location in new_locations:
+                        if location not in collection_locations:
+                            collection.add_library(Library(location))
 
-            coll.thaw_libraries()
-            self.on_rescan_collection()
+                    removals = []
+
+                    for location, library in collection.libraries.iteritems():
+                        if location not in new_locations:
+                            removals += [library]
+
+                    map(collection.remove_library, removals)
+
+                    self.on_rescan_collection()
+
+                for location, monitored in new_libraries:
+                    collection.libraries[location].monitored = monitored
+
+            collection.thaw_libraries()
+
+        dialog.destroy()
 
     def on_gui_loaded(self, event, object, nothing):
         """

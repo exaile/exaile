@@ -41,30 +41,32 @@ class CollectionManagerDialog(object):
     """
         Allows you to choose which directories are in your library
     """
-    def __init__(self, parent, main, collection):
+    def __init__(self, parent, collection):
         """
             Initializes the dialog
         """
         self.parent = parent
-        self.main = main
         self.collection = collection
-        self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/collection_manager.ui'))
-        self.dialog = self.builder.get_object('CollectionManager')
-        self.list = dialogs.ListBox(self.builder.get_object('lm_list_box'))
-        self.add_list = []
-        self.remove_list = []
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path(
+            'ui', 'collection_manager.ui'))
+        self.dialog = builder.get_object('CollectionManager')
         self.dialog.set_transient_for(self.parent)
-
+        self.view = builder.get_object('view')
+        self.model = builder.get_object('model')
+        self.remove_button = builder.get_object('remove_button')
         self.message = dialogs.MessageBar(
-            parent=self.builder.get_object('content_area'),
+            parent=builder.get_object('content_area'),
             buttons=gtk.BUTTONS_CLOSE
         )
 
-        self.builder.connect_signals(self)
+        builder.connect_signals(self)
 
-        items = collection.libraries.keys()
-        self.list.set_rows(items)
+        selection = self.view.get_selection()
+        selection.connect('changed', self.on_selection_changed)
+
+        for location, library in collection.libraries.iteritems():
+            self.model.append([location, library.monitored])
 
     def run(self):
         """
@@ -73,11 +75,11 @@ class CollectionManagerDialog(object):
         """
         return self.dialog.run()
 
-    def get_response(self):
+    def hide(self):
         """
-            Gets the response id
+            Hides the dialog
         """
-        return self.dialog.get_response()
+        self.dialog.hide()
 
     def destroy(self):
         """
@@ -89,7 +91,20 @@ class CollectionManagerDialog(object):
         """
             Returns the items in the dialog
         """
-        return self.list.rows
+        items = []
+
+        for row in self.model:
+            items += [(row[0], row[1])]
+
+        return items
+
+    def on_monitored_cellrenderer_toggled(self, cell, path):
+        """
+            Enables or disables monitoring
+        """
+        monitored = not cell.get_active()
+        cell.set_active(monitored)
+        self.model[path][1] = monitored
 
     def on_add_button_clicked(self, widget):
         """
@@ -105,12 +120,14 @@ class CollectionManagerDialog(object):
         dialog.hide()
 
         if response == gtk.RESPONSE_OK:
-            gloc = gio.File(dialog.get_uri())
-            items = [ (gio.File(i), i) for i in self.get_items() ]
+            location = gio.File(dialog.get_uri())
+            removals = []
 
-            removes = []
-            for gitem, item in items:
-                if gloc.has_prefix(gitem):
+            for row in self.model:
+                library_location = gio.File(row[0])
+                monitored = row[1]
+
+                if location.has_prefix(library_location):
                     self.message.show_warning(
                         _('Directory not added.'),
                         _('The directory is already in your collection '
@@ -118,30 +135,28 @@ class CollectionManagerDialog(object):
                           'your collection.')
                     )
                     break
-                elif gitem.has_prefix(gloc):
-                    removes.append(item)
+                elif library_location.has_prefix(location):
+                    removals += [row.iter]
             else:
-                self.list.append(gloc.get_uri())
-                for item in removes:
-                    try:
-                        self.list.remove(item)
-                    except:
-                        pass
+                self.model.append([location.get_uri(), False])
+
+                for iter in removals:
+                    self.model.remove(iter)
+
         dialog.destroy()
 
     def on_remove_button_clicked(self, widget):
         """
             removes a path from the list
         """
-        item = self.list.get_selection()
-        if item is None:
-            return
-
-        index = self.list.rows.index(item)
-        self.list.remove(item)
-        selection = self.list.list.get_selection()
-        if index > len(self.list.rows):
-            selection.select_path(index - 1)
-        else:
-            selection.select_path(index)
+        selection = self.view.get_selection()
+        model, iter = selection.get_selected()
+        model.remove(iter)
+    
+    def on_selection_changed(self, selection):
+        """
+            Enables or disables the "Remove" button
+        """
+        rows_selected = selection.count_selected_rows() > 0
+        self.remove_button.set_sensitive(rows_selected)
 

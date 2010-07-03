@@ -177,6 +177,13 @@ class Menu(gtk.Menu):
             self.append(item.factory(self, self._parent, context))
         self.show_all()
 
+    def popup(self, *args):
+        if len(args) == 1:
+            event = args[0]
+            gtk.Menu.popup(self, None, None, None, event.button, event.time)
+        else:
+            gtk.Menu.popup(self, *args)
+
 
 class ProviderMenu(providers.ProviderHandler, Menu):
     def __init__(self, name, parent):

@@ -148,7 +148,7 @@ def __create_playlist_tab_context_menu():
     items.append(smi('tab-close', ['tab-close-sep'], _("Close"), 'gtk-close',
         lambda w, n, o, c: o.tab.close()))
     for item in items:
-        providers.register('playlist-tab-context', item)
+        providers.register('playlist-tab-context-menu', item)
 __create_playlist_tab_context_menu()
 
 
@@ -158,7 +158,7 @@ class PlaylistContextMenu(menu.ProviderMenu):
             :param page: The :class:`PlaylistPage` this menu is
                 associated with.
         """
-        menu.ProviderMenu.__init__(self, 'playlist-context', page)
+        menu.ProviderMenu.__init__(self, 'playlist-context-menu', page)
 
     def get_parent_context(self):
         context = {}
@@ -201,7 +201,7 @@ def __create_playlist_context_menu():
     items.append(smi('properties', ['sep2'], _("Properties"), 'gtk-properties',
         lambda w, n, o, c: o.show_properties_dialog()))
     for item in items:
-        providers.register('playlist-context', item)
+        providers.register('playlist-context-menu', item)
 __create_playlist_context_menu()
 
 
@@ -209,7 +209,7 @@ class PlaylistPage(NotebookPage):
     """
         Displays a playlist and associated controls.
     """
-    menu_provider_name = 'playlist-tab-context'
+    menu_provider_name = 'playlist-tab-context-menu'
     def __init__(self, playlist):
         """
             :param playlist: The :class:`xl.playlist.Playlist` to display
@@ -422,8 +422,6 @@ class PlaylistPage(NotebookPage):
 
 class PlaylistView(gtk.TreeView, providers.ProviderHandler):
     default_columns = ('tracknumber', 'title', 'album', 'artist', '__length')
-    base_sort_tags = ('artist', 'date', 'album', 'discnumber',
-            'tracknumber', 'title')
     def __init__(self, playlist):
         gtk.TreeView.__init__(self)
         providers.ProviderHandler.__init__(self, 'playlist-columns')
@@ -501,6 +499,16 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
                 return col
         return None
 
+    def get_sort_by(self):
+        sortcol = self.get_sort_column()
+        if sortcol:
+            reverse = sortcol.get_sort_order() == gtk.SORT_DESCENDING
+            sort_by = [sortcol.name] + list(common.BASE_SORT_TAGS)
+        else:
+            reverse = False
+            sort_by = list(common.BASE_SORT_TAGS)
+        return (sort_by, reverse)
+
     def _setup_columns(self):
         columns = settings.get_option('gui/columns', self.default_columns)
         provider_names = [p.name for p in providers.get('playlist-columns')]
@@ -573,7 +581,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
                 col.set_sort_indicator(False)
                 col.set_sort_order(gtk.SORT_DESCENDING)
         reverse = order == gtk.SORT_DESCENDING
-        self.playlist.sort([column.name] + list(self.base_sort_tags), reverse=reverse)
+        self.playlist.sort([column.name] + list(common.BASE_SORT_TAGS), reverse=reverse)
 
     def on_option_set(self, typ, obj, data):
         if data == "gui/columns":
@@ -710,15 +718,9 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             for uri in uris:
                 if is_valid_playlist(uri):
                     tracks.extend(import_playlist(uri))
-                    continue
-                tracks.extend(trax.get_tracks_from_uri(uri))
-            sortcol = self.get_sort_column()
-            if sortcol:
-                reverse = sortcol.get_sort_order() == gtk.SORT_DESCENDING
-                sort_by = [sortcol.name] + list(self.base_sort_tags)
-            else:
-                reverse = False
-                sort_by = self.base_sort_tags
+                else:
+                    tracks.extend(trax.get_tracks_from_uri(uri))
+            sort_by, reverse = self.get_sort_by()
             tracks = trax.sort_tracks(sort_by, tracks, reverse=reverse)
             if insert_position >= 0:
                 self.playlist[insert_position:insert_position] = tracks

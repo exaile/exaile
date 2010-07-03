@@ -33,10 +33,10 @@
 
 import gtk
 
-from xl import player, trax
+from xl import common, player, trax
 from xl.nls import gettext as _
 from xlgui.widgets import rating, menu
-
+from xlgui import properties
 
 ### TRACKS ITEMS ###
 # These items act on a set of Tracks, by default 'selected-tracks' from
@@ -86,10 +86,87 @@ class RatingMenuItem(menu.MenuItem):
 def _enqueue_cb(widget, name, parent, context, get_tracks_func):
     tracks = get_tracks_func(parent, context)
     player.QUEUE.extend(tracks)
+    if not player.PLAYER.current:
+        player.QUEUE.play()
 
 def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(name, after, _("Enqueue"), gtk.STOCK_ADD,
             _enqueue_cb, callback_args=[get_tracks_func])
+
+# TODO: move logic into (GUI?) playlist
+def _append_cb(widget, name, parent, context, get_tracks_func, replace=False):
+    from xlgui import main
+    page = main.get_current_playlist()
+    if not page:
+        return
+    pl = page.playlist
+    if replace:
+        pl.clear()
+    offset = len(pl)
+    tracks = get_tracks_func(parent, context)
+    sort_by, reverse = page.view.get_sort_by()
+    tracks = trax.sort_tracks(sort_by, tracks, reverse=reverse)
+    pl.extend(tracks)
+    if not player.PLAYER.current:
+        pl.current_position = offset
+        player.QUEUE.set_current_playlist(pl)
+        player.QUEUE.play(track=pl.current)
+
+def ReplaceCurrentMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
+    return menu.simple_menu_item(name, after, _("Replace Current"), None,
+            _append_cb, callback_args=[get_tracks_func, True])
+
+def AppendMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
+    return menu.simple_menu_item(name, after, _("Append to Current"),
+            'gtk-add', _append_cb, callback_args=[get_tracks_func])
+
+def _properties_cb(widget, name, parent, context, get_tracks_func, dialog_parent):
+    tracks = get_tracks_func(parent, context)
+    if tracks:
+        dialog = properties.TrackPropertiesDialog(dialog_parent, tracks)
+
+def PropertiesMenuItem(name, after, get_tracks_func=generic_get_tracks_func,
+        dialog_parent=None):
+    return menu.simple_menu_item(name, after, _("Properties"),
+            'gtk-properties', _properties_cb,
+            callback_args=[get_tracks_func, dialog_parent])
+
+
+def _open_directory_cb(widget, name, parent, context, get_tracks_func):
+    try:
+        track = get_tracks_func(parent, context)[0]
+    except IndexError:
+        return
+    common.open_file_directory(track.get_loc_for_io())
+
+def OpenDirectoryMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
+    return menu.simple_menu_item(name, after, _("Open Directory"),
+            'gtk-open', _open_directory_cb, callback_args=[get_tracks_func])
+
+
+def generic_delete_tracks_func(parent, context, tracks):
+    for tr in tracks:
+        f = gio.File(tr.get_loc_for_io())
+        f.delete()
+
+def _delete_tracks_cb(widget, name, parent, context,
+        get_tracks_func, delete_tracks_func):
+    dialog = gtk.MessageDialog(type=gtk.MESSAGE_QUESTION,
+                buttons=gtk.BUTTONS_YES_NO,
+                message_format=_("This will permanantly delete the selected "
+                    "tracks from your disk, are you sure you wish to continue?")
+                )
+    res = dialog.run()
+    if res == gtk.RESPONSE_YES:
+        delete_tracks_func(parent, context, get_tracks_func(parent, context))
+    dialog.destroy()
+
+
+def DeleteTracksMenuItem(name, after, get_tracks_func=generic_get_tracks_func,
+        delete_tracks_func=generic_delete_tracks_func):
+    return menu.simple_menu_item(name, after, _("Delete Tracks From Storage"),
+            'gtk-delete', _delete_tracks_cb,
+            callback_args=[get_tracks_func, delete_tracks_func])
 
 ### END TRACKS ITEMS ###
 

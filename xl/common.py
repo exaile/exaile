@@ -54,6 +54,10 @@ VALID_TAGS = (
 
 PICKLE_PROTOCOL=2
 
+# Default tags for track sorting. Unless you have good reason to do
+# otherwise, use this.
+# TODO: make this a setting?
+BASE_SORT_TAGS=('artist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
 # use this for general logging of exceptions
 def log_exception(log=logger, message="Exception caught!"):

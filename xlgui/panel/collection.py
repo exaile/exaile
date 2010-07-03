@@ -39,17 +39,18 @@ from xl import (
     metadata,
     settings,
     trax,
-    xdg
+    xdg,
+    providers
 )
 import xlgui
 from xlgui import (
     guiutil,
     icons,
-    menu,
+    menu as oldmenu,
     panel,
     playlist
 )
-from xlgui.widgets import info
+from xlgui.widgets import info, menu, menuitems
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +58,41 @@ TRACK_NUM = 300
 
 # TODO: come up with a more customizable way to handle this
 SEARCH_TAGS = ("artist", "albumartist", "album", "title")
+
+
+def __create_collection_panel_context_menu():
+    items = []
+    def sorted_get_tracks_func(panel, context):
+        tracks = context['selected-tracks']
+        # TODO: base sort order on panel sort order
+        tracks = trax.sort_tracks(common.BASE_SORT_TAGS, tracks)
+        return tracks
+    items.append(menuitems.AppendMenuItem('append', after=[]))
+    items.append(menuitems.ReplaceCurrentMenuItem('replace', after=[items[-1].name]))
+    items.append(menuitems.EnqueueMenuItem('enqueue', after=[items[-1].name], 
+            get_tracks_func=sorted_get_tracks_func))
+    items.append(menuitems.RatingMenuItem('rating', after=[items[-1].name]))
+    items.append(menu.simple_separator('sep', after=[items[-1].name]))
+    items.append(menuitems.PropertiesMenuItem('properties',
+            after=[items[-1].name], get_tracks_func=sorted_get_tracks_func))
+    items.append(menuitems.OpenDirectoryMenuItem('open-drectory', after=[items[-1].name]))
+    def collection_delete_tracks_func(panel, context, tracks):
+        panel.collection.delete_tracks(tracks)
+    items.append(menuitems.DeleteTracksMenuItem('delete-tracks', 
+            after=[items[-1].name],
+            delete_tracks_func=collection_delete_tracks_func))
+    for item in items:
+        providers.register('collection-context-menu', item)
+__create_collection_panel_context_menu()
+
+class CollectionContextMenu(menu.ProviderMenu):
+    def __init__(self, panel):
+        menu.ProviderMenu.__init__(self, 'collection-context-menu', panel)
+
+    def get_parent_context(self):
+        context = {}
+        context['selected-tracks'] = self._parent.tree.get_selected_tracks()
+        return context
 
 def first_meaningful_char(s):
     for i in range(len(s)):
@@ -170,70 +206,9 @@ class CollectionPanel(panel.Panel):
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
 
-        self.menu = menu.CollectionPanelMenu()
-        self.menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.tree.get_selected_tracks()))
-        self.menu.connect('replace-items', lambda *e:
-            self.emit('replace-items', self.tree.get_selected_tracks()))
-        self.menu.connect('queue-items', lambda *e:
-            self.emit('queue-items', self.tree.get_selected_tracks()))
-        self.menu.connect('rating-changed', self.on_rating_changed)
-        self.menu.connect('delete-items', self._on_delete_items)
-        self.menu.connect('view-items', self._on_view_items)
-        self.menu.connect('properties', lambda *e:
-            self.properties_dialog())
-
+        self.menu = CollectionContextMenu(self)
 
         self.load_tree()
-
-    def properties_dialog(self):
-        """
-            Shows the properties dialog
-        """
-        from xlgui import properties
-        tracks = self.tree.get_selected_tracks()
-
-        if not tracks:
-            return False
-
-        tracks = trax.sort_tracks(
-			('artist', 'date', 'album', 'discnumber', 'tracknumber'),
-			tracks)
-
-        dialog = properties.TrackPropertiesDialog(self.parent,
-            tracks)
-
-    def on_rating_changed(self, widget, rating):
-        """
-            Updates the rating of the selected tracks
-        """
-        tracks = self.tree.get_selected_tracks()
-
-        for track in tracks:
-            track.set_rating(rating)
-
-    def _on_delete_items(self, *args):
-        dialog = gtk.MessageDialog(type=gtk.MESSAGE_QUESTION,
-                buttons=gtk.BUTTONS_YES_NO,
-                message_format=_("This will permanantly delete the selected "
-                    "tracks from your disk, are you sure you wish to continue?")
-                )
-        res = dialog.run()
-        if res == gtk.RESPONSE_YES:
-            tracks = self.tree.get_selected_tracks()
-            self.collection.delete_tracks(tracks)
-
-        dialog.destroy()
-        glib.idle_add(self.load_tree)
-
-
-    def _on_view_items(self, *args):
-        """
-            Opens a file manager in the containing directory
-        """
-        track = self.tree.get_selected_tracks()[0]
-        common.open_file_directory(track.get_loc_for_io())
-
 
     def _setup_widgets(self):
         """

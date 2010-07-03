@@ -560,6 +560,8 @@ class Library(object):
             :type monitored: bool
         """
         self.monitor.props.monitored = monitored
+        self.collection.serialize_libraries()
+        self.collection._dirty = True
 
     monitored = property(get_monitored, set_monitored)
 

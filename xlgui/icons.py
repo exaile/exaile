@@ -622,12 +622,16 @@ class IconManager(object):
 
             :param stock_id: an icon name
             :type stock_id: string
-            :param size: the size of the icon
-            :type size: GtkIconSize
+            :param size: the size of the icon, will be
+                tried to converted to a GTK icon size
+            :type size: int or GtkIconSize
 
             :returns: the generated pixbuf
             :rtype: :class:`gtk.gdk.Pixbuf` or None
         """
+        icon_size = gtk.icon_size_lookup(size)
+        size = icon_size[0] or size
+
         try:
             pixbuf = self.icon_theme.load_icon(
                 icon_name, size, gtk.ICON_LOOKUP_NO_SVG)

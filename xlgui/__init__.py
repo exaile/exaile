@@ -30,11 +30,10 @@ import glib
 import gtk
 import logging
 
-from xl import xdg
 from xl import (
-    playlist as _xpl,
     player,
-    settings
+    settings,
+    xdg
 )
 from xl.nls import gettext as _
 from xlgui import guiutil

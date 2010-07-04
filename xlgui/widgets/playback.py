@@ -35,7 +35,6 @@ from xl import (
     xdg
 )
 from xl.nls import gettext as _
-
 from xlgui.widgets import menu
 
 class ProgressBarFormatter(formatter.ProgressTextFormatter):
@@ -122,7 +121,8 @@ class PlaybackProgressBar(gtk.ProgressBar):
         """
             Enables the update timer
         """
-        self.__disable_timer()
+        if self.__timer_id is not None:
+            return
 
         interval = settings.get_option('gui/progress_update_millisecs', 1000)
 

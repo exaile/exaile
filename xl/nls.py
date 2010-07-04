@@ -29,7 +29,7 @@
     code in a gettext fashion without a hard depend on gettext itself.
 """
 
-import locale
+import locale, sys
 
 from xl import xdg
 
@@ -43,14 +43,16 @@ try:
     import gettext as gettextmod
 
     # Required for gtk.Builder messages
-    locale.textdomain('exaile')
+    if sys.platform != 'win32': # Doesn't exist in Windows.
+        locale.textdomain('exaile')
     # Required for dynamically added messages
     gettextmod.textdomain('exaile')
 
     if xdg.local_hack: # running from source dir, so we have to set the paths
         import os.path
         locale_path = os.path.join(xdg.exaile_dir, 'po')
-        locale.bindtextdomain('exaile', locale_path)
+        if sys.platform != 'win32': # Doesn't exist in Windows.
+            locale.bindtextdomain('exaile', locale_path)
         gettextmod.bindtextdomain('exaile', locale_path)
 
     gettextfunc = gettextmod.gettext

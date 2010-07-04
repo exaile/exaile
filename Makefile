@@ -32,7 +32,6 @@ make-install-dirs:
 	mkdir -p $(EXAILELIBDIR)/xl/migrations/settings
 	mkdir -p $(EXAILELIBDIR)/xl/trax
 	mkdir -p $(EXAILELIBDIR)/xlgui
-	mkdir -p $(EXAILELIBDIR)/xlgui/actions
 	mkdir -p $(EXAILELIBDIR)/xlgui/panel
 	mkdir -p $(EXAILELIBDIR)/xlgui/preferences
 	mkdir -p $(EXAILELIBDIR)/xlgui/widgets
@@ -86,8 +85,6 @@ install-target: make-install-dirs
 	install -m 644 xl/trax/*.py $(EXAILELIBDIR)/xl/trax
 	-install -m 644 xlgui/*.py[co] $(EXAILELIBDIR)/xlgui
 	install -m 644 xlgui/*.py $(EXAILELIBDIR)/xlgui
-	-install -m 644 xlgui/actions/*.py[co] $(EXAILELIBDIR)/xlgui/actions
-	install -m 644 xlgui/actions/*.py $(EXAILELIBDIR)/xlgui/actions
 	-install -m 644 xlgui/panel/*.py[co] $(EXAILELIBDIR)/xlgui/panel
 	install -m 644 xlgui/panel/*.py $(EXAILELIBDIR)/xlgui/panel
 	-install -m 644 xlgui/preferences/*.py[co] $(EXAILELIBDIR)/xlgui/preferences

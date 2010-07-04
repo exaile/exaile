@@ -88,120 +88,235 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
             self.props.format = self.get_option_value()
 
 class PlaybackProgressBar(gtk.ProgressBar):
+    """
+        Progress bar which automatically follows playback
+    """
     def __init__(self):
         gtk.ProgressBar.__init__(self)
-        self.timer_id = None
-        self.seeking = False
-        self.formatter = ProgressBarFormatter()
 
         self.set_text(_('Not Playing'))
 
-        self.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-        self.add_events(gtk.gdk.BUTTON_RELEASE_MASK)
-        self.add_events(gtk.gdk.BUTTON_MOTION_MASK)
+        self._formatter = ProgressBarFormatter()
+        self.__timer_id = None
+        self.__events = ['playback_track_start', 'playback_player_end',
+                         'playback_toggle_pause', 'playback_error']
 
-        self.connect('button-press-event', self.seek_begin)
-        self.connect('button-release-event', self.seek_end)
-        self.connect('motion-notify-event', self.seek_motion_notify)
-
-        event.add_callback(self.playback_start,
-            'playback_player_start', player.PLAYER)
-        event.add_callback(self.playback_toggle_pause,
-            'playback_toggle_pause', player.PLAYER)
-        event.add_callback(self.playback_end,
-            'playback_player_end', player.PLAYER)
+        for e in self.__events:
+            event.add_callback(getattr(self, 'on_%s' % e), e)
 
     def destroy(self):
-        event.remove_callback(self.playback_start,
-                'playback_player_start', player.PLAYER)
-        event.remove_callback(self.playback_end,
-                'playback_player_end', player.PLAYER)
+        """
+            Cleanups
+        """
+        for e in self.__events:
+            event.remove_callback(getattr(self, 'on_%s' % e), e)
 
-    def seek_begin(self, *e):
-        self.seeking = True
-
-    def seek_end(self, widget, event):
-        mouse_x, mouse_y = event.get_coords()
-        progress_loc = self.get_allocation()
-
-        value = mouse_x / progress_loc.width
-        if value < 0: value = 0
-        if value > 1: value = 1
-
-        tr = player.PLAYER.current
-        if not tr or not (tr.is_local() or \
-                tr.get_tag_raw('__length')): return
-        length = tr.get_tag_raw('__length')
-
-        seconds = float(value * length)
-        player.PLAYER.seek(seconds)
-        self.seeking = False
-        self.set_fraction(value)
-        self.set_text(self.formatter.format(seconds, length))
-#        self.emit('seek', seconds)
-
-    def seek_motion_notify(self, widget, event):
-        tr = player.PLAYER.current
-        if not tr or not(tr.is_local() or \
-                tr.get_tag_raw('__length')): return
-
-        mouse_x, mouse_y = event.get_coords()
-        progress_loc = self.get_allocation()
-
-        value = mouse_x / progress_loc.width
-
-        if value < 0: value = 0
-        if value > 1: value = 1
-
-        self.set_fraction(value)
-        length = tr.get_tag_raw('__length')
-        seconds = float(value * length)
-        remaining_seconds = length - seconds
-        self.set_text(self.formatter.format(seconds, length))
-
-    def playback_start(self, type, player, object):
-        if self.timer_id:
-            glib.source_remove(self.timer_id)
-            self.timer_id = None
-        self.__add_timer_update()
-
-    def playback_toggle_pause(self, type, player, object):
-        if self.timer_id:
-            glib.source_remove(self.timer_id)
-            self.timer_id = None
-        if not player.is_paused():
-            self.__add_timer_update()
-
-    def __add_timer_update(self):
-        freq = settings.get_option("gui/progress_update_millisecs", 1000)
-        if freq % 1000 == 0:
-            self.timer_id = glib.timeout_add_seconds(freq/1000, self.timer_update)
-        else:
-            self.timer_id = glib.timeout_add(freq, self.timer_update)
-
-    def playback_end(self, type, player, object):
-        if self.timer_id: glib.source_remove(self.timer_id)
-        self.timer_id = None
-        self.set_text(_('Not Playing'))
+    def reset(self):
+        """
+            Resets the progress bar appearance
+        """
         self.set_fraction(0)
+        self.set_text(_('Not Playing'))
 
-    def timer_update(self, *e):
-        tr = player.PLAYER.current
-        if not tr: return
-        if self.seeking: return True
+    def __enable_timer(self):
+        """
+            Enables the update timer
+        """
+        self.__disable_timer()
 
-        if not tr.is_local() and not tr.get_tag_raw('__length'):
-            self.set_fraction(0)
-            self.set_text(_('Streaming...'))
-            return True
+        interval = settings.get_option('gui/progress_update_millisecs', 1000)
+
+        if interval % 1000 == 0:
+            self.__timer_id = glib.timeout_add_seconds(
+                interval / 1000, self.on_timer)
+        else:
+            self.__timer_id = glib.timeout_add(
+                interval, self.on_timer)
+
+        self.on_timer()
+
+    def __disable_timer(self):
+        """
+            Disables the update timer
+        """
+        if self.__timer_id is not None:
+            glib.source_remove(self.__timer_id)
+            self.__timer_id = None
+
+    def on_timer(self):
+        """
+            Updates progress bar appearance
+        """
+        if player.PLAYER.current is None:
+            self.__disable_timer()
+            self.reset()
+            return False
 
         self.set_fraction(player.PLAYER.get_progress())
-
-        seconds = player.PLAYER.get_time()
-        length = tr.get_tag_raw('__length')
-        self.set_text(self.formatter.format(seconds, length))
+        self.set_text(self._formatter.format())
 
         return True
+
+    def on_playback_track_start(self, event_type, player, track):
+        """
+            Starts update timer
+        """
+        self.reset()
+        self.__enable_timer()
+
+    def on_playback_player_end(self, event_type, player, track):
+        """
+            Stops update timer
+        """
+        self.__disable_timer()
+        self.reset()
+
+    def on_playback_toggle_pause(self, event_type, player, track):
+        """
+            Starts or stops update timer
+        """
+        if player.is_playing():
+            self.__enable_timer()
+        elif player.is_paused():
+            self.__disable_timer()
+
+    def on_playback_error(self, event_type, player, message):
+        """
+            Stops update timer
+        """
+        self.__disable_timer()
+        self.reset()
+
+class SeekProgressBar(PlaybackProgressBar):
+    """
+        Playback progress bar which allows for seeking
+    """
+    __gsignals__ = {
+        'button-press-event': 'override',
+        'button-release-event': 'override',
+        'motion-notify-event': 'override',
+        'key-press-event': 'override',
+        'key-release-event': 'override'
+    }
+
+    def __init__(self):
+        PlaybackProgressBar.__init__(self)
+
+        self.__seeking = False
+
+        self.add_events(gtk.gdk.BUTTON_PRESS_MASK |
+                        gtk.gdk.BUTTON_RELEASE_MASK |
+                        gtk.gdk.BUTTON_MOTION_MASK)
+        self.set_flags(self.flags() | gtk.CAN_FOCUS)
+
+    def do_button_press_event(self, event):
+        """
+            Prepares seeking
+        """
+        if event.button == 1:
+            if player.PLAYER.current is None:
+                return True
+            
+            length = player.PLAYER.current.get_tag_raw('__length')
+
+            if length is None:
+                return True
+            
+            fraction = event.x / self.allocation.width
+            fraction = max(0, fraction)
+            fraction = min(fraction, 1)
+
+            self.set_fraction(fraction)
+            self.set_text(_('Seeking: %s') % self._formatter.format(
+                current_time=length * fraction))
+            self.__seeking = True
+
+    def do_button_release_event(self, event):
+        """
+            Completes seeking
+        """
+        if event.button == 1 and self.__seeking:
+            length = player.PLAYER.current.get_tag_raw('__length')
+
+            fraction = event.x / self.allocation.width
+            fraction = max(0, fraction)
+            fraction = min(fraction, 1)
+
+            self.set_fraction(fraction)
+            player.PLAYER.set_progress(fraction)
+            self.set_text(self._formatter.format(
+                current_time=length * fraction))
+            self.__seeking = False
+
+    def do_motion_notify_event(self, event):
+        """
+            Updates progress bar while seeking
+        """
+        if self.__seeking:
+            press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
+            press_event.button = 1
+            press_event.x = event.x
+            press_event.y = event.y
+
+            self.emit('button-press-event', press_event)
+
+    def do_key_press_event(self, event):
+        """
+            Prepares seeking via keyboard interaction
+            * Alt+Up/Right: seek 1% forward
+            * Alt+Down/Left: seek 1% backward
+        """
+        if self.get_state() & gtk.STATE_INSENSITIVE:
+            return
+
+        if not event.state & gtk.gdk.MOD1_MASK:
+            return
+
+        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
+            direction = 1
+        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
+            direction = -1
+        else:
+            return
+        
+        press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
+        press_event.button = 1
+        new_fraction = self.get_fraction() + 0.01 * direction
+        press_event.x = self.allocation.width * new_fraction
+        press_event.y = float(self.allocation.y)
+
+        self.emit('button-press-event', press_event)
+
+    def do_key_release_event(self, event):
+        """
+            Completes seeking via keyboard interaction
+        """
+        if not event.state & gtk.gdk.MOD1_MASK:
+            return
+
+        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
+            direction = 1
+        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
+            direction = -1
+        else:
+            return
+
+        release_event = gtk.gdk.Event(gtk.gdk.BUTTON_RELEASE)
+        release_event.button = 1
+        new_fraction = self.get_fraction() + 0.01 * direction
+        release_event.x = self.allocation.width * new_fraction
+        release_event.y = float(self.allocation.y)
+
+        self.emit('button-release-event', release_event)
+
+    def on_timer(self):
+        """
+            Prevents update while seeking
+        """
+        if self.__seeking:
+            return True
+
+        return PlaybackProgressBar.on_timer(self)
 
 class VolumeControl(gtk.Alignment):
     """

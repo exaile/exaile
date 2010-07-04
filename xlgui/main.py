@@ -182,9 +182,11 @@ class MainWindow(gobject.GObject):
 
         self.splitter = self.builder.get_object('splitter')
 
-        self.progress_bar = playback.PlaybackProgressBar()
-        guiutil.gtk_widget_replace(self.builder.get_object('playback_progressbar'), self.progress_bar)
-
+        self.progress_bar = playback.SeekProgressBar()
+        guiutil.gtk_widget_replace(
+            self.builder.get_object('playback_progressbar'),
+            self.progress_bar
+        )
 
         for button in ('playpause', 'next', 'prev', 'stop'):
             setattr(self, '%s_button' % button,

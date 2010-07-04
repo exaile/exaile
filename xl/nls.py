@@ -30,6 +30,7 @@
 """
 
 import locale
+
 from xl import xdg
 
 try:
@@ -41,10 +42,16 @@ except locale.Error:
 try:
     import gettext as gettextmod
 
+    # Required for gtk.Builder messages
+    locale.textdomain('exaile')
+    # Required for dynamically added messages
     gettextmod.textdomain('exaile')
+
     if xdg.local_hack: # running from source dir, so we have to set the paths
         import os.path
-        gettextmod.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
+        locale_path = os.path.join(xdg.exaile_dir, 'po')
+        locale.bindtextdomain('exaile', locale_path)
+        gettextmod.bindtextdomain('exaile', locale_path)
 
     gettextfunc = gettextmod.gettext
 

@@ -26,45 +26,18 @@
 
 __all__ = ['main', 'panel', 'playlist']
 
-import logging
-import os
-
 import glib
 import gtk
+import logging
 
 from xl import xdg
-
-# TODO: Should actually be unnecessary thanks
-#       to gettext.bindtextdomain, which does
-#       not work however.
-try:
-    import gtk.glade
-except ImportError:
-    logger.warning(
-        "Failed to import gtk.glade, interface "
-        "will not be fully translated.")
-else:
-    gtk.glade.textdomain('exaile')
-    if xdg.local_hack:
-        import os
-        gtk.glade.bindtextdomain('exaile', os.path.join(xdg.exaile_dir, 'po'))
-
 from xl import (
-    event,
     playlist as _xpl,
     player,
     settings
 )
 from xl.nls import gettext as _
-
-from xlgui import (
-    cover,
-    devices,
-    guiutil,
-    icons,
-    preferences,
-)
-from xlgui.widgets import dialogs
+from xlgui import guiutil
 
 logger = logging.getLogger(__name__)
 
@@ -85,7 +58,7 @@ class Main(object):
 
             @param exaile: The Exaile instance
         """
-        from xlgui import main, panel, tray, progress
+        from xlgui import icons, main, panel, tray, progress
         from xlgui.panel import collection, radio, playlists, files
 
         gtk.gdk.set_program_class("Exaile")
@@ -95,7 +68,7 @@ class Main(object):
         self.tray_icon = None
         self.panels = {}
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path("ui/main.ui"))
+        self.builder.add_from_file(xdg.get_data_path('ui', 'main.ui'))
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
@@ -145,6 +118,8 @@ class Main(object):
             self.tray_icon = tray.TrayIcon(self.main)
 
         self.device_panels = {}
+
+        from xl import event
         event.add_callback(self.add_device_panel, 'device_connected')
         event.add_callback(self.remove_device_panel, 'device_disconnected')
         event.add_callback(self.on_gui_loaded, 'gui_loaded')
@@ -205,18 +180,21 @@ class Main(object):
         """
             Shows the cover manager
         """
-        window = cover.CoverManager(self.main.window,
+        from xlgui.cover import CoverManager
+        window = CoverManager(self.main.window,
             self.exaile.collection)
 
     def show_preferences(self):
         """
             Shows the preferences dialog
         """
-        dialog = preferences.PreferencesDialog(self.main.window, self)
+        from xlgui.preferences import PreferencesDialog
+        dialog = PreferencesDialog(self.main.window, self)
         dialog.run()
 
     def show_devices(self):
-        dialog = devices.ManagerDialog(self.main.window, self)
+        from xlgui.devices import ManagerDialog
+        dialog = ManagerDialog(self.main.window, self)
         dialog.run()
 
     def queue_manager(self, *e):

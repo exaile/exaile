@@ -29,7 +29,6 @@ import glob
 import glib
 import gtk
 import os
-import pango
 
 from xl import event, settings, xdg
 
@@ -443,7 +442,7 @@ class IconManager(object):
         self._cache = {}
 
         self.rating_active_pixbuf = extended_pixbuf_new_from_file(
-                xdg.get_data_path('images', 'star.png'))
+            xdg.get_data_path('images', 'star.png'))
         self.rating_inactive_pixbuf = extended_pixbuf_new_from_file(
             xdg.get_data_path('images', 'emptystar.png'))
         self.rating_pixbufs = []

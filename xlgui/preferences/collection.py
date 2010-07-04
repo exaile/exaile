@@ -14,11 +14,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xlgui.preferences import widgets
+import gtk
+
 from xl import xdg
 from xl.nls import gettext as _
+from xlgui.preferences import widgets
 
 name = _('Collection')
+icon = gtk.STOCK_HOME
 ui = xdg.get_data_path('ui', 'preferences', 'collection.ui')
 
 def _get_default_strip_list():

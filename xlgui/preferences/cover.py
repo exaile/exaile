@@ -24,11 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xlgui.preferences import widgets
+import gtk
+
 from xl import xdg, covers
 from xl.nls import gettext as _
+from xlgui import icons
+from xlgui.preferences import widgets
 
 name = _('Covers')
+icon = 'image-x-generic'
 ui = xdg.get_data_path('ui', 'preferences', 'cover.ui')
 
 class TagCoverFetching(widgets.CheckPreference):

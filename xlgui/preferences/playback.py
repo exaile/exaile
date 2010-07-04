@@ -32,6 +32,7 @@ from xl import main, xdg
 from xl.nls import gettext as _
 
 name = _('Playback')
+icon = gtk.STOCK_MEDIA_PLAY
 ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')
 
 class EnginePreference(widgets.ComboPreference):

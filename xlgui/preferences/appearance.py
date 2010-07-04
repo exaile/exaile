@@ -28,10 +28,10 @@ import glib
 
 from xl import common, xdg
 from xl.nls import gettext as _
-import xlgui
 from xlgui.preferences import widgets
 
 name = _('Appearance')
+icon = 'preferences-desktop-theme'
 ui = xdg.get_data_path('ui', 'preferences', 'appearance.ui')
 
 class SplashPreference(widgets.CheckPreference):
@@ -55,11 +55,10 @@ class TransparencyPreferfence(widgets.ScalePreference, widgets.CheckConditional)
     def __init__(self, preferences, widget):
         widgets.ScalePreference.__init__(self, preferences, widget)
         widgets.CheckConditional.__init__(self)
-        self.main_window = xlgui.get_controller().main.window
 
     def apply(self, value=None):
         return_value = widgets.ScalePreference.apply(self, value)
-        glib.idle_add(self.main_window.queue_draw)
+        glib.idle_add(self.preferences.parent.queue_draw)
 
         return return_value
 
@@ -75,7 +74,7 @@ class TrackCountsPreference(widgets.CheckPreference):
 
     @common.threaded
     def _reload_tree(self):
-        xlgui.get_controller().panels['collection'].load_tree()
+        self.preferences.parent.panels['collection'].load_tree()
 
 class UseTrayPreference(widgets.CheckPreference):
     default = False

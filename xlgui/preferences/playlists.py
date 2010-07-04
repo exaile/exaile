@@ -24,11 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xlgui.preferences import widgets
+import gtk
+
 from xl import xdg
 from xl.nls import gettext as _
+from xlgui.preferences import widgets
 
 name = _('Playlists')
+icon = gtk.gdk.pixbuf_new_from_file(
+    xdg.get_data_path('images', 'playlist.png'))
 ui = xdg.get_data_path('ui', 'preferences', 'playlists.ui')
 
 class OpenLastPreference(widgets.CheckPreference):

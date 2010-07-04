@@ -2,6 +2,16 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkTreeStore" id="model">
+    <columns>
+      <!-- column-name page -->
+      <column type="PyObject"/>
+      <!-- column-name title -->
+      <column type="gchararray"/>
+      <!-- column-name icon -->
+      <column type="GdkPixbuf"/>
+    </columns>
+  </object>
   <object class="GtkDialog" id="PreferencesDialog">
     <property name="width_request">630</property>
     <property name="height_request">500</property>
@@ -17,7 +27,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="border_width">4</property>
-            <property name="position">144</property>
+            <property name="position">170</property>
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow13">
                 <property name="visible">True</property>
@@ -29,6 +39,28 @@
                   <object class="GtkTreeView" id="preferences_tree">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="model">model</property>
+                    <property name="headers_visible">False</property>
+                    <property name="headers_clickable">False</property>
+                    <property name="search_column">1</property>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="column1">
+                        <property name="sizing">autosize</property>
+                        <property name="title">column</property>
+                        <child>
+                          <object class="GtkCellRendererPixbuf" id="icon_cellrenderer"/>
+                          <attributes>
+                            <attribute name="pixbuf">2</attribute>
+                          </attributes>
+                        </child>
+                        <child>
+                          <object class="GtkCellRendererText" id="title_cellrenderer"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>

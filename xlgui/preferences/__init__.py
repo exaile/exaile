@@ -40,6 +40,7 @@ import urllib2
 from xl import xdg
 from xl.nls import gettext as _
 from xl.settings import MANAGER
+from xlgui import icons
 from xlgui.preferences.widgets import *
 from xlgui.preferences import (
     appearance,
@@ -81,30 +82,53 @@ class PreferencesDialog(object):
         self.builder.set_translation_domain('exaile')
         self.builder.add_from_file(
             xdg.get_data_path('ui', 'preferences', 'preferences_dialog.ui'))
+        self.builder.connect_signals(self)
 
         self.window = self.builder.get_object('PreferencesDialog')
         self.window.set_transient_for(parent)
         self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.window.connect('delete-event', lambda *e: self.close())
 
-        self._connect_events()
-
         self.box = self.builder.get_object('preferences_box')
 
         self.tree = self.builder.get_object('preferences_tree')
-        text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_('Preferences'), text, text=0)
-        self.tree.append_column(col)
+        self.model = self.builder.get_object('model')
 
-        self.model = gtk.TreeStore(str, object)
-        self.tree.set_model(self.model)
-        select_path = (0,)
+        title_cellrenderer = self.builder.get_object('title_cellrenderer')
+        title_cellrenderer.props.ypad = 3
+
+        self.default_icon = icons.MANAGER.pixbuf_from_stock(
+            gtk.STOCK_PROPERTIES, gtk.ICON_SIZE_MENU)
 
         # sets up the default panes
         for page in self.PAGES:
-            self.model.append(None, [page.name, page])
+            icon = self.default_icon
 
-        self.plug_root = self.model.append(None, [_('Plugins'), plugin])
+            if hasattr(page, 'icon'):
+                if isinstance(page.icon, gtk.gdk.Pixbuf):
+                    icon = page.icon
+                else:
+                    stock_id = gtk.stock_lookup(page.icon)
+
+                    if stock_id is not None:
+                        icon = icons.MANAGER.pixbuf_from_stock(
+                            stock_id[0], gtk.ICON_SIZE_MENU)
+                    else:
+                        icon = icons.MANAGER.pixbuf_from_icon_name(
+                            page.icon, gtk.ICON_SIZE_MENU)
+
+            self.model.append(None, [page, page.name, icon])
+
+        icons.MANAGER.add_icon_name_from_file(
+            'plugins',
+            xdg.get_data_path('images', 'plugins.png'),
+            gtk.ICON_SIZE_MENU
+        )
+        # Use icon name to allow overrides
+        plugin_icon = icons.MANAGER.pixbuf_from_icon_name(
+            'plugins', gtk.ICON_SIZE_MENU)
+        self.plug_root = self.model.append(None,
+            [plugin, _('Plugins'), plugin_icon])
 
         self._load_plugin_pages()
 
@@ -113,9 +137,9 @@ class PreferencesDialog(object):
         # Disallow selection on rows with no widget to show
         # (e.g. the "Plugins" parent node).
         selection.set_select_function(lambda path:
-            self.model[path][1] is not None)
+            self.model[path][0] is not None)
 
-        glib.idle_add(selection.select_path, select_path)
+        glib.idle_add(selection.select_path, (0,))
 
     def _load_plugin_pages(self):
         self._clear_children(self.plug_root)
@@ -137,7 +161,22 @@ class PreferencesDialog(object):
         plugin_pages.sort(key=lambda x: locale.strxfrm(x.name))
 
         for page in plugin_pages:
-            self.model.append(self.plug_root, [page.name, page])
+            icon = self.default_icon
+
+            if hasattr(page, 'icon'):
+                if isinstance(page.icon, gtk.gdk.Pixbuf):
+                    icon = page.icon
+                else:
+                    stock_id = gtk.stock_lookup(page.icon)
+
+                    if stock_id is not None:
+                        icon = icons.MANAGER.pixbuf_from_stock(
+                            stock_id[0], gtk.ICON_SIZE_MENU)
+                    else:
+                        icon = icons.MANAGER.pixbuf_from_icon_name(
+                            page.icon, gtk.ICON_SIZE_MENU)
+
+            self.model.append(self.plug_root, [page, page.name, icon])
 
         glib.idle_add(self.tree.expand_row,
             self.model.get_path(self.plug_root), False)
@@ -151,12 +190,6 @@ class PreferencesDialog(object):
 
         for iter in remove:
             self.model.remove(iter)
-
-    def _connect_events(self):
-        """
-            Connects the various events to their handlers
-        """
-        self.builder.connect_signals(self)
 
     def on_close_button_clicked(self, widget):
         """
@@ -182,7 +215,7 @@ class PreferencesDialog(object):
         """
         (model, iter) = selection.get_selected()
         if not iter: return
-        page = self.model.get_value(iter, 1)
+        page = self.model.get_value(iter, 0)
         if not page: return
 
         if self.last_child:

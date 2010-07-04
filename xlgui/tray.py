@@ -98,8 +98,9 @@ class BaseTrayIcon(object):
         self.main = main
         self.VOLUME_STEP = 5
 
-        self.tooltip = TrackToolTip(
-            self, display_progress=True, auto_update=True)
+        self.tooltip = TrackToolTip(self)
+        self.tooltip.set_auto_update(True)
+        self.tooltip.set_display_progress(True)
 
         self.menu = menu.ProviderMenu('tray-icon-context', self)
         self.update_icon()
@@ -117,7 +118,7 @@ class BaseTrayIcon(object):
 
         self.disconnect_events()
         self.set_visible(False)
-
+        self.tooltip.destroy()
         event.log_event('tray_icon_toggled', self, False)
 
     def connect_events(self):
@@ -222,7 +223,6 @@ class BaseTrayIcon(object):
         """
         self.update_icon()
 
-
 class TrayIcon(gtk.StatusIcon, BaseTrayIcon):
     """
         Wrapper around GtkStatusIcon
@@ -230,6 +230,13 @@ class TrayIcon(gtk.StatusIcon, BaseTrayIcon):
     def __init__(self, main):
         gtk.StatusIcon.__init__(self)
         BaseTrayIcon.__init__(self, main)
+
+    def destroy(self):
+        """
+            Cleanups
+        """
+        BaseTrayIcon.destroy(self)
+        gtk.StatusIcon.destroy(self)
 
     def get_menu_position(self, menu, icon):
         """

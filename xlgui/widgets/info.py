@@ -44,19 +44,11 @@ import xlgui
 from xlgui import icons, playlist, guiutil
 from xlgui.widgets.playback import PlaybackProgressBar
 
-
 class TrackInfoPane(gtk.Alignment):
     """
         Displays cover art and track data
     """
-    def __init__(self, display_progress=False, auto_update=False):
-        """
-            :param display_progress: Toggles the display
-                of the playback indicator and progress bar
-                if the current track is played
-            :param auto_update: Toggles the automatic
-                following of playback state and track changes
-        """
+    def __init__(self):
         gtk.Alignment.__init__(self, xscale=1, yscale=1)
 
         builder = gtk.Builder()
@@ -66,15 +58,18 @@ class TrackInfoPane(gtk.Alignment):
         info_box = builder.get_object('info_box')
         info_box.reparent(self)
 
-        self._display_progress = display_progress
-        self._auto_update = auto_update
-        self._timer = None
-        self._track = None
-        self._formatter = formatter.TrackFormatter(
+        self.__auto_update = False
+        self.__display_progress = False
+        self.__formatter = formatter.TrackFormatter(
             _('<span size="x-large" weight="bold">$title</span>\n'
               'by $artist\n'
               'from $album')
         )
+        self.__default_text = ('<span size="x-large" '
+            'weight="bold">%s</span>' % _('Not Playing'))
+        self.__cover_size = None
+        self.__timer = None
+        self.__track = None
 
         self.cover_image = builder.get_object('cover_image')
         self.info_label = builder.get_object('info_label')
@@ -82,76 +77,101 @@ class TrackInfoPane(gtk.Alignment):
         self.progress_box = builder.get_object('progress_box')
         self.playback_image = builder.get_object('playback_image')
         self.progressbar = PlaybackProgressBar()
-        guiutil.gtk_widget_replace(builder.get_object('progressbar'), self.progressbar)
+        guiutil.gtk_widget_replace(builder.get_object('progressbar'),
+            self.progressbar)
 
-        if self._auto_update:
-            event.add_callback(self.on_playback_player_end,
-                'playback_player_end')
-            event.add_callback(self.on_playback_track_start,
-                'playback_track_start')
-            event.add_callback(self.on_playback_toggle_pause,
-                'playback_toggle_pause')
-            event.add_callback(self.on_playback_error,
-                'playback_error')
-            event.add_callback(self.on_track_tags_changed,
-                'track_tags_changed')
-            event.add_callback(self.on_cover_changed,
-                'cover_set')
-            event.add_callback(self.on_cover_changed,
-                'cover_removed')
-
-            if player.PLAYER.current is not None:
-                self.set_track(player.PLAYER.current)
-            else:
-                self.clear()
+        self.clear()
 
     def destroy(self):
         """
             Cleanups
         """
-        if self._auto_update:
-            event.remove_callback(self.on_playback_player_end,
-                'playback_player_end')
-            event.remove_callback(self.on_playback_track_start,
-                'playback_track_start')
-            event.remove_callback(self.on_playback_toggle_pause,
-                'playback_toggle_pause')
-            event.remove_callback(self.on_playback_error,
-                'playback_error')
-            event.remove_callback(self.on_track_tags_changed,
-                'track_tags_changed')
-            event.remove_callback(self.on_cover_changed,
-                'cover_set')
-            event.remove_callback(self.on_cover_changed,
-                'cover_removed')
+        # Make sure to disconnect callbacks
+        self.set__auto_update(False)
 
         gtk.Alignment.destroy(self)
 
-    def get_info_format(self):
+    def get_auto_update(self):
         """
-            Gets the current format used
-            to display the track data
+            Gets whether the info pane shall
+            be automatically updated or not
+
+            :rtype: bool
+        """
+        return self.__auto_update
+
+    def set_auto_update(self, auto_update):
+        """
+            Sets whether the info pane shall
+            be automatically updated or not
+
+            :param auto_update: enable or disable
+                automatic updating
+            :type auto_update: bool
+        """
+        if auto_update != self.__auto_update:
+            self.__auto_update = auto_update
+
+            events = ['playback_player_end', 'playback_track_start',
+                      'playback_toggle_pause', 'playback_error',
+                      'track_tags_changed', 'cover_set', 'cover_removed']
+
+            if auto_update:
+                for e in events:
+                    event.add_callback(getattr(self, 'on_%s' % e), e)
+
+                self.set_track(player.PLAYER.current)
+            else:
+                for e in events:
+                    event.remove_callback(getattr(self, 'on_%s' % e), e)
+
+    def get_cover_size(self):
+        """
+            Gets the preferred cover size
+            
+            :rtype: int
+        """
+        return self.__cover_size or \
+            settings.get_option('gui/cover_width', 100)
+
+    def set_cover_size(self, cover_size):
+        """
+            Overrides the cover size to display,
+            set to None to use global default
+
+            :param cover_size: the preferred cover size
+            :type cover_size: int
+        """
+        self.__cover_size = cover_size or \
+            settings.get_option('gui/cover_width', 100)
+
+    def get_default_text(self):
+        """
+            Gets the default text displayed
+            when the playback is stopped
 
             :rtype: string
         """
-        return self._formatter.get_property('format')
+        return self.__default_text
 
-    def set_info_format(self, format):
+    def set_default_text(self, default_text):
         """
-            Sets the format used to display the track data
+            Sets the default text displayed
+            when the playback is stopped
 
-            :param format: the format, see the documentation
-                of :class:`string.Template` for details
-            :type format: string
+            :param default_text: the new default text
+            :type default_text: string
         """
-        self._formatter.set_property('format', format)
+        self.__default_text = default_text
 
     def get_display_progress(self):
         """
             Returns whether the progress indicator
             is currently visible or not
+
+            :rtype: bool
         """
-        return self._display_progress
+        return self.__display_progress
 
     def set_display_progress(self, display_progress):
         """
@@ -163,7 +183,26 @@ class TrackInfoPane(gtk.Alignment):
                 or hide the progress indicator
             :type display_progress: bool
         """
-        self._display_progress = display_progress
+        self.__display_progress = display_progress
+
+    def get_info_format(self):
+        """
+            Gets the current format used
+            to display the track data
+
+            :rtype: string
+        """
+        return self.__formatter.get_property('format')
+
+    def set_info_format(self, format):
+        """
+            Sets the format used to display the track data
+
+            :param format: the format, see the documentation
+                of :class:`string.Template` for details
+            :type format: string
+        """
+        self.__formatter.set_property('format', format)
 
     def set_track(self, track):
         """
@@ -177,21 +216,25 @@ class TrackInfoPane(gtk.Alignment):
             self.clear()
             return
 
-        self._track = track
+        self.__track = track
 
         image_data = covers.MANAGER.get_cover(track, use_default=True)
-        width = settings.get_option('gui/cover_width', 100)
-        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, width))
+        size = self.get_cover_size()
+        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (size, size))
         self.cover_image.set_from_pixbuf(pixbuf)
 
-        self.info_label.set_markup(self._formatter.format(track, markup_escape=True))
+        self.info_label.set_markup(self.__formatter.format(
+            track, markup_escape=True))
 
-        if self._display_progress:
-            if track == player.PLAYER.current and not player.PLAYER.is_stopped():
+        if self.__display_progress:
+            if track == player.PLAYER.current and \
+               not player.PLAYER.is_stopped():
 
                 stock_id = gtk.STOCK_MEDIA_PLAY
+
                 if player.PLAYER.is_paused():
                     stock_id = gtk.STOCK_MEDIA_PAUSE
+
                 self.playback_image.set_from_stock(stock_id,
                     gtk.ICON_SIZE_SMALL_TOOLBAR)
 
@@ -203,14 +246,16 @@ class TrackInfoPane(gtk.Alignment):
         """
             Resets the info pane
         """
+        size = self.get_cover_size()
         pixbuf = icons.MANAGER.pixbuf_from_data(
-            covers.MANAGER.get_default_cover())
+            covers.MANAGER.get_default_cover(), (size, size))
         self.cover_image.set_from_pixbuf(pixbuf)
-        self.info_label.set_markup('<span size="x-large" '
-            'weight="bold">%s</span>' % _('Not Playing'))
+        self.info_label.set_markup(self.__default_text)
 
-        if self._display_progress:
+        if self.__display_progress:
             self.__hide_progress()
+
+        self.__track = None
 
     def get_action_area(self):
         """
@@ -255,7 +300,7 @@ class TrackInfoPane(gtk.Alignment):
         """
         self.set_track(track)
 
-    def on_playback_error(self, event, player, track):
+    def on_playback_error(self, event, player, message):
         """
             Clears the info pane on playback errors
         """
@@ -267,14 +312,21 @@ class TrackInfoPane(gtk.Alignment):
         """
         if player.PLAYER is not None and \
            not player.PLAYER.is_stopped() and \
-           track is self._track:
+           track is self.__track:
             self.set_track(track)
 
-    def on_cover_changed(self, event, covers, track):
+    def on_cover_set(self, event, covers, track):
         """
-            Updates the info pane on cover set/removal
+            Updates the info pane on cover set
         """
-        if track is self._track:
+        if track is self.__track:
+            self.set_track(track)
+
+    def on_cover_removed(self, event, covers, track):
+        """
+            Updates the info pane on cover removal
+        """
+        if track is self.__track:
             self.set_track(track)
 
 # TODO: Use single info label and formatter
@@ -462,40 +514,28 @@ class ToolTip(object):
 
         return True
 
-class TrackToolTip(ToolTip):
+class TrackToolTip(TrackInfoPane, ToolTip):
     """
         Track specific tooltip class, displays
         track data and progress indicators
     """
-    def __init__(self, parent, display_progress=False, auto_update=False):
+    def __init__(self, parent):
         """
             :param parent: the parent widget the tooltip
                 should be attached to
-            :param display_progress: Toggles the display
-                of the playback indicator and progress bar
-                if the current track is played
-            :param auto_update: Toggles the automatic
-                following of playback state and track changes
         """
-        self.info_pane = TrackInfoPane(display_progress, auto_update)
-        self.info_pane.set_padding(6, 6, 6, 6)
-        self.info_pane.info_label.set_ellipsize(pango.ELLIPSIZE_NONE)
+        TrackInfoPane.__init__(self)
+        ToolTip.__init__(self, parent, self)
 
-        ToolTip.__init__(self, parent, self.info_pane)
-    
-    def set_track(self, track):
-        """
-            Updates data displayed in the tooltip
-            :param track: A track to take the data from,
-                clears the tooltip if track is None
-        """
-        self.info_pane.set_track(track)
+        self.set_padding(6, 6, 6, 6)
+        self.info_label.set_ellipsize(pango.ELLIPSIZE_NONE)
 
-    def clear(self):
+    def destroy(self):
         """
-            Resets the tooltip
+            Cleanups
         """
-        self.info_pane.clear()
+        ToolTip.destroy(self)
+        TrackInfoPane.destroy(self)
 
 class TrackListToolTip(ToolTip):
 

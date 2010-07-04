@@ -120,10 +120,7 @@ class PreferencesDialog(object):
             self.model.append(None, [page, page.name, icon])
 
         icons.MANAGER.add_icon_name_from_file(
-            'plugins',
-            xdg.get_data_path('images', 'plugins.png'),
-            gtk.ICON_SIZE_MENU
-        )
+            'plugins', xdg.get_data_path('images', 'plugins.png'))
         # Use icon name to allow overrides
         plugin_icon = icons.MANAGER.pixbuf_from_icon_name(
             'plugins', gtk.ICON_SIZE_MENU)
@@ -135,7 +132,6 @@ class PreferencesDialog(object):
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)
         # Disallow selection on rows with no widget to show
-        # (e.g. the "Plugins" parent node).
         selection.set_select_function(lambda path:
             self.model[path][0] is not None)
 

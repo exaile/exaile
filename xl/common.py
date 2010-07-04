@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import inspect
 import gio
 import gobject
 import logging
@@ -578,5 +579,32 @@ def order_poset(items):
             del nextset[r]
         next = nextset.values()
     return result
+
+class LazyDict(object):
+    __slots__ = ['_dict', '_funcs', 'args']
+    def __init__(self, *args):
+        self.args = args
+        self._dict = {}
+        self._funcs = {}
+
+    def __setitem__(self, item, value):
+        if inspect.isfunction(value):
+            self._funcs[item] = value
+        else:
+            self._dict[item] = value
+
+    def __getitem__(self, item):
+        try:
+            return self._dict[item]
+        except KeyError:
+            val = self._funcs[item](item, *self.args)
+            self._dict[item] = val
+            return val
+
+    def get(self, item, default=None):
+        try:
+            return self[item]
+        except KeyError:
+            return default
 
 # vim: et sts=4 sw=4

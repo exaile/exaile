@@ -90,8 +90,8 @@ class CollectionContextMenu(menu.ProviderMenu):
         menu.ProviderMenu.__init__(self, 'collection-panel-context-menu', panel)
 
     def get_parent_context(self):
-        context = {}
-        context['selected-tracks'] = self._parent.tree.get_selected_tracks()
+        context = common.LazyDict(self._parent)
+        context['selected-tracks'] = lambda name, parent: parent.tree.get_selected_tracks()
         return context
 
 def first_meaningful_char(s):

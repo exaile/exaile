@@ -161,9 +161,9 @@ class PlaylistContextMenu(menu.ProviderMenu):
         menu.ProviderMenu.__init__(self, 'playlist-context-menu', page)
 
     def get_parent_context(self):
-        context = {}
-        context['selected-items'] = self._parent.get_selected_items()
-        context['selected-tracks'] = [t[1] for t in context['selected-items']]
+        context = common.LazyDict(self._parent)
+        context['selected-items'] = lambda name, parent: parent.get_selected_items()
+        context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
         return context
 
 def __create_playlist_context_menu():

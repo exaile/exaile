@@ -110,8 +110,9 @@ def get_rating_from_tracks(tracks):
     if len(tracks) < 1:
         return 0
 
-    if len(tracks) > settings.get_option('rating/tracks_limit', 100):
-        return 0
+# TODO: still needed?
+#    if len(tracks) > settings.get_option('rating/tracks_limit', 100):
+#        return 0
 
     rating = tracks[0].get_rating()
 

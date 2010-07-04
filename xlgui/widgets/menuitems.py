@@ -54,6 +54,7 @@ class RatingMenuItem(menu.MenuItem):
     def __init__(self, name, after, get_tracks_func=generic_get_tracks_func):
         menu.MenuItem.__init__(self, name, self.factory, after)
         self.get_tracks_func = get_tracks_func
+        self.rating_set = False
 
     def factory(self, menu, parent_obj, parent_context):
         item = rating.RatingMenuItem(auto_update=False)
@@ -63,13 +64,14 @@ class RatingMenuItem(menu.MenuItem):
 
         return item
 
+    @common.threaded
     def on_show(self, widget, menu, parent_obj, context):
         """
             Updates the menu item on show
         """
-        widget.disconnect(self._rating_changed_id)
         tracks = self.get_tracks_func(parent_obj, context)
         rating = trax.util.get_rating_from_tracks(tracks)
+        widget.disconnect(self._rating_changed_id)
         widget.props.rating = rating
         self._rating_changed_id = widget.connect('rating-changed',
             self.on_rating_changed, menu, parent_obj, context)
@@ -78,8 +80,8 @@ class RatingMenuItem(menu.MenuItem):
         """
             Passes the 'rating-changed' signal
         """
+        rating_set = True
         tracks = self.get_tracks_func(parent_obj, context)
-
         for track in tracks:
             track.set_rating(rating)
 

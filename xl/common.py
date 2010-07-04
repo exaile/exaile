@@ -24,6 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from __future__ import with_statement
+
 import inspect
 import gio
 import gobject
@@ -581,11 +583,12 @@ def order_poset(items):
     return result
 
 class LazyDict(object):
-    __slots__ = ['_dict', '_funcs', 'args']
+    __slots__ = ['_dict', '_funcs', 'args', '_locks']
     def __init__(self, *args):
         self.args = args
         self._dict = {}
         self._funcs = {}
+        self._locks = {}
 
     def __setitem__(self, item, value):
         if inspect.isfunction(value):
@@ -594,12 +597,15 @@ class LazyDict(object):
             self._dict[item] = value
 
     def __getitem__(self, item):
-        try:
-            return self._dict[item]
-        except KeyError:
-            val = self._funcs[item](item, *self.args)
-            self._dict[item] = val
-            return val
+        lock = self._locks.get(item, threading.Lock())
+        with lock:
+            try:
+                return self._dict[item]
+            except KeyError:
+                self._locks[item] = lock
+                val = self._funcs[item](item, *self.args)
+                self._dict[item] = val
+                return val
 
     def get(self, item, default=None):
         try:

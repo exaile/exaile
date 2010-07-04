@@ -14,14 +14,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os
-from xlgui.preferences import widgets
+import os.path
+
 from xl import xdg
 from xl.nls import gettext as _
+from xlgui import icons
+from xlgui.preferences import widgets
 
 name = _('AudioScrobbler')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "asprefs_pane.ui")
+
+icons.MANAGER.add_icon_name_from_directory('lastfm',
+    os.path.join(basedir, 'icons'))
+icon = 'lastfm'
 
 class SubmitPreference(widgets.CheckPreference):
     default = True

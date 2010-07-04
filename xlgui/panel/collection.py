@@ -82,12 +82,12 @@ def __create_collection_panel_context_menu():
             after=[items[-1].name],
             delete_tracks_func=collection_delete_tracks_func))
     for item in items:
-        providers.register('collection-context-menu', item)
+        providers.register('collection-panel-context-menu', item)
 __create_collection_panel_context_menu()
 
 class CollectionContextMenu(menu.ProviderMenu):
     def __init__(self, panel):
-        menu.ProviderMenu.__init__(self, 'collection-context-menu', panel)
+        menu.ProviderMenu.__init__(self, 'collection-panel-context-menu', panel)
 
     def get_parent_context(self):
         context = {}

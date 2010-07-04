@@ -31,7 +31,7 @@
 # TODO: how should we document standardization of context's
 # selected-(items|tracks) ?
 
-import gtk
+import gtk, gio
 
 from xl import common, player, trax
 from xl.nls import gettext as _

@@ -26,13 +26,40 @@
 
 import locale, logging, os, re, urllib
 
-import gio, glib, gobject, gtk
+import gio, glib, gobject, gtk, pango
 
-from xl import common, event, metadata, settings, trax
-from xlgui import guiutil, panel, playlist, menu, xdg
+from xl import common, event, metadata, settings, trax, providers
+from xlgui import guiutil, panel, playlist, xdg
+from xlgui.widgets import menu, menuitems
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
+
+
+def __create_files_panel_context_menu():
+    items = []
+    items.append(menuitems.AppendMenuItem('append', after=[]))
+    items.append(menuitems.ReplaceCurrentMenuItem('replace', after=[items[-1].name]))
+    items.append(menuitems.EnqueueMenuItem('enqueue', after=[items[-1].name]))
+    items.append(menu.simple_separator('sep', after=[items[-1].name]))
+    items.append(menuitems.PropertiesMenuItem('properties', after=[items[-1].name]))
+    items.append(menuitems.OpenDirectoryMenuItem('open-drectory', after=[items[-1].name]))
+    def delete_tracks_func(parent, context, tracks):
+        menuitems.generic_delete_tracks_func(parent, context, tracks)
+        parent.refresh(None)
+    items.append(menuitems.DeleteTracksMenuItem('delete-tracks', after=[items[-1].name], delete_tracks_func=delete_tracks_func))
+    for item in items:
+        providers.register('files-panel-context-menu', item)
+__create_files_panel_context_menu()
+
+class FilesContextMenu(menu.ProviderMenu):
+    def __init__(self, panel):
+        menu.ProviderMenu.__init__(self, 'files-panel-context-menu', panel)
+
+    def get_parent_context(self):
+        context = {}
+        context['selected-tracks'] = self._parent.tree.get_selected_tracks()
+        return context
 
 class FilesPanel(panel.Panel):
     """
@@ -59,18 +86,7 @@ class FilesPanel(panel.Panel):
 
         self._setup_tree()
         self._setup_widgets()
-        self.menu = menu.FilesPanelMenu()
-        self.menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.tree.get_selected_tracks()))
-        self.menu.connect('replace-items', lambda *e:
-            self.emit('replace-items', self.tree.get_selected_tracks()))
-        self.menu.connect('queue-items', lambda *e:
-            self.emit('queue-items', self.tree.get_selected_tracks()))
-        self.menu.connect('rating-changed', self.set_rating)
-        self.menu.connect('properties', lambda *e:
-            self.properties_dialog())
-        self.menu.connect('view-items', lambda *e:
-            self._on_view_items())
+        self.menu = FilesContextMenu(self)
 
         self.key_id = None
         self.i = 0
@@ -79,35 +95,6 @@ class FilesPanel(panel.Panel):
             xdg.homedir))
         self.history = [first_dir]
         self.load_directory(first_dir, False)
-
-    def properties_dialog(self):
-        """
-            Shows the properties dialog
-        """
-        from xlgui import properties
-        tracks = self.tree.get_selected_tracks()
-
-        if not tracks:
-            return False
-
-        tracks_sorted = trax.sort_tracks(
-            ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
-            tracks)
-
-        dialog = properties.TrackPropertiesDialog(self.parent,
-            tracks_sorted)
-
-    def _on_view_items(self, *args):
-        """
-            Opens a file manager in the containing directory
-        """
-        track = self.tree.get_selected_tracks()[0]
-        common.open_file_directory(track.get_loc_for_io())
-
-    def set_rating(self, widget, rating):
-        tracks = self.tree.get_selected_tracks()
-        for track in tracks:
-            track.set_rating(rating)
 
     def _setup_tree(self):
         """
@@ -134,7 +121,6 @@ class FilesPanel(panel.Panel):
         colname.pack_start(pb, False)
         colname.pack_start(text, True)
         if settings.get_option('gui/ellipsize_text_in_panels', False):
-            import pango
             text.set_property('ellipsize-set', True)
             text.set_property('ellipsize', pango.ELLIPSIZE_END)
         else:
@@ -392,7 +378,6 @@ class FilesPanel(panel.Panel):
 
         subdirs = []
         subfiles = []
-        import locale
         for info in infos:
             if info.get_is_hidden():
                 # Ignore hidden files. They can still be accessed manually from

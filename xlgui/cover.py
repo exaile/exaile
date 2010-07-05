@@ -52,6 +52,7 @@ from xlgui import (
     guiutil,
     icons
 )
+from xlgui.widgets import dialogs
 logger = logging.getLogger(__name__)
 
 class CoverManager(object):
@@ -76,11 +77,16 @@ class CoverManager(object):
         self.window = self.builder.get_object('CoverManager')
         self.window.set_transient_for(parent)
 
+        self.message = dialogs.MessageBar(
+            parent=self.builder.get_object('content_area'),
+            buttons=gtk.BUTTONS_CLOSE
+        )
+
         self.icons = self.builder.get_object('cover_icon_view')
         self.icons.connect('button-press-event',
             self._on_button_press)
         self.progress = self.builder.get_object('progress')
-        self.stop_button = self.builder.get_object('stop_button')
+        self.start_button = self.builder.get_object('start_button')
         self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
         self.icons.set_item_width(100)
 
@@ -143,7 +149,15 @@ class CoverManager(object):
         if item:
             track = self.track_dict[item][0]
             window = CoverChooser(self.window, track)
+            window.connect('message', self.on_message)
             window.connect('cover-chosen', self.on_cover_chosen)
+
+    def on_message(self, widget, message_type, message):
+        """
+            Display cover chooser messages
+        """
+        if message_type == gtk.MESSAGE_INFO:
+            self.message.show_info(message)
 
     def on_cover_chosen(self, object, cover_data):
         paths = self.icons.get_selected_items()
@@ -234,8 +248,8 @@ class CoverManager(object):
             Connects the various events
         """
         self.builder.connect_signals({
-            'on_stop_button_clicked': self._toggle_find,
-            'on_cancel_button_clicked': self._on_destroy
+            'on_close_button_clicked': self._on_destroy,
+            'on_start_button_clicked': self._toggle_find,
         })
 
         self.window.connect('delete-event', self._on_destroy)
@@ -299,9 +313,9 @@ class CoverManager(object):
         self.progress.set_fraction(0)
         self._stopped = True
         cover_manager.save()
-        self.stop_button.set_use_stock(False)
-        self.stop_button.set_label(_('Start'))
-        self.stop_button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES,
+        self.start_button.set_use_stock(False)
+        self.start_button.set_label(_('Start'))
+        self.start_button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES,
             gtk.ICON_SIZE_BUTTON))
 
     def _on_destroy(self, *e):
@@ -313,14 +327,14 @@ class CoverManager(object):
             Toggles cover finding
         """
         if self._stopped:
-            self.stop_button.set_use_stock(True)
-            self.stop_button.set_label(gtk.STOCK_STOP)
+            self.start_button.set_use_stock(True)
+            self.start_button.set_label(gtk.STOCK_STOP)
             self._find_covers()
         else:
             self._stopped = True
-            self.stop_button.set_use_stock(False)
-            self.stop_button.set_label(_('Start'))
-            self.stop_button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES,
+            self.start_button.set_use_stock(False)
+            self.start_button.set_label(_('Start'))
+            self.start_button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES,
                 gtk.ICON_SIZE_BUTTON))
 
 class CoverMenu(guiutil.Menu):
@@ -421,6 +435,7 @@ class CoverWidget(gtk.EventBox):
         """
         if not player.PLAYER.current: return
         window = CoverChooser(self.parent_window, player.PLAYER.current)
+        window.connect('message', self.on_message)
         window.connect('cover-chosen', self.on_cover_chosen)
 
     def remove_cover(self):
@@ -548,6 +563,13 @@ class CoverWidget(gtk.EventBox):
                 self.image.set_from_pixbuf(pixbuf)
                 cover_manager.set_cover(player.PLAYER.current, db_string,
                     self.cover_data)
+
+    def on_message(self, widget, message_type, message):
+        """
+            Display cover chooser messages
+        """
+        if message_type == gtk.MESSAGE_INFO:
+            xlgui.main.mainwindow().message.show_info(message)
 
     def on_cover_chosen(self, object, cover_data):
         """
@@ -758,7 +780,16 @@ class CoverChooser(gobject.GObject):
         one out of the list
     """
     __gsignals__ = {
-        'cover-chosen': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'cover-chosen': (
+            gobject.SIGNAL_RUN_LAST,
+            None, (object,)
+        ),
+        'message': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (gtk.MessageType, gobject.TYPE_STRING),
+            gobject.signal_accumulator_true_handled
+        )
     }
     def __init__(self, parent, track, search=None):
         """
@@ -819,11 +850,7 @@ class CoverChooser(gobject.GObject):
 
             glib.idle_add(self.show_cover, covers[0])
         else:
-            glib.idle_add(self.__show_no_cover_found)
-
-    def __show_no_cover_found(self):
-        message = xlgui.main.mainwindow().message
-        message.show_info(_('No covers found.'))
+            self.emit('message', gtk.MESSAGE_INFO, _('No covers found.'))
 
     def on_previous_button_clicked(self, button):
         """

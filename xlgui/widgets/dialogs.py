@@ -722,7 +722,7 @@ class PlaylistExportDialog(FileOperationDialog):
         'message': (
             gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_BOOLEAN,
-            (gobject.TYPE_PYOBJECT, gobject.TYPE_STRING),
+            (gtk.MessageType, gobject.TYPE_STRING),
             gobject.signal_accumulator_true_handled
         )
     }

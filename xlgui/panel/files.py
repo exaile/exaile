@@ -407,17 +407,21 @@ class FilesPanel(panel.Panel):
             if self.current != directory: # Modified from another thread.
                 return
 
-            self.model.clear()
+            model = self.model
+            view = self.tree
 
+            model.clear()
             for sortname, name, f in subdirs:
-                self.model.append((f, self.directory, name, ''))
-
+                model.append((f, self.directory, name, ''))
             for sortname, name, f in subfiles:
                 size = f.query_info('standard::size').get_size() // 1024
                 size = locale.format_string(_("%d KB"), size, True)
-                self.model.append((f, self.track, name, size))
+                model.append((f, self.track, name, size))
 
-            self.tree.set_model(self.model)
+            if model.get_iter_first():
+                view.set_cursor((0,))
+            if view.flags() & gtk.REALIZED:
+                view.scroll_to_point(0, 0)
 
             self.entry.set_text(directory.get_parse_name())
             if history:

@@ -164,12 +164,12 @@ def _on_trash_tracks(widget, name, parent, context,
         trash_tracks_func(parent, context, tracks)
     except:
         dialog = gtk.MessageDialog(type=gtk.MESSAGE_WARNING,
-            message_format=_('The files cannot be moved to the Trash.'
+            message_format=_('The files cannot be moved to the Trash. '
                              'Delete them permanently from the disk?'))
         dialog.add_buttons(
             gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_DELETE, gtk.RESPONSE_OK)
-        dialog.set_alternative_button_order(gtk.RESPONSE_OK, gtk.RESPONSE_CANCEL)
+        dialog.set_alternative_button_order((gtk.RESPONSE_OK, gtk.RESPONSE_CANCEL))
 
         if dialog.run() == gtk.RESPONSE_OK:
             delete_tracks_func(parent, context, tracks)

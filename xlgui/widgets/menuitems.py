@@ -145,30 +145,43 @@ def OpenDirectoryMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(name, after, _("Open Directory"),
             'gtk-open', _open_directory_cb, callback_args=[get_tracks_func])
 
+def generic_trash_tracks_func(parent, context, tracks):
+    for track in tracks:
+        gfile = gio.File(track.get_loc_for_io())
+        gfile.trash()
 
 def generic_delete_tracks_func(parent, context, tracks):
-    for tr in tracks:
-        f = gio.File(tr.get_loc_for_io())
-        f.delete()
+    for track in tracks:
+        gfile = gio.File(track.get_loc_for_io())
+        gfile.delete()
 
-def _delete_tracks_cb(widget, name, parent, context,
-        get_tracks_func, delete_tracks_func):
-    dialog = gtk.MessageDialog(type=gtk.MESSAGE_QUESTION,
-                buttons=gtk.BUTTONS_YES_NO,
-                message_format=_("This will permanantly delete the selected "
-                    "tracks from your disk, are you sure you wish to continue?")
-                )
-    res = dialog.run()
-    if res == gtk.RESPONSE_YES:
-        delete_tracks_func(parent, context, get_tracks_func(parent, context))
-    dialog.destroy()
+def _on_trash_tracks(widget, name, parent, context,
+                     get_tracks_func, trash_tracks_func, delete_tracks_func):
 
+    tracks = get_tracks_func(parent, context)
 
-def DeleteTracksMenuItem(name, after, get_tracks_func=generic_get_tracks_func,
-        delete_tracks_func=generic_delete_tracks_func):
-    return menu.simple_menu_item(name, after, _("Delete Tracks From Storage"),
-            'gtk-delete', _delete_tracks_cb,
-            callback_args=[get_tracks_func, delete_tracks_func])
+    try:
+        trash_tracks_func(parent, context, tracks)
+    except:
+        dialog = gtk.MessageDialog(type=gtk.MESSAGE_WARNING,
+            message_format=_('The files cannot be moved to the Trash.'
+                             'Delete them permanently from the disk?'))
+        dialog.add_buttons(
+            gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_DELETE, gtk.RESPONSE_OK)
+        dialog.set_alternative_button_order(gtk.RESPONSE_OK, gtk.RESPONSE_CANCEL)
+
+        if dialog.run() == gtk.RESPONSE_OK:
+            delete_tracks_func(parent, context, tracks)
+
+        dialog.destroy()
+
+def TrashMenuItem(name, after, get_tracks_func=generic_get_tracks_func,
+                  trash_tracks_func=generic_trash_tracks_func,
+                  delete_tracks_func=generic_delete_tracks_func):
+    return menu.simple_menu_item(name, after, _('Move to Trash'), 'user-trash',
+        _on_trash_tracks, callback_args=[get_tracks_func,
+            trash_tracks_func, delete_tracks_func])
 
 ### END TRACKS ITEMS ###
 

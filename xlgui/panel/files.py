@@ -44,10 +44,11 @@ def __create_files_panel_context_menu():
     items.append(menu.simple_separator('sep', after=[items[-1].name]))
     items.append(menuitems.PropertiesMenuItem('properties', after=[items[-1].name]))
     items.append(menuitems.OpenDirectoryMenuItem('open-drectory', after=[items[-1].name]))
-    def delete_tracks_func(parent, context, tracks):
-        menuitems.generic_delete_tracks_func(parent, context, tracks)
+    def trash_tracks_func(parent, context, tracks):
+        menuitems.generic_trash_tracks_func(parent, context, tracks)
         parent.refresh(None)
-    items.append(menuitems.DeleteTracksMenuItem('delete-tracks', after=[items[-1].name], delete_tracks_func=delete_tracks_func))
+    items.append(menuitems.TrashMenuItem('trash-tracks',
+        after=[items[-1].name], trash_tracks_func=trash_tracks_func))
     for item in items:
         providers.register('files-panel-context-menu', item)
 __create_files_panel_context_menu()

@@ -76,11 +76,13 @@ def __create_collection_panel_context_menu():
     items.append(menuitems.PropertiesMenuItem('properties',
             after=[items[-1].name], get_tracks_func=sorted_get_tracks_func))
     items.append(menuitems.OpenDirectoryMenuItem('open-drectory', after=[items[-1].name]))
+
     def collection_delete_tracks_func(panel, context, tracks):
         panel.collection.delete_tracks(tracks)
-    items.append(menuitems.DeleteTracksMenuItem('delete-tracks', 
-            after=[items[-1].name],
-            delete_tracks_func=collection_delete_tracks_func))
+    items.append(menuitems.TrashMenuItem('trash-tracks',
+        after=[items[-1].name],
+        delete_tracks_func=collection_delete_tracks_func))
+
     for item in items:
         providers.register('collection-panel-context-menu', item)
 __create_collection_panel_context_menu()

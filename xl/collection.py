@@ -405,7 +405,7 @@ class LibraryMonitor(gobject.GObject):
                 self.__monitored = value
                 update_thread = threading.Thread(target=self.__update_monitors)
                 update_thread.daemon = True
-                update_thread.start()
+                glib.idle_add(update_thread.start)
         else:
             raise AttributeError('unkown property %s' % property.name)
 

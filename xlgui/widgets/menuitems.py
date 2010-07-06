@@ -31,7 +31,7 @@
 # TODO: how should we document standardization of context's
 # selected-(items|tracks) ?
 
-import gtk, gio
+import gio, glib, gtk
 
 from xl import common, player, trax
 from xl.nls import gettext as _
@@ -162,7 +162,7 @@ def _on_trash_tracks(widget, name, parent, context,
 
     try:
         trash_tracks_func(parent, context, tracks)
-    except:
+    except glib.GError:
         dialog = gtk.MessageDialog(type=gtk.MESSAGE_WARNING,
             message_format=_('The files cannot be moved to the Trash. '
                              'Delete them permanently from the disk?'))

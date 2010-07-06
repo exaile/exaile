@@ -242,10 +242,10 @@ class BasePlaylistPanelMixin(gobject.GObject):
         if selected_playlist is not None:
             if isinstance(selected_playlist, playlist.SmartPlaylist):
                 self.smart_manager.remove_playlist(
-                    selected_playlist.get_name())
+                    selected_playlist.name)
             else:
                 self.playlist_manager.remove_playlist(
-                    selected_playlist.get_name())
+                    selected_playlist.name)
             #remove from UI
             selection = self.tree.get_selection()
             (model, iter) = selection.get_selected()
@@ -265,7 +265,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
 
         playlist = self.tree.get_selected_page()
         if playlist is not None:
-            old_name = playlist.get_name()
+            old_name = playlist.name
             selection = self.tree.get_selection()
             (model, iter) = selection.get_selected()
             model.set_value(iter, 1, name)
@@ -306,7 +306,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
                     item = item.get_playlist(self.collection)
                 else:
                     #Get an up to date copy
-                    item = self.playlist_manager.get_playlist(item.get_name())
+                    item = self.playlist_manager.get_playlist(item.name)
                     item.set_is_custom(True)
 
 #                self.controller.main.add_playlist(item)
@@ -589,7 +589,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def refresh_saved_playlist(self, type, object, playlist):
         for plx in self.playlist_nodes:
-            if plx.get_name() == playlist.get_name():
+            if plx.name == playlist.name:
                 self.update_playlist_node(playlist)
                 break
 
@@ -630,7 +630,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
         playlists = self.playlist_nodes.keys()
         for playlist in playlists:
-            if playlist.get_name() == pl.get_name():
+            if playlist.name == pl.name:
                 node = self.playlist_nodes[playlist]
                 del self.playlist_nodes[playlist]
                 self.playlist_nodes[pl] = node
@@ -709,7 +709,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             CRITERIA)
 
         dialog.set_transient_for(self.parent)
-        dialog.set_name(pl.get_name())
+        dialog.set_name(pl.name)
         dialog.set_match_any(pl.get_or_match())
         dialog.set_limit(pl.get_return_limit())
         dialog.set_random(pl.get_random_sort())
@@ -740,7 +740,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 except ValueError:
                     pass # playlist didn't exist
 
-            self.smart_manager.remove_playlist(pl.get_name())
+            self.smart_manager.remove_playlist(pl.name)
             pl = playlist.SmartPlaylist(name, self.collection)
             pl.set_or_match(matchany)
             pl.set_return_limit(limit)
@@ -769,7 +769,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             drag_source = self.tree.get_selected_page()
             # verify names
             if drag_source is not None:
-                if drag_source.get_name() == playlist_name:
+                if drag_source.name == playlist_name:
                     drop_info = tv.get_dest_row_at_pos(x, y)
                     drag_source_iter = self.playlist_nodes[drag_source]
                     if drop_info:
@@ -779,11 +779,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                         if position == gtk.TREE_VIEW_DROP_BEFORE:
                             # Put the playlist before drop_target
                             self.model.move_before(drag_source_iter, drop_target_iter)
-                            self.playlist_manager.move(playlist_name, drop_target.get_name(), after = False)
+                            self.playlist_manager.move(playlist_name, drop_target.name, after = False)
                         else:
                             # put the playlist after drop_target
                             self.model.move_after(drag_source_iter, drop_target_iter)
-                            self.playlist_manager.move(playlist_name, drop_target.get_name(), after = True)
+                            self.playlist_manager.move(playlist_name, drop_target.name, after = True)
             # Even though we are doing a move we still don't
             # call the delete method because we take care
             # of it above by moving instead of inserting/deleting
@@ -865,7 +865,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # First see if they dragged any playlist files
             for new_playlist in playlists:
                 self.playlist_nodes[new_playlist] = self.model.append(self.custom,
-                    [self.playlist_image, new_playlist.get_name(),
+                    [self.playlist_image, new_playlist.name,
                     new_playlist])
                 self._load_playlist_nodes(new_playlist)
 
@@ -893,7 +893,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if info == self.playlist_name_info:
             pl = self.tree.get_selected_page()
             if pl is not None:
-                selection_data.set(gtk.gdk.SELECTION_TYPE_STRING, 8, pl.get_name())
+                selection_data.set(gtk.gdk.SELECTION_TYPE_STRING, 8, pl.name)
         else:
             pl = self.tree.get_selected_page()
             if pl is not None:

@@ -1007,8 +1007,8 @@ class SeekProgressBar(PlaybackProgressBar):
         """
             Sets up editing cancel on toplevel focus out
         """
-        def on_toplevel_focus_out_event(widget, event):
-            self.emit('focus-out-event', event)
+        self.get_toplevel().connect('focus-out-event',
+            lambda w, e: self.emit('focus-out-event', e))
 
     def on_marker_menu_deactivate(self, menu):
         """

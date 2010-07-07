@@ -618,7 +618,7 @@ class TagField(gtk.HBox):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return self.field.get_text()
+        return unicode(self.field.get_text(), 'utf-8')
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -669,11 +669,11 @@ class TagTextField(gtk.HBox):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return self.buffer.get_text(
+        return unicode(self.buffer.get_text(
             self.buffer.get_start_iter(),
             self.buffer.get_end_iter(),
             True
-        )
+        ), 'utf-8')
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -724,7 +724,7 @@ class TagNumField(gtk.HBox):
                 self.all_button.set_active(False)
 
     def get_value(self):
-        return str(int(self.field.get_value()))
+        return unicode(int(self.field.get_value()))
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
@@ -802,15 +802,15 @@ class TagDblNumField(gtk.HBox):
                         self.all_button[i].set_active(False)
 
     def get_value(self):
-        f0 = str(int(self.field[0].get_value()))
-        f1 = str(int(self.field[1].get_value()))
+        f0 = unicode(int(self.field[0].get_value()))
+        f1 = unicode(int(self.field[1].get_value()))
         return f0 + '/' + f1
 
     def register_update_func(self, f):
         tag = self.parent_row.tag
         multi_id = self.parent_row.multi_id
-        val = str(self.field[0].get_value()) + '/' \
-                + str(self.field[1].get_value())
+        val = unicode(self.field[0].get_value()) + '/' \
+                + unicode(self.field[1].get_value())
         self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
         self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
 

@@ -334,7 +334,7 @@ class DbusManager(dbus.service.Object):
             Toggle Play or Pause
         """
         from xl import player
-        if player.PLAYER.get_state() == 'stopped':
+        if player.PLAYER.is_stopped():
             player.PLAYER.play(player.QUEUE.get_current())
         else:
             player.PLAYER.toggle_pause()

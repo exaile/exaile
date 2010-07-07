@@ -65,12 +65,12 @@ class PlayQueue(playlist.Playlist):
     current_playlist = property(lambda self: self.__current_playlist,
         set_current_playlist)
 
-    def next(self, player=True, track=None):
+    def next(self, autoplay=True, track=None):
         """
             Goes to the next track, either in the queue, or in the current
             playlist.  If a track is passed in, that track is played
 
-            :param player: play the track in addition to returning it
+            :param autoplay: play the track in addition to returning it
             :param track: if passed, play this track
         """
         if not track:
@@ -87,8 +87,10 @@ class PlayQueue(playlist.Playlist):
                     self.current_playing = False
                 else:
                     track = None
-        if player:
+
+        if autoplay:
             self.player.play(track)
+
         if not track:
             event.log_event("playback_playlist_end", self,
                         self.current_playlist)

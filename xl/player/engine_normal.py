@@ -90,7 +90,7 @@ class NormalPlayer(_base.ExailePlayer):
 
     def on_about_to_finish(self, pbin):
         #print "ABOUT TO FINISH!"
-        tr = self._queue.next(player=False)
+        tr = self._queue.next(autoplay=False)
         if tr:
             self.play(tr, stop_last=False)
         else:

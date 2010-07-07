@@ -62,7 +62,7 @@ def __create_tray_context_menu():
     # ----
     items.append(sep('playlist-mode-sep', [items[-1].name]))
     # Rating
-    def rating_get_tracks_func(parent_obj, context):
+    def rating_get_tracks_func(parent, context):
         current = player.PLAYER.current
         if current:
             return [current]
@@ -71,7 +71,7 @@ def __create_tray_context_menu():
     items.append(menuitems.RatingMenuItem('rating', [items[-1].name],
         rating_get_tracks_func))
     # Remove
-    def remove_current_cb(widget, menuobj, parent_obj, context):
+    def remove_current_cb(widget, menuobj, parent, context):
         pl = player.QUEUE.current_playlist
         if pl and pl.current == player.PLAYER.current:
             del pl[pl.current_position]

@@ -61,7 +61,7 @@ logger = logging.getLogger(__name__)
 
 
 
-def default_get_playlist_func(parent, parent_context):
+def default_get_playlist_func(parent, context):
     return player.QUEUE.current_playlist
 
 class ModesMenuItem(menu.MenuItem):
@@ -76,14 +76,14 @@ class ModesMenuItem(menu.MenuItem):
         menu.MenuItem.__init__(self, name, None, after)
         self.get_playlist_func = get_playlist_func
 
-    def factory(self, menu, parent_obj, parent_context):
+    def factory(self, menu, parent, context):
         item = gtk.ImageMenuItem(self.display_name)
         image = gtk.image_new_from_icon_name('media-playlist-'+self.modetype,
                 size=gtk.ICON_SIZE_MENU)
         item.set_image(image)
         submenu = self.create_mode_submenu(item)
         item.set_submenu(submenu)
-        pl = self.get_playlist_func(parent_obj, parent_context)
+        pl = self.get_playlist_func(parent, context)
         item.set_sensitive(pl != None)
         return item
 
@@ -106,14 +106,14 @@ class ModesMenuItem(menu.MenuItem):
             m.add_item(item)
         return m
 
-    def mode_is_selected(self, name, parent_obj, parent_context):
-        pl = self.get_playlist_func(parent_obj, parent_context)
+    def mode_is_selected(self, name, parent, context):
+        pl = self.get_playlist_func(parent, context)
         if pl is None:
             return False
         return getattr(pl, "%s_mode"%self.modetype) == name
 
-    def on_mode_activated(self, widget, name, parent_obj, parent_context):
-        pl = self.get_playlist_func(parent_obj, parent_context)
+    def on_mode_activated(self, widget, name, parent, context):
+        pl = self.get_playlist_func(parent, context)
         if pl is None:
             return False
         setattr(pl, "%s_mode"%self.modetype, name)
@@ -160,7 +160,7 @@ class PlaylistContextMenu(menu.ProviderMenu):
         """
         menu.ProviderMenu.__init__(self, 'playlist-context-menu', page)
 
-    def get_parent_context(self):
+    def get_context(self):
         context = common.LazyDict(self._parent)
         context['selected-items'] = lambda name, parent: parent.get_selected_items()
         context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
@@ -179,7 +179,7 @@ def __create_playlist_context_menu():
             playlistpage.playlist.spat_position = -1
     items.append(smi('toggle-spat', ['enqueue'],
             _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
-    def rating_get_tracks_func(menuobj, parent_obj, context):
+    def rating_get_tracks_func(menuobj, parent, context):
         return [row[1] for row in context['selected-items']]
     items.append(menuitems.RatingMenuItem('rating', ['toggle-spat']))
     # TODO: custom playlist item here

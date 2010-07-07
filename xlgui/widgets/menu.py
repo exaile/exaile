@@ -33,7 +33,7 @@ from xlgui import icons
 
 
 def simple_separator(name, after):
-    def factory(menu, parent_obj, parent_context):
+    def factory(menu, parent, context):
         item = gtk.SeparatorMenuItem()
         return item
     item = MenuItem(name, factory, after=after)
@@ -51,10 +51,10 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         :param display_name: Name as is to appear in the menu.
         :param icon_name: Name of the icon to display, or None for no icon.
         :param callback: The function to call when the menu item is activated.
-                signature: callback(widget, name, parent_obj, parent_context)
+                signature: callback(widget, name, parent, context)
         :param submenu: The gtk.Menu that is to be the submenu of this item
     """
-    def factory(menu, parent_obj, parent_context):
+    def factory(menu, parent, context):
         item = None
 
         if display_name is not None:
@@ -73,24 +73,24 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
 
         if callback is not None:
             item.connect('activate', callback, name,
-                parent_obj, parent_context, *callback_args)
+                parent, context, *callback_args)
 
         return item
     return MenuItem(name, factory, after=after)
 
 def check_menu_item(name, after, display_name, checked_func, callback):
-    def factory(menu, parent_obj, parent_context):
+    def factory(menu, parent, context):
         item = gtk.CheckMenuItem(display_name)
-        active = checked_func(name, parent_obj, parent_context)
+        active = checked_func(name, parent, context)
         item.set_active(active)
-        item.connect('activate', callback, name, parent_obj, parent_context)
+        item.connect('activate', callback, name, parent, context)
         return item
     return MenuItem(name, factory, after=after)
 
 def radio_menu_item(name, after, display_name, groupname, selected_func,
         callback):
 
-    def factory(menu, parent_obj, parent_context):
+    def factory(menu, parent, context):
         for index, item in enumerate(menu._items):
             if hasattr(item, 'groupname') and item.groupname == groupname:
                 break
@@ -103,11 +103,11 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
                 group_parent = None
 
         item = gtk.RadioMenuItem(label=display_name)
-        active = selected_func(name, parent_obj, parent_context)
+        active = selected_func(name, parent, context)
         item.set_active(active)
         if group_parent:
             item.set_group(group_parent)
-        item.connect('activate', callback, name, parent_obj, parent_context)
+        item.connect('activate', callback, name, parent, context)
         return item
     return RadioMenuItem(name, factory, after=after, groupname=groupname)
 
@@ -126,8 +126,8 @@ class MenuItem(object):
                              # considered public api and may change
                              # without warning.
 
-    def factory(self, menu, parent_obj, parent_context):
-        return self._factory(menu, parent_obj, parent_context)
+    def factory(self, menu, parent, context):
+        return self._factory(menu, parent, context)
 
 class RadioMenuItem(MenuItem):
     __slots__ = ['groupname']
@@ -136,53 +136,98 @@ class RadioMenuItem(MenuItem):
         self.groupname = groupname
 
 class Menu(gtk.Menu):
+    """
+        Generic flexible menu with reliable
+        menu item order and context handling
+    """
     def __init__(self, parent, context_func=None):
+        """
+            :param parent: the parent for this menu
+            :param context_func: a function for context
+                retrieval
+        """
         gtk.Menu.__init__(self)
         self._parent = parent
         self._items = []
         self.context_func = context_func
-        self.connect('show', self.regenerate_menu)
-        self.connect('hide', self.clear_menu)
+        self.connect('show', lambda *e: self.regenerate_menu())
+        self.connect('hide', lambda *e: self.clear_menu())
 
-    def get_parent_context(self):
+    def get_context(self):
+        """
+            Retrieves the menu context which
+            can contain various data
+
+            :returns: {'key1': 'value1', ...}
+            :rtype: dictionary
+        """
         if self.context_func is None:
             return {}
         else:
             return self.context_func(self._parent)
 
     def add_item(self, item):
+        """
+            Adds a menu item and triggers reordering
+
+            :param item: the menu item
+            :type item: :class:`MenuItem`
+        """
         self._items.append(item)
         self.reorder_items()
 
     def remove_item(self, item):
+        """
+            Removes a menu item
+
+            :param item: the menu item
+            :type item: :class:`MenuItem`
+        """
         self._items.remove(item)
 
-    def clear_menu(self, *args):
-        # clear menu on unmap to prevent any references sticking around
-        # due to saved parent_contexts.
+    def clear_menu(self):
+        """
+            Removes all menu items and submenus to prevent
+            references sticking around due to saved contexts
+        """
         children = self.get_children()
         for c in children:
             c.remove_submenu()
             self.remove(c)
 
     def reorder_items(self):
+        """
+            Reorders all menu items
+        """
         pmap = {'first': 0, 'normal': 1, 'last': 2}
-        items = [common.PosetItem(i.name, i.after, pmap[i._pos], value=i) for i in self._items]
+        items = [common.PosetItem(i.name, i.after,
+                                  pmap[i._pos], value=i) \
+                    for i in self._items]
         items = common.order_poset(items)
         self._items = [i.value for i in items]
 
-    def regenerate_menu(self, *args):
-        context = self.get_parent_context()
+    def regenerate_menu(self):
+        """
+            Regenerates the menu by retrieving
+            the context and calling the factory
+            method of all menu items
+        """
+        context = self.get_context()
         for item in self._items:
             self.append(item.factory(self, self._parent, context))
         self.show_all()
 
     def popup(self, *args):
-        if len(args) == 1:
-            event = args[0]
-            gtk.Menu.popup(self, None, None, None, event.button, event.time)
-        else:
-            gtk.Menu.popup(self, *args)
+        """
+            Pops out the menu (Only if
+            there are items to show)
+        """
+        if len(self._items) > 0:
+            if len(args) == 1:
+                event = args[0]
+                gtk.Menu.popup(self, None, None, None, event.button, event.time)
+            else:
+                gtk.Menu.popup(self, *args)
 
 
 class ProviderMenu(providers.ProviderHandler, Menu):

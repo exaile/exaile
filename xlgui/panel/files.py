@@ -57,7 +57,7 @@ class FilesContextMenu(menu.ProviderMenu):
     def __init__(self, panel):
         menu.ProviderMenu.__init__(self, 'files-panel-context-menu', panel)
 
-    def get_parent_context(self):
+    def get_context(self):
         context = common.LazyDict(self._parent)
         context['selected-tracks'] = lambda name, parent: parent.tree.get_selected_tracks()
         return context

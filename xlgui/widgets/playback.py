@@ -93,7 +93,7 @@ class PlaybackProgressBar(gtk.ProgressBar):
     def __init__(self):
         gtk.ProgressBar.__init__(self)
 
-        self.set_text(_('Not Playing'))
+        self.reset()
 
         self._formatter = ProgressBarFormatter()
         self.__timer_id = None
@@ -466,33 +466,33 @@ def playpause():
 
 
 def PlayPauseMenuItem(name, after):
-    def factory(menu, parent_obj, parent_context):
+    def factory(menu, parent, context):
         if player.PLAYER.is_playing():
             stock_id = gtk.STOCK_MEDIA_PAUSE
         else:
             stock_id = gtk.STOCK_MEDIA_PLAY
 
         item = gtk.ImageMenuItem(stock_id)
-        item.connect('activate', lambda *args: playpause(), name, parent_obj, parent_context)
+        item.connect('activate', lambda *args: playpause(), name, parent, context)
 
         return item
     return menu.MenuItem(name, factory, after=after)
 
-def _next_cb(widget, name, parent_obj, parent_context):
+def _next_cb(widget, name, parent, context):
     player.QUEUE.next()
 
 def NextMenuItem(name, after):
     return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_NEXT,
         callback=_next_cb)
 
-def _prev_cb(widget, name, parent_obj, parent_context):
+def _prev_cb(widget, name, parent, context):
     player.QUEUE.prev()
 
 def PrevMenuItem(name, after):
     return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_PREVIOUS,
         callback=_prev_cb)
 
-def _stop_cb(widget, name, parent_obj, parent_context):
+def _stop_cb(widget, name, parent, context):
     player.PLAYER.stop()
 
 def StopMenuItem(name, after):

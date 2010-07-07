@@ -333,15 +333,15 @@ class ColumnMenuItem(menu.MenuItem):
         menu.MenuItem.__init__(self, column.name, self.factory, after)
         self.title = column.menu_title
 
-    def factory(self, menu, parent_obj, parent_context):
+    def factory(self, menu, parent, context):
         """
             Creates the menu item
         """
         item = gtk.CheckMenuItem(self.title)
-        active = self.is_selected(self.name, parent_obj, parent_context)
+        active = self.is_selected(self.name, parent, context)
         item.set_active(active)
         item.connect('activate', self.on_item_activate,
-            self.name, parent_obj, parent_context)
+            self.name, parent, context)
 
         return item
 
@@ -353,7 +353,7 @@ class ColumnMenuItem(menu.MenuItem):
         """
         return name in settings.get_option('gui/columns')
 
-    def on_item_activate(self, menu_item, name, parent_obj, parent_context):
+    def on_item_activate(self, menu_item, name, parent, context):
         """
             Updates the columns setting
         """
@@ -387,7 +387,7 @@ def __register_playlist_columns_menuitems():
         elif name == 'autosize':
             return not resizable
 
-    def on_column_item_activate(menu_item, name, parent_obj, parent_context):
+    def on_column_item_activate(menu_item, name, parent, context):
         """
             Updates columns setting
         """
@@ -400,7 +400,7 @@ def __register_playlist_columns_menuitems():
 
         settings.set_option('gui/columns', columns)
 
-    def on_sizing_item_activate(menu_item, name, parent_obj, parent_context):
+    def on_sizing_item_activate(menu_item, name, parent, context):
         """
             Updates column sizing setting
         """

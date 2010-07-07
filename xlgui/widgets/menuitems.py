@@ -43,8 +43,8 @@ from xlgui import properties
 # the parent's context, but custom accessors are allowed via the
 # get_tracks_func kwarg
 
-def generic_get_tracks_func(parent_obj, parent_context):
-    return parent_context.get('selected-tracks', [])
+def generic_get_tracks_func(parent, context):
+    return context.get('selected-tracks', [])
 
 class RatingMenuItem(menu.MenuItem):
     """
@@ -56,32 +56,32 @@ class RatingMenuItem(menu.MenuItem):
         self.get_tracks_func = get_tracks_func
         self.rating_set = False
 
-    def factory(self, menu, parent_obj, parent_context):
+    def factory(self, menu, parent, context):
         item = rating.RatingMenuItem(auto_update=False)
-        item.connect('show', self.on_show, menu, parent_obj, parent_context)
+        item.connect('show', self.on_show, menu, parent, context)
         self._rating_changed_id = item.connect('rating-changed',
-            self.on_rating_changed, menu, parent_obj, parent_context)
+            self.on_rating_changed, menu, parent, context)
 
         return item
 
     @common.threaded
-    def on_show(self, widget, menu, parent_obj, context):
+    def on_show(self, widget, menu, parent, context):
         """
             Updates the menu item on show
         """
-        tracks = self.get_tracks_func(parent_obj, context)
+        tracks = self.get_tracks_func(parent, context)
         rating = trax.util.get_rating_from_tracks(tracks)
         widget.disconnect(self._rating_changed_id)
         widget.props.rating = rating
         self._rating_changed_id = widget.connect('rating-changed',
-            self.on_rating_changed, menu, parent_obj, context)
+            self.on_rating_changed, menu, parent, context)
 
-    def on_rating_changed(self, widget, rating, menu, parent_obj, context):
+    def on_rating_changed(self, widget, rating, menu, parent, context):
         """
             Passes the 'rating-changed' signal
         """
         rating_set = True
-        tracks = self.get_tracks_func(parent_obj, context)
+        tracks = self.get_tracks_func(parent, context)
         for track in tracks:
             track.set_rating(rating)
 

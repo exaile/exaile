@@ -490,7 +490,10 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         """
         paths = self.get_selected_paths()
         model = self.get_model()
-        tracks = [(path[0], model.get_value(model.get_iter(path), 0)) for path in paths]
+        try:
+            tracks = [(path[0], model.get_value(model.get_iter(path), 0)) for path in paths]
+        except TypeError: #one of the paths was invalid
+            return []
         return tracks
 
     def get_sort_column(self):

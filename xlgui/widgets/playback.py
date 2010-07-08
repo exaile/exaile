@@ -24,17 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-# FIXME: Make markers provider-based,
-#        Don't care about identification,
-#        since we always use all markers
-
 import glib
 import gobject
 import gtk
 import pango
 
 from xl import (
-    common,
     event,
     formatter,
     player,
@@ -78,7 +73,8 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
         self._substitutions['total_remaining_time'] = \
             formatter.LengthTagFormatter.format_value(duration)
 
-        return formatter.ProgressTextFormatter.format(self, current_time, total_time)
+        return formatter.ProgressTextFormatter.format(
+            self, current_time, total_time)
 
     def get_option_value(self):
         """
@@ -823,7 +819,8 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             :param marker: the new marker
             :type marker: :class:`Marker`
         """
-        marker.connect('notify', self.on_marker_notify)
+        notify_id = marker.connect('notify', self.on_marker_notify)
+        marker.set_data('%s_notify_id' % id(self), notify_id)
         self._points[marker] = self._get_points(marker)
         self.queue_draw()
 
@@ -834,6 +831,10 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             :param marker: the marker
             :type marker: :class:`Marker`
         """
+        notify_id = marker.get_data('%s_notify_id' % id(self))
+        if notify_id is not None:
+            marker.disconnect(notify_id)
+
         del self._points[marker]
         self.queue_draw()
 
@@ -1098,6 +1099,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
             providers.unregister('playback-markers', self._marker)
             self._marker = None
             self._reset_position = -1
+            self._parent.window.set_cursor(None)
 
             return True
 

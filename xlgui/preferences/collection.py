@@ -21,7 +21,7 @@ from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
 name = _('Collection')
-icon = gtk.STOCK_HOME
+icon = 'folder-music'
 ui = xdg.get_data_path('ui', 'preferences', 'collection.ui')
 
 def _get_default_strip_list():

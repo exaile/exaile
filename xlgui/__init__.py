@@ -71,13 +71,11 @@ class Main(object):
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
-        icons.MANAGER.add_icon_name_from_directory('exaile',
-            xdg.get_data_path('images'))
+        for name in ('exaile', 'exaile-pause', 'exaile-play',
+                     'folder-music'):
+            icons.MANAGER.add_icon_name_from_directory(name,
+                xdg.get_data_path('images'))
         gtk.window_set_default_icon_name('exaile')
-        icons.MANAGER.add_icon_name_from_directory('exaile-pause',
-            xdg.get_data_path('images'))
-        icons.MANAGER.add_icon_name_from_directory('exaile-play',
-            xdg.get_data_path('images'))
 
         for name in ('dynamic', 'repeat', 'shuffle'):
             icon_name = 'media-playlist-%s' % name

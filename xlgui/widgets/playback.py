@@ -504,6 +504,101 @@ class SeekProgressBar(PlaybackProgressBar):
         Playback progress bar which allows for seeking
         and setting positional markers
     """
+    class Marker(gobject.GObject):
+        """
+            A marker pointing to a position on a scale
+        """
+        __gproperties__ = {
+            'anchor': (
+                gtk.AnchorType,
+                'anchor position',
+                'The position the marker will be anchored',
+                gtk.ANCHOR_SOUTH,
+                gobject.PARAM_READWRITE
+            ),
+            'color': (
+                gtk.gdk.Color,
+                'marker color',
+                'Override color of the marker',
+                gobject.PARAM_READWRITE
+            ),
+            'label': (
+                gobject.TYPE_STRING,
+                'marker label',
+                'Textual description of the marker',
+                None,
+                gobject.PARAM_READWRITE
+            ),
+            'position': (
+                gobject.TYPE_FLOAT,
+                'marker position',
+                'Relative position of the marker',
+                0, 1, 0,
+                gobject.PARAM_READWRITE
+            ),
+            'state': (
+                gtk.StateType,
+                'marker state',
+                'The state of the marker',
+                gtk.STATE_NORMAL,
+                gobject.PARAM_READWRITE
+            )
+        }
+
+        def __init__(self, position=0):
+            gobject.GObject.__init__(self)
+
+            self.__values = {
+                'anchor': gtk.ANCHOR_SOUTH,
+                'color': None,
+                'label': None,
+                'position': 0,
+                'state': gtk.STATE_NORMAL
+            }
+
+            self.props.position = position
+
+        def __str__(self):
+            """
+                Informal representation
+            """
+            if self.props.label is not None:
+                text = '%s (%g)' % (self.props.label, self.props.position)
+            else:
+                text = '%g' % self.props.position
+
+            return text
+
+        def __lt__(self, other):
+            """
+                Compares positions
+            """
+            return self.props.position < other.props.position
+
+        def __gt__(self, other):
+            """
+                Compares positions
+            """
+            return self.props.position > other.props.position
+
+        def do_get_property(self, gproperty):
+            """
+                Gets a GObject property
+            """
+            try:
+                return self.__values[gproperty.name]
+            except KeyError:
+                raise AttributeError('unknown property %s' % property.name)
+
+        def do_set_property(self, gproperty, value):
+            """
+                Sets a GObject property
+            """
+            try:
+                self.__values[gproperty.name] = value
+            except KeyError:
+                raise AttributeError('unknown property %s' % property.name)
+
     __gproperties__ = {
         'marker-scale': (
             gobject.TYPE_FLOAT,
@@ -520,7 +615,25 @@ class SeekProgressBar(PlaybackProgressBar):
         'motion-notify-event': 'override',
         'notify': 'override',
         'key-press-event': 'override',
-        'key-release-event': 'override'
+        'key-release-event': 'override',
+        'marker-added': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (Marker,),
+            gobject.signal_accumulator_true_handled
+        ),
+        'marker-removed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (Marker,),
+            gobject.signal_accumulator_true_handled
+        ),
+        'marker-reached': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (Marker,),
+            gobject.signal_accumulator_true_handled
+        )
     }
 
     def __init__(self):
@@ -555,6 +668,7 @@ class SeekProgressBar(PlaybackProgressBar):
         marker = self.Marker(position)
         marker.connect('notify', self.on_marker_notify)
         self._markers[marker] = self._get_points(marker)
+        self.emit('marker-added', marker)
         self.queue_draw()
 
         return marker
@@ -590,6 +704,7 @@ class SeekProgressBar(PlaybackProgressBar):
             :type marker: :class:`Marker`
         """
         del self._markers[marker]
+        self.emit('marker-removed', marker)
         self.queue_draw()
 
     def remove_markers_at(self, position):
@@ -809,6 +924,22 @@ class SeekProgressBar(PlaybackProgressBar):
             for marker in self._markers.iterkeys():
                 self._markers[marker] = self._get_points(marker)
             self.queue_draw()
+        elif gproperty.name == 'fraction':
+            try:
+                length = player.PLAYER.current.get_tag_raw('__length')
+                length = float(length)
+            except AttributeError, TypeError:
+                return
+
+            pixel_per_second = self.allocation.width / length
+            tolerance = pixel_per_second / self.allocation.width
+            reached_markers = (m for m in self._markers.iterkeys() \
+                if m.props.position <= \
+                   self.props.fraction <= \
+                   m.props.position + tolerance)
+
+            for marker in reached_markers:
+                self.emit('marker-reached', marker)
 
     def do_size_allocate(self, allocation):
         """
@@ -1039,101 +1170,6 @@ class SeekProgressBar(PlaybackProgressBar):
             return True
 
         return PlaybackProgressBar.on_timer(self)
-
-    class Marker(gobject.GObject):
-        """
-            A marker pointing to a position on a scale
-        """
-        __gproperties__ = {
-            'anchor': (
-                gtk.AnchorType,
-                'anchor position',
-                'The position the marker will be anchored',
-                gtk.ANCHOR_SOUTH,
-                gobject.PARAM_READWRITE
-            ),
-            'color': (
-                gtk.gdk.Color,
-                'marker color',
-                'Override color of the marker',
-                gobject.PARAM_READWRITE
-            ),
-            'label': (
-                gobject.TYPE_STRING,
-                'marker label',
-                'Textual description of the marker',
-                None,
-                gobject.PARAM_READWRITE
-            ),
-            'position': (
-                gobject.TYPE_FLOAT,
-                'marker position',
-                'Relative position of the marker',
-                0, 1, 0,
-                gobject.PARAM_READWRITE
-            ),
-            'state': (
-                gtk.StateType,
-                'marker state',
-                'The state of the marker',
-                gtk.STATE_NORMAL,
-                gobject.PARAM_READWRITE
-            )
-        }
-
-        def __init__(self, position=0):
-            gobject.GObject.__init__(self)
-
-            self.__values = {
-                'anchor': gtk.ANCHOR_SOUTH,
-                'color': None,
-                'label': None,
-                'position': 0,
-                'state': gtk.STATE_NORMAL
-            }
-
-            self.props.position = position
-
-        def __str__(self):
-            """
-                Informal representation
-            """
-            if self.props.label is not None:
-                text = '%s (%g)' % (self.props.label, self.props.position)
-            else:
-                text = '%g' % self.props.position
-
-            return text
-
-        def __lt__(self, other):
-            """
-                Compares positions
-            """
-            return self.props.position < other.props.position
-
-        def __gt__(self, other):
-            """
-                Compares positions
-            """
-            return self.props.position > other.props.position
-
-        def do_get_property(self, gproperty):
-            """
-                Gets a GObject property
-            """
-            try:
-                return self.__values[gproperty.name]
-            except KeyError:
-                raise AttributeError('unknown property %s' % property.name)
-
-        def do_set_property(self, gproperty, value):
-            """
-                Sets a GObject property
-            """
-            try:
-                self.__values[gproperty.name] = value
-            except KeyError:
-                raise AttributeError('unknown property %s' % property.name)
 
 class VolumeControl(gtk.Alignment):
     """

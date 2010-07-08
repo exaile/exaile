@@ -195,6 +195,648 @@ class PlaybackProgressBar(gtk.ProgressBar):
         self.__disable_timer()
         self.reset()
 
+def get_markers_at(position):
+    """
+        Gets all markers located at a position
+
+        :param position: the mark position
+        :type position: float
+        :returns: (m1, m2, ...)
+        :rtype: (:class:`Marker`, ...)
+
+        * *m1*: the first marker
+        * *m2*: the second marker
+        * ...
+    """
+    # Reproduce value modifications
+    position = Marker(position).props.position
+    markers = ()
+
+    for marker in providers.get('playback-markers'):
+        if marker.props.position == position:
+            markers += (marker,)
+
+    return markers
+
+class Marker(gobject.GObject):
+    """
+        A marker pointing to a playback position
+    """
+    __gproperties__ = {
+        'anchor': (
+            gtk.AnchorType,
+            'anchor position',
+            'The position the marker will be anchored',
+            gtk.ANCHOR_SOUTH,
+            gobject.PARAM_READWRITE
+        ),
+        'color': (
+            gtk.gdk.Color,
+            'marker color',
+            'Override color of the marker',
+            gobject.PARAM_READWRITE
+        ),
+        'label': (
+            gobject.TYPE_STRING,
+            'marker label',
+            'Textual description of the marker',
+            None,
+            gobject.PARAM_READWRITE
+        ),
+        'position': (
+            gobject.TYPE_FLOAT,
+            'marker position',
+            'Relative position of the marker',
+            0, 1, 0,
+            gobject.PARAM_READWRITE
+        ),
+        'state': (
+            gtk.StateType,
+            'marker state',
+            'The state of the marker',
+            gtk.STATE_NORMAL,
+            gobject.PARAM_READWRITE
+        )
+    }
+    # Provider compatibility
+    name = 'marker'
+
+    def __init__(self, position=0):
+        gobject.GObject.__init__(self)
+
+        self.__values = {
+            'anchor': gtk.ANCHOR_SOUTH,
+            'color': None,
+            'label': None,
+            'position': 0,
+            'state': gtk.STATE_NORMAL
+        }
+
+        self.props.position = position
+
+    def __str__(self):
+        """
+            Informal representation
+        """
+        if self.props.label is not None:
+            text = '%s (%g)' % (self.props.label, self.props.position)
+        else:
+            text = '%g' % self.props.position
+
+        return text
+
+    def __lt__(self, other):
+        """
+            Compares positions
+        """
+        return self.props.position < other.props.position
+
+    def __gt__(self, other):
+        """
+            Compares positions
+        """
+        return self.props.position > other.props.position
+
+    def do_get_property(self, gproperty):
+        """
+            Gets a GObject property
+        """
+        try:
+            return self.__values[gproperty.name]
+        except KeyError:
+            raise AttributeError('unknown property %s' % property.name)
+
+    def do_set_property(self, gproperty, value):
+        """
+            Sets a GObject property
+        """
+        try:
+            self.__values[gproperty.name] = value
+        except KeyError:
+            raise AttributeError('unknown property %s' % property.name)
+
+class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
+    """
+        Playback progress bar which allows for seeking
+        and setting positional markers
+    """
+    __gproperties__ = {
+        'marker-scale': (
+            gobject.TYPE_FLOAT,
+            'marker scale',
+            'Scaling of markers',
+            0, 1, 0.7,
+            gobject.PARAM_READWRITE
+        )
+    }
+    __gsignals__ = {
+        'button-press-event': 'override',
+        'button-release-event': 'override',
+        'expose-event': 'override',
+        'motion-notify-event': 'override',
+        'notify': 'override',
+        'key-press-event': 'override',
+        'key-release-event': 'override',
+        'marker-reached': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (Marker,),
+            gobject.signal_accumulator_true_handled
+        )
+    }
+
+    def __init__(self):
+        PlaybackProgressBar.__init__(self)
+        providers.ProviderHandler.__init__(self, 'playback-markers')
+
+        self.__values = {'marker-scale': 0.7}
+        self._seeking = False
+        self._points = {}
+        self._progressbar_menu = ProgressBarContextMenu(self)
+        self._marker_menu = MarkerContextMenu(self)
+        self._marker_menu.connect('deactivate',
+            self.on_marker_menu_deactivate)
+
+        self.add_events(gtk.gdk.BUTTON_PRESS_MASK |
+                        gtk.gdk.BUTTON_RELEASE_MASK |
+                        gtk.gdk.POINTER_MOTION_MASK |
+                        gtk.gdk.LEAVE_NOTIFY_MASK)
+        self.set_flags(self.flags() | gtk.CAN_FOCUS)
+
+        self.connect('hierarchy-changed',
+            self.on_hierarchy_changed)
+
+    def get_label(self, marker):
+        """
+            Builds the most appropriate label
+            markup to describe a marker
+
+            :param marker: the marker
+            :type marker: :class:`Marker`
+            :returns: the label
+            :rtype: string
+        """
+        markup = None
+
+        if player.PLAYER.current:
+            length = player.PLAYER.current.get_tag_raw('__length')
+
+            if length is not None:
+                length = length * marker.props.position
+                length = formatter.LengthTagFormatter.format_value(length)
+
+                if marker.props.label:
+                    markup = '<b>%s</b> (%s)' % (marker.props.label, length)
+                else:
+                    markup = '%s' % length
+        else:
+            if marker.props.label:
+                markup = '<b>%s</b> (%d%%)' % (
+                    marker.props.label,
+                    int(marker.props.position * 100)
+                )
+            else:
+                markup = '%d%%' % int(marker.props.position * 100)
+
+        return markup
+
+    def _is_marker_hit(self, marker, check_x, check_y):
+        """
+            Checks whether a marker is hit by a point 
+
+            :param marker: the marker
+            :type marker: :class:`Marker`
+            :param check_x: the x location to check
+            :type check_x: float
+            :param check_y: the y location to check
+            :type check_y: float
+            :returns: whether the marker was hit
+            :rtype: bool
+        """
+        points = self._points[marker]
+        x, y, width, height = self._get_bounding_box(points)
+
+        if x <= check_x <= width and y <= check_y <= height:
+            return True
+
+        return False
+
+    def _get_points(self, marker, width=None, height=None):
+        """
+            Calculates the points necessary
+            to represent a marker
+
+            :param marker: the marker
+            :type marker: :class:`Marker`
+            :param width: area width override
+            :type width: int
+            :param height: area height override
+            :type height: int
+            :returns: ((x1, y1), (x2, y2), ...)
+            :rtype: ((float, float), ...)
+
+            * *x1*: the x coordinate of the first point
+            * *y1*: the y coordinate of the first point
+            * *x2*: the x coordinate of the second point
+            * *y2*: the y coordinate of the second point
+            * ...
+        """
+        points = ()
+        width = width or self.allocation.width
+        height = height or self.allocation.height
+        position = width * marker.props.position
+        marker_scale = int(height * self.props.marker_scale)
+
+        # Adjustments by 0.5 taken from
+        # http://cairographics.org/FAQ/#sharp_lines
+        if marker.props.anchor == gtk.ANCHOR_NORTH_WEST:
+            points = (
+                (position - 0.5, 0.5),
+                (position + marker_scale * 0.75 - 0.5, 0.5),
+                (position - 0.5, marker_scale * 0.75 + 0.5)
+            )
+        elif marker.props.anchor == gtk.ANCHOR_NORTH:
+            points = (
+                (position - 0.5, marker_scale / 2 + 0.5),
+                (position + marker_scale / 2 - 0.5, 0.5),
+                (position - marker_scale / 2 - 0.5, 0.5)
+            )
+        elif marker.props.anchor == gtk.ANCHOR_NORTH_EAST:
+            points = (
+                (position - marker_scale * 0.75 - 0.5, 0.5),
+                (position - 0.5, 0.5),
+                (position - 0.5, marker_scale * 0.75 + 0.5)
+            )
+        elif marker.props.anchor == gtk.ANCHOR_EAST:
+            points = (
+                (position - marker_scale / 2 - 0.5, height / 2 + 0.5),
+                (position - 0.5, height / 2 - marker_scale / 2 + 0.5),
+                (position - 0.5, height / 2 + marker_scale / 2 + 0.5)
+            )
+        elif marker.props.anchor == gtk.ANCHOR_SOUTH_EAST:
+            points = (
+                (position - 0.5, height - 0.5),
+                (position - 0.5, height - marker_scale * 0.75 - 0.5),
+                (position - marker_scale * 0.75 - 0.5, height - 0.5)
+            )
+        elif marker.props.anchor == gtk.ANCHOR_SOUTH:
+            points = (
+                (position - 0.5, height - marker_scale / 2 - 0.5),
+                (position + marker_scale / 2 - 0.5, height - 0.5),
+                (position - marker_scale / 2 - 0.5, height - 0.5)
+            )
+        elif marker.props.anchor == gtk.ANCHOR_SOUTH_WEST:
+            points = (
+                (position - 0.5, height - 0.5),
+                (position + marker_scale * 0.75 - 0.5, height - 0.5),
+                (position - 0.5, height - marker_scale * 0.75 - 0.5)
+            )
+        elif marker.props.anchor == gtk.ANCHOR_WEST:
+            points = (
+                (position + marker_scale / 2 - 0.5, height / 2 + 0.5),
+                (position - 0.5, height / 2 - marker_scale / 2 + 0.5),
+                (position - 0.5, height / 2 + marker_scale / 2 + 0.5)
+            )
+        elif marker.props.anchor == gtk.ANCHOR_CENTER:
+            points = (
+                (position - 0.5, height / 2 - marker_scale / 2 + 0.5),
+                (position + marker_scale / 2 - 0.5, height / 2 + 0.5),
+                (position - 0.5, height / 2 + marker_scale / 2 + 0.5),
+                (position - marker_scale / 2 - 0.5, height / 2 + 0.5)
+            )
+
+        return points
+
+    def _get_bounding_box(self, points):
+        """
+            Calculates the axis aligned bounding box
+            of a sequence of points
+
+            :param points: ((x1, y1), (x2, y2), ...)
+            :type points: ((float, float), ...)
+            :returns: (x, y, width, height)
+            :rtype: (float, float, float, float)
+
+            * *x*: the x coordinate of the box
+            * *y*: the y coordinate of the box
+            * *width*: the width of the box
+            * *height*: the height of the box
+        """
+        xs, ys = zip(*points)
+        return min(xs), min(ys), max(xs), max(ys)
+
+    def seek(self, position):
+        """
+            Seeks within the current track
+        """
+        if player.PLAYER.current:
+            length = player.PLAYER.current.get_tag_raw('__length')
+
+            player.PLAYER.set_progress(position)
+            self.set_fraction(position)
+
+            if length is not None:
+                self.set_text(self._formatter.format(
+                    current_time=length * position))
+
+    def do_get_property(self, gproperty):
+        """
+            Gets a GObject property
+        """
+        try:
+            return self.__values[gproperty.name]
+        except KeyError:
+            raise AttributeError('unknown property %s' % property.name)
+
+    def do_set_property(self, gproperty, value):
+        """
+            Sets a GObject property
+        """
+        try:
+            self.__values[gproperty.name] = value
+        except KeyError:
+            raise AttributeError('unknown property %s' % property.name)
+
+    def do_notify(self, gproperty):
+        """
+            Reacts to GObject property changes
+        """
+        if gproperty.name == 'marker-scale':
+            for marker in self._points.iterkeys():
+                self._points[marker] = self._get_points(marker)
+            self.queue_draw()
+        elif gproperty.name == 'fraction':
+            try:
+                length = player.PLAYER.current.get_tag_raw('__length')
+                length = float(length)
+            except AttributeError, TypeError:
+                return
+
+            pixel_per_second = self.allocation.width / length
+            tolerance = pixel_per_second / self.allocation.width
+            reached_markers = (m for m in self._points.iterkeys() \
+                if m.props.position <= \
+                   self.props.fraction <= \
+                   m.props.position + tolerance)
+
+            for marker in reached_markers:
+                self.emit('marker-reached', marker)
+
+    def do_size_allocate(self, allocation):
+        """
+            Recalculates the marker points
+        """
+        oldallocation = self.allocation
+
+        gtk.ProgressBar.do_size_allocate(self, allocation)
+
+        if allocation != oldallocation:
+            for marker in self._points.iterkeys():
+                self._points[marker] = self._get_points(marker)
+
+    def do_expose_event(self, event):
+        """
+            Draws markers on top of the progress bar
+        """
+        gtk.ProgressBar.do_expose_event(self, event)
+
+        context = self.window.cairo_create()
+        context.set_line_width(self.props.marker_scale / 0.9)
+
+        for marker, points in self._points.iteritems():
+            for x, y in points:
+                context.line_to(x, y)
+            context.close_path()
+
+            if marker.props.state in (gtk.STATE_PRELIGHT, gtk.STATE_ACTIVE):
+                context.set_source_color(self.style.fg[gtk.STATE_NORMAL])
+            else:
+                if marker.props.color is not None:
+                    base = marker.props.color
+                else:
+                    base = self.style.base[marker.props.state]
+
+                context.set_source_rgba(
+                    base.red / 256.0**2,
+                    base.green / 256.0**2,
+                    base.blue / 256.0**2,
+                    0.7
+                )
+            context.fill_preserve()
+
+            if marker.props.state in (gtk.STATE_PRELIGHT, gtk.STATE_ACTIVE):
+                context.set_source_color(self.style.fg[gtk.STATE_NORMAL])
+            else:
+                foreground = self.style.fg[marker.props.state]
+                context.set_source_rgba(
+                    foreground.red / 256.0**2,
+                    foreground.green / 256.0**2,
+                    foreground.blue / 256.0**2,
+                    0.7
+                )
+            context.stroke()
+
+    def do_button_press_event(self, event):
+        """
+            Prepares seeking
+        """
+        hit_markers = []
+
+        for marker in self._points.iterkeys():
+            if self._is_marker_hit(marker, event.x, event.y):
+                if marker.props.state in (gtk.STATE_NORMAL,
+                                          gtk.STATE_PRELIGHT):
+                    marker.props.state = gtk.STATE_ACTIVE
+                    hit_markers += [marker]
+
+        hit_markers.sort()
+
+        if event.button == 1:
+            if player.PLAYER.current is None:
+                return True
+            
+            length = player.PLAYER.current.get_tag_raw('__length')
+
+            if length is None:
+                return True
+
+            if len(hit_markers) > 0:
+                self.seek(hit_markers[0].props.position)
+            else:
+                fraction = event.x / self.allocation.width
+                fraction = max(0, fraction)
+                fraction = min(fraction, 1)
+
+                self.set_fraction(fraction)
+                self.set_text(_('Seeking: %s') % self._formatter.format(
+                    current_time=length * fraction))
+                self._seeking = True
+        elif event.button == 3:
+            if len(hit_markers) > 0:
+                self._marker_menu.popup(event, tuple(hit_markers))
+            else:
+                self._progressbar_menu.popup(event)
+
+    def do_button_release_event(self, event):
+        """
+            Completes seeking
+        """
+        for marker in self._points.iterkeys():
+            if marker.props.state == gtk.STATE_ACTIVE:
+                marker.props.state = gtk.STATE_PRELIGHT
+
+        if event.button == 1 and self._seeking:
+            length = player.PLAYER.current.get_tag_raw('__length')
+
+            fraction = event.x / self.allocation.width
+            fraction = max(0, fraction)
+            fraction = min(fraction, 1)
+
+            self.seek(fraction)
+            self._seeking = False
+
+    def do_motion_notify_event(self, event):
+        """
+            Updates progress bar while seeking
+            and updates marker states on hover
+        """
+        if self._seeking:
+            press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
+            press_event.button = 1
+            press_event.x = event.x
+            press_event.y = event.y
+
+            self.emit('button-press-event', press_event)
+        else:
+            hit_markers = []
+
+            for marker in self._points.iterkeys():
+                if self._is_marker_hit(marker, event.x, event.y):
+                    if marker.props.state == gtk.STATE_NORMAL:
+                        marker.props.state = gtk.STATE_PRELIGHT
+                    hit_markers += [marker]
+                else:
+                    if marker.props.state == gtk.STATE_PRELIGHT:
+                        marker.props.state = gtk.STATE_NORMAL
+
+            if len(hit_markers) > 0:
+                hit_markers.sort()
+                markup = ', '.join([self.get_label(m) for m in hit_markers])
+                self.set_tooltip_markup(markup)
+                self.trigger_tooltip_query()
+
+    def do_leave_notify_event(self, event):
+        """
+            Resets marker states
+        """
+        for marker in self._points.iterkeys():
+            # Leave other states intact
+            if marker.props.state == gtk.STATE_PRELIGHT:
+                marker.props.state = gtk.STATE_NORMAL
+
+    def do_key_press_event(self, event):
+        """
+            Prepares seeking via keyboard interaction
+            * Alt+Up/Right: seek 1% forward
+            * Alt+Down/Left: seek 1% backward
+        """
+        if self.get_state() & gtk.STATE_INSENSITIVE:
+            return
+
+        if not event.state & gtk.gdk.MOD1_MASK:
+            return
+
+        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
+            direction = 1
+        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
+            direction = -1
+        else:
+            return
+        
+        press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
+        press_event.button = 1
+        new_fraction = self.get_fraction() + 0.01 * direction
+        press_event.x = self.allocation.width * new_fraction
+        press_event.y = float(self.allocation.y)
+
+        self.emit('button-press-event', press_event)
+
+    def do_key_release_event(self, event):
+        """
+            Completes seeking via keyboard interaction
+        """
+        if not event.state & gtk.gdk.MOD1_MASK:
+            return
+
+        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
+            direction = 1
+        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
+            direction = -1
+        else:
+            return
+
+        release_event = gtk.gdk.Event(gtk.gdk.BUTTON_RELEASE)
+        release_event.button = 1
+        new_fraction = self.get_fraction() + 0.01 * direction
+        release_event.x = self.allocation.width * new_fraction
+        release_event.y = float(self.allocation.y)
+
+        self.emit('button-release-event', release_event)
+
+    def on_hierarchy_changed(self, widget, old_toplevel):
+        """
+            Sets up editing cancel on toplevel focus out
+        """
+        self.get_toplevel().connect('focus-out-event',
+            lambda w, e: self.emit('focus-out-event', e))
+
+    def on_marker_menu_deactivate(self, menu):
+        """
+            Makes sure to reset states of
+            previously selected markers
+        """
+        for marker in self._points:
+            marker.props.state = gtk.STATE_NORMAL
+        self.queue_draw()
+
+    def on_marker_notify(self, marker, gproperty):
+        """
+            Recalculates marker points on position changes
+        """
+        if gproperty.name in ('anchor', 'position'):
+            self._points[marker] = self._get_points(marker)
+        self.queue_draw()
+
+    def on_timer(self):
+        """
+            Prevents update while seeking
+        """
+        if self._seeking:
+            return True
+
+        return PlaybackProgressBar.on_timer(self)
+
+    def on_provider_added(self, marker):
+        """
+            Calculates points after marker addition
+
+            :param marker: the new marker
+            :type marker: :class:`Marker`
+        """
+        marker.connect('notify', self.on_marker_notify)
+        self._points[marker] = self._get_points(marker)
+        self.queue_draw()
+
+    def on_provider_removed(self, marker):
+        """
+            Removes points from internal cache
+
+            :param marker: the marker
+            :type marker: :class:`Marker`
+        """
+        del self._points[marker]
+        self.queue_draw()
+
 class ProgressBarContextMenu(menu.ProviderMenu):
     """
         Progress bar specific context menu
@@ -238,7 +880,7 @@ class MarkerContextMenu(menu.ProviderMenu):
             :type markerbar: :class:`SeekProgressBar`
         """
         menu.ProviderMenu.__init__(self,
-            'marker-context-menu', markerbar)
+            'playback-marker-context-menu', markerbar)
 
         self._markers = ()
         self._position = -1
@@ -453,7 +1095,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
             :rtype: bool
         """
         if self._marker is not None:
-            self._parent.remove_marker(self._marker)
+            providers.unregister('playback-markers', self._marker)
             self._marker = None
             self._reset_position = -1
 
@@ -465,8 +1107,9 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
         """
             Inserts a new marker and starts movement
         """
-        context['current-marker'] = \
-            parent.add_marker(context['current-position'])
+        marker = Marker(context['current-position'])
+        providers.register('playback-markers', marker)
+        context['current-marker'] = marker
         MoveMarkerMenuItem.on_activate(self, widget, parent, context)
 
 # XXX: Example implementation only
@@ -485,10 +1128,12 @@ def __create_marker_context_menu():
     items = []
 
     def on_jumpto_item_activate(widget, name, parent, context):
-        parent.seek(context['current-marker'].props.position)
+        #parent.seek(context['current-marker'].props.position)
+        position = context['current-marker'].props.position
+        player.PLAYER.set_progress(position)
 
     def on_remove_item_activate(widget, name, parent, context):
-        parent.remove_marker(context['current-marker'])
+        providers.unregister('playback-markers', context['current-marker'])
 
     items.append(menu.simple_menu_item('jumpto-marker',
         [], icon_name=gtk.STOCK_JUMP_TO,
@@ -500,684 +1145,8 @@ def __create_marker_context_menu():
         callback=on_remove_item_activate))
 
     for item in items:
-        providers.register('marker-context-menu', item)
+        providers.register('playback-marker-context-menu', item)
 __create_marker_context_menu()
-
-class SeekProgressBar(PlaybackProgressBar):
-    """
-        Playback progress bar which allows for seeking
-        and setting positional markers
-    """
-    class Marker(gobject.GObject):
-        """
-            A marker pointing to a position on a scale
-        """
-        __gproperties__ = {
-            'anchor': (
-                gtk.AnchorType,
-                'anchor position',
-                'The position the marker will be anchored',
-                gtk.ANCHOR_SOUTH,
-                gobject.PARAM_READWRITE
-            ),
-            'color': (
-                gtk.gdk.Color,
-                'marker color',
-                'Override color of the marker',
-                gobject.PARAM_READWRITE
-            ),
-            'label': (
-                gobject.TYPE_STRING,
-                'marker label',
-                'Textual description of the marker',
-                None,
-                gobject.PARAM_READWRITE
-            ),
-            'position': (
-                gobject.TYPE_FLOAT,
-                'marker position',
-                'Relative position of the marker',
-                0, 1, 0,
-                gobject.PARAM_READWRITE
-            ),
-            'state': (
-                gtk.StateType,
-                'marker state',
-                'The state of the marker',
-                gtk.STATE_NORMAL,
-                gobject.PARAM_READWRITE
-            )
-        }
-
-        def __init__(self, position=0):
-            gobject.GObject.__init__(self)
-
-            self.__values = {
-                'anchor': gtk.ANCHOR_SOUTH,
-                'color': None,
-                'label': None,
-                'position': 0,
-                'state': gtk.STATE_NORMAL
-            }
-
-            self.props.position = position
-
-        def __str__(self):
-            """
-                Informal representation
-            """
-            if self.props.label is not None:
-                text = '%s (%g)' % (self.props.label, self.props.position)
-            else:
-                text = '%g' % self.props.position
-
-            return text
-
-        def __lt__(self, other):
-            """
-                Compares positions
-            """
-            return self.props.position < other.props.position
-
-        def __gt__(self, other):
-            """
-                Compares positions
-            """
-            return self.props.position > other.props.position
-
-        def do_get_property(self, gproperty):
-            """
-                Gets a GObject property
-            """
-            try:
-                return self.__values[gproperty.name]
-            except KeyError:
-                raise AttributeError('unknown property %s' % property.name)
-
-        def do_set_property(self, gproperty, value):
-            """
-                Sets a GObject property
-            """
-            try:
-                self.__values[gproperty.name] = value
-            except KeyError:
-                raise AttributeError('unknown property %s' % property.name)
-
-    __gproperties__ = {
-        'marker-scale': (
-            gobject.TYPE_FLOAT,
-            'marker scale',
-            'Scaling of markers',
-            0, 1, 0.7,
-            gobject.PARAM_READWRITE
-        )
-    }
-    __gsignals__ = {
-        'button-press-event': 'override',
-        'button-release-event': 'override',
-        'expose-event': 'override',
-        'motion-notify-event': 'override',
-        'notify': 'override',
-        'key-press-event': 'override',
-        'key-release-event': 'override',
-        'marker-added': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_BOOLEAN,
-            (Marker,),
-            gobject.signal_accumulator_true_handled
-        ),
-        'marker-removed': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_BOOLEAN,
-            (Marker,),
-            gobject.signal_accumulator_true_handled
-        ),
-        'marker-reached': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_BOOLEAN,
-            (Marker,),
-            gobject.signal_accumulator_true_handled
-        )
-    }
-
-    def __init__(self):
-        PlaybackProgressBar.__init__(self)
-
-        self.__values = {'marker-scale': 0.7}
-        self._seeking = False
-        self._markers = {}
-        self._progressbar_menu = ProgressBarContextMenu(self)
-        self._marker_menu = MarkerContextMenu(self)
-        self._marker_menu.connect('deactivate',
-            self.on_marker_menu_deactivate)
-
-        self.add_events(gtk.gdk.BUTTON_PRESS_MASK |
-                        gtk.gdk.BUTTON_RELEASE_MASK |
-                        gtk.gdk.POINTER_MOTION_MASK |
-                        gtk.gdk.LEAVE_NOTIFY_MASK)
-        self.set_flags(self.flags() | gtk.CAN_FOCUS)
-
-        self.connect('hierarchy-changed',
-            self.on_hierarchy_changed)
-        
-    def add_marker(self, position):
-        """
-            Adds a new marker to the progress bar
-
-            :param position: the mark position
-            :type position: float
-            :returns: the new marker
-            :rtype: :class:`Marker`
-        """
-        marker = self.Marker(position)
-        marker.connect('notify', self.on_marker_notify)
-        self._markers[marker] = self._get_points(marker)
-        self.emit('marker-added', marker)
-        self.queue_draw()
-
-        return marker
-
-    def get_markers_at(self, position):
-        """
-            Gets all markers located at a position
-
-            :param position: the mark position
-            :type position: float
-            :returns: (m1, m2, ...)
-            :rtype: (:class:`Marker`, ...)
-
-            * *m1*: the first marker
-            * *m2*: the second marker
-            * ...
-        """
-        # Reproduce value modifications
-        position = self.Marker(position).props.position
-        markers = ()
-
-        for marker in self._markers.iterkeys():
-            if marker.props.position == position:
-                markers += (marker,)
-
-        return markers
-
-    def remove_marker(self, marker):
-        """
-            Removes a marker from the progress bar
-
-            :param marker: the marker
-            :type marker: :class:`Marker`
-        """
-        del self._markers[marker]
-        self.emit('marker-removed', marker)
-        self.queue_draw()
-
-    def remove_markers_at(self, position):
-        """
-            Removes all markers located at a position
-
-            :param position: the mark position
-            :type position: float
-            :returns: (m1, m2, ...)
-            :rtype: (:class:`Marker`, ...)
-
-            * *m1*: the first removed marker
-            * *m2*: the second removed marker
-            * ...
-        """
-        markers = self.get_markers_at(position)
-        map(self.remove_marker, markers)
-
-        return markers
-
-    def get_label(self, marker):
-        """
-            Builds the most appropriate label
-            markup to describe a marker
-
-            :param marker: the marker
-            :type marker: :class:`Marker`
-            :returns: the label
-            :rtype: string
-        """
-        markup = None
-
-        if player.PLAYER.current:
-            length = player.PLAYER.current.get_tag_raw('__length')
-
-            if length is not None:
-                length = length * marker.props.position
-                length = formatter.LengthTagFormatter.format_value(length)
-
-                if marker.props.label:
-                    markup = '<b>%s</b> (%s)' % (marker.props.label, length)
-                else:
-                    markup = '%s' % length
-        else:
-            if marker.props.label:
-                markup = '<b>%s</b> (%d%%)' % (
-                    marker.props.label,
-                    int(marker.props.position * 100)
-                )
-            else:
-                markup = '%d%%' % int(marker.props.position * 100)
-
-        return markup
-
-    def _is_marker_hit(self, marker, check_x, check_y):
-        """
-            Checks whether a marker is hit by a point 
-
-            :param marker: the marker
-            :type marker: :class:`Marker`
-            :param check_x: the x location to check
-            :type check_x: float
-            :param check_y: the y location to check
-            :type check_y: float
-            :returns: whether the marker was hit
-            :rtype: bool
-        """
-        points = self._markers[marker]
-        x, y, width, height = self._get_bounding_box(points)
-
-        if x <= check_x <= width and y <= check_y <= height:
-            return True
-
-        return False
-
-    def _get_points(self, marker, width=None, height=None):
-        """
-            Calculates the points necessary
-            to represent a marker
-
-            :param marker: the marker
-            :type marker: :class:`Marker`
-            :param width: area width override
-            :type width: int
-            :param height: area height override
-            :type height: int
-            :returns: ((x1, y1), (x2, y2), ...)
-            :rtype: ((float, float), ...)
-
-            * *x1*: the x coordinate of the first point
-            * *y1*: the y coordinate of the first point
-            * *x2*: the x coordinate of the second point
-            * *y2*: the y coordinate of the second point
-            * ...
-        """
-        points = ()
-        width = width or self.allocation.width
-        height = height or self.allocation.height
-        position = width * marker.props.position
-        marker_scale = int(height * self.props.marker_scale)
-
-        # Adjustments by 0.5 taken from
-        # http://cairographics.org/FAQ/#sharp_lines
-        if marker.props.anchor == gtk.ANCHOR_NORTH_WEST:
-            points = (
-                (position - 0.5, 0.5),
-                (position + marker_scale * 0.75 - 0.5, 0.5),
-                (position - 0.5, marker_scale * 0.75 + 0.5)
-            )
-        elif marker.props.anchor == gtk.ANCHOR_NORTH:
-            points = (
-                (position - 0.5, marker_scale / 2 + 0.5),
-                (position + marker_scale / 2 - 0.5, 0.5),
-                (position - marker_scale / 2 - 0.5, 0.5)
-            )
-        elif marker.props.anchor == gtk.ANCHOR_NORTH_EAST:
-            points = (
-                (position - marker_scale * 0.75 - 0.5, 0.5),
-                (position - 0.5, 0.5),
-                (position - 0.5, marker_scale * 0.75 + 0.5)
-            )
-        elif marker.props.anchor == gtk.ANCHOR_EAST:
-            points = (
-                (position - marker_scale / 2 - 0.5, height / 2 + 0.5),
-                (position - 0.5, height / 2 - marker_scale / 2 + 0.5),
-                (position - 0.5, height / 2 + marker_scale / 2 + 0.5)
-            )
-        elif marker.props.anchor == gtk.ANCHOR_SOUTH_EAST:
-            points = (
-                (position - 0.5, height - 0.5),
-                (position - 0.5, height - marker_scale * 0.75 - 0.5),
-                (position - marker_scale * 0.75 - 0.5, height - 0.5)
-            )
-        elif marker.props.anchor == gtk.ANCHOR_SOUTH:
-            points = (
-                (position - 0.5, height - marker_scale / 2 - 0.5),
-                (position + marker_scale / 2 - 0.5, height - 0.5),
-                (position - marker_scale / 2 - 0.5, height - 0.5)
-            )
-        elif marker.props.anchor == gtk.ANCHOR_SOUTH_WEST:
-            points = (
-                (position - 0.5, height - 0.5),
-                (position + marker_scale * 0.75 - 0.5, height - 0.5),
-                (position - 0.5, height - marker_scale * 0.75 - 0.5)
-            )
-        elif marker.props.anchor == gtk.ANCHOR_WEST:
-            points = (
-                (position + marker_scale / 2 - 0.5, height / 2 + 0.5),
-                (position - 0.5, height / 2 - marker_scale / 2 + 0.5),
-                (position - 0.5, height / 2 + marker_scale / 2 + 0.5)
-            )
-        elif marker.props.anchor == gtk.ANCHOR_CENTER:
-            points = (
-                (position - 0.5, height / 2 - marker_scale / 2 + 0.5),
-                (position + marker_scale / 2 - 0.5, height / 2 + 0.5),
-                (position - 0.5, height / 2 + marker_scale / 2 + 0.5),
-                (position - marker_scale / 2 - 0.5, height / 2 + 0.5)
-            )
-
-        return points
-
-    def _get_bounding_box(self, points):
-        """
-            Calculates the axis aligned bounding box
-            of a sequence of points
-
-            :param points: ((x1, y1), (x2, y2), ...)
-            :type points: ((float, float), ...)
-            :returns: (x, y, width, height)
-            :rtype: (float, float, float, float)
-
-            * *x*: the x coordinate of the box
-            * *y*: the y coordinate of the box
-            * *width*: the width of the box
-            * *height*: the height of the box
-        """
-        xs, ys = zip(*points)
-        return min(xs), min(ys), max(xs), max(ys)
-
-    def seek(self, position):
-        """
-            Seeks within the current track
-        """
-        if player.PLAYER.current:
-            length = player.PLAYER.current.get_tag_raw('__length')
-
-            player.PLAYER.set_progress(position)
-            self.set_fraction(position)
-
-            if length is not None:
-                self.set_text(self._formatter.format(
-                    current_time=length * position))
-
-    def do_get_property(self, gproperty):
-        """
-            Gets a GObject property
-        """
-        try:
-            return self.__values[gproperty.name]
-        except KeyError:
-            raise AttributeError('unknown property %s' % property.name)
-
-    def do_set_property(self, gproperty, value):
-        """
-            Sets a GObject property
-        """
-        try:
-            self.__values[gproperty.name] = value
-        except KeyError:
-            raise AttributeError('unknown property %s' % property.name)
-
-    def do_notify(self, gproperty):
-        """
-            Reacts to GObject property changes
-        """
-        if gproperty.name == 'marker-scale':
-            for marker in self._markers.iterkeys():
-                self._markers[marker] = self._get_points(marker)
-            self.queue_draw()
-        elif gproperty.name == 'fraction':
-            try:
-                length = player.PLAYER.current.get_tag_raw('__length')
-                length = float(length)
-            except AttributeError, TypeError:
-                return
-
-            pixel_per_second = self.allocation.width / length
-            tolerance = pixel_per_second / self.allocation.width
-            reached_markers = (m for m in self._markers.iterkeys() \
-                if m.props.position <= \
-                   self.props.fraction <= \
-                   m.props.position + tolerance)
-
-            for marker in reached_markers:
-                self.emit('marker-reached', marker)
-
-    def do_size_allocate(self, allocation):
-        """
-            Recalculates the marker points
-        """
-        oldallocation = self.allocation
-
-        gtk.ProgressBar.do_size_allocate(self, allocation)
-
-        if allocation != oldallocation:
-            for marker in self._markers.iterkeys():
-                self._markers[marker] = self._get_points(marker)
-
-    def do_expose_event(self, event):
-        """
-            Draws markers on top of the progress bar
-        """
-        gtk.ProgressBar.do_expose_event(self, event)
-
-        context = self.window.cairo_create()
-        context.set_line_width(self.props.marker_scale / 0.9)
-
-        for marker, points in self._markers.iteritems():
-            for x, y in points:
-                context.line_to(x, y)
-            context.close_path()
-
-            if marker.props.state in (gtk.STATE_PRELIGHT, gtk.STATE_ACTIVE):
-                context.set_source_color(self.style.fg[gtk.STATE_NORMAL])
-            else:
-                if marker.props.color is not None:
-                    base = marker.props.color
-                else:
-                    base = self.style.base[marker.props.state]
-
-                context.set_source_rgba(
-                    base.red / 256.0**2,
-                    base.green / 256.0**2,
-                    base.blue / 256.0**2,
-                    0.7
-                )
-            context.fill_preserve()
-
-            if marker.props.state in (gtk.STATE_PRELIGHT, gtk.STATE_ACTIVE):
-                context.set_source_color(self.style.fg[gtk.STATE_NORMAL])
-            else:
-                foreground = self.style.fg[marker.props.state]
-                context.set_source_rgba(
-                    foreground.red / 256.0**2,
-                    foreground.green / 256.0**2,
-                    foreground.blue / 256.0**2,
-                    0.7
-                )
-            context.stroke()
-
-    def do_button_press_event(self, event):
-        """
-            Prepares seeking
-        """
-        hit_markers = []
-
-        for marker in self._markers.iterkeys():
-            if self._is_marker_hit(marker, event.x, event.y):
-                if marker.props.state in (gtk.STATE_NORMAL,
-                                          gtk.STATE_PRELIGHT):
-                    marker.props.state = gtk.STATE_ACTIVE
-                    hit_markers += [marker]
-
-        hit_markers.sort()
-
-        if event.button == 1:
-            if player.PLAYER.current is None:
-                return True
-            
-            length = player.PLAYER.current.get_tag_raw('__length')
-
-            if length is None:
-                return True
-
-            if len(hit_markers) > 0:
-                self.seek(hit_markers[0].props.position)
-            else:
-                fraction = event.x / self.allocation.width
-                fraction = max(0, fraction)
-                fraction = min(fraction, 1)
-
-                self.set_fraction(fraction)
-                self.set_text(_('Seeking: %s') % self._formatter.format(
-                    current_time=length * fraction))
-                self._seeking = True
-        elif event.button == 3:
-            if len(hit_markers) > 0:
-                self._marker_menu.popup(event, tuple(hit_markers))
-            else:
-                self._progressbar_menu.popup(event)
-
-    def do_button_release_event(self, event):
-        """
-            Completes seeking
-        """
-        for marker in self._markers.iterkeys():
-            if marker.props.state == gtk.STATE_ACTIVE:
-                marker.props.state = gtk.STATE_PRELIGHT
-
-        if event.button == 1 and self._seeking:
-            length = player.PLAYER.current.get_tag_raw('__length')
-
-            fraction = event.x / self.allocation.width
-            fraction = max(0, fraction)
-            fraction = min(fraction, 1)
-
-            self.seek(fraction)
-            self._seeking = False
-
-    def do_motion_notify_event(self, event):
-        """
-            Updates progress bar while seeking
-            and updates marker states on hover
-        """
-        if self._seeking:
-            press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
-            press_event.button = 1
-            press_event.x = event.x
-            press_event.y = event.y
-
-            self.emit('button-press-event', press_event)
-        else:
-            hit_markers = []
-
-            for marker in self._markers.iterkeys():
-                if self._is_marker_hit(marker, event.x, event.y):
-                    if marker.props.state == gtk.STATE_NORMAL:
-                        marker.props.state = gtk.STATE_PRELIGHT
-                    hit_markers += [marker]
-                else:
-                    if marker.props.state == gtk.STATE_PRELIGHT:
-                        marker.props.state = gtk.STATE_NORMAL
-
-            if len(hit_markers) > 0:
-                hit_markers.sort()
-                markup = ', '.join([self.get_label(m) for m in hit_markers])
-                self.set_tooltip_markup(markup)
-                self.trigger_tooltip_query()
-
-    def do_leave_notify_event(self, event):
-        """
-            Resets marker states
-        """
-        for marker in self._markers.iterkeys():
-            # Leave other states intact
-            if marker.props.state == gtk.STATE_PRELIGHT:
-                marker.props.state = gtk.STATE_NORMAL
-
-    def do_key_press_event(self, event):
-        """
-            Prepares seeking via keyboard interaction
-            * Alt+Up/Right: seek 1% forward
-            * Alt+Down/Left: seek 1% backward
-        """
-        if self.get_state() & gtk.STATE_INSENSITIVE:
-            return
-
-        if not event.state & gtk.gdk.MOD1_MASK:
-            return
-
-        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
-            direction = 1
-        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
-            direction = -1
-        else:
-            return
-        
-        press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
-        press_event.button = 1
-        new_fraction = self.get_fraction() + 0.01 * direction
-        press_event.x = self.allocation.width * new_fraction
-        press_event.y = float(self.allocation.y)
-
-        self.emit('button-press-event', press_event)
-
-    def do_key_release_event(self, event):
-        """
-            Completes seeking via keyboard interaction
-        """
-        if not event.state & gtk.gdk.MOD1_MASK:
-            return
-
-        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
-            direction = 1
-        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
-            direction = -1
-        else:
-            return
-
-        release_event = gtk.gdk.Event(gtk.gdk.BUTTON_RELEASE)
-        release_event.button = 1
-        new_fraction = self.get_fraction() + 0.01 * direction
-        release_event.x = self.allocation.width * new_fraction
-        release_event.y = float(self.allocation.y)
-
-        self.emit('button-release-event', release_event)
-
-    def on_hierarchy_changed(self, widget, old_toplevel):
-        """
-            Sets up editing cancel on toplevel focus out
-        """
-        self.get_toplevel().connect('focus-out-event',
-            lambda w, e: self.emit('focus-out-event', e))
-
-    def on_marker_menu_deactivate(self, menu):
-        """
-            Makes sure to reset states of
-            previously selected markers
-        """
-        for marker in self._markers:
-            marker.props.state = gtk.STATE_NORMAL
-        self.queue_draw()
-
-    def on_marker_notify(self, marker, gproperty):
-        """
-            Recalculates marker points on position changes
-        """
-        if gproperty.name in ('anchor', 'position'):
-            self._markers[marker] = self._get_points(marker)
-        self.queue_draw()
-
-    def on_timer(self):
-        """
-            Prevents update while seeking
-        """
-        if self._seeking:
-            return True
-
-        return PlaybackProgressBar.on_timer(self)
 
 class VolumeControl(gtk.Alignment):
     """

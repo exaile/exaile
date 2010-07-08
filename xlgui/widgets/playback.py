@@ -24,6 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+# FIXME: Make markers provider-based,
+#        Don't care about identification,
+#        since we always use all markers
+
 import glib
 import gobject
 import gtk
@@ -467,7 +471,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
 
 # XXX: Example implementation only
 # Bookmarks: "Add bookmark" (1 new marker)
-# A-B-Repeat: "Repeat" (2 new marker, SW, SE)
+# A-B-Repeat: "Repeat" (2 new marker, NW, NE)
 def __create_progressbar_context_menu():
     items = []
 
@@ -639,9 +643,9 @@ class SeekProgressBar(PlaybackProgressBar):
     def __init__(self):
         PlaybackProgressBar.__init__(self)
 
+        self.__values = {'marker-scale': 0.7}
         self._seeking = False
         self._markers = {}
-        self.__values = {'marker-scale': 0.7}
         self._progressbar_menu = ProgressBarContextMenu(self)
         self._marker_menu = MarkerContextMenu(self)
         self._marker_menu.connect('deactivate',
@@ -918,7 +922,7 @@ class SeekProgressBar(PlaybackProgressBar):
 
     def do_notify(self, gproperty):
         """
-            Recalculates the marker points
+            Reacts to GObject property changes
         """
         if gproperty.name == 'marker-scale':
             for marker in self._markers.iterkeys():
@@ -973,7 +977,7 @@ class SeekProgressBar(PlaybackProgressBar):
                 if marker.props.color is not None:
                     base = marker.props.color
                 else:
-                    base = self.style.base[gtk.STATE_NORMAL]
+                    base = self.style.base[marker.props.state]
 
                 context.set_source_rgba(
                     base.red / 256.0**2,
@@ -986,7 +990,7 @@ class SeekProgressBar(PlaybackProgressBar):
             if marker.props.state in (gtk.STATE_PRELIGHT, gtk.STATE_ACTIVE):
                 context.set_source_color(self.style.fg[gtk.STATE_NORMAL])
             else:
-                foreground = self.style.fg[gtk.STATE_NORMAL]
+                foreground = self.style.fg[marker.props.state]
                 context.set_source_rgba(
                     foreground.red / 256.0**2,
                     foreground.green / 256.0**2,
@@ -1008,6 +1012,8 @@ class SeekProgressBar(PlaybackProgressBar):
                     marker.props.state = gtk.STATE_ACTIVE
                     hit_markers += [marker]
 
+        hit_markers.sort()
+
         if event.button == 1:
             if player.PLAYER.current is None:
                 return True
@@ -1016,18 +1022,20 @@ class SeekProgressBar(PlaybackProgressBar):
 
             if length is None:
                 return True
-            
-            fraction = event.x / self.allocation.width
-            fraction = max(0, fraction)
-            fraction = min(fraction, 1)
 
-            self.set_fraction(fraction)
-            self.set_text(_('Seeking: %s') % self._formatter.format(
-                current_time=length * fraction))
-            self._seeking = True
+            if len(hit_markers) > 0:
+                self.seek(hit_markers[0].props.position)
+            else:
+                fraction = event.x / self.allocation.width
+                fraction = max(0, fraction)
+                fraction = min(fraction, 1)
+
+                self.set_fraction(fraction)
+                self.set_text(_('Seeking: %s') % self._formatter.format(
+                    current_time=length * fraction))
+                self._seeking = True
         elif event.button == 3:
             if len(hit_markers) > 0:
-                hit_markers.sort()
                 self._marker_menu.popup(event, tuple(hit_markers))
             else:
                 self._progressbar_menu.popup(event)

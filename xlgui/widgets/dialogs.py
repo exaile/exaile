@@ -496,6 +496,7 @@ class FileOperationDialog(gtk.FileChooserDialog):
         gtk.FileChooserDialog.__init__(self, title, parent, action, buttons, backend)
 
         self.expander = gtk.Expander(_('Select File Type (by Extension)'))
+        self.expander.set_border_width(5) # Taken from gtk.FileChooserWidget
 
         #Create the list that will hold the file type/extensions pair
         self.liststore = gtk.ListStore(str, str)
@@ -515,7 +516,7 @@ class FileOperationDialog(gtk.FileChooserDialog):
 
         #Setup the dialog
         self.expander.add(self.list)
-        self.vbox.pack_start(self.expander, False, False, 0)
+        self.get_content_area().pack_start(self.expander, False, False, 3)
         self.expander.show()
 
         #Connect signals

@@ -59,7 +59,9 @@ class FilesContextMenu(menu.ProviderMenu):
 
     def get_context(self):
         context = common.LazyDict(self._parent)
-        context['selected-tracks'] = lambda name, parent: parent.tree.get_selected_tracks()
+        def get_selected_tracks(name, parent):
+            return parent.tree.get_selected_tracks() or []
+        context['selected-tracks'] = get_selected_tracks
         return context
 
 class FilesPanel(panel.Panel):
@@ -117,7 +119,6 @@ class FilesPanel(panel.Panel):
 
         pb = gtk.CellRendererPixbuf()
         text = gtk.CellRendererText()
-        # TRANSLATORS: Filename column in the file browser
         self.colname = colname = gtk.TreeViewColumn(_('Filename'))
         colname.pack_start(pb, False)
         colname.pack_start(text, True)

@@ -64,18 +64,20 @@
                   <object class="GtkHButtonBox" id="hbuttonbox1">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkButton" id="empty_collection_button">
+                      <object class="GtkButton" id="add_music_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <signal name="clicked" handler="on_empty_collection_button_clicked"/>
+                        <signal name="clicked" handler="on_add_music_button_clicked"/>
                         <child>
-                          <object class="GtkHBox" id="hbox1">
+                          <object class="GtkVBox" id="vbox2">
                             <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
                             <child>
                               <object class="GtkImage" id="image2">
                                 <property name="visible">True</property>
                                 <property name="stock">gtk-add</property>
+                                <property name="icon-size">6</property>
                               </object>
                               <packing>
                                 <property name="position">0</property>
@@ -85,6 +87,9 @@
                               <object class="GtkLabel" id="label2">
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">Add Music</property>
+                                <attributes>
+                                  <attribute name="scale" value="1.500000"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="position">1</property>

@@ -45,50 +45,21 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
         A formatter for progress bars
     """
     def __init__(self):
-        formatter.ProgressTextFormatter.__init__(self, self.get_option_value())
+        formatter.ProgressTextFormatter.__init__(self, '')
 
-        event.add_callback(self.on_option_set, 'gui_option_set')
-
-    def format(self, current_time=None, total_time=None):
-        """
-            Returns a string suitable for progress indicators
-
-            :param current_time: the current progress
-            :type current_time: float
-            :param total_time: the total length of a track
-            :type total_time: float
-            :returns: The formatted text
-            :rtype: string
-        """
-        playlist = player.QUEUE.current_playlist
-
-        if playlist.current_position < 0:
-            return ''
-
-        tracks = playlist[playlist.current_position:]
-        duration = sum([t.get_tag_raw('__length') for t in tracks \
-            if t.get_tag_raw('__length')])
-        duration -= player.PLAYER.get_time()
-
-        self._substitutions['total_remaining_time'] = \
-            formatter.LengthTagFormatter.format_value(duration)
-
-        return formatter.ProgressTextFormatter.format(
-            self, current_time, total_time)
-
-    def get_option_value(self):
-        """
-            Returns the current option value
-        """
-        return settings.get_option('gui/progress_bar_text_format',
-            '$current_time / $remaining_time')
+        event.add_callback(self.on_option_set,
+            'gui_option_set')
+        self.on_option_set('gui_option_set', settings,
+            'gui/progress_bar_text_format')
 
     def on_option_set(self, event, settings, option):
         """
             Updates the internal format on setting change
         """
         if option == 'gui/progress_bar_text_format':
-            self.props.format = self.get_option_value()
+            self.props.format = settings.get_option(
+                'gui/progress_bar_text_format',
+                '$current_time / $remaining_time')
 
 class PlaybackProgressBar(gtk.ProgressBar):
     """
@@ -99,7 +70,7 @@ class PlaybackProgressBar(gtk.ProgressBar):
 
         self.reset()
 
-        self._formatter = ProgressBarFormatter()
+        self.formatter = ProgressBarFormatter()
         self.__timer_id = None
         self.__events = ['playback_track_start', 'playback_player_end',
                          'playback_toggle_pause', 'playback_error']
@@ -157,7 +128,7 @@ class PlaybackProgressBar(gtk.ProgressBar):
             return False
 
         self.set_fraction(player.PLAYER.get_progress())
-        self.set_text(self._formatter.format())
+        self.set_text(self.formatter.format())
 
         return True
 
@@ -343,7 +314,6 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
 
     def __init__(self):
         PlaybackProgressBar.__init__(self)
-        providers.ProviderHandler.__init__(self, 'playback-markers')
 
         self.__values = {'marker-scale': 0.7}
         self._seeking = False
@@ -352,6 +322,8 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         self._marker_menu = MarkerContextMenu(self)
         self._marker_menu.connect('deactivate',
             self.on_marker_menu_deactivate)
+
+        providers.ProviderHandler.__init__(self, 'playback-markers')
 
         self.add_events(gtk.gdk.BUTTON_PRESS_MASK |
                         gtk.gdk.BUTTON_RELEASE_MASK |
@@ -532,7 +504,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             self.set_fraction(position)
 
             if length is not None:
-                self.set_text(self._formatter.format(
+                self.set_text(self.formatter.format(
                     current_time=length * position))
 
     def do_get_property(self, gproperty):
@@ -561,6 +533,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             for marker in self._points.iterkeys():
                 self._points[marker] = self._get_points(marker)
             self.queue_draw()
+        '''
         elif gproperty.name == 'fraction':
             try:
                 length = player.PLAYER.current.get_tag_raw('__length')
@@ -577,6 +550,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
 
             for marker in reached_markers:
                 self.emit('marker-reached', marker)
+        '''
 
     def do_size_allocate(self, allocation):
         """
@@ -664,7 +638,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
                 fraction = min(fraction, 1)
 
                 self.set_fraction(fraction)
-                self.set_text(_('Seeking: %s') % self._formatter.format(
+                self.set_text(_('Seeking: %s') % self.formatter.format(
                     current_time=length * fraction))
                 self._seeking = True
         elif event.button == 3:

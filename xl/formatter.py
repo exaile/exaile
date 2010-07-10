@@ -154,13 +154,6 @@ class Formatter(gobject.GObject):
     """
         A generic text formatter based on a format string
     """
-    __gsignals__ = {
-        'format-changed': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_STRING,)
-        )
-    }
     __gproperties__ = {
         'format': (
             gobject.TYPE_STRING,
@@ -197,7 +190,6 @@ class Formatter(gobject.GObject):
         if property.name == 'format':
             if value != self._template.template:
                 self._template.template = value
-                self.emit('format-changed', value)
         else:
             raise AttributeError('unkown property %s' % property.name)
 
@@ -345,12 +337,24 @@ class ProgressTextFormatter(Formatter):
         else:
             remaining_time = total_time - current_time
 
+        playlist = player.QUEUE.current_playlist
+
+        if playlist.current_position < 0:
+            total_remaining_time = 0
+        else:
+            tracks = playlist[playlist.current_position:]
+            total_remaining_time = sum([t.get_tag_raw('__length') \
+                for t in tracks if t.get_tag_raw('__length')])
+            total_remaining_time -= current_time
+
         self._substitutions['current_time'] = \
             LengthTagFormatter.format_value(current_time)
         self._substitutions['remaining_time'] = \
             LengthTagFormatter.format_value(remaining_time)
         self._substitutions['total_time'] = \
             LengthTagFormatter.format_value(total_time)
+        self._substitutions['total_remaining_time'] = \
+            LengthTagFormatter.format_value(total_remaining_time)
 
         return Formatter.format(self)
 

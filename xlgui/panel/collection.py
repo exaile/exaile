@@ -249,7 +249,7 @@ class CollectionPanel(panel.Panel):
             'on_refresh_button_pressed': self.on_refresh_button_pressed,
             'on_refresh_button_key_pressed': self.on_refresh_button_key_pressed,
             'on_collection_search_entry_activate': self.on_collection_search_entry_activate,
-            'on_empty_collection_button_clicked': lambda *x: xlgui.get_controller().collection_manager()
+            'on_add_music_button_clicked': self.on_add_music_button_clicked
         })
         self.tree.connect('key-release-event', self.on_key_released)
         event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
@@ -316,6 +316,9 @@ class CollectionPanel(panel.Panel):
         self.keyword = unicode(entry.get_text(), 'utf-8')
         self.start_count += 1
         self.load_tree()
+
+    def on_add_music_button_clicked(self, button):
+        xlgui.get_controller().collection_manager()
 
     def _setup_images(self):
         """

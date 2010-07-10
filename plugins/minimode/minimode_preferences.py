@@ -14,14 +14,26 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, gtk
-from xlgui.preferences import widgets
-from xl import event, settings, xdg
+import gtk
+import os.path
+
+from xl import (
+    event,
+    providers,
+    settings,
+    xdg
+)
 from xl.nls import gettext as _
+from xlgui import icons
+from xlgui.preferences import widgets
 
 name = _('Mini Mode')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "minimode_preferences.ui")
+icons.MANAGER.add_stock_from_directory('exaile-minimode',
+    os.path.join(basedir, 'icons'))
+icon = icons.MANAGER.pixbuf_from_stock('exaile-minimode',
+    gtk.ICON_SIZE_MENU)
 
 class AlwaysOnTopPreference(widgets.CheckPreference):
     name = 'plugin/minimode/always_on_top'
@@ -66,43 +78,10 @@ class SelectedControlsPreference(widgets.SelectionListPreference):
     name = 'plugin/minimode/selected_controls'
     default = ['previous', 'play_pause', 'next', 'playlist_button',
                'progress_bar', 'restore']
-    items = [
-        widgets.SelectionListPreference.Item(
-            id='previous', title=_('Previous'),
-            description=_('Go to the previous track')),
-        widgets.SelectionListPreference.Item(
-            id='play_pause', title=_('Play/Pause'),
-            description=_('Start, pause or resume the playback')),
-        widgets.SelectionListPreference.Item(
-            id='stop', title=_('Stop'),
-            description=_('Stop the playback')),
-        widgets.SelectionListPreference.Item(
-            id='next', title=_('Next'),
-            description=_('Go to the next track')),
-        widgets.SelectionListPreference.Item(
-            id='track_selector', title=_('Track selector'),
-            description=_('Simple track list selector')),
-        widgets.SelectionListPreference.Item(
-            id='progress_bar', title=_('Progress bar'),
-            description=_('Playback progress and seeking')),
-        widgets.SelectionListPreference.Item(
-            id='volume', title=_('Volume'),
-            description=_('Change the volume')),
-        widgets.SelectionListPreference.Item(
-            id='playlist_button', title=_('Playlist button'),
-            description=_('Access the current playlist')),
-        widgets.SelectionListPreference.Item(
-            id='progress_button', title=_('Progress button'),
-            description=_('Playback progress and access to '
-                          'the current playlist')),
-        widgets.SelectionListPreference.Item(
-            id='rating', title=_('Rating'),
-            description=_('Select rating of the current track')),
-        widgets.SelectionListPreference.Item(
-            id='restore', title=_('Restore'),
-            description=_('Restore the main window'),
-            fixed=True),
-    ]
+    def __init__(self, preferences, widget):
+        self.items = [self.Item(p.name, p.title, p.description, p.fixed) \
+            for p in providers.get('minimode-controls')]
+        widgets.SelectionListPreference.__init__(self, preferences, widget)
 
 class TrackTitleFormatPreference(widgets.ComboEntryPreference):
     name = 'plugin/minimode/track_title_format'

@@ -15,16 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import cairo
-import gobject
 import gtk
-import os
 
-from xl import event, plugins, settings, xdg
-from xl.formatter import TrackFormatter
+from xl import event, settings
 from xl.nls import gettext as _
-from xlgui import icons
 
-import minimode_preferences, mmwidgets
+import controls
+import minimode_preferences
 
 MINIMODE = None
 
@@ -57,6 +54,8 @@ def _enable(event, exaile, nothing):
     """
         Handles the deferred enable call
     """
+    controls.register()
+
     global MINIMODE
     MINIMODE = MiniMode(exaile)
 
@@ -64,334 +63,166 @@ def disable(exaile):
     """
         Disables the mini mode plugin
     """
+    controls.unregister()
+
     global MINIMODE
     MINIMODE.destroy()
     MINIMODE = None
+
+def teardown(exaile):
+    """
+        Unregisters control providers
+    """
+    controls.unregister()
 
 def get_preferences_pane():
     return minimode_preferences
 
 class MiniMode(gtk.Window):
     """
-        A compact mode for Exaile
+        Mini Mode main window
     """
+    __gsignals__ = {'show': 'override'}
+
     def __init__(self, exaile):
         """
             Sets up the mini mode main window and
             options to access it
         """
         gtk.Window.__init__(self)
-        self.set_title('Exaile')
+        self.set_title('Exaile Mini Mode')
         self.set_resizable(False)
 
-        self.exaile = exaile
-        self._active = False
-        self.defaults = self.exaile.plugins.get_plugin_default_preferences('minimode')
-        self.defaults['plugin/minimode/horizontal_position'] = 10
-        self.defaults['plugin/minimode/vertical_position'] = 10
+        self.exaile_window = exaile.gui.main.window
 
-        self.formatter = TrackFormatter(
-            self.get_option('plugin/minimode/track_title_format')
-        )
-
-        self.box = mmwidgets.WidgetBox(spacing=3)
+        self.box = controls.ControlBox()
+        self.box.set_spacing(3)
+        alignment = gtk.Alignment(xscale=1, yscale=1)
+        alignment.set_padding(0, 0, 3, 3)
+        alignment.add(self.box)
         self.border_frame = gtk.Frame()
-        self.border_frame.add(self.box)
+        self.border_frame.add(alignment)
         self.add(self.border_frame)
 
-        basedir = os.path.dirname(os.path.abspath(__file__))
-        icons.MANAGER.add_stock_from_directory('exaile-minimode',
-            os.path.join(basedir, 'icons'))
-
-        self.menuitem = mmwidgets.MenuItem(self.on_menuitem_activate)
-        self.exaile.gui.builder.get_object('view_menu').append(self.menuitem)
-        self.menuitem.show()
-
-        key, modifier = gtk.accelerator_parse('<Control><Alt>M')
         self.accel_group = gtk.AccelGroup()
+        self.add_accel_group(self.accel_group)
+        self.exaile_window.add_accel_group(self.accel_group)
+        self.menuitem = gtk.ImageMenuItem('exaile-minimode', self.accel_group)
+        self.menuitem.set_label(_('Mini Mode'))
+        self.menuitem.connect('activate', self.on_menuitem_activate)
+        self.menuitem.show()
+        exaile.gui.builder.get_object('view_menu').append(self.menuitem)
+        key, modifier = gtk.accelerator_parse('<Control><Alt>M')
         self.menuitem.add_accelerator('activate', self.accel_group,
             key, modifier, gtk.ACCEL_VISIBLE)
-        self.exaile.gui.main.window.add_accel_group(self.accel_group)
-        self.add_accel_group(self.accel_group)
+        
+        self.__active = False
+        self.__dirty = True
+        # XXX: Until defaults are implemented in xl.settings
+        self.__defaults = {
+            'plugin/minimode/always_on_top': True,
+            'plugin/minimode/show_in_panel': False,
+            'plugin/minimode/on_all_desktops': True,
+            'plugin/minimode/display_window_decorations': True,
+            'plugin/minimode/window_decoration_type': 'full',
+            'plugin/minimode/use_alpha': False,
+            'plugin/minimode/transparency': 0.3,
+            'plugin/minimode/horizontal_position': 10,
+            'plugin/minimode/vertical_position': 10
+        }
 
-        self.register_widgets()
-        self.update_widgets(self.get_option('plugin/minimode/selected_controls'))
-        self.update_position()
-
-        self._configure_id = None
-        self._main_visible_toggle_id = None
-
-        self.connect('show', self.on_show)
-        self.connect('expose-event', self.on_expose_event)
-        self.connect('screen-changed', self.on_screen_changed)
-        self.connect('delete-event', self.on_delete_event)
-        self.exaile.gui.main.connect('main-visible-toggle',
+        exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
+        event.add_callback(self.on_option_set, 'plugin_minimode_option_set')
 
     def destroy(self):
         """
-            Cleans up and hides
-            the mini mode window
+            Cleanups
         """
-        if self._configure_id is not None:
-            self.disconnect(self._configure_id)
-            self._configure_id = None
-        if self._main_visible_toggle_id is not None:
-            self.disconnect(self._main_visible_toggle_id)
-            self._main_visible_toggle_id = None
-
         self.remove_accel_group(self.accel_group)
-        self.exaile.gui.main.window.remove_accel_group(self.accel_group)
-        self.exaile.gui.builder.get_object('view_menu').remove(self.menuitem)
+        self.exaile_window.remove_accel_group(self.accel_group)
+        self.menuitem.parent.remove(self.menuitem)
 
-        self._active = False
-        self._hide()
+        self.set_active(False)
         self.box.destroy()
-
         gtk.Window.destroy(self)
 
-    def _hide(self):
+    def set_active(self, active):
         """
-            Hides the mini mode window, shows the main window
+            Enables or disables the Mini Mode window
         """
-        if self._active:
-            self.hide()
-        else:
-            if self._configure_id is not None:
-                self.disconnect(self._configure_id)
-                self._configure_id = None
+        if active == self.__active:
+            return
+
+        if active and not self.props.visible:
+            self.exaile_window.hide()
+            self.show_all()
+        elif not active and self.props.visible:
             self.hide_all()
+            self.exaile_window.show()
 
-        self.exaile.gui.main.window.show()
+        self.__active = active
 
-    def _show(self):
+    def do_show(self):
         """
-            Shows the mini mode window, hides the main window
+            Updates the appearance if
+            settings have been changed
         """
-        self.exaile.gui.main.window.hide()
+        if self.__dirty:
+            for option, default in self.__defaults.iteritems():
+                value = settings.get_option(option, default)
 
-        if not self._active:
-            self.update_window()
+                if option == 'plugin/minimode/always_on_top':
+                    self.set_keep_above(value)
+                elif option == 'plugin/minimode/show_in_panel':
+                    self.props.skip_taskbar_hint = not value
+                elif option == 'plugin/minimode/on_all_desktops':
+                    if value: self.stick()
+                    else: self.unstick()
+                elif option == 'plugin/minimode/display_window_decorations':
+                    if value:
+                        option = 'plugin/minimode/window_decoration_type'
+                        value  = settings.get_option(option,
+                            self.__defaults[option])
 
-        self.show_all()
-        if self._configure_id is None:
-            self._configure_id = self.connect('configure-event',
-                self.on_configure_event)
-
-    def toggle_visible(self):
-        """
-            Toggles visibility of the mini mode window
-        """
-        if self.get_property('visible'):
-            self._hide()
-        else:
-            self._show()
-
-    def update_window(self):
-        """
-            Changes the appearance of the mini mode window
-            based on user setting
-        """
-        for option in self.defaults.keys():
-            value = self.get_option(option)
-
-            if option == 'plugin/minimode/always_on_top':
-                self.set_keep_above(value)
-            elif option == 'plugin/minimode/show_in_panel':
-                self.set_property('skip-taskbar-hint', not value)
-            elif option == 'plugin/minimode/on_all_desktops':
-                if value: self.stick()
-                else: self.unstick()
-            elif option == 'plugin/minimode/display_window_decorations':
-                if value:
-                    decoration_type = self.get_option('plugin/minimode/window_decoration_type')
-
-                    if decoration_type == 'full':
-                        self.set_decorated(True)
-                        self.border_frame.set_shadow_type(gtk.SHADOW_NONE)
-                    elif decoration_type == 'simple':
+                        if value == 'full':
+                            self.set_decorated(True)
+                            self.border_frame.set_shadow_type(gtk.SHADOW_NONE)
+                        elif value == 'simple':
+                            self.set_decorated(False)
+                            self.border_frame.set_shadow_type(gtk.SHADOW_OUT)
+                    else:
                         self.set_decorated(False)
-                        self.border_frame.set_shadow_type(gtk.SHADOW_OUT)
-                else:
-                    self.set_decorated(False)
-                    self.border_frame.set_shadow_type(gtk.SHADOW_NONE)
-            elif option == 'plugin/minimode/use_alpha':
-                self.unrealize()
+                        self.border_frame.set_shadow_type(gtk.SHADOW_NONE)
+                elif option == 'plugin/minimode/use_alpha':
+                    self.unrealize()
+                    self.set_app_paintable(value)
+                    self.emit('screen-changed', self.get_screen())
+                    self.realize()
+                elif option == 'plugin/minimode/horizontal_position':
+                    x, y = self.get_position()
+                    self.move(value, y)
+                elif option == 'plugin/minimode/vertical_position':
+                    x, y = self.get_position()
+                    self.move(x, value)
 
-                screen = self.get_screen()
-                colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
-                self.set_colormap(colormap)
-                self.set_app_paintable(value)
+            self.__dirty = False
 
-                self.realize()
-            elif option == 'plugin/minimode/horizontal_position':
-                self.update_position()
-            elif option == 'plugin/minimode/vertical_position':
-                self.update_position()
-            elif option == 'plugin/minimode/selected_controls':
-                self.update_widgets(value)
-            elif option == 'plugin/minimode/track_title_format':
-                self.formatter.set_property('format', value)
-
-    def update_position(self):
-        """
-            Changes the position of the mini mode window
-            based on user setting
-        """
-        x = self.get_option('plugin/minimode/horizontal_position')
-        y = self.get_option('plugin/minimode/vertical_position')
-        self.move(int(x), int(y))
-
-    def register_widgets(self):
-        """
-            Registers all available widget types
-        """
-        widgets = {
-            'previous': (mmwidgets.Button,
-                [gtk.STOCK_MEDIA_PREVIOUS, _('Previous Track'),
-                    self.on_previous_clicked]),
-            'next': (mmwidgets.Button,
-                [gtk.STOCK_MEDIA_NEXT, _('Next Track'),
-                    self.on_next_clicked]),
-            'play_pause': (mmwidgets.PlayPauseButton,
-                [self.exaile.player, self.on_play_pause_clicked]),
-            'stop': (mmwidgets.StopButton,
-                [self.exaile.player, self.exaile.queue]),
-            'volume': (mmwidgets.VolumeButton,
-                [self.exaile.player, self.on_volume_changed]),
-            'restore': (mmwidgets.RestoreButton,
-                [self.accel_group, self.on_restore_clicked]),
-            'progress_bar': (mmwidgets.ProgressBar,
-                [self.exaile.player, self.on_seeked]),
-            'track_selector': (mmwidgets.TrackSelector,
-                [self.exaile.gui.main, self.exaile.queue, self.formatter,
-                 self.on_track_change]),
-            'playlist_button': (mmwidgets.PlaylistButton,
-                [self.exaile.gui.main, self.exaile.player, self.exaile.queue,
-                 self.formatter, self.on_track_change]),
-            'progress_button': (mmwidgets.ProgressButton,
-                [self.on_track_change, self.on_seeked]),
-            'rating': (mmwidgets.RatingWidget, [])
-        }
-
-        self.box.register_widgets(widgets)
-
-    def update_widgets(self, ids):
-        """
-            Adds and removes widgets
-        """
-        self.box.update_widgets(ids)
-
-    def get_option(self, option):
-        """
-            Wrapper function, automatically inserts default values
-        """
-        return settings.get_option(option, self.defaults[option])
-
-    def set_option(self, option, value):
-        """
-            Wrapper function, automatically inserts default values
-            and sets value only if it has changed
-        """
-        oldvalue = self.get_option(option)
-        if value != oldvalue:
-            settings.set_option(option, value)
-
-    def on_menuitem_activate(self, menuitem):
-        """
-            Shows mini mode on activation of a menu item
-        """
-        self.toggle_visible()
-        self._active = not self._active
-
-    def on_previous_clicked(self, button):
-        """
-            Jumps to the previous track
-        """
-        self.exaile.queue.prev()
-
-    def on_next_clicked(self, button):
-        """
-            Jumps to the next track
-        """
-        self.exaile.queue.next()
-
-    def on_play_pause_clicked(self, button):
-        """
-            Toggles between playback and pause mode
-        """
-        if self.exaile.player.is_paused() or self.exaile.player.is_playing():
-            self.exaile.player.toggle_pause()
-        else:
-            self.exaile.queue.play()
-
-    def on_restore_clicked(self, button):
-        """
-            Hides mini mode on button click
-        """
-        self.toggle_visible()
-        self._active = False
-
-    def on_track_change(self, sender, track):
-        """
-            Handles changes in track list controls
-        """
-        if track is not None:
-            index = self.exaile.queue.current_playlist.index(track)
-            self.exaile.queue.current_playlist.set_current_pos(index)
-            self.exaile.queue.play(track)
-
-    def on_seeked(self, progress_bar, position):
-        """
-            Handles seeking in the progress bar
-        """
-        self.exaile.player.set_progress(position)
-
-    def on_volume_changed(self, volume_button, value):
-        """
-            Handles changes to the volume
-        """
-        settings.set_option('player/volume', value)
-
-    def on_main_visible_toggle(self, main):
-        """
-            Handles tray icon toggles
-        """
-        if self._active:
-            if self.get_property('visible'):
-                self.hide()
-            else:
-                self.show()
-            return True
-        return False
-
-    def on_configure_event(self, widget, event):
-        """
-            Handles movement of the window
-        """
-        x, y = self.get_position()
-        self.set_option('plugin/minimode/horizontal_position', x)
-        self.set_option('plugin/minimode/vertical_position', y)
-
-    def on_show(self, widget):
-        """
-            Updates window size on exposure
-        """
         self.resize(*self.size_request())
         self.queue_draw()
+        gtk.Window.do_show(self)
 
-    def on_expose_event(self, widget, event):
+    def do_expose_event(self, event):
         """
             Paints the window alpha transparency
         """
-        context = widget.window.cairo_create()
-
+        context = self.window.cairo_create()
         context.rectangle(event.area.x, event.area.y,
             event.area.width, event.area.height)
         context.clip()
 
-        background = widget.style.bg[gtk.STATE_NORMAL]
-        opacity = 1 - self.get_option('plugin/minimode/transparency')
+        background = self.style.bg[gtk.STATE_NORMAL]
+        opacity = 1 - settings.get_option('plugin/minimode/transparency', 0.3)
         context.set_source_rgba(
             float(background.red) / 256**2,
             float(background.green) / 256**2,
@@ -399,23 +230,59 @@ class MiniMode(gtk.Window):
             opacity
         )
         context.set_operator(cairo.OPERATOR_SOURCE)
-
         context.paint()
 
-    def on_screen_changed(self, widget, event):
+        gtk.Window.do_expose_event(self, event)
+
+    def do_screen_changed(self, screen):
         """
             Updates the colormap on screen change
         """
-        screen = widget.get_screen()
         colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
-        self.window.set_colormap(rgbamap)
+        self.set_colormap(colormap)
 
-    def on_delete_event(self, widget, event):
+        self.chain(screen)
+
+    def do_configure_event(self, event):
         """
-            Closes application on quit
+            Stores the window position upon window movement
         """
-        self.hide()
-        self.exaile.gui.main.quit()
+        settings.set_option('plugin/minimode/horizontal_position', event.x)
+        settings.set_option('plugin/minimode/vertical_position', event.y)
+
+    def do_delete_event(self, event):
+        """
+            Takes care of restoring Exaile's main window
+        """
+        self.set_active(False)
+
         return True
+
+    def on_menuitem_activate(self, menuitem):
+        """
+            Shows the Mini Mode window
+        """
+        self.set_active(True)
+
+    def on_main_visible_toggle(self, main):
+        """
+            Handles visiblity toggles in
+            Exaile's main window stead
+        """
+        if self.__active:
+            if self.props.visible:
+                self.hide_all()
+            else:
+                self.show_all()
+
+            return True
+
+        return False
+
+    def on_option_set(self, event, settings, option):
+        """
+            Queues updates upon setting change
+        """
+        self.__dirty = True
 
 # vim: et sts=4 sw=4

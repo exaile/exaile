@@ -22,6 +22,7 @@ import os
 name = _('IPython Console')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'ipconsole_prefs.ui')
+icon = 'utilities-terminal'
 
 class OpacityPreference(widgets.ScalePreference):
     default = 80.0

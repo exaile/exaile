@@ -410,7 +410,7 @@ class SelectionListPreference(Preference):
             bool, # 3: enabled
             bool  # 4: fixed
         )
-
+        
         for item in self.items:
             self.model.append([item.id, item.title, item.description,
                 True, item.fixed])
@@ -470,6 +470,9 @@ class SelectionListPreference(Preference):
         if not available_items:
             return
 
+        # Filter out invalid items
+        selected_items = [item for item in selected_items \
+            if item in available_items]
         # Cut out unselected items
         unselected_items = [item for item in available_items \
             if item not in selected_items]

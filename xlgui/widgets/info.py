@@ -87,7 +87,7 @@ class TrackInfoPane(gtk.Alignment):
             Cleanups
         """
         # Make sure to disconnect callbacks
-        self.set__auto_update(False)
+        self.set_auto_update(False)
 
         gtk.Alignment.destroy(self)
 
@@ -534,7 +534,6 @@ class TrackToolTip(TrackInfoPane, ToolTip):
         """
             Cleanups
         """
-        ToolTip.destroy(self)
         TrackInfoPane.destroy(self)
 
 class TrackListToolTip(ToolTip):

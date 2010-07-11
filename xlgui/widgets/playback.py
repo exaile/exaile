@@ -670,6 +670,8 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             Updates progress bar while seeking
             and updates marker states on hover
         """
+        self.set_tooltip_markup(None)
+
         if self._seeking:
             press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
             press_event.button = 1

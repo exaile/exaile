@@ -22,6 +22,7 @@ import dbus.service
 
 import xl.trax
 import xl.event
+from xl import player
 
 import mpris_tag_converter
 
@@ -44,7 +45,7 @@ class ExaileMprisTrackList(dbus.service.Object):
         """
             Returns the list of tracks in the current playlist
         """
-        return self.exaile.queue.current_playlist.get_ordered_tracks()
+        return player.QUEUE.current_playlist.get_ordered_tracks()
 
     @dbus.service.method(INTERFACE_NAME,
             in_signature="i", out_signature="a{sv}")
@@ -69,8 +70,8 @@ class ExaileMprisTrackList(dbus.service.Object):
             there are zero elements in the TrackList.
         """
         try:
-            return self.exaile.queue.current_playlist.index(
-                    self.exaile.player.current)
+            return player.QUEUE.current_playlist.index(
+                    player.PLAYER.current)
         except ValueError:
             return -1
 
@@ -79,7 +80,7 @@ class ExaileMprisTrackList(dbus.service.Object):
         """
             Number of elements in the TrackList
         """
-        return len(self.exaile.queue.current_playlist)
+        return len(player.QUEUE.current_playlist)
 
     @dbus.service.method(INTERFACE_NAME,
             in_signature="sb", out_signature="i")
@@ -91,9 +92,9 @@ class ExaileMprisTrackList(dbus.service.Object):
         track = self.exaile.collection.get_track_by_loc(unicode(uri))
         if track is None:
             track = xl.trax.Track(uri)
-        self.exaile.queue.current_playlist.add(track)
+        player.QUEUE.current_playlist.add(track)
         if play_immediately:
-            self.exaile.queue.play(track)
+            player.QUEUE.play(track)
         return 0
 
     @dbus.service.method(INTERFACE_NAME, in_signature="i")
@@ -101,21 +102,21 @@ class ExaileMprisTrackList(dbus.service.Object):
         """
             Appends an URI in the TrackList.
         """
-        self.exaile.queue.current_playlist.remove(pos)
+        player.QUEUE.current_playlist.remove(pos)
 
     @dbus.service.method(INTERFACE_NAME, in_signature="b")
     def SetLoop(self, loop):
         """
             Sets the player's "repeat" or "loop" setting
         """
-        self.exaile.queue.current_playlist.set_repeat(loop)
+        player.QUEUE.current_playlist.set_repeat(loop)
 
     @dbus.service.method(INTERFACE_NAME, in_signature="b")
     def SetRandom(self, random):
         """
             Sets the player's "random" setting
         """
-        self.exaile.queue.current_playlist.set_random(random)
+        player.QUEUE.current_playlist.set_random(random)
 
     def tracklist_change_cb(self, type, object, data):
         """

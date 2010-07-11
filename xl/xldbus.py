@@ -218,7 +218,8 @@ class DbusManager(dbus.service.Object):
         """
             Returns True if Exaile is playing (or paused), False if it's not
         """
-        return bool(self.exaile.player.current)
+        from xl import player
+        return bool(not player.PLAYER.is_stopped())
 
     @dbus.service.method('org.exaile.Exaile', 's', 's')
     def GetTrackAttr(self, attr):

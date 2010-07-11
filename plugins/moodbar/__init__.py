@@ -18,10 +18,9 @@
 import moodbarprefs
 import cgi, gtk, glib, os, os.path, subprocess, colorsys
 import inspect
-from xl import event, xdg, settings
+from xl common, import event, player, settings, xdg
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
-from xl import common
 import moodbarprefs
 
 import logging
@@ -111,7 +110,7 @@ class ExModbar(object):
               self.brush = self.mod.window.new_gc()
 
 
-              track = self.exaile.player.current
+              track = player.PLAYER.current
 
               self.lookformod(track)
 
@@ -131,7 +130,7 @@ class ExModbar(object):
          modLoc=self.moodsDir+'/'+ self.playingTrack.replace('/','-')+".mood"
          modLoc=modLoc.replace("'",'')
          needGen=False
-         self.curpos=self.exaile.player.get_progress()
+         self.curpos=player.PLAYER.get_progress()
          if os.access(modLoc, 0):
              self.modwidth=0
              if not self.readMod(modLoc):
@@ -171,7 +170,7 @@ class ExModbar(object):
          self.modTimer = glib.timeout_add_seconds(1, self.updateMod)
 
     def updateplayerpos(self):
-         if self.modTimer: self.curpos=self.exaile.player.get_progress()
+         if self.modTimer: self.curpos=player.PLAYER.get_progress()
          self.mod.queue_draw_area(0, 0, self.get_size(), 24)
 
 
@@ -341,7 +340,7 @@ class ExModbar(object):
              0x0000,
              0x0000
          )
-         track = self.exaile.player.current
+         track = player.PLAYER.current
          if self.theme:
                 flatcolor1r,flatcolor1g,flatcolor1b=colorsys.yiq_to_rgb(0.5,self.ivalue,self.qvalue)
                 flatcolor2r,flatcolor2g,flatcolor2b=colorsys.yiq_to_rgb(0.5*darkmulti,self.ivalue,self.qvalue)
@@ -406,7 +405,7 @@ class ExModbar(object):
 
             return False
 
-         track = self.exaile.player.current
+         track = player.PLAYER.current
          if not track or not (track.is_local() or \
                  track.get_tag_raw('__length')): return
 
@@ -450,8 +449,8 @@ class ExModbar(object):
                 this.window.draw_line(gc, int(self.curpos*self.modwidth), 10,
                                       int(self.curpos*self.modwidth)+10, -5)
 
-            length = self.exaile.player.current.get_tag_raw('__length')
-            seconds = self.exaile.player.get_time()
+            length = player.PLAYER.current.get_tag_raw('__length')
+            seconds = player.PLAYER.get_time()
             remaining_seconds = length - seconds
             text = ("%d:%02d / %d:%02d" %
                 ( seconds // 60, seconds % 60, remaining_seconds // 60,
@@ -488,9 +487,8 @@ class ExModbar(object):
 
 
     def modSeekEnd(self,this,event):
-        global exaile1
         self.seeking = False
-        track = self.exaile.player.current
+        track = player.PLAYER.current
         if not track or not (track.is_local() or \
                 track.get_tag_raw('__length')): return
 
@@ -506,11 +504,11 @@ class ExModbar(object):
         #redrawMod(self)
 
         seconds = float(value * length)
-        self.exaile.player.seek(seconds)
+        player.PLAYER.seek(seconds)
 
     def modSeekMotionNotify(self,this,  event):
         if self.seeking:
-            track = self.exaile.player.current
+            track = player.PLAYER.current
             if not track or not (track.is_local() or \
                     track.get_tag_raw('__length')): return
 
@@ -547,7 +545,6 @@ def enable(exaile):
 
 def _enable(eventname, exaile, nothing):
     global ExaileModbar
-    track = ExaileModbar.exaile.player.current
     ExaileModbar.readMod('')
     ExaileModbar.setupUi()
     event.add_callback(ExaileModbar.play_start, 'playback_track_start')

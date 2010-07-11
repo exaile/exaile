@@ -20,8 +20,7 @@
 from __future__ import with_statement
 import gtk, time, glib, thread, os
 from xl.nls import gettext as _
-from xl import event, xdg
-from xl import settings
+from xl import event, player, settings, xdg
 #import xl.plugins as plugins
 #import xl.path as xlpath
 #import cPickle as pickle
@@ -341,10 +340,10 @@ def fade_in(main, exaile):
     temp_volume = main.min_volume
     while temp_volume <= main.max_volume:
         #print "AC: set volume to %s" % str(temp_volume)
-        exaile.player.set_volume( ( temp_volume ) )
+        player.PLAYER.set_volume( ( temp_volume ) )
         temp_volume += main.increment
         time.sleep( main.time_per_inc )
-        if exaile.player.is_paused() or not exaile.player.is_playing():
+        if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
             return
 
 
@@ -366,22 +365,22 @@ def check_alarms(main, exaile):
             if main.RANG.has_key(check): return True
 
             # tracks to play?
-            count = len(exaile.queue.get_tracks())
-            if exaile.queue.current_playlist:
-                count += len(exaile.queue.current_playlist.get_tracks())
+            count = len(player.QUEUE.get_tracks())
+            if player.QUEUE.current_playlist:
+                count += len(player.QUEUE.current_playlist.get_tracks())
             else:
                 count += len(exaile.gui.main.get_selected_page().playlist.get_tracks())
             print 'count:', count
-            if count == 0 or exaile.player.is_playing(): return True    # Check if there are songs in playlist and if it is already playing
+            if count == 0 or player.PLAYER.is_playing(): return True    # Check if there are songs in playlist and if it is already playing
             if main.fading:
                 thread.start_new(fade_in, (main, exaile))
             if main.restart:
-                if exaile.queue.current_playlist:
-                    exaile.queue.current_playlist.set_current_pos(0)
+                if player.QUEUE.current_playlist:
+                    player.QUEUE.current_playlist.set_current_pos(0)
                 else:
-                    exaile.queue.set_current_playlist(exaile.gui.main.get_selected_page())
+                    player.QUEUE.set_current_playlist(exaile.gui.main.get_selected_page())
 
-            exaile.queue.play()
+            player.QUEUE.play()
 
             main.RANG[check] = True
 

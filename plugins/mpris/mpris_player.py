@@ -21,7 +21,7 @@ http://wiki.xmms2.xmms.se/wiki/MPRIS#.2FPlayer_object_methods
 
 from __future__ import division
 
-from xl import settings
+from xl import player, settings
 
 import dbus
 import dbus.service
@@ -77,28 +77,28 @@ class ExaileMprisPlayer(dbus.service.Object):
         """
             Goes to the next element
         """
-        self.exaile.queue.next()
+        player.QUEUE.next()
 
     @dbus.service.method(INTERFACE_NAME)
     def Prev(self):
         """
             Goes to the previous element
         """
-        self.exaile.queue.prev()
+        player.QUEUE.prev()
 
     @dbus.service.method(INTERFACE_NAME)
     def Pause(self):
         """
             If playing, pause. If paused, unpause.
         """
-        self.exaile.player.toggle_pause()
+        player.PLAYER.toggle_pause()
 
     @dbus.service.method(INTERFACE_NAME)
     def Stop(self):
         """
             Stop playing
         """
-        self.exaile.player.stop()
+        player.PLAYER.stop()
 
     @dbus.service.method(INTERFACE_NAME)
     def Play(self):
@@ -106,10 +106,10 @@ class ExaileMprisPlayer(dbus.service.Object):
             If Playing, rewind to the beginning of the current track, else.
             start playing
         """
-        if self.exaile.player.is_playing():
-            self.exaile.player.play(self.exaile.player.current)
+        if player.PLAYER.is_playing():
+            player.PLAYER.play(player.PLAYER.current)
         else:
-            self.exaile.queue.play()
+            player.QUEUE.play()
 
     @dbus.service.method(INTERFACE_NAME, in_signature="b")
     def Repeat(self, repeat):
@@ -129,21 +129,21 @@ class ExaileMprisPlayer(dbus.service.Object):
               * Fourth integer: 0 = Stop playing once the last element has been
                 played, 1 = Never give up playing
         """
-        if self.exaile.player.is_playing():
+        if player.PLAYER.is_playing():
             playing = 0
-        elif self.exaile.player.is_paused():
+        elif player.PLAYER.is_paused():
             playing = 1
         else:
             playing = 2
 
-        if not self.exaile.queue.current_playlist.random_enabled:
+        if not player.QUEUE.current_playlist.random_enabled:
             random = 0
         else:
             random = 1
 
         go_to_next = 0 # Do not have ability to repeat single track
 
-        if not self.exaile.queue.current_playlist.repeat_enabled:
+        if not player.QUEUE.current_playlist.repeat_enabled:
             repeat = 0
         else:
             repeat = 1
@@ -155,9 +155,9 @@ class ExaileMprisPlayer(dbus.service.Object):
         """
             Gives all meta data available for the currently played element.
         """
-        if self.exaile.player.current is None:
+        if player.PLAYER.current is None:
             return []
-        return self._tag_converter.get_metadata(self.exaile.player.current)
+        return self._tag_converter.get_metadata(player.PLAYER.current)
 
     @dbus.service.method(INTERFACE_NAME, out_signature="i")
     def GetCaps(self):
@@ -189,10 +189,10 @@ class ExaileMprisPlayer(dbus.service.Object):
             Sets the playing position (argument must be in [0, <track_length>]
             in milliseconds)
         """
-        if millisec > self.exaile.player.current.get_tag_raw('__length') \
+        if millisec > player.PLAYER.current.get_tag_raw('__length') \
                 * 1000 or millisec < 0:
             return
-        self.exaile.player.seek(millisec / 1000)
+        player.PLAYER.seek(millisec / 1000)
 
     @dbus.service.method(INTERFACE_NAME, out_signature="i")
     def PositionGet(self):
@@ -200,7 +200,7 @@ class ExaileMprisPlayer(dbus.service.Object):
             Returns the playing position (will be [0, track_length] in
             milliseconds)
         """
-        return int(self.exaile.player.get_position() / 1000000)
+        return int(player.PLAYER.get_position() / 1000000)
 
     def track_change_cb(self, type, object, data):
         """

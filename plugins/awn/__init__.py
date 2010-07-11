@@ -23,7 +23,7 @@ import gtk
 import glib
 import tempfile
 
-from xl import covers
+from xl import covers, player
 import xl.event
 import xl.settings
 
@@ -103,13 +103,13 @@ class ExaileAwn(object):
         elif not hasattr(self.exaile, 'player'):
             log.debug("Player not loaded, ignoring set_cover call")
             return
-        elif self.exaile.player.current is None:
+        elif player.PLAYER.current is None:
             log.debug("Player stopped, removing AWN cover")
             self.unset_cover()
         elif not self.cover_display:
             self.unset_cover()
         else:
-            image_data = covers.MANAGER.get_cover(self.exaile.player.current)
+            image_data = covers.MANAGER.get_cover(player.PLAYER.current)
 
             if image_data is not None:
                 pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
@@ -138,9 +138,9 @@ class ExaileAwn(object):
     def update_timer(self, *args, **kwargs):
         if self.exaile is None:
             return False
-        if self.exaile.player is None:
+        if player.PLAYER is None:
             return False
-        track = self.exaile.player.current
+        track = player.PLAYER.current
         # Not playing anything
         if track is None:
             return False
@@ -148,7 +148,7 @@ class ExaileAwn(object):
         if not track.is_local() and not track.get_tag_raw('__length'):
             self._set_timer(100)
             return False
-        self._set_timer(int(self.exaile.player.get_progress() * 100))
+        self._set_timer(int(player.PLAYER.get_progress() * 100))
         return True
 
     def on_option_set(self, event, settings, option):

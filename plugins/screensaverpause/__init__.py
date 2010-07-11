@@ -16,7 +16,7 @@
 
 
 import dbus, gtk
-from xl import event
+from xl import event, player
 
 SERVICES = [
     dict( # GNOME
@@ -33,20 +33,17 @@ SERVICES = [
 
 matches = set()
 bus = None
-exaile = None
 was_playing = None
 
 def active_changed(new_value):
     if new_value:
         global was_playing
-        was_playing = exaile.player.pause()
+        was_playing = player.PLAYER.pause()
     elif was_playing:
-        exaile.player.unpause()
+        player.PLAYER.unpause()
 
-def enable(exaile_):
-    global exaile
-    exaile = exaile_
-    if exaile_.loading:
+def enable(exaile):
+    if exaile.loading:
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable()

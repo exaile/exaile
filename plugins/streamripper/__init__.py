@@ -16,7 +16,7 @@
 
 import subprocess, logging, os, shutil
 import gtk
-from xl import event
+from xl import event, player
 from xl.nls import gettext as _
 from xl import settings
 from xlgui.widgets import dialogs
@@ -34,7 +34,7 @@ class Streamripper(object):
         self.savedir = None
 
     def toggle_record(self, add_call):
-        current_track = self.exaile.player.current
+        current_track = player.PLAYER.current
         if not current_track:
             return True
         if current_track.is_local():
@@ -45,7 +45,7 @@ class Streamripper(object):
                             os.getenv('HOME'))
         options = []
         options.append('streamripper')
-        options.append(self.exaile.player.playbin.get_property('uri'))
+        options.append(player.PLAYER.playbin.get_property('uri'))
         options.append('-D')
         options.append('%A/%a/%T')
         if settings.get_option('plugin/streamripper/single_file', False):

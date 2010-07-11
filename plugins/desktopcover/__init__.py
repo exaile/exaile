@@ -121,13 +121,6 @@ class DesktopCover(gtk.Window):
         self.connect('expose-event', self.on_expose_event)
         self.connect('screen-changed', self.on_screen_changed)
 
-        try:
-            exaile = main.exaile()
-        except AttributeError:
-            event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
-        else:
-            self.on_exaile_loaded('exaile_loaded', exaile, None)
-
     def destroy(self):
         """
             Cleanups
@@ -354,14 +347,6 @@ class DesktopCover(gtk.Window):
             self.update_position()
         elif option in ('plugin/desktopcover/override_size',
                 'plugin/desktopcover/size'):
-            self.set_cover_from_track(self.player.current)
-
-    def on_exaile_loaded(self, e, exaile, nothing):
-        """
-            Sets up references after controller is loaded
-        """
-        self.player = exaile.player
-
-        event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
+            self.set_cover_from_track(player.PLAYER.current)
 
 # vi: et sts=4 sw=4 tw=80

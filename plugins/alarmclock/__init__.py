@@ -12,7 +12,7 @@ def enable(exaile):
         Starts the timer
     """
     global ALARM
-    ALARM=Alarmclock(exaile)
+    ALARM=Alarmclock()
     ALARM.enable_alarm()
 
 def disable(exaile):
@@ -26,8 +26,7 @@ def get_preferences_pane():
     return acprefs
 
 class VolumeControl:
-    def __init__(self,exaile):
-        self.exaile=exaile
+    def __init__(self):
         self.thread = thread
 
     def print_debug( self ):
@@ -40,10 +39,10 @@ class VolumeControl:
         temp_volume = self.min_volume
         while temp_volume <= self.max_volume:
             #print "set volume to %s" % str(temp_volume / 100.0)
-            self.exaile.player.set_volume( ( temp_volume / 100.0 ) )
+            player.PLAYER.set_volume( ( temp_volume / 100.0 ) )
             temp_volume += self.increment
             time.sleep( self.time_per_inc )
-            if self.exaile.player.is_paused() or not self.exaile.player.is_playing():
+            if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
                 self.stop_fading()
 
 
@@ -51,10 +50,10 @@ class VolumeControl:
         temp_volume = self.max_volume
         while temp_volume >= self.min_volume:
             #print "set volume to %d" % (temp_volume / 100.0)
-            self.exaile.player.set_volume( ( temp_volume / 100.0) )
+            player.PLAYER.set_volume( ( temp_volume / 100.0) )
             temp_volume -= self.increment
             time.sleep( self.time_per_inc )
-            if self.exaile.player.is_paused() or not self.exaile.player.is_playing():
+            if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
                 self.stop_fading()
 
     def fade_in_thread( self ):
@@ -81,10 +80,9 @@ class VolumeControl:
 
 class Alarmclock(object):
 
-    def __init__(self,exaile):
+    def __init__(self):
         self.timer_id=None
-        self.exaile=exaile
-        self.volume_control=VolumeControl(exaile)
+        self.volume_control=VolumeControl()
 
     def timout_alarm(self):
         """
@@ -115,9 +113,9 @@ class Alarmclock(object):
         if curhour==self.hour and curminuts==self.minuts and active_days_dict[currentDay]==True:
             check = time.strftime("%m %d %Y %H:%M")
             if RANG.has_key(check): return True
-            track = self.exaile.player.current
-            if track and (self.exaile.player.is_playing() or self.exaile.player.is_paused()): return True
-            self.exaile.queue.play()
+            track = player.PLAYER.current
+            if track and (player.PLAYER.is_playing() or player.PLAYER.is_paused()): return True
+            player.QUEUE.play()
             self.volume_control.fade_in_thread()
 
             RANG[check] = True

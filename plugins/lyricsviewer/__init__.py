@@ -28,7 +28,7 @@ import gtk, glib, pango
 import os
 import webbrowser
 from xl.nls import gettext as _
-from xl import event, common
+from xl import common, event, player
 from xl.lyrics import LyricsNotFoundException
 
 LYRICSPANEL = None
@@ -83,7 +83,7 @@ class LyricsViewer(object):
         event.add_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
 
-        self.update_lyrics(exaile.player)
+        self.update_lyrics()
 
     def _initialize_widgets(self):
         builder = gtk.Builder()
@@ -145,14 +145,14 @@ class LyricsViewer(object):
         self.lyrics_methods_combo.remove_callbacks()
         
     def search_method_added_cb(self, eventtype, lyrics, provider):
-        self.update_lyrics(self.exaile.player)
+        self.update_lyrics()
 
     def playback_cb(self, eventtype, player, data):
-        self.update_lyrics(player)
+        self.update_lyrics()
 
     def end_cb(self, eventtype, player, data):
         self.setup_top_box()
-        self.update_lyrics(player)
+        self.update_lyrics()
 
     def on_lst_motion_event(self, textview, event):
         """
@@ -196,7 +196,7 @@ class LyricsViewer(object):
         webbrowser.open_new_tab(url)
 
     def on_refresh_button_clicked(self, button):
-        self.update_lyrics(self.exaile.player)
+        self.update_lyrics()
 
     def on_combo_active_changed(self, combobox):
         """
@@ -206,14 +206,14 @@ class LyricsViewer(object):
         if self.lyrics_found:
             self.update_lyrics_text()
 
-    def update_lyrics(self, player):
+    def update_lyrics(self):
         self.track_text_buffer.set_text("")
         self.lyrics_text_buffer.set_text("")
         self.lyrics_source_text_buffer.set_text("")
         self.lyrics_found=[]
-        if player.current:
+        if player.PLAYER.current:
             self.set_top_box_widgets(False)
-            self.get_lyrics(player, player.current)
+            self.get_lyrics(player.PLAYER, player.PLAYER.current)
         else:
             glib.idle_add(self.lyrics_text_buffer.set_text, _('Not playing.'))
 

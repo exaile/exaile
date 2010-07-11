@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import event
+from xl import event, player
 
 KEYS = None
 EXAILE = None
@@ -27,16 +27,13 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def play_pause(*e):
-    exaile = EXAILE
-    if exaile.player.is_paused() or exaile.player.is_playing():
-        exaile.player.toggle_pause()
+    if player.PLAYER.is_paused() or player.PLAYER.is_playing():
+        player.PLAYER.toggle_pause()
     else:
-        exaile.queue.play()
+        player.QUEUE.play()
 
 def _enable(type, exaile, nothing):
-    global KEYS, EXAILE, SIGNALS
-
-    EXAILE = exaile
+    global KEYS, SIGNALS
 
     try:
         import mmkeys
@@ -49,9 +46,9 @@ def _enable(type, exaile, nothing):
     else: keys = KEYS
 
     s1 = keys.connect('mm_playpause', play_pause)
-    s2 = keys.connect('mm_next', lambda *e: exaile.queue.next())
-    s3 = keys.connect('mm_prev', lambda *e: exaile.queue.prev())
-    s4 = keys.connect('mm_stop', lambda *e: exaile.player.stop())
+    s2 = keys.connect('mm_next', lambda *e: player.QUEUE.next())
+    s3 = keys.connect('mm_prev', lambda *e: player.QUEUE.prev())
+    s4 = keys.connect('mm_stop', lambda *e: player.PLAYER.stop())
     SIGNALS += [s1, s2, s3, s4]
 
     # this is basically here to keep a reference around so that the object

@@ -20,17 +20,15 @@ import glib
 import gtk
 
 from xl import (
-    common,
     covers,
     event,
-    main,
     settings
 )
 from xl.nls import gettext as _
 from xlgui import (
-    guiutil,
     icons
 )
+from xlgui.guiutil import get_workarea_size
 
 import desktopcover_preferences
 
@@ -152,13 +150,13 @@ class DesktopCover(gtk.Window):
         fading = settings.get_option('plugin/desktopcover/fading', False)
 
         if fading and pixbuf is not None and self._cross_fade_id is None:
-            duration = settings.get_option(
-                'plugin/desktopcover/fading_duration', 50)
-
             # Prescale to allow for proper crossfading
             width, height = next_pixbuf.get_width(), next_pixbuf.get_height()
             pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
             self.image.set_from_pixbuf(pixbuf)
+
+            duration = settings.get_option(
+                'plugin/desktopcover/fading_duration', 50)
 
             self._cross_fade_id = glib.timeout_add(int(duration),
                 self.cross_fade, pixbuf, next_pixbuf, duration)
@@ -175,15 +173,15 @@ class DesktopCover(gtk.Window):
         x = settings.get_option('plugin/desktopcover/x', 0)
         y = settings.get_option('plugin/desktopcover/y', 0)
         allocation = self.get_allocation()
-        workarea_size = guiutil.get_workarea_size()
+        workarea_width, workare_height = get_workarea_size()
 
         if gravity in (gtk.gdk.GRAVITY_NORTH_EAST,
                 gtk.gdk.GRAVITY_SOUTH_EAST):
-            x = workarea_size[0] - allocation.width - x
+            x = workarea_width - allocation.width - x
 
         if gravity in (gtk.gdk.GRAVITY_SOUTH_EAST,
                 gtk.gdk.GRAVITY_SOUTH_WEST):
-            y = workarea_size[1] - allocation.height - y
+            y = workarea_height - allocation.height - y
 
         self.set_gravity(gravity)
         self.move(int(x), int(y))
@@ -315,7 +313,7 @@ class DesktopCover(gtk.Window):
         """
             Updates the cover image and shows the window
         """
-        self.set_cover_from_track(track)
+        glib.idle_add(self.set_cover_from_track, track)
         self.update_position()
 
     def on_playback_player_end(self, type, player, track):
@@ -328,7 +326,7 @@ class DesktopCover(gtk.Window):
         """
            Updates the cover image after cover selection
         """
-        self.set_cover_from_track(track)
+        glib.idle_add(self.set_cover_from_track, track)
         self.update_position()
 
     def on_cover_removed(self, type, covers, track):
@@ -347,6 +345,6 @@ class DesktopCover(gtk.Window):
             self.update_position()
         elif option in ('plugin/desktopcover/override_size',
                 'plugin/desktopcover/size'):
-            self.set_cover_from_track(player.PLAYER.current)
+            glib.idle_add(self.set_cover_from_track, player.PLAYER.current)
 
 # vi: et sts=4 sw=4 tw=80

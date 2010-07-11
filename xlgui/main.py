@@ -488,8 +488,6 @@ class MainWindow(gobject.GObject):
             return
         if player.parse_stream_tags(tr, args):
             self._update_track_information()
-            self.cover.on_playback_start('', player.PLAYER, None)
-            self.get_selected_page().refresh_row(tr)
 
         if settings.get_option('osd/enabled', True):
             self.osd.show(player.current)
@@ -722,9 +720,6 @@ class MainWindow(gobject.GObject):
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
         self.playpause_button.set_tooltip_text(_('Pause Playback'))
 
-        if settings.get_option('playback/dynamic', False):
-            self._get_dynamic_tracks()
-
         if settings.get_option('osd/enabled', True):
             self.osd.show(player.current)
 
@@ -733,7 +728,6 @@ class MainWindow(gobject.GObject):
             Called when playback ends
         """
         self.window.set_title('Exaile')
-        self._update_track_information()
 
         self.builder.get_object('show_playing_track_item').set_sensitive(False)
 

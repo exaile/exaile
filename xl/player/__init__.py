@@ -33,11 +33,13 @@ __all__ = [
 
 import gobject
 gobject.threads_init()
-import os
-from xl.nls import gettext as _
-from xl import settings, xdg
-import queue
 import logging
+import os
+
+from xl import settings, xdg
+
+import queue
+
 logger = logging.getLogger(__name__)
 
 def get_player():

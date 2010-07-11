@@ -48,6 +48,19 @@ logger = None
 class Exaile(object):
     _exaile = None
 
+    def __get_player(self):
+        raise DeprecationWarning('Using exaile.player is deprecated. '
+                                 'Import the player module from xl instead'
+                                 'and use its PLAYER attribute.')
+
+    def __get_queue(self):
+        raise DeprecationWarning('Using exaile.player is deprecated. '
+                                 'Import the player module from xl instead'
+                                 'and use its QUEUE attribute.')
+
+    player = property(__get_player)
+    queue = property(__get_queue)
+
     def __init__(self):
         """
             Initializes Exaile.
@@ -183,9 +196,7 @@ class Exaile(object):
         from xl import event
         # Set up the player and playback queue
         from xl import player
-        self.player = player.PLAYER
-        self.queue = player.QUEUE
-        event.log_event("player_loaded", self, None)
+        event.log_event("player_loaded", player.PLAYER, None)
 
         # Initalize playlist manager
         from xl import playlist
@@ -250,7 +261,7 @@ class Exaile(object):
                 self.gui.open_uri(arg)
 
         if restore:
-            self.queue._restore_player_state(
+            player.QUEUE._restore_player_state(
                     os.path.join(xdg.get_data_dir(), 'player.state'))
 
         if firstrun:
@@ -608,14 +619,14 @@ class Exaile(object):
         self.stations.save_order()
 
         # save player, queue
-        self.queue._save_player_state(
+        from xl import player
+        player.QUEUE._save_player_state(
                 os.path.join(xdg.get_data_dir(), 'player.state') )
-        self.queue.save_to_location(
+        player.QUEUE.save_to_location(
                 os.path.join(xdg.get_data_dir(), 'queue.state') )
-        self.player.stop()
+        player.PLAYER.stop()
 
         from xl import settings
-
         settings.MANAGER.save()
 
         if restart:

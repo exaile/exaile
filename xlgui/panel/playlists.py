@@ -411,8 +411,8 @@ class BasePlaylistPanelMixin(gobject.GObject):
                     do_add_playlist = True
         if do_add_playlist:
             #Create the playlist from all of the tracks
-            new_playlist = playlist.Playlist(name, is_custom=True)
-            new_playlist.add_tracks(tracks)
+            new_playlist = playlist.Playlist(name)
+            new_playlist.extend(tracks)
             self.playlist_nodes[new_playlist] = \
                 self.model.append(self.custom, [self.playlist_image, name,
                 new_playlist])

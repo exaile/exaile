@@ -142,8 +142,7 @@ class TrackInfoPane(gtk.Alignment):
             :param cover_size: the preferred cover size
             :type cover_size: int
         """
-        self.__cover_size = cover_size or \
-            settings.get_option('gui/cover_width', 100)
+        self.__cover_size = cover_size
 
     def get_default_text(self):
         """
@@ -286,25 +285,25 @@ class TrackInfoPane(gtk.Alignment):
         """
             Clears the info pane on playback end
         """
-        self.clear()
+        glib.idle_add(self.clear)
 
     def on_playback_track_start(self, event, player, track):
         """
             Updates the info pane on track start
         """
-        self.set_track(track)
+        glib.idle_add(self.set_track, track)
 
     def on_playback_toggle_pause(self, event, player, track):
         """
             Updates the info pane on playback pause/resume
         """
-        self.set_track(track)
+        glib.idle_add(self.set_track, track)
 
     def on_playback_error(self, event, player, message):
         """
             Clears the info pane on playback errors
         """
-        self.clear()
+        glib.idle_add(self.clear)
 
     def on_track_tags_changed(self, event, track, tag):
         """
@@ -313,21 +312,21 @@ class TrackInfoPane(gtk.Alignment):
         if player.PLAYER is not None and \
            not player.PLAYER.is_stopped() and \
            track is self.__track:
-            self.set_track(track)
+            glib.idle_add(self.set_track, track)
 
     def on_cover_set(self, event, covers, track):
         """
             Updates the info pane on cover set
         """
         if track is self.__track:
-            self.set_track(track)
+            glib.idle_add(self.set_track, track)
 
     def on_cover_removed(self, event, covers, track):
         """
             Updates the info pane on cover removal
         """
         if track is self.__track:
-            self.set_track(track)
+            glib.idle_add(self.set_track, track)
 
 # TODO: Use single info label and formatter
 class TrackListInfoPane(gtk.Alignment):

@@ -26,6 +26,7 @@ def enable(exaile):
     """
         Enables the plugin
     """
+    global MENU_ITEM
     MENU_ITEM = RepeatSegmentMenuItem()
     providers.register('progressbar-context-menu', MENU_ITEM)
 
@@ -33,6 +34,7 @@ def disable(exaile):
     """
         Disables the plugin
     """
+    global MENU_ITEM
     MENU_ITEM.destroy()
     providers.unregister('progressbar-context-menu', MENU_ITEM)
 

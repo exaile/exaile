@@ -18,7 +18,7 @@
 import moodbarprefs
 import cgi, gtk, glib, os, os.path, subprocess, colorsys
 import inspect
-from xl common, import event, player, settings, xdg
+from xl import common, event, player, settings, xdg
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 import moodbarprefs

@@ -225,8 +225,13 @@ class Marker(gobject.GObject):
             gobject.PARAM_READWRITE
         )
     }
-    # Provider compatibility
-    name = 'marker'
+    __gsignals__ = {
+        'reached': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            ()
+        )
+    }
 
     def __init__(self, position=0):
         gobject.GObject.__init__(self)
@@ -281,6 +286,116 @@ class Marker(gobject.GObject):
             self.__values[gproperty.name] = value
         except KeyError:
             raise AttributeError('unknown property %s' % property.name)
+
+class MarkerManager(providers.ProviderHandler):
+    """
+        Enables management of playback markers; namely simple
+        adding, removing and finding. It also takes care of
+        emitting signals when a marker is reached during playback.
+    """
+    def __init__(self):
+        providers.ProviderHandler.__init__(self, 'playback-markers')
+
+        self.__events = ('playback_track_start', 'playback_track_end')
+        self.__timeout_id = None
+
+        for e in self.__events:
+            event.add_callback(getattr(self, 'on_%s' % e), e)
+
+    def destroy(self):
+        """
+            Cleanups
+        """
+        for e in self.__events:
+            event.remove_callback(getattr(self, 'on_%s' % e), e)
+
+    def add_marker(self, position):
+        """
+            Creates a new marker for a playback position
+
+            :param position: the playback position [0..1]
+            :type position: float
+            :returns: the new marker
+            :rtype: :class:`Marker`
+        """
+        marker = Marker(position)
+        # Provider compatibility
+        marker.name = 'marker'
+        providers.register('playback-markers', marker)
+
+        return marker
+
+    def remove_marker(self, marker):
+        """
+            Removes a playback marker
+
+            :param marker: the marker
+            :type marker: :class:`Marker`
+        """
+        providers.unregister('playback-markers', marker)
+
+    def get_markers_at(self, position):
+        """
+            Gets all markers located at a position
+ 
+            :param position: the mark position
+            :type position: float
+            :returns: (m1, m2, ...)
+            :rtype: (:class:`Marker`, ...)
+ 
+            * *m1*: the first marker
+            * *m2*: the second marker
+            * ...
+        """
+        # Reproduce value modifications
+        position = Marker(position).props.position
+        markers = ()
+
+        for marker in providers.get('playback-markers'):
+            if marker.props.position == position:
+                markers += (marker,)
+
+        return markers
+
+    def on_playback_track_start(self, event, player, track):
+        """
+            Starts marker watching
+        """
+        if self.__timeout_id is not None:
+            glib.source_remove(self.__timeout_id)
+
+        self.__timeout_id = glib.timeout_add_seconds(1, self.on_timeout)
+
+    def on_playback_track_end(self, event, player, track):
+        """
+            Stops marker watching
+        """
+        if self.__timeout_id is not None:
+            glib.source_remove(self.__timeout_id)
+            self.__timeout_id = None
+
+    def on_timeout(self):
+        """
+            Triggers "reached" signal of markers
+        """
+        track_length = player.PLAYER.current.get_tag_raw('__length')
+
+        if track_length is None:
+            return True
+
+        playback_time = player.PLAYER.get_time()
+        reached_markers = (m for m in providers.get('playback-markers')
+            if int(m.props.position * track_length) == playback_time)
+
+        for marker in reached_markers:
+            marker.emit('reached')
+
+        return True
+
+__MARKERMANAGER = MarkerManager()
+add_marker = __MARKERMANAGER.add_marker
+remove_marker = __MARKERMANAGER.remove_marker
+get_markers_at = __MARKERMANAGER.get_markers_at
 
 class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
     """
@@ -533,24 +648,6 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             for marker in self._points.iterkeys():
                 self._points[marker] = self._get_points(marker)
             self.queue_draw()
-        '''
-        elif gproperty.name == 'fraction':
-            try:
-                length = player.PLAYER.current.get_tag_raw('__length')
-                length = float(length)
-            except AttributeError, TypeError:
-                return
-
-            pixel_per_second = self.allocation.width / length
-            tolerance = pixel_per_second / self.allocation.width
-            reached_markers = (m for m in self._points.iterkeys() \
-                if m.props.position <= \
-                   self.props.fraction <= \
-                   m.props.position + tolerance)
-
-            for marker in reached_markers:
-                self.emit('marker-reached', marker)
-        '''
 
     def do_size_allocate(self, allocation):
         """
@@ -1072,7 +1169,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
             :rtype: bool
         """
         if self._marker is not None:
-            providers.unregister('playback-markers', self._marker)
+            remove_marker(self._marker)
             self._marker = None
             self._reset_position = -1
             self._parent.window.set_cursor(None)
@@ -1085,9 +1182,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
         """
             Inserts a new marker and starts movement
         """
-        marker = Marker(context['current-position'])
-        providers.register('playback-markers', marker)
-        context['current-marker'] = marker
+        context['current-marker'] = add_marker(context['current-position'])
         MoveMarkerMenuItem.on_activate(self, widget, parent, context)
 
 # XXX: Example implementation only

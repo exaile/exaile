@@ -691,21 +691,13 @@ class Statusbar(object):
                 '${playlist_count:selection=override, suffix= }'
                 '${playlist_duration:selection=override, format=long, prefix=(, suffix=)\, }'
                 '$collection_count'))
-        children = status_bar.get_children()
-        frame = children[0]
-        label = frame.child
-        hbox = gtk.HBox(False, 0)
-        frame.remove(label)
-        hbox.pack_start(label, True, True)
-        frame.add(hbox)
 
-        for widget in children[1:]:
-            # Bug in old PyGTK versions: Statusbar.remove hides
-            # Container.remove.
-            gtk.Container.remove(status_bar, widget)
-            hbox.pack_start(widget, False, True)
+        self.info_label = gtk.Label()
+        self.info_label.props.xpad = 3
 
-        self.info_label = children[1]
+        frame = self.status_bar.get_children()[0]
+        box = frame.get_children()[0]
+        box.pack_start(self.info_label, False)
 
         self.context_id = self.status_bar.get_context_id('status')
         self.message_ids = []

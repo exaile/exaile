@@ -335,14 +335,12 @@ def walk_directories(root):
 
 class TimeSpan:
     """
-        Calculates the amount of years, days,
-        hours, minutes and seconds of a time span
+        Calculates the number of days, hours, minutes, and seconds in a time
+        span.
     """
     _seconds_per_minute = 60.0
     _seconds_per_hour = 60 * _seconds_per_minute
     _seconds_per_day = 24 * _seconds_per_hour
-    # XXX: Check leap years
-    _seconds_per_year = 365 * _seconds_per_day
 
     def __init__(self, span):
         """
@@ -353,9 +351,6 @@ class TimeSpan:
             span = float(span)
         except:
             span = 0
-
-        self.years = span // self._seconds_per_year
-        span %= self._seconds_per_year
 
         self.days = span // self._seconds_per_day
         span %= self._seconds_per_day
@@ -372,10 +367,8 @@ class TimeSpan:
         return str(self)
 
     def __str__(self):
-        return '%dy, %dd, %dh, %dm, %ds' % (
-            self.years, self.days, self.hours,
-            self.minutes, self.seconds
-        )
+        return '%dd, %dh, %dm, %ds' % (
+            self.days, self.hours, self.minutes, self.seconds)
 
 class MetadataList(object):
     __slots__ = ['__list', 'metadata']

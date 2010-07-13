@@ -579,53 +579,37 @@ class LengthTagFormatter(TagFormatter):
         text = ''
 
         if format == 'verbose':
-            if span.years > 0:
-                text += ngettext('%d year, ', '%d years, ', span.years) % span.years
-
             if span.days > 0:
                 text += ngettext('%d day, ', '%d days, ', span.days) % span.days
-
             if span.hours > 0:
                 text += ngettext('%d hour, ', '%d hours, ', span.hours) % span.hours
-
             text += ngettext('%d minute, ', '%d minutes, ', span.minutes) % span.minutes
             text += ngettext('%d second', '%d seconds', span.seconds) % span.seconds
-        elif format == 'long':
-            if span.years > 0:
-                # TRANSLATORS: Short form of an amount of years
-                text += _('%dy, ') % span.years
 
+        elif format == 'long':
             if span.days > 0:
                 # TRANSLATORS: Short form of an amount of days
                 text += _('%dd, ') % span.days
-
             if span.hours > 0:
                 # TRANSLATORS: Short form of an amount of hours
                 text += _('%dh, ') % span.hours
-
             # TRANSLATORS: Short form of an amount of minutes
             text += _('%dm, ') % span.minutes
             # TRANSLATORS: Short form of an amount of seconds
             text += _('%ds') % span.seconds
+
         elif format == 'short':
-            durations = []
-
-            if span.years > 0:
-                durations += [span.years]
-
             if span.days > 0:
-                durations += [span.days]
+                # TRANSLATORS: Short form of an amount of days
+                text += _('%dd ') % span.days
+            if span.hours > 0 or text: # always show hours when > 1 day
+                # TRANSLATORS: Time duration (hours:minutes:seconds)
+                text += _('%d:%02d:%02d') % (
+                        span.hours, span.minutes, span.seconds)
+            else:
+                # TRANSLATORS: Time duration (minutes:seconds)
+                text += _('%d:%02d') % (span.minutes, span.seconds)
 
-            if span.hours > 0:
-                durations += [span.hours]
-
-            durations += [span.minutes, span.seconds]
-
-            first = durations.pop(0)
-            values = ['%02d' % duration for duration in durations]
-            values = ['%d' % first] + values
-
-            text = ':'.join(values)
         else:
             raise ValueError('Invalid argument "%s" passed to parameter '
                 '"format" for tag "__length", possible arguments are '

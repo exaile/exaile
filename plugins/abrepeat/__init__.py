@@ -77,7 +77,13 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
         item = playback.MoveMarkerMenuItem.factory(self, menu,
             parent, context)
 
+        markers = (providers.get_provider('playback-markers', n)
+            for n in ('repeat-beginning', 'repeat-end'))
+
         if player.PLAYER.current is None:
+            item.set_sensitive(False)
+        elif None not in markers:
+            # Disable if the markers have already been set
             item.set_sensitive(False)
 
         return item

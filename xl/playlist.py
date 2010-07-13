@@ -185,13 +185,9 @@ class FormatConverter(object):
         name = gfile.get_basename()
 
         for extension in self.file_extensions:
-            try:
-                name = name[:name.rindex('.%s' % extension)]
-            except ValueError: # Extension not found
-                pass
-            else:
-                break
-
+            if name.endswith(extension):
+                # Remove known extension
+                return name[:-len(extension)-1]
         return name
 
 class M3UConverter(FormatConverter):

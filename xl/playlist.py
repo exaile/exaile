@@ -375,8 +375,9 @@ class PLSConverter(FormatConverter):
                 pls_playlist.readfp(stream)
         except MissingSectionHeaderError:
             # Most likely version 1, thus only a list of URIs
+            playlist = Playlist(self.name_from_path(path))
+
             with closing(gio.DataInputStream(gfile.read())) as stream:
-                playlist = Playlist(self.name_from_path(path))
 
                 while True:
                     line = stream.read_line()
@@ -396,7 +397,7 @@ class PLSConverter(FormatConverter):
 
                     playlist.append(track)
 
-                return playlist
+            return playlist
 
         if not pls_playlist.has_section('playlist'):
             raise InvalidPlaylistTypeError(

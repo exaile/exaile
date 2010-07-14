@@ -366,15 +366,18 @@ class PLSConverter(FormatConverter):
         from ConfigParser import RawConfigParser, MissingSectionHeaderError
 
         pls_playlist = RawConfigParser()
+        gfile = gio.File(path)
 
         try:
-            pls_playlist.read(path)
+            with closing(gio.DataInputStream(gfile.read())) as stream:
+                # RawConfigParser.readfp() requires fp.readline()
+                stream.readline = stream.read_line
+                pls_playlist.readfp(stream)
         except MissingSectionHeaderError:
             # Most likely version 1, thus only a list of URIs
-            playlist = Playlist(self.name_from_path(path))
-            gfile = gio.File(path)
-
             with closing(gio.DataInputStream(gfile.read())) as stream:
+                playlist = Playlist(self.name_from_path(path))
+
                 while True:
                     line = stream.read_line()
 
@@ -393,7 +396,7 @@ class PLSConverter(FormatConverter):
 
                     playlist.append(track)
 
-            return playlist
+                return playlist
 
         if not pls_playlist.has_section('playlist'):
             raise InvalidPlaylistTypeError(

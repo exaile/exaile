@@ -194,7 +194,7 @@ else:
   logger.warning("Error submitting \"Now Playing\"")
   return False
 
-def submit(artist='', track='', time, source='P', rating="", length="", album="",
+def submit(artist='', track='', time=0, source='P', rating="", length="", album="",
       trackno="", mbid="", autoflush=False):
     """Append a song to the submission cache. Use 'flush()' to send the cache to
     AS. You can also set "autoflush" to True.

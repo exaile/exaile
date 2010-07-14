@@ -134,93 +134,97 @@ def handle_hard_error():
 
 def now_playing( artist, track, album="", length="", trackno="", mbid="",
     inner_call=False ):
-   """Tells audioscrobbler what is currently running in your player. This won't
-   affect the user-profile on last.fm. To do submissions, use the "submit"
-   method
+    """Tells audioscrobbler what is currently running in your player. This won't
+    affect the user-profile on last.fm. To do submissions, use the "submit"
+    method
 
-   @param artist:  The artist name
-   @param track:   The track name
-   @param album:   The album name
-   @param length:  The song length in seconds
-   @param trackno: The track number
-   @param mbid:    The MusicBrainz Track ID
-   @return: True on success, False on failure"""
+    @param artist:  The artist name
+    @param track:   The track name
+    @param album:   The album name
+    @param length:  The song length in seconds
+    @param trackno: The track number
+    @param mbid:    The MusicBrainz Track ID
+    @return: True on success, False on failure"""
 
-   global SESSION_ID, NOW_URL
+    global SESSION_ID, NOW_URL
 
-   if SESSION_ID is None:
-      raise AuthError("Please 'login()' first. (No session available)")
+    if SESSION_ID is None:
+        raise AuthError("Please 'login()' first. (No session available)")
 
-   if POST_URL is None:
-      raise PostError("Unable to post data. Post URL was empty!")
+    if POST_URL is None:
+        raise PostError("Unable to post data. Post URL was empty!")
 
-   if length != "" and type(length) != type(1):
-      raise TypeError("length should be of type int")
+    if length != "" and type(length) != type(1):
+        raise TypeError("length should be of type int")
 
-   if trackno != "" and type(trackno) != type(1):
-      raise TypeError("trackno should be of type int")
+    if trackno != "" and type(trackno) != type(1):
+        raise TypeError("trackno should be of type int")
 
-   if None in (artist, track, album):
-      raise ValueError('artist, title and album need to be set')
+    # Quote from AS Protocol 1.1, Submitting Songs:
+    #     Note that all the post variables noted here MUST be
+    #     supplied for each entry, even if they are blank.
+    track = track or ''
+    artist = artist or ''
+    album = album or ''
 
-   values = {'s': SESSION_ID,
-             'a': unicode(artist).encode('utf-8'),
-             't': unicode(track).encode('utf-8'),
-             'b': unicode(album).encode('utf-8'),
-             'l': length,
-             'n': trackno,
-             'm': mbid }
+    values = {'s': SESSION_ID,
+              'a': unicode(artist).encode('utf-8'),
+              't': unicode(track).encode('utf-8'),
+              'b': unicode(album).encode('utf-8'),
+              'l': length,
+              'n': trackno,
+              'm': mbid }
 
-   data = urllib.urlencode(values)
+    data = urllib.urlencode(values)
 
-   req = urllib2.Request(NOW_URL, data)
-   response = urllib2.urlopen(req)
-   result = response.read()
+    req = urllib2.Request(NOW_URL, data)
+    response = urllib2.urlopen(req)
+    result = response.read()
 
-   if result.strip() == "OK":
-      logger.info("Submitted \"Now Playing\" successfully to AudioScrobbler")
-      return True
-   elif result.strip() == "BADSESSION" :
-      if inner_call is False:
-         login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'])
-         now_playing(artist, track, album, length, trackno, mbid, inner_call=True)
-      else:
-         raise SessionError('Invalid session')
-   else:
-      logger.warning("Error submitting \"Now Playing\"")
-      return False
+if result.strip() == "OK":
+  logger.info("Submitted \"Now Playing\" successfully to AudioScrobbler")
+  return True
+elif result.strip() == "BADSESSION" :
+  if inner_call is False:
+     login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'])
+     now_playing(artist, track, album, length, trackno, mbid, inner_call=True)
+  else:
+     raise SessionError('Invalid session')
+else:
+  logger.warning("Error submitting \"Now Playing\"")
+  return False
 
-def submit(artist, track, time, source='P', rating="", length="", album="",
+def submit(artist='', track='', time, source='P', rating="", length="", album="",
       trackno="", mbid="", autoflush=False):
-   """Append a song to the submission cache. Use 'flush()' to send the cache to
-   AS. You can also set "autoflush" to True.
+    """Append a song to the submission cache. Use 'flush()' to send the cache to
+    AS. You can also set "autoflush" to True.
 
-   From the Audioscrobbler protocol docs:
-   ---------------------------------------------------------------------------
+    From the Audioscrobbler protocol docs:
+    ---------------------------------------------------------------------------
 
-   The client should monitor the user's interaction with the music playing
-   service to whatever extent the service allows. In order to qualify for
-   submission all of the following criteria must be met:
+    The client should monitor the user's interaction with the music playing
+    service to whatever extent the service allows. In order to qualify for
+    submission all of the following criteria must be met:
 
-   1. The track must be submitted once it has finished playing. Whether it has
+    1. The track must be submitted once it has finished playing. Whether it has
       finished playing naturally or has been manually stopped by the user is
       irrelevant.
-   2. The track must have been played for a duration of at least 240 seconds or
+    2. The track must have been played for a duration of at least 240 seconds or
       half the track's total length, whichever comes first. Skipping or pausing
       the track is irrelevant as long as the appropriate amount has been played.
-   3. The total playback time for the track must be more than 30 seconds. Do
+    3. The total playback time for the track must be more than 30 seconds. Do
       not submit tracks shorter than this.
-   4. Unless the client has been specially configured, it should not attempt to
+    4. Unless the client has been specially configured, it should not attempt to
       interpret filename information to obtain metadata instead of tags (ID3,
       etc).
 
-   @param artist: Artist name
-   @param track:  Track name
-   @param time:   Time the track *started* playing in the UTC timezone (see
+    @param artist: Artist name
+    @param track:  Track name
+    @param time:   Time the track *started* playing in the UTC timezone (see
                   datetime.utcnow()).
 
                   Example: int(time.mktime(datetime.utcnow()))
-   @param source: Source of the track. One of:
+    @param source: Source of the track. One of:
                   'P': Chosen by the user
                   'R': Non-personalised broadcast (e.g. Shoutcast, BBC Radio 1)
                   'E': Personalised recommendation except Last.fm (e.g.
@@ -230,38 +234,42 @@ def submit(artist, track, time, source='P', rating="", length="", album="",
                        prove the validity of the submission (for example,
                        "L1b48a").
                   'U': Source unknown
-   @param rating: The rating of the song. One of:
+    @param rating: The rating of the song. One of:
                   'L': Love (on any mode if the user has manually loved the
                        track)
                   'B': Ban (only if source=L)
                   'S': Skip (only if source=L)
                   '':  Not applicable
-   @param length: The song length in seconds
-   @param album:  The album name
-   @param trackno:The track number
-   @param mbid:   MusicBrainz Track ID
-   @param autoflush: Automatically flush the cache to AS?
-   @return:       True on success, False if something went wrong
-   """
+    @param length: The song length in seconds
+    @param album:  The album name
+    @param trackno:The track number
+    @param mbid:   MusicBrainz Track ID
+    @param autoflush: Automatically flush the cache to AS?
+    @return:       True on success, False if something went wrong
+    """
 
-   global SUBMIT_CACHE, MAX_CACHE
+    global SUBMIT_CACHE, MAX_CACHE
 
-   source = source.upper()
-   rating = rating.upper()
+    source = source.upper()
+    rating = rating.upper()
 
-   if source == 'L' and (rating == 'B' or rating == 'S'):
-      raise ProtocolError("""You can only use rating 'B' or 'S' on source 'L'.
-See the docs!""")
+    if source == 'L' and (rating == 'B' or rating == 'S'):
+        raise ProtocolError("""You can only use rating 'B' or 'S' on source 'L'.
+    See the docs!""")
 
-   if source == 'P' and length == '':
-      raise ProtocolError("""Song length must be specified when using 'P' as
-source!""")
+    if source == 'P' and length == '':
+        raise ProtocolError("""Song length must be specified when using 'P' as
+    source!""")
 
-   if type(time) != type(1):
-      raise ValueError("""The time parameter must be of type int (unix
-timestamp). Instead it was %s""" % time)
+    if type(time) != type(1):
+        raise ValueError("""The time parameter must be of type int (unix
+    timestamp). Instead it was %s""" % time)
 
-   SUBMIT_CACHE.append(
+    track = track or ''
+    artist = artist or ''
+    album = album or ''
+
+    SUBMIT_CACHE.append(
          { 'a': unicode(artist).encode('utf-8'),
            't': unicode(track).encode('utf-8'),
            'i': time,
@@ -274,10 +282,10 @@ timestamp). Instead it was %s""" % time)
             }
          )
 
-   if autoflush or len(SUBMIT_CACHE) >= MAX_CACHE:
-      return flush()
-   else:
-      return True
+    if autoflush or len(SUBMIT_CACHE) >= MAX_CACHE:
+        return flush()
+    else:
+        return True
 
 def flush(inner_call=False):
    """Sends the cached songs to AS.

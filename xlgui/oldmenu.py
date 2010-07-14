@@ -24,6 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+
+"""
+Old menu system.
+
+This code is fully deprecated and should NOT be added to. Users of
+oldmenu need to be rewritten to use widgets.menu instead.
+"""
+
 import gobject
 import gtk
 

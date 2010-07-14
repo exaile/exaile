@@ -43,7 +43,7 @@ import xlgui.panel.playlists as playlistpanel
 from xlgui import (
     guiutil,
     icons,
-    menu,
+    oldmenu as menu,
     panel,
     playlist as guiplaylist
 )

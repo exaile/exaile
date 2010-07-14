@@ -42,7 +42,7 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui import (
     guiutil,
-    menu,
+    oldmenu as menu,
     panel,
     playlist as guiplaylist,
     xdg

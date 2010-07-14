@@ -222,11 +222,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         else:
             pl = playlist.Playlist(name)
             tracks = trax.get_tracks_from_uri(uri)
-            try:
-                pl.add_tracks(tracks)
-            # Catch empty directories
-            except IndexError:
-                pass
+            pl.extend(tracks)
 
         self.playlist_manager.save_playlist(pl)
         self._add_to_tree(pl)

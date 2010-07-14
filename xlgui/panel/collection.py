@@ -24,19 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging
-import traceback
-import urllib
-
 import glib
 import gobject
 import gtk
+import logging
 
 from xl.nls import gettext as _
 from xl import (
     common,
     event,
-    metadata,
     settings,
     trax,
     xdg,
@@ -46,9 +42,7 @@ import xlgui
 from xlgui import (
     guiutil,
     icons,
-    menu as oldmenu,
-    panel,
-    playlist
+    panel
 )
 from xlgui.widgets import info, menu, menuitems
 

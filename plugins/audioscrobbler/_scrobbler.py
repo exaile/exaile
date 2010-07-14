@@ -181,18 +181,19 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
     response = urllib2.urlopen(req)
     result = response.read()
 
-if result.strip() == "OK":
-  logger.info("Submitted \"Now Playing\" successfully to AudioScrobbler")
-  return True
-elif result.strip() == "BADSESSION" :
-  if inner_call is False:
-     login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'])
-     now_playing(artist, track, album, length, trackno, mbid, inner_call=True)
-  else:
-     raise SessionError('Invalid session')
-else:
-  logger.warning("Error submitting \"Now Playing\"")
-  return False
+    if result.strip() == "OK":
+        logger.info("Submitted \"Now Playing\" successfully to AudioScrobbler")
+        return True
+    elif result.strip() == "BADSESSION" :
+        if inner_call is False:
+            login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'])
+            now_playing(artist, track, album, length, trackno, mbid, inner_call=True)
+        else:
+             raise SessionError('Invalid session')
+    else:
+        logger.warning("Error submitting \"Now Playing\"")
+
+    return False
 
 def submit(artist='', track='', time=0, source='P', rating="", length="", album="",
       trackno="", mbid="", autoflush=False):

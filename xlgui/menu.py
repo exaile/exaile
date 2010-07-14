@@ -83,65 +83,6 @@ class GenericTrackMenu(guiutil.Menu):
         """
         guiutil.Menu.popup(self, None, None, None, event.button, event.time)
 
-class AddToPlaylistMenu(guiutil.Menu):
-    """
-        Menu item that expands to allow the user to add
-        the selected tracks to an existing playlist (or the
-        option to create a new playlist)
-    """
-    def __init__(self, widget, playlist_manager):
-        """
-            @param widget: widget that exposes
-            get_selected_tracks() and returns a list of
-            valid tracks
-        """
-        guiutil.Menu.__init__(self)
-        self.widget = widget
-        self.playlist_manager = playlist_manager
-        self._create_add_playlist_menu()
-
-    def _create_add_playlist_menu(self):
-        self.append(_('New Playlist'), lambda *e: self.on_add_new_playlist(),
-            gtk.STOCK_NEW)
-        # As for the list of playlists, we have to redo it every time
-        # the user right clicks
-        self.add_dynamic_builder(self._create_playlist_menu_items)
-
-    def _create_playlist_menu_items(self):
-        playlists = self.playlist_manager.playlists
-        if playlists: self.append_separator()
-        for name in playlists:
-            self.append(_(name), self.on_add_to_playlist, data = name)
-
-
-    def on_add_new_playlist(self, selected = None):
-        # TODO: use signals to do this stuff, instead of calling
-        # xlgui.get_controller()
-        import xlgui
-        xlgui.get_controller().panels['playlists'].add_new_playlist(
-            self.widget.get_selected_tracks())
-
-    def on_add_to_playlist(self, selected = None, pl_name = None):
-        """
-            Adds the selected tracks the playlist, saves the playlist
-            and finally updates the playlist panel with the new tracks
-        """
-        # TODO: use signals to do this stuff, instead of calling
-        # xlgui.get_controller()
-        import xlgui
-        pl = self.playlist_manager.get_playlist(pl_name)
-        tracks = self.widget.get_selected_tracks()
-        pl.add_tracks(tracks)
-        self.playlist_manager.save_playlist(pl, overwrite = True)
-        xlgui.get_controller().panels['playlists'].update_playlist_node(pl)
-
-    def popup(self, event):
-        """
-            Displays the menu
-        """
-        guiutil.Menu.popup(self, None, None, None, event.button, event.time)
-
-
 class TrackSelectMenu(GenericTrackMenu):
     """
         Menu for any panel that operates on selecting tracks, IE, Files panel
@@ -211,43 +152,6 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         self.rating_item.props.rating = 0
         self._rating_changed_id = self.rating_item.connect('rating-changed',
             self.on_rating_changed)
-
-class CollectionPanelMenu(RatedTrackSelectMenu):
-    __gsignals__ = {
-        'delete-items': (gobject.SIGNAL_RUN_LAST, None, ()),
-        'view-items': (gobject.SIGNAL_RUN_LAST, None, ()),
-    }
-
-    def _create_menu(self):
-        RatedTrackSelectMenu._create_menu(self)
-        self.open_in_filemanager_item = self.append(_('Open Directory'),
-            lambda *e: self.on_open_in_file_manager_item_clicked(),
-            gtk.STOCK_OPEN)
-        self.delete_item = self.append(_('Delete Track from Storage'),
-            lambda *e: self.on_delete_track(),
-            gtk.STOCK_DELETE)
-
-    def on_delete_track(self):
-        self.emit('delete-items')
-
-    def on_open_in_file_manager_item_clicked(self):
-        self.emit('view-items')
-
-class FilesPanelMenu(RatedTrackSelectMenu):
-    __gsignals__ = {
-        'view-items': (gobject.SIGNAL_RUN_LAST, None, ()),
-    }
-    def __init__(self, *args):
-        RatedTrackSelectMenu.__init__(self, *args)
-
-    def _create_menu(self):
-        TrackSelectMenu._create_menu(self)
-        self.open_in_filemanager_item = self.append(_('Open Directory'),
-            lambda *e: self.on_open_in_file_manager_item_clicked(),
-            gtk.STOCK_OPEN)
-
-    def on_open_in_file_manager_item_clicked(self):
-        self.emit('view-items')
 
 
 class PlaylistsPanelMenu(guiutil.Menu):

@@ -57,7 +57,8 @@ import xl.playlist
 from xlgui import (
     cover,
     guiutil,
-    tray
+    tray,
+    menu as mainmenu
 )
 from xlgui.accelerators import AcceleratorManager
 from xlgui.playlist import PlaylistNotebook, PlaylistPage

@@ -59,6 +59,7 @@ from xlgui import (
     guiutil,
     tray
 )
+from xlgui.accelerators import AcceleratorManager
 from xlgui.playlist import PlaylistNotebook, PlaylistPage
 from xlgui.widgets import (
     dialogs,
@@ -69,6 +70,7 @@ from xlgui.widgets import (
 from xlgui.widgets.playlist import PlaylistPage
 
 logger = logging.getLogger(__name__)
+
 
 class MainWindow(gobject.GObject):
     """
@@ -98,6 +100,15 @@ class MainWindow(gobject.GObject):
         self.title_formatter = formatter.TrackFormatter(settings.get_option(
             'gui/main_window_title_format', _('$title (by $artist)')))
 
+        self.accelgroup = gtk.AccelGroup()
+        self.window.add_accel_group(self.accelgroup)
+        self.accel_manager = AcceleratorManager('mainwindow-accelerators', self.accelgroup)
+        self.menubar = self.builder.get_object("mainmenu")
+
+        helpitem = self.builder.get_object("help_menu_item")
+        helpmenu = menu.ProviderMenu('menubar-help-menu', self)
+        helpitem.set_submenu(helpmenu)
+
         self._setup_widgets()
         self._setup_position()
         self._setup_hotkeys()
@@ -106,6 +117,11 @@ class MainWindow(gobject.GObject):
         from xlgui import osd
         self.osd = osd.OSDWindow(player.PLAYER)
         MainWindow._mainwindow = self
+
+        filemenu = menu.ProviderMenu('menubar-file-menu', self)
+        fileitem = gtk.MenuItem("File2")
+        fileitem.set_submenu(filemenu)
+#        self.menubar.append(fileitem)
 
     def _setup_hotkeys(self):
         """

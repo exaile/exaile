@@ -31,6 +31,9 @@ from xl import common, providers
 from xl.nls import gettext as _
 from xlgui import icons
 
+# Fake accel group so that menuitems can trick GTK into
+# showing accelerators in the menus.
+FAKEACCELGROUP = gtk.AccelGroup()
 
 def simple_separator(name, after):
     def factory(menu, parent, context):
@@ -41,7 +44,8 @@ def simple_separator(name, after):
     return item
 
 def simple_menu_item(name, after, display_name=None, icon_name=None,
-                     callback=None, callback_args=[], submenu=None):
+                     callback=None, callback_args=[], submenu=None,
+                     accelerator=None):
     """
         Factory function that should handle most cases for menus
 
@@ -53,6 +57,9 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         :param callback: The function to call when the menu item is activated.
                 signature: callback(widget, name, parent, context)
         :param submenu: The gtk.Menu that is to be the submenu of this item
+        :param accelerator: The keyboard shortcut to display next to the item.
+                This does NOT bind the key, that mus tbe done separately by
+                registering an Accelerator with providers.
     """
     def factory(menu, parent, context):
         item = None
@@ -71,6 +78,11 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         if submenu is not None:
             item.set_submenu(submenu)
 
+        if accelerator is not None:
+            key, mods = gtk.accelerator_parse(accelerator)
+            item.add_accelerator('activate', FAKEACCELGROUP, key, mods,
+                    gtk.ACCEL_VISIBLE)
+
         if callback is not None:
             item.connect('activate', callback, name,
                 parent, context, *callback_args)
@@ -78,11 +90,16 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         return item
     return MenuItem(name, factory, after=after)
 
-def check_menu_item(name, after, display_name, checked_func, callback):
+def check_menu_item(name, after, display_name, checked_func, callback,
+        accelerator=None):
     def factory(menu, parent, context):
         item = gtk.CheckMenuItem(display_name)
         active = checked_func(name, parent, context)
         item.set_active(active)
+        if accelerator is not None:
+            key, mods = gtk.accelerator_parse(accelerator)
+            item.add_accelerator('activate', FAKEACCELGROUP, key, mods,
+                    gtk.ACCEL_VISIBLE)
         item.connect('activate', callback, name, parent, context)
         return item
     return MenuItem(name, factory, after=after)

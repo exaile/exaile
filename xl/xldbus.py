@@ -228,7 +228,7 @@ class DbusManager(dbus.service.Object):
         """
         from xl import player
         try:
-            value = player.PLAYER.current.get_tag_raw(attr)
+            value = player.PLAYER.current.get_tag_raw(attr) or ''
         except (ValueError, TypeError, AttributeError):
             value = ''
 
@@ -386,7 +386,7 @@ class DbusManager(dbus.service.Object):
         if current_track is None or player.PLAYER.is_stopped():
             return _('Not playing.')
 
-        length = float(self.GetTrackAttr('__length'))
+        length = float(self.GetTrackAttr('__length') or 0)
         length = '%d:%02d' % (length // 60, length % 60)
 
         result = _('status: %(status)s, title: %(title)s, artist: %(artist)s,'

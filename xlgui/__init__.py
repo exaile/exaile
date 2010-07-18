@@ -31,6 +31,7 @@ import gtk
 import logging
 
 from xl import (
+    common,
     player,
     settings,
     xdg
@@ -124,6 +125,13 @@ class Main(object):
         logger.info("Done loading main window...")
         Main._main = self
 
+    def open_uris(self, uris, play=True):
+        if len(uris) > 0:
+            self.open_uri(uris[0], play=play)
+
+        for uri in uris[1:]:
+            self.open_uri(uri, play=False)
+
     def open_uri(self, uri, play=True):
         """
             Proxy for _open_uri
@@ -153,7 +161,7 @@ class Main(object):
             page = self.main.get_selected_page()
             column = page.view.get_sort_column()
             reverse = False
-            sort_by = page.view.base_sort_tags
+            sort_by = common.BASE_SORT_TAGS
 
             if column:
                 reverse = column.get_sort_order() == gtk.SORT_DESCENDING

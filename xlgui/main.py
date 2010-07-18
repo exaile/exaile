@@ -106,6 +106,10 @@ class MainWindow(gobject.GObject):
         self.accel_manager = AcceleratorManager('mainwindow-accelerators', self.accelgroup)
         self.menubar = self.builder.get_object("mainmenu")
 
+        fileitem = self.builder.get_object("file_menu_item")
+        filemenu = menu.ProviderMenu('menubar-file-menu', self)
+        fileitem.set_submenu(filemenu)
+
         helpitem = self.builder.get_object("help_menu_item")
         helpmenu = menu.ProviderMenu('menubar-help-menu', self)
         helpitem.set_submenu(helpmenu)
@@ -119,10 +123,7 @@ class MainWindow(gobject.GObject):
         self.osd = osd.OSDWindow(player.PLAYER)
         MainWindow._mainwindow = self
 
-        filemenu = menu.ProviderMenu('menubar-file-menu', self)
-        fileitem = gtk.MenuItem("File2")
-        fileitem.set_submenu(filemenu)
-#        self.menubar.append(fileitem)
+        mainmenu._create_menus()
 
     def _setup_hotkeys(self):
         """

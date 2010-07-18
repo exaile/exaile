@@ -918,7 +918,7 @@ def get_playlist_notebook():
 def get_selected_page():
     return MainWindow._mainwindow.playlist_notebook.get_current_tab()
 
-def get_current_playlist():
+def get_selected_playlist():
     try:
         page = get_selected_page()
     except AttributeError:

@@ -1354,7 +1354,7 @@ def playpause():
         player.PLAYER.toggle_pause()
     else:
         from xlgui import main
-        page = main.get_current_playlist()
+        page = main.get_selected_playlist()
         if page:
             pl = page.playlist
             if len(pl) == 0:

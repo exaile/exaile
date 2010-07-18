@@ -98,7 +98,7 @@ def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
 # TODO: move logic into (GUI?) playlist
 def _append_cb(widget, name, parent, context, get_tracks_func, replace=False):
     from xlgui import main
-    page = main.get_current_playlist()
+    page = main.get_selected_playlist()
     if not page:
         return
     pl = page.playlist

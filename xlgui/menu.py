@@ -38,7 +38,7 @@ def get_main():
 
 def get_selected_playlist():
     from xlgui import main
-    return main.get_current_playlist()
+    return main.get_selected_playlist()
 
 _smi = menu.simple_menu_item
 _sep = menu.simple_separator

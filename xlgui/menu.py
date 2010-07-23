@@ -116,7 +116,7 @@ def __create_file_menu():
         from xl import main
         main.exaile().quit()
     items.append(menu.simple_menu_item('quit-application', [items[-1].name],
-        icon_name=gtk.STOCK_QUIT, callback=quit_cb))
+        icon_name=gtk.STOCK_QUIT, callback=quit_cb, accelerator='<Control>q'))
     accelerators.append(Accelerator('<Control>q', quit_cb))
 
     for item in items:

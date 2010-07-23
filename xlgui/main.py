@@ -149,12 +149,6 @@ class MainWindow(gobject.GObject):
         """
             Sets up the various widgets
         """
-        if self.controller.exaile.options.Debug:
-            logger.info("Enabling Restart menu item")
-            restart_item = self.builder.get_object('restart_item')
-            restart_item.set_property('visible', True)
-            restart_item.set_no_show_all(False)
-
         playlist_columns_menu = menu.ProviderMenu('playlist-columns-menu', self.window)
         self.builder.get_object('columns_menu').set_submenu(playlist_columns_menu)
 
@@ -237,20 +231,12 @@ class MainWindow(gobject.GObject):
             'on_configure_event':   self.configure_event,
             'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.on_delete_event,
-            'on_quit_item_activated': self.quit,
-            'on_restart_item_activate': self.on_restart_item_activate,
             'on_playpause_button_clicked': self.on_playpause_button_clicked,
             'on_next_button_clicked':
                 lambda *e: player.QUEUE.next(),
             'on_prev_button_clicked':
                 lambda *e: player.QUEUE.prev(),
-            'on_new_playlist_item_activated': lambda *e:
-                self.playlist_notebook.create_new_playlist(),
             'on_clear_playlist_item_activate': self.on_clear_playlist,
-            'on_open_item_activate': self.on_open_item_activate,
-            'on_open_url_item_activate': self.on_open_url_item_activate,
-            'on_open_directories_item_activate': self.on_open_directories_item_activate,
-            'on_export_current_playlist_activate': self.on_export_current_playlist_activate,
             'on_playlist_utilities_bar_visible_toggled': self.on_playlist_utilities_bar_visible_toggled,
             'on_show_playing_track_item_activate': self.on_show_playing_track_item_activate,
             'on_about_item_activate': self.on_about_item_activate,

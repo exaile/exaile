@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import glib
 import gobject
 import gtk
 import time
@@ -80,7 +81,7 @@ class ProgressMonitor(gtk.VBox):
         box.pack_start(button, False)
 
         self.show_all()
-        self.pulsate_progress()
+        glib.timeout_add(50, self.pulsate_progress)
 
         self.progress_update_id = self.thread.connect('progress-update',
             self.on_progress_update)
@@ -96,15 +97,17 @@ class ProgressMonitor(gtk.VBox):
         self.thread.disconnect(self.progress_update_id)
         self.thread.disconnect(self.done_id)
 
-    @common.threaded
     def pulsate_progress(self):
         """
             Pulses the progress indicator until
             the first status update is received
         """
-        while not self._progress_updated:
-            self.progressbar.pulse()
-            time.sleep(0.05)
+        if self._progress_updated:
+            return False
+
+        self.progressbar.pulse()
+
+        return True
 
     def on_progress_update(self, thread, percent):
         """

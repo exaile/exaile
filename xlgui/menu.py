@@ -104,6 +104,14 @@ def __create_file_menu():
         _("_Export Current Playlist"), 'gtk-save-as', export_playlist_cb))
     items.append(_sep('export-sep', [items[-1].name]))
 
+    def close_tab_cb(*args):
+        get_main().get_selected_page().tab.close()
+    items.append(menu.simple_menu_item('close-tab', [items[-1].name],
+        _("Close Tab"),gtk.STOCK_CLOSE, callback=close_tab_cb,
+        accelerator='<Control>w'))
+    accelerators.append(Accelerator('<Control>w', close_tab_cb))
+
+
     if get_main().controller.exaile.options.Debug:
         def restart_cb(*args):
             from xl import main

@@ -130,7 +130,6 @@ class MainWindow(gobject.GObject):
             Sets up accelerators that haven't been set up in UI designer
         """
         hotkeys = (
-            ('<Control>W', lambda *e: self.close_playlist_tab()), # FIXME
             ('<Control>S', lambda *e: self.on_save_playlist()),
             ('<Shift><Control>S', lambda *e: self.on_save_playlist_as()),
             ('<Control>F', lambda *e: self.on_search_collection_focus()),

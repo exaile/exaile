@@ -146,7 +146,7 @@ def __create_playlist_tab_context_menu():
         lambda w, n, o, c: o.playlist.clear()))
     items.append(sep('tab-close-sep', ['clear']))
     items.append(smi('tab-close', ['tab-close-sep'], _("Close"), 'gtk-close',
-        lambda w, n, o, c: o.tab.close(), accelerator="<Control>z"))
+        lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('playlist-tab-context-menu', item)
 __create_playlist_tab_context_menu()

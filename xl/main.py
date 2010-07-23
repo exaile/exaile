@@ -554,7 +554,7 @@ class Exaile(object):
             dbus.mainloop.glib.threads_init()
             dbus.mainloop.glib.gthreads_init()
         if self.options.StartGui:
-            import gtk
+            import gtk.gdk
             gtk.gdk.threads_init()
         else:
             loop = glib.MainLoop()

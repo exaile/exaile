@@ -76,7 +76,7 @@ class PlayQueue(playlist.Playlist):
         if not track:
             try:
                 track = self.pop(0)
-                self.current_pos = 0
+                self.current_position = 0
                 self.current_playing = True
                 if self.current_playlist:
                     self.current_playlist.current_playing = False

@@ -101,7 +101,7 @@ def __create_file_menu():
         dialog.connect('message', on_message)
         dialog.show()
     items.append(_smi('export-playlist', [items[-1].name],
-        _("_Export Current Playlist"), 'gtk-save-as', export_playlist_cb))
+        _("_Export Current Playlist"), gtk.STOCK_SAVE_AS, export_playlist_cb))
     items.append(_sep('export-sep', [items[-1].name]))
 
     def close_tab_cb(*args):
@@ -217,7 +217,8 @@ def __create_help_menu():
     def show_about_dialog(widget, name, parent, context):
         dialog = dialogs.AboutDialog(parent.window)
         dialog.show()
-    items.append(_smi('about', [], _("_About"), 'gtk-about', show_about_dialog))
+    items.append(_smi('about', [], icon_name=gtk.STOCK_ABOUT,
+        callback=show_about_dialog))
     for item in items:
         providers.register('menubar-help-menu', item)
     for accelerator in accelerators:

@@ -699,7 +699,7 @@ class CollectionDragTreeView(guiutil.DragTreeView):
         Custom DragTreeView to retrieve data
         from collection tracks
     """
-    def __init__(self, container, receive=True, source=True):
+    def __init__(self, container, receive=False, source=True):
         """
             :param container: The container to place the TreeView into
             :param receive: True if the TreeView should receive drag events

@@ -22,6 +22,7 @@ import gtk
 from xl import (
     covers,
     event,
+    player,
     settings
 )
 from xl.nls import gettext as _
@@ -111,6 +112,10 @@ class DesktopCover(gtk.Window):
         screen = self.get_screen()
         colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
         self.set_colormap(colormap)
+
+        if player.PLAYER.current is not None:
+            self.set_cover_from_track(player.PLAYER.current)
+            self.update_position()
 
         for e in self._events:
             event.add_callback(getattr(self, 'on_%s' % e), e)

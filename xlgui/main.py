@@ -110,6 +110,14 @@ class MainWindow(gobject.GObject):
         filemenu = menu.ProviderMenu('menubar-file-menu', self)
         fileitem.set_submenu(filemenu)
 
+        edititem = self.builder.get_object("edit_menu_item")
+        editmenu = menu.ProviderMenu('menubar-edit-menu', self)
+        edititem.set_submenu(editmenu)
+
+        viewitem = self.builder.get_object("view_menu_item")
+        viewmenu = menu.ProviderMenu('menubar-view-menu', self)
+        viewitem.set_submenu(viewmenu)
+
         helpitem = self.builder.get_object("help_menu_item")
         helpmenu = menu.ProviderMenu('menubar-help-menu', self)
         helpitem.set_submenu(helpmenu)
@@ -148,9 +156,6 @@ class MainWindow(gobject.GObject):
         """
             Sets up the various widgets
         """
-        playlist_columns_menu = menu.ProviderMenu('playlist-columns-menu', self.window)
-        self.builder.get_object('columns_menu').set_submenu(playlist_columns_menu)
-
         # TODO: Maybe make this stackable
         self.message = dialogs.MessageBar(
             parent=self.builder.get_object('player_box'),
@@ -188,9 +193,6 @@ class MainWindow(gobject.GObject):
         page = self.playlist_notebook.get_nth_page(page_num)
         selection = page.view.get_selection()
         selection.connect('changed', self.on_playlist_view_selection_changed)
-
-        visible = settings.get_option('gui/playlist_utilities_bar_visible', True)
-        self.builder.get_object('playlist_utilities_bar_visible').set_active(visible)
 
         self.splitter = self.builder.get_object('splitter')
 
@@ -235,18 +237,11 @@ class MainWindow(gobject.GObject):
                 lambda *e: player.QUEUE.next(),
             'on_prev_button_clicked':
                 lambda *e: player.QUEUE.prev(),
-            'on_clear_playlist_item_activate': self.on_clear_playlist,
-            'on_playlist_utilities_bar_visible_toggled': self.on_playlist_utilities_bar_visible_toggled,
-            'on_show_playing_track_item_activate': self.on_show_playing_track_item_activate,
             'on_about_item_activate': self.on_about_item_activate,
             # Controller
             'on_scan_collection_item_activate': self.controller.on_rescan_collection,
             'on_randomize_playlist_item_activate': self.controller.on_randomize_playlist,
-            'on_collection_manager_item_activate': self.controller.collection_manager,
-            'on_queue_manager_item_activate': self.controller.queue_manager,
-            'on_preferences_item_activate': lambda *e: self.controller.show_preferences(),
             'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
-            'on_cover_manager_item_activate': self.controller.show_cover_manager,
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
             'on_track_properties_activate':self.controller.on_track_properties,
         })
@@ -716,8 +711,6 @@ class MainWindow(gobject.GObject):
             self.resuming = False
             return
 
-        self.builder.get_object('show_playing_track_item').set_sensitive(True)
-
         self._update_track_information()
         self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
@@ -731,8 +724,6 @@ class MainWindow(gobject.GObject):
             Called when playback ends
         """
         self.window.set_title('Exaile')
-
-        self.builder.get_object('show_playing_track_item').set_sensitive(False)
 
         self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
                 gtk.ICON_SIZE_SMALL_TOOLBAR))

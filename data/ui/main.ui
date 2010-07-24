@@ -11,7 +11,6 @@
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <child>
           <object class="GtkMenuBar" id="mainmenu">
             <property name="visible">True</property>
@@ -28,45 +27,7 @@
                 <property name="label" translatable="yes">_Edit</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
-                  <object class="GtkMenu" id="edit_menu">
-                    <child>
-                      <object class="GtkImageMenuItem" id="collection_manager_item">
-                        <property name="label" translatable="yes">_Collection</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="image">image7</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_collection_manager_item_activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="queue_manager_item">
-                        <property name="label" translatable="yes">_Queue</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">False</property>
-                        <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_queue_manager_item_activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkMenuItem" id="cover_manager_item">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">C_overs</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_cover_manager_item_activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="preferences1">
-                        <property name="label">gtk-preferences</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_preferences_item_activate"/>
-                      </object>
-                    </child>
-                  </object>
+                  <object class="GtkMenu" id="edit_menu"/>
                 </child>
               </object>
             </child>
@@ -76,52 +37,7 @@
                 <property name="label" translatable="yes">_View</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
-                  <object class="GtkMenu" id="view_menu">
-                    <child>
-                      <object class="GtkImageMenuItem" id="show_playing_track_item">
-                        <property name="label" translatable="yes">_Show Playing Track</property>
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="image">image8</property>
-                        <property name="use_stock">False</property>
-                        <accelerator key="J" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_show_playing_track_item_activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparatorMenuItem" id="separator1">
-                        <property name="visible">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckMenuItem" id="playlist_utilities_bar_visible">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Playlist Utilities Bar</property>
-                        <property name="use_underline">True</property>
-                        <property name="active">True</property>
-                        <signal name="toggled" handler="on_playlist_utilities_bar_visible_toggled"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkMenuItem" id="columns_menu">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Columns</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="clear_playlist_item">
-                        <property name="label" translatable="yes">Clear Playlist</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="image">image9</property>
-                        <property name="use_stock">False</property>
-                        <accelerator key="l" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_clear_playlist_item_activate"/>
-                      </object>
-                    </child>
-                  </object>
+                  <object class="GtkMenu" id="view_menu"/>
                 </child>
               </object>
             </child>
@@ -196,7 +112,6 @@
             <child>
               <object class="GtkVBox" id="panel_box">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkNotebook" id="panel_notebook">
                     <property name="visible">True</property>
@@ -223,7 +138,6 @@
                     <child>
                       <object class="GtkVBox" id="progress_box">
                         <property name="visible">True</property>
-                        <property name="orientation">vertical</property>
                         <child>
                           <placeholder/>
                         </child>
@@ -245,7 +159,6 @@
               <object class="GtkVBox" id="player_box">
                 <property name="visible">True</property>
                 <property name="border_width">3</property>
-                <property name="orientation">vertical</property>
                 <property name="spacing">3</property>
                 <child>
                   <object class="GtkHBox" id="info_area">
@@ -425,19 +338,6 @@ Right Click for Stop After Track Feature</property>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkImage" id="image7">
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="image8">
-    <property name="visible">True</property>
-    <property name="stock">gtk-jump-to</property>
-    <property name="icon-size">1</property>
-  </object>
-  <object class="GtkImage" id="image9">
-    <property name="visible">True</property>
-    <property name="stock">gtk-clear</property>
-    <property name="icon-size">1</property>
   </object>
   <object class="GtkImage" id="image10">
     <property name="visible">True</property>

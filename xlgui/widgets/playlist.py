@@ -24,15 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-
 import collections
+import glib
+import gobject
+import gtk
+import logging
 import os
+import pango
 import random
 import re
-
-import glib, gobject, gtk, pango
-
-from xl.nls import gettext as _
 
 from xl import (
     common,
@@ -43,6 +43,8 @@ from xl import (
     trax,
     xdg
 )
+from xl.common import MetadataList
+from xl.nls import gettext as _
 from xl.playlist import (
     Playlist,
     PlaylistManager,
@@ -50,16 +52,10 @@ from xl.playlist import (
     import_playlist,
 )
 from xlgui import guiutil, icons
-from xlgui.widgets import playlist_columns
-from xl.common import MetadataList
+from xlgui.widgets import menu, menuitems, playlist_columns
 from xlgui.widgets.notebook import NotebookPage
-from xlgui.widgets import menu, menuitems
 
-import logging
 logger = logging.getLogger(__name__)
-
-
-
 
 def default_get_playlist_func(parent, context):
     return player.QUEUE.current_playlist

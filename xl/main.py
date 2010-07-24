@@ -546,8 +546,10 @@ class Exaile(object):
             self.smart_playlists.save_playlist(pl, overwrite=True)
 
     def mainloop_init(self):
-        import glib, gobject
+        import gobject
+
         gobject.threads_init()
+
         if self.options.Dbus:
             import dbus, dbus.mainloop.glib
             dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
@@ -557,6 +559,7 @@ class Exaile(object):
             import gtk.gdk
             gtk.gdk.threads_init()
         else:
+            import glib
             loop = glib.MainLoop()
             context = loop.get_context()
             self.__mainloop(context)

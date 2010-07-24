@@ -24,8 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import gobject
+import gtk
+import pango
 
-import gtk, gobject, pango
 from xl.nls import gettext as _
 from xlgui.widgets import menu
 

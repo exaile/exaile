@@ -157,8 +157,8 @@ def __create_edit_menu():
         from xlgui.preferences import PreferencesDialog
         dialog = PreferencesDialog(get_main().window, get_main().controller)
         dialog.run()
-    items.append(_smi('preferences', [items[-1].name], _("_Preferences"),
-        'gtk-preferences', preferences_cb))
+    items.append(_smi('preferences', [items[-1].name],
+        icon_name=gtk.STOCK_PREFERENCES, callback=preferences_cb))
 
     for item in items:
         providers.register('menubar-edit-menu', item)

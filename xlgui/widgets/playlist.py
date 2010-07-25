@@ -277,6 +277,9 @@ class PlaylistPage(NotebookPage):
 
     def set_name(self, name):
         self.playlist.name = name
+        
+    def get_search_entry(self):
+        return self.search_entry
 
     ## End NotebookPage ##
 

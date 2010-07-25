@@ -575,7 +575,9 @@ class MainWindow(gobject.GObject):
         """
             Gives focus to the playlist search bar
         """
-        self.filter.grab_focus()
+        plpage = get_selected_playlist()
+        if plpage:
+            plpage.get_search_entry().grab_focus()
 
     def on_save_playlist(self, *e):
         """

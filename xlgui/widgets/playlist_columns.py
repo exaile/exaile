@@ -312,7 +312,7 @@ providers.register('playlist-columns', BPMColumn)
 class LastPlayedColumn(Column):
     name = '__last_played'
     display = _('Last played')
-    size = 10
+    size = 80
 providers.register('playlist-columns', LastPlayedColumn)
 
 class ColumnMenuItem(menu.MenuItem):

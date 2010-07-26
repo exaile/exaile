@@ -629,7 +629,13 @@ class XSPFConverter(FormatConverter):
         tree = ETree.ElementTree(file=urllib.urlopen(path))
         ns = "{http://xspf.org/ns/0/}"
         nodes = tree.find("%strackList" % ns).findall("%strack" % ns)
-        name = tree.find("%stitle" % ns).text.strip()
+        titlenode = tree.find("%stitle" % ns)
+
+        if titlenode is not None:
+            name = titlenode.text.strip()
+        else:
+            name = self.name_from_path(path)
+
         playlist = Playlist(name=name)
 
         for n in nodes:

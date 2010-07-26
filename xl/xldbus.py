@@ -486,7 +486,7 @@ class DbusManager(dbus.service.Object):
             Returns the data of the cover image of the playing track, or
             an empty string if there is no cover available.
         """
-        from xl import covers
+        from xl import covers, player
         cover = covers.MANAGER.get_cover(player.PLAYER.current)
         if not cover:
             cover = ''

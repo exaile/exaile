@@ -30,6 +30,8 @@ import glib
 import gtk
 import logging
 
+gtk.gdk.threads_init()
+
 from xl import (
     common,
     player,

@@ -54,7 +54,7 @@ class Exaile(object):
                                  'and use its PLAYER attribute.')
 
     def __get_queue(self):
-        raise DeprecationWarning('Using exaile.player is deprecated. '
+        raise DeprecationWarning('Using exaile.queue is deprecated. '
                                  'Import the player module from xl instead'
                                  'and use its QUEUE attribute.')
 
@@ -555,10 +555,8 @@ class Exaile(object):
             dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
             dbus.mainloop.glib.threads_init()
             dbus.mainloop.glib.gthreads_init()
-        if self.options.StartGui:
-            import gtk.gdk
-            gtk.gdk.threads_init()
-        else:
+
+        if not self.options.StartGui:
             import glib
             loop = glib.MainLoop()
             context = loop.get_context()

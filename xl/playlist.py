@@ -34,7 +34,6 @@ import os
 import random
 import time
 import urllib
-import urlparse
 
 try:
     import cPickle as pickle
@@ -239,21 +238,7 @@ class M3UConverter(FormatConverter):
             :rtype: :class:`Playlist`
         """
         gfile = gio.File(path)
-
-        if gfile.is_native():
-            name = os.path.basename(gfile.get_path())
-        else:
-            name = gfile.get_uri().split('/')[-1]
-
-        for extension in self.file_extensions:
-            try:
-                name = name[:name.rindex('.%s' % extension)]
-            except ValueError: # Extension not found
-                pass
-            else:
-                break
-
-        playlist = Playlist(name)
+        playlist = Playlist(name=self.name_from_path(path))
         extinf = {}
 
         with closing(gio.DataInputStream(gfile.read())) as stream:
@@ -626,28 +611,29 @@ class XSPFConverter(FormatConverter):
         """
         #TODO: support content resolution
         import xml.etree.cElementTree as ETree
-        tree = ETree.ElementTree(file=urllib.urlopen(path))
-        ns = "{http://xspf.org/ns/0/}"
-        nodes = tree.find("%strackList" % ns).findall("%strack" % ns)
-        titlenode = tree.find("%stitle" % ns)
 
-        if titlenode is not None:
-            name = titlenode.text.strip()
-        else:
-            name = self.name_from_path(path)
+        gfile = gio.File(path)
+        playlist = Playlist(name=self.name_from_path(path))
 
-        playlist = Playlist(name=name)
+        with closing(gio.DataInputStream(gfile.read())) as stream:
+            tree = ETree.ElementTree(file=stream)
+            ns = "{http://xspf.org/ns/0/}"
+            nodes = tree.find("%strackList" % ns).findall("%strack" % ns)
+            titlenode = tree.find("%stitle" % ns)
 
-        for n in nodes:
-            loc = n.find("%slocation" % ns).text.strip()
-            track = trax.Track(loc)
-            for element, tag in self.tags.iteritems():
-                try:
-                    track.set_tag_raw(tag,
-                        n.find("%s%s" % (ns, element)).text.strip())
-                except:
-                    pass
-            playlist.append(track)
+            if titlenode is not None:
+                playlist.name = titlenode.text.strip()
+
+            for n in nodes:
+                loc = n.find("%slocation" % ns).text.strip()
+                track = trax.Track(loc)
+                for element, tag in self.tags.iteritems():
+                    try:
+                        track.set_tag_raw(tag,
+                            n.find("%s%s" % (ns, element)).text.strip())
+                    except:
+                        pass
+                playlist.append(track)
 
         return playlist
 providers.register('playlist-format-converter', XSPFConverter())

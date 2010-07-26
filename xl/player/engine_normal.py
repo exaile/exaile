@@ -29,9 +29,10 @@ import time
 import urllib
 import urlparse
 
+import glib
 import pygst
 pygst.require('0.10')
-import gst, gobject, glib
+import gst
 
 from xl.nls import gettext as _
 from xl import common, event

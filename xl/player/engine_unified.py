@@ -28,9 +28,10 @@ import logging
 import threading
 import time
 
+import glib
 import pygst
 pygst.require('0.10')
-import gst, gobject, glib
+import gst
 
 from xl.nls import gettext as _
 from xl import event, settings, common
@@ -402,7 +403,7 @@ class AudioStream(gst.Bin):
         if track.is_local():
             if not track.exists():
                 logger.error("File does not exist: %s" %
-                        track.get_loc_for_display())
+                        track.get_loc_for_io())
                 return False
 
         self.track = track

@@ -30,10 +30,9 @@ from xlgui.preferences import widgets
 name = _('Mini Mode')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "minimode_preferences.ui")
-icons.MANAGER.add_stock_from_directory('exaile-minimode',
+icons.MANAGER.add_icon_name_from_directory('exaile-minimode',
     os.path.join(basedir, 'icons'))
-icon = icons.MANAGER.pixbuf_from_stock('exaile-minimode',
-    gtk.ICON_SIZE_MENU)
+icon = 'exaile-minimode'
 
 class AlwaysOnTopPreference(widgets.CheckPreference):
     name = 'plugin/minimode/always_on_top'

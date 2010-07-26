@@ -681,16 +681,11 @@ class RestoreButtonControl(ButtonControl):
         """
             Sets up accelerators
         """
+        accel_group = gtk.AccelGroup()
+        self.get_toplevel().add_accel_group(accel_group)
         key, modifier = gtk.accelerator_parse('<Control><Alt>M')
-        accel_groups = gtk.accel_groups_from_object(self.get_toplevel())
-
-        try:
-            accel_group = accel_groups[0]
-        except IndexError: # Happens e.g. upon destruction
-            pass
-        else:
-            self.add_accelerator('clicked', accel_group, key, modifier,
-                gtk.ACCEL_VISIBLE)
+        self.add_accelerator('clicked', accel_group, key, modifier,
+            gtk.ACCEL_VISIBLE)
 
 class RatingControl(RatingWidget, BaseControl):
     """

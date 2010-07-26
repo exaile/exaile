@@ -17,8 +17,10 @@
 import cairo
 import gtk
 
-from xl import event, settings
+from xl import event, providers, settings
 from xl.nls import gettext as _
+from xlgui.accelerators import Accelerator
+from xlgui.widgets import menu
 
 import controls
 import minimode_preferences
@@ -104,17 +106,14 @@ class MiniMode(gtk.Window):
         self.border_frame.add(alignment)
         self.add(self.border_frame)
 
-        self.accel_group = gtk.AccelGroup()
-        self.add_accel_group(self.accel_group)
-        self.exaile_window.add_accel_group(self.accel_group)
-        self.menuitem = gtk.ImageMenuItem('exaile-minimode', self.accel_group)
-        self.menuitem.set_label(_('Mini Mode'))
-        self.menuitem.connect('activate', self.on_menuitem_activate)
-        self.menuitem.show()
-        exaile.gui.builder.get_object('view_menu').append(self.menuitem)
-        key, modifier = gtk.accelerator_parse('<Control><Alt>M')
-        self.menuitem.add_accelerator('activate', self.accel_group,
-            key, modifier, gtk.ACCEL_VISIBLE)
+        self.menuitem = menu.simple_menu_item(
+            'minimode', ['clear-playlist'],
+            _('Mini Mode'), 'exaile-minimode',
+            self.on_menuitem_activate, accelerator='<Control><Alt>M')
+        self.accelerator = Accelerator('<Control><Alt>M',
+            self.on_menuitem_activate)
+        providers.register('menubar-view-menu', self.menuitem)
+        providers.register('mainwindow-accelerators', self.accelerator)
         
         self.__active = False
         self.__dirty = True
@@ -139,9 +138,8 @@ class MiniMode(gtk.Window):
         """
             Cleanups
         """
-        self.remove_accel_group(self.accel_group)
-        self.exaile_window.remove_accel_group(self.accel_group)
-        self.menuitem.parent.remove(self.menuitem)
+        providers.unregister('mainwindow-accelerators', self.accelerator)
+        providers.unregister('menubar-view-menu', self.menuitem)
 
         self.set_active(False)
         self.box.destroy()
@@ -258,7 +256,7 @@ class MiniMode(gtk.Window):
 
         return True
 
-    def on_menuitem_activate(self, menuitem):
+    def on_menuitem_activate(self, menuitem, name, parent, context):
         """
             Shows the Mini Mode window
         """

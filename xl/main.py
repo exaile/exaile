@@ -118,7 +118,7 @@ class Exaile(object):
             xldbus.run_commands(self.options, self.dbus)
 
         #connect dbus signals
-        if self.options.Dbus:
+        if self.options.StartGui and self.options.Dbus:
             self.dbus._connect_signals()
 
         # On SIGTERM, quit normally.

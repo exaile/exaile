@@ -215,12 +215,11 @@ class RatingWidget(gtk.EventBox):
         """
         if player.PLAYER.current is not None:
             self._rating = player.PLAYER.current.get_rating()
-            self._image.set_from_pixbuf(
+            glib.idle_add(self._image.set_from_pixbuf,
                 icons.MANAGER.pixbuf_from_rating(self._rating))
-
-            self.set_sensitive(True)
+            glib.idle_add(self.set_sensitive, True)
         else:
-            self.set_sensitive(False)
+            glib.idle_add(self.set_sensitive, False)
 
 class RatingMenuItem(gtk.MenuItem):
     """

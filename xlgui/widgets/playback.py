@@ -72,8 +72,8 @@ class PlaybackProgressBar(gtk.ProgressBar):
 
         self.formatter = ProgressBarFormatter()
         self.__timer_id = None
-        self.__events = ['playback_track_start', 'playback_player_end',
-                         'playback_toggle_pause', 'playback_error']
+        self.__events = ('playback_track_start', 'playback_player_end',
+                         'playback_toggle_pause', 'playback_error')
 
         for e in self.__events:
             event.add_callback(getattr(self, 'on_%s' % e), e)
@@ -89,8 +89,8 @@ class PlaybackProgressBar(gtk.ProgressBar):
         """
             Resets the progress bar appearance
         """
-        self.set_fraction(0)
-        self.set_text(_('Not Playing'))
+        glib.idle_add(self.set_fraction, 0)
+        glib.idle_add(self.set_text, _('Not Playing'))
 
     def __enable_timer(self):
         """
@@ -127,8 +127,8 @@ class PlaybackProgressBar(gtk.ProgressBar):
             self.reset()
             return False
 
-        self.set_fraction(player.PLAYER.get_progress())
-        self.set_text(self.formatter.format())
+        glib.idle_add(self.set_fraction, player.PLAYER.get_progress())
+        glib.idle_add(self.set_text, self.formatter.format())
 
         return True
 

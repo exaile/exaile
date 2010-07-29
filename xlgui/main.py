@@ -714,12 +714,14 @@ class MainWindow(gobject.GObject):
             return
 
         self._update_track_information()
-        self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
-                gtk.ICON_SIZE_SMALL_TOOLBAR))
-        self.playpause_button.set_tooltip_text(_('Pause Playback'))
+        glib.idle_add(self.playpause_button.set_image,
+            gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
+            gtk.ICON_SIZE_SMALL_TOOLBAR))
+        glib.idle_add(self.playpause_button.set_tooltip_text,
+            _('Pause Playback'))
 
         if settings.get_option('osd/enabled', True):
-            self.osd.show(player.current)
+            glib.idle_add(self.osd.show, player.current)
 
     def on_playback_end(self, type, player, object):
         """
@@ -756,7 +758,8 @@ class MainWindow(gobject.GObject):
         if not track:
             return
 
-        self.window.set_title(self.title_formatter.format(track))
+        glib.idle_add(self.window.set_title,
+            self.title_formatter.format(track))
 
     def on_playpause_button_clicked(self, *e):
         """

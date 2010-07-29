@@ -940,7 +940,7 @@ class PlaylistModel(gtk.GenericTreeModel):
             iter = self.get_iter(path)
         except ValueError:
             return
-        self.row_changed(path, iter)
+        glib.idle_add(self.row_changed, path, iter)
 
 
 

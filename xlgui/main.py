@@ -536,8 +536,8 @@ class MainWindow(gobject.GObject):
                 gtk.ICON_SIZE_SMALL_TOOLBAR)
             tooltip = _('Pause Playback')
 
-        self.playpause_button.set_image(image)
-        self.playpause_button.set_tooltip_text(tooltip)
+        glib.idle_add(self.playpause_button.set_image, image)
+        glib.idle_add(self.playpause_button.set_tooltip_text, tooltip)
         self._update_track_information()
 
         # refresh the current playlist
@@ -727,11 +727,13 @@ class MainWindow(gobject.GObject):
         """
             Called when playback ends
         """
-        self.window.set_title('Exaile')
+        glib.idle_add(self.window.set_title, 'Exaile')
 
-        self.playpause_button.set_image(gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
-                gtk.ICON_SIZE_SMALL_TOOLBAR))
-        self.playpause_button.set_tooltip_text(_('Start Playback'))
+        glib.idle_add(self.playpause_button.set_image,
+            gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
+            gtk.ICON_SIZE_SMALL_TOOLBAR))
+        glib.idle_add(self.playpause_button.set_tooltip_text,
+            _('Start Playback'))
 
     def _on_option_set(self, name, object, option):
         """

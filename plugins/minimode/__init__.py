@@ -56,8 +56,6 @@ def _enable(event, exaile, nothing):
     """
         Handles the deferred enable call
     """
-    controls.register()
-
     global MINIMODE
     MINIMODE = MiniMode(exaile)
 
@@ -65,17 +63,9 @@ def disable(exaile):
     """
         Disables the mini mode plugin
     """
-    controls.unregister()
-
     global MINIMODE
     MINIMODE.destroy()
     MINIMODE = None
-
-def teardown(exaile):
-    """
-        Unregisters control providers
-    """
-    controls.unregister()
 
 def get_preferences_pane():
     return minimode_preferences
@@ -96,6 +86,8 @@ class MiniMode(gtk.Window):
         self.set_resizable(False)
 
         self.exaile_window = exaile.gui.main.window
+
+        controls.register()
 
         self.box = controls.ControlBox()
         self.box.set_spacing(3)
@@ -140,6 +132,7 @@ class MiniMode(gtk.Window):
         """
         providers.unregister('mainwindow-accelerators', self.accelerator)
         providers.unregister('menubar-view-menu', self.menuitem)
+        controls.unregister()
 
         self.set_active(False)
         self.box.destroy()
@@ -215,8 +208,7 @@ class MiniMode(gtk.Window):
             Paints the window alpha transparency
         """
         context = self.window.cairo_create()
-        context.rectangle(event.area.x, event.area.y,
-            event.area.width, event.area.height)
+        context.rectangle(*event.area)
         context.clip()
 
         background = self.style.bg[gtk.STATE_NORMAL]

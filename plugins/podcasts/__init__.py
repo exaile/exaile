@@ -172,7 +172,7 @@ class PodcastPanel(panel.Panel):
                         (date.tm_year, date.tm_mon, date.tm_mday))
                 tracks.append(tr)
 
-            pl.add_tracks(tracks)
+            pl.extend(tracks)
             self._set_status('')
 
             self._open_podcast(pl, title)
@@ -190,8 +190,8 @@ class PodcastPanel(panel.Panel):
     @guiutil.idle_add()
     def _open_podcast(self, pl, title):
         new_pl = playlist.Playlist(title)
-        new_pl.add_tracks(pl.get_tracks())
-        main.mainwindow().add_playlist(new_pl)
+        new_pl.extend(pl)
+        main.mainwindow().playlist_notebook.create_tab_from_playlist(new_pl)
 
     @common.threaded
     def _load_podcasts(self):

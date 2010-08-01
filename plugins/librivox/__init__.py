@@ -23,7 +23,7 @@ import gtk, gobject, os
 import librivoxsearch as LS
 import about_window as AW
 from xl import trax, playlist, event, xdg, common, settings
-from xlgui import guiutil
+from xlgui import guiutil, main
 
 
 def enable(exaile):
@@ -67,9 +67,9 @@ class LVPanel():
         return
 
     @common.threaded
-    def get_chapters_and_add(self, row, location=None):
+    def get_chapters_and_add(self, row):
         self.get_all(row)
-        self.add_to_playlist(self.books[row].chapters, location)
+        self.add_to_playlist(self.books[row].chapters)
         return
 
     @guiutil.idle_add()
@@ -90,7 +90,6 @@ class LVPanel():
         self.chapter_icon=gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))
         self.gui_init(exaile)
         self.connect_events()
-        self.controller=exaile.gui.main
         self.getting_info=False
 
     def gui_init(self, exaile):
@@ -181,18 +180,21 @@ class LVPanel():
             return
         if len(path)==1: # selected item is book
             if self.books[row].loaded: # book info already loaded
-                self.add_to_playlist(self.books[row].chapters, location=None)
+                self.add_to_playlist(self.books[row].chapters)
             else:
-                self.get_chapters_and_add(row, location=None)
+                self.get_chapters_and_add(row)
 
         if len(path)>1: # selected item is chapter
             chapter=self.books[path[0]].chapters[path[1]]
-            self.add_to_playlist([chapter], location=None)
+            self.add_to_playlist([chapter])
 
-    def add_to_playlist(self, chapters, location=None):
-        current_playlist=self.controller.get_selected_page().playlist
-        tracks=self.generate_tracks(chapters)
-        current_playlist.add_tracks(tracks, location)
+    def add_to_playlist(self, chapters):
+        current_playlist = main.get_selected_playlist()
+        if not current_playlist:
+            return
+        
+        tracks = self.generate_tracks(chapters)
+        current_playlist.playlist.extend(tracks)
 
 
     def menu_popup(self, treeview, event):
@@ -233,8 +235,12 @@ class LVPanel():
             else:
                 if book.is_loading:
                     return
-                current_playlist=self.controller.get_selected_page()
-                current_playlist_tv=self.controller.get_selected_page().list
+                    
+                current_playlist = main.get_selected_playlist()
+                if not current_playlist:
+                    return
+                
+                current_playlist_tv = current_playlist.list
 
                 (x,y)=current_playlist_tv.get_pointer()
                 rect=current_playlist_tv.get_allocation()
@@ -343,6 +349,6 @@ class Status():
         msg_id=self.bar.push(context_id, status)
         return (context_id, msg_id)
     def unset_status(self, context_id, msg_id):
-        self.bar.remove(context_id, msg_id)
+        self.bar.remove_message(context_id, msg_id)
 
 

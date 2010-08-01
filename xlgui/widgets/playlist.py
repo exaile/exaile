@@ -750,7 +750,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
     def show_properties_dialog(self):
         from xlgui import properties
         tracks = self.get_selected_tracks()
-        selected = None
+        current_position = 0
         if len(tracks) == 1:
             tracks = self.playlist[:]
             current_position = self.get_cursor()[0][0]

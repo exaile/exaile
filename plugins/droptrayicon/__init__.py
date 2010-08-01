@@ -133,6 +133,9 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
             Connects various events
             with callbacks
         """
+        self.connect('size-allocate',
+            self.on_size_allocate)
+
         self.connect('drag-motion',
             self.on_drag_motion)
         self.connect('drag-leave',
@@ -243,6 +246,33 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
             y = icon_y + icon_height / 2 - target_height / 2
 
         self.drop_target_window.move(x, y)
+
+    def on_size_allocate(self, widget, allocation):
+        """
+            Takes care of resizing the icon if necessary
+        """
+        screen = widget.get_screen()
+        settings = gtk.settings_get_for_screen(screen)
+        icon_sizes = (
+            gtk.ICON_SIZE_MENU, # 1
+            gtk.ICON_SIZE_SMALL_TOOLBAR, # 2
+            gtk.ICON_SIZE_LARGE_TOOLBAR, # 3
+            gtk.ICON_SIZE_BUTTON, # 4
+            gtk.ICON_SIZE_DND, # 5
+            gtk.ICON_SIZE_DIALOG # 6
+        )
+        # Retrieve pixel dimensions of stock icon sizes
+        sizes = [(gtk.icon_size_lookup_for_settings(settings, i)[0], i)
+                 for i in icon_sizes]
+        # Only look at sizes lower than the current dimensions
+        sizes = [(s, i) for s, i in sizes if s <= allocation.width]
+        # Get the closest fit
+        target_size = max(sizes)[1]
+
+        # Avoid setting the same size over and over again
+        if self.image.props.icon_size is not target_size.real:
+            glib.idle_add(self.image.set_from_icon_name,
+                self.image.props.icon_name, target_size)
 
     def on_drag_motion(self, widget, context, x, y, timestamp):
         """

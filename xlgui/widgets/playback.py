@@ -529,63 +529,63 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         height = height or self.allocation.height
         position = width * marker.props.position
         marker_scale = int(height * self.props.marker_scale)
+        # Adjustment by half of the line width
+        offset = self.props.marker_scale / 0.9 / 2
 
-        # Adjustments by 0.5 taken from
-        # http://cairographics.org/FAQ/#sharp_lines
         if marker.props.anchor == gtk.ANCHOR_NORTH_WEST:
             points = (
-                (position - 0.5, 0.5),
-                (position + marker_scale * 0.75 - 0.5, 0.5),
-                (position - 0.5, marker_scale * 0.75 + 0.5)
+                (position - offset, offset),
+                (position + marker_scale * 0.75 - offset, offset),
+                (position - offset, marker_scale * 0.75 + offset)
             )
         elif marker.props.anchor == gtk.ANCHOR_NORTH:
             points = (
-                (position - 0.5, marker_scale / 2 + 0.5),
-                (position + marker_scale / 2 - 0.5, 0.5),
-                (position - marker_scale / 2 - 0.5, 0.5)
+                (position - offset, marker_scale / 2 + offset),
+                (position + marker_scale / 2 - offset, offset),
+                (position - marker_scale / 2 - offset, offset)
             )
         elif marker.props.anchor == gtk.ANCHOR_NORTH_EAST:
             points = (
-                (position - marker_scale * 0.75 - 0.5, 0.5),
-                (position - 0.5, 0.5),
-                (position - 0.5, marker_scale * 0.75 + 0.5)
+                (position - marker_scale * 0.75 - offset, offset),
+                (position - offset, offset),
+                (position - offset, marker_scale * 0.75 + offset)
             )
         elif marker.props.anchor == gtk.ANCHOR_EAST:
             points = (
-                (position - marker_scale / 2 - 0.5, height / 2 + 0.5),
-                (position - 0.5, height / 2 - marker_scale / 2 + 0.5),
-                (position - 0.5, height / 2 + marker_scale / 2 + 0.5)
+                (position - marker_scale / 2 - offset, height / 2 + offset),
+                (position - offset, height / 2 - marker_scale / 2 + offset),
+                (position - offset, height / 2 + marker_scale / 2 + offset)
             )
         elif marker.props.anchor == gtk.ANCHOR_SOUTH_EAST:
             points = (
-                (position - 0.5, height - 0.5),
-                (position - 0.5, height - marker_scale * 0.75 - 0.5),
-                (position - marker_scale * 0.75 - 0.5, height - 0.5)
+                (position - offset, height - offset),
+                (position - offset, height - marker_scale * 0.75 - offset),
+                (position - marker_scale * 0.75 - offset, height - offset)
             )
         elif marker.props.anchor == gtk.ANCHOR_SOUTH:
             points = (
-                (position - 0.5, height - marker_scale / 2 - 0.5),
-                (position + marker_scale / 2 - 0.5, height - 0.5),
-                (position - marker_scale / 2 - 0.5, height - 0.5)
+                (position - offset, height - marker_scale / 2 - offset),
+                (position + marker_scale / 2 - offset, height - offset),
+                (position - marker_scale / 2 - offset, height - offset)
             )
         elif marker.props.anchor == gtk.ANCHOR_SOUTH_WEST:
             points = (
-                (position - 0.5, height - 0.5),
-                (position + marker_scale * 0.75 - 0.5, height - 0.5),
-                (position - 0.5, height - marker_scale * 0.75 - 0.5)
+                (position - offset, height - offset),
+                (position + marker_scale * 0.75 - offset, height - offset),
+                (position - offset, height - marker_scale * 0.75 - offset)
             )
         elif marker.props.anchor == gtk.ANCHOR_WEST:
             points = (
-                (position + marker_scale / 2 - 0.5, height / 2 + 0.5),
-                (position - 0.5, height / 2 - marker_scale / 2 + 0.5),
-                (position - 0.5, height / 2 + marker_scale / 2 + 0.5)
+                (position + marker_scale / 2 - offset, height / 2 + offset),
+                (position - offset, height / 2 - marker_scale / 2 + offset),
+                (position - offset, height / 2 + marker_scale / 2 + offset)
             )
         elif marker.props.anchor == gtk.ANCHOR_CENTER:
             points = (
-                (position - 0.5, height / 2 - marker_scale / 2 + 0.5),
-                (position + marker_scale / 2 - 0.5, height / 2 + 0.5),
-                (position - 0.5, height / 2 + marker_scale / 2 + 0.5),
-                (position - marker_scale / 2 - 0.5, height / 2 + 0.5)
+                (position - offset, height / 2 - marker_scale / 2 + offset),
+                (position + marker_scale / 2 - offset, height / 2 + offset),
+                (position - offset, height / 2 + marker_scale / 2 + offset),
+                (position - marker_scale / 2 - offset, height / 2 + offset)
             )
 
         return points
@@ -666,6 +666,9 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             Draws markers on top of the progress bar
         """
         gtk.ProgressBar.do_expose_event(self, event)
+
+        if not self._points:
+            return
 
         context = self.window.cairo_create()
         context.set_line_width(self.props.marker_scale / 0.9)

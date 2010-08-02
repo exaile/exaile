@@ -390,6 +390,13 @@ class CoverWidget(gtk.EventBox):
         self.set_blank()
         self.image.show()
 
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+            [('text/uri-list', 0, 0)],
+            gtk.gdk.ACTION_COPY |
+            gtk.gdk.ACTION_DEFAULT |
+            gtk.gdk.ACTION_MOVE
+        )
+
         event.add_callback(self.on_playback_start,
                 'playback_track_start', player.PLAYER)
         event.add_callback(self.on_playback_end,
@@ -452,39 +459,32 @@ class CoverWidget(gtk.EventBox):
         pixbuf = icons.MANAGER.pixbuf_from_data(
             cover_manager.get_default_cover())
         self.image.set_from_pixbuf(pixbuf)
-        self.set_drag_enabled(False)
+        self.set_drag_source_enabled(False)
         self.cover_data = None
 
         self.emit('cover-found', None)
 
-    def set_drag_enabled(self, drag_enabled):
+    def set_drag_source_enabled(self, enabled):
         """
             Changes the behavior for drag and drop
 
-            :param drag_enabled: Whether to accept dropped data
-                and allow to drag to other applications
-            :type drag_enabled: bool
+            :param drag_enabled: Whether to  allow
+                drag to other applications
+            :type enabled: bool
         """
-        if drag_enabled == self.get_data('drag_enabled'):
+        if enabled == self.get_data('drag_source_enabled'):
             return
 
-        if drag_enabled:
-            self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
-                [('text/uri-list', 0, 0)],
-                gtk.gdk.ACTION_COPY |
-                gtk.gdk.ACTION_DEFAULT |
-                gtk.gdk.ACTION_MOVE
-            )
+        if enabled:
             self.drag_source_set(gtk.gdk.BUTTON1_MASK,
                 [('text/uri-list', 0, 0)],
                 gtk.gdk.ACTION_DEFAULT |
                 gtk.gdk.ACTION_MOVE
             )
         else:
-            self.drag_dest_unset()
             self.drag_source_unset()
 
-        self.set_data('drag_enabled', drag_enabled)
+        self.set_data('drag_source_enabled', enabled)
 
     def do_button_press_event(self, event):
         """
@@ -579,7 +579,7 @@ class CoverWidget(gtk.EventBox):
         width = settings.get_option('gui/cover_width', 100)
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, (width, width))
         self.image.set_from_pixbuf(pixbuf)
-        self.set_drag_enabled(True)
+        self.set_drag_source_enabled(True)
         self.cover_data = cover_data
 
         self.emit('cover-found', pixbuf)

@@ -877,6 +877,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
         self.formatter = TrackFormatter(
             settings.get_option('plugin/minimode/track_title_format',
                                 '$tracknumber - $title'))
+
         self.view = PlaylistView(player.QUEUE.current_playlist)
         self.popup = AttachedWindow(self)
         self.popup.set_default_size(
@@ -891,6 +892,12 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
         scrollwindow.add(self.view)
         self.popup.add(scrollwindow)
         self.popup.connect('configure-event', self.on_popup_configure_event)
+
+        accel_group = gtk.AccelGroup()
+        key, modifier = gtk.accelerator_parse('<Control>J')
+        accel_group.connect_group(key, modifier, gtk.ACCEL_VISIBLE,
+            self.on_accelerator_activate)
+        self.popup.add_accel_group(accel_group)
 
         self.tooltip = TrackToolTip(self)
         self.tooltip.set_auto_update(True)
@@ -974,6 +981,14 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
         else:
             self.popup.hide()
             self.arrow.props.arrow_type = gtk.ARROW_RIGHT
+
+    def on_accelerator_activate(self, accel_group, acceleratable,
+                                keyval, modifier):
+        """
+            Shows the current track
+        """
+        self.view.scroll_to_cell(self.view.playlist.current_position)
+        self.view.set_cursor(self.view.playlist.current_position)
 
     def on_drag_motion(self, widget, context, x, y, time):
         """

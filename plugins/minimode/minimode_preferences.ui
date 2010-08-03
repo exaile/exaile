@@ -165,7 +165,7 @@
                     <child>
                       <object class="GtkImage" id="image1">
                         <property name="visible">True</property>
-                        <property name="stock">gtk-info</property>
+                        <property name="stock">gtk-dialog-info</property>
                         <property name="icon-size">6</property>
                       </object>
                       <packing>

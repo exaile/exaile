@@ -3561,7 +3561,7 @@ msgid ""
 "Depends: python-beautifulsoup"
 msgstr ""
 "Complemento para obtener letras desde lyricwiki.org\n"
-"Depende de python-beutifulsoup"
+"Depende de python-beautifulsoup"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"

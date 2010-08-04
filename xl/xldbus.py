@@ -423,44 +423,20 @@ class DbusManager(dbus.service.Object):
             Adds the tracks at the specified locations
             to the current playlist
         """
-        import xl.playlist
         from xl import player
-        from xl import trax   # do this here to avoid loading
-                              # settings when issuing dbus commands
-        # FIXME: Get rid of dependency on xlgui
-        #        by moving sorting column somewhere else
-        pl = self.exaile.gui.main.get_selected_playlist()
-        column, descending = pl.get_sort_by()
-        tracks = []
-        play_track = None
-        playlists = []
+        from xlgui import get_controller
+
+        controller = get_controller()
+
+        play = False
+
+        # Allows for playing first item
+        if player.PLAYER.is_stopped():
+            play = True
 
         for location in locations:
-            tracks = []
-
-            if xl.playlist.is_valid_playlist(location):
-                try:
-                    pl = xl.playlist.import_playlist(location)
-                    tracks = pl.get_tracks()
-                    continue
-                except xl.playlist.InvalidPlaylistTypeError:
-                    pass
-                except:
-                    traceback.print_exc()
-            else:
-                tracks = trax.get_tracks_from_uri(location)
-
-            if tracks:
-                tracks = trax.sort_tracks(['album', column], tracks, descending)
-                player.QUEUE.current_playlist.add_tracks(tracks)
-
-                if play_track is None:
-                    play_track = tracks[0]
-
-        if player.PLAYER.is_stopped() and play_track is not None:
-            pos = player.QUEUE.current_playlist.index(play_track)
-            player.QUEUE.current_playlist.set_current_pos(pos)
-            player.QUEUE.play()
+            controller.open_uri(location, play=play)
+            play = False
 
     @dbus.service.method('org.exaile.Exaile', 's')
     def Add(self, location):

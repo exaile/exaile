@@ -46,6 +46,10 @@ class OnAllDesktopsPreference(widgets.CheckPreference):
     name = 'plugin/minimode/on_all_desktops'
     default = True
 
+class ButtonInMainWindowPreference(widgets.CheckPreference):
+    name = 'plugin/minimode/button_in_mainwindow'
+    default = False
+
 class DisplayWindowDecorationsPreference(widgets.CheckPreference):
     name = 'plugin/minimode/display_window_decorations'
     default = True

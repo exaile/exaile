@@ -106,6 +106,15 @@ class MiniMode(gtk.Window):
             self.on_menuitem_activate)
         providers.register('menubar-view-menu', self.menuitem)
         providers.register('mainwindow-accelerators', self.accelerator)
+
+        mainbutton = gtk.Button(_('Mini Mode'))
+        mainbutton.set_image(gtk.image_new_from_icon_name(
+            'exaile-minimode', gtk.ICON_SIZE_BUTTON))
+        mainbutton.connect('clicked', self.on_mainbutton_clicked)
+        self.mainbutton_alignment = gtk.Alignment(xalign=1)
+        self.mainbutton_alignment.add(mainbutton)
+        exaile.gui.main.info_area.get_action_area().pack_start(
+            self.mainbutton_alignment)
         
         self.__active = False
         self.__dirty = True
@@ -125,6 +134,8 @@ class MiniMode(gtk.Window):
         exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
         event.add_callback(self.on_option_set, 'plugin_minimode_option_set')
+        self.on_option_set('plugin_minimode_option_set', settings,
+            'plugin/minimode/button_in_mainwindow')
 
     def destroy(self):
         """
@@ -133,6 +144,9 @@ class MiniMode(gtk.Window):
         providers.unregister('mainwindow-accelerators', self.accelerator)
         providers.unregister('menubar-view-menu', self.menuitem)
         controls.unregister()
+
+        self.mainbutton_alignment.get_parent().remove(
+            self.mainbutton_alignment)
 
         self.set_active(False)
         self.box.destroy()
@@ -254,6 +268,12 @@ class MiniMode(gtk.Window):
         """
         self.set_active(True)
 
+    def on_mainbutton_clicked(self, button):
+        """
+            Shows the Mini Mode window
+        """
+        self.set_active(True)
+
     def on_main_visible_toggle(self, main):
         """
             Handles visiblity toggles in
@@ -274,5 +294,15 @@ class MiniMode(gtk.Window):
             Queues updates upon setting change
         """
         self.__dirty = True
+
+        if option == 'plugin/minimode/button_in_mainwindow':
+            button_in_mainwindow = settings.get_option(option, False)
+
+            if button_in_mainwindow:
+                self.mainbutton_alignment.set_no_show_all(False)
+                self.mainbutton_alignment.show_all()
+            else:
+                self.mainbutton_alignment.hide_all()
+                self.mainbutton_alignment.set_no_show_all(True)
 
 # vim: et sts=4 sw=4

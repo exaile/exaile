@@ -691,6 +691,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         # stop default handler from running
         self.stop_emission('drag-data-received')
         drop_info = self.get_dest_row_at_pos(x, y)
+
         if drop_info:
             path, position = drop_info
             insert_position = path[0]
@@ -698,6 +699,9 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
                 insert_position += 1
         else:
             insert_position = -1
+
+        tracks = []
+
         if selection.target == "exaile-index-list":
             positions = [int(x) for x in selection.data.split(",")]
             tracks = MetadataList()
@@ -729,6 +733,12 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             else:
                 self.playlist.extend(tracks)
         context.finish(True, False, etime)
+
+        scroll_when_appending_tracks = settings.get_option(
+            'gui/scroll_when_appending_tracks', False)
+
+        if scroll_when_appending_tracks and tracks:
+            self.scroll_to_cell(self.playlist.index(tracks[-1]))
 
     def on_drag_motion(self, widget, context, x, y, etime):
         info = self.get_dest_row_at_pos(x, y)

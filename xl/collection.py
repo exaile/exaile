@@ -385,6 +385,7 @@ class LibraryMonitor(gobject.GObject):
         self.__root = gio.File(library.location)
         self.__monitored = False
         self.__monitors = {}
+        self.__queue = []
         self.__lock = threading.RLock()
 
     def do_get_property(self, property):
@@ -437,9 +438,15 @@ class LibraryMonitor(gobject.GObject):
         """
             Updates the library on changes of the location
         """
-        if event == gio.FILE_MONITOR_EVENT_CREATED:
-            added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
-            self.__library.collection.add_tracks(added_tracks)
+        if event == gio.FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+            if gfile in self.__queue:
+                added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
+                self.__library.collection.add_tracks(added_tracks)
+                self.__queue.remove(gfile)
+        elif event == gio.FILE_MONITOR_EVENT_CREATED:
+            # Enqueue tracks retrieval
+            if gfile not in self.__queue:
+                self.__queue += [gfile]
 
             # Set up new monitor if directory
             fileinfo = gfile.query_info('standard::type')

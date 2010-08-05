@@ -390,13 +390,6 @@ class CoverWidget(gtk.EventBox):
         self.set_blank()
         self.image.show()
 
-        self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
-            [('text/uri-list', 0, 0)],
-            gtk.gdk.ACTION_COPY |
-            gtk.gdk.ACTION_DEFAULT |
-            gtk.gdk.ACTION_MOVE
-        )
-
         event.add_callback(self.on_playback_start,
                 'playback_track_start', player.PLAYER)
         event.add_callback(self.on_playback_end,
@@ -591,6 +584,13 @@ class CoverWidget(gtk.EventBox):
             them
         """
         glib.idle_add(self.set_blank)
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+            [('text/uri-list', 0, 0)],
+            gtk.gdk.ACTION_COPY |
+            gtk.gdk.ACTION_DEFAULT |
+            gtk.gdk.ACTION_MOVE
+        )
+
         fetch = not settings.get_option('covers/automatic_fetching', True)
         cover_data = cover_manager.get_cover(track, set_only=fetch)
 
@@ -604,7 +604,8 @@ class CoverWidget(gtk.EventBox):
         """
             Called when playback stops.  Resets to the nocover image
         """
-        self.set_blank()
+        self.drag_dest_unset()
+        glib.idle_add(self.set_blank)
 
     def on_quit_application(self, type, exaile, nothing):
         """

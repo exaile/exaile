@@ -113,8 +113,9 @@ class MiniMode(gtk.Window):
         mainbutton.connect('clicked', self.on_mainbutton_clicked)
         self.mainbutton_alignment = gtk.Alignment(xalign=1)
         self.mainbutton_alignment.add(mainbutton)
-        exaile.gui.main.info_area.get_action_area().pack_start(
-            self.mainbutton_alignment)
+        action_area = exaile.gui.main.info_area.get_action_area()
+        action_area.pack_start(self.mainbutton_alignment)
+        action_area.reorder_child(self.mainbutton_alignment, 0)
         
         self.__active = False
         self.__dirty = True

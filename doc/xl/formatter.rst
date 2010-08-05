@@ -19,22 +19,24 @@ Formatters
     :members: format
 
 .. autoclass:: TrackNumberTagFormatter
-    :members: format
+    :show-inheritance:
 
 .. autoclass:: DiscNumberTagFormatter
-    :members: format
+    :show-inheritance:
 
 .. autoclass:: ArtistTagFormatter
+    :show-inheritance:
     :members: format
 
 .. autoclass:: LengthTagFormatter
+    :show-inheritance:
     :members: format, format_value
 
 .. autoclass:: RatingTagFormatter
-    :members: format
+    :show-inheritance:
 
 .. autoclass:: LastPlayedTagFormatter
-    :members: format
+    :show-inheritance:
 
 
 Templates

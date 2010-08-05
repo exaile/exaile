@@ -91,9 +91,10 @@ class ParameterTemplate(Template):
         created by :class:`string.Template`
 
         Examples:
-        * ${foo:parameter1}
-        * ${bar:parameter1, parameter2}
-        * ${qux:parameter1=argument1, parameter2}
+
+        * ``${foo:parameter1}``
+        * ``${bar:parameter1, parameter2}``
+        * ``${qux:parameter1=argument1, parameter2}``
     """
     __metaclass__ = _ParameterTemplateMetaclass
     argpattern = r'[^,}=]|\,|\}|\='
@@ -202,15 +203,16 @@ class Formatter(gobject.GObject):
         """
             Retrieves the identifiers and their optional parameters
 
-            Format of the returned dictionary:
-            extractions = {
-                'identifier1': (
-                    'identifier1', {}),
-                'identifier2:parameter': (
-                    'identifier2', {'parameter': True}),
-                'identifier3:parameter=argument': (
-                    'identifier3', {'parameter': 'argument'})
-            }
+            Example of the returned dictionary:
+
+            >>> extractions = {
+            >>>     'identifier1': (
+            >>>         'identifier1', {}),
+            >>>     'identifier2:parameter': (
+            >>>         'identifier2', {'parameter': True}),
+            >>>     'identifier3:parameter=argument': (
+            >>>         'identifier3', {'parameter': 'argument'})
+            >>> }
 
             :returns: the extractions
             :rtype: dict
@@ -403,7 +405,7 @@ class TrackFormatter(Formatter):
 
 class TagFormatter():
     """
-        A formatter for a tag of a track
+        A formatter provider for a tag of a track
     """
     def __init__(self, name):
         """
@@ -523,6 +525,7 @@ class ArtistTagFormatter(TagFormatter):
             :type track: :class:`xl.trax.Track`
             :param parameters: optionally passed parameters
                 Possible values are:
+
                 * compilate:
                   Allows for proper handling of compilations,
                   either via albumartist tag, a fallback value,
@@ -550,12 +553,12 @@ class LengthTagFormatter(TagFormatter):
 
             :param track: the track to get the tag from
             :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-                Possible values are:
-                * format: (short|long|verbose)
-                  Yields "1:02:42",
-                  "1h, 2m, 42s" or
-                  "1 hour, 2 minutes, 42 seconds"
+            :param parameters: Verbosity of the output,
+                possible values for "format" are:
+
+                * short: "1:02:42"
+                * long: "1h, 2m, 42s"
+                * verbose: "1 hour, 2 minutes, 42 seconds"
             :type parameters: dictionary
             :returns: the formatted value
             :rtype: string
@@ -572,10 +575,12 @@ class LengthTagFormatter(TagFormatter):
 
             :param value: The length in seconds
             :type value: float
-            :param format: Verbosity of the output
-                Possible values are short, long or verbose
-                yielding "1:02:42", "1h, 2m, 42s" or
-                "1 hour, 2 minutes, 42 seconds"
+            :param format: Verbosity of the output,
+                possible values are:
+
+                * short: "1:02:42"
+                * long: "1h, 2m, 42s"
+                * verbose: "1 hour, 2 minutes, 42 seconds"
             :type format: string
             :returns: the formatted value
             :rtype: string

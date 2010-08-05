@@ -113,7 +113,8 @@ def run_commands(options, iface):
 
     modify_commands = [
         'SetRating',
-        'Add'
+        'Add',
+        'ExportPlaylist'
     ]
 
     for command in modify_commands:
@@ -448,6 +449,20 @@ class DbusManager(dbus.service.Object):
 
         tracks = trax.get_tracks_from_uri(location)
         self.exaile.collection.add_tracks(tracks)
+
+    @dbus.service.method('org.exaile.Exaile', 's')
+    def ExportPlaylist(self, location):
+        """
+            Exports the current playlist
+            to the specified location
+        """
+        from xl import player, playlist
+
+        if player.QUEUE.current_playlist is not None:
+            playlist.export_playlist(
+                player.QUEUE.current_playlist,
+                location
+            )
 
     @dbus.service.method('org.exaile.Exaile')
     def GuiToggleVisible(self):

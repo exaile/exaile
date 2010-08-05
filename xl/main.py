@@ -404,9 +404,16 @@ class Exaile(object):
 
         group = OptionGroup(p, _('Collection Options'))
         group.add_option("--add", dest="Add", action="store",
-                # TRANSLATORS: Meta variable for --add
+                # TRANSLATORS: Meta variable for --add and --export-playlist
                 metavar=_("LOCATION"), help=_("Add tracks from LOCATION "
                                               "to the collection"))
+        p.add_option_group(group)
+
+        group = OptionGroup(p, _('Playlist Options'))
+        group.add_option("--export-playlist", dest="ExportPlaylist",
+                         # TRANSLATORS: Meta variable for --add and --export-playlist
+                         action="store", metavar=_("LOCATION"),
+                         help=_('Exports the current playlist to LOCATION'))
         p.add_option_group(group)
 
         group = OptionGroup(p, _('Track Options'))

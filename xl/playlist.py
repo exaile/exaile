@@ -24,6 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+Provides the fundamental objects for handling a list of tracks contained
+in playlists as well as methods to import and export from various file formats.
+"""
+
 from __future__ import with_statement
 import cgi
 from contextlib import closing
@@ -58,8 +63,13 @@ logger = logging.getLogger(__name__)
 class InvalidPlaylistTypeError(Exception):
     pass
 
-def encode_filename(name):
-    """Converts name into a valid filename.
+def encode_filename(filename):
+    """
+        Converts a file name into a valid filename most
+        likely to not cause problems on any platform.
+
+        :param filename: the name of the file
+        :type filename: string
     """
     # list of invalid chars that need to be encoded
     # Note: '%' is the prefix for encoded chars so blacklist it too
@@ -69,9 +79,9 @@ def encode_filename(name):
         return '%' + hex(ord(c))[2:] if c in blacklist else c
 
     # encode any blacklisted chars
-    name = ''.join([encode_char(c) for c in name]) + '.playlist'
+    filename = ''.join([encode_char(c) for c in filename]) + '.playlist'
 
-    return name
+    return filename
 
 def is_valid_playlist(path):
     """
@@ -639,35 +649,47 @@ class XSPFConverter(FormatConverter):
 providers.register('playlist-format-converter', XSPFConverter())
 
 class Playlist(object):
-    shuffle_modes = ['disabled', 'track', 'album']
-    shuffle_mode_names = [_('Shuffle _Off'),
-            _('Shuffle _Tracks'), _('Shuffle _Albums')]
-    repeat_modes = ['disabled', 'all', 'track']
-    repeat_mode_names = [_('Repeat _Off'), _('Repeat _All'), _('Repeat O_ne')]
-    dynamic_modes = ['disabled', 'enabled']
-    dynamic_mode_names = [_('Dynamic _Off'), _('Dynamic by Similar _Artists')]
-    # TODO: how do we document properties/events in sphinx?
+    # TODO: how do we document events in sphinx?
     """
-
-        PROPERTIES:
-            name: playlist name. read/write.
+        Basic class for handling a list of tracks
 
         EVENTS: (all events are synchronous)
-            playlist_tracks_added
-                fired: after tracks are added
-                data: list of tuples of (index, track)
-            playlist_tracks_removed
-                fired: after tracks are removed
-                data: list of tuples of (index, track)
-            playlist_current_position_changed
-            playlist_shuffle_mode_changed
-            playlist_random_mode_changed
-            playlist_dynamic_mode_changed
+            * playlist_tracks_added
+                * fired: after tracks are added
+                * data: list of tuples of (index, track)
+            * playlist_tracks_removed
+                * fired: after tracks are removed
+                * data: list of tuples of (index, track)
+            * playlist_current_position_changed
+            * playlist_shuffle_mode_changed
+            * playlist_random_mode_changed
+            * playlist_dynamic_mode_changed
     """
+    #: Valid shuffle modes (list of string)
+    shuffle_modes = ['disabled', 'track', 'album']
+    #: Titles of the valid shuffle modes (list of string)
+    shuffle_mode_names = [_('Shuffle _Off'),
+            _('Shuffle _Tracks'), _('Shuffle _Albums')]
+    #: Valid repeat modes (list of string)
+    repeat_modes = ['disabled', 'all', 'track']
+    #: Titles of the valid repeat modes (list of string)
+    repeat_mode_names = [_('Repeat _Off'), _('Repeat _All'), _('Repeat O_ne')]
+    #: Valid dynamic modes
+    dynamic_modes = ['disabled', 'enabled']
+    #: Titles of the valid dynamic modes
+    dynamic_mode_names = [_('Dynamic _Off'), _('Dynamic by Similar _Artists')]
     save_attrs = ['shuffle_mode', 'repeat_mode', 'dynamic_mode',
             'current_position', 'name']
     __playlist_format_version = [2, 0]
+
     def __init__(self, name, initial_tracks=[]):
+        """
+            :param name: the initial name of the playlist
+            :type name: string
+            :param initial_tracks: the tracks which shall
+                populate the playlist initially
+            :type initial_tracks: list of :class:`xl.trax.Track`
+        """
         self.__tracks = MetadataList()
         for track in initial_tracks:
             if not isinstance(track, trax.Track):
@@ -688,7 +710,7 @@ class Playlist(object):
         self.__spat_position = -1
         self.__shuffle_history_counter = 1 # start positive so we can
                                 # just do an if directly on the value
-        event.add_callback(self.fetch_dynamic_tracks,
+        event.add_callback(self.on_playback_track_start,
                 "playback_track_start")
 
     ### playlist-specific API ###
@@ -698,16 +720,33 @@ class Playlist(object):
         self.__needs_save = self.__dirty = True
         event.log_event("playlist_name_changed", self, name)
 
+    #: The playlist name (string)
     name = property(lambda self: self.__name, _set_name)
+    #: Whether the playlist was changed or not (boolean)
     dirty = property(lambda self: self.__dirty)
 
     def clear(self):
+        """
+            Removes all contained tracks
+        """
         del self[:]
 
     def get_current_position(self):
+        """
+            Retrieves the current position within the playlist
+
+            :returns: the position
+            :rtype: int
+        """
         return self.__current_position
 
     def set_current_position(self, position):
+        """
+            Sets the current position within the playlist
+
+            :param position: the new position
+            :type position: int
+        """
         oldposition = self.__current_position
         if position != -1:
             if position >= len(self.__tracks):
@@ -722,12 +761,27 @@ class Playlist(object):
         self.__dirty = True
         event.log_event("playlist_current_position_changed", self, (position, oldposition))
 
+    #: The position within the playlist (int)
     current_position = property(get_current_position, set_current_position)
 
     def get_spat_position(self):
+        """
+            Retrieves the current position within the playlist
+            after which progressing shall be stopped
+
+            :returns: the position
+            :rtype: int
+        """
         return self.__spat_position
 
     def set_spat_position(self, position):
+        """
+            Sets the current position within the playlist
+            after which progressing shall be stopped
+
+            :param position: the new position
+            :type position: int
+        """
         oldposition = self.spat_position
         self.__tracks.set_meta_key(position, "playlist_spat_position", True)
         self.__spat_position = position
@@ -739,45 +793,43 @@ class Playlist(object):
         self.__dirty = True
         event.log_event("playlist_spat_position_changed", self, (position, oldposition))
 
+    #: The position within the playlist after which to stop progressing (int)
     spat_position = property(get_spat_position, set_spat_position)
 
     def get_current(self):
+        """
+            Retrieves the track at the current position
+
+            :returns: the track
+            :rtype: :class:`xl.trax.Track` or None
+        """
         if self.current_position == -1:
             return None
         return self.__tracks[self.current_position]
 
     current = property(get_current)
 
-    def on_tracks_changed(self, *args):
-        for idx in xrange(len(self.__tracks)):
-            if self.__tracks.get_meta_key(idx, "playlist_current_position"):
-                self.__current_position = idx
-                break
-        else:
-            self.__current_position = -1
-        for idx in xrange(len(self.__tracks)):
-            if self.__tracks.get_meta_key(idx, "playlist_spat_position"):
-                self.__spat_position = idx
-                break
-        else:
-            self.__spat_position = -1
-
     def get_shuffle_history(self):
+        """
+            Retrieves the history of played
+            tracks from a shuffle run
+
+            :returns: the tracks
+            :rtype: list
+        """
         return  [ (i, self.__tracks[i]) for i in range(len(self)) if \
                 self.__tracks.get_meta_key(i, 'playlist_shuffle_history') ]
 
     def clear_shuffle_history(self):
+        """
+            Clear the history of played
+            tracks from a shuffle run
+        """
         for i in xrange(len(self)):
             try:
                 self.__tracks.del_meta_key(i, "playlist_shuffle_history")
             except:
                 pass
-
-    def fetch_dynamic_tracks(self, *args):
-        from xl import player
-        if player.QUEUE.current_playlist == self:
-            if self.dynamic_mode != 'disabled':
-                self.__fetch_dynamic_tracks()
 
     @common.threaded
     def __fetch_dynamic_tracks(self):
@@ -830,6 +882,13 @@ class Playlist(object):
                 return None, None
 
     def next(self):
+        """
+            Progresses to the next track within the playlist
+            and takes shuffle and repeat modes into account
+
+            :returns: the new current track
+            :rtype: :class:`xl.trax.Track` or None
+        """
         repeat_mode = self.repeat_mode
         shuffle_mode = self.shuffle_mode
         if self.current_position == self.spat_position and self.current_position != -1:
@@ -865,6 +924,13 @@ class Playlist(object):
             return next
 
     def prev(self):
+        """
+            Progresses to the previous track within the playlist
+            and takes shuffle and repeat modes into account
+
+            :returns: the new current track
+            :rtype: :class:`xl.trax.Track` or None
+        """
         repeat_mode = self.repeat_mode
         shuffle_mode = self.shuffle_mode
         if repeat_mode == 'track':
@@ -914,38 +980,89 @@ class Playlist(object):
             event.log_event("playlist_%s_mode_changed"%modename, self, mode)
 
     def get_shuffle_mode(self):
+        """
+            Retrieves the current shuffle mode
+
+            :returns: the shuffle mode
+            :rtype: string
+        """
         return self.__get_mode("shuffle")
 
     def set_shuffle_mode(self, mode):
+        """
+            Sets the current shuffle mode
+
+            :param mode: the new shuffle mode
+            :type mode: string
+        """
         self.__set_mode("shuffle", mode)
         if mode == 'disabled':
             self.clear_shuffle_history()
 
+    #: The current shuffle mode (string)
     shuffle_mode = property(get_shuffle_mode, set_shuffle_mode)
 
     def get_repeat_mode(self):
+        """
+            Retrieves the current repeat mode
+
+            :returns: the repeat mode
+            :rtype: string
+        """
         return self.__get_mode('repeat')
 
     def set_repeat_mode(self, mode):
+        """
+            Sets the current repeat mode
+
+            :param mode: the new repeat mode
+            :type mode: string
+        """
         self.__set_mode("repeat", mode)
 
+    #: The current repeat mode (string)
     repeat_mode = property(get_repeat_mode, set_repeat_mode)
 
     def get_dynamic_mode(self):
+        """
+            Retrieves the current dynamic mode
+
+            :returns: the dynamic mode
+            :rtype: string
+        """
         return self.__get_mode("dynamic")
 
     def set_dynamic_mode(self, mode):
+        """
+            Sets the current dynamic mode
+
+            :param mode: the new dynamic mode
+            :type mode: string
+        """
         self.__set_mode("dynamic", mode)
 
+    #: The current dynamic mode (string)
     dynamic_mode = property(get_dynamic_mode, set_dynamic_mode)
 
     def randomize(self):
+        """
+            Randomizes the content of the playlist contrary to
+            shuffle which affects only the progressing order
+        """
         # TODO: add support for randomizing a subset of the list?
         trs = zip(self.__tracks, self.__tracks.metadata)
         random.shuffle(trs)
         self[:] = MetadataList([x[0] for x in trs], [x[1] for x in trs])
 
     def sort(self, tags, reverse=False):
+        """
+            Sorts the content of the playlist
+            
+            :param tags: tags to sort by
+            :type tags: list of strings
+            :param reverse: whether the sorting shall be reversed
+            :type reverse: boolean
+        """
         data = zip(self.__tracks, self.__tracks.metadata)
         data = trax.sort_tracks(tags, data,
                 trackfunc=lambda tr: tr[0], reverse=reverse)
@@ -961,6 +1078,12 @@ class Playlist(object):
     # perhaps?
 
     def save_to_location(self, location):
+        """
+            Writes the content of the playlist to a given location
+
+            :param location: the location to save to
+            :type location: string
+        """
         if os.path.exists(location):
             f = open(location + ".new", "w")
         else:
@@ -997,6 +1120,12 @@ class Playlist(object):
         self.__needs_save = self.__dirty = False
 
     def load_from_location(self, location):
+        """
+            Loads the content of the playlist from a given location
+
+            :param location: the location to load from
+            :type location: string
+        """
         # note - this is not guaranteed to fire events when it sets
         # attributes. It is intended ONLY for initial setup, not for
         # reloading a playlist inline.
@@ -1068,16 +1197,6 @@ class Playlist(object):
     def reverse(self):
         # reverses current view
         pass
-
-    def sort(self, tags, reverse=False):
-        data = zip(self.__tracks, self.__tracks.metadata)
-        data = trax.sort_tracks(tags, data,
-                trackfunc=lambda tr: tr[0], reverse=reverse)
-        l = MetadataList()
-        l.extend([x[0] for x in data])
-        l.metadata = [x[1] for x in data]
-        self[:] = l
-
 
     ### list-like API methods ###
     # parts of this section are taken from
@@ -1177,24 +1296,74 @@ class Playlist(object):
         self.__needs_save = self.__dirty = True
 
     def append(self, other):
+        """
+            Appends a single track to the playlist
+
+            :param other: list of :class:`xl.trax.Track`
+        """
         self[len(self):len(self)] = [other]
 
     def extend(self, other):
+        """
+            Extends the playlist by another playlist
+
+            :param other: list of :class:`xl.trax.Track`
+        """
         self[len(self):len(self)] = other
 
     def count(self, other):
+        """
+            Returns the count of contained tracks
+
+            :returns: the count
+            :rtype: int
+        """
         return self.__tracks.count(other)
 
     def index(self, item, start=0, end=None):
+        """
+            Retrieves the index of a track within the playlist
+
+            :returns: the index
+            :rtype: int
+        """
         if end is None:
             return self.__tracks.index(item, start)
         else:
             return self.__tracks.index(item, start, end)
 
     def pop(self, i=-1):
+        """
+            Pops a track from the playlist
+
+            :param i: the index
+            :type i: int
+            :returns: the track
+            :rtype: :class:`xl.trax.Track`
+        """
         item = self[i]
         del self[i]
         return item
+
+    def on_playback_track_start(self, event_type, player, track):
+        from xl import player
+        if player.QUEUE.current_playlist == self:
+            if self.dynamic_mode != 'disabled':
+                self.__fetch_dynamic_tracks()
+
+    def on_tracks_changed(self, *args):
+        for idx in xrange(len(self.__tracks)):
+            if self.__tracks.get_meta_key(idx, "playlist_current_position"):
+                self.__current_position = idx
+                break
+        else:
+            self.__current_position = -1
+        for idx in xrange(len(self.__tracks)):
+            if self.__tracks.get_meta_key(idx, "playlist_spat_position"):
+                self.__spat_position = idx
+                break
+        else:
+            self.__spat_position = -1
 
 
 

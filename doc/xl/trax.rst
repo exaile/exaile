@@ -2,7 +2,6 @@ Trax
 ====
 
 .. automodule:: xl.trax
-xl.trax provides the base for creating and managing Track objects.
 
 Tracks
 ******

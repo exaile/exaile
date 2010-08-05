@@ -24,6 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+Provides the base for obtaining and storing covers, also known 
+as album art.
+"""
+
 import logging
 import os
 import hashlib

@@ -25,6 +25,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+Provides an extensible framework for processing and
+preparation of data for display in various contexts.
+"""
+
 from datetime import date
 import gio
 import glib

@@ -1,9 +1,7 @@
 Cover
 =====
 
-.. automodule:: xl.cover
-xl.cover provides the base for obtaining and storing covers, also known 
-as album art.
+.. automodule:: xl.covers
 
 Cover Manager
 *************

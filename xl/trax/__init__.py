@@ -27,6 +27,10 @@
 # It is encouraged that external modules should import from here,
 # rather than directly from submodules.
 
+"""
+Provides the base for creating and managing Track objects.
+"""
+
 from xl.trax.track import Track
 from xl.trax.trackdb import TrackDB
 from xl.trax.search import (

@@ -5,9 +5,12 @@ Contents:
 
 .. toctree::
 
-    xl/trax
     xl/cover
+    xl/collection
+    xl/formatter
     xl/metadata
+    xl/playlist
+    xl/trax
 
 
 Indices and tables

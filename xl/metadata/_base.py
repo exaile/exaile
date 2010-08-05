@@ -56,9 +56,11 @@ class BaseFormat(object):
 
     def __init__(self, loc):
         """
+            Raises :class:`NotReadable` if the file cannot be
+            opened for some reason.
+
             :param loc: absolute path to the file to read
                 (note - this may change to accept gio uris in the future)
-            raises NotReadable if the file cannot be opened for some reason.
         """
         self.loc = loc
         self.open = False

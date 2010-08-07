@@ -162,24 +162,63 @@ class PlaylistContextMenu(menu.ProviderMenu):
         context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
         return context
 
+class SPATMenuItem(menu.MenuItem):
+    """
+        Menu item allowing for toggling playback
+        stop after the selected track (SPAT)
+    """
+    def __init__(self, name, after):
+        menu.MenuItem.__init__(self, name, None, after)
+
+    def factory(self, menu, parent, context):
+        """
+            Generates the menu item
+        """
+        display_name = _('Stop Playback After This Track')
+        stock_id = gtk.STOCK_STOP
+
+        if context['selected-items']:
+            selection_position = context['selected-items'][0][0]
+
+            if selection_position == parent.playlist.spat_position:
+                display_name = _('Continue Playback After This Track')
+                stock_id = gtk.STOCK_MEDIA_PLAY
+
+        menuitem = gtk.ImageMenuItem(display_name)
+        menuitem.set_image(gtk.image_new_from_stock(stock_id,
+            gtk.ICON_SIZE_MENU))
+        menuitem.connect('activate', self.on_menuitem_activate,
+            parent, context)
+
+        return menuitem
+
+    def on_menuitem_activate(self, menuitem, parent, context):
+        """
+            Toggles the SPAT state
+        """
+        selection_position = context['selected-items'][0][0]
+
+        if selection_position == parent.playlist.spat_position:
+            parent.playlist.spat_position = -1
+        else:
+            parent.playlist.spat_position = selection_position
+
 def __create_playlist_context_menu():
     smi = menu.simple_menu_item
     sep = menu.simple_separator
     items = []
+
     items.append(menuitems.EnqueueMenuItem('enqueue', []))
-    def toggle_spat_cb(widget, name, playlistpage, context):
-        position = context['selected-items'][0][0]
-        if position != playlistpage.playlist.spat_position:
-            playlistpage.playlist.spat_position = position
-        else:
-            playlistpage.playlist.spat_position = -1
-    items.append(smi('toggle-spat', ['enqueue'],
-            _("Toggle Stop After This Track"), 'gtk-stop', toggle_spat_cb))
+
+    items.append(SPATMenuItem('toggle-spat', [items[-1].name]))
+
     def rating_get_tracks_func(menuobj, parent, context):
         return [row[1] for row in context['selected-items']]
-    items.append(menuitems.RatingMenuItem('rating', ['toggle-spat']))
+    items.append(menuitems.RatingMenuItem('rating', [items[-1].name]))
+
     # TODO: custom playlist item here
-    items.append(sep('sep1', ['rating']))
+    items.append(sep('sep1', [items[-1].name]))
+
     def remove_tracks_cb(widget, name, playlistpage, context):
         tracks = context['selected-items']
         playlist = playlistpage.playlist
@@ -191,11 +230,14 @@ def __create_playlist_context_menu():
         else:
             for position, track in tracks[::-1]:
                 del playlist[position]
-    items.append(smi('remove', ['sep1'], _("Remove"), 'gtk-remove',
-        remove_tracks_cb))
-    items.append(sep('sep2', ['remove']))
-    items.append(smi('properties', ['sep2'], _("Properties"), 'gtk-properties',
-        lambda w, n, o, c: o.show_properties_dialog()))
+    items.append(smi('remove', [items[-1].name], _('Remove'),
+        gtk.STOCK_REMOVE, remove_tracks_cb))
+
+    items.append(sep('sep2', [items[-1].name]))
+
+    items.append(smi('properties', [items[-1].name], _('Properties'),
+        gtk.STOCK_PROPERTIES, lambda w, n, o, c: o.show_properties_dialog()))
+
     for item in items:
         providers.register('playlist-context-menu', item)
 __create_playlist_context_menu()

@@ -11,9 +11,15 @@ Tracks
 
 .. autofunction:: is_valid_track
 
+.. autofunction:: get_uris_from_tracks
+
 .. autofunction:: get_tracks_from_uri
 
 .. autofunction:: sort_tracks
+
+.. autofunction:: sort_result_tracks
+
+.. autofunction:: get_rating_from_tracks
 
 Track Database
 **************
@@ -25,11 +31,10 @@ Track databases are a simple persistence layer to hold collections of Track obje
 
 Searching
 *********
-.. autofunction:: search_tracks
 
 .. autoclass:: TracksMatcher
 
+.. autofunction:: search_tracks
+
 .. autofunction:: search_tracks_from_string
-
-
 

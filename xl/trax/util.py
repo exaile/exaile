@@ -29,23 +29,37 @@ from xl import metadata, settings
 from xl.trax.track import Track
 
 
-def is_valid_track(loc):
+def is_valid_track(location):
     """
-        Returns whether the file at loc is a valid track,
-        right now determines based on file extension
+        Returns whether the file at the given location is a valid track
+
+        :param location: the location to check
+        :type location: string
+        :returns: whether the file is a valid track
+        :rtype: boolean
     """
-    extension = gio.File(loc).get_basename().split(".")[-1]
+    extension = gio.File(location).get_basename().split(".")[-1]
     return extension.lower() in metadata.formats
 
 def get_uris_from_tracks(tracks):
     """
         Returns all URIs for tracks
+
+        :param tracks: the tracks to retrieve the URIs from
+        :type tracks: list of :class:`xl.trax.Track`
+        :returns: the uris
+        :rtype: list of string
     """
     return [track.get_loc_for_io() for track in tracks]
 
 def get_tracks_from_uri(uri):
     """
         Returns all valid tracks located at uri
+        
+        :param uri: the uri to retrieve the tracks from
+        :type uri: string
+        :returns: the retrieved tracks
+        :rtype: list of :class:`xl.trax.Track`
     """
     tracks = []
 
@@ -74,12 +88,16 @@ def sort_tracks(fields, iter, trackfunc=None, reverse=False):
     """
         Sorts tracks.
 
-        :param fields: An iterable of tag names
-                       to sort by.
-        :param iter: The iterable to sort. Must be either Track objects, or
-                    trackfunc must be specified.
-        :param trackfunc: Function to get a Track from an item in the iter.
-        :param reverse: Whether to sort in reverse.
+        :param fields: tag names to sort by
+        :type fields: iterable
+        :param iter: the tracks to sort,
+            alternatively use *trackfunc*
+        :type iter: iterable
+        :param trackfunc: function to get a *Track*
+            from an item in the iterable
+        :type trackfunc: function or None
+        :param reverse: whether to sort in reversed order
+        :type reverse: boolean
     """
     fields = list(fields) # we need the index method
     artist_compilations = True
@@ -104,8 +122,8 @@ def get_rating_from_tracks(tracks):
         rating. Same goes if the amount of tracks
         is 0 or more than the internal limit.
 
-        :param tracks: an iterable containing objects
-            of type :class:`xl.trax.Track`
+        :param tracks: the tracks to retrieve the rating from
+        :type tracks: iterable
     """
     if len(tracks) < 1:
         return 0

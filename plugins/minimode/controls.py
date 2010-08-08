@@ -919,6 +919,8 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
         self.connect('drag-data-received', self.on_drag_data_received)
         self.view.connect('drag-motion', self.on_drag_motion)
         self.view.connect('drag-leave', self.on_drag_leave)
+        event.add_callback(self.on_track_tags_changed,
+            'track_tags_changed')
         event.add_callback(self.on_option_set,
             'plugin_minimode_option_set')
         self.on_option_set('plugin_minimode_option_set', settings,
@@ -1087,6 +1089,16 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
             text = self.formatter.format(track)
 
         self.label.set_text(text)
+
+    def on_track_tags_changed(self, event, track, tag):
+        """
+            Updates the button on tag changes
+        """
+        playlist = self.view.playlist
+        track_position = playlist.index(track)
+
+        if track in playlist and track_position == playlist.current_position:
+            self.label.set_text(self.formatter.format(track))
 
     def on_option_set(self, event, settings, option):
         """

@@ -137,9 +137,8 @@ def __create_edit_menu():
     accelerators = []
 
     def collection_manager_cb(*args):
-        from xlgui.collection import CollectionManagerDialog
-        dialog = CollectionManagerDialog(get_main().window, get_main().collection)
-        dialog.run()
+        from xlgui import get_controller
+        get_controller().collection_manager()
     items.append(_smi('collection-manager', [], _("_Collection"), None, collection_manager_cb))
 
     def queue_cb(*args):

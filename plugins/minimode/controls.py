@@ -211,9 +211,10 @@ class ControlBox(gtk.HBox, providers.ProviderHandler):
         for name in added_controls:
             try:
                 provider = self.get_provider(name)()
-            except Exception, e: # Not found, initialization error, ...
-                logger.warning('Failed to add control provider "%s": %s' % (
-                    name, str(e)))
+            except Exception: # Not found, initialization error, ...
+                import traceback
+                traceback.print_exc()
+                logger.warning('Failed to add control provider "%s"' % name)
                 selected_controls.remove(name)
             else:
                 self[name] = provider

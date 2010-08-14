@@ -240,7 +240,7 @@ class CollectionPanel(panel.Panel):
         """
         self.builder.connect_signals({
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
-            'on_refresh_button_release_event': self.on_refresh_button_release_event,
+            'on_refresh_button_press_event': self.on_refresh_button_press_event,
             'on_refresh_button_key_press_event': self.on_refresh_button_key_press_event,
             'on_collection_search_entry_activate': self.on_collection_search_entry_activate,
             'on_add_music_button_clicked': self.on_add_music_button_clicked
@@ -250,7 +250,7 @@ class CollectionPanel(panel.Panel):
         event.add_callback(self.refresh_tracks_in_tree, 'tracks_added', self.collection)
         event.add_callback(self.refresh_tracks_in_tree, 'tracks_removed', self.collection)
 
-    def on_refresh_button_release_event(self, button, event):
+    def on_refresh_button_press_event(self, button, event):
         """
             Called on mouse activation of the refresh button
         """

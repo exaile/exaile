@@ -143,7 +143,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="collection_refresh_button">
+                  <object class="GtkButton" id="refresh_button">
                     <property name="width_request">34</property>
                     <property name="height_request">34</property>
                     <property name="visible">True</property>
@@ -151,7 +151,7 @@
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Refresh collection view
 (Hold Shift key to rescan the collection)</property>
-                    <signal name="button_release_event" handler="on_refresh_button_release_event"/>
+                    <signal name="button_press_event" handler="on_refresh_button_press_event"/>
                     <signal name="key_press_event" handler="on_refresh_button_key_press_event"/>
                     <child>
                       <object class="GtkImage" id="image1">

@@ -159,6 +159,16 @@ class ParameterTemplate(Template):
 class Formatter(gobject.GObject):
     """
         A generic text formatter based on a format string
+
+        By default the following parameters are provided
+        to each identifier:
+
+        * ``prefix``, ``suffix``: a string to put before or after the formatted string if that string is not empty
+            * Whitespace will be not be touched and transferred as is
+            * The characters ``,``, ``}`` and ``=`` need to be escaped like ``\,``, ``\}`` and ``\=`` respectively
+        * ``pad``: desired length the formatted string should have, will be achieved using the ``padstring``
+        * ``padstring``: a string to use for padding, will be repeated as often as possible to achieve the desired length specified by ``pad``
+            * Example: ``${identifier:pad=4, padstring=XY}`` for *identifier* having the value *a* will become *XYXa*
     """
     __gproperties__ = {
         'format': (

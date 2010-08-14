@@ -151,6 +151,7 @@
                     <property name="receives_default">True</property>
                     <property name="tooltip_text" translatable="yes">Refresh collection view
 (Hold Shift key to rescan the collection)</property>
+                    <property name="relief">none</property>
                     <signal name="button_press_event" handler="on_refresh_button_press_event"/>
                     <signal name="key_press_event" handler="on_refresh_button_key_press_event"/>
                     <child>

@@ -1,7 +1,7 @@
 Welcome to Exaile's documentation!
 ==================================
 
-Contents:
+Library:
 
 .. toctree::
 
@@ -12,6 +12,11 @@ Contents:
     xl/playlist
     xl/trax
 
+GUI:
+
+.. toctree::
+
+    xlgui/icons
 
 Indices and tables
 ==================

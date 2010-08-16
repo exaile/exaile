@@ -32,8 +32,24 @@ from mutagen import apev2
 
 class ApeFormat(BaseFormat):
     MutagenType = apev2.APEv2
+    # TODO: this mapping is incomplete
     tag_mapping = {
-            'tracknumber':  'track',
+        "title": "Title",
+        "album": "Album",
+        "artist": "Artist",
+        "albumartist": "Album Artist",
+        "genre": "Genre",
+        "tracknumber": "Track",
+        "date": "Year",
+        "composer": "Composer",
+        "discnumber": "Disc",
+        "comment": "Comment",
+        "isrc": "ISRC",
+        "lyrics": "Lyrics",
+        "albumsort": "ALBUMSORT",
+        "albumartistsort": "ALBUMARTISTSORT",
+        "artistsort": "ARTISTSORT",
+        "titlesort": "TITLESORT"
         }
     others = True
     writable = True

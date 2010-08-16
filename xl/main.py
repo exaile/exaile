@@ -69,15 +69,18 @@ class Exaile(object):
         self.loading = True
         (self.options, self.args) = self.get_options().parse_args()
 
-        self.setup_logging()
-        global logger
-        logger = logging.getLogger(__name__)
-
         if self.options.ShowVersion:
             self.version()
+            return
 
         if self.options.UseDataDir:
             xdg.data_dirs.insert(1, self.options.UseDataDir)
+
+        xdg._make_missing_dirs()
+
+        self.setup_logging()
+        global logger
+        logger = logging.getLogger(__name__)
 
         # Late import ensures xl.event uses correct logger
         from xl import event

@@ -31,18 +31,12 @@ lastdir = homedir
 
 data_home = glib.get_user_data_dir()
 data_home = os.path.join(data_home, "exaile")
-if not os.path.exists(data_home):
-    os.makedirs(data_home)
 
 config_home = glib.get_user_config_dir()
 config_home = os.path.join(config_home, "exaile")
-if not os.path.exists(config_home):
-    os.makedirs(config_home)
 
 cache_home = glib.get_user_cache_dir()
 cache_home = os.path.join(cache_home, "exaile")
-if not os.path.exists(cache_home):
-    os.makedirs(cache_home)
 
 data_dirs = os.getenv("XDG_DATA_DIRS")
 if data_dirs == None:
@@ -111,6 +105,20 @@ def get_plugin_data_dir():
     if not os.path.exists(path):
         os.makedirs(path)
     return path
+
+
+def _make_missing_dirs():
+    """
+        Make any missing base XDG directories
+
+        called by the main Exaile object, should not be used elsewhere.
+    """
+    if not os.path.exists(data_home):
+        os.makedirs(data_home)
+    if not os.path.exists(config_home):
+        os.makedirs(config_home)
+    if not os.path.exists(cache_home):
+        os.makedirs(cache_home)
 
 # vim: et sts=4 sw=4
 

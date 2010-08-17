@@ -411,5 +411,7 @@ class RatingCellRenderer(gtk.CellRendererPixbuf):
         x = cell_area.x + cell_area.width - pixbuf_width
         y = cell_area.y + cell_area.height - pixbuf_height
 
-        window.draw_pixbuf(None, self.props.pixbuf, 0, 0, int(x), int(y))
+        context = window.cairo_create()
+        context.set_source_pixbuf(self.props.pixbuf, x, y)
+        context.paint()
 

@@ -1,7 +1,7 @@
 Welcome to Exaile's documentation!
 ==================================
 
-Library:
+Core:
 
 .. toctree::
 

@@ -195,7 +195,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
 
     return False
 
-def submit(artist='', track='', time=0, source='P', rating="", length="", album="",
+def submit(artist, track, time=0, source='P', rating="", length="", album="",
       trackno="", mbid="", autoflush=False):
     """Append a song to the submission cache. Use 'flush()' to send the cache to
     AS. You can also set "autoflush" to True.
@@ -248,6 +248,11 @@ def submit(artist='', track='', time=0, source='P', rating="", length="", album=
     @param autoflush: Automatically flush the cache to AS?
     @return:       True on success, False if something went wrong
     """
+    if None in (artist, track):
+        raise Exception
+
+    if not artist.strip() or not track.strip():
+        raise Exception
 
     global SUBMIT_CACHE, MAX_CACHE
 
@@ -266,8 +271,6 @@ def submit(artist='', track='', time=0, source='P', rating="", length="", album=
         raise ValueError("""The time parameter must be of type int (unix
     timestamp). Instead it was %s""" % time)
 
-    track = track or ''
-    artist = artist or ''
     album = album or ''
 
     SUBMIT_CACHE.append(

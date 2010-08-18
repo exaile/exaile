@@ -5,8 +5,9 @@ Core:
 
 .. toctree::
 
-    xl/cover
     xl/collection
+    xl/common
+    xl/cover
     xl/xldbus
     xl/formatter
     xl/metadata

@@ -24,6 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+    General functions and classes shared in the codebase
+"""
+
 from __future__ import with_statement
 
 import inspect
@@ -143,29 +147,13 @@ class classproperty(object):
     def __get__(self, obj, type):
         return self.function(type)
 
-def escape_xml(text):
-    """
-        Replaces &, <, and > with their entity references
-    """
-    # Note: the order is important.
-    table = [('&', '&amp;'), ('<', '&lt;'), ('>', '&gt;')]
-    for old, new in table:
-        text = text.replace(old, new)
-    return text
-
-def random_string(n):
-    """
-        returns a random string of length n, comprised of ascii characters
-    """
-    s = ""
-    for i in xrange(n):
-        s += random.choice(string.ascii_letters)
-    return s
-
 class VersionError(Exception):
     """
        Represents version discrepancies
     """
+    #: the error message
+    message = None
+
     def __init__(self, message):
         Exception.__init__(self)
         self.message = message
@@ -239,10 +227,9 @@ class LimitedCache(DictMixin):
 class cached(object):
     """
         Decorator to make a function's results cached
-
         does not cache if there is an exception.
 
-        this probably breaks on functions that modify their arguments
+        .. note:: This probably breaks on functions that modify their arguments
     """
     def __init__(self, limit):
         self.limit = limit
@@ -335,12 +322,21 @@ def walk_directories(root):
 
 class TimeSpan:
     """
-        Calculates the number of days, hours, minutes, and seconds in a time
-        span.
+        Calculates the number of days, hours, minutes,
+        and seconds in a time span
     """
     _seconds_per_minute = 60.0
     _seconds_per_hour = 60 * _seconds_per_minute
     _seconds_per_day = 24 * _seconds_per_hour
+
+    #: number of days
+    days = 0
+    #: number of hours
+    hours = 0
+    #: number of minutes
+    minutes = 0
+    #: number of seconds
+    seconds = 0
 
     def __init__(self, span):
         """
@@ -371,20 +367,21 @@ class TimeSpan:
             self.days, self.hours, self.minutes, self.seconds)
 
 class MetadataList(object):
-    __slots__ = ['__list', 'metadata']
     """
         Like a list, but also associates an object of metadata
         with each entry.
 
-        (get|set|del)_meta_key are the metadata interface - they
+        ``(get|set|del)_meta_key`` are the metadata interface - they
         allow the metadata to act much like a dictionary, with a few
         optimizations.
 
         List aspects that are not supported:
-            sort
-            comparisons other than equality
-            multiply
+            * sort
+            * comparisons other than equality
+            * multiply
     """
+    __slots__ = ['__list', 'metadata']
+
     def __init__(self, iterable=[], metadata=[]):
         self.__list = list(iterable)
         meta = list(metadata)
@@ -546,7 +543,7 @@ class PosetItem(object):
 def order_poset(items):
     """
         :param items: poset to order
-        :type items: list of PosetItem
+        :type items: list of :class:`PosetItem`
     """
     items = dict([(i.name, i) for i in items])
     for name, item in items.iteritems():

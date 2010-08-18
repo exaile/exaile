@@ -38,7 +38,7 @@ from xl import event, settings, xdg
 
 class ExtendedPixbuf(gtk.gdk.Pixbuf):
     """
-        A Pixbuf wrapper class allowing for
+        A :class:`gtk.gdk.Pixbuf` wrapper class allowing for
         interaction using standard operators
 
         Thus you can do the following:
@@ -427,7 +427,7 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
 
 def extended_pixbuf_new_from_file(filename):
     """
-        Returns a new ExtendedPixbuf containing
+        Returns a new :class:`ExtendedPixbuf` containing
         an image loaded from the specified file
 
         :param filename: the name of the file

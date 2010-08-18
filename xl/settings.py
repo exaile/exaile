@@ -138,6 +138,7 @@ class SettingsManager(RawConfigParser):
             :param option: the full path to an option
             :type option: string
             :param value: the value the option should be assigned
+            :type value: any
         """
         value = self._val_to_str(value)
         splitvals = option.split('/')
@@ -161,6 +162,10 @@ class SettingsManager(RawConfigParser):
             Get the value of an option (in ``section/key`` syntax),
             returning *default* if the key does not exist yet
 
+            :param option: the full path to an option
+            :type option: string
+            :param default: a default value to use as fallback
+            :type default: any
             :returns: the option value or *default*
             :rtype: any
         """

@@ -66,7 +66,7 @@ def get_collection_by_loc(loc):
 
         :param loc: Location of the collection
         :return: collection at location or None
-        :rtype: Collection
+        :rtype: :class:`Collection`
     """
     for c in COLLECTIONS:
         if c.loc_is_member(loc):
@@ -94,15 +94,6 @@ class CollectionScanThread(common.ProgressThread):
         self.collection.stop_scan()
         common.ProgressThread.stop(self)
 
-    def on_scan_progress_update(self, type, collection, progress):
-        """
-            Notifies about progress changes
-        """
-        if progress < 100:
-            self.emit('progress-update', progress)
-        else:
-            self.emit('done')
-
     def run(self):
         """
             Runs the thread
@@ -114,6 +105,15 @@ class CollectionScanThread(common.ProgressThread):
 
         event.remove_callback(self.on_scan_progress_update,
             'scan_progress_update')
+
+    def on_scan_progress_update(self, type, collection, progress):
+        """
+            Notifies about progress changes
+        """
+        if progress < 100:
+            self.emit('progress-update', progress)
+        else:
+            self.emit('done')
 
 class Collection(trax.TrackDB):
     """
@@ -513,8 +513,6 @@ class Library(object):
 
             :param location: the directory this library will scan
             :type location: string
-            :param collection: the collection to associate with
-            :type collection: :class:`Collection`
             :param monitored: whether the library should update its
                 collection at changes within the library's path
             :type monitored: bool
@@ -671,7 +669,8 @@ class Library(object):
         """
             Rescan the track at a given location
 
-            :gloc: A gio.File representing the location
+            :param gloc: the location
+            :type gloc: :class:`gio.File`
 
             returns: the Track object, None if it could not be updated
         """

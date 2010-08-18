@@ -7,6 +7,7 @@ Core:
 
     xl/cover
     xl/collection
+    xl/xldbus
     xl/formatter
     xl/metadata
     xl/playlist

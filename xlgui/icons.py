@@ -24,6 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+    Provides methods for convenient icons and image handling
+"""
+
 import cairo
 import glob
 import glib
@@ -36,6 +40,16 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
     """
         A Pixbuf wrapper class allowing for
         interaction using standard operators
+
+        Thus you can do the following:
+
+        * ``pixbuf1 + pixbuf2`` (horizontally appends ``pixbuf2`` to ``pixbuf1``)
+        * ``pixbuf * 5`` (multiplies the content of ``pixbuf``)
+        * ``pixbuf1 & pixbuf2`` (simple composition of ``pixbuf2`` on ``pixbuf1``, the desired alpha value has to be included in the pixbufs themselves)
+        * ``pixbuf1 < pixbuf2``, ``pixbuf1 > pixbuf2`` (compares the pixbuf dimensions)
+        * ``pixbuf1 == pixbuf2`` (compares the pixel data, use the *is* operator to check for identity)
+
+        Even more is possible with the provided verbose methods
     """
     def __init__(self, pixbuf):
         gtk.gdk.Pixbuf.__init__(self,
@@ -790,6 +804,7 @@ class IconManager(object):
         if option == 'rating/maximum':
             self._generate_rating_pixbufs()
 
+#: Singleton instance of the icon manager
 MANAGER = IconManager()
 
 # vim: et sts=4 sw=4

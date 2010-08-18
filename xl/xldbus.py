@@ -24,6 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+    D-Bus interface for playback control, data query and others
+
+    Access through the ``/org/exaile/Exaile`` object which
+    implements the ``org.exaile.Exaile`` interface
+"""
+
 import logging
 from optparse import OptionParser
 import os
@@ -211,13 +218,18 @@ class DbusManager(dbus.service.Object):
     def TestService(self, arg):
         """
             Just test the dbus object
+
+            :param arg: anything
         """
         logger.debug(arg)
 
     @dbus.service.method('org.exaile.Exaile', None, 'b')
     def IsPlaying(self):
         """
-            Returns True if Exaile is playing (or paused), False if it's not
+            Determines if Exaile is playing / paused or not
+
+            :returns: whether Exaile is playing / paused
+            :rtype: boolean
         """
         from xl import player
         return bool(not player.PLAYER.is_stopped())
@@ -225,7 +237,12 @@ class DbusManager(dbus.service.Object):
     @dbus.service.method('org.exaile.Exaile', 's', 's')
     def GetTrackAttr(self, attr):
         """
-            Returns an attribute of a track
+            Returns the value of a track tag
+
+            :param attr: a track tag
+            :type attr: string
+            :returns: the tag value
+            :rtype: string
         """
         from xl import player
         try:
@@ -240,7 +257,12 @@ class DbusManager(dbus.service.Object):
     @dbus.service.method('org.exaile.Exaile', 'sv')
     def SetTrackAttr(self, attr, value):
         """
-            Sets rating of a track
+            Sets the value of a track tag
+
+            :param attr: a track tag
+            :type attr: string
+            :param value: the tag value
+            :type value: any
         """
         from xl import player
         try:
@@ -252,6 +274,9 @@ class DbusManager(dbus.service.Object):
     def GetRating(self):
         """
             Returns the current track's rating
+
+            :returns: the rating
+            :rtype: int
         """
         try:
             rating = int(float(self.GetTrackAttr('__rating')))
@@ -264,6 +289,9 @@ class DbusManager(dbus.service.Object):
     def SetRating(self, value):
         """
             Sets the current track's rating
+
+            :param value: the new rating
+            :type value: int
         """
         self.SetTrackAttr('__rating', value)
         event.log_event('rating_changed', self, value)
@@ -272,6 +300,9 @@ class DbusManager(dbus.service.Object):
     def ChangeVolume(self, value):
         """
             Changes volume by the specified amount (in percent, can be negative)
+
+            :param value: the new volume
+            :type value: int
         """
         from xl import player
         player.PLAYER.set_volume(player.PLAYER.get_volume() + value)
@@ -294,6 +325,9 @@ class DbusManager(dbus.service.Object):
     def Seek(self, value):
         """
             Seeks to the given position in seconds
+
+            :param value: the position in seconds
+            :type value: int
         """
         from xl import player
         player.PLAYER.seek(value)
@@ -353,6 +387,9 @@ class DbusManager(dbus.service.Object):
     def CurrentProgress(self):
         """
             Returns the progress into the current track (in percent)
+
+            :returns: the current progress
+            :rtype: string
         """
         from xl import player
         progress = player.PLAYER.get_progress()
@@ -364,6 +401,9 @@ class DbusManager(dbus.service.Object):
     def CurrentPosition(self):
         """
             Returns the position inside the current track (as time)
+
+            :returns: the current position
+            :rtype: string
         """
         from xl import player
         progress = player.PLAYER.get_time()
@@ -373,6 +413,9 @@ class DbusManager(dbus.service.Object):
     def GetVolume(self):
         """
             Returns the current volume level (in percent)
+
+            :returns: the current volume
+            :rtype: string
         """
         from xl import player
         return str(player.PLAYER.get_volume())
@@ -381,6 +424,9 @@ class DbusManager(dbus.service.Object):
     def Query(self):
         """
             Returns information about the currently playing track
+
+            :returns: information about the current track
+            :rtype: string
         """
         from xl import player
         current_track = player.QUEUE.get_current()
@@ -408,6 +454,9 @@ class DbusManager(dbus.service.Object):
     def GetVersion(self):
         """
             Returns the version of Exaile
+
+            :returns: the application version
+            :rtype: string
         """
         return self.exaile.get_version()
 
@@ -415,6 +464,9 @@ class DbusManager(dbus.service.Object):
     def PlayFile(self, filename):
         """
             Plays the specified file
+
+            :param filename: the path to start playing
+            :type filename: string
         """
         self.exaile.gui.open_uri(filename)
 
@@ -423,6 +475,9 @@ class DbusManager(dbus.service.Object):
         """
             Adds the tracks at the specified locations
             to the current playlist
+
+            :param locations: locations to enqueue
+            :type locations: iterable
         """
         from xl import player
         from xlgui import get_controller
@@ -444,6 +499,9 @@ class DbusManager(dbus.service.Object):
         """
             Adds the tracks at the specified
             location to the collection
+
+            :param location: where to add tracks from
+            :type location: string
         """
         from xl import trax
 
@@ -455,6 +513,9 @@ class DbusManager(dbus.service.Object):
         """
             Exports the current playlist
             to the specified location
+
+            :param location: where to save the playlist at
+            :type location: string
         """
         from xl import player, playlist
 
@@ -476,6 +537,9 @@ class DbusManager(dbus.service.Object):
         """
             Returns the data of the cover image of the playing track, or
             an empty string if there is no cover available.
+
+            :returns: the cover data
+            :rtype: binary data
         """
         from xl import covers, player
         cover = covers.MANAGER.get_cover(player.PLAYER.current)
@@ -487,6 +551,9 @@ class DbusManager(dbus.service.Object):
     def GetState(self):
         """
             Returns the surrent verbatim state (unlocalized)
+
+            :returns: the player state
+            :rtype: string
         """
         from xl import player
         return player.PLAYER.get_state()

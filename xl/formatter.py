@@ -213,16 +213,16 @@ class Formatter(gobject.GObject):
         """
             Retrieves the identifiers and their optional parameters
 
-            Example of the returned dictionary:
+            Example of the returned dictionary::
 
-            >>> extractions = {
-            >>>     'identifier1': (
-            >>>         'identifier1', {}),
-            >>>     'identifier2:parameter': (
-            >>>         'identifier2', {'parameter': True}),
-            >>>     'identifier3:parameter=argument': (
-            >>>         'identifier3', {'parameter': 'argument'})
-            >>> }
+                extractions = {
+                    'identifier1': (
+                        'identifier1', {}),
+                    'identifier2:parameter': (
+                        'identifier2', {'parameter': True}),
+                    'identifier3:parameter=argument': (
+                        'identifier3', {'parameter': 'argument'})
+                }
 
             :returns: the extractions
             :rtype: dict

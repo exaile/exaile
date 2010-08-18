@@ -3,6 +3,9 @@ D-Bus
 
 .. automodule:: xl.xldbus
 
+org.exaile.Exaile Interface
+***************************
+
 .. autoclass:: DbusManager
    :members: TestService,
              IsPlaying,

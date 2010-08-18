@@ -13,6 +13,7 @@ Core:
     xl/metadata
     xl/playlist
     xl/providers
+    xl/settings
     xl/trax
 
 GUI:

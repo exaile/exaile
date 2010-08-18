@@ -7,8 +7,6 @@ Providers & Services
 
    Singleton instance of the :class:`ProviderManager`
 
-.. autoclass:: ProviderManager 
-
 .. autofunction:: register
 
 .. autofunction:: unregister
@@ -16,6 +14,8 @@ Providers & Services
 .. autofunction:: get
 
 .. autofunction:: get_provider
+
+.. autoclass:: ProviderManager 
 
 .. autoclass:: ProviderHandler
 

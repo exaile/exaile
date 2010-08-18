@@ -804,7 +804,6 @@ class IconManager(object):
         if option == 'rating/maximum':
             self._generate_rating_pixbufs()
 
-#: Singleton instance of the icon manager
 MANAGER = IconManager()
 
 # vim: et sts=4 sw=4

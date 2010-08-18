@@ -24,6 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+    Central storage of application and user settings
+"""
+
 from __future__ import with_statement
 from ConfigParser import (
     RawConfigParser,
@@ -63,7 +67,8 @@ class SettingsManager(RawConfigParser):
     def __init__(self, location=None, default_location=None):
         """
             Sets up the settings manager. Expects a location
-            to a file where settings will be stored.
+            to a file where settings will be stored. Also sets up
+            periodic saves to disk.
 
             :param location: the location to save the settings to,
                 settings will never be stored if this is None
@@ -128,7 +133,7 @@ class SettingsManager(RawConfigParser):
 
     def set_option(self, option, value):
         """
-            Set an option (in section/key syntax) to the specified value.
+            Set an option (in ``section/key`` syntax) to the specified value
 
             :param option: the full path to an option
             :type option: string
@@ -153,10 +158,10 @@ class SettingsManager(RawConfigParser):
 
     def get_option(self, option, default=None):
         """
-            Get the value of an option (in section/key syntax), returning
-            default if the key does not exist yet.
+            Get the value of an option (in ``section/key`` syntax),
+            returning *default* if the key does not exist yet
 
-            :returns: the option value or default
+            :returns: the option value or *default*
             :rtype: any
         """
         splitvals = option.split('/')
@@ -189,7 +194,7 @@ class SettingsManager(RawConfigParser):
 
     def remove_option(self, option):
         """
-            Removes an option (in section/key syntax),
+            Removes an option (in ``section/key`` syntax),
             thus will not be saved anymore
 
             :param option: the option path

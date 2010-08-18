@@ -39,16 +39,6 @@ from xl.nls import gettext as _
 from xlgui import guiutil
 from xlgui.widgets.playback import PlaybackProgressBar
 
-def escape_xml(text):
-    """
-        Replaces &, <, and > with their entity references
-    """
-    # Note: the order is important.
-    table = [('&', '&amp;'), ('<', '&lt;'), ('>', '&gt;')]
-    for old, new in table:
-        text = text.replace(old, new)
-    return text
-
 class CoverWidget(guiutil.ScalableImageWidget):
     def __init__(self):
         guiutil.ScalableImageWidget.__init__(self)
@@ -226,7 +216,7 @@ class OSDWindow(object):
 
                 if not isinstance(value, basestring):
                     value = unicode(value)
-                text = text.replace('{%s}' % item, escape_xml(value))
+                text = text.replace('{%s}' % item, glib.markup_escape_text(value))
             text = text.replace("\\{", "{")
             text = text.replace("\\}", "}")
         else: text = _("No track")

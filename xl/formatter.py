@@ -101,7 +101,7 @@ class ParameterTemplate(Template):
 
     def __init__(self, template):
         """
-            :param template: The template string
+            :param template: the template string
         """
         Template.__init__(self, template)
 
@@ -181,8 +181,8 @@ class Formatter(gobject.GObject):
     }
     def __init__(self, format):
         """
-            :param format: The initial format, see the documentation
-                of string.Template for details
+            :param format: the initial format, see the documentation
+                of :class:`string.Template` for details
             :type format: string
         """
         gobject.GObject.__init__(self)
@@ -275,8 +275,8 @@ class Formatter(gobject.GObject):
         """
             Returns a string by formatting the passed data
 
-            :param args: Data to base the formatting on
-            :returns: The formatted text
+            :param args: data to base the formatting on
+            :returns: the formatted text
             :rtype: string
         """
         extractions = self.extract()
@@ -322,20 +322,15 @@ class ProgressTextFormatter(Formatter):
         A text formatter for progress indicators
     """
     def __init__(self, format):
-        """
-            :param format: The initial format, see the documentation
-                of string.Template for details
-            :type format: string
-        """
         Formatter.__init__(self, format)
 
     def format(self, current_time=None, total_time=None):
         """
             Returns a string suitable for progress indicators
 
-            :param current_time: the current progress
+            :param current_time: the current progress, taken from the current playback if not set
             :type current_time: float
-            :param total_time: the total length of a track
+            :param total_time: the total length of a track, taken from the current playback if not set
             :type total_time: float
             :returns: The formatted text
             :rtype: string
@@ -383,12 +378,12 @@ class TrackFormatter(Formatter):
         """
             Returns a string suitable for progress indicators
 
-            :param track: A single track to take data from
+            :param track: a single track to take data from
             :type track: :class:`xl.trax.Track`
-            :param markup_escape: Whether to escape markup-like
+            :param markup_escape: whether to escape markup-like
                 characters in tag values
             :type markup_escape: bool
-            :returns: The formatted text
+            :returns: the formatted text
             :rtype: string
         """
         if not isinstance(track, trax.Track):
@@ -419,7 +414,7 @@ class TagFormatter():
     """
     def __init__(self, name):
         """
-            :param name: The name of the tag
+            :param name: the name of the tag
             :type name: string
         """
         self.name = name
@@ -434,9 +429,6 @@ class TagFormatter():
             :type track: :class:`xl.trax.Track`
             :param parameters: optionally passed parameters
             :type parameters: dictionary
-                Parameters specified via 'parameter=value'
-                will be directly mapped into the dictionary,
-                parameters without argument will be set to True
             :returns: the formatted value
             :rtype: string
         """
@@ -583,9 +575,9 @@ class LengthTagFormatter(TagFormatter):
         """
             Formats a length value
 
-            :param value: The length in seconds
+            :param value: the length in seconds
             :type value: float
-            :param format: Verbosity of the output,
+            :param format: verbosity of the output,
                 possible values are:
 
                 * short: "1:02:42"
@@ -641,6 +633,8 @@ providers.register('tag-formatting', LengthTagFormatter())
 class RatingTagFormatter(TagFormatter):
     """
         A formatter for the rating of a track
+        
+        Will return glyphs representing the rating like ★★★☆☆
     """
     def __init__(self):
         TagFormatter.__init__(self, '__rating')
@@ -668,6 +662,9 @@ providers.register('tag-formatting', RatingTagFormatter())
 class LastPlayedTagFormatter(TagFormatter):
     """
         A formatter for the last time a track was played
+
+        Will return the localized string for *Today*, *Yesterday*
+        or the respective localized date for earlier dates
     """
     def __init__(self):
         TagFormatter.__init__(self, '__last_played')

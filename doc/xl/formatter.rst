@@ -43,4 +43,3 @@ Templates
 *********
 
 .. autoclass:: ParameterTemplate
-    :members: safe_substitute

@@ -5,16 +5,16 @@ Metadata
 
 .. autodata:: formats
 
-.. autodata:: get_format
+.. autofunction:: get_format
 
 
 
 Format Objects
 **************
 
-.. autoclass:: NotWritable
+.. exception:: NotWritable
 
-.. autoclass:: NotReadable
+.. exception:: NotReadable
 
 .. autoclass:: BaseFormat
     :members: read_all, read_tags, write_tags

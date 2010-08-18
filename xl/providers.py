@@ -24,6 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+"""
+    A generic framework for service providers, recommended to be used
+    whenever there are multiple ways of accomplishing a task or multiple
+    sources can offer the required data.
+"""
+
 from xl import event
 import logging
 logger = logging.getLogger(__name__)
@@ -103,7 +109,7 @@ class ProviderManager(object):
             :type servicename: string
             :param providername: The provider name to identify the provider
             :type providername: string
-            :returns: A provider or None
+            :returns: a provider or None
             :rtype: object
         """
         try:
@@ -125,11 +131,15 @@ get_provider = MANAGER.get_provider
 
 class ProviderHandler(object):
     """
-        Base framework to handle providers
+        Base class to handle providers
         for one specific service including
         notification about (un)registration
     """
     def __init__(self, servicename):
+        """
+            :param servicename: the name of the service to handle
+            :type servicename: string
+        """
         self.servicename = servicename
         event.add_callback(self._add_callback,
             "%s_provider_added" % servicename)

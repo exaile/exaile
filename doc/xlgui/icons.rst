@@ -6,7 +6,9 @@ Icons & Images
 Icon management
 ***************
 
-.. autoattribute:: xlgui.icons.MANAGER
+.. data:: xlgui.icons.MANAGER
+
+    Singleton instance of the :class:`IconManager`
 
 .. autoclass:: IconManager
     :members: add_icon_name_from_directory,

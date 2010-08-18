@@ -12,6 +12,7 @@ Core:
     xl/formatter
     xl/metadata
     xl/playlist
+    xl/providers
     xl/trax
 
 GUI:

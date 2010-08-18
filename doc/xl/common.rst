@@ -36,8 +36,7 @@ Decorators
 Classes
 *******
 
-.. autoclass:: VersionError
-    :members:
+.. exception:: VersionError(message)
 
 .. autoclass:: LimitedCache
     :show-inheritance:

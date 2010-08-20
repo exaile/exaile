@@ -28,11 +28,14 @@ import glib
 import gobject
 import gtk
 import locale
+import logging
 
 from xlgui.preferences import widgets
 from xl import main, plugins, xdg
-from xlgui.widgets import dialogs
+from xlgui.widgets import common, dialogs
 from xl.nls import gettext as _, ngettext
+
+logger = logging.getLogger(__name__)
 
 name = _('Plugins')
 ui = xdg.get_data_path('ui', 'preferences', 'plugin.ui')
@@ -57,6 +60,16 @@ class PluginManager(object):
 
         self.list = builder.get_object('plugin_tree')
         self.enabled_cellrenderer = builder.get_object('enabled_cellrenderer')
+
+        if main.exaile().options.Debug:
+            reload_cellrenderer = common.ClickableCellRendererPixbuf()
+            reload_cellrenderer.props.stock_id = gtk.STOCK_REFRESH
+            reload_cellrenderer.props.xalign = 1
+            reload_cellrenderer.connect('clicked',
+                self.on_reload_cellrenderer_clicked)
+
+            name_column = builder.get_object('name_column')
+            name_column.pack_start(reload_cellrenderer)
 
         self.version_label = builder.get_object('version_label')
         self.author_label = builder.get_object('author_label')
@@ -119,6 +132,30 @@ class PluginManager(object):
             Enables or disables the selected plugin
         """
         self.enabled_cellrenderer.emit('toggled', path[0])
+
+    def on_reload_cellrenderer_clicked(self, cellrenderer, path):
+        """
+            Reloads a plugin from scratch
+        """
+        plugin = self.model[path][0]
+        enabled = self.model[path][3]
+
+        if enabled:
+            try:
+                self.plugins.disable_plugin(plugin)
+            except Exception, e:
+                self.message.show_error(_('Could not disable plugin!'), str(e))
+                return
+
+        logger.info('Reloading plugin %s...' % plugin)
+        self.plugins.load_plugin(plugin, reload=True)
+
+        if enabled:
+            try:
+                self.plugins.enable_plugin(plugin)
+            except Exception, e:
+                self.message.show_error(_('Could not enable plugin!'), str(e))
+                return
 
     def on_install_plugin_button_clicked(self, button):
         """

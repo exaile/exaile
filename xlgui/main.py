@@ -219,6 +219,8 @@ class MainWindow(gobject.GObject):
             self.on_stop_button_focus_out_event)
         self.stop_button.connect('button-press-event',
             self.on_stop_button_press_event)
+        self.stop_button.connect('button-release-event',
+            self.on_stop_button_release_event)
 
         self.statusbar = info.Statusbar(self.builder.get_object('status_bar'))
         event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
@@ -405,14 +407,20 @@ class MainWindow(gobject.GObject):
         if event.button == 1:
             if event.state & gtk.gdk.SHIFT_MASK:
                 self.on_spat_clicked()
-            else:
-                player.PLAYER.stop()
         elif event.button == 3:
             menu = guiutil.Menu()
             menu.append(_("Toggle: Stop after Selected Track"),
                 self.on_spat_clicked,
                 gtk.STOCK_STOP)
             menu.popup(None, None, None, event.button, event.time)
+
+    def on_stop_button_release_event(self, widget, event):
+        """
+            Called when the user releases the mouse from the stop button
+        """
+        rect = widget.get_allocation()
+        if 0 <= event.x < rect.width and 0 <= event.y < rect.height:
+            player.PLAYER.stop()
 
     def on_spat_clicked(self, *e):
         """

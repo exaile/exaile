@@ -2,6 +2,7 @@ PREFIX 		?= /usr/local
 LIBINSTALLDIR 	?= /lib
 XDGCONFDIR 	?= /etc/xdg
 
+EXAILEBINDIR  = $(DESTDIR)$(PREFIX)/bin
 EXAILELIBDIR 	= $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
 EXAILESHAREDIR 	= $(DESTDIR)$(PREFIX)/share/exaile
 EXAILECONFDIR 	= $(DESTDIR)$(XDGCONFDIR)/exaile
@@ -22,7 +23,7 @@ compile:
 	$(MAKE) -C plugins compile
 
 make-install-dirs:
-	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	mkdir -p $(EXAILEBINDIR)
 	mkdir -p $(EXAILELIBDIR)
 	mkdir -p $(EXAILELIBDIR)/xl
 	mkdir -p $(EXAILELIBDIR)/xl/metadata
@@ -51,16 +52,18 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
 	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
+	mkdir -p $(DESTDIR)$(PREFIX)/share/dbus-1/services
 	mkdir -p $(EXAILECONFDIR)
 
 uninstall:
-	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
+	rm -f  $(EXAILEBINDIR)/exaile
 	rm -rf $(EXAILELIBDIR)
 	rm -rf $(EXAILESHAREDIR)
 	rm -rf $(EXAILECONFDIR)/exaile
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	rm -f $(DESTDIR)$(PREFIX)/share/man/man1/exaile.1.gz
+	rm -f $(DESTDIR)$(PREFIX)/share/dbus-1/services/org.exaile.Exaile.service
 	$(MAKE) -C plugins uninstall
 
 install: install-target install-locale
@@ -112,6 +115,8 @@ install-target: make-install-dirs
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
 	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(LIBINSTALLDIR)" && \
 	  chmod 755 $(DESTDIR)$(PREFIX)/bin/exaile
+	sed "s|\@bindir\@|$(EXAILEBINDIR)|" data/org.exaile.Exaile.service.in > \
+		$(DESTDIR)$(PREFIX)/share/dbus-1/services/org.exaile.Exaile.service
 	$(MAKE) -C plugins install
 
 locale:

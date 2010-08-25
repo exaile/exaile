@@ -36,6 +36,8 @@ import logging.handlers
 import os
 import sys
 
+import gio
+
 from xl import common, xdg
 from xl.nls import gettext as _
 
@@ -256,7 +258,7 @@ class Exaile(object):
             # Find out if the user just passed in a list of songs
             # TODO: find a better place to put this
             # using arg[2:] because arg[1:] will include --startgui
-            args = [ os.path.abspath(arg) for arg in self.args ]
+            args = [ gio.File(arg).get_uri() for arg in self.args ]
             if len(args) > 0:
                 restore = False
                 self.gui.open_uri(args[0], play=True)

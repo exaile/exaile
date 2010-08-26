@@ -539,6 +539,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
 
 
 
+#: The singleton :class:`CoverManager` instance
 MANAGER = CoverManager(location=xdg.get_data_home_path("covers",
         check_exists=False))
 

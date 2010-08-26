@@ -40,11 +40,12 @@ from xl import (
 logger = logging.getLogger(__name__)
 
 class PlayQueue(playlist.Playlist):
-
     """
         Manages the queue of songs to be played
-    """
 
+        The content of the queue are processed before
+        processing the content of the assigned playlist.
+    """
     def __init__(self, player, location=None):
         playlist.Playlist.__init__(self, name="Queue")
 
@@ -56,12 +57,23 @@ class PlayQueue(playlist.Playlist):
             self.load_from_location(location)
 
     def set_current_playlist(self, playlist):
+        """
+            Sets the playlist to be processed in the queue
+
+            :param playlist: the playlist to process
+            :type playlist: :class:`xl.playlist.Playlist`
+
+            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+
+                * `queue_current_playlist_changed`: indicates that the queue playlist has been changed
+        """
         if playlist is self.__current_playlist:
             return
 
         self.__current_playlist = playlist
         event.log_event('queue_current_playlist_changed', self, playlist)
 
+    #: The playlist currently processed in the queue
     current_playlist = property(lambda self: self.__current_playlist,
         set_current_playlist)
 
@@ -71,7 +83,13 @@ class PlayQueue(playlist.Playlist):
             playlist.  If a track is passed in, that track is played
 
             :param autoplay: play the track in addition to returning it
+            :type autoplay: bool
             :param track: if passed, play this track
+            :type track: :class:`xl.trax.Track`
+
+            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+
+                * `playback_playlist_end`: indicates that the end of the queue has been reached
         """
         if not track:
             try:
@@ -97,6 +115,9 @@ class PlayQueue(playlist.Playlist):
         return track
 
     def prev(self):
+        """
+            Goes to the previous track
+        """
         track = None
         if self.player.current:
             if self.player.get_time() < 5 and self.current_playlist:
@@ -109,6 +130,12 @@ class PlayQueue(playlist.Playlist):
         return track
 
     def get_current(self):
+        """
+            Gets the current track
+
+            :returns: the current track
+            :type: :class:`xl.trax.Track`
+        """
         if self.player.current and self.current_position > 0:
             current = self.player.current
         else:
@@ -125,8 +152,11 @@ class PlayQueue(playlist.Playlist):
 
     def play(self, track=None):
         """
-            start playback, either from the passed track or from already
-            queued tracks
+            Starts queue processing with the given
+            track preceding the queue content
+
+            :param track: the track to play
+            :type track: :class:`xl.trax.Track`
         """
         if self.player.is_playing() and not track:
             return

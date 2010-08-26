@@ -93,13 +93,19 @@ class ExailePlayer(object):
 
     def get_volume(self):
         """
-            Gets the current volume percentage
+            Gets the current volume
+            
+            :returns: the volume percentage
+            :type: int
         """
         return (settings.get_option("player/volume", 1) * 100)
 
     def set_volume(self, volume):
         """
-            Sets the current volume percentage
+            Sets the current volume
+
+            :param volume: the volume percentage
+            :type volume: int
         """
         volume = min(volume, 100)
         volume = max(0, volume)
@@ -113,18 +119,59 @@ class ExailePlayer(object):
     current = property(__get_current)
 
     def play(self, track):
+        """
+            Starts the playback with the provided track
+            or stops the playback it immediately if none
+
+            :param track: the track to play
+            :type track: :class:`xl.trax.Track`
+
+            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+
+                * `playback_player_start`: indicates the start of playback overall
+                * `playback_track_start`: indicates playback start of a track
+        """
         raise NotImplementedError
 
     def stop(self):
+        """
+            Stops the playback
+
+            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+
+                * `playback_player_end`: indicates the end of playback overall
+                * `playback_track_end`: indicates playback end of a track
+        """
         raise NotImplementedError
 
     def pause(self):
+        """
+            Pauses the playback, does not toggle it
+
+            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+
+                * `playback_player_pause`: indicates that the playback has been paused
+        """
         raise NotImplementedError
 
     def unpause(self):
+        """
+            Resumes the playback, does not toggle it
+
+            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+
+                * `playback_player_resume`: indicates that the playback has been resumed
+        """
         raise NotImplementedError
 
     def toggle_pause(self):
+        """
+            Toggles between playing and paused state
+
+            .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
+
+                * `playback_toggle_pause`: indicates that the playback has been paused or resumed
+        """
         if self.is_paused():
             self.unpause()
         else:
@@ -133,38 +180,39 @@ class ExailePlayer(object):
         event.log_event("playback_toggle_pause", self, self.current)
 
     def seek(self, value):
+        """
+            Seek to a position in the currently playing stream
+
+            :param value: the position in seconds
+            :type value: int
+        """
         raise NotImplementedError
-
-    def scroll(self, value):
-        # Getting new position
-        tm = self.get_time() + value
-
-        # If we are before the beginning of the track, restart it or go to prev
-        if tm < 0:
-            self._queue.prev()
-            return
-
-        # If we are after the end of the track, switch to the next one
-        elif tm > self.current.get_tag_raw('__length'):
-            self._queue.next()
-            return
-
-        # Apply new position
-        self.seek(tm)
 
     def get_position(self):
         """
-            Gets the current playback position of the playing track
+            Gets the current playback position
+
+            :returns: the position in milliseconds
+            :rtype: int 
         """
         raise NotImplementedError
 
     def get_time(self):
         """
-            Gets current playback time in seconds
+            Gets the current playback time
+
+            :returns: the playback time in seconds
+            :rtype: int
         """
         return self.get_position()/gst.SECOND
 
     def get_progress(self):
+        """
+            Gets the current playback progress
+
+            :returns: the playback progress as [0..1]
+            :rtype: float
+        """
         try:
             progress = self.get_position()/float(
                     self.current.get_tag_raw("__length")*gst.SECOND)
@@ -183,7 +231,7 @@ class ExailePlayer(object):
         """
             Seeks to the progress position
 
-            :param progress: value ranged at 0..1
+            :param progress: value ranged at [0..1]
             :type progress: float
         """
         seek_position = 0
@@ -204,9 +252,10 @@ class ExailePlayer(object):
 
     def get_state(self):
         """
-            Get player state
+            Gets the player state
 
-            returns one of "playing", "paused", "stopped"
+            :returns: one of *playing*, *paused* or *stopped*
+            :rtype: string
         """
         state = self._get_gst_state()
         if state == gst.STATE_PLAYING:
@@ -218,19 +267,28 @@ class ExailePlayer(object):
 
     def is_playing(self):
         """
-            Returns True if the player is currently playing
+            Convenience method to find out if the player is currently playing
+
+            :returns: whether the player is currently playing
+            :rtype: bool
         """
         return self._get_gst_state() == gst.STATE_PLAYING
 
     def is_paused(self):
         """
-            Returns True if the player is currently paused
+            Convenience method to find out if the player is currently paused
+
+            :returns: whether the player is currently paused
+            :rtype: bool
         """
         return self._get_gst_state() == gst.STATE_PAUSED
 
     def is_stopped(self):
         """
-            Returns True if the player is currently stopped
+            Convenience method to find out if the player is currently stopped
+
+            :returns: whether the player is currently stopped
+            :rtype: bool
         """
         return self._get_gst_state() == gst.STATE_NULL
 

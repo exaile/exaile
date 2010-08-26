@@ -34,7 +34,7 @@ import urllib
 import hashlib
 from xl import event, settings, xdg, providers
 from xl import trax as xltrack
-from xl.cover import CoverSearchMethod
+from xl.covers import CoverSearchMethod
 from xl.nls import gettext as _
 from xlgui import guiutil, panel
 

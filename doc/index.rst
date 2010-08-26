@@ -4,23 +4,16 @@ Welcome to Exaile's documentation!
 Core:
 
 .. toctree::
+    :glob:
 
-    xl/collection
-    xl/common
-    xl/cover
-    xl/xldbus
-    xl/formatter
-    xl/metadata
-    xl/playlist
-    xl/providers
-    xl/settings
-    xl/trax
+    xl/*
 
 GUI:
 
 .. toctree::
+    :glob:
 
-    xlgui/icons
+    xlgui/*
 
 Indices and tables
 ==================

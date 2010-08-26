@@ -66,9 +66,12 @@ def log_event(type, obj, data):
     """
         Sends an event.
 
-        type: the 'type' or 'name' of the event. [string]
-        obj: the object sending the event. [object]
-        data: some data about the event, None if not required [object]
+        :param type: the *type* or *name* of the event.
+        :type type: string
+        :param obj: the object sending the event.
+        :type obj: object
+        :param data: some data about the event, None if not required
+        :type data: object
     """
     global EVENT_MANAGER
     e = Event(type, obj, data, time.time())
@@ -76,21 +79,25 @@ def log_event(type, obj, data):
 
 def add_callback(function, type=None, obj=None, *args, **kwargs):
     """
-        Sets an Event callback
+        Adds a callback to an event
 
         You should ALWAYS specify one of the two options on what to listen
         for. While not forbidden to listen to all events, doing so will
         cause your callback to be called very frequently, and possibly may
         cause slowness within the player itself.
 
-        @param function: the function to call when the event happens [function]
-        @param type: the 'type' or 'name' of the event to listen for, eg
-                "tracks_added",  "cover_changed". Defaults to any event if
-                not specified. [string]
-        @param obj: the object to listen to events from, eg exaile.collection,
-                exaile.cover_manager. Defaults to any object if not
-                specified. [object]
-        Any additional paramaters will be passed to the callback.
+        :param function: the function to call when the event happens
+        :type function: callable
+        :param type: the *type* or *name* of the event to listen for, eg
+                `tracks_added`, `cover_changed`. Defaults to any event if
+                not specified.
+        :type type: string
+        :param obj: the object to listen to events from, e.g. `exaile.collection`
+                or `xl.covers.MANAGER`. Defaults to any object if not
+                specified.
+        :type obj: object
+
+        Any additional parameters will be passed to the callback.
     """
     global EVENT_MANAGER
     EVENT_MANAGER.add_callback(function, type, obj, args, kwargs)

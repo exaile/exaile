@@ -295,6 +295,9 @@ class Exaile(object):
         console_format = "%(levelname)-8s: %(message)s"
         loglevel = logging.INFO
 
+        if self.options.DebugThreads:
+            console_format = "%(threadName)s:" + console_format
+
         if self.options.Debug:
             loglevel = logging.DEBUG
             console_format = "%(asctime)s,%(msecs)3d:" + console_format
@@ -508,6 +511,9 @@ class Exaile(object):
         group.add_option("--eventdebug", dest="DebugEvent",
                 action="store_true", default=False, help=_("Enable debugging"
                 " of xl.event. Generates LOTS of output"))
+        group.add_option("--threaddebug", dest="DebugThreads",
+                action="store_true", default=False, help=_("Add thread name"
+                " to logging messages."))
         group.add_option("--eventfilter", dest="EventFilter",
                 action='store', type='string', metavar=_('TYPE'),
                 help=_("Limit xl.event debug to output of TYPE"))

@@ -34,6 +34,10 @@ name = _('Appearance')
 icon = 'preferences-desktop-theme'
 ui = xdg.get_data_path('ui', 'preferences', 'appearance.ui')
 
+class ShowInfoAreaPreference(widgets.CheckPreference):
+    default = True
+    name = 'gui/show_info_area'
+
 class SplashPreference(widgets.CheckPreference):
     default = True
     name = 'gui/use_splash'

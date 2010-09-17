@@ -261,6 +261,8 @@ class Main(object):
         """
             Allows plugins to be the last selected panel
         """
+        if settings.get_option('gui/show_info_area', True) is False:
+            self.main.info_area.hide_all()
         try:
             last_selected_panel = settings.get_option(
                 'gui/last_selected_panel', 'collection')

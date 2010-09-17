@@ -272,6 +272,7 @@ class MainWindow(gobject.GObject):
             'playlist_tracks_removed')
 
         # Settings
+        self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
         event.add_callback(self._on_option_set, 'option_set')
 
     def _connect_panel_events(self):
@@ -758,6 +759,12 @@ class MainWindow(gobject.GObject):
                 self.controller.tray_icon = None
             elif not self.controller.tray_icon and usetray:
                 self.controller.tray_icon = tray.TrayIcon(self)
+	
+        if option == 'gui/show_info_area':
+            if settings.get_option(option, True):
+                self.info_area.show_all()
+            else:
+                self.info_area.hide_all()
 
     def _update_track_information(self):
         """

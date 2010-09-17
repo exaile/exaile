@@ -11,7 +11,7 @@
         <property name="spacing">3</property>
         <child>
           <object class="GtkCheckButton" id="gui/show_info_area">
-            <property name="label" translatable="yes">Show Info Area in UI</property>
+            <property name="label" translatable="yes">Show info area</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>

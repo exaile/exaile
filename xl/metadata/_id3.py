@@ -44,7 +44,7 @@ class ID3Format(BaseFormat):
         "date": "TDRC",
         "arranger": "TPE4",
         "conductor": "TPE3",
-        "performer": "TPE2",
+        "albumartist": "TPE2",
         "artist": "TPE1",
         "album": "TALB",
         "copyright": "TCOP",

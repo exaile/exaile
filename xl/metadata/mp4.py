@@ -34,6 +34,7 @@ class MP4Format(BaseFormat):
     tag_mapping = {
             'title':       '\xa9nam',
             'artist':      '\xa9ART',
+            'albumartist': '\x61ART',
             'album':       '\xa9alb',
             'genre':       '\xa9gen',
             'date':        '\xa9day',

@@ -25,37 +25,34 @@
 # from your version.
 
 GNOME_MMKEYS = None
-EXAILE = None
 
-from xl import common, event
+from xl import common, event, player
 import dbus, logging, traceback
 logger = logging.getLogger(__name__)
 
 def callback(key):
-    global EXAILE
     if key in ('Play', 'PlayPause', 'Pause'):
-        if EXAILE.player.is_playing() or EXAILE.player.is_paused():
-            EXAILE.player.toggle_pause()
+        if player.PLAYER.is_playing() or player.PLAYER.is_paused():
+            player.PLAYER.toggle_pause()
         elif key != "Pause":
-            EXAILE.queue.play()
+            player.QUEUE.play()
         else:
             pass
     elif key == 'Stop':
-        EXAILE.player.stop()
+        player.PLAYER.stop()
     elif key == 'Previous':
-        EXAILE.queue.prev()
+        player.QUEUE.prev()
     elif key == 'Next':
-        EXAILE.queue.next()
+        player.QUEUE.next()
 
 def enable(exaile):
     if exaile.loading:
         event.add_callback(_enable, "player_loaded")
     else:
-        _enable(None, exaile, None)
+        _enable(None, player.PLAYER, None)
 
-def _enable(eventname, exaile, nothing):
-    global GNOME_MMKEYS, EXAILE
-    EXAILE = exaile
+def _enable(eventname, player, nothing):
+    global GNOME_MMKEYS
     def on_gnome_mmkey(app, key):
         if app == "Exaile":
             callback(key)
@@ -81,12 +78,12 @@ def _enable(eventname, exaile, nothing):
             gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
             return True
     except:
-        disable(exaile) #disconnect if we failed to load completely
+        disable() #disconnect if we failed to load completely
         GNOME_MMKEYS = None
         common.log_exception(logger)
         return False
 
-def disable(exaile):
+def disable():
     global GNOME_MMKEYS
     if GNOME_MMKEYS:
         try:

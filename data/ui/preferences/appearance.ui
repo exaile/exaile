@@ -15,21 +15,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="gui/use_splash">
-            <property name="label" translatable="yes">Show splash screen on startup</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">The info area contains the cover art and track information</property>
             <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
           </object>
@@ -214,6 +200,21 @@
             <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="position">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="gui/use_splash">
+            <property name="label" translatable="yes">Show splash screen on startup</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">8</property>
           </packing>
         </child>
       </object>

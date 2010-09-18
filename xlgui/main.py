@@ -166,6 +166,8 @@ class MainWindow(gobject.GObject):
         self.info_area = info.TrackInfoPane()
         self.info_area.set_auto_update(True)
         self.info_area.set_padding(3, 3, 3, 3)
+        self.info_area.hide_all()
+        self.info_area.set_no_show_all(True)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
 
         self.cover = cover.CoverWidget(self.info_area.cover_image)
@@ -761,10 +763,12 @@ class MainWindow(gobject.GObject):
                 self.controller.tray_icon = tray.TrayIcon(self)
 	
         if option == 'gui/show_info_area':
+            self.info_area.set_no_show_all(False)
             if settings.get_option(option, True):
                 self.info_area.show_all()
             else:
                 self.info_area.hide_all()
+            self.info_area.set_no_show_all(True)
 
     def _update_track_information(self):
         """

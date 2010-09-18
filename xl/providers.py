@@ -135,12 +135,17 @@ class ProviderHandler(object):
         for one specific service including
         notification about (un)registration
     """
-    def __init__(self, servicename):
+    def __init__(self, servicename, simple_init=False):
         """
             :param servicename: the name of the service to handle
             :type servicename: string
+            :param simple_init: call on_provider_added for every element
+                already registered on instantiation.
         """
         self.servicename = servicename
+        if simple_init:
+            for provider in MANAGER.get_providers(servicename):
+                self.on_provider_added(provider)
         event.add_callback(self._add_callback,
             "%s_provider_added" % servicename)
         event.add_callback(self._remove_callback,

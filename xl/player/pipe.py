@@ -53,6 +53,9 @@ class MainBin(gst.Bin):
         self.tee = gst.element_factory_make("tee")
         self._elements.append(self.tee)
 
+        #self.queue = gst.element_factory_make("queue")
+        #self._elements.append(self.queue)
+
         sinkname = settings.get_option("player/audiosink", "auto")
         self.audio_sink = sink_from_preset(sinkname)
         if not self.audio_sink:
@@ -67,6 +70,12 @@ class MainBin(gst.Bin):
         self.sinkpad = self._elements[0].get_static_pad("sink")
         self.add_pad(gst.GhostPad('sink', self.sinkpad))
 
+        self.sinkqueue = gst.element_factory_make("queue")
+        self.sinkhandler = SinkHandler('playback_audio_sink')
+        self.add(self.sinkhandler)
+        self.add(self.sinkqueue)
+        gst.element_link_many(self.tee, self.sinkqueue, self.sinkhandler)
+
     def get_volume(self):
         return self.audio_sink.get_volume()
 
@@ -74,9 +83,42 @@ class MainBin(gst.Bin):
         self.audio_sink.set_volume(vol)
 
     # TODO: add audio sink switching
-    # TODO: support for multiple sinks
-    # TODO: visualizations
 
+
+class SinkHandler(gst.Bin, ProviderHandler):
+    def __init__(self, servicename):
+        """
+            :param servicename: The providers name to listen for elements on.
+        """
+        gst.Bin.__init__(self)
+        self.tee = gst.element_factory_make("tee")
+        self.add(self.tee)
+        self.sinkpad = self.tee.get_static_pad("sink")
+        self.sink = gst.GhostPad('sink', self.sinkpad)
+        self.add_pad(self.sink)
+        self.fake = gst.element_factory_make("fakesink")
+        self.add(self.fake)
+        self.tee.link(self.fake)
+        self.queuedict = {}
+        ProviderHandler.__init__(self, servicename, simple_init=True)
+
+    def on_provider_added(self, provider):
+        queue = gst.element_factory_make("queue")
+        self.add(queue)
+        self.add(provider)
+        self.queuedict[provider.name] = queue
+        gst.element_link_many(self.tee, queue, provider)
+
+    def on_provider_removed(self, provider):
+        pad = provider.get_static_pad("sink").get_peer()
+        queue = self.queuedict[provider.name]
+        self.tee.unlink(queue)
+        self.tee.release_request_pad(pad)
+        glib.idle_add(provider.set_state, gst.STATE_NULL)
+        glib.idle_add(queue, gst.STATE_NULL)
+        self.remove(queue)
+        self.remove(provider)
+        del self.queuedict[provider.name]
 
 class ElementBin(gst.Bin):
     """

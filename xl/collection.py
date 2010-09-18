@@ -628,20 +628,20 @@ class Library(object):
             return
 
         def joiner(value):
-            if not value or type(value) in (str, unicode):
+            if not value or isinstance(value, basestring):
                 return value
             else:
                 try:
                     return u"\u0000".join(value)
-                except TypeError:
-                    return value
+                except UnicodeDecodeError:
+                    return "\0".join(value)
 
         try:
             basedir = joiner(tr.get_tag_raw('__basedir'))
             album = joiner(tr.get_tag_raw('album'))
             artist = joiner(tr.get_tag_raw('artist'))
-        except UnicodeDecodeError: #TODO: figure out why this happens
-            logger.warning("Encoding error, skipping compilation check")
+        except Exception:
+            logger.warning("Error while checking for compilation: " + `tr`)
             return
         if not basedir or not album or not artist: return
         album = album.lower()
@@ -656,12 +656,12 @@ class Library(object):
             common.log_exception(log=logger)
             return
 
-        if ccheck[basedir][album] and not \
-            artist in ccheck[basedir][album]:
+        if ccheck[basedir][album] and \
+                artist not in ccheck[basedir][album]:
             if not (basedir, album) in compilations:
                 compilations.append((basedir, album))
-                logger.info("Compilation %(album)s detected in %(dir)s" %
-                        {'album':album, 'dir':basedir})
+                logger.info("Compilation %(album)r detected in %(dir)r" %
+                        {'album': album, 'dir': basedir})
 
         ccheck[basedir][album].append(artist)
 

@@ -325,10 +325,6 @@ class TimeSpan:
         Calculates the number of days, hours, minutes,
         and seconds in a time span
     """
-    _seconds_per_minute = 60.0
-    _seconds_per_hour = 60 * _seconds_per_minute
-    _seconds_per_day = 24 * _seconds_per_hour
-
     #: number of days
     days = 0
     #: number of hours
@@ -348,16 +344,9 @@ class TimeSpan:
         except:
             span = 0
 
-        self.days = span // self._seconds_per_day
-        span %= self._seconds_per_day
-
-        self.hours = span // self._seconds_per_hour
-        span %= self._seconds_per_hour
-
-        self.minutes = span // self._seconds_per_minute
-        span %= self._seconds_per_minute
-
-        self.seconds = span
+        span, self.seconds = divmod(span, 60)
+        span, self.minutes = divmod(span, 60)
+        self.days, self.hours = divmod(span, 24)
 
     def __repr__(self):
         return str(self)

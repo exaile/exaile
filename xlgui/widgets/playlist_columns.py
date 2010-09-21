@@ -315,6 +315,12 @@ class LastPlayedColumn(Column):
     size = 80
 providers.register('playlist-columns', LastPlayedColumn)
 
+class DateAddedColumn(Column):
+    name = '__date_added'
+    display = _('Date added')
+    size = 80
+providers.register('playlist-columns', DateAddedColumn)
+
 class ColumnMenuItem(menu.MenuItem):
     """
         A menu item dedicated to display the

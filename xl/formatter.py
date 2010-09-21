@@ -659,15 +659,19 @@ class RatingTagFormatter(TagFormatter):
         return ('%s%s' % (filled, empty)).decode('utf-8')
 providers.register('tag-formatting', RatingTagFormatter())
 
-class LastPlayedTagFormatter(TagFormatter):
+class DateTagFormatter(TagFormatter):
     """
-        A formatter for the last time a track was played
+        A generic formatter for timestamp formatting
 
         Will return the localized string for *Today*, *Yesterday*
         or the respective localized date for earlier dates
     """
-    def __init__(self):
-        TagFormatter.__init__(self, '__last_played')
+    def __init__(self, name):
+        """
+            :param name: the name of the tag
+            :type name: string
+        """
+        self.name = name
 
     def format(self, track, parameters):
         """
@@ -699,6 +703,22 @@ class LastPlayedTagFormatter(TagFormatter):
                 text = last_played.strftime('%x')
 
         return text
+
+class LastPlayedTagFormatter(DateTagFormatter):
+    """
+        A formatter for the last time a track was played
+    """
+    def __init__(self):
+        DateTagFormatter.__init__(self, '__last_played')
 providers.register('tag-formatting', LastPlayedTagFormatter())
+
+class DateAddedTagFormatter(DateTagFormatter):
+    """
+        A formatter for the date a track
+        was added to the collection
+    """
+    def __init__(self):
+        DateTagFormatter.__init__(self, '__date_added')
+providers.register('tag-formatting', DateAddedTagFormatter())
 
 # vim: et sts=4 sw=4

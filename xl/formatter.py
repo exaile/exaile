@@ -671,7 +671,7 @@ class DateTagFormatter(TagFormatter):
             :param name: the name of the tag
             :type name: string
         """
-        self.name = name
+        TagFormatter.__init__(self, name)
 
     def format(self, track, parameters):
         """

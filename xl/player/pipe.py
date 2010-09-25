@@ -87,38 +87,89 @@ class MainBin(gst.Bin):
 
 class SinkHandler(gst.Bin, ProviderHandler):
     def __init__(self, servicename):
-        """
-            :param servicename: The providers name to listen for elements on.
-        """
-        gst.Bin.__init__(self)
-        self.tee = gst.element_factory_make("tee")
+        gst.Bin.__init__(self, name=servicename)
+        ProviderHandler.__init__(self, servicename)
+        self.tee = gst.element_factory_make("tee", "sinkhandler-tee")
         self.add(self.tee)
         self.sinkpad = self.tee.get_static_pad("sink")
         self.sink = gst.GhostPad('sink', self.sinkpad)
         self.add_pad(self.sink)
-        self.fake = gst.element_factory_make("fakesink")
+        self.fake = gst.element_factory_make("fakesink", "sinkhandler-fake")
+        self.fake.props.async = False
         self.add(self.fake)
         self.tee.link(self.fake)
         self.queuedict = {}
-        ProviderHandler.__init__(self, servicename, simple_init=True)
+
+        self.sinks = {}
+        self.added_sinks = []
+
+        event.add_callback(self.on_reconfigure_bins, 'playback_reconfigure_bins')
+
+    def reset_providers(self):
+        self.sinks = {}
+        for provider in self.get_providers():
+            try:
+                self.sinks[provider.name] = provider()
+            except:
+                logger.warning("Could not create %s element for %s." % \
+                        (provider, self.get_name()) )
+                common.log_exception(log=logger)
 
     def on_provider_added(self, provider):
-        queue = gst.element_factory_make("queue")
-        self.add(queue)
-        self.add(provider)
-        self.queuedict[provider.name] = queue
-        gst.element_link_many(self.tee, queue, provider)
+        self.reset_providers()
 
     def on_provider_removed(self, provider):
-        pad = provider.get_static_pad("sink").get_peer()
-        queue = self.queuedict[provider.name]
-        self.tee.unlink(queue)
-        self.tee.release_request_pad(pad)
-        glib.idle_add(provider.set_state, gst.STATE_NULL)
-        glib.idle_add(queue, gst.STATE_NULL)
-        self.remove(queue)
-        self.remove(provider)
-        del self.queuedict[provider.name]
+        self.reset_providers()
+
+    def on_reconfigure_bins(self, *args):
+        self.setup_sinks()
+
+    def setup_sinks(self):
+        state = self.get_state()[1]
+        if False: #self.srcpad is not None:
+            self.sinkpad.set_blocked_async(True, self._setup_finish, state)
+        else:
+            self._setup_finish(None, True, state)
+
+    def _setup_finish(self, elem, blocked, state):
+        for sink in self.added_sinks:
+            queue = self.queuedict[sink.name]
+            pad = queue.get_static_pad("sink").get_peer()
+            if pad:
+                self.tee.release_request_pad(pad)
+            try:
+                self.remove(queue)
+                queue.set_state(gst.STATE_NULL)
+            except gst.RemoveError:
+                pass
+            try:
+                self.remove(sink)
+                sink.set_state(gst.STATE_NULL)
+            except gst.RemoveError:
+                pass
+        self.added_sinks = []
+
+        for name, sink in self.sinks.iteritems():
+            self.add(sink)
+            queue = gst.element_factory_make("queue")
+            self.add(queue)
+            self.queuedict[sink.name] = queue
+
+            gst.element_link_many(self.tee, queue, sink)
+
+            self.added_sinks.append(sink)
+
+        self.set_state(state)
+        if blocked:
+            self.sinkpad.set_blocked_async(False, lambda *args: False, state)
+
+    def set_state(self, state):
+        if state == gst.STATE_PLAYING and \
+                self.get_state() == gst.STATE_NULL:
+            self.setup_elements()
+        gst.Bin.set_state(self, state)
+
+
 
 class ElementBin(gst.Bin):
     """

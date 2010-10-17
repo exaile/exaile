@@ -516,12 +516,14 @@ class SearchEntry(object):
         self.entry = entry
         self.timeout = timeout
         self.change_id = None
+        self._last_text = entry.get_text()
 
         if self.entry is None:
             self.entry = gtk.Entry()
 
         self.entry.connect('changed', self.on_entry_changed)
         self.entry.connect('icon-press', self.on_entry_icon_press)
+        self.entry.connect('activate', self.on_entry_activated)
 
     def on_entry_changed(self, *e):
         """
@@ -538,12 +540,17 @@ class SearchEntry(object):
             Clears the entry
         """
         self.entry.set_text('')
+        self.entry.activate()
+
+    def on_entry_activated(self, entry):
+        self._last_text = entry.get_text()
 
     def entry_activate(self, *e):
         """
             Emit the activate signal
         """
-        self.entry.activate()
+        if self.entry.get_text() != self._last_text:
+            self.entry.activate()
 
     def __getattr__(self, attr):
         """

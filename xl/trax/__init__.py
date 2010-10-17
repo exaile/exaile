@@ -34,6 +34,7 @@ Provides the base for creating and managing Track objects.
 from xl.trax.track import Track
 from xl.trax.trackdb import TrackDB
 from xl.trax.search import (
+        SearchResultTrack,
         search_tracks,
         search_tracks_from_string,
         TracksMatcher,

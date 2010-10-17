@@ -283,6 +283,7 @@ class PlaylistPage(NotebookPage):
         self.view = PlaylistView(playlist)
         self.playlist_window.add(self.view)
         self._filter_string = ""
+        self._filter_matcher = None
         self.modelfilter = self.view.model.filter_new()
         self.modelfilter.set_visible_func(self.model_visible_func)
         self.view.set_model(self.modelfilter)
@@ -319,7 +320,7 @@ class PlaylistPage(NotebookPage):
 
     def set_name(self, name):
         self.playlist.name = name
-        
+
     def get_search_entry(self):
         return self.search_entry
 
@@ -343,7 +344,19 @@ class PlaylistPage(NotebookPage):
 
     def on_search_entry_activate(self, entry):
         self._filter_string = entry.get_text()
-        self.modelfilter.refilter()
+        if self._filter_string == "":
+            self._filter_matcher = None
+            self.modelfilter.refilter()
+        else:
+            self._filter_matcher = trax.TracksMatcher(self._filter_string,
+                    case_sensitive=False,
+                    keyword_tags=['artist', 'title', 'album'])
+                    # FIXME: use currently-visible columns + base
+                    # tags for filter
+            logger.debug("Filtering playlist '%s' by '%s'."%(self.playlist.name, self._filter_string))
+            self.modelfilter.refilter()
+            logger.debug("Filtering playlist '%s' by '%s' completed."%(self.playlist.name, self._filter_string))
+
 
     def __show_toggle_menu(self, names, display_names, callback, attr,
             widget, event):
@@ -449,14 +462,10 @@ class PlaylistPage(NotebookPage):
             self.tab.set_icon(pixbuf)
 
     def model_visible_func(self, model, iter):
-        if self._filter_string == "":
-            return True
-        return trax.match_track_from_string(
-                model.get_value(iter, 0), self._filter_string,
-                case_sensitive=False, keyword_tags=['artist', 'title', 'album'])
-                # FIXME: use currently-visible columns + base
-                # tags for filter
-
+        if self._filter_matcher is not None:
+            track = model.get_value(iter, 0)
+            return self._filter_matcher.match(trax.SearchResultTrack(track))
+        return True
 
 
 

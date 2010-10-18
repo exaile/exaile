@@ -994,14 +994,14 @@ class PlaylistModel(gtk.GenericTreeModel):
             self.row_changed(path, iter)
 
     def on_playback_state_change(self, event_type, player_obj, track):
-        path = (self.playlist.current_position,)
-        if path < 0 or path >= len(self):
+        pos = self.playlist.current_position
+        if pos < 0 or pos >= len(self):
             return
         try:
-            iter = self.get_iter(path)
+            iter = self.get_iter((pos,))
         except ValueError:
             return
-        glib.idle_add(self.row_changed, path, iter)
+        glib.idle_add(self.row_changed, (pos,), iter)
 
 
 

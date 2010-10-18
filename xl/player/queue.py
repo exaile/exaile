@@ -95,14 +95,9 @@ class PlayQueue(playlist.Playlist):
             try:
                 track = self.pop(0)
                 self.current_position = 0
-                self.current_playing = True
-                if self.current_playlist:
-                    self.current_playlist.current_playing = False
             except IndexError:
                 if self.current_playlist:
                     track = self.current_playlist.next()
-                    self.current_playlist.current_playing = True
-                    self.current_playing = False
                 else:
                     track = None
 

@@ -30,7 +30,7 @@ if test -z "\$XDG_DATA_DIRS"; then
 fi
 XDG_DATA_DIRS="\$EXAILE_PREFIX/share/:\$XDG_DATA_DIRS"
 export XDG_DATA_DIRS
-exec python \$EXAILE_PREFIX$LIBDIR/exaile/exaile.py --datadir=\$EXAILE_PREFIX/share/exaile/data --startgui "\$@"
+exec python2 \$EXAILE_PREFIX$LIBDIR/exaile/exaile.py --datadir=\$EXAILE_PREFIX/share/exaile/data --startgui "\$@"
 exit \$?
 
 EOF

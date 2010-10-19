@@ -9,4 +9,5 @@ if [ -z "$PROGRAM_DIR" ]; then
     PROGRAM_DIR=`dirname "$0"`
 fi
 
-exec python -O ${PROGRAM_DIR}/exaile.py --startgui "$@"
+
+exec python2 -O ${PROGRAM_DIR}/exaile.py --startgui "$@"

@@ -697,7 +697,12 @@ class Statusbar(object):
 
         frame = self.status_bar.get_children()[0]
         box = frame.get_children()[0]
-        box.pack_start(self.info_label, False)
+
+        try:
+            box.pack_start(self.info_label, False)
+        except AttributeError: # GTK < 2.20, thus box is the original label
+            frame.remove(frame.get_children()[0])
+            frame.add(self.info_label)
 
         self.context_id = self.status_bar.get_context_id('status')
         self.message_ids = []

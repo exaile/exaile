@@ -452,7 +452,7 @@ class TrackPropertiesDialog(gobject.GObject):
                 for track in self.tracks:
                     try:
                         all_vals.append(track[tag][multi_id])
-                    except:
+                    except KeyError:
                         all_vals.append('')
 
                 row.field.set_value(val(), all_vals, doupdate=False)
@@ -514,18 +514,18 @@ class TagRow(object):
         for track in parent.tracks:
             try:
                 all_vals.append(track[self.tag][self.multi_id])
-            except:
+            except KeyError:
                 all_vals.append(None)
 
         self.field.set_value(value, all_vals)
 
         try:
             name = dialog_tags[self.tag][0]
-        except:
-            if self.tag[:2] != '__':
-                name = self.tag
-            else:
+        except KeyError:
+            if self.tag.startswith('__'):
                 name = self.tag[2:]
+            else:
+                name = self.tag
 
         self.name = name
 

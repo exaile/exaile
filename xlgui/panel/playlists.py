@@ -825,7 +825,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # to make this work properly in all cases
             try:
                 remove_track_index = current_playlist.index(self.tree.get_selected_track())
-            except:
+            except ValueError:
                 remove_track_index = None
             if insert_index is not None and remove_track_index is not None:
                 # Since remove_track_index will be removed before

@@ -612,7 +612,7 @@ class ShortcutListPreference(Preference):
 
         try:
             cell.set_property('text', self.available_items[key])
-        except:
+        except KeyError:
             pass
 
     def on_accel_cleared(self, cellrenderer, path):
@@ -712,9 +712,9 @@ class ListPreference(Preference):
         items = self.preferences.settings.get_option(self.name,
             default=self.default)
         try:
-            items = " ".join(items)
-        except:
-            items = ""
+            items = u" ".join(items)
+        except TypeError:
+            items = u""
         self.widget.set_text(items)
 
     def _get_value(self):

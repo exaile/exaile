@@ -198,15 +198,14 @@ class PlaylistNotebook(SmartNotebook):
                 tag = 'current'
 
             page.playlist.name = 'order%d.%s.%s' % (n, tag, page.playlist.name)
-            logger.debug('Saving tab %d: %s' % (n, page.playlist.name))
+            logger.debug('Saving tab %r', page.playlist.name)
 
             try:
                 self.tab_manager.save_playlist(page.playlist, True)
-            except:
+            except Exception:
                 # an exception here could cause exaile to be unable to quit.
                 # Catch all exceptions.
-                import traceback
-                traceback.print_exc()
+                logger.exception("Error saving tab %r", page.playlist.name)
 
     def show_current_track(self):
         """

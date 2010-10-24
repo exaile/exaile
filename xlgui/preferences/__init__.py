@@ -149,7 +149,7 @@ class PreferencesDialog(object):
                 if hasattr(plugin, 'get_preferences_pane'):
                     try:
                         plugin_pages.append(plugin.get_preferences_pane())
-                    except:
+                    except Exception:
                         logger.warning('Error loading preferences pane')
                         traceback.print_exc()
 
@@ -283,7 +283,7 @@ class PreferencesDialog(object):
 
                     field = klass(self, widget)
                     self.fields[page].append(field)
-            except:
+            except Exception:
                 logger.warning('Broken preferences class: %s' % attr)
                 traceback.print_exc()
 

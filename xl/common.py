@@ -341,7 +341,7 @@ class TimeSpan:
         """
         try:
             span = float(span)
-        except:
+        except ValueError:
             span = 0
 
         span, self.seconds = divmod(span, 60)

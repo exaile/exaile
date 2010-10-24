@@ -229,13 +229,7 @@ class FilesPanel(panel.Panel):
             return True
 
         if event.keyval == gtk.keysyms.F5:
-            (mods,paths) = self.tree.get_selection().get_selected_rows()
             self.refresh(self.tree)
-            if paths and paths[0]:
-                try:
-                    self.tree.set_cursor(paths[0], None, False)
-                except:
-                    pass
             return True
         return False
 
@@ -293,7 +287,8 @@ class FilesPanel(panel.Panel):
         """
             Refreshes the current view
         """
-        self.load_directory(self.current, False)
+        cursor = self.tree.get_cursor()
+        self.load_directory(self.current, False, cursor=cursor)
 
     def entry_activate(self, widget, event=None):
         """
@@ -360,9 +355,14 @@ class FilesPanel(panel.Panel):
         settings.set_option(name, col.get_width())
 
     @common.threaded
-    def load_directory(self, directory, history=True, keyword=None):
+    def load_directory(self, directory, history=True, keyword=None, cursor=None):
         """
-            Loads a directory into the files view
+            Load a directory into the files view.
+
+            :param history: whether to record in history
+            :param keyword: filter string
+            :param cursor: path or (path, column) to select after loading.
+                    Useful while refreshing a directory.
         """
         self.current = directory
         try:
@@ -419,10 +419,12 @@ class FilesPanel(panel.Panel):
                 size = locale.format_string(_("%d KB"), size, True)
                 model.append((f, self.track, name, size))
 
-            if model.get_iter_first():
-                view.set_cursor((0,))
-            if view.flags() & gtk.REALIZED:
-                view.scroll_to_point(0, 0)
+            if cursor:
+                view.set_cursor(cursor)
+            else:
+                view.set_cursor(0)
+                if view.flags() & gtk.REALIZED:
+                    view.scroll_to_point(0, 0)
 
             self.entry.set_text(directory.get_parse_name())
             if history:
@@ -500,4 +502,3 @@ class FilesDragTreeView(guiutil.DragTreeView):
             return None
         tr = trax.Track(uri)
         return tr
-

@@ -372,7 +372,7 @@ class FilesPanel(panel.Panel):
             logger.error(e)
             if directory.get_path() != xdg.homedir: # Avoid infinite recursion.
                 return self.load_directory(
-                    gio.File(xdg.homedir), history, keyword)
+                    gio.File(xdg.homedir), history, keyword, cursor)
         if self.current != directory: # Modified from another thread.
             return
 

@@ -97,8 +97,8 @@ class Alarmclock(object):
             settings.get_option('plugin/alarmclock/sunday', False),
             settings.get_option('plugin/alarmclock/monday', False),
             settings.get_option('plugin/alarmclock/tuesday', False),
-            settings.get_option('plugin/alarmclock/thursday', False),
             settings.get_option('plugin/alarmclock/wednesday', False),
+            settings.get_option('plugin/alarmclock/thursday', False),
             settings.get_option('plugin/alarmclock/friday', False),
             settings.get_option('plugin/alarmclock/saturday', False)
         ]

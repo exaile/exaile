@@ -39,13 +39,13 @@ class TuesdayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/tuesday'
 
-class ThursdayPreference(widgets.CheckPreference):
-    default = False
-    name = 'plugin/alarmclock/thursday'
-
 class WednesdayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/wednesday'
+
+class ThursdayPreference(widgets.CheckPreference):
+    default = False
+    name = 'plugin/alarmclock/thursday'
 
 class FridayPreference(widgets.CheckPreference):
     default = False
@@ -54,7 +54,6 @@ class FridayPreference(widgets.CheckPreference):
 class SaturdayPreference(widgets.CheckPreference):
     default = False
     name = 'plugin/alarmclock/saturday'
-
 
 class SundayPreference(widgets.CheckPreference):
     default = False

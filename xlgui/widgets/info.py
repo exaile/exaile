@@ -708,7 +708,8 @@ class Statusbar(object):
         self.message_ids = []
 
         self.status_bar.set_app_paintable(True)
-        self.status_bar.connect('expose-event', self.on_expose_event)
+        if hasattr(self.status_bar, 'get_state'): # GTK >= 2.18
+            self.status_bar.connect('expose-event', self.on_expose_event)
 
     def set_status(self, status, timeout=0):
         """

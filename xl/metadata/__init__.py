@@ -27,6 +27,7 @@
 
 
 import os
+import sys
 import gio
 
 from xl.metadata._base import BaseFormat, NotWritable, NotReadable
@@ -92,6 +93,9 @@ def get_format(loc):
     loc = gio.File(loc).get_path()
     if not loc:
         return None
+    # XXX: The path that we get from GIO is, for some reason, in UTF-8.
+    # Bug? Intended? No idea.
+    loc = loc.decode('utf-8')
     ext = os.path.splitext(loc)[1]
     ext = ext[1:] # remove the pesky .
     ext = ext.lower()

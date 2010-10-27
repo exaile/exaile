@@ -816,12 +816,7 @@ class ConfirmCloseDialog(gtk.MessageDialog):
         self.hide()
         return response
 
-try:
-    InfoBar = gtk.InfoBar # GTK >= 2.18
-except AttributeError:
-    InfoBar = object
-
-class MessageBar(InfoBar):
+class MessageBar(gtk.InfoBar):
     type_map = {
         gtk.MESSAGE_INFO: gtk.STOCK_DIALOG_INFO,
         gtk.MESSAGE_QUESTION: gtk.STOCK_DIALOG_QUESTION,
@@ -1102,12 +1097,3 @@ class MessageBar(InfoBar):
         if response == gtk.RESPONSE_CLOSE:
             self.hide()
 
-if InfoBar is object: # GTK < 2.18, see above
-    def dummy_factory(retval): return lambda *a, **kw: retval
-    dummy_None = dummy_factory(None)
-    class Dummy(gtk.Invisible):
-        def __init__(self, *a, **kw): gtk.Invisible.__init__(self)
-        connect = dummy_None
-        __getattr__ = dummy_factory(dummy_None)
-    class MessageBar(Dummy):
-        add_button = dummy_factory(Dummy())

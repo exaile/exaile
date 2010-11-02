@@ -162,29 +162,6 @@ class PlaybackProgressBar(gtk.ProgressBar):
         self.__disable_timer()
         self.reset()
 
-def get_markers_at(position):
-    """
-        Gets all markers located at a position
-
-        :param position: the mark position
-        :type position: float
-        :returns: (m1, m2, ...)
-        :rtype: (:class:`Marker`, ...)
-
-        * *m1*: the first marker
-        * *m2*: the second marker
-        * ...
-    """
-    # Reproduce value modifications
-    position = Marker(position).props.position
-    markers = ()
-
-    for marker in providers.get('playback-markers'):
-        if marker.props.position == position:
-            markers += (marker,)
-
-    return markers
-
 class Marker(gobject.GObject):
     """
         A marker pointing to a playback position

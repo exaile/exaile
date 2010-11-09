@@ -136,17 +136,20 @@ class ExaileMprisPlayer(dbus.service.Object):
         else:
             playing = 2
 
-        if not player.QUEUE.current_playlist.random_enabled:
+        if player.QUEUE.current_playlist.get_shuffle_mode() == 'disabled':
             random = 0
         else:
             random = 1
 
-        go_to_next = 0 # Do not have ability to repeat single track
-
-        if not player.QUEUE.current_playlist.repeat_enabled:
-            repeat = 0
+        if player.QUEUE.current_playlist.get_repeat_mode() == 'track':
+            go_to_next = 0
         else:
+            go_to_next = 1
+
+        if player.QUEUE.current_playlist.get_repeat_mode() == 'all':
             repeat = 1
+        else:
+            repeat = 0
 
         return (playing, random, go_to_next, repeat)
 

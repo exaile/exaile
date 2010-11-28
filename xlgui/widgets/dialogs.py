@@ -1037,19 +1037,27 @@ class MessageBar(gtk.InfoBar):
         """
         return self.message_area
 
-    def show_info(self, text, secondary_text=None):
+    def show_info(self, text, secondary_text=None, timeout=5):
         """
             Convenience method which sets all
             required flags for a info message
             
             :param text: the message to display
+            :type text: string
             :param secondary_text: additional information
+            :param secondary_text: string
+            :param timeout: after how many seconds the
+                message should be hidden automatically,
+                use 0 to disable this behavior
+            :type timeout: int
         """
         self.set_message_type(gtk.MESSAGE_INFO)
         self.set_markup(text)
         self.set_secondary_markup(secondary_text)
         self.show()
-        glib.timeout_add_seconds(5, self.hide)
+
+        if timeout > 0:
+            glib.timeout_add_seconds(timeout, self.hide)
 
     def show_question(self, text, secondary_text=None):
         """

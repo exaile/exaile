@@ -130,14 +130,30 @@ def gtk_widget_replace(widget, replacement):
         except: # Not gtk.Box
             pass
 
+        try:
+            tab_label = parent.get_tab_label(widget)
+            tab_label_packing = parent.query_tab_label_packing(widget)
+        except: # Not gtk.Notebook
+            pass
+
         parent.remove(widget)
         replacement.unparent()
         parent.add(replacement)
 
         try:
             parent.set_child_packing(replacement, *packing)
-            parent.reorder_child(replacement, position)
         except AttributeError: # Not gtk.Box
+            pass
+
+        try:
+            parent.reorder_child(replacement, position)
+        except AttributeError:
+            pass
+
+        try:
+            parent.set_tab_label(replacement, tab_label)
+            parent.set_tab_label_packing(replacement, *tab_label_packing)
+        except:
             pass
 
         replacement.show_all()

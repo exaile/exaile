@@ -52,6 +52,7 @@ class ExaileNotifyOsd(object):
     format_summary  = __inner_preference(notifyosdprefs.Summary)
     format_artist   = __inner_preference(notifyosdprefs.BodyArtist)
     format_album    = __inner_preference(notifyosdprefs.BodyAlbum)
+    notify_change   = __inner_preference(notifyosdprefs.NotifyChange)
 
     def __init__(self):
         self.notify         = pynotify.Notification('Exaile')
@@ -142,6 +143,10 @@ class ExaileNotifyOsd(object):
     def on_quit(self, type, exaile, data=None):
         self.notify.close()
 
+    def on_changed(self, type, track, tag):
+        if self.notify_change:
+            self.update_track_notify(type, player.PLAYER, track)
+
     def on_tooltip(self, *e):
         if self.tray_hover:
             track = player.PLAYER.current
@@ -181,6 +186,7 @@ def enable(exaile):
     event.add_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end')
     event.add_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume')
     event.add_callback(EXAILE_NOTIFYOSD.on_quit, 'quit_application')
+    event.add_callback(EXAILE_NOTIFYOSD.on_changed, 'track_tags_changed')
     if hasattr(exaile, 'gui'):
         EXAILE_NOTIFYOSD.exaile_ready()
     else:
@@ -193,6 +199,7 @@ def disable(exaile):
     event.remove_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end')
     event.remove_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume')
     event.remove_callback(EXAILE_NOTIFYOSD.on_quit, 'quit_application')
+    event.remove_callback(EXAILE_NOTIFYOSD.on_changed, 'track_tags_changed')
     if EXAILE_NOTIFYOSD.exaile.gui.tray_icon:
         EXAILE_NOTIFYOSD.exaile.gui.tray_icon.disconnect(EXAILE_NOTIFYOSD.tray_connection)
     if EXAILE_NOTIFYOSD.gui_callback:

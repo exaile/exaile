@@ -31,6 +31,10 @@ class NotifyPlay(widgets.CheckPreference):
     default = True
     name = 'plugin/notifyosd/notify_play'
 
+class NotifyChange(widgets.CheckPreference):
+    default = True
+    name = 'plugin/notifyosd/notify_change'
+
 class NotifyPause(widgets.CheckPreference):
     default = True
     name = 'plugin/notifyosd/notify_pause'

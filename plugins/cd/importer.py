@@ -24,8 +24,17 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os, threading, copy
-from xl import transcoder, trax, settings, common
+import copy
+import os
+import threading
+
+from xl import (
+    common,
+    formatter,
+    settings,
+    transcoder,
+    trax
+)
 
 
 class CDImporter(object):
@@ -34,15 +43,14 @@ class CDImporter(object):
                 t.get_loc_for_io().startswith("cdda") ]
         self.duration = float(sum( [ t.get_tag_raw('__length') for t in self.tracks ] ))
         self.transcoder = transcoder.Transcoder()
+        self.formatter = formatter.TrackFormatter()
+        self.formatter.properties.format = settings.get_option("cd_import/outpath",
+            "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME"))
         self.current = None
         self.current_len = None
         self.progress = 0.0
 
         self.running = False
-
-        self.outpath = settings.get_option("cd_import/outpath",
-                "%s/$artist/$album/$tracknumber - $title" % \
-                os.getenv("HOME"))
 
         self.format = settings.get_option("cd_import/format",
                                 "Ogg Vorbis")
@@ -89,27 +97,16 @@ class CDImporter(object):
     def _end_cb(self):
         self.cont.set()
 
-    def get_output_location(self, tr):
-        parts = self.outpath.split(os.sep)
-        parts2 = []
-        replacedict = {}
-        # TODO: make this handle arbitrary tags
-        for tag in common.VALID_TAGS:
-            replacedict["$%s"%tag] = tag
-        for part in parts:
-            for k, v in replacedict.iteritems():
-                val = tr.get_tag_display(v, artist_compilations=False)
-                if val:
-                    val = val.replace('"', '\\"')
-                    part = part.replace(k, str(val))
-            part = part.replace(os.sep, "") # strip os.sep
-            parts2.append(part)
-        dirpath = "/" + os.path.join(*parts2[:-1])
-        if not os.path.exists(dirpath):
-            os.makedirs(dirpath)
-        ext = transcoder.FORMATS[self.transcoder.dest_format]['extension']
-        path = "/" + os.path.join(*parts2) + "." + ext
-        return path
+    def get_output_location(self, track):
+        path = self.formatter.format(track)
+        directorypath = os.path.dirname(path)
+
+        if not os.path.exists(directorypath):
+            os.makedirs(directorypath)
+
+        extension = transcoder.FORMATS[self.transcoder.dest_format]['extension']
+
+        return path + '.' + extension
 
     def stop(self):
         self.running = False

@@ -65,7 +65,7 @@ class ExaileNotification(object):
         type and player arguments are ignored.
 
         '''
-        title = cgi.escape(track.get_tag_display('title'))
+        title = track.get_tag_display('title')
         artist = cgi.escape(
             track.get_tag_display('artist', artist_compilations=False)
         )

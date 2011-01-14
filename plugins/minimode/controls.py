@@ -30,6 +30,10 @@ from xl.formatter import (
     TrackFormatter,
     ProgressTextFormatter
 )
+from xl.player.adapters import (
+    PlaybackAdapter,
+    QueueAdapter
+)
 from xl.nls import gettext as _
 from xlgui.guiutil import (
     get_workarea_size,
@@ -255,114 +259,6 @@ class ControlBox(gtk.HBox, providers.ProviderHandler):
                 self.update()
             else:
                 self.__dirty = True
-
-# Helper classes
-class PlaybackAdapter(object):
-    """
-        Basic control which listens for playback changes
-    """
-    def __init__(self):
-        self.__events = ['playback_track_start', 'playback_player_end',
-                         'playback_toggle_pause', 'playback_error']
-
-        for e in self.__events:
-            event.add_callback(getattr(self, 'on_%s' % e), e)
-
-        if player.PLAYER.current is not None:
-            self.on_playback_track_start('playback_track_start',
-                player.PLAYER, player.PLAYER.current)
-
-            if player.PLAYER.is_paused():
-                self.on_playback_toggle_pause('playback_toggle_pause',
-                    player.PLAYER, player.PLAYER.current)
-
-    def destroy(self):
-        """
-            Cleanups
-        """
-
-        for e in self.__events:
-            event.remove_callback(getattr(self, 'on_%s' % e), e)
-
-    def on_playback_track_start(self, event, player, track):
-        """ Override """
-        pass
-
-    def on_playback_player_end(self, event, player, track):
-        """ Override """
-        pass
-
-    def on_playback_toggle_pause(self, event, player, track):
-        """ Override """
-        pass
-
-    def on_playback_error(self, event, player):
-        """ Override """
-        pass
-
-class QueueAdapter(object):
-    """
-        Basic control which listens for queue changes
-    """
-    def __init__(self):
-        event.add_callback(self.on_queue_current_playlist_changed,
-            'queue_current_playlist_changed')
-        event.add_callback(self.__on_playlist_current_position_changed,
-            'playlist_current_position_changed')
-        event.add_callback(self.__on_playlist_tracks_added,
-            'playlist_tracks_added')
-        event.add_callback(self.__on_playlist_tracks_removed,
-            'playlist_tracks_removed')
-
-    def destroy(self):
-        """
-            Cleanups
-        """
-        event.remove_callback(self.on_queue_current_playlist_changed,
-            'queue_current_playlist_changed')
-        event.remove_callback(self.__on_playlist_current_position_changed,
-            'playlist_current_position_changed')
-        event.remove_callback(self.__on_playlist_tracks_added,
-            'playlist_tracks_added')
-        event.remove_callback(self.__on_playlist_tracks_removed,
-            'playlist_tracks_removed')
-
-    def __on_playlist_current_position_changed(self, event, playlist, positions):
-        """
-            Forwards the event if emitted by the queue
-        """
-        if playlist is player.QUEUE.current_playlist:
-            self.on_queue_current_position_changed(event, playlist, positions)
-
-    def __on_playlist_tracks_added(self, event, playlist, tracks):
-        """
-            Forwards the event if emitted by the queue
-        """
-        if playlist is player.QUEUE.current_playlist:
-            self.on_queue_tracks_added(event, playlist, tracks)
-
-    def __on_playlist_tracks_removed(self, event, playlist, tracks):
-        """
-            Forwards the event if emitted by the queue
-        """
-        if playlist is player.QUEUE.current_playlist:
-            self.on_queue_tracks_removed(event, playlist, tracks)
-
-    def on_queue_current_playlist_changed(self, event, queue, playlist):
-        """ Override """
-        pass
-
-    def on_queue_current_position_changed(self, event, playlist, positions):
-        """ Override """
-        pass
-
-    def on_queue_tracks_added(self, event, queue, tracks):
-        """ Override """
-        pass
-
-    def on_queue_tracks_removed(self, event, queue, tracks):
-        """ Override """
-        pass
 
 # Control definitions
 class BaseControl(object):

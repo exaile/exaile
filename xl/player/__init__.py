@@ -29,6 +29,7 @@
 """
 
 __all__ = [
+        'adapters',
         'pipe',
         'queue',
         'engine_normal',

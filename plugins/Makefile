@@ -1,12 +1,10 @@
 PREFIX ?= /usr/local
 PLUGINSDIR = /share/exaile/plugins/
 
-INSTALL_PLUGINS = `python list.py`
+INSTALL_PLUGINS = `python list.py main`
+EXTRA_PLUGINS = `python list.py extra`
 
-# EXTRA_PLUGINS = ipconsole \
-#                helloworld
-
-DIST_PLUGINS = $(INSTALL_PLUGINS) #$(EXTRA_PLUGINS)
+DIST_PLUGINS = `python list.py all`
 
 all: compile
 

@@ -182,7 +182,7 @@ class TrackDB(object):
 
         except common.VersionError:
             raise
-        except:
+        except Exception:
             logger.error("Failed to open music DB.")
             common.log_exception(log=logger)
             return
@@ -200,7 +200,7 @@ class TrackDB(object):
                     setattr(self, attr, data)
                 else:
                     setattr(self, attr, pdata[attr])
-            except:
+            except Exception:
                 pass #FIXME
 
         pdata.close()
@@ -243,8 +243,8 @@ class TrackDB(object):
             if pdata.get('_dbversion', self._dbversion) > self._dbversion:
                 raise common.VersionError, \
                     "DB was created on a newer Exaile."
-        except:
-            logger.error("Failed to open music DB for write.")
+        except Exception:
+            logger.error("Failed to open music DB for writing.")
             return
 
         for attr in self.pickle_attrs:

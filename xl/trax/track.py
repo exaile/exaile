@@ -309,8 +309,8 @@ class Track(object):
                 return False # not a supported type
             f.write_tags(self.__tags)
             return f
-        except:
-            common.log_exception()
+        except Exception:
+            common.log_exception(logger)
             return False
 
     def read_tags(self):
@@ -351,7 +351,7 @@ class Track(object):
             self._dirty = True
             self._scan_valid = True
             return f
-        except:
+        except Exception:
             self._scan_valid = False
             common.log_exception()
             return False
@@ -568,12 +568,13 @@ class Track(object):
             value = self.__tags.get('__length', 0)
         elif tag == '__bitrate':
             try:
-                value = int(self.__tags['__bitrate']) / 1000
+                value = int(self.__tags['__bitrate']) // 1000
                 if value == -1:
                     value = " "
                 else:
-                    value = str(value) + "k"
-            except:
+                    #TRANSLATORS: Bitrate (k here is short for kbps).
+                    value = _("%dk") % value
+            except (KeyError, ValueError):
                 value = " "
         elif tag == '__basename':
             value = self.get_basename()
@@ -629,10 +630,11 @@ class Track(object):
             value = self.__tags.get(tag, 0)
         elif tag == '__bitrate':
             try:
-                value = int(self.__tags['__bitrate']) / 1000
+                value = int(self.__tags['__bitrate']) // 1000
                 if value != -1:
-                    value = str(value) + "k"
-            except:
+                    #TRANSLATORS: Bitrate (k here is short for kbps).
+                    value = _("%dk") % value
+            except (KeyError, ValueError):
                 value = -1
         elif tag == '__basename':
             value = self.get_basename()
@@ -677,7 +679,7 @@ class Track(object):
         if not f:
             try:
                 f = metadata.get_format(self.get_loc_for_io())
-            except:
+            except Exception: # TODO: What exception?
                 return None
             if not f:
                 return None
@@ -696,7 +698,7 @@ class Track(object):
         if not f:
             try:
                 f = metadata.get_format(self.get_loc_for_io())
-            except:
+            except Exception: # TODO: What exception?
                 return None
             if not f:
                 return None

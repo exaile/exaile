@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Bookmark plugin for Exaile media player
 # Copyright (C) 2009-2010 Brian Parma
 #

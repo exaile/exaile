@@ -8,6 +8,8 @@ DESTDIR=${1:-}
 PREFIX=${2:-/usr/local}
 LIBDIR=${3:-/lib}
 
+PYTHON_EXEC?=python2
+
 if (which realpath > /dev/null); then
   PREFIX=`realpath $PREFIX`
 elif (which readlink > /dev/null); then
@@ -30,7 +32,7 @@ if test -z "\$XDG_DATA_DIRS"; then
 fi
 XDG_DATA_DIRS="\$EXAILE_PREFIX/share/:\$XDG_DATA_DIRS"
 export XDG_DATA_DIRS
-exec python2 \$EXAILE_PREFIX$LIBDIR/exaile/exaile.py --datadir=\$EXAILE_PREFIX/share/exaile/data --startgui "\$@"
+exec $PYTHON_EXEC \$EXAILE_PREFIX$LIBDIR/exaile/exaile.py --datadir=\$EXAILE_PREFIX/share/exaile/data --startgui "\$@"
 exit \$?
 
 EOF

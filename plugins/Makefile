@@ -1,20 +1,21 @@
-PREFIX ?= /usr/local
-PLUGINSDIR = /share/exaile/plugins/
+PYTHON_EXEC	?= python2
+PREFIX		?= /usr/local
+PLUGINSDIR	= /share/exaile/plugins/
 
-INSTALL_PLUGINS = `python list.py main`
-EXTRA_PLUGINS = `python list.py extra`
+INSTALL_PLUGINS = `$(PYTHON_EXEC) list.py main`
+EXTRA_PLUGINS = `$(PYTHON_EXEC) list.py extra`
 
-DIST_PLUGINS = `python list.py all`
+DIST_PLUGINS = `$(PYTHON_EXEC) list.py all`
 
 all: compile
 
 dist:
 	mkdir -p ../dist/plugins/
-	python dist_plugin.py --output ../dist/plugins/ $(DIST_PLUGINS)
+	$(PYTHON_EXEC) dist_plugin.py --output ../dist/plugins/ $(DIST_PLUGINS)
 
 compile:
-	python -m compileall -q .
-	-python -O -m compileall -q .
+	$(PYTHON_EXEC) -m compileall -q .
+	-$(PYTHON_EXEC) -O -m compileall -q .
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)$(PLUGINSDIR)

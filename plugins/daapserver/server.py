@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #Copyright (C) 2008 Erik Hetzner
 
 #This file is part of Spydaap. Spydaap is free software: you can

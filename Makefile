@@ -1,3 +1,5 @@
+PYTHON_EXEC	?= /usr/bin/python2
+
 PREFIX 		?= /usr/local
 LIBINSTALLDIR 	?= /lib
 XDGCONFDIR 	?= /etc/xdg
@@ -18,8 +20,8 @@ all_no_locale: compile
 	@echo "Ready to install..."
 
 compile:
-	python -m compileall -q xl xlgui
-	-python -O -m compileall -q xl xlgui
+	$(PYTHON_EXEC) -m compileall -q xl xlgui
+	-$(PYTHON_EXEC) -O -m compileall -q xl xlgui
 	$(MAKE) -C plugins compile
 
 make-install-dirs:

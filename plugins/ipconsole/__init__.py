@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This plugin is adapted from the Python Console plugin and the IPython
 # cookbook at:
 #   http://ipython.scipy.org/moin/Cookbook/EmbeddingInGTK

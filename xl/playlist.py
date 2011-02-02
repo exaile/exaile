@@ -1157,9 +1157,6 @@ class Playlist(object):
         if ver[0] == 1:
             if items.get("repeat_mode") == "playlist":
                 items['repeat_mode'] = "all"
-            for m in ['random', 'repeat', 'dynamic']:
-                if not items.get("%s_enabled"%m):
-                    items['%s_mode'%m] = 'disabled'
         elif ver[0] > self.__playlist_format_version[0]:
             raise IOError, "Cannot load playlist, unknown format"
         elif ver > self.__playlist_format_version:

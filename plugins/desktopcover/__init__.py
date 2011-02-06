@@ -158,7 +158,7 @@ class DesktopCover(gtk.Window):
             # Prescale to allow for proper crossfading
             width, height = next_pixbuf.get_width(), next_pixbuf.get_height()
             pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
-            self.image.set_from_pixbuf(pixbuf)
+            glib.idle_add(self.image.set_from_pixbuf, pixbuf)
 
             duration = settings.get_option(
                 'plugin/desktopcover/fading_duration', 50)
@@ -166,7 +166,7 @@ class DesktopCover(gtk.Window):
             self._cross_fade_id = glib.timeout_add(int(duration),
                 self.cross_fade, pixbuf, next_pixbuf, duration)
         else:
-            self.image.set_from_pixbuf(next_pixbuf)
+            glib.idle_add(self.image.set_from_pixbuf, next_pixbuf)
 
     def update_position(self):
         """
@@ -188,8 +188,8 @@ class DesktopCover(gtk.Window):
                 gtk.gdk.GRAVITY_SOUTH_WEST):
             y = workarea_height - allocation.height - y
 
-        self.set_gravity(gravity)
-        self.move(int(x), int(y))
+        glib.idle_add(self.set_gravity, gravity)
+        glib.idle_add(self.move, int(x), int(y))
 
     def show(self):
         """
@@ -318,7 +318,7 @@ class DesktopCover(gtk.Window):
         """
             Updates the cover image and shows the window
         """
-        glib.idle_add(self.set_cover_from_track, track)
+        self.set_cover_from_track(track)
         self.update_position()
 
     def on_playback_player_end(self, type, player, track):
@@ -331,7 +331,7 @@ class DesktopCover(gtk.Window):
         """
            Updates the cover image after cover selection
         """
-        glib.idle_add(self.set_cover_from_track, track)
+        self.set_cover_from_track(track)
         self.update_position()
 
     def on_cover_removed(self, type, covers, track):
@@ -350,6 +350,6 @@ class DesktopCover(gtk.Window):
             self.update_position()
         elif option in ('plugin/desktopcover/override_size',
                 'plugin/desktopcover/size'):
-            glib.idle_add(self.set_cover_from_track, player.PLAYER.current)
+            self.set_cover_from_track(player.PLAYER.current)
 
 # vi: et sts=4 sw=4 tw=80

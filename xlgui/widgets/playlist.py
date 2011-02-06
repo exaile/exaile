@@ -980,7 +980,7 @@ class PlaylistModel(gtk.GenericTreeModel):
                 iter = self.get_iter(path)
             except ValueError:
                 continue
-            self.row_changed(path, iter)
+            glib.idle_add(self.row_changed, path, iter)
 
     def on_spat_position_changed(self, event_type, playlist, positions):
         spat_position = max(positions)
@@ -991,7 +991,7 @@ class PlaylistModel(gtk.GenericTreeModel):
                 iter = self.get_iter(path)
             except ValueError:
                 continue
-            self.row_changed(path, iter)
+            glib.idle_add(self.row_changed, path, iter)
 
     def on_playback_state_change(self, event_type, player_obj, track):
         pos = self.playlist.current_position

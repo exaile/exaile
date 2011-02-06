@@ -235,10 +235,14 @@ class EqualizerPlugin:
         """
         Adjust the specified band
         """
+        # Buildable.get_name clashes with Widget.get_name. See
+        # https://bugzilla.gnome.org/show_bug.cgi?id=591085#c19
+        widget_name = gtk.Buildable.get_name(widget)
+        band = widget_name[-1]
         if widget.get_value() != settings.get_option(
-                "plugin/equalizer/band%s" % widget.get_name()[-1]):
-            settings.set_option("plugin/equalizer/band%s" %
-                    widget.get_name()[-1], widget.get_value())
+                "plugin/equalizer/band" + band):
+            settings.set_option("plugin/equalizer/band" + band,
+                    widget.get_value())
             self.ui.get_object("combo-presets").set_active(0)
 
     def adjust_preamp(self, widget, data):

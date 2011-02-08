@@ -87,6 +87,16 @@ def to_unicode(x, default_encoding=None):
     else:
         return unicode(x)
 
+def clamp(value, minimum, maximum):
+    """
+        Clamps a value to the given boundaries
+
+        :param value: the value to clamp
+        :param minimum: the minimum value to return
+        :param maximum: the maximum value to return
+    """
+    return max(minimum, min(value, maximum))
+
 def threaded(f):
     """
         A decorator that will make any function run in a new thread

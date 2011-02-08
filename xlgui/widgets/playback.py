@@ -37,6 +37,7 @@ from xl import (
     settings,
     xdg
 )
+from xl.common import clamp
 from xl.nls import gettext as _
 from xlgui.widgets import menu
 
@@ -1238,7 +1239,7 @@ class VolumeControl(gtk.Alignment):
         tooltip = _('Muted')
 
         if volume > 0:
-            i = max(0, min(int(round(volume * 2), len(self.icon_names) - 1)))
+            i = clamp(int(round(volume * 2)), 0, len(self.icon_names) - 1)
             icon_name = 'audio-volume-%s' % self.icon_names[i]
             #TRANSLATORS: Volume percentage
             tooltip = _('%d%%') % (volume * 100)

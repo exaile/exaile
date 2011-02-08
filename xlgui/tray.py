@@ -96,7 +96,7 @@ class BaseTrayIcon(object):
     """
     def __init__(self, main):
         self.main = main
-        self.VOLUME_STEP = 5
+        self.VOLUME_STEP = 0.05
 
         self.tooltip = TrackToolTip(self)
         self.tooltip.set_auto_update(True)
@@ -204,12 +204,12 @@ class BaseTrayIcon(object):
                 player.QUEUE.next()
         else:
             if event.direction == gtk.gdk.SCROLL_UP:
-                volume = player.PLAYER.get_volume()
-                player.PLAYER.set_volume(volume + self.VOLUME_STEP)
+                volume = settings.get_option('player/volume', 1)
+                settings.set_option('player/volume', volume + self.VOLUME_STEP)
                 return True
             elif event.direction == gtk.gdk.SCROLL_DOWN:
-                volume = player.PLAYER.get_volume()
-                player.PLAYER.set_volume(volume - self.VOLUME_STEP)
+                volume = settings.get_option('player/volume', 1)
+                settings.set_option('player/volume', volume - self.VOLUME_STEP)
                 return True
             elif event.direction == gtk.gdk.SCROLL_LEFT:
                 player.QUEUE.prev()

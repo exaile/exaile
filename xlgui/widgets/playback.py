@@ -1238,7 +1238,7 @@ class VolumeControl(gtk.Alignment):
         tooltip = _('Muted')
 
         if volume > 0:
-            i = max(0, min(int(round(volume * 2), len(self.icon_names) - 1))
+            i = max(0, min(int(round(volume * 2), len(self.icon_names) - 1)))
             icon_name = 'audio-volume-%s' % self.icon_names[i]
             #TRANSLATORS: Volume percentage
             tooltip = _('%d%%') % (volume * 100)

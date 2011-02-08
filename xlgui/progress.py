@@ -29,7 +29,7 @@ import gobject
 import gtk
 import time
 
-from xl import common
+from xl.common import clamp
 from xl.nls import gettext as _
 
 class ProgressMonitor(gtk.VBox):
@@ -116,9 +116,7 @@ class ProgressMonitor(gtk.VBox):
         if percent > 0:
             self._progress_updated = True
 
-        fraction = float(percent) / 100
-        fraction = max(0, fraction)
-        fraction = min(fraction, 1.0)
+        fraction = clamp(float(percent) / 100, 0, 1)
 
         self.progressbar.set_fraction(fraction)
         self.progressbar.set_text('%d%%' % percent)

@@ -29,6 +29,7 @@ import gobject
 import gtk
 
 from xl import event, player, settings
+from xl.common import clamp
 from xl.nls import gettext as _
 import xl.main
 from xlgui import icons
@@ -111,7 +112,7 @@ class RatingWidget(gtk.EventBox):
             if value == self._rating:
                 value = 0
             else:
-                value = min(value, settings.get_option('rating/maximum', 5))
+                value = clamp(value, 0, settings.get_option('rating/maximum', 5))
 
             self._rating = value
             self._image.set_from_pixbuf(

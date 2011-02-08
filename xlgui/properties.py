@@ -35,6 +35,7 @@ import gtk
 import pango
 
 from xl import xdg, metadata, common
+from xl.common import clamp
 from xl.nls import gettext as _
 
 IGNORE = (None, None)
@@ -929,9 +930,11 @@ class SavingProgressWindow(gtk.Window):
     def step(self):
         self.count += 1
         self._progress.set_fraction(
-                max(0, min(1, self.count/float(self.total))))
-        self._label.set_markup(self.text % {'count': self.count,
-                'total': self.total})
+                clamp(self.count / float(self.total), 0, 1))
+        self._label.set_markup(self.text % {
+            'count': self.count,
+            'total': self.total
+        })
         while gtk.events_pending():
             gtk.main_iteration()
 

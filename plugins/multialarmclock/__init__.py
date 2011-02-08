@@ -341,21 +341,21 @@ def fade_in(main, exaile):
     logger.debug('fade_in() called.')
 
     # pull settings
-    temp_volume = settings.get_option('plugin/multialarmclock/fade_min_volume')
-    fade_max_volume = settings.get_option('plugin/multialarmclock/fade_max_volume')
-    fade_inc = settings.get_option('plugin/multialarmclock/fade_increment')
+    temp_volume = settings.get_option('plugin/multialarmclock/fade_min_volume')/100.
+    fade_max_volume = settings.get_option('plugin/multialarmclock/fade_max_volume')/100.
+    fade_inc = settings.get_option('plugin/multialarmclock/fade_increment')/100.
     time_per_inc = settings.get_option('plugin/multialarmclock/fade_time') / ((fade_max_volume-temp_volume)/fade_inc)
     
     while temp_volume < fade_max_volume:
         logger.debug('set volume to {0}'.format(temp_volume))
 
-        player.PLAYER.set_volume( ( temp_volume ) )
+        settings.set_option('player/volume', temp_volume)
         temp_volume += fade_inc
         time.sleep( time_per_inc )
         if player.PLAYER.is_paused() or not player.PLAYER.is_playing():
             return
 
-    player.PLAYER.set_volume( ( fade_max_volume ) )
+    settings.set_option('player/volume', fade_max_volume)
 
 def check_alarms(main, exaile):
     """

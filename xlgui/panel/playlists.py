@@ -229,7 +229,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
             Initializes the mixin
         """
         gobject.GObject.__init__(self)
-        self.playlist_nodes = {}
+        self.playlist_nodes = {} # {playlist: iter} cache for custom playlists
         self.track_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/track.png'))
 
@@ -246,7 +246,9 @@ class BasePlaylistPanelMixin(gobject.GObject):
             else:
                 self.playlist_manager.remove_playlist(
                     selected_playlist.name)
-            #remove from UI
+                # Remove from {playlist: iter} cache.
+                del self.playlist_nodes[selected_playlist]
+            # Remove from UI.
             selection = self.tree.get_selection()
             (model, iter) = selection.get_selected()
             self.model.remove(iter)
@@ -632,8 +634,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         for playlist in playlists:
             if playlist.name == pl.name:
                 node = self.playlist_nodes[playlist]
+                # Replace the playlist object in {playlist: iter} cache.
                 del self.playlist_nodes[playlist]
                 self.playlist_nodes[pl] = node
+                # Replace the playlist object in tree model.
+                self.model[node][2] = pl
+                # Refresh the playlist subnodes.
                 self._load_playlist_nodes(pl)
 
     def add_smart_playlist(self):

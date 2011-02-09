@@ -1,4 +1,4 @@
-PYTHON_EXEC	?= /usr/bin/python2
+PYTHON2_CMD	?= /usr/bin/python2
 
 PREFIX 		?= /usr/local
 LIBINSTALLDIR 	?= /lib
@@ -20,8 +20,8 @@ all_no_locale: compile
 	@echo "Ready to install..."
 
 compile:
-	$(PYTHON_EXEC) -m compileall -q xl xlgui
-	-$(PYTHON_EXEC) -O -m compileall -q xl xlgui
+	$(PYTHON2_CMD) -m compileall -q xl xlgui
+	-$(PYTHON2_CMD) -O -m compileall -q xl xlgui
 	$(MAKE) -C plugins compile
 
 make-install-dirs:

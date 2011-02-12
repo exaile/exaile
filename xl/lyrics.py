@@ -27,12 +27,71 @@
 
 #Lyrics manager.
 #
-from xl import providers, event
+from xl import providers, event, xdg
 from xl import settings
 from xl.nls import gettext as _
+from datetime import datetime, timedelta
+import threading
+import shelve
+import os
 
 class LyricsNotFoundException(Exception):
     pass
+
+class LyricsCache:
+    '''
+        Basically just a thread-safe shelf for convinience.  
+        Supports container syntax.
+    '''
+    def __init__(self, location, default=None):
+        '''
+            @param location: specify the shelve file location
+            
+            @param default: can specify a default to return from getter when
+                there is nothing in the shelve
+        '''
+        self.location = location
+        self.db = shelve.open(location, flag='c', protocol=2, writeback=False)
+        self.lock = threading.Lock()
+        self.default = default
+
+    def keys(self):
+        '''
+            Return the shelve keys
+        '''
+        return self.db.keys()
+        
+    def _get(self, key, default=None):
+        with self.lock:
+            try:
+                return self.db[key]
+            except:
+                return default if default is not None else self.default
+                
+    def _set(self, key, value):
+        with self.lock:
+            self.db[key] = value
+            # force save, wasn't auto-saving...
+            self.db.sync()
+                
+    def __getitem__(self, key):
+        return self._get(key)
+        
+    def __setitem__(self, key, value):
+        self._set(key, value)
+        
+    def __contains__(self, key):
+        return key in self.db
+
+    def __delitem__(self, key):
+        with self.lock:
+            del self.db[key]
+
+    def __iter__(self):
+        return self.db.__iter__()
+        
+    def __len__(self):
+        return len(self.db)
 
 class LyricsManager(providers.ProviderHandler):
     """
@@ -47,6 +106,7 @@ class LyricsManager(providers.ProviderHandler):
         self.preferred_order = settings.get_option(
                 'lyrics/preferred_order', [])
         self.add_defaults()
+        self.cache = LyricsCache(os.path.join(xdg.get_cache_dir(),'lyrics.cache'))
 
     def get_method_names(self):
         """
@@ -145,7 +205,7 @@ class LyricsManager(providers.ProviderHandler):
         """
         self.add_search_method(LocalLyricSearch())
 
-    def find_lyrics(self, track):
+    def find_lyrics(self, track, refresh=False):
         """
             Fetches lyrics for a track either from
                 1. a backend lyric plugin
@@ -153,6 +213,9 @@ class LyricsManager(providers.ProviderHandler):
 
             :param track: the track we want lyrics for, it
                 must have artist/title tags
+                
+            :param refresh: if True, try to refresh cached data even if
+                not expired
 
             :return: tuple of the following format (lyrics, source, url)
                 where lyrics are the lyrics to the track
@@ -166,9 +229,10 @@ class LyricsManager(providers.ProviderHandler):
         lyrics = None
         source = None
         url = None
+
         for method in self.get_methods():
             try:
-                (lyrics, source, url) = method.find_lyrics(track)
+                (lyrics, source, url) = self._find_cached_lyrics(method, track, refresh)
             except LyricsNotFoundException:
                 pass
             if lyrics:
@@ -182,13 +246,16 @@ class LyricsManager(providers.ProviderHandler):
 
         return (lyrics, source, url)
 
-    def find_all_lyrics(self, track):
+    def find_all_lyrics(self, track, refresh=False):
         """
             Like find_lyrics but fetches all sources and returns
             a list of lyrics.
 
             :param track: the track we want lyrics for, it
                 must have artist/title tags
+
+            :param refresh: if True, try to refresh cached data even if
+                not expired
 
             :return: list of tuples in the same format as
                 find_lyrics's return value
@@ -203,7 +270,7 @@ class LyricsManager(providers.ProviderHandler):
             source = None
             url = None
             try:
-                (lyrics, source, url) = method.find_lyrics(track)
+                (lyrics, source, url) = self._find_cached_lyrics(method, track, refresh)
             except LyricsNotFoundException:
                 pass
             if lyrics:
@@ -215,6 +282,55 @@ class LyricsManager(providers.ProviderHandler):
             raise LyricsNotFoundException()
 
         return lyrics_found
+        
+    def _find_cached_lyrics(self, method, track, refresh=False):
+        """
+            Checks the cache for lyrics.  If found and not expired, returns
+            cached results, otherwise tries to fetch from method.
+            
+            :param method: the LyricSearchMethod to fetch lyrics from.
+            
+            :param track: the track we want lyrics for, it 
+                must have artist/title tags
+                
+            :param refresh: if True, try to refresh cached data even if
+                not expired
+                
+            :return: list of tuples in the same format as 
+                find_lyric's return value
+                
+            :raise LyricsNotFoundException: when lyrics are not found 
+                in cache or fetched from method
+        """
+        lyrics = None
+        source = None
+        url = None
+        cache_time = settings.get_option('lyrics/cache_time', 720) # in hours
+        key = str(track.get_loc_for_io()+method.display_name)
+
+        try:
+            # check cache for lyrics
+            if key in self.cache:
+                (lyrics, source, url, time) = self.cache[key]
+                # return if they are not expired
+                now = datetime.now()
+                if (now-time < timedelta(hours=cache_time) and not refresh):
+                    return (lyrics, source, url)
+
+            (lyrics, source, url) = method.find_lyrics(track)
+        except LyricsNotFoundException:
+            pass
+        else:
+            if lyrics:
+                # update cache
+                time = datetime.now()
+                self.cache[key] = (lyrics, source, url, time)
+                
+        if not lyrics:
+            # no lyrcs were found, raise an exception
+            raise LyricsNotFoundException()
+
+        return (lyrics, source, url)        
 
 class LyricSearchMethod(object):
     """

@@ -196,7 +196,7 @@ class LyricsViewer(object):
         webbrowser.open_new_tab(url)
 
     def on_refresh_button_clicked(self, button):
-        self.update_lyrics()
+        self.update_lyrics(refresh=True)
 
     def on_combo_active_changed(self, combobox):
         """
@@ -206,19 +206,19 @@ class LyricsViewer(object):
         if self.lyrics_found:
             self.update_lyrics_text()
 
-    def update_lyrics(self):
+    def update_lyrics(self, refresh=False):
         self.track_text_buffer.set_text("")
         self.lyrics_text_buffer.set_text("")
         self.lyrics_source_text_buffer.set_text("")
         self.lyrics_found=[]
         if player.PLAYER.current:
             self.set_top_box_widgets(False)
-            self.get_lyrics(player.PLAYER, player.PLAYER.current)
+            self.get_lyrics(player.PLAYER, player.PLAYER.current, refresh)
         else:
             glib.idle_add(self.lyrics_text_buffer.set_text, _('Not playing.'))
 
     @common.threaded
-    def get_lyrics(self, player, track):
+    def get_lyrics(self, player, track, refresh=False):
         lyrics_found=[]
         try:
             try:
@@ -227,7 +227,7 @@ class LyricsViewer(object):
             except Exception:
                 raise LyricsNotFoundException
             self.track_text_buffer.set_text(text_track)
-            lyrics_found = self.exaile.lyrics.find_all_lyrics(track)
+            lyrics_found = self.exaile.lyrics.find_all_lyrics(track, refresh)
         except LyricsNotFoundException:
             lyrics_found=[]
             return

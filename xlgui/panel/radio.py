@@ -62,6 +62,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
+    __gsignals__.update(playlistpanel.BasePlaylistPanelMixin._gsignals_)
+    
     ui_info = ('radio_panel.ui', 'RadioPanelWindow')
     _radiopanel = None
 

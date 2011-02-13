@@ -217,7 +217,12 @@ class BasePlaylistPanelMixin(gobject.GObject):
 
         Used by the radio and playlists panels to display playlists
     """
-    __gsignals__ = {
+    # HACK: Notice that this is not __gsignals__; descendants need to manually
+    # merge this in. This is because new PyGObject doesn't like __gsignals__
+    # coming from mixin. See:
+    # * https://bugs.launchpad.net/bugs/714484
+    # * http://www.daa.com.au/pipermail/pygtk/2011-February/019394.html
+    _gsignals_ = {
         'playlist-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'tracks-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
@@ -463,6 +468,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
         The playlists panel
     """
+    __gsignals__ = BasePlaylistPanelMixin._gsignals_
+
     ui_info = ('playlists_panel.ui', 'PlaylistsPanelWindow')
 
     def __init__(self, parent, playlist_manager,

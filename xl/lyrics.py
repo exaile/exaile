@@ -33,6 +33,7 @@ from xl.nls import gettext as _
 from datetime import datetime, timedelta
 import threading
 import shelve
+import zlib
 import os
 
 class LyricsNotFoundException(Exception):
@@ -316,6 +317,10 @@ class LyricsManager(providers.ProviderHandler):
                 # return if they are not expired
                 now = datetime.now()
                 if (now-time < timedelta(hours=cache_time) and not refresh):
+                    try:
+                        lyrics = zlib.decompress(lyrics)
+                    except:
+                        pass
                     return (lyrics, source, url)
 
             (lyrics, source, url) = method.find_lyrics(track)
@@ -325,7 +330,7 @@ class LyricsManager(providers.ProviderHandler):
             if lyrics:
                 # update cache
                 time = datetime.now()
-                self.cache[key] = (lyrics, source, url, time)
+                self.cache[key] = (zlib.compress(lyrics), source, url, time)
                 
         if not lyrics:
             # no lyrcs were found, raise an exception

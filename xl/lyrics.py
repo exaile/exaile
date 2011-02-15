@@ -306,7 +306,8 @@ class LyricsManager(providers.ProviderHandler):
         source = None
         url = None
         cache_time = settings.get_option('lyrics/cache_time', 720) # in hours
-        key = str(track.get_loc_for_io()+method.display_name)
+        key = str(track.get_loc_for_io() + method.display_name +
+            track.get_tag_display('artist') + track.get_tag_display('title'))
 
         try:
             # check cache for lyrics

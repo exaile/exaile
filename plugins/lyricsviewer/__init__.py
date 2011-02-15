@@ -77,8 +77,11 @@ class LyricsViewer(object):
         self.lyrics_found=[]
         
         self._initialize_widgets()
+        self._delay = 250
+        self._id = 0
 
         event.add_callback(self.playback_cb, 'playback_track_start')
+        event.add_callback(self.playback_cb, 'track_tags_changed')
         event.add_callback(self.end_cb, 'playback_player_end')
         event.add_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
@@ -139,6 +142,7 @@ class LyricsViewer(object):
     
     def remove_callbacks(self):
         event.remove_callback(self.playback_cb, 'playback_track_start')
+        event.remove_callback(self.playback_cb, 'track_tags_changed')
         event.remove_callback(self.end_cb, 'playback_player_end')
         event.remove_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
@@ -207,15 +211,22 @@ class LyricsViewer(object):
             self.update_lyrics_text()
 
     def update_lyrics(self, refresh=False):
-        self.track_text_buffer.set_text("")
-        self.lyrics_text_buffer.set_text("")
-        self.lyrics_source_text_buffer.set_text("")
-        self.lyrics_found=[]
-        if player.PLAYER.current:
-            self.set_top_box_widgets(False)
-            self.get_lyrics(player.PLAYER, player.PLAYER.current, refresh)
-        else:
-            glib.idle_add(self.lyrics_text_buffer.set_text, _('Not playing.'))
+        def do_update(refresh):    
+#                self.track_text_buffer.set_text("")
+#                self.lyrics_text_buffer.set_text("")
+#                self.lyrics_source_text_buffer.set_text("")
+            self.lyrics_found=[]
+            if player.PLAYER.current:
+                self.set_top_box_widgets(False)
+                self.get_lyrics(player.PLAYER, player.PLAYER.current, refresh)
+            else:
+                glib.idle_add(self.lyrics_text_buffer.set_text, _('Not playing.'))
+
+            return False # don't repeat
+
+        if self._id != 0:
+            glib.source_remove(self._id)
+        self._id = glib.timeout_add(self._delay, do_update, refresh)
 
     @common.threaded
     def get_lyrics(self, player, track, refresh=False):

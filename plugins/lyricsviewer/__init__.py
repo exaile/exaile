@@ -212,9 +212,9 @@ class LyricsViewer(object):
 
     def update_lyrics(self, refresh=False):
         def do_update(refresh):    
-#                self.track_text_buffer.set_text("")
-#                self.lyrics_text_buffer.set_text("")
-#                self.lyrics_source_text_buffer.set_text("")
+            self.track_text_buffer.set_text("")
+            self.lyrics_text_buffer.set_text("")
+            self.lyrics_source_text_buffer.set_text("")
             self.lyrics_found=[]
             if player.PLAYER.current:
                 self.set_top_box_widgets(False)

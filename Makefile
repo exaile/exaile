@@ -115,7 +115,8 @@ install-target: make-install-dirs
 		$(DESTDIR)$(PREFIX)/share/applications/	
 	-install -m 644 exaile.1.gz $(DESTDIR)$(PREFIX)/share/man/man1/
 	install -m 644 data/config/settings.ini $(EXAILECONFDIR)
-	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(LIBINSTALLDIR)" && \
+	tools/generate-launcher "$(DESTDIR)" "$(PREFIX)" "$(LIBINSTALLDIR)" \
+		"$(PYTHON2_CMD)" && \
 	  chmod 755 $(DESTDIR)$(PREFIX)/bin/exaile
 	sed "s|\@bindir\@|$(EXAILEBINDIR)|" data/org.exaile.Exaile.service.in > \
 		$(DESTDIR)$(PREFIX)/share/dbus-1/services/org.exaile.Exaile.service

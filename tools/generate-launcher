@@ -7,8 +7,7 @@ printf "Generating launcher script\n"
 DESTDIR=${1:-}
 PREFIX=${2:-/usr/local}
 LIBDIR=${3:-/lib}
-
-PYTHON2_CMD?=python2
+PYTHON2_CMD=${4:-python2}
 
 if (which realpath > /dev/null); then
   PREFIX=`realpath $PREFIX`

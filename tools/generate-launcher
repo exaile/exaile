@@ -18,20 +18,20 @@ elif test "${PREFIX:0:1}" != "/"; then
   exit 1
 fi
 
-cd $DESTDIR$PREFIX/bin && \
+cd ${DESTDIR}${PREFIX}/bin && \
 cat <<EOF > exaile
 #!/bin/sh
 
 # Exaile launcher script (automatically generated)
 
-EXAILE_PREFIX=$PREFIX
+EXAILE_PREFIX=${PREFIX}
 
-if test -z "\$XDG_DATA_DIRS"; then
+if test -z "\${XDG_DATA_DIRS}"; then
 	XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
 fi
-XDG_DATA_DIRS="\$EXAILE_PREFIX/share/:\$XDG_DATA_DIRS"
+XDG_DATA_DIRS="\${EXAILE_PREFIX}/share/:\${XDG_DATA_DIRS}"
 export XDG_DATA_DIRS
-exec $PYTHON2_CMD \$EXAILE_PREFIX$LIBDIR/exaile/exaile.py --datadir=\$EXAILE_PREFIX/share/exaile/data --startgui "\$@"
+exec ${PYTHON2_CMD} \${EXAILE_PREFIX}${LIBDIR}/exaile/exaile.py --datadir=\${EXAILE_PREFIX}/share/exaile/data --startgui "\$@"
 exit \$?
 
 EOF

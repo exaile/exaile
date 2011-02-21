@@ -8,11 +8,11 @@
 #######################################
 
 # get the app dir if not already defined
-if [ -z "$PROGRAM_DIR" ]; then
+if [ -z "${PROGRAM_DIR}" ]; then
     PROGRAM_DIR=`dirname "$0"`
 fi
 
-if [ -z "$PYTHON2" ]; then
+if [ -z "${PYTHON2}" ]; then
     if [ "`which python2 2> /dev/null`" ]; then
         PYTHON2=python2
     else
@@ -20,4 +20,4 @@ if [ -z "$PYTHON2" ]; then
     fi
 fi
 
-exec $PYTHON2 -O ${PROGRAM_DIR}/exaile.py --startgui "$@"
+exec ${PYTHON2} -O ${PROGRAM_DIR}/exaile.py --startgui "$@"

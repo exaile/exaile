@@ -24,7 +24,7 @@ help:
 	@echo "  latex     to make LaTeX files, you can set PAPER=a4 or PAPER=letter"
 	@echo "  changes   to make an overview of all changed/added/deprecated items"
 	@echo "  linkcheck to check all external links for integrity"
-	@echo "  doctest   to run all doctests embedded in the documentation {if enabled}"
+	@echo "  doctest   to run all doctests embedded in the documentation (if enabled)"
 
 clean:
 	-rm -rf _build/*
@@ -69,7 +69,7 @@ latex:
 	@echo
 	@echo "Build finished; the LaTeX files are in _build/latex."
 	@echo "Run \`make all-pdf' or \`make all-ps' in that directory to" \
-	      "run these through {pdf}latex."
+	      "run these through (pdf)latex."
 
 changes:
 	${SPHINXBUILD} -b changes ${ALLSPHINXOPTS} _build/changes

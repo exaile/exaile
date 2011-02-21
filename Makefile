@@ -144,7 +144,7 @@ plugins_dist:
 manpage:
 	help2man -n "music manager and player" -N \
 	  -h './exaile --help | sed "s/^  //"' \
-	  -v './exaile --version | sed -n "4 s/.* v\\{.*\\}/exaile \\1/ p"' \
+	  -v './exaile --version | sed -n "4 s/.* v\\(.*\\)/exaile \\1/ p"' \
 	  ./exaile \
 	  | gzip -9 > exaile.1.gz
 

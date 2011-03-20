@@ -197,6 +197,32 @@ class CheckConditional(Conditional):
         """
         return self.condition_widget.get_active()
 
+
+class Button(Preference):
+    """
+        Represents a button for custom usage
+    """
+    def __init__(self, preferences, widget):
+        Preference.__init__(self, preferences, widget)
+
+        widget.connect('clicked', self.on_clicked)
+
+    def _setup_change(*e):
+        pass
+
+    def _get_value(self):
+        return None
+
+    def _set_value(self):
+        pass
+
+    def apply(*e):
+        return False
+
+    def on_clicked(self, button):
+        """ Override """
+        pass
+
 class HashedPreference(Preference):
     """
         Represents a text entry with automated hashing
@@ -772,7 +798,7 @@ class IntPreference(FloatPreference):
 
 class ColorButtonPreference(Preference):
     """
-        A class to represent the color button in the preferences window
+        A class to represent the color button
     """
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
@@ -781,15 +807,32 @@ class ColorButtonPreference(Preference):
         self.widget.connect('color-set', self.change)
 
     def _set_value(self):
-        self.widget.set_color(gtk.gdk.color_parse(
-            self.preferences.settings.get_option(self.name,
-            self.default)))
+        value = self.preferences.settings.get_option(
+            self.name, self.default)
+
+        # Extract alpha value in any case
+        if len(value) == 9:
+            alpha = int(value[-2:], 16) * 256
+            value = value[:-2]
+
+        if self.widget.get_use_alpha():
+            self.widget.set_alpha(alpha)
+
+        self.widget.set_color(gtk.gdk.color_parse(value))
 
     def _get_value(self):
         color = self.widget.get_color()
-        string = "#%.2x%.2x%.2x" % (color.red / 257, color.green / 257,
-            color.blue / 257)
-        return string
+        value = '#%.2x%.2x%.2x' % (
+            color.red / 256,
+            color.green / 256,
+            color.blue / 256
+        )
+
+        if self.widget.get_use_alpha():
+            alpha = self.widget.get_alpha()
+            value += '%.2x' % (alpha / 256)
+
+        return value
 
 class FontButtonPreference(ColorButtonPreference):
     """

@@ -103,7 +103,7 @@ class LoveColumn(Column):
         """
         global LASTFMLOVER
 
-        if cellrenderer.props.sensitive:
+        if cellrenderer.props.sensitive and LASTFMLOVER.network is not None:
             track = self.model.get_value(self.model.get_iter(path), 0)
             LASTFMLOVER.toggle_loved(track)
 
@@ -126,7 +126,7 @@ class LoveMenuItem(MenuItem):
             'emblem-favorite', gtk.ICON_SIZE_MENU))
         tracks = context.get('selected-tracks', [])
 
-        if len(tracks) > 0:
+        if len(tracks) > 0 and LASTFMLOVER.network is not None:
             # We only care about the first track
             track = tracks[0]
             lastfm_track = pylast.Track(

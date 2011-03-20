@@ -97,14 +97,16 @@ def clamp(value, minimum, maximum):
     """
     return max(minimum, min(value, maximum))
 
-def threaded(f):
+def threaded(func):
     """
         A decorator that will make any function run in a new thread
+
+        :param func: the function to run threaded
     """
-    @wraps(f)
+    @wraps(func)
     def wrapper(*args, **kwargs):
-        t = threading.Thread(target=f, args=args, kwargs=kwargs)
-        t.setDaemon(True)
+        t = threading.Thread(target=func, args=args, kwargs=kwargs)
+        t.daemon = True
         t.start()
 
     return wrapper

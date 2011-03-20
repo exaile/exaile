@@ -191,7 +191,7 @@ class TrackInfoPane(gtk.Alignment):
 
             :rtype: string
         """
-        return self.__formatter.get_property('format')
+        return self.__formatter.props.format
 
     def set_info_format(self, format):
         """
@@ -201,7 +201,7 @@ class TrackInfoPane(gtk.Alignment):
                 of :class:`string.Template` for details
             :type format: string
         """
-        self.__formatter.set_property('format', format)
+        self.__formatter.props.format = format
 
     def set_track(self, track):
         """

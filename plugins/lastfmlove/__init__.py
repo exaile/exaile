@@ -95,6 +95,14 @@ class LoveColumn(Column):
             LASTFMLOVER.network
         )
         cellrenderer.props.active = lastfm_track in LASTFMLOVER.loved_tracks
+        
+        if LASTFMLOVER.network is None:
+            cellrenderer.props.sensitive = False
+            cellrenderer.props.render_prelit = False
+        else:
+            cellrenderer.props.sensitive = True
+            cellrenderer.props.render_prelit = True
+
         self.model = model
 
     def on_toggled(self, cellrenderer, path):

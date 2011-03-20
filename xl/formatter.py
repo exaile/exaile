@@ -376,7 +376,8 @@ class TrackFormatter(Formatter):
     """
     def format(self, track, markup_escape=False):
         """
-            Returns a string suitable for progress indicators
+            Returns a string for places where
+            track data is presented to the user
 
             :param track: a single track to take data from
             :type track: :class:`xl.trax.Track`

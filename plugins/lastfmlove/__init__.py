@@ -195,7 +195,7 @@ class LastFMLover(object):
         providers.unregister('playlist-columns-menu', self.column_menu_item)
         providers.unregister('playlist-columns', LoveColumn)
 
-        if self.timer.is_alive():
+        if self.timer is not None and self.timer.is_alive():
             self.timer.cancel()
 
     def setup_network(self):

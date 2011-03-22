@@ -256,7 +256,7 @@ class ControlBox(gtk.HBox, providers.ProviderHandler):
         """
         if option == 'plugin/minimode/selected_controls':
             if self.props.visible:
-                self.update()
+                glib.idle_add(self.update)
             else:
                 self.__dirty = True
 
@@ -368,8 +368,8 @@ class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
                 stock_id = gtk.STOCK_MEDIA_PAUSE
                 tooltip_text = _('Pause playback')
 
-        self.set_image_from_stock(stock_id)
-        self.set_tooltip_text(tooltip_text)
+        glib.idle_add(self.set_image_from_stock, stock_id)
+        glib.idle_add(self.set_tooltip_text, tooltip_text)
 
     def do_clicked(self):
         """
@@ -536,9 +536,18 @@ class VolumeButtonControl(gtk.VolumeButton, BaseControl):
         ButtonControl.destroy(self)
         gtk.VolumeButton.destroy(self)
 
+    def set_value(self, value):
+        """
+            Override to take care of preventing
+            signal handling and endless loops
+        """
+        self.set_data('updating', True)
+        gtk.VolumeButton.set_value(self, value)
+        self.set_data('updating', False)
+
     def do_value_changed(self, value):
         """
-            Changes the volume
+            Changes the volume except if done internally
         """
         if not self.get_data('updating'):
             settings.set_option('player/volume', value)
@@ -548,9 +557,8 @@ class VolumeButtonControl(gtk.VolumeButton, BaseControl):
             Reflects external volume changes
         """
         if option == 'player/volume':
-            self.set_data('updating', True)
-            self.set_value(float(settings.get_option(option)))
-            self.set_data('updating', False)
+            glib.idle_add(self.set_value,
+                float(settings.get_option(option)))
 
 class RestoreButtonControl(ButtonControl):
     """
@@ -697,6 +705,35 @@ class TrackSelectorControl(gtk.ComboBox, BaseControl, QueueAdapter):
             player.QUEUE.current_playlist.current_position = active_index
             player.QUEUE.play(player.QUEUE.current_playlist[active_index])
 
+    def add_tracks(self, tracks):
+        """
+            Adds tracks to the internal storage
+        """
+        if not tracks:
+            return
+
+        self.set_model(None)
+
+        for position, track in tracks:
+            self.model.insert(position, [track])
+
+        self.set_model(self.model)
+
+    def remove_tracks(self, tracks):
+        """
+            Removes tracks from the internal storage
+        """
+        if not tracks:
+            return
+
+        self.set_model(None)
+        tracks.reverse()
+        
+        for position, track in tracks:
+            del self.model[position]
+
+        self.set_model(self.model)
+
     def on_queue_current_playlist_changed(self, event, queue, playlist):
         """
             Updates the list on queue changes
@@ -711,44 +748,29 @@ class TrackSelectorControl(gtk.ComboBox, BaseControl, QueueAdapter):
         if positions[0] < 0:
             return
 
-        self.set_active(positions[0])
+        glib.idle_add(self.set_active, positions[0])
 
     def on_queue_tracks_added(self, event, queue, tracks):
         """
             Updates the list on queue changes
         """
-        if not tracks:
-            return
-
-        self.set_model(None)
-
-        for position, track in tracks:
-            self.model.insert(position, [track])
-
-        self.set_model(self.model)
+        glib.idle_add(self.add_tracks, tracks)
 
     def on_queue_tracks_removed(self, event, queue, tracks):
         """
             Updates the list on queue changes
         """
-        if not tracks:
-            return
-
-        self.set_model(None)
-        tracks.reverse()
-        
-        for position, track in tracks:
-            del self.model[position]
-
-        self.set_model(self.model)
+        glib.idle_add(self.remove_tracks, tracks)
 
     def on_option_set(self, event, settings, option):
         """
             Updates control upon setting change
         """
         if option == 'plugin/minimode/track_title_format':
-            self.formatter.props.format = settings.get_option(
-                option, _('$tracknumber - $title'))
+            glib.idle_add(self.formatter.set_property,
+                'format',
+                settings.get_option(option, _('$tracknumber - $title'))
+            )
 
 class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
     name = 'playlist_button'
@@ -830,6 +852,14 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
         self.tooltip.destroy()
         QueueAdapter.destroy(self)
         gtk.ToggleButton.destroy(self)
+
+    def update_playlist(self, playlist):
+        """
+            Updates the internally stored playlist
+        """
+        columns = self.view.get_model().columns
+        model = PlaylistModel(playlist, columns)
+        self.view.set_model(model)
 
     def do_hierarchy_changed(self, previous_toplevel):
         """
@@ -970,9 +1000,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
         """
             Updates the list on queue changes
         """
-        columns = self.view.get_model().columns
-        model = PlaylistModel(playlist, columns)
-        self.view.set_model(model)
+        glib.idle_add(self.update_playlist, playlist)
 
     def on_queue_current_position_changed(self, event, playlist, positions):
         """
@@ -985,7 +1013,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
         else:
             text = self.formatter.format(track)
 
-        self.label.set_text(text)
+        glib.idle_add(self.label.set_text, text)
 
     def on_track_tags_changed(self, event, track, tag):
         """
@@ -995,15 +1023,17 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
         track_position = playlist.index(track)
 
         if track in playlist and track_position == playlist.current_position:
-            self.label.set_text(self.formatter.format(track))
+            glib.idle_add(self.label.set_text, self.formatter.format(track))
 
     def on_option_set(self, event, settings, option):
         """
             Updates control upon setting change
         """
         if option == 'plugin/minimode/track_title_format':
-            self.formatter.props.format = settings.get_option(
-                option, _('$tracknumber - $title'))
+            glib.idle_add(self.formatter.set_property,
+                'format',
+                settings.get_option(option, _('$tracknumber - $title'))
+            )
 
 class ProgressButtonFormatter(Formatter):
     """
@@ -1049,7 +1079,10 @@ class ProgressButtonFormatter(Formatter):
             Updates the internal format on setting change
         """
         if option == 'gui/progress_bar_text_format':
-            self.props.format = self.get_option_value()
+            glib.idle_add(self.set_property,
+                'format',
+                self.get_option_value()
+            )
 
 gtk.rc_parse_string('''
     style "progress-button" {

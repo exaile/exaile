@@ -536,7 +536,7 @@ class PosetItem(object):
             :param value: arbitrary data associated with the item
         """
         self.name = name
-        self.after = after
+        self.after = list(after)
         self.priority = priority
         self.children = []
         self.value = value
@@ -552,15 +552,17 @@ def order_poset(items):
             i = items.get(after)
             if i:
                 i.children.append(item)
+            else:
+                item.after.remove(after)
     result = []
     next = [i[1] for i in items.items() if not i[1].after]
     while next:
-        current = [(i.priority, i) for i in next]
+        current = [(i.priority, i.name, i) for i in next]
         current.sort()
-        result.extend([i[1] for i in current])
+        result.extend([i[2] for i in current])
         nextset = dict()
         for i in current:
-            for c in i[1].children:
+            for c in i[2].children:
                 nextset[c.name] = c
         removals = []
         for name, item in nextset.iteritems():

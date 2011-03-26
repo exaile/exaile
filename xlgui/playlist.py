@@ -27,8 +27,10 @@
 import re
 import gtk
 from xl.nls import gettext as _
-from xl import event, player, settings
+from xl import event, player, settings, providers
 from xl.playlist import Playlist, PlaylistManager
+from xlgui.widgets import menu
+from xlgui.accelerators import Accelerator
 from xlgui.widgets.notebook import SmartNotebook, NotebookTab
 from xlgui.widgets.playlist import PlaylistPage
 from xlgui.widgets.queue import QueuePage
@@ -40,6 +42,32 @@ class PlaylistNotebook(SmartNotebook):
     def __init__(self, manager_name):
         SmartNotebook.__init__(self)
         self.tab_manager = PlaylistManager(manager_name)
+
+        # for saving closed tab history
+        self.tab_history = []
+        self.history_counter = 90000 # to get unique (reverse-ordered) item names
+
+        # build static menu entries        
+        item = menu.simple_separator('clear-sep',[])
+        providers.register('playlist-closed-tab-menu', item)
+        item = menu.simple_menu_item('clear-history', ['clear-sep'], _("Clear"), 'gtk-clear',
+            self.clear_closed_tabs)
+        providers.register('playlist-closed-tab-menu', item)     
+            
+        # add menu to tab context menu
+        item = menu.simple_menu_item('tab-history', ['tab-close'], _("Recently Closed Tabs"), 
+            submenu=menu.ProviderMenu('playlist-closed-tab-menu',self))
+        providers.register('playlist-tab-context-menu', item)
+
+        # add menu to View menu
+        item = menu.simple_menu_item('tab-history', ['clear-playlist'], _("Recently Closed Tabs"),
+            submenu=menu.ProviderMenu('playlist-closed-tab-menu',self))
+        providers.register('menubar-view-menu', item)       
+
+        # add hotkey
+        accelerator = Accelerator('<Control><Shift>t', lambda *x: self.restore_closed_tab(0))
+        providers.register('mainwindow-accelerators',accelerator)
+
         self.load_saved_tabs()
         self.queuepage = QueuePage()
         self.queuetab = NotebookTab(self, self.queuepage)
@@ -237,10 +265,66 @@ class PlaylistNotebook(SmartNotebook):
         """
         if self.get_n_pages() == 1:
             self.set_show_tabs(settings.get_option('gui/show_tabbar', True))
+            
+        # closed tab history
+        if settings.get_option('gui/save_closed_tabs', True) and \
+            isinstance(child, PlaylistPage):
+            self.save_closed_tab(child.playlist)
 
     def on_page_reordered(self, notebook, child, page_number):
         if self.page_num(self.queuepage) != 0:
             self.reorder_child(self.queuepage, 0)
+
+    def restore_closed_tab(self, pos=None, playlist=None, item_name=None):
+        ret = self.remove_closed_tab(pos, playlist, item_name)
+        if ret is not None:
+            self.create_tab_from_playlist(ret[0])
+
+    def save_closed_tab(self, playlist):
+        # don't let the list grow indefinitely
+        items = providers.get('playlist-closed-tab-menu')
+        if len(self.tab_history) > settings.get_option('gui/max_closed_tabs', 10):
+            self.remove_closed_tab(-1) # remove last item
+        
+        # create menuitem
+        item = menu.simple_menu_item('playlist%05d'%self.history_counter, [], 
+            '{0} ({1} tracks)'.format(playlist.name, len(playlist)),
+            callback=lambda w, n, p, c: self.restore_closed_tab(item_name=n))
+        providers.register('playlist-closed-tab-menu', item)
+        self.history_counter -= 1
+        
+        # add
+        self.tab_history.insert(0, (playlist,item))
+        
+    def get_closed_tab(self, pos=None, playlist=None, item_name=None):
+        if pos is not None:
+            try:
+                return self.tab_history[pos]
+            except IndexError:
+                return None
+        elif playlist is not None:
+            for (pl, item) in self.tab_history:
+                if pl == playlist:
+                    return (pl, item)
+        elif item_name is not None:
+            for (pl, item) in self.tab_history:
+                if item.name == item_name:
+                    return (pl, item)
+
+        return None                
+        # remove from menus
+        
+    def remove_closed_tab(self, pos=None, playlist=None, item_name=None):
+        ret = self.get_closed_tab(pos, playlist, item_name)
+        if ret is not None:
+            self.tab_history.remove(ret)
+            providers.unregister('playlist-closed-tab-menu', ret[1])
+        return ret
+
+    def clear_closed_tabs(self, widget, name, parent, context):
+        for i in xrange(len(self.tab_history)):
+            self.remove_closed_tab(0)
+
 
     def on_option_set(self, event, settings, option):
         """

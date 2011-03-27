@@ -26,8 +26,9 @@
 
 import re
 import gtk
+from datetime import datetime
 from xl.nls import gettext as _
-from xl import event, player, settings, providers
+from xl import event, player, settings, providers, xdg
 from xl.playlist import Playlist, PlaylistManager
 from xlgui.widgets import menu
 from xlgui.accelerators import Accelerator
@@ -286,10 +287,33 @@ class PlaylistNotebook(SmartNotebook):
         if len(self.tab_history) > settings.get_option('gui/max_closed_tabs', 10):
             self.remove_closed_tab(-1) # remove last item
         
+        item_name = 'playlist%05d'%self.history_counter 
+        close_time = datetime.now()
+        # define a MenuItem factory that supports dynamic labels
+        def factory(menu, parent, context):
+            item = None
+            
+            dt = (datetime.now()-close_time)
+            display_name = '{0} ({1} tracks, closed '.format(playlist.name, len(playlist))
+            if dt.seconds > 60:
+                display_name += '{0} min ago)'.format(dt.seconds//60 )
+            else:
+                display_name += '{0} sec ago)'.format(dt.seconds )
+            item = gtk.ImageMenuItem(display_name)
+            #image = gtk.image_new_from_icon_name(icon_name,
+            #        size=gtk.ICON_SIZE_MENU)
+            image = gtk.image_new_from_file(
+                xdg.get_data_path('images/playlist.png'))
+            item.set_image(image)
+            #item = gtk.MenuItem(display_name)
+            #item = gtk.ImageMenuItem(icon_name)
+
+            item.connect('activate', lambda w: self.restore_closed_tab(item_name=item_name))
+
+            return item
+
         # create menuitem
-        item = menu.simple_menu_item('playlist%05d'%self.history_counter, [], 
-            '{0} ({1} tracks)'.format(playlist.name, len(playlist)),
-            callback=lambda w, n, p, c: self.restore_closed_tab(item_name=n))
+        item = menu.MenuItem(item_name, factory, [])
         providers.register('playlist-closed-tab-menu', item)
         self.history_counter -= 1
         

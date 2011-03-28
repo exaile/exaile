@@ -1,5 +1,5 @@
 # Bookmark plugin for Exaile media player
-# Copyright (C) 2009-2010 Brian Parma
+# Copyright (C) 2009-2011 Brian Parma
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,9 @@ import bookmarksprefs
 _smi = menu.simple_menu_item
 _sep = menu.simple_separator
 
+#TODO: convert to json instead of str()/eval()? probably safer
 #TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
+# does order matter?
 
 def error(text):
     logger.error("%s: %s" % ('Bookmarks', text))
@@ -54,6 +56,45 @@ class Bookmarks:
 #        self.auto_db = {}
         self.exaile = exaile
         self.use_covers = settings.get_option('plugin/bookmarks/use_covers', False)
+        self.counter = 0
+
+        # setup menus
+        self.menu = menu.Menu(self)
+        self.delete_menu = menu.Menu(self)
+
+        # define factory-factory for sensitive-aware menuitems
+        def factory_factory(display_name, icon_name, callback=None, submenu=None):
+            def factory(menu_, parent, context):
+                item = gtk.ImageMenuItem(display_name)
+                image = gtk.image_new_from_icon_name(icon_name,
+                        size=gtk.ICON_SIZE_MENU)
+                item.set_image(image)
+                
+                # insensitive if no bookmarks present
+                if len(self.bookmarks) == 0:
+                    item.set_sensitive(False)
+                else:
+                    if callback is not None:
+                        item.connect('activate', callback)
+                    if submenu is not None:
+                        item.set_submenu(submenu)
+                return item
+                
+            return factory
+
+
+        items = []
+        items.append(_smi('bookmark', [], _('Bookmark This Track'),
+            'bookmark-new', self.add_bookmark))
+        items.append(menu.MenuItem('delete', factory_factory(_('Delete Bookmark'),
+            'gtk-close', submenu=self.delete_menu), ['bookmark']))
+        items.append(menu.MenuItem('clear', factory_factory(_('Clear Bookmarks'),
+            'gtk-clear', callback=self.clear), ['delete']))
+        items.append(_sep('sep', ['clear']))
+
+
+        for item in items:
+            self.menu.add_item(item)
 
         # TODO: automatic bookmarks, not yet possible
         #  - needs a way to get the time a file is inturrupted at
@@ -81,25 +122,14 @@ class Bookmarks:
                 player.PLAYER.seek(pos)
                 return
         else:
-            # use currently selected playlist (as opposed to current playlist)
+            # play it using the QUEUE
             track = trax.Track(key)
             if track:   # make sure we got one
-                pl = exaile.gui.main.get_selected_page().playlist
-                player.QUEUE.set_current_playlist(pl)
-                player.QUEUE.current_playlist.add(track)
-
-        # try and play/seek
-        if track:
-#            print 'bk: seeking to ', pos,type(pos)
-            idx = player.QUEUE.current_playlist.index(track)
-            player.QUEUE.current_playlist.set_current_pos(idx)
-            #player.PLAYER.stop()   # prevents crossfading
-            player.QUEUE.play(track)
-            player.PLAYER.unpause()
-            player.PLAYER.seek(pos)
+                player.QUEUE.play(track)
+                player.PLAYER.seek(pos)
 
 
-    def add_bookmark(self, widget, menus):
+    def add_bookmark(self, *args):
         """
             Create bookmark for current track/position.
         """
@@ -112,11 +142,9 @@ class Bookmarks:
         pos = player.PLAYER.get_time()
         key = track.get_loc_for_io()
         self.bookmarks.append((key,pos))
-        self.display_bookmark(key, pos, menus)
-        menus[0].get_children()[1].set_sensitive(True)
-        menus[0].get_children()[2].set_sensitive(True)
+        self.display_bookmark(key, pos)
 
-    def display_bookmark(self, key, pos, menus):
+    def display_bookmark(self, key, pos):
         """
             Create menu entrees for this bookmark.
         """
@@ -145,59 +173,61 @@ class Bookmarks:
         time = '%d:%02d' % (pos/60, pos%60)
         label = '%s @ %s' % ( title , time )
 
-        menu_item = gtk.ImageMenuItem(label)
-        if pix:
-            menu_item.set_image(gtk.image_new_from_pixbuf(pix))
-        menu_item.connect('activate', self.do_bookmark, (key,pos))
-        menus[0].append_item(menu_item)
-        menu_item.show_all()
+        counter = self.counter # closure magic (workaround for factories not having access to item)
+        # factory for new bookmarks
+        def factory(menu_, parent, context):
+            menu_item = gtk.ImageMenuItem(label)
+            if pix:
+                menu_item.set_image(gtk.image_new_from_pixbuf(pix))
+            
+            if menu_ is self.menu:
+                menu_item.connect('activate', self.do_bookmark, (key,pos))
+            else:
+                menu_item.connect('activate', self.delete_bookmark, (counter,key,pos))
+                
+            return menu_item
 
-        menu_item = gtk.ImageMenuItem(label)
-        if pix:
-            menu_item.set_image(gtk.image_new_from_pixbuf(pix))
-        menu_item.connect('activate', self.delete_bookmark, (menus,label,key,pos))
-        menus[1].append_item(menu_item)
+        item = menu.MenuItem('bookmark{0}'.format(self.counter), factory, ['sep'])
+        self.menu.add_item(item)
+        self.delete_menu.add_item(item)
+        
+        self.counter += 1
 
         # save addition
         self.save_db()
 
-    def clear(self, widget, menus):
+    def clear(self, widget):
         """
             Delete all bookmarks.
         """
-        # how to remove widgets?
-        for x in menus[0].get_children()[3:]:
-            x.destroy()
-        for x in menus[1].get_children():
-            x.destroy()
-
+        # remove from menus
+        for item in self.delete_menu._items:
+            self.menu.remove_item(item)
+            self.delete_menu.remove_item(item)
+    
         self.bookmarks = []
         self.save_db()
-        menus[0].get_children()[1].set_sensitive(False)
-        menus[0].get_children()[2].set_sensitive(False)
 
     def delete_bookmark(self, widget, targets):
         """
             Delete a bookmark.
         """
         #print targets
-        menus, label, key, pos = targets
+        counter, key, pos = targets
 
         if (key, pos) in self.bookmarks:
             self.bookmarks.remove((key,pos))
 
-        if menus[0]:
-            item = [x for x in menus[0].get_children() if (x.get_name() == 'GtkImageMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == label)]
-            item[0].destroy()
-
-        if menus[1]:
-            item = [x for x in menus[1].get_children() if (x.get_name() == 'GtkImageMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == label)]
-            item[0].destroy()
-
+        name = 'bookmark{0}'.format(counter)
+        for item in self.delete_menu._items:
+            if item.name == name:
+                self.delete_menu.remove_item(item)
+                self.menu.remove_item(item)
+                break
+        
         self.save_db()
-        self.set_sensitive_items(menus)
-
-    def load_db(self, menus):
+        
+    def load_db(self):
         """
             Load previously saved bookmarks from a file.
         """
@@ -210,7 +240,7 @@ class Bookmarks:
                     db = eval(line,{'__builtin__':None})
                     self.bookmarks += db
                     for (key,pos) in db:
-                        self.display_bookmark(key, pos, menus)
+                        self.display_bookmark(key, pos)
                 except Exception, s:
                     logger.error('BM: bad bookmark file: %s'%s)
                     return None
@@ -228,12 +258,6 @@ class Bookmarks:
         with open(path,'wb') as f:
             f.write(str(self.bookmarks))
 
-    def set_sensitive_items(self, menus):
-        try:
-            foo = menus[0].get_children()[4].get_name() == 'GtkSeparatorMenuItem'
-        except IndexError:
-            menus[0].get_children()[1].set_sensitive(False)
-            menus[0].get_children()[2].set_sensitive(False)
 
 
 def __enb(eventname, exaile, nothing):
@@ -257,30 +281,14 @@ def _enable(exaile):
 
     bm = Bookmarks(exaile)
 
-    menus = [guiutil.Menu(), guiutil.Menu()]
-
-    menu_item = gtk.ImageMenuItem(_('Bookmark This Track'))
-    menu_item.connect('activate', bm.add_bookmark, menus)
-    menu_item.set_image(gtk.image_new_from_icon_name('bookmark-new', gtk.ICON_SIZE_MENU))
-    menus[0].append_item(menu_item)
-
-    menu_item = gtk.MenuItem(_('Delete Bookmark'))
-    menu_item.set_submenu(menus[1])
-    menus[0].append_item(menu_item)
-
-    menus[0].append(_('Clear Bookmarks'), bm.clear, gtk.STOCK_CLEAR, menus)
-
-    menus[0].append_separator()
-
     # add tools menu items
     providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
     
     item = _smi('bookmarks', ['plugin-sep'], _('Bookmarks'), 
-        'user-bookmarks', submenu=menus[0])
+        'user-bookmarks', submenu=bm.menu)
     providers.register('menubar-tools-menu', item)
 
-    bm.load_db(menus)
-    bm.set_sensitive_items(menus)
+    bm.load_db()
 
 
 
@@ -293,10 +301,6 @@ def disable(exaile):
             providers.unregister('menubar-tools-menu', item)
             break
 
-
-if __name__ == '__main__':
-    # test dialog outside of exaile
-    print get_time()
 
 # vi: et ts=4 sts=4 sw=4
 def get_preferences_pane():

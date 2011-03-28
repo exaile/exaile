@@ -38,11 +38,28 @@ from xlgui.widgets import dialogs, menu
 
 import bookmarksprefs
 
+# We want to use json to write bookmarks to files, cuz it's prettier (and safer)
+# if we're on python 2.5 it's not available...
+try:
+    import json
+    def _try_read(data):
+        # try reading using json, if it fails, try the old format
+        try:
+            return json.loads(data)
+        except ValueError:
+            return eval(data, {'__builtin__':None})
+            
+    _write = lambda x: json.dumps(x, indent=2)
+    _read = _try_read
+
+except ImportError:
+    _write = str
+    _read = lambda x: eval(x, {'__builtin__':None})
+
 
 _smi = menu.simple_menu_item
 _sep = menu.simple_separator
 
-#TODO: convert to json instead of str()/eval()? probably safer
 #TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
 # does order matter?
 
@@ -116,11 +133,10 @@ class Bookmarks:
 
         # check if it's already playing
         track = player.PLAYER.current
-        if track:
-            if track.get_loc_for_io() == key:
-                player.PLAYER.unpause()
-                player.PLAYER.seek(pos)
-                return
+        if track and track.get_loc_for_io() == key:
+            player.PLAYER.unpause()
+            player.PLAYER.seek(pos)
+            return
         else:
             # play it using the QUEUE
             track = trax.Track(key)
@@ -235,12 +251,13 @@ class Bookmarks:
         try:
             # Load Bookmark List from file.
             with open(path,'rb') as f:
-                line = f.read()
+                data = f.read()
                 try:
-                    db = eval(line,{'__builtin__':None})
-                    self.bookmarks += db
+                    db = _read(data)
                     for (key,pos) in db:
+                        self.bookmarks.append((key,pos))
                         self.display_bookmark(key, pos)
+                    logger.debug('loaded {0} bookmarks'.format(len(db)))
                 except Exception, s:
                     logger.error('BM: bad bookmark file: %s'%s)
                     return None
@@ -256,7 +273,8 @@ class Bookmarks:
         # Save List
         path = os.path.join(xdg.get_data_dirs()[0],'bookmarklist.dat')
         with open(path,'wb') as f:
-            f.write(str(self.bookmarks))
+            f.write(_write(self.bookmarks))
+            logger.debug('saving {0} bookmarks'.format(len(self.bookmarks)))
 
 
 

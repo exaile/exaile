@@ -18,21 +18,28 @@ import dbus
 import glib
 import gtk
 
-from xl import event
+from xl import event, providers
 from xl.nls import gettext as _
 from xlgui import icons
-from xlgui.widgets import dialogs
+from xlgui.widgets import dialogs, menu
 
 SHUTDOWN = None
 
 class Shutdown():
     def __init__(self, exaile):
         self.exaile = exaile
-        self.menu_item = gtk.CheckMenuItem(_('Shutdown after Playback'))
-        self.menu_item.connect('toggled', self.on_toggled)
-        self.menu_item.set_tooltip_text(_('Shutdown computer at the end of playback'))
-        exaile.gui.builder.get_object('tools_menu').append(self.menu_item)
-        self.menu_item.show()
+        self.do_shutdown = False
+        
+        # add menuitem to tools menu
+        providers.register('menubar-tools-menu', 
+            menu.simple_separator('plugin-sep', ['track-properties']))
+
+             
+        item = menu.check_menu_item('shutdown', ['plugin-sep'], _('Shutdown after Playback'),
+        #   checked func                # callback func
+            lambda *x: self.do_shutdown, lambda w, n, p, c: self.on_toggled(w))
+        providers.register('menubar-tools-menu', item)
+        
         self.countdown = None
         self.counter = 10
 
@@ -46,25 +53,30 @@ class Shutdown():
             Enables or disables defered shutdown
         """
         if menuitem.get_active():
+            self.do_shutdown = True
             event.add_callback(self.on_playback_player_end, 'playback_player_end')
 
             self.message.show_info(_('Shutdown scheduled'),
                 _('Computer will be shutdown at the end of playback.'))
         else:
-            event.remove_callback(self.on_playback_player_end, 'playback_player_end')
+            self.disable_shutdown()
+            
+    def disable_shutdown(self):
+        self.do_shutdown = False
+        event.remove_callback(self.on_playback_player_end, 'playback_player_end')
 
-            # Stop possible countdown
-            if self.countdown is not None:
-                glib.source_remove(self.countdown)
-                self.countdown = None
+        # Stop possible countdown
+        if self.countdown is not None:
+            glib.source_remove(self.countdown)
+            self.countdown = None
 
-            # Prepare for a new run
-            self.counter = 10
+        # Prepare for a new run
+        self.counter = 10
 
-            # Reset message button layout
-            self.message.hide()
-            self.message.clear_buttons()
-            self.message.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+        # Reset message button layout
+        self.message.hide()
+        self.message.clear_buttons()
+        self.message.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
 
     def on_playback_player_end(self, event, player, track):
         """
@@ -86,7 +98,7 @@ class Shutdown():
             Cancels shutdown if requested
         """
         if response == gtk.RESPONSE_CANCEL:
-            self.menu_item.set_active(False)
+            self.disable_shutdown()
 
     def on_timeout(self):
         """
@@ -101,7 +113,7 @@ class Shutdown():
 
             return True
 
-        self.menu_item.set_active(False)
+        self.do_shutdown = False
 
         bus = dbus.SystemBus()
 
@@ -126,8 +138,10 @@ class Shutdown():
             glib.source_remove(self.countdown)
 
         event.remove_callback(self.on_playback_player_end, 'playback_player_end')
-        self.menu_item.hide()
-        self.menu_item.destroy()
+        for item in providers.get('menubar-tools-menu'):
+            if item.name == 'shutdown':
+                providers.unregister('menubar-tools-menu', item)
+                break
 
 def enable(exaile):
     if (exaile.loading):

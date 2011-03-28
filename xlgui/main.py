@@ -118,6 +118,10 @@ class MainWindow(gobject.GObject):
         viewmenu = menu.ProviderMenu('menubar-view-menu', self)
         viewitem.set_submenu(viewmenu)
 
+        viewitem = self.builder.get_object("tools_menu_item")
+        viewmenu = menu.ProviderMenu('menubar-tools-menu', self)
+        viewitem.set_submenu(viewmenu)
+
         helpitem = self.builder.get_object("help_menu_item")
         helpmenu = menu.ProviderMenu('menubar-help-menu', self)
         helpitem.set_submenu(helpmenu)
@@ -243,11 +247,11 @@ class MainWindow(gobject.GObject):
                 lambda *e: player.QUEUE.prev(),
             'on_about_item_activate': self.on_about_item_activate,
             # Controller
-            'on_scan_collection_item_activate': self.controller.on_rescan_collection,
-            'on_randomize_playlist_item_activate': self.controller.on_randomize_playlist,
-            'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
+#            'on_scan_collection_item_activate': self.controller.on_rescan_collection,
+#            'on_randomize_playlist_item_activate': self.controller.on_randomize_playlist,
+#            'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
-            'on_track_properties_activate':self.controller.on_track_properties,
+#            'on_track_properties_activate':self.controller.on_track_properties,
         })
 
         event.add_callback(self.on_playback_resume, 'playback_player_resume',

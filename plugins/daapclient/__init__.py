@@ -25,14 +25,18 @@ import threading
 import gobject
 import xlgui
 from gettext import gettext as _
-from xl import collection, event, trax, common
+from xl import collection, event, trax, common, providers
 from xlgui.panel.collection import CollectionPanel
 from xlgui import guiutil
-from xlgui.widgets import dialogs
+from xlgui.widgets import dialogs, menu
 from daap import DAAPClient, DAAPError
 
 logger = logging.getLogger(__name__)
 gobject.threads_init()
+
+_smi = menu.simple_menu_item
+_sep = menu.simple_separator
+
 
 #
 #   Check For python-avahi, we can work without
@@ -59,7 +63,6 @@ except:
 #PLUGIN_ICON = gtk.Button().render_icon(gtk.STOCK_NETWORK, gtk.ICON_SIZE_MENU)
 
 # Globals Warming
-MENU_ITEM = None
 MANAGER = None
 
 class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
@@ -530,7 +533,7 @@ def __enb(eventname, exaile, wat):
     gobject.idle_add(_enable, exaile)
 
 def _enable(exaile):
-    global MENU_ITEM, MANAGER
+    global MANAGER
 
 #    if not DAAP:
 #        raise Exception("DAAP could not be imported.")
@@ -541,11 +544,11 @@ def _enable(exaile):
 
     menu = guiutil.Menu()
 
-    tools = exaile.gui.builder.get_object('tools_menu')
-    MENU_ITEM = gtk.MenuItem(_('Connect to DAAP...'))
-    MENU_ITEM.set_submenu(menu)
-    tools.append(MENU_ITEM)
-    MENU_ITEM.show_all()
+    providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
+    
+    item = _smi('daap', ['plugin-sep'], _('Connect to DAAP...'),
+        submenu=menu)
+    providers.register('menubar-tools-menu', item)
 
     if AVAHI:
         try:
@@ -577,18 +580,15 @@ def disable(exaile):
     '''
         Plugin Disabled.
     '''
-    global MENU_ITEM
     # disconnect from active shares
     if MANAGER is not None:
 #        MANAGER.clear()
         MANAGER.close(True)
 
-
-    if MENU_ITEM:
-        MENU_ITEM.hide()
-        MENU_ITEM.destroy()
-        MENU_ITEM = None
-
+    for item in providers.get('menubar-tools-menu'):
+        if item.name == 'daap':
+            providers.unregister('menubar-tools-menu', item)
+            break
 
     event.remove_callback(__enb, 'gui_loaded')
 

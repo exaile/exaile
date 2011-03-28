@@ -30,15 +30,17 @@ from xl import (
     settings,
     trax,
     xdg,
+    providers
 )
 from xl.nls import gettext as _
 from xlgui import guiutil, icons
-from xlgui.widgets import dialogs
+from xlgui.widgets import dialogs, menu
 
 import bookmarksprefs
 
 
-MENU_ITEM                   = None
+_smi = menu.simple_menu_item
+_sep = menu.simple_separator
 
 #TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
 
@@ -252,16 +254,8 @@ def _enable(exaile):
         Called when plugin is enabled.  Set up the menus, create the bookmark class, and
         load any saved bookmarks.
     """
-    global MENU_ITEM
-    global SEP
 
     bm = Bookmarks(exaile)
-
-    MENU_ITEM = gtk.ImageMenuItem(_('Bookmarks'))
-    SEP = gtk.SeparatorMenuItem()
-
-    exaile.gui.builder.get_object('tools_menu').append(SEP)
-    exaile.gui.builder.get_object('tools_menu').append(MENU_ITEM)
 
     menus = [guiutil.Menu(), guiutil.Menu()]
 
@@ -278,32 +272,27 @@ def _enable(exaile):
 
     menus[0].append_separator()
 
+    # add tools menu items
+    providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
+    
+    item = _smi('bookmarks', ['plugin-sep'], _('Bookmarks'), 
+        'user-bookmarks', submenu=menus[0])
+    providers.register('menubar-tools-menu', item)
+
     bm.load_db(menus)
     bm.set_sensitive_items(menus)
 
-    MENU_ITEM.set_submenu(menus[0])
-    MENU_ITEM.set_image(gtk.image_new_from_icon_name('user-bookmarks', gtk.ICON_SIZE_MENU))
-
-    SEP.show_all()
-    MENU_ITEM.show_all()
 
 
 def disable(exaile):
     """
         Called when the plugin is disabled.  Destroy menu.
     """
-    global MENU_ITEM
-    global SEP
+    for item in providers.get('menubar-tools-menu'):
+        if item.name == 'bookmarks':
+            providers.unregister('menubar-tools-menu', item)
+            break
 
-    if MENU_ITEM:
-        MENU_ITEM.hide()
-        MENU_ITEM.destroy()
-        MENU_ITEM = None
-
-    if SEP:
-        SEP.hide()
-        SEP.destroy()
-        SEP = None
 
 if __name__ == '__main__':
     # test dialog outside of exaile

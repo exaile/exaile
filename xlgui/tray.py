@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import glib
 import gobject
 import gtk
 
@@ -221,7 +222,7 @@ class BaseTrayIcon(object):
             Updates tray icon appearance
             on playback state change
         """
-        self.update_icon()
+        glib.idle_add(self.update_icon)
 
 class TrayIcon(gtk.StatusIcon, BaseTrayIcon):
     """

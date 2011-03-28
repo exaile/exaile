@@ -1,5 +1,5 @@
 # Copyright (C) 2006-2007 Aren Olson
-#                    2009 Brian Parma
+#                    2011 Brian Parma
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ from gettext import gettext as _
 from xl import collection, event, trax, common, providers
 from xlgui.panel.collection import CollectionPanel
 from xlgui import guiutil
-from xlgui.widgets import dialogs, menu
+from xlgui.widgets import dialogs, menu, menuitems
 from daap import DAAPClient, DAAPError
 
 logger = logging.getLogger(__name__)
@@ -107,10 +107,9 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
         '''
 
         if self.menu:
-            menu_item = gtk.MenuItem(name)
-            menu_item.connect('activate', self.clicked, name )
-            self.menu.append_item(menu_item)
-            menu_item.show()
+            menu_item = _smi(name, ['sep'], name,
+                callback=lambda *x: self.clicked(name))
+            self.menu.add_item(menu_item)
 
     def remove_share_menu_item(self, name):
         '''
@@ -119,11 +118,12 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
         '''
 
         if self.menu:
-            item = [x for x in self.menu.get_children() if (x.get_name() == 'GtkMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == name)]
-            if len(item) > 0:
-                item[0].destroy()
+            for item in self.menu._items:
+                if item.name == name:
+                    self.menu.remove_item(item)
+                    break
 
-    def clicked(self, menu_item, name):
+    def clicked(self, name):
         '''
             This function is called in response to a menu_item click.
         Fire away.
@@ -163,10 +163,9 @@ class DaapManager:
         self.avahi = avahi
         self.panels = {}
 
-        menu_item = gtk.MenuItem(_('Manually...'))
-        menu_item.connect('activate', self.manual_connect)
-        menu.append_item(menu_item)
-
+        menu.add_item(_smi('manual', [], _('Manually...'),
+            callback=self.manual_connect))
+        menu.add_item(_sep('sep', ['manual']))
 
         if avahi is not None:
             avahi.connect("connect", self.connect_share)
@@ -202,7 +201,7 @@ class DaapManager:
         xlgui.get_controller().remove_panel(panel.get_panel()[0])
         del self.panels[name]
 
-    def manual_connect(self, widget):
+    def manual_connect(self, *args):
         '''
             This function is called when the user selects the manual
         connection option from the menu.  It requests a host/ip to connect
@@ -469,15 +468,18 @@ class NetworkPanel(CollectionPanel):
 
         self.connect_id = None
 
-        # Remove the local collection specific menu entries
-        kids = self.menu.get_children()
-        self.menu.remove(kids[-1])
-        self.menu.remove(kids[-2])
-        self.menu.remove(kids[-3])
+        self.menu = menu.Menu(self)
+        def get_tracks_func(*args):
+            return self.tree.get_selected_tracks()
+        self.menu.add_item(menuitems.AppendMenuItem('append', [], get_tracks_func))
+        self.menu.add_item(menuitems.EnqueueMenuItem('enqueue', ['append'], get_tracks_func))
+        self.menu.add_item(menuitems.PropertiesMenuItem('props', ['enqueue'], get_tracks_func))
+        self.menu.add_item(_sep('sep',['props']))
+        self.menu.add_item(_smi('refresh', ['sep'], _('Refresh Server List'),
+            callback = lambda *x: mgr.refresh_share(self.name)))
+        self.menu.add_item(_smi('disconnect', ['refresh'], _('Disconnect from Server'),
+            callback = lambda *x: mgr.disconnect_share(self.name)))
 
-        # Throw a menu entry on the context menu that can disconnect the DAAP share
-        self.menu.append(_("Refresh Server List"), lambda x, y: mgr.refresh_share(self.name))
-        self.menu.append(_("Disconnect from Server"), lambda x, y: mgr.disconnect_share(self.name))
 
     @common.threaded
     def refresh(self):
@@ -542,17 +544,17 @@ def _enable(exaile):
 #        raise Exception("AVAHI could not be imported.")
 
 
-    menu = guiutil.Menu()
+    menu_ = menu.Menu(None)
 
     providers.register('menubar-tools-menu', _sep('plugin-sep', ['track-properties']))
     
     item = _smi('daap', ['plugin-sep'], _('Connect to DAAP...'),
-        submenu=menu)
+        submenu=menu_)
     providers.register('menubar-tools-menu', item)
 
     if AVAHI:
         try:
-            avahi_interface = DaapAvahiInterface(exaile, menu)
+            avahi_interface = DaapAvahiInterface(exaile, menu_)
         except RuntimeError: # no dbus?
             avahi_interface = None
             logger.warn('AVAHI interface could not be initialized (no dbus?)')
@@ -564,7 +566,7 @@ def _enable(exaile):
         avahi_interface = None
         logger.warn('AVAHI could not be imported, you will not see broadcast shares.')
 
-    MANAGER = DaapManager(exaile, menu, avahi_interface)
+    MANAGER = DaapManager(exaile, menu_, avahi_interface)
 
 
 

@@ -55,19 +55,27 @@ class PlaylistNotebook(SmartNotebook):
             self.clear_closed_tabs)
         providers.register('playlist-closed-tab-menu', item)     
             
+        # simple factory for 'Recently Closed Tabs' MenuItem
+        submenu = menu.ProviderMenu('playlist-closed-tab-menu',self)
+        def factory(menu_, parent, context):
+            item = gtk.MenuItem(_("Recently Closed Tabs"))
+            if len(self.tab_history) > 0:
+                item.set_submenu(submenu)
+            else:
+                item.set_sensitive(False)
+            return item
+            
         # add menu to tab context menu
-        item = menu.simple_menu_item('tab-history', ['tab-close'], _("Recently Closed Tabs"), 
-            submenu=menu.ProviderMenu('playlist-closed-tab-menu',self))
+        item = menu.MenuItem('tab-history', factory, ['tab-close'])
         providers.register('playlist-tab-context-menu', item)
 
         # add menu to View menu
-        item = menu.simple_menu_item('tab-history', ['clear-playlist'], _("Recently Closed Tabs"),
-            submenu=menu.ProviderMenu('playlist-closed-tab-menu',self))
+        item = menu.MenuItem('tab-history', factory, ['clear-playlist'])
         providers.register('menubar-view-menu', item)       
 
         # add hotkey
-        accelerator = Accelerator('<Control><Shift>t', lambda *x: self.restore_closed_tab(0))
-        providers.register('mainwindow-accelerators',accelerator)
+        self.accelerator = Accelerator('<Control><Shift>t', lambda *x: self.restore_closed_tab(0))
+        providers.register('mainwindow-accelerators',self.accelerator)
 
         self.load_saved_tabs()
         self.queuepage = QueuePage()
@@ -290,7 +298,7 @@ class PlaylistNotebook(SmartNotebook):
         item_name = 'playlist%05d'%self.history_counter 
         close_time = datetime.now()
         # define a MenuItem factory that supports dynamic labels
-        def factory(menu, parent, context):
+        def factory(menu_, parent, context):
             item = None
             
             dt = (datetime.now()-close_time)
@@ -300,13 +308,16 @@ class PlaylistNotebook(SmartNotebook):
             else:
                 display_name += '{0} sec ago)'.format(dt.seconds )
             item = gtk.ImageMenuItem(display_name)
-            #image = gtk.image_new_from_icon_name(icon_name,
-            #        size=gtk.ICON_SIZE_MENU)
             image = gtk.image_new_from_file(
                 xdg.get_data_path('images/playlist.png'))
             item.set_image(image)
-            #item = gtk.MenuItem(display_name)
-            #item = gtk.ImageMenuItem(icon_name)
+
+            # Add accelerator to top item
+            if self.tab_history[0][1].name == item_name:
+                key, mods = gtk.accelerator_parse(self.accelerator.keys)
+                item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
+                        gtk.ACCEL_VISIBLE)
+
 
             item.connect('activate', lambda w: self.restore_closed_tab(item_name=item_name))
 

@@ -125,7 +125,7 @@ class EqualizerPlugin:
 
         # add menu item to tools menu
         self.MENU_ITEM = menu.simple_menu_item('equalizer', ['plugin-sep'], _('Equalizer'),
-            callback=lambda *x: self.show_gui())
+            callback=lambda *x: self.show_gui(exaile))
         providers.register('menubar-tools-menu', self.MENU_ITEM)
 
         self.presets_path = os.path.join(xdg.get_config_dir(), 'eq-presets.dat')

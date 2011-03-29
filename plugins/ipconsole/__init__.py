@@ -21,7 +21,8 @@ import sys
 import gtk
 import glib
 import ipconsoleprefs
-from xl import settings
+from xl import settings, providers
+from xlgui.widgets import menu
 
 try:    # xl doesn't exist outside of exaile
     from xl.nls import gettext as _
@@ -38,7 +39,6 @@ import __builtin__, site
 FONT = "Luxi Mono 10"
 
 PLUGIN                  = None
-MENU_ITEM               = None
 
 def get_preferences_pane():
     return ipconsoleprefs
@@ -126,13 +126,11 @@ def _enable(exaile):
         Enable plugin.
             Create menu item.
     """
-    global MENU_ITEM
-    MENU_ITEM = gtk.MenuItem(_('Show IPython Console'))
-    MENU_ITEM.connect('activate', show_console,exaile)
+    # add menuitem to tools menu
+    item = menu.simple_menu_item('ipconsole', ['plugin-sep'], _('Show IPython Console'),
+        callback=lambda *x: show_console(exaile)) 
+    providers.register('menubar-tools-menu', item)
 
-    exaile.gui.builder.get_object('tools_menu').append(MENU_ITEM)
-    MENU_ITEM.show()
-#    return True    # bad! crashes compiz
 
 def on_option_set(event, settings, option):
     if option == 'plugin/ipconsole/opacity' and PLUGIN:
@@ -163,16 +161,12 @@ def disable(exaile):
     """
         Called when the plugin is disabled
     """
-    global PLUGIN, MENU_ITEM
-    if PLUGIN:
-        PLUGIN.destroy()
-        PLUGIN = None
-    if MENU_ITEM:
-        MENU_ITEM.hide()
-        MENU_ITEM.destroy()
-        MENU_ITEM = None
+    for item in providers.get('menubar-tools-menu'):
+        if item.name == 'ipconsole':
+            providers.unregister('menubar-tools-menu', item)
+            break
 
-def show_console(widget, exaile):
+def show_console(exaile):
     """
         Display window when the menu item is clicked.
     """

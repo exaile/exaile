@@ -29,6 +29,7 @@ from __future__ import with_statement
 
 from xl import providers, event, settings, xdg
 from xl.player.pipe import ElementBin
+from xlgui.widgets import menu
 
 from xl.nls import gettext as _
 
@@ -122,10 +123,10 @@ class EqualizerPlugin:
     def __init__(self, exaile):
         self.window = None
 
-        self.MENU_ITEM = gtk.MenuItem(_('Equalizer'))
-        self.MENU_ITEM.connect('activate', self.show_gui, exaile)
-        exaile.gui.builder.get_object('tools_menu').append(self.MENU_ITEM)
-        self.MENU_ITEM.show()
+        # add menu item to tools menu
+        self.MENU_ITEM = menu.simple_menu_item('equalizer', ['plugin-sep'], _('Equalizer'),
+            callback=lambda *x: self.show_gui(exaile))
+        providers.register('menubar-tools-menu', self.MENU_ITEM)
 
         self.presets_path = os.path.join(xdg.get_config_dir(), 'eq-presets.dat')
         self.presets = gtk.ListStore(str, float, float, float, float,
@@ -150,8 +151,7 @@ class EqualizerPlugin:
     def disable(self):
 
         if self.MENU_ITEM:
-            self.MENU_ITEM.hide()
-            self.MENU_ITEM.destroy()
+            providers.unregister('menubar-tools-menu', self.MENU_ITEM)
             self.MENU_ITEM = None
 
         if self.window:
@@ -163,7 +163,7 @@ class EqualizerPlugin:
         Populate the GTK ListStore with presets
         """
 
-    def show_gui(self, widget, exaile):
+    def show_gui(self, exaile):
         """
         Display main window.
         """

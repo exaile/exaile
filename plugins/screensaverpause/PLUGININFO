@@ -1,4 +1,4 @@
-Version='0.0.1'
+Version='0.0.2'
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Name=_('Pause on Screensaver')
-Description=_('Pauses/resumes playback on screensaver start/stop')
+Description=_('Pauses playback when screensaver activates')

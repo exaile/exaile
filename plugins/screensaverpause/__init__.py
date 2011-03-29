@@ -1,5 +1,5 @@
-# screensaverpause - pauses/resumes Exaile playback on screensaver start/stop
-# Copyright (C) 2009-2010  Johannes Sasongko <sasongko@gmail.com>
+# screensaverpause - pauses Exaile playback when screensaver activates
+# Copyright (C) 2009-2011  Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,14 +33,10 @@ SERVICES = [
 
 matches = set()
 bus = None
-was_playing = None
 
-def active_changed(new_value):
-    if new_value:
-        global was_playing
-        was_playing = player.PLAYER.pause()
-    elif was_playing:
-        player.PLAYER.unpause()
+def screensaver_active_changed(is_active):
+    if is_active:
+        player.PLAYER.pause()
 
 def enable(exaile):
     if exaile.loading:
@@ -50,13 +46,9 @@ def enable(exaile):
 
 def _enable(*a):
     global bus
-    try:
-        bus = dbus.SessionBus()
-    except dbus.DBusException:
-        # TODO: log
-        return
+    bus = dbus.SessionBus()
     for service in SERVICES:
-        matches.add(bus.add_signal_receiver(active_changed,
+        matches.add(bus.add_signal_receiver(screensaver_active_changed,
             signal_name='ActiveChanged', **service))
 
 def disable(exaile):
@@ -91,7 +83,7 @@ def test():
     def active_changed(new_value):
         if not new_value:
             mainloop.quit()
-    interface.connect_to_signal('ActiveChanged', active_changed)
+    interface.connect_to_signal('ActiveChanged', screensaver_active_changed)
 
     # For some reason Lock never returns.
     interface.Lock(ignore_reply=True)

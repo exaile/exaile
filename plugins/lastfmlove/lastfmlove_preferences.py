@@ -18,7 +18,6 @@ import glib
 import gtk
 import os.path
 import pylast
-from threading import Thread
 
 from xl.nls import gettext as _
 from xl import (

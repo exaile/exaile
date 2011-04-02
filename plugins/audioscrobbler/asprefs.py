@@ -14,12 +14,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import glib
+import gtk
 import os.path
+import _scrobbler
 
-from xl import xdg
+from xl import (
+    common,
+    settings,
+    xdg
+)
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.preferences import widgets
+from xlgui.widgets import dialogs
 
 name = _('AudioScrobbler')
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -49,4 +57,65 @@ class UrlPreference(widgets.ComboEntryPreference):
     preset_items = {
         'http://post.audioscrobbler.com/': 'Last.fm',
         'http://turtle.libre.fm/': 'Libre.fm'
-        }
+    }
+
+class VerifyLoginButton(widgets.Button):
+    name = 'plugin/ascrobbler/verify_login'
+
+    def __init__(self, preferences, widget):
+        """
+            Sets up the message
+        """
+        widgets.Button.__init__(self, preferences, widget)
+
+        self.message = dialogs.MessageBar(
+            parent = preferences.builder.get_object('preferences_box'),
+            buttons=gtk.BUTTONS_CLOSE
+        )
+
+    @common.threaded
+    def check_login(self):
+        """
+            Tries to connect to the AudioScrobbler
+            service with the existing login data
+        """
+        username = settings.get_option('plugin/ascrobbler/user', '')
+        password = settings.get_option('plugin/ascrobbler/password', '')
+        url = settings.get_option('plugin/ascrobbler/url',
+            'http://post.audioscrobbler.com/')
+        login_verified = False
+
+        try:
+            _scrobbler.login(username, password, post_url=url)
+        except _scrobbler.AuthError:
+            try:
+                _scrobbler.login(username, password, hashpw=True, post_url=url)
+            except _scrobbler.AuthError:
+                pass
+            else:
+                login_verified = True
+        else:
+            login_verified = True
+
+        if login_verified:
+            glib.idle_add(
+                self.message.show_info,
+                _('Verification successful'),
+                ''
+            )
+        else:
+            glib.idle_add(
+                self.message.show_error,
+                _('Verification failed'),
+                _('Please make sure the entered data is correct.')
+            )
+
+        glib.idle_add(self.widget.set_sensitive, True)
+
+    def on_clicked(self, button):
+        """
+            Initiates verification of the login data
+        """
+        self.widget.set_sensitive(False)
+        self.check_login()
+

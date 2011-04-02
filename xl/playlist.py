@@ -514,45 +514,51 @@ class ASXConverter(FormatConverter):
         """
         import libxml2
 
-        asx_playlist = libxml2.parseFile(path)
-        name = self.name_from_path(path)
+        playlist = Playlist(self.name_from_path(path))
+        tracks = []
 
-        def compare(name):
-            """
-                Returns an XPath evaluation for
-                case-insensitive comparison
-            """
-            return ('*[translate(local-name(), '
-            '"ABCDEFGHIJKLMNOPQRSTUVWXYZ", '
-            '"abcdefghijklmnopqrstuvwxyz") = "%s"]') % name
+        try:
+            asx_playlist = libxml2.parseFile(path)
+        except libxml2.parserError:
+            tracks = [trax.Track(path)]
+        else:
+            def compare(name):
+                """
+                    Returns an XPath evaluation for
+                    case-insensitive comparison
+                """
+                return ('*[translate(local-name(), '
+                '"ABCDEFGHIJKLMNOPQRSTUVWXYZ", '
+                '"abcdefghijklmnopqrstuvwxyz") = "%s"]') % name
 
-        for title in asx_playlist.xpathEval2('/asx/%s' % compare('title')):
-            name = title.get_content().strip()
-            break
+            for title in asx_playlist.xpathEval2('/asx/%s' % compare('title')):
+                name = title.get_content().strip()
+                break
 
-        playlist = Playlist(name)
 
-        for entry in asx_playlist.xpathEval2('/asx/%s' % compare('entry')):
-            uris = entry.xpathEval2('%s/@href' % compare('ref'))
-            titles = entry.xpathEval2(compare('title'))
-            authors = entry.xpathEval2(compare('author'))
+            for entry in asx_playlist.xpathEval2('/asx/%s' % compare('entry')):
+                uris = entry.xpathEval2('%s/@href' % compare('ref'))
+                titles = entry.xpathEval2(compare('title'))
+                authors = entry.xpathEval2(compare('author'))
 
-            if len(uris) != 1:
-                continue
+                if len(uris) != 1:
+                    continue
 
-            track = trax.Track(uris[0].get_content())
+                track = trax.Track(uris[0].get_content())
 
-            if track.get_tag_raw('title') is None \
-                and len(titles) == 1:
-                track.set_tag_raw('title',
-                    titles[0].get_content().strip())
+                if track.get_tag_raw('title') is None \
+                    and len(titles) == 1:
+                    track.set_tag_raw('title',
+                        titles[0].get_content().strip())
 
-            if track.get_tag_raw('artist') is None \
-                and len(authors) == 1:
-                track.set_tag_raw('artist',
-                    authors[0].get_content().strip())
+                if track.get_tag_raw('artist') is None \
+                    and len(authors) == 1:
+                    track.set_tag_raw('artist',
+                        authors[0].get_content().strip())
 
-            playlist.append(track)
+                tracks += [track]
+
+        playlist.extend(tracks)
 
         return playlist
 providers.register('playlist-format-converter', ASXConverter())

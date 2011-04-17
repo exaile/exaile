@@ -27,12 +27,12 @@
 
 from xl.nls import gettext as _
 from xl import providers, event
-from xl.hal import Handler
+from xl.hal import Handler, UDisksProvider
 from xl.devices import Device
 import logging
 logger = logging.getLogger(__name__)
 
-PROVIDER = None
+PROVIDER = PROVIDER_UDISKS = None
 
 import dbus, threading, os, struct
 from fcntl import ioctl
@@ -61,15 +61,19 @@ CDROM_MSF = 0x02
 CDROM_DATA_TRACK = 0x04
 
 def enable(exaile):
-    global PROVIDER
-    PROVIDER = CDHandler()
-    providers.register("hal", PROVIDER)
-
+    global PROVIDER, PROVIDER_UDISKS
+    if exaile.main.udisks.getattr('failed'):
+        PROVIDER = CDHandler()
+        providers.register("hal", PROVIDER)
+    else:
+        PROVIDER_UDISKS = UDisksCDHandler()
+        providers.register("udisks", PROVIDER_UDISKS)
 
 def disable(exaile):
-    global PROVIDER
+    global PROVIDER, PROVIDER_UDISKS
     providers.unregister("hal", PROVIDER)
-    PROVIDER = None
+    providers.unregister("udisks", PROVIDER_UDISKS)
+    PROVIDER = PROVIDER_UDISKS = None
 
 class CDTocParser(object):
     #based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
@@ -244,8 +248,21 @@ class CDHandler(Handler):
 
         return cddev
 
+class UDisksCdProvider(UDisksProvider):
+    PRIORITY = UDisksProvider.NORMAL
+    
+    def get_priority(self, obj):
+        props = dbus.Interface(obj, 'org.freedesktop.DBus.Properties')
+        iface = 'org.freedesktop.UDisks.Device'
+        # XXX: We use the number of audio tracks to identify audio CDs.
+        # There may be a better way....
+        n = props.Get(iface, 'OpticalDiscNumAudioTracks')
+        return PRIORITY if n else None
+
+    def get_device(self, obj):
+        props = dbus.Interface(obj, 'org.freedesktop.DBus.Properties')
+        iface = 'org.freedesktop.UDisks.Device'
+        return CDDevice(dev=props.Get(iface, 'DeviceFile'))
+
 
 # vim: et sts=4 sw=4
-
-
-

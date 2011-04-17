@@ -1,4 +1,4 @@
-# exaile/exfalso - Tagger plugin for Exaile using the Ex Falso app
+# exaile/exfalso - Exaile plugin to use Ex Falso as tagger
 # Copyright (C) 2009-2010  Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,13 +18,13 @@ import os
 import gio, gtk
 import quodlibet as ql
 
-# Modify Quod Libet's print_ function to default to not print anything.
+# Modify Quod Libet's print_ function to default to not print anything (output=
+# None).
 qlprint = ql.print_
 def print_(string_, frm='utf-8', prefix='', output=None, log=None):
     qlprint(string_, frm, prefix, output, log)
 import __builtin__
-__builtin__.__dict__['print_'] = print_
-ql.print_ = print_
+__builtin__.__dict__['print_'] = ql.print_ = print_
 
 class ExFalsoController:
     def __init__(self, on_changed=None):
@@ -32,8 +32,9 @@ class ExFalsoController:
         from quodlibet.qltk.exfalsowindow import ExFalsoWindow
 
         config.init(const.CONFIG)
-        self.instance = instance = ql.init(backend='nullbe')
-        backend, library, player = instance
+        self.instance = backend, library, player = ql.init(
+            gtk=False,  # Don't initialize GLib/GTK+ stuff.
+            backend='nullbe')
 
         self.on_changed = on_changed
         if on_changed:
@@ -67,7 +68,7 @@ class ExFalsoController:
     def select(self, paths):
         # We are calling a "private" method here, but there's no other way to
         # make Ex Falso show the confirmation dialog when changing files.
-        cancel = self.window._ExFalsoWindow__pre_selection_changed(None, None)
+        cancel = self.window._ExFalsoWindow__pre_selection_changed(None, None, None, None)
         if cancel: return
 
         dirlist = self.dirlist
@@ -95,7 +96,7 @@ class ExFalsoController:
 import xl.event, xl.trax
 from xlgui import guiutil
 
-class ExFalsoTagger:
+class ExFalsoPlugin:
     def __init__(self, exaile):
         self.exaile = exaile
         self.exfalso = None
@@ -120,18 +121,11 @@ class ExFalsoTagger:
 
 PLUGIN = None
 
-# Hook to replace the Properties dialog opened from Collection panel or playlist
-# context menu.
-from xlgui.playlist import Playlist
-from xlgui.panel.collection import CollectionPanel
-xl_playlist_properties = Playlist.properties_dialog
-xl_panel_properties = CollectionPanel.properties_dialog
-def properties_dialog(self):
-    tracks = self.get_selected_tracks()
-    if len(tracks) == 0:
-        return False
+# Hook to replace Exaile's original Properties dialog
+from xlgui import properties as xlprops
+xl_properties_dialog = xlprops.TrackPropertiesDialog
+def properties_dialog(parent, tracks, current_position=0):
     PLUGIN.run(tracks)
-    return True
 
 def enable(exaile):
     if exaile.loading:
@@ -142,16 +136,14 @@ def enable(exaile):
 @guiutil.idle_add()
 def _enable(event, exaile, nothing):
     global PLUGIN
-    PLUGIN = ExFalsoTagger(exaile)
-    Playlist.properties_dialog = properties_dialog
-    CollectionPanel.properties_dialog = properties_dialog
+    PLUGIN = ExFalsoPlugin(exaile)
+    xlprops.TrackPropertiesDialog = properties_dialog
 
 def disable(exaile):
     global PLUGIN
     PLUGIN.destroy()
     PLUGIN = None
-    Playlist.properties_dialog = xl_playlist_properties
-    CollectionPanel.properties_dialog = xl_panel_properties
+    xlprops.TrackPropertiesDialog = xl_properties_dialog
 
 if __name__ == "__main__":
     ef = ExFalsoController()

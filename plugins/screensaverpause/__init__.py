@@ -1,4 +1,4 @@
-# screensaverpause - pauses Exaile playback when screensaver activates
+# screensaverpause - pauses Exaile playback on screensaver activation
 # Copyright (C) 2009-2011  Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -13,10 +13,20 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#
+# The developers of the Exaile media player hereby grant permission
+# for non-GPL compatible GStreamer and Exaile plugins to be used and
+# distributed together with GStreamer and Exaile. This permission is
+# above and beyond the permissions granted by the GPL license by which
+# Exaile is covered. If you modify this code, you may extend this
+# exception to your version of the code, but you are not obligated to
+# do so. If you do not wish to do so, delete this exception statement
+# from your version.
 
 
 import dbus, gtk
-from xl import event, player
+from xl import event, player, settings
 
 SERVICES = [
     dict( # GNOME
@@ -31,12 +41,21 @@ SERVICES = [
     ),
 ]
 
+import prefs
+def get_preferences_pane():
+	return prefs
+
 matches = set()
 bus = None
+was_playing = None
 
 def screensaver_active_changed(is_active):
+    global was_playing
     if is_active:
+        was_playing = player.PLAYER.is_playing()
         player.PLAYER.pause()
+    elif was_playing and settings.get_option("screensaverpause/unpause", 0):
+        player.PLAYER.unpause()
 
 def enable(exaile):
     if exaile.loading:

@@ -29,7 +29,7 @@ import gtk
 
 from xl import metadata, trax
 from xl.nls import gettext as _
-from xlgui import panel, guiutil, menu
+from xlgui import panel, guiutil, oldmenu as menu
 
 class FlatPlaylistPanel(panel.Panel):
     """
@@ -116,8 +116,7 @@ class FlatPlaylistPanel(panel.Panel):
     def set_playlist(self, pl):
         self.model.clear()
 
-        tracks = pl.get_tracks()
-        self.tracks = tracks
+        self.tracks = tracks = list(pl)
         for i, track in enumerate(tracks):
             self.model.append([i + 1, track.get_tag_display("title"), track])
 

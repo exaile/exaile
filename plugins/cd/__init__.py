@@ -62,12 +62,10 @@ CDROM_DATA_TRACK = 0x04
 
 def enable(exaile):
     global PROVIDER, PROVIDER_UDISKS
-    if exaile.main.udisks.getattr('failed'):
-        PROVIDER = CDHandler()
-        providers.register("hal", PROVIDER)
-    else:
-        PROVIDER_UDISKS = UDisksCDHandler()
-        providers.register("udisks", PROVIDER_UDISKS)
+    #~ PROVIDER = CDHandler()
+    #~ providers.register("hal", PROVIDER)
+    PROVIDER_UDISKS = UDisksCdProvider()
+    providers.register("udisks", PROVIDER_UDISKS)
 
 def disable(exaile):
     global PROVIDER, PROVIDER_UDISKS
@@ -154,7 +152,7 @@ class CDPlaylist(playlist.Playlist):
         sort_tups.sort()
         sorted = [ s[1] for s in sort_tups ]
 
-        self.add_tracks(sorted)
+        self.extend(sorted)
 
         if CDDB_AVAIL:
             self.get_cddb_info()
@@ -250,16 +248,18 @@ class CDHandler(Handler):
 
 class UDisksCdProvider(UDisksProvider):
     PRIORITY = UDisksProvider.NORMAL
-    
+
+    name = 'cd'
+
     def get_priority(self, obj):
         props = dbus.Interface(obj, 'org.freedesktop.DBus.Properties')
         iface = 'org.freedesktop.UDisks.Device'
         # XXX: We use the number of audio tracks to identify audio CDs.
         # There may be a better way....
-        n = props.Get(iface, 'OpticalDiscNumAudioTracks')
-        return PRIORITY if n else None
+        compat = props.Get(iface, 'DriveMediaCompatibility')
+        return self.PRIORITY if 'optical_cd' in compat else None
 
-    def get_device(self, obj):
+    def create_device(self, obj):
         props = dbus.Interface(obj, 'org.freedesktop.DBus.Properties')
         iface = 'org.freedesktop.UDisks.Device'
         return CDDevice(dev=props.Get(iface, 'DeviceFile'))

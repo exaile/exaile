@@ -58,12 +58,14 @@ class UDisks(providers.ProviderHandler):
     @common.threaded
     def connect(self):
         assert self._state == 'init'
+        logger.debug("Connecting to UDisks")
         try:
             self.bus = bus = dbus.SystemBus()
             self.obj = obj = bus.get_object('org.freedesktop.UDisks', '/org/freedesktop/UDisks')
             self.iface = iface = dbus.Interface(obj, 'org.freedesktop.UDisks')
-            self._setup_device_events()
-            logger.debug("Connected to UDisks")
+            iface.connect_to_signal('DeviceAdded', self._device_added, path_keyword='path')
+            iface.connect_to_signal('DeviceRemoved', self._device_removed, path_keyword='path')
+            logger.info("Connected to UDisks")
             event.log_event("hal_connected", self, None)
         except Exception:
             logger.warning("Failed to connect to UDisks, " \
@@ -75,11 +77,6 @@ class UDisks(providers.ProviderHandler):
         self._add_all()
         self._state = 'listening'
 
-    def _setup_device_events(self):
-        assert self._state == 'init'
-        self.bus.add_signal_receiver(self._device_added, "DeviceAdded")
-        self.bus.add_signal_receiver(self._device_removed, "DeviceRemoved")
-
     def _add_all(self):
         assert self._state == 'addremove'
         for path in self.iface.EnumerateDevices():
@@ -90,7 +87,8 @@ class UDisks(providers.ProviderHandler):
         obj = self.bus.get_object('org.freedesktop.UDisks', path)
         old, new = self._get_provider_for(obj)
         if new is not old:
-            self.devicemanager.remove_device(self.devices[path])
+            if old[0]:
+                self.devicemanager.remove_device(self.devices[path])
             device = new[0].create_device(obj)
             device.autoconnect()
             self.devicemanager.add_device(device)
@@ -114,9 +112,10 @@ class UDisks(providers.ProviderHandler):
         del self.devices[path]
 
     def _device_added(self, path):
+        import pdb; pdb.set_trace()
         self._addremove()
         self._add_path(path)
-        self._state = 'running'
+        self._state = 'listening'
 
     def _device_removed(self, path):
         self._addremove()
@@ -124,25 +123,25 @@ class UDisks(providers.ProviderHandler):
             self._remove_path(path)
         except KeyError: # Not ours
             pass
-        self._state = 'running'
+        self._state = 'listening'
 
     def on_provider_added(self, provider):
         self._addremove()
         self._connect_all()
-        self._state = 'running'
+        self._state = 'listening'
 
     def on_provider_removed(self, provider):
         self._addremove()
         for path, provider_ in self.providers.iteritems():
             if provider_ is provider:
                 self._remove_path(path)
-        self._state = 'running'
+        self._state = 'listening'
 
     def _addremove(self):
         """Helper to transition safely to the addremove state"""
         while True:
             with self._lock:
-                if self._state == 'running':
+                if self._state == 'listening':
                     self._state = 'addremove'
                     break
             time.sleep(1)

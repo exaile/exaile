@@ -1155,7 +1155,12 @@ class Playlist(object):
             line = f.readline()
             if line == "":
                 break
-            item, strn = line[:-1].split("=",1)
+
+            try:
+                item, strn = line[:-1].split("=",1)
+            except ValueError:
+                continue # Skip erroneous lines
+
             val = settings.MANAGER._str_to_val(strn)
             items[item] = val
 

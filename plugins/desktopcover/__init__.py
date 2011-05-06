@@ -29,7 +29,7 @@ from xl.nls import gettext as _
 from xlgui import (
     icons
 )
-from xlgui.guiutil import get_workarea_size
+from xlgui.guiutil import get_workarea_dimensions
 
 import desktopcover_preferences
 
@@ -115,7 +115,7 @@ class DesktopCover(gtk.Window):
 
         if player.PLAYER.current is not None:
             self.set_cover_from_track(player.PLAYER.current)
-            self.update_position()
+            glib.idle_add(self.update_position)
 
         for e in self._events:
             event.add_callback(getattr(self, 'on_%s' % e), e)
@@ -175,21 +175,24 @@ class DesktopCover(gtk.Window):
         """
         gravity = self.gravity_map[settings.get_option(
             'plugin/desktopcover/anchor', 'topleft')]
-        x = settings.get_option('plugin/desktopcover/x', 0)
-        y = settings.get_option('plugin/desktopcover/y', 0)
+        cover_offset_x = settings.get_option('plugin/desktopcover/x', 0)
+        cover_offset_y = settings.get_option('plugin/desktopcover/y', 0)
         allocation = self.get_allocation()
-        workarea_width, workare_height = get_workarea_size()
+        workarea = get_workarea_dimensions()
+        x, y = workarea.offset_x, workarea.offset_y
 
-        if gravity in (gtk.gdk.GRAVITY_NORTH_EAST,
-                gtk.gdk.GRAVITY_SOUTH_EAST):
-            x = workarea_width - allocation.width - x
+        if gravity in (gtk.gdk.GRAVITY_NORTH_WEST, gtk.gdk.GRAVITY_SOUTH_WEST):
+            x += cover_offset_x
+        else:
+            x += workarea.width - allocation.width - cover_offset_x
 
-        if gravity in (gtk.gdk.GRAVITY_SOUTH_EAST,
-                gtk.gdk.GRAVITY_SOUTH_WEST):
-            y = workarea_height - allocation.height - y
+        if gravity in (gtk.gdk.GRAVITY_NORTH_WEST, gtk.gdk.GRAVITY_NORTH_EAST):
+            y += cover_offset_y
+        else:
+            y += workarea.height - allocation.height - cover_offset_y
 
-        glib.idle_add(self.set_gravity, gravity)
-        glib.idle_add(self.move, int(x), int(y))
+        self.set_gravity(gravity)
+        self.move(int(x), int(y))
 
     def show(self):
         """
@@ -319,7 +322,7 @@ class DesktopCover(gtk.Window):
             Updates the cover image and shows the window
         """
         self.set_cover_from_track(track)
-        self.update_position()
+        glib.idle_add(self.update_position)
 
     def on_playback_player_end(self, type, player, track):
         """
@@ -332,7 +335,7 @@ class DesktopCover(gtk.Window):
            Updates the cover image after cover selection
         """
         self.set_cover_from_track(track)
-        self.update_position()
+        glib.idle_add(self.update_position)
 
     def on_cover_removed(self, type, covers, track):
         """
@@ -347,7 +350,7 @@ class DesktopCover(gtk.Window):
         if option in ('plugin/desktopcover/anchor',
                 'plugin/desktopcover/x',
                 'plugin/desktopcover/y'):
-            self.update_position()
+            glib.idle_add(self.update_position)
         elif option in ('plugin/desktopcover/override_size',
                 'plugin/desktopcover/size'):
             self.set_cover_from_track(player.PLAYER.current)

@@ -46,8 +46,6 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 icons.MANAGER.add_icon_name_from_directory('send-receive',
     os.path.join(basedir, 'icons'))
 
-# TODO: PM to tburny on #audioscrobbler upon completion
-
 def enable(exaile):
     """
         Handles the deferred enable call

@@ -224,7 +224,21 @@ class NormalPlayer(_base.ExailePlayer):
     # FIXME: these parameters are really bad
     def stop(self, fire=True, onlyfire=False):
         """
-            stop playback
+            Stops playback.
+
+            The following parameters are for internal use only and are
+            not public API.
+
+            :param fire: Send the 'playback_player_end' event. Used from
+                         play() when switching tracks while playing, so that
+                         event recipients don't get an _end and _start right
+                         after each other.
+            :param onlyfire: Only send the _end event(s), don't actually
+                         halt playback. This is used at the end of a playlist,
+                         because the gapless mechanism will fire to tell us to
+                         load the next track for buffering, but since there
+                         isn't one if we actually halt the player the last few
+                         moments of the prior track will be cut off.
         """
         if self.is_playing() or self.is_paused():
             self.update_playtime()

@@ -94,44 +94,40 @@ class ExailePlayer(object):
         self.bus.connect('message', self._on_message)
 
     def _on_message(self, bus, message, reading_tag=False):
-        handled = False
-        try:
-            handled = self._handle_message(bus, message, reading_tag)
-        except AttributeError:
-            pass
-        except:
-            common.log_exception(log=logger, message="Unhandled exception when parsing gstreamer messages.")
+        handled = self._handle_message(bus, message, reading_tag)
         if handled:
             pass
         elif message.type == gst.MESSAGE_TAG:
             """ Update track length and optionally metadata from gstreamer's parser.
                 Useful for streams and files mutagen doesn't understand. """
-            if self.tag_func:
-                self.tag_func(message.parse_tag())
+            parsed = message.parse_tag()
+            event.log_event('tags_parsed', self, (self.current, parsed))
             if self.current and not self.current.get_tag_raw('__length'):
                 try:
                     raw_duration = self.playbin.query_duration(gst.FORMAT_TIME, None)[0]
-                    duration = float(raw_duration)/gst.SECOND
-                    if duration > 0:
-                        self.current.set_tag_raw('__length', duration)
                 except gst.QueryError:
                     logger.error("Couldn't query duration")
+                    raw_duration = 0
+                duration = float(raw_duration)/gst.SECOND
+                if duration > 0:
+                    self.current.set_tag_raw('__length', duration)
         elif message.type == gst.MESSAGE_EOS and not self.is_paused():
             self.eos_func()
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
             a = message.parse_error()[0]
-            self._on_playback_error(a.message)
-            try:
-                self.error_func()
-            except AttributeError:
-                pass
-            except:
-                common.log_exception(log=logger, message="Unhandled exception while cleaning up a gstreamer error.")
+            event.log_event('playback_error', self, message)
+            self.error_func()
         return True
+
+    def _handle_message(self, bus, message, reading_tag):
+        pass # for overriding
 
     def eos_func(self):
         logger.warning("Unhandled EOS message: ", message)
+
+    def error_func(self):
+        self.stop()
 
     def _set_queue(self, queue):
         self._queue = queue
@@ -376,16 +372,6 @@ class ExailePlayer(object):
             :rtype: bool
         """
         return self._get_gst_state() == gst.STATE_NULL
-
-    def _on_playback_error(self, message):
-        """
-            Called when there is an error during playback
-        """
-        event.log_event('playback_error', self, message)
-        self.stop()
-
-    def tag_func(self, *args):
-        event.log_event('tags_parsed', self, (self.current, args[0]))
 
     @staticmethod
     def parse_stream_tags(track, tags):

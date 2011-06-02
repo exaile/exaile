@@ -84,13 +84,8 @@ class NormalPlayer(_base.ExailePlayer):
         return True
 
     def error_func():
-        # TODO: merge this into stop() and make it engine-agnostic somehow
-        curr = self.current
-        self._current = None
-        self.pipe.set_state(gst.STATE_NULL)
-        self.setup_pipe()
-        event.log_event("playback_track_end", self, curr)
-        event.log_event("playback_player_end", self, curr)
+        self.stop()
+        self._setup_pipe()
 
     def _get_current(self):
         return self._current
@@ -173,7 +168,6 @@ class NormalPlayer(_base.ExailePlayer):
 
         return True
 
-    # FIXME: these parameters are really bad
     def _stop(self, _onlyfire=False):
         """
             Stops playback.

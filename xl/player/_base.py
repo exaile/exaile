@@ -45,9 +45,9 @@ class ExailePlayer(object):
         self._playtime_stamp = None
         self._last_position = 0
 
-        self.mainbin = pipe.MainBin(pre_elems=pre_elems)
-        self.pipe = None
-        self.bus = None
+        self._mainbin = pipe.MainBin(pre_elems=pre_elems)
+        self._pipe = None
+        self._bus = None
 
         self._setup_pipe()
         self._setup_bus()
@@ -79,7 +79,7 @@ class ExailePlayer(object):
 
     def _setup_pipe(self):
         """
-            Needs to create self.pipe, an instance of gst.Pipeline
+            Needs to create self._pipe, an instance of gst.Pipeline
             that will control playback.
         """
         raise NotImplementedError
@@ -88,10 +88,10 @@ class ExailePlayer(object):
         """
             setup the gstreamer message bus and callbacks
         """
-        self.bus = self.pipe.get_bus()
-        self.bus.add_signal_watch()
-        self.bus.enable_sync_message_emission()
-        self.bus.connect('message', self._on_message)
+        self._bus = self._pipe.get_bus()
+        self._bus.add_signal_watch()
+        self._bus.enable_sync_message_emission()
+        self._bus.connect('message', self._on_message)
 
     def _on_message(self, bus, message, reading_tag=False):
         handled = self._handle_message(bus, message, reading_tag)
@@ -123,10 +123,10 @@ class ExailePlayer(object):
     def _handle_message(self, bus, message, reading_tag):
         pass # for overriding
 
-    def eos_func(self):
+    def _eos_func(self):
         logger.warning("Unhandled EOS message: ", message)
 
-    def error_func(self):
+    def _error_func(self):
         self.stop()
 
     def _set_queue(self, queue):
@@ -137,14 +137,14 @@ class ExailePlayer(object):
             Gets the current actual volume.  This does not reflect what is
             shown to the user, see the player/volume setting for that.
         """
-        return self.mainbin.get_volume()
+        return self._mainbin.get_volume()
 
     def _set_volume(self, volume):
         """
             Sets the volume. This does NOT update the setting value,
             and should be used only internally.
         """
-        self.mainbin.set_volume(volume)
+        self._mainbin.set_volume(volume)
 
     def get_volume(self):
         """
@@ -274,7 +274,7 @@ class ExailePlayer(object):
             Gets the current playback position
 
             :returns: the position in milliseconds
-            :rtype: int 
+            :rtype: int
         """
         raise NotImplementedError
 
@@ -329,7 +329,7 @@ class ExailePlayer(object):
         """
             Returns the raw GStreamer state
         """
-        return self.pipe.get_state(timeout=50*gst.MSECOND)[1]
+        return self._pipe.get_state(timeout=50*gst.MSECOND)[1]
 
     def get_state(self):
         """

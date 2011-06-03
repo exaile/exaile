@@ -44,7 +44,7 @@ logger = logging.getLogger(__name__)
 class NormalPlayer(_base.ExailePlayer):
     def __init__(self):
         self._current = None
-        self.fakevideo = None
+        self._fakevideo = None
         _base.ExailePlayer.__init__(self,
                 pre_elems=[pipe.ProviderBin("stream_element")])
 
@@ -52,20 +52,20 @@ class NormalPlayer(_base.ExailePlayer):
         """
             setup the playbin to use for playback
         """
-        self.pipe = gst.element_factory_make("playbin2", "player")
-        self.pipe.connect("about-to-finish", self.on_about_to_finish)
-        self.fakevideo = gst.element_factory_make("fakesink")
-        self.fakevideo.set_property("sync", True)
-        self.pipe.set_property("audio-sink", self.mainbin)
-        self.pipe.set_property("video-sink", self.fakevideo)
+        self._pipe = gst.element_factory_make("playbin2", "player")
+        self._pipe.connect("about-to-finish", self._on_about_to_finish)
+        self._fakevideo = gst.element_factory_make("fakesink")
+        self._fakevideo.set_property("sync", True)
+        self._pipe.set_property("audio-sink", self._mainbin)
+        self._pipe.set_property("video-sink", self._fakevideo)
 
-    def eos_func(self, *args):
+    def _eos_func(self, *args):
         """
             called at the end of a stream
         """
         self._queue.next()
 
-    def on_about_to_finish(self, pbin):
+    def _on_about_to_finish(self, pbin):
         tr = self._queue.next(autoplay=False)
         if tr:
             self.play(tr, stop_last=False)
@@ -83,7 +83,7 @@ class NormalPlayer(_base.ExailePlayer):
             return False
         return True
 
-    def error_func():
+    def _error_func():
         self.stop()
         self._setup_pipe()
 
@@ -94,17 +94,15 @@ class NormalPlayer(_base.ExailePlayer):
         """
             Gets the current playback position of the playing track
         """
-        if self.is_paused():
-            return self._last_position
-        try:
-            self._last_position = \
-                self.pipe.query_position(gst.FORMAT_TIME)[0]
-        except gst.QueryError:
-            self._last_position = 0
-
+        if not self.is_paused():
+            try:
+                self._last_position = \
+                    self._pipe.query_position(gst.FORMAT_TIME)[0]
+            except gst.QueryError:
+                self._last_position = 0
         return self._last_position
 
-    def update_playtime(self):
+    def _update_playtime(self):
         """
             updates the total playtime for the currently playing track
         """
@@ -121,15 +119,15 @@ class NormalPlayer(_base.ExailePlayer):
                     self._playtime_stamp))
             self._playtime_stamp = None
 
-    def reset_playtime_stamp(self):
+    def _reset_playtime_stamp(self):
         self._playtime_stamp = int(time.time())
 
     def __notify_source(self, *args):
         # this is for handling multiple CD devices properly
-        source = self.pipe.get_property('source')
+        source = self._pipe.get_property('source')
         device = self.current.get_loc_for_io().split("#")[-1]
         source.set_property('device', device)
-        self.pipe.disconnect(self.notify_id)
+        self._pipe.disconnect(self.notify_id)
 
     def play(self, track, stop_last=True):
         """
@@ -154,14 +152,14 @@ class NormalPlayer(_base.ExailePlayer):
 
         uri = track.get_loc_for_io()
         logger.info("Playing %s" % uri)
-        self.reset_playtime_stamp()
+        self._reset_playtime_stamp()
 
-        self.pipe.set_property("uri", uri)
+        self._pipe.set_property("uri", uri)
         if urlparse.urlsplit(uri)[0] == "cdda":
-            self.notify_id = self.pipe.connect('notify::source',
+            self.notify_id = self._pipe.connect('notify::source',
                     self.__notify_source)
 
-        self.pipe.set_state(gst.STATE_PLAYING)
+        self._pipe.set_state(gst.STATE_PLAYING)
         if not playing:
             event.log_event('playback_player_start', self, track)
         event.log_event('playback_track_start', self, track)
@@ -182,29 +180,29 @@ class NormalPlayer(_base.ExailePlayer):
                          isn't one if we actually halt the player the last few
                          moments of the prior track will be cut off.
         """
-        self.update_playtime()
+        self._update_playtime()
         current = self.current
         if not _onlyfire:
-            self.pipe.set_state(gst.STATE_NULL)
+            self._pipe.set_state(gst.STATE_NULL)
         self._current = None
         event.log_event('playback_track_end', self, current)
         return current
 
     def _pause(self):
-        self.update_playtime()
-        self.pipe.set_state(gst.STATE_PAUSED)
-        self.reset_playtime_stamp()
+        self._update_playtime()
+        self._pipe.set_state(gst.STATE_PAUSED)
+        self._reset_playtime_stamp()
 
     def _unpause(self):
-        self.reset_playtime_stamp()
+        self._reset_playtime_stamp()
 
         # gstreamer does not buffer paused network streams, so if the user
         # is unpausing a stream, just restart playback
         if not (self.current.is_local() or
                 self.current.get_tag_raw('__length')):
-            self.pipe.set_state(gst.STATE_READY)
+            self._pipe.set_state(gst.STATE_READY)
 
-        self.pipe.set_state(gst.STATE_PLAYING)
+        self._pipe.set_state(gst.STATE_PLAYING)
 
     def seek(self, value):
         """
@@ -215,11 +213,9 @@ class NormalPlayer(_base.ExailePlayer):
             gst.SEEK_FLAG_FLUSH, gst.SEEK_TYPE_SET, value,
             gst.SEEK_TYPE_NONE, 0)
 
-        res = self.pipe.send_event(event)
+        res = self._pipe.send_event(event)
         if res:
-            self.pipe.set_new_stream_time(0L)
+            self._pipe.set_new_stream_time(0L)
         else:
             logger.debug("Couldn't send seek event")
-
-        self.last_seek_pos = value
 

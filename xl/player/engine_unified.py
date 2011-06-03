@@ -64,17 +64,17 @@ class UnifiedPlayer(_base.ExailePlayer):
                 "rate=(int)44100, "
                 "channels=(int)2"
                 )
-        self.pipe = gst.Pipeline()
+        self._pipe = gst.Pipeline()
         self.adder = gst.element_factory_make("adder")
         self.audio_queue = gst.element_factory_make("queue")
         self._load_queue_values()
-        self.pipe.add(
+        self._pipe.add(
                 self.adder,
                 self.audio_queue,
-                self.mainbin
+                self._mainbin
                 )
         self.adder.link(self.audio_queue)
-        self.audio_queue.link(self.mainbin)
+        self.audio_queue.link(self._mainbin)
 
     def _load_queue_values(self):
         # queue defaults to 1 second of audio data, however this
@@ -154,10 +154,10 @@ class UnifiedPlayer(_base.ExailePlayer):
         if fading:
             self.streams[next].set_volume(0)
 
-        self.pipe.set_state(gst.STATE_PLAYING)
+        self._pipe.set_state(gst.STATE_PLAYING)
         self.streams[next]._settle_flag = 1
         glib.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
-        glib.idle_add(self._set_state, self.pipe, gst.STATE_PLAYING)
+        glib.idle_add(self._set_state, self._pipe, gst.STATE_PLAYING)
 
         if fading:
             timeout = int(float(duration)/float(100))
@@ -233,7 +233,7 @@ class UnifiedPlayer(_base.ExailePlayer):
                 pass
             glib.idle_add(stream.set_state, gst.STATE_NULL)
             try:
-                self.pipe.remove(stream)
+                self._pipe.remove(stream)
             except gst.RemoveError:
                 logger.debug("Failed to remove stream %s"%stream)
             if stream in self.streams:
@@ -247,7 +247,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             return False
 
     def link_stream(self, stream, track):
-        self.pipe.add(stream)
+        self._pipe.add(stream)
         stream.link(self.adder)
         if not stream.set_track(track):
             logger.error("Failed to start playing \"%s\""%track)
@@ -261,7 +261,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             stop playback
         """
         current = self.current
-        self.pipe.set_state(gst.STATE_NULL)
+        self._pipe.set_state(gst.STATE_NULL)
         for stream in self.streams:
             self.unlink_stream(stream)
         self._reset_crossfade_timer()
@@ -269,7 +269,7 @@ class UnifiedPlayer(_base.ExailePlayer):
 
     @common.synchronized
     def _pause(self):
-        self.pipe.set_state(gst.STATE_PAUSED)
+        self._pipe.set_state(gst.STATE_PAUSED)
         self._reset_crossfade_timer()
 
     @common.synchronized
@@ -277,9 +277,9 @@ class UnifiedPlayer(_base.ExailePlayer):
         # gstreamer does not buffer paused network streams, so if the user
         # is unpausing a stream, just restart playback
         if not self.current.is_local():
-            self.pipe.set_state(gst.STATE_READY)
+            self._pipe.set_state(gst.STATE_READY)
 
-        self.pipe.set_state(gst.STATE_PLAYING)
+        self._pipe.set_state(gst.STATE_PLAYING)
         self._reset_crossfade_timer()
 
     @common.synchronized
@@ -486,8 +486,6 @@ class AudioStream(gst.Bin):
             gst.SEEK_TYPE_NONE, 0)
 
         self.vol.send_event(seekevent)
-
-        self.last_seek_pos = value
 
     def _seek_delayed(self, type, object, value):
         """

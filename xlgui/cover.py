@@ -584,7 +584,8 @@ class CoverWidget(gtk.EventBox):
             them
         """
         glib.idle_add(self.set_blank)
-        self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+        glib.idle_add(self.drag_dest_set,
+            gtk.DEST_DEFAULT_ALL,
             [('text/uri-list', 0, 0)],
             gtk.gdk.ACTION_COPY |
             gtk.gdk.ACTION_DEFAULT |
@@ -604,7 +605,7 @@ class CoverWidget(gtk.EventBox):
         """
             Called when playback stops.  Resets to the nocover image
         """
-        self.drag_dest_unset()
+        glib.idle_add(self.drag_dest_unset)
         glib.idle_add(self.set_blank)
 
     def on_quit_application(self, type, exaile, nothing):

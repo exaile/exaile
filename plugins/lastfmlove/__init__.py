@@ -67,7 +67,7 @@ class LoveColumn(Column):
     name = 'loved'
     display = _('Loved')
     menu_title = _('Last.fm Loved')
-    size = 40
+    size = 50
     renderer = CellRendererToggleImage
     datatype = bool
     dataproperty = 'active'

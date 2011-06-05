@@ -424,22 +424,22 @@ class PlaylistPage(NotebookPage):
         self.playlist.repeat_mode = mode
 
     def on_mode_changed(self, evtype, playlist, mode, button):
-        button.set_active(mode != 'disabled')
+        glib.idle_add(button.set_active, mode != 'disabled')
 
     def on_dynamic_playlists_provider_changed(self, evtype, manager, provider):
         """
             Updates the dynamic button on provider changes
         """
         providers_available = len(providers.get('dynamic_playlists')) > 0
+        sensitive = False
+        tooltip_text = _('Requires plugins providing dynamic playlists')
 
         if providers_available:
-            self.dynamic_button.set_sensitive(True)
-            self.dynamic_button.set_tooltip_text(
-                _('Dynamically add similar tracks to the playlist'))
-        else:
-            self.dynamic_button.set_sensitive(False)
-            self.dynamic_button.set_tooltip_text(
-                _('Requires plugins providing dynamic playlists'))
+            sensitive = True
+            tooltip_text = _('Dynamically add similar tracks to the playlist')
+
+        glib.idle_add(self.dynamic_button.set_sensitive, sensitive)
+        glib.idle_add(self.dynamic_button.set_tooltip_text, tooltip_text)
 
     def on_option_set(self, evtype, settings, option):
         """
@@ -447,9 +447,9 @@ class PlaylistPage(NotebookPage):
         """
         if option == 'gui/playlist_utilities_bar_visible':
             visible = settings.get_option(option, True)
-            self.playlist_utilities_bar.props.visible = visible
-            self.playlist_utilities_bar.set_sensitive(visible)
-            self.playlist_utilities_bar.set_no_show_all(not visible)
+            glib.idle_add(self.playlist_utilities_bar.set_visible, visible)
+            glib.idle_add(self.playlist_utilities_bar.set_sensitive, visible)
+            glib.idle_add(self.playlist_utilities_bar.set_no_show_all, not visible)
 
     def on_row_changed(self, model, path, iter):
         """

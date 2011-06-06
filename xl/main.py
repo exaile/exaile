@@ -531,7 +531,7 @@ class Exaile(object):
 
     def version(self):
         from xl.version import __version__
-        print __version__
+        print "Exaile", __version__
         exit()
 
     def _add_default_playlists(self):

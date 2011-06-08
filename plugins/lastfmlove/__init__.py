@@ -25,6 +25,7 @@ from threading import (
 from xl import (
     common,
     event,
+    player,
     providers,
     settings
 )
@@ -118,8 +119,9 @@ class LoveMenuItem(MenuItem):
         A menu item representing the loved state of a
         track and allowing for loving and unloving it
     """
-    def __init__(self, after):
+    def __init__(self, after, get_tracks_function=None):
         MenuItem.__init__(self, 'loved', None, after)
+        self.get_tracks_function = get_tracks_function
 
     def factory(self, menu, parent, context):
         """
@@ -130,7 +132,11 @@ class LoveMenuItem(MenuItem):
         item = gtk.ImageMenuItem(_('Love This Track'))
         item.set_image(gtk.image_new_from_icon_name(
             'emblem-favorite', gtk.ICON_SIZE_MENU))
-        tracks = context.get('selected-tracks', [])
+
+        if self.get_tracks_function is not None:
+            tracks = self.get_tracks_function()
+        else:
+            tracks = context.get('selected-tracks', [])
 
         if len(tracks) > 0 and LASTFMLOVER.network is not None:
             # We only care about the first track
@@ -175,11 +181,29 @@ class LastFMLover(object):
         self.column_menu_item = ColumnMenuItem(column=LoveColumn, after=['__rating'])
         self.menu_item = LoveMenuItem(after=['rating'])
 
+        def get_tracks_function():
+            """
+                Drop in replacement for menu item context
+                to retrieve the currently playing track
+            """
+            current_track = player.PLAYER.current
+
+            if current_track is not None:
+                return [current_track]
+
+            return []
+
+        self.tray_menu_item = LoveMenuItem(
+            after=['rating'],
+            get_tracks_function=get_tracks_function
+        )
+
         self.setup_network()
 
         providers.register('playlist-columns', LoveColumn);
         providers.register('playlist-columns-menu', self.column_menu_item)
         providers.register('playlist-context-menu', self.menu_item)
+        providers.register('tray-icon-context', self.tray_menu_item)
 
         event.add_callback(self.on_option_set, 'plugin_lastfmlove_option_set')
 
@@ -189,6 +213,7 @@ class LastFMLover(object):
         """
         event.remove_callback(self.on_option_set, 'plugin_lastfmlove_option_set')
 
+        providers.unregister('tray-icon-context', self.tray_menu_item)
         providers.unregister('playlist-context-menu', self.menu_item)
         providers.unregister('playlist-columns-menu', self.column_menu_item)
         providers.unregister('playlist-columns', LoveColumn)

@@ -24,9 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging
 import gio
+import glib
 import gtk
+import logging
 import pango
 
 from xl import (
@@ -108,10 +109,8 @@ class Column(gtk.TreeViewColumn):
 
 
     def on_option_set(self, typ, obj, data):
-        if data == "gui/resizable_cols":
-            self.setup_sizing()
-        elif data == self.settings_width_name:
-            self.setup_sizing()
+        if data in ("gui/resizable_cols", self.settings_width_name):
+            glib.idle_add(self.setup_sizing)
 
     def on_width_changed(self, column, wid):
         if not self.container.button_pressed:

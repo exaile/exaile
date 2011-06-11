@@ -113,7 +113,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.add_driver(value)
 
     def _add_driver_cb(self, type, object, driver):
-        self.add_driver(driver)
+        glib.idle_add(self.add_driver, driver)
 
     def add_driver(self, driver):
         """
@@ -130,7 +130,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.tree.expand_row(self.model.get_path(node), False)
 
     def _remove_driver_cb(self, type, object, driver):
-        self.remove_driver(driver)
+        glib.idle_add(self.remove_driver, driver)
 
     def remove_driver(self, driver):
         """

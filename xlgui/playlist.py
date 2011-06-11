@@ -368,13 +368,12 @@ class PlaylistNotebook(SmartNotebook):
         if option == 'gui/show_tabbar':
             show_tabbar = settings.get_option(option, True)
 
-            if not show_tabbar:
-                if self.get_n_pages() > 1:
-                    show_tabbar = True
+            if not show_tabbar and self.get_n_pages() > 1:
+                show_tabbar = True
 
-            self.set_show_tabs(show_tabbar)
+            glib.idle_add(self.set_show_tabs, show_tabbar)
 
         if option == 'gui/tab_placement':
             tab_placement = settings.get_option(option, 'top')
-            self.set_tab_pos(self.tab_placement_map[tab_placement])
+            glib.idle_add(self.set_tab_pos, self.tab_placement_map[tab_placement])
 

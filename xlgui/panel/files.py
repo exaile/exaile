@@ -24,14 +24,36 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import locale, logging, os, re, urllib
+import gio
+import glib
+import gobject
+import gtk
+import locale
+import logging
+import os
+import pango
+import re
+import urllib
 
-import gio, glib, gobject, gtk, pango
-
-from xl import common, event, metadata, settings, trax, providers
-from xlgui import guiutil, panel, playlist, xdg
-from xlgui.widgets import menu, menuitems
+from xl import (
+    common,
+    event,
+    metadata,
+    providers,
+    settings,
+    trax
+)
 from xl.nls import gettext as _
+from xlgui import (
+    guiutil,
+    panel,
+    playlist,
+    xdg
+)
+from xlgui.widgets import (
+    menu,
+    menuitems
+)
 
 logger = logging.getLogger(__name__)
 
@@ -187,13 +209,13 @@ class FilesPanel(panel.Panel):
 
     def fill_libraries_location(self, *e):
         model = self.location_bar.get_model()
-        model.clear()
+        glib.idle_add(model.clear)
         libraries = self.collection._serial_libraries
 
         if len(libraries) > 0:
             for library in libraries:
-                model.append([gio.File(library['location']).get_parse_name()])
-        self.location_bar.set_model(model)
+                glib.idle_add(model.append, [gio.File(library['location']).get_parse_name()])
+        glib.idle_add(self.location_bar.set_model, model)
 
     def on_location_bar_changed(self, widget, *args):
         # Find out which one is selected, if any.

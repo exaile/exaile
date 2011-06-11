@@ -221,18 +221,18 @@ class CollectionPanel(panel.Panel):
         if not self._show_collection_empty_message or \
             (self.collection.libraries and self.collection_empty_message):
             self.collection_empty_message = False
-            self.vbox.set_child_visible(True)
-            self.message.set_child_visible(False)
-            self.vbox.show_all()
-            self.message.hide_all()
+            glib.idle_add(self.vbox.set_child_visible, True)
+            glib.idle_add(self.message.set_child_visible, False)
+            glib.idle_add(self.vbox.show_all)
+            glib.idle_add(self.message.hide_all)
 
         elif not self.collection.libraries and not self.collection_empty_message:
             self.collection_empty_message = True
-            self.vbox.set_child_visible(False)
-            self.message.set_no_show_all(False)
-            self.message.set_child_visible(True)
-            self.vbox.hide_all()
-            self.message.show_all()
+            glib.idle_add(self.vbox.set_child_visible, False)
+            glib.idle_add(self.message.set_no_show_all, False)
+            glib.idle_add(self.message.set_child_visible, True)
+            glib.idle_add(self.vbox.hide_all)
+            glib.idle_add(self.message.show_all)
 
     def _connect_events(self):
         """
@@ -472,7 +472,7 @@ class CollectionPanel(panel.Panel):
                     self._refresh_tags_in_tree)
 
     def refresh_tracks_in_tree(self, type, obj, loc):
-        self._refresh_tags_in_tree()
+        glib.idle_add(self._refresh_tags_in_tree)
 
     def _refresh_tags_in_tree(self):
         """

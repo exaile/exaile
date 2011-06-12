@@ -964,12 +964,12 @@ class PlaylistModel(gtk.GenericTreeModel):
 
     def on_tracks_added(self, event_type, playlist, tracks):
         for position, track in tracks:
-            glib.idle_add(self.row_inserted(position,), self.get_iter((position,)))
+            self.row_inserted((position,), self.get_iter((position,)))
 
     def on_tracks_removed(self, event_type, playlist, tracks):
         tracks.reverse()
         for position, track in tracks:
-            glib.idle_add(self.row_deleted(position,))
+            self.row_deleted((position,))
 
     def on_current_position_changed(self, event_type, playlist, positions):
         for position in positions:

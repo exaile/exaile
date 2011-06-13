@@ -501,17 +501,18 @@ class FileOperationDialog(gtk.FileChooserDialog):
         #Create the list that will hold the file type/extensions pair
         self.liststore = gtk.ListStore(str, str)
         self.list = gtk.TreeView(self.liststore)
+        self.list.set_headers_visible(False)
 
         #Create the columns
         filetype_cell = gtk.CellRendererText()
-        filetype_col = gtk.TreeViewColumn(_('File Type'), filetype_cell, text=0)
-
         extension_cell = gtk.CellRendererText()
-        extension_col = gtk.TreeViewColumn(_('Extension'), extension_cell, text=1)
+        column = gtk.TreeViewColumn()
+        column.pack_start(filetype_cell)
+        column.pack_start(extension_cell, expand=False)
+        column.set_attributes(filetype_cell, text=0)
+        column.set_attributes(extension_cell, text=1)
 
-        self.list.append_column(filetype_col)
-        self.list.append_column(extension_col)
-
+        self.list.append_column(column)
         self.list.show_all()
 
         #Setup the dialog

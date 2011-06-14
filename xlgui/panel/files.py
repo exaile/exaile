@@ -209,13 +209,13 @@ class FilesPanel(panel.Panel):
 
     def fill_libraries_location(self, *e):
         model = self.location_bar.get_model()
-        glib.idle_add(model.clear)
+        model.clear()
         libraries = self.collection._serial_libraries
 
         if len(libraries) > 0:
             for library in libraries:
-                glib.idle_add(model.append, [gio.File(library['location']).get_parse_name()])
-        glib.idle_add(self.location_bar.set_model, model)
+                model.append([gio.File(library['location']).get_parse_name()])
+        self.location_bar.set_model(model)
 
     def on_location_bar_changed(self, widget, *args):
         # Find out which one is selected, if any.

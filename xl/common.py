@@ -308,7 +308,7 @@ def walk(root):
                 elif type == gio.FILE_TYPE_REGULAR:
                     yield fil
         except gio.Error, e: # why doesnt gio offer more-specific errors?
-            log_exception(e)
+            log_exception(log=logger, message="Unhandled exception while walking on %s." % dir)
 
 def walk_directories(root):
     """
@@ -320,6 +320,8 @@ def walk_directories(root):
         :rtype: :class:`gio.File`
     """
     yield root
+    directory = None
+    subdirectory = None
 
     try:
         for fileinfo in root.enumerate_children(
@@ -330,7 +332,7 @@ def walk_directories(root):
                 for subdirectory in walk_directories(directory):
                     yield subdirectory
     except gio.Error, e:
-        log_exception(e)
+        log_exception(log=logger, message="Unhandled exception while walking dirs on %s, %s, %s" % (root, directory, subdirectory))
 
 class TimeSpan:
     """

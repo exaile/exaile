@@ -99,7 +99,8 @@ class MainWindow(gobject.GObject):
         self.window = self.builder.get_object('ExaileWindow')
         self.window.set_title('Exaile')
         self.title_formatter = formatter.TrackFormatter(settings.get_option(
-            'gui/main_window_title_format', _('$title (by $artist)')))
+            'gui/main_window_title_format', _('$title (by $artist)') +
+		' - Exaile'))
 
         self.accelgroup = gtk.AccelGroup()
         self.window.add_accel_group(self.accelgroup)

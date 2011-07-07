@@ -28,6 +28,11 @@ from __future__ import absolute_import
 
 import logging
 import shelve
+try:
+    import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
+except ImportError:
+    bsddb3 = None
+
 from copy import deepcopy
 
 import glib
@@ -165,8 +170,12 @@ class TrackDB(object):
                     _("You did not specify a location to load the db from"))
 
         try:
-            pdata = shelve.open(self.location, flag='c',
-                    protocol=common.PICKLE_PROTOCOL)
+            try:
+                pdata = shelve.open(self.location, flag='c',
+                        protocol=common.PICKLE_PROTOCOL)
+            except ImportError:
+                _db = bsddb3.hashopen(self.location, 'c')
+                pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
             if pdata.has_key("_dbversion"):
                 if int(pdata['_dbversion']) > int(self._dbversion):
                     raise common.VersionError, \
@@ -238,13 +247,18 @@ class TrackDB(object):
         logger.debug("Saving %s DB to %s." % (self.name, self.location))
 
         try:
-            pdata = shelve.open(self.location, flag='c',
-                    protocol=common.PICKLE_PROTOCOL)
+            try:
+                pdata = shelve.open(self.location, flag='c',
+                        protocol=common.PICKLE_PROTOCOL)
+            except ImportError:
+                _db = bsddb3.hashopen(self.location, 'c')
+                pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
             if pdata.get('_dbversion', self._dbversion) > self._dbversion:
                 raise common.VersionError, \
                     "DB was created on a newer Exaile."
         except Exception:
             logger.error("Failed to open music DB for writing.")
+            common.log_exception(log=logger)
             return
 
         for attr in self.pickle_attrs:

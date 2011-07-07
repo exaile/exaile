@@ -27,12 +27,16 @@
 
 #Lyrics manager.
 #
-from xl import providers, event, xdg
+from xl import providers, event, xdg, common
 from xl import settings
 from xl.nls import gettext as _
 from datetime import datetime, timedelta
 import threading
 import shelve
+try:
+    import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
+except ImportError:
+    bsddb3 = None
 import zlib
 import os
 
@@ -52,7 +56,11 @@ class LyricsCache:
                 there is nothing in the shelve
         '''
         self.location = location
-        self.db = shelve.open(location, flag='c', protocol=2, writeback=False)
+        try:
+            self.db = shelve.open(location, flag='c', protocol=common.PICKLE_PROTOCOL, writeback=False)
+        except ImportError:
+            _db = bsddb3.hashopen(location, 'c')
+            self.db = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
         self.lock = threading.Lock()
         self.default = default
 

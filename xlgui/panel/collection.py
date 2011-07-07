@@ -482,7 +482,9 @@ class CollectionPanel(panel.Panel):
         # Trying to reload while we're rescanning is really inefficient,
         # so we delay it until we're done scanning.
         if self.collection._scanning:
-            return True
+            glib.remove_source(self._refresh_id)
+            glib.idle_add(self._refresh_tags_in_tree)
+            return False
         self.resort_tracks()
         self.load_tree()
         return False

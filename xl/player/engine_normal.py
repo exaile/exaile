@@ -83,7 +83,7 @@ class NormalPlayer(_base.ExailePlayer):
             return False
         return True
 
-    def _error_func():
+    def _error_func(self):
         self.stop()
         self._setup_pipe()
 

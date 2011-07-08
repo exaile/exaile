@@ -112,12 +112,12 @@ class ExailePlayer(object):
                 if duration > 0:
                     self.current.set_tag_raw('__length', duration)
         elif message.type == gst.MESSAGE_EOS and not self.is_paused():
-            self.eos_func()
+            self._eos_func()
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
             a = message.parse_error()[0]
             event.log_event('playback_error', self, message)
-            self.error_func()
+            self._error_func()
         return True
 
     def _handle_message(self, bus, message, reading_tag):

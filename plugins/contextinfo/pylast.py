@@ -34,6 +34,10 @@ from xml.dom import minidom
 import xml.dom
 import time
 import shelve
+try:
+    import bsddb3
+except:
+    bsddb3 = None
 import tempfile
 import sys
 import htmlentitydefs
@@ -658,7 +662,11 @@ def get_librefm_network(api_key="", api_secret="", session_key = "", username = 
 class _ShelfCacheBackend(object):
     """Used as a backend for caching cacheable requests."""
     def __init__(self, file_path = None):
-        self.shelf = shelve.open(file_path)
+        try:
+            self.shelf = shelve.open(file_path)
+        except ImportError:
+            _db = bsddb3.hashopen(file_path)
+            self.shelf = shelve.Shelf(_db)
     
     def get_xml(self, key):
         return self.shelf[key]

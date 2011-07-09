@@ -151,12 +151,21 @@ class CollectionPanel(panel.Panel):
 
     ui_info = ('collection_panel.ui', 'CollectionPanelWindow')
     """
-        Each level in order is a tuple of tree lists
-        First list is list of tags, that are relevant to this level, in their sort order
-        Second list describes way of node is printed. Strings in list remain the same,
-        and values of corresponding tags are inserted instead of integers
-        Third list is list of indices of tags that tracks are searched by
-        If level is string 'tag', it's the same as (['tag'], [0], [0])
+        orders defines the available tree types in the Collection panel's
+        dropdown. Each order is a list, with each member of the list
+        corresponding to one level of the tree. Each member is either
+        a 3-tuple of lists or a string, where a string 'spam' is
+        interpreted the same as the tuple (['spam'], [0], [0]).
+
+        In each tuple, the lists are as follows:
+            - A list of tags that are 'part' of this level, listed in
+              the order used for sorting.
+            - A list of integers, corresponding to indexes of tags in
+              the first list, which determines which tags will be shown
+              to represent the level.
+            - A list of integers, corresponding to indexes of tags in
+              the first list, which determines which tags will be used
+              when searching from the panel's search box.
     """
     orders = (
         ['artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
@@ -482,8 +491,9 @@ class CollectionPanel(panel.Panel):
         # Trying to reload while we're rescanning is really inefficient,
         # so we delay it until we're done scanning.
         if self.collection._scanning:
-            glib.remove_source(self._refresh_id)
-            glib.idle_add(self._refresh_tags_in_tree)
+            if self._refresh_id != 0:
+                glib.source_remove(self._refresh_id)
+            self._refresh_id = glib.idle_add(self._refresh_tags_in_tree)
             return False
         self.resort_tracks()
         self.load_tree()

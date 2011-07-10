@@ -570,7 +570,10 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         if not columns:
             columns = self.default_columns
 
+        # FIXME: this is kinda ick because of supporting both models
         self.model.columns = columns
+        self.model = PlaylistModel(self.playlist, columns)
+        self.set_model(self.model)
 
         for position, column in enumerate(columns):
             position += 2 # offset for pixbuf column
@@ -830,7 +833,116 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             columns.remove(provider.name)
             settings.set_option('gui/columns', columns)
 
-class PlaylistModel(gtk.GenericTreeModel):
+
+
+class GtkPlaylistModel(gtk.ListStore):
+
+    def __init__(self, playlist, columns):
+        gtk.ListStore.__init__(self, int) # real types are set later
+        self.playlist = playlist
+        self.columns = columns
+
+        self.coltypes = [object, gtk.gdk.Pixbuf] + [providers.get_provider('playlist-columns', c).datatype for c in columns]
+        self.set_column_types(*self.coltypes)
+
+        event.add_callback(self.on_tracks_added,
+                "playlist_tracks_added", playlist)
+        event.add_callback(self.on_tracks_removed,
+                "playlist_tracks_removed", playlist)
+        event.add_callback(self.on_current_position_changed,
+                "playlist_current_position_changed", playlist)
+        event.add_callback(self.on_spat_position_changed,
+                "playlist_spat_position_changed", playlist)
+        event.add_callback(self.on_playback_state_change,
+                "playback_track_start")
+        event.add_callback(self.on_playback_state_change,
+                "playback_track_end")
+        event.add_callback(self.on_playback_state_change,
+                "playback_player_pause")
+        event.add_callback(self.on_playback_state_change,
+                "playback_player_resume")
+
+        self.play_pixbuf = icons.ExtendedPixbuf(
+                icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PLAY))
+        self.pause_pixbuf = icons.ExtendedPixbuf(
+                icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PAUSE))
+        self.stop_pixbuf = icons.ExtendedPixbuf(
+                icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP))
+        stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
+                dest_width=self.stop_pixbuf.get_width() / 2,
+                dest_height=self.stop_pixbuf.get_height() / 2,
+                interp_type=gtk.gdk.INTERP_BILINEAR)
+        stop_overlay_pixbuf = stop_overlay_pixbuf.move(
+                offset_x=stop_overlay_pixbuf.get_width(),
+                offset_y=stop_overlay_pixbuf.get_height(),
+                resize=True)
+        self.play_stop_pixbuf = self.play_pixbuf & stop_overlay_pixbuf
+        self.pause_stop_pixbuf = self.pause_pixbuf & stop_overlay_pixbuf
+        self.clear_pixbuf = self.play_pixbuf.copy()
+        self.clear_pixbuf.fill(0x00000000)
+
+        self.on_tracks_added(None, self.playlist, enumerate(self.playlist)) # populate the list
+
+    def track_to_row_data(self, track, position):
+        return [track, self.icon_for_row(position)] + [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
+
+    def icon_for_row(self, row):
+        # TODO: we really need some sort of global way to say "is this playlist/pos the current one?
+        if self.playlist.current_position == row and \
+                self.playlist[row] == player.PLAYER.current and \
+                self.playlist == player.QUEUE.current_playlist:
+            state = player.PLAYER.get_state()
+            spat = self.playlist.spat_position == row
+            if state == 'playing':
+                if spat:
+                    return self.play_stop_pixbuf
+                else:
+                    return self.play_pixbuf
+            elif state == 'paused':
+                if spat:
+                    return self.pause_stop_pixbuf
+                else:
+                    return self.pause_pixbuf
+        if self.playlist.spat_position == row:
+            return self.stop_pixbuf
+        return self.clear_pixbuf
+
+    def update_icon(self, position):
+        iter = self.iter_nth_child(None, position)
+        self.set(iter, 1, self.icon_for_row(position))
+
+    ### Event callbacks to keep the model in sync with the playlist ###
+
+    def on_tracks_added(self, event_type, playlist, tracks):
+        for position, track in tracks:
+            self.insert(position, self.track_to_row_data(track, position))
+
+    def on_tracks_removed(self, event_type, playlist, tracks):
+        tracks.reverse()
+        for position, track in tracks:
+            self.remove(self.iter_nth_child(None, position))
+
+    def on_current_position_changed(self, event_type, playlist, positions):
+        for position in positions:
+            if position < 0:
+                continue
+            glib.idle_add(self.update_icon, position)
+
+    def on_spat_position_changed(self, event_type, playlist, positions):
+        spat_position = max(positions)
+        for position in xrange(spat_position, len(self)):
+            glib.idle_add(self.update_icon, position)
+
+    def on_playback_state_change(self, event_type, player_obj, track):
+        position = self.playlist.current_position
+        if position < 0 or position >= len(self):
+            return
+        glib.idle_add(self.update_icon, position)
+
+
+
+
+class ExailePlaylistModel(gtk.GenericTreeModel):
     def __init__(self, playlist, columns):
         gtk.GenericTreeModel.__init__(self)
         self.playlist = playlist
@@ -1004,4 +1116,5 @@ class PlaylistModel(gtk.GenericTreeModel):
         glib.idle_add(self.row_changed, (pos,), iter)
 
 
-
+PlaylistModel = ExailePlaylistModel
+PlaylistModel = GtkPlaylistModel

@@ -219,7 +219,6 @@ class RatingColumn(Column):
     name = '__rating'
     display = _('Rating')
     renderer = rating.RatingCellRenderer
-    datatype = int
     dataproperty = 'rating'
     cellproperties = {'follow-state': False}
 

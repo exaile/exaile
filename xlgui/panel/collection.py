@@ -91,7 +91,8 @@ class CollectionContextMenu(menu.ProviderMenu):
         return context
 
 def first_meaningful_char(s):
-    for i in range(len(s)):
+    s = unicode(s)
+    for i in xrange(len(s)):
         if s[i].isdigit():
             return '0'
         elif s[i].isalpha():

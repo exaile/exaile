@@ -578,6 +578,8 @@ class Track(object):
                 value = " "
         elif tag == '__basename':
             value = self.get_basename()
+        elif tag == '__rating':
+            value = unicode(self.get_rating())
         else:
             value = self.__tags.get(tag)
 

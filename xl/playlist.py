@@ -1226,15 +1226,14 @@ class Playlist(object):
         return (start, end, step)
 
     def __adjust_current_pos(self, oldpos, removed, added):
-        for i, tr in removed[::-1]:
+        newpos = oldpos
+        for i, tr in removed:
             if i <= oldpos:
-                oldpos -= 1
-        for i, tr in added[::-1]:
+                newpos -= 1
+        for i, tr in added:
             if i <= oldpos:
-                oldpos += 1
-        if oldpos < 0:
-            oldpos = -1
-        self.current_position = oldpos
+                newpos += 1
+        self.current_position = newpos
 
     def __getitem__(self, i):
         return self.__tracks.__getitem__(i)

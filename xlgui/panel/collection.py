@@ -153,13 +153,13 @@ class Order(object):
         return self.__formatters[level].format(track)
 
 DEFAULT_ORDERS = [
-    ("Artist", ("artist", "album", (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    ("Album", ("album", (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    ("Genre - Artist", ('genre', 'artist', 'album', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    ("Genre - Album", ('genre', 'album', 'artist', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    ("Date - Artist", ('date', 'artist', 'album', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    ("Date - Album", ('date', 'album', 'artist', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
-    ("Artist - (Date - Album)", ('artist', (('date', 'album'), "$date - $album", ('date', 'album')), (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Artist"), ("artist", "album", (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Album"), ("album", (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Genre - Artist"), ('genre', 'artist', 'album', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Genre - Album"), ('genre', 'album', 'artist', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Date - Artist"), ('date', 'artist', 'album', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Date - Album"), ('date', 'album', 'artist', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Artist - (Date - Album)"), ('artist', (('date', 'album'), "$date - $album", ('date', 'album')), (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
         ]
 
 class CollectionPanel(panel.Panel):
@@ -196,7 +196,7 @@ class CollectionPanel(panel.Panel):
         self._refresh_id = 0
         self.start_count = 0
         self.keyword = ''
-        self.orders = map(lambda x: Order(x[1]), DEFAULT_ORDERS)
+        self.orders = map(lambda x: (x[0], Order(x[1])), DEFAULT_ORDERS)
         self._setup_tree()
         self._setup_widgets()
         self._check_collection_empty()
@@ -218,11 +218,22 @@ class CollectionPanel(panel.Panel):
             Sets up the various widgets to be used in this panel
         """
         self.choice = self.builder.get_object('collection_combo_box')
-        active = settings.get_option('gui/collection_active_view', 0)
-        self.choice.set_active(active)
+        self.choicemodel = self.builder.get_object('collection_combo_model')
+        self.repopulate_choices()
 
         self.filter = guiutil.SearchEntry(
             self.builder.get_object('collection_search_entry'))
+
+    def repopulate_choices(self):
+        self.choice.set_model(None)
+        self.choicemodel.clear()
+        for name,order in self.orders:
+            self.choicemodel.append([name])
+        self.choice.set_model(self.choicemodel)
+        # FIXME: use something other than index here, since index
+        # doesn't deal well with dynamic lists...
+        active = settings.get_option('gui/collection_active_view', 0)
+        self.choice.set_active(active)
 
     def _check_collection_empty(self, *e):
         if not self._show_collection_empty_message or \
@@ -518,7 +529,7 @@ class CollectionPanel(panel.Panel):
 
         self.root = None
         oldorder = self.order
-        self.order = self.orders[self.choice.get_active()]
+        self.order = self.orders[self.choice.get_active()][1]
 
         if not oldorder or oldorder != self.order:
             self.resort_tracks()

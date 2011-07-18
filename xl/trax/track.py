@@ -877,7 +877,7 @@ class Track(object):
             update the cached the_cutter values
         """
         if data == "collection/strip_list":
-            cls.__the_cuts = settings.get_option('collection/strip_list', [])
+            cls._Track__the_cuts = settings.get_option('collection/strip_list', [])
 
 
 

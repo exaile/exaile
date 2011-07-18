@@ -113,7 +113,8 @@ class Order(object):
         tuple, and it will be treated equivalently to (("foo",), "$foo", ("foo",))
         for some string "foo".
     """
-    def __init__(self, levels, use_compilations=True):
+    def __init__(self, name, levels, use_compilations=True):
+        self.__name = name
         self.__levels = map(self.__parse_level, levels)
         self.__formatters = [formatter.TrackFormatter(l[1]) for l in self.__levels]
         self.__use_compilations = use_compilations
@@ -123,6 +124,10 @@ class Order(object):
         if type(val) in (str, unicode):
             val = ((val,), "$%s"%val, (val,))
         return tuple(val)
+
+    @property
+    def name(self):
+        return self.__name
 
     @property
     def use_compilations(self):
@@ -196,7 +201,7 @@ class CollectionPanel(panel.Panel):
         self._refresh_id = 0
         self.start_count = 0
         self.keyword = ''
-        self.orders = map(lambda x: (x[0], Order(x[1])), DEFAULT_ORDERS)
+        self.orders = map(lambda x: Order(x[0], x[1]), DEFAULT_ORDERS)
         self._setup_tree()
         self._setup_widgets()
         self._check_collection_empty()
@@ -227,8 +232,8 @@ class CollectionPanel(panel.Panel):
     def repopulate_choices(self):
         self.choice.set_model(None)
         self.choicemodel.clear()
-        for name,order in self.orders:
-            self.choicemodel.append([name])
+        for order in self.orders:
+            self.choicemodel.append([order.name])
         self.choice.set_model(self.choicemodel)
         # FIXME: use something other than index here, since index
         # doesn't deal well with dynamic lists...
@@ -529,7 +534,7 @@ class CollectionPanel(panel.Panel):
 
         self.root = None
         oldorder = self.order
-        self.order = self.orders[self.choice.get_active()][1]
+        self.order = self.orders[self.choice.get_active()]
 
         if not oldorder or oldorder != self.order:
             self.resort_tracks()

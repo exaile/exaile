@@ -50,8 +50,6 @@ from xlgui.widgets import info, menu, menuitems
 
 logger = logging.getLogger(__name__)
 
-TRACK_NUM = 300
-
 # TODO: come up with a more customizable way to handle this
 SEARCH_TAGS = ("artist", "albumartist", "album", "title")
 
@@ -93,13 +91,13 @@ class CollectionContextMenu(menu.ProviderMenu):
         return context
 
 def first_meaningful_char(s):
-    s = unicode(s)
-    for i in xrange(len(s)):
-        if s[i].isdigit():
+    for c in unicode(s):
+        if c.isdigit():
             return '0'
-        elif s[i].isalpha():
-            return s[i]
-    return '_'
+        elif c.isalpha():
+            return c
+    else:
+        return '_'
 
 class Order(object):
     """

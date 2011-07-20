@@ -28,10 +28,6 @@ from __future__ import absolute_import
 
 import logging
 import shelve
-try:
-    import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
-except ImportError:
-    bsddb3 = None
 
 from copy import deepcopy
 
@@ -174,6 +170,7 @@ class TrackDB(object):
                 pdata = shelve.open(self.location, flag='c',
                         protocol=common.PICKLE_PROTOCOL)
             except ImportError:
+                import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
                 _db = bsddb3.hashopen(self.location, 'c')
                 pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
             if pdata.has_key("_dbversion"):

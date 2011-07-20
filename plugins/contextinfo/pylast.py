@@ -34,10 +34,6 @@ from xml.dom import minidom
 import xml.dom
 import time
 import shelve
-try:
-    import bsddb3
-except:
-    bsddb3 = None
 import tempfile
 import sys
 import htmlentitydefs
@@ -665,6 +661,7 @@ class _ShelfCacheBackend(object):
         try:
             self.shelf = shelve.open(file_path)
         except ImportError:
+            import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
             _db = bsddb3.hashopen(file_path)
             self.shelf = shelve.Shelf(_db)
     

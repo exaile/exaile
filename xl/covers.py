@@ -507,8 +507,11 @@ class LocalFileCoverFetcher(CoverSearchMethod):
         if track.get_type() not in self.uri_types:
             return []
         basedir = gio.File(track.get_loc_for_io()).get_parent()
-        if not basedir.query_info("standard::type").get_file_type() == \
-                gio.FILE_TYPE_DIRECTORY:
+        try:
+            if not basedir.query_info("standard::type").get_file_type() == \
+                    gio.FILE_TYPE_DIRECTORY:
+                return []
+        except gio.Error:
             return []
         covers = []
         for fileinfo in basedir.enumerate_children("standard::type"

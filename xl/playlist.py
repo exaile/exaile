@@ -1200,7 +1200,10 @@ class Playlist(object):
 
         for item, val in items.iteritems():
             if item in self.save_attrs:
-                setattr(self, item, val)
+                try:
+                    setattr(self, item, val)
+                except TypeError: # don't bail if we try to set an invalid mode
+                    logger.debug("Got a TypeError when trying to set attribute %s to %s during playlist restore." % (item, val))
 
     def reverse(self):
         # reverses current view
@@ -1707,8 +1710,10 @@ class PlaylistManager(object):
         # collect the names of all playlists in playlist_dir
         existing = []
         for f in os.listdir(self.playlist_dir):
-            # everything except the order file shold be a playlist
-            if f != os.path.basename(self.order_file):
+            # everything except the order file shold be a playlist, but
+            # check against hidden files since some editors put
+            # temporary stuff in the same dir.
+            if f != os.path.basename(self.order_file) and not f.startswith("."):
                 pl = self.playlist_class(f)
                 pl.load_from_location(os.path.join(self.playlist_dir, f))
                 existing.append(pl.name)

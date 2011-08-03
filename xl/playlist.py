@@ -1234,7 +1234,7 @@ class Playlist(object):
             if i <= oldpos:
                 newpos -= 1
         for i, tr in added:
-            if i <= oldpos:
+            if i <= newpos:
                 newpos += 1
         self.current_position = newpos
 

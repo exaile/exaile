@@ -955,7 +955,7 @@ class Playlist(object):
                 if repeat_mode == 'all':
                     position = len(self) - 1
                 else:
-                    position = 0
+                    position = 0 if len(self) else -1
             self.current_position = position
         return self.get_current()
 

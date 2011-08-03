@@ -507,7 +507,7 @@ class CollectionPanel(panel.Panel):
         if self.collection._scanning:
             if self._refresh_id != 0:
                 glib.source_remove(self._refresh_id)
-            self._refresh_id = glib.idle_add(self._refresh_tags_in_tree)
+            self._refresh_id = glib.timeout_add(100, self._refresh_tags_in_tree)
             return False
         self.resort_tracks()
         self.load_tree()

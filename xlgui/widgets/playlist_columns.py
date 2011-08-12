@@ -45,6 +45,8 @@ from xlgui.widgets import rating, menu
 
 logger = logging.getLogger(__name__)
 
+DEFAULT_COLUMNS = ('tracknumber', 'title', 'album', 'artist', '__length')
+
 class Column(gtk.TreeViewColumn):
     name = ''
     display = ''
@@ -355,7 +357,7 @@ class ColumnMenuItem(menu.MenuItem):
 
             :rtype: bool
         """
-        return name in settings.get_option('gui/columns')
+        return name in settings.get_option('gui/columns', DEFAULT_COLUMNS)
 
     def on_item_activate(self, menu_item, name, parent, context):
         """

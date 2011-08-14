@@ -363,9 +363,6 @@ def check_alarms(main, exaile):
         nothing.  If the current time matches the time specified and the
         current day is selected, it starts playing
     """
-
-    logger.debug('check_alarms() called')
-    
     if not main: return True  # TODO: new way?
 
     current = time.strftime("%H:%M", time.localtime())

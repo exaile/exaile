@@ -232,13 +232,6 @@ class TrayIcon(gtk.StatusIcon, BaseTrayIcon):
         gtk.StatusIcon.__init__(self)
         BaseTrayIcon.__init__(self, main)
 
-    def destroy(self):
-        """
-            Cleanups
-        """
-        BaseTrayIcon.destroy(self)
-        gtk.StatusIcon.destroy(self)
-
     def get_menu_position(self, menu, icon):
         """
             Returns coordinates for

@@ -471,12 +471,11 @@ class PlaylistPage(NotebookPage):
 
 
 class PlaylistView(gtk.TreeView, providers.ProviderHandler):
-    default_columns = ('tracknumber', 'title', 'album', 'artist', '__length')
     def __init__(self, playlist):
         gtk.TreeView.__init__(self)
         providers.ProviderHandler.__init__(self, 'playlist-columns')
         self.playlist = playlist
-        self.model = PlaylistModel(playlist, self.default_columns)
+        self.model = PlaylistModel(playlist, playlist_columns.DEFAULT_COLUMNS)
         self.menu = PlaylistContextMenu(self)
         self.dragging = False
         self.button_pressed = False # used by columns to determine whether
@@ -563,12 +562,12 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         return (sort_by, reverse)
 
     def _setup_columns(self):
-        columns = settings.get_option('gui/columns', self.default_columns)
+        columns = settings.get_option('gui/columns', playlist_columns.DEFAULT_COLUMNS)
         provider_names = [p.name for p in providers.get('playlist-columns')]
         columns = [name for name in columns if name in provider_names]
 
         if not columns:
-            columns = self.default_columns
+            columns = playlist_columns.DEFAULT_COLUMNS
 
         # FIXME: this is kinda ick because of supporting both models
         self.model.columns = columns

@@ -42,7 +42,7 @@ import glib
 logger = logging.getLogger(__name__)
 
 from xl import event, xdg
-from xl.common import VersionError
+from xl.common import VersionError, glib_wait_seconds
 from xl.nls import gettext as _
 
 TYPE_MAPPING = {
@@ -104,10 +104,11 @@ class SettingsManager(RawConfigParser):
 
         # save settings every 30 seconds
         if location is not None:
-            glib.timeout_add_seconds(30, self._timeout_save)
+            self._timeout_save()
 
+    @glib_wait_seconds(30)
     def _timeout_save(self):
-        #logger.debug("Requesting save from timeout...")
+        """Save every 30 seconds"""
         self.save()
         return True
 

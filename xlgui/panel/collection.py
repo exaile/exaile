@@ -482,21 +482,15 @@ class CollectionPanel(panel.Panel):
         return " ".join(queries)
 
     def refresh_tags_in_tree(self, type, track, tag):
-        """
-            wrapper so that multiple events dont cause multiple
-            reloads in quick succession
-        """
         if settings.get_option('gui/sync_on_tag_change', True) and \
             tag in self.order.all_sort_tags() and \
             self.collection.loc_is_member(track.get_loc_for_io()):
-            if self._refresh_id != 0:
-                glib.source_remove(self._refresh_id)
-            self._refresh_id = glib.timeout_add(500,
-                    self._refresh_tags_in_tree)
+            self._refresh_tags_in_tree()
 
     def refresh_tracks_in_tree(self, type, obj, loc):
         glib.idle_add(self._refresh_tags_in_tree)
 
+    @common.glib_wait(500)
     def _refresh_tags_in_tree(self):
         """
             Callback for when tags have changed and the tree
@@ -505,10 +499,7 @@ class CollectionPanel(panel.Panel):
         # Trying to reload while we're rescanning is really inefficient,
         # so we delay it until we're done scanning.
         if self.collection._scanning:
-            if self._refresh_id != 0:
-                glib.source_remove(self._refresh_id)
-            self._refresh_id = glib.timeout_add(100, self._refresh_tags_in_tree)
-            return False
+            return True
         self.resort_tracks()
         self.load_tree()
         return False

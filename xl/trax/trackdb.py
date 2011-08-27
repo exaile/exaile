@@ -96,7 +96,7 @@ class TrackDB(object):
         self._deleted_keys = []
         if location:
             self.load_from_location()
-            glib.timeout_add_seconds(300, self._timeout_save)
+            self._timeout_save()
 
     def __iter__(self):
         """
@@ -115,6 +115,7 @@ class TrackDB(object):
         """
         return len(self.tracks)
 
+    @common.glib_wait_seconds(300)
     def _timeout_save(self):
         """
             Callback for auto-saving.

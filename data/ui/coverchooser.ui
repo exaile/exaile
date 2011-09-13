@@ -7,7 +7,6 @@
     <property name="height_request">349</property>
     <property name="title" translatable="yes">Cover Finder</property>
     <property name="resizable">False</property>
-    <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <child>
       <object class="GtkVBox" id="vbox25">

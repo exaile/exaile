@@ -126,7 +126,6 @@ class CoverManager(providers.ProviderHandler):
         self.load()
         for method in self.get_providers():
             self.on_provider_added(method)
-        self.__save_timer_id = 0
 
         default_cover_file = open(xdg.get_data_path('images', 'nocover.png'), 'rb')
         self.default_cover_data = default_cover_file.read()
@@ -247,7 +246,7 @@ class CoverManager(providers.ProviderHandler):
         key = self._get_track_key(track)
         if key:
             self.db[key] = db_string
-            self.__set_save_timeout()
+            self.timeout_save()
             event.log_event('cover_set', self, track)
 
     def remove_cover(self, track):
@@ -261,7 +260,7 @@ class CoverManager(providers.ProviderHandler):
         if db_string:
             del self.db[key]
             self.__cache.remove(db_string)
-            self.__set_save_timeout()
+            self.timeout_save()
             event.log_event('cover_removed', self, track)
 
     def get_cover(self, track, save_cover=True, set_only=False,
@@ -351,13 +350,14 @@ class CoverManager(providers.ProviderHandler):
         if data:
             self.db = data
 
+    @common.glib_wait_seconds(60)
+    def timeout_save(self):
+        self.save()
+
     def save(self):
         """
             Save the db
         """
-        if self.__save_timer_id:
-            glib.source_remove(self.__save_timer_id)
-
         path = os.path.join(self.location, 'covers.db')
         try:
             f = open(path + ".new", 'wb')
@@ -374,11 +374,6 @@ class CoverManager(providers.ProviderHandler):
             os.remove(path + ".old")
         except OSError:
             pass
-
-    def __set_save_timeout(self):
-        if self.__save_timer_id:
-            glib.source_remove(self.__save_timer_id)
-        self.__save_timer_id = glib.timeout_add_seconds(60, self.save)
 
     def on_provider_added(self, provider):
         self.methods[provider.name] = provider
@@ -507,8 +502,11 @@ class LocalFileCoverFetcher(CoverSearchMethod):
         if track.get_type() not in self.uri_types:
             return []
         basedir = gio.File(track.get_loc_for_io()).get_parent()
-        if not basedir.query_info("standard::type").get_file_type() == \
-                gio.FILE_TYPE_DIRECTORY:
+        try:
+            if not basedir.query_info("standard::type").get_file_type() == \
+                    gio.FILE_TYPE_DIRECTORY:
+                return []
+        except gio.Error:
             return []
         covers = []
         for fileinfo in basedir.enumerate_children("standard::type"

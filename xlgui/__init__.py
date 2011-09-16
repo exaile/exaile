@@ -266,7 +266,7 @@ class Main(object):
                 'gui/last_selected_panel', 'collection')
             panel = self.panels[last_selected_panel]._child
             panel_num = self.panel_notebook.page_num(panel)
-            self.panel_notebook.set_current_page(panel_num)
+            glib.idle_add(self.panel_notebook.set_current_page, panel_num)
             # Fix track info not displaying properly when resuming after a restart.
             self.main._update_track_information()
         except KeyError:

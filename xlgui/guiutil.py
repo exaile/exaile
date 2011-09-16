@@ -24,12 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import threading
-from urllib2 import urlparse
-
+from collections import namedtuple
 import gio
 import glib
 import gtk
+import threading
+from urllib2 import urlparse
 
 from xl import (
     common,
@@ -101,12 +101,22 @@ def gtkrun(f):
 
 def get_workarea_size():
     """
-        Returns the height and width of the work area
+        Returns the width and height of the work area
+    """
+    return get_workarea_dimensions()[2:4]
+
+def get_workarea_dimensions():
+    """
+        Returns the x-offset, y-offset, width and height
+        of the available work area as named tuple
+
+        :returns: Dimensions(offset_x, offset_y, width, height)
     """
     rootwindow = gtk.gdk.get_default_root_window()
     workarea = gtk.gdk.atom_intern('_NET_WORKAREA')
+    Dimensions = namedtuple('Dimensions', 'offset_x offset_y width height')
 
-    return rootwindow.property_get(workarea)[2][2:4] # W,H
+    return Dimensions(*rootwindow.property_get(workarea)[2])
 
 def gtk_widget_replace(widget, replacement):
     """

@@ -955,7 +955,7 @@ class Playlist(object):
                 if repeat_mode == 'all':
                     position = len(self) - 1
                 else:
-                    position = 0
+                    position = 0 if len(self) else -1
             self.current_position = position
         return self.get_current()
 
@@ -1155,7 +1155,12 @@ class Playlist(object):
             line = f.readline()
             if line == "":
                 break
-            item, strn = line[:-1].split("=",1)
+
+            try:
+                item, strn = line[:-1].split("=",1)
+            except ValueError:
+                continue # Skip erroneous lines
+
             val = settings.MANAGER._str_to_val(strn)
             items[item] = val
 
@@ -1195,7 +1200,10 @@ class Playlist(object):
 
         for item, val in items.iteritems():
             if item in self.save_attrs:
-                setattr(self, item, val)
+                try:
+                    setattr(self, item, val)
+                except TypeError: # don't bail if we try to set an invalid mode
+                    logger.debug("Got a TypeError when trying to set attribute %s to %s during playlist restore." % (item, val))
 
     def reverse(self):
         # reverses current view
@@ -1221,15 +1229,14 @@ class Playlist(object):
         return (start, end, step)
 
     def __adjust_current_pos(self, oldpos, removed, added):
-        for i, tr in removed[::-1]:
+        newpos = oldpos
+        for i, tr in removed:
             if i <= oldpos:
-                oldpos -= 1
-        for i, tr in added[::-1]:
-            if i <= oldpos:
-                oldpos += 1
-        if oldpos < 0:
-            oldpos = -1
-        self.current_position = oldpos
+                newpos -= 1
+        for i, tr in added:
+            if i <= newpos:
+                newpos += 1
+        self.current_position = newpos
 
     def __getitem__(self, i):
         return self.__tracks.__getitem__(i)
@@ -1703,8 +1710,10 @@ class PlaylistManager(object):
         # collect the names of all playlists in playlist_dir
         existing = []
         for f in os.listdir(self.playlist_dir):
-            # everything except the order file shold be a playlist
-            if f != os.path.basename(self.order_file):
+            # everything except the order file shold be a playlist, but
+            # check against hidden files since some editors put
+            # temporary stuff in the same dir.
+            if f != os.path.basename(self.order_file) and not f.startswith("."):
                 pl = self.playlist_class(f)
                 pl.load_from_location(os.path.join(self.playlist_dir, f))
                 existing.append(pl.name)

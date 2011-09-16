@@ -24,15 +24,17 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging
-import os
-
 import gio
 import gobject
 import gtk
+import logging
+import os
 
 from xl.nls import gettext as _
-from xl import event, xdg, collection
+from xl import (
+    collection,
+    xdg
+)
 from xlgui.widgets import dialogs
 
 logger = logging.getLogger(__name__)

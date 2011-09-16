@@ -424,22 +424,22 @@ class PlaylistPage(NotebookPage):
         self.playlist.repeat_mode = mode
 
     def on_mode_changed(self, evtype, playlist, mode, button):
-        button.set_active(mode != 'disabled')
+        glib.idle_add(button.set_active, mode != 'disabled')
 
     def on_dynamic_playlists_provider_changed(self, evtype, manager, provider):
         """
             Updates the dynamic button on provider changes
         """
         providers_available = len(providers.get('dynamic_playlists')) > 0
+        sensitive = False
+        tooltip_text = _('Requires plugins providing dynamic playlists')
 
         if providers_available:
-            self.dynamic_button.set_sensitive(True)
-            self.dynamic_button.set_tooltip_text(
-                _('Dynamically add similar tracks to the playlist'))
-        else:
-            self.dynamic_button.set_sensitive(False)
-            self.dynamic_button.set_tooltip_text(
-                _('Requires plugins providing dynamic playlists'))
+            sensitive = True
+            tooltip_text = _('Dynamically add similar tracks to the playlist')
+
+        glib.idle_add(self.dynamic_button.set_sensitive, sensitive)
+        glib.idle_add(self.dynamic_button.set_tooltip_text, tooltip_text)
 
     def on_option_set(self, evtype, settings, option):
         """
@@ -447,9 +447,9 @@ class PlaylistPage(NotebookPage):
         """
         if option == 'gui/playlist_utilities_bar_visible':
             visible = settings.get_option(option, True)
-            self.playlist_utilities_bar.props.visible = visible
-            self.playlist_utilities_bar.set_sensitive(visible)
-            self.playlist_utilities_bar.set_no_show_all(not visible)
+            glib.idle_add(self.playlist_utilities_bar.set_visible, visible)
+            glib.idle_add(self.playlist_utilities_bar.set_sensitive, visible)
+            glib.idle_add(self.playlist_utilities_bar.set_no_show_all, not visible)
 
     def on_row_changed(self, model, path, iter):
         """
@@ -471,12 +471,11 @@ class PlaylistPage(NotebookPage):
 
 
 class PlaylistView(gtk.TreeView, providers.ProviderHandler):
-    default_columns = ('tracknumber', 'title', 'album', 'artist', '__length')
     def __init__(self, playlist):
         gtk.TreeView.__init__(self)
         providers.ProviderHandler.__init__(self, 'playlist-columns')
         self.playlist = playlist
-        self.model = PlaylistModel(playlist, self.default_columns)
+        self.model = PlaylistModel(playlist, playlist_columns.DEFAULT_COLUMNS)
         self.menu = PlaylistContextMenu(self)
         self.dragging = False
         self.button_pressed = False # used by columns to determine whether
@@ -563,14 +562,17 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         return (sort_by, reverse)
 
     def _setup_columns(self):
-        columns = settings.get_option('gui/columns', self.default_columns)
+        columns = settings.get_option('gui/columns', playlist_columns.DEFAULT_COLUMNS)
         provider_names = [p.name for p in providers.get('playlist-columns')]
         columns = [name for name in columns if name in provider_names]
 
         if not columns:
-            columns = self.default_columns
+            columns = playlist_columns.DEFAULT_COLUMNS
 
+        # FIXME: this is kinda ick because of supporting both models
         self.model.columns = columns
+        self.model = PlaylistModel(self.playlist, columns)
+        self.set_model(self.model)
 
         for position, column in enumerate(columns):
             position += 2 # offset for pixbuf column
@@ -830,11 +832,17 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             columns.remove(provider.name)
             settings.set_option('gui/columns', columns)
 
-class PlaylistModel(gtk.GenericTreeModel):
+
+
+class PlaylistModel(gtk.ListStore):
+
     def __init__(self, playlist, columns):
-        gtk.GenericTreeModel.__init__(self)
+        gtk.ListStore.__init__(self, int) # real types are set later
         self.playlist = playlist
         self.columns = columns
+
+        self.coltypes = [object, gtk.gdk.Pixbuf] + [providers.get_provider('playlist-columns', c).datatype for c in columns]
+        self.set_column_types(*self.coltypes)
 
         event.add_callback(self.on_tracks_added,
                 "playlist_tracks_added", playlist)
@@ -872,136 +880,62 @@ class PlaylistModel(gtk.GenericTreeModel):
         self.clear_pixbuf = self.play_pixbuf.copy()
         self.clear_pixbuf.fill(0x00000000)
 
-    ### API for GenericTreeModel ###
+        self.on_tracks_added(None, self.playlist, enumerate(self.playlist)) # populate the list
 
-    def on_get_flags(self):
-        return gtk.TREE_MODEL_LIST_ONLY
+    def track_to_row_data(self, track, position):
+        return [track, self.icon_for_row(position)] + [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
 
-    def on_get_n_columns(self):
-        return len(self.columns)+1
+    def icon_for_row(self, row):
+        # TODO: we really need some sort of global way to say "is this playlist/pos the current one?
+        if self.playlist.current_position == row and \
+                self.playlist[row] == player.PLAYER.current and \
+                self.playlist == player.QUEUE.current_playlist:
+            state = player.PLAYER.get_state()
+            spat = self.playlist.spat_position == row
+            if state == 'playing':
+                if spat:
+                    return self.play_stop_pixbuf
+                else:
+                    return self.play_pixbuf
+            elif state == 'paused':
+                if spat:
+                    return self.pause_stop_pixbuf
+                else:
+                    return self.pause_pixbuf
+        if self.playlist.spat_position == row:
+            return self.stop_pixbuf
+        return self.clear_pixbuf
 
-    def on_get_column_type(self, index):
-        if index == 0:
-            return object
-        elif index == 1:
-            return gtk.gdk.Pixbuf
-        else:
-            column = providers.get_provider(
-                'playlist-columns', self.columns[index - 2])
-
-            return column.datatype
-
-    def on_get_iter(self, path):
-        rowref = path[0]
-        if rowref < len(self.playlist):
-            return rowref
-        else:
-            return None
-
-    def on_get_path(self, rowref):
-        return (rowref,)
-
-    def on_get_value(self, rowref, column):
-        if column == 0:
-            return self.playlist[rowref]
-        elif column == 1:
-            if self.playlist.current_position == rowref and \
-                    self.playlist[rowref] == player.PLAYER.current and \
-                    self.playlist == player.QUEUE.current_playlist:
-                state = player.PLAYER.get_state()
-                spat = self.playlist.spat_position == rowref
-                if state == 'playing':
-                    if spat:
-                        return self.play_stop_pixbuf
-                    else:
-                        return self.play_pixbuf
-                elif state == 'paused':
-                    if spat:
-                        return self.pause_stop_pixbuf
-                    else:
-                        return self.pause_pixbuf
-            if self.playlist.spat_position == rowref:
-                return self.stop_pixbuf
-            return self.clear_pixbuf
-        else:
-            track = self.playlist[rowref]
-            name = self.columns[column - 2]
-            column = providers.get_provider('playlist-columns', name)
-            return column.formatter.format(track)
-
-    def on_iter_next(self, rowref):
-        rowref = rowref+1
-        if rowref < len(self.playlist):
-            return rowref
-        else:
-            return None
-
-    def on_iter_children(self, parent):
-        return None
-
-    def on_iter_has_child(self, rowref):
-        return False
-
-    def on_iter_n_children(self, rowref):
-        if rowref:
-            return 0
-        return len(self.playlist)
-
-    def on_iter_nth_child(self, parent, n):
-        if parent:
-            return None
-        try:
-            t = self.playlist[n]
-            return n
-        except IndexError:
-            return None
-
-    def on_iter_parent(self, child):
-        return None
-
+    def update_icon(self, position):
+        iter = self.iter_nth_child(None, position)
+        self.set(iter, 1, self.icon_for_row(position))
 
     ### Event callbacks to keep the model in sync with the playlist ###
 
     def on_tracks_added(self, event_type, playlist, tracks):
         for position, track in tracks:
-            self.row_inserted((position,), self.get_iter((position,)))
+            self.insert(position, self.track_to_row_data(track, position))
 
     def on_tracks_removed(self, event_type, playlist, tracks):
         tracks.reverse()
         for position, track in tracks:
-            self.row_deleted((position,))
+            self.remove(self.iter_nth_child(None, position))
 
     def on_current_position_changed(self, event_type, playlist, positions):
         for position in positions:
             if position < 0:
                 continue
-            path = (position,)
-            try:
-                iter = self.get_iter(path)
-            except ValueError:
-                continue
-            glib.idle_add(self.row_changed, path, iter)
+            glib.idle_add(self.update_icon, position)
 
     def on_spat_position_changed(self, event_type, playlist, positions):
         spat_position = max(positions)
-
         for position in xrange(spat_position, len(self)):
-            path = (position,)
-            try:
-                iter = self.get_iter(path)
-            except ValueError:
-                continue
-            glib.idle_add(self.row_changed, path, iter)
+            glib.idle_add(self.update_icon, position)
 
     def on_playback_state_change(self, event_type, player_obj, track):
-        pos = self.playlist.current_position
-        if pos < 0 or pos >= len(self):
+        position = self.playlist.current_position
+        if position < 0 or position >= len(self):
             return
-        try:
-            iter = self.get_iter((pos,))
-        except ValueError:
-            return
-        glib.idle_add(self.row_changed, (pos,), iter)
-
+        glib.idle_add(self.update_icon, position)
 
 

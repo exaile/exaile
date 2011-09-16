@@ -802,7 +802,7 @@ class IconManager(object):
             Regenerates the rating pixbufs
         """
         if option == 'rating/maximum':
-            self._generate_rating_pixbufs()
+            glib.idle_add(self._generate_rating_pixbufs)
 
 MANAGER = IconManager()
 

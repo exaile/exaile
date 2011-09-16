@@ -99,7 +99,8 @@ class MainWindow(gobject.GObject):
         self.window = self.builder.get_object('ExaileWindow')
         self.window.set_title('Exaile')
         self.title_formatter = formatter.TrackFormatter(settings.get_option(
-            'gui/main_window_title_format', _('$title (by $artist)')))
+            'gui/main_window_title_format', _('$title (by $artist)') +
+		' - Exaile'))
 
         self.accelgroup = gtk.AccelGroup()
         self.window.add_accel_group(self.accelgroup)
@@ -483,14 +484,14 @@ class MainWindow(gobject.GObject):
         """
             Called when there has been a playback error
         """
-        self.message.show_error(_('Playback error encountered!'), message)
+        glib.idle_add(self.message.show_error, _('Playback error encountered!'), message)
 
     def on_buffering(self, type, player, percent):
         """
             Called when a stream is buffering
         """
         percent = min(percent, 100)
-        self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1)
+        glib.idle_add(self.statusbar.set_status, _("Buffering: %d%%...") % percent, 1)
 
     def on_tags_parsed(self, type, player, args):
         """
@@ -522,20 +523,20 @@ class MainWindow(gobject.GObject):
         """
             Updates information on exaile load
         """
-        self.statusbar.update_info()
+        glib.idle_add(self.statusbar.update_info)
         event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
     def on_playlist_tracks_added(self, type, playlist, tracks):
         """
             Updates information on track add
         """
-        self.statusbar.update_info()
+        glib.idle_add(self.statusbar.update_info)
 
     def on_playlist_tracks_removed(self, type, playlist, tracks):
         """
             Updates information on track removal
         """
-        self.statusbar.update_info()
+        glib.idle_add(self.statusbar.update_info)
 
     def on_toggle_pause(self, type, player, object):
         """
@@ -761,18 +762,18 @@ class MainWindow(gobject.GObject):
         if option == 'gui/use_tray':
             usetray = settings.get_option(option, False)
             if self.controller.tray_icon and not usetray:
-                self.controller.tray_icon.destroy()
+                glib.idle_add(self.controller.tray_icon.destroy)
                 self.controller.tray_icon = None
             elif not self.controller.tray_icon and usetray:
                 self.controller.tray_icon = tray.TrayIcon(self)
 	
         if option == 'gui/show_info_area':
-            self.info_area.set_no_show_all(False)
+            glib.idle_add(self.info_area.set_no_show_all, False)
             if settings.get_option(option, True):
-                self.info_area.show_all()
+                glib.idle_add(self.info_area.show_all)
             else:
-                self.info_area.hide_all()
-            self.info_area.set_no_show_all(True)
+                glib.idle_add(self.info_area.hide_all)
+            glib.idle_add(self.info_area.set_no_show_all, True)
 
     def _update_track_information(self):
         """

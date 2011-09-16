@@ -78,12 +78,12 @@ def _enable(eventname, player, nothing):
             gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
             return True
     except:
-        disable() #disconnect if we failed to load completely
+        disable(None) #disconnect if we failed to load completely
         GNOME_MMKEYS = None
         common.log_exception(logger)
         return False
 
-def disable():
+def disable(exaile):
     global GNOME_MMKEYS
     if GNOME_MMKEYS:
         try:

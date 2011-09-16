@@ -27,12 +27,14 @@
 import glib
 import gobject
 import gtk
+import itertools
 import logging
 
 from xl.nls import gettext as _
 from xl import (
     common,
     event,
+    formatter,
     settings,
     trax,
     xdg,
@@ -47,8 +49,6 @@ from xlgui import (
 from xlgui.widgets import info, menu, menuitems
 
 logger = logging.getLogger(__name__)
-
-TRACK_NUM = 300
 
 # TODO: come up with a more customizable way to handle this
 SEARCH_TAGS = ("artist", "albumartist", "album", "title")
@@ -91,52 +91,81 @@ class CollectionContextMenu(menu.ProviderMenu):
         return context
 
 def first_meaningful_char(s):
-    for i in range(len(s)):
-        if s[i].isdigit():
+    for c in unicode(s):
+        if c.isdigit():
             return '0'
-        elif s[i].isalpha():
-            return s[i]
-    return '_'
+        elif c.isalpha():
+            return c
+    else:
+        return '_'
 
-class TreeLevelTabs(object):
-    def __init__(self, level):
+class Order(object):
+    """
+        An Order represents a structure for arranging Tracks into the Collection tree.
 
-        if type(level) is str:
-            self.__tags = [level]
-            self.__printList = [0]
-            self.__searchedTagsIndices = [0]
-            return
-        if type(level) is tuple:
-            # searched tags
-            self.__tags = level[0]
-            # formatting of the result string
-            self.__printList = level[1]
-            # indexes of the searched tags
-            self.__searchedTagsIndices = level[2]
-            # example list of levels: ['artist', (['date', 'album'], [0, ' - ', 1], [0, 1]), (['discnumber', 'tracknumber', 'title'], [2], [2])]
-            return
+        It is based on a list of levels, which each take the form
+            (("sort1", "sort2"), "$displaytag - $displaytag", ("search1", "search2"))
+          wherin the first entry is a tuple of tags to use for sorting, the second a
+          format string for xl.formatter, and the third a tuple of tags to use for
+          searching.
 
-    def __hash__(self):
-        data = str((self.__tags, self.__printList, self.__searchedTagsIndices))
-        return hash(data)
-        
+        When passed in the paramters, a level can also be a single string instead of a
+        tuple, and it will be treated equivalently to (("foo",), "$foo", ("foo",))
+        for some string "foo".
+    """
+    def __init__(self, name, levels, use_compilations=True):
+        self.__name = name
+        self.__levels = map(self.__parse_level, levels)
+        self.__formatters = [formatter.TrackFormatter(l[1]) for l in self.__levels]
+        self.__use_compilations = use_compilations
+
+    @staticmethod
+    def __parse_level(val):
+        if type(val) in (str, unicode):
+            val = ((val,), "$%s"%val, (val,))
+        return tuple(val)
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def use_compilations(self):
+        return self.__use_compilations
+
+    def get_levels(self):
+        return self.__levels[:]
+
+    def __len__(self):
+        return len(self.__levels)
+
     def __eq__(self, other):
-        return hash(self) == hash(other)
-        
-    def printTags(self, tagsValues):
-        return ''.join([(tagsValues[x] if type(x) is int else x) for x in self.__printList])
+        self.__levels == other.get_levels()
 
-    def tags(self):
-        return self.__tags
+    def all_sort_tags(self):
+        return list(itertools.chain(*[l[0] for l in self.__levels]))
 
-    def searchedTagsIndices(self):
-        return self.__searchedTagsIndices
+    def get_sort_tags(self, level):
+        return list(self.__levels[level][0])
 
-def get_all_tags(order):
-    result = []
-    for level in order:
-        result.extend(level.tags())
-    return result
+    def all_search_tags(self):
+        return list(itertools.chain(*[l[2] for l in self.__levels]))
+
+    def get_search_tags(self, level):
+        return list(set(self.__levels[level][2]))
+
+    def format_track(self, level, track):
+        return self.__formatters[level].format(track)
+
+DEFAULT_ORDERS = [
+    (_("Artist"), ("artist", "album", (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Album"), ("album", (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Genre - Artist"), ('genre', 'artist', 'album', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Genre - Album"), ('genre', 'album', 'artist', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Date - Artist"), ('date', 'artist', 'album', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Date - Album"), ('date', 'album', 'artist', (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+    (_("Artist - (Date - Album)"), ('artist', (('date', 'album'), "$date - $album", ('date', 'album')), (("discnumber", "tracknumber", "title"), "$title", ("title",)))),
+        ]
 
 class CollectionPanel(panel.Panel):
     """
@@ -150,24 +179,6 @@ class CollectionPanel(panel.Panel):
     }
 
     ui_info = ('collection_panel.ui', 'CollectionPanelWindow')
-    """
-        Each level in order is a tuple of tree lists
-        First list is list of tags, that are relevant to this level, in their sort order
-        Second list describes way of node is printed. Strings in list remain the same,
-        and values of corresponding tags are inserted instead of integers
-        Third list is list of indices of tags that tracks are searched by
-        If level is string 'tag', it's the same as (['tag'], [0], [0])
-    """
-    orders = (
-        ['artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
-        ['album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
-        ['genre', 'artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
-        ['genre', 'album', 'artist', (['discnumber', 'tracknumber', 'title'], [2], [2])],
-        ['date', 'artist', 'album', (['discnumber', 'tracknumber', 'title'], [2], [2])],
-        ['date', 'album', 'artist', (['discnumber', 'tracknumber', 'title'], [2], [2])],
-        ['artist', (['date', 'album'], [0, ' - ', 1], [0, 1]), (['discnumber', 'tracknumber', 'title'], [2], [2])],
-    )
-
     def __init__(self, parent, collection, name=None,
         _show_collection_empty_message=False):
         """
@@ -190,6 +201,7 @@ class CollectionPanel(panel.Panel):
         self._refresh_id = 0
         self.start_count = 0
         self.keyword = ''
+        self.orders = map(lambda x: Order(x[0], x[1]), DEFAULT_ORDERS)
         self._setup_tree()
         self._setup_widgets()
         self._check_collection_empty()
@@ -211,28 +223,39 @@ class CollectionPanel(panel.Panel):
             Sets up the various widgets to be used in this panel
         """
         self.choice = self.builder.get_object('collection_combo_box')
-        active = settings.get_option('gui/collection_active_view', 0)
-        self.choice.set_active(active)
+        self.choicemodel = self.builder.get_object('collection_combo_model')
+        self.repopulate_choices()
 
         self.filter = guiutil.SearchEntry(
             self.builder.get_object('collection_search_entry'))
+
+    def repopulate_choices(self):
+        self.choice.set_model(None)
+        self.choicemodel.clear()
+        for order in self.orders:
+            self.choicemodel.append([order.name])
+        self.choice.set_model(self.choicemodel)
+        # FIXME: use something other than index here, since index
+        # doesn't deal well with dynamic lists...
+        active = settings.get_option('gui/collection_active_view', 0)
+        self.choice.set_active(active)
 
     def _check_collection_empty(self, *e):
         if not self._show_collection_empty_message or \
             (self.collection.libraries and self.collection_empty_message):
             self.collection_empty_message = False
-            self.vbox.set_child_visible(True)
-            self.message.set_child_visible(False)
-            self.vbox.show_all()
-            self.message.hide_all()
+            glib.idle_add(self.vbox.set_child_visible, True)
+            glib.idle_add(self.message.set_child_visible, False)
+            glib.idle_add(self.vbox.show_all)
+            glib.idle_add(self.message.hide_all)
 
         elif not self.collection.libraries and not self.collection_empty_message:
             self.collection_empty_message = True
-            self.vbox.set_child_visible(False)
-            self.message.set_no_show_all(False)
-            self.message.set_child_visible(True)
-            self.vbox.hide_all()
-            self.message.show_all()
+            glib.idle_add(self.vbox.set_child_visible, False)
+            glib.idle_add(self.message.set_no_show_all, False)
+            glib.idle_add(self.message.set_child_visible, True)
+            glib.idle_add(self.vbox.hide_all)
+            glib.idle_add(self.message.show_all)
 
     def _connect_events(self):
         """
@@ -459,21 +482,15 @@ class CollectionPanel(panel.Panel):
         return " ".join(queries)
 
     def refresh_tags_in_tree(self, type, track, tag):
-        """
-            wrapper so that multiple events dont cause multiple
-            reloads in quick succession
-        """
         if settings.get_option('gui/sync_on_tag_change', True) and \
-            tag in get_all_tags(self.order) and \
+            tag in self.order.all_sort_tags() and \
             self.collection.loc_is_member(track.get_loc_for_io()):
-            if self._refresh_id != 0:
-                glib.source_remove(self._refresh_id)
-            self._refresh_id = glib.timeout_add(500,
-                    self._refresh_tags_in_tree)
+            self._refresh_tags_in_tree()
 
     def refresh_tracks_in_tree(self, type, obj, loc):
-        self._refresh_tags_in_tree()
+        glib.idle_add(self._refresh_tags_in_tree)
 
+    @common.glib_wait(500)
     def _refresh_tags_in_tree(self):
         """
             Callback for when tags have changed and the tree
@@ -490,7 +507,7 @@ class CollectionPanel(panel.Panel):
     def resort_tracks(self):
 #        import time
 #        print "sorting...", time.clock()
-        self.sorted_tracks = trax.sort_tracks(self.order[0].tags(),
+        self.sorted_tracks = trax.sort_tracks(self.order.get_sort_tags(0),
             self.collection.get_tracks())
 #        print "sorted.", time.clock()
 
@@ -508,10 +525,9 @@ class CollectionPanel(panel.Panel):
 
         self.root = None
         oldorder = self.order
-        self.order = [TreeLevelTabs(x) \
-            for x in self.orders[self.choice.get_active()]]
+        self.order = self.orders[self.choice.get_active()]
 
-        if not oldorder or set(oldorder) != set(self.order):
+        if not oldorder or oldorder != self.order:
             self.resort_tracks()
 
         # save the active view setting
@@ -521,8 +537,8 @@ class CollectionPanel(panel.Panel):
 
         keyword = self.keyword.strip()
         tags = list(SEARCH_TAGS)
-        tags += [t for t in get_all_tags(self.order) \
-            if t != 'tracknumber' and t not in tags]
+        tags += self.order.all_search_tags()
+        tags = list(set(tags)) # uniquify list to speed up search
 
         self.tracks = list(
                 trax.search_tracks_from_string(self.sorted_tracks,
@@ -587,7 +603,7 @@ class CollectionPanel(panel.Panel):
         search = self.get_node_search_terms(parent)
 
         try:
-            tags = self.order[depth].tags()
+            tags = self.order.get_sort_tags(depth)
             matchers = [trax.TracksMatcher(search)]
             srtrs = trax.search_tracks(self.tracks, matchers)
             # sort only if we are not on top level, because tracks are already sorted by fist order
@@ -618,10 +634,9 @@ class CollectionPanel(panel.Panel):
 
         for srtr in srtrs:
             stagvals = [unicode(srtr.track.get_tag_sort(x)) for x in tags]
-            stagval = self.order[depth].printTags(stagvals)
+            stagval = " ".join(stagvals)
             if (last_val != stagval or bottom):
-                tagvals = [srtr.track.get_tag_display(x) for x in tags]
-                tagval = self.order[depth].printTags(tagvals)
+                tagval = self.order.format_track(depth, srtr.track)
                 match_query = " ".join([
                     srtr.track.get_tag_search(t, format=True) for t in tags])
                 if bottom:
@@ -663,8 +678,8 @@ class CollectionPanel(panel.Panel):
             count += 1
             if not expanded:
                 alltags = []
-                for o in self.order[depth+1:]:
-                    alltags.extend(o.tags())
+                for i in range(depth+1, len(self.order)):
+                    alltags.extend(self.order.get_sort_tags(i))
                 for t in alltags:
                     if t in srtr.on_tags:
                         # keep original path intact for following block

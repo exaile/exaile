@@ -578,6 +578,8 @@ class Track(object):
                 value = " "
         elif tag == '__basename':
             value = self.get_basename()
+        elif tag == '__rating':
+            value = unicode(self.get_rating())
         else:
             value = self.__tags.get(tag)
 
@@ -875,7 +877,7 @@ class Track(object):
             update the cached the_cutter values
         """
         if data == "collection/strip_list":
-            cls.__the_cuts = settings.get_option('collection/strip_list', [])
+            cls._Track__the_cuts = settings.get_option('collection/strip_list', [])
 
 
 

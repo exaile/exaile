@@ -27,6 +27,7 @@
 import gio
 from xl import metadata, settings
 from xl.trax.track import Track
+from xl.trax.search import search_tracks, TracksMatcher
 
 
 def is_valid_track(location):
@@ -139,3 +140,18 @@ def get_rating_from_tracks(tracks):
             return 0
 
     return rating
+
+
+
+def get_album_tracks(tracksiter, track, artist_compilations=True):
+    """
+        Get any tracks from the given iterable that appear to be part of
+        the same album as track. If track is in the iterable, it will be
+        included in the result. If there is insufficient information to
+        determine the album, the empty list will be returned, even if the
+        track is in the iterable.
+    """
+    if not all(track.get_tag_raw(t) for t in ['artist', 'album']):
+        return []
+    matchers = map(lambda t: TracksMatcher(track.get_tag_search(t, artist_compilations=artist_compilations)), ['artist', 'album'])
+    return (r.track for r in search_tracks(tracksiter, matchers))

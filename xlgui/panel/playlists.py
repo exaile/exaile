@@ -599,7 +599,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     def refresh_saved_playlist(self, type, object, playlist):
         for plx in self.playlist_nodes:
             if plx.name == playlist.name:
-                self.update_playlist_node(playlist)
+                glib.idle_add(self.update_playlist_node, playlist)
                 break
 
     def _load_playlists(self):

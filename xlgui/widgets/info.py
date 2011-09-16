@@ -30,6 +30,7 @@ import gtk
 import pango
 
 from xl import (
+    common,
     covers,
     event,
     formatter,
@@ -217,10 +218,7 @@ class TrackInfoPane(gtk.Alignment):
 
         self.__track = track
 
-        image_data = covers.MANAGER.get_cover(track, use_default=True)
-        size = self.get_cover_size()
-        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (size, size))
-        self.cover_image.set_from_pixbuf(pixbuf)
+        self._set_track_cover(track)
 
         self.info_label.set_markup(self.__formatter.format(
             track, markup_escape=True))
@@ -240,6 +238,18 @@ class TrackInfoPane(gtk.Alignment):
                 self.__show_progress()
             else:
                 self.__hide_progress()
+
+    @common.threaded
+    def _set_track_cover(self, track):
+        """
+            Sets the track's cover image
+        """
+        image_data = covers.MANAGER.get_cover(track, use_default=True)
+        size = self.get_cover_size()
+        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (size, size))
+        if self.__track != track:
+            return
+        glib.idle_add(self.cover_image.set_from_pixbuf, pixbuf)
 
     def clear(self):
         """

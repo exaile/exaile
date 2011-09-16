@@ -36,8 +36,6 @@ from xl.player import pipe
 logger = logging.getLogger(__name__)
 
 
-
-
 class ExailePlayer(object):
     """
         Base class all players must inherit from and implement.
@@ -47,7 +45,12 @@ class ExailePlayer(object):
         self._playtime_stamp = None
         self._last_position = 0
 
-        self.mainbin = pipe.MainBin(pre_elems=pre_elems)
+        self._mainbin = pipe.MainBin(pre_elems=pre_elems)
+        self._pipe = None
+        self._bus = None
+
+        self._setup_pipe()
+        self._setup_bus()
 
         self._load_volume()
         event.add_callback(self._on_option_set, 'player_option_set')
@@ -74,6 +77,58 @@ class ExailePlayer(object):
         volume = settings.get_option("player/volume", 1)
         self._set_volume(volume)
 
+    def _setup_pipe(self):
+        """
+            Needs to create self._pipe, an instance of gst.Pipeline
+            that will control playback.
+        """
+        raise NotImplementedError
+
+    def _setup_bus(self):
+        """
+            setup the gstreamer message bus and callbacks
+        """
+        self._bus = self._pipe.get_bus()
+        self._bus.add_signal_watch()
+        self._bus.enable_sync_message_emission()
+        self._bus.connect('message', self._on_message)
+
+    def _on_message(self, bus, message, reading_tag=False):
+        handled = self._handle_message(bus, message, reading_tag)
+        if handled:
+            pass
+        elif message.type == gst.MESSAGE_TAG:
+            """ Update track length and optionally metadata from gstreamer's parser.
+                Useful for streams and files mutagen doesn't understand. """
+            parsed = message.parse_tag()
+            event.log_event('tags_parsed', self, (self.current, parsed))
+            if self.current and not self.current.get_tag_raw('__length'):
+                try:
+                    raw_duration = self.playbin.query_duration(gst.FORMAT_TIME, None)[0]
+                except gst.QueryError:
+                    logger.error("Couldn't query duration")
+                    raw_duration = 0
+                duration = float(raw_duration)/gst.SECOND
+                if duration > 0:
+                    self.current.set_tag_raw('__length', duration)
+        elif message.type == gst.MESSAGE_EOS and not self.is_paused():
+            self._eos_func()
+        elif message.type == gst.MESSAGE_ERROR:
+            logger.error("%s %s" %(message, dir(message)) )
+            a = message.parse_error()[0]
+            event.log_event('playback_error', self, message)
+            self._error_func()
+        return True
+
+    def _handle_message(self, bus, message, reading_tag):
+        pass # for overriding
+
+    def _eos_func(self):
+        logger.warning("Unhandled EOS message: ", message)
+
+    def _error_func(self):
+        self.stop()
+
     def _set_queue(self, queue):
         self._queue = queue
 
@@ -82,19 +137,19 @@ class ExailePlayer(object):
             Gets the current actual volume.  This does not reflect what is
             shown to the user, see the player/volume setting for that.
         """
-        return self.mainbin.get_volume()
+        return self._mainbin.get_volume()
 
     def _set_volume(self, volume):
         """
             Sets the volume. This does NOT update the setting value,
             and should be used only internally.
         """
-        self.mainbin.set_volume(volume)
+        self._mainbin.set_volume(volume)
 
     def get_volume(self):
         """
             Gets the current volume
-            
+
             :returns: the volume percentage
             :type: int
         """
@@ -118,7 +173,7 @@ class ExailePlayer(object):
         return self._get_current()
     current = property(__get_current)
 
-    def play(self, track):
+    def play(self, track, **kwargs):
         """
             Starts the playback with the provided track
             or stops the playback it immediately if none
@@ -133,15 +188,27 @@ class ExailePlayer(object):
         """
         raise NotImplementedError
 
-    def stop(self):
+    def stop(self, _fire=True, **kwargs):
         """
             Stops the playback
+
+            :param fire: Send the 'playback_player_end' event. Used by engines
+                to avoid spurious playback_end events. Not public API.
 
             .. note:: The following :doc:`events </xl/event>` will be emitted by this method:
 
                 * `playback_player_end`: indicates the end of playback overall
                 * `playback_track_end`: indicates playback end of a track
         """
+        if self.is_playing() or self.is_paused():
+            prev_current = self._stop(**kwargs)
+
+            if _fire:
+                event.log_event('playback_player_end', self, prev_current)
+            return True
+        return False
+
+    def _stop(self, **kwargs):
         raise NotImplementedError
 
     def pause(self):
@@ -152,6 +219,13 @@ class ExailePlayer(object):
 
                 * `playback_player_pause`: indicates that the playback has been paused
         """
+        if self.is_playing():
+            self._pause()
+            event.log_event('playback_player_pause', self, self.current)
+            return True
+        return False
+
+    def _pause(self):
         raise NotImplementedError
 
     def unpause(self):
@@ -162,6 +236,13 @@ class ExailePlayer(object):
 
                 * `playback_player_resume`: indicates that the playback has been resumed
         """
+        if self.is_paused():
+            self._unpause()
+            event.log_event('playback_player_resume', self, self.current)
+            return True
+        return False
+
+    def _unpause():
         raise NotImplementedError
 
     def toggle_pause(self):
@@ -193,7 +274,7 @@ class ExailePlayer(object):
             Gets the current playback position
 
             :returns: the position in milliseconds
-            :rtype: int 
+            :rtype: int
         """
         raise NotImplementedError
 
@@ -248,7 +329,7 @@ class ExailePlayer(object):
         """
             Returns the raw GStreamer state
         """
-        raise NotImplementedError
+        return self._pipe.get_state(timeout=50*gst.MSECOND)[1]
 
     def get_state(self):
         """
@@ -291,16 +372,6 @@ class ExailePlayer(object):
             :rtype: bool
         """
         return self._get_gst_state() == gst.STATE_NULL
-
-    def _on_playback_error(self, message):
-        """
-            Called when there is an error during playback
-        """
-        event.log_event('playback_error', self, message)
-        self.stop()
-
-    def tag_func(self, *args):
-        event.log_event('tags_parsed', self, (self.current, args[0]))
 
     @staticmethod
     def parse_stream_tags(track, tags):

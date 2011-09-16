@@ -24,14 +24,36 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import locale, logging, os, re, urllib
+import gio
+import glib
+import gobject
+import gtk
+import locale
+import logging
+import os
+import pango
+import re
+import urllib
 
-import gio, glib, gobject, gtk, pango
-
-from xl import common, event, metadata, settings, trax, providers
-from xlgui import guiutil, panel, playlist, xdg
-from xlgui.widgets import menu, menuitems
+from xl import (
+    common,
+    event,
+    metadata,
+    providers,
+    settings,
+    trax
+)
 from xl.nls import gettext as _
+from xlgui import (
+    guiutil,
+    panel,
+    playlist,
+    xdg
+)
+from xlgui.widgets import (
+    menu,
+    menuitems
+)
 
 logger = logging.getLogger(__name__)
 

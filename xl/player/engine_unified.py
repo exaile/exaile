@@ -41,10 +41,15 @@ logger = logging.getLogger(__name__)
 
 class UnifiedPlayer(_base.ExailePlayer):
     def __init__(self):
+        self.caps = None
+        self.adder = None
+        self.audio_queue = None
         _base.ExailePlayer.__init__(self)
         self._current_stream = 1
         self._timer_id = 0
+        self.streams = [None, None]
 
+    def _setup_pipe(self):
         # have to fix the caps because gst cant deal with having them change.
         # TODO: make this a preference and/or autodetect optimal based on the
         #   output device - if its a 48000hz-native chip we dont want to send it
@@ -57,16 +62,19 @@ class UnifiedPlayer(_base.ExailePlayer):
                 "width=(int)16, "
                 "depth=(int)16, "
                 "rate=(int)44100, "
-                "channels=(int)2")
-        self.pipe = gst.Pipeline()
+                "channels=(int)2"
+                )
+        self._pipe = gst.Pipeline()
         self.adder = gst.element_factory_make("adder")
         self.audio_queue = gst.element_factory_make("queue")
-
-        self.streams = [None, None]
-
         self._load_queue_values()
-        self._setup_pipeline()
-        self.setup_bus()
+        self._pipe.add(
+                self.adder,
+                self.audio_queue,
+                self._mainbin
+                )
+        self.adder.link(self.audio_queue)
+        self.audio_queue.link(self._mainbin)
 
     def _load_queue_values(self):
         # queue defaults to 1 second of audio data, however this
@@ -78,15 +86,6 @@ class UnifiedPlayer(_base.ExailePlayer):
         # gapless, at the expense of UI lag.
         self.audio_queue.set_property("max-size-time",
                 settings.get_option("player/queue_duration", 1000000))
-
-    def _setup_pipeline(self):
-        self.pipe.add(
-                self.adder,
-                self.audio_queue,
-                self.mainbin
-                )
-        self.adder.link(self.audio_queue)
-        self.audio_queue.link(self.mainbin)
 
     def _on_drained(self, dec, stream):
         logger.debug("%s drained"%stream.get_name())
@@ -102,44 +101,9 @@ class UnifiedPlayer(_base.ExailePlayer):
         else:
             self.unlink_stream(stream)
 
-    def setup_bus(self):
-        """
-            setup the gstreamer message bus and callacks
-        """
-        self.bus = self.pipe.get_bus()
-        self.bus.add_signal_watch()
-        self.bus.enable_sync_message_emission()
-        self.bus.connect('message', self.on_message)
-
-    def on_message(self, bus, message, reading_tag = False):
-        if message.type == gst.MESSAGE_EOS and not self.is_paused():
-            logger.warning("EOS: ", message)
-        elif message.type == gst.MESSAGE_TAG and self.tag_func:
-            self.tag_func(message.parse_tag())
-            if not self.current.get_tag_raw('__length'):
-                try:
-                    duration = float(self.mainbin.query_duration(
-                        gst.FORMAT_TIME, None)[0])/1000000000
-                    if duration > 0:
-                        self.current.set_tag_raw('__length', duration)
-                except gst.QueryError:
-                    logger.debug("Couldn't query duration via GStreamer")
-        elif message.type == gst.MESSAGE_ERROR:
-            logger.error("%s %s" %(message, dir(message)) )
-            a = message.parse_error()[0]
-            self._on_playback_error(a.message)
-        return True
-
     def _get_current(self):
         if self.streams[self._current_stream]:
             return self.streams[self._current_stream].get_current()
-
-    def _get_gst_state(self):
-        """
-            Returns the raw GStreamer state
-        """
-        return self.pipe.get_state(timeout=50*gst.MSECOND)[1]
-
 
     def get_position(self):
         try:
@@ -190,10 +154,10 @@ class UnifiedPlayer(_base.ExailePlayer):
         if fading:
             self.streams[next].set_volume(0)
 
-        self.pipe.set_state(gst.STATE_PLAYING)
+        self._pipe.set_state(gst.STATE_PLAYING)
         self.streams[next]._settle_flag = 1
         glib.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
-        glib.idle_add(self._set_state, self.pipe, gst.STATE_PLAYING)
+        glib.idle_add(self._set_state, self._pipe, gst.STATE_PLAYING)
 
         if fading:
             timeout = int(float(duration)/float(100))
@@ -269,7 +233,7 @@ class UnifiedPlayer(_base.ExailePlayer):
                 pass
             glib.idle_add(stream.set_state, gst.STATE_NULL)
             try:
-                self.pipe.remove(stream)
+                self._pipe.remove(stream)
             except gst.RemoveError:
                 logger.debug("Failed to remove stream %s"%stream)
             if stream in self.streams:
@@ -283,7 +247,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             return False
 
     def link_stream(self, stream, track):
-        self.pipe.add(stream)
+        self._pipe.add(stream)
         stream.link(self.adder)
         if not stream.set_track(track):
             logger.error("Failed to start playing \"%s\""%track)
@@ -292,48 +256,31 @@ class UnifiedPlayer(_base.ExailePlayer):
         return True
 
     @common.synchronized
-    def stop(self):
+    def _stop(self):
         """
             stop playback
         """
-        if self.is_playing() or self.is_paused():
-            current = self.current
-            self.pipe.set_state(gst.STATE_NULL)
-            for stream in self.streams:
-                self.unlink_stream(stream)
-            self._reset_crossfade_timer()
-            event.log_event('playback_player_end', self, current)
-            return True
-        return False
+        current = self.current
+        self._pipe.set_state(gst.STATE_NULL)
+        for stream in self.streams:
+            self.unlink_stream(stream)
+        self._reset_crossfade_timer()
+        return current
 
     @common.synchronized
-    def pause(self):
-        """
-            pause playback. DOES NOT TOGGLE
-        """
-        if self.is_playing():
-            self.pipe.set_state(gst.STATE_PAUSED)
-            self._reset_crossfade_timer()
-            event.log_event('playback_player_pause', self, self.current)
-            return True
-        return False
+    def _pause(self):
+        self._pipe.set_state(gst.STATE_PAUSED)
+        self._reset_crossfade_timer()
 
     @common.synchronized
-    def unpause(self):
-        """
-            unpause playback
-        """
-        if self.is_paused():
-            # gstreamer does not buffer paused network streams, so if the user
-            # is unpausing a stream, just restart playback
-            if not self.current.is_local():
-                self.pipe.set_state(gst.STATE_READY)
+    def _unpause(self):
+        # gstreamer does not buffer paused network streams, so if the user
+        # is unpausing a stream, just restart playback
+        if not self.current.is_local():
+            self._pipe.set_state(gst.STATE_READY)
 
-            self.pipe.set_state(gst.STATE_PLAYING)
-            self._reset_crossfade_timer()
-            event.log_event('playback_player_resume', self, self.current)
-            return True
-        return False
+        self._pipe.set_state(gst.STATE_PLAYING)
+        self._reset_crossfade_timer()
 
     @common.synchronized
     def seek(self, value):
@@ -539,8 +486,6 @@ class AudioStream(gst.Bin):
             gst.SEEK_TYPE_NONE, 0)
 
         self.vol.send_event(seekevent)
-
-        self.last_seek_pos = value
 
     def _seek_delayed(self, type, object, value):
         """

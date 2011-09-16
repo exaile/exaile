@@ -23,7 +23,13 @@ import gtk.gdk
 import logging
 import pynotify
 
-from xl import common, covers, event, settings
+from xl import (
+    common,
+    covers,
+    event,
+    player,
+    settings
+)
 from xl.nls import gettext as _
 from xlgui import icons
 

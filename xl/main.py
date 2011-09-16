@@ -533,11 +533,7 @@ class Exaile(object):
 
     def version(self):
         from xl.version import __version__
-        print r"""   ____          _ __    __
-  / __/_ _____ _(_) /__ / /
- / _/ \ \ / _ `/ / / -_)_/
-/___//_\_\\_,_/_/_/\__(_)   v%s
-"""%__version__
+        print "Exaile", __version__
         exit()
 
     def _add_default_playlists(self):

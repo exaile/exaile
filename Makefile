@@ -103,7 +103,7 @@ install-target: make-install-dirs
 	install -m 644 data/images/48x48/*.png ${EXAILESHAREDIR}/data/images/48x48
 	install -m 644 data/images/scalable/*.svg ${EXAILESHAREDIR}/data/images/scalable
 	install -m 644 data/images/*.png ${EXAILESHAREDIR}/data/images
-	install -m 644 data/images/48x48/exaile.png \
+	install -m 644 data/images/128x128/exaile.png \
 		${DESTDIR}${PREFIX}/share/pixmaps/exaile.png
 	install -m 644 data/ui/*.ui ${EXAILESHAREDIR}/data/ui
 	install -m 644 data/ui/preferences/*.ui ${EXAILESHAREDIR}/data/ui/preferences
@@ -139,12 +139,9 @@ plugins_dist:
 
 # The sed call in -h removes the indent from group headers to work around
 # help2man's incompatibility with optparse's grouping.
-# The sed call in -v removes the ASCII art from Exaile's --version and
-# prints out the proper "$program $version" text.
 manpage:
 	help2man -n "music manager and player" -N \
 	  -h './exaile --help | sed "s/^  //"' \
-	  -v './exaile --version | sed -n "4 s/.* v\\(.*\\)/exaile \\1/ p"' \
 	  ./exaile \
 	  | gzip -9 > exaile.1.gz
 

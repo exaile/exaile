@@ -176,7 +176,7 @@ class CDPlaylist(playlist.Playlist):
 
         title = info['DTITLE'].split(" / ")
         for i in range(self.info[1]):
-            tr = self.ordered_tracks[i]
+            tr = self[i]
             tr.set_tag_raw('title',
                     info['TTITLE' + `i`].decode('iso-8859-15', 'replace'))
             tr.set_tag_raw('album',
@@ -188,7 +188,7 @@ class CDPlaylist(playlist.Playlist):
             tr.set_tag_raw('genre',
                     info['DGENRE'])
 
-        self.set_name(title[1].decode('iso-8859-15', 'replace'))
+        self.name = title[1].decode('iso-8859-15', 'replace')
         event.log_event('cddb_info_retrieved', self, True)
 
 class CDDevice(Device):

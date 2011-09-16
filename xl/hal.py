@@ -47,6 +47,7 @@ class UDisks(providers.ProviderHandler):
     def __init__(self, devicemanager):
         self._lock = lock = threading.Lock()
         self._state = 'init'
+        logger.debug("UDisks: state = init")
 
         providers.ProviderHandler.__init__(self, 'udisks')
         self.devicemanager = devicemanager
@@ -55,7 +56,7 @@ class UDisks(providers.ProviderHandler):
         self.devices = {}
         self.providers = {}
 
-    @common.threaded
+    #~ @common.threaded
     def connect(self):
         assert self._state == 'init'
         logger.debug("Connecting to UDisks")
@@ -70,12 +71,16 @@ class UDisks(providers.ProviderHandler):
         except Exception:
             logger.warning("Failed to connect to UDisks, " \
                     "autodetection of devices will be disabled.")
+            common.log_exception()
             self._state = 'listening'
+            logger.debug("UDisks: state = listening")
             self.failed = True
             return
         self._state = 'addremove'
+        logger.debug("UDisks: state = addremove (80)")
         self._add_all()
         self._state = 'listening'
+        logger.debug("UDisks: state = listening (83)")
 
     def _add_all(self):
         assert self._state == 'addremove'
@@ -90,10 +95,15 @@ class UDisks(providers.ProviderHandler):
             if old[0]:
                 self.devicemanager.remove_device(self.devices[path])
             device = new[0].create_device(obj)
-            device.autoconnect()
-            self.devicemanager.add_device(device)
-            self.providers[path] = new
-            self.devices[path] = device
+            try:
+                device.autoconnect()
+            except:
+                common.log_exception(
+                    message=("Failed autoconnecting device " + str(device)))
+            else:
+                self.devicemanager.add_device(device)
+                self.providers[path] = new
+                self.devices[path] = device
 
     def _get_provider_for(self, obj):
         """Return (old_provider, old_priority), (new_provider, new_priority)"""
@@ -111,24 +121,28 @@ class UDisks(providers.ProviderHandler):
         self.devicemanager.remove_device(self.devices[path])
         del self.devices[path]
 
-    def _device_added(self, path):
-        import pdb; pdb.set_trace()
+    def _device_added(self, path_, **kw): # "path" conflicts with a kwarg
+        logger.debug("UDisks: Device added: " + str(path_))
         self._addremove()
-        self._add_path(path)
+        self._add_path(path_)
         self._state = 'listening'
+        logger.debug("UDisks: state = listening (_device_added)")
 
-    def _device_removed(self, path):
+    def _device_removed(self, path_, **kw): # "path" conflicts with a kwarg
         self._addremove()
         try:
-            self._remove_path(path)
+            self._remove_path(path_)
+            logger.debug("UDisks: Device removed: " + str(path_))
         except KeyError: # Not ours
             pass
         self._state = 'listening'
+        logger.debug("UDisks: state = listening")
 
     def on_provider_added(self, provider):
         self._addremove()
         self._connect_all()
         self._state = 'listening'
+        logger.debug("UDisks: state = listening")
 
     def on_provider_removed(self, provider):
         self._addremove()
@@ -136,6 +150,7 @@ class UDisks(providers.ProviderHandler):
             if provider_ is provider:
                 self._remove_path(path)
         self._state = 'listening'
+        logger.debug("UDisks: state = listening")
 
     def _addremove(self):
         """Helper to transition safely to the addremove state"""
@@ -143,8 +158,9 @@ class UDisks(providers.ProviderHandler):
             with self._lock:
                 if self._state == 'listening':
                     self._state = 'addremove'
+                    logger.debug("UDisks: state = addremove")
                     break
-            time.sleep(1)
+            time.sleep(1) # TODO: Whose thread is this?
 
 class HAL(providers.ProviderHandler):
     """

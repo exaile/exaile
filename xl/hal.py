@@ -33,12 +33,13 @@ from xl.nls import gettext as _
 logger = logging.getLogger(__name__)
 
 class UDisks(providers.ProviderHandler):
-    """Provides support for UDisks devices.
+    """
+        Provides support for UDisks devices.
 
-    If the D-Bus connection fails, this object will grow a "failed" attribute
-    with True as the value. Plugins should check for this attribute when
-    registering if they want to provide HAL fallback. FIXME: There's a race
-    condition here.
+        If the D-Bus connection fails, this object will grow a "failed"
+        attribute with True as the value. Plugins should check for this when
+        registering if they want to provide HAL fallback. FIXME: There's a race
+        condition here.
     """
 
     # States: start -> init -> addremove <-> listening -> end.
@@ -64,8 +65,9 @@ class UDisks(providers.ProviderHandler):
             self.bus = bus = dbus.SystemBus()
             self.obj = obj = bus.get_object('org.freedesktop.UDisks', '/org/freedesktop/UDisks')
             self.iface = iface = dbus.Interface(obj, 'org.freedesktop.UDisks')
-            iface.connect_to_signal('DeviceAdded', self._device_added, path_keyword='path')
-            iface.connect_to_signal('DeviceRemoved', self._device_removed, path_keyword='path')
+            iface.connect_to_signal('DeviceAdded', self._udisks_device_added)
+            iface.connect_to_signal('DeviceRemoved', self._udisks_device_removed)
+            iface.connect_to_signal('DeviceChanged', self._udisks_device_added)
             logger.info("Connected to UDisks")
             event.log_event("hal_connected", self, None)
         except Exception:
@@ -77,90 +79,121 @@ class UDisks(providers.ProviderHandler):
             self.failed = True
             return
         self._state = 'addremove'
-        logger.debug("UDisks: state = addremove (80)")
+        logger.debug("UDisks: state = addremove")
         self._add_all()
         self._state = 'listening'
-        logger.debug("UDisks: state = listening (83)")
+        logger.debug("UDisks: state = listening")
 
     def _add_all(self):
         assert self._state == 'addremove'
         for path in self.iface.EnumerateDevices():
-            self._add_path(path)
+            self._add_device(path)
 
-    def _add_path(self, path):
+    def _add_device(self, path=None, obj=None):
+        """
+            Call with either path or obj (obj gets priority). Not thread-safe.
+        """
         assert self._state == 'addremove'
-        obj = self.bus.get_object('org.freedesktop.UDisks', path)
+        if obj is None:
+            obj = self.bus.get_object('org.freedesktop.UDisks', path)
         old, new = self._get_provider_for(obj)
-        if new is not old:
-            if old[0]:
-                self.devicemanager.remove_device(self.devices[path])
-            device = new[0].create_device(obj)
-            try:
-                device.autoconnect()
-            except:
-                common.log_exception(
-                    message=("Failed autoconnecting device " + str(device)))
-            else:
-                self.devicemanager.add_device(device)
-                self.providers[path] = new
-                self.devices[path] = device
+        if new is not None:
+            device = new.create_device(obj)
+            if new is old and device is self.devices[path]:
+                return # Exactly the same device
+        if old is not None:
+            self.devicemanager.remove_device(self.devices[path])
+        if new is None:
+            return
+        try:
+            device.autoconnect()
+        except:
+            logger.exception("Failed autoconnecting device " + str(device))
+        else:
+            self.devicemanager.add_device(device)
+            self.providers[path] = new
+            self.devices[path] = device
 
     def _get_provider_for(self, obj):
-        """Return (old_provider, old_priority), (new_provider, new_priority)"""
+        """
+            Return (old_provider, old_priority), (new_provider, new_priority).
+            Not thread-safe.
+        """
         assert self._state == 'addremove'
-        path = obj.object_path
-        highest = old = self.providers.get(path, (None, -1))
+        highest_prio = -1
+        highest = None
+        old = self.providers.get(obj.object_path)
         for provider in self.get_providers():
             priority = provider.get_priority(obj)
-            if priority is not None and priority > highest[1]:
-                highest = (provider, priority)
+            if priority is None: continue
+            # Find highest priority, preferring old provider.
+            if priority > highest_prio or \
+                    (priority == highest_prio and provider is old):
+                highest_prio = priority
+                highest = provider
         return old, highest
 
-    def _remove_path(self, path):
+    def _remove_device(self, path):
         assert self._state == 'addremove'
-        self.devicemanager.remove_device(self.devices[path])
-        del self.devices[path]
-
-    def _device_added(self, path_, **kw): # "path" conflicts with a kwarg
-        logger.debug("UDisks: Device added: " + str(path_))
-        self._addremove()
-        self._add_path(path_)
-        self._state = 'listening'
-        logger.debug("UDisks: state = listening (_device_added)")
-
-    def _device_removed(self, path_, **kw): # "path" conflicts with a kwarg
-        self._addremove()
         try:
-            self._remove_path(path_)
-            logger.debug("UDisks: Device removed: " + str(path_))
-        except KeyError: # Not ours
-            pass
-        self._state = 'listening'
-        logger.debug("UDisks: state = listening")
+            self.devicemanager.remove_device(self.devices[path])
+            del self.devices[path]
+        except KeyError:
+            logger.warning("UDisks: Can't remove device (not found): " + path)
+
+    def _udisks_device_added(self, path):
+        logger.debug("UDisks: Device added: " + str(path))
+        if self._addremove():
+            self._add_device(path)
+            self._state = 'listening'
+            logger.debug("UDisks: state = listening (_device_added)")
+
+    def _udisks_device_removed(self, path):
+        if self._addremove():
+            try:
+                self._remove_device(path)
+                logger.debug("UDisks: Device removed: " + str(path))
+            except KeyError: # Not ours
+                pass
+            self._state = 'listening'
+            logger.debug("UDisks: state = listening")
+
+    # FIXME: Handle provider add/remove (following code unused & untested).
 
     def on_provider_added(self, provider):
-        self._addremove()
-        self._connect_all()
-        self._state = 'listening'
-        logger.debug("UDisks: state = listening")
+        if self._addremove():
+            self._connect_all()
+            self._state = 'listening'
+            logger.debug("UDisks: state = listening")
 
     def on_provider_removed(self, provider):
-        self._addremove()
-        for path, provider_ in self.providers.iteritems():
-            if provider_ is provider:
-                self._remove_path(path)
-        self._state = 'listening'
-        logger.debug("UDisks: state = listening")
+        if self._addremove():
+            for path, provider_ in self.providers.iteritems():
+                if provider_ is provider:
+                    self._remove_device(path)
+            self._state = 'listening'
+            logger.debug("UDisks: state = listening")
 
     def _addremove(self):
-        """Helper to transition safely to the addremove state"""
+        """
+            Helper to transition safely from listening to addremove state.
+
+            Returns whether the transition happens.
+        """
+        i = 0
         while True:
             with self._lock:
                 if self._state == 'listening':
                     self._state = 'addremove'
                     logger.debug("UDisks: state = addremove")
-                    break
-            time.sleep(1) # TODO: Whose thread is this?
+                    return True
+            # If active state is init, we sleep and try again a few times.
+            # TODO: Whose thread is this we are blocking?
+            if i == 5:
+                logger.error("UDisks: Failed to acquire lock. Ignoring device event.")
+                return False
+            i += 1
+            time.sleep(1)
 
 class HAL(providers.ProviderHandler):
     """

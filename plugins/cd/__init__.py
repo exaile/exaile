@@ -247,22 +247,23 @@ class CDHandler(Handler):
         return cddev
 
 class UDisksCdProvider(UDisksProvider):
-    PRIORITY = UDisksProvider.NORMAL
-
     name = 'cd'
+    PRIORITY = UDisksProvider.NORMAL
 
     def get_priority(self, obj):
         props = dbus.Interface(obj, 'org.freedesktop.DBus.Properties')
         iface = 'org.freedesktop.UDisks.Device'
-        # XXX: We use the number of audio tracks to identify audio CDs.
-        # There may be a better way....
-        compat = props.Get(iface, 'DriveMediaCompatibility')
-        return self.PRIORITY if 'optical_cd' in compat else None
+        # DeviceChanged is called before and after tracks are read. We only want
+        # the second case, so use number of audio tracks to identify supported
+        # media. As a bonus, this means we never have to care about the type of
+        # disc (CD, DVD, etc.).
+        ntracks = props.Get(iface, 'OpticalDiscNumAudioTracks')
+        return self.PRIORITY if ntracks > 0 else None
 
     def create_device(self, obj):
         props = dbus.Interface(obj, 'org.freedesktop.DBus.Properties')
         iface = 'org.freedesktop.UDisks.Device'
-        return CDDevice(dev=props.Get(iface, 'DeviceFile'))
+        return CDDevice(dev=str(props.Get(iface, 'DeviceFile')))
 
 
 # vim: et sts=4 sw=4

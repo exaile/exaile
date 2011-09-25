@@ -96,11 +96,25 @@ class UDisks(providers.ProviderHandler):
         assert self._state == 'addremove'
         if obj is None:
             obj = self.bus.get_object('org.freedesktop.UDisks', path)
+
+        # In the following code, `old` and `new` are providers, while
+        # `self.devices[path]` and `device` are old/new devices. There are
+        # several possible code paths that should be correctly handled:
+        # - No old nor new provider for this path.
+        # - Provider changes (nothing to something, something to nothing,
+        #   something to something else); obviously device changes as well.
+        # - Provider stays the same, but device changes (i.e. instant media-
+        #   swapping; not sure it can happen).
+        # - Provider and device stay the same.
         old, new = self._get_provider_for(obj)
-        if new is not None:
-            device = new.create_device(obj)
-            if new is old and device is self.devices[path]:
-                return # Exactly the same device
+        if new is None:
+            if old is not None:
+                self.devicemanager.remove_device(self.devices[path])
+                del self.devices[path]
+            return
+        device = new.get_device(obj)
+        if new is old and device is self.devices[path]:
+            return # Exactly the same device
         if old is not None:
             self.devicemanager.remove_device(self.devices[path])
         if new is None:

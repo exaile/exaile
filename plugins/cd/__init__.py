@@ -260,7 +260,8 @@ class UDisksCdProvider(UDisksProvider):
         ntracks = props.Get(iface, 'OpticalDiscNumAudioTracks')
         return self.PRIORITY if ntracks > 0 else None
 
-    def create_device(self, obj):
+    def get_device(self, obj):
+        # TODO: If this is the same disc, return old device object.
         props = dbus.Interface(obj, 'org.freedesktop.DBus.Properties')
         iface = 'org.freedesktop.UDisks.Device'
         return CDDevice(dev=str(props.Get(iface, 'DeviceFile')))

@@ -206,11 +206,11 @@ class BaseTrayIcon(object):
         else:
             if event.direction == gtk.gdk.SCROLL_UP:
                 volume = settings.get_option('player/volume', 1)
-                settings.set_option('player/volume', volume + self.VOLUME_STEP)
+                settings.set_option('player/volume', min(volume + self.VOLUME_STEP, 1))
                 return True
             elif event.direction == gtk.gdk.SCROLL_DOWN:
                 volume = settings.get_option('player/volume', 1)
-                settings.set_option('player/volume', volume - self.VOLUME_STEP)
+                settings.set_option('player/volume', max(0, volume - self.VOLUME_STEP))
                 return True
             elif event.direction == gtk.gdk.SCROLL_LEFT:
                 player.QUEUE.prev()

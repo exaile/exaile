@@ -45,7 +45,7 @@ from xlgui.widgets import rating, menu
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_COLUMNS = ('tracknumber', 'title', 'album', 'artist', '__length')
+DEFAULT_COLUMNS = ['tracknumber', 'title', 'album', 'artist', '__length']
 
 class Column(gtk.TreeViewColumn):
     name = ''
@@ -363,7 +363,7 @@ class ColumnMenuItem(menu.MenuItem):
         """
             Updates the columns setting
         """
-        columns = settings.get_option('gui/columns')
+        columns = settings.get_option('gui/columns', DEFAULT_COLUMNS)
 
         if name in columns:
             columns.remove(name)
@@ -380,7 +380,7 @@ def __register_playlist_columns_menuitems():
         """
             Returns whether a menu item should be checked
         """
-        return name in settings.get_option('gui/columns')
+        return name in settings.get_option('gui/columns', DEFAULT_COLUMNS)
 
     def is_resizable(name, parent, context):
         """
@@ -397,7 +397,7 @@ def __register_playlist_columns_menuitems():
         """
             Updates columns setting
         """
-        columns = settings.get_option('gui/columns')
+        columns = settings.get_option('gui/columns', DEFAULT_COLUMNS)
 
         if name in columns:
             columns.remove(name)

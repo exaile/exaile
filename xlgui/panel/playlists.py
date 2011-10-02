@@ -1063,8 +1063,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             for showing the context menu
         """
         if event.button == 3:
-            (path, position) = self.tree.get_dest_row_at_pos(int(event.x), int(event.y))
-            iter = self.model.get_iter(path)
+            button_info = self.tree.get_dest_row_at_pos(int(event.x), int(event.y))
+            if not button_info:
+                return
+            iter = self.model.get_iter(button_info[0])
             pl = self.model.get_value(iter, 2)
             #Based on what is selected determines what
             #menu we will show

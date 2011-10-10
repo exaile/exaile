@@ -29,6 +29,7 @@ import gtk
 
 from xlgui.preferences import widgets
 from xl import main, xdg
+from xl.player import pipe
 from xl.nls import gettext as _
 
 name = _('Playback')
@@ -68,6 +69,61 @@ class CustomAudioSinkPreference(widgets.Preference, widgets.Conditional):
             return True
 
         return False
+        
+class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional):
+    default = ''
+    name = "player/audiosink_device"
+    condition_preference_name = 'player/audiosink'
+    
+    restart_required = True
+    
+    def __init__(self, preferences, widget):
+        widgets.ComboPreference.__init__(self, preferences, widget)
+        widgets.Conditional.__init__(self)
+    
+    def on_check_condition(self):
+    
+        iter = self.condition_widget.get_active_iter()
+        value = self.condition_widget.get_model().get_value(iter, 0)        
+        
+        devices = pipe.sink_enumerate_devices(value)
+        if devices is not None:
+            
+            # disable because the clear() causes a settings write
+            self.is_enabled = False
+    
+            model = self.widget.get_model()
+            model.clear()
+    
+            for device in devices:
+                model.append(device) 
+        
+            self.is_enabled = True
+            self._set_value()
+            return True
+            
+        self.is_enabled = False
+        return False
+        
+    def on_condition_met(self):
+        self.widget.get_parent().show()
+        
+    def on_condition_failed(self):
+        self.widget.get_parent().hide()
+        self.widget.get_model().clear()
+        
+    def _setup_changed(self):
+        self.widget.connect('changed', self._change)
+        
+    def _change(self, *args):
+        if self.is_enabled:
+            self.change(args)
+        
+    def _get_value(self):
+        if self.is_enabled:
+            return widgets.ComboPreference._get_value(self)
+        
+        return ''
 
 class ResumePreference(widgets.CheckPreference):
     default = True

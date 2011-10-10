@@ -512,6 +512,8 @@ class Track(object):
             value = self.split_numerical(self.__tags.get(tag))[0]
         elif tag in ('__length', '__playcount'):
             value = self.__tags.get(tag, 0)
+        elif tag == 'bpm':
+            value = int(self.__tags.get(tag, [0])[0])
         elif tag == '__basename':
             # TODO: Check if unicode() is required
             value = self.get_basename()
@@ -525,7 +527,7 @@ class Track(object):
                 basename = glib.filename_display_name(gloc.get_basename())
                 value = u"%s (%s)" % (value, basename)
         elif not tag.startswith("__") and \
-                tag not in ('tracknumber', 'discnumber'):
+                tag not in ('tracknumber', 'discnumber', 'bpm'):
             if not sorttag:
                 value = self.format_sort(value)
             else:

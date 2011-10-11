@@ -31,11 +31,15 @@ import gtk
  
 from xl import (
     event, 
+    providers,
+    player,
     settings
 )
 
 from xl.nls import gettext as _
 from xlgui import guiutil
+from xlgui.widgets import menu
+
 
 plugin = None
 
@@ -68,10 +72,9 @@ class BPMCounterPlugin(object):
     
         self.window = None
         
-        self.menu_item = gtk.MenuItem(_('BPM Counter'))
-        self.menu_item.connect('activate', self.enable, exaile )
-        exaile.gui.builder.get_object('tools_menu').append(self.menu_item)
-        self.menu_item.show()
+        self.MENU_ITEM = menu.simple_menu_item('bpm_counter', ['plugin-sep'], _('BPM Counter'),
+            callback=lambda *x: self.enable(exaile))
+        providers.register('menubar-tools-menu', self.MENU_ITEM)
         
         # TODO: Add preferences to adjust these settings..
         
@@ -86,21 +89,20 @@ class BPMCounterPlugin(object):
     def disable_plugin(self):
         '''Called when the plugin is disabled'''
         
-        if self.menu_item:
-            self.menu_item.hide()
-            self.menu_item.destroy()
-            self.menu_item = None
+        if self.MENU_ITEM:
+            providers.unregister('menubar-tools-menu', self.MENU_ITEM)
+            self.MENU_ITEM = None
         
         if self.window:
             self.window.hide()
             self.window.destroy()
         
     
-    def enable(self, widget, exaile):
+    def enable(self, exaile):
         '''Called when the user selects the BPM counter from the menu'''
     
         if self.window is not None:
-            self.present()
+            self.window.present()
             return
     
         self.ui = gtk.Builder()
@@ -125,8 +127,8 @@ class BPMCounterPlugin(object):
         # get the main exaile window, and dock our window next to it if possible
         
         # trigger start event if exaile is currently playing something
-        if exaile.player.is_playing():
-            self.playback_track_start( None, exaile.player, exaile.player.current )
+        if player.PLAYER.is_playing():
+            self.playback_track_start( None, player.PLAYER, player.PLAYER.current )
         else:
             self.track = None
             self.bpm = None

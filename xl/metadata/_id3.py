@@ -59,6 +59,7 @@ class ID3Format(BaseFormat):
         "organization": "TPUB",
         "discnumber": "TPOS",
         "bpm": "TBPM",
+        "grouping": "TIT1",
         }
     writable = True
     others = False # make this true once custom tag support actually works
@@ -114,4 +115,3 @@ class ID3Format(BaseFormat):
             raw.tags.delall(tag)
 
 # vim: et sts=4 sw=4
-

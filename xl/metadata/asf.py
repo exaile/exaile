@@ -39,10 +39,10 @@ class AsfFormat(BaseFormat):
             "genre"         : "WM/Genre",
             "tracknumber"   : "WM/TrackNumber",
             "date"          : "WM/Year",
-            "albumartist"   : "WM/AlbumArtist"
+            "albumartist"   : "WM/AlbumArtist",
+            "grouping"      : "WM/ContentGroupDescription"
         }
     others = False
     writable = True
 
 # vim: et sts=4 sw=4
-

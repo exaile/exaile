@@ -49,10 +49,10 @@ class ApeFormat(BaseFormat):
         "albumsort": "ALBUMSORT",
         "albumartistsort": "ALBUMARTISTSORT",
         "artistsort": "ARTISTSORT",
-        "titlesort": "TITLESORT"
+        "titlesort": "TITLESORT",
+        "grouping": "Grouping"
         }
     others = True
     writable = True
 
 # vim: et sts=4 sw=4
-

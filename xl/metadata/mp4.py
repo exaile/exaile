@@ -41,6 +41,7 @@ class MP4Format(BaseFormat):
             'tracknumber': 'trkn',
             'discnumber':  'disk',
             'copyright':   'cprt',
+            'grouping':    '\xa9grp'
         }
     others = False
     writable = True

@@ -80,6 +80,10 @@ class Exaile(object):
 
         xdg._make_missing_dirs()
 
+        # Make event debug imply debug
+        if self.options.DebugEvent:
+            self.options.Debug = True
+
         self.setup_logging()
         global logger
         logger = logging.getLogger(__name__)

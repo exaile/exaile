@@ -153,6 +153,12 @@ CRITERIA = [
         (_('greater than'), SpinNothing),
         (_('between'), EntryAndEntryField),
     ]),
+    (_('Grouping'),[
+        (_('is'), EntryField),
+        (_('is not'), EntryField),
+        (_('contains'), EntryField),
+        (_('does not contain'), EntryField),
+    ]),
 ]
 
 # NOTE: We use N_ (fake gettext) because these strings are translated later by
@@ -201,6 +207,7 @@ _NMAP = {
     N_('Last played'): '__last_played',
     N_('Location'): '__loc',
     _('BPM'): 'bpm',
+    N_('Grouping'): 'grouping',
 }
 
 class TrackWrapper(object):

@@ -1597,6 +1597,16 @@ class SmartPlaylist(object):
                         'value1': value[0],
                         'value2': value[1]
                     }
+            elif op == '<!==>':     # NOT NULL
+                s += '! %(field)s=="__null__"' % \
+                    {
+                        'field': field
+                    }
+            elif op == '<==>':      # IS NULL
+                s += '%(field)s=="__null__"' % \
+                    {
+                        'field': field
+                    }
             else:
                 s += '%(field)s%(op)s"%(value)s"' % \
                     {

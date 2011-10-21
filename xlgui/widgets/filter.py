@@ -395,6 +395,16 @@ class Criterion(gtk.HBox):
 
 # Sample fields
 
+class NullField(gtk.HBox):
+    '''Used as a placeholder for __null__ values'''
+    
+    def get_state(self):
+        return ['__null__']
+        
+    def set_state(self, state):
+        pass
+    
+
 class MultiEntryField(gtk.HBox):
     """Helper field that can be subclassed to get fields with multiple
        GtkEntry widgets and multiple labels."""

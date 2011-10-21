@@ -93,25 +93,33 @@ CRITERIA = [
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
-        ('does not contain', EntryField)
+        ('does not contain', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Album', [
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Title', [
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Genre', [
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Rating', [
         ('greater than', SpinRating),
@@ -127,6 +135,8 @@ CRITERIA = [
         ('before', EntryField),
         ('after', EntryField),
         ('between', EntryAndEntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Length', [
         ('at least', SpinSecondsField),
@@ -152,12 +162,16 @@ CRITERIA = [
         (_('less than'), SpinNothing),
         (_('greater than'), SpinNothing),
         (_('between'), EntryAndEntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     (_('Grouping'),[
         (_('is'), EntryField),
         (_('is not'), EntryField),
         (_('contains'), EntryField),
         (_('does not contain'), EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
 ]
 
@@ -172,6 +186,10 @@ _TRANS = {
     N_('is'): '==',
     # TRANSLATORS: True if haystack is not equal to needle
     N_('is not'): '!==',
+    # TRANSLATORS: True if the specified tag is present (uses the NullField to compare to __null__)
+    N_('is set'): '<!==>',
+    # TRANSLATORS: True if the specified tag is not present (uses the NullField to compare to __null__)
+    N_('is not set'): '<==>',
     # TRANSLATORS: True if haystack contains needle
     N_('contains'): '=',
     # TRANSLATORS: True if haystack does not contain needle

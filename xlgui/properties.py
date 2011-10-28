@@ -211,7 +211,7 @@ class TrackPropertiesDialog(gobject.GObject):
                 self.track_refs[n].set_tag_raw(tag, None)
 
             if not self.track_refs[n].write_tags():
-                dialogs.error( None, "Error writing tags to %s" % self.track_refs[n].get_loc_for_io() )
+                dialogs.error( None, "Error writing tags to %s" % gobject.markup_escape_text(self.track_refs[n].get_loc_for_io()) )
                 
             dialog.step()
         dialog.destroy()

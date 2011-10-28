@@ -38,6 +38,8 @@ from xl import xdg, metadata, common
 from xl.common import clamp
 from xl.nls import gettext as _
 
+from xlgui.widgets import dialogs
+
 IGNORE = (None, None)
 
 dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
@@ -208,7 +210,9 @@ class TrackPropertiesDialog(gobject.GObject):
             for tag in poplist:
                 self.track_refs[n].set_tag_raw(tag, None)
 
-            self.track_refs[n].write_tags()
+            if not self.track_refs[n].write_tags():
+                dialogs.error( None, "Error writing tags to %s" % self.track_refs[n].get_loc_for_io() )
+                
             dialog.step()
         dialog.destroy()
 

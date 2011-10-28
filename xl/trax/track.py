@@ -309,6 +309,15 @@ class Track(object):
                 return False # not a supported type
             f.write_tags(self.__tags)
             return f
+        except IOError:
+            # error writing to the file, reload tags just in case
+            
+            # TODO: This should really execute a 'sync' or something similar, that
+            # not only reads all the tags from disk, but also to notify
+            # anyone interested in the track that it may have changed
+            
+            self.read_tags()
+            return False
         except Exception:
             common.log_exception(logger)
             return False

@@ -28,6 +28,7 @@
 import os
 import time
 import gtk
+import gobject
  
 from xl import (
     event, 
@@ -38,7 +39,7 @@ from xl import (
 
 from xl.nls import gettext as _
 from xlgui import guiutil
-from xlgui.widgets import menu
+from xlgui.widgets import menu, dialogs
 
 
 plugin = None
@@ -232,7 +233,8 @@ class BPMCounterPlugin(object):
         
             if result == gtk.RESPONSE_YES:
                 self.track.set_tag_raw('bpm', int(self.bpm))
-                self.track.write_tags()
+                if not self.track.write_tags():
+                    dialogs.error( None, "Error writing BPM to %s" % gobject.markup_escape_text(self.track.get_loc_for_io()) )
         
         self.update_ui()
     

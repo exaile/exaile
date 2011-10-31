@@ -337,7 +337,7 @@ class ListDialog(gtk.Dialog):
 
         Items must define a __str__ method, or be a string
     """
-    def __init__(self, title, parent=None, multiple=False):
+    def __init__(self, title, parent=None, multiple=False, write_only=False):
         """
             Initializes the dialog
         """
@@ -355,8 +355,11 @@ class ListDialog(gtk.Dialog):
         scroll.set_shadow_type(gtk.SHADOW_IN)
         self.vbox.pack_start(scroll, True, True)
 
-        self.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_OK, gtk.RESPONSE_OK)
+        if write_only:
+            self.add_buttons(gtk.STOCK_OK, gtk.RESPONSE_OK)
+        else:
+            self.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_OK, gtk.RESPONSE_OK)
 
         self.selection = self.list.get_selection()
 

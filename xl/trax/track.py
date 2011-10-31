@@ -309,6 +309,10 @@ class Track(object):
                 return False # not a supported type
             f.write_tags(self.__tags)
             return f
+        except IOError, e:
+            # error writing to the file, probably
+            logger.warning( "Could not write tags to file: %s" % e )
+            return False
         except Exception:
             common.log_exception(logger)
             return False

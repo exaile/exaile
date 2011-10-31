@@ -38,6 +38,8 @@ from xl import xdg, metadata, common
 from xl.common import clamp
 from xl.nls import gettext as _
 
+from xlgui.widgets import dialogs
+
 IGNORE = (None, None)
 
 dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
@@ -180,6 +182,7 @@ class TrackPropertiesDialog(gobject.GObject):
         return l
 
     def _tags_write(self, data):
+        errors = []
         dialog = SavingProgressWindow(self.dialog, len(data))
         for n, track in data:
             poplist = []
@@ -208,9 +211,16 @@ class TrackPropertiesDialog(gobject.GObject):
             for tag in poplist:
                 self.track_refs[n].set_tag_raw(tag, None)
 
-            self.track_refs[n].write_tags()
+            if not self.track_refs[n].write_tags():
+                errors.append( self.track_refs[n].get_loc_for_io() );
+                
             dialog.step()
         dialog.destroy()
+        
+        if len(errors) > 0:
+            dialog = dialogs.ListDialog( "ERROR: Tags could not be written to these files", write_only=True )
+            dialog.set_items( errors )
+            dialog.run()
 
     def _build_from_track(self, track):
 

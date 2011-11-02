@@ -851,6 +851,9 @@ class PlaylistModel(gtk.ListStore):
 
         self.coltypes = [object, gtk.gdk.Pixbuf] + [providers.get_provider('playlist-columns', c).datatype for c in columns]
         self.set_column_types(*self.coltypes)
+        
+        self._redraw_timer = None
+        self._redraw_queue = []
 
         event.add_callback(self.on_tracks_added,
                 "playlist_tracks_added", playlist)
@@ -868,6 +871,8 @@ class PlaylistModel(gtk.ListStore):
                 "playback_player_pause")
         event.add_callback(self.on_playback_state_change,
                 "playback_player_resume")
+        event.add_callback(self.on_track_tags_changed,
+                "track_tags_changed")
 
         self.play_pixbuf = icons.ExtendedPixbuf(
                 icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PLAY))
@@ -946,4 +951,30 @@ class PlaylistModel(gtk.ListStore):
             return
         glib.idle_add(self.update_icon, position)
 
-
+    def on_track_tags_changed(self, type, track, tag):
+        if not track or not \
+            settings.get_option('gui/sync_on_tag_change', True) or not\
+            tag in self.columns:
+            return
+            
+        if self._redraw_timer:
+            glib.source_remove(self._redraw_timer)
+        self._redraw_queue.append( track )
+        self._redraw_timer = glib.timeout_add(100, self._on_track_tags_changed)
+            
+    def _on_track_tags_changed(self):
+        tracks = {}
+        for track in self._redraw_queue:
+            tracks[track.get_loc_for_io()] = track
+        self._redraw_queue = []
+           
+        for row in self:
+            track = tracks.get( row[0].get_loc_for_io() )
+            if track is not None:
+                track_data = [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
+                for i in range(len(track_data)):
+                    row[2+i] = track_data[i]
+                
+        
+        
+    

@@ -503,6 +503,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
 
         event.add_callback(self.on_option_set, "gui_option_set")
         event.add_callback(self.on_playback_start, "playback_track_start")
+        self.connect("cursor-changed", self.on_cursor_changed )
         self.connect("row-activated", self.on_row_activated)
         self.connect("button-press-event", self.on_button_press)
         self.connect("button-release-event", self.on_button_release)
@@ -652,6 +653,13 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         path = (self.playlist.current_position,)
         self.scroll_to_cell(path)
         self.set_cursor(path)
+        
+    def on_cursor_changed(self, widget):
+        context = common.LazyDict(self)
+        context['selected-items'] = lambda name, parent: parent.get_selected_items()
+        context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
+        event.log_event( 'playlist_cursor_changed', self, context)
+        
 
     def on_row_activated(self, *args):
         try:

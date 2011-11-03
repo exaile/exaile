@@ -1,0 +1,4 @@
+Version="0.1"
+Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
+Name="Group Tagger"
+Description="Facilitates categorizing your music via the group tag" 

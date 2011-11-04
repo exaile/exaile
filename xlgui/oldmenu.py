@@ -213,6 +213,7 @@ class PlaylistsPanelPlaylistMenu(RatedTrackSelectMenu, PlaylistsPanelMenu):
         'add-smart-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'open-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'export-playlist': (gobject.SIGNAL_RUN_LAST, None, (str,)),
+        'export-playlist-files': (gobject.SIGNAL_RUN_LAST, None, (str,)),
         'rename-playlist': (gobject.SIGNAL_RUN_LAST, None, (str,)),
         'remove-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'edit-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
@@ -238,7 +239,9 @@ class PlaylistsPanelPlaylistMenu(RatedTrackSelectMenu, PlaylistsPanelMenu):
             name = _('Edit')
         self.append(name, lambda *e: self.on_rename_playlist(),
                     gtk.STOCK_EDIT)
-        self.append(_('Export'), lambda *e: self.on_export_playlist(),
+        self.append(_('Export Playlist'), lambda *e: self.on_export_playlist(),
+                    gtk.STOCK_SAVE)
+        self.append(_('Export Files'), lambda *e: self.on_export_playlist_files(),
                     gtk.STOCK_SAVE)
         self.append_separator()
         self.append(_('Delete Playlist'), lambda *e: self.on_delete_playlist(),
@@ -270,6 +273,18 @@ class PlaylistsPanelPlaylistMenu(RatedTrackSelectMenu, PlaylistsPanelMenu):
             path = unicode(dialog.get_filename(), 'utf-8')
             self.emit('export-playlist', path)
         dialog.destroy()
+        
+    def on_export_playlist_files(self, selected=None):
+        '''
+            Asks the user where to export the files, then copies
+            the files to that directory
+        '''
+        dialog = dialogs.DirectoryOpenDialog(title=_('Choose directory to export files to'))
+        dialog.set_select_multiple(False)
+        dialog.connect( 'uris-selected', lambda widget, uris: self.emit('export-playlist-files', uris[0] ))
+        dialog.run()
+        dialog.destroy()
+        
 
     def on_delete_playlist(self, selected = None):
         dialog = gtk.MessageDialog(None,

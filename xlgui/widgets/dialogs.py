@@ -28,6 +28,7 @@ import gio
 import glib
 import gobject
 import gtk
+import logging
 import pango
 import os.path
 
@@ -36,12 +37,15 @@ from xl import (
     providers,
     xdg
 )
+from xl.common import clamp
 from xl.playlist import (
     is_valid_playlist,
     export_playlist,
     InvalidPlaylistTypeError
 )
 from xl.nls import gettext as _
+
+logger = logging.getLogger(__name__)
 
 def error(parent, message, _flags=gtk.DIALOG_MODAL):
     """
@@ -668,9 +672,9 @@ class DirectoryOpenDialog(gtk.FileChooserDialog):
     }
     _last_location = None
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, title=_('Choose Directory to Open')):
         gtk.FileChooserDialog.__init__(self,
-            title=_('Choose Directory to Open'),
+            title,
             parent=parent,
             buttons=(
                 gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
@@ -690,7 +694,6 @@ class DirectoryOpenDialog(gtk.FileChooserDialog):
             self.set_current_folder_uri(DirectoryOpenDialog._last_location)
 
         response = gtk.FileChooserDialog.run(self)
-        self.emit('response', response)
 
     def show(self):
         """
@@ -1108,4 +1111,233 @@ class MessageBar(gtk.InfoBar):
         """
         if response == gtk.RESPONSE_CLOSE:
             self.hide()
+    
+#
+# Message ID's used by the XMessageDialog
+#
 
+XRESPONSE_YES = gtk.RESPONSE_YES    
+XRESPONSE_YES_ALL = 8000    
+XRESPONSE_NO = gtk.RESPONSE_NO
+XRESPONSE_NO_ALL = 8001   
+XRESPONSE_CANCEL = gtk.RESPONSE_CANCEL
+            
+class XMessageDialog(gtk.Dialog):
+    '''Used to show a custom message dialog with custom buttons'''
+
+    def __init__(self, title, text, parent=None,
+                       show_yes=True, show_yes_all=True, 
+                       show_no=True, show_no_all=True,
+                       show_cancel=True,
+                       ):
+        
+        gtk.Dialog.__init__(self, None, parent)
+        
+        #
+        # TODO: Make these buttons a bit prettier
+        #
+        
+        if show_yes:
+            self.add_button( gtk.STOCK_YES, XRESPONSE_YES )
+            self.set_default_response( XRESPONSE_YES )
+            
+        if show_yes_all:
+            self.add_button( _('Yes to all'), XRESPONSE_YES_ALL )
+            self.set_default_response( XRESPONSE_YES_ALL )
+            
+        if show_no:
+            self.add_button( gtk.STOCK_NO, XRESPONSE_NO )
+            self.set_default_response( XRESPONSE_NO )
+            
+        if show_no_all:
+            self.add_button( _('No to all'), XRESPONSE_NO_ALL )
+            self.set_default_response( XRESPONSE_NO_ALL )
+            
+        if show_cancel:
+            self.add_button( gtk.STOCK_CANCEL, XRESPONSE_CANCEL )
+            self.set_default_response( XRESPONSE_CANCEL )
+            
+        vbox = self.get_content_area()
+        self._label = gtk.Label()
+        self._label.set_use_markup(True)
+        self._label.set_markup(text)
+        vbox.pack_start(self._label)
+
+
+class FileCopyDialog(gtk.Dialog):
+    '''
+        Used to copy a list of files to a single destination directory
+        
+        Usage:
+            dialog = FileCopyDialog( [file_uri,..], destination_uri, text, parent)
+            dialog.do_copy()
+            
+        Do not use run() on this dialog!
+    '''
+
+    def __init__(self, file_uris, destination_uri, title, text=_("Saved %(count)s of %(total)s."), parent=None):
+        
+        self.file_uris = file_uris
+        self.destination_uri = destination_uri
+        self.cancel = gio.Cancellable()
+        self.is_copying = False
+        
+        gtk.Dialog.__init__(self, title, parent)
+        
+        self.count = 0
+        self.total = len(file_uris)
+        self.text = text
+        self.overwrite_response = None
+
+        #self.set_modal(True)
+        #self.set_decorated(False)
+        self.set_resizable(False)
+        #self.set_focus_on_map(False)
+        
+        vbox = self.get_content_area()
+        
+        vbox.set_spacing(12)
+        vbox.set_border_width(12)
+        
+        self._label = gtk.Label()
+        self._label.set_use_markup(True)
+        self._label.set_markup(self.text % {'count': 0, 'total': self.total})
+        vbox.pack_start(self._label)
+        
+        self._progress = gtk.ProgressBar()
+        self._progress.set_size_request(300, -1)
+        vbox.pack_start(self._progress)
+        
+        self.show_all()
+
+        # TODO: Make dialog cancelable
+        #self.cancel_button.connect('activate', lambda *e: self.cancel.cancel() )
+        
+        self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+            
+    def do_copy(self):
+        logger.info( "Copy started." )
+        self._start_next_copy()
+        self.show_all()
+        self.connect('response',self._on_response)
+        
+    def run(self):
+        raise NotImplementedError( "Don't use this" )
+        
+    def _on_response(self, widget, response):
+        logger.info( "Copy complete." )
+        self.destroy()
+
+    
+    def _step(self):
+        '''Steps the progress bar'''
+        self.count += 1
+        self._progress.set_fraction(
+                clamp(self.count / float(self.total), 0, 1))
+        self._label.set_markup(self.text % {
+            'count': self.count,
+            'total': self.total
+        })
+        
+    def _start_next_copy(self, overwrite=False):
+        
+        if self.count == len(self.file_uris):
+            self.response( gtk.RESPONSE_OK )
+            return
+        
+        flags = gio.FILE_COPY_NONE
+        
+        src_uri = self.file_uris[self.count] 
+        dst_uri = self.destination_uri + '/' + src_uri.split('/')[-1]
+        
+        self.source = gio.File( uri=src_uri)
+        self.destination = gio.File( uri=dst_uri )
+        
+        
+        if not overwrite:
+            if self.destination.query_exists():
+                if self.overwrite_response == XRESPONSE_YES_ALL:
+                    overwrite = True
+                    
+                elif self.overwrite_response == XRESPONSE_NO_ALL or self.overwrite_response == XRESPONSE_NO:
+                
+                    # only deny the overwrite once.. 
+                    if self.overwrite_response == XRESPONSE_NO:
+                        self.overwrite_response = None
+                        
+                    logging.info( "NoOverwrite: %s" % self.destination.get_uri() )
+                    self._step()
+                    glib.idle_add( self._start_next_copy ) # don't recurse
+                    return
+                else:
+                    self._query_overwrite()
+                    return
+                
+        if overwrite:
+            flags = gio.FILE_COPY_OVERWRITE
+            try:
+                # gio.FILE_COPY_OVERWRITE doesn't actually work
+                logging.info( "DeleteDest : %s" % self.destination.get_uri() )
+                self.destination.delete()
+            except gio.Error:
+                pass
+        
+        logging.info( "CopySource : %s" % self.source.get_uri() )
+        logging.info( "CopyDest   : %s" % self.destination.get_uri() )
+        
+        self.source.copy_async( self.destination, self._finish_single_copy, flags=flags, cancellable=self.cancel ) 
+    
+    
+    def _finish_single_copy(self, source, async_result):
+        
+        try:
+            if source.copy_finish(async_result):
+                self._step()
+                self._start_next_copy()
+        except gio.Error,e:
+            self._on_error( _("Error occurred while copying %s: %s") % (
+                glib.markup_escape_text( self.source.get_uri() ),
+                glib.markup_escape_text( str(e) ) ) )
+            
+        
+    def _query_overwrite(self):
+    
+        self.hide_all()
+    
+        text = _('File exists, overwrite %s ?') % glib.markup_escape_text(self.destination.get_uri())
+        dialog=XMessageDialog(self.parent, text )
+        dialog.connect( 'response', self._on_query_overwrite_response, dialog )
+        dialog.show_all()
+        dialog.grab_focus()
+        self.query_dialog = dialog
+        
+    def _on_query_overwrite_response(self, widget, response, dialog):
+        dialog.destroy()
+        self.overwrite_response = response
+        
+        if response == gtk.RESPONSE_CANCEL:
+            self.response( response )
+        else:
+            if response == XRESPONSE_NO or response == XRESPONSE_NO_ALL:
+                overwrite = False
+            else:
+                overwrite = True
+        
+            self.show_all()
+            self._start_next_copy( overwrite )
+        
+            
+    def _on_error(self, message):
+        
+        self.hide()
+    
+        dialog = gtk.MessageDialog(self.parent, gtk.DIALOG_MODAL, gtk.MESSAGE_ERROR, gtk.BUTTONS_CLOSE)
+        dialog.set_markup( message )
+        dialog.connect( 'response', self._on_error_response, dialog )
+        dialog.show()
+        dialog.grab_focus()
+        self.error_dialog = dialog
+    
+    def _on_error_response(self, widget, response, dialog):
+        self.response( gtk.RESPONSE_CANCEL )
+        dialog.destroy()

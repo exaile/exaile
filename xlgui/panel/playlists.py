@@ -598,6 +598,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     self.open_selected_playlist())
                 menu.connect('export-playlist', lambda widget, path:
                     self.export_selected_playlist(path))
+                menu.connect('export-playlist-files', lambda widget, path:
+                    self.export_selected_playlist_files(path))
                 menu.connect('rename-playlist', lambda widget, name:
                     self.rename_selected_playlist(name))
                 menu.connect('remove-playlist', lambda *e:
@@ -1035,6 +1037,19 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     playlist.export_playlist(pl, path)
                 except playlist.InvalidPlaylistTypeError, e:
                     dialogs.error(None, str(e))
+                    
+    def export_selected_playlist_files(self, uri):
+        '''
+            Exports the selected playlist files to URI
+            
+            @uri where we want it to be saved
+        '''
+        pl = self.tree.get_selected_page()
+        if pl is not None:
+            pl_files = [track.get_loc_for_io() for track in pl]
+            dialog = dialogs.FileCopyDialog( pl_files, uri, _('Exporting %s') % pl.name )
+            dialog.do_copy()
+            
 
     def on_key_released(self, widget, event):
         """

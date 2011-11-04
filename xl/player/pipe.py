@@ -380,7 +380,7 @@ def sink_enumerate_devices(preset):
 
     # create a temporary sink, probe it
     try:
-        tmpsink = gst.element_factory_make(p['pipe'],'tmp')
+        tmpsink = gst.element_factory_make(p['pipe'], 'tmp')
     except Exception:
         # If we can't create an instance of the sink, probably doesn't exist... 
         return None
@@ -391,7 +391,7 @@ def sink_enumerate_devices(preset):
     if not devices:
         return None
 
-    ret = [('','Auto')]
+    ret = [('', 'Auto')]
 
     for device in devices:
         tmpsink.set_property('device', device)
@@ -399,7 +399,7 @@ def sink_enumerate_devices(preset):
         if not devname:
             devname = device
 
-        ret.append((device,devname))
+        ret.append((device, devname))
 
     return ret
 

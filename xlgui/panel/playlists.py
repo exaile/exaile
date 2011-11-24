@@ -691,6 +691,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             CRITERIA)
 
         dialog.set_transient_for(self.parent)
+        
+        # run the dialog until there is no error
+        while self._run_add_smart_playlist(dialog) == False:
+            pass
+        
+    def _run_add_smart_playlist(self, dialog):
+        '''internal helper function'''
+        
         result = dialog.run()
         dialog.hide()
         if result == gtk.RESPONSE_ACCEPT:
@@ -703,13 +711,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if not name:
                 dialogs.error(self.parent, _("You did "
                     "not enter a name for your playlist"))
-                return
+                return False
 
             try:
                 pl = self.smart_manager.get_playlist(name)
                 dialogs.error(self.parent, _("The "
                     "playlist name you entered is already in use."))
-                return
+                return False
             except ValueError:
                 pass # playlist didn't exist
 
@@ -725,6 +733,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             self.smart_manager.save_playlist(pl)
             self.model.append(self.smart, [self.playlist_image, name, pl])
+            
+        return True
 
     def edit_selected_smart_playlist(self):
         """
@@ -762,7 +772,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         dialog.set_random(pl.get_random_sort())
 
         dialog.set_state(state)
+        
+        # run the dialog until there is no error
+        while self._run_edit_selected_smart_playlist(dialog) == False:
+            pass
 
+    def _run_edit_selected_smart_playlist(self, dialog):
+        '''internal helper function'''
+    
         result = dialog.run()
         dialog.hide()
 
@@ -776,14 +793,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if not name:
                 dialogs.error(self.parent, _("You did "
                     "not enter a name for your playlist"))
-                return
+                return False
 
             if not name == pl.name:
                 try:
                     pl = self.smart_manager.get_playlist(name)
                     dialogs.error(self.parent, _("The "
                         "playlist name you entered is already in use."))
-                    return
+                    return False
                 except ValueError:
                     pass # playlist didn't exist
 
@@ -804,6 +821,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             (model, iter) = selection.get_selected()
             model.set_value(iter, 1, name)
             model.set_value(iter, 2, pl)
+            
+        return True
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """

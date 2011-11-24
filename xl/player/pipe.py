@@ -307,47 +307,37 @@ SINK_PRESETS = {
         "auto"  : {
             "name"      : _("Automatic"),
             "pipe"      : "autoaudiosink",
-            "has_enum"  : False
+            "can_enumerate_devices": False
             },
         "gconf" : {
             "name"      : "GNOME",
             "pipe"      : "gconfaudiosink",
             "pipeargs"  : "profile=music",
-            "has_enum"  : False
+            "can_enumerate_devices": False
         },
         "alsa"  : {
             "name"      : "ALSA",
             "pipe"      : "alsasink",
-            "has_enum"  : True
-            },
+            "can_enumerate_devices": True
+        },
         "oss"   : {
             "name"      : "OSS",
             "pipe"      : "osssink",
-            "has_enum"  : False
-            },
+            "can_enumerate_devices": False
+        },
         "pulse" : {
             "name"      : "PulseAudio",
             "pipe"      : "pulsesink",
-            "has_enum"  : True
-            },
+            "can_enumerate_devices": True
+        },
         "jack" : {
             "name"      : "JACK",
             "pipe"      : "jackaudiosink",
-            "has_enum"  : False
-            }
+            "can_enumerate_devices": False
         }
+}
 
 def sink_from_preset(preset):
-
-    device_name = ''
-    
-    if preset != 'auto':
-        dname = settings.get_option('player/audiosink_device')
-        if dname is not None and dname != '':
-            device_name = ' device=%s' % dname
-    
-    print 'Preset: %s Device name: %s' % (preset, device_name)
-    
     if preset == "custom":
         pipe = settings.get_option("player/custom_sink_pipe", "")
         if not pipe:
@@ -357,14 +347,18 @@ def sink_from_preset(preset):
     else:
         d = SINK_PRESETS.get(preset, "")
         if not d:
-            logger.error("Could not find sink preset %s."%preset)
+            logger.error("Could not find sink preset %s." % preset)
             return None
-        pipe = d['pipe'] + device_name
+
         name = d['name']
-        
+        pipe = d['pipe']
+        if preset != 'auto':
+            dname = settings.get_option('player/audiosink_device')
+            if dname:
+                pipe += ' device=' + dname
         if 'pipeargs' in d:
-            name += ' ' + d['pipeargs']
-        
+            pipe += ' ' + d['pipeargs']
+
     try:
         sink = AudioSink(name, pipe)
         return sink
@@ -376,39 +370,39 @@ def sink_from_preset(preset):
 def sink_enumerate_devices(preset):
     '''
         Enumerate all availables devices for a particular sink type 
-        in [device, device-name] pairs. Returns None if no devices
+        in (device, device-name) pairs. Returns None if no devices
         can be enumerated for that preset type
     '''
-    
+
     p = SINK_PRESETS[preset]
-    if not p['has_enum']:
+    if not p.get('can_enumerate_devices'):
         return None
-    
+
     # create a temporary sink, probe it
     try:
-        tmpsink = gst.element_factory_make(p['pipe'],'tmp')
-    except:
+        tmpsink = gst.element_factory_make(p['pipe'], 'tmp')
+    except Exception:
         # If we can't create an instance of the sink, probably doesn't exist... 
         return None
-    
+
     tmpsink.probe_property_name('device')
     devices = tmpsink.probe_get_values_name('device')
-    
-    if len(devices) == 0:
+
+    if not devices:
         return None
-        
-    ret = [['','Auto']]
-        
+
+    ret = [('', 'Auto')]
+
     for device in devices:
         tmpsink.set_property('device', device)
         devname = tmpsink.get_property('device-name')
-        if devname is None or devname == '':
+        if not devname:
             devname = device
-            
-        ret.append([device,devname])
-        
+
+        ret.append((device, devname))
+
     return ret
-    
+
 
 class AudioSink(gst.Bin):
     def __init__(self, name, pipeline):

@@ -73,6 +73,7 @@ class GroupTaggerPlugin(object):
     def __init__(self, exaile):
     
         self.track = None
+        self.tag_dialog = None
     
         self.panel = gt_widgets.GroupTaggerPanel()
         self.panel.show_all()
@@ -84,30 +85,57 @@ class GroupTaggerPlugin(object):
         # ok, register for some events
         event.add_callback( self.on_playback_track_start, 'playback_track_start' )
         event.add_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
+        event.add_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         
-        #self.playlist_context_menuitem = menu.simple_menu_item(
-        #    'grouptagger_ctx_menu', ['rating'], _('GroupTagger'), 
-        #    callback=self.on_playlist_context_menu )
-        #providers.register( 'playlist-context-menu', self.playlist_context_menuitem )
+        # add our own submenu for functionality
+        self.tools_submenu = menu.Menu( None, context_func=lambda p: exaile )
+        
+        self.tools_submenu.add_item( 
+            menu.simple_menu_item( 'gt_get_tags', [], _('Get all tags in collection'),
+                callback=self.on_get_tags_menu ) 
+        )
+        
+        # group them together to make it not too long
+        self.tools_menuitem = menu.simple_menu_item('grouptagger', ['plugin-sep'], 
+                _('GroupTagger'), submenu=self.tools_submenu )
+        providers.register( 'menubar-tools-menu', self.tools_menuitem )
         
         # trigger start event if exaile is currently playing something
         if player.PLAYER.is_playing():
-            self.set_display_track( None, player.PLAYER, player.PLAYER.current )
+            self.set_display_track( player.PLAYER.current )
         else:
             self.panel.tagger.set_groups( [(False, group) for group in get_default_groups()] )
     
     def disable_plugin(self, exaile):
         '''Called when the plugin is disabled'''
         
-        #if self.playlist_context_menuitem:
-        #    providers.unregister( 'playlist-context-menu', self.playlist_context_menuitem )
-        #    self.playlist_context_menuitem = None
+        if self.tools_menuitem:
+            providers.unregister( 'menubar-tools-menu', self.tools_menuitem)
+            self.tools_menuitem = None
+            
+        if self.tag.dialog:
+            self.tag_dialog.destroy()
+            self.tag_dialog = None
         
         # de-register the exaile events
         event.remove_callback( self.playback_track_start, 'playback_track_start' )
         
         exaile.gui.remove_panel( self.panel )
         
+    #
+    # Menu callbacks
+    #
+    
+    def on_get_tags_menu(self, widget, name, parent, exaile):
+        
+        if self.tag_dialog is None:
+            self.tag_dialog = AllTagsDialog(exaile)
+            self.tag_dialog.connect('delete-event', self.on_get_tags_menu_window_deleted)
+            
+        self.tag_dialog.show_all()
+        
+    def on_get_tags_menu_window_deleted(self, *args):
+        self.tag_dialog = None
         
     #
     # Exaile events
@@ -188,6 +216,11 @@ class GroupTaggerPlugin(object):
         if self.track is not None and not write_succeeded:
             self.set_display_track( self.track )
   
+    def on_plugin_options_set(self, manager, option, value):
+        '''Called each time the default groups are set'''
+        if value == 'plugin/grouptagger/default_groups':
+            self.panel.tagger.add_groups( [(False, group) for group in get_default_groups()] )
+  
 #
 # Grouping field utility functions
 #
@@ -239,8 +272,64 @@ def set_default_groups(groups):
     '''
     settings.set_option( 'plugin/grouptagger/default_groups', list(groups) )
     
-
     
+def get_all_collection_groups( collection ):
+    '''
+        For a given collection of tracks, return all groups
+        used within that collection
+    '''
+    groups = set()
+    for track in collection:
+        groups |= get_track_groups(track)
+        
+    return groups
+    
+    
+class AllTagsDialog( gtk.Window ):
+
+    def __init__(self, exaile):
+    
+        gtk.Window.__init__(self)
+        self.set_title(_('Get all tags from collection'))
+        self.set_resizable(True)
+        self.set_size_request( 150, 400 ) 
+        
+        self.add(gtk.Frame())
+        
+        vbox = gtk.VBox()
+        
+        self.model = gt_widgets.GroupTaggerModel()
+        self.view = gt_widgets.GroupTaggerView(None, editable=False)
+        
+        scroll = gtk.ScrolledWindow()
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll.set_shadow_type(gtk.SHADOW_IN)
+        scroll.add( self.view )
+        scroll.hide()
+        
+        vbox.pack_start( scroll, True, True )
+        
+        button = gtk.Button(_('Add selected to choices'))
+        button.connect('clicked', self.on_add_selected_to_choices )
+        vbox.pack_end( button, False, False )
+        
+        self.child.add(vbox)
+        
+        # get the collection groups
+        groups = get_all_collection_groups(exaile.collection)
+        for group in groups:
+            self.model.append( [False, group] )
+            
+        self.view.set_model( self.model )
+        self.view.show_click_column()
+
+        self.show_all()
+        
+    def on_add_selected_to_choices(self, widget):
+        defaults = get_default_groups()
+        for group in self.model.get_active_groups():
+            defaults.add( group )
+        set_default_groups( defaults )
 #
 # TODO: Fix these
 #

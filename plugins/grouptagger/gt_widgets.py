@@ -54,43 +54,45 @@ class GroupTaggerView(gtk.TreeView):
         'changed': (gobject.SIGNAL_ACTION, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT, gobject.TYPE_STRING) ),
     }
     
-    def __init__(self, model=None):
+    def __init__(self, model=None, editable=False):
     
         gtk.TreeView.__init__(self,model)
         
         self.set_enable_search( False )
         self.get_selection().set_mode( gtk.SELECTION_MULTIPLE )
         
-        # Setup the first column
+        # Setup the first column, not shown by default
         cell = gtk.CellRendererToggle()
         cell.set_property( 'mode', gtk.CELL_RENDERER_MODE_ACTIVATABLE )
         cell.set_activatable( True )
-        cell.connect( 'toggled', self.on_toggle, model )
+        cell.connect( 'toggled', self.on_toggle)
         
         self.click_column = gtk.TreeViewColumn( None, cell, active=0 )
         
         # Setup the second column
         cell = gtk.CellRendererText()
-        cell.set_property( 'editable', True )
-        cell.connect( 'edited', self.on_edit, model )
+        cell.set_property( 'editable', editable )
+        if editable:
+            cell.connect( 'edited', self.on_edit )
         
         self.append_column( gtk.TreeViewColumn( _('Group'), cell, text=1 ) )
         
-        self.connect( 'popup-menu', self.on_popup_menu )
-        self.connect( 'button-press-event', self.on_mouse_press )
-        
-        self.menu = gtk.Menu()
-        
-        item = gtk.MenuItem( _('Add new group') )
-        item.connect( 'activate', self.on_menu_add_group )
-        self.menu.add( item )
-        
-        item = gtk.MenuItem( _('Delete group') )
-        item.connect( 'activate', self.on_menu_delete_group )
-        self.menu.add( item )
-        
-        self.menu.attach_to_widget(self, None)
-        self.menu.show_all()
+        if editable:
+            self.connect( 'popup-menu', self.on_popup_menu )
+            self.connect( 'button-press-event', self.on_mouse_press )
+            
+            self.menu = gtk.Menu()
+            
+            item = gtk.MenuItem( _('Add new group') )
+            item.connect( 'activate', self.on_menu_add_group )
+            self.menu.add( item )
+            
+            item = gtk.MenuItem( _('Delete group') )
+            item.connect( 'activate', self.on_menu_delete_group )
+            self.menu.add( item )
+            
+            self.menu.attach_to_widget(self, None)
+            self.menu.show_all()
         
     def show_click_column(self):
         if len(self.get_columns()) == 1:
@@ -100,13 +102,13 @@ class GroupTaggerView(gtk.TreeView):
         if len(self.get_columns()) == 2:
             self.remove_column( self.click_column )
         
-    def on_toggle( self, cell, path, model ):
-        model[path][0] = not cell.get_active()
+    def on_toggle( self, cell, path ):
+        self.get_model()[path][0] = not cell.get_active()
         self.emit( 'changed', CHANGE_OTHER, None )
         
-    def on_edit( self, cell, path, new_text, model ):
+    def on_edit( self, cell, path, new_text ):
         if new_text != "":
-            model[path][1] = new_text
+            self.get_model()[path][1] = new_text
             self.emit( 'changed', CHANGE_OTHER, None )
         
     def on_menu_add_group( self, widget ):
@@ -199,7 +201,12 @@ class GroupTaggerModel(gtk.ListStore):
         
     def get_all_groups(self):
         return [row[1] for row in self]
-            
+
+    def has_group(self, group):
+        for row in self:
+            if row[1] == group:
+                return True
+        return False
 
 class GroupTaggerWidget(gtk.VBox):
     '''Melds the tag view with an 'add' button'''
@@ -209,7 +216,7 @@ class GroupTaggerWidget(gtk.VBox):
         
         self.title = gtk.Label()
         self.artist = gtk.Label()
-        self.view = GroupTaggerView( GroupTaggerModel() )
+        self.view = GroupTaggerView( GroupTaggerModel(), editable=True )
         self.store = self.view.get_model()
         
         self.tag_button = gtk.Button( _('Add Group') )
@@ -261,21 +268,38 @@ class GroupTaggerWidget(gtk.VBox):
             self.set_title( track.get_tag_display( 'title' ) )
             self.set_artist( track.get_tag_display( 'artist' ) )
 
+    def add_groups(self, groups, clear=False):
+        '''
+            Accepts an array of tuples in the form (Boolean, String), where
+            the boolean is whether the group should be enabled, and string is
+            the name of the group
+            
+            if clear is True:
+                Clears the model, sets up model with data
+            else:
+                Adds them to the model if they are not already present
+        '''
+        
+        self.view.freeze_child_notify()
+        self.view.set_model( None )
+        
+        if clear:
+            self.store.clear()
+            
+        for group in groups:
+            if clear or not self.store.has_group( group[1] ): 
+                self.store.append( group )
+            
+        self.view.set_model( self.store )
+        self.view.thaw_child_notify()
+            
     def set_groups(self, groups):
         '''
             Accepts an array of tuples in the form (Boolean, String), where
             the boolean is whether the group should be enabled, and string is
             the name of the group
         '''
-        self.view.freeze_child_notify()
-        self.view.set_model( None )
-        
-        self.store.clear()
-        for group in groups:
-            self.store.append( group )
-            
-        self.view.set_model( self.store )
-        self.view.thaw_child_notify()
+        self.add_groups( groups, clear=True )
         
 
         

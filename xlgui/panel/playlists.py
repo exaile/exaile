@@ -346,7 +346,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 else:
                     #Get an up to date copy
                     item = self.playlist_manager.get_playlist(item.name)
-                    item.set_is_custom(True)
+                    #item.set_is_custom(True)
 
 #                self.controller.main.add_playlist(item)
                 self.emit('playlist-selected', item)
@@ -914,7 +914,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # Add the tracks we found to the internal playlist
             # TODO: have it pass in existing tracks?
             (tracks, playlists) = self.tree.get_drag_data(locs)
-            current_playlist.add_tracks(tracks, insert_index, False)
+            
+            if insert_index is not None:
+                current_playlist[insert_index:insert_index] = tracks
+            else:
+                current_playlist.extend( tracks )
 
             self._load_playlist_nodes(current_playlist)
 

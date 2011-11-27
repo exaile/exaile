@@ -25,6 +25,7 @@
 # from your version.
 
 import time
+import re
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
@@ -101,6 +102,22 @@ class _InMatcher(_Matcher):
             return False
         try:
             return self.content in value
+        except TypeError:
+            return False
+            
+class _RegexMatcher(_Matcher):
+    """
+        Condition for regular expression matches
+    """
+    def __init__(self, tag, content, lower):
+        _Matcher.__init__(self, tag, content, lower)
+        self._re = re.compile(content)
+    
+    def _matches(self, value):
+        if not value:
+            return False
+        try:
+            return self._re.search( value ) is not None
         except TypeError:
             return False
 
@@ -308,6 +325,12 @@ class TracksMatcher(object):
                 content = content.strip().strip('"')
                 matcher = _LtMatcher(tag, content, lower)
                 matchers.append(matcher)
+                
+            elif "~" in token:
+                tag, content = token.split("~", 1)
+                content = content.strip().strip('"')
+                matcher = _RegexMatcher(tag, content, lower)
+                matchers.append(matcher)
 
             # plain keyword
             else:
@@ -329,16 +352,21 @@ class TracksMatcher(object):
         tokens = []
         newsearch = ""
         in_quotes = False
+        in_regex = False
         n = 0
         while n < len(search):
             c = search[n]
             if c == "\\":
-                n += 1
+                if not in_regex:
+                    n += 1
                 try:
                     newsearch += search[n]
                 except IndexError:
                     pass
             elif in_quotes and c != "\"":
+                newsearch += c
+            elif c == "~":
+                in_regex = True
                 newsearch += c
             elif c == "\"":
                 in_quotes = not in_quotes # toggle
@@ -346,12 +374,12 @@ class TracksMatcher(object):
             elif c in ["|", "!", "(", ")"]:
                 newsearch += c
             elif c == " ":
+                in_regex = False
                 tokens.append(newsearch)
                 newsearch = ""
             else:
                 newsearch += c
             n += 1
-
         return tokens
 
     def __red(self, tokens):

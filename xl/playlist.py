@@ -1582,7 +1582,7 @@ class SmartPlaylist(object):
                         'value': value,
                         'op':    op[0]
                     }
-            elif op == "!=" or op == "!==":
+            elif op == "!=" or op == "!==" or op == "!~":
                 s += '! %(field)s%(op)s"%(value)s"' % \
                     {
                         'field': field,

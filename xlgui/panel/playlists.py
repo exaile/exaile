@@ -94,6 +94,8 @@ CRITERIA = [
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
         ('is set', NullField),
         ('is not set', NullField),
     ]),
@@ -102,6 +104,8 @@ CRITERIA = [
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
         ('is set', NullField),
         ('is not set', NullField),
     ]),
@@ -110,6 +114,8 @@ CRITERIA = [
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
         ('is set', NullField),
         ('is not set', NullField),
     ]),
@@ -156,6 +162,8 @@ CRITERIA = [
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
     ]),
     (_('BPM'), [
         ('is', EntryField),
@@ -170,6 +178,8 @@ CRITERIA = [
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
         ('is set', NullField),
         ('is not set', NullField),
     ]),
@@ -194,6 +204,10 @@ _TRANS = {
     N_('contains'): '=',
     # TRANSLATORS: True if haystack does not contain needle
     N_('does not contain'): '!=',
+    # TRANSLATORS: True if haystack matches regular expression
+    N_('regex'): '~',
+    # TRANSLATORS: True if haystack does not match regular expression
+    N_('not regex'): '!~',
     # TRANSLATORS: Example: rating >= 5
     N_('at least'): '>=',
     # TRANSLATORS: Example: rating <= 3

@@ -238,7 +238,7 @@ _NMAP = {
     N_('Date added'): '__date_added',
     N_('Last played'): '__last_played',
     N_('Location'): '__loc',
-    _('BPM'): 'bpm',
+    N_('BPM'): 'bpm',
     N_('Grouping'): 'grouping',
 }
 

@@ -699,7 +699,7 @@ class Playlist(object):
         self.__tracks = MetadataList()
         for track in initial_tracks:
             if not isinstance(track, trax.Track):
-                raise ValueError, "Need trax.Track object, got %s" % repr(type(x))
+                raise ValueError, "Need trax.Track object, got %s" % repr(type(track))
             self.__tracks.append(track)
         self.__shuffle_mode = self.shuffle_modes[0]
         self.__repeat_mode = self.repeat_modes[0]
@@ -1250,7 +1250,7 @@ class Playlist(object):
         if isinstance(i, slice):
             for x in value:
                 if not isinstance(x, trax.Track):
-                    raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
+                    raise ValueError, "Need trax.Track object, got %s" % repr(type(x))
 
             (start, end, step) = self.__tuple_from_slice(i)
 
@@ -1271,7 +1271,7 @@ class Playlist(object):
             added = MetadataList(zip(range(start, end, step), value), metadata)
         else:
             if not isinstance(value, trax.Track):
-                raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
+                raise ValueError, "Need trax.Track object, got %s" % repr(type(value))
             self.__tracks[i] = value
             removed = [(i, oldtracks)]
             added = [(i, value)]

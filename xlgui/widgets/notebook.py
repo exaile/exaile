@@ -116,6 +116,7 @@ class NotebookTab(gtk.EventBox):
         self.label = gtk.Label(self.page.get_name())
         self.label.set_max_width_chars(20)
         self.label.set_ellipsize(pango.ELLIPSIZE_END)
+        self.label.set_tooltip_text(self.page.get_name())
         box.pack_start(self.label, False, False)
 
         self.entry = gtk.Entry()

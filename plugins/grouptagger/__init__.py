@@ -75,7 +75,7 @@ class GroupTaggerPlugin(object):
         self.track = None
         self.tag_dialog = None
     
-        self.panel = gt_widgets.GroupTaggerPanel()
+        self.panel = gt_widgets.GroupTaggerPanel(exaile)
         self.panel.show_all()
         
         self.panel.tagger.view.connect( 'changed', self.on_group_changed )
@@ -299,7 +299,7 @@ class AllTagsDialog( gtk.Window ):
         vbox = gtk.VBox()
         
         self.model = gt_widgets.GroupTaggerModel()
-        self.view = gt_widgets.GroupTaggerView(None, editable=False)
+        self.view = gt_widgets.GroupTaggerView(exaile, None, editable=False)
         
         scroll = gtk.ScrolledWindow()
         scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)

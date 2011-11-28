@@ -30,8 +30,13 @@ import gobject
 import pango
 import glib
 
-from xl.nls import gettext as _
+import re
 
+from xl.nls import gettext as _
+from xl.trax import search
+from xl import playlist
+
+from xlgui import main
 from xlgui.widgets import dialogs
 
 #
@@ -54,7 +59,7 @@ class GroupTaggerView(gtk.TreeView):
         'changed': (gobject.SIGNAL_ACTION, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT, gobject.TYPE_STRING) ),
     }
     
-    def __init__(self, model=None, editable=False):
+    def __init__(self, exaile, model=None, editable=False):
     
         gtk.TreeView.__init__(self,model)
         
@@ -77,11 +82,21 @@ class GroupTaggerView(gtk.TreeView):
         
         self.append_column( gtk.TreeViewColumn( _('Group'), cell, text=1 ) )
         
-        if editable:
-            self.connect( 'popup-menu', self.on_popup_menu )
-            self.connect( 'button-press-event', self.on_mouse_press )
+        #
+        # Menu setup
+        #
+        
+        # menu items only shown when a single item selected
+        self.single_selection_only = []
+        # menu 
+        self.multi_selection_only = []
+        
+        self.connect( 'popup-menu', self.on_popup_menu )
+        self.connect( 'button-press-event', self.on_mouse_press )
             
-            self.menu = gtk.Menu()
+        self.menu = gtk.Menu()
+        
+        if editable:
             
             item = gtk.MenuItem( _('Add new group') )
             item.connect( 'activate', self.on_menu_add_group )
@@ -91,8 +106,22 @@ class GroupTaggerView(gtk.TreeView):
             item.connect( 'activate', self.on_menu_delete_group )
             self.menu.add( item )
             
-            self.menu.attach_to_widget(self, None)
-            self.menu.show_all()
+            self.menu.add( gtk.SeparatorMenuItem() )
+            
+        item = gtk.MenuItem( _('Show tracks with all selected') )
+        item.connect( 'activate', self.on_menu_show_tracks, exaile )
+        self.menu.add( item )
+        
+        item = gtk.MenuItem( _('Show tracks with selected (custom)') )
+        item.connect( 'activate', self.on_menu_show_tracks_custom, exaile )
+        self.menu.add( item )
+        self.multi_selection_only.append( item )
+        
+        # TODO:
+        # - Create smart playlist from selected
+            
+        self.menu.attach_to_widget(self, None)
+        self.menu.show_all()
         
     def show_click_column(self):
         if len(self.get_columns()) == 1:
@@ -144,6 +173,66 @@ class GroupTaggerView(gtk.TreeView):
             if i is not None:
                 self.emit( 'changed', CHANGE_DELETED, model.get_value(i, 1) )
                 model.remove(i)
+            
+    def _create_search_playlist( self, name, search_string, exaile ):
+        # do the search
+        tracks = [ x.track for x in search.search_tracks_from_string( exaile.collection, search_string ) ]
+        
+        # create the playlist
+        pl = playlist.Playlist( name, tracks )
+        main.get_playlist_notebook().create_tab_from_playlist( pl )
+            
+    def on_menu_show_tracks( self, widget, exaile ):
+        '''Menu to show all tracks that match a particular group'''
+        
+        # TODO: This function might belong elsewhere... 
+    
+        model, rows = self.get_selection().get_selected_rows()
+
+        # create a search string and name
+        groups = [model[row][1] for row in rows]
+        
+        name = 'Grouping: ' + ' and '.join( groups )
+        search_string = ' '.join( [ 'grouping~"\\b%s\\b"' % re.escape( group.replace(' ','_') ) for group in groups ] ) 
+        
+        self._create_search_playlist( name, search_string, exaile )
+    
+    def on_menu_show_tracks_custom( self, widget, exaile ):
+        '''
+            Menu to show all tracks that match a particular group,
+            with custom AND/OR matching
+        '''
+    
+        model, rows = self.get_selection().get_selected_rows()
+
+        # create a search string and name
+        groups = [model[row][1] for row in rows]
+        
+        dialog = GroupTaggerQueryDialog( groups )
+        if dialog.run() == gtk.RESPONSE_OK:
+            name, search_string = dialog.get_search_params()
+            self._create_search_playlist( name, search_string, exaile )
+    
+        dialog.destroy()
+        
+    def _adjust_menu(self):
+        # if greater than one, hide some items
+        if self.get_selection().count_selected_rows() <= 1:
+            single_selection = True
+        else:
+            single_selection = False
+            
+        for item in self.single_selection_only:
+            if single_selection:
+                item.show()
+            else:
+                item.hide()
+                
+        for item in self.multi_selection_only:
+            if single_selection:
+                item.hide()
+            else:
+                item.show()
         
     def on_mouse_press(self, widget, event):
     
@@ -158,12 +247,14 @@ class GroupTaggerView(gtk.TreeView):
                     self.grab_focus()
                     self.set_cursor( info[0], info[1], 0 )
             
+            self._adjust_menu()
             self.menu.popup( None, None, None, event.button, event.time )
             return True
             
         return False
     
     def on_popup_menu(self, widget):
+        self._adjust_menu()
         self.menu.popup( None, None, None, None, None )
         return True
 
@@ -174,11 +265,18 @@ class GroupTaggerModel(gtk.ListStore):
     
     def __init__(self):
         gtk.ListStore.__init__( self, gobject.TYPE_BOOLEAN, gobject.TYPE_STRING )
-        self.set_default_sort_func( self._sort_func )
-        self.set_sort_column_id( -1, gtk.SORT_DESCENDING )
+        self.set_sort_column_id( 1, gtk.SORT_ASCENDING )
+        
+        #self.set_default_sort_func( self._sort_func )
+        #self.set_sort_column_id( -1, gtk.SORT_DESCENDING )
         
     def _sort_func(self, model, iter1, iter2):
-        '''Sort the model first by enabled, then by group name'''
+        '''
+            Sort the model first by enabled, then by group name
+            
+            --> This is a cool idea, but in practice it's *really* annoying
+            to use if the list is constantly rearranging itself. 
+        '''
     
         v0_b, v0_s = self.get( iter1, 0, 1 )
         v1_b, v1_s = self.get( iter2, 0, 1 )
@@ -211,12 +309,12 @@ class GroupTaggerModel(gtk.ListStore):
 class GroupTaggerWidget(gtk.VBox):
     '''Melds the tag view with an 'add' button'''
 
-    def __init__(self):
+    def __init__(self, exaile):
         gtk.VBox.__init__(self)
         
         self.title = gtk.Label()
         self.artist = gtk.Label()
-        self.view = GroupTaggerView( GroupTaggerModel(), editable=True )
+        self.view = GroupTaggerView( exaile, GroupTaggerModel(), editable=True )
         self.store = self.view.get_model()
         
         self.tag_button = gtk.Button( _('Add Group') )
@@ -306,12 +404,81 @@ class GroupTaggerWidget(gtk.VBox):
 class GroupTaggerPanel(gtk.VBox):
     '''A panel that has all of the functionality in it'''
 
-    def __init__(self):
+    def __init__(self, exaile):
     
         gtk.VBox.__init__(self)
     
         # add the tagger widget
-        self.tagger = GroupTaggerWidget()
+        self.tagger = GroupTaggerWidget( exaile )
         
         # add the widgets to this page
         self.pack_start( self.tagger, expand=True ) 
+
+class GroupTaggerQueryDialog(gtk.Dialog):      
+    '''
+        Dialog used to allow the user to select the behavior of the query
+        used to filter out tracks that match a particular characteristic
+    '''
+    
+    def __init__(self, groups):
+        
+        gtk.Dialog.__init__(self, 'Show tracks with groups' )
+        
+        vbox = self.vbox
+        
+        self.model = gtk.ListStore( gobject.TYPE_BOOLEAN, gobject.TYPE_BOOLEAN, gobject.TYPE_STRING )
+        self.model.set_sort_column_id(2, gtk.SORT_ASCENDING)
+        
+        for group in groups:
+            self.model.append( (True, False, group) )
+        
+        self.view = gtk.TreeView( self.model )
+        
+        cell = gtk.CellRendererToggle()
+        cell.set_radio( True )
+        cell.set_activatable( True )
+        cell.connect( 'toggled', self.on_radio_toggle, 0, 1 )
+        self.view.append_column( gtk.TreeViewColumn( _('All Tracks have this'), cell, active=0 ) )
+        
+        cell = gtk.CellRendererToggle()
+        cell.set_radio( True )
+        cell.set_activatable( True )
+        cell.connect( 'toggled', self.on_radio_toggle, 1, 0 )
+        self.view.append_column( gtk.TreeViewColumn( _('1+ tracks have this'), cell, active=1 ) )
+        
+        cell = gtk.CellRendererText()
+        self.view.append_column( gtk.TreeViewColumn( _('Group'), cell, text=2 ) )
+        
+        vbox.pack_start( self.view, True, True )
+        
+        self.add_buttons( gtk.STOCK_OK, gtk.RESPONSE_OK, gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL )
+        self.show_all()
+    
+    def on_radio_toggle(self, cell, path, idx1, idx2):
+        self.model[path][idx1] = not cell.get_active()
+        self.model[path][idx2] = cell.get_active()
+        
+    
+    def get_search_params(self):
+        '''Returns (name, search_string) from user selections'''
+        
+        and_groups = []
+        and_string = ''
+        or_groups = []
+        or_string = ''
+        
+        for row in self.model:
+            if row[0]:
+                and_groups.append( row[2] )
+            elif row[1]:
+                or_groups.append( row[2] )
+        
+        if len(and_groups):
+            name = 'Grouping: ' + ' and '.join( and_groups )
+            and_string = ' '.join( [ 'grouping~"\\b%s\\b"' % re.escape( group.replace(' ','_') ) for group in and_groups ] ) 
+            
+        if len(or_groups):
+            name = 'Grouping: ' + ' and '.join( and_groups + ['(' + ' or '.join( or_groups ) + ')'] )
+            or_string = ' grouping~"%s"' %  '|'.join( [ '\\b' + re.escape( group.replace(' ','_') ) + '\\b' for group in or_groups ] ) 
+        
+        return ( name, and_string + or_string )

@@ -108,9 +108,10 @@ class GroupTaggerView(gtk.TreeView):
             
             self.menu.add( gtk.SeparatorMenuItem() )
             
-        item = gtk.MenuItem( _('Show tracks with all selected') )
+        item = gtk.MenuItem( 'x' )
         item.connect( 'activate', self.on_menu_show_tracks, exaile )
         self.menu.add( item )
+        self._special_item = item
         
         item = gtk.MenuItem( _('Show tracks with selected (custom)') )
         item.connect( 'activate', self.on_menu_show_tracks_custom, exaile )
@@ -216,11 +217,22 @@ class GroupTaggerView(gtk.TreeView):
         dialog.destroy()
         
     def _adjust_menu(self):
+    
+        sel = self.get_selection()
+    
         # if greater than one, hide some items
-        if self.get_selection().count_selected_rows() <= 1:
+        if sel.count_selected_rows() <= 1:
             single_selection = True
+            
+            # special item
+            model, rows = sel.get_selected_rows()
+            if len(rows) == 1:
+                self._special_item.set_label( _('Show tracks tagged with "%s"') % model[rows[0]][1] )
+            else:
+                self._special_item.set_label( _('Show tracks with selected') )
         else:
             single_selection = False
+            self._special_item.set_label( _('Show tracks with all selected') )
             
         for item in self.single_selection_only:
             if single_selection:

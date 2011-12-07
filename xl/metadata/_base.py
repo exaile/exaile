@@ -193,7 +193,11 @@ class BaseFormat(object):
             raw = self._get_raw()
             # add tags if it doesn't have them
             try:
-                raw.add_tags()
+                # Note: some file formats (mp4 in particular) overwrite 
+                # existing tags when you call this, so we have to check 
+                # otherwise we overwrite tags that we don't support... 
+                if not hasattr(raw, 'tags') or raw.tags is None:
+                    raw.add_tags()
             except:
 #            except (ValueError, NotImplementedError):
                 # FIXME: this is BAD to not tie specifically to an exception,

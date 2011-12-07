@@ -36,11 +36,15 @@ class MP4Format(BaseFormat):
             'artist':      '\xa9ART',
             'albumartist': '\x61ART',
             'album':       '\xa9alb',
+            'composer':    '\xa9wrt',
             'genre':       '\xa9gen',
+            'lyrics':      '\xa9lyr',
+            'encodedby':   '\xa9too',
             'date':        '\xa9day',
             'tracknumber': 'trkn',
             'discnumber':  'disk',
             'copyright':   'cprt',
+            'bpm':         'tmpo',
             'grouping':    '\xa9grp'
         }
     others = False
@@ -66,6 +70,8 @@ class MP4Format(BaseFormat):
                     f[name].append(tuple(tmp))
             except TypeError:
                 pass
+        elif name == 'tmpo':
+            f[name] = [int(v) for v in value]
         else:
             f[name] = value
 

@@ -24,11 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import gtk
+import gobject
 
 import os
 import time
-import gtk
-import gobject
  
 from xl import (
     event, 
@@ -38,10 +38,12 @@ from xl import (
 )
 
 from xl.nls import gettext as _
-from xlgui import guiutil
+
+from xlgui import guiutil, main
 from xlgui.widgets import menu, dialogs
 
 import gt_widgets
+from gt_common import *
 
 plugin = None
 
@@ -100,6 +102,15 @@ class GroupTaggerPlugin(object):
                 _('GroupTagger'), submenu=self.tools_submenu )
         providers.register( 'menubar-tools-menu', self.tools_menuitem )
         
+        # playlist context menu items
+        self.selectall_menuitem = menu.simple_menu_item( 'gt_search_all', ['rating'], 
+                _('Show tracks with all tags'), callback=self.on_playlist_context_select_all_menu, callback_args=[exaile])
+        providers.register( 'playlist-context-menu', self.selectall_menuitem )
+        
+        self.selectcustom_menuitem = menu.simple_menu_item( 'gt_search_custom', ['rating'], 
+                _('Show tracks with tags (custom)'), callback=self.on_playlist_context_select_custom_menu, callback_args=[exaile])
+        providers.register( 'playlist-context-menu', self.selectcustom_menuitem )
+        
         # trigger start event if exaile is currently playing something
         if player.PLAYER.is_playing():
             self.set_display_track( player.PLAYER.current )
@@ -111,7 +122,13 @@ class GroupTaggerPlugin(object):
         
         if self.tools_menuitem:
             providers.unregister( 'menubar-tools-menu', self.tools_menuitem)
+            providers.unregister( 'playlist-context-menu', self.selectall_menuitem )
+            providers.unregister( 'playlist-context-menu', self.selectcustom_menuitem )
+            
             self.tools_menuitem = None
+            self.selectall_menuitem = None
+            self.selectcustom_menuitem = None
+            
             
         if self.tag.dialog:
             self.tag_dialog.destroy()
@@ -119,6 +136,8 @@ class GroupTaggerPlugin(object):
         
         # de-register the exaile events
         event.remove_callback( self.playback_track_start, 'playback_track_start' )
+        event.remove_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
+        event.remove_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         
         exaile.gui.remove_panel( self.panel )
         
@@ -152,9 +171,38 @@ class GroupTaggerPlugin(object):
     #    tracks = context['selected-tracks']
     #    if len(tracks) == 1:
     #        self.set_display_track( tracks[0] )
-            
+    
+    def on_playlist_context_select_all_menu( self, menu, display_name, playlist_view, context, exaile ):
+        '''Called when 'Select tracks with same groups' is selected'''
+        tracks = context['selected-tracks']
+        groups = set()
+        
+        for track in tracks:
+            groups |= get_track_groups(track)
+        
+        if len(groups) > 0:
+            create_all_search_playlist( groups, exaile )
+        else:
+            dialogs.error( 'No grouping tags found in selected tracks' )
+        
+    def on_playlist_context_select_custom_menu( self, menu, display_name, playlist_view, context, exaile ):
+        '''Called when 'select tracks with similar groups (custom)' is selected'''
+        tracks = context['selected-tracks']
+        groups = set()
+        
+        for track in tracks:
+            groups |= get_track_groups(track)
+        
+        if len(groups) > 0:
+            create_custom_search_playlist( [group for group in groups], exaile )
+        else:
+            dialogs.error( 'No grouping tags found in selected tracks' )
+        
+    
     def on_playlist_cursor_changed( self, type, playlist_view, context ):
         '''Called when an item in a playlist is selected'''
+        
+        #TODO: Allow multiple tracks
         tracks = context['selected-tracks']
         if len(tracks) == 1:
             self.set_display_track( tracks[0] )
@@ -221,144 +269,5 @@ class GroupTaggerPlugin(object):
         if value == 'plugin/grouptagger/default_groups':
             self.panel.tagger.add_groups( [(False, group) for group in get_default_groups()] )
   
-#
-# Grouping field utility functions
-#
-  
-
-def get_track_groups(track):
-    '''
-        Returns a set() of groups present in this track
-    '''
-    grouping = track.get_tag_raw('grouping', True)
-    
-    if grouping is not None:
-        return set([ group.replace('_', ' ') for group in grouping.split()])
-        
-    return set()
-
-
-def set_track_groups(track, groups):
-    '''
-        Given an array of groups, sets them on a track
-        
-        Returns true if successful, false if there was an error
-    '''
-    
-    grouping = ' '.join( sorted( [ '_'.join( group.split() ) for group in groups ] ) )
-    track.set_tag_raw( 'grouping', grouping )
-    
-    if not track.write_tags():
-        dialogs.error( None, "Error writing tags to %s" % gobject.markup_escape_text(track.get_loc_for_io()) )
-        return False
-        
-    return True
-
-
-def get_default_groups():
-    '''
-        Returns a set() of groups stored in the settings that the user can
-        easily select without having to retype it
-    '''
-    
-    default_groups = settings.get_option( 'plugin/grouptagger/default_groups', set() )
-    return set(default_groups)
-
-    
-    
-def set_default_groups(groups):
-    '''
-        Stores the default groups as a list
-    '''
-    settings.set_option( 'plugin/grouptagger/default_groups', list(groups) )
-    
-    
-def get_all_collection_groups( collection ):
-    '''
-        For a given collection of tracks, return all groups
-        used within that collection
-    '''
-    groups = set()
-    for track in collection:
-        groups |= get_track_groups(track)
-        
-    return groups
-    
-    
-class AllTagsDialog( gtk.Window ):
-
-    def __init__(self, exaile):
-    
-        gtk.Window.__init__(self)
-        self.set_title(_('Get all tags from collection'))
-        self.set_resizable(True)
-        self.set_size_request( 150, 400 ) 
-        
-        self.add(gtk.Frame())
-        
-        vbox = gtk.VBox()
-        
-        self.model = gt_widgets.GroupTaggerModel()
-        self.view = gt_widgets.GroupTaggerView(exaile, None, editable=False)
-        
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
-        scroll.add( self.view )
-        scroll.hide()
-        
-        vbox.pack_start( scroll, True, True )
-        
-        button = gtk.Button(_('Add selected to choices'))
-        button.connect('clicked', self.on_add_selected_to_choices )
-        vbox.pack_end( button, False, False )
-        
-        self.child.add(vbox)
-        
-        # get the collection groups
-        groups = get_all_collection_groups(exaile.collection)
-        for group in groups:
-            self.model.append( [False, group] )
-            
-        self.view.set_model( self.model )
-        self.view.show_click_column()
-
-        self.show_all()
-        
-    def on_add_selected_to_choices(self, widget):
-        defaults = get_default_groups()
-        for group in self.model.get_active_groups():
-            defaults.add( group )
-        set_default_groups( defaults )
-#
-# TODO: Fix these
-#
- 
-        
-def generate_playlist( group, playlist_name ):
-    # creates a smart playlist based on a particular tag
-    pass
-    
-def generate_playlists( ):
-
-    # what this function does is create playlists based on all the tags present in the library
-    tracks = get_all_tracks()
-    
-    groupset = set()
-    
-    # TODO: I wonder if there's a way we can cache this data, or
-    # get exaile to do it for us.. 
-    for track in tracks:
-        groups = get_track_groups( track )
-        groupset |= groups
-        
-    prefix = settings.get_option( 'plugins/grouptagger/auto-playlist-prefix', 'Auto-' )
-    for group in groupset:
-        playlist_name = prefix + group
-        if playlist_name not in playlists:
-            generate_playlist( group, playlist_name )
-        
-
-   
 
     

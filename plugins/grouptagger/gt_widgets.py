@@ -30,14 +30,12 @@ import gobject
 import pango
 import glib
 
-import re
-
 from xl.nls import gettext as _
-from xl.trax import search
-from xl import playlist
 
 from xlgui import main
 from xlgui.widgets import dialogs
+
+import gt_common
 
 #
 # GroupTaggerView signal 'changed' enum
@@ -175,28 +173,15 @@ class GroupTaggerView(gtk.TreeView):
                 self.emit( 'changed', CHANGE_DELETED, model.get_value(i, 1) )
                 model.remove(i)
             
-    def _create_search_playlist( self, name, search_string, exaile ):
-        # do the search
-        tracks = [ x.track for x in search.search_tracks_from_string( exaile.collection, search_string ) ]
-        
-        # create the playlist
-        pl = playlist.Playlist( name, tracks )
-        main.get_playlist_notebook().create_tab_from_playlist( pl )
+
             
     def on_menu_show_tracks( self, widget, exaile ):
         '''Menu to show all tracks that match a particular group'''
         
-        # TODO: This function might belong elsewhere... 
-    
         model, rows = self.get_selection().get_selected_rows()
-
-        # create a search string and name
         groups = [model[row][1] for row in rows]
         
-        name = 'Grouping: ' + ' and '.join( groups )
-        search_string = ' '.join( [ 'grouping~"\\b%s\\b"' % re.escape( group.replace(' ','_') ) for group in groups ] ) 
-        
-        self._create_search_playlist( name, search_string, exaile )
+        gt_common.create_all_search_playlist( groups, exaile )
     
     def on_menu_show_tracks_custom( self, widget, exaile ):
         '''
@@ -205,16 +190,9 @@ class GroupTaggerView(gtk.TreeView):
         '''
     
         model, rows = self.get_selection().get_selected_rows()
-
-        # create a search string and name
         groups = [model[row][1] for row in rows]
         
-        dialog = GroupTaggerQueryDialog( groups )
-        if dialog.run() == gtk.RESPONSE_OK:
-            name, search_string = dialog.get_search_params()
-            self._create_search_playlist( name, search_string, exaile )
-    
-        dialog.destroy()
+        gt_common.create_custom_search_playlist( groups, exaile )
         
     def _adjust_menu(self):
     
@@ -426,71 +404,3 @@ class GroupTaggerPanel(gtk.VBox):
         # add the widgets to this page
         self.pack_start( self.tagger, expand=True ) 
 
-class GroupTaggerQueryDialog(gtk.Dialog):      
-    '''
-        Dialog used to allow the user to select the behavior of the query
-        used to filter out tracks that match a particular characteristic
-    '''
-    
-    def __init__(self, groups):
-        
-        gtk.Dialog.__init__(self, 'Show tracks with groups' )
-        
-        vbox = self.vbox
-        
-        self.model = gtk.ListStore( gobject.TYPE_BOOLEAN, gobject.TYPE_BOOLEAN, gobject.TYPE_STRING )
-        self.model.set_sort_column_id(2, gtk.SORT_ASCENDING)
-        
-        for group in groups:
-            self.model.append( (True, False, group) )
-        
-        self.view = gtk.TreeView( self.model )
-        
-        cell = gtk.CellRendererToggle()
-        cell.set_radio( True )
-        cell.set_activatable( True )
-        cell.connect( 'toggled', self.on_radio_toggle, 0, 1 )
-        self.view.append_column( gtk.TreeViewColumn( _('All Tracks have this'), cell, active=0 ) )
-        
-        cell = gtk.CellRendererToggle()
-        cell.set_radio( True )
-        cell.set_activatable( True )
-        cell.connect( 'toggled', self.on_radio_toggle, 1, 0 )
-        self.view.append_column( gtk.TreeViewColumn( _('1+ tracks have this'), cell, active=1 ) )
-        
-        cell = gtk.CellRendererText()
-        self.view.append_column( gtk.TreeViewColumn( _('Group'), cell, text=2 ) )
-        
-        vbox.pack_start( self.view, True, True )
-        
-        self.add_buttons( gtk.STOCK_OK, gtk.RESPONSE_OK, gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL )
-        self.show_all()
-    
-    def on_radio_toggle(self, cell, path, idx1, idx2):
-        self.model[path][idx1] = not cell.get_active()
-        self.model[path][idx2] = cell.get_active()
-        
-    
-    def get_search_params(self):
-        '''Returns (name, search_string) from user selections'''
-        
-        and_groups = []
-        and_string = ''
-        or_groups = []
-        or_string = ''
-        
-        for row in self.model:
-            if row[0]:
-                and_groups.append( row[2] )
-            elif row[1]:
-                or_groups.append( row[2] )
-        
-        if len(and_groups):
-            name = 'Grouping: ' + ' and '.join( and_groups )
-            and_string = ' '.join( [ 'grouping~"\\b%s\\b"' % re.escape( group.replace(' ','_') ) for group in and_groups ] ) 
-            
-        if len(or_groups):
-            name = 'Grouping: ' + ' and '.join( and_groups + ['(' + ' or '.join( or_groups ) + ')'] )
-            or_string = ' grouping~"%s"' %  '|'.join( [ '\\b' + re.escape( group.replace(' ','_') ) + '\\b' for group in or_groups ] ) 
-        
-        return ( name, and_string + or_string )

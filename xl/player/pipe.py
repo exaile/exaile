@@ -328,6 +328,10 @@ SINK_PRESETS = {
         "jack" : {
             "name"      : "JACK",
             "pipe"      : "jackaudiosink"
+        },
+        "directsound" : {
+            "name"      : "DirectSound",
+            "pipe"      : "directsoundsink"
         }
 }
 

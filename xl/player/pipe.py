@@ -306,34 +306,32 @@ class Postprocessing(ProviderBin):
 SINK_PRESETS = {
         "auto"  : {
             "name"      : _("Automatic"),
-            "pipe"      : "autoaudiosink",
-            "can_enumerate_devices": False
+            "pipe"      : "autoaudiosink"
             },
         "gconf" : {
             "name"      : "GNOME",
             "pipe"      : "gconfaudiosink",
-            "pipeargs"  : "profile=music",
-            "can_enumerate_devices": False
+            "pipeargs"  : "profile=music"
         },
         "alsa"  : {
             "name"      : "ALSA",
-            "pipe"      : "alsasink",
-            "can_enumerate_devices": True
+            "pipe"      : "alsasink"
         },
         "oss"   : {
             "name"      : "OSS",
-            "pipe"      : "osssink",
-            "can_enumerate_devices": False
+            "pipe"      : "osssink"
         },
         "pulse" : {
             "name"      : "PulseAudio",
-            "pipe"      : "pulsesink",
-            "can_enumerate_devices": True
+            "pipe"      : "pulsesink"
         },
         "jack" : {
             "name"      : "JACK",
-            "pipe"      : "jackaudiosink",
-            "can_enumerate_devices": False
+            "pipe"      : "jackaudiosink"
+        },
+        "directsound" : {
+            "name"      : "DirectSound",
+            "pipe"      : "directsoundsink"
         }
 }
 
@@ -375,8 +373,6 @@ def sink_enumerate_devices(preset):
     '''
 
     p = SINK_PRESETS[preset]
-    if not p.get('can_enumerate_devices'):
-        return None
 
     # create a temporary sink, probe it
     try:
@@ -384,7 +380,16 @@ def sink_enumerate_devices(preset):
     except Exception:
         # If we can't create an instance of the sink, probably doesn't exist... 
         return None
+        
+    # does it support the property probe interface?
+    if not hasattr(tmpsink, 'probe_get_properties'):
+        return None
 
+    # check to see if we can probe for a device
+    if 'device' not in [prop.name for prop in tmpsink.probe_get_properties()]:
+        return None
+
+    # do the probe
     tmpsink.probe_property_name('device')
     devices = tmpsink.probe_get_values_name('device')
 

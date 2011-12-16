@@ -248,10 +248,13 @@ class PlaylistPage(NotebookPage):
         Displays a playlist and associated controls.
     """
     menu_provider_name = 'playlist-tab-context-menu'
-    def __init__(self, playlist):
+    def __init__(self, playlist, player):
         """
             :param playlist: The :class:`xl.playlist.Playlist` to display
                 in this page.
+            :param player: The :class:`xl.player._base.ExailePlayer` that 
+                this page is associated with
+            :param queue: 
         """
         NotebookPage.__init__(self)
 
@@ -280,7 +283,7 @@ class PlaylistPage(NotebookPage):
         self.playlist_utilities_bar = self.builder.get_object(
             'playlist_utilities_bar')
 
-        self.view = PlaylistView(playlist)
+        self.view = PlaylistView(playlist, player)
         self.playlist_window.add(self.view)
         self._filter_string = ""
         self._filter_matcher = None
@@ -471,11 +474,12 @@ class PlaylistPage(NotebookPage):
 
 
 class PlaylistView(gtk.TreeView, providers.ProviderHandler):
-    def __init__(self, playlist):
+    def __init__(self, playlist, player):
         gtk.TreeView.__init__(self)
         providers.ProviderHandler.__init__(self, 'playlist-columns')
         self.playlist = playlist
-        self.model = PlaylistModel(playlist, playlist_columns.DEFAULT_COLUMNS)
+        self.player = player
+        self.model = PlaylistModel(playlist, playlist_columns.DEFAULT_COLUMNS, self.player)
         self.menu = PlaylistContextMenu(self)
         self.dragging = False
         self.button_pressed = False # used by columns to determine whether
@@ -502,7 +506,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
                 gtk.gdk.ACTION_MOVE)
 
         event.add_callback(self.on_option_set, "gui_option_set")
-        event.add_callback(self.on_playback_start, "playback_track_start")
+        event.add_callback(self.on_playback_start, "playback_track_start", self.player)
         self.connect("cursor-changed", self.on_cursor_changed )
         self.connect("row-activated", self.on_row_activated)
         self.connect("button-press-event", self.on_button_press)
@@ -572,7 +576,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
 
         # FIXME: this is kinda ick because of supporting both models
         self.model.columns = columns
-        self.model = PlaylistModel(self.playlist, columns)
+        self.model = PlaylistModel(self.playlist, columns, self.player)
         self.set_model(self.model)
 
         for position, column in enumerate(columns):
@@ -643,9 +647,9 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         if data == "gui/columns":
             glib.idle_add(self._refresh_columns, priority=glib.PRIORITY_DEFAULT)
 
-    def on_playback_start(self, typ, obj, data):
-        if player.QUEUE.current_playlist == self.playlist and \
-                player.PLAYER.current == self.playlist.current and \
+    def on_playback_start(self, type, player, track):
+        if player.queue.current_playlist == self.playlist and \
+                player.current == self.playlist.current and \
                 settings.get_option('gui/ensure_visible', True):
             glib.idle_add(self.scroll_to_current)
 
@@ -668,8 +672,8 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             return
 
         self.playlist.set_current_position(position)
-        player.QUEUE.play(track=track)
-        player.QUEUE.set_current_playlist(self.playlist)
+        self.player.queue.play(track=track)
+        self.player.queue.set_current_playlist(self.playlist)
 
     def on_button_press(self, widget, event):
         self.button_pressed = True
@@ -844,10 +848,11 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
 
 class PlaylistModel(gtk.ListStore):
 
-    def __init__(self, playlist, columns):
+    def __init__(self, playlist, columns, player):
         gtk.ListStore.__init__(self, int) # real types are set later
         self.playlist = playlist
         self.columns = columns
+        self.player = player
 
         self.coltypes = [object, gtk.gdk.Pixbuf] + [providers.get_provider('playlist-columns', c).datatype for c in columns]
         self.set_column_types(*self.coltypes)
@@ -864,13 +869,13 @@ class PlaylistModel(gtk.ListStore):
         event.add_callback(self.on_spat_position_changed,
                 "playlist_spat_position_changed", playlist)
         event.add_callback(self.on_playback_state_change,
-                "playback_track_start")
+                "playback_track_start", self.player)
         event.add_callback(self.on_playback_state_change,
-                "playback_track_end")
+                "playback_track_end", self.player)
         event.add_callback(self.on_playback_state_change,
-                "playback_player_pause")
+                "playback_player_pause", self.player)
         event.add_callback(self.on_playback_state_change,
-                "playback_player_resume")
+                "playback_player_resume", self.player)
         event.add_callback(self.on_track_tags_changed,
                 "track_tags_changed")
 
@@ -901,9 +906,9 @@ class PlaylistModel(gtk.ListStore):
     def icon_for_row(self, row):
         # TODO: we really need some sort of global way to say "is this playlist/pos the current one?
         if self.playlist.current_position == row and \
-                self.playlist[row] == player.PLAYER.current and \
-                self.playlist == player.QUEUE.current_playlist:
-            state = player.PLAYER.get_state()
+                self.playlist[row] == self.player.current and \
+                self.playlist == self.player.queue.current_playlist:
+            state = self.player.get_state()
             spat = self.playlist.spat_position == row
             if state == 'playing':
                 if spat:

@@ -41,8 +41,8 @@ class ExailePlayer(object):
         Base class all players must inherit from and implement.
     """
     def __init__(self, name, pre_elems=[]):
+        self.queue = None
         self._name = name
-        self._queue = None
         self._playtime_stamp = None
         self._last_position = 0
 
@@ -131,7 +131,7 @@ class ExailePlayer(object):
         self.stop()
 
     def _set_queue(self, queue):
-        self._queue = queue
+        self.queue = queue
 
     def _get_volume(self):
         """

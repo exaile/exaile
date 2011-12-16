@@ -63,10 +63,10 @@ class NormalPlayer(_base.ExailePlayer):
         """
             called at the end of a stream
         """
-        self._queue.next()
+        self.queue.next()
 
     def _on_about_to_finish(self, pbin):
-        tr = self._queue.next(autoplay=False)
+        tr = self.queue.next(autoplay=False)
         if tr:
             self.play(tr, stop_last=False)
         else:

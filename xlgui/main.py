@@ -192,7 +192,7 @@ class MainWindow(gobject.GObject):
                 self.window.connect('screen-changed', self.on_screen_changed)
 
         playlist_area = self.builder.get_object('playlist_area')
-        self.playlist_notebook = PlaylistNotebook('saved_tabs')
+        self.playlist_notebook = PlaylistNotebook('saved_tabs', player.PLAYER)
         self.playlist_notebook.connect_after('switch-page',
             self.on_playlist_notebook_switch_page)
         playlist_area.pack_start(self.playlist_notebook, padding=3)

@@ -797,7 +797,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
             settings.get_option('plugin/minimode/track_title_format',
                                 '$tracknumber - $title'))
 
-        self.view = PlaylistView(player.QUEUE.current_playlist)
+        self.view = PlaylistView(player.QUEUE.current_playlist, player.PLAYER)
         self.popup = AttachedWindow(self)
         self.popup.set_default_size(
             settings.get_option('plugin/minimode/'
@@ -858,7 +858,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
             Updates the internally stored playlist
         """
         columns = self.view.get_model().columns
-        model = PlaylistModel(playlist, columns)
+        model = PlaylistModel(playlist, columns, player.PLAYER)
         self.view.set_model(model)
 
     def do_hierarchy_changed(self, previous_toplevel):

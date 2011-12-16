@@ -29,7 +29,7 @@ import re
 import gtk
 from datetime import datetime
 from xl.nls import gettext as _
-from xl import event, player, settings, providers, xdg
+from xl import event, settings, providers, xdg
 from xl.playlist import Playlist, PlaylistManager
 from xlgui.widgets import menu
 from xlgui.accelerators import Accelerator
@@ -41,10 +41,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 class PlaylistNotebook(SmartNotebook):
-    def __init__(self, manager_name):
+    def __init__(self, manager_name, player):
         SmartNotebook.__init__(self)
         self.tab_manager = PlaylistManager(manager_name)
-
+        self.player = player
+        
         # for saving closed tab history
         self.tab_history = []
         self.history_counter = 90000 # to get unique (reverse-ordered) item names
@@ -81,7 +82,7 @@ class PlaylistNotebook(SmartNotebook):
         self.load_saved_tabs()
         self.queuepage = QueuePage()
         self.queuetab = NotebookTab(self, self.queuepage)
-        if len(player.QUEUE) > 0:
+        if len(self.player.queue) > 0:
             self.show_queue()
 
         self.tab_placement_map = {
@@ -113,7 +114,7 @@ class PlaylistNotebook(SmartNotebook):
             :param playlist: The playlist to create tab from
             :type playlist: :class:`xl.playlist.Playlist`
         """
-        page = PlaylistPage(playlist)
+        page = PlaylistPage(playlist, self.player)
         tab = NotebookTab(self, page)
         self.add_tab(tab, page)
         return tab
@@ -200,11 +201,11 @@ class PlaylistNotebook(SmartNotebook):
 
             if match.group('tag') == 'current':
                 count = i
-                if player.QUEUE.current_playlist is None:
-                    player.QUEUE.set_current_playlist(pl)
+                if self.player.queue.current_playlist is None:
+                    self.player.queue.set_current_playlist(pl)
             elif match.group('tag') == 'playing':
                 count2 = i
-                player.QUEUE.set_current_playlist(pl)
+                self.player.queue.set_current_playlist(pl)
 
         # If there's no selected playlist saved, use the currently
         # playing
@@ -230,7 +231,7 @@ class PlaylistNotebook(SmartNotebook):
 
             tag = ''
 
-            if page.playlist is player.QUEUE.current_playlist:
+            if page.playlist is self.player.queue.current_playlist:
                 tag = 'playing'
             elif n == self.get_current_page():
                 tag = 'current'
@@ -254,7 +255,7 @@ class PlaylistNotebook(SmartNotebook):
             if not isinstance(page, PlaylistPage):
                 continue
 
-            if page.playlist is not player.QUEUE.current_playlist:
+            if page.playlist is not self.player.queue.current_playlist:
                 continue
 
             self.set_current_page(n)

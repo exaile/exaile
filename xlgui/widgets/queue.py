@@ -56,7 +56,7 @@ class QueuePage(NotebookPage):
         self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.pack_start(self.swindow, True, True)
 
-        self.view = PlaylistView(player.QUEUE)
+        self.view = PlaylistView(player.QUEUE, player.PLAYER)
         self.swindow.add(self.view)
 
         event.add_callback(self.on_length_changed, "playlist_tracks_added", player.QUEUE)

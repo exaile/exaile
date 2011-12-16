@@ -40,12 +40,13 @@ class ExailePlayer(object):
     """
         Base class all players must inherit from and implement.
     """
-    def __init__(self, pre_elems=[]):
+    def __init__(self, name, pre_elems=[]):
+        self._name = name
         self._queue = None
         self._playtime_stamp = None
         self._last_position = 0
 
-        self._mainbin = pipe.MainBin(pre_elems=pre_elems)
+        self._mainbin = pipe.MainBin(self, pre_elems=pre_elems)
         self._pipe = None
         self._bus = None
 
@@ -57,7 +58,7 @@ class ExailePlayer(object):
         event.add_callback(self._on_track_end, 'playback_track_end', self)
 
     def _on_option_set(self, name, object, data):
-        if data == "player/volume":
+        if data == "%s/volume" % self._name:
             self._load_volume()
 
     def _on_track_end(self, name, obj, track):
@@ -74,7 +75,7 @@ class ExailePlayer(object):
         """
             load volume from settings
         """
-        volume = settings.get_option("player/volume", 1)
+        volume = settings.get_option("%s/volume" % self._name, 1)
         self._set_volume(volume)
 
     def _setup_pipe(self):
@@ -153,7 +154,7 @@ class ExailePlayer(object):
             :returns: the volume percentage
             :type: int
         """
-        return (settings.get_option("player/volume", 1) * 100)
+        return (settings.get_option("%s/volume" % self._name, 1) * 100)
 
     def set_volume(self, volume):
         """
@@ -164,7 +165,7 @@ class ExailePlayer(object):
         """
         volume = min(volume, 100)
         volume = max(0, volume)
-        settings.set_option("player/volume", volume / 100.0)
+        settings.set_option("%s/volume" % self._name, volume / 100.0)
 
     def _get_current(self):
         raise NotImplementedError

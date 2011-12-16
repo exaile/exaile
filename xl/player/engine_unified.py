@@ -85,13 +85,13 @@ class UnifiedPlayer(_base.ExailePlayer):
         # collections are on slower media can increase it to preserve
         # gapless, at the expense of UI lag.
         self.audio_queue.set_property("max-size-time",
-                settings.get_option("player/queue_duration", 1000000))
+                settings.get_option("%s/queue_duration" % self._name, 1000000))
 
     def _on_drained(self, dec, stream):
         logger.debug("%s drained"%stream.get_name())
         #if stream.track != self.current:
         #    return
-        if not settings.get_option("player/crossfading", False):
+        if not settings.get_option("%s/crossfading" % self._name, False):
             tr = self._queue.next(autoplay=False)
             self.unlink_stream(stream)
             if tr is None:
@@ -118,7 +118,7 @@ class UnifiedPlayer(_base.ExailePlayer):
 
         playing = self.is_playing()
 
-        logger.debug("Attmepting to play \"%s\""%track)
+        logger.debug("%s: Attempting to play \"%s\""% (self._name, track))
         next = 1-self._current_stream
 
         if self.streams[next]:
@@ -128,23 +128,23 @@ class UnifiedPlayer(_base.ExailePlayer):
         duration = 0
 
         if user:
-            if settings.get_option("player/user_fade_enabled", False):
+            if settings.get_option("%s/user_fade_enabled" % self._name, False):
                 fading = True
-                duration = settings.get_option("player/user_fade", 1000)
+                duration = settings.get_option("%s/user_fade" % self._name, 1000)
             else:
                 self.unlink_stream(self.streams[self._current_stream])
         else:
-            if settings.get_option("player/crossfading", False):
+            if settings.get_option("%s/crossfading" % self._name, False):
                 fading = True
                 duration = settings.get_option(
-                        "player/crossfade_duration", 3000)
+                        "%s/crossfade_duration" % self._name, 3000)
             else:
                 self.unlink_stream(self.streams[self._current_stream])
 
         if not playing:
             event.log_event('playback_reconfigure_bins', self, None)
 
-        self.streams[next] = AudioStream("Stream%s"%(next), caps=self.caps)
+        self.streams[next] = AudioStream("Stream%s"%(next), self, caps=self.caps)
         self.streams[next].dec.connect("drained", self._on_drained,
                 self.streams[next])
 
@@ -167,7 +167,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             if self.streams[self._current_stream]:
                 glib.timeout_add(timeout, self._fade_stream,
                         self.streams[self._current_stream], -1, True)
-            if settings.get_option("player/crossfading", False):
+            if settings.get_option("%s/crossfading" % self._name, False):
                 time = int(track.get_tag_raw("__length")*1000 - duration)
                 glib.timer_id = glib.timeout_add(time,
                         self._start_crossfade)
@@ -212,9 +212,9 @@ class UnifiedPlayer(_base.ExailePlayer):
             glib.source_remove(self._timer_id)
         if not self.is_playing():
             return
-        if not settings.get_option("player/crossfading", False):
+        if not settings.get_option("%s/crossfading" % self._name, False):
             return
-        duration = settings.get_option("player/crossfade_duration", 3000)
+        duration = settings.get_option("%s/crossfade_duration" % self._name, 3000)
         time = int( self.current.get_tag_raw('__length')*1000 - \
                 (self.get_time()*1000 + duration) )
         if time < duration: # start crossfade now, we're late!
@@ -292,7 +292,7 @@ class UnifiedPlayer(_base.ExailePlayer):
 
 
 class AudioStream(gst.Bin):
-    def __init__(self, name, caps=None):
+    def __init__(self, name, player, caps=None):
         gst.Bin.__init__(self, name)
         self.notify_id = None
         self.track = None
@@ -304,13 +304,13 @@ class AudioStream(gst.Bin):
         self._seek_event = threading.Event()
 
         self.caps = caps
-        self.setup_elems()
+        self.setup_elems(player)
 
-    def setup_elems(self):
+    def setup_elems(self, player):
         self.dec = gst.element_factory_make("uridecodebin")
         self.audioconv = gst.element_factory_make("audioconvert")
         self.audioresam = gst.element_factory_make("audioresample")
-        self.provided = pipe.ProviderBin("stream_element")
+        self.provided = pipe.ProviderBin(player, "stream_element")
         self.capsfilter = gst.element_factory_make("capsfilter")
         self.capsfilter.set_property("caps", self.caps)
         self.vol = gst.element_factory_make("volume")
@@ -476,7 +476,7 @@ class AudioStream(gst.Bin):
             seek to the given position in the current stream
         """
         if self._settle_flag == 1:
-            event.add_callback(self._seek_delayed, "stream_settled")
+            event.add_callback(self._seek_delayed, "stream_settled", self)
             self._seek_event.clear()
             self._seek_event.wait()
 

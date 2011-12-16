@@ -42,11 +42,11 @@ logger = logging.getLogger(__name__)
 
 
 class NormalPlayer(_base.ExailePlayer):
-    def __init__(self):
+    def __init__(self, name):
         self._current = None
         self._fakevideo = None
-        _base.ExailePlayer.__init__(self,
-                pre_elems=[pipe.ProviderBin("stream_element")])
+        _base.ExailePlayer.__init__(self, name,
+                pre_elems=[pipe.ProviderBin( self, "stream_element")])
 
     def _setup_pipe(self):
         """

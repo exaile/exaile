@@ -62,8 +62,8 @@ class GSTEqualizer(ElementBin):
     """
     index = 99
     name = "equalizer-10bands"
-    def __init__(self):
-        ElementBin.__init__(self, name=self.name)
+    def __init__(self, player):
+        ElementBin.__init__(self, player, name=self.name)
 
         self.audioconvert = gst.element_factory_make("audioconvert")
         self.elements[40] = self.audioconvert

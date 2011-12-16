@@ -46,8 +46,8 @@ class PlayQueue(playlist.Playlist):
         The content of the queue are processed before
         processing the content of the assigned playlist.
     """
-    def __init__(self, player, location=None):
-        playlist.Playlist.__init__(self, name="Queue")
+    def __init__(self, player, name, location=None):
+        playlist.Playlist.__init__(self, name=name)
 
         self.__current_playlist = None
         self.player = player
@@ -177,7 +177,7 @@ class PlayQueue(playlist.Playlist):
 
     @common.threaded
     def _restore_player_state(self, location):
-        if not settings.get_option("player/resume_playback", True):
+        if not settings.get_option("%s/resume_playback" % self.player._name, True):
             return
 
         try:
@@ -200,7 +200,7 @@ class PlayQueue(playlist.Playlist):
             if self.player.current:
                 self.player.seek(state['position'])
                 if state['state'] == 'paused' or \
-                        settings.get_option("player/resume_paused", False):
+                        settings.get_option("%s/resume_paused" % self.player._name, False):
                     self.player.toggle_pause()
                 self.player._playtime_stamp = state['_playtime_stamp']
 

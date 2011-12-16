@@ -343,7 +343,7 @@ class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
 
     def __init__(self):
         ButtonControl.__init__(self)
-        PlaybackAdapter.__init__(self)
+        PlaybackAdapter.__init__(self, player.PLAYER)
 
         self.update_state()
 
@@ -628,7 +628,7 @@ class TrackSelectorControl(gtk.ComboBox, BaseControl, QueueAdapter):
     def __init__(self):
         gtk.ComboBox.__init__(self)
         BaseControl.__init__(self)
-        QueueAdapter.__init__(self)
+        QueueAdapter.__init__(self, player.QUEUE)
 
         self.formatter = TrackFormatter('')
         self.model = gtk.ListStore(object)
@@ -781,7 +781,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
     def __init__(self):
         gtk.ToggleButton.__init__(self)
         BaseControl.__init__(self)
-        QueueAdapter.__init__(self)
+        QueueAdapter.__init__(self, player.QUEUE)
 
         self.set_focus_on_click(False)
         self.set_size_request(200, -1)

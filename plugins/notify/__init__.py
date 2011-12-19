@@ -19,7 +19,7 @@ import inspect
 import logging
 import pynotify
 
-from xl import covers, event, common, settings
+from xl import covers, event, common, player, settings
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.preferences import widgets
@@ -118,10 +118,10 @@ EXAILE_NOTIFICATION = ExaileNotification()
 
 def enable(exaile):
     EXAILE_NOTIFICATION.exaile = exaile
-    event.add_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start')
+    event.add_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start', player.PLAYER)
 
 def disable(exaile):
-    event.remove_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start')
+    event.remove_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start', player.PLAYER)
 
 def get_preferences_pane():
     return notifyprefs

@@ -16,7 +16,7 @@
 
 import _scrobbler as scrobbler
 import asprefs
-from xl import common, event, xdg, metadata, settings, providers
+from xl import common, event, xdg, metadata, player, settings, providers
 from xl.nls import gettext as _
 from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu
@@ -148,8 +148,8 @@ class ExaileScrobbler(object):
         if self.use_menu:
             self.remove_menu()
         if self.connected:
-            event.remove_callback(self.on_play, 'playback_track_start')
-            event.remove_callback(self.on_stop, 'playback_track_end')
+            event.remove_callback(self.on_play, 'playback_track_start', player.PLAYER)
+            event.remove_callback(self.on_stop, 'playback_track_end', player.PLAYER)
             self.connected = False
             self.save_cache()
         providers.unregister('mainwindow-accelerators',self.accelerator)
@@ -170,8 +170,8 @@ class ExaileScrobbler(object):
 
         logger.info("Connected to AudioScrobbler")
 
-        event.add_callback(self.on_play, 'playback_track_start')
-        event.add_callback(self.on_stop, 'playback_track_end')
+        event.add_callback(self.on_play, 'playback_track_start', player.PLAYER)
+        event.add_callback(self.on_stop, 'playback_track_end', player.PLAYER)
         self.connected = True
         self.connecting = False
 

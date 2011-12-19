@@ -63,13 +63,13 @@ class ExaileMprisPlayer(dbus.service.Object):
         dbus.service.Object.__init__(self, bus, '/Player')
         self.exaile = exaile
         self._tag_converter = mpris_tag_converter.ExaileTagConverter(exaile)
-        xl.event.add_callback(self.track_change_cb, 'playback_track_start')
+        xl.event.add_callback(self.track_change_cb, 'playback_track_start', player.PLAYER)
         # FIXME: Does not watch for shuffle, repeat
         # TODO: playback_start does not distinguish if play button was pressed
         #       or we simply moved to a new track
         for event in ('playback_player_end', 'playback_player_start',
                 'playback_toggle_pause'):
-            xl.event.add_callback(self.status_change_cb, event)
+            xl.event.add_callback(self.status_change_cb, event, player.PLAYER)
 
 
     @dbus.service.method(INTERFACE_NAME)

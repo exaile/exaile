@@ -80,9 +80,9 @@ class LyricsViewer(object):
         self._delay = 250
         self._id = 0
 
-        event.add_callback(self.playback_cb, 'playback_track_start')
-        event.add_callback(self.playback_cb, 'track_tags_changed')
-        event.add_callback(self.end_cb, 'playback_player_end')
+        event.add_callback(self.playback_cb, 'playback_track_start', player.PLAYER)
+        event.add_callback(self.playback_cb, 'track_tags_changed', player.PLAYER)
+        event.add_callback(self.end_cb, 'playback_player_end', player.PLAYER)
         event.add_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
 
@@ -141,9 +141,9 @@ class LyricsViewer(object):
     #end initialize_widgets
     
     def remove_callbacks(self):
-        event.remove_callback(self.playback_cb, 'playback_track_start')
-        event.remove_callback(self.playback_cb, 'track_tags_changed')
-        event.remove_callback(self.end_cb, 'playback_player_end')
+        event.remove_callback(self.playback_cb, 'playback_track_start', player.PLAYER)
+        event.remove_callback(self.playback_cb, 'track_tags_changed', player.PLAYER)
+        event.remove_callback(self.end_cb, 'playback_player_end', player.PLAYER)
         event.remove_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
         self.lyrics_methods_combo.remove_callbacks()

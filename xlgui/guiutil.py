@@ -543,20 +543,22 @@ class SearchEntry(object):
         self.change_id = None
         self._last_text = entry.get_text()
 
-        if self.entry is None:
-            self.entry = gtk.Entry()
+        if entry is None:
+            self.entry = entry = gtk.Entry()
 
-        self.entry.connect('changed', self.on_entry_changed)
-        self.entry.connect('icon-press', self.on_entry_icon_press)
-        self.entry.connect('activate', self.on_entry_activated)
+        entry.connect('changed', self.on_entry_changed)
+        entry.connect('icon-press', self.on_entry_icon_press)
+        entry.connect('activate', self.on_entry_activated)
 
-    def on_entry_changed(self, *e):
+    def on_entry_changed(self, entry):
         """
             Called when the entry changes
         """
+        empty_search = (entry.get_text() == '')
+        entry.props.secondary_icon_sensitive = not empty_search
+
         if self.change_id:
             glib.source_remove(self.change_id)
-
         self.change_id = glib.timeout_add(self.timeout,
             self.entry_activate)
 
@@ -565,7 +567,7 @@ class SearchEntry(object):
             Clears the entry
         """
         self.entry.set_text('')
-        self.entry.activate()
+        self.entry_activate()
 
     def on_entry_activated(self, entry):
         self._last_text = entry.get_text()

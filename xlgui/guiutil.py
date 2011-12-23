@@ -137,13 +137,13 @@ def gtk_widget_replace(widget, replacement):
     else:
         try:
             packing = parent.query_child_packing(widget)
-        except: # Not gtk.Box
+        except AttributeError: # Not gtk.Box
             pass
 
         try:
             tab_label = parent.get_tab_label(widget)
             tab_label_packing = parent.query_tab_label_packing(widget)
-        except: # Not gtk.Notebook
+        except AttributeError: # Not gtk.Notebook
             pass
 
         parent.remove(widget)
@@ -163,7 +163,7 @@ def gtk_widget_replace(widget, replacement):
         try:
             parent.set_tab_label(replacement, tab_label)
             parent.set_tab_label_packing(replacement, *tab_label_packing)
-        except:
+        except AttributeError:
             pass
 
         replacement.show_all()

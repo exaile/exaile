@@ -167,6 +167,9 @@
                 <child>
                   <object class="GtkEntry" id="files_search_entry">
                     <property name="visible">True</property>
+                    <property name="secondary_icon_sensitive">False</property>
+                    <property name="secondary_icon_stock">gtk-clear</property>
+                    <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
                   </object>
                   <packing>
                     <property name="position">1</property>

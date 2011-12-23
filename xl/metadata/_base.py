@@ -191,14 +191,17 @@ class BaseFormat(object):
         else:
             tagdict = copy.deepcopy(tagdict)
             raw = self._get_raw()
-            # add tags if it doesn't have them
-            try:
-                raw.add_tags()
-            except:
-#            except (ValueError, NotImplementedError):
-                # FIXME: this is BAD to not tie specifically to an exception,
-                # but mutagen doesn't provide a base error class to catch
-                pass
+            # Add tags if it doesn't have them.
+            # Most of Mutagen's modules throw an exception if the file already
+            # contains tags, except for mp4. See also
+            # http://code.google.com/p/mutagen/issues/detail?id=101
+            if getattr(raw, 'tags', None) is None:
+                try:
+                    raw.add_tags()
+                except Exception:
+                    # XXX: Not sure needed since we're already checking for
+                    # existence of tags.
+                    pass
 
             # info tags are not actually writable
             for tag in INFO_TAGS:

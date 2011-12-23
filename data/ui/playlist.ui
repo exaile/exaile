@@ -146,7 +146,7 @@
                     <property name="invisible_char">&#x25CF;</property>
                     <property name="secondary_icon_stock">gtk-clear</property>
                     <property name="secondary_icon_activatable">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">False</property>
                     <signal name="activate" handler="on_search_entry_activate"/>
                   </object>
                   <packing>

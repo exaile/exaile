@@ -48,7 +48,9 @@ def get_latest_bzr_revno(directory):
     except (errors.NoWorkingTree,
             errors.NotLocalUrl,
             errors.NotBranchError,
-            errors.LockContention):
+            errors.LockContention,
+            errors.ConnectionError, # --> Only happens on lightweight checkout.
+            ):
         return None
 
     revid = wt.last_revision()

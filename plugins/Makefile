@@ -30,7 +30,7 @@ extra_install:
 	    done ;
 
 uninstall:
-	rm -rf ${PREFIX}${PLUGINSDIR}*
+	rm -rf ${DESTDIR}${PREFIX}${PLUGINSDIR}*
 
 clean:
 	find . -name "*.py[co]" -exec rm -f {} \;

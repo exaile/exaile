@@ -201,11 +201,10 @@ class FilesPanel(panel.Panel):
         self.entry.connect('activate', self.entry_activate)
 
         # Set up the search entry
-        self.search = self.builder.get_object('files_search_entry')
-        self.search.connect('key-release-event', self.key_release)
+        self.search = guiutil.SearchEntry(self.builder.get_object('files_search_entry'))
         self.search.connect('activate', lambda *e:
             self.load_directory(self.current, history=False,
-            keyword=unicode(self.search.get_text(), 'utf-8')))
+                keyword=unicode(self.search.get_text(), 'utf-8')))
 
     def fill_libraries_location(self, *e):
         model = self.location_bar.get_model()
@@ -291,19 +290,6 @@ class FilesPanel(panel.Panel):
                 self.load_directory(f)
             else:
                 self.emit('append-items', self.tree.get_selected_tracks())
-
-    def key_release(self, *e):
-        """
-            Called when someone releases a key.
-            Sets up a timer to simulate live-search
-        """
-        if self.key_id:
-            glib.source_remove(self.key_id)
-            self.key_id = None
-
-        self.key_id = glib.timeout_add(700, lambda *e:
-            self.load_directory(self.current, history=False,
-            keyword=unicode(self.search.get_text(), 'utf-8')))
 
     def refresh(self, widget):
         """

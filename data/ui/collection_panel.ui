@@ -185,6 +185,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="invisible_char">●</property>
+                    <property name="secondary_icon_sensitive">False</property>
                     <property name="secondary_icon_stock">gtk-clear</property>
                     <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
                     <signal name="activate" handler="on_collection_search_entry_activate" swapped="no"/>

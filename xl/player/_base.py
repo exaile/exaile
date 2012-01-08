@@ -54,7 +54,7 @@ class ExailePlayer(object):
         self._setup_bus()
 
         self._load_volume()
-        event.add_callback(self._on_option_set, 'player_option_set')
+        event.add_callback(self._on_option_set, '%s_option_set' % self._name)
         event.add_callback(self._on_track_end, 'playback_track_end', self)
 
     def _on_option_set(self, name, object, data):

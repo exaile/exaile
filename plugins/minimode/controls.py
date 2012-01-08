@@ -607,7 +607,7 @@ class RatingControl(RatingWidget, BaseControl):
     description = _('Select rating of the current track')
 
     def __init__(self):
-        RatingWidget.__init__(self)
+        RatingWidget.__init__(self, player=player.PLAYER)
         BaseControl.__init__(self)
 
     def do_rating_changed(self, rating):
@@ -818,7 +818,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
             self.on_accelerator_activate)
         self.popup.add_accel_group(accel_group)
 
-        self.tooltip = TrackToolTip(self)
+        self.tooltip = TrackToolTip(self, player.PLAYER)
         self.tooltip.set_auto_update(True)
 
         if player.PLAYER.current is not None:
@@ -1045,7 +1045,7 @@ class ProgressButtonFormatter(Formatter):
 
         self.track_formatter = TrackFormatter('')
         self.progress_formatter = ProgressTextFormatter(
-            self.props.format)
+            self.props.format, player.PLAYER)
 
         event.add_callback(self.on_option_set,
             'plugin_minimode_option_set')
@@ -1106,7 +1106,7 @@ class ProgressButtonControl(PlaylistButtonControl):
         self.set_name('progressbutton')
         self.add_events(gtk.gdk.POINTER_MOTION_MASK)
 
-        self.progressbar = SeekProgressBar()
+        self.progressbar = SeekProgressBar(player.PLAYER)
         self.progressbar.set_size_request(-1, 1)
         self.progressbar.formatter = ProgressButtonFormatter()
         gtk_widget_replace(self.label, self.progressbar)
@@ -1119,7 +1119,7 @@ class ProgressButtonControl(PlaylistButtonControl):
                 player.PLAYER.current
             )
 
-        self.tooltip = TrackToolTip(self)
+        self.tooltip = TrackToolTip(self, player.PLAYER)
         self.tooltip.set_auto_update(True)
 
     def destroy(self):
@@ -1174,7 +1174,7 @@ class ProgressBarControl(gtk.Alignment, BaseControl):
         BaseControl.__init__(self)
 
         self.set_padding(3, 3, 0, 0)
-        self.progressbar = SeekProgressBar()
+        self.progressbar = SeekProgressBar(player.PLAYER)
         self.progressbar.set_size_request(200, -1)
         self.add(self.progressbar)
 

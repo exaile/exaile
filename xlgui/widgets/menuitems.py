@@ -57,7 +57,7 @@ class RatingMenuItem(menu.MenuItem):
         self.rating_set = False
 
     def factory(self, menu, parent, context):
-        item = rating.RatingMenuItem(auto_update=False)
+        item = rating.RatingMenuItem()
         item.connect('show', self.on_show, menu, parent, context)
         self._rating_changed_id = item.connect('rating-changed',
             self.on_rating_changed, menu, parent, context)

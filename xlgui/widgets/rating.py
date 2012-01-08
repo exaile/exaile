@@ -28,7 +28,7 @@ import glib
 import gobject
 import gtk
 
-from xl import event, player, settings
+from xl import event, settings
 from xl.common import clamp
 from xl.nls import gettext as _
 import xl.main
@@ -58,17 +58,17 @@ class RatingWidget(gtk.EventBox):
         )
     }
 
-    def __init__(self, rating=0, auto_update=True):
+    def __init__(self, rating=0, player=None):
         """
             :param rating: the optional initial rating
             :type rating: int
-            :param auto_update: whether to automatically
-                retrieve the rating of the currently playing
-                track if a rating was changed
-            :type auto_update: bool
+            :param player: If not None, this rating widget will automatically 
+                           update to reflect the rating of the current song
+            :type player: xl.player.ExailePlayer
         """
         gtk.EventBox.__init__(self)
-
+        self._player = player
+        
         self.set_visible_window(False)
         self.set_above_child(True)
         self.add_events(gtk.gdk.POINTER_MOTION_MASK)
@@ -80,10 +80,11 @@ class RatingWidget(gtk.EventBox):
         self._rating = -1
         self.props.rating = rating
 
-        if auto_update:
-            for event_name in ('playback_track_start', 'playback_player_end',
-                               'rating_changed'):
-                event.add_callback(self.on_rating_update, event_name)
+        if self._player is not None:
+        
+            event.add_callback( self.on_rating_update, 'playback_track_start', self._player )
+            event.add_callback( self.on_rating_update, 'playback_track_end', self._player )
+            event.add_callback( self.on_rating_update, 'rating_changed')
 
             self.on_rating_update('rating_changed', None, None)
 
@@ -91,9 +92,10 @@ class RatingWidget(gtk.EventBox):
         """
             Cleanups
         """
-        for event_name in ('playback_track_start', 'playback_player_start',
-                           'rating_changed'):
-            event.remove_callback(self.on_rating_update, event_name)
+        if self._player is not None:
+            event.remove_callback( self.on_rating_update, 'playback_track_start', self._player )
+            event.remove_callback( self.on_rating_update, 'playback_track_end', self._player )
+            event.remove_callback( self.on_rating_update, 'rating_changed')
 
     def do_get_property(self, property):
         """
@@ -215,8 +217,8 @@ class RatingWidget(gtk.EventBox):
         """
             Updates the rating from the current track
         """
-        if player.PLAYER.current is not None:
-            self._rating = player.PLAYER.current.get_rating()
+        if self._player.current is not None:
+            self._rating = self._player.current.get_rating()
             glib.idle_add(self._image.set_from_pixbuf,
                 icons.MANAGER.pixbuf_from_rating(self._rating))
             glib.idle_add(self.set_sensitive, True)
@@ -245,20 +247,19 @@ class RatingMenuItem(gtk.MenuItem):
             (gobject.TYPE_INT,)
         )
     }
-    def __init__(self, rating=0, auto_update=True):
+    def __init__(self, rating=0, player=None):
         """
             :param rating: the optional initial rating
             :type rating: int
-            :param auto_update: whether to automatically
-                retrieve the rating of the currently playing
-                track if a rating was changed
-            :type auto_update: bool
+            :param player: If not None, this rating widget will automatically 
+                           update to reflect the rating of the current song
+            :type player: xl.player.ExailePlayer
         """
         gtk.MenuItem.__init__(self)
 
         box = gtk.HBox(spacing=6)
         box.pack_start(gtk.Label(_('Rating:')), False, False)
-        self.rating_widget = RatingWidget(rating, auto_update)
+        self.rating_widget = RatingWidget(rating, player)
         box.pack_start(self.rating_widget, False, False)
 
         self.add(box)

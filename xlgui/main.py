@@ -168,16 +168,16 @@ class MainWindow(gobject.GObject):
         )
         self.message.connect('response', self.on_messagebar_response)
 
-        self.info_area = info.TrackInfoPane()
+        self.info_area = info.TrackInfoPane(player.PLAYER)
         self.info_area.set_auto_update(True)
         self.info_area.set_padding(3, 3, 3, 3)
         self.info_area.hide_all()
         self.info_area.set_no_show_all(True)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
 
-        self.cover = cover.CoverWidget(self.info_area.cover_image)
+        self.cover = cover.CoverWidget(self.info_area.cover_image, player.PLAYER)
 
-        self.volume_control = playback.VolumeControl()
+        self.volume_control = playback.VolumeControl(player.PLAYER)
         self.info_area.get_action_area().pack_start(self.volume_control)
 
         if settings.get_option('gui/use_alpha', False):
@@ -203,7 +203,7 @@ class MainWindow(gobject.GObject):
 
         self.splitter = self.builder.get_object('splitter')
 
-        self.progress_bar = playback.SeekProgressBar()
+        self.progress_bar = playback.SeekProgressBar(player.PLAYER)
         guiutil.gtk_widget_replace(
             self.builder.get_object('playback_progressbar'),
             self.progress_bar

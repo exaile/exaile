@@ -134,7 +134,7 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         )
     }
     def __init__(self):
-        self.rating_item = rating.RatingMenuItem(auto_update=False)
+        self.rating_item = rating.RatingMenuItem()
         self._rating_changed_id = self.rating_item.connect('rating-changed',
             self.on_rating_changed)
         self._updating = False

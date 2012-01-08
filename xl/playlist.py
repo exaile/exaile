@@ -1356,8 +1356,8 @@ class Playlist(object):
         return item
 
     def on_playback_track_start(self, event_type, player, track):
-        from xl import player
-        if player.QUEUE.current_playlist == self:
+        
+        if player.queue and player.queue.current_playlist == self:
             if self.dynamic_mode != 'disabled':
                 self.__fetch_dynamic_tracks()
 

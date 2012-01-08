@@ -33,7 +33,6 @@ import pango
 from xl import (
     common,
     event,
-    player,
     settings,
     providers
 )
@@ -59,12 +58,13 @@ class Column(gtk.TreeViewColumn):
     dataproperty = 'text'
     cellproperties = {}
 
-    def __init__(self, container, index):
+    def __init__(self, container, index, player):
         if self.__class__ == Column:
             raise NotImplementedError("Can't instantiate "
                 "abstract class %s" % repr(self.__class__))
 
         self.container = container
+        self.player = player
         self.settings_width_name = "gui/col_width_%s" % self.name
         self.cellrenderer = self.renderer()
         self.extrasize = 0
@@ -141,13 +141,14 @@ class Column(gtk.TreeViewColumn):
         if type(cell) == gtk.CellRendererText:
             playlist = self.container.playlist
 
-            if playlist is not player.QUEUE.current_playlist:
+            
+            if playlist is not self.player.queue.current_playlist:
                 return
 
             path = model.get_path(iter)
             track = model.get_value(iter, 0)
 
-            if track == player.PLAYER.current and \
+            if track == self.player.current and \
                path[0] == playlist.get_current_position():
                 weight = pango.WEIGHT_HEAVY
             else:

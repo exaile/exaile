@@ -80,7 +80,7 @@ class PlaylistNotebook(SmartNotebook):
         providers.register('mainwindow-accelerators',self.accelerator)
 
         self.load_saved_tabs()
-        self.queuepage = QueuePage()
+        self.queuepage = QueuePage(self.player)
         self.queuetab = NotebookTab(self, self.queuepage)
         if len(self.player.queue) > 0:
             self.show_queue()

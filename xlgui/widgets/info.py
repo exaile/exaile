@@ -35,7 +35,6 @@ from xl import (
     event,
     formatter,
     main,
-    player,
     settings,
     trax,
     xdg
@@ -49,9 +48,10 @@ class TrackInfoPane(gtk.Alignment):
     """
         Displays cover art and track data
     """
-    def __init__(self):
+    def __init__(self, player):
         gtk.Alignment.__init__(self, xscale=1, yscale=1)
-
+        self.__player = player
+        
         builder = gtk.Builder()
         builder.add_from_file(xdg.get_data_path(
             'ui', 'widgets', 'track_info.ui'))
@@ -77,7 +77,7 @@ class TrackInfoPane(gtk.Alignment):
         self.action_area = builder.get_object('action_area')
         self.progress_box = builder.get_object('progress_box')
         self.playback_image = builder.get_object('playback_image')
-        self.progressbar = PlaybackProgressBar()
+        self.progressbar = PlaybackProgressBar(player)
         guiutil.gtk_widget_replace(builder.get_object('progressbar'),
             self.progressbar)
 
@@ -113,16 +113,20 @@ class TrackInfoPane(gtk.Alignment):
         if auto_update != self.__auto_update:
             self.__auto_update = auto_update
 
-            events = ['playback_player_end', 'playback_track_start',
-                      'playback_toggle_pause', 'playback_error',
-                      'track_tags_changed', 'cover_set', 'cover_removed']
+            p_evts = ['playback_player_end', 'playback_track_start',
+                      'playback_toggle_pause', 'playback_error']
+            events = ['track_tags_changed', 'cover_set', 'cover_removed']
 
             if auto_update:
+                for e in p_evts:
+                    event.add_callback(getattr(self, 'on_%s' % e), e, self.__player)
                 for e in events:
                     event.add_callback(getattr(self, 'on_%s' % e), e)
 
-                self.set_track(player.PLAYER.current)
+                self.set_track(self.__player.current)
             else:
+                for e in p_evts:
+                    event.remove_callback(getattr(self, 'on_%s' % e), e, self.__player)
                 for e in events:
                     event.remove_callback(getattr(self, 'on_%s' % e), e)
 
@@ -224,12 +228,12 @@ class TrackInfoPane(gtk.Alignment):
             track, markup_escape=True))
 
         if self.__display_progress:
-            if track == player.PLAYER.current and \
-               not player.PLAYER.is_stopped():
+            if track == self.__player.current and \
+               not self.__player.is_stopped():
 
                 stock_id = gtk.STOCK_MEDIA_PLAY
 
-                if player.PLAYER.is_paused():
+                if self.__player.is_paused():
                     stock_id = gtk.STOCK_MEDIA_PAUSE
 
                 self.playback_image.set_from_stock(stock_id,
@@ -319,8 +323,8 @@ class TrackInfoPane(gtk.Alignment):
         """
             Updates the info pane on tag changes
         """
-        if player.PLAYER is not None and \
-           not player.PLAYER.is_stopped() and \
+        if self.__player is not None and \
+           not self.__player.is_stopped() and \
            track is self.__track:
             glib.idle_add(self.set_track, track)
 
@@ -528,12 +532,12 @@ class TrackToolTip(TrackInfoPane, ToolTip):
         Track specific tooltip class, displays
         track data and progress indicators
     """
-    def __init__(self, parent):
+    def __init__(self, parent, player):
         """
             :param parent: the parent widget the tooltip
                 should be attached to
         """
-        TrackInfoPane.__init__(self)
+        TrackInfoPane.__init__(self, player)
         ToolTip.__init__(self, parent, self)
 
         self.set_padding(6, 6, 6, 6)

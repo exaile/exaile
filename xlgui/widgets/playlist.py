@@ -582,7 +582,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         for position, column in enumerate(columns):
             position += 2 # offset for pixbuf column
             playlist_column = providers.get_provider(
-                'playlist-columns', column)(self, position)
+                'playlist-columns', column)(self, position, self.player)
             playlist_column.connect('clicked', self.on_column_clicked)
             self.append_column(playlist_column)
             header = playlist_column.get_widget()

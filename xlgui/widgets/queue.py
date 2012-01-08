@@ -27,7 +27,7 @@
 import gtk
 
 from xl.nls import gettext as _
-from xl import providers, player, event
+from xl import providers, event
 from xlgui.widgets import menu
 from xlgui.widgets.notebook import NotebookPage
 from xlgui.widgets.playlist import PlaylistView
@@ -39,7 +39,7 @@ def __create_queue_tab_context_menu():
     sep = menu.simple_separator
     items = []
     items.append(smi('clear', [], _("Clear"), 'gtk-clear',
-        lambda w, n, o, c: player.QUEUE.clear()))
+        lambda w, n, o, c: o.player.queue.clear()))
     items.append(sep('tab-close-sep', ['clear']))
     items.append(smi('tab-close', ['tab-close-sep'], _("Close"), 'gtk-close',
         lambda w, n, o, c: o.tab.close()))
@@ -49,24 +49,25 @@ __create_queue_tab_context_menu()
 
 class QueuePage(NotebookPage):
     menu_provider_name = 'queue-tab-context'
-    def __init__(self):
+    def __init__(self, player):
         NotebookPage.__init__(self)
-
+        self.player = player
+        
         self.swindow = gtk.ScrolledWindow()
         self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.pack_start(self.swindow, True, True)
 
-        self.view = PlaylistView(player.QUEUE, player.PLAYER)
+        self.view = PlaylistView(self.player.queue, self.player)
         self.swindow.add(self.view)
 
-        event.add_callback(self.on_length_changed, "playlist_tracks_added", player.QUEUE)
-        event.add_callback(self.on_length_changed, "playlist_tracks_removed", player.QUEUE)
+        event.add_callback(self.on_length_changed, "playlist_tracks_added", self.player.queue)
+        event.add_callback(self.on_length_changed, "playlist_tracks_removed", self.player.queue)
 
         self.show_all()
 
     def on_length_changed(self, *args):
         self.name_changed()
-        if len(player.QUEUE) == 0:
+        if len(self.player.queue) == 0:
             self.tab.set_closable(True)
         else:
             self.tab.notebook.show_queue(switch=False)
@@ -76,7 +77,7 @@ class QueuePage(NotebookPage):
     ## NotebookPage API ##
 
     def get_name(self):
-        return _("Queue (%d)") % len(player.QUEUE)
+        return _("Queue (%d)") % len(self.player.queue)
 
     def set_tab(self, tab):
         NotebookPage.set_tab(self, tab)
@@ -86,7 +87,7 @@ class QueuePage(NotebookPage):
         """
             Allows closing only if the queue is empty
         """
-        return len(player.QUEUE) != 0
+        return len(self.player.queue) != 0
 
     ## End NotebookPage ##
 

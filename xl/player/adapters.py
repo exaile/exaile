@@ -43,7 +43,7 @@ class PlaybackAdapter(object):
             self.on_playback_track_start('playback_track_start',
                 player, player.current)
 
-            if player.PLAYER.is_paused():
+            if player.is_paused():
                 self.on_playback_toggle_pause('playback_toggle_pause',
                     player, player.current)
 

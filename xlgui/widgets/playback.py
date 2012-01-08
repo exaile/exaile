@@ -45,8 +45,8 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
     """
         A formatter for progress bars
     """
-    def __init__(self):
-        formatter.ProgressTextFormatter.__init__(self, '')
+    def __init__(self, player):
+        formatter.ProgressTextFormatter.__init__(self, '', player)
 
         event.add_callback(self.on_option_set,
             'gui_option_set')
@@ -66,25 +66,26 @@ class PlaybackProgressBar(gtk.ProgressBar):
     """
         Progress bar which automatically follows playback
     """
-    def __init__(self):
+    def __init__(self, player):
         gtk.ProgressBar.__init__(self)
-
+        self.__player = player
+        
         self.reset()
 
-        self.formatter = ProgressBarFormatter()
+        self.formatter = ProgressBarFormatter(player)
         self.__timer_id = None
         self.__events = ('playback_track_start', 'playback_player_end',
                          'playback_toggle_pause', 'playback_error')
 
         for e in self.__events:
-            event.add_callback(getattr(self, 'on_%s' % e), e)
+            event.add_callback(getattr(self, 'on_%s' % e), e, self.__player)
 
     def destroy(self):
         """
             Cleanups
         """
         for e in self.__events:
-            event.remove_callback(getattr(self, 'on_%s' % e), e)
+            event.remove_callback(getattr(self, 'on_%s' % e), e, self.__player)
 
     def reset(self):
         """
@@ -123,12 +124,12 @@ class PlaybackProgressBar(gtk.ProgressBar):
         """
             Updates progress bar appearance
         """
-        if player.PLAYER.current is None:
+        if self.__player.current is None:
             self.__disable_timer()
             self.reset()
             return False
 
-        glib.idle_add(self.set_fraction, player.PLAYER.get_progress())
+        glib.idle_add(self.set_fraction, self.__player.get_progress())
         glib.idle_add(self.set_text, self.formatter.format())
 
         return True
@@ -270,6 +271,12 @@ class MarkerManager(providers.ProviderHandler):
         Enables management of playback markers; namely simple
         adding, removing and finding. It also takes care of
         emitting signals when a marker is reached during playback.
+        
+        TODO: This presumes there is only one player object present
+        in exaile, and that markers can only be associated with
+        the single player object. This class should probably be
+        changed to be associated with a particular player (which
+        requires some changes to the marker class)
     """
     def __init__(self):
         providers.ProviderHandler.__init__(self, 'playback-markers')
@@ -342,7 +349,7 @@ class MarkerManager(providers.ProviderHandler):
         if self.__timeout_id is not None:
             glib.source_remove(self.__timeout_id)
 
-        self.__timeout_id = glib.timeout_add_seconds(1, self.on_timeout)
+        self.__timeout_id = glib.timeout_add_seconds(1, self.on_timeout, player)
 
     def on_playback_track_end(self, event, player, track):
         """
@@ -352,16 +359,16 @@ class MarkerManager(providers.ProviderHandler):
             glib.source_remove(self.__timeout_id)
             self.__timeout_id = None
 
-    def on_timeout(self):
+    def on_timeout(self, player):
         """
             Triggers "reached" signal of markers
         """
-        track_length = player.PLAYER.current.get_tag_raw('__length')
+        track_length = player.current.get_tag_raw('__length')
 
         if track_length is None:
             return True
 
-        playback_time = player.PLAYER.get_time()
+        playback_time = player.get_time()
         reached_markers = (m for m in providers.get('playback-markers')
             if int(m.props.position * track_length) == playback_time)
 
@@ -405,9 +412,10 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         )
     }
 
-    def __init__(self):
-        PlaybackProgressBar.__init__(self)
-
+    def __init__(self, player):
+        PlaybackProgressBar.__init__(self, player)
+        
+        self.__player = player
         self.__values = {'marker-scale': 0.7}
         self._seeking = False
         self._points = {}
@@ -439,8 +447,8 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         """
         markup = None
 
-        if player.PLAYER.current:
-            length = player.PLAYER.current.get_tag_raw('__length')
+        if self.__player.current:
+            length = self.__player.current.get_tag_raw('__length')
 
             if length is not None:
                 length = length * marker.props.position
@@ -590,10 +598,10 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         """
             Seeks within the current track
         """
-        if player.PLAYER.current:
-            length = player.PLAYER.current.get_tag_raw('__length')
+        if self.__player.current:
+            length = self.__player.current.get_tag_raw('__length')
 
-            player.PLAYER.set_progress(position)
+            self.__player.set_progress(position)
             self.set_fraction(position)
 
             if length is not None:
@@ -700,10 +708,10 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         hit_markers.sort()
 
         if event.button == 1:
-            if player.PLAYER.current is None:
+            if self.__player.current is None:
                 return True
             
-            length = player.PLAYER.current.get_tag_raw('__length')
+            length = self.__player.current.get_tag_raw('__length')
 
             if length is None:
                 return True
@@ -734,7 +742,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
                 marker.props.state = gtk.STATE_PRELIGHT
 
         if event.button == 1 and self._seeking:
-            length = player.PLAYER.current.get_tag_raw('__length')
+            length = self.__player.current.get_tag_raw('__length')
 
             fraction = event.x / self.allocation.width
             fraction = max(0, fraction)
@@ -1208,10 +1216,11 @@ class VolumeControl(gtk.Alignment):
         control the volume indicating the current
         status via icon and tooltip
     """
-    def __init__(self):
+    def __init__(self, player):
+        self.__volume_setting = '%s/volume' % player._name
         gtk.Alignment.__init__(self, xalign=1)
 
-        self.restore_volume = settings.get_option('player/volume', 1)
+        self.restore_volume = settings.get_option(self.__volume_setting, 1)
         self.icon_names = ['low', 'medium', 'high']
 
         builder = gtk.Builder()
@@ -1229,7 +1238,7 @@ class VolumeControl(gtk.Alignment):
         self.slider_adjustment = builder.get_object('slider_adjustment')
         self.__update(self.restore_volume)
 
-        event.add_callback(self.on_option_set, 'player_option_set')
+        event.add_callback(self.on_option_set, '%s_option_set' % player._name)
 
     def __update(self, volume):
         """
@@ -1283,19 +1292,19 @@ class VolumeControl(gtk.Alignment):
             Mutes or unmutes the volume
         """
         if button.get_active():
-            self.restore_volume = settings.get_option('player/volume', 1)
+            self.restore_volume = settings.get_option(self.__volume_setting, 1)
             volume = 0
         else:
             volume = self.restore_volume
 
         if self.restore_volume > 0:
-            settings.set_option('player/volume', volume)
+            settings.set_option(self.__volume_setting, volume)
 
     def on_slider_value_changed(self, slider):
         """
             Stores the preferred volume
         """
-        settings.set_option('player/volume', slider.get_value())
+        settings.set_option(self.__volume_setting, slider.get_value())
 
     def on_slider_key_press_event(self, slider, event):
         """
@@ -1325,14 +1334,14 @@ class VolumeControl(gtk.Alignment):
         """
             Updates the volume indication
         """
-        if option == 'player/volume':
+        if option == self.__volume_setting:
             self.__update(settings.get_option(option, 1))
 
 
 
-def playpause():
-    if player.PLAYER.get_state() in ('playing', 'paused'):
-        player.PLAYER.toggle_pause()
+def playpause(player):
+    if player.get_state() in ('playing', 'paused'):
+        player.toggle_pause()
     else:
         from xlgui import main
         page = main.get_selected_playlist()
@@ -1344,42 +1353,33 @@ def playpause():
                 idx = page.view.get_selected_paths()[0][0]
             except IndexError:
                 idx = 0
-            player.QUEUE.set_current_playlist(pl)
+            player.queue.set_current_playlist(pl)
             pl.current_position = idx
-            player.QUEUE.play(track=pl.current)
+            player.queue.play(track=pl.current)
 
 
-def PlayPauseMenuItem(name, after):
+def PlayPauseMenuItem(name, player, after):
     def factory(menu, parent, context):
-        if player.PLAYER.is_playing():
+        if player.is_playing():
             stock_id = gtk.STOCK_MEDIA_PAUSE
         else:
             stock_id = gtk.STOCK_MEDIA_PLAY
 
         item = gtk.ImageMenuItem(stock_id)
-        item.connect('activate', lambda *args: playpause(), name, parent, context)
+        item.connect('activate', lambda *args: playpause( player ), name, parent, context)
 
         return item
     return menu.MenuItem(name, factory, after=after)
 
-def _next_cb(widget, name, parent, context):
-    player.QUEUE.next()
-
-def NextMenuItem(name, after):
+def NextMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_NEXT,
-        callback=_next_cb)
+        callback=lambda *args: player.queue.next() )
 
-def _prev_cb(widget, name, parent, context):
-    player.QUEUE.prev()
-
-def PrevMenuItem(name, after):
+def PrevMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_PREVIOUS,
-        callback=_prev_cb)
+        callback=lambda *args: player.queue.prev() )
 
-def _stop_cb(widget, name, parent, context):
-    player.PLAYER.stop()
-
-def StopMenuItem(name, after):
+def StopMenuItem(name, player, after):
     return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_STOP,
-        callback=_stop_cb)
+        callback=lambda *args: player.stop() )
 

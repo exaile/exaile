@@ -129,6 +129,10 @@ class ResumePreference(widgets.CheckPreference):
 class PausedPreference(widgets.CheckPreference):
     default = False
     name = 'player/resume_paused'
+    
+class EnqueueBeginsPlayback(widgets.CheckPreference):
+    default = True
+    name = 'queue/enqueue_begins_playback'
 
 class UnifiedConditional(widgets.Conditional):
     """

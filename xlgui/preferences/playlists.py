@@ -46,6 +46,10 @@ class AskSaveCustomPlaylistPreference(widgets.CheckPreference):
 class ReplaceContentPreference(widgets.CheckPreference):
     default = False
     name = 'playlist/replace_content'
+    
+class AppendStartsPlaybackPreference(widgets.CheckPreference):
+    default = False
+    name = 'playlist/append_menu_starts_playback'
 
 # FIXME: Is this still relevant?
 #class QueueSavePreferences(widgets.CheckPreference):

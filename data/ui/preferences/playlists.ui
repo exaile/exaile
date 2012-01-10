@@ -52,6 +52,21 @@
             <property name="position">2</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkCheckButton" id="playlist/append_menu_starts_playback">
+            <property name="label" translatable="yes">Appending/Replacing via menu item triggers playback</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">When using a menu item to add/replace tracks on the playlist, start playback if there is track currently playing. This option was the default behavior before Exaile 0.3.3</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>

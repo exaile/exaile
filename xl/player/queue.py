@@ -165,6 +165,20 @@ class PlayQueue(playlist.Playlist):
                 pass
         else:
             self.next()
+            
+    def __setitem__(self, i, value):
+        '''
+            Overrides the playlist.Playlist list API. 
+            
+            Allows us to ensure that when a track is added to an empty queue, 
+            we play it. Or not, depending on what the user wants.
+        '''
+        old_len = playlist.Playlist.__len__(self)
+        playlist.Playlist.__setitem__(self, i, value)
+        
+        if old_len == 0 and settings.get_option('queue/enqueue_begins_playback', True) \
+           and old_len < playlist.Playlist.__len__(self):
+            self.play()
 
     def _save_player_state(self, location):
         state = {}

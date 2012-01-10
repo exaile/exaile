@@ -94,7 +94,8 @@ class PlayQueue(playlist.Playlist):
         if not track:
             try:
                 track = self.pop(0)
-                self.current_position = 0
+                if self.current_position != -1:
+                    self.current_position = 0
             except IndexError:
                 if self.current_playlist:
                     track = self.current_playlist.next()

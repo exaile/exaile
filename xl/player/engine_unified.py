@@ -40,11 +40,11 @@ from xl.player import _base, pipe
 logger = logging.getLogger(__name__)
 
 class UnifiedPlayer(_base.ExailePlayer):
-    def __init__(self):
+    def __init__(self, name):
         self.caps = None
         self.adder = None
         self.audio_queue = None
-        _base.ExailePlayer.__init__(self)
+        _base.ExailePlayer.__init__(self, name)
         self._current_stream = 1
         self._timer_id = 0
         self.streams = [None, None]

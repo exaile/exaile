@@ -35,7 +35,7 @@ pygst.require('0.10')
 import gst
 
 from xl.nls import gettext as _
-from xl import common, event
+from xl import common, event, settings
 from xl.player import pipe, _base
 
 logger = logging.getLogger(__name__)
@@ -63,10 +63,13 @@ class NormalPlayer(_base.ExailePlayer):
         """
             called at the end of a stream
         """
-        self.queue.next()
+        if settings.get_option("%s/auto_advance" % self._name, True):
+            self.queue.next()
 
     def _on_about_to_finish(self, pbin):
-        tr = self.queue.next(autoplay=False)
+        tr = None
+        if settings.get_option("%s/auto_advance" % self._name, True):
+            tr = self.queue.next(autoplay=False)
         if tr:
             self.play(tr, stop_last=False)
         else:

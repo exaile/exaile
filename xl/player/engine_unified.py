@@ -92,7 +92,9 @@ class UnifiedPlayer(_base.ExailePlayer):
         #if stream.track != self.current:
         #    return
         if not settings.get_option("%s/crossfading" % self._name, False):
-            tr = self.queue.next(autoplay=False)
+            tr = None
+            if settings.get_option("%s/auto_advance" % self._name, True):
+                tr = self.queue.next(autoplay=False)
             self.unlink_stream(stream)
             if tr is None:
                 self.stop()
@@ -196,7 +198,9 @@ class UnifiedPlayer(_base.ExailePlayer):
         return 0.01 <= current <= 1
 
     def _start_crossfade(self, *args):
-        tr = self.queue.next(autoplay=False)
+        tr = None
+        if settings.get_option("%s/auto_advance" % self._name, True):
+            tr = self.queue.next(autoplay=False)
         if tr is not None:
             self.play(tr, user=False)
         if self._timer_id:

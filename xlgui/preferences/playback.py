@@ -133,6 +133,10 @@ class PausedPreference(widgets.CheckPreference):
 class EnqueueBeginsPlayback(widgets.CheckPreference):
     default = True
     name = 'queue/enqueue_begins_playback'
+    
+class AutoAdvancePlayer(widgets.CheckPreference):
+    default = True
+    name = 'player/auto_advance'
 
 class UnifiedConditional(widgets.Conditional):
     """

@@ -335,6 +335,8 @@ class ProgressTextFormatter(Formatter):
             :returns: The formatted text
             :rtype: string
         """
+        total_remaining_time = 0
+        
         if current_time is None:
             current_time = self._player.get_time()
 
@@ -351,9 +353,7 @@ class ProgressTextFormatter(Formatter):
 
         playlist = self._player.queue.current_playlist
 
-        if playlist.current_position < 0:
-            total_remaining_time = 0
-        else:
+        if playlist and playlist.current_position >= 0:        
             tracks = playlist[playlist.current_position:]
             total_remaining_time = sum([t.get_tag_raw('__length') \
                 for t in tracks if t.get_tag_raw('__length')])

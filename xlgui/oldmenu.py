@@ -170,6 +170,7 @@ class PlaylistsPanelMenu(guiutil.Menu):
     __gsignals__ = {
         'add-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'add-smart-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'import-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     def __init__(self, radio=False):
         """
@@ -188,12 +189,17 @@ class PlaylistsPanelMenu(guiutil.Menu):
                         gtk.STOCK_NEW)
             self.append(_('New Smart Playlist'), lambda *e: self.on_add_smart_playlist(),
                         gtk.STOCK_NEW)
+            self.append(_('Import Playlist'), lambda *e: self.on_import_playlist(),
+                        gtk.STOCK_OPEN)
 
     def on_add_playlist(self, selected = None):
         self.emit('add-playlist')
 
     def on_add_smart_playlist(self, selected = None):
         self.emit('add-smart-playlist')
+        
+    def on_import_playlist(self, selected = None):
+        self.emit('import-playlist')
 
     def popup(self, event):
         """
@@ -211,6 +217,7 @@ class PlaylistsPanelPlaylistMenu(RatedTrackSelectMenu, PlaylistsPanelMenu):
         # also inherits from TrackSelectMenu
         'add-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'add-smart-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'import-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'open-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'export-playlist': (gobject.SIGNAL_RUN_LAST, None, (str,)),
         'export-playlist-files': (gobject.SIGNAL_RUN_LAST, None, (str,)),

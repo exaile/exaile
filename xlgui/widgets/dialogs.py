@@ -40,6 +40,7 @@ from xl import (
 from xl.common import clamp
 from xl.playlist import (
     is_valid_playlist,
+    import_playlist,
     export_playlist,
     InvalidPlaylistTypeError
 )
@@ -719,6 +720,98 @@ class DirectoryOpenDialog(gtk.FileChooserDialog):
         if response == gtk.RESPONSE_OK:
             DirectoryOpenDialog._last_location = self.get_current_folder_uri()
             self.emit('uris-selected', self.get_uris())
+
+        #self.destroy()
+        
+class PlaylistImportDialog(gtk.FileChooserDialog):
+    """
+        A dialog for importing a playlist
+    """
+    __gsignals__ = {
+        'playlist-selected': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_BOOLEAN,
+            (gobject.TYPE_PYOBJECT,),
+            gobject.signal_accumulator_true_handled
+        )
+    }
+    _last_location = None
+
+    def __init__(self, parent=None):
+        """
+            :param parent: a parent window for modal operation or None
+            :type parent: :class:`gtk.Window`
+        """
+        gtk.FileChooserDialog.__init__(self,
+            title=_('Import Playlist'),
+            parent=parent,
+            buttons=(
+                gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+
+        self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        #self.set_local_only(False) # TODO: Properly support this
+        self.set_select_multiple(False)
+
+        playlist_filter = gtk.FileFilter()
+        playlist_filter.set_name(_('Playlist Files'))
+        all_filter = gtk.FileFilter()
+        all_filter.set_name(_('All Files'))
+        all_filter.add_pattern('*')
+
+        playlist_file_extensions = sum([p.file_extensions \
+            for p in providers.get('playlist-format-converter')], [])
+
+        for extension in playlist_file_extensions:
+            pattern = '*.%s' % extension
+            playlist_filter.add_pattern(pattern)
+
+        self.add_filter(playlist_filter)
+        self.add_filter(all_filter)
+
+        self.connect('response', self.on_response)
+
+    def run(self):
+        """
+            Override to take care of the response
+        """
+        if PlaylistImportDialog._last_location is not None:
+            self.set_current_folder_uri(PlaylistImportDialog._last_location)
+
+        response = gtk.FileChooserDialog.run(self)
+        self.emit('response', response)
+
+    def show(self):
+        """
+            Override to restore last location
+        """
+        if PlaylistImportDialog._last_location is not None:
+            self.set_current_folder_uri(PlaylistImportDialog._last_location)
+
+        gtk.FileChooserDialog.show(self)
+
+    def do_playlist_selected(self, uris):
+        """
+            Destroys the dialog
+        """
+        self.destroy()
+
+    def on_response(self, dialog, response):
+        """
+            Notifies about selected URIs
+        """
+        self.hide()
+
+        if response == gtk.RESPONSE_OK:
+            PlaylistImportDialog._last_location = self.get_current_folder_uri()
+            
+            try:
+                playlist = import_playlist( self.get_uri() )
+            except InvalidPlaylistTypeError, e:
+                error( 'Invalid playlist: %s' % e )
+                self.destroy()
+            else:
+                self.emit('playlist-selected', playlist)
 
         #self.destroy()
 

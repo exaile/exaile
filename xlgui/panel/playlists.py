@@ -256,6 +256,35 @@ class TrackWrapper(object):
 
         if not text: return self.track.get_loc_for_io()
         return text
+        
+def _query_for_unused_name(playlist_manager, name=None):
+    """
+        Returns a user-selected name that is not already used
+            in the specified playlist manager
+            
+        :param name: A default name to show to the user
+        Returns None if the user hits cancel
+    """
+    
+    while True:
+            
+        dialog = dialogs.TextEntryDialog(
+            _('Playlist name:'),
+            _('Add new playlist...'), name, okbutton=gtk.STOCK_ADD)
+            
+        result = dialog.run()
+        if result != gtk.RESPONSE_OK:
+            return None
+            
+        name = dialog.get_value()
+        
+        if name == '':
+            dialogs.error(None, _("You did not enter a name for your playlist"))
+        elif name in playlist_manager.playlists:
+            # name is already in use
+            dialogs.error(None, _("The playlist name you entered is already in use."))
+        else:
+            return name
 
 class BasePlaylistPanelMixin(gobject.GObject):
     """
@@ -371,11 +400,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
         do_add_playlist = False
         if name:
             if name in self.playlist_manager.playlists:
-                # name is already in use
-                dialogs.error(self.parent, _("The "
-                    "playlist name you entered is already in use."))
-            else:
-                do_add_playlist = True
+                name = _query_for_unused_name( self.playlist_manager, name )
         else:
             if tracks:
                 artists = []
@@ -446,23 +471,9 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 else:
                     name = ''
 
-            dialog = dialogs.TextEntryDialog(
-                    _("New custom playlist name:"),
-                    _("Add to New Playlist..."), name, okbutton=gtk.STOCK_ADD)
-            result = dialog.run()
-            if result == gtk.RESPONSE_OK:
-                name = dialog.get_value()
-                if name in self.playlist_manager.playlists:
-                    # name is already in use
-                    dialogs.error(self.parent, _("The "
-                        "playlist name you entered is already in use."))
-                    return
-                elif name == "":
-                    dialogs.error(self.parent, _("You did "
-                        "not enter a name for your playlist"))
-                else:
-                    do_add_playlist = True
-        if do_add_playlist:
+            name = _query_for_unused_name( self.playlist_manager, name )
+        
+        if name is not None:
             #Create the playlist from all of the tracks
             new_playlist = playlist.Playlist(name)
             new_playlist.extend(tracks)
@@ -598,6 +609,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 self.add_new_playlist())
             menu.connect('add-smart-playlist', lambda *e:
                 self.add_smart_playlist())
+            menu.connect('import-playlist', lambda *e:
+                self.import_playlist())
 
             if item != 'default':
                 menu.connect('append-items', lambda *e:
@@ -697,6 +710,18 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # Refresh the playlist subnodes.
                 self._load_playlist_nodes(pl)
 
+    def import_playlist(self):
+        """
+            Shows a dialog to ask the user to import a new playlist
+        """
+        
+        def _on_playlist_selected(dialog, playlist):
+            self.add_new_playlist( playlist, playlist.name )
+        
+        dialog = dialogs.PlaylistImportDialog()
+        dialog.connect('playlist-selected', _on_playlist_selected)
+        dialog.show()
+                
     def add_smart_playlist(self):
         """
             Adds a new smart playlist

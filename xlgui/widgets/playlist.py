@@ -654,9 +654,11 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             glib.idle_add(self.scroll_to_current)
 
     def scroll_to_current(self):
-        path = (self.playlist.current_position,)
-        self.scroll_to_cell(path)
-        self.set_cursor(path)
+        position = self.playlist.current_position
+        if position >= 0:
+            path = (position,)
+            self.scroll_to_cell(path)
+            self.set_cursor(path)
         
     def on_cursor_changed(self, widget):
         context = common.LazyDict(self)
@@ -926,7 +928,8 @@ class PlaylistModel(gtk.ListStore):
 
     def update_icon(self, position):
         iter = self.iter_nth_child(None, position)
-        self.set(iter, 1, self.icon_for_row(position))
+        if iter is not None:
+            self.set(iter, 1, self.icon_for_row(position))
 
     ### Event callbacks to keep the model in sync with the playlist ###
 

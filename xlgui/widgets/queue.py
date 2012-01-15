@@ -52,6 +52,7 @@ class QueuePage(NotebookPage):
     def __init__(self, player):
         NotebookPage.__init__(self)
         self.player = player
+        self.playlist = player.queue # a queue is a playlist object... 
         
         self.swindow = gtk.ScrolledWindow()
         self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)

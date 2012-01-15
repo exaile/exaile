@@ -471,7 +471,7 @@ class MainWindow(gobject.GObject):
         offset = len(pl.playlist)
         pl.playlist.extend(tracks)
 
-        if queue:
+        if queue and player.QUEUE != pl.playlist:
             player.QUEUE.extend(tracks)
 
         if not player.PLAYER.current:

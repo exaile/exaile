@@ -1189,7 +1189,7 @@ class PlaylistDragTreeView(guiutil.DragTreeView):
         playlist = self.get_selected_page()
 
         if playlist is not None:
-            return playlist.get_tracks()
+            return [track for track in playlist]
         else:
             return [self.get_selected_track()]
 

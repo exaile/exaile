@@ -172,7 +172,7 @@ class CollectionPanel(panel.Panel):
         The collection panel
     """
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
         'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
@@ -430,7 +430,7 @@ class CollectionPanel(panel.Panel):
         if replace:
             self.emit('replace-items', self.tree.get_selected_tracks())
         else:
-            self.emit('append-items', self.tree.get_selected_tracks())
+            self.emit('append-items', self.tree.get_selected_tracks(), True)
 
     def button_press(self, widget, event):
         """

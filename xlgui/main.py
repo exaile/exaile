@@ -296,8 +296,8 @@ class MainWindow(gobject.GObject):
             if panel_name in ('files', 'collection'):
                 sort = True
 
-            panel.connect('append-items', lambda panel, items, sort=sort:
-                self.on_append_items(items, sort=sort))
+            panel.connect('append-items', lambda panel, items, force_play, sort=sort:
+                self.on_append_items(items, force_play, sort=sort))
             panel.connect('queue-items', lambda panel, items, sort=sort:
                 self.on_append_items(items, queue=True, sort=sort))
             panel.connect('replace-items', lambda panel, items, sort=sort:
@@ -445,12 +445,16 @@ class MainWindow(gobject.GObject):
 
         self.get_selected_page().list.queue_draw()
 
-    def on_append_items(self, tracks, queue=False, sort=False, replace=False):
+    def on_append_items(self, tracks, force_play=False, queue=False, sort=False, replace=False):
         """
             Called when a panel (or other component)
             has tracks to append and possibly queue
 
             :param tracks: The tracks to append
+            :param force_play: Force playing the first track if there
+                                is no track currently playing. Otherwise
+                                check a setting to determine whether the
+                                track should be played
             :param queue: Additionally queue tracks
             :param sort: Sort before adding
             :param replace: Clear playlist before adding
@@ -471,10 +475,13 @@ class MainWindow(gobject.GObject):
         offset = len(pl.playlist)
         pl.playlist.extend(tracks)
 
-        if queue and player.QUEUE != pl.playlist:
-            player.QUEUE.extend(tracks)
+        # extending the queue automatically starts playback
+        if queue:
+            if player.QUEUE != pl.playlist:
+                player.QUEUE.extend(tracks)
 
-        if not player.PLAYER.current:
+        elif (force_play or settings.get_option( 'playlist/append_menu_starts_playback', False )) and \
+            not player.PLAYER.current:
             track = tracks[0]
             pl.playlist.current_position = offset
             player.QUEUE.set_current_playlist(pl.playlist)

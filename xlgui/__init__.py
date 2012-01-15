@@ -352,8 +352,8 @@ class Main(object):
             device, device.get_name())
 
         sort = True
-        panel.connect('append-items', lambda panel, items, sort=sort:
-            self.main.on_append_items(items, sort=sort))
+        panel.connect('append-items', lambda panel, items, play, sort=sort:
+            self.main.on_append_items(items, play, sort=sort))
         panel.connect('queue-items', lambda panel, items, sort=sort:
             self.main.on_append_items(items, queue=True, sort=sort))
         panel.connect('replace-items', lambda panel, items, sort=sort:

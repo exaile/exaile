@@ -28,6 +28,7 @@ import gtk
 import gobject
 
 import os
+import os.path
 import datetime
  
 from xl import (
@@ -131,12 +132,20 @@ class HistoryPlugin(object):
             providers.unregister( 'menubar-view-menu', self.menu )
             self.menu = None
             
-        try:
-            os.unlink( self.history_loc )
-        except:
-            pass
-            
         self.show_history(False)
+
+        if os.path.exists( self.history_loc ):
+        
+            dialog = gtk.MessageDialog( None, gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
+                                        _('Erase stored history?') )
+                
+            if dialog.run() == gtk.RESPONSE_YES:
+                try:
+                    os.unlink( self.history_loc )
+                except:
+                    pass
+                    
+            dialog.destroy()
         
     def is_shown(self):
         return main.get_playlist_notebook().page_num( self.history_page ) != -1

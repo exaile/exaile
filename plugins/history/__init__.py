@@ -223,31 +223,7 @@ class HistoryPlaylistPage( NotebookPage ):
     
         name = 'History %s' % datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         
-        # TODO: There really should be a simple public API that allows
-        # a plugin to do this... 
-        
-        playlists = xlgui.get_controller().panels['playlists']
-        saved = False
-        
-        while not saved:
-            dialog = dialogs.TextEntryDialog(
-                    _("Playlist name:"),
-                    _("Add to New Playlist..."), name, okbutton=gtk.STOCK_ADD)
-                    
-            result = dialog.run()
-            if result != gtk.RESPONSE_OK:
-                return
-            
-            name = dialog.get_value()
-            
-            if name in playlists.playlist_manager.playlists:
-                # name is already in use
-                dialogs.error(None, _("The playlist name you entered is already in use."))
-            elif name == "":
-                dialogs.error(None, _("You did not enter a name for your playlist"))
-            else:
-                saved = True
-        
+        playlists = xlgui.get_controller().panels['playlists']        
         playlists.add_new_playlist( self.playlist, name )
 
     

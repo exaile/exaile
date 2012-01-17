@@ -169,6 +169,7 @@ class Menu(gtk.Menu):
         self.context_func = context_func
         self.connect('show', lambda *e: self.regenerate_menu())
         self.connect('hide', lambda *e: self.clear_menu())
+        self.placeholder = gtk.MenuItem('')
 
     def get_context(self):
         """
@@ -207,8 +208,10 @@ class Menu(gtk.Menu):
             Removes all menu items and submenus to prevent
             references sticking around due to saved contexts
         """
+        self.append(self.placeholder)
         children = self.get_children()
         for c in children:
+            if c == self.placeholder: continue
             c.remove_submenu()
             self.remove(c)
 
@@ -233,6 +236,7 @@ class Menu(gtk.Menu):
         for item in self._items:
             self.append(item.factory(self, self._parent, context))
         self.show_all()
+        self.remove(self.placeholder)
 
     def popup(self, *args):
         """

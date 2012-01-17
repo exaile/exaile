@@ -236,7 +236,8 @@ class Menu(gtk.Menu):
         for item in self._items:
             self.append(item.factory(self, self._parent, context))
         self.show_all()
-        self.remove(self.placeholder)
+        if self.placeholder in self.get_children():
+            self.remove(self.placeholder)
 
     def popup(self, *args):
         """

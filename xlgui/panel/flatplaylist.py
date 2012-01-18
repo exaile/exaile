@@ -36,7 +36,7 @@ class FlatPlaylistPanel(panel.Panel):
         Flat playlist panel; represents a single playlist
     """
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
         'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
@@ -61,16 +61,16 @@ class FlatPlaylistPanel(panel.Panel):
             'on_import_button_clicked': self._on_import_button_clicked,
         })
         self.menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.tree.get_selected_tracks()))
+            self.emit('append-items', self.tree.get_selected_tracks(), False))
         self.menu.connect('replace-items', lambda *e:
             self.emit('replace-items', self.tree.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.tree.get_selected_tracks()))
         self.tree.connect('row-activated', lambda *e:
-            self.emit('append-items', self.tree.get_selected_tracks()))
+            self.emit('append-items', self.tree.get_selected_tracks(), True))
 
     def _on_add_button_clicked(self, *e):
-        self.emit('append-items', self.tracks)
+        self.emit('append-items', self.tracks, False)
 
     def _on_import_button_clicked(self, *e):
         tracks = self.tree.get_selected_tracks()

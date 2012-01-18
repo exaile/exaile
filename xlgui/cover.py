@@ -41,7 +41,6 @@ from xl import (
     common,
     event,
     metadata,
-    player,
     settings,
     xdg
 )
@@ -371,7 +370,7 @@ class CoverWidget(gtk.EventBox):
     __gsignals__ = {
         'cover-found': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
-    def __init__(self, image):
+    def __init__(self, image, player):
         """
             Initializes the widget
 
@@ -379,6 +378,7 @@ class CoverWidget(gtk.EventBox):
             :type image: :class:`gtk.Image`
         """
         gtk.EventBox.__init__(self)
+        self._player = player
         self.image = image
         self.cover_data = None
         self.menu = CoverMenu(self)
@@ -391,9 +391,9 @@ class CoverWidget(gtk.EventBox):
         self.image.show()
 
         event.add_callback(self.on_playback_start,
-                'playback_track_start', player.PLAYER)
+                'playback_track_start', self._player)
         event.add_callback(self.on_playback_end,
-                'playback_player_end', player.PLAYER)
+                'playback_player_end', self._player)
         event.add_callback(self.on_quit_application,
                 'quit_application')
 
@@ -409,9 +409,9 @@ class CoverWidget(gtk.EventBox):
             self.filename = None
 
         event.remove_callback(self.on_playback_start,
-                'playback_track_start', player.PLAYER)
+                'playback_track_start', self._player)
         event.remove_callback(self.on_playback_end,
-                'playback_player_end', player.PLAYER)
+                'playback_player_end', self._player)
         event.remove_callback(self.on_quit_application,
                 'quit-application')
 
@@ -426,15 +426,18 @@ class CoverWidget(gtk.EventBox):
 
         if pixbuf:
             window = CoverWindow(self.parent_window, pixbuf,
-                player.PLAYER.current.get_tag_display('title'))
+                self._player.current.get_tag_display('title'))
             window.show_all()
 
     def fetch_cover(self):
         """
             Fetches a cover for the current track
         """
-        if not player.PLAYER.current: return
-        window = CoverChooser(self.parent_window, player.PLAYER.current)
+        current_track = self._player.current
+        if not current_track: 
+            return
+            
+        window = CoverChooser(self.parent_window, current_track)
         window.connect('message', self.on_message)
         window.connect('cover-chosen', self.on_cover_chosen)
 
@@ -442,7 +445,7 @@ class CoverWidget(gtk.EventBox):
         """
             Removes the cover for the current track from the database
         """
-        cover_manager.remove_cover(player.PLAYER.current)
+        cover_manager.remove_cover(self._player.current)
         self.set_blank()
 
     def set_blank(self):
@@ -483,7 +486,7 @@ class CoverWidget(gtk.EventBox):
         """
             Called when someone clicks on the cover widget
         """
-        if player.PLAYER.current is None or self.parent_window is None:
+        if self._player.current is None or self.parent_window is None:
             return
 
         if event.type == gtk.gdk._2BUTTON_PRESS:
@@ -538,7 +541,7 @@ class CoverWidget(gtk.EventBox):
         """
             Sets the cover based on the dragged data
         """
-        if player.PLAYER.current is not None:
+        if self._player.current is not None:
             uri = selection.get_uris()[0]
             db_string = 'localfile:%s' % uri
 
@@ -554,7 +557,7 @@ class CoverWidget(gtk.EventBox):
 
             if pixbuf is not None:
                 self.image.set_from_pixbuf(pixbuf)
-                cover_manager.set_cover(player.PLAYER.current, db_string,
+                cover_manager.set_cover(self._player.current, db_string,
                     self.cover_data)
 
     def on_message(self, widget, message_type, message):

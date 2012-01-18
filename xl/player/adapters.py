@@ -24,33 +24,35 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-from xl import event, player
+from xl import event
 
 class PlaybackAdapter(object):
     """
         Basic class which listens for playback changes
     """
-    def __init__(self):
+    def __init__(self, player):
+    
+        self.__player = player
         self.__events = ('playback_track_start', 'playback_player_end',
                          'playback_toggle_pause', 'playback_error')
 
         for e in self.__events:
-            event.add_callback(getattr(self, 'on_%s' % e), e)
+            event.add_callback(getattr(self, 'on_%s' % e), e, player)
 
-        if player.PLAYER.current is not None:
+        if player.current is not None:
             self.on_playback_track_start('playback_track_start',
-                player.PLAYER, player.PLAYER.current)
+                player, player.current)
 
-            if player.PLAYER.is_paused():
+            if player.is_paused():
                 self.on_playback_toggle_pause('playback_toggle_pause',
-                    player.PLAYER, player.PLAYER.current)
+                    player, player.current)
 
     def destroy(self):
         """
             Cleanups
         """
         for e in self.__events:
-            event.remove_callback(getattr(self, 'on_%s' % e), e)
+            event.remove_callback(getattr(self, 'on_%s' % e), e, self.__player)
 
     def on_playback_track_start(self, event, player, track):
         """ Override """
@@ -72,9 +74,11 @@ class QueueAdapter(object):
     """
         Basic class which listens for queue changes
     """
-    def __init__(self):
+    def __init__(self, queue):
+        self.__queue = queue
+    
         event.add_callback(self.on_queue_current_playlist_changed,
-            'queue_current_playlist_changed')
+            'queue_current_playlist_changed', queue)
         event.add_callback(self.__on_playlist_current_position_changed,
             'playlist_current_position_changed')
         event.add_callback(self.__on_playlist_tracks_added,
@@ -87,7 +91,7 @@ class QueueAdapter(object):
             Cleanups
         """
         event.remove_callback(self.on_queue_current_playlist_changed,
-            'queue_current_playlist_changed')
+            'queue_current_playlist_changed', self.__queue)
         event.remove_callback(self.__on_playlist_current_position_changed,
             'playlist_current_position_changed')
         event.remove_callback(self.__on_playlist_tracks_added,
@@ -99,21 +103,21 @@ class QueueAdapter(object):
         """
             Forwards the event if emitted by the queue
         """
-        if playlist is player.QUEUE.current_playlist:
+        if playlist is self.__queue.current_playlist:
             self.on_queue_current_position_changed(event, playlist, positions)
 
     def __on_playlist_tracks_added(self, event, playlist, tracks):
         """
             Forwards the event if emitted by the queue
         """
-        if playlist is player.QUEUE.current_playlist:
+        if playlist is self.__queue.current_playlist:
             self.on_queue_tracks_added(event, playlist, tracks)
 
     def __on_playlist_tracks_removed(self, event, playlist, tracks):
         """
             Forwards the event if emitted by the queue
         """
-        if playlist is player.QUEUE.current_playlist:
+        if playlist is self.__queue.current_playlist:
             self.on_queue_tracks_removed(event, playlist, tracks)
 
     def on_queue_current_playlist_changed(self, event, queue, playlist):

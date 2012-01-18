@@ -202,8 +202,15 @@ class TrackDB(object):
                             if x.startswith("tracks-")):
                         p = pdata[k]
                         tr = Track(_unpickles=p[0])
-                        data[tr.get_loc_for_io()] = TrackHolder(tr,
-                                p[1], **p[2])
+                        loc = tr.get_loc_for_io()
+                        if loc not in data:
+                            data[loc] = TrackHolder(tr, p[1], **p[2])
+                        else:
+                            logger.warning("Duplicate track found: %s" % loc )
+                            # presumably the second track was written because of an error, 
+                            # so use the first track found. 
+                            del pdata[k]
+                            
                     setattr(self, attr, data)
                 else:
                     setattr(self, attr, pdata[attr])

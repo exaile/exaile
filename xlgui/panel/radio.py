@@ -58,7 +58,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     """
     __gsignals__ = {
         'playlist-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
         'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
@@ -164,7 +164,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         menu.connect('add-playlist', self._on_add_button_clicked)
 
         menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.tree.get_selected_tracks()))
+            self.emit('append-items', self.tree.get_selected_tracks(), False))
         menu.connect('replace-items', lambda *e:
             self.emit('replace-items', self.tree.get_selected_tracks()))
         menu.connect('queue-items', lambda *e:
@@ -401,7 +401,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 self._add_new_station(locs)
                 return
             (tracks, playlists) = self.tree.get_drag_data(locs)
-            current_playlist.add_tracks(tracks)
+            current_playlist.extend(tracks)
             # Do we save in the case when a user drags a file onto a playlist in the playlist panel?
             # note that the playlist does not have to be open for this to happen
             self.playlist_manager.save_playlist(current_playlist, overwrite=True)
@@ -438,7 +438,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 if not name == "":
                     #Create the playlist from all of the tracks
                     new_playlist = xl.playlist.Playlist(name)
-                    new_playlist.add_tracks(tracks)
+                    new_playlist.extend(tracks)
                     self.playlist_nodes[new_playlist] = self.model.append(self.custom,
                         [self.playlist_image,
                         new_playlist.name, new_playlist])

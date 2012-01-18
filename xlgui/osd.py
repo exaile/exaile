@@ -96,7 +96,7 @@ class OSDWindow(object):
             settings.get_option('osd/h', 95) - 8)
 
         if self.player:
-            self.progress_widget = PlaybackProgressBar()
+            self.progress_widget = PlaybackProgressBar(self.player)
 
         self.box.pack_start(self.cover_widget)
         # Try to set the window opacity.  To do that we need the RGBA colormap,

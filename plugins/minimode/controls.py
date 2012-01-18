@@ -343,7 +343,7 @@ class PlayPauseButtonControl(ButtonControl, PlaybackAdapter):
 
     def __init__(self):
         ButtonControl.__init__(self)
-        PlaybackAdapter.__init__(self)
+        PlaybackAdapter.__init__(self, player.PLAYER)
 
         self.update_state()
 
@@ -607,7 +607,7 @@ class RatingControl(RatingWidget, BaseControl):
     description = _('Select rating of the current track')
 
     def __init__(self):
-        RatingWidget.__init__(self)
+        RatingWidget.__init__(self, player=player.PLAYER)
         BaseControl.__init__(self)
 
     def do_rating_changed(self, rating):
@@ -628,7 +628,7 @@ class TrackSelectorControl(gtk.ComboBox, BaseControl, QueueAdapter):
     def __init__(self):
         gtk.ComboBox.__init__(self)
         BaseControl.__init__(self)
-        QueueAdapter.__init__(self)
+        QueueAdapter.__init__(self, player.QUEUE)
 
         self.formatter = TrackFormatter('')
         self.model = gtk.ListStore(object)
@@ -781,7 +781,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
     def __init__(self):
         gtk.ToggleButton.__init__(self)
         BaseControl.__init__(self)
-        QueueAdapter.__init__(self)
+        QueueAdapter.__init__(self, player.QUEUE)
 
         self.set_focus_on_click(False)
         self.set_size_request(200, -1)
@@ -797,7 +797,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
             settings.get_option('plugin/minimode/track_title_format',
                                 '$tracknumber - $title'))
 
-        self.view = PlaylistView(player.QUEUE.current_playlist)
+        self.view = PlaylistView(player.QUEUE.current_playlist, player.PLAYER)
         self.popup = AttachedWindow(self)
         self.popup.set_default_size(
             settings.get_option('plugin/minimode/'
@@ -818,7 +818,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
             self.on_accelerator_activate)
         self.popup.add_accel_group(accel_group)
 
-        self.tooltip = TrackToolTip(self)
+        self.tooltip = TrackToolTip(self, player.PLAYER)
         self.tooltip.set_auto_update(True)
 
         if player.PLAYER.current is not None:
@@ -858,7 +858,7 @@ class PlaylistButtonControl(gtk.ToggleButton, BaseControl, QueueAdapter):
             Updates the internally stored playlist
         """
         columns = self.view.get_model().columns
-        model = PlaylistModel(playlist, columns)
+        model = PlaylistModel(playlist, columns, player.PLAYER)
         self.view.set_model(model)
 
     def do_hierarchy_changed(self, previous_toplevel):
@@ -1045,7 +1045,7 @@ class ProgressButtonFormatter(Formatter):
 
         self.track_formatter = TrackFormatter('')
         self.progress_formatter = ProgressTextFormatter(
-            self.props.format)
+            self.props.format, player.PLAYER)
 
         event.add_callback(self.on_option_set,
             'plugin_minimode_option_set')
@@ -1106,7 +1106,7 @@ class ProgressButtonControl(PlaylistButtonControl):
         self.set_name('progressbutton')
         self.add_events(gtk.gdk.POINTER_MOTION_MASK)
 
-        self.progressbar = SeekProgressBar()
+        self.progressbar = SeekProgressBar(player.PLAYER)
         self.progressbar.set_size_request(-1, 1)
         self.progressbar.formatter = ProgressButtonFormatter()
         gtk_widget_replace(self.label, self.progressbar)
@@ -1119,7 +1119,7 @@ class ProgressButtonControl(PlaylistButtonControl):
                 player.PLAYER.current
             )
 
-        self.tooltip = TrackToolTip(self)
+        self.tooltip = TrackToolTip(self, player.PLAYER)
         self.tooltip.set_auto_update(True)
 
     def destroy(self):
@@ -1174,7 +1174,7 @@ class ProgressBarControl(gtk.Alignment, BaseControl):
         BaseControl.__init__(self)
 
         self.set_padding(3, 3, 0, 0)
-        self.progressbar = SeekProgressBar()
+        self.progressbar = SeekProgressBar(player.PLAYER)
         self.progressbar.set_size_request(200, -1)
         self.add(self.progressbar)
 

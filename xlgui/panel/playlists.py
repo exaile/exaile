@@ -93,25 +93,39 @@ CRITERIA = [
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
-        ('does not contain', EntryField)
+        ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Album', [
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Title', [
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Genre', [
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Rating', [
         ('greater than', SpinRating),
@@ -127,6 +141,8 @@ CRITERIA = [
         ('before', EntryField),
         ('after', EntryField),
         ('between', EntryAndEntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
     ('Length', [
         ('at least', SpinSecondsField),
@@ -146,6 +162,26 @@ CRITERIA = [
         ('is not', EntryField),
         ('contains', EntryField),
         ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
+    ]),
+    (_('BPM'), [
+        ('is', EntryField),
+        ('less than', SpinNothing),
+        ('greater than', SpinNothing),
+        ('between', EntryAndEntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
+    ]),
+    (_('Grouping'),[
+        ('is', EntryField),
+        ('is not', EntryField),
+        ('contains', EntryField),
+        ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
     ]),
 ]
 
@@ -160,10 +196,18 @@ _TRANS = {
     N_('is'): '==',
     # TRANSLATORS: True if haystack is not equal to needle
     N_('is not'): '!==',
+    # TRANSLATORS: True if the specified tag is present (uses the NullField to compare to __null__)
+    N_('is set'): '<!==>',
+    # TRANSLATORS: True if the specified tag is not present (uses the NullField to compare to __null__)
+    N_('is not set'): '<==>',
     # TRANSLATORS: True if haystack contains needle
     N_('contains'): '=',
     # TRANSLATORS: True if haystack does not contain needle
     N_('does not contain'): '!=',
+    # TRANSLATORS: True if haystack matches regular expression
+    N_('regex'): '~',
+    # TRANSLATORS: True if haystack does not match regular expression
+    N_('not regex'): '!~',
     # TRANSLATORS: Example: rating >= 5
     N_('at least'): '>=',
     # TRANSLATORS: Example: rating <= 3
@@ -194,6 +238,8 @@ _NMAP = {
     N_('Date added'): '__date_added',
     N_('Last played'): '__last_played',
     N_('Location'): '__loc',
+    N_('BPM'): 'bpm',
+    N_('Grouping'): 'grouping',
 }
 
 class TrackWrapper(object):
@@ -210,6 +256,35 @@ class TrackWrapper(object):
 
         if not text: return self.track.get_loc_for_io()
         return text
+        
+def _query_for_unused_name(playlist_manager, name=None):
+    """
+        Returns a user-selected name that is not already used
+            in the specified playlist manager
+            
+        :param name: A default name to show to the user
+        Returns None if the user hits cancel
+    """
+    
+    while True:
+            
+        dialog = dialogs.TextEntryDialog(
+            _('Playlist name:'),
+            _('Add new playlist...'), name, okbutton=gtk.STOCK_ADD)
+            
+        result = dialog.run()
+        if result != gtk.RESPONSE_OK:
+            return None
+            
+        name = dialog.get_value()
+        
+        if name == '':
+            dialogs.error(None, _("You did not enter a name for your playlist"))
+        elif name in playlist_manager.playlists:
+            # name is already in use
+            dialogs.error(None, _("The playlist name you entered is already in use."))
+        else:
+            return name
 
 class BasePlaylistPanelMixin(gobject.GObject):
     """
@@ -225,7 +300,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
     _gsignals_ = {
         'playlist-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'tracks-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
         'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
@@ -314,22 +389,18 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 else:
                     #Get an up to date copy
                     item = self.playlist_manager.get_playlist(item.name)
-                    item.set_is_custom(True)
+                    #item.set_is_custom(True)
 
 #                self.controller.main.add_playlist(item)
                 self.emit('playlist-selected', item)
             else:
-                self.emit('append-items', [item.track])
+                self.emit('append-items', [item.track], True)
 
     def add_new_playlist(self, tracks=[], name = None):
         do_add_playlist = False
         if name:
             if name in self.playlist_manager.playlists:
-                # name is already in use
-                dialogs.error(self.parent, _("The "
-                    "playlist name you entered is already in use."))
-            else:
-                do_add_playlist = True
+                name = _query_for_unused_name( self.playlist_manager, name )
         else:
             if tracks:
                 artists = []
@@ -400,23 +471,9 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 else:
                     name = ''
 
-            dialog = dialogs.TextEntryDialog(
-                    _("New custom playlist name:"),
-                    _("Add to New Playlist..."), name, okbutton=gtk.STOCK_ADD)
-            result = dialog.run()
-            if result == gtk.RESPONSE_OK:
-                name = dialog.get_value()
-                if name in self.playlist_manager.playlists:
-                    # name is already in use
-                    dialogs.error(self.parent, _("The "
-                        "playlist name you entered is already in use."))
-                    return
-                elif name == "":
-                    dialogs.error(self.parent, _("You did "
-                        "not enter a name for your playlist"))
-                else:
-                    do_add_playlist = True
-        if do_add_playlist:
+            name = _query_for_unused_name( self.playlist_manager, name )
+        
+        if name is not None:
             #Create the playlist from all of the tracks
             new_playlist = playlist.Playlist(name)
             new_playlist.extend(tracks)
@@ -552,10 +609,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 self.add_new_playlist())
             menu.connect('add-smart-playlist', lambda *e:
                 self.add_smart_playlist())
+            menu.connect('import-playlist', lambda *e:
+                self.import_playlist())
 
             if item != 'default':
                 menu.connect('append-items', lambda *e:
-                    self.emit('append-items', self.tree.get_selected_tracks()))
+                    self.emit('append-items', self.tree.get_selected_tracks(), False))
                 menu.connect('replace-items', lambda *e:
                     self.emit('replace-items', self.tree.get_selected_tracks()))
                 menu.connect('queue-items', lambda *e:
@@ -566,6 +625,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     self.open_selected_playlist())
                 menu.connect('export-playlist', lambda widget, path:
                     self.export_selected_playlist(path))
+                menu.connect('export-playlist-files', lambda widget, path:
+                    self.export_selected_playlist_files(path))
                 menu.connect('rename-playlist', lambda widget, name:
                     self.rename_selected_playlist(name))
                 menu.connect('remove-playlist', lambda *e:
@@ -649,6 +710,18 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 # Refresh the playlist subnodes.
                 self._load_playlist_nodes(pl)
 
+    def import_playlist(self):
+        """
+            Shows a dialog to ask the user to import a new playlist
+        """
+        
+        def _on_playlist_selected(dialog, playlist):
+            self.add_new_playlist( playlist, playlist.name )
+        
+        dialog = dialogs.PlaylistImportDialog()
+        dialog.connect('playlist-selected', _on_playlist_selected)
+        dialog.show()
+                
     def add_smart_playlist(self):
         """
             Adds a new smart playlist
@@ -657,6 +730,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             CRITERIA)
 
         dialog.set_transient_for(self.parent)
+        
+        # run the dialog until there is no error
+        while self._run_add_smart_playlist(dialog) == False:
+            pass
+        
+    def _run_add_smart_playlist(self, dialog):
+        '''internal helper function'''
+        
         result = dialog.run()
         dialog.hide()
         if result == gtk.RESPONSE_ACCEPT:
@@ -669,13 +750,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if not name:
                 dialogs.error(self.parent, _("You did "
                     "not enter a name for your playlist"))
-                return
+                return False
 
             try:
                 pl = self.smart_manager.get_playlist(name)
                 dialogs.error(self.parent, _("The "
                     "playlist name you entered is already in use."))
-                return
+                return False
             except ValueError:
                 pass # playlist didn't exist
 
@@ -691,6 +772,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
             self.smart_manager.save_playlist(pl)
             self.model.append(self.smart, [self.playlist_image, name, pl])
+            
+        return True
 
     def edit_selected_smart_playlist(self):
         """
@@ -728,7 +811,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         dialog.set_random(pl.get_random_sort())
 
         dialog.set_state(state)
+        
+        # run the dialog until there is no error
+        while self._run_edit_selected_smart_playlist(dialog) == False:
+            pass
 
+    def _run_edit_selected_smart_playlist(self, dialog):
+        '''internal helper function'''
+    
         result = dialog.run()
         dialog.hide()
 
@@ -742,14 +832,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if not name:
                 dialogs.error(self.parent, _("You did "
                     "not enter a name for your playlist"))
-                return
+                return False
 
             if not name == pl.name:
                 try:
                     pl = self.smart_manager.get_playlist(name)
                     dialogs.error(self.parent, _("The "
                         "playlist name you entered is already in use."))
-                    return
+                    return False
                 except ValueError:
                     pass # playlist didn't exist
 
@@ -770,6 +860,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             (model, iter) = selection.get_selected()
             model.set_value(iter, 1, name)
             model.set_value(iter, 2, pl)
+            
+        return True
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -861,7 +953,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # Add the tracks we found to the internal playlist
             # TODO: have it pass in existing tracks?
             (tracks, playlists) = self.tree.get_drag_data(locs)
-            current_playlist.add_tracks(tracks, insert_index, False)
+            
+            if insert_index is not None:
+                current_playlist[insert_index:insert_index] = tracks
+            else:
+                current_playlist.extend( tracks )
 
             self._load_playlist_nodes(current_playlist)
 
@@ -1003,6 +1099,19 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     playlist.export_playlist(pl, path)
                 except playlist.InvalidPlaylistTypeError, e:
                     dialogs.error(None, str(e))
+                    
+    def export_selected_playlist_files(self, uri):
+        '''
+            Exports the selected playlist files to URI
+            
+            @uri where we want it to be saved
+        '''
+        pl = self.tree.get_selected_page()
+        if pl is not None:
+            pl_files = [track.get_loc_for_io() for track in pl]
+            dialog = dialogs.FileCopyDialog( pl_files, uri, _('Exporting %s') % pl.name )
+            dialog.do_copy()
+            
 
     def on_key_released(self, widget, event):
         """
@@ -1105,7 +1214,7 @@ class PlaylistDragTreeView(guiutil.DragTreeView):
         playlist = self.get_selected_page()
 
         if playlist is not None:
-            return playlist.get_tracks()
+            return [track for track in playlist]
         else:
             return [self.get_selected_track()]
 

@@ -43,11 +43,11 @@ class MainBin(gst.Bin):
         The main bin - handles processing and output of audio after it
         is decoded by the engine.
     """
-    def __init__(self, pre_elems=[]):
+    def __init__(self, player, pre_elems=[]):
         gst.Bin.__init__(self)
         self._elements = pre_elems[:]
 
-        self.pp = Postprocessing()
+        self.pp = Postprocessing(player)
         self._elements.append(self.pp)
 
         self.tee = gst.element_factory_make("tee")
@@ -56,12 +56,12 @@ class MainBin(gst.Bin):
         #self.queue = gst.element_factory_make("queue")
         #self._elements.append(self.queue)
 
-        sinkname = settings.get_option("player/audiosink", "auto")
-        self.audio_sink = sink_from_preset(sinkname)
+        sinkname = settings.get_option("%s/audiosink" % player._name, "auto")
+        self.audio_sink = sink_from_preset(player, sinkname)
         if not self.audio_sink:
-            logger.warning("Could not enable %s sink, "
-                    "attempting to autoselect." % sinkname)
-            self.audio_sink = sink_from_preset("auto")
+            logger.warning("Could not enable %s sink for %s, "
+                    "attempting to autoselect." % (sinkname, player._name) )
+            self.audio_sink = sink_from_preset(player, "auto")
         self._elements.append(self.audio_sink)
 
         self.add(*self._elements)
@@ -71,7 +71,7 @@ class MainBin(gst.Bin):
         self.add_pad(gst.GhostPad('sink', self.sinkpad))
 
         self.sinkqueue = gst.element_factory_make("queue")
-        self.sinkhandler = SinkHandler('playback_audio_sink')
+        self.sinkhandler = SinkHandler(player, 'playback_audio_sink')
         self.add(self.sinkhandler)
         self.add(self.sinkqueue)
         gst.element_link_many(self.tee, self.sinkqueue, self.sinkhandler)
@@ -86,7 +86,7 @@ class MainBin(gst.Bin):
 
 
 class SinkHandler(gst.Bin, ProviderHandler):
-    def __init__(self, servicename):
+    def __init__(self, player, servicename):
         gst.Bin.__init__(self, name=servicename)
         ProviderHandler.__init__(self, servicename)
         self.tee = gst.element_factory_make("tee", "sinkhandler-tee")
@@ -103,7 +103,7 @@ class SinkHandler(gst.Bin, ProviderHandler):
         self.sinks = {}
         self.added_sinks = []
 
-        event.add_callback(self.on_reconfigure_bins, 'playback_reconfigure_bins')
+        event.add_callback(self.on_reconfigure_bins, 'playback_reconfigure_bins', player)
 
     def reset_providers(self):
         self.sinks = {}
@@ -183,11 +183,12 @@ class ElementBin(gst.Bin):
         changes made to elements do not apply until setup_elements()
         is called
     """
-    def __init__(self, name=None):
+    def __init__(self, player, name=None):
         if name:
             gst.Bin.__init__(self, name)
         else:
             gst.Bin.__init__(self)
+        self.player = player
         self.elements = {}
         self.added_elems = []
         self.srcpad = None
@@ -195,7 +196,7 @@ class ElementBin(gst.Bin):
         self.src = None
         self.sink = None
 
-        event.add_callback(self.on_reconfigure_bins, 'playback_reconfigure_bins')
+        event.add_callback(self.on_reconfigure_bins, 'playback_reconfigure_bins', self.player)
 
     def on_reconfigure_bins(self, *args):
         self.setup_elements()
@@ -270,11 +271,11 @@ class ProviderBin(ElementBin, ProviderHandler):
                     choose a unique number.
     """
     # TODO: allow duplicate #s
-    def __init__(self, servicename, name=None):
+    def __init__(self, player, servicename, name=None):
         """
             :param servicename: the Provider name to listen for
         """
-        ElementBin.__init__(self, name=name)
+        ElementBin.__init__(self, player, name=name)
         ProviderHandler.__init__(self, servicename)
 
         self.reset_providers()
@@ -284,7 +285,7 @@ class ProviderBin(ElementBin, ProviderHandler):
         self.elements = {}
         for provider in self.get_providers():
             try:
-                self.elements[provider.index] = provider()
+                self.elements[provider.index] = provider(self.player)
             except:
                 logger.warning("Could not create %s element for %s." % \
                         (provider, self.get_name()) )
@@ -299,72 +300,70 @@ class ProviderBin(ElementBin, ProviderHandler):
 
 
 class Postprocessing(ProviderBin):
-    def __init__(self):
-        ProviderBin.__init__(self, 'postprocessing_element',
+    def __init__(self, player):
+        ProviderBin.__init__(self, player, 'postprocessing_element',
                 name="Postprocessing")
 
 SINK_PRESETS = {
         "auto"  : {
             "name"      : _("Automatic"),
-            "pipe"      : "autoaudiosink",
-            "can_enumerate_devices": False
+            "pipe"      : "autoaudiosink"
             },
         "gconf" : {
             "name"      : "GNOME",
             "pipe"      : "gconfaudiosink",
-            "pipeargs"  : "profile=music",
-            "can_enumerate_devices": False
+            "pipeargs"  : "profile=music"
         },
         "alsa"  : {
             "name"      : "ALSA",
-            "pipe"      : "alsasink",
-            "can_enumerate_devices": True
+            "pipe"      : "alsasink"
         },
         "oss"   : {
             "name"      : "OSS",
-            "pipe"      : "osssink",
-            "can_enumerate_devices": False
+            "pipe"      : "osssink"
         },
         "pulse" : {
             "name"      : "PulseAudio",
-            "pipe"      : "pulsesink",
-            "can_enumerate_devices": True
+            "pipe"      : "pulsesink"
         },
         "jack" : {
             "name"      : "JACK",
-            "pipe"      : "jackaudiosink",
-            "can_enumerate_devices": False
+            "pipe"      : "jackaudiosink"
+        },
+        "directsound" : {
+            "name"      : "DirectSound",
+            "pipe"      : "directsoundsink"
         }
 }
 
-def sink_from_preset(preset):
+def sink_from_preset(player, preset):
     if preset == "custom":
-        pipe = settings.get_option("player/custom_sink_pipe", "")
+        pipe = settings.get_option("%s/custom_sink_pipe" % player._name, "")
         if not pipe:
-            logger.error("No custom sink pipe set.")
+            logger.error("No custom sink pipe set for %s" % player._name)
             return None
         name = _("Custom")
     else:
         d = SINK_PRESETS.get(preset, "")
         if not d:
-            logger.error("Could not find sink preset %s." % preset)
+            logger.error("Could not find sink preset %s for %s." % (preset, player._name))
             return None
 
         name = d['name']
         pipe = d['pipe']
         if preset != 'auto':
-            dname = settings.get_option('player/audiosink_device')
+            dname = settings.get_option('%s/audiosink_device' % player._name)
             if dname:
                 pipe += ' device=' + dname
         if 'pipeargs' in d:
             pipe += ' ' + d['pipeargs']
 
     try:
-        sink = AudioSink(name, pipe)
+        sink = AudioSink(name, pipe, player)
         return sink
     except:
         common.log_exception(log=logger,
-                message="Could not enable audiosink %s."%preset)
+                message="Could not enable audiosink %s for %s." % (preset, player._name))
         return None
         
 def sink_enumerate_devices(preset):
@@ -375,8 +374,6 @@ def sink_enumerate_devices(preset):
     '''
 
     p = SINK_PRESETS[preset]
-    if not p.get('can_enumerate_devices'):
-        return None
 
     # create a temporary sink, probe it
     try:
@@ -384,7 +381,16 @@ def sink_enumerate_devices(preset):
     except Exception:
         # If we can't create an instance of the sink, probably doesn't exist... 
         return None
+        
+    # does it support the property probe interface?
+    if not hasattr(tmpsink, 'probe_get_properties'):
+        return None
 
+    # check to see if we can probe for a device
+    if 'device' not in [prop.name for prop in tmpsink.probe_get_properties()]:
+        return None
+
+    # do the probe
     tmpsink.probe_property_name('device')
     devices = tmpsink.probe_get_values_name('device')
 
@@ -405,11 +411,11 @@ def sink_enumerate_devices(preset):
 
 
 class AudioSink(gst.Bin):
-    def __init__(self, name, pipeline):
+    def __init__(self, name, pipeline, player):
         gst.Bin.__init__(self)
         self.name = name
         self.sink = elems = [gst.parse_launch(elem) for elem in pipeline.split('!')]
-        self.provided = ProviderBin('sink_element')
+        self.provided = ProviderBin(player, 'sink_element')
         self.vol = gst.element_factory_make("volume")
         elems = [self.provided, self.vol] + elems
         self.add(*elems)

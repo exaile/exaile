@@ -187,10 +187,10 @@ EXAILE_NOTIFYOSD = ExaileNotifyOsd()
 
 def enable(exaile):
     EXAILE_NOTIFYOSD.exaile = exaile
-    event.add_callback(EXAILE_NOTIFYOSD.on_play, 'playback_player_start')
-    event.add_callback(EXAILE_NOTIFYOSD.on_pause, 'playback_player_pause')
-    event.add_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end')
-    event.add_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume')
+    event.add_callback(EXAILE_NOTIFYOSD.on_play, 'playback_player_start', player.PLAYER)
+    event.add_callback(EXAILE_NOTIFYOSD.on_pause, 'playback_player_pause', player.PLAYER)
+    event.add_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end', player.PLAYER)
+    event.add_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume', player.PLAYER)
     event.add_callback(EXAILE_NOTIFYOSD.on_quit, 'quit_application')
     event.add_callback(EXAILE_NOTIFYOSD.on_changed, 'track_tags_changed')
     if hasattr(exaile, 'gui'):
@@ -200,10 +200,10 @@ def enable(exaile):
         EXAILE_NOTIFYOSD.gui_callback = True
 
 def disable(exaile):
-    event.remove_callback(EXAILE_NOTIFYOSD.on_play, 'playback_player_start')
-    event.remove_callback(EXAILE_NOTIFYOSD.on_pause, 'playback_player_pause')
-    event.remove_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end')
-    event.remove_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume')
+    event.remove_callback(EXAILE_NOTIFYOSD.on_play, 'playback_player_start', player.PLAYER)
+    event.remove_callback(EXAILE_NOTIFYOSD.on_pause, 'playback_player_pause', player.PLAYER)
+    event.remove_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end', player.PLAYER)
+    event.remove_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume', player.PLAYER)
     event.remove_callback(EXAILE_NOTIFYOSD.on_quit, 'quit_application')
     event.remove_callback(EXAILE_NOTIFYOSD.on_changed, 'track_tags_changed')
     if EXAILE_NOTIFYOSD.exaile.gui.tray_icon:

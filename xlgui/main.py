@@ -168,16 +168,16 @@ class MainWindow(gobject.GObject):
         )
         self.message.connect('response', self.on_messagebar_response)
 
-        self.info_area = info.TrackInfoPane()
+        self.info_area = info.TrackInfoPane(player.PLAYER)
         self.info_area.set_auto_update(True)
         self.info_area.set_padding(3, 3, 3, 3)
         self.info_area.hide_all()
         self.info_area.set_no_show_all(True)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
 
-        self.cover = cover.CoverWidget(self.info_area.cover_image)
+        self.cover = cover.CoverWidget(self.info_area.cover_image, player.PLAYER)
 
-        self.volume_control = playback.VolumeControl()
+        self.volume_control = playback.VolumeControl(player.PLAYER)
         self.info_area.get_action_area().pack_start(self.volume_control)
 
         if settings.get_option('gui/use_alpha', False):
@@ -192,7 +192,7 @@ class MainWindow(gobject.GObject):
                 self.window.connect('screen-changed', self.on_screen_changed)
 
         playlist_area = self.builder.get_object('playlist_area')
-        self.playlist_notebook = PlaylistNotebook('saved_tabs')
+        self.playlist_notebook = PlaylistNotebook('saved_tabs', player.PLAYER)
         self.playlist_notebook.connect_after('switch-page',
             self.on_playlist_notebook_switch_page)
         playlist_area.pack_start(self.playlist_notebook, padding=3)
@@ -203,7 +203,7 @@ class MainWindow(gobject.GObject):
 
         self.splitter = self.builder.get_object('splitter')
 
-        self.progress_bar = playback.SeekProgressBar()
+        self.progress_bar = playback.SeekProgressBar(player.PLAYER)
         guiutil.gtk_widget_replace(
             self.builder.get_object('playback_progressbar'),
             self.progress_bar
@@ -296,8 +296,8 @@ class MainWindow(gobject.GObject):
             if panel_name in ('files', 'collection'):
                 sort = True
 
-            panel.connect('append-items', lambda panel, items, sort=sort:
-                self.on_append_items(items, sort=sort))
+            panel.connect('append-items', lambda panel, items, force_play, sort=sort:
+                self.on_append_items(items, force_play, sort=sort))
             panel.connect('queue-items', lambda panel, items, sort=sort:
                 self.on_append_items(items, queue=True, sort=sort))
             panel.connect('replace-items', lambda panel, items, sort=sort:
@@ -445,12 +445,16 @@ class MainWindow(gobject.GObject):
 
         self.get_selected_page().list.queue_draw()
 
-    def on_append_items(self, tracks, queue=False, sort=False, replace=False):
+    def on_append_items(self, tracks, force_play=False, queue=False, sort=False, replace=False):
         """
             Called when a panel (or other component)
             has tracks to append and possibly queue
 
             :param tracks: The tracks to append
+            :param force_play: Force playing the first track if there
+                                is no track currently playing. Otherwise
+                                check a setting to determine whether the
+                                track should be played
             :param queue: Additionally queue tracks
             :param sort: Sort before adding
             :param replace: Clear playlist before adding
@@ -471,10 +475,13 @@ class MainWindow(gobject.GObject):
         offset = len(pl.playlist)
         pl.playlist.extend(tracks)
 
+        # extending the queue automatically starts playback
         if queue:
-            player.QUEUE.extend(tracks)
+            if player.QUEUE != pl.playlist:
+                player.QUEUE.extend(tracks)
 
-        if not player.PLAYER.current:
+        elif (force_play or settings.get_option( 'playlist/append_menu_starts_playback', False )) and \
+            not player.PLAYER.current:
             track = tracks[0]
             pl.playlist.current_position = offset
             player.QUEUE.set_current_playlist(pl.playlist)

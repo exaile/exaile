@@ -699,7 +699,7 @@ class Playlist(object):
         self.__tracks = MetadataList()
         for track in initial_tracks:
             if not isinstance(track, trax.Track):
-                raise ValueError, "Need trax.Track object, got %s" % repr(type(x))
+                raise ValueError, "Need trax.Track object, got %s" % repr(type(track))
             self.__tracks.append(track)
         self.__shuffle_mode = self.shuffle_modes[0]
         self.__repeat_mode = self.repeat_modes[0]
@@ -1250,7 +1250,7 @@ class Playlist(object):
         if isinstance(i, slice):
             for x in value:
                 if not isinstance(x, trax.Track):
-                    raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
+                    raise ValueError, "Need trax.Track object, got %s" % repr(type(x))
 
             (start, end, step) = self.__tuple_from_slice(i)
 
@@ -1271,7 +1271,7 @@ class Playlist(object):
             added = MetadataList(zip(range(start, end, step), value), metadata)
         else:
             if not isinstance(value, trax.Track):
-                raise ValueError, "Need trax.Track object, got %s"%repr(type(x))
+                raise ValueError, "Need trax.Track object, got %s" % repr(type(value))
             self.__tracks[i] = value
             removed = [(i, oldtracks)]
             added = [(i, value)]
@@ -1356,8 +1356,8 @@ class Playlist(object):
         return item
 
     def on_playback_track_start(self, event_type, player, track):
-        from xl import player
-        if player.QUEUE.current_playlist == self:
+        
+        if player.queue and player.queue.current_playlist == self:
             if self.dynamic_mode != 'disabled':
                 self.__fetch_dynamic_tracks()
 
@@ -1582,7 +1582,7 @@ class SmartPlaylist(object):
                         'value': value,
                         'op':    op[0]
                     }
-            elif op == "!=" or op == "!==":
+            elif op == "!=" or op == "!==" or op == "!~":
                 s += '! %(field)s%(op)s"%(value)s"' % \
                     {
                         'field': field,
@@ -1596,6 +1596,16 @@ class SmartPlaylist(object):
                         'field':  field,
                         'value1': value[0],
                         'value2': value[1]
+                    }
+            elif op == '<!==>':     # NOT NULL
+                s += '! %(field)s=="__null__"' % \
+                    {
+                        'field': field
+                    }
+            elif op == '<==>':      # IS NULL
+                s += '%(field)s=="__null__"' % \
+                    {
+                        'field': field
                     }
             else:
                 s += '%(field)s%(op)s"%(value)s"' % \

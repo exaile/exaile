@@ -59,8 +59,8 @@ class ReplaygainVolume(ElementBin):
     """
     index = 20
     name = "rgvolume"
-    def __init__(self):
-        ElementBin.__init__(self, name=self.name)
+    def __init__(self, player):
+        ElementBin.__init__(self, player, name=self.name)
         self.audioconvert = gst.element_factory_make("audioconvert")
         self.elements[40] = self.audioconvert
         self.rgvol = gst.element_factory_make("rgvolume")
@@ -95,8 +95,8 @@ class ReplaygainLimiter(ElementBin):
     """
     index = 80
     name = "rglimiter"
-    def __init__(self):
-        ElementBin.__init__(self, name=self.name)
+    def __init__(self, player):
+        ElementBin.__init__(self, player, name=self.name)
         self.rglimit = gst.element_factory_make("rglimiter")
         self.elements[50] = self.rglimit
         self.audioconvert = gst.element_factory_make("audioconvert")

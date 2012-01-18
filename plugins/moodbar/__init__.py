@@ -547,14 +547,14 @@ def _enable(eventname, exaile, nothing):
     global ExaileModbar
     ExaileModbar.readMod('')
     ExaileModbar.setupUi()
-    event.add_callback(ExaileModbar.play_start, 'playback_track_start')
-    event.add_callback(ExaileModbar.play_end, 'playback_player_end')
+    event.add_callback(ExaileModbar.play_start, 'playback_track_start', player.PLAYER)
+    event.add_callback(ExaileModbar.play_end, 'playback_player_end', player.PLAYER)
 
 def disable(exaile):
     global ExaileModbar
     ExaileModbar.changeModToBar()
-    event.remove_callback(ExaileModbar.play_start, 'playback_track_start')
-    event.remove_callback(ExaileModbar.play_end, 'playback_player_end')
+    event.remove_callback(ExaileModbar.play_start, 'playback_track_start', player.PLAYER)
+    event.remove_callback(ExaileModbar.play_end, 'playback_player_end', player.PLAYER)
     ExaileModbar.destroy()
     ExaileModbar = None
 

@@ -33,7 +33,7 @@
 
 import gio, glib, gtk
 
-from xl import common, player, trax
+from xl import common, player, settings, trax
 from xl.nls import gettext as _
 from xlgui.widgets import rating, menu
 from xlgui import properties
@@ -57,7 +57,7 @@ class RatingMenuItem(menu.MenuItem):
         self.rating_set = False
 
     def factory(self, menu, parent, context):
-        item = rating.RatingMenuItem(auto_update=False)
+        item = rating.RatingMenuItem()
         item.connect('show', self.on_show, menu, parent, context)
         self._rating_changed_id = item.connect('rating-changed',
             self.on_rating_changed, menu, parent, context)
@@ -88,8 +88,6 @@ class RatingMenuItem(menu.MenuItem):
 def _enqueue_cb(widget, name, parent, context, get_tracks_func):
     tracks = get_tracks_func(parent, context)
     player.QUEUE.extend(tracks)
-    if not player.PLAYER.current:
-        player.QUEUE.play()
 
 def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(name, after, _("Enqueue"), gtk.STOCK_ADD,
@@ -109,10 +107,11 @@ def _append_cb(widget, name, parent, context, get_tracks_func, replace=False):
     sort_by, reverse = page.view.get_sort_by()
     tracks = trax.sort_tracks(sort_by, tracks, reverse=reverse)
     pl.extend(tracks)
-    if not player.PLAYER.current:
-        pl.current_position = offset
-        player.QUEUE.set_current_playlist(pl)
-        player.QUEUE.play(track=pl.current)
+    if settings.get_option( 'playlist/append_menu_starts_playback', False ):
+        if not player.PLAYER.current:
+            pl.current_position = offset
+            player.QUEUE.set_current_playlist(pl)
+            player.QUEUE.play(track=pl.current)
 
 def ReplaceCurrentMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(name, after, _("Replace Current"), None,

@@ -18,7 +18,7 @@
 
 import dbus
 from gettext import gettext as _
-from xl import event
+from xl import event, player
 import sys
 
 ##############################################################################
@@ -101,12 +101,12 @@ def enable(exaile):
     purple = dbus.Interface(obj, "im.pidgin.purple.PurpleInterface")
     client = Pidgin(purple)
     event.add_callback(on_stop_action, 'quit_application')
-    event.add_callback(on_stop_action, 'playback_player_end')
-    event.add_callback(on_begin_action, 'playback_track_start')
-    event.add_callback(on_pause_action, 'playback_toggle_pause')
+    event.add_callback(on_stop_action, 'playback_player_end', player.PLAYER)
+    event.add_callback(on_begin_action, 'playback_track_start', player.PLAYER)
+    event.add_callback(on_pause_action, 'playback_toggle_pause', player.PLAYER)
 
 def disable(exaile):
     event.remove_callback(on_stop_action, 'quit_application')
-    event.remove_callback(on_stop_action, 'playback_player_end')
-    event.remove_callback(on_begin_action, 'playback_track_start')
-    event.remove_callback(on_pause_action, 'playback_toggle_pause')
+    event.remove_callback(on_stop_action, 'playback_player_end', player.PLAYER)
+    event.remove_callback(on_begin_action, 'playback_track_start', player.PLAYER)
+    event.remove_callback(on_pause_action, 'playback_toggle_pause', player.PLAYER)

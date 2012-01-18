@@ -45,13 +45,13 @@ def __create_tray_context_menu():
     sep = menu.simple_separator
     items = []
     # Play/Pause
-    items.append(playback.PlayPauseMenuItem('playback-playpause', after=[]))
+    items.append(playback.PlayPauseMenuItem('playback-playpause', player.PLAYER, after=[]))
     # Next
-    items.append(playback.NextMenuItem('playback-next', after=[items[-1].name]))
+    items.append(playback.NextMenuItem('playback-next', player.PLAYER, after=[items[-1].name]))
     # Prev
-    items.append(playback.PrevMenuItem('playback-prev', after=[items[-1].name]))
+    items.append(playback.PrevMenuItem('playback-prev', player.PLAYER, after=[items[-1].name]))
     # Stop
-    items.append(playback.StopMenuItem('playback-stop', after=[items[-1].name]))
+    items.append(playback.StopMenuItem('playback-stop', player.PLAYER, after=[items[-1].name]))
     # ----
     items.append(sep('playback-sep', [items[-1].name]))
     # Shuffle
@@ -99,7 +99,7 @@ class BaseTrayIcon(object):
         self.main = main
         self.VOLUME_STEP = 0.05
 
-        self.tooltip = TrackToolTip(self)
+        self.tooltip = TrackToolTip(self, player.PLAYER)
         self.tooltip.set_auto_update(True)
         self.tooltip.set_display_progress(True)
 
@@ -129,19 +129,19 @@ class BaseTrayIcon(object):
         self.connect('button-press-event', self.on_button_press_event)
         self.connect('scroll-event', self.on_scroll_event)
 
-        event.add_callback(self.on_playback_change_state, 'playback_player_end')
-        event.add_callback(self.on_playback_change_state, 'playback_track_start')
-        event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
-        event.add_callback(self.on_playback_change_state, 'playback_error')
+        event.add_callback(self.on_playback_change_state, 'playback_player_end', player.PLAYER)
+        event.add_callback(self.on_playback_change_state, 'playback_track_start', player.PLAYER)
+        event.add_callback(self.on_playback_change_state, 'playback_toggle_pause', player.PLAYER)
+        event.add_callback(self.on_playback_change_state, 'playback_error', player.PLAYER)
 
     def disconnect_events(self):
         """
             Disconnects various callbacks from events
         """
-        event.remove_callback(self.on_playback_change_state, 'playback_player_end')
-        event.remove_callback(self.on_playback_change_state, 'playback_track_start')
-        event.remove_callback(self.on_playback_change_state, 'playback_toggle_pause')
-        event.remove_callback(self.on_playback_change_state, 'playback_error')
+        event.remove_callback(self.on_playback_change_state, 'playback_player_end', player.PLAYER)
+        event.remove_callback(self.on_playback_change_state, 'playback_track_start', player.PLAYER)
+        event.remove_callback(self.on_playback_change_state, 'playback_toggle_pause', player.PLAYER)
+        event.remove_callback(self.on_playback_change_state, 'playback_error', player.PLAYER)
 
     def update_icon(self):
         """
@@ -189,7 +189,7 @@ class BaseTrayIcon(object):
         if event.button == 1:
             self.main.toggle_visible(bringtofront=True)
         if event.button == 2:
-            playback.playpause()
+            playback.playpause( player.PLAYER )
         if event.button == 3:
             self.menu.popup(None, None, self.get_menu_position,
                 event.button, event.time, self)

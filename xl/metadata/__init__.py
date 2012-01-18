@@ -93,9 +93,19 @@ def get_format(loc):
     loc = gio.File(loc).get_path()
     if not loc:
         return None
+        
     # XXX: The path that we get from GIO is, for some reason, in UTF-8.
     # Bug? Intended? No idea.
-    loc = loc.decode('utf-8')
+    
+    # Oddly enough, if you have a non-utf8 compatible filename (such as
+    # a file from windows), then it will just return that string without 
+    # converting it (but in a form that os.path will handle). Go figure.
+    
+    try:
+        loc = loc.decode('utf-8')
+    except UnicodeDecodeError:
+        pass
+            
     ext = os.path.splitext(loc)[1]
     ext = ext[1:] # remove the pesky .
     ext = ext.lower()

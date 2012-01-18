@@ -40,7 +40,6 @@ from string import Template, _TemplateMetaclass
 from xl import (
     event,
     main,
-    player,
     providers,
     settings,
     trax
@@ -321,8 +320,9 @@ class ProgressTextFormatter(Formatter):
     """
         A text formatter for progress indicators
     """
-    def __init__(self, format):
+    def __init__(self, format, player):
         Formatter.__init__(self, format)
+        self._player = player
 
     def format(self, current_time=None, total_time=None):
         """
@@ -335,11 +335,13 @@ class ProgressTextFormatter(Formatter):
             :returns: The formatted text
             :rtype: string
         """
+        total_remaining_time = 0
+        
         if current_time is None:
-            current_time = player.PLAYER.get_time()
+            current_time = self._player.get_time()
 
         if total_time is None:
-            track = player.PLAYER.current
+            track = self._player.current
 
             if track is not None:
                 total_time = track.get_tag_raw('__length')
@@ -349,11 +351,9 @@ class ProgressTextFormatter(Formatter):
         else:
             remaining_time = total_time - current_time
 
-        playlist = player.QUEUE.current_playlist
+        playlist = self._player.queue.current_playlist
 
-        if playlist.current_position < 0:
-            total_remaining_time = 0
-        else:
+        if playlist and playlist.current_position >= 0:        
             tracks = playlist[playlist.current_position:]
             total_remaining_time = sum([t.get_tag_raw('__length') \
                 for t in tracks if t.get_tag_raw('__length')])

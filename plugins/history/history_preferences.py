@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 Adam Olsen
+# Copyright (C) 2011 Dustin Spicuzza
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,37 +26,27 @@
 
 import gtk
 
-from xl import xdg
-from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
-name = _('Playlists')
-icon = gtk.gdk.pixbuf_new_from_file(
-    xdg.get_data_path('images', 'playlist.png'))
-ui = xdg.get_data_path('ui', 'preferences', 'playlists.ui')
 
-class OpenLastPreference(widgets.CheckPreference):
-    default = True
-    name = 'playlist/open_last'
+from xl.nls import gettext as _
+import os
 
-class AskSaveCustomPlaylistPreference(widgets.CheckPreference):
-    default = True
-    name = 'playlist/ask_save'
+name = _('History')
+basedir = os.path.dirname(os.path.realpath(__file__))
+ui = os.path.join(basedir, 'history_preferences.ui')
+icon = gtk.STOCK_GOTO_FIRST
 
-class ReplaceContentPreference(widgets.CheckPreference):
-    default = False
-    name = 'playlist/replace_content'
+
+# defaults
+save_on_exit_default = False
+history_length_default = 1000
+
+
+class SaveOnExitPreference(widgets.CheckPreference):
+    default = save_on_exit_default
+    name = 'plugin/history/save_on_exit'
     
-class AppendStartsPlaybackPreference(widgets.CheckPreference):
-    default = False
-    name = 'playlist/append_menu_starts_playback'
-
-# FIXME: Is this still relevant?
-#class QueueSavePreferences(widgets.CheckPreference):
-#    default = True
-#    name = 'playlist/save_queue'
-
-#    def change(self, *e):
-#        dialogs.error(self.preferences.window, "Doesn't work yet")
-
-# vim: et sts=4 sw=4
+class HistoryLengthPreference(widgets.SpinPreference):
+    default = history_length_default
+    name = 'plugin/history/history_length'

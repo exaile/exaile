@@ -116,6 +116,8 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
         if index is not None:
             try:
                 group_parent = menu.get_children()[index]
+                if not isinstance(group_parent, gtk.RadioMenuItem):
+                    group_parent = None
             except IndexError:
                 group_parent = None
 

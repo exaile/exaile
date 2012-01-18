@@ -91,7 +91,7 @@ class FilesPanel(panel.Panel):
         The Files panel
     """
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
         'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
@@ -289,7 +289,7 @@ class FilesPanel(panel.Panel):
             if ftype == gio.FILE_TYPE_DIRECTORY:
                 self.load_directory(f)
             else:
-                self.emit('append-items', self.tree.get_selected_tracks())
+                self.emit('append-items', self.tree.get_selected_tracks(), True)
 
     def refresh(self, widget):
         """

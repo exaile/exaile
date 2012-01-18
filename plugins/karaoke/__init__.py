@@ -23,8 +23,8 @@ from xl.player.pipe import ElementBin
 class Karaoke(ElementBin):
     index = 50
     name = 'karaoke'
-    def __init__(self):
-        ElementBin.__init__(self, name=self.name)
+    def __init__(self, player):
+        ElementBin.__init__(self, player, name=self.name)
         self.elements[50] = gst.element_factory_make('audiokaraoke')
         self.setup_elements()
 

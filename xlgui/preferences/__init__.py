@@ -72,7 +72,6 @@ class PreferencesDialog(object):
         self.last_page = None
         self.parent = parent
         self.settings = MANAGER
-        self.plugins = self.main.exaile.plugins.list_installed_plugins()
         self.fields = {}
         self.panes = {}
         self.builders = {}
@@ -142,16 +141,14 @@ class PreferencesDialog(object):
         plugin_pages = []
         plugin_manager = self.main.exaile.plugins
 
-        for plugin in self.plugins:
-            name = plugin
-            if plugin in plugin_manager.enabled_plugins:
-                plugin = plugin_manager.enabled_plugins[plugin]
-                if hasattr(plugin, 'get_preferences_pane'):
-                    try:
-                        plugin_pages.append(plugin.get_preferences_pane())
-                    except Exception:
-                        logger.warning('Error loading preferences pane')
-                        traceback.print_exc()
+        for name in plugin_manager.enabled_plugins:
+            plugin = plugin_manager.enabled_plugins[name]
+            if hasattr(plugin, 'get_preferences_pane'):
+                try:
+                    plugin_pages.append(plugin.get_preferences_pane())
+                except Exception:
+                    logger.warning('Error loading preferences pane')
+                    traceback.print_exc()
 
         import locale
         plugin_pages.sort(key=lambda x: locale.strxfrm(x.name))

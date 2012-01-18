@@ -46,8 +46,8 @@ class PlayQueue(playlist.Playlist):
         The content of the queue are processed before
         processing the content of the assigned playlist.
     """
-    def __init__(self, player, location=None):
-        playlist.Playlist.__init__(self, name="Queue")
+    def __init__(self, player, name, location=None):
+        playlist.Playlist.__init__(self, name=name)
 
         self.__current_playlist = None
         self.player = player
@@ -94,7 +94,8 @@ class PlayQueue(playlist.Playlist):
         if not track:
             try:
                 track = self.pop(0)
-                self.current_position = 0
+                if self.current_position != -1:
+                    self.current_position = 0
             except IndexError:
                 if self.current_playlist:
                     track = self.current_playlist.next()
@@ -165,6 +166,20 @@ class PlayQueue(playlist.Playlist):
                 pass
         else:
             self.next()
+            
+    def __setitem__(self, i, value):
+        '''
+            Overrides the playlist.Playlist list API. 
+            
+            Allows us to ensure that when a track is added to an empty queue, 
+            we play it. Or not, depending on what the user wants.
+        '''
+        old_len = playlist.Playlist.__len__(self)
+        playlist.Playlist.__setitem__(self, i, value)
+        
+        if old_len == 0 and settings.get_option('queue/enqueue_begins_playback', True) \
+           and old_len < playlist.Playlist.__len__(self):
+            self.play()
 
     def _save_player_state(self, location):
         state = {}
@@ -177,7 +192,7 @@ class PlayQueue(playlist.Playlist):
 
     @common.threaded
     def _restore_player_state(self, location):
-        if not settings.get_option("player/resume_playback", True):
+        if not settings.get_option("%s/resume_playback" % self.player._name, True):
             return
 
         try:
@@ -200,7 +215,7 @@ class PlayQueue(playlist.Playlist):
             if self.player.current:
                 self.player.seek(state['position'])
                 if state['state'] == 'paused' or \
-                        settings.get_option("player/resume_paused", False):
+                        settings.get_option("%s/resume_paused" % self.player._name, False):
                     self.player.toggle_pause()
                 self.player._playtime_stamp = state['_playtime_stamp']
 

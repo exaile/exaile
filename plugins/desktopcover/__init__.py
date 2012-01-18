@@ -118,7 +118,11 @@ class DesktopCover(gtk.Window):
             glib.idle_add(self.update_position)
 
         for e in self._events:
-            event.add_callback(getattr(self, 'on_%s' % e), e)
+            if 'playback' in e:
+                event.add_callback(getattr(self, 'on_%s' % e), e, player.PLAYER)
+            else:
+                event.add_callback(getattr(self, 'on_%s' % e), e)
+            
         event.add_callback(self.on_option_set, 'plugin_desktopcover_option_set')
 
         self.connect('expose-event', self.on_expose_event)
@@ -129,7 +133,11 @@ class DesktopCover(gtk.Window):
             Cleanups
         """
         for e in self._events:
-            event.remove_callback(getattr(self, 'on_%s' % e), e)
+            if 'playback' in e:
+                event.remove_callback(getattr(self, 'on_%s' % e), e, player.PLAYER)
+            else:
+                event.remove_callback(getattr(self, 'on_%s' % e), e)
+        
         event.remove_callback(self.on_option_set, 'plugin_desktopcover_option_set')
 
         gtk.Window.destroy(self)

@@ -67,8 +67,8 @@ class Streamripper(object):
 
         if add_call:
             event.add_callback(self.quit_application, 'quit_application')
-            event.add_callback(self.start_track, 'playback_track_start')
-            event.add_callback(self.stop_playback, 'playback_player_end')
+            event.add_callback(self.start_track, 'playback_track_start', player.PLAYER)
+            event.add_callback(self.stop_playback, 'playback_player_end', player.PLAYER)
         return False
 
     def stop_ripping(self):
@@ -98,8 +98,8 @@ class Streamripper(object):
 
     def remove_callbacks(self):
         event.remove_callback(self.quit_application, 'quit_application')
-        event.remove_callback(self.start_track, 'playback_track_start')
-        event.remove_callback(self.stop_playback, 'playback_player_end')
+        event.remove_callback(self.start_track, 'playback_track_start', player.PLAYER)
+        event.remove_callback(self.stop_playback, 'playback_player_end', player.PLAYER)
 
 
 class Button(Streamripper):

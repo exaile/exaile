@@ -150,7 +150,7 @@ class CDPlaylist(playlist.Playlist):
         sort_tups.sort()
         sorted = [ s[1] for s in sort_tups ]
 
-        self.add_tracks(sorted)
+        self.extend(sorted)
 
         if CDDB_AVAIL:
             self.get_cddb_info()
@@ -174,7 +174,7 @@ class CDPlaylist(playlist.Playlist):
 
         title = info['DTITLE'].split(" / ")
         for i in range(self.info[1]):
-            tr = self.ordered_tracks[i]
+            tr = self[i]
             tr.set_tag_raw('title',
                     info['TTITLE' + `i`].decode('iso-8859-15', 'replace'))
             tr.set_tag_raw('album',

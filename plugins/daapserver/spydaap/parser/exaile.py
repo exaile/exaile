@@ -87,10 +87,14 @@ class ExaileParser(spydaap.parser.Parser):
                 name = str(trk)
             #statinfo = os.stat(filename)
 
+            _len = trk.get_tag_raw('__length')
+            if _len is None:    # don't parse songs that don't have length
+                return (None, None)
+
             d.extend([#do('daap.songsize', trk.get_size()),
                       #do('daap.songdateadded', statinfo.st_ctime),
                       #do('daap.songdatemodified', statinfo.st_ctime),
-                      do('daap.songtime', trk.get_tag_raw('__length') * 1000),
+                      do('daap.songtime', _len * 1000),
 #                      do('daap.songbitrate', trk.get_tag_raw('__bitrate') / 1000),
 #                      do('daap.songsamplerate', ogg.info.sample_rate), # todo ??
                       do('daap.songformat', trk.get_local_path().split('.')[-1]), # todo ??

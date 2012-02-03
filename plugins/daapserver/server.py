@@ -1,3 +1,5 @@
+# Modified to work with Exaile - Brian Parma
+#
 #Copyright (C) 2008 Erik Hetzner
 
 #This file is part of Spydaap. Spydaap is free software: you can
@@ -13,15 +15,15 @@
 #You should have received a copy of the GNU General Public License
 #along with Spydaap. If not, see <http://www.gnu.org/licenses/>.
 
-import BaseHTTPServer, SocketServer, getopt, grp, httplib, logging, os, pwd, select, signal, spydaap, sys
+import BaseHTTPServer, SocketServer, getopt, grp, httplib, logging, os, pwd, select, signal, spydaap, sys, socket
 import spydaap.daap, spydaap.metadata, spydaap.containers, spydaap.cache, spydaap.server, spydaap.zeroconf
 from spydaap.daap import do
 from threading import Thread
 from xl import common, event
 import config
 
-logging.basicConfig()
-log = logging.getLogger('daapserver')
+#logging.basicConfig()
+logger = logging.getLogger('daapserver')
 
 __all__ = ['DaapServer']
 
@@ -30,6 +32,8 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
     timeout = 1
 
     def __init__(self, *args):
+#        if ':' in args[0][0] or len(args[0][0]) == 0:
+#            self.address_family = socket.AF_INET6   
         BaseHTTPServer.HTTPServer.__init__(self,*args)
         self.keep_running = True
 
@@ -42,7 +46,7 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
         self.server_close()
         
 class DaapServer():
-    def __init__(self, library, name=spydaap.server_name, host='0.0.0.0', port=spydaap.port):
+    def __init__(self, library, name=spydaap.server_name, host='', port=spydaap.port):
 #        Thread.__init__(self)
         self.host = host
         self.port = port
@@ -52,13 +56,16 @@ class DaapServer():
         self.handler = None
         
         # Set a callback that will let us propagate library changes to clients
-        event.add_callback( self.update_rev, 'libraries_modified', library.collection) 
+        event.add_callback( self.update_rev, 'libraries_modified',
+                                                     library.collection) 
         
     def update_rev(self, *args):
         if self.handler is not None:
-            # Updating the server revision, so if a client checks it can see the library has changed
+            # Updating the server revision, so if a client checks 
+            # it can see the library has changed
             self.handler.daap_server_revision += 1
-            log.info('Libraries Changed, incrementing revision to %d.' % self.handler.daap_server_revision )
+            logger.info('Libraries Changed, incrementing revision to %d.' 
+                                    % self.handler.daap_server_revision )
         
     def set(self, **kwargs):
         for key in kwargs:
@@ -70,8 +77,9 @@ class DaapServer():
                                                 self.port,  
                                                 stype="_daap._tcp")
         self.zeroconf.publish()
-        log.warn("Listening.")
-        self.handler = spydaap.server.makeDAAPHandlerClass(str(self.name), [], self.library, [])
+        logger.warning("Listening.")
+        self.handler = spydaap.server.makeDAAPHandlerClass(
+                                        str(self.name), [], self.library, [])
         self.httpd = MyThreadedHTTPServer((self.host, self.port), 
                                      self.handler)
         
@@ -86,7 +94,7 @@ class DaapServer():
         except KeyboardInterrupt:
             self.httpd.force_stop()
             
-        log.warn("Shutting down.")
+        logger.warning("Shutting down.")
         self.zeroconf.unpublish()
         self.httpd = None
 
@@ -117,7 +125,7 @@ class DaapServer():
 #                                         spydaap.port,  
 #                                         stype="_daap._tcp")
 #    zeroconf.publish()
-#    log.warn("Listening.")
+#    logger.warn("Listening.")
 #    httpd = MyThreadedHTTPServer(('0.0.0.0', spydaap.port), 
 #                                 spydaap.server.makeDAAPHandlerClass(spydaap.server_name, cache, md_cache, container_cache))
 #    
@@ -131,7 +139,7 @@ class DaapServer():
 #            pass
 #    except KeyboardInterrupt:
 #        httpd.force_stop()
-#    log.warn("Shutting down.")
+#    logger.warn("Shutting down.")
 #    zeroconf.unpublish()
 
 #def main():

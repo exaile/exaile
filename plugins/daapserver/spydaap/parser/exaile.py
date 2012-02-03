@@ -1,4 +1,5 @@
 #Copyright (C) 2008 Erik Hetzner
+#              2010 Brian Parma
 
 #This file is part of Spydaap. Spydaap is free software: you can
 #redistribute it and/or modify it under the terms of the GNU General
@@ -16,6 +17,9 @@
 import mutagen, re, spydaap, re, os, sys
 from spydaap.daap import do
 import traceback
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ExaileParser(spydaap.parser.Parser):
     _string_map = {
@@ -51,10 +55,8 @@ class ExaileParser(spydaap.parser.Parser):
                         # set total?
                     else:
                         daap.append(do(map[k], int(tn)))
-                except: pass
-                # dates cause exceptions todo
-#                    print 'Parse Exception'
-#                    traceback.print_exc(file=sys.stdout)
+                except Exception:
+                    logger.debug(traceback.format_exc()) 
 
     # We can't use functions in __init__ because exaile tracks no longer
     # give us access to .tags
@@ -65,7 +67,8 @@ class ExaileParser(spydaap.parser.Parser):
                     tag = [ str(t) for t in md.get_tag_raw(k)]
                     tag = [ t for t in tag if t != ""]
                     daap.append(do(map[k], "/".join(tag)))
-                except: pass
+                except Exception:
+                    logger.debug(traceback.format_exc()) 
 
     def parse(self, trk):
         try:
@@ -74,7 +77,8 @@ class ExaileParser(spydaap.parser.Parser):
             if len(trk.list_tags()) > 0:
                 if 'title' in trk.list_tags():
                     name = str(trk.get_tag_raw('title')[0])
-                else: name = str(trk)
+                else: 
+                    name = str(trk)
                 
                 self.handle_string_tags(self._string_map, trk, d)
                 self.handle_int_tags(self._int_map, trk, d)
@@ -82,6 +86,7 @@ class ExaileParser(spydaap.parser.Parser):
             else: 
                 name = str(trk)
             #statinfo = os.stat(filename)
+
             d.extend([#do('daap.songsize', trk.get_size()),
                       #do('daap.songdateadded', statinfo.st_ctime),
                       #do('daap.songdatemodified', statinfo.st_ctime),
@@ -92,8 +97,12 @@ class ExaileParser(spydaap.parser.Parser):
                       do('daap.songdescription', 'Exaile Streaming Audio'),
                       ])
             return (d, name)
+            
         except Exception, e:
-            sys.stderr.write("Caught exception: while processing %s: %s " % (trk, str(e)) )
+            logger.warning('caught exception while processing {0}: {1}'
+                .format(trk, e))
+            logger.debug(traceback.format_exc())
+
             return (None, None)    
 
 

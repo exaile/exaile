@@ -3,6 +3,9 @@
 __all__ = ["Zeroconf"]
 
 import select, sys, traceback
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Zeroconf(object):
     """A simple class to publish a network service with zeroconf using
@@ -69,7 +72,7 @@ class Zeroconf(object):
                                server.EntryGroupNew()),
                 avahi.DBUS_INTERFACE_ENTRY_GROUP)
             
-            self.group.AddService(avahi.IF_UNSPEC, avahi.PROTO_UNSPEC,dbus.UInt32(0),
+            self.group.AddService(avahi.IF_UNSPEC, avahi.PROTO_INET,dbus.UInt32(0),
                          self.name, self.stype, self.domain, self.host,
                          dbus.UInt16(self.port), self.text)
             self.group.Commit()
@@ -81,13 +84,13 @@ class Zeroconf(object):
         try:
             import pybonjour
             self.helper = Zeroconf.Pybonjour(*args, **kwargs)
-        except:
-            traceback.print_exc(file=sys.stdout)
+        except ImportError:
+            logger.info('pybonjour not found, using avahi')
             try:
                 import avahi, dbus
                 self.helper = Zeroconf.Avahi(*args, **kwargs)
-            except:
-                traceback.print_exc(file=sys.stdout)
+            except ImportError:
+                logger.warning('pybonjour nor avahi found, cannot announce presence')
                 self.helper = None
                 
     def publish(self):

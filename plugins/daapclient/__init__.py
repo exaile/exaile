@@ -84,7 +84,8 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
 
         interface, protocol, name, type, domain, host, aprotocol, address, port, txt, flags = x
 
-        logger.info("DAAP share found: %s." % name)
+        logger.info("DAAP share found: '{0}' at ({1},{2})."
+                        .format(name, address, port))
         #Use all available info in key to avoid name conflicts.
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
 

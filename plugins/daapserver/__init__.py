@@ -9,7 +9,9 @@ log = logging.getLogger(__file__)
 
 # todo support multiple connections?
 class CollectionWrapper:
+    '''Class to wrap Exaile's collection to make it spydaap compatible'''
     class TrackWrapper:
+        '''Wrap a single track for spydaap'''
         def __init__(self, id, track):
             self.track = track
             self.id = id
@@ -18,7 +20,11 @@ class CollectionWrapper:
 
         def get_dmap_raw(self):
             if self.daap is None:
-                self.daap = ''.join([d.encode() for d in self.parser.parse(self.track)[0]])
+                do = self.parser.parse(self.track)[0]
+                if do is not None:
+                    self.daap = ''.join([d.encode() for d in do])
+                else:
+                    self.daap = ''
             return self.daap
 
         def get_original_filename(self):
@@ -29,7 +35,6 @@ class CollectionWrapper:
         self.map = []
 
     def __iter__(self):
-        print 'GEN ITERRR'
         i = 0
         self.map = []
         for t in self.collection:
@@ -60,8 +65,9 @@ def _enable(exaile):
     name = settings.get_option('plugin/daapserver/name', 'Exaile Share')
     host = settings.get_option('plugin/daapserver/host', '0.0.0.0')
     
-#    DaapServer.init(exaile.collection,port=port,name=name)
-    ds = DaapServer(CollectionWrapper(exaile.collection), port=port, name=name, host=host)
+    ds = DaapServer(CollectionWrapper(exaile.collection), 
+                                        port=port, name=name, host=host)
+                                        
     if( settings.get_option('plugin/daapserver/enabled', True) ):
         ds.start()
 
@@ -100,7 +106,6 @@ def on_settings_change(event, setting, option):
         enabled = setting.get_option(option, True)
         if enabled:
             if not ds.start():
-                pass
-#                settings.set_option('plugin/daapserver/enabled', False) ? 
+                logger.error('failed to start DAAP Server.')
         else:
             ds.stop_server()

@@ -1,4 +1,5 @@
 #Copyright (C) 2008 Erik Hetzner
+#              2010 Brian Parma
 
 #This file is part of Spydaap. Spydaap is free software: you can
 #redistribute it and/or modify it under the terms of the GNU General
@@ -16,6 +17,9 @@
 import mutagen, re, spydaap, re, os, sys
 from spydaap.daap import do
 import traceback
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ExaileParser(spydaap.parser.Parser):
     _string_map = {
@@ -28,7 +32,8 @@ class ExaileParser(spydaap.parser.Parser):
     
     _int_map = {
         'bpm': 'daap.songbeatsperminute',
-        'date': 'daap.songyear',
+        # not used by exaile client, and not parsed right anyway (ie: '2010-01-01')
+#        'date': 'daap.songyear', #TODO
         'year': 'daap.songyear',
         'tracknumber': 'daap.songtracknumber',
         'tracktotal': 'daap.songtrackcount',
@@ -47,14 +52,16 @@ class ExaileParser(spydaap.parser.Parser):
                     tn = str(md.get_tag_raw(k)[0])
                     if '/' in tn: #
                         num, tot = tn.split('/')
+                        if num == '':           # empty tags
+                            num = 0
                         daap.append(do(map[k], int(num)))
                         # set total?
                     else:
                         daap.append(do(map[k], int(tn)))
-                except: pass
-                # dates cause exceptions todo
-#                    print 'Parse Exception'
-#                    traceback.print_exc(file=sys.stdout)
+                except Exception:
+                    logger.debug('exception caught parsing tag: {0}={1} from {2}'
+                        .format(k, tn, md))
+                    logger.debug(traceback.format_exc()) 
 
     # We can't use functions in __init__ because exaile tracks no longer
     # give us access to .tags
@@ -65,7 +72,8 @@ class ExaileParser(spydaap.parser.Parser):
                     tag = [ str(t) for t in md.get_tag_raw(k)]
                     tag = [ t for t in tag if t != ""]
                     daap.append(do(map[k], "/".join(tag)))
-                except: pass
+                except Exception:
+                    logger.debug(traceback.format_exc()) 
 
     def parse(self, trk):
         try:
@@ -74,7 +82,8 @@ class ExaileParser(spydaap.parser.Parser):
             if len(trk.list_tags()) > 0:
                 if 'title' in trk.list_tags():
                     name = str(trk.get_tag_raw('title')[0])
-                else: name = str(trk)
+                else: 
+                    name = str(trk)
                 
                 self.handle_string_tags(self._string_map, trk, d)
                 self.handle_int_tags(self._int_map, trk, d)
@@ -82,18 +91,27 @@ class ExaileParser(spydaap.parser.Parser):
             else: 
                 name = str(trk)
             #statinfo = os.stat(filename)
+
+            _len = trk.get_tag_raw('__length')
+            if _len is None:    # don't parse songs that don't have length
+                return (None, None)
+
             d.extend([#do('daap.songsize', trk.get_size()),
                       #do('daap.songdateadded', statinfo.st_ctime),
                       #do('daap.songdatemodified', statinfo.st_ctime),
-                      do('daap.songtime', trk.get_tag_raw('__length') * 1000),
+                      do('daap.songtime', _len * 1000),
 #                      do('daap.songbitrate', trk.get_tag_raw('__bitrate') / 1000),
 #                      do('daap.songsamplerate', ogg.info.sample_rate), # todo ??
                       do('daap.songformat', trk.get_local_path().split('.')[-1]), # todo ??
                       do('daap.songdescription', 'Exaile Streaming Audio'),
                       ])
             return (d, name)
+            
         except Exception, e:
-            sys.stderr.write("Caught exception: while processing %s: %s " % (trk, str(e)) )
+            logger.warning('caught exception while processing {0}: {1}'
+                .format(trk, e))
+            logger.debug(traceback.format_exc())
+
             return (None, None)    
 
 

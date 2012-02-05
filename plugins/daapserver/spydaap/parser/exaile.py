@@ -32,7 +32,8 @@ class ExaileParser(spydaap.parser.Parser):
     
     _int_map = {
         'bpm': 'daap.songbeatsperminute',
-        'date': 'daap.songyear',
+        # not used by exaile client, and not parsed right anyway (ie: '2010-01-01')
+#        'date': 'daap.songyear', #TODO
         'year': 'daap.songyear',
         'tracknumber': 'daap.songtracknumber',
         'tracktotal': 'daap.songtrackcount',
@@ -51,11 +52,15 @@ class ExaileParser(spydaap.parser.Parser):
                     tn = str(md.get_tag_raw(k)[0])
                     if '/' in tn: #
                         num, tot = tn.split('/')
+                        if num == '':           # empty tags
+                            num = 0
                         daap.append(do(map[k], int(num)))
                         # set total?
                     else:
                         daap.append(do(map[k], int(tn)))
                 except Exception:
+                    logger.debug('exception caught parsing tag: {0}={1} from {2}'
+                        .format(k, tn, md))
                     logger.debug(traceback.format_exc()) 
 
     # We can't use functions in __init__ because exaile tracks no longer

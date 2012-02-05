@@ -77,7 +77,7 @@ class ExaileNotifyOsd(object):
 
     @common.threaded
     def update_track_notify(self, type, player, track, media_icon = None):
-        if not track:
+        if not track or (track != player.current):
             return
         title = track.get_tag_display('title')
         artist = cgi.escape(

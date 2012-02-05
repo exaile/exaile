@@ -15,6 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import traceback
 import os
 import gtk
 import dbus
@@ -46,8 +47,8 @@ _sep = menu.simple_separator
 try:
     import avahi
     AVAHI = True
-except Exception, inst:
-    logger.warn('AVAHI exception: %s' % inst)
+except ImportError:
+    logger.warning('avahi not installed, can\'t auto-discover servers')
     AVAHI = False
 
 # detect authoriztion support in python-daap
@@ -60,30 +61,35 @@ except TypeError:
 except:
     AUTH = True
 
-#PLUGIN_ICON = gtk.Button().render_icon(gtk.STOCK_NETWORK, gtk.ICON_SIZE_MENU)
-
 # Globals Warming
 MANAGER = None
 
 class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
     """
-        Handles detection of DAAP shares via Avahi and manages the menu showing the shares.
-    Fires a "connect" signal when a menu item is clicked.
+        Handles detection of DAAP shares via Avahi and manages the menu 
+        showing the shares.
+        
+        Fires a "connect" signal when a menu item is clicked.
     """
     __gsignals__ = {
                     'connect' : ( gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE,
                                     ( gobject.TYPE_PYOBJECT, ) ) }
 
     def new_service(self, interface, protocol, name, type, domain, flags):
-        interface, protocol, name, type, domain, host, aprotocol, address, port, txt, flags = self.server.ResolveService(interface, protocol, name, type, domain, avahi.PROTO_UNSPEC, dbus.UInt32(0))
         """
             Called when a new share is found.
         """
-        logger.info("DAAP: Found %s." % name)
+        x = self.server.ResolveService(interface, protocol, name, type, domain, 
+                                                avahi.PROTO_INET, dbus.UInt32(0))
+
+        interface, protocol, name, type, domain, host, aprotocol, address, port, txt, flags = x
+
+        logger.info("DAAP share found: %s." % name)
         #Use all available info in key to avoid name conflicts.
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
 
-        if name in self.services:   # using only name for conflicts (for multiple adapters)
+        # using only name for conflicts (for multiple adapters)
+        if name in self.services:   
             return
 
         self.services[name] = (address, port)
@@ -93,7 +99,7 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
         """
             Called when the connection to a share is lost.
         """
-        logger.info("DAAP: Lost %s." % name)
+        logger.info("DAAP share lost: %s." % name)
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
 
         if name in self.services:
@@ -178,7 +184,7 @@ class DaapManager:
         '''
 
         conn = DaapConnection(name, addr, port)
-
+        
         conn.connect()
         library = DaapLibrary(conn)
         panel = NetworkPanel(self.exaile.gui.main.window, library, self)
@@ -221,7 +227,7 @@ class DaapManager:
                 port = 3689     # if no port specified, use default DAAP port
 
             nstr = 'custom%s%s' % (address, port)
-    #        print nstr
+
             conn = DaapConnection(loc, address, port)
             self.connect_share(None, (loc, address, port))
 
@@ -231,7 +237,8 @@ class DaapManager:
         
         # check for changes
         panel.daap_share.session.update()
-        logger.debug('DAAP Server %s returned revision %d ( old: %d ) after update request'
+        logger.debug('DAAP Server %s returned revision %d ( old: %d ) after'
+                    +' update request'
                 % (name, panel.daap_share.session.revision, rev))
         
         # if changes, refresh
@@ -284,12 +291,13 @@ class DaapConnection(object):
             self.connected = True
 #        except DAAPError:
         except Exception, inst:
-            #print 's:%s, p:%s (%s, %s)' % (self.server, self.port, type(self.server), type(self.port))
-            logger.warn('Exception: %s' % inst)
+            logger.warning('failed to connec to ({0},{1})'.format(
+                self.server, self.port))
+            logger.debug(traceback.format_exc())
+            
             self.auth = True
             self.connected = False
-#            raise DAAPError
-            raise Exception, inst
+            raise
 
     def disconnect(self):
         """
@@ -313,10 +321,11 @@ class DaapConnection(object):
         self.database = None
         self.all = []
         self.get_database()
-        #print 'conversion'
-#        t = time.time()
+
+        t = time.time()
         self.convert_list()
-        #print '%f, %d tracks' % (time.time()-t, len(self.all))
+        logger.debug('{0} tracks loaded in {1}s'.format(len(self.all),
+                                                        time.time()-t))
 
 
     def get_database(self):
@@ -366,12 +375,13 @@ class DaapConnection(object):
                     except:
                         if field is 'tracknumber':
                             temp.set_tag_raw('tracknumber', [0], notify_changed=False)
-#                        traceback.print_exc(file=sys.stdout)
+                        logger.debug(traceback.format_exc())
 
 
                 #TODO: convert year (asyr) here as well, what's the formula?
                 try:
-                    temp.set_tag_raw("__length", tr.atom.getAtom('astm') / 1000, notify_changed=False)
+                    temp.set_tag_raw("__length", tr.atom.getAtom('astm') / 1000,
+                                                         notify_changed=False)
                 except:
                     temp.set_tag_raw("__length", 0, notify_changed=False)
 
@@ -429,7 +439,8 @@ class DaapLibrary(collection.Library):
             count = 0
 
         if count > 0:
-            logger.info('Adding %d tracks from %s. (%f s)' % (count, self.daap_share.name, time.time()-t))
+            logger.info('Adding %d tracks from %s. (%f s)' % (count, 
+                                    self.daap_share.name, time.time()-t))
             self.collection.add_tracks(self.daap_share.all)
 
 
@@ -462,7 +473,8 @@ class NetworkPanel(CollectionPanel):
         self.daap_share = library.daap_share
         self.net_collection = collection.Collection(self.name)
         self.net_collection.add_library(library)
-        CollectionPanel.__init__(self, parent, self.net_collection, self.name, _show_collection_empty_message=False)
+        CollectionPanel.__init__(self, parent, self.net_collection, 
+                            self.name, _show_collection_empty_message=False)
 
         self.all = []
 
@@ -471,15 +483,18 @@ class NetworkPanel(CollectionPanel):
         self.menu = menu.Menu(self)
         def get_tracks_func(*args):
             return self.tree.get_selected_tracks()
-        self.menu.add_item(menuitems.AppendMenuItem('append', [], get_tracks_func))
-        self.menu.add_item(menuitems.EnqueueMenuItem('enqueue', ['append'], get_tracks_func))
-        self.menu.add_item(menuitems.PropertiesMenuItem('props', ['enqueue'], get_tracks_func))
+        self.menu.add_item(menuitems.AppendMenuItem('append', [], 
+                                                            get_tracks_func))
+        self.menu.add_item(menuitems.EnqueueMenuItem('enqueue', ['append'],
+                                                            get_tracks_func))
+        self.menu.add_item(menuitems.PropertiesMenuItem('props', ['enqueue'], 
+                                                            get_tracks_func))
         self.menu.add_item(_sep('sep',['props']))
         self.menu.add_item(_smi('refresh', ['sep'], _('Refresh Server List'),
             callback = lambda *x: mgr.refresh_share(self.name)))
-        self.menu.add_item(_smi('disconnect', ['refresh'], _('Disconnect from Server'),
-            callback = lambda *x: mgr.disconnect_share(self.name)))
-
+        self.menu.add_item(_smi('disconnect', ['refresh'], 
+                    _('Disconnect from Server'),
+                    callback = lambda *x: mgr.disconnect_share(self.name)))
 
     @common.threaded
     def refresh(self):
@@ -557,11 +572,11 @@ def _enable(exaile):
             avahi_interface = DaapAvahiInterface(exaile, menu_)
         except RuntimeError: # no dbus?
             avahi_interface = None
-            logger.warn('AVAHI interface could not be initialized (no dbus?)')
+            logger.warning('avahi interface could not be initialized (no dbus?)')
         except dbus.exceptions.DBusException, s:
             avahi_interface = None
             logger.error('Got DBUS error: %s' % s)
-            logger.error('Is avahi-daemon running?')
+            logger.error('is avahi-daemon running?')
     else:
         avahi_interface = None
         logger.warn('AVAHI could not be imported, you will not see broadcast shares.')

@@ -317,7 +317,10 @@ class cached(object):
             except KeyError:
                 pass
             ret = f(*args, **kwargs)
-            f._cache[(args, self._freeze(kwargs))] = ret
+            try:
+                f._cache[(args, self._freeze(kwargs))] = ret
+            except TypeError: # args can't be hashed
+                pass
             return ret
         return wrapper
 

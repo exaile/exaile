@@ -42,7 +42,7 @@ import subprocess
 import sys
 import threading
 import traceback
-from functools import wraps
+from functools import wraps, partial
 from collections import deque
 from UserDict import DictMixin
 
@@ -323,6 +323,10 @@ class cached(object):
                 pass
             return ret
         return wrapper
+        
+    def __get__(self, obj, objtype):
+        """Support instance methods."""
+        return partial(self.__call__, obj)
 
 def walk(root):
     """

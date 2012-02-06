@@ -274,9 +274,19 @@ class LimitedCache(DictMixin):
 
     def __setitem__(self, item, value):
         self.cache[item] = value
+        if item in self.order:
+            self.order.remove(item)
         self.order.append(item)
         while len(self) > self.limit:
             del self.cache[self.order.popleft()]
+
+    def __repr__(self):
+        '''prevent repr(self) from changing cache order'''
+        return repr(self.cache)
+        
+    def __str__(self):
+        '''prevent str(self) from changing cache order'''
+        return str(self.cache)
 
     def keys(self):
         return self.cache.keys()

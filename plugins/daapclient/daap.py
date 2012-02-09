@@ -267,16 +267,16 @@ class DAAPClient(object):
     def connect(self, hostname, port = 3689, password = None):
         if self.socket != None:
             raise DAAPError("DAAPClient: already connected.")
-        if ':' in hostname:
-            raise DAAPError('cannot connect to ipv6 addresses')
-# this was an attempt to fix the ipv6 bug in httplib
-#        if ':' in hostname and hostname[0] != '[':
-#            hostname = '['+hostname+']'
+#        if ':' in hostname:
+#            raise DAAPError('cannot connect to ipv6 addresses')
+# if it's an ipv6 address
+        if ':' in hostname and hostname[0] != '[':
+            hostname = '['+hostname+']'
         self.hostname = hostname
         self.port     = port
         self.password = password
-        self.socket = httplib.HTTPConnection(hostname, port)
-#        self.socket = httplib.HTTPConnection(hostname+':'+str(port))
+#        self.socket = httplib.HTTPConnection(hostname, port)
+        self.socket = httplib.HTTPConnection(hostname+':'+str(port))
         self.getContentCodes() # practically required
         self.getInfo() # to determine the remote server version
 

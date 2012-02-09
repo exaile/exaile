@@ -25,12 +25,21 @@ import time
 import threading
 import gobject
 import xlgui
+import pickle
 from gettext import gettext as _
-from xl import collection, event, trax, common, providers
 from xlgui.panel.collection import CollectionPanel
 from xlgui import guiutil
 from xlgui.widgets import dialogs, menu, menuitems
 from daap import DAAPClient, DAAPError
+from xl import (
+    collection, 
+    event, 
+    trax, 
+    common, 
+    providers, 
+    settings, 
+    xdg
+)
 
 logger = logging.getLogger(__name__)
 gobject.threads_init()
@@ -64,6 +73,25 @@ except:
 # Globals Warming
 MANAGER = None
 
+class AttrDict(dict):
+    def __getattr__(self, name):
+        return self[name]
+
+import functools
+# helper function to parse avahi info into a list of tuples (for dict())
+parse = functools.partial(zip,
+        ['interface',
+        'protocol',
+        'name',
+        'type',
+        'domain',
+        'host',
+        'aprotocol',
+        'address',
+        'port',
+        'txt',
+        'flags'])
+
 class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
     """
         Handles detection of DAAP shares via Avahi and manages the menu 
@@ -80,21 +108,27 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
             Called when a new share is found.
         """
         x = self.server.ResolveService(interface, protocol, name, type, domain, 
-                                                avahi.PROTO_INET, dbus.UInt32(0))
-
-        interface, protocol, name, type, domain, host, aprotocol, address, port, txt, flags = x
+                                        avahi.PROTO_UNSPEC, dbus.UInt32(0))
+        
+        x = AttrDict(parse(x))
 
         logger.info("DAAP share found: '{0}' at ({1},{2})."
-                        .format(name, address, port))
+                        .format(x.name, x.address, x.port))
+                        
+        # gstreamer can't handle link-local ipv6
+        if 'fe80' in x.address:
+            return
+
         #Use all available info in key to avoid name conflicts.
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
 
-        # using only name for conflicts (for multiple adapters)
-        if name in self.services:   
+        if nstr in self.services:   
             return
+            
 
-        self.services[name] = (address, port)
-        self.new_share_menu_item(name)
+        self.services[nstr] = x
+        self.rebuild_share_menu_items()
+#        self.new_share_menu_item(x)
 
     def remove_service(self, interface, protocol, name, type, domain, flags):
         """
@@ -103,25 +137,27 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
         logger.info("DAAP share lost: %s." % name)
         nstr = '%s%s%s%s%s' % (interface, protocol, name, type, domain)
 
-        if name in self.services:
-            self.remove_share_menu_item(name)
-            del self.services[name]
+        if nstr in self.services:
+#            self.remove_share_menu_item(name)
+            del self.services[nstr]
+            self.rebuild_share_menu_items()
 
-    def new_share_menu_item(self, name):
+    def new_share_menu_item(self, name, key):
         '''
-            This function is called by Avahi when a new share is detected
-        on the network.  It adds the share to the Connect menu.
+            This function is called to add a server to the connect menu.
         '''
-
+        
+        # check if the menu exist and check if it's ipv4 or we are allowing
+        # ipv6
+        print 'adding menu',name,key
         if self.menu:
-            menu_item = _smi(name, ['sep'], name,
-                callback=lambda *x: self.clicked(name))
-            self.menu.add_item(menu_item)
+                menu_item = _smi(name, ['sep'], name,
+                                callback=lambda *x: self.clicked(key))
+                self.menu.add_item(menu_item)
 
     def remove_share_menu_item(self, name):
         '''
-            This function is called by Avahi when a share is removed
-            from the network.  It removes the menu entry for the share.
+            This function is called to remove a server from the connect menu.
         '''
 
         if self.menu:
@@ -130,20 +166,65 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
                     self.menu.remove_item(item)
                     break
 
-    def clicked(self, name):
+    def clear_share_menu_items(self):
+        '''
+            This function is used to clear all the menu items out of a menu.
+        '''
+        if self.menu:
+            for item in self.menu._items:
+                if item.name == 'manual' or item.name == 'sep':
+                    continue
+                self.menu.remove_item(item)
+    
+    def rebuild_share_menu_items(self):
+        '''
+            This function fills the menu with known servers.
+        '''
+        self.clear_share_menu_items()
+        
+        show_ipv6 = settings.get_option('plugin/daapclient/ipv6', False)
+        items = {}
+        
+        for key,x in self.services.items():
+            name = '{0} ({1})'.format(x.name,x.host)
+            if x.protocol == avahi.PROTO_INET6:
+                if not show_ipv6:
+                    continue
+                name += ' - ipv6'
+
+            if name not in items:
+                items[name] = (key,x)
+        
+# this dedups based on name-host, replacing ipv4 with ipv6
+#        for key,x in self.services.items():
+#            name = '{0} ({1})'.format(x.name,x.host)
+#            if x.protocol == avahi.PROTO_INET6 and show_ipv6:
+#                if name in items:
+#                    # prefer ipv6
+#                    if items[name][1].protocol == avahi.PROTO_INET:
+#                        items[name] = (key,x)
+#            elif x.protocol == avahi.PROTO_INET:
+#                if name not in items:
+#                    items[name] = (key,x)
+        
+        for name in items:
+            self.new_share_menu_item(name, key=items[name][0])
+
+    def clicked(self, key):
         '''
             This function is called in response to a menu_item click.
         Fire away.
         '''
-        gobject.idle_add(self.emit, "connect", (name,)+self.services[name])
+        x = self.services[key]
+        gobject.idle_add(self.emit, "connect", (x.name, x.address, x.port, x))
 
-    def __init__(self, exaile, menu):
+    def __init__(self, exaile, _menu):
         """
             Sets up the avahi listener.
         """
         gobject.GObject.__init__(self)
         self.services = {}
-        self.menu = menu
+        self.menu = _menu
         self.bus = dbus.SystemBus()
         self.server = dbus.Interface(self.bus.get_object(avahi.DBUS_NAME,
             avahi.DBUS_PATH_SERVER), avahi.DBUS_INTERFACE_SERVER)
@@ -156,13 +237,48 @@ class DaapAvahiInterface(gobject.GObject): #derived from python-daap/examples
         self.browser.connect_to_signal('ItemNew', self.new_service)
         self.browser.connect_to_signal('ItemRemove', self.remove_service)
 
+class DaapHistory(common.LimitedCache):
+    def __init__(self, limit=5, location=None, menu=None, callback=None):
+        common.LimitedCache.__init__(self, limit)
+        
+        if location is None:
+            location = os.path.join(xdg.get_cache_dir(), 'daaphistory.dat')
+        self.location = location
+        self.menu = menu
+        self.callback = callback
+        
+        self.load()
+        
+    def __setitem__(self, item, value):
+        common.LimitedCache.__setitem__(self, item, value)
+        
+        # add new menu item
+        if self.menu is not None and self.callback is not None:
+            menu_item = _smi('hist'+item, ['sep'], item,
+                        callback=lambda *x: self.callback(None, value+(None,)))
+            self.menu.add_item(menu_item)
+        
+    def load(self):
+        with open(self.location, 'rb') as f:
+            try:
+                d = pickle.load(f)
+                self.update(d)
+            except (IOError, EOFError):
+                # no file
+                pass
+        
+    def save(self):
+        with open(self.location, 'wb') as f:
+            pickle.dump(self.cache, f, common.PICKLE_PROTOCOL)
+
+    
 
 class DaapManager:
     '''
         DaapManager is a class that manages DaapConnections, both manual
     and avahi-generated.
     '''
-    def __init__(self, exaile, menu, avahi):
+    def __init__(self, exaile, _menu, avahi):
         '''
             Init!  Create manual menu item, and connect to avahi signal.
         '''
@@ -170,21 +286,32 @@ class DaapManager:
         self.avahi = avahi
         self.panels = {}
 
-        menu.add_item(_smi('manual', [], _('Manually...'),
+        hmenu = menu.Menu(None)
+
+        def hmfactory(menu, parent, context):
+            item = gtk.MenuItem(_('History'))
+            item.set_submenu(hmenu)
+            sens = settings.get_option('plugin/daapclient/history', True)
+            item.set_sensitive(sens)
+            return item
+    
+        _menu.add_item(_smi('manual', [], _('Manually...'),
             callback=self.manual_connect))
-        menu.add_item(_sep('sep', ['manual']))
+        _menu.add_item(menu.MenuItem('history', hmfactory, ['manual']))
+        _menu.add_item(_sep('sep', ['history']))
 
         if avahi is not None:
             avahi.connect("connect", self.connect_share)
+            
+        self.history = DaapHistory(5, menu=hmenu, callback=self.connect_share)
 
-    def connect_share(self, obj, (name, addr, port)):
+    def connect_share(self, obj, (name, address, port, svc)):
         '''
             This function is called when a user wants to connec to
         a DAAP share.  It creates a new panel for the share, and
         requests a track list.
         '''
-
-        conn = DaapConnection(name, addr, port)
+        conn = DaapConnection(name, address, port)
         
         conn.connect()
         library = DaapLibrary(conn)
@@ -194,6 +321,11 @@ class DaapManager:
         panel.refresh()             # threaded
         xlgui.get_controller().add_panel(*panel.get_panel())
         self.panels[name] = panel
+        
+        # history
+        if settings.get_option('plugin/daapclient/history', True):
+            self.history[name] = (name, address, port)
+            self.history.save()
 
     def disconnect_share(self, name):
         '''
@@ -220,17 +352,33 @@ class DaapManager:
         resp = dialog.run()
 
         if resp == gtk.RESPONSE_OK:
-            loc = dialog.get_value()
-            address = str(loc.split(':')[0])
-            try:
-                port = str(loc.split(':')[1])
-            except IndexError:
+            loc = dialog.get_value().strip()
+            host = loc
+            
+            # the port will be anything after the last :
+            p = host.rfind(":")
+
+            # ipv6 literals should have a closing brace before the port
+            b = host.rfind("]")
+            
+            if p > b:
+                try:
+                    port = int(host[p+1:])
+                    host = host[:p]
+                except ValueError:
+                    logger.error('non-numeric port specified')
+                    return
+            else:
                 port = 3689     # if no port specified, use default DAAP port
 
-            nstr = 'custom%s%s' % (address, port)
+            # if it's an ipv6 host with brackets, strip them
+            if host and host[0] == '[' and host[-1] == ']':
+                host = host[1:-1]
 
-            conn = DaapConnection(loc, address, port)
-            self.connect_share(None, (loc, address, port))
+            nstr = 'custom%s%s' % (host, port)
+
+            conn = DaapConnection(loc, host, port)
+            self.connect_share(None, (loc, host, port, None))
 
     def refresh_share(self, name):
         panel = self.panels[name]
@@ -268,6 +416,10 @@ class DaapConnection(object):
         A connection to a DAAP share.
     """
     def __init__(self, name, server, port):
+        # if it's an ipv6 address
+        if ':' in server and server[0] != '[':
+            server = '['+server+']'
+    
         self.all = []
         self.session = None
         self.connected = False
@@ -292,7 +444,7 @@ class DaapConnection(object):
             self.connected = True
 #        except DAAPError:
         except Exception, inst:
-            logger.warning('failed to connec to ({0},{1})'.format(
+            logger.warning('failed to connect to ({0},{1})'.format(
                 self.server, self.port))
             logger.debug(traceback.format_exc())
             
@@ -553,12 +705,7 @@ def __enb(eventname, exaile, wat):
 def _enable(exaile):
     global MANAGER
 
-#    if not DAAP:
-#        raise Exception("DAAP could not be imported.")
-
-#    if not AVAHI:
-#        raise Exception("AVAHI could not be imported.")
-
+    event.add_callback(on_settings_change, 'plugin_daapclient_option_set')
 
     menu_ = menu.Menu(None)
 
@@ -611,4 +758,16 @@ def disable(exaile):
     event.remove_callback(__enb, 'gui_loaded')
 
 
+
+# settings stuff
+import daapclientprefs
+
+def get_preferences_pane():
+    return daapclientprefs
+    
+def on_settings_change(event, setting, option):
+    if option == 'plugin/daapclient/ipv6' and MANAGER is not None:
+        MANAGER.avahi.rebuild_share_menu_items()
+
 # vi: et ts=4 sts=4 sw=4
+

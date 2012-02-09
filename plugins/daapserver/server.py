@@ -32,8 +32,8 @@ class MyThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServe
     timeout = 1
 
     def __init__(self, *args):
-#        if ':' in args[0][0] or len(args[0][0]) == 0:
-#            self.address_family = socket.AF_INET6   
+        if ':' in args[0][0]:
+            self.address_family = socket.AF_INET6   
         BaseHTTPServer.HTTPServer.__init__(self,*args)
         self.keep_running = True
 
@@ -76,8 +76,6 @@ class DaapServer():
         self.zeroconf = spydaap.zeroconf.Zeroconf(self.name,
                                                 self.port,  
                                                 stype="_daap._tcp")
-        self.zeroconf.publish()
-        logger.warning("Listening.")
         self.handler = spydaap.server.makeDAAPHandlerClass(
                                         str(self.name), [], self.library, [])
         self.httpd = MyThreadedHTTPServer((self.host, self.port), 
@@ -85,9 +83,14 @@ class DaapServer():
         
         #signal.signal(signal.SIGTERM, make_shutdown(httpd))
         #signal.signal(signal.SIGHUP, rebuild_cache)
+        if self.httpd.address_family == socket.AF_INET:
+            self.zeroconf.publish(ipv4=True,ipv6=False)
+        else:
+            self.zeroconf.publish(ipv4=False,ipv6=True)
             
         try:
             try:
+                logger.warning("Listening.")
                 self.httpd.serve_forever()           
             except select.error:
                 pass

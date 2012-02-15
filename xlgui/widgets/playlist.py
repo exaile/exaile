@@ -682,7 +682,7 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         selection = self.get_selection()
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
-            return not selection.count_selected_rows() == 1
+            return not selection.count_selected_rows() <= 0
         elif event.button == 1:
             path = self.get_path_at_pos(int(event.x), int(event.y))
             if path:

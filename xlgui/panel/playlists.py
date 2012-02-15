@@ -602,6 +602,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
         self.track_menu.connect('remove-track', lambda *e:
             self.remove_selected_track())
+        self.smart_menu.connect('properties', lambda *e:
+            self._playlist_properties())
 
         for item in ('playlist', 'smart', 'default'):
             menu = getattr(self, '%s_menu' % item)
@@ -635,6 +637,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if item == 'smart':
                 menu.connect('edit-playlist', lambda *e:
                     self.edit_selected_smart_playlist())
+
+    def _playlist_properties(self):
+        pl = self.tree.get_selected_page(raw=True)
+        if isinstance(pl, playlist.SmartPlaylist):
+            self.edit_selected_smart_playlist()
 
     def refresh_playlists(self, type, track, tag):
         """
@@ -821,6 +828,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     
         result = dialog.run()
         dialog.hide()
+        pl = self.tree.get_selected_page(raw=True)
 
         if result == gtk.RESPONSE_ACCEPT:
             name = dialog.get_name()

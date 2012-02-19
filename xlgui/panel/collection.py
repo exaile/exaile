@@ -89,7 +89,7 @@ class CollectionContextMenu(menu.ProviderMenu):
 
     def get_context(self):
         context = common.LazyDict(self._parent)
-        context['selected-tracks'] = lambda name, parent: 
+        context['selected-tracks'] = lambda name, parent: \
             parent.tree.get_selected_tracks()
         return context
 

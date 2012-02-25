@@ -1,4 +1,4 @@
-# Copyright (C) 2006 Adam Olsen
+# Copyright (C) 2012 Brian Parma
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,3 +31,15 @@ class OpacityPreference(widgets.ScalePreference):
 class FontPreference(widgets.FontButtonPreference):
     default = 'Monospace 10'
     name = 'plugin/ipconsole/font'
+    
+class TextColor(widgets.ColorButtonPreference):
+    default = 'lavender'
+    name = 'plugin/ipconsole/text_color'
+    
+class BgColor(widgets.ColorButtonPreference):
+    default = 'black'
+    name = 'plugin/ipconsole/background_color'
+    
+class Theme(widgets.ComboPreference):
+    default = 'Linux'
+    name = 'plugin/ipconsole/iptheme'

@@ -106,7 +106,10 @@ class IterableIPShell:
     self.IP.readline_startup_hook(self.IP.pre_readline)
     # Workaround for updating namespace with sys.modules
     #
-    self.__update_namespace()
+    #self.__update_namespace()
+
+    # help() is blocking which hangs Gtk
+    self.updateNamespace({'help':lambda *x:'help() command incompatible with gtk'})
 
   def __update_namespace(self):
     '''

@@ -115,6 +115,9 @@ class IterableIPShell:
     # Workaround for updating namespace with sys.modules
     #
     #self.__update_namespace()
+    
+    # help() is blocking which hangs Gtk
+    self.updateNamespace({'help':lambda *x:'help() command incompatible with gtk'})
 
   def __update_namespace(self):
     '''
@@ -518,7 +521,6 @@ class IPythonView(ConsoleView, IterableIPShell):
     '''
     Initialize. Redirect I/O to console.
     '''
-    self.interrupt = False
     ConsoleView.__init__(self)
     self.cout = StringIO()
     IterableIPShell.__init__(self, cout=self.cout,cerr=self.cout, 
@@ -528,6 +530,7 @@ class IPythonView(ConsoleView, IterableIPShell):
     self.prompt = self.generatePrompt(False)
     self.cout.truncate(0)
     self.showPrompt(self.prompt)
+    self.interrupt = False
 
   def raw_input(self, prompt=''):
     '''

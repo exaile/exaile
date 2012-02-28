@@ -49,7 +49,7 @@ if __name__ == '__main__':
     ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse('black'))
     ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse('lavender'))
     ipv.IP.magic_colors('Linux') # IPython color scheme
-    ipv.IP.user_ns.clear()
+#    ipv.IP.user_ns.clear()
     w.add(sw)
     sw.add(ipv)
     

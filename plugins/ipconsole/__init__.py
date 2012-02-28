@@ -188,6 +188,10 @@ def disable(exaile):
         if item.name == 'ipconsole':
             providers.unregister('menubar-tools-menu', item)
             break
+            
+    # if window is open, kill it
+    if PLUGIN is not None:
+        PLUGIN.destroy()        
 
 def show_console(exaile):
     """

@@ -99,8 +99,8 @@ class IterableIPShell:
 
     self.IP = IPython.frontend.terminal.embed.InteractiveShellEmbed(config=cfg, user_ns=user_ns)
     self.IP.system = lambda cmd: self.shell(self.IP.var_expand(cmd),
-                                            header='IPython system call: ',
-                                            local_ns=user_ns) 
+                                            header='IPython system call: ')
+#                                            local_ns=user_ns) 
                                             #global_ns=user_global_ns)
                                             #verbose=self.IP.rc.system_verbose)
 

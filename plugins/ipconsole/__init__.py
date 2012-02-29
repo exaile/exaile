@@ -64,6 +64,18 @@ class Quitter(object):
         exit()              # Call builtin
 
 
+class IPView(ip.IPythonView):
+    '''Extend IPythonView to support closing with Ctrl+D'''
+    def onKeyPressExtend(self, event):
+        if ip.IPythonView.onKeyPressExtend(self, event):
+            return True
+            
+        
+        if event.string == '\x04':
+            # ctrl+d
+            self.destroy()
+
+
 class IPyConsole(gtk.Window):
     """
         A gtk Window with an embedded IPython Console.
@@ -78,7 +90,9 @@ class IPyConsole(gtk.Window):
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        ipv = ip.IPythonView()
+        ipv = IPView()
+
+        ipv.connect('destroy', lambda *x: self.destroy())
 
         # so it's exposed in the shell
         self.ipv = ipv

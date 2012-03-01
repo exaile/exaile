@@ -20,7 +20,7 @@ import sys
 
 try:
     uid = os.geteuid()
-except:
+except Exception:
     pass
 else:
     if uid == 0:
@@ -32,7 +32,7 @@ else:
 if os.getenv("EXAILE_NO_OPTIMIZE"):
     try:
         sys.dont_write_bytecode = True
-    except:
+    except AttributeError:
         pass
 
 if sys.platform == 'linux2':
@@ -41,7 +41,7 @@ if sys.platform == 'linux2':
         import ctypes
         libc = ctypes.CDLL('libc.so.6')
         libc.prctl(15, 'exaile', 0, 0, 0) # 15 = PR_SET_NAME
-    except:
+    except Exception:
         pass
 
 # Find out the location of exaile's working directory, and insert it to sys.path

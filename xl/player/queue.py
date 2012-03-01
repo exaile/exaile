@@ -27,7 +27,7 @@
 import logging
 try:
     import cPickle as pickle
-except:
+except ImportError:
     import pickle
 
 from xl import (

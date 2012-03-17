@@ -524,7 +524,7 @@ class TagRow(object):
         all_vals = []
         for track in parent.tracks:
             try:
-                all_vals.append(track[self.tag][self.multi_id])
+                all_vals.append(track[tag_name][multi_id])
             except KeyError:
                 all_vals.append(None)
 
@@ -618,15 +618,7 @@ class TagField(gtk.HBox):
 
         if all_vals != None and self.all_button != None:
             #Set the value of the all button
-            flag = True
-            for v in all_vals:
-                if val != v:
-                    flag = False
-
-            if flag:
-                self.all_button.set_active(True)
-            else:
-                self.all_button.set_active(False)
+            self.all_button.set_active(all(val == v for v in all_vals))
 
     def get_value(self):
         return unicode(self.field.get_text(), 'utf-8')

@@ -49,7 +49,7 @@ dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
                 'cover': IGNORE, #
                 'originalartist': (_('Original artist'), 'text'),
                 'author': (_('Author'), 'text'),
-                'originaldate': (_('Original date'), 'int', 1000, 2100),
+                'originaldate': (_('Original date'), 'text'),
                 'date': (_('Date'), 'text'),
                 'arranger': (_('Arranger'), 'text'),
                 'conductor': (_('Conductor'), 'text'),

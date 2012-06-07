@@ -48,23 +48,33 @@ from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
-def error(parent, message, _flags=gtk.DIALOG_MODAL):
+def error(parent, message=None, markup=None, _flags=gtk.DIALOG_MODAL):
     """
         Shows an error dialog
     """
+    if message is markup is None:
+        raise ValueError("message or markup must be specified")
     dialog = gtk.MessageDialog(parent, _flags, gtk.MESSAGE_ERROR,
         gtk.BUTTONS_CLOSE)
-    dialog.set_markup(message)
+    if markup is None:
+        dialog.props.text = message
+    else:
+        dialog.set_markup(markup)
     dialog.run()
     dialog.destroy()
 
-def info(parent, message):
+def info(parent, message=None, markup=None):
     """
         Shows an info dialog
     """
+    if message is markup is None:
+        raise ValueError("message or markup must be specified")
     dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
         gtk.BUTTONS_OK)
-    dialog.set_markup(message)
+    if markup is None:
+        dialog.props.text = message
+    else:
+        dialog.set_markup(markup)
     dialog.run()
     dialog.destroy()
 
@@ -808,7 +818,7 @@ class PlaylistImportDialog(gtk.FileChooserDialog):
             try:
                 playlist = import_playlist( self.get_uri() )
             except InvalidPlaylistTypeError, e:
-                error( 'Invalid playlist: %s' % e )
+                error(None, 'Invalid playlist: %s' % e)
                 self.destroy()
             else:
                 self.emit('playlist-selected', playlist)
@@ -1137,66 +1147,94 @@ class MessageBar(gtk.InfoBar):
         """
         return self.message_area
 
-    def show_info(self, text, secondary_text=None, timeout=5):
+    def _show_message(self, message_type, text, secondary_text,
+            markup, secondary_markup, timeout):
         """
-            Convenience method which sets all
-            required flags for a info message
-            
-            :param text: the message to display
-            :type text: string
-            :param secondary_text: additional information
-            :param secondary_text: string
-            :param timeout: after how many seconds the
-                message should be hidden automatically,
-                use 0 to disable this behavior
-            :type timeout: int
+            Helper for the various `show_*` methods. See `show_info` for
+            documentation on the parameters.
         """
-        self.set_message_type(gtk.MESSAGE_INFO)
-        self.set_markup(text)
-        self.set_secondary_markup(secondary_text)
+        if text is markup is None:
+            raise ValueError("text or markup must be specified")
+
+        self.set_message_type(message_type)
+        if markup is None:
+            self.set_text(unicode(text, errors='replace'))
+        else:
+            self.set_markup(unicode(markup, errors='replace'))
+        if secondary_markup is None:
+            self.set_secondary_text(unicode(secondary_text, errors='replace'))
+        else:
+            self.set_secondary_markup(unicode(secondary_markup, errors='replace'))
         self.show()
 
         if timeout > 0:
             glib.timeout_add_seconds(timeout, self.hide)
 
-    def show_question(self, text, secondary_text=None):
+    def show_info(self, text=None, secondary_text=None,
+            markup=None, secondary_markup=None, timeout=5):
+        """
+            Convenience method which sets all
+            required flags for an info message
+            
+            :param text: the message to display
+            :type text: string
+            :param secondary_text: additional information
+            :type secondary_text: string
+            :param markup: the message to display, in Pango markup format
+                (overrides `text`)
+            :type markup: string
+            :param secondary_markup: additional information, in Pango markup
+                format (overrides `secondary_text`)
+            :type secondary_markup: string
+            :param timeout: after how many seconds the
+                message should be hidden automatically,
+                use 0 to disable this behavior
+            :type timeout: int
+        """
+        self._show_message(gtk.MESSAGE_INFO, text, secondary_text,
+            markup, secondary_markup, timeout)
+
+    def show_question(self, text=None, secondary_text=None,
+            markup=None, secondary_markup=None):
         """
             Convenience method which sets all
             required flags for a question message
             
             :param text: the message to display
             :param secondary_text: additional information
+            :param markup: the message to display, in Pango markup format
+            :param secondary_markup: additional information, in Pango markup format
         """
-        self.set_message_type(gtk.MESSAGE_QUESTION)
-        self.set_markup(text)
-        self.set_secondary_markup(secondary_text)
-        self.show()
+        self._show_message(gtk.MESSAGE_QUESTION, text, secondary_text,
+            markup, secondary_markup, 0)
 
-    def show_warning(self, text, secondary_text=None):
+    def show_warning(self, text=None, secondary_text=None,
+            markup=None, secondary_markup=None):
         """
             Convenience method which sets all
             required flags for a warning message
             
             :param text: the message to display
             :param secondary_text: additional information
+            :param markup: the message to display, in Pango markup format
+            :param secondary_markup: additional information, in Pango markup format
         """
-        self.set_message_type(gtk.MESSAGE_WARNING)
-        self.set_markup(text)
-        self.set_secondary_markup(secondary_text)
-        self.show()
+        self._show_message(gtk.MESSAGE_WARNING, text, secondary_text,
+            markup, secondary_markup, 0)
 
-    def show_error(self, text, secondary_text=None):
+    def show_error(self, text=None, secondary_text=None,
+            markup=None, secondary_markup=None):
         """
             Convenience method which sets all
             required flags for a warning message
             
             :param text: the message to display
             :param secondary_text: additional information
+            :param markup: the message to display, in Pango markup format
+            :param secondary_markup: additional information, in Pango markup format
         """
-        self.set_message_type(gtk.MESSAGE_ERROR)
-        self.set_markup(text)
-        self.set_secondary_markup(secondary_text)
-        self.show()
+        self._show_message(gtk.MESSAGE_ERROR, text, secondary_text,
+            markup, secondary_markup, 0)
 
     def on_response(self, widget, response):
         """
@@ -1204,7 +1242,7 @@ class MessageBar(gtk.InfoBar):
         """
         if response == gtk.RESPONSE_CLOSE:
             self.hide()
-    
+
 #
 # Message ID's used by the XMessageDialog
 #

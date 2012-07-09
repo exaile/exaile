@@ -44,6 +44,13 @@ if sys.platform == 'linux2':
     except Exception:
         pass
 
+# Set visible process name. Requires module "setproctitle"
+try:
+    from setproctitle import setproctitle
+    setproctitle('exaile')
+except ImportError:
+    pass
+
 # Find out the location of exaile's working directory, and insert it to sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(basedir, "exaile.py")):

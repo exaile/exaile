@@ -2,6 +2,7 @@
 # cookbook at:
 #   http://ipython.scipy.org/moin/Cookbook/EmbeddingInGTK
 # Copyright (C) 2009-2010 Brian Parma
+# Updated       2012 Brian Parma
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -63,6 +64,18 @@ class Quitter(object):
         exit()              # Call builtin
 
 
+class IPView(ip.IPythonView):
+    '''Extend IPythonView to support closing with Ctrl+D'''
+    def onKeyPressExtend(self, event):
+        if ip.IPythonView.onKeyPressExtend(self, event):
+            return True
+            
+        
+        if event.string == '\x04':
+            # ctrl+d
+            self.destroy()
+
+
 class IPyConsole(gtk.Window):
     """
         A gtk Window with an embedded IPython Console.
@@ -77,28 +90,34 @@ class IPyConsole(gtk.Window):
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        ipv = ip.IPythonView()
+        ipv = IPView()
+
+        ipv.connect('destroy', lambda *x: self.destroy())
 
         # so it's exposed in the shell
         self.ipv = ipv
 
         # change display to emulate dark gnome-terminal
         console_font = settings.get_option('plugin/ipconsole/font', FONT)
+        
+        text_color = settings.get_option('plugin/ipconsole/text_color', 
+                                            'lavender')
+                                            
+        bg_color = settings.get_option('plugin/ipconsole/background_color', 
+                                        'black')
+                                
+        iptheme = settings.get_option('plugin/ipconsole/iptheme', 'Linux')
 
         ipv.modify_font(pango.FontDescription(console_font))
         ipv.set_wrap_mode(gtk.WRAP_CHAR)
-        ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse('black'))
-        ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse('lavender'))
-        ipv.IP.magic_colors('Linux') # IPython color scheme
-
-#           or white background?
-#        ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse('white'))
-#        ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse('black'))
-#        ipv.IP.magic_colors('LightBG') # IPython color scheme
+        ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg_color))
+        ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(text_color))
+        ipv.IP.magic_colors(iptheme) # IPython color scheme
 
         opacity = settings.get_option('plugin/ipconsole/opacity', 80.0)
 
-        if opacity < 100: self.set_opacity(float(opacity) / 100.0)   # add a little transparency :)
+        # add a little transparency :)
+        if opacity < 100: self.set_opacity(float(opacity) / 100.0)   
         ipv.updateNamespace(namespace)      # expose exaile (passed in)
         ipv.updateNamespace({'self':self})  # Expose self to IPython
 
@@ -108,17 +127,22 @@ class IPyConsole(gtk.Window):
 
         # This is so when exaile calls exit(), IP doesn't prompt and prevent
         # it from closing
-        __builtin__.exit = Quitter(ipv.IP.magic_Exit, 'exit')
-        __builtin__.quit = Quitter(ipv.IP.magic_Exit, 'quit')
+        try:
+            __builtin__.exit = Quitter(ipv.IP.magic_Exit, 'exit')
+            __builtin__.quit = Quitter(ipv.IP.magic_Exit, 'quit')
+        except AttributeError: # newer versions of IP don't need this
+            pass
 
         ipv.show()
 
+        # make it scrollable
         sw.add(ipv)
         sw.show()
 
         self.add(sw)
         self.show()
 
+        # don't destroy the window on delete, hide it
         self.connect('delete_event',lambda x,y:False)
 
 def _enable(exaile):
@@ -141,6 +165,19 @@ def on_option_set(event, settings, option):
     if option == 'plugin/ipconsole/font' and PLUGIN:
         value = settings.get_option(option, FONT)
         PLUGIN.ipv.modify_font(pango.FontDescription(value))
+
+    if option == 'plugin/ipconsole/text_color' and PLUGIN:
+        value = settings.get_option(option, 'lavender')
+        PLUGIN.ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(value))
+        
+    if option == 'plugin/ipconsole/background_color' and PLUGIN:
+        value = settings.get_option(option, 'black')
+        PLUGIN.ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(value))
+
+    if option == 'plugin/ipconsole/iptheme' and PLUGIN:
+        value = settings.get_option(option, 'Linux')
+        PLUGIN.ipv.IP.magic_colors(value)
+
 
 def __enb(evt, exaile, nothing):
     glib.idle_add(_enable, exaile)
@@ -165,6 +202,10 @@ def disable(exaile):
         if item.name == 'ipconsole':
             providers.unregister('menubar-tools-menu', item)
             break
+            
+    # if window is open, kill it
+    if PLUGIN is not None:
+        PLUGIN.destroy()        
 
 def show_console(exaile):
     """

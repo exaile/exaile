@@ -42,7 +42,7 @@ import subprocess
 import sys
 import threading
 import traceback
-from functools import wraps
+from functools import wraps, partial
 from collections import deque
 from UserDict import DictMixin
 
@@ -274,9 +274,19 @@ class LimitedCache(DictMixin):
 
     def __setitem__(self, item, value):
         self.cache[item] = value
+        if item in self.order:
+            self.order.remove(item)
         self.order.append(item)
         while len(self) > self.limit:
             del self.cache[self.order.popleft()]
+
+    def __repr__(self):
+        '''prevent repr(self) from changing cache order'''
+        return repr(self.cache)
+        
+    def __str__(self):
+        '''prevent str(self) from changing cache order'''
+        return str(self.cache)
 
     def keys(self):
         return self.cache.keys()
@@ -307,9 +317,16 @@ class cached(object):
             except KeyError:
                 pass
             ret = f(*args, **kwargs)
-            f._cache[(args, self._freeze(kwargs))] = ret
+            try:
+                f._cache[(args, self._freeze(kwargs))] = ret
+            except TypeError: # args can't be hashed
+                pass
             return ret
         return wrapper
+        
+    def __get__(self, obj, objtype):
+        """Support instance methods."""
+        return partial(self.__call__, obj)
 
 def walk(root):
     """

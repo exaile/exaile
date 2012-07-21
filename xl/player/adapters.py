@@ -33,8 +33,9 @@ class PlaybackAdapter(object):
     def __init__(self, player):
     
         self.__player = player
-        self.__events = ('playback_track_start', 'playback_player_end',
-                         'playback_toggle_pause', 'playback_error')
+        self.__events = ('playback_track_start', 'playback_track_end',
+                         'playback_player_end', 'playback_toggle_pause',
+                         'playback_error')
 
         for e in self.__events:
             event.add_callback(getattr(self, 'on_%s' % e), e, player)
@@ -55,6 +56,10 @@ class PlaybackAdapter(object):
             event.remove_callback(getattr(self, 'on_%s' % e), e, self.__player)
 
     def on_playback_track_start(self, event, player, track):
+        """ Override """
+        pass
+
+    def on_playback_track_end(self, event, player, track):
         """ Override """
         pass
 

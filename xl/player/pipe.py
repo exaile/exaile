@@ -360,11 +360,11 @@ def sink_from_preset(player, preset):
 
     try:
         sink = AudioSink(name, pipe, player)
-        return sink
-    except:
+    except Exception:
         common.log_exception(log=logger,
                 message="Could not enable audiosink %s for %s." % (preset, player._name))
         return None
+    return sink
         
 def sink_enumerate_devices(preset):
     '''

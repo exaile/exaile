@@ -248,9 +248,7 @@ class EventManager(object):
                     if not cb.valid:
                         try:
                             self.callbacks[event.type][event.object].remove(cb)
-                        except KeyError:
-                            pass
-                        except ValueError:
+                        except (KeyError, ValueError):
                             pass
                     elif event.time >= cb.time:
                         if self.use_logger and (not self.logger_filter or \
@@ -262,7 +260,7 @@ class EventManager(object):
                                         'event': event.type})
                         cb.wfunction().__call__(event.type, event.object,
                                 event.data, *cb.args, **cb.kwargs)
-                except:
+                except Exception:
                     # something went wrong inside the function we're calling
                     common.log_exception(logger,
                                 message="Event callback exception caught!")

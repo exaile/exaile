@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import glib
 import gobject
 import gtk
 
@@ -170,7 +171,8 @@ class Menu(gtk.Menu):
         self._items = []
         self.context_func = context_func
         self.connect('show', lambda *e: self.regenerate_menu())
-        self.connect('hide', lambda *e: self.clear_menu())
+        # GTK gets unhappy if we remove the menu items before it's done with them.
+        self.connect('hide', lambda *e: glib.idle_add(self.clear_menu))
         self.placeholder = gtk.MenuItem('')
 
     def get_context(self):

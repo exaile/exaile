@@ -265,7 +265,10 @@ class SettingsManager(RawConfigParser):
                 if value != 'True':
                     return False
 
-            value = TYPE_MAPPING[kind](value)
+            try:
+                value = TYPE_MAPPING[kind](value)
+            except:
+                pass
 
             return value
         else:

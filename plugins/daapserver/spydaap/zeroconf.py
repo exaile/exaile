@@ -3,6 +3,9 @@
 __all__ = ["Zeroconf"]
 
 import select, sys, traceback
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Zeroconf(object):
     """A simple class to publish a network service with zeroconf using
@@ -55,7 +58,7 @@ class Zeroconf(object):
             self.sdRef.close()
 
     class Avahi(Helper):
-        def publish(self):
+        def publish(self, ipv4=True, ipv6=True):
             import dbus, avahi
             bus = dbus.SystemBus()
             server = dbus.Interface(
@@ -69,9 +72,16 @@ class Zeroconf(object):
                                server.EntryGroupNew()),
                 avahi.DBUS_INTERFACE_ENTRY_GROUP)
             
-            self.group.AddService(avahi.IF_UNSPEC, avahi.PROTO_UNSPEC,dbus.UInt32(0),
-                         self.name, self.stype, self.domain, self.host,
-                         dbus.UInt16(self.port), self.text)
+            if ipv4 and ipv6:
+                prot = avahi.PROTO_UNSPEC
+            elif ipv6:
+                proto = avahi.PROTO_INET6
+            else: # we don't let them both be false
+                proto = avahi.PROTO_INET
+            
+            self.group.AddService(avahi.IF_UNSPEC, proto,
+                         dbus.UInt32(0), self.name, self.stype, self.domain, 
+                         self.host, dbus.UInt16(self.port), self.text)
             self.group.Commit()
 
         def unpublish(self):
@@ -81,18 +91,18 @@ class Zeroconf(object):
         try:
             import pybonjour
             self.helper = Zeroconf.Pybonjour(*args, **kwargs)
-        except:
-            traceback.print_exc(file=sys.stdout)
+        except ImportError:
+            logger.info('pybonjour not found, using avahi')
             try:
                 import avahi, dbus
                 self.helper = Zeroconf.Avahi(*args, **kwargs)
-            except:
-                traceback.print_exc(file=sys.stdout)
+            except ImportError:
+                logger.warning('pybonjour nor avahi found, cannot announce presence')
                 self.helper = None
                 
-    def publish(self):
+    def publish(self, *args, **kwargs):
         if self.helper != None:
-            self.helper.publish()
+            self.helper.publish(*args, **kwargs)
 
     def unpublish(self):
         if self.helper != None:

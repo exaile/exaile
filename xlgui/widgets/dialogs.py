@@ -48,6 +48,14 @@ from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
+def force_unicode(obj):
+    try:
+        # Try this first because errors='replace' fails if the object is unicode
+        # or some other non-str object.
+        return unicode(obj)
+    except UnicodeDecodeError:
+        return unicode(obj, errors='replace')
+
 def error(parent, message=None, markup=None, _flags=gtk.DIALOG_MODAL):
     """
         Shows an error dialog
@@ -1158,13 +1166,13 @@ class MessageBar(gtk.InfoBar):
 
         self.set_message_type(message_type)
         if markup is None:
-            self.set_text(unicode(text, errors='replace'))
+            self.set_text(force_unicode(text))
         else:
-            self.set_markup(unicode(markup, errors='replace'))
+            self.set_markup(force_unicode(markup))
         if secondary_markup is None:
-            self.set_secondary_text(unicode(secondary_text, errors='replace'))
+            self.set_secondary_text(force_unicode(secondary_text))
         else:
-            self.set_secondary_markup(unicode(secondary_markup, errors='replace'))
+            self.set_secondary_markup(force_unicode(secondary_markup))
         self.show()
 
         if timeout > 0:

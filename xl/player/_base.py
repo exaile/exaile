@@ -105,7 +105,7 @@ class ExailePlayer(object):
             event.log_event('tags_parsed', self, (self.current, parsed))
             if self.current and not self.current.get_tag_raw('__length'):
                 try:
-                    raw_duration = self.playbin.query_duration(gst.FORMAT_TIME, None)[0]
+                    raw_duration = self._pipe.query_duration(gst.FORMAT_TIME, None)[0]
                 except gst.QueryError:
                     logger.error("Couldn't query duration")
                     raw_duration = 0

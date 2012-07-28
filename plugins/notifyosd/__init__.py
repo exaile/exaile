@@ -63,7 +63,7 @@ class ExaileNotifyOsd(object):
     def __init__(self):
         self.notify         = pynotify.Notification('Exaile')
         self.exaile         = None
-        self.cover          = None
+        self.icon           = None
         self.pauseicon      = 'notification-audio-pause'
         self.resumeicon     = 'notification-audio-play'
         self.stopicon       = 'notification-audio-stop'
@@ -74,31 +74,40 @@ class ExaileNotifyOsd(object):
         self.gui_callback   = False
         self.tray_connection= -1
         event.add_callback(self.on_tray_toggled, 'tray_icon_toggled')
+        
+    def update_notify(self):
+        if isinstance(self.icon, str):
+            self.notify.clear_hints()   # workaround a bug in libnotify, 
+                                        # pixbuf hint is not cleared 
+            self.notify.update(self.summary, self.body, self.icon)
+        else:
+            self.notify.update(self.summary, self.body)
+            if self.icon is not None:
+                self.notify.set_icon_from_pixbuf(self.icon)
 
     @common.threaded
-    def update_track_notify(self, type, player, track, media_icon = None):
-        if not track or (track != player.current):
+    def update_track_notify(self, type, player, track, media_icon = None):       
+        if not track:
             return
         title = track.get_tag_display('title')
         artist = cgi.escape(
             track.get_tag_display('artist', artist_compilations=False)
         )
         album = cgi.escape(track.get_tag_display('album'))
-        # Find the icon we will use
-        icon_allowed = False
+        
+        # Determine the icon we will use
+        self.icon = None
+        
         if media_icon and self.use_media_icons:
-            self.cover = media_icon
-            icon_allowed = True
+            self.icon = media_icon
         else:
-            if self.cover == self.stopicon and self.summary == title and \
+            if self.icon == self.stopicon and self.summary == title and \
                     self.use_media_icons and self.notify_pause:
                 # this is for when the song has been stopped previously
-                self.cover = self.resumeicon
-                icon_allowed = True
+                self.icon = self.resumeicon
             elif self.show_covers:
                 cover_data = covers.MANAGER.get_cover(track, use_default=True)
-                self.cover = icons.MANAGER.pixbuf_from_data(cover_data)
-                icon_allowed = True
+                self.icon = icons.MANAGER.pixbuf_from_data(cover_data)
 
         # Setup the summary and body for the notification
         self.summary = self.format_summary % {'title': title or self.unknown}
@@ -113,24 +122,15 @@ class ExaileNotifyOsd(object):
         else:
             self.body = ""
 
-        if icon_allowed and self.cover:
+        self.update_notify()
+        
+        if settings.get_option("plugin/notifyosd/show_when_focused", \
+                True) or not self.exaile.gui.main.window.is_active():
             try:
-                cover_data = covers.MANAGER.get_cover(track, use_default=True)
-                pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
-            except glib.GError:
-                pass
-            else:
-                self.notify.set_icon_from_pixbuf(pixbuf)
-        self.notify.update(self.summary, self.body)
-
-        if track == player.current:
-            if settings.get_option("plugin/notifyosd/show_when_focused", \
-                    True) or not self.exaile.gui.main.window.is_active():
-                try:
-                    self.notify.show()
-                except glib.GError, e:
-                    logger.warning("error showing OSD notification: %s" % e )
-                    logger.warning("Perhaps notify-osd is not installed?")
+                self.notify.show()
+            except glib.GError, e:
+                logger.warning("error showing OSD notification: %s" % e )
+                logger.warning("Perhaps notify-osd is not installed?")
 
     def on_pause(self, type, player, track):
         if self.notify_pause:
@@ -154,27 +154,21 @@ class ExaileNotifyOsd(object):
         self.notify.close()
 
     def on_changed(self, type, track, tag):
-        if self.notify_change:
+        # ignore internal tag changes
+        if self.notify_change and not tag.startswith('__') and track == player.current:
             self.update_track_notify(type, player.PLAYER, track)
 
     def on_tooltip(self, *e):
         if self.tray_hover:
             track = player.PLAYER.current
             if track:
-                if self.cover == self.stopicon or self.cover == self.pauseicon:
+                if self.icon == self.stopicon or self.icon == self.pauseicon:
                     if self.use_media_icons:
-                        self.update_track_notify(type, player.PLAYER, track, self.cover)
+                        self.update_track_notify(type, player.PLAYER, track, self.icon)
                         return
                 self.update_track_notify(type, player.PLAYER, track)
-            elif self.notify_pause and self.cover == self.stopicon: # if there is no track, then status is stopped
-                if self.use_media_icons and self.cover:
-                    try:
-                        pixbuf = icons.MANAGER.pixbuf_from_data(self.cover)
-                    except glib.GError:
-                        pass
-                    else:
-                        self.notify.set_icon_from_pixbuf(pixbuf)
-                self.notify.update(self.summary, self.body)
+            elif self.notify_pause and self.icon == self.stopicon: # if there is no track, then status is stopped
+                self.update_notify()
                 self.notify.show()
 
     def exaile_ready(self, type = None, data1 = None, data2 = None):
@@ -191,7 +185,7 @@ EXAILE_NOTIFYOSD = ExaileNotifyOsd()
 
 def enable(exaile):
     EXAILE_NOTIFYOSD.exaile = exaile
-    event.add_callback(EXAILE_NOTIFYOSD.on_play, 'playback_player_start', player.PLAYER)
+    event.add_callback(EXAILE_NOTIFYOSD.on_play, 'playback_track_start', player.PLAYER)
     event.add_callback(EXAILE_NOTIFYOSD.on_pause, 'playback_player_pause', player.PLAYER)
     event.add_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end', player.PLAYER)
     event.add_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume', player.PLAYER)
@@ -204,7 +198,7 @@ def enable(exaile):
         EXAILE_NOTIFYOSD.gui_callback = True
 
 def disable(exaile):
-    event.remove_callback(EXAILE_NOTIFYOSD.on_play, 'playback_player_start', player.PLAYER)
+    event.remove_callback(EXAILE_NOTIFYOSD.on_play, 'playback_track_start', player.PLAYER)
     event.remove_callback(EXAILE_NOTIFYOSD.on_pause, 'playback_player_pause', player.PLAYER)
     event.remove_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end', player.PLAYER)
     event.remove_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume', player.PLAYER)

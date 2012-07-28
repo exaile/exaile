@@ -38,8 +38,8 @@ class ProtocolError(Exception):
    "Raised on general Protocol errors"
    pass
 
-def login( user, password, hashpw=False, client=('exa', '0.3.0'),
-   post_url='http://post.audioscrobbler.com/' ):
+def login(user, password, hashpw=False, client=('exa', '0.3.0'),
+   post_url=None):
    """Authencitate with AS (The Handshake)
 
    @param user:     The username
@@ -66,7 +66,7 @@ def login( user, password, hashpw=False, client=('exa', '0.3.0'),
    LAST_HS = datetime.now()
 
    tstamp = int(mktime(datetime.now().timetuple()))
-   url    = post_url
+   url    = post_url or POST_URL
 
    if hashpw is True:
       __LOGIN['p'] = md5(password).hexdigest()

@@ -126,7 +126,11 @@ class ExaileNotifyOsd(object):
         if track == player.current:
             if settings.get_option("plugin/notifyosd/show_when_focused", \
                     True) or not self.exaile.gui.main.window.is_active():
-                self.notify.show()
+                try:
+                    self.notify.show()
+                except glib.GError, e:
+                    logger.warning("error showing OSD notification: %s" % e )
+                    logger.warning("Perhaps notify-osd is not installed?")
 
     def on_pause(self, type, player, track):
         if self.notify_pause:

@@ -126,6 +126,36 @@ class DynamicModesMenuItem(ModesMenuItem):
     modetype = 'dynamic'
     display_name = _("Dynamic")
 
+class RemoveCurrentMenuItem(menu.MenuItem):
+    """
+        Allows for removing the currently playing
+        track from the current playlist
+    """
+    def __init__(self, after, get_playlist_func=default_get_playlist_func):
+        menu.MenuItem.__init__(self, 'remove-current', None, after)
+        self.get_playlist_func = get_playlist_func
+
+    def factory(self, menu, parent, context):
+        """
+            Sets up the menu item
+        """
+        item = gtk.ImageMenuItem(_('Remove Current Track From Playlist'))
+        item.set_image(gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_MENU))
+        item.connect('activate', self.on_activate)
+
+        if player.PLAYER.is_stopped():
+            item.set_sensitive(False)
+
+        return item
+
+    def on_activate(self, menuitem, playlist):
+        """
+            Removes the currently playing track from the current playlist
+        """
+        playlist = self.get_playlist_func()
+        
+        if playlist and playlist.current == player.PLAYER.current:
+            del playlist[playlist.current_position]
 
 
 # do this in a function to avoid polluting the global namespace

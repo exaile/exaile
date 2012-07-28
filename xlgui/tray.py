@@ -72,12 +72,7 @@ def __create_tray_context_menu():
     items.append(menuitems.RatingMenuItem('rating', [items[-1].name],
         rating_get_tracks_func))
     # Remove
-    def remove_current_cb(widget, menuobj, parent, context):
-        pl = player.QUEUE.current_playlist
-        if pl and pl.current == player.PLAYER.current:
-            del pl[pl.current_position]
-    items.append(menu.simple_menu_item('remove-current', [items[-1].name],
-        _("Remove Current Track From Playlist"), gtk.STOCK_REMOVE, remove_current_cb))
+    items.append(playlist.RemoveCurrentMenuItem([items[-1].name]))
     # ----
     items.append(sep('misc-actions-sep', [items[-1].name]))
     # Quit

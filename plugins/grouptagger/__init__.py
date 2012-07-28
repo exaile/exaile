@@ -130,12 +130,12 @@ class GroupTaggerPlugin(object):
             self.selectcustom_menuitem = None
             
             
-        if self.tag.dialog:
+        if self.tag_dialog:
             self.tag_dialog.destroy()
             self.tag_dialog = None
         
         # de-register the exaile events
-        event.remove_callback( self.playback_track_start, 'playback_track_start' )
+        event.remove_callback( self.on_playback_track_start, 'playback_track_start' )
         event.remove_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
         event.remove_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         

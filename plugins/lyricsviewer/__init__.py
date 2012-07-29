@@ -28,8 +28,10 @@ import gtk, glib, pango
 import os
 import webbrowser
 from xl.nls import gettext as _
-from xl import common, event, player
+from xl import common, event, player, settings
 from xl.lyrics import LyricsNotFoundException
+
+import lyricsviewerprefs
 
 LYRICSPANEL = None
 CURPATH = os.path.realpath(__file__)
@@ -51,6 +53,7 @@ def _enable(o1, exaile, o2):
 #I set the style of the text view containing the lyrics here cause
 #the style of the top level is not really available until the panel is added.
     LYRICSVIEWER.set_lyrics_text_style()
+    event.add_callback(on_option_set, 'plugin_lyricsviewer_option_set')
 
 def disable(exaile):
     global LYRICSPANEL
@@ -59,6 +62,14 @@ def disable(exaile):
     exaile.gui.remove_panel(LYRICSPANEL)
     LYRICSVIEWER = None
     LYRICSPANEL = None
+
+def get_preferences_pane():
+    return lyricsviewerprefs
+
+def on_option_set(event, settings, option):
+    if option == 'plugin/lyricsviewer/lyrics_font':
+        value = settings.get_option(option, LYRICSVIEWER.lyrics_font)
+        LYRICSVIEWER.lyrics_text.modify_font(pango.FontDescription(value))
 
 class LyricsViewer(object):
 
@@ -120,8 +131,9 @@ class LyricsViewer(object):
        #trackname end
 
        #the textview which cointains the lyrics
+        user_lyrics_font = settings.get_option('plugin/lyricsviewer/lyrics_font', self.lyrics_font)
         self.lyrics_text=builder.get_object('LyricsText')
-        self.lyrics_text.modify_font(pango.FontDescription(self.lyrics_font))
+        self.lyrics_text.modify_font(pango.FontDescription(user_lyrics_font))
         self.lyrics_text_buffer = builder.get_object('LyricsTextBuffer')
        #end lyrictextview
 

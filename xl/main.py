@@ -431,6 +431,14 @@ class Exaile(object):
         group = OptionGroup(p, _('Track Options'))
         group.add_option("-q", "--query", dest="Query", action="store_true",
                 default=False, help=_("Query player"))
+        group.add_option("--format-query", dest="FormatQuery",
+                         # TRANSLATORS: Meta variable for --format-query
+                         action="store", metavar=_('FORMAT'),
+                         help=_('Retrieves the current playback state and track information as FORMAT'))
+        group.add_option("--format-query-tags", dest="FormatQueryTags",
+                         # TRANSLATORS: Meta variable for --format-query-tags
+                         action="store", metavar=_('TAGS'),
+                         help=_('TAGS to retrieve from the current track, use with --format-query'))
         group.add_option("--gui-query", dest="GuiQuery",
                 action="store_true", default=False,
                 help=_("Show a popup with data of the current track"))

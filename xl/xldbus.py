@@ -31,6 +31,7 @@
     implements the ``org.exaile.Exaile`` interface
 """
 
+from collections import namedtuple
 import logging
 from optparse import OptionParser
 import os
@@ -89,7 +90,7 @@ def check_exit(options, args):
                 'GetRating', 'SetRating', 'IncreaseVolume', 'DecreaseVolume',
                 'Play', 'Stop', 'Next', 'Prev', 'PlayPause',
                 'StopAfterCurrent', 'GuiToggleVisible', 'CurrentPosition',
-                'CurrentProgress', 'GetVolume', 'Query']:
+                'CurrentProgress', 'GetVolume', 'Query', 'FormatQuery']:
             if getattr(options, command):
                 return "command"
         return "continue"
@@ -118,55 +119,57 @@ def run_commands(options, iface):
                 print value
             comm = True
 
-    modify_commands = [
+    argument_commands = (
+        'IncreaseVolume',
+        'DecreaseVolume',
         'SetRating',
         'Add',
         'ExportPlaylist'
-    ]
+    )
 
-    for command in modify_commands:
+    for command in argument_commands:
         argument = getattr(options, command)
         if argument is not None:
-            getattr(iface, command)(argument)
+            if command in ('IncreaseVolume', 'DecreaseVolume'):
+                iface.ChangeVolume(value if command == 'IncreaseVolume' else -value)
+            else:
+                print getattr(iface, command)(argument)
+
             comm = True
 
-    volume_commands = (
-            'IncreaseVolume',
-            'DecreaseVolume',
-            )
-
-    for command in volume_commands:
-        value = getattr(options, command)
-        if value:
-            if command == 'DecreaseVolume': value = -value
-            iface.ChangeVolume(value)
+    # Special handling for FormatQuery & FormatQueryTags
+    format = options.FormatQuery
+    if format is not None:
+        print iface.FormatQuery(format, options.FormatQueryTags or 'title,artist,album,__length')
+        comm = True
 
     run_commands = (
-            'Play',
-            'Stop',
-            'Next',
-            'Prev',
-            'PlayPause',
-            'StopAfterCurrent',
-            'GuiToggleVisible',
-            'ToggleMute'
-            )
+        'Play',
+        'Stop',
+        'Next',
+        'Prev',
+        'PlayPause',
+        'StopAfterCurrent',
+        'GuiToggleVisible',
+        'ToggleMute'
+    )
+
     for command in run_commands:
         if getattr(options, command):
             getattr(iface, command)()
             comm = True
 
     query_commands = (
-            'CurrentPosition',
-            'CurrentProgress',
-            'GetRating',
-            'GetVolume',
-            'Query',
-            )
+        'CurrentPosition',
+        'CurrentProgress',
+        'GetRating',
+        'GetVolume',
+        'Query'
+    )
 
     for command in query_commands:
         if getattr(options, command):
-            print getattr(iface, command)()
+            print getattr(iface, command)(argument)
             comm = True
 
     to_implement = (
@@ -179,6 +182,11 @@ def run_commands(options, iface):
 
     if not comm:
         iface.GuiToggleVisible()
+
+PlaybackStatus = namedtuple(
+    'PlaybackStatus',
+    'state progress position current'
+)
 
 class DbusManager(dbus.service.Object):
     """
@@ -420,6 +428,51 @@ class DbusManager(dbus.service.Object):
         from xl import player
         return str(player.PLAYER.get_volume())
 
+    def __get_playback_status(self, tags=["title", "artist", "album", "__length"]):
+        """
+            Retrieves the playback status
+
+            :param tags: tags to retrieve from the current track
+            :type tags: list
+            :returns: the playback status
+            :rtype: :class:`xl.xldbus.PlaybackStatus`
+        """
+        status = PlaybackStatus(
+            state='stopped',
+            current=None,
+            progress=0,
+            position=0
+        )
+
+        from xl import player
+
+        current_track = player.QUEUE.get_current()
+        progress = player.PLAYER.get_progress()
+
+        if current_track is not None and \
+           not player.PLAYER.is_stopped():
+            current = {}
+            # Make tags unique
+            tags = list(set(tags))
+
+            for tag in tags:
+                current[tag] = self.GetTrackAttr(tag)
+
+            # Special handling for internal tags
+            if "__length" in tags:
+                from xl.formatter import LengthTagFormatter
+                current["__length"] = LengthTagFormatter.format_value(self.GetTrackAttr('__length'))
+            
+            status = PlaybackStatus(
+                state=player.PLAYER.get_state(),
+                progress=self.CurrentProgress(),
+                position=self.CurrentPosition(),
+                current=current
+            )
+
+        return status
+
+
     @dbus.service.method('org.exaile.Exaile', None, 's')
     def Query(self):
         """
@@ -428,27 +481,48 @@ class DbusManager(dbus.service.Object):
             :returns: information about the current track
             :rtype: string
         """
-        from xl import player
-        current_track = player.QUEUE.get_current()
-        if current_track is None or player.PLAYER.is_stopped():
-            return _('Not playing.')
+        status = self.__get_playback_status()
 
-        length = float(self.GetTrackAttr('__length') or 0)
-        length = '%d:%02d' % (length // 60, length % 60)
+        if status.current is None or status.state == "stopped":
+            return _('Not playing.')
 
         result = _('status: %(status)s, title: %(title)s, artist: %(artist)s,'
                    ' album: %(album)s, length: %(length)s,'
                    ' position: %(progress)s%% [%(position)s]') % {
-                         'status': player.PLAYER.get_state(),
-                         'title': self.GetTrackAttr('title'),
-                         'artist': self.GetTrackAttr('artist'),
-                         'album': self.GetTrackAttr('album'),
-                         'length': length,
-                         'progress': self.CurrentProgress(),
-                         'position': self.CurrentPosition(),
+                         'status': status.state,
+                         'title': status.current["title"],
+                         'artist': status.current["artist"],
+                         'album': status.current["album"],
+                         'length': status.current["__length"],
+                         'progress': status.progress,
+                         'position': status.position,
                      }
 
         return result
+
+    @dbus.service.method('org.exaile.Exaile', 'ss', 's')
+    def FormatQuery(self, format, tags):
+        """
+            Returns the current playback state including
+            information about the currently playing track
+
+            :param format: the desired output format (currently only "json")
+            :type format: string
+            :param tags: tags to retrieve from the current track
+            :type tags: string
+            :returns: the formatted information or an empty
+                      string if requesting an unknown format
+            :rtype: string
+        """
+        # TODO: Elaborate the use of providers here
+        if format == 'json':
+            import json
+
+            status = self.__get_playback_status(tags.split(","))
+
+            return json.dumps(status._asdict())
+
+        return ''
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
     def GetVersion(self):

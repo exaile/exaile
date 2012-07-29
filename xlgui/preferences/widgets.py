@@ -339,7 +339,7 @@ class DirPreference(Preference):
         Preference.__init__(self, preferences, widget)
 
     def _setup_change(self):
-        pass
+        self.widget.connect('current-folder-changed', self.change)
 
     def _set_value(self):
         """

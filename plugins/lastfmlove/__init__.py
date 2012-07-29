@@ -44,6 +44,8 @@ LASTFMLOVER = None
 logger = logging.getLogger(__name__)
 
 basedir = os.path.dirname(os.path.realpath(__file__))
+icons.MANAGER.add_icon_name_from_directory('love',
+    os.path.join(basedir, 'icons'))
 icons.MANAGER.add_icon_name_from_directory('send-receive',
     os.path.join(basedir, 'icons'))
 
@@ -72,7 +74,7 @@ class LoveColumn(Column):
     renderer = CellRendererToggleImage
     datatype = bool
     dataproperty = 'active'
-    cellproperties = {'icon-name': 'emblem-favorite'}
+    cellproperties = {'icon-name': 'love'}
 
     def __init__(self, *args):
         Column.__init__(self, *args)
@@ -131,7 +133,7 @@ class LoveMenuItem(MenuItem):
 
         item = gtk.ImageMenuItem(_('Love This Track'))
         item.set_image(gtk.image_new_from_icon_name(
-            'emblem-favorite', gtk.ICON_SIZE_MENU))
+            'love', gtk.ICON_SIZE_MENU))
 
         if self.get_tracks_function is not None:
             tracks = self.get_tracks_function()

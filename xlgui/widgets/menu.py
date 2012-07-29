@@ -46,7 +46,7 @@ def simple_separator(name, after):
 
 def simple_menu_item(name, after, display_name=None, icon_name=None,
                      callback=None, callback_args=[], submenu=None,
-                     accelerator=None):
+                     accelerator=None, condition_fn=None):
     """
         Factory function that should handle most cases for menus
 
@@ -61,10 +61,16 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         :param accelerator: The keyboard shortcut to display next to the item.
                 This does NOT bind the key, that mus tbe done separately by
                 registering an Accelerator with providers.
+        :param condition_fn: A function to call when the menu is displayed. If
+                the function returns False, the menu item is not shown
+                signature: condition_fn(widget, name, parent, context)
     """
     def factory(menu, parent, context):
         item = None
 
+        if condition_fn is not None and not condition_fn(name, parent, context):
+            return None
+        
         if display_name is not None:
             if icon_name is not None:
                 item = gtk.ImageMenuItem(display_name)
@@ -133,7 +139,6 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
 
 
 
-
 class MenuItem(object):
     __slots__ = ['name', 'after', '_factory', '_pos']
     def __init__(self, name, factory, after):
@@ -147,6 +152,11 @@ class MenuItem(object):
                              # without warning.
 
     def factory(self, menu, parent, context):
+        """
+            The factory function is called when the menu is shown, and
+            should return a menu item. If it returns None, the item is
+            not shown.
+        """
         return self._factory(menu, parent, context)
 
 class RadioMenuItem(MenuItem):
@@ -238,7 +248,9 @@ class Menu(gtk.Menu):
         """
         context = self.get_context()
         for item in self._items:
-            self.append(item.factory(self, self._parent, context))
+            subitem = item.factory(self, self._parent, context)
+            if subitem is not None:
+                self.append(subitem)
         self.show_all()
         if self.placeholder in self.get_children():
             self.remove(self.placeholder)

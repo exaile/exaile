@@ -1035,7 +1035,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if pl is not None:
                 tracks = pl.get_tracks()
             else:
-                tracks = [self.tree.get_selected_tracks()]
+                tracks = self.tree.get_selected_tracks()
 
             if not tracks: return
 

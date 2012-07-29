@@ -39,6 +39,7 @@ from xl import (
 
 from xl.nls import gettext as _
 from xlgui import guiutil
+from xlgui.accelerators import Accelerator
 from xlgui.widgets import menu, dialogs
 
 
@@ -85,6 +86,10 @@ class BPMCounterPlugin(object):
         # if no tap received, then restart
         self.stale_time = settings.get_option('plugin/bpm/stale_period', 2.0)
         
+        self.accelerator = Accelerator('<Control>b', lambda *x: self.enable(exaile))
+        providers.register('mainwindow-accelerators',self.accelerator)
+
+        
         
     
     def disable_plugin(self):
@@ -93,6 +98,9 @@ class BPMCounterPlugin(object):
         if self.MENU_ITEM:
             providers.unregister('menubar-tools-menu', self.MENU_ITEM)
             self.MENU_ITEM = None
+        
+        if self.accelerator:
+            providers.unregister('mainwindow-accelerator', self.accelerator)
         
         if self.window:
             self.window.hide()

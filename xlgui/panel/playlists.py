@@ -521,7 +521,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
         (model, iter) = selection.get_selected()
         track = model.get_value(iter, 2)
         if isinstance(track, TrackWrapper):
-            track.playlist.remove(track.playlist.index(track.track))
+            del track.playlist[track.playlist.index(track.track)]
             #Update the list
             self.model.remove(iter)
             #TODO do we save the playlist after this??

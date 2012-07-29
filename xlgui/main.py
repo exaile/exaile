@@ -434,16 +434,16 @@ class MainWindow(gobject.GObject):
         """
             Called when the user clicks on the SPAT item
         """
-        trs = self.get_selected_page().get_selected_tracks()
+        trs = self.get_selected_page().view.get_selected_items()
         if not trs: return
-        tr = trs[0]
-
-        if tr == player.QUEUE.stop_track:
-            player.QUEUE.stop_track = None
+        
+        # TODO: this works, but implement this some other way in the future
+        if player.QUEUE.current_playlist.spat_position == -1:
+            player.QUEUE.current_playlist.spat_position = trs[0][0]
         else:
-            player.QUEUE.stop_track = tr
+            player.QUEUE.current_playlist.spat_position = -1
 
-        self.get_selected_page().list.queue_draw()
+        self.get_selected_page().view.queue_draw()
 
     def on_append_items(self, tracks, force_play=False, queue=False, sort=False, replace=False):
         """

@@ -186,7 +186,7 @@ class CDPlaylist(playlist.Playlist):
             tr.set_tag_raw('genre',
                     info['DGENRE'])
 
-        self.set_name(title[1].decode('iso-8859-15', 'replace'))
+        self._set_name(title[1].decode('iso-8859-15', 'replace'))
         event.log_event('cddb_info_retrieved', self, True)
 
 class CDDevice(Device):

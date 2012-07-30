@@ -43,9 +43,8 @@ class CDImporter(object):
                 t.get_loc_for_io().startswith("cdda") ]
         self.duration = float(sum( [ t.get_tag_raw('__length') for t in self.tracks ] ))
         self.transcoder = transcoder.Transcoder()
-        self.formatter = formatter.TrackFormatter()
-        self.formatter.properties.format = settings.get_option("cd_import/outpath",
-            "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME"))
+        self.formatter = formatter.TrackFormatter(settings.get_option("cd_import/outpath",
+	     "%s/$artist/$album/$tracknumber - $title" % os.getenv("HOME")))
         self.current = None
         self.current_len = None
         self.progress = 0.0

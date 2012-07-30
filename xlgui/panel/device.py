@@ -99,7 +99,7 @@ class DevicePanel(panel.Panel):
         generic panel for devices
     """
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
         'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
@@ -148,7 +148,7 @@ class DevicePanel(panel.Panel):
 
 class FlatPlaylistDevicePanel(panel.Panel):
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,bool)),
         'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }

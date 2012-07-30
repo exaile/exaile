@@ -31,6 +31,7 @@ import gtk
 import logging
 
 gtk.gdk.threads_init()
+gtk.gdk.threads_enter()
 
 from xl import (
     common,
@@ -334,6 +335,7 @@ class Main(object):
 
         # save open tabs
         self.main.playlist_notebook.save_current_tabs()
+        gtk.gdk.threads_leave()
 
     @guiutil.idle_add()
     def add_device_panel(self, type, obj, device):

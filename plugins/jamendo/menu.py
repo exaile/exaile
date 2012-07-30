@@ -1,7 +1,7 @@
 import gobject
 import gtk
 
-from xlgui import menu as xlmenu
+from xlgui import oldmenu as xlmenu
 
 class JamendoMenu(xlmenu.GenericTrackMenu):
 

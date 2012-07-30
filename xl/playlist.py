@@ -754,6 +754,8 @@ class Playlist(object):
             :type position: int
         """
         oldposition = self.__current_position
+        if oldposition == position:
+            return
         if position != -1:
             if position >= len(self.__tracks):
                 raise IndexError, "Cannot set position past end of playlist"

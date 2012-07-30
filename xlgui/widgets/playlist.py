@@ -493,6 +493,12 @@ class PlaylistPage(NotebookPage):
             if pixbuf == model.clear_pixbuf:
                 pixbuf = None
             self.tab.set_icon(pixbuf)
+            
+        # there's a race condition on playback stop at the end of
+        # a playlist (current_position gets set before this is called), 
+        # so this sets the icon correctly. 
+        elif self.playlist.current_position == -1:
+            self.tab.set_icon(None)
 
     def model_visible_func(self, model, iter):
         if self._filter_matcher is not None:

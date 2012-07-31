@@ -74,7 +74,7 @@ class LoveColumn(Column):
     renderer = CellRendererToggleImage
     datatype = bool
     dataproperty = 'active'
-    cellproperties = {'icon-name': 'love'}
+    cellproperties = {'pixbuf': icons.MANAGER.pixbuf_from_icon_name('love', gtk.ICON_SIZE_MENU)}
 
     def __init__(self, *args):
         Column.__init__(self, *args)

@@ -509,10 +509,11 @@ class PlaylistPage(NotebookPage):
 
 
 
-class PlaylistView(gtk.TreeView, providers.ProviderHandler):
+class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
     def __init__(self, playlist, player):
-        gtk.TreeView.__init__(self)
+        guiutil.AutoScrollTreeView.__init__(self)
         providers.ProviderHandler.__init__(self, 'playlist-columns')
+
         self.playlist = playlist
         self.player = player
         self.model = PlaylistModel(playlist, playlist_columns.DEFAULT_COLUMNS, self.player)
@@ -521,7 +522,6 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         self.button_pressed = False # used by columns to determine whether
                                     # a notify::width event was initiated
                                     # by the user.
-        self.SCROLL_EDGE_SIZE = 15 # As in gtktreeview.c
 
         self.set_fixed_height_mode(True) # MASSIVE speedup - don't disable this!
         self.set_rules_hint(True)
@@ -557,7 +557,6 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
         self.connect("drag-data-delete", self.on_drag_data_delete)
         self.connect("drag-end", self.on_drag_end)
         self.connect("drag-motion", self.on_drag_motion)
-        self.connect("drag-leave", self.on_drag_leave)
 
     def get_selected_tracks(self):
         """
@@ -859,51 +858,6 @@ class PlaylistView(gtk.TreeView, providers.ProviderHandler):
             position = gtk.TREE_VIEW_DROP_AFTER
 
         self.set_drag_dest_row(path, position)
-
-        if not self.get_data('autoscroll_timeout_id'):
-            self.set_data('autoscroll_timeout_id', glib.timeout_add(
-                50, self.on_autoscroll_timeout))
-
-        return True
-
-    def on_drag_leave(self, widget, context, timestamp):
-        """
-            Stops automatic scrolling upon drag operations
-        """
-        autoscroll_timeout_id = self.get_data('autoscroll_timeout_id')
-        
-        if autoscroll_timeout_id:
-            glib.source_remove(autoscroll_timeout_id)
-            self.set_data('autoscroll_timeout_id', None)
-
-    def on_autoscroll_timeout(self):
-        """
-            Automatically scrolls during drag operations
-
-            Adapted from gtk_tree_view_vertical_autoscroll() in gtktreeview.c
-        """
-        pointer = self.window.get_pointer()
-        tree_x, tree_y = self.widget_to_tree_coords(pointer[0], pointer[1])
-        visible_rect = self.get_visible_rect()
-        # Calculate offset from the top edge
-        offset = tree_y - (visible_rect.y + 3 * self.SCROLL_EDGE_SIZE) # 3: Scroll faster upwards
-
-        # Check if we are near the bottom edge instead
-        if offset > 0:
-            # Calculate offset based on the bottom edge
-            offset = tree_y - (visible_rect.y + visible_rect.height - 2 * self.SCROLL_EDGE_SIZE)
-
-            # Skip if we are not near to top or bottom edge
-            if offset < 0:
-                return True
-
-        vadjustment = self.get_vadjustment()
-        vadjustment.value = common.clamp(
-            vadjustment.value + offset,
-            0,
-            vadjustment.upper - vadjustment.page_size
-        )
-        self.set_vadjustment(vadjustment)
 
         return True
 

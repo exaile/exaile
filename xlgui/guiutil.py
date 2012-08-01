@@ -335,8 +335,7 @@ class DragTreeView(AutoScrollTreeView):
         """
         if event.button != 1 or self.dragging:
             self.dragging = False
-            return True
-
+        
         if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
             return True
 
@@ -513,7 +512,10 @@ class DragTreeView(AutoScrollTreeView):
 
             if not selection.count_selected_rows():
                 selection.select_path(path[0])
-        return self.container.button_press(button, event)
+        try:
+            return self.container.button_press(button, event)
+        except AttributeError:
+            pass
 
     #TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
     def get_drag_data(self, locs, compile_tracks = True, existing_tracks = []):

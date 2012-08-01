@@ -122,7 +122,7 @@ class FlatPlaylistPanel(panel.Panel):
         for i, track in enumerate(tracks):
             self.model.append([i + 1, track.get_tag_display("title"), track])
 
-    def button_press(self, button, event):
+    def button_release(self, button, event):
         """
             Called when the user clicks on the playlist
         """

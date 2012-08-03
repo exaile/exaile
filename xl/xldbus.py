@@ -131,7 +131,7 @@ def run_commands(options, iface):
         argument = getattr(options, command)
         if argument is not None:
             if command in ('IncreaseVolume', 'DecreaseVolume'):
-                iface.ChangeVolume(value if command == 'IncreaseVolume' else -value)
+                iface.ChangeVolume(argument if command == 'IncreaseVolume' else -argument)
             else:
                 print getattr(iface, command)(argument)
 

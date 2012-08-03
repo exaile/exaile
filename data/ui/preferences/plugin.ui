@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkListStore" id="model">
+  <object class="GtkTreeStore" id="model">
     <columns>
       <!-- column-name plugin -->
       <column type="PyObject"/>
@@ -11,6 +11,8 @@
       <!-- column-name version -->
       <column type="gchararray"/>
       <!-- column-name enabled -->
+      <column type="gboolean"/>
+      <!-- column-name toggle-visible -->
       <column type="gboolean"/>
     </columns>
   </object>
@@ -80,6 +82,7 @@
                               </object>
                               <attributes>
                                 <attribute name="active">3</attribute>
+                                <attribute name="visible">4</attribute>
                               </attributes>
                             </child>
                           </object>

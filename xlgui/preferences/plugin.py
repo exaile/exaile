@@ -88,7 +88,8 @@ class PluginManager(object):
             Loads the plugin list
         """
         plugins = self.plugins.list_installed_plugins()
-        plugins_list = []
+        uncategorized = _('Uncategorized')
+        plugins_dict = { uncategorized: [] }
         failed_list = []
 
         for plugin in plugins:
@@ -99,18 +100,36 @@ class PluginManager(object):
                 continue
 
             enabled = plugin in self.plugins.enabled_plugins
-            plugins_list.append((plugin, info['Name'], info['Version'], enabled))
+            plugin_data = (plugin, info['Name'], info['Version'], enabled, True)
+            
+            if 'Category' in info:
+                if info['Category'] in plugins_dict:
+                    plugins_dict[info['Category']].append(plugin_data)
+                else:
+                    plugins_dict[info['Category']] = [plugin_data]
+            else:
+                plugins_dict[uncategorized].append(plugin_data)
 
-        plugins_list.sort(key=lambda x: locale.strxfrm(x[1]))
+        
 
         self.list.set_model(None)
         self.model.clear()
+        
+        plugins_dict = sorted(plugins_dict.iteritems(), key=lambda x: locale.strxfrm(x[0]))
 
-        for plugin in plugins_list:
-            self.model.append(plugin)
+        for category, plugins_list in plugins_dict:
+            plugins_list.sort(key=lambda x: locale.strxfrm(x[1]))
+        
+            it = self.model.append(None, (None, category, '', False, False))
+        
+            for plugin in plugins_list:
+                self.model.append(it, plugin)
 
         self.list.set_model(self.model)
-
+        
+        # TODO: Keep track of which categories are already expanded, and only expand those
+        self.list.expand_all()
+        
         if failed_list:
             self.message.show_error(_('Could not load plugin info!'),
                 ngettext(
@@ -206,6 +225,12 @@ class PluginManager(object):
 
         row = model[paths[0]]
 
+        if not row[4]:
+            self.author_label.set_label('')
+            self.description.get_buffer().set_text('')
+            self.name_label.set_label('')
+            return
+        
         info = self.plugins.get_plugin_info(row[0])
 
         self.author_label.set_label(",\n".join(info['Authors']))

@@ -2,3 +2,4 @@ Version='0.5'
 Authors=['Brian Parma <execrable@gmail.com>']
 Name=_('IPython Console')
 Description=_('Provides an IPython console that can be used to manipulate Exaile.')
+Category=_('Development')

@@ -2,3 +2,4 @@ Version='0.0.4'
 Authors=['Guillaume Lecomte <guillaume86@gmail.com>']
 Name=_('Contextual Info')
 Description=_('Show various informations about the track currently playing.\nDepends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. PIL)')
+Category=_('UI Enhancement')

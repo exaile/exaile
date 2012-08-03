@@ -2,3 +2,4 @@ Version='0.0.3'
 Authors=['Adam Olsen <arolsen@gmail.com>, Johannes Schwarz <johannes.schw@gmx.de>']
 Name=_('Streamripper')
 Description=_('Allows you to record streams with streamripper.\nDepends: streamripper')
+Category=_('Output')

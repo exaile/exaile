@@ -2,3 +2,4 @@ Version='0.0.2'
 Authors=['Adam Olsen <arolsen@gmail.com>']
 Name=_('Notify')
 Description=_('Pops up a notification when playback of a track starts')
+Category=_('Notifications')

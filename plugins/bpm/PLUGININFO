@@ -2,3 +2,4 @@ Version="0.1"
 Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
 Name="BPM Counter"
 Description="Manual BPM counter" 
+Category=_('Utility')

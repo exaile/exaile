@@ -2,3 +2,4 @@ Version='0.0.2'
 Authors=['Anthony Waters <awaters1@gmail.com>']
 Name=_('Lyrics Fly')
 Description=_('Plugin to fetch lyrics from lyricsfly.com')
+Category=_('Lyrics')

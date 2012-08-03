@@ -2,3 +2,4 @@ Version='0.0.2'
 Authors=['Abhishek Mukherjee <abhishek.mukher.g@gmail.com>']
 Name='MPRIS'
 Description=_('Creates an MPRIS D-Bus object to control Exaile')
+Category=_('Utility')

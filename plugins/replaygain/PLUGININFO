@@ -2,3 +2,4 @@ Version='0.0.2'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('ReplayGain')
 Description=_('Enables ReplayGain support')
+Category=_('Effect')

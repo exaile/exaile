@@ -2,3 +2,4 @@ Version='0.0.2'
 Authors=['Johannes Schwarz <johannes.schw@gmx.de>']
 Name=_('Shutdown after Playback')
 Description=_('Allows for shutdown of the computer at the end of playback.')
+Category=_('Utility')

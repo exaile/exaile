@@ -2,3 +2,4 @@ Version='0.0.3'
 Authors=['Adam Olsen <arolsen@gmail.com>', 'Johannes Schwarz <johannes.schw@gmx.de>']
 Name=_('Last.fm Covers')
 Description=_('Searches Last.fm for covers')
+Category=_('Covers')

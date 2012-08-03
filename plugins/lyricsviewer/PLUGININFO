@@ -2,3 +2,4 @@ Version='0.2.5'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('Lyrics Viewer')
 Description=_('Adds a side tab displaying lyrics for the currently playing track.')
+Category=_('Lyrics')

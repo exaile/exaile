@@ -2,3 +2,4 @@ Version='0.0.1'
 Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Name=_('Karaoke')
 Description=_('Removes voice from audio')
+Category=_('Effect')

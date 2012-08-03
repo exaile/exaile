@@ -59,29 +59,37 @@ def _enable(eventname, player, nothing):
     try:
         bus = dbus.SessionBus()
         try:
-            # new method (for gnome 2.22.x)
-            obj = bus.get_object('org.gnome.SettingsDaemon',
-                '/org/gnome/SettingsDaemon/MediaKeys')
-            GNOME_MMKEYS = gnome = dbus.Interface(obj,
-                'org.gnome.SettingsDaemon.MediaKeys')
-            gnome.GrabMediaPlayerKeys("Exaile", 0)
-            gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
-            return True
-        except:
-            traceback.print_exc()
-            # old method
-            obj = bus.get_object('org.gnome.SettingsDaemon',
-                '/org/gnome/SettingsDaemon')
-            GNOME_MMKEYS = gnome = dbus.Interface(obj,
-                'org.gnome.SettingsDaemon')
-            gnome.GrabMediaPlayerKeys("Exaile", 0)
-            gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
-            return True
-    except:
-        disable(None) #disconnect if we failed to load completely
+            # Mate desktop
+            obj = bus.get_object('org.mate.SettingsDaemon',
+                '/org/mate/SettingsDaemon/MediaKeys')
+            GNOME_MMKEYS = dbus.Interface(obj,
+                'org.mate.SettingsDaemon.MediaKeys')
+        except dbus.DBusException:
+            try:
+                # New method (for Gnome 2.22.x)
+                obj = bus.get_object('org.gnome.SettingsDaemon',
+                    '/org/gnome/SettingsDaemon/MediaKeys')
+                GNOME_MMKEYS = dbus.Interface(obj,
+                    'org.gnome.SettingsDaemon.MediaKeys')
+            except dbus.DBusException:
+                try:
+                    # Old method
+                    obj = bus.get_object('org.gnome.SettingsDaemon',
+                        '/org/gnome/SettingsDaemon')
+                    GNOME_MMKEYS = dbus.Interface(obj,
+                        'org.gnome.SettingsDaemon')
+                except dbus.DBusException:
+                    # Make sure we bail out completely here
+                    raise
+    except dbus.DBusException:
+        disable(None) # Disconnect if we failed to load completely
         GNOME_MMKEYS = None
         common.log_exception(logger)
         return False
+    else:
+        GNOME_MMKEYS.GrabMediaPlayerKeys("Exaile", 0)
+        GNOME_MMKEYS.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
+        return True
 
 def disable(exaile):
     global GNOME_MMKEYS

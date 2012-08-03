@@ -492,9 +492,16 @@ class LocalFileCoverFetcher(CoverSearchMethod):
     name = "localfile"
     uri_types = ['file', 'smb', 'sftp', 'nfs']
     extensions = ['.png', '.jpg', '.jpeg', '.gif']
-    preferred_names = ['album', 'cover']
+    preferred_names = []
     fixed = True
     fixed_priority = 31
+
+    def __init__(self):
+        CoverSearchMethod.__init__(self)
+
+        event.add_callback(self.on_option_set, 'covers_localfile_option_set')
+        self.on_option_set('covers_localfile_option_set', settings, 'covers/localfile/preferred_names')
+
     def find_covers(self, track, limit=-1):
         # TODO: perhaps should instead check to see if its mounted in
         # gio, rather than basing this on uri type. file:// should
@@ -534,6 +541,13 @@ class LocalFileCoverFetcher(CoverSearchMethod):
             return data
         except glib.GError:
             return None
+
+    def on_option_set(self, e, settings, option):
+        """
+            Updates the internal settings upon option change
+        """
+        if option == 'covers/localfile/preferred_names':
+            self.preferred_names = settings.get_option(option, ['album', 'cover'])
 
 
 

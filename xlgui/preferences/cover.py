@@ -26,7 +26,11 @@
 
 import gtk
 
-from xl import xdg, covers
+from xl import (
+    covers,
+    settings,
+    xdg
+)
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.preferences import widgets
@@ -42,6 +46,28 @@ class TagCoverFetching(widgets.CheckPreference):
 class LocalCoverFetching(widgets.CheckPreference):
     default = True
     name = 'covers/use_localfile'
+
+class LocalFilePreferredNamesPreference(widgets.Preference, widgets.CheckConditional):
+    default = ['album', 'cover']
+    name = 'covers/localfile/preferred_names'
+    condition_preference_name = 'covers/use_localfile'
+
+    def __init__(self, preferences, widget):
+        widgets.Preference.__init__(self, preferences, widget)
+        widgets.CheckConditional.__init__(self)
+
+    def _get_value(self):
+        """
+            Converts the string value to a list
+        """
+        return [v.strip() for v in widgets.Preference._get_value(self).split(',')]
+
+    def _set_value(self):
+        """
+            Converts the list to a string value
+        """
+        self.widget.set_text(', '.join(settings.get_option(
+            self.name, self.default)))
 
 class CoverOrderPreference(widgets.OrderListPreference):
     """

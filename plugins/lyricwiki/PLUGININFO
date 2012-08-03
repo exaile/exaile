@@ -1,4 +1,4 @@
 Version='0.0.3'
 Authors=['Anthony Waters <awaters1@gmail.com>', 'Johannes Schwarz <johannes.schw@gmx.de>']
 Name=_('Lyrics Wiki')
-Description=_('Plugin to fetch lyrics from lyricwiki.org\nDepends: python-beautifulsoup')
+Description=_('Plugin to fetch lyrics from lyrics.wikia.com\nDepends: python-beautifulsoup')

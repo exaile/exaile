@@ -12,7 +12,7 @@ except ImportError:
 def enable(exaile):
     """
         Enables the lyric wiki plugin that fetches track lyrics
-        from lyricswiki.org
+        from lyrics.wikia.com
     """
     if BeautifulSoup:
         if exaile.loading:
@@ -49,7 +49,7 @@ class LyricWiki(LyricSearchMethod):
         artist = urllib.quote(artist.replace(' ','_'))
         title = urllib.quote(title.replace(' ','_'))
 
-        url = 'http://lyricwiki.org/Special:Search?search=%s:%s' % (artist, title)
+        url = 'http://lyrics.wikia.com/%s:%s' % (artist, title)
 
         try:
             html = urllib.urlopen(url).read()

@@ -115,7 +115,7 @@ class PluginManager(object):
         self.list.set_model(None)
         self.model.clear()
         
-        plugins_dict = sorted(plugins_dict.iteritems(), key=lambda x: locale.strxfrm(x[0]))
+        plugins_dict = sorted(plugins_dict.iteritems(), key=lambda x: 'zzzz' if x[0] == uncategorized else locale.strxfrm(x[0]))
 
         for category, plugins_list in plugins_dict:
             plugins_list.sort(key=lambda x: locale.strxfrm(x[1]))

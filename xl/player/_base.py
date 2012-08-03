@@ -116,8 +116,10 @@ class ExailePlayer(object):
             self._eos_func()
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
-            a = message.parse_error()[0]
-            event.log_event('playback_error', self, message)
+            message_text = message.parse_error()[1]
+            # The most readable part is always the last
+            message_text = message_text[message_text.rfind(':') + 1:]
+            event.log_event('playback_error', self, message_text)
             self._error_func()
         return True
 

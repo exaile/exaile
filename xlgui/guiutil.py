@@ -333,12 +333,16 @@ class DragTreeView(AutoScrollTreeView):
         """
             Called when a button is released
         """
-        if event.button != 1 or self.dragging:
+        if event.button != 1 or \
+           self.dragging or \
+           event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
             self.dragging = False
-        
-        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-            return True
 
+            try:
+                return self.container.button_release(button, event)
+            except AttributeError:
+                pass
+        
         selection = self.get_selection()
         selection.unselect_all()
 

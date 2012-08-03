@@ -294,6 +294,8 @@ class UnifiedPlayer(_base.ExailePlayer):
         self.streams[self._current_stream].seek(value)
         self._reset_crossfade_timer()
 
+        event.log_event('playback_seeked', self, value)
+
 
 class AudioStream(gst.Bin):
     def __init__(self, name, player, caps=None):

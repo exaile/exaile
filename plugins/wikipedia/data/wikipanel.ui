@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkWindow" id="wikipanel_window">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Wikipedia</property>
+    <property name="default_width">100</property>
+    <property name="default_height">100</property>
+    <child>
+      <object class="GtkVBox" id="wikipanel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="border_width">3</property>
+        <property name="spacing">3</property>
+        <child>
+          <object class="GtkHBox" id="buttonbox1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="home_button">
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">32</property>
+                <property name="height_request">32</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip_markup" translatable="yes">Home</property>
+                <property name="tooltip_text" translatable="yes">Home</property>
+                <property name="use_action_appearance">False</property>
+                <property name="relief">none</property>
+                <property name="focus_on_click">False</property>
+                <signal name="clicked" handler="on_home_button_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="image2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="stock">gtk-home</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="back_button">
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">32</property>
+                <property name="height_request">32</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Back</property>
+                <property name="use_action_appearance">False</property>
+                <property name="relief">none</property>
+                <signal name="clicked" handler="on_back_button_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="image3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="stock">gtk-go-back</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="refresh_button">
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">32</property>
+                <property name="height_request">32</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip_markup" translatable="yes">Refresh</property>
+                <property name="tooltip_text" translatable="yes">Refresh</property>
+                <property name="use_action_appearance">False</property>
+                <property name="relief">none</property>
+                <property name="focus_on_click">False</property>
+                <signal name="clicked" handler="on_refresh_button_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="image1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="stock">gtk-refresh</property>
+                    <property name="icon-size">2</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="forward_button">
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">32</property>
+                <property name="height_request">32</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Forward</property>
+                <property name="use_action_appearance">False</property>
+                <property name="relief">none</property>
+                <signal name="clicked" handler="on_forward_button_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="image4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="stock">gtk-go-forward</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="rendering_frame">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -21,6 +21,7 @@ import logging
 import dbus
 import gtk
 import glib
+import os
 import tempfile
 
 from xl import covers, player
@@ -55,6 +56,7 @@ class ExaileAwn(object):
         self.exaile = None
         self.enabled = True
         self.timer_id = None
+        self.temp_icon_path = None
 
     def enable_progress(self, type, player, object):
         assert self.timer_id is None
@@ -103,7 +105,13 @@ class ExaileAwn(object):
         elif not hasattr(self.exaile, 'player'):
             log.debug("Player not loaded, ignoring set_cover call")
             return
-        elif player.PLAYER.current is None:
+
+        try:
+            os.remove(self.temp_icon_path)
+        except (TypeError, OSError):
+            pass
+
+        if player.PLAYER.current is None:
             log.debug("Player stopped, removing AWN cover")
             self.unset_cover()
         elif not self.cover_display:
@@ -113,9 +121,9 @@ class ExaileAwn(object):
 
             if image_data is not None:
                 pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
-                descriptor, path = tempfile.mkstemp()
-                pixbuf.save(path, 'png')
-                self.awn.SetTaskIconByXid(self.xid(), path)
+                descriptor, self.temp_icon_path = tempfile.mkstemp()
+                pixbuf.save(self.temp_icon_path, 'png')
+                self.awn.SetTaskIconByXid(self.xid(), self.temp_icon_path)
 
     def unset_timer(self):
         self._set_timer(100)

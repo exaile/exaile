@@ -2,3 +2,4 @@ Version='0.2.1'
 Authors=['Brian Parma <execrable@gmail.com>']
 Name=_('DAAP Server')
 Description=_('This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so a collection can be shared over DAAP.')
+Category=_('Media Sources')

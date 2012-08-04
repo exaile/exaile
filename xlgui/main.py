@@ -145,7 +145,7 @@ class MainWindow(gobject.GObject):
         hotkeys = (
             ('<Control>S', lambda *e: self.on_save_playlist()),
             ('<Shift><Control>S', lambda *e: self.on_save_playlist_as()),
-            ('<Control>F', lambda *e: self.on_search_collection_focus()),
+            ('<Control>F', lambda *e: self.on_panel_filter_focus()),
             ('<Control>G', lambda *e: self.on_search_playlist_focus()), # FIXME
             ('<Control><Alt>l', lambda *e: player.QUEUE.clear()), # FIXME
         )
@@ -588,11 +588,15 @@ class MainWindow(gobject.GObject):
         """
         self.statusbar.update_info()
 
-    def on_search_collection_focus(self, *e):
+    def on_panel_filter_focus(self, *e):
         """
-            Gives focus to the collection search bar
+            Gives focus to the filter field of the current panel
         """
-        self.controller.panels['collection'].filter.grab_focus()
+        panel_name = settings.get_option('gui/last_selected_panel', 'collection')
+        try:
+            self.controller.panels[panel_name].filter.grab_focus()
+        except (AttributeError, KeyError):
+            pass
 
     def on_search_playlist_focus(self, *e):
         """

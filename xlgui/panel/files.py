@@ -201,10 +201,10 @@ class FilesPanel(panel.Panel):
         self.entry.connect('activate', self.entry_activate)
 
         # Set up the search entry
-        self.search = guiutil.SearchEntry(self.builder.get_object('files_search_entry'))
-        self.search.connect('activate', lambda *e:
+        self.filter = guiutil.SearchEntry(self.builder.get_object('files_search_entry'))
+        self.filter.connect('activate', lambda *e:
             self.load_directory(self.current, history=False,
-                keyword=unicode(self.search.get_text(), 'utf-8')))
+                keyword=unicode(self.filter.get_text(), 'utf-8')))
 
     def fill_libraries_location(self, *e):
         model = self.location_bar.get_model()

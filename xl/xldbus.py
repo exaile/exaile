@@ -88,7 +88,7 @@ def check_exit(options, args):
     if not iface:
         for command in ['GetArtist', 'GetTitle', 'GetAlbum', 'GetLength',
                 'GetRating', 'SetRating', 'IncreaseVolume', 'DecreaseVolume',
-                'Play', 'Stop', 'Next', 'Prev', 'PlayPause',
+                'Play', 'Pause', 'Stop', 'Next', 'Prev', 'PlayPause',
                 'StopAfterCurrent', 'GuiToggleVisible', 'CurrentPosition',
                 'CurrentProgress', 'GetVolume', 'Query', 'FormatQuery']:
             if getattr(options, command):
@@ -145,6 +145,7 @@ def run_commands(options, iface):
 
     run_commands = (
         'Play',
+        'Pause',
         'Stop',
         'Next',
         'Prev',
@@ -371,6 +372,14 @@ class DbusManager(dbus.service.Object):
         """
         from xl import player
         player.QUEUE.play()
+
+    @dbus.service.method('org.exaile.Exaile')
+    def Pause(self):
+        """
+            Starts playback
+        """
+        from xl import player
+        player.PLAYER.pause()
 
     @dbus.service.method('org.exaile.Exaile')
     def PlayPause(self):

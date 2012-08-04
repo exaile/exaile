@@ -406,6 +406,8 @@ class Exaile(object):
                 default=False, help=_("Stop playback"))
         group.add_option("-a", "--play", dest="Play", action="store_true",
                 default=False, help=_("Play"))
+        group.add_option("-u", "--pause", dest="Pause", action="store_true",
+                default=False, help=_("Pause"))
         group.add_option("-t", "--play-pause", dest="PlayPause",
                 action="store_true", default=False,
                 help=_("Pause or resume playback"))

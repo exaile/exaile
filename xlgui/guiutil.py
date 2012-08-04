@@ -501,7 +501,10 @@ class DragTreeView(AutoScrollTreeView):
         if path:
             if event.button != 3:
                 if event.type == gtk.gdk._2BUTTON_PRESS:
-                    self.container.button_press(button, event)
+                    try:
+                        return self.container.button_press(button, event)
+                    except AttributeError:
+                        pass
 
                 if selection.count_selected_rows() <= 1:
                     return False

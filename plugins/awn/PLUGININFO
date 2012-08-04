@@ -2,3 +2,4 @@ Version='0.0.2'
 Authors=['Abhishek Mukherjee <abhishek.mukher.g@gmail.com']
 Name=_('Awn')
 Description=_('Sets the cover and adds some menu items to AWN for Exaile')
+Category=_('GUI')

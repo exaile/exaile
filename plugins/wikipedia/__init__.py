@@ -47,7 +47,8 @@ def enable(exaile):
 
 def disable(exaile):
     """ """
-    pass
+    global WIKIPANEL
+    del WIKIPANEL
 
 def _enable(eventname, exaile, nothing):
     global WIKIPANEL 

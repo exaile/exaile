@@ -1,5 +1,5 @@
 Version='0.0.2'
 Authors=['Abhishek Mukherjee <abhishek.mukher.g@gmail.com>']
 Name='MPRIS'
-Description=_('Creates an MPRIS D-Bus object to control Exaile')
+Description=_('Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for controlling Exaile.')
 Category=_('Utility')

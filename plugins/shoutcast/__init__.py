@@ -213,32 +213,8 @@ class ShoutcastRadioStation(RadioStation):
             return self.playlists[station_id]
         url = self.playlist_url % {'id': station_id}
 
-        hostinfo = urlparse.urlparse(url)
-        try:
-            c = httplib.HTTPConnection(hostinfo.netloc,
-                    timeout=20)
-        except TypeError: # python 2.5 doesnt have timeout=
-            c = httplib.HTTPConnection(hostinfo.netloc)
-        try:
-            print "Reading %s" % url
-            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
-                headers={'User-Agent': self.user_agent})
-            response = c.getresponse()
-        except (socket.timeout, socket.error):
-            set_status(
-                _('Error connecting to Shoutcast server.'))
-            return None
+        self.playlists[station_id] = playlist.import_playlist(url)
 
-        if response.status != 200:
-            set_status(
-                _('Error connecting to Shoutcast server.'))
-            return None
-
-        handle = StringIO.StringIO(response.read())
-        set_status('')
-
-        self.playlists[station_id] = playlist.import_from_pls(name + ".pls",
-            handle)
         return self.playlists[station_id]
 
     def search(self, keyword):

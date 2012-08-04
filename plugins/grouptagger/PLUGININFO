@@ -1,5 +1,5 @@
-Version="0.1"
+Version='0.1'
 Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
-Name=_("Group Tagger")
-Description=_("Facilitates categorizing your music via the group tag")
-Category=_("Categorization")
+Name=_('Group Tagger')
+Description=_('Facilitates categorizing your music via the group tag')
+Category=_('Tagging')

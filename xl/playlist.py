@@ -38,6 +38,7 @@ import logging
 import os
 import random
 import time
+import urlparse
 import urllib
 
 try:
@@ -117,6 +118,7 @@ def import_playlist(path):
         :returns: the playlist
         :rtype: :class:`Playlist`
     """
+    # First try the cheap Gio way
     content_type = gio.content_type_guess(path)
 
     if not gio.content_type_is_unknown(content_type):
@@ -124,11 +126,22 @@ def import_playlist(path):
             if content_type in provider.content_types:
                 return provider.import_from_file(path)
 
-    file_extension = path.split('.')[-1]
+    # Next try to extract the file extension via URL parsing
+    file_extension = urlparse.urlparse(path).path.split('.')[-1]
 
     for provider in providers.get('playlist-format-converter'):
         if file_extension in provider.file_extensions:
             return provider.import_from_file(path)
+
+    # Last try the expensive Gio way (downloads the data for inspection)
+    content_type = gio.File(path).\
+        query_info('standard::content-type').\
+            get_content_type()
+
+    if content_type:
+        for provider in providers.get('playlist-format-converter'):
+            if content_type in provider.content_types:
+                return provider.import_from_file(path)
 
     raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
 

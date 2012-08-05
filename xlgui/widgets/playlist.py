@@ -767,10 +767,16 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
     ### DND handlers ###
     ## Source
     def on_drag_begin(self, widget, context):
+        """
+            Activates the dragging state
+        """
         # TODO: set drag icon
         self.dragging = True
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
+        """
+            Stores indices and URIs of the selected items in the drag selection
+        """
         if selection.target == "exaile-index-list":
             positions = self.get_selected_paths()
             if positions:
@@ -782,16 +788,30 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
             selection.set_uris(uris)
 
     def on_drag_data_delete(self, widget, context):
+        """
+            Stops the default handler from running, all
+            processing occurs in the drag-data-received handler
+        """
         self.stop_emission('drag-data-delete')
 
     def on_drag_end(self, widget, context):
+        """
+            Deactivates the dragging state
+        """
         self.dragging = False
 
     ## Dest
     def on_drag_drop(self, widget, context, x, y, etime):
+        """
+            Always allows processing of drop operations
+        """
         return True
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, etime):
+        """
+            Builds a list of tracks either from internal indices or 
+            external URIs and inserts or appends them to the playlist
+        """
         # Stop default handler from running
         self.stop_emission('drag-data-received')
 
@@ -864,12 +884,17 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
             self.scroll_to_cell(self.playlist.index(tracks[-1]))
 
     def on_drag_motion(self, widget, context, x, y, etime):
-        info = self.get_dest_row_at_pos(x, y)
+        """
+            Makes sure tracks can only be inserted before or after tracks
+            and sets the drop action to move or copy depending on target
+            and user interaction (e.g. Ctrl key)
+        """
+        drop_info = self.get_dest_row_at_pos(x, y)
 
-        if not info:
+        if not drop_info:
             return False
 
-        path, position = info
+        path, position = drop_info
 
         if position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
             position = gtk.TREE_VIEW_DROP_BEFORE

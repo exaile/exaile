@@ -164,7 +164,7 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
         try:
             self.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_START)
             self.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_END)
-        except AttributeError: # Older than GTK 2.20 and PyGtk 2.22
+        except AttributeError: # Older than GTK 2.20 and PyGTK 2.22
             pass
         else:
             self.__actions = {}

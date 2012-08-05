@@ -236,7 +236,6 @@ class MainWindow(gobject.GObject):
         """
             Connects the various events to their handlers
         """
-        self.splitter.connect('notify::position', self.configure_event)
         self.builder.connect_signals({
             'on_configure_event':   self.configure_event,
             'on_window_state_event': self.window_state_change_event,
@@ -837,6 +836,10 @@ class MainWindow(gobject.GObject):
         """
             Called when the user attempts to close the window
         """
+        sash_pos = self.splitter.get_position()
+        if sash_pos > 10:
+            settings.set_option('gui/mainw_sash_pos', sash_pos)
+
         if settings.get_option('gui/use_tray', False) and \
            settings.get_option('gui/close_to_tray', False):
             self.window.hide()
@@ -877,11 +880,6 @@ class MainWindow(gobject.GObject):
         """
             Called when the window is resized or moved
         """
-        pos = self.splitter.get_position()
-        if pos > 10 and pos != settings.get_option(
-                "gui/mainw_sash_pos", -1):
-            settings.set_option('gui/mainw_sash_pos', pos)
-
         # Don't save window size if it is maximized or fullscreen.
         if settings.get_option('gui/mainw_maximized', False) or \
                 self._fullscreen:

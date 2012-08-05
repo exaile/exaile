@@ -773,8 +773,9 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
     def on_drag_data_get(self, widget, context, selection, info, etime):
         if selection.target == "exaile-index-list":
             positions = self.get_selected_paths()
-            s = ",".join(str(i[0]) for i in positions)
-            selection.set(selection.target, 8, s)
+            if positions:
+                s = ",".join(str(i[0]) for i in positions)
+                selection.set(selection.target, 8, s)
         elif selection.target == "text/uri-list":
             tracks = self.get_selected_tracks()
             uris = trax.util.get_uris_from_tracks(tracks)

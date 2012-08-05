@@ -45,6 +45,7 @@ class AttachedWindow(gtk.Window):
 
         self.set_decorated(False)
         self.props.skip_taskbar_hint = True
+        self.set_keep_above(True)
 
         self.realize()
         self.window.set_functions(gtk.gdk.FUNC_RESIZE) # Only allow resizing
@@ -100,15 +101,25 @@ class AttachedWindow(gtk.Window):
         if realize_id is not None:
             parent.disconnect(realize_id)
 
-        parent.get_toplevel().connect('configure-event',
-            self.on_parent_window_configure)
+        parent_window = parent.get_toplevel()
+        parent_window.connect('configure-event',
+            self.on_parent_window_configure_event)
+        parent_window.connect('window-state-event',
+            self.on_parent_window_state_event)
 
-    def on_parent_window_configure(self, *e):
+    def on_parent_window_configure_event(self, *e):
         """
             Handles movement of the topmost window
         """
         if self.props.visible:
             self.update_location()
+
+    def on_parent_window_state_event(self, window, e):
+        """
+            Handles state changes of the topmost window
+        """
+        if e.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED:
+            self.hide()
 
 class ClickableCellRendererPixbuf(gtk.CellRendererPixbuf):
     """

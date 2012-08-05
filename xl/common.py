@@ -98,6 +98,14 @@ def clamp(value, minimum, maximum):
     """
     return max(minimum, min(value, maximum))
 
+def enum(**enums):
+    """
+        Creates an enum type
+
+        :see: http://stackoverflow.com/a/1695250
+    """
+    return type('Enum', (), enums)
+
 def threaded(func):
     """
         A decorator that will make any function run in a new thread

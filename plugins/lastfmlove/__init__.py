@@ -271,9 +271,13 @@ class LastFMLover(object):
         """
         logger.debug('Retrieving list of loved tracks...')
 
-        tracks = self.user.get_loved_tracks(limit=None)
-        # Unwrap pylast.Track from pylast.LovedTrack
-        self.loved_tracks = [l.track for l in tracks]
+        try:
+            tracks = self.user.get_loved_tracks(limit=None)
+            # Unwrap pylast.Track from pylast.LovedTrack
+            self.loved_tracks = [l.track for l in tracks]
+        except Exception as e:
+            logger.warning('Failed to retrieve list of loved tracks: {0}'.format(e))
+
         self.restart_timer()
 
     def toggle_loved(self, track):

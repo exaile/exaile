@@ -31,6 +31,85 @@
 import gobject
 import gtk
 
+from xlgui.guiutil import get_workarea_size
+
+class AttachedWindow(gtk.Window):
+    """
+        A window attachable to arbitrary widgets,
+        follows the movement of its parent
+    """
+    __gsignals__ = {'show': 'override'}
+
+    def __init__(self, parent):
+        gtk.Window.__init__(self, gtk.WINDOW_TOPLEVEL)
+
+        self.set_decorated(False)
+        self.props.skip_taskbar_hint = True
+
+        self.realize()
+        self.window.set_functions(gtk.gdk.FUNC_RESIZE) # Only allow resizing
+
+        self.parent_widget = parent
+        realize_id = self.parent_widget.connect('realize',
+            self.on_parent_realize)
+        self.parent_widget.set_data('%s_realize_id' % id(self),
+            realize_id)
+
+    def update_location(self):
+        """
+            Makes sure the window is
+            always fully visible
+        """
+        workarea = gtk.gdk.Rectangle(0, 0, *get_workarea_size())
+        parent = self.parent_widget.allocation
+        toplevel_position = self.parent_widget.get_toplevel().get_position()
+        # Use absolute screen position
+        parent.x += toplevel_position[0]
+        parent.y += toplevel_position[1]
+
+        if workarea.width - parent.x < self.allocation.width:
+            # Parent rightmost
+            x = parent.x + parent.width - self.allocation.width
+        else:
+            # Parent leftmost
+            x = parent.x
+
+        if workarea.height - parent.y < self.allocation.height:
+            # Parent at bottom
+            y = parent.y - self.allocation.height
+        else:
+            # Parent at top
+            y = parent.y + parent.height
+        
+        self.move(x, y)
+
+    def do_show(self):
+        """
+            Updates the location upon show
+        """
+        gtk.Window.do_show(self)
+        self.update_location()
+
+    def on_parent_realize(self, parent):
+        """
+            Prepares the window to
+            follow its parent window
+        """
+        realize_id = parent.get_data('%s_realize_id' % id(self))
+        
+        if realize_id is not None:
+            parent.disconnect(realize_id)
+
+        parent.get_toplevel().connect('configure-event',
+            self.on_parent_window_configure)
+
+    def on_parent_window_configure(self, *e):
+        """
+            Handles movement of the topmost window
+        """
+        if self.props.visible:
+            self.update_location()
+
 class ClickableCellRendererPixbuf(gtk.CellRendererPixbuf):
     """
         Custom :class:`gtk.CellRendererPixbuf` emitting

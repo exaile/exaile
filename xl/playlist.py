@@ -1406,7 +1406,7 @@ class SmartPlaylist(object):
         >>> sp = SmartPlaylist(collection=col)
         >>> sp.add_param("artist", "==", "Delerium")
         >>> p = sp.get_playlist()
-        >>> p.get_tracks()[1]['album'][0]
+        >>> p[1]['album'][0]
         u'Chimera'
         >>>
     """

@@ -29,10 +29,17 @@ import re
 import gtk
 from datetime import datetime
 from xl.nls import gettext as _
-from xl import event, settings, providers, xdg
+from xl import (
+    common,
+    event,
+    providers,
+    settings,
+    xdg
+)
 from xl.playlist import Playlist, PlaylistManager
 from xlgui.widgets import menu
 from xlgui.accelerators import Accelerator
+from xlgui.widgets.common import AttachedWindow
 from xlgui.widgets.notebook import SmartNotebook, NotebookTab
 from xlgui.widgets.playlist import PlaylistPage
 from xlgui.widgets.queue import QueuePage
@@ -40,24 +47,91 @@ from xlgui.widgets.queue import QueuePage
 import logging
 logger = logging.getLogger(__name__)
 
-class PlaylistNotebook(SmartNotebook):
+class PlaylistNotebookAction(object):
+    """
+        A custom action to be placed to the left or right of playlist tabs
+    """
+    name = None
+    position = gtk.PACK_END
+
+    def __init__(self, notebook):
+        self.notebook = notebook
+
+class NewPlaylistNotebookAction(PlaylistNotebookAction, gtk.Button):
+    """
+        Playlist notebook action which allows for creating new playlists
+        regularly as well as by dropping tracks, files and directories on it
+    """
+    __gsignals__ = {'clicked': 'override'}
+    name = 'new-playlist'
+
+    def __init__(self, notebook):
+        PlaylistNotebookAction.__init__(self, notebook)
+        gtk.Button.__init__(self)
+
+        self.set_image(gtk.image_new_from_icon_name('tab-new',
+            gtk.ICON_SIZE_BUTTON))
+        self.set_relief(gtk.RELIEF_NONE)
+
+        self.__default_tooltip_text = _('New Playlist')
+        self.__drag_tooltip_text = _('Drop here to create a new playlist')
+        self.set_tooltip_text(self.__default_tooltip_text)
+
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, [], gtk.gdk.ACTION_COPY)
+        self.drag_dest_add_uri_targets()
+
+        self.connect('drag-motion', self.on_drag_motion)
+        self.connect('drag-leave', self.on_drag_leave)
+        self.connect('drag-data-received', self.on_drag_data_received)
+
+    def do_clicked(self):
+        """
+            Triggers creation of a new playlist
+        """
+        self.notebook.create_new_playlist()
+
+    def on_drag_motion(self, widget, context, x, y, time):
+        """
+            Updates the tooltip during drag operations
+        """
+        self.set_tooltip_text(self.__drag_tooltip_text)
+
+    def on_drag_leave(self, widget, context, time):
+        """
+            Restores the original tooltip
+        """
+        self.set_tooltip_text(self.__default_tooltip_text)
+
+    def on_drag_data_received(self, widget, context, x, y, selection, info, time):
+        """
+            Handles dropped data
+        """
+        tab = self.notebook.create_new_playlist()
+        # Forward signal to the PlaylistView in the newly added tab
+        tab.page.view.emit('drag-data-received', context, x, y, selection, info, time)
+
+providers.register('playlist-notebook-actions', NewPlaylistNotebookAction)
+
+class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
     def __init__(self, manager_name, player):
         SmartNotebook.__init__(self)
+        providers.ProviderHandler.__init__(self, 'playlist-notebook-actions')
+
         self.tab_manager = PlaylistManager(manager_name)
         self.player = player
         
-        # for saving closed tab history
+        # For saving closed tab history
         self.tab_history = []
         self.history_counter = 90000 # to get unique (reverse-ordered) item names
 
-        # build static menu entries        
+        # Build static menu entries        
         item = menu.simple_separator('clear-sep',[])
         providers.register('playlist-closed-tab-menu', item)
         item = menu.simple_menu_item('clear-history', ['clear-sep'], _("Clear"), 'gtk-clear',
             self.clear_closed_tabs)
         providers.register('playlist-closed-tab-menu', item)     
             
-        # simple factory for 'Recently Closed Tabs' MenuItem
+        # Simple factory for 'Recently Closed Tabs' MenuItem
         submenu = menu.ProviderMenu('playlist-closed-tab-menu',self)
         def factory(menu_, parent, context):
             item = gtk.MenuItem(_("Recently Closed Tabs"))
@@ -67,23 +141,35 @@ class PlaylistNotebook(SmartNotebook):
                 item.set_sensitive(False)
             return item
             
-        # add menu to tab context menu
+        # Add menu to tab context menu
         item = menu.MenuItem('tab-history', factory, ['tab-close'])
         providers.register('playlist-tab-context-menu', item)
 
-        # add menu to View menu
+        # Add menu to View menu
         item = menu.MenuItem('tab-history', factory, ['clear-playlist'])
         providers.register('menubar-view-menu', item)       
 
-        # add hotkey
+        # Add hotkey
         self.accelerator = Accelerator('<Control><Shift>t', lambda *x: self.restore_closed_tab(0))
         providers.register('mainwindow-accelerators',self.accelerator)
 
+        # Load saved tabs and add queue tab
         self.load_saved_tabs()
         self.queuepage = QueuePage(self.player)
         self.queuetab = NotebookTab(self, self.queuepage)
         if len(self.player.queue) > 0:
             self.show_queue()
+
+        # Try to set up action widgets
+        try:
+            self.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_START)
+            self.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_END)
+        except AttributeError: # Older than GTK 2.20 and PyGtk 2.22
+            pass
+        else:
+            self.__actions = {}
+            for provider in self.get_providers():
+                self.on_provider_added(provider)
 
         self.tab_placement_map = {
             'left': gtk.POS_LEFT,
@@ -378,4 +464,29 @@ class PlaylistNotebook(SmartNotebook):
         if option == 'gui/tab_placement':
             tab_placement = settings.get_option(option, 'top')
             glib.idle_add(self.set_tab_pos, self.tab_placement_map[tab_placement])
+
+    def on_provider_added(self, provider):
+        """
+            Adds actions on provider addition
+        """
+        try:
+            actions_box = self.get_action_widget(provider.position)
+        except AttributeError:
+            pass
+        else:
+            self.__actions[provider.name] = provider(self)
+            actions_box.pack_start(self.__actions[provider.name], False, False)
+            actions_box.show_all()
+
+    def on_provider_removed(self, provider):
+        """
+            Removes actions on provider removal
+        """
+        try:
+            actions_box = self.get_action_widget(provider.position)
+        except AttributeError:
+            pass
+        else:
+            actions_box.remove(self.__actions[provider.name])
+            del self.__actions[provider_name]
 

@@ -534,7 +534,7 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
         self.columns_changed_id = self.connect("columns-changed",
                 self.on_columns_changed)
 
-        self.targets = [("exaile-index-list", gtk.TARGET_SAME_WIDGET, 0),
+        self.targets = [("exaile-index-list", gtk.TARGET_SAME_APP, 0),
                 ("text/uri-list", 0, 0)]
         self.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
@@ -790,10 +790,10 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
     def on_drag_drop(self, widget, context, x, y, etime):
         return True
 
-    def on_drag_data_received(self, widget, context, x, y, selection,
-            info, etime):
-        # stop default handler from running
+    def on_drag_data_received(self, widget, context, x, y, selection, info, etime):
+        # Stop default handler from running
         self.stop_emission('drag-data-received')
+
         drop_info = self.get_dest_row_at_pos(x, y)
 
         if drop_info:
@@ -809,21 +809,35 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
         if selection.target == "exaile-index-list":
             positions = [int(x) for x in selection.data.split(",")]
             tracks = MetadataList()
+            source_playlist_view = context.get_source_widget()
+            playlist = self.playlist
+
+            # Get the playlist of the 
+            if source_playlist_view is not self:
+                playlist = source_playlist_view.playlist
+
             # TODO: this can probably be made more-efficient
             for i in positions:
-                tracks.extend(self.playlist[i:i+1])
+                tracks.extend(playlist[i:i+1])
+
+            # Insert at specific position if possible
             if insert_position >= 0:
                 self.playlist[insert_position:insert_position] = tracks
-                for i, position in enumerate(positions[:]):
-                    if position >= insert_position:
-                        position += len(tracks)
-                        positions[i] = position
+
+                if source_playlist_view is self:
+                    # Update position for tracks after the insert position
+                    for i, position in enumerate(positions[:]):
+                        if position >= insert_position:
+                            position += len(tracks)
+                            positions[i] = position
             else:
+                # Otherwise just append the tracks
                 self.playlist.extend(tracks)
 
+            # Remove tracks from the source playlist if moved
             if context.action == gtk.gdk.ACTION_MOVE:
                 for i in positions[::-1]:
-                    del self.playlist[i]
+                    del playlist[i]
         elif selection.target == "text/uri-list":
             uris = selection.get_uris()
             tracks = []

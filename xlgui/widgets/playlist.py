@@ -805,7 +805,7 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
             insert_position = -1
 
         tracks = []
-
+        
         if selection.target == "exaile-index-list":
             positions = [int(x) for x in selection.data.split(",")]
             tracks = MetadataList()
@@ -820,8 +820,10 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
                         positions[i] = position
             else:
                 self.playlist.extend(tracks)
-            for i in positions[::-1]:
-                del self.playlist[i]
+
+            if context.action == gtk.gdk.ACTION_MOVE:
+                for i in positions[::-1]:
+                    del self.playlist[i]
         elif selection.target == "text/uri-list":
             uris = selection.get_uris()
             tracks = []
@@ -836,7 +838,9 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
                 self.playlist[insert_position:insert_position] = tracks
             else:
                 self.playlist.extend(tracks)
-        context.finish(True, False, etime)
+
+        delete = context.action == gtk.gdk.ACTION_MOVE
+        context.finish(True, delete, etime)
 
         scroll_when_appending_tracks = settings.get_option(
             'gui/scroll_when_appending_tracks', False)
@@ -858,6 +862,15 @@ class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
             position = gtk.TREE_VIEW_DROP_AFTER
 
         self.set_drag_dest_row(path, position)
+
+        action = gtk.gdk.ACTION_MOVE
+        x, y, modifier = self.window.get_pointer()
+        target = self.drag_dest_find_target(context, self.drag_dest_get_target_list())
+
+        if modifier & gtk.gdk.CONTROL_MASK or target == 'text/uri-list':
+            action = gtk.gdk.ACTION_COPY
+
+        context.drag_status(action, etime)
 
         return True
 

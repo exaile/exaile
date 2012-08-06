@@ -22,9 +22,19 @@
 import gtk, gobject, os
 import librivoxsearch as LS
 import about_window as AW
-from xl import trax, playlist, event, xdg, common, settings
-from xlgui import guiutil, main
-
+from xl import (
+    common,
+    event,
+    playlist,
+    settings,
+    trax,
+    xdg
+)
+from xlgui import (
+    guiutil,
+    icons
+    main
+)
 
 def enable(exaile):
     if exaile.loading:
@@ -87,7 +97,8 @@ class LVPanel():
         self.librivoxdir= os.path.dirname(__file__)
         self.abicon = gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/ebook.png')
         self.clock_icon=gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/clock.png')
-        self.chapter_icon=gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))
+        self.chapter_icon=icons.MANAGER.pixbuf_from_icon_name(
+            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.gui_init(exaile)
         self.connect_events()
         self.getting_info=False

@@ -53,7 +53,6 @@ logger = logging.getLogger(__name__)
 # TODO: come up with a more customizable way to handle this
 SEARCH_TAGS = ("artist", "albumartist", "album", "title")
 
-
 def __create_collection_panel_context_menu():
     items = []
     def sorted_get_tracks_func(panel, context):
@@ -372,8 +371,8 @@ class CollectionPanel(panel.Panel):
             xdg.get_data_path('images/year.png'))
         self.album_image = icons.MANAGER.pixbuf_from_stock(
             gtk.STOCK_CDROM, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.title_image = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/track.png'))
+        self.title_image = icons.MANAGER.pixbuf_from_icon_name(
+            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.genre_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/genre.png'))
 

@@ -178,8 +178,8 @@ class FilesPanel(panel.Panel):
         """
         self.directory = self.tree.render_icon(
             gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.track = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/track.png'))
+        self.track = icons.MANAGER.pixbuf_from_icon_name(
+            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.back = self.builder.get_object('files_back_button')
         self.back.connect('clicked', self.go_back)
         self.forward = self.builder.get_object('files_forward_button')

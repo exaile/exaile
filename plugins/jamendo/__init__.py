@@ -32,11 +32,20 @@ import menu
 import os
 import urllib
 import hashlib
-from xl import event, settings, xdg, providers
-from xl import trax as xltrack
+from xl import (
+    event,
+    settings,
+    providers,
+    trax as xltrack,
+    xdg
+)
 from xl.covers import CoverSearchMethod
 from xl.nls import gettext as _
-from xlgui import guiutil, panel
+from xlgui import (
+    guiutil,
+    icons
+    panel
+)
 
 JAMENDO_NOTEBOOK_PAGE = None
 COVERS_METHOD = None
@@ -140,7 +149,8 @@ class JamendoPanel(panel.Panel):
         window = gtk.Window()
         self.artist_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path("images/artist.png"))
         self.album_image = window.render_icon(gtk.STOCK_CDROM, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.title_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))
+        self.title_image = icons.MANAGER.pixbuf_from_icon_name(
+            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
 
         #setup search combobox
         self.search_combobox = self.builder.get_object('searchComboBox')

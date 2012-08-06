@@ -262,8 +262,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
         self.tree.set_model(self.model)
 
-        self.track = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/track.png'))
+        self.track = icons.MANAGER.pixbuf_from_icon_name(
+            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.folder = self.tree.render_icon(
             gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.refresh_image = icons.MANAGER.pixbuf_from_stock(

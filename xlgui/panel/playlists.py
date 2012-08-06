@@ -313,8 +313,8 @@ class BasePlaylistPanelMixin(gobject.GObject):
         """
         gobject.GObject.__init__(self)
         self.playlist_nodes = {} # {playlist: iter} cache for custom playlists
-        self.track_image = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/track.png'))
+        self.track_image = icons.MANAGER.pixbuf_from_icon_name(
+            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
 
     def remove_selected_playlist(self):
         """

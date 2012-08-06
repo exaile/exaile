@@ -29,10 +29,12 @@ import glib
 import gtk
 import logging
 import pango
+import time
 
 from xl import (
     common,
     event,
+    player,
     settings,
     providers
 )
@@ -321,6 +323,116 @@ class DateAddedColumn(Column):
     display = _('Date added')
     size = 80
 providers.register('playlist-columns', DateAddedColumn)
+
+class ScheduleTimeColumn(Column):
+    name = 'schedule_time'
+    display = _('Schedule')
+    size = 80
+
+    def __init__(self, *args):
+        Column.__init__(self, *args)
+
+        event.add_callback(self.on_queue_current_playlist_changed,
+            'queue_current_playlist_changed', player.QUEUE)
+        event.add_callback(self.on_playback_player_start,
+            'playback_player_start', player.PLAYER)
+        event.add_callback(self.on_playback_player_end,
+            'playback_player_end', player.PLAYER)
+
+    def data_func(self, col, cell, model, iter):
+        """
+            Sets the schedule time if appropriate
+        """
+        text = None
+        playlist = self.container.playlist
+
+        # Only display the schedule time if
+        # 1) there is playback at all
+        # 2) this playlist is currently played
+        # 3) playback is not in shuffle mode
+        # 4) the current track is not repeated
+        if not self.player.is_stopped() and \
+           playlist is self.player.queue.current_playlist and \
+           playlist.shuffle_mode == 'disabled' and \
+           playlist.repeat_mode != 'track':
+            track = model.get_value(iter, 0)
+            position = playlist.index(track)
+            current_position = playlist.current_position
+
+            # 5) this track is after the currently played one
+            if position > current_position:
+                # The delay is the accumulated length of all tracks
+                # between the currently playing and this one
+                delay = sum([t.get_tag_raw('__length') \
+                    for t in playlist[current_position:position]])
+                # Subtract the time which already has passed
+                delay -= self.player.get_time()
+                # The schedule time is the current time plus delay
+                schedule_time = time.localtime(time.time() + delay)
+                text = time.strftime('%H:%M', schedule_time)
+
+        cell.props.text = text
+
+    def start_timer(self):
+        """
+            Enables realtime updates
+        """
+        timeout_id = self.get_data('timeout_id')
+
+        # Make sure to stop any timer still running
+        if timeout_id is not None:
+            glib.source_remove(timeout_id)
+
+        self.set_data('timeout_id',
+            glib.timeout_add_seconds(60, self.on_timeout))
+
+    def stop_timer(self):
+        """
+            Disables realtime updates
+        """
+        timeout_id = self.get_data('timeout_id')
+
+        if timeout_id is not None:
+            glib.source_remove(timeout_id)
+
+        # Update once more
+        self.on_timeout()
+
+    def on_timeout(self):
+        """
+            Makes sure schedule times are updated in realtime
+        """
+        self.queue_resize()
+        self.get_tree_view().queue_draw()
+
+        return True
+
+    def on_queue_current_playlist_changed(self, e, queue, current_playlist):
+        """
+            Disables realtime updates for all playlists
+            and re-enables them for the current playlist
+        """
+        self.stop_timer()
+
+        if current_playlist is self.container.playlist:
+            self.start_timer()
+
+    def on_playback_player_start(self, e, player, track):
+        """
+            Enables realtime updates for the current playlist
+        """
+        self.stop_timer()
+
+        if self.player.queue.current_playlist is self.container.playlist:
+            logger.debug('Playback started, enabling realtime updates')
+            self.start_timer()
+
+    def on_playback_player_end(self, e, player, track):
+        """
+            Disables realtime updates for all playlists
+        """
+        self.stop_timer()
+providers.register('playlist-columns', ScheduleTimeColumn)
 
 class ColumnMenuItem(menu.MenuItem):
     """

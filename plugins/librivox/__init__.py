@@ -32,7 +32,7 @@ from xl import (
 )
 from xlgui import (
     guiutil,
-    icons
+    icons,
     main
 )
 

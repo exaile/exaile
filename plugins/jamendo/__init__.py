@@ -43,7 +43,7 @@ from xl.covers import CoverSearchMethod
 from xl.nls import gettext as _
 from xlgui import (
     guiutil,
-    icons
+    icons,
     panel
 )
 

@@ -367,8 +367,8 @@ class CollectionPanel(panel.Panel):
         """
         self.artist_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path("images/artist.png"))
-        self.date_image = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/year.png'))
+        self.date_image = icons.MANAGER.pixbuf_from_icon_name(
+            'office-calendar', gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.album_image = icons.MANAGER.pixbuf_from_stock(
             gtk.STOCK_CDROM, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.title_image = icons.MANAGER.pixbuf_from_icon_name(

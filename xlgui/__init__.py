@@ -76,7 +76,8 @@ class Main(object):
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
         for name in ('exaile', 'exaile-pause', 'exaile-play',
-                     'folder-music', 'audio-x-generic'):
+                     'folder-music', 'audio-x-generic',
+                     'office-calendar'):
             icons.MANAGER.add_icon_name_from_directory(name,
                 xdg.get_data_path('images'))
         gtk.window_set_default_icon_name('exaile')

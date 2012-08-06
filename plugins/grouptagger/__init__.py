@@ -93,7 +93,7 @@ class GroupTaggerPlugin(object):
         self.tools_submenu = menu.Menu( None, context_func=lambda p: exaile )
         
         self.tools_submenu.add_item( 
-            menu.simple_menu_item( 'gt_get_tags', [], _('Get all tags in collection'),
+            menu.simple_menu_item( 'gt_get_tags', [], _('Get all tags from collection'),
                 callback=self.on_get_tags_menu ) 
         )
         

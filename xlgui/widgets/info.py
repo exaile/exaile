@@ -394,7 +394,7 @@ class TrackListInfoPane(gtk.Alignment):
         """
         tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
 
-        image_data = covers.MANAGER.get_cover(tracks[0], set_only=True, use_default=True)
+        image_data = covers.MANAGER.get_cover(tracks[0], use_default=True)
         width = settings.get_option('gui/cover_width', 100)
         pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, width))
         self.cover_image.set_from_pixbuf(pixbuf)

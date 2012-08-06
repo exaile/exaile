@@ -46,6 +46,7 @@ from xl import (
 from xl.nls import gettext as _
 from xlgui import (
     guiutil,
+    icons,
     panel,
     playlist,
     xdg

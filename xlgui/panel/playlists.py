@@ -590,8 +590,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         # icons
         self.folder = self.tree.render_icon(
             gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.playlist_image = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/playlist.png'))
+        self.playlist_image = icons.MANAGER.pixbuf_from_icon_name(
+            'music-library', gtk.ICON_SIZE_SMALL_TOOLBAR)
 
         # menus
         self.playlist_menu = menu.PlaylistsPanelPlaylistMenu()

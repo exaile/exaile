@@ -85,8 +85,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
         self._setup_tree()
         self._setup_widgets()
-        self.playlist_image = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/playlist.png'))
+        self.playlist_image = icons.MANAGER.pixbuf_from_icon_name(
+            'music-library', gtk.ICON_SIZE_SMALL_TOOLBAR)
 
         # menus
         self.playlist_menu = menu.RadioPanelPlaylistMenu()

@@ -396,9 +396,7 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
             else:
                 display_name += '{0} sec ago)'.format(dt.seconds )
             item = gtk.ImageMenuItem(display_name)
-            image = gtk.image_new_from_file(
-                xdg.get_data_path('images/playlist.png'))
-            item.set_image(image)
+            item.set_image(gtk.image_new_from_icon_name('music-library', gtk.ICON_SIZE_MENU))
 
             # Add accelerator to top item
             if self.tab_history[0][1].name == item_name:

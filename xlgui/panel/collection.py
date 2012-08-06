@@ -365,8 +365,8 @@ class CollectionPanel(panel.Panel):
         """
             Sets up the various images that will be used in the tree
         """
-        self.artist_image = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path("images/artist.png"))
+        self.artist_image = icons.MANAGER.pixbuf_from_icon_name(
+            'artist', gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.date_image = icons.MANAGER.pixbuf_from_icon_name(
             'office-calendar', gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.album_image = icons.MANAGER.pixbuf_from_stock(

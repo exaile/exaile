@@ -467,7 +467,7 @@ def get_top_artists(field, limit):
 class ContextPage(object):
 
     TRACK_ICO_PATH = xdg.get_data_path('images/16x16/audio-x-generic.png')
-    ARTIST_ICO_PATH = xdg.get_data_path("images/artist.png")
+    ARTIST_ICO_PATH = xdg.get_data_path("images/16x16/artist.png")
     SEARCH_ICO_PATH = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_FIND,
         gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG).get_filename()
     ALBUM_ICO_PATH = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_CDROM,

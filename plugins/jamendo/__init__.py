@@ -147,7 +147,7 @@ class JamendoPanel(panel.Panel):
 
         #setup images
         window = gtk.Window()
-        self.artist_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path("images/artist.png"))
+        self.artist_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path("images/16x16/artist.png"))
         self.album_image = window.render_icon(gtk.STOCK_CDROM, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.title_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)

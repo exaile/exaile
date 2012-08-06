@@ -32,9 +32,16 @@ import cairo
 import glob
 import glib
 import gtk
+import logging
 import os
 
-from xl import event, settings, xdg
+from xl import (
+    event,
+    settings,
+    xdg
+)
+
+logger = logging.getLogger(__name__)
 
 class ExtendedPixbuf(gtk.gdk.Pixbuf):
     """
@@ -510,8 +517,14 @@ class IconManager(object):
         try:
             pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
             self.add_icon_name_from_pixbuf(icon_name, pixbuf, size)
-        except Exception:
+        except Exception as e:
             # Happens if, e.g., librsvg is not installed.
+            logger.warning('Failed to add icon name "{icon_name}" '
+                           'from file "{filename}": {error}'.format(
+                icon_name=icon_name,
+                filename=filename,
+                error=e.message
+            ))
             pass
 
     def add_icon_name_from_pixbuf(self, icon_name, pixbuf, size=None):
@@ -649,7 +662,11 @@ class IconManager(object):
         try:
             pixbuf = self.icon_theme.load_icon(
                 icon_name, size, gtk.ICON_LOOKUP_NO_SVG)
-        except glib.GError:
+        except glib.GError as e:
+            logger.warning('Failed to get pixbuf from "{icon_name}": {error}'.format(
+                icon_name=icon_name,
+                error=e.message
+            ))
             pixbuf = None
 
         # TODO: Check if fallbacks are necessary
@@ -699,15 +716,20 @@ class IconManager(object):
 
             loader.set_size(width, height)
 
+        pixbuf = None
         loader = gtk.gdk.PixbufLoader()
         loader.connect('size-prepared', on_size_prepared)
         try:
             loader.write(data)
             loader.close()
-        except glib.GError:
-            return None
+        except glib.GError as e:
+            logger.warning('Failed to get pixbuf from data: {error}'.format(
+                error=e.message
+            ))
+        else:
+            pixbuf = loader.get_pixbuf()
 
-        return loader.get_pixbuf()
+        return pixbuf
 
     def pixbuf_from_text(self, text, size, background_color='#456eac',
             border_color='#000', text_color='#fff'):

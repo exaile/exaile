@@ -400,17 +400,17 @@ class DragTreeView(AutoScrollTreeView):
             for track in tracks:
                 album = track.get_tag_raw('album', join=True)
                 if album not in albums:
-                    image_data = cover_manager.get_cover(track)
-                    if image_data is not None:
-                        pixbuf = icons.MANAGER.pixbuf_from_data(
-                            image_data, (width, height))
+                    image_data = cover_manager.get_cover(track,
+                        set_only=True, use_default=True)
+                    pixbuf = icons.MANAGER.pixbuf_from_data(
+                        image_data, (width, height))
 
-                        if first_pixbuf is None:
-                            first_pixbuf = pixbuf
-                        albums += [album]
+                    if first_pixbuf is None:
+                        first_pixbuf = pixbuf
+                    albums += [album]
 
-                        if len(albums) >= 2:
-                            break
+                    if len(albums) >= 2:
+                        break
 
             if pixbuf is not None:
                 cover_pixbuf = pixbuf

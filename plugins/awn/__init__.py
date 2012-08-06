@@ -117,13 +117,12 @@ class ExaileAwn(object):
         elif not self.cover_display:
             self.unset_cover()
         else:
-            image_data = covers.MANAGER.get_cover(player.PLAYER.current)
-
-            if image_data is not None:
-                pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
-                descriptor, self.temp_icon_path = tempfile.mkstemp()
-                pixbuf.save(self.temp_icon_path, 'png')
-                self.awn.SetTaskIconByXid(self.xid(), self.temp_icon_path)
+            image_data = covers.MANAGER.get_cover(player.PLAYER.current,
+                set_only=True, use_default=True)
+            pixbuf = icons.MANAGER.pixbuf_from_data(image_data)
+            descriptor, self.temp_icon_path = tempfile.mkstemp()
+            pixbuf.save(self.temp_icon_path, 'png')
+            self.awn.SetTaskIconByXid(self.xid(), self.temp_icon_path)
 
     def unset_timer(self):
         self._set_timer(100)

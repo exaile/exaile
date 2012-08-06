@@ -432,13 +432,7 @@ def get_image_data(data, size):
     return 'data:image/png;base64,%s' % imbuff.get_base64()
 
 def get_track_cover(track):
-    cover = None
-    try:
-        cover = ex.exaile().covers.get_cover(track)
-    except: pass
-    if cover == None:
-        cover = ex.exaile().covers.get_default_cover()
-    return cover
+    return ex.exaile().covers.get_cover(track, set_only=True, use_default=True)
 
 def get_track_tag(track, tag, default):
     try:

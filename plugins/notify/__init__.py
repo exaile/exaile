@@ -90,7 +90,8 @@ class ExaileNotification(object):
                               }
 
         notif = pynotify.Notification(summary, body)
-        cover_data = covers.MANAGER.get_cover(track, use_default=True)
+        cover_data = covers.MANAGER.get_cover(track,
+            set_only=True, use_default=True)
         size = (48, 48) if self.resize else None
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, size)
         notif.set_icon_from_pixbuf(pixbuf)

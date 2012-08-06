@@ -106,7 +106,8 @@ class ExaileNotifyOsd(object):
                 # this is for when the song has been stopped previously
                 self.icon = self.resumeicon
             elif self.show_covers:
-                cover_data = covers.MANAGER.get_cover(track, use_default=True)
+                cover_data = covers.MANAGER.get_cover(track,
+                    set_only=True, use_default=True)
                 self.icon = icons.MANAGER.pixbuf_from_data(cover_data)
 
         # Setup the summary and body for the notification

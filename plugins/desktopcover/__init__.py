@@ -146,7 +146,7 @@ class DesktopCover(gtk.Window):
         """
             Updates the cover image and triggers cross-fading
         """
-        cover_data = covers.MANAGER.get_cover(track)
+        cover_data = covers.MANAGER.get_cover(track, set_only=True)
 
         if cover_data is None:
             self.hide()

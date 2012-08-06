@@ -625,7 +625,7 @@ class DbusManager(dbus.service.Object):
             :rtype: binary data
         """
         from xl import covers, player
-        cover = covers.MANAGER.get_cover(player.PLAYER.current)
+        cover = covers.MANAGER.get_cover(player.PLAYER.current, set_only=True)
         if not cover:
             cover = ''
         return cover

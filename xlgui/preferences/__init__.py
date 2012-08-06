@@ -118,11 +118,9 @@ class PreferencesDialog(object):
 
             self.model.append(None, [page, page.name, icon])
 
-        icons.MANAGER.add_icon_name_from_file(
-            'plugins', xdg.get_data_path('images', 'plugins.png'))
         # Use icon name to allow overrides
         plugin_icon = icons.MANAGER.pixbuf_from_icon_name(
-            'plugins', gtk.ICON_SIZE_MENU)
+            'extension', gtk.ICON_SIZE_MENU)
         self.plug_root = self.model.append(None,
             [plugin, _('Plugins'), plugin_icon])
 

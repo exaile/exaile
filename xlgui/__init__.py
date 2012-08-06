@@ -77,7 +77,7 @@ class Main(object):
 
         for name in ('exaile', 'exaile-pause', 'exaile-play',
                      'folder-music', 'audio-x-generic',
-                     'office-calendar'):
+                     'office-calendar', 'extension'):
             icons.MANAGER.add_icon_name_from_directory(name,
                 xdg.get_data_path('images'))
         gtk.window_set_default_icon_name('exaile')

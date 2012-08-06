@@ -32,8 +32,7 @@ from xlgui import icons
 from xlgui.preferences import widgets
 
 name = _('Playlists')
-icon = icons.MANAGER.pixbuf_from_icon_name(
-    'music-library', gtk.ICON_SIZE_SMALL_TOOLBAR)
+icon = 'music-library'
 ui = xdg.get_data_path('ui', 'preferences', 'playlists.ui')
 
 class OpenLastPreference(widgets.CheckPreference):

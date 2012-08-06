@@ -373,8 +373,8 @@ class CollectionPanel(panel.Panel):
             gtk.STOCK_CDROM, gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.title_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.genre_image = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/genre.png'))
+        self.genre_image = icons.MANAGER.pixbuf_from_icon_name(
+            'genre', gtk.ICON_SIZE_SMALL_TOOLBAR)
 
     def drag_data_received(self, *e):
         """

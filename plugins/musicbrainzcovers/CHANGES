@@ -1,0 +1,22 @@
+0.3-dev:
+    * Show relevancy scores on search results (Alastair Porter, #37)
+    * Perform searches in lower case (Adrian Sampson, #36)
+    * Use AND instead of OR by default in searches (Johannes Dewender)
+    * Parse artist disambiguation field (Payl Bailey, #48)
+    * Send zero-length body requests correctly (Adrian Sampson)
+    * Fix bug in get methods when includes, release status, or release type
+      are included (Alastair Porter, reported by palli81)
+    * Support python 2 and python 3
+    * Update valid includes for some entity queries
+    * Add usage examples
+
+0.2 (2012-03-06):
+    * ISRC submission support (Wieland Hoffmann)
+    * Various submission bug fixes (Wieland Hoffmann)
+    * Retry the query if the connection is reset (Adrian Sampson)
+    * Rename some methods to make the API more consistent (Alastair Porter)
+    * Use test methods from Python 2.6 (Alastair Porter)
+
+0.1: Initial release
+    Contributions by Alastair Porter, Adrian Sampson, Michael Marineau,
+    Thomas Vander Stichele, Ian McEwen

@@ -1,0 +1,5 @@
+Version='1.0.0'
+Authors=['Mathias Brodala <info@noctus.net>']
+Name=_('MusicBrainz Covers')
+Description=_('Integrates MusicBrainz for cover search')
+Category=_('Covers')

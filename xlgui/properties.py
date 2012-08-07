@@ -100,6 +100,10 @@ class TrackPropertiesDialog(gobject.GObject):
         self.dialog.set_transient_for(parent)
         self._connect_events()
 
+        self.__default_attributes = pango.AttrList()
+        self.__changed_attributes = pango.AttrList()
+        self.__changed_attributes.insert(pango.AttrStyle(pango.STYLE_ITALIC, 0, -1))
+
         self.remove_tag_button = self.builder.get_object('remove_tag_button')
         self.cur_track_label = self.builder.get_object('current_track_label')
         self.apply_button = self.builder.get_object('apply_button')
@@ -364,7 +368,7 @@ class TrackPropertiesDialog(gobject.GObject):
             self.apply_button.set_sensitive(False)
             for row in self.rows:
                 if row.multi_id == 0:
-                    row.label.set_markup(row.name.capitalize() + ':')
+                    row.label.set_attributes(self.__default_attributes)
 
     def _on_close(self, w):
         if self.tracks != self.tracks_original:
@@ -449,13 +453,11 @@ class TrackPropertiesDialog(gobject.GObject):
             if row.tag == tag and row.multi_id == 0:
                 try:
                     if t[tag] != o[tag]:
-                        row.label.set_markup(
-                            '<i>' + row.name.capitalize() + ':</i>')
+                        row.label.set_attributes(self.__changed_attributes)
                     else:
-                        row.label.set_markup(row.name + ':')
+                        row.label.set_attributes(self.__default_attributes)
                 except KeyError:
-                    row.label.set_markup(
-                        '<i>' + row.name.capitalize() + ':</i>')
+                    row.label.set_attributes(self.__changed_attributes)
 
 
             if row.tag == tag and row.multi_id == multi_id:
@@ -541,15 +543,15 @@ class TagRow(object):
         self.name = name
 
         if multi_id == 0:
-            self.label = gtk.Label(name.capitalize() + ':')
+            self.label = gtk.Label(_('%s:') % name.capitalize())
             self.label.create_pango_context()
             self.label.set_alignment(0.0, .50)
             try:
                 if parent.tracks[parent.current_position][self.tag] != \
                         parent.tracks_original[parent.current_position][self.tag]:
-                    self.label.set_markup('<i>' + name.capitalize() + '</i>:')
+                    self.label.set_attributes(self.__changed_attributes)
             except KeyError:
-                self.label.set_markup('<i>' + name.capitalize() + '</i>:')
+                self.label.set_attributes(self.__changed_attributes)
         else:
             self.label = gtk.Label()
 

@@ -74,10 +74,7 @@ class Column(gtk.TreeViewColumn):
         if index == 2:
             gtk.TreeViewColumn.__init__(self, self.display)
             icon_cellr = gtk.CellRendererPixbuf()
-            # TODO: figure out why this returns the wrong value
-            # and switch to it.
-            #pbufsize = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
-            pbufsize = icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP).get_width()
+            pbufsize = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
             icon_cellr.set_fixed_size(pbufsize, pbufsize)
             icon_cellr.set_property('xalign', 0.0)
             self.extrasize = pbufsize

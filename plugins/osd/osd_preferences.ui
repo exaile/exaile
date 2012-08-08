@@ -137,6 +137,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="border_width">1</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
                 <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkTextView" id="plugin/osd/format">

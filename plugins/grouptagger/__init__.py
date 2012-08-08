@@ -26,9 +26,6 @@
 
 import gtk
 import gobject
-
-import os
-import time
  
 from xl import (
     event, 
@@ -39,7 +36,7 @@ from xl import (
 
 from xl.nls import gettext as _
 
-from xlgui import guiutil, main
+from xlgui import guiutil
 from xlgui.widgets import menu, dialogs
 
 import gt_widgets
@@ -76,18 +73,24 @@ class GroupTaggerPlugin(object):
     
         self.track = None
         self.tag_dialog = None
+        
+        migrate_settings()
     
         self.panel = gt_widgets.GroupTaggerPanel(exaile)
         self.panel.show_all()
         
-        self.panel.tagger.view.connect( 'changed', self.on_group_changed )
+        self.panel.tagger.view.connect( 'category-changed', self.on_category_changed )
+        self.panel.tagger.view.connect( 'category-edited', self.on_category_edited )
+        self.panel.tagger.view.connect( 'group-changed', self.on_group_changed )
         
+        # add to exaile's panel interface
+        exaile.gui.panels['grouptagger'] = self.panel
         exaile.gui.add_panel( self.panel, _('GroupTagger') )
         
         # ok, register for some events
         event.add_callback( self.on_playback_track_start, 'playback_track_start' )
         event.add_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
-        event.add_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
+        #event.add_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         
         # add our own submenu for functionality
         self.tools_submenu = menu.Menu( None, context_func=lambda p: exaile )
@@ -115,7 +118,7 @@ class GroupTaggerPlugin(object):
         if player.PLAYER.is_playing():
             self.set_display_track( player.PLAYER.current )
         else:
-            self.panel.tagger.set_groups( [(False, group) for group in get_default_groups()] )
+            self.panel.tagger.set_categories( [], get_group_categories() )
     
     def disable_plugin(self, exaile):
         '''Called when the plugin is disabled'''
@@ -137,7 +140,7 @@ class GroupTaggerPlugin(object):
         # de-register the exaile events
         event.remove_callback( self.on_playback_track_start, 'playback_track_start' )
         event.remove_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
-        event.remove_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
+        #event.remove_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         
         exaile.gui.remove_panel( self.panel )
         
@@ -148,13 +151,14 @@ class GroupTaggerPlugin(object):
     def on_get_tags_menu(self, widget, name, parent, exaile):
         
         if self.tag_dialog is None:
-            self.tag_dialog = AllTagsDialog(exaile)
+            self.tag_dialog = gt_widgets.AllTagsDialog(exaile, self.panel.tagger.add_groups)
             self.tag_dialog.connect('delete-event', self.on_get_tags_menu_window_deleted)
             
         self.tag_dialog.show_all()
         
     def on_get_tags_menu_window_deleted(self, *args):
         self.tag_dialog = None
+        
         
     #
     # Exaile events
@@ -164,13 +168,6 @@ class GroupTaggerPlugin(object):
     def on_playback_track_start(self, type, player, track):
         '''Called when a new track starts'''
         self.set_display_track( track )
-        
-        
-    #def on_playlist_context_menu( self, menu, display_name, playlist_view, context ):
-    #    '''Called when our context menu item is selected'''
-    #    tracks = context['selected-tracks']
-    #    if len(tracks) == 1:
-    #        self.set_display_track( tracks[0] )
     
     def on_playlist_context_select_all_menu( self, menu, display_name, playlist_view, context, exaile ):
         '''Called when 'Select tracks with same groups' is selected'''
@@ -183,7 +180,7 @@ class GroupTaggerPlugin(object):
         if len(groups) > 0:
             create_all_search_playlist( groups, exaile )
         else:
-            dialogs.error( 'No grouping tags found in selected tracks' )
+            dialogs.error( None, 'No grouping tags found in selected tracks' )
         
     def on_playlist_context_select_custom_menu( self, menu, display_name, playlist_view, context, exaile ):
         '''Called when 'select tracks with similar groups (custom)' is selected'''
@@ -194,10 +191,9 @@ class GroupTaggerPlugin(object):
             groups |= get_track_groups(track)
         
         if len(groups) > 0:
-            create_custom_search_playlist( [group for group in groups], exaile )
+            create_custom_search_playlist( groups, exaile )
         else:
-            dialogs.error( 'No grouping tags found in selected tracks' )
-        
+            dialogs.error( None, 'No grouping tags found in selected tracks' )
     
     def on_playlist_cursor_changed( self, type, playlist_view, context ):
         '''Called when an item in a playlist is selected'''
@@ -206,7 +202,6 @@ class GroupTaggerPlugin(object):
         tracks = context['selected-tracks']
         if len(tracks) == 1:
             self.set_display_track( tracks[0] )
-        
 
     def set_display_track(self, track):
         '''Updates the display with the tags/info for a particular track'''
@@ -215,59 +210,50 @@ class GroupTaggerPlugin(object):
         # get the groups as a set
         track_groups = get_track_groups( track )
         
-        # get the default groups
-        default_groups = get_default_groups()
-        
-        # setup something appropriate to display
-        groups = [(True, group) for group in track_groups]
-        
-        # add any defaults not present
-        groups.extend( [ (False, group) for group in default_groups.difference( track_groups )] )
-        
         # set them
         self.panel.tagger.view.show_click_column()
-        self.panel.tagger.set_groups( groups )
+        self.panel.tagger.set_categories( track_groups, get_group_categories() )
         self.panel.tagger.set_track_info( track )
         
     #
     # Widget events
     #
-        
+    
+    def on_category_changed(self, view, action, category):
+        '''Called when a category has something happen to it'''
+    
+        categories = get_group_categories()
+    
+        if action == gt_widgets.GT_CATEGORY_ADDED:
+            categories.setdefault(category, [True, []])
+                
+        elif action == gt_widgets.GT_CATEGORY_DELETED:
+            del categories[category]
+            
+        elif action == gt_widgets.GT_CATEGORY_COLLAPSED:
+            categories[category][0] = False
+            
+        elif action == gt_widgets.GT_CATEGORY_EXPANDED:
+            categories[category][0] = True
+            
+        elif action == gt_widgets.GT_CATEGORY_UPDATED:
+            v = categories.setdefault(category, [True, []])
+            v[1] = view.get_model().get_category_groups(category)
+            
+        set_group_categories( categories )
+    
+    def on_category_edited(self, view, old_category, new_category):
+        '''Called when a category name is edited'''
+    
+        categories = get_group_categories()
+        categories[new_category] = categories.pop(old_category)
+        set_group_categories( categories )
+    
     def on_group_changed(self, view, action, value):
-        '''Called when a group is added/deleted/etc on the widget'''
-        
-        groups = view.get_model().get_active_groups()
+        '''Called when a group is added/deleted/updated on the widget'''
         
         if self.track is not None:
-            write_succeeded = set_track_groups( self.track, groups )
-        
-        #
-        # use the action to determine how to update the global
-        # defaults: If the user explcitly added/deleted objects,
-        # then we add/remove those to/from the globals if required
-        #
-        
-        if action == gt_widgets.CHANGE_ADDED or action == gt_widgets.CHANGE_DELETED:
-        
-            all_groups = get_default_groups()
-            sz = len( all_groups )
-        
-            if action == gt_widgets.CHANGE_ADDED:
-                all_groups.add( value )
-            else:
-                all_groups.discard( value )
-        
-            # if it changed, set it
-            if sz != len( all_groups ):
-                set_default_groups( all_groups )
-        
-        if self.track is not None and not write_succeeded:
-            self.set_display_track( self.track )
+            groups = view.get_model().iter_active()
+            if not set_track_groups( self.track, groups ):
+                self.set_display_track( self.track )
   
-    def on_plugin_options_set(self, manager, option, value):
-        '''Called each time the default groups are set'''
-        if value == 'plugin/grouptagger/default_groups':
-            self.panel.tagger.add_groups( [(False, group) for group in get_default_groups()] )
-  
-
-    

@@ -49,6 +49,9 @@ from xl.nls import gettext as _
 logger = logging.getLogger(__name__)
 
 def force_unicode(obj):
+    if obj is None:
+        return None
+
     try:
         # Try this first because errors='replace' fails if the object is unicode
         # or some other non-str object.

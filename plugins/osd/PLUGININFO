@@ -1,0 +1,5 @@
+Version='0.0.1'
+Authors=['Mathias Brodala <info@noctus.net>']
+Name=_('On Screen Display')
+Description=_('A popup window showing information of the currently playing track.')
+Category=_('Notifications')

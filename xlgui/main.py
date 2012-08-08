@@ -132,8 +132,6 @@ class MainWindow(gobject.GObject):
         self._setup_hotkeys()
         logger.info("Connecting main window events...")
         self._connect_events()
-        from xlgui import osd
-        self.osd = osd.OSDWindow(player.PLAYER)
         MainWindow._mainwindow = self
 
         mainmenu._create_menus()
@@ -509,9 +507,6 @@ class MainWindow(gobject.GObject):
         if player.parse_stream_tags(tr, args):
             self._update_track_information()
 
-        if settings.get_option('osd/enabled', True):
-            self.osd.show(player.current)
-
     def on_track_tags_changed(self, type, track, tag):
         """
             Called when tags are changed
@@ -745,9 +740,6 @@ class MainWindow(gobject.GObject):
             gtk.ICON_SIZE_SMALL_TOOLBAR))
         glib.idle_add(self.playpause_button.set_tooltip_text,
             _('Pause Playback'))
-
-        if settings.get_option('osd/enabled', True):
-            glib.idle_add(self.osd.show, player.current)
 
     def on_playback_end(self, type, player, object):
         """

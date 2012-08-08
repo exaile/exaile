@@ -182,6 +182,10 @@ class Exaile(object):
         from xl.migrations.settings import rating
         rating.migrate()
 
+        # Migrate builtin OSD to plugin
+        from xl.migrations.settings import osd
+        osd.migrate()
+
         # Initialize plugin manager
         if not self.options.SafeMode:
             from xl import plugins

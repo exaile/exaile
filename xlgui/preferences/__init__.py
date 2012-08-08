@@ -46,7 +46,6 @@ from xlgui.preferences import (
     appearance,
     collection,
     cover,
-    osd,
     playback,
     playlists,
     plugin
@@ -60,7 +59,7 @@ class PreferencesDialog(object):
     """
 
     PAGES = (playlists, appearance, playback,
-        collection, osd, cover)
+        collection, cover)
     PREFERENCES_DIALOG = None
 
     def __init__(self, parent, main):
@@ -191,8 +190,7 @@ class PreferencesDialog(object):
 
     def close(self):
         """
-            Closes the preferences dialog, ensuring that the osd popup isn't
-            still showing
+            Closes the preferences dialog
         """
         if hasattr(self.last_page, 'page_leave'):
             self.last_page.page_leave(self)

@@ -66,6 +66,7 @@ class TrackInfoPane(gtk.Alignment):
               'by $artist\n'
               'from $album')
         )
+        self.__formatter.connect('notify::format', self.on_notify_format)
         self.__default_text = ('<span size="x-large" '
             'weight="bold">%s</span>' % _('Not Playing'))
         self.__cover_size = None
@@ -294,6 +295,13 @@ class TrackInfoPane(gtk.Alignment):
         """
         self.progress_box.set_property('visible', False)
         self.progress_box.set_no_show_all(True)
+
+    def on_notify_format(self, formatter, format):
+        """
+            Updates the displayed data after format changes
+        """
+        if self.__track is not None:
+            self.set_track(self.__track)
 
     def on_playback_player_end(self, event, player, track):
         """

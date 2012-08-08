@@ -308,7 +308,7 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         """
         if option == 'plugin/osd/format':
             self.info_area.set_info_format(settings.get_option(option,
-                _('<span font_desc="Sans 11" foreground="#fff">$title</span>\n'
+                _('<span font_desc="Sans 11" foreground="#fff"><b>$title</b></span>\n'
                 'by $artist\n'
                 'from $album')
             ))

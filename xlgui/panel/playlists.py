@@ -534,7 +534,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
     __gsignals__ = BasePlaylistPanelMixin._gsignals_
 
-    ui_info = ('playlists_panel.ui', 'PlaylistsPanelWindow')
+    ui_info = ('playlists.ui', 'PlaylistsPanelWindow')
 
     def __init__(self, parent, playlist_manager,
         smart_manager, collection):

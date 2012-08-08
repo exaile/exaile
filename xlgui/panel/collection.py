@@ -197,7 +197,7 @@ class CollectionPanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    ui_info = ('collection_panel.ui', 'CollectionPanelWindow')
+    ui_info = ('collection.ui', 'CollectionPanelWindow')
     def __init__(self, parent, collection, name=None,
         _show_collection_empty_message=False):
         """

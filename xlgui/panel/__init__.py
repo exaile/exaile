@@ -54,7 +54,7 @@ class Panel(gobject.GObject):
         # file://, otherwise check in the data directories
         ui_file = self.ui_info[0]
         if not os.path.isabs(ui_file):
-            ui_file = xdg.get_data_path('ui/%s' % ui_file)
+            ui_file = xdg.get_data_path('ui', 'panel', ui_file)
 
         self.builder = gtk.Builder()
         self.builder.add_from_file(ui_file)

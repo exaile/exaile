@@ -105,7 +105,7 @@ class DevicePanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    ui_info = ('device_panel.ui', 'DevicePanelWindow')
+    ui_info = ('device.ui', 'DevicePanelWindow')
 
     def __init__(self, parent, main,
         device, name=None):

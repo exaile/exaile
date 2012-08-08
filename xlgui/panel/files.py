@@ -97,7 +97,7 @@ class FilesPanel(panel.Panel):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    ui_info = ('files_panel.ui', 'FilesPanelWindow')
+    ui_info = ('files.ui', 'FilesPanelWindow')
 
     def __init__(self, parent, collection):
         """

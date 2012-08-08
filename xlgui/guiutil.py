@@ -168,54 +168,6 @@ def gtk_widget_replace(widget, replacement):
 
         replacement.show_all()
 
-class ScalableImageWidget(gtk.Image):
-    """
-        Custom resizeable image widget
-    """
-    def __init__(self):
-        """
-            Initializes the image
-        """
-        self.loc = ''
-        gtk.Image.__init__(self)
-
-    def set_image_size(self, width, height):
-        """
-            Scales the size of the image
-        """
-        self.size = (width, height)
-
-    def set_image(self, image, fill=False):
-        """
-            Sets the image
-        """
-        self.loc = gio.File(image).get_path()
-        self.pixbuf = gtk.gdk.pixbuf_new_from_file(self.loc)
-
-        self._set_image(self.pixbuf, fill)
-
-    def set_image_data(self, data, fill=False):
-        if not data:
-            return
-
-        self.pixbuf = icons.MANAGER.pixbuf_from_data(data)
-        self._set_image(self.pixbuf, fill)
-
-    def _set_image(self, pixbuf, fill=False):
-        width, height = self.size
-        if not fill:
-            origw = float(pixbuf.get_width())
-            origh = float(pixbuf.get_height())
-            scale = min(width / origw, height / origh)
-            width = int(origw * scale)
-            height = int(origh * scale)
-        self.width = width
-        self.height = height
-        scaled = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
-        self.set_from_pixbuf(scaled)
-
-        scaled = pixbuf = None
-
 class AutoScrollTreeView(gtk.TreeView):
     """
         A TreeView which handles autoscrolling upon DnD operations

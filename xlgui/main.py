@@ -691,7 +691,7 @@ class MainWindow(gobject.GObject):
                 Show messages in the main window message area
             """
             if message_type == gtk.MESSAGE_INFO:
-                self.message.show_info(message)
+                self.message.show_info(markup=message)
             elif message_type == gtk.MESSAGE_ERROR:
                 self.message.show_error(_('Playlist export failed!'), message)
 

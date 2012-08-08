@@ -98,7 +98,7 @@ def __create_file_menu():
                 Show messages in the main window message area
             """
             if message_type == gtk.MESSAGE_INFO:
-                main.message.show_info(message)
+                main.message.show_info(markup=message)
             elif message_type == gtk.MESSAGE_ERROR:
                 main.message.show_error(_('Playlist export failed!'), message)
             return True

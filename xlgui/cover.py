@@ -51,7 +51,6 @@ from xlgui import (
     guiutil,
     icons
 )
-from xlgui.widgets.common import ScalableImageWidget
 from xlgui.widgets import dialogs
 logger = logging.getLogger(__name__)
 
@@ -827,7 +826,7 @@ class CoverChooser(gobject.GObject):
         self.ok_button = self.builder.get_object('ok_button')
         self.ok_button.set_sensitive(False)
         self.box = self.builder.get_object('cover_image_box')
-        self.cover = ScalableImageWidget()
+        self.cover = guiutil.ScalableImageWidget()
         self.cover.set_image_size(350, 350)
         self.box.pack_start(self.cover, True, True)
 

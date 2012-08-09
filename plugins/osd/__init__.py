@@ -73,7 +73,6 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
 
         self.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_UTILITY)
         self.set_title('Exaile OSD')
-        self.set_border_width(6)
         self.set_decorated(False)
         self.set_keep_above(True)
         self.set_skip_pager_hint(True)
@@ -84,8 +83,11 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         self.add_events(gtk.gdk.BUTTON_PRESS_MASK | gtk.gdk.BUTTON_RELEASE_MASK | gtk.gdk.POINTER_MOTION_MASK)
 
         # Cached option values
-        self.__background = None
-        self.__display_duration = None
+        self.__options = {
+            'background': None,
+            'display_duration': None,
+            'border_radius': None
+        }
 
         self.info_area = info.TrackInfoPane(player.PLAYER)
         self.info_area.set_default_text('')
@@ -96,7 +98,8 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
 
         # Trigger initial setup trough options
         for option in ('format', 'background', 'display_duration',
-                       'show_progress', 'position', 'width', 'height'):
+                       'show_progress', 'position', 'width', 'height',
+                       'border_radius'):
             self.on_option_set('plugin_osd_option_set', settings,
             'plugin/osd/{option}'.format(option=option))
 
@@ -161,10 +164,10 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         context.clip()
 
         context.set_source_rgba(
-            self.__background.red_float,
-            self.__background.green_float,
-            self.__background.blue_float,
-            self.__background.alpha_float
+            self.__options['background'].red_float,
+            self.__options['background'].green_float,
+            self.__options['background'].blue_float,
+            self.__options['background'].alpha_float
         )
 
         context.set_operator(cairo.OPERATOR_SOURCE)
@@ -182,6 +185,37 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         self.unrealize()
         self.set_colormap(colormap)
         self.realize()
+
+    def do_size_allocate(self, allocation):
+        """
+            Applies the non-rectangular shape
+        """
+        width, height = allocation.width, allocation.height
+        mask = gtk.gdk.Pixmap(None, width, height, 1)
+        context = mask.cairo_create()
+
+        context.set_source_rgb(0, 0, 0)
+        context.set_operator(cairo.OPERATOR_CLEAR)
+        context.paint()
+
+        radius = self.__options['border_radius']
+        inner = gtk.gdk.Rectangle(radius, radius, width - radius, height - radius)
+
+        context.set_source_rgb(1, 1, 1)
+        context.set_operator(cairo.OPERATOR_SOURCE)
+        # Top left corner
+        context.arc(inner.x,     inner.y,      radius, 1.0 * pi, 1.5 * pi)
+        # Top right corner
+        context.arc(inner.width, inner.y,      radius, 1.5 * pi, 2.0 * pi)
+        # Bottom right corner
+        context.arc(inner.width, inner.height, radius, 0.0 * pi, 0.5 * pi)
+        # Bottom left corner
+        context.arc(inner.x,     inner.height, radius, 0.5 * pi, 1.0 * pi)
+        context.fill()
+
+        self.shape_combine_mask(mask, 0, 0)
+
+        gtk.Window.do_size_allocate(self, allocation)
 
     def do_configure_event(self, e):
         """
@@ -252,7 +286,7 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
             pass
 
         self.set_data('hide-id', glib.timeout_add_seconds(
-            self.__display_duration, self.hide))
+            self.__options['display_duration'], self.hide))
 
         gtk.Window.do_leave_notify_event(self, e)
 
@@ -268,7 +302,7 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
             pass
 
         self.set_data('hide-id', glib.timeout_add_seconds(
-            self.__display_duration, self.hide))
+            self.__options['display_duration'], self.hide))
 
     def on_playback_toggle_pause(self, e, player, track):
         """
@@ -284,7 +318,7 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
             pass
 
         self.set_data('hide-id', glib.timeout_add_seconds(
-            self.__display_duration, self.hide))
+            self.__options['display_duration'], self.hide))
 
     def on_playback_player_end(self, e, player, track):
         """
@@ -303,13 +337,18 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
                 'from $album')
             ))
         if option == 'plugin/osd/background':
-            self.__background = alphacolor_parse(settings.get_option(option, '#333333cc'))
+            self.__options['background'] = alphacolor_parse(settings.get_option(option, '#333333cc'))
             glib.idle_add(self.queue_draw)
         elif option == 'plugin/osd/display_duration':
-            self.__display_duration = settings.get_option(option, 4)
+            self.__options['display_duration'] = settings.get_option(option, 4)
         elif option == 'plugin/osd/show_progress':
             self.info_area.set_display_progress(settings.get_option(option, True))
         elif option == 'plugin/osd/position':
             position = Point._make(settings.get_option(option, [20, 20]))
             glib.idle_add(self.move, position.x, position.y)
+        elif option == 'plugin/osd/border_radius':
+            value = settings.get_option(option, 10)
+            self.set_border_width(max(6, int(value / 2)))
+            self.__options['border_radius'] = value
+            self.emit('size-allocate', self.get_allocation())
 

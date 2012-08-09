@@ -70,3 +70,10 @@ class FormatPreference(widgets.TextViewPreference):
                 'by $artist\n'
                 'from $album')
 
+class BorderRadiusPreference(widgets.SpinPreference):
+    name = 'plugin/osd/border_radius'
+    default = 10
+
+    def _get_value(self):
+        return self.widget.get_value_as_int()
+

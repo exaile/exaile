@@ -153,7 +153,7 @@ class FlatPlaylistDevicePanel(panel.Panel):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    ui_info = ('device_panel.ui', 'DevicePanelWindow')
+    ui_info = ('device.ui', 'DevicePanelWindow')
 
     def __init__(self, parent, main,
         device, name=None):

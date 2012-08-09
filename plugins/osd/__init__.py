@@ -89,24 +89,14 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
 
         self.info_area = info.TrackInfoPane(player.PLAYER)
         self.info_area.set_default_text('')
-        self.info_area.set_info_format(
-            settings.get_option('plugin/osd/format',
-                _('<span font_desc="Sans 11" foreground="#fff">'
-                  '<b>$title</b></span>\n'
-                  'by $artist\n'
-                  'from $album')
-            )
-        )
-        self.info_area.set_display_progress(
-            settings.get_option('osd/show_progress'))
         self.info_area.set_auto_update(True)
         self.add(self.info_area)
 
         event.add_callback(self.on_option_set, 'plugin_osd_option_set')
 
         # Trigger initial setup trough options
-        for option in ('background', 'display_duration', 'position',
-                       'width', 'height'):
+        for option in ('format', 'background', 'display_duration',
+                       'show_progress', 'position', 'width', 'height'):
             self.on_option_set('plugin_osd_option_set', settings,
             'plugin/osd/{option}'.format(option=option))
 
@@ -313,23 +303,13 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
                 'from $album')
             ))
         if option == 'plugin/osd/background':
-            value = settings.get_option(option, '#333333cc')
-            self.__background = alphacolor_parse(value)
+            self.__background = alphacolor_parse(settings.get_option(option, '#333333cc'))
             glib.idle_add(self.queue_draw)
         elif option == 'plugin/osd/display_duration':
             self.__display_duration = settings.get_option(option, 4)
         elif option == 'plugin/osd/show_progress':
-            value = settings.get_option(option, True)
-            self.info_area.set_display_progress(value)
+            self.info_area.set_display_progress(settings.get_option(option, True))
         elif option == 'plugin/osd/position':
             position = Point._make(settings.get_option(option, [20, 20]))
             glib.idle_add(self.move, position.x, position.y)
-        '''
-        elif option in ('plugin/osd/width', 'plugin/osd/height'):
-            glib.idle_add(
-                self.resize,
-                settings.get_option('plugin/osd/width', 400),
-                settings.get_option('plugin/osd/height', 110)
-            )
-        '''
 

@@ -48,6 +48,7 @@ from xlgui import (
     playlist as guiplaylist,
     xdg
 )
+from xlgui.widgets.common import DragTreeView
 from xlgui.widgets import dialogs
 from xlgui.widgets.filter import *
 
@@ -1041,7 +1042,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if not tracks: return
 
             for track in tracks:
-                guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = \
+                DragTreeView.dragged_data[track.get_loc_for_io()] = \
                     track
 
             uris = trax.util.get_uris_from_tracks(tracks)
@@ -1236,12 +1237,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             self.model.remove(iter)
             iter = self.model.iter_children(node)
 
-class PlaylistDragTreeView(guiutil.DragTreeView):
+class PlaylistDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from playlists
     """
     def __init__(self, container, receive=True, source=True):
-        guiutil.DragTreeView.__init__(self, container, receive, source)
+        DragTreeView.__init__(self, container, receive, source)
         self.show_cover_drag_icon = False
 
     def get_selected_tracks(self):

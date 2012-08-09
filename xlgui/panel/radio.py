@@ -457,7 +457,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             return
 
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
+            DragTreeView.dragged_data[track.get_loc_for_io()] = track
 
         uris = trax.util.get_uris_from_tracks(tracks)
         selection_data.set_uris(uris)

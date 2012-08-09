@@ -35,6 +35,7 @@ from xlgui import (
     icons,
     main
 )
+from xlgui.widgets.common import DragTreeView
 
 def enable(exaile):
     if exaile.loading:
@@ -238,7 +239,7 @@ class LVPanel():
             if book.loaded: #chapters loaded
                 for chapter in book.chapters:
                     chapter_track=self.generate_tracks([chapter])
-                    guiutil.DragTreeView.dragged_data[chapter[1]] = chapter_track[0]
+                    DragTreeView.dragged_data[chapter[1]] = chapter_track[0]
                     uris.append(chapter[1])
                 selection.set_uris(uris)
                 del uris
@@ -277,7 +278,7 @@ class LVPanel():
                 return
             chapter=self.books[path[0]].chapters[path[1]]
             chapter_track=self.generate_tracks([chapter])
-            guiutil.DragTreeView.dragged_data[chapter[1]] = chapter_track[0]
+            DragTreeView.dragged_data[chapter[1]] = chapter_track[0]
             uri=chapter[1]
             selection.set('text/uri-list', 0, uri)
 

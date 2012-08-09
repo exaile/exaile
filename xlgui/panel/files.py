@@ -51,6 +51,7 @@ from xlgui import (
     playlist,
     xdg
 )
+from xlgui.widgets.common import DragTreeView
 from xlgui.widgets import (
     menu,
     menuitems
@@ -465,11 +466,11 @@ class FilesPanel(panel.Panel):
         tracks = self.tree.get_selected_tracks()
         if not tracks: return
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
+            DragTreeView.dragged_data[track.get_loc_for_io()] = track
         uris = trax.util.get_uris_from_tracks(tracks)
         selection.set_uris(uris)
 
-class FilesDragTreeView(guiutil.DragTreeView):
+class FilesDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from files
     """

@@ -42,10 +42,10 @@ from xl import (
 from xl.covers import CoverSearchMethod
 from xl.nls import gettext as _
 from xlgui import (
-    guiutil,
     icons,
     panel
 )
+from xlgui.widgets.common import DragTreeView
 
 JAMENDO_NOTEBOOK_PAGE = None
 COVERS_METHOD = None
@@ -175,7 +175,7 @@ class JamendoPanel(panel.Panel):
         self.set_status(self.STATUS_READY)
 
         #setup results treeview
-        self.treeview = guiutil.DragTreeView(self)
+        self.treeview = DragTreeView(self)
         self.treeview.connect("row-expanded", self.row_expanded)
         self.treeview.set_headers_visible(False)
         container = self.builder.get_object('treeview_box')

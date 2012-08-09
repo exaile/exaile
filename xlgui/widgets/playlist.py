@@ -52,8 +52,9 @@ from xl.playlist import (
     import_playlist,
 )
 from xlgui import guiutil, icons
-from xlgui.widgets import menu, menuitems, playlist_columns
+from xlgui.widgets.common import AutoScrollTreeView
 from xlgui.widgets.notebook import NotebookPage
+from xlgui.widgets import menu, menuitems, playlist_columns
 
 logger = logging.getLogger(__name__)
 
@@ -509,9 +510,9 @@ class PlaylistPage(NotebookPage):
 
 
 
-class PlaylistView(guiutil.AutoScrollTreeView, providers.ProviderHandler):
+class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
     def __init__(self, playlist, player):
-        guiutil.AutoScrollTreeView.__init__(self)
+        AutoScrollTreeView.__init__(self)
         providers.ProviderHandler.__init__(self, 'playlist-columns')
 
         self.playlist = playlist

@@ -46,7 +46,12 @@ from xlgui import (
     icons,
     panel
 )
-from xlgui.widgets import info, menu, menuitems
+from xlgui.widgets.common import DragTreeView
+from xlgui.widgets import (
+    info,
+    menu,
+    menuitems
+)
 
 logger = logging.getLogger(__name__)
 
@@ -395,7 +400,7 @@ class CollectionPanel(panel.Panel):
         tracks = treeview.get_selected_tracks()
 
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
+            DragTreeView.dragged_data[track.get_loc_for_io()] = track
 
         uris = trax.util.get_uris_from_tracks(tracks)
         selection.set_uris(uris)
@@ -744,7 +749,7 @@ class CollectionPanel(panel.Panel):
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
-class CollectionDragTreeView(guiutil.DragTreeView):
+class CollectionDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data
         from collection tracks
@@ -755,7 +760,7 @@ class CollectionDragTreeView(guiutil.DragTreeView):
             :param receive: True if the TreeView should receive drag events
             :param source: True if the TreeView should send drag events
         """
-        guiutil.DragTreeView.__init__(self, container, receive, source)
+        DragTreeView.__init__(self, container, receive, source)
 
         self.set_has_tooltip(True)
         self.connect('query-tooltip', self.on_query_tooltip)

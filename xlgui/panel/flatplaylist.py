@@ -29,8 +29,12 @@ import gtk
 
 from xl import metadata, trax
 from xl.nls import gettext as _
-from xlgui import panel, guiutil
-from xlgui import oldmenu as menu
+from xlgui import (
+    guiutil,
+    oldmenu as menu,
+    panel
+)
+from xlgui.widgets.common import DragTreeView
 
 class FlatPlaylistPanel(panel.Panel):
     """
@@ -164,11 +168,11 @@ class FlatPlaylistPanel(panel.Panel):
         tracks = self.tree.get_selected_tracks()
         if not tracks: return
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
+            DragTreeView.dragged_data[track.get_loc_for_io()] = track
         uris = trax.util.get_uris_from_tracks(tracks)
         selection.set_uris(uris)
 
-class FlatPlaylistDragTreeView(guiutil.DragTreeView):
+class FlatPlaylistDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from playlists
     """

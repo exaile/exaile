@@ -1,7 +1,8 @@
 from xl import main as ex, trax, common, event, xdg, settings, providers
 from xl.trax import search, util
 from xl.nls import gettext as _
-from xlgui import panel, guiutil, playlist, menu
+from xlgui import panel, playlist, menu
+from xlgui.widgets.common import DragTreeView
 import HTMLParser
 from StringIO import StringIO
 import Image
@@ -275,7 +276,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
     def drag_get_data(self, w, context, selection, target_id, etime):
         tracks = self.get_selected_tracks()
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
+            DragTreeView.dragged_data[track.get_loc_for_io()] = track
         urls = util.get_uris_from_tracks(tracks)
         selection.set_uris(urls)
 

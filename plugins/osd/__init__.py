@@ -71,7 +71,7 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         """
         gtk.Window.__init__(self, gtk.WINDOW_TOPLEVEL)
 
-        self.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_UTILITY)
+        self.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_NOTIFICATION)
         self.set_title('Exaile OSD')
         self.set_decorated(False)
         self.set_keep_above(True)

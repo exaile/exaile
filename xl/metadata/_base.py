@@ -52,7 +52,7 @@ class BaseFormat(object):
     # to get every single cover tag name and would probably suit our needs
     # better. perhaps any field with \n (lyrics) or >4KB (covers) would
     # work for a condition.
-    ignore_tags = ['metadata_block_pickture', 'coverart', 'cover', 'lyrics', 'Cover Art (front)']
+    ignore_tags = ['metadata_block_picture', 'coverart', 'cover', 'lyrics', 'Cover Art (front)']
 
     def __init__(self, loc):
         """

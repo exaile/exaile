@@ -239,6 +239,8 @@ class TrackPropertiesDialog(gobject.GObject):
         dialog.destroy()
         
         if len(errors) > 0:
+            self.message.clear_buttons()
+            self.message.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
             self.message.show_error(
                 _('Writing of tags failed'),
                 _('Tags could not be written to the following files:\n'
@@ -399,19 +401,29 @@ class TrackPropertiesDialog(gobject.GObject):
                 if row.multi_id == 0:
                     row.label.set_attributes(self.__default_attributes)
 
+        # Hide close confirmation if necessary
+        if self.message.get_message_type() == gtk.MESSAGE_QUESTION:
+            self.message.hide()
+
     def _on_close(self, w):
         if self.tracks != self.tracks_original:
-            dialog = gtk.MessageDialog(self.dialog,
-                      gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-                      gtk.MESSAGE_WARNING,
-                      gtk.BUTTONS_OK_CANCEL,
-                      _("Close without applying changes to tags?"))
+            def on_response(message, response):
+                """
+                    Applies changes before closing if requested
+                """
+                if response == gtk.RESPONSE_APPLY:
+                    self.apply_button.clicked()
 
-            response = dialog.run()
-            if response == gtk.RESPONSE_OK:
                 self.dialog.destroy()
-            else:
-                dialog.destroy()
+
+            self.message.connect('response', on_response)
+            self.message.clear_buttons()
+            self.message.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+            self.message.add_button(gtk.STOCK_APPLY, gtk.RESPONSE_APPLY)
+            self.message.show_question(
+                _('Apply changes before closing?'),
+                _('Your changes will be lost if you do not apply them now.')
+            )
         else:
             self.dialog.destroy()
 

@@ -24,10 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from collections import namedtuple
 import copy
 import gio
 
 INFO_TAGS = ['__bitrate', '__length']
+
+# Generic description of cover images
+CoverImage = namedtuple('CoverImage', 'type desc mime data')
 
 class NotWritable(Exception):
     pass
@@ -152,6 +156,8 @@ class BaseFormat(object):
                     t = self._get_tag(raw, self.tag_mapping[tag])
                     if type(t) in [str, unicode]:
                         t = [t]
+                    elif isinstance(t, list):
+                        pass
                     else:
                         try:
                             t = [unicode(u) for u in list(t)]

@@ -24,9 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-
-
-from xl.metadata._base import BaseFormat
+from xl.metadata._base import (
+    BaseFormat,
+    CoverImage
+)
 from mutagen import oggvorbis
 import mutagen.flac
 import base64
@@ -40,11 +41,10 @@ class OggFormat(BaseFormat):
             tags[tags.index("cover")]= "metadata_block_picture" 
         td = super(OggFormat, self).read_tags(tags)        
         if 'metadata_block_picture' in td:
-            data = td["metadata_block_picture"]
-            for d in data:
-                image = mutagen.flac.Picture(base64.standard_b64decode(d))
-                if image.type == 3:
-                    td["cover"] = image.data
+            td['cover'] = []
+            for d in td["metadata_block_picture"]:
+                picture = mutagen.flac.Picture(base64.standard_b64decode(d))
+                td['cover'] += [CoverImage(type=picture.type, desc=picture.desc, mime=picture.mime, data=picture.data)]
         return td
 # vim: et sts=4 sw=4
 

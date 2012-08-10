@@ -24,9 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-
-
-from xl.metadata._base import BaseFormat
+from xl.metadata._base import (
+    BaseFormat,
+    CoverImage
+)
 from mutagen import flac
 
 class FlacFormat(BaseFormat):
@@ -38,10 +39,9 @@ class FlacFormat(BaseFormat):
 
     def read_tags(self, tags):
         td = super(FlacFormat, self).read_tags(tags)
-        if "cover" in tags:
-            for image in self.mutagen.pictures:
-                if image.type == 3:              # front cover
-                    td["cover"] = image.data
+        if 'cover' in tags:
+            td['cover'] = [CoverImage(type=p.type, desc=p.desc, mime=p.mime, data=p.data) \
+                for p in self.mutagen.pictures]
         return td
 
 # vim: et sts=4 sw=4

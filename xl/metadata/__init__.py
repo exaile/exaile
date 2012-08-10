@@ -25,7 +25,6 @@
 # from your version.
 
 
-
 import os
 import sys
 import gio

@@ -24,11 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-
-
-from xl.metadata._base import BaseFormat
+from xl.metadata._base import (
+    BaseFormat,
+    CoverImage
+)
 from mutagen import id3
-
 
 class ID3Format(BaseFormat):
     MutagenType = id3.ID3
@@ -83,7 +83,7 @@ class ID3Format(BaseFormat):
                 ret.extend([unicode(x.replace('\n','').replace('\r','')) \
                         for x in value.url])
         elif t == 'APIC':
-            ret = [x.data for x in field]
+            ret = [CoverImage(type=f.type, desc=f.desc, mime=f.mime, data=f.data) for f in field]
         else:
             for value in field:
                 try:
@@ -104,9 +104,15 @@ class ID3Format(BaseFormat):
         if tag == 'USLT':
             data = data[0]
 
-        frame = id3.Frames[tag](encoding=3, text=data)
+        if tag == 'APIC':
+            frames = [id3.Frames[tag](encoding=3, mime=info.mime, type=info.type, desc=info.desc, data=info.data) \
+                for info in data]
+        else:
+            frames = [id3.Frames[tag](encoding=3, text=data)]
+
         if raw.tags is not None:
-            raw.tags.add(frame)
+            for frame in frames:
+                raw.tags.add(frame)
 
     def _del_tag(self, raw, tag):
         if tag not in self.tag_mapping.itervalues():

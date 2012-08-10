@@ -436,18 +436,21 @@ class Track(object):
             logger.warning('Setting "%s" directly is forbidden.' % tag)
             return
 
-        # handle values that aren't lists
+        # Handle values that aren't lists
         if not isinstance(values, list):
             if not tag.startswith("__"): # internal tags dont have to be lists
                 values = [values]
 
-        # TODO: is this needed? why?
-        # for lists, filter out empty values and convert to unicode
+        # For lists, filter out empty values and convert string values to Unicode
         if isinstance(values, list):
-            values = [common.to_unicode(x, self.__tags.get('__encoding'))
-                for x in values if x not in (None, '')]
+            values = [
+                common.to_unicode(v, self.__tags.get('__encoding')) \
+                    if isinstance(v, basestring) else v \
+                for v in values \
+                    if v not in (None, '')
+            ]
 
-        # save some memory by not storing null values.
+        # Save some memory by not storing null values.
         if not values:
             try:
                 del self.__tags[tag]

@@ -5,7 +5,7 @@
   <object class="GtkWindow" id="TrackPropertiesDialog">
     <property name="title" translatable="yes">Track Properties</property>
     <child>
-      <object class="GtkVBox" id="vbox1">
+      <object class="GtkVBox" id="main_container">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>

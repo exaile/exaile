@@ -196,35 +196,37 @@ class TrackPropertiesDialog(gobject.GObject):
     def _tags_write(self, data):
         errors = []
         dialog = SavingProgressWindow(self.dialog, len(data))
-        for n, track in data:
+        for n, trackdata in data:
+            track = self.track_refs[n]
             poplist = []
-            for tag in track:
+
+            for tag in trackdata:
                 if not tag.startswith("__"):
                     if tag in ("tracknumber", "discnumber") \
-                       and track[tag] == ["0/0"]:
+                       and trackdata[tag] == ["0/0"]:
                         poplist.append(tag)
                         continue
-                    self.track_refs[n].set_tag_raw(tag, track[tag])
+                    track.set_tag_raw(tag, trackdata[tag])
 
-            #in case a tag has been removed..
-            for tag in self.track_refs[n].list_tags():
+            # In case a tag has been removed..
+            for tag in track.list_tags():
                 if tag in dialog_tags:
                     if dialog_tags[tag] is not IGNORE:
                         try:
-                            track[tag]
+                            trackdata[tag]
                         except KeyError:
                             poplist.append(tag)
                 else:
                     try:
-                        track[tag]
+                        trackdata[tag]
                     except KeyError:
                         poplist.append(tag)
 
             for tag in poplist:
-                self.track_refs[n].set_tag_raw(tag, None)
+                track.set_tag_raw(tag, None)
 
-            if not self.track_refs[n].write_tags():
-                errors.append( self.track_refs[n].get_loc_for_io() );
+            if not track.write_tags():
+                errors.append(track.get_loc_for_io());
                 
             dialog.step()
         dialog.destroy()

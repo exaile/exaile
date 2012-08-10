@@ -447,41 +447,32 @@ class TagCoverFetcher(CoverSearchMethod):
     cover_tags = ["cover", "coverart"]
     fixed = True
     fixed_priority = 30
+
     def find_covers(self, track, limit=-1):
-        data = None
+        covers = [] 
         tagname = None
+        uri = track.get_loc_for_io()
+
         for tag in self.cover_tags:
             try:
-                data = track.get_tag_disk(tag)
+                covers = track.get_tag_disk(tag)
                 tagname = tag
                 break
             except KeyError:
                 pass
-        if data:
-            # path format: tagname:track_uri
-            path = "%s:%s"%(tagname, track.get_loc_for_io())
-            return [path]
-        return []
+
+        return ['{tagname}:{index}:{uri}'.format(tagname=tagname, index=index, uri=uri) \
+            for index in range(0, len(covers))]
 
     def get_cover_data(self, db_string):
-        tag, uri = db_string.split(":", 1)
-        tr = trax.Track(uri, scan=False)
-        data = tr.get_tag_disk(tag)
-        if not data:
+        tag, index, uri = db_string.split(':', 2)
+        track = trax.Track(uri, scan=False)
+        covers = track.get_tag_disk(tag)
+
+        if not covers:
             return None
-        if isinstance(data, list):
-            data = data[0]
-        b64_valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" + \
-                "01234567890+/"
-        for c in data.rstrip("="):
-            if c not in b64_valid:
-                break
-        else:
-            try:
-                data = data.decode("base64")
-            except UnicodeDecodeError:
-                pass
-        return data
+
+        return covers[int(index)].data
 
 class LocalFileCoverFetcher(CoverSearchMethod):
     """

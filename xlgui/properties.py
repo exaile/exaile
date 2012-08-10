@@ -39,6 +39,7 @@ from xl.metadata._base import CoverImage
 from xl import (
     common,
     metadata,
+    trax,
     xdg
 )
 
@@ -228,6 +229,7 @@ class TrackPropertiesDialog(gobject.GObject):
             if not track.write_tags():
                 errors.append(track.get_loc_for_io());
                 
+            trax.track._CACHER.remove(track)
             dialog.step()
         dialog.destroy()
         

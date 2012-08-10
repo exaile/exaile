@@ -524,7 +524,6 @@ class TrackPropertiesDialog(gobject.GObject):
     def remove_row(self, w, tag, multi_id):
         for row in self.rows:
             if row.tag == tag and row.multi_id == multi_id:
-                self.rows.remove(row)
                 self.tracks[self.current_position][tag].pop(multi_id)
                 if len(self.tracks[self.current_position][tag]) == 0:
                     self.tracks[self.current_position].pop(tag)
@@ -571,9 +570,8 @@ class TagRow(object):
             self.label.set_alignment(0.0, .50)
 
         self.clear_button = gtk.Button()
-        self.clear_button.set_image(
-            gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON)
-        )
+        self.clear_button.set_image(gtk.image_new_from_stock(
+            gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
         self.clear_button.connect("clicked", self.clear)
 
         if not isinstance(field, PropertyField):
@@ -584,9 +582,8 @@ class TagRow(object):
         #Remove mode settings
         self.remove_mode = False
         self.remove_button = gtk.Button()
-        im = gtk.Image()
-        im.set_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON)
-        self.remove_button.set_image(im)
+        self.remove_button.set_image(gtk.image_new_from_stock(
+            gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON))
         self.remove_button.connect("clicked", parent.remove_row, self.tag, self.multi_id)
 
         #self.field.register_update_func(tag_name, parent.update_tag, self.multi_id)
@@ -594,7 +591,7 @@ class TagRow(object):
         self.field.register_all_func(parent.apply_all)
 
     def set_remove_mode(self, val):
-        if self.tag not in self.parent.def_tags or self.multi_id != 0:
+        if not self.tag.startswith('__') or self.multi_id != 0:
             if val and not self.remove_mode:
                 self.field.remove(self.clear_button)
                 self.field.pack_start(self.remove_button, expand=False, fill=False)

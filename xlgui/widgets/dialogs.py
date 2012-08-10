@@ -968,8 +968,8 @@ class MessageBar(gtk.InfoBar):
         """
             Report important messages to the user
 
-            :param parent: the parent container
-            :type parent: :class:`gtk.Container`
+            :param parent: the parent container box
+            :type parent: :class:`gtk.Box`
             :param type: the type of message: gtk.MESSAGE_INFO,
                 gtk.MESSAGE_WARNING, gtk.MESSAGE_QUESTION or
                 gtk.MESSAGE_ERROR.
@@ -980,8 +980,8 @@ class MessageBar(gtk.InfoBar):
             :param text: a string containing the message
                 text or None
         """
-        if parent is not None and not isinstance(parent, gtk.Container):
-            raise TypeError('Parent needs to be of type gtk.Container')
+        if parent is not None and not isinstance(parent, gtk.Box):
+            raise TypeError('Parent needs to be of type gtk.Box')
 
         gtk.InfoBar.__init__(self)
         self.set_no_show_all(True)

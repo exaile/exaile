@@ -26,17 +26,21 @@
 
 import copy
 import datetime
-import os
-import string
-
 import gio
 import gobject
 import gtk
+import io
+import os
 import pango
+import string
 
-from xl import xdg, metadata, common
-from xl.common import clamp
 from xl.nls import gettext as _
+from xl.metadata._base import CoverImage
+from xl import (
+    common,
+    metadata,
+    xdg
+)
 
 from xlgui.widgets import dialogs
 
@@ -46,7 +50,7 @@ dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
                 'lyricist': (_('Lyricist'), 'text'),
                 'part': IGNORE, #
                 'website': (_('Website'), 'text'),
-                'cover': IGNORE, #
+                'cover': (_('Cover'), 'image'),
                 'originalartist': (_('Original artist'), 'text'),
                 'author': (_('Author'), 'text'),
                 'originaldate': (_('Original date'), 'text'),
@@ -130,6 +134,7 @@ class TrackPropertiesDialog(gobject.GObject):
                             'discnumber',
                             'date',
                             'genre',
+                            'cover',
                             ]
 
         #Store the tracks and a working copy
@@ -159,7 +164,10 @@ class TrackPropertiesDialog(gobject.GObject):
         for track in tracks:
             t = {}
             for tag in self.def_tags:
-                tagval = track.get_tag_raw(tag)
+                if tag == 'cover':
+                    tagval = track.get_tag_disk(tag)
+                else:
+                    tagval = track.get_tag_raw(tag)
                 if tagval:
                     if isinstance(tagval, list):
                         t[tag] = tagval[:]
@@ -276,6 +284,8 @@ class TrackPropertiesDialog(gobject.GObject):
                     else:
                         f = TagNumField(dialog_tags[tag][2],
                             dialog_tags[tag][3], all_button=ab)
+                elif dialog_tags[tag][1] == 'image':
+                    f = TagImageField()
                 else:
                     f = TagField(all_button=ab)
 
@@ -284,7 +294,6 @@ class TrackPropertiesDialog(gobject.GObject):
 
         for tag in t:
             if tag not in self.def_tags:
-
                 try:
                     fieldtype = dialog_tags[tag][1]
                 except KeyError:
@@ -297,6 +306,8 @@ class TrackPropertiesDialog(gobject.GObject):
                             if fieldtype == 'int':
                                 f = TagNumField(dialog_tags[tag][2],
                                         dialog_tags[tag][3], all_button=ab)
+                            elif fieldtype == 'image':
+                                f = TagImageField()
                             else:
                                 if tag == 'lyrics':
                                     f = TagTextField(all_button=ab)
@@ -819,6 +830,220 @@ class TagDblNumField(gtk.HBox):
         self.field[0].connect("value-changed", f, tag, multi_id, self.get_value)
         self.field[1].connect("value-changed", f, tag, multi_id, self.get_value)
 
+class TagImageField(gtk.HBox):
+    def __init__(self, all_button=True):
+        gtk.HBox.__init__(self, homogeneous=False, spacing=5)
+
+        self.parent_row = None
+        self.all_func = None
+        self.update_func = None
+        # Prevents the update function from being called, make 
+        # sure you do that manually after the batch update
+        self.batch_update = False
+
+        self.pixbuf = None
+        self.info = CoverImage(None, None, None, None)
+        self.default_type = 3
+        self.mime_info = {
+            'image/jpeg': {
+                # Title for display
+                'title': _('JPEG image'),
+                # Type and options for GDK Pixbuf saving
+                'type': 'jpeg',
+                'options': {'quality': '90'}
+            },
+            'image/png': {
+                'title': _('PNG image'),
+                'type': 'png',
+            },
+            'image/': {
+                'title': _('Image'),
+                # Store unknown images as JPEG
+                'type': 'jpeg',
+                'options': {'quality': '90'}
+            },
+            # TODO: Handle linked images
+            '-->': {
+                'title': _('Linked image')
+            }
+        }
+
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path('ui', 'trackproperties_dialog_cover_row.ui'))
+        builder.connect_signals(self)
+        cover_row = builder.get_object('cover_row')
+        cover_row.reparent(self)
+
+        button = builder.get_object('button')
+        button.drag_dest_set(gtk.DEST_DEFAULT_ALL, [], gtk.gdk.ACTION_COPY)
+        button.drag_dest_add_uri_targets()
+
+        self.image = builder.get_object('image')
+        self.info_label = builder.get_object('info_label')
+        self.type_model = builder.get_object('type_model')
+        self.type_selection = builder.get_object('type_selection')
+        self.description_entry = builder.get_object('description_entry')
+
+        self.all_button = None
+        if all_button:
+            self.all_button = AllButton(self)
+            self.pack_start(self.all_button, expand=False, fill=False)
+
+    def register_parent_row(self, parent_row):
+        self.parent_row = parent_row
+
+    def register_update_func(self, func):
+        self.update_func = func
+
+    def register_all_func(self, function):
+        self.all_func = function
+
+    def set_value(self, val, all_vals=None, doupdate=True):
+        if doupdate:
+            if val:
+                loader = gtk.gdk.PixbufLoader()
+
+                try:
+                    loader.write(val.data)
+                    loader.close()
+                except glib.GError:
+                    pass
+                else:
+                    self.batch_update = True
+                    self.set_pixbuf(loader.get_pixbuf(), val.mime)
+                    self.type_selection.set_active(val.type)
+                    self.description_entry.set_text(val.desc)
+                    self.batch_update = False
+            else:
+                self.batch_update = True
+                self.set_pixbuf(None)
+                self.type_selection.set_active(-1)
+                self.description_entry.set_text('')
+                self.batch_update = False
+                self.call_update_func()
+
+        if not None in (all_vals, self.all_button):
+            self.all_button.set_active(all(val == v for v in all_vals))
+
+    def get_value(self):
+        if not self.pixbuf:
+            return None
+
+        mime = self.mime_info[self.info.mime]
+        # Retrieve proper image data
+        writer = io.BytesIO()
+        self.pixbuf.save_to_callback(writer.write, mime['type'], mime['options'])
+        # Move to the beginning of the buffer to allow read operations
+        writer.seek(0)
+
+        return self.info._replace(data=writer.read())
+
+    def call_update_func(self):
+        """
+            Wrapper around the update function
+        """
+        if not self.update_func or self.batch_update:
+            return
+
+        self.update_func(self, self.parent_row.tag, self.parent_row.multi_id, self.get_value)
+
+    def set_pixbuf(self, pixbuf, mime=None):
+        """
+            Updates the displayed cover image and info values
+        """
+        self.pixbuf = pixbuf
+
+        if pixbuf is None:
+            self.image.set_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_DIALOG)
+            self.info_label.set_markup('')
+        else:
+            self.image.set_from_pixbuf(pixbuf.scale_simple(
+                100, 100, gtk.gdk.INTERP_BILINEAR))
+
+            width, height = pixbuf.get_width(), pixbuf.get_height()
+            if mime is None:
+                markup = _('{width}x{height} pixels').format(width=width, height=height)
+            else:
+                markup = _('{format} ({width}x{height} pixels)').format(
+                    format=self.mime_info.get(mime, self.mime_info['image/'])['title'],
+                    width=width, height=height
+                )
+            self.info_label.set_markup(markup)
+
+            self.info = self.info._replace(mime=mime)
+
+    def on_button_clicked(self, button):
+        """
+            Allows setting the cover image using a file selection dialog
+        """
+        dialog = dialogs.FileOperationDialog(
+            title=_('Select image to set as cover'),
+            parent=self.get_toplevel(),
+            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                     gtk.STOCK_OK, gtk.RESPONSE_OK)
+        )
+        dialog.set_select_multiple(False)
+        filefilter = gtk.FileFilter()
+        # Not using gtk.FileFilter.add_pixbuf_formats since
+        # not all image formats are supported in tags
+        filefilter.set_name(_('Supported image formats'))
+        filefilter.add_pattern('*.[jJ][pP][gG]')
+        filefilter.add_pattern('*.[jJ][pP][eE][gG]')
+        filefilter.add_pattern('*.[pP][nN][gG]')
+        dialog.add_filter(filefilter)
+
+        if dialog.run() == gtk.RESPONSE_OK:
+            filename = dialog.get_filename()
+
+            try:
+                pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
+                info = gtk.gdk.pixbuf_get_file_info(filename)[0]
+            except TypeError:
+                pass
+            else:
+                self.batch_update = True
+                self.set_pixbuf(pixbuf, info['mime_types'][0])
+                self.type_selection.set_active(self.default_type)
+                self.description_entry.set_text(os.path.basename(filename).rsplit('.', 1)[0])
+                self.batch_update = False
+                self.call_update_func()
+
+        dialog.destroy()
+
+    def on_button_drag_data_received(self, widget, context, x, y, selection, info, time):
+        """
+            Allows setting the cover image via drag and drop
+        """
+        if selection.target == 'text/uri-list':
+            filename = gio.File(selection.get_uris()[0]).get_path()
+
+            try:
+                pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
+                info = gtk.gdk.pixbuf_get_file_info(filename)[0]
+            except TypeError:
+                pass
+            else:
+                self.batch_update = True
+                self.set_pixbuf(pixbuf, info['mime_types'][0])
+                self.type_selection.set_active(self.default_type)
+                self.description_entry.set_text(os.path.basename(filename).rsplit('.', 1)[0])
+                self.batch_update = False
+                self.call_update_func()
+
+    def on_type_selection_changed(self, combobox):
+        """
+            Notifies about changes in the cover type
+        """
+        self.info = self.info._replace(type=self.type_model[combobox.get_active()][0])
+        self.call_update_func()
+
+    def on_description_entry_changed(self, entry):
+        """
+            Notifies about changes in the cover description
+        """
+        self.info = self.info._replace(desc=entry.get_text())
+        self.call_update_func()
+
 class PropertyField(gtk.HBox):
     def __init__(self, property_type='text'):
         gtk.HBox.__init__(self, homogeneous=False, spacing=5)
@@ -934,7 +1159,7 @@ class SavingProgressWindow(gtk.Window):
     def step(self):
         self.count += 1
         self._progress.set_fraction(
-                clamp(self.count / float(self.total), 0, 1))
+                common.clamp(self.count / float(self.total), 0, 1))
         self._label.set_markup(self.text % {
             'count': self.count,
             'total': self.total

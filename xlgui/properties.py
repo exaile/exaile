@@ -109,6 +109,11 @@ class TrackPropertiesDialog(gobject.GObject):
         self.__changed_attributes = pango.AttrList()
         self.__changed_attributes.insert(pango.AttrStyle(pango.STYLE_ITALIC, 0, -1))
 
+        self.message = dialogs.MessageBar(
+            parent=self.builder.get_object('main_container'),
+            buttons=gtk.BUTTONS_CLOSE
+        )
+
         self.remove_tag_button = self.builder.get_object('remove_tag_button')
         self.cur_track_label = self.builder.get_object('current_track_label')
         self.apply_button = self.builder.get_object('apply_button')
@@ -234,9 +239,11 @@ class TrackPropertiesDialog(gobject.GObject):
         dialog.destroy()
         
         if len(errors) > 0:
-            dialog = dialogs.ListDialog( "ERROR: Tags could not be written to these files", write_only=True )
-            dialog.set_items( errors )
-            dialog.run()
+            self.message.show_error(
+                _('Writing of tags failed'),
+                _('Tags could not be written to the following files:\n'
+                  '{files}').format(files='\n'.join(errors))
+            )
 
     def _build_from_track(self, track):
 

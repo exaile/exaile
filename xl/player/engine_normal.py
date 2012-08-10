@@ -88,7 +88,9 @@ class NormalPlayer(_base.ExailePlayer):
 
     def _error_func(self):
         self.stop()
+        self._pipe.set_state(gst.STATE_NULL)
         self._setup_pipe()
+        self._setup_bus()
 
     def _get_current(self):
         return self._current

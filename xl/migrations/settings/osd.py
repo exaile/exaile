@@ -25,3 +25,5 @@ def migrate():
     if settings.get_option('osd/enabled', True) and not 'osd' in plugins:
         settings.set_option('plugins/enabled', plugins + ['osd'])
 
+    settings.set_option('osd/enabled', False)
+

@@ -293,8 +293,15 @@ class TrackPropertiesDialog(gobject.GObject):
                 else:
                     f = TagField(all_button=ab)
 
-                self.rows.append(
-                    TagRow(self, self.tags_table, f, tag, entry, i))
+                row = TagRow(self, self.tags_table, f, tag, entry, i)
+                self.rows.append(row)
+
+                try:
+                    if self.tracks[self.current_position][tag] != \
+                       self.tracks_original[self.current_position][tag]:
+                        row.label.set_attributes(self.__changed_attributes)
+                except KeyError:
+                    row.label.set_attributes(self.__changed_attributes)
 
         for tag in t:
             if tag not in self.def_tags:
@@ -556,19 +563,12 @@ class TagRow(object):
                 name = self.tag
 
         self.name = name
+        self.label = gtk.Label()
 
         if multi_id == 0:
-            self.label = gtk.Label(_('%s:') % name.capitalize())
+            self.label.set_text(_('%s:') % name.capitalize())
             self.label.create_pango_context()
             self.label.set_alignment(0.0, .50)
-            try:
-                if parent.tracks[parent.current_position][self.tag] != \
-                        parent.tracks_original[parent.current_position][self.tag]:
-                    self.label.set_attributes(self.__changed_attributes)
-            except KeyError:
-                self.label.set_attributes(self.__changed_attributes)
-        else:
-            self.label = gtk.Label()
 
         self.clear_button = gtk.Button()
         self.clear_button.set_image(

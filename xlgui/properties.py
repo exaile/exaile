@@ -86,7 +86,7 @@ dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
 
 class TrackPropertiesDialog(gobject.GObject):
 
-    def __init__(self, parent, tracks, current_position=0):
+    def __init__(self, parent, tracks, current_position=0, with_extras=False):
         """
             :param parent: the parent window for modal operation
             :type parent: :class:`gtk.Window`
@@ -95,6 +95,9 @@ class TrackPropertiesDialog(gobject.GObject):
             :param current_position: the position of the currently
                 selected track in the list
             :type current_position: int
+            :param with_extras: whether there are extra, non-selected tracks in
+                `tracks` (currently happens when only 1 track is selected)
+            :type with_extras: bool
         """
         gobject.GObject.__init__(self)
 

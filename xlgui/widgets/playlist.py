@@ -919,13 +919,18 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         from xlgui import properties
         tracks = self.get_selected_tracks()
         current_position = 0
+        # If only one track is selected, we expand `tracks` to include all
+        # tracks in the playlist.
         if len(tracks) == 1:
             tracks = self.playlist[:]
             current_position = self.get_cursor()[0][0]
+            with_extras = True
+        else:
+            with_extras = False
 
         if tracks:
             dialog = properties.TrackPropertiesDialog(None,
-                    tracks, current_position)
+                    tracks, current_position, with_extras)
 
     def on_provider_removed(self, provider):
         """

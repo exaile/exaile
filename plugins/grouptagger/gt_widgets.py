@@ -135,7 +135,7 @@ class GroupTaggerView(gtk.TreeView):
         if editable:
             cell.connect( 'edited', self.on_edit )
         
-        self.append_column( gtk.TreeViewColumn( _('Group'), cell, text=1 ) )
+        self.append_column( gtk.TreeViewColumn( _('Group'), cell, text=1, weight=3 ) )
         
         #
         # Menu setup
@@ -217,7 +217,7 @@ class GroupTaggerView(gtk.TreeView):
             category = model.get_category(path)
             if category is not None:
                 self.emit( 'category-changed', GT_CATEGORY_UPDATED, category )
-                self.expand_row(model[path].parent.path, True)
+                self.expand_to_path(path)
         
     def on_row_collapsed( self, widget, iter, path ):
         self.emit( 'category-changed', GT_CATEGORY_COLLAPSED, self.get_model().get_category(path) )
@@ -338,7 +338,8 @@ class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
     def __init__(self):
         gtk.TreeStore.__init__( self, gobject.TYPE_BOOLEAN, \
                                 gobject.TYPE_STRING, \
-                                gobject.TYPE_BOOLEAN)
+                                gobject.TYPE_BOOLEAN, \
+                                gobject.TYPE_INT)
         self.set_sort_column_id( 1, gtk.SORT_ASCENDING )
         
     def add_category(self, category):
@@ -348,7 +349,7 @@ class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
             if row[1] == category:
                 return False
     
-        self.append( None, [True, category, False] )
+        self.append( None, [True, category, False, pango.WEIGHT_BOLD] )
         return True
         
     def add_group(self, group, category=uncategorized, selected=True):
@@ -361,13 +362,13 @@ class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
                         row[0] = selected
                         return False
                 
-                self.append( row.iter, [selected, group, True] )
+                self.append( row.iter, [selected, group, True, pango.WEIGHT_NORMAL] )
                 return True
         
         # add new category
-        it = self.append(  None, [True, category, False] )
+        it = self.append(  None, [True, category, False, pango.WEIGHT_BOLD] )
         # add value to that category
-        self.append( it, [selected, group, True] )
+        self.append( it, [selected, group, True, pango.WEIGHT_NORMAL] )
         return True
         
     def change_name(self, path, name):
@@ -467,9 +468,9 @@ class GroupTaggerTreeStore(gtk.TreeStore, gtk.TreeDragSource, gtk.TreeDragDest):
             { category: [expanded, [(active, group), ... ]], ... }
         '''
         for category, (expanded, groups) in group_categories.iteritems():
-            cat = self.append( None, [expanded, category, False] )
+            cat = self.append( None, [expanded, category, False, pango.WEIGHT_BOLD] )
             for active, group in groups:
-                self.append( cat, [active, group, True] )
+                self.append( cat, [active, group, True, pango.WEIGHT_NORMAL] )
     
     #
     # DND interface

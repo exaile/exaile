@@ -511,6 +511,8 @@ class PlaylistPage(NotebookPage):
 
 
 class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
+    __gsignals__ = {}
+
     def __init__(self, playlist, player):
         AutoScrollTreeView.__init__(self)
         providers.ProviderHandler.__init__(self, 'playlist-columns')
@@ -547,8 +549,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         event.add_callback(self.on_playback_start, "playback_track_start", self.player)
         self.connect("cursor-changed", self.on_cursor_changed )
         self.connect("row-activated", self.on_row_activated)
-        self.connect("button-press-event", self.on_button_press)
-        self.connect("button-release-event", self.on_button_release)
         self.connect("key-press-event", self.on_key_press_event)
 
         self.connect("drag-begin", self.on_drag_begin)
@@ -715,46 +715,44 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.player.queue.play(track=track)
         self.player.queue.set_current_playlist(self.playlist)
 
-    def on_button_press(self, widget, event):
+    def do_button_press_event(self, e):
+        """
+            Adds some custom selection work to 
+            1) unselect all rows if clicking an empty area,
+            2) updating the selection upon right click and
+            3) popping up the context menu upon right click
+
+            Also sets the internal state for button pressed
+        """
         self.button_pressed = True
         selection = self.get_selection()
-        if event.button == 3:
-            self.menu.popup(None, None, None, event.button, event.time)
-            return not selection.count_selected_rows() <= 0
-        elif event.button == 1:
-            path = self.get_path_at_pos(int(event.x), int(event.y))
-            if path:
-                if selection.count_selected_rows() <= 1:
-                    return False
-                else:
-                    if selection.path_is_selected(path[0]):
-                        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                            selection.unselect_path(path[0])
-                        return True
-                    elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                        return True
-                    return False
-                if not selection.count_selected_rows():
-                    selection.select_path(path[0])
-        return False
+        path = self.get_path_at_pos(int(e.x), int(e.y))
 
-    def on_button_release(self, widget, event):
+        # Unselect all rows if the event occured on an empty area
+        if not path:
+            selection.unselect_all()
+        else:
+            if e.button == 3:
+                # Update the selection if a not yet selected row has been right clicked
+                if not selection.path_is_selected(path[0]):
+                    gtk.TreeView.do_button_press_event(self, e)
+
+                # Pop up the context menu with the current selection
+                self.menu.popup(None, None, None, e.button, e.time)
+                
+                # Do not update the selection further
+                return True
+
+        # Let GTK handle the rest
+        return gtk.TreeView.do_button_press_event(self, e)
+
+    def do_button_release_event(self, e):
+        """
+            Unsets the internal state for button press
+        """
         self.button_pressed = False
-        if event.button != 1 or self.dragging:
-            self.dragging = False
-            return True
 
-        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-            return True
-
-        selection = self.get_selection()
-        selection.unselect_all()
-
-        path = self.get_path_at_pos(int(event.x), int(event.y))
-        if path:
-            selection.select_path(path[0])
-
-        return False
+        return gtk.TreeView.do_button_release_event(self, e)
 
     def on_key_press_event(self, widget, event):
         if event.keyval == gtk.keysyms.Delete:

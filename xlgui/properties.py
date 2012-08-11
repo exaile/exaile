@@ -145,10 +145,10 @@ class TrackPropertiesDialog(gobject.GObject):
                             'cover',
                             ]
 
-        #Store the tracks and a working copy
-        self.track_refs = tracks
-        self.tracks = self._tags_copy(tracks)
-        self.tracks_original = self._tags_copy(tracks)
+        # Store the tracks and a working copy
+        self.tracks = tracks
+        self.trackdata = self._tags_copy(tracks)
+        self.trackdata_original = self._tags_copy(tracks)
         self.current_position = current_position
 
         self._build_from_track(self.current_position)
@@ -194,7 +194,7 @@ class TrackPropertiesDialog(gobject.GObject):
         errors = []
         dialog = SavingProgressWindow(self.dialog, len(data))
         for n, trackdata in data:
-            track = self.track_refs[n]
+            track = self.tracks[n]
             poplist = []
 
             for tag in trackdata:
@@ -238,7 +238,7 @@ class TrackPropertiesDialog(gobject.GObject):
                   '{files}').format(files='\n'.join(errors))
             )
 
-    def _build_from_track(self, track):
+    def _build_from_track(self, position):
 
         for table in [self.tags_table, self.properties_table]:
             for child in table.get_children():
@@ -248,62 +248,71 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self.rows = []
 
-        #Previous, next and current track label
+        # Previous, next and current track label
         self.prev_button.set_sensitive(True)
         self.next_button.set_sensitive(True)
 
-        if track == 0:
+        if position == 0:
             self.prev_button.set_sensitive(False)
 
-        if track == (len(self.tracks) - 1):
+        if position == (len(self.trackdata) - 1):
             self.next_button.set_sensitive(False)
 
         self.cur_track_label.set_text(
             _("Editing track %(current)d of %(total)d") % {
                 'current': self.current_position + 1,
-                'total': len(self.track_refs)
+                'total': len(self.tracks)
             }
         )
 
-        t = self.tracks[track]
+        trackdata = self.trackdata[position]
 
         for tag in self.def_tags:
 
-            for i, entry in enumerate(t[tag]):
-                if len(self.tracks) == 1:
+            for i, entry in enumerate(trackdata[tag]):
+                if len(self.trackdata) == 1:
                     ab = False
                     ab_dbl = 0
                 else:
                     ab = True
                     ab_dbl = 2
 
-                f = None
+                field = None
                 if dialog_tags[tag][1] == 'int':
                     if tag == 'tracknumber':
-                        f = TagDblNumField(dialog_tags[tag][2],
-                            dialog_tags[tag][3], all_button=ab_dbl)
+                        field = TagDblNumField(
+                            dialog_tags[tag][2],
+                            dialog_tags[tag][3],
+                            all_button=ab_dbl
+                        )
                     elif tag == 'discnumber':
-                        f = TagDblNumField(dialog_tags[tag][2],
-                            dialog_tags[tag][3], all_button=ab_dbl)
+                        field = TagDblNumField(
+                            dialog_tags[tag][2],
+                            dialog_tags[tag][3],
+                            all_button=ab_dbl
+                        )
                     else:
-                        f = TagNumField(dialog_tags[tag][2],
-                            dialog_tags[tag][3], all_button=ab)
+                        field = TagNumField(
+                            dialog_tags[tag][2],
+                            dialog_tags[tag][3],
+                            all_button=ab
+                        )
                 elif dialog_tags[tag][1] == 'image':
-                    f = TagImageField()
+                    field = TagImageField()
                 else:
-                    f = TagField(all_button=ab)
+                    field = TagField(all_button=ab)
 
-                row = TagRow(self, self.tags_table, f, tag, entry, i)
+                row = TagRow(self, self.tags_table, field, tag, entry, i)
                 self.rows.append(row)
 
                 try:
-                    if self.tracks[self.current_position][tag] != \
-                       self.tracks_original[self.current_position][tag]:
+                    if self.trackdata[self.current_position][tag] != \
+                       self.trackdata_original[self.current_position][tag]:
                         row.label.set_attributes(self.__changed_attributes)
                 except KeyError:
                     row.label.set_attributes(self.__changed_attributes)
 
-        for tag in t:
+        for tag in trackdata:
             if tag not in self.def_tags:
                 try:
                     fieldtype = dialog_tags[tag][1]
@@ -311,28 +320,31 @@ class TrackPropertiesDialog(gobject.GObject):
                     fieldtype = 'text'
 
                 if fieldtype is not None:
-                    for i, entry in enumerate(t[tag]):
-                        f = None
+                    for i, entry in enumerate(trackdata[tag]):
+                        field = None
                         if not tag.startswith('__'):
                             if fieldtype == 'int':
-                                f = TagNumField(dialog_tags[tag][2],
-                                        dialog_tags[tag][3], all_button=ab)
+                                field = TagNumField(
+                                    dialog_tags[tag][2],
+                                    dialog_tags[tag][3],
+                                    all_button=ab
+                                )
                             elif fieldtype == 'image':
-                                f = TagImageField()
+                                field = TagImageField()
                             else:
                                 if tag == 'lyrics':
-                                    f = TagTextField(all_button=ab)
+                                    field = TagTextField(all_button=ab)
                                 else:
-                                    f = TagField(all_button=ab)
+                                    field = TagField(all_button=ab)
 
-                            self.rows.append(TagRow(self,
-                                self.tags_table, f, tag, entry, i))
+                            self.rows.append(
+                                TagRow(self, self.tags_table, field, tag, entry, i))
 
                         else:
-                            f = PropertyField(fieldtype)
+                            field = PropertyField(fieldtype)
 
-                            self.rows.append(TagRow(self,
-                                self.properties_table, f, tag, entry, i))
+                            self.rows.append(
+                                TagRow(self, self.properties_table, field, tag, entry, i))
 
 
         self._check_for_changes()
@@ -375,17 +387,17 @@ class TrackPropertiesDialog(gobject.GObject):
 
     def on_apply_button_clicked(self, w):
         modified = []
-        for n, track in enumerate(self.tracks):
-            if track != self.tracks_original[n]:
-                modified.append((n, track))
+        for n, trackdata in enumerate(self.trackdata):
+            if trackdata != self.trackdata_original[n]:
+                modified.append((n, trackdata))
 
         if modified:
             self._tags_write(modified)
 
-            self.tracks = None
-            self.tracks_original = None
-            self.tracks = self._tags_copy(self.track_refs)
-            self.tracks_original = self._tags_copy(self.track_refs)
+            del self.trackdata
+            del self.trackdata_original
+            self.trackdata = self._tags_copy(self.tracks)
+            self.trackdata_original = self._tags_copy(self.tracks)
 
             self.apply_button.set_sensitive(False)
             for row in self.rows:
@@ -397,7 +409,7 @@ class TrackPropertiesDialog(gobject.GObject):
             self.message.hide()
 
     def on_close_button_clicked(self, w):
-        if self.tracks != self.tracks_original:
+        if self.trackdata != self.trackdata_original:
             def on_response(message, response):
                 """
                     Applies changes before closing if requested
@@ -444,11 +456,11 @@ class TrackPropertiesDialog(gobject.GObject):
         else:
             tag = self.new_tag_combo.get_child().get_text()
 
-        t = self.tracks[self.current_position]
+        trackdata = self.trackdata[self.current_position]
         try:
-            t[tag].append('')
+            trackdata[tag].append('')
         except KeyError:
-            t[tag] = ['']
+            trackdata[tag] = ['']
 
         self._build_from_track(self.current_position)
 
@@ -458,15 +470,15 @@ class TrackPropertiesDialog(gobject.GObject):
 
     def _check_for_changes(self):
         apply_flag = False
-        for i, track in enumerate(self.tracks):
-            for tag in track:
+        for i, trackdata in enumerate(self.trackdata):
+            for tag in trackdata:
                 try:
-                    if track[tag] != self.tracks_original[i][tag]:
+                    if trackdata[tag] != self.trackdata_original[i][tag]:
                         apply_flag = True
                 except KeyError:
                     apply_flag = True
 
-            if len(track) != len(self.tracks_original[i]):
+            if len(trackdata) != len(self.trackdata_original[i]):
                 apply_flag = True
 
         if apply_flag:
@@ -477,26 +489,25 @@ class TrackPropertiesDialog(gobject.GObject):
 
     def update_tag(self, widget, tag, multi_id, val):
 
-        t = self.tracks[self.current_position]
-        o = self.tracks_original[self.current_position]
-        t[tag][multi_id] = val()
+        trackdata = self.trackdata[self.current_position]
+        original_trackdata = self.trackdata_original[self.current_position]
+        trackdata[tag][multi_id] = val()
 
         for row in self.rows:
             if row.tag == tag and row.multi_id == 0:
                 try:
-                    if t[tag] != o[tag]:
+                    if trackdata[tag] != original_trackdata[tag]:
                         row.label.set_attributes(self.__changed_attributes)
                     else:
                         row.label.set_attributes(self.__default_attributes)
                 except KeyError:
                     row.label.set_attributes(self.__changed_attributes)
 
-
             if row.tag == tag and row.multi_id == multi_id:
                 all_vals = []
-                for track in self.tracks:
+                for trackdata in self.trackdata:
                     try:
-                        all_vals.append(track[tag][multi_id])
+                        all_vals.append(trackdata[tag][multi_id])
                     except KeyError:
                         all_vals.append('')
 
@@ -507,36 +518,37 @@ class TrackPropertiesDialog(gobject.GObject):
     def apply_all(self, field, multi_id, val, split_num=0):
         special_cases = ["discnumber", "tracknumber"]
         apply_flag = False
-        if field not in special_cases:
-            for i, track in enumerate(self.tracks):
+        value = val()
+
+        if field in special_cases:
+            original_values = value.split("/")
+            for i, trackdata in enumerate(self.trackdata):
+                values = trackdata[field][multi_id].split("/")
+                values[split_num] = original_values[split_num]
                 try:
-                    track[field][multi_id] = val()
+                    trackdata[field][multi_id] = values[0] + "/" + values[1]
                 except KeyError:
-                    track[field] = [val()]
+                    trackdata[field] = [values[0] + "/" + values[1]]
                 except IndexError:
-                    track[field].append(val())
-                o = self.tracks_original[i]
+                    trackdata[field].append(values[0] + "/" + values[1])
 
         else:
-            v = val().split("/")
-            for i, track in enumerate(self.tracks):
-                x = track[field][multi_id].split("/")
-                x[split_num] = v[split_num]
+            for i, trackdata in enumerate(self.trackdata):
                 try:
-                    track[field][multi_id] = x[0] + "/" + x[1]
+                    trackdata[field][multi_id] = value
                 except KeyError:
-                    track[field] = [x[0] + "/" + x[1]]
+                    trackdata[field] = [value]
                 except IndexError:
-                    track[field].append(x[0] + "/" + x[1])
+                    trackdata[field].append(value)
 
         self._check_for_changes()
 
     def remove_row(self, w, tag, multi_id):
         for row in self.rows:
             if row.tag == tag and row.multi_id == multi_id:
-                self.tracks[self.current_position][tag].pop(multi_id)
-                if len(self.tracks[self.current_position][tag]) == 0:
-                    self.tracks[self.current_position].pop(tag)
+                self.trackdata[self.current_position][tag].pop(multi_id)
+                if len(self.trackdata[self.current_position][tag]) == 0:
+                    self.trackdata[self.current_position].pop(tag)
 
         self._build_from_track(self.current_position)
 
@@ -555,7 +567,7 @@ class TagRow(object):
         self.field.register_parent_row(self)
         self.multi_id = multi_id
         all_vals = []
-        for track in parent.tracks:
+        for track in parent.trackdata:
             try:
                 all_vals.append(track[tag_name][multi_id])
             except KeyError:
@@ -589,14 +601,13 @@ class TagRow(object):
 
         self.field.show_all()
 
-        #Remove mode settings
+        # Remove mode settings
         self.remove_mode = False
         self.remove_button = gtk.Button()
         self.remove_button.set_image(gtk.image_new_from_stock(
             gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON))
         self.remove_button.connect("clicked", parent.remove_row, self.tag, self.multi_id)
 
-        #self.field.register_update_func(tag_name, parent.update_tag, self.multi_id)
         self.field.register_update_func(parent.update_tag)
         self.field.register_all_func(parent.apply_all)
 
@@ -621,7 +632,7 @@ class TagField(gtk.HBox):
     def __init__(self, all_button=True):
         gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
-        #Create the widgets
+        # Create the widgets
         self.field = gtk.Entry()
         self.all_func = None
         self.parent_row = None
@@ -641,7 +652,7 @@ class TagField(gtk.HBox):
             self.field.set_text(val)
 
         if all_vals != None and self.all_button != None:
-            #Set the value of the all button
+            # Set the value of the all button
             self.all_button.set_active(all(val == v for v in all_vals))
 
     def get_value(self):
@@ -684,7 +695,7 @@ class TagTextField(gtk.HBox):
             self.buffer.set_text(val)
 
         if all_vals != None and self.all_button != None:
-            #Set the value of the all button
+            # Set the value of the all button
             flag = True
             for v in all_vals:
                 if val != v:
@@ -714,7 +725,7 @@ class TagNumField(gtk.HBox):
     def __init__(self, min=0, max=10000, step=1, page=10, all_button=True):
         gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
-        #Create the widgets
+        # Create the widgets
         self.field = gtk.SpinButton()
         self.field.set_range(min, max)
         self.field.set_increments(step, page)
@@ -739,7 +750,7 @@ class TagNumField(gtk.HBox):
                 self.field.set_value(0)
 
         if all_vals != None and self.all_button != None:
-            #Set the value of the all button
+            # Set the value of the all button
             flag = True
             for v in all_vals:
                 if val != v:
@@ -815,7 +826,7 @@ class TagDblNumField(gtk.HBox):
             for v in all_val:
                 all_vals.append(v.split('/'))
 
-            #Set the value of the all button
+            # Set the value of the all button
             flags = [True, True]
             for i in range(2):
                 for v in all_vals:
@@ -1059,13 +1070,9 @@ class PropertyField(gtk.HBox):
     def __init__(self, property_type='text'):
         gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
-        #property_type informs of special formatting required
+        # Informs of special formatting required
         self.property_type = property_type
-        self.field = gtk.Entry() #gtk.Label()
-#        self.field.set_sensitive(False)
-#        self.field.set_ellipsize(pango.ELLIPSIZE_MIDDLE)
-#        self.field.set_max_width_chars(50)
-#        self.field.set_selectable(True)
+        self.field = gtk.Entry()
         self.field.set_editable(False)
         self.pack_start(self.field)
         self.parent_row = None

@@ -63,7 +63,7 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
                 registering an Accelerator with providers.
         :param condition_fn: A function to call when the menu is displayed. If
                 the function returns False, the menu item is not shown
-                signature: condition_fn(widget, name, parent, context)
+                signature: condition_fn(name, parent, context)
     """
     def factory(menu, parent, context):
         item = None

@@ -1,0 +1,5 @@
+Version="0.1"
+Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
+Name=_("Preview Device")
+Description=_("Allows playing audio over a secondary device. Useful for DJs.")
+Category=_("Output")

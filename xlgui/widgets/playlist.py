@@ -1043,7 +1043,7 @@ class PlaylistModel(gtk.ListStore):
             glib.idle_add(self.update_icon, position)
 
     def on_spat_position_changed(self, event_type, playlist, positions):
-        spat_position = max(positions)
+        spat_position = min(positions)
         for position in xrange(spat_position, len(self)):
             glib.idle_add(self.update_icon, position)
 

@@ -32,15 +32,27 @@ class ExFalsoController:
         from quodlibet.qltk.exfalsowindow import ExFalsoWindow
 
         config.init(const.CONFIG)
-        self.instance = backend, library, player = ql.init(
-            gtk=False,  # Don't initialize GLib/GTK+ stuff.
-            backend='nullbe')
+
+        try:
+            self.instance = backend, library, player = ql.init(
+                gtk=False,  # Don't initialize GLib/GTK+ stuff.
+                backend='nullbe')
+            self.api_version = 1
+        except TypeError:
+            library = ql.init()
+            ql.init_backend('nullbe', library.librarian)
+            self.api_version = 2
 
         self.on_changed = on_changed
         if on_changed:
             library.connect('changed', self._on_changed)
 
         self.window = window = ExFalsoWindow(library)
+
+        if self.api_version == 2:
+            from quodlibet import widgets
+            widgets.main = window
+            widgets.watcher = library.librarian
 
         # Ex Falso doesn't have any shortcut for the directory and file list
         # widgets, so we hack into them using multiple get_children calls.
@@ -50,10 +62,10 @@ class ExFalsoController:
         #   - ScrolledWindow > AllTreeView (TreeView)  # file list
         filesel = window.child.get_children()[0].get_children()[0]
         children = filesel.get_children()
-        self.dirlist = dirlist = children[0].child
-        self.filelist = filelist = children[1].child
-        assert isinstance(dirlist, gtk.TreeView)
-        assert isinstance(filelist, gtk.TreeView)
+        self.dirlist = children[0].child
+        self.filelist = children[1].child
+        assert isinstance(self.dirlist, gtk.TreeView)
+        assert isinstance(self.filelist, gtk.TreeView)
 
     def _on_changed(self, library, items):
         # We can't directly use the items passed in because Ex Falso converts
@@ -85,12 +97,18 @@ class ExFalsoController:
         map(filesel.select_path, treepaths)
 
     def main(self):
+        """Runs the mainloop. Do not call if you have your own mainloop."""
         ql.main(self.window)
 
     def cleanup(self):
-        ql.quit(self.instance)
         from quodlibet import config, const
-        config.write(const.CONFIG)
+        if self.api_version == 1:
+            ql.quit(self.instance)
+            config.write(const.CONFIG)
+        elif self.api_version == 2:
+            from quodlibet.util import copool
+            copool.remove_all()
+            config.save(const.CONFIG)
         config.quit()
 
 import xl.event, xl.trax
@@ -124,8 +142,11 @@ PLUGIN = None
 # Hook to replace Exaile's original Properties dialog
 from xlgui import properties as xlprops
 xl_properties_dialog = xlprops.TrackPropertiesDialog
-def properties_dialog(parent, tracks, current_position=0):
-    PLUGIN.run(tracks)
+def properties_dialog(parent, tracks, current_position=0, with_extras=False):
+    if with_extras:
+        PLUGIN.run((tracks[current_position],))
+    else:
+        PLUGIN.run(tracks)
 
 def enable(exaile):
     if exaile.loading:

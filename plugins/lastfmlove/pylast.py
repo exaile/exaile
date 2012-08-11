@@ -2470,12 +2470,6 @@ class Track(_BaseObject, _Taggable):
         """Adds the track to the user's loved tracks. """
         
         self._request('track.love')
-
-    def unlove(self):
-        """ 
-            Removes the track from the user's loved tracks.
-        """
-        self._request('track.unlove')
     
     def ban(self):
         """Ban this track from ever playing on the radio. """
@@ -3529,8 +3523,7 @@ def _collect_nodes(limit, sender, method_name, cacheable, params=None):
             raise Exception("No total pages attribute")
         
         for node in main.childNodes:
-            if not node.nodeType == xml.dom.Node.TEXT_NODE and \
-               (not limit or len(nodes) < limit):
+            if not node.nodeType == xml.dom.Node.TEXT_NODE and len(nodes) < limit:
                 nodes.append(node)
         
         if page >= total_pages:

@@ -140,7 +140,7 @@ class CDPlaylist(playlist.Playlist):
             count += 1
             song = trax.Track("cdda://%d/#%s" % (count, self.device))
             song.set_tag_raw('title', "Track %d" % count)
-            song.set_tag_raw('tracknumber', count)
+            song.set_tag_raw('tracknumber', str(count))
             song.set_tag_raw('__length', length)
             songs[song.get_loc_for_io()] = song
 

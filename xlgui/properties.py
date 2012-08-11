@@ -102,11 +102,10 @@ class TrackPropertiesDialog(gobject.GObject):
         gobject.GObject.__init__(self)
 
         self.builder = gtk.Builder()
-        self.builder.add_from_file(
-                xdg.get_data_path('ui/trackproperties_dialog.ui'))
+        self.builder.add_from_file(xdg.get_data_path('ui', 'trackproperties_dialog.ui'))
+        self.builder.connect_signals(self)
         self.dialog = self.builder.get_object('TrackPropertiesDialog')
         self.dialog.set_transient_for(parent)
-        self._connect_events()
 
         self.__default_attributes = pango.AttrList()
         self.__changed_attributes = pango.AttrList()
@@ -156,17 +155,6 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self.dialog.resize(600, 350)
         self.dialog.show()
-
-    def _connect_events(self):
-        self.builder.connect_signals({
-            'on_apply_button_clicked': self._on_apply,
-            'on_close_button_clicked': self._on_close,
-            'on_prev_track_button_clicked': self._on_prev,
-            'on_next_track_button_clicked': self._on_next,
-            'on_title_case_button_clicked': self._title_case,
-            'on_add_tag_button_clicked': self._add_tag,
-            'on_remove_tag_button_toggled': self._remove_tag_mode,
-        })
 
     def _tags_copy(self, tracks):
         l = []
@@ -383,9 +371,9 @@ class TrackPropertiesDialog(gobject.GObject):
         for table in tables:
             table.show_all()
 
-        self._remove_tag_mode(self.remove_tag_button)
+        self.remove_tag_button.toggled()
 
-    def _on_apply(self, w):
+    def on_apply_button_clicked(self, w):
         modified = []
         for n, track in enumerate(self.tracks):
             if track != self.tracks_original[n]:
@@ -408,7 +396,7 @@ class TrackPropertiesDialog(gobject.GObject):
         if self.message.get_message_type() == gtk.MESSAGE_QUESTION:
             self.message.hide()
 
-    def _on_close(self, w):
+    def on_close_button_clicked(self, w):
         if self.tracks != self.tracks_original:
             def on_response(message, response):
                 """
@@ -430,15 +418,15 @@ class TrackPropertiesDialog(gobject.GObject):
         else:
             self.dialog.destroy()
 
-    def _on_prev(self, widget):
+    def on_prev_track_button_clicked(self, widget):
         self.current_position -= 1
         self._build_from_track(self.current_position)
 
-    def _on_next(self, widget):
+    def on_next_track_button_clicked(self, widget):
         self.current_position += 1
         self._build_from_track(self.current_position)
 
-    def _title_case(self, w):
+    def on_title_case_button_clicked(self, w):
         for row in self.rows:
             if isinstance(row.field, TagField) \
                or isinstance(row.field, TagTextField):
@@ -448,7 +436,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self._check_for_changes()
 
-    def _add_tag(self, w):
+    def on_add_tag_button_clicked(self, w):
         tag = None
         row = self.new_tag_combo.get_active()
         if row != -1:
@@ -464,7 +452,7 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self._build_from_track(self.current_position)
 
-    def _remove_tag_mode(self, widget):
+    def on_remove_tag_button_toggled(self, widget):
         for row in self.rows:
             row.set_remove_mode(widget.get_active())
 

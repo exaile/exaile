@@ -134,6 +134,8 @@ class TrackPropertiesDialog(gobject.GObject):
         self.new_tag_combo_list.set_sort_column_id(1, gtk.SORT_ASCENDING)
         self.new_tag_combo.set_model(self.new_tag_combo_list)
         self.new_tag_combo.set_text_column(1)
+        self.add_tag_button = self.builder.get_object('add_tag_button')
+        self.add_tag_button.set_sensitive(False)
 
         self.def_tags = [   'tracknumber',
                             'title',
@@ -448,15 +450,28 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self._check_for_changes()
 
+    def on_new_tag_entry_changed(self, entry):
+        """
+            Enables or disables the button for adding tags,
+            effectively preventing empty tag names
+        """
+        self.add_tag_button.set_sensitive(len(entry.get_text()) > 0)
+
     def on_add_tag_button_clicked(self, w):
         tag = None
-        row = self.new_tag_combo.get_active()
-        if row != -1:
-            tag = self.new_tag_combo_list[row][0]
+
+        index = self.new_tag_combo.get_active()
+
+        if index != -1:
+            tag = self.new_tag_combo_list[index][0]
         else:
             tag = self.new_tag_combo.get_child().get_text()
 
+        if not tag:
+            return
+
         trackdata = self.trackdata[self.current_position]
+
         try:
             trackdata[tag].append('')
         except KeyError:

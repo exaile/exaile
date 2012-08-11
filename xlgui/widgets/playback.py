@@ -412,19 +412,28 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         )
     }
 
-    def __init__(self, player):
+    def __init__(self, player, use_markers=True):
+        '''
+            TODO: markers aren't designed for more than one player, once 
+            they are we can get rid of the use_markers option
+        '''
         PlaybackProgressBar.__init__(self, player)
         
         self.__player = player
         self.__values = {'marker-scale': 0.7}
         self._seeking = False
         self._points = {}
-        self._progressbar_menu = ProgressBarContextMenu(self)
-        self._marker_menu = MarkerContextMenu(self)
-        self._marker_menu.connect('deactivate',
-            self.on_marker_menu_deactivate)
+        
+        self._progressbar_menu = None
+        
+        if use_markers:
+            self._progressbar_menu = ProgressBarContextMenu(self)
+        
+            self._marker_menu = MarkerContextMenu(self)
+            self._marker_menu.connect('deactivate',
+                self.on_marker_menu_deactivate)
 
-        providers.ProviderHandler.__init__(self, 'playback-markers')
+            providers.ProviderHandler.__init__(self, 'playback-markers')
 
         self.add_events(gtk.gdk.BUTTON_PRESS_MASK |
                         gtk.gdk.BUTTON_RELEASE_MASK |
@@ -730,7 +739,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         elif event.button == 3:
             if len(hit_markers) > 0:
                 self._marker_menu.popup(event, tuple(hit_markers))
-            else:
+            elif self._progressbar_menu is not None:
                 self._progressbar_menu.popup(event)
 
     def do_button_release_event(self, event):

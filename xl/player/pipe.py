@@ -397,7 +397,7 @@ def sink_enumerate_devices(preset):
     if not devices:
         return None
 
-    ret = [('', 'Auto')]
+    ret = [('', _('Auto'))]
 
     for device in devices:
         tmpsink.set_property('device', device)

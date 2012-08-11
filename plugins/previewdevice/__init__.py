@@ -104,20 +104,16 @@ class SecondaryOutputPlugin(object):
     
     def disable_plugin(self, exaile):
     
-        '''Called when the plugin is disabled'''
-        
         self._destroy_gui_hooks()
         self._destroy_gui()
+        self.player.stop()
         
         self.player = None
         self.queue = None
         
         
     def _init_gui(self):
-        '''
-            Creates the GUI objects
-        '''
-        
+    
         self.pane = gtk.HPaned()
         
         # stolen from main
@@ -156,32 +152,33 @@ class SecondaryOutputPlugin(object):
         # setup menus
         
         # add menu item to 'view' to display our playlist 
-        self.menu = menu.check_menu_item('show_preview', '', _('Preview Player'), \
+        self.menu = menu.check_menu_item('preview_player', '', _('Preview Player'), \
             lambda *e: self.hooked, self._on_view )
             
         providers.register('menubar-view-menu', self.menu)
-        
-        # TODO: Setup on other context menus
         
         self.preview_menuitem = menu.simple_menu_item('preview', [], 
                 _('Preview'), callback=self._on_preview,
                 condition_fn=lambda n,p,c: len(c['selected-tracks']) != 0)
         
-        providers.register('playlist-context-menu', self.preview_menuitem)
+        # TODO: Setup on other context menus
+        self.preview_provides = [ 'files-panel-context-menu',
+                                  'playlist-context-menu',
+                                  'collection-panel-context-menu' ]
+        
+        for provide in self.preview_provides:
+            providers.register(provide, self.preview_menuitem)
         
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
         event.add_callback(self._on_option_set, 'option_set')
 
         
     def _destroy_gui(self):
-        
-        '''
-            Destroys the GUI objects
-        '''
-        
+    
         event.remove_callback(self._on_option_set, 'option_set')
         
-        providers.unregister('playlist-context-menu', self.preview_menuitem)
+        for provide in self.preview_provides:
+            providers.unregister(provide, self.preview_menuitem)
         providers.unregister('menubar-view-menu', self.menu)
         
         self.info_area.destroy()
@@ -251,8 +248,6 @@ class SecondaryOutputPlugin(object):
         
         if not self.hooked:
             return
-            
-        #self.player.stop()
     
         info_area = main.mainwindow().info_area
         play_toolbar = main.mainwindow().builder.get_object('play_toolbar')

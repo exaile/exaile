@@ -455,9 +455,11 @@ class TagCoverFetcher(CoverSearchMethod):
 
         for tag in self.cover_tags:
             try:
-                covers = track.get_tag_disk(tag)
-                tagname = tag
-                break
+                c = track.get_tag_disk(tag)
+                if c is not None:
+                    covers = c
+                    tagname = tag
+                    break
             except KeyError:
                 pass
 

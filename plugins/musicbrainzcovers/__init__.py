@@ -80,6 +80,9 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
                 except urllib2.HTTPError:
                     mbids.remove(mbid)
 
+            # For now, limit to small sizes
+            mbids = [mbid + ':250' for mbid in mbids]
+
             return mbids
 
         return []
@@ -89,9 +92,10 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
             Get the image data
         """
         data = None
+        mbid, size = db_string.split(':')
+        url = self.__caa_url.format(mbid=mbid, size=size)
 
         try:
-            url = self.__caa_url.format(mbid=db_string, size=250)
             logger.debug('Fetching cover from {url}'.format(url=url))
             response = urllib2.urlopen(url)
         except urllib2.HTTPError:

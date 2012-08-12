@@ -50,6 +50,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
     """
     name = 'musicbrainz'
     title = 'MusicBrainz'
+    __caa_url ='http://coverartarchive.org/release/{mbid}/front-{size}' 
 
     def find_covers(self, track, limit=-1):
         """
@@ -69,7 +70,17 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
         )
 
         if result['release-list']:
-            return [a['id'] for a in result['release-list']]
+            mbids = [a['id'] for a in result['release-list']]
+            
+            # Check the actual availability of the covers
+            for mbid in mbids[:]:
+                try:
+                    url = self.__caa_url.format(mbid=mbid, size=250)
+                    response = urllib2.urlopen(url)
+                except urllib2.HTTPError:
+                    mbids.remove(mbid)
+
+            return mbids
 
         return []
 
@@ -80,7 +91,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
         data = None
 
         try:
-            url = 'http://coverartarchive.org/release/{mbid}/front-{size}'.format(mbid=db_string, size=250)
+            url = self.__caa_url.format(mbid=db_string, size=250)
             logger.debug('Fetching cover from {url}'.format(url=url))
             response = urllib2.urlopen(url)
         except urllib2.HTTPError:

@@ -70,6 +70,7 @@ class PluginManager(object):
 
             name_column = builder.get_object('name_column')
             name_column.pack_start(reload_cellrenderer)
+            name_column.add_attribute(reload_cellrenderer, 'visible', 3)
 
         self.version_label = builder.get_object('version_label')
         self.author_label = builder.get_object('author_label')

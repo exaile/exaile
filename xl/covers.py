@@ -211,6 +211,19 @@ class CoverManager(providers.ProviderHandler):
             return None
         return (tag, tuple(value))
 
+    def get_db_string(self, track):
+        """
+            Returns the internal string used to map the cover
+            to a track
+
+            :param track: the track to retrieve the string for
+            :type track: :class:`xl.trax.Track`
+            :returns: the internal identifier string
+        """
+        key = self._get_track_key(track)
+
+        return self.db.get(key)
+
     @common.synchronized
     @common.cached(5)
     def find_covers(self, track, limit=-1, local_only=False):
@@ -288,8 +301,7 @@ class CoverManager(providers.ProviderHandler):
         if track is None:
             return self.get_default_cover() if use_default else None
 
-        key = self._get_track_key(track)
-        db_string = self.db.get(key)
+        db_string = self.get_db_string(track)
         if db_string:
             return self.get_cover_data(db_string, use_default=use_default)
 

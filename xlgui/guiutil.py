@@ -163,7 +163,6 @@ class ScalableImageWidget(gtk.Image):
         """
             Initializes the image
         """
-        self.loc = ''
         gtk.Image.__init__(self)
 
     def set_image_size(self, width, height):
@@ -172,23 +171,41 @@ class ScalableImageWidget(gtk.Image):
         """
         self.size = (width, height)
 
-    def set_image(self, image, fill=False):
+    def set_image(self, location, fill=False):
         """
-            Sets the image
-        """
-        self.loc = gio.File(image).get_path()
-        self.pixbuf = gtk.gdk.pixbuf_new_from_file(self.loc)
+            Sets the image from a location
 
-        self._set_image(self.pixbuf, fill)
+            :param location: the location to load the image from
+            :type location: string
+            :param fill: True to expand the image, False to keep its ratio
+            :type fill: boolean
+        """
+        pixbuf = gtk.gdk.pixbuf_new_from_file(gio.File(location).get_path())
+        self.set_image_pixbuf(pixbuf, fill)
 
     def set_image_data(self, data, fill=False):
+        """
+            Sets the image from binary data
+
+            :param data: the binary data
+            :type data: string
+            :param fill: True to expand the image, False to keep its ratio
+            :type fill: boolean
+        """
         if not data:
             return
+        pixbuf = icons.MANAGER.pixbuf_from_data(data)
+        self.set_image_pixbuf(pixbuf, fill)
 
-        self.pixbuf = icons.MANAGER.pixbuf_from_data(data)
-        self._set_image(self.pixbuf, fill)
+    def set_image_pixbuf(self, pixbuf, fill=False):
+        """
+            Sets the image from a pixbuf
 
-    def _set_image(self, pixbuf, fill=False):
+            :param data: the pixbuf
+            :type data: :class:`gtk.gdk.Pixbuf`
+            :param fill: True to expand the image, False to keep its ratio
+            :type fill: boolean
+        """
         width, height = self.size
         if not fill:
             origw = float(pixbuf.get_width())

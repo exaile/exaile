@@ -29,6 +29,7 @@ import os
 import os.path
 import tempfile
 import time
+import threading
 import traceback
 
 import cairo
@@ -786,9 +787,15 @@ class CoverChooser(gobject.GObject):
         one out of the list
     """
     __gsignals__ = {
+        'covers-fetched': (
+            gobject.SIGNAL_RUN_LAST,
+            None,
+            (object,)
+        ),
         'cover-chosen': (
             gobject.SIGNAL_RUN_LAST,
-            None, (object,)
+            None,
+            (object,)
         ),
         'message': (
             gobject.SIGNAL_RUN_LAST,
@@ -852,49 +859,68 @@ class CoverChooser(gobject.GObject):
 
         self.last_search = "%s - %s"  % (tempartist, tempalbum)
 
-        self.fetch_cover()
         self.window.show_all()
 
-    @common.threaded
+        self.cancel_fetch = threading.Event()
+        self.fetcher_thread = threading.Thread(target=self.fetch_cover, name='Coverfetcher')
+        self.fetcher_thread.start()
+
     def fetch_cover(self):
         """
             Searches for covers for the current track
         """
-        covers = cover_manager.find_covers(self.track)
+        db_strings = cover_manager.find_covers(self.track)
 
-        if covers:
+        if db_strings:
             track_db_string = cover_manager.get_db_string(self.track)
-            covers = [(s, cover_manager.get_cover_data(s)) for s in covers]
-            initial_path = (0,)
 
-            for i, coverdata in enumerate(covers):
+            for db_string in db_strings:
+                if self.cancel_fetch.is_set():
+                    return
+
+                coverdata = cover_manager.get_cover_data(db_string)
                 # Pre-render everything for faster display later
-                pixbuf = icons.MANAGER.pixbuf_from_data(coverdata[1])
+                pixbuf = icons.MANAGER.pixbuf_from_data(coverdata)
                 self.covers_model.append([
-                    coverdata,
+                    (db_string, coverdata),
                     pixbuf,
                     pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
                 ])
 
-                if coverdata[0] == track_db_string:
-                    initial_path = (i,)
-
-            if len(covers) > 1:
-                self.previews_box.set_no_show_all(False)
-                self.previews_box.show_all()
-
-            glib.idle_add(self.cover_image_box.remove, self.loading_indicator)
-            glib.idle_add(self.cover_image_box.pack_start, self.cover, True, True)
-            glib.idle_add(self.cover.show)
-            glib.idle_add(self.set_button.set_sensitive, True)
-            glib.idle_add(self.previews_box.select_path, initial_path)
+            self.emit('covers-fetched', db_strings)
         else:
             self.emit('message', gtk.MESSAGE_INFO, _('No covers found.'))
+
+    def do_covers_fetched(self, db_strings):
+        """
+            Finishes the dialog setup after all covers have been fetched
+        """
+        if self.cancel_fetch.is_set():
+            return
+
+        # Remove loading indicator and enable Set button
+        self.cover_image_box.remove(self.loading_indicator)
+        self.cover_image_box.pack_start(self.cover, True, True)
+        self.cover.show()
+        self.set_button.set_sensitive(True)
+
+        # Show thumbnail bar if more than one cover was found
+        if len(db_strings) > 1:
+            self.previews_box.set_no_show_all(False)
+            self.previews_box.show_all()
+
+            # Try to select the current cover of the track, fallback to first
+            track_db_string = cover_manager.get_db_string(self.track)
+            position = db_strings.index(track_db_string) if track_db_string in db_strings else 0
+            self.previews_box.select_path((position,))
 
     def on_cancel_button_clicked(self, button):
         """
             Closes the cover chooser
         """
+        # Notify the fetcher thread to stop
+        self.cancel_fetch.set()
+
         self.window.destroy()
 
     def on_set_button_clicked(self, button):
@@ -920,8 +946,8 @@ class CoverChooser(gobject.GObject):
 
         if paths:
             path = paths[0]
-            coverdata = self.covers_model[path][0]
-            source = coverdata[0].split(':', 1)[0]
+            db_string = self.covers_model[path][0]
+            source = db_string[0].split(':', 1)[0]
             provider = providers.get_provider('covers', source)
             pixbuf = self.covers_model[path][1]
 

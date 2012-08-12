@@ -15,12 +15,18 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import hashlib
+import urllib
 try:
     import xml.etree.cElementTree as ETree
 except:
     import xml.etree.ElementTree as ETree
-import hashlib, urllib
-from xl import event, covers, providers
+
+from xl import (
+    covers,
+    event,
+    providers
+)
 
 # Last.fm API Key for Exaile
 # if you reuse this code in a different application, please
@@ -49,6 +55,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
         Searches Last.fm for covers
     """
     name = 'lastfm'
+    title = 'Last.fm'
     type = 'remote' # fetches remotely as opposed to locally
 
     url = 'http://ws.audioscrobbler.com/2.0/?method=type.search&type=%(type)s&api_key='

@@ -14,13 +14,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import hashlib
+import logging
+import time
+import urllib
+
+from xl import (
+    common,
+    covers
+    event,
+    metadata,
+    providers,
+    settings
+)
+
 import _ecs as ecs
 import amazonprefs
-import urllib, hashlib, time
-from xl import common, event, metadata, providers
-from xl import settings, covers
-from xl.nls import gettext as _
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +57,7 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
         Searches amazon for an album cover
     """
     name = 'amazon'
+    title = 'Amazon'
     def __init__(self):
         self.starttime = 0
 

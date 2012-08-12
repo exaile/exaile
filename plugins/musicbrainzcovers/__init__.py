@@ -49,6 +49,7 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
         Searches MusicBrainz for an album cover
     """
     name = 'musicbrainz'
+    title = 'MusicBrainz'
 
     def find_covers(self, track, limit=-1):
         """

@@ -29,18 +29,25 @@ Provides the base for obtaining and storing covers, also known
 as album art.
 """
 
+import glib
+import gio
 import logging
-import os
 import hashlib
+import os
 try:
     import cPickle as pickle
 except ImportError:
     import pickle
 
-import glib
-import gio
-
-from xl import common, providers, event, settings, xdg, trax
+from xl.nls import gettext as _
+from xl import (
+    common,
+    event,
+    providers,
+    settings,
+    trax,
+    xdg
+)
 
 logger = logging.getLogger(__name__)
 
@@ -444,6 +451,7 @@ class TagCoverFetcher(CoverSearchMethod):
     """
     use_cache = False
     name = "tags"
+    title = _('Tags')
     cover_tags = ["cover", "coverart"]
     fixed = True
     fixed_priority = 30
@@ -482,6 +490,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
     """
     use_cache = False
     name = "localfile"
+    title = _('Local file')
     uri_types = ['file', 'smb', 'sftp', 'nfs']
     extensions = ['.png', '.jpg', '.jpeg', '.gif']
     preferred_names = []

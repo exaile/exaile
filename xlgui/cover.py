@@ -41,6 +41,7 @@ from xl import (
     common,
     event,
     metadata,
+    providers,
     settings,
     xdg
 )
@@ -819,16 +820,19 @@ class CoverChooser(gobject.GObject):
         self.covers = []
         self.current = 0
 
+        self.cover = guiutil.ScalableImageWidget()
+        self.cover.set_image_size(350, 350)
+        box = self.builder.get_object('cover_image_box')
+        box.pack_start(self.cover, True, True)
+        self.size_label = self.builder.get_object('size_label')
+        self.source_label = self.builder.get_object('source_label')
+
         self.previous_button = self.builder.get_object('previous_button')
         self.previous_button.set_sensitive(False)
         self.next_button = self.builder.get_object('next_button')
         self.next_button.set_sensitive(False)
         self.ok_button = self.builder.get_object('ok_button')
         self.ok_button.set_sensitive(False)
-        self.box = self.builder.get_object('cover_image_box')
-        self.cover = guiutil.ScalableImageWidget()
-        self.cover.set_image_size(350, 350)
-        self.box.pack_start(self.cover, True, True)
 
         self.last_search = "%s - %s"  % (tempartist, tempalbum)
 
@@ -911,6 +915,15 @@ class CoverChooser(gobject.GObject):
         """
             Shows the current cover
         """
-        self.cover.set_image_data(coverdata[1])
+        source = coverdata[0].split(':', 1)[0]
+        provider = providers.get_provider('covers', source)
+        pixbuf = icons.MANAGER.pixbuf_from_data(coverdata[1])
+
+        self.cover.set_image_pixbuf(pixbuf)
+        self.size_label.set_text(_('{width}x{height} pixels').format(
+            width=pixbuf.get_width(), height=pixbuf.get_height()))
+        self.source_label.set_text(getattr(provider, 'title', source))
+
+
         self.window.show_all()
 

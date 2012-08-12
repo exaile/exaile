@@ -47,6 +47,7 @@ from xlgui import (
     panel,
     playlist as guiplaylist
 )
+from xlgui.widgets.common import DragTreeView
 from xlgui.widgets import dialogs
 
 class RadioException(Exception): pass

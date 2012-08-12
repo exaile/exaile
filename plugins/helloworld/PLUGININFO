@@ -2,3 +2,4 @@ Version='0.0.1'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('Hello World')
 Description=_('A simple plugin for testing the basic plugin system')
+Category=_(Development)

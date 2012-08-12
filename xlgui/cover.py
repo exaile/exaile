@@ -881,30 +881,39 @@ class CoverChooser(gobject.GObject):
         """
             Chooses the current cover and saves it to the database
         """
-        path = self.previews_box.get_selected_items()[0]
-        coverdata = self.covers_model[path][0]
+        paths = self.previews_box.get_selected_items()
 
-        cover_manager.set_cover(self.track, coverdata[0], coverdata[1])
+        if paths:
+            path = paths[0]
+            coverdata = self.covers_model[path][0]
 
-        self.emit('cover-chosen', coverdata[1])
-        self.window.destroy()
+            cover_manager.set_cover(self.track, coverdata[0], coverdata[1])
+
+            self.emit('cover-chosen', coverdata[1])
+            self.window.destroy()
 
     def on_previews_box_selection_changed(self, iconview):
         """
             Switches the currently displayed cover
         """
-        path = self.previews_box.get_selected_items()[0]
+        paths = self.previews_box.get_selected_items()
 
-        coverdata = self.covers_model[path][0]
-        source = coverdata[0].split(':', 1)[0]
-        provider = providers.get_provider('covers', source)
-        pixbuf = self.covers_model[path][1]
+        if paths:
+            path = paths[0]
+            coverdata = self.covers_model[path][0]
+            source = coverdata[0].split(':', 1)[0]
+            provider = providers.get_provider('covers', source)
+            pixbuf = self.covers_model[path][1]
 
-        self.cover.set_image_pixbuf(pixbuf)
-        self.size_label.set_text(_('{width}x{height} pixels').format(
-            width=pixbuf.get_width(), height=pixbuf.get_height()))
-        # Display readable title of the provider, fallback to its name
-        self.source_label.set_text(getattr(provider, 'title', source))
+            self.cover.set_image_pixbuf(pixbuf)
+            self.size_label.set_text(_('{width}x{height} pixels').format(
+                width=pixbuf.get_width(), height=pixbuf.get_height()))
+            # Display readable title of the provider, fallback to its name
+            self.source_label.set_text(getattr(provider, 'title', source))
+
+            self.set_button.set_sensitive(True)
+        else:
+            self.set_button.set_sensitive(False)
 
     def on_previews_box_item_activated(self, iconview, path):
         """

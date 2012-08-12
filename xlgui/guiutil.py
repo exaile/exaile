@@ -170,6 +170,7 @@ class ScalableImageWidget(gtk.Image):
             Scales the size of the image
         """
         self.size = (width, height)
+        self.set_size_request(width, height)
 
     def set_image(self, location, fill=False):
         """

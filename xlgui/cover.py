@@ -872,8 +872,6 @@ class CoverChooser(gobject.GObject):
         db_strings = cover_manager.find_covers(self.track)
 
         if db_strings:
-            track_db_string = cover_manager.get_db_string(self.track)
-
             for db_string in db_strings:
                 if self.cancel_fetch.is_set():
                     return

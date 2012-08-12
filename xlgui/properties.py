@@ -919,7 +919,9 @@ class TagImageField(gtk.HBox):
         self.info_label = builder.get_object('info_label')
         self.type_model = builder.get_object('type_model')
         self.type_selection = builder.get_object('type_selection')
+        self.type_selection.set_sensitive(False)
         self.description_entry = builder.get_object('description_entry')
+        self.description_entry.set_sensitive(False)
 
         self.all_button = None
         if all_button:
@@ -949,13 +951,17 @@ class TagImageField(gtk.HBox):
                     self.batch_update = True
                     self.set_pixbuf(loader.get_pixbuf(), val.mime)
                     self.type_selection.set_active(val.type)
+                    self.type_selection.set_sensitive(True)
                     self.description_entry.set_text(val.desc)
+                    self.description_entry.set_sensitive(True)
                     self.batch_update = False
             else:
                 self.batch_update = True
                 self.set_pixbuf(None)
                 self.type_selection.set_active(-1)
+                self.type_selection.set_sensitive(False)
                 self.description_entry.set_text('')
+                self.description_entry.set_sensitive(False)
                 self.batch_update = False
                 self.call_update_func()
 
@@ -1041,7 +1047,9 @@ class TagImageField(gtk.HBox):
                 self.batch_update = True
                 self.set_pixbuf(pixbuf, info['mime_types'][0])
                 self.type_selection.set_active(self.default_type)
+                self.type_selection.set_sensitive(True)
                 self.description_entry.set_text(os.path.basename(filename).rsplit('.', 1)[0])
+                self.description_entry.set_sensitive(True)
                 self.batch_update = False
                 self.call_update_func()
 
@@ -1063,7 +1071,9 @@ class TagImageField(gtk.HBox):
                 self.batch_update = True
                 self.set_pixbuf(pixbuf, info['mime_types'][0])
                 self.type_selection.set_active(self.default_type)
+                self.description_entry.set_sensitive(True)
                 self.description_entry.set_text(os.path.basename(filename).rsplit('.', 1)[0])
+                self.description_entry.set_sensitive(True)
                 self.batch_update = False
                 self.call_update_func()
 

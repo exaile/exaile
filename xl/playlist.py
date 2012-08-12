@@ -1729,7 +1729,7 @@ class PlaylistManager(object):
         old_name = playlist.name
         if old_name in self.playlists:
             self.remove_playlist(old_name)
-            playlist.set_name(new_name)
+            playlist.name = new_name
             self.save_playlist(playlist)
 
     def load_names(self):

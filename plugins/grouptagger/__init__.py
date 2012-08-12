@@ -203,8 +203,12 @@ class GroupTaggerPlugin(object):
         if len(tracks) == 1:
             self.set_display_track( tracks[0] )
 
-    def set_display_track(self, track):
+    def set_display_track(self, track, force_update=False):
         '''Updates the display with the tags/info for a particular track'''
+        
+        if self.track == track and not force_update:
+            return
+            
         self.track = track
         
         # get the groups as a set
@@ -255,5 +259,5 @@ class GroupTaggerPlugin(object):
         if self.track is not None:
             groups = view.get_model().iter_active()
             if not set_track_groups( self.track, groups ):
-                self.set_display_track( self.track )
+                self.set_display_track( self.track, force_update=True )
   

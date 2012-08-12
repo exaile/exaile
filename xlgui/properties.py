@@ -1124,6 +1124,10 @@ class PropertyField(gtk.HBox):
         elif self.property_type == 'prop:location':
             f = gio.File(val)
             output = f.get_parse_name()
+
+            # Disable folder button for non-browsable locations
+            if not f.get_path():
+                self.folder_button.set_sensitive(False)
         else:
             output = str(val)
 

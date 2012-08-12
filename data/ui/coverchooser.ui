@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <object class="GtkListStore" id="covers_model">
+    <columns>
+      <!-- column-name coverdata -->
+      <column type="PyObject"/>
+      <!-- column-name pixbuf -->
+      <column type="GdkPixbuf"/>
+      <!-- column-name preview -->
+      <column type="GdkPixbuf"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="CoverChooser">
-    <property name="width_request">352</property>
-    <property name="height_request">349</property>
     <property name="can_focus">False</property>
+    <property name="border_width">3</property>
     <property name="title" translatable="yes">Cover Finder</property>
     <property name="resizable">False</property>
     <property name="window_position">center-on-parent</property>
@@ -11,6 +20,7 @@
       <object class="GtkVBox" id="vbox25">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="spacing">3</property>
         <child>
           <object class="GtkHBox" id="box1">
             <property name="visible">True</property>
@@ -59,7 +69,6 @@
           <object class="GtkHBox" id="cover_image_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="border_width">2</property>
             <child>
               <placeholder/>
             </child>
@@ -71,27 +80,50 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox34">
+          <object class="GtkIconView" id="previews_box">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="item_orientation">horizontal</property>
+            <property name="model">covers_model</property>
+            <property name="row_spacing">0</property>
+            <property name="column_spacing">0</property>
+            <property name="item_padding">0</property>
+            <property name="margin">0</property>
+            <signal name="item-activated" handler="on_previews_box_item_activated" swapped="no"/>
+            <signal name="selection-changed" handler="on_previews_box_selection_changed" swapped="no"/>
+            <child>
+              <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1">
+                <property name="follow_state">True</property>
+              </object>
+              <attributes>
+                <attribute name="pixbuf">2</attribute>
+              </attributes>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <object class="GtkHButtonBox" id="buttonbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="border_width">3</property>
-            <property name="spacing">3</property>
+            <property name="spacing">6</property>
             <child>
-              <object class="GtkButton" id="previous_button">
+              <object class="GtkButton" id="cancel_button">
+                <property name="label">gtk-cancel</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Previous cover option</property>
+                <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
-                <signal name="clicked" handler="on_previous_button_clicked" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="image127">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-go-back</property>
-                  </object>
-                </child>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_cancel_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -100,21 +132,16 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="next_button">
+              <object class="GtkButton" id="set_button">
+                <property name="label" translatable="yes">_Set as Cover</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Next cover option</property>
+                <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
-                <signal name="clicked" handler="on_next_button_clicked" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="image128">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-go-forward</property>
-                  </object>
-                </child>
+                <property name="image">image1</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_set_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -122,60 +149,11 @@
                 <property name="position">1</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkAlignment" id="alignment1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="cancel_button">
-                <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_cancel_button_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ok_button">
-                <property name="label" translatable="yes">_Set as Cover</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
-                <property name="image">image1</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_ok_button_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">4</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">2</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
           </packing>
         </child>
       </object>

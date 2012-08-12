@@ -827,71 +827,49 @@ class CoverChooser(gobject.GObject):
         self.size_label = self.builder.get_object('size_label')
         self.source_label = self.builder.get_object('source_label')
 
-        self.previous_button = self.builder.get_object('previous_button')
-        self.previous_button.set_sensitive(False)
-        self.next_button = self.builder.get_object('next_button')
-        self.next_button.set_sensitive(False)
-        self.ok_button = self.builder.get_object('ok_button')
-        self.ok_button.set_sensitive(False)
+        self.covers_model = self.builder.get_object('covers_model')
+        self.previews_box = self.builder.get_object('previews_box')
+        self.previews_box.set_no_show_all(True)
+        self.previews_box.hide()
+
+        self.set_button = self.builder.get_object('set_button')
 
         self.last_search = "%s - %s"  % (tempartist, tempalbum)
 
-        self.fetch_cover(track)
+        self.fetch_cover()
 
     @common.threaded
-    def fetch_cover(self, search):
+    def fetch_cover(self):
         """
-            Searches for a cover
+            Searches for covers for the current track
         """
-        self.covers = []
-        self.current = 0
-
         covers = cover_manager.find_covers(self.track)
-        covers = [(x, cover_manager.get_cover_data(x)) for x in covers]
 
         if covers:
-            self.covers = covers
+            track_db_string = cover_manager.get_db_string(self.track)
+            covers = [(s, cover_manager.get_cover_data(s)) for s in covers]
+            initial_path = (0,)
 
-            if len(covers) > 0:
-                self.ok_button.set_sensitive(True)
+            for i, coverdata in enumerate(covers):
+                # Pre-render everything for faster display later
+                pixbuf = icons.MANAGER.pixbuf_from_data(coverdata[1])
+                self.covers_model.append([
+                    coverdata,
+                    pixbuf,
+                    pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
+                ])
+
+                if coverdata[0] == track_db_string:
+                    initial_path = (i,)
+
             if len(covers) > 1:
-                self.next_button.set_sensitive(True)
+                self.previews_box.set_no_show_all(False)
+                self.previews_box.show_all()
 
-            glib.idle_add(self.show_cover, covers[0])
+            glib.idle_add(self.window.show_all)
+            glib.idle_add(self.previews_box.select_path, initial_path)
         else:
             self.emit('message', gtk.MESSAGE_INFO, _('No covers found.'))
-
-    def on_previous_button_clicked(self, button):
-        """
-            Shows the previous cover
-        """
-        if self.current - 1 < 0:
-            return
-
-        self.current = self.current - 1
-        self.show_cover(self.covers[self.current])
-
-        if self.current + 1 < len(self.covers):
-            self.next_button.set_sensitive(True)
-
-        if self.current - 1 < 0:
-            self.previous_button.set_sensitive(False)
-
-    def on_next_button_clicked(self, button):
-        """
-            Shows the next cover
-        """
-        if self.current + 1 >= len(self.covers):
-            return
-
-        self.current = self.current + 1
-        self.show_cover(self.covers[self.current])
-
-        if self.current + 1 >= len(self.covers):
-            self.next_button.set_sensitive(False)
-
-        if self.current - 1 >= 0:
-            self.previous_button.set_sensitive(True)
 
     def on_cancel_button_clicked(self, button):
         """
@@ -899,31 +877,38 @@ class CoverChooser(gobject.GObject):
         """
         self.window.destroy()
 
-    def on_ok_button_clicked(self, button):
+    def on_set_button_clicked(self, button):
         """
             Chooses the current cover and saves it to the database
         """
-        track = self.track
-        coverdata = self.covers[self.current]
+        path = self.previews_box.get_selected_items()[0]
+        coverdata = self.covers_model[path][0]
 
-        cover_manager.set_cover(track, coverdata[0], coverdata[1])
+        cover_manager.set_cover(self.track, coverdata[0], coverdata[1])
 
         self.emit('cover-chosen', coverdata[1])
         self.window.destroy()
 
-    def show_cover(self, coverdata):
+    def on_previews_box_selection_changed(self, iconview):
         """
-            Shows the current cover
+            Switches the currently displayed cover
         """
+        path = self.previews_box.get_selected_items()[0]
+
+        coverdata = self.covers_model[path][0]
         source = coverdata[0].split(':', 1)[0]
         provider = providers.get_provider('covers', source)
-        pixbuf = icons.MANAGER.pixbuf_from_data(coverdata[1])
+        pixbuf = self.covers_model[path][1]
 
         self.cover.set_image_pixbuf(pixbuf)
         self.size_label.set_text(_('{width}x{height} pixels').format(
             width=pixbuf.get_width(), height=pixbuf.get_height()))
+        # Display readable title of the provider, fallback to its name
         self.source_label.set_text(getattr(provider, 'title', source))
 
-
-        self.window.show_all()
+    def on_previews_box_item_activated(self, iconview, path):
+        """
+            Triggers selecting the current cover
+        """
+        self.set_button.clicked()
 

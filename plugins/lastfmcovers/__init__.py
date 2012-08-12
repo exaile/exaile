@@ -86,7 +86,10 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
             except IOError:
                 continue
 
-            xml = ETree.fromstring(data)
+            try:
+                xml = ETree.fromstring(data)
+            except SyntaxError:
+                continue
 
             for element in xml.getiterator(type[0]):
                 if (element.find('artist').text == artist.encode("utf-8")):

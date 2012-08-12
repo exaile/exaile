@@ -36,12 +36,12 @@ import re
  
 from xl import (
     event, 
+    playlist,
     providers,
     player,
     settings
 )
 
-from xl import playlist
 from xl.nls import gettext as _
 from xl.trax import search
 

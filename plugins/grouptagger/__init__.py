@@ -79,9 +79,9 @@ class GroupTaggerPlugin(object):
         self.panel = gt_widgets.GroupTaggerPanel(exaile)
         self.panel.show_all()
         
-        self.panel.tagger.view.connect( 'category-changed', self.on_category_changed )
+        self.panel.tagger.view.connect( 'category-changed', self.on_category_change )
         self.panel.tagger.view.connect( 'category-edited', self.on_category_edited )
-        self.panel.tagger.view.connect( 'group-changed', self.on_group_changed )
+        self.panel.tagger.view.connect( 'group-changed', self.on_group_change )
         
         # add to exaile's panel interface
         exaile.gui.panels['grouptagger'] = self.panel
@@ -223,24 +223,24 @@ class GroupTaggerPlugin(object):
     # Widget events
     #
     
-    def on_category_changed(self, view, action, category):
+    def on_category_change(self, view, action, category):
         '''Called when a category has something happen to it'''
     
         categories = get_group_categories()
     
-        if action == gt_widgets.GT_CATEGORY_ADDED:
+        if action == gt_widgets.category_change.added:
             categories.setdefault(category, [True, []])
                 
-        elif action == gt_widgets.GT_CATEGORY_DELETED:
+        elif action == gt_widgets.category_change.deleted:
             del categories[category]
             
-        elif action == gt_widgets.GT_CATEGORY_COLLAPSED:
+        elif action == gt_widgets.category_change.collapsed:
             categories[category][0] = False
             
-        elif action == gt_widgets.GT_CATEGORY_EXPANDED:
+        elif action == gt_widgets.category_change.expanded:
             categories[category][0] = True
             
-        elif action == gt_widgets.GT_CATEGORY_UPDATED:
+        elif action == gt_widgets.category_change.updated:
             v = categories.setdefault(category, [True, []])
             v[1] = view.get_model().get_category_groups(category)
             
@@ -253,7 +253,7 @@ class GroupTaggerPlugin(object):
         categories[new_category] = categories.pop(old_category)
         set_group_categories( categories )
     
-    def on_group_changed(self, view, action, value):
+    def on_group_change(self, view, action, value):
         '''Called when a group is added/deleted/updated on the widget'''
         
         if self.track is not None:

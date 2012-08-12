@@ -44,18 +44,15 @@ import gt_common
 # GroupTaggerView signal 'changed' enum
 #
 
-# group was added to tagger
-GT_GROUP_ADDED = object()
-# group was deleted from tagger
-GT_GROUP_DELETED = object()
-# group was edited/toggled in tagger, pass none
-GT_GROUP_EDITED = object()
+group_change = common.enum( added=object(),         
+                            deleted=object(),
+                            edited=object() )       # edited/toggled group
 
-GT_CATEGORY_ADDED = object()
-GT_CATEGORY_DELETED = object()
-GT_CATEGORY_EXPANDED = object()
-GT_CATEGORY_COLLAPSED = object()
-GT_CATEGORY_UPDATED = object()
+category_change = common.enum( added=object(),      
+                               deleted=object(),    
+                               expanded=object(),   # user expanded category display
+                               collapsed=object(),  # user collapsed category display
+                               updated=object() )   # added group, changed name
 
 # default group category
 uncategorized = _('Uncategorized')
@@ -209,32 +206,32 @@ class GroupTaggerView(gtk.TreeView):
             if model.is_category(path):
                 self.emit( 'category-edited', old, new_text )
             else:
-                self.emit( 'group-changed', GT_GROUP_EDITED, old )
+                self.emit( 'group-changed', group_change.edited, old )
                 
         
     def on_row_changed(self, model, path, iter):
         if self.get_model() and not model.is_category(path):
             category = model.get_category(path)
             if category is not None:
-                self.emit( 'category-changed', GT_CATEGORY_UPDATED, category )
+                self.emit( 'category-changed', category_change.updated, category )
                 self.expand_to_path(path)
         
     def on_row_collapsed( self, widget, iter, path ):
-        self.emit( 'category-changed', GT_CATEGORY_COLLAPSED, self.get_model().get_category(path) )
+        self.emit( 'category-changed', category_change.collapsed, self.get_model().get_category(path) )
     
     def on_row_deleted(self, model, path):
         if self.get_model() and not model.is_category(path):
             category = model.get_category(path)
             if category is not None:
-                self.emit( 'category-changed', GT_CATEGORY_UPDATED, category )
+                self.emit( 'category-changed', category_change.updated, category )
     
     def on_row_expanded( self, widget, iter, path ):
-        self.emit( 'category-changed', GT_CATEGORY_EXPANDED, self.get_model().get_category(path) )
+        self.emit( 'category-changed', category_change.expanded, self.get_model().get_category(path) )
             
             
     def on_toggle( self, cell, path ):
         self.get_model()[path][0] = not cell.get_active()
-        self.emit( 'group-changed', GT_GROUP_EDITED, None )
+        self.emit( 'group-changed', group_change.edited, None )
         
     def on_menu_add_group( self, widget, name, parent, context):
         # TODO: instead of dialog, just add a new thing, make it editable?
@@ -253,9 +250,9 @@ class GroupTaggerView(gtk.TreeView):
                     category = uncategorized
                     
                 if model.add_group( group, category, True ):
-                    self.emit( 'group-changed', GT_GROUP_ADDED, group )
+                    self.emit( 'group-changed', group_change.added, group )
                 else:
-                    self.emit( 'group-changed', GT_GROUP_EDITED, None )                
+                    self.emit( 'group-changed', group_change.edited, None )                
         
     def on_menu_delete_group( self, widget, name, parent, context ):
         '''Menu says delete something'''
@@ -264,7 +261,7 @@ class GroupTaggerView(gtk.TreeView):
         groups = model.delete_selected_groups( paths )
         
         for group in groups:
-            self.emit( 'group-changed', GT_GROUP_DELETED, group )
+            self.emit( 'group-changed', group_change.deleted, group )
         
     def on_menu_add_category(self, widget, name, parent, context):
         # TODO: instead of dialog, just add a new thing, make it editable?
@@ -276,7 +273,7 @@ class GroupTaggerView(gtk.TreeView):
             if category != "":
                 model, paths = context['selected-rows']
                 if model.add_category( category ):
-                    self.emit( 'category-changed', GT_CATEGORY_ADDED, category )
+                    self.emit( 'category-changed', category_change.added, category )
     
     def on_menu_del_category(self, widget, name, parent, context):
         
@@ -284,9 +281,9 @@ class GroupTaggerView(gtk.TreeView):
         categories = model.delete_selected_categories( paths )
         
         for category, groups in categories.iteritems():
-            self.emit( 'category-changed', GT_CATEGORY_DELETED, category )
+            self.emit( 'category-changed', category_change.deleted, category )
             for group in groups:
-                self.emit( 'group-changed', GT_GROUP_DELETED, group )
+                self.emit( 'group-changed', group_change.deleted, group )
         
         
     def get_selected_groups(self, selected_rows):
@@ -562,7 +559,7 @@ class GroupTaggerWidget(gtk.VBox):
         self.view.sync_expanded()
         
         if added:
-            self.view.emit( 'category-changed', GT_CATEGORY_UPDATED, uncategorized )
+            self.view.emit( 'category-changed', category_change.updated, uncategorized )
         
         self.view.thaw_child_notify()
             

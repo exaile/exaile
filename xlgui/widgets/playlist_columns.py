@@ -360,13 +360,19 @@ class ScheduleTimeColumn(Column):
             if position > current_position:
                 # The delay is the accumulated length of all tracks
                 # between the currently playing and this one
-                delay = sum([t.get_tag_raw('__length') \
-                    for t in playlist[current_position:position]])
-                # Subtract the time which already has passed
-                delay -= self.player.get_time()
-                # The schedule time is the current time plus delay
-                schedule_time = time.localtime(time.time() + delay)
-                text = time.strftime('%H:%M', schedule_time)
+                try:
+                    delay = sum([t.get_tag_raw('__length') \
+                        for t in playlist[current_position:position]])
+                except TypeError:
+                    # on tracks with length == None, we cannot determine
+                    # when later tracks will play
+                    pass
+                else:
+                    # Subtract the time which already has passed
+                    delay -= self.player.get_time()
+                    # The schedule time is the current time plus delay
+                    schedule_time = time.localtime(time.time() + delay)
+                    text = time.strftime('%H:%M', schedule_time)
 
         cell.props.text = text
 

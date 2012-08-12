@@ -371,7 +371,11 @@ class PLSConverter(FormatConverter):
             :returns: the playlist
             :rtype: :class:`Playlist`
         """
-        from ConfigParser import RawConfigParser, MissingSectionHeaderError
+        from ConfigParser import (
+            RawConfigParser,
+            MissingSectionHeaderError,
+            NoOptionError
+        )
 
         pls_playlist = RawConfigParser()
         gfile = gio.File(path)

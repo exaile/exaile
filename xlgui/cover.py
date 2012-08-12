@@ -822,8 +822,23 @@ class CoverChooser(gobject.GObject):
 
         self.cover = guiutil.ScalableImageWidget()
         self.cover.set_image_size(350, 350)
-        box = self.builder.get_object('cover_image_box')
-        box.pack_start(self.cover, True, True)
+
+        self.cover_image_box = self.builder.get_object('cover_image_box')
+
+        self.loading_indicator = gtk.Alignment()
+        self.loading_indicator.props.xalign = 0.5
+        self.loading_indicator.props.yalign = 0.5
+        self.loading_indicator.set_size_request(350, 350)
+        self.cover_image_box.pack_start(self.loading_indicator)
+
+        try:
+            spinner = gtk.Spinner()
+            spinner.set_size_request(100, 100)
+            spinner.start()
+            self.loading_indicator.add(spinner)
+        except AttributeError: # Older than GTK 2.20 and PyGTK 2.22
+            self.loading_indicator.add(gtk.Label(_('Loading...')))
+
         self.size_label = self.builder.get_object('size_label')
         self.source_label = self.builder.get_object('source_label')
 
@@ -833,10 +848,12 @@ class CoverChooser(gobject.GObject):
         self.previews_box.hide()
 
         self.set_button = self.builder.get_object('set_button')
+        self.set_button.set_sensitive(False)
 
         self.last_search = "%s - %s"  % (tempartist, tempalbum)
 
         self.fetch_cover()
+        self.window.show_all()
 
     @common.threaded
     def fetch_cover(self):
@@ -866,7 +883,10 @@ class CoverChooser(gobject.GObject):
                 self.previews_box.set_no_show_all(False)
                 self.previews_box.show_all()
 
-            glib.idle_add(self.window.show_all)
+            glib.idle_add(self.cover_image_box.remove, self.loading_indicator)
+            glib.idle_add(self.cover_image_box.pack_start, self.cover, True, True)
+            glib.idle_add(self.cover.show)
+            glib.idle_add(self.set_button.set_sensitive, True)
             glib.idle_add(self.previews_box.select_path, initial_path)
         else:
             self.emit('message', gtk.MESSAGE_INFO, _('No covers found.'))

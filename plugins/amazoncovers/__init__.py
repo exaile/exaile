@@ -21,7 +21,7 @@ import urllib
 
 from xl import (
     common,
-    covers
+    covers,
     event,
     metadata,
     providers,

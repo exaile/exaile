@@ -138,6 +138,33 @@ def synchronized(func):
         finally:
             rlock.release()
     return wrapper
+    
+
+def _idle_callback(func, callback, *args, **kwargs):
+    value = func(*args, **kwargs)
+    if callback and callable(callback):
+        callback(value)
+
+def idle_add(callback=None):
+    """
+        A decorator that will wrap the function in a glib.idle_add call
+
+        NOTE: Although this decorator will probably work in more cases than
+        the gtkrun decorator does, you CANNOT expect to get a return value
+        from the function that calls a function with this decorator.  Instead,
+        you must use the callback parameter.  If the wrapped function returns
+        a value, it will be passed in as a parameter to the callback function.
+
+        @param callback: optional callback that will be called when the
+            wrapped function is done running
+    """
+    def wrap(f):
+        def wrapped(*args, **kwargs):
+            glib.idle_add(_idle_callback, f, callback,
+                *args, **kwargs)
+
+        return wrapped
+    return wrap
 
 def _glib_wait_inner(timeout, glib_timeout_func):
     id = [None] # Have to hold the value in a mutable structure because

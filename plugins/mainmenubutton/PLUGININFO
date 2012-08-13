@@ -1,0 +1,5 @@
+Version='1.0.0'
+Authors=['Mathias Brodala <info@noctus.net>']
+Name=_('Main Menu Button')
+Description=_('Moves the main menu into a button on top of the panels.\nDepends: PyGTK >= 2.22, GTK >= 2.20')
+Category=_('GUI')

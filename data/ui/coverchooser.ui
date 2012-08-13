@@ -17,12 +17,12 @@
     <property name="resizable">False</property>
     <property name="window_position">center-on-parent</property>
     <child>
-      <object class="GtkVBox" id="vbox25">
+      <object class="GtkVBox" id="main_container">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="spacing">3</property>
         <child>
-          <object class="GtkHBox" id="box1">
+          <object class="GtkHBox" id="info_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">3</property>
@@ -110,7 +110,7 @@
           <placeholder/>
         </child>
         <child>
-          <object class="GtkHButtonBox" id="buttonbox1">
+          <object class="GtkHButtonBox" id="actions_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="spacing">6</property>

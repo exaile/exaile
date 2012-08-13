@@ -41,34 +41,37 @@ pygtk.require('2.0')
 import gtk
 import pango
 
+from xl.nls import gettext as _
 from xl import (
     common,
     covers,
     event,
     formatter,
     player,
+    playlist,
     providers,
     settings,
     trax,
     xdg
 )
-from xl.nls import gettext as _
-import xl.playlist
-from xlgui import (
-    cover,
-    guiutil,
-    tray,
-    menu as mainmenu
-)
 from xlgui.accelerators import AcceleratorManager
-from xlgui.playlist import PlaylistNotebook, PlaylistPage
+from xlgui.playlist import PlaylistNotebook
 from xlgui.widgets import (
     dialogs,
     info,
     menu,
     playback
 )
-from xlgui.widgets.playlist import PlaylistPage
+from xlgui.widgets.playlist import (
+    PlaylistPage,
+    PlaylistView
+)
+from xlgui import (
+    cover,
+    guiutil,
+    tray,
+    menu as mainmenu
+)
 
 logger = logging.getLogger(__name__)
 
@@ -226,6 +229,14 @@ class MainWindow(gobject.GObject):
             self.on_stop_button_press_event)
         self.stop_button.connect('button-release-event',
             self.on_stop_button_release_event)
+        self.stop_button.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+            [("exaile-index-list", gtk.TARGET_SAME_APP, 0)], gtk.gdk.ACTION_COPY)
+        self.stop_button.connect('drag-motion',
+            self.on_stop_button_drag_motion)
+        self.stop_button.connect('drag-leave',
+            self.on_stop_button_drag_leave)
+        self.stop_button.connect('drag-data-received',
+            self.on_stop_button_drag_data_received)
 
         self.statusbar = info.Statusbar(self.builder.get_object('status_bar'))
         event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
@@ -425,6 +436,38 @@ class MainWindow(gobject.GObject):
         rect = widget.get_allocation()
         if 0 <= event.x < rect.width and 0 <= event.y < rect.height:
             player.PLAYER.stop()
+
+    def on_stop_button_drag_motion(self, widget, context, x, y, time):
+        """
+            Indicates possible SPAT during drag motion of tracks
+        """
+        target = widget.drag_dest_find_target(context, widget.drag_dest_get_target_list())
+        if target == 'exaile-index-list':
+            widget.set_image(gtk.image_new_from_stock(
+                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_stop_button_drag_leave(self, widget, context, time):
+        """
+            Resets the stop button
+        """
+        widget.set_image(gtk.image_new_from_stock(
+            gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+
+    def on_stop_button_drag_data_received(self, widget, context, x, y, selection, info, time):
+        """
+            Allows for triggering the SPAT feature
+            by dropping tracks on the stop button
+        """
+        source_widget = context.get_source_widget()
+
+        if selection.target == 'exaile-index-list' and isinstance(source_widget, PlaylistView):
+            position = int(selection.data.split(',')[0])
+            
+            if position == source_widget.playlist.spat_position:
+                position = -1
+
+            source_widget.playlist.spat_position = position
+            source_widget.queue_draw()
 
     def on_spat_clicked(self, *e):
         """

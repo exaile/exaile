@@ -44,6 +44,7 @@ logger = logging.getLogger(__name__)
 class NormalPlayer(_base.ExailePlayer):
     def __init__(self, name):
         self._current = None
+        self._buffered_track = None
         self._fakevideo = None
         _base.ExailePlayer.__init__(self, name,
                 pre_elems=[pipe.ProviderBin( self, "stream_element")])
@@ -63,17 +64,27 @@ class NormalPlayer(_base.ExailePlayer):
         """
             called at the end of a stream
         """
+        track = None
         if settings.get_option("%s/auto_advance" % self._name, True):
-            self.queue.next()
+            track = self.queue.next()
+            
+        if track is None:
+            self.stop()
 
     def _on_about_to_finish(self, pbin):
-        tr = None
+        '''
+            This function exists solely to allow gapless playback for audio
+            formats that support it. Setting the URI property of the playbin
+            will queue the track for playback immediately after the previous 
+            track.
+        '''
         if settings.get_option("%s/auto_advance" % self._name, True):
-            tr = self.queue.next(autoplay=False)
-        if tr:
-            self.play(tr, stop_last=False)
-        else:
-            glib.idle_add(self.stop)
+            track = self.queue.next(autoplay=False)
+            if track:
+                uri = track.get_loc_for_io()
+                self._pipe.set_property("uri", uri)
+                self._buffered_track = track
+            
 
     def _handle_message(self, bus, message, reading_tag = False):
         if message.type == gst.MESSAGE_BUFFERING:
@@ -82,6 +93,13 @@ class NormalPlayer(_base.ExailePlayer):
                 logger.info('Buffering complete')
             if percent % 5 == 0:
                 event.log_event('playback_buffering', self, percent)
+                
+        elif message.type == gst.MESSAGE_ELEMENT and \
+                message.src == self._pipe and \
+                message.structure.get_name() == 'playbin2-stream-changed' and \
+                self._buffered_track is not None:
+            self._next_track(self._buffered_track, already_playing=True)
+            
         else:
             return False
         return True
@@ -134,16 +152,14 @@ class NormalPlayer(_base.ExailePlayer):
         source.set_property('device', device)
         self._pipe.disconnect(self.notify_id)
 
-    def play(self, track, stop_last=True):
+    def _next_track(self, track, already_playing=False):
         """
-            plays the specified track, overriding any currently playing track
-
-            if the track cannot be played, playback stops completely
+            internal api: advances the track to the next track
         """
         if track is None:
             self.stop()
             return False
-        elif stop_last:
+        elif not already_playing:
             self.stop(_fire=False)
         else:
             self.stop(_fire=False, _onlyfire=True)
@@ -159,17 +175,28 @@ class NormalPlayer(_base.ExailePlayer):
         logger.info("Playing %s" % uri)
         self._reset_playtime_stamp()
 
-        self._pipe.set_property("uri", uri)
-        if urlparse.urlsplit(uri)[0] == "cdda":
-            self.notify_id = self._pipe.connect('notify::source',
-                    self.__notify_source)
+        if not already_playing:
+            self._pipe.set_property("uri", uri)
+            if urlparse.urlsplit(uri)[0] == "cdda":
+                self.notify_id = self._pipe.connect('notify::source',
+                        self.__notify_source)
 
-        self._pipe.set_state(gst.STATE_PLAYING)
+            self._pipe.set_state(gst.STATE_PLAYING)
+            
         if not playing:
             event.log_event('playback_player_start', self, track)
         event.log_event('playback_track_start', self, track)
 
         return True
+        
+    def play(self, track):
+        """
+            plays the specified track, overriding any currently playing track
+
+            if the track cannot be played, playback stops completely
+        """
+        return self._next_track(track)
+        
 
     def _stop(self, _onlyfire=False):
         """
@@ -185,6 +212,7 @@ class NormalPlayer(_base.ExailePlayer):
                          isn't one if we actually halt the player the last few
                          moments of the prior track will be cut off.
         """
+        self._buffered_track = None
         self._update_playtime()
         current = self.current
         if not _onlyfire:

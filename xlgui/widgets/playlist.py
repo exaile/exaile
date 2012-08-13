@@ -34,6 +34,13 @@ import pango
 import random
 import re
 
+from xl.nls import gettext as _
+from xl.playlist import (
+    Playlist,
+    PlaylistManager,
+    is_valid_playlist,
+    import_playlist,
+)
 from xl import (
     common,
     event,
@@ -43,18 +50,17 @@ from xl import (
     trax,
     xdg
 )
-from xl.common import MetadataList
-from xl.nls import gettext as _
-from xl.playlist import (
-    Playlist,
-    PlaylistManager,
-    is_valid_playlist,
-    import_playlist,
-)
-from xlgui import guiutil, icons
 from xlgui.widgets.common import AutoScrollTreeView
 from xlgui.widgets.notebook import NotebookPage
-from xlgui.widgets import menu, menuitems, playlist_columns
+from xlgui.widgets import (
+    menu,
+    menuitems,
+    playlist_columns
+)
+from xlgui import (
+    guiutil,
+    icons
+)
 
 logger = logging.getLogger(__name__)
 
@@ -158,6 +164,36 @@ class RemoveCurrentMenuItem(menu.MenuItem):
         if playlist and playlist.current == player.PLAYER.current:
             del playlist[playlist.current_position]
 
+class RandomizeMenuItem(menu.MenuItem):
+    """
+        A menu item which randomizes the full 
+        playlist or the current selection
+    """
+    def __init__(self, after):
+        menu.MenuItem.__init__(self, 'randomize', None, after)
+
+    def factory(self, menu, parent, context):
+        """
+            Sets up the menu item
+        """
+        label = _('Randomize Playlist')
+
+        if len(context['selected-items']) > 1:
+            label = _('Randomize Selection')
+
+        item = gtk.MenuItem(label)
+        item.connect('activate', self.on_activate, parent, context)
+
+        return item
+
+    def on_activate(self, menuitem, parent, context):
+        """
+            Randomizes the playlist or the selection
+        """
+        positions = [path[0] for path in context['selected-paths']]
+        # Randomize the full playlist if only one track was selected
+        positions = positions if len(positions) > 1 else []
+        context['playlist'].randomize(positions)
 
 # do this in a function to avoid polluting the global namespace
 def __create_playlist_tab_context_menu():
@@ -189,6 +225,8 @@ class PlaylistContextMenu(menu.ProviderMenu):
 
     def get_context(self):
         context = common.LazyDict(self._parent)
+        context['playlist'] = lambda name, parent: parent.playlist
+        context['selected-paths'] = lambda name, parent: parent.get_selected_paths()
         context['selected-items'] = lambda name, parent: parent.get_selected_items()
         context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
         return context
@@ -263,6 +301,8 @@ def __create_playlist_context_menu():
                 del playlist[position]
     items.append(smi('remove', [items[-1].name], _('Remove'),
         gtk.STOCK_REMOVE, remove_tracks_cb))
+
+    items.append(RandomizeMenuItem([items[-1].name]))
 
     items.append(sep('sep2', [items[-1].name]))
 
@@ -828,7 +868,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         
         if selection.target == "exaile-index-list":
             positions = [int(x) for x in selection.data.split(",")]
-            tracks = MetadataList()
+            tracks = common.MetadataList()
             source_playlist_view = context.get_source_widget()
             playlist = self.playlist
 

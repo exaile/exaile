@@ -294,10 +294,6 @@ class Main(object):
         """
         glib.idle_add(self.panels['collection'].load_tree)
 
-    def on_randomize_playlist(self, *e):
-        pl = self.main.get_selected_page()
-        pl.playlist.randomize()
-
     def on_track_properties(self, *e):
         pl = self.main.get_selected_page()
         pl.view.show_properties_dialog()

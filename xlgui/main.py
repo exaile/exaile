@@ -246,7 +246,6 @@ class MainWindow(gobject.GObject):
             'on_about_item_activate': self.on_about_item_activate,
             # Controller
 #            'on_scan_collection_item_activate': self.controller.on_rescan_collection,
-#            'on_randomize_playlist_item_activate': self.controller.on_randomize_playlist,
 #            'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
             'on_panel_notebook_switch_page': self.controller.on_panel_switch,
 #            'on_track_properties_activate':self.controller.on_track_properties,

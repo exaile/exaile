@@ -1114,15 +1114,40 @@ class Playlist(object):
     #: The current dynamic mode (string)
     dynamic_mode = property(get_dynamic_mode, set_dynamic_mode)
 
-    def randomize(self):
+    def randomize(self, positions=None):
         """
             Randomizes the content of the playlist contrary to
             shuffle which affects only the progressing order
+
+            By default all tracks in the playlist are randomized,
+            but a list of positions can be passed. The tracks on
+            these positions will be randomized, all other tracks
+            will keep their positions.
+
+            :param positions: list of track positions to randomize
+            :type positions: iterable
         """
-        # TODO: add support for randomizing a subset of the list?
-        trs = zip(self.__tracks, self.__tracks.metadata)
-        random.shuffle(trs)
-        self[:] = MetadataList([x[0] for x in trs], [x[1] for x in trs])
+        # Turn 2 lists into a list of tuples
+        tracks = zip(self.__tracks, self.__tracks.metadata)
+        
+        if positions:
+            # For 2 items, simple swapping is most reasonable
+            if len(positions) == 2:
+                tracks[positions[0]], tracks[positions[1]] = \
+                    tracks[positions[1]], tracks[positions[0]]
+            else:
+                # Extract items and shuffle them
+                shuffle_tracks = [t for i, t in enumerate(tracks) if i in positions]
+                random.shuffle(shuffle_tracks)
+
+                # Put shuffled items back
+                for position in positions:
+                    tracks[position] = shuffle_tracks.pop()
+        else:
+            random.shuffle(tracks)
+
+        # Turn list of tuples into 2 tuples
+        self[:] = MetadataList(*zip(*tracks))
 
     def sort(self, tags, reverse=False):
         """

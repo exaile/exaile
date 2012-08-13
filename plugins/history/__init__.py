@@ -288,7 +288,7 @@ class HistoryPlaylist( Playlist ):
     def set_dynamic_mode(self, mode):
         pass
         
-    def randomize(self):
+    def randomize(self, positions=None):
         pass
         
     def sort(self, tags, reverse=False):

@@ -150,15 +150,7 @@ class CoverManager(object):
         if item:
             track = self.track_dict[item][0]
             window = CoverChooser(self.window, track)
-            window.connect('message', self.on_message)
             window.connect('cover-chosen', self.on_cover_chosen)
-
-    def on_message(self, widget, message_type, message):
-        """
-            Display cover chooser messages
-        """
-        if message_type == gtk.MESSAGE_INFO:
-            self.message.show_info(message)
 
     def on_cover_chosen(self, object, cover_data):
         paths = self.icons.get_selected_items()
@@ -440,7 +432,6 @@ class CoverWidget(gtk.EventBox):
             return
             
         window = CoverChooser(self.parent_window, current_track)
-        window.connect('message', self.on_message)
         window.connect('cover-chosen', self.on_cover_chosen)
 
     def remove_cover(self):
@@ -561,13 +552,6 @@ class CoverWidget(gtk.EventBox):
                 self.image.set_from_pixbuf(pixbuf)
                 cover_manager.set_cover(self._player.current, db_string,
                     self.cover_data)
-
-    def on_message(self, widget, message_type, message):
-        """
-            Display cover chooser messages
-        """
-        if message_type == gtk.MESSAGE_INFO:
-            xlgui.main.mainwindow().message.show_info(message)
 
     def on_cover_chosen(self, object, cover_data):
         """
@@ -823,6 +807,12 @@ class CoverChooser(gobject.GObject):
         })
         self.window.set_transient_for(parent)
 
+        self.message = dialogs.MessageBar(
+            parent=self.builder.get_object('main_container'),
+            buttons=gtk.BUTTONS_CLOSE
+        )
+        self.message.connect('response', self.on_message_response)
+
         self.track = track
         self.covers = []
         self.current = 0
@@ -885,9 +875,7 @@ class CoverChooser(gobject.GObject):
                     pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
                 ])
 
-            self.emit('covers-fetched', db_strings)
-        else:
-            self.emit('message', gtk.MESSAGE_INFO, _('No covers found.'))
+        self.emit('covers-fetched', db_strings)
 
     def do_covers_fetched(self, db_strings):
         """
@@ -896,21 +884,29 @@ class CoverChooser(gobject.GObject):
         if self.cancel_fetch.is_set():
             return
 
-        # Remove loading indicator and enable Set button
         self.cover_image_box.remove(self.loading_indicator)
-        self.cover_image_box.pack_start(self.cover, True, True)
-        self.cover.show()
-        self.set_button.set_sensitive(True)
 
-        # Show thumbnail bar if more than one cover was found
-        if len(db_strings) > 1:
-            self.previews_box.set_no_show_all(False)
-            self.previews_box.show_all()
+        if db_strings:
+            self.cover_image_box.pack_start(self.cover, True, True)
+            self.cover.show()
+            self.set_button.set_sensitive(True)
 
-        # Try to select the current cover of the track, fallback to first
-        track_db_string = cover_manager.get_db_string(self.track)
-        position = db_strings.index(track_db_string) if track_db_string in db_strings else 0
-        self.previews_box.select_path((position,))
+            # Show thumbnail bar if more than one cover was found
+            if len(db_strings) > 1:
+                self.previews_box.set_no_show_all(False)
+                self.previews_box.show_all()
+
+            # Try to select the current cover of the track, fallback to first
+            track_db_string = cover_manager.get_db_string(self.track)
+            position = db_strings.index(track_db_string) if track_db_string in db_strings else 0
+            self.previews_box.select_path((position,))
+        else:
+            self.builder.get_object('info_box').hide()
+            self.builder.get_object('actions_box').hide()
+            self.message.show_warning(
+                _('No covers found.'),
+                _('None of the enabled sources has a cover for this track, try enabling more sources.')
+            )
 
     def on_cancel_button_clicked(self, button):
         """
@@ -964,4 +960,11 @@ class CoverChooser(gobject.GObject):
             Triggers selecting the current cover
         """
         self.set_button.clicked()
+
+    def on_message_response(self, widget, response):
+        """
+            Handles the response for closing
+        """
+        if response == gtk.RESPONSE_CLOSE:
+            self.window.destroy()
 

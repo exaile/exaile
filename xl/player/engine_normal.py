@@ -173,7 +173,7 @@ class NormalPlayer(_base.ExailePlayer):
         self._current = track
 
         uri = track.get_loc_for_io()
-        logger.info("Playing %s" % uri)
+        logger.info("Playing %s" % common.sanitize_url(uri))
         self._reset_playtime_stamp()
 
         if not already_playing:

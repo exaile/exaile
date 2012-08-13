@@ -76,6 +76,26 @@ class PlayQueue(playlist.Playlist):
     #: The playlist currently processed in the queue
     current_playlist = property(lambda self: self.__current_playlist,
         set_current_playlist)
+        
+    def get_next(self):
+        '''
+            Retrieves the next track that will be played. Does not 
+            actually set the position. When you call next(), it should
+            return the same track.
+            
+            This exists to support retrieving a track before it actually
+            needs to be played, such as for pre-buffering.
+            
+            :returns: the next track to be played
+            :rtype: :class:`xl.trax.Track` or None
+        '''
+        if len(self):
+            return self[0]
+        elif self.current_playlist:
+            return self.current_playlist.get_next()
+        else:
+            return None
+    
 
     def next(self, autoplay=True, track=None):
         """

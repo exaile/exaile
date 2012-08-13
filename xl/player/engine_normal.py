@@ -79,7 +79,7 @@ class NormalPlayer(_base.ExailePlayer):
             track.
         '''
         if settings.get_option("%s/auto_advance" % self._name, True):
-            track = self.queue.next(autoplay=False)
+            track = self.queue.get_next()
             if track:
                 uri = track.get_loc_for_io()
                 self._pipe.set_property("uri", uri)
@@ -98,6 +98,7 @@ class NormalPlayer(_base.ExailePlayer):
                 message.src == self._pipe and \
                 message.structure.get_name() == 'playbin2-stream-changed' and \
                 self._buffered_track is not None:
+            self.queue.next(autoplay=False)
             self._next_track(self._buffered_track, already_playing=True)
             
         else:

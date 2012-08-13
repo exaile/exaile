@@ -729,6 +729,7 @@ class Playlist(object):
         self.__dirty = False
         self.__needs_save = False
         self.__name = name
+        self.__next_data = None
         self.__current_position = -1
         self.__spat_position = -1
         self.__shuffle_history_counter = 1 # start positive so we can
@@ -770,6 +771,7 @@ class Playlist(object):
             :param position: the new position
             :type position: int
         """
+        self.__next_data = None
         oldposition = self.__current_position
         if oldposition == position:
             return
@@ -807,6 +809,7 @@ class Playlist(object):
             :param position: the new position
             :type position: int
         """
+        self.__next_data = None
         oldposition = self.spat_position
         self.__tracks.set_meta_key(position, "playlist_spat_position", True)
         self.__spat_position = position
@@ -860,7 +863,7 @@ class Playlist(object):
     def __fetch_dynamic_tracks(self):
         dynamic.MANAGER.populate_playlist(self)
 
-    def __next_random_track(self, mode="track"):
+    def __next_random_track(self, current_position, mode="track"):
         """
             Returns a valid next track if shuffle is activated based
             on random_mode
@@ -874,12 +877,12 @@ class Playlist(object):
                 # of the album some tracks of the album remain off the
                 # tracks_history, and the album can be selected again
                 # randomly from its first track
-                curr = self.current
-                if not curr:
+                if current_position == -1:
                     raise IndexError
+                curr = self[current_position]
                 t = [ x for i, x in enumerate(self) \
                     if x.get_tag_raw('album') == curr.get_tag_raw('album') \
-                    and i > self.current_position ]
+                    and i > current_position ]
                 t = trax.sort_tracks(['discnumber', 'tracknumber'], t)
                 return self.__tracks.index(t[0]), t[0]
 
@@ -893,7 +896,7 @@ class Playlist(object):
                     if alb:
                         albums.add(tuple(alb))
                 if not albums:
-                    return None, None
+                    return -1, None
                 album = list(random.choice(list(albums)))
                 t = [ x for x in self if x.get_tag_raw('album') == album ]
                 t = trax.sort_tracks(['tracknumber'], t)
@@ -904,49 +907,91 @@ class Playlist(object):
                 return random.choice([ (i, self.__tracks[i]) for i, tr in enumerate(self.__tracks)
                         if i not in hist])
             except IndexError: # no more tracks
-                return None, None
+                return -1, None
+                
+    
+    def __get_next(self, current_position):
+        
+        # don't recalculate
+        if self.__next_data is not None:
+            return self.__next_data[2]
+        
+        repeat_mode = self.repeat_mode
+        shuffle_mode = self.shuffle_mode
+        if current_position == self.spat_position and current_position != -1:
+            self.__next_data = (-1, None, None)
+            return None
 
+        if repeat_mode == 'track':
+            self.__next_data = (None, None, self.current)
+            return self.current
+        
+        next_index = -1
+        
+        if shuffle_mode != 'disabled':
+            if self.current is not None:
+                self.__tracks.set_meta_key(current_position,
+                        "playlist_shuffle_history", self.__shuffle_history_counter)
+                self.__shuffle_history_counter += 1
+            next_index, next = self.__next_random_track(current_position, shuffle_mode)
+            if next is not None:
+                self.__next_data = (None, next_index)
+            else:
+                self.clear_shuffle_history()
+        else:
+            try:
+                next = self[current_position+1]
+                next_index = current_position + 1
+            except IndexError:
+                next = None
+
+        if next is None:
+            if repeat_mode == 'all' and len(self) > 0:
+                return self.__get_next(-1)
+
+        self.__next_data = (None, next_index, next)
+        return next
+            
+    def get_next(self):
+        '''
+            Retrieves the next track that will be played. Does not 
+            actually set the position. When you call next(), it should
+            return the same track, even in random shuffle modes.
+            
+            This exists to support retrieving a track before it actually
+            needs to be played, such as for pre-buffering.
+            
+            :returns: the next track to be played
+            :rtype: :class:`xl.trax.Track` or None
+        '''
+        return self.__get_next(self.current_position)
+            
     def next(self):
         """
             Progresses to the next track within the playlist
             and takes shuffle and repeat modes into account
-
+            
             :returns: the new current track
             :rtype: :class:`xl.trax.Track` or None
         """
-        repeat_mode = self.repeat_mode
-        shuffle_mode = self.shuffle_mode
-        if self.current_position == self.spat_position and self.current_position != -1:
+        
+        if not self.__next_data:
+            self.get_next()
+            
+        spat, index, next = self.__next_data
+        
+        if spat is not None:
             self.spat_position = -1
             return None
-
-        if repeat_mode == 'track':
-            return self.current
-        else:
-            next = None
-            if shuffle_mode != 'disabled':
-                if self.current is not None:
-                    self.__tracks.set_meta_key(self.current_position,
-                            "playlist_shuffle_history", self.__shuffle_history_counter)
-                    self.__shuffle_history_counter += 1
-                next_index, next = self.__next_random_track(shuffle_mode)
-                if next is not None:
-                    self.current_position = next_index
-                else:
-                    self.clear_shuffle_history()
-            else:
-                try:
-                    next = self[self.current_position+1]
-                    self.current_position += 1
-                except IndexError:
-                    next = None
-
-            if next is None:
+        elif index is not None:
+            try:
+                self.current_position = index
+            except IndexError:
                 self.current_position = -1
-                if repeat_mode == 'all' and len(self) > 0:
-                    next = self.next()
-
-            return next
+        else:
+            self.__next_data = None
+            
+        return self.current
 
     def prev(self):
         """

@@ -405,7 +405,8 @@ class PLSConverter(FormatConverter):
                     track = trax.Track(line)
                     
                     if track.get_tag_raw('title') is None:
-                        track.set_tag_raw('title', self.name_from_path(line))
+                        track.set_tag_raw('title', common.sanitize_url(
+                            self.name_from_path(line)))
 
                     playlist.append(track)
 
@@ -432,7 +433,7 @@ class PLSConverter(FormatConverter):
                 _('Invalid format for %s.') % self.title)
 
         # PLS playlists store no name, thus retrieve from path
-        playlist = Playlist(self.name_from_path(path))
+        playlist = Playlist(common.sanitize_url(self.name_from_path(path)))
         numberofentries = pls_playlist.getint('playlist',
             'numberofentries')
 
@@ -451,7 +452,7 @@ class PLSConverter(FormatConverter):
                 title = pls_playlist.get('playlist',
                     'title%d' % position)
             except NoOptionError:
-                title = self.name_from_path(uri)
+                title = common.sanitize_url(self.name_from_path(uri))
             else:
                 title = title.split(' - ', 1)
 

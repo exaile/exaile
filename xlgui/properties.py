@@ -1145,8 +1145,10 @@ class PropertyField(gtk.HBox):
             f = gio.File(val)
             output = f.get_parse_name()
 
-            # Disable folder button for non-browsable locations
             if not f.get_path():
+                # Sanitize URLs of remote locations
+                output = common.sanitize_url(output)
+                # Disable folder button for non-browsable locations
                 self.folder_button.set_sensitive(False)
         else:
             output = str(val)

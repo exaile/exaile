@@ -42,6 +42,7 @@ import subprocess
 import sys
 import threading
 import traceback
+import urlparse
 from functools import wraps, partial
 from collections import deque
 from UserDict import DictMixin
@@ -105,6 +106,28 @@ def enum(**enums):
         :see: http://stackoverflow.com/a/1695250
     """
     return type('Enum', (), enums)
+
+def sanitize_url(url):
+    """
+        Removes the password part from an url
+
+        :param url: the URL to sanitize
+        :type url: string
+        :returns: the sanitized url
+    """
+    try:
+        components = list(urlparse.urlparse(url))
+        auth, host = components[1].split('@')
+        username, password = auth.split(':')
+    except (AttributeError, ValueError):
+        pass
+    else:
+        # Replace password with fixed amount of "*"
+        auth = ':'.join((username, 5 * '*'))
+        components[1] = '@'.join((auth, host))
+        url = urlparse.urlunparse(components)
+
+    return url
 
 def threaded(func):
     """

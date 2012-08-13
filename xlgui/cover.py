@@ -597,6 +597,18 @@ class CoverWidget(gtk.EventBox):
         glib.idle_add(self.drag_dest_unset)
         glib.idle_add(self.set_blank)
 
+    def on_track_tags_changed(self, e, track, tag):
+        """
+            Updates the displayed cover upon tag changes
+        """
+        if self._player.current == track:
+            cover_data = cover_manager.get_cover(track)
+
+            if not cover_data:
+                return
+
+            glib.idle_add(self.on_cover_chosen, None, cover_data)
+
     def on_quit_application(self, type, exaile, nothing):
         """
             Cleans up temporary files

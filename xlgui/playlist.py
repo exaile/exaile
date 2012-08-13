@@ -389,12 +389,19 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
         def factory(menu_, parent, context):
             item = None
             
-            dt = (datetime.now()-close_time)
-            display_name = '{0} ({1} tracks, closed '.format(playlist.name, len(playlist))
+            dt = (datetime.now() - close_time)
             if dt.seconds > 60:
-                display_name += '{0} min ago)'.format(dt.seconds//60 )
+                display_name = _('{playlist_name} ({track_count} tracks, closed {minutes} min ago)').format(
+                    playlist_name=playlist.name,
+                    track_count=len(playlist),
+                    minutes=dt.seconds // 60
+                )
             else:
-                display_name += '{0} sec ago)'.format(dt.seconds )
+                display_name = _('{playlist_name} ({track_count} tracks, closed {seconds} sec ago)').format(
+                    playlist_name=playlist.name,
+                    track_count=len(playlist),
+                    seconds=dt.seconds
+                )
             item = gtk.ImageMenuItem(display_name)
             item.set_image(gtk.image_new_from_icon_name('music-library', gtk.ICON_SIZE_MENU))
 

@@ -123,7 +123,13 @@ def threaded(func):
 def synchronized(func):
     """
         A decorator to make a function synchronized - which means only one
-        thread is allowed to access it at a time
+        thread is allowed to access it at a time.
+        
+        This only works on class functions, and creates a variable in 
+        the instance called _sync_lock. 
+        
+        If this function is used on multiple functions in an object, they
+        will be locked with respect to each other. The lock is re-entrant.
     """
     @wraps(func)
     def wrapper(self, *__args, **__kw):

@@ -907,10 +907,10 @@ class CoverChooser(gobject.GObject):
             self.previews_box.set_no_show_all(False)
             self.previews_box.show_all()
 
-            # Try to select the current cover of the track, fallback to first
-            track_db_string = cover_manager.get_db_string(self.track)
-            position = db_strings.index(track_db_string) if track_db_string in db_strings else 0
-            self.previews_box.select_path((position,))
+        # Try to select the current cover of the track, fallback to first
+        track_db_string = cover_manager.get_db_string(self.track)
+        position = db_strings.index(track_db_string) if track_db_string in db_strings else 0
+        self.previews_box.select_path((position,))
 
     def on_cancel_button_clicked(self, button):
         """

@@ -38,6 +38,7 @@ import re
 from string import Template, _TemplateMetaclass
 
 from xl import (
+    common,
     event,
     main,
     providers,
@@ -721,5 +722,27 @@ class DateAddedTagFormatter(DateTagFormatter):
     def __init__(self):
         DateTagFormatter.__init__(self, '__date_added')
 providers.register('tag-formatting', DateAddedTagFormatter())
+
+class LocationTagFormatter(TagFormatter):
+    """
+        A formatter for the location of a track,
+        properly sanitized if necessary
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, '__loc')
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
+            :type parameters: dictionary
+            :returns: the formatted value
+            :rtype: string
+        """
+        return common.sanitize_url(track.get_tag_raw('__loc'))
+providers.register('tag-formatting', LocationTagFormatter())
 
 # vim: et sts=4 sw=4

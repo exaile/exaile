@@ -21,6 +21,7 @@ from xl.nls import gettext as _
 name = _('Desktop Cover')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "desktopcover_preferences.ui")
+icon = 'desktop'
 
 class AnchorPreference(widgets.ComboPreference):
     default = 'topleft'

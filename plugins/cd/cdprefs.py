@@ -113,7 +113,7 @@ class OutputPathPreference(widgets.ComboEntryPreference):
         '$date': _('Date'),
         '$genre': _('Genre'),
         '$bitrate': _('Bitrate'),
-        '$__location': _('Location'),
+        '$__loc': _('Location'),
         '$filename': _('Filename'),
         '$__playcount': _('Play count'),
         '$__last_played': _('Last played'),

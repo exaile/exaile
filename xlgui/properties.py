@@ -158,6 +158,8 @@ class TrackPropertiesDialog(gobject.GObject):
         self.dialog.resize(600, 350)
         self.dialog.show()
 
+        self.rows[0].field.grab_focus()
+
     def _tags_copy(self, tracks):
         l = []
         for track in tracks:
@@ -659,6 +661,12 @@ class TagField(gtk.HBox):
             self.all_button = AllButton(self)
             self.pack_start(self.all_button, expand=False, fill=False)
 
+    def grab_focus(self):
+        """
+            Gives focus to the internal widget
+        """
+        self.field.grab_focus()
+
     def register_parent_row(self, parent_row):
         self.parent_row = parent_row
 
@@ -817,6 +825,12 @@ class TagDblNumField(gtk.HBox):
         if all_button:
             self.pack_start(self.all_button[1], expand=False, fill=False)
 
+    def grab_focus(self):
+        """
+            Gives focus to the internal widget
+        """
+        self.field[0].grab_focus()
+
     def register_parent_row(self, parent_row):
         self.parent_row = parent_row
 
@@ -927,6 +941,12 @@ class TagImageField(gtk.HBox):
         if all_button:
             self.all_button = AllButton(self)
             self.pack_start(self.all_button, expand=False, fill=False)
+
+    def grab_focus(self):
+        """
+            Gives focus to the internal widget
+        """
+        self.image.grab_focus()
 
     def register_parent_row(self, parent_row):
         self.parent_row = parent_row

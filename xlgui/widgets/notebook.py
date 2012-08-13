@@ -223,6 +223,7 @@ class NotebookTab(gtk.EventBox):
         if name.strip() != "" and not self.entry.props.editing_canceled:
             self.page.set_name(name)
             self.label.set_text(name)
+            self.label.set_tooltip_text(name)
 
         self.entry.hide()
         self.label.show()

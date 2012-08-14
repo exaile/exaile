@@ -1135,27 +1135,30 @@ class PropertyField(gtk.HBox):
 
     def set_value(self, val, all_vals=None, doupdate=True):
         if self.property_type == 'prop:bitrate':
-            output = str( val / 1000.0 ) + ' Kbps'
+            try:
+                val = str(float(val) / 1000.0) + ' Kbps'
+            except (TypeError, ValueError):
+                pass
         elif self.property_type == 'prop:datetime':
             d = datetime.datetime.fromtimestamp(val)
-            output = d.strftime("%x %X")
+            val = d.strftime("%x %X")
         elif self.property_type == 'prop:time':
-            output = "%(m)d:%(s)02d" % {'m': val // 60, 's': val % 60}
+            val = "%(m)d:%(s)02d" % {'m': val // 60, 's': val % 60}
         elif self.property_type == 'prop:location':
             f = gio.File(val)
-            output = f.get_parse_name()
+            val = f.get_parse_name()
 
             if not f.get_path():
                 # Sanitize URLs of remote locations
-                output = common.sanitize_url(output)
+                val = common.sanitize_url(output)
                 # Disable folder button for non-browsable locations
                 self.folder_button.set_sensitive(False)
         else:
-            output = str(val)
+            val = str(val)
 
         if doupdate:
-            self.field.set_text(output)
-            self.field.set_tooltip_text(output)
+            self.field.set_text(val)
+            self.field.set_tooltip_text(val)
 
     def folder_button_clicked(self, w):
         common.open_file_directory(self.field.get_text())

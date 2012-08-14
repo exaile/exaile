@@ -31,10 +31,10 @@ import os
 import webbrowser
 
 from xl.nls import gettext as _
-from xl.lyrics import LyricsNotFoundException
 from xl import (
     common,
     event,
+    lyrics,
     player,
     providers,
     settings
@@ -256,10 +256,10 @@ class LyricsViewer(object):
                 text_track = (track.get_tag_raw('artist')[0] + \
                                      " - " + track.get_tag_raw('title')[0])
             except Exception:
-                raise LyricsNotFoundException
+                raise lyrics.LyricsNotFoundException
             self.track_text_buffer.set_text(text_track)
-            lyrics_found = self.exaile.lyrics.find_all_lyrics(track, refresh)
-        except LyricsNotFoundException:
+            lyrics_found = lyrics.MANAGER.find_all_lyrics(track, refresh)
+        except lyrics.LyricsNotFoundException:
             lyrics_found = []
             return
         finally:

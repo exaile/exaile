@@ -109,9 +109,7 @@ def _append_cb(widget, name, parent, context, get_tracks_func, replace=False):
     pl.extend(tracks)
     if settings.get_option( 'playlist/append_menu_starts_playback', False ):
         if not player.PLAYER.current:
-            pl.current_position = offset
-            player.QUEUE.set_current_playlist(pl)
-            player.QUEUE.play(track=pl.current)
+            page.view.play_track_at(offset, tracks[0])
 
 def ReplaceCurrentMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
     return menu.simple_menu_item(name, after, _("Replace Current"), None,

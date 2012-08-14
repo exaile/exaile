@@ -60,7 +60,8 @@ class ID3Format(BaseFormat):
         "discnumber": "TPOS",
         "bpm": "TBPM",
         "grouping": "TIT1",
-        }
+        "comment": "COMM",
+    }
     writable = True
     others = False # make this true once custom tag support actually works
 
@@ -72,7 +73,7 @@ class ID3Format(BaseFormat):
         if len(field) <= 0:
             return []
         ret = []
-        if t == 'TDRC' or t == 'TDOR': # values are ID3TimeStamps
+        if t in ('TDRC', 'TDOR'): # values are ID3TimeStamps
             for value in field:
                 ret.extend([unicode(x) for x in value.text])
         elif t == 'USLT': # Lyrics are stored in plain old strings
@@ -84,6 +85,9 @@ class ID3Format(BaseFormat):
                         for x in value.url])
         elif t == 'APIC':
             ret = [CoverImage(type=f.type, desc=f.desc, mime=f.mime, data=f.data) for f in field]
+        elif t == 'COMM': # Newlines within comments are allowed, keep them
+            for item in field:
+                ret.extend([value for value in item.text])
         else:
             for value in field:
                 try:
@@ -107,6 +111,8 @@ class ID3Format(BaseFormat):
         if tag == 'APIC':
             frames = [id3.Frames[tag](encoding=3, mime=info.mime, type=info.type, desc=info.desc, data=info.data) \
                 for info in data]
+        elif tag == 'COMM':
+            frames = [id3.COMM(encoding=3, text=d, desc='', lang='\x00\x00\x00') for d in data]
         else:
             frames = [id3.Frames[tag](encoding=3, text=data)]
 

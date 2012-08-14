@@ -130,14 +130,6 @@ class LyricsManager(providers.ProviderHandler):
         self.preferred_order = order
         settings.set_option('lyrics/preferred_order', list(order))
 
-    def on_provider_added(self, provider):
-        """
-            Passes a reference of the manager instance to the provider.
-
-            :param provider: the provider instance being added.
-        """
-        provider._set_manager(self)
-
     def on_provider_removed(self, provider):
         """
             Remove the provider from the methods dict, and the
@@ -280,7 +272,9 @@ class LyricsManager(providers.ProviderHandler):
             # no lyrcs were found, raise an exception
             raise LyricsNotFoundException()
 
-        return (lyrics, source, url)        
+        return (lyrics, source, url)
+
+MANAGER = LyricsManager()
 
 class LyricSearchMethod(object):
     """

@@ -252,10 +252,6 @@ class Exaile(object):
         self.stations = playlist.PlaylistManager('radio_stations')
         self.radio = radio.RadioManager()
 
-        # Initialize lyrics manager
-        from xl import lyrics
-        self.lyrics = lyrics.LyricsManager()
-
         self.gui = None
         # Setup GUI
         if self.options.StartGui:

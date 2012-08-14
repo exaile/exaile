@@ -2,4 +2,4 @@ Version=0.5
 Authors=['JC Brand <jc@opkode.com>']
 Name=_('Wikipedia')
 Description=_('Provides contextual wikipedia information.\nDepends: python-webkit')
-Category=_('GUI')
+Category=_('Information')

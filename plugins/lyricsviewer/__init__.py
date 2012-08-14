@@ -33,10 +33,11 @@ import webbrowser
 from xl.nls import gettext as _
 from xl.lyrics import LyricsNotFoundException
 from xl import (
-        common,
-        event,
-        player,
-        settings
+    common,
+    event,
+    player,
+    providers,
+    settings
 )
 from xlgui import guiutil
 
@@ -161,7 +162,6 @@ class LyricsViewer(object):
                 'lyrics_search_method_added')
         event.remove_callback(self.on_option_set,
                 'plugin_lyricsviewer_option_set')
-        self.lyrics_methods_combo.remove_callbacks()
         self.notebook.disconnect(self.style_handler)
 
     def search_method_added_cb(self, eventtype, lyrics, provider):
@@ -345,13 +345,14 @@ class LyricsViewer(object):
         self.lyrics_panel.unparent()
         return(self.lyrics_panel)
 
-class LyricsMethodsComboBox(gtk.ComboBox):
+class LyricsMethodsComboBox(gtk.ComboBox, providers.ProviderHandler):
     """
         An extended gtk.ComboBox class.
         Shows lyrics methods search registered
     """
     def __init__(self, exaile):
         gtk.ComboBox.__init__(self)
+        providers.ProviderHandler.__init__(self, 'lyrics')
 
         liststore = gtk.ListStore(str)
         self.set_model(liststore)
@@ -359,31 +360,13 @@ class LyricsMethodsComboBox(gtk.ComboBox):
         self.pack_start(cell, True)
         self.add_attribute(cell, 'text', 0)
         self.model = self.get_model()
-        #default value, any registered providers.
+        # Default value, any registered lyrics provider
         self.append_text(_("Any"))
 
-        methods = exaile.lyrics.get_method_names()
-        for method in methods:
-            self.append_text(method)
+        for provider in self.get_providers():
+            self.append_text(provider.display_name)
 
         self.set_active(0)
-
-        event.add_callback(self.search_method_added_cb,
-                'lyrics_search_method_added')
-        event.add_callback(self.search_method_removed_cb,
-                'lyrics_search_method_removed')
-
-    def remove_callbacks(self):
-        event.remove_callback(self.search_method_added_cb,
-                'lyrics_search_method_added')
-        event.remove_callback(self.search_method_removed_cb,
-                'lyrics_search_method_removed')
-
-    def search_method_added_cb(self, eventtype, lyrics, provider):
-        self.append_item(provider.display_name)
-
-    def search_method_removed_cb(self, eventtype, lyrics, provider):
-        self.remove_item(provider.display_name)
 
     def remove_item(self, name):
         index = self.search_item(name)
@@ -412,3 +395,10 @@ class LyricsMethodsComboBox(gtk.ComboBox):
             return (active, self.model[active][0])
         else:
             return (None, None)
+
+    def on_provider_added(self, provider):
+        self.append_item(provider.display_name)
+
+    def on_provider_removed(self, provider):
+        self.remove_item(provider.display_name)
+

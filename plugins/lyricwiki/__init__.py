@@ -10,7 +10,7 @@ from xl.lyrics import (
     LyricSearchMethod,
     LyricsNotFoundException
 )
-from xl import event
+from xl import providers
 
 def enable(exaile):
     """
@@ -18,21 +18,13 @@ def enable(exaile):
         from lyrics.wikia.com
     """
     if BeautifulSoup:
-        if exaile.loading:
-            event.add_callback(_enable, "exaile_loaded")
-        else:
-            _enable(None, exaile, None)
+        providers.register('lyrics', LyricWiki())
     else:
         raise NotImplementedError('BeautifulSoup is not available.')
         return False
 
-def _enable(eventname, exaile, nothing):
-    exaile.lyrics.add_search_method(LyricWiki())
-
-
 def disable(exaile):
-    exaile.lyrics.remove_search_method_by_name("lyricwiki")
-
+    providers.unregister('lyrics', providers.get_provider('lyrics', 'lyricwiki'))
 
 class LyricWiki(LyricSearchMethod):
 

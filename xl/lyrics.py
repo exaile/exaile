@@ -24,17 +24,23 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-
-#Lyrics manager.
-#
-from xl import providers, event, xdg, common
-from xl import settings
-from xl.nls import gettext as _
-from datetime import datetime, timedelta
-import threading
+from datetime import (
+    datetime,
+    timedelta
+)
+import os
 import shelve
 import zlib
-import os
+import threading
+
+from xl.nls import gettext as _
+from xl import (
+    common,
+    event,
+    providers,
+    settings,
+    xdg
+)
 
 class LyricsNotFoundException(Exception):
     pass
@@ -108,53 +114,15 @@ class LyricsManager(providers.ProviderHandler):
 
     def __init__(self):
         providers.ProviderHandler.__init__(self, "lyrics")
-        self.methods = {}
         self.preferred_order = settings.get_option(
                 'lyrics/preferred_order', [])
-        self.add_defaults()
-        self.cache = LyricsCache(os.path.join(xdg.get_cache_dir(),'lyrics.cache'))
-
-    def get_method_names(self):
-        """
-            Returns a list of methods names in a readable format
-        """
-        methods=[]
-        for k, method in self.methods.iteritems():
-            methods.append(method.display_name)
-        return methods
-
-    def add_search_method(self, method):
-        """
-            Adds a search method to the provider list.
-
-            @param method: the search method instance
-        """
-        providers.register(self.servicename, method)
-
-    def remove_search_method(self, method):
-        """
-            Removes the given search method from the provider list.
-
-            @param method: the search method instance
-        """
-        providers.unregister(self.servicename, method)
-
-    def remove_search_method_by_name(self, name):
-        """
-            Removes a search method from the provider list.
-
-            @param name: the search method name
-        """
-        try:
-            providers.unregister(self.servicename, self.methods[name])
-        except KeyError:
-            return
+        self.cache = LyricsCache(os.path.join(xdg.get_cache_dir(), 'lyrics.cache'))
 
     def set_preferred_order(self, order):
         """
             Sets the preferred search order
 
-            @param order: a list containing the order you'd like to search
+            :param order: a list containing the order you'd like to search
                 first
         """
         if not type(order) in (list, tuple):
@@ -164,52 +132,23 @@ class LyricsManager(providers.ProviderHandler):
 
     def on_provider_added(self, provider):
         """
-            Adds the new provider to the methods dict and passes a
-            reference of the manager instance to the provider.
+            Passes a reference of the manager instance to the provider.
 
-            @param provider: the provider instance being added.
+            :param provider: the provider instance being added.
         """
-        if not provider.name in self.methods:
-            self.methods[provider.name] = provider
-            provider._set_manager(self)
-            event.log_event('lyrics_search_method_added', self, provider)
+        provider._set_manager(self)
 
     def on_provider_removed(self, provider):
         """
             Remove the provider from the methods dict, and the
             preferred_order dict if needed.
 
-            @param provider: the provider instance being removed.
+            :param provider: the provider instance being removed.
         """
-        try:
-            del self.methods[provider.name]
-            event.log_event('lyrics_search_method_removed', self, provider)
-        except KeyError:
-            pass
         try:
             self.preferred_order.remove(provider.name)
         except (ValueError, AttributeError):
             pass
-
-    def get_methods(self):
-        """
-            Returns a list of Methods, sorted by preference
-        """
-        methods = []
-
-        for name in self.preferred_order:
-            if name in self.methods:
-                methods.append(self.methods[name])
-        for k, method in self.methods.iteritems():
-            if method not in methods:
-                methods.append(method)
-        return methods
-
-    def add_defaults(self):
-        """
-            Adds default search methods
-        """
-        self.add_search_method(LocalLyricSearch())
 
     def find_lyrics(self, track, refresh=False):
         """
@@ -236,7 +175,7 @@ class LyricsManager(providers.ProviderHandler):
         source = None
         url = None
 
-        for method in self.get_methods():
+        for method in self.get_providers():
             try:
                 (lyrics, source, url) = self._find_cached_lyrics(method, track, refresh)
             except LyricsNotFoundException:
@@ -271,7 +210,7 @@ class LyricsManager(providers.ProviderHandler):
         """
         lyrics_found=[]
 
-        for method in self.get_methods():
+        for method in self.get_providers():
             lyrics = None
             source = None
             url = None
@@ -352,7 +291,7 @@ class LyricSearchMethod(object):
         """
             Called by LyricsManager when lyrics are requested
 
-            @param track: the track that we want lyrics for
+            :param track: the track that we want lyrics for
         """
         raise NotImplementedError
 
@@ -362,7 +301,7 @@ class LyricSearchMethod(object):
 
             Called when this method is added to the lyrics manager.
 
-            @param manager: the lyrics manager
+            :param manager: the lyrics manager
         """
         self.manager = manager
 
@@ -376,4 +315,5 @@ class LocalLyricSearch(LyricSearchMethod):
         if not lyrics:
             raise LyricsNotFoundException()
         return (lyrics[0], self.name, "")
+providers.register('lyrics', LocalLyricSearch())
 

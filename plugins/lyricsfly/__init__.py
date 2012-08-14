@@ -11,7 +11,7 @@ from xl.lyrics import (
     LyricSearchMethod,
     LyricsNotFoundException
 )
-from xl import event
+from xl import providers
 
 ## Notice.  Please request your own key from lyricswiki.com/api.
 ## DO NOT USE THIS KEY FOR YOUR OWN SOFTWARE.
@@ -22,17 +22,10 @@ def enable(exaile):
         Enables the lyric wiki plugin that fetches track lyrics
         from lyricwiki.org
     """
-    if exaile.loading:
-        event.add_callback(_enable, "exaile_loaded")
-    else:
-        _enable(None, exaile, None)
-
-def _enable(eventname, exaile, nothing):
-    exaile.lyrics.add_search_method(LyricsFly())
-
+    providers.register('lyrics', LyricsFly())
 
 def disable(exaile):
-    exaile.lyrics.remove_search_method_by_name("lyricsfly")
+    providers.unregister('lyrics', providers.get_provider('lyrics', 'lyricsfly'))
 
 def rep(m):
     """

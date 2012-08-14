@@ -73,6 +73,7 @@ dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
                 'organization': (_('Organization'), 'text'),
                 'discnumber': (_('Disc'), 'int', 0, 50),
                 'bpm': (_('BPM'), 'int', 0, 300),
+                'comment': (_('Comment'), 'text'),
                 '__bitrate': (_('Bitrate'), 'prop:bitrate'),
                 '__date_added': (_('Date added'), 'prop:datetime'),
                 '__length': (_('Length'), 'prop:time'),
@@ -137,15 +138,17 @@ class TrackPropertiesDialog(gobject.GObject):
         self.add_tag_button = self.builder.get_object('add_tag_button')
         self.add_tag_button.set_sensitive(False)
 
-        self.def_tags = [   'tracknumber',
-                            'title',
-                            'artist',
-                            'album',
-                            'discnumber',
-                            'date',
-                            'genre',
-                            'cover',
-                            ]
+        self.def_tags = [
+            'tracknumber',
+            'title',
+            'artist',
+            'album',
+            'discnumber',
+            'date',
+            'genre',
+            'cover',
+            'comment',
+        ]
 
         # Store the tracks and a working copy
         self.tracks = tracks
@@ -165,7 +168,7 @@ class TrackPropertiesDialog(gobject.GObject):
         for track in tracks:
             t = {}
             for tag in self.def_tags:
-                if tag == 'cover':
+                if tag in ('cover', 'comment'):
                     tagval = track.get_tag_disk(tag)
                 else:
                     tagval = track.get_tag_raw(tag)
@@ -304,7 +307,10 @@ class TrackPropertiesDialog(gobject.GObject):
                 elif dialog_tags[tag][1] == 'image':
                     field = TagImageField()
                 else:
-                    field = TagField(all_button=ab)
+                    if tag in ('comment', 'lyrics'):
+                        field = TagTextField(all_button=ab)
+                    else:
+                        field = TagField(all_button=ab)
 
                 row = TagRow(self, self.tags_table, field, tag, entry, i)
                 self.rows.append(row)
@@ -336,7 +342,7 @@ class TrackPropertiesDialog(gobject.GObject):
                             elif fieldtype == 'image':
                                 field = TagImageField()
                             else:
-                                if tag == 'lyrics':
+                                if tag in ('comment', 'lyrics'):
                                     field = TagTextField(all_button=ab)
                                 else:
                                     field = TagField(all_button=ab)

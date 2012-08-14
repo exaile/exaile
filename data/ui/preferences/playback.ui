@@ -298,7 +298,7 @@
         </child>
         <child>
           <object class="GtkCheckButton" id="queue/enqueue_begins_playback">
-            <property name="label" translatable="yes">Adding an item to the queue begins playback</property>
+            <property name="label" translatable="yes">Adding an item to an empty queue begins playback</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>

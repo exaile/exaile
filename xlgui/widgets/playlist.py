@@ -422,11 +422,11 @@ class PlaylistPage(NotebookPage):
             self._filter_matcher = None
             self.modelfilter.refilter()
         else:
+            # Merge default columns and currently enabled columns
+            keyword_tags = set(playlist_columns.DEFAULT_COLUMNS + [c.name for c in self.view.get_columns()])
             self._filter_matcher = trax.TracksMatcher(self._filter_string,
                     case_sensitive=False,
-                    keyword_tags=['artist', 'title', 'album'])
-                    # FIXME: use currently-visible columns + base
-                    # tags for filter
+                    keyword_tags=keyword_tags)
             logger.debug("Filtering playlist '%s' by '%s'."%(self.playlist.name, self._filter_string))
             self.modelfilter.refilter()
             logger.debug("Filtering playlist '%s' by '%s' completed."%(self.playlist.name, self._filter_string))

@@ -78,6 +78,15 @@ class Exaile(object):
         if self.options.UseDataDir:
             xdg.data_dirs.insert(1, self.options.UseDataDir)
 
+        # this is useful on Win32, because you cannot set these directories
+        # via environment variables
+        if self.options.UseAllDataDir:
+            xdg.data_home = self.options.UseAllDataDir
+            xdg.data_dirs.insert(0, xdg.data_home)
+            xdg.config_home = self.options.UseAllDataDir
+            xdg.config_dirs.insert(0, xdg.config_home)
+            xdg.cache_home = self.options.UseAllDataDir
+            
         xdg._make_missing_dirs()
 
         # Make event debug imply debug
@@ -517,6 +526,8 @@ class Exaile(object):
         group = OptionGroup(p, _('Development/Debug Options'))
         group.add_option("--datadir", dest="UseDataDir",
                 metavar=_('DIRECTORY'), help=_("Set data directory"))
+        group.add_option("--all-data-dir", dest="UseAllDataDir",
+                metavar=_('DIRECTORY'), help=_("Set data and config directory"))
         group.add_option("--modulefilter", dest="ModuleFilter",
                 action="store", type="string", metavar=_('MODULE'),
                 help=_('Limit log output to MODULE'))

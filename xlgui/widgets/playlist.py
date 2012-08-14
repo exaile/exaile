@@ -976,7 +976,16 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         # tracks in the playlist.
         if len(tracks) == 1:
             tracks = self.playlist[:]
-            current_position = self.get_cursor()[0][0]
+
+            model = self.get_model()
+            path, column = self.get_cursor()
+
+            # If the model has been placed within a filter model,
+            # convert the path to the path of the real model
+            if isinstance(model, gtk.TreeModelFilter):
+                path = model.convert_path_to_child_path(path)
+
+            current_position = path[0]
             with_extras = True
         else:
             with_extras = False

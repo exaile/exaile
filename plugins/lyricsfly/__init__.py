@@ -1,14 +1,17 @@
-from xl.lyrics import LyricSearchMethod
-from xl.lyrics import LyricsNotFoundException
-import cgi, re
-from xl import event
-
 try:
     import xml.etree.cElementTree as ETree
 except:
     import xml.etree.ElementTree as ETree
+import cgi
+import htmlentitydefs
+import re
+import urllib
 
-import urllib, htmlentitydefs
+from xl.lyrics import (
+    LyricSearchMethod,
+    LyricsNotFoundException
+)
+from xl import event
 
 ## Notice.  Please request your own key from lyricswiki.com/api.
 ## DO NOT USE THIS KEY FOR YOUR OWN SOFTWARE.

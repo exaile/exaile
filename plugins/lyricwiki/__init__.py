@@ -1,13 +1,16 @@
-import HTMLParser
-
-from xl.lyrics import LyricSearchMethod
-from xl.lyrics import LyricsNotFoundException
-from xl import event
-import re, urllib
 try:
     import BeautifulSoup
 except ImportError:
     BeautifulSoup = None
+import HTMLParser
+import re
+import urllib
+
+from xl.lyrics import (
+    LyricSearchMethod,
+    LyricsNotFoundException
+)
+from xl import event
 
 def enable(exaile):
     """

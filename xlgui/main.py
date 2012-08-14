@@ -501,7 +501,7 @@ class MainWindow(gobject.GObject):
         if not tracks:
             return
 
-        pl = self.get_selected_page()
+        page = self.get_selected_page()
 
         if sort:
             tracks = trax.sort_tracks(
@@ -509,21 +509,21 @@ class MainWindow(gobject.GObject):
                 tracks)
 
         if replace:
-            pl.playlist.clear()
+            page.playlist.clear()
 
-        offset = len(pl.playlist)
-        pl.playlist.extend(tracks)
+        offset = len(page.playlist)
+        page.playlist.extend(tracks)
 
         # extending the queue automatically starts playback
         if queue:
-            if player.QUEUE != pl.playlist:
+            if player.QUEUE != page.playlist:
                 player.QUEUE.extend(tracks)
 
         elif (force_play or settings.get_option( 'playlist/append_menu_starts_playback', False )) and \
             not player.PLAYER.current:
             track = tracks[0]
-            pl.playlist.current_position = offset
-            player.QUEUE.set_current_playlist(pl.playlist)
+            page.playlist.current_position = offset
+            player.QUEUE.set_current_playlist(page.playlist)
             player.QUEUE.play(track=track)
 
     def on_playback_error(self, type, player, message):

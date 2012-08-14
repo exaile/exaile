@@ -745,4 +745,59 @@ class LocationTagFormatter(TagFormatter):
         return common.sanitize_url(track.get_tag_raw('__loc'))
 providers.register('tag-formatting', LocationTagFormatter())
 
+class CommentTagFormatter(TagFormatter):
+    """
+        A formatter for comments embedded in tracks
+    """
+    def __init__(self):
+        TagFormatter.__init__(self, 'comment')
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: whether to keep newlines,
+                possible values for "newlines" are:
+
+                * keep: do not strip newlines (default)
+                * strip: strip newlines
+            :type parameters: dictionary
+            :returns: the formatted value
+            :rtype: string
+        """
+        value = track.get_tag_disk(self.name)
+
+        if not value:
+            return ''
+
+        value = '\n\n'.join(value)
+        newlines = parameters.get('newlines', 'keep')
+
+        return self.format_value(value, newlines)
+
+    @staticmethod
+    def format_value(value, newlines='keep'):
+        """
+            Formats a comment value
+
+            :param value: the comment text
+            :type value: string
+            :param newlines: whether to keep newlines,
+                possible values are:
+
+                * keep: do not strip newlines (default)
+                * strip: strip newlines
+
+            :type newlines: string
+            :returns: the formatted value
+            :rtype: string
+        """
+        if newlines == 'strip':
+            value = ' '.join(value.splitlines())
+
+        return value
+providers.register('tag-formatting', CommentTagFormatter())
+
 # vim: et sts=4 sw=4

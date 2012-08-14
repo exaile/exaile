@@ -437,6 +437,15 @@ class ScheduleTimeColumn(Column):
         self.stop_timer()
 providers.register('playlist-columns', ScheduleTimeColumn)
 
+class CommentColumn(Column):
+    name = 'comment'
+    display = _('Comment')
+    size = 200
+    autoexpand = True
+    # Remove the newlines to fit into the vertical space of rows
+    formatter = TrackFormatter('${comment:newlines=strip}')
+providers.register('playlist-columns', CommentColumn)
+
 class ColumnMenuItem(menu.MenuItem):
     """
         A menu item dedicated to display the

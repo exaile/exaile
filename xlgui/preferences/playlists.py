@@ -50,6 +50,10 @@ class ReplaceContentPreference(widgets.CheckPreference):
 class AppendStartsPlaybackPreference(widgets.CheckPreference):
     default = False
     name = 'playlist/append_menu_starts_playback'
+    
+class EnqueueTrackByDefaultPreference(widgets.CheckPreference):
+    default = False
+    name = 'playlist/enqueue_by_default'
 
 # FIXME: Is this still relevant?
 #class QueueSavePreferences(widgets.CheckPreference):

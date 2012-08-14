@@ -651,11 +651,15 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         '''
         self._play_track_at(position, track)
         
-    def _play_track_at(self, position, track):
+    def _play_track_at(self, position, track, on_activated=False):
         '''Internal API'''       
-        self.playlist.set_current_position(position)
-        self.player.queue.set_current_playlist(self.playlist)
-        self.player.queue.play(track=track)
+        if not settings.get_option('playlist/enqueue_by_default', False) or \
+                (self.playlist is self.player.queue and on_activated):        
+            self.playlist.set_current_position(position)
+            self.player.queue.set_current_playlist(self.playlist)
+            self.player.queue.play(track=track)
+        elif self.playlist is not self.player.queue:
+            self.player.queue.append(track)
             
     def _setup_columns(self):
         columns = settings.get_option('gui/columns', playlist_columns.DEFAULT_COLUMNS)
@@ -764,7 +768,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         except IndexError:
             return
 
-        self._play_track_at(position, track)
+        self._play_track_at(position, track, True)
 
     def do_button_press_event(self, e):
         """

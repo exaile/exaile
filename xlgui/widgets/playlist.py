@@ -643,7 +643,20 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             reverse = False
             sort_by = list(common.BASE_SORT_TAGS)
         return (sort_by, reverse)
-
+            
+    def play_track_at(self, position, track):
+        '''
+            When called, this will begin playback of a track at a given
+            position in the internal playlist
+        '''
+        self._play_track_at(position, track)
+        
+    def _play_track_at(self, position, track):
+        '''Internal API'''       
+        self.playlist.set_current_position(position)
+        self.player.queue.set_current_playlist(self.playlist)
+        self.player.queue.play(track=track)
+            
     def _setup_columns(self):
         columns = settings.get_option('gui/columns', playlist_columns.DEFAULT_COLUMNS)
         provider_names = [p.name for p in providers.get('playlist-columns')]
@@ -751,9 +764,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         except IndexError:
             return
 
-        self.playlist.set_current_position(position)
-        self.player.queue.play(track=track)
-        self.player.queue.set_current_playlist(self.playlist)
+        self._play_track_at(position, track)
 
     def do_button_press_event(self, e):
         """

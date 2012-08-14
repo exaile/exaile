@@ -516,15 +516,12 @@ class MainWindow(gobject.GObject):
 
         # extending the queue automatically starts playback
         if queue:
-            if player.QUEUE != page.playlist:
+            if player.QUEUE is not page.playlist:
                 player.QUEUE.extend(tracks)
 
         elif (force_play or settings.get_option( 'playlist/append_menu_starts_playback', False )) and \
-            not player.PLAYER.current:
-            track = tracks[0]
-            page.playlist.current_position = offset
-            player.QUEUE.set_current_playlist(page.playlist)
-            player.QUEUE.play(track=track)
+                not player.PLAYER.current:
+            page.view.play_track_at(offset, tracks[0])
 
     def on_playback_error(self, type, player, message):
         """

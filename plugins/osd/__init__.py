@@ -43,7 +43,7 @@ def enable(exaile):
     migration.migrate_settings()
 
     global OSDWINDOW
-    OSDWINDOW = OSDWindow(exaile)
+    OSDWINDOW = OSDWindow()
 
 def disable(exaile):
     """
@@ -65,7 +65,7 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
     """
     __gsignals__ = {}
 
-    def __init__(self, exaile):
+    def __init__(self):
         """
             Initializes the window
         """
@@ -351,4 +351,24 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
             self.set_border_width(max(6, int(value / 2)))
             self.__options['border_radius'] = value
             self.emit('size-allocate', self.get_allocation())
+
+class OSDPreviewWindow(OSDWindow):
+    """
+        Variant of the OSD specifically meant as preview for
+        the preferences, as it does not hide automatically
+    """
+    def __init__(self):
+        OSDWindow.__init__(self)
+
+    def hide(self):
+        """
+            Simply hides the window
+        """
+        gtk.Window.hide(self)
+
+    def show(self):
+        """
+            Simply shows the window
+        """
+        gtk.Window.show_all(self)
 

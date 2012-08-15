@@ -30,6 +30,25 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "osd_preferences.ui")
 icon = 'gtk-info'
 
+PREVIEWINDOW = None
+
+def page_enter(preferences_dialog):
+    """
+        Shows a preview of the OSD
+    """
+    global PREVIEWINDOW
+    from plugins.osd import OSDPreviewWindow
+
+    PREVIEWINDOW = OSDPreviewWindow()
+    PREVIEWINDOW.show()
+
+def page_leave(preferences_dialog):
+    """
+        Hides the OSD preview
+    """
+    if PREVIEWINDOW:
+        PREVIEWINDOW.destroy()
+
 class ShowProgressPreference(widgets.CheckPreference):
     name = 'plugin/osd/show_progress'
     default = True

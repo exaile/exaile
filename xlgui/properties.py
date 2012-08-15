@@ -27,6 +27,7 @@
 import copy
 import datetime
 import gio
+import glib
 import gobject
 import gtk
 import io

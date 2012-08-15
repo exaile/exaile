@@ -82,11 +82,7 @@ class GroupTaggerContextMenu(menu.Menu):
         menu.Menu.__init__(self, tagger)
         
     def get_context(self):
-        context = common.LazyDict(self._parent)
-        context['selected-rows'] = lambda name, parent: parent.get_selection().get_selected_rows()
-        context['groups'] = lambda name, parent: parent.get_selected_groups( context['selected-rows'] )
-        context['categories'] = lambda name, parent: parent.get_selected_categories( context['selected-rows'] )
-        return context
+        return self._parent.get_context()
 
 
 class GroupTaggerView(gtk.TreeView):
@@ -179,6 +175,14 @@ class GroupTaggerView(gtk.TreeView):
                     
         # TODO:
         # - Create smart playlist from selected
+            
+    def get_context(self):
+        '''Returns context parameter required by menus'''
+        context = common.LazyDict(self)
+        context['selected-rows'] = lambda name, parent: parent.get_selection().get_selected_rows()
+        context['groups'] = lambda name, parent: parent.get_selected_groups( context['selected-rows'] )
+        context['categories'] = lambda name, parent: parent.get_selected_categories( context['selected-rows'] )
+        return context
             
         
     def show_click_column(self):
@@ -518,7 +522,7 @@ class GroupTaggerWidget(gtk.VBox):
         self.pack_start( self.tag_button, expand=False )
         
     def on_add_tag_click(self, widget):
-        self.view.on_menu_add_group( self.view )
+        self.view.on_menu_add_group( self.view, None, None, self.view.get_context() )
             
     def set_title(self, title):
         '''Sets the title for this widget. Hides title if title is None'''

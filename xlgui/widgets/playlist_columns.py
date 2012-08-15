@@ -140,7 +140,12 @@ class Column(gtk.TreeViewColumn):
         font = settings.get_option('gui/playlist_font', None)
         if font is not None:
             font_desc = pango.FontDescription(font)
-            self.cellrenderer.set_property('font-desc', font_desc)
+            try:
+                self.cellrenderer.set_property('font-desc', font_desc)
+            except TypeError:
+                pass
+            
+            # TODO: Set custom icon (rating, loved tracks) size here.. or somewhere
             
             if hasattr(self, 'icon_cellr'):
                 def_font = float(gtk.widget_get_default_style().font_desc.get_size())

@@ -464,6 +464,13 @@ class CommentColumn(Column):
     formatter = TrackFormatter('${comment:newlines=strip}')
 providers.register('playlist-columns', CommentColumn)
 
+class GroupingColumn(Column):
+    name = 'grouping'
+    display = _('Grouping')
+    size = 200
+    autoexpand = True
+providers.register('playlist-columns', GroupingColumn)
+
 class ColumnMenuItem(menu.MenuItem):
     """
         A menu item dedicated to display the

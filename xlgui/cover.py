@@ -410,7 +410,8 @@ class CoverManager(gobject.GObject):
         """
             Starts the cover fetching process
         """
-        thread = threading.Thread(target=self.fetch, name='CoverPrefetch')
+        self.stopper.clear()
+        thread = threading.Thread(target=self.fetch, name='CoverFetch')
         thread.daemon = True
         thread.start()
 

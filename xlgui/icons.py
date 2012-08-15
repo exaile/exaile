@@ -726,6 +726,7 @@ class IconManager(object):
             logger.warning('Failed to get pixbuf from data: {error}'.format(
                 error=e.message
             ))
+            raise
         else:
             pixbuf = loader.get_pixbuf()
 

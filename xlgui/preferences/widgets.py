@@ -852,6 +852,23 @@ class FontButtonPreference(ColorButtonPreference):
     def _get_value(self):
         font = self.widget.get_font_name()
         return font
+        
+class FontResetButtonPreference(Button, Conditional):
+    '''
+        A button to reset a font button to a default font
+    '''
+    def __init__(self, preferences, widget):
+        Button.__init__(self, preferences, widget)
+        Conditional.__init__(self)
+
+    def on_check_condition(self):
+        if self.condition_widget.get_font_name() == self.default:
+            return False
+        return True
+
+    def on_clicked(self, button):
+        self.condition_widget.set_font_name(self.default)
+        self.condition_widget.emit('font-set')
 
 class ComboPreference(Preference):
     """

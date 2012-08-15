@@ -29,19 +29,7 @@ class LyricsFontPreference(widgets.FontButtonPreference):
     default = _get_system_default_font()
     name = 'plugin/lyricsviewer/lyrics_font'
 
-class ResetButton(widgets.Button, widgets.Conditional):
+class LyricsFontResetButtonPreference(widgets.FontResetButtonPreference):
+    default = _get_system_default_font()
     name = 'plugin/lyricsviewer/reset_button'
     condition_preference_name = 'plugin/lyricsviewer/lyrics_font'
-
-    def __init__(self, preferences, widget):
-	widgets.Button.__init__(self, preferences, widget)
-	widgets.Conditional.__init__(self)
-
-    def on_check_condition(self):
-	if (self.condition_widget.get_font_name() == _get_system_default_font()):
-		return False
-	return True
-
-    def on_clicked(self, button):
-	self.condition_widget.set_font_name(_get_system_default_font())
-	self.condition_widget.emit('font-set')

@@ -18,6 +18,7 @@ from __future__ import division
 import cairo
 from collections import namedtuple
 import glib
+import gobject
 import gtk
 from math import pi
 
@@ -63,6 +64,15 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         A popup window showing information
         of the currently playing track
     """
+    __gproperties__ = {
+        'autohide': (
+            gobject.TYPE_BOOLEAN,
+            'autohide',
+            'Whether to automatically hide the window after some time',
+            True,
+            gobject.PARAM_READWRITE
+        )
+    }
     __gsignals__ = {}
 
     def __init__(self):
@@ -153,6 +163,14 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         self.set_opacity(opacity - 0.1)
 
         return True
+
+    def do_notify(self, parameter):
+        """
+            Triggers hiding if autohide is enabled
+        """
+        if parameter.name == 'autohide':
+            if self.props.autohide:
+                self.hide()
 
     def do_expose_event(self, event):
         """
@@ -301,8 +319,9 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         except:
             pass
 
-        self.set_data('hide-id', glib.timeout_add_seconds(
-            self.__options['display_duration'], self.hide))
+        if self.props.autohide:
+            self.set_data('hide-id', glib.timeout_add_seconds(
+                self.__options['display_duration'], self.hide))
 
     def on_playback_toggle_pause(self, e, player, track):
         """
@@ -317,14 +336,17 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         except:
             pass
 
-        self.set_data('hide-id', glib.timeout_add_seconds(
-            self.__options['display_duration'], self.hide))
+        if self.props.autohide:
+            self.set_data('hide-id', glib.timeout_add_seconds(
+                self.__options['display_duration'], self.hide))
 
     def on_playback_player_end(self, e, player, track):
         """
             Hides the OSD upon playback end
         """
-        glib.idle_add(self.hide)
+        if self.props.autohide:
+            self.set_data('hide-id', glib.timeout_add_seconds(
+                self.__options['display_duration'], self.hide))
 
     def on_option_set(self, event, settings, option):
         """
@@ -351,24 +373,4 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
             self.set_border_width(max(6, int(value / 2)))
             self.__options['border_radius'] = value
             self.emit('size-allocate', self.get_allocation())
-
-class OSDPreviewWindow(OSDWindow):
-    """
-        Variant of the OSD specifically meant as preview for
-        the preferences, as it does not hide automatically
-    """
-    def __init__(self):
-        OSDWindow.__init__(self)
-
-    def hide(self):
-        """
-            Simply hides the window
-        """
-        gtk.Window.hide(self)
-
-    def show(self):
-        """
-            Simply shows the window
-        """
-        gtk.Window.show_all(self)
 

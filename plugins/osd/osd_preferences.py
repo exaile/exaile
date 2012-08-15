@@ -17,6 +17,7 @@
 import gtk.gdk
 import os
 
+from xl.main import exaile
 from xl.nls import gettext as _
 from xlgui.preferences import widgets
 
@@ -30,24 +31,23 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "osd_preferences.ui")
 icon = 'gtk-info'
 
-PREVIEWINDOW = None
-
 def page_enter(preferences_dialog):
     """
         Shows a preview of the OSD
     """
-    global PREVIEWINDOW
-    from plugins.osd import OSDPreviewWindow
-
-    PREVIEWINDOW = OSDPreviewWindow()
-    PREVIEWINDOW.show()
+    # XXX: Ugly but the only way to get the proper
+    # instance, just plugins.osd.OSDWINDOW is always None
+    OSDWINDOW = exaile().plugins.enabled_plugins['osd'].OSDWINDOW
+    OSDWINDOW.props.autohide = False
+    OSDWINDOW.show()
 
 def page_leave(preferences_dialog):
     """
         Hides the OSD preview
     """
-    if PREVIEWINDOW:
-        PREVIEWINDOW.destroy()
+    OSDWINDOW = exaile().plugins.enabled_plugins['osd'].OSDWINDOW
+    OSDWINDOW.props.autohide = True
+    OSDWINDOW.hide()
 
 class ShowProgressPreference(widgets.CheckPreference):
     name = 'plugin/osd/show_progress'

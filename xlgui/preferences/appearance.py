@@ -25,6 +25,7 @@
 # from your version.
 
 import glib
+import gtk
 
 from xl import common, xdg
 from xl.nls import gettext as _
@@ -45,6 +46,18 @@ class SplashPreference(widgets.CheckPreference):
 class ShowTabBarPreference(widgets.CheckPreference):
     default = True
     name = 'gui/show_tabbar'
+    
+def _get_system_default_font():
+    return gtk.widget_get_default_style().font_desc.to_string()
+
+class PlaylistFontPreference(widgets.FontButtonPreference):
+    default = _get_system_default_font()
+    name = 'gui/playlist_font'
+
+class PlaylistFontResetButtonPreference(widgets.FontResetButtonPreference):
+    default = _get_system_default_font()
+    name = 'gui/playlist_font_reset_button'
+    condition_preference_name = 'gui/playlist_font'
 
 class UseAlphaTransparencyPreference(widgets.CheckPreference):
     default = False

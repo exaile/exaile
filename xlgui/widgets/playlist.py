@@ -739,7 +739,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.playlist.sort([column.name] + list(common.BASE_SORT_TAGS), reverse=reverse)
 
     def on_option_set(self, typ, obj, data):
-        if data == "gui/columns":
+        if data == "gui/columns" or data == 'gui/playlist_font':
             glib.idle_add(self._refresh_columns, priority=glib.PRIORITY_DEFAULT)
 
     def on_playback_start(self, type, player, track):
@@ -1039,6 +1039,12 @@ class PlaylistModel(gtk.ListStore):
         event.add_callback(self.on_track_tags_changed,
                 "track_tags_changed")
 
+        event.add_callback(self.on_option_set, "gui_option_set")
+                
+        self._setup_icons()
+        self.on_tracks_added(None, self.playlist, enumerate(self.playlist)) # populate the list
+
+    def _setup_icons(self):
         self.play_pixbuf = icons.ExtendedPixbuf(
                 icons.MANAGER.pixbuf_from_stock(gtk.STOCK_MEDIA_PLAY))
         self.pause_pixbuf = icons.ExtendedPixbuf(
@@ -1057,9 +1063,33 @@ class PlaylistModel(gtk.ListStore):
         self.pause_stop_pixbuf = self.pause_pixbuf & stop_overlay_pixbuf
         self.clear_pixbuf = self.play_pixbuf.copy()
         self.clear_pixbuf.fill(0x00000000)
-
-        self.on_tracks_added(None, self.playlist, enumerate(self.playlist)) # populate the list
-
+    
+        font = settings.get_option('gui/playlist_font', None)
+        if font is not None:
+            # get default font
+            default = float(gtk.widget_get_default_style().font_desc.get_size())
+            new_font = pango.FontDescription(font).get_size()
+            
+            # scale pixbuf accordingly
+            t = gtk.gdk.INTERP_BILINEAR
+            s = max(int(self.play_pixbuf.get_width() * (new_font/default)),1)
+                
+            self.play_pixbuf = self.play_pixbuf.scale_simple(s,s,t)
+            self.pause_pixbuf = self.pause_pixbuf.scale_simple(s,s,t)
+            self.stop_pixbuf = self.stop_pixbuf.scale_simple(s,s,t)
+            self.play_stop_pixbuf = self.play_stop_pixbuf.scale_simple(s,s,t)
+            self.pause_stop_pixbuf = self.pause_stop_pixbuf.scale_simple(s,s,t)
+            self.clear_pixbuf = self.clear_pixbuf.scale_simple(s,s,t)
+        
+    def _refresh_icons(self):
+        self._setup_icons()
+        for i,row in enumerate(self):
+            row[1] = self.icon_for_row(i)
+        
+    def on_option_set(self, typ, obj, data):
+        if data == "gui/playlist_font":
+            glib.idle_add(self._refresh_icons)
+        
     def track_to_row_data(self, track, position):
         return [track, self.icon_for_row(position)] + [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
 

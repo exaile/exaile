@@ -73,14 +73,11 @@ class Column(gtk.TreeViewColumn):
 
         if index == 2:
             gtk.TreeViewColumn.__init__(self, self.display)
-            icon_cellr = gtk.CellRendererPixbuf()
-            pbufsize = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
-            icon_cellr.set_fixed_size(pbufsize, pbufsize)
-            icon_cellr.set_property('xalign', 0.0)
-            self.extrasize = pbufsize
-            self.pack_start(icon_cellr, False)
+            self.icon_cellr = gtk.CellRendererPixbuf()
+            self.icon_cellr.set_property('xalign', 0.0)
+            self.pack_start(self.icon_cellr, False)
             self.pack_start(self.cellrenderer, True)
-            self.set_attributes(icon_cellr, pixbuf=1)
+            self.set_attributes(self.icon_cellr, pixbuf=1)
             self.set_attributes(self.cellrenderer, **{self.dataproperty: index})
         else:
             gtk.TreeViewColumn.__init__(self, self.display, self.cellrenderer,
@@ -91,7 +88,7 @@ class Column(gtk.TreeViewColumn):
             self.cellrenderer.set_property('ellipsize', pango.ELLIPSIZE_END)
         except TypeError: #cellrenderer doesn't do ellipsize - eg. rating
             pass
-
+            
         for name, val in self.cellproperties.iteritems():
             self.cellrenderer.set_property(name, val)
 
@@ -104,14 +101,17 @@ class Column(gtk.TreeViewColumn):
         self.set_widget(gtk.Label(self.display))
 
         self.connect('notify::width', self.on_width_changed)
-        self.setup_sizing()
+        self._setup_font()
+        self._setup_sizing()
 
         event.add_callback(self.on_option_set, "gui_option_set")
 
 
     def on_option_set(self, typ, obj, data):
         if data in ("gui/resizable_cols", self.settings_width_name):
-            glib.idle_add(self.setup_sizing)
+            glib.idle_add(self._setup_sizing)
+        elif data == 'gui/playlist_font':
+            glib.idle_add(self._setup_font)
 
     def on_width_changed(self, column, wid):
         if not self.container.button_pressed:
@@ -120,7 +120,7 @@ class Column(gtk.TreeViewColumn):
         if width != settings.get_option(self.settings_width_name, -1):
             settings.set_option(self.settings_width_name, width)
 
-    def setup_sizing(self):
+    def _setup_sizing(self):
         if settings.get_option('gui/resizable_cols', False):
             self.set_resizable(True)
             self.set_expand(False)
@@ -135,6 +135,24 @@ class Column(gtk.TreeViewColumn):
             else:
                 self.set_expand(False)
                 self.set_fixed_width(self.size+self.extrasize)
+                
+    def _setup_font(self):
+        font = settings.get_option('gui/playlist_font', None)
+        if font is not None:
+            font_desc = pango.FontDescription(font)
+            self.cellrenderer.set_property('font-desc', font_desc)
+            
+            if hasattr(self, 'icon_cellr'):
+                def_font = float(gtk.widget_get_default_style().font_desc.get_size())
+
+                # scale icon size according to the font size
+                pbufsize = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
+                pbufsize = max(int(pbufsize * (font_desc.get_size()/def_font)),1)
+                
+                self.icon_cellr.set_fixed_size(pbufsize, pbufsize)
+                self.extrasize = pbufsize
+                
+                self._setup_sizing()
 
     def data_func(self, col, cell, model, iter):
         if type(cell) == gtk.CellRendererText:

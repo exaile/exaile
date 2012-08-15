@@ -46,152 +46,108 @@ from xl import (
     settings,
     xdg
 )
-from xl.covers import MANAGER as cover_manager
+from xl.covers import MANAGER as COVER_MANAGER
 from xl.nls import gettext as _
-import xlgui
+from xlgui.widgets import dialogs
 from xlgui import (
     guiutil,
     icons
 )
-from xlgui.widgets import dialogs
+
 logger = logging.getLogger(__name__)
 
-class CoverManager(object):
+class CoverManager(gobject.GObject):
     """
         Cover manager window
     """
+    __gsignals__ = {
+        'prefetch-started': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            ()
+        ),
+        'prefetch-completed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        ),
+        'fetch-started': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        ),
+        'fetch-completed': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        ),
+        'cover-fetched': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_PYOBJECT, gtk.gdk.Pixbuf)
+        )
+    }
     def __init__(self, parent, collection):
         """
             Initializes the window
         """
-        self.parent = parent
-        self.collection = collection
+        gobject.GObject.__init__(self)
 
-        self.cover_nodes = {}
-        self.covers = {}
-        self.track_dict = {}
-        self._stopped = True
+        # List of identifiers of albums without covers
+        self.outstanding = []
+        # Map of album identifiers and their tracks
+        self.album_tracks = {}
 
-        self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/covermanager.ui'))
+        self.outstanding_text = _('{outstanding} covers left to fetch')
+        self.completed_text = _('All covers fetched')
+        self.cover_size = (90, 90)
+        self.default_cover_pixbuf = icons.MANAGER.pixbuf_from_data(
+            COVER_MANAGER.get_default_cover(), self.cover_size)
 
-        self.window = self.builder.get_object('CoverManager')
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path('ui/covermanager.ui'))
+        builder.connect_signals(self)
+
+        self.window = builder.get_object('window')
         self.window.set_transient_for(parent)
 
         self.message = dialogs.MessageBar(
-            parent=self.builder.get_object('content_area'),
+            parent=builder.get_object('content_area'),
             buttons=gtk.BUTTONS_CLOSE
         )
 
-        self.icons = self.builder.get_object('cover_icon_view')
-        self.icons.connect('button-press-event',
-            self._on_button_press)
-        self.progress = self.builder.get_object('progress')
-        self.start_button = self.builder.get_object('start_button')
-        self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
-        self.icons.set_item_width(100)
-
-        self.icons.set_text_column(0)
-        self.icons.set_pixbuf_column(1)
-
-        self.nocover = icons.MANAGER.pixbuf_from_data(
-            cover_manager.get_default_cover(), (80, 80))
-
-        self._connect_events()
-        self.window.show_all()
-        glib.idle_add(self._find_initial)
+        self.previews_box = builder.get_object('previews_box')
+        # TODO: Modify tooltip window of previews_box to skip markup
+        self.model = builder.get_object('covers_model')
+        # Map of album identifiers and model paths
+        self.model_path_cache = {}
         self.menu = CoverMenu(self)
+        self.menu.attach_to_widget(self.previews_box, lambda menu, widget: True)
 
-    def _on_button_press(self, button, event):
-        """
-            Called when someone clicks on the cover widget
-        """
-        if event.type == gtk.gdk._2BUTTON_PRESS:
-            self.show_cover()
-        elif event.button == 3:
-            self.menu.popup(event)
+        self.progress_bar = builder.get_object('progressbar')
+        self.close_button = builder.get_object('close_button')
+        self.cancel_button = builder.get_object('cancel_button')
+        self.cancel_button.set_sensitive(False)
+        self.fetch_button = builder.get_object('fetch_button')
 
-        # select the current icon
-        x, y = map(int, event.get_coords())
-        path = self.icons.get_path_at_pos(x, y)
-        if path:
-            self.icons.select_path(path)
+        self.window.show_all()
 
-    def get_selected_cover(self):
-        """
-            Returns the currently selected cover tuple
-        """
-        paths = self.icons.get_selected_items()
-        if paths:
-            path = paths[0]
-            iter = self.model.get_iter(path)
-            return self.model.get_value(iter, 2)
+        self.stopper = threading.Event()
+        thread = threading.Thread(target=self.prefetch, name='CoverPrefetch', args=(collection,))
+        thread.daemon = True
+        thread.start()
 
-    def show_cover(self, *e):
+    def prefetch(self, collection):
         """
-            Shows the currently selected cover
+            Collects all albums and sets the list of outstanding items
         """
-        item = self._get_selected_item()
-        track = self.track_dict[item][0]
-        cover_data = cover_manager.get_cover(track)
+        self.emit('prefetch-started')
+        albums = set()
 
-        pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
+        for track in collection:
+            if self.stopper.is_set():
+                return
 
-        if pixbuf:
-            window = CoverWindow(self.parent, pixbuf,
-                track.get_tag_display('title'))
-            window.show_all()
-
-    def fetch_cover(self):
-        """
-            Fetches a cover for the current track
-        """
-        item = self._get_selected_item()
-        if item:
-            track = self.track_dict[item][0]
-            window = CoverChooser(self.window, track)
-            window.connect('cover-chosen', self.on_cover_chosen)
-
-    def on_cover_chosen(self, object, cover_data):
-        paths = self.icons.get_selected_items()
-        if not paths:
-            return None
-        row = self.model[paths[0]]
-        item = row[2]
-
-        pixbuf = icons.MANAGER.pixbuf_from_data(
-            cover_data, (80, 80))
-        self.covers[item] = pixbuf
-        row[1] = pixbuf
-
-    def _get_selected_item(self):
-        """
-            Returns the selected item
-        """
-        paths = self.icons.get_selected_items()
-        if not paths:
-            return None
-        path = paths[0]
-        iter = self.model.get_iter(path)
-        item = self.model.get_value(iter, 2)
-        return item
-
-    def remove_cover(self, *e):
-        item = self._get_selected_item()
-        paths = self.icons.get_selected_items()
-        track = self.track_dict[item][0]
-        cover_manager.remove_cover(track)
-        self.covers[item] = self.nocover
-        if paths:
-            iter = self.model.get_iter(paths[0])
-            self.model.set_value(iter, 1, self.nocover)
-
-    def _find_initial(self):
-        """
-            Locates covers and sets the icons in the windows
-        """
-        items = set()
-        for track in self.collection:
             try:
                 artist = track.get_tag_raw('artist')[0]
                 album = track.get_tag_raw('album')[0]
@@ -201,134 +157,270 @@ class CoverManager(object):
             if not album or not artist:
                 continue
 
-            item = (artist, album)
+            album = (artist, album)
 
             try:
-                self.track_dict[item].append(track)
+                self.album_tracks[album].append(track)
             except KeyError:
-                self.track_dict[item] = [track]
+                self.album_tracks[album] = [track]
 
-            items.add(item)
+            albums.add(album)
 
-        self.items = list(items)
-        self.items.sort()
+        albums = list(albums)
+        albums.sort()
 
-        self.needs = 0
-        for item in self.items:
-            cover_avail = cover_manager.get_cover(self.track_dict[item][0],
-                set_only=True)
+        outstanding = []
+        # Speed up the following loop
+        get_cover = COVER_MANAGER.get_cover
+        pixbuf_from_data = icons.MANAGER.pixbuf_from_data
+        default_cover_pixbuf = self.default_cover_pixbuf
+        cover_size = self.cover_size
 
-            if cover_avail:
-                try:
-                    image = icons.MANAGER.pixbuf_from_data(
-                        cover_avail, size=(80,80))
-                except glib.GError:
-                    image = self.nocover
-                    self.needs += 1
-            else:
-                image = self.nocover
-                self.needs += 1
-
-            display = "%s - %s" % item
-
-            self.cover_nodes[item] = self.model.append([display, image, item])
-            self.covers[item] = image
-        self.icons.set_model(self.model)
-        self.progress.set_text(_('%d covers to fetch') % self.needs)
-
-    def _connect_events(self):
-        """
-            Connects the various events
-        """
-        self.builder.connect_signals({
-            'on_close_button_clicked': self._on_destroy,
-            'on_start_button_clicked': self._toggle_find,
-        })
-
-        self.window.connect('delete-event', self._on_destroy)
-
-    @common.threaded
-    def _find_covers(self):
-        """
-            Finds covers for albums that don't already have one
-        """
-        self.count = 0
-        self._stopped = False
-        for item in self.items:
-            if self._stopped:
-                glib.idle_add(self._do_stop)
+        for album in albums:
+            if self.stopper.is_set():
                 return
-            starttime = time.time()
-            if not self.covers[item] == self.nocover:
+
+            cover_data = get_cover(self.album_tracks[album][0], set_only=True)
+
+            if cover_data:
+                try:
+                    cover_pixbuf = pixbuf_from_data(cover_data)
+                    thumbnail_pixbuf = cover_pixbuf.scale_simple(*cover_size,
+                        interp_type=gtk.gdk.INTERP_BILINEAR)
+                except glib.GError:
+                    cover_pixbuf = thumbnail_pixbuf = default_cover_pixbuf
+                    outstanding.append(album)
+            else:
+                cover_pixbuf = thumbnail_pixbuf = default_cover_pixbuf
+                outstanding.append(album)
+
+            label = '{} - {}'.format(*album)
+            iter = self.model.append((album, cover_pixbuf, thumbnail_pixbuf, label))
+            self.model_path_cache[album] = self.model.get_path(iter)
+
+        self.outstanding = outstanding
+        self.emit('prefetch-completed', len(self.outstanding))
+
+    def fetch(self):
+        """
+            Collects covers for all outstanding items
+        """
+        self.emit('fetch-started', len(self.outstanding))
+
+        # Speed up the following loop
+        get_cover = COVER_MANAGER.get_cover
+        pixbuf_from_data = icons.MANAGER.pixbuf_from_data
+
+        for album in self.outstanding[:]:
+            if self.stopper.is_set():
+                # Allow for "fetch-completed" signal to be emitted
+                break
+
+            cover_data = get_cover(self.album_tracks[album][0], save_cover=True)
+
+            if cover_data:
+                try:
+                    cover_pixbuf = pixbuf_from_data(cover_data)
+                except glib.GError:
+                    continue
+            else:
                 continue
 
-            c = cover_manager.get_cover(self.track_dict[item][0],
-                    save_cover=True)
+            self.outstanding.remove(album)
+            self.emit('cover-fetched', album, cover_pixbuf)
 
-            if c:
-                node = self.cover_nodes[item]
-                try:
-                    image = icons.MANAGER.pixbuf_from_data(c, size=(80,80))
-                except glib.GError:
-                    c = None
-                else:
-                    glib.idle_add(self.model.set_value, node, 1, image)
+        self.emit('fetch-completed', len(self.outstanding))
 
-            glib.idle_add(self.progress.set_fraction, float(self.count) /
-                float(self.needs))
-            glib.idle_add(self.progress.set_text, "%s/%s fetched" %
-                    (self.count, self.needs))
-
-            self.count += 1
-
-            if self.count % 20 == 0:
-                logger.debug("Saving cover database")
-                cover_manager.save()
-
-        glib.idle_add(self._do_stop)
-
-    def _calculate_needed(self):
+    def show_cover(self):
         """
-            Calculates the number of needed covers
+            Shows the currently selected cover
         """
-        self.needs = 0
-        for item in self.items:
-            cvr = self.covers[item]
-            if cvr == self.nocover:
-                self.needs += 1
+        paths = self.previews_box.get_selected_items()
 
-    def _do_stop(self):
-        """
-            Actually stop the finder thread
-        """
-        self._calculate_needed()
-        self.progress.set_text(_('%d covers to fetch') % self.needs)
-        self.progress.set_fraction(0)
-        self._stopped = True
-        cover_manager.save()
-        self.start_button.set_use_stock(False)
-        self.start_button.set_label(_('Start'))
-        self.start_button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES,
-            gtk.ICON_SIZE_BUTTON))
+        if paths:
+            path = paths[0]
+            album = self.model[path][0]
 
-    def _on_destroy(self, *e):
-        self._do_stop()
-        self.window.hide()
+            cover_pixbuf = self.model[path][1]
+            title ='{} - {}'.format(*album) 
 
-    def _toggle_find(self, *e):
+            cover_window = CoverWindow(self.window, cover_pixbuf, title)
+            cover_window.show_all()
+
+    def fetch_cover(self):
         """
-            Toggles cover finding
+            Shows the cover chooser for the currently selected album
         """
-        if self._stopped:
-            self.start_button.set_use_stock(True)
-            self.start_button.set_label(gtk.STOCK_STOP)
-            self._find_covers()
+        paths = self.previews_box.get_selected_items()
+
+        if paths:
+            path = paths[0]
+            album = self.model[path][0]
+            track = self.album_tracks[album][0]
+            cover_chooser = CoverChooser(self.window, track)
+            # Make sure we're updating the correct album after selection
+            cover_chooser.set_data('path', path)
+            cover_chooser.connect('cover-chosen', self.on_cover_chosen)
+
+    def remove_cover(self):
+        """
+            Removes the cover of the currently selected album
+        """
+        paths = self.previews_box.get_selected_items()
+
+        if paths:
+            path = paths[0]
+            album = self.model[path][0]
+            track = self.album_tracks[album][0]
+            COVER_MANAGER.remove_cover(track)
+            self.model[path][1] = self.model[path][2] = self.default_cover_pixbuf
+
+    def do_prefetch_started(self):
+        """
+            Sets the widget states to prefetching
+        """
+        self.previews_box.set_model(None)
+        self.previews_box.set_sensitive(False)
+        self.fetch_button.set_sensitive(False)
+
+        self.progress_bar.set_text(_('Collecting albums...'))
+        self.progress_bar.set_data('pulse-timeout',
+            glib.timeout_add(100, self.on_progress_pulse_timeout))
+
+    def do_prefetch_completed(self, outstanding):
+        """
+            Sets the widget states to ready for fetching
+        """
+        self.previews_box.set_sensitive(True)
+        self.previews_box.set_model(self.model)
+        self.fetch_button.set_sensitive(True)
+
+        self.progress_bar.set_text(self.outstanding_text.format(
+            outstanding=outstanding))
+        self.progress_bar.set_fraction(0)
+        glib.source_remove(self.progress_bar.get_data('pulse-timeout'))
+
+    def do_fetch_started(self, outstanding):
+        """
+            Sets the widget states to fetching
+        """
+        self.previews_box.set_sensitive(False)
+        self.cancel_button.set_sensitive(True)
+        self.fetch_button.set_sensitive(False)
+        # We need float for the fraction during progress
+        self.progress_bar.set_data('outstanding-total', float(outstanding))
+
+    def do_fetch_completed(self, outstanding):
+        """
+            Sets the widget states to ready for fetching
+        """
+        self.previews_box.set_sensitive(True)
+        self.cancel_button.set_sensitive(False)
+
+        if outstanding > 0:
+            # If there are covers left for some reason, allow re-fetch
+            self.fetch_button.set_sensitive(True)
+
+        self.progress_bar.set_fraction(0)
+
+    def do_cover_fetched(self, album, pixbuf):
+        """
+            Updates the widgets to reflect the newly fetched cover
+        """
+        path = self.model_path_cache[album]
+        self.model[path][1] = pixbuf
+        self.model[path][2] = pixbuf.scale_simple(*self.cover_size,
+            interp_type=gtk.gdk.INTERP_BILINEAR)
+
+        outstanding_current = len(self.outstanding)
+
+        if outstanding_current > 0:
+            progress_text = self.outstanding_text.format(
+                outstanding=outstanding_current)
         else:
-            self._stopped = True
-            self.start_button.set_use_stock(False)
-            self.start_button.set_label(_('Start'))
-            self.start_button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES,
-                gtk.ICON_SIZE_BUTTON))
+            progress_text = self.completed_text
+
+        self.progress_bar.set_text(progress_text)
+
+        outstanding_total = self.progress_bar.get_data('outstanding-total')
+        fraction = (outstanding_total - outstanding_current) / outstanding_total
+        self.progress_bar.set_fraction(fraction)
+
+    def on_cover_chosen(self, cover_chooser, cover_data):
+        """
+            Updates the cover of the current album after user selection
+        """
+        path = cover_chooser.get_data('path')
+
+        if path:
+            cover_pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
+            self.model[path][1] = cover_pixbuf
+            self.model[path][2] = cover_pixbuf.scale_simple(*self.cover_size,
+                interp_type=gtk.gdk.INTERP_BILINEAR)
+
+    def on_previews_box_item_activated(self, iconview, path):
+        """
+            Shows the currently selected cover
+        """
+        self.show_cover()
+
+    def on_previews_box_button_press_event(self, widget, e):
+        """
+            Shows the cover menu upon click
+        """
+        path = self.previews_box.get_path_at_pos(int(e.x), int(e.y))
+
+        if path:
+            self.previews_box.select_path(path)
+
+            if e.button == 3:
+                self.menu.popup(None, None, None, 3, e.time)
+
+    def on_previews_box_popup_menu(self, menu):
+        """
+            Shows the cover menu upon keyboard interaction
+        """
+        paths = self.previews_box.get_selected_items()
+
+        if paths:
+            self.menu.popup(None, None, None, 0, gtk.get_current_event_time())
+
+    def on_progress_pulse_timeout(self):
+        """
+            Updates the progress during prefetching
+        """
+        self.progress_bar.pulse()
+
+        return True
+
+    def on_close_button_clicked(self, button):
+        """
+            Stops the current fetching process and closes the dialog
+        """
+        self.stopper.set()
+        self.window.destroy()
+
+    def on_cancel_button_clicked(self, button):
+        """
+            Stops the current fetching process
+        """
+        self.stopper.set()
+
+    def on_fetch_button_clicked(self, button):
+        """
+            Starts the cover fetching process
+        """
+        thread = threading.Thread(target=self.fetch, name='CoverPrefetch')
+        thread.daemon = True
+        thread.start()
+
+    def on_window_delete_event(self, window, e):
+        """
+            Stops the current fetching process and closes the dialog
+        """
+        self.close_button.clicked()
+
+        return True
 
 class CoverMenu(guiutil.Menu):
     """
@@ -438,7 +530,7 @@ class CoverWidget(gtk.EventBox):
         """
             Removes the cover for the current track from the database
         """
-        cover_manager.remove_cover(self._player.current)
+        COVER_MANAGER.remove_cover(self._player.current)
         self.set_blank()
 
     def set_blank(self):
@@ -446,7 +538,7 @@ class CoverWidget(gtk.EventBox):
             Sets the default cover to display
         """
         pixbuf = icons.MANAGER.pixbuf_from_data(
-            cover_manager.get_default_cover())
+            COVER_MANAGER.get_default_cover())
         self.image.set_from_pixbuf(pixbuf)
         self.set_drag_source_enabled(False)
         self.cover_data = None
@@ -550,7 +642,7 @@ class CoverWidget(gtk.EventBox):
 
             if pixbuf is not None:
                 self.image.set_from_pixbuf(pixbuf)
-                cover_manager.set_cover(self._player.current, db_string,
+                COVER_MANAGER.set_cover(self._player.current, db_string,
                     self.cover_data)
 
     def on_cover_chosen(self, object, cover_data):
@@ -582,7 +674,7 @@ class CoverWidget(gtk.EventBox):
         )
 
         fetch = not settings.get_option('covers/automatic_fetching', True)
-        cover_data = cover_manager.get_cover(track, set_only=fetch)
+        cover_data = COVER_MANAGER.get_cover(track, set_only=fetch)
 
         if not cover_data:
             return
@@ -602,7 +694,7 @@ class CoverWidget(gtk.EventBox):
             Updates the displayed cover upon tag changes
         """
         if self._player.current == track:
-            cover_data = cover_manager.get_cover(track)
+            cover_data = COVER_MANAGER.get_cover(track)
 
             if not cover_data:
                 return
@@ -871,14 +963,14 @@ class CoverChooser(gobject.GObject):
         """
             Searches for covers for the current track
         """
-        db_strings = cover_manager.find_covers(self.track)
+        db_strings = COVER_MANAGER.find_covers(self.track)
 
         if db_strings:
             for db_string in db_strings:
                 if self.cancel_fetch.is_set():
                     return
 
-                coverdata = cover_manager.get_cover_data(db_string)
+                coverdata = COVER_MANAGER.get_cover_data(db_string)
                 # Pre-render everything for faster display later
                 pixbuf = icons.MANAGER.pixbuf_from_data(coverdata)
                 self.covers_model.append([
@@ -909,7 +1001,7 @@ class CoverChooser(gobject.GObject):
                 self.previews_box.show_all()
 
             # Try to select the current cover of the track, fallback to first
-            track_db_string = cover_manager.get_db_string(self.track)
+            track_db_string = COVER_MANAGER.get_db_string(self.track)
             position = db_strings.index(track_db_string) if track_db_string in db_strings else 0
             self.previews_box.select_path((position,))
         else:
@@ -939,7 +1031,7 @@ class CoverChooser(gobject.GObject):
             path = paths[0]
             coverdata = self.covers_model[path][0]
 
-            cover_manager.set_cover(self.track, coverdata[0], coverdata[1])
+            COVER_MANAGER.set_cover(self.track, coverdata[0], coverdata[1])
 
             self.emit('cover-chosen', coverdata[1])
             self.window.destroy()

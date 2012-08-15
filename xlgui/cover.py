@@ -126,8 +126,8 @@ class CoverManager(gobject.GObject):
 
         self.progress_bar = builder.get_object('progressbar')
         self.close_button = builder.get_object('close_button')
-        self.cancel_button = builder.get_object('cancel_button')
-        self.cancel_button.set_sensitive(False)
+        self.stop_button = builder.get_object('stop_button')
+        self.stop_button.set_sensitive(False)
         self.fetch_button = builder.get_object('fetch_button')
 
         self.window.show_all()
@@ -283,7 +283,7 @@ class CoverManager(gobject.GObject):
         self.previews_box.set_sensitive(False)
         self.fetch_button.set_sensitive(False)
 
-        self.progress_bar.set_text(_('Collecting albums...'))
+        self.progress_bar.set_text(_('Collecting albums and covers...'))
         self.progress_bar.set_data('pulse-timeout',
             glib.timeout_add(100, self.on_progress_pulse_timeout))
 
@@ -305,7 +305,7 @@ class CoverManager(gobject.GObject):
             Sets the widget states to fetching
         """
         self.previews_box.set_sensitive(False)
-        self.cancel_button.set_sensitive(True)
+        self.stop_button.set_sensitive(True)
         self.fetch_button.set_sensitive(False)
         # We need float for the fraction during progress
         self.progress_bar.set_data('outstanding-total', float(outstanding))
@@ -315,7 +315,7 @@ class CoverManager(gobject.GObject):
             Sets the widget states to ready for fetching
         """
         self.previews_box.set_sensitive(True)
-        self.cancel_button.set_sensitive(False)
+        self.stop_button.set_sensitive(False)
 
         if outstanding > 0:
             # If there are covers left for some reason, allow re-fetch
@@ -400,7 +400,7 @@ class CoverManager(gobject.GObject):
         self.stopper.set()
         self.window.destroy()
 
-    def on_cancel_button_clicked(self, button):
+    def on_stop_button_clicked(self, button):
         """
             Stops the current fetching process
         """

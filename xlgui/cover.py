@@ -209,9 +209,10 @@ class CoverManager(gobject.GObject):
 
         # Speed up the following loop
         get_cover = COVER_MANAGER.get_cover
+        save = COVER_MANAGER.save
         pixbuf_from_data = icons.MANAGER.pixbuf_from_data
 
-        for album in self.outstanding[:]:
+        for i, album in enumerate(self.outstanding[:]):
             if self.stopper.is_set():
                 # Allow for "fetch-completed" signal to be emitted
                 break
@@ -228,6 +229,13 @@ class CoverManager(gobject.GObject):
 
             self.outstanding.remove(album)
             self.emit('cover-fetched', album, cover_pixbuf)
+
+            if i % 50 == 0:
+                logger.debug('Saving cover database')
+                save()
+
+        logger.debug('Saving cover database')
+        save()
 
         self.emit('fetch-completed', len(self.outstanding))
 

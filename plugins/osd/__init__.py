@@ -64,15 +64,13 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         A popup window showing information
         of the currently playing track
     """
-    __gproperties__ = {
-        'autohide': (
-            gobject.TYPE_BOOLEAN,
-            'autohide',
-            'Whether to automatically hide the window after some time',
-            True,
-            gobject.PARAM_READWRITE
-        )
-    }
+    autohide = gobject.property(
+        type=gobject.TYPE_BOOLEAN,
+        nick='autohide',
+        blurb='Whether to automatically hide the window after some time',
+        default=True,
+        flags=gobject.PARAM_READWRITE
+    )
     __gsignals__ = {}
 
     def __init__(self):

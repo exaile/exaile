@@ -303,8 +303,9 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         except:
             pass
 
-        self.set_data('hide-id', glib.timeout_add_seconds(
-            self.__options['display_duration'], self.hide))
+        if self.props.autohide:
+            self.set_data('hide-id', glib.timeout_add_seconds(
+                self.__options['display_duration'], self.hide))
 
         gtk.Window.do_leave_notify_event(self, e)
 

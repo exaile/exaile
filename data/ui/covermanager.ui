@@ -42,13 +42,14 @@
               <object class="GtkIconView" id="previews_box">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="has_tooltip">True</property>
                 <property name="model">covers_model</property>
                 <property name="item_width">100</property>
-                <property name="tooltip_column">3</property>
                 <property name="item_padding">0</property>
                 <signal name="button-press-event" handler="on_previews_box_button_press_event" swapped="no"/>
-                <signal name="popup-menu" handler="on_previews_box_popup_menu" swapped="no"/>
                 <signal name="item-activated" handler="on_previews_box_item_activated" swapped="no"/>
+                <signal name="query-tooltip" handler="on_previews_box_query_tooltip" swapped="no"/>
+                <signal name="popup-menu" handler="on_previews_box_popup_menu" swapped="no"/>
                 <child>
                   <object class="GtkCellRendererPixbuf" id="thumbnail_cellrenderer">
                     <property name="follow_state">True</property>

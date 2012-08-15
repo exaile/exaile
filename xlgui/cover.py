@@ -117,7 +117,6 @@ class CoverManager(gobject.GObject):
         )
 
         self.previews_box = builder.get_object('previews_box')
-        # TODO: Modify tooltip window of previews_box to skip markup
         self.model = builder.get_object('covers_model')
         # Map of album identifiers and model paths
         self.model_path_cache = {}
@@ -392,6 +391,22 @@ class CoverManager(gobject.GObject):
 
         if paths:
             self.menu.popup(None, None, None, 0, gtk.get_current_event_time())
+
+    def on_previews_box_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
+        """
+            Custom tooltip display to prevent markup errors
+            (e.g. due to album names containing "<")
+        """
+        x, y = self.previews_box.convert_widget_to_bin_window_coords(x, y)
+        path = self.previews_box.get_path_at_pos(x, y)
+
+        if path:
+            tooltip.set_text(self.model[path][3])
+            self.previews_box.set_tooltip_item(tooltip, path)
+
+            return True
+
+        return False
 
     def on_progress_pulse_timeout(self):
         """

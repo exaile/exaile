@@ -180,15 +180,11 @@ class CoverManager(gobject.GObject):
                 return
 
             cover_data = get_cover(self.album_tracks[album][0], set_only=True)
+            cover_pixbuf = pixbuf_from_data(cover_data) if cover_data else None
 
-            if cover_data:
-                try:
-                    cover_pixbuf = pixbuf_from_data(cover_data)
-                    thumbnail_pixbuf = cover_pixbuf.scale_simple(*cover_size,
-                        interp_type=gtk.gdk.INTERP_BILINEAR)
-                except glib.GError:
-                    cover_pixbuf = thumbnail_pixbuf = default_cover_pixbuf
-                    outstanding.append(album)
+            if cover_pixbuf:
+                thumbnail_pixbuf = cover_pixbuf.scale_simple(*cover_size,
+                    interp_type=gtk.gdk.INTERP_BILINEAR)
             else:
                 cover_pixbuf = thumbnail_pixbuf = default_cover_pixbuf
                 outstanding.append(album)
@@ -217,13 +213,9 @@ class CoverManager(gobject.GObject):
                 break
 
             cover_data = get_cover(self.album_tracks[album][0], save_cover=True)
+            cover_pixbuf = pixbuf_from_data(cover_data) if cover_data else None
 
-            if cover_data:
-                try:
-                    cover_pixbuf = pixbuf_from_data(cover_data)
-                except glib.GError:
-                    continue
-            else:
+            if not cover_pixbuf:
                 continue
 
             self.outstanding.remove(album)

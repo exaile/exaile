@@ -1217,7 +1217,7 @@ class SavingProgressWindow(gtk.Window):
         self.set_resizable(False)
         self.set_focus_on_map(False)
         self.add(gtk.Frame())
-        self.child.set_shadow_type(gtk.SHADOW_OUT)
+        self.get_child().set_shadow_type(gtk.SHADOW_OUT)
         vbox = gtk.VBox(spacing=12)
         vbox.set_border_width(12)
         self._label = gtk.Label()
@@ -1228,7 +1228,7 @@ class SavingProgressWindow(gtk.Window):
         self._progress.set_size_request(300, -1)
         vbox.pack_start(self._progress)
 
-        self.child.add(vbox)
+        self.get_child().add(vbox)
 
         self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.show_all()

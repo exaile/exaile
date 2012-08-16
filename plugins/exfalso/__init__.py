@@ -60,7 +60,7 @@ class ExFalsoController:
         #   Window > HPaned > VBox > FileSelector (VPaned)
         #   - ScrolledWindow > DirectoryTree (TreeView)  # directory list
         #   - ScrolledWindow > AllTreeView (TreeView)  # file list
-        filesel = window.child.get_children()[0].get_children()[0]
+        filesel = window.get_child().get_children()[0].get_children()[0]
         children = filesel.get_children()
         self.dirlist = children[0].child
         self.filelist = children[1].child

@@ -697,7 +697,7 @@ class AllTagsDialog( gtk.Window ):
         button.connect('clicked', self.on_add_selected_to_choices)
         vbox.pack_end(button, False, False)
         
-        self.child.add(vbox)
+        self.get_child().add(vbox)
         
         # get the collection groups
         groups = gt_common.get_all_collection_groups(exaile.collection)

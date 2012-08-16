@@ -962,7 +962,7 @@ class ComboEntryPreference(Preference):
 
             completion.set_popup_single_match(True)
             completion.set_model(self.completion_list)
-            self.widget.child.set_completion(completion)
+            self.widget.get_child().set_completion(completion)
 
             for item in completion_items:
                 self.completion_list.append(item)
@@ -982,20 +982,20 @@ class ComboEntryPreference(Preference):
             Sets the preferences for this widget
         """
         value = self.preferences.settings.get_option(self.name, self.default)
-        self.widget.child.set_text(str(value))
+        self.widget.get_child().set_text(str(value))
 
     def _get_value(self):
         """
             Value to be stored into the settings file
         """
-        return self.widget.child.get_text()
+        return self.widget.get_child().get_text()
 
     def on_matching(self, completion, text, iter):
         """
             Matches the content of this box to
             the list of available completions
         """
-        cursor_pos = self.widget.child.get_position()
+        cursor_pos = self.widget.get_child().get_position()
         # Ignore the rest, allows for completions in the middle
         text = text[:cursor_pos]
         match = self.completion_list.get_value(iter, 0)
@@ -1016,21 +1016,21 @@ class ComboEntryPreference(Preference):
         """
             Inserts the selected completion
         """
-        cursor_pos = self.widget.child.get_position()
-        text = self.widget.child.get_text()[:cursor_pos]
+        cursor_pos = self.widget.get_child().get_position()
+        text = self.widget.get_child().get_text()[:cursor_pos]
         match = list.get_value(iter, 0)
 
         for i in range(len(match), -1, -1):
             match_pos = text.rfind(match[:i])
             if match[:i] and match[:i] == text[match_pos:]:
                 # Delete halfway typed text
-                self.widget.child.delete_text(
+                self.widget.get_child().delete_text(
                     match_pos, match_pos + len(match[:i]))
                 # Insert match at matched position
-                self.widget.child.insert_text(
+                self.widget.get_child().insert_text(
                     match, match_pos)
                 # Update cursor position
-                self.widget.child.set_position(match_pos + len(match))
+                self.widget.get_child().set_position(match_pos + len(match))
 
         return True
 

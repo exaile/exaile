@@ -989,11 +989,13 @@ class CoverChooser(gobject.GObject):
                 coverdata = COVER_MANAGER.get_cover_data(db_string)
                 # Pre-render everything for faster display later
                 pixbuf = icons.MANAGER.pixbuf_from_data(coverdata)
-                self.covers_model.append([
-                    (db_string, coverdata),
-                    pixbuf,
-                    pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
-                ])
+
+                if pixbuf:
+                    self.covers_model.append([
+                        (db_string, coverdata),
+                        pixbuf,
+                        pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
+                    ])
 
         self.emit('covers-fetched', db_strings)
 

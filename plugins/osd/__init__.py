@@ -174,7 +174,7 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         """
             Draws the background of the window
         """
-        context = self.window.cairo_create()
+        context = self.props.window.cairo_create()
         context.rectangle(event.area.x, event.area.y,
             event.area.width, event.area.height)
         context.clip()

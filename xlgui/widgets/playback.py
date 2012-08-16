@@ -665,7 +665,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         if not self._points:
             return
 
-        context = self.window.cairo_create()
+        context = self.props.window.cairo_create()
         context.set_line_width(self.props.marker_scale / 0.9)
 
         for marker, points in self._points.iteritems():
@@ -1057,7 +1057,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
             self._marker = marker
             self._marker.props.state = gtk.STATE_ACTIVE
             self._reset_position = marker.props.position
-            self._parent.window.set_cursor(
+            self._parent.props.window.set_cursor(
                 gtk.gdk.Cursor(gtk.gdk.SB_H_DOUBLE_ARROW))
 
             return True
@@ -1093,7 +1093,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
             self._marker.props.state = gtk.STATE_NORMAL
             self._marker = None
             self._reset_position = -1
-            self._parent.window.set_cursor(None)
+            self._parent.props.window.set_cursor(None)
 
             return True
 
@@ -1111,7 +1111,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
             self._marker.props.state = gtk.STATE_NORMAL
             self._marker = None
             self._reset_position = -1
-            self._parent.window.set_cursor(None)
+            self._parent.props.window.set_cursor(None)
 
             return True
 
@@ -1170,7 +1170,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
             remove_marker(self._marker)
             self._marker = None
             self._reset_position = -1
-            self._parent.window.set_cursor(None)
+            self._parent.props.window.set_cursor(None)
 
             return True
 

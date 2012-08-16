@@ -107,7 +107,7 @@ class ExModbar(object):
               self.mod.connect("button-press-event", self.modSeekBegin)
               self.mod.connect("button-release-event", self.modSeekEnd)
               self.mod.connect("motion-notify-event", self.modSeekMotionNotify)
-              self.brush = self.mod.window.new_gc()
+              self.brush = self.mod.props.window.new_gc()
 
 
               track = player.PLAYER.current
@@ -359,7 +359,7 @@ class ExModbar(object):
                  not self.cursor==self.cursor_old):
                     self.buff=self.genBuff()
             if (self.haveMod):
-                 this.window.draw_drawable(gc,self.pixmap, 0, 0, 0, 0, self.modwidth, 24)
+                 this.props.window.draw_drawable(gc,self.pixmap, 0, 0, 0, 0, self.modwidth, 24)
 
             else:
               if not self.defaultstyle:
@@ -369,7 +369,7 @@ class ExModbar(object):
                        int(flatcolor1g*0xFFFF*i/5+greenf*((5-float(i))/5)),
                        int(flatcolor1b*0xFFFF*i/5+bluef*((5-float(i))/5))
                    )
-                   this.window.draw_rectangle(gc, True, 0, 0+i,
+                   this.props.window.draw_rectangle(gc, True, 0, 0+i,
                            self.modwidth, 24-i*2)
 
               if self.modTimer and track.is_local():
@@ -378,7 +378,7 @@ class ExModbar(object):
                        int(flatcolor2g*0xFFFF),
                        int(flatcolor2b*0xFFFF)
                    )
-                   this.window.draw_rectangle(gc, True,
+                   this.props.window.draw_rectangle(gc, True,
                              (self.modwidth/10)*(self.uptime%10),
                              5, self.modwidth/10, 14)
               if self.defaultstyle:
@@ -387,7 +387,7 @@ class ExModbar(object):
                        int(flatcolor1g*0xFFFF),
                        int(flatcolor1b*0xFFFF)
                    )
-                   this.window.draw_rectangle(gc, True,
+                   this.props.window.draw_rectangle(gc, True,
                            0,12, self.modwidth, 2)
 
          except:
@@ -397,7 +397,7 @@ class ExModbar(object):
                   0x0000,
                   0x0000
               )
-              this.window.draw_rectangle(gc, True, 0, 0+i,
+              this.props.window.draw_rectangle(gc, True, 0, 0+i,
                      self.modwidth, 24-i*2)
 
             #if track and track.is_local():
@@ -419,7 +419,7 @@ class ExModbar(object):
                               int(flatcolor2g*0xFFFF*i/5+int(greenf*((5-float(i))/5))),
                               int(flatcolor2b*0xFFFF*i/5+int(bluef*((5-float(i))/5)))
                           )
-                          this.window.draw_rectangle(gc, True, 0, 0+i,
+                          this.props.window.draw_rectangle(gc, True, 0, 0+i,
                                  int(self.curpos*self.modwidth), 24-i*2)
                    else:
                       gc.foreground = this.get_colormap().alloc_color(
@@ -427,16 +427,16 @@ class ExModbar(object):
                           int(flatcolor2g*0xFFFF),
                           int(flatcolor2b*0xFFFF)
                       )
-                      this.window.draw_rectangle(gc, True,
+                      this.props.window.draw_rectangle(gc, True,
                            0,12, int(self.curpos*self.modwidth), 2)
                 else:
-                    this.window.draw_drawable(gc,self.pixmap2, 0, 0, 0, 0, int(self.curpos*self.modwidth), 24)
+                    this.props.window.draw_drawable(gc,self.pixmap2, 0, 0, 0, 0, int(self.curpos*self.modwidth), 24)
 
 
             else:
                 gc.foreground  = self.bgcolor;
                 gc.line_width=2
-                this.window.draw_arc(gc, True, int(self.curpos*self.modwidth)-15,
+                this.props.window.draw_arc(gc, True, int(self.curpos*self.modwidth)-15,
                         -5, 30, 30,  60*64, 60*64)
                 gc.foreground = this.get_colormap().alloc_color(
                     0x0000,
@@ -444,9 +444,9 @@ class ExModbar(object):
                     0x0000
                 )
 
-                this.window.draw_line(gc, int(self.curpos*self.modwidth), 10,
+                this.props.window.draw_line(gc, int(self.curpos*self.modwidth), 10,
                                       int(self.curpos*self.modwidth)-10, -5)
-                this.window.draw_line(gc, int(self.curpos*self.modwidth), 10,
+                this.props.window.draw_line(gc, int(self.curpos*self.modwidth), 10,
                                       int(self.curpos*self.modwidth)+10, -5)
 
             length = player.PLAYER.current.get_tag_raw('__length')
@@ -462,13 +462,13 @@ class ExModbar(object):
             )
             this.pangolayout.set_text(text)
 
-            this.window.draw_layout(gc, int(self.modwidth/2)-35,
+            this.props.window.draw_layout(gc, int(self.modwidth/2)-35,
                      4, this.pangolayout)
-            this.window.draw_layout(gc, int(self.modwidth/2)-37,
+            this.props.window.draw_layout(gc, int(self.modwidth/2)-37,
                      2, this.pangolayout)
-            this.window.draw_layout(gc, int(self.modwidth/2)-35,
+            this.props.window.draw_layout(gc, int(self.modwidth/2)-35,
                      2, this.pangolayout)
-            this.window.draw_layout(gc, int(self.modwidth/2)-37,
+            this.props.window.draw_layout(gc, int(self.modwidth/2)-37,
                      4, this.pangolayout)
             gc.foreground = this.get_colormap().alloc_color(
                 0xFFFF,
@@ -476,7 +476,7 @@ class ExModbar(object):
                 0xFFFF
             )
 
-            this.window.draw_layout(gc, int(self.modwidth/2)-36,
+            this.props.window.draw_layout(gc, int(self.modwidth/2)-36,
                      3, this.pangolayout)
 
 

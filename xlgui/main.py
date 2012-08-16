@@ -334,7 +334,7 @@ class MainWindow(gobject.GObject):
             Paints the window alpha transparency
         """
         opacity = 1 - settings.get_option('gui/transparency', 0.3)
-        context = widget.window.cairo_create()
+        context = widget.props.window.cairo_create()
         background = widget.style.bg[gtk.STATE_NORMAL]
         context.set_source_rgba(
             float(background.red) / 256**2,

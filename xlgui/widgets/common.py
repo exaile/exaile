@@ -168,7 +168,7 @@ class AutoScrollTreeView(gtk.TreeView):
 
             Adapted from gtk_tree_view_vertical_autoscroll() in gtktreeview.c
         """
-        x, y, modifier = self.window.get_pointer()
+        x, y, modifier = self.props.window.get_pointer()
         x, y = self.widget_to_tree_coords(x, y)
         visible_rect = self.get_visible_rect()
         # Calculate offset from the top edge

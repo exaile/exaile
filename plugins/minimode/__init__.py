@@ -222,7 +222,7 @@ class MiniMode(gtk.Window):
         """
             Paints the window alpha transparency
         """
-        context = self.window.cairo_create()
+        context = self.props.window.cairo_create()
         context.rectangle(*event.area)
         context.clip()
 

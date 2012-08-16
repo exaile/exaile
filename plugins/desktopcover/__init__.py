@@ -306,7 +306,7 @@ class DesktopCover(gtk.Window):
             Takes care of drawing the window
             transparently, if possible
         """
-        context = widget.window.cairo_create()
+        context = widget.props.window.cairo_create()
 
         context.rectangle(event.area.x, event.area.y,
             event.area.width, event.area.height)

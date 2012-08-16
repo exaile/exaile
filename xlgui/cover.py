@@ -187,10 +187,10 @@ class CoverManager(gobject.GObject):
             cover_data = get_cover(self.album_tracks[album][0], set_only=True)
             cover_pixbuf = pixbuf_from_data(cover_data) if cover_data else None
 
-            if cover_pixbuf:
+            try:
                 thumbnail_pixbuf = cover_pixbuf.scale_simple(*cover_size,
                     interp_type=gtk.gdk.INTERP_BILINEAR)
-            else:
+            except AttributeError: # cover_pixbuf is None
                 cover_pixbuf = thumbnail_pixbuf = default_cover_pixbuf
                 outstanding.append(album)
 

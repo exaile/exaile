@@ -33,9 +33,9 @@ name = _('AudioScrobbler')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "asprefs_pane.ui")
 
-icons.MANAGER.add_icon_name_from_directory('lastfm',
+icons.MANAGER.add_icon_name_from_directory('audioscrobbler',
     os.path.join(basedir, 'icons'))
-icon = 'lastfm'
+icon = 'audioscrobbler'
 
 class SubmitPreference(widgets.CheckPreference):
     default = True

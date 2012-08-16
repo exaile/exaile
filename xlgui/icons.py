@@ -694,11 +694,14 @@ class IconManager(object):
         if not data:
             return None
 
-        def on_size_prepared(loader, width, height):
-            """
-                Keeps the ratio if requested
-            """
-            if size is not None:
+        pixbuf = None
+        loader = gtk.gdk.PixbufLoader()
+
+        if size is not None:
+            def on_size_prepared(loader, width, height):
+                """
+                    Keeps the ratio if requested
+                """
                 if keep_ratio:
                     scale = min(size[0] / float(width), size[1] / float(height))
 
@@ -714,11 +717,9 @@ class IconManager(object):
                     else:
                         width = height = max(width, height)
 
-            loader.set_size(width, height)
+                loader.set_size(width, height)
+            loader.connect('size-prepared', on_size_prepared)
 
-        pixbuf = None
-        loader = gtk.gdk.PixbufLoader()
-        loader.connect('size-prepared', on_size_prepared)
         try:
             loader.write(data)
             loader.close()

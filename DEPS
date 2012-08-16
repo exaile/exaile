@@ -7,7 +7,7 @@ Dependencies
 ------------
 Essential:
 
-* python (>= 2.5)
+* python (>= 2.6)
 * pygst 0.10
 * gstreamer-plugins-good 0.10
 * mutagen (>= 1.10)

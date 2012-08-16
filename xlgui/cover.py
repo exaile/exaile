@@ -81,6 +81,11 @@ class CoverManager(gobject.GObject):
             gobject.TYPE_NONE,
             (gobject.TYPE_INT,)
         ),
+        'fetch-progress': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        ),
         'cover-fetched': (
             gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_NONE,
@@ -215,6 +220,8 @@ class CoverManager(gobject.GObject):
             cover_data = get_cover(self.album_tracks[album][0], save_cover=True)
             cover_pixbuf = pixbuf_from_data(cover_data) if cover_data else None
 
+            self.emit('fetch-progress', i + 1)
+
             if not cover_pixbuf:
                 continue
 
@@ -322,15 +329,10 @@ class CoverManager(gobject.GObject):
 
         self.progress_bar.set_fraction(0)
 
-    def do_cover_fetched(self, album, pixbuf):
+    def do_fetch_progress(self, progress):
         """
-            Updates the widgets to reflect the newly fetched cover
+            Updates the widgets to reflect the processed album
         """
-        path = self.model_path_cache[album]
-        self.model[path][1] = pixbuf
-        self.model[path][2] = pixbuf.scale_simple(*self.cover_size,
-            interp_type=gtk.gdk.INTERP_BILINEAR)
-
         outstanding_current = len(self.outstanding)
 
         if outstanding_current > 0:
@@ -341,9 +343,17 @@ class CoverManager(gobject.GObject):
 
         self.progress_bar.set_text(progress_text)
 
-        outstanding_total = self.progress_bar.get_data('outstanding-total')
-        fraction = (outstanding_total - outstanding_current) / outstanding_total
+        fraction = progress / self.progress_bar.get_data('outstanding-total')
         self.progress_bar.set_fraction(fraction)
+
+    def do_cover_fetched(self, album, pixbuf):
+        """
+            Updates the widgets to reflect the newly fetched cover
+        """
+        path = self.model_path_cache[album]
+        self.model[path][1] = pixbuf
+        self.model[path][2] = pixbuf.scale_simple(*self.cover_size,
+            interp_type=gtk.gdk.INTERP_BILINEAR)
 
     def on_cover_chosen(self, cover_chooser, cover_data):
         """

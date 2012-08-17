@@ -139,20 +139,29 @@ class Column(gtk.TreeViewColumn):
     def _setup_font(self):
         font = settings.get_option('gui/playlist_font', None)
         if font is not None:
+            def_font_sz = float(gtk.widget_get_default_style().font_desc.get_size())
             font_desc = pango.FontDescription(font)
             try:
                 self.cellrenderer.set_property('font-desc', font_desc)
             except TypeError:
                 pass
+                
+            # how much has the font deviated from normal?
+            ratio = font_desc.get_size()/def_font_sz
+            
+            try:
+                # adjust the display size of the column
+                self.size = max(int(self.size*ratio),1)
+            except AttributeError:
+                pass
             
             # TODO: Set custom icon (rating, loved tracks) size here.. or somewhere
             
             if hasattr(self, 'icon_cellr'):
-                def_font = float(gtk.widget_get_default_style().font_desc.get_size())
 
                 # scale icon size according to the font size
                 pbufsize = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
-                pbufsize = max(int(pbufsize * (font_desc.get_size()/def_font)),1)
+                pbufsize = max(int(pbufsize * ratio),1)
                 
                 self.icon_cellr.set_fixed_size(pbufsize, pbufsize)
                 self.extrasize = pbufsize

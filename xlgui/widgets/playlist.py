@@ -674,10 +674,14 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.model = PlaylistModel(self.playlist, columns, self.player)
         self.set_model(self.model)
 
+        font = settings.get_option('gui/playlist_font', None)
+        if font is not None:
+            font = pango.FontDescription(font)
+        
         for position, column in enumerate(columns):
             position += 2 # offset for pixbuf column
             playlist_column = providers.get_provider(
-                'playlist-columns', column)(self, position, self.player)
+                'playlist-columns', column)(self, position, self.player, font)
             playlist_column.connect('clicked', self.on_column_clicked)
             self.append_column(playlist_column)
             header = playlist_column.get_widget()

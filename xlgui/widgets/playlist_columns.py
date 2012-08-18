@@ -60,7 +60,7 @@ class Column(gtk.TreeViewColumn):
     dataproperty = 'text'
     cellproperties = {}
 
-    def __init__(self, container, index, player):
+    def __init__(self, container, index, player, font):
         if self.__class__ == Column:
             raise NotImplementedError("Can't instantiate "
                 "abstract class %s" % repr(self.__class__))
@@ -70,10 +70,15 @@ class Column(gtk.TreeViewColumn):
         self.settings_width_name = "gui/col_width_%s" % self.name
         self.cellrenderer = self.renderer()
         self.extrasize = 0
+        
+        self.set_font(font)
 
         if index == 2:
             gtk.TreeViewColumn.__init__(self, self.display)
             self.icon_cellr = gtk.CellRendererPixbuf()
+            pbufsize = self.get_icon_height()
+            self.icon_cellr.set_fixed_size(pbufsize, pbufsize)
+            self.extrasize = pbufsize
             self.icon_cellr.set_property('xalign', 0.0)
             self.pack_start(self.icon_cellr, False)
             self.pack_start(self.cellrenderer, True)
@@ -101,7 +106,6 @@ class Column(gtk.TreeViewColumn):
         self.set_widget(gtk.Label(self.display))
 
         self.connect('notify::width', self.on_width_changed)
-        self._setup_font()
         self._setup_sizing()
 
         event.add_callback(self.on_option_set, "gui_option_set")
@@ -110,8 +114,6 @@ class Column(gtk.TreeViewColumn):
     def on_option_set(self, typ, obj, data):
         if data in ("gui/resizable_cols", self.settings_width_name):
             glib.idle_add(self._setup_sizing)
-        elif data == 'gui/playlist_font':
-            glib.idle_add(self._setup_font)
 
     def on_width_changed(self, column, wid):
         if not self.container.button_pressed:
@@ -120,6 +122,32 @@ class Column(gtk.TreeViewColumn):
         if width != settings.get_option(self.settings_width_name, -1):
             settings.set_option(self.settings_width_name, width)
 
+    def set_font(self, font):
+        '''
+            This should be set even for non-text columns.
+            
+            ::param font:: is None or a pango.FontDescription
+        '''
+        default_font = gtk.widget_get_default_style().font_desc
+        if font is None:
+            font = default_font
+            
+        def_font_sz = float(default_font.get_size())
+            
+        try:
+            self.cellrenderer.set_property('font-desc', font)
+        except TypeError:
+            pass
+                
+        # how much has the font deviated from normal?
+        self._font_ratio = font.get_size()/def_font_sz
+        
+        try:
+            # adjust the display size of the column
+            self.size = max(int(self.size*self._font_ratio),1)
+        except AttributeError:
+                pass
+            
     def _setup_sizing(self):
         if settings.get_option('gui/resizable_cols', False):
             self.set_resizable(True)
@@ -135,39 +163,12 @@ class Column(gtk.TreeViewColumn):
             else:
                 self.set_expand(False)
                 self.set_fixed_width(self.size+self.extrasize)
+             
+    def get_icon_height(self):
+        '''Returns a default icon height based on the font size'''
+        sz = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
+        return max(int(sz*self._font_ratio), 1)
                 
-    def _setup_font(self):
-        font = settings.get_option('gui/playlist_font', None)
-        if font is not None:
-            def_font_sz = float(gtk.widget_get_default_style().font_desc.get_size())
-            font_desc = pango.FontDescription(font)
-            try:
-                self.cellrenderer.set_property('font-desc', font_desc)
-            except TypeError:
-                pass
-                
-            # how much has the font deviated from normal?
-            ratio = font_desc.get_size()/def_font_sz
-            
-            try:
-                # adjust the display size of the column
-                self.size = max(int(self.size*ratio),1)
-            except AttributeError:
-                pass
-            
-            # TODO: Set custom icon (rating, loved tracks) size here.. or somewhere
-            
-            if hasattr(self, 'icon_cellr'):
-
-                # scale icon size according to the font size
-                pbufsize = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
-                pbufsize = max(int(pbufsize * ratio),1)
-                
-                self.icon_cellr.set_fixed_size(pbufsize, pbufsize)
-                self.extrasize = pbufsize
-                
-                self._setup_sizing()
-
     def data_func(self, col, cell, model, iter):
         if type(cell) == gtk.CellRendererText:
             playlist = self.container.playlist

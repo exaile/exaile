@@ -24,8 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import glib
 import gtk
 import gobject
+import pango
  
 from xl import (
     event, 
@@ -39,11 +41,15 @@ from xl.nls import gettext as _
 from xlgui import guiutil
 from xlgui.widgets import menu, dialogs
 
+import gt_prefs
 import gt_widgets
 from gt_common import *
 
 plugin = None
 
+
+def get_preferences_pane():
+    return gt_prefs
 
 def enable(exaile):
     '''Called on plugin enable'''
@@ -78,6 +84,7 @@ class GroupTaggerPlugin(object):
     
         self.panel = gt_widgets.GroupTaggerPanel(exaile)
         self.panel.show_all()
+        self.setup_panel_font(False)
         
         self.panel.tagger.view.connect( 'category-changed', self.on_category_change )
         self.panel.tagger.view.connect( 'category-edited', self.on_category_edited )
@@ -90,7 +97,7 @@ class GroupTaggerPlugin(object):
         # ok, register for some events
         event.add_callback( self.on_playback_track_start, 'playback_track_start' )
         event.add_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
-        #event.add_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
+        event.add_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         
         # add our own submenu for functionality
         self.tools_submenu = menu.Menu( None, context_func=lambda p: exaile )
@@ -140,9 +147,20 @@ class GroupTaggerPlugin(object):
         # de-register the exaile events
         event.remove_callback( self.on_playback_track_start, 'playback_track_start' )
         event.remove_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
-        #event.remove_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
+        event.remove_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         
         exaile.gui.remove_panel( self.panel )
+        
+    def setup_panel_font(self, always_set):
+        font = settings.get_option('plugin/grouptagger/panel_font', None)
+        if font is None:
+            if not always_set:
+                return
+            font = gt_prefs._get_system_default_font()
+        else:
+            font = pango.FontDescription(font)
+
+        self.panel.tagger.set_font(font)
         
     #
     # Menu callbacks
@@ -260,4 +278,11 @@ class GroupTaggerPlugin(object):
             groups = view.get_model().iter_active()
             if not set_track_groups( self.track, groups ):
                 self.set_display_track( self.track, force_update=True )
+                
+    def on_plugin_options_set(self, evtype, settings, option):
+        '''Handles option changes'''
+        if option == 'plugin/grouptagger/panel_font':
+            glib.idle_add( self.setup_panel_font, True )
+            
+    
   

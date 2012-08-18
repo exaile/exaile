@@ -128,7 +128,8 @@ class GroupTaggerView(gtk.TreeView):
         if editable:
             cell.connect( 'edited', self.on_edit )
         
-        self.append_column( gtk.TreeViewColumn( _('Group'), cell, text=1, weight=3 ) )
+        self.text_column = cell
+        self.append_column( gtk.TreeViewColumn( _('Group'), self.text_column, text=1, weight=3 ) )
         
         #
         # Menu setup
@@ -175,6 +176,14 @@ class GroupTaggerView(gtk.TreeView):
                     
         # TODO:
         # - Create smart playlist from selected
+            
+    def set_font(self, font):
+        self.text_column.set_property('font-desc', font)
+        model = self.get_model()
+        self.set_model(None)
+        self.set_model(model)
+        self.sync_expanded()
+        self.queue_draw()
             
     def get_context(self):
         '''Returns context parameter required by menus'''
@@ -523,6 +532,10 @@ class GroupTaggerWidget(gtk.VBox):
         
     def on_add_tag_click(self, widget):
         self.view.on_menu_add_group( self.view, None, None, self.view.get_context() )
+            
+            
+    def set_font(self, font):
+        self.view.set_font(font)
             
     def set_title(self, title):
         '''Sets the title for this widget. Hides title if title is None'''

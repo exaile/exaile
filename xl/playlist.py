@@ -31,6 +31,7 @@ in playlists as well as methods to import and export from various file formats.
 
 from __future__ import with_statement
 import cgi
+from collections import namedtuple
 from contextlib import closing
 from datetime import datetime, timedelta
 import gio
@@ -63,6 +64,11 @@ logger = logging.getLogger(__name__)
 
 class InvalidPlaylistTypeError(Exception):
     pass
+
+class PlaylistExists(Exception):
+    pass
+
+PlaylistExportOptions = namedtuple('PlaylistExportOptions', 'relative')
 
 def encode_filename(filename):
     """
@@ -504,21 +510,23 @@ class ASXConverter(FormatConverter):
         """
         handle = open(path, "w")
 
-        handle.write("<asx version=\"3.0\">\n")
+        handle.write('<asx version="3.0">\n')
         if playlist.name == '':
             name = ''
         else:
             name = playlist.name
-        handle.write("  <title>%s</title>\n" % name)
+        handle.write('  <title>%s</title>\n' % name)
 
         for track in playlist:
-            handle.write("<entry>\n")
-            handle.write("  <title>%s</title>\n" % \
+            handle.write('<entry>\n')
+            handle.write('  <title>%s</title>\n' % \
                     track.get_tag_raw('title', join=True))
-            handle.write("  <ref href=\"%s\" />\n" % track.get_loc_for_io())
-            handle.write("</entry>\n")
+            handle.write('  <author>%s</author>\n' % \
+                    track.get_tag_raw('artist', join=True))
+            handle.write('  <ref href="%s" />\n' % track.get_loc_for_io())
+            handle.write('</entry>\n')
 
-        handle.write("</asx>")
+        handle.write('</asx>')
         handle.close()
 
     def import_from_file(self, path):
@@ -1731,10 +1739,6 @@ class SmartPlaylist(object):
         for item in pdata:
             if hasattr(self, item):
                 setattr(self, item, pdata[item])
-
-
-class PlaylistExists(Exception):
-    pass
 
 class PlaylistManager(object):
     """

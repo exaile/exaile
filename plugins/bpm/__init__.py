@@ -73,6 +73,7 @@ class BPMCounterPlugin(object):
     def __init__(self, exaile):
     
         self.window = None
+        self.taps = []
         
         self.MENU_ITEM = menu.simple_menu_item('bpm_counter', ['plugin-sep'], _('BPM Counter'),
             callback=lambda *x: self.enable(exaile))

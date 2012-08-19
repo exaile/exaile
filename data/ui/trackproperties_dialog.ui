@@ -16,12 +16,11 @@
               <object class="GtkVBox" id="vbox3">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
-                <property name="spacing">3</property>
                 <child>
                   <object class="GtkScrolledWindow" id="scrolledwindow1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="border_width">3</property>
+                    <property name="border_width">6</property>
                     <property name="hscrollbar_policy">automatic</property>
                     <child>
                       <object class="GtkViewport" id="viewport1">
@@ -31,8 +30,8 @@
                           <object class="GtkTable" id="tags_table">
                             <property name="visible">True</property>
                             <property name="n_columns">4</property>
-                            <property name="column_spacing">50</property>
-                            <property name="row_spacing">5</property>
+                            <property name="column_spacing">6</property>
+                            <property name="row_spacing">6</property>
                             <child>
                               <placeholder/>
                             </child>
@@ -57,7 +56,7 @@
                 <child>
                   <object class="GtkHBox" id="hbox3">
                     <property name="visible">True</property>
-                    <property name="border_width">3</property>
+                    <property name="border_width">6</property>
                     <property name="spacing">5</property>
                     <child>
                       <object class="GtkComboBoxEntry" id="new_tag_combo">
@@ -131,7 +130,6 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
-                    <property name="padding">5</property>
                     <property name="position">1</property>
                   </packing>
                 </child>

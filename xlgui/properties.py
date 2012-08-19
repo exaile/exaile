@@ -1157,7 +1157,7 @@ class PropertyField(gtk.HBox):
 
             if not f.get_path():
                 # Sanitize URLs of remote locations
-                val = common.sanitize_url(output)
+                val = common.sanitize_url(val)
                 # Disable folder button for non-browsable locations
                 self.folder_button.set_sensitive(False)
         else:

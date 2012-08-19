@@ -771,7 +771,7 @@ class Track(object):
         """
         if type(values) in (str, unicode):
             return values
-        return glue.join(values)
+        return glue.join(map(common.to_unicode, values))
 
     @staticmethod
     def split_numerical(values):
@@ -806,7 +806,8 @@ class Track(object):
             stripping the chars leaves nothing the original field is
             returned with only whitespace removed.
         """
-        stripped = value.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+        stripped = common.to_unicode(value).lstrip(
+            " `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
         if stripped:
             return stripped
         else:

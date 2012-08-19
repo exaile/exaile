@@ -71,9 +71,7 @@ def __create_collection_panel_context_menu():
     items.append(menuitems.EnqueueMenuItem('enqueue', after=[items[-1].name], 
             get_tracks_func=sorted_get_tracks_func))
     items.append(menuitems.RatingMenuItem('rating', after=[items[-1].name]))
-    items.append(menu.simple_separator('sep', after=[items[-1].name]))
-    items.append(menuitems.PropertiesMenuItem('properties',
-            after=[items[-1].name], get_tracks_func=sorted_get_tracks_func))
+    items.append(menu.simple_separator('sep1', after=[items[-1].name]))
     items.append(menuitems.OpenDirectoryMenuItem('open-drectory', 
         after=[items[-1].name]))
 
@@ -82,6 +80,9 @@ def __create_collection_panel_context_menu():
     items.append(menuitems.TrashMenuItem('trash-tracks',
         after=[items[-1].name],
         delete_tracks_func=collection_delete_tracks_func))
+    items.append(menu.simple_separator('sep2', after=[items[-1].name]))
+    items.append(menuitems.PropertiesMenuItem('properties',
+            after=[items[-1].name], get_tracks_func=sorted_get_tracks_func))
 
     for item in items:
         providers.register('collection-panel-context-menu', item)

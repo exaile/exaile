@@ -525,15 +525,19 @@ class FileOperationDialog(gtk.FileChooserDialog):
         """
         gtk.FileChooserDialog.__init__(self, title, parent, action, buttons, backend)
 
-        self.expander = gtk.Expander(_('Select File Type (by Extension)'))
-        self.expander.set_border_width(5) # Taken from gtk.FileChooserWidget
+        self.set_do_overwrite_confirmation(True)
 
-        #Create the list that will hold the file type/extensions pair
+        # Container for additional option widgets
+        self.extras_box = gtk.VBox(spacing=3)
+        self.set_extra_widget(self.extras_box)
+        self.extras_box.show()
+
+        # Create the list that will hold the file type/extensions pair
         self.liststore = gtk.ListStore(str, str)
         self.list = gtk.TreeView(self.liststore)
         self.list.set_headers_visible(False)
 
-        #Create the columns
+        # Create the columns
         filetype_cell = gtk.CellRendererText()
         extension_cell = gtk.CellRendererText()
         column = gtk.TreeViewColumn()
@@ -545,16 +549,13 @@ class FileOperationDialog(gtk.FileChooserDialog):
         self.list.append_column(column)
         self.list.show_all()
 
-        #Setup the dialog
+        self.expander = gtk.Expander(_('Select File Type (by Extension)'))
         self.expander.add(self.list)
-        self.get_content_area().pack_start(self.expander, False, False, 3)
+        self.extras_box.pack_start(self.expander, False, False)
         self.expander.show()
 
-        #Connect signals
         selection = self.list.get_selection()
         selection.connect('changed', self.on_selection_changed)
-
-        self.set_do_overwrite_confirmation(True)
 
     def on_selection_changed(self, selection):
         """
@@ -869,7 +870,7 @@ class PlaylistExportDialog(FileOperationDialog):
 
         self.relative_checkbox = gtk.CheckButton(_('Use relative paths to tracks'))
         self.relative_checkbox.set_active(True)
-        self.get_content_area().pack_start(self.relative_checkbox, False, False, 3)
+        self.extras_box.pack_start(self.relative_checkbox, False, False, 3)
         self.relative_checkbox.show()
 
         self.playlist = playlist

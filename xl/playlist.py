@@ -559,9 +559,11 @@ class ASXConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
+        from xml.sax.saxutils import escape
+
         with closing(gio.File(path).replace('', False)) as stream:
             stream.write('<asx version="3.0">\n')
-            stream.write('  <title>%s</title>\n' % playlist.name)
+            stream.write('  <title>%s</title>\n' % escape(playlist.name))
 
             for track in playlist:
                 stream.write('  <entry>\n')
@@ -570,10 +572,10 @@ class ASXConverter(FormatConverter):
                 artist = track.get_tag_raw('artist', join=True)
 
                 if title:
-                    stream.write('    <title>%s</title>\n' % title)
+                    stream.write('    <title>%s</title>\n' % escape(title))
 
                 if artist:
-                    stream.write('    <author>%s</author>\n' % artist)
+                    stream.write('    <author>%s</author>\n' % escape(artist))
 
                 track_path = track.get_loc_for_io()
 
@@ -616,7 +618,6 @@ class ASXConverter(FormatConverter):
             for title in asx_playlist.xpathEval2('/asx/%s' % compare('title')):
                 name = title.get_content().strip()
                 break
-
 
             for entry in asx_playlist.xpathEval2('/asx/%s' % compare('entry')):
                 uris = entry.xpathEval2('%s/@href' % compare('ref'))
@@ -674,12 +675,14 @@ class XSPFConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
+        from xml.sax.saxutils import escape
+
         with closing(gio.File(path).replace('', False)) as stream:
             stream.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             stream.write('<playlist version="1" xmlns="http://xspf.org/ns/0/">\n')
 
             if playlist.name:
-                stream.write('  <title>%s</title>\n' % playlist.name)
+                stream.write('  <title>%s</title>\n' % escape(playlist.name))
 
             stream.write('  <trackList>\n')
 
@@ -690,7 +693,7 @@ class XSPFConverter(FormatConverter):
                         continue
                     stream.write('      <%s>%s</%s>\n' % (
                         element,
-                        track.get_tag_raw(tag, join=True),
+                        escape(track.get_tag_raw(tag, join=True)),
                         element
                     ))
 
@@ -699,7 +702,7 @@ class XSPFConverter(FormatConverter):
                 if options:
                     track_path = self.get_track_export_path(path, track_path, options)
 
-                stream.write('      <location>%s</location>\n' % track_path)
+                stream.write('      <location>%s</location>\n' % escape(track_path))
                 stream.write('    </track>\n')
 
             stream.write('  </trackList>\n')

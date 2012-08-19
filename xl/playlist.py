@@ -293,9 +293,7 @@ class M3UConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
-        gfile = gio.File(path)
-
-        with closing(gfile.replace('', False)) as stream:
+        with closing(gio.File(path).replace('', False)) as stream:
             stream.write('#EXTM3U\n')
 
             if playlist.name:
@@ -324,11 +322,10 @@ class M3UConverter(FormatConverter):
             :returns: the playlist
             :rtype: :class:`Playlist`
         """
-        gfile = gio.File(path)
         playlist = Playlist(name=self.name_from_path(path))
         extinf = {}
 
-        with closing(gio.DataInputStream(gfile.read())) as stream:
+        with closing(gio.DataInputStream(gio.File(path).read())) as stream:
             while True:
                 line = stream.read_line()
 
@@ -418,8 +415,8 @@ class PLSConverter(FormatConverter):
 
         pls_playlist.set('playlist', 'Version', 2)
 
-        with open(path, 'w') as playlist_file:
-            pls_playlist.write(playlist_file)
+        with closing(gio.File(path).replace('', False)) as stream:
+            pls_playlist.write(stream)
 
     def import_from_file(self, path):
         """
@@ -562,37 +559,31 @@ class ASXConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
-        handle = open(path, "w")
+        with closing(gio.File(path).replace('', False)) as stream:
+            stream.write('<asx version="3.0">\n')
+            stream.write('  <title>%s</title>\n' % playlist.name)
 
-        handle.write('<asx version="3.0">\n')
-        if playlist.name == '':
-            name = ''
-        else:
-            name = playlist.name
-        handle.write('  <title>%s</title>\n' % name)
+            for track in playlist:
+                stream.write('  <entry>\n')
 
-        for track in playlist:
-            handle.write('<entry>\n')
+                title = track.get_tag_raw('title', join=True)
+                artist = track.get_tag_raw('artist', join=True)
 
-            title = track.get_tag_raw('title', join=True)
-            artist = track.get_tag_raw('artist', join=True)
+                if title:
+                    stream.write('    <title>%s</title>\n' % title)
 
-            if title:
-                handle.write('  <title>%s</title>\n' % title)
+                if artist:
+                    stream.write('    <author>%s</author>\n' % artist)
 
-            if artist:
-                handle.write('  <author>%s</author>\n' % artist)
+                track_path = track.get_loc_for_io()
 
-            track_path = track.get_loc_for_io()
+                if options:
+                    track_path = self.get_track_export_path(path, track_path, options)
 
-            if options:
-                track_path = self.get_track_export_path(path, track_path, options)
+                stream.write('    <ref href="%s" />\n' % track_path)
+                stream.write('  </entry>\n')
 
-            handle.write('  <ref href="%s" />\n' % track_path)
-            handle.write('</entry>\n')
-
-        handle.write('</asx>')
-        handle.close()
+            stream.write('</asx>')
 
     def import_from_file(self, path):
         """
@@ -683,36 +674,36 @@ class XSPFConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
-        handle = open(path, "w")
+        with closing(gio.File(path).replace('', False)) as stream:
+            stream.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+            stream.write('<playlist version="1" xmlns="http://xspf.org/ns/0/">\n')
 
-        handle.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-        handle.write('<playlist version="1" xmlns="http://xspf.org/ns/0/">\n')
-        if playlist.name != '':
-            handle.write('  <title>%s</title>\n' % playlist.name)
+            if playlist.name:
+                stream.write('  <title>%s</title>\n' % playlist.name)
 
-        handle.write('  <trackList>\n')
-        for track in playlist:
-            handle.write('    <track>\n')
-            for element, tag in self.tags.iteritems():
-                if not track.get_tag_raw(tag):
-                    continue
-                handle.write('      <%s>%s</%s>\n' % (
-                    element,
-                    track.get_tag_raw(tag, join=True),
-                    element
-                ))
+            stream.write('  <trackList>\n')
 
-            track_path = track.get_loc_for_io()
+            for track in playlist:
+                stream.write('    <track>\n')
+                for element, tag in self.tags.iteritems():
+                    if not track.get_tag_raw(tag):
+                        continue
+                    stream.write('      <%s>%s</%s>\n' % (
+                        element,
+                        track.get_tag_raw(tag, join=True),
+                        element
+                    ))
 
-            if options:
-                track_path = self.get_track_export_path(path, track_path, options)
+                track_path = track.get_loc_for_io()
 
-            handle.write('      <location>%s</location>\n' % track_path)
-            handle.write('    </track>\n')
+                if options:
+                    track_path = self.get_track_export_path(path, track_path, options)
 
-        handle.write('  </trackList>\n')
-        handle.write('</playlist>\n')
-        handle.close()
+                stream.write('      <location>%s</location>\n' % track_path)
+                stream.write('    </track>\n')
+
+            stream.write('  </trackList>\n')
+            stream.write('</playlist>\n')
 
     def import_from_file(self, path):
         """
@@ -726,10 +717,9 @@ class XSPFConverter(FormatConverter):
         #TODO: support content resolution
         import xml.etree.cElementTree as ETree
 
-        gfile = gio.File(path)
         playlist = Playlist(name=self.name_from_path(path))
 
-        with closing(gio.DataInputStream(gfile.read())) as stream:
+        with closing(gio.DataInputStream(gio.File(path).read())) as stream:
             tree = ETree.ElementTree(file=stream)
             ns = "{http://xspf.org/ns/0/}"
             nodes = tree.find("%strackList" % ns).findall("%strack" % ns)

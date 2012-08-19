@@ -42,7 +42,8 @@ from xl.playlist import (
     is_valid_playlist,
     import_playlist,
     export_playlist,
-    InvalidPlaylistTypeError
+    InvalidPlaylistTypeError,
+    PlaylistExportOptions
 )
 from xl.nls import gettext as _
 
@@ -827,7 +828,7 @@ class PlaylistImportDialog(gtk.FileChooserDialog):
             PlaylistImportDialog._last_location = self.get_current_folder_uri()
             
             try:
-                playlist = import_playlist( self.get_uri() )
+                playlist = import_playlist(self.get_uri())
             except InvalidPlaylistTypeError, e:
                 error(None, 'Invalid playlist: %s' % e)
                 self.destroy()
@@ -862,7 +863,14 @@ class PlaylistExportDialog(FileOperationDialog):
             action=gtk.FILE_CHOOSER_ACTION_SAVE,
             buttons=(
                 gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                gtk.STOCK_SAVE, gtk.RESPONSE_OK))
+                gtk.STOCK_SAVE, gtk.RESPONSE_OK
+            )
+        )
+
+        self.relative_checkbox = gtk.CheckButton(_('Use relative paths to tracks'))
+        self.relative_checkbox.set_active(True)
+        self.get_content_area().pack_start(self.relative_checkbox, False, False, 3)
+        self.relative_checkbox.show()
 
         self.playlist = playlist
 
@@ -903,9 +911,13 @@ class PlaylistExportDialog(FileOperationDialog):
             
             if not is_valid_playlist(path):
                 path = '%s.m3u' % path
+
+            options = PlaylistExportOptions(
+                relative=self.relative_checkbox.get_active()
+            )
             
             try:
-                export_playlist(self.playlist, path)
+                export_playlist(self.playlist, path, options)
             except InvalidPlaylistTypeError, e:
                 self.emit('message', gtk.MESSAGE_ERROR, str(e))
             else:

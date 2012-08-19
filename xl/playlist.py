@@ -68,6 +68,8 @@ class InvalidPlaylistTypeError(Exception):
 class PlaylistExists(Exception):
     pass
 
+PlaylistExportOptions = namedtuple('PlaylistExportOptions', 'relative')
+
 def encode_filename(filename):
     """
         Converts a file name into a valid filename most
@@ -149,7 +151,7 @@ def import_playlist(path):
 
     raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
 
-def export_playlist(playlist, path):
+def export_playlist(playlist, path, options=None):
     """
         Exact same as @see import_playlist except
         it exports
@@ -158,7 +160,7 @@ def export_playlist(playlist, path):
 
     for provider in providers.get('playlist-format-converter'):
         if file_extension in provider.file_extensions:
-            provider.export_to_file(playlist, path)
+            provider.export_to_file(playlist, path, options)
             break
     else:
         raise InvalidPlaylistTypeError(_('Invalid playlist type.'))
@@ -175,7 +177,7 @@ class FormatConverter(object):
     def __init__(self, name):
         self.name = name
 
-    def export_to_file(self, playlist, path):
+    def export_to_file(self, playlist, path, options=None):
         """
             Export a playlist to a given path
 
@@ -183,6 +185,8 @@ class FormatConverter(object):
             :type playlist: :class:`Playlist`
             :param path: the target path
             :type path: string
+            :param options: exporting options
+            :type options: :class:`PlaylistExportOptions`
         """
         pass
 
@@ -216,6 +220,58 @@ class FormatConverter(object):
                 return name[:-len(extension)-1]
         return name
 
+    def get_track_import_path(self, playlist_path, track_path):
+        """
+            Retrieves the import path of a track
+
+            :param playlist_path: the import path of the playlist
+            :type playlist_path: string
+            :param track_path: the path of the track
+            :type track_path: string
+        """
+        import_path = gio.File(playlist_path).get_uri()
+        # Track path will not be changed if it already is a fully qualified URL
+        track_path = urlparse.urljoin(import_path, track_path)
+
+        return track_path
+
+    def get_track_export_path(self, playlist_path, track_path, options):
+        """
+            Retrieves the export path of a track,
+            possibly influenced by options
+
+            :param playlist_path: the export path of the playlist
+            :type playlist_path: string
+            :param track_path: the path of the track
+            :type track_path: string
+            :param options: options
+            :type options: :class:`PlaylistExportOptions`
+        """
+        if options.relative:
+            playlist_file = gio.File(playlist_path)
+            # Strip playlist filename from export path
+            export_path = playlist_file.get_uri()[:-len(playlist_file.get_basename())]
+
+            try:
+                export_path_components = urlparse.urlparse(export_path)
+                track_path_components = urlparse.urlparse(track_path)
+            except (AttributeError, ValueError): # None, empty path
+                pass
+            else:
+                # Only try to retrieve relative paths for tracks with
+                # the same URI scheme and location as the playlist
+                if export_path_components.scheme == track_path_components.scheme and \
+                   export_path_components.netloc == track_path_components.netloc:
+                    # gio.File.get_relative_path does not generate relative paths
+                    # for tracks located above the playlist in the path hierarchy,
+                    # thus process both paths as done here
+                    track_path = os.path.relpath(
+                        track_path_components.path,
+                        export_path_components.path
+                    )
+
+        return track_path
+
 class M3UConverter(FormatConverter):
     """
         Import from and export to M3U format
@@ -226,7 +282,7 @@ class M3UConverter(FormatConverter):
     def __init__(self):
         FormatConverter.__init__(self, 'm3u')
 
-    def export_to_file(self, playlist, path):
+    def export_to_file(self, playlist, path, options=None):
         """
             Export a playlist to a given path
 
@@ -234,6 +290,8 @@ class M3UConverter(FormatConverter):
             :type playlist: :class:`Playlist`
             :param path: the target path
             :type path: string
+            :param options: exporting options
+            :type options: :class:`PlaylistExportOptions`
         """
         gfile = gio.File(path)
 
@@ -246,11 +304,15 @@ class M3UConverter(FormatConverter):
             for track in playlist:
                 title = [track.get_tag_display('title', join=True), track.get_tag_display('artist', join=True)]
                 length = int(round(float(track.get_tag_raw('__length') or -1)))
+                track_path = track.get_loc_for_io()
+
+                if options:
+                    track_path = self.get_track_export_path(path, track_path, options)
 
                 stream.write('#EXTINF:{length},{title}\n{path}\n'.format(
                     length=length,
                     title=' - '.join(title),
-                    path=track.get_loc_for_io()
+                    path=track_path
                 ))
 
     def import_from_file(self, path):
@@ -300,7 +362,7 @@ class M3UConverter(FormatConverter):
                 elif line.startswith('#'):
                     continue
                 else:
-                    track = trax.Track(line)
+                    track = trax.Track(self.get_track_import_path(path, line))
 
                     if extinf:
                         for tag, value in extinf.iteritems():
@@ -323,7 +385,7 @@ class PLSConverter(FormatConverter):
     def __init__(self):
         FormatConverter.__init__(self, 'pls')
 
-    def export_to_file(self, playlist, path):
+    def export_to_file(self, playlist, path, options=None):
         """
             Export a playlist to a given path
 
@@ -331,6 +393,8 @@ class PLSConverter(FormatConverter):
             :type playlist: :class:`Playlist`
             :param path: the target path
             :type path: string
+            :param options: exporting options
+            :type options: :class:`PlaylistExportOptions`
         """
         from ConfigParser import RawConfigParser
 
@@ -343,8 +407,12 @@ class PLSConverter(FormatConverter):
             position = index + 1
             title = [track.get_tag_display('title', join=True), track.get_tag_display('artist', join=True)]
             length = max(-1, int(round(float(track.get_tag_raw('__length') or -1))))
+            track_path = track.get_loc_for_io()
 
-            pls_playlist.set('playlist', 'File%d' % position, track.get_loc_for_io())
+            if options:
+                track_path = self.get_track_export_path(path, track_path, options)
+
+            pls_playlist.set('playlist', 'File%d' % position, track_path)
             pls_playlist.set('playlist', 'Title%d' % position, ' - '.join(title))
             pls_playlist.set('playlist', 'Length%d' % position, length)
 
@@ -392,7 +460,7 @@ class PLSConverter(FormatConverter):
                     if not line:
                         continue
 
-                    track = trax.Track(line)
+                    track = trax.Track(self.get_track_import_path(path, line))
                     
                     if track.get_tag_raw('title') is None:
                         track.set_tag_raw('title', common.sanitize_url(
@@ -434,7 +502,7 @@ class PLSConverter(FormatConverter):
             except NoOptionError:
                 continue
 
-            track = trax.Track(uri)
+            track = trax.Track(self.get_track_import_path(path, uri))
             title = artist = None
             length = 0
 
@@ -483,7 +551,7 @@ class ASXConverter(FormatConverter):
     def __init__(self):
         FormatConverter.__init__(self, 'asx')
 
-    def export_to_file(self, playlist, path):
+    def export_to_file(self, playlist, path, options=None):
         """
             Export a playlist to a given path
 
@@ -491,6 +559,8 @@ class ASXConverter(FormatConverter):
             :type playlist: :class:`Playlist`
             :param path: the target path
             :type path: string
+            :param options: exporting options
+            :type options: :class:`PlaylistExportOptions`
         """
         handle = open(path, "w")
 
@@ -513,7 +583,12 @@ class ASXConverter(FormatConverter):
             if artist:
                 handle.write('  <author>%s</author>\n' % artist)
 
-            handle.write('  <ref href="%s" />\n' % track.get_loc_for_io())
+            track_path = track.get_loc_for_io()
+
+            if options:
+                track_path = self.get_track_export_path(path, track_path, options)
+
+            handle.write('  <ref href="%s" />\n' % track_path)
             handle.write('</entry>\n')
 
         handle.write('</asx>')
@@ -560,7 +635,7 @@ class ASXConverter(FormatConverter):
                 if len(uris) != 1:
                     continue
 
-                track = trax.Track(uris[0].get_content())
+                track = trax.Track(self.get_track_import_path(path, uris[0].get_content()))
 
                 if track.get_tag_raw('title') is None \
                     and len(titles) == 1:
@@ -597,7 +672,7 @@ class XSPFConverter(FormatConverter):
             'trackNum': 'tracknumber'
         }
 
-    def export_to_file(self, playlist, path):
+    def export_to_file(self, playlist, path, options=None):
         """
             Export a playlist to a given path
 
@@ -605,6 +680,8 @@ class XSPFConverter(FormatConverter):
             :type playlist: :class:`Playlist`
             :param path: the target path
             :type path: string
+            :param options: exporting options
+            :type options: :class:`PlaylistExportOptions`
         """
         handle = open(path, "w")
 
@@ -625,7 +702,12 @@ class XSPFConverter(FormatConverter):
                     element
                 ))
 
-            handle.write('      <location>%s</location>\n' % track.get_loc_for_io())
+            track_path = track.get_loc_for_io()
+
+            if options:
+                track_path = self.get_track_export_path(path, track_path, options)
+
+            handle.write('      <location>%s</location>\n' % track_path)
             handle.write('    </track>\n')
 
         handle.write('  </trackList>\n')
@@ -657,7 +739,8 @@ class XSPFConverter(FormatConverter):
                 playlist.name = titlenode.text.strip()
 
             for n in nodes:
-                track = trax.Track(n.find("%slocation" % ns).text.strip())
+                location = n.find("%slocation" % ns).text.strip()
+                track = trax.Track(self.get_track_import_path(path, location))
                 for element, tag in self.tags.iteritems():
                     try:
                         track.set_tag_raw(tag,

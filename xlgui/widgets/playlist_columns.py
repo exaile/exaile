@@ -439,9 +439,12 @@ class ScheduleTimeColumn(Column):
             Makes sure schedule times are updated in realtime
         """
         self.queue_resize()
-        self.get_tree_view().queue_draw()
+        view = self.get_tree_view()
+        if view is not None:
+            view.queue_draw()
+            return True
 
-        return True
+        return False
 
     def on_queue_current_playlist_changed(self, e, queue, current_playlist):
         """

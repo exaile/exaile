@@ -356,11 +356,6 @@ class PlaylistPage(NotebookPage):
 
         self.view = PlaylistView(playlist, player)
         self.playlist_window.add(self.view)
-        self._filter_string = ""
-        self._filter_matcher = None
-        self.modelfilter = self.view.model.filter_new()
-        self.modelfilter.set_visible_func(self.model_visible_func)
-        self.view.set_model(self.modelfilter)
 
         event.add_callback(self.on_mode_changed,
             'playlist_shuffle_mode_changed', self.playlist,
@@ -417,19 +412,11 @@ class PlaylistPage(NotebookPage):
             self.playlist.dynamic_mode = self.playlist.dynamic_modes[0]
 
     def on_search_entry_activate(self, entry):
-        self._filter_string = entry.get_text()
-        if self._filter_string == "":
-            self._filter_matcher = None
-            self.modelfilter.refilter()
+        filter_string = entry.get_text()
+        if filter_string == "":
+            self.view.filter_tracks(None)
         else:
-            # Merge default columns and currently enabled columns
-            keyword_tags = set(playlist_columns.DEFAULT_COLUMNS + [c.name for c in self.view.get_columns()])
-            self._filter_matcher = trax.TracksMatcher(self._filter_string,
-                    case_sensitive=False,
-                    keyword_tags=keyword_tags)
-            logger.debug("Filtering playlist '%s' by '%s'."%(self.playlist.name, self._filter_string))
-            self.modelfilter.refilter()
-            logger.debug("Filtering playlist '%s' by '%s' completed."%(self.playlist.name, self._filter_string))
+            self.view.filter_tracks(filter_string)
 
 
     def __show_toggle_menu(self, names, display_names, callback, attr,
@@ -541,12 +528,6 @@ class PlaylistPage(NotebookPage):
         elif self.playlist.current_position == -1:
             self.tab.set_icon(None)
 
-    def model_visible_func(self, model, iter):
-        if self._filter_matcher is not None:
-            track = model.get_value(iter, 0)
-            return self._filter_matcher.match(trax.SearchResultTrack(track))
-        return True
-
 
 
 
@@ -559,7 +540,6 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         self.playlist = playlist
         self.player = player
-        self.model = PlaylistModel(playlist, playlist_columns.DEFAULT_COLUMNS, self.player)
         self.menu = PlaylistContextMenu(self)
         self.dragging = False
         self.button_pressed = False # used by columns to determine whether
@@ -572,7 +552,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.selection = self.get_selection()
         self.selection.set_mode(gtk.SELECTION_MULTIPLE)
 
-        self.set_model(self.model)
+        self._filter_matcher = None
+        
         self._setup_columns()
         self.columns_changed_id = self.connect("columns-changed",
                 self.on_columns_changed)
@@ -599,6 +580,28 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.connect("drag-end", self.on_drag_end)
         self.connect("drag-motion", self.on_drag_motion)
 
+    def filter_tracks(self, filter_string):
+        '''
+            Only show tracks that match the filter. If filter is None, then
+            clear any existing filters.
+            
+            The filter will search any currently enabled columns AND the
+            default columns. 
+        '''
+    
+        if filter_string is None:
+            self._filter_matcher = None
+            self.modelfilter.refilter()
+        else:
+            # Merge default columns and currently enabled columns
+            keyword_tags = set(playlist_columns.DEFAULT_COLUMNS + [c.name for c in self.get_columns()])
+            self._filter_matcher = trax.TracksMatcher(filter_string,
+                    case_sensitive=False,
+                    keyword_tags=keyword_tags)
+            logger.debug("Filtering playlist '%s' by '%s'." % (self.playlist.name, filter_string))
+            self.modelfilter.refilter()
+            logger.debug("Filtering playlist '%s' by '%s' completed." % (self.playlist.name, filter_string))
+        
     def get_selected_tracks(self):
         """
             Returns a list of :class:`xl.trax.Track`
@@ -643,7 +646,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             reverse = False
             sort_by = list(common.BASE_SORT_TAGS)
         return (sort_by, reverse)
-            
+        
     def play_track_at(self, position, track):
         '''
             When called, this will begin playback of a track at a given
@@ -670,9 +673,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             columns = playlist_columns.DEFAULT_COLUMNS
 
         # FIXME: this is kinda ick because of supporting both models
-        self.model.columns = columns
+        #self.model.columns = columns
+        # TODO: What is the fixme talking about?
         self.model = PlaylistModel(self.playlist, columns, self.player)
         self.set_model(self.model)
+        self._setup_filter()
 
         font = settings.get_option('gui/playlist_font', None)
         if font is not None:
@@ -689,6 +694,15 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             header.get_ancestor(gtk.Button).connect('button-press-event',
                 self.on_header_button_press)
 
+    def _setup_filter(self):
+        '''Call this anytime after you call set_model()'''
+        self.modelfilter = self.get_model().filter_new()
+        self.modelfilter.set_visible_func(self.modelfilter_visible_func)
+        self.set_model(self.modelfilter)
+        
+        if self._filter_matcher is not None:
+            self.modelfilter.refilter()
+                
     def _refresh_columns(self):
         selection = self.get_selection()
         info = selection.get_selected_rows()
@@ -1008,7 +1022,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             columns.remove(provider.name)
             settings.set_option('gui/columns', columns)
 
-
+    def modelfilter_visible_func(self, model, iter):
+        if self._filter_matcher is not None:
+            track = model.get_value(iter, 0)
+            return self._filter_matcher.match(trax.SearchResultTrack(track))
+        return True
 
 class PlaylistModel(gtk.ListStore):
 

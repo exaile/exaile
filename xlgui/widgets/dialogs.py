@@ -612,7 +612,7 @@ class MediaOpenDialog(gtk.FileChooserDialog):
                 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 
         self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        #self.set_local_only(False) # TODO: Properly support this
+        self.set_local_only(False)
         self.set_select_multiple(True)
 
         supported_filter = gtk.FileFilter()
@@ -706,6 +706,7 @@ class DirectoryOpenDialog(gtk.FileChooserDialog):
 
         self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+        self.set_local_only(False)
         self.set_select_multiple(True)
 
         self.connect('response', self.on_response)
@@ -773,7 +774,7 @@ class PlaylistImportDialog(gtk.FileChooserDialog):
                 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 
         self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        #self.set_local_only(False) # TODO: Properly support this
+        self.set_local_only(False)
         self.set_select_multiple(False)
 
         playlist_filter = gtk.FileFilter()
@@ -868,6 +869,8 @@ class PlaylistExportDialog(FileOperationDialog):
             )
         )
 
+        self.set_local_only(False)
+
         self.relative_checkbox = gtk.CheckButton(_('Use relative paths to tracks'))
         self.relative_checkbox.set_active(True)
         self.extras_box.pack_start(self.relative_checkbox, False, False, 3)
@@ -908,7 +911,7 @@ class PlaylistExportDialog(FileOperationDialog):
         self.hide()
 
         if response == gtk.RESPONSE_OK:
-            path = unicode(self.get_filename(), 'utf-8')
+            path = unicode(self.get_uri(), 'utf-8')
             
             if not is_valid_playlist(path):
                 path = '%s.m3u' % path

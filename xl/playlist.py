@@ -68,8 +68,6 @@ class InvalidPlaylistTypeError(Exception):
 class PlaylistExists(Exception):
     pass
 
-PlaylistExportOptions = namedtuple('PlaylistExportOptions', 'relative')
-
 def encode_filename(filename):
     """
         Converts a file name into a valid filename most
@@ -240,22 +238,20 @@ class M3UConverter(FormatConverter):
         gfile = gio.File(path)
 
         with closing(gfile.replace('', False)) as stream:
-            stream.write("#EXTM3U\n")
+            stream.write('#EXTM3U\n')
 
             if playlist.name:
-                stream.write("#PLAYLIST: %s\n" % playlist.name)
+                stream.write('#PLAYLIST: {name}\n'.format(name=playlist.name))
 
             for track in playlist:
-                length = round(float(track.get_tag_raw('__length') or -1))
-                title = [track.get_tag_raw('title', join=True)]
-                artist = track.get_tag_raw('artist', join=True)
+                title = [track.get_tag_display('title', join=True), track.get_tag_display('artist', join=True)]
+                length = int(round(float(track.get_tag_raw('__length') or -1)))
 
-                if artist:
-                    title += [artist]
-
-                stream.write("#EXTINF:%d,%s\n%s\n" % (
-                    length, ' - '.join(title), track.get_loc_for_io()))
-
+                stream.write('#EXTINF:{length},{title}\n{path}\n'.format(
+                    length=length,
+                    title=' - '.join(title),
+                    path=track.get_loc_for_io()
+                ))
 
     def import_from_file(self, path):
         """
@@ -291,7 +287,7 @@ class M3UConverter(FormatConverter):
                     length = 0
 
                     if len(parts) > 1 and int(parts[0]) > 0:
-                        length = parts[0]
+                        length = int(float(parts[0]))
 
                     extinf['__length'] = length
 
@@ -345,23 +341,12 @@ class PLSConverter(FormatConverter):
 
         for index, track in enumerate(playlist):
             position = index + 1
-            title = [track.get_tag_raw('title', join=True)]
-            artist = track.get_tag_raw('artist', join=True)
+            title = [track.get_tag_display('title', join=True), track.get_tag_display('artist', join=True)]
+            length = max(-1, int(round(float(track.get_tag_raw('__length') or -1))))
 
-            if artist is not None:
-                title = [artist] + title
-
-            length = int(round(float(track.get_tag_raw('__length') or -1)))
-
-            if length < 0:
-                length = -1
-
-            pls_playlist.set('playlist', 'File%d' % position,
-                track.get_loc_for_io())
-            pls_playlist.set('playlist', 'Title%d' % position,
-                ' - '.join(title))
-            pls_playlist.set('playlist', 'Length%d' % position,
-                length)
+            pls_playlist.set('playlist', 'File%d' % position, track.get_loc_for_io())
+            pls_playlist.set('playlist', 'Title%d' % position, ' - '.join(title))
+            pls_playlist.set('playlist', 'Length%d' % position, length)
 
         pls_playlist.set('playlist', 'Version', 2)
 
@@ -396,7 +381,6 @@ class PLSConverter(FormatConverter):
             playlist = Playlist(self.name_from_path(path))
 
             with closing(gio.DataInputStream(gfile.read())) as stream:
-
                 while True:
                     line = stream.read_line()
 
@@ -519,10 +503,16 @@ class ASXConverter(FormatConverter):
 
         for track in playlist:
             handle.write('<entry>\n')
-            handle.write('  <title>%s</title>\n' % \
-                    track.get_tag_raw('title', join=True))
-            handle.write('  <author>%s</author>\n' % \
-                    track.get_tag_raw('artist', join=True))
+
+            title = track.get_tag_raw('title', join=True)
+            artist = track.get_tag_raw('artist', join=True)
+
+            if title:
+                handle.write('  <title>%s</title>\n' % title)
+
+            if artist:
+                handle.write('  <author>%s</author>\n' % artist)
+
             handle.write('  <ref href="%s" />\n' % track.get_loc_for_io())
             handle.write('</entry>\n')
 
@@ -618,28 +608,28 @@ class XSPFConverter(FormatConverter):
         """
         handle = open(path, "w")
 
-        handle.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-        handle.write("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">\n")
+        handle.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        handle.write('<playlist version="1" xmlns="http://xspf.org/ns/0/">\n')
         if playlist.name != '':
-            handle.write("  <title>%s</title>\n" % playlist.name)
+            handle.write('  <title>%s</title>\n' % playlist.name)
 
-        handle.write("  <trackList>\n")
+        handle.write('  <trackList>\n')
         for track in playlist:
-            handle.write("    <track>\n")
+            handle.write('    <track>\n')
             for element, tag in self.tags.iteritems():
                 if not track.get_tag_raw(tag):
                     continue
-                handle.write("      <%s>%s</%s>\n" % (
+                handle.write('      <%s>%s</%s>\n' % (
                     element,
                     track.get_tag_raw(tag, join=True),
                     element
                 ))
-            url = track.get_loc_for_io()
-            handle.write("      <location>%s</location>\n" % url)
-            handle.write("    </track>\n")
 
-        handle.write("  </trackList>\n")
-        handle.write("</playlist>\n")
+            handle.write('      <location>%s</location>\n' % track.get_loc_for_io())
+            handle.write('    </track>\n')
+
+        handle.write('  </trackList>\n')
+        handle.write('</playlist>\n')
         handle.close()
 
     def import_from_file(self, path):
@@ -667,8 +657,7 @@ class XSPFConverter(FormatConverter):
                 playlist.name = titlenode.text.strip()
 
             for n in nodes:
-                loc = n.find("%slocation" % ns).text.strip()
-                track = trax.Track(loc)
+                track = trax.Track(n.find("%slocation" % ns).text.strip())
                 for element, tag in self.tags.iteritems():
                     try:
                         track.set_tag_raw(tag,

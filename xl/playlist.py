@@ -596,47 +596,115 @@ class ASXConverter(FormatConverter):
             :returns: the playlist
             :rtype: :class:`Playlist`
         """
-        import libxml2
+        from xml.etree.cElementTree import XMLParser
 
         playlist = Playlist(self.name_from_path(path))
 
-        def compare(name):
-            """
-                Returns an XPath evaluation for
-                case-insensitive comparison
-            """
-            return ('*[translate(local-name(), '
-            '"ABCDEFGHIJKLMNOPQRSTUVWXYZ", '
-            '"abcdefghijklmnopqrstuvwxyz") = "%s"]') % name
-
         with closing(gio.DataInputStream(gio.File(path).read())) as stream:
-            tree = libxml2.parseDoc(stream.read())
+            parser = XMLParser(target=self.ASXPlaylistParser())
+            parser.feed(stream.read())
 
-            for title in tree.xpathEval2('/asx/%s' % compare('title')):
-                name = title.get_content().strip()
-                break
+            try:
+                playlistdata = parser.close()
+            except:
+                pass
+            else:
+                if playlistdata['name']:
+                    playlist.name = playlistdata['name']
 
-            for entry in tree.xpathEval2('/asx/%s' % compare('entry')):
-                uris = entry.xpathEval2('%s/@href' % compare('ref'))
-                titles = entry.xpathEval2(compare('title'))
-                authors = entry.xpathEval2(compare('author'))
+                for trackdata in playlistdata['tracks']:
+                    track = trax.Track(self.get_track_import_path(path, trackdata['uri']))
 
-                if len(uris) != 1:
-                    continue
+                    for tag, value in trackdata['tags'].iteritems():
+                        if not track.get_tag_raw(tag) and value:
+                            track.set_tag_raw(tag, value)
 
-                track = trax.Track(self.get_track_import_path(path, uris[0].get_content()))
-
-                if not track.get_tag_raw('title') and len(titles) == 1:
-                    track.set_tag_raw('title',
-                        titles[0].get_content().strip())
-
-                if not track.get_tag_raw('artist') and len(authors) == 1:
-                    track.set_tag_raw('artist',
-                        authors[0].get_content().strip())
-
-                playlist.append(track)
+                    playlist.append(track)
 
         return playlist
+
+
+    class ASXPlaylistParser(object):
+        """
+            Target for xml.etree.ElementTree.XMLParser, allows
+            for parsing ASX playlists case-insensitive
+        """
+        def __init__(self):
+            from collections import deque
+            self._stack = deque()
+
+            self._playlistdata = {
+                'name': None,
+                'tracks': []
+            }
+            self._trackuri = None
+            self._trackdata = {}
+
+        def start(self, tag, attributes):
+            """
+                Checks the ASX version and stores 
+                the URI of the current track
+            """
+            depth = len(self._stack)
+            # Convert both tag and attributes to lowercase
+            tag = tag.lower()
+            attributes = dict((k.lower(), v) for k, v in attributes.iteritems())
+
+            if depth > 0:
+                if depth == 2 and self._stack[-1] == 'entry' and tag == 'ref':
+                    self._trackuri = attributes.get('href', None)
+            # Check root element and version
+            elif tag != 'asx' or attributes.get('version', None) != '3.0':
+                return
+
+            self._stack.append(tag)
+
+        def data(self, data):
+            """
+                Stores track data and playlist name
+            """
+            depth = len(self._stack)
+
+            if depth > 0 and data:
+                element = self._stack[-1]
+
+                if depth == 3:
+                    # Only consider title and author for now
+                    if element == 'title':
+                        self._trackdata['title'] = data
+                    elif element == 'author':
+                        self._trackdata['artist'] = data
+                elif depth == 2 and element == 'title':
+                    self._playlistdata['name'] = data
+
+        def end(self, tag):
+            """
+                Appends track data
+            """
+            try:
+                self._stack.pop()
+            except IndexError: # Invalid playlist
+                pass
+            else:
+                if tag.lower() == 'entry':
+                    # Only add track data if we have at least an URI
+                    if self._trackuri:
+                        self._playlistdata['tracks'].append({
+                            'uri': self._trackuri,
+                            'tags': self._trackdata.copy()
+                        })
+
+                    self._trackuri = None
+                    self._trackdata.clear()
+
+        def close(self):
+            """
+                Returns the playlist data including
+                data of all successfully read tracks
+
+                :rtype: dict
+            """
+            return self._playlistdata
 providers.register('playlist-format-converter', ASXConverter())
 
 class XSPFConverter(FormatConverter):

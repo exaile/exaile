@@ -73,7 +73,8 @@ def get_workarea_size():
 def get_workarea_dimensions():
     """
         Returns the x-offset, y-offset, width and height
-        of the available work area as named tuple
+        of the work area, falls back to the screen
+        dimensions if not available
 
         :returns: Dimensions(offset_x, offset_y, width, height)
     """

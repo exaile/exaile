@@ -77,11 +77,16 @@ def get_workarea_dimensions():
 
         :returns: Dimensions(offset_x, offset_y, width, height)
     """
-    rootwindow = gtk.gdk.get_default_root_window()
-    workarea = gtk.gdk.atom_intern('_NET_WORKAREA')
     Dimensions = namedtuple('Dimensions', 'offset_x offset_y width height')
 
-    return Dimensions(*rootwindow.property_get(workarea)[2])
+    rootwindow = gtk.gdk.get_default_root_window()
+    workarea = rootwindow.property_get(gtk.gdk.atom_intern('_NET_WORKAREA'))
+
+    try:
+        return Dimensions(*workarea[2])
+    except TypeError: # gtk.gdk.Window.property_get on Win32
+        # Chopping off bit depth
+        return Dimensions(*rootwindow.get_geometry()[:-1])
 
 def gtk_widget_replace(widget, replacement):
     """

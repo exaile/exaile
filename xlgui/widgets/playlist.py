@@ -805,11 +805,16 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if not path:
             selection.unselect_all()
         else:
-            if e.button == 3:
-                # Update the selection if a not yet selected row has been right clicked
-                if not selection.path_is_selected(path[0]):
-                    gtk.TreeView.do_button_press_event(self, e)
+            # Update the selection if a not yet selected row has been clicked
+            if not selection.path_is_selected(path[0]):
+                gtk.TreeView.do_button_press_event(self, e)
 
+            # Derivation from default GTK behavior: do not update the selection
+            # if an already-selected row is clicked again, needed for DnD of
+            # multiple rows
+            if e.button == 1:
+                return True
+            elif e.button == 3:
                 # Pop up the context menu with the current selection
                 self.menu.popup(None, None, None, e.button, e.time)
                 

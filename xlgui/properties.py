@@ -618,6 +618,7 @@ class TagRow(object):
         self.clear_button = gtk.Button()
         self.clear_button.set_image(gtk.image_new_from_stock(
             gtk.STOCK_CLEAR, gtk.ICON_SIZE_BUTTON))
+        self.clear_button.set_relief(gtk.RELIEF_NONE)
         self.clear_button.connect("clicked", self.clear)
 
         if not isinstance(field, PropertyField):
@@ -1180,6 +1181,7 @@ class AllButton(gtk.ToggleButton):
     def __init__(self, parent_field, id_num=0):
         gtk.ToggleButton.__init__(self)
         self.set_tooltip_text(_("Apply current value to all tracks"))
+        self.set_relief(gtk.RELIEF_NONE)
         self.connect("toggled", self.set_all_mode)
         self.field = parent_field
         self.id_num = id_num

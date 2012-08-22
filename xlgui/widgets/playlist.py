@@ -797,7 +797,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
             Also sets the internal state for button pressed
 
-            (Taken from thunar_details_view_button_press_event() of thunar-details-view.c)
+            Taken from the following sources:
+            
+            * thunar_details_view_button_press_event() of thunar-details-view.c
+            * MultiDragTreeView.__button_press/__button.release of quodlibet/qltk/views.py
         """
         self.button_pressed = True
         selection = self.get_selection()
@@ -810,20 +813,27 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if e.state & gtk.accelerator_get_default_mod_mask() == 0 and not path:
             selection.unselect_all()
 
-        # Open the context menu on right clicks
-        if e.type == gtk.gdk.BUTTON_PRESS and e.button == 3:
-            if path:
-                # Select the path on which the user clicked if not selected yet
-                if not selection.path_is_selected(path):
-                    # We don't unselect all other items if Control is active
-                    if e.state & gtk.gdk.CONTROL_MASK == 0:
-                        selection.unselect_all()
+        if path and e.type == gtk.gdk.BUTTON_PRESS:
+            # Prevent unselection of all except the clicked item on left
+            # clicks, required to preserve the selection for DnD
+            if e.button == 1 and e.state & gtk.accelerator_get_default_mod_mask() == 0 and \
+               selection.path_is_selected(path):
+                selection.set_select_function(lambda *args: False)
 
-                    selection.select_path(path)
+            # Open the context menu on right clicks
+            if e.button == 3:
+                if path:
+                    # Select the path on which the user clicked if not selected yet
+                    if not selection.path_is_selected(path):
+                        # We don't unselect all other items if Control is active
+                        if e.state & gtk.gdk.CONTROL_MASK == 0:
+                            selection.unselect_all()
 
-                self.menu.popup(None, None, None, e.button, e.time)
+                        selection.select_path(path)
 
-            return True
+                    self.menu.popup(None, None, None, e.button, e.time)
+
+                return True
 
         return gtk.TreeView.do_button_press_event(self, e)
 
@@ -832,6 +842,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             Unsets the internal state for button press
         """
         self.button_pressed = False
+        # Restore regular selection behavior in any case
+        self.get_selection().set_select_function(lambda *args: True)
 
         return gtk.TreeView.do_button_release_event(self, e)
 

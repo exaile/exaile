@@ -796,32 +796,35 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             3) popping up the context menu upon right click
 
             Also sets the internal state for button pressed
+
+            (Taken from thunar_details_view_button_press_event() of thunar-details-view.c)
         """
         self.button_pressed = True
         selection = self.get_selection()
         path = self.get_path_at_pos(int(e.x), int(e.y))
+        # We only need the tree path if present
+        path = path[0] if path else None
 
-        # Unselect all rows if the event occured on an empty area
-        if not path:
+        # We unselect all selected items if the user clicks on an empty
+        # area of the treeview and no modifier key is active
+        if e.state & gtk.accelerator_get_default_mod_mask() == 0 and not path:
             selection.unselect_all()
-        else:
-            # Update the selection if a not yet selected row has been clicked
-            if not selection.path_is_selected(path[0]):
-                gtk.TreeView.do_button_press_event(self, e)
 
-            # Derivation from default GTK behavior: do not update the selection
-            # if an already-selected row is clicked again, needed for DnD of
-            # multiple rows
-            if e.button == 1:
-                return True
-            elif e.button == 3:
-                # Pop up the context menu with the current selection
+        # Open the context menu on right clicks
+        if e.type == gtk.gdk.BUTTON_PRESS and e.button == 3:
+            if path:
+                # Select the path on which the user clicked if not selected yet
+                if not selection.path_is_selected(path):
+                    # We don't unselect all other items if Control is active
+                    if e.state & gtk.gdk.CONTROL_MASK == 0:
+                        selection.unselect_all()
+
+                    selection.select_path(path)
+
                 self.menu.popup(None, None, None, e.button, e.time)
-                
-                # Do not update the selection further
-                return True
 
-        # Let GTK handle the rest
+            return True
+
         return gtk.TreeView.do_button_press_event(self, e)
 
     def do_button_release_event(self, e):

@@ -608,7 +608,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             Seeks within the current track
         """
         if self.__player.current:
-            self.__player.current.set_progress(position)
+            self.__player.set_progress(position)
             self.update_progress()
             
     def update_progress(self):

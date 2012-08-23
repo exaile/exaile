@@ -318,6 +318,9 @@ class FilesPanel(panel.Panel):
         if ftype != gio.FILE_TYPE_DIRECTORY:
             f = f.get_parent()
         self.load_directory(f)
+        
+    def focus(self):
+        self.tree.grab_focus()
 
     def go_forward(self, widget):
         """

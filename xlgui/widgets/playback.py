@@ -608,12 +608,20 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             Seeks within the current track
         """
         if self.__player.current:
+            self.__player.current.set_progress(position)
+            self.update_progress()
+            
+    def update_progress(self):
+        '''
+            Updates the progress bar and the time with data from the player
+        '''
+        
+        if self.__player.current:
             length = self.__player.current.get_tag_raw('__length')
-
-            self.__player.set_progress(position)
-            self.set_fraction(position)
-
+            
             if length is not None:
+                position = float(self.__player.get_time())/length
+                self.set_fraction(position)
                 self.set_text(self.formatter.format(
                     current_time=length * position))
 

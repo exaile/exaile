@@ -75,6 +75,12 @@ from xlgui import (
 
 logger = logging.getLogger(__name__)
 
+# Length of playback step when user presses seek key (sec)
+SEEK_STEP_DEFAULT = 10
+
+# Length of volume steps when user presses up/down key
+VOLUME_STEP_DEFAULT = 0.1
+
 
 class MainWindow(gobject.GObject):
     """
@@ -149,6 +155,36 @@ class MainWindow(gobject.GObject):
             ('<Control>F', lambda *e: self.on_panel_filter_focus()),
             ('<Control>G', lambda *e: self.on_search_playlist_focus()), # FIXME
             ('<Control><Alt>l', lambda *e: player.QUEUE.clear()), # FIXME
+                
+            ('<Control>P', self._on_playpause_button),
+            ('<Control>Right', lambda *e: self._on_seek_key(True)),
+            ('<Control>Left', lambda *e: self._on_seek_key(False)),
+            
+            ('<Control>plus', lambda *e: self._on_volume_key(True)),
+            ('<Control>minus', lambda *e: self._on_volume_key(False)),
+            
+            ('<Control>Page_Up', self._on_prev_tab_key),
+            ('<Control>Page_Down', self._on_next_tab_key),
+            
+            ('<Alt>N', self._on_focus_playlist_notebook),
+
+            # These 4 are subject to change.. probably should do this 
+            # via a different mechanism too... 
+            ('<Alt>I', lambda *e: self.controller.focus_panel('files')),
+            #('<Alt>C', lambda *e: self.controller.focus_panel('collection')),
+            ('<Alt>R', lambda *e: self.controller.focus_panel('radio')),
+            ('<Alt>L', lambda *e: self.controller.focus_panel('playlists')),
+            
+            ('<Alt>1', lambda *e: self._on_focus_playlist_tab(0)),
+            ('<Alt>2', lambda *e: self._on_focus_playlist_tab(1)),
+            ('<Alt>3', lambda *e: self._on_focus_playlist_tab(2)),
+            ('<Alt>4', lambda *e: self._on_focus_playlist_tab(3)),
+            ('<Alt>5', lambda *e: self._on_focus_playlist_tab(4)),
+            ('<Alt>6', lambda *e: self._on_focus_playlist_tab(5)),
+            ('<Alt>7', lambda *e: self._on_focus_playlist_tab(6)),
+            ('<Alt>8', lambda *e: self._on_focus_playlist_tab(7)),
+            ('<Alt>9', lambda *e: self._on_focus_playlist_tab(8)),
+            ('<Alt>0', lambda *e: self._on_focus_playlist_tab(9)),
         )
 
         self.accel_group = gtk.AccelGroup()
@@ -249,7 +285,7 @@ class MainWindow(gobject.GObject):
             'on_configure_event':   self.configure_event,
             'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.on_delete_event,
-            'on_playpause_button_clicked': self.on_playpause_button_clicked,
+            'on_playpause_button_clicked': self._on_playpause_button,
             'on_next_button_clicked':
                 lambda *e: player.QUEUE.next(),
             'on_prev_button_clicked':
@@ -816,6 +852,44 @@ class MainWindow(gobject.GObject):
                 glib.idle_add(self.info_area.hide_all)
             glib.idle_add(self.info_area.set_no_show_all, True)
 
+    def _on_volume_key(self, is_up):
+        diff = int(100 * settings.get_option('gui/volue_key_step_size', VOLUME_STEP_DEFAULT))
+        if not is_up: diff = -diff
+
+        player.PLAYER.modify_volume(diff)
+        return True
+
+    def _on_seek_key(self, is_forward):
+        diff = settings.get_option('gui/seek_key_step_size', SEEK_STEP_DEFAULT)
+        if not is_forward: diff = -diff
+
+        if player.PLAYER.current:
+            player.PLAYER.modify_time(diff)
+            self.progress_bar.update_progress()
+
+        return True
+
+    def _on_prev_tab_key(self, *e):
+        self.playlist_notebook.select_prev_tab()
+        return True
+    
+    def _on_next_tab_key(self, *e):
+        self.playlist_notebook.select_next_tab()
+        return True
+    
+    def _on_playpause_button(self, *e):
+        self.playpause()
+        return True
+
+    def _on_focus_playlist_tab(self, tab_nr):
+        if tab_nr < self.playlist_notebook.get_n_pages():
+            self.playlist_notebook.focus_tab(tab_nr)
+        return True
+    
+    def _on_focus_playlist_notebook(self, *_e):
+        self.playlist_notebook.focus()
+        return True
+
     def _update_track_information(self):
         """
             Sets track information
@@ -828,9 +902,11 @@ class MainWindow(gobject.GObject):
         glib.idle_add(self.window.set_title,
             self.title_formatter.format(track))
 
-    def on_playpause_button_clicked(self, *e):
+ 
+    def playpause(self):
         """
-            Called when the play button is clicked
+            Pauses the playlist if it is playing, starts playing if it is
+            paused. If stopped, try to start playing the next suitable track.
         """
         if player.PLAYER.is_paused() or player.PLAYER.is_playing():
             player.PLAYER.toggle_pause()
@@ -958,22 +1034,28 @@ class MainWindow(gobject.GObject):
         return False
 
     def get_selected_page(self):
-        return get_selected_page()
+        """
+            Returns the currentry displayed playlist notebook page
+        """
+        return self.playlist_notebook.get_current_tab()
+    
+    def get_selected_playlist(self):
+        try:
+            page = self.get_selected_page()
+        except AttributeError:
+            return None
+        if not isinstance(page, PlaylistPage):
+            return None
+        return page  
 
 def get_playlist_notebook():
     return MainWindow._mainwindow.playlist_notebook
 
 def get_selected_page():
-    return MainWindow._mainwindow.playlist_notebook.get_current_tab()
+    return MainWindow._mainwindow.get_selected_page()
 
 def get_selected_playlist():
-    try:
-        page = get_selected_page()
-    except AttributeError:
-        return None
-    if not isinstance(page, PlaylistPage):
-        return None
-    return page
+    return MainWindow._mainwindow.get_selected_playlist()
 
 def mainwindow():
     return MainWindow._mainwindow

@@ -169,6 +169,17 @@ class ExailePlayer(object):
         volume = max(0, volume)
         settings.set_option("%s/volume" % self._name, volume / 100.0)
 
+    
+    def modify_volume(self, diff):
+        """
+            Changes the current volume
+
+            :param diff: the volume differance (pos or neg) percentage units
+            :type volume: int
+        """
+        v = self.get_volume()
+        self.set_volume(v + diff)
+        
     def _get_current(self):
         raise NotImplementedError
 
@@ -327,6 +338,33 @@ class ExailePlayer(object):
             pass
 
         self.seek(seek_position)
+        
+    def modify_time(self, diff):
+        """
+            Modifies the current position backwards or forwards.
+            
+            If posision ends up after the end or before the start of the track
+            it is trunctated to lay inside the track.
+
+            :param diff: value in seconds
+            :type diff: int
+        """
+        try:
+            length = self.current.get_tag_raw('__length')
+        except TypeError, AttributeError:
+            return
+        
+        if length == None: return
+        
+        pos = self.get_time()
+        seek_pos = pos + diff
+            
+        # Make sure we dont seek outside the current track. Substract a little
+        # from length, player seems to hang sometimes if we seek to the end of
+        # a track.
+        seek_pos = max(0, min(seek_pos, length - 2))
+        
+        self.seek(seek_pos)
 
     def _get_gst_state(self):
         """

@@ -1627,7 +1627,7 @@ msgid "Repeat playback"
 msgstr ""
 
 #: ../data/ui/playlist.ui.h:3
-msgid "Search:"
+msgid "_Search:"
 msgstr ""
 
 #: ../data/ui/playlist.ui.h:4

@@ -383,6 +383,9 @@ class PlaylistPage(NotebookPage):
         self.show_all()
 
     ## NotebookPage API ##
+    
+    def focus(self):
+        self.view.grab_focus()
 
     def get_name(self):
         return self.playlist.name
@@ -693,6 +696,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             header.show()
             header.get_ancestor(gtk.Button).connect('button-press-event',
                 self.on_header_button_press)
+                
+            header.get_ancestor(gtk.Button).connect('key-press-event',
+                self.on_header_key_press_event)
 
     def _setup_filter(self):
         '''Call this anytime after you call set_model()'''
@@ -848,13 +854,24 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         return gtk.TreeView.do_button_release_event(self, e)
 
     def on_key_press_event(self, widget, event):
-        if event.keyval == gtk.keysyms.Delete:
+        if event.keyval == gtk.keysyms.Menu:
+            self.menu.popup(None, None, None, 0, event.time)
+            return True
+            
+        elif event.keyval == gtk.keysyms.Delete:
             indexes = [x[0] for x in self.get_selected_paths()]
             if indexes and indexes == range(indexes[0], indexes[0]+len(indexes)):
                 del self.playlist[indexes[0]:indexes[0]+len(indexes)]
             else:
                 for i in indexes[::-1]:
                     del self.playlist[i]
+                    
+    def on_header_key_press_event(self, widget, event):
+        if event.keyval == gtk.keysyms.Menu:
+            # Open context menu for selecting visible columns
+            m = menu.ProviderMenu('playlist-columns-menu', self)
+            m.popup(None, None, None, 0, event.time)
+            return True
 
     ### DND handlers ###
     ## Source

@@ -77,6 +77,9 @@ class QueuePage(NotebookPage):
 
     ## NotebookPage API ##
 
+    def focus(self):
+        self.view.grab_focus()
+    
     def get_name(self):
         return _("Queue (%d)") % len(self.player.queue)
 

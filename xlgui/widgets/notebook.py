@@ -262,6 +262,12 @@ class NotebookPage(gtk.VBox):
         self.tab = None
         self.tab_menu = menu.ProviderMenu(self.menu_provider_name, self)
 
+    def focus(self):
+        '''
+            Grabs focus for this page. Should be overriden in subclasses.
+        '''
+        self.grab_focus()
+        
     def get_name(self):
         """
             Returns the name of this tab. Should be overriden in subclasses.

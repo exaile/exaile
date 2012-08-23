@@ -60,6 +60,14 @@ class Panel(gobject.GObject):
         self.builder.add_from_file(ui_file)
         self._child = None
 
+    def focus(self):
+        """
+            Makes this panel grab the keyboard focus
+            Subclasses can override this to give focus to a particular widget
+            or perform another action. 
+        """
+        self._child.grab_focus()
+        
     def get_panel(self):
         if not self._child:
             window = self.builder.get_object(self.ui_info[1])

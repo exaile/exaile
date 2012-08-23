@@ -305,6 +305,12 @@ class Main(object):
         label = gtk.Label(name)
         label.set_angle(90)
         self.panel_notebook.append_page(child, label)
+        
+    def focus_panel(self, tab_name):
+        panel = self.panels[tab_name]
+        panel_nr = self.panel_notebook.page_num(panel._child)
+        self.panel_notebook.set_current_page(panel_nr)
+        panel.focus()
 
     def remove_panel(self, child):
         for n in range(self.panel_notebook.get_n_pages()):

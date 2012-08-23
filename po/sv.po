@@ -1446,6 +1446,10 @@ msgstr "Sök _igenom samlingen igen"
 msgid "Search: "
 msgstr "Sök: "
 
+#: ../data/ui/playlist.ui.h:3
+msgid "_Search:"
+msgstr "_S�k:"
+
 #: ../data/ui/main.ui.h:20
 msgid ""
 "Stop Playback\n"

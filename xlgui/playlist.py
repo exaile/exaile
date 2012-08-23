@@ -452,6 +452,37 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
     def clear_closed_tabs(self, widget, name, parent, context):
         for i in xrange(len(self.tab_history)):
             self.remove_closed_tab(0)
+    
+    def focus(self):
+        self.get_current_tab().focus()
+    
+    def focus_tab(self, tab_nr):
+        """
+            Selects the playlist notebook tab tab_nr, and gives it the keyboard
+            focus.
+        """
+        self.set_current_page(tab_nr)
+        self.get_current_tab().focus()
+    
+    def select_next_tab(self):
+        """
+            Selects the previous playlist notebook tab, warping around if the
+            first page is currently displayed. 
+        """
+        tab_nr = self.get_current_page()
+        tab_nr += 1
+        tab_nr %= self.get_n_pages()
+        self.set_current_page(tab_nr)
+        
+    def select_prev_tab(self):
+        """
+            Selects the next playlist notebook tab, warping around if the last
+            page is currently displayed. 
+        """
+        tab_nr = self.get_current_page()
+        tab_nr -= 1
+        tab_nr %= self.get_n_pages()
+        self.set_current_page(tab_nr)
 
 
     def on_option_set(self, event, settings, option):

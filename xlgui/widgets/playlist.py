@@ -816,28 +816,27 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         # We unselect all selected items if the user clicks on an empty
         # area of the treeview and no modifier key is active
-        if e.state & gtk.accelerator_get_default_mod_mask() == 0 and not path:
+        if not e.state & gtk.accelerator_get_default_mod_mask() and not path:
             selection.unselect_all()
 
         if path and e.type == gtk.gdk.BUTTON_PRESS:
             # Prevent unselection of all except the clicked item on left
             # clicks, required to preserve the selection for DnD
-            if e.button == 1 and e.state & gtk.accelerator_get_default_mod_mask() == 0 and \
+            if e.button == 1 and not e.state & gtk.accelerator_get_default_mod_mask() and \
                selection.path_is_selected(path):
                 selection.set_select_function(lambda *args: False)
 
             # Open the context menu on right clicks
             if e.button == 3:
-                if path:
-                    # Select the path on which the user clicked if not selected yet
-                    if not selection.path_is_selected(path):
-                        # We don't unselect all other items if Control is active
-                        if e.state & gtk.gdk.CONTROL_MASK == 0:
-                            selection.unselect_all()
+                # Select the path on which the user clicked if not selected yet
+                if not selection.path_is_selected(path):
+                    # We don't unselect all other items if Control is active
+                    if not e.state & gtk.gdk.CONTROL_MASK:
+                        selection.unselect_all()
 
-                        selection.select_path(path)
+                    selection.select_path(path)
 
-                    self.menu.popup(None, None, None, e.button, e.time)
+                self.menu.popup(None, None, None, e.button, e.time)
 
                 return True
 

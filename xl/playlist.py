@@ -1111,7 +1111,7 @@ class Playlist(object):
         """
         
         if not self.__next_data:
-            self.get_next()
+            self.__get_next(self.current_position)
             
         spat, index, next = self.__next_data
         

@@ -66,6 +66,11 @@ class CoverManager(gobject.GObject):
             gobject.TYPE_NONE,
             ()
         ),
+        'prefetch-progress': (
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_INT,)
+        ),
         'prefetch-completed': (
             gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_NONE,
@@ -129,6 +134,9 @@ class CoverManager(gobject.GObject):
         self.menu.attach_to_widget(self.previews_box, lambda menu, widget: True)
 
         self.progress_bar = builder.get_object('progressbar')
+        self.progress_bar.set_text(_('Collecting albums and covers...'))
+        self.progress_bar.set_data('pulse-timeout',
+            glib.timeout_add(100, self.on_progress_pulse_timeout))
         self.close_button = builder.get_object('close_button')
         self.stop_button = builder.get_object('stop_button')
         self.stop_button.set_sensitive(False)
@@ -145,7 +153,6 @@ class CoverManager(gobject.GObject):
         """
             Collects all albums and sets the list of outstanding items
         """
-        self.emit('prefetch-started')
         albums = set()
 
         for track in collection:
@@ -180,7 +187,9 @@ class CoverManager(gobject.GObject):
         default_cover_pixbuf = self.default_cover_pixbuf
         cover_size = self.cover_size
 
-        for album in albums:
+        self.emit('prefetch-started')
+
+        for i, album in enumerate(albums):
             if self.stopper.is_set():
                 return
 
@@ -197,6 +206,8 @@ class CoverManager(gobject.GObject):
             label = '{0} - {1}'.format(*album)
             iter = self.model.append((album, cover_pixbuf, thumbnail_pixbuf, label))
             self.model_path_cache[album] = self.model.get_path(iter)
+
+            self.emit('prefetch-progress', i)
 
         self.outstanding = outstanding
         self.emit('prefetch-completed', len(self.outstanding))
@@ -288,10 +299,8 @@ class CoverManager(gobject.GObject):
         self.previews_box.set_model(None)
         self.previews_box.set_sensitive(False)
         self.fetch_button.set_sensitive(False)
-
-        self.progress_bar.set_text(_('Collecting albums and covers...'))
-        self.progress_bar.set_data('pulse-timeout',
-            glib.timeout_add(100, self.on_progress_pulse_timeout))
+        self.progress_bar.set_fraction(0)
+        glib.source_remove(self.progress_bar.get_data('pulse-timeout'))
 
     def do_prefetch_completed(self, outstanding):
         """
@@ -300,11 +309,16 @@ class CoverManager(gobject.GObject):
         self.previews_box.set_sensitive(True)
         self.previews_box.set_model(self.model)
         self.fetch_button.set_sensitive(True)
-
+        self.progress_bar.set_fraction(0)
         self.progress_bar.set_text(self.outstanding_text.format(
             outstanding=outstanding))
-        self.progress_bar.set_fraction(0)
-        glib.source_remove(self.progress_bar.get_data('pulse-timeout'))
+
+    def do_prefetch_progress(self, progress):
+        """
+            Updates the wiedgets to reflect the processed album
+        """
+        fraction = progress / float(len(self.album_tracks))
+        self.progress_bar.set_fraction(fraction)
 
     def do_fetch_started(self, outstanding):
         """
@@ -313,6 +327,7 @@ class CoverManager(gobject.GObject):
         self.previews_box.set_sensitive(False)
         self.stop_button.set_sensitive(True)
         self.fetch_button.set_sensitive(False)
+        self.progress_bar.set_fraction(0)
         # We need float for the fraction during progress
         self.progress_bar.set_data('outstanding-total', float(outstanding))
 

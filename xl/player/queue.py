@@ -43,19 +43,42 @@ class PlayQueue(playlist.Playlist):
     """
         Manages the queue of songs to be played
 
-        The content of the queue are processed before
-        processing the content of the assigned playlist.
+        The content of the queue are processed before processing 
+        the content of the assigned playlist.
+        
+        When the remove_item_when_played option is enabled, the queue
+        removes items from itself as they are played.
+        
+        When not enabled, the queue acts like a regular playlist, and
+        moves the position as tracks are played.
+        
+        In this mode, when a new track is queued, the position is set 
+        to play that track, and play will continue with that track 
+        until the queue is exhausted, and then the assigned playlist 
+        will be continued. 
     """
     def __init__(self, player, name, location=None):
         playlist.Playlist.__init__(self, name=name)
 
-        self.__current_playlist = None
+        event.add_callback(self._on_option_set, 'queue_option_set')
+    
+        self.__queue_has_tracks_val = False
+        self.__current_playlist = self      # this should never be None
         self.player = player
         player._set_queue(self)
-
+        
         if location is not None:
             self.load_from_location(location)
+            
+        self._on_option_set(None, settings, 'queue/remove_item_when_played')
 
+    
+    def _on_option_set(self, evtype, settings, option):
+        if option == 'queue/remove_item_when_played':
+            self.__remove_item_on_playback = settings.get_option(option, True)
+            if len(self):
+                self.__queue_has_tracks = True
+    
     def set_current_playlist(self, playlist):
         """
             Sets the playlist to be processed in the queue
@@ -69,6 +92,11 @@ class PlayQueue(playlist.Playlist):
         """
         if playlist is self.__current_playlist:
             return
+        elif playlist is None:
+            playlist = self
+            
+        if playlist is self:
+            self.__queue_has_tracks = True
 
         self.__current_playlist = playlist
         event.log_event('queue_current_playlist_changed', self, playlist)
@@ -89,9 +117,12 @@ class PlayQueue(playlist.Playlist):
             :returns: the next track to be played
             :rtype: :class:`xl.trax.Track` or None
         '''
-        if len(self):
-            return self[0]
-        elif self.current_playlist:
+        if self.__queue_has_tracks and len(self):
+            if self.__remove_item_on_playback:
+                return self[0]
+            else:
+                return playlist.Playlist.get_next(self)
+        elif self.current_playlist is not self:
             return self.current_playlist.get_next()
         else:
             return None
@@ -111,17 +142,23 @@ class PlayQueue(playlist.Playlist):
 
                 * `playback_playlist_end`: indicates that the end of the queue has been reached
         """
-        if not track:
-            try:
-                track = self.pop(0)
-                if self.current_position != -1:
-                    self.current_position = 0
-            except IndexError:
-                if self.current_playlist:
-                    track = self.current_playlist.next()
+        if track is None:
+            if self.__queue_has_tracks:
+                if not self.__remove_item_on_playback:
+                    track = playlist.Playlist.next(self)
                 else:
-                    track = None
-
+                    try:
+                        track = self.pop(0)
+                    except IndexError:
+                        pass
+                        
+                # reached the end of the internal queue, don't repeat
+                if track is None:
+                    self.__queue_has_tracks = False
+            
+            if track is None and self.current_playlist is not self:
+                track = self.current_playlist.next()
+                
         if autoplay:
             self.player.play(track)
 
@@ -136,13 +173,21 @@ class PlayQueue(playlist.Playlist):
         """
         track = None
         if self.player.current:
-            if self.player.get_time() < 5 and self.current_playlist and \
-                    self.current_playlist is not self:
-                track = self.current_playlist.prev()
-            else:
+            if self.player.get_time() < 5:
+                if self.__queue_has_tracks and not self.__remove_item_on_playback:
+                    position = self.current_position - 1
+                    if position < 0:
+                        position = 0 if len(self) else -1
+                    self.current_position = position
+                    track = self.current
+                elif self.current_playlist is not self:
+                    track = self.current_playlist.prev()
+                
+            if track is None:
                 track = self.player.current
         else:
             track = self.current
+
         self.player.play(track)
         return track
 
@@ -157,15 +202,19 @@ class PlayQueue(playlist.Playlist):
             current = self.player.current
         else:
             current = playlist.Playlist.get_current(self)
-            if current == None and self.current_playlist:
+            if current == None and self.current_playlist is not self:
                 current = self.current_playlist.get_current()
         return current
 
     def get_current_position(self):
-        return 0
+        if self.__remove_item_on_playback:
+            return 0
+        else:
+            return playlist.Playlist.get_current_position(self)
 
     def set_current_position(self, position):
-        return
+        if not self.__remove_item_on_playback:
+            return playlist.Playlist.set_current_position(self, position)
 
     def play(self, track=None):
         """
@@ -181,13 +230,38 @@ class PlayQueue(playlist.Playlist):
             track = self.current
         if track:
             self.player.play(track)
-            try:
-                del self[self.index(track)]
-            except ValueError:
-                pass
+            if self.__remove_item_on_playback:
+                try:
+                    del self[self.index(track)]
+                except ValueError:
+                    pass
         else:
             self.next()
             
+    def queue_length(self):
+        '''
+            Returns the number of tracks left to play in the queue's 
+            internal playlist. 
+        '''
+        if self.__remove_item_on_playback:
+            return len(self)
+        else:
+            if not self.__queue_has_tracks:
+                return -1
+            else:
+                return len(self) - (self.current_position+1)
+    
+    def __set_queue_has_tracks(self, value):
+        if value != self.__queue_has_tracks_val:
+            oldpos = self.current_position
+            self.__queue_has_tracks_val = value
+            event.log_event("playlist_current_position_changed", 
+                                self, (self.current_position, oldpos))
+        
+    # Internal value indicating whether the internal queue has tracks left to play
+    __queue_has_tracks = property(lambda self: self.__queue_has_tracks_val, 
+                                  __set_queue_has_tracks)
+    
     def __setitem__(self, i, value):
         '''
             Overrides the playlist.Playlist list API. 
@@ -197,6 +271,15 @@ class PlayQueue(playlist.Playlist):
         '''
         old_len = playlist.Playlist.__len__(self)
         playlist.Playlist.__setitem__(self, i, value)
+        
+        #if nothing is queued, queue this track up
+        if self.current_position == -1:
+            if isinstance(i, slice):
+                self.current_position = i.indices(len(self))[0]-1
+            else:
+                self.current_position = i-1
+
+        self.__queue_has_tracks = True
         
         if old_len == 0 and settings.get_option('queue/enqueue_begins_playback', True) \
            and old_len < playlist.Playlist.__len__(self):

@@ -61,6 +61,7 @@ class QueuePage(NotebookPage):
         self.view = PlaylistView(self.player.queue, self.player)
         self.swindow.add(self.view)
 
+        event.add_callback(self.on_length_changed, 'playlist_current_position_changed', self.player.queue)
         event.add_callback(self.on_length_changed, "playlist_tracks_added", self.player.queue)
         event.add_callback(self.on_length_changed, "playlist_tracks_removed", self.player.queue)
 
@@ -81,7 +82,11 @@ class QueuePage(NotebookPage):
         self.view.grab_focus()
     
     def get_name(self):
-        return _("Queue (%d)") % len(self.player.queue)
+        qlen = self.player.queue.queue_length()
+        if qlen == -1:
+            return _("Queue")
+        else:
+            return _("Queue (%d)") % qlen
 
     def set_tab(self, tab):
         NotebookPage.set_tab(self, tab)

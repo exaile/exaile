@@ -312,6 +312,21 @@
           </packing>
         </child>
         <child>
+          <object class="GtkCheckButton" id="queue/remove_item_when_played">
+            <property name="label" translatable="yes">Remove track from queue upon playback</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">11</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkCheckButton" id="player/auto_advance">
             <property name="label" translatable="yes">Automatically advance to the next track</property>
             <property name="visible">True</property>
@@ -322,7 +337,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">11</property>
+            <property name="position">12</property>
           </packing>
         </child>
       </object>

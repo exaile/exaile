@@ -134,6 +134,10 @@ class EnqueueBeginsPlayback(widgets.CheckPreference):
     default = True
     name = 'queue/enqueue_begins_playback'
     
+class RemoveQueuedItemWhenPlayed(widgets.CheckPreference):
+    default = True
+    name = 'queue/remove_item_when_played'
+    
 class AutoAdvancePlayer(widgets.CheckPreference):
     default = True
     name = 'player/auto_advance'

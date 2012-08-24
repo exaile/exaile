@@ -136,7 +136,8 @@ class PlayQueue(playlist.Playlist):
         """
         track = None
         if self.player.current:
-            if self.player.get_time() < 5 and self.current_playlist:
+            if self.player.get_time() < 5 and self.current_playlist and \
+                    self.current_playlist is not self:
                 track = self.current_playlist.prev()
             else:
                 track = self.player.current

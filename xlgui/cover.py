@@ -259,7 +259,7 @@ class CoverManager(gobject.GObject):
             album = self.model[path][0]
 
             cover_pixbuf = self.model[path][1]
-            title ='{} - {}'.format(*album) 
+            title = '{0} - {1}'.format(*album)
 
             cover_window = CoverWindow(self.window, cover_pixbuf, title)
             cover_window.show_all()

@@ -29,20 +29,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 </property>
     <property name="authors">Adam Olsen 
-    &lt;arolsen@gmail.com&gt; 
-    Developer
-
 Johannes Sasongko 
-    &lt;sasongko@gmail.com&gt; 
-    Developer
-
 Aren Olson
-    &lt;reacocard@gmail.com&gt;
-    Developer
-
 Mathias Brodala
-   &lt;info@noctus.net&gt;
-   Developer</property>
+Andrew Starr-Bochicchio
+Brian Parma
+Dustin Spicuzza
+fidencio
+Joseph S. Atkinson</property>
     <property name="translator_credits" translatable="yes">Mathias Brodala
    &lt;info@noctus.net&gt;
     Translation Manager</property>

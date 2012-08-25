@@ -249,11 +249,11 @@ class TrackInfoPane(gtk.Alignment):
         """
             Sets the track's cover image
         """
+        if self.__track != track:
+            return
         image_data = covers.MANAGER.get_cover(track, set_only=True, use_default=True)
         size = self.get_cover_size()
         pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (size, size))
-        if self.__track != track:
-            return
         glib.idle_add(self.cover_image.set_from_pixbuf, pixbuf)
 
     def clear(self):

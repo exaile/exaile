@@ -15,8 +15,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+from contextlib import closing
+import gio
+from glib import GError
 import hashlib
-import urllib
+from urllib import quote_plus
 try:
     import xml.etree.cElementTree as ETree
 except:
@@ -58,7 +61,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
     title = 'Last.fm'
     type = 'remote' # fetches remotely as opposed to locally
 
-    url = 'http://ws.audioscrobbler.com/2.0/?method=type.search&type=%(type)s&api_key='
+    url = 'http://ws.audioscrobbler.com/2.0/?method={type}.search&{type}={value}&api_key={api_key}'
 
 
     def find_covers(self, track, limit=-1):
@@ -76,14 +79,16 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
         if not artist or not album or not title:
             return []
 
-        for type in [['album', album], ['track', title]]:
-            url_exact = self.url.replace('type', type[0]) + API_KEY
+        for type, value in (('album', album), ('track', title)):
+            url = self.url.format(
+                type=type,
+                value=quote_plus(value.encode("utf-8")),
+                api_key=API_KEY
+            )
             try:
-                data = urllib.urlopen(url_exact %
-                {
-                    type[0]: urllib.quote_plus(type[1].encode("utf-8"))
-                }).read()
-            except IOError:
+                with closing(gio.DataInputStream(gio.File(url).read())) as stream:
+                    data = stream.read()
+            except GError:
                 continue
 
             try:
@@ -91,7 +96,7 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
             except SyntaxError:
                 continue
 
-            for element in xml.getiterator(type[0]):
+            for element in xml.getiterator(type):
                 if (element.find('artist').text == artist.encode("utf-8")):
                     for sub_element in element.findall('image'):
                         if (sub_element.attrib['size'] == 'extralarge'):
@@ -103,10 +108,9 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
 
     def get_cover_data(self, cover_url):
         try:
-            h = urllib.urlopen(cover_url)
-            data = h.read()
-            h.close()
-        except IOError:
+            with closing(gio.DataInputStream(gio.File(cover_url).read())) as stream:
+                data = stream.read()
+        except GError:
             return None
         return data
 

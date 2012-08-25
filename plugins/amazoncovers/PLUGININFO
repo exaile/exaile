@@ -1,4 +1,4 @@
-Version='0.0.2'
+Version='0.0.3'
 Authors=['Adam Olsen <arolsen@gmail.com>']
 Name=_('Amazon Covers')
 Description=_('Searches Amazon for covers\n\nTo be able to use this plugin, an AWS API key and secret key are required.')

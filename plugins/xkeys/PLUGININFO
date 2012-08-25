@@ -1,4 +1,4 @@
-Version='0.0.1'
+Version='0.0.2'
 Authors=['Adam Olsen <arolsen@gmail.com>']
 Name=_('XKeys')
 Description=_('Global hotkeys using xlib (mmkeys.so)')

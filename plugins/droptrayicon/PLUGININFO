@@ -1,4 +1,4 @@
-Version='1.0.2'
+Version='1.0.3'
 Authors=['Mathias Brodala <info@noctus.net>']
 Name=_('Drop Trayicon')
 Description=_('Provides an alternative trayicon which accepts dropped files.\n\nDepends: python-eggtrayicon')

@@ -1,4 +1,4 @@
-Version='0.0.3'
+Version='0.1.0'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('GNOME Multimedia Keys')
 Description=_('Adds support for controlling Exaile via GNOME\'s multimedia key system. Compatible with GNOME >= 2.20.x')

@@ -37,9 +37,7 @@ Brian Parma
 Dustin Spicuzza
 fidencio
 Joseph S. Atkinson</property>
-    <property name="translator_credits" translatable="yes">Mathias Brodala
-   &lt;info@noctus.net&gt;
-    Translation Manager</property>
+    <property name="translator_credits" translatable="yes" context="About dialog translator credits" comments="TRANSLATORS: Add your own name here">Unknown translator</property>
     <property name="artists">Tuomas Kuosmanen
 Aron Homberg
 Josip Lisec</property>

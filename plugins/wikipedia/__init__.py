@@ -48,6 +48,7 @@ def enable(exaile):
 def disable(exaile):
     """ """
     global WIKIPANEL
+    WIKIPANEL.destroy()
     del WIKIPANEL
 
 def _enable(eventname, exaile, nothing):
@@ -72,6 +73,9 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
 
         builder.connect_signals(self)
         event.add_callback(self.on_playback_start, 'playback_track_start')
+
+    def destroy(self):
+        event.remove_callback(self.on_playback_start, 'playback_track_start')
 
     def on_playback_start(self, type, player, track):
         self.hometrack = track
@@ -132,7 +136,9 @@ class WikiPanel(panel.Panel):
         # to signals etc
         self._browser = BrowserPage(self.builder)
         self.setup_widgets()
- 
+
+    def destroy(self):
+        self._browser.destroy() 
  
     def setup_widgets(self):
         self._scrolled_window = gtk.ScrolledWindow()

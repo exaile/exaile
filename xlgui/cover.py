@@ -941,12 +941,6 @@ class CoverChooser(gobject.GObject):
             gobject.SIGNAL_RUN_LAST,
             None,
             (object,)
-        ),
-        'message': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_BOOLEAN,
-            (gtk.MessageType, gobject.TYPE_STRING),
-            gobject.signal_accumulator_true_handled
         )
     }
     def __init__(self, parent, track, search=None):

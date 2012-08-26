@@ -954,11 +954,9 @@ class CoverChooser(gobject.GObject):
         self.builder.connect_signals(self)
         self.window = self.builder.get_object('CoverChooser')
 
-        tempartist = track.get_tag_display('artist')
-        tempalbum = track.get_tag_display('album')
         self.window.set_title(_("Cover options for %(artist)s - %(album)s") % {
-            'artist': tempartist,
-            'album': tempalbum
+            'artist': track.get_tag_display('artist'),
+            'album': track.get_tag_display('album')
         })
         self.window.set_transient_for(parent)
 
@@ -1002,8 +1000,6 @@ class CoverChooser(gobject.GObject):
 
         self.set_button = self.builder.get_object('set_button')
         self.set_button.set_sensitive(False)
-
-        self.last_search = "%s - %s"  % (tempartist, tempalbum)
 
         self.window.show_all()
 

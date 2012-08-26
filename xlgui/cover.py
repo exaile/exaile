@@ -1003,7 +1003,7 @@ class CoverChooser(gobject.GObject):
 
         self.window.show_all()
 
-        self.cancel_fetch = threading.Event()
+        self.stopper = threading.Event()
         self.fetcher_thread = threading.Thread(target=self.fetch_cover, name='Coverfetcher')
         self.fetcher_thread.start()
 
@@ -1015,7 +1015,7 @@ class CoverChooser(gobject.GObject):
 
         if db_strings:
             for db_string in db_strings:
-                if self.cancel_fetch.is_set():
+                if self.stopper.is_set():
                     return
 
                 coverdata = COVER_MANAGER.get_cover_data(db_string)
@@ -1035,7 +1035,7 @@ class CoverChooser(gobject.GObject):
         """
             Finishes the dialog setup after all covers have been fetched
         """
-        if self.cancel_fetch.is_set():
+        if self.stopper.is_set():
             return
 
         self.cover_image_box.remove(self.loading_indicator)
@@ -1068,7 +1068,7 @@ class CoverChooser(gobject.GObject):
             Closes the cover chooser
         """
         # Notify the fetcher thread to stop
-        self.cancel_fetch.set()
+        self.stopper.set()
 
         self.window.destroy()
 

@@ -207,7 +207,7 @@ class CoverManager(gobject.GObject):
             iter = self.model.append((album, cover_pixbuf, thumbnail_pixbuf, label))
             self.model_path_cache[album] = self.model.get_path(iter)
 
-            self.emit('prefetch-progress', i)
+            self.emit('prefetch-progress', i + 1)
 
         self.outstanding = outstanding
         self.emit('prefetch-completed', len(self.outstanding))
@@ -988,6 +988,7 @@ class CoverChooser(gobject.GObject):
         self.previews_box = self.builder.get_object('previews_box')
         self.previews_box.set_no_show_all(True)
         self.previews_box.hide()
+        self.previews_box.set_model(None)
 
         self.set_button = self.builder.get_object('set_button')
         self.set_button.set_sensitive(False)
@@ -1032,6 +1033,7 @@ class CoverChooser(gobject.GObject):
             return
 
         self.cover_image_box.remove(self.loading_indicator)
+        self.previews_box.set_model(self.covers_model)
 
         if db_strings:
             self.cover_image_box.pack_start(self.cover, True, True)

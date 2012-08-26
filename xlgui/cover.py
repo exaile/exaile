@@ -97,6 +97,7 @@ class CoverManager(gobject.GObject):
             (gobject.TYPE_PYOBJECT, gtk.gdk.Pixbuf)
         )
     }
+
     def __init__(self, parent, collection):
         """
             Initializes the window
@@ -348,11 +349,11 @@ class CoverManager(gobject.GObject):
         """
             Updates the widgets to reflect the processed album
         """
-        outstanding_current = len(self.outstanding)
+        outstanding = len(self.outstanding)
 
-        if outstanding_current > 0:
+        if outstanding > 0:
             progress_text = self.outstanding_text.format(
-                outstanding=outstanding_current)
+                outstanding=outstanding)
         else:
             progress_text = self.completed_text
 
@@ -377,10 +378,25 @@ class CoverManager(gobject.GObject):
         path = cover_chooser.get_data('path')
 
         if path:
-            cover_pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
-            self.model[path][1] = cover_pixbuf
-            self.model[path][2] = cover_pixbuf.scale_simple(*self.cover_size,
-                interp_type=gtk.gdk.INTERP_BILINEAR)
+            album = self.model[path][0]
+            pixbuf = icons.MANAGER.pixbuf_from_data(cover_data)
+
+            self.emit('cover-fetched', album, pixbuf)
+
+            try:
+                self.outstanding.remove(album)
+            except ValueError:
+                pass
+            else:
+                outstanding = len(self.outstanding)
+
+                if outstanding > 0:
+                    progress_text = self.outstanding_text.format(
+                        outstanding=outstanding)
+                else:
+                    progress_text = self.completed_text
+
+                self.progress_bar.set_text(progress_text)
 
     def on_previews_box_item_activated(self, iconview, path):
         """

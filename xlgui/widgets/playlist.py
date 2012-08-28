@@ -214,7 +214,6 @@ def __create_playlist_tab_context_menu():
         providers.register('playlist-tab-context-menu', item)
 __create_playlist_tab_context_menu()
 
-
 class PlaylistContextMenu(menu.ProviderMenu):
     def __init__(self, page):
         """
@@ -378,6 +377,7 @@ class PlaylistPage(NotebookPage):
         self.on_mode_changed(None, None, self.playlist.dynamic_mode, self.dynamic_button)
         self.on_dynamic_playlists_provider_changed(None, None, None)
         self.on_option_set('gui_option_set', settings, 'gui/playlist_utilities_bar_visible')
+        self.view.connect('button-press-event', self.on_view_button_press_event)
         self.view.model.connect('row-changed', self.on_row_changed)
 
         self.show_all()
@@ -531,8 +531,18 @@ class PlaylistPage(NotebookPage):
         elif self.playlist.current_position == -1:
             self.tab.set_icon(None)
 
+    def on_view_button_press_event(self, view, e):
+        """
+            Displays the tab context menu upon
+            clicks in the contained view
+        """
+        selection = view.get_selection()
+        path = view.get_path_at_pos(int(e.x), int(e.y))
+        # We only need the tree path if present
+        path = path[0] if path else None
 
-
+        if not path and e.type == gtk.gdk.BUTTON_PRESS and e.button == 3:
+            self.tab_menu.popup(None, None, None, e.button, e.time)
 
 class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
     __gsignals__ = {}
@@ -544,6 +554,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.playlist = playlist
         self.player = player
         self.menu = PlaylistContextMenu(self)
+        self.tabmenu = menu.ProviderMenu('playlist-tab-context-menu', self)
         self.dragging = False
         self.button_pressed = False # used by columns to determine whether
                                     # a notify::width event was initiated

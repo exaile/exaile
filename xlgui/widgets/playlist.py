@@ -303,6 +303,18 @@ def __create_playlist_context_menu():
 
     items.append(RandomizeMenuItem([items[-1].name]))
 
+    def playlist_menu_condition(name, parent, context):
+        """
+            Returns True if the containing notebook's tab bar is hidden
+        """
+        scrolledwindow = parent.get_parent()
+        page = scrolledwindow.get_parent()
+        return not page.tab.notebook.get_show_tabs()
+
+    items.append(smi('playlist-menu', [items[-1].name], _('Playlist'),
+        submenu=menu.ProviderMenu('playlist-tab-context-menu', None),
+        condition_fn=playlist_menu_condition))
+
     items.append(sep('sep2', [items[-1].name]))
 
     items.append(smi('properties', [items[-1].name], _('Properties'),

@@ -26,7 +26,7 @@
 
 import xdg
 
-major = "0.3.3"
+major = "3.3"
 minor = "0"
 extra = "-dev"
 

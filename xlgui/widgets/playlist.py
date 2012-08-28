@@ -809,6 +809,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             * MultiDragTreeView.__button_press/__button.release of quodlibet/qltk/views.py
         """
         self.button_pressed = True
+        self.grab_focus()
+
         selection = self.get_selection()
         path = self.get_path_at_pos(int(e.x), int(e.y))
         # We only need the tree path if present

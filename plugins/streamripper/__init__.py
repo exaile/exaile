@@ -14,12 +14,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import subprocess, logging, os, shutil
+import subprocess
+import logging
+import os
+import shutil
 import gtk
-from xl import event, player
+
+from xl import (
+    event,
+    player,
+    settings
+)
 from xl.nls import gettext as _
-from xl import settings
 from xlgui.widgets import dialogs
+
 import srprefs
 
 logger = logging.getLogger(__name__)
@@ -45,7 +53,7 @@ class Streamripper(object):
                             os.getenv('HOME'))
         options = []
         options.append('streamripper')
-        options.append(player.PLAYER.playbin.get_property('uri'))
+        options.append(player.PLAYER._pipe.get_property('uri'))
         options.append('-D')
         options.append('%A/%a/%T')
         if settings.get_option('plugin/streamripper/single_file', False):
@@ -81,7 +89,7 @@ class Streamripper(object):
                 shutil.rmtree(self.savedir + "/incomplete")
             except OSError:
                 pass
-                
+
     def quit_application(self, type, player, track):
         self.stop_ripping()
 

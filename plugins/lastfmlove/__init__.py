@@ -125,13 +125,14 @@ class LoveColumn(Column):
     renderer = CellRendererToggleImage
     datatype = bool
     dataproperty = 'active'
-    cellproperties = {'pixbuf': icons.MANAGER.pixbuf_from_icon_name('love', gtk.ICON_SIZE_MENU)}
 
     def __init__(self, *args):
         Column.__init__(self, *args)
 
         self.model = None
 
+        pixbuf = icons.MANAGER.pixbuf_from_icon_name('love', self.get_icon_height())
+        self.cellrenderer.props.pixbuf = pixbuf
         self.cellrenderer.connect('toggled', self.on_toggled)
 
     def data_func(self, column, cellrenderer, model, iter):

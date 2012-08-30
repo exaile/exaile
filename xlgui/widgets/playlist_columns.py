@@ -273,6 +273,7 @@ class RatingColumn(Column):
     def __init__(self, *args):
         Column.__init__(self, *args)
         self.cellrenderer.connect('rating-changed', self.on_rating_changed)
+        self.cellrenderer.size_ratio = self.get_icon_size_ratio()
         self.saved_model = None
 
     def data_func(self, col, cell, model, iter):
@@ -290,12 +291,6 @@ class RatingColumn(Column):
         return size
 
     size = property(__get_size)
-    
-    def _setup_font(self, font):
-        '''Updates the font size of the column, which dictates icon size'''
-        Column._setup_font(self, font)
-        self.cellrenderer.size_ratio = self.get_icon_size_ratio()
-        self.cellrenderer.props.rating = self.cellrenderer.props.rating  #redraw
 
     def on_rating_changed(self, widget, path, rating):
         """

@@ -257,7 +257,7 @@ class FilesPanel(panel.Panel):
             return True
         return False
 
-    def button_release(self, button, event):
+    def button_press(self, button, event):
         """
             Called when the user clicks on the playlist
         """

@@ -476,15 +476,7 @@ class CollectionPanel(panel.Panel):
         elif event.button == 2:
             self.append_to_playlist(replace=True)
             return False
-
-    def button_release(self, widget, event):
-        """
-            Called when the user releases the mouse button on the tree
-        """
-        selection = self.tree.get_selection()
-        (x, y) = map(int, event.get_coords())
-        path = self.tree.get_path_at_pos(x, y)
-        if event.button == 3:
+        elif event.button == 3:
             self.menu.popup(event)
             if not path:
                 return False

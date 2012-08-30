@@ -245,35 +245,6 @@ class DragTreeView(AutoScrollTreeView):
         """
         pass
 
-    def on_button_release(self, button, event):
-        """
-            Called when a button is released
-        """
-        if event.button != 1 or \
-           self.dragging or \
-           event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-            self.dragging = False
-
-            try:
-                return self.container.button_release(button, event)
-            except AttributeError:
-                pass
-        
-        selection = self.get_selection()
-        selection.unselect_all()
-
-        path = self.get_path_at_pos(int(event.x), int(event.y))
-
-        if not path:
-            return False
-
-        selection.select_path(path[0])
-
-        try:
-            return self.container.button_release(button, event)
-        except AttributeError:
-            pass
-
     def on_drag_end(self, list, context):
         """
             Called when the dnd is ended
@@ -437,6 +408,31 @@ class DragTreeView(AutoScrollTreeView):
                 selection.select_path(path[0])
         try:
             return self.container.button_press(button, event)
+        except AttributeError:
+            pass
+
+    def on_button_release(self, button, event):
+        """
+            Called when a button is released
+        """
+        if event.button != 1 or self.dragging:
+            self.dragging = False
+
+        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+            return True
+        
+        selection = self.get_selection()
+        selection.unselect_all()
+
+        path = self.get_path_at_pos(int(event.x), int(event.y))
+
+        if not path:
+            return False
+
+        selection.select_path(path[0])
+
+        try:
+            return self.container.button_release(button, event)
         except AttributeError:
             pass
 

@@ -343,7 +343,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
         return False
 
-    def button_release(self, widget, event):
+    def button_press(self, widget, event):
         """
             Called when someone clicks on the tree
         """

@@ -656,8 +656,9 @@ class IconManager(object):
             :returns: the generated pixbuf
             :rtype: :class:`gtk.gdk.Pixbuf` or None
         """
-        icon_size = gtk.icon_size_lookup(size)
-        size = icon_size[0] or size
+        if type(size) == gtk.IconSize:
+            icon_size = gtk.icon_size_lookup(size)
+            size = icon_size[0]
 
         try:
             pixbuf = self.icon_theme.load_icon(

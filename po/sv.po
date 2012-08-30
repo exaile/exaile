@@ -3,7 +3,7 @@
 # Daniel Nylander <po@danielnylander.se>, 2007, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: exaile\n"
+"Project-Id-Version: Exaile 3.3.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-04 14:34+0200\n"
 "PO-Revision-Date: 2010-05-03 22:38+0000\n"

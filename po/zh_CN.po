@@ -6,7 +6,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: exaile\n"
+"Project-Id-Version: Exaile 3.3.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-19 01:10+0200\n"
 "PO-Revision-Date: 2010-05-11 08:47+0000\n"

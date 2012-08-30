@@ -71,7 +71,7 @@ class Column(gtk.TreeViewColumn):
         self.cellrenderer = self.renderer()
         self.extrasize = 0
         
-        self.set_font(font)
+        self._setup_font(font)
 
         if index == 2:
             gtk.TreeViewColumn.__init__(self, self.display)
@@ -122,7 +122,7 @@ class Column(gtk.TreeViewColumn):
         if width != settings.get_option(self.settings_width_name, -1):
             settings.set_option(self.settings_width_name, width)
 
-    def set_font(self, font):
+    def _setup_font(self, font):
         '''
             This should be set even for non-text columns.
             
@@ -144,10 +144,19 @@ class Column(gtk.TreeViewColumn):
         
         try:
             # adjust the display size of the column
-            self.size = max(int(self.size*self._font_ratio),1)
-        except AttributeError:
-                pass
+            ratio = self._font_ratio
             
+            # small fonts can be problematic.. 
+            # -> TODO: perhaps default widths could be specified
+            #          in character widths instead? then we could
+            #          calculate it instead of using arbitrary widths
+            if ratio < 1:
+                ratio = ratio * 1.25
+            
+            self.size = max(int(self.size*ratio),1)
+        except AttributeError:
+            pass            
+           
     def _setup_sizing(self):
         if settings.get_option('gui/resizable_cols', False):
             self.set_resizable(True)
@@ -168,6 +177,10 @@ class Column(gtk.TreeViewColumn):
         '''Returns a default icon height based on the font size'''
         sz = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
         return max(int(sz*self._font_ratio), 1)
+        
+    def get_icon_size_ratio(self):
+        '''Returns how much bigger or smaller an icon should be'''
+        return self._font_ratio
                 
     def data_func(self, col, cell, model, iter):
         if type(cell) == gtk.CellRendererText:
@@ -271,12 +284,18 @@ class RatingColumn(Column):
         """
             Retrieves the optimal size
         """
-        size = icons.MANAGER.pixbuf_from_rating(0).get_width()
+        size = icons.MANAGER.pixbuf_from_rating(0, self.get_icon_size_ratio()).get_width()
         size += 2 # FIXME: Find the source of this
 
         return size
 
     size = property(__get_size)
+    
+    def _setup_font(self, font):
+        '''Updates the font size of the column, which dictates icon size'''
+        Column._setup_font(self, font)
+        self.cellrenderer.size_ratio = self.get_icon_size_ratio()
+        self.cellrenderer.props.rating = self.cellrenderer.props.rating  #redraw
 
     def on_rating_changed(self, widget, path, rating):
         """

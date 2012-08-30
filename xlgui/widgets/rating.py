@@ -349,6 +349,9 @@ class RatingCellRenderer(gtk.CellRendererPixbuf):
         gtk.CellRendererPixbuf.__init__(self)
         self.props.mode = gtk.CELL_RENDERER_MODE_ACTIVATABLE
         self.props.xalign = 0
+        
+        self.rating = 0
+        self.size_ratio = 1
 
     def do_get_property(self, property):
         """
@@ -365,7 +368,7 @@ class RatingCellRenderer(gtk.CellRendererPixbuf):
         """
         if property.name == 'rating':
             self.rating = value
-            self.props.pixbuf = icons.MANAGER.pixbuf_from_rating(self.rating)
+            self.props.pixbuf = icons.MANAGER.pixbuf_from_rating(self.rating, self.size_ratio)
         else:
             raise AttributeError('unkown property %s' % property.name)
 

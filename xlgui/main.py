@@ -128,9 +128,9 @@ class MainWindow(gobject.GObject):
         viewmenu = menu.ProviderMenu('menubar-view-menu', self)
         viewitem.set_submenu(viewmenu)
 
-        viewitem = self.builder.get_object("tools_menu_item")
-        viewmenu = menu.ProviderMenu('menubar-tools-menu', self)
-        viewitem.set_submenu(viewmenu)
+        toolsitem = self.builder.get_object("tools_menu_item")
+        toolsmenu = menu.ProviderMenu('menubar-tools-menu', self)
+        toolsitem.set_submenu(toolsmenu)
 
         helpitem = self.builder.get_object("help_menu_item")
         helpmenu = menu.ProviderMenu('menubar-help-menu', self)

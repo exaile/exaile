@@ -36,6 +36,7 @@ import logging
 import os
 
 from xl import (
+    common,
     event,
     settings,
     xdg
@@ -466,10 +467,9 @@ class IconManager(object):
             xdg.get_data_path('images', 'star.png'))
         self.rating_inactive_pixbuf = extended_pixbuf_new_from_file(
             xdg.get_data_path('images', 'emptystar.png'))
-        self.rating_pixbufs = []
-        self._generate_rating_pixbufs()
 
-        event.add_callback(self.on_option_set, 'rating_option_set')
+        # nobody actually sets the rating option, so don't handle it for now
+        #event.add_callback(self.on_option_set, 'rating_option_set')
 
     def add_icon_name_from_directory(self, icon_name, directory):
         """
@@ -787,7 +787,8 @@ class IconManager(object):
 
         return pixbuf
 
-    def pixbuf_from_rating(self, rating):
+    @common.cached(limit=settings.get_option('rating/maximum', 5)*3)
+    def pixbuf_from_rating(self, rating, size_ratio=1):
         """
             Returns a pixbuf representing a rating
 
@@ -797,35 +798,27 @@ class IconManager(object):
             :returns: the rating pixbuf
             :rtype: :class:`gtk.gdk.Pixbuf`
         """
-        rating = max(0, rating)
-        rating = min(rating, len(self.rating_pixbufs) - 1)
-
-        return self.rating_pixbufs[rating]
-
-    def _generate_rating_pixbufs(self):
-        """
-            Generates the pixbufs for
-            the various rating stages
-        """
         maximum = settings.get_option('rating/maximum', 5)
         width = self.rating_active_pixbuf.get_width()
         height = self.rating_active_pixbuf.get_height()
-
-        self.rating_pixbufs = [self.rating_inactive_pixbuf * maximum]
-
-        for n in xrange(1, maximum):
-            active_pixbufs = self.rating_active_pixbuf * n
-            inactive_pixbufs = self.rating_inactive_pixbuf * (maximum - n)
-            self.rating_pixbufs += [active_pixbufs + inactive_pixbufs]
-
-        self.rating_pixbufs += [self.rating_active_pixbuf * maximum]
-
-    def on_option_set(self, event_type, settings, option):
-        """
-            Regenerates the rating pixbufs
-        """
-        if option == 'rating/maximum':
-            glib.idle_add(self._generate_rating_pixbufs)
+        
+        active_pixbuf = self.rating_active_pixbuf.scale_simple(width*size_ratio,
+                                                               height*size_ratio,
+                                                               gtk.gdk.INTERP_BILINEAR)
+        inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(width*size_ratio,
+                                                                   height*size_ratio,
+                                                                   gtk.gdk.INTERP_BILINEAR)
+        rating = max(0, rating)
+        rating = min(rating, maximum)
+        
+        if rating == 0:
+            return inactive_pixbuf*maximum
+        elif rating == maximum:
+            return active_pixbuf*maximum
+        
+        active_pixbufs = active_pixbuf * rating
+        inactive_pixbufs = inactive_pixbuf * (maximum - rating)
+        return active_pixbufs + inactive_pixbufs
 
 MANAGER = IconManager()
 

@@ -802,11 +802,11 @@ class IconManager(object):
         width = self.rating_active_pixbuf.get_width()
         height = self.rating_active_pixbuf.get_height()
         
-        active_pixbuf = self.rating_active_pixbuf.scale_simple(width*size_ratio,
-                                                               height*size_ratio,
+        active_pixbuf = self.rating_active_pixbuf.scale_simple(int(width*size_ratio),
+                                                               int(height*size_ratio),
                                                                gtk.gdk.INTERP_BILINEAR)
-        inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(width*size_ratio,
-                                                                   height*size_ratio,
+        inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(int(width*size_ratio),
+                                                                   int(height*size_ratio),
                                                                    gtk.gdk.INTERP_BILINEAR)
         rating = max(0, rating)
         rating = min(rating, maximum)

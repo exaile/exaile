@@ -261,35 +261,7 @@ class TrackWrapper(object):
         if not text: return self.track.get_loc_for_io()
         return text
         
-def _query_for_unused_name(playlist_manager, name=None):
-    """
-        Returns a user-selected name that is not already used
-            in the specified playlist manager
-            
-        :param name: A default name to show to the user
-        Returns None if the user hits cancel
-    """
-    
-    while True:
-            
-        dialog = dialogs.TextEntryDialog(
-            _('Playlist name:'),
-            _('Add new playlist...'), name, okbutton=gtk.STOCK_ADD)
-            
-        result = dialog.run()
-        if result != gtk.RESPONSE_OK:
-            return None
-            
-        name = dialog.get_value()
-        
-        if name == '':
-            dialogs.error(None, _("You did not enter a name for your playlist"))
-        elif name in playlist_manager.playlists:
-            # name is already in use
-            dialogs.error(None, _("The playlist name you entered is "
-                "already in use."))
-        else:
-            return name
+
 
 class BasePlaylistPanelMixin(gobject.GObject):
     """
@@ -414,7 +386,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
         do_add_playlist = False
         if name:
             if name in self.playlist_manager.playlists:
-                name = _query_for_unused_name( self.playlist_manager, name )
+                name = dialogs.ask_for_playlist_name( self.playlist_manager, name )
         else:
             if tracks:
                 artists = []
@@ -488,17 +460,12 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 else:
                     name = ''
 
-            name = _query_for_unused_name( self.playlist_manager, name )
+            name = dialogs.ask_for_playlist_name( self.playlist_manager, name )
         
         if name is not None:
             #Create the playlist from all of the tracks
             new_playlist = playlist.Playlist(name)
             new_playlist.extend(tracks)
-            self.playlist_nodes[new_playlist] = \
-                self.model.append(self.custom, [self.playlist_image, name,
-                new_playlist])
-            self.tree.expand_row(self.model.get_path(self.custom), False)
-            self._load_playlist_nodes(new_playlist)
             # We are adding a completely new playlist with tracks so we save it
             self.playlist_manager.save_playlist(new_playlist)
             
@@ -616,7 +583,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def _connect_events(self):
         event.add_callback(self.refresh_playlists, 'track_tags_changed')
-        event.add_callback(self.refresh_saved_playlist, 'custom_playlist_saved')
+        event.add_callback(self._on_playlist_added, 'playlist_added', self.playlist_manager)
 
         self.tree.connect('key-release-event', self.on_key_released)
 
@@ -684,12 +651,21 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         if settings.get_option('gui/sync_on_tag_change', True):
             for playlist in self.playlist_nodes:
                 self.update_playlist_node(playlist)
-
-    def refresh_saved_playlist(self, type, object, playlist):
+                
+    def _on_playlist_added(self, type, object, playlist_name):
+    
+        new_playlist = self.playlist_manager.get_playlist(playlist_name)
+    
         for plx in self.playlist_nodes:
-            if plx.name == playlist.name:
-                glib.idle_add(self.update_playlist_node, playlist)
-                break
+            if plx.name == playlist_name:
+                self.update_playlist_node(new_playlist)
+                return
+                
+        self.playlist_nodes[new_playlist] = \
+            self.model.append(self.custom, [self.playlist_image, playlist_name,
+            new_playlist])
+        self.tree.expand_row(self.model.get_path(self.custom), False)
+        self._load_playlist_nodes(new_playlist)
 
     def _load_playlists(self):
         """

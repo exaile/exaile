@@ -1499,3 +1499,34 @@ class FileCopyDialog(gtk.Dialog):
     def _on_error_response(self, widget, response, dialog):
         self.response( gtk.RESPONSE_CANCEL )
         dialog.destroy()
+
+        
+def ask_for_playlist_name(playlist_manager, name=None):
+    """
+        Returns a user-selected name that is not already used
+            in the specified playlist manager
+            
+        :param name: A default name to show to the user
+        Returns None if the user hits cancel
+    """
+    
+    while True:
+            
+        dialog = TextEntryDialog(
+            _('Playlist name:'),
+            _('Add new playlist...'), name, okbutton=gtk.STOCK_ADD)
+            
+        result = dialog.run()
+        if result != gtk.RESPONSE_OK:
+            return None
+            
+        name = dialog.get_value()
+        
+        if name == '':
+            error(None, _("You did not enter a name for your playlist"))
+        elif playlist_manager.has_playlist_name(name):
+            # name is already in use
+            error(None, _("The playlist name you entered is already in use."))
+        else:
+            return name
+

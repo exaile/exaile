@@ -37,22 +37,25 @@ import re
 from xl.nls import gettext as _
 from xl.playlist import (
     Playlist,
-    PlaylistManager,
+    PlaylistManager,    
     is_valid_playlist,
     import_playlist,
 )
 from xl import (
     common,
     event,
+    main,
     player,
     providers,
     settings,
     trax,
     xdg
 )
+import xlgui
 from xlgui.widgets.common import AutoScrollTreeView
 from xlgui.widgets.notebook import NotebookPage
 from xlgui.widgets import (
+    dialogs,
     menu,
     menuitems,
     playlist_columns
@@ -203,7 +206,24 @@ def __create_playlist_tab_context_menu():
     items.append(smi('new-tab', [], _("New Playlist"), 'tab-new',
         lambda w, n, o, c: o.tab.notebook.create_new_playlist()))
     items.append(sep('new-tab-sep', ['new-tab']))
-    items.append(smi('rename', ['new-tab-sep'], _("Rename"), 'gtk-edit',
+    
+    # TODO: These two probably shouldn't reach back to main.. 
+    def _save_playlist_cb(widget, name, page, context):
+        main.exaile().playlists.save_playlist(page.playlist, overwrite=True)
+        
+    def _saveas_playlist_cb(widget, name, page, context):
+        playlists = main.exaile().playlists
+        name = dialogs.ask_for_playlist_name(playlists, page.playlist.name)
+        if name is not None:
+            page.set_name(name)
+            playlists.save_playlist(page.playlist)
+    
+    items.append(smi('save', ['new-tab-sep'], _("Save"), 'gtk-save',
+        _save_playlist_cb,
+        condition_fn=lambda n, p, c: main.exaile().playlists.has_playlist_name(p.playlist.name)))
+    items.append(smi('saveas', ['save'], _("Save as..."), 'gtk-save-as',
+        _saveas_playlist_cb))
+    items.append(smi('rename', ['saveas'], _("Rename"), 'gtk-edit',
         lambda w, n, o, c: o.tab.start_rename()))
     items.append(smi('clear', ['rename'], _("Clear"), 'gtk-clear',
         lambda w, n, o, c: o.playlist.clear()))
@@ -404,6 +424,7 @@ class PlaylistPage(NotebookPage):
 
     def set_name(self, name):
         self.playlist.name = name
+        self.name_changed()
 
     def get_search_entry(self):
         return self.search_entry

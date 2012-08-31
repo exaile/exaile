@@ -402,6 +402,15 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 self.emit('append-items', [item.track], True)
 
     def add_new_playlist(self, tracks=[], name = None):
+        """
+            Adds a new playlist to the list of playlists. If name is 
+            None or the name conflicts with an existing playlist, the
+            user will be queried for a new name.
+            
+            Returns the name of the new playlist, or None if it was
+            not added.
+        """
+
         do_add_playlist = False
         if name:
             if name in self.playlist_manager.playlists:
@@ -492,6 +501,8 @@ class BasePlaylistPanelMixin(gobject.GObject):
             self._load_playlist_nodes(new_playlist)
             # We are adding a completely new playlist with tracks so we save it
             self.playlist_manager.save_playlist(new_playlist)
+            
+        return name
 
     def _load_playlist_nodes(self, playlist):
         """

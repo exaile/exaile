@@ -1885,6 +1885,12 @@ class PlaylistManager(object):
         self.playlists = []
         self.load_names()
 
+    def has_playlist_name(self, playlist_name):
+        """
+            Returns true if the manager has a playlist with the same name
+        """
+        return playlist_name in self.playlists
+        
     def save_playlist(self, pl, overwrite=False):
         """
             Saves a playlist

@@ -23,7 +23,6 @@ import webkit
 from xl import (
     event,
     player,
-    providers,
     settings
 )
 from xl.nls import gettext as _
@@ -59,13 +58,12 @@ def _enable(eventname, exaile, nothing):
 def get_preferences_pane():
     return preferences 
  
-class BrowserPage(webkit.WebView, providers.ProviderHandler):
+class BrowserPage(webkit.WebView):
     """ """
     history_length = 6
 
     def __init__(self, builder):
         webkit.WebView.__init__(self)
-        providers.ProviderHandler.__init__(self, "context_page")
 
         self.hometrack = None
 

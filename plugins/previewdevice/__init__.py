@@ -124,6 +124,8 @@ class SecondaryOutputPlugin(object):
         self.info_area.set_no_show_all(True)
         
         self.cover = cover.CoverWidget(self.info_area.cover_image, self.player)
+        self.cover.hide_all()
+        self.cover.set_no_show_all(True)
 
         volume_control = playback.VolumeControl(self.player)
         self.info_area.get_action_area().pack_start(volume_control)
@@ -169,6 +171,7 @@ class SecondaryOutputPlugin(object):
         for provide in self.preview_provides:
             providers.register(provide, self.preview_menuitem)
         
+        self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
         event.add_callback(self._on_option_set, 'option_set')
 
@@ -315,6 +318,14 @@ class SecondaryOutputPlugin(object):
             else:
                 self.info_area.hide_all()
             self.info_area.set_no_show_all(True)
+            
+        elif option == 'gui/show_info_area_covers':        
+            self.cover.set_no_show_all(False)
+            if settings.get_option(option, True):
+                self.cover.show_all()
+            else:
+                self.cover.hide_all()
+            self.cover.set_no_show_all(True)
 
     def _on_playback_resume(self, type, player, data):
         self.resuming = True

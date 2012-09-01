@@ -38,6 +38,10 @@ ui = xdg.get_data_path('ui', 'preferences', 'appearance.ui')
 class ShowInfoAreaPreference(widgets.CheckPreference):
     default = True
     name = 'gui/show_info_area'
+    
+class ShowInfoAreaCoversPreference(widgets.CheckPreference):
+    default = True
+    name = 'gui/show_info_area_covers'
 
 class SplashPreference(widgets.CheckPreference):
     default = True

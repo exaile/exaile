@@ -213,6 +213,8 @@ class MainWindow(gobject.GObject):
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
 
         self.cover = cover.CoverWidget(self.info_area.cover_image, player.PLAYER)
+        self.cover.hide_all()
+        self.cover.set_no_show_all(True)
 
         self.volume_control = playback.VolumeControl(player.PLAYER)
         self.info_area.get_action_area().pack_start(self.volume_control)
@@ -323,6 +325,7 @@ class MainWindow(gobject.GObject):
 
         # Settings
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
+        self._on_option_set('gui_option_set', settings, 'gui/show_covers')
         event.add_callback(self._on_option_set, 'option_set')
 
     def _connect_panel_events(self):
@@ -851,6 +854,17 @@ class MainWindow(gobject.GObject):
             else:
                 glib.idle_add(self.info_area.hide_all)
             glib.idle_add(self.info_area.set_no_show_all, True)
+            
+        if option == 'gui/show_info_area_covers':
+            def _setup_info_covers():
+                self.cover.set_no_show_all(False)
+                if settings.get_option(option, True):
+                    self.cover.show_all()
+                else:
+                    self.cover.hide_all()
+                self.cover.set_no_show_all(True)
+                
+            glib.idle_add(_setup_info_covers)
 
     def _on_volume_key(self, is_up):
         diff = int(100 * settings.get_option('gui/volue_key_step_size', VOLUME_STEP_DEFAULT))

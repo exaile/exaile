@@ -1191,7 +1191,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             return True
         return False
 
-    def button_press(self, button, event):
+    def button_release(self, button, event):
         """
             Called when a button is pressed, is responsible
             for showing the context menu

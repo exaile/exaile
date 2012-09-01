@@ -68,7 +68,7 @@ class TrackInfoPane(gtk.Alignment):
         )
         self.__formatter.connect('notify::format', self.on_notify_format)
         self.__default_text = ('<span size="x-large" '
-            'weight="bold">%s</span>' % _('Not Playing'))
+            'weight="bold">%s</span>\n\n' % _('Not Playing'))
         self.__cover_size = None
         self.__timer = None
         self.__track = None

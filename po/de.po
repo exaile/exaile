@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile 3.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-01 14:24+0200\n"
-"PO-Revision-Date: 2012-09-01 14:27+0100\n"
+"POT-Creation-Date: 2012-09-01 17:34+0200\n"
+"PO-Revision-Date: 2012-09-01 17:34+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "Language: de\n"
@@ -626,13 +626,6 @@ msgstr "Aktuelle Wiedergabeliste ersetzen"
 msgid "Append to Current"
 msgstr "An aktuelle Wiedergabeliste anhängen"
 
-#: ../xlgui/widgets/menuitems.py:129
-#: ../xlgui/widgets/playlist.py:340
-#: ../xlgui/oldmenu.py:121
-#: ../data/ui/trackproperties_dialog.ui.h:7
-msgid "Properties"
-msgstr "Eigenschaften"
-
 #: ../xlgui/widgets/menuitems.py:142
 #: ../xlgui/properties.py:1135
 msgid "Open Directory"
@@ -738,18 +731,6 @@ msgstr "%d angezeigt"
 #, python-format
 msgid "%d selected"
 msgstr "%d ausgewählt"
-
-#: ../xlgui/widgets/queue.py:41
-#: ../xlgui/widgets/playlist.py:228
-#: ../xlgui/playlist.py:130
-msgid "Clear"
-msgstr "Leeren"
-
-#: ../xlgui/widgets/queue.py:44
-#: ../xlgui/widgets/playlist.py:231
-#: ../plugins/history/__init__.py:239
-msgid "Close"
-msgstr "_Schließen"
 
 #: ../xlgui/widgets/queue.py:87
 msgid "Queue"
@@ -959,14 +940,6 @@ msgstr "Auswahl mischen"
 msgid "New Playlist"
 msgstr "Neue Wiedergabeliste"
 
-#: ../xlgui/widgets/playlist.py:221
-msgid "Save"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:224
-msgid "Save as..."
-msgstr "Speichern unter …"
-
 #: ../xlgui/widgets/playlist.py:226
 #: ../xlgui/oldmenu.py:244
 msgid "Rename"
@@ -979,12 +952,6 @@ msgstr "Wiedergabe nach diesem Stück beenden"
 #: ../xlgui/widgets/playlist.py:272
 msgid "Continue Playback After This Track"
 msgstr "Wiedergabe nach diesem Stück fortsetzen"
-
-#: ../xlgui/widgets/playlist.py:321
-#: ../xlgui/oldmenu.py:352
-#: ../plugins/multialarmclock/malrmclk.ui.h:2
-msgid "Remove"
-msgstr "Entfernen"
 
 #: ../xlgui/widgets/playlist.py:532
 msgid "Requires plugins providing dynamic playlists"
@@ -1117,7 +1084,8 @@ msgid "The playlist name you entered is already in use."
 msgstr "Eine Wiedergabeliste mit dem angegebenen Namen existiert bereits."
 
 #: ../xlgui/widgets/notebook.py:136
-msgid "Close tab"
+#: ../xlgui/menu.py:115
+msgid "Close Tab"
 msgstr "Tab schließen"
 
 #: ../xlgui/main.py:111
@@ -1180,10 +1148,6 @@ msgstr "Verzeichnisse öffnen"
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
 msgstr "Aktuelle Wiedergabeliste _exportieren"
-
-#: ../xlgui/menu.py:115
-msgid "Close Tab"
-msgstr "Tab schließen"
 
 #: ../xlgui/menu.py:124
 #: ../xlgui/preferences/widgets.py:70
@@ -1463,6 +1427,11 @@ msgstr "Warteschlangenstatus umschalten"
 msgid "Queue Items"
 msgstr "An Warteschlange anhängen"
 
+#: ../xlgui/oldmenu.py:121
+#: ../data/ui/trackproperties_dialog.ui.h:7
+msgid "Properties"
+msgstr "Eigenschaften"
+
 #: ../xlgui/oldmenu.py:185
 msgid "New Station"
 msgstr "Neuer Sender"
@@ -1507,6 +1476,11 @@ msgstr "Neuen Namen für die Wiedergabeliste eingeben"
 #: ../xlgui/oldmenu.py:313
 msgid "Rename Playlist"
 msgstr "Wiedergabeliste umbenennen"
+
+#: ../xlgui/oldmenu.py:352
+#: ../plugins/multialarmclock/malrmclk.ui.h:2
+msgid "Remove"
+msgstr "Entfernen"
 
 #: ../xlgui/playlist.py:77
 msgid "Drop here to create a new playlist"
@@ -2583,10 +2557,6 @@ msgstr "Dieses Plugin benötigt mindestens PyGTK 2.22 und GTK 2.20."
 msgid "Main Menu"
 msgstr "Hauptmenü"
 
-#: ../plugins/awn/awn_prefs.py:32
-msgid "AWN"
-msgstr "AWN"
-
 #: ../plugins/shoutcast/__init__.py:107
 #: ../plugins/shoutcast/__init__.py:164
 #: ../plugins/shoutcast/__init__.py:211
@@ -3334,10 +3304,12 @@ msgid "Delete incomplete files"
 msgstr "Unvollständige Dateien löschen"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:1
-msgid "API Key:"
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
+msgid "API key:"
 msgstr "API-Schlüssel:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:2
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret:"
 msgstr "Geheimnis:"
 
@@ -3354,37 +3326,30 @@ msgid "<b>Alarm time</b>"
 msgstr "<b>Alarmzeit</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
-msgctxt "yes"
 msgid "Monday"
 msgstr "Montag"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:3
-msgctxt "yes"
 msgid "Tuesday"
 msgstr "Dienstag"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:4
-msgctxt "yes"
 msgid "Wednesday"
 msgstr "Mittwoch"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:5
-msgctxt "yes"
 msgid "Thursday"
 msgstr "Donnerstag"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:6
-msgctxt "yes"
 msgid "Friday"
 msgstr "Freitag"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:7
-msgctxt "yes"
 msgid "Saturday"
 msgstr "Samstag"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:8
-msgctxt "yes"
 msgid "Sunday"
 msgstr "Sonntag"
 
@@ -3393,27 +3358,22 @@ msgid "<b>Alarm Days</b>"
 msgstr "<b>Alarmtage</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:10
-msgctxt "yes"
 msgid "Use Fading"
 msgstr "Überblendungen aktivieren"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
-msgctxt "yes"
 msgid "Minimum volume:"
 msgstr "Minimale Lautstärke:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
-msgctxt "yes"
 msgid "Maximum volume:"
 msgstr "Maximale Lautstärke:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
-msgctxt "yes"
 msgid "Increment:"
 msgstr "Schrittweite:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
-msgctxt "yes"
 msgid "Time per increment:"
 msgstr "Zeit pro Schritt:"
 
@@ -3871,14 +3831,6 @@ msgstr "Fortschritt anzeigen"
 msgid "Border radius:"
 msgstr "Rahmen-Abrundung:"
 
-#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
-msgid "API key:"
-msgstr "API-Schlüssel:"
-
-#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
-msgid "Secret key:"
-msgstr "Geheimer Schlüssel:"
-
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
 "<i>To sign up for an Amazon AWS account and get \n"
@@ -4148,10 +4100,6 @@ msgstr "Last.fm-Cover"
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
 msgstr "Bezieht Last.FM bei der Suche nach Covern ein"
-
-#: ../plugins/awn/PLUGININFO:3
-msgid "Awn"
-msgstr "Awn"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
@@ -4498,6 +4446,70 @@ msgstr "Dieses Plugin integriert spydaap (http://launchpad.net/spydaap) in Exail
 msgid "Allows playing of DAAP music shares."
 msgstr "Ermöglicht die Wiedergabe von DAAP-Musikshares."
 
+#~ msgid "Clear"
+#~ msgstr "Leeren"
+
+#~ msgid "Close"
+#~ msgstr "_Schließen"
+
+#~ msgid "Save as..."
+#~ msgstr "Speichern unter …"
+
+#~ msgid "Close tab"
+#~ msgstr "Tab schließen"
+
+#~ msgid "AWN"
+#~ msgstr "AWN"
+
+#~ msgid "API Key:"
+#~ msgstr "API-Schlüssel:"
+#~ msgctxt "yes"
+
+#~ msgid "Monday"
+#~ msgstr "Montag"
+#~ msgctxt "yes"
+
+#~ msgid "Tuesday"
+#~ msgstr "Dienstag"
+#~ msgctxt "yes"
+
+#~ msgid "Wednesday"
+#~ msgstr "Mittwoch"
+#~ msgctxt "yes"
+
+#~ msgid "Thursday"
+#~ msgstr "Donnerstag"
+#~ msgctxt "yes"
+
+#~ msgid "Friday"
+#~ msgstr "Freitag"
+#~ msgctxt "yes"
+
+#~ msgid "Saturday"
+#~ msgstr "Samstag"
+#~ msgctxt "yes"
+
+#~ msgid "Sunday"
+#~ msgstr "Sonntag"
+#~ msgctxt "yes"
+
+#~ msgid "Minimum volume:"
+#~ msgstr "Minimale Lautstärke:"
+#~ msgctxt "yes"
+
+#~ msgid "Maximum volume:"
+#~ msgstr "Maximale Lautstärke:"
+#~ msgctxt "yes"
+
+#~ msgid "Time per increment:"
+#~ msgstr "Zeit pro Schritt:"
+
+#~ msgid "Secret key:"
+#~ msgstr "Geheimer Schlüssel:"
+
+#~ msgid "Awn"
+#~ msgstr "Awn"
+
 #, fuzzy
 #~ msgctxt "About dialog translator credits"
 
@@ -4620,38 +4632,8 @@ msgstr "Ermöglicht die Wiedergabe von DAAP-Musikshares."
 #~ msgid "Fading:"
 #~ msgstr "Überblendung:"
 
-#~ msgid "Friday"
-#~ msgstr "Freitag"
-
-#~ msgid "Maximum volume:"
-#~ msgstr "Maximale Lautstärke:"
-
-#~ msgid "Minimum volume:"
-#~ msgstr "Minimale Lautstärke:"
-
-#~ msgid "Monday"
-#~ msgstr "Montag"
-
 #~ msgid "Name - Time"
 #~ msgstr "Name – Uhrzeit"
-
-#~ msgid "Saturday"
-#~ msgstr "Samstag"
-
-#~ msgid "Sunday"
-#~ msgstr "Sonntag"
-
-#~ msgid "Thursday"
-#~ msgstr "Donnerstag"
-
-#~ msgid "Time per increment:"
-#~ msgstr "Zeit pro Schritt:"
-
-#~ msgid "Tuesday"
-#~ msgstr "Dienstag"
-
-#~ msgid "Wednesday"
-#~ msgstr "Mittwoch"
 
 #~ msgid ""
 #~ "<b>Shutdown scheduled</b>\n"

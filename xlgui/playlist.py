@@ -127,7 +127,7 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
         # Build static menu entries        
         item = menu.simple_separator('clear-sep',[])
         providers.register('playlist-closed-tab-menu', item)
-        item = menu.simple_menu_item('clear-history', ['clear-sep'], _("Clear"), 'gtk-clear',
+        item = menu.simple_menu_item('clear-history', ['clear-sep'], None, 'gtk-clear',
             self.clear_closed_tabs)
         providers.register('playlist-closed-tab-menu', item)     
             

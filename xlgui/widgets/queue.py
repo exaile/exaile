@@ -38,10 +38,10 @@ def __create_queue_tab_context_menu():
     smi = menu.simple_menu_item
     sep = menu.simple_separator
     items = []
-    items.append(smi('clear', [], _("Clear"), 'gtk-clear',
+    items.append(smi('clear', [], None, 'gtk-clear',
         lambda w, n, o, c: o.player.queue.clear()))
     items.append(sep('tab-close-sep', ['clear']))
-    items.append(smi('tab-close', ['tab-close-sep'], _("Close"), 'gtk-close',
+    items.append(smi('tab-close', ['tab-close-sep'], None, 'gtk-close',
         lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('queue-tab-context', item)

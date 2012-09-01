@@ -133,7 +133,7 @@ class NotebookTab(gtk.EventBox):
         button.set_name("tabCloseButton")
         button.set_relief(gtk.RELIEF_NONE)
         button.set_focus_on_click(False)
-        button.set_tooltip_text(_("Close tab"))
+        button.set_tooltip_text(_("Close Tab"))
         button.add(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU))
         button.connect('clicked', self.close)
         button.connect('button-press-event', self.on_button_press)

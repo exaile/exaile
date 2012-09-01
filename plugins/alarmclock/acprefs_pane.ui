@@ -69,7 +69,7 @@
                 <child>
                   <object class="GtkLabel" id="label81">
                     <property name="visible">True</property>
-                    <property name="label" context="yes">:</property>
+                    <property name="label">:</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -121,7 +121,7 @@
                     <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkCheckButton" id="plugin/alarmclock/monday">
-                        <property name="label" translatable="yes" context="yes">Monday</property>
+                        <property name="label" translatable="yes">Monday</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -133,7 +133,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="plugin/alarmclock/tuesday">
-                        <property name="label" translatable="yes" context="yes">Tuesday</property>
+                        <property name="label" translatable="yes">Tuesday</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -145,7 +145,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="plugin/alarmclock/wednesday">
-                        <property name="label" translatable="yes" context="yes">Wednesday</property>
+                        <property name="label" translatable="yes">Wednesday</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -157,7 +157,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="plugin/alarmclock/thursday">
-                        <property name="label" translatable="yes" context="yes">Thursday</property>
+                        <property name="label" translatable="yes">Thursday</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -178,7 +178,7 @@
                     <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkCheckButton" id="plugin/alarmclock/friday">
-                        <property name="label" translatable="yes" context="yes">Friday</property>
+                        <property name="label" translatable="yes">Friday</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -190,7 +190,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="plugin/alarmclock/saturday">
-                        <property name="label" translatable="yes" context="yes">Saturday</property>
+                        <property name="label" translatable="yes">Saturday</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -202,7 +202,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="plugin/alarmclock/sunday">
-                        <property name="label" translatable="yes" context="yes">Sunday</property>
+                        <property name="label" translatable="yes">Sunday</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -245,7 +245,7 @@
         </child>
         <child>
           <object class="GtkCheckButton" id="plugin/alarmclock/alarm_use_fading">
-            <property name="label" translatable="yes" context="yes">Use Fading</property>
+            <property name="label" translatable="yes">Use Fading</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
@@ -267,7 +267,7 @@
               <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes" context="yes">Minimum volume:</property>
+                <property name="label" translatable="yes">Minimum volume:</property>
               </object>
               <packing>
                 <property name="x_options">GTK_FILL</property>
@@ -277,7 +277,7 @@
               <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes" context="yes">Maximum volume:</property>
+                <property name="label" translatable="yes">Maximum volume:</property>
               </object>
               <packing>
                 <property name="top_attach">1</property>
@@ -289,7 +289,7 @@
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes" context="yes">Increment:</property>
+                <property name="label" translatable="yes">Increment:</property>
               </object>
               <packing>
                 <property name="top_attach">2</property>
@@ -301,7 +301,7 @@
               <object class="GtkLabel" id="label5">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes" context="yes">Time per increment:</property>
+                <property name="label" translatable="yes">Time per increment:</property>
               </object>
               <packing>
                 <property name="top_attach">3</property>

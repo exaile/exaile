@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-01 14:24+0200\n"
+"POT-Creation-Date: 2012-09-01 17:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -605,11 +605,6 @@ msgstr ""
 msgid "Append to Current"
 msgstr ""
 
-#: ../xlgui/widgets/menuitems.py:129 ../xlgui/widgets/playlist.py:340
-#: ../xlgui/oldmenu.py:121 ../data/ui/trackproperties_dialog.ui.h:7
-msgid "Properties"
-msgstr ""
-
 #: ../xlgui/widgets/menuitems.py:142 ../xlgui/properties.py:1135
 msgid "Open Directory"
 msgstr ""
@@ -708,16 +703,6 @@ msgstr ""
 #: ../xlgui/widgets/info.py:628 ../xlgui/widgets/info.py:635
 #, python-format
 msgid "%d selected"
-msgstr ""
-
-#: ../xlgui/widgets/queue.py:41 ../xlgui/widgets/playlist.py:228
-#: ../xlgui/playlist.py:130
-msgid "Clear"
-msgstr ""
-
-#: ../xlgui/widgets/queue.py:44 ../xlgui/widgets/playlist.py:231
-#: ../plugins/history/__init__.py:239
-msgid "Close"
 msgstr ""
 
 #: ../xlgui/widgets/queue.py:87
@@ -895,14 +880,6 @@ msgstr ""
 msgid "New Playlist"
 msgstr ""
 
-#: ../xlgui/widgets/playlist.py:221
-msgid "Save"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:224
-msgid "Save as..."
-msgstr ""
-
 #: ../xlgui/widgets/playlist.py:226 ../xlgui/oldmenu.py:244
 msgid "Rename"
 msgstr ""
@@ -913,11 +890,6 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist.py:272
 msgid "Continue Playback After This Track"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:321 ../xlgui/oldmenu.py:352
-#: ../plugins/multialarmclock/malrmclk.ui.h:2
-msgid "Remove"
 msgstr ""
 
 #: ../xlgui/widgets/playlist.py:532
@@ -1041,8 +1013,8 @@ msgstr ""
 msgid "The playlist name you entered is already in use."
 msgstr ""
 
-#: ../xlgui/widgets/notebook.py:136
-msgid "Close tab"
+#: ../xlgui/widgets/notebook.py:136 ../xlgui/menu.py:115
+msgid "Close Tab"
 msgstr ""
 
 #: ../xlgui/main.py:111
@@ -1099,10 +1071,6 @@ msgstr ""
 
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
-msgstr ""
-
-#: ../xlgui/menu.py:115
-msgid "Close Tab"
 msgstr ""
 
 #: ../xlgui/menu.py:124 ../xlgui/preferences/widgets.py:70
@@ -1376,6 +1344,10 @@ msgstr ""
 msgid "Queue Items"
 msgstr ""
 
+#: ../xlgui/oldmenu.py:121 ../data/ui/trackproperties_dialog.ui.h:7
+msgid "Properties"
+msgstr ""
+
 #: ../xlgui/oldmenu.py:185
 msgid "New Station"
 msgstr ""
@@ -1418,6 +1390,10 @@ msgstr ""
 
 #: ../xlgui/oldmenu.py:313
 msgid "Rename Playlist"
+msgstr ""
+
+#: ../xlgui/oldmenu.py:352 ../plugins/multialarmclock/malrmclk.ui.h:2
+msgid "Remove"
 msgstr ""
 
 #: ../xlgui/playlist.py:77
@@ -2463,10 +2439,6 @@ msgstr ""
 msgid "Main Menu"
 msgstr ""
 
-#: ../plugins/awn/awn_prefs.py:32
-msgid "AWN"
-msgstr ""
-
 #: ../plugins/shoutcast/__init__.py:107 ../plugins/shoutcast/__init__.py:164
 #: ../plugins/shoutcast/__init__.py:211 ../plugins/shoutcast/__init__.py:227
 msgid "Contacting Shoutcast server..."
@@ -3180,10 +3152,12 @@ msgid "Delete incomplete files"
 msgstr ""
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:1
-msgid "API Key:"
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
+msgid "API key:"
 msgstr ""
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:2
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret:"
 msgstr ""
 
@@ -3204,37 +3178,30 @@ msgid "<b>Alarm time</b>"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
-msgctxt "yes"
 msgid "Monday"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:3
-msgctxt "yes"
 msgid "Tuesday"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:4
-msgctxt "yes"
 msgid "Wednesday"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:5
-msgctxt "yes"
 msgid "Thursday"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:6
-msgctxt "yes"
 msgid "Friday"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:7
-msgctxt "yes"
 msgid "Saturday"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:8
-msgctxt "yes"
 msgid "Sunday"
 msgstr ""
 
@@ -3243,27 +3210,22 @@ msgid "<b>Alarm Days</b>"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:10
-msgctxt "yes"
 msgid "Use Fading"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
-msgctxt "yes"
 msgid "Minimum volume:"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
-msgctxt "yes"
 msgid "Maximum volume:"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
-msgctxt "yes"
 msgid "Increment:"
 msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
-msgctxt "yes"
 msgid "Time per increment:"
 msgstr ""
 
@@ -3732,14 +3694,6 @@ msgstr ""
 msgid "Border radius:"
 msgstr ""
 
-#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
-msgid "API key:"
-msgstr ""
-
-#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
-msgid "Secret key:"
-msgstr ""
-
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
 "<i>To sign up for an Amazon AWS account and get \n"
@@ -3987,10 +3941,6 @@ msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
-
-#: ../plugins/awn/PLUGININFO:3
-msgid "Awn"
 msgstr ""
 
 #: ../plugins/awn/PLUGININFO:4

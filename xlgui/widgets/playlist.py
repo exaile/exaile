@@ -218,17 +218,17 @@ def __create_playlist_tab_context_menu():
             page.set_name(name)
             playlists.save_playlist(page.playlist)
     
-    items.append(smi('save', ['new-tab-sep'], _("Save"), 'gtk-save',
+    items.append(smi('save', ['new-tab-sep'], None, 'gtk-save',
         _save_playlist_cb,
         condition_fn=lambda n, p, c: main.exaile().playlists.has_playlist_name(p.playlist.name)))
-    items.append(smi('saveas', ['save'], _("Save as..."), 'gtk-save-as',
+    items.append(smi('saveas', ['save'], None, 'gtk-save-as',
         _saveas_playlist_cb))
     items.append(smi('rename', ['saveas'], _("Rename"), 'gtk-edit',
         lambda w, n, o, c: o.tab.start_rename()))
-    items.append(smi('clear', ['rename'], _("Clear"), 'gtk-clear',
+    items.append(smi('clear', ['rename'], None, 'gtk-clear',
         lambda w, n, o, c: o.playlist.clear()))
     items.append(sep('tab-close-sep', ['clear']))
-    items.append(smi('tab-close', ['tab-close-sep'], _("Close"), 'gtk-close',
+    items.append(smi('tab-close', ['tab-close-sep'], None, 'gtk-close',
         lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('playlist-tab-context-menu', item)
@@ -318,7 +318,7 @@ def __create_playlist_context_menu():
         else:
             for position, track in tracks[::-1]:
                 del playlist[position]
-    items.append(smi('remove', [items[-1].name], _('Remove'),
+    items.append(smi('remove', [items[-1].name], None,
         gtk.STOCK_REMOVE, remove_tracks_cb))
 
     items.append(RandomizeMenuItem([items[-1].name]))
@@ -337,7 +337,7 @@ def __create_playlist_context_menu():
 
     items.append(sep('sep2', [items[-1].name]))
 
-    items.append(smi('properties', [items[-1].name], _('Properties'),
+    items.append(smi('properties', [items[-1].name], None,
         gtk.STOCK_PROPERTIES, lambda w, n, o, c: o.show_properties_dialog()))
 
     for item in items:

@@ -29,7 +29,7 @@ import os
 from xlgui.preferences import widgets
 from xl.nls import gettext as _
 
-name = _("AWN")
+name = "AWN"
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, "awn_prefs_pane.ui")
 

@@ -687,6 +687,7 @@ class DateTagFormatter(TagFormatter):
             :rtype: string
         """
         value = track.get_tag_raw(self.name)
+        # TRANSLATORS: Indicates that a track has never been played before
         text = _('Never')
 
         try:

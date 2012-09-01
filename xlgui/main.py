@@ -325,7 +325,7 @@ class MainWindow(gobject.GObject):
 
         # Settings
         self._on_option_set('gui_option_set', settings, 'gui/show_info_area')
-        self._on_option_set('gui_option_set', settings, 'gui/show_covers')
+        self._on_option_set('gui_option_set', settings, 'gui/show_info_area_covers')
         event.add_callback(self._on_option_set, 'option_set')
 
     def _connect_panel_events(self):

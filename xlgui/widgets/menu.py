@@ -269,8 +269,13 @@ class Menu(gtk.Menu):
 
 
 class ProviderMenu(providers.ProviderHandler, Menu):
+    '''
+        A menu that can be added to by registering a menu item with
+        the providers system. If desired, a menu item can be targeted
+        towards a specific parent widget. 
+    '''
     def __init__(self, name, parent):
-        providers.ProviderHandler.__init__(self, name)
+        providers.ProviderHandler.__init__(self, name, parent)
         Menu.__init__(self, parent)
         for p in self.get_providers():
             self.on_provider_added(p)

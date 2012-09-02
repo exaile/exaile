@@ -121,6 +121,7 @@ class CoverManager(gobject.GObject):
 
         self.window = builder.get_object('window')
         self.window.set_transient_for(parent)
+        self.window.set_modal(True)
 
         self.message = dialogs.MessageBar(
             parent=builder.get_object('content_area'),

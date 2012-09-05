@@ -48,7 +48,7 @@ def __create_file_menu():
     accelerators = []
 
     def new_playlist_cb(*args):
-        get_main().playlist_notebook.create_new_playlist()
+        get_main().playlist_container.create_new_playlist()
     items.append(_smi('new-playlist', [], _("_New Playlist"), 'tab-new',
         new_playlist_cb, accelerator='<Control>t'))
     accelerators.append(Accelerator('<Control>t', new_playlist_cb))
@@ -147,7 +147,7 @@ def __create_edit_menu():
     items.append(_smi('collection-manager', [], _("_Collection"), None, collection_manager_cb))
 
     def queue_cb(*args):
-        get_main().playlist_notebook.show_queue()
+        get_main().playlist_container.show_queue()
     items.append(_smi('queue', [items[-1].name], _("_Queue"),
         callback=queue_cb, accelerator='<Control>m'))
     accelerators.append(Accelerator('<Control>m', queue_cb))
@@ -174,7 +174,7 @@ def __create_view_menu():
     accelerators = []
 
     def show_playing_track_cb(*args):
-        get_main().playlist_notebook.show_current_track()
+        get_main().playlist_container.show_current_track()
     items.append(menuitems.ShowCurrentTrackMenuItem('show-playing-track', [],
         show_playing_track_cb, accelerator='<Control>j'))
     accelerators.append(Accelerator('<Control>j', show_playing_track_cb))

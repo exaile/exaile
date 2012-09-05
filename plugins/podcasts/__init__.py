@@ -191,7 +191,7 @@ class PodcastPanel(panel.Panel):
     def _open_podcast(self, pl, title):
         new_pl = playlist.Playlist(title)
         new_pl.extend(pl)
-        main.mainwindow().playlist_notebook.create_tab_from_playlist(new_pl)
+        main.get_playlist_notebook().create_tab_from_playlist(new_pl)
 
     @common.threaded
     def _load_podcasts(self):

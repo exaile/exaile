@@ -55,7 +55,7 @@ from xl import (
     xdg
 )
 from xlgui.accelerators import AcceleratorManager
-from xlgui.playlist import PlaylistNotebook
+from xlgui.playlist import PlaylistContainer
 from xlgui.widgets import (
     dialogs,
     info,
@@ -166,7 +166,7 @@ class MainWindow(gobject.GObject):
             ('<Control>Page_Up', self._on_prev_tab_key),
             ('<Control>Page_Down', self._on_next_tab_key),
             
-            ('<Alt>N', self._on_focus_playlist_notebook),
+            ('<Alt>N', self._on_focus_playlist_container),
 
             # These 4 are subject to change.. probably should do this 
             # via a different mechanism too... 
@@ -231,14 +231,15 @@ class MainWindow(gobject.GObject):
                 self.window.connect('screen-changed', self.on_screen_changed)
 
         playlist_area = self.builder.get_object('playlist_area')
-        self.playlist_notebook = PlaylistNotebook('saved_tabs', player.PLAYER)
-        self.playlist_notebook.connect_after('switch-page',
-            self.on_playlist_notebook_switch_page)
-        playlist_area.pack_start(self.playlist_notebook, padding=3)
-        page_num = self.playlist_notebook.get_current_page()
-        page = self.playlist_notebook.get_nth_page(page_num)
-        selection = page.view.get_selection()
-        selection.connect('changed', self.on_playlist_view_selection_changed)
+        self.playlist_container = PlaylistContainer('saved_tabs', player.PLAYER)
+        for notebook in self.playlist_container.notebooks:
+            notebook.connect_after('switch-page', self.on_playlist_container_switch_page)
+            page = notebook.get_current_tab()
+            if page is not None:
+                selection = page.view.get_selection()
+                selection.connect('changed', self.on_playlist_view_selection_changed)
+            
+        playlist_area.pack_start(self.playlist_container, padding=3)
 
         self.splitter = self.builder.get_object('splitter')
 
@@ -357,13 +358,13 @@ class MainWindow(gobject.GObject):
         panel = panels['playlists']
         panel.connect('playlist-selected',
             lambda panel, playlist:
-                self.playlist_notebook.create_tab_from_playlist(playlist))
+                self.playlist_container.create_tab_from_playlist(playlist))
 
         ## Radio Panel
         panel = panels['radio']
         panel.connect('playlist-selected',
             lambda panel, playlist:
-                self.playlist_notebook.create_tab_from_playlist(playlist))
+                self.playlist_container.create_tab_from_playlist(playlist))
 
         ## Files Panel
         panel = panels['files']
@@ -645,11 +646,11 @@ class MainWindow(gobject.GObject):
         """
         self.statusbar.update_info()
 
-    def on_playlist_notebook_switch_page(self, notebook, page, page_num):
+    def on_playlist_container_switch_page(self, notebook, page, page_num):
         """
             Updates info after notebook page switch
         """
-        page = self.playlist_notebook.get_nth_page(page_num)
+        page = notebook.get_nth_page(page_num)
         selection = page.view.get_selection()
         selection.connect('changed', self.on_playlist_view_selection_changed)
         self.statusbar.update_info()
@@ -790,7 +791,7 @@ class MainWindow(gobject.GObject):
         """
             Tries to show the currently playing track
         """
-        self.playlist_notebook.show_current_track()
+        self.playlist_container.show_current_track()
 
     def on_about_item_activate(self, menuitem):
         """
@@ -884,11 +885,11 @@ class MainWindow(gobject.GObject):
         return True
 
     def _on_prev_tab_key(self, *e):
-        self.playlist_notebook.select_prev_tab()
+        self.get_selected_page().select_prev_tab()
         return True
     
     def _on_next_tab_key(self, *e):
-        self.playlist_notebook.select_next_tab()
+        self.get_current_notebook().select_next_tab()
         return True
     
     def _on_playpause_button(self, *e):
@@ -896,12 +897,11 @@ class MainWindow(gobject.GObject):
         return True
 
     def _on_focus_playlist_tab(self, tab_nr):
-        if tab_nr < self.playlist_notebook.get_n_pages():
-            self.playlist_notebook.focus_tab(tab_nr)
+        self.playlist_container.get_current_notebook().focus_tab(tab_nr)
         return True
     
-    def _on_focus_playlist_notebook(self, *_e):
-        self.playlist_notebook.focus()
+    def _on_focus_playlist_container(self, *_e):
+        self.playlist_container.focus()
         return True
 
     def _update_track_information(self):
@@ -1051,7 +1051,7 @@ class MainWindow(gobject.GObject):
         """
             Returns the currentry displayed playlist notebook page
         """
-        return self.playlist_notebook.get_current_tab()
+        return self.playlist_container.get_current_tab()
     
     def get_selected_playlist(self):
         try:
@@ -1062,8 +1062,12 @@ class MainWindow(gobject.GObject):
             return None
         return page  
 
+def get_playlist_container():
+    return MainWindow._mainwindow.playlist_container
+        
 def get_playlist_notebook():
-    return MainWindow._mainwindow.playlist_notebook
+    '''Retrieves the primary playlist notebook'''
+    return MainWindow._mainwindow.playlist_container.notebooks[0]
 
 def get_selected_page():
     return MainWindow._mainwindow.get_selected_page()

@@ -36,6 +36,7 @@ class SmartNotebook(gtk.Notebook):
         gtk.Notebook.__init__(self)
         self.set_scrollable(True)
         self.connect('button-press-event', self.on_button_press)
+        self._add_tab_on_empty = True
 
     def get_current_tab(self):
         return self.get_nth_page(self.get_current_page())
@@ -52,6 +53,7 @@ class SmartNotebook(gtk.Notebook):
             :type position: int
         """
         self.insert_page(page, tab, position=position)
+        tab.notebook = self
         self.set_tab_reorderable(page, page.reorderable)
         if switch:
             self.set_current_page(self.page_num(page))
@@ -67,9 +69,33 @@ class SmartNotebook(gtk.Notebook):
         pass
 
     def remove_page(self, page_num):
+        '''
+            Overrides gtk.Notebook.remove_page
+        '''
+        if page_num == -1:
+            page_num = self.get_n_pages()-1
+        tab = self.get_tab_label(self.get_nth_page(page_num))
+        
         gtk.Notebook.remove_page(self, page_num)
-        if self.get_n_pages() == 0:
+        tab.notebook = None
+        
+        if self._add_tab_on_empty and self.get_n_pages() == 0:
             self.add_default_tab()
+            
+    def remove_tab(self, tab):
+        '''
+            Remove a specific NotebookTab from the notebook
+        '''
+        page_num = self.page_num(tab.page)
+        if page_num >= 0:
+            self.remove_page(page_num)
+            
+    def set_add_tab_on_empty(self, add_tab_on_empty):
+        '''
+            If set True, the SmartNotebook will always maintain at
+            least one tab in the notebook
+        '''
+        self._add_tab_on_empty = add_tab_on_empty
 
     def on_button_press(self, widget, event):
         if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:

@@ -161,7 +161,7 @@ class Main(object):
             except playlist.InvalidPlaylistTypeError:
                 pass
             else:
-                self.main.playlist_notebook.create_tab_from_playlist(playlist)
+                self.main.playlist_container.create_tab_from_playlist(playlist)
 
                 if play:
                     player.QUEUE.current_playlist = playlist
@@ -213,7 +213,7 @@ class Main(object):
         dialog.run()
 
     def queue_manager(self, *e):
-        self.main.playlist_notebook.show_queue()
+        self.main.playlist_container.show_queue()
 
     def collection_manager(self, *e):
         """
@@ -343,7 +343,7 @@ class Main(object):
         """
 
         # save open tabs
-        self.main.playlist_notebook.save_current_tabs()
+        self.main.playlist_container.save_current_tabs()
         gtk.gdk.threads_leave()
 
     @guiutil.idle_add()

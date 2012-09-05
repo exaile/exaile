@@ -30,8 +30,13 @@ import glib
 import gtk
 import logging
 
-gtk.gdk.threads_init()
-gtk.gdk.threads_enter()
+import sys
+
+# This is needed for OpenBSD otherwise exaile freezes. However, some
+# versions of glib on Win32 freeze if this is used. Go figure. 
+if sys.platform != 'win32':
+    gtk.gdk.threads_init()
+    gtk.gdk.threads_enter()
 
 from xl import (
     common,

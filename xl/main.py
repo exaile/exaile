@@ -36,7 +36,14 @@ import logging.handlers
 import os
 import sys
 
-import gio
+try:
+    import gio
+except ImportError:
+    # on Win32 using the GStreamer SDK, requires import of
+    # pygtk first
+    import pygtk
+    pygtk.require('2.0')
+    import gio
 
 from xl import common, xdg
 from xl.nls import gettext as _

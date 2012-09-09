@@ -4,9 +4,10 @@
 
 Var CHECKPY
 Var CHECKMUTAGEN
-Var CHECKPYGTK
-Var CHECKGST
-Var CHECKGSTSDK
+;Var CHECKPYGTK
+;Var CHECKGST
+;Var CHECKGSTSDK
+Var CHECKGSTCOMSDK
 
 !macro setCheckboxChecked CB
 	SendMessage ${CB} ${BM_SETCHECK} 0x0001 0
@@ -17,9 +18,10 @@ Function dependenciesCreate
 	
 	${If} $HAVE_PYTHON == 'OK'
 	${AndIf} $HAVE_MUTAGEN == 'OK'
-	${AndIf} $HAVE_PYGTK == 'OK'
-	${AndIf} $HAVE_GST == 'OK'
-	${AndIf} $HAVE_GSTSDK == 'OK'
+	;${AndIf} $HAVE_PYGTK == 'OK'
+	;${AndIf} $HAVE_GST == 'OK'
+	;${AndIf} $HAVE_GSTSDK == 'OK'
+    ${AndIf} $HAVE_GSTCOMSDK == 'OK'
 		; do nothing in this page
 	${Else}
 		nsDialogs::Create /NOUNLOAD 1018
@@ -44,30 +46,44 @@ Function dependenciesCreate
             ${NSD_CreateLabel} 10% 56% 100% 8u "--- Mutagen already installed"
 		${EndIf}
         
-        ${If} $HAVE_PYGTK == 'NOK'
-			${NSD_CreateCheckbox} 10% 64% 100% 8u "PyGTK ${PYGTK_VERSION} All-in-one installer (${PYGTK_FSIZE})"
-			Pop $CHECKPYGTK
-			!insertmacro setCheckboxChecked $CHECKPYGTK
+        ; GStreamer.com SDK
+        
+        ${If} $HAVE_GSTCOMSDK == 'NOK'
+			${NSD_CreateCheckbox} 10% 64% 100% 8u "GStreamer.com SDK ${GSTCOMSDK_VERSION} (${GSTCOMSDK_FSIZE})"
+			Pop $CHECKGSTCOMSDK
+			!insertmacro setCheckboxChecked $CHECKGSTCOMSDK
         ${Else}
-            ${NSD_CreateLabel} 10% 64% 100% 8u "--- PyGTK already installed"
-		${EndIf}
-		
-        ${If} $HAVE_GST == 'NOK'
-			${NSD_CreateCheckbox} 10% 72% 100% 8u "GStreamer OSSBuild ${GST_VERSION} (${GST_FSIZE})"
-			Pop $CHECKGST
-			!insertmacro setCheckboxChecked $CHECKGST
-        ${Else}
-            ${NSD_CreateLabel} 10% 72% 100% 8u "--- GStreamer OSSBuild already installed"
+            ${NSD_CreateLabel} 10% 64% 100% 8u "--- GStreamer.com SDK already installed"
 		${EndIf}
         
-		${If} $HAVE_GSTSDK == 'NOK'
-			${NSD_CreateCheckbox} 10% 80% 100% 8u "GStreamer OSSBuild ${GSTSDK_VERSION} SDK w/PyGST (${GSTSDK_FSIZE}, requires .NET Framework)"
-			Pop $CHECKGSTSDK
-			!insertmacro setCheckboxChecked $CHECKGSTSDK
-        ${Else}
-            ${NSD_CreateLabel} 10% 80% 100% 8u "--- GStreamer OSSBuild SDK already installed"
-		${EndIf}
-
+        ; PyGTK - only needed for OSSBuild install
+        
+        ;${If} $HAVE_PYGTK == 'NOK'
+		;	${NSD_CreateCheckbox} 10% 64% 100% 8u "PyGTK ${PYGTK_VERSION} All-in-one installer (${PYGTK_FSIZE})"
+		;	Pop $CHECKPYGTK
+		;	!insertmacro setCheckboxChecked $CHECKPYGTK
+        ;${Else}
+        ;    ${NSD_CreateLabel} 10% 64% 100% 8u "--- PyGTK already installed"
+		;${EndIf}
+		
+        ; GStreamer OSSBuild 
+        
+        ;${If} $HAVE_GST == 'NOK'
+		;	${NSD_CreateCheckbox} 10% 72% 100% 8u "GStreamer OSSBuild ${GST_VERSION} (${GST_FSIZE})"
+		;	Pop $CHECKGST
+		;	!insertmacro setCheckboxChecked $CHECKGST
+        ;${Else}
+        ;    ${NSD_CreateLabel} 10% 72% 100% 8u "--- GStreamer OSSBuild already installed"
+		;${EndIf}
+        ;
+		;${If} $HAVE_GSTSDK == 'NOK'
+		;	${NSD_CreateCheckbox} 10% 80% 100% 8u "GStreamer OSSBuild ${GSTSDK_VERSION} SDK w/PyGST (${GSTSDK_FSIZE}, requires .NET Framework)"
+		;	Pop $CHECKGSTSDK
+		;	!insertmacro setCheckboxChecked $CHECKGSTSDK
+        ;${Else}
+        ;    ${NSD_CreateLabel} 10% 80% 100% 8u "--- GStreamer OSSBuild SDK already installed"
+		;${EndIf}
+        
 		nsDialogs::Show
 	${EndIf}
 	
@@ -76,8 +92,9 @@ FunctionEnd
 Function DependenciesLeave
 	SendMessage $CHECKPY        ${BM_GETCHECK} 0 0 $NEED_PYTHON
 	SendMessage $CHECKMUTAGEN   ${BM_GETCHECK} 0 0 $NEED_MUTAGEN
-    SendMessage $CHECKPYGTK     ${BM_GETCHECK} 0 0 $NEED_PYGTK
-    SendMessage $CHECKGST       ${BM_GETCHECK} 0 0 $NEED_GST
-	SendMessage $CHECKGSTSDK    ${BM_GETCHECK} 0 0 $NEED_GSTSDK
+    ;SendMessage $CHECKPYGTK     ${BM_GETCHECK} 0 0 $NEED_PYGTK
+    ;SendMessage $CHECKGST       ${BM_GETCHECK} 0 0 $NEED_GST
+	;SendMessage $CHECKGSTSDK    ${BM_GETCHECK} 0 0 $NEED_GSTSDK
+	SendMessage $CHECKGSTCOMSDK ${BM_GETCHECK} 0 0 $NEED_GSTCOMSDK
 FunctionEnd
 	

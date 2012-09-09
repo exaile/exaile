@@ -28,7 +28,7 @@ Var DAI_REMOVE
 
 		; Download files using the INETC plugin for NSIS, available from
 		; http://nsis.sourceforge.net/Inetc_plug-in
-		inetc::get /CAPTION "${DAI_FN}""${DAI_URL}" "$DAI_TMPFILE" /END
+		inetc::get /CAPTION "${DAI_FN}" /USERAGENT "Mozilla/5.0 NSIS_Inetc (Exaile Installer)" "${DAI_URL}" "$DAI_TMPFILE" /END
 		Pop $DAI_RET ; return value = exit code, "OK" means OK
 			
 		${DoWhile} $DAI_RET != "OK"

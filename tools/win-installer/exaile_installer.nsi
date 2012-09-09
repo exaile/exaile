@@ -48,15 +48,17 @@
     
     Var HAVE_PYTHON
     Var HAVE_MUTAGEN
-    Var HAVE_PYGTK
-    Var HAVE_GST
-    Var HAVE_GSTSDK
+    ;Var HAVE_PYGTK
+    ;Var HAVE_GST
+    ;Var HAVE_GSTSDK
+    Var HAVE_GSTCOMSDK
     
     Var NEED_PYTHON
     Var NEED_MUTAGEN
-    Var NEED_PYGTK
-    Var NEED_GST
-    Var NEED_GSTSDK
+    ;Var NEED_PYGTK
+    ;Var NEED_GST
+    ;Var NEED_GSTSDK
+    Var NEED_GSTCOMSDK
     
 
 ;--------------------------------
@@ -152,14 +154,16 @@
 
 ;------------------------------------------------------------
 ; DOWNLOAD AND INSTALL DEPENDENCIES FIRST
+;!define TEST_URL ""
 
 ; Use the official python.org Python packages
-!define PYTHON_VERSION          "2.6"
-!define PYTHON_FULL_VERSION     "2.6.6"
-!define PYTHON_PATH             "C:\Python26"
+!define PYTHON_VERSION          "2.7"
+!define PYTHON_FULL_VERSION     "2.7.3"
+!define PYTHON_PATH             "C:\Python27"
 !define PYTHON_FN               "python-${PYTHON_FULL_VERSION}.msi"
 !define PYTHON_FSIZE            "15MB"
 !define PYTHON_URL              "http://python.org/ftp/python/${PYTHON_FULL_VERSION}/${PYTHON_FN}"
+;!define PYTHON_URL              "${TEST_URL}/${PYTHON_FN}"
 !define PYTHON_CMD              "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
 
 ; Use the mutagen setup package
@@ -167,28 +171,40 @@
 !define MUTAGEN_FN              "mutagen-${MUTAGEN_VERSION}.tar.gz"
 !define MUTAGEN_FSIZE           "600KB"
 !define MUTAGEN_URL             "http://mutagen.googlecode.com/files/${MUTAGEN_FN}"
+;!define MUTAGEN_URL             "${TEST_URL}/${MUTAGEN_FN}"
 !define MUTAGEN_CMD             "${PYTHON_PATH}\python.exe $PLUGINSDIR\install_targz.py $DAI_TMPFILE"
 
 ; Use the official PyGTK all-in-one-installer
-!define PYGTK_VERSION           "2.24.2"
-!define PYGTK_FN                "pygtk-all-in-one-${PYGTK_VERSION}.win32-py${PYTHON_VERSION}.msi"
-!define PYGTK_FSIZE             "32MB"
-!define PYGTK_URL               "http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/${PYGTK_FN}"
-!define PYGTK_CMD               "msiexec /i $DAI_TMPFILE /passive TARGETDIR=$\"${PYTHON_PATH}$\" ALLUSERS=1"
+;!define PYGTK_VERSION           "2.24.2"
+;!define PYGTK_FN                "pygtk-all-in-one-${PYGTK_VERSION}.win32-py${PYTHON_VERSION}.msi"
+;!define PYGTK_FSIZE             "32MB"
+;!define PYGTK_URL               "http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/${PYGTK_FN}"
+;!define PYGTK_URL               "${TEST_URL}/${PYGTK_FN}"
+;!define PYGTK_CMD               "msiexec /i $DAI_TMPFILE /passive TARGETDIR=$\"${PYTHON_PATH}$\" ALLUSERS=1"
 
 ; Use the OSSBuild installers
-; -> There is the GStreamer.com SDK, but for now I've found these work better
-!define GST_VERSION             "0.10.7"
-!define GST_FN                  "GStreamer-WinBuilds-GPL-x86-Beta04-${GST_VERSION}.msi"
-!define GST_FSIZE               "21MB"
-!define GST_URL                 "http://ossbuild.googlecode.com/files/${GST_FN}"
-!define GST_CMD                 "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
+;!define GST_VERSION             "0.10.7"
+;!define GST_FN                  "GStreamer-WinBuilds-GPL-x86-Beta04-${GST_VERSION}.msi"
+;!define GST_FSIZE               "21MB"
+;!define GST_URL                 "http://ossbuild.googlecode.com/files/${GST_FN}"
+;!define GST_URL                 "${TEST_URL}/${GST_FN}"
+;!define GST_CMD                 "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
 
-!define GSTSDK_VERSION          "0.10.7"
-!define GSTSDK_FN               "GStreamer-WinBuilds-SDK-GPL-x86-Beta04-${GSTSDK_VERSION}.msi"
-!define GSTSDK_FSIZE            "5.3MB"
-!define GSTSDK_URL              "http://ossbuild.googlecode.com/files/${GSTSDK_FN}"
-!define GSTSDK_CMD              "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
+;!define GSTSDK_VERSION          "0.10.7"
+;!define GSTSDK_FN               "GStreamer-WinBuilds-SDK-GPL-x86-Beta04-${GSTSDK_VERSION}.msi"
+;!define GSTSDK_FSIZE            "5.3MB"
+;!define GSTSDK_URL              "http://ossbuild.googlecode.com/files/${GSTSDK_FN}"
+;!define GSTSDK_URL              "${TEST_URL}/${GSTSDK_FN}"
+;!define GSTSDK_CMD              "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
+
+; Use the GStreamer.com SDK
+!define GSTCOMSDK_VERSION       "2012.7"
+!define GSTCOMSDK_FN            "gstreamer-sdk-x86-${GSTCOMSDK_VERSION}.msi"
+!define GSTCOMSDK_FSIZE         "93MB"
+!define GSTCOMSDK_URL           "http://www.freedesktop.org/software/gstreamer-sdk/data/packages/windows/x86/${GSTSDK_FN}"
+;!define GSTCOMSDK_URL           "${TEST_URL}/${GSTCOMSDK_FN}"
+!define GSTCOMSDK_FEATURES      "_gstreamer_core,_gstreamer_system,_gstreamer_playback,_gstreamer_codecs,_gstreamer_networking,_gstreamer_python,_gtk__2.0,_gtk__2.0_python,_gstreamer_codecs_gpl,_gstreamer_codecs_restricted,_gstreamer_networking_restricted"
+!define GSTCOMSDK_CMD           "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1 ADDLOCAL=${GSTCOMSDK_FEATURES}"
 
 !include "download.nsi"
 
@@ -214,38 +230,69 @@ Section "-mutagen"
     ${EndIf}
 SectionEnd
 
-Section "-pygtk"
-    ${If} $NEED_PYGTK == '1'
-        DetailPrint "--- DOWNLOAD PYGTK ---"
-        !insertmacro downloadAndInstall "PyGTK" "${PYGTK_URL}" "${PYGTK_FN}" "${PYGTK_CMD}"
-        Call DetectPyGTK
-        ${If} $HAVE_PYGTK == 'NOK'
-            MessageBox MB_OK "PyGTK installation appears to have failed. You may need to retry manually."
-        ${EndIf}
-    ${EndIf}
-SectionEnd
+;Section "-pygtk"
+;    ${If} $NEED_PYGTK == '1'
+;        DetailPrint "--- DOWNLOAD PYGTK ---"
+;        !insertmacro downloadAndInstall "PyGTK" "${PYGTK_URL}" "${PYGTK_FN}" "${PYGTK_CMD}"
+;        Call DetectPyGTK
+;        ${If} $HAVE_PYGTK == 'NOK'
+;            MessageBox MB_OK "PyGTK installation appears to have failed. You may need to retry manually."
+;        ${EndIf}
+;    ${EndIf}
+;SectionEnd
 
-Section "-gst"
-    ${If} $NEED_GST == '1'
-        DetailPrint "--- DOWNLOAD GSTREAMER ---"
-        !insertmacro downloadAndInstall "GStreamer" "${GST_URL}" "${GST_FN}" "${GST_CMD}"
+;Section "-gst"
+;    ${If} $NEED_GST == '1'
+;        DetailPrint "--- DOWNLOAD GSTREAMER ---"
+;        !insertmacro downloadAndInstall "GStreamer" "${GST_URL}" "${GST_FN}" "${GST_CMD}"
+;        Pop $0
+;        ${If} $0 != "0"
+;            MessageBox MB_OK "GStreamer installation appears to have failed. You may need to retry manually."
+;        ${EndIf}
+;    ${EndIf}
+;SectionEnd
+
+;Section "-gstsdk"
+;    ${If} $NEED_GSTSDK == '1'
+;        DetailPrint "--- DOWNLOAD GSTREAMER SDK ---"
+;        !insertmacro downloadAndInstall "GStreamer SDK" "${GSTSDK_URL}" "${GSTSDK_FN}" "${GSTSDK_CMD}"
+;        Pop $0
+;        ${If} $0 != "0"
+;            MessageBox MB_OK "GStreamer SDK installation appears to have failed. You may need to retry manually."
+;        ${EndIf}
+;    ${EndIf}
+;SectionEnd
+
+Section "-gstcomsdk"
+    ${If} $NEED_GSTCOMSDK == '1'
+        DetailPrint "--- DOWNLOAD GSTREAMER.COM SDK ---"
+        !insertmacro downloadAndInstall "GStreamer.com SDK" "${GSTCOMSDK_URL}" "${GSTCOMSDK_FN}" "${GSTCOMSDK_CMD}"
         Pop $0
         ${If} $0 != "0"
-            MessageBox MB_OK "GStreamer installation appears to have failed. You may need to retry manually."
+            MessageBox MB_OK "GStreamer.com SDK installation appears to have failed. You may need to retry manually."
         ${EndIf}
     ${EndIf}
+    
+    ; 2012.7 only: 
+    ;   somehow they forgot a key part of the python bindings ... install it
+    ;   manually instead: see https://bugs.freedesktop.org/show_bug.cgi?id=52983
+        
+    DetailPrint "--- PATCH GSTREAMER.COM SDK ---"
+    ReadRegStr $0 HKLM Software\GStreamerSDK\x86 "InstallDir"
+    ${If} $0 != ""
+        ${IfNot} ${FileExists} $0\0.10\x86\bin\libpyglib-2.0-python.pyd
+            File /oname=$0\0.10\x86\bin\libpyglib-2.0-python.pyd libpyglib-2.0-python.pyd
+        ${Else}
+            DetailPrint "No patch required"
+        ${EndIf}
+    ${Else}
+        MessageBox MB_OK "Error patching GStreamer SDK"
+    ${EndIf}
+    
 SectionEnd
 
-Section "-gstsdk"
-    ${If} $NEED_GSTSDK == '1'
-        DetailPrint "--- DOWNLOAD GSTREAMER SDK ---"
-        !insertmacro downloadAndInstall "GStreamer SDK" "${GSTSDK_URL}" "${GSTSDK_FN}" "${GSTSDK_CMD}"
-        Pop $0
-        ${If} $0 != "0"
-            MessageBox MB_OK "GStreamer SDK installation appears to have failed. You may need to retry manually."
-        ${EndIf}
-    ${EndIf}
-SectionEnd
+; TODO: install modified direct sound gst module
+; https://bugzilla.gnome.org/show_bug.cgi?id=584980
 
 ;------------------------------------------------------------
 ; Install Exaile last
@@ -276,7 +323,7 @@ Section "-Exaile" SecExaile
     ;Create shortcuts
     CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
     CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Exaile.lnk" "$INSTDIR\exaile.bat" "" "$INSTDIR\data\images\exaile.ico"
-    ;TODO: CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Exaile (Debug).lnk" "$INSTDIR\exaile.bat" "console" "$INSTDIR\data\images\exaile.ico"
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Exaile (Debug).lnk" "$INSTDIR\exaile.bat" "console" "$INSTDIR\data\images\exaile.ico"
 
     !insertmacro MUI_STARTMENU_WRITE_END
 
@@ -307,9 +354,10 @@ Function .onInit
 
     Call DetectPython
     Call DetectMutagen
-    Call DetectPyGTK
-    Call DetectGstreamer
-    Call DetectGstreamerSDK
+    ;Call DetectPyGTK
+    ;Call DetectGstreamer
+    ;Call DetectGstreamerSDK
+    Call DetectGstreamerComSDK
     
 FunctionEnd
 
@@ -331,7 +379,7 @@ Section "Uninstall"
     !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
 
     Delete "$SMPROGRAMS\$StartMenuFolder\Exaile.lnk"
-    ;Delete "$SMPROGRAMS\$StartMenuFolder\Exaile (Debug).lnk"
+    Delete "$SMPROGRAMS\$StartMenuFolder\Exaile (Debug).lnk"
     RMDir "$SMPROGRAMS\$StartMenuFolder"
 
     ;Old installer wrote the path to HKCU only, delete it

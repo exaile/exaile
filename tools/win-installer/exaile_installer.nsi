@@ -201,7 +201,7 @@
 !define GSTCOMSDK_VERSION       "2012.7"
 !define GSTCOMSDK_FN            "gstreamer-sdk-x86-${GSTCOMSDK_VERSION}.msi"
 !define GSTCOMSDK_FSIZE         "93MB"
-!define GSTCOMSDK_URL           "http://www.freedesktop.org/software/gstreamer-sdk/data/packages/windows/x86/${GSTSDK_FN}"
+!define GSTCOMSDK_URL           "http://www.freedesktop.org/software/gstreamer-sdk/data/packages/windows/x86/${GSTCOMSDK_FN}"
 ;!define GSTCOMSDK_URL           "${TEST_URL}/${GSTCOMSDK_FN}"
 !define GSTCOMSDK_FEATURES      "_gstreamer_core,_gstreamer_system,_gstreamer_playback,_gstreamer_codecs,_gstreamer_networking,_gstreamer_python,_gtk__2.0,_gtk__2.0_python,_gstreamer_codecs_gpl,_gstreamer_codecs_restricted,_gstreamer_networking_restricted"
 !define GSTCOMSDK_CMD           "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1 ADDLOCAL=${GSTCOMSDK_FEATURES}"

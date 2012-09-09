@@ -20,6 +20,7 @@ from collections import namedtuple
 import glib
 import gobject
 import gtk
+import sys
 from math import pi
 
 from xl import (
@@ -79,6 +80,16 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         """
         gtk.Window.__init__(self, gtk.WINDOW_TOPLEVEL)
 
+        # for whatever reason, calling set_opacity seems 
+        # to crash on Windows when using PyGTK that comes with
+        # the GStreamer SDK. Since this plugin is enabled by
+        # default, just don't fade in/out on windows
+        #
+        # https://bugs.freedesktop.org/show_bug.cgi?id=54682
+        self.use_fade = True
+        if sys.platform == 'win32':
+            self.use_fade = False
+        
         self.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_NOTIFICATION)
         self.set_title('Exaile OSD')
         self.set_decorated(False)
@@ -128,6 +139,10 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         """
             Starts fadeout of the window
         """
+        if not self.use_fade:
+            gtk.Window.hide(self)
+            return
+        
         if self.get_data('fadeout-id') is None:
             self.set_data('fadeout-id', glib.timeout_add(50, self.__fade_out))
 
@@ -135,13 +150,15 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         """
             Stops fadeout and immediately shows the window
         """
-        try:
-            glib.source_remove(self.get_data('fadeout-id'))
-        except:
-            pass
+        if self.use_fade:
+            try:
+                glib.source_remove(self.get_data('fadeout-id'))
+            except:
+                pass
 
-        self.set_data('fadeout-id', None)
-        self.set_opacity(1)
+            self.set_data('fadeout-id', None)
+            self.set_opacity(1)
+        
         gtk.Window.show_all(self)
 
     def __fade_out(self):

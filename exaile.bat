@@ -11,27 +11,37 @@ REM user know more about the errors that they are seeing, instead of just a
 REM stack trace.
 REM
 
-REM
-REM Note: Some testing on WinXP shows that apparently the PyGTK that comes 
-REM with the GStreamer SDK is not particularly stable, so users probably 
-REM shouldn't use it. Needs more testing. 
-REM
-
-
 setlocal
+
+set EXAILE_CONSOLE=N
+set PYTHON_EXE=pythonw.exe
+
+if "%1" == "console" set EXAILE_CONSOLE=Y
+if "%1" == "console" shift
+
+REM If certain arguments are passed, we must start in a console or the user
+REM will be a bit confused... 
+
+for %%I in (%*) DO (
+    if "%%I" == "--help" set EXAILE_CONSOLE=Y
+    if "%%I" == "--debug" set EXAILE_CONSOLE=Y
+    if "%%I" == "--version" set EXAILE_CONSOLE=Y
+)
+
+if "%EXAILE_CONSOLE%" == "Y" set PYTHON_EXE=python.exe
 
 echo Detecting Exaile requirements: 
 
 REM Detect Python
-for %%X in (python.exe) do (set PYTHON_BIN=%%~$PATH:X)
+for %%X in (%PYTHON_EXE%) do (set PYTHON_BIN=%%~$PATH:X)
 if defined PYTHON_BIN goto python_found
 
 REM No python in path, see if its in a default location. Prefer
-REM Python 2.7
-set PYTHON_BIN=C:\Python27\python.exe
+REM Python 2.7, since our installer ships with that as default
+set PYTHON_BIN=C:\Python27\%PYTHON_EXE%
 if exist %PYTHON_BIN% goto python_found
 
-set PYTHON_BIN=C:\Python26\python.exe
+set PYTHON_BIN=C:\Python26\%PYTHON_EXE%
 if not exist %PYTHON_BIN% goto nopython
 
 :python_found
@@ -124,8 +134,16 @@ pause && goto end
 :start_exaile
 
 pushd %~dp0
-%PYTHON_BIN% exaile.py --startgui --no-dbus --no-hal %*
+if "%EXAILE_CONSOLE%" == "Y" goto start_exaile_in_console
+start %PYTHON_BIN% exaile.py --startgui --no-dbus --no-hal %*
 popd
+goto end
+
+:start_exaile_in_console
+REM Note: Cannot use %* here because we use 'shift' above
+%PYTHON_BIN% exaile.py --startgui --no-dbus --no-hal %1 %2 %3 %4 %5 %6 %7 %8 %9
+popd
+goto end
 
 :end
 endlocal

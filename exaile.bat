@@ -53,8 +53,19 @@ set PYGST_BINDINGS=In python path
 if %ERRORLEVEL% == 0 goto pygst_found
 
 REM Nope... detect GStreamer SDK
-if not defined GSTREAMER_SDK_ROOT_X86 goto nogst
-echo     GStreamer SDK Runtime      : %GSTREAMER_SDK_ROOT_X86%
+set GST_VIA=environment
+if defined GSTREAMER_SDK_ROOT_X86 goto pygst_env_found
+
+REM For some reason the GStreamer SDK doesn't define the environment
+REM variables globally, so we just have to cheat if we can't do it
+REM the 'correct' way
+if not exist C:\gstreamer-sdk\0.10\x86\bin\libpyglib-2.0-python.pyd goto nogst
+set GSTREAMER_SDK_ROOT_X86=C:\gstreamer-sdk\0.10\x86
+set GST_VIA=hardcoded path
+
+
+:pygst_env_found
+echo     GStreamer SDK Runtime      : %GSTREAMER_SDK_ROOT_X86% (via %GST_VIA%)
 
 REM Then try to setup the directory for GStreamer SDK
 set PATH=%PATH%;%GSTREAMER_SDK_ROOT_X86%\bin

@@ -1,7 +1,8 @@
 from xl import main as ex, trax, common, event, xdg, settings, providers
 from xl.trax import search, util
 from xl.nls import gettext as _
-from xlgui import panel, playlist, menu
+from xlgui import oldmenu as menu
+from xlgui import panel, playlist
 from xlgui.widgets.common import DragTreeView
 import HTMLParser
 from StringIO import StringIO

@@ -291,9 +291,6 @@ Section "-gstcomsdk"
     
 SectionEnd
 
-; TODO: install modified direct sound gst module
-; https://bugzilla.gnome.org/show_bug.cgi?id=584980
-
 ;------------------------------------------------------------
 ; Install Exaile last
 

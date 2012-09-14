@@ -219,7 +219,7 @@ class PlaylistsPanelPlaylistMenu(RatedTrackSelectMenu, PlaylistsPanelMenu):
         'add-smart-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'import-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'open-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
-        'export-playlist': (gobject.SIGNAL_RUN_LAST, None, (str,)),
+        'export-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'export-playlist-files': (gobject.SIGNAL_RUN_LAST, None, (str,)),
         'rename-playlist': (gobject.SIGNAL_RUN_LAST, None, (str,)),
         'remove-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
@@ -256,30 +256,9 @@ class PlaylistsPanelPlaylistMenu(RatedTrackSelectMenu, PlaylistsPanelMenu):
 
     def on_export_playlist(self, selected = None):
         """
-            Asks the user where to save the file, then passes
-            that information onto the widget to perform the save
-            operation, export type is determined by the extension
-            entered
+            Emits the "export-playlist" signal
         """
-        dialog = dialogs.FileOperationDialog(_("Export as..."),
-            None, gtk.FILE_CHOOSER_ACTION_SAVE,
-            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_SAVE, gtk.RESPONSE_OK))
-
-        extensions = { 'm3u' : _('M3U Playlist'),
-                                'pls' : _('PLS Playlist'),
-                                'asx' : _('ASX Playlist'),
-                                'xspf' : _('XSPF Playlist') }
-
-        dialog.add_extensions(extensions)
-
-        result = dialog.run()
-        if result == gtk.RESPONSE_OK:
-            #TODO recover last directory from preferences
-            #self.exaile.last_open_dir = dialog.get_current_folder()
-            path = unicode(dialog.get_filename(), 'utf-8')
-            self.emit('export-playlist', path)
-        dialog.destroy()
+        self.emit('export-playlist')
         
     def on_export_playlist_files(self, selected=None):
         '''

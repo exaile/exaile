@@ -172,8 +172,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.emit('queue-items', self.tree.get_selected_tracks()))
         menu.connect('open-playlist', lambda *e:
             self.open_selected_playlist())
-        menu.connect('export-playlist', lambda widget, path:
-            self.export_selected_playlist(path))
+        menu.connect('export-playlist', lambda widget:
+            self.export_selected_playlist())
         menu.connect('rename-playlist', lambda widget, name:
             self.rename_selected_playlist(name))
         menu.connect('remove-playlist', lambda *e:

@@ -613,8 +613,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
                 menu.connect('open-playlist', lambda *e:
                     self.open_selected_playlist())
-                menu.connect('export-playlist', lambda widget, path:
-                    self.export_selected_playlist(path))
+                menu.connect('export-playlist', lambda widget:
+                    self.export_selected_playlist())
                 menu.connect('export-playlist-files', lambda widget, path:
                     self.export_selected_playlist_files(path))
                 menu.connect('rename-playlist', lambda widget, name:
@@ -1100,23 +1100,17 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 self.tree.enable_model_drag_dest([self.playlist_target],
                                                      gtk.gdk.ACTION_DEFAULT)
 
-    def export_selected_playlist(self, path):
+    def export_selected_playlist(self):
         """
             Exports the selected playlist to path
 
             @path where we we want it to be saved, with a
                 valid extension we support
         """
-        pl = self.tree.get_selected_page()
-        if pl is not None:
-            try:
-                playlist.export_playlist(pl, path)
-            except playlist.InvalidPlaylistTypeError:
-                path = path + ".m3u"
-                try:
-                    playlist.export_playlist(pl, path)
-                except playlist.InvalidPlaylistTypeError, e:
-                    dialogs.error(None, str(e))
+        playlist = self.tree.get_selected_page()
+        if playlist is not None:
+            dialog = dialogs.PlaylistExportDialog(playlist)
+            dialog.show()
                     
     def export_selected_playlist_files(self, uri):
         '''

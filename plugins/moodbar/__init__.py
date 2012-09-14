@@ -79,11 +79,11 @@ class ExModbar(object):
     #Setup-------------------------------------------------------------------
 
     def changeBarToMod(self):
-         place=self.pr.bar.get_parent()
+         place=self.pr.get_parent()
          self.mod = gtk.DrawingArea()
          self.mod.pangolayout = self.mod.create_pango_layout("")
          self.mod.set_size_request(-1, 24)
-         place.remove(self.pr.bar)
+         place.remove(self.pr)
          place.add(self.mod)
          self.mod.realize()
          self.mod.show()
@@ -92,7 +92,7 @@ class ExModbar(object):
          if hasattr(self, 'mod'):
              place=self.mod.get_parent()
              place.remove(self.mod)
-             place.add(self.pr.bar)
+             place.add(self.pr)
              self.mod.destroy()
 
     def setupUi(self):

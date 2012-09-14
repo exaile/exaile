@@ -1,0 +1,122 @@
+
+Exaile tips/tricks/notes for running on Windows
+===============================================
+
+We're excited to announce that Exaile has official support for Windows 
+platforms as of version 3.3.0, and is distributed in an official installer
+program. 
+
+Exaile (and its installer) has been tested on:
+
+    Windows XP SP3
+    Windows 7 x64 SP1
+    
+    Python 2.7.3 (32-bit)
+    GStreamer.com SDK 2012.9 (32-bit)
+    
+It has been reported exaile does work using the 64-bit version of python and
+the GStreamer SDK, however the Exaile installer will only install the 32-bit
+versions of Python and the GStreamer.com SDK.
+
+Exaile may work with the OSSBuild SDK and python 2.6.6, but this is not 
+a recommended configuration. 
+
+
+Running Exaile
+==============
+
+Launch "exaile.bat". If exaile does not launch, or if you want to see debug 
+output from Exaile, then launch "exaile.bat console"
+
+exaile.bat has a number of diagnostic test that it performs while launching 
+Exaile, and its output may be able to inform you of any possible problems if 
+exaile does not launch. 
+
+You can launch exaile by just launching exaile.py . However, unless your 
+environment is setup correctly, it will probably fail. 
+
+
+Exaile DirectSound plugin (libgstexailedirectsoundsink.dll)
+===========================================================
+
+Exaile currently includes a custom DirectSound GST plugin that is compiled
+against the GStreamer.com SDK git repository as of September 2012. 
+
+The reason a custom plugin is included with Exaile is because GST mainline
+does not currently support selecting the audio output for the DirectSound
+plugin. Another project created a patch to add this functionality, and
+you can find the bug at https://bugzilla.gnome.org/show_bug.cgi?id=584980
+
+The plugin is LGPL, and our modifications to the GST source are in
+tools\win-installer\directsound.patch
+
+If you do not wish to use the Exaile directsound plugin, you can change
+the audiosink in Preferences->Playback
+
+
+GStreamer.com SDK bugs
+======================
+
+2012.9:
+
+    "libssp-0.dll is missing"
+
+    GStreamer.com SDK 2012.9 was not packaged properly, and is missing a file
+    that comes with MinGW. Obtain the file from somewhere, and place it in the
+    bin directory of your gstreamer.com SDK
+
+    See https://bugs.freedesktop.org/show_bug.cgi?id=54710
+    
+    An x86 version of this file is distributed with Exaile in the directory
+    tools\win-installer, and should be installed automatically by the Exaile
+    installer. If it was not installed for you, please file a bug with Exaile. 
+
+2012.7:
+
+    2012.7 does not have complete python bindings shipped with it, and is 
+    missing libpyglib-2.0-python.pyd . You can download it at 
+    https://bugs.freedesktop.org/show_bug.cgi?id=52983
+
+
+Possible Errors and Solutions
+=============================
+
+The GStreamer.com SDK environment is a bit fragile and can sometimes cause
+mysterious problems when launching exaile. Some of the known issues that have
+been reported are below: 
+
+"ImportError: could not import gobject (error was: 'DLL load failed: The 
+specified module could not be found.')"
+
+    This has been observed when there are multiple versions of Glib/GTK on your
+    system. Possible problems may include:
+
+    - You have a GTK living somewhere else that isn't compatible with the 
+    GStreamer.com SDK. This happens if you have GStreamer SDK and PyGTK 
+    installed on the same machine.
+    
+    - You may have MinGW installed somewhere else with older DLLs that are not
+    compatible with the GStreamer.com SDK
+
+    What you can do to diagnose the problem:
+    - Get depends.exe: http://www.dependencywalker.com/
+    - Modify exaile.bat to launch depends instead of exaile (that way the 
+      environment is identical)
+    - Load %GSTREAMER_SDK_ROOT_X86%\lib\python2.7\site-packages\gst-0.10\gst\_gst.pyd 
+      in depends.exe (the pyd file is really a DLL), and see what errors it 
+      reports. This should be able to tell you what DLL is conflicting, and what
+      its path is
+
+
+Bug Reporting
+=============
+
+If exaile crashes, you should be able to find a logfile from the last time
+exaile was launched in the following directories:
+    
+    Windows XP: %USERPROFILE%\Application Data\Local Settings\exaile\logs
+    Windows 7:  %USERPROFILE%\AppData\Local\exaile\logs
+
+If you run into any bugs not mentioned in this document, please report them
+to us via launchpad at https://bugs.launchpad.net/exaile . Please include any
+relevant logfile snippets. 

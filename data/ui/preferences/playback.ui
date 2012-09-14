@@ -358,40 +358,7 @@
       <!-- column-name title -->
       <column type="gchararray"/>
     </columns>
-    <data>
-      <row>
-        <col id="0">auto</col>
-        <col id="1" translatable="yes">Automatic</col>
-      </row>
-      <row>
-        <col id="0">gconf</col>
-        <col id="1" translatable="yes">GNOME</col>
-      </row>
-      <row>
-        <col id="0">alsa</col>
-        <col id="1" translatable="yes">ALSA</col>
-      </row>
-      <row>
-        <col id="0">oss</col>
-        <col id="1" translatable="yes">OSS</col>
-      </row>
-      <row>
-        <col id="0">pulse</col>
-        <col id="1" translatable="yes">PulseAudio</col>
-      </row>
-      <row>
-        <col id="0">jack</col>
-        <col id="1" translatable="yes">JACK</col>
-      </row>
-      <row>
-        <col id="0">directsound</col>
-        <col id="1" translatable="yes">DirectSound</col>
-      </row>
-      <row>
-        <col id="0">custom</col>
-        <col id="1" translatable="yes">Custom</col>
-      </row>
-    </data>
+    <data/>
   </object>
   <object class="GtkListStore" id="model1">
     <columns>

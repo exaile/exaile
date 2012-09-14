@@ -45,6 +45,22 @@ class AudioSinkPreference(widgets.ComboPreference):
     default = "auto"
     name = 'player/audiosink'
     restart_required = True
+    
+    def __init__(self, preferences, widget):
+        widgets.ComboPreference.__init__(self, preferences, widget)
+        model = self.widget.get_model()
+        
+        # always list auto first
+        def _sink_cmp(x,y):
+            if x[0] == y[0] or 'auto' not in (x[0],y[0]):
+                return cmp(x[0],y[0])
+            if x[0] == 'auto':
+                return -1
+            return 1
+                
+        for name, preset in sorted(pipe.SINK_PRESETS.iteritems(), _sink_cmp):
+            model.append((name, preset['name']))
+        self._set_value()
 
 class CustomAudioSinkPreference(widgets.Preference, widgets.Conditional):
     default = ""

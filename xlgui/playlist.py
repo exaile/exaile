@@ -533,6 +533,13 @@ class PlaylistContainer(gtk.HBox):
         
         self.notebooks[1].set_add_tab_on_empty(False)
         
+        # add notebooks to self
+        self.pack_start(self.notebooks[0])
+        
+        # setup the paned window for separate views
+        self.paned = gtk.VPaned()
+        self.paned.pack2(self.notebooks[1], True, True)
+        
         # setup queue page
         self.queuepage = QueuePage(self, player)
         self.queuetab = NotebookTab(None, self.queuepage)
@@ -549,13 +556,6 @@ class PlaylistContainer(gtk.HBox):
             condition_fn=lambda n, p, c: True if p.tab.notebook in self.notebooks else False )
         providers.register('playlist-tab-context-menu', item)
         providers.register('queue-tab-context', item)
-        
-        # add notebooks to self
-        self.pack_start(self.notebooks[0])
-        
-        # setup the paned window for separate views
-        self.paned = gtk.VPaned()
-        self.paned.pack2(self.notebooks[1], True, True)
         
         # connect events
         for notebook in self.notebooks:
@@ -672,6 +672,8 @@ class PlaylistContainer(gtk.HBox):
             # should always be 0, but doesn't hurt to be safe...
             qnotebook = self.queuepage.tab.notebook
             qnotebook.set_current_page(qnotebook.page_num(self.queuepage))
+            
+        self._update_notebook_display()
     
     def show_current_track(self):
         """

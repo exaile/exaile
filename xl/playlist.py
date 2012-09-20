@@ -247,7 +247,7 @@ class FormatConverter(object):
             :param options: options
             :type options: :class:`PlaylistExportOptions`
         """
-        if options.relative:
+        if options is not None and options.relative:
             playlist_file = gio.File(playlist_path)
             # Strip playlist filename from export path
             export_path = playlist_file.get_uri()[:-len(playlist_file.get_basename())]
@@ -269,8 +269,11 @@ class FormatConverter(object):
                         track_path_components.path,
                         export_path_components.path
                     )
-
-        return track_path
+        
+        # if the file is local, other players like VLC will not
+        # accept the playlist if they have %20 in them, so we must convert
+        # it to something else
+        return urllib.url2pathname(track_path)
 
 class M3UConverter(FormatConverter):
     """
@@ -302,10 +305,9 @@ class M3UConverter(FormatConverter):
             for track in playlist:
                 title = [track.get_tag_display('title', join=True), track.get_tag_display('artist', join=True)]
                 length = int(round(float(track.get_tag_raw('__length') or -1)))
+                
                 track_path = track.get_loc_for_io()
-
-                if options:
-                    track_path = self.get_track_export_path(path, track_path, options)
+                track_path = self.get_track_export_path(path, track_path, options)
 
                 stream.write('#EXTINF:{length},{title}\n{path}\n'.format(
                     length=length,
@@ -404,10 +406,9 @@ class PLSConverter(FormatConverter):
             position = index + 1
             title = [track.get_tag_display('title', join=True), track.get_tag_display('artist', join=True)]
             length = max(-1, int(round(float(track.get_tag_raw('__length') or -1))))
+            
             track_path = track.get_loc_for_io()
-
-            if options:
-                track_path = self.get_track_export_path(path, track_path, options)
+            track_path = self.get_track_export_path(path, track_path, options)
 
             pls_playlist.set('playlist', 'File%d' % position, track_path)
             pls_playlist.set('playlist', 'Title%d' % position, ' - '.join(title))
@@ -578,9 +579,7 @@ class ASXConverter(FormatConverter):
                     stream.write('    <author>%s</author>\n' % escape(artist))
 
                 track_path = track.get_loc_for_io()
-
-                if options:
-                    track_path = self.get_track_export_path(path, track_path, options)
+                track_path = self.get_track_export_path(path, track_path, options)
 
                 stream.write('    <ref href="%s" />\n' % track_path)
                 stream.write('  </entry>\n')
@@ -759,9 +758,7 @@ class XSPFConverter(FormatConverter):
                     ))
 
                 track_path = track.get_loc_for_io()
-
-                if options:
-                    track_path = self.get_track_export_path(path, track_path, options)
+                track_path = self.get_track_export_path(path, track_path, options)
 
                 stream.write('      <location>%s</location>\n' % escape(track_path))
                 stream.write('    </track>\n')

@@ -310,8 +310,6 @@ class GroupTaggerView(gtk.TreeView):
     def on_mouse_release(self, widget, event):    
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
-            return True
-        return False
      
     def on_popup_menu(self, widget):
         self.menu.popup(None, None, None, None, None)

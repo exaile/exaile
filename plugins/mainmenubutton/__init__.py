@@ -78,7 +78,7 @@ class MainMenuButton(gtk.ToggleButton):
         # Move menu items of the main menu to the internal menu
         self.mainmenu = builder.get_object('mainmenu')
         self.menu = gtk.Menu()
-        self.menu.attach_to_widget(self, self.on_menu_detach)
+        self.menu.attach_to_widget(self, lambda *args: False)
         self.menu.connect('map', self.on_menu_map)
         self.menu.connect('deactivate', self.on_menu_deactivate)
 
@@ -132,13 +132,6 @@ class MainMenuButton(gtk.ToggleButton):
             self.get_menu_position, 0, gtk.get_current_event_time())
         
         return True
-
-    def on_menu_detach(self, menu, widget):
-        """
-            Dummy method to be used with
-            gtk.Menu.attach_to_widget()
-        """
-        pass
 
     def on_menu_map(self, widget):
         """

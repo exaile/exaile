@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import atk
 import gtk
 
 from xl.nls import gettext as _
@@ -68,6 +69,10 @@ class MainMenuButton(gtk.ToggleButton):
         self.set_tooltip_text(_('Main Menu'))
         self.set_focus_on_click(True)
         self.set_relief(gtk.RELIEF_NONE)
+
+        accessible = self.get_accessible()
+        accessible.set_role(atk.ROLE_MENU)
+        accessible.set_name(_('Main Menu'))
 
         builder = main.mainwindow().builder
 

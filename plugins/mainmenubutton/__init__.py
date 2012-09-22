@@ -79,7 +79,6 @@ class MainMenuButton(gtk.ToggleButton):
         self.mainmenu = builder.get_object('mainmenu')
         self.menu = gtk.Menu()
         self.menu.attach_to_widget(self, lambda *args: False)
-        self.menu.connect('map', self.on_menu_map)
         self.menu.connect('deactivate', self.on_menu_deactivate)
 
         for menuitem in self.mainmenu:
@@ -87,6 +86,8 @@ class MainMenuButton(gtk.ToggleButton):
 
         self.menu.show_all()
         self.show_all()
+
+        self.connect('toggled', self.on_toggled)
 
     def destroy(self):
         """
@@ -118,8 +119,7 @@ class MainMenuButton(gtk.ToggleButton):
             Pops out the menu upon click
         """
         if e.button == 1:
-            self.menu.popup(None, None,
-                self.get_menu_position, e.button, e.time)
+            self.set_active(not self.get_active())
 
         return True
 
@@ -128,20 +128,20 @@ class MainMenuButton(gtk.ToggleButton):
             Pops out the menu upon pressing 
             the Menu or Shift+F10 keys
         """
-        self.menu.popup(None, None,
-            self.get_menu_position, 0, gtk.get_current_event_time())
+        self.set_active(True)
         
         return True
 
-    def on_menu_map(self, widget):
+    def on_toggled(self, button):
         """
-            Indicates button activation upon menu popup
+            Pops out the menu upon button toggle
         """
-        self.set_active(True)
+        self.menu.popup(None, None, self.get_menu_position, 0,
+            gtk.get_current_event_time())
 
     def on_menu_deactivate(self, menu):
         """
-            Removes button activation upno menu popdown
+            Removes button activation upon menu popdown
         """
         self.set_active(False)
 

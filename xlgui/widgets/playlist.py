@@ -485,24 +485,9 @@ class PlaylistPage(NotebookPage):
                 menu.append(gtk.SeparatorMenuItem())
             prev = item
         menu.show_all()
-        menu.popup(None, None, self._mode_menu_set_pos,
-                event.button, event.time, widget)
+        menu.popup(None, None, guiutil.position_menu,
+                event.button, event.time, (self.window, widget))
         menu.reposition()
-
-    def _mode_menu_set_pos(self, menu, button):
-        """
-            Nicely position the shuffle/repeat popup menu with the
-            button's corner.
-        """
-        window_x, window_y = self.window.get_position()
-        button_allocation = button.get_allocation()
-        menu_allocation = menu.get_allocation()
-        position = (
-            window_x + button_allocation.x + 1,
-            window_y + button_allocation.y - menu_allocation.height - 1
-        )
-
-        return (position[0], position[1], True)
 
     def _mode_menu_set_toggle(self, menu, button, name):
         mode = getattr(self.playlist, name)

@@ -415,6 +415,29 @@ class Menu(gtk.Menu):
         else:
             gtk.Menu.popup(self, *e)
 
+            
+def position_menu(menu, data):
+    '''
+        A function that will position a menu near a particular widget. This
+        should be specified as the third argument to menu.popup(), with the
+        user data being a tuple of (window, widget)
+        
+            menu.popup_menu(None, None, guiutil.position_menu, 
+                            0, 0, (self.window, widget))
+    '''
+    
+    window, widget = data
+    window_x, window_y = window.get_position()
+    widget_allocation = widget.get_allocation()
+    menu_allocation = menu.get_allocation()
+    position = (
+        window_x + widget_allocation.x + 1,
+        window_y + widget_allocation.y - menu_allocation.height - 1
+    )
+
+    return (position[0], position[1], True)
+
+            
 
 def finish(repeat=True):
     """

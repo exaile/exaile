@@ -56,6 +56,7 @@
                                 <property name="tooltip_text" translatable="yes">Shuffle playback order</property>
                                 <property name="relief">none</property>
                                 <signal name="button_press_event" handler="on_shuffle_button_press_event"/>
+                                <signal name="popup-menu" handler="on_shuffle_button_popup_menu"/>
                                 <child>
                                   <object class="GtkImage" id="shuffle_button_image">
                                     <property name="visible">True</property>
@@ -77,6 +78,7 @@
                                 <property name="tooltip_text" translatable="yes">Repeat playback</property>
                                 <property name="relief">none</property>
                                 <signal name="button_press_event" handler="on_repeat_button_press_event"/>
+                                <signal name="popup-menu" handler="on_repeat_button_popup_menu"/>
                                 <child>
                                   <object class="GtkImage" id="repeat_button_image">
                                     <property name="visible">True</property>

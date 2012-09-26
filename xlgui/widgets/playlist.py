@@ -435,11 +435,23 @@ class PlaylistPage(NotebookPage):
         self.__show_toggle_menu(Playlist.shuffle_modes,
                 Playlist.shuffle_mode_names, self.on_shuffle_mode_set,
                 'shuffle_mode', widget, event)
+                
+    def on_shuffle_button_popup_menu(self, widget):
+        self.__show_toggle_menu(Playlist.shuffle_modes,
+                Playlist.shuffle_mode_names, self.on_shuffle_mode_set,
+                'shuffle_mode', widget, None)
+        return True
 
     def on_repeat_button_press_event(self, widget, event):
         self.__show_toggle_menu(Playlist.repeat_modes,
                 Playlist.repeat_mode_names, self.on_repeat_mode_set,
                 'repeat_mode', widget, event)
+                
+    def on_repeat_button_popup_menu(self, widget):
+        self.__show_toggle_menu(Playlist.repeat_modes,
+                Playlist.repeat_mode_names, self.on_repeat_mode_set,
+                'repeat_mode', widget, None)
+        return True
 
     def on_dynamic_button_toggled(self, widget):
         if widget.get_active():
@@ -485,8 +497,12 @@ class PlaylistPage(NotebookPage):
                 menu.append(gtk.SeparatorMenuItem())
             prev = item
         menu.show_all()
-        menu.popup(None, None, guiutil.position_menu,
-                event.button, event.time, (self.window, widget))
+        if event is not None:
+            menu.popup(None, None, guiutil.position_menu,
+                        event.button, event.time, (self.window, widget))
+        else:
+            menu.popup(None, None, guiutil.position_menu,
+                        0, 0, (self.window, widget))
         menu.reposition()
 
     def _mode_menu_set_toggle(self, menu, button, name):

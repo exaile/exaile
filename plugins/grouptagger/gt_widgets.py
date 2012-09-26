@@ -312,7 +312,7 @@ class GroupTaggerView(gtk.TreeView):
             self.menu.popup(None, None, None, event.button, event.time)
      
     def on_popup_menu(self, widget):
-        self.menu.popup(None, None, None, None, None)
+        self.menu.popup(None, None, None, 0, 0)
         return True
         
     def sync_expanded(self):

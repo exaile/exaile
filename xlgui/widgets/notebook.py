@@ -29,6 +29,7 @@ import gtk
 import pango
 
 from xl.nls import gettext as _
+from xlgui import guiutil
 from xlgui.widgets import menu
 
 class SmartNotebook(gtk.Notebook):
@@ -36,6 +37,7 @@ class SmartNotebook(gtk.Notebook):
         gtk.Notebook.__init__(self)
         self.set_scrollable(True)
         self.connect('button-press-event', self.on_button_press)
+        self.connect('popup-menu', self.on_popup_menu)
         self._add_tab_on_empty = True
 
     def get_current_tab(self):
@@ -100,6 +102,14 @@ class SmartNotebook(gtk.Notebook):
     def on_button_press(self, widget, event):
         if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:
             self.add_default_tab()
+            
+    def on_popup_menu(self, widget):
+        page = self.get_current_tab()
+        tab_label = self.get_tab_label(self.get_current_tab())
+        page.tab_menu.popup(None, None, guiutil.position_menu, 
+                            0, 0, (self.window, tab_label))
+        return True        
+        
 
 # Reduce the notebook tabs' close button padding size.
 gtk.rc_parse_string("""

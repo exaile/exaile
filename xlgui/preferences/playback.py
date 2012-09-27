@@ -168,11 +168,11 @@ class AutoAdvanceDelay(widgets.SpinPreference, widgets.MultiConditional):
         widgets.MultiConditional.__init__(self)
         
     def on_check_condition(self):
-        if not self.condition_widgets[0].get_active():
+        if not self.condition_widgets['player/auto_advance'].get_active():
             return False
             
-        iter = self.condition_widgets[1].get_active_iter()
-        value = self.condition_widgets[1].get_model().get_value(iter, 0)
+        iter = self.condition_widgets['player/engine'].get_active_iter()
+        value = self.condition_widgets['player/engine'].get_model().get_value(iter, 0)
 
         if value == 'normal':
             return True

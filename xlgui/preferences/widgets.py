@@ -202,7 +202,7 @@ class MultiConditional(object):
         Allows for reactions on changes of multiple preference items
     """
     condition_preference_names = []
-    condition_widgets = []
+    condition_widgets = {}
 
     def __init__(self):
         event.add_callback(self.on_option_set, 'option_set')

@@ -153,10 +153,37 @@ class EnqueueBeginsPlayback(widgets.CheckPreference):
 class RemoveQueuedItemWhenPlayed(widgets.CheckPreference):
     default = True
     name = 'queue/remove_item_when_played'
+
+class EngineConditional(widgets.Conditional):
+    """
+        True if the specified engine is selected
+    """
+    condition_preference_name = 'player/engine'
+    conditional_engine = ''
+
+    def on_check_condition(self):
+        """
+            Specifies the condition to meet
+
+            :returns: Whether the condition is met or not
+            :rtype: bool
+        """
+        iter = self.condition_widget.get_active_iter()
+        value = self.condition_widget.get_model().get_value(iter, 0)
+
+        if value == self.conditional_engine:
+            return True
+
+        return False
     
-class AutoAdvancePlayer(widgets.CheckPreference):
+class AutoAdvancePlayer(widgets.CheckPreference, EngineConditional):
     default = True
     name = 'player/auto_advance'
+    conditional_engine = 'normal'
+
+    def __init__(self, preferences, widget):
+        widgets.CheckPreference.__init__(self, preferences, widget)
+        EngineConditional.__init__(self)
     
 class AutoAdvanceDelay(widgets.SpinPreference, widgets.MultiConditional):
     default = 0
@@ -179,61 +206,40 @@ class AutoAdvanceDelay(widgets.SpinPreference, widgets.MultiConditional):
 
         return False
 
-class UnifiedConditional(widgets.Conditional):
-    """
-        True if the unified engine is selected
-    """
-    condition_preference_name = 'player/engine'
-
-    def on_check_condition(self):
-        """
-            Specifies the condition to meet
-
-            :returns: Whether the condition is met or not
-            :rtype: bool
-        """
-        iter = self.condition_widget.get_active_iter()
-        value = self.condition_widget.get_model().get_value(iter, 0)
-
-        if value == 'unified':
-            return True
-
-        return False
-
-class UserFadeTogglePreference(widgets.CheckPreference, UnifiedConditional):
+class UserFadeTogglePreference(widgets.CheckPreference, EngineConditional):
     default = False
     name = 'player/user_fade_enabled'
-    condition_preference_name = 'player/engine'
+    conditional_engine = 'unified'
 
     def __init__(self, preferences, widget):
         widgets.CheckPreference.__init__(self, preferences, widget)
-        UnifiedConditional.__init__(self)
+        EngineConditional.__init__(self)
 
-class UserFadeDurationPreference(widgets.SpinPreference, UnifiedConditional):
+class UserFadeDurationPreference(widgets.SpinPreference, EngineConditional):
     default = 1000
     name = 'player/user_fade'
-    condition_preference_name = 'player/engine'
+    conditional_engine = 'unified'
 
     def __init__(self, preferences, widget):
         widgets.SpinPreference.__init__(self, preferences, widget)
-        UnifiedConditional.__init__(self)
+        EngineConditional.__init__(self)
 
-class CrossfadingPreference(widgets.CheckPreference, UnifiedConditional):
+class CrossfadingPreference(widgets.CheckPreference, EngineConditional):
     default = False
     name = 'player/crossfading'
-    condition_preference_name = 'player/engine'
+    conditional_engine = 'unified'
 
     def __init__(self, preferences, widget):
         widgets.CheckPreference.__init__(self, preferences, widget)
-        UnifiedConditional.__init__(self)
+        EngineConditional.__init__(self)
 
-class CrossfadeDurationPreference(widgets.SpinPreference, UnifiedConditional):
+class CrossfadeDurationPreference(widgets.SpinPreference, EngineConditional):
     default = 1000
     name = 'player/crossfade_duration'
-    condition_preference_name = 'player/engine'
+    conditional_engine = 'unified'
 
     def __init__(self, preferences, widget):
         widgets.SpinPreference.__init__(self, preferences, widget)
-        UnifiedConditional.__init__(self)
+        EngineConditional.__init__(self)
 
 # vim: et sts=4 sw=4

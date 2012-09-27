@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-01 17:34+0200\n"
+"POT-Creation-Date: 2012-09-09 23:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,279 +101,279 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: ../xl/main.py:191
+#: ../xl/main.py:198
 msgid "Failed to migrate from 0.2.14"
 msgstr ""
 
-#: ../xl/main.py:406
+#: ../xl/main.py:413
 msgid "Usage: exaile [OPTION]... [URI]"
 msgstr ""
 
-#: ../xl/main.py:407 ../plugins/minimode/minimode_preferences.ui.h:11
+#: ../xl/main.py:414 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
 msgstr ""
 
-#: ../xl/main.py:411
+#: ../xl/main.py:418
 msgid "Playback Options"
 msgstr ""
 
-#: ../xl/main.py:413
+#: ../xl/main.py:420
 msgid "Play the next track"
 msgstr ""
 
-#: ../xl/main.py:415
+#: ../xl/main.py:422
 msgid "Play the previous track"
 msgstr ""
 
-#: ../xl/main.py:417 ../plugins/minimode/controls.py:342
+#: ../xl/main.py:424 ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
 msgstr ""
 
-#: ../xl/main.py:419
+#: ../xl/main.py:426
 msgid "Play"
 msgstr ""
 
-#: ../xl/main.py:421
+#: ../xl/main.py:428
 msgid "Pause"
 msgstr ""
 
-#: ../xl/main.py:424
+#: ../xl/main.py:431
 msgid "Pause or resume playback"
 msgstr ""
 
-#: ../xl/main.py:427 ../plugins/minimode/controls.py:365
+#: ../xl/main.py:434 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
 msgstr ""
 
-#: ../xl/main.py:430
+#: ../xl/main.py:437
 msgid "Collection Options"
 msgstr ""
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:433 ../xl/main.py:440
+#: ../xl/main.py:440 ../xl/main.py:447
 msgid "LOCATION"
 msgstr ""
 
-#: ../xl/main.py:433
+#: ../xl/main.py:440
 msgid "Add tracks from LOCATION to the collection"
 msgstr ""
 
-#: ../xl/main.py:437
+#: ../xl/main.py:444
 msgid "Playlist Options"
 msgstr ""
 
-#: ../xl/main.py:441
+#: ../xl/main.py:448
 msgid "Exports the current playlist to LOCATION"
 msgstr ""
 
-#: ../xl/main.py:444
+#: ../xl/main.py:451
 msgid "Track Options"
 msgstr ""
 
-#: ../xl/main.py:446
+#: ../xl/main.py:453
 msgid "Query player"
 msgstr ""
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:449
+#: ../xl/main.py:456
 msgid "FORMAT"
 msgstr ""
 
-#: ../xl/main.py:450
+#: ../xl/main.py:457
 msgid "Retrieves the current playback state and track information as FORMAT"
 msgstr ""
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:453
+#: ../xl/main.py:460
 msgid "TAGS"
 msgstr ""
 
-#: ../xl/main.py:454
+#: ../xl/main.py:461
 msgid "TAGS to retrieve from the current track, use with --format-query"
 msgstr ""
 
-#: ../xl/main.py:457
+#: ../xl/main.py:464
 msgid "Show a popup with data of the current track"
 msgstr ""
 
-#: ../xl/main.py:459
+#: ../xl/main.py:466
 msgid "Print the title of current track"
 msgstr ""
 
-#: ../xl/main.py:461
+#: ../xl/main.py:468
 msgid "Print the album of current track"
 msgstr ""
 
-#: ../xl/main.py:463
+#: ../xl/main.py:470
 msgid "Print the artist of current track"
 msgstr ""
 
-#: ../xl/main.py:465
+#: ../xl/main.py:472
 msgid "Print the length of current track"
 msgstr ""
 
 #. TRANSLATORS: Variable for command line options with arguments
-#: ../xl/main.py:468 ../xl/main.py:483 ../xl/main.py:487
+#: ../xl/main.py:475 ../xl/main.py:490 ../xl/main.py:494
 msgid "N"
 msgstr ""
 
-#: ../xl/main.py:469
+#: ../xl/main.py:476
 msgid "Set rating for current track to N%"
 msgstr ""
 
-#: ../xl/main.py:471
+#: ../xl/main.py:478
 msgid "Get rating for current track"
 msgstr ""
 
-#: ../xl/main.py:474
+#: ../xl/main.py:481
 msgid "Print the current playback position as time"
 msgstr ""
 
-#: ../xl/main.py:476
+#: ../xl/main.py:483
 msgid "Print the current playback progress as percentage"
 msgstr ""
 
-#: ../xl/main.py:480
+#: ../xl/main.py:487
 msgid "Volume Options"
 msgstr ""
 
-#: ../xl/main.py:484
+#: ../xl/main.py:491
 msgid "Increases the volume by N%"
 msgstr ""
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:489
+#: ../xl/main.py:496
 msgid "Decreases the volume by N%"
 msgstr ""
 
-#: ../xl/main.py:492
+#: ../xl/main.py:499
 msgid "Mutes or unmutes the volume"
 msgstr ""
 
-#: ../xl/main.py:494
+#: ../xl/main.py:501
 msgid "Print the current volume percentage"
 msgstr ""
 
-#: ../xl/main.py:497
+#: ../xl/main.py:504
 msgid "Other Options"
 msgstr ""
 
-#: ../xl/main.py:499
+#: ../xl/main.py:506
 msgid "Start new instance"
 msgstr ""
 
-#: ../xl/main.py:501
+#: ../xl/main.py:508
 msgid "Show this help message and exit"
 msgstr ""
 
-#: ../xl/main.py:503
+#: ../xl/main.py:510
 msgid "Show program's version number and exit."
 msgstr ""
 
-#: ../xl/main.py:506
+#: ../xl/main.py:513
 msgid "Start minimized (to tray, if possible)"
 msgstr ""
 
-#: ../xl/main.py:509
+#: ../xl/main.py:516
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr ""
 
-#: ../xl/main.py:511
+#: ../xl/main.py:518
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 
-#: ../xl/main.py:514
+#: ../xl/main.py:521
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
 
-#: ../xl/main.py:517
+#: ../xl/main.py:524
 msgid "Do not import old data from version 0.2.x"
 msgstr ""
 
-#: ../xl/main.py:520
+#: ../xl/main.py:527
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 
-#: ../xl/main.py:524
+#: ../xl/main.py:531
 msgid "Development/Debug Options"
 msgstr ""
 
-#: ../xl/main.py:526 ../xl/main.py:528
+#: ../xl/main.py:533 ../xl/main.py:535
 msgid "DIRECTORY"
 msgstr ""
 
-#: ../xl/main.py:526
+#: ../xl/main.py:533
 msgid "Set data directory"
 msgstr ""
 
-#: ../xl/main.py:528
+#: ../xl/main.py:535
 msgid "Set data and config directory"
 msgstr ""
 
-#: ../xl/main.py:530
+#: ../xl/main.py:537
 msgid "MODULE"
 msgstr ""
 
-#: ../xl/main.py:531
+#: ../xl/main.py:538
 msgid "Limit log output to MODULE"
 msgstr ""
 
-#: ../xl/main.py:533
+#: ../xl/main.py:540
 msgid "LEVEL"
 msgstr ""
 
-#: ../xl/main.py:534
+#: ../xl/main.py:541
 msgid "Limit log output to LEVEL"
 msgstr ""
 
-#: ../xl/main.py:537
+#: ../xl/main.py:544
 msgid "Show debugging output"
 msgstr ""
 
-#: ../xl/main.py:539
+#: ../xl/main.py:546
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr ""
 
-#: ../xl/main.py:542
+#: ../xl/main.py:549
 msgid "Add thread name to logging messages."
 msgstr ""
 
-#: ../xl/main.py:545
+#: ../xl/main.py:552
 msgid "TYPE"
 msgstr ""
 
-#: ../xl/main.py:546
+#: ../xl/main.py:553
 msgid "Limit xl.event debug to output of TYPE"
 msgstr ""
 
-#: ../xl/main.py:548
+#: ../xl/main.py:555
 msgid "Reduce level of output"
 msgstr ""
 
-#: ../xl/main.py:552
+#: ../xl/main.py:559
 msgid "Disable D-Bus support"
 msgstr ""
 
-#: ../xl/main.py:554
+#: ../xl/main.py:561
 msgid "Disable HAL support."
 msgstr ""
 
-#: ../xl/main.py:570
+#: ../xl/main.py:577
 msgid "Entire Library"
 msgstr ""
 
-#: ../xl/main.py:576
+#: ../xl/main.py:583
 #, python-format
 msgid "Random %d"
 msgstr ""
 
-#: ../xl/main.py:584
+#: ../xl/main.py:591
 #, python-format
 msgid "Rating > %d"
 msgstr ""
 
-#: ../xl/main.py:685
+#: ../xl/main.py:692
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -1327,11 +1327,11 @@ msgstr ""
 msgid "Driver"
 msgstr ""
 
-#: ../xlgui/__init__.py:289
+#: ../xlgui/__init__.py:294
 msgid "Scanning collection..."
 msgstr ""
 
-#: ../xlgui/__init__.py:373
+#: ../xlgui/__init__.py:378
 #, python-format
 msgid "Scanning %s..."
 msgstr ""
@@ -1494,9 +1494,9 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: ../xlgui/panel/files.py:433
+#: ../xlgui/panel/files.py:438
 #, python-format
-msgid "%d KB"
+msgid "%s KB"
 msgstr ""
 
 #. TRANSLATORS: Logical AND used for smart playlists
@@ -2960,7 +2960,7 @@ msgid ""
 "from $album"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:356
+#: ../plugins/osd/__init__.py:373
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\"><b>$title</b></span>\n"
 "by $artist\n"

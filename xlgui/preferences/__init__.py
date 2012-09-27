@@ -273,6 +273,10 @@ class PreferencesDialog(object):
                     if issubclass(klass, widgets.Conditional):
                         klass.condition_widget = builder.get_object(
                             klass.condition_preference_name)
+                    elif issubclass(klass, widgets.MultiConditional):
+                        for name in klass.condition_preference_names:
+                            klass.condition_widgets.append(
+                                builder.get_object(name))
 
                     field = klass(self, widget)
                     self.fields[page].append(field)

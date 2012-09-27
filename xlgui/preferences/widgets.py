@@ -197,6 +197,51 @@ class CheckConditional(Conditional):
         """
         return self.condition_widget.get_active()
 
+class MultiConditional(object):
+    """
+        Allows for reactions on changes of multiple preference items
+    """
+    condition_preference_names = []
+    condition_widgets = []
+
+    def __init__(self):
+        event.add_callback(self.on_option_set, 'option_set')
+        glib.idle_add(self.on_option_set,
+            'option_set', settings, self.condition_preference_names[0])
+
+    def on_check_condition(self):
+        """
+            Specifies the condition to meet
+
+            :returns: Whether the condition is met or not
+            :rtype: bool
+        """
+        pass
+
+    def on_condition_met(self):
+        """
+            Called as soon as the
+            specified condition is met
+        """
+        self.widget.set_sensitive(True)
+
+    def on_condition_failed(self):
+        """
+            Called as soon as the specified
+            condition is not met anymore
+        """
+        self.widget.set_sensitive(False)
+
+    def on_option_set(self, event, settings, option):
+        """
+            Called as soon as options change
+        """
+        if option in self.condition_preference_names:
+            if self.on_check_condition():
+                self.on_condition_met()
+            else:
+                self.on_condition_failed()
+
 
 class Button(Preference):
     """

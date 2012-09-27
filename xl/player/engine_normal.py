@@ -242,14 +242,17 @@ class NormalPlayer(_base.ExailePlayer):
         """
             seek to the given position in the current stream
         """
+        new_position = int(gst.SECOND * value)
         seek_event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
             gst.SEEK_FLAG_FLUSH, gst.SEEK_TYPE_SET,
-            int(gst.SECOND * value),
+            new_position,
             gst.SEEK_TYPE_NONE, 0)
 
         res = self._pipe.send_event(seek_event)
         if res:
             self._pipe.set_new_stream_time(0L)
+            # update this in case we're paused
+            self._last_position = new_position  
             event.log_event('playback_seeked', self, value)
         else:
             logger.debug("Couldn't send seek event")

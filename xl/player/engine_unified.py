@@ -492,6 +492,8 @@ class AudioStream(gst.Bin):
             gst.SEEK_TYPE_NONE, 0)
 
         self.vol.send_event(seekevent)
+        # update this in case we're paused
+        self.last_position = value
 
     def _seek_delayed(self, type, object, value):
         """

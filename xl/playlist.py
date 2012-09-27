@@ -229,11 +229,51 @@ class FormatConverter(object):
             :param track_path: the path of the track
             :type track_path: string
         """
-        import_path = gio.File(playlist_path).get_uri()
+        playlist_uri = gio.File(playlist_path).get_uri()
         # Track path will not be changed if it already is a fully qualified URL
-        track_path = urlparse.urljoin(import_path, track_path)
+        track_uri = urlparse.urljoin(playlist_uri, track_path.replace('\\','/'))
+        
+        logging.debug('Importing track: %s' % track_uri)
+        
+        # Now, let's be smart about importing the file/playlist. If the 
+        # original URI cannot be found and its a local path, then do a 
+        # small search for the track relative to the playlist to see 
+        # if it can be found. 
+        
+        # TODO: Scan collection for tracks as last resort?? 
+        
+        if track_uri.startswith('file:///') and \
+                not gio.File(track_uri).query_exists():
+            
+            if not playlist_uri.startswith('file:///'):
+                logging.debug('Track does not seem to exist, using original path')
+            else:
+                logging.debug('Track does not seem to exist, trying different path combinations')
+            
+                def _iter_uris(pp, tp):
+                    pps = pp[len('file:///'):].split('/')
+                    tps = tp.strip().replace('\\','/').split('/')
+                    
+                    # handle absolute paths correctly
+                    if tps[0] == '':
+                        tps = tps[1:]
+                    
+                    # iterate the playlist path a/b/c/d, a/b/c, a/b, ... 
+                    for p in range(len(pps)-1,0,-1):
+                        ppp = 'file:///%s' % '/'.join(pps[0:p])
+                    
+                        # iterate the file path d, c/d, b/c/d, ... 
+                        for t in range(len(tps)-1,-1,-1):
+                            yield '%s/%s' % (ppp, '/'.join(tps[t:len(tps)]))
 
-        return track_path
+                for uri in _iter_uris(playlist_uri, track_path):
+                    logging.debug('Trying %s' % uri)
+                    if gio.File(uri).query_exists():
+                        track_uri = uri
+                        logging.debug('Track found at %s' % uri)
+                        break
+        
+        return track_uri
 
     def get_track_export_path(self, playlist_path, track_path, options):
         """
@@ -327,6 +367,8 @@ class M3UConverter(FormatConverter):
         playlist = Playlist(name=self.name_from_path(path))
         extinf = {}
 
+        logger.debug('Importing M3U playlist: %s' % path)
+        
         with closing(gio.DataInputStream(gio.File(path).read())) as stream:
             while True:
                 line = stream.read_line()
@@ -436,6 +478,8 @@ class PLSConverter(FormatConverter):
 
         pls_playlist = RawConfigParser()
         gfile = gio.File(path)
+        
+        logger.debug('Importing PLS playlist: %s' % path)
 
         try:
             with closing(gio.DataInputStream(gfile.read())) as stream:
@@ -598,6 +642,8 @@ class ASXConverter(FormatConverter):
         from xml.etree.cElementTree import XMLParser
 
         playlist = Playlist(self.name_from_path(path))
+        
+        logger.debug('Importing ASX playlist: %s' % path)
 
         with closing(gio.DataInputStream(gio.File(path).read())) as stream:
             parser = XMLParser(target=self.ASXPlaylistParser())
@@ -779,6 +825,8 @@ class XSPFConverter(FormatConverter):
         import xml.etree.cElementTree as ETree
 
         playlist = Playlist(name=self.name_from_path(path))
+        
+        logger.debug('Importing XSPF playlist: %s' % path)
 
         with closing(gio.DataInputStream(gio.File(path).read())) as stream:
             tree = ETree.ElementTree(file=stream)

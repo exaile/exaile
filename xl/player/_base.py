@@ -30,6 +30,7 @@ import time
 import pygst
 pygst.require('0.10')
 import gst
+import glib
 
 from xl import event, settings, common
 from xl.player import pipe
@@ -44,7 +45,7 @@ class ExailePlayer(object):
         self.queue = None
         self._name = name
         self._playtime_stamp = None
-        self._last_position = 0
+        self._delay_id = None
 
         self._mainbin = pipe.MainBin(self, pre_elems=pre_elems)
         self._pipe = None
@@ -187,6 +188,19 @@ class ExailePlayer(object):
         return self._get_current()
     current = property(__get_current)
 
+    def _cancel_delayed_start(self):
+        if self._delay_id is not None:
+            glib.source_remove(self._delay_id)
+            self._delay_id = None
+    
+    def _should_delay_start(self):
+        delay = settings.get_option('%s/auto_advance_delay' % self._name, 0)
+        if delay <= 0:
+            return False
+        self.pause()
+        self._delay_id = glib.timeout_add(int(delay), self._unpause) 
+        return True
+    
     def play(self, track, **kwargs):
         """
             Starts the playback with the provided track
@@ -214,6 +228,7 @@ class ExailePlayer(object):
                 * `playback_player_end`: indicates the end of playback overall
                 * `playback_track_end`: indicates playback end of a track
         """
+        self._cancel_delayed_start()
         if self.is_playing() or self.is_paused():
             prev_current = self._stop(**kwargs)
 
@@ -233,6 +248,7 @@ class ExailePlayer(object):
 
                 * `playback_player_pause`: indicates that the playback has been paused
         """
+        self._cancel_delayed_start()
         if self.is_playing():
             self._pause()
             event.log_event('playback_player_pause', self, self.current)
@@ -250,6 +266,7 @@ class ExailePlayer(object):
 
                 * `playback_player_resume`: indicates that the playback has been resumed
         """
+        self._cancel_delayed_start()
         if self.is_paused():
             self._unpause()
             event.log_event('playback_player_resume', self, self.current)

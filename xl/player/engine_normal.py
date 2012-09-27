@@ -43,6 +43,7 @@ logger = logging.getLogger(__name__)
 
 class NormalPlayer(_base.ExailePlayer):
     def __init__(self, name):
+        self._last_position = 0
         self._current = None
         self._buffered_track = None
         self._fakevideo = None
@@ -187,7 +188,10 @@ class NormalPlayer(_base.ExailePlayer):
         if not playing:
             event.log_event('playback_player_start', self, track)
         event.log_event('playback_track_start', self, track)
-
+        
+        if playing and self._should_delay_start():
+            self._last_position = 0
+        
         return True
         
     def play(self, track):

@@ -157,6 +157,27 @@ class RemoveQueuedItemWhenPlayed(widgets.CheckPreference):
 class AutoAdvancePlayer(widgets.CheckPreference):
     default = True
     name = 'player/auto_advance'
+    
+class AutoAdvanceDelay(widgets.SpinPreference, widgets.MultiConditional):
+    default = 0
+    name = "player/auto_advance_delay"
+    condition_preference_names = ['player/auto_advance', 'player/engine']
+    
+    def __init__(self, preferences, widget):
+        widgets.SpinPreference.__init__(self, preferences, widget)
+        widgets.MultiConditional.__init__(self)
+        
+    def on_check_condition(self):
+        if not self.condition_widgets[0].get_active():
+            return False
+            
+        iter = self.condition_widgets[1].get_active_iter()
+        value = self.condition_widgets[1].get_model().get_value(iter, 0)
+
+        if value == 'normal':
+            return True
+
+        return False
 
 class UnifiedConditional(widgets.Conditional):
     """

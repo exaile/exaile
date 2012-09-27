@@ -14,6 +14,12 @@
     <property name="step_increment">50</property>
     <property name="page_increment">50</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment3">
+    <property name="value">0</property>
+    <property name="upper">10000</property>
+    <property name="step_increment">50</property>
+    <property name="page_increment">50</property>
+  </object>
   <object class="GtkWindow" id="preferences_window">
     <child>
       <object class="GtkVBox" id="preferences_pane">
@@ -338,6 +344,41 @@
             <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="position">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox6">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkLabel" id="label8">
+                <property name="visible">True</property>
+                <property name="xalign">0.89999997615814209</property>
+                <property name="label" translatable="yes">Delay between tracks (ms)</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="padding">3</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="player/auto_advance_delay">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">&#x25CF;</property>
+                <property name="xalign">1</property>
+                <property name="adjustment">adjustment3</property>
+                <property name="tooltip_text" translatable="yes">Only works with the normal playback engine</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">13</property>
           </packing>
         </child>
       </object>

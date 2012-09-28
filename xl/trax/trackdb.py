@@ -83,6 +83,13 @@ class TrackDB(object):
         """
             Sets up the trackDB.
         """
+        
+        # ensure that the DB is always loaded before any tracks are, 
+        # otherwise internal values are not loaded and may be lost/corrupted
+        if Track._get_track_count() != 0:
+            raise RuntimeError(("Internal error! %d tracks already loaded, " +
+                "TrackDB must be loaded first!") % Track._get_track_count())
+        
         self.name = name
         self.location = location
         self._dirty = False

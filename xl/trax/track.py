@@ -892,7 +892,12 @@ class Track(object):
         if data == "collection/strip_list":
             cls._Track__the_cuts = settings.get_option('collection/strip_list', [])
 
-
+    ### Utility method intended for TrackDB ###
+    
+    @classmethod
+    def _get_track_count(cls):
+        '''Internal API, returns number of track objects we have'''
+        return len(cls._Track__tracksdict)
 
 event.add_callback(Track._the_cuts_cb, 'collection_option_set')
 

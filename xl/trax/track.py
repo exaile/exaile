@@ -742,6 +742,8 @@ class Track(object):
         """
             Sets the current track rating from an integer, on the
             scale determined by the ``rating/maximum`` setting.
+            
+            Returns the scaled rating
         """
         rating = float(rating)
         maximum = float(settings.get_option("rating/maximum", 5))
@@ -749,6 +751,7 @@ class Track(object):
         rating = max(0, rating)
         rating = float(rating * 100.0 / maximum)
         self.set_tag_raw('__rating', rating)
+        return rating
 
     ### Special functions for wrangling tag values ###
 

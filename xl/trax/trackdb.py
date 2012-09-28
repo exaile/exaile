@@ -78,15 +78,17 @@ class TrackDB(object):
                 one exception: If the object contains the phrase
                 'tracks' in its name it may be a list or dict
                 of :class:`Track` objects.
+        :param load_first: Set to True if this collection should be
+                loaded before any tracks are created. 
     """
-    def __init__(self, name="", location="", pickle_attrs=[]):
+    def __init__(self, name="", location="", pickle_attrs=[], loadfirst=False):
         """
             Sets up the trackDB.
         """
         
         # ensure that the DB is always loaded before any tracks are, 
         # otherwise internal values are not loaded and may be lost/corrupted
-        if Track._get_track_count() != 0:
+        if loadfirst and Track._get_track_count() != 0:
             raise RuntimeError(("Internal error! %d tracks already loaded, " +
                 "TrackDB must be loaded first!") % Track._get_track_count())
         

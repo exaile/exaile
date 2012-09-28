@@ -166,13 +166,15 @@ class TrackDB(object):
             raise AttributeError(
                     _("You did not specify a location to load the db from"))
 
+        logger.debug("Loading %s DB from %s." % (self.name, location))
+                    
         try:
             try:
-                pdata = shelve.open(self.location, flag='c',
+                pdata = shelve.open(location, flag='c',
                         protocol=common.PICKLE_PROTOCOL)
             except ImportError:
                 import bsddb3 # ArchLinux disabled bsddb in python2, so we have to use the external module
-                _db = bsddb3.hashopen(self.location, 'c')
+                _db = bsddb3.hashopen(location, 'c')
                 pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
             if pdata.has_key("_dbversion"):
                 if int(pdata['_dbversion']) > int(self._dbversion):
@@ -181,8 +183,8 @@ class TrackDB(object):
                 elif pdata['_dbversion'] < self._dbversion:
                     logger.info("Upgrading DB format....")
                     import shutil
-                    shutil.copyfile(self.location,
-                            self.location + "-%s.bak"%pdata['_dbversion'])
+                    shutil.copyfile(location,
+                            location + "-%s.bak"%pdata['_dbversion'])
                     import xl.migrations.database as dbmig
                     dbmig.handle_migration(self, pdata, pdata['_dbversion'],
                             self._dbversion)
@@ -249,15 +251,15 @@ class TrackDB(object):
             return
         self._saving = True
 
-        logger.debug("Saving %s DB to %s." % (self.name, self.location))
+        logger.debug("Saving %s DB to %s." % (self.name, location))
 
         try:
             try:
-                pdata = shelve.open(self.location, flag='c',
+                pdata = shelve.open(location, flag='c',
                         protocol=common.PICKLE_PROTOCOL)
             except ImportError:
                 import bsddb3
-                _db = bsddb3.hashopen(self.location, 'c')
+                _db = bsddb3.hashopen(location, 'c')
                 pdata = shelve.Shelf(_db, protocol=common.PICKLE_PROTOCOL)
             if pdata.get('_dbversion', self._dbversion) > self._dbversion:
                 raise common.VersionError, \

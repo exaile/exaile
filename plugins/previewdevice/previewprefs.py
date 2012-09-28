@@ -93,9 +93,6 @@ class PreviewDeviceCustomAudioSinkPreference(playback.CustomAudioSinkPreference)
 class PreviewDeviceSelectDeviceForSinkPreference(playback.SelectDeviceForSinkPreference):
     name = 'preview_device/audiosink_device'
     condition_preference_name = 'preview_device/audiosink'
-    
-class PreviewDeviceUnifiedConditional(playback.UnifiedConditional):
-    condition_preference_name = 'player/engine'
 
 class PreviewDeviceUserFadeTogglePreference(playback.UserFadeTogglePreference):
     name = 'preview_device/user_fade_enabled'

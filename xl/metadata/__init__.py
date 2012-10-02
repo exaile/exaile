@@ -43,6 +43,7 @@ formats = {
         'aiff'  : wav.WavFormat,
         'ape'   : ape.MonkeysFormat,
         'amf'   : mod.ModFormat,
+        'asf'   : asf.AsfFormat,
         'au'    : wav.WavFormat,
         'dsm'   : mod.ModFormat,
         'far'   : mod.ModFormat,

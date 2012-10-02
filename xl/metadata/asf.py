@@ -44,5 +44,13 @@ class AsfFormat(BaseFormat):
         }
     others = False
     writable = True
+    
+    def _get_tag(self, raw, t):
+        # the mutagen container for ASF returns the WM/ fields in its own
+        # unicode wrappers which are *almost* like a string.. convert them
+        # to unicode so things don't break
+        tag = super(AsfFormat, self)._get_tag(raw, t)
+        if isinstance(tag, list):
+            return [unicode(t) if isinstance(t, asf.ASFUnicodeAttribute) else t for t in tag]
 
 # vim: et sts=4 sw=4

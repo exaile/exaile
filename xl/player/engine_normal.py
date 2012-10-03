@@ -218,10 +218,10 @@ class NormalPlayer(_base.ExailePlayer):
                          moments of the prior track will be cut off.
         """
         self._buffered_track = None
-        self._update_playtime()
         current = self.current
         if not _onlyfire:
             self._pipe.set_state(gst.STATE_NULL)
+        self._update_playtime()
         self._current = None
         event.log_event('playback_track_end', self, current)
         return current

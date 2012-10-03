@@ -63,6 +63,8 @@ def _enable(eventname, exaile, nothing):
     global plugin
     plugin = GroupTaggerPlugin(exaile)
     
+    event.remove_callback(_enable, 'gui_loaded')
+    
 def disable(exaile):
     '''Called on plugin disable'''
     

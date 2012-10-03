@@ -58,6 +58,8 @@ def _enable(eventname, exaile, nothing):
     global plugin
     plugin = BPMCounterPlugin(exaile)
     
+    event.remove_callback(_enable, 'gui_loaded')
+    
 def disable(exaile):
     '''Called on plugin disable'''
     

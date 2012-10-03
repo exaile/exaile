@@ -1,4 +1,6 @@
+
 from xl import main as ex, trax, common, event, xdg, settings, providers
+from xl import player
 from xl.trax import search, util
 from xl.nls import gettext as _
 from xlgui import oldmenu as menu
@@ -85,11 +87,11 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.drag_source_set_icon_stock(gtk.STOCK_DND)
 
         event.add_callback(self.on_playback_start, 'playback_track_start',
-            ex.exaile().player)
+            player.PLAYER)
         event.add_callback(self.on_playback_end, 'playback_track_end',
-            ex.exaile().player)
+            player.PLAYER)
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
-            ex.exaile().player)
+            player.PLAYER)
 
         self.get_settings().set_property('enable-developer-extras', True)
 
@@ -157,18 +159,21 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.next()
 
     def on_lyrics(self, widget=None,param=None):
-        self.push(LyricsPage(self.theme, ex.exaile().player._get_current()))
+        current_track = player.PLAYER.current
+        if current_track is not None:
+            self.push(LyricsPage(self.theme, current_track))
 
     def on_refresh_page(self, widget=None,param=None):
         self.currentpage.reinit()
         self.load(self.currentpage)
 
     def on_home_clicked(self, widget=None,param=None):
-        if ex.exaile().player._get_current() and self.currentpage != self.nowplaying:
+        current_track = player.PLAYER.current
+        if current_track is not None and self.currentpage != self.nowplaying:
             if self.nowplaying:
                 self.push(self.nowplaying)
             else:
-                self.set_playing(ex.exaile().player._get_current())
+                self.set_playing(current_track)
         else:
             self.push(DefaultPage(self.theme))
 
@@ -462,13 +467,6 @@ def get_top_artists(field, limit):
 
 class ContextPage(object):
 
-    TRACK_ICO_PATH = xdg.get_data_path('images/16x16/audio-x-generic.png')
-    ARTIST_ICO_PATH = xdg.get_data_path("images/16x16/artist.png")
-    SEARCH_ICO_PATH = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_FIND,
-        gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG).get_filename()
-    ALBUM_ICO_PATH = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_CDROM,
-        gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG).get_filename()
-
     def __init__(self, theme, base, template, async=[]):
         templatefile = open(theme.path+template)
         self.template = templatefile.read()
@@ -641,7 +639,7 @@ class ContextPage(object):
     def get_track_anchor_from_track(self, track, img=True):
         css_class = ''
         try:
-            if track == ex.exaile().player._get_current():
+            if track == player.PLAYER.current:
                 css_class = 'current'
         except: pass
         if img:
@@ -683,6 +681,27 @@ class ContextPage(object):
 
     def track_in_collection(self, artist, title):
         return track_in_collection(artist, title)
+        
+def __setup_context_page():
+    '''Some of these icons may not exist'''
+    
+    ContextPage.TRACK_ICO_PATH = xdg.get_data_path('images/16x16/audio-x-generic.png')
+    ContextPage.ARTIST_ICO_PATH = xdg.get_data_path("images/16x16/artist.png")
+    
+    ContextPage.SEARCH_ICO_PATH = None
+    search_icon = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_FIND,
+        gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG)
+    if search_icon is not None:
+        ContextPage.SEARCH_ICON_PATH = search_icon.get_filename()
+        
+    ContextPage.ALBUM_ICO_PATH = None
+    album_icon = gtk.icon_theme_get_default().lookup_icon(gtk.STOCK_CDROM,
+        gtk.ICON_SIZE_SMALL_TOOLBAR, gtk.ICON_LOOKUP_NO_SVG)
+    if album_icon is not None:
+        ContextPage.ALBUM_ICO_PATH = album_icon.get_filename()
+    
+__setup_context_page()
+        
 
 class DefaultPage(ContextPage):
 
@@ -1184,15 +1203,17 @@ def exaile_ready(object=None, a=None, b=None):
     global PANEL
     PANEL = ContextPanel(xlgui.get_controller().main)
     xlgui.get_controller().add_panel(*PANEL.get_panel())
+    
+    event.remove_callback(exaile_ready, 'exaile_loaded')
 
 def enable(exaile):
     """
         Adds 'Contextual' tab to side panel
     """
-    if xlgui.get_controller():
+    if not exaile.loading:
         exaile_ready()
     else:
-        event.add_callback(exaile_ready, 'gui_loaded')
+        event.add_callback(exaile_ready, 'exaile_loaded')
     return True
 
 def disable(exaile):
@@ -1200,5 +1221,4 @@ def disable(exaile):
         Removes tab
     """
     global PANEL
-    event.remove_callback(exaile_ready, 'gui_loaded')
     xlgui.get_controller().remove_panel(PANEL.get_panel()[0])

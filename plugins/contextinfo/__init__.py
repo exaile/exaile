@@ -182,7 +182,13 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.refresh_button_image.set_from_stock(gtk.STOCK_REFRESH, 1)
 
     def on_field_refresh(self, type=None, obj=None, data=None):
-        self.execute_script(self.refresh_script % (data[0], u'%s' % data[1].replace('"', '\\"').replace('\n', '\\\n'), data[0]))
+        '''
+           This is frequently called on a different thread, should 
+           always execute the script on the main thread. If not, 
+           errors may occur
+        '''
+        script = self.refresh_script % (data[0], u'%s' % data[1].replace('"', '\\"').replace('\n', '\\\n'), data[0])
+        glib.idle_add(self.execute_script, script)
 
     def push(self, page):
         self.history = self.history[:self.history_index+1]

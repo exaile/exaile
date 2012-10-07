@@ -50,11 +50,14 @@ class AudioSinkPreference(widgets.ComboPreference):
         widgets.ComboPreference.__init__(self, preferences, widget)
         model = self.widget.get_model()
         
-        # always list auto first
+        # always list auto first, custom last
         def _sink_cmp(x,y):
-            if x[0] == y[0] or 'auto' not in (x[0],y[0]):
+            xy = (x[0],y[0])
+            if x[0] == y[0] or ('auto' not in xy and 'custom' not in xy):
                 return cmp(x[0],y[0])
             if x[0] == 'auto':
+                return -1
+            if y[0] == 'custom':
                 return -1
             return 1
                 

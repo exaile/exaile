@@ -335,6 +335,9 @@ SINK_PRESETS = {
         "directsound" : {
             "name"      : "DirectSound",
             "pipe"      : "directsoundsink"
+        },
+        "custom" : {
+            "name"      : _("Custom")
         }
 }
 

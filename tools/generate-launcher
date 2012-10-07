@@ -9,14 +9,17 @@ PREFIX=${2:-/usr/local}
 LIBDIR=${3:-/lib}
 PYTHON2_CMD=${4:-python2}
 
-if (which realpath > /dev/null); then
-  PREFIX=`realpath $PREFIX`
-elif (which readlink > /dev/null); then
-  PREFIX=`readlink -f $PREFIX`
-elif test "${PREFIX:0:1}" != "/"; then
-  echo "Please use an absolute path for PREFIX, or install either realpath or readlink"
-  exit 1
-fi
+# realpath/readlink misbehave on OSX
+#if (command -v realpath > /dev/null); then
+#  PREFIX=`realpath $PREFIX`
+#elif (command -v readlink > /dev/null); then
+#  PREFIX=`readlink -f $PREFIX`
+#elif test "${PREFIX:0:1}" != "/"; then
+#  echo "Please use an absolute path for PREFIX, or install either realpath or readlink"
+#  exit 1
+#fi
+
+PREFIX=`$PYTHON2_CMD -c 'import os,sys;print os.path.realpath(sys.argv[1])' $PREFIX`
 
 cd ${DESTDIR}${PREFIX}/bin && \
 cat <<EOF > exaile

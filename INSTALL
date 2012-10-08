@@ -1,4 +1,8 @@
-To install:
+
+Linux/*nix
+==========
+
+On *nix-based systems, run the following to install:
 
   $ make
   # make install
@@ -8,7 +12,24 @@ The "make" step is optional and only compiles the modules and translations.
 There is also an install_no_locale target if you wish to install without 
 translations.
 
+Install on OSX
+==============
 
+On OSX with macports, you probably want to run the following:
+
+    $ make
+    # DEFAULTARGS="--no-hal --no-dbus" PREFIX=/opt/local make install
+    
+See README.OSX for more information.
+
+Windows
+=======
+
+On Windows, using the official Windows installation program is recommended.
+See README.Windows for more information. 
+
+Environment Variables
+=====================
 
 Environment variables that affect "make install":
 
@@ -29,6 +50,9 @@ Environment variables that affect "make install":
     Destination directory to put the file structure under. Mainly of use for
       packagers.
     Default: not set (/)
+  DEFAULTARGS
+    Default arguments that the 'exaile' launcher script (installed to 
+    $PREFIX/bin/exaile) will pass to exaile on startup
 
 
 

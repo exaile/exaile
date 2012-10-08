@@ -1,0 +1,126 @@
+
+Exaile Notes/Installation for OSX
+=================================
+
+Exaile support for OSX is currently limited, as no current developers 
+actively maintain/use Exaile on OSX. Usage of Exaile on OSX is considered
+experimental at this point, and is only recommended for technical users.
+
+However, it *is* known to work. If you find this isn't the case, report
+any bugs you find to https://bugs.launchpad.net/exaile 
+
+Exaile has been found to work using PyGTK and GStreamer installed from 
+Macports. We have not explored other ways to run it. 
+
+Install Dependencies using Macports
+===================================
+
+First, you must install macports. See http://www.macports.org/install.php
+for information on how to do this. 
+
+Second, it is believed that X11 is required to run things that use GTK on
+OSX installed by macports. You should ensure that X11 is installed on your
+system. According to the macports website:
+
+    (Optional) The X11 windowing environment for ports that depend on the
+    functionality it provides to run.  You have multiple choices for an 
+    X11 server:
+
+    - Apple's X11.app is provided by the “X11 User” package (an optional 
+    installation on your system CDs/DVD for older OS Versions and provided
+    unconditionally on Lion).
+    - Install the xorg-server port from MacPorts.
+    - The XQuartz Project (http://xquartz.macosforge.org/) provides a 
+    complete X11 release for OS X including server and client libraries and
+    applications.
+
+The following macports packages *must* be installed from macports for Exaile 
+to function. Some plugins may require other packages.
+
+    python27
+    py27-gtk
+    py27-mutagen
+    py27-gst-python
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-ugly
+    
+You can install these using the standard macports install command:
+
+    sudo port install PACKAGENAME [PACKAGENAME2 ... ]
+    
+After installing python27, we recommend that you set the Macports version of
+python to be the default. You can execute the following commands to do this: 
+
+    sudo port install python_select
+    sudo port select python python27
+    
+Exaile Installation
+===================
+
+You should be able to install Exaile using the following command:
+
+    DEFAULTARGS="--no-hal --no-dbus" PREFIX=/opt/local make install
+    
+Running Exaile 
+==============
+
+Before starting exaile, you must ensure that X11 is running. If X11 is not 
+running, you will get a lot of errors complaining about DISPLAY not found 
+or "GDK_IS_WINDOW() == NULL", and exaile will crash. 
+    
+To start Exaile, open up a terminal, type 'exaile', and hit enter.
+
+If you create a file somewhere called 'exaile.sh', and put the following
+text in it (without the leading spaces), and run 'chmod +x exaile.sh' on
+the file, you should be able to run exaile from finder by double clicking
+the file. 
+
+    #!/bin/sh
+    exaile
+
+TODO: Figure out an easy way to create an icon for Exaile in finder. It's
+probably easy to do, but someone with more OSX experience will know the
+proper way to do this. 
+
+    
+Changing the way Exaile looks
+=============================
+
+By default, macports installs a pretty ugly GTK theme on OSX, and Exaile 
+does not look anything like other apps on OSX. You can install the 
+gtk-theme-switch and gnome-themes packages from macports, and then run 
+'switch2' to change the theme for your user. 
+    
+Selecting an output device on OSX
+=================================
+
+GStreamer only directly supports the primary output device on OSX. However, 
+you can specify a particular device to output audio on, but there isn't 
+currently a way through gstreamer to determine which devices exist on the 
+system. If you know the device ID of the device, you can set it in exaile 
+by setting the Audio Sink to 'Custom', with the following set as the 
+"Custom sink pipeline" option:
+
+    osxaudiosink device=X
+
+You can use another program to query the device IDs of various audio devices
+on your system. For example, mplayer can be used to show you all of the 
+devices on the system:
+
+    mplayer -ao coreaudio:help "path to audio file"
+    
+It will have output looking something like this:
+
+    Available output devices:
+    Built-in Microphone (id:260)
+    Built-in Input (id:258)
+    Built-in Output (id:262)
+    C-Media USB Audio Device (id:260)
+    C-Media USB Audio Device (id:258)
+    
+So if you wanted the USB audio device as your output device, then in Exaile 
+under the playback settings, you would set the output device to be 'Custom', 
+and specify the custom sound sink to be:
+
+    osxaudiosink device=260

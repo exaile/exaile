@@ -94,6 +94,8 @@ class CollectionContextMenu(menu.ProviderMenu):
 
     def get_context(self):
         context = common.LazyDict(self._parent)
+        context['selection-count'] = lambda name, parent: \
+            parent.tree.get_selection_count()
         context['selected-tracks'] = lambda name, parent: \
             parent.tree.get_selected_tracks()
         return context
@@ -768,6 +770,14 @@ class CollectionDragTreeView(DragTreeView):
         # TODO: Make faster
         #self.tooltip = CollectionToolTip(self)
 
+    def get_selection_count(self):
+        '''
+            Returns the number of items currently selected in the
+            playlist. Prefer this to len(get_selected_tracks()) et al
+            if you will discard the actual track list
+        '''
+        return self.get_selection().count_selected_rows()
+        
     def get_selected_tracks(self):
         """
             Returns the currently selected tracks

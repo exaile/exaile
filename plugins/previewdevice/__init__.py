@@ -161,7 +161,7 @@ class SecondaryOutputPlugin(object):
         
         self.preview_menuitem = menu.simple_menu_item('preview', [], 
                 _('Preview'), callback=self._on_preview,
-                condition_fn=lambda n,p,c: len(c['selected-tracks']) != 0)
+                condition_fn=lambda n,p,c: c['selection-count'] != 0)
         
         # TODO: Setup on other context menus
         self.preview_provides = [ 'files-panel-context-menu',

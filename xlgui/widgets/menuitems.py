@@ -45,6 +45,9 @@ from xlgui import properties
 
 def generic_get_tracks_func(parent, context):
     return context.get('selected-tracks', [])
+    
+def generic_get_trackscount_func(parent, context):
+    return context.get('selection-count', 0)
 
 class RatingMenuItem(menu.MenuItem):
     """

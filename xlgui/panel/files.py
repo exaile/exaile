@@ -87,6 +87,9 @@ class FilesContextMenu(menu.ProviderMenu):
         def get_selected_tracks(name, parent):
             return parent.tree.get_selected_tracks() or []
         context['selected-tracks'] = get_selected_tracks
+        context['selection-count'] = lambda name, parent: \
+            parent.tree.get_selection_count()
+        
         return context
 
 class FilesPanel(panel.Panel):
@@ -484,6 +487,14 @@ class FilesDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from files
     """
+    def get_selection_count(self):
+        '''
+            Returns the number of items currently selected in the
+            playlist. Prefer this to len(get_selected_tracks()) et al
+            if you will discard the actual track list
+        '''
+        return self.get_selection().count_selected_rows()
+    
     def get_selected_tracks(self):
         """
             Returns the currently selected tracks

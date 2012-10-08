@@ -181,7 +181,7 @@ class RandomizeMenuItem(menu.MenuItem):
         """
         label = _('Randomize Playlist')
 
-        if len(context['selected-items']) > 1:
+        if context['selection-count'] > 1:
             label = _('Randomize Selection')
 
         item = gtk.MenuItem(label)
@@ -245,6 +245,7 @@ class PlaylistContextMenu(menu.ProviderMenu):
     def get_context(self):
         context = common.LazyDict(self._parent)
         context['playlist'] = lambda name, parent: parent.playlist
+        context['selection-count'] = lambda name, parent: parent.get_selection_count()
         context['selected-paths'] = lambda name, parent: parent.get_selected_paths()
         context['selected-items'] = lambda name, parent: parent.get_selected_items()
         context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
@@ -650,6 +651,14 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self.modelfilter.refilter()
             logger.debug("Filtering playlist '%s' by '%s' completed." % (self.playlist.name, filter_string))
         
+    def get_selection_count(self):
+        '''
+            Returns the number of items currently selected in the
+            playlist. Prefer this to len(get_selected_tracks()) et al
+            if you will discard the actual track list
+        '''
+        return self.get_selection().count_selected_rows()
+        
     def get_selected_tracks(self):
         """
             Returns a list of :class:`xl.trax.Track`
@@ -826,6 +835,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         
     def on_cursor_changed(self, widget):
         context = common.LazyDict(self)
+        context['selection-count'] = lambda name, parent: parent.get_selection_count()
         context['selected-items'] = lambda name, parent: parent.get_selected_items()
         context['selected-tracks'] = lambda name, parent: parent.get_selected_tracks()
         event.log_event( 'playlist_cursor_changed', self, context)

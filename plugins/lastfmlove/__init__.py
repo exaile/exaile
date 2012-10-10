@@ -192,7 +192,7 @@ class LoveMenuItem(MenuItem):
             trackslen = len(tracks)
         else:
             trackslen = context.get('selection-count', 0) 
-            if tracklen > 0:
+            if trackslen > 0:
                 tracks = context.get('selected-tracks', [])
 
         if trackslen > 0 and LASTFMLOVER.network is not None:

@@ -900,9 +900,9 @@ class PlaylistExportDialog(FileOperationDialog):
             Displays simple dialogs on messages
         """
         if message_type == gtk.MESSAGE_INFO:
-            info(None, message)
+            info(None, markup=message)
         elif message_type == gtk.MESSAGE_ERROR:
-            error(None, message)
+            error(None, markup=message)
 
     def on_response(self, dialog, response):
         """

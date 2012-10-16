@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.24"/>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkWindow" id="BPMCounter">
     <property name="visible">True</property>
     <property name="can_focus">True</property>
@@ -29,13 +30,13 @@
         <child>
           <object class="GtkButton" id="apply_button">
             <property name="label" translatable="yes">Apply BPM</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="can_default">True</property>
             <property name="has_default">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Apply the currently calculated BPM to the currently playing song</property>
-            <property name="use_action_appearance">False</property>
           </object>
           <packing>
             <property name="expand">False</property>

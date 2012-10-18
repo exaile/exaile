@@ -112,7 +112,8 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
         self.info_area.set_default_text('')
         self.info_area.set_auto_update(True)
         self.add(self.info_area)
-
+        
+        event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
         event.add_callback(self.on_option_set, 'plugin_osd_option_set')
 
         # Trigger initial setup trough options
@@ -132,6 +133,7 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
             Cleanups
         """
         event.remove_callback(self.on_option_set, 'plugin_osd_option_set')
+        event.remove_callback(self.on_track_tags_changed, 'track_tags_changed')
 
         gtk.Window.destroy(self)
 
@@ -324,6 +326,10 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
 
         gtk.Window.do_leave_notify_event(self, e)
 
+    def on_track_tags_changed(self, e, track, tag):
+        if not tag.startswith('__') and track == player.PLAYER.current:
+            self.on_playback_track_start(e, player.PLAYER, track)
+        
     def on_playback_track_start(self, e, player, track):
         """
             Shows the OSD upon track change

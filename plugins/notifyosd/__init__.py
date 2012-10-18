@@ -156,7 +156,7 @@ class ExaileNotifyOsd(object):
 
     def on_changed(self, type, track, tag):
         # ignore internal tag changes
-        if self.notify_change and not tag.startswith('__') and track == player.current:
+        if self.notify_change and not tag.startswith('__') and track == player.PLAYER.current:
             self.update_track_notify(type, player.PLAYER, track)
 
     def on_tooltip(self, *e):

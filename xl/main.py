@@ -34,6 +34,7 @@
 import logging
 import logging.handlers
 import os
+import platform
 import sys
 
 try:
@@ -163,7 +164,7 @@ class Exaile(object):
             Initializes Exaile
         """
         # pylint: disable-msg=W0201
-        logger.info("Loading Exaile %s..." % __version__)
+        logger.info("Loading Exaile %s on Python %s..." % (__version__, platform.python_version()))
 
         logger.info("Loading settings...")
         try:

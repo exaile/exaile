@@ -92,7 +92,9 @@ class Main(object):
             icon_name = 'media-playlist-%s' % name
             icons.MANAGER.add_icon_name_from_directory(icon_name,
                 xdg.get_data_path('images'))
-
+        
+        logger.info("Using GTK+ %s" % '.'.join(map(str,gtk.gtk_version)))
+        
         logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.builder, exaile.collection)
 

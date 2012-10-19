@@ -71,7 +71,7 @@ class PlaybackAdapter(object):
         """ Override """
         pass
 
-    def on_playback_error(self, event, player):
+    def on_playback_error(self, event, player, message):
         """ Override """
         pass
 

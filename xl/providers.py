@@ -92,17 +92,20 @@ class ProviderManager(object):
         if servicename not in self.services:
             return
         try:
-            if provider in self.services[servicename]:
-                self.services[servicename].remove(provider)
-            logger.debug(
-                "Provider %(provider)s unregistered from "
-                "service %(service)s with target %(target)s" % {
-                    'provider' : provider.name,
-                    'service' : servicename,
-                    'target' : target
-                }
-            )
-            event.log_event("%s_provider_removed" % servicename, self, (provider, target))
+            service = self.services[servicename]
+            if provider in service[target]:
+                service[target].remove(provider)
+                logger.debug(
+                    "Provider %(provider)s unregistered from "
+                    "service %(service)s with target %(target)s" % {
+                        'provider' : provider.name,
+                        'service' : servicename,
+                        'target' : target
+                    }
+                )
+                event.log_event("%s_provider_removed" % servicename, self, (provider, target))
+                if not service[target]: #no values for target key then del it
+                    del service[target]
         except KeyError:
             return
 

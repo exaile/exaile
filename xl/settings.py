@@ -315,9 +315,11 @@ class SettingsManager(RawConfigParser):
 
         self._saving = False
         self._dirty = False
+        
+location = xdg.get_config_dir()
 
 MANAGER = SettingsManager(
-    os.path.join(xdg.get_config_dir(), "settings.ini" ),
+    os.path.join(location, "settings.ini"),
     xdg.get_config_path("settings.ini")
 )
 

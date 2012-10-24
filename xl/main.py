@@ -172,6 +172,8 @@ class Exaile(object):
         except common.VersionError:
             common.log_exception(log=logger)
             exit(1)
+            
+        logger.debug("Settings loaded from %s" % settings.location)
 
         splash = None
 

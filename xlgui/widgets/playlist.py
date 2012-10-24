@@ -594,6 +594,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.button_pressed = False # used by columns to determine whether
                                     # a notify::width event was initiated
                                     # by the user.
+        self._insert_focusing = False
 
         self.set_fixed_height_mode(True) # MASSIVE speedup - don't disable this!
         self.set_rules_hint(True)
@@ -733,6 +734,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         #self.model.columns = columns
         # TODO: What is the fixme talking about?
         self.model = PlaylistModel(self.playlist, columns, self.player)
+        self.model.connect('row-inserted', self.on_row_inserted)
         self.set_model(self.model)
         self._setup_filter()
 
@@ -848,6 +850,19 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             return
 
         self._play_track_at(position, track, True)
+        
+    def on_row_inserted(self, model, path, iter):
+        '''
+            When something is inserted into the playlist, focus on it. If 
+            there are multiple things inserted, focus only on the first. 
+        '''
+        def _set_cursor():
+            self.set_cursor(path)
+            self._insert_focusing = False
+            
+        if not self._insert_focusing:
+            self._insert_focusing = True
+            glib.idle_add(_set_cursor)
 
     def do_button_press_event(self, e):
         """

@@ -1,5 +1,5 @@
-Version="0.1"
+Version="0.2"
 Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
-Name="BPM Counter"
-Description="Manual BPM counter" 
+Name=_("BPM Counter")
+Description=_("Manual BPM counter")
 Category=_('Utility')

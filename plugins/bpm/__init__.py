@@ -33,7 +33,6 @@ import gobject
 from xl import (
     event, 
     providers,
-    player,
     settings
 )
 
@@ -56,7 +55,8 @@ def enable(exaile):
 def _enable(eventname, exaile, nothing):
 
     global plugin
-    plugin = BPMCounterPlugin(exaile)
+    if plugin is None:
+        plugin = BPMCounterPlugin()
     
     event.remove_callback(_enable, 'gui_loaded')
     
@@ -72,14 +72,30 @@ def disable(exaile):
 class BPMCounterPlugin(object):
     '''Implements logic for plugin'''
 
-    def __init__(self, exaile):
+    # info-area-widget provider API requirement
+    name = 'BPM'
     
-        self.window = None
-        self.taps = []
+    def __init__(self):
+        providers.register('info-area-widget', self)
+    
+    def disable_plugin(self):
+        '''Called when the plugin is disabled'''
+        providers.unregister('info-area-widget', self)
         
-        self.MENU_ITEM = menu.simple_menu_item('bpm_counter', ['plugin-sep'], _('BPM Counter'),
-            callback=lambda *x: self.enable(exaile))
-        providers.register('menubar-tools-menu', self.MENU_ITEM)
+    def create_widget(self, info_area):
+        '''
+            info-area-widget provider API method
+        '''
+        return BPMWidget(info_area.get_player())
+        
+
+class BPMWidget(gtk.Frame):
+
+    def __init__(self, player):
+        gtk.Frame.__init__(self, _('BPM Counter'))
+        
+        self.player = player
+        self.taps = []
         
         # TODO: Add preferences to adjust these settings..
         
@@ -89,67 +105,42 @@ class BPMCounterPlugin(object):
         # if no tap received, then restart
         self.stale_time = settings.get_option('plugin/bpm/stale_period', 2.0)
         
-        self.accelerator = Accelerator('<Control>b', lambda *x: self.enable(exaile))
-        providers.register('mainwindow-accelerators',self.accelerator)
-
+        #info_label = gtk.Label(_('BPM Counter'))
+        self.eventbox = gtk.EventBox()
+        #self.eventbox.set_visible_window(False)
+        self.bpm_label = gtk.Label(_('click'))
+        self.apply_button = gtk.Button(_('Apply BPM'))
         
+        vbox = gtk.VBox()
+        w, h = self.bpm_label.size_request()
+        self.eventbox.add(self.bpm_label)
+        self.eventbox.props.can_focus = True
+        vbox.pack_start(self.eventbox, False, False, padding=h/2) # add some space
+        vbox.pack_start(self.apply_button, False, False)
         
-    
-    def disable_plugin(self):
-        '''Called when the plugin is disabled'''
-        
-        if self.MENU_ITEM:
-            providers.unregister('menubar-tools-menu', self.MENU_ITEM)
-            self.MENU_ITEM = None
-        
-        if self.accelerator:
-            providers.unregister('mainwindow-accelerator', self.accelerator)
-        
-        if self.window:
-            self.window.hide()
-            self.window.destroy()
-        
-    
-    def enable(self, exaile):
-        '''Called when the user selects the BPM counter from the menu'''
-    
-        if self.window is not None:
-            self.window.present()
-            return
-    
-        self.ui = gtk.Builder()
-        self.ui.add_from_file(os.path.join( os.path.dirname(
-                os.path.realpath(__file__)),'bpm.glade'))
-        
-        # get objects
-        self.window = self.ui.get_object("BPMCounter")
-        self.bpm_label = self.ui.get_object("bpm_label")
-        self.apply_button = self.ui.get_object('apply_button')
+        self.add(vbox)
         
         # attach events
-        self.window.connect('destroy', self.on_destroy)
-        self.window.connect('button-release-event', self.on_window_click )
-        self.window.connect('key-press-event', self.on_window_keydown )
+        self.eventbox.connect('focus-out-event', self.on_focus_out)
+        self.connect('destroy', self.on_destroy)
+        self.connect('button-release-event', self.on_click )
+        self.eventbox.connect('key-press-event', self.on_keydown )
         
         self.apply_button.connect('pressed', self.on_apply_button_pressed )
     
         # ok, register for some events
-        event.add_callback( self.playback_track_start, 'playback_track_start' )
+        event.add_callback(self.playback_track_start, 'playback_track_start', self.player)
         
         # get the main exaile window, and dock our window next to it if possible
         
         # trigger start event if exaile is currently playing something
-        if player.PLAYER.is_playing():
-            self.playback_track_start( None, player.PLAYER, player.PLAYER.current )
+        if self.player.is_playing():
+            self.playback_track_start(None, self.player, self.player.current)
         else:
             self.track = None
             self.bpm = None
             self.taps = []
             self.update_ui()
-        
-        # and we're done
-        self.window.show_all()
-        
         
     #
     # Exaile events
@@ -162,28 +153,21 @@ class BPMCounterPlugin(object):
         self.taps = []
         
         self.update_ui(False)
-        
-        
+    
     #
     # UI Events
     #
     
     def on_destroy(self, widget):
-        
-        if self.window is None:
-            return
-    
         # de-register the exaile events
-        event.remove_callback( self.playback_track_start, 'playback_track_start' )
-        
-        # finish the GUI off
-        self.window = None
+        event.remove_callback(self.playback_track_start, 'playback_track_start', self.player)
+    
     
     def on_apply_button_pressed(self, widget):
         self.set_bpm()
     
     
-    def on_window_keydown(self, widget, event):
+    def on_keydown(self, widget, event):
                 
         if event.keyval == gtk.keysyms.Return:
             self.set_bpm()
@@ -192,15 +176,24 @@ class BPMCounterPlugin(object):
         if widget == self.apply_button:
             return False
             
-        self.add_bpm_tap()
-        return True
-    
-    def on_window_click(self, widget, event):
-        if widget == self.apply_button:
-            return False
+        if event.keyval == gtk.keysyms.Escape:
+            self.taps = []
             
         self.add_bpm_tap()
         return True
+    
+    def on_click(self, widget, event):
+        if widget == self.apply_button:
+            return False
+        
+        self.eventbox.set_state(gtk.STATE_SELECTED)
+        self.eventbox.grab_focus()
+        
+        self.add_bpm_tap()
+        return True
+        
+    def on_focus_out(self, widget, event):
+        self.eventbox.set_state(gtk.STATE_NORMAL)
         
             
     #
@@ -217,7 +210,7 @@ class BPMCounterPlugin(object):
             if current - self.taps[-1] > self.stale_time:
                 self.taps = []
 
-        self.taps.append( current )
+        self.taps.append(current)
         self.trim_taps()
         
         if len(self.taps) > 1:
@@ -236,7 +229,7 @@ class BPMCounterPlugin(object):
         '''Make sure we don't accidentally set BPM on things'''
         if self.track and self.bpm:
             
-            msg = gtk.MessageDialog(self.window, gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
+            msg = gtk.MessageDialog(self.get_toplevel(), gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
                 _('Set BPM of %d on %s?') % (int(self.bpm), self.track.get_tag_display('title')))
             msg.set_default_response( gtk.RESPONSE_NO )
             result = msg.run()
@@ -254,15 +247,13 @@ class BPMCounterPlugin(object):
         '''Updates the current UI display'''
         
         if self.bpm is None:
-            self.bpm_label.set_label( '-' )
+            self.bpm_label.set_label(_('click'))
             self.apply_button.set_sensitive(False)
         else:
-            self.bpm_label.set_label( self.bpm )
+            self.bpm_label.set_label(self.bpm)
             
             if self.track is not None:
                 self.apply_button.set_sensitive(apply_enabled)
-                if apply_enabled:
-                    self.window.set_default(self.apply_button)
             else:
                 self.apply_button.set_sensitive(False)
     

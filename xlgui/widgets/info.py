@@ -55,8 +55,10 @@ class TrackInfoPane(gtk.Alignment, providers.ProviderHandler):
         instance as a parameter, and that returns a gtk.Widget to be 
         inserted into the widget_area of the info area, and an attribute 
         'name' that will be used when removing the provider.
+        
+        The provider is only used when on_main_ui is set to True
     """
-    def __init__(self, player):
+    def __init__(self, player, on_main_ui=False):
         gtk.Alignment.__init__(self, xscale=1, yscale=1)
         self.__player = player
         
@@ -91,8 +93,9 @@ class TrackInfoPane(gtk.Alignment, providers.ProviderHandler):
         guiutil.gtk_widget_replace(builder.get_object('progressbar'),
             self.progressbar)
             
-        self.__widget_area_widgets = {}
-        providers.ProviderHandler.__init__(self, 'info-area-widget', target=player, simple_init=True)
+        if on_main_ui:
+            self.__widget_area_widgets = {}
+            providers.ProviderHandler.__init__(self, 'info-area-widget', target=player, simple_init=True)
 
         self.clear()
 

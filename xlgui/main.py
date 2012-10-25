@@ -205,7 +205,7 @@ class MainWindow(gobject.GObject):
         )
         self.message.connect('response', self.on_messagebar_response)
 
-        self.info_area = info.TrackInfoPane(player.PLAYER)
+        self.info_area = info.TrackInfoPane(player.PLAYER, on_main_ui=True)
         self.info_area.set_auto_update(True)
         self.info_area.set_padding(3, 3, 3, 3)
         self.info_area.hide_all()

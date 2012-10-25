@@ -174,6 +174,9 @@ class MiniMode(gtk.Window):
             Updates the appearance if
             settings have been changed
         """
+        h = None
+        v = None
+        
         if self.__dirty:
             for option, default in self.__defaults.iteritems():
                 value = settings.get_option(option, default)
@@ -206,17 +209,27 @@ class MiniMode(gtk.Window):
                     self.emit('screen-changed', self.get_screen())
                     self.realize()
                 elif option == 'plugin/minimode/horizontal_position':
-                    x, y = self.get_position()
-                    self.move(value, y)
+                    h = value
                 elif option == 'plugin/minimode/vertical_position':
-                    x, y = self.get_position()
-                    self.move(x, value)
+                    v = value
+                    
 
             self.__dirty = False
 
         self.resize(*self.size_request())
         self.queue_draw()
         gtk.Window.do_show(self)
+        
+        # GTK (or perhaps the theme?) likes to move the window to some 
+        # random default position while showing it... so do these at the 
+        # same time after show, otherwise it'll move on us
+        x, y = self.get_position()
+        if h is not None:
+            x = h
+        if v is not None:
+            y = v
+        
+        self.move(x, y)
 
     def do_expose_event(self, event):
         """

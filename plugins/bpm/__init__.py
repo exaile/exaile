@@ -70,22 +70,25 @@ def disable(exaile):
    
     
 class BPMCounterPlugin(object):
-    '''Implements logic for plugin'''
-
-    # info-area-widget provider API requirement
+    """
+        Implements logic for plugin
+    """
+    # Provider API requirement
     name = 'BPM'
     
     def __init__(self):
-        providers.register('info-area-widget', self)
+        providers.register('mainwindow-info-area-widget', self)
     
     def disable_plugin(self):
-        '''Called when the plugin is disabled'''
-        providers.unregister('info-area-widget', self)
+        """
+            Called when the plugin is disabled
+        """
+        providers.unregister('mainwindow-info-area-widget', self)
         
     def create_widget(self, info_area):
-        '''
-            info-area-widget provider API method
-        '''
+        """
+            mainwindow-info-area-widget provider API method
+        """
         return BPMWidget(info_area.get_player())
         
 

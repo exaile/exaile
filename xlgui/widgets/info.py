@@ -35,7 +35,6 @@ from xl import (
     event,
     formatter,
     main,
-    providers,
     settings,
     trax,
     xdg
@@ -45,20 +44,11 @@ import xlgui
 from xlgui import icons, playlist, guiutil
 from xlgui.widgets.playback import PlaybackProgressBar
 
-class TrackInfoPane(gtk.Alignment, providers.ProviderHandler):
+class TrackInfoPane(gtk.Alignment):
     """
         Displays cover art and track data
-        
-        The info-area-widget provider is used to show widgets on the right
-        of the info area. They should be small. The registered provider
-        should provide a method 'create_widget' that takes the info area 
-        instance as a parameter, and that returns a gtk.Widget to be 
-        inserted into the widget_area of the info area, and an attribute 
-        'name' that will be used when removing the provider.
-        
-        The provider is only used when on_main_ui is set to True
     """
-    def __init__(self, player, on_main_ui=False):
+    def __init__(self, player):
         gtk.Alignment.__init__(self, xscale=1, yscale=1)
         self.__player = player
         
@@ -88,14 +78,9 @@ class TrackInfoPane(gtk.Alignment, providers.ProviderHandler):
         self.action_area = builder.get_object('action_area')
         self.progress_box = builder.get_object('progress_box')
         self.playback_image = builder.get_object('playback_image')
-        self.widget_area = builder.get_object('widget_area')
         self.progressbar = PlaybackProgressBar(player)
         guiutil.gtk_widget_replace(builder.get_object('progressbar'),
             self.progressbar)
-            
-        if on_main_ui:
-            self.__widget_area_widgets = {}
-            providers.ProviderHandler.__init__(self, 'info-area-widget', target=player, simple_init=True)
 
         self.clear()
 
@@ -294,13 +279,6 @@ class TrackInfoPane(gtk.Alignment, providers.ProviderHandler):
             :rtype: :class:`gtk.VBox`
         """
         return self.action_area
-        
-    def get_player(self):
-        '''
-            Retrieves the player object that this info area
-            is associated with
-        '''
-        return self.__player
 
     def __show_progress(self):
         """
@@ -371,25 +349,6 @@ class TrackInfoPane(gtk.Alignment, providers.ProviderHandler):
         """
         if track is self.__track:
             glib.idle_add(self.set_track, track)
-            
-    def on_provider_added(self, provider):
-        name = provider.name
-        widget = provider.create_widget(self)
-        
-        old_widget = self.__widget_area_widgets.get(name)
-        if old_widget is not None:
-            self.widget_area.remove(old_widget)
-            old_widget.destroy()
-        
-        self.__widget_area_widgets[name] = widget
-        self.widget_area.pack_start(widget, False, False)
-        widget.show_all()
-    
-    def on_provider_removed(self, provider):
-        widget = self.__widget_area_widgets.pop(provider.name, None)
-        if widget is not None:
-            self.widget_area.remove(widget)
-            widget.destroy()
     
 
 # TODO: Use single info label and formatter

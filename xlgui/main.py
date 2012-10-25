@@ -205,7 +205,7 @@ class MainWindow(gobject.GObject):
         )
         self.message.connect('response', self.on_messagebar_response)
 
-        self.info_area = info.TrackInfoPane(player.PLAYER, on_main_ui=True)
+        self.info_area = MainWindowTrackInfoPane(player.PLAYER)
         self.info_area.set_auto_update(True)
         self.info_area.set_padding(3, 3, 3, 3)
         self.info_area.hide_all()
@@ -1060,7 +1060,56 @@ class MainWindow(gobject.GObject):
             return None
         if not isinstance(page, PlaylistPage):
             return None
-        return page  
+        return page
+
+class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
+    """
+        Extends the regular track info pane by an area for custom widgets
+
+        The mainwindow-info-area-widget provider is used to show widgets
+        on the right of the info area. They should be small. The registered
+        provider should provide a method 'create_widget' that takes the info
+        area instance as a parameter, and that returns a gtk.Widget to be
+        inserted into the widget_area of the info area, and an attribute
+        'name' that will be used when removing the provider.
+    """
+    def __init__(self, player):
+        info.TrackInfoPane.__init__(self, player)
+        providers.ProviderHandler.__init__(self, 'mainwindow-info-area-widget',
+            target=player, simple_init=True)
+
+        self.__player = player
+        self.widget_area = gtk.HBox()
+
+        self.get_child().pack_start(self.widget_area, expand=False, fill=False)
+
+        self.__widget_area_widgets = {}
+        
+    def get_player(self):
+        '''
+            Retrieves the player object that this info area
+            is associated with
+        '''
+        return self.__player
+            
+    def on_provider_added(self, provider):
+        name = provider.name
+        widget = provider.create_widget(self)
+        
+        old_widget = self.__widget_area_widgets.get(name)
+        if old_widget is not None:
+            self.widget_area.remove(old_widget)
+            old_widget.destroy()
+        
+        self.__widget_area_widgets[name] = widget
+        self.widget_area.pack_start(widget, False, False)
+        widget.show_all()
+    
+    def on_provider_removed(self, provider):
+        widget = self.__widget_area_widgets.pop(provider.name, None)
+        if widget is not None:
+            self.widget_area.remove(widget)
+            widget.destroy()
 
 def get_playlist_container():
     return MainWindow._mainwindow.playlist_container

@@ -342,7 +342,7 @@ class SecondaryOutputPlugin(object):
             return
 
         image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE, 
-                                         gtk.ICON_SIZE_SMALL_TOOLBAR)
+                                         gtk.ICON_SIZE_BUTTON)
         self.playpause_button.set_image(image)
         self.playpause_button.set_tooltip_text( _('Pause Playback') )
 
@@ -353,7 +353,7 @@ class SecondaryOutputPlugin(object):
         """
         
         image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY, 
-                                         gtk.ICON_SIZE_SMALL_TOOLBAR)
+                                         gtk.ICON_SIZE_BUTTON)
         self.playpause_button.set_image(image)
         self.playpause_button.set_tooltip_text( _('Start Playback'))
         
@@ -372,11 +372,11 @@ class SecondaryOutputPlugin(object):
         """
         if player.is_paused():
             image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
-                                             gtk.ICON_SIZE_SMALL_TOOLBAR)
+                                             gtk.ICON_SIZE_BUTTON)
             tooltip = _('Continue Playback')
         else:
             image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
-                                             gtk.ICON_SIZE_SMALL_TOOLBAR)
+                                             gtk.ICON_SIZE_BUTTON)
             tooltip = _('Pause Playback')
 
         self.playpause_button.set_image(image)

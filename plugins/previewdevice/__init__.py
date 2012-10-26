@@ -42,7 +42,7 @@ from xl import (
 from xl.nls import gettext as _
 
 from xlgui import cover, guiutil, main
-from xlgui.widgets import info, menu, dialogs, playback
+from xlgui.widgets import menu, dialogs, playback
 
 import previewprefs
 
@@ -117,7 +117,7 @@ class SecondaryOutputPlugin(object):
         self.pane = gtk.HPaned()
         
         # stolen from main
-        self.info_area = info.TrackInfoPane(self.player, on_main_ui=True)
+        self.info_area = main.MainWindowTrackInfoPane(self.player)
         self.info_area.set_auto_update(True)
         self.info_area.set_padding(3, 3, 3, 3)
         self.info_area.hide_all()

@@ -1075,8 +1075,6 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
     """
     def __init__(self, player):
         info.TrackInfoPane.__init__(self, player)
-        providers.ProviderHandler.__init__(self, 'mainwindow-info-area-widget',
-            target=player, simple_init=True)
 
         self.__player = player
         self.widget_area = gtk.HBox()
@@ -1085,12 +1083,16 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
 
         self.__widget_area_widgets = {}
         
+        # call this last if we're using simple_init=True
+        providers.ProviderHandler.__init__(self, 'mainwindow-info-area-widget',
+            target=player, simple_init=True)
+        
     def get_player(self):
         '''
             Retrieves the player object that this info area
             is associated with
         '''
-        return self.__player
+        return self._TrackInfoPane__player
             
     def on_provider_added(self, provider):
         name = provider.name

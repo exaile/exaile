@@ -33,7 +33,7 @@ if "%EXAILE_CONSOLE%" == "Y" set PYTHON_EXE=python.exe
 echo Detecting Exaile requirements (this may take a minute or two): 
 
 REM Detect Python in the path
-for %%X in (%PYTHON_EXE%) do (set PYTHON_BIN=%%~$PATH:X)
+for %%X in (%PYTHON_EXE%) do (set PYTHON_BIN="%%~$PATH:X")
 if defined PYTHON_BIN goto python_found
 
 REM No python in path, see if its in a default location. Prefer

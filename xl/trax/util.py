@@ -65,14 +65,17 @@ def get_tracks_from_uri(uri):
     tracks = []
 
     gloc = gio.File(uri)
+
     # don't do advanced checking on streaming-type uris as it can fail or
     # otherwise be terribly slow.
     # TODO: move uri definition somewhere more common for easy reuse?
-
     if gloc.get_uri_scheme() in ('http', 'mms', 'cdda'):
         return [Track(uri)]
 
-    file_type = gloc.query_info("standard::type").get_file_type()
+    try:
+        file_type = gloc.query_info("standard::type").get_file_type()
+    except gio.Error: # E.g. cdda
+        file_type = None
     if file_type == gio.FILE_TYPE_DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj
         from xl.collection import Library, Collection

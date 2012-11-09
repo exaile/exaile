@@ -121,8 +121,7 @@ class FlatPlaylistPanel(panel.Panel):
     def set_playlist(self, playlist):
         self.model.clear()
 
-        tracks = [track for track in playlist]
-        self.tracks = tracks
+        self.tracks = tracks = list(playlist)
         for i, track in enumerate(tracks):
             self.model.append([i + 1, track.get_tag_display("title"), track])
 

@@ -24,13 +24,190 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import logging
+import logging, threading, time
 import dbus
 
 from xl import common, providers, event, devices, settings
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
+
+class UDisks(providers.ProviderHandler):
+    """
+        Provides support for UDisks devices.
+
+        If the D-Bus connection fails, this object will grow a "failed"
+        attribute with True as the value. Plugins should check for this when
+        registering if they want to provide HAL fallback. FIXME: There's a race
+        condition here.
+    """
+
+    # States: start -> init -> addremove <-> listening -> end.
+    # The addremove state acts as a lock against concurrent changes.
+
+    def __init__(self, devicemanager):
+        self._lock = lock = threading.Lock()
+        self._state = 'init'
+        logger.debug("UDisks: state = init")
+
+        providers.ProviderHandler.__init__(self, 'udisks')
+        self.devicemanager = devicemanager
+
+        self.bus = self.obj = self.iface = None
+        self.devices = {}
+        self.providers = {}
+
+    #~ @common.threaded
+    def connect(self):
+        assert self._state == 'init'
+        logger.debug("Connecting to UDisks")
+        try:
+            self.bus = bus = dbus.SystemBus()
+            self.obj = obj = bus.get_object('org.freedesktop.UDisks', '/org/freedesktop/UDisks')
+            self.iface = iface = dbus.Interface(obj, 'org.freedesktop.UDisks')
+            iface.connect_to_signal('DeviceAdded', self._udisks_device_added)
+            iface.connect_to_signal('DeviceRemoved', self._udisks_device_removed)
+            iface.connect_to_signal('DeviceChanged', self._udisks_device_added)
+            logger.info("Connected to UDisks")
+            event.log_event("hal_connected", self, None)
+        except Exception:
+            logger.warning("Failed to connect to UDisks, " \
+                    "autodetection of devices will be disabled.")
+            common.log_exception()
+            self._state = 'listening'
+            logger.debug("UDisks: state = listening")
+            self.failed = True
+            return
+        self._state = 'addremove'
+        logger.debug("UDisks: state = addremove")
+        self._add_all()
+        self._state = 'listening'
+        logger.debug("UDisks: state = listening")
+
+    def _add_all(self):
+        assert self._state == 'addremove'
+        for path in self.iface.EnumerateDevices():
+            self._add_device(path)
+
+    def _add_device(self, path=None, obj=None):
+        """
+            Call with either path or obj (obj gets priority). Not thread-safe.
+        """
+        assert self._state == 'addremove'
+        if obj is None:
+            obj = self.bus.get_object('org.freedesktop.UDisks', path)
+
+        # In the following code, `old` and `new` are providers, while
+        # `self.devices[path]` and `device` are old/new devices. There are
+        # several possible code paths that should be correctly handled:
+        # - No old nor new provider for this path.
+        # - Provider changes (nothing to something, something to nothing,
+        #   something to something else); obviously device changes as well.
+        # - Provider stays the same, but device changes (i.e. instant media-
+        #   swapping; not sure it can happen).
+        # - Provider and device stay the same.
+        old, new = self._get_provider_for(obj)
+        if new is None:
+            if old is not None:
+                self.devicemanager.remove_device(self.devices[path])
+                del self.devices[path]
+            return
+        device = new.get_device(obj)
+        if new is old and device is self.devices[path]:
+            return # Exactly the same device
+        if old is not None:
+            self.devicemanager.remove_device(self.devices[path])
+        if new is None:
+            return
+        try:
+            device.autoconnect()
+        except:
+            logger.exception("Failed autoconnecting device " + str(device))
+        else:
+            self.devicemanager.add_device(device)
+            self.providers[path] = new
+            self.devices[path] = device
+
+    def _get_provider_for(self, obj):
+        """
+            Return (old_provider, old_priority), (new_provider, new_priority).
+            Not thread-safe.
+        """
+        assert self._state == 'addremove'
+        highest_prio = -1
+        highest = None
+        old = self.providers.get(obj.object_path)
+        for provider in self.get_providers():
+            priority = provider.get_priority(obj)
+            if priority is None: continue
+            # Find highest priority, preferring old provider.
+            if priority > highest_prio or \
+                    (priority == highest_prio and provider is old):
+                highest_prio = priority
+                highest = provider
+        return old, highest
+
+    def _remove_device(self, path):
+        assert self._state == 'addremove'
+        try:
+            self.devicemanager.remove_device(self.devices[path])
+            del self.devices[path]
+        except KeyError:
+            logger.warning("UDisks: Can't remove device (not found): " + path)
+
+    def _udisks_device_added(self, path):
+        logger.debug("UDisks: Device added: " + str(path))
+        if self._addremove():
+            self._add_device(path)
+            self._state = 'listening'
+            logger.debug("UDisks: state = listening (_device_added)")
+
+    def _udisks_device_removed(self, path):
+        if self._addremove():
+            try:
+                self._remove_device(path)
+                logger.debug("UDisks: Device removed: " + str(path))
+            except KeyError: # Not ours
+                pass
+            self._state = 'listening'
+            logger.debug("UDisks: state = listening")
+
+    # FIXME: Handle provider add/remove (following code unused & untested).
+
+    def on_provider_added(self, provider):
+        if self._addremove():
+            self._connect_all()
+            self._state = 'listening'
+            logger.debug("UDisks: state = listening")
+
+    def on_provider_removed(self, provider):
+        if self._addremove():
+            for path, provider_ in self.providers.iteritems():
+                if provider_ is provider:
+                    self._remove_device(path)
+            self._state = 'listening'
+            logger.debug("UDisks: state = listening")
+
+    def _addremove(self):
+        """
+            Helper to transition safely from listening to addremove state.
+
+            Returns whether the transition happens.
+        """
+        i = 0
+        while True:
+            with self._lock:
+                if self._state == 'listening':
+                    self._state = 'addremove'
+                    logger.debug("UDisks: state = addremove")
+                    return True
+            # If active state is init, we sleep and try again a few times.
+            # TODO: Whose thread is this we are blocking?
+            if i == 5:
+                logger.error("UDisks: Failed to acquire lock. Ignoring device event.")
+                return False
+            i += 1
+            time.sleep(1)
 
 class HAL(providers.ProviderHandler):
     """
@@ -144,6 +321,12 @@ class Handler(object):
     def device_from_udi(self, hal, udi):
         pass
 
+class UDisksProvider:
+    VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = range(0, 101, 25)
+    def get_priority(self, obj):
+        pass  # return: int [0..100] or None
+    def get_device(self, obj):
+        pass  # return: xl.devices.Device
+
 
 # vim: et sts=4 sw=4
-

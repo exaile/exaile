@@ -27,12 +27,12 @@
 
 from xl.nls import gettext as _
 from xl import providers, event
-from xl.hal import Handler
+from xl.hal import Handler, UDisksProvider
 from xl.devices import Device
 import logging
 logger = logging.getLogger(__name__)
 
-PROVIDER = None
+PROVIDER = PROVIDER_UDISKS = None
 
 import dbus, threading, os, struct
 from fcntl import ioctl
@@ -61,15 +61,17 @@ CDROM_MSF = 0x02
 CDROM_DATA_TRACK = 0x04
 
 def enable(exaile):
-    global PROVIDER
-    PROVIDER = CDHandler()
-    providers.register("hal", PROVIDER)
-
+    global PROVIDER, PROVIDER_UDISKS
+    #~ PROVIDER = CDHandler()
+    #~ providers.register("hal", PROVIDER)
+    PROVIDER_UDISKS = UDisksCdProvider()
+    providers.register("udisks", PROVIDER_UDISKS)
 
 def disable(exaile):
-    global PROVIDER
+    global PROVIDER, PROVIDER_UDISKS
     providers.unregister("hal", PROVIDER)
-    PROVIDER = None
+    providers.unregister("udisks", PROVIDER_UDISKS)
+    PROVIDER = PROVIDER_UDISKS = None
 
 class CDTocParser(object):
     #based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
@@ -186,7 +188,7 @@ class CDPlaylist(playlist.Playlist):
             tr.set_tag_raw('genre',
                     info['DGENRE'])
 
-        self._set_name(title[1].decode('iso-8859-15', 'replace'))
+        self.name = title[1].decode('iso-8859-15', 'replace')
         event.log_event('cddb_info_retrieved', self, True)
 
 class CDDevice(Device):
@@ -244,8 +246,25 @@ class CDHandler(Handler):
 
         return cddev
 
+class UDisksCdProvider(UDisksProvider):
+    name = 'cd'
+    PRIORITY = UDisksProvider.NORMAL
+
+    def get_priority(self, obj):
+        props = dbus.Interface(obj, 'org.freedesktop.DBus.Properties')
+        iface = 'org.freedesktop.UDisks.Device'
+        # DeviceChanged is called before and after tracks are read. We only want
+        # the second case, so use number of audio tracks to identify supported
+        # media. As a bonus, this means we never have to care about the type of
+        # disc (CD, DVD, etc.).
+        ntracks = props.Get(iface, 'OpticalDiscNumAudioTracks')
+        return self.PRIORITY if ntracks > 0 else None
+
+    def get_device(self, obj):
+        # TODO: If this is the same disc, return old device object.
+        props = dbus.Interface(obj, 'org.freedesktop.DBus.Properties')
+        iface = 'org.freedesktop.UDisks.Device'
+        return CDDevice(dev=str(props.Get(iface, 'DeviceFile')))
+
 
 # vim: et sts=4 sw=4
-
-
-

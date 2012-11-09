@@ -254,6 +254,8 @@ class Exaile(object):
         # Initialize HAL
         if self.options.Hal:
             from xl import hal
+            self.udisks = hal.UDisks(self.devices)
+            self.udisks.connect()
             self.hal = hal.HAL(self.devices)
             self.hal.connect()
         else:

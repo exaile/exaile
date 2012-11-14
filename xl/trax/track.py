@@ -160,8 +160,8 @@ class Track(object):
         # second TrackDB is consequently ignored. Thus if at all
         # possible, Tracks should NOT be persisted in more than one
         # TrackDB at a time.
+        unpickles = None
         if uri is None:
-            unpickles = None
             if len(args) > 2:
                 unpickles = args[2]
             else:
@@ -174,6 +174,24 @@ class Track(object):
             try:
                 tr = cls.__tracksdict[uri]
                 tr._init = False
+                
+                # if the track *does* happen to be pickled in more than one
+                # place, then we need to preserve any internal tags that aren't
+                # persisted to disk. 
+                #
+                # See https://bugs.launchpad.net/exaile/+bug/1054637
+                if unpickles is None:
+                    if len(args) > 2:
+                        unpickles = args[2]
+                    else:
+                        unpickles = kwargs.get("_unpickles")
+                
+                if unpickles is not None:
+                    for tag, values in unpickles.iteritems():
+                        tags = tr.list_tags()
+                        if tag.startswith('__') and tag not in tags:
+                            tr.set_tag_raw(tag, values)
+                
             except KeyError:
                 tr = object.__new__(cls)
                 cls.__tracksdict[uri] = tr

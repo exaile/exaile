@@ -226,7 +226,9 @@ class TrackDB(object):
                 else:
                     setattr(self, attr, pdata[attr])
             except Exception:
-                pass #FIXME
+                # FIXME: Do something about this
+                logger.warn("Exception occurred while loading %s" % location)
+                common.log_exception(log=logger)
 
         pdata.close()
 

@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from xl import common
 from xl.metadata._base import (
     BaseFormat,
     CoverImage
@@ -34,7 +35,14 @@ import base64
 
 class OggFormat(BaseFormat):
     MutagenType = oggvorbis.OggVorbis
+    tag_mapping = {
+        'bpm': 'tempo'
+    }
     writable = True
+    
+    def _set_tag(self, raw, tag, value):
+        # vorbis has text based attributes, so convert everything to unicode
+        BaseFormat._set_tag(self, raw, tag, [common.to_unicode(v) for v in value])
 
     def read_tags(self, tags):        
         if "cover" in tags:

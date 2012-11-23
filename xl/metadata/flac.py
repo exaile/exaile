@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from xl import common
 from xl.metadata._base import (
     BaseFormat,
     CoverImage
@@ -33,9 +34,16 @@ from mutagen import flac
 class FlacFormat(BaseFormat):
     MutagenType = flac.FLAC
     writable = True
+    tag_mapping = {
+        'bpm': 'tempo'
+    }
 
     def get_bitrate(self):
         return -1
+        
+    def _set_tag(self, raw, tag, value):
+        # flac has text based attributes, so convert everything to unicode
+        BaseFormat._set_tag(self, raw, tag, [common.to_unicode(v) for v in value])
 
     def read_tags(self, tags):
         td = super(FlacFormat, self).read_tags(tags)

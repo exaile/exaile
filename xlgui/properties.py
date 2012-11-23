@@ -403,6 +403,17 @@ class TrackPropertiesDialog(gobject.GObject):
                 modified.append((n, trackdata))
 
         if modified:
+            if len(modified) != 1:
+                dialog = gtk.MessageDialog(None,
+                        gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION,
+                        gtk.BUTTONS_YES_NO,
+                        _("Are you sure you want to apply changes to %d tracks?") % len(modified))
+                response = dialog.run()
+                dialog.destroy()
+                
+                if response != gtk.RESPONSE_YES:
+                    return
+                    
             self._tags_write(modified)
 
             del self.trackdata

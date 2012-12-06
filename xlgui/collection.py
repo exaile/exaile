@@ -119,10 +119,16 @@ class CollectionManagerDialog(object):
         dialog.set_current_folder(xdg.get_last_dir())
         dialog.set_local_only(False) # enable gio
         response = dialog.run()
+        
+        # XXX: For some reason, on Ubuntu 12.10 (GTK 2.24.13), hiding the
+        # dialog before retrieving the results causes an incorrect URI 
+        # to be retrieved.
+        
+        uri = dialog.get_uri()
         dialog.hide()
 
         if response == gtk.RESPONSE_OK:
-            location = gio.File(dialog.get_uri())
+            location = gio.File(uri)
             removals = []
 
             for row in self.model:

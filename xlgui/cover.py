@@ -298,6 +298,7 @@ class CoverManager(gobject.GObject):
             Sets the widget states to prefetching
         """
         self.previews_box.set_model(None)
+        self.model.clear()
         self.previews_box.set_sensitive(False)
         self.fetch_button.set_sensitive(False)
         self.progress_bar.set_fraction(0)
@@ -455,6 +456,12 @@ class CoverManager(gobject.GObject):
         """
         self.stopper.set()
         self.window.destroy()
+
+        # Free some memory
+        self.model.clear()
+        del self.outstanding
+        del self.album_tracks
+        del self.model_path_cache
 
     def on_stop_button_clicked(self, button):
         """

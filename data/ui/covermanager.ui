@@ -4,8 +4,6 @@
     <columns>
       <!-- column-name album -->
       <column type="PyObject"/>
-      <!-- column-name cover -->
-      <column type="GdkPixbuf"/>
       <!-- column-name thumbnail -->
       <column type="GdkPixbuf"/>
       <!-- column-name label -->
@@ -55,7 +53,7 @@
                     <property name="follow_state">True</property>
                   </object>
                   <attributes>
-                    <attribute name="pixbuf">2</attribute>
+                    <attribute name="pixbuf">1</attribute>
                   </attributes>
                 </child>
                 <child>
@@ -65,7 +63,7 @@
                     <property name="size">8000</property>
                   </object>
                   <attributes>
-                    <attribute name="text">3</attribute>
+                    <attribute name="text">2</attribute>
                   </attributes>
                 </child>
               </object>

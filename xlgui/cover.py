@@ -201,11 +201,11 @@ class CoverManager(gobject.GObject):
                 thumbnail_pixbuf = cover_pixbuf.scale_simple(*cover_size,
                     interp_type=gtk.gdk.INTERP_BILINEAR)
             except AttributeError: # cover_pixbuf is None
-                cover_pixbuf = thumbnail_pixbuf = default_cover_pixbuf
+                thumbnail_pixbuf = default_cover_pixbuf
                 outstanding.append(album)
 
             label = '{0} - {1}'.format(*album)
-            iter = self.model.append((album, cover_pixbuf, thumbnail_pixbuf, label))
+            iter = self.model.append((album, thumbnail_pixbuf, label))
             self.model_path_cache[album] = self.model.get_path(iter)
 
             self.emit('prefetch-progress', i + 1)
@@ -258,8 +258,8 @@ class CoverManager(gobject.GObject):
         if paths:
             path = paths[0]
             album = self.model[path][0]
-
-            cover_pixbuf = self.model[path][1]
+            cover_data = COVER_MANAGER.get_cover(self.album_tracks[album][0], set_only=True)
+            cover_pixbuf = icons.MANAGER.pixbuf_from_data(cover_data) if cover_data else None
             title = '{0} - {1}'.format(*album)
 
             cover_window = CoverWindow(self.window, cover_pixbuf, title)
@@ -291,7 +291,7 @@ class CoverManager(gobject.GObject):
             album = self.model[path][0]
             track = self.album_tracks[album][0]
             COVER_MANAGER.remove_cover(track)
-            self.model[path][1] = self.model[path][2] = self.default_cover_pixbuf
+            self.model[path][1] = self.default_cover_pixbuf
 
     def do_prefetch_started(self):
         """
@@ -368,8 +368,7 @@ class CoverManager(gobject.GObject):
             Updates the widgets to reflect the newly fetched cover
         """
         path = self.model_path_cache[album]
-        self.model[path][1] = pixbuf
-        self.model[path][2] = pixbuf.scale_simple(*self.cover_size,
+        self.model[path][1] = pixbuf.scale_simple(*self.cover_size,
             interp_type=gtk.gdk.INTERP_BILINEAR)
 
     def on_cover_chosen(self, cover_chooser, cover_data):
@@ -435,7 +434,7 @@ class CoverManager(gobject.GObject):
         path = self.previews_box.get_path_at_pos(x, y)
 
         if path:
-            tooltip.set_text(self.model[path][3])
+            tooltip.set_text(self.model[path][2])
             self.previews_box.set_tooltip_item(tooltip, path)
 
             return True

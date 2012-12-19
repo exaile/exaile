@@ -260,10 +260,12 @@ class CoverManager(gobject.GObject):
             album = self.model[path][0]
             cover_data = COVER_MANAGER.get_cover(self.album_tracks[album][0], set_only=True)
             cover_pixbuf = icons.MANAGER.pixbuf_from_data(cover_data) if cover_data else None
-            title = '{0} - {1}'.format(*album)
 
-            cover_window = CoverWindow(self.window, cover_pixbuf, title)
-            cover_window.show_all()
+            # Do not bother showing the dialog if there is no cover
+            if cover_pixbuf:
+                title = '{0} - {1}'.format(*album)
+                cover_window = CoverWindow(self.window, cover_pixbuf, title)
+                cover_window.show_all()
 
     def fetch_cover(self):
         """

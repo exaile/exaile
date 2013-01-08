@@ -28,9 +28,7 @@ import logging
 import os
 import os.path
 import tempfile
-import time
 import threading
-import traceback
 
 import cairo
 import gio
@@ -41,7 +39,6 @@ import gtk
 from xl import (
     common,
     event,
-    metadata,
     providers,
     settings,
     xdg

@@ -436,82 +436,64 @@ class TagFormatter():
         """
         pass
 
-class TrackNumberTagFormatter(TagFormatter):
+class NumberTagFormatter(TagFormatter):
+    """
+        A generic formatter for numeric formatting
+        
+        Removes count values, e.g. "b" in "a/b"
+    """
+    def __init__(self, name):
+        """
+            :param name: the name of the tag
+            :type name: string
+        """
+        TagFormatter.__init__(self, name)
+
+    def format(self, track, parameters):
+        """
+            Formats a raw tag value
+
+            :param track: the track to get the tag from
+            :type track: :class:`xl.trax.Track`
+            :param parameters: optionally passed parameters
+            :type parameters: dictionary
+            :returns: the formatted value
+            :rtype: string
+        """
+        value = track.get_tag_raw(self.name, join=True)
+
+        if not value:
+            return ''
+
+        try: # n/n
+            value, count = value.split('/')
+        except ValueError: # n
+            pass
+
+        if not value:
+            return ''
+
+        try:
+            value = int(value)
+        except ValueError:
+            return ''
+
+        return '%d' % value
+
+class TrackNumberTagFormatter(NumberTagFormatter):
     """
         A formatter for the tracknumber of a track
     """
     def __init__(self):
         TagFormatter.__init__(self, 'tracknumber')
-
-    def format(self, track, parameters):
-        """
-            Formats a raw tag value
-
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
-        """
-        value = track.get_tag_raw(self.name, join=True)
-
-        if not value:
-            return ''
-
-        try: # n/n
-            value, count = value.split('/')
-        except ValueError: # n
-            pass
-
-        if not value:
-            return ''
-
-        try:
-            value = int(value)
-        except ValueError:
-            return ''
-
-        return '%d' % value
 providers.register('tag-formatting', TrackNumberTagFormatter())
 
-class DiscNumberTagFormatter(TagFormatter):
+class DiscNumberTagFormatter(NumberTagFormatter):
     """
-        A formatter for the tracknumber of a track
+        A formatter for the discnumber of a track
     """
     def __init__(self):
         TagFormatter.__init__(self, 'discnumber')
-
-    def format(self, track, parameters):
-        """
-            Formats a raw tag value
-
-            :param track: the track to get the tag from
-            :type track: :class:`xl.trax.Track`
-            :param parameters: optionally passed parameters
-            :type parameters: dictionary
-            :returns: the formatted value
-            :rtype: string
-        """
-        value = track.get_tag_raw(self.name, join=True)
-
-        if not value:
-            return ''
-
-        try: # n/n
-            value, count = value.split('/')
-        except ValueError: # n
-            pass
-
-        if not value:
-            return ''
-
-        try:
-            value = int(value)
-        except ValueError:
-            return ''
-
-        return '%d' % value
 providers.register('tag-formatting', DiscNumberTagFormatter())
 
 class ArtistTagFormatter(TagFormatter):

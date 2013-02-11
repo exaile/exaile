@@ -8,7 +8,10 @@ from xlgui import panel, playlist
 from xlgui.widgets.common import DragTreeView
 import HTMLParser
 from StringIO import StringIO
-import Image
+try:
+    from PIL import Image
+except ImportError:
+    import Image
 import base64
 import glib
 import gobject

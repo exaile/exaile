@@ -118,6 +118,23 @@ class LyricsManager(providers.ProviderHandler):
                 'lyrics/preferred_order', [])
         self.cache = LyricsCache(os.path.join(xdg.get_cache_dir(), 'lyrics.cache'))
 
+        event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
+
+    def __get_cache_key(self, track, provider):
+        """
+            Returns the cache key for a specific track and lyrics provider
+
+            :param track: a track
+            :param provider: a lyrics provider
+            :return: the appropriate cache key
+        """
+        return str(
+            track.get_loc_for_io() +
+            provider.display_name +
+            track.get_tag_display('artist') +
+            track.get_tag_display('title')
+        )
+
     def set_preferred_order(self, order):
         """
             Sets the preferred search order
@@ -129,18 +146,6 @@ class LyricsManager(providers.ProviderHandler):
             raise AttributeError("order must be a list or tuple")
         self.preferred_order = order
         settings.set_option('lyrics/preferred_order', list(order))
-
-    def on_provider_removed(self, provider):
-        """
-            Remove the provider from the methods dict, and the
-            preferred_order dict if needed.
-
-            :param provider: the provider instance being removed.
-        """
-        try:
-            self.preferred_order.remove(provider.name)
-        except (ValueError, AttributeError):
-            pass
 
     def find_lyrics(self, track, refresh=False):
         """
@@ -243,8 +248,7 @@ class LyricsManager(providers.ProviderHandler):
         source = None
         url = None
         cache_time = settings.get_option('lyrics/cache_time', 720) # in hours
-        key = str(track.get_loc_for_io() + method.display_name +
-            track.get_tag_display('artist') + track.get_tag_display('title'))
+        key = self.__get_cache_key(track, method)
 
         try:
             # check cache for lyrics
@@ -273,6 +277,37 @@ class LyricsManager(providers.ProviderHandler):
             raise LyricsNotFoundException()
 
         return (lyrics, source, url)
+
+    def on_provider_removed(self, provider):
+        """
+            Remove the provider from the methods dict, and the
+            preferred_order dict if needed.
+
+            :param provider: the provider instance being removed.
+        """
+        try:
+            self.preferred_order.remove(provider.name)
+        except (ValueError, AttributeError):
+            pass
+
+    def on_track_tags_changed(self, e, track, tag):
+        """
+            Updates the internal cache upon lyric tag changes
+        """
+        if tag == 'lyrics':
+            local_provider = self.get_provider('__local')
+
+            # If the local tag provider was removed, don't bother
+            if local_provider is None:
+                return
+
+            key = self.__get_cache_key(track, local_provider)
+
+            # Try to remove the corresponding cache entry
+            try:
+                del self.cache[key]
+            except KeyError:
+                pass
 
 MANAGER = LyricsManager()
 

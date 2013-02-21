@@ -405,9 +405,10 @@ class TrackPropertiesDialog(gobject.GObject):
         if modified:
             if len(modified) != 1:
                 dialog = gtk.MessageDialog(None,
-                        gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION,
-                        gtk.BUTTONS_YES_NO,
-                        _("Are you sure you want to apply changes to %d tracks?") % len(modified))
+                    gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION,
+                    gtk.BUTTONS_YES_NO,
+                    _('Are you sure you want to apply the changes to all tracks?'),
+                )
                 response = dialog.run()
                 dialog.destroy()
                 

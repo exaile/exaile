@@ -110,8 +110,7 @@ class BPMWidget(gtk.Frame):
         
         #info_label = gtk.Label(_('BPM Counter'))
         self.eventbox = gtk.EventBox()
-        #self.eventbox.set_visible_window(False)
-        self.bpm_label = gtk.Label(_('click'))
+        self.bpm_label = gtk.Label(_('Update'))
         self.apply_button = gtk.Button(_('Apply BPM'))
         
         vbox = gtk.VBox()

@@ -249,7 +249,7 @@ class BPMWidget(gtk.Frame):
         '''Updates the current UI display'''
         
         if self.bpm is None:
-            self.bpm_label.set_label(_('click'))
+            self.bpm_label.set_label(_('Update'))
             self.apply_button.set_sensitive(False)
         else:
             self.bpm_label.set_label(self.bpm)

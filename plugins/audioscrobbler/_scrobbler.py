@@ -11,6 +11,7 @@ from xl.nls import gettext as _
 logger = logging.getLogger(__name__)
 
 SESSION_ID = None
+INITIAL_URL = None
 POST_URL   = None
 NOW_URL    = None
 HARD_FAILS = 0
@@ -66,7 +67,10 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'),
    LAST_HS = datetime.now()
 
    tstamp = int(mktime(datetime.now().timetuple()))
-   url    = post_url or POST_URL
+   # Store and keep first passed URL for future login retries
+   INITIAL_URL = INITIAL_URL or post_url
+   # Use passed or previously stored URL
+   url = post_url or POST_URL
 
    if hashpw is True:
       __LOGIN['p'] = md5(password).hexdigest()
@@ -146,7 +150,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
     @param mbid:    The MusicBrainz Track ID
     @return: True on success, False on failure"""
 
-    global SESSION_ID, NOW_URL
+    global SESSION_ID, NOW_URL, INITIAL_URL
 
     if SESSION_ID is None:
         raise AuthError("Please 'login()' first. (No session available)")
@@ -186,7 +190,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
         return True
     elif result.strip() == "BADSESSION" :
         if inner_call is False:
-            login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'])
+            login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'], post_url=INITIAL_URL)
             now_playing(artist, track, album, length, trackno, mbid, inner_call=True)
         else:
              raise SessionError('Invalid session')
@@ -295,7 +299,7 @@ def flush(inner_call=False):
    """Sends the cached songs to AS.
 
    @param inner_call: Internally used variable. Don't touch!"""
-   global SUBMIT_CACHE, __LOGIN, MAX_SUBMIT
+   global SUBMIT_CACHE, __LOGIN, MAX_SUBMIT, POST_URL, INITIAL_URL
 
    if POST_URL is None:
       raise ProtocolError('''Cannot submit without having a valid post-URL. Did
@@ -321,7 +325,7 @@ you login?''')
       return True
    elif lines[0] == "BADSESSION" :
       if inner_call is False:
-         login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'])
+         login(__LOGIN['u'], __LOGIN['p'], client=__LOGIN['c'], post_url=INITIAL_URL)
          flush(inner_call=True)
       else:
          raise Warning("Infinite loop prevented")

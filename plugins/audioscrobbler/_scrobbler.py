@@ -52,7 +52,7 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'),
    @param client:   Client information (see http://www.audioscrobbler.net/development/protocol/ for more info)
    @type  client:   Tuple: (client-id, client-version)"""
    global LAST_HS, SESSION_ID, POST_URL, NOW_URL, HARD_FAILS, HS_DELAY, \
-          PROTOCOL_VERSION, __LOGIN
+          PROTOCOL_VERSION, INITIAL_URL, __LOGIN
 
    __LOGIN['u'] = user
    __LOGIN['c'] = client

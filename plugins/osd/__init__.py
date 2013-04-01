@@ -384,7 +384,7 @@ class OSDWindow(gtk.Window, PlaybackAdapter):
             self.__options['background'] = alphacolor_parse(settings.get_option(option, '#333333cc'))
             glib.idle_add(self.queue_draw)
         elif option == 'plugin/osd/display_duration':
-            self.__options['display_duration'] = settings.get_option(option, 4)
+            self.__options['display_duration'] = int(settings.get_option(option, 4))
         elif option == 'plugin/osd/show_progress':
             self.info_area.set_display_progress(settings.get_option(option, True))
         elif option == 'plugin/osd/position':

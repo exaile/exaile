@@ -118,17 +118,22 @@ class Shutdown():
         bus = dbus.SystemBus()
 
         try:
-            proxy = bus.get_object('org.freedesktop.ConsoleKit',
-                '/org/freedesktop/ConsoleKit/Manager')
-            proxy.Stop(dbus_interface='org.freedesktop.ConsoleKit.Manager')
+            proxy = bus.get_object('org.freedesktop.login1',
+                '/org/freedesktop/login1')
+            proxy.PowerOff(False, dbus_interface='org.freedesktop.login1.Manager')
         except dbus.exceptions.DBusException:
             try:
-                proxy = bus.get_object('org.freedesktop.Hal',
-                    '/org/freedesktop/Hal/devices/computer')
-                proxy.Shutdown(dbus_interface='org.freedesktop.Hal.Device.SystemPowerManagement')
+                proxy = bus.get_object('org.freedesktop.ConsoleKit',
+                    '/org/freedesktop/ConsoleKit/Manager')
+                proxy.Stop(dbus_interface='org.freedesktop.ConsoleKit.Manager')
             except dbus.exceptions.DBusException:
-                self.message.show_warning(_('Shutdown failed'),
-                    _('Computer could not be shutdown using D-Bus.'))
+                try:
+                    proxy = bus.get_object('org.freedesktop.Hal',
+                        '/org/freedesktop/Hal/devices/computer')
+                    proxy.Shutdown(dbus_interface='org.freedesktop.Hal.Device.SystemPowerManagement')
+                except dbus.exceptions.DBusException:
+                    self.message.show_warning(_('Shutdown failed'),
+                        _('Computer could not be shutdown using D-Bus.'))
 
     def destroy(self):
         """

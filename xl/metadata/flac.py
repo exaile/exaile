@@ -35,7 +35,8 @@ class FlacFormat(BaseFormat):
     MutagenType = flac.FLAC
     writable = True
     tag_mapping = {
-        'bpm': 'tempo'
+        'bpm': 'tempo',
+        'comment': 'description',
     }
 
     def get_bitrate(self):

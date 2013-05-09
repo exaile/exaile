@@ -36,7 +36,8 @@ import base64
 class OggFormat(BaseFormat):
     MutagenType = oggvorbis.OggVorbis
     tag_mapping = {
-        'bpm': 'tempo'
+        'bpm': 'tempo',
+        'comment': 'description',
     }
     writable = True
     

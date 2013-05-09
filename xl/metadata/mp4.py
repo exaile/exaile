@@ -45,7 +45,8 @@ class MP4Format(BaseFormat):
             'discnumber':  'disk',
             'copyright':   'cprt',
             'bpm':         'tmpo',
-            'grouping':    '\xa9grp'
+            'grouping':    '\xa9grp',
+            'comment':     '\xa9cmt',
         }
     others = False
     writable = True

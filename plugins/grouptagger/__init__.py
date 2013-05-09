@@ -200,7 +200,7 @@ class GroupTaggerPlugin(object):
         if len(groups) > 0:
             create_all_search_playlist( groups, exaile )
         else:
-            dialogs.error( None, 'No grouping tags found in selected tracks' )
+            dialogs.error( None, _('No categorization tags found in selected tracks'))
         
     def on_playlist_context_select_custom_menu( self, menu, display_name, playlist_view, context, exaile ):
         '''Called when 'select tracks with similar groups (custom)' is selected'''
@@ -213,7 +213,7 @@ class GroupTaggerPlugin(object):
         if len(groups) > 0:
             create_custom_search_playlist( groups, exaile )
         else:
-            dialogs.error( None, 'No grouping tags found in selected tracks' )
+            dialogs.error( None, _('No categorization tags found in selected tracks'))
     
     def on_playlist_cursor_changed( self, type, playlist_view, context ):
         '''Called when an item in a playlist is selected'''
@@ -285,6 +285,7 @@ class GroupTaggerPlugin(object):
         '''Handles option changes'''
         if option == 'plugin/grouptagger/panel_font':
             glib.idle_add( self.setup_panel_font, True )
-            
-    
-  
+        elif option == tagname_option:
+            if self.track is not None:
+                glib.idle_add(self.set_display_track, self.track, True)
+

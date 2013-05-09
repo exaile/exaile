@@ -52,7 +52,8 @@ import gt_widgets
  
 
 group_categories_option = 'plugin/grouptagger/group_categories'
-migrated_option = 'plugin/grouptagger/0.2_migration' 
+migrated_option = 'plugin/grouptagger/0.2_migration'
+tagname_option = 'plugin/grouptagger/tagname'
   
 def migrate_settings():
     '''Automatically migrate group tagger 0.1 settings to 0.2'''
@@ -72,7 +73,7 @@ def get_track_groups(track):
     '''
         Returns a set() of groups present in this track
     '''
-    grouping = track.get_tag_raw('grouping', True)
+    grouping = track.get_tag_raw(settings.get_option(tagname_option, 'grouping'), True)
     
     if grouping is not None:
         return set([ group.replace('_', ' ') for group in grouping.split()])
@@ -88,7 +89,7 @@ def set_track_groups(track, groups):
     '''
     
     grouping = ' '.join( sorted( [ '_'.join( group.split() ) for group in groups ] ) )
-    track.set_tag_raw( 'grouping', grouping )
+    track.set_tag_raw(settings.get_option(tagname_option, 'grouping'), grouping )
     
     if not track.write_tags():
         dialogs.error( None, "Error writing tags to %s" % gobject.markup_escape_text(track.get_loc_for_io()) )
@@ -147,9 +148,11 @@ def _create_search_playlist( name, search_string, exaile ):
 def create_all_search_playlist( groups, exaile ):
     '''Create a playlist of tracks that have all groups selected'''
     
-    name = 'Grouping: ' + ' and '.join( groups )
-    search_string = ' '.join( [ 'grouping~"\\b%s\\b"' % re.escape( group.replace(' ','_') ) for group in groups ] ) 
-        
+    tagname = settings.get_option(tagname_option, 'grouping')
+    
+    name = '%s: %s' % (tagname.title(), ' and '.join(groups))
+    search_string = ' '.join( [ '%s~"\\b%s\\b"' % (tagname, re.escape(group.replace(' ','_'))) for group in groups ] )
+    
     _create_search_playlist( name, search_string, exaile )
 
     

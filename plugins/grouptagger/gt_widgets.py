@@ -798,7 +798,8 @@ class GroupTaggerQueryDialog(gtk.Dialog):
         not_p = [[], '']
         
         first = True
-        name = 'Grouping: '
+        tagname = settings.get_option(gt_common.tagname_option, 'grouping')
+        name = '%s: ' % (tagname.title())
             
         # gather the data
         for gcombo, combo in self.combos:
@@ -818,7 +819,7 @@ class GroupTaggerQueryDialog(gtk.Dialog):
             name += ' and '.join( and_p[0] )
             first = False
             
-            and_p[1] = ' '.join( [ 'grouping~"\\b%s\\b"' % re.escape( group.replace(' ','_') ) for group in and_p[0] ] ) 
+            and_p[1] = ' '.join( [ '%s~"\\b%s\\b"' % (tagname, re.escape( group.replace(' ','_') )) for group in and_p[0] ] ) 
             
         # create the NOT conditions
         if len(not_p[0]):
@@ -828,7 +829,7 @@ class GroupTaggerQueryDialog(gtk.Dialog):
                 name += ' and ' + ' and '.join( [ 'not ' + p for p in not_p[0]] )
             first = False
             
-            not_p[1] = ' ! grouping~"%s"' % '|'.join( [ '\\b' + re.escape( group.replace(' ','_') ) + '\\b' for group in not_p[0] ] )
+            not_p[1] = ' ! %s~"%s"' % (tagname, '|'.join( [ '\\b' + re.escape( group.replace(' ','_') ) + '\\b' for group in not_p[0] ] ))
             
         # create the OR conditions
         if len(or_p[0]):
@@ -839,7 +840,7 @@ class GroupTaggerQueryDialog(gtk.Dialog):
             else:
                 name += ' and ' + ' or '.join( or_p[0] )
         
-            or_p[1] = ' grouping~"%s"' %  '|'.join( [ '\\b' + re.escape( group.replace(' ','_') ) + '\\b' for group in or_p[0] ] ) 
+            or_p[1] = ' %s~"%s"' %  (tagname, '|'.join( [ '\\b' + re.escape( group.replace(' ','_') ) + '\\b' for group in or_p[0] ] ))
         
         regex = (and_p[1] + or_p[1] + not_p[1]).strip() 
 

@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">grouping</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">comment</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">encodedby</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">composer</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">conductor</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">lyrics</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkWindow" id="prefs_window">
     <property name="can_focus">False</property>
     <child>
@@ -28,11 +55,9 @@
             </child>
             <child>
               <object class="GtkFontButton" id="plugin/grouptagger/panel_font">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="font_name"/>
               </object>
               <packing>
@@ -43,13 +68,11 @@
             </child>
             <child>
               <object class="GtkButton" id="plugin/grouptagger/reset_button">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="has_tooltip">True</property>
                 <property name="tooltip_text" translatable="yes">Reset to the system font</property>
-                <property name="use_action_appearance">False</property>
                 <child>
                   <object class="GtkImage" id="image1">
                     <property name="visible">True</property>
@@ -69,6 +92,49 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Categorization tag name</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="plugin/grouptagger/tagname">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">'grouping' and 'comment' are probably the best supported choices. Other choices may only work with certain file formats. </property>
+                <property name="model">liststore1</property>
+                <property name="active">0</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>

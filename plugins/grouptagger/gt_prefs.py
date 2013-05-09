@@ -33,3 +33,8 @@ class GTPanelFontResetButtonPreference(widgets.FontResetButtonPreference):
     default = _get_system_default_font()
     name = 'plugin/grouptagger/reset_button'
     condition_preference_name = 'plugin/grouptagger/panel_font'
+
+
+class GTGroupingTagName(widgets.ComboPreference):
+    default = 'grouping'
+    name = 'plugin/grouptagger/tagname'

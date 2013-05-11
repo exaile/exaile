@@ -669,22 +669,36 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def get_selected_paths(self):
         """
-            Returns a list of pairs of treepaths
-            which are currently selected in the playlist.
+            Returns a list of pairs of treepaths which are currently
+            selected in the playlist.
+            
+            The treepaths are returned for the base model, so they are
+            indices that can be used with the playlist currently
+            associated with this view.
         """
         selection = self.get_selection()
         model, paths = selection.get_selected_rows()
+        
+        if isinstance(model, gtk.TreeModelFilter):
+            paths = [model.convert_path_to_child_path(path) for path in paths]
+        
         return paths
 
     def get_selected_items(self):
         """
             Returns a list of pairs of indices and :class:`xl.trax.Track`
             which are currently selected in the playlist.
+            
+            The indices can be used with the playlist currently associated
+            with this view.
         """
-        paths = self.get_selected_paths()
-        model = self.get_model()
+        selection = self.get_selection()
+        model, paths = selection.get_selected_rows()
         try:
-            tracks = [(path[0], model.get_value(model.get_iter(path), 0)) for path in paths]
+            if isinstance(model, gtk.TreeModelFilter):
+                tracks = [(model.convert_path_to_child_path(path)[0], model.get_value(model.get_iter(path), 0)) for path in paths]
+            else:
+                tracks = [(path[0], model.get_value(model.get_iter(path), 0)) for path in paths]
         except TypeError: #one of the paths was invalid
             return []
         return tracks
@@ -999,6 +1013,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
         if drop_info:
             path, position = drop_info
+            model = self.get_model()
+            if isinstance(model, gtk.TreeModelFilter):
+                path = model.convert_path_to_child_path(path)
+            
             insert_position = path[0]
             if position in (gtk.TREE_VIEW_DROP_AFTER, gtk.TREE_VIEW_DROP_INTO_OR_AFTER):
                 insert_position += 1

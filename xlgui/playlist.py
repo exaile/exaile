@@ -646,7 +646,7 @@ class PlaylistContainer(gtk.HBox):
         self.get_current_tab().focus()
         
     def on_page_reordered(self, notebook, child, page_number):
-        if self.queuepage.notebook is notebook and \
+        if self.queuepage.tab.notebook is notebook and \
                 notebook.page_num(self.queuepage) != 0:
             notebook.reorder_child(self.queuepage, 0)
     

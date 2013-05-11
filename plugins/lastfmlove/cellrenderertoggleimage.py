@@ -156,12 +156,6 @@ class CellRendererToggleImage(gtk.CellRendererToggle):
                 saturation=0,
                 pixelate=False
             )
-            # Restore the brightness after desaturation
-            self.__prelit_pixbuf.saturate_and_pixelate(
-                dest=self.__prelit_pixbuf,
-                saturation=100,
-                pixelate=False
-            )
 
     def do_render(self, window, widget, background_area,
                   cell_area, expose_area, flags):

@@ -1181,7 +1181,7 @@ class PropertyField(gtk.HBox):
             self.field.set_tooltip_text(val)
 
     def folder_button_clicked(self, w):
-        common.open_file_directory(self.field.get_text())
+        common.open_file_directory(self.field.get_text().decode('utf-8'))
 
     def register_update_func(self, f):
         pass

@@ -305,7 +305,17 @@ def open_file_directory(path):
     f = gio.File(path)
     platform = sys.platform
     if platform == 'win32':
-        subprocess.Popen(["explorer", "/select,", f.get_parse_name()])
+        # Normally we can just run `explorer /select, filename`, but Python 2
+        # always calls CreateProcessA, which doesn't support Unicode. We could 
+        # call CreateProcessW with ctypes, but the following is more robust.
+        import ctypes
+        ctypes.windll.ole32.CoInitialize(None)
+        # Not sure why this is always UTF-8.
+        upath = f.get_path().decode('utf-8')
+        pidl = ctypes.windll.shell32.ILCreateFromPathW(upath)
+        ctypes.windll.shell32.SHOpenFolderAndSelectItems(pidl, 0, None, 0)
+        ctypes.windll.shell32.ILFree(pidl)
+        ctypes.windll.ole32.CoUninitialize()
     elif platform == 'darwin':
         subprocess.Popen(["open", f.get_parent().get_parse_name()])
     else:

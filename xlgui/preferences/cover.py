@@ -48,7 +48,7 @@ class LocalCoverFetching(widgets.CheckPreference):
     name = 'covers/use_localfile'
 
 class LocalFilePreferredNamesPreference(widgets.Preference, widgets.CheckConditional):
-    default = ['album', 'cover']
+    default = ['front', 'cover', 'album']
     name = 'covers/localfile/preferred_names'
     condition_preference_name = 'covers/use_localfile'
 

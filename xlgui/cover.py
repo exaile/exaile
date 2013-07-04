@@ -783,6 +783,7 @@ class CoverWindow(object):
         self.cover_window = self.builder.get_object('CoverWindow')
         self.layout = self.builder.get_object('layout')
         self.toolbar = self.builder.get_object('toolbar')
+        self.save_as_button = self.builder.get_object('save_as_button')
         self.zoom_in_button = self.builder.get_object('zoom_in_button')
         self.zoom_out_button = self.builder.get_object('zoom_out_button')
         self.zoom_100_button = self.builder.get_object('zoom_100_button')
@@ -883,6 +884,28 @@ class CoverWindow(object):
         height_ratio = float(self.image_original_pixbuf.get_height()) / \
                              self.available_image_height()
         self.image_ratio = 1 / max(1, width_ratio, height_ratio)
+
+    def on_save_as_button_clicked(self, widget):
+        """
+            Saves image to user-specified location
+        """
+        dialog = gtk.FileChooserDialog(_("Save File"), self.cover_window,
+                gtk.FILE_CHOOSER_ACTION_SAVE,
+                (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_SAVE, gtk.RESPONSE_ACCEPT))
+        names = settings.get_option('covers/localfile/preferred_names')
+        filename = (names[0] if names else 'cover') + '.png'
+        # TODO: dialog.set_current_folder(...)
+        dialog.set_current_name(filename)
+        if dialog.run() == gtk.RESPONSE_ACCEPT:
+            filename = dialog.get_filename()
+            lowfilename = filename.lower()
+            if lowfilename.endswith('.jpg') or lowfilename.endswith('.jpeg'):
+                type_ = 'jpeg'
+            else:
+                type_ = 'png'
+            self.image_pixbuf.save(filename, type_)
+        dialog.destroy()
 
     def on_zoom_in_button_clicked(self, widget):
         """

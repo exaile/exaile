@@ -15,6 +15,17 @@
             <property name="visible">True</property>
             <property name="toolbar_style">both</property>
             <child>
+              <object class="GtkToolButton" id="save_as_button">
+                <property name="visible">True</property>
+                <property name="stock_id">gtk-save-as</property>
+                <signal name="clicked" handler="on_save_as_button_clicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkToolButton" id="zoom_in_button">
                 <property name="visible">True</property>
                 <property name="stock_id">gtk-zoom-in</property>

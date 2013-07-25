@@ -696,7 +696,7 @@ class DirectoryOpenDialog(gtk.FileChooserDialog):
     }
     _last_location = None
 
-    def __init__(self, parent=None, title=_('Choose Directory to Open')):
+    def __init__(self, parent=None, title=_('Choose Directory to Open'), select_multiple=True):
         gtk.FileChooserDialog.__init__(self,
             title,
             parent=parent,
@@ -707,7 +707,7 @@ class DirectoryOpenDialog(gtk.FileChooserDialog):
         self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
         self.set_local_only(False)
-        self.set_select_multiple(True)
+        self.set_select_multiple(select_multiple)
 
         self.connect('response', self.on_response)
 

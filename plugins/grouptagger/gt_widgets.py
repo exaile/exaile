@@ -32,7 +32,7 @@ import glib
 
 import re
 
-from xl import common
+from xl import common, settings
 from xl.nls import gettext as _
 
 from xlgui import main

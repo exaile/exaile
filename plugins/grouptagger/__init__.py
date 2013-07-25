@@ -44,6 +44,7 @@ from xlgui.widgets import menu, dialogs
 import gt_prefs
 import gt_widgets
 from gt_common import *
+import gt_import
 
 plugin = None
 
@@ -107,6 +108,11 @@ class GroupTaggerPlugin(object):
         self.tools_submenu.add_item( 
             menu.simple_menu_item( 'gt_get_tags', [], _('Get all tags from collection'),
                 callback=self.on_get_tags_menu ) 
+        )
+        
+        self.tools_submenu.add_item( 
+            menu.simple_menu_item( 'gt_import', [], _('Import tags from directory'),
+                callback=self.on_import_tags ) 
         )
         
         # group them together to make it not too long
@@ -179,6 +185,8 @@ class GroupTaggerPlugin(object):
     def on_get_tags_menu_window_deleted(self, *args):
         self.tag_dialog = None
         
+    def on_import_tags(self, widget, name, parent, exaile):
+        gt_import.import_tags(exaile)
         
     #
     # Exaile events

@@ -1,4 +1,4 @@
-Version='0.2'
+Version='0.3'
 Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
 Name=_('Group Tagger')
 Description=_('Facilitates categorizing your music by managing the grouping/category tag in audio files')

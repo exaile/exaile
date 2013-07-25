@@ -85,6 +85,7 @@ class _ExactMatcher(_Matcher):
             try:
                 newvalue = float(value)
                 newcontent = float(self.content)
+                return abs(newvalue - newcontent) < 0.0001
             except (TypeError, ValueError):
                 newvalue = value
                 newcontent = self.content

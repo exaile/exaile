@@ -52,7 +52,9 @@
                           <object class="GtkTreeViewColumn" id="treeviewcolumn1">
                             <property name="title" translatable="yes">Import</property>
                             <child>
-                              <object class="GtkCellRendererToggle" id="cellrenderertoggle1"/>
+                              <object class="GtkCellRendererToggle" id="import_checkbox">
+                                <signal name="toggled" handler="on_import_checkbox_toggled" swapped="no"/>
+                              </object>
                               <attributes>
                                 <attribute name="active">0</attribute>
                               </attributes>

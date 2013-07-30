@@ -62,6 +62,7 @@ class GtImporter(object):
         
         # signals
         signals = { 'on_cancel_button_clicked': self._on_cancel_button_clicked,
+                    'on_import_checkbox_toggled': self._on_import_checkbox_toggled,
                     'on_ok_button_clicked': self._on_ok_button_clicked,
                     'on_window_destroy': self._on_window_destroy }
         
@@ -151,6 +152,9 @@ class GtImporter(object):
             self.update_thread.stop()
         
         self.window.destroy()
+        
+    def _on_import_checkbox_toggled(self, cell, path):
+        self.tags_model[path][0] = not cell.get_active()
     
     def _on_ok_button_clicked(self, widget):
         

@@ -91,36 +91,4 @@ By default, macports installs a pretty ugly GTK theme on OSX, and Exaile
 does not look anything like other apps on OSX. You can install the 
 gtk-theme-switch and gnome-themes packages from macports, and then run 
 'switch2' to change the theme for your user. 
-    
-Selecting an output device on OSX
-=================================
 
-GStreamer only directly supports the primary output device on OSX. However, 
-you can specify a particular device to output audio on, but there isn't 
-currently a way through gstreamer to determine which devices exist on the 
-system. If you know the device ID of the device, you can set it in exaile 
-by setting the Audio Sink to 'Custom', with the following set as the 
-"Custom sink pipeline" option:
-
-    osxaudiosink device=X
-
-You can use another program to query the device IDs of various audio devices
-on your system. For example, mplayer can be used to show you all of the 
-devices on the system:
-
-    mplayer -ao coreaudio:help "path to audio file"
-    
-It will have output looking something like this:
-
-    Available output devices:
-    Built-in Microphone (id:260)
-    Built-in Input (id:258)
-    Built-in Output (id:262)
-    C-Media USB Audio Device (id:260)
-    C-Media USB Audio Device (id:258)
-    
-So if you wanted the USB audio device as your output device, then in Exaile 
-under the playback settings, you would set the output device to be 'Custom', 
-and specify the custom sound sink to be:
-
-    osxaudiosink device=260

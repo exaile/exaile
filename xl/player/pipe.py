@@ -349,7 +349,10 @@ SINK_PRESETS = {
 if sys.platform == 'win32':
     import sink_windows
     sink_windows.load_exaile_directsound_plugin(SINK_PRESETS)
-    
+
+elif sys.platform == 'darwin':
+    import sink_osx
+    sink_osx.load_osxaudiosink(SINK_PRESETS)
 
 def sink_from_preset(player, preset):
     if preset == "custom":
@@ -397,8 +400,13 @@ def sink_enumerate_devices(preset):
         # If we can't create an instance of the sink, probably doesn't exist... 
         return None
         
-    # does it support the property probe interface?
+    # does it support the property probe interface? 
     if not hasattr(tmpsink, 'probe_get_properties'):
+        
+        # Maybe it supports a custom interface?
+        if 'get_devices' in p:
+            return p['get_devices']()
+        
         return None
 
     # check to see if we can probe for a device

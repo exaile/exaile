@@ -171,7 +171,7 @@ class Exaile(object):
             from xl import settings
         except common.VersionError:
             common.log_exception(log=logger)
-            exit(1)
+            sys.exit(1)
             
         logger.debug("Settings loaded from %s" % settings.location)
 
@@ -225,7 +225,7 @@ class Exaile(object):
                     location=os.path.join(xdg.get_data_dir(), 'music.db'))
         except common.VersionError:
             common.log_exception(log=logger)
-            exit(1)
+            sys.exit(1)
 
         from xl import event
         # Set up the player and playback queue
@@ -571,7 +571,7 @@ class Exaile(object):
     def version(self):
         from xl.version import __version__
         print "Exaile", __version__
-        exit()
+        sys.exit(0)
 
     def _add_default_playlists(self):
         """
@@ -690,7 +690,7 @@ class Exaile(object):
 
         logger.info("Bye!")
         logging.shutdown()
-        exit()
+        sys.exit(0)
 
 def exaile():
     if not Exaile._exaile:

@@ -12,6 +12,7 @@ import glib
 import gst
 
 from xl import settings
+from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 

@@ -168,3 +168,8 @@ def load_osxaudiosink(presets):
     }
     
     presets["osxaudiosink"] = preset
+    
+    # make this default if there is no default
+    if settings.get_option('player/audiosink', None) == None:
+        settings.set_option('player/audiosink', 'osxaudiosink')
+

@@ -58,6 +58,13 @@ if not os.path.exists(os.path.join(basedir, "exaile.py")):
     if os.path.exists(os.path.join(cwd, "exaile.py")):
         basedir = cwd
 sys.path.insert(0, basedir)
+os.environ['EXAILE_DIR'] = basedir
+
+# On OSX, GStreamer SDK isn't installed to somewhere that we can easily access
+if sys.platform == 'darwin':
+    sys.path.append('/Library/Frameworks/GStreamer.framework/Libraries/python2.7/site-packages/')
+    sys.argv.append('--no-dbus')
+    sys.argv.append('--no-hal')
 
 def main():
     from xl import main

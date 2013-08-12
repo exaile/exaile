@@ -48,10 +48,14 @@ if config_dirs == None:
     config_dirs = "/etc/xdg"
 config_dirs = [os.path.join(d, "exaile") for d in config_dirs.split(":")]
 
-exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
+# We need the local hack for OSX bundled apps, so we depend on the main script
+# to set the environment variable correctly instead of trying to infer an
+# absolute path
+#exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
+exaile_dir = os.environ['EXAILE_DIR']
 local_hack = False
 # Detect if Exaile is not installed.
-if os.path.exists(os.path.join(exaile_dir, 'Makefile')):
+if os.path.exists(os.path.join(exaile_dir, 'data')):
     local_hack = True
     # Insert the "data" directory to data_dirs.
     data_dir = os.path.join(exaile_dir, 'data')

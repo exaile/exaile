@@ -885,11 +885,11 @@ class MainWindow(gobject.GObject):
         return True
 
     def _on_prev_tab_key(self, *e):
-        self.get_selected_page().select_prev_tab()
+        self.playlist_container.get_current_notebook().select_prev_tab()
         return True
     
     def _on_next_tab_key(self, *e):
-        self.get_current_notebook().select_next_tab()
+        self.playlist_container.get_current_notebook().select_next_tab()
         return True
     
     def _on_playpause_button(self, *e):

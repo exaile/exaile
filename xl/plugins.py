@@ -49,11 +49,10 @@ class PluginsManager(object):
         if xdg.local_hack:
             self.plugindirs.insert(1, os.path.join(xdg.exaile_dir, 'plugins'))
 
-        for dir in self.plugindirs:
-            try:
-                os.makedirs(dir)
-            except:
-                pass
+        try:
+            os.makedirs(self.plugindirs[0])
+        except:
+            pass
 
         self.plugindirs = [ x for x in self.plugindirs if os.path.exists(x) ]
         self.loaded_plugins = {}

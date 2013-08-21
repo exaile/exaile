@@ -24,7 +24,14 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os, glib
+import os, sys
+import glib
+
+# We need the local hack for OSX bundled apps, so we depend on the main script
+# to set the environment variable correctly instead of trying to infer an
+# absolute path
+#exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
+exaile_dir = os.environ['EXAILE_DIR']
 
 homedir = os.path.expanduser("~")
 lastdir = homedir
@@ -39,20 +46,23 @@ cache_home = glib.get_user_cache_dir()
 cache_home = os.path.join(cache_home, "exaile")
 
 data_dirs = os.getenv("XDG_DATA_DIRS")
-if data_dirs == None:
-    data_dirs = "/usr/local/share/:/usr/share/"
-data_dirs = [os.path.join(d, "exaile") for d in data_dirs.split(":")]
+if data_dirs is None:
+    if sys.platform == 'win32':
+        data_dirs = [exaile_dir]
+    else:
+        data_dirs = ["/usr/local/share/exaile", "/usr/share/exaile"]
+else:
+    data_dirs = [os.path.join(d, "exaile") for d in data_dirs.split(os.pathsep)]
 
 config_dirs = os.getenv("XDG_CONFIG_DIRS")
-if config_dirs == None:
-    config_dirs = "/etc/xdg"
-config_dirs = [os.path.join(d, "exaile") for d in config_dirs.split(":")]
+if config_dirs is None:
+    if sys.platform == 'win32':
+        config_dirs = [exaile_dir]
+    else:
+        config_dirs = ["/etc/xdg/exaile"]
+else:
+    config_dirs = [os.path.join(d, "exaile") for d in config_dirs.split(os.pathsep)]
 
-# We need the local hack for OSX bundled apps, so we depend on the main script
-# to set the environment variable correctly instead of trying to infer an
-# absolute path
-#exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
-exaile_dir = os.environ['EXAILE_DIR']
 local_hack = False
 # Detect if Exaile is not installed.
 if os.path.exists(os.path.join(exaile_dir, 'data')):

@@ -320,7 +320,7 @@ Section "-Exaile" SecExaile
     ;Create shortcuts
     CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
     CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Exaile.lnk" "$INSTDIR\exaile.bat" "" "$INSTDIR\data\images\exaile.ico"
-    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Exaile (Debug).lnk" "$INSTDIR\exaile.bat" "console" "$INSTDIR\data\images\exaile.ico"
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Exaile (Debug).lnk" "$INSTDIR\exaile.bat" "--console" "$INSTDIR\data\images\exaile.ico"
 
     !insertmacro MUI_STARTMENU_WRITE_END
 

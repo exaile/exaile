@@ -13,20 +13,18 @@ Exaile (and its installer) has been tested on:
     
     Python 2.7.3 (32-bit)
     GStreamer.com SDK 2012.9 (32-bit)
-    
-It has been reported exaile does work using the 64-bit version of python and
-the GStreamer SDK, however the Exaile installer will only install the 32-bit
-versions of Python and the GStreamer.com SDK.
 
-Exaile may work with the OSSBuild SDK and python 2.6.6, but this is not 
-a recommended configuration. 
+Exaile does work using the 64-bit version of Python and the GStreamer SDK;
+however, the Exaile installer will only install the 32-bit versions. Exaile may
+work with the OSSBuild SDK and Python 2.6.6, but this is not a recommended
+configuration. 
 
 
 Running Exaile
 ==============
 
 Launch "exaile.bat". If exaile does not launch, or if you want to see debug 
-output from Exaile, then launch "exaile.bat console"
+output from Exaile, then launch "exaile.bat --console"
 
 exaile.bat has a number of diagnostic test that it performs while launching 
 Exaile, and its output may be able to inform you of any possible problems if 

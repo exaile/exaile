@@ -217,10 +217,11 @@ class SearchEntry(object):
         self.entry = entry
         self.timeout = timeout
         self.change_id = None
-        self._last_text = entry.get_text()
 
         if entry is None:
             self.entry = entry = gtk.Entry()
+            
+        self._last_text = entry.get_text()
 
         entry.connect('changed', self.on_entry_changed)
         entry.connect('icon-press', self.on_entry_icon_press)

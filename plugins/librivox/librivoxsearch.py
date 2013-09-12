@@ -27,44 +27,44 @@ urllib._urlopener = AppURLopener()
 search_url = 'http://librivox.org/newcatalog/search_xml.php?simple='
 
 class Book():
-	def __init__(self, title, rssurl):
-		self.title=title
-		self.rssurl=rssurl
-		self.chapters=[]
-		self.info=None
-		self.is_loading=False
-		self.xmldata=None
-		self.xmltree=None
-		self.loaded=False
+    def __init__(self, title, rssurl):
+        self.title=title
+        self.rssurl=rssurl
+        self.chapters=[]
+        self.info=None
+        self.is_loading=False
+        self.xmldata=None
+        self.xmltree=None
+        self.loaded=False
 
 
-	def get_all(self):
-		'''
-		Unified function for getting chapters and info at the same
-		time.
-		'''
-		if self.loaded:
-			return
+    def get_all(self):
+        '''
+            Unified function for getting chapters and info at the same
+            time.
+        '''
+        if self.loaded:
+            return
 
-		try:
-			self.xmldata=urllib.urlopen(self.rssurl).read()
-			self.xmltree=ElementTree.XML(self.xmldata)
-		except:
-			logger.error("LIBRIVOX: XML or connection error")
-			return
-		self.chapters=[]
-		items=self.xmltree.findall("channel/item")
-		for item in items:
-			title=item.find("title").text
-			link=item.find("link").text
-			duration=item.find("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration").text
-			link=link.replace("_64kb.mp3", ".ogg")
-			self.chapters.append([title+" "+"("+duration+")", link])
+        try:
+            self.xmldata=urllib.urlopen(self.rssurl).read()
+            self.xmltree=ElementTree.XML(self.xmldata)
+        except:
+            logger.error("LIBRIVOX: XML or connection error")
+            return
+        self.chapters=[]
+        items=self.xmltree.findall("channel/item")
+        for item in items:
+            title=item.find("title").text
+            link=item.find("link").text
+            duration=item.find("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration").text
+            link=link.replace("_64kb.mp3", ".ogg")
+            self.chapters.append([title+" "+"("+duration+")", link])
 
-		self.info=self.xmltree.find("channel/description")
-		self.info=self.info.text
-		self.loaded=True
-		return
+        self.info=self.xmltree.find("channel/description")
+        self.info=self.info.text
+        self.loaded=True
+        return
 
 
 
@@ -72,30 +72,30 @@ class Book():
 
 
 def find_books(keyword):
-	'''
-	Returns a list of Book instances, with unknown chapters...
-	'''
-	old_keyword=keyword #transform 'keyw1 keyw2 keyw3' into 'key1+key2+key3'
-	keyword=''
-	for letter in old_keyword:
-		if letter!=' ':
-			keyword=keyword+letter
-		else:
-			keyword=keyword+'+'
+    '''
+        Returns a list of Book instances, with unknown chapters...
+    '''
+    old_keyword=keyword #transform 'keyw1 keyw2 keyw3' into 'key1+key2+key3'
+    keyword=''
+    for letter in old_keyword:
+        if letter!=' ':
+            keyword=keyword+letter
+        else:
+            keyword=keyword+'+'
 
-	url=search_url+keyword
-	try:
-		data = urllib.urlopen(url).read()
-		tree=ElementTree.XML(data)
-	except:
-		logger.error("LIBRIVOX: XML or connection error")
-		return []
-	booksXML=tree.findall("book")
-	books=[]
-	for BK in booksXML:
-		title=BK.find("title").text
-		rssurl=BK.find("rssurl").text
-		book=Book(title, rssurl)
-		books.append(book)
-	return books
+    url=search_url+keyword
+    try:
+        data = urllib.urlopen(url).read()
+        tree=ElementTree.XML(data)
+    except:
+        logger.error("LIBRIVOX: XML or connection error")
+        return []
+    booksXML=tree.findall("book")
+    books=[]
+    for BK in booksXML:
+        title=BK.find("title").text
+        rssurl=BK.find("rssurl").text
+        book=Book(title, rssurl)
+        books.append(book)
+    return books
 

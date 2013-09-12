@@ -544,7 +544,7 @@ class TrackPropertiesDialog(gobject.GObject):
                 for trackdata in self.trackdata:
                     try:
                         all_vals.append(trackdata[tag][multi_id])
-                    except KeyError:
+                    except (KeyError, IndexError):
                         all_vals.append('')
 
                 row.field.set_value(val(), all_vals, doupdate=False)
@@ -606,7 +606,7 @@ class TagRow(object):
         for track in parent.trackdata:
             try:
                 all_vals.append(track[tag_name][multi_id])
-            except KeyError:
+            except (KeyError, IndexError):
                 all_vals.append(None)
 
         self.field.set_value(value, all_vals)
@@ -873,13 +873,18 @@ class TagDblNumField(gtk.HBox):
         if all_val != None:
             all_vals = []
             for v in all_val:
-                all_vals.append(v.split('/'))
+                if v is not None:
+                    if len(v.split('/')) < 2:
+                        v += '/'
+                    all_vals.append(v.split('/'))
+                else:
+                    all_vals.append(None)
 
             # Set the value of the all button
             flags = [True, True]
             for i in range(2):
                 for v in all_vals:
-                    if vals[i] != v[i]:
+                    if v is None or vals[i] != v[i]:
                         flags[i] = False
 
                 if self.all_button[i] != None:

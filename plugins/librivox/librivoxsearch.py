@@ -24,7 +24,9 @@ class AppURLopener(urllib.FancyURLopener):
     version = "App/1.7"
 urllib._urlopener = AppURLopener()
 
-search_url = 'http://librivox.org/newcatalog/search_xml.php?simple='
+# TODO: The 'new' API doesn't allow general queries, only allows exact 
+# matching.. if they fix it, we'll fix it. >_>
+search_url = 'http://librivox.org/api/feed/audiobooks/?title='
 
 class Book():
     def __init__(self, title, rssurl):
@@ -48,16 +50,24 @@ class Book():
 
         try:
             self.xmldata=urllib.urlopen(self.rssurl).read()
+        except:
+            logger.error("LIBRIVOX: Connection error")
+            return
+        
+        try:
             self.xmltree=ElementTree.XML(self.xmldata)
         except:
-            logger.error("LIBRIVOX: XML or connection error")
+            logger.error("LIBRIVOX: XML error")
             return
+        
         self.chapters=[]
         items=self.xmltree.findall("channel/item")
         for item in items:
             title=item.find("title").text
             link=item.find("link").text
             duration=item.find("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration").text
+            if duration is None:
+                duration = 'Unknown length'
             link=link.replace("_64kb.mp3", ".ogg")
             self.chapters.append([title+" "+"("+duration+")", link])
 
@@ -75,27 +85,34 @@ def find_books(keyword):
     '''
         Returns a list of Book instances, with unknown chapters...
     '''
-    old_keyword=keyword #transform 'keyw1 keyw2 keyw3' into 'key1+key2+key3'
-    keyword=''
-    for letter in old_keyword:
-        if letter!=' ':
-            keyword=keyword+letter
-        else:
-            keyword=keyword+'+'
-
-    url=search_url+keyword
+    
+    # urlencode the search string
+    url=search_url+urllib.quote_plus(keyword)
+    
     try:
-        data = urllib.urlopen(url).read()
+        data=urllib.urlopen(url).read()
+    except:
+        logger.error("LIBRIVOX: connection error")
+        return []
+    
+    try:
         tree=ElementTree.XML(data)
     except:
-        logger.error("LIBRIVOX: XML or connection error")
+        logger.error("LIBRIVOX: XML error")
         return []
-    booksXML=tree.findall("book")
-    books=[]
-    for BK in booksXML:
-        title=BK.find("title").text
-        rssurl=BK.find("rssurl").text
-        book=Book(title, rssurl)
-        books.append(book)
+    
+    books = []
+    
+    for elem in tree:
+        if elem.tag == 'error':
+            logger.error('LIBRIVOX: query error: %s' % elem.text)
+        
+        elif elem.tag == 'books':
+            for bk in elem.findall('book'):
+                title=bk.find("title").text
+                rssurl=bk.find("url_rss").text
+                book=Book(title, rssurl)
+                books.append(book)
+    
     return books
 

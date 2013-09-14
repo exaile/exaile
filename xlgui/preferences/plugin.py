@@ -246,6 +246,9 @@ class PluginManager(object):
             Called when the checkbox is toggled
         """
         plugin = self.model[path][0]
+        if plugin is None:
+            return
+        
         enable = not self.model[path][3]
 
         if enable:

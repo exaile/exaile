@@ -31,6 +31,7 @@
 #
 # Also takes care of parsing commandline options.
 
+import errno
 import logging
 import logging.handlers
 import os
@@ -98,13 +99,23 @@ class Exaile(object):
             xdg.config_dirs.insert(0, xdg.config_home)
             xdg.cache_home = self.options.UseAllDataDir
             
-        xdg._make_missing_dirs()
+        try:
+            xdg._make_missing_dirs()
+        except OSError, e:
+            print >> sys.stderr, 'ERROR: Could not create configuration directories: %s' % str(e)
+            return
+            
 
         # Make event debug imply debug
         if self.options.DebugEvent:
             self.options.Debug = True
 
-        self.setup_logging()
+        try:
+            self.setup_logging()
+        except OSError, e:
+            print >> sys.stderr, 'ERROR: could not setup logging: %s' % str(e)
+            return
+        
         global logger
         logger = logging.getLogger(__name__)
 

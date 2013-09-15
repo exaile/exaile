@@ -102,6 +102,9 @@ class MainWindow(gobject.GObject):
         self.current_page = -1
         self._fullscreen = False
         self.resuming = False
+        
+        self.window_state = 0
+        self.minimized = False
 
         self.builder = builder
 
@@ -994,8 +997,10 @@ class MainWindow(gobject.GObject):
                not bringtofront and self.window.get_property('visible'):
                 self.window.hide()
             else:
-                self.window.show()
+                # the ordering for deiconify/show matters -- if this gets 
+                # switched, then the minimization detection breaks
                 self.window.deiconify()
+                self.window.show()
 
     def configure_event(self, *e):
         """
@@ -1030,20 +1035,51 @@ class MainWindow(gobject.GObject):
         if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
 
-        if settings.get_option('gui/minimize_to_tray', False):
-            wm_state = window.window.property_get('_NET_WM_STATE')
+        # detect minimization state changes
+        prev_minimized = self.minimized
+        
+        if not self.minimized:
+            
+            if event.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED and \
+               not event.changed_mask & gtk.gdk.WINDOW_STATE_WITHDRAWN and \
+               event.new_window_state & gtk.gdk.WINDOW_STATE_ICONIFIED and \
+               not event.new_window_state & gtk.gdk.WINDOW_STATE_WITHDRAWN and \
+               not self.window_state & gtk.gdk.WINDOW_STATE_ICONIFIED:
+                
+                self.minimized = True
+        else:
+            if event.changed_mask & gtk.gdk.WINDOW_STATE_WITHDRAWN and \
+               not event.new_window_state & (gtk.gdk.WINDOW_STATE_WITHDRAWN): #and \
+                
+                self.minimized = False
 
-            if wm_state is not None:
-                if '_NET_WM_STATE_HIDDEN' in wm_state[2]:
-                    if not settings.get_option('gui/use_tray', False) and \
-                        self.controller.tray_icon is None:
-                        self.controller.tray_icon = tray.TrayIcon(self)
-                    window.hide()
-                else:
-                    if not settings.get_option('gui/use_tray', False) and \
-                        self.controller.tray_icon is not None:
-                        self.controller.tray_icon.destroy()
-                        self.controller.tray_icon = None
+        # track this
+        self.window_state = event.new_window_state
+        
+        if settings.get_option('gui/minimize_to_tray', False):
+            
+            # old code to detect minimization
+            # -> it must have worked at some point, perhaps this is a GTK version
+            # specific set of behaviors? Current code works now on 2.24.17
+             
+            #if wm_state is not None:
+            #    if '_NET_WM_STATE_HIDDEN' in wm_state[2]:
+            #        show tray
+            #        window.hide
+            #else
+            #    destroy tray
+            
+            if self.minimized != prev_minimized and self.minimized == True:
+                if not settings.get_option('gui/use_tray', False) and \
+                    self.controller.tray_icon is None:
+                    self.controller.tray_icon = tray.TrayIcon(self)
+                
+                window.hide()
+            elif window.window.property_get('_NET_WM_STATE') is None:
+                if not settings.get_option('gui/use_tray', False) and \
+                    self.controller.tray_icon is not None:
+                    self.controller.tray_icon.destroy()
+                    self.controller.tray_icon = None
 
         return False
 

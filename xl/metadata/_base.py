@@ -31,6 +31,10 @@ import gio
 INFO_TAGS = ['__bitrate', '__length']
 
 # Generic description of cover images
+# - type is a number corresponding to the cover type of ID3 APIC tags, 
+#   desc is a string describing the image, mime is a type, 
+#   data is the img data
+# -> if type is None, then the type is not changeable
 CoverImage = namedtuple('CoverImage', 'type desc mime data')
 
 class NotWritable(Exception):

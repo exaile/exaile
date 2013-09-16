@@ -26,7 +26,7 @@
 
 
 
-from xl.metadata._base import BaseFormat
+from xl.metadata._base import BaseFormat, CoverImage
 from mutagen import mp4
 
 class MP4Format(BaseFormat):
@@ -47,6 +47,8 @@ class MP4Format(BaseFormat):
             'bpm':         'tmpo',
             'grouping':    '\xa9grp',
             'comment':     '\xa9cmt',
+            'originaldate':'----:com.apple.iTunes:ORIGYEAR',
+            'cover':       'covr',
         }
     others = False
     writable = True
@@ -54,6 +56,15 @@ class MP4Format(BaseFormat):
     def _get_tag(self, f, name):
         if not f.has_key(name):
             return []
+        elif name == 'covr':
+            ret = []
+            for value in f[name]:
+                if value.imageformat == mp4.MP4Cover.FORMAT_PNG:
+                    mime = 'image/png'
+                else:
+                    mime = 'image/jpeg'
+                ret.append(CoverImage(type=None, desc=None, mime=mime, data=value))
+            return ret
         elif name in ['trkn', 'disk']:
             ret = []
             for value in f[name]:
@@ -69,10 +80,22 @@ class MP4Format(BaseFormat):
                 for val in value:
                     tmp = map(int, val.split('/'))
                     f[name].append(tuple(tmp))
-            except TypeError:
+            except (TypeError, ValueError):
                 pass
+        elif name == 'covr':
+            f[name] = []
+            
+            for val in value:
+                if val.mime == 'image/jpeg':
+                    f[name].append(mp4.MP4Cover(val.data, mp4.MP4Cover.FORMAT_JPEG))
+                elif val.mime == 'image/png':
+                    f[name].append(mp4.MP4Cover(val.data, mp4.MP4Cover.FORMAT_JPEG))
+                else:
+                    raise ValueError('MP4 does not support cover image type %s' % val.type)
         elif name == 'tmpo':
             f[name] = [int(v) for v in value]
+        elif name == '----:com.apple.iTunes:ORIGYEAR':
+            f[name] = [str(v) for v in value]
         else:
             f[name] = value
 

@@ -331,8 +331,9 @@ class Track(object):
             # error writing to the file, probably
             logger.warning( "Could not write tags to file: %s" % e )
             return False
-        except Exception:
+        except Exception, e:
             common.log_exception(logger)
+            logger.warning( "Unknown exception: Could not write tags to file: %s" % e )
             return False
 
     def read_tags(self):

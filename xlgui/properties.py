@@ -931,6 +931,7 @@ class TagImageField(gtk.HBox):
             'image/png': {
                 'title': _('PNG image'),
                 'type': 'png',
+                'options': {}
             },
             'image/': {
                 'title': _('Image'),
@@ -995,10 +996,22 @@ class TagImageField(gtk.HBox):
                 else:
                     self.batch_update = True
                     self.set_pixbuf(loader.get_pixbuf(), val.mime)
-                    self.type_selection.set_active(val.type)
-                    self.type_selection.set_sensitive(True)
-                    self.description_entry.set_text(val.desc)
-                    self.description_entry.set_sensitive(True)
+                    
+                    # some file types do not support multiple cover types
+                    if val.type is not None:
+                        self.type_selection.set_active(val.type)
+                        self.type_selection.set_sensitive(True)
+                    else:
+                        self.type_selection.set_active(-1)
+                        self.type_selection.set_sensitive(False)
+                        
+                    if val.desc is not None:
+                        self.description_entry.set_text(val.desc)
+                        self.description_entry.set_sensitive(True)
+                    else:
+                        self.description_entry.set_text('')
+                        self.description_entry.set_sensitive(False)
+                    
                     self.batch_update = False
             else:
                 self.batch_update = True

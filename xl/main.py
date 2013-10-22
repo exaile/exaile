@@ -185,6 +185,17 @@ class Exaile(object):
             sys.exit(1)
             
         logger.debug("Settings loaded from %s" % settings.location)
+        
+        # display locale information if available
+        try:
+            import locale
+            lc, enc = locale.getlocale()
+            if enc is not None:
+                logger.info("Using %s %s locale" % (lc, enc))
+            else:
+                logger.info("Using unknown locale")
+        except:
+            pass
 
         splash = None
 

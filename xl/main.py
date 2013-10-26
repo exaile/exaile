@@ -81,7 +81,11 @@ class Exaile(object):
         """
         self.quitting = False
         self.loading = True
-        (self.options, self.args) = self.get_options().parse_args()
+        
+        try:
+            (self.options, self.args) = self.get_options().parse_args()
+        except UnicodeDecodeError:
+            (self.options, self.args) = self.get_options(unicode_bug_happened=True).parse_args()
 
         if self.options.ShowVersion:
             self.version()
@@ -424,19 +428,39 @@ class Exaile(object):
         logfile.setFormatter(formatter)
         logging.getLogger("").addHandler(logfile)
 
-    def get_options(self):
+    def get_options(self, unicode_bug_happened=False):
         """
             Get the options for exaile
         """
         from optparse import OptionParser, OptionGroup, IndentedHelpFormatter
 
-        class OverrideHelpFormatter(IndentedHelpFormatter):
-            """
-                Merely for translation purposes
-            """
-            def format_usage(self, usage):
-                return '%s\n' % usage
-
+        if unicode_bug_happened:
+            
+            #
+            # Bug: https://bugs.launchpad.net/exaile/+bug/1154420
+            #
+            # For some locales, python doesn't merge the options and
+            # the headings and our translated text correctly. Unfortunately,
+            # there doesn't seem to be a good way to deal with the problem
+            # on Python 2.x . If we disable the usage/heading, at least
+            # the options will display, despite filling all the text as ???. 
+            #
+            
+            print >> sys.stderr, "exaile: Warning: Unicode error displaying --help, check locale settings"
+            
+            class OverrideHelpFormatter(IndentedHelpFormatter):
+                def format_usage(self, usage):
+                    return ''
+                def format_heading(self, heading):
+                    return ''
+        else:
+            class OverrideHelpFormatter(IndentedHelpFormatter):
+                """
+                    Merely for translation purposes
+                """
+                def format_usage(self, usage):
+                    return '%s\n' % usage
+        
         usage = _("Usage: exaile [OPTION]... [URI]")
         optionlabel = _('Options') # Merely for translation purposes
         p = OptionParser(usage=usage, add_help_option=False,

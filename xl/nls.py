@@ -29,6 +29,7 @@
     code in a gettext fashion without a hard depend on gettext itself.
 """
 
+import sys
 import locale
 
 from xl import xdg
@@ -36,8 +37,12 @@ from xl import xdg
 try:
     # Set to user default, gracefully fallback on C otherwise
     locale.setlocale(locale.LC_ALL, '')
-except locale.Error:
-    pass
+except locale.Error, e:
+    # Error message copied from bzr
+    sys.stderr.write('exaile: Warning: %s\n'
+                     '  Exaile could not set the application locale, this\n'
+                     '  may cause language-specific problems. To investigate this\n'
+                     '  issue, look at the output of the locale tool.\n' % e)
 
 try:
     import gettext as gettextmod

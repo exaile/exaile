@@ -158,19 +158,19 @@
 
 ; Use the official python.org Python packages
 !define PYTHON_VERSION          "2.7"
-!define PYTHON_FULL_VERSION     "2.7.3"
+!define PYTHON_FULL_VERSION     "2.7.5"
 !define PYTHON_PATH             "C:\Python27"
 !define PYTHON_FN               "python-${PYTHON_FULL_VERSION}.msi"
-!define PYTHON_FSIZE            "15MB"
+!define PYTHON_FSIZE            "16MB"
 !define PYTHON_URL              "http://python.org/ftp/python/${PYTHON_FULL_VERSION}/${PYTHON_FN}"
 ;!define PYTHON_URL              "${TEST_URL}/${PYTHON_FN}"
 !define PYTHON_CMD              "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
 
 ; Use the mutagen setup package
-!define MUTAGEN_VERSION         "1.20"
+!define MUTAGEN_VERSION         "1.22"
 !define MUTAGEN_FN              "mutagen-${MUTAGEN_VERSION}.tar.gz"
-!define MUTAGEN_FSIZE           "600KB"
-!define MUTAGEN_URL             "http://mutagen.googlecode.com/files/${MUTAGEN_FN}"
+!define MUTAGEN_FSIZE           "799KB"
+!define MUTAGEN_URL             "https://bitbucket.org/lazka/mutagen/downloads/${MUTAGEN_FN}"
 ;!define MUTAGEN_URL             "${TEST_URL}/${MUTAGEN_FN}"
 !define MUTAGEN_CMD             "${PYTHON_PATH}\python.exe $PLUGINSDIR\install_targz.py $DAI_TMPFILE"
 
@@ -198,10 +198,10 @@
 ;!define GSTSDK_CMD              "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
 
 ; Use the GStreamer.com SDK
-!define GSTCOMSDK_VERSION       "2012.9"
+!define GSTCOMSDK_VERSION       "2013.6"
 !define GSTCOMSDK_FN            "gstreamer-sdk-x86-${GSTCOMSDK_VERSION}.msi"
-!define GSTCOMSDK_FSIZE         "97MB"
-!define GSTCOMSDK_URL           "http://www.freedesktop.org/software/gstreamer-sdk/data/packages/windows/x86/${GSTCOMSDK_FN}"
+!define GSTCOMSDK_FSIZE         "106MB"
+!define GSTCOMSDK_URL           "http://cdn.gstreamer.com/windows/x86/${GSTCOMSDK_FN}"
 ;!define GSTCOMSDK_URL           "${TEST_URL}/${GSTCOMSDK_FN}"
 !define GSTCOMSDK_FEATURES      "_gstreamer_core,_gstreamer_system,_gstreamer_playback,_gstreamer_codecs,_gstreamer_networking,_gstreamer_python,_gtk__2.0,_gtk__2.0_python,_gstreamer_codecs_gpl,_gstreamer_codecs_restricted,_gstreamer_networking_restricted"
 !define GSTCOMSDK_CMD           "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1 ADDLOCAL=${GSTCOMSDK_FEATURES}"
@@ -277,17 +277,17 @@ Section "-gstcomsdk"
     ;   there's a mingw component required for this  ... install it
     ;   manually instead: see https://bugs.freedesktop.org/show_bug.cgi?id=54710
         
-    DetailPrint "--- PATCH GSTREAMER.COM SDK ---"
-    ReadRegStr $0 HKLM Software\GStreamerSDK\x86 "InstallDir"
-    ${If} $0 != ""
-        ${IfNot} ${FileExists} $0\0.10\x86\bin\libssp-0.dll
-            File /oname=$0\0.10\x86\bin\libssp-0.dll libssp-0.dll
-        ${Else}
-            DetailPrint "No patch required"
-        ${EndIf}
-    ${Else}
-        MessageBox MB_OK "Error patching GStreamer SDK"
-    ${EndIf}
+    ;DetailPrint "--- PATCH GSTREAMER.COM SDK ---"
+    ;ReadRegStr $0 HKLM Software\GStreamerSDK\x86 "InstallDir"
+    ;${If} $0 != ""
+    ;    ${IfNot} ${FileExists} $0\0.10\x86\bin\libssp-0.dll
+    ;        File /oname=$0\0.10\x86\bin\libssp-0.dll libssp-0.dll
+    ;    ${Else}
+    ;        DetailPrint "No patch required"
+    ;    ${EndIf}
+    ;${Else}
+    ;    MessageBox MB_OK "Error patching GStreamer SDK"
+    ;${EndIf}
     
 SectionEnd
 

@@ -1174,7 +1174,7 @@ class PropertyField(gtk.HBox):
     def set_value(self, val, all_vals=None, doupdate=True):
         if self.property_type == 'prop:bitrate':
             try:
-                val = str(float(val) / 1000.0) + ' Kbps'
+                val = str(float(val) / 1000.0) + ' kbps'
             except (TypeError, ValueError):
                 pass
         elif self.property_type == 'prop:datetime':

@@ -432,13 +432,13 @@ class FilesPanel(panel.Panel):
             for sortname, name, f in subdirs:
                 model.append((f, self.directory, name, ''))
             for sortname, name, f in subfiles:
-                size = f.query_info('standard::size').get_size() // 1024
+                size = f.query_info('standard::size').get_size() // 1000
                 
                 # locale.format_string does not support unicode objects
                 # correctly, so we call it with an str and convert the 
                 # locale-dependent output to unicode.
                 size = locale.format_string('%d', size, True)
-                size = _('%s KB') % unicode(size, locale.getpreferredencoding())
+                size = _('%s kB') % unicode(size, locale.getpreferredencoding())
                 
                 model.append((f, self.track, name, size))
 

@@ -134,6 +134,10 @@ class PluginsManager(object):
         try:
             plugin = self.enabled_plugins[pluginname]
             del self.enabled_plugins[pluginname]
+        except KeyError:
+            common.log_exception(logger, message="Plugin not found, possibly already disabled")
+            return False
+        try:
             plugin.disable(self.exaile)
             logger.debug("Unloaded plugin %s" % pluginname)
             self.save_enabled()
@@ -142,6 +146,7 @@ class PluginsManager(object):
             logger.warning("Unable to fully disable plugin %s" % pluginname)
             common.log_exception(logger)
             raise e
+        return True
 
     def list_installed_plugins(self):
         pluginlist = []

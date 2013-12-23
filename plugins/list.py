@@ -5,7 +5,7 @@ import os, sys
 #   - extra = not very useful
 # - bad = doesn't work
 
-EXTRA = ['helloworld']
+EXTRA = ['console', 'helloworld']
 BAD = ['shoutcast']
 
 def scan():

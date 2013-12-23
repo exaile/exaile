@@ -27,11 +27,11 @@ def on_key_down(event):
 def enable(exaile):
     if exaile.loading:
         import xl.event
-        xl.event.add_callback(_enable, 'exaile_loaded', None, exaile)
+        xl.event.add_callback(_enable, 'exaile_loaded')
     else:
-        _enable(exaile)
+        _enable(None, exaile, None)
 
-def _enable(exaile):
+def _enable(eventname, exaile, eventdata):
     global key_map, hook_manager
     from xl.player import PLAYER, QUEUE
 

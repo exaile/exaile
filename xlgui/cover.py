@@ -255,13 +255,17 @@ class CoverManager(gobject.GObject):
         if paths:
             path = paths[0]
             album = self.model[path][0]
-            cover_data = COVER_MANAGER.get_cover(self.album_tracks[album][0], set_only=True)
+            track = self.album_tracks[album][0]  # Arbitrary track in album
+            cover_data = COVER_MANAGER.get_cover(track, set_only=True)
             cover_pixbuf = icons.MANAGER.pixbuf_from_data(cover_data) if cover_data else None
 
             # Do not bother showing the dialog if there is no cover
             if cover_pixbuf:
-                title = '{0} - {1}'.format(*album)
-                cover_window = CoverWindow(self.window, cover_pixbuf, title)
+                savedir = gio.File(track.get_loc_for_io()).get_parent()
+                if savedir:
+                    savedir = savedir.get_path()
+                cover_window = CoverWindow(self.window, cover_pixbuf, album[1],
+                    savedir)
                 cover_window.show_all()
 
     def fetch_cover(self):
@@ -573,8 +577,12 @@ class CoverWidget(gtk.EventBox):
         pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data)
 
         if pixbuf:
+            track = self._player.current
+            savedir = gio.File(track.get_loc_for_io()).get_parent()
+            if savedir:
+                savedir = savedir.get_path()
             window = CoverWindow(self.parent_window, pixbuf,
-                self._player.current.get_tag_display('title'))
+                track.get_tag_display('album'), savedir)
             window.show_all()
 
     def fetch_cover(self):
@@ -774,8 +782,18 @@ class CoverWidget(gtk.EventBox):
 class CoverWindow(object):
     """Shows the cover in a simple image viewer"""
 
-    def __init__(self, parent, pixbuf, title=None):
-        """Initializes and shows the cover"""
+    def __init__(self, parent, pixbuf, album=None, savedir=None):
+        """Initializes and shows the cover
+
+        :param parent: Parent window to attach to
+        :type parent: gtk.Window
+        :param pixbuf: Pixbuf of the cover image
+        :type pixbuf: gtk.gdk.Pixbuf
+        :param album: Album title
+        :type album: basestring
+        :param savedir: Initial directory for the Save As functionality
+        :type savedir: basestring
+        """
         self.builder = gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.ui'))
         self.builder.connect_signals(self)
@@ -795,10 +813,11 @@ class CoverWindow(object):
         self.scrolledwindow.set_hadjustment(self.layout.get_hadjustment())
         self.scrolledwindow.set_vadjustment(self.layout.get_vadjustment())
 
-        if title is None:
-            title = _('Cover')
+        if album:
+            title = _('Cover for %s') % album
         else:
-            title = _('Cover for %s') % title
+            title = _('Cover')
+        self.savedir = savedir
 
         self.cover_window.set_title(title)
         self.cover_window.set_transient_for(parent)
@@ -895,8 +914,9 @@ class CoverWindow(object):
                 gtk.STOCK_SAVE, gtk.RESPONSE_ACCEPT))
         names = settings.get_option('covers/localfile/preferred_names')
         filename = (names[0] if names else 'cover') + '.png'
-        # TODO: dialog.set_current_folder(...)
         dialog.set_current_name(filename)
+        if self.savedir:
+            dialog.set_current_folder(self.savedir)
         if dialog.run() == gtk.RESPONSE_ACCEPT:
             filename = dialog.get_filename()
             lowfilename = filename.lower()

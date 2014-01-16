@@ -18,10 +18,13 @@ key_map = None
 hook_manager = None
 
 def on_key_down(event):
-    try:
+    # NOTE: Because we capture every single key in the system, the following
+    # test will fail almost 100% of the time. That's why we use a very simple
+    # test that fails fast rather than a try-except block.
+    if event.Key in key_map:
         key_map[event.Key]()
         return False  # Swallow key.
-    except KeyError:
+    else:
         return True
 
 def enable(exaile):
@@ -36,6 +39,7 @@ def _enable(eventname, exaile, eventdata):
     from xl.player import PLAYER, QUEUE
 
     key_map = {
+        'Launch_Media_Select': exaile.gui.main.window.present,
         'Media_Prev_Track': QUEUE.prev,
         'Media_Play_Pause': PLAYER.toggle_pause,
         'Media_Stop': PLAYER.stop,

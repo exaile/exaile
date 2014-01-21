@@ -23,13 +23,8 @@ try:
     
     if version.startswith('0.10'):
         from ipython_view import IPythonView
-        
-    elif version.startswith('0.11') or \
-         version.startswith('0.12'):
-        from ipython_view2 import IPythonView
-
     else:
-        raise ImportError('unknown IPython version: {0}'.format(version))
+        from ipython_view2 import IPythonView
 
 except (ImportError, AttributeError):
     logger.error('could not find a compatible version of IPython', exc_info=True)
@@ -48,7 +43,7 @@ if __name__ == '__main__':
     ipv.set_wrap_mode(gtk.WRAP_CHAR)
     ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse('black'))
     ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse('lavender'))
-    ipv.IP.magic_colors('Linux') # IPython color scheme
+    #ipv.IP.magic_colors('Linux') # IPython color scheme
 #    ipv.IP.user_ns.clear()
     w.add(sw)
     sw.add(ipv)

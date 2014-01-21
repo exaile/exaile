@@ -112,7 +112,9 @@ class IPyConsole(gtk.Window):
         ipv.set_wrap_mode(gtk.WRAP_CHAR)
         ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg_color))
         ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse(text_color))
-        ipv.IP.magic_colors(iptheme) # IPython color scheme
+        
+        if hasattr(ipv.IP, 'magic_colors'):
+            ipv.IP.magic_colors(iptheme) # IPython color scheme
 
         opacity = settings.get_option('plugin/ipconsole/opacity', 80.0)
 

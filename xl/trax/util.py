@@ -88,7 +88,7 @@ def get_tracks_from_uri(uri):
         tracks = [Track(uri)]
     return tracks
 
-def sort_tracks(fields, iter, trackfunc=None, reverse=False):
+def sort_tracks(fields, iter, trackfunc=None, reverse=False, artist_compilations=False):
     """
         Sorts tracks.
 
@@ -104,20 +104,20 @@ def sort_tracks(fields, iter, trackfunc=None, reverse=False):
         :type reverse: boolean
     """
     fields = list(fields) # we need the index method
-    artist_compilations = True
     if trackfunc is None:
         trackfunc = lambda tr: tr
     keyfunc = lambda tr: [trackfunc(tr).get_tag_sort(field,
         artist_compilations=artist_compilations) for field in fields]
+    
     return sorted(iter, key=keyfunc, reverse=reverse)
 
-def sort_result_tracks(fields, trackiter, reverse=False):
+def sort_result_tracks(fields, trackiter, reverse=False, artist_compilations=False):
     """
         Sorts SearchResultTracks, ie. the output from a search.
 
         Same params as sort_tracks.
     """
-    return sort_tracks(fields, trackiter, lambda tr: tr.track, reverse)
+    return sort_tracks(fields, trackiter, lambda tr: tr.track, reverse, artist_compilations)
 
 def get_rating_from_tracks(tracks):
     """
@@ -146,7 +146,7 @@ def get_rating_from_tracks(tracks):
 
 
 
-def get_album_tracks(tracksiter, track, artist_compilations=True):
+def get_album_tracks(tracksiter, track, artist_compilations=False):
     """
         Get any tracks from the given iterable that appear to be part of
         the same album as track. If track is in the iterable, it will be

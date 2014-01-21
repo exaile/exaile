@@ -501,7 +501,7 @@ class Track(object):
 
         return value
 
-    def get_tag_sort(self, tag, join=True, artist_compilations=True,
+    def get_tag_sort(self, tag, join=True, artist_compilations=False,
             extend_title=True):
         """
             Get a tag value in a form suitable for sorting.
@@ -566,7 +566,7 @@ class Track(object):
 
         return value
 
-    def get_tag_display(self, tag, join=True, artist_compilations=True,
+    def get_tag_display(self, tag, join=True, artist_compilations=False,
             extend_title=True):
         """
             Get a tag value in a form suitable for display.
@@ -633,7 +633,7 @@ class Track(object):
 
         return value
 
-    def get_tag_search(self, tag, format=True, artist_compilations=True,
+    def get_tag_search(self, tag, format=True, artist_compilations=False,
             extend_title=True):
         """
             Get a tag value suitable for passing to the search system.

@@ -33,6 +33,7 @@ import os
 import pango
 import random
 import re
+import sys
 
 from xl.nls import gettext as _
 from xl.playlist import (
@@ -595,6 +596,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                                     # a notify::width event was initiated
                                     # by the user.
         self._insert_focusing = False
+        
+        self._hack_is_osx = sys.platform == 'darwin'
+        self._hack_osx_control_mask = False
 
         self.set_fixed_height_mode(True) # MASSIVE speedup - don't disable this!
         self.set_rules_hint(True)
@@ -894,6 +898,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
         self.button_pressed = True
         self.grab_focus()
+        
+        # need this to workaround bug in GTK+ on OSX when dragging/dropping
+        # -> https://bugzilla.gnome.org/show_bug.cgi?id=722815
+        if self._hack_is_osx:
+            self._hack_osx_control_mask = True if e.state & gtk.gdk.CONTROL_MASK else False
 
         selection = self.get_selection()
         path = self.get_path_at_pos(int(e.x), int(e.y))
@@ -933,6 +942,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             Unsets the internal state for button press
         """
         self.button_pressed = False
+        self._hack_osx_control_mask = False
+        
         # Restore regular selection behavior in any case
         self.get_selection().set_select_function(lambda *args: True)
 
@@ -1105,9 +1116,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         x, y, modifier = self.window.get_pointer()
         target = self.drag_dest_find_target(context, self.drag_dest_get_target_list())
 
-        if modifier & gtk.gdk.CONTROL_MASK or target == 'text/uri-list':
+        if target == 'text/uri-list' or \
+           (self._hack_is_osx and self._hack_osx_control_mask) or \
+           (not self._hack_is_osx and modifier & gtk.gdk.CONTROL_MASK):
             action = gtk.gdk.ACTION_COPY
-
+        
         context.drag_status(action, etime)
 
         return True

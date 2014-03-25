@@ -58,17 +58,17 @@ class MkaFormat(_base.BaseFormat):
         segment = mka['Segment'][0]
         info = segment['Info'][0]
         length = info['Duration'][0] * info['TimecodeScale'][0] / 1e9
-        mkatags = segment['Tags'][0]['Tag']
         self.tags = tags = {'__length': length}
-        for mkatag in mkatags:
-            target = int(mkatag['Targets'][0]['TargetTypevalue'][0])
-            for simpletag in mkatag['SimpleTag']:
-                key = (simpletag['TagName'][0], target)
-                try:
-                    values = tags[key]
-                except KeyError:
-                    values = tags[key] = []
-                values.append(simpletag['TagString'][0])
+        for mkatags in segment['Tags']:
+            for mkatag in mkatags['Tag']:
+                target = int(mkatag['Targets'][0]['TargetTypevalue'][0])
+                for simpletag in mkatag['SimpleTag']:
+                    key = (simpletag['TagName'][0], target)
+                    try:
+                        values = tags[key]
+                    except KeyError:
+                        values = tags[key] = []
+                    values.append(simpletag['TagString'][0])
 
 
 # vi: et sts=4 sw=4 ts=4

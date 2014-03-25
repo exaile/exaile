@@ -324,8 +324,8 @@ MatroskaTags = {
     0x60: ('Video', MASTER),
     # Audio
     0x61: ('Audio', MASTER),
-    0x35: ('SamplingFrequency', UINT),
-    0x38B5: ('OutputSamplingFrequency', UINT),
+    0x35: ('SamplingFrequency', FLOAT),
+    0x38B5: ('OutputSamplingFrequency', FLOAT),
     0x1F: ('Channels', UINT),
     0x3D7B: ('ChannelPositions', BINARY),
     0x2264: ('BitDepth', UINT),

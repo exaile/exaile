@@ -120,7 +120,7 @@ install-target: make-install-dirs
 	tools/generate-launcher "${DESTDIR}" "${PREFIX}" "${LIBINSTALLDIR}" \
 		"${PYTHON2_CMD}" && \
 	  chmod 755 ${DESTDIR}${PREFIX}/bin/exaile
-	sed "s|\@bindir\@|${EXAILEBINDIR}|" data/org.exaile.Exaile.service.in > \
+	sed "s|\@bindir\@|${PREFIX}/bin|" data/org.exaile.Exaile.service.in > \
 		${DESTDIR}${PREFIX}/share/dbus-1/services/org.exaile.Exaile.service
 	${MAKE} -C plugins install
 

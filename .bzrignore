@@ -17,3 +17,5 @@ build
 dist
 
 doc/_build
+
+.DS_Store

@@ -363,6 +363,10 @@ class MarkerManager(providers.ProviderHandler):
         """
             Triggers "reached" signal of markers
         """
+        
+        if player.current is None:
+            return
+        
         track_length = player.current.get_tag_raw('__length')
 
         if track_length is None:

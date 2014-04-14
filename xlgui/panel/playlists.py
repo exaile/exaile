@@ -185,6 +185,16 @@ CRITERIA = [
         ('is set', NullField),
         ('is not set', NullField),
     ]),
+    (_('Composer'),[
+        ('is', EntryField),
+        ('is not', EntryField),
+        ('contains', EntryField),
+        ('does not contain', EntryField),
+        ('regex', EntryField),
+        ('not regex', EntryField),
+        ('is set', NullField),
+        ('is not set', NullField),
+    ]),
 ]
 
 # NOTE: We use N_ (fake gettext) because these strings are translated later by
@@ -244,6 +254,7 @@ _NMAP = {
     N_('Location'): '__loc',
     N_('BPM'): 'bpm',
     N_('Grouping'): 'grouping',
+    N_('Composer'): 'composer',
 }
 
 class TrackWrapper(object):

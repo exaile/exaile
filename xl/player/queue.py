@@ -71,13 +71,15 @@ class PlayQueue(playlist.Playlist):
             self.load_from_location(location)
             
         self._on_option_set(None, settings, 'queue/remove_item_when_played')
-
+        self._on_option_set(None, settings, 'queue/disable_new_track_when_playing')
     
     def _on_option_set(self, evtype, settings, option):
         if option == 'queue/remove_item_when_played':
             self.__remove_item_on_playback = settings.get_option(option, True)
             if len(self):
                 self.__queue_has_tracks = True
+        elif option == 'queue/disable_new_track_when_playing':
+            self.__disable_new_track_when_playing = settings.get_option(option, False)
     
     def set_current_playlist(self, playlist):
         """
@@ -216,6 +218,10 @@ class PlayQueue(playlist.Playlist):
         if not self.__remove_item_on_playback:
             return playlist.Playlist.set_current_position(self, position)
 
+    def is_play_enabled(self):
+        ''':returns: True when calling play() will have no effect'''
+        return not (self.player.is_playing() and self.__disable_new_track_when_playing)
+
     def play(self, track=None):
         """
             Starts queue processing with the given
@@ -224,8 +230,9 @@ class PlayQueue(playlist.Playlist):
             :param track: the track to play
             :type track: :class:`xl.trax.Track`
         """
-        if self.player.is_playing() and not track:
-            return
+        if self.player.is_playing():
+            if not track or self.__disable_new_track_when_playing:
+                return
         if not track:
             track = self.current
         if track:

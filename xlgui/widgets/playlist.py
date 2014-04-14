@@ -733,10 +733,11 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
     def _play_track_at(self, position, track, on_activated=False):
         '''Internal API'''       
         if not settings.get_option('playlist/enqueue_by_default', False) or \
-                (self.playlist is self.player.queue and on_activated):        
-            self.playlist.set_current_position(position)
-            self.player.queue.set_current_playlist(self.playlist)
-            self.player.queue.play(track=track)
+                (self.playlist is self.player.queue and on_activated):
+            if self.player.queue.is_play_enabled():        
+                self.playlist.set_current_position(position)
+                self.player.queue.set_current_playlist(self.playlist)
+                self.player.queue.play(track=track)
         elif self.playlist is not self.player.queue:
             self.player.queue.append(track)
             

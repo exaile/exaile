@@ -156,6 +156,10 @@ class EnqueueBeginsPlayback(widgets.CheckPreference):
 class RemoveQueuedItemWhenPlayed(widgets.CheckPreference):
     default = True
     name = 'queue/remove_item_when_played'
+    
+class DisableNewTrackWhenPlaying(widgets.CheckPreference):
+    default = False
+    name = 'queue/disable_new_track_when_playing'
 
 class EngineConditional(widgets.Conditional):
     """

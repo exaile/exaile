@@ -66,6 +66,6 @@ def get_player():
 
 # TODO: write a better interface than this
 PLAYER = get_player()('player')
-QUEUE = queue.PlayQueue(PLAYER, 'Queue',
+QUEUE = queue.PlayQueue(PLAYER, 'queue',
         location=os.path.join(xdg.get_data_dir(), 'queue.state'))
 

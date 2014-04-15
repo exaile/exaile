@@ -59,8 +59,6 @@ class PlayQueue(playlist.Playlist):
     """
     def __init__(self, player, name, location=None):
         playlist.Playlist.__init__(self, name=name)
-
-        event.add_callback(self._on_option_set, 'queue_option_set')
     
         self.__queue_has_tracks_val = False
         self.__current_playlist = self      # this should never be None
@@ -69,16 +67,22 @@ class PlayQueue(playlist.Playlist):
         
         if location is not None:
             self.load_from_location(location)
+        
+        event.add_callback(self._on_option_set, '%s_option_set' % name)
             
-        self._on_option_set(None, settings, 'queue/remove_item_when_played')
-        self._on_option_set(None, settings, 'queue/disable_new_track_when_playing')
+        self.__opt_remove_item_when_played = '%s/remove_item_when_played' % name
+        self.__opt_disable_new_track_when_playing = '%s/disable_new_track_when_playing' % name
+        self.__opt_enqueue_begins_playback = '%s/enqueue_begins_playback' % name
+            
+        self._on_option_set(None, settings, self.__opt_remove_item_when_played)
+        self._on_option_set(None, settings, self.__opt_disable_new_track_when_playing)
     
     def _on_option_set(self, evtype, settings, option):
-        if option == 'queue/remove_item_when_played':
+        if option == self.__opt_remove_item_when_played:
             self.__remove_item_on_playback = settings.get_option(option, True)
             if len(self):
                 self.__queue_has_tracks = True
-        elif option == 'queue/disable_new_track_when_playing':
+        elif option == self.__opt_disable_new_track_when_playing:
             self.__disable_new_track_when_playing = settings.get_option(option, False)
     
     def set_current_playlist(self, playlist):
@@ -288,7 +292,7 @@ class PlayQueue(playlist.Playlist):
 
         self.__queue_has_tracks = True
         
-        if old_len == 0 and settings.get_option('queue/enqueue_begins_playback', True) \
+        if old_len == 0 and settings.get_option(self.__opt_enqueue_begins_playback, True) \
            and old_len < playlist.Playlist.__len__(self):
             self.play()
 

@@ -133,7 +133,7 @@ class SecondaryOutputPlugin(object):
         self.playpause_button = gtk.Button()
         self.playpause_button.set_relief(gtk.RELIEF_NONE)
         self._on_playback_end(None, None, None)
-        self.playpause_button.connect('clicked', self._on_playpause_button_clicked)
+        self.playpause_button.connect('button-press-event', self._on_playpause_button_clicked)
         
         progress_bar = playback.SeekProgressBar(self.player, use_markers=False)
         
@@ -298,12 +298,19 @@ class SecondaryOutputPlugin(object):
     # Various player events
     #
     
-    def _on_playpause_button_clicked(self, *e):
+    def _on_playpause_button_clicked(self, widget, event):
         """
             Called when the play button is clicked
         """
-        if self.player.is_paused() or self.player.is_playing():
-            self.player.toggle_pause()
+        
+        if event.button == 1:
+            if event.type == gtk.gdk.BUTTON_PRESS and \
+                (self.player.is_paused() or self.player.is_playing()):
+                
+                self.player.toggle_pause()
+                
+            elif event.type == gtk.gdk._2BUTTON_PRESS:
+                self.player.stop()
         
         
     @guiutil.idle_add()
@@ -344,7 +351,7 @@ class SecondaryOutputPlugin(object):
         image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE, 
                                          gtk.ICON_SIZE_BUTTON)
         self.playpause_button.set_image(image)
-        self.playpause_button.set_tooltip_text( _('Pause Playback') )
+        self.playpause_button.set_tooltip_text( _('Pause Playback (double click to stop)') )
 
     @guiutil.idle_add()
     def _on_playback_end(self, type, player, object):

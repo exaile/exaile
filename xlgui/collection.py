@@ -160,6 +160,15 @@ class CollectionManagerDialog(object):
         selection = self.view.get_selection()
         model, iter = selection.get_selected()
         model.remove(iter)
+        
+    def on_rescan_button_clicked(self, widget):
+        """
+            Triggers rescanning the collection
+        """
+        
+        from xlgui import main
+        main.mainwindow().controller.on_rescan_collection()
+        
     
     def on_selection_changed(self, selection):
         """

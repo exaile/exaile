@@ -302,7 +302,6 @@ class TrackInfoPane(gtk.Alignment):
         """
             Updates the info pane on track start
         """
-        print player, track
         glib.idle_add(self.set_track, track)
 
     def on_playback_toggle_pause(self, event, player, track):

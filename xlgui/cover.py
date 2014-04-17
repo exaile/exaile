@@ -625,9 +625,7 @@ class CoverWidget(gtk.EventBox):
             Sets the default cover to display
         """
         
-        # called from another thread.. , should it be idle_add?
-        
-        glib.idle_add(self.drag_dest_unset)
+        self.drag_dest_unset()
         
         pixbuf = icons.MANAGER.pixbuf_from_data(
             COVER_MANAGER.get_default_cover())

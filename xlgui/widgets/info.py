@@ -392,7 +392,7 @@ class TrackListInfoPane(gtk.Alignment):
         """
         tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
 
-        self.cover.set_track(tracks[0], use_default=True)
+        self.cover.set_track(tracks[0])
         
         albums = []
         artists = []

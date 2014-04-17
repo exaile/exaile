@@ -41,7 +41,7 @@ from xl import (
 )
 from xl.nls import gettext as _
 import xlgui
-from xlgui import icons, playlist, guiutil
+from xlgui import cover, playlist, guiutil
 from xlgui.widgets.playback import PlaybackProgressBar
 
 class TrackInfoPane(gtk.Alignment):
@@ -73,7 +73,6 @@ class TrackInfoPane(gtk.Alignment):
         self.__timer = None
         self.__track = None
 
-        self.cover_image = builder.get_object('cover_image')
         self.info_label = builder.get_object('info_label')
         self.action_area = builder.get_object('action_area')
         self.progress_box = builder.get_object('progress_box')
@@ -81,6 +80,10 @@ class TrackInfoPane(gtk.Alignment):
         self.progressbar = PlaybackProgressBar(player)
         guiutil.gtk_widget_replace(builder.get_object('progressbar'),
             self.progressbar)
+        
+        self.cover = cover.CoverWidget(builder.get_object('cover_image'))
+        self.cover.hide_all()
+        self.cover.set_no_show_all(True)
 
         self.clear()
 
@@ -223,7 +226,7 @@ class TrackInfoPane(gtk.Alignment):
 
         self.__track = track
 
-        self._set_track_cover(track)
+        self.cover.set_track(track)
 
         self.info_label.set_markup(self.__formatter.format(
             track, markup_escape=True))
@@ -244,26 +247,12 @@ class TrackInfoPane(gtk.Alignment):
             else:
                 self.__hide_progress()
 
-    @common.threaded
-    def _set_track_cover(self, track):
-        """
-            Sets the track's cover image
-        """
-        if self.__track != track:
-            return
-        image_data = covers.MANAGER.get_cover(track, set_only=True, use_default=True)
-        size = self.get_cover_size()
-        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (size, size))
-        glib.idle_add(self.cover_image.set_from_pixbuf, pixbuf)
-
     def clear(self):
         """
             Resets the info pane
         """
-        size = self.get_cover_size()
-        pixbuf = icons.MANAGER.pixbuf_from_data(
-            covers.MANAGER.get_default_cover(), (size, size))
-        self.cover_image.set_from_pixbuf(pixbuf)
+        
+        self.cover.set_track(None)
         self.info_label.set_markup(self.__default_text)
 
         if self.__display_progress:
@@ -313,6 +302,7 @@ class TrackInfoPane(gtk.Alignment):
         """
             Updates the info pane on track start
         """
+        print player, track
         glib.idle_add(self.set_track, track)
 
     def on_playback_toggle_pause(self, event, player, track):
@@ -372,7 +362,7 @@ class TrackListInfoPane(gtk.Alignment):
 
         self._display_tracklist = display_tracklist
 
-        self.cover_image = builder.get_object('cover_image')
+        self.cover = cover.CoverWidget(builder.get_object('cover_image'))
         self.album_label = builder.get_object('album_label')
         self.artist_label = builder.get_object('artist_label')
 
@@ -403,11 +393,8 @@ class TrackListInfoPane(gtk.Alignment):
         """
         tracks = trax.util.sort_tracks(['album', 'tracknumber'], tracks)
 
-        image_data = covers.MANAGER.get_cover(tracks[0], use_default=True)
-        width = settings.get_option('gui/cover_width', 100)
-        pixbuf = icons.MANAGER.pixbuf_from_data(image_data, (width, width))
-        self.cover_image.set_from_pixbuf(pixbuf)
-
+        self.cover.set_track(tracks[0], use_default=True)
+        
         albums = []
         artists = []
         total_length = 0
@@ -454,9 +441,8 @@ class TrackListInfoPane(gtk.Alignment):
         """
             Resets the info pane
         """
-        pixbuf = icons.MANAGER.pixbuf_from_data(
-            covers.MANAGER.get_default_cover())
-        self.cover_image.set_from_pixbuf(pixbuf)
+        
+        self.cover.set_track(None)
         self.album_label.set_text('')
         self.artist_label.set_text('')
 

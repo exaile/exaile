@@ -41,7 +41,7 @@ from xl import (
 
 from xl.nls import gettext as _
 
-from xlgui import cover, guiutil, main
+from xlgui import guiutil, main
 from xlgui.widgets import menu, dialogs, playback
 
 import previewprefs
@@ -122,10 +122,6 @@ class SecondaryOutputPlugin(object):
         self.info_area.set_padding(3, 3, 3, 3)
         self.info_area.hide_all()
         self.info_area.set_no_show_all(True)
-        
-        self.cover = cover.CoverWidget(self.info_area.cover_image, self.player)
-        self.cover.hide_all()
-        self.cover.set_no_show_all(True)
 
         volume_control = playback.VolumeControl(self.player)
         self.info_area.get_action_area().pack_start(volume_control)
@@ -326,13 +322,14 @@ class SecondaryOutputPlugin(object):
                 self.info_area.hide_all()
             self.info_area.set_no_show_all(True)
             
-        elif option == 'gui/show_info_area_covers':        
-            self.cover.set_no_show_all(False)
+        elif option == 'gui/show_info_area_covers':
+            cover = self.info_area.cover     
+            cover.set_no_show_all(False)
             if settings.get_option(option, True):
-                self.cover.show_all()
+                cover.show_all()
             else:
-                self.cover.hide_all()
-            self.cover.set_no_show_all(True)
+                cover.hide_all()
+            cover.set_no_show_all(True)
 
     def _on_playback_resume(self, type, player, data):
         self.resuming = True

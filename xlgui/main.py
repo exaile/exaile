@@ -67,7 +67,6 @@ from xlgui.widgets.playlist import (
     PlaylistView
 )
 from xlgui import (
-    cover,
     guiutil,
     tray,
     menu as mainmenu
@@ -214,10 +213,6 @@ class MainWindow(gobject.GObject):
         self.info_area.hide_all()
         self.info_area.set_no_show_all(True)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
-
-        self.cover = cover.CoverWidget(self.info_area.cover_image, player.PLAYER)
-        self.cover.hide_all()
-        self.cover.set_no_show_all(True)
 
         self.volume_control = playback.VolumeControl(player.PLAYER)
         self.info_area.get_action_area().pack_start(self.volume_control)
@@ -861,12 +856,13 @@ class MainWindow(gobject.GObject):
             
         if option == 'gui/show_info_area_covers':
             def _setup_info_covers():
-                self.cover.set_no_show_all(False)
+                cover = self.info_area.cover
+                cover.set_no_show_all(False)
                 if settings.get_option(option, True):
-                    self.cover.show_all()
+                    cover.show_all()
                 else:
-                    self.cover.hide_all()
-                self.cover.set_no_show_all(True)
+                    cover.hide_all()
+                cover.set_no_show_all(True)
                 
             glib.idle_add(_setup_info_covers)
 

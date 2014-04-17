@@ -374,7 +374,7 @@ class CoverManager(gobject.GObject):
         self.model[path][1] = pixbuf.scale_simple(*self.cover_size,
             interp_type=gtk.gdk.INTERP_BILINEAR)
 
-    def on_cover_chosen(self, cover_chooser, cover_data):
+    def on_cover_chosen(self, cover_chooser, track, cover_data):
         """
             Updates the cover of the current album after user selection
         """
@@ -522,7 +522,7 @@ class CoverWidget(gtk.EventBox):
     __gsignals__ = {
         'cover-found': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
-    def __init__(self, image, player):
+    def __init__(self, image):
         """
             Initializes the widget
 
@@ -530,22 +530,17 @@ class CoverWidget(gtk.EventBox):
             :type image: :class:`gtk.Image`
         """
         gtk.EventBox.__init__(self)
-        self._player = player
+        
         self.image = image
         self.cover_data = None
         self.menu = CoverMenu(self)
-        self.parent_window = image.get_toplevel()
         self.filename = None
 
         guiutil.gtk_widget_replace(image, self)
         self.add(self.image)
-        self.set_blank()
+        self.set_track(None)
         self.image.show()
-
-        event.add_callback(self.on_playback_start,
-                'playback_track_start', self._player)
-        event.add_callback(self.on_playback_end,
-                'playback_player_end', self._player)
+        
         event.add_callback(self.on_quit_application,
                 'quit_application')
 
@@ -559,13 +554,37 @@ class CoverWidget(gtk.EventBox):
         if self.filename is not None and os.path.exists(self.filename):
             os.remove(self.filename)
             self.filename = None
-
-        event.remove_callback(self.on_playback_start,
-                'playback_track_start', self._player)
-        event.remove_callback(self.on_playback_end,
-                'playback_player_end', self._player)
+        
         event.remove_callback(self.on_quit_application,
                 'quit-application')
+        
+    def set_track(self, track):
+        """
+            Fetches album covers, and displays them
+        """
+        
+        self.__track = track
+        
+        self.set_blank()
+        self.drag_dest_set( gtk.DEST_DEFAULT_ALL,
+                            [('text/uri-list', 0, 0)],
+                            gtk.gdk.ACTION_COPY |
+                            gtk.gdk.ACTION_DEFAULT |
+                            gtk.gdk.ACTION_MOVE)
+        
+        @common.threaded
+        def __get_cover():
+            
+            fetch = not settings.get_option('covers/automatic_fetching', True)
+            cover_data = COVER_MANAGER.get_cover(track, set_only=fetch)
+
+            if not cover_data:
+                return
+
+            glib.idle_add(self.on_cover_chosen, None, track, cover_data)
+        
+        if track is not None:
+            __get_cover()
 
     def show_cover(self):
         """
@@ -577,36 +596,39 @@ class CoverWidget(gtk.EventBox):
         pixbuf = icons.MANAGER.pixbuf_from_data(self.cover_data)
 
         if pixbuf:
-            track = self._player.current
-            savedir = gio.File(track.get_loc_for_io()).get_parent()
+            savedir = gio.File(self.__track.get_loc_for_io()).get_parent()
             if savedir:
                 savedir = savedir.get_path()
-            window = CoverWindow(self.parent_window, pixbuf,
-                track.get_tag_display('album'), savedir)
+            window = CoverWindow(self.get_toplevel(), pixbuf,
+                self.__track.get_tag_display('album'), savedir)
             window.show_all()
 
     def fetch_cover(self):
         """
             Fetches a cover for the current track
         """
-        current_track = self._player.current
-        if not current_track: 
+        if not self.__track: 
             return
             
-        window = CoverChooser(self.parent_window, current_track)
+        window = CoverChooser(self.get_toplevel(), self.__track)
         window.connect('cover-chosen', self.on_cover_chosen)
 
     def remove_cover(self):
         """
             Removes the cover for the current track from the database
         """
-        COVER_MANAGER.remove_cover(self._player.current)
+        COVER_MANAGER.remove_cover(self.__track)
         self.set_blank()
 
     def set_blank(self):
         """
             Sets the default cover to display
         """
+        
+        # called from another thread.. , should it be idle_add?
+        
+        glib.idle_add(self.drag_dest_unset)
+        
         pixbuf = icons.MANAGER.pixbuf_from_data(
             COVER_MANAGER.get_default_cover())
         self.image.set_from_pixbuf(pixbuf)
@@ -641,7 +663,7 @@ class CoverWidget(gtk.EventBox):
         """
             Called when someone clicks on the cover widget
         """
-        if self._player.current is None or self.parent_window is None:
+        if self.__track is None or self.get_toplevel() is None:
             return
 
         if event.type == gtk.gdk._2BUTTON_PRESS:
@@ -696,7 +718,7 @@ class CoverWidget(gtk.EventBox):
         """
             Sets the cover based on the dragged data
         """
-        if self._player.current is not None:
+        if self.__track is not None:
             uri = selection.get_uris()[0]
             db_string = 'localfile:%s' % uri
 
@@ -712,14 +734,18 @@ class CoverWidget(gtk.EventBox):
 
             if pixbuf is not None:
                 self.image.set_from_pixbuf(pixbuf)
-                COVER_MANAGER.set_cover(self._player.current, db_string,
+                COVER_MANAGER.set_cover(self.__track, db_string,
                     self.cover_data)
 
-    def on_cover_chosen(self, object, cover_data):
+    def on_cover_chosen(self, object, track, cover_data):
         """
             Called when a cover is selected
             from the coverchooser
         """
+        
+        if self.__track != track:
+            return
+        
         width = settings.get_option('gui/cover_width', 100)
         pixbuf = icons.MANAGER.pixbuf_from_data(cover_data, (width, width))
         self.image.set_from_pixbuf(pixbuf)
@@ -727,43 +753,12 @@ class CoverWidget(gtk.EventBox):
         self.cover_data = cover_data
 
         self.emit('cover-found', pixbuf)
-
-    @common.threaded
-    def on_playback_start(self, type, player, track):
-        """
-            Called when playback starts.  Fetches album covers, and displays
-            them
-        """
-        glib.idle_add(self.set_blank)
-        glib.idle_add(self.drag_dest_set,
-            gtk.DEST_DEFAULT_ALL,
-            [('text/uri-list', 0, 0)],
-            gtk.gdk.ACTION_COPY |
-            gtk.gdk.ACTION_DEFAULT |
-            gtk.gdk.ACTION_MOVE
-        )
-
-        fetch = not settings.get_option('covers/automatic_fetching', True)
-        cover_data = COVER_MANAGER.get_cover(track, set_only=fetch)
-
-        if not cover_data:
-            return
-
-        if player.current == track:
-            glib.idle_add(self.on_cover_chosen, None, cover_data)
-
-    def on_playback_end(self, type, player, object):
-        """
-            Called when playback stops.  Resets to the nocover image
-        """
-        glib.idle_add(self.drag_dest_unset)
-        glib.idle_add(self.set_blank)
-
+    
     def on_track_tags_changed(self, e, track, tag):
         """
             Updates the displayed cover upon tag changes
         """
-        if self._player.current == track:
+        if self.__track == track:
             cover_data = COVER_MANAGER.get_cover(track)
 
             if not cover_data:
@@ -988,7 +983,7 @@ class CoverChooser(gobject.GObject):
         'cover-chosen': (
             gobject.SIGNAL_RUN_LAST,
             None,
-            (object,)
+            (object, object)
         )
     }
     def __init__(self, parent, track, search=None):
@@ -1132,7 +1127,7 @@ class CoverChooser(gobject.GObject):
 
             COVER_MANAGER.set_cover(self.track, coverdata[0], coverdata[1])
 
-            self.emit('cover-chosen', coverdata[1])
+            self.emit('cover-chosen', self.track, coverdata[1])
             self.window.destroy()
 
     def on_previews_box_selection_changed(self, iconview):

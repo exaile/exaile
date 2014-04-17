@@ -1130,9 +1130,16 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         from xlgui import properties
         tracks = self.get_selected_tracks()
         current_position = 0
+        
         # If only one track is selected, we expand `tracks` to include all
-        # tracks in the playlist.
-        if len(tracks) == 1:
+        # tracks in the playlist... except for really large playlists, this
+        # essentially hangs. Instead, only show all tracks *if* the playlist
+        # size is less than 100.
+        # 
+        # A better option would be to lazy load the files, but I'm too lazy
+        # to implement that now.. :)  
+        
+        if len(tracks) == 1 and len(self.playlist) < 100:
             tracks = self.playlist[:]
 
             model = self.get_model()

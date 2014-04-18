@@ -128,13 +128,9 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
     def on_condition_failed(self):
         self.widget.get_parent().hide()
         self.widget.get_model().clear()
-
-    def _setup_changed(self):
-        self.widget.connect('changed', self._change)
-
-    def _change(self, *args):
-        if self.is_enabled:
-            self.change(args)
+        
+    def done(self):
+        return self.is_enabled
 
     def _get_value(self):
         if self.is_enabled:

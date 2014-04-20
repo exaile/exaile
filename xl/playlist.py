@@ -52,6 +52,7 @@ from xl import (
     common,
     dynamic,
     event,
+    main,
     providers,
     settings,
     trax,
@@ -1794,9 +1795,15 @@ class SmartPlaylist(object):
         if not collection: #if there wasnt one set we might not have one
             return
 
-        search_string = self._create_search_string()
+        search_string, matchers = self._create_search_data(collection)
 
         matcher = trax.TracksMatcher(search_string, case_sensitive=False)
+        
+        # prepend for now, since it is likely to remove more tracks, and
+        # smart playlists don't support mixed and/or expressions yet
+        for m in matchers:
+            matcher.prepend_matcher(m, self.or_match)
+        
         trs = [ t.track for t in trax.search_tracks(collection, [matcher]) ]
         if self.random_sort:
             random.shuffle(trs)
@@ -1813,12 +1820,13 @@ class SmartPlaylist(object):
 
         return pl
 
-    def _create_search_string(self):
+    def _create_search_data(self, collection):
         """
-            Creates a search string based on the internal params
+            Creates a search string + matchers based on the internal params
         """
 
         params = [] # parameter list
+        matchers = [] # matchers list
         maximum = settings.get_option('rating/maximum', 5)
         durations = {
             _('seconds'): lambda value: timedelta(seconds=value),
@@ -1842,6 +1850,20 @@ class SmartPlaylist(object):
                 delta = durations[unit](duration)
                 point = datetime.now() - delta
                 value = time.mktime(point.timetuple())
+            elif field == '__playlist':
+                try:
+                    pl = main.exaile().playlists.get_playlist(value)
+                except:
+                    try:
+                        pl = main.exaile().smart_playlists.get_playlist(value).get_playlist(collection) 
+                    except Exception as e:
+                        raise ValueError("Loading %s: %s" % (self.name, str(e)))
+                    
+                if op == 'pin':
+                    matchers.append(trax.TracksInList(pl))
+                else:
+                    matchers.append(trax.TracksNotInList(pl))
+                continue
 
             if op == ">=" or op == "<=":
                 s += '( %(field)s%(op)s%(value)s ' \
@@ -1887,9 +1909,9 @@ class SmartPlaylist(object):
             params.append(s)
 
         if self.or_match:
-            return ' | '.join(params)
+            return ' | '.join(params), matchers
         else:
-            return ' '.join(params)
+            return ' '.join(params), matchers
 
     def save_to_location(self, location):
         pdata = {}
@@ -2018,7 +2040,7 @@ class PlaylistManager(object):
                 encode_filename(name)))
             return pl
         else:
-            raise ValueError("No such playlist")
+            raise ValueError("No such playlist '%s'" % name)
 
     def list_playlists(self):
         """

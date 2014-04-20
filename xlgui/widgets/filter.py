@@ -395,6 +395,25 @@ class Criterion(gtk.HBox):
 
 # Sample fields
 
+class ComboEntryField(gtk.HBox):
+    '''Select from multiple fixed values, but allow the user to enter text'''
+    
+    def __init__(self, values):
+        gtk.HBox.__init__(self)
+        
+        self.combo = gtk.combo_box_entry_new_text()
+        for value in values:
+            self.combo.append_text(value)
+        
+        self.pack_start(self.combo)
+        self.combo.show()
+    
+    def get_state(self):
+        return self.combo.get_child().get_text()
+    
+    def set_state(self, state):
+        self.combo.get_child().set_text(state)
+
 class NullField(gtk.HBox):
     '''Used as a placeholder for __null__ values'''
     

@@ -232,7 +232,21 @@ class TracksMatcher(object):
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
         self.matchers = self.__tokens_to_matchers(tokens)
-
+        
+    def append_matcher(self, matcher, or_match=False):
+        '''Here so you can use playlist matchers. Probably needs better impl'''
+        if not or_match or len(self.matchers) == 0:
+            self.matchers.append(matcher)
+        else:
+            self.matchers[-1] = _OrMetaMatcher(self.matchers[-1], matcher)
+        
+    def prepend_matcher(self, matcher, or_match=False):
+        '''Here so you can use playlist matchers. Probably needs better impl'''
+        if not or_match or len(self.matchers) == 0:
+            self.matchers.insert(0, matcher)
+        else:
+            self.matchers[0] = _OrMetaMatcher(matcher, self.matchers[0])
+    
     def match(self, srtrack):
         """
             Determine whether a given SearchResultTrack's internal
@@ -448,6 +462,31 @@ class TracksMatcher(object):
         # processing, so we put them first.
         tokens.sort(key=len)
         return tokens
+
+
+class TracksInList(object):
+    '''
+        Matches tracks contained in a list/dict/set. Copies the list.
+    '''
+    
+    __slots__ = ['_tracks', 'tag']
+    tag = None
+    def __init__(self, tracks):
+        if isinstance(tracks, dict):
+            self._tracks = set(tracks.keys())
+        else:
+            self._tracks = set([t for t in tracks])
+        
+    def match(self, track):
+        return track.track in self._tracks
+
+    
+class TracksNotInList(TracksInList):
+    '''
+        Matches tracks not in a list/dict/set
+    '''
+    def match(self, track):
+        return track.track not in self._tracks
 
 
 def search_tracks(trackiter, trackmatchers):

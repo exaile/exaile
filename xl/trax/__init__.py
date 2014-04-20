@@ -38,6 +38,8 @@ from xl.trax.search import (
         search_tracks,
         search_tracks_from_string,
         TracksMatcher,
+        TracksInList,
+        TracksNotInList,
         match_track_from_string)
 from xl.trax.util import (
         is_valid_track,

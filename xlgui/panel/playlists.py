@@ -34,6 +34,7 @@ import gtk
 
 from xl import (
     event,
+    main,
     playlist,
     radio,
     settings,
@@ -66,6 +67,13 @@ class EntryAndEntryField(MultiEntryField):
 class EntryDaysField(MultiEntryField):
     def __init__(self):
         MultiEntryField.__init__(self, (50, _('days')))
+        
+class PlaylistField(ComboEntryField):
+    def __init__(self):
+        playlists = []
+        playlists.extend(main.exaile().smart_playlists.list_playlists())
+        playlists.extend(main.exaile().playlists.list_playlists())
+        ComboEntryField.__init__(self, playlists)
 
 DATE_FIELDS = [
     N_('seconds'), N_('minutes'), N_('hours'), N_('days'), N_('weeks')]
@@ -195,6 +203,10 @@ CRITERIA = [
         ('is set', NullField),
         ('is not set', NullField),
     ]),
+    (_('Playlist'), [
+        ('Track is in', PlaylistField),
+        ('Track not in', PlaylistField),
+    ])
 ]
 
 # NOTE: We use N_ (fake gettext) because these strings are translated later by
@@ -238,6 +250,10 @@ _TRANS = {
     N_('in the last'): '>=',
     # TRANSLATORS: Example: track has not been added in the last 5 hours
     N_('not in the last'): '<',
+    # TRANSLATORS: True if a track is contained in the specified playlist
+    N_('Track is in'): 'pin',
+    # TRANSLATORS: True if a track is not contained in the specified playlist
+    N_('Track not in'): '!pin',
 }
 
 _NMAP = {
@@ -255,6 +271,7 @@ _NMAP = {
     N_('BPM'): 'bpm',
     N_('Grouping'): 'grouping',
     N_('Composer'): 'composer',
+    N_('Playlist'): '__playlist',
 }
 
 class TrackWrapper(object):
@@ -373,7 +390,11 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 playlist.SmartPlaylist)):
                 # for smart playlists
                 if hasattr(item, 'get_playlist'):
-                    item = item.get_playlist(self.collection)
+                    try:
+                        item = item.get_playlist(self.collection)
+                    except Exception as e:
+                        dialogs.error(self.parent, _("Error loading smart playlist: %s") % str(e))
+                        return
                 else:
                     #Get an up to date copy
                     item = self.playlist_manager.get_playlist(item.name)
@@ -858,8 +879,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     return False
                 except ValueError:
                     pass # playlist didn't exist
-
-            self.smart_manager.remove_playlist(pl.name)
+            
             pl = playlist.SmartPlaylist(name, self.collection)
             pl.set_or_match(matchany)
             pl.set_return_limit(limit)
@@ -870,6 +890,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 value = item[1]
                 pl.add_param(_NMAP[field], _TRANS[op], value)
 
+            self.smart_manager.remove_playlist(pl.name)
             self.smart_manager.save_playlist(pl)
 
             selection = self.tree.get_selection()
@@ -1287,7 +1308,10 @@ class PlaylistDragTreeView(DragTreeView):
         # for smart playlists
         if isinstance(item, playlist.SmartPlaylist):
             if raw: return item
-            return item.get_playlist(self.container.collection)
+            try:
+                return item.get_playlist(self.container.collection)
+            except:
+                return None
         if isinstance(item, radio.RadioItem):
             if raw: return item
             return item.get_playlist()

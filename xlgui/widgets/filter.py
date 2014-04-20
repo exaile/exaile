@@ -65,7 +65,7 @@ class FilterDialog(gtk.Dialog):
         self.vbox.pack_start(top, False)
         top.show_all()
 
-        self.filter = f = FilterWidget(criteria)
+        self.filter = f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
         f.add_row()
         f.set_border_width(5)
         self.vbox.pack_start(f)

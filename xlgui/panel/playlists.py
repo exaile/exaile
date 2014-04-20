@@ -175,7 +175,7 @@ CRITERIA = [
         ('regex', EntryField),
         ('not regex', EntryField),
     ]),
-    (_('BPM'), [
+    ('BPM', [
         ('is', EntryField),
         ('less than', SpinNothing),
         ('greater than', SpinNothing),
@@ -183,7 +183,7 @@ CRITERIA = [
         ('is set', NullField),
         ('is not set', NullField),
     ]),
-    (_('Grouping'),[
+    ('Grouping',[
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
@@ -193,7 +193,7 @@ CRITERIA = [
         ('is set', NullField),
         ('is not set', NullField),
     ]),
-    (_('Composer'),[
+    ('Composer',[
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
@@ -203,7 +203,7 @@ CRITERIA = [
         ('is set', NullField),
         ('is not set', NullField),
     ]),
-    (_('Playlist'), [
+    ('Playlist', [
         ('Track is in', PlaylistField),
         ('Track not in', PlaylistField),
     ])

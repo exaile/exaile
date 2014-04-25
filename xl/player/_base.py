@@ -61,7 +61,10 @@ class ExailePlayer(object):
     def _on_option_set(self, name, object, data):
         if data == "%s/volume" % self._name:
             self._load_volume()
-
+        elif data == '%s/audiosink_device' % self._name or \
+             data == '%s/audiosink' % self._name:
+            self._mainbin.setup_audiosink()
+        
     def _on_track_end(self, name, obj, track):
         if not track:
             return

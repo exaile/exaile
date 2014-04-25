@@ -29,10 +29,13 @@ import copy
 import logging
 import os.path
 import sys
+import threading
 
 import pygst
 pygst.require('0.10')
 import gst
+
+import glib
 
 from xl.nls import gettext as _
 from xl import event, common, settings
@@ -47,6 +50,8 @@ class MainBin(gst.Bin):
     """
     def __init__(self, player, pre_elems=[]):
         gst.Bin.__init__(self)
+        
+        self.__player = player
         self._elements = pre_elems[:]
 
         self.pp = Postprocessing(player)
@@ -58,17 +63,13 @@ class MainBin(gst.Bin):
         #self.queue = gst.element_factory_make("queue")
         #self._elements.append(self.queue)
 
-        sinkname = settings.get_option("%s/audiosink" % player._name, "auto")
-        self.audio_sink = sink_from_preset(player, sinkname)
-        if not self.audio_sink:
-            logger.warning("Could not enable %s sink for %s, "
-                    "attempting to autoselect." % (sinkname, player._name) )
-            self.audio_sink = sink_from_preset(player, "auto")
-        self._elements.append(self.audio_sink)
-
         self.add(*self._elements)
         gst.element_link_many(*self._elements)
-
+        
+        self.audio_sink = None
+        self.__audio_sink_lock = threading.Lock()
+        self.setup_audiosink()
+        
         self.sinkpad = self._elements[0].get_static_pad("sink")
         self.add_pad(gst.GhostPad('sink', self.sinkpad))
 
@@ -84,7 +85,150 @@ class MainBin(gst.Bin):
     def set_volume(self, vol):
         self.audio_sink.set_volume(vol)
 
-    # TODO: add audio sink switching
+    def setup_audiosink(self):
+        
+        # don't try to switch more than one source at a time
+        self.__audio_sink_lock.acquire()
+        
+        sinkname = settings.get_option("%s/audiosink" % self.__player._name, "auto")
+        audio_sink = sink_from_preset(self.__player, sinkname)
+        if not audio_sink:
+            logger.warning("Could not enable %s sink for %s, "
+                    "attempting to autoselect." % (sinkname, self.__player._name) )
+            audio_sink = sink_from_preset(self.__player, "auto")
+        
+        # If this is the first time we added a sink, just add it to
+        # the pipeline and we're done.
+        
+        if not self.audio_sink:
+        
+            self._add_audiosink(audio_sink, None)
+            self.__audio_sink_lock.release()
+            return
+        
+        old_audio_sink = self.audio_sink
+        
+        
+        # Ok, time to replace the old sink. If it's not in a playing state,
+        # then this isn't so bad.
+        
+        # if we don't use the timeout, when we set it to READY, it may be performing
+        # an async wait for PAUSE, so we use the timeout here.
+        
+        state = old_audio_sink.get_state(timeout=50*gst.MSECOND)[1]
+        
+        if state != gst.STATE_PLAYING:
+            
+            buffer_position = None
+            
+            if state != gst.STATE_NULL:
+                try:
+                    buffer_position = old_audio_sink.query_position(gst.FORMAT_DEFAULT)
+                except:
+                    pass
+            
+            self.remove(old_audio_sink)
+            
+            # Now that the old sink is removed, we have to flush it out
+            if old_audio_sink.get_state(timeout=50*gst.MSECOND)[1] == gst.STATE_PAUSED:
+                self._clear_old_sink(old_audio_sink)
+            else:
+                old_audio_sink.set_state(gst.STATE_NULL)
+        
+            # Then add the new sink    
+            self._add_audiosink(audio_sink, buffer_position)
+            
+            self.__audio_sink_lock.release()
+            return
+         
+        #  
+        # Otherwise, disconnecting the old device is a bit complex. Code is
+        # derived from algorithm/code described at the following link:
+        #
+        # http://gstreamer.freedesktop.org/data/doc/gstreamer/head/manual/html/section-dynamic-pipelines.html
+        #
+        
+        # TODO: Rapid output switching causes problems
+        
+        # Start off by blocking the src pad of the prior element
+        spad = old_audio_sink.get_static_pad('sink').get_peer()
+        spad.set_blocked_async(True, self._pad_blocked_cb, audio_sink)
+        
+    def _pad_blocked_cb(self, pad, info, new_audio_sink):
+                
+        old_audio_sink = self.audio_sink
+        buffer_position = old_audio_sink.query_position(gst.FORMAT_DEFAULT)
+        
+        # No data is flowing at this point. Unlink the element, add the new one
+        self.remove(old_audio_sink)
+        
+        self._add_audiosink(new_audio_sink, buffer_position)
+        
+        # GST is holding a lock, so unblock the pad on the main thread so
+        # that data continues to flow
+        
+        def unblock_pad():
+            pad.set_blocked(False)
+        
+        glib.idle_add(unblock_pad)
+        self.__audio_sink_lock.release()
+       
+        # Start flushing the old sink
+        self._clear_old_sink(old_audio_sink)
+    
+    def _clear_old_sink(self, old_audio_sink):
+        
+        # push EOS into the element, which will be fired once all the
+        # data has left the sink
+          
+        sinkpad = old_audio_sink.get_static_pad('sink')
+        self._pad_event_probe_id = sinkpad.add_event_probe(self._event_probe_cb, old_audio_sink)
+        
+        sinkpad.send_event(gst.event_new_eos())
+        
+        return False
+    
+    def _event_probe_cb(self, pad, info, audio_sink):
+        
+        # wait for end of stream marker
+        if info.type != gst.EVENT_EOS:
+            return True
+        
+        pad.remove_event_probe(self._pad_event_probe_id)
+        self._pad_event_probe_id = None
+        
+        # Get rid of the old sink
+        audio_sink.set_state(gst.STATE_NULL)
+        
+        return False
+    
+    def _add_audiosink(self, audio_sink, buffer_position):
+        '''Sets up the new audiosink and syncs it'''
+        
+        self.add(audio_sink)
+        audio_sink.sync_state_with_parent()
+        gst.element_link_many(self._elements[-1], audio_sink)
+
+        if buffer_position is not None:
+            
+            # buffer position is the output from get_position. If set, we
+            # seek to that position.
+            
+            # TODO: this actually seems to skip ahead a tiny bit. why?
+            
+            # Note! this is super important in paused mode too, because when
+            #       we switch the sinks around the new sink never goes into
+            #       the paused state because there's no buffer. This forces
+            #       a resync of the buffer, so things still work.
+            
+            seek_event = gst.event_new_seek(1.0, gst.FORMAT_DEFAULT,
+                gst.SEEK_FLAG_FLUSH, gst.SEEK_TYPE_SET,
+                buffer_position[0],
+                gst.SEEK_TYPE_NONE, 0)
+            
+            self.send_event(seek_event)
+        
+        self.audio_sink = audio_sink        
 
 
 class SinkHandler(gst.Bin, ProviderHandler):

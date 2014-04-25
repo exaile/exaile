@@ -44,7 +44,6 @@ class EnginePreference(widgets.ComboPreference):
 class AudioSinkPreference(widgets.ComboPreference):
     default = "auto"
     name = 'player/audiosink'
-    restart_required = True
     
     def __init__(self, preferences, widget):
         widgets.ComboPreference.__init__(self, preferences, widget)
@@ -93,8 +92,6 @@ class SelectDeviceForSinkPreference(widgets.ComboPreference, widgets.Conditional
     default = ''
     name = "player/audiosink_device"
     condition_preference_name = 'player/audiosink'
-
-    restart_required = True
 
     def __init__(self, preferences, widget):
         widgets.ComboPreference.__init__(self, preferences, widget)

@@ -98,9 +98,11 @@ def add_callback(function, type=None, obj=None, *args, **kwargs):
         :type obj: object
 
         Any additional parameters will be passed to the callback.
+        
+        :returns: a convenience function that you can call to remove the callback.
     """
     global EVENT_MANAGER
-    EVENT_MANAGER.add_callback(function, type, obj, args, kwargs)
+    return EVENT_MANAGER.add_callback(function, type, obj, args, kwargs)
 
 def remove_callback(function, type=None, obj=None):
     """
@@ -289,6 +291,9 @@ class EventManager(object):
                 to any. [string]
             @param obj: The object to listen to events from. Defaults
                 to any. [string]
+                
+            Returns a convenience function that you can call to 
+            remove the callback.
         """
         with self.lock:
             # add the specified categories if needed.
@@ -308,6 +313,8 @@ class EventManager(object):
             if not self.logger_filter or re.search(self.logger_filter, type):
                 logger.debug("Added callback %s for [%s, %s]" %
                         (function, type, obj))
+                
+        return lambda: self.remove_callback(function, type, obj)
 
     def remove_callback(self, function, type=None, obj=None):
         """

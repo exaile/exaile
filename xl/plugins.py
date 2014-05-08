@@ -34,7 +34,12 @@ import tarfile
 import traceback
 
 from xl.nls import gettext as _
-from xl import xdg, common, settings
+from xl import ( 
+    common, 
+    event,
+    settings,
+    xdg
+)
 
 logger = logging.getLogger(__name__)
 
@@ -71,7 +76,7 @@ class PluginsManager(object):
             if os.path.exists(path):
                 return path
         return None
-
+    
     def load_plugin(self, pluginname, reload=False):
         if not reload and pluginname in self.loaded_plugins:
             return self.loaded_plugins[pluginname]
@@ -81,6 +86,9 @@ class PluginsManager(object):
             return False
         sys.path.insert(0, path)
         plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
+        if hasattr(plugin, 'plugin_class'):
+            plugin = plugin.plugin_class()
+            self.__setup_new_plugin(plugin)
         sys.path = sys.path[1:]
         self.loaded_plugins[pluginname] = plugin
         return plugin
@@ -105,6 +113,25 @@ class PluginsManager(object):
                     _('Plugin archive contains an unsafe path.'))
 
         tar.extractall(self.plugindirs[0])
+
+    def __on_new_plugin_loaded(self, eventname, exaile, nothing, fn):
+        event.remove_callback(self.__on_new_plugin_loaded, eventname)
+        fn()
+
+    def __setup_new_plugin(self, plugin):
+        '''Sets up a new-style plugin. See helloworld plugin for details'''
+        
+        if hasattr(plugin, 'on_gui_loaded'):
+            if self.exaile.loading:
+                event.add_callback(self.__on_new_plugin_loaded, 'gui_loaded', None, plugin.on_gui_loaded)
+            else:
+                plugin.on_gui_loaded()
+            
+        if hasattr(plugin, 'on_exaile_loaded'):
+            if self.exaile.loading:
+                event.add_callback(self.__on_new_plugin_loaded, 'exaile_loaded', None, plugin.on_exaile_loaded)
+            else:
+                plugin.on_exaile_loaded()
 
     def uninstall_plugin(self, pluginname):
         self.disable_plugin(pluginname)

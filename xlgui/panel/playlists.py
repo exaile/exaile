@@ -751,11 +751,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             Shows a dialog to ask the user to import a new playlist
         """
         
-        def _on_playlist_selected(dialog, playlist):
-            self.add_new_playlist( playlist, playlist.name )
+        def _on_playlists_selected(dialog, playlists):
+            for playlist in playlists:
+                self.add_new_playlist( playlist, playlist.name )
         
         dialog = dialogs.PlaylistImportDialog()
-        dialog.connect('playlist-selected', _on_playlist_selected)
+        dialog.connect('playlists-selected', _on_playlists_selected)
         dialog.show()
                 
     def add_smart_playlist(self):

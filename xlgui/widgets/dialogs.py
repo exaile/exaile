@@ -752,7 +752,7 @@ class PlaylistImportDialog(gtk.FileChooserDialog):
         A dialog for importing a playlist
     """
     __gsignals__ = {
-        'playlist-selected': (
+        'playlists-selected': (
             gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_BOOLEAN,
             (gobject.TYPE_PYOBJECT,),
@@ -775,7 +775,7 @@ class PlaylistImportDialog(gtk.FileChooserDialog):
 
         self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.set_local_only(False)
-        self.set_select_multiple(False)
+        self.set_select_multiple(True)
 
         playlist_filter = gtk.FileFilter()
         playlist_filter.set_name(_('Playlist Files'))
@@ -829,13 +829,21 @@ class PlaylistImportDialog(gtk.FileChooserDialog):
         if response == gtk.RESPONSE_OK:
             PlaylistImportDialog._last_location = self.get_current_folder_uri()
             
-            try:
-                playlist = import_playlist(self.get_uri())
-            except InvalidPlaylistTypeError, e:
-                error(None, 'Invalid playlist: %s' % e)
-                self.destroy()
-            else:
-                self.emit('playlist-selected', playlist)
+            playlists = []
+            for uri in self.get_uris():            
+                try:
+                    playlists.append(import_playlist(uri))
+                except InvalidPlaylistTypeError, e:
+                    error(None, 'Invalid playlist "%s": %s' % (uri, e))
+                    self.destroy()
+                    return
+                except Exception, e:
+                    error(None, 'Invalid playlist "%s": (internal error): %s' % (uri, e))
+                    self.destroy()
+                    return
+            
+            self.emit('playlists-selected', playlists)
+                    
 
         #self.destroy()
 

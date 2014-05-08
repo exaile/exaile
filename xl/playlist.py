@@ -69,6 +69,9 @@ class InvalidPlaylistTypeError(Exception):
 class PlaylistExists(Exception):
     pass
 
+class UnknownPlaylistTrackError(Exception):
+    pass
+
 PlaylistExportOptions = namedtuple('PlaylistExportOptions', 'relative')
 
 def encode_filename(filename):
@@ -367,12 +370,14 @@ class M3UConverter(FormatConverter):
         """
         playlist = Playlist(name=self.name_from_path(path))
         extinf = {}
+        lineno = 0
 
         logger.debug('Importing M3U playlist: %s' % path)
         
         with closing(gio.DataInputStream(gio.File(path).read())) as stream:
             while True:
                 line = stream.read_line()
+                lineno += 1
 
                 if not line:
                     break
@@ -409,7 +414,12 @@ class M3UConverter(FormatConverter):
                     if extinf:
                         for tag, value in extinf.iteritems():
                             if track.get_tag_raw(tag) is None:
-                                track.set_tag_raw(tag, value)
+                                try:
+                                    track.set_tag_raw(tag, value)
+                                except Exception, e:
+                                    # Python 3: raise UnknownPlaylistTrackError() from e
+                                    # Python 2: .. no good solution 
+                                    raise UnknownPlaylistTrackError("line %s: %s" % (lineno, e))
 
                     playlist.append(track)
                     extinf = {}

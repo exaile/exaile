@@ -88,7 +88,6 @@ class PluginsManager(object):
         plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
         if hasattr(plugin, 'plugin_class'):
             plugin = plugin.plugin_class()
-            self.__setup_new_plugin(plugin)
         sys.path = sys.path[1:]
         self.loaded_plugins[pluginname] = plugin
         return plugin
@@ -114,22 +113,24 @@ class PluginsManager(object):
 
         tar.extractall(self.plugindirs[0])
 
-    def __on_new_plugin_loaded(self, eventname, exaile, nothing, fn):
+    def __on_new_plugin_loaded(self, eventname, exaile, maybe_name, fn):
         event.remove_callback(self.__on_new_plugin_loaded, eventname)
         fn()
 
-    def __setup_new_plugin(self, plugin):
+    def __enable_new_plugin(self, plugin):
         '''Sets up a new-style plugin. See helloworld plugin for details'''
         
         if hasattr(plugin, 'on_gui_loaded'):
             if self.exaile.loading:
-                event.add_callback(self.__on_new_plugin_loaded, 'gui_loaded', None, plugin.on_gui_loaded)
+                event.add_callback(self.__on_new_plugin_loaded, 'gui_loaded',
+                                   None, plugin.on_gui_loaded)
             else:
                 plugin.on_gui_loaded()
             
         if hasattr(plugin, 'on_exaile_loaded'):
             if self.exaile.loading:
-                event.add_callback(self.__on_new_plugin_loaded, 'exaile_loaded', None, plugin.on_exaile_loaded)
+                event.add_callback(self.__on_new_plugin_loaded, 'exaile_loaded',
+                                   None, plugin.on_exaile_loaded)
             else:
                 plugin.on_exaile_loaded()
 
@@ -148,6 +149,8 @@ class PluginsManager(object):
             plugin = self.load_plugin(pluginname)
             if not plugin: raise Exception("Error loading plugin")
             plugin.enable(self.exaile)
+            if not inspect.ismodule(plugin):
+                self.__enable_new_plugin(plugin)
             self.enabled_plugins[pluginname] = plugin
             logger.debug("Loaded plugin %s" % pluginname)
             self.save_enabled()

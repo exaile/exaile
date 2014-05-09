@@ -140,7 +140,7 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
 
 
 class MenuItem(object):
-    __slots__ = ['name', 'after', '_factory', '_pos']
+    __slots__ = ['name', 'after', '_factory', '_pos', '_provider_data']
     def __init__(self, name, factory, after):
         self.name = name
         self.after = after
@@ -158,6 +158,25 @@ class MenuItem(object):
             not shown.
         """
         return self._factory(menu, parent, context)
+    
+    def register(self, servicename, target=None):
+        '''
+            Shortcut for providers.register(), allows registration
+            for use with a ProviderMenu
+        '''
+        self._provider_data = (servicename, target)
+        return providers.register(servicename, self, target=target)
+    
+    def unregister(self):
+        '''
+            Shortcut for providers.unregister()
+        '''
+        servicename, target = self._provider_data
+        return providers.unregister(servicename, self, target)
+
+    def __repr__(self):
+        return '<xlgui.widgets.MenuItem: %s>' % self.name
+
 
 class RadioMenuItem(MenuItem):
     __slots__ = ['groupname']
@@ -286,4 +305,24 @@ class ProviderMenu(providers.ProviderHandler, Menu):
     def on_provider_removed(self, provider):
         self.remove_item(provider)
 
+class MultiProviderMenu(providers.MultiProviderHandler, Menu):
+    '''
+        A menu that can be added to by registering a menu item with
+        the providers system. If desired, a menu item can be targeted
+        towards a specific parent widget.
+        
+        Supports retrieving menu items from multiple providers
+    '''
+    def __init__(self, names, parent):
+        providers.MultiProviderHandler.__init__(self, names, parent)
+        Menu.__init__(self, parent)
+        for p in self.get_providers():
+            self.on_provider_added(p)
+
+    def on_provider_added(self, provider):
+        self.add_item(provider)
+
+    def on_provider_removed(self, provider):
+        self.remove_item(provider)
+        
 

@@ -258,5 +258,57 @@ class ProviderHandler(object):
         """
         return MANAGER.get_provider(self.servicename, providername, self.target)
 
+class MultiProviderHandler(object):
+    '''
+        This is useful for listening to multiple provider types
+        
+        TODO: optimize implementation, could be better
+    '''
+    
+    class _ProxyProvider(ProviderHandler):
+        def __init__(self, servicename, target, simple_init, parent):
+            self.parent = parent
+            ProviderHandler.__init__(self, servicename, target, simple_init)
+            
+        def on_provider_added(self, provider):
+            self.parent.on_provider_added(provider)
+            
+        def on_provider_removed(self, provider):
+            self.parent.on_provider_removed(provider)
+    
+    def __init__(self, servicenames, target=None, simple_init=False):
+        self.providers = []
+        for servicename in servicenames:
+            self.providers.append(MultiProviderHandler._ProxyProvider(servicename, target, simple_init, self))
+            
+    def on_provider_added(self, provider):
+        """
+            Called when a new provider is added
+
+            :param provider: the new provider
+            :type provider: object
+        """
+    
+    def on_provider_removed(self, provider):
+        """
+            Called when a provider is removed
+
+            :param provider: the removed provider
+            :type provider: object
+        """
+    
+    def get_providers(self):
+        """
+            Returns a list of providers for this service
+
+            :returns: list of providers
+            :rtype: list of objects
+        """
+        
+        providers = []
+        for provider in self.providers:
+            providers.extend(provider.get_providers())
+        return providers
+
 # vim: et sts=4 sw=4
 

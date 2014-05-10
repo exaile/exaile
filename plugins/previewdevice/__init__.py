@@ -155,14 +155,13 @@ class SecondaryOutputPlugin(object):
             
         providers.register('menubar-view-menu', self.menu)
         
-        self.preview_menuitem = menu.simple_menu_item('preview', [], 
+        self.preview_menuitem = menu.simple_menu_item('_preview', ['enqueue'], 
                 _('Preview'), callback=self._on_preview,
-                condition_fn=lambda n,p,c: c['selection-count'] != 0)
+                condition_fn=lambda n,p,c: not c['selection-empty'])
         
         # TODO: Setup on other context menus
-        self.preview_provides = [ 'files-panel-context-menu',
-                                  'playlist-context-menu',
-                                  'collection-panel-context-menu' ]
+        self.preview_provides = [ 'track-panel-menu',
+                                  'playlist-context-menu']
         
         for provide in self.preview_provides:
             providers.register(provide, self.preview_menuitem)
@@ -287,7 +286,8 @@ class SecondaryOutputPlugin(object):
     def _on_preview(self, menu, display_name, playlist_view, context):
         self._init_gui_hooks()
         tracks = context['selected-tracks']
-        self.queue.play(tracks[0])
+        if len(tracks) > 0:
+            self.queue.play(tracks[0])
         
     
     #

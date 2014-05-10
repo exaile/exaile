@@ -128,10 +128,11 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
 
         # Build static menu entries        
         item = menu.simple_separator('clear-sep',[])
-        providers.register('playlist-closed-tab-menu', item, self)
+        item.register('playlist-closed-tab-menu', self)
+        
         item = menu.simple_menu_item('clear-history', ['clear-sep'], None, 'gtk-clear',
             self.clear_closed_tabs)
-        providers.register('playlist-closed-tab-menu', item, self)     
+        item.register('playlist-closed-tab-menu', self)     
             
         # Simple factory for 'Recently Closed Tabs' MenuItem
         submenu = menu.ProviderMenu('playlist-closed-tab-menu',self)
@@ -147,7 +148,7 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
                 
         # Add menu to tab context menu
         item = menu.MenuItem('%s-tab-history' % manager_name, factory, ['tab-close'])
-        providers.register('playlist-tab-context-menu', item)
+        item.register('playlist-tab-context-menu')
 
         # Add menu to View menu
         #item = menu.MenuItem('tab-history', factory, ['clear-playlist'])
@@ -511,7 +512,7 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
             pass
         else:
             actions_box.remove(self.__actions[provider.name])
-            del self.__actions[provider_name]
+            del self.__actions[provider.name]
 
             
 class PlaylistContainer(gtk.HBox):

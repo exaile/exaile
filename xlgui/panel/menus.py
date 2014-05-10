@@ -260,7 +260,7 @@ class RadioPanelPlaylistMenu(menu.MultiProviderMenu):
     '''
     def __init__(self, parent):
         menu.MultiProviderMenu.__init__(self, 
-            ['radio-panel-menu', 'track-panel-menu', 'playlist-panel-playlist-menu'], 
+            ['radio-panel-menu', 'track-panel-menu', 'playlist-panel-context-menu'], 
             parent)
     
     def get_context(self):

@@ -76,8 +76,17 @@ class IterableIPShell:
     @type input_func: function
     '''
     io = IPython.utils.io
+
+    # In IPython 1.0.0+ all contents of the old 'frontend' subpackage has been 
+    # moved into top-level subpackages. 
+    # See: http://ipython.org/ipython-doc/rel-1.0.0/whatsnew/version1.0.html
+    if hasattr(IPython, 'frontend'):
+      terminal = IPython.frontend.terminal
+    else:
+      terminal = IPython.terminal
+
     if input_func:
-      IPython.frontend.terminal.interactiveshell.raw_input_original = input_func
+      terminal.interactiveshell.raw_input_original = input_func
     if cin:
       io.stdin = io.IOStream(cin)
     if cout:
@@ -103,7 +112,7 @@ class IterableIPShell:
     sys.stdout, sys.stderr = io.stdout.stream, io.stderr.stream
 
     # InteractiveShell inherits from SingletonConfigurable, so use instance()
-    self.IP = IPython.frontend.terminal.embed.InteractiveShellEmbed.instance(config=cfg, user_ns=user_ns)
+    self.IP = terminal.embed.InteractiveShellEmbed.instance(config=cfg, user_ns=user_ns)
     
     sys.stdout, sys.stderr = old_stdout, old_stderr
     
@@ -175,7 +184,11 @@ class IterableIPShell:
           self.IP.autoedit_syntax):
           self.IP.edit_syntax_error()
       if not self.iter_more:
-          source_raw = self.IP.input_splitter.source_raw_reset()[1]
+          isp = self.IP.input_splitter
+          if hasattr(isp, 'source_raw_reset'):
+              source_raw = self.IP.input_splitter.source_raw_reset()[1]
+          else:
+              source_raw = isp.source_raw
           self.IP.run_cell(source_raw, store_history=True)
       else:
           # TODO: Auto-indent

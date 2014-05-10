@@ -3,8 +3,8 @@ from xl import main as ex, trax, common, event, xdg, settings, providers
 from xl import player
 from xl.trax import search, util
 from xl.nls import gettext as _
-from xlgui import oldmenu as menu
 from xlgui import panel, playlist
+from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 import HTMLParser
 from StringIO import StringIO
@@ -34,31 +34,6 @@ PANEL = None
 CURPATH = os.path.realpath(__file__)
 BASEDIR = os.path.dirname(CURPATH)+os.path.sep
 
-class ContextPopup(menu.TrackSelectMenu):
-
-    def __init__(self, widget):
-        menu.TrackSelectMenu.__init__(self)
-        self.widget = widget
-
-    def on_append_items(self, selected=None):
-        """
-            Appends the selected tracks to the current playlist
-        """
-        selected = self.widget.get_selected_tracks()
-        pl = xlgui.get_controller().main.get_selected_page()
-        if pl:
-            pl.playlist.add_tracks(selected)
-
-    def on_queue(self, selected=None):
-        """
-            Called when the user clicks the "toggle queue" item
-        """
-        selected = self.widget.get_selected_tracks()
-        pl = xlgui.get_controller().main.get_selected_page()
-        ex.exaile().queue.add_tracks(selected)
-        if pl:
-            pl.playlist.add_tracks(selected)
-            pl.list.queue_draw()
 
 class BrowserPage(webkit.WebView, providers.ProviderHandler):
 
@@ -69,6 +44,9 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         webkit.WebView.__init__(self)
         providers.ProviderHandler.__init__(self, "context_page")
 
+        # HACK: so that the panel menu works
+        self.tree = self
+        
         self.connect_events()
         self.hover = ''
         self.theme = theme
@@ -242,7 +220,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
     def button_press(self, widget, event):
         if event.button==3:
             if self.hover:
-                ContextPopup(self).popup(event)
+                menus.TrackPanelMenu(self).popup(event)
                 return True
             else:
                 return True
@@ -269,6 +247,9 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             self.drag_source_set_icon_stock(gtk.STOCK_DND_MULTIPLE)
         elif len(selection)>0: self.drag_source_set_icon_stock(gtk.STOCK_DND)
         return False
+    
+    def get_selection_empty(self):
+        return self.hover.split('://')[0] in ['track', 'artist', 'album', 'tag']
 
     def get_selected_tracks(self):
         tmp = self.hover.split('://', 1)[1]

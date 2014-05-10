@@ -45,6 +45,7 @@ from xlgui import (
     icons,
     panel
 )
+from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 
 JAMENDO_NOTEBOOK_PAGE = None
@@ -139,11 +140,7 @@ class JamendoPanel(panel.Panel):
         })
 
         #set up the rightclick menu
-        self.menu = menu.JamendoMenu()
-        self.menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.add_to_playlist()))
-        self.menu.connect('download-items', lambda *e:
-            self.emit('download-items', self.download_selected()))
+        self.menu = menu.JamendoMenu(self)
 
         #setup images
         window = gtk.Window()

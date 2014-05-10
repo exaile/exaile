@@ -51,46 +51,13 @@ from xlgui import (
     playlist,
     xdg
 )
+
+from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
-from xlgui.widgets import (
-    menu,
-    menuitems
-)
+
 
 logger = logging.getLogger(__name__)
 
-
-def __create_files_panel_context_menu():
-    items = []
-    items.append(menuitems.AppendMenuItem('append', after=[]))
-    items.append(menuitems.ReplaceCurrentMenuItem('replace', after=[items[-1].name]))
-    items.append(menuitems.EnqueueMenuItem('enqueue', after=[items[-1].name]))
-    items.append(menu.simple_separator('sep1', after=[items[-1].name]))
-    items.append(menuitems.OpenDirectoryMenuItem('open-drectory', after=[items[-1].name]))
-    def trash_tracks_func(parent, context, tracks):
-        menuitems.generic_trash_tracks_func(parent, context, tracks)
-        parent.refresh(None)
-    items.append(menuitems.TrashMenuItem('trash-tracks',
-        after=[items[-1].name], trash_tracks_func=trash_tracks_func))
-    items.append(menu.simple_separator('sep2', after=[items[-1].name]))
-    items.append(menuitems.PropertiesMenuItem('properties', after=[items[-1].name]))
-    for item in items:
-        providers.register('files-panel-context-menu', item)
-__create_files_panel_context_menu()
-
-class FilesContextMenu(menu.ProviderMenu):
-    def __init__(self, panel):
-        menu.ProviderMenu.__init__(self, 'files-panel-context-menu', panel)
-
-    def get_context(self):
-        context = common.LazyDict(self._parent)
-        def get_selected_tracks(name, parent):
-            return parent.tree.get_selected_tracks() or []
-        context['selected-tracks'] = get_selected_tracks
-        context['selection-count'] = lambda name, parent: \
-            parent.tree.get_selection_count()
-        
-        return context
 
 class FilesPanel(panel.Panel):
     """
@@ -117,7 +84,7 @@ class FilesPanel(panel.Panel):
 
         self._setup_tree()
         self._setup_widgets()
-        self.menu = FilesContextMenu(self)
+        self.menu = menus.FilesContextMenu(self)
 
         self.key_id = None
         self.i = 0
@@ -487,13 +454,10 @@ class FilesDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from files
     """
-    def get_selection_count(self):
-        '''
-            Returns the number of items currently selected in the
-            playlist. Prefer this to len(get_selected_tracks()) et al
-            if you will discard the actual track list
-        '''
-        return self.get_selection().count_selected_rows()
+    
+    def get_selection_empty(self):
+        '''Returns True if there are no selected items'''
+        return self.get_selection().count_selected_rows() == 0
     
     def get_selected_tracks(self):
         """
@@ -507,7 +471,7 @@ class FilesDragTreeView(DragTreeView):
             f = model[path][0]
             self.append_recursive(tracks, f)
 
-        return tracks or None
+        return tracks
 
     def append_recursive(self, songs, f):
         """

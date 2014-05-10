@@ -27,13 +27,12 @@
 import gobject
 import gtk
 
-from xl import metadata, trax
+from xl import trax
 from xl.nls import gettext as _
 from xlgui import (
-    guiutil,
-    oldmenu as menu,
     panel
 )
+from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 
 class FlatPlaylistPanel(panel.Panel):
@@ -57,7 +56,7 @@ class FlatPlaylistPanel(panel.Panel):
         self._setup_tree()
         if not hasattr(self.parent, 'do_import'):
             self.builder.get_object("import_button").hide()
-        self.menu = menu.TrackSelectMenu()
+        self.menu = menus.TrackPanelMenu()
         self._connect_events()
 
     def _connect_events(self):
@@ -175,6 +174,12 @@ class FlatPlaylistDragTreeView(DragTreeView):
     """
         Custom DragTreeView to retrieve data from playlists
     """
+    def get_selected_tracks_count(self):
+        '''
+            Returns the count of selected tracks
+        '''
+        return self.get_selection().count_selected_rows()
+    
     def get_selected_tracks(self):
         """
             Returns the currently selected tracks

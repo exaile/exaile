@@ -536,7 +536,7 @@ class MainWindow(gobject.GObject):
             :param sort: Sort before adding
             :param replace: Clear playlist before adding
         """
-        if not tracks:
+        if len(tracks) == 0:
             return
 
         page = self.get_selected_page()

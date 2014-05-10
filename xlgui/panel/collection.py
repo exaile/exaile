@@ -36,9 +36,7 @@ from xl import (
     event,
     formatter,
     settings,
-    trax,
-    xdg,
-    providers
+    trax
 )
 import xlgui
 from xlgui import (
@@ -46,11 +44,10 @@ from xlgui import (
     icons,
     panel
 )
+from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets import (
-    info,
-    menu,
-    menuitems
+    info
 )
 
 logger = logging.getLogger(__name__)
@@ -58,47 +55,6 @@ logger = logging.getLogger(__name__)
 # TODO: come up with a more customizable way to handle this
 SEARCH_TAGS = ("artist", "albumartist", "album", "title")
 
-def __create_collection_panel_context_menu():
-    items = []
-    def sorted_get_tracks_func(panel, context):
-        tracks = context['selected-tracks']
-        # TODO: base sort order on panel sort order
-        tracks = trax.sort_tracks(common.BASE_SORT_TAGS, tracks)
-        return tracks
-    items.append(menuitems.AppendMenuItem('append', after=[]))
-    items.append(menuitems.ReplaceCurrentMenuItem('replace', 
-        after=[items[-1].name]))
-    items.append(menuitems.EnqueueMenuItem('enqueue', after=[items[-1].name], 
-            get_tracks_func=sorted_get_tracks_func))
-    items.append(menuitems.RatingMenuItem('rating', after=[items[-1].name]))
-    items.append(menu.simple_separator('sep1', after=[items[-1].name]))
-    items.append(menuitems.OpenDirectoryMenuItem('open-drectory', 
-        after=[items[-1].name]))
-
-    def collection_delete_tracks_func(panel, context, tracks):
-        panel.collection.delete_tracks(tracks)
-    items.append(menuitems.TrashMenuItem('trash-tracks',
-        after=[items[-1].name],
-        delete_tracks_func=collection_delete_tracks_func))
-    items.append(menu.simple_separator('sep2', after=[items[-1].name]))
-    items.append(menuitems.PropertiesMenuItem('properties',
-            after=[items[-1].name], get_tracks_func=sorted_get_tracks_func))
-
-    for item in items:
-        providers.register('collection-panel-context-menu', item)
-__create_collection_panel_context_menu()
-
-class CollectionContextMenu(menu.ProviderMenu):
-    def __init__(self, panel):
-        menu.ProviderMenu.__init__(self, 'collection-panel-context-menu', panel)
-
-    def get_context(self):
-        context = common.LazyDict(self._parent)
-        context['selection-count'] = lambda name, parent: \
-            parent.tree.get_selection_count()
-        context['selected-tracks'] = lambda name, parent: \
-            parent.tree.get_selected_tracks()
-        return context
 
 def first_meaningful_char(s):
     for c in unicode(s):
@@ -241,7 +197,7 @@ class CollectionPanel(panel.Panel):
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
 
-        self.menu = CollectionContextMenu(self)
+        self.menu = menus.CollectionContextMenu(self)
 
         self.load_tree()
 
@@ -770,13 +726,9 @@ class CollectionDragTreeView(DragTreeView):
         # TODO: Make faster
         #self.tooltip = CollectionToolTip(self)
 
-    def get_selection_count(self):
-        '''
-            Returns the number of items currently selected in the
-            playlist. Prefer this to len(get_selected_tracks()) et al
-            if you will discard the actual track list
-        '''
-        return self.get_selection().count_selected_rows()
+    def get_selection_empty(self):
+        '''Returns True if there are no selected items'''
+        return self.get_selection().count_selected_rows() == 0
         
     def get_selected_tracks(self):
         """
@@ -789,12 +741,10 @@ class CollectionDragTreeView(DragTreeView):
             iter = model.get_iter(path)
             newset = self.container._find_tracks(iter)
             tracks.append(newset)
-
-        if not tracks: return None
-
+        
         tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
 
-        return tracks
+        return trax.sort_tracks(common.BASE_SORT_TAGS, tracks)
 
     def on_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
         """

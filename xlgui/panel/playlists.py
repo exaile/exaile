@@ -24,15 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import os.path
-import time
-import urllib
 
 import glib
 import gobject
-import gtk
+import gtk 
 
 from xl import (
+    common,
     event,
     main,
     playlist,
@@ -42,15 +40,15 @@ from xl import (
 )
 from xl.nls import gettext as _
 from xlgui import (
-    guiutil,
     icons,
-    oldmenu as menu,
-    panel,
-    playlist as guiplaylist,
-    xdg
+    panel
 )
+from xlgui.panel import menus
+from xlgui.widgets import (
+    dialogs
+)
+
 from xlgui.widgets.common import DragTreeView
-from xlgui.widgets import dialogs
 from xlgui.widgets.filter import *
 
 def N_(x): return x
@@ -274,6 +272,7 @@ _NMAP = {
     N_('Playlist'): '__playlist',
 }
 
+
 class TrackWrapper(object):
     def __init__(self, track, playlist):
         self.track = track
@@ -288,7 +287,6 @@ class TrackWrapper(object):
 
         if not text: return self.track.get_loc_for_io()
         return text
-        
 
 
 class BasePlaylistPanelMixin(gobject.GObject):
@@ -318,11 +316,21 @@ class BasePlaylistPanelMixin(gobject.GObject):
         self.track_image = icons.MANAGER.pixbuf_from_icon_name(
             'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
 
-    def remove_selected_playlist(self):
+    def remove_playlist(self, ignored=None):
         """
             Removes the selected playlist from the UI
             and from the underlying manager
         """
+        
+        dialog = gtk.MessageDialog(None,
+            gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO,
+            _("Are you sure you want to permanently delete the selected playlist?"))
+        response = dialog.run()
+        dialog.destroy()
+        
+        if response != gtk.RESPONSE_YES:
+            return 
+        
         selected_playlist = self.tree.get_selected_page(raw=True)
         if selected_playlist is not None:
             if isinstance(selected_playlist, playlist.SmartPlaylist):
@@ -338,26 +346,39 @@ class BasePlaylistPanelMixin(gobject.GObject):
             (model, iter) = selection.get_selected()
             self.model.remove(iter)
 
-    def rename_selected_playlist(self, name):
+    def rename_playlist(self, playlist):
         """
-            Renames the selected playlist
-
-            @param name: the new name
+            Renames the playlist
         """
+        
+        if playlist is None:
+            return
+        
+        # Ask for new name
+        dialog = dialogs.TextEntryDialog(
+            _("Enter the new name you want for your playlist"),
+            _("Rename Playlist"), playlist.name)
+        
+        result = dialog.run()
+        name = dialog.get_value()
+        
+        dialog.destroy()
+        
+        if result != gtk.RESPONSE_OK or name == '':
+            return
+                
         if name in self.playlist_manager.playlists:
             # name is already in use
             dialogs.error(self.parent, _("The "
                 "playlist name you entered is already in use."))
             return
 
-        playlist = self.tree.get_selected_page()
-        if playlist is not None:
-            old_name = playlist.name
-            selection = self.tree.get_selection()
-            (model, iter) = selection.get_selected()
-            model.set_value(iter, 1, name)
-            #Update the manager aswell
-            self.playlist_manager.rename_playlist(playlist, name)
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        model.set_value(iter, 1, name)
+        
+        # Update the manager aswell
+        self.playlist_manager.rename_playlist(playlist, name)
 
     def open_selected_playlist(self):
         selection = self.tree.get_selection()
@@ -605,11 +626,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             'music-library', gtk.ICON_SIZE_SMALL_TOOLBAR)
 
         # menus
-        self.playlist_menu = menu.PlaylistsPanelPlaylistMenu()
-        self.smart_menu = menu.PlaylistsPanelPlaylistMenu(smart=True)
-        self.default_menu = menu.PlaylistsPanelMenu()
-        self.track_menu = menu.PlaylistsPanelTrackMenu()
-
+        self.playlist_menu = menus.PlaylistsPanelPlaylistMenu(self)
+        self.smart_menu = menus.PlaylistsPanelPlaylistMenu(self)
+        self.default_menu = menus.PlaylistPanelMenu(self)
+        
+        self.track_menu = menus.TrackPanelMenu(self)
+        
         self._connect_events()
         self._load_playlists()
 
@@ -618,45 +640,6 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         event.add_callback(self._on_playlist_added, 'playlist_added', self.playlist_manager)
 
         self.tree.connect('key-release-event', self.on_key_released)
-
-        self.track_menu.connect('remove-track', lambda *e:
-            self.remove_selected_track())
-        self.smart_menu.connect('properties', lambda *e:
-            self._playlist_properties())
-
-        for item in ('playlist', 'smart', 'default'):
-            menu = getattr(self, '%s_menu' % item)
-            menu.connect('add-playlist', lambda *e:
-                self.add_new_playlist())
-            menu.connect('add-smart-playlist', lambda *e:
-                self.add_smart_playlist())
-            menu.connect('import-playlist', lambda *e:
-                self.import_playlist())
-
-            if item != 'default':
-                menu.connect('append-items', lambda *e:
-                    self.emit('append-items', self.tree.get_selected_tracks(), 
-                        False))
-                menu.connect('replace-items', lambda *e:
-                    self.emit('replace-items', self.tree.get_selected_tracks()))
-                menu.connect('queue-items', lambda *e:
-                    self.emit('queue-items', self.tree.get_selected_tracks()))
-                menu.connect('rating-changed', self.on_rating_changed)
-
-                menu.connect('open-playlist', lambda *e:
-                    self.open_selected_playlist())
-                menu.connect('export-playlist', lambda widget:
-                    self.export_selected_playlist())
-                menu.connect('export-playlist-files', lambda widget, path:
-                    self.export_selected_playlist_files(path))
-                menu.connect('rename-playlist', lambda widget, name:
-                    self.rename_selected_playlist(name))
-                menu.connect('remove-playlist', lambda *e:
-                    self.remove_selected_playlist())
-
-            if item == 'smart':
-                menu.connect('edit-playlist', lambda *e:
-                    self.edit_selected_smart_playlist())
 
     def _playlist_properties(self):
         pl = self.tree.get_selected_page(raw=True)
@@ -1133,30 +1116,43 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 self.tree.enable_model_drag_dest([self.playlist_target],
                                                      gtk.gdk.ACTION_DEFAULT)
 
-    def export_selected_playlist(self):
+    # 
+    #  TODO: these should be moved somewhere more general
+    # 
+
+    def export_playlist(self, pl):
         """
             Exports the selected playlist to path
 
             @path where we we want it to be saved, with a
                 valid extension we support
         """
-        playlist = self.tree.get_selected_page()
+        
         if playlist is not None:
-            dialog = dialogs.PlaylistExportDialog(playlist)
+            dialog = dialogs.PlaylistExportDialog(pl)
             dialog.show()
                     
-    def export_selected_playlist_files(self, uri):
+    def export_playlist_files(self, pl):
         '''
-            Exports the selected playlist files to URI
+            Exports the playlist files to a URI
             
             @uri where we want it to be saved
         '''
-        pl = self.tree.get_selected_page()
-        if pl is not None:
+        
+        if pl is None:
+            return 
+        
+        def _on_uri(uri):
             pl_files = [track.get_loc_for_io() for track in pl]
             dialog = dialogs.FileCopyDialog( pl_files, uri, 
                 _('Exporting %s') % pl.name )
             dialog.do_copy()
+            
+        dialog = dialogs.DirectoryOpenDialog(title=_('Choose directory to export files to'))
+        dialog.set_select_multiple(False)
+        dialog.connect( 'uris-selected', lambda widget, uris: _on_uri(uris[0]))
+        dialog.run()
+        dialog.destroy()
             
 
     def on_key_released(self, widget, event):
@@ -1205,14 +1201,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 #menu we will show
                 if isinstance(pl, playlist.Playlist) or \
                     isinstance(pl, playlist.SmartPlaylist):
-                    dialog = gtk.MessageDialog(None,
-                        gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, 
-                        gtk.BUTTONS_YES_NO,
-                        _("Are you sure you want to permanently delete "
-                        "the selected playlist?"))
-                    if dialog.run() == gtk.RESPONSE_YES:
-                        self.remove_selected_playlist()
-                    dialog.destroy()
+                    self.remove_playlist(pl)
                 elif isinstance(pl, TrackWrapper):
                     self.remove_selected_track()
             return True
@@ -1258,6 +1247,10 @@ class PlaylistDragTreeView(DragTreeView):
     def __init__(self, container, receive=True, source=True):
         DragTreeView.__init__(self, container, receive, source)
         self.show_cover_drag_icon = False
+
+    def get_selection_empty(self):
+        '''Returns True if there are no selected items'''
+        return self.get_selection().count_selected_rows() == 0
 
     def get_selected_tracks(self):
         """

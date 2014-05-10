@@ -33,7 +33,7 @@
 
 import gio, glib, gtk
 
-from xl import common, player, settings, trax
+from xl import common, player, playlist, settings, trax
 from xl.nls import gettext as _
 from xlgui.widgets import rating, menu
 from xlgui import properties
@@ -43,11 +43,11 @@ from xlgui import properties
 # the parent's context, but custom accessors are allowed via the
 # get_tracks_func kwarg
 
+def generic_get_playlist_func(parent, context):
+    return context.get('selected-playlist', None)
+
 def generic_get_tracks_func(parent, context):
     return context.get('selected-tracks', [])
-    
-def generic_get_trackscount_func(parent, context):
-    return context.get('selection-count', 0)
 
 class RatingMenuItem(menu.MenuItem):
     """
@@ -210,4 +210,35 @@ class ShowCurrentTrackMenuItem(menu.MenuItem):
         menu.MenuItem.__init__(self, name, factory, after)
 
 ### END TRACKS ITEMS ###
+
+### PLAYLIST ITEMS ###
+# These items act on a playlist, by default 'selected-playlist' from
+# the parent's context, but custom accessors are allowed via the
+# get_pl_func kwarg
+
+def RenamePlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
+    return menu.simple_menu_item(name, after, _('Rename'), 'gtk-edit',
+                          lambda w, n, o, c: o.rename_playlist(get_pl_func(o, c)),
+                          condition_fn=lambda n, p, c: not isinstance(c['selected-playlist'], playlist.SmartPlaylist))
+    
+def EditPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
+    return menu.simple_menu_item(name, after, _('Edit'), 'gtk-edit',
+                          lambda w, n, o, c: o.rename_playlist(get_pl_func(o, c)),
+                          condition_fn=lambda n, p, c: isinstance(c['selected-playlist'], playlist.SmartPlaylist))
+
+def ExportPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
+    return menu.simple_menu_item(name, after, _('Export Playlist'), 'gtk-save',
+                          lambda w, n, o, c: o.export_playlist(get_pl_func(o, c)))
+
+def ExportPlaylistFilesMenuItem(name, after, get_pl_func=generic_get_playlist_func):
+    return menu.simple_menu_item(name, after, _('Export Files'), 'gtk-save',
+                          lambda w, n, o, c: o.export_playlist_files(get_pl_func(o, c)))
+
+def DeletePlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
+    return menu.simple_menu_item(name, after, _('Delete Playlist'), 'gtk-delete',
+                          lambda w, n, o, c: o.remove_playlist(get_pl_func(o, c)))
+    
+
+### END PLAYLIST ITEMS ###
+
 

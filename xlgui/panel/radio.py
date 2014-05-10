@@ -28,30 +28,30 @@ import gio
 import glib
 import gobject
 import gtk
-import threading
 
 import xl.radio, xl.playlist
 from xl import (
     event,
     common,
     settings,
-    trax,
-    xdg
+    trax
 )
 from xl.nls import gettext as _
 import xlgui.panel.playlists as playlistpanel
+from xlgui.panel import menus
 from xlgui import (
     guiutil,
     icons,
-    oldmenu as menu,
-    panel,
-    playlist as guiplaylist
+    panel
 )
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets import dialogs
 
 class RadioException(Exception): pass
 class ConnectionException(RadioException): pass
+
+
+
 
 class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     """
@@ -90,8 +90,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             'music-library', gtk.ICON_SIZE_SMALL_TOOLBAR)
 
         # menus
-        self.playlist_menu = menu.RadioPanelPlaylistMenu()
-        self.track_menu = menu.PlaylistsPanelTrackMenu()
+        self.playlist_menu = menus.RadioPanelPlaylistMenu(self)
+        self.track_menu = menus.TrackPanelMenu(self)
         self._connect_events()
 
         self.load_streams()
@@ -158,28 +158,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Connects events used in this panel
         """
-        self.track_menu.connect('remove-track', lambda *e:
-            self.remove_selected_track())
-
-        menu = self.playlist_menu
-        menu.connect('add-playlist', self._on_add_button_clicked)
-
-        menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.tree.get_selected_tracks(), False))
-        menu.connect('replace-items', lambda *e:
-            self.emit('replace-items', self.tree.get_selected_tracks()))
-        menu.connect('queue-items', lambda *e:
-            self.emit('queue-items', self.tree.get_selected_tracks()))
-        menu.connect('open-playlist', lambda *e:
-            self.open_selected_playlist())
-        menu.connect('export-playlist', lambda widget:
-            self.export_selected_playlist())
-        menu.connect('rename-playlist', lambda widget, name:
-            self.rename_selected_playlist(name))
-        menu.connect('remove-playlist', lambda *e:
-            self.remove_selected_playlist())
-
-
+        
         self.builder.connect_signals({
             'on_add_button_clicked': self._on_add_button_clicked,
         })

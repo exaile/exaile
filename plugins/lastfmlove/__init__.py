@@ -189,7 +189,7 @@ class LoveMenuItem(MenuItem):
 
         if self.get_tracks_function is not None:
             tracks = self.get_tracks_function()
-            empty = len(tracks) < 0
+            empty = len(tracks) == 0
         else:
             empty = context.get('selection-empty', True) 
             if not empty:

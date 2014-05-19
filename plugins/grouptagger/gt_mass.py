@@ -147,4 +147,8 @@ class GtMassRename(object):
         self.reset()
 
 def mass_rename(exaile):
+    
+    if dialogs.yesno(None, _("You should rescan your collection before using mass tag rename to ensure that all tags are up to date. Rescan now?")) == gtk.RESPONSE_YES:
+        exaile.gui.on_rescan_collection()
+    
     GtMassRename(exaile)

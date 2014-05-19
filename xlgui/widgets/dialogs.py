@@ -89,6 +89,13 @@ def info(parent, message=None, markup=None):
         dialog.set_markup(markup)
     dialog.run()
     dialog.destroy()
+    
+def yesno(parent, message):
+    '''Gets a Yes/No response from a user'''
+    dlg = gtk.MessageDialog(parent=parent, type=gtk.MESSAGE_QUESTION, buttons=gtk.BUTTONS_YES_NO, message_format=message)
+    response = dlg.run() 
+    dlg.destroy()
+    return response
 
 class AboutDialog(object):
     """

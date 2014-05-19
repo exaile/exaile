@@ -45,6 +45,7 @@ import gt_prefs
 import gt_widgets
 from gt_common import *
 import gt_import
+import gt_mass
 
 plugin = None
 
@@ -113,6 +114,11 @@ class GroupTaggerPlugin(object):
         self.tools_submenu.add_item( 
             menu.simple_menu_item( 'gt_import', [], _('Import tags from directory'),
                 callback=self.on_import_tags ) 
+        )
+        
+        self.tools_submenu.add_item( 
+            menu.simple_menu_item( 'gt_rename', [], _('Mass rename/delete tags'),
+                callback=self.on_mass_rename ) 
         )
         
         # group them together to make it not too long
@@ -187,6 +193,9 @@ class GroupTaggerPlugin(object):
         
     def on_import_tags(self, widget, name, parent, exaile):
         gt_import.import_tags(exaile)
+        
+    def on_mass_rename(self, widget, name, parent, exaile):
+        gt_mass.mass_rename(exaile)
         
     #
     # Exaile events

@@ -156,6 +156,9 @@ def _enable(exaile):
     item = menu.simple_menu_item('ipconsole', ['plugin-sep'], _('Show IPython Console'),
         callback=lambda *x: show_console(exaile)) 
     providers.register('menubar-tools-menu', item)
+    
+    if settings.get_option('plugin/ipconsole/autostart', False):
+        show_console(exaile)
 
 
 def on_option_set(event, settings, option):

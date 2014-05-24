@@ -43,3 +43,7 @@ class BgColor(widgets.ColorButtonPreference):
 class Theme(widgets.ComboPreference):
     default = 'Linux'
     name = 'plugin/ipconsole/iptheme'
+
+class AutoStart(widgets.CheckPreference):
+    default = False
+    name = 'plugin/ipconsole/autostart'

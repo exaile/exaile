@@ -29,7 +29,7 @@ from xl.nls import gettext as _
 from xl.trax import Track, is_valid_track
 import xlgui
 from xlgui.guiutil import get_workarea_size
-from xlgui.playlist import PlaylistPage
+from xlgui.widgets.playlist import PlaylistPage
 from xlgui.tray import BaseTrayIcon
 
 DROPTRAYICON = None

@@ -187,8 +187,9 @@ class IterableIPShell:
           isp = self.IP.input_splitter
           if hasattr(isp, 'source_raw_reset'):
               source_raw = self.IP.input_splitter.source_raw_reset()[1]
-          else:
+          else: # IPython 2.x+
               source_raw = isp.source_raw
+              isp.reset()
           self.IP.run_cell(source_raw, store_history=True)
       else:
           # TODO: Auto-indent

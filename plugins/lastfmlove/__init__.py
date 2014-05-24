@@ -28,6 +28,7 @@ from xl import (
     providers,
     settings
 )
+from xl.externals import pylast
 from xl.nls import gettext as _
 from xlgui import icons
 from xlgui.widgets.menu import MenuItem
@@ -35,7 +36,6 @@ from xlgui.widgets.playlist_columns import (
     Column,
     ColumnMenuItem
 )
-import pylast
 
 import lastfmlove_preferences
 from cellrenderertoggleimage import CellRendererToggleImage
@@ -48,57 +48,6 @@ icons.MANAGER.add_icon_name_from_directory('love',
     os.path.join(basedir, 'icons'))
 icons.MANAGER.add_icon_name_from_directory('send-receive',
     os.path.join(basedir, 'icons'))
-
-# Monkey patch to add "unlove" to tracks
-# See: http://code.google.com/p/pylast/issues/detail?id=64
-def unlove(self):
-    """ 
-        Removes the track from the user's loved tracks.
-    """
-    self._request('track.unlove')
-pylast.Track.unlove = unlove
-del unlove
-
-# Monkey patch to properly handle the limit for requests
-# See: http://code.google.com/p/pylast/issues/detail?id=63
-def _collect_nodes(limit, sender, method_name, cacheable, params=None):
-    """
-        Returns a sequqnce of dom.Node objects about as close to
-        limit as possible
-    """
-    
-    if not params:
-        params = sender._get_params()
-    
-    nodes = []
-    page = 1
-    end_of_pages = False
-    
-    while not end_of_pages and (not limit or (limit and len(nodes) < limit)):
-        params["page"] = str(page)
-        doc = sender._request(method_name, cacheable, params)
-        
-        main = doc.documentElement.childNodes[1]
-        
-        if main.hasAttribute("totalPages"):
-            total_pages = pylast._number(main.getAttribute("totalPages"))
-        elif main.hasAttribute("totalpages"):
-            total_pages = pylast._number(main.getAttribute("totalpages"))
-        else:
-            raise Exception("No total pages attribute")
-        
-        for node in main.childNodes:
-            if not node.nodeType == pylast.xml.dom.Node.TEXT_NODE and (not limit or len(nodes) < limit):
-                nodes.append(node)
-        
-        if page >= total_pages:
-            end_of_pages = True
-        
-        page += 1
-    
-    return nodes
-pylast._collect_nodes = _collect_nodes
-del _collect_nodes
 
 def enable(exaile):
     """

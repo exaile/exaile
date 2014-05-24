@@ -17,13 +17,13 @@
 import glib
 import gtk
 import os.path
-import pylast
 
 from xl.nls import gettext as _
 from xl import (
     common,
     settings
 )
+from xl.externals import pylast
 from xlgui import icons
 from xlgui.preferences import widgets
 from xlgui.widgets import dialogs

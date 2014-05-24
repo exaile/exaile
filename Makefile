@@ -28,6 +28,7 @@ make-install-dirs:
 	mkdir -p ${EXAILEBINDIR}
 	mkdir -p ${EXAILELIBDIR}
 	mkdir -p ${EXAILELIBDIR}/xl
+	mkdir -p ${EXAILELIBDIR}/xl/externals
 	mkdir -p ${EXAILELIBDIR}/xl/metadata
 	mkdir -p ${EXAILELIBDIR}/xl/player
 	mkdir -p ${EXAILELIBDIR}/xl/migrations
@@ -77,6 +78,8 @@ install-target: make-install-dirs
 	install -m 644 exaile.py ${EXAILELIBDIR}	
 	-install -m 644 xl/*.py[co] ${EXAILELIBDIR}/xl
 	install -m 644 xl/*.py ${EXAILELIBDIR}/xl
+	-install -m 644 xl/metadata/*.py[co] ${EXAILELIBDIR}/xl/externals
+	install -m 644 xl/metadata/*.py ${EXAILELIBDIR}/xl/externals
 	-install -m 644 xl/metadata/*.py[co] ${EXAILELIBDIR}/xl/metadata
 	install -m 644 xl/metadata/*.py ${EXAILELIBDIR}/xl/metadata
 	-install -m 644 xl/player/*.py[co] ${EXAILELIBDIR}/xl/player

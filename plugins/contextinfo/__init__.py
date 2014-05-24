@@ -3,7 +3,7 @@ from xl import main as ex, trax, common, event, xdg, settings, providers
 from xl import player
 from xl.trax import search, util
 from xl.nls import gettext as _
-from xlgui import panel, playlist
+from xlgui import panel
 from xlgui.panel import menus
 from xlgui.widgets.common import DragTreeView
 import HTMLParser
@@ -17,7 +17,7 @@ import glib
 import gobject
 import gtk
 import os
-import pylast
+from xl.externals import pylast
 import contextprefs
 import re
 import urllib

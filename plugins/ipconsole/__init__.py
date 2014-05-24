@@ -218,7 +218,10 @@ def show_console(exaile):
     """
     global PLUGIN
     if PLUGIN is None:
-        PLUGIN = IPyConsole({'exaile': exaile})
+        import xl, xlgui
+        PLUGIN = IPyConsole({'exaile': exaile,
+                             'xl': xl,
+                             'xlgui': xlgui})
         PLUGIN.connect('destroy', console_destroyed)
     PLUGIN.present()
 

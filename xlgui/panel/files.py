@@ -48,7 +48,6 @@ from xlgui import (
     guiutil,
     icons,
     panel,
-    playlist,
     xdg
 )
 

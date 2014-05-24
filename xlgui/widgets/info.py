@@ -41,7 +41,11 @@ from xl import (
 )
 from xl.nls import gettext as _
 import xlgui
-from xlgui import cover, playlist, guiutil
+from xlgui import (
+    cover,
+    guiutil
+)
+from xlgui.widgets import playlist
 from xlgui.widgets.playback import PlaybackProgressBar
 
 class TrackInfoPane(gtk.Alignment):

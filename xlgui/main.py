@@ -55,7 +55,7 @@ from xl import (
     xdg
 )
 from xlgui.accelerators import AcceleratorManager
-from xlgui.playlist import PlaylistContainer
+from xlgui.playlist_container import PlaylistContainer
 from xlgui.widgets import (
     dialogs,
     info,

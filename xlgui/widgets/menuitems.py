@@ -108,7 +108,8 @@ def _append_cb(widget, name, parent, context, get_tracks_func, replace=False):
     offset = len(pl)
     tracks = get_tracks_func(parent, context)
     sort_by, reverse = page.view.get_sort_by()
-    tracks = trax.sort_tracks(sort_by, tracks, reverse=reverse)
+    tracks = trax.sort_tracks(sort_by, tracks, reverse=reverse,
+        artist_compilations=True)
     pl.extend(tracks)
     if settings.get_option( 'playlist/append_menu_starts_playback', False ):
         if not player.PLAYER.current:

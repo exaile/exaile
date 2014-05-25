@@ -1078,7 +1078,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
                 else:
                     tracks.extend(trax.get_tracks_from_uri(uri))
             sort_by, reverse = self.get_sort_by()
-            tracks = trax.sort_tracks(sort_by, tracks, reverse=reverse)
+            tracks = trax.sort_tracks(sort_by, tracks, reverse=reverse,
+                artist_compilations=True)
             if insert_position >= 0:
                 self.playlist[insert_position:insert_position] = tracks
             else:

@@ -57,6 +57,10 @@ class PanelData(object):
     @property
     def opts(self):
         return (self.shown, self.position)
+    
+    def __repr__(self):
+        return '<PanelData tab: %s, panel: %s, position: %s, shown: %s>' % \
+            (self.tab, self.panel, self.position, self.shown)
 
 
 class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
@@ -136,6 +140,8 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
             return
         
         panel = provider.get_panel()
+        panel.show()
+        
         tab = notebook.NotebookTab(self, panel, display_left=True)
         panel.tab_menu = self.view_menu
         tab.provider = provider

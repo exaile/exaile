@@ -235,6 +235,9 @@ class BaseFormat(object):
                     self._set_tag(raw, tag, tagdict[tag])
             for tag in raw:
                 tagname = self._reverse_mapping.get(tag)
+                if tagname is None:
+                    tag = tag.split(':',1)[0]   # handles multi-part tags
+                    tagname = self._reverse_mapping.get(tag)
                 if tagname and tagname not in tagdict:
                     self._del_tag(raw, tag)
             self.save()

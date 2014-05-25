@@ -511,7 +511,7 @@ class Track(object):
                 single value.
             :param artist_compilations: If True, automatically handle
                 albumartist and other compilations detections when
-                tag=="artist".
+                tag=="albumartist".
             :param extend_title: If the title tag is unknown, try to
                 add some identifying information to it.
         """
@@ -520,9 +520,9 @@ class Track(object):
         # values.
         value = None
         sorttag = self.__tags.get(tag + "sort")
-        if sorttag and tag != "artist":
+        if sorttag and tag != "albumartist":
             value = sorttag
-        elif tag == "artist":
+        elif tag == "albumartist":
             if artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist',
                         u"\uffff\uffff\uffff\ufffe")
@@ -576,7 +576,7 @@ class Track(object):
                 single value.
             :param artist_compilations: If True, automatically handle
                 albumartist and other compilations detections when
-                tag=="artist".
+                tag=="albumartist".
             :param extend_title: If the title tag is unknown, try to
                 add some identifying information to it.
         """
@@ -585,7 +585,7 @@ class Track(object):
             return uri.decode('utf-8')
 
         value = None
-        if tag == "artist":
+        if tag == "albumartist":
             if artist_compilations and self.__tags.get('__compilation'):
                 value = self.__tags.get('albumartist', _VARIOUSARTISTSSTR)
             else:
@@ -642,14 +642,14 @@ class Track(object):
             :param format: pre-format into a search query.
             :param artist_compilations: If True, automatically handle
                 albumartist and other compilations detections when
-                tag=="artist".
+                tag=="albumartist".
             :param extend_title: If the title tag is unknown, try to
                 add some identifying information to it.
         """
         extraformat = ""
-        if tag == "artist":
+        if tag == "albumartist":
             if artist_compilations and self.__tags.get('__compilation'):
-                value = self.__tags.get('albumartist', '__null__')
+                value = self.__tags.get('albumartist', None)
                 tag = 'albumartist'
                 extraformat += " ! __compilation==__null__"
             else:

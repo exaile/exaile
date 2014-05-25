@@ -95,8 +95,7 @@ class GroupTaggerPlugin(object):
         self.panel.tagger.view.connect( 'group-changed', self.on_group_change )
         
         # add to exaile's panel interface
-        exaile.gui.panels['grouptagger'] = self.panel
-        exaile.gui.add_panel( self.panel, _('GroupTagger') )
+        providers.register('main-panel', self.panel)
         
         # ok, register for some events
         event.add_callback( self.on_playback_track_start, 'playback_track_start' )
@@ -163,7 +162,7 @@ class GroupTaggerPlugin(object):
         event.remove_callback( self.on_playlist_cursor_changed, 'playlist_cursor_changed' )
         event.remove_callback( self.on_plugin_options_set, 'plugin_grouptagger_option_set' )
         
-        exaile.gui.remove_panel( self.panel )
+        providers.unregister('main-panel', self.panel)
         
     def setup_panel_font(self, always_set):
         font = settings.get_option('plugin/grouptagger/panel_font', None)

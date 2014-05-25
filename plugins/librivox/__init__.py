@@ -26,6 +26,7 @@ from xl import (
     common,
     event,
     playlist,
+    providers,
     settings,
     trax,
     xdg
@@ -36,6 +37,7 @@ from xlgui import (
     main
 )
 from xlgui.widgets.common import DragTreeView
+from xlgui.widgets.notebook import NotebookPage
 
 def enable(exaile):
     if exaile.loading:
@@ -44,15 +46,18 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(o1, exaile, o2):
-    global panel
-    panel=LVPanel(exaile)
+    global LVPANEL
+    LVPANEL=LVPanel(exaile)
+    
+    providers.register('main-panel', LVPANEL)
+    
 
 def disable(exaile):
-    global panel
-    if panel.aboutwindow!=None:
-        panel.aboutwindow.win.destroy()
+    global LVPANEL
+    if LVPANEL.aboutwindow!=None:
+        LVPANEL.aboutwindow.win.destroy()
 
-    exaile.gui.remove_panel(panel.vbox)
+    providers.unregister('main-panel', LVPANEL)
 
 class LVPanel():
 
@@ -95,6 +100,9 @@ class LVPanel():
 
     def __init__(self,exaile):
 
+        self.name = 'librivox'   # needed for panel provider
+        self._panel = None
+        
         self.librivoxdir= os.path.dirname(__file__)
         self.abicon = gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/ebook.png')
         self.clock_icon=gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/clock.png')
@@ -154,7 +162,6 @@ class LVPanel():
 
         self.title='LibriVox'
         self.vbox.show_all()
-        exaile.gui.add_panel(self.vbox, self.title)
 
         self.popup_menu=gtk.Menu()
         self.add_to_pl=gtk.ImageMenuItem("Append to Current")
@@ -347,6 +354,11 @@ class LVPanel():
         self.done_getting_chapters(row)
         self.books[row].is_loading=False
         self.statusbar.unset_status(c_id, msg_id)
+
+    def get_panel(self):
+        if self._panel is None:
+            self._panel = NotebookPage(self.vbox, self.title)
+        return self._panel
 
 
 

@@ -317,10 +317,17 @@ class NotebookPage(gtk.VBox):
             ()
         )
     }
-    def __init__(self):
+    def __init__(self, child=None, page_name=None):
         gtk.VBox.__init__(self)
         self.tab = None
         self.tab_menu = menu.ProviderMenu(self.menu_provider_name, self)
+        
+        if child is not None:
+            self.pack_start(child, True, True)
+            
+        if page_name is not None:
+            self.page_name = page_name
+        
 
     def focus(self):
         '''

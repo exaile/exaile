@@ -295,7 +295,6 @@ class MainWindow(gobject.GObject):
             # Controller
 #            'on_scan_collection_item_activate': self.controller.on_rescan_collection,
 #            'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
-            'on_panel_notebook_switch_page': self.controller.on_panel_switch,
 #            'on_track_properties_activate':self.controller.on_track_properties,
         })
 
@@ -331,11 +330,18 @@ class MainWindow(gobject.GObject):
         """
             Sets up panel events
         """
+        
+        self.panel_box = self.builder.get_object('panel_box')
+        
+        # When there's nothing in the notebook, hide it
+        self.controller.panel_notebook.connect('page-added', self.on_panel_notebook_add_page)
+        self.controller.panel_notebook.connect('page-removed', self.on_panel_notebook_remove_page)
+        
         # panels
-        panels = self.controller.panels
+        panels = self.controller.panel_notebook.panels
 
         for panel_name in ('playlists', 'radio', 'files', 'collection'):
-            panel = panels[panel_name]
+            panel = panels[panel_name].panel
             sort = False
 
             if panel_name in ('files', 'collection'):
@@ -349,23 +355,23 @@ class MainWindow(gobject.GObject):
                 self.on_append_items(items, replace=True, sort=sort))
 
         ## Collection Panel
-        panel = panels['collection']
+        panel = panels['collection'].panel
         panel.connect('collection-tree-loaded', self.on_collection_tree_loaded)
 
         ## Playlist Panel
-        panel = panels['playlists']
+        panel = panels['playlists'].panel
         panel.connect('playlist-selected',
             lambda panel, playlist:
                 self.playlist_container.create_tab_from_playlist(playlist))
 
         ## Radio Panel
-        panel = panels['radio']
+        panel = panels['radio'].panel
         panel.connect('playlist-selected',
             lambda panel, playlist:
                 self.playlist_container.create_tab_from_playlist(playlist))
 
         ## Files Panel
-        panel = panels['files']
+        #panel = panels['files']
 
     def on_expose_event(self, widget, event):
         """
@@ -397,6 +403,14 @@ class MainWindow(gobject.GObject):
         """
         if response == gtk.RESPONSE_CLOSE:
             widget.hide()
+            
+    def on_panel_notebook_add_page(self, notebook, page, page_num):
+        if self.splitter.get_child1() is None:
+            self.splitter.pack1(self.panel_box)
+        
+    def on_panel_notebook_remove_page(self, notebook, page, page_num):
+        if notebook.get_n_pages() == 0:
+            self.splitter.remove(self.panel_box)
 
     def on_stop_button_motion_notify_event(self, widget, event):
         """
@@ -521,7 +535,7 @@ class MainWindow(gobject.GObject):
             player.QUEUE.current_playlist.spat_position = -1
 
         self.get_selected_page().view.queue_draw()
-
+    
     def on_append_items(self, tracks, force_play=False, queue=False, sort=False, replace=False):
         """
             Called when a panel (or other component)
@@ -637,13 +651,6 @@ class MainWindow(gobject.GObject):
         # refresh the current playlist
         pl = self.get_selected_page()
 
-
-    def on_collection_tree_loaded(self, tree):
-        """
-            Updates info after collection tree load
-        """
-        self.statusbar.update_info()
-
     def on_playlist_container_switch_page(self, notebook, page, page_num):
         """
             Updates info after notebook page switch
@@ -663,9 +670,8 @@ class MainWindow(gobject.GObject):
         """
             Gives focus to the filter field of the current panel
         """
-        panel_name = settings.get_option('gui/last_selected_panel', 'collection')
         try:
-            self.controller.panels[panel_name].filter.grab_focus()
+            self.controller.get_active_panel().filter.grab_focus()
         except (AttributeError, KeyError):
             pass
 

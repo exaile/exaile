@@ -30,6 +30,7 @@ import gtk
 import gobject
 
 from xl import xdg
+from xlgui.widgets.notebook import NotebookPage
 
 class Panel(gobject.GObject):
     """
@@ -40,14 +41,17 @@ class Panel(gobject.GObject):
     """
     ui_info = ('panel.ui', 'PanelWindow')
 
-    def __init__(self, parent, name=None):
+    def __init__(self, parent, name, label=None):
         """
             Intializes the panel
 
             @param controller: the main gui controller
+            @param name: the name of the panel. should be unique.
+            @param label: text of the label displayed to the user 
         """
         gobject.GObject.__init__(self)
-        self.name = name
+        self.name = name        # panel id
+        self.label = label      # label to be displayed
         self.parent = parent
 
         # if the UI designer file starts with file:// use the full path minus
@@ -69,21 +73,19 @@ class Panel(gobject.GObject):
         self._child.grab_focus()
         
     def get_panel(self):
+        '''
+            Returns a NotebookPage object that will be used as the panel
+            
+            :returns: NotebookPage object
+        '''
         if not self._child:
             window = self.builder.get_object(self.ui_info[1])
-            self._child = window.get_child()
-            window.remove(self._child)
-            if not self.name:
-                self.name = window.get_title()
+            child = window.get_child()
+            window.remove(child)
+            if not self.label:
+                self.label = window.get_title()
             window.destroy()
+            
+            self._child = NotebookPage(child, self.label)
 
-        return (self._child, self.name)
-
-    def __del__(self):
-        import xlgui
-        try:
-            xlgui.get_controller().remove_panel(self._child)
-        except ValueError:
-            pass
-
-
+        return self._child

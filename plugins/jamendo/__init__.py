@@ -60,13 +60,13 @@ def enable(exaile):
 def _enable(eventname, exaile, nothing):
     global JAMENDO_NOTEBOOK_PAGE, COVERS_METHOD
     JAMENDO_NOTEBOOK_PAGE = JamendoPanel(exaile.gui.main.window, exaile)
-    exaile.gui.add_panel(*JAMENDO_NOTEBOOK_PAGE.get_panel())
     COVERS_METHOD = JamendoCoverSearch()
+    providers.register('main-panel', JAMENDO_NOTEBOOK_PAGE)
     providers.register('covers', COVERS_METHOD)
 
 def disable(exaile):
     global JAMENDO_NOTEBOOK_PAGE, COVERS_METHOD
-    exaile.gui.remove_panel(JAMENDO_NOTEBOOK_PAGE._child)
+    providers.unregister('main-panel', JAMENDO_NOTEBOOK_PAGE)
     providers.unregister('covers', COVERS_METHOD)
 
 class JamendoPanel(panel.Panel):
@@ -79,10 +79,9 @@ class JamendoPanel(panel.Panel):
     ui_info = (os.path.dirname(__file__) + "/ui/jamendo_panel.ui", 'JamendoPanelWindow')
 
     def __init__(self, parent, exaile):
-        panel.Panel.__init__(self, parent)
+        panel.Panel.__init__(self, parent, 'jamendo', "Jamendo")
 
         self.parent = parent
-        self.name = "Jamendo"
         self.exaile = exaile
 
         self.STATUS_READY = _("Ready")

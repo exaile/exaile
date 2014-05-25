@@ -569,13 +569,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     ui_info = ('playlists.ui', 'PlaylistsPanelWindow')
 
     def __init__(self, parent, playlist_manager,
-        smart_manager, collection):
+        smart_manager, collection, name):
         """
             Intializes the playlists panel
 
             @param playlist_manager:  The playlist manager
         """
-        panel.Panel.__init__(self, parent)
+        panel.Panel.__init__(self, parent, name)
         BasePlaylistPanelMixin.__init__(self)
         self.playlist_manager = playlist_manager
         self.smart_manager = smart_manager

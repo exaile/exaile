@@ -36,7 +36,7 @@ from xl import common, settings
 from xl.nls import gettext as _
 
 from xlgui import main
-from xlgui.widgets import dialogs, menu
+from xlgui.widgets import dialogs, menu, notebook
 
 import gt_common
 
@@ -614,12 +614,12 @@ class GroupTaggerWidget(gtk.VBox):
         self.view.thaw_child_notify()
 
         
-class GroupTaggerPanel(gtk.VBox):
+class GroupTaggerPanel(notebook.NotebookPage):
     '''A panel that has all of the functionality in it'''
 
     def __init__(self, exaile):
     
-        gtk.VBox.__init__(self)
+        notebook.NotebookPage.__init__(self)
     
         # add the tagger widget
         self.tagger = GroupTaggerWidget( exaile )
@@ -627,8 +627,13 @@ class GroupTaggerPanel(gtk.VBox):
         # add the widgets to this page
         self.pack_start( self.tagger, expand=True ) 
         
-        # exaile panel interface
-        self._child = self
+        self.set_name('grouptagger')
+        
+    def get_page_name(self):
+        return _('GroupTagger')
+        
+    def get_panel(self):
+        return self
 
         
 

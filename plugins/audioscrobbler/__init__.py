@@ -92,11 +92,12 @@ class ExaileScrobbler(object):
             return
 
         if option in ['plugin/ascrobbler/user', 'plugin/ascrobbler/password',
-                'plugin/ascrobbler/submit']:
+                'plugin/ascrobbler/submit','plugin/ascrobbler/scrobble_remote']:
             username = settings.get_option('plugin/ascrobbler/user', '')
             password = settings.get_option('plugin/ascrobbler/password', '')
             server = settings.get_option('plugin/ascrobbler/url',
                 'http://post.audioscrobbler.com/')
+            self.scrobble_remote = settings.get_option('plugin/ascrobbler/scrobble_remote', False)
             self.submit = settings.get_option('plugin/ascrobbler/submit', True)
 
             if (not self.connecting and not self.connected) and self.submit:
@@ -200,11 +201,11 @@ class ExaileScrobbler(object):
                     track.get_tag_raw('__playtime'))
             track.set_tag_raw('__audioscrobbler_starttime', time.time())
 
-            if track.is_local():
+            if track.is_local() or self.scrobbler_remote:
                 self.now_playing(player, track)
 
     def on_stop(self, type, player, track):
-        if not track or not track.is_local() \
+        if not track or (not track.is_local() and not self.scrobbler_remote) \
            or track.get_tag_raw('__playtime') is None:
             return
         playtime = (track.get_tag_raw('__playtime') or 0) - \

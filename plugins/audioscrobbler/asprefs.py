@@ -45,6 +45,10 @@ class MenuCheck(widgets.CheckPreference):
     default = False
     name = 'plugin/ascrobbler/menu_check'
 
+class ScrobbleRemote(widgets.CheckPreference):
+    default = False
+    name = 'plugin/ascrobbler/scrobble_remote'
+
 class UserPreference(widgets.Preference):
     name = 'plugin/ascrobbler/user'
 

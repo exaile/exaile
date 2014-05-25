@@ -1129,8 +1129,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
 
     def show_properties_dialog(self):
         from xlgui import properties
-        tracks = self.get_selected_tracks()
-        current_position = 0
+        items = self.get_selected_items()
         
         # If only one track is selected, we expand `tracks` to include all
         # tracks in the playlist... except for really large playlists, this
@@ -1140,25 +1139,17 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         # A better option would be to lazy load the files, but I'm too lazy
         # to implement that now.. :)  
         
-        if len(tracks) == 1 and len(self.playlist) < 100:
+        if len(items) == 1 and len(self.playlist) < 100:
             tracks = self.playlist[:]
-
-            model = self.get_model()
-            path, column = self.get_cursor()
-
-            # If the model has been placed within a filter model,
-            # convert the path to the path of the real model
-            if isinstance(model, gtk.TreeModelFilter):
-                path = model.convert_path_to_child_path(path)
-
-            current_position = path[0]
+            current_position = items[0][0]
             with_extras = True
         else:
+            tracks = [i[1] for i in items]
+            current_position = 0
             with_extras = False
-
-        if tracks:
-            dialog = properties.TrackPropertiesDialog(None,
-                    tracks, current_position, with_extras)
+        
+        properties.TrackPropertiesDialog(None, tracks,
+                                         current_position, with_extras)
 
     def on_provider_removed(self, provider):
         """

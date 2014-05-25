@@ -276,8 +276,8 @@ class TrackPropertiesDialog(gobject.GObject):
         trackdata = self.trackdata[position]
 
         for tag in self.def_tags:
-
-            for i, entry in enumerate(trackdata[tag]):
+            
+            for i, entry in enumerate(trackdata.get(tag, [''])):
                 if len(self.trackdata) == 1:
                     ab = False
                     ab_dbl = 0

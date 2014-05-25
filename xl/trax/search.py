@@ -26,6 +26,7 @@
 
 import time
 import re
+import urllib
 
 __all__ = ['TracksMatcher', 'search_tracks']
 
@@ -57,6 +58,8 @@ class _Matcher(object):
         if vals == '__null__':
             vals = None
         if self.tag.startswith("__"):
+            if self.tag == '__loc':
+                vals = urllib.unquote(vals)
             if self._matches(vals):
                 return True
             return False

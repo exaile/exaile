@@ -85,8 +85,6 @@ class Panel(gobject.GObject):
                 self.label = window.get_title()
             window.destroy()
             
-            self._child = NotebookPage()
-            self._child.page_name = self.label
-            self._child.pack_start(child, True, True)
+            self._child = NotebookPage(child, self.label)
 
         return self._child

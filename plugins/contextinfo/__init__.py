@@ -5,6 +5,7 @@ from xl.trax import search, util
 from xl.nls import gettext as _
 from xlgui import panel
 from xlgui.panel import menus
+from xlgui.widgets.notebook import NotebookPage
 from xlgui.widgets.common import DragTreeView
 import HTMLParser
 from StringIO import StringIO
@@ -1127,14 +1128,14 @@ class LyricsPage(PlayingPage):
     def __init__(self, theme, track, base='lyrics://', template='lyrics.html', async=[]):
         PlayingPage.__init__(self, theme, track, base, template, async)
 
-class ContextPanel(gobject.GObject):
+class ContextPanel(panel.Panel):
     """
         The contextual panel
     """
     ui_info = (BASEDIR+'context.ui', 'ContextPanelWindow')
 
     def __init__(self, parent):
-        self.init__(parent, _('Context'))
+        panel.Panel.__init__(self, parent, 'contextinfo')
 
         cachedir = os.path.join(xdg.get_data_dirs()[0], 'context')
         if not os.path.isdir(cachedir):
@@ -1146,24 +1147,11 @@ class ContextPanel(gobject.GObject):
 
         self.controller = parent
 
-        self.theme = ContextTheme(settings.get_option('context/theme', 'classic'))
+        self._theme = ContextTheme(settings.get_option('context/theme', 'classic'))
 
-        self._browser = BrowserPage(self.builder, self.theme)
+        self._browser = BrowserPage(self.builder, self._theme)
 
         self.setup_widgets()
-
-    def init__(self, parent, name=None):
-        """
-            Intializes the panel
-
-            @param controller: the main gui controller
-        """
-        gobject.GObject.__init__(self)
-        self.name = name
-        self.parent = parent
-        self.builder = gtk.Builder()
-        self.builder.add_from_file(self.ui_info[0])
-        self._child = None
 
     def setup_widgets(self):
         self._scrolled_window = gtk.ScrolledWindow()
@@ -1174,17 +1162,6 @@ class ContextPanel(gobject.GObject):
 
         frame = self.builder.get_object('ContextFrame')
         frame.add(self._scrolled_window)
-
-    def get_panel(self):
-        if not self._child:
-            window = self.builder.get_object(self.ui_info[1])
-            self._child = window.get_child()
-            window.remove(self._child)
-            if not self.name:
-                self.name = window.get_title()
-            window.destroy()
-
-        return (self._child, self.name)
         
 def get_preferences_pane():
     return contextprefs
@@ -1192,7 +1169,7 @@ def get_preferences_pane():
 def exaile_ready(object=None, a=None, b=None):
     global PANEL
     PANEL = ContextPanel(xlgui.get_controller().main)
-    xlgui.get_controller().add_panel(*PANEL.get_panel())
+    providers.register('main-panel', PANEL)
     
     event.remove_callback(exaile_ready, 'exaile_loaded')
 
@@ -1211,4 +1188,4 @@ def disable(exaile):
         Removes tab
     """
     global PANEL
-    xlgui.get_controller().remove_panel(PANEL.get_panel()[0])
+    providers.unregister('main-panel', PANEL)

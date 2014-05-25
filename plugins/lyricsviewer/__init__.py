@@ -40,10 +40,11 @@ from xl import (
     settings
 )
 from xlgui import guiutil
+from xlgui.widgets.notebook import NotebookPage
 
 import lyricsviewerprefs
 
-LYRICSPANEL = None
+LYRICSVIEWER = None
 CURPATH = os.path.realpath(__file__)
 BASEDIR = os.path.dirname(CURPATH) + os.path.sep
 IMAGEDIR = os.path.join(BASEDIR, "images")
@@ -55,19 +56,15 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(o1, exaile, o2):
-    global LYRICSPANEL
     global LYRICSVIEWER
     LYRICSVIEWER = LyricsViewer(exaile)
-    LYRICSPANEL = LYRICSVIEWER.get_panel()
-    exaile.gui.add_panel(LYRICSPANEL, _('Lyrics'))
+    providers.register('main-panel', LYRICSVIEWER)
 
 def disable(exaile):
-    global LYRICSPANEL
     global LYRICSVIEWER
     LYRICSVIEWER.remove_callbacks()
-    exaile.gui.remove_panel(LYRICSPANEL)
+    providers.unregister('main-panel', LYRICSVIEWER)
     LYRICSVIEWER = None
-    LYRICSPANEL = None
 
 def get_preferences_pane():
     return lyricsviewerprefs
@@ -78,6 +75,7 @@ class LyricsViewer(object):
     ui = 'lyricsviewer.ui'
 
     def __init__(self, exaile):
+        self.name = 'lyricsviewer'
         self.exaile = exaile
         self.notebook = exaile.gui.panel_notebook
         self.source_url = ""
@@ -85,6 +83,7 @@ class LyricsViewer(object):
 
         self._initialize_widgets()
         self._lyrics_id = 0
+        self._panel = None
 
         event.add_callback(self.playback_cb, 'playback_track_start')
         event.add_callback(self.on_track_tags_changed, 'track_tags_changed')
@@ -342,8 +341,11 @@ class LyricsViewer(object):
         textview.modify_text(state, gtk.gdk.color_parse(text_color))
 
     def get_panel(self):
-        self.lyrics_panel.unparent()
-        return(self.lyrics_panel)
+        '''Returns panel for panel interface'''
+        if self._panel is None:    
+            self.lyrics_panel.unparent()
+            self._panel = NotebookPage(self.lyrics_panel, _('Lyrics'))
+        return self._panel
 
 class LyricsMethodsComboBox(gtk.ComboBox, providers.ProviderHandler):
     """

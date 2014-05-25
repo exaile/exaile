@@ -23,6 +23,7 @@ import webkit
 from xl import (
     event,
     player,
+    providers,
     settings
 )
 from xl.nls import gettext as _
@@ -47,13 +48,12 @@ def enable(exaile):
 def disable(exaile):
     """ """
     global WIKIPANEL
-    WIKIPANEL.destroy()
-    del WIKIPANEL
+    providers.unregister('main-panel', WIKIPANEL)
 
 def _enable(eventname, exaile, nothing):
     global WIKIPANEL 
     WIKIPANEL = WikiPanel(exaile.gui.main.window)
-    exaile.gui.add_panel(*WIKIPANEL.get_panel())    
+    providers.register('main-panel', WIKIPANEL)  
 
 def get_preferences_pane():
     return preferences 
@@ -126,10 +126,8 @@ class WikiPanel(panel.Panel):
     ui_info = (os.path.dirname(__file__) + "/data/wikipanel.ui", 'wikipanel_window')
 
     def __init__(self, parent):
-        panel.Panel.__init__(self, parent)
+        panel.Panel.__init__(self, parent, 'wikipedia', _('Wikipedia'))
         self.parent = parent
-        # This is the name that will show up on the tab in Exaile
-        self.name = _('Wikipedia')
         # Typically here you'd set up your gui further, eg connect methods 
         # to signals etc
         self._browser = BrowserPage(self.builder)

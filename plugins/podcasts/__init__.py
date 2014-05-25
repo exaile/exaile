@@ -1,5 +1,5 @@
 import gtk, glib
-from xl import event, common, playlist
+from xl import event, common, playlist, providers
 from xl import trax
 from xl.nls import gettext as _
 from xlgui import panel, main
@@ -36,23 +36,20 @@ def exaile_ready(event, exaile, nothing):
 
     if not PODCASTS:
         PODCASTS = PodcastPanel(main.mainwindow().window)
-        controller = xlgui.get_controller()
-        controller.panels['podcasts'] = PODCASTS
-        controller.add_panel(*PODCASTS.get_panel())
+        providers.register('main-panel', PODCASTS)
 
 def disable(exaile):
     global PODCASTS
 
     if PODCASTS:
-        conroller = xlgui.get_controller()
-        conroller.remove_panel(PODCASTS.get_panel()[0])
+        providers.unregister('main-panel', PODCASTS)
         PODCASTS = None
 
 class PodcastPanel(panel.Panel):
     ui_info = (os.path.join(BASEDIR, 'podcasts.ui'), 'PodcastPanelWindow')
 
     def __init__(self, parent):
-        panel.Panel.__init__(self, parent, _('Podcasts'))
+        panel.Panel.__init__(self, parent, 'podcasts', _('Podcasts'))
         self.podcasts = []
         self.podcast_playlists = playlist.PlaylistManager(
             'podcast_plugin_playlists')

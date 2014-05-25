@@ -41,16 +41,17 @@ class Panel(gobject.GObject):
     """
     ui_info = ('panel.ui', 'PanelWindow')
 
-    def __init__(self, parent, name):
+    def __init__(self, parent, name, label=None):
         """
             Intializes the panel
 
             @param controller: the main gui controller
-            @param name: the name of the panel. should be unique. 
+            @param name: the name of the panel. should be unique.
+            @param label: text of the label displayed to the user 
         """
         gobject.GObject.__init__(self)
         self.name = name        # panel id
-        self.label = None       # label to be displayed
+        self.label = label      # label to be displayed
         self.parent = parent
 
         # if the UI designer file starts with file:// use the full path minus

@@ -41,6 +41,7 @@ if sys.platform != 'win32':
 from xl import (
     common,
     player,
+    providers,
     settings,
     xdg
 )
@@ -66,15 +67,14 @@ class Main(object):
 
             @param exaile: The Exaile instance
         """
-        from xlgui import icons, main, panel, tray, progress
-        from xlgui.panel import collection, radio, playlists, files
+        from xlgui import icons, main, panels, tray, progress
 
         gtk.gdk.set_program_class("Exaile")
 
         self.exaile = exaile
         self.first_removed = False
         self.tray_icon = None
-        self.panels = {}
+        
         self.builder = gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui', 'main.ui'))
         self.progress_box = self.builder.get_object('progress_box')
@@ -100,40 +100,33 @@ class Main(object):
 
         if self.exaile.options.StartMinimized:
             self.main.window.iconify()
-
-        self.panel_notebook = self.builder.get_object('panel_notebook')
+        
         self.play_toolbar = self.builder.get_object('play_toolbar')
 
-        logger.info("Loading panels...")
-        self.panels['collection'] = collection.CollectionPanel(self.main.window,
-            exaile.collection, _show_collection_empty_message=True)
-        self.panels['radio'] = radio.RadioPanel(self.main.window, exaile.collection,
-            exaile.radio, exaile.stations)
-        self.panels['playlists'] = playlists.PlaylistsPanel(self.main.window,
-            exaile.playlists, exaile.smart_playlists, exaile.collection)
-        self.panels['files'] = files.FilesPanel(self.main.window, exaile.collection)
-
-        for panel in ('collection', 'radio', 'playlists', 'files'):
-            self.add_panel(*self.panels[panel].get_panel())
+        panel_notebook = self.builder.get_object('panel_notebook')
+        self.panel_notebook = panels.PanelNotebook(exaile, self)
+        
+        self.device_panels = {}
 
         # add the device panels
         for device in self.exaile.devices.list_devices():
             if device.connected:
                 self.add_device_panel(None, None, device)
-
+        
         logger.info("Connecting panel events...")
         self.main._connect_panel_events()
+        
+        guiutil.gtk_widget_replace(panel_notebook, 
+                                   self.panel_notebook)
 
         if settings.get_option('gui/use_tray', False):
             self.tray_icon = tray.TrayIcon(self.main)
-
-        self.device_panels = {}
-
+            
         from xl import event
         event.add_callback(self.add_device_panel, 'device_connected')
         event.add_callback(self.remove_device_panel, 'device_disconnected')
         event.add_callback(self.on_gui_loaded, 'gui_loaded')
-
+        
         logger.info("Done loading main window...")
         Main._main = self
 
@@ -268,19 +261,12 @@ class Main(object):
         dialog.destroy()
 
     def on_gui_loaded(self, event, object, nothing):
-        """
-            Allows plugins to be the last selected panel
-        """
-        try:
-            last_selected_panel = settings.get_option(
-                'gui/last_selected_panel', 'collection')
-            panel = self.panels[last_selected_panel]._child
-            panel_num = self.panel_notebook.page_num(panel)
-            glib.idle_add(self.panel_notebook.set_current_page, panel_num)
-            # Fix track info not displaying properly when resuming after a restart.
-            self.main._update_track_information()
-        except KeyError:
-            pass
+        
+        # This has to be idle_add so that plugin panels can be configured
+        glib.idle_add(self.panel_notebook.on_gui_loaded)
+        
+        # Fix track info not displaying properly when resuming after a restart.
+        self.main._update_track_information()
 
     def on_rescan_collection(self, *e):
         """
@@ -299,46 +285,31 @@ class Main(object):
         """
             Called when the rescan has finished
         """
-        glib.idle_add(self.panels['collection'].load_tree)
+        glib.idle_add(self.get_panel('collection').load_tree)
 
     def on_track_properties(self, *e):
         pl = self.main.get_selected_page()
         pl.view.show_properties_dialog()
-
-    def add_panel(self, child, name):
-        """
-            Adds a panel to the panel notebook
-        """
-        label = gtk.Label(name)
-        label.set_angle(90)
-        self.panel_notebook.append_page(child, label)
+    
+    def get_active_panel(self):
+        '''
+            Returns the provider object associated with the currently shown
+            panel in the sidebar. May return None.
+        '''
+        return self.panel_notebook.get_active_panel()
+    
+    def focus_panel(self, panel_name):
+        '''
+            Focuses on a panel in the sidebar
+        '''
+        self.panel_notebook.focus_panel(panel_name)
         
-    def focus_panel(self, tab_name):
-        panel = self.panels[tab_name]
-        panel_nr = self.panel_notebook.page_num(panel._child)
-        self.panel_notebook.set_current_page(panel_nr)
-        panel.focus()
-
-    def remove_panel(self, child):
-        for n in range(self.panel_notebook.get_n_pages()):
-            if child == self.panel_notebook.get_nth_page(n):
-                self.panel_notebook.remove_page(n)
-                return
-        raise ValueError("No such panel")
-
-    def on_panel_switch(self, notebook, page, pagenum):
-        """
-            Saves the currently selected panel
-        """
-        if self.exaile.loading:
-            return
-
-        page = notebook.get_nth_page(pagenum)
-        for i, panel in self.panels.items():
-            if panel._child == page:
-                settings.set_option('gui/last_selected_panel', i)
-                return
-
+    def get_panel(self, panel_name):
+        '''
+            Returns the provider object associated with a panel in the sidebar
+        '''
+        return self.panel_notebook.panels[panel_name].panel
+    
     def quit(self):
         """
             Quits the gui, saving anything that needs to be saved
@@ -373,7 +344,7 @@ class Main(object):
             self.main.on_append_items(items, replace=True, sort=sort))
 
         self.device_panels[device.get_name()] = panel
-        glib.idle_add(self.add_panel, *panel.get_panel())
+        glib.idle_add(providers.register, 'main-panel', panel)
         thread = CollectionScanThread(device.get_collection())
         thread.connect('done', panel.load_tree)
         self.progress_manager.add_monitor(thread,
@@ -382,7 +353,7 @@ class Main(object):
     @guiutil.idle_add()
     def remove_device_panel(self, type, obj, device):
         try:
-            self.remove_panel(
+            providers.unregister('main-panel',
                     self.device_panels[device.get_name()].get_panel()[0])
         except ValueError:
             logger.debug("Couldn't remove panel for %s"%device.get_name())

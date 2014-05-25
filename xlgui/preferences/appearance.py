@@ -95,7 +95,8 @@ class TrackCountsPreference(widgets.CheckPreference):
 
     @common.threaded
     def _reload_tree(self):
-        self.preferences.parent.panels['collection'].load_tree()
+        import xlgui
+        xlgui.get_controller().get_panel('collection').load_tree()
 
 class UseTrayPreference(widgets.CheckPreference):
     default = False

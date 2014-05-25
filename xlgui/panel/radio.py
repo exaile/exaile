@@ -69,11 +69,11 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     _radiopanel = None
 
     def __init__(self, parent, collection,
-        radio_manager, station_manager):
+        radio_manager, station_manager, name):
         """
             Initializes the radio panel
         """
-        panel.Panel.__init__(self, parent)
+        panel.Panel.__init__(self, parent, name)
         playlistpanel.BasePlaylistPanelMixin.__init__(self)
 
         self.collection = collection

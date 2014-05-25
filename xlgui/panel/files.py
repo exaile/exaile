@@ -70,11 +70,11 @@ class FilesPanel(panel.Panel):
 
     ui_info = ('files.ui', 'FilesPanelWindow')
 
-    def __init__(self, parent, collection):
+    def __init__(self, parent, collection, name):
         """
             Initializes the files panel
         """
-        panel.Panel.__init__(self, parent)
+        panel.Panel.__init__(self, parent, name)
         self.collection = collection
 
         self.box = self.builder.get_object('files_box')

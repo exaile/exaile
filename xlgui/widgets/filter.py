@@ -1,3 +1,5 @@
+# Filter Widget/Dialog
+# Copyright (C) 2006 Johannes Sasongko <sasongko@gmail.com>
 # Copyright (C) 2008-2010 Adam Olsen
 #
 # This program is free software; you can redistribute it and/or modify

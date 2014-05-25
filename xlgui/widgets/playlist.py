@@ -216,7 +216,7 @@ def __create_playlist_tab_context_menu():
         playlists = main.exaile().playlists
         name = dialogs.ask_for_playlist_name(playlists, page.playlist.name)
         if name is not None:
-            page.set_name(name)
+            page.set_page_name(name)
             playlists.save_playlist(page.playlist)
     
     items.append(smi('save', ['new-tab-sep'], None, 'gtk-save',
@@ -421,10 +421,10 @@ class PlaylistPage(NotebookPage):
     def focus(self):
         self.view.grab_focus()
 
-    def get_name(self):
+    def get_page_name(self):
         return self.playlist.name
 
-    def set_name(self, name):
+    def set_page_name(self, name):
         self.playlist.name = name
         self.name_changed()
 

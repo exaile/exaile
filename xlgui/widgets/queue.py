@@ -82,7 +82,7 @@ class QueuePage(NotebookPage):
     def focus(self):
         self.view.grab_focus()
     
-    def get_name(self):
+    def get_page_name(self):
         qlen = self.player.queue.queue_length()
         if qlen == -1:
             return _("Queue")

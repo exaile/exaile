@@ -205,7 +205,7 @@ class HistoryPlaylistPage( NotebookPage ):
     
     ## NotebookPage API ##
 
-    def get_name(self):
+    def get_page_name(self):
         return _("History")
 
     ## End NotebookPage ##

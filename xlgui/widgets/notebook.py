@@ -41,7 +41,10 @@ class SmartNotebook(gtk.Notebook):
         self._add_tab_on_empty = True
 
     def get_current_tab(self):
-        return self.get_nth_page(self.get_current_page())
+        current_page = self.get_current_page()
+        if current_page == -1:
+            return None
+        return self.get_nth_page(current_page)
 
     def add_tab(self, tab, page, position=-1, switch=True):
         """
@@ -125,7 +128,7 @@ class NotebookTab(gtk.EventBox):
     """
     menu_provider_name = 'notebooktab' # Change this in subclasses!
     reorderable = True
-    def __init__(self, notebook, page):
+    def __init__(self, notebook, page, display_left=False):
         """
             :param notebook: The notebook this tab will belong to
             :param page: The page this tab will be associated with
@@ -142,28 +145,35 @@ class NotebookTab(gtk.EventBox):
 
         self.connect('button-press-event', self.on_button_press)
 
-        box = gtk.HBox(False, 2)
+        if display_left:
+            box = gtk.VBox(False, 2)
+        else:
+            box = gtk.HBox(False, 2)
         self.add(box)
 
         self.icon = gtk.Image()
         self.icon.set_property("visible", False)
-        box.pack_start(self.icon, False, False)
 
-        self.label = gtk.Label(self.page.get_name())
+        self.label = gtk.Label(self.page.get_page_name())
         self.label.set_max_width_chars(20)
-        self.label.set_ellipsize(pango.ELLIPSIZE_END)
-        self.label.set_tooltip_text(self.page.get_name())
-        box.pack_start(self.label, False, False)
-
-        self.entry = gtk.Entry()
-        self.entry.set_width_chars(self.label.get_max_width_chars())
-        self.entry.set_text(self.label.get_text())
-        self.entry.set_inner_border(gtk.Border(left=1, right=1))
-        self.entry.connect('activate', self.on_entry_activate)
-        self.entry.connect('focus-out-event', self.on_entry_focus_out_event)
-        self.entry.connect('key-press-event', self.on_entry_key_press_event)
-        self.entry.set_no_show_all(True)
-        box.pack_start(self.entry, False, False)
+        
+        if display_left:
+            self.label.set_angle(90)
+        else:
+            self.label.set_ellipsize(pango.ELLIPSIZE_END)
+        
+        self.label.set_tooltip_text(self.page.get_page_name())
+        
+        if self.can_rename():
+            self.entry = gtk.Entry()
+            self.entry.set_width_chars(self.label.get_max_width_chars())
+            self.entry.set_text(self.label.get_text())
+            self.entry.set_inner_border(gtk.Border(left=1, right=1))
+            self.entry.connect('activate', self.on_entry_activate)
+            self.entry.connect('focus-out-event', self.on_entry_focus_out_event)
+            self.entry.connect('key-press-event', self.on_entry_key_press_event)
+            self.entry.set_no_show_all(True)
+        
 
         self.button = button = gtk.Button()
         button.set_name("tabCloseButton")
@@ -173,7 +183,21 @@ class NotebookTab(gtk.EventBox):
         button.add(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU))
         button.connect('clicked', self.close)
         button.connect('button-press-event', self.on_button_press)
-        box.pack_end(button, False, False)
+        
+        # pack the widgets in
+        if display_left:
+            box.pack_start(button, False, False)
+            box.pack_end(self.icon, False, False)
+            box.pack_end(self.label, False, False)
+            if self.can_rename():
+                box.pack_end(self.entry, False, False)
+            
+        else:
+            box.pack_start(self.icon, False, False)
+            box.pack_start(self.label, False, False)
+            if self.can_rename():
+                box.pack_start(self.entry, False, False)
+            box.pack_end(button, False, False)
 
         page.set_tab(self)
         page.connect('name-changed', self.on_name_changed)
@@ -235,7 +259,7 @@ class NotebookTab(gtk.EventBox):
             return True
 
     def on_name_changed(self, *args):
-        self.label.set_text(self.page.get_name())
+        self.label.set_text(self.page.get_page_name())
 
     def start_rename(self):
         """
@@ -243,7 +267,7 @@ class NotebookTab(gtk.EventBox):
         """
         if not self.can_rename():
             return
-        self.entry.set_text(self.page.get_name())
+        self.entry.set_text(self.page.get_page_name())
         self.label.hide()
         self.button.hide()
         self.entry.show()
@@ -268,7 +292,7 @@ class NotebookTab(gtk.EventBox):
         self.entry.props.editing_canceled = False
 
     def can_rename(self):
-        return hasattr(self.page, 'set_name')
+        return hasattr(self.page, 'set_page_name')
 
     def close(self, *args):
         if self.closable and not self.page.emit('closing'):
@@ -304,13 +328,15 @@ class NotebookPage(gtk.VBox):
         '''
         self.grab_focus()
         
-    def get_name(self):
+    def get_page_name(self):
         """
             Returns the name of this tab. Should be overriden in subclasses.
 
-            Subclasses can also implement set_name(self, name) to allow
+            Subclasses can also implement set_page_name(self, name) to allow
             renaming, but this is not mandatory.
         """
+        if hasattr(self, 'page_name'):
+            return self.page_name
         return "UNNAMED PAGE"
 
     def set_tab(self, tab):

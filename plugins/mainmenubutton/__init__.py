@@ -17,10 +17,10 @@ import atk
 import gtk
 
 from xl.nls import gettext as _
-from xl import event
+from xl import event, providers
 from xlgui import main
+from xlgui.widgets import notebook
 
-MAINMENUBUTTON = None
 
 def enable(exaile):
     """
@@ -41,29 +41,32 @@ def disable(exaile):
     """
         Disables the plugin
     """
-    if MAINMENUBUTTON:
-        MAINMENUBUTTON.destroy()
+    
+    providers.unregister('main-panel-actions', MainMenuButton)
 
 def on_gui_loaded(*args):
     """
         Creates the main menu button
         which takes care of the rest
     """
-    global MAINMENUBUTTON
+    
+    providers.register('main-panel-actions', MainMenuButton)
 
-    MAINMENUBUTTON = MainMenuButton()
-
-class MainMenuButton(gtk.ToggleButton):
+class MainMenuButton(gtk.ToggleButton, notebook.NotebookAction):
     """
     """
     __gsignals__ = {}
+    
+    name = 'main-menu'
+    position = gtk.PACK_START
 
-    def __init__(self):
+    def __init__(self, panel_notebook):
         """
             Adds the button to the main window 
             and moves the main menu items
         """
         gtk.Button.__init__(self)
+        notebook.NotebookAction.__init__(self, panel_notebook)
 
         self.set_image(gtk.image_new_from_icon_name('exaile', gtk.ICON_SIZE_BUTTON))
         self.set_tooltip_text(_('Main Menu'))
@@ -75,11 +78,7 @@ class MainMenuButton(gtk.ToggleButton):
         accessible.set_name(_('Main Menu'))
 
         builder = main.mainwindow().builder
-
-        # Insert button at the top of the panel notebook
-        self.panel_notebook = builder.get_object('panel_notebook')
-        self.panel_notebook.set_action_widget(self, gtk.PACK_START)
-
+        
         # Move menu items of the main menu to the internal menu
         self.mainmenu = builder.get_object('mainmenu')
         self.menu = gtk.Menu()

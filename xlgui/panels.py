@@ -105,6 +105,9 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         
         providers.ProviderHandler.__init__(self, 'main-panel', simple_init=True)
         
+        # Provide interface for adding buttons to the notebook
+        self.actions = notebook.NotebookActionService(self, 'main-panel-actions')
+        
         if not self.exaile.loading:
             self.on_gui_loaded()
         

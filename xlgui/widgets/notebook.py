@@ -429,6 +429,9 @@ class NotebookActionService(providers.ProviderHandler):
         except AttributeError:
             pass
         else:
-            actions_box.remove(self.__actions[provider.name])
+            action = self.__actions[provider.name]
+            actions_box.remove(action)
+            action.destroy()
+            
             del self.__actions[provider.name]
 

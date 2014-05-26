@@ -201,11 +201,11 @@ class ExaileScrobbler(object):
                     track.get_tag_raw('__playtime'))
             track.set_tag_raw('__audioscrobbler_starttime', time.time())
 
-            if track.is_local() or self.scrobbler_remote:
+            if track.is_local() or self.scrobble_remote:
                 self.now_playing(player, track)
 
     def on_stop(self, type, player, track):
-        if not track or (not track.is_local() and not self.scrobbler_remote) \
+        if not track or (not track.is_local() and not self.scrobble_remote) \
            or track.get_tag_raw('__playtime') is None:
             return
         playtime = (track.get_tag_raw('__playtime') or 0) - \

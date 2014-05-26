@@ -40,24 +40,21 @@ from xl.playlist import Playlist, PlaylistManager
 from xlgui.widgets import menu
 from xlgui.accelerators import Accelerator
 from xlgui.widgets.common import AttachedWindow
-from xlgui.widgets.notebook import SmartNotebook, NotebookTab
+from xlgui.widgets.notebook import (
+    SmartNotebook, 
+    NotebookTab, 
+    NotebookAction,
+    NotebookActionService
+)
 from xlgui.widgets.playlist import PlaylistPage
 from xlgui.widgets.queue import QueuePage
 
 import logging
 logger = logging.getLogger(__name__)
 
-class PlaylistNotebookAction(object):
-    """
-        A custom action to be placed to the left or right of playlist tabs
-    """
-    name = None
-    position = gtk.PACK_END
 
-    def __init__(self, notebook):
-        self.notebook = notebook
 
-class NewPlaylistNotebookAction(PlaylistNotebookAction, gtk.Button):
+class NewPlaylistNotebookAction(NotebookAction, gtk.Button):
     """
         Playlist notebook action which allows for creating new playlists
         regularly as well as by dropping tracks, files and directories on it
@@ -66,7 +63,7 @@ class NewPlaylistNotebookAction(PlaylistNotebookAction, gtk.Button):
     name = 'new-playlist'
 
     def __init__(self, notebook):
-        PlaylistNotebookAction.__init__(self, notebook)
+        NotebookAction.__init__(self, notebook)
         gtk.Button.__init__(self)
 
         self.set_image(gtk.image_new_from_icon_name('tab-new',
@@ -112,10 +109,9 @@ class NewPlaylistNotebookAction(PlaylistNotebookAction, gtk.Button):
 
 providers.register('playlist-notebook-actions', NewPlaylistNotebookAction)
 
-class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
+class PlaylistNotebook(SmartNotebook):
     def __init__(self, manager_name, player, hotkey):
         SmartNotebook.__init__(self)
-        providers.ProviderHandler.__init__(self, 'playlist-notebook-actions', self)
         
         self.tab_manager = PlaylistManager(manager_name)
         self.manager_name = manager_name
@@ -153,6 +149,9 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
         # Add menu to View menu
         #item = menu.MenuItem('tab-history', factory, ['clear-playlist'])
         #providers.register('menubar-view-menu', item) 
+        
+        # setup notebook actions
+        self.actions = NotebookActionService(self, 'playlist-notebook-actions')
 
         # Add hotkey
         self.accelerator = Accelerator(hotkey, lambda *x: self.restore_closed_tab(0))
@@ -160,17 +159,6 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
 
         # Load saved tabs
         self.load_saved_tabs()
-
-        # Try to set up action widgets
-        try:
-            self.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_START)
-            self.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_END)
-        except AttributeError: # Older than GTK 2.20 and PyGTK 2.22
-            pass
-        else:
-            self.__actions = {}
-            for provider in self.get_providers():
-                self.on_provider_added(provider)
 
         self.tab_placement_map = {
             'left': gtk.POS_LEFT,
@@ -488,31 +476,6 @@ class PlaylistNotebook(SmartNotebook, providers.ProviderHandler):
         if option == 'gui/tab_placement':
             tab_placement = settings.get_option(option, 'top')
             glib.idle_add(self.set_tab_pos, self.tab_placement_map[tab_placement])
-
-    def on_provider_added(self, provider):
-        """
-            Adds actions on provider addition
-        """
-        try:
-            actions_box = self.get_action_widget(provider.position)
-        except AttributeError:
-            pass
-        else:
-            self.__actions[provider.name] = provider(self)
-            actions_box.pack_start(self.__actions[provider.name], False, False)
-            actions_box.show_all()
-
-    def on_provider_removed(self, provider):
-        """
-            Removes actions on provider removal
-        """
-        try:
-            actions_box = self.get_action_widget(provider.position)
-        except AttributeError:
-            pass
-        else:
-            actions_box.remove(self.__actions[provider.name])
-            del self.__actions[provider.name]
 
             
 class PlaylistContainer(gtk.HBox):

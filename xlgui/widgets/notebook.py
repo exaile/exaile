@@ -29,6 +29,7 @@ import gtk
 import pango
 
 from xl.nls import gettext as _
+from xl import providers
 from xlgui import guiutil
 from xlgui.widgets import menu
 
@@ -363,3 +364,71 @@ class NotebookPage(gtk.VBox):
 
     def name_changed(self):
         self.emit('name-changed')
+
+
+class NotebookAction(object):
+    """
+        A custom action to be placed to the left or right of tabs in a notebook
+    """
+    name = None
+    position = gtk.PACK_END
+
+    def __init__(self, notebook):
+        self.notebook = notebook
+
+
+class NotebookActionService(providers.ProviderHandler):
+    '''
+        Provides interface for action widgets to be dynamically attached
+        detached from notebooks.
+        
+        Actions are widgets placed to the left or right of tabs on a notebook. 
+    '''
+    
+    
+    def __init__(self, notebook, servicename):
+        '''
+            :param notebook:     Notebook to attach to
+            :param servicename:  Provider service name to use
+        '''
+        
+        providers.ProviderHandler.__init__(self, servicename, notebook)
+
+        self.notebook = notebook
+
+        # Try to set up action widgets
+        try:
+            notebook.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_START)
+            notebook.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_END)
+        except AttributeError: # Older than GTK 2.20 and PyGTK 2.22
+            pass
+        else:
+            self.__actions = {}
+            for provider in self.get_providers():
+                self.on_provider_added(provider)
+                
+    def on_provider_added(self, provider):
+        """
+            Adds actions on provider addition
+        """
+        try:
+            actions_box = self.notebook.get_action_widget(provider.position)
+        except AttributeError:
+            pass
+        else:
+            self.__actions[provider.name] = provider(self.notebook)
+            actions_box.pack_start(self.__actions[provider.name], False, False)
+            actions_box.show_all()
+
+    def on_provider_removed(self, provider):
+        """
+            Removes actions on provider removal
+        """
+        try:
+            actions_box = self.notebook.get_action_widget(provider.position)
+        except AttributeError:
+            pass
+        else:
+            actions_box.remove(self.__actions[provider.name])
+            del self.__actions[provider.name]
+

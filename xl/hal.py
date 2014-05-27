@@ -256,9 +256,11 @@ class UDisksBase(providers.ProviderHandler):
         path = args[0]
         logger.debug("%s: Device added: %s", self.name, str(path))
         if self._addremove():
-            self._add_device(path)
-            self._state = 'listening'
-            logger.debug("%s: state = listening (_device_added)", self.name)
+            try:
+                self._add_device(path)
+            finally:
+                self._state = 'listening'
+                logger.debug("%s: state = listening (_device_added)", self.name)
 
     def _udisks_device_removed(self, *args):
         path = args[0]
@@ -268,24 +270,29 @@ class UDisksBase(providers.ProviderHandler):
                 logger.debug("%s: Device removed: " + str(path), self.name)
             except KeyError: # Not ours
                 pass
-            self._state = 'listening'
-            logger.debug("%s: state = listening (_device_removed)", self.name)
+            finally:
+                self._state = 'listening'
+                logger.debug("%s: state = listening (_device_removed)", self.name)
 
     # FIXME: Handle provider add/remove (following code unused & untested).
 
     def on_provider_added(self, provider):
         if self._addremove():
-            self._add_all(self.obj)
-            self._state = 'listening'
-            logger.debug("%s: state = listening (_provider_added)", self.name)
+            try:
+                self._add_all(self.obj)
+            finally:
+                self._state = 'listening'
+                logger.debug("%s: state = listening (_provider_added)", self.name)
 
     def on_provider_removed(self, provider):
         if self._addremove():
-            for path, provider_ in self.providers.iteritems():
-                if provider_ is provider:
-                    self._remove_device(path)
-            self._state = 'listening'
-            logger.debug("%s: state = listening (_provider_removed)", self.name)
+            try:
+                for path, provider_ in self.providers.iteritems():
+                    if provider_ is provider:
+                        self._remove_device(path)
+            finally:
+                self._state = 'listening'
+                logger.debug("%s: state = listening (_provider_removed)", self.name)
 
     def _addremove(self):
         """

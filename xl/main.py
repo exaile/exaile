@@ -277,13 +277,26 @@ class Exaile(object):
         self.devices = devices.DeviceManager()
         event.log_event("device_manager_ready", self, None)
 
-        # Initialize HAL
+        # Initialize dynamic device discovery interface
+        # -> if initialized and connected, then the object is not None
+        
+        self.udisks2 = None
+        self.udisks = None
+        self.hal = None
+        
         if self.options.Hal:
             from xl import hal
-            self.udisks = hal.UDisks(self.devices)
-            self.udisks.connect()
-            self.hal = hal.HAL(self.devices)
-            self.hal.connect()
+                
+            udisks2 = hal.UDisks2(self.devices)
+            if udisks2.connect():
+                self.udisks2 = udisks2
+            else:
+                udisks = hal.UDisks(self.devices)
+                if udisks.connect():
+                    self.udisks = udisks
+                else:
+                    self.hal = hal.HAL(self.devices)
+                    self.hal.connect()
         else:
             self.hal = None
 

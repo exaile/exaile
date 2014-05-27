@@ -27,75 +27,172 @@
 import logging, threading, time
 import dbus
 
-from xl import common, providers, event, devices, settings
-from xl.nls import gettext as _
+from xl import common, providers, event
 
 logger = logging.getLogger(__name__)
 
-class UDisks(providers.ProviderHandler):
-    """
-        Provides support for UDisks devices.
 
-        If the D-Bus connection fails, this object will grow a "failed"
-        attribute with True as the value. Plugins should check for this when
-        registering if they want to provide HAL fallback. FIXME: There's a race
-        condition here.
+class UDisksPropertyWrapper(object):
+    '''
+        Wrapper around an org.freedesktop.DBus.Properties interface
+        
+        You shouldn't need to create this, use UDisksDBusWrapper.props
+    '''
+    def __init__(self, obj, iface_type):
+        self.obj = obj  # properties object
+        self.iface_type = iface_type
+    
+    def __getattr__(self, name):
+        return lambda *a, **k: self.obj.__getattr__(name)(*((self.iface_type,) + a), **k)
+
+    def connect_on_changed(self, fn):
+        '''Connect to the PropertiesChanged signal'''
+        return self.obj.connect_to_signal('PropertiesChanged', fn, self.iface_type)
+
+    def __repr__(self):
+        return '<UDisksPropertyWrapper: %s>' % self.iface_type
+
+class UDisksDBusWrapper(object):
+    '''
+        Simple wrapper to make life easier. Assume that we only are
+        using this to get properties off the 'primary' interface. 
+        
+        Assumes that you are only asking for properties on the interface
+        associated with the object path.
+        
+        Example usage:
+        
+            obj = get_object_by_path('/org/freedesktop/UDisks2/drives/foo')
+            print obj.props.Get('Device')
+        
+        You shouldn't need to create this, use get_object_py_path.
+    '''
+    
+    __slots__ = ['obj', 'iface_type', '_iface', '_props_iface', 'path']
+    
+    def __init__(self, bus, root, path, iface_type):
+        self.path = path
+        self.obj = bus.get_object(root, path)
+        self.iface_type = iface_type
+        self._iface = None
+        self._props_iface = None
+    
+    def __getattr__(self, member):
+        return self.iface.__getattr__(member)
+    
+    def connect_to_signal(self, *a, **k):
+        '''Connect to a signal on the object's primary interface type'''
+        return self.iface.connect_to_signal(*a, **k)
+    
+    @property
+    def iface(self):
+        '''Returns a dbus.Interface for the object's primary interface type'''
+        if self._iface is None:
+            self._iface = dbus.Interface(self.obj, self.iface_type)
+        return self._iface    
+    
+    @property
+    def props(self):
+        '''Returns a dbus.Interface for org.freedesktop.DBus.Properties'''
+        if self._props_iface is None:
+            iface = dbus.Interface(self.obj, 'org.freedesktop.DBus.Properties')
+            self._props_iface = UDisksPropertyWrapper(iface, self.iface_type)
+        return self._props_iface
+    
+    def __repr__(self):
+        return '<UDisksDBusWrapper: %s (%s)>' % (self.iface_type, self.path)
+
+
+
+class UDisksBase(providers.ProviderHandler):
+    """
+        Provides support for UDisks (1 and 2) devices. To get properties
+        of devices, the get_object_for_path function will return a convenient
+        wrapper to use for accessing properties and such on it.
+        
+        Implements the udisks and udisks2 service for providers. Providers
+        should override the UDisksProvider interface.
+        
+        Plugins should not try to connect to UDisks until exaile has finished
+        loading. 
     """
 
     # States: start -> init -> addremove <-> listening -> end.
     # The addremove state acts as a lock against concurrent changes.
 
     def __init__(self, devicemanager):
-        self._lock = lock = threading.Lock()
+        self._lock = threading.Lock()
         self._state = 'init'
-        logger.debug("UDisks: state = init")
 
-        providers.ProviderHandler.__init__(self, 'udisks')
+        providers.ProviderHandler.__init__(self, self.name)
         self.devicemanager = devicemanager
 
-        self.bus = self.obj = self.iface = None
+        self.bus = None
         self.devices = {}
         self.providers = {}
-
-    #~ @common.threaded
+    
     def connect(self):
         assert self._state == 'init'
-        logger.debug("Connecting to UDisks")
+        logger.debug("Connecting to %s", self.name)
         try:
-            self.bus = bus = dbus.SystemBus()
-            self.obj = obj = bus.get_object('org.freedesktop.UDisks', '/org/freedesktop/UDisks')
-            self.iface = iface = dbus.Interface(obj, 'org.freedesktop.UDisks')
-            iface.connect_to_signal('DeviceAdded', self._udisks_device_added)
-            iface.connect_to_signal('DeviceRemoved', self._udisks_device_removed)
-            iface.connect_to_signal('DeviceChanged', self._udisks_device_added)
-            logger.info("Connected to UDisks")
+            self.obj = self._connect()
+            logger.info("Connected to %s", self.name)
             event.log_event("hal_connected", self, None)
         except Exception:
-            logger.warning("Failed to connect to UDisks, " \
-                    "autodetection of devices will be disabled.")
+            logger.warning("Failed to connect to %s, " \
+                    "autodetection of devices will be disabled.", self.name)
             common.log_exception()
-            self._state = 'listening'
-            logger.debug("UDisks: state = listening")
-            self.failed = True
-            return
+            return False
+            
         self._state = 'addremove'
-        logger.debug("UDisks: state = addremove")
-        self._add_all()
+        logger.debug("%s: state = addremove", self.name)
+        self._add_all(self.obj)
         self._state = 'listening'
-        logger.debug("UDisks: state = listening")
+        logger.debug("%s: state = listening", self.name)
+        return True
+        
+    #
+    # Public API
+    #
+        
+    def get_object_by_path(self, path):
+        '''
+            Call this to retrieve a UDisksDBusWrapper object for the path
+            of the object you want to retrieve.
+        
+            :param path: The udisks path of the object you want to retrieve
+            
+            :returns: UDisksDBusWrapper object
+            :raises: KeyError if the object path/type is not supported
+        '''
+        
+        for p, iface_type in self.paths:
+            if path.startswith(p):
+                return UDisksDBusWrapper(self.bus, self.root, path, iface_type)
+        
+        raise KeyError("Unsupported path %s" % path)
+    
+    #    
+    # subclasses must implement these
+    #
+    
+    def _connect(self):
+        raise NotImplementedError()
+    
+    def _add_all(self, obj):
+        raise NotImplementedError()
+    
+    #
+    # Private API
+    #
 
-    def _add_all(self):
-        assert self._state == 'addremove'
-        for path in self.iface.EnumerateDevices():
-            self._add_device(path)
-
-    def _add_device(self, path=None, obj=None):
+    def _add_device(self, path):
         """
             Call with either path or obj (obj gets priority). Not thread-safe.
         """
         assert self._state == 'addremove'
-        if obj is None:
-            obj = self.bus.get_object('org.freedesktop.UDisks', path)
+        
+        obj = self.get_object_by_path(path)
 
         # In the following code, `old` and `new` are providers, while
         # `self.devices[path]` and `device` are old/new devices. There are
@@ -112,7 +209,7 @@ class UDisks(providers.ProviderHandler):
                 self.devicemanager.remove_device(self.devices[path])
                 del self.devices[path]
             return
-        device = new.get_device(obj)
+        device = new.get_device(obj, self)
         if new is old and device is self.devices[path]:
             return # Exactly the same device
         if old is not None:
@@ -122,7 +219,7 @@ class UDisks(providers.ProviderHandler):
         try:
             device.autoconnect()
         except:
-            logger.exception("Failed autoconnecting device " + str(device))
+            logger.exception("%s: Failed autoconnecting device %s", self.name, str(device))
         else:
             self.devicemanager.add_device(device)
             self.providers[path] = new
@@ -138,7 +235,7 @@ class UDisks(providers.ProviderHandler):
         highest = None
         old = self.providers.get(obj.object_path)
         for provider in self.get_providers():
-            priority = provider.get_priority(obj)
+            priority = provider.get_priority(obj, self)
             if priority is None: continue
             # Find highest priority, preferring old provider.
             if priority > highest_prio or \
@@ -153,32 +250,34 @@ class UDisks(providers.ProviderHandler):
             self.devicemanager.remove_device(self.devices[path])
             del self.devices[path]
         except KeyError:
-            logger.warning("UDisks: Can't remove device (not found): " + path)
+            logger.warning("%s: Can't remove device (not found): %s", self.name, path)
 
-    def _udisks_device_added(self, path):
-        logger.debug("UDisks: Device added: " + str(path))
+    def _udisks_device_added(self, *args):
+        path = args[0]
+        logger.debug("%s: Device added: %s", self.name, str(path))
         if self._addremove():
             self._add_device(path)
             self._state = 'listening'
-            logger.debug("UDisks: state = listening (_device_added)")
+            logger.debug("%s: state = listening (_device_added)", self.name)
 
-    def _udisks_device_removed(self, path):
+    def _udisks_device_removed(self, *args):
+        path = args[0]
         if self._addremove():
             try:
                 self._remove_device(path)
-                logger.debug("UDisks: Device removed: " + str(path))
+                logger.debug("%s: Device removed: " + str(path), self.name)
             except KeyError: # Not ours
                 pass
             self._state = 'listening'
-            logger.debug("UDisks: state = listening")
+            logger.debug("%s: state = listening (_device_removed)", self.name)
 
     # FIXME: Handle provider add/remove (following code unused & untested).
 
     def on_provider_added(self, provider):
         if self._addremove():
-            self._connect_all()
+            self._add_all(self.obj)
             self._state = 'listening'
-            logger.debug("UDisks: state = listening")
+            logger.debug("%s: state = listening (_provider_added)", self.name)
 
     def on_provider_removed(self, provider):
         if self._addremove():
@@ -186,7 +285,7 @@ class UDisks(providers.ProviderHandler):
                 if provider_ is provider:
                     self._remove_device(path)
             self._state = 'listening'
-            logger.debug("UDisks: state = listening")
+            logger.debug("%s: state = listening (_provider_removed)", self.name)
 
     def _addremove(self):
         """
@@ -199,15 +298,68 @@ class UDisks(providers.ProviderHandler):
             with self._lock:
                 if self._state == 'listening':
                     self._state = 'addremove'
-                    logger.debug("UDisks: state = addremove")
+                    logger.debug("%s: state = addremove", self.name)
                     return True
             # If active state is init, we sleep and try again a few times.
             # TODO: Whose thread is this we are blocking?
             if i == 5:
-                logger.error("UDisks: Failed to acquire lock. Ignoring device event.")
+                logger.error("%s: Failed to acquire lock. Ignoring device event.", self.name)
                 return False
             i += 1
             time.sleep(1)
+
+
+class UDisks2(UDisksBase):
+    
+    name = 'udisks2'
+    root = 'org.freedesktop.UDisks2'
+    paths = [
+        ('/org/freedesktop/UDisks2/block_devices/', 'org.freedesktop.UDisks2.Block'),
+        ('/org/freedesktop/UDisks2/drives/', 'org.freedesktop.UDisks2.Drive'),
+        ('/org/freedesktop/UDisks2', 'org.freedesktop.DBus.ObjectManager')
+    ]
+    
+    def _connect(self):
+        
+        self.bus = dbus.SystemBus()
+        obj = self.get_object_by_path('/org/freedesktop/UDisks2')
+        
+        obj.connect_to_signal('InterfacesAdded', self._udisks_device_added)
+        obj.connect_to_signal('InterfacesRemoved', self._udisks_device_removed)
+        
+        return obj
+        
+    def _add_all(self, obj):
+        assert self._state == 'addremove'
+        for path in obj.GetManagedObjects():
+            self._add_device(path)
+
+
+class UDisks(UDisksBase):
+    
+    name = 'udisks'
+    root = 'org.freedesktop.UDisks'
+    paths = [
+        ('/org/freedesktop/UDisks/drives', 'org.freedesktop.UDisks.Device'),
+        ('/org/freedesktop/UDisks', 'org.freedesktop.UDisks')
+    ]
+    
+    def connect(self):
+
+        self.bus = dbus.SystemBus()
+        obj = self.get_object_by_path('/org/freedesktop/UDisks')
+        
+        obj.connect_to_signal('DeviceAdded', self._udisks_device_added)
+        obj.connect_to_signal('DeviceRemoved', self._udisks_device_removed)
+        obj.connect_to_signal('DeviceChanged', self._udisks_device_added)
+        
+        return obj
+
+    def _add_all(self, obj):
+        assert self._state == 'addremove'
+        for path in obj.EnumerateDevices():
+            self._add_device(path)
+            
 
 class HAL(providers.ProviderHandler):
     """
@@ -307,6 +459,10 @@ class HAL(providers.ProviderHandler):
                 "DeviceRemoved")
 
 class Handler(object):
+    '''
+        The HAL provider interface
+    '''
+    
     name = 'base'
 
     def __init__(self):
@@ -322,10 +478,16 @@ class Handler(object):
         pass
 
 class UDisksProvider:
+    '''
+        The UDisksProvider interface. Works for UDisks 1 and 2, but you should
+        implement separate providers for each, as the object types and 
+        properties are different.
+    '''
+    
     VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = range(0, 101, 25)
-    def get_priority(self, obj):
+    def get_priority(self, obj, udisks):
         pass  # return: int [0..100] or None
-    def get_device(self, obj):
+    def get_device(self, obj, udisks):
         pass  # return: xl.devices.Device
 
 

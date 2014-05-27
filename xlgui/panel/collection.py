@@ -163,7 +163,7 @@ class CollectionPanel(panel.Panel):
 
     ui_info = ('collection.ui', 'CollectionPanelWindow')
     def __init__(self, parent, collection, name=None,
-        _show_collection_empty_message=False):
+        _show_collection_empty_message=False, label=None):
         """
             Initializes the collection panel
 
@@ -171,7 +171,7 @@ class CollectionPanel(panel.Panel):
             @param collection: the xl.collection.Collection instance
             @param name: an optional name for this panel
         """
-        panel.Panel.__init__(self, parent, name)
+        panel.Panel.__init__(self, parent, name, label)
 
         self._show_collection_empty_message = _show_collection_empty_message
         self.collection = collection

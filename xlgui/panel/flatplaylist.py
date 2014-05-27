@@ -47,8 +47,8 @@ class FlatPlaylistPanel(panel.Panel):
 
     ui_info = ('flatplaylist.ui', 'FlatPlaylistPanelWindow')
 
-    def __init__(self, parent, name=None):
-        panel.Panel.__init__(self, parent, name)
+    def __init__(self, parent, name, label):
+        panel.Panel.__init__(self, parent, name, label)
 
         self.box = self.builder.get_object('FlatPlaylistPanel')
         self.model = gtk.ListStore(int, str, object)
@@ -56,7 +56,7 @@ class FlatPlaylistPanel(panel.Panel):
         self._setup_tree()
         if not hasattr(self.parent, 'do_import'):
             self.builder.get_object("import_button").hide()
-        self.menu = menus.TrackPanelMenu()
+        self.menu = menus.TrackPanelMenu(self)
         self._connect_events()
 
     def _connect_events(self):
@@ -64,14 +64,6 @@ class FlatPlaylistPanel(panel.Panel):
             'on_add_button_clicked': self._on_add_button_clicked,
             'on_import_button_clicked': self._on_import_button_clicked,
         })
-        self.menu.connect('append-items', lambda *e:
-            self.emit('append-items', self.tree.get_selected_tracks(), False))
-        self.menu.connect('replace-items', lambda *e:
-            self.emit('replace-items', self.tree.get_selected_tracks()))
-        self.menu.connect('queue-items', lambda *e:
-            self.emit('queue-items', self.tree.get_selected_tracks()))
-        self.tree.connect('row-activated', lambda *e:
-            self.emit('append-items', self.tree.get_selected_tracks(), True))
 
     def _on_add_button_clicked(self, *e):
         self.emit('append-items', self.tracks, False)

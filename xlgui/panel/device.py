@@ -107,17 +107,17 @@ class DevicePanel(panel.Panel):
 
     ui_info = ('device.ui', 'DevicePanelWindow')
 
-    def __init__(self, parent, main,
-        device, name=None):
+    def __init__(self, parent, main, device, name):
 
-        panel.Panel.__init__(self, name)
+        label = device.get_name()
+        panel.Panel.__init__(self, parent, name, label)
         self.device = device
         self.main = main
 
         self.notebook = self.builder.get_object("device_notebook")
 
         self.collectionpanel = ReceptiveCollectionPanel(parent,
-            collection=device.collection, name=name)
+            collection=device.collection, name=name, label=label)
         self.collectionpanel.add_tracks_func = self.add_tracks_func
 
         self.collectionpanel.connect('append-items',
@@ -155,16 +155,16 @@ class FlatPlaylistDevicePanel(panel.Panel):
 
     ui_info = ('device.ui', 'DevicePanelWindow')
 
-    def __init__(self, parent, main,
-        device, name=None):
+    def __init__(self, parent, main, device, name):
 
-        panel.Panel.__init__(self, name)
+        label = device.get_name()
+        panel.Panel.__init__(self, parent, name, label)
         self.device = device
         self.main = main
 
         self.notebook = self.builder.get_object("device_notebook")
 
-        self.fppanel = FlatPlaylistPanel(self, name)
+        self.fppanel = FlatPlaylistPanel(self, name, label)
 
         self.fppanel.connect('append-items',
             lambda *e: self.emit('append-items', *e[1:]))

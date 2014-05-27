@@ -354,7 +354,7 @@ class Main(object):
     def remove_device_panel(self, type, obj, device):
         try:
             providers.unregister('main-panel',
-                    self.device_panels[device.get_name()].get_panel()[0])
+                    self.device_panels[device.get_name()])
         except ValueError:
             logger.debug("Couldn't remove panel for %s"%device.get_name())
         del self.device_panels[device.get_name()]

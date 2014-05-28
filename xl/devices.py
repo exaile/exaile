@@ -148,5 +148,49 @@ class Device(object):
                     "support transfer."
         self.transfer.transfer()
 
+
+class KeyedDevice(Device):
+    '''
+        A utility class to inherit from that will return cached instances
+        of your device if the device object is created with the same key.
+        
+        A device that inherits from this MUST have the key as the first
+        argument to the __init__ function.
+        
+        @warning The __init__ function will be called again for devices
+        that are created multiple times. 
+    '''
+    
+    @staticmethod
+    def __new__(cls, key, *args, **kwargs):
+
+        devices = getattr(cls, '__devices', {})
+        
+        device = devices.get(key, None)
+        if device is None:
+            device = Device.__new__(cls, key, *args, **kwargs)
+            device.__initialized = False
+            device.__key = key
+            devices[key] = device
+        
+        setattr(cls, '__devices', devices)
+        return device
+    
+    def __init__(self, name):
+        if self.__initialized:
+            return
+        
+        # don't call this twice.. 
+        Device.__init__(self, name)
+        self.__initialized = True
+        
+    @classmethod
+    def destroy(cls, device):
+        '''
+            Call this to remove the device from the internal list
+        '''
+        del getattr(cls, '__devices')[device.__key]
+
+
 # vim: et sts=4 sw=4
 

@@ -45,9 +45,9 @@ class UDisksPropertyWrapper(object):
     def __getattr__(self, name):
         return lambda *a, **k: self.obj.__getattr__(name)(*((self.iface_type,) + a), **k)
 
-    def connect_on_changed(self, fn):
-        '''Connect to the PropertiesChanged signal'''
-        return self.obj.connect_to_signal('PropertiesChanged', fn, self.iface_type)
+    #def connect_on_changed(self, fn):
+    #    '''Connect to the PropertiesChanged signal'''
+    #    return self.obj.connect_to_signal('PropertiesChanged', fn, self.iface_type)
 
     def __repr__(self):
         return '<UDisksPropertyWrapper: %s>' % self.iface_type
@@ -71,7 +71,6 @@ class UDisksDBusWrapper(object):
     __slots__ = ['obj', 'iface_type', '_iface', '_props_iface', 'path']
     
     def __init__(self, bus, root, path, iface_type):
-        self.path = path
         self.obj = bus.get_object(root, path)
         self.iface_type = iface_type
         self._iface = None
@@ -90,6 +89,10 @@ class UDisksDBusWrapper(object):
         if self._iface is None:
             self._iface = dbus.Interface(self.obj, self.iface_type)
         return self._iface    
+    
+    @property
+    def object_path(self):
+        return self.obj.object_path
     
     @property
     def props(self):
@@ -186,13 +189,14 @@ class UDisksBase(providers.ProviderHandler):
     # Private API
     #
 
-    def _add_device(self, path):
+    def _add_device(self, path, obj=None):
         """
             Call with either path or obj (obj gets priority). Not thread-safe.
         """
         assert self._state == 'addremove'
         
-        obj = self.get_object_by_path(path)
+        if obj is None:
+            obj = self.get_object_by_path(path)
 
         # In the following code, `old` and `new` are providers, while
         # `self.devices[path]` and `device` are old/new devices. There are
@@ -204,16 +208,19 @@ class UDisksBase(providers.ProviderHandler):
         #   swapping; not sure it can happen).
         # - Provider and device stay the same.
         old, new = self._get_provider_for(obj)
+        
         if new is None:
             if old is not None:
-                self.devicemanager.remove_device(self.devices[path])
-                del self.devices[path]
+                self._remove_device(path)
             return
+        
         device = new.get_device(obj, self)
         if new is old and device is self.devices[path]:
             return # Exactly the same device
+        
         if old is not None:
-            self.devicemanager.remove_device(self.devices[path])
+            self._remove_device(path)
+            
         if new is None:
             return
         try:
@@ -224,6 +231,20 @@ class UDisksBase(providers.ProviderHandler):
             self.devicemanager.add_device(device)
             self.providers[path] = new
             self.devices[path] = device
+            
+    def _on_change(self, path):
+        
+        assert self._state == 'addremove'
+        
+        obj = self.get_object_by_path(path)
+        
+        provider = self.providers.get(obj.object_path)
+        if provider is None:
+            self._add_device(path, obj)
+        else:
+            remove = provider.on_device_changed(obj, self, self.devices[path])
+            if remove == 'remove':
+                self._remove_device(path)
 
     def _get_provider_for(self, obj):
         """
@@ -246,11 +267,10 @@ class UDisksBase(providers.ProviderHandler):
 
     def _remove_device(self, path):
         assert self._state == 'addremove'
-        try:
-            self.devicemanager.remove_device(self.devices[path])
-            del self.devices[path]
-        except KeyError:
-            logger.warning("%s: Can't remove device (not found): %s", self.name, path)
+        
+        self.devicemanager.remove_device(self.devices[path])
+        del self.devices[path]    
+        del self.providers[path]            
 
     def _udisks_device_added(self, *args):
         path = args[0]
@@ -258,6 +278,16 @@ class UDisksBase(providers.ProviderHandler):
         if self._addremove():
             try:
                 self._add_device(path)
+            finally:
+                self._state = 'listening'
+                logger.debug("%s: state = listening (_device_added)", self.name)
+                
+    def _udisks_device_changed(self, *args):
+        path = args[0]
+        logger.debug("%s: Device changed: %s", self.name, str(path))
+        if self._addremove():
+            try:
+                self._on_change(path)
             finally:
                 self._state = 'listening'
                 logger.debug("%s: state = listening (_device_added)", self.name)
@@ -273,9 +303,7 @@ class UDisksBase(providers.ProviderHandler):
             finally:
                 self._state = 'listening'
                 logger.debug("%s: state = listening (_device_removed)", self.name)
-
-    # FIXME: Handle provider add/remove (following code unused & untested).
-
+    
     def on_provider_added(self, provider):
         if self._addremove():
             try:
@@ -287,9 +315,13 @@ class UDisksBase(providers.ProviderHandler):
     def on_provider_removed(self, provider):
         if self._addremove():
             try:
+                to_remove = []
                 for path, provider_ in self.providers.iteritems():
                     if provider_ is provider:
-                        self._remove_device(path)
+                        to_remove.append(path)
+                        
+                for path in to_remove:
+                    self._remove_device(path)
             finally:
                 self._state = 'listening'
                 logger.debug("%s: state = listening (_provider_removed)", self.name)
@@ -307,13 +339,12 @@ class UDisksBase(providers.ProviderHandler):
                     self._state = 'addremove'
                     logger.debug("%s: state = addremove", self.name)
                     return True
-            # If active state is init, we sleep and try again a few times.
-            # TODO: Whose thread is this we are blocking?
-            if i == 5:
+            
+            if i == 50:
                 logger.error("%s: Failed to acquire lock. Ignoring device event.", self.name)
                 return False
             i += 1
-            time.sleep(1)
+            time.sleep(.1)
 
 
 class UDisks2(UDisksBase):
@@ -358,7 +389,7 @@ class UDisks(UDisksBase):
         
         obj.connect_to_signal('DeviceAdded', self._udisks_device_added)
         obj.connect_to_signal('DeviceRemoved', self._udisks_device_removed)
-        obj.connect_to_signal('DeviceChanged', self._udisks_device_added)
+        obj.connect_to_signal('DeviceChanged', self._udisks_device_changed)
         
         return obj
 
@@ -489,13 +520,48 @@ class UDisksProvider:
         The UDisksProvider interface. Works for UDisks 1 and 2, but you should
         implement separate providers for each, as the object types and 
         properties are different.
+        
+        This API is subject to change.
     '''
     
     VERY_LOW, LOW, NORMAL, HIGH, VERY_HIGH = range(0, 101, 25)
+    
     def get_priority(self, obj, udisks):
-        pass  # return: int [0..100] or None
+        '''
+            Called on initial connect of a device. The provider should
+            return a priority value indicating its interest in handling
+            the device.
+            
+            :param obj: A UDisksPropertyWrapper object for the device path 
+            :param udisks: The UDisksBase object
+            
+            :returns: An integer [0..100] indicating priority, or None if it
+                      cannot handle the device
+        '''
+        
     def get_device(self, obj, udisks):
-        pass  # return: xl.devices.Device
-
+        '''
+            Called when the device is assigned to the provider (e.g., it
+            indicated the highest priority).
+            
+            :param obj: A UDisksPropertyWrapper object for the device path 
+            :param udisks: The UDisksBase object
+            
+            :returns: xl.devices.Device derived object for the device
+        '''
+        
+    def on_device_changed(self, obj, udisks, device):
+        '''
+            Called when UDisks indicates that a property of the device has
+            changed. If useful, the provider should forward relevant change
+            actions to its device object.
+            
+            :param obj: A UDisksPropertyWrapper object for the device path 
+            :param udisks: The UDisksBase object
+            :param device: Object returned from get_device
+            
+            :returns: 'remove' to remove the device from the provider, other
+                      values ignored.
+        '''
 
 # vim: et sts=4 sw=4

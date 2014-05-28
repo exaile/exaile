@@ -351,7 +351,7 @@ class UDisks(UDisksBase):
         ('/org/freedesktop/UDisks', 'org.freedesktop.UDisks')
     ]
     
-    def connect(self):
+    def _connect(self):
 
         self.bus = dbus.SystemBus()
         obj = self.get_object_by_path('/org/freedesktop/UDisks')

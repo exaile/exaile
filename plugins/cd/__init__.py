@@ -292,8 +292,7 @@ class UDisks2CdProvider(UDisksProvider):
     name = 'cd'
     PRIORITY = UDisksProvider.NORMAL
     
-    def get_priority(self, obj, udisks):
-        
+    def _get_num_tracks(self, obj, udisks):
         if obj.iface_type != 'org.freedesktop.UDisks2.Block':
             return
         
@@ -304,16 +303,20 @@ class UDisks2CdProvider(UDisksProvider):
         
         # Use number of audio tracks to identify supported media
         ntracks = drive.props.Get('OpticalNumAudioTracks')
-        return self.PRIORITY if ntracks > 0 else None
-            
-        # TODO: properties we can listen to for device changes and such. 
-        # -> probably want to set this up a bit differently for that
-            # MediaAvailable
-            # Optical
-            # OpticalNumAudioTracks -- 
+        if ntracks > 0:
+            return ntracks
+    
+    def get_priority(self, obj, udisks):
+        ntracks = self._get_num_tracks(obj, udisks)
+        if ntracks is not None:
+            return self.PRIORITY
 
     def get_device(self, obj, udisks):
         device = obj.props.Get('Device', byte_arrays=True).strip('\0')
         return CDDevice(str(device))
+    
+    def on_device_changed(self, obj, udisks, device):
+        if self._get_num_tracks(obj, udisks) is None:
+            return 'remove'
 
 # vim: et sts=4 sw=4

@@ -365,7 +365,20 @@ class UDisks2(UDisksBase):
         obj.connect_to_signal('InterfacesAdded', self._udisks_device_added)
         obj.connect_to_signal('InterfacesRemoved', self._udisks_device_removed)
         
+        # listen for PropertiesChanged events on any UDisks2 object
+        self.bus.add_signal_receiver(self._udisks2_properties_changed,
+                                     signal_name='PropertiesChanged',
+                                     dbus_interface='org.freedesktop.DBus.Properties',
+                                     bus_name='org.freedesktop.UDisks2',
+                                     path_keyword='path')
+        
         return obj
+        
+    def _udisks2_properties_changed(self, *args, **kwargs):
+        # TODO: this is inefficient, probably should just let the
+        #       provider know what properties changed. would need
+        #       to have the consumer let us know what to subscribe to
+        self._udisks_device_changed(kwargs['path'])        
         
     def _add_all(self, obj):
         assert self._state == 'addremove'

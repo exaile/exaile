@@ -109,26 +109,29 @@ class CDTocParser(object):
 
     def read_toc(self):
         fd = os.open(self.device, os.O_RDONLY)
-        toc_header = struct.pack(TOC_HEADER_FMT, 0, 0)
-        toc_header = ioctl(fd, CDROMREADTOCHDR, toc_header)
-        start, end = struct.unpack(TOC_HEADER_FMT, toc_header)
-
-        self.raw_tracks = []
-
-        for trnum in range(start, end + 1) + [CDROM_LEADOUT]:
-            entry = struct.pack(TOC_ENTRY_FMT, trnum, 0, CDROM_MSF, 0)
-            entry = ioctl(fd, CDROMREADTOCENTRY, entry)
-            track, adrctrl, format, addr = struct.unpack(TOC_ENTRY_FMT, entry)
-            m, s, f = struct.unpack(ADDR_FMT, struct.pack('i', addr))
-
-            adr = adrctrl & 0xf
-            ctrl = (adrctrl & 0xf0) >> 4
-
-            data = 0
-            if ctrl & CDROM_DATA_TRACK:
-                data = 1
-
-            self.raw_tracks.append( (track, m, s, f, (m*60+s) * 75 + f, data) )
+        try:
+            toc_header = struct.pack(TOC_HEADER_FMT, 0, 0)
+            toc_header = ioctl(fd, CDROMREADTOCHDR, toc_header)
+            start, end = struct.unpack(TOC_HEADER_FMT, toc_header)
+    
+            self.raw_tracks = []
+    
+            for trnum in range(start, end + 1) + [CDROM_LEADOUT]:
+                entry = struct.pack(TOC_ENTRY_FMT, trnum, 0, CDROM_MSF, 0)
+                entry = ioctl(fd, CDROMREADTOCENTRY, entry)
+                track, adrctrl, format, addr = struct.unpack(TOC_ENTRY_FMT, entry)
+                m, s, f = struct.unpack(ADDR_FMT, struct.pack('i', addr))
+    
+                adr = adrctrl & 0xf
+                ctrl = (adrctrl & 0xf0) >> 4
+    
+                data = 0
+                if ctrl & CDROM_DATA_TRACK:
+                    data = 1
+    
+                self.raw_tracks.append( (track, m, s, f, (m*60+s) * 75 + f, data) )
+        finally:
+            os.close(fd)
 
     def get_raw_info(self):
         return self.raw_tracks[:]

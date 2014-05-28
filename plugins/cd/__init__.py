@@ -28,7 +28,7 @@
 from xl.nls import gettext as _
 from xl import providers, event
 from xl.hal import Handler, UDisksProvider
-from xl.devices import Device
+from xl.devices import Device, KeyedDevice
 import logging
 logger = logging.getLogger(__name__)
 
@@ -212,13 +212,13 @@ class CDPlaylist(playlist.Playlist):
         self.name = title[1].decode('iso-8859-15', 'replace')
         event.log_event('cddb_info_retrieved', self, True)
 
-class CDDevice(Device):
+class CDDevice(KeyedDevice):
     """
         represents a CD
     """
     class_autoconnect = True
 
-    def __init__(self, dev="/dev/cdrom"):
+    def __init__(self, dev):
         Device.__init__(self, dev)
         self.name = _("Audio Disc")
         self.dev = dev
@@ -243,6 +243,7 @@ class CDDevice(Device):
     def disconnect(self):
         self.playlists = []
         self.connected = False
+        CDDevice.destroy(self)
 
 class HALCdProvider(Handler):
     name = "cd"
@@ -280,8 +281,11 @@ class UDisksCdProvider(UDisksProvider):
         return self.PRIORITY if ntracks > 0 else None
 
     def get_device(self, obj, udisks):
-        # TODO: If this is the same disc, return old device object.
-        return CDDevice(dev=str(obj.props.Get('DeviceFile')))
+        return CDDevice(str(obj.props.Get('DeviceFile')))
+    
+    def on_device_changed(self, obj, udisks, device):
+        if obj.props.Get('OpticalDiscNumAudioTracks') <= 0:
+            return 'remove'
 
 
 class UDisks2CdProvider(UDisksProvider):
@@ -309,8 +313,7 @@ class UDisks2CdProvider(UDisksProvider):
             # OpticalNumAudioTracks -- 
 
     def get_device(self, obj, udisks):
-        # TODO: If this is the same disc, return old device object.
         device = obj.props.Get('Device', byte_arrays=True).strip('\0')
-        return CDDevice(dev=str(device))
+        return CDDevice(str(device))
 
 # vim: et sts=4 sw=4

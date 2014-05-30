@@ -502,6 +502,20 @@ class GroupingColumn(Column):
     autoexpand = True
 providers.register('playlist-columns', GroupingColumn)
 
+class StartOffsetColumn(Column):
+    name = '__startoffset'
+    display = _('Start Offset')
+    size = 50
+    cellproperties = {'xalign': 1.0}
+providers.register('playlist-columns', StartOffsetColumn)
+
+class StopOffsetColumn(Column):
+    name = '__stopoffset'
+    display = _('Stop Offset')
+    size = 50
+    cellproperties = {'xalign': 1.0}
+providers.register('playlist-columns', StopOffsetColumn)
+
 class ColumnMenuItem(menu.MenuItem):
     """
         A menu item dedicated to display the

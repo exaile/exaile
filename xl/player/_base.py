@@ -46,6 +46,7 @@ class ExailePlayer(object):
         self._name = name
         self._playtime_stamp = None
         self._delay_id = None
+        self._stop_id = None
 
         self._mainbin = pipe.MainBin(self, pre_elems=pre_elems)
         self._pipe = None
@@ -204,6 +205,43 @@ class ExailePlayer(object):
         self._delay_id = glib.timeout_add(int(delay), self._unpause) 
         return True
     
+    def _cancel_stop_offset(self):
+        if self._stop_id is not None:
+            glib.source_remove(self._stop_id)
+            self._stop_id = None
+    
+    def _setup_startstop_offsets(self, track):
+        
+        start_offset = track.get_tag_raw('__startoffset')
+        stop_offset = track.get_tag_raw('__stopoffset')
+        
+        if start_offset > 0:
+            
+            # wait up to 1s for the state to switch, else this fails
+            if self._pipe.get_state(timeout=1000*gst.MSECOND)[0] != gst.STATE_CHANGE_SUCCESS:
+                event.log_event('playback_error', self, "Could not start at specified offset")
+                self._error_func()
+                return
+            
+            self.seek(start_offset)
+            
+        # there's probably a better way to implement this... 
+        if stop_offset > 0:
+            self._stop_id = glib.timeout_add(250, self._monitor_for_stop, track, stop_offset)
+    
+            
+    def _monitor_for_stop(self, track, stop_offset):
+        
+        if track == self.current and self.get_position() >= stop_offset * 1000 and self.is_playing():
+            
+            # send eos to pipe
+            self._pipe.send_event(gst.event_new_eos())
+        
+            self._stop_id = None
+            return False
+        
+        return True
+    
     def play(self, track, **kwargs):
         """
             Starts the playback with the provided track
@@ -232,6 +270,8 @@ class ExailePlayer(object):
                 * `playback_track_end`: indicates playback end of a track
         """
         self._cancel_delayed_start()
+        self._cancel_stop_offset()
+        
         if self.is_playing() or self.is_paused():
             prev_current = self._stop(**kwargs)
 

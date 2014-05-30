@@ -83,6 +83,8 @@ dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
                 '__modified': (_('Modified'), 'prop:datetime'),
                 '__playtime': IGNORE,
                 '__playcount': (_('Times played'), 'text'),
+                '__startoffset': (_('Start offset'), 'int', 0, 3600), # TODO: calculate these parameters
+                '__stopoffset': (_('Stop offset'), 'int', 0, 3600),
                 '__last_played': (_('Last played'), 'prop:datetime'),
                 }
 
@@ -149,6 +151,8 @@ class TrackPropertiesDialog(gobject.GObject):
             'genre',
             'cover',
             'comment',
+            '__startoffset',
+            '__stopoffset'
         ]
 
         # Store the tracks and a working copy
@@ -212,6 +216,8 @@ class TrackPropertiesDialog(gobject.GObject):
                         poplist.append(tag)
                         continue
                     track.set_tag_raw(tag, trackdata[tag])
+                elif tag in ('__startoffset', '__stopoffset'):
+                    track.set_tag_raw(tag, int(trackdata[tag][0]))
 
             # In case a tag has been removed..
             for tag in track.list_tags():

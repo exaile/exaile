@@ -526,13 +526,10 @@ class ArtistTagFormatter(TagFormatter):
         return value
 providers.register('tag-formatting', ArtistTagFormatter())
 
-class LengthTagFormatter(TagFormatter):
+class TimeTagFormatter(TagFormatter):
     """
-        A formatter for the length of a track
+        A formatter for a time period
     """
-    def __init__(self):
-        TagFormatter.__init__(self, '__length')
-
     def format(self, track, parameters):
         """
             Formats a raw tag value
@@ -612,7 +609,30 @@ class LengthTagFormatter(TagFormatter):
                 '"short", "long" and "verbose"' % format)
 
         return text
+    
+class LengthTagFormatter(TimeTagFormatter):
+    """
+        A formatter for the length of a track
+    """
+    def __init__(self):
+        TimeTagFormatter.__init__(self, '__length')
 providers.register('tag-formatting', LengthTagFormatter())
+
+class StartOffsetTagFormatter(TimeTagFormatter):
+    """
+        A formatter for the track's start offset
+    """
+    def __init__(self):
+        TimeTagFormatter.__init__(self, '__startoffset')
+providers.register('tag-formatting', StartOffsetTagFormatter())
+
+class StopOffsetTagFormatter(TimeTagFormatter):
+    """
+        A formatter for the track's stop offset
+    """
+    def __init__(self):
+        TimeTagFormatter.__init__(self, '__stopoffset')
+providers.register('tag-formatting', StopOffsetTagFormatter())
 
 class RatingTagFormatter(TagFormatter):
     """

@@ -88,6 +88,7 @@ class NormalPlayer(_base.ExailePlayer):
             
 
     def _handle_message(self, bus, message, reading_tag = False):
+        
         if message.type == gst.MESSAGE_BUFFERING:
             percent = message.parse_buffering()
             if not percent < 100:
@@ -176,21 +177,23 @@ class NormalPlayer(_base.ExailePlayer):
         uri = track.get_loc_for_io()
         logger.info("Playing %s" % common.sanitize_url(uri))
         self._reset_playtime_stamp()
-
+        
         if not already_playing:
             self._pipe.set_property("uri", uri)
             if urlparse.urlsplit(uri)[0] == "cdda":
                 self.notify_id = self._pipe.connect('notify::source',
                         self.__notify_source)
-
-            self._pipe.set_state(gst.STATE_PLAYING)
             
+            self._pipe.set_state(gst.STATE_PLAYING)
+        
         if not playing:
             event.log_event('playback_player_start', self, track)
         event.log_event('playback_track_start', self, track)
         
         if playing and self._should_delay_start():
             self._last_position = 0
+        
+        self._setup_startstop_offsets(track)
         
         return True
         

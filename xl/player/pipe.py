@@ -49,7 +49,7 @@ class MainBin(gst.Bin):
         is decoded by the engine.
     """
     def __init__(self, player, pre_elems=[]):
-        gst.Bin.__init__(self)
+        gst.Bin.__init__(self, name='mainbin-%s' % player._name)
         
         self.__player = player
         self._elements = pre_elems[:]
@@ -579,7 +579,7 @@ def sink_enumerate_devices(preset):
 
 class AudioSink(gst.Bin):
     def __init__(self, name, pipeline, player):
-        gst.Bin.__init__(self)
+        gst.Bin.__init__(self, name='audiosink-%s-%s' % (name, player._name))
         self.name = name
         self.sink = elems = [gst.parse_launch(elem) for elem in pipeline.split('!')]
         self.provided = ProviderBin(player, 'sink_element')

@@ -34,6 +34,7 @@ and Rhythmbox's automatic playlists.
 
 import gobject
 import gtk
+import urllib
 
 from xl.nls import gettext as _
 
@@ -468,6 +469,16 @@ class EntryField(gtk.Entry):
         if type(state) == list or type(state) == tuple:
             state = state[0]
         self.set_text(unicode(state))
+        
+class QuotedEntryField(gtk.Entry):
+    def __init__(self):
+        gtk.Entry.__init__(self)
+    def get_state(self):
+        return unicode(urllib.quote(self.get_text()), 'utf-8')
+    def set_state(self, state):
+        if type(state) == list or type(state) == tuple:
+            state = state[0]
+        self.set_text(unicode(urllib.unquote(state)))
 
 class EntryLabelEntryField(MultiEntryField):
     def __init__(self, label):

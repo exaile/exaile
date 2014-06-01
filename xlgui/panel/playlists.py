@@ -166,12 +166,12 @@ CRITERIA = [
         ('not in the last', SpinDateField),
     ]),
     ('Location', [
-        ('is', EntryField),
-        ('is not', EntryField),
-        ('contains', EntryField),
-        ('does not contain', EntryField),
-        ('regex', EntryField),
-        ('not regex', EntryField),
+        ('is', QuotedEntryField),
+        ('is not', QuotedEntryField),
+        ('contains', QuotedEntryField),
+        ('does not contain', QuotedEntryField),
+        ('regex', QuotedEntryField),
+        ('not regex', QuotedEntryField),
     ]),
     ('BPM', [
         ('is', EntryField),

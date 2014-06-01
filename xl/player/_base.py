@@ -232,7 +232,7 @@ class ExailePlayer(object):
             
     def _monitor_for_stop(self, track, stop_offset):
         
-        if track == self.current and self.get_position() >= stop_offset * 1000 and self.is_playing():
+        if track == self.current and self.get_position() >= stop_offset * gst.SECOND and self.is_playing():
             
             # send eos to pipe
             self._pipe.send_event(gst.event_new_eos())
@@ -345,9 +345,9 @@ class ExailePlayer(object):
 
     def get_position(self):
         """
-            Gets the current playback position
+            Gets the current playback position of the playing track
 
-            :returns: the position in milliseconds
+            :returns: the playback position in nanoseconds 
             :rtype: int
         """
         raise NotImplementedError

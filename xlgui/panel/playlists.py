@@ -799,6 +799,15 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
             Shows a dialog for editing the currently selected smart playlist
         """
+        pl = self.tree.get_selected_page(raw=True)
+        self.edit_smart_playlist(pl)
+        
+    def edit_smart_playlist(self, pl):
+        """
+            Shows a dialog for editing a smart playlist
+        """
+        if not isinstance(pl, playlist.SmartPlaylist): return
+
         _REV = {}
         for k, v in _TRANS.iteritems():
             _REV[v] = k
@@ -806,9 +815,6 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         _REV_NMAP = {}
         for k, v in _NMAP.iteritems():
             _REV_NMAP[v] = k
-
-        pl = self.tree.get_selected_page(raw=True)
-        if not isinstance(pl, playlist.SmartPlaylist): return
 
         params = pl.search_params
         state = []

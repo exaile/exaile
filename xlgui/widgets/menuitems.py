@@ -224,7 +224,7 @@ def RenamePlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     
 def EditPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     return menu.simple_menu_item(name, after, _('Edit'), 'gtk-edit',
-                          lambda w, n, o, c: o.rename_playlist(get_pl_func(o, c)),
+                          lambda w, n, o, c: o.edit_smart_playlist(get_pl_func(o, c)),
                           condition_fn=lambda n, p, c: isinstance(c['selected-playlist'], playlist.SmartPlaylist))
 
 def ExportPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):

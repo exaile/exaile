@@ -248,6 +248,9 @@ class FilterWidget(gtk.Table):
 
         criterion = Criterion(self.criteria)
         criterion.show()
+        
+        if len(self.rows) != 0:
+            criterion.set_state(self.rows[-1][0].get_state())
 
         remove_btn = gtk.Button()
         image = gtk.Image()
@@ -343,6 +346,8 @@ class Criterion(gtk.HBox):
             self.child = field_class()
         else:
             self.combo = combo = gtk.combo_box_new_text()
+            if len(subcriteria) > 10:
+                self.combo.set_wrap_width(5)
             self.subcriteria = subcriteria
             for subc in subcriteria:
                 combo.append_text(_(subc[0]))

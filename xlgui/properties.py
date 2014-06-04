@@ -25,6 +25,7 @@
 # from your version.
 
 import copy
+from collections import OrderedDict
 import datetime
 import gio
 import glib
@@ -45,48 +46,8 @@ from xl import (
 )
 
 from xlgui.widgets import dialogs
+from xl.metadata.tags import tag_data, get_default_tagdata
 
-IGNORE = (None, None)
-
-dialog_tags = { 'originalalbum': (_('Original album'), 'text'),
-                'lyricist': (_('Lyricist'), 'text'),
-                'part': IGNORE, #
-                'website': (_('Website'), 'text'),
-                'cover': (_('Cover'), 'image'),
-                'originalartist': (_('Original artist'), 'text'),
-                'author': (_('Author'), 'text'),
-                'originaldate': (_('Original date'), 'text'),
-                'date': (_('Date'), 'text'),
-                'arranger': (_('Arranger'), 'text'),
-                'conductor': (_('Conductor'), 'text'),
-                'performer': (_('Performer'), 'text'),
-                'artist': (_('Artist'), 'text'),
-                'album': (_('Album'), 'text'),
-                'copyright': (_('Copyright'), 'text'),
-                'lyrics': (_('Lyrics'), 'text'),
-                'tracknumber': (_('Track'), 'int', 0, 500),
-                'version': (_('Version'), 'text'),
-                'title': (_('Title'), 'text'),
-                'isrc': (_('ISRC'), 'text'),
-                'genre': (_('Genre'), 'text'),
-                'composer': (_('Composer'), 'text'),
-                'encodedby': (_('Encoded by'), 'text'),
-                'organization': (_('Organization'), 'text'),
-                'discnumber': (_('Disc'), 'int', 0, 50),
-                'bpm': (_('BPM'), 'int', 0, 300),
-                'comment': (_('Comment'), 'text'),
-                '__bitrate': (_('Bitrate'), 'prop:bitrate'),
-                '__date_added': (_('Date added'), 'prop:datetime'),
-                '__length': (_('Length'), 'prop:time'),
-                '__loc': (_('Location'), 'prop:location'),
-                '__basedir': IGNORE,
-                '__modified': (_('Modified'), 'prop:datetime'),
-                '__playtime': IGNORE,
-                '__playcount': (_('Times played'), 'text'),
-                '__startoffset': (_('Start offset'), 'int', 0, 3600), # TODO: calculate these parameters
-                '__stopoffset': (_('Stop offset'), 'int', 0, 3600),
-                '__last_played': (_('Last played'), 'prop:datetime'),
-                }
 
 class TrackPropertiesDialog(gobject.GObject):
 
@@ -132,16 +93,17 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self.new_tag_combo = self.builder.get_object('new_tag_combo')
         self.new_tag_combo_list = gtk.ListStore(str, str)
-        for tag in dialog_tags:
-            if not tag.startswith('__'):
-                self.new_tag_combo_list.append((tag, dialog_tags[tag][0]))
+        for tag, tag_info in tag_data.iteritems():
+            if tag_info is not None and tag_info.editable:
+                self.new_tag_combo_list.append((tag, tag_info.translated_name))
         self.new_tag_combo_list.set_sort_column_id(1, gtk.SORT_ASCENDING)
         self.new_tag_combo.set_model(self.new_tag_combo_list)
         self.new_tag_combo.set_text_column(1)
         self.add_tag_button = self.builder.get_object('add_tag_button')
         self.add_tag_button.set_sensitive(False)
 
-        self.def_tags = [
+        # Show these tags for all tracks, no matter what
+        def_tags = [
             'tracknumber',
             'title',
             'artist',
@@ -154,6 +116,8 @@ class TrackPropertiesDialog(gobject.GObject):
             '__startoffset',
             '__stopoffset'
         ]
+        
+        self.def_tags = OrderedDict([(tag, tag_data[tag]) for tag in def_tags])
 
         # Store the tracks and a working copy
         self.tracks = tracks
@@ -168,15 +132,46 @@ class TrackPropertiesDialog(gobject.GObject):
 
         self.rows[0].field.grab_focus()
 
+    def _get_field_widget(self, tag_info, ab):
+        tag_type = tag_info.type
+                
+        if tag_type == 'int':
+            field = TagNumField(
+                tag_info.min,
+                tag_info.max,
+                all_button=ab
+            )
+        elif tag_type == 'dblnum':
+            field = TagDblNumField(
+                tag_info.min,
+                tag_info.max,
+                all_button=ab
+            )
+        elif tag_type == 'time':
+            field = TagNumField(
+                tag_info.min,
+                tag_info.max,
+                all_button=ab
+            )
+        elif tag_type == 'image':
+            field = TagImageField()
+        elif tag_type == 'multiline':
+            field = TagTextField(all_button=ab)
+        else:
+            field = TagField(all_button=ab)
+            
+        return field
+
     def _tags_copy(self, tracks):
         l = []
         for track in tracks:
             t = {}
-            for tag in self.def_tags:
-                if tag in ('cover', 'comment'):
+            for tag, tag_info in self.def_tags.iteritems():
+                if tag_info.use_disk:
                     tagval = track.get_tag_disk(tag)
                 else:
                     tagval = track.get_tag_raw(tag)
+                
                 if tagval:
                     if isinstance(tagval, list):
                         t[tag] = tagval[:]
@@ -185,7 +180,7 @@ class TrackPropertiesDialog(gobject.GObject):
                 else:
                     t[tag] = ['']
 
-                if tag == "tracknumber" or tag == "discnumber":
+                if tag_info.type == 'dblnum':
                     for i, entry in enumerate(t[tag]):
                         if len(entry.split('/')) < 2:
                             t[tag][i] += '/0'
@@ -217,12 +212,17 @@ class TrackPropertiesDialog(gobject.GObject):
                         continue
                     track.set_tag_raw(tag, trackdata[tag])
                 elif tag in ('__startoffset', '__stopoffset'):
-                    track.set_tag_raw(tag, int(trackdata[tag][0]))
+                    try:
+                        offset = int(trackdata[tag][0])
+                    except ValueError:
+                        poplist.append(tag)
+                    else:
+                        track.set_tag_raw(tag, offset)
 
             # In case a tag has been removed..
             for tag in track.list_tags():
-                if tag in dialog_tags:
-                    if dialog_tags[tag] is not IGNORE:
+                if tag in tag_data:
+                    if tag_data[tag] is not None:
                         try:
                             trackdata[tag]
                         except KeyError:
@@ -281,44 +281,17 @@ class TrackPropertiesDialog(gobject.GObject):
 
         trackdata = self.trackdata[position]
 
-        for tag in self.def_tags:
+        if len(self.trackdata) == 1:
+            ab = False
+        else:
+            ab = True
+
+        for tag, tag_info in self.def_tags.iteritems():
             
             for i, entry in enumerate(trackdata.get(tag, [''])):
-                if len(self.trackdata) == 1:
-                    ab = False
-                    ab_dbl = 0
-                else:
-                    ab = True
-                    ab_dbl = 2
-
-                field = None
-                if dialog_tags[tag][1] == 'int':
-                    if tag == 'tracknumber':
-                        field = TagDblNumField(
-                            dialog_tags[tag][2],
-                            dialog_tags[tag][3],
-                            all_button=ab_dbl
-                        )
-                    elif tag == 'discnumber':
-                        field = TagDblNumField(
-                            dialog_tags[tag][2],
-                            dialog_tags[tag][3],
-                            all_button=ab_dbl
-                        )
-                    else:
-                        field = TagNumField(
-                            dialog_tags[tag][2],
-                            dialog_tags[tag][3],
-                            all_button=ab
-                        )
-                elif dialog_tags[tag][1] == 'image':
-                    field = TagImageField()
-                else:
-                    if tag in ('comment', 'lyrics'):
-                        field = TagTextField(all_button=ab)
-                    else:
-                        field = TagField(all_button=ab)
-
+                
+                field = self._get_field_widget(tag_info, ab)
+                
                 row = TagRow(self, self.tags_table, field, tag, entry, i)
                 self.rows.append(row)
 
@@ -330,40 +303,26 @@ class TrackPropertiesDialog(gobject.GObject):
                     row.label.set_attributes(self.__changed_attributes)
 
         for tag in trackdata:
-            if tag not in self.def_tags:
-                try:
-                    fieldtype = dialog_tags[tag][1]
-                except KeyError:
-                    fieldtype = 'text'
-
-                if fieldtype is not None:
-                    for i, entry in enumerate(trackdata[tag]):
-                        field = None
-                        if not tag.startswith('__'):
-                            if fieldtype == 'int':
-                                field = TagNumField(
-                                    dialog_tags[tag][2],
-                                    dialog_tags[tag][3],
-                                    all_button=ab
-                                )
-                            elif fieldtype == 'image':
-                                field = TagImageField()
-                            else:
-                                if tag in ('comment', 'lyrics'):
-                                    field = TagTextField(all_button=ab)
-                                else:
-                                    field = TagField(all_button=ab)
-
-                            self.rows.append(
-                                TagRow(self, self.tags_table, field, tag, entry, i))
-
-                        else:
-                            field = PropertyField(fieldtype)
-
-                            self.rows.append(
-                                TagRow(self, self.properties_table, field, tag, entry, i))
-
-
+            if tag in self.def_tags:
+                continue
+            
+            try:
+                tag_info = tag_data[tag]
+            except KeyError:
+                tag_info = get_default_tagdata(tag)
+            
+            if tag_info is None:
+                continue
+            
+            for i, entry in enumerate(trackdata[tag]):
+                
+                if tag_info.editable:
+                    field = self._get_field_widget(tag_info, ab)
+                    self.rows.append(TagRow(self, self.tags_table, field, tag, entry, i))
+                else:
+                    field = PropertyField(tag_info.type)
+                    self.rows.append(TagRow(self, self.properties_table, field, tag, entry, i))
+        
         self._check_for_changes()
         self._build_tables_from_rows()
 
@@ -558,11 +517,9 @@ class TrackPropertiesDialog(gobject.GObject):
         self._check_for_changes()
 
     def apply_all(self, field, multi_id, val, split_num=0):
-        special_cases = ["discnumber", "tracknumber"]
-        apply_flag = False
         value = val()
 
-        if field in special_cases:
+        if tag_data[field].type == 'dblnum':
             original_values = value.split("/")
             for i, trackdata in enumerate(self.trackdata):
                 values = trackdata[field][multi_id].split("/")
@@ -618,7 +575,7 @@ class TagRow(object):
         self.field.set_value(value, all_vals)
 
         try:
-            name = dialog_tags[self.tag][0]
+            name = tag_data[self.tag].translated_name
         except KeyError:
             if self.tag.startswith('__'):
                 name = self.tag[2:]
@@ -823,7 +780,7 @@ class TagNumField(gtk.HBox):
 
 class TagDblNumField(gtk.HBox):
 
-    def __init__(self, min=0, max=10000, step=1, page=10, all_button=1):
+    def __init__(self, min=0, max=10000, step=1, page=10, all_button=True):
         gtk.HBox.__init__(self, homogeneous=False, spacing=5)
 
         self.field = [gtk.SpinButton(), gtk.SpinButton()]
@@ -838,10 +795,7 @@ class TagDblNumField(gtk.HBox):
         lbl = gtk.Label(_('of:'))
         self.all_button = [None, None]
         if all_button:
-            if all_button == 1:
-                self.all_button = [None, AllButton(self, 1)]
-            if all_button == 2:
-                self.all_button = [AllButton(self), AllButton(self, 1)]
+            self.all_button = [AllButton(self), AllButton(self, 1)]
 
         self.pack_start(self.field[0])
         if all_button and self.all_button[0] != None:
@@ -1166,7 +1120,7 @@ class PropertyField(gtk.HBox):
         self.pack_start(self.field)
         self.parent_row = None
 
-        if self.property_type == 'prop:location':
+        if self.property_type == 'location':
             self.folder_button = gtk.Button()
             self.folder_button.set_tooltip_text(_('Open Directory'))
             self.folder_button.set_image(gtk.image_new_from_stock(
@@ -1178,17 +1132,17 @@ class PropertyField(gtk.HBox):
         self.parent_row = parent_row
 
     def set_value(self, val, all_vals=None, doupdate=True):
-        if self.property_type == 'prop:bitrate':
+        if self.property_type == 'bitrate':
             try:
                 val = str(float(val) / 1000.0) + ' kbps'
             except (TypeError, ValueError):
                 pass
-        elif self.property_type == 'prop:datetime':
+        elif self.property_type == 'datetime':
             d = datetime.datetime.fromtimestamp(val)
             val = d.strftime("%x %X")
-        elif self.property_type == 'prop:time':
+        elif self.property_type == 'time':
             val = "%(m)d:%(s)02d" % {'m': val // 60, 's': val % 60}
-        elif self.property_type == 'prop:location':
+        elif self.property_type == 'location':
             f = gio.File(val)
             val = f.get_parse_name()
 

@@ -92,96 +92,51 @@ class SpinNothing(SpinLabelField):
     def __init__(self):
         SpinLabelField.__init__(self, '')
 
+# This sets up the CRITERIA for all the available types of tags
+# that exaile supports. The actual CRITERIA dict is populated 
+# using xl.metadata.tags.tag_data.
+#
 # NOTE: The following strings are already marked for translation in _TRANS and
 # _NMAP, and will be really translated by filtergui; no need to clutter the
 # code here.
-
-CRITERIA = [
-    ('Artist', [
-        ('is', EntryField),
-        ('is not', EntryField),
-        ('contains', EntryField),
-        ('does not contain', EntryField),
-        ('regex', EntryField),
-        ('not regex', EntryField),
-        ('is set', NullField),
-        ('is not set', NullField),
-    ]),
-    ('Album', [
-        ('is', EntryField),
-        ('is not', EntryField),
-        ('contains', EntryField),
-        ('does not contain', EntryField),
-        ('regex', EntryField),
-        ('not regex', EntryField),
-        ('is set', NullField),
-        ('is not set', NullField),
-    ]),
-    ('Title', [
-        ('is', EntryField),
-        ('is not', EntryField),
-        ('contains', EntryField),
-        ('does not contain', EntryField),
-        ('regex', EntryField),
-        ('not regex', EntryField),
-        ('is set', NullField),
-        ('is not set', NullField),
-    ]),
-    ('Genre', [
-        ('is', EntryField),
-        ('is not', EntryField),
-        ('contains', EntryField),
-        ('does not contain', EntryField),
-        ('is set', NullField),
-        ('is not set', NullField),
-    ]),
-    ('Rating', [
-        ('greater than', SpinRating),
-        ('less than', SpinRating),
-        ('at least', SpinRating),
-        ('at most', SpinRating),
-    ]),
-    ('Plays', [
+__criteria_types = {
+    
+    # TODO              
+    'bitrate': None,
+          
+    'date': [
+        ('in the last', SpinDateField),
+        ('not in the last', SpinDateField),
+    ],
+    
+    'datetime': [
+        ('in the last', SpinDateField),
+        ('not in the last', SpinDateField),
+    ],
+                    
+    'image': None,
+          
+    'int': [
+        ('is', SpinNothing),
+        ('less than', SpinNothing),
+        ('greater than', SpinNothing),
+        ('between', EntryAndEntryField),
         ('at least', SpinNothing),
         ('at most', SpinNothing),
-    ]),
-    ('Year', [
-        ('before', EntryField),
-        ('after', EntryField),
-        ('between', EntryAndEntryField),
         ('is set', NullField),
         ('is not set', NullField),
-    ]),
-    ('Length', [
-        ('at least', SpinSecondsField),
-        ('at most', SpinSecondsField),
-        ('is', SpinSecondsField),
-    ]),
-    ('Date added', [
-        ('in the last', SpinDateField),
-        ('not in the last', SpinDateField),
-    ]),
-    ('Last played', [
-        ('in the last', SpinDateField),
-        ('not in the last', SpinDateField),
-    ]),
-    ('Location', [
+    ],
+          
+    'location': [
         ('is', QuotedEntryField),
         ('is not', QuotedEntryField),
         ('contains', QuotedEntryField),
         ('does not contain', QuotedEntryField),
         ('regex', QuotedEntryField),
         ('not regex', QuotedEntryField),
-    ]),
-    ('BPM', [
-        ('is', EntryField),
-        ('less than', SpinNothing),
-        ('greater than', SpinNothing),
-        ('between', EntryAndEntryField),
-        ('is set', NullField),
-        ('is not set', NullField),
-    ]),
-    ('Grouping',[
+    ],
+    
+    'text': [
         ('is', EntryField),
         ('is not', EntryField),
         ('contains', EntryField),
@@ -190,17 +145,30 @@ CRITERIA = [
         ('not regex', EntryField),
         ('is set', NullField),
         ('is not set', NullField),
+    ],
+    
+    'time': [
+        ('at least', SpinSecondsField),
+        ('at most', SpinSecondsField),
+        ('is', SpinSecondsField),
+        ('is not', SpinSecondsField),
+    ],    
+}
+
+# aliases
+__criteria_types['multiline'] = __criteria_types['text']
+__criteria_types['dblnum'] = __criteria_types['int']
+
+
+# This gets populated below. Only add special tags/searches here.
+CRITERIA = [
+    ('Rating', [
+        ('greater than', SpinRating),
+        ('less than', SpinRating),
+        ('at least', SpinRating),
+        ('at most', SpinRating),
     ]),
-    ('Composer',[
-        ('is', EntryField),
-        ('is not', EntryField),
-        ('contains', EntryField),
-        ('does not contain', EntryField),
-        ('regex', EntryField),
-        ('not regex', EntryField),
-        ('is set', NullField),
-        ('is not set', NullField),
-    ]),
+   
     ('Playlist', [
         ('Track is in', PlaylistField),
         ('Track not in', PlaylistField),
@@ -254,23 +222,35 @@ _TRANS = {
     N_('Track not in'): '!pin',
 }
 
+# This table is a reverse lookup for the actual tag name from a display
+# name.
+# This gets populated below. Only add special tags/searches here.
 _NMAP = {
-    N_('Artist'): 'artist',
-    N_('Title'): 'title',
-    N_('Album'): 'album',
-    N_('Length'): '__length',
-    N_('Rating'): '__rating',
-    N_('Plays'): '__playcount',
-    N_('Year'): 'date',
-    N_('Genre'): 'genre',
-    N_('Date added'): '__date_added',
-    N_('Last played'): '__last_played',
-    N_('Location'): '__loc',
-    N_('BPM'): 'bpm',
-    N_('Grouping'): 'grouping',
-    N_('Composer'): 'composer',
-    N_('Playlist'): '__playlist',
+    N_('Rating'): '__rating', # special
+    N_('Playlist'): '__playlist', # not a real tag
 }
+
+# update the tables based on the globally stored tag list
+def __update_maps():
+    
+    from xl.metadata.tags import tag_data
+    
+    for tag, data in tag_data.iteritems():
+        
+        if data is None:
+            continue
+        
+        # don't catch this KeyError -- if it fails, fix it!
+        criteria = __criteria_types[data.type]
+        
+        if criteria is None:
+            continue
+            
+        CRITERIA.append((data.name, criteria))
+        
+        _NMAP[data.name] = tag
+
+__update_maps()
 
 
 class TrackWrapper(object):

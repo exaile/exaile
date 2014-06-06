@@ -491,8 +491,8 @@ class ExailePlayer(object):
 
             value = [value]
 
-            if key == '__bitrate':
-                track.set_tag_raw('__bitrate', int(value[0]) / 1000)
+            if key == '__bitrate' or key == 'bitrate':
+                track.set_tag_raw('__bitrate', int(value[0]))
 
             # if there's a comment, but no album, set album to the comment
             elif key == 'comment' and not track.get_tag_raw('album'):

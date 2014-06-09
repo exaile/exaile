@@ -540,6 +540,8 @@ class TrackToolTip(TrackInfoPane, ToolTip):
 
         self.set_padding(6, 6, 6, 6)
         self.info_label.set_ellipsize(pango.ELLIPSIZE_NONE)
+        self.cover.set_no_show_all(False)
+        self.cover.show_all()
 
     def destroy(self):
         """

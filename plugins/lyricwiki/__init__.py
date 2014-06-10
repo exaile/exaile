@@ -57,14 +57,18 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
         lyrics = soup.findAll(attrs= {"class" : "lyricbox"})
         if lyrics:
-            lyrics = re.sub(r' Send.*?Ringtone to your Cell ','','\n'.join(self.remove_html_tags(lyrics[0].renderContents().replace('<br />','\n')).replace('\n\n\n','').split('\n')[0:-7]))
+            lyrics = re.sub(r' Send.*?Ringtone to your Cell ','','\n'.join(self.remove_div(lyrics[0].renderContents().replace('<br />','\n')).replace('\n\n\n','').split('\n')[0:-7]))
         else:
             raise LyricsNotFoundException
 
-        lyrics = str(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES))
+        lyrics = self.remove_html_tags(str(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
 
         return (lyrics, self.name, url)
 
+    def remove_div(self,data):
+        p = re.compile(r'<div.*/div>')
+        return p.sub('',data)
+            
     def remove_html_tags(self, data):
         p = re.compile(r'<[^<]*?/?>')
         data = p.sub('', data)

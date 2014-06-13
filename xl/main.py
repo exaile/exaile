@@ -236,12 +236,13 @@ class Exaile(object):
 
         # Initialize plugin manager
         from xl import plugins
+        self.plugins = plugins.PluginsManager(self)
+        
         if not self.options.SafeMode:
             logger.info("Loading plugins...")
-            self.plugins = plugins.PluginsManager(self)
+            self.plugins.load_enabled()
         else:
             logger.info("Safe mode enabled, not loading plugins.")
-            self.plugins = plugins.PluginsManager(self, load=False)
 
         # Initialize the collection
         logger.info("Loading collection...")
@@ -688,7 +689,7 @@ class Exaile(object):
         """
         return __version__
     
-    def get_user_agent_string(self, plugin_name=None, plugin_version=None):
+    def get_user_agent_string(self, plugin_name=None):
         '''
             Returns an approrpiately formatted User-agent string for 
             web requests. When possible, plugins should use this to
@@ -696,6 +697,8 @@ class Exaile(object):
             
             Users can control this agent string by manually setting
             general/user_agent and general/user_agent_w_plugin in settings.ini
+            
+            :param plugin_name: the name of the plugin
         '''
         
         version = __version__
@@ -703,9 +706,7 @@ class Exaile(object):
             version = version[:version.index('+')]
         
         fmt = {
-            'version': version,
-            'plugin_name': plugin_name,
-            'plugin_version': plugin_version,
+            'version': version
         }
         
         if not hasattr(self, '_user_agent_no_plugin'):
@@ -721,6 +722,11 @@ class Exaile(object):
                 settings.get_option('general/user_agent_w_plugin', default_plugin)
         
         if plugin_name is not None:
+            plugin_info = self.plugins.get_plugin_info(plugin_name)
+            
+            fmt['plugin_name'] = plugin_info['Name']
+            fmt['plugin_version'] = plugin_info['Version']
+            
             return self._user_agent_w_plugin % fmt
         else:
             return self._user_agent_no_plugin % fmt

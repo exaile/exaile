@@ -67,9 +67,6 @@ class PluginsManager(object):
 
         self.load = load
 
-        if self.load:
-            self.load_enabled()
-
     def __findplugin(self, pluginname):
         for dir in self.plugindirs:
             path = os.path.join(dir, pluginname)

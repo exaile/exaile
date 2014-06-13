@@ -687,6 +687,43 @@ class Exaile(object):
             Returns the current version
         """
         return __version__
+    
+    def get_user_agent_string(self, plugin_name=None, plugin_version=None):
+        '''
+            Returns an approrpiately formatted User-agent string for 
+            web requests. When possible, plugins should use this to
+            format user agent strings.
+            
+            Users can control this agent string by manually setting
+            general/user_agent and general/user_agent_w_plugin in settings.ini
+        '''
+        
+        version = __version__
+        if '+' in version:  # strip out bzr tags
+            version = version[:version.index('+')]
+        
+        fmt = {
+            'version': version,
+            'plugin_name': plugin_name,
+            'plugin_version': plugin_version,
+        }
+        
+        if not hasattr(self, '_user_agent_no_plugin'):
+                    
+            from xl import settings
+            
+            default_no_plugin = 'Exaile/%(version)s (+http://www.exaile.org)'
+            default_plugin = 'Exaile/%(version)s %(plugin_name)s/%(plugin_version)s (+http://www.exaile.org)'
+        
+            self._user_agent_no_plugin = \
+                settings.get_option('general/user_agent', default_no_plugin)
+            self._user_agent_w_plugin = \
+                settings.get_option('general/user_agent_w_plugin', default_plugin)
+        
+        if plugin_name is not None:
+            return self._user_agent_w_plugin % fmt
+        else:
+            return self._user_agent_no_plugin % fmt
 
     def quit(self, restart=False):
         """

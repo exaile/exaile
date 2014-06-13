@@ -32,6 +32,7 @@ pygst.require('0.10')
 import gst
 import glib
 
+from xl.nls import gettext as _
 from xl import event, settings, common
 from xl.player import pipe
 logger = logging.getLogger(__name__)
@@ -122,8 +123,12 @@ class ExailePlayer(object):
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
             message_text = message.parse_error()[1]
-            # The most readable part is always the last
+            # The most readable part is always the last..
             message_text = message_text[message_text.rfind(':') + 1:]
+            # .. unless there's nothing in it.
+            if ' ' not in message_text:
+                if message_text.startswith('playsink'):
+                    message_text += _(': Possible audio device error, is it plugged in?')
             event.log_event('playback_error', self, message_text)
             self._error_func()
         return True
@@ -132,7 +137,7 @@ class ExailePlayer(object):
         pass # for overriding
 
     def _eos_func(self):
-        logger.warning("Unhandled EOS message: ", message)
+        logger.warning("Unhandled EOS message!")
 
     def _error_func(self):
         self.stop()

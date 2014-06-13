@@ -321,7 +321,7 @@ class ExailePlayer(object):
             return True
         return False
 
-    def _unpause():
+    def _unpause(self):
         raise NotImplementedError
 
     def toggle_pause(self):

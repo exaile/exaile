@@ -90,11 +90,21 @@ class MainBin(gst.Bin):
         # don't try to switch more than one source at a time
         self.__audio_sink_lock.acquire()
         
-        sinkname = settings.get_option("%s/audiosink" % self.__player._name, "auto")
-        audio_sink = sink_from_preset(self.__player, sinkname)
+        audio_sink = None
+        sinkname = settings.get_option("%s/audiosink" % self.__player._name)
+        
+        # Only attempt to autoselect if the user has never specified a 
+        # setting manually. Otherwise, they may be confused when it switches
+        # to a new output. For example, if they specified a USB device, and
+        # it is removed -- when restarting the program, they would not expect
+        # to automatically start playing on the builtin sound.
+        if sinkname is not None:
+            audio_sink = sink_from_preset(self.__player, sinkname)
+            
         if not audio_sink:
-            logger.warning("Could not enable %s sink for %s, "
-                    "attempting to autoselect." % (sinkname, self.__player._name) )
+            if sinkname is not None:
+                logger.warning("Could not enable %s sink for %s, "
+                               "attempting to autoselect.", sinkname, self.__player._name)
             audio_sink = sink_from_preset(self.__player, "auto")
         
         # If this is the first time we added a sink, just add it to

@@ -143,7 +143,11 @@ def get_url_contents(url, user_agent):
     
     headers = {'User-Agent': user_agent}
     req = urllib2.Request(url, None, headers)
-    return urllib2.urlopen(req).read()
+    fp = urllib2.urlopen(req)
+    data = fp.read()
+    fp.close()
+    
+    return data
 
 def threaded(func):
     """

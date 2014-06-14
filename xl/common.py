@@ -42,6 +42,7 @@ import subprocess
 import sys
 import threading
 import traceback
+import urllib2
 import urlparse
 from functools import wraps, partial
 from collections import deque
@@ -128,6 +129,21 @@ def sanitize_url(url):
         url = urlparse.urlunparse(components)
 
     return url
+
+def get_url_contents(url, user_agent):
+    '''
+        Retrieves data from a URL and sticks a user-agent on it. You can use
+        exaile.get_user_agent_string(pluginname) to get this.
+        
+        Added in Exaile 3.4
+        
+        :returns: Contents of page located at URL
+        :raises: urllib2.URLError
+    '''
+    
+    headers = {'User-Agent': user_agent}
+    req = urllib2.Request(url, None, headers)
+    return urllib2.urlopen(req).read()
 
 def threaded(func):
     """

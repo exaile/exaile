@@ -1137,7 +1137,7 @@ class PropertyField(gtk.HBox):
                 val = str(float(val) / 1000.0) + ' kbps'
             except (TypeError, ValueError):
                 pass
-        elif self.property_type == 'datetime':
+        elif self.property_type == 'timestamp':
             d = datetime.datetime.fromtimestamp(val)
             val = d.strftime("%x %X")
         elif self.property_type == 'time':

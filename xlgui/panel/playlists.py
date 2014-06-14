@@ -103,16 +103,6 @@ __criteria_types = {
     
     # TODO              
     'bitrate': None,
-          
-    'date': [
-        ('in the last', SpinDateField),
-        ('not in the last', SpinDateField),
-    ],
-    
-    'datetime': [
-        ('in the last', SpinDateField),
-        ('not in the last', SpinDateField),
-    ],
                     
     'image': None,
           
@@ -152,10 +142,16 @@ __criteria_types = {
         ('at most', SpinSecondsField),
         ('is', SpinSecondsField),
         ('is not', SpinSecondsField),
-    ],    
+    ],
+                    
+    'timestamp': [
+        ('in the last', SpinDateField),
+        ('not in the last', SpinDateField),
+    ],  
 }
 
 # aliases
+__criteria_types['datetime'] = __criteria_types['text'] # TODO: fix 
 __criteria_types['multiline'] = __criteria_types['text']
 __criteria_types['dblnum'] = __criteria_types['int']
 

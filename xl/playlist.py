@@ -60,6 +60,7 @@ from xl import (
 )
 from xl.common import MetadataList
 from xl.nls import gettext as _
+from xl.metadata.tags import tag_data
 
 logger = logging.getLogger(__name__)
 
@@ -1851,11 +1852,12 @@ class SmartPlaylist(object):
                 params += [param]
                 continue
             (field, op, value) = param
+            fieldtype = tag_data.get(field)
             s = ""
 
             if field == '__rating':
                 value = float((100.0*value)/maximum)
-            elif field in ('__date_added', '__last_played'):
+            elif fieldtype == 'timestamp':
                 duration, unit = value
                 delta = durations[unit](duration)
                 point = datetime.now() - delta

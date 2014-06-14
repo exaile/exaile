@@ -46,7 +46,7 @@ tag_data = {
     'composer':         _TD(N_('Composer'),     'text'),
     'conductor':        _TD(N_('Conductor'),    'text'),
     'cover':            _TD(N_('Cover'),        'image', use_disk=True),
-    'date':             _TD(N_('Year'),         'int', min=-99999, max=99999),
+    'date':             _TD(N_('Date'),         'datetime'),
     'discnumber':       _TD(N_('Disc'),         'dblnum', min=0, max=50),
     'encodedby':        _TD(N_('Encoded by'),   'text'),
     'genre':            _TD(N_('Genre'),        'text'),
@@ -69,11 +69,11 @@ tag_data = {
     
     '__bitrate':        _TD(N_('Bitrate'),      'bitrate', editable=False),
     '__basedir':        None,
-    '__date_added':     _TD(N_('Date added'),   'datetime', editable=False),
-    '__last_played':    _TD(N_('Last played'),  'datetime', editable=False),
+    '__date_added':     _TD(N_('Date added'),   'timestamp', editable=False),
+    '__last_played':    _TD(N_('Last played'),  'timestamp', editable=False),
     '__length':         _TD(N_('Length'),       'time', editable=False),
     '__loc':            _TD(N_('Location'),     'location', editable=False),
-    '__modified':       _TD(N_('Modified'),     'datetime', editable=False),
+    '__modified':       _TD(N_('Modified'),     'timestamp', editable=False),
     '__playtime':       _TD(N_('Play time'),    'time', editable=False),
     '__playcount':      _TD(N_('Times played'), 'int', editable=False),
     '__rating':         None, # currently special. 

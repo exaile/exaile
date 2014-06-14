@@ -34,6 +34,7 @@ import amazonprefs
 logger = logging.getLogger(__name__)
 
 AMAZON = None
+USER_AGENT = None
 
 def enable(exaile):
     if exaile.loading:
@@ -42,7 +43,8 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    global AMAZON
+    global AMAZON, USER_AGENT
+    USER_AGENT = exaile.get_user_agent_string('amazoncovers')
     AMAZON = AmazonCoverSearch()
     providers.register('covers', AMAZON)
 
@@ -88,13 +90,10 @@ class AmazonCoverSearch(covers.CoverSearchMethod):
 
         search = "%s - %s" % (artist, album)
         try:
-            albums = ecs.search_covers(search, api_key, secret_key)
+            albums = ecs.search_covers(search, api_key, secret_key, USER_AGENT)
         except ecs.AmazonSearchError:
             return []
         return albums
 
     def get_cover_data(self, url):
-        h = urllib.urlopen(url)
-        data = h.read()
-        h.close()
-        return data
+        return common.get_url_contents(url, USER_AGENT)

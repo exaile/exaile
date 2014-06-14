@@ -82,8 +82,10 @@
               <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes">&lt;i&gt;To sign up for an Amazon AWS account and get 
-this information visit &lt;a href="http://aws.amazon.com/"&gt;http://aws.amazon.com/&lt;/a&gt;&lt;/i&gt;</property>
+                <property name="label" translatable="yes">&lt;i&gt;To sign up for an Amazon AWS account and get this information
+visit &lt;a href="http://aws.amazon.com/"&gt;http://aws.amazon.com/&lt;/a&gt;.
+
+You may also need to &lt;a href="https://affiliate-program.amazon.com/gp/flex/advertising/api/sign-in.html"&gt;activate the Product Advertising API&lt;/a&gt;&lt;/i&gt;.</property>
                 <property name="use_markup">True</property>
                 <property name="justify">center</property>
               </object>

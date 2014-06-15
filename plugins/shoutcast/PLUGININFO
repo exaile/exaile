@@ -1,5 +1,0 @@
-Version='0.0.5'
-Authors=['Adam Olsen <arolsen@gmail.com']
-Name=_('Shoutcast Radio')
-Description=_('Shoutcast Radio list')
-Category=_('Media Sources')

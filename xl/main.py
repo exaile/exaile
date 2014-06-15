@@ -724,7 +724,7 @@ class Exaile(object):
         if plugin_name is not None:
             plugin_info = self.plugins.get_plugin_info(plugin_name)
             
-            fmt['plugin_name'] = plugin_info['Name']
+            fmt['plugin_name'] = plugin_info['Name'].replace(' ', '')
             fmt['plugin_version'] = plugin_info['Version']
             
             return self._user_agent_w_plugin % fmt

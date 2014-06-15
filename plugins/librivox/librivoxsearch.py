@@ -20,16 +20,13 @@ from xl import common
 import logging
 logger = logging.getLogger(__name__)
 
-class AppURLopener(urllib.FancyURLopener):
-    version = "App/1.7"
-urllib._urlopener = AppURLopener()
 
 # TODO: The 'new' API doesn't allow general queries, only allows exact 
 # matching.. if they fix it, we'll fix it. >_>
 search_url = 'http://librivox.org/api/feed/audiobooks/?title='
 
 class Book():
-    def __init__(self, title, rssurl):
+    def __init__(self, title, rssurl, user_agent):
         self.title=title
         self.rssurl=rssurl
         self.chapters=[]
@@ -38,6 +35,7 @@ class Book():
         self.xmldata=None
         self.xmltree=None
         self.loaded=False
+        self.user_agent = user_agent
 
 
     def get_all(self):
@@ -49,7 +47,7 @@ class Book():
             return
 
         try:
-            self.xmldata=urllib.urlopen(self.rssurl).read()
+            self.xmldata=common.get_url_contents(self.rssurl, self.user_agent)
         except:
             logger.error("LIBRIVOX: Connection error")
             return
@@ -81,7 +79,7 @@ class Book():
 
 
 
-def find_books(keyword):
+def find_books(keyword, user_agent):
     '''
         Returns a list of Book instances, with unknown chapters...
     '''
@@ -90,7 +88,7 @@ def find_books(keyword):
     url=search_url+urllib.quote_plus(keyword)
     
     try:
-        data=urllib.urlopen(url).read()
+        data=common.get_url_contents(url, user_agent)
     except:
         logger.error("LIBRIVOX: connection error")
         return []

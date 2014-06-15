@@ -40,6 +40,9 @@ BASEDIR = os.path.dirname(CURPATH)+os.path.sep
 
 def enable(exaile):
     """ """
+    config.USER_AGENT = exaile.get_user_agent_string(config.PLUGIN_NAME,
+                                                     config.PLUGIN_VERSION)
+    
     if (exaile.loading):
         event.add_callback(_enable, 'exaile_loaded')
     else:

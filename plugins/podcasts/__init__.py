@@ -26,6 +26,7 @@ except ImportError:
     md5 = md5.new
 
 def enable(exaile):
+    fp.USER_AGENT = exaile.get_user_agent_string('podcasts')
     if exaile.loading:
         event.add_callback(exaile_ready, 'gui_loaded')
     else:

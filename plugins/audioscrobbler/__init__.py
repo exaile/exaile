@@ -64,6 +64,7 @@ class ExaileScrobbler(object):
         """
             Connects events to the player object, loads settings and cache
         """
+        scrobbler.set_user_agent(exaile.get_user_agent_string('audioscrobbler'))
         self.connected = False
         self.connecting = False
         self.use_menu = False

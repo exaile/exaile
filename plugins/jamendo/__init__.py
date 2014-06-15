@@ -30,9 +30,9 @@ import jamtree
 import jamapi
 import menu
 import os
-import urllib
 import hashlib
 from xl import (
+    common,
     event,
     settings,
     providers,
@@ -59,8 +59,12 @@ def enable(exaile):
 
 def _enable(eventname, exaile, nothing):
     global JAMENDO_NOTEBOOK_PAGE, COVERS_METHOD
+    
+    user_agent = exaile.get_user_agent_string('jamendo')
+    jamapi.set_user_agent(user_agent)
+    
     JAMENDO_NOTEBOOK_PAGE = JamendoPanel(exaile.gui.main.window, exaile)
-    COVERS_METHOD = JamendoCoverSearch()
+    COVERS_METHOD = JamendoCoverSearch(user_agent)
     providers.register('main-panel', JAMENDO_NOTEBOOK_PAGE)
     providers.register('covers', COVERS_METHOD)
 
@@ -393,16 +397,13 @@ class JamendoPanel(panel.Panel):
 
     #dragdrop stuff
     def drag_data_received(self, *e):
-        print('in drag_data_recieved')
         pass
 
     def drag_data_delete(self, *e):
-        print('in drag_data_delete')
         pass
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         self.add_to_playlist()
-        pass
 
 #The following is a custom CoverSearchMethod to retrieve covers from Jamendo
 #It is designed to only to get covers for streaming tracks from jamendo
@@ -412,6 +413,9 @@ class JamendoCoverSearch(CoverSearchMethod):
     fixed = True
     fixed_priority = 5  # take precendence, since we know we are 'right'
                         # for matching tracks.
+                        
+    def __init__(self, user_agent):
+        self.user_agent = user_agent
 
     def find_covers(self, track, limit=-1):
         jamendo_url = track.get_loc_for_io()
@@ -429,8 +433,5 @@ class JamendoCoverSearch(CoverSearchMethod):
 
 
     def get_cover_data(self, url):
-        h = urllib.urlopen(url)
-        data = h.read()
-        h.close()
-        return data
+        return common.get_url_contents(url, self.user_agent)
 

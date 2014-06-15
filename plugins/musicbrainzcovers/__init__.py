@@ -17,6 +17,7 @@ import logging
 import urllib2
 
 from xl import (
+    common,
     covers,
     providers
 )
@@ -35,7 +36,7 @@ def enable(exaile):
     """
         Enables the plugin
     """
-    providers.register('covers', MusicBrainzCoverSearch())
+    providers.register('covers', MusicBrainzCoverSearch(exaile))
 
 def disable(exaile):
     """
@@ -49,7 +50,10 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
     """
     name = 'musicbrainz'
     title = 'MusicBrainz'
-    __caa_url ='http://coverartarchive.org/release/{mbid}/front-{size}' 
+    __caa_url ='http://coverartarchive.org/release/{mbid}/front-{size}'
+    
+    def __init__(self, exaile):
+        self.user_agent = exaile.get_user_agent_string('musicbrainzcovers')
 
     def find_covers(self, track, limit=-1):
         """
@@ -75,9 +79,14 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
             for mbid in mbids[:]:
                 try:
                     url = self.__caa_url.format(mbid=mbid, size=250)
-                    response = urllib2.urlopen(url)
+                    
+                    headers = {'User-Agent': self.user_agent}
+                    req = urllib2.Request(url, None, headers)
+                    response = urllib2.urlopen(req)
                 except urllib2.HTTPError:
                     mbids.remove(mbid)
+                else:
+                    response.close()
 
             # For now, limit to small sizes
             mbids = [mbid + ':250' for mbid in mbids]
@@ -96,11 +105,8 @@ class MusicBrainzCoverSearch(covers.CoverSearchMethod):
 
         try:
             logger.debug('Fetching cover from {url}'.format(url=url))
-            response = urllib2.urlopen(url)
+            data = common.get_url_contents(url, self.user_agent)
         except urllib2.HTTPError:
             pass
-        else:
-            data = response.read()
-            response.close()
 
         return data

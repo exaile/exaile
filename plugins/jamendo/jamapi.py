@@ -25,9 +25,20 @@
 # from your version.
 
 import simplejson as json
-import urllib
 import jamtree
 import threading
+
+from xl import common
+
+USER_AGENT = None
+
+def set_user_agent(s):
+    global USER_AGENT
+    USER_AGENT = s
+    
+def get_json(url):
+    return json.loads(common.get_url_contents(url, USER_AGENT))
+
 
 #Gets a list of jamtree.Artist objects matching the specified criteria
 class get_artist_list(threading.Thread):
@@ -42,7 +53,7 @@ class get_artist_list(threading.Thread):
     def run(self):
         url = "http://api.jamendo.com/get2/name+id/artist/json/?searchquery=%s&order=%s&n=%s" % (self.search_term, self.order_by, self.num_results)
         #print('get_artist_list: %s' % url)
-        results = json.load(urllib.urlopen(url))
+        results = get_json(url)
         artists = []
         for result in results:
             item = jamtree.Artist(result['id'], result['name'].strip())
@@ -64,7 +75,7 @@ class get_album_list(threading.Thread):
 
     def run(self):
         url = "http://api.jamendo.com/get2/name+id/album/json/?searchquery=%s&order=%s&n=%s" % (self.search_term, self.order_by, self.num_results)
-        results = json.load(urllib.urlopen(url))
+        results = get_json(url)
         albums = []
         for result in results:
             ar = jamtree.Album(result['id'], result['name'].strip())
@@ -86,7 +97,7 @@ class get_artist_list_by_genre(threading.Thread):
 
     def run(self):
         url = "http://api.jamendo.com/get2/name+id/artist/json/?tag_idstr=%s&order=%s&n=%s" % (self.search_term, self.order_by, self.num_results)
-        results = json.load(urllib.urlopen(url))
+        results = get_json(url)
         artists = []
         for result in results:
             item = jamtree.Artist(result['id'], result['name'].strip())
@@ -109,7 +120,7 @@ class get_track_list(threading.Thread):
     def run(self):
         url = "http://api.jamendo.com/get2/id+name+stream+album_id+album_name/track/json/?searchquery=%s&order=%s&n=%s&streamencoding=ogg2" % (self.search_term, self.order_by, self.num_results)
         #print('get_track_list: %s' % url)
-        tracks = json.load(urllib.urlopen(url))
+        tracks = get_json(url)
         track_list = []
         for track in tracks:
             item = jamtree.Track(track['id'], track['name'].strip(), track['stream'])
@@ -133,7 +144,7 @@ class get_albums(threading.Thread):
     def run(self):
         url = "http://api.jamendo.com/get2/id+name/album/json/?artist_id=%s" % self._artist.id
         #print('get_albums: %s' % url)
-        albumresults = json.load(urllib.urlopen(url))
+        albumresults = get_json(url)
         for albumresult in albumresults:
             item = jamtree.Album(albumresult['id'], albumresult['name'].strip())
             self._artist.add_album(item)
@@ -153,7 +164,7 @@ class get_tracks(threading.Thread):
     def run(self):
         url = "http://api.jamendo.com/get2/id+name+stream/track/json/?album_id=%s&streamencoding=ogg2" % self._album.id
         #print('get_tracks: %s' % url)
-        tracks = json.load(urllib.urlopen(url))
+        tracks = get_json(url)
         for track in tracks:
             item = jamtree.Track(track['id'], track['name'].strip(), track['stream'])
             self._album.add_track(item)
@@ -162,5 +173,5 @@ class get_tracks(threading.Thread):
 #Gets the URL for an album image based on a track id
 def get_album_image_url_from_track(track_id):
     url = "http://api.jamendo.com/get2/album_image/track/json/?id=%s&album_imagesize=400" % track_id
-    imageurl = json.load(urllib.urlopen(url))
+    imageurl = get_json(url)
     return "".join(imageurl)

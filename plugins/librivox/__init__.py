@@ -68,7 +68,7 @@ class LVPanel():
     def run_search(self, widget):
         (c_id, msg_id)=self.statusbar.set_status('Searching...')
         self.keyword=unicode(self.entry.get_text(), 'utf-8')
-        self.books=LS.find_books(self.keyword)
+        self.books=LS.find_books(self.keyword, self._user_agent)
         self.generate_treestore(self.books)
         self.statusbar.unset_status(c_id, msg_id)
 
@@ -102,6 +102,8 @@ class LVPanel():
 
         self.name = 'librivox'   # needed for panel provider
         self._panel = None
+        
+        self._user_agent = exaile.get_user_agent_string('librivox')
         
         self.librivoxdir= os.path.dirname(__file__)
         self.abicon = gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/ebook.png')

@@ -32,7 +32,7 @@ def enable(exaile):
 def _enable(devicename, exaile, nothing):
     global STATION
 
-    STATION = ShoutcastRadioStation()
+    STATION = ShoutcastRadioStation(exaile)
     exaile.radio.add_station(STATION)
 
 def disable(exaile):
@@ -59,12 +59,11 @@ class ShoutcastRadioStation(RadioStation):
         >>>
     """
     name = 'shoutcast'
-    def __init__(self):
+    def __init__(self, exaile):
         """
             Initializes the shoutcast radio station
         """
-        self.user_agent = 'Exaile Shoutcast Plugin/%s +http://www.exaile.org' % \
-            main.exaile().plugins.get_plugin_info('shoutcast')['Version']
+        self.user_agent = exaile.get_user_agent_string('shoutcast')
         self.genre_url = 'http://www.shoutcast.com/sbin/newxml.phtml'
         self.cat_url = 'http://www.shoutcast.com/sbin/newxml.phtml?genre=%(genre)s'
         self.playlist_url = 'http://www.shoutcast.com/sbin/tunein-station.pls?id=%(id)s'

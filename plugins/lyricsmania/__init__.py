@@ -19,13 +19,13 @@ except ImportError:
     lxml = None
 
 import re
-import urllib
+import urllib2
 
 from xl.lyrics import (
     LyricSearchMethod,
     LyricsNotFoundException
 )
-from xl import providers
+from xl import common, providers
 
 def enable(exaile):
     """
@@ -33,7 +33,7 @@ def enable(exaile):
         from lyricsmania.com
     """
     if lxml:
-        providers.register('lyrics', LyricsMania())
+        providers.register('lyrics', LyricsMania(exaile))
     else:
         raise NotImplementedError('LXML is not available.')
         return False
@@ -46,6 +46,9 @@ class LyricsMania(LyricSearchMethod):
 
     name= "lyricsmania"
     display_name = "Lyrics Mania"
+    
+    def __init__(self, exaile):
+        self.user_agent = exaile.get_user_agent_string('lyricsmania')
 
     def find_lyrics(self, track):
         try:
@@ -63,7 +66,7 @@ class LyricsMania(LyricSearchMethod):
         url = 'http://www.lyricsmania.com/%s_lyrics_%s.html' % (title, artist)
 
         try:
-            html = urllib.urlopen(url).read()
+            html = common.get_url_contents(url, self.user_agent)
         except:
             raise LyricsNotFoundException
 

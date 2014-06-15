@@ -23,6 +23,8 @@ MAX_SUBMIT = 10     # submit at most this many tracks at one time
 PROTOCOL_VERSION = '1.2'
 __LOGIN      = {}     # data required to login
 
+USER_AGENT_HEADERS = None
+
 class BackendError(Exception):
    "Raised if the AS backend does something funny"
    pass
@@ -38,6 +40,10 @@ class SessionError(Exception):
 class ProtocolError(Exception):
    "Raised on general Protocol errors"
    pass
+
+def set_user_agent(s):
+    global USER_AGENT_HEADERS
+    USER_AGENT_HEADERS = {'User-Agent': s}
 
 def login(user, password, hashpw=False, client=('exa', '0.3.0'),
    post_url=None):
@@ -88,7 +94,7 @@ def login(user, password, hashpw=False, client=('exa', '0.3.0'),
          'a': token
          }
    data = urllib.urlencode(values)
-   req = urllib2.Request("%s?%s" % (url, data) )
+   req = urllib2.Request("%s?%s" % (url, data), None, USER_AGENT_HEADERS )
    response = urllib2.urlopen(req)
    result = response.read()
    lines = result.split('\n')
@@ -181,7 +187,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
 
     data = urllib.urlencode(values)
 
-    req = urllib2.Request(NOW_URL, data)
+    req = urllib2.Request(NOW_URL, data, USER_AGENT_HEADERS)
     response = urllib2.urlopen(req)
     result = response.read()
 
@@ -314,7 +320,7 @@ you login?''')
    values['s'] = SESSION_ID
 
    data = urllib.urlencode(values)
-   req = urllib2.Request(POST_URL, data)
+   req = urllib2.Request(POST_URL, data, USER_AGENT_HEADERS)
    response = urllib2.urlopen(req)
    result = response.read()
    lines = result.split('\n')

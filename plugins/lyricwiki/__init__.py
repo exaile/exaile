@@ -10,7 +10,7 @@ from xl.lyrics import (
     LyricSearchMethod,
     LyricsNotFoundException
 )
-from xl import providers
+from xl import common, providers
 
 def enable(exaile):
     """
@@ -18,7 +18,7 @@ def enable(exaile):
         from lyrics.wikia.com
     """
     if BeautifulSoup:
-        providers.register('lyrics', LyricWiki())
+        providers.register('lyrics', LyricWiki(exaile))
     else:
         raise NotImplementedError('BeautifulSoup is not available.')
         return False
@@ -30,6 +30,9 @@ class LyricWiki(LyricSearchMethod):
 
     name= "lyricwiki"
     display_name = "Lyric Wiki"
+    
+    def __init__(self, exaile):
+        self.user_agent = exaile.get_user_agent_string('lyricwiki')
 
     def find_lyrics(self, track):
         try:
@@ -47,7 +50,7 @@ class LyricWiki(LyricSearchMethod):
         url = 'http://lyrics.wikia.com/%s:%s' % (artist, title)
 
         try:
-            html = urllib.urlopen(url).read()
+            html = common.get_url_contents(url, self.user_agent)
         except:
             raise LyricsNotFoundException
 

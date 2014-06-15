@@ -36,6 +36,7 @@ from ConfigParser import (
 )
 import logging
 import os
+import sys
 
 import glib
 
@@ -81,6 +82,8 @@ class SettingsManager(RawConfigParser):
         self.location = location
         self._saving = False
         self._dirty = False
+
+        print 'settings', location, default_location
 
         if default_location is not None:
             try:
@@ -317,6 +320,16 @@ class SettingsManager(RawConfigParser):
         self._dirty = False
         
 location = xdg.get_config_dir()
+
+
+# Provide a mechanism for setting up default settings for different platforms
+if sys.platform == 'win32':
+    __settings_file = 'settings-win32.ini'
+elif sys.platform == 'darwin':
+    __settings_file = 'settings-osx.ini'    
+else:
+    __settings_file = 'settings.ini'
+
 
 MANAGER = SettingsManager(
     os.path.join(location, "settings.ini"),

@@ -37,6 +37,10 @@ import sys
 if sys.platform != 'win32':
     gtk.gdk.threads_init()
     gtk.gdk.threads_enter()
+    
+if sys.platform == 'darwin':
+    __icon_theme = gtk.icon_theme_get_default()
+    __icon_theme.append_search_path('/Library/Frameworks/GStreamer.framework/Versions/0.10/share/icons')
 
 from xl import (
     common,

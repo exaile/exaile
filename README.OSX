@@ -1,94 +1,67 @@
 
-Exaile Notes/Installation for OSX
+Exaile for OSX installation notes
 =================================
 
-Exaile support for OSX is currently limited, as no current developers 
-actively maintain/use Exaile on OSX. Usage of Exaile on OSX is considered
-experimental at this point, and is only recommended for technical users.
+We're excited to announce that Exaile has experimental yet official support
+for OSX as of version 3.4.0, and is distributed in an official installer
+program. Current support for OSX is still considered experimental, and
+probably will continue to be until we migrate to GTK3.
 
-However, it *is* known to work. If you find this isn't the case, report
-any bugs you find to https://bugs.launchpad.net/exaile 
+Exaile has only been tested extensively on OSX 10.8 Mountain Lion. It may
+work on other versions of OSX, but they have not been tested. 
 
-Exaile has been found to work using PyGTK and GStreamer installed from 
-Macports. We have not explored other ways to run it. 
+Requirements
+============
 
-Install Dependencies using Macports
-===================================
+Exaile requires the GStreamer SDK Runtime to be installed, otherwise it 
+will not function. 
 
-First, you must install macports. See http://www.macports.org/install.php
-for information on how to do this. 
+Download the SDK runtime for OSX here:
 
-Second, it is believed that X11 is required to run things that use GTK on
-OSX installed by macports. You should ensure that X11 is installed on your
-system. According to the macports website:
-
-    (Optional) The X11 windowing environment for ports that depend on the
-    functionality it provides to run.  You have multiple choices for an 
-    X11 server:
-
-    - Apple's X11.app is provided by the “X11 User” package (an optional 
-    installation on your system CDs/DVD for older OS Versions and provided
-    unconditionally on Lion).
-    - Install the xorg-server port from MacPorts.
-    - The XQuartz Project (http://xquartz.macosforge.org/) provides a 
-    complete X11 release for OS X including server and client libraries and
-    applications.
-
-The following macports packages *must* be installed from macports for Exaile 
-to function. Some plugins may require other packages.
-
-    python27
-    py27-gtk
-    py27-mutagen
-    py27-gst-python
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-ugly
+    http://docs.gstreamer.com/display/GstSDK/Installing+on+Mac+OS+X
     
-You can install these using the standard macports install command:
+Or use this direct download link:
 
-    sudo port install PACKAGENAME [PACKAGENAME2 ... ]
-    
-After installing python27, we recommend that you set the Macports version of
-python to be the default. You can execute the following commands to do this: 
+    http://cdn.gstreamer.com/osx/universal/gstreamer-sdk-2013.6-universal.pkg
 
-    sudo port install python_select
-    sudo port select python python27
-    
-Exaile Installation
-===================
+The default installation will allow the Exaile UI to work correctly, and 
+should support playing many types of audio formats. 
 
-You should be able to install Exaile using the following command:
+MP3 support
+===========
 
-    DEFAULTARGS="--no-hal --no-dbus" PREFIX=/opt/local make install
-    
-Running Exaile 
-==============
+By default GStreamer SDK does not install support for MP3 files or certain
+other formats because of licensing issues. If you require support for these
+types of files, use the following procedure when installing GStreamer SDK.
 
-Before starting exaile, you must ensure that X11 is running. If X11 is not 
-running, you will get a lot of errors complaining about DISPLAY not found 
-or "GDK_IS_WINDOW() == NULL", and exaile will crash. 
-    
-To start Exaile, open up a terminal, type 'exaile', and hit enter.
+- Run the GStreamer installation package
+- Click continue
+- Click "Agree" to agree to the license agreement
+- Click "Install for all users of this computer", and click "Continue"
+- Click "Customize"
+- Ensure the following package names are checked in addition to the defaults:
+    - GStreamer codecs under the GPL license
+    - GStreamer restricted codecs 
+    - GStreamer plugins for network protocols
 
-If you create a file somewhere called 'exaile.sh', and put the following
-text in it (without the leading spaces), and run 'chmod +x exaile.sh' on
-the file, you should be able to run exaile from finder by double clicking
-the file. 
+- Click Install, and it should do the install for you
 
-    #!/bin/sh
-    exaile
+Known issues
+============
 
-TODO: Figure out an easy way to create an icon for Exaile in finder. It's
-probably easy to do, but someone with more OSX experience will know the
-proper way to do this. 
+The OSX version is about as functional as the Windows version, so most things
+will work without any problems. The CD plugin and other device plugins will
+not work on OSX.
 
-    
-Changing the way Exaile looks
-=============================
+Transparency may not work.
 
-By default, macports installs a pretty ugly GTK theme on OSX, and Exaile 
-does not look anything like other apps on OSX. You can install the 
-gtk-theme-switch and gnome-themes packages from macports, and then run 
-'switch2' to change the theme for your user. 
+Keyboard shortcuts aren't mapped to the option/command keys, and are still
+mapped to CTRL.
+
+GTK2 seems to have a lot of odd problems on OSX, such as combo boxes immediately
+switching when clicked. We anticipate that these will not be fixed until we
+migrate exaile to GTK3. 
+
+
+
 

@@ -5,5 +5,5 @@ rm -rf build Exaile Exaile.dmg
 
 python setup.py py2app
 
-cp README.txt Exaile
+cp ../../README.OSX Exaile/README.txt
 hdiutil create -srcfolder Exaile Exaile.dmg

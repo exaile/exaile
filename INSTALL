@@ -1,8 +1,27 @@
 
+Install on OSX
+==============
+
+On OSX, using the official OSX installation DMG is recommended.
+
+To build your own Exaile.app, install py2app and run tools/osx/create_dmg.sh.
+This will run all of the correct steps to create a DMG image and Exaile
+application which you can drag into the Applications directory in finder.
+
+Windows
+=======
+
+On Windows, using the official Windows installation program is recommended.
+See README.Windows for more information. 
+
+To build your own installer, install NSIS and compile
+tools/win-installer/exaile_installer.nsi . This should produce a setup.exe
+that you can run to install exaile + dependencies.
+
 Linux/*nix
 ==========
 
-On *nix-based systems, run the following to install:
+On *nix-based systems (but not OSX), run the following to install:
 
   $ make
   # make install
@@ -12,24 +31,8 @@ The "make" step is optional and only compiles the modules and translations.
 There is also an install_no_locale target if you wish to install without 
 translations.
 
-Install on OSX
-==============
-
-On OSX with macports, you probably want to run the following:
-
-    $ make
-    # DEFAULTARGS="--no-hal --no-dbus" PREFIX=/opt/local make install
-    
-See README.OSX for more information.
-
-Windows
-=======
-
-On Windows, using the official Windows installation program is recommended.
-See README.Windows for more information. 
-
 Environment Variables
-=====================
+---------------------
 
 Environment variables that affect "make install":
 

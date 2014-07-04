@@ -186,10 +186,10 @@ class ProviderHandler(object):
             :param servicename: the name of the service to handle
             :type servicename: string
             :param target: the target for a provided service. Generally, 
-            this will be the object that uses the service
+                           this will be the object that uses the service
             :type target: string
             :param simple_init: call on_provider_added for every element
-                already registered on instantiation.
+                                already registered on instantiation.
         """
         self.servicename = servicename
         self.target = target

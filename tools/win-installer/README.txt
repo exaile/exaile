@@ -2,14 +2,21 @@
 
 Requirements for building installer
 -----------------------------------
+ 
+You can install these on Windows or Linux (if you have Wine installed).
 
-- Install NSIS: http://nsis.sourceforge.net
-- Install NSIS Inetc Plugin: http://nsis.sourceforge.net/Inetc_plug-in
-    - Plugin installation procedure is copy the contents of the zip file to
-    the NSIS installation directory.. 
+* Install NSIS: http://nsis.sourceforge.net
+* Install NSIS Inetc Plugin: http://nsis.sourceforge.net/Inetc_plug-in
+    * Unzip it to ~/.wine/drive_c/Program Files (x86)/NSIS
+    * Or on windows, to C:\Program Files\NSIS 
 
-Usage
------
+Usage (Linux)
+-------------
+
+Just run 'make dist' from the main exaile directory.
+
+Usage (Windows)
+---------------
 
 From Exaile main directory:
 - bzr export dist/copy

@@ -255,8 +255,13 @@ class Exaile(object):
             sys.exit(1)
 
         from xl import event
-        # Set up the player and playback queue
         from xl import player
+        
+        # Set up the player and playback queue
+        player.PLAYER = player.get_player('player')
+        player.QUEUE = player.queue.PlayQueue(player.PLAYER, 'queue',
+                                              location=os.path.join(xdg.get_data_dir(), 'queue.state'))
+        
         event.log_event("player_loaded", player.PLAYER, None)
 
         # Initalize playlist manager

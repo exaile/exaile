@@ -22,6 +22,16 @@ from os.path import abspath, join, dirname
 os.environ['EXAILE_DIR'] = abspath(join(dirname(__file__), os.pardir))
 sys.path.append(os.environ['EXAILE_DIR'])
 
+# indicate that we're building docs
+os.environ['EXAILE_BUILDING_DOCS'] = 'TRUE'
+
+#
+# Allow building on systems which don't have all dependencies installed
+#
+
+sys.path.append('.')
+import mocks
+sys.path.pop()
 
 
 # -- General configuration -----------------------------------------------------
@@ -50,10 +60,6 @@ copyright = u'2009-2014 Exaile Development Team'
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
-# The short X.Y version.
-#version = '0.3'
-# The full version, including alpha/beta/rc tags.
-#release = '0.3.x'
 
 import xl.version
 version = xl.version.major

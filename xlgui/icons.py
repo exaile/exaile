@@ -821,6 +821,7 @@ class IconManager(object):
         inactive_pixbufs = inactive_pixbuf * (maximum - rating)
         return active_pixbufs + inactive_pixbufs
 
-MANAGER = IconManager()
+if 'EXAILE_BUILDING_DOCS' not in os.environ:
+    MANAGER = IconManager()
 
 # vim: et sts=4 sw=4

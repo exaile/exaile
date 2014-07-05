@@ -158,7 +158,7 @@
 
 ; Use the official python.org Python packages
 !define PYTHON_VERSION          "2.7"
-!define PYTHON_FULL_VERSION     "2.7.5"
+!define PYTHON_FULL_VERSION     "2.7.8"
 !define PYTHON_PATH             "C:\Python27"
 !define PYTHON_FN               "python-${PYTHON_FULL_VERSION}.msi"
 !define PYTHON_FSIZE            "16MB"
@@ -167,9 +167,9 @@
 !define PYTHON_CMD              "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
 
 ; Use the mutagen setup package
-!define MUTAGEN_VERSION         "1.22"
+!define MUTAGEN_VERSION         "1.23"
 !define MUTAGEN_FN              "mutagen-${MUTAGEN_VERSION}.tar.gz"
-!define MUTAGEN_FSIZE           "799KB"
+!define MUTAGEN_FSIZE           "815KB"
 !define MUTAGEN_URL             "https://bitbucket.org/lazka/mutagen/downloads/${MUTAGEN_FN}"
 ;!define MUTAGEN_URL             "${TEST_URL}/${MUTAGEN_FN}"
 !define MUTAGEN_CMD             "${PYTHON_PATH}\python.exe $PLUGINSDIR\install_targz.py $DAI_TMPFILE"

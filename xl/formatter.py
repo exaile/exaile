@@ -745,6 +745,9 @@ class LocationTagFormatter(TagFormatter):
             :returns: the formatted value
             :rtype: string
         """
+        path = track.get_local_path()
+        if path is not None:
+            return path
         return common.sanitize_url(track.get_tag_raw('__loc'))
 providers.register('tag-formatting', LocationTagFormatter())
 

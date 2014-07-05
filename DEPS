@@ -1,4 +1,4 @@
-List of dependencies for Exaile 0.3
+List of dependencies for Exaile 3.4
 ===================================
 
 .. note:plugin dependencies should be listed in their description
@@ -24,9 +24,11 @@ Documentation:
 * sphinx
 * help2man
 
-Device detection:
+Device detection (one of the following):
 
 * hal
+* udisks
+* udisks2
 
 CD info:
 
@@ -35,3 +37,4 @@ CD info:
 Scalable icons:
 
 * librsvg2
+

@@ -29,7 +29,7 @@ os.environ['EXAILE_BUILDING_DOCS'] = 'TRUE'
 # Allow building on systems which don't have all dependencies installed
 #
 
-sys.path.append('.')
+sys.path.append(abspath(dirname(__file__)))
 import mocks
 sys.path.pop()
 

@@ -8,10 +8,23 @@ release for Exaile.
 Step one: Translations
 ----------------------
 
-First, make sure that all translations are merged into the release branch.
+Merge the translations branch for the current series.
 
-TODO... don't actually know how this works.
+If a new series was created and no translations branch exists, follow
+these steps:
 
+* Create a new branch for translations, include the series in the branch
+  name, like "translations-3.4.x" for the "3.4.x" series
+* Open the translation settings page of the series on Launchpad:
+  https://translations.launchpad.net/exaile/3.4.x/+translations-settings
+* In "Import translations from branch" you should at least select
+  "Import template files" to have changes in code automatically show up
+  in the translation tool of Launchpad.
+* In "Export translations to branch" you just "Choose a target branch",
+  namely the one you just created.
+
+You can reach the settings for all series via the general translations
+page: https://translations.launchpad.net/exaile
 
 Step two: Version bumping
 -------------------------

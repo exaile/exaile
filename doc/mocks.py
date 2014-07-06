@@ -41,6 +41,7 @@ class Mock(object):
 
 MOCK_MODULES = [
     'cairo',
+    'dbus',
     'gio',
     'glib',
     'gst',

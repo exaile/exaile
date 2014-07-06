@@ -83,8 +83,6 @@ class SettingsManager(RawConfigParser):
         self._saving = False
         self._dirty = False
 
-        print 'settings', location, default_location
-
         if default_location is not None:
             try:
                 self.read(default_location)

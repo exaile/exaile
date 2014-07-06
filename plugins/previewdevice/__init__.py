@@ -86,7 +86,7 @@ class SecondaryOutputPlugin(object):
         # Initialize the player objects needed
         #
     
-        self.player = player.get_player()('preview_device')
+        self.player = player.get_player('preview_device')
         self.queue = player.queue.PlayQueue( self.player, 
                                              location=os.path.join(xdg.get_data_dir(), 'preview_device_queue.state'),
                                              name='Preview Device Queue')

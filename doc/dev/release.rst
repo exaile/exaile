@@ -81,3 +81,9 @@ The version in trunk should reflect the upcoming release with a -dev in it.
 
 TODO: Except after a beta/RC? What's the right transition?
 
+Step seven: send release notices
+--------------------------------
+
+* Update download links on exaile.org
+* Add article to exaile.org
+* Send email to mailing lists

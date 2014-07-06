@@ -1,6 +1,6 @@
 
-Exaile for OSX installation notes
-=================================
+OSX Notes
+=========
 
 We're excited to announce that Exaile has experimental yet official support
 for OSX as of version 3.4.0, and is distributed in an official installer
@@ -8,13 +8,13 @@ program. Current support for OSX is still considered experimental, and
 probably will continue to be until we migrate to GTK3.
 
 Exaile has only been tested extensively on OSX 10.8 Mountain Lion. It may
-work on other versions of OSX, but they have not been tested. 
+work on other versions of OSX, but they have not been tested.
 
 Requirements
-============
+------------
 
-Exaile requires the GStreamer SDK Runtime to be installed, otherwise it 
-will not function. 
+On OSX, Exaile requires the GStreamer SDK Runtime to be installed, otherwise
+it will not function. 
 
 Download the SDK runtime for OSX here:
 
@@ -25,10 +25,19 @@ Or use this direct download link:
     http://cdn.gstreamer.com/osx/universal/gstreamer-sdk-2013.6-universal.pkg
 
 The default installation will allow the Exaile UI to work correctly, and 
-should support playing many types of audio formats. 
+should support playing many types of audio formats.
+
+Install process
+---------------
+
+Install Exaile like you would install any other OSX application.
+
+* Open the DMG file
+* Drag the Exaile application to the "Applications" folder
+ 
 
 MP3 support
-===========
+-----------
 
 By default GStreamer SDK does not install support for MP3 files or certain
 other formats because of licensing issues. If you require support for these
@@ -47,7 +56,7 @@ types of files, use the following procedure when installing GStreamer SDK.
 - Click Install, and it should do the install for you
 
 Known issues
-============
+------------
 
 The OSX version is about as functional as the Windows version, so most things
 will work without any problems. The CD plugin and other device plugins will

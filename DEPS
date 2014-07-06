@@ -1,10 +1,14 @@
-List of dependencies for Exaile 3.4
-===================================
+Installation dependencies
+=========================
 
-.. note:plugin dependencies should be listed in their description
+The official installers for Windows and OSX should already come with/install
+the necessary dependencies for base functionality to work.
+
+.. note:: Plugin dependencies should be listed in their description
 
 Dependencies
 ------------
+
 Essential:
 
 * python (>= 2.6)

@@ -1,6 +1,6 @@
 
-Exaile tips/tricks/notes for running on Windows
-===============================================
+Windows Notes
+=============
 
 We're excited to announce that Exaile has official support for Windows 
 platforms as of version 3.3.0, and is distributed in an official installer
@@ -11,8 +11,8 @@ Exaile (and its installer) has been tested on:
     Windows XP SP3
     Windows 7 x64 SP1
     
-    Python 2.7.3 (32-bit)
-    GStreamer.com SDK 2012.9 (32-bit)
+    Python 2.7.8 (32-bit)
+    GStreamer.com SDK 2013.6 (32-bit)
 
 Exaile does work using the 64-bit version of Python and the GStreamer SDK;
 however, the Exaile installer will only install the 32-bit versions. Exaile may
@@ -21,21 +21,16 @@ configuration.
 
 
 Running Exaile
-==============
+--------------
 
-Launch "exaile.bat". If exaile does not launch, or if you want to see debug 
-output from Exaile, then launch "exaile.bat --console"
+If you installed exaile using the Windows installer, you can find icons to
+launch Exaile in the Start Menu under "All Programs" -> "Exaile".
 
-exaile.bat has a number of diagnostic test that it performs while launching 
-Exaile, and its output may be able to inform you of any possible problems if 
-exaile does not launch. 
-
-You can launch exaile by just launching exaile.py . However, unless your 
-environment is setup correctly, it will probably fail. 
+Alternatively, you can directly launch "exaile_win.py".
 
 
 Exaile DirectSound plugin (libgstexailedirectsoundsink.dll)
-===========================================================
+-----------------------------------------------------------
 
 Exaile currently includes a custom DirectSound GST plugin that is compiled
 against the GStreamer.com SDK git repository as of September 2012. 
@@ -53,7 +48,7 @@ the audiosink in Preferences->Playback
 
 
 GStreamer.com SDK bugs
-======================
+----------------------
 
 2012.9:
 
@@ -77,7 +72,7 @@ GStreamer.com SDK bugs
 
 
 Possible Errors and Solutions
-=============================
+-----------------------------
 
 The GStreamer.com SDK environment is a bit fragile and can sometimes cause
 mysterious problems when launching exaile. Some of the known issues that have
@@ -89,28 +84,29 @@ specified module could not be found.')"
     This has been observed when there are multiple versions of Glib/GTK on your
     system. Possible problems may include:
 
-    - You have a GTK living somewhere else that isn't compatible with the 
-    GStreamer.com SDK. This happens if you have GStreamer SDK and PyGTK 
-    installed on the same machine.
+    * You have a GTK living somewhere else that isn't compatible with the 
+      GStreamer.com SDK. This happens if you have GStreamer SDK and PyGTK 
+      installed on the same machine.
     
-    - You may have MinGW installed somewhere else with older DLLs that are not
-    compatible with the GStreamer.com SDK
+    * You may have MinGW installed somewhere else with older DLLs that are not
+      compatible with the GStreamer.com SDK
 
     What you can do to diagnose the problem:
-    - Get depends.exe: http://www.dependencywalker.com/
-    - Modify exaile.bat to launch depends instead of exaile (that way the 
+    
+    * Get depends.exe: http://www.dependencywalker.com/
+    * Modify exaile.bat to launch depends instead of exaile (that way the 
       environment is identical)
-    - Load %GSTREAMER_SDK_ROOT_X86%\lib\python2.7\site-packages\gst-0.10\gst\_gst.pyd 
+    * Load %GSTREAMER_SDK_ROOT_X86%\lib\python2.7\site-packages\gst-0.10\gst\_gst.pyd 
       in depends.exe (the pyd file is really a DLL), and see what errors it 
       reports. This should be able to tell you what DLL is conflicting, and what
       its path is
 
 
 Bug Reporting
-=============
+-------------
 
 If exaile crashes, you should be able to find a logfile from the last time
-exaile was launched in the following directories:
+exaile was launched in the following directories::
     
     Windows XP: %USERPROFILE%\Local Settings\Application Data\exaile\logs
     Windows 7:  %USERPROFILE%\AppData\Local\exaile\logs

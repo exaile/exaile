@@ -35,6 +35,7 @@ import os.path
 from xl import (
     metadata, 
     providers,
+    settings,
     xdg
 )
 from xl.common import clamp
@@ -1544,4 +1545,45 @@ def ask_for_playlist_name(playlist_manager, name=None):
             error(None, _("The playlist name you entered is already in use."))
         else:
             return name
+
+def save(parent, output_fname, output_setting=None, extensions=None, title=_("Save As")):
+    """
+        A 'save' dialog utility function, which can be used to easily
+        remember the last location the user saved something.
+        
+        :param parent:          Parent window
+        :param output_fname:    Output filename
+        :param output_setting:  Setting to store the last 'output directory' saved at
+        :param extensions:      Valid output extensions. Dict { '.m3u': 'Description', .. }
+        :param title:           Title of dialog
+        
+        :returns: None if user cancels, chosen URI otherwise
+    """
+    
+    uri = None
+    
+    dialog = FileOperationDialog(title, parent,
+            gtk.FILE_CHOOSER_ACTION_SAVE,
+            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_SAVE, gtk.RESPONSE_ACCEPT))
+    
+    if extensions is not None:
+        dialog.add_extensions(extensions)
+    
+    dialog.set_current_name(output_fname)
+    
+    if output_setting:
+        output_dir = settings.get_option(output_setting)
+        if output_dir:
+            dialog.set_current_folder_uri(output_dir)
+        
+    if dialog.run() == gtk.RESPONSE_ACCEPT:
+        uri = dialog.get_uri()
+        
+        settings.set_option(output_setting, dialog.get_current_folder_uri())
+        
+    dialog.destroy()
+        
+    return uri
+    
 

@@ -5,8 +5,9 @@ def N_(x): return x
 class _TD(object):
     
     __slots__ = [
-        'name',
-        'translated_name',
+        'name',                 # descriptive name
+        'translated_name',      # translated name
+        'tag_name',             # raw tag name
         'type',
         'editable',
         'min',
@@ -81,9 +82,12 @@ tag_data = {
     '__stopoffset':     _TD(N_('Stop offset'),  'time', min=0, max=3600),
 }
 
+for k, v in tag_data.iteritems():
+    if v:
+        v.tag_name = k
 
 def get_default_tagdata(tag):
     '''If the tagname is not in tag_data, you can use this function
        to get a _TD object for it'''
     
-    return _TD(tag, 'text', editable=(not tag.startswith('__')))
+    return _TD(tag, 'text', editable=(not tag.startswith('__')), tag_name=tag)

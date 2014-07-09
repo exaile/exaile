@@ -31,7 +31,7 @@ import gtk
 import os
 import threading
 
-from xl import event, xdg
+from xl import event, settings, xdg
 from xlgui import icons
 
 # moved idle_add to common, useful for more than just GUI stuff :)
@@ -506,4 +506,47 @@ def initialize_from_xml(this, other=None):
     
     return builder
 
+def persist_selection(widget, key_col, setting_name):
+    '''
+        Given a widget that is using a gtk.ListStore, it will restore the
+        selected index given the contents of a setting. When the widget
+        changes, it will save the choice. 
+        
+        Call this on the widget after you have loaded data
+        into the widget. 
+    
+        :param widget:         gtk.ComboBox or gtk.TreeView
+        :param col:            Integer column with unique key
+        :param setting_name:   Setting to save key to/from
+    '''
+    
+    model = widget.get_model()
+    
+    key = settings.get_option(setting_name)
+    if key is not None:
+        for i in xrange(0, len(model)):
+            if model[i][key_col] == key:
+                if hasattr(widget, 'set_active'):
+                    widget.set_active(i)
+                else:
+                    widget.set_cursor((i,))
+                break
+    
+    if hasattr(widget, 'set_active'):
+    
+        def _on_changed(widget):
+            active = widget.get_model()[widget.get_active()][key_col]
+            settings.set_option(setting_name, active)
+            
+        widget.connect('changed', _on_changed)
+        
+    else:
+        
+        def _on_changed(widget):
+            model, i = widget.get_selected()
+            active = model[i][key_col]
+            settings.set_option(setting_name, active)
+        
+        widget.get_selection().connect('changed', _on_changed)
+    
 # vim: et sts=4 sw=4

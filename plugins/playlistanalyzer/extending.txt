@@ -1,0 +1,59 @@
+Add your own analysis
+=====================
+
+The playlist analyzer plugin reads from the templates directory and provides 
+those as output options to the user. The user is given a choice of tags to
+output.
+
+This format is experimental and highly subject to change.
+
+Meta tags
+---------
+
+<meta name="name" content="display name" />
+
+This provides the name of the template to display to the user.
+
+<meta name="description" content="description of layout">
+
+This provides a description of the template to the user.
+	
+<meta name="mintags" content="1" />
+<meta name="maxtags" content="1" />
+
+Number of tags this layout supports.
+
+Template data
+-------------
+
+The data is written as specified by the user in the following form:
+
+	data = [
+		[tag1, ... tagN],	# first track
+		...					# second, etc
+	]
+	
+The grouping tag will be written out as a list of tags.
+	
+	
+Template insertion
+------------------
+
+The plugin treats the template as a giant string, and uses python format
+string functionality to substitute data into the template. 
+
+- Anything with a % in it should be %%
+- The following special strings will be subsituted
+
+    - %(data)s              - The data as JSON (see above for format)
+    - %(title)s             - User defined title
+    - %(tagdata)s           - A list of tuples of tagname, extra
+    - %(playlist_names)s    - A list of the playlists included 
+
+Contributing
+============
+	
+The included report types only begin to scratch the surface of what's
+available. If you have ideas for other types of useful analysis that 
+could be done on playlists, implement it and submit a patch to the exaile
+project on Launchpad.

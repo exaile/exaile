@@ -1,0 +1,5 @@
+Version="0.1"
+Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
+Name=_("Playlist Analyzer")
+Description=_("Various types of playlist analysis")
+Category=_("Information")

@@ -63,7 +63,9 @@ def get_player(*args, **kwargs):
         from xl.player.engine_normal import NormalPlayer
         return NormalPlayer(*args, **kwargs)
 
-# These get initialized in xl.main
-PLAYER = None
-QUEUE = None
+
+# TODO: write a better interface than this
+PLAYER = get_player('player')
+QUEUE = queue.PlayQueue(PLAYER, 'queue',
+        location=os.path.join(xdg.get_data_dir(), 'queue.state'))
 

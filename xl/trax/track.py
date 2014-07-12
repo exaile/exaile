@@ -498,7 +498,7 @@ class Track(object):
         else:
             value = self.__tags.get(tag)
 
-        if join and value:
+        if join and value and not tag.startswith('__'):
             return self.join_values(value)
 
         return value

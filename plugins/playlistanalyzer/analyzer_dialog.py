@@ -33,7 +33,7 @@ from xlgui import guiutil
 
 from xl import settings
 from xl.nls import gettext as _
-from xl.metadata.tags import tag_data
+from xl.metadata.tags import get_default_tagdata, tag_data
 
 from xlgui.widgets import dialogs
 
@@ -97,7 +97,15 @@ class AnalyzerDialog(object):
                 return td.translated_name
         
         # convenience
-        self.__sorted_tags = sorted(tag_data.values(), key=tag_data_key)
+        td = tag_data.values()
+        
+        # Add grouptagger to the list
+        gt = get_default_tagdata('__grouptagger')
+        gt.translated_name = _('GroupTagger')
+        
+        td.append(gt)
+        
+        self.__sorted_tags = sorted(td, key=tag_data_key)
     
         # setup the selected template
         guiutil.persist_selection(self.template_list, 0, 'plugin/playlistanalyzer/last_tmpl')
@@ -239,19 +247,19 @@ class AnalyzerDialog(object):
         return model.get(it, 1)[0]
     
     def _get_tag_data(self):
-        tag_data = []
+        td = []
         
         for cb, sp in self.__tag_widgets:
             if cb.get_active() < 0:
-                tag_data.append(None)
+                td.append(None)
             else:
                 data = cb.get_model()[cb.get_active()][1]
                 if data.type == 'int':
-                    tag_data.append((data.tag_name, sp.get_value_as_int()))
+                    td.append((data.tag_name, sp.get_value_as_int()))
                 else:
-                    tag_data.append((data.tag_name, None))
+                    td.append((data.tag_name, None))
         
-        return tag_data
+        return td
     
     def _get_title(self):
         title = self.title_entry.get_text().strip()
@@ -282,7 +290,7 @@ class AnalyzerDialog(object):
         # cheat, just set the settings so when the template switches
         # it will automatically enable the right settings
         for i, td in enumerate(data):
-            settings.set_option('plugins/playlistanalyzer/tag%s' % i, td)
+            settings.set_option('plugin/playlistanalyzer/tag%s' % i, td)
         
         # switch the template
         for i in xrange(0, len(self.template_store)):
@@ -353,6 +361,7 @@ class AnalyzerDialog(object):
         
             self.plugin.write_to_file(tmpl_data['fname'], output_uri, **kwargs)
         except Exception as e:
+            logger.exception("Error generating analysis")
             self.info_bar.show_error("Error generating analysis", str(e))
         else:
             # and that's all folks

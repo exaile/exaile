@@ -94,7 +94,7 @@ class PlaylistAnalyzerPlugin(object):
         if self._get_track_groups is None:
         
             if 'grouptagger' not in self.exaile.plugins.enabled_plugins:
-                raise ValueError("GroupTagger plugin must be loaded to use the grouping tag")
+                raise ValueError("GroupTagger plugin must be loaded to use the GroupTagger tag")
         
             self._get_track_groups = self.exaile.plugins.enabled_plugins['grouptagger'].get_track_groups
             
@@ -134,9 +134,8 @@ class PlaylistAnalyzerPlugin(object):
             
             if data.use_disk:
                 return track.get_tag_disk(tagname)
-            
-        # hm. support grouptagger and non-grouptagger version?
-        if tagname == 'grouping':
+        
+        if tagname == '__grouptagger':
             return list(self.get_track_groups(track))
         
         return track.get_tag_raw(tagname, join=True)

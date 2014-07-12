@@ -63,6 +63,8 @@ data.forEach(function(d){
 	if (d == null)
 		return;
 	
+	if (d[0] == null) d[0] = '<unknown>'
+	
 	// some tags are array elements
 	if (Array.isArray(d[0]))
 		d[0].forEach(function(d2){

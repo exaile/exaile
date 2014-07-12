@@ -15,6 +15,14 @@
   stroke-width: 1.5px;
 }
 
+.node.hovered {
+  stroke: black;
+}
+
+.node.dragging {
+  fill: '#ff0000';
+}
+
 .link {
   fill: none;
   stroke: #999;
@@ -167,6 +175,8 @@ var node = svg.append("g").selectAll(".node")
   .enter().append("circle")
     .attr("class", function(d) { return "node " + d.id; })
     .attr("r", function(d) { d.radius = node_size(d.size); return d.radius; })
+    .on("mouseover", function(d) { d3.select(this).classed('hovered', true); })
+	.on("mouseleave", function(d) { d3.select(this).classed('hovered', false); })
     .call(drag);
 
 var text = svg.append("g").selectAll("text")
@@ -176,6 +186,7 @@ var text = svg.append("g").selectAll("text")
     .attr("y", ".31em")
   .text(function(d) { return d.id; });
 
+//from http://bl.ocks.org/mbostock/6123708
 function zoomed() {
   svg.attr("transform", "translate(" + d3.event.translate + ") scale(" + d3.event.scale + ")");
 }
@@ -210,20 +221,25 @@ function transform(d) {
 }
 
 function dragstarted(d) {
-	force.start();
+	force.stop();
 	d3.event.sourceEvent.stopPropagation();
 	d3.select(this).classed("dragging", true);
 }
 
 function dragged(d) {
-	d.x = d3.event.x;
-	d.y = d3.event.y;
+
+	if (!d.fixed)
+		d.fixed = true;
 	
-	d3.select(this).attr("transform", transform);
+	d.px = d.x = d3.event.x;
+	d.py = d.y = d3.event.y;
+	
+	tick();
 }
 
 function dragended(d) {
 	d3.select(this).classed('dragging', false);
+	force.start();
 }
 
 </script>

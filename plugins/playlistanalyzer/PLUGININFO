@@ -1,5 +1,5 @@
 Version="0.1"
 Authors=['Dustin Spicuzza <dustin@virtualroadside.com>']
 Name=_("Playlist Analyzer")
-Description=_("Various types of playlist analysis")
+Description=_("Tool to help generate HTML5 visualizations of your playlists using d3.js. Optimized for Chrome.")
 Category=_("Information")

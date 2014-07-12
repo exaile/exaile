@@ -80,6 +80,9 @@ var outerId = [0];
 
 data.forEach(function(d){
 	
+	if (d == null)
+		return;
+	
 	i = { id: 'i' + inner.length, name: d[0], related_links: [] };
 	i.related_nodes = [i.id];
 	inner.push(i);

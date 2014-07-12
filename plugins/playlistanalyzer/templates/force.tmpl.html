@@ -62,6 +62,8 @@ data.forEach(function(d){
         tmp[0] = null;
         return;
     }
+    
+    if (d[0] == null) d[0] = '<unknown>'
 
     var nid = d[0].toString();
     var o = nodes.get(nid);

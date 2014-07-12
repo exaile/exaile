@@ -147,7 +147,10 @@ class PlaylistAnalyzerPlugin(object):
         data = []
         
         for track in tracks:
-            data.append([self.get_tag(track, tag, extra) for tag, extra in tagdata])
+            if track is None:
+                data.append(None)
+            else:
+                data.append([self.get_tag(track, tag, extra) for tag, extra in tagdata])
         
         return data
     

@@ -59,6 +59,10 @@ var vals = d3.map();
 // simple frequency counter. probably more interesting things
 // we can do with this.. 
 data.forEach(function(d){
+	
+	if (d == null)
+		return;
+	
 	// some tags are array elements
 	if (Array.isArray(d[0]))
 		d[0].forEach(function(d2){

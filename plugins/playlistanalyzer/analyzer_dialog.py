@@ -149,8 +149,11 @@ class AnalyzerDialog(object):
                 logger.error("Invalid meta parameter in %s", fname)
             
     def __build_playlist_list(self, selected_playlist):
+        
+        self.playlists_list.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
+        
         manager = self.plugin.exaile.playlists
-        for name in manager.list_playlists():
+        for name in sorted(manager.list_playlists()):
             i = self.playlist_store.append((name, manager.get_playlist(name)))
             
             if selected_playlist and selected_playlist.name == name:

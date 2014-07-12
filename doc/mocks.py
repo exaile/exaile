@@ -42,6 +42,7 @@ class Mock(object):
 MOCK_MODULES = [
     'cairo',
     'dbus',
+    'dbus.service',
     'gio',
     'glib',
     'gst',
@@ -58,3 +59,17 @@ MOCK_MODULES = [
 
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = Mock()
+    
+    
+# player hack
+import xl.settings
+
+orig_get_option = xl.settings.get_option
+
+def option_hack(name, default):
+    if name == 'player/engine':
+        return 'rtfd_hack'
+    else:
+        return orig_get_option(name, default)
+    
+xl.settings.get_option = option_hack

@@ -63,7 +63,10 @@ class PlayQueue(playlist.Playlist):
         self.__queue_has_tracks_val = False
         self.__current_playlist = self      # this should never be None
         self.player = player
-        player._set_queue(self)
+        
+        # hack for making docs work
+        if player is not None:
+            player._set_queue(self)
         
         if location is not None:
             self.load_from_location(location)

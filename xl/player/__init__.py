@@ -57,6 +57,8 @@ def get_player(*args, **kwargs):
         logger.debug("Unified playback engine selected.")
         from xl.player.engine_unified import UnifiedPlayer
         return UnifiedPlayer(*args, **kwargs)
+    elif pname == 'rtfd_hack': # allows building docs
+        return None
     else:
         logger.warning("Couldn't find specified playback engine, "
                 "falling back to normal.")

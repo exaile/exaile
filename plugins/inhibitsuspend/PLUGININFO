@@ -3,3 +3,4 @@ Authors=['Ciaran Liedeman ciaranliedeman@gmail.com']
 Name=_('Inhibit Suspend')
 Description=_("""Prevents User Session from suspending while music is playing""")
 Category=_("Utility")
+RequiredModules=['dbus']

@@ -3,3 +3,4 @@ Authors=['Johannes Sasongko <sasongko@gmail.com>']
 Name=_('Ex Falso tag editor')
 Description=_('Integrates the Ex Falso tag editor with Exaile.\nDepends: Ex Falso.')
 Category=_('Tagging')
+RequiredModules=['quodlibet']

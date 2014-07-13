@@ -3,3 +3,4 @@ Authors=['Adam Olsen <arolsen@gmail.com>', 'Steve Dodier <sidnioulz@gmail.com>']
 Name=_('Notify-osd notifications')
 Description=_('This plugins displays notification bubbles when a song is played/resumed/stopped, with either the song cover or a media icon to indicate the latest action.\n\nDepends: python-notify\nRecommends: notify-osd')
 Category=_('Notifications')
+RequiredModules=['pynotify']

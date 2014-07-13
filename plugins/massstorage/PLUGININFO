@@ -3,3 +3,4 @@ Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('USB Mass Storage Media Player Support')
 Description=_('Support for accessing portable media players using the USB Mass Storage protocol')
 Category=_('Devices')
+RequiredModules=['dbus']

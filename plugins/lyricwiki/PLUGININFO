@@ -3,3 +3,4 @@ Authors=['Anthony Waters <awaters1@gmail.com>', 'Johannes Schwarz <johannes.schw
 Name=_('Lyrics Wiki')
 Description=_('Plugin to fetch lyrics from lyrics.wikia.com\nDepends: python-beautifulsoup')
 Category=_('Lyrics')
+RequiredModules=['BeautifulSoup']

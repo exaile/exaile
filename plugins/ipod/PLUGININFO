@@ -3,3 +3,4 @@ Authors=['Andrew Stormont <astormont@svn.gnome.org>']
 Name=_('iPod Support')
 Description=_('A plugin for iPod support. Read-only for the moment, no transfer.\n\nDepends on python-gpod.')
 Category=_('Devices')
+RequiredModules=['gpod']

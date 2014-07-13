@@ -3,3 +3,4 @@ Authors=['Mathias Brodala <info@noctus.net>']
 Name=_('Drop Trayicon')
 Description=_('Provides an alternative trayicon which accepts dropped files.\n\nDepends: python-eggtrayicon')
 Category=_('GUI')
+RequiredModules=['egg']

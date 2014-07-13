@@ -288,8 +288,8 @@ class PluginManager(object):
         if hasattr(self.plugins.loaded_plugins[plugin],
             'get_preferences_pane'):
             self.preferences._load_plugin_pages()
-
-        self.filter_model[path][3] = enable
+        
+        self.model[self.filter_model.convert_path_to_child_path(path)][3] = enable
         self.on_selection_changed(self.list.get_selection())
         
     def on_show_broken_cb_toggled(self, widget):

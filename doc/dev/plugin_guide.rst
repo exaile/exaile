@@ -31,9 +31,21 @@ The format of the PLUGININFO is as follows::
     Name=_('Plugin Name')
     Description=_('Something that describes your plugin. Also mention any extra dependencies.')
     Category=_('Development')
+    
+The following two attributes are optional:
+
+* `Platforms` - A list of the platforms your plugin works on. If you have no
+  specific requirements, omitting this argument or using an empty list is
+  fine. The values of the list are the sys.platform value.
+* `RequiredModules` - If your plugin requires a module that may not be 
+  present on all installations of exaile (eg, modules like gtk are 
+  always going to be present, so don't need to specify those), then you
+  should specify it here.
 
 .. note:: Name and Description are what show up in the plugin manager.
           Category is used to list your plugin alongside other plugins.
+          Platforms and RequiredModules are used to filter out the plugin
+          on inappropriate platforms.
 
 Before Exaile 3.4, __init__.py was required to define at least two methods,
 enable() and disable(). However, Exaile 3.4 introduced a new way to write

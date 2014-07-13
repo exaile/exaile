@@ -203,6 +203,43 @@ class PluginsManager(object):
             except ValueError:
                 pass # this happens on blank lines
         return infodict
+    
+    def is_compatible(self, info):
+        '''
+            Returns True if the plugin claims to be compatible with the
+            current platform.
+            
+            :param info: The data returned from get_plugin_info()
+        '''
+        platforms = info.get('Platforms', [])
+        if len(platforms) == 0:
+            platforms = [sys.platform]
+        
+        for platform in platforms:
+            if sys.platform.startswith(platform):
+                return True
+            
+        return False
+    
+    def is_potentially_broken(self, info):
+        '''
+            Returns True if one of the modules that the plugin requires is
+            not detected as available.
+        
+            :param info: The data returned from get_plugin_info()
+        '''
+        
+        modules = info.get('RequiredModules', [])
+        
+        for module in modules:
+            try:
+                mdata = imp.find_module(module)
+                if mdata[0] is not None:
+                    mdata[0].close()
+            except:
+                return True
+            
+        return False
 
     def get_plugin_default_preferences(self, pluginname):
         """

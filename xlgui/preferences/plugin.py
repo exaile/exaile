@@ -76,7 +76,17 @@ class PluginManager(object):
         self.author_label = builder.get_object('author_label')
         self.name_label = builder.get_object('name_label')
         self.description = builder.get_object('description_view')
+        
         self.model = builder.get_object('model')
+        self.filter_model = self.model.filter_new()
+        
+        self.show_incompatible_cb = builder.get_object('show_incompatible_cb')
+        self.show_broken_cb = builder.get_object('show_broken_cb')
+        
+        self.filter_model.set_visible_func(self._model_visible_func)
+        
+        self.status_column = builder.get_object('status_column')
+        self._set_status_visible()
 
         selection = self.list.get_selection()
         selection.connect('changed', self.on_selection_changed)
@@ -96,12 +106,23 @@ class PluginManager(object):
         for plugin in plugins:
             try:
                 info = self.plugins.get_plugin_info(plugin)
+                
+                compatible = self.plugins.is_compatible(info)    
+                broken = self.plugins.is_potentially_broken(info)
+                
             except Exception, e:
                 failed_list += [plugin]
                 continue
+            
+            # determine icon to show
+            if broken or not compatible:
+                icon = gtk.STOCK_DIALOG_WARNING
+            else:
+                icon = gtk.STOCK_APPLY
 
             enabled = plugin in self.plugins.enabled_plugins
-            plugin_data = (plugin, info['Name'], info['Version'], enabled, True)
+            plugin_data = (plugin, info['Name'], info['Version'],
+                           enabled, icon, broken, compatible, True)
             
             if 'Category' in info:
                 if info['Category'] in plugins_dict:
@@ -121,12 +142,12 @@ class PluginManager(object):
         for category, plugins_list in plugins_dict:
             plugins_list.sort(key=lambda x: locale.strxfrm(x[1]))
         
-            it = self.model.append(None, (None, category, '', False, False))
+            it = self.model.append(None, (None, category, '', False, '', False, True, False))
         
             for plugin in plugins_list:
                 self.model.append(it, plugin)
 
-        self.list.set_model(self.model)
+        self.list.set_model(self.filter_model)
         
         # TODO: Keep track of which categories are already expanded, and only expand those
         self.list.expand_all()
@@ -157,8 +178,8 @@ class PluginManager(object):
         """
             Reloads a plugin from scratch
         """
-        plugin = self.model[path][0]
-        enabled = self.model[path][3]
+        plugin = self.filter_model[path][0]
+        enabled = self.filter_model[path][3]
 
         if enabled:
             try:
@@ -226,7 +247,7 @@ class PluginManager(object):
 
         row = model[paths[0]]
 
-        if not row[4]:
+        if not row[7]:
             self.author_label.set_label('')
             self.description.get_buffer().set_text('')
             self.name_label.set_label('')
@@ -245,11 +266,11 @@ class PluginManager(object):
         """
             Called when the checkbox is toggled
         """
-        plugin = self.model[path][0]
+        plugin = self.filter_model[path][0]
         if plugin is None:
             return
         
-        enable = not self.model[path][3]
+        enable = not self.filter_model[path][3]
 
         if enable:
             try:
@@ -268,8 +289,35 @@ class PluginManager(object):
             'get_preferences_pane'):
             self.preferences._load_plugin_pages()
 
-        self.model[path][3] = enable
+        self.filter_model[path][3] = enable
         self.on_selection_changed(self.list.get_selection())
+        
+    def on_show_broken_cb_toggled(self, widget):
+        self._set_status_visible()
+        self.filter_model.refilter()
+        
+    def on_show_incompatible_cb_toggled(self, widget):
+        self._set_status_visible()
+        self.filter_model.refilter()
+        
+    def _set_status_visible(self):
+        show_col = self.show_broken_cb.get_active() or \
+                   self.show_incompatible_cb.get_active()
+        self.status_column.set_visible(show_col)
+        
+    def _model_visible_func(self, model, iter):
+        
+        row = model[iter]
+        broken = row[5]
+        compatible = row[6]
+        
+        show = not broken or self.show_broken_cb.get_active()
+        compatible = compatible or self.show_incompatible_cb.get_active()
+        
+        result = compatible and show
+        
+        return result
+            
 
 def init(preferences, xml):
     manager = PluginManager(preferences, xml)

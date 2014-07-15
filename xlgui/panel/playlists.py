@@ -71,6 +71,7 @@ class PlaylistField(ComboEntryField):
         playlists = []
         playlists.extend(main.exaile().smart_playlists.list_playlists())
         playlists.extend(main.exaile().playlists.list_playlists())
+        playlists.sort()
         ComboEntryField.__init__(self, playlists)
 
 DATE_FIELDS = [

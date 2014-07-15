@@ -27,8 +27,8 @@
 import gtk
 
 from xl.nls import gettext as _
-from xl import providers, event
-from xlgui.widgets import menu
+from xl import main, providers, playlist, event
+from xlgui.widgets import dialogs, menu
 from xlgui.widgets.notebook import NotebookPage
 from xlgui.widgets.playlist import PlaylistView
 
@@ -40,7 +40,18 @@ def __create_queue_tab_context_menu():
     items = []
     items.append(smi('clear', [], None, 'gtk-clear',
         lambda w, n, o, c: o.player.queue.clear()))
-    items.append(sep('tab-close-sep', ['clear']))
+    
+    def _saveas_playlist_cb(widget, name, page, context):
+        exaile = main.exaile()
+        name = dialogs.ask_for_playlist_name(exaile.playlists, "")
+        if name is not None:
+            pl = playlist.Playlist(name, page.playlist[:])
+            exaile.playlists.save_playlist(pl)
+            page.container.create_tab_from_playlist(pl)
+    
+    items.append(smi('saveas', ['clear'], None, 'gtk-save-as',
+        _saveas_playlist_cb))
+    items.append(sep('tab-close-sep', ['saveas']))
     items.append(smi('tab-close', ['tab-close-sep'], None, 'gtk-close',
         lambda w, n, o, c: o.tab.close()))
     for item in items:

@@ -426,7 +426,6 @@ class ProviderBin(ElementBin, ProviderHandler):
                     lower numbers are higher priority. elements must
                     choose a unique number.
     """
-    # TODO: allow duplicate #s
     def __init__(self, player, servicename, name=None):
         """
             :param servicename: the Provider name to listen for
@@ -439,15 +438,26 @@ class ProviderBin(ElementBin, ProviderHandler):
 
     def reset_providers(self):
         self.elements = {}
+        dups = {}
         for provider in self.get_providers():
+            idx = provider.index
+            if idx in self.elements:
+                dup = dups.setdefault(idx, [self.elements[idx].name])
+                dup.append(provider.name)
+                while idx in self.elements:
+                    idx += 1
             try:
-                self.elements[provider.index] = provider(self.player)
+                self.elements[idx] = provider(self.player)
             except:
                 logger.warning("Could not create %s element for %s." % \
                         (provider, self.get_name()) )
                 common.log_exception(log=logger)
         #self.setup_elements()
-
+        
+        for k, v in dups.iteritems():
+            logger.warning("Audio plugins %s are sharing index %s (may have unpredictable output!)",
+                            v, k)
+        
     def on_provider_added(self, provider):
         self.reset_providers()
 

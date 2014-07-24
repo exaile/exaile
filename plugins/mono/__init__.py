@@ -37,7 +37,7 @@ class Mono(ElementBin):
         ElementBin.__init__(self, player, name=self.name)
         self.elements[50] = gst.element_factory_make('audioconvert')
         self.elements[60] = cf = gst.element_factory_make('capsfilter')
-        cf.props.caps = gst.Caps('audio/x-raw-int, channels=1')
+        cf.props.caps = gst.Caps('audio/x-raw-int, channels=1', 'audio/x-raw-float, channels=1')
         self.setup_elements()
 
 

@@ -66,6 +66,11 @@ class BrowserPage(webkit.WebView):
 
     def __init__(self, builder):
         webkit.WebView.__init__(self)
+        
+        # webkit-gtk is very old, and has javascript bugs
+        settings = webkit.WebSettings()
+        settings.props.enable_scripts = False
+        self.set_settings(settings)
 
         self.hometrack = None
 

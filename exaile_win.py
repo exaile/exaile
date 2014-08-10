@@ -4,7 +4,25 @@
 
 from __future__ import division, print_function, unicode_literals
 
-import logging, os, sys
+# Make file handles not inheritable, that way we can restart on the fly
+# -> From http://www.virtualroadside.com/blog/index.php/2013/02/06/problems-with-file-descriptors-being-inherited-by-default-in-python/
+import __builtin__
+import msvcrt, sys
+from ctypes import windll
+
+    
+__builtin__open = __builtins__.open
+
+def __open_inheritance_hack(*args, **kwargs):
+    result = __builtin__open(*args, **kwargs)
+    handle = msvcrt.get_osfhandle(result.fileno())
+    windll.kernel32.SetHandleInformation(handle, 1, 0)
+    return result
+    
+__builtin__.open = __open_inheritance_hack
+
+
+import logging, os
 
 exailedir = os.path.dirname(os.path.realpath(__file__))
 logging.basicConfig(level=logging.INFO, datefmt="%H:%M:%S",

@@ -600,6 +600,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self._hack_is_osx = sys.platform == 'darwin'
         self._hack_osx_control_mask = False
 
+        # Set to true if you only want things to be copied here, not moved
+        self.dragdrop_copyonly = False
+
         self.set_fixed_height_mode(True) # MASSIVE speedup - don't disable this!
         self.set_rules_hint(True)
         self.set_enable_search(True)
@@ -1121,6 +1124,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         if target == 'text/uri-list' or \
            (self._hack_is_osx and self._hack_osx_control_mask) or \
            (not self._hack_is_osx and modifier & gtk.gdk.CONTROL_MASK):
+            action = gtk.gdk.ACTION_COPY
+        
+        if self.dragdrop_copyonly and context.get_source_widget() != self:
             action = gtk.gdk.ACTION_COPY
         
         context.drag_status(action, etime)

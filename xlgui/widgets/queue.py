@@ -71,6 +71,7 @@ class QueuePage(NotebookPage):
         self.pack_start(self.swindow, True, True)
 
         self.view = PlaylistView(self.player.queue, self.player)
+        self.view.dragdrop_copyonly = True
         self.swindow.add(self.view)
 
         event.add_callback(self.on_length_changed, 'playlist_current_position_changed', self.player.queue)

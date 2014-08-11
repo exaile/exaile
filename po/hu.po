@@ -1,22 +1,23 @@
 # Hungarian translation for exaile
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the exaile package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-09-09 23:29+0200\n"
-"PO-Revision-Date: 2012-08-30 22:10+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-01 11:10+0100\n"
+"PO-Revision-Date: 2012-07-29 07:14+0000\n"
+"Last-Translator: Polesz <polesz@nedudu.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2012-09-22 12:41+0000\n"
-"X-Generator: Launchpad (build 15985)\n"
+"X-Launchpad-Export-Date: 2012-08-28 05:26+0000\n"
+"X-Generator: Launchpad (build 15864)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -101,286 +102,284 @@ msgstr "Ma"
 msgid "Yesterday"
 msgstr "Tegnap"
 
-#: ../xl/main.py:198
+#: ../xl/main.py:201
 msgid "Failed to migrate from 0.2.14"
 msgstr "Sikertelen migráció 0.2.14-ről"
 
-#: ../xl/main.py:413
+#: ../xl/main.py:416
 msgid "Usage: exaile [OPTION]... [URI]"
 msgstr "Használat: exaile [OPCIÓK]... [URI]"
 
-#: ../xl/main.py:414 ../plugins/minimode/minimode_preferences.ui.h:11
+#: ../xl/main.py:417 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
 msgstr "Opciók"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:421
 msgid "Playback Options"
 msgstr "Visszajátszás opciók"
 
-#: ../xl/main.py:420
+#: ../xl/main.py:423
 msgid "Play the next track"
 msgstr "Következő szám lejátszása"
 
-#: ../xl/main.py:422
+#: ../xl/main.py:425
 msgid "Play the previous track"
 msgstr "Előző szám lejátszása"
 
-#: ../xl/main.py:424 ../plugins/minimode/controls.py:342
+#: ../xl/main.py:427 ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
 msgstr "Lejátszás leállítása"
 
-#: ../xl/main.py:426
+#: ../xl/main.py:429
 msgid "Play"
 msgstr "Lejátszás"
 
-#: ../xl/main.py:428
+#: ../xl/main.py:431
 msgid "Pause"
 msgstr "Szünet"
 
-#: ../xl/main.py:431
+#: ../xl/main.py:434
 msgid "Pause or resume playback"
 msgstr "Lejátszás szüneteltetése, elindítása"
 
-#: ../xl/main.py:434 ../plugins/minimode/controls.py:365
+#: ../xl/main.py:437 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
 msgstr "Lejátszás megállítása az aktuális dal után"
 
-#: ../xl/main.py:437
+#: ../xl/main.py:440
 msgid "Collection Options"
 msgstr "Gyűjtemény beállításai"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:440 ../xl/main.py:447
+#: ../xl/main.py:443 ../xl/main.py:450
 msgid "LOCATION"
 msgstr "HELY"
 
-#: ../xl/main.py:440
+#: ../xl/main.py:443
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Számok hozzáadása adott HELYRŐL a gyűjteménybe"
 
-#: ../xl/main.py:444
+#: ../xl/main.py:447
 msgid "Playlist Options"
 msgstr "Lejátszólista-beállítások"
 
-#: ../xl/main.py:448
+#: ../xl/main.py:451
 msgid "Exports the current playlist to LOCATION"
 msgstr ""
 
-#: ../xl/main.py:451
+#: ../xl/main.py:454
 msgid "Track Options"
 msgstr "Szám beállítások"
 
-#: ../xl/main.py:453
+#: ../xl/main.py:456
 msgid "Query player"
 msgstr "Lekérdezéses lejátszó"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:456
+#: ../xl/main.py:459
 msgid "FORMAT"
 msgstr ""
 
-#: ../xl/main.py:457
+#: ../xl/main.py:460
 msgid "Retrieves the current playback state and track information as FORMAT"
 msgstr ""
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:460
+#: ../xl/main.py:463
 msgid "TAGS"
 msgstr ""
 
-#: ../xl/main.py:461
+#: ../xl/main.py:464
 msgid "TAGS to retrieve from the current track, use with --format-query"
 msgstr ""
 
-#: ../xl/main.py:464
+#: ../xl/main.py:467
 msgid "Show a popup with data of the current track"
 msgstr "Mutassa felbukkanó ablakban az aktuális szám adatait"
 
-#: ../xl/main.py:466
+#: ../xl/main.py:469
 msgid "Print the title of current track"
 msgstr "A jelenlegi szám címének kiírása"
 
-#: ../xl/main.py:468
+#: ../xl/main.py:471
 msgid "Print the album of current track"
 msgstr "A jelenlegi szám albumának kiírása"
 
-#: ../xl/main.py:470
+#: ../xl/main.py:473
 msgid "Print the artist of current track"
 msgstr "A jelenlegi szám előadójának kiírása"
 
-#: ../xl/main.py:472
+#: ../xl/main.py:475
 msgid "Print the length of current track"
 msgstr "A jelenlegi szám hosszának kiírása"
 
 #. TRANSLATORS: Variable for command line options with arguments
-#: ../xl/main.py:475 ../xl/main.py:490 ../xl/main.py:494
+#: ../xl/main.py:478 ../xl/main.py:493 ../xl/main.py:497
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:476
+#: ../xl/main.py:479
 msgid "Set rating for current track to N%"
 msgstr "Értékelés hozzáadása az aktuális számhoz N%"
 
-#: ../xl/main.py:478
+#: ../xl/main.py:481
 msgid "Get rating for current track"
 msgstr "A szám értékelésének megtekintése"
 
-#: ../xl/main.py:481
+#: ../xl/main.py:484
 msgid "Print the current playback position as time"
 msgstr "A lejátszási sáv idő szerinti beosztása"
 
-#: ../xl/main.py:483
+#: ../xl/main.py:486
 msgid "Print the current playback progress as percentage"
 msgstr "A lejátszási sáv százalék szerinti beosztása"
 
-#: ../xl/main.py:487
+#: ../xl/main.py:490
 msgid "Volume Options"
 msgstr "Hangerő beállítások"
 
-#: ../xl/main.py:491
+#: ../xl/main.py:494
 msgid "Increases the volume by N%"
 msgstr "Hangerő növelés mértéke N%"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:496
+#: ../xl/main.py:499
 msgid "Decreases the volume by N%"
 msgstr "Hangerő csökkentés mértéke N%"
 
-#: ../xl/main.py:499
+#: ../xl/main.py:502
 msgid "Mutes or unmutes the volume"
 msgstr "Némítás ki- vagy bekapcsolása"
 
-#: ../xl/main.py:501
+#: ../xl/main.py:504
 msgid "Print the current volume percentage"
 msgstr "Aktuális hangerő kiírása százalékban"
 
-#: ../xl/main.py:504
+#: ../xl/main.py:507
 msgid "Other Options"
 msgstr "Egyéb beállítások"
 
-#: ../xl/main.py:506
+#: ../xl/main.py:509
 msgid "Start new instance"
 msgstr "Új lejátszó indítása"
 
-#: ../xl/main.py:508
+#: ../xl/main.py:511
 msgid "Show this help message and exit"
 msgstr "Mutatja az alábbi segítséget és kilép"
 
-#: ../xl/main.py:510
+#: ../xl/main.py:513
 msgid "Show program's version number and exit."
 msgstr "Program verziószámának mutatása és kilép."
 
-#: ../xl/main.py:513
+#: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
 msgstr "Indítás minimalizálva(tálcaikonként, ha lehet)"
 
-#: ../xl/main.py:516
+#: ../xl/main.py:519
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "GUI átlátszóság bekapcsolása (ha lehetséges)"
 
-#: ../xl/main.py:518
-msgid ""
-"Start in safe mode - sometimes useful when you're running into problems"
-msgstr ""
-"Indítás csökkentett módban - néha hasznos, amikor problémákba ütközik"
-
 #: ../xl/main.py:521
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr "Indítás csökkentett módban - néha hasznos, amikor problémákba ütközik"
+
+#: ../xl/main.py:524
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
 "Importálás erőltetése a régebbi 0.2.x verzióból (A jelenlegi adatok "
 "felülírásával)"
 
-#: ../xl/main.py:524
+#: ../xl/main.py:527
 msgid "Do not import old data from version 0.2.x"
 msgstr "Nincs importálás a régebbi 0.2.x verzióból"
 
-#: ../xl/main.py:527
+#: ../xl/main.py:530
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "A vezérlőgombok, mint például a --lejátszás el fogják indítani az Exaile, ha "
 "az még nem fut"
 
-#: ../xl/main.py:531
+#: ../xl/main.py:534
 msgid "Development/Debug Options"
 msgstr "Fejlesztő/Hibakereső opciók"
 
-#: ../xl/main.py:533 ../xl/main.py:535
+#: ../xl/main.py:536 ../xl/main.py:538
 msgid "DIRECTORY"
 msgstr "KÖNYVTÁR"
 
-#: ../xl/main.py:533
+#: ../xl/main.py:536
 msgid "Set data directory"
 msgstr "Adattár beállítása"
 
-#: ../xl/main.py:535
+#: ../xl/main.py:538
 msgid "Set data and config directory"
 msgstr ""
 
-#: ../xl/main.py:537
+#: ../xl/main.py:540
 msgid "MODULE"
 msgstr "MODUL"
 
-#: ../xl/main.py:538
+#: ../xl/main.py:541
 msgid "Limit log output to MODULE"
 msgstr "Korlátozza a naplót a MODULRA"
 
-#: ../xl/main.py:540
+#: ../xl/main.py:543
 msgid "LEVEL"
 msgstr "SZINT"
 
-#: ../xl/main.py:541
+#: ../xl/main.py:544
 msgid "Limit log output to LEVEL"
 msgstr "Korlátozza a naplót a SZINTRE"
 
-#: ../xl/main.py:544
+#: ../xl/main.py:547
 msgid "Show debugging output"
 msgstr "Hibakeresési kimenet megjelenítése"
 
-#: ../xl/main.py:546
+#: ../xl/main.py:549
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr ""
 "XL esemény hibakeresésének engedélyezése nagyméretű kivitel létrehozásával."
 
-#: ../xl/main.py:549
+#: ../xl/main.py:552
 msgid "Add thread name to logging messages."
 msgstr ""
 
-#: ../xl/main.py:552
+#: ../xl/main.py:555
 msgid "TYPE"
 msgstr "TÍPUS"
 
-#: ../xl/main.py:553
+#: ../xl/main.py:556
 msgid "Limit xl.event debug to output of TYPE"
 msgstr ""
 
-#: ../xl/main.py:555
+#: ../xl/main.py:558
 msgid "Reduce level of output"
 msgstr "Kimeneti szint csökkentése"
 
-#: ../xl/main.py:559
+#: ../xl/main.py:562
 msgid "Disable D-Bus support"
 msgstr "D-Bus támogatás tiltása"
 
-#: ../xl/main.py:561
+#: ../xl/main.py:564
 msgid "Disable HAL support."
 msgstr "HAL támogatás tiltása."
 
-#: ../xl/main.py:577
+#: ../xl/main.py:580
 msgid "Entire Library"
 msgstr "Teljes gyűjtemény"
 
-#: ../xl/main.py:583
+#: ../xl/main.py:586
 #, python-format
 msgid "Random %d"
 msgstr "Véletlenszerű %d"
 
-#: ../xl/main.py:591
+#: ../xl/main.py:594
 #, python-format
 msgid "Rating > %d"
 msgstr "Értékelés > %d"
 
-#: ../xl/main.py:692
+#: ../xl/main.py:695
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -413,7 +412,7 @@ msgstr "A kiegészítés archívuma egy nem biztonságos útvonalat tartalmaz"
 msgid "You did not specify a location to load the db from"
 msgstr "Nem adtad meg az adatbázis betöltési helyét"
 
-#: ../xl/trax/trackdb.py:246
+#: ../xl/trax/trackdb.py:248
 msgid "You did not specify a location to save the db"
 msgstr "Nem adtál meg helyet a db mentéséhez"
 
@@ -482,17 +481,15 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "Egy gyors és szabad, veszteségmentes audióformátum jó tömörítéssel."
 
-#: ../xl/player/pipe.py:309 ../data/ui/preferences/playback.ui.h:14
-#: ../plugins/previewdevice/previewprefs.ui.h:9
+#: ../xl/player/pipe.py:311
 msgid "Automatic"
 msgstr "Automatikus"
 
-#: ../xl/player/pipe.py:345 ../data/ui/preferences/playback.ui.h:21
-#: ../plugins/previewdevice/previewprefs.ui.h:16
+#: ../xl/player/pipe.py:340 ../xl/player/pipe.py:365 ../xl/player/pipe.py:386
 msgid "Custom"
 msgstr "Egyedi"
 
-#: ../xl/player/pipe.py:400 ../plugins/previewdevice/previewprefs.py:76
+#: ../xl/player/pipe.py:441 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
 msgstr ""
 
@@ -526,88 +523,88 @@ msgstr "Egy ismeretlen típusú beállítást észleltem!"
 msgid "Invalid playlist type."
 msgstr "A lejátszólista típusa érvénytelen."
 
-#: ../xl/playlist.py:173 ../xlgui/widgets/playlist.py:334
+#: ../xl/playlist.py:173 ../xlgui/widgets/playlist.py:335
 msgid "Playlist"
 msgstr "Lejátszólista"
 
-#: ../xl/playlist.py:279 ../xlgui/oldmenu.py:269
+#: ../xl/playlist.py:322
 msgid "M3U Playlist"
 msgstr "M3U Lejátszólista"
 
-#: ../xl/playlist.py:379 ../xlgui/oldmenu.py:270
+#: ../xl/playlist.py:423
 msgid "PLS Playlist"
 msgstr "PLS Lejátszólista"
 
-#: ../xl/playlist.py:472 ../xl/playlist.py:488
+#: ../xl/playlist.py:517 ../xl/playlist.py:533
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Érvénytelen formátum ehhez: %s."
 
-#: ../xl/playlist.py:483
+#: ../xl/playlist.py:528
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr ""
 
-#: ../xl/playlist.py:543 ../xlgui/oldmenu.py:271
+#: ../xl/playlist.py:588
 msgid "ASX Playlist"
 msgstr "ASX Lejátszólista"
 
-#: ../xl/playlist.py:714 ../xlgui/oldmenu.py:272
+#: ../xl/playlist.py:759
 msgid "XSPF Playlist"
 msgstr "XSPF Lejátszólista"
 
-#: ../xl/playlist.py:829
+#: ../xl/playlist.py:874
 msgid "Shuffle _Off"
 msgstr "Keverés_ki"
 
-#: ../xl/playlist.py:830
+#: ../xl/playlist.py:875
 msgid "Shuffle _Tracks"
 msgstr "Keverés_Számok"
 
-#: ../xl/playlist.py:830
+#: ../xl/playlist.py:875
 msgid "Shuffle _Albums"
 msgstr "Keverés_Albumok"
 
-#: ../xl/playlist.py:834
+#: ../xl/playlist.py:879
 msgid "Repeat _Off"
 msgstr "Ismétlés kikapcs_olva"
 
-#: ../xl/playlist.py:834
+#: ../xl/playlist.py:879
 msgid "Repeat _All"
 msgstr "Összes_Ismétlése"
 
-#: ../xl/playlist.py:834
+#: ../xl/playlist.py:879
 msgid "Repeat O_ne"
 msgstr "_Egy ismétlése"
 
-#: ../xl/playlist.py:838
+#: ../xl/playlist.py:883
 msgid "Dynamic _Off"
 msgstr "Dinamika _ki"
 
-#: ../xl/playlist.py:838
+#: ../xl/playlist.py:883
 msgid "Dynamic by Similar _Artists"
 msgstr "Dinamika azonos _előadók szerint"
 
-#: ../xl/playlist.py:1779 ../xlgui/panel/playlists.py:59
+#: ../xl/playlist.py:1824 ../xlgui/panel/playlists.py:59
 #: ../xlgui/panel/playlists.py:71 ../xlgui/panel/playlists.py:78
 #: ../plugins/osd/osd_preferences.ui.h:7
 msgid "seconds"
 msgstr "másodperc"
 
-#: ../xl/playlist.py:1780 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1825 ../xlgui/panel/playlists.py:71
 msgid "minutes"
 msgstr "perc"
 
-#: ../xl/playlist.py:1781 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1826 ../xlgui/panel/playlists.py:71
 msgid "hours"
 msgstr "óra"
 
-#: ../xl/playlist.py:1782 ../xlgui/panel/playlists.py:68
+#: ../xl/playlist.py:1827 ../xlgui/panel/playlists.py:68
 #: ../xlgui/panel/playlists.py:71
 msgid "days"
 msgstr "nap"
 
-#: ../xl/playlist.py:1783 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1828 ../xlgui/panel/playlists.py:71
 msgid "weeks"
 msgstr "hét"
 
@@ -615,23 +612,23 @@ msgstr "hét"
 msgid "Local"
 msgstr "Helyi"
 
-#: ../xlgui/widgets/menuitems.py:93
+#: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
 msgstr "Sorbaállítás"
 
-#: ../xlgui/widgets/menuitems.py:115 ../xlgui/oldmenu.py:116
+#: ../xlgui/widgets/menuitems.py:118 ../xlgui/oldmenu.py:116
 msgid "Replace Current"
 msgstr "Aktuális cseréje"
 
-#: ../xlgui/widgets/menuitems.py:119 ../xlgui/oldmenu.py:114
+#: ../xlgui/widgets/menuitems.py:122 ../xlgui/oldmenu.py:114
 msgid "Append to Current"
 msgstr "Hozzáadás a jelenlegihez"
 
-#: ../xlgui/widgets/menuitems.py:142 ../xlgui/properties.py:1135
+#: ../xlgui/widgets/menuitems.py:145 ../xlgui/properties.py:1135
 msgid "Open Directory"
 msgstr "Könyvtár megnyitása"
 
-#: ../xlgui/widgets/menuitems.py:164
+#: ../xlgui/widgets/menuitems.py:167
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
@@ -639,11 +636,11 @@ msgstr ""
 "A fájlokat nem lehet a kukába áthelyezni. Szeretné törölni azokat a "
 "merevlemezről?"
 
-#: ../xlgui/widgets/menuitems.py:179
+#: ../xlgui/widgets/menuitems.py:182
 msgid "Move to Trash"
 msgstr "Áthelyezés a kukába"
 
-#: ../xlgui/widgets/menuitems.py:190
+#: ../xlgui/widgets/menuitems.py:193
 msgid "_Show Playing Track"
 msgstr "Most _játszott megjelenítése"
 
@@ -757,7 +754,7 @@ msgid "Title"
 msgstr "Cím"
 
 #: ../xlgui/widgets/playlist_columns.py:232 ../xlgui/properties.py:63
-#: ../xlgui/panel/collection.py:171 ../xlgui/panel/playlists.py:234
+#: ../xlgui/panel/collection.py:173 ../xlgui/panel/playlists.py:234
 #: ../data/ui/widgets/tracklist_info.ui.h:2 ../plugins/cd/cdprefs.py:107
 #: ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
@@ -771,7 +768,7 @@ msgid "Composer"
 msgstr "Szerző"
 
 #: ../xlgui/widgets/playlist_columns.py:246 ../xlgui/properties.py:64
-#: ../xlgui/panel/collection.py:174 ../xlgui/panel/playlists.py:236
+#: ../xlgui/panel/collection.py:176 ../xlgui/panel/playlists.py:236
 #: ../data/ui/widgets/tracklist_info.ui.h:1 ../plugins/cd/cdprefs.py:109
 #: ../plugins/minimode/minimode_preferences.py:96
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
@@ -799,77 +796,77 @@ msgstr "Lemezszám"
 msgid "Rating"
 msgstr "Értékelés"
 
-#: ../xlgui/widgets/playlist_columns.py:313 ../xlgui/properties.py:59
+#: ../xlgui/widgets/playlist_columns.py:312 ../xlgui/properties.py:59
 #: ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:100
 msgid "Date"
 msgstr "Dátum"
 
-#: ../xlgui/widgets/playlist_columns.py:319 ../xlgui/properties.py:71
+#: ../xlgui/widgets/playlist_columns.py:318 ../xlgui/properties.py:71
 #: ../xlgui/panel/playlists.py:241 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:101
 msgid "Genre"
 msgstr "Műfaj"
 
-#: ../xlgui/widgets/playlist_columns.py:326 ../xlgui/properties.py:78
+#: ../xlgui/widgets/playlist_columns.py:325 ../xlgui/properties.py:78
 #: ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
 msgstr "Bitráta"
 
-#: ../xlgui/widgets/playlist_columns.py:333 ../xlgui/properties.py:81
+#: ../xlgui/widgets/playlist_columns.py:332 ../xlgui/properties.py:81
 #: ../xlgui/panel/playlists.py:244 ../data/ui/collection_manager.ui.h:2
 #: ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:103
 msgid "Location"
 msgstr "Hely"
 
-#: ../xlgui/widgets/playlist_columns.py:340 ../xlgui/panel/files.py:147
+#: ../xlgui/widgets/playlist_columns.py:339 ../xlgui/panel/files.py:150
 #: ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/minimode_preferences.py:104
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: ../xlgui/widgets/playlist_columns.py:347
+#: ../xlgui/widgets/playlist_columns.py:346
 msgid "Playcount"
 msgstr "Lejátszva"
 
-#: ../xlgui/widgets/playlist_columns.py:354 ../xlgui/properties.py:76
+#: ../xlgui/widgets/playlist_columns.py:353 ../xlgui/properties.py:76
 #: ../xlgui/panel/playlists.py:170 ../xlgui/panel/playlists.py:245
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
 msgstr "BPM"
 
-#: ../xlgui/widgets/playlist_columns.py:361 ../xlgui/properties.py:86
+#: ../xlgui/widgets/playlist_columns.py:360 ../xlgui/properties.py:86
 #: ../xlgui/panel/playlists.py:243 ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
 msgstr "Legutóbb lejátszva"
 
-#: ../xlgui/widgets/playlist_columns.py:367 ../xlgui/properties.py:79
+#: ../xlgui/widgets/playlist_columns.py:366 ../xlgui/properties.py:79
 #: ../xlgui/panel/playlists.py:242
 msgid "Date added"
 msgstr "Dátum hozzáadva"
 
-#: ../xlgui/widgets/playlist_columns.py:373
+#: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:492 ../xlgui/properties.py:77
+#: ../xlgui/widgets/playlist_columns.py:491 ../xlgui/properties.py:77
 msgid "Comment"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:501 ../xlgui/panel/playlists.py:178
+#: ../xlgui/widgets/playlist_columns.py:500 ../xlgui/panel/playlists.py:178
 #: ../xlgui/panel/playlists.py:246
 msgid "Grouping"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:620
+#: ../xlgui/widgets/playlist_columns.py:619
 msgid "_Resizable"
 msgstr "Méretezhető"
 
-#: ../xlgui/widgets/playlist_columns.py:625
+#: ../xlgui/widgets/playlist_columns.py:624
 msgid "_Autosize"
 msgstr "_Automatikus méret"
 
@@ -911,19 +908,19 @@ msgstr "Új lejátszólista"
 msgid "Rename"
 msgstr "Átnevezés"
 
-#: ../xlgui/widgets/playlist.py:265
+#: ../xlgui/widgets/playlist.py:266
 msgid "Stop Playback After This Track"
 msgstr "Lejátszás megállítása e szám után"
 
-#: ../xlgui/widgets/playlist.py:272
+#: ../xlgui/widgets/playlist.py:273
 msgid "Continue Playback After This Track"
 msgstr "Lejátszás folytatása e szám után"
 
-#: ../xlgui/widgets/playlist.py:532
+#: ../xlgui/widgets/playlist.py:534
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Szükséges beépülőmodulok a dinamikus lejátszólistához"
 
-#: ../xlgui/widgets/playlist.py:536 ../data/ui/playlist.ui.h:3
+#: ../xlgui/widgets/playlist.py:538 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dinamikusan adja hozzá a hasonló számokat a lejátszólistához"
 
@@ -1040,7 +1037,7 @@ msgstr "Nem adta meg a lejátszólista nevét."
 msgid "The playlist name you entered is already in use."
 msgstr "Lejátszólista név amit megadtál már létezik"
 
-#: ../xlgui/widgets/notebook.py:136 ../xlgui/menu.py:115
+#: ../xlgui/widgets/notebook.py:146 ../xlgui/menu.py:115
 msgid "Close Tab"
 msgstr "Fül bezárása"
 
@@ -1354,11 +1351,11 @@ msgstr "Eszköz"
 msgid "Driver"
 msgstr "Meghajtó"
 
-#: ../xlgui/__init__.py:294
+#: ../xlgui/__init__.py:296
 msgid "Scanning collection..."
 msgstr "Gyűjtemény átvizsgálása"
 
-#: ../xlgui/__init__.py:378
+#: ../xlgui/__init__.py:380
 #, python-format
 msgid "Scanning %s..."
 msgstr "%s átnézése"
@@ -1399,28 +1396,24 @@ msgstr ""
 msgid "Delete Playlist"
 msgstr "Lejátszólista törlése"
 
-#: ../xlgui/oldmenu.py:264
-msgid "Export as..."
-msgstr "Exportálás másként..."
-
-#: ../xlgui/oldmenu.py:289
+#: ../xlgui/oldmenu.py:268
 msgid "Choose directory to export files to"
 msgstr ""
 
-#: ../xlgui/oldmenu.py:299 ../xlgui/panel/playlists.py:1184
+#: ../xlgui/oldmenu.py:278 ../xlgui/panel/playlists.py:1178
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr ""
 "Biztos, hogy véglegesen törölni akarja a kiválasztott lejátszólistákat?"
 
-#: ../xlgui/oldmenu.py:312
+#: ../xlgui/oldmenu.py:291
 msgid "Enter the new name you want for your playlist"
 msgstr "Írja be a lejátszólista új nevét"
 
-#: ../xlgui/oldmenu.py:313
+#: ../xlgui/oldmenu.py:292
 msgid "Rename Playlist"
 msgstr "Lejátszólista átnevezése"
 
-#: ../xlgui/oldmenu.py:352 ../plugins/multialarmclock/malrmclk.ui.h:2
+#: ../xlgui/oldmenu.py:331 ../plugins/multialarmclock/malrmclk.ui.h:2
 msgid "Remove"
 msgstr "Eltávolítás"
 
@@ -1495,36 +1488,36 @@ msgstr "Frissítés"
 msgid "Enter the name you want for your new playlist"
 msgstr "Írja be az új lejátszólista nevét."
 
-#: ../xlgui/panel/collection.py:177
+#: ../xlgui/panel/collection.py:179
 msgid "Genre - Artist"
 msgstr "Műfaj - Előadó"
 
-#: ../xlgui/panel/collection.py:180
+#: ../xlgui/panel/collection.py:182
 msgid "Genre - Album"
 msgstr "Műfaj - Album"
 
-#: ../xlgui/panel/collection.py:183
+#: ../xlgui/panel/collection.py:185
 msgid "Date - Artist"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:186
+#: ../xlgui/panel/collection.py:188
 msgid "Date - Album"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:189
+#: ../xlgui/panel/collection.py:191
 msgid "Artist - (Date - Album)"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:312
+#: ../xlgui/panel/collection.py:314
 msgid "Rescan Collection"
 msgstr "A gyűjtemény átvizsgálása"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:171
+#: ../xlgui/panel/files.py:174
 msgid "Size"
 msgstr "Méret"
 
-#: ../xlgui/panel/files.py:438
+#: ../xlgui/panel/files.py:441
 #, python-format
 msgid "%s KB"
 msgstr "%s KB"
@@ -1658,7 +1651,7 @@ msgstr "Hozzáadás okos lejátszólistához"
 msgid "Edit Smart Playlist"
 msgstr "Okos lejátszólisták szerkesztése"
 
-#: ../xlgui/panel/playlists.py:1131
+#: ../xlgui/panel/playlists.py:1125
 #, python-format
 msgid "Exporting %s"
 msgstr ""
@@ -1759,8 +1752,8 @@ msgid "About Exaile"
 msgstr "Névjegy"
 
 #: ../data/ui/about_dialog.ui.h:2
-msgid "&#xA9; 2009-2010"
-msgstr "&#xA9; 2009-2010"
+msgid "&#xA9; 2009-2012"
+msgstr "&#xA9; 2009-2012"
 
 #: ../data/ui/about_dialog.ui.h:3
 msgid ""
@@ -2207,43 +2200,13 @@ msgstr ""
 msgid "Automatically advance to the next track"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:15
-#: ../plugins/previewdevice/previewprefs.ui.h:10
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../data/ui/preferences/playback.ui.h:16
-#: ../plugins/previewdevice/previewprefs.ui.h:11
-msgid "ALSA"
-msgstr "ALSA"
-
-#: ../data/ui/preferences/playback.ui.h:17
-#: ../plugins/previewdevice/previewprefs.ui.h:12
-msgid "OSS"
-msgstr "OSS"
-
-#: ../data/ui/preferences/playback.ui.h:18
-#: ../plugins/previewdevice/previewprefs.ui.h:13
-msgid "PulseAudio"
-msgstr "PulseAudio"
-
-#: ../data/ui/preferences/playback.ui.h:19
-#: ../plugins/previewdevice/previewprefs.ui.h:14
-msgid "JACK"
-msgstr "JACK"
-
-#: ../data/ui/preferences/playback.ui.h:20
-#: ../plugins/previewdevice/previewprefs.ui.h:15
-msgid "DirectSound"
-msgstr ""
-
-#: ../data/ui/preferences/playback.ui.h:22
-#: ../plugins/previewdevice/previewprefs.ui.h:17
+#: ../data/ui/preferences/playback.ui.h:14
+#: ../plugins/previewdevice/previewprefs.ui.h:9
 msgid "Normal"
 msgstr "Normál"
 
-#: ../data/ui/preferences/playback.ui.h:23
-#: ../plugins/previewdevice/previewprefs.ui.h:18
+#: ../data/ui/preferences/playback.ui.h:15
+#: ../plugins/previewdevice/previewprefs.ui.h:10
 msgid "Unified (unstable)"
 msgstr "Egyesített (instabil)"
 
@@ -2487,7 +2450,7 @@ msgstr "Last.fm Kedvelt"
 msgid "Love This Track"
 msgstr "Szám megjelölése kedveltként"
 
-#: ../plugins/lastfmlove/__init__.py:205
+#: ../plugins/lastfmlove/__init__.py:208
 msgid "Unlove This Track"
 msgstr "\"Kedvelt\" megjelölés eltávolítása"
 
@@ -2857,21 +2820,21 @@ msgstr "Folyamatjelző"
 msgid "Playback progress and seeking"
 msgstr "Lejátszási folyamat, és keresés"
 
-#: ../plugins/grouptagger/gt_prefs.py:21 ../plugins/grouptagger/__init__.py:95
-#: ../plugins/grouptagger/__init__.py:112
+#: ../plugins/grouptagger/gt_prefs.py:21 ../plugins/grouptagger/__init__.py:97
+#: ../plugins/grouptagger/__init__.py:114
 msgid "GroupTagger"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:106
-#: ../plugins/grouptagger/gt_widgets.py:688
+#: ../plugins/grouptagger/__init__.py:108
+#: ../plugins/grouptagger/gt_widgets.py:686
 msgid "Get all tags from collection"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:117
+#: ../plugins/grouptagger/__init__.py:119
 msgid "Show tracks with all tags"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:121
+#: ../plugins/grouptagger/__init__.py:123
 msgid "Show tracks with tags (custom)"
 msgstr ""
 
@@ -2889,8 +2852,8 @@ msgid "Show tracks with all selected"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:132
-#: ../plugins/grouptagger/gt_widgets.py:652
-#: ../plugins/grouptagger/gt_widgets.py:753
+#: ../plugins/grouptagger/gt_widgets.py:650
+#: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Group"
 msgstr ""
 
@@ -2930,35 +2893,35 @@ msgstr ""
 msgid "Enter new group category name"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:512
+#: ../plugins/grouptagger/gt_widgets.py:510
 msgid "Add Group"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:709
+#: ../plugins/grouptagger/gt_widgets.py:707
 msgid "Add selected to choices"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:735
+#: ../plugins/grouptagger/gt_widgets.py:733
 msgid "Show tracks with groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:746
+#: ../plugins/grouptagger/gt_widgets.py:744
 msgid "Must have this tag [AND]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:746
+#: ../plugins/grouptagger/gt_widgets.py:744
 msgid "May have this tag [OR]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:746
+#: ../plugins/grouptagger/gt_widgets.py:744
 msgid "Must not have this tag [NOT]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:746
+#: ../plugins/grouptagger/gt_widgets.py:744
 msgid "Ignored"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:754
+#: ../plugins/grouptagger/gt_widgets.py:752
 msgid "Selected Tracks"
 msgstr ""
 
@@ -3026,7 +2989,7 @@ msgid ""
 "from $album"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:373
+#: ../plugins/osd/__init__.py:379
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\"><b>$title</b></span>\n"
 "by $artist\n"
@@ -3089,7 +3052,7 @@ msgstr "Borító az asztalon"
 msgid "Multi-Alarm Clock"
 msgstr "Többszörös ébresztőóra"
 
-#: ../plugins/contextinfo/__init__.py:1127
+#: ../plugins/contextinfo/__init__.py:1147
 #: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
 msgstr "Kontextus"
@@ -3125,11 +3088,11 @@ msgstr "Képernykímélő esetén szünet"
 msgid "DAAP Server"
 msgstr "DAAP Szerver"
 
-#: ../plugins/bpm/__init__.py:78
+#: ../plugins/bpm/__init__.py:80
 msgid "BPM Counter"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:238
+#: ../plugins/bpm/__init__.py:240
 #, python-format
 msgid "Set BPM of %d on %s?"
 msgstr ""
@@ -3448,8 +3411,8 @@ msgstr "Előadó sor:"
 #, python-format
 msgid ""
 "<i>The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be "
-"replaced by their respective values. The title will be replaced by "
-"\"Unknown\" if it is empty.</i>"
+"replaced by their respective values. The title will be replaced by \"Unknown"
+"\" if it is empty.</i>"
 msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
@@ -3739,9 +3702,8 @@ msgstr "Műfaj/Címkék"
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a "
-"href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">Pango"
-" Text Attribute Markup</a> is supported."
+"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
+"\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:3
@@ -3767,12 +3729,12 @@ msgstr ""
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
 "<i>To sign up for an Amazon AWS account and get \n"
-"this information visit <a "
-"href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a></i>"
+"this information visit <a href=\"http://aws.amazon.com/\">http://aws.amazon."
+"com/</a></i>"
 msgstr ""
 "<i>Jelentkezzen be az Amazon AWS azonosítójával, hogy információt \n"
-"kaphasson erről <a "
-"href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a></i>"
+"kaphasson erről <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</"
+"a></i>"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
@@ -4164,9 +4126,9 @@ msgstr ""
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
-"This plugins displays notification bubbles when a song is "
-"played/resumed/stopped, with either the song cover or a media icon to "
-"indicate the latest action.\n"
+"This plugins displays notification bubbles when a song is played/resumed/"
+"stopped, with either the song cover or a media icon to indicate the latest "
+"action.\n"
 "\n"
 "Depends: python-notify\n"
 "Recommends: notify-osd"
@@ -4374,8 +4336,104 @@ msgstr ""
 msgid "Allows playing of DAAP music shares."
 msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 
+#~ msgid "Clear"
+#~ msgstr "Törlés"
+
+#~ msgid "Close"
+#~ msgstr "Bezárás"
+
+#~ msgid "Close tab"
+#~ msgstr "Lap bezárása"
+
+#~ msgid "Export as..."
+#~ msgstr "Exportálás másként..."
+
+#~ msgid "%d KB"
+#~ msgstr "%d KB"
+
+#~ msgid "&#xA9; 2009-2010"
+#~ msgstr "&#xA9; 2009-2010"
+
+#~ msgid "GNOME"
+#~ msgstr "GNOME"
+
+#~ msgid "ALSA"
+#~ msgstr "ALSA"
+
+#~ msgid "OSS"
+#~ msgstr "OSS"
+
+#~ msgid "PulseAudio"
+#~ msgstr "PulseAudio"
+
+#~ msgid "JACK"
+#~ msgstr "JACK"
+
+#~ msgid "AWN"
+#~ msgstr "AWN"
+
+#~ msgid "API Key:"
+#~ msgstr "API Kulcs:"
+
+#~ msgctxt "yes"
+#~ msgid "Monday"
+#~ msgstr "Hétfő"
+
+#~ msgctxt "yes"
+#~ msgid "Tuesday"
+#~ msgstr "Kedd"
+
+#~ msgctxt "yes"
+#~ msgid "Wednesday"
+#~ msgstr "Szerda"
+
+#~ msgctxt "yes"
+#~ msgid "Thursday"
+#~ msgstr "Csütörtök"
+
+#~ msgctxt "yes"
+#~ msgid "Friday"
+#~ msgstr "Péntek"
+
+#~ msgctxt "yes"
+#~ msgid "Saturday"
+#~ msgstr "Szombat"
+
+#~ msgctxt "yes"
+#~ msgid "Sunday"
+#~ msgstr "Vasárnap"
+
+#~ msgctxt "yes"
+#~ msgid "Use Fading"
+#~ msgstr "Elhalkulás használata"
+
+#~ msgctxt "yes"
+#~ msgid "Minimum volume:"
+#~ msgstr "Legkisebb hangerő:"
+
+#~ msgctxt "yes"
+#~ msgid "Maximum volume:"
+#~ msgstr "Legnagyobb hangerő:"
+
+#~ msgctxt "yes"
+#~ msgid "Increment:"
+#~ msgstr "Növelés:"
+
+#~ msgctxt "yes"
+#~ msgid "Time per increment:"
+#~ msgstr "Idő per növekvés"
+
+#~ msgid "Secret key:"
+#~ msgstr "Titkos kulcs:"
+
+#~ msgid "Awn"
+#~ msgstr "Awn"
+
 #~ msgid "Add a directory"
 #~ msgstr "Könyvtár hozzáadása"
+
+#~ msgid "Add to Playlist"
+#~ msgstr "Hozzáadás a lejátszólistához"
 
 #~ msgid "Display OSD when hovering over tray icon"
 #~ msgstr "OSD mutatása ha az egér a tálcaikon fölé ér"
@@ -4392,6 +4450,21 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid " songs"
 #~ msgstr " dalok"
 
+#~ msgid "LastFM Radio"
+#~ msgstr "LastFM Rádió"
+
+#~ msgid "Neighbourhood"
+#~ msgstr "Szomszédos"
+
+#~ msgid "Loved Tracks"
+#~ msgstr "Kedvenc számok"
+
+#~ msgid "Personal"
+#~ msgstr "Személyes"
+
+#~ msgid "Recommended"
+#~ msgstr "Ajánlott"
+
 #~ msgid "No covers found"
 #~ msgstr "Nincs elérhető borító"
 
@@ -4400,6 +4473,15 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 
 #~ msgid "Toggle: Stop after selected track"
 #~ msgstr "Váltás: Leállítás a kijelölt szám után"
+
+#~ msgid "Number of Plays"
+#~ msgstr "Lejátszások száma"
+
+#~ msgid "Add Playlist"
+#~ msgstr "Lejátszólista hozzáadása"
+
+#~ msgid "Choose a file"
+#~ msgstr "Válassz egy fájlt"
 
 #~ msgid "Display a progressbar in the OSD"
 #~ msgstr "Folyamatjelző megjelenítése az OSD-ben"
@@ -4428,7 +4510,6 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Get rating for current song"
 #~ msgstr "Jelenlegi zeneszám értékelésének lekérdezése"
 
-#, python-format
 #~ msgid "%d covers to fetch"
 #~ msgstr "%d borító letöltése"
 
@@ -4453,7 +4534,6 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Alarm Time:"
 #~ msgstr "Figyelmeztetés ideje"
 
-#, python-format
 #~ msgid "Playing %s"
 #~ msgstr "%s lejátszása"
 
@@ -4463,16 +4543,12 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Set rating for current song"
 #~ msgstr "A jelenlegi szám értékelése"
 
-#~ msgid "Close tab"
-#~ msgstr "Lap bezárása"
-
 #~ msgid "New playlist title:"
 #~ msgstr "Új lejátszólista címe:"
 
 #~ msgid "Buffering: 100%..."
 #~ msgstr "Pufferelés: 100%"
 
-#, python-format
 #~ msgid "%(title)s (by %(artist)s)"
 #~ msgstr "%(title)s (tőle: %(artist)s)"
 
@@ -4486,11 +4562,12 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Stopped"
 #~ msgstr "Megállítva"
 
-#, python-format
+#~ msgid " (%(queue_count)d queued)"
+#~ msgstr " (%(queue_count)d sorbaállítva)"
+
 #~ msgid "by %s"
 #~ msgstr "%s"
 
-#, python-format
 #~ msgid "from %s"
 #~ msgstr "%s albumáról"
 
@@ -4503,7 +4580,6 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Start"
 #~ msgstr "Indítás"
 
-#, python-format
 #~ msgid "%(minutes)d:%(seconds)02d"
 #~ msgstr "%(minutes)d:%(seconds)02d"
 
@@ -4517,8 +4593,8 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgstr "Jelenlegi lejátszólista exportálása"
 
 #~ msgid ""
-#~ "Path is already in your collection, or is a subdirectory of another path in "
-#~ "your collection"
+#~ "Path is already in your collection, or is a subdirectory of another path "
+#~ "in your collection"
 #~ msgstr ""
 #~ "Az útvonal már a gyűjteményben van, vagy egy másik könyvtár alkönyvtára"
 
@@ -4534,12 +4610,11 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "0:00"
 #~ msgstr "0:00"
 
-#, python-format
-#~ msgid "%s KB"
-#~ msgstr "%s KB"
-
 #~ msgid "Add device"
 #~ msgstr "Eszköz hozzáadása"
+
+#~ msgid "Quit"
+#~ msgstr "Kilépés"
 
 #~ msgid "..."
 #~ msgstr "..."
@@ -4552,6 +4627,15 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 
 #~ msgid "_Close"
 #~ msgstr "_Bezár"
+
+#~ msgid ""
+#~ "<b>{title}</b>\n"
+#~ "{artist}\n"
+#~ "on {album} - {length}"
+#~ msgstr ""
+#~ "<b>{title}</b>}\n"
+#~ "{artist}}\n"
+#~ "album: {album} - {length}"
 
 #~ msgid ""
 #~ "<b>Move the On Screen Display window to the location you want it to "
@@ -4581,20 +4665,73 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Close this dialog"
 #~ msgstr "A párbeszédablak bezárása"
 
+#~ msgid "Plugin Manager"
+#~ msgstr "Bővítmény kezelő"
+
 #~ msgid "Remove All"
 #~ msgstr "Összes eltávolítása"
+
+#~ msgid ""
+#~ "Automatic\n"
+#~ "GNOME\n"
+#~ "ALSA\n"
+#~ "OSS\n"
+#~ "PulseAudio\n"
+#~ "JACK"
+#~ msgstr ""
+#~ "Automatic\n"
+#~ "GNOME\n"
+#~ "ALSA\n"
+#~ "OSS\n"
+#~ "PulseAudio\n"
+#~ "JACK"
+
+#~ msgid " - "
+#~ msgstr " - "
+
+#~ msgid " + "
+#~ msgstr " + "
 
 #~ msgid "0/0 tracks"
 #~ msgstr "0/0 szám"
 
+#~ msgid "Autosize"
+#~ msgstr "Automéretezés"
+
 #~ msgid "Page 1"
 #~ msgstr "1. oldal"
+
+#~ msgid "Vol:"
+#~ msgstr "Hangerő:"
+
+#~ msgid "Resizable"
+#~ msgstr "Méretezhető"
 
 #~ msgid "Stop Playback"
 #~ msgstr "Lejátszás vége"
 
 #~ msgid "_Go to Playing Track"
 #~ msgstr "_Ugrás a most hallható számra"
+
+#~ msgid ""
+#~ "Artist\n"
+#~ "Album\n"
+#~ "Genre - Artist\n"
+#~ "Genre - Album\n"
+#~ "Year - Artist\n"
+#~ "Year - Album\n"
+#~ "Artist - Year - Album"
+#~ msgstr ""
+#~ "Előadó\n"
+#~ "Album\n"
+#~ "Műfaj - Előadó\n"
+#~ "Műfaj - Album\n"
+#~ "Év - Előadó\n"
+#~ "Év - Album\n"
+#~ "Előadó - Év - Album"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Általános</b>"
 
 #~ msgid "Delete bookmark"
 #~ msgstr "Könyvjelző törlése"
@@ -4695,9 +4832,6 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Secret Key:"
 #~ msgstr "Titkos Kulcs:"
 
-#~ msgid "API Key:"
-#~ msgstr "API Kulcs:"
-
 #~ msgid "Decreases the volume by VOL%"
 #~ msgstr "Hangerő csökkentése VOL% -val"
 
@@ -4719,14 +4853,26 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Device class does not support transfer."
 #~ msgstr "Eszközosztály nem támogatja az átvitelt."
 
+#~ msgid "Original Artist"
+#~ msgstr "Eredeti Előadó"
+
+#~ msgid "Original Album"
+#~ msgstr "Eredeti Album"
+
+#~ msgid "Original Date"
+#~ msgstr "Eredeti Dátum"
+
 #~ msgid "Last.fm Dynamic Search"
 #~ msgstr "Last.fm Dinamikus Keresés"
 
 #~ msgid " & "
 #~ msgstr " & "
 
-#~ msgid "AWN"
-#~ msgstr "AWN"
+#~ msgid "Date Added"
+#~ msgstr "Hozzáadás dátuma"
+
+#~ msgid "Last Played"
+#~ msgstr "Legutóbb Lejátszva"
 
 #~ msgid "Print the position inside the current track as time"
 #~ msgstr "Írja ki a pozíciót az aktuális számon belül idő formájában"
@@ -4734,14 +4880,15 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Print the progress inside the current track as percentage"
 #~ msgstr "Írja ki a folyamatot az aktuális számban százalékban"
 
-#, python-format
 #~ msgid "A plugin with the name \"%s\" is already installed"
 #~ msgstr "'%s' névvel már bővítmény telepítve"
+
+#~ msgid "Encoded By"
+#~ msgstr "Kódolta:"
 
 #~ msgid "Add to custom playlist"
 #~ msgstr "Hozzáadás lejátszólistához"
 
-#, python-format
 #~ msgid "In pause: %s"
 #~ msgstr "Szünet: %s"
 
@@ -4803,14 +4950,12 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Filter event debug output"
 #~ msgstr "Hibakeresési kimenet szűrése"
 
-#, python-format
 #~ msgid "%(playlist_count)d showing, %(collection_count)d in collection"
 #~ msgstr "%(playlist_count)d látható, %(collection_count)d a gyűjteményben"
 
 #~ msgid "order must be a list or tuple"
 #~ msgstr "Sorrend lista vagy tuple legyen"
 
-#, python-format
 #~ msgid "%(year)d-%(month)02d-%(day)02d"
 #~ msgstr "%(year)d-%(month)02d-%(day)02d"
 
@@ -4873,6 +5018,9 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Clear bookmarks"
 #~ msgstr "Könyvjelző törlése"
 
+#~ msgid "Select a save location"
+#~ msgstr "Mentési hely kiválasztása"
+
 #~ msgid "Available controls"
 #~ msgstr "Elérhető vezérlők"
 
@@ -4922,29 +5070,27 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Use Album Covers As Icons"
 #~ msgstr "Borító ikonként"
 
-#, python-format
 #~ msgid ""
-#~ "The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
-#~ "by their respective values. The title will be replaced by \"Unknown\" if it "
-#~ "is empty."
+#~ "The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be "
+#~ "replaced by their respective values. The title will be replaced by "
+#~ "\"Unknown\" if it is empty."
 #~ msgstr ""
 #~ "A \"%(title)s\", \"%(artist)s\", and \"%(album)s\" címkék helyettesítve "
-#~ "lesznek a megfelelő értékeikkel. A cím \"Ismeretlen\"-nel lesz helyettesítve "
-#~ "ha üres."
+#~ "lesznek a megfelelő értékeikkel. A cím \"Ismeretlen\"-nel lesz "
+#~ "helyettesítve ha üres."
 
 #~ msgid "Both artist and album"
 #~ msgstr "Előadó és album"
 
-#, python-format
 #~ msgid ""
 #~ "Message that should be displayed in the body of the notification. In each "
-#~ "case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced by "
-#~ "their respective values. If the tag is not known, \"Unknown\" will be filled "
-#~ "in its place"
+#~ "case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
+#~ "by their respective values. If the tag is not known, \"Unknown\" will be "
+#~ "filled in its place"
 #~ msgstr ""
-#~ "Értesítés törzsében megjelenítendő üzenet . A \"%(title)s\", \"%(artist)s\", "
-#~ "and \"%(album)s\" minden esetben a megfelelő értékekkel lesz helyettesítve. "
-#~ "Ha a címke nem ismert, \"Ismeretlen\" szöveg lesz a helyén."
+#~ "Értesítés törzsében megjelenítendő üzenet . A \"%(title)s\", \"%(artist)s"
+#~ "\", and \"%(album)s\" minden esetben a megfelelő értékekkel lesz "
+#~ "helyettesítve. Ha a címke nem ismert, \"Ismeretlen\" szöveg lesz a helyén."
 
 #~ msgid "Track title format:"
 #~ msgstr "Szám címformátuma:"
@@ -4965,9 +5111,6 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ "Audio CD lejátszás támogatása,\n"
 #~ "Python-cddb szükséges az album-információk kinyeréséhez"
 
-#~ msgid "Awn"
-#~ msgstr "Awn"
-
 #~ msgid "Pauses/resumes playback on screensaver start/stop"
 #~ msgstr ""
 #~ "Lejátszás megállítás/folytatás képernyővédő bekapcsolásakor/végetérésekor"
@@ -4984,62 +5127,8 @@ msgstr "Lejátszás engedélyezése DAAP zenemegosztásból"
 #~ msgid "Playback engine (requires restart): "
 #~ msgstr "Lejátszás alrendszere (újraindítást igényel) "
 
-#~ msgid "Clear"
-#~ msgstr "Törlés"
-
-#~ msgid "Close"
-#~ msgstr "Bezárás"
-
-#~ msgctxt "yes"
-#~ msgid "Monday"
-#~ msgstr "Hétfő"
-
-#~ msgctxt "yes"
-#~ msgid "Saturday"
-#~ msgstr "Szombat"
-
-#~ msgctxt "yes"
-#~ msgid "Sunday"
-#~ msgstr "Vasárnap"
-
-#~ msgctxt "yes"
-#~ msgid "Increment:"
-#~ msgstr "Növelés:"
-
-#~ msgctxt "yes"
-#~ msgid "Friday"
-#~ msgstr "Péntek"
-
-#~ msgctxt "yes"
-#~ msgid "Minimum volume:"
-#~ msgstr "Legkisebb hangerő:"
-
-#~ msgctxt "yes"
-#~ msgid "Maximum volume:"
-#~ msgstr "Legnagyobb hangerő:"
-
-#~ msgctxt "yes"
-#~ msgid "Tuesday"
-#~ msgstr "Kedd"
-
-#~ msgctxt "yes"
-#~ msgid "Use Fading"
-#~ msgstr "Elhalkulás használata"
-
-#~ msgctxt "yes"
-#~ msgid "Wednesday"
-#~ msgstr "Szerda"
-
-#~ msgctxt "yes"
-#~ msgid "Thursday"
-#~ msgstr "Csütörtök"
-
-#~ msgid "Secret key:"
-#~ msgstr "Titkos kulcs:"
-
-#~ msgctxt "yes"
-#~ msgid "Time per increment:"
-#~ msgstr "Idő per növekvés"
+#~ msgid "Search:"
+#~ msgstr "Keres:"
 
 #~ msgid ""
 #~ "<b>OSD</b>\n"

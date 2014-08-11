@@ -1,23 +1,25 @@
 # Lithuanian translation for exaile
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the exaile package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# Vytautas Bačiulis <info@infosoft.lt>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-09-09 23:29+0200\n"
-"PO-Revision-Date: 2012-08-30 22:10+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-01 11:10+0100\n"
+"PO-Revision-Date: 2012-07-29 07:16+0000\n"
+"Last-Translator: Viktoras Jakovlevas <viktoras.jakovlevas@gmail.com>\n"
 "Language-Team: Lithuanian <lt@li.org>\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"(n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2012-09-22 12:42+0000\n"
-"X-Generator: Launchpad (build 15985)\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2012-08-28 05:27+0000\n"
+"X-Generator: Launchpad (build 15864)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -106,285 +108,284 @@ msgstr "Šiandien"
 msgid "Yesterday"
 msgstr "Vakar"
 
-#: ../xl/main.py:198
+#: ../xl/main.py:201
 msgid "Failed to migrate from 0.2.14"
 msgstr "Nepavyko migruoti iš 0.2.14"
 
-#: ../xl/main.py:413
+#: ../xl/main.py:416
 msgid "Usage: exaile [OPTION]... [URI]"
 msgstr "Naudojimas: exaile [PASIRINKTIS]... [URI]"
 
-#: ../xl/main.py:414 ../plugins/minimode/minimode_preferences.ui.h:11
+#: ../xl/main.py:417 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
 msgstr "Parinktys"
 
-#: ../xl/main.py:418
+#: ../xl/main.py:421
 msgid "Playback Options"
 msgstr "Grojimo parinktys"
 
-#: ../xl/main.py:420
+#: ../xl/main.py:423
 msgid "Play the next track"
 msgstr "Groti kitą takelį"
 
-#: ../xl/main.py:422
+#: ../xl/main.py:425
 msgid "Play the previous track"
 msgstr "Groti ankstesnį takelį"
 
-#: ../xl/main.py:424 ../plugins/minimode/controls.py:342
+#: ../xl/main.py:427 ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
 msgstr "Sustabdyti grojimą"
 
-#: ../xl/main.py:426
+#: ../xl/main.py:429
 msgid "Play"
 msgstr "Groti"
 
-#: ../xl/main.py:428
+#: ../xl/main.py:431
 msgid "Pause"
 msgstr ""
 
-#: ../xl/main.py:431
+#: ../xl/main.py:434
 msgid "Pause or resume playback"
 msgstr "Pristabdyti arba tęsti grojimą"
 
-#: ../xl/main.py:434 ../plugins/minimode/controls.py:365
+#: ../xl/main.py:437 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
 msgstr "Po dabartinio takelio sustabdyti grojimą"
 
-#: ../xl/main.py:437
+#: ../xl/main.py:440
 msgid "Collection Options"
 msgstr "Kolekcijos parinktys"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:440 ../xl/main.py:447
+#: ../xl/main.py:443 ../xl/main.py:450
 msgid "LOCATION"
 msgstr "LOCATION"
 
-#: ../xl/main.py:440
+#: ../xl/main.py:443
 msgid "Add tracks from LOCATION to the collection"
 msgstr "Pridėti į kolekciją takelius iš LOCATION"
 
-#: ../xl/main.py:444
+#: ../xl/main.py:447
 msgid "Playlist Options"
 msgstr "Grojaraščio parinktys"
 
-#: ../xl/main.py:448
+#: ../xl/main.py:451
 msgid "Exports the current playlist to LOCATION"
 msgstr "Eksportuoti esamą grojaraštį į LOCATION"
 
-#: ../xl/main.py:451
+#: ../xl/main.py:454
 msgid "Track Options"
 msgstr "Takelio parinktys"
 
-#: ../xl/main.py:453
+#: ../xl/main.py:456
 msgid "Query player"
 msgstr "Grojimo eilė"
 
 #. TRANSLATORS: Meta variable for --format-query
-#: ../xl/main.py:456
+#: ../xl/main.py:459
 msgid "FORMAT"
 msgstr ""
 
-#: ../xl/main.py:457
+#: ../xl/main.py:460
 msgid "Retrieves the current playback state and track information as FORMAT"
 msgstr ""
 
 #. TRANSLATORS: Meta variable for --format-query-tags
-#: ../xl/main.py:460
+#: ../xl/main.py:463
 msgid "TAGS"
 msgstr ""
 
-#: ../xl/main.py:461
+#: ../xl/main.py:464
 msgid "TAGS to retrieve from the current track, use with --format-query"
 msgstr ""
 
-#: ../xl/main.py:464
+#: ../xl/main.py:467
 msgid "Show a popup with data of the current track"
 msgstr "Rodyti pranešimus su grojamo takelio informacija"
 
-#: ../xl/main.py:466
+#: ../xl/main.py:469
 msgid "Print the title of current track"
 msgstr "Rodyti grojamo takelio pavadinimą"
 
-#: ../xl/main.py:468
+#: ../xl/main.py:471
 msgid "Print the album of current track"
 msgstr "Rodyti grojamo takelio albumo pavadinimą"
 
-#: ../xl/main.py:470
+#: ../xl/main.py:473
 msgid "Print the artist of current track"
 msgstr "Rodyti grojamo takelio atlikėjo vardą"
 
-#: ../xl/main.py:472
+#: ../xl/main.py:475
 msgid "Print the length of current track"
 msgstr "Rodyti grojamo takelio trukmę"
 
 #. TRANSLATORS: Variable for command line options with arguments
-#: ../xl/main.py:475 ../xl/main.py:490 ../xl/main.py:494
+#: ../xl/main.py:478 ../xl/main.py:493 ../xl/main.py:497
 msgid "N"
 msgstr "N"
 
-#: ../xl/main.py:476
+#: ../xl/main.py:479
 msgid "Set rating for current track to N%"
 msgstr "Nustatyti grojamo takelio reitingą N%"
 
-#: ../xl/main.py:478
+#: ../xl/main.py:481
 msgid "Get rating for current track"
 msgstr "Gauti grojamo takelio reitingą"
 
-#: ../xl/main.py:481
+#: ../xl/main.py:484
 msgid "Print the current playback position as time"
 msgstr "Parodyti grojamo takelio poziciją kaip laiką"
 
-#: ../xl/main.py:483
+#: ../xl/main.py:486
 msgid "Print the current playback progress as percentage"
 msgstr "Rodyti grojamo takelio poziciją kaip procentinį lygį"
 
-#: ../xl/main.py:487
+#: ../xl/main.py:490
 msgid "Volume Options"
 msgstr "Garsumo lygio parinktys"
 
-#: ../xl/main.py:491
+#: ../xl/main.py:494
 msgid "Increases the volume by N%"
 msgstr "Pagarsina N%"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
-#: ../xl/main.py:496
+#: ../xl/main.py:499
 msgid "Decreases the volume by N%"
 msgstr "Patildo N%"
 
-#: ../xl/main.py:499
+#: ../xl/main.py:502
 msgid "Mutes or unmutes the volume"
 msgstr "Įjungia arba išjungia garsą"
 
-#: ../xl/main.py:501
+#: ../xl/main.py:504
 msgid "Print the current volume percentage"
 msgstr "Parodyti garsumo lygį procentais"
 
-#: ../xl/main.py:504
+#: ../xl/main.py:507
 msgid "Other Options"
 msgstr "Kitos parinktys"
 
-#: ../xl/main.py:506
+#: ../xl/main.py:509
 msgid "Start new instance"
 msgstr "Paleisti naują kopiją"
 
-#: ../xl/main.py:508
+#: ../xl/main.py:511
 msgid "Show this help message and exit"
 msgstr "Parodyti šį pagalbos pranešimą ir užverti programą"
 
-#: ../xl/main.py:510
+#: ../xl/main.py:513
 msgid "Show program's version number and exit."
 msgstr "Parodyti programos versijos numerį ir užverti programą."
 
-#: ../xl/main.py:513
+#: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
 msgstr "Pradėti sumažinta (programų dėkle, jei įmanoma)"
 
-#: ../xl/main.py:516
+#: ../xl/main.py:519
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Perjungti grafinės sąsajos matomumą (jei įmanoma)"
 
-#: ../xl/main.py:518
-msgid ""
-"Start in safe mode - sometimes useful when you're running into problems"
+#: ../xl/main.py:521
+msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Pradėti saugiu režimu - kartais naudinga, jei susiduriate su problemomis"
 
-#: ../xl/main.py:521
+#: ../xl/main.py:524
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
 "Priverstinis senų duomenų iš 0.2.x versijos importas (perrašo dabartinius "
 "duomenis)"
 
-#: ../xl/main.py:524
+#: ../xl/main.py:527
 msgid "Do not import old data from version 0.2.x"
 msgstr "Neimportuoti senų duomenų iš 0.2.x versijos"
 
-#: ../xl/main.py:527
+#: ../xl/main.py:530
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
 "Nurodyti, kad kontrolinės parinktys kaip --play paleistų Exaile (jeigu ji "
 "dar nepaleista)"
 
-#: ../xl/main.py:531
+#: ../xl/main.py:534
 msgid "Development/Debug Options"
 msgstr "Plėtojimo/Derinimo parinktys"
 
-#: ../xl/main.py:533 ../xl/main.py:535
+#: ../xl/main.py:536 ../xl/main.py:538
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: ../xl/main.py:533
+#: ../xl/main.py:536
 msgid "Set data directory"
 msgstr "Nustatyti duomenų aplanką"
 
-#: ../xl/main.py:535
+#: ../xl/main.py:538
 msgid "Set data and config directory"
 msgstr ""
 
-#: ../xl/main.py:537
+#: ../xl/main.py:540
 msgid "MODULE"
 msgstr "MODULE"
 
-#: ../xl/main.py:538
+#: ../xl/main.py:541
 msgid "Limit log output to MODULE"
 msgstr "Riboti informacijos į MODULE išvestį"
 
-#: ../xl/main.py:540
+#: ../xl/main.py:543
 msgid "LEVEL"
 msgstr "LEVEL"
 
-#: ../xl/main.py:541
+#: ../xl/main.py:544
 msgid "Limit log output to LEVEL"
 msgstr "Riboti informacijos į LEVEL išvestį"
 
-#: ../xl/main.py:544
+#: ../xl/main.py:547
 msgid "Show debugging output"
 msgstr "Rodyti derinimo išvestį"
 
-#: ../xl/main.py:546
+#: ../xl/main.py:549
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr "Įjungti xl.event derinimą. Generuoja DAUG išvesties"
 
-#: ../xl/main.py:549
+#: ../xl/main.py:552
 msgid "Add thread name to logging messages."
 msgstr "Prie žurnalo pranešimų pridėti ir giją."
 
-#: ../xl/main.py:552
+#: ../xl/main.py:555
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../xl/main.py:553
+#: ../xl/main.py:556
 msgid "Limit xl.event debug to output of TYPE"
 msgstr "Riboti xl.event derinimo į TYPE išvestį"
 
-#: ../xl/main.py:555
+#: ../xl/main.py:558
 msgid "Reduce level of output"
 msgstr "Sumažinti išvesties lygį"
 
-#: ../xl/main.py:559
+#: ../xl/main.py:562
 msgid "Disable D-Bus support"
 msgstr "Išjungti D-Bus palaikymą"
 
-#: ../xl/main.py:561
+#: ../xl/main.py:564
 msgid "Disable HAL support."
 msgstr "Išjungti HAL palaikymą."
 
-#: ../xl/main.py:577
+#: ../xl/main.py:580
 msgid "Entire Library"
 msgstr "Visa biblioteka"
 
-#: ../xl/main.py:583
+#: ../xl/main.py:586
 #, python-format
 msgid "Random %d"
 msgstr "Atsitiktinis %d"
 
-#: ../xl/main.py:591
+#: ../xl/main.py:594
 #, python-format
 msgid "Rating > %d"
 msgstr "Reitingas > %d"
 
-#: ../xl/main.py:692
+#: ../xl/main.py:695
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
@@ -416,7 +417,7 @@ msgstr "Įskiepio archyve yra nurodytas nesaugus kelias."
 msgid "You did not specify a location to load the db from"
 msgstr "Nenurodėte vietos, iš kurios įkelti db"
 
-#: ../xl/trax/trackdb.py:246
+#: ../xl/trax/trackdb.py:248
 msgid "You did not specify a location to save the db"
 msgstr "Nenurodėte vietos db saugojimui"
 
@@ -486,17 +487,15 @@ msgstr ""
 "Labai greitas laisvasis ir kokybės neprarandantis garso formatas su geru "
 "duomenų suspaudimu."
 
-#: ../xl/player/pipe.py:309 ../data/ui/preferences/playback.ui.h:14
-#: ../plugins/previewdevice/previewprefs.ui.h:9
+#: ../xl/player/pipe.py:311
 msgid "Automatic"
 msgstr "Automatinis"
 
-#: ../xl/player/pipe.py:345 ../data/ui/preferences/playback.ui.h:21
-#: ../plugins/previewdevice/previewprefs.ui.h:16
+#: ../xl/player/pipe.py:340 ../xl/player/pipe.py:365 ../xl/player/pipe.py:386
 msgid "Custom"
 msgstr "Pasirinktinis"
 
-#: ../xl/player/pipe.py:400 ../plugins/previewdevice/previewprefs.py:76
+#: ../xl/player/pipe.py:441 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
 msgstr ""
 
@@ -531,88 +530,88 @@ msgstr "Rastas nežinomas nustatymų tipas!"
 msgid "Invalid playlist type."
 msgstr "Netinkamas grojaraščio tipas."
 
-#: ../xl/playlist.py:173 ../xlgui/widgets/playlist.py:334
+#: ../xl/playlist.py:173 ../xlgui/widgets/playlist.py:335
 msgid "Playlist"
 msgstr "Grojaraštis"
 
-#: ../xl/playlist.py:279 ../xlgui/oldmenu.py:269
+#: ../xl/playlist.py:322
 msgid "M3U Playlist"
 msgstr "M3U grojaraštis"
 
-#: ../xl/playlist.py:379 ../xlgui/oldmenu.py:270
+#: ../xl/playlist.py:423
 msgid "PLS Playlist"
 msgstr "PLS grojaraštis"
 
-#: ../xl/playlist.py:472 ../xl/playlist.py:488
+#: ../xl/playlist.py:517 ../xl/playlist.py:533
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Netinkamas %s formatas."
 
-#: ../xl/playlist.py:483
+#: ../xl/playlist.py:528
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
 msgstr "Nepalaikoma versija %(version)s šio %(type)s"
 
-#: ../xl/playlist.py:543 ../xlgui/oldmenu.py:271
+#: ../xl/playlist.py:588
 msgid "ASX Playlist"
 msgstr "ASX grojaraštis"
 
-#: ../xl/playlist.py:714 ../xlgui/oldmenu.py:272
+#: ../xl/playlist.py:759
 msgid "XSPF Playlist"
 msgstr "XSPF grojaraštis"
 
-#: ../xl/playlist.py:829
+#: ../xl/playlist.py:874
 msgid "Shuffle _Off"
 msgstr "Maišymas _išjungtas"
 
-#: ../xl/playlist.py:830
+#: ../xl/playlist.py:875
 msgid "Shuffle _Tracks"
 msgstr "Maišyti _takelius"
 
-#: ../xl/playlist.py:830
+#: ../xl/playlist.py:875
 msgid "Shuffle _Albums"
 msgstr "Maišyti _albumus"
 
-#: ../xl/playlist.py:834
+#: ../xl/playlist.py:879
 msgid "Repeat _Off"
 msgstr "Kartojimas _išjungtas"
 
-#: ../xl/playlist.py:834
+#: ../xl/playlist.py:879
 msgid "Repeat _All"
 msgstr "Kartoti _visus"
 
-#: ../xl/playlist.py:834
+#: ../xl/playlist.py:879
 msgid "Repeat O_ne"
 msgstr "Kartoti vie_ną"
 
-#: ../xl/playlist.py:838
+#: ../xl/playlist.py:883
 msgid "Dynamic _Off"
 msgstr "Dinaminis _išjungtas"
 
-#: ../xl/playlist.py:838
+#: ../xl/playlist.py:883
 msgid "Dynamic by Similar _Artists"
 msgstr "Dinaminis pagal susijusius _atlikėjus"
 
-#: ../xl/playlist.py:1779 ../xlgui/panel/playlists.py:59
+#: ../xl/playlist.py:1824 ../xlgui/panel/playlists.py:59
 #: ../xlgui/panel/playlists.py:71 ../xlgui/panel/playlists.py:78
 #: ../plugins/osd/osd_preferences.ui.h:7
 msgid "seconds"
 msgstr "sekundės"
 
-#: ../xl/playlist.py:1780 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1825 ../xlgui/panel/playlists.py:71
 msgid "minutes"
 msgstr "minutės"
 
-#: ../xl/playlist.py:1781 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1826 ../xlgui/panel/playlists.py:71
 msgid "hours"
 msgstr "valandos"
 
-#: ../xl/playlist.py:1782 ../xlgui/panel/playlists.py:68
+#: ../xl/playlist.py:1827 ../xlgui/panel/playlists.py:68
 #: ../xlgui/panel/playlists.py:71
 msgid "days"
 msgstr "dienos"
 
-#: ../xl/playlist.py:1783 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1828 ../xlgui/panel/playlists.py:71
 msgid "weeks"
 msgstr "savaitės"
 
@@ -620,33 +619,33 @@ msgstr "savaitės"
 msgid "Local"
 msgstr "Vietinis"
 
-#: ../xlgui/widgets/menuitems.py:93
+#: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
 msgstr "Pridėti į eilę"
 
-#: ../xlgui/widgets/menuitems.py:115 ../xlgui/oldmenu.py:116
+#: ../xlgui/widgets/menuitems.py:118 ../xlgui/oldmenu.py:116
 msgid "Replace Current"
 msgstr "Pakeisti dabartinį"
 
-#: ../xlgui/widgets/menuitems.py:119 ../xlgui/oldmenu.py:114
+#: ../xlgui/widgets/menuitems.py:122 ../xlgui/oldmenu.py:114
 msgid "Append to Current"
 msgstr "Pridėti prie dabartinio"
 
-#: ../xlgui/widgets/menuitems.py:142 ../xlgui/properties.py:1135
+#: ../xlgui/widgets/menuitems.py:145 ../xlgui/properties.py:1135
 msgid "Open Directory"
 msgstr "Atverti aplanką"
 
-#: ../xlgui/widgets/menuitems.py:164
+#: ../xlgui/widgets/menuitems.py:167
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr "Failų negalima perkelti į šiukšlinę. Ištrinti juos iš disko?"
 
-#: ../xlgui/widgets/menuitems.py:179
+#: ../xlgui/widgets/menuitems.py:182
 msgid "Move to Trash"
 msgstr "Perkelti į šiukšlinę"
 
-#: ../xlgui/widgets/menuitems.py:190
+#: ../xlgui/widgets/menuitems.py:193
 msgid "_Show Playing Track"
 msgstr "_Rodyti grojamą takelį"
 
@@ -760,7 +759,7 @@ msgid "Title"
 msgstr "Pavadinimas"
 
 #: ../xlgui/widgets/playlist_columns.py:232 ../xlgui/properties.py:63
-#: ../xlgui/panel/collection.py:171 ../xlgui/panel/playlists.py:234
+#: ../xlgui/panel/collection.py:173 ../xlgui/panel/playlists.py:234
 #: ../data/ui/widgets/tracklist_info.ui.h:2 ../plugins/cd/cdprefs.py:107
 #: ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
@@ -774,7 +773,7 @@ msgid "Composer"
 msgstr "Kompozitorius"
 
 #: ../xlgui/widgets/playlist_columns.py:246 ../xlgui/properties.py:64
-#: ../xlgui/panel/collection.py:174 ../xlgui/panel/playlists.py:236
+#: ../xlgui/panel/collection.py:176 ../xlgui/panel/playlists.py:236
 #: ../data/ui/widgets/tracklist_info.ui.h:1 ../plugins/cd/cdprefs.py:109
 #: ../plugins/minimode/minimode_preferences.py:96
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
@@ -802,77 +801,77 @@ msgstr "Disko numeris"
 msgid "Rating"
 msgstr "Reitingas"
 
-#: ../xlgui/widgets/playlist_columns.py:313 ../xlgui/properties.py:59
+#: ../xlgui/widgets/playlist_columns.py:312 ../xlgui/properties.py:59
 #: ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:100
 msgid "Date"
 msgstr "Data"
 
-#: ../xlgui/widgets/playlist_columns.py:319 ../xlgui/properties.py:71
+#: ../xlgui/widgets/playlist_columns.py:318 ../xlgui/properties.py:71
 #: ../xlgui/panel/playlists.py:241 ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:101
 msgid "Genre"
 msgstr "Žanras"
 
-#: ../xlgui/widgets/playlist_columns.py:326 ../xlgui/properties.py:78
+#: ../xlgui/widgets/playlist_columns.py:325 ../xlgui/properties.py:78
 #: ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
 msgstr "Duomenų srautas"
 
-#: ../xlgui/widgets/playlist_columns.py:333 ../xlgui/properties.py:81
+#: ../xlgui/widgets/playlist_columns.py:332 ../xlgui/properties.py:81
 #: ../xlgui/panel/playlists.py:244 ../data/ui/collection_manager.ui.h:2
 #: ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:103
 msgid "Location"
 msgstr "Vieta"
 
-#: ../xlgui/widgets/playlist_columns.py:340 ../xlgui/panel/files.py:147
+#: ../xlgui/widgets/playlist_columns.py:339 ../xlgui/panel/files.py:150
 #: ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/minimode_preferences.py:104
 msgid "Filename"
 msgstr "Failo pavadinimas"
 
-#: ../xlgui/widgets/playlist_columns.py:347
+#: ../xlgui/widgets/playlist_columns.py:346
 msgid "Playcount"
 msgstr "Grojimų skaičius"
 
-#: ../xlgui/widgets/playlist_columns.py:354 ../xlgui/properties.py:76
+#: ../xlgui/widgets/playlist_columns.py:353 ../xlgui/properties.py:76
 #: ../xlgui/panel/playlists.py:170 ../xlgui/panel/playlists.py:245
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
 msgstr "BPM"
 
-#: ../xlgui/widgets/playlist_columns.py:361 ../xlgui/properties.py:86
+#: ../xlgui/widgets/playlist_columns.py:360 ../xlgui/properties.py:86
 #: ../xlgui/panel/playlists.py:243 ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
 msgstr "Paskutinį kartą grota"
 
-#: ../xlgui/widgets/playlist_columns.py:367 ../xlgui/properties.py:79
+#: ../xlgui/widgets/playlist_columns.py:366 ../xlgui/properties.py:79
 #: ../xlgui/panel/playlists.py:242
 msgid "Date added"
 msgstr "Pridėjimo data"
 
-#: ../xlgui/widgets/playlist_columns.py:373
+#: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:492 ../xlgui/properties.py:77
+#: ../xlgui/widgets/playlist_columns.py:491 ../xlgui/properties.py:77
 msgid "Comment"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:501 ../xlgui/panel/playlists.py:178
+#: ../xlgui/widgets/playlist_columns.py:500 ../xlgui/panel/playlists.py:178
 #: ../xlgui/panel/playlists.py:246
 msgid "Grouping"
 msgstr ""
 
-#: ../xlgui/widgets/playlist_columns.py:620
+#: ../xlgui/widgets/playlist_columns.py:619
 msgid "_Resizable"
 msgstr "_Keičiamo dydžio"
 
-#: ../xlgui/widgets/playlist_columns.py:625
+#: ../xlgui/widgets/playlist_columns.py:624
 msgid "_Autosize"
 msgstr "_Automatinio dydžio"
 
@@ -914,19 +913,19 @@ msgstr "Naujas grojaraštis"
 msgid "Rename"
 msgstr "Pervadinti"
 
-#: ../xlgui/widgets/playlist.py:265
+#: ../xlgui/widgets/playlist.py:266
 msgid "Stop Playback After This Track"
 msgstr "Po šio takelio, sustabdyti grojimą"
 
-#: ../xlgui/widgets/playlist.py:272
+#: ../xlgui/widgets/playlist.py:273
 msgid "Continue Playback After This Track"
 msgstr "Po šio takelio groti toliau"
 
-#: ../xlgui/widgets/playlist.py:532
+#: ../xlgui/widgets/playlist.py:534
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Reikalingi priedai, įgalinantys dinaminius grojaraščius"
 
-#: ../xlgui/widgets/playlist.py:536 ../data/ui/playlist.ui.h:3
+#: ../xlgui/widgets/playlist.py:538 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dinamiškai pridėti susijusius takelius į grojaraštį"
 
@@ -1043,7 +1042,7 @@ msgstr "Neįvedėte grojaraščio pavadinimo"
 msgid "The playlist name you entered is already in use."
 msgstr "Toks grojaraščio pavadinimas jau užimtas."
 
-#: ../xlgui/widgets/notebook.py:136 ../xlgui/menu.py:115
+#: ../xlgui/widgets/notebook.py:146 ../xlgui/menu.py:115
 msgid "Close Tab"
 msgstr "Užverti kortelę"
 
@@ -1357,11 +1356,11 @@ msgstr "Įrenginys"
 msgid "Driver"
 msgstr "Tvarkyklė"
 
-#: ../xlgui/__init__.py:294
+#: ../xlgui/__init__.py:296
 msgid "Scanning collection..."
 msgstr "Skenuojama kolekcija..."
 
-#: ../xlgui/__init__.py:378
+#: ../xlgui/__init__.py:380
 #, python-format
 msgid "Scanning %s..."
 msgstr "Skenuojama %s..."
@@ -1402,27 +1401,23 @@ msgstr ""
 msgid "Delete Playlist"
 msgstr "Ištrinti grojaraštį"
 
-#: ../xlgui/oldmenu.py:264
-msgid "Export as..."
-msgstr "Eksportuoti kaip..."
-
-#: ../xlgui/oldmenu.py:289
+#: ../xlgui/oldmenu.py:268
 msgid "Choose directory to export files to"
 msgstr ""
 
-#: ../xlgui/oldmenu.py:299 ../xlgui/panel/playlists.py:1184
+#: ../xlgui/oldmenu.py:278 ../xlgui/panel/playlists.py:1178
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr "Ar tikrai norite visiškai ištrinti pasirinktą grojaraštį?"
 
-#: ../xlgui/oldmenu.py:312
+#: ../xlgui/oldmenu.py:291
 msgid "Enter the new name you want for your playlist"
 msgstr "Įveskite naują norimą grojaraščio pavadinimą"
 
-#: ../xlgui/oldmenu.py:313
+#: ../xlgui/oldmenu.py:292
 msgid "Rename Playlist"
 msgstr "Pervadinti grojaraštį"
 
-#: ../xlgui/oldmenu.py:352 ../plugins/multialarmclock/malrmclk.ui.h:2
+#: ../xlgui/oldmenu.py:331 ../plugins/multialarmclock/malrmclk.ui.h:2
 msgid "Remove"
 msgstr "Pašalinti"
 
@@ -1497,36 +1492,36 @@ msgstr "Atnaujinti"
 msgid "Enter the name you want for your new playlist"
 msgstr "Įveskite norimą pavadinimą naujam grojaraščiui"
 
-#: ../xlgui/panel/collection.py:177
+#: ../xlgui/panel/collection.py:179
 msgid "Genre - Artist"
 msgstr "Žanras - Atlikėjas"
 
-#: ../xlgui/panel/collection.py:180
+#: ../xlgui/panel/collection.py:182
 msgid "Genre - Album"
 msgstr "Žanras - Albumas"
 
-#: ../xlgui/panel/collection.py:183
+#: ../xlgui/panel/collection.py:185
 msgid "Date - Artist"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:186
+#: ../xlgui/panel/collection.py:188
 msgid "Date - Album"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:189
+#: ../xlgui/panel/collection.py:191
 msgid "Artist - (Date - Album)"
 msgstr ""
 
-#: ../xlgui/panel/collection.py:312
+#: ../xlgui/panel/collection.py:314
 msgid "Rescan Collection"
 msgstr "Skenuoti kolekciją iš naujo"
 
 #. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:171
+#: ../xlgui/panel/files.py:174
 msgid "Size"
 msgstr "Dydis"
 
-#: ../xlgui/panel/files.py:438
+#: ../xlgui/panel/files.py:441
 #, python-format
 msgid "%s KB"
 msgstr "%s KB"
@@ -1660,7 +1655,7 @@ msgstr "Pridėti gudrųjį grojaraštį"
 msgid "Edit Smart Playlist"
 msgstr "Redaguoti gudrųjį grojaraštį"
 
-#: ../xlgui/panel/playlists.py:1131
+#: ../xlgui/panel/playlists.py:1125
 #, python-format
 msgid "Exporting %s"
 msgstr ""
@@ -1762,8 +1757,8 @@ msgid "About Exaile"
 msgstr "Apie Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
-msgid "&#xA9; 2009-2010"
-msgstr "&#xA9; 2009-2010"
+msgid "&#xA9; 2009-2012"
+msgstr "&#xA9; 2009-2012"
 
 #: ../data/ui/about_dialog.ui.h:3
 msgid ""
@@ -2207,43 +2202,13 @@ msgstr ""
 msgid "Automatically advance to the next track"
 msgstr ""
 
-#: ../data/ui/preferences/playback.ui.h:15
-#: ../plugins/previewdevice/previewprefs.ui.h:10
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../data/ui/preferences/playback.ui.h:16
-#: ../plugins/previewdevice/previewprefs.ui.h:11
-msgid "ALSA"
-msgstr "ALSA"
-
-#: ../data/ui/preferences/playback.ui.h:17
-#: ../plugins/previewdevice/previewprefs.ui.h:12
-msgid "OSS"
-msgstr "OSS"
-
-#: ../data/ui/preferences/playback.ui.h:18
-#: ../plugins/previewdevice/previewprefs.ui.h:13
-msgid "PulseAudio"
-msgstr "PulseAudio"
-
-#: ../data/ui/preferences/playback.ui.h:19
-#: ../plugins/previewdevice/previewprefs.ui.h:14
-msgid "JACK"
-msgstr "JACK"
-
-#: ../data/ui/preferences/playback.ui.h:20
-#: ../plugins/previewdevice/previewprefs.ui.h:15
-msgid "DirectSound"
-msgstr ""
-
-#: ../data/ui/preferences/playback.ui.h:22
-#: ../plugins/previewdevice/previewprefs.ui.h:17
+#: ../data/ui/preferences/playback.ui.h:14
+#: ../plugins/previewdevice/previewprefs.ui.h:9
 msgid "Normal"
 msgstr "Normalus"
 
-#: ../data/ui/preferences/playback.ui.h:23
-#: ../plugins/previewdevice/previewprefs.ui.h:18
+#: ../data/ui/preferences/playback.ui.h:15
+#: ../plugins/previewdevice/previewprefs.ui.h:10
 msgid "Unified (unstable)"
 msgstr "Suvienytas (nestabilus)"
 
@@ -2487,7 +2452,7 @@ msgstr "Last.fm patiko"
 msgid "Love This Track"
 msgstr "Patinka šis takelis"
 
-#: ../plugins/lastfmlove/__init__.py:205
+#: ../plugins/lastfmlove/__init__.py:208
 msgid "Unlove This Track"
 msgstr "Šis takelis nepatinka"
 
@@ -2857,21 +2822,21 @@ msgstr "Pozicijos juosta"
 msgid "Playback progress and seeking"
 msgstr "Grojimo pozicija ir sekimas"
 
-#: ../plugins/grouptagger/gt_prefs.py:21 ../plugins/grouptagger/__init__.py:95
-#: ../plugins/grouptagger/__init__.py:112
+#: ../plugins/grouptagger/gt_prefs.py:21 ../plugins/grouptagger/__init__.py:97
+#: ../plugins/grouptagger/__init__.py:114
 msgid "GroupTagger"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:106
-#: ../plugins/grouptagger/gt_widgets.py:688
+#: ../plugins/grouptagger/__init__.py:108
+#: ../plugins/grouptagger/gt_widgets.py:686
 msgid "Get all tags from collection"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:117
+#: ../plugins/grouptagger/__init__.py:119
 msgid "Show tracks with all tags"
 msgstr ""
 
-#: ../plugins/grouptagger/__init__.py:121
+#: ../plugins/grouptagger/__init__.py:123
 msgid "Show tracks with tags (custom)"
 msgstr ""
 
@@ -2889,8 +2854,8 @@ msgid "Show tracks with all selected"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:132
-#: ../plugins/grouptagger/gt_widgets.py:652
-#: ../plugins/grouptagger/gt_widgets.py:753
+#: ../plugins/grouptagger/gt_widgets.py:650
+#: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Group"
 msgstr ""
 
@@ -2930,35 +2895,35 @@ msgstr ""
 msgid "Enter new group category name"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:512
+#: ../plugins/grouptagger/gt_widgets.py:510
 msgid "Add Group"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:709
+#: ../plugins/grouptagger/gt_widgets.py:707
 msgid "Add selected to choices"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:735
+#: ../plugins/grouptagger/gt_widgets.py:733
 msgid "Show tracks with groups"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:746
+#: ../plugins/grouptagger/gt_widgets.py:744
 msgid "Must have this tag [AND]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:746
+#: ../plugins/grouptagger/gt_widgets.py:744
 msgid "May have this tag [OR]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:746
+#: ../plugins/grouptagger/gt_widgets.py:744
 msgid "Must not have this tag [NOT]"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:746
+#: ../plugins/grouptagger/gt_widgets.py:744
 msgid "Ignored"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_widgets.py:754
+#: ../plugins/grouptagger/gt_widgets.py:752
 msgid "Selected Tracks"
 msgstr ""
 
@@ -3026,7 +2991,7 @@ msgid ""
 "from $album"
 msgstr ""
 
-#: ../plugins/osd/__init__.py:373
+#: ../plugins/osd/__init__.py:379
 msgid ""
 "<span font_desc=\"Sans 11\" foreground=\"#fff\"><b>$title</b></span>\n"
 "by $artist\n"
@@ -3089,7 +3054,7 @@ msgstr "Darbastalio viršeliai"
 msgid "Multi-Alarm Clock"
 msgstr "Daugiafunkcinis žadintuvas"
 
-#: ../plugins/contextinfo/__init__.py:1127
+#: ../plugins/contextinfo/__init__.py:1147
 #: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
 msgstr "Kontekstas"
@@ -3125,11 +3090,11 @@ msgstr "Pristabdyti įsijungus ekrano užsklandai"
 msgid "DAAP Server"
 msgstr "DAAP serveris"
 
-#: ../plugins/bpm/__init__.py:78
+#: ../plugins/bpm/__init__.py:80
 msgid "BPM Counter"
 msgstr ""
 
-#: ../plugins/bpm/__init__.py:238
+#: ../plugins/bpm/__init__.py:240
 #, python-format
 msgid "Set BPM of %d on %s?"
 msgstr ""
@@ -3240,10 +3205,10 @@ msgid ""
 "you have entered these, <b>request access permission</b> and confirm to "
 "complete the setup."
 msgstr ""
-"Eikite į <b><a href=\"http://www.last.fm/api/account\">Jūsų API "
-"Paskyra</a></b> puslapį kuriame gausite <b>API raktą</b> ir <b>paslaptį</b> "
-"ir įveskite juos čia. Kai įvedėte juos, <b>paprašykite teisės prieiti</b> ir "
-"pabaigai patvirtinkite."
+"Eikite į <b><a href=\"http://www.last.fm/api/account\">Jūsų API Paskyra</a></"
+"b> puslapį kuriame gausite <b>API raktą</b> ir <b>paslaptį</b> ir įveskite "
+"juos čia. Kai įvedėte juos, <b>paprašykite teisės prieiti</b> ir pabaigai "
+"patvirtinkite."
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm time</b>"
@@ -3451,8 +3416,8 @@ msgstr "Atlikėjo eilutė:"
 #, python-format
 msgid ""
 "<i>The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be "
-"replaced by their respective values. The title will be replaced by "
-"\"Unknown\" if it is empty.</i>"
+"replaced by their respective values. The title will be replaced by \"Unknown"
+"\" if it is empty.</i>"
 msgstr ""
 "<i>Gairės \"%(title)s\", \"%(artist)s\" ir \"%(album)s\" bus pakeistos "
 "atitinkamomis reikšmėmis. Pavadinimas, jeigu nenurodyta kitaip, bus "
@@ -3525,8 +3490,8 @@ msgid ""
 msgstr ""
 "<i>Žinutė, kuri bus rodoma pranešimo apibendrinimo dalyje. Kiekvienu atveju "
 "\"%(title)s\", \"%(artist)s\" ir \"%(album)s\" bus pakeisti atitinkamomis jų "
-"reikšmėmis. Jeigu gairė nenurodyta, tada jos vietoje bus užrašas "
-"\"Nežinomas\".</i>"
+"reikšmėmis. Jeigu gairė nenurodyta, tada jos vietoje bus užrašas \"Nežinomas"
+"\".</i>"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Both artist and album:"
@@ -3757,9 +3722,8 @@ msgstr "Žanras/Gairės"
 msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a "
-"href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">Pango"
-" Text Attribute Markup</a> is supported."
+"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
+"\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:3
@@ -3785,12 +3749,12 @@ msgstr ""
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
 "<i>To sign up for an Amazon AWS account and get \n"
-"this information visit <a "
-"href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a></i>"
+"this information visit <a href=\"http://aws.amazon.com/\">http://aws.amazon."
+"com/</a></i>"
 msgstr ""
 "<i>Norėdami užregistruoti Amazon AWS sąskaitą ir gauti šią informaciją, \n"
-"apsilankykite <a "
-"href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a></i>"
+"apsilankykite <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a></"
+"i>"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
@@ -4192,9 +4156,9 @@ msgstr ""
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
-"This plugins displays notification bubbles when a song is "
-"played/resumed/stopped, with either the song cover or a media icon to "
-"indicate the latest action.\n"
+"This plugins displays notification bubbles when a song is played/resumed/"
+"stopped, with either the song cover or a media icon to indicate the latest "
+"action.\n"
 "\n"
 "Depends: python-notify\n"
 "Recommends: notify-osd"
@@ -4410,11 +4374,139 @@ msgstr ""
 msgid "Allows playing of DAAP music shares."
 msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 
+#~ msgid "Clear"
+#~ msgstr "Išvalyti"
+
+#~ msgid "Close"
+#~ msgstr "Užverti"
+
+#~ msgid "Close tab"
+#~ msgstr "Užverti kortelę"
+
+#~ msgid "Export as..."
+#~ msgstr "Eksportuoti kaip..."
+
+#~ msgid "%d KB"
+#~ msgstr "%d KB"
+
+#~ msgid "&#xA9; 2009-2010"
+#~ msgstr "&#xA9; 2009-2010"
+
+#~ msgid "GNOME"
+#~ msgstr "GNOME"
+
+#~ msgid "ALSA"
+#~ msgstr "ALSA"
+
+#~ msgid "OSS"
+#~ msgstr "OSS"
+
+#~ msgid "PulseAudio"
+#~ msgstr "PulseAudio"
+
+#~ msgid "JACK"
+#~ msgstr "JACK"
+
+#~ msgid "AWN"
+#~ msgstr "AWN"
+
+#~ msgid "API Key:"
+#~ msgstr "API raktas:"
+
+#~ msgctxt "yes"
+#~ msgid "Monday"
+#~ msgstr "Pirmadienis"
+
+#~ msgctxt "yes"
+#~ msgid "Tuesday"
+#~ msgstr "Antradienis"
+
+#~ msgctxt "yes"
+#~ msgid "Wednesday"
+#~ msgstr "Trečiadienis"
+
+#~ msgctxt "yes"
+#~ msgid "Thursday"
+#~ msgstr "Ketvirtadienis"
+
+#~ msgctxt "yes"
+#~ msgid "Friday"
+#~ msgstr "Penktadienis"
+
+#~ msgctxt "yes"
+#~ msgid "Saturday"
+#~ msgstr "Šeštadienis"
+
+#~ msgctxt "yes"
+#~ msgid "Sunday"
+#~ msgstr "Sekmadienis"
+
+#~ msgctxt "yes"
+#~ msgid "Use Fading"
+#~ msgstr "Naudoti išblukimą"
+
+#~ msgctxt "yes"
+#~ msgid "Minimum volume:"
+#~ msgstr "Minimalus garsumo lygis:"
+
+#~ msgctxt "yes"
+#~ msgid "Maximum volume:"
+#~ msgstr "Maksimalus garsumo lygis:"
+
+#~ msgctxt "yes"
+#~ msgid "Increment:"
+#~ msgstr "Garsėjimas:"
+
+#~ msgctxt "yes"
+#~ msgid "Time per increment:"
+#~ msgstr "Garsėjimo laikas:"
+
+#~ msgid "Secret key:"
+#~ msgstr "Slaptas raktas:"
+
+#~ msgid "Awn"
+#~ msgstr "Awn"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Bendrieji</b>"
+
+#~ msgid ""
+#~ "<b>{title}</b>\n"
+#~ "{artist}\n"
+#~ "on {album} - {length}"
+#~ msgstr ""
+#~ "<b>{pavadinimas}</b>\n"
+#~ "{atlikėjas}\n"
+#~ "iš {albumas} - {trukmė}"
+
+#~ msgid "Autosize"
+#~ msgstr "Automatiškai nustatyti dydį"
+
+#~ msgid ""
+#~ "Artist\n"
+#~ "Album\n"
+#~ "Genre - Artist\n"
+#~ "Genre - Album\n"
+#~ "Year - Artist\n"
+#~ "Year - Album\n"
+#~ "Artist - Year - Album"
+#~ msgstr ""
+#~ "Atlikėjas\n"
+#~ "Albumas\n"
+#~ "Žanras - atlikėjas\n"
+#~ "Žanras - albumas\n"
+#~ "Išleidimo metai - atlikėjas\n"
+#~ "Išleidimo metai - albumas\n"
+#~ "Atlikėjas - išleidimo metai - albumas"
+
 #~ msgid "New Search"
 #~ msgstr "Nauja paieška:"
 
 #~ msgid "Popup"
 #~ msgstr "Iškylantysis langas"
+
+#~ msgid "Resizable"
+#~ msgstr "Keičiamo dydžio"
 
 #~ msgid "Start"
 #~ msgstr "Pradėti"
@@ -4434,6 +4526,9 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ msgid "Stop Playback"
 #~ msgstr "Stabdyti perklausą"
 
+#~ msgid "Vol:"
+#~ msgstr "Gars:"
+
 #~ msgid "_Close"
 #~ msgstr "_Užverti"
 
@@ -4443,7 +4538,6 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ msgid "Plugin archive is not in the correct format"
 #~ msgstr "Papildinio archyvas netinkamo formato"
 
-#, python-format
 #~ msgid "A plugin with the name \"%s\" is already installed"
 #~ msgstr "Papildinys vardu \"%s\" jau įdiegtas"
 
@@ -4455,6 +4549,9 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 
 #~ msgid "Clear Playlist"
 #~ msgstr "Išvalyti grojaraštį"
+
+#~ msgid "Exaile"
+#~ msgstr "Exaile"
 
 #~ msgid "Toggle Play or Pause"
 #~ msgstr "Groti ar sustoti"
@@ -4474,7 +4571,6 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ msgid "New playlist title:"
 #~ msgstr "Naujas grojaraščio pavadinimas:"
 
-#, python-format
 #~ msgid "%(minutes)d:%(seconds)02d"
 #~ msgstr "%(minutes)d:%(seconds)02d"
 
@@ -4533,14 +4629,14 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ msgid "Extension"
 #~ msgstr "Plėtinys"
 
-#, python-format
 #~ msgid "%(playlist_count)d showing, %(collection_count)d in collection"
 #~ msgstr "%(playlist_count)d rodomi, %(collection_count)d kolekcijoje"
 
 #~ msgid ""
-#~ "Path is already in your collection, or is a subdirectory of another path in "
-#~ "your collection"
-#~ msgstr "Kelias jau jūsų kolekcijoje, arba jis yra tokio kelio subdirektorija"
+#~ "Path is already in your collection, or is a subdirectory of another path "
+#~ "in your collection"
+#~ msgstr ""
+#~ "Kelias jau jūsų kolekcijoje, arba jis yra tokio kelio subdirektorija"
 
 #~ msgid "Add a directory"
 #~ msgstr "Pridėti direktoriją"
@@ -4548,22 +4644,15 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ msgid " songs"
 #~ msgstr " dainų"
 
-#, python-format
 #~ msgid "%(year)d-%(month)02d-%(day)02d"
 #~ msgstr "%(year)d-%(month)02d-%(day)02d"
 
 #~ msgid "Add To New Playlist..."
 #~ msgstr "Pridėti prie naujo grojaraščio..."
 
-#, python-format
-#~ msgid "%s KB"
-#~ msgstr "%s KB"
-
-#, python-format
 #~ msgid "Could not enable plugin: %s"
 #~ msgstr "Neįmanoma įjungti priedo: %s"
 
-#, python-format
 #~ msgid "Could not disable plugin: %s"
 #~ msgstr "Neįmanoma išjungti priedo: %s"
 
@@ -4612,9 +4701,6 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ msgid "Name - Time"
 #~ msgstr "Pavadinimas - Laikas"
 
-#~ msgid "API Key:"
-#~ msgstr "API raktas:"
-
 #~ msgid "Relay Port:"
 #~ msgstr "Perdavimo prievadas:"
 
@@ -4623,6 +4709,21 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 
 #~ msgid "Show a popup of the currently playing track"
 #~ msgstr "Rodyti dabar grojančio takelio iššokantį langą"
+
+#~ msgid "Original Date"
+#~ msgstr "Originali Data"
+
+#~ msgid "Original Artist"
+#~ msgstr "Originalus Atlikėjas"
+
+#~ msgid "Original Album"
+#~ msgstr "Originalus Albumas"
+
+#~ msgid "Encoded By"
+#~ msgstr "Koduodas"
+
+#~ msgid "Last Played"
+#~ msgstr "Paskutinį kartą grota"
 
 #~ msgid "_Save As..."
 #~ msgstr "Iš_saugoti kaip..."
@@ -4639,6 +4740,9 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ msgid "Increases the volume by VOL%"
 #~ msgstr "Padidina garsą VOL%"
 
+#~ msgid "Date Added"
+#~ msgstr "Kada pridėta"
+
 #~ msgid "Toggle: Stop after selected track"
 #~ msgstr "Perjungti: Sustabdyti po dabartinės dainos"
 
@@ -4651,30 +4755,24 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ msgid "Select File Type (By Extension)"
 #~ msgstr "Pasirinkti failo tipą (pagal plėtinį)"
 
-#~ msgid "Close tab"
-#~ msgstr "Užverti kortelę"
-
 #~ msgid "Choose a file to open"
 #~ msgstr "Pasirinkite kurį failą atverti"
-
-#~ msgid "Clear"
-#~ msgstr "Išvalyti"
-
-#~ msgid "Close"
-#~ msgstr "Užverti"
 
 #~ msgid ""
 #~ "This will permanantly delete the selected tracks from your disk, are you "
 #~ "sure you wish to continue?"
 #~ msgstr ""
-#~ "Tai visiškai pašalins pažymėtus takelius iš jūsų disko. Ar jūs tikrai norite "
-#~ "tęsti?"
+#~ "Tai visiškai pašalins pažymėtus takelius iš jūsų disko. Ar jūs tikrai "
+#~ "norite tęsti?"
 
 #~ msgid "Randomize the order of the current playlist"
 #~ msgstr "Maišyti dabartinio grojaraščio eiliškumą"
 
 #~ msgid "_Randomize Playlist"
 #~ msgstr "_Išmaišyti grojaraštį"
+
+#~ msgid "Search:"
+#~ msgstr "Paieška:"
 
 #~ msgid ""
 #~ "Mathias Brodala\n"
@@ -4694,45 +4792,6 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ "Nutempkite į tą vietą, kur norėtumėte,\n"
 #~ "kad būtų rodomas OSD pranešimas"
 
-#~ msgctxt "yes"
-#~ msgid "Friday"
-#~ msgstr "Penktadienis"
-
-#~ msgctxt "yes"
-#~ msgid "Maximum volume:"
-#~ msgstr "Maksimalus garsumo lygis:"
-
-#~ msgctxt "yes"
-#~ msgid "Minimum volume:"
-#~ msgstr "Minimalus garsumo lygis:"
-
-#~ msgctxt "yes"
-#~ msgid "Monday"
-#~ msgstr "Pirmadienis"
-
-#~ msgctxt "yes"
-#~ msgid "Saturday"
-#~ msgstr "Šeštadienis"
-
-#~ msgctxt "yes"
-#~ msgid "Sunday"
-#~ msgstr "Sekmadienis"
-
-#~ msgctxt "yes"
-#~ msgid "Thursday"
-#~ msgstr "Ketvirtadienis"
-
-#~ msgctxt "yes"
-#~ msgid "Tuesday"
-#~ msgstr "Antradienis"
-
-#~ msgctxt "yes"
-#~ msgid "Wednesday"
-#~ msgstr "Trečiadienis"
-
-#~ msgid "Secret key:"
-#~ msgstr "Slaptas raktas:"
-
 #~ msgid ""
 #~ "Adds support for playing audio CDs.\n"
 #~ "Requires python-cddb to look up tags."
@@ -4742,16 +4801,6 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 
 #~ msgid "A plugin for iPod support"
 #~ msgstr "Įskiepis iPod palaikymui"
-
-#~ msgid "AWN"
-#~ msgstr "AWN"
-
-#~ msgctxt "yes"
-#~ msgid "Increment:"
-#~ msgstr "Garsėjimas:"
-
-#~ msgid "Awn"
-#~ msgstr "Awn"
 
 #~ msgid "Invalid file extension, file not saved"
 #~ msgstr "Netinkamas failų tipo plėtinys. Neišsaugota."
@@ -4774,7 +4823,6 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ msgid "Playback engine (requires restart): "
 #~ msgstr "Grojimo varikliukas (reikalauja paleidimo iš naujo): "
 
-#, python-format
 #~ msgid "%d covers to fetch"
 #~ msgstr "Atsisiųsti %d viršelių"
 
@@ -4786,14 +4834,6 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 
 #~ msgid "Fading:"
 #~ msgstr "Išblukimas:"
-
-#~ msgctxt "yes"
-#~ msgid "Time per increment:"
-#~ msgstr "Garsėjimo laikas:"
-
-#~ msgctxt "yes"
-#~ msgid "Use Fading"
-#~ msgstr "Naudoti išblukimą"
 
 #~ msgid "Creates an MPRIS D-Bus object to control Exaile"
 #~ msgstr "Sukuria MPRIS D-Bus objektą Exaile valdymui"
@@ -4809,13 +4849,12 @@ msgstr "Įgalina DAAP viešinamos muzikos klausymąsi."
 #~ "<b>Move the On Screen Display window to the location you want it to "
 #~ "appear</b>"
 #~ msgstr ""
-#~ "<b>Perkelkite Pranešimų ekrane langą į tą vietą, kurioje jis visada turėtų "
-#~ "pasirodyti</b>"
+#~ "<b>Perkelkite Pranešimų ekrane langą į tą vietą, kurioje jis visada "
+#~ "turėtų pasirodyti</b>"
 
 #~ msgid "Display a progressbar in the OSD"
 #~ msgstr "OSD pranešimuose rodyti pozicijos juostą"
 
-#, python-format
 #~ msgid "Playing %s"
 #~ msgstr "%s grojama"
 

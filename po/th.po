@@ -1,4 +1,4 @@
-# Albanian translation for exaile
+# Thai translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -10,41 +10,37 @@ msgstr ""
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
 "PO-Revision-Date: 2014-08-10 19:50+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Albanian <sq@li.org>\n"
+"Language-Team: Thai <th@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:17+0000\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2014-08-11 06:24+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] "%d Dit, "
-msgstr[1] "%d Ditet, "
+msgstr[0] "%d วัน "
 
 #: ../xl/formatter.py:599
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ชั่วโมง "
 
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d นาที "
 
 #: ../xl/formatter.py:601
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "%d sekondë"
-msgstr[1] "%d sekonda"
+msgstr[0] "%d วินาที"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
@@ -92,15 +88,15 @@ msgstr ""
 #: ../xl/formatter.py:691
 #: ../xl/formatter.py:696
 msgid "Never"
-msgstr ""
+msgstr "ไม่ต้องเลย"
 
 #: ../xl/formatter.py:702
 msgid "Today"
-msgstr ""
+msgstr "วันนี้"
 
 #: ../xl/formatter.py:704
 msgid "Yesterday"
-msgstr ""
+msgstr "เมื่อวาน"
 
 #: ../xl/main.py:201
 msgid "Failed to migrate from 0.2.14"
@@ -113,29 +109,29 @@ msgstr ""
 #: ../xl/main.py:417
 #: ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "ตัวเลือก"
 
 #: ../xl/main.py:421
 msgid "Playback Options"
-msgstr ""
+msgstr "ปรับตั้งค่าการเล่น"
 
 #: ../xl/main.py:423
 msgid "Play the next track"
-msgstr ""
+msgstr "เล่นเพลงต่อไป"
 
 #: ../xl/main.py:425
 msgid "Play the previous track"
-msgstr ""
+msgstr "เล่นเพลงก่อนหน้า"
 
 #: ../xl/main.py:427
 #: ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr ""
+msgstr "หยุดเล่นสื่อ"
 
 #: ../xl/main.py:429
 msgid "Play"
-msgstr ""
+msgstr "เล่น"
 
 #: ../xl/main.py:431
 msgid "Pause"
@@ -143,26 +139,26 @@ msgstr ""
 
 #: ../xl/main.py:434
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "หยุดหรือเล่นเพลง"
 
 #: ../xl/main.py:437
 #: ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "หยุดการเล่นหลังจากเพลงปัจจุบัน"
 
 #: ../xl/main.py:440
 msgid "Collection Options"
-msgstr ""
+msgstr "ตัวเลือกแหล่งสะสม"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:443
 #: ../xl/main.py:450
 msgid "LOCATION"
-msgstr ""
+msgstr "ตำแหน่ง"
 
 #: ../xl/main.py:443
 msgid "Add tracks from LOCATION to the collection"
-msgstr ""
+msgstr "เพิ่มเพลงจากตำแหน่งที่เลือกไปยังแหล่งรวบรวม"
 
 #: ../xl/main.py:447
 msgid "Playlist Options"
@@ -174,7 +170,7 @@ msgstr ""
 
 #: ../xl/main.py:454
 msgid "Track Options"
-msgstr ""
+msgstr "ตัวเลือกแทร็ค"
 
 #: ../xl/main.py:456
 msgid "Query player"
@@ -200,23 +196,23 @@ msgstr ""
 
 #: ../xl/main.py:467
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "แสดงป็อปอัพด้วยข้อมูลแทร็คปัจจุบัน"
 
 #: ../xl/main.py:469
 msgid "Print the title of current track"
-msgstr ""
+msgstr "แสดงชื่อของเพลงที่เล่นอยู่"
 
 #: ../xl/main.py:471
 msgid "Print the album of current track"
-msgstr ""
+msgstr "แสดงอัลบั้มของเพลงที่เล่นอยู่"
 
 #: ../xl/main.py:473
 msgid "Print the artist of current track"
-msgstr ""
+msgstr "แสดงชื่อนักร้องของเพลงที่เล่นอยู่"
 
 #: ../xl/main.py:475
 msgid "Print the length of current track"
-msgstr ""
+msgstr "แสดงความยาวของเพลงที่เล่นอยู่"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:478
@@ -227,44 +223,44 @@ msgstr ""
 
 #: ../xl/main.py:479
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "ให้คะแนนเพลงปัจจุบันเท่ากับ N%"
 
 #: ../xl/main.py:481
 msgid "Get rating for current track"
-msgstr ""
+msgstr "ด"
 
 #: ../xl/main.py:484
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "แสดงตำแหน่งของการเล่นเพลงปัจจุบันเป็นเวลา"
 
 #: ../xl/main.py:486
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "แสดงตำแหน่งของการเล่นเพลงปัจจุบันเป็นเปอร์เซ็นต์"
 
 #: ../xl/main.py:490
 msgid "Volume Options"
-msgstr ""
+msgstr "ตั้งค่าระดับเสียง"
 
 #: ../xl/main.py:494
 msgid "Increases the volume by N%"
-msgstr ""
+msgstr "เพิ่มระดับเสียงเป็น N%"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:499
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "ลดระดับเสียงเป็น N%"
 
 #: ../xl/main.py:502
 msgid "Mutes or unmutes the volume"
-msgstr ""
+msgstr "เปิด/ปิด ระดับเสียง"
 
 #: ../xl/main.py:504
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "แสดงค่าความดังเสียงเป็นเปอร์เซนต์"
 
 #: ../xl/main.py:507
 msgid "Other Options"
-msgstr ""
+msgstr "ตัวเลือกอื่น ๆ"
 
 #: ../xl/main.py:509
 msgid "Start new instance"
@@ -272,15 +268,15 @@ msgstr ""
 
 #: ../xl/main.py:511
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "แสดงข้อความช่วยเหลือนี้และออก"
 
 #: ../xl/main.py:513
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "แสดงรุ่นของโปรแกรมและออก"
 
 #: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "ย่อขนาดโปรแกรมไปอยู่ที่กระบะของระบบ(ถ้าเป็นไปได้)"
 
 #: ../xl/main.py:519
 msgid "Toggle visibility of the GUI (if possible)"
@@ -297,7 +293,7 @@ msgstr ""
 
 #: ../xl/main.py:527
 msgid "Do not import old data from version 0.2.x"
-msgstr ""
+msgstr "ไม่นำเข้าข้อมูลเก่าจากเวอร์ชัน 0.2.x"
 
 #: ../xl/main.py:530
 msgid "Make control options like --play start Exaile if it is not running"
@@ -310,11 +306,11 @@ msgstr ""
 #: ../xl/main.py:536
 #: ../xl/main.py:538
 msgid "DIRECTORY"
-msgstr ""
+msgstr "ไดเร็กทอรี"
 
 #: ../xl/main.py:536
 msgid "Set data directory"
-msgstr ""
+msgstr "กำหนดไดเร็กทอรีของข้อมูล"
 
 #: ../xl/main.py:538
 msgid "Set data and config directory"
@@ -322,7 +318,7 @@ msgstr ""
 
 #: ../xl/main.py:540
 msgid "MODULE"
-msgstr ""
+msgstr "โมดูล"
 
 #: ../xl/main.py:541
 msgid "Limit log output to MODULE"
@@ -330,7 +326,7 @@ msgstr ""
 
 #: ../xl/main.py:543
 msgid "LEVEL"
-msgstr ""
+msgstr "ระดับ"
 
 #: ../xl/main.py:544
 msgid "Limit log output to LEVEL"
@@ -350,7 +346,7 @@ msgstr ""
 
 #: ../xl/main.py:555
 msgid "TYPE"
-msgstr ""
+msgstr "ชนิด"
 
 #: ../xl/main.py:556
 msgid "Limit xl.event debug to output of TYPE"
@@ -366,7 +362,7 @@ msgstr ""
 
 #: ../xl/main.py:564
 msgid "Disable HAL support."
-msgstr ""
+msgstr "ปิดการรองรับ HAL"
 
 #: ../xl/main.py:580
 msgid "Entire Library"
@@ -375,12 +371,12 @@ msgstr ""
 #: ../xl/main.py:586
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "สุ่ม %d"
 
 #: ../xl/main.py:594
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "ความนิยม > %d"
 
 #: ../xl/main.py:695
 msgid ""
@@ -427,7 +423,7 @@ msgstr ""
 #: ../xl/trax/track.py:66
 #: ../plugins/notifyosd/__init__.py:71
 msgid "Unknown"
-msgstr ""
+msgstr "ไม่ทราบ"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
@@ -477,13 +473,13 @@ msgstr ""
 
 #: ../xl/player/pipe.py:311
 msgid "Automatic"
-msgstr ""
+msgstr "อัตโนมัติ"
 
 #: ../xl/player/pipe.py:340
 #: ../xl/player/pipe.py:365
 #: ../xl/player/pipe.py:386
 msgid "Custom"
-msgstr ""
+msgstr "กำหนดเอง"
 
 #: ../xl/player/pipe.py:441
 #: ../plugins/previewdevice/previewprefs.py:76
@@ -494,7 +490,7 @@ msgstr ""
 #: ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:243
 msgid "Not playing."
-msgstr ""
+msgstr "ไม่ได้เล่นอยู่"
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -537,12 +533,12 @@ msgstr ""
 #: ../xl/playlist.py:533
 #, python-format
 msgid "Invalid format for %s."
-msgstr ""
+msgstr "ไม่สามารถอ่านชนิดของ %s"
 
 #: ../xl/playlist.py:528
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "รุ่น%(version)s ไม่รองรับสำหรับ %(type)s"
 
 #: ../xl/playlist.py:588
 msgid "ASX Playlist"
@@ -554,27 +550,27 @@ msgstr ""
 
 #: ../xl/playlist.py:874
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "สุ่ม _ปิด"
 
 #: ../xl/playlist.py:875
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "สุ่ม แ_ทร็ค"
 
 #: ../xl/playlist.py:875
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "สุ่ม _อัลบั้ม"
 
 #: ../xl/playlist.py:879
 msgid "Repeat _Off"
-msgstr ""
+msgstr "สุ่ม _ปิด"
 
 #: ../xl/playlist.py:879
 msgid "Repeat _All"
-msgstr ""
+msgstr "สุ่ม _ทั้งหมด"
 
 #: ../xl/playlist.py:879
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "สุ่ม เ_พลงเดียว"
 
 #: ../xl/playlist.py:883
 msgid "Dynamic _Off"
@@ -595,23 +591,23 @@ msgstr ""
 #: ../xl/playlist.py:1825
 #: ../xlgui/panel/playlists.py:71
 msgid "minutes"
-msgstr ""
+msgstr "นาที"
 
 #: ../xl/playlist.py:1826
 #: ../xlgui/panel/playlists.py:71
 msgid "hours"
-msgstr ""
+msgstr "ชั่วโมง"
 
 #: ../xl/playlist.py:1827
 #: ../xlgui/panel/playlists.py:68
 #: ../xlgui/panel/playlists.py:71
 msgid "days"
-msgstr ""
+msgstr "วัน"
 
 #: ../xl/playlist.py:1828
 #: ../xlgui/panel/playlists.py:71
 msgid "weeks"
-msgstr ""
+msgstr "สัปดาห์"
 
 #: ../xl/lyrics.py:305
 msgid "Local"
@@ -634,17 +630,17 @@ msgstr ""
 #: ../xlgui/widgets/menuitems.py:145
 #: ../xlgui/properties.py:1135
 msgid "Open Directory"
-msgstr ""
+msgstr "เปิดตำแหน่งไฟล์"
 
 #: ../xlgui/widgets/menuitems.py:167
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
-msgstr ""
+msgstr "ไฟล์ไม่สามารถย้ายลงถังขยะ ลบไฟล์นี้เลยหรือไม่?"
 
 #: ../xlgui/widgets/menuitems.py:182
 msgid "Move to Trash"
-msgstr ""
+msgstr "ย้ายลงถังขยะ"
 
 #: ../xlgui/widgets/menuitems.py:193
 msgid "_Show Playing Track"
@@ -653,11 +649,11 @@ msgstr ""
 #: ../xlgui/widgets/filter.py:62
 #: ../xlgui/panel/radio.py:200
 msgid "Name:"
-msgstr ""
+msgstr "ชื่อ:"
 
 #: ../xlgui/widgets/filter.py:76
 msgid "Match any of the criteria"
-msgstr ""
+msgstr "ตรงกับผลลัพธ์ทุกอย่าง"
 
 #: ../xlgui/widgets/filter.py:78
 msgid "Randomize results"
@@ -674,7 +670,7 @@ msgstr ""
 #: ../xlgui/widgets/playback.py:95
 #: ../xlgui/widgets/info.py:71
 msgid "Not Playing"
-msgstr ""
+msgstr "ไม่ได้เล่นอยู่"
 
 #: ../xlgui/widgets/playback.py:744
 #, python-format
@@ -683,7 +679,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:1020
 msgid "Move"
-msgstr ""
+msgstr "ย้าย"
 
 #: ../xlgui/widgets/playback.py:1166
 msgid "New Marker"
@@ -773,7 +769,7 @@ msgstr ""
 #: ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Artist"
-msgstr "Artisti"
+msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:239
 #: ../xlgui/properties.py:72
@@ -792,7 +788,7 @@ msgstr ""
 #: ../plugins/minimode/minimode_preferences.py:96
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Album"
-msgstr "Albumi"
+msgstr "อัลบั้ม"
 
 #: ../xlgui/widgets/playlist_columns.py:253
 #: ../xlgui/properties.py:80
@@ -800,12 +796,12 @@ msgstr "Albumi"
 #: ../plugins/cd/cdprefs.py:110
 #: ../plugins/minimode/minimode_preferences.py:97
 msgid "Length"
-msgstr ""
+msgstr "ความยาว"
 
 #: ../xlgui/widgets/playlist_columns.py:260
 #: ../xlgui/properties.py:75
 msgid "Disc"
-msgstr ""
+msgstr "แผ่นที่"
 
 #: ../xlgui/widgets/playlist_columns.py:261
 msgid "Disc Number"
@@ -818,14 +814,14 @@ msgstr ""
 #: ../plugins/minimode/controls.py:527
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Rating"
-msgstr ""
+msgstr "การจัดอันดับ"
 
 #: ../xlgui/widgets/playlist_columns.py:312
 #: ../xlgui/properties.py:59
 #: ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:100
 msgid "Date"
-msgstr ""
+msgstr "วันที่"
 
 #: ../xlgui/widgets/playlist_columns.py:318
 #: ../xlgui/properties.py:71
@@ -833,14 +829,14 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:101
 msgid "Genre"
-msgstr ""
+msgstr "แนวเพลง"
 
 #: ../xlgui/widgets/playlist_columns.py:325
 #: ../xlgui/properties.py:78
 #: ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
-msgstr "Raporti i bitit:"
+msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:332
 #: ../xlgui/properties.py:81
@@ -849,14 +845,14 @@ msgstr "Raporti i bitit:"
 #: ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:103
 msgid "Location"
-msgstr ""
+msgstr "ตำแหน่ง"
 
 #: ../xlgui/widgets/playlist_columns.py:339
 #: ../xlgui/panel/files.py:150
 #: ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/minimode_preferences.py:104
 msgid "Filename"
-msgstr ""
+msgstr "ชื่อไฟล์"
 
 #: ../xlgui/widgets/playlist_columns.py:346
 msgid "Playcount"
@@ -869,7 +865,7 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
-msgstr ""
+msgstr "จังหวะต่อนาที"
 
 #: ../xlgui/widgets/playlist_columns.py:360
 #: ../xlgui/properties.py:86
@@ -877,13 +873,13 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
-msgstr ""
+msgstr "เล่นครั้งล่าสุด"
 
 #: ../xlgui/widgets/playlist_columns.py:366
 #: ../xlgui/properties.py:79
 #: ../xlgui/panel/playlists.py:242
 msgid "Date added"
-msgstr ""
+msgstr "วันที่ถูกเพิ่มเข้ามา"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
@@ -914,11 +910,11 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist.py:129
 msgid "Shuffle"
-msgstr ""
+msgstr "สุ่ม"
 
 #: ../xlgui/widgets/playlist.py:133
 msgid "Repeat"
-msgstr ""
+msgstr "เล่นวนซ้ำ"
 
 #: ../xlgui/widgets/playlist.py:137
 msgid "Dynamic"
@@ -947,7 +943,7 @@ msgstr ""
 #: ../xlgui/widgets/playlist.py:226
 #: ../xlgui/oldmenu.py:244
 msgid "Rename"
-msgstr ""
+msgstr "เปลี่ยนชื่อ"
 
 #: ../xlgui/widgets/playlist.py:266
 msgid "Stop Playback After This Track"
@@ -972,7 +968,7 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:284
 msgid "Open URL"
-msgstr ""
+msgstr "เปิด URL"
 
 #: ../xlgui/widgets/dialogs.py:552
 msgid "Select File Type (by Extension)"
@@ -1027,7 +1023,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:943
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "ปิด %s"
 
 #: ../xlgui/widgets/dialogs.py:944
 #, python-format
@@ -1090,7 +1086,7 @@ msgstr ""
 #: ../xlgui/widgets/notebook.py:146
 #: ../xlgui/menu.py:115
 msgid "Close Tab"
-msgstr ""
+msgstr "ปิดแท็บ"
 
 #: ../xlgui/main.py:111
 msgid "$title (by $artist)"
@@ -1108,19 +1104,19 @@ msgstr ""
 #: ../xlgui/main.py:576
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr ""
+msgstr "กำลังโหลด: %d%%..."
 
 #: ../xlgui/main.py:628
 #: ../plugins/previewdevice/__init__.py:376
 msgid "Continue Playback"
-msgstr ""
+msgstr "เล่นต่อ"
 
 #: ../xlgui/main.py:632
 #: ../xlgui/main.py:820
 #: ../plugins/previewdevice/__init__.py:347
 #: ../plugins/previewdevice/__init__.py:380
 msgid "Pause Playback"
-msgstr ""
+msgstr "หยุดเล่นชั่วคราว"
 
 #: ../xlgui/main.py:774
 #: ../xlgui/menu.py:103
@@ -1131,7 +1127,7 @@ msgstr ""
 #: ../data/ui/main.ui.h:7
 #: ../plugins/previewdevice/__init__.py:358
 msgid "Start Playback"
-msgstr ""
+msgstr "เริ่มเล่น"
 
 #: ../xlgui/tray.py:148
 msgid "Exaile Music Player"
@@ -1143,7 +1139,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:71
 msgid "Open _URL"
-msgstr ""
+msgstr "เปิด _URL"
 
 #: ../xlgui/menu.py:81
 msgid "Open Directories"
@@ -1156,7 +1152,7 @@ msgstr ""
 #: ../xlgui/menu.py:124
 #: ../xlgui/preferences/widgets.py:70
 msgid "Restart"
-msgstr ""
+msgstr "เปิดใหม่อีกครั้ง"
 
 #: ../xlgui/menu.py:147
 msgid "_Collection"
@@ -1196,7 +1192,7 @@ msgstr ""
 
 #: ../xlgui/progress.py:79
 msgid "Cancel"
-msgstr ""
+msgstr "ยกเลิก"
 
 #: ../xlgui/properties.py:51
 msgid "Original album"
@@ -1208,12 +1204,12 @@ msgstr ""
 
 #: ../xlgui/properties.py:54
 msgid "Website"
-msgstr ""
+msgstr "เว็บไซต์"
 
 #: ../xlgui/properties.py:55
 #: ../xlgui/cover.py:793
 msgid "Cover"
-msgstr ""
+msgstr "ปกอัลบั้ม"
 
 #: ../xlgui/properties.py:56
 msgid "Original artist"
@@ -1221,11 +1217,11 @@ msgstr ""
 
 #: ../xlgui/properties.py:57
 msgid "Author"
-msgstr ""
+msgstr "ผู้แต่ง"
 
 #: ../xlgui/properties.py:58
 msgid "Original date"
-msgstr ""
+msgstr "เวลาต้นฉบับ"
 
 #: ../xlgui/properties.py:60
 msgid "Arranger"
@@ -1242,7 +1238,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:65
 msgid "Copyright"
-msgstr ""
+msgstr "ลิขสิทธิ์"
 
 #: ../xlgui/properties.py:66
 #: ../plugins/lyricsviewer/__init__.py:62
@@ -1256,12 +1252,12 @@ msgstr ""
 #: ../xlgui/properties.py:67
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
-msgstr ""
+msgstr "แทร็ค"
 
 #: ../xlgui/properties.py:68
 #: ../data/ui/preferences/plugin.ui.h:2
 msgid "Version"
-msgstr ""
+msgstr "รุ่น"
 
 #: ../xlgui/properties.py:70
 msgid "ISRC"
@@ -1368,15 +1364,15 @@ msgstr ""
 
 #: ../xlgui/cover.py:493
 msgid "Show Cover"
-msgstr ""
+msgstr "แสดงปกอัลบั้ม"
 
 #: ../xlgui/cover.py:494
 msgid "Fetch Cover"
-msgstr ""
+msgstr "โหลดปกอัลบั้ม"
 
 #: ../xlgui/cover.py:495
 msgid "Remove Cover"
-msgstr ""
+msgstr "ลบปกอัลบั้ม"
 
 #: ../xlgui/cover.py:795
 #, python-format
@@ -1394,7 +1390,7 @@ msgstr ""
 
 #: ../xlgui/cover.py:1062
 msgid "No covers found."
-msgstr ""
+msgstr "ไม่พบปกอัลบั้ม"
 
 #: ../xlgui/cover.py:1063
 msgid ""
@@ -1421,7 +1417,7 @@ msgstr ""
 #: ../xlgui/__init__.py:380
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "กำลังค้นหา %s..."
 
 #: ../xlgui/oldmenu.py:72
 msgid "Toggle Queue"
@@ -1434,11 +1430,11 @@ msgstr ""
 #: ../xlgui/oldmenu.py:121
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
-msgstr ""
+msgstr "คุณสมบัติ"
 
 #: ../xlgui/oldmenu.py:185
 msgid "New Station"
-msgstr ""
+msgstr "สถานีใหม่"
 
 #: ../xlgui/oldmenu.py:190
 msgid "New Smart Playlist"
@@ -1446,7 +1442,7 @@ msgstr ""
 
 #: ../xlgui/oldmenu.py:246
 msgid "Edit"
-msgstr ""
+msgstr "แก้ไข"
 
 #: ../xlgui/oldmenu.py:249
 msgid "Export Playlist"
@@ -1480,7 +1476,7 @@ msgstr ""
 #: ../xlgui/oldmenu.py:331
 #: ../plugins/multialarmclock/malrmclk.ui.h:2
 msgid "Remove"
-msgstr ""
+msgstr "เอาออก"
 
 #: ../xlgui/playlist.py:77
 msgid "Drop here to create a new playlist"
@@ -1591,7 +1587,7 @@ msgstr ""
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:64
 msgid "and"
-msgstr ""
+msgstr "และ"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:198
@@ -1601,7 +1597,7 @@ msgstr ""
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:200
 msgid "is not"
-msgstr ""
+msgstr "ไม่ใช่"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
@@ -1648,25 +1644,25 @@ msgstr ""
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:220
 msgid "before"
-msgstr ""
+msgstr "ก่อน"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:222
 msgid "after"
-msgstr ""
+msgstr "หลัง"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:224
 msgid "between"
-msgstr ""
+msgstr "ระหว่าง"
 
 #: ../xlgui/panel/playlists.py:225
 msgid "greater than"
-msgstr ""
+msgstr "มากกว่า"
 
 #: ../xlgui/panel/playlists.py:226
 msgid "less than"
-msgstr ""
+msgstr "น้อยกว่า"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/panel/playlists.py:228
@@ -1684,7 +1680,7 @@ msgstr ""
 
 #: ../xlgui/panel/playlists.py:240
 msgid "Year"
-msgstr ""
+msgstr "ปี"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1726,12 +1722,12 @@ msgstr ""
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
-msgstr ""
+msgstr "การเล่น"
 
 #: ../xlgui/preferences/plugin.py:40
 #: ../xlgui/preferences/__init__.py:124
 msgid "Plugins"
-msgstr ""
+msgstr "ปลั๊กอิน"
 
 #: ../xlgui/preferences/plugin.py:92
 #: ../plugins/grouptagger/gt_common.py:64
@@ -1777,12 +1773,12 @@ msgstr ""
 #: ../plugins/lastfmcovers/PLUGININFO:5
 #: ../plugins/amazoncovers/PLUGININFO:5
 msgid "Covers"
-msgstr ""
+msgstr "ปกอัลบั้ม"
 
 #: ../xlgui/preferences/appearance.py:34
 #: ../plugins/osd/osd_preferences.ui.h:9
 msgid "Appearance"
-msgstr ""
+msgstr "รูปโฉม"
 
 #: ../xlgui/preferences/collection.py:23
 #: ../data/ui/panel/device.ui.h:1
@@ -1805,7 +1801,7 @@ msgstr ""
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "เปิด Exaile ใหม่อีกครั้งหรือไม่?"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
@@ -1817,7 +1813,7 @@ msgstr ""
 
 #: ../xlgui/preferences/widgets.py:627
 msgid "Shortcut"
-msgstr ""
+msgstr "ทางลัด"
 
 #: ../xlgui/preferences/playlists.py:34
 #: ../data/ui/panel/playlists.ui.h:1
@@ -3520,7 +3516,7 @@ msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:7
 msgid "Background Color:"
-msgstr "Ngjyra e Sfondit:"
+msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:8
 msgid "IPython Color Theme:"
@@ -3858,7 +3854,7 @@ msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:1
 msgid "Add"
-msgstr "Shto"
+msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:3
 msgid "<b>Alarms</b>"

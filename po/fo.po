@@ -1,4 +1,4 @@
-# Albanian translation for exaile
+# Faroese translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -10,47 +10,47 @@ msgstr ""
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
 "PO-Revision-Date: 2014-08-10 19:50+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Albanian <sq@li.org>\n"
+"Language-Team: Faroese <fo@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:17+0000\n"
+"X-Launchpad-Export-Date: 2014-08-11 06:19+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] "%d Dit, "
-msgstr[1] "%d Ditet, "
+msgstr[0] "%d dagur, "
+msgstr[1] "%d dagar, "
 
 #: ../xl/formatter.py:599
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d tími, "
+msgstr[1] "%d tímar, "
 
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minuttur, "
+msgstr[1] "%d minuttir, "
 
 #: ../xl/formatter.py:601
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "%d sekondë"
-msgstr[1] "%d sekonda"
+msgstr[0] "%d sekund"
+msgstr[1] "%d sekund"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
@@ -92,19 +92,19 @@ msgstr ""
 #: ../xl/formatter.py:691
 #: ../xl/formatter.py:696
 msgid "Never"
-msgstr ""
+msgstr "Ongantíð"
 
 #: ../xl/formatter.py:702
 msgid "Today"
-msgstr ""
+msgstr "Í dag"
 
 #: ../xl/formatter.py:704
 msgid "Yesterday"
-msgstr ""
+msgstr "Í gjár"
 
 #: ../xl/main.py:201
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "Miseydnaðist at flyta frá 0.2.14"
 
 #: ../xl/main.py:416
 msgid "Usage: exaile [OPTION]... [URI]"
@@ -117,25 +117,25 @@ msgstr ""
 
 #: ../xl/main.py:421
 msgid "Playback Options"
-msgstr ""
+msgstr "Avspælingarkostir"
 
 #: ../xl/main.py:423
 msgid "Play the next track"
-msgstr ""
+msgstr "Spæl næsta lagið"
 
 #: ../xl/main.py:425
 msgid "Play the previous track"
-msgstr ""
+msgstr "Spæl fyrra lagið"
 
 #: ../xl/main.py:427
 #: ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr ""
+msgstr "Stoppa avspæling"
 
 #: ../xl/main.py:429
 msgid "Play"
-msgstr ""
+msgstr "Avspæl"
 
 #: ../xl/main.py:431
 msgid "Pause"
@@ -143,12 +143,12 @@ msgstr ""
 
 #: ../xl/main.py:434
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "Steðga ella halt á við avspæling"
 
 #: ../xl/main.py:437
 #: ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "Stoppa avspæling aftaná núverandi lagið"
 
 #: ../xl/main.py:440
 msgid "Collection Options"
@@ -174,11 +174,11 @@ msgstr ""
 
 #: ../xl/main.py:454
 msgid "Track Options"
-msgstr ""
+msgstr "Lag kostir"
 
 #: ../xl/main.py:456
 msgid "Query player"
-msgstr ""
+msgstr "Spyr avspælaran"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:459
@@ -200,23 +200,23 @@ msgstr ""
 
 #: ../xl/main.py:467
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "Vís eina støkkmynd við upplýsingum um núverandi lag"
 
 #: ../xl/main.py:469
 msgid "Print the title of current track"
-msgstr ""
+msgstr "Skriva heiti á núvernadi lagi"
 
 #: ../xl/main.py:471
 msgid "Print the album of current track"
-msgstr ""
+msgstr "Skriva albumsheiti á núverandi lagi"
 
 #: ../xl/main.py:473
 msgid "Print the artist of current track"
-msgstr ""
+msgstr "Skriva navn á listafólki fyri núverandi lag"
 
 #: ../xl/main.py:475
 msgid "Print the length of current track"
-msgstr ""
+msgstr "Skriva longd á núverandi lagi"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:478
@@ -231,11 +231,11 @@ msgstr ""
 
 #: ../xl/main.py:481
 msgid "Get rating for current track"
-msgstr ""
+msgstr "Fá metingar á núverandi lagi"
 
 #: ../xl/main.py:484
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "Skriva núverandi avspælingarstað sum tíð"
 
 #: ../xl/main.py:486
 msgid "Print the current playback progress as percentage"
@@ -243,7 +243,7 @@ msgstr ""
 
 #: ../xl/main.py:490
 msgid "Volume Options"
-msgstr ""
+msgstr "Ljóðstyrki kostir"
 
 #: ../xl/main.py:494
 msgid "Increases the volume by N%"
@@ -260,11 +260,11 @@ msgstr ""
 
 #: ../xl/main.py:504
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "Skriva núverandi ljóðstyrkiprosent"
 
 #: ../xl/main.py:507
 msgid "Other Options"
-msgstr ""
+msgstr "Aðrir kostir"
 
 #: ../xl/main.py:509
 msgid "Start new instance"
@@ -314,7 +314,7 @@ msgstr ""
 
 #: ../xl/main.py:536
 msgid "Set data directory"
-msgstr ""
+msgstr "Set dátuskjáttu"
 
 #: ../xl/main.py:538
 msgid "Set data and config directory"
@@ -338,7 +338,7 @@ msgstr ""
 
 #: ../xl/main.py:547
 msgid "Show debugging output"
-msgstr ""
+msgstr "Vís kembingarúttak"
 
 #: ../xl/main.py:549
 msgid "Enable debugging of xl.event. Generates LOTS of output"
@@ -375,7 +375,7 @@ msgstr ""
 #: ../xl/main.py:586
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "Tilvildarligt %d"
 
 #: ../xl/main.py:594
 #, python-format
@@ -421,18 +421,18 @@ msgstr ""
 #: ../xl/trax/track.py:65
 #: ../xlgui/widgets/info.py:431
 msgid "Various Artists"
-msgstr ""
+msgstr "Ymisk listarfólk"
 
 #. TRANSLATORS: title of a track if it is unknown
 #: ../xl/trax/track.py:66
 #: ../plugins/notifyosd/__init__.py:71
 msgid "Unknown"
-msgstr ""
+msgstr "Ókent"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:585
@@ -477,13 +477,13 @@ msgstr ""
 
 #: ../xl/player/pipe.py:311
 msgid "Automatic"
-msgstr ""
+msgstr "Sjálvvirki"
 
 #: ../xl/player/pipe.py:340
 #: ../xl/player/pipe.py:365
 #: ../xl/player/pipe.py:386
 msgid "Custom"
-msgstr ""
+msgstr "Serbygt"
 
 #: ../xl/player/pipe.py:441
 #: ../plugins/previewdevice/previewprefs.py:76
@@ -773,7 +773,7 @@ msgstr ""
 #: ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Artist"
-msgstr "Artisti"
+msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:239
 #: ../xlgui/properties.py:72
@@ -792,7 +792,7 @@ msgstr ""
 #: ../plugins/minimode/minimode_preferences.py:96
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Album"
-msgstr "Albumi"
+msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:253
 #: ../xlgui/properties.py:80
@@ -840,7 +840,7 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
-msgstr "Raporti i bitit:"
+msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:332
 #: ../xlgui/properties.py:81
@@ -3520,7 +3520,7 @@ msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:7
 msgid "Background Color:"
-msgstr "Ngjyra e Sfondit:"
+msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:8
 msgid "IPython Color Theme:"
@@ -3858,7 +3858,7 @@ msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:1
 msgid "Add"
-msgstr "Shto"
+msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:3
 msgid "<b>Alarms</b>"

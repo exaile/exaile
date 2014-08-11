@@ -1,4 +1,4 @@
-# Albanian translation for exaile
+# Sinhalese translation for exaile
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -10,132 +10,132 @@ msgstr ""
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
 "PO-Revision-Date: 2014-08-10 19:50+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Albanian <sq@li.org>\n"
+"Language-Team: Sinhalese <si@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:17+0000\n"
+"X-Launchpad-Export-Date: 2014-08-11 06:23+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] "%d Dit, "
-msgstr[1] "%d Ditet, "
+msgstr[0] "දින %d, "
+msgstr[1] "දින %d, "
 
 #: ../xl/formatter.py:599
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "පැය %d, "
+msgstr[1] "පැය %d, "
 
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "මිනිත්තු %d, "
+msgstr[1] "මිනිත්තු %d, "
 
 #: ../xl/formatter.py:601
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "%d sekondë"
-msgstr[1] "%d sekonda"
+msgstr[0] "තත්පර %d"
+msgstr[1] "තත්පර %d"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:625
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:691
 #: ../xl/formatter.py:696
 msgid "Never"
-msgstr ""
+msgstr "කිසිදා නැත"
 
 #: ../xl/formatter.py:702
 msgid "Today"
-msgstr ""
+msgstr "අද දිනය"
 
 #: ../xl/formatter.py:704
 msgid "Yesterday"
-msgstr ""
+msgstr "ඊයේ"
 
 #: ../xl/main.py:201
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "0.2.14 ගෙන් සංක්‍රමණය වීමට අපොහොසත් විය"
 
 #: ../xl/main.py:416
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "භාවිතය: exaile [OPTION]... [URI]"
 
 #: ../xl/main.py:417
 #: ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "විකල්ප"
 
 #: ../xl/main.py:421
 msgid "Playback Options"
-msgstr ""
+msgstr "පිළිවැයිම් විකල්පයන්"
 
 #: ../xl/main.py:423
 msgid "Play the next track"
-msgstr ""
+msgstr "මීළඟ පථය වයන්න"
 
 #: ../xl/main.py:425
 msgid "Play the previous track"
-msgstr ""
+msgstr "පෙර පථය වයන්න"
 
 #: ../xl/main.py:427
 #: ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr ""
+msgstr "පිළිවැයිම නවත්වන්න"
 
 #: ../xl/main.py:429
 msgid "Play"
-msgstr ""
+msgstr "වයන්න"
 
 #: ../xl/main.py:431
 msgid "Pause"
@@ -158,7 +158,7 @@ msgstr ""
 #: ../xl/main.py:443
 #: ../xl/main.py:450
 msgid "LOCATION"
-msgstr ""
+msgstr "ස්ථානය"
 
 #: ../xl/main.py:443
 msgid "Add tracks from LOCATION to the collection"
@@ -166,7 +166,7 @@ msgstr ""
 
 #: ../xl/main.py:447
 msgid "Playlist Options"
-msgstr ""
+msgstr "වාදන ලැයිස්තු විකල්පයන්"
 
 #: ../xl/main.py:451
 msgid "Exports the current playlist to LOCATION"
@@ -174,7 +174,7 @@ msgstr ""
 
 #: ../xl/main.py:454
 msgid "Track Options"
-msgstr ""
+msgstr "පථ විකල්පයන්"
 
 #: ../xl/main.py:456
 msgid "Query player"
@@ -223,7 +223,7 @@ msgstr ""
 #: ../xl/main.py:493
 #: ../xl/main.py:497
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:479
 msgid "Set rating for current track to N%"
@@ -243,16 +243,16 @@ msgstr ""
 
 #: ../xl/main.py:490
 msgid "Volume Options"
-msgstr ""
+msgstr "ශබ්ද විකල්පයන්"
 
 #: ../xl/main.py:494
 msgid "Increases the volume by N%"
-msgstr ""
+msgstr "ශබ්දය N% කින් වැඩි කරන්න"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:499
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "ශබ්දය N% කින් අඩු කරන්න"
 
 #: ../xl/main.py:502
 msgid "Mutes or unmutes the volume"
@@ -264,7 +264,7 @@ msgstr ""
 
 #: ../xl/main.py:507
 msgid "Other Options"
-msgstr ""
+msgstr "වෙනත් විකල්ප"
 
 #: ../xl/main.py:509
 msgid "Start new instance"
@@ -310,7 +310,7 @@ msgstr ""
 #: ../xl/main.py:536
 #: ../xl/main.py:538
 msgid "DIRECTORY"
-msgstr ""
+msgstr "නාමාවලිය"
 
 #: ../xl/main.py:536
 msgid "Set data directory"
@@ -322,7 +322,7 @@ msgstr ""
 
 #: ../xl/main.py:540
 msgid "MODULE"
-msgstr ""
+msgstr "මොඩියුලය"
 
 #: ../xl/main.py:541
 msgid "Limit log output to MODULE"
@@ -330,7 +330,7 @@ msgstr ""
 
 #: ../xl/main.py:543
 msgid "LEVEL"
-msgstr ""
+msgstr "මට්ටම"
 
 #: ../xl/main.py:544
 msgid "Limit log output to LEVEL"
@@ -350,7 +350,7 @@ msgstr ""
 
 #: ../xl/main.py:555
 msgid "TYPE"
-msgstr ""
+msgstr "වර්ගය"
 
 #: ../xl/main.py:556
 msgid "Limit xl.event debug to output of TYPE"
@@ -362,20 +362,20 @@ msgstr ""
 
 #: ../xl/main.py:562
 msgid "Disable D-Bus support"
-msgstr ""
+msgstr "D-Bus සහාය අක්‍රීය කරන්න"
 
 #: ../xl/main.py:564
 msgid "Disable HAL support."
-msgstr ""
+msgstr "HAL සහාය අක්‍රීය කරන්න."
 
 #: ../xl/main.py:580
 msgid "Entire Library"
-msgstr ""
+msgstr "සම්පූර්ණ පුස්තකාලය"
 
 #: ../xl/main.py:586
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "අහඹු %d"
 
 #: ../xl/main.py:594
 #, python-format
@@ -404,7 +404,7 @@ msgstr ""
 #: ../xl/plugins.py:101
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "\"%s\" නම සහිත ප්ලගිනයක් දැනටමත් ස්ථාපනය කර ඇත."
 
 #: ../xl/plugins.py:106
 msgid "Plugin archive contains an unsafe path."
@@ -421,25 +421,25 @@ msgstr ""
 #: ../xl/trax/track.py:65
 #: ../xlgui/widgets/info.py:431
 msgid "Various Artists"
-msgstr ""
+msgstr "විවිධ ශිල්පීන්"
 
 #. TRANSLATORS: title of a track if it is unknown
 #: ../xl/trax/track.py:66
 #: ../plugins/notifyosd/__init__.py:71
 msgid "Unknown"
-msgstr ""
+msgstr "නොදනී"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:585
 #: ../xl/trax/track.py:647
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -477,13 +477,13 @@ msgstr ""
 
 #: ../xl/player/pipe.py:311
 msgid "Automatic"
-msgstr ""
+msgstr "ස්වයංක්‍රීය"
 
 #: ../xl/player/pipe.py:340
 #: ../xl/player/pipe.py:365
 #: ../xl/player/pipe.py:386
 msgid "Custom"
-msgstr ""
+msgstr "ව්‍යවහාර"
 
 #: ../xl/player/pipe.py:441
 #: ../plugins/previewdevice/previewprefs.py:76
@@ -494,7 +494,7 @@ msgstr ""
 #: ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:243
 msgid "Not playing."
-msgstr ""
+msgstr "වාදනය නොවේ."
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -523,15 +523,15 @@ msgstr ""
 #: ../xl/playlist.py:173
 #: ../xlgui/widgets/playlist.py:335
 msgid "Playlist"
-msgstr ""
+msgstr "වාදන ලැයිස්තුව"
 
 #: ../xl/playlist.py:322
 msgid "M3U Playlist"
-msgstr ""
+msgstr "M3U වාදන ලැයිස්තුව"
 
 #: ../xl/playlist.py:423
 msgid "PLS Playlist"
-msgstr ""
+msgstr "PLS වාදන ලැයිස්තුව"
 
 #: ../xl/playlist.py:517
 #: ../xl/playlist.py:533
@@ -546,11 +546,11 @@ msgstr ""
 
 #: ../xl/playlist.py:588
 msgid "ASX Playlist"
-msgstr ""
+msgstr "ASX වාදන ලැයිස්තුව"
 
 #: ../xl/playlist.py:759
 msgid "XSPF Playlist"
-msgstr ""
+msgstr "XSPF වාදන ලැයිස්තුව"
 
 #: ../xl/playlist.py:874
 msgid "Shuffle _Off"
@@ -590,28 +590,28 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:78
 #: ../plugins/osd/osd_preferences.ui.h:7
 msgid "seconds"
-msgstr ""
+msgstr "තත්පර"
 
 #: ../xl/playlist.py:1825
 #: ../xlgui/panel/playlists.py:71
 msgid "minutes"
-msgstr ""
+msgstr "මිනිත්තු"
 
 #: ../xl/playlist.py:1826
 #: ../xlgui/panel/playlists.py:71
 msgid "hours"
-msgstr ""
+msgstr "පැය"
 
 #: ../xl/playlist.py:1827
 #: ../xlgui/panel/playlists.py:68
 #: ../xlgui/panel/playlists.py:71
 msgid "days"
-msgstr ""
+msgstr "දින"
 
 #: ../xl/playlist.py:1828
 #: ../xlgui/panel/playlists.py:71
 msgid "weeks"
-msgstr ""
+msgstr "සති"
 
 #: ../xl/lyrics.py:305
 msgid "Local"
@@ -644,7 +644,7 @@ msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:182
 msgid "Move to Trash"
-msgstr ""
+msgstr "ඉවතලන්න"
 
 #: ../xlgui/widgets/menuitems.py:193
 msgid "_Show Playing Track"
@@ -653,7 +653,7 @@ msgstr ""
 #: ../xlgui/widgets/filter.py:62
 #: ../xlgui/panel/radio.py:200
 msgid "Name:"
-msgstr ""
+msgstr "නම:"
 
 #: ../xlgui/widgets/filter.py:76
 msgid "Match any of the criteria"
@@ -683,7 +683,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:1020
 msgid "Move"
-msgstr ""
+msgstr "ගෙනයන්න"
 
 #: ../xlgui/widgets/playback.py:1166
 msgid "New Marker"
@@ -691,17 +691,17 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:1265
 msgid "Muted"
-msgstr ""
+msgstr "නිහඬ"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1271
 #, python-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: ../xlgui/widgets/playback.py:1274
 msgid "Full Volume"
-msgstr ""
+msgstr "උපරිම හඬ"
 
 #: ../xlgui/widgets/info.py:65
 msgid ""
@@ -712,7 +712,7 @@ msgstr ""
 
 #: ../xlgui/widgets/info.py:426
 msgid "Various"
-msgstr ""
+msgstr "විවිධ"
 
 #: ../xlgui/widgets/info.py:445
 #, python-format
@@ -749,7 +749,7 @@ msgstr ""
 #: ../xlgui/widgets/playlist_columns.py:217
 #: ../xlgui/panel/flatplaylist.py:100
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: ../xlgui/widgets/playlist_columns.py:218
 msgid "Track Number"
@@ -762,7 +762,7 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:106
 #: ../plugins/minimode/minimode_preferences.py:93
 msgid "Title"
-msgstr ""
+msgstr "මාතෘකාව"
 
 #: ../xlgui/widgets/playlist_columns.py:232
 #: ../xlgui/properties.py:63
@@ -773,7 +773,7 @@ msgstr ""
 #: ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Artist"
-msgstr "Artisti"
+msgstr "ශිල්පියා"
 
 #: ../xlgui/widgets/playlist_columns.py:239
 #: ../xlgui/properties.py:72
@@ -792,7 +792,7 @@ msgstr ""
 #: ../plugins/minimode/minimode_preferences.py:96
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Album"
-msgstr "Albumi"
+msgstr "ඇල්බමය"
 
 #: ../xlgui/widgets/playlist_columns.py:253
 #: ../xlgui/properties.py:80
@@ -805,11 +805,11 @@ msgstr ""
 #: ../xlgui/widgets/playlist_columns.py:260
 #: ../xlgui/properties.py:75
 msgid "Disc"
-msgstr ""
+msgstr "තැටිය"
 
 #: ../xlgui/widgets/playlist_columns.py:261
 msgid "Disc Number"
-msgstr ""
+msgstr "තැටි අංකය"
 
 #: ../xlgui/widgets/playlist_columns.py:268
 #: ../xlgui/panel/playlists.py:238
@@ -825,7 +825,7 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:100
 msgid "Date"
-msgstr ""
+msgstr "දිනය"
 
 #: ../xlgui/widgets/playlist_columns.py:318
 #: ../xlgui/properties.py:71
@@ -833,14 +833,14 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:101
 msgid "Genre"
-msgstr ""
+msgstr "ශෛලිය"
 
 #: ../xlgui/widgets/playlist_columns.py:325
 #: ../xlgui/properties.py:78
 #: ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
-msgstr "Raporti i bitit:"
+msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:332
 #: ../xlgui/properties.py:81
@@ -856,7 +856,7 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/minimode_preferences.py:104
 msgid "Filename"
-msgstr ""
+msgstr "ගොනු නම"
 
 #: ../xlgui/widgets/playlist_columns.py:346
 msgid "Playcount"
@@ -869,7 +869,7 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: ../xlgui/widgets/playlist_columns.py:360
 #: ../xlgui/properties.py:86
@@ -883,7 +883,7 @@ msgstr ""
 #: ../xlgui/properties.py:79
 #: ../xlgui/panel/playlists.py:242
 msgid "Date added"
-msgstr ""
+msgstr "එක්කල දිනය"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
@@ -942,12 +942,12 @@ msgstr ""
 #: ../xlgui/panel/radio.py:435
 #: ../plugins/droptrayicon/__init__.py:288
 msgid "New Playlist"
-msgstr ""
+msgstr "නව වාදන ලැයිස්තුව"
 
 #: ../xlgui/widgets/playlist.py:226
 #: ../xlgui/oldmenu.py:244
 msgid "Rename"
-msgstr ""
+msgstr "නම වෙනස් කරන්න"
 
 #: ../xlgui/widgets/playlist.py:266
 msgid "Stop Playback After This Track"
@@ -968,11 +968,11 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:283
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "විවෘත කලයුතු URL ඇතුලත් කරන්න"
 
 #: ../xlgui/widgets/dialogs.py:284
 msgid "Open URL"
-msgstr ""
+msgstr "URL විවෘත කරන්න"
 
 #: ../xlgui/widgets/dialogs.py:552
 msgid "Select File Type (by Extension)"
@@ -984,22 +984,22 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:619
 msgid "Supported Files"
-msgstr ""
+msgstr "සහය දක්වන ගොනු"
 
 #: ../xlgui/widgets/dialogs.py:621
 msgid "Music Files"
-msgstr ""
+msgstr "ගීත ගොනු"
 
 #: ../xlgui/widgets/dialogs.py:623
 #: ../xlgui/widgets/dialogs.py:781
 msgid "Playlist Files"
-msgstr ""
+msgstr "වාදන ලැයිස්තු ගොනු"
 
 #: ../xlgui/widgets/dialogs.py:625
 #: ../xlgui/widgets/dialogs.py:783
 #: ../xlgui/preferences/plugin.py:201
 msgid "All Files"
-msgstr ""
+msgstr "සියලු ගොනු"
 
 #: ../xlgui/widgets/dialogs.py:699
 msgid "Choose Directory to Open"
@@ -1027,7 +1027,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:943
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "%s වසන්න"
 
 #: ../xlgui/widgets/dialogs.py:944
 #, python-format
@@ -1078,7 +1078,7 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:755
 #: ../xlgui/panel/playlists.py:838
 msgid "You did not enter a name for your playlist"
-msgstr ""
+msgstr "ඔබගේ වාදන ලැයිස්තුව සදහා නමක් ඇතුලත් කර නැත"
 
 #: ../xlgui/widgets/dialogs.py:1529
 #: ../xlgui/panel/playlists.py:321
@@ -1125,7 +1125,7 @@ msgstr ""
 #: ../xlgui/main.py:774
 #: ../xlgui/menu.py:103
 msgid "Playlist export failed!"
-msgstr ""
+msgstr "වාදන ලැයිස්තුව අපනයනය අසාර්ථකයි!"
 
 #: ../xlgui/main.py:832
 #: ../data/ui/main.ui.h:7
@@ -1135,15 +1135,15 @@ msgstr ""
 
 #: ../xlgui/tray.py:148
 msgid "Exaile Music Player"
-msgstr ""
+msgstr "Exaile Music Player"
 
 #: ../xlgui/menu.py:52
 msgid "_New Playlist"
-msgstr ""
+msgstr "නව වාදන ලැයිස්තුව (_N)"
 
 #: ../xlgui/menu.py:71
 msgid "Open _URL"
-msgstr ""
+msgstr "URL විවෘත කරන්න (_U)"
 
 #: ../xlgui/menu.py:81
 msgid "Open Directories"
@@ -1151,20 +1151,20 @@ msgstr ""
 
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
-msgstr ""
+msgstr "වත්මන් වාදන ලැයිස්තුව අපනයනය කරන්න (_E)"
 
 #: ../xlgui/menu.py:124
 #: ../xlgui/preferences/widgets.py:70
 msgid "Restart"
-msgstr ""
+msgstr "නැවත අරඹන්න"
 
 #: ../xlgui/menu.py:147
 msgid "_Collection"
-msgstr ""
+msgstr "එකතුව (_C)"
 
 #: ../xlgui/menu.py:151
 msgid "_Queue"
-msgstr ""
+msgstr "පෝලිම (_Q)"
 
 #: ../xlgui/menu.py:158
 msgid "C_overs"
@@ -1176,7 +1176,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:192
 msgid "_Columns"
-msgstr ""
+msgstr "තීරු (_C)"
 
 #: ../xlgui/menu.py:199
 msgid "C_lear playlist"
@@ -1184,7 +1184,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:215
 msgid "_Device Manager"
-msgstr ""
+msgstr "උපාංග කලමණාකරු (_D)"
 
 #: ../xlgui/menu.py:218
 msgid "Re_scan Collection"
@@ -1196,7 +1196,7 @@ msgstr ""
 
 #: ../xlgui/progress.py:79
 msgid "Cancel"
-msgstr ""
+msgstr "අවලංගු කරන්න"
 
 #: ../xlgui/properties.py:51
 msgid "Original album"
@@ -1204,11 +1204,11 @@ msgstr ""
 
 #: ../xlgui/properties.py:52
 msgid "Lyricist"
-msgstr ""
+msgstr "ගීත රචකයා"
 
 #: ../xlgui/properties.py:54
 msgid "Website"
-msgstr ""
+msgstr "වෙබ් අඩවිය"
 
 #: ../xlgui/properties.py:55
 #: ../xlgui/cover.py:793
@@ -1221,7 +1221,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:57
 msgid "Author"
-msgstr ""
+msgstr "කර්තෘ"
 
 #: ../xlgui/properties.py:58
 msgid "Original date"
@@ -1242,7 +1242,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:65
 msgid "Copyright"
-msgstr ""
+msgstr "හිමිකම්"
 
 #: ../xlgui/properties.py:66
 #: ../plugins/lyricsviewer/__init__.py:62
@@ -1251,7 +1251,7 @@ msgstr ""
 #: ../plugins/lyricsfly/PLUGININFO:5
 #: ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
-msgstr ""
+msgstr "පද රචනය"
 
 #: ../xlgui/properties.py:67
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
@@ -1261,11 +1261,11 @@ msgstr ""
 #: ../xlgui/properties.py:68
 #: ../data/ui/preferences/plugin.ui.h:2
 msgid "Version"
-msgstr ""
+msgstr "අනුවාදය"
 
 #: ../xlgui/properties.py:70
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../xlgui/properties.py:73
 msgid "Encoded by"
@@ -1273,7 +1273,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:74
 msgid "Organization"
-msgstr ""
+msgstr "සංවිධානය"
 
 #: ../xlgui/properties.py:83
 msgid "Modified"
@@ -1408,11 +1408,11 @@ msgstr ""
 
 #: ../xlgui/devices.py:81
 msgid "Device"
-msgstr ""
+msgstr "උපාංගය"
 
 #: ../xlgui/devices.py:88
 msgid "Driver"
-msgstr ""
+msgstr "ධාවකය"
 
 #: ../xlgui/__init__.py:296
 msgid "Scanning collection..."
@@ -1446,7 +1446,7 @@ msgstr ""
 
 #: ../xlgui/oldmenu.py:246
 msgid "Edit"
-msgstr ""
+msgstr "සංස්කරණය"
 
 #: ../xlgui/oldmenu.py:249
 msgid "Export Playlist"
@@ -1458,7 +1458,7 @@ msgstr ""
 
 #: ../xlgui/oldmenu.py:254
 msgid "Delete Playlist"
-msgstr ""
+msgstr "වාදන ලැයිස්තුව මකන්න"
 
 #: ../xlgui/oldmenu.py:268
 msgid "Choose directory to export files to"
@@ -1471,16 +1471,16 @@ msgstr ""
 
 #: ../xlgui/oldmenu.py:291
 msgid "Enter the new name you want for your playlist"
-msgstr ""
+msgstr "ඔබගේ වාදන ලැයිස්තුවට නව නමක් ඇතුලත් කරන්න"
 
 #: ../xlgui/oldmenu.py:292
 msgid "Rename Playlist"
-msgstr ""
+msgstr "වාදන ලැයිස්තුවේ නම වෙනස් කරන්න"
 
 #: ../xlgui/oldmenu.py:331
 #: ../plugins/multialarmclock/malrmclk.ui.h:2
 msgid "Remove"
-msgstr ""
+msgstr "ඉවත් කරන්න"
 
 #: ../xlgui/playlist.py:77
 msgid "Drop here to create a new playlist"
@@ -1493,7 +1493,7 @@ msgstr ""
 #: ../xlgui/playlist.py:214
 #, python-format
 msgid "Playlist %d"
-msgstr ""
+msgstr "%d වාදන ලැයිස්තුව"
 
 #: ../xlgui/playlist.py:394
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
@@ -1535,7 +1535,7 @@ msgstr ""
 #: ../xlgui/panel/radio.py:201
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:273
 msgid "Saved Stations"
@@ -1552,7 +1552,7 @@ msgstr ""
 
 #: ../xlgui/panel/radio.py:434
 msgid "Enter the name you want for your new playlist"
-msgstr ""
+msgstr "ඔබගේ නව වාදන ලැයිස්තුව සදහා නමක් ඇතුලත් කරන්න"
 
 #: ../xlgui/panel/collection.py:179
 msgid "Genre - Artist"
@@ -1581,7 +1581,7 @@ msgstr ""
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:174
 msgid "Size"
-msgstr ""
+msgstr "විශාලත්වය"
 
 #: ../xlgui/panel/files.py:441
 #, python-format
@@ -1591,17 +1591,17 @@ msgstr ""
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:64
 msgid "and"
-msgstr ""
+msgstr "සහ"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:198
 msgid "is"
-msgstr ""
+msgstr "වනුයේ"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:200
 msgid "is not"
-msgstr ""
+msgstr "නොවනුයේ"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
@@ -1618,12 +1618,12 @@ msgstr ""
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:208
 msgid "contains"
-msgstr ""
+msgstr "අඩංගු"
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/panel/playlists.py:210
 msgid "does not contain"
-msgstr ""
+msgstr "අඩංගු නැත"
 
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/panel/playlists.py:212
@@ -1648,25 +1648,25 @@ msgstr ""
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:220
 msgid "before"
-msgstr ""
+msgstr "පෙර"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:222
 msgid "after"
-msgstr ""
+msgstr "පසු"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:224
 msgid "between"
-msgstr ""
+msgstr "අතර"
 
 #: ../xlgui/panel/playlists.py:225
 msgid "greater than"
-msgstr ""
+msgstr "වඩා වැඩි"
 
 #: ../xlgui/panel/playlists.py:226
 msgid "less than"
-msgstr ""
+msgstr "වඩා අඩු"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/panel/playlists.py:228
@@ -1684,7 +1684,7 @@ msgstr ""
 
 #: ../xlgui/panel/playlists.py:240
 msgid "Year"
-msgstr ""
+msgstr "වසර"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1731,7 +1731,7 @@ msgstr ""
 #: ../xlgui/preferences/plugin.py:40
 #: ../xlgui/preferences/__init__.py:124
 msgid "Plugins"
-msgstr ""
+msgstr "ප්ලගින"
 
 #: ../xlgui/preferences/plugin.py:92
 #: ../plugins/grouptagger/gt_common.py:64
@@ -1753,16 +1753,16 @@ msgstr[1] ""
 #: ../xlgui/preferences/plugin.py:167
 #: ../xlgui/preferences/plugin.py:261
 msgid "Could not disable plugin!"
-msgstr ""
+msgstr "ප්ලගිනය අක්‍රීය කල නොහැක!"
 
 #: ../xlgui/preferences/plugin.py:177
 #: ../xlgui/preferences/plugin.py:255
 msgid "Could not enable plugin!"
-msgstr ""
+msgstr "ප්ලගිනය ක්‍රියාත්මක කල නොහැක!"
 
 #: ../xlgui/preferences/plugin.py:185
 msgid "Choose a Plugin"
-msgstr ""
+msgstr "ප්ලගිනයක් තෝරන්න"
 
 #: ../xlgui/preferences/plugin.py:194
 msgid "Plugin Archives"
@@ -1770,7 +1770,7 @@ msgstr ""
 
 #: ../xlgui/preferences/plugin.py:213
 msgid "Plugin file installation failed!"
-msgstr ""
+msgstr "ප්ලගින ගොනුව ස්ථාපනය අසාර්ථකයි!"
 
 #: ../xlgui/preferences/cover.py:38
 #: ../plugins/musicbrainzcovers/PLUGININFO:5
@@ -1782,13 +1782,13 @@ msgstr ""
 #: ../xlgui/preferences/appearance.py:34
 #: ../plugins/osd/osd_preferences.ui.h:9
 msgid "Appearance"
-msgstr ""
+msgstr "මුහුණුවර"
 
 #: ../xlgui/preferences/collection.py:23
 #: ../data/ui/panel/device.ui.h:1
 #: ../data/ui/panel/collection.ui.h:1
 msgid "Collection"
-msgstr ""
+msgstr "එකතුව"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -1805,7 +1805,7 @@ msgstr ""
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "Exaile නැවත ආරම්භ කරන්න?"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
@@ -1813,7 +1813,7 @@ msgstr ""
 
 #: ../xlgui/preferences/widgets.py:619
 msgid "Action"
-msgstr ""
+msgstr "ක්‍රියාව"
 
 #: ../xlgui/preferences/widgets.py:627
 msgid "Shortcut"
@@ -1822,11 +1822,11 @@ msgstr ""
 #: ../xlgui/preferences/playlists.py:34
 #: ../data/ui/panel/playlists.ui.h:1
 msgid "Playlists"
-msgstr ""
+msgstr "වාදන ලැයිස්තු"
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "About Exaile"
-msgstr ""
+msgstr "Exaile ගැන"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "&#xA9; 2009-2012"
@@ -1858,7 +1858,7 @@ msgstr ""
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "කවර කළමණාකරු"
 
 #: ../data/ui/covermanager.ui.h:2
 msgid "_Fetch Covers"
@@ -1890,23 +1890,23 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:1
 msgid "_File"
-msgstr ""
+msgstr "ගොනුව (_F)"
 
 #: ../data/ui/main.ui.h:2
 msgid "_Edit"
-msgstr ""
+msgstr "සැකසුම් (_E)"
 
 #: ../data/ui/main.ui.h:3
 msgid "_View"
-msgstr ""
+msgstr "දර්ශනය (_V)"
 
 #: ../data/ui/main.ui.h:4
 msgid "_Tools"
-msgstr ""
+msgstr "මෙවලම් (_T)"
 
 #: ../data/ui/main.ui.h:5
 msgid "_Help"
-msgstr ""
+msgstr "උදව් (_H)"
 
 #: ../data/ui/main.ui.h:6
 msgid "Previous Track"
@@ -1925,7 +1925,7 @@ msgstr ""
 
 #: ../data/ui/main.ui.h:12
 msgid "0:00 / 0:00"
-msgstr ""
+msgstr "0:00 / 0:00"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "Track Properties"
@@ -1949,11 +1949,11 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Previous"
-msgstr ""
+msgstr "පෙර (_P)"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "_Next"
-msgstr ""
+msgstr "මීළඟ (_N)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
 msgid "Other"
@@ -2042,7 +2042,7 @@ msgstr ""
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 #: ../data/ui/preferences/plugin.ui.h:8
 msgid "Description:"
-msgstr ""
+msgstr "විස්තරය:"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
@@ -2055,7 +2055,7 @@ msgstr ""
 #: ../data/ui/panel/flatplaylist.ui.h:1
 #: ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
-msgstr ""
+msgstr "ගුවන්විදුලිය"
 
 #: ../data/ui/panel/flatplaylist.ui.h:2
 msgid "Append All Tracks to Playlist"
@@ -2071,7 +2071,7 @@ msgstr ""
 
 #: ../data/ui/panel/files.ui.h:1
 msgid "Files"
-msgstr ""
+msgstr "ගොනු"
 
 #: ../data/ui/panel/files.ui.h:2
 msgid "Previous visited directory"
@@ -2096,7 +2096,7 @@ msgstr ""
 #: ../data/ui/panel/files.ui.h:7
 #: ../data/ui/panel/collection.ui.h:6
 msgid "Search: "
-msgstr ""
+msgstr "සොයන්න: "
 
 #: ../data/ui/panel/files.ui.h:8
 #: ../data/ui/panel/collection.ui.h:7
@@ -2254,7 +2254,7 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui.h:14
 #: ../plugins/previewdevice/previewprefs.ui.h:9
 msgid "Normal"
-msgstr ""
+msgstr "සාමාන්‍ය"
 
 #: ../data/ui/preferences/playback.ui.h:15
 #: ../plugins/previewdevice/previewprefs.ui.h:10
@@ -2263,12 +2263,12 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:1
 msgid "Plugin"
-msgstr ""
+msgstr "ප්ලගිනය"
 
 #: ../data/ui/preferences/plugin.ui.h:3
 #: ../plugins/equalizer/equalizer.ui.h:2
 msgid "Enabled"
-msgstr ""
+msgstr "සක්‍රිය කර ඇත"
 
 #: ../data/ui/preferences/plugin.ui.h:4
 msgid "No Plugin Selected"
@@ -2276,19 +2276,19 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:5
 msgid "Installed Plugins"
-msgstr ""
+msgstr "ස්ථාපිත ප්ලගින"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Authors:"
-msgstr ""
+msgstr "කර්තෘන්:"
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "Version:"
-msgstr ""
+msgstr "අනුවාදය:"
 
 #: ../data/ui/preferences/plugin.ui.h:9
 msgid "Install"
-msgstr ""
+msgstr "ස්ථාපනය කරන්න"
 
 #: ../data/ui/preferences/plugin.ui.h:10
 msgid "<b>No Plugin Selected</b>"
@@ -2377,19 +2377,19 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui.h:18
 msgid "Left"
-msgstr ""
+msgstr "වම"
 
 #: ../data/ui/preferences/appearance.ui.h:19
 msgid "Right"
-msgstr ""
+msgstr "දකුණ"
 
 #: ../data/ui/preferences/appearance.ui.h:20
 msgid "Top"
-msgstr ""
+msgstr "ඉහළ"
 
 #: ../data/ui/preferences/appearance.ui.h:21
 msgid "Bottom"
-msgstr ""
+msgstr "පහළ"
 
 #: ../data/ui/preferences/preferences_dialog.ui.h:1
 msgid "Preferences"
@@ -2411,19 +2411,19 @@ msgstr ""
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "Device Manager"
-msgstr ""
+msgstr "උපාංග කලමණාකරු"
 
 #: ../data/ui/device_manager.ui.h:2
 msgid "Add Device"
-msgstr ""
+msgstr "උපාංගය එක් කරන්න"
 
 #: ../data/ui/device_manager.ui.h:3
 msgid "Type of device:"
-msgstr ""
+msgstr "උපාග වර්ගය"
 
 #: ../data/ui/device_manager.ui.h:4
 msgid "Detected devices:"
-msgstr ""
+msgstr "හදුනාගත් උපාංග:"
 
 #: ../data/ui/device_manager.ui.h:5
 msgid "Custom: "
@@ -2506,7 +2506,7 @@ msgstr ""
 #: ../plugins/alarmclock/acprefs.py:22
 #: ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "සංඳාකිරීමේ ඔරලෝසුව"
 
 #: ../plugins/mainmenubutton/__init__.py:31
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
@@ -2542,11 +2542,11 @@ msgstr ""
 
 #: ../plugins/shoutcast/__init__.py:291
 msgid "Search Results"
-msgstr ""
+msgstr "සෙවුම් ප්‍රථිපල"
 
 #: ../plugins/shoutcast/__init__.py:324
 msgid "Search"
-msgstr ""
+msgstr "සොයන්න"
 
 #: ../plugins/lyricsviewer/__init__.py:278
 msgid "No lyrics found."
@@ -2558,7 +2558,7 @@ msgstr ""
 
 #: ../plugins/lyricsviewer/__init__.py:364
 msgid "Any"
-msgstr ""
+msgstr "ඕනෑම"
 
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
@@ -2670,7 +2670,7 @@ msgstr ""
 #: ../plugins/notify/notifyprefs.py:22
 #: ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "දැනුම්දීම්"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -2690,7 +2690,7 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs.py:37
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:105
 #: ../plugins/minimode/minimode_preferences.py:92
@@ -2700,7 +2700,7 @@ msgstr ""
 #: ../plugins/cd/cdprefs.py:111
 #: ../plugins/minimode/minimode_preferences.py:98
 msgid "Disc number"
-msgstr ""
+msgstr "තැටි අංකය"
 
 #: ../plugins/cd/cdprefs.py:118
 #: ../plugins/minimode/minimode_preferences.py:105
@@ -2770,7 +2770,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:221
 msgid "Previous"
-msgstr ""
+msgstr "පෙර"
 
 #: ../plugins/minimode/controls.py:222
 msgid "Go to the previous track"
@@ -2782,7 +2782,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:241
 msgid "Next"
-msgstr ""
+msgstr "මීළඟ"
 
 #: ../plugins/minimode/controls.py:242
 msgid "Go to the next track"
@@ -2794,7 +2794,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:262
 msgid "Play/Pause"
-msgstr ""
+msgstr "වාදනය/විරාමය"
 
 #: ../plugins/minimode/controls.py:263
 msgid "Start, pause or resume the playback"
@@ -2814,7 +2814,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:328
 msgid "Stop"
-msgstr ""
+msgstr "නවත්වන්න"
 
 #: ../plugins/minimode/controls.py:329
 msgid "Stop the playback"
@@ -2826,11 +2826,11 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:427
 msgid "Volume"
-msgstr ""
+msgstr "ශබ්දය"
 
 #: ../plugins/minimode/controls.py:428
 msgid "Change the volume"
-msgstr ""
+msgstr "ශබ්දය වෙනස්කරන්න"
 
 #: ../plugins/minimode/controls.py:489
 msgid "Restore"
@@ -3034,7 +3034,7 @@ msgstr ""
 #: ../plugins/jamendo/__init__.py:87
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Ready"
-msgstr ""
+msgstr "සූදානම්"
 
 #: ../plugins/jamendo/__init__.py:88
 msgid "Searching Jamendo catalogue..."
@@ -3071,11 +3071,11 @@ msgstr ""
 #: ../plugins/podcasts/__init__.py:55
 #: ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "පොඩ්කාස්ට්ස්"
 
 #: ../plugins/podcasts/__init__.py:72
 msgid "Podcast"
-msgstr ""
+msgstr "පොඩ්කාස්ට්"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Refresh Podcast"
@@ -3083,7 +3083,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
-msgstr ""
+msgstr "මකන්න"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
@@ -3091,7 +3091,7 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
-msgstr ""
+msgstr "පොඩ්කාස්ට් විවෘත කරන්න"
 
 #: ../plugins/podcasts/__init__.py:154
 #, python-format
@@ -3203,7 +3203,7 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:714
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "DAAP වෙත සම්බන්ධවන්න..."
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Darken played section instead of using cursor"
@@ -3247,12 +3247,12 @@ msgstr ""
 
 #: ../plugins/streamripper/streamripper.ui.h:4
 msgid "Delete incomplete files"
-msgstr ""
+msgstr "අසම්පූර්ණ ගොනු මකා දමන්න"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:1
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API key:"
-msgstr ""
+msgstr "API යතුර:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:2
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
@@ -3345,7 +3345,7 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "None"
-msgstr ""
+msgstr "කිසිවක් නැත"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
@@ -3366,12 +3366,12 @@ msgstr ""
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 #: ../plugins/contextinfo/context_pane.ui.h:2
 msgid "Password:"
-msgstr ""
+msgstr "මුරපදය:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 #: ../plugins/contextinfo/context_pane.ui.h:3
 msgid "Username:"
-msgstr ""
+msgstr "පරිශීලක නාමය:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:6
 msgid "Verify Login Data"
@@ -3383,55 +3383,55 @@ msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "237"
-msgstr ""
+msgstr "237"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:14
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:15
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "On track change"
@@ -3484,7 +3484,7 @@ msgstr ""
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
 msgid "Summary:"
-msgstr ""
+msgstr "සාරාංශය:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "Album line:"
@@ -3520,7 +3520,7 @@ msgstr ""
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:7
 msgid "Background Color:"
-msgstr "Ngjyra e Sfondit:"
+msgstr "පසුබිම් වර්ණය:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:8
 msgid "IPython Color Theme:"
@@ -3557,27 +3557,27 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "WavPack"
-msgstr ""
+msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "Import format: "
@@ -3634,7 +3634,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui.h:5
 msgid "Always on top"
-msgstr ""
+msgstr "සැමවිටම ඉහලින්ම පෙන්වන්න"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:6
 msgid "Show in tasklist"
@@ -3646,7 +3646,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Show on all desktops"
-msgstr ""
+msgstr "සියලු වැඩතල මත පෙන්වන්න"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:10
 msgid "Show button in main window"
@@ -3658,7 +3658,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui.h:15
 msgid "Simple"
-msgstr ""
+msgstr "සරල"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:1
 msgid "Group/categories font:"
@@ -3706,7 +3706,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Order by:"
-msgstr ""
+msgstr "පිළිවෙල:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Order direction:"
@@ -3714,19 +3714,19 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Results:"
-msgstr ""
+msgstr "ප්රතිඵල:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Advanced"
-msgstr ""
+msgstr "සංකීර්ණ‍"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "අවරෝහණ"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Ascending"
-msgstr ""
+msgstr "ආරෝහණ"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Release date"
@@ -3746,7 +3746,7 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Number of downloads"
-msgstr ""
+msgstr "බාගතකිරීම් ගණන"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Number of listens"
@@ -3802,7 +3802,7 @@ msgstr ""
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "පොඩ්කාස්ට් එක් කරන්න"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
 msgid "Anchor:"
@@ -3814,7 +3814,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:3
 msgid "pixels"
-msgstr ""
+msgstr "පික්සල"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:4
 msgid "Y offset:"
@@ -3826,7 +3826,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
 msgid "Size:"
-msgstr ""
+msgstr "විශාලත්වය:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:7
 msgid "Use fading"
@@ -3838,7 +3838,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:9
 msgid "ms"
-msgstr ""
+msgstr "ms"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:10
 msgid "Top left"
@@ -3858,7 +3858,7 @@ msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:1
 msgid "Add"
-msgstr "Shto"
+msgstr "එක් කරන්න"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:3
 msgid "<b>Alarms</b>"
@@ -4060,11 +4060,11 @@ msgstr ""
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"
-msgstr ""
+msgstr "Shoutcast රේඩියෝව"
 
 #: ../plugins/shoutcast/PLUGININFO:4
 msgid "Shoutcast Radio list"
-msgstr ""
+msgstr "Shoutcast රේඩියෝ ලැයිස්තුව"
 
 #: ../plugins/shoutcast/PLUGININFO:5
 #: ../plugins/librivox/PLUGININFO:5
@@ -4144,7 +4144,7 @@ msgstr ""
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
@@ -4279,7 +4279,7 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
@@ -4291,7 +4291,7 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
-msgstr ""
+msgstr "iPod සහාය"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid ""
@@ -4309,7 +4309,7 @@ msgstr ""
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
-msgstr ""
+msgstr "කැරොකේ"
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
@@ -4325,7 +4325,7 @@ msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Hello World"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -4382,3 +4382,6 @@ msgstr ""
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
 msgstr ""
+
+#~ msgid "&#xA9; 2009-2010"
+#~ msgstr "&#xA9; 2009-2010"

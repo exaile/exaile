@@ -31,7 +31,7 @@ from xl.player.pipe import ElementBin
 
 
 class Mono(ElementBin):
-    index = 80
+    index = 90
     name = 'mono'
     def __init__(self, player):
         ElementBin.__init__(self, player, name=self.name)

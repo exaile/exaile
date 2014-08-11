@@ -592,6 +592,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.menu = PlaylistContextMenu(self)
         self.tabmenu = menu.ProviderMenu('playlist-tab-context-menu', self)
         self.dragging = False
+        self.pending_event = None
         self.button_pressed = False # used by columns to determine whether
                                     # a notify::width event was initiated
                                     # by the user.
@@ -909,9 +910,13 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             self._hack_osx_control_mask = True if e.state & gtk.gdk.CONTROL_MASK else False
 
         selection = self.get_selection()
-        path = self.get_path_at_pos(int(e.x), int(e.y))
+        pathtuple = self.get_path_at_pos(int(e.x), int(e.y))
         # We only need the tree path if present
-        path = path[0] if path else None
+        if pathtuple:
+            path = pathtuple[0]
+            col = pathtuple[1]
+        else:
+            path = None
 
         # We unselect all selected items if the user clicks on an empty
         # area of the treeview and no modifier key is active
@@ -924,6 +929,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             if e.button == 1 and not e.state & gtk.accelerator_get_default_mod_mask() and \
                selection.path_is_selected(path):
                 selection.set_select_function(lambda *args: False)
+                self.pending_event = (path, col)
 
             # Open the context menu on right clicks
             if e.button == 3:
@@ -950,7 +956,13 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         
         # Restore regular selection behavior in any case
         self.get_selection().set_select_function(lambda *args: True)
-
+        
+        if self.pending_event:
+            path, col = self.pending_event
+            # perform the normal selection that would have happened
+            self.set_cursor(path, col, 0)
+            self.pending_event = None
+        
         return gtk.TreeView.do_button_release_event(self, e)
 
     def on_key_press_event(self, widget, event):
@@ -981,6 +993,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
         # TODO: set drag icon
         self.dragging = True
+        self.pending_event = None
 
     def on_drag_data_get(self, widget, context, selection, info, etime):
         """

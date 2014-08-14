@@ -385,7 +385,7 @@ class LibraryMonitor(gobject.GObject):
         self.__root = gio.File(library.location)
         self.__monitored = False
         self.__monitors = {}
-        self.__queue = []
+        self.__queue = {}
         self.__lock = threading.RLock()
 
     def do_get_property(self, property):
@@ -395,7 +395,7 @@ class LibraryMonitor(gobject.GObject):
         if property.name == 'monitored':
             return self.__monitored
         else:
-            raise AttributeError('unkown property %s' % property.name)
+            raise AttributeError('unknown property %s' % property.name)
 
     def do_set_property(self, property, value):
         """
@@ -433,26 +433,35 @@ class LibraryMonitor(gobject.GObject):
                     self.emit('location-removed', directory)
 
                 self.__monitors = {}
+                
+    def __process_change_queue(self, gfile):
+        if gfile in self.__queue:
+            added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
+            self.__library.collection.add_tracks(added_tracks)
+            del self.__queue[gfile]
 
     def on_location_changed(self, monitor, gfile, other_gfile, event):
         """
             Updates the library on changes of the location
         """
         if event == gio.FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
-            if gfile in self.__queue:
-                added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
-                self.__library.collection.add_tracks(added_tracks)
-                self.__queue.remove(gfile)
+            self.__process_change_queue(gfile)
         elif event == gio.FILE_MONITOR_EVENT_CREATED:
             # Enqueue tracks retrieval
             if gfile not in self.__queue:
-                self.__queue += [gfile]
-
+                self.__queue[gfile] = True
+            
+                # File monitor only emits the DONE_HINT when using inotify,
+                # and only on single files. Give it some time, but don't 
+                # lose the change notification
+                glib.timeout_add(500, self.__process_change_queue, gfile)
+            
             # Set up new monitor if directory
             fileinfo = gfile.query_info('standard::type')
 
             if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY and \
                gfile not in self.__monitors:
+                
                 for directory in common.walk_directories(gfile):
                     monitor = directory.monitor_directory()
                     monitor.connect('changed', self.on_location_changed)

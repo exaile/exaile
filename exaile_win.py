@@ -61,7 +61,7 @@ def main():
         import struct
         is64bit = len(struct.pack(b'P', 0)) == 8
         logging.info("Python arch: %d-bit" % (64 if is64bit else 32))
-        gstroot = os.environ.get('GSTREAMER_SDK_ROOT_X86_64', r'C:\gstreamer-sdk\0.10\x64') \
+        gstroot = os.environ.get('GSTREAMER_SDK_ROOT_X86_64', r'C:\gstreamer-sdk\0.10\x86_64') \
                 if is64bit \
                 else os.environ.get('GSTREAMER_SDK_ROOT_X86', r'C:\gstreamer-sdk\0.10\x86')
         if not os.path.exists(gstroot):

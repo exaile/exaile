@@ -40,39 +40,6 @@ Function DetectMutagen
 FunctionEnd
 
 ;--------------------------------------------------------------------
-; Are necessary PyGTK bits and pieces available?
-
-;Function DetectPyGTK
-;    ${If} ${FileExists} "${PYTHON_PATH}\Lib\site-packages\gtk-2.0\gtk\__init__.py"
-;        StrCpy $HAVE_PYGTK "OK"
-;    ${Else}
-;        ;MessageBox MB_OK "No PyGTK in $PYPATH"		
-;        StrCpy $HAVE_PYGTK "NOK"
-;    ${EndIf}
-;FunctionEnd
-
-;--------------------------------------------------------------------
-; GStreamer OSSBuild package detection
-
-;Function DetectGstreamer
-;    ReadEnvStr $0 OSSBUILD_GSTREAMER_DIR
-;    ${IfNot} $0 == ""
-;    	StrCpy $HAVE_GST "OK"
-;	${Else}
-;		StrCpy $HAVE_GST "NOK"
-;	${EndIf}
-;FunctionEnd
-
-;Function DetectGstreamerSDK
-;    ReadEnvStr $0 OSSBUILD_GSTREAMER_SDK_DIR
-;    ${IfNot} $0 == ""
-;    	StrCpy $HAVE_GSTSDK "OK"
-;	${Else}
-;		StrCpy $HAVE_GSTSDK "NOK"
-;	${EndIf}
-;FunctionEnd
-
-;--------------------------------------------------------------------
 ; GStreamer.com SDK package detection
 
 Function DetectGstreamerComSDK

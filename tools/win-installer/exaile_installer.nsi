@@ -167,35 +167,12 @@
 !define PYTHON_CMD              "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
 
 ; Use the mutagen setup package
-!define MUTAGEN_VERSION         "1.23"
+!define MUTAGEN_VERSION         "1.24"
 !define MUTAGEN_FN              "mutagen-${MUTAGEN_VERSION}.tar.gz"
-!define MUTAGEN_FSIZE           "815KB"
+!define MUTAGEN_FSIZE           "818KB"
 !define MUTAGEN_URL             "https://bitbucket.org/lazka/mutagen/downloads/${MUTAGEN_FN}"
 ;!define MUTAGEN_URL             "${TEST_URL}/${MUTAGEN_FN}"
 !define MUTAGEN_CMD             "${PYTHON_PATH}\python.exe $PLUGINSDIR\install_targz.py $DAI_TMPFILE"
-
-; Use the official PyGTK all-in-one-installer
-;!define PYGTK_VERSION           "2.24.2"
-;!define PYGTK_FN                "pygtk-all-in-one-${PYGTK_VERSION}.win32-py${PYTHON_VERSION}.msi"
-;!define PYGTK_FSIZE             "32MB"
-;!define PYGTK_URL               "http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/${PYGTK_FN}"
-;!define PYGTK_URL               "${TEST_URL}/${PYGTK_FN}"
-;!define PYGTK_CMD               "msiexec /i $DAI_TMPFILE /passive TARGETDIR=$\"${PYTHON_PATH}$\" ALLUSERS=1"
-
-; Use the OSSBuild installers
-;!define GST_VERSION             "0.10.7"
-;!define GST_FN                  "GStreamer-WinBuilds-GPL-x86-Beta04-${GST_VERSION}.msi"
-;!define GST_FSIZE               "21MB"
-;!define GST_URL                 "http://ossbuild.googlecode.com/files/${GST_FN}"
-;!define GST_URL                 "${TEST_URL}/${GST_FN}"
-;!define GST_CMD                 "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
-
-;!define GSTSDK_VERSION          "0.10.7"
-;!define GSTSDK_FN               "GStreamer-WinBuilds-SDK-GPL-x86-Beta04-${GSTSDK_VERSION}.msi"
-;!define GSTSDK_FSIZE            "5.3MB"
-;!define GSTSDK_URL              "http://ossbuild.googlecode.com/files/${GSTSDK_FN}"
-;!define GSTSDK_URL              "${TEST_URL}/${GSTSDK_FN}"
-;!define GSTSDK_CMD              "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
 
 ; Use the GStreamer.com SDK
 !define GSTCOMSDK_VERSION       "2013.6"
@@ -230,39 +207,6 @@ Section "-mutagen"
     ${EndIf}
 SectionEnd
 
-;Section "-pygtk"
-;    ${If} $NEED_PYGTK == '1'
-;        DetailPrint "--- DOWNLOAD PYGTK ---"
-;        !insertmacro downloadAndInstall "PyGTK" "${PYGTK_URL}" "${PYGTK_FN}" "${PYGTK_CMD}"
-;        Call DetectPyGTK
-;        ${If} $HAVE_PYGTK == 'NOK'
-;            MessageBox MB_OK "PyGTK installation appears to have failed. You may need to retry manually."
-;        ${EndIf}
-;    ${EndIf}
-;SectionEnd
-
-;Section "-gst"
-;    ${If} $NEED_GST == '1'
-;        DetailPrint "--- DOWNLOAD GSTREAMER ---"
-;        !insertmacro downloadAndInstall "GStreamer" "${GST_URL}" "${GST_FN}" "${GST_CMD}"
-;        Pop $0
-;        ${If} $0 != "0"
-;            MessageBox MB_OK "GStreamer installation appears to have failed. You may need to retry manually."
-;        ${EndIf}
-;    ${EndIf}
-;SectionEnd
-
-;Section "-gstsdk"
-;    ${If} $NEED_GSTSDK == '1'
-;        DetailPrint "--- DOWNLOAD GSTREAMER SDK ---"
-;        !insertmacro downloadAndInstall "GStreamer SDK" "${GSTSDK_URL}" "${GSTSDK_FN}" "${GSTSDK_CMD}"
-;        Pop $0
-;        ${If} $0 != "0"
-;            MessageBox MB_OK "GStreamer SDK installation appears to have failed. You may need to retry manually."
-;        ${EndIf}
-;    ${EndIf}
-;SectionEnd
-
 Section "-gstcomsdk"
     ${If} $NEED_GSTCOMSDK == '1'
         DetailPrint "--- DOWNLOAD GSTREAMER.COM SDK ---"
@@ -271,24 +215,7 @@ Section "-gstcomsdk"
         ${If} $0 != "0"
             MessageBox MB_OK "GStreamer.com SDK installation appears to have failed. You may need to retry manually."
         ${EndIf}
-    ${EndIf}
-    
-    ; 2012.9 only: 
-    ;   there's a mingw component required for this  ... install it
-    ;   manually instead: see https://bugs.freedesktop.org/show_bug.cgi?id=54710
-        
-    ;DetailPrint "--- PATCH GSTREAMER.COM SDK ---"
-    ;ReadRegStr $0 HKLM Software\GStreamerSDK\x86 "InstallDir"
-    ;${If} $0 != ""
-    ;    ${IfNot} ${FileExists} $0\0.10\x86\bin\libssp-0.dll
-    ;        File /oname=$0\0.10\x86\bin\libssp-0.dll libssp-0.dll
-    ;    ${Else}
-    ;        DetailPrint "No patch required"
-    ;    ${EndIf}
-    ;${Else}
-    ;    MessageBox MB_OK "Error patching GStreamer SDK"
-    ;${EndIf}
-    
+    ${EndIf}   
 SectionEnd
 
 ;------------------------------------------------------------

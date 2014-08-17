@@ -67,7 +67,7 @@ pause && goto end
 
 pushd %~dp0
 if "%EXAILE_CONSOLE%" == "Y" goto start_exaile_in_console
-"%PYTHON_BIN%" exaile_win.py --startgui --no-dbus --no-hal %*
+start "" "%PYTHON_BIN%" exaile_win.py --startgui --no-dbus --no-hal %*
 popd
 goto end
 

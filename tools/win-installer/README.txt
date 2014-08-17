@@ -5,7 +5,7 @@ Requirements for building installer
  
 You can install these on Windows or Linux (if you have Wine installed).
 
-* Install NSIS: http://nsis.sourceforge.net
+* Install NSIS 2: http://nsis.sourceforge.net
 * Install NSIS Inetc Plugin: http://nsis.sourceforge.net/Inetc_plug-in
     * Unzip it to ~/.wine/drive_c/Program Files (x86)/NSIS
     * Or on windows, to C:\Program Files\NSIS 

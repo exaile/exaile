@@ -13,11 +13,18 @@ Var CHECKGSTCOMSDK
 
 Function dependenciesCreate
 	
+    ${If} $INSTALL_ARCH == "32"
+    ${AndIf} $HAVE_GSTCOMSDK_32 == "OK"
+        StrCpy $HAVE_GSTCOMSDK "OK"
+    ${ElseIf} $INSTALL_ARCH == "64"
+    ${AndIf} $HAVE_GSTCOMSDK_64 == "OK"
+        StrCpy $HAVE_GSTCOMSDK "OK"
+    ${Else}
+        StrCpy $HAVE_GSTCOMSDK "NOK"
+    ${EndIf}
+	
 	${If} $HAVE_PYTHON == 'OK'
 	${AndIf} $HAVE_MUTAGEN == 'OK'
-	;${AndIf} $HAVE_PYGTK == 'OK'
-	;${AndIf} $HAVE_GST == 'OK'
-	;${AndIf} $HAVE_GSTSDK == 'OK'
     ${AndIf} $HAVE_GSTCOMSDK == 'OK'
 		; do nothing in this page
 	${Else}
@@ -28,11 +35,11 @@ Function dependenciesCreate
 		Pop $0
 
 		${If} $HAVE_PYTHON == 'NOK'
-			${NSD_CreateCheckbox} 10% 48% 100% 8u "Python ${PYTHON_VERSION} (${PYTHON_FSIZE})"
+			${NSD_CreateCheckbox} 10% 48% 100% 8u "Python ${PYTHON_VERSION} $INSTALL_ARCH-bit (${PYTHON_FSIZE})"
 			Pop $CHECKPY
 			!insertmacro setCheckboxChecked $CHECKPY
         ${Else}
-            ${NSD_CreateLabel} 10% 48% 100% 8u "--- Python ${PYTHON_VERSION} already installed"
+            ${NSD_CreateLabel} 10% 48% 100% 8u "--- Python ${PYTHON_VERSION} ($HAVE_PYTHON_ARCH-bit) already installed"
 		${EndIf}
         
         ${If} $HAVE_MUTAGEN == 'NOK'
@@ -46,11 +53,11 @@ Function dependenciesCreate
         ; GStreamer.com SDK
         
         ${If} $HAVE_GSTCOMSDK == 'NOK'
-			${NSD_CreateCheckbox} 10% 64% 100% 8u "GStreamer.com SDK ${GSTCOMSDK_VERSION} (${GSTCOMSDK_FSIZE})"
+			${NSD_CreateCheckbox} 10% 64% 100% 8u "GStreamer.com SDK ${GSTCOMSDK_VERSION} $INSTALL_ARCH-bit (${GSTCOMSDK_FSIZE})"
 			Pop $CHECKGSTCOMSDK
 			!insertmacro setCheckboxChecked $CHECKGSTCOMSDK
         ${Else}
-            ${NSD_CreateLabel} 10% 64% 100% 8u "--- GStreamer.com SDK already installed"
+            ${NSD_CreateLabel} 10% 64% 100% 8u "--- GStreamer.com SDK $INSTALL_ARCH-bit already installed"
 		${EndIf}
         
 		nsDialogs::Show

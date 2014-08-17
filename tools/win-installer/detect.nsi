@@ -16,9 +16,10 @@ Function DetectPython
     ; non-default location is.. low, right? *hides from bugreports*
 
 	${If} ${FileExists} "${PYTHON_PATH}\python.exe"
-		StrCpy $HAVE_PYTHON "OK"
+        ExecWait "${PYTHON_PATH}\pythonw.exe -c $\"import platform; exit(32 if platform.architecture()[0] == '32bit' else 64)$\"" $HAVE_PYTHON_ARCH
+        StrCpy $HAVE_PYTHON "OK"
 	${Else}
-		;MessageBox MB_OK "No python.exe in $R6"
+		StrCpy $HAVE_PYTHON_ARCH "Unknown"
 		StrCpy $HAVE_PYTHON "NOK"
 	${EndIf}
 FunctionEnd
@@ -43,12 +44,20 @@ FunctionEnd
 ; GStreamer.com SDK package detection
 
 Function DetectGstreamerComSDK
+    
     ReadEnvStr $0 GSTREAMER_SDK_ROOT_X86
     ${IfNot} $0 == ""
-    	StrCpy $HAVE_GSTCOMSDK "OK"
+    	StrCpy $HAVE_GSTCOMSDK_32 "OK"
 	${Else}
-		StrCpy $HAVE_GSTCOMSDK "NOK"
+		StrCpy $HAVE_GSTCOMSDK_32 "NOK"
 	${EndIf}
+	
+	ReadEnvStr $0 GSTREAMER_SDK_ROOT_X86_64
+	${IfNot} $0 == ""
+        StrCpy $HAVE_GSTCOMSDK_64 "OK"
+    ${Else}
+        StrCpy $HAVE_GSTCOMSDK_64 "NOK"
+    ${EndIf}
     
     ; TODO: What if they don't select the correct options? 
 FunctionEnd

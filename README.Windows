@@ -10,14 +10,13 @@ Exaile (and its installer) has been tested on:
 
     Windows XP SP3
     Windows 7 x64 SP1
+    Windows 8.1
     
-    Python 2.7.8 (32-bit)
-    GStreamer.com SDK 2013.6 (32-bit)
+    Python 2.7.8 (32-bit and 64-bit)
+    GStreamer.com SDK 2013.6 (32-bit and 64-bit)
 
-Exaile does work using the 64-bit version of Python and the GStreamer SDK;
-however, the Exaile installer will only install the 32-bit versions. Exaile may
-work with the OSSBuild SDK and Python 2.6.6, but this is not a recommended
-configuration. 
+Exaile may work with the OSSBuild SDK and Python 2.6.6, but this is not
+a recommended configuration. 
 
 
 Running Exaile
@@ -109,7 +108,7 @@ If exaile crashes, you should be able to find a logfile from the last time
 exaile was launched in the following directories::
     
     Windows XP: %USERPROFILE%\Local Settings\Application Data\exaile\logs
-    Windows 7:  %USERPROFILE%\AppData\Local\exaile\logs
+    Windows 7+:  %USERPROFILE%\AppData\Local\exaile\logs
 
 If you run into any bugs not mentioned in this document, please report them
 to us via launchpad at https://bugs.launchpad.net/exaile . Please include any

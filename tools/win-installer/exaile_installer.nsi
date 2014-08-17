@@ -22,6 +22,7 @@
 
     !include "MUI2.nsh"
     !include "LogicLib.nsh"
+    !include "x64.nsh"
 
 ;--------------------------------
 ;General
@@ -47,20 +48,18 @@
     Var instdir_temp
     
     Var HAVE_PYTHON
+    Var HAVE_PYTHON_ARCH
     Var HAVE_MUTAGEN
-    ;Var HAVE_PYGTK
-    ;Var HAVE_GST
-    ;Var HAVE_GSTSDK
     Var HAVE_GSTCOMSDK
+    Var HAVE_GSTCOMSDK_32
+    Var HAVE_GSTCOMSDK_64
     
     Var NEED_PYTHON
     Var NEED_MUTAGEN
-    ;Var NEED_PYGTK
-    ;Var NEED_GST
-    ;Var NEED_GSTSDK
     Var NEED_GSTCOMSDK
     
-
+    Var INSTALL_ARCH
+    
 ;--------------------------------
 ;Interface Settings
 
@@ -74,6 +73,7 @@
     !insertmacro MUI_PAGE_LICENSE "..\..\COPYING"
     !insertmacro MUI_PAGE_DIRECTORY
     
+    Page custom architectureSelect
     Page custom dependenciesCreate dependenciesLeave
 
     ;Start Menu Folder Page Configuration
@@ -160,10 +160,13 @@
 !define PYTHON_VERSION          "2.7"
 !define PYTHON_FULL_VERSION     "2.7.8"
 !define PYTHON_PATH             "C:\Python27"
-!define PYTHON_FN               "python-${PYTHON_FULL_VERSION}.msi"
+!define PYTHON_FN_32            "python-${PYTHON_FULL_VERSION}.msi"
+!define PYTHON_FN_64            "python-${PYTHON_FULL_VERSION}.amd64.msi"
 !define PYTHON_FSIZE            "16MB"
-!define PYTHON_URL              "http://python.org/ftp/python/${PYTHON_FULL_VERSION}/${PYTHON_FN}"
-;!define PYTHON_URL              "${TEST_URL}/${PYTHON_FN}"
+!define PYTHON_URL_32           "http://python.org/ftp/python/${PYTHON_FULL_VERSION}/${PYTHON_FN_32}"
+!define PYTHON_URL_64           "http://python.org/ftp/python/${PYTHON_FULL_VERSION}/${PYTHON_FN_64}"
+;!define PYTHON_URL_32           "${TEST_URL}/${PYTHON_FN_32}"
+;!define PYTHON_URL_64           "${TEST_URL}/${PYTHON_FN_64}"
 !define PYTHON_CMD              "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1"
 
 ; Use the mutagen setup package
@@ -176,10 +179,13 @@
 
 ; Use the GStreamer.com SDK
 !define GSTCOMSDK_VERSION       "2013.6"
-!define GSTCOMSDK_FN            "gstreamer-sdk-x86-${GSTCOMSDK_VERSION}.msi"
+!define GSTCOMSDK_FN_32         "gstreamer-sdk-x86-${GSTCOMSDK_VERSION}.msi"
+!define GSTCOMSDK_FN_64         "gstreamer-sdk-x86_64-${GSTCOMSDK_VERSION}.msi"
 !define GSTCOMSDK_FSIZE         "106MB"
-!define GSTCOMSDK_URL           "http://cdn.gstreamer.com/windows/x86/${GSTCOMSDK_FN}"
-;!define GSTCOMSDK_URL           "${TEST_URL}/${GSTCOMSDK_FN}"
+!define GSTCOMSDK_URL_32        "http://cdn.gstreamer.com/windows/x86/${GSTCOMSDK_FN_32}"
+!define GSTCOMSDK_URL_64        "http://cdn.gstreamer.com/windows/x86-64/${GSTCOMSDK_FN_64}"
+;!define GSTCOMSDK_URL_32        "${TEST_URL}/${GSTCOMSDK_FN_32}"
+;!define GSTCOMSDK_URL_64        "${TEST_URL}/${GSTCOMSDK_FN_64}"
 !define GSTCOMSDK_FEATURES      "_gstreamer_core,_gstreamer_system,_gstreamer_playback,_gstreamer_codecs,_gstreamer_networking,_gstreamer_python,_gtk__2.0,_gtk__2.0_python,_gstreamer_codecs_gpl,_gstreamer_codecs_restricted,_gstreamer_networking_restricted"
 !define GSTCOMSDK_CMD           "msiexec /i $DAI_TMPFILE /passive ALLUSERS=1 ADDLOCAL=${GSTCOMSDK_FEATURES}"
 
@@ -188,7 +194,13 @@
 Section "-python"
     ${If} $NEED_PYTHON == '1'
         DetailPrint "--- DOWNLOAD PYTHON ---"
-        !insertmacro downloadAndInstall "Python" "${PYTHON_URL}" "${PYTHON_FN}" "${PYTHON_CMD}"
+        
+        ${If} $INSTALL_ARCH == "32"
+            !insertmacro downloadAndInstall "Python" "${PYTHON_URL_32}" "${PYTHON_FN_32}" "${PYTHON_CMD}"
+        ${Else}
+            !insertmacro downloadAndInstall "Python" "${PYTHON_URL_64}" "${PYTHON_FN_64}" "${PYTHON_CMD}"
+        ${EndIf}
+        
         Call DetectPython
         ${If} $HAVE_PYTHON == 'NOK'
             MessageBox MB_OK "Python installation appears to have failed. You may need to retry manually."
@@ -209,9 +221,17 @@ SectionEnd
 
 Section "-gstcomsdk"
     ${If} $NEED_GSTCOMSDK == '1'
+    
         DetailPrint "--- DOWNLOAD GSTREAMER.COM SDK ---"
-        !insertmacro downloadAndInstall "GStreamer.com SDK" "${GSTCOMSDK_URL}" "${GSTCOMSDK_FN}" "${GSTCOMSDK_CMD}"
-        Pop $0
+        
+        ${If} $INSTALL_ARCH == "32"
+            !insertmacro downloadAndInstall "GStreamer.com SDK" "${GSTCOMSDK_URL_32}" "${GSTCOMSDK_FN_32}" "${GSTCOMSDK_CMD}"
+            Pop $0
+        ${Else}
+            !insertmacro downloadAndInstall "GStreamer.com SDK" "${GSTCOMSDK_URL_64}" "${GSTCOMSDK_FN_64}" "${GSTCOMSDK_CMD}"
+            Pop $0
+        ${EndIf}
+    
         ${If} $0 != "0"
             MessageBox MB_OK "GStreamer.com SDK installation appears to have failed. You may need to retry manually."
         ${EndIf}
@@ -253,6 +273,7 @@ Section "-Exaile" SecExaile
 
 SectionEnd
 
+!include "arch.nsi"
 
 !include "dependencies.nsi"
 
@@ -267,20 +288,11 @@ Function .onInit
     StrCpy $INSTDIR $instdir_temp
     skip:
     
-        ;set the default python target dir
-    ;StrCpy $PYTHONTARGETDIR "c:\Python${PYVERSION}"
-    ;StrCpy $PYINSTALLED ""
-    
     InitPluginsDir
     File /oname=$PLUGINSDIR\install_targz.py install_targz.py
     
-    ;ExpandEnvStrings $DEFAULTPATH "%WINDIR%;%WINDIR%\system32"
-
     Call DetectPython
     Call DetectMutagen
-    ;Call DetectPyGTK
-    ;Call DetectGstreamer
-    ;Call DetectGstreamerSDK
     Call DetectGstreamerComSDK
     
 FunctionEnd

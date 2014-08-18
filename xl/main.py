@@ -331,6 +331,10 @@ class Exaile(object):
                 self.gui.open_uri(args[0], play=True)
             for arg in args[1:]:
                 self.gui.open_uri(arg)
+            
+            # kick off autoscan of libraries
+            # -> don't do it in command line mode, since that isn't expected
+            self.gui.rescan_collection_with_progress(True)
 
         if restore:
             player.QUEUE._restore_player_state(

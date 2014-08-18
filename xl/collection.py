@@ -77,14 +77,16 @@ class CollectionScanThread(common.ProgressThread):
     """
         Scans the collection
     """
-    def __init__(self, collection):
+    def __init__(self, collection, startup_scan=False):
         """
             Initializes the thread
 
             :param collection: the collection to scan
+            :param startup_scan: Only scan libraries scanned at startup
         """
         common.ProgressThread.__init__(self)
-
+        
+        self.startup_scan = startup_scan
         self.collection = collection
 
     def stop(self):
@@ -101,7 +103,7 @@ class CollectionScanThread(common.ProgressThread):
         event.add_callback(self.on_scan_progress_update,
             'scan_progress_update')
 
-        self.collection.rescan_libraries()
+        self.collection.rescan_libraries(startup_only=self.startup_scan)
 
         event.remove_callback(self.on_scan_progress_update,
             'scan_progress_update')
@@ -236,7 +238,7 @@ class Collection(trax.TrackDB):
         """
         return self.libraries.values()
 
-    def rescan_libraries(self):
+    def rescan_libraries(self, startup_only=False):
         """
             Rescans all libraries associated with this Collection
         """
@@ -256,6 +258,10 @@ class Collection(trax.TrackDB):
         scan_interval = 20
 
         for library in self.libraries.itervalues():
+            
+            if startup_only and not (library.monitored and library.startup_scan):
+                continue
+            
             event.add_callback(self._progress_update, 'tracks_scanned',
                 library)
             library.rescan(notify_interval=scan_interval)
@@ -319,6 +325,7 @@ class Collection(trax.TrackDB):
             l['monitored'] = v.monitored
             l['realtime'] = v.monitored
             l['scan_interval'] = v.scan_interval
+            l['startup_scan'] = v.startup_scan
             _serial_libraries.append(l)
         return _serial_libraries
 
@@ -331,7 +338,7 @@ class Collection(trax.TrackDB):
         for l in _serial_libraries:
             self.add_library( Library( l['location'],
                     l.get('monitored', l.get('realtime')),
-                    l['scan_interval'] ))
+                    l['scan_interval'], l.get('startup_scan', True) ))
 
     _serial_libraries = property(serialize_libraries, unserialize_libraries)
 
@@ -516,7 +523,7 @@ class Library(object):
         5
         >>>
     """
-    def __init__(self, location, monitored=False, scan_interval=0):
+    def __init__(self, location, monitored=False, scan_interval=0, startup_scan=False):
         """
             Sets up the Library
 
@@ -532,6 +539,7 @@ class Library(object):
         self.scan_interval = scan_interval
         self.scan_id = 0
         self.scanning = False
+        self._startup_scan = startup_scan
         self.monitor = LibraryMonitor(self)
         self.monitor.props.monitored = monitored
 
@@ -604,6 +612,16 @@ class Library(object):
             self.scan_id = glib.timeout_add_seconds(interval, self.rescan)
 
         self.scan_interval = interval
+        
+    def get_startup_scan(self):
+        return self._startup_scan
+    
+    def set_startup_scan(self, value):
+        self._startup_scan = value
+        self.collection.serialize_libraries()
+        self.collection._dirty = True
+    
+    startup_scan = property(get_startup_scan, set_startup_scan)
 
     def _count_files(self):
         """
@@ -718,7 +736,7 @@ class Library(object):
         if self.scanning:
             return
 
-        logger.info("Scanning library: %s" % self.location)
+        logger.info("Scanning library: %s", self.location)
         self.scanning = True
         db = self.collection
         libloc = gio.File(self.location)
@@ -769,6 +787,7 @@ class Library(object):
 
             if self.collection and self.collection._scan_stopped:
                 self.scanning = False
+                logger.info("Scan canceled")
                 return
 
             # progress update
@@ -801,6 +820,8 @@ class Library(object):
         for tr in removals:
             logger.debug(u"Removing %s"%unicode(tr))
             self.collection.remove(tr)
+            
+        logger.info("Scan completed: %s", self.location)
         self.scanning = False
 
     def add(self, loc, move=False):

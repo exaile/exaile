@@ -68,7 +68,7 @@ class CollectionManagerDialog(object):
         selection.connect('changed', self.on_selection_changed)
 
         for location, library in collection.libraries.iteritems():
-            self.model.append([location, library.monitored])
+            self.model.append([location, library.monitored, library.startup_scan])
 
     def run(self):
         """
@@ -96,7 +96,7 @@ class CollectionManagerDialog(object):
         items = []
 
         for row in self.model:
-            items += [(row[0], row[1])]
+            items += [(row[0], row[1], row[2])]
 
         return items
 
@@ -107,6 +107,15 @@ class CollectionManagerDialog(object):
         monitored = not cell.get_active()
         cell.set_active(monitored)
         self.model[path][1] = monitored
+        
+    def on_startup_cellrenderer_toggled(self, cell, path):
+        """
+            Enables or disables scanning on startup
+        """
+        if self.model[path][1]:        
+            scan_on_startup = not cell.get_active()
+            cell.set_active(scan_on_startup)
+            self.model[path][2] = scan_on_startup
 
     def on_add_button_clicked(self, widget):
         """
@@ -134,6 +143,7 @@ class CollectionManagerDialog(object):
             for row in self.model:
                 library_location = gio.File(row[0])
                 monitored = row[1]
+                scan_on_startup = row[2]
 
                 if location.has_prefix(library_location):
                     self.message.show_warning(

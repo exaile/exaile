@@ -230,7 +230,7 @@ class Main(object):
             collection = self.exaile.collection
             collection.freeze_libraries()
 
-            collection_libraries = [(l.location, l.monitored) \
+            collection_libraries = [(l.location, l.monitored, l.startup_scan) \
                 for l in collection.libraries.itervalues()]
             collection_libraries.sort()
             new_libraries = dialog.get_items()
@@ -238,9 +238,9 @@ class Main(object):
 
             if collection_libraries != new_libraries:
                 collection_locations = [location \
-                    for location, monitored in collection_libraries]
+                    for location, monitored, startup_scan in collection_libraries]
                 new_locations = [location \
-                    for location, monitored in new_libraries]
+                    for location, monitored, startup_scan in new_libraries]
 
                 if collection_locations != new_locations:
                     for location in new_locations:
@@ -257,8 +257,9 @@ class Main(object):
 
                     self.on_rescan_collection()
 
-                for location, monitored in new_libraries:
+                for location, monitored, startup_scan in new_libraries:
                     collection.libraries[location].monitored = monitored
+                    collection.libraries[location].startup_scan = startup_scan
 
             collection.thaw_libraries()
 
@@ -276,11 +277,15 @@ class Main(object):
         """
             Called when the user wishes to rescan the collection
         """
+        self.rescan_collection_with_progress()
+        
+    def rescan_collection_with_progress(self, startup=False):
+        
         libraries = self.exaile.collection.get_libraries()
         if not self.exaile.collection._scanning and len(libraries) > 0:
             from xl.collection import CollectionScanThread
 
-            thread = CollectionScanThread(self.exaile.collection)
+            thread = CollectionScanThread(self.exaile.collection, startup_scan=startup)
             thread.connect('done', self.on_rescan_done)
             self.progress_manager.add_monitor(thread,
                 _("Scanning collection..."), gtk.STOCK_REFRESH)

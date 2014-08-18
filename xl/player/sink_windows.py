@@ -8,6 +8,7 @@
 
 import logging
 import os.path
+import platform
 import glib
 import gst
 
@@ -19,7 +20,11 @@ logger = logging.getLogger(__name__)
 def load_exaile_directsound_plugin(presets):
     
     try:
-        plugin_path = os.path.abspath(os.path.join(__file__, '../../../tools/win-installer/libgstexailedirectsoundsink.dll'))
+        if platform.architecture()[0] == "32bit":
+            plugin_path = os.path.abspath(os.path.join(__file__, '../../../tools/win-installer/libgstexailedirectsoundsink.dll'))
+        else:
+            plugin_path = os.path.abspath(os.path.join(__file__, '../../../tools/win-installer/libgstexailedirectsoundsink64.dll'))
+            
         plugin = gst.plugin_load_file(plugin_path)
         gst.registry_get_default().add_plugin(plugin)
         

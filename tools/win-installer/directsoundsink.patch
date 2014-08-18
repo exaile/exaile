@@ -19,6 +19,287 @@ index b797551..4c1ba56 100644
  
 -noinst_HEADERS = gstdirectsoundsink.h
 +noinst_HEADERS = gstdirectsound.h gstdirectsoundsink.h
+diff --git a/sys/directsound/gstdirectsound.c b/sys/directsound/gstdirectsound.c
+new file mode 100644
+index 0000000..bbcdebc
+--- /dev/null
++++ b/sys/directsound/gstdirectsound.c
+@@ -0,0 +1,199 @@
++/* GStreamer
++ * Copyright (C) 2005 Sebastien Moutte <sebastien@moutte.net>
++ * Copyright (C) 2007-2009 Pioneers of the Inevitable <songbird@songbirdnest.com>
++ *
++ * gstdirectsound.c:
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Library General Public
++ * License as published by the Free Software Foundation; either
++ * version 2 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Library General Public License for more details.
++ *
++ * You should have received a copy of the GNU Library General Public
++ * License along with this library; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 02111-1307, USA.
++ *
++ * The development of this code was made possible due to the involvement
++ * of Pioneers of the Inevitable, the creators of the Songbird Music player
++ *
++ */
++
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
++// note: INITGUID clashes with amstrmid.lib from winks, if both plugins are
++//   statically built together.  we'll get around this by only defining the
++//   directsound-specific GUIDs we actually use (see dsguids.c)
++//#define INITGUID
++
++#include "gstdirectsound.h"
++
++#include <objbase.h>
++#include <math.h>
++
++GST_DEBUG_CATEGORY (directsound);
++
++#define GST_CAT_DEFAULT directsound
++
++static gchar *
++guid_to_string (LPGUID in)
++{
++  WCHAR buffer[256];
++  if (StringFromGUID2 (in, buffer, sizeof buffer / sizeof buffer[0]) == 0)
++    return NULL;
++  return g_utf16_to_utf8 ((const gunichar2 *) buffer, -1, NULL, NULL, NULL);
++}
++
++static LPGUID
++string_to_guid (const gchar * str)
++{
++  HRESULT ret;
++  gunichar2 * wstr;
++  LPGUID out;
++
++  wstr = g_utf8_to_utf16 (str, -1, NULL, NULL, NULL);
++  if (!wstr)
++    return NULL;
++
++  out = g_malloc (sizeof (GUID));
++  ret = CLSIDFromString ((LPOLESTR) wstr, out);
++  g_free (wstr);
++  if (ret != NOERROR) {
++    g_free (out);
++    return NULL;
++  }
++
++  return out;
++}
++
++static BOOL CALLBACK
++cb_enum (LPGUID lpGUID, LPCWSTR lpszDesc, LPCWSTR lpszDrvName, LPVOID lpContext)
++{
++  GList ** list;
++  gst_directsound_device * dev;
++
++  list = (GList **) lpContext;
++  dev = gst_directsound_device_alloc ();
++
++  if (lpGUID == NULL) {
++    /* default device */
++    dev->id = g_strdup ("");
++  }
++  else {
++    dev->id = guid_to_string (lpGUID);
++    if (!dev->id) {
++      gst_directsound_device_free (dev);
++      return TRUE;
++    }
++  }
++
++  dev->name = g_utf16_to_utf8 ((const gunichar2 *) lpszDesc, -1, NULL, NULL,
++      NULL);
++  if (!dev->name) {
++    gst_directsound_device_free (dev);
++    return TRUE;
++  }
++
++  *list = g_list_append (*list, dev);
++
++  return TRUE;
++}
++
++gst_directsound_device *
++gst_directsound_device_alloc ()
++{
++  gst_directsound_device * dev;
++  dev = g_malloc (sizeof (gst_directsound_device));
++  dev->id = NULL;
++  dev->name = NULL;
++  return dev;
++}
++
++void
++gst_directsound_device_free (gst_directsound_device * dev)
++{
++  if (!dev)
++    return;
++
++  if (dev->id)
++    g_free (dev->id);
++  if (dev->name)
++    g_free (dev->name);
++
++  g_free (dev);
++}
++
++void
++gst_directsound_device_free_func (gpointer data, gpointer user_data)
++{
++  gst_directsound_device_free ((gst_directsound_device *) data);
++}
++
++GList *
++gst_directsound_playback_device_list ()
++{
++    GList * out = NULL;
++    if (FAILED (DirectSoundEnumerateW ((LPDSENUMCALLBACK) cb_enum, &out))) {
++      if (out)
++        gst_directsound_device_list_free (out);
++      return NULL;
++    }
++    return out;
++}
++
++GList *
++gst_directsound_capture_device_list ()
++{
++    GList * out = NULL;
++    if (FAILED (DirectSoundCaptureEnumerateW ((LPDSENUMCALLBACK) cb_enum, &out))) {
++      if (out)
++        gst_directsound_device_list_free (out);
++      return NULL;
++    }
++    return out;
++}
++
++void
++gst_directsound_device_list_free (GList * list)
++{
++  g_list_foreach (list, gst_directsound_device_free_func, NULL);
++  g_list_free (list);
++}
++
++LPGUID
++gst_directsound_get_device_guid (const gchar * id)
++{
++  return string_to_guid (id);
++}
++
++void
++gst_directsound_set_volume (LPDIRECTSOUNDBUFFER8 pDSB8, gdouble volume)
++{
++  HRESULT hr;
++  long dsVolume;
++
++  /* DirectSound controls volume using units of 100th of a decibel,
++   * ranging from -10000 to 0. We use a linear scale of 0 - 100
++   * here, so remap.
++   */
++  if (volume == 0)
++    dsVolume = -10000;
++  else
++    dsVolume = 100 * (long) (20 * log10 (volume));
++
++  dsVolume = CLAMP (dsVolume, -10000, 0);
++
++  GST_DEBUG ("Setting volume on secondary buffer to %d", (int) dsVolume);
++
++  hr = IDirectSoundBuffer8_SetVolume (pDSB8, dsVolume);
++  if (G_UNLIKELY (FAILED(hr))) {
++    GST_WARNING ("Setting volume on secondary buffer failed.");
++  }
++}
+diff --git a/sys/directsound/gstdirectsound.h b/sys/directsound/gstdirectsound.h
+new file mode 100644
+index 0000000..3ee3049
+--- /dev/null
++++ b/sys/directsound/gstdirectsound.h
+@@ -0,0 +1,70 @@
++/* GStreamer
++ * Copyright (C) 2005 Sebastien Moutte <sebastien@moutte.net>
++ * Copyright (C) 2007-2009 Pioneers of the Inevitable <songbird@songbirdnest.com>
++ *
++ * gstdirectsound.h:
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Library General Public
++ * License as published by the Free Software Foundation; either
++ * version 2 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Library General Public License for more details.
++ *
++ * You should have received a copy of the GNU Library General Public
++ * License along with this library; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 02111-1307, USA.
++ *
++ * The development of this code was made possible due to the involvement
++ * of Pioneers of the Inevitable, the creators of the Songbird Music player
++ *
++ */
++
++#ifndef __GST_DIRECTSOUND_H__
++#define __GST_DIRECTSOUND_H__
++
++#include <gst/gst.h>
++
++#include <windows.h>
++#include <dxerr9.h>
++
++/* use directsound v8 */
++#ifdef DIRECTSOUND_VERSION
++  #undef DIRECTSOUND_VERSION
++#endif
++
++#define DIRECTSOUND_VERSION 0x0800
++
++#include <dsound.h>
++
++GST_DEBUG_CATEGORY_EXTERN (directsound);
++
++G_BEGIN_DECLS
++
++typedef struct
++{
++  gchar * id;
++  gchar * name;
++} gst_directsound_device;
++
++gst_directsound_device * gst_directsound_device_alloc ();
++void gst_directsound_device_free (gst_directsound_device * dev);
++void gst_directsound_device_free_func (gpointer data,
++    gpointer user_data);
++
++GList * gst_directsound_playback_device_list ();
++GList * gst_directsound_capture_device_list ();
++void gst_directsound_device_list_free (GList * list);
++
++/* if non-null, use g_free to free the guid */
++LPGUID gst_directsound_get_device_guid (const gchar * id);
++
++void gst_directsound_set_volume (LPDIRECTSOUNDBUFFER8 pDSB8, gdouble volume);
++
++G_END_DECLS
++
++#endif /* __GST_DIRECTSOUND_H__ */
 diff --git a/sys/directsound/gstdirectsoundplugin.c b/sys/directsound/gstdirectsoundplugin.c
 index 7eede97..bb51cbe 100644
 --- a/sys/directsound/gstdirectsoundplugin.c
@@ -42,7 +323,7 @@ index 7eede97..bb51cbe 100644
 +    "Direct Sound plugin library (for Exaile)",
      plugin_init, VERSION, "LGPL", GST_PACKAGE_NAME, GST_PACKAGE_ORIGIN)
 diff --git a/sys/directsound/gstdirectsoundsink.c b/sys/directsound/gstdirectsoundsink.c
-index 27576fa..f35a0a7 100644
+index 7385cff..ef1d6eb 100644
 --- a/sys/directsound/gstdirectsoundsink.c
 +++ b/sys/directsound/gstdirectsoundsink.c
 @@ -54,6 +54,7 @@
@@ -53,7 +334,7 @@ index 27576fa..f35a0a7 100644
  
  #include <math.h>
  
-@@ -98,6 +99,9 @@ static void
+@@ -99,6 +100,9 @@ static void
  gst_directsound_sink_implements_interface_init (GstImplementsInterfaceClass *
      iface);
  static void gst_directsound_sink_mixer_interface_init (GstMixerClass * iface);
@@ -63,7 +344,7 @@ index 27576fa..f35a0a7 100644
  
  static GstStaticPadTemplate directsoundsink_sink_factory =
      GST_STATIC_PAD_TEMPLATE ("sink",
-@@ -119,10 +123,12 @@ static GstStaticPadTemplate directsoundsink_sink_factory =
+@@ -120,10 +124,12 @@ static GstStaticPadTemplate directsoundsink_sink_factory =
  enum
  {
    PROP_0,
@@ -78,7 +359,7 @@ index 27576fa..f35a0a7 100644
      GST_TYPE_AUDIO_SINK, gst_directsound_sink_interfaces_init);
  
  /* interfaces stuff */
-@@ -140,18 +146,28 @@ gst_directsound_sink_interfaces_init (GType type)
+@@ -141,18 +147,28 @@ gst_directsound_sink_interfaces_init (GType type)
      NULL,
      NULL,
    };
@@ -109,7 +390,7 @@ index 27576fa..f35a0a7 100644
    /* for the sake of this example, we'll always support it. However, normally,
     * you would check whether the device you've opened supports mixers. */
    return TRUE;
-@@ -241,6 +257,98 @@ gst_directsound_sink_mixer_interface_init (GstMixerClass * iface)
+@@ -242,6 +258,98 @@ gst_directsound_sink_mixer_interface_init (GstMixerClass * iface)
    iface->get_volume = gst_directsound_sink_mixer_get_volume;
  }
  
@@ -208,7 +489,7 @@ index 27576fa..f35a0a7 100644
  static void
  gst_directsound_sink_finalise (GObject * object)
  {
-@@ -253,10 +361,99 @@ gst_directsound_sink_finalise (GObject * object)
+@@ -254,10 +362,99 @@ gst_directsound_sink_finalise (GObject * object)
      g_list_free (dsoundsink->tracks);
      dsoundsink->tracks = NULL;
    }
@@ -308,7 +589,7 @@ index 27576fa..f35a0a7 100644
  static void
  gst_directsound_sink_base_init (gpointer g_class)
  {
-@@ -274,13 +471,13 @@ static void
+@@ -275,13 +472,13 @@ static void
  gst_directsound_sink_class_init (GstDirectSoundSinkClass * klass)
  {
    GObjectClass *gobject_class;
@@ -324,7 +605,7 @@ index 27576fa..f35a0a7 100644
    gstbasesink_class = (GstBaseSinkClass *) klass;
    gstbaseaudiosink_class = (GstBaseAudioSinkClass *) klass;
    gstaudiosink_class = (GstAudioSinkClass *) klass;
-@@ -315,6 +512,18 @@ gst_directsound_sink_class_init (GstDirectSoundSinkClass * klass)
+@@ -316,6 +513,18 @@ gst_directsound_sink_class_init (GstDirectSoundSinkClass * klass)
        g_param_spec_double ("volume", "Volume",
            "Volume of this stream", 0.0, 1.0, 1.0,
            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
@@ -343,7 +624,7 @@ index 27576fa..f35a0a7 100644
  }
  
  static void
-@@ -340,6 +549,9 @@ gst_directsound_sink_init (GstDirectSoundSink * dsoundsink,
+@@ -341,6 +550,9 @@ gst_directsound_sink_init (GstDirectSoundSink * dsoundsink,
    dsoundsink->volume = 100;
    dsoundsink->dsound_lock = g_mutex_new ();
    dsoundsink->first_buffer_after_reset = FALSE;
@@ -353,7 +634,7 @@ index 27576fa..f35a0a7 100644
  
    gst_pad_set_acceptcaps_function (GST_BASE_SINK (dsoundsink)->sinkpad,
        GST_DEBUG_FUNCPTR (gst_directsound_sink_acceptcaps));
-@@ -356,6 +568,17 @@ gst_directsound_sink_set_property (GObject * object,
+@@ -357,6 +569,17 @@ gst_directsound_sink_set_property (GObject * object,
        sink->volume = (int) (g_value_get_double (value) * 100);
        gst_directsound_sink_set_volume (sink);
        break;
@@ -371,7 +652,7 @@ index 27576fa..f35a0a7 100644
      default:
        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
        break;
-@@ -372,6 +595,16 @@ gst_directsound_sink_get_property (GObject * object,
+@@ -373,6 +596,16 @@ gst_directsound_sink_get_property (GObject * object,
      case PROP_VOLUME:
        g_value_set_double (value, (double) sink->volume / 100.);
        break;
@@ -388,7 +669,7 @@ index 27576fa..f35a0a7 100644
      default:
        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
        break;
-@@ -476,14 +709,23 @@ gst_directsound_sink_open (GstAudioSink * asink)
+@@ -477,14 +710,23 @@ gst_directsound_sink_open (GstAudioSink * asink)
  {
    GstDirectSoundSink *dsoundsink = GST_DIRECTSOUND_SINK (asink);
    HRESULT hRes;

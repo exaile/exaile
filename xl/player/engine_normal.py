@@ -121,11 +121,17 @@ class NormalPlayer(_base.ExailePlayer):
         # disconnect it and flush it.
         self._mainbin.unparent()
         
-        # flush it
-        sinkpad = self._mainbin.get_static_pad('sink')
-        self._err_probe_id = sinkpad.add_event_probe(self._error_func_flush)
+        # Only flush the element if necessary
+        if self._mainbin.get_state(timeout=50*gst.MSECOND)[1] != gst.STATE_NULL:
+        
+            # flush it
+            sinkpad = self._mainbin.get_static_pad('sink')
+            self._err_probe_id = sinkpad.add_event_probe(self._error_func_flush)
             
-        sinkpad.send_event(gst.event_new_eos())
+            sinkpad.send_event(gst.event_new_eos())
+            
+        else:
+            self._reinitialize()
     
     def _error_func_flush(self, pad, info):
         
@@ -140,10 +146,13 @@ class NormalPlayer(_base.ExailePlayer):
         self._mainbin.set_state(gst.STATE_NULL)    
             
         # Finally, reinitialize the pipe/bus now that the mainbin is ready
-        self._setup_pipe()
-        self._setup_bus()
+        self._reinitialize()
         
         return False
+    
+    def _reinitialize(self):
+        self._setup_pipe()
+        self._setup_bus()
 
     def _get_current(self):
         return self._current

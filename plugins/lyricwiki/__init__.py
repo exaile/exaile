@@ -64,9 +64,14 @@ class LyricWiki(LyricSearchMethod):
         else:
             raise LyricsNotFoundException
 
+        lyrics = self.remove_script(lyrics)
         lyrics = self.remove_html_tags(str(BeautifulSoup.BeautifulStoneSoup(lyrics,convertEntities=BeautifulSoup.BeautifulStoneSoup.HTML_ENTITIES)))
 
         return (lyrics, self.name, url)
+
+    def remove_script(self, data):
+        p = re.compile(r'<script.*/script>')
+        return p.sub('',data)
 
     def remove_div(self,data):
         p = re.compile(r'<div.*/div>')

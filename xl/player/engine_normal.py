@@ -108,10 +108,42 @@ class NormalPlayer(_base.ExailePlayer):
         return True
 
     def _error_func(self):
+        
+        # No need to reinitialize more than once
+        if self._pipe.get_state(timeout=50*gst.MSECOND)[1] == gst.STATE_NULL:
+            return
+        
         self.stop()
         self._pipe.set_state(gst.STATE_NULL)
+        self._pipe.set_property('audio-sink', None)
+        
+        # The mainbin is still connected to the old element, need to
+        # disconnect it and flush it.
+        self._mainbin.unparent()
+        
+        # flush it
+        sinkpad = self._mainbin.get_static_pad('sink')
+        self._err_probe_id = sinkpad.add_event_probe(self._error_func_flush)
+            
+        sinkpad.send_event(gst.event_new_eos())
+    
+    def _error_func_flush(self, pad, info):
+        
+        # wait for end of stream marker
+        if info.type != gst.EVENT_EOS:
+            return True
+        
+        pad.remove_event_probe(self._err_probe_id)
+        self._pad_event_probe_id = None
+        
+        # Finish clearing the element
+        self._mainbin.set_state(gst.STATE_NULL)    
+            
+        # Finally, reinitialize the pipe/bus now that the mainbin is ready
         self._setup_pipe()
         self._setup_bus()
+        
+        return False
 
     def _get_current(self):
         return self._current

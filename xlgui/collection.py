@@ -156,7 +156,7 @@ class CollectionManagerDialog(object):
                 elif library_location.has_prefix(location):
                     removals += [row.iter]
             else:
-                self.model.append([location.get_uri(), False])
+                self.model.append([location.get_uri(), False, False])
 
                 for iter in removals:
                     self.model.remove(iter)

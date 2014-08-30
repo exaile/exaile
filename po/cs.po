@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2014-08-28 20:00+0000\n"
+"Last-Translator: Konki <pavel.konkol@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
+"X-Launchpad-Export-Date: 2014-08-30 07:29+0000\n"
+"X-Generator: Launchpad (build 17176)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -2010,7 +2010,7 @@ msgstr "Ostatní"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "32x32 pixelová 'souborová ikona' (jen PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
@@ -2682,11 +2682,11 @@ msgstr "Počítač nelze vypnout použitím D-Bus."
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Náhled zařízení"
 
 #: ../plugins/previewdevice/__init__.py:157
 msgid "Preview Player"
-msgstr ""
+msgstr "Náhled přehrávače"
 
 #: ../plugins/previewdevice/__init__.py:163
 msgid "Preview"
@@ -2954,16 +2954,16 @@ msgstr "Stav přehrávání a přetáčení"
 #: ../plugins/grouptagger/__init__.py:97
 #: ../plugins/grouptagger/__init__.py:114
 msgid "GroupTagger"
-msgstr ""
+msgstr "Skupinový označovač"
 
 #: ../plugins/grouptagger/__init__.py:108
 #: ../plugins/grouptagger/gt_widgets.py:686
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Získat všechny popisky z kolekce"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Zobrazit skladby se všemi popisky"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "Show tracks with tags (custom)"
@@ -2971,7 +2971,7 @@ msgstr "Zobrazit stopy se štítky (vlastní)"
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Zobrazit vybrané stopy"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
@@ -3599,7 +3599,7 @@ msgstr "Barva pozadí:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:8
 msgid "IPython Color Theme:"
-msgstr ""
+msgstr "IPython barevný motiv:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
@@ -3857,7 +3857,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"
-msgstr ""
+msgstr "Formát zobrazení"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
@@ -3869,7 +3869,7 @@ msgstr "Pozadí:"
 
 #: ../plugins/osd/osd_preferences.ui.h:6
 msgid "Show progress bar"
-msgstr ""
+msgstr "Zobrazit ukazatel průběhu"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
 msgid "Border radius:"
@@ -4108,7 +4108,7 @@ msgstr ""
 #: ../plugins/exfalso/PLUGININFO:5
 #: ../plugins/grouptagger/PLUGININFO:5
 msgid "Tagging"
-msgstr ""
+msgstr "Popisování"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -4247,7 +4247,7 @@ msgstr "Potlačit uspávání"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
-msgstr ""
+msgstr "Zabrání relaci uživatele pozastavit přehrávání hudby"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4284,6 +4284,8 @@ msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
+"Umožňuje přehrávání zvuku přes sekundární zařízení (klikněte pravým "
+"tlačítkem na seznam stop a \"náhled\"). Vhodné pro DJe."
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
@@ -4344,6 +4346,8 @@ msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Depends: python-webkit"
 msgstr ""
+"Poskytuje informace Wikipedie o aktuálním umělci.\n"
+"Závisí na: python-webkit"
 
 #: ../plugins/wikipedia/PLUGININFO:5
 #: ../plugins/contextinfo/PLUGININFO:5
@@ -4406,7 +4410,7 @@ msgstr "Umožňuje přístup do hudebního katalogu Jamendo."
 
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
-msgstr ""
+msgstr "Vyskakovací okno zobrazuje informace o aktuálně přehrávané skladbě."
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"

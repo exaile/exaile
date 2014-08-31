@@ -151,30 +151,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkHBox" id="hbox8">
+              <object class="GtkEntry" id="files_search_entry">
                 <property name="visible">True</property>
-                <child>
-                  <object class="GtkLabel" id="label19">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">Search: </property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="files_search_entry">
-                    <property name="visible">True</property>
-                    <property name="secondary_icon_sensitive">False</property>
-                    <property name="secondary_icon_stock">gtk-clear</property>
-                    <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
+                <property name="primary_icon_stock">gtk-find</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="secondary_icon_sensitive">False</property>
+                <property name="secondary_icon_stock">gtk-clear</property>
+                <property name="secondary_icon_tooltip_text" translatable="yes">Clear search field</property>
               </object>
               <packing>
                 <property name="expand">False</property>

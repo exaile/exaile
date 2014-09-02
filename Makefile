@@ -54,6 +54,7 @@ make-install-dirs:
 	mkdir -p ${EXAILESHAREDIR}/data/migrations
 	mkdir -p ${EXAILESHAREDIR}/data/migrations/migration_200907100931
 	mkdir -p ${DESTDIR}${PREFIX}/share/pixmaps
+	mkdir -p ${DESTDIR}${PREFIX}/share/appdata
 	mkdir -p ${DESTDIR}${PREFIX}/share/applications
 	mkdir -p ${DESTDIR}${PREFIX}/share/man/man1
 	mkdir -p ${DESTDIR}${PREFIX}/share/dbus-1/services

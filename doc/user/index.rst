@@ -16,8 +16,9 @@ Support
 -------
 
 If you believe you have found a bug, you can file bugs at
-`Exaile's launchpad site <https://launchpad.net/exaile>`_ You will need
-to register before you can post a bug report.
+`Exaile's github issue tracker <https://github.com/exaile-dev/exaile/issues>`_
+You will need to register for a github account before you can post a bug
+report.
 
 The following are ways you can get support or questions to answers you
 might have about using or developing Exaile.

@@ -5,6 +5,8 @@ Release process
 This is an attempt to document what needs to be done in order to create a
 release for Exaile.
 
+TODO: Update these instructions for github releases!
+
 Step one: Translations
 ----------------------
 
@@ -36,7 +38,7 @@ them.
 The file to adjust is xl/version.py. You should do a commit, and then tag
 the release.::
 
-    $ bzr tag RELEASE_VERSION
+    $ git tag RELEASE_VERSION
 
 
 .. _win32_installer:

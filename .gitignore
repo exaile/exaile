@@ -1,3 +1,6 @@
+*.pyc
+*.pyo
+
 doc
 doc/api-objects.txt
 doc/crarr.png
@@ -19,3 +22,7 @@ dist
 doc/_build
 
 .DS_Store
+
+# Eclipse settings
+.project
+.pydevproject

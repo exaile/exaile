@@ -30,7 +30,9 @@ should support playing many types of audio formats.
 Install process
 ---------------
 
-Install Exaile like you would install any other OSX application.
+First, make sure that you have installed the GStreamer SDK.
+
+Next, install Exaile like you would install any other OSX application.
 
 * Open the DMG file
 * Drag the Exaile application to the "Applications" folder

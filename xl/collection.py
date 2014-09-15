@@ -375,12 +375,12 @@ class LibraryMonitor(gobject.GObject):
         'location-added': (
             gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_NONE,
-            [gio.File]
+            [gio.File.base]  # TODO: GI: Hack
         ),
         'location-removed': (
             gobject.SIGNAL_RUN_LAST,
             gobject.TYPE_NONE,
-            [gio.File]
+            [gio.File.base]  # TODO: GI: Hack
         )
     }
     

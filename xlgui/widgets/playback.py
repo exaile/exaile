@@ -168,12 +168,17 @@ class Marker(gobject.GObject):
     """
         A marker pointing to a playback position
     """
+    class Anchor(int):
+        __gtype__ = gobject.TYPE_INT
+        pass
+    for i, a in enumerate('CENTER NORTH NORTH_WEST NORTH_EAST SOUTH SOUTH_WEST SOUTH_EAST WEST EAST'.split()):
+        setattr(Anchor, a, Anchor(i))
     __gproperties__ = {
         'anchor': (
-            gtk.AnchorType,
+            Anchor,
             'anchor position',
             'The position the marker will be anchored',
-            gtk.ANCHOR_SOUTH,
+            Anchor.CENTER, Anchor.EAST, Anchor.SOUTH,
             gobject.PARAM_READWRITE
         ),
         'color': (
@@ -216,7 +221,7 @@ class Marker(gobject.GObject):
         gobject.GObject.__init__(self)
 
         self.__values = {
-            'anchor': gtk.ANCHOR_SOUTH,
+            'anchor': gtk.Anchor.SOUTH,
             'color': None,
             'label': None,
             'position': 0,
@@ -403,7 +408,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
     __gsignals__ = {
         'button-press-event': 'override',
         'button-release-event': 'override',
-        'expose-event': 'override',
+        'draw': 'override',
         'motion-notify-event': 'override',
         'notify': 'override',
         'key-press-event': 'override',
@@ -443,7 +448,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
                         gtk.gdk.BUTTON_RELEASE_MASK |
                         gtk.gdk.POINTER_MOTION_MASK |
                         gtk.gdk.LEAVE_NOTIFY_MASK)
-        self.set_flags(self.flags() | gtk.CAN_FOCUS)
+        self.set_can_focus(True)
 
         self.connect('hierarchy-changed',
             self.on_hierarchy_changed)
@@ -524,62 +529,63 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             * ...
         """
         points = ()
-        width = width or self.allocation.width
-        height = height or self.allocation.height
+        alloc = self.get_allocation()
+        width = width or alloc.width
+        height = height or alloc.height
         position = width * marker.props.position
         marker_scale = int(height * self.props.marker_scale)
         # Adjustment by half of the line width
         offset = self.props.marker_scale / 0.9 / 2
 
-        if marker.props.anchor == gtk.ANCHOR_NORTH_WEST:
+        if marker.props.anchor == Anchor.NORTH_WEST:
             points = (
                 (position - offset, offset),
                 (position + marker_scale * 0.75 - offset, offset),
                 (position - offset, marker_scale * 0.75 + offset)
             )
-        elif marker.props.anchor == gtk.ANCHOR_NORTH:
+        elif marker.props.anchor == Anchor.NORTH:
             points = (
                 (position - offset, marker_scale / 2 + offset),
                 (position + marker_scale / 2 - offset, offset),
                 (position - marker_scale / 2 - offset, offset)
             )
-        elif marker.props.anchor == gtk.ANCHOR_NORTH_EAST:
+        elif marker.props.anchor == Anchor.NORTH_EAST:
             points = (
                 (position - marker_scale * 0.75 - offset, offset),
                 (position - offset, offset),
                 (position - offset, marker_scale * 0.75 + offset)
             )
-        elif marker.props.anchor == gtk.ANCHOR_EAST:
+        elif marker.props.anchor == Anchor.EAST:
             points = (
                 (position - marker_scale / 2 - offset, height / 2 + offset),
                 (position - offset, height / 2 - marker_scale / 2 + offset),
                 (position - offset, height / 2 + marker_scale / 2 + offset)
             )
-        elif marker.props.anchor == gtk.ANCHOR_SOUTH_EAST:
+        elif marker.props.anchor == Anchor.SOUTH_EAST:
             points = (
                 (position - offset, height - offset),
                 (position - offset, height - marker_scale * 0.75 - offset),
                 (position - marker_scale * 0.75 - offset, height - offset)
             )
-        elif marker.props.anchor == gtk.ANCHOR_SOUTH:
+        elif marker.props.anchor == Anchor.SOUTH:
             points = (
                 (position - offset, height - marker_scale / 2 - offset),
                 (position + marker_scale / 2 - offset, height - offset),
                 (position - marker_scale / 2 - offset, height - offset)
             )
-        elif marker.props.anchor == gtk.ANCHOR_SOUTH_WEST:
+        elif marker.props.anchor == Anchor.SOUTH_WEST:
             points = (
                 (position - offset, height - offset),
                 (position + marker_scale * 0.75 - offset, height - offset),
                 (position - offset, height - marker_scale * 0.75 - offset)
             )
-        elif marker.props.anchor == gtk.ANCHOR_WEST:
+        elif marker.props.anchor == Anchor.WEST:
             points = (
                 (position + marker_scale / 2 - offset, height / 2 + offset),
                 (position - offset, height / 2 - marker_scale / 2 + offset),
                 (position - offset, height / 2 + marker_scale / 2 + offset)
             )
-        elif marker.props.anchor == gtk.ANCHOR_CENTER:
+        elif marker.props.anchor == Anchor.CENTER:
             points = (
                 (position - offset, height / 2 - marker_scale / 2 + offset),
                 (position + marker_scale / 2 - offset, height / 2 + offset),
@@ -660,7 +666,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         """
             Recalculates the marker points
         """
-        oldallocation = self.allocation
+        oldallocation = self.get_allocation()
 
         gtk.ProgressBar.do_size_allocate(self, allocation)
 
@@ -668,16 +674,15 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             for marker in self._points.iterkeys():
                 self._points[marker] = self._get_points(marker)
 
-    def do_expose_event(self, event):
+    def do_draw(self, context):
         """
             Draws markers on top of the progress bar
         """
-        gtk.ProgressBar.do_expose_event(self, event)
+        gtk.ProgressBar.do_draw(self, context)
 
         if not self._points:
             return
 
-        context = self.props.window.cairo_create()
         context.set_line_width(self.props.marker_scale / 0.9)
 
         for marker, points in self._points.iteritems():
@@ -740,7 +745,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             if len(hit_markers) > 0:
                 self.seek(hit_markers[0].props.position)
             else:
-                fraction = event.x / self.allocation.width
+                fraction = event.x / self.get_allocation().width
                 fraction = max(0, fraction)
                 fraction = min(fraction, 1)
 
@@ -765,7 +770,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         if event.button == 1 and self._seeking:
             length = self.__player.current.get_tag_raw('__length')
 
-            fraction = event.x / self.allocation.width
+            fraction = event.x / self.get_allocation().width
             fraction = max(0, fraction)
             fraction = min(fraction, 1)
 
@@ -835,8 +840,9 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
         press_event.button = 1
         new_fraction = self.get_fraction() + 0.01 * direction
-        press_event.x = self.allocation.width * new_fraction
-        press_event.y = float(self.allocation.y)
+        alloc = self.get_allocation()
+        press_event.x = alloc.width * new_fraction
+        press_event.y = float(alloc.y)
 
         self.emit('button-press-event', press_event)
 
@@ -857,8 +863,9 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         release_event = gtk.gdk.Event(gtk.gdk.BUTTON_RELEASE)
         release_event.button = 1
         new_fraction = self.get_fraction() + 0.01 * direction
-        release_event.x = self.allocation.width * new_fraction
-        release_event.y = float(self.allocation.y)
+        alloc = self.get_allocation()
+        release_event.x = alloc.width * new_fraction
+        release_event.y = float(alloc.y)
 
         self.emit('button-release-event', release_event)
 
@@ -867,7 +874,9 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             Sets up editing cancel on toplevel focus out
         """
         self.get_toplevel().connect('focus-out-event',
-            lambda w, e: self.emit('focus-out-event', e))
+            lambda w, e: self.emit('focus-out-event',
+                # HACK: GI: Gdk.EventFocus is not subclass of Gdk.Event.
+                gtk.gdk.Event(e)))
 
     def on_marker_menu_deactivate(self, menu):
         """
@@ -950,7 +959,7 @@ class ProgressBarContextMenu(menu.ProviderMenu):
             :param event: an event
             :type event: :class:`gtk.gdk.Event`
         """
-        self._position = event.x / self._parent.allocation.width
+        self._position = event.x / self._parent.get_allocation().width
 
         menu.ProviderMenu.popup(self, event)
 
@@ -1013,7 +1022,7 @@ class MarkerContextMenu(menu.ProviderMenu):
             :type markers: (:class:`Marker`, ...)
         """
         self._markers = markers
-        self._position = event.x / self._parent.allocation.width
+        self._position = event.x / self._parent.get_allocation().width
 
         menu.ProviderMenu.popup(self, event)
 
@@ -1150,7 +1159,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
         """
             Moves markers
         """
-        position = event.x / widget.allocation.width
+        position = event.x / widget.get_allocation().width
 
         return self.move_update(position)
 
@@ -1289,8 +1298,8 @@ class VolumeControl(gtk.Alignment):
         """
             Changes the volume on scrolling
         """
-        page_increment = self.slider_adjustment.page_increment
-        step_increment = self.slider_adjustment.step_increment
+        page_increment = self.slider_adjustment.props.page_increment
+        step_increment = self.slider_adjustment.props.step_increment
         value = self.slider.get_value()
 
         if event.direction == gtk.gdk.SCROLL_DOWN:
@@ -1304,6 +1313,12 @@ class VolumeControl(gtk.Alignment):
                 self.slider.set_value(value + page_increment)
             else:
                 self.slider.set_value(value + step_increment)
+            return True
+        elif event.direction == gtk.gdk.SCROLL_SMOOTH:
+            if event.state & gtk.gdk.SHIFT_MASK:
+                self.slider.set_value(value - event.delta_y * page_increment)
+            else:
+                self.slider.set_value(value - event.delta_y * step_increment)
             return True
 
         return False

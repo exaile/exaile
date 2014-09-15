@@ -72,7 +72,7 @@ class RatingWidget(gtk.EventBox):
         self.set_visible_window(False)
         self.set_above_child(True)
         self.add_events(gtk.gdk.POINTER_MOTION_MASK)
-        self.set_flags(self.flags() | gtk.CAN_FOCUS)
+        self.set_can_focus(True)
 
         self._image = gtk.Image()
         self.add(self._image)
@@ -118,7 +118,7 @@ class RatingWidget(gtk.EventBox):
 
             self._rating = value
             self._image.set_from_pixbuf(
-                icons.MANAGER.pixbuf_from_rating(value))
+                icons.MANAGER.pixbuf_from_rating(value).pixbuf)
 
             self.emit('rating-changed', value)
         else:
@@ -159,7 +159,7 @@ class RatingWidget(gtk.EventBox):
         rating = int(position * maximum)
 
         self._image.set_from_pixbuf(
-            icons.MANAGER.pixbuf_from_rating(rating))
+            icons.MANAGER.pixbuf_from_rating(rating).pixbuf)
 
     def do_leave_notify_event(self, event):
         """
@@ -169,7 +169,7 @@ class RatingWidget(gtk.EventBox):
             return
 
         self._image.set_from_pixbuf(
-            icons.MANAGER.pixbuf_from_rating(self._rating))
+            icons.MANAGER.pixbuf_from_rating(self._rating).pixbuf)
 
     def do_button_release_event(self, event):
         """
@@ -220,7 +220,7 @@ class RatingWidget(gtk.EventBox):
         if self._player.current is not None:
             self._rating = self._player.current.get_rating()
             glib.idle_add(self._image.set_from_pixbuf,
-                icons.MANAGER.pixbuf_from_rating(self._rating))
+                icons.MANAGER.pixbuf_from_rating(self._rating).pixbuf)
             glib.idle_add(self.set_sensitive, True)
         else:
             glib.idle_add(self.set_sensitive, False)
@@ -295,13 +295,15 @@ class RatingMenuItem(gtk.MenuItem):
             x, y = self.translate_coordinates(self.rating_widget,
                 int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
-            self.rating_widget.emit('motion-notify-event', event)
+            # HACK: GI: event is not subclass of Gdk.Event.
+            self.rating_widget.emit('motion-notify-event', gtk.gdk.Event(event))
 
     def do_leave_notify_event(self, event):
         """
             Forwards the event to the rating widget
         """
-        self.rating_widget.emit('leave-notify-event', event)
+        # HACK: GI: event is not subclass of Gdk.Event.
+        self.rating_widget.emit('leave-notify-event', gtk.gdk.Event(event))
 
     def do_button_release_event(self, event):
         """
@@ -368,7 +370,7 @@ class RatingCellRenderer(gtk.CellRendererPixbuf):
         """
         if property.name == 'rating':
             self.rating = value
-            self.props.pixbuf = icons.MANAGER.pixbuf_from_rating(self.rating, self.size_ratio)
+            self.props.pixbuf = icons.MANAGER.pixbuf_from_rating(self.rating, self.size_ratio).pixbuf
         else:
             raise AttributeError('unkown property %s' % property.name)
 

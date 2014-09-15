@@ -566,10 +566,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
         self._refresh_id = None
         self.playlist_name_info = 500
-        self.track_target = ("text/uri-list", 0, 0)
-        self.playlist_target = ("playlist_name", gtk.TARGET_SAME_WIDGET, 
+        self.track_target = gtk.TargetEntry.new("text/uri-list", 0, 0)
+        self.playlist_target = gtk.TargetEntry.new("playlist_name", gtk.TARGET_SAME_WIDGET, 
             self.playlist_name_info)
-        self.deny_targets = [('',0,0)]
+        self.deny_targets = [gtk.TargetEntry.new('',0,0)]
 
         self.tree = PlaylistDragTreeView(self)
         self.tree.connect('row-activated', self.open_item)

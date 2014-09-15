@@ -182,7 +182,7 @@ class Column(gtk.TreeViewColumn):
         '''Returns how much bigger or smaller an icon should be'''
         return self._font_ratio
                 
-    def data_func(self, col, cell, model, iter):
+    def data_func(self, col, cell, model, iter, user_data):
         if type(cell) == gtk.CellRendererText:
             playlist = self.container.playlist
 

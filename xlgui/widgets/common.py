@@ -64,8 +64,11 @@ class AttachedWindow(gtk.Window):
         self.parent_widget = parent
         realize_id = self.parent_widget.connect('realize',
             self.on_parent_realize)
-        self.parent_widget.set_data('%s_realize_id' % id(self),
-            realize_id)
+        try:
+            realize_ids = self.parent_widget.realize_ids
+        except AttributeError:
+            realize_ids = self.parent_widget.realize_ids = {}
+        realize_ids[self] = realize_id
 
     def update_location(self):
         """
@@ -73,25 +76,26 @@ class AttachedWindow(gtk.Window):
             always fully visible
         """
         workarea = gtk.gdk.Rectangle(0, 0, *get_workarea_size())
-        parent = self.parent_widget.allocation
+        parent_alloc = self.parent_widget.get_allocation()
         toplevel_position = self.parent_widget.get_toplevel().get_position()
         # Use absolute screen position
-        parent.x += toplevel_position[0]
-        parent.y += toplevel_position[1]
+        parent_alloc.x += toplevel_position[0]
+        parent_alloc.y += toplevel_position[1]
 
-        if workarea.width - parent.x < self.allocation.width:
+        alloc = self.allocation()
+        if workarea.width - parent_alloc.x < alloc.width:
             # Parent rightmost
-            x = parent.x + parent.width - self.allocation.width
+            x = parent_alloc.x + parent_alloc.width - alloc.width
         else:
             # Parent leftmost
-            x = parent.x
+            x = parent_alloc.x
 
-        if workarea.height - parent.y < self.allocation.height:
+        if workarea.height - parent_alloc.y < alloc.height:
             # Parent at bottom
-            y = parent.y - self.allocation.height
+            y = parent_alloc.y - alloc.height
         else:
             # Parent at top
-            y = parent.y + parent.height
+            y = parent_alloc.y + parent_alloc.height
         
         self.move(x, y)
 
@@ -107,7 +111,7 @@ class AttachedWindow(gtk.Window):
             Prepares the window to
             follow its parent window
         """
-        realize_id = parent.get_data('%s_realize_id' % id(self))
+        realize_id = parent.realize_ids[self]
         
         if realize_id is not None:
             parent.disconnect(realize_id)
@@ -148,19 +152,19 @@ class AutoScrollTreeView(gtk.TreeView):
         """
             Initiates automatic scrolling
         """
-        if not self.get_data('autoscroll_timeout_id'):
-            self.set_data('autoscroll_timeout_id',
-                glib.timeout_add(50, self._on_autoscroll_timeout))
+        if not self.__autoscroll_timeout_id:
+            self.__autoscroll_timeout_id = glib.timeout_add(
+                50, self._on_autoscroll_timeout)
 
     def _on_drag_leave(self, widget, context, timestamp):
         """
             Stops automatic scrolling
         """
-        autoscroll_timeout_id = self.get_data('autoscroll_timeout_id')
+        autoscroll_timeout_id = self.__autoscroll_timeout_id
         
         if autoscroll_timeout_id:
             glib.source_remove(autoscroll_timeout_id)
-            self.set_data('autoscroll_timeout_id', None)
+            self.__autoscroll_timeout_id = None
 
     def _on_autoscroll_timeout(self):
         """
@@ -197,7 +201,7 @@ class DragTreeView(AutoScrollTreeView):
     """
         A TextView that does easy dragging/selecting/popup menu
     """
-    targets = [("text/uri-list", 0, 0)]
+    targets = [gtk.TargetEntry.new("text/uri-list", 0, 0)]
     dragged_data = dict()
 
     def __init__(self, container, receive=True, source=True, drop_pos=None):

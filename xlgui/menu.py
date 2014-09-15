@@ -56,7 +56,7 @@ def __create_file_menu():
 
     def open_cb(*args):
         dialog = dialogs.MediaOpenDialog(get_main().window)
-        dialog.connect('uris-selected', lambda d, uris:
+        dialog.connect('uris-selected', lambda d, uris, ud:
             get_main().controller.open_uris(uris))
         dialog.show()
     items.append(_smi('open', [items[-1].name], icon_name=gtk.STOCK_OPEN,
@@ -65,7 +65,7 @@ def __create_file_menu():
 
     def open_uri_cb(*args):
         dialog = dialogs.URIOpenDialog(get_main().window)
-        dialog.connect('uri-selected', lambda d, uri:
+        dialog.connect('uri-selected', lambda d, uri, ud:
             get_main().controller.open_uri(uri))
         dialog.show()
     items.append(_smi('open-uri', [items[-1].name], _("Open _URL"),
@@ -75,7 +75,7 @@ def __create_file_menu():
     def open_dirs_cb(*args):
         dialog = dialogs.DirectoryOpenDialog(get_main().window)
         dialog.props.create_folders = False
-        dialog.connect('uris-selected', lambda d, uris:
+        dialog.connect('uris-selected', lambda d, uris, ud:
             get_main().controller.open_uris(uris))
         dialog.show()
     items.append(_smi('open-dirs', [items[-1].name], _("Open Directories"),

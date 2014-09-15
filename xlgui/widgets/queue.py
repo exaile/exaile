@@ -62,7 +62,7 @@ class QueuePage(NotebookPage):
     menu_provider_name = 'queue-tab-context'
     def __init__(self, container, player):
         NotebookPage.__init__(self)
-        self.container = container
+        self.plcontainer = container
         self.player = player
         self.playlist = player.queue # a queue is a playlist object... 
         
@@ -85,7 +85,7 @@ class QueuePage(NotebookPage):
         if len(self.player.queue) == 0:
             self.tab.set_closable(True)
         else:
-            self.container.show_queue(switch=False)
+            self.plcontainer.show_queue(switch=False)
             self.tab.set_closable(False)
 
 

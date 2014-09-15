@@ -574,7 +574,7 @@ class TrackSelectorControl(gtk.ComboBox, BaseControl, QueueAdapter):
         QueueAdapter.destroy(self)
         gtk.ComboBox.destroy(self)
 
-    def data_func(self, column, cell, model, iter):
+    def data_func(self, column, cell, model, iter, user_data):
         """
             Updates track titles and highlights
             the current track if the popup is shown

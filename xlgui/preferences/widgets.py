@@ -559,7 +559,7 @@ class SelectionListPreference(Preference):
             else:
                 row[3] = True
 
-    def enabled_data_function(self, column, cell, model, iter):
+    def enabled_data_function(self, column, cell, model, iter, user_data):
         """
             Prepares sensitivity
             of the enabled column
@@ -568,7 +568,7 @@ class SelectionListPreference(Preference):
         fixed = model[path][4]
         cell.props.sensitive = not fixed
 
-    def title_data_function(self, column, cell, model, iter):
+    def title_data_function(self, column, cell, model, iter, user_data):
         """
             Prepares the markup to be
             used for the title column
@@ -675,7 +675,7 @@ class ShortcutListPreference(Preference):
         self.widget.append_column(title_column)
         self.widget.append_column(accel_column)
 
-    def title_data_func(self, celllayout, cell, model, iter):
+    def title_data_func(self, celllayout, cell, model, iter, user_data):
         """
             Renders human readable titles instead of the actual keys
         """

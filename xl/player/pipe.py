@@ -31,8 +31,6 @@ import os.path
 import sys
 import threading
 
-import pygst
-pygst.require('0.10')
 import gst
 
 import glib
@@ -64,6 +62,9 @@ class MainBin(gst.Bin):
         #self._elements.append(self.queue)
 
         self.add(*self._elements)
+        # TODO: GI: We sometimes get None here, but we shouldn't.
+        # For now, filter them out.
+        self._elements = [e for e in self._elements if e]
         gst.element_link_many(*self._elements)
         
         self.audio_sink = None
@@ -341,7 +342,7 @@ class ElementBin(gst.Bin):
     """
     def __init__(self, player, name=None):
         if name:
-            gst.Bin.__init__(self, name)
+            gst.Bin.__init__(self, name=name)
         else:
             gst.Bin.__init__(self)
         self.player = player

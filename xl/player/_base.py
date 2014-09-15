@@ -27,8 +27,6 @@
 import logging
 import time
 
-import pygst
-pygst.require('0.10')
 import gst
 import glib
 
@@ -101,6 +99,8 @@ class ExailePlayer(object):
         self._bus.connect('message', self._on_message)
 
     def _on_message(self, bus, message, reading_tag=False):
+        if not message:  # TODO: GI: Sometimes happens?
+            return True
         handled = self._handle_message(bus, message, reading_tag)
         if handled:
             pass

@@ -97,7 +97,8 @@ class FilesPanel(panel.Panel):
         """
             Sets up tree widget for the files panel
         """
-        self.model = gtk.ListStore(gio.File, gtk.gdk.Pixbuf, str, str)
+        # TODO: GI: Hack
+        self.model = gtk.ListStore(gio.File.base, gtk.gdk.Pixbuf, str, str)
         self.tree = tree = FilesDragTreeView(self, True, True)
         tree.set_model(self.model)
         tree.connect('row-activated', self.row_activated)
@@ -169,7 +170,7 @@ class FilesPanel(panel.Panel):
         event.add_callback(self.fill_libraries_location,
             'libraries_modified', self.collection)
         self.fill_libraries_location()
-        self.entry = self.location_bar.child
+        self.entry = self.location_bar.get_children()[0]
         self.entry.connect('activate', self.entry_activate)
 
         # Set up the search entry
@@ -408,10 +409,10 @@ class FilesPanel(panel.Panel):
                 model.append((f, self.track, name, size))
 
             if cursor:
-                view.set_cursor(cursor)
+                view.set_cursor(*cursor)
             else:
-                view.set_cursor(0)
-                if view.flags() & gtk.REALIZED:
+                view.set_cursor((0,))
+                if view.get_realized():
                     view.scroll_to_point(0, 0)
 
             self.entry.set_text(directory.get_parse_name())

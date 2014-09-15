@@ -441,7 +441,7 @@ class ListDialog(gtk.Dialog):
         for item in items:
             self.model.append([item])
 
-    def cell_data_func(self, column, cell, model, iter):
+    def cell_data_func(self, column, cell, model, iter, user_data):
         """
             Called when the tree needs a value for column 1
         """
@@ -1057,16 +1057,18 @@ class MessageBar(gtk.InfoBar):
                 self.add_button(text, response)
 
         self.primary_text_attributes = pango.AttrList()
-        self.primary_text_attributes.insert(
-            pango.AttrWeight(pango.WEIGHT_NORMAL, 0, -1))
-        self.primary_text_attributes.insert(
-            pango.AttrScale(pango.SCALE_MEDIUM, 0, -1))
+        # TODO: GI: Pango attr
+        #self.primary_text_attributes.insert(
+        #    pango.AttrWeight(pango.WEIGHT_NORMAL, 0, -1))
+        #self.primary_text_attributes.insert(
+        #    pango.AttrScale(pango.SCALE_MEDIUM, 0, -1))'''
 
         self.primary_text_emphasized_attributes = pango.AttrList()
-        self.primary_text_emphasized_attributes.insert(
-            pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1))
-        self.primary_text_emphasized_attributes.insert(
-            pango.AttrScale(pango.SCALE_LARGE, 0, -1))
+        # TODO: GI: Pango attr
+        #self.primary_text_emphasized_attributes.insert(
+        #    pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1))
+        #self.primary_text_emphasized_attributes.insert(
+        #    pango.AttrScale(pango.SCALE_LARGE, 0, -1))'''
 
         self.connect('response', self.on_response)
 

@@ -348,7 +348,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 elif isinstance(item, playlistpanel.TrackWrapper):
                     self.track_menu.popup(event)
 
-    def cell_data_func(self, column, cell, model, iter):
+    def cell_data_func(self, column, cell, model, iter, user_data):
         """
             Called when the tree needs a value for column 1
         """

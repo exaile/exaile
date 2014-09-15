@@ -134,9 +134,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxEntry" id="files_entry">
+              <object class="GtkComboBox" id="files_entry">
                 <property name="visible">True</property>
                 <property name="model">liststore_libraries_location</property>
+                <property name="has-entry">True</property>
                 <child>
                   <object class="GtkCellRendererText" id="cellrenderertext1"/>
                   <attributes>

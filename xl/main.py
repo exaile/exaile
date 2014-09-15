@@ -39,6 +39,11 @@ import platform
 import sys
 import threading
 
+import xl_pygtkcompat
+
+import gio
+
+from xl import common, xdg
 from xl.nls import gettext as _
 
 # Imported later to avoid PyGTK imports just for --help.

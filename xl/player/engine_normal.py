@@ -30,8 +30,6 @@ import urllib
 import urlparse
 
 import glib
-import pygst
-pygst.require('0.10')
 import gst
 
 from xl.nls import gettext as _
@@ -43,6 +41,7 @@ logger = logging.getLogger(__name__)
 
 class NormalPlayer(_base.ExailePlayer):
     def __init__(self, name):
+        gst.init()
         self._last_position = 0
         self._current = None
         self._buffered_track = None
@@ -296,7 +295,8 @@ class NormalPlayer(_base.ExailePlayer):
             new_position,
             gst.SEEK_TYPE_NONE, 0)
 
-        res = self._pipe.send_event(seek_event)
+        # FIXME: GI: Broken
+        res = None #self._pipe.send_event(seek_event)
         if res:
             self._pipe.set_new_stream_time(0L)
             # update this in case we're paused

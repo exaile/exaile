@@ -722,7 +722,7 @@ class Statusbar(object):
         self.message_ids = []
 
         self.status_bar.set_app_paintable(True)
-        self.status_bar.connect('expose-event', self.on_expose_event)
+        self.status_bar.connect('draw', self.on_draw)
 
     def set_status(self, status, timeout=0):
         """
@@ -784,12 +784,12 @@ class Statusbar(object):
 
         return gtk.gdk.Rectangle(x, y, width, height)
 
-    def on_expose_event(self, widget, event):
+    def on_draw(self, widget, context):
         """
             Override required to make alpha
             transparency work properly
         """
-        if widget.get_has_resize_grip():
+        if False:  # TODO: GI: widget.get_has_resize_grip()
             edge = self.__get_grip_edge(widget)
             rect = self.__get_grip_rect(widget)
 

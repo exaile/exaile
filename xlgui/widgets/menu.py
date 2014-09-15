@@ -132,7 +132,7 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
         active = selected_func(name, parent, context)
         item.set_active(active)
         if group_parent:
-            item.set_group(group_parent)
+            item.set_group(group_parent.get_group())
         item.connect('activate', callback, name, parent, context)
         return item
     return RadioMenuItem(name, factory, after=after, groupname=groupname)
@@ -245,7 +245,7 @@ class Menu(gtk.Menu):
         children = self.get_children()
         for c in children:
             if c == self.placeholder: continue
-            c.remove_submenu()
+            c.set_submenu(None)
             self.remove(c)
 
     def reorder_items(self):

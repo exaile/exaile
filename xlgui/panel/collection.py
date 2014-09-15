@@ -395,7 +395,7 @@ class CollectionPanel(panel.Panel):
             cell.set_property('ellipsize', pango.ELLIPSIZE_END)
 
         self.tree.set_row_separator_func(
-            lambda m, i: m.get_value(i, 1) is None)
+            (lambda m, i, d: m.get_value(i, 1) is None), None)
 
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
 
@@ -754,11 +754,13 @@ class CollectionDragTreeView(DragTreeView):
         if not widget.get_tooltip_context(x, y, keyboard_mode):
             return False
 
-        path = widget.get_path_at_pos(x, y)[0]
+        result = widget.get_path_at_pos(x, y)
+        if result:
+            path = result[0]
 
-        model = widget.get_model()
-        tooltip.set_text(model[path][1]) # 1: title
-        widget.set_tooltip_row(tooltip, path)
+            model = widget.get_model()
+            tooltip.set_text(model[path][1]) # 1: title
+            widget.set_tooltip_row(tooltip, path)
 
         return True
 

@@ -617,8 +617,8 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.columns_changed_id = self.connect("columns-changed",
                 self.on_columns_changed)
 
-        self.targets = [("exaile-index-list", gtk.TARGET_SAME_APP, 0),
-                ("text/uri-list", 0, 0)]
+        self.targets = [gtk.TargetEntry.new("exaile-index-list", gtk.TARGET_SAME_APP, 0),
+                gtk.TargetEntry.new("text/uri-list", 0, 0)]
         self.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
         self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
@@ -883,12 +883,14 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             When something is inserted into the playlist, focus on it. If 
             there are multiple things inserted, focus only on the first. 
         '''
-        def _set_cursor():
-            self.set_cursor(path)
-            self._insert_focusing = False
-            
         if not self._insert_focusing:
             self._insert_focusing = True
+            # HACK: GI: We get a segfault if we don't do this, because the
+            # GtkTreePath gets deleted before the idle function is run.
+            path = path.copy()
+            def _set_cursor():
+                self.set_cursor(path)
+                self._insert_focusing = False
             glib.idle_add(_set_cursor)
 
     def do_button_press_event(self, e):
@@ -932,7 +934,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             # clicks, required to preserve the selection for DnD
             if e.button == 1 and not e.state & gtk.accelerator_get_default_mod_mask() and \
                selection.path_is_selected(path):
-                selection.set_select_function(lambda *args: False)
+                selection.set_select_function(lambda *args: False, None)
                 self.pending_event = (path, col)
 
             # Open the context menu on right clicks
@@ -959,7 +961,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self._hack_osx_control_mask = False
         
         # Restore regular selection behavior in any case
-        self.get_selection().set_select_function(lambda *args: True)
+        self.get_selection().set_select_function(lambda *args: True, None)
         
         if self.pending_event:
             path, col = self.pending_event
@@ -1003,12 +1005,13 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         """
             Stores indices and URIs of the selected items in the drag selection
         """
-        if selection.target == "exaile-index-list":
+        target = selection.get_target()
+        if target == "exaile-index-list":
             positions = self.get_selected_paths()
             if positions:
                 s = ",".join(str(i[0]) for i in positions)
-                selection.set(selection.target, 8, s)
-        elif selection.target == "text/uri-list":
+                selection.set(target, 8, s)
+        elif target == "text/uri-list":
             tracks = self.get_selected_tracks()
             uris = trax.util.get_uris_from_tracks(tracks)
             selection.set_uris(uris)
@@ -1056,8 +1059,9 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             insert_position = -1
 
         tracks = []
-        
-        if selection.target == "exaile-index-list":
+
+        target = selection.get_target()
+        if target == "exaile-index-list":
             positions = [int(x) for x in selection.data.split(",")]
             tracks = common.MetadataList()
             source_playlist_view = context.get_source_widget()
@@ -1089,7 +1093,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             if context.action == gtk.gdk.ACTION_MOVE:
                 for i in positions[::-1]:
                     del playlist[i]
-        elif selection.target == "text/uri-list":
+        elif target == "text/uri-list":
             uris = selection.get_uris()
             tracks = []
             for uri in uris:
@@ -1184,7 +1188,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             columns.remove(provider.name)
             settings.set_option('gui/columns', columns)
 
-    def modelfilter_visible_func(self, model, iter):
+    def modelfilter_visible_func(self, model, iter, data):
         if self._filter_matcher is not None:
             track = model.get_value(iter, 0)
             return self._filter_matcher.match(trax.SearchResultTrack(track))
@@ -1199,7 +1203,7 @@ class PlaylistModel(gtk.ListStore):
         self.player = player
 
         self.coltypes = [object, gtk.gdk.Pixbuf] + [providers.get_provider('playlist-columns', c).datatype for c in columns]
-        self.set_column_types(*self.coltypes)
+        self.set_column_types(self.coltypes)
         
         self._redraw_timer = None
         self._redraw_queue = []
@@ -1236,17 +1240,17 @@ class PlaylistModel(gtk.ListStore):
         self.stop_pixbuf = icons.ExtendedPixbuf(
                 icons.MANAGER.pixbuf_from_stock(gtk.STOCK_STOP))
         stop_overlay_pixbuf = self.stop_pixbuf.scale_simple(
-                dest_width=self.stop_pixbuf.get_width() / 2,
-                dest_height=self.stop_pixbuf.get_height() / 2,
+                dest_width=self.stop_pixbuf.pixbuf.get_width() / 2,
+                dest_height=self.stop_pixbuf.pixbuf.get_height() / 2,
                 interp_type=gtk.gdk.INTERP_BILINEAR)
         stop_overlay_pixbuf = stop_overlay_pixbuf.move(
-                offset_x=stop_overlay_pixbuf.get_width(),
-                offset_y=stop_overlay_pixbuf.get_height(),
+                offset_x=stop_overlay_pixbuf.pixbuf.get_width(),
+                offset_y=stop_overlay_pixbuf.pixbuf.get_height(),
                 resize=True)
         self.play_stop_pixbuf = self.play_pixbuf & stop_overlay_pixbuf
         self.pause_stop_pixbuf = self.pause_pixbuf & stop_overlay_pixbuf
         self.clear_pixbuf = self.play_pixbuf.copy()
-        self.clear_pixbuf.fill(0x00000000)
+        self.clear_pixbuf.pixbuf.fill(0x00000000)
     
         font = settings.get_option('gui/playlist_font', None)
         if font is not None:
@@ -1268,14 +1272,14 @@ class PlaylistModel(gtk.ListStore):
     def _refresh_icons(self):
         self._setup_icons()
         for i,row in enumerate(self):
-            row[1] = self.icon_for_row(i)
+            row[1] = self.icon_for_row(i).pixbuf
         
     def on_option_set(self, typ, obj, data):
         if data == "gui/playlist_font":
             glib.idle_add(self._refresh_icons)
         
     def track_to_row_data(self, track, position):
-        return [track, self.icon_for_row(position)] + [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
+        return [track, self.icon_for_row(position).pixbuf] + [providers.get_provider('playlist-columns', name).formatter.format(track) for name in self.columns]
 
     def icon_for_row(self, row):
         # TODO: we really need some sort of global way to say "is this playlist/pos the current one?
@@ -1301,7 +1305,7 @@ class PlaylistModel(gtk.ListStore):
     def update_icon(self, position):
         iter = self.iter_nth_child(None, position)
         if iter is not None:
-            self.set(iter, 1, self.icon_for_row(position))
+            self.set(iter, 1, self.icon_for_row(position).pixbuf)
 
     ### Event callbacks to keep the model in sync with the playlist ###
 

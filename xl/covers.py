@@ -549,8 +549,7 @@ class LocalFileCoverFetcher(CoverSearchMethod):
 
     def get_cover_data(self, db_string):
         try:
-            handle = gio.File(db_string).read()
-            data = handle.read()
+            data = gio.File(db_string).load_contents(None)[1]
             return data
         except glib.GError:
             return None

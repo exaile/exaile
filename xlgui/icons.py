@@ -44,7 +44,7 @@ from xl import (
 
 logger = logging.getLogger(__name__)
 
-class ExtendedPixbuf(gtk.gdk.Pixbuf):
+class ExtendedPixbuf:
     """
         A :class:`gtk.gdk.Pixbuf` wrapper class allowing for
         interaction using standard operators
@@ -60,7 +60,7 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
         Even more is possible with the provided verbose methods
     """
     def __init__(self, pixbuf):
-        gtk.gdk.Pixbuf.__init__(self,
+        self.pixbuf = gtk.gdk.Pixbuf.new(
             pixbuf.get_colorspace(),
             pixbuf.get_has_alpha(),
             pixbuf.get_bits_per_sample(),
@@ -69,8 +69,8 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
         )
         pixbuf.copy_area(
             src_x=0, src_y=0,
-            width=self.get_width(), height=self.get_height(),
-            dest_pixbuf=self,
+            width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
+            dest_pixbuf=self.pixbuf,
             dest_x=0, dest_y=0
         )
 
@@ -114,7 +114,9 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             True if the size (width * height) of the current
             pixbuf is lower than the size of the other pixbuf
         """
-        self_size = self.get_width() * self.get_height()
+        if isinstance(other, ExtendedPixbuf):
+            other = other.pixbuf
+        self_size = self.pixbuf.get_width() * self.pixbuf.get_height()
         other_size = other.get_width() * other.get_height()
 
         return self_size < other_size
@@ -125,7 +127,9 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             pixbuf is lower than or equal to the size of the
             other pixbuf
         """
-        self_size = self.get_width() * self.get_height()
+        if isinstance(other, ExtendedPixbuf):
+            other = other.pixbuf
+        self_size = self.pixbuf.get_width() * self.pixbuf.get_height()
         other_size = other.get_width() * other.get_height()
 
         return self_size <= other_size
@@ -135,7 +139,9 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             True if the size (width * height) of the current
             pixbuf is higher than the size of the other pixbuf
         """
-        self_size = self.get_width() * self.get_height()
+        if isinstance(other, ExtendedPixbuf):
+            other = other.pixbuf
+        self_size = self.pixbuf.get_width() * self.pixbuf.get_height()
         other_size = other.get_width() * other.get_height()
 
         return self_size > other_size
@@ -146,7 +152,9 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             pixbuf is higher than or equal to the size of the
             other pixbuf
         """
-        self_size = self.get_width() * self.get_height()
+        if isinstance(other, ExtendedPixbuf):
+            other = other.pixbuf
+        self_size = self.pixbuf.get_width() * self.pixbuf.get_height()
         other_size = other.get_width() * other.get_height()
 
         return self_size >= other_size
@@ -156,7 +164,9 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             True if the pixels of the current pixbuf are
             the same as the pixels from the other pixbuf
         """
-        return self.get_pixels() == other.get_pixels()
+        if isinstance(other, ExtendedPixbuf):
+            other = other.pixbuf
+        return self.pixbuf.get_pixels() == other.get_pixels()
 
     def __ne__(self, other):
         """
@@ -176,21 +186,24 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :returns: a new pixbuf
             :rtype: :class:`ExtendedPixbuf`
         """
-        height = max(self.get_height(), other.get_height())
+        if isinstance(other, ExtendedPixbuf):
+            other = other.pixbuf
+
+        height = max(self.pixbuf.get_height(), other.get_height())
         spacing = max(0, spacing)
 
-        new_pixbuf = gtk.gdk.Pixbuf(
-            self.get_colorspace(),
-            self.get_has_alpha(),
-            self.get_bits_per_sample(),
-            self.get_width() + spacing + other.get_width(),
+        new_pixbuf = gtk.gdk.Pixbuf.new(
+            self.pixbuf.get_colorspace(),
+            self.pixbuf.get_has_alpha(),
+            self.pixbuf.get_bits_per_sample(),
+            self.pixbuf.get_width() + spacing + other.get_width(),
             height
         )
         new_pixbuf.fill(0xffffff00)
 
-        self.copy_area(
+        self.pixbuf.copy_area(
             src_x=0, src_y=0,
-            width=self.get_width(), height=self.get_height(),
+            width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
             dest_pixbuf=new_pixbuf,
             dest_x=0, dest_y=0
         )
@@ -198,7 +211,7 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             src_x=0, src_y=0,
             width=other.get_width(), height=other.get_height(),
             dest_pixbuf=new_pixbuf,
-            dest_x=self.get_width() + spacing, dest_y=0
+            dest_x=self.pixbuf.get_width() + spacing, dest_y=0
         )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -214,21 +227,24 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :returns: a new pixbuf
             :rtype: :class:`ExtendedPixbuf`
         """
-        width = max(self.get_width(), other.get_width())
+        if isinstance(other, ExtendedPixbuf):
+            other = other.pixbuf
+
+        width = max(self.pixbuf.get_width(), other.get_width())
         spacing = max(0, spacing)
 
-        new_pixbuf = gtk.gdk.Pixbuf(
-            self.get_colorspace(),
-            self.get_has_alpha(),
-            self.get_bits_per_sample(),
+        new_pixbuf = gtk.gdk.Pixbuf.new(
+            self.pixbuf.get_colorspace(),
+            self.pixbuf.get_has_alpha(),
+            self.pixbuf.get_bits_per_sample(),
             width,
-            self.get_height() + spacing + other.get_height()
+            self.pixbuf.get_height() + spacing + other.get_height()
         )
         new_pixbuf.fill(0xffffff00)
 
-        self.copy_area(
+        self.pixbuf.copy_area(
             src_x=0, src_y=0,
-            width=self.get_width(), height=self.get_height(),
+            width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
             dest_pixbuf=new_pixbuf,
             dest_x=0, dest_y=0
         )
@@ -236,7 +252,7 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             src_x=0, src_y=0,
             width=other.get_width(), height=other.get_height(),
             dest_pixbuf=new_pixbuf,
-            dest_x=0, dest_y=self.get_height() + spacing
+            dest_x=0, dest_y=self.pixbuf.get_height() + spacing
         )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -254,21 +270,21 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :rtype: :class:`ExtendedPixbuf`
         """
         spacing = max(0, spacing)
-        new_pixbuf = gtk.gdk.Pixbuf(
-            self.get_colorspace(),
-            self.get_has_alpha(),
-            self.get_bits_per_sample(),
-            self.get_width() * multiplier + spacing * multiplier,
-            self.get_height()
+        new_pixbuf = gtk.gdk.Pixbuf.new(
+            self.pixbuf.get_colorspace(),
+            self.pixbuf.get_has_alpha(),
+            self.pixbuf.get_bits_per_sample(),
+            self.pixbuf.get_width() * multiplier + spacing * multiplier,
+            self.pixbuf.get_height()
         )
         new_pixbuf.fill(0xffffff00)
 
         for n in xrange(0, multiplier):
-            self.copy_area(
+            self.pixbuf.copy_area(
                 src_x=0, src_y=0,
-                width=self.get_width(), height=self.get_height(),
+                width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
                 dest_pixbuf=new_pixbuf,
-                dest_x=n * self.get_width() + n * spacing, dest_y=0
+                dest_x=n * self.pixbuf.get_width() + n * spacing, dest_y=0
             )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -286,21 +302,21 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :rtype: :class:`ExtendedPixbuf`
         """
         spacing = max(0, spacing)
-        new_pixbuf = gtk.gdk.Pixbuf(
-            self.get_colorspace(),
-            self.get_has_alpha(),
-            self.get_bits_per_sample(),
-            self.get_width(),
-            self.get_height() * multiplier + spacing * multiplier
+        new_pixbuf = gtk.gdk.Pixbuf.new(
+            self.pixbuf.get_colorspace(),
+            self.pixbuf.get_has_alpha(),
+            self.pixbuf.get_bits_per_sample(),
+            self.pixbuf.get_width(),
+            self.pixbuf.get_height() * multiplier + spacing * multiplier
         )
         new_pixbuf.fill(0xffffff00)
 
         for n in xrange(0, multiplier):
-            self.copy_area(
+            self.pixbuf.copy_area(
                 src_x=0, src_y=0,
-                width=self.get_width(), height=self.get_height(),
+                width=self.pixbuf.get_width(), height=self.pixbuf.get_height(),
                 dest_pixbuf=new_pixbuf,
-                dest_x=0, dest_y=n * self.get_height() + n * spacing
+                dest_x=0, dest_y=n * self.pixbuf.get_height() + n * spacing
             )
 
         return ExtendedPixbuf(new_pixbuf)
@@ -315,18 +331,21 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :returns: a new pixbuf
             :rtype: :class:`ExtendedPixbuf`
         """
-        width = max(self.get_width(), other.get_width())
-        height = max(self.get_height(), other.get_height())
+        if isinstance(other, ExtendedPixbuf):
+            other = other.pixbuf
 
-        new_pixbuf = gtk.gdk.Pixbuf(
-            self.get_colorspace(),
-            self.get_has_alpha(),
-            self.get_bits_per_sample(),
+        width = max(self.pixbuf.get_width(), other.get_width())
+        height = max(self.pixbuf.get_height(), other.get_height())
+
+        new_pixbuf = gtk.gdk.Pixbuf.new(
+            self.pixbuf.get_colorspace(),
+            self.pixbuf.get_has_alpha(),
+            self.pixbuf.get_bits_per_sample(),
             width, height
         )
         new_pixbuf.fill(0xffffff00)
 
-        for pixbuf in (self, other):
+        for pixbuf in (self.pixbuf, other):
             pixbuf.composite(
                 dest=new_pixbuf,
                 dest_x=0, dest_y=0,
@@ -360,25 +379,25 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             :returns: a new pixbuf
             :rtype: :class:`ExtendedPixbuf`
         """
-        width = self.get_width()
-        height = self.get_height()
+        width = self.pixbuf.get_width()
+        height = self.pixbuf.get_height()
 
         if resize:
             width += offset_x
             height += offset_y
 
-        new_pixbuf = gtk.gdk.Pixbuf(
-            self.get_colorspace(),
-            self.get_has_alpha(),
-            self.get_bits_per_sample(),
+        new_pixbuf = gtk.gdk.Pixbuf.new(
+            self.pixbuf.get_colorspace(),
+            self.pixbuf.get_has_alpha(),
+            self.pixbuf.get_bits_per_sample(),
             width, height
         )
         new_pixbuf.fill(0xffffff00)
 
-        self.copy_area(
+        self.pixbuf.copy_area(
             src_x=0, src_y=0,
-            width=self.get_width(),
-            height=self.get_height(),
+            width=self.pixbuf.get_width(),
+            height=self.pixbuf.get_height(),
             dest_pixbuf=new_pixbuf,
             dest_x=offset_x, dest_y=offset_y
         )
@@ -389,21 +408,21 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.copy(self))
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.copy(self.pixbuf))
 
     def add_alpha(self, substitute_color, r, g, b):
         """
             Override to return same type
         """
         return ExtendedPixbuf(gtk.gdk.Pixbuf.add_alpha(
-            self, substitute_color, r, g, b))
+            self.pixbuf, substitute_color, r, g, b))
 
     def scale_simple(self, dest_width, dest_height, interp_type):
         """
             Override to return same type
         """
         return ExtendedPixbuf(gtk.gdk.Pixbuf.scale_simple(
-            self, dest_width, dest_height, interp_type))
+            self.pixbuf, dest_width, dest_height, interp_type))
 
     def composite_color_simple(self, dest_width, dest_height, interp_type,
                                overall_alpha, check_size, color1, color2):
@@ -411,7 +430,7 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             Override to return same type
         """
         return ExtendedPixbuf(gtk.gdk.Pixbuf.composite_color_simple(
-            self, dest_width, dest_height, interp_type,
+            self.pixbuf, dest_width, dest_height, interp_type,
             overall_alpha, check_size, color1, color2))
 
     def subpixbuf(self, src_x, src_y, width, height):
@@ -419,19 +438,19 @@ class ExtendedPixbuf(gtk.gdk.Pixbuf):
             Override to return same type
         """
         return ExtendedPixbuf(gtk.gdk.Pixbuf.subpixbuf(
-            self, src_x, src_y, width, height))
+            self.pixbuf, src_x, src_y, width, height))
 
     def rotate_simple(self, angle):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.rotate_simple(self, angle))
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.rotate_simple(self.pixbuf, angle))
 
     def flip(self, horizontal):
         """
             Override to return sampe type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.flip(self, horizontal))
+        return ExtendedPixbuf(gtk.gdk.Pixbuf.flip(self.pixbuf, horizontal))
 
 def extended_pixbuf_new_from_file(filename):
     """
@@ -458,7 +477,6 @@ class IconManager(object):
         # Any arbitrary widget is fine
         self.render_widget = gtk.Button()
         self.system_visual = gtk.gdk.visual_get_system()
-        self.system_colormap = gtk.gdk.colormap_get_system()
         # TODO: Make svg actually recognized
         self._sizes = [16, 22, 24, 32, 48, 'scalable']
         self._cache = {}
@@ -757,7 +775,8 @@ class IconManager(object):
         if self._cache.has_key(key):
             return self._cache[key]
 
-        pixmap = gtk.gdk.Pixmap(None, pixmap_width, pixmap_height,
+        # TODO: GI: No pixmap
+        '''pixmap = gtk.gdk.Pixmap(None, pixmap_width, pixmap_height,
             self.system_visual.depth)
         context = pixmap.cairo_create()
 
@@ -777,12 +796,13 @@ class IconManager(object):
         context.set_source_color(gtk.gdk.Color(border_color))
         context.set_antialias(cairo.ANTIALIAS_NONE)
         context.rectangle(0, 0, pixmap_width - 1, pixmap_height - 1)
-        context.stroke()
+        context.stroke()'''
 
-        pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8,
+        pixbuf = gtk.gdk.Pixbuf.new(gtk.gdk.COLORSPACE_RGB, False, 8,
             pixmap_width, pixmap_height)
-        pixbuf = pixbuf.get_from_drawable(pixmap, self.system_colormap,
-            0, 0, 0, 0, pixmap_width, pixmap_height)
+        # TODO: GI: No pixmap
+        #pixbuf = pixbuf.get_from_drawable(pixmap, self.system_colormap,
+        #    0, 0, 0, 0, pixmap_width, pixmap_height)
 
         self._cache[key] = pixbuf
 

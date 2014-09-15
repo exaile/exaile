@@ -106,11 +106,11 @@ class PreferencesDialog(object):
                 if isinstance(page.icon, gtk.gdk.Pixbuf):
                     icon = page.icon
                 else:
-                    stock_id = gtk.stock_lookup(page.icon)
+                    stock = gtk.stock_lookup(page.icon)
 
-                    if stock_id is not None:
+                    if stock is not None:
                         icon = icons.MANAGER.pixbuf_from_stock(
-                            stock_id[0], gtk.ICON_SIZE_MENU)
+                            stock.stock_id , gtk.ICON_SIZE_MENU)
                     else:
                         icon = icons.MANAGER.pixbuf_from_icon_name(
                             page.icon, gtk.ICON_SIZE_MENU)
@@ -128,8 +128,9 @@ class PreferencesDialog(object):
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)
         # Disallow selection on rows with no widget to show
-        selection.set_select_function(lambda path:
-            self.model[path][0] is not None)
+        selection.set_select_function(
+            (lambda sel, model, path, issel, dat: model[path][0] is not None),
+            None)
 
         glib.idle_add(selection.select_path, (0,))
 

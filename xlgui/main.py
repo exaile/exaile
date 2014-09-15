@@ -33,11 +33,7 @@ import threading
 import cairo
 import glib
 import gobject
-import pygst
-pygst.require('0.10')
 import gst
-import pygtk
-pygtk.require('2.0')
 import gtk
 import pango
 
@@ -267,7 +263,7 @@ class MainWindow(gobject.GObject):
         self.stop_button.connect('button-release-event',
             self.on_stop_button_release_event)
         self.stop_button.drag_dest_set(gtk.DEST_DEFAULT_ALL,
-            [("exaile-index-list", gtk.TARGET_SAME_APP, 0)], gtk.gdk.ACTION_COPY)
+            [gtk.TargetEntry.new("exaile-index-list", gtk.TARGET_SAME_APP, 0)], gtk.gdk.ACTION_COPY)
         self.stop_button.connect('drag-motion',
             self.on_stop_button_drag_motion)
         self.stop_button.connect('drag-leave',
@@ -416,7 +412,7 @@ class MainWindow(gobject.GObject):
         """
             Sets the hover state and shows SPAT icon
         """
-        widget.set_data('hovered', True)
+        widget.__hovered = True
         if event.state & gtk.gdk.SHIFT_MASK:
             widget.set_image(gtk.image_new_from_stock(
                 gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
@@ -428,7 +424,7 @@ class MainWindow(gobject.GObject):
         """
             Unsets the hover state and resets the button icon
         """
-        widget.set_data('hovered', False)
+        widget.__hovered = False
         if not widget.is_focus() and \
            ~(event.state & gtk.gdk.SHIFT_MASK):
             widget.set_image(gtk.image_new_from_stock(
@@ -463,7 +459,7 @@ class MainWindow(gobject.GObject):
             Resets the button icon unless
             the button is still hovered
         """
-        if not widget.get_data('hovered'):
+        if not getattr(widget, '__hovered', False):
             widget.set_image(gtk.image_new_from_stock(
                 gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
 

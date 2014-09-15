@@ -497,7 +497,7 @@ class CoverMenu(guiutil.Menu):
             Initializes the menu
         """
         guiutil.Menu.__init__(self)
-        self.widget = widget
+        self.w = widget
 
         self.append(_('Show Cover'), self.on_show_clicked)
         self.append(_('Fetch Cover'), self.on_fetch_clicked)
@@ -507,13 +507,13 @@ class CoverMenu(guiutil.Menu):
         """
             Shows the current cover
         """
-        self.widget.show_cover()
+        self.w.show_cover()
 
     def on_fetch_clicked(self, *e):
-        self.widget.fetch_cover()
+        self.w.fetch_cover()
 
     def on_remove_clicked(self, *e):
-        self.widget.remove_cover()
+        self.w.remove_cover()
 
 class CoverWidget(gtk.EventBox):
     """
@@ -567,7 +567,7 @@ class CoverWidget(gtk.EventBox):
         
         self.set_blank()
         self.drag_dest_set( gtk.DEST_DEFAULT_ALL,
-                            [('text/uri-list', 0, 0)],
+                            [gtk.TargetEntry.new('text/uri-list', 0, 0)],
                             gtk.gdk.ACTION_COPY |
                             gtk.gdk.ACTION_DEFAULT |
                             gtk.gdk.ACTION_MOVE)
@@ -643,19 +643,19 @@ class CoverWidget(gtk.EventBox):
                 drag to other applications
             :type enabled: bool
         """
-        if enabled == self.get_data('drag_source_enabled'):
+        if enabled == getattr(self, '__drag_source_enabled', None):
             return
 
         if enabled:
             self.drag_source_set(gtk.gdk.BUTTON1_MASK,
-                [('text/uri-list', 0, 0)],
+                [gtk.TargetEntry.new('text/uri-list', 0, 0)],
                 gtk.gdk.ACTION_DEFAULT |
                 gtk.gdk.ACTION_MOVE
             )
         else:
             self.drag_source_unset()
 
-        self.set_data('drag_source_enabled', enabled)
+        self.__drag_source_enabled = enabled
 
     def do_button_press_event(self, event):
         """

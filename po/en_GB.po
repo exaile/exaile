@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2014-10-12 23:34+0000\n"
+"Last-Translator: Sid Roberts <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
+"X-Launchpad-Export-Date: 2014-10-13 06:10+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -2058,7 +2058,7 @@ msgstr "During performance"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Video screen capture"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
 msgid "A bright coloured fish"
@@ -2082,7 +2082,7 @@ msgstr "Click or drag files here to change the cover image"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 #: ../data/ui/preferences/plugin.ui.h:8
@@ -2223,7 +2223,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
-msgstr ""
+msgstr "Appending/Replacing via menu item triggers playback"
 
 #: ../data/ui/preferences/playlists.ui.h:6
 msgid ""
@@ -2231,16 +2231,21 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"When using a menu item to add/replace tracks on the playlist, start playback "
+"if there is track currently playing. This option was the default behaviour "
+"before Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Queue tracks by default instead of playing them"
 
 #: ../data/ui/preferences/playlists.ui.h:8
 msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"When you double click or press enter to play a track in a playlist, queue "
+"the track instead of playing it"
 
 #: ../data/ui/preferences/playback.ui.h:1
 #: ../plugins/previewdevice/previewprefs.ui.h:1
@@ -2275,7 +2280,7 @@ msgstr "Audio Sink:  "
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
 msgid "Device:  "
-msgstr ""
+msgstr "Device:  "
 
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8
@@ -2292,15 +2297,15 @@ msgstr "Resume playback in paused state"
 
 #: ../data/ui/preferences/playback.ui.h:11
 msgid "Adding an item to an empty queue begins playback"
-msgstr ""
+msgstr "Adding an item to an empty queue begins playback"
 
 #: ../data/ui/preferences/playback.ui.h:12
 msgid "Remove track from queue upon playback"
-msgstr ""
+msgstr "Remove track from queue upon playback"
 
 #: ../data/ui/preferences/playback.ui.h:13
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Automatically advance to the next track"
 
 #: ../data/ui/preferences/playback.ui.h:14
 #: ../plugins/previewdevice/previewprefs.ui.h:9
@@ -2371,7 +2376,7 @@ msgstr "The info area contains the cover art and track information"
 
 #: ../data/ui/preferences/appearance.ui.h:3
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Show cover art in info area"
 
 #: ../data/ui/preferences/appearance.ui.h:4
 msgid "Always show tab bar"
@@ -2383,13 +2388,13 @@ msgstr "Tab placement:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
-msgstr ""
+msgstr "Playlist font:"
 
 #: ../data/ui/preferences/appearance.ui.h:7
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
 #: ../plugins/grouptagger/gt_prefs.ui.h:2
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Reset to the system font"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
@@ -2567,11 +2572,11 @@ msgstr "Alarm Clock"
 
 #: ../plugins/mainmenubutton/__init__.py:31
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
-msgstr ""
+msgstr "This plugin needs at least PyGTK 2.22 and GTK 2.20."
 
 #: ../plugins/mainmenubutton/__init__.py:68
 msgid "Main Menu"
-msgstr ""
+msgstr "Main Menu"
 
 #: ../plugins/shoutcast/__init__.py:107
 #: ../plugins/shoutcast/__init__.py:164
@@ -2629,11 +2634,11 @@ msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:103
 msgid "Verification successful"
-msgstr ""
+msgstr "Verification successful"
 
 #: ../plugins/audioscrobbler/asprefs.py:109
 msgid "Verification failed"
-msgstr ""
+msgstr "Verification failed"
 
 #: ../plugins/audioscrobbler/__init__.py:121
 msgid "Enable audioscrobbling"
@@ -2678,15 +2683,15 @@ msgstr "Computer could not be shutdown using D-Bus."
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Preview Device"
 
 #: ../plugins/previewdevice/__init__.py:157
 msgid "Preview Player"
-msgstr ""
+msgstr "Preview Player"
 
 #: ../plugins/previewdevice/__init__.py:163
 msgid "Preview"
-msgstr ""
+msgstr "Preview"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22
 #: ../plugins/notifyosd/PLUGININFO:3
@@ -2787,11 +2792,11 @@ msgstr ""
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Wikipedia"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
-msgstr ""
+msgstr "Displays Wikipedia page about the current performer."
 
 #: ../plugins/abrepeat/__init__.py:49
 msgid "Repeat Segment"
@@ -2950,33 +2955,33 @@ msgstr "Playback progress and seeking"
 #: ../plugins/grouptagger/__init__.py:97
 #: ../plugins/grouptagger/__init__.py:114
 msgid "GroupTagger"
-msgstr ""
+msgstr "GroupTagger"
 
 #: ../plugins/grouptagger/__init__.py:108
 #: ../plugins/grouptagger/gt_widgets.py:686
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Get all tags from collection"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Show tracks with all tags"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "Show tracks with tags (custom)"
-msgstr ""
+msgstr "Show tracks with tags (custom)"
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Show tracks with selected"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr ""
+msgstr "Show tracks tagged with \"%s\""
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "Show tracks with all selected"
 
 #: ../plugins/grouptagger/gt_widgets.py:132
 #: ../plugins/grouptagger/gt_widgets.py:650
@@ -2986,71 +2991,71 @@ msgstr "Group"
 
 #: ../plugins/grouptagger/gt_widgets.py:147
 msgid "Add new group"
-msgstr ""
+msgstr "Add new group"
 
 #: ../plugins/grouptagger/gt_widgets.py:151
 msgid "Delete group"
-msgstr ""
+msgstr "Delete group"
 
 #: ../plugins/grouptagger/gt_widgets.py:158
 msgid "Add new category"
-msgstr ""
+msgstr "Add new category"
 
 #: ../plugins/grouptagger/gt_widgets.py:162
 msgid "Remove category"
-msgstr ""
+msgstr "Remove category"
 
 #: ../plugins/grouptagger/gt_widgets.py:172
 msgid "Show tracks with selected (custom)"
-msgstr ""
+msgstr "Show tracks with selected (custom)"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
-msgstr ""
+msgstr "New tag value?"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "Enter new tag value"
-msgstr ""
+msgstr "Enter new tag value"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "New Category?"
-msgstr ""
+msgstr "New Category?"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "Enter new group category name"
-msgstr ""
+msgstr "Enter new group category name"
 
 #: ../plugins/grouptagger/gt_widgets.py:510
 msgid "Add Group"
-msgstr ""
+msgstr "Add Group"
 
 #: ../plugins/grouptagger/gt_widgets.py:707
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Add selected to choices"
 
 #: ../plugins/grouptagger/gt_widgets.py:733
 msgid "Show tracks with groups"
-msgstr ""
+msgstr "Show tracks with groups"
 
 #: ../plugins/grouptagger/gt_widgets.py:744
 msgid "Must have this tag [AND]"
-msgstr ""
+msgstr "Must have this tag [AND]"
 
 #: ../plugins/grouptagger/gt_widgets.py:744
 msgid "May have this tag [OR]"
-msgstr ""
+msgstr "May have this tag [OR]"
 
 #: ../plugins/grouptagger/gt_widgets.py:744
 msgid "Must not have this tag [NOT]"
-msgstr ""
+msgstr "Must not have this tag [NOT]"
 
 #: ../plugins/grouptagger/gt_widgets.py:744
 msgid "Ignored"
-msgstr ""
+msgstr "Ignored"
 
 #: ../plugins/grouptagger/gt_widgets.py:752
 msgid "Selected Tracks"
-msgstr ""
+msgstr "Selected Tracks"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
@@ -3075,23 +3080,23 @@ msgstr "Append"
 #: ../plugins/history/__init__.py:251
 #: ../plugins/daapclient/__init__.py:292
 msgid "History"
-msgstr ""
+msgstr "History"
 
 #: ../plugins/history/__init__.py:108
 msgid "Playback history"
-msgstr ""
+msgstr "Playback history"
 
 #: ../plugins/history/__init__.py:140
 msgid "Erase stored history?"
-msgstr ""
+msgstr "Erase stored history?"
 
 #: ../plugins/history/__init__.py:234
 msgid "Save History"
-msgstr ""
+msgstr "Save History"
 
 #: ../plugins/history/__init__.py:236
 msgid "Clear History"
-msgstr ""
+msgstr "Clear History"
 
 #: ../plugins/jamendo/__init__.py:87
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
@@ -3117,6 +3122,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"by $artist\n"
+"from $album"
 
 #: ../plugins/osd/__init__.py:379
 msgid ""
@@ -3124,6 +3132,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\"><b>$title</b></span>\n"
+"by $artist\n"
+"from $album"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
@@ -3221,12 +3232,12 @@ msgstr "DAAP Server"
 
 #: ../plugins/bpm/__init__.py:80
 msgid "BPM Counter"
-msgstr ""
+msgstr "BPM Counter"
 
 #: ../plugins/bpm/__init__.py:240
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "Set BPM of %d on %s?"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
@@ -3381,11 +3392,11 @@ msgstr "Use Fading"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Minimum volume:"
-msgstr ""
+msgstr "Minimum volume:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Maximum volume:"
-msgstr ""
+msgstr "Maximum volume:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Increment:"
@@ -3393,7 +3404,7 @@ msgstr "Increment:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
-msgstr ""
+msgstr "Time per increment:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Display overlay:"
@@ -3417,7 +3428,7 @@ msgstr "None"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Lyrics font:"
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
@@ -3443,7 +3454,7 @@ msgstr "Username:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:6
 msgid "Verify Login Data"
-msgstr ""
+msgstr "Verify Login Data"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "pre"
@@ -3567,15 +3578,15 @@ msgstr "<b>Content</b>"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "LightBG"
-msgstr ""
+msgstr "LightBG"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:3
 msgid "NoColor"
-msgstr ""
+msgstr "NoColor"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:4
 msgid "Terminal opacity:"
@@ -3587,7 +3598,7 @@ msgstr "Font:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
 msgid "Text Color:"
-msgstr ""
+msgstr "Text Colour:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:7
 msgid "Background Color:"
@@ -3595,7 +3606,7 @@ msgstr "Background Colour:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:8
 msgid "IPython Color Theme:"
-msgstr ""
+msgstr "IPython Colour Theme:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
@@ -3677,23 +3688,23 @@ msgstr ""
 
 #: ../plugins/wikipedia/data/preferences.ui.h:1
 msgid "Shortcode of the Wikipedia language version (en, de, fr, ...)"
-msgstr ""
+msgstr "Shortcode of the Wikipedia language version (en, de, fr, ...)"
 
 #: ../plugins/wikipedia/data/preferences.ui.h:2
 msgid "Language:"
-msgstr ""
+msgstr "Language:"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:2
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:3
 msgid "Back"
-msgstr ""
+msgstr "Back"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:5
 msgid "Forward"
-msgstr ""
+msgstr "Forward"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:1
 msgid ""
@@ -3741,7 +3752,7 @@ msgstr "Simple"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:1
 msgid "Group/categories font:"
-msgstr ""
+msgstr "Group/categories font:"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
@@ -3777,11 +3788,11 @@ msgstr "Fallback correction level (dB):"
 
 #: ../plugins/history/history_preferences.ui.h:1
 msgid "Persist history after player exits"
-msgstr ""
+msgstr "Persist history after player exits"
 
 #: ../plugins/history/history_preferences.ui.h:2
 msgid "History length:"
-msgstr ""
+msgstr "History length:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Order by:"
@@ -3851,26 +3862,31 @@ msgid ""
 "href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">Pango"
 " Text Attribute Markup</a> is supported."
 msgstr ""
+"Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
+"<b>$__length</b> need to be specified with two leading underscores.\n"
+"<a "
+"href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">Pango"
+" Text Attribute Markup</a> is supported."
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"
-msgstr ""
+msgstr "Display Format"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
-msgstr ""
+msgstr "Display duration:"
 
 #: ../plugins/osd/osd_preferences.ui.h:5
 msgid "Background:"
-msgstr ""
+msgstr "Background:"
 
 #: ../plugins/osd/osd_preferences.ui.h:6
 msgid "Show progress bar"
-msgstr ""
+msgstr "Show progress bar"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
 msgid "Border radius:"
-msgstr ""
+msgstr "Border radius:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
@@ -3988,7 +4004,7 @@ msgstr "Use covers in the bookmarks menu (takes effect on next start)"
 
 #: ../plugins/screensaverpause/prefs.ui.h:1
 msgid "Unpause when screensaver ends"
-msgstr ""
+msgstr "Unpause when screensaver ends"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:1
 msgid "Server name:"
@@ -4008,11 +4024,11 @@ msgstr "Server enabled"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:1
 msgid "Show ipv6 servers (Experimental)"
-msgstr ""
+msgstr "Show ipv6 servers (Experimental)"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:2
 msgid "Remember recent DAAP servers"
-msgstr ""
+msgstr "Remember recent DAAP servers"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
@@ -4032,7 +4048,7 @@ msgstr ""
 #: ../plugins/notify/PLUGININFO:5
 #: ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "Notifications"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
@@ -4049,7 +4065,7 @@ msgstr ""
 #: ../plugins/droptrayicon/PLUGININFO:5
 #: ../plugins/desktopcover/PLUGININFO:5
 msgid "GUI"
-msgstr ""
+msgstr "GUI"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
@@ -4067,7 +4083,7 @@ msgstr ""
 #: ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "Hotkeys"
-msgstr ""
+msgstr "Hotkeys"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
@@ -4080,15 +4096,15 @@ msgstr ""
 #: ../plugins/streamripper/PLUGININFO:5
 #: ../plugins/previewdevice/PLUGININFO:5
 msgid "Output"
-msgstr ""
+msgstr "Output"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
-msgstr ""
+msgstr "MusicBrainz Covers"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
 msgid "Integrates MusicBrainz for cover search"
-msgstr ""
+msgstr "Integrates MusicBrainz for cover search"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
 msgid ""
@@ -4108,7 +4124,7 @@ msgstr ""
 #: ../plugins/exfalso/PLUGININFO:5
 #: ../plugins/grouptagger/PLUGININFO:5
 msgid "Tagging"
-msgstr ""
+msgstr "Tagging"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -4134,17 +4150,19 @@ msgstr ""
 #: ../plugins/screensaverpause/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5
 msgid "Utility"
-msgstr ""
+msgstr "Utility"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
-msgstr ""
+msgstr "Main Menu Button"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
 msgid ""
 "Moves the main menu into a button on top of the panels.\n"
 "Depends: PyGTK >= 2.22, GTK >= 2.20"
 msgstr ""
+"Moves the main menu into a button on top of the panels.\n"
+"Depends: PyGTK >= 2.22, GTK >= 2.20"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -4173,7 +4191,7 @@ msgstr "Shoutcast Radio list"
 #: ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/daapclient/PLUGININFO:5
 msgid "Media Sources"
-msgstr ""
+msgstr "Media Sources"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
@@ -4232,7 +4250,7 @@ msgstr "A 10-band equaliser"
 #: ../plugins/replaygain/PLUGININFO:5
 #: ../plugins/karaoke/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "Effect"
 
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
@@ -4244,11 +4262,11 @@ msgstr "Plug-in to fetch lyrics from lyricsfly.com"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
-msgstr ""
+msgstr "Inhibit Suspend"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
-msgstr ""
+msgstr "Prevents User Session from suspending while music is playing"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4285,6 +4303,8 @@ msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
+"Allows playing audio over a secondary device (right click on playlist and "
+"select 'preview'). Useful for DJs."
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
@@ -4296,7 +4316,7 @@ msgstr "The Last.fm backend for dynamic playlists"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
-msgstr ""
+msgstr "Dynamic Playlists"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -4321,7 +4341,7 @@ msgstr "Provides an IPython console that can be used to manipulate Exaile."
 #: ../plugins/ipconsole/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
 msgid "Development"
-msgstr ""
+msgstr "Development"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
@@ -4338,12 +4358,18 @@ msgid ""
 "Requires HAL to autodetect CDs\n"
 "Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
 msgstr ""
+"Adds support for playing audio CDs.\n"
+"\n"
+"Requires HAL to autodetect CDs\n"
+"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Depends: python-webkit"
 msgstr ""
+"Provides Wikipedia information about the current artist.\n"
+"Depends: python-webkit"
 
 #: ../plugins/wikipedia/PLUGININFO:5
 #: ../plugins/contextinfo/PLUGININFO:5
@@ -4364,13 +4390,15 @@ msgstr "Compact mode for Exaile with a configurable interface"
 
 #: ../plugins/grouptagger/PLUGININFO:3
 msgid "Group Tagger"
-msgstr ""
+msgstr "Group Tagger"
 
 #: ../plugins/grouptagger/PLUGININFO:4
 msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
+"Facilitates categorising your music by managing the grouping/category tag in "
+"audio files"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -4395,6 +4423,8 @@ msgid ""
 "Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for "
 "controlling Exaile."
 msgstr ""
+"Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for "
+"controlling Exaile."
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
@@ -4406,7 +4436,7 @@ msgstr "Enables access to the Jamendo music catalogue."
 
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
-msgstr ""
+msgstr "A popup window showing information of the currently playing track."
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
@@ -4495,6 +4525,10 @@ msgid ""
 "Requires: GNOME Screensaver or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
+"Pauses (and optionally resumes) playback based on screensaver status.\n"
+"\n"
+"Requires: GNOME Screensaver or KDE Screensaver (does not support "
+"XScreenSaver nor XLockMore)"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
@@ -4505,6 +4539,8 @@ msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Depends: python-beautifulsoup"
 msgstr ""
+"Plugin to fetch lyrics from lyrics.wikia.com\n"
+"Depends: python-beautifulsoup"
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""

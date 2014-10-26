@@ -25,8 +25,6 @@ except Exception:
 else:
     if uid == 0:
         sys.stderr.write('Error: running as root is not supported!\n')
-        sys.stderr.flush()
-        sys.exit(1)
 
 # allow disabling of pyc generation. Only works on python >= 2.6
 if os.getenv("EXAILE_NO_OPTIMIZE"):

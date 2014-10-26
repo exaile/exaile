@@ -38,17 +38,24 @@ import os
 import platform
 import sys
 
-try:
-    import gio
-except ImportError:
-    # on Win32 using the GStreamer SDK, requires import of
-    # pygtk first
-    import pygtk
-    pygtk.require('2.0')
-    import gio
-
-from xl import common, xdg
 from xl.nls import gettext as _
+
+# Imported later to avoid PyGTK imports just for --help.
+gio = common = xdg = None
+
+def _do_heavy_imports():
+    global gio, common, xdg
+
+    try:
+        import gio
+    except ImportError:
+        # on Win32 using the GStreamer SDK, requires import of
+        # pygtk first
+        import pygtk
+        pygtk.require('2.0')
+        import gio
+
+    from xl import common, xdg
 
 # placeholder, - xl.version can be slow to import, which would slow down
 # cli args. Thus we import __version__ later.
@@ -81,7 +88,8 @@ class Exaile(object):
         """
         self.quitting = False
         self.loading = True
-        
+
+        # NOTE: This automatically exits on --help.
         try:
             (self.options, self.args) = self.get_options().parse_args()
         except UnicodeDecodeError:
@@ -90,6 +98,8 @@ class Exaile(object):
         if self.options.ShowVersion:
             self.version()
             return
+
+        _do_heavy_imports()
 
         if self.options.UseDataDir:
             xdg.data_dirs.insert(1, self.options.UseDataDir)
@@ -677,9 +687,10 @@ class Exaile(object):
             import glib
             loop = glib.MainLoop()
             context = loop.get_context()
-            self.__mainloop(context)
+            t = threading.Thread(target=self.__mainloop, args=(context,))
+            t.daemon = True
+            t.start()
 
-    @common.threaded
     def __mainloop(self, context):
         while 1:
             try:

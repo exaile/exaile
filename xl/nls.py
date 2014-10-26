@@ -31,8 +31,7 @@
 
 import sys
 import locale
-
-from xl import xdg
+import os
 
 try:
     # Set to user default, gracefully fallback on C otherwise
@@ -55,9 +54,12 @@ try:
     # Required for dynamically added messages
     gettextmod.textdomain('exaile')
 
-    if xdg.local_hack: # running from source dir, so we have to set the paths
+    # If running from source dir, we have to set the paths.
+    # (The test is equivalent to xdg.local_hack but without the xdg import,
+    # which pulls in glib.)
+    if os.path.exists(os.path.join(os.environ['EXAILE_DIR'], 'data')):
         import os.path
-        locale_path = os.path.join(xdg.exaile_dir, 'po')
+        locale_path = os.path.join(os.environ['EXAILE_DIR'], 'po')
         try:
             locale.bindtextdomain('exaile', locale_path)
         except AttributeError: # E.g. Windows

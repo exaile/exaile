@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-10-28 08:48+0000\n"
-"Last-Translator: Akira Nakagawa <matyapiro31@gmail.com>\n"
+"PO-Revision-Date: 2014-10-29 11:22+0000\n"
+"Last-Translator: haruki-baba <bahaki386@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-10-29 07:23+0000\n"
+"X-Launchpad-Export-Date: 2014-10-30 06:31+0000\n"
 "X-Generator: Launchpad (build 17203)\n"
 
 #: ../xl/formatter.py:597
@@ -82,7 +82,7 @@ msgstr "%d:%02d:%02d"
 #: ../xl/formatter.py:625
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:691
@@ -104,7 +104,7 @@ msgstr "0.2.14からの移行に失敗しました"
 
 #: ../xl/main.py:416
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "使用法: exaile [オプション]... [URI]"
 
 #: ../xl/main.py:417
 #: ../plugins/minimode/minimode_preferences.ui.h:11
@@ -113,7 +113,7 @@ msgstr "設定"
 
 #: ../xl/main.py:421
 msgid "Playback Options"
-msgstr ""
+msgstr "再生オプション"
 
 #: ../xl/main.py:423
 msgid "Play the next track"
@@ -154,19 +154,19 @@ msgstr "コレクションの設定"
 #: ../xl/main.py:443
 #: ../xl/main.py:450
 msgid "LOCATION"
-msgstr ""
+msgstr "ロケーション"
 
 #: ../xl/main.py:443
 msgid "Add tracks from LOCATION to the collection"
-msgstr ""
+msgstr "ロケーションからコレクションにトラックを追加"
 
 #: ../xl/main.py:447
 msgid "Playlist Options"
-msgstr ""
+msgstr "プレイリストのオプション"
 
 #: ../xl/main.py:451
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "現在のプレイリストをロケーションにエクスポート"
 
 #: ../xl/main.py:454
 msgid "Track Options"
@@ -200,26 +200,26 @@ msgstr "現在演奏中のトラックのデータをポップアップで表示
 
 #: ../xl/main.py:469
 msgid "Print the title of current track"
-msgstr ""
+msgstr "現在のトラックのタイトルを表示"
 
 #: ../xl/main.py:471
 msgid "Print the album of current track"
-msgstr ""
+msgstr "現在のトラックのアルバムを表示"
 
 #: ../xl/main.py:473
 msgid "Print the artist of current track"
-msgstr ""
+msgstr "現在のトラックのアーティストを表示"
 
 #: ../xl/main.py:475
 msgid "Print the length of current track"
-msgstr ""
+msgstr "現在のトラックの長さを表示"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:478
 #: ../xl/main.py:493
 #: ../xl/main.py:497
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:479
 msgid "Set rating for current track to N%"
@@ -231,7 +231,7 @@ msgstr "現在演奏中のトラックのレーティングを取得する"
 
 #: ../xl/main.py:484
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "現在の再生位置を時間で表示"
 
 #: ../xl/main.py:486
 msgid "Print the current playback progress as percentage"
@@ -268,11 +268,11 @@ msgstr ""
 
 #: ../xl/main.py:511
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "このヘルプを表示して終了する"
 
 #: ../xl/main.py:513
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "プログラムのバージョンを表示して終了する"
 
 #: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
@@ -391,20 +391,20 @@ msgstr "タグ"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "ローカルファイル"
 
 #: ../xl/plugins.py:94
 msgid "Plugin archive is not in the correct format."
-msgstr ""
+msgstr "プラグインアーカイブは正しいフォーマットではありません."
 
 #: ../xl/plugins.py:101
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "\"%s\"という名前のプラグインはインストール済みです."
 
 #: ../xl/plugins.py:106
 msgid "Plugin archive contains an unsafe path."
-msgstr ""
+msgstr "プラグインアーカイブは安全でないパスを含んでいます."
 
 #: ../xl/trax/trackdb.py:167
 msgid "You did not specify a location to load the db from"
@@ -435,7 +435,7 @@ msgstr " / "
 #: ../xl/trax/track.py:647
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -488,7 +488,7 @@ msgstr "カスタム"
 #: ../xl/player/pipe.py:441
 #: ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "自動"
 
 #: ../xl/xldbus.py:117
 #: ../xl/xldbus.py:496
@@ -513,7 +513,7 @@ msgstr ""
 
 #: ../xl/settings.py:275
 msgid "An Unknown type of setting was found!"
-msgstr ""
+msgstr "不明な種類の設定を検出しました!"
 
 #: ../xl/playlist.py:152
 #: ../xl/playlist.py:166
@@ -640,7 +640,7 @@ msgstr "ディレクトリを開く"
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
-msgstr ""
+msgstr "ファイルをゴミ箱に移動できませんでした。これらのファイルを完全にディスクから消去しますか？"
 
 #: ../xlgui/widgets/menuitems.py:182
 msgid "Move to Trash"
@@ -669,7 +669,7 @@ msgstr "曲数制限: "
 
 #: ../xlgui/widgets/filter.py:104
 msgid " tracks"
-msgstr ""
+msgstr " トラック"
 
 #: ../xlgui/widgets/playback.py:95
 #: ../xlgui/widgets/info.py:71
@@ -679,7 +679,7 @@ msgstr "再生していません"
 #: ../xlgui/widgets/playback.py:744
 #, python-format
 msgid "Seeking: %s"
-msgstr ""
+msgstr "シーク: %s"
 
 #: ../xlgui/widgets/playback.py:1020
 msgid "Move"
@@ -687,7 +687,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:1166
 msgid "New Marker"
-msgstr ""
+msgstr "新しいマーカー"
 
 #: ../xlgui/widgets/playback.py:1265
 msgid "Muted"
@@ -697,7 +697,7 @@ msgstr ""
 #: ../xlgui/widgets/playback.py:1271
 #, python-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: ../xlgui/widgets/playback.py:1274
 msgid "Full Volume"
@@ -743,7 +743,7 @@ msgstr "キュー"
 #: ../xlgui/widgets/queue.py:89
 #, python-format
 msgid "Queue (%d)"
-msgstr ""
+msgstr "キュー (%d)"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/widgets/playlist_columns.py:217
@@ -926,7 +926,7 @@ msgstr "ダイナミック"
 
 #: ../xlgui/widgets/playlist.py:152
 msgid "Remove Current Track From Playlist"
-msgstr ""
+msgstr "プレイリストから現在のトラックを削除"
 
 #: ../xlgui/widgets/playlist.py:182
 msgid "Randomize Playlist"
@@ -934,7 +934,7 @@ msgstr "プレイリストをランダムにする"
 
 #: ../xlgui/widgets/playlist.py:185
 msgid "Randomize Selection"
-msgstr ""
+msgstr "ランダムに選択"
 
 #: ../xlgui/widgets/playlist.py:206
 #: ../xlgui/oldmenu.py:188
@@ -951,7 +951,7 @@ msgstr "名前の変更"
 
 #: ../xlgui/widgets/playlist.py:266
 msgid "Stop Playback After This Track"
-msgstr ""
+msgstr "このトラックの再生終了後に停止"
 
 #: ../xlgui/widgets/playlist.py:273
 msgid "Continue Playback After This Track"
@@ -980,7 +980,7 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:608
 msgid "Choose Media to Open"
-msgstr ""
+msgstr "開くメディアを指定してください"
 
 #: ../xlgui/widgets/dialogs.py:619
 msgid "Supported Files"
@@ -1003,7 +1003,7 @@ msgstr "全てのファイル"
 
 #: ../xlgui/widgets/dialogs.py:699
 msgid "Choose Directory to Open"
-msgstr ""
+msgstr "開くディレクトリを指定してください"
 
 #: ../xlgui/widgets/dialogs.py:770
 #: ../xlgui/menu.py:87
@@ -1013,7 +1013,7 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:863
 msgid "Export Current Playlist"
-msgstr ""
+msgstr "現在のプレイリストをエクスポート"
 
 #: ../xlgui/widgets/dialogs.py:874
 msgid "Use relative paths to tracks"
@@ -1064,7 +1064,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:1465
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "ファイルが存在します。%s を上書きしますか?"
 
 #: ../xlgui/widgets/dialogs.py:1516
 msgid "Playlist name:"
@@ -1085,7 +1085,7 @@ msgstr "プレイリスト名が入力されていません"
 #: ../xlgui/panel/playlists.py:761
 #: ../xlgui/panel/playlists.py:845
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "入力されたプレイリストの名前は既に使用されています。"
 
 #: ../xlgui/widgets/notebook.py:146
 #: ../xlgui/menu.py:115
@@ -3815,7 +3815,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:2
 msgid "X offset:"
-msgstr ""
+msgstr "X オフセット:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:3
 msgid "pixels"
@@ -3831,7 +3831,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
 msgid "Size:"
-msgstr ""
+msgstr "サイズ："
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:7
 msgid "Use fading"

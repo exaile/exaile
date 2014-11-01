@@ -28,7 +28,7 @@ import xdg
 
 major = "3.4"
 minor = "1"
-extra = "-dev"
+extra = ""
 
 def get_latest_bzr_revno(directory):
     """

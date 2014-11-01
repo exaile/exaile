@@ -48,13 +48,15 @@ if sys.platform == 'darwin':
     __settings = gtk.settings_get_default()
     __font_name = __settings.get_property('gtk-font-name')
     
-    #print __font_name
-
+    # font names that start with '.' aren't usable
     if __font_name.startswith('.'):
         __font_name = __font_name[1:]
-
     if ' DeskInterface ' in __font_name:
-        __settings.set_property('gtk-font-name', __font_name.replace(' DeskInterface ', ' '))
+        __font_name = __font_name.replace(' DeskInterface ', ' ')
+    if ' UI ' in __font_name:
+        __font_name = __font_name.replace(' UI ', ' ')
+
+    __settings.set_property('gtk-font-name', __font_name)
 
     __icon_theme = gtk.icon_theme_get_default()
     __icon_theme.append_search_path('/Library/Frameworks/GStreamer.framework/Versions/0.10/share/icons')

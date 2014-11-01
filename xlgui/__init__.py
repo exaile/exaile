@@ -39,6 +39,25 @@ if sys.platform != 'win32':
     gtk.gdk.threads_enter()
     
 if sys.platform == 'darwin':
+
+    # When trying to load a font that doesn't exist, pango falls back to
+    # 'Sans'. If that doesn't exist, it kills the program. Apparently, 
+    # 'Sans' no longer exists as of osx 10.9, so we need to set the default
+    # font to something more sensible else we crash.
+
+    __settings = gtk.settings_get_default()
+    __font_name = __settings.get_property('gtk-font-name')
+    
+    # font names that start with '.' aren't usable
+    if __font_name.startswith('.'):
+        __font_name = __font_name[1:]
+    if ' DeskInterface ' in __font_name:
+        __font_name = __font_name.replace(' DeskInterface ', ' ')
+    if ' UI ' in __font_name:
+        __font_name = __font_name.replace(' UI ', ' ')
+
+    __settings.set_property('gtk-font-name', __font_name)
+
     __icon_theme = gtk.icon_theme_get_default()
     __icon_theme.append_search_path('/Library/Frameworks/GStreamer.framework/Versions/0.10/share/icons')
 

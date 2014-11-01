@@ -180,7 +180,7 @@ potball:
 dist:
 	mkdir -p dist
 	rm -rf dist/copy
-	bzr export dist/copy/
+	git archive HEAD --prefix=copy/ | tar -x -C dist
 	./tools/dist.sh
 	rm -rf dist/copy
 

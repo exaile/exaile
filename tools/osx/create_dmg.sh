@@ -1,10 +1,12 @@
 #!/bin/bash
 
+set -e
+
 cd $(dirname "$0")/../..
 rm -rf dist/copy
 
 mkdir -p dist
-bzr export dist/copy
+git archive HEAD --prefix=copy/ | tar -x -C dist
 
 EXAILE_DIR='.'
 PYTHONPATH="/Library/Frameworks/GStreamer.framework/Libraries/python2.7/site-packages/"

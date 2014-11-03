@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-10-29 11:22+0000\n"
-"Last-Translator: haruki-baba <bahaki386@gmail.com>\n"
+"PO-Revision-Date: 2014-11-02 10:31+0000\n"
+"Last-Translator: ub <xenolith0bytetestcomgreen@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-10-30 06:31+0000\n"
-"X-Generator: Launchpad (build 17203)\n"
+"X-Launchpad-Export-Date: 2014-11-03 06:28+0000\n"
+"X-Generator: Launchpad (build 17211)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -88,7 +88,7 @@ msgstr "%d:%02d"
 #: ../xl/formatter.py:691
 #: ../xl/formatter.py:696
 msgid "Never"
-msgstr ""
+msgstr "なし"
 
 #: ../xl/formatter.py:702
 msgid "Today"
@@ -494,7 +494,7 @@ msgstr "自動"
 #: ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:243
 msgid "Not playing."
-msgstr "再生しない"
+msgstr "再生していません"
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -574,7 +574,7 @@ msgstr "リピート-ALL(_A)"
 
 #: ../xl/playlist.py:879
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "１トラックを繰り返し(_N)"
 
 #: ../xl/playlist.py:883
 msgid "Dynamic _Off"
@@ -624,7 +624,7 @@ msgstr "キューに追加"
 #: ../xlgui/widgets/menuitems.py:118
 #: ../xlgui/oldmenu.py:116
 msgid "Replace Current"
-msgstr ""
+msgstr "現在のプレイリストに置き換える"
 
 #: ../xlgui/widgets/menuitems.py:122
 #: ../xlgui/oldmenu.py:114
@@ -4218,7 +4218,7 @@ msgstr ""
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "CD再生"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
@@ -4233,6 +4233,8 @@ msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Depends: python-webkit"
 msgstr ""
+"再生中のアーティストのWikipedia情報を提供します。\n"
+"依存: python-webkit"
 
 #: ../plugins/wikipedia/PLUGININFO:5
 #: ../plugins/contextinfo/PLUGININFO:5
@@ -4241,7 +4243,7 @@ msgstr "情報"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
-msgstr ""
+msgstr "A-B リピート"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
@@ -4330,11 +4332,11 @@ msgstr "再生中のアルバムのジャケットをデスクトップに表示
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Hello World"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "基本的なプラグインをテストするためのシンプルなプラグイン"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4344,6 +4346,9 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"指定した日時に音楽を再生します。\n"
+"\n"
+"指定した日時になるとExaileは再生ボタンを押したのと同じ動作をします。プレイリストに聞きたい音楽が入っていることを確認してください。"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
@@ -4355,6 +4360,8 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"再生中のトラックに関するさまざまな情報を表示します。\n"
+"依存: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. PIL)"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
@@ -4377,6 +4384,8 @@ msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Depends: python-beautifulsoup"
 msgstr ""
+"lyrics.wikia.comから歌詞を取り込むプラグイン\n"
+"依存: python-beautifulsoup"
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""

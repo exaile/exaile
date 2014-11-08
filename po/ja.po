@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-11-02 10:31+0000\n"
+"PO-Revision-Date: 2014-11-08 04:15+0000\n"
 "Last-Translator: ub <xenolith0bytetestcomgreen@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-11-03 06:28+0000\n"
-"X-Generator: Launchpad (build 17211)\n"
+"X-Launchpad-Export-Date: 2014-11-08 06:10+0000\n"
+"X-Generator: Launchpad (build 17231)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -223,7 +223,7 @@ msgstr "N"
 
 #: ../xl/main.py:479
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "現在のトラックの評価を N% に設定"
 
 #: ../xl/main.py:481
 msgid "Get rating for current track"
@@ -235,7 +235,7 @@ msgstr "現在の再生位置を時間で表示"
 
 #: ../xl/main.py:486
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "現在の再生位置をパーセンテージ表示"
 
 #: ../xl/main.py:490
 msgid "Volume Options"
@@ -518,7 +518,7 @@ msgstr "不明な種類の設定を検出しました!"
 #: ../xl/playlist.py:152
 #: ../xl/playlist.py:166
 msgid "Invalid playlist type."
-msgstr ""
+msgstr "無効なプレイリストです。"
 
 #: ../xl/playlist.py:173
 #: ../xlgui/widgets/playlist.py:335
@@ -537,12 +537,12 @@ msgstr "PLS プレイリスト"
 #: ../xl/playlist.py:533
 #, python-format
 msgid "Invalid format for %s."
-msgstr ""
+msgstr "%s は無効なフォーマットです。"
 
 #: ../xl/playlist.py:528
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "バージョン %(version)s は %(type)s をサポートしていません"
 
 #: ../xl/playlist.py:588
 msgid "ASX Playlist"
@@ -554,7 +554,7 @@ msgstr "XSPF プレイリスト"
 
 #: ../xl/playlist.py:874
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "シャッフルオフ(_O)"
 
 #: ../xl/playlist.py:875
 msgid "Shuffle _Tracks"
@@ -574,15 +574,15 @@ msgstr "リピート-ALL(_A)"
 
 #: ../xl/playlist.py:879
 msgid "Repeat O_ne"
-msgstr "１トラックを繰り返し(_N)"
+msgstr "1トラックをリピート(_N)"
 
 #: ../xl/playlist.py:883
 msgid "Dynamic _Off"
-msgstr ""
+msgstr "ダイナミックオフ(_O)"
 
 #: ../xl/playlist.py:883
 msgid "Dynamic by Similar _Artists"
-msgstr ""
+msgstr "似たアーティストによるダイナミック(_A)"
 
 #: ../xl/playlist.py:1824
 #: ../xlgui/panel/playlists.py:59

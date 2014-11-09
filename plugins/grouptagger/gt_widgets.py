@@ -585,7 +585,7 @@ class GroupTaggerWidget(gtk.VBox):
         '''
         
         defaults = {}
-        set_groups = set()
+        set_groups = set() # this holds all groups that were found
         
         # validate it
         for category, (visible, cgroups) in group_categories.iteritems():
@@ -597,9 +597,11 @@ class GroupTaggerWidget(gtk.VBox):
                     
             defaults[category] = (visible, dcgroups)
                 
+        # Add anything left over to uncategorized
         groups = set(groups).difference( set_groups )        
         if len(groups):
-            defaults[uncategorized] = (True, [(True, group) for group in groups])
+            other = defaults.setdefault(uncategorized, (True, []))
+            other[1].extend([(True, group) for group in groups])
         
         self.view.freeze_child_notify()
         self.view.set_model( None )

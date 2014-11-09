@@ -1,8 +1,21 @@
 Frequently Asked Questions
 ==========================
 
-Exaile doesn't update the file tags when I change them using an external program
----------------------------------------------------------------------------------
+Error "no suitable plugin found" when playing a (.mp3, .m4a, etc)
+-----------------------------------------------------------------
+
+Exaile currently uses GStreamer 0.10 to decode/play audio files, and does not
+directly decode audio itself. For playback to work, you need to have the
+correct GStreamer plugins installed. 
+
+.. note:: For Linux users, you may find that other GStreamer programs can
+          play specific file type, but Exaile cannot. Check to make sure that
+          the correct plugins are installed for GStreamer 0.10, as other 
+          players may be using GStreamer 1.x instead. 
+
+
+File tags don't update when I change them using an external program
+-------------------------------------------------------------------
 
 When setting up your collection, ensure that the 'monitored' and 'scan on
 startup' options are checked, otherwise Exaile may become out of sync with
@@ -21,7 +34,7 @@ you should configure your tagger to update the modification time.
 .. note:: As of Exaile 3.4.2, there is a menu option called 'Rescan Collection
           (slow)' which will force a rescan of every file in your collections,
           regardless of whether the modification time has changed. This should
-          detect any changes to your collection. 
+          detect any changes to your collection.
 
 How do I enable output to a secondary soundcard?
 ------------------------------------------------

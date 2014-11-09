@@ -13,6 +13,12 @@ players, podcasts, internet radio such as icecast and Soma.FM,
 ReplayGain, output via a secondary output device (great for DJs!), and
 much more.
 
+.. toctree::
+    :hidden:
+    
+    user/index
+    dev/index
+
 * :doc:`user/index`
 * :doc:`dev/index`
 * :ref:`search`

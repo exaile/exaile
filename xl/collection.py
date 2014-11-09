@@ -444,6 +444,8 @@ class LibraryMonitor(gobject.GObject):
     def __process_change_queue(self, gfile):
         if gfile in self.__queue:
             added_tracks = trax.util.get_tracks_from_uri(gfile.get_uri())
+            for tr in added_tracks:
+                tr.read_tags()
             self.__library.collection.add_tracks(added_tracks)
             del self.__queue[gfile]
 
@@ -453,7 +455,9 @@ class LibraryMonitor(gobject.GObject):
         """
         if event == gio.FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
             self.__process_change_queue(gfile)
-        elif event == gio.FILE_MONITOR_EVENT_CREATED:
+        elif event == gio.FILE_MONITOR_EVENT_CREATED or \
+             event == gio.FILE_MONITOR_EVENT_CHANGED:
+            
             # Enqueue tracks retrieval
             if gfile not in self.__queue:
                 self.__queue[gfile] = True

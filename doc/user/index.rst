@@ -10,6 +10,7 @@ haven't written instructions on how to use it! ;)
     install
     win32
     osx
+    faq
    
 
 Support

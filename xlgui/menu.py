@@ -217,6 +217,9 @@ def __create_tools_menu():
     
     items.append(_smi('scan-collection', [items[-1].name], _('Re_scan Collection'),
         gtk.STOCK_REFRESH, get_main().controller.on_rescan_collection))
+    
+    items.append(_smi('slow-scan-collection', [items[-1].name], _('Rescan Collection (slow)'),
+        gtk.STOCK_REFRESH, get_main().controller.on_rescan_collection_forced))
 
     items.append(_smi('track-properties', [items[-1].name], _('Track _Properties'),
         gtk.STOCK_PROPERTIES, get_main().controller.on_track_properties))

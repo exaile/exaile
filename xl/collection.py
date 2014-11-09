@@ -77,16 +77,18 @@ class CollectionScanThread(common.ProgressThread):
     """
         Scans the collection
     """
-    def __init__(self, collection, startup_scan=False):
+    def __init__(self, collection, startup_scan=False, force_update=False):
         """
             Initializes the thread
 
             :param collection: the collection to scan
             :param startup_scan: Only scan libraries scanned at startup
+            :param force_update: Update files regardless whether they've changed
         """
         common.ProgressThread.__init__(self)
         
         self.startup_scan = startup_scan
+        self.force_update = force_update
         self.collection = collection
 
     def stop(self):
@@ -103,7 +105,8 @@ class CollectionScanThread(common.ProgressThread):
         event.add_callback(self.on_scan_progress_update,
             'scan_progress_update')
 
-        self.collection.rescan_libraries(startup_only=self.startup_scan)
+        self.collection.rescan_libraries(startup_only=self.startup_scan,
+                                         force_update=self.force_update)
 
         event.remove_callback(self.on_scan_progress_update,
             'scan_progress_update')
@@ -238,7 +241,7 @@ class Collection(trax.TrackDB):
         """
         return self.libraries.values()
 
-    def rescan_libraries(self, startup_only=False):
+    def rescan_libraries(self, startup_only=False, force_update=False):
         """
             Rescans all libraries associated with this Collection
         """
@@ -259,12 +262,12 @@ class Collection(trax.TrackDB):
 
         for library in self.libraries.itervalues():
             
-            if startup_only and not (library.monitored and library.startup_scan):
+            if not force_update and startup_only and not (library.monitored and library.startup_scan):
                 continue
             
             event.add_callback(self._progress_update, 'tracks_scanned',
                 library)
-            library.rescan(notify_interval=scan_interval)
+            library.rescan(notify_interval=scan_interval, force_update=force_update)
             event.remove_callback(self._progress_update, 'tracks_scanned',
                 library)
             self._running_total_count += self._running_count
@@ -453,6 +456,7 @@ class LibraryMonitor(gobject.GObject):
         """
             Updates the library on changes of the location
         """
+        
         if event == gio.FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
             self.__process_change_queue(gfile)
         elif event == gio.FILE_MONITOR_EVENT_CREATED or \
@@ -696,12 +700,14 @@ class Library(object):
 
         ccheck[basedir][album].append(artist)
 
-    def update_track(self, gloc):
+    def update_track(self, gloc, force_update=False):
         """
             Rescan the track at a given location
 
             :param gloc: the location
             :type gloc: :class:`gio.File`
+            :param force_update: Force update of file (default only updates file
+                                 when mtime has changed)
 
             returns: the Track object, None if it could not be updated
         """
@@ -711,7 +717,7 @@ class Library(object):
         mtime = gloc.query_info("time::modified").get_modification_time()
         tr = self.collection.get_track_by_loc(uri)
         if tr:
-            if tr.get_tag_raw('__modified') < mtime:
+            if force_update or tr.get_tag_raw('__modified') < mtime:
                 tr.read_tags()
                 tr.set_tag_raw('__modified', mtime)
         else:
@@ -727,7 +733,7 @@ class Library(object):
                 self.collection.add(tr)
         return tr
 
-    def rescan(self, notify_interval=None):
+    def rescan(self, notify_interval=None, force_update=False):
         """
             Rescan the associated folder and add the contained files
             to the Collection
@@ -771,7 +777,7 @@ class Library(object):
                 compilations = deque()
                 ccheck = {}
             elif type == gio.FILE_TYPE_REGULAR:
-                tr = self.update_track(fil)
+                tr = self.update_track(fil, force_update=force_update)
                 if not tr:
                     continue
 

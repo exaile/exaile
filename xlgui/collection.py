@@ -179,6 +179,14 @@ class CollectionManagerDialog(object):
         from xlgui import main
         main.mainwindow().controller.on_rescan_collection()
         
+    def on_force_rescan_button_clicked(self, widget):
+        """
+            Triggers a slow rescan of the collection
+        """
+        
+        from xlgui import main
+        main.mainwindow().controller.on_rescan_collection_forced()
+        
     
     def on_selection_changed(self, selection):
         """

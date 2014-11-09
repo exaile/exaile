@@ -298,13 +298,20 @@ class Main(object):
         """
         self.rescan_collection_with_progress()
         
-    def rescan_collection_with_progress(self, startup=False):
+    def on_rescan_collection_forced(self, *e):
+        """
+            Called when the user wishes to rescan the collection slowly
+        """
+        self.rescan_collection_with_progress(force_update=True)
+        
+    def rescan_collection_with_progress(self, startup=False, force_update=False):
         
         libraries = self.exaile.collection.get_libraries()
         if not self.exaile.collection._scanning and len(libraries) > 0:
             from xl.collection import CollectionScanThread
 
-            thread = CollectionScanThread(self.exaile.collection, startup_scan=startup)
+            thread = CollectionScanThread(self.exaile.collection, startup_scan=startup,
+                                          force_update=force_update)
             thread.connect('done', self.on_rescan_done)
             self.progress_manager.add_monitor(thread,
                 _("Scanning collection..."), gtk.STOCK_REFRESH)

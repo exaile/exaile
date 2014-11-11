@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-11-08 10:02+0000\n"
-"Last-Translator: ub <xenolith0bytetestcomgreen@gmail.com>\n"
+"PO-Revision-Date: 2014-11-10 11:31+0000\n"
+"Last-Translator: Hironori Fujimoto <broadbarredfirefish@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-11-09 06:48+0000\n"
-"X-Generator: Launchpad (build 17231)\n"
+"X-Launchpad-Export-Date: 2014-11-11 07:04+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -243,12 +243,12 @@ msgstr "音量の設定"
 
 #: ../xl/main.py:494
 msgid "Increases the volume by N%"
-msgstr ""
+msgstr "N% まで音量を上げる"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:499
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "N% まで音量を下げる"
 
 #: ../xl/main.py:502
 msgid "Mutes or unmutes the volume"
@@ -1505,11 +1505,11 @@ msgstr ""
 
 #: ../xlgui/collection.py:115
 msgid "Add a Directory"
-msgstr ""
+msgstr "ディレクトリの追加"
 
 #: ../xlgui/collection.py:134
 msgid "Directory not added."
-msgstr ""
+msgstr "ディレクトリは追加されませんでした。"
 
 #: ../xlgui/collection.py:135
 msgid ""
@@ -1520,7 +1520,7 @@ msgstr ""
 #: ../xlgui/panel/device.py:137
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "%s に転送..."
 
 #: ../xlgui/panel/radio.py:126
 #: ../xlgui/panel/radio.py:490
@@ -1753,12 +1753,12 @@ msgstr[1] ""
 #: ../xlgui/preferences/plugin.py:167
 #: ../xlgui/preferences/plugin.py:261
 msgid "Could not disable plugin!"
-msgstr ""
+msgstr "プラグインを無効にできません!"
 
 #: ../xlgui/preferences/plugin.py:177
 #: ../xlgui/preferences/plugin.py:255
 msgid "Could not enable plugin!"
-msgstr ""
+msgstr "プラグインを有効にできません!"
 
 #: ../xlgui/preferences/plugin.py:185
 msgid "Choose a Plugin"

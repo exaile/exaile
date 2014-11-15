@@ -8,12 +8,12 @@ program.
 
 Exaile (and its installer) has been tested on:
 
-    Windows XP SP3
-    Windows 7 x64 SP1
-    Windows 8.1
+* Windows XP SP3
+* Windows 7 x64 SP1
+* Windows 8.1
     
-    Python 2.7.8 (32-bit and 64-bit)
-    GStreamer.com SDK 2013.6 (32-bit and 64-bit)
+* Python 2.7.8 (32-bit and 64-bit)
+* GStreamer.com SDK 2013.6 (32-bit and 64-bit)
 
 Exaile may work with the OSSBuild SDK and Python 2.6.6, but this is not
 a recommended configuration. 

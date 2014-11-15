@@ -1,14 +1,14 @@
 # Czech translation for exaile
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-03-15 08:40+0000\n"
+"PO-Revision-Date: 2014-08-28 20:00+0000\n"
 "Last-Translator: Konki <pavel.konkol@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "Language: cs\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-03-16 06:05+0000\n"
-"X-Generator: Launchpad (build 16963)\n"
+"X-Launchpad-Export-Date: 2014-08-30 07:29+0000\n"
+"X-Generator: Launchpad (build 17176)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -94,7 +94,8 @@ msgid "%d:%02d"
 msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:691 ../xl/formatter.py:696
+#: ../xl/formatter.py:691
+#: ../xl/formatter.py:696
 msgid "Never"
 msgstr "Nikdy"
 
@@ -114,7 +115,8 @@ msgstr "Nezdařila se migrace z 0.2.14"
 msgid "Usage: exaile [OPTION]... [URI]"
 msgstr "Použití: exaile [VOLBA]... [URI]"
 
-#: ../xl/main.py:417 ../plugins/minimode/minimode_preferences.ui.h:11
+#: ../xl/main.py:417
+#: ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
 msgstr "Volby"
 
@@ -130,7 +132,8 @@ msgstr "Přehrát další skladbu"
 msgid "Play the previous track"
 msgstr "Přehrát předcházející skladbu"
 
-#: ../xl/main.py:427 ../plugins/minimode/controls.py:342
+#: ../xl/main.py:427
+#: ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
 msgstr "Zastavit přehrávání"
@@ -147,7 +150,8 @@ msgstr "Pauza"
 msgid "Pause or resume playback"
 msgstr "Pozastavit nebo obnovit přehrávání"
 
-#: ../xl/main.py:437 ../plugins/minimode/controls.py:365
+#: ../xl/main.py:437
+#: ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
 msgstr "Zastavit přehrávání po právě přehrávané skladbě"
 
@@ -156,7 +160,8 @@ msgid "Collection Options"
 msgstr "Nastavení sbírek"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:443 ../xl/main.py:450
+#: ../xl/main.py:443
+#: ../xl/main.py:450
 msgid "LOCATION"
 msgstr "UMÍSTĚNÍ"
 
@@ -219,7 +224,9 @@ msgid "Print the length of current track"
 msgstr "Zobrazit délku aktuální skladby"
 
 #. TRANSLATORS: Variable for command line options with arguments
-#: ../xl/main.py:478 ../xl/main.py:493 ../xl/main.py:497
+#: ../xl/main.py:478
+#: ../xl/main.py:493
+#: ../xl/main.py:497
 msgid "N"
 msgstr "N"
 
@@ -304,7 +311,8 @@ msgstr "Nastavit ovládací volby jako --spuštění přehrávání Exaile pokud
 msgid "Development/Debug Options"
 msgstr "Vývojové/ladící možnosti"
 
-#: ../xl/main.py:536 ../xl/main.py:538
+#: ../xl/main.py:536
+#: ../xl/main.py:538
 msgid "DIRECTORY"
 msgstr "ADRESÁŘ"
 
@@ -386,7 +394,8 @@ msgstr ""
 "Exaile ještě nedokončil načítání. Možná byste měli vyčkat na signál "
 "exaile_loaded."
 
-#: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
+#: ../xl/covers.py:466
+#: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
 msgstr "Značky"
 
@@ -415,12 +424,14 @@ msgstr "Nenastavil jste místo, kde je databáze"
 msgid "You did not specify a location to save the db"
 msgstr "Neurčili jste místo uložení databáze"
 
-#: ../xl/trax/track.py:65 ../xlgui/widgets/info.py:431
+#: ../xl/trax/track.py:65
+#: ../xlgui/widgets/info.py:431
 msgid "Various Artists"
 msgstr "Různí interpreti"
 
 #. TRANSLATORS: title of a track if it is unknown
-#: ../xl/trax/track.py:66 ../plugins/notifyosd/__init__.py:71
+#: ../xl/trax/track.py:66
+#: ../plugins/notifyosd/__init__.py:71
 msgid "Unknown"
 msgstr "Neznámé"
 
@@ -430,7 +441,8 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:585 ../xl/trax/track.py:647
+#: ../xl/trax/track.py:585
+#: ../xl/trax/track.py:647
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -483,15 +495,19 @@ msgstr "Velmi rychlý bezeztrátový zvukový formát s dobrou kompresí."
 msgid "Automatic"
 msgstr "Automaticky"
 
-#: ../xl/player/pipe.py:340 ../xl/player/pipe.py:365 ../xl/player/pipe.py:386
+#: ../xl/player/pipe.py:340
+#: ../xl/player/pipe.py:365
+#: ../xl/player/pipe.py:386
 msgid "Custom"
 msgstr "Vlastní"
 
-#: ../xl/player/pipe.py:441 ../plugins/previewdevice/previewprefs.py:76
+#: ../xl/player/pipe.py:441
+#: ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
 msgstr "Automaticky"
 
-#: ../xl/xldbus.py:117 ../xl/xldbus.py:496
+#: ../xl/xldbus.py:117
+#: ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:243
 msgid "Not playing."
 msgstr "Nepřehrává se."
@@ -517,11 +533,13 @@ msgstr "Nevíme, jak uložit tento druh nastavení: "
 msgid "An Unknown type of setting was found!"
 msgstr "Byl nalezen neznámý typ nastavení!"
 
-#: ../xl/playlist.py:152 ../xl/playlist.py:166
+#: ../xl/playlist.py:152
+#: ../xl/playlist.py:166
 msgid "Invalid playlist type."
 msgstr "Neplatný typ seznamu skladeb."
 
-#: ../xl/playlist.py:173 ../xlgui/widgets/playlist.py:335
+#: ../xl/playlist.py:173
+#: ../xlgui/widgets/playlist.py:335
 msgid "Playlist"
 msgstr "Seznam skladeb"
 
@@ -533,7 +551,8 @@ msgstr "M3U seznam skladeb"
 msgid "PLS Playlist"
 msgstr "PLS seznam skladeb"
 
-#: ../xl/playlist.py:517 ../xl/playlist.py:533
+#: ../xl/playlist.py:517
+#: ../xl/playlist.py:533
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Neplatný formát pro %s."
@@ -583,26 +602,32 @@ msgstr "Dynamika _Vyp."
 msgid "Dynamic by Similar _Artists"
 msgstr "Dynamicky dle podobných _umělců"
 
-#: ../xl/playlist.py:1824 ../xlgui/panel/playlists.py:59
-#: ../xlgui/panel/playlists.py:71 ../xlgui/panel/playlists.py:78
+#: ../xl/playlist.py:1824
+#: ../xlgui/panel/playlists.py:59
+#: ../xlgui/panel/playlists.py:71
+#: ../xlgui/panel/playlists.py:78
 #: ../plugins/osd/osd_preferences.ui.h:7
 msgid "seconds"
 msgstr "sekundy"
 
-#: ../xl/playlist.py:1825 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1825
+#: ../xlgui/panel/playlists.py:71
 msgid "minutes"
 msgstr "minuty"
 
-#: ../xl/playlist.py:1826 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1826
+#: ../xlgui/panel/playlists.py:71
 msgid "hours"
 msgstr "hodiny"
 
-#: ../xl/playlist.py:1827 ../xlgui/panel/playlists.py:68
+#: ../xl/playlist.py:1827
+#: ../xlgui/panel/playlists.py:68
 #: ../xlgui/panel/playlists.py:71
 msgid "days"
 msgstr "dny"
 
-#: ../xl/playlist.py:1828 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1828
+#: ../xlgui/panel/playlists.py:71
 msgid "weeks"
 msgstr "týdny"
 
@@ -614,15 +639,18 @@ msgstr "Místní"
 msgid "Enqueue"
 msgstr "Přidat do seznamu skladeb"
 
-#: ../xlgui/widgets/menuitems.py:118 ../xlgui/oldmenu.py:116
+#: ../xlgui/widgets/menuitems.py:118
+#: ../xlgui/oldmenu.py:116
 msgid "Replace Current"
 msgstr "Nahradit současný"
 
-#: ../xlgui/widgets/menuitems.py:122 ../xlgui/oldmenu.py:114
+#: ../xlgui/widgets/menuitems.py:122
+#: ../xlgui/oldmenu.py:114
 msgid "Append to Current"
 msgstr "Přidat do seznamu"
 
-#: ../xlgui/widgets/menuitems.py:145 ../xlgui/properties.py:1135
+#: ../xlgui/widgets/menuitems.py:145
+#: ../xlgui/properties.py:1135
 msgid "Open Directory"
 msgstr "Otevřít adresář"
 
@@ -640,7 +668,8 @@ msgstr "Přesunout do koše"
 msgid "_Show Playing Track"
 msgstr "_Ukázat přehrávanou skladbu"
 
-#: ../xlgui/widgets/filter.py:62 ../xlgui/panel/radio.py:200
+#: ../xlgui/widgets/filter.py:62
+#: ../xlgui/panel/radio.py:200
 msgid "Name:"
 msgstr "Název:"
 
@@ -660,7 +689,8 @@ msgstr "Omezit na: "
 msgid " tracks"
 msgstr " stopy"
 
-#: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:71
+#: ../xlgui/widgets/playback.py:95
+#: ../xlgui/widgets/info.py:71
 msgid "Not Playing"
 msgstr "Nepřehrává se"
 
@@ -715,12 +745,14 @@ msgstr "%(track_count)d ze (%(total_duration)s)"
 msgid "%d in collection"
 msgstr "%d v kolekci"
 
-#: ../xlgui/widgets/info.py:624 ../xlgui/widgets/info.py:631
+#: ../xlgui/widgets/info.py:624
+#: ../xlgui/widgets/info.py:631
 #, python-format
 msgid "%d showing"
 msgstr "%d zobrazeno"
 
-#: ../xlgui/widgets/info.py:628 ../xlgui/widgets/info.py:635
+#: ../xlgui/widgets/info.py:628
+#: ../xlgui/widgets/info.py:635
 #, python-format
 msgid "%d selected"
 msgstr "%d vybráno"
@@ -735,7 +767,8 @@ msgid "Queue (%d)"
 msgstr "Fronta (%d)"
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/widgets/playlist_columns.py:217 ../xlgui/panel/flatplaylist.py:100
+#: ../xlgui/widgets/playlist_columns.py:217
+#: ../xlgui/panel/flatplaylist.py:100
 msgid "#"
 msgstr "#"
 
@@ -743,41 +776,55 @@ msgstr "#"
 msgid "Track Number"
 msgstr "Číslo skladby"
 
-#: ../xlgui/widgets/playlist_columns.py:225 ../xlgui/properties.py:69
-#: ../xlgui/panel/flatplaylist.py:108 ../xlgui/panel/playlists.py:235
-#: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimode_preferences.py:93
+#: ../xlgui/widgets/playlist_columns.py:225
+#: ../xlgui/properties.py:69
+#: ../xlgui/panel/flatplaylist.py:108
+#: ../xlgui/panel/playlists.py:235
+#: ../plugins/cd/cdprefs.py:106
+#: ../plugins/minimode/minimode_preferences.py:93
 msgid "Title"
 msgstr "Název"
 
-#: ../xlgui/widgets/playlist_columns.py:232 ../xlgui/properties.py:63
-#: ../xlgui/panel/collection.py:173 ../xlgui/panel/playlists.py:234
-#: ../data/ui/widgets/tracklist_info.ui.h:2 ../plugins/cd/cdprefs.py:107
+#: ../xlgui/widgets/playlist_columns.py:232
+#: ../xlgui/properties.py:63
+#: ../xlgui/panel/collection.py:173
+#: ../xlgui/panel/playlists.py:234
+#: ../data/ui/widgets/tracklist_info.ui.h:2
+#: ../plugins/cd/cdprefs.py:107
 #: ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Artist"
 msgstr "Interpret"
 
-#: ../xlgui/widgets/playlist_columns.py:239 ../xlgui/properties.py:72
+#: ../xlgui/widgets/playlist_columns.py:239
+#: ../xlgui/properties.py:72
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
-#: ../plugins/cd/cdprefs.py:108 ../plugins/minimode/minimode_preferences.py:95
+#: ../plugins/cd/cdprefs.py:108
+#: ../plugins/minimode/minimode_preferences.py:95
 msgid "Composer"
 msgstr "Skladatel"
 
-#: ../xlgui/widgets/playlist_columns.py:246 ../xlgui/properties.py:64
-#: ../xlgui/panel/collection.py:176 ../xlgui/panel/playlists.py:236
-#: ../data/ui/widgets/tracklist_info.ui.h:1 ../plugins/cd/cdprefs.py:109
+#: ../xlgui/widgets/playlist_columns.py:246
+#: ../xlgui/properties.py:64
+#: ../xlgui/panel/collection.py:176
+#: ../xlgui/panel/playlists.py:236
+#: ../data/ui/widgets/tracklist_info.ui.h:1
+#: ../plugins/cd/cdprefs.py:109
 #: ../plugins/minimode/minimode_preferences.py:96
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Album"
 msgstr "Album"
 
-#: ../xlgui/widgets/playlist_columns.py:253 ../xlgui/properties.py:80
-#: ../xlgui/panel/playlists.py:237 ../plugins/cd/cdprefs.py:110
+#: ../xlgui/widgets/playlist_columns.py:253
+#: ../xlgui/properties.py:80
+#: ../xlgui/panel/playlists.py:237
+#: ../plugins/cd/cdprefs.py:110
 #: ../plugins/minimode/minimode_preferences.py:97
 msgid "Length"
 msgstr "Délka"
 
-#: ../xlgui/widgets/playlist_columns.py:260 ../xlgui/properties.py:75
+#: ../xlgui/widgets/playlist_columns.py:260
+#: ../xlgui/properties.py:75
 msgid "Disc"
 msgstr "Disk"
 
@@ -785,39 +832,48 @@ msgstr "Disk"
 msgid "Disc Number"
 msgstr "Číslo disku"
 
-#: ../xlgui/widgets/playlist_columns.py:268 ../xlgui/panel/playlists.py:238
-#: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:99
+#: ../xlgui/widgets/playlist_columns.py:268
+#: ../xlgui/panel/playlists.py:238
+#: ../plugins/cd/cdprefs.py:112
+#: ../plugins/minimode/minimode_preferences.py:99
 #: ../plugins/minimode/controls.py:527
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Rating"
 msgstr "Hodnocení"
 
-#: ../xlgui/widgets/playlist_columns.py:312 ../xlgui/properties.py:59
+#: ../xlgui/widgets/playlist_columns.py:312
+#: ../xlgui/properties.py:59
 #: ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:100
 msgid "Date"
 msgstr "Datum"
 
-#: ../xlgui/widgets/playlist_columns.py:318 ../xlgui/properties.py:71
-#: ../xlgui/panel/playlists.py:241 ../plugins/cd/cdprefs.py:114
+#: ../xlgui/widgets/playlist_columns.py:318
+#: ../xlgui/properties.py:71
+#: ../xlgui/panel/playlists.py:241
+#: ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:101
 msgid "Genre"
 msgstr "Žánr"
 
-#: ../xlgui/widgets/playlist_columns.py:325 ../xlgui/properties.py:78
+#: ../xlgui/widgets/playlist_columns.py:325
+#: ../xlgui/properties.py:78
 #: ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
 msgstr "Datový tok"
 
-#: ../xlgui/widgets/playlist_columns.py:332 ../xlgui/properties.py:81
-#: ../xlgui/panel/playlists.py:244 ../data/ui/collection_manager.ui.h:2
+#: ../xlgui/widgets/playlist_columns.py:332
+#: ../xlgui/properties.py:81
+#: ../xlgui/panel/playlists.py:244
+#: ../data/ui/collection_manager.ui.h:2
 #: ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:103
 msgid "Location"
 msgstr "Umístění"
 
-#: ../xlgui/widgets/playlist_columns.py:339 ../xlgui/panel/files.py:150
+#: ../xlgui/widgets/playlist_columns.py:339
+#: ../xlgui/panel/files.py:150
 #: ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/minimode_preferences.py:104
 msgid "Filename"
@@ -827,20 +883,25 @@ msgstr "Název souboru"
 msgid "Playcount"
 msgstr "Počet přehrání"
 
-#: ../xlgui/widgets/playlist_columns.py:353 ../xlgui/properties.py:76
-#: ../xlgui/panel/playlists.py:170 ../xlgui/panel/playlists.py:245
+#: ../xlgui/widgets/playlist_columns.py:353
+#: ../xlgui/properties.py:76
+#: ../xlgui/panel/playlists.py:170
+#: ../xlgui/panel/playlists.py:245
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
 msgstr "BPM"
 
-#: ../xlgui/widgets/playlist_columns.py:360 ../xlgui/properties.py:86
-#: ../xlgui/panel/playlists.py:243 ../plugins/cd/cdprefs.py:119
+#: ../xlgui/widgets/playlist_columns.py:360
+#: ../xlgui/properties.py:86
+#: ../xlgui/panel/playlists.py:243
+#: ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
 msgstr "Naposledy hrané"
 
-#: ../xlgui/widgets/playlist_columns.py:366 ../xlgui/properties.py:79
+#: ../xlgui/widgets/playlist_columns.py:366
+#: ../xlgui/properties.py:79
 #: ../xlgui/panel/playlists.py:242
 msgid "Date added"
 msgstr "Přidáno"
@@ -849,11 +910,13 @@ msgstr "Přidáno"
 msgid "Schedule"
 msgstr "Plán"
 
-#: ../xlgui/widgets/playlist_columns.py:491 ../xlgui/properties.py:77
+#: ../xlgui/widgets/playlist_columns.py:491
+#: ../xlgui/properties.py:77
 msgid "Comment"
 msgstr "Komentář"
 
-#: ../xlgui/widgets/playlist_columns.py:500 ../xlgui/panel/playlists.py:178
+#: ../xlgui/widgets/playlist_columns.py:500
+#: ../xlgui/panel/playlists.py:178
 #: ../xlgui/panel/playlists.py:246
 msgid "Grouping"
 msgstr "Seskupování"
@@ -894,13 +957,16 @@ msgstr "Náhodný seznam skladeb"
 msgid "Randomize Selection"
 msgstr "Náhodný výběr"
 
-#: ../xlgui/widgets/playlist.py:206 ../xlgui/oldmenu.py:188
-#: ../xlgui/playlist.py:76 ../xlgui/panel/radio.py:435
+#: ../xlgui/widgets/playlist.py:206
+#: ../xlgui/oldmenu.py:188
+#: ../xlgui/playlist.py:76
+#: ../xlgui/panel/radio.py:435
 #: ../plugins/droptrayicon/__init__.py:288
 msgid "New Playlist"
 msgstr "Nový seznam skladeb"
 
-#: ../xlgui/widgets/playlist.py:226 ../xlgui/oldmenu.py:244
+#: ../xlgui/widgets/playlist.py:226
+#: ../xlgui/oldmenu.py:244
 msgid "Rename"
 msgstr "Přejmenovat"
 
@@ -916,7 +982,8 @@ msgstr "Pokračovat přehrávání po této skladbě"
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Vyžaduje modul poskytující dynamické seznamy skladeb"
 
-#: ../xlgui/widgets/playlist.py:538 ../data/ui/playlist.ui.h:3
+#: ../xlgui/widgets/playlist.py:538
+#: ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dynamicky přidávat podobné skladby do seznamu skladeb"
 
@@ -944,11 +1011,13 @@ msgstr "Podporované soubory"
 msgid "Music Files"
 msgstr "Hudební soubory"
 
-#: ../xlgui/widgets/dialogs.py:623 ../xlgui/widgets/dialogs.py:781
+#: ../xlgui/widgets/dialogs.py:623
+#: ../xlgui/widgets/dialogs.py:781
 msgid "Playlist Files"
 msgstr "Soubory se seznamy skladeb"
 
-#: ../xlgui/widgets/dialogs.py:625 ../xlgui/widgets/dialogs.py:783
+#: ../xlgui/widgets/dialogs.py:625
+#: ../xlgui/widgets/dialogs.py:783
 #: ../xlgui/preferences/plugin.py:201
 msgid "All Files"
 msgstr "Všechny soubory"
@@ -957,7 +1026,9 @@ msgstr "Všechny soubory"
 msgid "Choose Directory to Open"
 msgstr "Zvolte adresář k otevření"
 
-#: ../xlgui/widgets/dialogs.py:770 ../xlgui/menu.py:87 ../xlgui/oldmenu.py:192
+#: ../xlgui/widgets/dialogs.py:770
+#: ../xlgui/menu.py:87
+#: ../xlgui/oldmenu.py:192
 msgid "Import Playlist"
 msgstr "Importovat seznam skladeb"
 
@@ -1000,7 +1071,8 @@ msgstr "Ano všem"
 msgid "No to all"
 msgstr "Ne všem"
 
-#: ../xlgui/widgets/dialogs.py:1336 ../xlgui/properties.py:1209
+#: ../xlgui/widgets/dialogs.py:1336
+#: ../xlgui/properties.py:1209
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "Uloženo %(count)s ze %(total)s."
@@ -1023,17 +1095,21 @@ msgstr "Název seznamu skladeb:"
 msgid "Add new playlist..."
 msgstr "Přidat nový seznam skladeb..."
 
-#: ../xlgui/widgets/dialogs.py:1526 ../xlgui/panel/playlists.py:755
+#: ../xlgui/widgets/dialogs.py:1526
+#: ../xlgui/panel/playlists.py:755
 #: ../xlgui/panel/playlists.py:838
 msgid "You did not enter a name for your playlist"
 msgstr "Nebylo napsáno jméno seznamu skladeb"
 
-#: ../xlgui/widgets/dialogs.py:1529 ../xlgui/panel/playlists.py:321
-#: ../xlgui/panel/playlists.py:761 ../xlgui/panel/playlists.py:845
+#: ../xlgui/widgets/dialogs.py:1529
+#: ../xlgui/panel/playlists.py:321
+#: ../xlgui/panel/playlists.py:761
+#: ../xlgui/panel/playlists.py:845
 msgid "The playlist name you entered is already in use."
 msgstr "Takto pojmenovaný seznam skladeb se už používá"
 
-#: ../xlgui/widgets/notebook.py:146 ../xlgui/menu.py:115
+#: ../xlgui/widgets/notebook.py:146
+#: ../xlgui/menu.py:115
 msgid "Close Tab"
 msgstr "Zavřít záložku"
 
@@ -1045,7 +1121,8 @@ msgstr "$title (od $artist)"
 msgid "Toggle: Stop after Selected Track"
 msgstr "Přehrávání: zastavit po označené stopě"
 
-#: ../xlgui/main.py:569 ../plugins/previewdevice/__init__.py:365
+#: ../xlgui/main.py:569
+#: ../plugins/previewdevice/__init__.py:365
 msgid "Playback error encountered!"
 msgstr "Při přehrávání se vyskytla chyba!"
 
@@ -1054,21 +1131,25 @@ msgstr "Při přehrávání se vyskytla chyba!"
 msgid "Buffering: %d%%..."
 msgstr "Vyrovnávací paměť: %d%%..."
 
-#: ../xlgui/main.py:628 ../plugins/previewdevice/__init__.py:376
+#: ../xlgui/main.py:628
+#: ../plugins/previewdevice/__init__.py:376
 msgid "Continue Playback"
 msgstr "Pokračovat v přehrávání"
 
-#: ../xlgui/main.py:632 ../xlgui/main.py:820
+#: ../xlgui/main.py:632
+#: ../xlgui/main.py:820
 #: ../plugins/previewdevice/__init__.py:347
 #: ../plugins/previewdevice/__init__.py:380
 msgid "Pause Playback"
 msgstr "Pozastavit přehrávání"
 
-#: ../xlgui/main.py:774 ../xlgui/menu.py:103
+#: ../xlgui/main.py:774
+#: ../xlgui/menu.py:103
 msgid "Playlist export failed!"
 msgstr "Export seznamu skladeb selhal!"
 
-#: ../xlgui/main.py:832 ../data/ui/main.ui.h:7
+#: ../xlgui/main.py:832
+#: ../data/ui/main.ui.h:7
 #: ../plugins/previewdevice/__init__.py:358
 msgid "Start Playback"
 msgstr "Zahájit přehrávání"
@@ -1093,7 +1174,8 @@ msgstr "Otevřít složku"
 msgid "_Export Current Playlist"
 msgstr "_Exportovat aktuální seznam skladeb"
 
-#: ../xlgui/menu.py:124 ../xlgui/preferences/widgets.py:70
+#: ../xlgui/menu.py:124
+#: ../xlgui/preferences/widgets.py:70
 msgid "Restart"
 msgstr "Restartovat"
 
@@ -1149,7 +1231,8 @@ msgstr "Textař"
 msgid "Website"
 msgstr "Webová stránka"
 
-#: ../xlgui/properties.py:55 ../xlgui/cover.py:793
+#: ../xlgui/properties.py:55
+#: ../xlgui/cover.py:793
 msgid "Cover"
 msgstr "Obal"
 
@@ -1182,18 +1265,22 @@ msgstr "Umělec"
 msgid "Copyright"
 msgstr "Copyright"
 
-#: ../xlgui/properties.py:66 ../plugins/lyricsviewer/__init__.py:62
+#: ../xlgui/properties.py:66
+#: ../plugins/lyricsviewer/__init__.py:62
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:1
-#: ../plugins/lyricsviewer/PLUGININFO:5 ../plugins/lyricsfly/PLUGININFO:5
+#: ../plugins/lyricsviewer/PLUGININFO:5
+#: ../plugins/lyricsfly/PLUGININFO:5
 #: ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
 msgstr "Texty"
 
-#: ../xlgui/properties.py:67 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
+#: ../xlgui/properties.py:67
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
 msgstr "Skladba"
 
-#: ../xlgui/properties.py:68 ../data/ui/preferences/plugin.ui.h:2
+#: ../xlgui/properties.py:68
+#: ../data/ui/preferences/plugin.ui.h:2
 msgid "Version"
 msgstr "Verze"
 
@@ -1269,7 +1356,8 @@ msgstr "Obrázek"
 msgid "Linked image"
 msgstr "Připojený obrázek"
 
-#: ../xlgui/properties.py:1036 ../xlgui/cover.py:1104
+#: ../xlgui/properties.py:1036
+#: ../xlgui/cover.py:1104
 msgid "{width}x{height} pixels"
 msgstr "{šířka}x{výška} pixelů"
 
@@ -1368,7 +1456,8 @@ msgstr "Zařadit do fronty"
 msgid "Queue Items"
 msgstr "Zařadit položky"
 
-#: ../xlgui/oldmenu.py:121 ../data/ui/trackproperties_dialog.ui.h:7
+#: ../xlgui/oldmenu.py:121
+#: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
 msgstr "Vlastnosti"
 
@@ -1400,7 +1489,8 @@ msgstr "Smazat seznam skladeb"
 msgid "Choose directory to export files to"
 msgstr "Vybrte adresář kam se mají soubory vyexportovat"
 
-#: ../xlgui/oldmenu.py:278 ../xlgui/panel/playlists.py:1178
+#: ../xlgui/oldmenu.py:278
+#: ../xlgui/panel/playlists.py:1178
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr "Jste si jisti, že chcete smazat vybraný seznam skladeb?"
 
@@ -1412,7 +1502,8 @@ msgstr "Zadejte nový název pro Váš seznam skladeb"
 msgid "Rename Playlist"
 msgstr "Přejmenovat seznam skladeb"
 
-#: ../xlgui/oldmenu.py:331 ../plugins/multialarmclock/malrmclk.ui.h:2
+#: ../xlgui/oldmenu.py:331
+#: ../plugins/multialarmclock/malrmclk.ui.h:2
 msgid "Remove"
 msgstr "Odstranit"
 
@@ -1460,7 +1551,8 @@ msgstr ""
 msgid "Transferring to %s..."
 msgstr "Přenáším %s..."
 
-#: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:490
+#: ../xlgui/panel/radio.py:126
+#: ../xlgui/panel/radio.py:490
 #: ../xlgui/panel/radio.py:566
 msgid "Loading streams..."
 msgstr "Nahrávám streamy..."
@@ -1469,7 +1561,8 @@ msgstr "Nahrávám streamy..."
 msgid "Add Radio Station"
 msgstr "Přidat rozhlasovou stanici"
 
-#: ../xlgui/panel/radio.py:201 ../plugins/audioscrobbler/asprefs_pane.ui.h:5
+#: ../xlgui/panel/radio.py:201
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 msgid "URL:"
 msgstr "URL:"
 
@@ -1481,7 +1574,8 @@ msgstr "Uložit stanici"
 msgid "Radio Streams"
 msgstr "Vysílání rádií"
 
-#: ../xlgui/panel/radio.py:304 ../plugins/wikipedia/data/wikipanel.ui.h:4
+#: ../xlgui/panel/radio.py:304
+#: ../plugins/wikipedia/data/wikipanel.ui.h:4
 msgid "Refresh"
 msgstr "Obnovit"
 
@@ -1623,14 +1717,16 @@ msgstr "Rok"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:424 ../xlgui/panel/playlists.py:438
+#: ../xlgui/panel/playlists.py:424
+#: ../xlgui/panel/playlists.py:438
 #: ../xlgui/panel/playlists.py:452
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s a jiné"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:429 ../xlgui/panel/playlists.py:443
+#: ../xlgui/panel/playlists.py:429
+#: ../xlgui/panel/playlists.py:443
 #: ../xlgui/panel/playlists.py:457
 #, python-format
 msgid "%(first)s and %(second)s"
@@ -1661,11 +1757,13 @@ msgstr "Exportuji %s"
 msgid "Playback"
 msgstr "Přehrát"
 
-#: ../xlgui/preferences/plugin.py:40 ../xlgui/preferences/__init__.py:124
+#: ../xlgui/preferences/plugin.py:40
+#: ../xlgui/preferences/__init__.py:124
 msgid "Plugins"
 msgstr "Zásuvné moduly"
 
-#: ../xlgui/preferences/plugin.py:92 ../plugins/grouptagger/gt_common.py:64
+#: ../xlgui/preferences/plugin.py:92
+#: ../plugins/grouptagger/gt_common.py:64
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
 msgstr "Nezařazeno"
@@ -1682,11 +1780,13 @@ msgstr[0] "Selhal zásuvný modul: %s"
 msgstr[1] "Selhaly zásuvné moduly: %s"
 msgstr[2] "selhalo zásuvných modulů: %s"
 
-#: ../xlgui/preferences/plugin.py:167 ../xlgui/preferences/plugin.py:261
+#: ../xlgui/preferences/plugin.py:167
+#: ../xlgui/preferences/plugin.py:261
 msgid "Could not disable plugin!"
 msgstr "Nelze zakázat zásuvný modul!"
 
-#: ../xlgui/preferences/plugin.py:177 ../xlgui/preferences/plugin.py:255
+#: ../xlgui/preferences/plugin.py:177
+#: ../xlgui/preferences/plugin.py:255
 msgid "Could not enable plugin!"
 msgstr "Nelze povolit zásuvný modul!"
 
@@ -1702,16 +1802,20 @@ msgstr "Modul Archiv"
 msgid "Plugin file installation failed!"
 msgstr "Instalace zásuvného modulu selhala!"
 
-#: ../xlgui/preferences/cover.py:38 ../plugins/musicbrainzcovers/PLUGININFO:5
-#: ../plugins/lastfmcovers/PLUGININFO:5 ../plugins/amazoncovers/PLUGININFO:5
+#: ../xlgui/preferences/cover.py:38
+#: ../plugins/musicbrainzcovers/PLUGININFO:5
+#: ../plugins/lastfmcovers/PLUGININFO:5
+#: ../plugins/amazoncovers/PLUGININFO:5
 msgid "Covers"
 msgstr "Obaly"
 
-#: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui.h:9
+#: ../xlgui/preferences/appearance.py:34
+#: ../plugins/osd/osd_preferences.ui.h:9
 msgid "Appearance"
 msgstr "Vzhled"
 
-#: ../xlgui/preferences/collection.py:23 ../data/ui/panel/device.ui.h:1
+#: ../xlgui/preferences/collection.py:23
+#: ../data/ui/panel/device.ui.h:1
 #: ../data/ui/panel/collection.ui.h:1
 msgid "Collection"
 msgstr "Kolekce"
@@ -1745,7 +1849,8 @@ msgstr "Akce"
 msgid "Shortcut"
 msgstr "Zkratka"
 
-#: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
+#: ../xlgui/preferences/playlists.py:34
+#: ../data/ui/panel/playlists.ui.h:1
 msgid "Playlists"
 msgstr "Seznamy skladeb"
 
@@ -1904,7 +2009,7 @@ msgstr "Ostatní"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "32x32 pixelová 'souborová ikona' (jen PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
@@ -1995,7 +2100,8 @@ msgstr "Správce kolekce"
 msgid "Monitored"
 msgstr "Monitorován"
 
-#: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
+#: ../data/ui/panel/flatplaylist.ui.h:1
+#: ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
 msgstr "Rádio"
 
@@ -2035,11 +2141,13 @@ msgstr "Obnovit výpis adresáře"
 msgid "Home directory"
 msgstr "Domovská složka"
 
-#: ../data/ui/panel/files.ui.h:7 ../data/ui/panel/collection.ui.h:6
+#: ../data/ui/panel/files.ui.h:7
+#: ../data/ui/panel/collection.ui.h:6
 msgid "Search: "
 msgstr "Vyhledat: "
 
-#: ../data/ui/panel/files.ui.h:8 ../data/ui/panel/collection.ui.h:7
+#: ../data/ui/panel/files.ui.h:8
+#: ../data/ui/panel/collection.ui.h:7
 msgid "Clear search field"
 msgstr "Vyčistit vyhledávací pole"
 
@@ -2211,7 +2319,8 @@ msgstr "Nestabilní"
 msgid "Plugin"
 msgstr "Zásuvný modul"
 
-#: ../data/ui/preferences/plugin.ui.h:3 ../plugins/equalizer/equalizer.ui.h:2
+#: ../data/ui/preferences/plugin.ui.h:3
+#: ../plugins/equalizer/equalizer.ui.h:2
 msgid "Enabled"
 msgstr "Povoleno"
 
@@ -2398,7 +2507,8 @@ msgstr "Nemohu načíst moodbar"
 msgid "Moodbar executable is not available."
 msgstr "Moodbar není nainstalován."
 
-#: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/moodbarprefs.py:23
+#: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Moodbar"
 
@@ -2406,7 +2516,8 @@ msgstr "Moodbar"
 msgid "Error executing streamripper"
 msgstr "Chyba při rippování streamu"
 
-#: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
+#: ../plugins/streamripper/srprefs.py:22
+#: ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
 msgstr "Uložit proud zvuku"
 
@@ -2452,7 +2563,8 @@ msgstr "Přidat do oblíbených"
 msgid "Unlove This Track"
 msgstr "Odstranit z oblíbených"
 
-#: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
+#: ../plugins/alarmclock/acprefs.py:22
+#: ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
 msgstr "Budík"
 
@@ -2464,14 +2576,19 @@ msgstr "Tento plugin vyžaduje alespoň PyGTK 2.22 a GTK 2.20."
 msgid "Main Menu"
 msgstr "Hlavní menu"
 
-#: ../plugins/shoutcast/__init__.py:107 ../plugins/shoutcast/__init__.py:164
-#: ../plugins/shoutcast/__init__.py:211 ../plugins/shoutcast/__init__.py:227
+#: ../plugins/shoutcast/__init__.py:107
+#: ../plugins/shoutcast/__init__.py:164
+#: ../plugins/shoutcast/__init__.py:211
+#: ../plugins/shoutcast/__init__.py:227
 msgid "Contacting Shoutcast server..."
 msgstr "Připojuji se k Shoutcast serveru..."
 
-#: ../plugins/shoutcast/__init__.py:120 ../plugins/shoutcast/__init__.py:124
-#: ../plugins/shoutcast/__init__.py:177 ../plugins/shoutcast/__init__.py:181
-#: ../plugins/shoutcast/__init__.py:242 ../plugins/shoutcast/__init__.py:247
+#: ../plugins/shoutcast/__init__.py:120
+#: ../plugins/shoutcast/__init__.py:124
+#: ../plugins/shoutcast/__init__.py:177
+#: ../plugins/shoutcast/__init__.py:181
+#: ../plugins/shoutcast/__init__.py:242
+#: ../plugins/shoutcast/__init__.py:247
 msgid "Error connecting to Shoutcast server."
 msgstr "Nemohu se připojit k Shoutcast serveru..."
 
@@ -2525,12 +2642,14 @@ msgstr "Ověření selhalo"
 msgid "Enable audioscrobbling"
 msgstr "Povolit audioscrobbling"
 
-#: ../plugins/equalizer/__init__.py:127 ../plugins/equalizer/equalizer.ui.h:1
+#: ../plugins/equalizer/__init__.py:127
+#: ../plugins/equalizer/equalizer.ui.h:1
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
 msgstr "Ekvalizér"
 
-#: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
+#: ../plugins/shutdown/__init__.py:38
+#: ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
 msgstr "Vypnout po konci přehrání"
 
@@ -2562,17 +2681,18 @@ msgstr "Počítač nelze vypnout použitím D-Bus."
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Náhled zařízení"
 
 #: ../plugins/previewdevice/__init__.py:157
 msgid "Preview Player"
-msgstr ""
+msgstr "Náhled přehrávače"
 
 #: ../plugins/previewdevice/__init__.py:163
 msgid "Preview"
 msgstr "Náhled"
 
-#: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
+#: ../plugins/notifyosd/notifyosdprefs.py:22
+#: ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
 msgstr "Notify-osd notifikace"
 
@@ -2602,11 +2722,13 @@ msgstr "IPython konzole - Exaile"
 msgid "Show IPython Console"
 msgstr "Zobrazit Python konzoli"
 
-#: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
+#: ../plugins/ipconsole/ipconsoleprefs.py:22
+#: ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
 msgstr "IPython konzole"
 
-#: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
+#: ../plugins/notify/notifyprefs.py:22
+#: ../plugins/notify/PLUGININFO:3
 msgid "Notify"
 msgstr "Oznámení"
 
@@ -2623,7 +2745,8 @@ msgstr ""
 msgid "Importing CD..."
 msgstr "Imporuji CD"
 
-#: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:200
+#: ../plugins/cd/__init__.py:122
+#: ../plugins/cd/__init__.py:200
 msgid "Audio Disc"
 msgstr "Audio disk"
 
@@ -2631,11 +2754,13 @@ msgstr "Audio disk"
 msgid "CD"
 msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimode_preferences.py:92
+#: ../plugins/cd/cdprefs.py:105
+#: ../plugins/minimode/minimode_preferences.py:92
 msgid "Track number"
 msgstr "Číslo skladby"
 
-#: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:98
+#: ../plugins/cd/cdprefs.py:111
+#: ../plugins/minimode/minimode_preferences.py:98
 msgid "Disc number"
 msgstr "Číslo disku"
 
@@ -2659,7 +2784,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../plugins/wikipedia/__init__.py:134 ../plugins/wikipedia/config.py:3
+#: ../plugins/wikipedia/__init__.py:134
+#: ../plugins/wikipedia/config.py:3
 #: ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
@@ -2682,7 +2808,8 @@ msgstr "Začátek opakování"
 msgid "Repeat End"
 msgstr "Konec opakování"
 
-#: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:110
+#: ../plugins/minimode/__init__.py:103
+#: ../plugins/minimode/__init__.py:110
 #: ../plugins/minimode/minimode_preferences.py:30
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
@@ -2691,7 +2818,8 @@ msgstr "Mini Mod"
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:111
 #: ../plugins/minimode/minimode_preferences.py:117
-#: ../plugins/minimode/controls.py:693 ../plugins/minimode/controls.py:956
+#: ../plugins/minimode/controls.py:693
+#: ../plugins/minimode/controls.py:956
 msgid "$tracknumber - $title"
 msgstr "$tracknumber - $title"
 
@@ -2821,19 +2949,20 @@ msgstr "Ukazatel průběhu"
 msgid "Playback progress and seeking"
 msgstr "Stav přehrávání a přetáčení"
 
-#: ../plugins/grouptagger/gt_prefs.py:21 ../plugins/grouptagger/__init__.py:97
+#: ../plugins/grouptagger/gt_prefs.py:21
+#: ../plugins/grouptagger/__init__.py:97
 #: ../plugins/grouptagger/__init__.py:114
 msgid "GroupTagger"
-msgstr ""
+msgstr "Skupinový označovač"
 
 #: ../plugins/grouptagger/__init__.py:108
 #: ../plugins/grouptagger/gt_widgets.py:686
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Získat všechny popisky z kolekce"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Zobrazit skladby se všemi popisky"
 
 #: ../plugins/grouptagger/__init__.py:123
 msgid "Show tracks with tags (custom)"
@@ -2841,7 +2970,7 @@ msgstr "Zobrazit stopy se štítky (vlastní)"
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Zobrazit vybrané stopy"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
@@ -2945,7 +3074,8 @@ msgid "Append"
 msgstr "Přidat"
 
 #: ../plugins/history/history_preferences.py:35
-#: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
+#: ../plugins/history/__init__.py:209
+#: ../plugins/history/__init__.py:251
 #: ../plugins/daapclient/__init__.py:292
 msgid "History"
 msgstr "Historie"
@@ -2979,7 +3109,8 @@ msgstr "Prohledávání katalogu Jamendo..."
 msgid "Retrieving song data..."
 msgstr "Získávám informace o skladbě"
 
-#: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
+#: ../plugins/osd/osd_preferences.py:29
+#: ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
 msgstr "Zobrazení na obrazovce"
 
@@ -3002,7 +3133,8 @@ msgstr ""
 msgid "Amazon Covers"
 msgstr "Obaly z Amazonu"
 
-#: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
+#: ../plugins/podcasts/__init__.py:55
+#: ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
 msgstr "Podcasty"
 
@@ -3075,7 +3207,8 @@ msgid "Clear Bookmarks"
 msgstr "Vyčistit záložky"
 
 #: ../plugins/bookmarks/__init__.py:305
-#: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
+#: ../plugins/bookmarks/bookmarksprefs.py:22
+#: ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
 msgstr "Záložky"
 
@@ -3465,7 +3598,7 @@ msgstr "Barva pozadí:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:8
 msgid "IPython Color Theme:"
-msgstr ""
+msgstr "IPython barevný motiv:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
@@ -3722,7 +3855,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"
-msgstr ""
+msgstr "Formát zobrazení"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
@@ -3734,7 +3867,7 @@ msgstr "Pozadí:"
 
 #: ../plugins/osd/osd_preferences.ui.h:6
 msgid "Show progress bar"
-msgstr ""
+msgstr "Zobrazit ukazatel průběhu"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
 msgid "Border radius:"
@@ -3894,8 +4027,10 @@ msgstr ""
 "Nastavit status o současném přehrávání v Pidginu. Podporované služby "
 "naleznete na FAQ Pidginu."
 
-#: ../plugins/currentsong/PLUGININFO:5 ../plugins/audioscrobbler/PLUGININFO:5
-#: ../plugins/notifyosd/PLUGININFO:5 ../plugins/notify/PLUGININFO:5
+#: ../plugins/currentsong/PLUGININFO:5
+#: ../plugins/audioscrobbler/PLUGININFO:5
+#: ../plugins/notifyosd/PLUGININFO:5
+#: ../plugins/notify/PLUGININFO:5
 #: ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
 msgstr "Upozornění"
@@ -3906,9 +4041,12 @@ msgid ""
 "Depends: moodbar"
 msgstr "Nahradit standardní progress bar moodbarem"
 
-#: ../plugins/moodbar/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
-#: ../plugins/awn/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
-#: ../plugins/droptrayicon/PLUGININFO:5 ../plugins/desktopcover/PLUGININFO:5
+#: ../plugins/moodbar/PLUGININFO:5
+#: ../plugins/mainmenubutton/PLUGININFO:5
+#: ../plugins/awn/PLUGININFO:5
+#: ../plugins/minimode/PLUGININFO:5
+#: ../plugins/droptrayicon/PLUGININFO:5
+#: ../plugins/desktopcover/PLUGININFO:5
 msgid "GUI"
 msgstr "GUI"
 
@@ -3924,7 +4062,8 @@ msgstr ""
 "Přidá podporu pro kontrolu Exailu přes GNOME's multimedia key system. "
 "Kompatibilní s GNOME >= 2.20.x"
 
-#: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
+#: ../plugins/gnomemmkeys/PLUGININFO:5
+#: ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "Hotkeys"
 msgstr "Klávesové zkratky"
@@ -3935,7 +4074,8 @@ msgid ""
 "Depends: streamripper"
 msgstr "Umožní nahrávat streamy přes streamripper"
 
-#: ../plugins/streamripper/PLUGININFO:5 ../plugins/previewdevice/PLUGININFO:5
+#: ../plugins/streamripper/PLUGININFO:5
+#: ../plugins/previewdevice/PLUGININFO:5
 msgid "Output"
 msgstr "Výstup"
 
@@ -3962,10 +4102,11 @@ msgstr ""
 "\n"
 "Používá jméno a heslo ze zásuvného modulu \"AudioScrobbler\"."
 
-#: ../plugins/lastfmlove/PLUGININFO:5 ../plugins/exfalso/PLUGININFO:5
+#: ../plugins/lastfmlove/PLUGININFO:5
+#: ../plugins/exfalso/PLUGININFO:5
 #: ../plugins/grouptagger/PLUGININFO:5
 msgid "Tagging"
-msgstr ""
+msgstr "Popisování"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -3980,10 +4121,14 @@ msgstr ""
 "Berte na vědomí, že když přijde stanovený čas, tak Exaile stiskne tlačítko "
 "Přehrát, takže se ujistěte, že máte hudbu ve Vašem seznamu skladeb"
 
-#: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
-#: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
-#: ../plugins/history/PLUGININFO:5 ../plugins/multialarmclock/PLUGININFO:5
-#: ../plugins/bookmarks/PLUGININFO:5 ../plugins/screensaverpause/PLUGININFO:5
+#: ../plugins/alarmclock/PLUGININFO:5
+#: ../plugins/inhibitsuspend/PLUGININFO:5
+#: ../plugins/shutdown/PLUGININFO:5
+#: ../plugins/mpris/PLUGININFO:5
+#: ../plugins/history/PLUGININFO:5
+#: ../plugins/multialarmclock/PLUGININFO:5
+#: ../plugins/bookmarks/PLUGININFO:5
+#: ../plugins/screensaverpause/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5
 msgid "Utility"
 msgstr "Nástroje"
@@ -4018,9 +4163,12 @@ msgstr "Shoutcast radio"
 msgid "Shoutcast Radio list"
 msgstr "Seznam Shoutcast rádií"
 
-#: ../plugins/shoutcast/PLUGININFO:5 ../plugins/librivox/PLUGININFO:5
-#: ../plugins/jamendo/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
-#: ../plugins/daapserver/PLUGININFO:5 ../plugins/daapclient/PLUGININFO:5
+#: ../plugins/shoutcast/PLUGININFO:5
+#: ../plugins/librivox/PLUGININFO:5
+#: ../plugins/jamendo/PLUGININFO:5
+#: ../plugins/podcasts/PLUGININFO:5
+#: ../plugins/daapserver/PLUGININFO:5
+#: ../plugins/daapclient/PLUGININFO:5
 msgid "Media Sources"
 msgstr "Zdroje médií"
 
@@ -4076,8 +4224,10 @@ msgstr ""
 msgid "A 10-band equalizer"
 msgstr "Desetipásmový ekvalizér"
 
-#: ../plugins/equalizer/PLUGININFO:5 ../plugins/abrepeat/PLUGININFO:5
-#: ../plugins/replaygain/PLUGININFO:5 ../plugins/karaoke/PLUGININFO:5
+#: ../plugins/equalizer/PLUGININFO:5
+#: ../plugins/abrepeat/PLUGININFO:5
+#: ../plugins/replaygain/PLUGININFO:5
+#: ../plugins/karaoke/PLUGININFO:5
 msgid "Effect"
 msgstr "Efekt"
 
@@ -4095,7 +4245,7 @@ msgstr "Potlačit uspávání"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
-msgstr ""
+msgstr "Zabrání relaci uživatele pozastavit přehrávání hudby"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4121,7 +4271,8 @@ msgstr ""
 "Podpora pro přístup k přenosným přehrávačům používajícím USB Mass Storage "
 "protokol"
 
-#: ../plugins/massstorage/PLUGININFO:5 ../plugins/cd/PLUGININFO:5
+#: ../plugins/massstorage/PLUGININFO:5
+#: ../plugins/cd/PLUGININFO:5
 #: ../plugins/ipod/PLUGININFO:5
 msgid "Devices"
 msgstr "Zařízení"
@@ -4131,6 +4282,8 @@ msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
+"Umožňuje přehrávání zvuku přes sekundární zařízení (klikněte pravým "
+"tlačítkem na seznam stop a \"náhled\"). Vhodné pro DJe."
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
@@ -4165,7 +4318,8 @@ msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
 "Poskytuje Python konzoli, která může být použita k manipulování s Exaile."
 
-#: ../plugins/ipconsole/PLUGININFO:5 ../plugins/helloworld/PLUGININFO:5
+#: ../plugins/ipconsole/PLUGININFO:5
+#: ../plugins/helloworld/PLUGININFO:5
 msgid "Development"
 msgstr "Vývoj"
 
@@ -4190,8 +4344,11 @@ msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Depends: python-webkit"
 msgstr ""
+"Poskytuje informace Wikipedie o aktuálním umělci.\n"
+"Závisí na: python-webkit"
 
-#: ../plugins/wikipedia/PLUGININFO:5 ../plugins/contextinfo/PLUGININFO:5
+#: ../plugins/wikipedia/PLUGININFO:5
+#: ../plugins/contextinfo/PLUGININFO:5
 msgid "Information"
 msgstr "Informace"
 
@@ -4251,7 +4408,7 @@ msgstr "Umožňuje přístup do hudebního katalogu Jamendo."
 
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
-msgstr ""
+msgstr "Vyskakovací okno zobrazuje informace o aktuálně přehrávané skladbě."
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
@@ -4361,143 +4518,8 @@ msgstr ""
 msgid "Allows playing of DAAP music shares."
 msgstr "Umožňuje přehravání hudby z DAAP."
 
-#~ msgid "Alarm Days:"
-#~ msgstr "Aktivní dny:"
-
-#~ msgid "Relay Port:"
-#~ msgstr "Port:"
-
-#~ msgid "%(title)s (by %(artist)s)"
-#~ msgstr "%(title)s (od %(artist)s)"
-
-#~ msgid "by %s"
-#~ msgstr "od %s"
-
-#~ msgid "Stop Playback"
-#~ msgstr "Zastavit přehrávání"
-
-#~ msgid "Playing %s"
-#~ msgstr "Přehrávám %s"
-
-#~ msgid "Select File Type (By Extension)"
-#~ msgstr "Vyberte typ souboru (podle přípony)"
-
-#~ msgid "File Type"
-#~ msgstr "Typ souboru"
-
-#~ msgid "Toggle: Stop after selected track"
-#~ msgstr "Přepínač: Zastavit po vybrané skladbě"
-
-#~ msgid "Export"
-#~ msgstr "Exportovat"
-
-#~ msgid "No covers found"
-#~ msgstr "Obaly nebyly nalezeny"
-
-#~ msgid "Display a progressbar in the OSD"
-#~ msgstr "Zobrazit processbar v OSD"
-
-#~ msgid ""
-#~ "<b>OSD</b>\n"
-#~ "Drag to the location you'd like the\n"
-#~ "OSD to appear"
-#~ msgstr ""
-#~ "<b>OSD</b>\n"
-#~ "Přesuňte vyskakovací okno na místo, \n"
-#~ "kde chcete, aby se objevovalo"
-
-#~ msgid "0/0 tracks"
-#~ msgstr "0/0 skladeb"
-
-#~ msgid "Add device"
-#~ msgstr "Přidat zařízení"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "Page 1"
-#~ msgstr "Strana 1"
-
-#~ msgid "Extension"
-#~ msgstr "Přípona"
-
-#~ msgid "0:00"
-#~ msgstr "0:00"
-
-#~ msgid "Invalid file extension, file not saved"
-#~ msgstr "Neplatná přípona, soubor neuložen"
-
-#~ msgid "Choose a file to open"
-#~ msgstr "Vyberte soubor pro otevření"
-
-#~ msgid "Location:"
-#~ msgstr "Umístění:"
-
-#~ msgid "AWN"
-#~ msgstr "AWN"
-
-#~ msgid "Genre:"
-#~ msgstr "Žánr:"
-
-#~ msgid "Close"
-#~ msgstr "Zavřít"
-
-#~ msgid "Title:"
-#~ msgstr "Název:"
-
-#~ msgid "Album:"
-#~ msgstr "Album:"
-
-#~ msgid "Track Number:"
-#~ msgstr "Číslo skladby:"
-
-#~ msgid "New Search"
-#~ msgstr "Nové hledání"
-
-#~ msgid "Opacity Level:"
-#~ msgstr "Úroveň:"
-
-#~ msgid "Show OSD on track change"
-#~ msgstr "Zobrazit OSD při změně skladby"
-
-#~ msgid "Start"
-#~ msgstr "Start"
-
-#~ msgid "Stopped"
-#~ msgstr "Zastaveno"
-
-#~ msgid "Text Color"
-#~ msgstr "Barva textu"
-
-#~ msgid "_Close"
-#~ msgstr "_Zavřít"
-
-#~ msgid "Window Height:"
-#~ msgstr "Výška okna:"
-
-#~ msgid "Window Width:"
-#~ msgstr "Šířka okna:"
-
-#~ msgid "Open"
-#~ msgstr "Otevřít"
-
-#~ msgid " songs"
-#~ msgstr " skladby"
-
-#~ msgid "Add a directory"
-#~ msgstr "Přidat složku"
-
-#~ msgid "from %s"
-#~ msgstr "z %s"
-
-#~ msgid "Close this dialog"
-#~ msgstr "Zavřít dialog"
-
-#~ msgid "Fading:"
-#~ msgstr "Přechod:"
-
-#~ msgid "Get rating for current song"
-#~ msgstr "Přidat hodnocení aktuální skladby"
+#~ msgid "&#xA9; 2009-2010"
+#~ msgstr "&#xA9; 2009-2010"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"
@@ -4514,496 +4536,11 @@ msgstr "Umožňuje přehravání hudby z DAAP."
 #~ msgid "JACK"
 #~ msgstr "JACK"
 
-#~ msgid "  New song, fetching cover."
-#~ msgstr "  Nová skladba, hledám obal."
-
-#~ msgid "Streaming..."
-#~ msgstr "Streamuji..."
-
-#~ msgid "New playlist title:"
-#~ msgstr "Název pro nový seznam skladeb:"
-
-#~ msgid "Add to custom playlist"
-#~ msgstr "Přidat do vlastního seznamu skladeb"
-
-#~ msgid "_Rename Playlist"
-#~ msgstr "Přejmenovat seznam skladeb"
-
-#~ msgid "C_lear All Tracks"
-#~ msgstr "S_mazat všechny skladby"
-
-#~ msgid "_Close Playlist"
-#~ msgstr "Zavřít seznam skladeb"
-
-#~ msgid "Export as..."
 #~ msgstr "Exportovat jako..."
-
-#~ msgid "%(minutes)d:%(seconds)02d"
-#~ msgstr "%(minutes)d:%(seconds)02d"
-
-#~ msgid "Export current playlist..."
-#~ msgstr "Exportovat do aktuálního seznamu skladeb..."
-
-#~ msgid "Dynamically add similar tracks"
-#~ msgstr "Dynamicky přidávat podobné skladby"
-
-#~ msgid "&#xA9; 2009"
-#~ msgstr "&#xA9; 2009"
-
-#~ msgid ""
-#~ "Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
-#~ "\n"
-#~ "This program is free software; you can redistribute it and/or modify\n"
-#~ "it under the terms of the GNU General Public License as published by\n"
-#~ "the Free Software Foundation; either version 2 of the License, or\n"
-#~ "(at your option) any later version.\n"
-#~ "\n"
-#~ "This program is distributed in the hope that it will be useful,\n"
-#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-#~ "GNU General Public License for more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License along\n"
-#~ "with this program; if not, write to the Free Software Foundation, Inc.,\n"
-#~ "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
-#~ msgstr ""
-#~ "Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
-#~ "\n"
-#~ "Tento program je svobodný software; můžete jej šířit a modifikovat \n"
-#~ "podle ustanovení GNU General Public License, vydávané \n"
-#~ "Free Software Foundation; a to buď verze 2 této licence \n"
-#~ "anebo (podle vlastního uvážení) kterékoliv pozdější verze.\n"
-#~ "\n"
-#~ "Tento program je rozšiřován v naději, že bude užitečný, \n"
-#~ "avšak BEZ JAKÉKOLIV ZÁRUKY; neposkytují se ani odvozené \n"
-#~ "záruky PRODEJNOSTI anebo VHODNOSTI PRO URČITÝ ÚČEL. \n"
-#~ "Další podrobnosti hledejte v GNU General Public License.\n"
-#~ "\n"
-#~ "Kopii GNU General Public License jste měl(a) obdržet \n"
-#~ "spolu s tímto programem; pokud se tak nestalo, \n"
-#~ "napište o ni Free Software Foundation, Inc., 51 Franklin Street, \n"
-#~ "Fifth Floor, Boston, MA  02110-1301, USA.\n"
-
-#~ msgid "Remove All"
-#~ msgstr "Odstranit vše"
-
-#~ msgid "Randomize the order of the current playlist"
-#~ msgstr "Náhodné pořadí aktuálního seznamu skladeb"
-
-#~ msgid "_Export current playlist"
-#~ msgstr "_Exportovat do aktuálního seznamu skladeb"
-
-#~ msgid "_Go to Playing Track"
-#~ msgstr "_Jdi na přehrávač skladeb"
-
-#~ msgid "Delete bookmark"
-#~ msgstr "Smazat záložku"
-
-#~ msgid "Clear bookmarks"
-#~ msgstr "Smazat záložky"
-
-#~ msgid "Restore Main Window"
-#~ msgstr "Obnovit hlavní okno"
-
-#~ msgid " & "
-#~ msgstr " & "
-
-#~ msgid "Alarm Time:"
-#~ msgstr "Čas budíku:"
-
-#~ msgid "Alarm:"
-#~ msgstr "Budík:"
-
-#~ msgid "Close tab"
-#~ msgstr "Zavřít panel"
-
-#~ msgid "A plugin with the name \"%s\" is already installed"
-#~ msgstr "Zásuvný modul \"%s\" je již nainstalován"
-
-#~ msgid "Choose a plugin"
-#~ msgstr "Vyberte zásuvný modul"
-
-#~ msgid "Bookmark this track"
-#~ msgstr "Přidat do záložek"
-
-#~ msgid "Minimum Volume:"
-#~ msgstr "Minimální hlasitost:"
-
-#~ msgid "Maximum Volume:"
-#~ msgstr "Maximální hlasitost:"
-
-#~ msgid "Save Location:"
-#~ msgstr "Místo uložení:"
-
-#~ msgid "Show a popup of the currently playing track"
-#~ msgstr "Zobrazit vyskakovací okno pro právě přehrávanou skladbu"
-
-#~ msgid "Toggle Play or Pause"
-#~ msgstr "Přehrát či pozastavit"
-
-#~ msgid "Set rating for current song"
-#~ msgstr "Ohodnotit tuto skladbu"
-
-#~ msgid "Decreases the volume by VOL%"
-#~ msgstr "Ztišit o VOL%"
-
-#~ msgid "Print the progress inside the current track as percentage"
-#~ msgstr "Zobrazit pozici v aktuální skladbě v procentech"
-
-#~ msgid "Device class does not support transfer."
-#~ msgstr "Zařízení nepodporuje přenos"
-
-#~ msgid "Plugin archive is not in the correct format"
-#~ msgstr "Plugin není ve správném formátu"
-
-#~ msgid "Save As..."
-#~ msgstr "Uložit jako…"
-
-#~ msgid "_Save Changes To Playlist"
-#~ msgstr "Uložit změny do seznamu skladeb"
-
-#~ msgid "_Save As..."
-#~ msgstr "_Uložit jako..."
-
-#~ msgid "_Save As Custom Playlist"
-#~ msgstr "Uložit jako vlastní seznam skladem"
-
-#~ msgid "Add To New Playlist..."
-#~ msgstr "Přidat do nového seznamu skladeb"
-
-#~ msgid "New custom playlist name:"
-#~ msgstr "Jméno nového vlastního seznamu skladeb"
-
-#~ msgid "Idle."
-#~ msgstr "Nečinný."
-
-#~ msgid ""
-#~ "This will permanantly delete the selected tracks from your disk, are you "
-#~ "sure you wish to continue?"
-#~ msgstr "Toto vymaže označenou skladbu z disku, opravdu chcete pokračovat?"
-
-#~ msgid "Move selected item up"
-#~ msgstr "Posunout označenou položku nahoru"
-
-#~ msgid "Move selected item down"
-#~ msgstr "Posunout označenou položku dolů"
-
-#~ msgid "Remove item"
-#~ msgstr "Odstranit položku"
-
-#~ msgid "Add item"
-#~ msgstr "Přidat položku"
-
-#~ msgid "Repeat playlist"
-#~ msgstr "Opakovat seznam skladeb"
-
-#~ msgid "Basic"
-#~ msgstr "Základní"
-
-#~ msgid "Date:"
-#~ msgstr "Datum:"
-
-#~ msgid "Details"
-#~ msgstr "Podrobnosti"
-
-#~ msgid "File Size:"
-#~ msgstr "Velikost souboru:"
-
-#~ msgid "Length:"
-#~ msgstr "Délka:"
-
-#~ msgid "Play Count:"
-#~ msgstr "Počet přehrání:"
-
-#~ msgid "Popup"
-#~ msgstr "Vyskakovací okno"
-
-#~ msgid ""
-#~ "<b>Move the On Screen Display window to the location you want it to "
-#~ "appear</b>"
-#~ msgstr "<b>Posuňte okno OSD na místo, kde chcete, aby se objevovalo</b>"
-
-#~ msgid "Install plugin file"
-#~ msgstr "Instalovat soubor se zásuvným modulem"
-
-#~ msgid "Install a third party plugin from a file"
-#~ msgstr "Nainstalovat zásuvné moduly třetích stran ze souboru"
-
-#~ msgid "Track _properties"
-#~ msgstr "Nastavení skladby"
-
-#~ msgid "Selected controls"
-#~ msgstr "Vybrané ovládání"
-
-#~ msgid "Available controls"
-#~ msgstr "Dostupné ovládání"
-
-#~ msgid "Seeking: "
-#~ msgstr "Hledání: "
-
-#~ msgid "Streamripper can only record streams."
-#~ msgstr "Streamripper umí jen nahrávat streamy"
-
-#~ msgid "Enable Fading"
-#~ msgstr "Povolit přechody"
-
-#~ msgid "Restart Playlist"
-#~ msgstr "Restartovat seznam skladeb"
-
-#~ msgid "Name - Time"
-#~ msgstr "Jméno - Čas"
-
-#~ msgid "Summary"
-#~ msgstr "Souhrn"
-
-#~ msgid "Both artist and album"
-#~ msgstr "Oba umělec a album"
-
-#~ msgid "Only album"
-#~ msgstr "Jen album"
-
-#~ msgid "Terminal Opacity:"
-#~ msgstr "Průhlednost terminálu"
-
-#~ msgid "Display window decorations"
-#~ msgstr "Zobrazit dekoraci okna"
-
-#~ msgid "Creates an MPRIS D-Bus object to control Exaile"
-#~ msgstr "Vytvoří MPRIS D-Bus objekt, aby kontroloval Exaile"
-
-#~ msgid "Last.fm Dynamic Search"
-#~ msgstr "Dynamické hledání na Last.fm"
-
-#~ msgid "iPod support"
-#~ msgstr "Podpora iPodu"
-
-#~ msgid "A plugin for iPod support"
-#~ msgstr "Zásuvný modul pro podporu iPodu"
-
-#~ msgid "Could not enable plugin: %s"
-#~ msgstr "Nemohu použít zásuvný modul: %s"
-
-#~ msgid "Increases the volume by VOL%"
-#~ msgstr "Zesílit o VOL%"
-
-#~ msgid "Plugin archive contains an unsafe path"
-#~ msgstr "Zásuvný modul Archiv obsahuje nebezpečnou cestu"
-
-#~ msgid "Custom playlist name:"
-#~ msgstr "Vlastní jméno seznamu skladeb:"
-
-#~ msgid "Delete track"
-#~ msgstr "Smazat skladbu"
-
-#~ msgid "No track"
-#~ msgstr "Žádná skladba"
-
-#~ msgid "Enter the search text"
-#~ msgstr "Zadejte hledaný text"
-
-#~ msgid "Artist:"
-#~ msgstr "Interpret:"
-
-#~ msgid "Only artist"
-#~ msgstr "Jen interpret"
-
-#~ msgid "%d covers to fetch"
-#~ msgstr "%d obalů stáhnuto"
-
-#~ msgid ""
-#~ "Exaile Music Player\n"
-#~ "Not playing"
-#~ msgstr ""
-#~ "Hudební přehrávač Exaile\n"
-#~ "Nepřehrává se"
-
-#~ msgid "Could not disable plugin: %s"
-#~ msgstr "Nemohu zastavit zásuvný modul: %s"
-
-#~ msgid "Remove current track from playlist"
-#~ msgstr "Odstranit skladbu z tohoto seznamu skladeb"
-
-#~ msgid "Bitrate:"
-#~ msgstr "Bitový tok:"
-
-#~ msgid "Use alpha transparency (if supported)"
-#~ msgstr "Použít alpha průhlednost (je-li podporována)"
-
-#~ msgid "Display OSD when hovering over tray icon"
-#~ msgstr "Zobrazit OSD společně se systémovou ikonou"
-
-#~ msgid "Text Font:"
-#~ msgstr "Písmo textu:"
-
-#~ msgid "Playback engine (requires restart): "
-#~ msgstr "Přehrávací engine (vyžaduje restart): "
-
-#~ msgid "Clear Playlist"
-#~ msgstr "Vyprázdnit seznam skladeb"
-
-#~ msgid "Start/Pause Playback"
-#~ msgstr "Spustit/Pozastavit přehrávání"
-
-#~ msgid "_Randomize Playlist"
-#~ msgstr "_Náhodný seznam skladeb"
-
-#~ msgid "Alarm Name:"
-#~ msgstr "Jméno budíku:"
-
-#~ msgid "Use Album Covers As Icons"
-#~ msgstr "Použít obaly alb jako ikony"
-
-#~ msgid ""
-#~ "The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be "
-#~ "replaced by their respective values. The title will be replaced by "
-#~ "\"Unknown\" if it is empty."
-#~ msgstr ""
-#~ "Značky  \"%(title)s\", \"%(artist)s\" a \"%(album)s\" budou nahrazeny "
-#~ "svými hodnotami. Pokud jsou prázdné, budou nahrazeny \"Unknown\"."
-
-#~ msgid "Artist Line:"
-#~ msgstr "Řádek interpret:"
-
-#~ msgid "Album Line:"
-#~ msgstr "Řádek album:"
-
-#~ msgid "On Playback Start, Pause or Stop"
-#~ msgstr "Při zahájení/pozastavení/zastavení přehrávání"
-
-#~ msgid "Track title format:"
-#~ msgstr "Formát zobrazení:"
-
-#~ msgid "Tag Covers"
-#~ msgstr "Značky obalů"
-
-#~ msgid "Plugin to fetch lyrics from lyricwiki.org"
-#~ msgstr "Modul pro získávání textů z lyricwiki.org"
-
-#~ msgid "Buffering: 100%..."
-#~ msgstr "Načítám: 100%..."
-
-#~ msgid "In pause: %s"
-#~ msgstr "Pozastaveno: %s"
-
-#~ msgid ""
-#~ "Mathias Brodala\n"
-#~ "   <info@noctus.net>\n"
-#~ "    Translation Manager"
-#~ msgstr ""
-#~ "Mathias Brodala\n"
-#~ "   <info@noctus.net>\n"
-#~ "    Manažér překladů"
-
-#~ msgid "%(year)d-%(month)02d-%(day)02d"
-#~ msgstr "%(year)d-%(month)02d-%(day)02d"
-
-#~ msgid "$title ($length)"
-#~ msgstr "$title ($length)"
-
-#~ msgid "Secret Key:"
-#~ msgstr "Tajný klíč:"
-
-#~ msgid "API Key:"
-#~ msgstr "API klíč:"
-
-#~ msgid "Print the position inside the current track as time"
-#~ msgstr "Zobrazit pozici uvnitř aktuální skladby jako čas"
-
-#~ msgid "order must be a list or tuple"
-#~ msgstr "pořadí musí být seznamem či logickým uspořádáním"
-
-#~ msgid "These options only affect the unified engine."
-#~ msgstr "Tato nastavení ovlivní pouze nestabilní engine."
 
 #~ msgid "%d KB"
 #~ msgstr "%d KB"
 
-#~ msgid "On Track Change"
-#~ msgstr "Při změně skladby"
-
-#~ msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-#~ msgstr "%(playlist_count)d  zobrazeno, %(collection_count)d  v kolekci."
-
-#~ msgid ""
-#~ "Path is already in your collection, or is a subdirectory of another path "
-#~ "in your collection"
-#~ msgstr "Tato cesta nebo její část se už nachází ve vaší kolekci."
-
-#~ msgid "Use Media Icons For Pause, Stop and Resume"
-#~ msgstr "Použít Media Ikony pro pauzu, stop a pokračování"
-
-#~ msgid "Awn"
-#~ msgstr "Awn"
-
-#~ msgid "Pauses/resumes playback on screensaver start/stop"
-#~ msgstr ""
-#~ "Pozastavuje/pokračuje v přehrávání při zapnutí/vypnutí spořiče displeje."
-
-#~ msgid ""
-#~ "To sign up for an Amazon AWS account and get \n"
-#~ "this information visit http://aws.amazon.com/"
-#~ msgstr ""
-#~ "Pro registraci Amazon AWS účtu a získání informací, \n"
-#~ "navštivte http://aws.amazon.com"
 
 #~ msgid "&#xA9; 2009-2010"
 #~ msgstr "&#xA9; 2009-2010"
-
-#~ msgid "Clear"
-#~ msgstr "Vyčistit"
-
-#~ msgid ""
-#~ "Adds support for playing audio CDs.\n"
-#~ "Requires python-cddb to look up tags."
-#~ msgstr "Přidat podporu pro přehrávání audio CD"
-
-#~ msgid "Secret key:"
-#~ msgstr "Tajný klíč:"
-
-#~ msgctxt "yes"
-#~ msgid "Increment:"
-#~ msgstr "Vzestupně:"
-
-#~ msgctxt "yes"
-#~ msgid "Friday"
-#~ msgstr "Pátek"
-
-#~ msgctxt "yes"
-#~ msgid "Maximum volume:"
-#~ msgstr "Maximální hlasitost:"
-
-#~ msgctxt "yes"
-#~ msgid "Saturday"
-#~ msgstr "Sobota"
-
-#~ msgctxt "yes"
-#~ msgid "Time per increment:"
-#~ msgstr "Časový přírůstek:"
-
-#~ msgctxt "yes"
-#~ msgid "Tuesday"
-#~ msgstr "Úterý"
-
-#~ msgctxt "yes"
-#~ msgid "Wednesday"
-#~ msgstr "Středa"
-
-#~ msgctxt "yes"
-#~ msgid "Monday"
-#~ msgstr "Pondělí"
-
-#~ msgctxt "yes"
-#~ msgid "Sunday"
-#~ msgstr "Neděle"
-
-#~ msgctxt "yes"
-#~ msgid "Thursday"
-#~ msgstr "Čtvrtek"
-
-#~ msgctxt "yes"
-#~ msgid "Minimum volume:"
-#~ msgstr "Minimální hlasitost:"
-
-#~ msgctxt "yes"
-#~ msgid "Use Fading"
-#~ msgstr "Použít prolínání"

@@ -17,7 +17,7 @@ Support
 -------
 
 If you believe you have found a bug, you can file bugs at
-`Exaile's github issue tracker <https://github.com/exaile-dev/exaile/issues>`_
+`Exaile's github issue tracker <https://github.com/exaile/exaile/issues>`_
 You will need to register for a github account before you can post a bug
 report.
 

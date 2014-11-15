@@ -111,5 +111,5 @@ exaile was launched in the following directories::
     Windows 7+:  %USERPROFILE%\AppData\Local\exaile\logs
 
 If you run into any bugs not mentioned in this document, please report them
-to us via github at https://github.com/exaile-dev/exaile/issues . Please include any
+to us via github at https://github.com/exaile/exaile/issues . Please include any
 relevant logfile snippets. 

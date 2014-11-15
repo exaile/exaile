@@ -1,23 +1,23 @@
 # Malay translation for exaile
-# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2012-07-29 07:16+0000\n"
-"Last-Translator: Ibrahim Elias <imen802003@netscape.net>\n"
+"PO-Revision-Date: 2014-08-10 19:50+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Malay <ms@li.org>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2012-08-28 05:27+0000\n"
-"X-Generator: Launchpad (build 15864)\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:27+0000\n"
+"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -90,7 +90,8 @@ msgid "%d:%02d"
 msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
-#: ../xl/formatter.py:691 ../xl/formatter.py:696
+#: ../xl/formatter.py:691
+#: ../xl/formatter.py:696
 msgid "Never"
 msgstr "Tidak pernah"
 
@@ -110,7 +111,8 @@ msgstr "Gagal pindah dari 0.2.14"
 msgid "Usage: exaile [OPTION]... [URI]"
 msgstr "Penggunaan: exaile [OPTION]... [URI]"
 
-#: ../xl/main.py:417 ../plugins/minimode/minimode_preferences.ui.h:11
+#: ../xl/main.py:417
+#: ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
 msgstr "Pilihan"
 
@@ -126,7 +128,8 @@ msgstr "Main trek berikut"
 msgid "Play the previous track"
 msgstr "Main trek sebelum"
 
-#: ../xl/main.py:427 ../plugins/minimode/controls.py:342
+#: ../xl/main.py:427
+#: ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
 msgstr "Henti main balik"
@@ -143,7 +146,8 @@ msgstr "Jeda"
 msgid "Pause or resume playback"
 msgstr "Jeda atau sambung semula main balik"
 
-#: ../xl/main.py:437 ../plugins/minimode/controls.py:365
+#: ../xl/main.py:437
+#: ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
 msgstr "Henti main balik selepas trek semasa"
 
@@ -152,7 +156,8 @@ msgid "Collection Options"
 msgstr "Pilihan Koleksi"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
-#: ../xl/main.py:443 ../xl/main.py:450
+#: ../xl/main.py:443
+#: ../xl/main.py:450
 msgid "LOCATION"
 msgstr "LOKASI"
 
@@ -215,7 +220,9 @@ msgid "Print the length of current track"
 msgstr "Cetak panjang trek semasa"
 
 #. TRANSLATORS: Variable for command line options with arguments
-#: ../xl/main.py:478 ../xl/main.py:493 ../xl/main.py:497
+#: ../xl/main.py:478
+#: ../xl/main.py:493
+#: ../xl/main.py:497
 msgid "N"
 msgstr "N"
 
@@ -281,11 +288,12 @@ msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Togol kebolehlihatan GUI (jika boleh)"
 
 #: ../xl/main.py:521
+#: ../xl/main.py:524
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Mula dalam mod selamat - kadang-kala berguna apabila anda hadapi masalah"
 
-#: ../xl/main.py:524
+#: ../xl/main.py:527
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr "Import secara paksa data lama dari versi 0.2.x (Tindih data semasa)"
 
@@ -303,7 +311,8 @@ msgstr ""
 msgid "Development/Debug Options"
 msgstr "Pilihan Nyahpepijat/Pembangunan"
 
-#: ../xl/main.py:536 ../xl/main.py:538
+#: ../xl/main.py:536
+#: ../xl/main.py:538
 msgid "DIRECTORY"
 msgstr "DIREKTORI"
 
@@ -385,7 +394,8 @@ msgstr ""
 "Exaile belum selesai dimuatkan. Mungkin anda patut dengari isyarat exaile "
 "dimuatkan?"
 
-#: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
+#: ../xl/covers.py:466
+#: ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
 msgstr "Tag"
 
@@ -414,12 +424,14 @@ msgstr "Anda tidak tentukan lokasi untuk muatkan db"
 msgid "You did not specify a location to save the db"
 msgstr "Anda tidak tetapkan lokasi untuk simpan db"
 
-#: ../xl/trax/track.py:65 ../xlgui/widgets/info.py:431
+#: ../xl/trax/track.py:65
+#: ../xlgui/widgets/info.py:431
 msgid "Various Artists"
 msgstr "Pelbagai Artis"
 
 #. TRANSLATORS: title of a track if it is unknown
-#: ../xl/trax/track.py:66 ../plugins/notifyosd/__init__.py:71
+#: ../xl/trax/track.py:66
+#: ../plugins/notifyosd/__init__.py:71
 msgid "Unknown"
 msgstr "Tidak Ketahui"
 
@@ -429,7 +441,8 @@ msgid " / "
 msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:585 ../xl/trax/track.py:647
+#: ../xl/trax/track.py:585
+#: ../xl/trax/track.py:647
 #, python-format
 msgid "%dk"
 msgstr "%dk"
@@ -485,15 +498,19 @@ msgstr ""
 msgid "Automatic"
 msgstr "Automatik"
 
-#: ../xl/player/pipe.py:340 ../xl/player/pipe.py:365 ../xl/player/pipe.py:386
+#: ../xl/player/pipe.py:340
+#: ../xl/player/pipe.py:365
+#: ../xl/player/pipe.py:386
 msgid "Custom"
 msgstr "Suai"
 
-#: ../xl/player/pipe.py:441 ../plugins/previewdevice/previewprefs.py:76
+#: ../xl/player/pipe.py:441
+#: ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
 msgstr "Automatik"
 
-#: ../xl/xldbus.py:117 ../xl/xldbus.py:496
+#: ../xl/xldbus.py:117
+#: ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:243
 msgid "Not playing."
 msgstr "Tidak dimainkan"
@@ -519,11 +536,13 @@ msgstr "Kami tidak tahu bagaimana hendak simpan jenis tetapan: "
 msgid "An Unknown type of setting was found!"
 msgstr "Tetapan jenis Tidak diketahui ditemui!"
 
-#: ../xl/playlist.py:152 ../xl/playlist.py:166
+#: ../xl/playlist.py:152
+#: ../xl/playlist.py:166
 msgid "Invalid playlist type."
 msgstr "jenis senarai main tidak sah."
 
-#: ../xl/playlist.py:173 ../xlgui/widgets/playlist.py:335
+#: ../xl/playlist.py:173
+#: ../xlgui/widgets/playlist.py:335
 msgid "Playlist"
 msgstr "Senarai Main"
 
@@ -535,7 +554,8 @@ msgstr "Senarai Main M3U"
 msgid "PLS Playlist"
 msgstr "Senarai Main PLS"
 
-#: ../xl/playlist.py:517 ../xl/playlist.py:533
+#: ../xl/playlist.py:517
+#: ../xl/playlist.py:533
 #, python-format
 msgid "Invalid format for %s."
 msgstr "Format tidak sah untuk %s"
@@ -585,26 +605,32 @@ msgstr "Dinamik _Mati"
 msgid "Dynamic by Similar _Artists"
 msgstr "Dinamik berdasarkan _Artis yang Serupa"
 
-#: ../xl/playlist.py:1824 ../xlgui/panel/playlists.py:59
-#: ../xlgui/panel/playlists.py:71 ../xlgui/panel/playlists.py:78
+#: ../xl/playlist.py:1824
+#: ../xlgui/panel/playlists.py:59
+#: ../xlgui/panel/playlists.py:71
+#: ../xlgui/panel/playlists.py:78
 #: ../plugins/osd/osd_preferences.ui.h:7
 msgid "seconds"
 msgstr "saat"
 
-#: ../xl/playlist.py:1825 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1825
+#: ../xlgui/panel/playlists.py:71
 msgid "minutes"
 msgstr "minit"
 
-#: ../xl/playlist.py:1826 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1826
+#: ../xlgui/panel/playlists.py:71
 msgid "hours"
 msgstr "jam"
 
-#: ../xl/playlist.py:1827 ../xlgui/panel/playlists.py:68
+#: ../xl/playlist.py:1827
+#: ../xlgui/panel/playlists.py:68
 #: ../xlgui/panel/playlists.py:71
 msgid "days"
 msgstr "hari"
 
-#: ../xl/playlist.py:1828 ../xlgui/panel/playlists.py:71
+#: ../xl/playlist.py:1828
+#: ../xlgui/panel/playlists.py:71
 msgid "weeks"
 msgstr "minggu"
 
@@ -616,15 +642,18 @@ msgstr "lokal"
 msgid "Enqueue"
 msgstr "Baris Gilir"
 
-#: ../xlgui/widgets/menuitems.py:118 ../xlgui/oldmenu.py:116
+#: ../xlgui/widgets/menuitems.py:118
+#: ../xlgui/oldmenu.py:116
 msgid "Replace Current"
 msgstr "Gantikan Semasa"
 
-#: ../xlgui/widgets/menuitems.py:122 ../xlgui/oldmenu.py:114
+#: ../xlgui/widgets/menuitems.py:122
+#: ../xlgui/oldmenu.py:114
 msgid "Append to Current"
 msgstr "Tambah ke Semasa"
 
-#: ../xlgui/widgets/menuitems.py:145 ../xlgui/properties.py:1135
+#: ../xlgui/widgets/menuitems.py:145
+#: ../xlgui/properties.py:1135
 msgid "Open Directory"
 msgstr "Buka Direktori"
 
@@ -643,7 +672,8 @@ msgstr "Alih ke Tong Sampah"
 msgid "_Show Playing Track"
 msgstr "_Papar Trek yang Dimainkan"
 
-#: ../xlgui/widgets/filter.py:62 ../xlgui/panel/radio.py:200
+#: ../xlgui/widgets/filter.py:62
+#: ../xlgui/panel/radio.py:200
 msgid "Name:"
 msgstr "Nama:"
 
@@ -663,7 +693,8 @@ msgstr "Hadkan ke: "
 msgid " tracks"
 msgstr " trek"
 
-#: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:71
+#: ../xlgui/widgets/playback.py:95
+#: ../xlgui/widgets/info.py:71
 msgid "Not Playing"
 msgstr "Tidak Dimainkan"
 
@@ -718,12 +749,14 @@ msgstr "%(track_count)d dari sejumlah (%(total_duration)s)"
 msgid "%d in collection"
 msgstr "%d dalam koleksi"
 
-#: ../xlgui/widgets/info.py:624 ../xlgui/widgets/info.py:631
+#: ../xlgui/widgets/info.py:624
+#: ../xlgui/widgets/info.py:631
 #, python-format
 msgid "%d showing"
 msgstr "%d dipaparkan"
 
-#: ../xlgui/widgets/info.py:628 ../xlgui/widgets/info.py:635
+#: ../xlgui/widgets/info.py:628
+#: ../xlgui/widgets/info.py:635
 #, python-format
 msgid "%d selected"
 msgstr "%d dipilih"
@@ -738,7 +771,8 @@ msgid "Queue (%d)"
 msgstr "Baris Gilir (%d)"
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/widgets/playlist_columns.py:217 ../xlgui/panel/flatplaylist.py:100
+#: ../xlgui/widgets/playlist_columns.py:217
+#: ../xlgui/panel/flatplaylist.py:100
 msgid "#"
 msgstr "#"
 
@@ -746,41 +780,55 @@ msgstr "#"
 msgid "Track Number"
 msgstr "Nombor Trek"
 
-#: ../xlgui/widgets/playlist_columns.py:225 ../xlgui/properties.py:69
-#: ../xlgui/panel/flatplaylist.py:108 ../xlgui/panel/playlists.py:235
-#: ../plugins/cd/cdprefs.py:106 ../plugins/minimode/minimode_preferences.py:93
+#: ../xlgui/widgets/playlist_columns.py:225
+#: ../xlgui/properties.py:69
+#: ../xlgui/panel/flatplaylist.py:108
+#: ../xlgui/panel/playlists.py:235
+#: ../plugins/cd/cdprefs.py:106
+#: ../plugins/minimode/minimode_preferences.py:93
 msgid "Title"
 msgstr "Judul"
 
-#: ../xlgui/widgets/playlist_columns.py:232 ../xlgui/properties.py:63
-#: ../xlgui/panel/collection.py:173 ../xlgui/panel/playlists.py:234
-#: ../data/ui/widgets/tracklist_info.ui.h:2 ../plugins/cd/cdprefs.py:107
+#: ../xlgui/widgets/playlist_columns.py:232
+#: ../xlgui/properties.py:63
+#: ../xlgui/panel/collection.py:173
+#: ../xlgui/panel/playlists.py:234
+#: ../data/ui/widgets/tracklist_info.ui.h:2
+#: ../plugins/cd/cdprefs.py:107
 #: ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Artist"
 msgstr "Artis"
 
-#: ../xlgui/widgets/playlist_columns.py:239 ../xlgui/properties.py:72
+#: ../xlgui/widgets/playlist_columns.py:239
+#: ../xlgui/properties.py:72
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
-#: ../plugins/cd/cdprefs.py:108 ../plugins/minimode/minimode_preferences.py:95
+#: ../plugins/cd/cdprefs.py:108
+#: ../plugins/minimode/minimode_preferences.py:95
 msgid "Composer"
 msgstr "Penggubah"
 
-#: ../xlgui/widgets/playlist_columns.py:246 ../xlgui/properties.py:64
-#: ../xlgui/panel/collection.py:176 ../xlgui/panel/playlists.py:236
-#: ../data/ui/widgets/tracklist_info.ui.h:1 ../plugins/cd/cdprefs.py:109
+#: ../xlgui/widgets/playlist_columns.py:246
+#: ../xlgui/properties.py:64
+#: ../xlgui/panel/collection.py:176
+#: ../xlgui/panel/playlists.py:236
+#: ../data/ui/widgets/tracklist_info.ui.h:1
+#: ../plugins/cd/cdprefs.py:109
 #: ../plugins/minimode/minimode_preferences.py:96
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Album"
 msgstr "Album"
 
-#: ../xlgui/widgets/playlist_columns.py:253 ../xlgui/properties.py:80
-#: ../xlgui/panel/playlists.py:237 ../plugins/cd/cdprefs.py:110
+#: ../xlgui/widgets/playlist_columns.py:253
+#: ../xlgui/properties.py:80
+#: ../xlgui/panel/playlists.py:237
+#: ../plugins/cd/cdprefs.py:110
 #: ../plugins/minimode/minimode_preferences.py:97
 msgid "Length"
 msgstr "Panjang"
 
-#: ../xlgui/widgets/playlist_columns.py:260 ../xlgui/properties.py:75
+#: ../xlgui/widgets/playlist_columns.py:260
+#: ../xlgui/properties.py:75
 msgid "Disc"
 msgstr "Cakera"
 
@@ -788,39 +836,48 @@ msgstr "Cakera"
 msgid "Disc Number"
 msgstr "Nombor Cakera"
 
-#: ../xlgui/widgets/playlist_columns.py:268 ../xlgui/panel/playlists.py:238
-#: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:99
+#: ../xlgui/widgets/playlist_columns.py:268
+#: ../xlgui/panel/playlists.py:238
+#: ../plugins/cd/cdprefs.py:112
+#: ../plugins/minimode/minimode_preferences.py:99
 #: ../plugins/minimode/controls.py:527
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Rating"
 msgstr "Penarafan"
 
-#: ../xlgui/widgets/playlist_columns.py:312 ../xlgui/properties.py:59
+#: ../xlgui/widgets/playlist_columns.py:312
+#: ../xlgui/properties.py:59
 #: ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:100
 msgid "Date"
 msgstr "Tarikh"
 
-#: ../xlgui/widgets/playlist_columns.py:318 ../xlgui/properties.py:71
-#: ../xlgui/panel/playlists.py:241 ../plugins/cd/cdprefs.py:114
+#: ../xlgui/widgets/playlist_columns.py:318
+#: ../xlgui/properties.py:71
+#: ../xlgui/panel/playlists.py:241
+#: ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:101
 msgid "Genre"
 msgstr "Genre"
 
-#: ../xlgui/widgets/playlist_columns.py:325 ../xlgui/properties.py:78
+#: ../xlgui/widgets/playlist_columns.py:325
+#: ../xlgui/properties.py:78
 #: ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
 msgstr "Kadar Bit"
 
-#: ../xlgui/widgets/playlist_columns.py:332 ../xlgui/properties.py:81
-#: ../xlgui/panel/playlists.py:244 ../data/ui/collection_manager.ui.h:2
+#: ../xlgui/widgets/playlist_columns.py:332
+#: ../xlgui/properties.py:81
+#: ../xlgui/panel/playlists.py:244
+#: ../data/ui/collection_manager.ui.h:2
 #: ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:103
 msgid "Location"
 msgstr "Lokasi"
 
-#: ../xlgui/widgets/playlist_columns.py:339 ../xlgui/panel/files.py:150
+#: ../xlgui/widgets/playlist_columns.py:339
+#: ../xlgui/panel/files.py:150
 #: ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/minimode_preferences.py:104
 msgid "Filename"
@@ -830,20 +887,25 @@ msgstr "Nama Fail"
 msgid "Playcount"
 msgstr "Kiraan Main"
 
-#: ../xlgui/widgets/playlist_columns.py:353 ../xlgui/properties.py:76
-#: ../xlgui/panel/playlists.py:170 ../xlgui/panel/playlists.py:245
+#: ../xlgui/widgets/playlist_columns.py:353
+#: ../xlgui/properties.py:76
+#: ../xlgui/panel/playlists.py:170
+#: ../xlgui/panel/playlists.py:245
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
 msgstr "BPM"
 
-#: ../xlgui/widgets/playlist_columns.py:360 ../xlgui/properties.py:86
-#: ../xlgui/panel/playlists.py:243 ../plugins/cd/cdprefs.py:119
+#: ../xlgui/widgets/playlist_columns.py:360
+#: ../xlgui/properties.py:86
+#: ../xlgui/panel/playlists.py:243
+#: ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
 msgstr "Terakhir dimainkan"
 
-#: ../xlgui/widgets/playlist_columns.py:366 ../xlgui/properties.py:79
+#: ../xlgui/widgets/playlist_columns.py:366
+#: ../xlgui/properties.py:79
 #: ../xlgui/panel/playlists.py:242
 msgid "Date added"
 msgstr "Tarikh ditambah"
@@ -852,11 +914,13 @@ msgstr "Tarikh ditambah"
 msgid "Schedule"
 msgstr "Jadual"
 
-#: ../xlgui/widgets/playlist_columns.py:491 ../xlgui/properties.py:77
+#: ../xlgui/widgets/playlist_columns.py:491
+#: ../xlgui/properties.py:77
 msgid "Comment"
 msgstr "Ulasan"
 
-#: ../xlgui/widgets/playlist_columns.py:500 ../xlgui/panel/playlists.py:178
+#: ../xlgui/widgets/playlist_columns.py:500
+#: ../xlgui/panel/playlists.py:178
 #: ../xlgui/panel/playlists.py:246
 msgid "Grouping"
 msgstr "Pengumpulan"
@@ -897,13 +961,16 @@ msgstr "Rawakkan Senarai Main"
 msgid "Randomize Selection"
 msgstr "Rawakkan Pemilihan"
 
-#: ../xlgui/widgets/playlist.py:206 ../xlgui/oldmenu.py:188
-#: ../xlgui/playlist.py:76 ../xlgui/panel/radio.py:435
+#: ../xlgui/widgets/playlist.py:206
+#: ../xlgui/oldmenu.py:188
+#: ../xlgui/playlist.py:76
+#: ../xlgui/panel/radio.py:435
 #: ../plugins/droptrayicon/__init__.py:288
 msgid "New Playlist"
 msgstr "Senarai Main Baru"
 
-#: ../xlgui/widgets/playlist.py:226 ../xlgui/oldmenu.py:244
+#: ../xlgui/widgets/playlist.py:226
+#: ../xlgui/oldmenu.py:244
 msgid "Rename"
 msgstr "Namakan Semula"
 
@@ -919,7 +986,8 @@ msgstr "Teruskan Main Balik Selepas Trek Ini"
 msgid "Requires plugins providing dynamic playlists"
 msgstr "Perlukan pemalam yang menyediakan senarai main dinamik"
 
-#: ../xlgui/widgets/playlist.py:538 ../data/ui/playlist.ui.h:3
+#: ../xlgui/widgets/playlist.py:538
+#: ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Tambah trek seumpama ke senarai main secara dinamik"
 
@@ -947,11 +1015,13 @@ msgstr "Fail yang Disokong"
 msgid "Music Files"
 msgstr "Fail Muzik"
 
-#: ../xlgui/widgets/dialogs.py:623 ../xlgui/widgets/dialogs.py:781
+#: ../xlgui/widgets/dialogs.py:623
+#: ../xlgui/widgets/dialogs.py:781
 msgid "Playlist Files"
 msgstr "Fail Senarai Main"
 
-#: ../xlgui/widgets/dialogs.py:625 ../xlgui/widgets/dialogs.py:783
+#: ../xlgui/widgets/dialogs.py:625
+#: ../xlgui/widgets/dialogs.py:783
 #: ../xlgui/preferences/plugin.py:201
 msgid "All Files"
 msgstr "Semua Fail"
@@ -960,7 +1030,9 @@ msgstr "Semua Fail"
 msgid "Choose Directory to Open"
 msgstr "Pilih Direktori untuk Buka"
 
-#: ../xlgui/widgets/dialogs.py:770 ../xlgui/menu.py:87 ../xlgui/oldmenu.py:192
+#: ../xlgui/widgets/dialogs.py:770
+#: ../xlgui/menu.py:87
+#: ../xlgui/oldmenu.py:192
 msgid "Import Playlist"
 msgstr "Import Senarai Main"
 
@@ -1003,7 +1075,8 @@ msgstr "Ya untuk semua"
 msgid "No to all"
 msgstr "Bukan untuk semua"
 
-#: ../xlgui/widgets/dialogs.py:1336 ../xlgui/properties.py:1209
+#: ../xlgui/widgets/dialogs.py:1336
+#: ../xlgui/properties.py:1209
 #, python-format
 msgid "Saved %(count)s of %(total)s."
 msgstr "%(count)s disimpan dari %(total)s."
@@ -1026,17 +1099,21 @@ msgstr "Nama senarai main:"
 msgid "Add new playlist..."
 msgstr "Tambah senarai main baru..."
 
-#: ../xlgui/widgets/dialogs.py:1526 ../xlgui/panel/playlists.py:755
+#: ../xlgui/widgets/dialogs.py:1526
+#: ../xlgui/panel/playlists.py:755
 #: ../xlgui/panel/playlists.py:838
 msgid "You did not enter a name for your playlist"
 msgstr "Anda tidak masukkan nama untuk senarai main anda"
 
-#: ../xlgui/widgets/dialogs.py:1529 ../xlgui/panel/playlists.py:321
-#: ../xlgui/panel/playlists.py:761 ../xlgui/panel/playlists.py:845
+#: ../xlgui/widgets/dialogs.py:1529
+#: ../xlgui/panel/playlists.py:321
+#: ../xlgui/panel/playlists.py:761
+#: ../xlgui/panel/playlists.py:845
 msgid "The playlist name you entered is already in use."
 msgstr "Nama senarai main yang anda masukkan telah gunakan."
 
-#: ../xlgui/widgets/notebook.py:146 ../xlgui/menu.py:115
+#: ../xlgui/widgets/notebook.py:146
+#: ../xlgui/menu.py:115
 msgid "Close Tab"
 msgstr "Tutup Tab"
 
@@ -1048,7 +1125,8 @@ msgstr "$title (oleh $artist)"
 msgid "Toggle: Stop after Selected Track"
 msgstr "Togol: henti selepas Trek Pilihan"
 
-#: ../xlgui/main.py:569 ../plugins/previewdevice/__init__.py:365
+#: ../xlgui/main.py:569
+#: ../plugins/previewdevice/__init__.py:365
 msgid "Playback error encountered!"
 msgstr "Ralat main balik dihadapi!"
 
@@ -1057,21 +1135,25 @@ msgstr "Ralat main balik dihadapi!"
 msgid "Buffering: %d%%..."
 msgstr "Menimbal: %d%%..."
 
-#: ../xlgui/main.py:628 ../plugins/previewdevice/__init__.py:376
+#: ../xlgui/main.py:628
+#: ../plugins/previewdevice/__init__.py:376
 msgid "Continue Playback"
 msgstr "Teruskan Main Balik"
 
-#: ../xlgui/main.py:632 ../xlgui/main.py:820
+#: ../xlgui/main.py:632
+#: ../xlgui/main.py:820
 #: ../plugins/previewdevice/__init__.py:347
 #: ../plugins/previewdevice/__init__.py:380
 msgid "Pause Playback"
 msgstr "Jeda Main Balik"
 
-#: ../xlgui/main.py:774 ../xlgui/menu.py:103
+#: ../xlgui/main.py:774
+#: ../xlgui/menu.py:103
 msgid "Playlist export failed!"
 msgstr "Eksport senarai main gagal!"
 
-#: ../xlgui/main.py:832 ../data/ui/main.ui.h:7
+#: ../xlgui/main.py:832
+#: ../data/ui/main.ui.h:7
 #: ../plugins/previewdevice/__init__.py:358
 msgid "Start Playback"
 msgstr "Mula Main Balik"
@@ -1096,7 +1178,8 @@ msgstr "Buka Direktori"
 msgid "_Export Current Playlist"
 msgstr "_Eskport Senarai Main Semasa"
 
-#: ../xlgui/menu.py:124 ../xlgui/preferences/widgets.py:70
+#: ../xlgui/menu.py:124
+#: ../xlgui/preferences/widgets.py:70
 msgid "Restart"
 msgstr "Mula Semula"
 
@@ -1152,7 +1235,8 @@ msgstr "Penulis lirik"
 msgid "Website"
 msgstr "Laman sesawang"
 
-#: ../xlgui/properties.py:55 ../xlgui/cover.py:793
+#: ../xlgui/properties.py:55
+#: ../xlgui/cover.py:793
 msgid "Cover"
 msgstr "Kulit Album"
 
@@ -1185,18 +1269,22 @@ msgstr "Penghibur"
 msgid "Copyright"
 msgstr "Hakcipta"
 
-#: ../xlgui/properties.py:66 ../plugins/lyricsviewer/__init__.py:62
+#: ../xlgui/properties.py:66
+#: ../plugins/lyricsviewer/__init__.py:62
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:1
-#: ../plugins/lyricsviewer/PLUGININFO:5 ../plugins/lyricsfly/PLUGININFO:5
+#: ../plugins/lyricsviewer/PLUGININFO:5
+#: ../plugins/lyricsfly/PLUGININFO:5
 #: ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
 msgstr "Lirik"
 
-#: ../xlgui/properties.py:67 ../plugins/jamendo/ui/jamendo_panel.ui.h:20
+#: ../xlgui/properties.py:67
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
 msgstr "Trek"
 
-#: ../xlgui/properties.py:68 ../data/ui/preferences/plugin.ui.h:2
+#: ../xlgui/properties.py:68
+#: ../data/ui/preferences/plugin.ui.h:2
 msgid "Version"
 msgstr "Versi"
 
@@ -1272,7 +1360,8 @@ msgstr "Imej"
 msgid "Linked image"
 msgstr "Imej terpaut"
 
-#: ../xlgui/properties.py:1036 ../xlgui/cover.py:1104
+#: ../xlgui/properties.py:1036
+#: ../xlgui/cover.py:1104
 msgid "{width}x{height} pixels"
 msgstr "{width}x{height} piksel"
 
@@ -1371,7 +1460,8 @@ msgstr "Togol Baris Gilir"
 msgid "Queue Items"
 msgstr "Baris Gilir Item"
 
-#: ../xlgui/oldmenu.py:121 ../data/ui/trackproperties_dialog.ui.h:7
+#: ../xlgui/oldmenu.py:121
+#: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
 msgstr "Ciri-ciri"
 
@@ -1403,7 +1493,8 @@ msgstr "Padam Senarai Main"
 msgid "Choose directory to export files to"
 msgstr "Pilih direktori untuk mengeksport fail"
 
-#: ../xlgui/oldmenu.py:278 ../xlgui/panel/playlists.py:1178
+#: ../xlgui/oldmenu.py:278
+#: ../xlgui/panel/playlists.py:1178
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr "Anda pasti ingin memadam senarai main yang dipilih?"
 
@@ -1415,7 +1506,8 @@ msgstr "Masukkan nama baru untuk senarai main anda"
 msgid "Rename Playlist"
 msgstr "Namakan Semula Senarai Main"
 
-#: ../xlgui/oldmenu.py:331 ../plugins/multialarmclock/malrmclk.ui.h:2
+#: ../xlgui/oldmenu.py:331
+#: ../plugins/multialarmclock/malrmclk.ui.h:2
 msgid "Remove"
 msgstr "Buang"
 
@@ -1461,7 +1553,8 @@ msgstr ""
 msgid "Transferring to %s..."
 msgstr "Memindahkan ke %s..."
 
-#: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:490
+#: ../xlgui/panel/radio.py:126
+#: ../xlgui/panel/radio.py:490
 #: ../xlgui/panel/radio.py:566
 msgid "Loading streams..."
 msgstr "Memuatkan strim..."
@@ -1470,7 +1563,8 @@ msgstr "Memuatkan strim..."
 msgid "Add Radio Station"
 msgstr "Tambah Stesen Radio"
 
-#: ../xlgui/panel/radio.py:201 ../plugins/audioscrobbler/asprefs_pane.ui.h:5
+#: ../xlgui/panel/radio.py:201
+#: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 msgid "URL:"
 msgstr "URL:"
 
@@ -1482,7 +1576,8 @@ msgstr "Stesen yang Disimpan"
 msgid "Radio Streams"
 msgstr "Strim Radio"
 
-#: ../xlgui/panel/radio.py:304 ../plugins/wikipedia/data/wikipanel.ui.h:4
+#: ../xlgui/panel/radio.py:304
+#: ../plugins/wikipedia/data/wikipanel.ui.h:4
 msgid "Refresh"
 msgstr "Segar Semula"
 
@@ -1624,14 +1719,16 @@ msgstr "Tahun"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
-#: ../xlgui/panel/playlists.py:424 ../xlgui/panel/playlists.py:438
+#: ../xlgui/panel/playlists.py:424
+#: ../xlgui/panel/playlists.py:438
 #: ../xlgui/panel/playlists.py:452
 #, python-format
 msgid "%(first)s, %(second)s and others"
 msgstr "%(first)s, %(second)s dan lain-lain"
 
 #. TRANSLATORS: Playlist title suggestion with two values
-#: ../xlgui/panel/playlists.py:429 ../xlgui/panel/playlists.py:443
+#: ../xlgui/panel/playlists.py:429
+#: ../xlgui/panel/playlists.py:443
 #: ../xlgui/panel/playlists.py:457
 #, python-format
 msgid "%(first)s and %(second)s"
@@ -1662,11 +1759,13 @@ msgstr "Mengeksport %s"
 msgid "Playback"
 msgstr "Main Balik"
 
-#: ../xlgui/preferences/plugin.py:40 ../xlgui/preferences/__init__.py:124
+#: ../xlgui/preferences/plugin.py:40
+#: ../xlgui/preferences/__init__.py:124
 msgid "Plugins"
 msgstr "Pemalam"
 
-#: ../xlgui/preferences/plugin.py:92 ../plugins/grouptagger/gt_common.py:64
+#: ../xlgui/preferences/plugin.py:92
+#: ../plugins/grouptagger/gt_common.py:64
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
 msgstr "Tidak Dikategorikan"
@@ -1682,11 +1781,13 @@ msgid_plural "Failed plugins: %s"
 msgstr[0] "Pemalam gagal: %s"
 msgstr[1] "Pemalam gagal: %s"
 
-#: ../xlgui/preferences/plugin.py:167 ../xlgui/preferences/plugin.py:261
+#: ../xlgui/preferences/plugin.py:167
+#: ../xlgui/preferences/plugin.py:261
 msgid "Could not disable plugin!"
 msgstr "Tidak dapat lumpuhkan pemalam!"
 
-#: ../xlgui/preferences/plugin.py:177 ../xlgui/preferences/plugin.py:255
+#: ../xlgui/preferences/plugin.py:177
+#: ../xlgui/preferences/plugin.py:255
 msgid "Could not enable plugin!"
 msgstr "Tidak dapat membenarkan pemalam!"
 
@@ -1702,16 +1803,20 @@ msgstr "Arkib Pemalam"
 msgid "Plugin file installation failed!"
 msgstr "Pemasangan fail pemalam telah gagal!"
 
-#: ../xlgui/preferences/cover.py:38 ../plugins/musicbrainzcovers/PLUGININFO:5
-#: ../plugins/lastfmcovers/PLUGININFO:5 ../plugins/amazoncovers/PLUGININFO:5
+#: ../xlgui/preferences/cover.py:38
+#: ../plugins/musicbrainzcovers/PLUGININFO:5
+#: ../plugins/lastfmcovers/PLUGININFO:5
+#: ../plugins/amazoncovers/PLUGININFO:5
 msgid "Covers"
 msgstr "Kulit Album"
 
-#: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui.h:9
+#: ../xlgui/preferences/appearance.py:34
+#: ../plugins/osd/osd_preferences.ui.h:9
 msgid "Appearance"
 msgstr "Penampilan"
 
-#: ../xlgui/preferences/collection.py:23 ../data/ui/panel/device.ui.h:1
+#: ../xlgui/preferences/collection.py:23
+#: ../data/ui/panel/device.ui.h:1
 #: ../data/ui/panel/collection.ui.h:1
 msgid "Collection"
 msgstr "Koleksi"
@@ -1745,7 +1850,8 @@ msgstr "Tindakan"
 msgid "Shortcut"
 msgstr "Pintasan"
 
-#: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
+#: ../xlgui/preferences/playlists.py:34
+#: ../data/ui/panel/playlists.ui.h:1
 msgid "Playlists"
 msgstr "Senarai main"
 
@@ -1998,7 +2104,8 @@ msgstr "Pengurus Koleksi"
 msgid "Monitored"
 msgstr "Dipantau"
 
-#: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
+#: ../data/ui/panel/flatplaylist.ui.h:1
+#: ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
 msgstr "Radio"
 
@@ -2038,11 +2145,13 @@ msgstr "Segar semula senarai direktori"
 msgid "Home directory"
 msgstr "Direktori rumah"
 
-#: ../data/ui/panel/files.ui.h:7 ../data/ui/panel/collection.ui.h:6
+#: ../data/ui/panel/files.ui.h:7
+#: ../data/ui/panel/collection.ui.h:6
 msgid "Search: "
 msgstr "Gelintar: "
 
-#: ../data/ui/panel/files.ui.h:8 ../data/ui/panel/collection.ui.h:7
+#: ../data/ui/panel/files.ui.h:8
+#: ../data/ui/panel/collection.ui.h:7
 msgid "Clear search field"
 msgstr "Kosongkan medan gelintar"
 
@@ -2219,7 +2328,8 @@ msgstr "Terpadu (tidak stabil)"
 msgid "Plugin"
 msgstr "Pemalam"
 
-#: ../data/ui/preferences/plugin.ui.h:3 ../plugins/equalizer/equalizer.ui.h:2
+#: ../data/ui/preferences/plugin.ui.h:3
+#: ../plugins/equalizer/equalizer.ui.h:2
 msgid "Enabled"
 msgstr "Dibenarkan"
 
@@ -2404,7 +2514,8 @@ msgstr "Tidak dapat baca moodbar."
 msgid "Moodbar executable is not available."
 msgstr "Boleh laku Moodbar tidak didapati."
 
-#: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
+#: ../plugins/moodbar/moodbarprefs.py:23
+#: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
 msgstr "Moodbar"
 
@@ -2412,7 +2523,8 @@ msgstr "Moodbar"
 msgid "Error executing streamripper"
 msgstr "Ralat melakukan streamripper"
 
-#: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
+#: ../plugins/streamripper/srprefs.py:22
+#: ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
 msgstr "Streamripper"
 
@@ -2458,7 +2570,8 @@ msgstr "Suka Trek Ini"
 msgid "Unlove This Track"
 msgstr "Benci Trek Ini"
 
-#: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
+#: ../plugins/alarmclock/acprefs.py:22
+#: ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
 msgstr "Jam Penggera"
 
@@ -2470,14 +2583,19 @@ msgstr "Pemalam ini perlukan sekurang-kurangnya PyGTK 2.22 dan GTK 2.20."
 msgid "Main Menu"
 msgstr "Menu Utama"
 
-#: ../plugins/shoutcast/__init__.py:107 ../plugins/shoutcast/__init__.py:164
-#: ../plugins/shoutcast/__init__.py:211 ../plugins/shoutcast/__init__.py:227
+#: ../plugins/shoutcast/__init__.py:107
+#: ../plugins/shoutcast/__init__.py:164
+#: ../plugins/shoutcast/__init__.py:211
+#: ../plugins/shoutcast/__init__.py:227
 msgid "Contacting Shoutcast server..."
 msgstr "Menyambung pelayan Shoutcast..."
 
-#: ../plugins/shoutcast/__init__.py:120 ../plugins/shoutcast/__init__.py:124
-#: ../plugins/shoutcast/__init__.py:177 ../plugins/shoutcast/__init__.py:181
-#: ../plugins/shoutcast/__init__.py:242 ../plugins/shoutcast/__init__.py:247
+#: ../plugins/shoutcast/__init__.py:120
+#: ../plugins/shoutcast/__init__.py:124
+#: ../plugins/shoutcast/__init__.py:177
+#: ../plugins/shoutcast/__init__.py:181
+#: ../plugins/shoutcast/__init__.py:242
+#: ../plugins/shoutcast/__init__.py:247
 msgid "Error connecting to Shoutcast server."
 msgstr "Ralat menyambung ke pelayan Shoutcast."
 
@@ -2531,12 +2649,14 @@ msgstr "Pengesahan gagal"
 msgid "Enable audioscrobbling"
 msgstr "Benarkan audioscrobbling"
 
-#: ../plugins/equalizer/__init__.py:127 ../plugins/equalizer/equalizer.ui.h:1
+#: ../plugins/equalizer/__init__.py:127
+#: ../plugins/equalizer/equalizer.ui.h:1
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
 msgstr "Penyama"
 
-#: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
+#: ../plugins/shutdown/__init__.py:38
+#: ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
 msgstr "Matikan selepas Main balik"
 
@@ -2578,7 +2698,8 @@ msgstr "Pratonton Pemain"
 msgid "Preview"
 msgstr "Pratonton"
 
-#: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
+#: ../plugins/notifyosd/notifyosdprefs.py:22
+#: ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
 msgstr "Pemberitahuan notify-osd"
 
@@ -2608,11 +2729,13 @@ msgstr "Konsol IPython - Exaile"
 msgid "Show IPython Console"
 msgstr "Papar Konsol IPython"
 
-#: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
+#: ../plugins/ipconsole/ipconsoleprefs.py:22
+#: ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
 msgstr "Konsol IPython"
 
-#: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
+#: ../plugins/notify/notifyprefs.py:22
+#: ../plugins/notify/PLUGININFO:3
 msgid "Notify"
 msgstr "Maklumkan"
 
@@ -2629,7 +2752,8 @@ msgstr ""
 msgid "Importing CD..."
 msgstr "Mengimport CD..."
 
-#: ../plugins/cd/__init__.py:122 ../plugins/cd/__init__.py:200
+#: ../plugins/cd/__init__.py:122
+#: ../plugins/cd/__init__.py:200
 msgid "Audio Disc"
 msgstr "Cakera Audio"
 
@@ -2637,11 +2761,13 @@ msgstr "Cakera Audio"
 msgid "CD"
 msgstr "CD"
 
-#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimode_preferences.py:92
+#: ../plugins/cd/cdprefs.py:105
+#: ../plugins/minimode/minimode_preferences.py:92
 msgid "Track number"
 msgstr "Nombor trek"
 
-#: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:98
+#: ../plugins/cd/cdprefs.py:111
+#: ../plugins/minimode/minimode_preferences.py:98
 msgid "Disc number"
 msgstr "Nombor cakera"
 
@@ -2665,7 +2791,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../plugins/wikipedia/__init__.py:134 ../plugins/wikipedia/config.py:3
+#: ../plugins/wikipedia/__init__.py:134
+#: ../plugins/wikipedia/config.py:3
 #: ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
@@ -2688,7 +2815,8 @@ msgstr "Ulang Permulaan"
 msgid "Repeat End"
 msgstr "Ulang Penghujung"
 
-#: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:110
+#: ../plugins/minimode/__init__.py:103
+#: ../plugins/minimode/__init__.py:110
 #: ../plugins/minimode/minimode_preferences.py:30
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
@@ -2697,7 +2825,8 @@ msgstr "Mod Mini"
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:111
 #: ../plugins/minimode/minimode_preferences.py:117
-#: ../plugins/minimode/controls.py:693 ../plugins/minimode/controls.py:956
+#: ../plugins/minimode/controls.py:693
+#: ../plugins/minimode/controls.py:956
 msgid "$tracknumber - $title"
 msgstr "$tracknumber - $title"
 
@@ -2827,7 +2956,8 @@ msgstr "Palang kemajuan"
 msgid "Playback progress and seeking"
 msgstr "Kemasjuan dan jangkauan main balik"
 
-#: ../plugins/grouptagger/gt_prefs.py:21 ../plugins/grouptagger/__init__.py:97
+#: ../plugins/grouptagger/gt_prefs.py:21
+#: ../plugins/grouptagger/__init__.py:97
 #: ../plugins/grouptagger/__init__.py:114
 msgid "GroupTagger"
 msgstr "Pengetag Kumpulan"
@@ -2951,7 +3081,8 @@ msgid "Append"
 msgstr "Tambah"
 
 #: ../plugins/history/history_preferences.py:35
-#: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
+#: ../plugins/history/__init__.py:209
+#: ../plugins/history/__init__.py:251
 #: ../plugins/daapclient/__init__.py:292
 msgid "History"
 msgstr "Sejarah"
@@ -2985,7 +3116,8 @@ msgstr "Menggelintar katalog Jamendo..."
 msgid "Retrieving song data..."
 msgstr "Memperoleh data lagu"
 
-#: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
+#: ../plugins/osd/osd_preferences.py:29
+#: ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
 msgstr "Paparan Atas Skrin"
 
@@ -3014,7 +3146,8 @@ msgstr ""
 msgid "Amazon Covers"
 msgstr "Kulit Depan Amazon"
 
-#: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
+#: ../plugins/podcasts/__init__.py:55
+#: ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
 msgstr "Podcasts"
 
@@ -3087,7 +3220,8 @@ msgid "Clear Bookmarks"
 msgstr "Kosongkan Tanda Buku"
 
 #: ../plugins/bookmarks/__init__.py:305
-#: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
+#: ../plugins/bookmarks/bookmarksprefs.py:22
+#: ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
 msgstr "Tanda Buku"
 
@@ -3917,8 +4051,10 @@ msgstr ""
 "Tetapkan status main didalam Pidgin. Semaka FAQ Pidgin untuk memperoleh "
 "perkhidmatan yang disokong.‮"
 
-#: ../plugins/currentsong/PLUGININFO:5 ../plugins/audioscrobbler/PLUGININFO:5
-#: ../plugins/notifyosd/PLUGININFO:5 ../plugins/notify/PLUGININFO:5
+#: ../plugins/currentsong/PLUGININFO:5
+#: ../plugins/audioscrobbler/PLUGININFO:5
+#: ../plugins/notifyosd/PLUGININFO:5
+#: ../plugins/notify/PLUGININFO:5
 #: ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
 msgstr "Pemberitahuan"
@@ -3931,9 +4067,12 @@ msgstr ""
 "Menggantikan palang kemajuan piawai dengan moodbar.\n"
 "Perlukan: moodbar"
 
-#: ../plugins/moodbar/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
-#: ../plugins/awn/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
-#: ../plugins/droptrayicon/PLUGININFO:5 ../plugins/desktopcover/PLUGININFO:5
+#: ../plugins/moodbar/PLUGININFO:5
+#: ../plugins/mainmenubutton/PLUGININFO:5
+#: ../plugins/awn/PLUGININFO:5
+#: ../plugins/minimode/PLUGININFO:5
+#: ../plugins/droptrayicon/PLUGININFO:5
+#: ../plugins/desktopcover/PLUGININFO:5
 msgid "GUI"
 msgstr "GUI"
 
@@ -3949,7 +4088,8 @@ msgstr ""
 "Tambah sokongan untuk mengawal Exaile melalui sistem kekunci multimedia "
 "GNOME's. Serasi dengan GNOME >= 2.20.x"
 
-#: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
+#: ../plugins/gnomemmkeys/PLUGININFO:5
+#: ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "Hotkeys"
 msgstr "Kekunci Panas"
@@ -3962,7 +4102,8 @@ msgstr ""
 "Membenarkan anda rekod stream dengan streamripper.\n"
 "Memerlukan: streamripper"
 
-#: ../plugins/streamripper/PLUGININFO:5 ../plugins/previewdevice/PLUGININFO:5
+#: ../plugins/streamripper/PLUGININFO:5
+#: ../plugins/previewdevice/PLUGININFO:5
 msgid "Output"
 msgstr "Output"
 
@@ -3988,7 +4129,8 @@ msgstr ""
 "\n"
 "Perlukan pemalam \"AudioScrobbler\" untuk nama pengguna dan kata laluan."
 
-#: ../plugins/lastfmlove/PLUGININFO:5 ../plugins/exfalso/PLUGININFO:5
+#: ../plugins/lastfmlove/PLUGININFO:5
+#: ../plugins/exfalso/PLUGININFO:5
 #: ../plugins/grouptagger/PLUGININFO:5
 msgid "Tagging"
 msgstr "Pengetagan"
@@ -4007,10 +4149,14 @@ msgstr ""
 "anda menekan butang main, oleh itu pastikan anda mempunyai muzik yang anda "
 "mahu dengar dalam senarai main anda"
 
-#: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
-#: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
-#: ../plugins/history/PLUGININFO:5 ../plugins/multialarmclock/PLUGININFO:5
-#: ../plugins/bookmarks/PLUGININFO:5 ../plugins/screensaverpause/PLUGININFO:5
+#: ../plugins/alarmclock/PLUGININFO:5
+#: ../plugins/inhibitsuspend/PLUGININFO:5
+#: ../plugins/shutdown/PLUGININFO:5
+#: ../plugins/mpris/PLUGININFO:5
+#: ../plugins/history/PLUGININFO:5
+#: ../plugins/multialarmclock/PLUGININFO:5
+#: ../plugins/bookmarks/PLUGININFO:5
+#: ../plugins/screensaverpause/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5
 msgid "Utility"
 msgstr "Utiliti"
@@ -4047,9 +4193,12 @@ msgstr "Radio Shoutcast"
 msgid "Shoutcast Radio list"
 msgstr "Senarai Radio Shoutcast"
 
-#: ../plugins/shoutcast/PLUGININFO:5 ../plugins/librivox/PLUGININFO:5
-#: ../plugins/jamendo/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
-#: ../plugins/daapserver/PLUGININFO:5 ../plugins/daapclient/PLUGININFO:5
+#: ../plugins/shoutcast/PLUGININFO:5
+#: ../plugins/librivox/PLUGININFO:5
+#: ../plugins/jamendo/PLUGININFO:5
+#: ../plugins/podcasts/PLUGININFO:5
+#: ../plugins/daapserver/PLUGININFO:5
+#: ../plugins/daapclient/PLUGININFO:5
 msgid "Media Sources"
 msgstr "Sumber Media"
 
@@ -4106,8 +4255,10 @@ msgstr ""
 msgid "A 10-band equalizer"
 msgstr "Penyama 10-jalur"
 
-#: ../plugins/equalizer/PLUGININFO:5 ../plugins/abrepeat/PLUGININFO:5
-#: ../plugins/replaygain/PLUGININFO:5 ../plugins/karaoke/PLUGININFO:5
+#: ../plugins/equalizer/PLUGININFO:5
+#: ../plugins/abrepeat/PLUGININFO:5
+#: ../plugins/replaygain/PLUGININFO:5
+#: ../plugins/karaoke/PLUGININFO:5
 msgid "Effect"
 msgstr "Kesan"
 
@@ -4151,7 +4302,8 @@ msgstr ""
 "Sokongan untuk mencapai pemain media mudah alih menggunakan protokol Storan "
 "USB"
 
-#: ../plugins/massstorage/PLUGININFO:5 ../plugins/cd/PLUGININFO:5
+#: ../plugins/massstorage/PLUGININFO:5
+#: ../plugins/cd/PLUGININFO:5
 #: ../plugins/ipod/PLUGININFO:5
 msgid "Devices"
 msgstr "Peranti"
@@ -4197,7 +4349,8 @@ msgstr ""
 msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr "Menyediakan konsol IPython yang boleh memanipulasi Exaile."
 
-#: ../plugins/ipconsole/PLUGININFO:5 ../plugins/helloworld/PLUGININFO:5
+#: ../plugins/ipconsole/PLUGININFO:5
+#: ../plugins/helloworld/PLUGININFO:5
 msgid "Development"
 msgstr "Pembangunan"
 
@@ -4229,7 +4382,8 @@ msgstr ""
 "Sediakan maklumat Wikipedia mengenai artis semasa.\n"
 "Perlukan: python-webkit"
 
-#: ../plugins/wikipedia/PLUGININFO:5 ../plugins/contextinfo/PLUGININFO:5
+#: ../plugins/wikipedia/PLUGININFO:5
+#: ../plugins/contextinfo/PLUGININFO:5
 msgid "Information"
 msgstr "Maklumat"
 
@@ -4413,8 +4567,8 @@ msgstr ""
 msgid "Allows playing of DAAP music shares."
 msgstr "Benarkan main perkongsian muzik DAAP."
 
-#~ msgid "Clear"
-#~ msgstr "Kosongkan"
+#~ msgid "&#xA9; 2009-2010"
+#~ msgstr "&#xA9; 2009-2010"
 
 #~ msgid "Close"
 #~ msgstr "Tutup"
@@ -4506,189 +4660,6 @@ msgstr "Benarkan main perkongsian muzik DAAP."
 #~ msgid "Awn"
 #~ msgstr "Awn"
 
-#~ msgid "Set rating for current song"
-#~ msgstr "Set rating bagi lagu semasa"
-
-#~ msgid "Get rating for current song"
-#~ msgstr "Dapatkan rating bagi lagu semasa"
-
-#~ msgid "  New song, fetching cover."
-#~ msgstr "  Lagu baru, mengambil cover."
-
-#~ msgid "Streaming..."
-#~ msgstr "Streaming..."
-
-#~ msgid "%(minutes)d:%(seconds)02d"
-#~ msgstr "%(minutes)d:%(seconds)02d"
-
-#~ msgid "New playlist title:"
-#~ msgstr "Judul playlist baru:"
-
-#~ msgid "0:00"
-#~ msgstr "0:00"
-
-#~ msgid "Buffering: 100%..."
-#~ msgstr "Buffering: 100%..."
-
-#~ msgid ""
-#~ "Exaile Music Player\n"
-#~ "Not playing"
-#~ msgstr ""
-#~ "Exaile Music Player\n"
-#~ "Not playing"
-
-#~ msgid "Stopped"
-#~ msgstr "Dihentikan"
-
-#~ msgid "Save As..."
-#~ msgstr "Simpan Sebagai..."
-
-#~ msgid "Toggle: Stop after selected track"
-#~ msgstr "Toggle: Berhenti selepas trek dipilih"
-
-#~ msgid "by %s"
-#~ msgstr "oleh %s"
-
-#~ msgid "from %s"
-#~ msgstr "dari %s"
-
-#~ msgid "_Save As..."
-#~ msgstr "_Simpan Sebagai..."
-
-#~ msgid "C_lear All Tracks"
-#~ msgstr "B_ersih Semua Trek"
-
-#~ msgid "_Close Playlist"
-#~ msgstr "_Tutup Playlist"
-
-#~ msgid "Delete track"
-#~ msgstr "Hapus trek"
-
-#~ msgid "Export"
-#~ msgstr "Eksport"
-
-#~ msgid "Open"
-#~ msgstr "Buka"
-
-#~ msgid "Start"
-#~ msgstr "Mula"
-
-#~ msgid "No covers found"
-#~ msgstr "Tiada cover dijumpai"
-
-#~ msgid "Enter the search text"
-#~ msgstr "Masuk teks carian"
-
-#~ msgid "Choose a file to open"
-#~ msgstr "Pilih fail untuk dibuka"
-
-#~ msgid "No track"
-#~ msgstr "Tiada trek"
-
-#~ msgid "Export current playlist..."
-#~ msgstr "Eksport playlist semasa..."
-
-#~ msgid "Invalid file extension, file not saved"
-#~ msgstr "File extension tidak sah, fail tidak disimpan"
-
-#~ msgid "Select File Type (By Extension)"
-#~ msgstr "Pilih Jenis Fail (By Extension)"
-
-#~ msgid "File Type"
-#~ msgstr "Jenis Fail"
-
-#~ msgid "Add a directory"
-#~ msgstr "Tambah direktori"
-
-#~ msgid " songs"
-#~ msgstr " lagu-lagu"
-
-#~ msgid "Add To New Playlist..."
-#~ msgstr "Tambah Ke Playlist Baru..."
-
-#~ msgid "Idle."
-#~ msgstr "Idle."
-
-#~ msgid ""
-#~ "This will permanantly delete the selected tracks from your disk, are you "
-#~ "sure you wish to continue?"
-#~ msgstr ""
-#~ "Ini akan hapuskan trek yang dipilih dari disk anda, adakah anda pasti "
-#~ "mahu teruskan?"
-
-#~ msgid "Move selected item up"
-#~ msgstr "Alih item dipilih ke atas"
-
-#~ msgid "Remove item"
-#~ msgstr "Buang item"
-
-#~ msgid "Could not enable plugin: %s"
-#~ msgstr "Tidak boleh enable plugin: %s"
-
-#~ msgid "Could not disable plugin: %s"
-#~ msgstr "Tidak boleh disable plugin: %s"
-
-#~ msgid "Add item"
-#~ msgstr "Tambah item"
-
-#~ msgid "Move selected item down"
-#~ msgstr "Alih item dipilih ke bawah"
-
-#~ msgid "Remove current track from playlist"
-#~ msgstr "Buang trek semasa dari playlist"
-
-#~ msgid "Add device"
-#~ msgstr "Tambah device"
-
-#~ msgid "Repeat playlist"
-#~ msgstr "Ulang playlist"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "New Search"
-#~ msgstr "Carian Baru"
-
-#~ msgid "Album:"
-#~ msgstr "Album:"
-
-#~ msgid "Artist:"
-#~ msgstr "Artis:"
-
-#~ msgid "Basic"
-#~ msgstr "Asas"
-
-#~ msgid "Title:"
-#~ msgstr "Judul:"
-
-#~ msgid "File Size:"
-#~ msgstr "Saiz fail:"
-
-#~ msgid "Length:"
-#~ msgstr "Panjang:"
-
-#~ msgid "Date:"
-#~ msgstr "Tarikh:"
-
-#~ msgid "Location:"
-#~ msgstr "Lokasi:"
-
-#~ msgid "Details"
-#~ msgstr "Perincian"
-
-#~ msgid "Play Count:"
-#~ msgstr "Bilangan Main:"
-
-#~ msgid "Bitrate:"
-#~ msgstr "Bitrate:"
-
-#~ msgid "Genre:"
-#~ msgstr "Genre:"
-
-#~ msgid "Track Number:"
-#~ msgstr "Nombor Trek:"
-
-#~ msgid ""
 #~ "Left\n"
 #~ "Right\n"
 #~ "Top\n"
@@ -4700,64 +4671,6 @@ msgstr "Benarkan main perkongsian muzik DAAP."
 #~ "Bawah"
 
 #~ msgid ""
-#~ "Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
-#~ "\n"
-#~ "This program is free software; you can redistribute it and/or modify\n"
-#~ "it under the terms of the GNU General Public License as published by\n"
-#~ "the Free Software Foundation; either version 2 of the License, or\n"
-#~ "(at your option) any later version.\n"
-#~ "\n"
-#~ "This program is distributed in the hope that it will be useful,\n"
-#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-#~ "GNU General Public License for more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License along\n"
-#~ "with this program; if not, write to the Free Software Foundation, Inc.,\n"
-#~ "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
-#~ msgstr ""
-#~ "Hakcipta (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
-#~ "\n"
-#~ "Program ini adalah perisian percuma; anda boleh edar semula dan/atau "
-#~ "ubahkannya\n"
-#~ "dibawah syarat-syarat GNU General Public License sebagaimana yang "
-#~ "diterbitkan oleh\n"
-#~ "Free Software Foundation; sama ada versi 2 Lesen tersebut, atau\n"
-#~ "(pilihan anda) mana-mana versi terbaru.\n"
-#~ "\n"
-#~ "This program is distributed in the hope that it will be useful,\n"
-#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-#~ "GNU General Public License for more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License along\n"
-#~ "with this program; if not, write to the Free Software Foundation, Inc.,\n"
-#~ "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
-
-#~ msgid "&#xA9; 2009"
-#~ msgstr "&#xA9; 2009"
-
-#~ msgid ""
-#~ "Mathias Brodala\n"
-#~ "   <info@noctus.net>\n"
-#~ "    Translation Manager"
-#~ msgstr ""
-#~ "Mathias Brodala\n"
-#~ "   <info@noctus.net>\n"
-#~ "    Pengurus Terjemahan"
-
-#~ msgid "_Close"
-#~ msgstr "_Tutup"
-
-#~ msgid "Use alpha transparency (if supported)"
-#~ msgstr "Guna alpha transparency (jika disokong)"
-
-#~ msgid "Window Height:"
-#~ msgstr "Tinggi Tetingkap:"
-
-#~ msgid "Window Width:"
-#~ msgstr "Lebar Tetingkap:"
-
 #~ msgid ""
 #~ "<b>{title}</b>\n"
 #~ "{artist}\n"
@@ -4767,18 +4680,6 @@ msgstr "Benarkan main perkongsian muzik DAAP."
 #~ "{artis}\n"
 #~ "dalam {album} - {panjang}"
 
-#~ msgid "Opacity Level:"
-#~ msgstr "Kadar Kelegapan:"
-
-#~ msgid "Text Color"
-#~ msgstr "Warna Teks"
-
-#~ msgid "Show OSD on track change"
-#~ msgstr "Papar OSD ketika trek berubah"
-
-#~ msgid "Remove All"
-#~ msgstr "Buang Semua"
-
 #~ msgid ""
 #~ "Automatic\n"
 #~ "GNOME\n"
@@ -4800,15 +4701,6 @@ msgstr "Benarkan main perkongsian muzik DAAP."
 #~ msgstr ""
 #~ "Normal\n"
 #~ "Unified (unstable)"
-
-#~ msgid "Close this dialog"
-#~ msgstr "Tutup dialog ini"
-
-#~ msgid "Toggle Play or Pause"
-#~ msgstr "Toggle Play atau Pause"
-
-#~ msgid "Print the progress inside the current track as percentage"
-#~ msgstr "Cetak progres di dalam trek semasa sebagai peratusan"
 
 #~ msgid ""
 #~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
@@ -4816,59 +4708,17 @@ msgstr "Benarkan main perkongsian muzik DAAP."
 #~ "Exaile sekarang menggunakan URI mutlak, sila hapus/rename direktori %s "
 #~ "anda"
 
-#~ msgid "Print the position inside the current track as time"
-#~ msgstr "Cetak posisi di dalam trek semasa sebagai masa"
-
-#~ msgid "Add to custom playlist"
-#~ msgstr "Tambah ke custom playlist"
-
-#~ msgid "_Rename Playlist"
-#~ msgstr "_Rename Playlist"
-
-#~ msgid "%(title)s (by %(artist)s)"
-#~ msgstr "%(title)s (by %(artist)s)"
-
-#~ msgid "In pause: %s"
-#~ msgstr "In pause: %s"
-
-#~ msgid "_Save Changes To Playlist"
-#~ msgstr "_Simpan Perubahan Ke Playlist"
-
 #~ msgid " (%(queue_count)d queued)"
 #~ msgstr " (%(queue_count)d queued)"
-
-#~ msgid "_Save As Custom Playlist"
-#~ msgstr "_Simpan sebagai Custom Playlist"
-
-#~ msgid "Playing %s"
-#~ msgstr "Playing %s"
-
-#~ msgid "Install plugin file"
-#~ msgstr "Install fail plugin"
 
 #~ msgid " + "
 #~ msgstr " + "
 
-#~ msgid "0/0 tracks"
-#~ msgstr "0/0 tracks"
-
 #~ msgid " - "
 #~ msgstr " - "
 
-#~ msgid "Page 1"
-#~ msgstr "Halaman 1"
-
-#~ msgid "Clear Playlist"
-#~ msgstr "Bersih Playlist"
-
 #~ msgid "Vol:"
 #~ msgstr "Vol:"
-
-#~ msgid "Start/Pause Playback"
-#~ msgstr "Start/Pause Playback"
-
-#~ msgid "_Export current playlist"
-#~ msgstr "_Eksport playlist semasa"
 
 #~ msgid ""
 #~ "Artist\n"
@@ -4890,250 +4740,7 @@ msgstr "Benarkan main perkongsian muzik DAAP."
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>Umum</b>"
 
-#~ msgid "Clear bookmarks"
-#~ msgstr "Bersih tanda buku"
-
-#~ msgid "Delete bookmark"
-#~ msgstr "Hapus tanda buku"
-
-#~ msgid "Stop Playback"
-#~ msgstr "Stop Playback"
-
-#~ msgid " & "
-#~ msgstr " & "
-
-#~ msgid "Alarm:"
-#~ msgstr "Penggera:"
-
-#~ msgid "Alarm Days:"
-#~ msgstr "Hari Penggera:"
-
-#~ msgid "Alarm Name:"
-#~ msgstr "Nama Penggera:"
-
-#~ msgid "Alarm Time:"
-#~ msgstr "Waktu Penggera:"
-
-#~ msgid "Restart Playlist"
-#~ msgstr "Restart Playlist"
-
-#~ msgid "Name - Time"
-#~ msgstr "Nama - Masa"
-
-#~ msgid "Decreases the volume by VOL%"
-#~ msgstr "Turun volume dengan VOL%"
-
-#~ msgid "Increases the volume by VOL%"
-#~ msgstr "Naik volume dengan VOL%"
-
-#~ msgid "Show a popup of the currently playing track"
-#~ msgstr "Papar popup trek yang sedang dimainkan"
-
-#~ msgid "Plugin archive is not in the correct format"
-#~ msgstr "Arkib plugin bukan dalam format yang betul"
-
-#~ msgid "A plugin with the name \"%s\" is already installed"
-#~ msgstr "Plugin dengan nama \"%s\" sudah diinstall"
-
-#~ msgid "%(year)d-%(month)02d-%(day)02d"
-#~ msgstr "%(year)d-%(month)02d-%(day)02d"
-
-#~ msgid "Install a third party plugin from a file"
-#~ msgstr "Install plugin third party dari fail"
-
-#~ msgid "Bookmark this track"
-#~ msgstr "Tanda buku trek ini"
-
-#~ msgid "Restore Main Window"
-#~ msgstr "Restore Tetingkap Utama"
-
-#~ msgid "$title ($length)"
-#~ msgstr "$title ($length)"
-
-#~ msgid "Seeking: "
-#~ msgstr "Mencari: "
-
-#~ msgid "Streamripper can only record streams."
-#~ msgstr "Streamripper hanya boleh rakam stream."
-
-#~ msgid "Maximum Volume:"
-#~ msgstr "Volume Maksima:"
-
-#~ msgid "Minimum Volume:"
-#~ msgstr "Volume Minima:"
-
-#~ msgid "Album Line:"
-#~ msgstr "Album Line:"
-
-#~ msgid "Use Media Icons For Pause, Stop and Resume"
-#~ msgstr "Guna Ikon Media Untuk Jeda, Berhenti dan Resume"
-
-#~ msgid "Use Album Covers As Icons"
-#~ msgstr "Guna Cover Album Sebagai Ikon"
-
-#~ msgid "Artist Line:"
-#~ msgstr "Artist Line:"
-
-#~ msgid ""
-#~ "To sign up for an Amazon AWS account and get \n"
-#~ "this information visit http://aws.amazon.com/"
-#~ msgstr ""
-#~ "Untuk sign up akaun Amazon AWS dan peroleh \n"
-#~ "maklumat ini lawati http://aws.amazon.com/"
-
-#~ msgid "Secret Key:"
-#~ msgstr "Kunci Rahsia:"
-
-#~ msgid "Both artist and album"
-#~ msgstr "Kedua-dua artis dan album"
-
-#~ msgid "Only artist"
-#~ msgstr "Hanya artis"
-
-#~ msgid "Summary"
-#~ msgstr "Ringkasan"
-
-#~ msgid "Only album"
-#~ msgstr "Hanya album"
-
-#~ msgid "Terminal Opacity:"
-#~ msgstr "Kelegapan Terminal:"
-
-#~ msgid "Display window decorations"
-#~ msgstr "Papar hiasan tetingkap"
-
-#~ msgid "Save Location:"
-#~ msgstr "Lokasi simpan:"
-
-#~ msgid "Relay Port:"
-#~ msgstr "Port Relay:"
-
-#~ msgid "Track title format:"
-#~ msgstr "Format judul trek:"
-
-#~ msgid "Last.fm Dynamic Search"
-#~ msgstr "Carian Dinamik Last.fm"
-
-#~ msgid "iPod support"
-#~ msgstr "sokongan iPod"
-
-#~ msgid "A plugin for iPod support"
-#~ msgstr "Plugin untuk sokong iPod"
-
-#~ msgid "Tag Covers"
-#~ msgstr "Cover Tag"
-
-#~ msgid "Plugin to fetch lyrics from lyricwiki.org"
-#~ msgstr "Plugin untuk ambil lirik dari lyricwiki.org"
-
-#~ msgid "Plugin archive contains an unsafe path"
-#~ msgstr "Arkib plugin mengandungi path yang tidak selamat"
-
-#~ msgid ""
-#~ "Path is already in your collection, or is a subdirectory of another path "
-#~ "in your collection"
-#~ msgstr ""
-#~ "Path sudah dalam koleksi anda, atau merupakan subdirektori path lain "
-#~ "dalam koleksi anda"
-
-#~ msgid "Custom playlist name:"
-#~ msgstr "Nama playlist custom:"
-
-#~ msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-#~ msgstr "%(playlist_count)d showing, %(collection_count)d in collection"
-
-#~ msgid "Playback engine (requires restart): "
-#~ msgstr "Enjin Playback (perlu restart): "
-
-#~ msgid "Display OSD when hovering over tray icon"
-#~ msgstr "Papar OSD ketika hover atas ikon tray"
-
-#~ msgid "Track _properties"
-#~ msgstr "Perihal _trek"
-
-#~ msgid "_Go to Playing Track"
-#~ msgstr "_Pergi ke Trek dimainkan"
-
-#~ msgid "Selected controls"
-#~ msgstr "Selected controls"
-
-#~ msgid "Available controls"
-#~ msgstr "Available controls"
-
-#~ msgid "Enable Fading"
-#~ msgstr "Enable Fading"
-
-#~ msgid "Fading:"
-#~ msgstr "Fading:"
-
-#~ msgid "Show Menuitem to toggle Submission"
-#~ msgstr "Show Menuitem to toggle Submission"
-
-#~ msgid "Timer per Increment:"
-#~ msgstr "Timer per Increment:"
-
-#~ msgid "Time per Increment:"
-#~ msgstr "Time per Increment:"
-
-#~ msgid "On Tray Icon Hover"
-#~ msgstr "On Tray Icon Hover"
-
-#~ msgid "On Track Change"
-#~ msgstr "On Track Change"
-
-#~ msgid "On Playback Start, Pause or Stop"
-#~ msgstr "On Playback Start, Pause or Stop"
-
-#~ msgid "Creates an MPRIS D-Bus object to control Exaile"
-#~ msgstr "Cipta objek MPRIS D-Bus untuk kawal Exaile"
-
-#~ msgid ""
-#~ "Adds support for playing audio CDs.\n"
-#~ "Requires python-cddb to look up tags."
-#~ msgstr ""
-#~ "Tambah sokongan untuk memain CD audio.\n"
-#~ "Memerliukan python-cddb to look up tags."
-
-#~ msgid "Filter event debug output"
-#~ msgstr "Filter event debug output"
-
-#~ msgid "order must be a list or tuple"
-#~ msgstr "order must be a list or tuple"
-
-#~ msgid "Device class does not support transfer."
-#~ msgstr "Kelas peranti tidak sokong pindah."
-
-#~ msgid "These options only affect the unified engine."
-#~ msgstr "Pilihan ini hanya terkesan untuk unified engine."
-
-#~ msgid "Dynamically add similar tracks"
-#~ msgstr "Tambah trek seumpama secara dinamik"
-
-#~ msgid "Searches track tags for covers"
-#~ msgstr "Cari tag ter untuk cover"
-
-#~ msgid "When GUI is Focused"
-#~ msgstr "Apabila GUI difokus"
-
-#~ msgid ""
-#~ "The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be "
-#~ "replaced by their respective values. The title will be replaced by "
-#~ "\"Unknown\" if it is empty."
-#~ msgstr ""
-#~ "Tag \"%(title)s\", \"%(artist)s\", and \"%(album)s\" akan diganti dengan "
-#~ "value berkenaan. Judul akan digantikan dengan \"Unknown\" sekiranya "
 #~ "kosong."
-
-#~ msgid ""
-#~ "Message that should be displayed in the body of the notification. In each "
-#~ "case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
-#~ "by their respective values. If the tag is not known, \"Unknown\" will be "
-#~ "filled in its place"
-#~ msgstr ""
-#~ "Message that should be displayed in the body of the notification. In each "
-#~ "case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
-#~ "by their respective values. If the tag is not known, \"Unknown\" will be "
-#~ "filled in its place"
 
 #~ msgid "MPRIS"
 #~ msgstr "MPRIS"
@@ -5159,52 +4766,6 @@ msgstr "Benarkan main perkongsian muzik DAAP."
 #~ msgstr ""
 #~ "Paparkan pelbagai maklumat mengenai lagu yang sedang dimainkan.\n"
 #~ "Kebergantungan: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
-
-#~ msgid "%d covers to fetch"
-#~ msgstr "%d kulit album untuk diambil"
-
-#~ msgid "Extension"
-#~ msgstr "Sambungan"
-
-#~ msgid "New custom playlist name:"
-#~ msgstr "Nama senarai main suai baru:"
-
-#~ msgid "Randomize the order of the current playlist"
-#~ msgstr "Rawakkan tertib senarai main semasa"
-
-#~ msgid "_Randomize Playlist"
-#~ msgstr "_Rawakkan Senarai Main"
-
 #~ msgid "Search:"
 #~ msgstr "Gelintar:"
 
-#~ msgid ""
-#~ "<b>Move the On Screen Display window to the location you want it to "
-#~ "appear</b>"
-#~ msgstr ""
-#~ "<b>Alih tetingkap Paparan Atas Skrin ke lokasi yang anda mahu ianya "
-#~ "muncul</b>"
-
-#~ msgid "Display a progressbar in the OSD"
-#~ msgstr "Papar palang kemajuan didalam OSD"
-
-#~ msgid "Text Font:"
-#~ msgstr "Fon Teks:"
-
-#~ msgid ""
-#~ "<b>OSD</b>\n"
-#~ "Drag to the location you'd like the\n"
-#~ "OSD to appear"
-#~ msgstr ""
-#~ "<b>OSD</b>\n"
-#~ "Seret ke lokasi yang anda mahu\n"
-#~ "OSD muncul"
-
-#~ msgid "Popup"
-#~ msgstr "Dialog Timbul"
-
-#~ msgid "Pauses/resumes playback on screensaver start/stop"
-#~ msgstr "Jeda/sambung main balik ketika penyelamat skrin mula/berhenti"
-
-#~ msgid "Choose a plugin"
-#~ msgstr "Pilih pemalam"

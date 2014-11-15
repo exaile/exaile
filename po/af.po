@@ -1,22 +1,22 @@
 # Afrikaans translation for exaile
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the exaile package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2013-09-12 09:29+0000\n"
-"Last-Translator: JC Brand <Unknown>\n"
+"PO-Revision-Date: 2014-08-10 19:50+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Afrikaans <af@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2013-10-22 05:13+0000\n"
-"X-Generator: Launchpad (build 16807)\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:23+0000\n"
+"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -4426,39 +4426,12 @@ msgstr ""
 msgid "Allows playing of DAAP music shares."
 msgstr ""
 
-#~ msgid "Start"
-#~ msgstr "Begin"
-
-#~ msgid "File Type"
-#~ msgstr "Lêertipe"
-
-#~ msgid "Extension"
-#~ msgstr "Uitbreiding"
-
-#~ msgid "Close tab"
-#~ msgstr "Sluit oortjie"
-
-#~ msgid "Clear"
-#~ msgstr "Maak skoon"
-
-#~ msgid "Close"
-#~ msgstr "Sluit"
-
-#~ msgid "No track"
-#~ msgstr "Geen snit"
+#~ msgid "&#xA9; 2009-2010"
+#~ msgstr "&#xA9; 2009-2010"
 
 #, python-format
 #~ msgid "%d KB"
 #~ msgstr "%d KG"
-
-#~ msgid "Text Color"
-#~ msgstr "Teks Kleur"
-
-#~ msgid "Window Height:"
-#~ msgstr "Vensterhoogte:"
-
-#~ msgid "Window Width:"
-#~ msgstr "Vensterbreedte:"
 
 #~ msgid "ALSA"
 #~ msgstr "ALSA"
@@ -4475,138 +4448,12 @@ msgstr ""
 #~ msgid "JACK"
 #~ msgstr "JACK"
 
-#~ msgid "Popup"
-#~ msgstr "Pop-op"
-
-#~ msgid "AWN"
-#~ msgstr "AWN"
-
-#~ msgid "Export"
-#~ msgstr "Eksporteer"
-
 #~ msgid "Export as..."
 #~ msgstr "Eksporteer as"
-
-#, python-format
-#~ msgid "%d covers to fetch"
-#~ msgstr "%d omslae om te gaan haal"
-
-#~ msgid "Randomize the order of the current playlist"
-#~ msgstr "Verander die volgorde van die huidige speellys willekeurig"
-
-#~ msgid "New custom playlist name:"
-#~ msgstr "Naam vir nuwe doelgemaakte speellys:"
-
-#~ msgid "_Randomize Playlist"
-#~ msgstr "Maak speellys deu_rmekaar"
-
-#~ msgid "Opacity Level:"
-#~ msgstr "Deursigtigheidsvlak"
-
-#~ msgid "Text Font:"
-#~ msgstr "Teks se lettertipe"
-
-#~ msgid "Show OSD on track change"
-#~ msgstr "Vertoon infovenster by snitverandering"
-
-#~ msgid ""
-#~ "Mathias Brodala\n"
-#~ "   <info@noctus.net>\n"
-#~ "    Translation Manager"
-#~ msgstr ""
-#~ "Mathias Brodala\n"
-#~ "   <info@noctus.net>\n"
-#~ "     Vertalingsbestuurder"
-
-#, python-format
-#~ msgid "%(minutes)d:%(seconds)02d"
-#~ msgstr "%(minutes)d:%(seconds)02d"
-
-#~ msgid ""
-#~ "<b>OSD</b>\n"
-#~ "Drag to the location you'd like the\n"
-#~ "OSD to appear"
-#~ msgstr ""
-#~ "<b>infoskerm</b>\n"
-#~ "Sleep die infoskerm na die \n"
-#~ "gewenste ligging"
-
-#~ msgid ""
-#~ "<b>Move the On Screen Display window to the location you want it to "
-#~ "appear</b>"
-#~ msgstr "<b>Sleep die infoskerm na die gewenste ligging</b>"
-
-#~ msgid "Display a progressbar in the OSD"
-#~ msgstr "Vertoon vorderingsbalk in die infoskerm"
 
 #~ msgid "&#xA9; 2009-2010"
 #~ msgstr "&#xA9; 2009-2010"
 
-#~ msgid "Alarm:"
-#~ msgstr "Alarm:"
-
-#~ msgid "Name - Time"
-#~ msgstr "Naam - Tyd"
-
-#~ msgctxt "yes"
-#~ msgid "Increment:"
-#~ msgstr "Verhoog:"
-
-#~ msgctxt "yes"
-#~ msgid "Friday"
-#~ msgstr "Vrydag"
-
-#~ msgctxt "yes"
-#~ msgid "Minimum volume:"
-#~ msgstr "Minimum volume:"
-
-#~ msgctxt "yes"
-#~ msgid "Maximum volume:"
-#~ msgstr "Maksimum volume"
-
-#~ msgctxt "yes"
-#~ msgid "Time per increment:"
-#~ msgstr "Tyd per verhoging:"
-
-#~ msgctxt "yes"
-#~ msgid "Tuesday"
-#~ msgstr "Dinsdag"
-
-#~ msgctxt "yes"
-#~ msgid "Wednesday"
-#~ msgstr "Woensdag"
-
-#~ msgctxt "yes"
-#~ msgid "Monday"
-#~ msgstr "Maandag"
-
-#~ msgctxt "yes"
-#~ msgid "Saturday"
-#~ msgstr "Saterdag"
-
-#~ msgctxt "yes"
-#~ msgid "Sunday"
-#~ msgstr "Sondag"
-
-#~ msgctxt "yes"
-#~ msgid "Thursday"
-#~ msgstr "Donderdag"
-
-#~ msgid "Secret key:"
-#~ msgstr "Geheime sleutel:"
-
-#~ msgctxt "yes"
-#~ msgid "Use Fading"
-#~ msgstr "Gebruik uitvaag?"
-
-#~ msgid "Fading:"
-#~ msgstr "Uitvaag:"
-
-#~ msgid "Playback engine (requires restart): "
-#~ msgstr "Terugspeel-enjin (vereis oorbegin): "
-
-#~ msgid "Awn"
-#~ msgstr "Awn"
 
 #~ msgid "DirectSound"
 #~ msgstr "DirectSound"

@@ -30,43 +30,27 @@ major = "3.4"
 minor = "2"
 extra = ""
 
-def get_latest_bzr_revno(directory):
+def get_current_revision(directory):
     """
-        Get the latest bzr revision number for the branch contained in
+        Get the latest revision identifier for the branch contained in
         'directory'. Returns None if the directory is not a branch or
-        the revision number cannot be found.
+        the revision identifier cannot be found.
     """
     try:
-        import bzrlib.workingtree
-        import bzrlib.errors as errors
+        import git
     except ImportError:
         return None
 
     try:
-        wt = bzrlib.workingtree.WorkingTree.open_containing(directory)[0]
-        wt.lock_read()
-    except (errors.NoWorkingTree,
-            errors.NotLocalUrl,
-            errors.NotBranchError,
-            errors.LockContention,
-            errors.ConnectionError, # --> Only happens on lightweight checkout.
-            ):
+        repo = git.Repo(directory)
+    except git.InvalidGitRepositoryError:
         return None
 
-    revid = wt.last_revision()
-    try:
-        revno = wt.branch.revision_id_to_dotted_revno(revid)
-    except errors.NoSuchRevision:
-        pass
-    finally:
-        wt.unlock()
-
-    return ".".join(str(n) for n in revno)
-
+    return repo.git.rev_parse('HEAD', short=7)
 
 if xdg.local_hack:
-    revision = get_latest_bzr_revno(xdg.exaile_dir)
+    revision = get_current_revision(xdg.exaile_dir)
     if revision is not None:
-        extra += "+bzr" + revision
+        extra += "+" + revision
 
 __version__ = major + "." + minor + extra

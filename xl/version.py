@@ -36,17 +36,14 @@ def get_current_revision(directory):
         'directory'. Returns None if the directory is not a branch or
         the revision identifier cannot be found.
     """
-    try:
-        import git
-    except ImportError:
-        return None
+    import subprocess
 
     try:
-        repo = git.Repo(directory)
-    except git.InvalidGitRepositoryError:
+        return subprocess.check_output([
+            'git', 'rev-parse', '--short=7', 'HEAD'
+        ]).strip()
+    except subprocess.CalledProcessError:
         return None
-
-    return repo.git.rev_parse('HEAD', short=7)
 
 if xdg.local_hack:
     revision = get_current_revision(xdg.exaile_dir)

@@ -717,7 +717,7 @@ class Exaile(object):
         '''
         
         version = __version__
-        if '+' in version:  # strip out bzr tags
+        if '+' in version:  # strip out revision identifier
             version = version[:version.index('+')]
         
         fmt = {

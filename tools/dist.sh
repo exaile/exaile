@@ -7,7 +7,7 @@ echo "Creating distribution for Exaile $DIST_VERSION"
 
 tar --gzip --format=posix --owner 0 --group 0 \
     -cf dist/exaile-${DIST_VERSION}.tar.gz dist/copy \
-    --exclude=dist/copy/.bzr* \
+    --exclude=dist/copy/.git* \
     --transform s/dist\\/copy/exaile-${DIST_VERSION}/
 
 gpg --armor --sign --detach-sig dist/exaile-${DIST_VERSION}.tar.gz

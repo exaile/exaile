@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Elmaz Yu <Unknown>\n"
-"Language-Team: Traditional Chinese <zh_TW@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2014-11-19 16:45+0200\n"
+"Last-Translator: ezjerry liao <ezjerry@gmail.com>\n"
+"Language-Team: Traditional Chinese "
+"<https://hosted.weblate.org/projects/exaile/master/zh_TW/>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:31+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -114,7 +115,7 @@ msgstr "選項"
 
 #: ../xl/main.py:421
 msgid "Playback Options"
-msgstr "播放選項："
+msgstr "播放選項"
 
 #: ../xl/main.py:423
 msgid "Play the next track"
@@ -273,7 +274,7 @@ msgstr "顯示這個幫助資訊並離開"
 
 #: ../xl/main.py:513
 msgid "Show program's version number and exit."
-msgstr "顯示程式版本並離開"
+msgstr "顯示程式版本並離開。"
 
 #: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
@@ -362,7 +363,7 @@ msgstr "關閉 D-Bus 支援"
 
 #: ../xl/main.py:564
 msgid "Disable HAL support."
-msgstr "關閉 HAL 支援"
+msgstr "停用 HAL 支援。"
 
 #: ../xl/main.py:580
 msgid "Entire Library"
@@ -920,7 +921,7 @@ msgstr "自動縮放 (_A)"
 
 #: ../xlgui/widgets/rating.py:261
 msgid "Rating:"
-msgstr "評價"
+msgstr "評價："
 
 #: ../xlgui/widgets/playlist.py:129
 msgid "Shuffle"
@@ -4189,7 +4190,7 @@ msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr "瀏覽及聆聽來自 Librivox.org 的有聲書"
+msgstr "瀏覽及聆聽來自 Librivox.org 的有聲書。"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
@@ -4246,7 +4247,7 @@ msgstr ""
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
-msgstr "提供 IPython 控制台用來操作 Exaile"
+msgstr "提供 IPython 控制台用來操作 Exaile。"
 
 #: ../plugins/ipconsole/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
@@ -4421,7 +4422,7 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr "Lyrics Wiki"
+msgstr "歌詞 Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid ""
@@ -4477,6 +4478,7 @@ msgstr ""
 
 #~ msgid "API Key:"
 #~ msgstr "API 金鑰："
+
 #~ msgid "Exaile"
 #~ msgstr "Exaile"
 
@@ -4488,7 +4490,6 @@ msgstr ""
 
 #~ msgid "Date Added"
 #~ msgstr "加入時間"
-
 #~ "Bottom"
 #~ "右\n"
 #~ "上\n"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-11-19 11:08+0200\n"
+"PO-Revision-Date: 2014-11-19 11:10+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/exaile/master/cs/>"
 "\n"
@@ -3543,7 +3543,7 @@ msgstr "<b>Ikony</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:10
 msgid "Artist line:"
-msgstr "Řádka umělců"
+msgstr "Řádka umělců:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 #, python-format
@@ -3563,7 +3563,7 @@ msgstr "Shrnutí:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "Album line:"
-msgstr "Řádka alba"
+msgstr "Řádka alba:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:15
 msgid "<b>Content</b>"
@@ -3724,7 +3724,7 @@ msgstr "Ukázat v seznamu úloh"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr "Zobrazit dekorace oken"
+msgstr "Zobrazit dekorace oken:"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Show on all desktops"
@@ -3918,7 +3918,7 @@ msgstr "Použít slábnutí"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:8
 msgid "Fading duration:"
-msgstr "Délka doznívání"
+msgstr "Délka doznívání:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:9
 msgid "ms"

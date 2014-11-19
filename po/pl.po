@@ -8,17 +8,18 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-11-07 08:50+0000\n"
-"Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"PO-Revision-Date: 2014-11-19 13:43+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
+"\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-11-08 06:10+0000\n"
-"X-Generator: Launchpad (build 17231)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -1094,7 +1095,7 @@ msgstr "Błąd podczas kopiowania %s: %s"
 #: ../xlgui/widgets/dialogs.py:1465
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr "Plik % s już istnieje. Nadpisać?"
+msgstr "Plik %s już istnieje. Nadpisać?"
 
 #: ../xlgui/widgets/dialogs.py:1516
 msgid "Playlist name:"
@@ -4588,6 +4589,7 @@ msgstr "Pozwala na odtwarzanie plików udostępnionych za pomocą DAAP"
 
 #~ msgid "JACK"
 #~ msgstr "JACK"
+
 #~ msgid "API Key:"
 #~ msgstr "Klucz API:"
 
@@ -4678,7 +4680,6 @@ msgstr "Pozwala na odtwarzanie plików udostępnionych za pomocą DAAP"
 #~ msgid "Encoded By"
 #~ msgstr "Zakodowany przez"
 
-
 #~ msgid "Date Added"
 #~ msgstr "Data dodania"
 
@@ -4687,6 +4688,7 @@ msgstr "Pozwala na odtwarzanie plików udostępnionych za pomocą DAAP"
 
 #~ msgid "Select a save location"
 #~ msgstr "Wybierz położenie zapisywania"
+
 #~ msgid "Search:"
 #~ msgstr "Wyszukiwanie:"
 
@@ -4715,17 +4717,8 @@ msgstr "Pozwala na odtwarzanie plików udostępnionych za pomocą DAAP"
 #~ "OSS\n"
 #~ "PulseAudio\n"
 #~ "JACK"
-
 #~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
-#~ msgstr ""
-#~ "Exaile używa teraz absolutnych URI, proszę usunąć/zmienić nazwę katalogu "
-#~ "%s"
 
-#~ "on {album} - {length}"
-#~ msgstr ""
-#~ "<b>{title}</b>\n"
-#~ "{artist}\n"
-#~ "z {album} - {length}"
 #~ msgid "Autosize"
 #~ msgstr "Automatycznie dopasuj rozmiar"
 
@@ -4784,8 +4777,8 @@ msgstr "Pozwala na odtwarzanie plików udostępnionych za pomocą DAAP"
 
 #~ msgid "LastFM Radio"
 #~ msgstr "Radio Last.FM"
-
 #~ "pusty."
+
 #~ msgid "<b>Position</b>"
 #~ msgstr "<b>Pozycja</b>"
 
@@ -4807,9 +4800,8 @@ msgstr "Pozwala na odtwarzanie plików udostępnionych za pomocą DAAP"
 #~ msgstr ""
 #~ "Normalny\n"
 #~ "Zunifikowany (niestabilny)"
-
 #~ "kontynuowania"
 #~ "ekranu"
+
 #~ msgid "MPRIS"
 #~ msgstr "MPRIS"
-

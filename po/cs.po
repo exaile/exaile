@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-28 20:00+0000\n"
-"Last-Translator: Konki <pavel.konkol@seznam.cz>\n"
-"Language-Team: Czech <cs@li.org>\n"
+"PO-Revision-Date: 2014-11-19 11:08+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/exaile/master/cs/>"
+"\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-30 07:29+0000\n"
-"X-Generator: Launchpad (build 17176)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -277,7 +278,7 @@ msgstr "Start nové instance"
 
 #: ../xl/main.py:511
 msgid "Show this help message and exit"
-msgstr "Zobrazit nápovědu a ukončit."
+msgstr "Zobrazit nápovědu a ukončit"
 
 #: ../xl/main.py:513
 msgid "Show program's version number and exit."
@@ -322,7 +323,7 @@ msgstr "Nastavit datový adresář"
 
 #: ../xl/main.py:538
 msgid "Set data and config directory"
-msgstr "Nastavit adresář pro data a nastavení."
+msgstr "Nastavit adresář pro data a nastavení"
 
 #: ../xl/main.py:540
 msgid "MODULE"
@@ -392,7 +393,7 @@ msgid ""
 "exaile_loaded signal?"
 msgstr ""
 "Exaile ještě nedokončil načítání. Možná byste měli vyčkat na signál "
-"exaile_loaded."
+"exaile_loaded?"
 
 #: ../xl/covers.py:466
 #: ../data/ui/trackproperties_dialog.ui.h:6
@@ -523,7 +524,7 @@ msgstr ""
 
 #: ../xl/settings.py:103
 msgid "Settings version is newer than current."
-msgstr "Nastavená verze je novější než současná"
+msgstr "Verze nastavení je novější než současná."
 
 #: ../xl/settings.py:247
 msgid "We don't know how to store that kind of setting: "
@@ -1106,7 +1107,7 @@ msgstr "Nebylo napsáno jméno seznamu skladeb"
 #: ../xlgui/panel/playlists.py:761
 #: ../xlgui/panel/playlists.py:845
 msgid "The playlist name you entered is already in use."
-msgstr "Takto pojmenovaný seznam skladeb se už používá"
+msgstr "Takto pojmenovaný seznam skladeb se už používá."
 
 #: ../xlgui/widgets/notebook.py:146
 #: ../xlgui/menu.py:115
@@ -2501,7 +2502,7 @@ msgstr "Nálada nalezena."
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr "Nemohu načíst moodbar"
+msgstr "Nemohu načíst moodbar."
 
 #: ../plugins/moodbar/__init__.py:538
 msgid "Moodbar executable is not available."
@@ -2528,7 +2529,7 @@ msgstr "Oblíbené skladby na Last.fm"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr "API klíč je neplatný"
+msgstr "API klíč je neplatný."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:110
@@ -2743,7 +2744,7 @@ msgstr ""
 
 #: ../plugins/cd/_cdguipanel.py:96
 msgid "Importing CD..."
-msgstr "Imporuji CD"
+msgstr "Imporuji CD..."
 
 #: ../plugins/cd/__init__.py:122
 #: ../plugins/cd/__init__.py:200
@@ -3107,7 +3108,7 @@ msgstr "Prohledávání katalogu Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:89
 msgid "Retrieving song data..."
-msgstr "Získávám informace o skladbě"
+msgstr "Získávám informace o skladbě..."
 
 #: ../plugins/osd/osd_preferences.py:29
 #: ../plugins/osd/PLUGININFO:3
@@ -3165,11 +3166,11 @@ msgstr "Načítá se %s..."
 
 #: ../plugins/podcasts/__init__.py:182
 msgid "Error loading podcast."
-msgstr "Chyba při načítání podcastu"
+msgstr "Chyba při načítání podcastu."
 
 #: ../plugins/podcasts/__init__.py:198
 msgid "Loading Podcasts..."
-msgstr "Načítám podcast"
+msgstr "Načítám podcasty..."
 
 #: ../plugins/podcasts/__init__.py:229
 msgid "Could not save podcast file"
@@ -4182,7 +4183,7 @@ msgid ""
 "Depends: Ex Falso."
 msgstr ""
 "Integruje Ex Falso editor tagů s Exaile.\n"
-"Závisí na: Ex Falso"
+"Závisí na: Ex Falso."
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
@@ -4536,11 +4537,8 @@ msgstr "Umožňuje přehravání hudby z DAAP."
 #~ msgid "JACK"
 #~ msgstr "JACK"
 
-#~ msgstr "Exportovat jako..."
-
 #~ msgid "%d KB"
 #~ msgstr "%d KB"
-
 
 #~ msgid "&#xA9; 2009-2010"
 #~ msgstr "&#xA9; 2009-2010"

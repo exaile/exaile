@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-11-10 11:31+0000\n"
-"Last-Translator: Hironori Fujimoto <broadbarredfirefish@gmail.com>\n"
-"Language-Team: Japanese <ja@li.org>\n"
+"PO-Revision-Date: 2014-11-22 08:06+0200\n"
+"Last-Translator: 0bytetest green <xenolith0bytetestcomgreen@gmail.com>\n"
+"Language-Team: Japanese "
+"<https://hosted.weblate.org/projects/exaile/master/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-11-11 07:04+0000\n"
-"X-Generator: Launchpad (build 17241)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -273,7 +274,7 @@ msgstr "このヘルプを表示して終了する"
 
 #: ../xl/main.py:513
 msgid "Show program's version number and exit."
-msgstr "プログラムのバージョンを表示して終了する"
+msgstr "プログラムのバージョンを表示して終了する。"
 
 #: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
@@ -367,7 +368,7 @@ msgstr "D-Bus サポートを無効にする"
 
 #: ../xl/main.py:564
 msgid "Disable HAL support."
-msgstr "HAL サポートを無効にする"
+msgstr "HAL サポートを無効にする。"
 
 #: ../xl/main.py:580
 msgid "Entire Library"
@@ -505,7 +506,7 @@ msgstr "自動"
 #: ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:243
 msgid "Not playing."
-msgstr "再生していません"
+msgstr "再生していません。"
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -1136,7 +1137,7 @@ msgstr "一時停止する"
 #: ../xlgui/main.py:774
 #: ../xlgui/menu.py:103
 msgid "Playlist export failed!"
-msgstr "プレイリストのエキスポートに失敗しました"
+msgstr "プレイリストのエクスポートに失敗しました!"
 
 #: ../xlgui/main.py:832
 #: ../data/ui/main.ui.h:7
@@ -1392,7 +1393,7 @@ msgstr "ジャケットを削除"
 #: ../xlgui/cover.py:795
 #, python-format
 msgid "Cover for %s"
-msgstr ""
+msgstr "%s のカバー"
 
 #: ../xlgui/cover.py:957
 #, python-format
@@ -1405,7 +1406,7 @@ msgstr ""
 
 #: ../xlgui/cover.py:1062
 msgid "No covers found."
-msgstr "ジャケットが見つかりませんでした"
+msgstr "ジャケットが見つかりませんでした。"
 
 #: ../xlgui/cover.py:1063
 msgid ""
@@ -1773,7 +1774,7 @@ msgstr "プラグインを有効にできません!"
 
 #: ../xlgui/preferences/plugin.py:185
 msgid "Choose a Plugin"
-msgstr "プラグインを選択して下さい。"
+msgstr "プラグインを選択して下さい"
 
 #: ../xlgui/preferences/plugin.py:194
 msgid "Plugin Archives"
@@ -1820,7 +1821,7 @@ msgstr "Exaileを再起動しますか？"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
-msgstr "変更を適用するためには再起動する必要があります"
+msgstr "変更を適用するためには再起動する必要があります。"
 
 #: ../xlgui/preferences/widgets.py:619
 msgid "Action"
@@ -2223,7 +2224,7 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui.h:3
 #: ../plugins/previewdevice/previewprefs.ui.h:3
 msgid "Fade duration (ms):"
-msgstr "フェード期間(ミリ秒)"
+msgstr "フェード期間(ミリ秒):"
 
 #: ../data/ui/preferences/playback.ui.h:4
 #: ../plugins/previewdevice/previewprefs.ui.h:4
@@ -2233,7 +2234,7 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui.h:5
 #: ../plugins/previewdevice/previewprefs.ui.h:5
 msgid "Crossfade duration (ms):"
-msgstr "クロスフェード期間(ミリ秒)"
+msgstr "クロスフェード期間(ミリ秒):"
 
 #: ../data/ui/preferences/playback.ui.h:6
 #: ../plugins/previewdevice/previewprefs.ui.h:6
@@ -2422,7 +2423,7 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
-msgstr "(右クリックでデフォルトの戻る)"
+msgstr "(右クリックでデフォルトに戻る)"
 
 #: ../data/ui/preferences/collection.ui.h:3
 msgid "Use file based compilation detection"
@@ -3203,7 +3204,7 @@ msgstr "共有している IP アドレスとポート番号を入力してく�
 
 #: ../plugins/daapclient/__init__.py:351
 msgid "Enter IP address and port."
-msgstr "IP アドレスとポート番号の入力"
+msgstr "IP アドレスとポートを入力してください。"
 
 #: ../plugins/daapclient/__init__.py:556
 msgid ""
@@ -4175,7 +4176,7 @@ msgstr ""
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
-msgstr "再生終了後コンピュータをシャットダウンする"
+msgstr "再生終了後コンピュータをシャットダウンする。"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -4304,7 +4305,7 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr "Jamendo"
+msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
@@ -4350,7 +4351,7 @@ msgstr "再生中のアルバムのジャケットをデスクトップに表示
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr "Hello World"
+msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -4364,9 +4365,9 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"指定した日時に音楽を再生します。\n"
-"\n"
-"指定した日時になるとExaileは再生ボタンを押したのと同じ動作をします。プレイリストに聞きたい音楽が入っていることを確認してください。"
+"指定した日時に音楽を再生します。 \n"
+" \n"
+"指定した日時になるとExaileは再生ボタンを押したのと同じ動作をします。プレイリストに聞きたい音楽が入っていることを確認してください"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
@@ -4435,7 +4436,6 @@ msgstr ""
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>全般</b>"
-
 #~ "<b>表示させたい所へオンスクリーンディスプレイをドラッグしてください</b>"
 
 #~ msgid "Autosize"
@@ -4459,6 +4459,7 @@ msgstr ""
 #~ "アーティスト - 年 - アルバム"
 #~ "トレイアイコンにカーソルを合わせたとき、オンスクリーンディスプレイを表示す"
 #~ "る"
+
 #~ msgid "Resizable"
 #~ msgstr "サイズ変更可能"
 
@@ -4476,9 +4477,9 @@ msgstr ""
 
 #~ msgid "Number of Plays"
 #~ msgstr "再生数"
-
 #~ "パスはすでにコレクションにあるか、またはコレクションの他のパスのサブフォル"
 #~ "ダです"
+
 #~ msgid "Add to Playlist"
 #~ msgstr "プレイリストに追加"
 
@@ -4503,7 +4504,6 @@ msgstr ""
 
 #~ msgid "Exaile"
 #~ msgstr "Exaile"
-
 
 #~ msgid "Select a save location"
 #~ msgstr "保存場所を選択してください"

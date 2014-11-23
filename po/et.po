@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Dustin Spicuzza <dustin@virtualroadside.com>\n"
-"Language-Team: Estonian <et@li.org>\n"
+"PO-Revision-Date: 2014-11-23 12:40+0200\n"
+"Last-Translator: Kristjan Räts <kristjanrats@gmail.com>\n"
+"Language-Team: Estonian "
+"<https://hosted.weblate.org/projects/exaile/master/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -289,7 +290,7 @@ msgstr "Muuda kasutajaliidese graafika nähtavust (kui võimalik)"
 
 #: ../xl/main.py:521
 msgid "Start in safe mode - sometimes useful when you're running into problems"
-msgstr "Käivita turvarežiimis - probleemide korral võib mõnikord abiks olla."
+msgstr "Käivita turvarežiimis - probleemide korral võib mõnikord aidata"
 
 #: ../xl/main.py:524
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
@@ -368,7 +369,7 @@ msgstr "Keela D-Bus tugi"
 
 #: ../xl/main.py:564
 msgid "Disable HAL support."
-msgstr "Keela HAL tugi"
+msgstr "Keela HAL kasutamine."
 
 #: ../xl/main.py:580
 msgid "Entire Library"
@@ -1147,7 +1148,7 @@ msgstr "Alusta esitust"
 
 #: ../xlgui/tray.py:148
 msgid "Exaile Music Player"
-msgstr "Exaile Music Player"
+msgstr "Exaile muusikapleier"
 
 #: ../xlgui/menu.py:52
 msgid "_New Playlist"
@@ -1521,7 +1522,7 @@ msgstr "Lisa kataloog"
 
 #: ../xlgui/collection.py:134
 msgid "Directory not added."
-msgstr "Kataloogi pole lisatud"
+msgstr "Kataloogi ei lisatud."
 
 #: ../xlgui/collection.py:135
 msgid ""
@@ -3087,7 +3088,7 @@ msgstr "Podcastid"
 
 #: ../plugins/podcasts/__init__.py:72
 msgid "Podcast"
-msgstr "Podcast"
+msgstr "Taskuhääling"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Refresh Podcast"

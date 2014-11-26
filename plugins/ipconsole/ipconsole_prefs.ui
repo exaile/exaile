@@ -16,13 +16,13 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">Linux</col>
+        <col id="0">Linux</col>
       </row>
       <row>
-        <col id="0" translatable="yes">LightBG</col>
+        <col id="0">LightBG</col>
       </row>
       <row>
-        <col id="0" translatable="yes">NoColor</col>
+        <col id="0">NoColor</col>
       </row>
     </data>
   </object>

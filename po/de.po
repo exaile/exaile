@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-11-19 19:53+0200\n"
+"PO-Revision-Date: 2014-11-26 20:11+0200\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
 "\n"
@@ -279,7 +279,7 @@ msgstr "Diesen Hilfetext anzeigen und beenden"
 
 #: ../xl/main.py:513
 msgid "Show program's version number and exit."
-msgstr "Programmversion anzeigen und beenden"
+msgstr "Programmversion anzeigen und beenden."
 
 #: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
@@ -351,7 +351,7 @@ msgstr "Aktiviere Debugging von xl.event; sorgt für ENORM viel Ausgaben"
 
 #: ../xl/main.py:552
 msgid "Add thread name to logging messages."
-msgstr "Threadname in Logeinträgen anzeigen"
+msgstr "Threadname in Logeinträgen anzeigen."
 
 #: ../xl/main.py:555
 msgid "TYPE"
@@ -371,7 +371,7 @@ msgstr "D-Bus-Unterstützung deaktivieren"
 
 #: ../xl/main.py:564
 msgid "Disable HAL support."
-msgstr "HAL-Unterstützung deaktivieren"
+msgstr "HAL-Unterstützung deaktivieren."
 
 #: ../xl/main.py:580
 msgid "Entire Library"
@@ -541,7 +541,7 @@ msgstr "Unbekannter Einstellungs-Typ gefunden!"
 #: ../xl/playlist.py:152
 #: ../xl/playlist.py:166
 msgid "Invalid playlist type."
-msgstr "Ungültige Wiedergabeliste"
+msgstr "Ungültige Wiedergabeliste."
 
 #: ../xl/playlist.py:173
 #: ../xlgui/widgets/playlist.py:335
@@ -560,7 +560,7 @@ msgstr "PLS-Wiedergabeliste"
 #: ../xl/playlist.py:533
 #, python-format
 msgid "Invalid format for %s."
-msgstr "Ungültiges Format für %s"
+msgstr "Ungültiges Format für %s."
 
 #: ../xl/playlist.py:528
 #, python-format
@@ -1064,7 +1064,7 @@ msgstr "<b>Änderungen an %s vor dem Schließen speichern?</b>"
 
 #: ../xlgui/widgets/dialogs.py:945
 msgid "Your changes will be lost if you don't save them"
-msgstr "Änderungen gehen ohne Sicherung verloren."
+msgstr "Änderungen gehen ohne Sicherung verloren"
 
 #: ../xlgui/widgets/dialogs.py:947
 msgid "Close Without Saving"
@@ -2245,7 +2245,7 @@ msgid ""
 msgstr ""
 "Bei Nutzung eines Menüeintrags zum Hinzufügen/Ersetzen von Stücken in der "
 "Wiedergabeliste wird die Wiedergabe gestartet wenn gerade ein Stück "
-"abgespielt wird. Dies war das Standardverhalten vor Exaile 0.3.3."
+"abgespielt wird. Dies war das Standardverhalten vor Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
@@ -3776,7 +3776,7 @@ msgstr "Korrektur für ganze Alben bevorzugen"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr "Korrektur pro Album über Korrektur pro Stück bevorzugen"
+msgstr "Korrektur pro Album über Korrektur pro Stück bevorzugen."
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:5
 msgid "Use clipping protection"
@@ -4153,10 +4153,10 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Spielt Musik zu einer angegebenen Zeit\n"
+"Spielt Musik zu einer angegebenen Zeit.\n"
 "\n"
 "Allerdings wird Exaile zu diesem Zeitpunkt nur die Wiedergabe starten, es "
-"sollten sich also die zu spielenden Stücke in der Wiedergabeliste befinden."
+"sollten sich also die zu spielenden Stücke in der Wiedergabeliste befinden"
 
 #: ../plugins/alarmclock/PLUGININFO:5
 #: ../plugins/inhibitsuspend/PLUGININFO:5
@@ -4383,7 +4383,7 @@ msgstr ""
 "Ermöglicht die Wiedergabe von Audio-CDs.\n"
 "\n"
 "Benötigt HAL für die automatische Erkennung von CDs\n"
-"Benötigt cddb-py (http://cddb-py.sourceforge.net/) für die Suche nach Tags"
+"Benötigt cddb-py (http://cddb-py.sourceforge.net/) für die Suche nach Tags."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -4522,7 +4522,7 @@ msgstr ""
 "Spielt Musik zu angegebenen Zeiten und Tagen.\n"
 "\n"
 "Allerdings wird Exaile zu diesem Zeitpunkt nur die Wiedergabe starten, es "
-"sollten sich also die zu spielenden Stücke in der Wiedergabeliste befinden."
+"sollten sich also die zu spielenden Stücke in der Wiedergabeliste befinden"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"

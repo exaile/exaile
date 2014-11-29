@@ -9,99 +9,97 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2012-11-01 11:38+0100\n"
-"Last-Translator: Mathias Brodala <info@noctus.net>\n"
-"Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
-"Language: \n"
+"PO-Revision-Date: 2014-11-29 06:02+0200\n"
+"Last-Translator: Jack Lee <suifengtec@qq.com>\n"
+"Language-Team: Chinese "
+"<https://hosted.weblate.org/projects/exaile/master/zh/>\n"
+"Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d 天, "
 
 #: ../xl/formatter.py:599
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d小时, "
 
 #: ../xl/formatter.py:600
-#, fuzzy, python-format
+#, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] "分"
-msgstr[1] "分"
+msgstr[0] "%d分钟, "
 
 #: ../xl/formatter.py:601
-#, fuzzy, python-format
+#, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "秒"
-msgstr[1] "秒"
+msgstr[0] "%d秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:606
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:609
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:611
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:613
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%d秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:618
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%d天 "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:621
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:625
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:691
 #: ../xl/formatter.py:696
 msgid "Never"
-msgstr ""
+msgstr "从未"
 
 #: ../xl/formatter.py:702
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 #: ../xl/formatter.py:704
 msgid "Yesterday"
-msgstr ""
+msgstr "昨天"
 
 #: ../xl/main.py:201
 msgid "Failed to migrate from 0.2.14"
@@ -109,16 +107,16 @@ msgstr "从 0.2.14 迁移失败"
 
 #: ../xl/main.py:416
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "使用:exaile [OPTION]... [URI]"
 
 #: ../xl/main.py:417
 #: ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "操作"
 
 #: ../xl/main.py:421
 msgid "Playback Options"
-msgstr ""
+msgstr "播放选项"
 
 #: ../xl/main.py:423
 msgid "Play the next track"

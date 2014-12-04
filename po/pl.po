@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-11-28 19:50+0200\n"
+"PO-Revision-Date: 2014-12-04 22:03+0200\n"
 "Last-Translator: Piotr Strebski <strebski@o2.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
 "\n"
@@ -3748,7 +3748,7 @@ msgstr "Pokaż na liście zadań"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr "Użyj dekoracji okna:"
+msgstr "Wyświetlaj dekoracje okna:"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Show on all desktops"
@@ -3913,12 +3913,13 @@ msgid ""
 "this information visit <a href=\"http://aws.amazon.com/\">http://aws.amazon."
 "com/</a></i>"
 msgstr ""
-"<i>By zarejestrować konto w Amazon AWS i otrzymać zaproszenie odwiedź <a "
-"href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a></i>"
+"<i>By zarejestrować konto na AWS Amazon i otrzymać\n"
+"tę informację odwiedź <a href=\"http://aws.amazon.com/\""
+">http://aws.amazon.com/</a></i>"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
-msgstr "Dodaj Podcast"
+msgstr "Dodaj podcast"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
 msgid "Anchor:"
@@ -4018,7 +4019,7 @@ msgstr "Zarejestruj się na Last.fm"
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
-msgstr "Użyj okładek w menu zakładek (ma efekt przy ponownym uruchomieniu)"
+msgstr "Użyj okładek w menu zakładek (przynosi efekt po ponownym uruchomieniu)"
 
 #: ../plugins/screensaverpause/prefs.ui.h:1
 msgid "Unpause when screensaver ends"
@@ -4074,7 +4075,7 @@ msgid ""
 "Depends: moodbar"
 msgstr ""
 "Zamienia standardowy pasek postępu na pasek nastroju\n"
-"Zależności: moodbar"
+"Zależy od: moodbar"
 
 #: ../plugins/moodbar/PLUGININFO:5
 #: ../plugins/mainmenubutton/PLUGININFO:5
@@ -4083,7 +4084,7 @@ msgstr ""
 #: ../plugins/droptrayicon/PLUGININFO:5
 #: ../plugins/desktopcover/PLUGININFO:5
 msgid "GUI"
-msgstr "Interfejs"
+msgstr "Interfejs graficzny"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
@@ -4108,8 +4109,8 @@ msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
-"Pozwala na nagrywanie transmisji strumieniowych wykorzystując stremripper.\n"
-"Wymaga: streamripper"
+"Pozwala na nagrywanie transmisji strumieniowych wykorzystując streamripper.\n"
+"Zależy od: streamripper"
 
 #: ../plugins/streamripper/PLUGININFO:5
 #: ../plugins/previewdevice/PLUGININFO:5
@@ -4118,7 +4119,7 @@ msgstr "Wyjście"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
-msgstr "Okładki MusicBrainz"
+msgstr "Okładki z MusicBrainz"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
 msgid "Integrates MusicBrainz for cover search"
@@ -4213,15 +4214,15 @@ msgstr "Źródła mediów"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr "Edytor tagów Ex Falso"
+msgstr "Edytor znaczników Ex Falso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
-"Integruje edytor tagów Ex Falso z Exaile.\n"
-"Wymaga: Ex Falso."
+"Integruje edytor znaczników Ex Falso z Exaile.\n"
+"Zależy od: Ex Falso."
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
@@ -4258,11 +4259,11 @@ msgstr ""
 "Umożliwia używanie klawiszy multimedialnych (dostępnych na większości nowych "
 "klawiatur), gdy Exaile jest uruchamiany w środowisku Microsoft Windows.\n"
 "\n"
-"Wymaga pyHook <http://pyhook.sf.net/>"
+"Wymaga: pyHook <http://pyhook.sf.net/>"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr "10-cio pasmowy equalizer"
+msgstr "10-cio pasmowy korektor graficzny"
 
 #: ../plugins/equalizer/PLUGININFO:5
 #: ../plugins/abrepeat/PLUGININFO:5
@@ -4277,7 +4278,7 @@ msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr "Wtyczka do pobierania liryk z lyricsfly.com"
+msgstr "Wtyczka do pobierania tekstów piosenek z lyricsfly.com"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
@@ -4302,14 +4303,14 @@ msgstr "Pozwala na wyłączenie komputer po zakończeniu odtwarzania."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr "Obsługa odtwarzaczy multimediów poprzez USB"
+msgstr "Obsługa odtwarzaczy multimediów opartych na pamięci masowej USB"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
-"Obsługa przenośnych odtwarzaczy multimediów przez protokół Pamięci Masowej "
+"Obsługa przenośnych odtwarzaczy multimediów przez protokół pamięci masowej "
 "USB"
 
 #: ../plugins/massstorage/PLUGININFO:5
@@ -4363,7 +4364,7 @@ msgstr ""
 #: ../plugins/ipconsole/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
 msgid "Development"
-msgstr "Rozwój"
+msgstr "Rozwijane"
 
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
@@ -4428,7 +4429,7 @@ msgstr "Włącz wsparcie dla ReplayGain"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
-msgstr "Zminimalizuj do ikonki w trayu"
+msgstr "Zminimalizuj do ikonki w obszarze powiadamiania"
 
 #: ../plugins/droptrayicon/PLUGININFO:4
 msgid ""
@@ -4436,8 +4437,8 @@ msgid ""
 "\n"
 "Depends: python-eggtrayicon"
 msgstr ""
-"Dostarcza alternatywną ikonkę traya, która umożliwia przerzucanie na nią "
-"plików\n"
+"Dostarcza alternatywną ikonkę obszaru powiadamiania, która umożliwia "
+"przerzucanie na nią plików\n"
 "\n"
 "Wymaga: python-eggtrayicon"
 
@@ -4497,7 +4498,7 @@ msgstr "Usuwa głos z nagrania"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr "Dodaje prostą obsługę Podcastów"
+msgstr "Dodaje prostą obsługę podcastów"
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"

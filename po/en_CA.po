@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Aren Olson <reacocard@reacocard.com>\n"
-"Language-Team: English (Canada) <en_CA@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2014-12-09 19:49+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: English (Canada) "
+"<https://hosted.weblate.org/projects/exaile/master/en_CA/>\n"
+"Language: en_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:31+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -528,7 +529,7 @@ msgstr "Error storing setting: "
 
 #: ../xl/settings.py:275
 msgid "An Unknown type of setting was found!"
-msgstr "Error reading setting"
+msgstr "An Unknown type of setting was found!"
 
 #: ../xl/playlist.py:152
 #: ../xl/playlist.py:166
@@ -4516,8 +4517,6 @@ msgstr ""
 #~ msgid "Choose a file"
 #~ msgstr "Choose a file"
 
-#~ msgstr "Add to Playlist"
-
 #~ msgid "Quit"
 #~ msgstr "Quit"
 
@@ -4591,7 +4590,6 @@ msgstr ""
 
 #~ msgid "MPRIS"
 #~ msgstr "MPRIS"
-
 
 #~ msgid ""
 #~ "Show various informations about the track currently playing.\n"

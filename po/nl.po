@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"PO-Revision-Date: 2014-12-11 14:52+0200\n"
+"Last-Translator: Dieter Adriaenssens <ruleant@users.sourceforge.net>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/exaile/master/nl/>"
+"\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -278,7 +279,7 @@ msgstr "Dit hulpbericht tonen en daarna afsluiten"
 
 #: ../xl/main.py:513
 msgid "Show program's version number and exit."
-msgstr "Versienummer toepassing tonen en daarna afsluiten"
+msgstr "Versienummer toepassing tonen en daarna afsluiten."
 
 #: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
@@ -369,7 +370,7 @@ msgstr "D-Bus-ondersteuning uitschakelen"
 
 #: ../xl/main.py:564
 msgid "Disable HAL support."
-msgstr "HAL-ondersteuning uitschakelen"
+msgstr "HAL-ondersteuning uitschakelen."
 
 #: ../xl/main.py:580
 msgid "Entire Library"
@@ -509,7 +510,7 @@ msgstr "Auto"
 #: ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:243
 msgid "Not playing."
-msgstr "Niet aan het afspelen"
+msgstr "Niet aan het afspelen."
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -986,7 +987,7 @@ msgstr "Vereist plug-ins voor dynamische afspeellijsten"
 #: ../xlgui/widgets/playlist.py:538
 #: ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
-msgstr "Soortgelijke nummers dynamisch aan afspeellijst toevoegen."
+msgstr "Soortgelijke nummers dynamisch aan afspeellijst toevoegen"
 
 #: ../xlgui/widgets/dialogs.py:283
 msgid "Enter the URL to open"
@@ -1107,7 +1108,7 @@ msgstr "U heeft geen naam ingevoerd voor uw afspeellijst"
 #: ../xlgui/panel/playlists.py:761
 #: ../xlgui/panel/playlists.py:845
 msgid "The playlist name you entered is already in use."
-msgstr "De ingevoerde naam van de afspeellijst wordt al gebruikt!"
+msgstr "De ingevoerde naam van de afspeellijst wordt al gebruikt."
 
 #: ../xlgui/widgets/notebook.py:146
 #: ../xlgui/menu.py:115
@@ -1968,7 +1969,7 @@ msgid ""
 msgstr ""
 "Afspelen stoppen\n"
 "\n"
-"Rechtsklikken om te stoppen na het huidig nummer."
+"Rechtsklikken om te stoppen na het huidig nummer"
 
 #: ../data/ui/main.ui.h:11
 msgid "Next Track"
@@ -1996,7 +1997,7 @@ msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr "Hoofdletter maken van eerste letter van alle labels."
+msgstr "Hoofdletter maken van eerste letter van alle labels"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Previous"
@@ -2255,7 +2256,7 @@ msgid ""
 msgstr ""
 "Wanneer u dubbelklikt of op Enter drukt om een nummer in een afspeellijst af "
 "te spelen, plaats het nummer dan in de wachtrij in plaats van deze af te "
-"spelen."
+"spelen"
 
 #: ../data/ui/preferences/playback.ui.h:1
 #: ../plugins/previewdevice/previewprefs.ui.h:1
@@ -3411,7 +3412,7 @@ msgstr "Maximum volume:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Increment:"
-msgstr "Verhogen"
+msgstr "Verhogen :"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
@@ -4819,8 +4820,6 @@ msgstr "Maakt afspelen van DAAP muziekdelingen mogelijk."
 #~ msgid "Plugin to fetch lyrics from lyricwiki.org"
 #~ msgstr "Plug-in om songteksten op te halen van lyricwiki.org"
 
-#~ msgstr " (%(queue_count)d in de wachtrij)"
-
 #~ msgid ""
 #~ "<b>{title}</b>\n"
 #~ "{artist}\n"
@@ -4829,21 +4828,5 @@ msgstr "Maakt afspelen van DAAP muziekdelingen mogelijk."
 #~ "<b>{titel}</b>\n"
 #~ "{artiest}\n"
 #~ "op {album} - {tijd}"
-
 #~ "Show various informations about the track currently playing.\n"
 #~ "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
-#~ msgstr ""
-#~ "Geeft diverse informatie over het momenteel spelende nummer.\n"
-#~ "Vereisten: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
-
-#~ msgid ""
-#~ msgid "Original Artist"
-#~ msgstr "Originele artiest"
-
-#~ msgid "Original Album"
-#~ msgstr "Originele album"
-
-#~ msgid "Original Date"
-#~ msgstr "Originele datum"
-
-#~ "wijzigen\n"

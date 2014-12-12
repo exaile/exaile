@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-11-19 11:10+0200\n"
+"PO-Revision-Date: 2014-12-12 14:09+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/exaile/master/cs/>"
 "\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2.1-dev\n"
+"X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-30 07:29+0000\n"
 
 #: ../xl/formatter.py:597
@@ -1039,7 +1039,7 @@ msgstr "Exportovat stávající playlist"
 
 #: ../xlgui/widgets/dialogs.py:874
 msgid "Use relative paths to tracks"
-msgstr "Použít relativní cestu k souborům."
+msgstr "Použít relativní cestu k souborům"
 
 #: ../xlgui/widgets/dialogs.py:929
 #, python-format
@@ -1307,7 +1307,7 @@ msgstr "Počet přehrání"
 
 #: ../xlgui/properties.py:244
 msgid "Writing of tags failed"
-msgstr "Zápis štítků selhal."
+msgstr "Zápis štítků selhal"
 
 #: ../xlgui/properties.py:245
 msgid ""
@@ -2213,7 +2213,7 @@ msgstr "Okamžitě ukládat vlastní seznamy skladeb při vypnutí"
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr "Nahradit obsah panelu dvojklikem."
+msgstr "Nahradit obsah panelu dvojklikem"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
@@ -2225,7 +2225,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
-msgstr "Přidání/nahrazení pomocí položky v menu začne s přehráváním."
+msgstr "Přidání/nahrazení pomocí položky v menu začne s přehráváním"
 
 #: ../data/ui/preferences/playlists.ui.h:6
 msgid ""
@@ -2236,7 +2236,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
-msgstr "Řadit písničky do fronty místo přehrávání."
+msgstr "Řadit písničky do fronty místo přehrávání"
 
 #: ../data/ui/preferences/playlists.ui.h:8
 msgid ""
@@ -2254,7 +2254,7 @@ msgstr "Systém pro přehrávání: "
 #: ../data/ui/preferences/playback.ui.h:2
 #: ../plugins/previewdevice/previewprefs.ui.h:2
 msgid "Use fade transitions on user actions"
-msgstr "Použít přechody blednutí obrazu při činnosti uživatele."
+msgstr "Použít přechody blednutí obrazu při činnosti uživatele"
 
 #: ../data/ui/preferences/playback.ui.h:3
 #: ../plugins/previewdevice/previewprefs.ui.h:3
@@ -4469,6 +4469,7 @@ msgid ""
 "your playlist"
 msgstr ""
 "Přehrává hudbu v určený datum a čas.\n"
+"\n"
 "Ujistěte se, že máte naplněný seznam skladeb."
 
 #: ../plugins/contextinfo/PLUGININFO:3

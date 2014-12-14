@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2014-11-26 20:11+0200\n"
+"Last-Translator: Mathias Brodala <info@noctus.net>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
+"\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -277,7 +279,7 @@ msgstr "Diesen Hilfetext anzeigen und beenden"
 
 #: ../xl/main.py:513
 msgid "Show program's version number and exit."
-msgstr "Programmversion anzeigen und beenden"
+msgstr "Programmversion anzeigen und beenden."
 
 #: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
@@ -349,7 +351,7 @@ msgstr "Aktiviere Debugging von xl.event; sorgt für ENORM viel Ausgaben"
 
 #: ../xl/main.py:552
 msgid "Add thread name to logging messages."
-msgstr "Threadname zu Logeinträgen hinzufügen"
+msgstr "Threadname in Logeinträgen anzeigen."
 
 #: ../xl/main.py:555
 msgid "TYPE"
@@ -369,7 +371,7 @@ msgstr "D-Bus-Unterstützung deaktivieren"
 
 #: ../xl/main.py:564
 msgid "Disable HAL support."
-msgstr "HAL-Unterstützung deaktivieren"
+msgstr "HAL-Unterstützung deaktivieren."
 
 #: ../xl/main.py:580
 msgid "Entire Library"
@@ -539,7 +541,7 @@ msgstr "Unbekannter Einstellungs-Typ gefunden!"
 #: ../xl/playlist.py:152
 #: ../xl/playlist.py:166
 msgid "Invalid playlist type."
-msgstr "Ungültiger Playlist Typ"
+msgstr "Ungültige Wiedergabeliste."
 
 #: ../xl/playlist.py:173
 #: ../xlgui/widgets/playlist.py:335
@@ -558,7 +560,7 @@ msgstr "PLS-Wiedergabeliste"
 #: ../xl/playlist.py:533
 #, python-format
 msgid "Invalid format for %s."
-msgstr "Ungültiges Format für %s"
+msgstr "Ungültiges Format für %s."
 
 #: ../xl/playlist.py:528
 #, python-format
@@ -1048,7 +1050,7 @@ msgstr "Relative Pfade auf Stücke"
 #: ../xlgui/widgets/dialogs.py:929
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "Playlist gespeichert als <b>%s</b>"
+msgstr "Playlist gespeichert als <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:943
 #, python-format
@@ -1062,7 +1064,7 @@ msgstr "<b>Änderungen an %s vor dem Schließen speichern?</b>"
 
 #: ../xlgui/widgets/dialogs.py:945
 msgid "Your changes will be lost if you don't save them"
-msgstr "Änderungen gehen ohne Sicherung verloren."
+msgstr "Änderungen gehen ohne Sicherung verloren"
 
 #: ../xlgui/widgets/dialogs.py:947
 msgid "Close Without Saving"
@@ -2243,7 +2245,7 @@ msgid ""
 msgstr ""
 "Bei Nutzung eines Menüeintrags zum Hinzufügen/Ersetzen von Stücken in der "
 "Wiedergabeliste wird die Wiedergabe gestartet wenn gerade ein Stück "
-"abgespielt wird. Dies war das Standardverhalten vor Exaile 0.3.3."
+"abgespielt wird. Dies war das Standardverhalten vor Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
@@ -3572,9 +3574,9 @@ msgid ""
 "replaced by their respective values. The title will be replaced by "
 "\"Unknown\" if it is empty.</i>"
 msgstr ""
-"Die Platzhalter „%(title)s“, „%(artist)s“ und „%(album)s“ werden durch "
+"<i>Die Platzhalter „%(title)s“, „%(artist)s“ und „%(album)s“ werden durch "
 "Titel, Künstler und Album des betreffenden Stücks ersetzt. Ist der jeweilige "
-"Wert unbekannt, wird dies so gekennzeichnet."
+"Wert unbekannt, wird dies so gekennzeichnet.</i>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
@@ -3774,7 +3776,7 @@ msgstr "Korrektur für ganze Alben bevorzugen"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr "Korrektur pro Album über Korrektur pro Stück bevorzugen"
+msgstr "Korrektur pro Album über Korrektur pro Stück bevorzugen."
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:5
 msgid "Use clipping protection"
@@ -4023,7 +4025,7 @@ msgstr "Wiedergabe beim Schließen des Bildschirmschoners fortsetzen"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:1
 msgid "Server name:"
-msgstr "Servername"
+msgstr "Servername:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:2
 msgid "Server host:"
@@ -4119,7 +4121,7 @@ msgstr "MusicBrainz-Cover"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
 msgid "Integrates MusicBrainz for cover search"
-msgstr "Bezieht MusicBrainz bei der Suche nach Covern ein."
+msgstr "Bezieht MusicBrainz bei der Cover-Suche ein"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
 msgid ""
@@ -4151,10 +4153,10 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Spielt Musik zu einer angegebenen Zeit\n"
+"Spielt Musik zu einer angegebenen Zeit.\n"
 "\n"
 "Allerdings wird Exaile zu diesem Zeitpunkt nur die Wiedergabe starten, es "
-"sollten sich also die zu spielenden Stücke in der Wiedergabeliste befinden."
+"sollten sich also die zu spielenden Stücke in der Wiedergabeliste befinden"
 
 #: ../plugins/alarmclock/PLUGININFO:5
 #: ../plugins/inhibitsuspend/PLUGININFO:5
@@ -4234,7 +4236,7 @@ msgid ""
 "AudioScrobbler"
 msgstr ""
 "Übermittelt Wiedergabe-Informationen an Last.fm und ähnliche Dienste welche "
-"AudioScrobbler unterstützen."
+"AudioScrobbler unterstützen"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
@@ -4286,7 +4288,7 @@ msgstr "Ruhezustand unterbinden"
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
 msgstr ""
-"Verhindert die Aktivierung des Ruhezustands während der Musik-Wiedergabe."
+"Verhindert die Aktivierung des Ruhezustands während der Musik-Wiedergabe"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
@@ -4294,7 +4296,7 @@ msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr "Audiobücher auf librivox.org durchsuchen und anhören"
+msgstr "Audiobücher auf librivox.org durchsuchen und anhören."
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
@@ -4380,8 +4382,8 @@ msgid ""
 msgstr ""
 "Ermöglicht die Wiedergabe von Audio-CDs.\n"
 "\n"
-"Benötigt: HAL für die automatische Erkennung von CDs, cddb-py (http://cddb-"
-"py.sourceforge.net/) für die Suche nach Tags"
+"Benötigt HAL für die automatische Erkennung von CDs\n"
+"Benötigt cddb-py (http://cddb-py.sourceforge.net/) für die Suche nach Tags."
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -4402,7 +4404,7 @@ msgstr "A-B Wiederholung"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
-msgstr "Wiederholt kontinuierlich einen Teil eines Titels"
+msgstr "Wiederholt kontinuierlich einen Teil eines Stücks."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
@@ -4417,8 +4419,8 @@ msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
-"Ermöglicht das Kategorisieren mittels Verwaltung des des grouping/category-"
-"Tags in Audiodateien."
+"Ermöglicht Kategorisierung von Musik durch Verwaltung des des grouping"
+"/category-Tags in Audiodateien"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -4517,10 +4519,10 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Spielt Musik zu angegebenen Zeiten und Tagen\n"
+"Spielt Musik zu angegebenen Zeiten und Tagen.\n"
 "\n"
 "Allerdings wird Exaile zu diesem Zeitpunkt nur die Wiedergabe starten, es "
-"sollten sich also die zu spielenden Stücke in der Wiedergabeliste befinden."
+"sollten sich also die zu spielenden Stücke in der Wiedergabeliste befinden"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"

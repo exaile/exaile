@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Ramesh <rame20002007@yahoo.com>\n"
-"Language-Team: Tamil <ta@li.org>\n"
+"PO-Revision-Date: 2014-11-28 17:52+0200\n"
+"Last-Translator: Achchuthan <suthansee@yahoo.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/exaile/master/ta/>"
+"\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:29+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -132,7 +133,7 @@ msgstr "முந்தைய தடத்தை இயக்கு"
 #: ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr "இசைத்தலை நிறுத்து"
+msgstr "இயக்கத்தை நிறுத்து"
 
 #: ../xl/main.py:429
 msgid "Play"
@@ -4290,7 +4291,7 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
-msgstr ""
+msgstr "iPod ஆதரவு"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid ""
@@ -4312,7 +4313,7 @@ msgstr ""
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
-msgstr ""
+msgstr "ஒலியில் இருந்து குரலை நீக்கு"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
@@ -4320,11 +4321,11 @@ msgstr ""
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "தற்போதைய ஆல்பம் கவரை டெஸ்க்டாப்பில்  காட்டுகிறது"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "வணக்கம் உலகே"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -4364,7 +4365,7 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "பாடல் வரிகள் Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid ""

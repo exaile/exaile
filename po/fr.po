@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Bernard Opic <bernard@opic.fr>\n"
-"Language-Team: French <fr@li.org>\n"
+"PO-Revision-Date: 2014-11-19 13:43+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -1069,7 +1070,6 @@ msgstr "Fermer %s"
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Enregistrer les modifications apportées à %s avant de fermer ?</b>"
-"<b>Enregistrer les modifications apportées à %s avant de fermer ?</b>"
 
 #: ../xlgui/widgets/dialogs.py:945
 msgid "Your changes will be lost if you don't save them"
@@ -4705,7 +4705,6 @@ msgstr "Autoriser la lecture de musiques partagées."
 #~ msgid "Add Playlist"
 #~ msgstr "Ajouter une liste de lecture"
 
-
 #~ msgid "Exaile"
 #~ msgstr "Exaile"
 
@@ -4753,10 +4752,7 @@ msgstr "Autoriser la lecture de musiques partagées."
 #~ "Année - Album\n"
 #~ "Artiste - Année - Album"
 #~ "on {album} - {length}"
-#~ msgstr ""
-#~ "<b>{title}</b>\n"
-#~ "{artist}\n"
-#~ "sur {album} - {length}"
+
 #~ msgid "LastFM Radio"
 #~ msgstr "Radio LastFM"
 
@@ -4768,13 +4764,7 @@ msgstr "Autoriser la lecture de musiques partagées."
 
 #~ msgid " + "
 #~ msgstr " + "
-
 #~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
-#~ msgstr ""
-#~ "Exaile utilise maintenant des URI absolues. Veuillez supprimer/renommer "
-#~ "votre répertoire %s"
-
-#~ msgstr " (%(queue_count)d placées en file d'attente)"
 
 #~ msgid ""
 #~ "Left\n"
@@ -4817,11 +4807,11 @@ msgstr "Autoriser la lecture de musiques partagées."
 
 #~ msgid "Choose a file"
 #~ msgstr "Choisissez un fichier"
-
 #~ "notification"
 
 #~ msgid "Autosize"
 #~ msgstr "Ajuster la taille automatiquement"
+
 #~ msgid "Neighbourhood"
 #~ msgstr "Mes voisins"
 
@@ -4845,9 +4835,9 @@ msgstr "Autoriser la lecture de musiques partagées."
 
 #~ msgid "Horizontal:"
 #~ msgstr "Horizontal:"
-
 #~ "lecture"
 #~ "Afficher une entrée de menu pour activer ou désactiver la submission"
+
 #~ msgid "MPRIS"
 #~ msgstr "MPRIS"
 
@@ -4857,4 +4847,3 @@ msgstr "Autoriser la lecture de musiques partagées."
 #~ msgstr ""
 #~ "Montre diverses informations à propos de la piste en cours de lecture.\n"
 #~ "Requiert : libwebkit >= 1.0.1, python-webkit >= 1.1.2"
-

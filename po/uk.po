@@ -10,17 +10,18 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Sergiy Gavrylov <sergiovana@bigmir.net>\n"
-"Language-Team: Ukrainian <uk@li.org>\n"
+"PO-Revision-Date: 2014-12-04 23:04+0200\n"
+"Last-Translator: Igor <vmta@yahoo.com>\n"
+"Language-Team: Ukrainian "
+"<https://hosted.weblate.org/projects/exaile/master/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.1-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:30+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -200,7 +201,7 @@ msgstr ""
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:463
 msgid "TAGS"
-msgstr ""
+msgstr "Тєги"
 
 #: ../xl/main.py:464
 msgid "TAGS to retrieve from the current track, use with --format-query"
@@ -4648,24 +4649,14 @@ msgstr "Дає змогу прослуховувати спільну музик
 
 #~ msgid " + "
 #~ msgstr " + "
-
 #~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
-#~ msgstr ""
-#~ "Exaile тепер використовує абсолютні URL, будь-ласка, видаліть/"
-#~ "переіменуйте ваш каталог %s"
 
 #~ msgid " (%(queue_count)d queued)"
 #~ msgstr " (%(queue_count)d додано до черги)"
-
 #~ "Left\n"
 #~ "Right\n"
 #~ "Top\n"
 #~ "Bottom"
-#~ msgstr ""
-#~ "Зліва\n"
-#~ "Справа\n"
-#~ "Зверху\n"
-#~ "Знизу"
 
 #~ msgid ""
 #~ "Automatic\n"
@@ -4681,105 +4672,3 @@ msgstr "Дає змогу прослуховувати спільну музик
 #~ "OSS\n"
 #~ "PulseAudio\n"
 #~ "JACK"
-
-#~ msgid ""
-#~ msgid ""
-#~ "Normal\n"
-#~ "Unified (unstable)"
-#~ msgstr ""
-#~ "Нормальный\n"
-#~ "Універсальний (нестабільно)"
-
-#~ msgid "Original Date"
-#~ msgstr "Дата оригіналу"
-
-#~ msgid "Date Added"
-#~ msgstr "Дата додавання"
-
-#~ msgid "Encoded By"
-#~ msgstr "Кодовано"
-
-#~ msgid "Last Played"
-#~ msgstr "Востаннє відтворювалося"
-
-#~ "продовжити?"
-#~ msgid ""
-#~ "Artist\n"
-#~ "Album\n"
-#~ "Genre - Artist\n"
-#~ "Genre - Album\n"
-#~ "Year - Artist\n"
-#~ "Year - Album\n"
-#~ "Artist - Year - Album"
-#~ msgstr ""
-#~ "Виконавець\n"
-#~ "Альбом\n"
-#~ "Жанр - Виконавець\n"
-#~ "Жанр - Альбом\n"
-#~ "Рік - Виконавець\n"
-#~ "Рік - Альбом\n"
-#~ "Виконавець - Рік - Альбом"
-
-#~ msgid "Exaile"
-#~ msgstr "Exaile"
-
-#~ msgid "Resizable"
-#~ msgstr "Зі змінюваними розмірами"
-
-#~ msgid "Search:"
-#~ msgstr "Пошук:"
-
-#~ msgid "Vol:"
-#~ msgstr "Гучність:"
-
-#~ msgid "Select a save location"
-#~ msgstr "Вибрати місце для збереження"
-
-#~ msgid "Personal"
-#~ msgstr "Особисте"
-
-#~ msgid "Recommended"
-#~ msgstr "Рекомендоване"
-
-#~ msgid "Neighbourhood"
-#~ msgstr "Суміжне оточення"
-
-#~ msgid "Loved Tracks"
-#~ msgstr "Улюблені композиції"
-
-#~ msgid "Choose a file"
-#~ msgstr "Виберіть файл"
-
-#~ msgid "Part"
-#~ msgstr "Частина"
-
-#~ msgid "Original Album"
-#~ msgstr "Початковий альбом"
-
-#~ msgid "Original Artist"
-#~ msgstr "Початковий виконавець"
-
-#~ msgstr "Менеджер модулів"
-
-
-#~ msgid "Number of Plays"
-#~ msgstr "Кількість відтворень"
-#~ msgid "<b>Position</b>"
-#~ msgstr "<b>Розташування</b>"
-
-#~ msgid "Center vertically"
-#~ msgstr "Центрувати вертикально"
-
-#~ msgid "Center horizontally"
-#~ msgstr "Центрувати горизонтально"
-
-#~ msgid "MPRIS"
-#~ msgstr "MPRIS"
-
-
-#~ msgid ""
-#~ "Show various informations about the track currently playing.\n"
-#~ "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
-#~ msgstr ""
-#~ "Відображати інформацію про поточну доріжку.\n"
-#~ "Залежності: libwebkit >= 1.0.1, python-webkit >= 1.1.2"

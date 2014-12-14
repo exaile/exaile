@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-01 11:10+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Dustin Spicuzza <dustin@virtualroadside.com>\n"
-"Language-Team: Esperanto <eo@li.org>\n"
+"PO-Revision-Date: 2014-12-09 19:50+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: Esperanto "
+"<https://hosted.weblate.org/projects/exaile/master/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.1\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:597
 #, python-format
@@ -277,7 +278,7 @@ msgstr "Montri ĉi tiun helpmesaĝon kaj eliri"
 
 #: ../xl/main.py:513
 msgid "Show program's version number and exit."
-msgstr "Montru nombrversion de la programaro kaj eliru"
+msgstr "Montru nombrversion de la programaro kaj eliru."
 
 #: ../xl/main.py:516
 msgid "Start minimized (to tray, if possible)"
@@ -369,7 +370,7 @@ msgstr "Malŝalti D-Bus-subtenon"
 
 #: ../xl/main.py:564
 msgid "Disable HAL support."
-msgstr "Elŝalti HAL-subtenon"
+msgstr "Elŝalti HAL-subtenon."
 
 #: ../xl/main.py:580
 msgid "Entire Library"
@@ -2436,7 +2437,7 @@ msgstr ""
 
 #: ../data/ui/device_manager.ui.h:4
 msgid "Detected devices:"
-msgstr "Detektitaj aparatoj"
+msgstr "Detektitaj aparatoj:"
 
 #: ../data/ui/device_manager.ui.h:5
 msgid "Custom: "
@@ -4429,8 +4430,6 @@ msgstr ""
 #~ msgid "Autosize"
 #~ msgstr "Aŭtomate regrandigi"
 
-#~ msgstr "Elektu dosieron"
-
 #~ msgid "Quit"
 #~ msgstr "Eliri"
 
@@ -4445,7 +4444,6 @@ msgstr ""
 
 #~ msgid "Add Playlist"
 #~ msgstr "Aldoni kantaron"
-
 #~ "aperi</b>"
 
 #~ msgid " - "
@@ -4453,6 +4451,7 @@ msgstr ""
 
 #~ msgid " + "
 #~ msgstr " + "
+
 #~ msgid "Personal"
 #~ msgstr "Persona"
 
@@ -4467,7 +4466,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Exaile nun uzas absolutajn adresojn. Bonvolu forigi/alinomigi vian "
 #~ "dosierujon %s"
-
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>Ĝenerale</b>"

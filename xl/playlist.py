@@ -1852,7 +1852,7 @@ class SmartPlaylist(object):
                 params += [param]
                 continue
             (field, op, value) = param
-            fieldtype = tag_data.get(field)
+            fieldtype = tag_data.get(field).type
             s = ""
 
             if field == '__rating':

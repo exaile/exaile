@@ -166,7 +166,7 @@ msgstr "Pridať stopy z umiestnenia do zbierky"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "Možnosti zoznamu skladieb"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
@@ -192,7 +192,7 @@ msgstr ""
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "Označenia"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
@@ -315,7 +315,7 @@ msgstr "Nastaviť priečinok pre dáta"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Nastaviť zložku pre dáta a konfiguráciu"
 
 #: ../xl/main.py:616
 msgid "MODULE"
@@ -393,7 +393,7 @@ msgstr "Značky"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Lokálny súbor"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
@@ -434,7 +434,7 @@ msgstr " / "
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -1032,11 +1032,11 @@ msgstr "Nový zoznam skladieb"
 
 #: ../xlgui/widgets/playlist.py:267
 msgid "Stop Playback After This Track"
-msgstr ""
+msgstr "Zastaviť prehrávanie po tejto skladbe"
 
 #: ../xlgui/widgets/playlist.py:274
 msgid "Continue Playback After This Track"
-msgstr ""
+msgstr "Pokračovať v prehrávaní po tejto skladbe"
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
@@ -2144,7 +2144,7 @@ msgstr "Získať obaly albumov automaticky pri spustení prehrávania"
 
 #: ../data/ui/preferences/cover.ui.h:8
 msgid "Cover Search Order:"
-msgstr ""
+msgstr "Poradie hľadania obalov:"
 
 #: ../data/ui/preferences/cover.ui.h:9
 msgid "(drag to reorder)"
@@ -2161,7 +2161,7 @@ msgstr "Vyzvať na uloženie vlastného zoznamu skladieb pri uzatváraní"
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr ""
+msgstr "Nahradiť obsah pri dvojkliku v bočnom paneli"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
@@ -2343,11 +2343,11 @@ msgstr "Inštalovať plugin"
 
 #: ../data/ui/preferences/appearance.ui.h:1
 msgid "Show info area"
-msgstr ""
+msgstr "Zobraziť oblasť informácií"
 
 #: ../data/ui/preferences/appearance.ui.h:2
 msgid "The info area contains the cover art and track information"
-msgstr ""
+msgstr "Oblasť informácií obsahuje obal a informácie o skladbe"
 
 #: ../data/ui/preferences/appearance.ui.h:3
 msgid "Show cover art in info area"
@@ -2432,7 +2432,7 @@ msgstr "Nastavenia"
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
-msgstr ""
+msgstr "Slová v prúžku pred tagom interpréta pri zotriedení (oddeliť medzerou)"
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
@@ -2440,7 +2440,7 @@ msgstr "(Pravý klik pre predvolené nastavenia)"
 
 #: ../data/ui/preferences/collection.ui.h:3
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Použiť súbor založený na detekcii kompilácie"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "Device Manager"
@@ -2501,7 +2501,7 @@ msgstr ""
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr ""
+msgstr "Kľúč API je neplatný."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
@@ -2910,7 +2910,7 @@ msgstr "Ukazateľ priebehu"
 
 #: ../plugins/minimode/controls.py:1091
 msgid "Playback progress and seeking"
-msgstr ""
+msgstr "Priebežne prehrávať a vyhľadávať"
 
 #: ../plugins/grouptagger/gt_import.py:45
 #, fuzzy
@@ -3075,7 +3075,7 @@ msgstr "ReplayGain"
 #: ../plugins/droptrayicon/__init__.py:281
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Pustiť pre výber"
 
 #: ../plugins/droptrayicon/__init__.py:284
 msgid "Append and Play"
@@ -3502,7 +3502,7 @@ msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "pre"
-msgstr ""
+msgstr "pred"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "+12 dB"
@@ -3570,7 +3570,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "On tray icon hover"
-msgstr ""
+msgstr "Pri postátí na lište ikon"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "When main window is focused"
@@ -3603,6 +3603,9 @@ msgid ""
 "replaced by their respective values. The title will be replaced by \"Unknown"
 "\" if it is empty.</i>"
 msgstr ""
+"<i>Značky \"%(title)s\", \"%(artist)s\", a \"%(album)s\" budú prepísané "
+"vlastnými názvami, Ak nemajú vlastný názov, budú prepísané názvom \"Neznámy"
+"\".</i>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
@@ -3963,7 +3966,7 @@ msgstr "Hodnotenie tohto mesiaca"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Počet položiek zoznamu skladieb"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Number of downloads"
@@ -4091,7 +4094,7 @@ msgstr "Veľkosť:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:7
 msgid "Use fading"
-msgstr ""
+msgstr "Použiť stíšenie"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:8
 msgid "Fading duration:"
@@ -4127,7 +4130,7 @@ msgstr "Odstrániť"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:3
 msgid "<b>Alarms</b>"
-msgstr ""
+msgstr "<b>Alarmy</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:4
 msgid "Enable volume fade-in"
@@ -4155,7 +4158,7 @@ msgstr "Reštartovať zoznam skladieb"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:10
 msgid "<b>Playback</b>"
-msgstr ""
+msgstr "<b>Prehrávanie</b>"
 
 #: ../plugins/contextinfo/context_pane.ui.h:1
 msgid "Please enter your Last.fm authentication:"

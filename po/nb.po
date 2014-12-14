@@ -162,11 +162,11 @@ msgstr ""
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "Spillelistevalg"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "Eksporterer den gjeldende spillelisten til LOKASJON"
 
 #: ../xl/main.py:530
 msgid "Track Options"
@@ -179,7 +179,7 @@ msgstr "Spør spiller"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
@@ -196,7 +196,7 @@ msgstr ""
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "Vis en popup med informasjon for gjeldende spor"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
@@ -221,11 +221,11 @@ msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "Sett rangering for gjeldende spor til N%"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr ""
+msgstr "Få rangering for gjeldende spor"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
@@ -246,7 +246,7 @@ msgstr "Øker volumet med N%"
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:575
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "Senker volumet med N%"
 
 #: ../xl/main.py:578
 msgid "Mutes or unmutes the volume"
@@ -287,6 +287,7 @@ msgstr "Start i sikkermodus - kan være nyttig når du støter på problemer"
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
+"Tving import av gammel data fra versjon 0.2.x (Overskriver nåværende data)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
@@ -298,7 +299,7 @@ msgstr ""
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "Utvikler/Debug Valg"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
@@ -310,11 +311,11 @@ msgstr "Sett datakatalog"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Velg mappe for data og konfigurasjon"
 
 #: ../xl/main.py:616
 msgid "MODULE"
-msgstr ""
+msgstr "MODUL"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
@@ -322,7 +323,7 @@ msgstr ""
 
 #: ../xl/main.py:619
 msgid "LEVEL"
-msgstr ""
+msgstr "NIVÅ"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
@@ -388,7 +389,7 @@ msgstr "Knagger"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Lokal fil"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
@@ -397,11 +398,11 @@ msgstr ""
 #: ../xl/plugins.py:104
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "En utvidelse med navn \"%s\" er allerede installert."
 
 #: ../xl/plugins.py:109
 msgid "Plugin archive contains an unsafe path."
-msgstr ""
+msgstr "Utvidelse arkiv inneholder en usikker sti."
 
 #: ../xl/trax/trackdb.py:176
 msgid "You did not specify a location to load the db from"
@@ -436,6 +437,8 @@ msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
+"Vorbis er en lydkodek med åpen kildekode og kvalitetsreduksjon, men gir "
+"vesentlig bedre lydkvalitet til en mindre filstørrelse enn MP3."
 
 #: ../xl/transcoder.py:66
 msgid ""
@@ -488,7 +491,7 @@ msgstr "Egendefinert"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Automatisk"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
@@ -542,7 +545,7 @@ msgstr "Opphavsrett"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
@@ -581,7 +584,7 @@ msgstr "Sjanger"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
 msgid "Grouping"
-msgstr ""
+msgstr "Gruppering"
 
 #: ../xl/metadata/tags.py:55
 msgid "ISRC"
@@ -720,7 +723,7 @@ msgstr "PLS Spilleliste"
 #: ../xl/playlist.py:529 ../xl/playlist.py:545
 #, python-format
 msgid "Invalid format for %s."
-msgstr ""
+msgstr "Ugyldig format for %s."
 
 #: ../xl/playlist.py:540
 #, python-format
@@ -749,23 +752,23 @@ msgstr "Omstokk _Album"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _Off"
-msgstr ""
+msgstr "Gjenta _Av"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _All"
-msgstr ""
+msgstr "Gjenta _Alle"
 
 #: ../xl/playlist.py:891
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "Gjenta _Enkelt"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic _Off"
-msgstr ""
+msgstr "Dynamisk _Av"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic by Similar _Artists"
-msgstr ""
+msgstr "Dynamisk av Lignende _Artister"
 
 #: ../xl/playlist.py:1843 ../xlgui/panel/playlists.py:58
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:85
@@ -796,11 +799,11 @@ msgstr "Lokal"
 
 #: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
-msgstr ""
+msgstr "Legg til kø"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
-msgstr ""
+msgstr "Erstatt Gjeldende"
 
 #: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
@@ -815,14 +818,15 @@ msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr ""
+"Filene kan ikke flyttes til papirkurv. Vil du slette de permanent fra disken?"
 
 #: ../xlgui/widgets/menuitems.py:183
 msgid "Move to Trash"
-msgstr ""
+msgstr "Flytt til Papirkurv"
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
-msgstr ""
+msgstr "_Vis Spillende Spor"
 
 #: ../xlgui/widgets/menuitems.py:221 ../xlgui/widgets/playlist.py:227
 msgid "Rename"
@@ -871,7 +875,7 @@ msgstr "Spiller ikke"
 #: ../xlgui/widgets/playback.py:748
 #, python-format
 msgid "Seeking: %s"
-msgstr ""
+msgstr "Søker: %s"
 
 #: ../xlgui/widgets/playback.py:1024
 msgid "Move"
@@ -879,7 +883,7 @@ msgstr "Flytt"
 
 #: ../xlgui/widgets/playback.py:1170
 msgid "New Marker"
-msgstr ""
+msgstr "Ny Markør"
 
 #: ../xlgui/widgets/playback.py:1269
 msgid "Muted"
@@ -901,6 +905,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"av $artist\n"
+"fra $album"
 
 #: ../xlgui/widgets/info.py:417
 msgid "Various"
@@ -909,7 +916,7 @@ msgstr "Forskjellig"
 #: ../xlgui/widgets/info.py:436
 #, python-format
 msgid "%(track_count)d in total (%(total_duration)s)"
-msgstr ""
+msgstr "%(track_count)d i totalt (%(total_duration)s)"
 
 #: ../xlgui/widgets/info.py:594
 #, python-format
@@ -928,7 +935,7 @@ msgstr "%d valgt"
 
 #: ../xlgui/widgets/queue.py:100
 msgid "Queue"
-msgstr ""
+msgstr "Legg til i kø"
 
 #: ../xlgui/widgets/queue.py:102
 #, python-format
@@ -967,7 +974,7 @@ msgstr "Ganger spilt"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
-msgstr ""
+msgstr "Planlagt"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
@@ -984,7 +991,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:638
 msgid "_Autosize"
-msgstr ""
+msgstr "_Autostørrelse"
 
 #: ../xlgui/widgets/rating.py:261
 msgid "Rating:"
@@ -1004,7 +1011,7 @@ msgstr "Dynamisk"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
-msgstr ""
+msgstr "Fjern gjeldende Spor Fra Spilleliste"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
@@ -1012,7 +1019,7 @@ msgstr "Tilfeldiggjør Spilleliste"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "Gjør Valg Tilfeldig"
 
 #: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
@@ -1022,11 +1029,11 @@ msgstr "Ny spilleliste"
 
 #: ../xlgui/widgets/playlist.py:267
 msgid "Stop Playback After This Track"
-msgstr ""
+msgstr "Stans Avspillingen Etter Dette Sporet"
 
 #: ../xlgui/widgets/playlist.py:274
 msgid "Continue Playback After This Track"
-msgstr ""
+msgstr "Fortsett Avspillingen Etter Dette Sporet"
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
@@ -1038,7 +1045,7 @@ msgstr "Legg til lignende spor i spillelisten dynamisk"
 
 #: ../xlgui/widgets/dialogs.py:291
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Tast inn URL som skal åpnes"
 
 #: ../xlgui/widgets/dialogs.py:292
 msgid "Open URL"
@@ -1046,11 +1053,11 @@ msgstr "Åpne nettadresse"
 
 #: ../xlgui/widgets/dialogs.py:560
 msgid "Select File Type (by Extension)"
-msgstr ""
+msgstr "Velg Fil Fra Type"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
-msgstr ""
+msgstr "Velg Media som skal Åpnes"
 
 #: ../xlgui/widgets/dialogs.py:627
 msgid "Supported Files"
@@ -1071,16 +1078,16 @@ msgstr "Alle Filer"
 
 #: ../xlgui/widgets/dialogs.py:707
 msgid "Choose Directory to Open"
-msgstr ""
+msgstr "Velg Mappe som skal Åpnes"
 
 #: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
 #: ../xlgui/panel/menus.py:184
 msgid "Import Playlist"
-msgstr ""
+msgstr "Importer spilleliste"
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
-msgstr ""
+msgstr "Eksporter Gjeldende Spilleliste"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
@@ -1089,7 +1096,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr ""
+msgstr "Spilleliste lagret som  <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
@@ -1111,11 +1118,11 @@ msgstr "Lukk uten a lagre"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
-msgstr ""
+msgstr "Ja til alle"
 
 #: ../xlgui/widgets/dialogs.py:1327
 msgid "No to all"
-msgstr ""
+msgstr "Nei til alle"
 
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
@@ -1125,20 +1132,20 @@ msgstr "Lagret %(count)s av %(total)s."
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "Feil oppstod under kopiering %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Fil finnes, vil du overskrive %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
-msgstr ""
+msgstr "Navn på spilleliste:"
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Legg til ny spilleliste..."
 
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
@@ -1160,7 +1167,7 @@ msgstr "Lukk fane"
 
 #: ../xlgui/main.py:113
 msgid "$title (by $artist)"
-msgstr ""
+msgstr "$title (av $artist)"
 
 #: ../xlgui/main.py:479
 msgid "Toggle: Stop after Selected Track"
@@ -1168,7 +1175,7 @@ msgstr ""
 
 #: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
 msgid "Playback error encountered!"
-msgstr ""
+msgstr "Avspillingsfeil har oppstått!"
 
 #: ../xlgui/main.py:589
 #, python-format
@@ -1207,7 +1214,7 @@ msgstr "Åpne _URL"
 
 #: ../xlgui/menu.py:81
 msgid "Open Directories"
-msgstr ""
+msgstr "Åpne kataloger"
 
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
@@ -2078,6 +2085,8 @@ msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Oppfrisk samlingslisten\n"
+"(Hold inne skifttasten for å søke gjennom samlingen)"
 
 #: ../data/ui/preferences/cover.ui.h:1
 msgid "Use covers embedded in tags"
@@ -2740,12 +2749,12 @@ msgstr ""
 #: ../plugins/minimode/minimode_preferences.py:117
 #: ../plugins/minimode/controls.py:693 ../plugins/minimode/controls.py:956
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:113
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title etter $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:115
@@ -3035,11 +3044,11 @@ msgstr ""
 
 #: ../plugins/droptrayicon/__init__.py:284
 msgid "Append and Play"
-msgstr ""
+msgstr "Legg til og spill"
 
 #: ../plugins/droptrayicon/__init__.py:286
 msgid "Append"
-msgstr ""
+msgstr "Føy til"
 
 #: ../plugins/history/history_preferences.py:35
 #: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
@@ -3146,7 +3155,7 @@ msgstr "Slett"
 
 #: ../plugins/podcasts/__init__.py:118
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Skriv inn nettadressen for podcasten som skal legges til"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Open Podcast"
@@ -3159,7 +3168,7 @@ msgstr "Laster %s..."
 
 #: ../plugins/podcasts/__init__.py:181
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Feil ved lasting av podcast."
 
 #: ../plugins/podcasts/__init__.py:197
 msgid "Loading Podcasts..."
@@ -3208,7 +3217,7 @@ msgstr ""
 #: ../plugins/daapserver/daapserverprefs.py:6
 #: ../plugins/daapserver/PLUGININFO:3
 msgid "DAAP Server"
-msgstr ""
+msgstr "DAAP Server"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
 msgid "Contacting SomaFM server..."
@@ -3239,7 +3248,7 @@ msgstr ""
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "DAAP-Klient"
 
 #: ../plugins/daapclient/__init__.py:298
 msgid "Manually..."

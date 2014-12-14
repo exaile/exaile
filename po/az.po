@@ -96,11 +96,11 @@ msgstr ""
 
 #: ../xl/formatter.py:704
 msgid "Today"
-msgstr ""
+msgstr "Bugün"
 
 #: ../xl/formatter.py:706
 msgid "Yesterday"
-msgstr ""
+msgstr "Dünən"
 
 #: ../xl/main.py:237
 msgid "Failed to migrate from 0.2.14"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: ../xl/main.py:507
 msgid "Pause"
-msgstr ""
+msgstr "Fasilə"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
@@ -314,7 +314,7 @@ msgstr ""
 
 #: ../xl/main.py:616
 msgid "MODULE"
-msgstr ""
+msgstr "MODUL"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
@@ -342,7 +342,7 @@ msgstr ""
 
 #: ../xl/main.py:631
 msgid "TYPE"
-msgstr ""
+msgstr "NÖV"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"

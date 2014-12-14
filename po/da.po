@@ -162,11 +162,11 @@ msgstr "Tilføj nummer fra STED til samling"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "Indstillinger for spilleliste"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "Eksportér den nuværende afspilningsliste til LOCATION"
 
 #: ../xl/main.py:530
 msgid "Track Options"
@@ -179,20 +179,21 @@ msgstr "Forespørg afspiller"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
 msgstr ""
+"Henter den nuværende afspilningstilstand og nummers information som FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "Mærker"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr ""
+msgstr "Mærker som skal modtages fra det nuværende nummer med --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -315,7 +316,7 @@ msgstr "Sæt datakatalog"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Sæt data og konfigurationskatalog"
 
 #: ../xl/main.py:616
 msgid "MODULE"
@@ -343,7 +344,7 @@ msgstr "Aktivér fejlsøgning af xl.event. Genererer MASSER af uddata"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Tilføj trådnavn til lognings beskeder"
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -1137,12 +1138,12 @@ msgstr "Gemte %(count)s ud af %(total)s."
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "Der opstod en fejl under kopieringen %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Filen eksisterer, overskriv %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
@@ -1150,7 +1151,7 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Tilføj ny afspilningsliste..."
 
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
@@ -1276,7 +1277,7 @@ msgstr "Afbryd"
 
 #: ../xlgui/properties.py:250
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Skrivning af mærker fejlede"
 
 #: ../xlgui/properties.py:251
 #, python-brace-format
@@ -1284,6 +1285,8 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Mærker kunne ikke skrives til følgende filer:\n"
+"{files}"
 
 #: ../xlgui/properties.py:276
 #, python-format
@@ -1298,11 +1301,11 @@ msgstr ""
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Luk uden at anvende ændringer i mærker?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Dine ændringer bliver tabt hvis du ikke anvender dem nu."
 
 #: ../xlgui/properties.py:589
 #, python-format

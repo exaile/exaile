@@ -52,13 +52,13 @@ msgstr[1] "%d விநாடிகள்"
 #: ../xl/formatter.py:585
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dநாட்கள், "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dமணிகள், "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
@@ -1684,7 +1684,7 @@ msgstr ""
 
 #: ../xlgui/preferences/plugin.py:40 ../xlgui/preferences/__init__.py:124
 msgid "Plugins"
-msgstr ""
+msgstr "சொருகுகள்"
 
 #: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
 #: ../plugins/grouptagger/gt_widgets.py:58

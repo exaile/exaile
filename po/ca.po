@@ -52,25 +52,25 @@ msgstr[1] ""
 #: ../xl/formatter.py:585
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:592
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:597
@@ -93,15 +93,15 @@ msgstr "%d:%02d"
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:693 ../xl/formatter.py:698
 msgid "Never"
-msgstr ""
+msgstr "Mai"
 
 #: ../xl/formatter.py:704
 msgid "Today"
-msgstr ""
+msgstr "Avui"
 
 #: ../xl/formatter.py:706
 msgid "Yesterday"
-msgstr ""
+msgstr "Ahir"
 
 #: ../xl/main.py:237
 msgid "Failed to migrate from 0.2.14"
@@ -109,15 +109,15 @@ msgstr "No s'ha pogut migrar des de la versió 0.2.14"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "Ús: exaile [OPCIÓ]... [URI]"
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "Opcions"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
-msgstr ""
+msgstr "Opcions de reproducció"
 
 #: ../xl/main.py:499
 msgid "Play the next track"
@@ -142,7 +142,7 @@ msgstr "Pausa"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "Pausar o reprendre la reproducció"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
@@ -171,11 +171,11 @@ msgstr ""
 
 #: ../xl/main.py:530
 msgid "Track Options"
-msgstr ""
+msgstr "Opcions de pista"
 
 #: ../xl/main.py:532
 msgid "Query player"
-msgstr ""
+msgstr "Consulta reproductor"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
@@ -197,7 +197,7 @@ msgstr ""
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "Mostra una finestra emergent amb informació de la pista actual"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
@@ -226,7 +226,7 @@ msgstr ""
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr ""
+msgstr "Obtenir valoració de la peça actual"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
@@ -238,7 +238,7 @@ msgstr ""
 
 #: ../xl/main.py:566
 msgid "Volume Options"
-msgstr ""
+msgstr "Opcions de volum"
 
 #: ../xl/main.py:570
 msgid "Increases the volume by N%"
@@ -255,11 +255,11 @@ msgstr ""
 
 #: ../xl/main.py:580
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "Imprimeix el percentatge de volum actual"
 
 #: ../xl/main.py:583
 msgid "Other Options"
-msgstr ""
+msgstr "Altres opcions"
 
 #: ../xl/main.py:585
 msgid "Start new instance"
@@ -267,15 +267,15 @@ msgstr "Inicia una instància nova"
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "Mostrar aquest missatge d'ajuda al sortir"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "Mostrar la versió del programa i sortir"
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "Iniciar minimitzat (a la safata, si és possible)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
@@ -288,10 +288,12 @@ msgstr "Inicia en mode segur - a vegades és útil si us trobeu amb problemes"
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
+"Forçar l'importació de dades antigues des de la versió 0.2.x (sobreescriu "
+"les dades actuals)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
-msgstr ""
+msgstr "No importar les dades antigues desde la versió 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
@@ -299,11 +301,11 @@ msgstr ""
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "Opcions de desenvopupament/depuració"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
-msgstr ""
+msgstr "DIRECTORI"
 
 #: ../xl/main.py:612
 msgid "Set data directory"
@@ -315,7 +317,7 @@ msgstr ""
 
 #: ../xl/main.py:616
 msgid "MODULE"
-msgstr ""
+msgstr "MÒDUL"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
@@ -323,7 +325,7 @@ msgstr ""
 
 #: ../xl/main.py:619
 msgid "LEVEL"
-msgstr ""
+msgstr "NIVELL"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
@@ -343,7 +345,7 @@ msgstr ""
 
 #: ../xl/main.py:631
 msgid "TYPE"
-msgstr ""
+msgstr "TIPUS"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
@@ -405,6 +407,7 @@ msgstr ""
 #: ../xl/trax/trackdb.py:176
 msgid "You did not specify a location to load the db from"
 msgstr ""
+"No has especificat la localització de la base de dades que s'ha de carregar"
 
 #: ../xl/trax/trackdb.py:259
 msgid "You did not specify a location to save the db"
@@ -422,7 +425,7 @@ msgstr "Desconegut"
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
@@ -488,7 +491,7 @@ msgstr "Automàtic"
 #: ../xl/player/pipe.py:504 ../xl/player/pipe.py:527
 #: ../xl/player/sink_windows.py:37
 msgid "Custom"
-msgstr ""
+msgstr "Personalitzat"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
@@ -501,7 +504,7 @@ msgstr ""
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
 msgid "Not playing."
-msgstr ""
+msgstr "No s'està reproduint"
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -519,7 +522,7 @@ msgstr "Àlbum"
 
 #: ../xl/metadata/tags.py:41
 msgid "Arranger"
-msgstr ""
+msgstr "Organitzador"
 
 #: ../xl/metadata/tags.py:42 ../xlgui/widgets/playlist_columns.py:232
 #: ../xlgui/panel/collection.py:129 ../data/ui/widgets/tracklist_info.ui.h:2
@@ -530,17 +533,17 @@ msgstr "Artista"
 
 #: ../xl/metadata/tags.py:43
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: ../xl/metadata/tags.py:44 ../xlgui/widgets/playlist_columns.py:353
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: ../xl/metadata/tags.py:45
 msgid "Copyright"
-msgstr ""
+msgstr "Drets d'autor"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
@@ -573,7 +576,7 @@ msgstr "Disc"
 
 #: ../xl/metadata/tags.py:52
 msgid "Encoded by"
-msgstr ""
+msgstr "Codificat per"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:318
 #: ../plugins/cd/cdprefs.py:114
@@ -587,30 +590,30 @@ msgstr ""
 
 #: ../xl/metadata/tags.py:55
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:56 ../plugins/lyricsviewer/__init__.py:347
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:1
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricsviewer/PLUGININFO:5
 #: ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
-msgstr ""
+msgstr "Lletres"
 
 #: ../xl/metadata/tags.py:57
 msgid "Lyricist"
-msgstr ""
+msgstr "Lletrista"
 
 #: ../xl/metadata/tags.py:58
 msgid "Organization"
-msgstr ""
+msgstr "Organització"
 
 #: ../xl/metadata/tags.py:59
 msgid "Original album"
-msgstr ""
+msgstr "Album original"
 
 #: ../xl/metadata/tags.py:60
 msgid "Original artist"
-msgstr ""
+msgstr "Artista original"
 
 #: ../xl/metadata/tags.py:61
 msgid "Original date"
@@ -618,7 +621,7 @@ msgstr ""
 
 #: ../xl/metadata/tags.py:63
 msgid "Performer"
-msgstr ""
+msgstr "Intèrpret"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/widgets/playlist_columns.py:225
 #: ../xlgui/panel/flatplaylist.py:99 ../plugins/cd/cdprefs.py:106
@@ -630,15 +633,15 @@ msgstr "Títol"
 #: ../xl/metadata/tags.py:65 ../plugins/grouptagger/gt_mass.ui.h:7
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
-msgstr ""
+msgstr "Pista"
 
 #: ../xl/metadata/tags.py:66 ../data/ui/preferences/plugin.ui.h:2
 msgid "Version"
-msgstr ""
+msgstr "Versió"
 
 #: ../xl/metadata/tags.py:67
 msgid "Website"
-msgstr ""
+msgstr "Pàgina web"
 
 #: ../xl/metadata/tags.py:71 ../xlgui/widgets/playlist_columns.py:325
 #: ../plugins/icecast/__init__.py:390 ../plugins/cd/cdprefs.py:115
@@ -648,13 +651,13 @@ msgstr "Ràtio de bits"
 
 #: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
 msgid "Date added"
-msgstr ""
+msgstr "Data d'incorporació"
 
 #: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
 #: ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
-msgstr ""
+msgstr "Escoltada per últim cop"
 
 #: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:253
 #: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:97
@@ -669,7 +672,7 @@ msgstr "Ubicació"
 
 #: ../xl/metadata/tags.py:77
 msgid "Modified"
-msgstr ""
+msgstr "Modificat"
 
 #: ../xl/metadata/tags.py:78
 #, fuzzy
@@ -678,7 +681,7 @@ msgstr "Reprodueix"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
-msgstr ""
+msgstr "Vegades reproduida"
 
 #: ../xl/metadata/tags.py:81
 msgid "Start offset"
@@ -707,7 +710,7 @@ msgstr ""
 #: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
 #: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
 msgid "Playlist"
-msgstr ""
+msgstr "Llista de reproducció"
 
 #: ../xl/playlist.py:327
 msgid "M3U Playlist"
@@ -792,7 +795,7 @@ msgstr "setmanes"
 
 #: ../xl/lyrics.py:340
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
@@ -808,7 +811,7 @@ msgstr "Afegeix a l'actual"
 
 #: ../xlgui/widgets/menuitems.py:146 ../xlgui/properties.py:1125
 msgid "Open Directory"
-msgstr ""
+msgstr "Obre la carpeta"
 
 #: ../xlgui/widgets/menuitems.py:168
 msgid ""
@@ -1037,7 +1040,7 @@ msgstr "Afegeix dinàmicament pises similars a la llista de reproducció"
 
 #: ../xlgui/widgets/dialogs.py:291
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Introduïu l'adreça URL per obrir"
 
 #: ../xlgui/widgets/dialogs.py:292
 msgid "Open URL"
@@ -1119,7 +1122,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr ""
+msgstr "Enmagatzemades %(count)s of %(total)s"
 
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
@@ -1274,7 +1277,7 @@ msgstr ""
 #: ../xlgui/properties.py:276
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "Editant pista %(current)d de %(total)d"
 
 #: ../xlgui/properties.py:375
 #, fuzzy
@@ -1300,7 +1303,7 @@ msgstr ""
 #. tracknumber, discnumber, etc. in the tagger.
 #: ../xlgui/properties.py:795
 msgid "of:"
-msgstr ""
+msgstr "de:"
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
@@ -1338,7 +1341,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:1173
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Aplicar el valor actual a totes les pistes"
 
 #: ../xlgui/cover.py:109
 #, python-brace-format
@@ -2011,7 +2014,7 @@ msgstr "Descripció:"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
-msgstr ""
+msgstr "Administració de la col·lecció"
 
 #: ../data/ui/collection_manager.ui.h:3
 msgid "Monitored"
@@ -2562,7 +2565,7 @@ msgstr ""
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
 msgid "Lyrics Viewer"
-msgstr ""
+msgstr "Visualitzador de líriques"
 
 #: ../plugins/audioscrobbler/asprefs.py:32
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -4257,13 +4260,13 @@ msgstr ""
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Editor de etiquetes ExFalso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
-msgstr ""
+msgstr "Integra l'editor d'etiquetes ExFalso amb Exaile"
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
@@ -4324,7 +4327,7 @@ msgstr ""
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
-msgstr ""
+msgstr "Permèt apagar l'ordinador al finalitzar la llista de reproducció"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -4372,6 +4375,7 @@ msgstr ""
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
+"Proveeix una consola IPython que pot ser utilitzada per manipular Exaile."
 
 #: ../plugins/ipconsole/PLUGININFO:5 ../plugins/console/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
@@ -4541,7 +4545,7 @@ msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Informació contextual"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -4564,7 +4568,7 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Viqui de lletres"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid ""

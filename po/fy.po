@@ -226,7 +226,7 @@ msgstr "Set de"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr ""
+msgstr "Krij de ... fan dit nûmer"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"

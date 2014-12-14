@@ -2022,7 +2022,7 @@ msgstr "snímek obrazovky filmu/videa"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Zářivě barevná ryba"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
@@ -3003,7 +3003,7 @@ msgstr "Zobrazit stopy označené jako \"%s\""
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "Zobrazit všechny vybrané stopy"
 
 #: ../plugins/grouptagger/gt_widgets.py:132
 #: ../plugins/grouptagger/gt_widgets.py:657
@@ -3033,7 +3033,7 @@ msgstr "Zobrazit vybrané stopy (vlastní)"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
-msgstr ""
+msgstr "Nová hodnota popisku?"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "Enter new tag value"
@@ -4023,7 +4023,7 @@ msgstr "Formát zobrazení"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
-msgstr ""
+msgstr "Zobrazit dobu trvání:"
 
 #: ../plugins/osd/osd_preferences.ui.h:5
 msgid "Background:"
@@ -4035,7 +4035,7 @@ msgstr "Zobrazit ukazatel průběhu"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
 msgid "Border radius:"
-msgstr ""
+msgstr "Hraniční poloměr:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 #, fuzzy

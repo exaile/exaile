@@ -2342,7 +2342,7 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui.h:16
 msgid "Jump to current song on track change"
-msgstr ""
+msgstr "गीत के ख़त्म होने पर प्रत्यक्ष गीत बजाए"
 
 #: ../data/ui/preferences/appearance.ui.h:17
 msgid "Show splash screen on startup"

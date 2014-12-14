@@ -908,7 +908,7 @@ msgstr ""
 
 #: ../xlgui/widgets/info.py:417
 msgid "Various"
-msgstr ""
+msgstr "Nhiều nghệ sĩ"
 
 #: ../xlgui/widgets/info.py:436
 #, python-format
@@ -1087,7 +1087,7 @@ msgstr "Xuất danh sách hiện tại"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Sử dụng các đường dẫn lân cận đến các bài"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
@@ -1357,7 +1357,7 @@ msgstr "Đã tải xong tất cả ảnh bìa"
 
 #: ../xlgui/cover.py:135
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Tập hợp các album và bìa"
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
@@ -1543,7 +1543,7 @@ msgstr "Danh sách thông minh mới"
 
 #: ../xlgui/panel/menus.py:251
 msgid "New Station"
-msgstr ""
+msgstr "Trạm phát mới"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:63
@@ -1940,19 +1940,19 @@ msgstr "Khác"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "\"biểu tượng tệp\" 32x32 điểm ảnh (duy nhất PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
-msgstr ""
+msgstr "Biểu tượng khác"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
-msgstr ""
+msgstr "Bìa (trước)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
 msgid "Cover (back)"
-msgstr ""
+msgstr "Bìa (sau)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
@@ -1968,11 +1968,11 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Tác giả/Người trình diễn"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Ban nhạc/ dàn nhạc"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
@@ -1980,15 +1980,15 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
-msgstr ""
+msgstr "Nơi thu âm"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
 msgid "During recording"
-msgstr ""
+msgstr "Trong quá trình thu"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
 msgid "During performance"
-msgstr ""
+msgstr "Trong quá trình biểu diễn"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
 msgid "Movie/video screen capture"
@@ -2012,7 +2012,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "Nhấp chuột hoặc kéo thả file vào đây để đổi ảnh bìa"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
@@ -2113,7 +2113,7 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Ưu tiên các file có tên sau:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"

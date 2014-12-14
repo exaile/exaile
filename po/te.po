@@ -274,7 +274,7 @@ msgstr ""
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "మినిమైజ్ చేసి ప్రారంభించు (కుదిరితే ట్రే కి)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"

@@ -2204,7 +2204,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
-msgstr ""
+msgstr "Ajouter/Remplacer via le déclencheur de lecture du menu"
 
 #: ../data/ui/preferences/playlists.ui.h:6
 msgid ""
@@ -2979,7 +2979,7 @@ msgstr "Choisir un répertoire dans lequel exporter les fichiers"
 #: ../plugins/grouptagger/gt_widgets.py:635
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:104
 msgid "GroupTagger"
-msgstr ""
+msgstr "GroupeTaggeur"
 
 #: ../plugins/grouptagger/__init__.py:109
 #: ../plugins/grouptagger/gt_widgets.py:693
@@ -3085,7 +3085,7 @@ msgstr "Ajouter un groupe"
 
 #: ../plugins/grouptagger/gt_widgets.py:714
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Ajouter la selection en tant que choix"
 
 #: ../plugins/grouptagger/gt_widgets.py:740
 msgid "Show tracks with groups"
@@ -4419,7 +4419,7 @@ msgstr ""
 #: ../plugins/daapserver/PLUGININFO:5 ../plugins/somafm/PLUGININFO:5
 #: ../plugins/daapclient/PLUGININFO:5
 msgid "Media Sources"
-msgstr ""
+msgstr "Sources des média"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
@@ -4498,7 +4498,7 @@ msgstr "Effet"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
-msgstr ""
+msgstr "Désactiver la mise en veille"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"

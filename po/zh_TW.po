@@ -176,7 +176,7 @@ msgstr "查詢表演者"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "格式"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
@@ -185,11 +185,11 @@ msgstr ""
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "標籤"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr ""
+msgstr "在目前的取目中檢索標籤, 使用 --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -214,7 +214,7 @@ msgstr "顯示目前歌曲的長度"
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
 msgid "N"
-msgstr ""
+msgstr "否(N)"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
@@ -753,7 +753,7 @@ msgstr "重複全部 (_A)"
 
 #: ../xl/playlist.py:891
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "重複一次"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic _Off"

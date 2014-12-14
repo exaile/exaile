@@ -168,11 +168,11 @@ msgstr ""
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "خيارات قوائم التشغيل"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "تصدير قائمة التشغيل الحالية إلى موقع"
 
 #: ../xl/main.py:530
 msgid "Track Options"
@@ -194,7 +194,7 @@ msgstr ""
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "علامات"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
@@ -427,7 +427,7 @@ msgstr "مجهول"
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
@@ -1619,12 +1619,12 @@ msgstr "أقل من"
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/panel/playlists.py:213
 msgid "in the last"
-msgstr ""
+msgstr "في آخر"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xlgui/panel/playlists.py:215
 msgid "not in the last"
-msgstr ""
+msgstr "ليس في آخر"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
@@ -2582,7 +2582,7 @@ msgstr "اذهب إلى: "
 
 #: ../plugins/lyricsviewer/__init__.py:366
 msgid "Any"
-msgstr ""
+msgstr "أيّ"
 
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
@@ -4532,7 +4532,7 @@ msgstr ""
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
-msgstr ""
+msgstr "إزالة الموسيقى من الصوت"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 #, fuzzy

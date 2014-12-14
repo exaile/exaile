@@ -187,7 +187,7 @@ msgstr "Опитати програвача"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "ФОРМАТ"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
@@ -320,7 +320,7 @@ msgstr "Встановити каталог з даними"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Набір даних і конфігурації каталогу"
 
 #: ../xl/main.py:616
 msgid "MODULE"
@@ -398,7 +398,7 @@ msgstr "Позначки"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Локальний файл"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
@@ -498,7 +498,7 @@ msgstr "Довільно"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Авто"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
@@ -552,7 +552,7 @@ msgstr "Авторські права"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Коментар"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
@@ -591,7 +591,7 @@ msgstr "Жанр"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
 msgid "Grouping"
-msgstr ""
+msgstr "Групування"
 
 #: ../xl/metadata/tags.py:55
 msgid "ISRC"
@@ -980,7 +980,7 @@ msgstr "Кількість відтворень"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
-msgstr ""
+msgstr "Планувати"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"

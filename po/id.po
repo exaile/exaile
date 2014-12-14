@@ -158,11 +158,11 @@ msgstr "Tambah trek dari LOKASI ke koleksi"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "Pilihan Daftar Putar"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "Ekspor daftar putar saat ini ke LOKASI"
 
 #: ../xl/main.py:530
 msgid "Track Options"
@@ -428,7 +428,7 @@ msgstr " / "
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -796,7 +796,7 @@ msgstr "Lokal"
 
 #: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
-msgstr ""
+msgstr "Tambahkan ke daftar main"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
@@ -864,7 +864,7 @@ msgstr "Batasi dengan: "
 
 #: ../xlgui/widgets/filter.py:107
 msgid " tracks"
-msgstr ""
+msgstr " trek"
 
 #: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
 msgid "Not Playing"
@@ -873,7 +873,7 @@ msgstr "Tidak Dimainkan"
 #: ../xlgui/widgets/playback.py:748
 #, python-format
 msgid "Seeking: %s"
-msgstr ""
+msgstr "Mencari: %s"
 
 #: ../xlgui/widgets/playback.py:1024
 msgid "Move"
@@ -903,6 +903,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"oleh $artist\n"
+"dari $album"
 
 #: ../xlgui/widgets/info.py:417
 msgid "Various"
@@ -911,7 +914,7 @@ msgstr "Campuran"
 #: ../xlgui/widgets/info.py:436
 #, python-format
 msgid "%(track_count)d in total (%(total_duration)s)"
-msgstr ""
+msgstr "%(track_count)d dalam (%(total_duration)s)"
 
 #: ../xlgui/widgets/info.py:594
 #, python-format
@@ -921,7 +924,7 @@ msgstr "%d di dalam koleksi"
 #: ../xlgui/widgets/info.py:616 ../xlgui/widgets/info.py:623
 #, python-format
 msgid "%d showing"
-msgstr ""
+msgstr "%d memperlihatkan"
 
 #: ../xlgui/widgets/info.py:620 ../xlgui/widgets/info.py:627
 #, python-format
@@ -1005,7 +1008,7 @@ msgstr "Dinamis"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
-msgstr ""
+msgstr "Hapus Trek Saat Ini dari Daftar Putar"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
@@ -1023,11 +1026,11 @@ msgstr "Daftar lagu Baru"
 
 #: ../xlgui/widgets/playlist.py:267
 msgid "Stop Playback After This Track"
-msgstr ""
+msgstr "Hentikan Pemutaran Setelah Trek Ini"
 
 #: ../xlgui/widgets/playlist.py:274
 msgid "Continue Playback After This Track"
-msgstr ""
+msgstr "Lanjutkan Pemutaran Setelah Trek Ini"
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
@@ -1224,7 +1227,7 @@ msgstr "_Koleksi"
 
 #: ../xlgui/menu.py:151
 msgid "_Queue"
-msgstr ""
+msgstr "_Antrian"
 
 #: ../xlgui/menu.py:158
 msgid "C_overs"
@@ -1257,7 +1260,7 @@ msgstr "Memindai Ulang Koleksi"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
-msgstr ""
+msgstr "_Properti Trek"
 
 #: ../xlgui/progress.py:79
 msgid "Cancel"
@@ -1379,7 +1382,7 @@ msgstr ""
 #: ../xlgui/cover.py:998
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr ""
+msgstr "Pilihan sampul untuk %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
@@ -1622,12 +1625,12 @@ msgstr "kurang dari"
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/panel/playlists.py:213
 msgid "in the last"
-msgstr ""
+msgstr "dalam sisa waktu"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xlgui/panel/playlists.py:215
 msgid "not in the last"
-msgstr ""
+msgstr "di luar sisa waktu"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
@@ -1665,14 +1668,14 @@ msgstr "Kesalahan memuat podcast."
 #: ../xlgui/panel/playlists.py:482
 #, python-format
 msgid "%(first)s, %(second)s and others"
-msgstr ""
+msgstr "%(first)s, %(second)s dan lainnya"
 
 #. TRANSLATORS: Playlist title suggestion with two values
 #: ../xlgui/panel/playlists.py:459 ../xlgui/panel/playlists.py:473
 #: ../xlgui/panel/playlists.py:487
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s dan %(second)s"
 
 #: ../xlgui/panel/playlists.py:667
 msgid "Smart Playlists"
@@ -1783,7 +1786,7 @@ msgstr "Tindakan"
 
 #: ../xlgui/preferences/widgets.py:672
 msgid "Shortcut"
-msgstr ""
+msgstr "Pintas"
 
 #: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
 msgid "Playlists"
@@ -1854,7 +1857,7 @@ msgstr "Acak urutan putar"
 
 #: ../data/ui/playlist.ui.h:2
 msgid "Repeat playback"
-msgstr ""
+msgstr "Putar kembali"
 
 #: ../data/ui/playlist.ui.h:4
 msgid "_Search:"
@@ -1870,7 +1873,7 @@ msgstr ""
 
 #: ../data/ui/coverchooser.ui.h:3
 msgid "_Set as Cover"
-msgstr ""
+msgstr "_Gunakan sebagai Sampul"
 
 #: ../data/ui/main.ui.h:1
 msgid "_File"
@@ -1902,6 +1905,9 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Stop Mainkan\n"
+"\n"
+"Klik Kanan untuk Menghentikan Setelah Fitur Trek"
 
 #: ../data/ui/main.ui.h:11
 msgid "Next Track"
@@ -1913,7 +1919,7 @@ msgstr "0:00 / 0:00"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "Track Properties"
-msgstr ""
+msgstr "Properti Trek"
 
 #: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "A_dd tag"
@@ -1925,11 +1931,11 @@ msgstr "_Hapus tanda"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Ubah huruf pertama pada tanda menjadi kapital"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
@@ -1937,7 +1943,7 @@ msgstr "Properti"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Previous"
-msgstr ""
+msgstr "_Sebelumnya"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "_Next"
@@ -2038,7 +2044,7 @@ msgstr "Pengelola Koleksi"
 
 #: ../data/ui/collection_manager.ui.h:3
 msgid "Monitored"
-msgstr ""
+msgstr "Dipantau"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
@@ -2050,7 +2056,7 @@ msgstr "Radio"
 
 #: ../data/ui/panel/flatplaylist.ui.h:2
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Tambahkan Semua Trek ke Daftar Main"
 
 #: ../data/ui/panel/flatplaylist.ui.h:3
 msgid "Import CD"
@@ -2086,7 +2092,7 @@ msgstr "Direktori utama"
 
 #: ../data/ui/panel/files.ui.h:7 ../data/ui/panel/collection.ui.h:6
 msgid "Clear search field"
-msgstr ""
+msgstr "Bersihkan bidang pencarian"
 
 #: ../data/ui/panel/collection.ui.h:2
 msgid "<b>Collection is empty.</b>"
@@ -2106,17 +2112,19 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui.h:1
 msgid "Use covers embedded in tags"
-msgstr ""
+msgstr "Gunakan sampul yang tertanam dalam penanda"
 
 #: ../data/ui/preferences/cover.ui.h:2
 msgid "Use covers from local files"
-msgstr ""
+msgstr "Gunakan sampul dari berkas lokal"
 
 #: ../data/ui/preferences/cover.ui.h:3
 msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
+"Pilihan ini akan mencari berkas sampul di \n"
+"folder yang sama dengan berkas musik."
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
@@ -2128,7 +2136,7 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui.h:7
 msgid "Fetch covers automatically on playback start"
-msgstr ""
+msgstr "Ambil sampul secara otomatis pada awal pemutaran"
 
 #: ../data/ui/preferences/cover.ui.h:8
 msgid "Cover Search Order:"
@@ -2145,17 +2153,17 @@ msgstr "Buka daftar lagu terakhir saat memulai"
 
 #: ../data/ui/preferences/playlists.ui.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Tawarkan penyimpanan modifikasi daftar main saat keluar"
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr ""
+msgstr "Ganti isi saat panel sisi diklik ganda"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
-msgstr ""
+msgstr "Trek yang diklik ganda akan menggantikan isi daftar main."
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
@@ -2329,11 +2337,11 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui.h:1
 msgid "Show info area"
-msgstr ""
+msgstr "Tampilkan area informasi"
 
 #: ../data/ui/preferences/appearance.ui.h:2
 msgid "The info area contains the cover art and track information"
-msgstr ""
+msgstr "Area informasi ini berisi sampul dan informasi trek"
 
 #: ../data/ui/preferences/appearance.ui.h:3
 msgid "Show cover art in info area"
@@ -2359,18 +2367,20 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
-msgstr ""
+msgstr "Tampilkan jumlah trek di koleksi ini"
 
 #: ../data/ui/preferences/appearance.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:7
 msgid "Use alpha transparency:"
-msgstr ""
+msgstr "Gunakan transparansi alpha"
 
 #: ../data/ui/preferences/appearance.ui.h:11
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
+"Peringatan: pilihan ini dapat menyebabkan munculnya kesalahan jika digunakan "
+"dengan pengatur jendela tanpa dukungan komposit."
 
 #: ../data/ui/preferences/appearance.ui.h:12
 msgid "Show tray icon"
@@ -2417,6 +2427,8 @@ msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
+"Kata yang dihilangkan dari awal penanda nama artis ketika menyortir "
+"(dipisahkan oleh spasi):"
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
@@ -2424,7 +2436,7 @@ msgstr "(Klik kanan untuk mengembalikan ke bawaan)"
 
 #: ../data/ui/preferences/collection.ui.h:3
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Gunakan pendeteksian kompilasi berdasarkan berkas"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "Device Manager"
@@ -2432,7 +2444,7 @@ msgstr "Pengatur Perangkat"
 
 #: ../data/ui/device_manager.ui.h:2
 msgid "Add Device"
-msgstr ""
+msgstr "Tambah Perangkat"
 
 #: ../data/ui/device_manager.ui.h:3
 msgid "Type of device:"
@@ -2485,16 +2497,16 @@ msgstr ""
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr ""
+msgstr "Kunci API tidak valid"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
 msgid "Please make sure the entered data is correct."
-msgstr ""
+msgstr "Mohon pastikan data yang dimasukkan benar."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
-msgstr ""
+msgstr "Tidak dapat memulai perambah web"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:94
 #, python-brace-format
@@ -2502,6 +2514,8 @@ msgid ""
 "Please copy the following URL and open it with your web browser:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
+"Mohon salin URL berikut dan buka dengan perambah web anda:\n"
+"<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/lastfmlove/__init__.py:71
 msgid "Loved"
@@ -2579,11 +2593,11 @@ msgstr "Normal"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
-msgstr ""
+msgstr "Lirik tidak ditemukan."
 
 #: ../plugins/lyricsviewer/__init__.py:302
 msgid "Go to: "
-msgstr ""
+msgstr "Pergi ke: "
 
 #: ../plugins/lyricsviewer/__init__.py:366
 msgid "Any"
@@ -2786,7 +2800,7 @@ msgstr "Sebelumnya"
 
 #: ../plugins/minimode/controls.py:222
 msgid "Go to the previous track"
-msgstr ""
+msgstr "Pergi ke trek sebelumnya"
 
 #: ../plugins/minimode/controls.py:228
 msgid "Previous track"
@@ -2798,7 +2812,7 @@ msgstr "Berikutnya"
 
 #: ../plugins/minimode/controls.py:242
 msgid "Go to the next track"
-msgstr ""
+msgstr "Pergi ke trek berikutnya"
 
 #: ../plugins/minimode/controls.py:248
 msgid "Next track"
@@ -2810,7 +2824,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:263
 msgid "Start, pause or resume the playback"
-msgstr ""
+msgstr "Mulai, jeda atau lanjutkan pemutaran"
 
 #: ../plugins/minimode/controls.py:283
 msgid "Start playback"
@@ -2818,7 +2832,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:287
 msgid "Continue playback"
-msgstr ""
+msgstr "Lanjutkan pemutaran"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Pause playback"
@@ -2830,11 +2844,11 @@ msgstr "Berhenti"
 
 #: ../plugins/minimode/controls.py:329
 msgid "Stop the playback"
-msgstr ""
+msgstr "Hentikan pemutaran"
 
 #: ../plugins/minimode/controls.py:363
 msgid "Continue playback after current track"
-msgstr ""
+msgstr "Lanjutkan pemutaran setelah trek ini"
 
 #: ../plugins/minimode/controls.py:427
 msgid "Volume"
@@ -2850,11 +2864,11 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:490
 msgid "Restore the main window"
-msgstr ""
+msgstr "Kembalikan jendela utama"
 
 #: ../plugins/minimode/controls.py:498
 msgid "Restore main window"
-msgstr ""
+msgstr "Kembalikan jendela utama"
 
 #: ../plugins/minimode/controls.py:528
 msgid "Select rating of the current track"
@@ -3218,7 +3232,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/__init__.py:106
 msgid "Delete Bookmark"
-msgstr ""
+msgstr "Hapus Penandabuku"
 
 #: ../plugins/bookmarks/__init__.py:108
 msgid "Clear Bookmarks"
@@ -3294,7 +3308,7 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:647
 msgid "Refresh Server List"
-msgstr ""
+msgstr "Segarkan Kembali Daftar Server"
 
 #: ../plugins/daapclient/__init__.py:650
 msgid "Disconnect from Server"
@@ -3302,7 +3316,7 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:669
 msgid "Select a Location for Saving"
-msgstr ""
+msgstr "Pilih Lokasi Penyimpanan"
 
 #: ../plugins/daapclient/__init__.py:715
 msgid "Connect to DAAP..."

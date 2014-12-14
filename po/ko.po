@@ -214,7 +214,7 @@ msgstr "현재 트랙의 길이를 출력"
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
@@ -335,7 +335,7 @@ msgstr "xl.event. 디버깅 활성화 하기. 많은 아웃풋을 생성"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "로깅 메시지에 스레드 이름 추가"
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -795,7 +795,7 @@ msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
-msgstr ""
+msgstr "덮어쓰기"
 
 #: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
@@ -1003,11 +1003,11 @@ msgstr "현재 트랙을 재생목록에서 제거"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
-msgstr ""
+msgstr "랜덤 재생목록"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "랜덤선택"
 
 #: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
@@ -1125,7 +1125,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "파일이 이미 존재합니다, %s에 덮어쓸까요?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
@@ -1159,7 +1159,7 @@ msgstr ""
 
 #: ../xlgui/main.py:479
 msgid "Toggle: Stop after Selected Track"
-msgstr ""
+msgstr "토글: 선택된 트랙 재생 후 정지"
 
 #: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
 msgid "Playback error encountered!"
@@ -1311,7 +1311,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "링크된 이미지"
 
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
@@ -1329,7 +1329,7 @@ msgstr ""
 
 #: ../xlgui/properties.py:1050
 msgid "Supported image formats"
-msgstr ""
+msgstr "지원되는 이미지 형식"
 
 #: ../xlgui/properties.py:1173
 msgid "Apply current value to all tracks"
@@ -1929,7 +1929,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
-msgstr ""
+msgstr "다른 아이콘 파일"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
@@ -2094,7 +2094,7 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
-msgstr ""
+msgstr "선호하는 파일이름:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"
@@ -2263,7 +2263,7 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
-msgstr ""
+msgstr "플러그인이 선택되지 않음"
 
 #: ../data/ui/preferences/plugin.ui.h:8
 msgid "Installed Plugins"
@@ -2323,7 +2323,7 @@ msgstr "탭 위치:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
-msgstr ""
+msgstr "재생목록 글씨체:"
 
 #: ../data/ui/preferences/appearance.ui.h:7
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
@@ -2553,7 +2553,7 @@ msgstr "일반"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
-msgstr ""
+msgstr "가사가 발견되지 않음."
 
 #: ../plugins/lyricsviewer/__init__.py:302
 msgid "Go to: "
@@ -2604,16 +2604,16 @@ msgstr "연주가 끝나면 컴퓨터가 꺼질것입니다."
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
-msgstr ""
+msgstr "즉시 종료"
 
 #: ../plugins/shutdown/__init__.py:109
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr ""
+msgstr "이 컴퓨터는 %d초후에 종료될 것입니다."
 
 #: ../plugins/shutdown/__init__.py:135
 msgid "Shutdown failed"
-msgstr ""
+msgstr "종료 실패"
 
 #: ../plugins/shutdown/__init__.py:136
 msgid "Computer could not be shutdown using D-Bus."
@@ -2711,7 +2711,7 @@ msgstr "재생 횟수"
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "위키백과"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
@@ -2762,7 +2762,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:228
 msgid "Previous track"
-msgstr ""
+msgstr "이전 트랙"
 
 #: ../plugins/minimode/controls.py:241
 msgid "Next"
@@ -2774,7 +2774,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:248
 msgid "Next track"
-msgstr ""
+msgstr "다음 트랙"
 
 #: ../plugins/minimode/controls.py:262
 msgid "Play/Pause"
@@ -2965,11 +2965,11 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:158
 msgid "Add new category"
-msgstr ""
+msgstr "분류 추가"
 
 #: ../plugins/grouptagger/gt_widgets.py:162
 msgid "Remove category"
-msgstr ""
+msgstr "분류 지우기"
 
 #: ../plugins/grouptagger/gt_widgets.py:172
 msgid "Show tracks with selected (custom)"
@@ -3045,7 +3045,7 @@ msgstr "추가"
 #: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
 #: ../plugins/daapclient/__init__.py:292
 msgid "History"
-msgstr ""
+msgstr "기록"
 
 #: ../plugins/history/__init__.py:108
 msgid "Playback history"
@@ -3266,11 +3266,11 @@ msgstr ""
 
 #: ../plugins/daapclient/__init__.py:647
 msgid "Refresh Server List"
-msgstr ""
+msgstr "서버 목록 새로고침"
 
 #: ../plugins/daapclient/__init__.py:650
 msgid "Disconnect from Server"
-msgstr ""
+msgstr "서버에서 연결 끊어짐"
 
 #: ../plugins/daapclient/__init__.py:669
 msgid "Select a Location for Saving"
@@ -3424,11 +3424,11 @@ msgstr "없음"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
-msgstr ""
+msgstr "가사 글씨체:"
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
-msgstr ""
+msgstr "가사 새로고침"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Submit tracks using Audioscrobbler"
@@ -3677,7 +3677,7 @@ msgstr ""
 
 #: ../plugins/wikipedia/data/preferences.ui.h:2
 msgid "Language:"
-msgstr ""
+msgstr "언어:"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:2
 msgid "Home"
@@ -3689,7 +3689,7 @@ msgstr ""
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:5
 msgid "Forward"
-msgstr ""
+msgstr "다음"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:1
 msgid ""
@@ -4063,7 +4063,7 @@ msgstr "오른쪽 아래"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:1
 msgid "Add"
-msgstr ""
+msgstr "추가"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:2
 msgid "Remove"
@@ -4139,7 +4139,7 @@ msgstr "서버 가능"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:1
 msgid "Show ipv6 servers (Experimental)"
-msgstr ""
+msgstr "ipv6주소 표시(실험적)"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:2
 msgid "Remember recent DAAP servers"
@@ -4197,7 +4197,7 @@ msgstr ""
 #: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "Hotkeys"
-msgstr ""
+msgstr "단축키"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
@@ -4326,7 +4326,7 @@ msgstr ""
 #: ../plugins/replaygain/PLUGININFO:5 ../plugins/karaoke/PLUGININFO:5
 #: ../plugins/mono/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "효과"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
@@ -4426,7 +4426,7 @@ msgstr ""
 #: ../plugins/wikipedia/PLUGININFO:5 ../plugins/playlistanalyzer/PLUGININFO:5
 #: ../plugins/contextinfo/PLUGININFO:5
 msgid "Information"
-msgstr ""
+msgstr "정보"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"

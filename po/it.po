@@ -179,20 +179,22 @@ msgstr "Interroga il lettore"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
 msgstr ""
+"Recupera le informazioni sullo stato di riproduzione attuale e sulla traccia "
+"come FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "ETICHETTE"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr ""
+msgstr "TAGS da recuperare dalla traccia corrente, usare con --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -315,7 +317,7 @@ msgstr "Imposta la directory dei dati"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Imposta la cartella dati e configurazioni"
 
 #: ../xl/main.py:616
 msgid "MODULE"
@@ -343,7 +345,7 @@ msgstr "Abilita il debug di xl.event. Genera MOLTO output"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Aggfiungi il nome del thread ai messaggi di log"
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -393,7 +395,7 @@ msgstr "Tag"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "File locale"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
@@ -499,7 +501,7 @@ msgstr "Personalizzato"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Autom."
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
@@ -553,7 +555,7 @@ msgstr "Copyright"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Commento"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
@@ -592,7 +594,7 @@ msgstr "Genere"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
 msgid "Grouping"
-msgstr ""
+msgstr "Raggruppamento"
 
 #: ../xl/metadata/tags.py:55
 msgid "ISRC"
@@ -851,7 +853,7 @@ msgstr "Esporta Scaletta"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr ""
+msgstr "Esporta file"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
@@ -940,7 +942,7 @@ msgstr "%d in visualizzazione"
 #: ../xlgui/widgets/info.py:620 ../xlgui/widgets/info.py:627
 #, python-format
 msgid "%d selected"
-msgstr ""
+msgstr "%d selezionato"
 
 #: ../xlgui/widgets/queue.py:100
 msgid "Queue"
@@ -983,7 +985,7 @@ msgstr "Contatore di riproduzione"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
-msgstr ""
+msgstr "Pianificazione"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
@@ -1028,7 +1030,7 @@ msgstr "Scaletta casuale"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "Casualizza la selezione"
 
 #: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
@@ -1066,7 +1068,7 @@ msgstr "Seleziona il tipo di file (per estensione)"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
-msgstr ""
+msgstr "Seleziona il dispositivo da aprire"
 
 #: ../xlgui/widgets/dialogs.py:627
 msgid "Supported Files"
@@ -1092,7 +1094,7 @@ msgstr "Seleziona la directory da aprire"
 #: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
 #: ../xlgui/panel/menus.py:184
 msgid "Import Playlist"
-msgstr ""
+msgstr "Importa Playlist"
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
@@ -1100,7 +1102,7 @@ msgstr "Esporta la scaletta corrente"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Usa i percorsi relativi per le tracce"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
@@ -1127,11 +1129,11 @@ msgstr "Chiudi senza salvare"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
-msgstr ""
+msgstr "Sì a tutti"
 
 #: ../xlgui/widgets/dialogs.py:1327
 msgid "No to all"
-msgstr ""
+msgstr "No a tutti"
 
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
@@ -1141,20 +1143,20 @@ msgstr "Salvate %(count)s di %(total)s"
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "Sì è verificato un errore durante la copia di %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Il file esiste, sovrascrivere %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
-msgstr ""
+msgstr "Nome playlist:"
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Aggiungi nuova playlist"
 
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
@@ -1280,7 +1282,7 @@ msgstr "Annulla"
 
 #: ../xlgui/properties.py:250
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Scrittura dei tag fallita"
 
 #: ../xlgui/properties.py:251
 #, python-brace-format
@@ -1288,6 +1290,8 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Impossibile scrivere i tags dei seguenti files:\n"
+"{files}"
 
 #: ../xlgui/properties.py:276
 #, python-format
@@ -1301,16 +1305,16 @@ msgstr "Eliminare definitivamente la scaletta selezionata?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Applicare le modifiche prima di chiudere?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Le modifiche andranno perse se non vengono applicate adesso."
 
 #: ../xlgui/properties.py:589
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
@@ -1320,37 +1324,37 @@ msgstr "di:"
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
-msgstr ""
+msgstr "Immagine JPEG"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "Immagine PNG"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
-msgstr ""
+msgstr "Immagine"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "Immagine collegata"
 
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} pixel"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}x{height} pixels)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Seleziona immagine da usare come copertina"
 
 #: ../xlgui/properties.py:1050
 msgid "Supported image formats"
-msgstr ""
+msgstr "Tipi di immagine supportati"
 
 #: ../xlgui/properties.py:1173
 msgid "Apply current value to all tracks"
@@ -1359,15 +1363,15 @@ msgstr "Applica il valore corrente a tutte le tracce"
 #: ../xlgui/cover.py:109
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "{outstanding} copertine da recuperare"
 
 #: ../xlgui/cover.py:110
 msgid "All covers fetched"
-msgstr ""
+msgstr "Tutte le copertine sono state recuperate"
 
 #: ../xlgui/cover.py:135
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Sto raccogliendo informazioni sugli album e sulle copertine..."
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
@@ -1397,7 +1401,7 @@ msgstr "Opzioni copertina per %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
-msgstr ""
+msgstr "Caricamento in corso..."
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
@@ -1408,6 +1412,8 @@ msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Nessuna copertina trovata nelle sorgenti abilitate, prova ad abilitare altre "
+"sorgenti"
 
 #: ../xlgui/devices.py:76
 msgid "Icon"
@@ -1452,11 +1458,11 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Trascinare qui per creare una nuova playlist"
 
 #: ../xlgui/playlist_container.py:138
 msgid "Recently Closed Tabs"
-msgstr ""
+msgstr "Schede chiouse di recente"
 
 #: ../xlgui/playlist_container.py:195
 #, python-format
@@ -1466,12 +1472,12 @@ msgstr "Scaletta %d"
 #: ../xlgui/playlist_container.py:372
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} tracce, chiuse {minutes} min. fa)"
 
 #: ../xlgui/playlist_container.py:378
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} traccie, chiuse {seconds} sec. fa)"
 
 #: ../xlgui/playlist_container.py:518
 msgid "Move to other View"
@@ -1521,15 +1527,15 @@ msgstr "Genere - Album"
 
 #: ../xlgui/panel/collection.py:141
 msgid "Date - Artist"
-msgstr ""
+msgstr "Data - Artista"
 
 #: ../xlgui/panel/collection.py:144
 msgid "Date - Album"
-msgstr ""
+msgstr "Data - Album"
 
 #: ../xlgui/panel/collection.py:147
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Artista (Data - Album)"
 
 #: ../xlgui/panel/collection.py:270 ../data/ui/collection_manager.ui.h:5
 msgid "Rescan Collection"
@@ -1572,13 +1578,13 @@ msgstr "non è"
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:188
 msgid "is set"
-msgstr ""
+msgstr "è impostato"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:191
 msgid "is not set"
-msgstr ""
+msgstr "non è impostato"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:193
@@ -1598,7 +1604,7 @@ msgstr ""
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/panel/playlists.py:199
 msgid "not regex"
-msgstr ""
+msgstr "errore di sintassi"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:201
@@ -1706,11 +1712,11 @@ msgstr "Modifica scaletta automatica"
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Esportazione %s in corso"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Seleziona la cartella in cui esportare i file"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1723,7 +1729,7 @@ msgstr "Plugin"
 #: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
-msgstr ""
+msgstr "Senza categoria"
 
 #: ../xlgui/preferences/plugin.py:156
 msgid "Could not load plugin info!"
@@ -1850,7 +1856,7 @@ msgstr ""
 #: ../data/ui/about_dialog.ui.h:20
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
-msgstr ""
+msgstr "Traduttore sconosciuto"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
@@ -1858,7 +1864,7 @@ msgstr "Gestore copertine"
 
 #: ../data/ui/covermanager.ui.h:2
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "_Recupera copertine"
 
 #: ../data/ui/playlist.ui.h:1
 msgid "Shuffle playback order"
@@ -1870,7 +1876,7 @@ msgstr "Ripeti la riproduzione"
 
 #: ../data/ui/playlist.ui.h:4
 msgid "_Search:"
-msgstr ""
+msgstr "_Cerca:"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
@@ -1878,7 +1884,7 @@ msgstr "Trova copertine"
 
 #: ../data/ui/coverchooser.ui.h:2
 msgid "The origin of this cover"
-msgstr ""
+msgstr "L'origine di questa copertina"
 
 #: ../data/ui/coverchooser.ui.h:3
 msgid "_Set as Cover"
@@ -1960,87 +1966,87 @@ msgstr "_Successivo"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
 msgid "Other"
-msgstr ""
+msgstr "Altro"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "'File icona' 32x32 pixel (solo PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
-msgstr ""
+msgstr "Icona per altri file"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
-msgstr ""
+msgstr "Copertina (fronte)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
 msgid "Cover (back)"
-msgstr ""
+msgstr "Copertina (retro)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
-msgstr ""
+msgstr "Interno copertina"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Media (es. lato etichetta del CD)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Artista principale/esecutore principale/solista"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Artista/esecutore"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Gruppo/Orchestra"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Testi di"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
-msgstr ""
+msgstr "Registrato a"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
 msgid "During recording"
-msgstr ""
+msgstr "Durante la registrazione"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
 msgid "During performance"
-msgstr ""
+msgstr "Durante l'esecuzione"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Cattura lo schermo del video"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Un pesce dai colori vivaci"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
-msgstr ""
+msgstr "Illustrazione"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Logo del gruppo/artista"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Logo dello studio/produttore"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "Clicca o trasciona qui i file per cambiare l'immagine di copertina"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
-msgstr ""
+msgstr "Tipo:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 #: ../data/ui/preferences/plugin.ui.h:11
@@ -2138,11 +2144,11 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Nome file preferito:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "Un elenco di nomi senza estensione separati da una virgola"
 
 #: ../data/ui/preferences/cover.ui.h:7
 msgid "Fetch covers automatically on playback start"
@@ -2440,6 +2446,8 @@ msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
+"Parole da eliminare dall'inizio dei tag artista durante l'ordinamento "
+"(separate da spazi)"
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
@@ -2647,7 +2655,7 @@ msgstr "Spegni dopo la riproduzione"
 
 #: ../plugins/shutdown/__init__.py:59
 msgid "Shutdown scheduled"
-msgstr ""
+msgstr "Arresto del computer programmato"
 
 #: ../plugins/shutdown/__init__.py:60
 msgid "Computer will be shutdown at the end of playback."
@@ -2655,7 +2663,7 @@ msgstr "Il computer verrà spento al termine della riproduzione."
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
-msgstr ""
+msgstr "Arresta del computer imminente"
 
 #: ../plugins/shutdown/__init__.py:109
 #, python-format
@@ -2664,7 +2672,7 @@ msgstr "Il computer sarà arrestato tra %d secondi."
 
 #: ../plugins/shutdown/__init__.py:135
 msgid "Shutdown failed"
-msgstr ""
+msgstr "Spegnimento fallito"
 
 #: ../plugins/shutdown/__init__.py:136
 msgid "Computer could not be shutdown using D-Bus."
@@ -3398,6 +3406,10 @@ msgid ""
 "you have entered these, <b>request access permission</b> and confirm to "
 "complete the setup."
 msgstr ""
+"Accedi al <b><a href=\"http://www.last.fm/api/account\">account API "
+"personale</a></b> per ottenere una <b>chiave API</b> e <b>secret</b> e "
+"inseriscila qui. Dopo averla inserita si può <b>richiedi il permesso di "
+"accesso</b> e conferma per completare l'installazione."
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm time</b>"
@@ -3992,11 +4004,11 @@ msgstr "Numero di ascolti"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Starred"
-msgstr ""
+msgstr "Votato"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Date of starring"
-msgstr ""
+msgstr "Data della votazione"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Genre/Tags"
@@ -4160,7 +4172,7 @@ msgstr "Volume a fine dissolvenza:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:7
 msgid "Fade Increment:"
-msgstr ""
+msgstr "Incremento dissolvenza:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:8
 msgid "Fade Time (s):"
@@ -4308,6 +4320,12 @@ msgid ""
 "\n"
 "Depends on the plugin \"AudioScrobbler\" for username and password."
 msgstr ""
+"Mostra quali tracce ti sono piaciute e abilita queste tracce\n"
+"\n"
+"Assicurati di inserire una chiave API valida e segreta nel plugin delle "
+"preferenze\n"
+"\n"
+"La username e password dipendono dal plugin \"AudioScrobbler\""
 
 #: ../plugins/lastfmlove/PLUGININFO:5 ../plugins/exfalso/PLUGININFO:5
 #: ../plugins/grouptagger/PLUGININFO:5

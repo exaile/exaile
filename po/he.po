@@ -52,43 +52,43 @@ msgstr[1] ""
 #: ../xl/formatter.py:585
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:592
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:604
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:693 ../xl/formatter.py:698
@@ -113,11 +113,11 @@ msgstr ""
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "אפשרויות"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
-msgstr ""
+msgstr "אפשרויות ניגון"
 
 #: ../xl/main.py:499
 msgid "Play the next track"
@@ -142,7 +142,7 @@ msgstr "הפסק"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "הפסק או חדש את הנגינה"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
@@ -150,7 +150,7 @@ msgstr "הפסק השמעה אחרי הרצועה הנוכחית"
 
 #: ../xl/main.py:516
 msgid "Collection Options"
-msgstr ""
+msgstr "אפשרויות אוסף"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526
@@ -171,7 +171,7 @@ msgstr ""
 
 #: ../xl/main.py:530
 msgid "Track Options"
-msgstr ""
+msgstr "אפשרויות רצועה"
 
 #: ../xl/main.py:532
 msgid "Query player"
@@ -197,7 +197,7 @@ msgstr ""
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "הצג חלון עם מידע אודות הרצועה הנוכחית"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
@@ -218,15 +218,15 @@ msgstr "הדפס את זמן ההשמעה של הרצועה הנוכחית"
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "דרג את הרצועה הנוכחית לN%"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr ""
+msgstr "הצג דירוג עבור הרצועה הנוכחית"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
@@ -238,20 +238,20 @@ msgstr ""
 
 #: ../xl/main.py:566
 msgid "Volume Options"
-msgstr ""
+msgstr "אפשרויות עוצמת קול"
 
 #: ../xl/main.py:570
 msgid "Increases the volume by N%"
-msgstr ""
+msgstr "הגבר את עוצמת הקול בN%"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:575
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "הנמך את עוצמת הקול בN%"
 
 #: ../xl/main.py:578
 msgid "Mutes or unmutes the volume"
-msgstr ""
+msgstr "משתיק או מבטל השתקה של עוצמת הקול"
 
 #: ../xl/main.py:580
 msgid "Print the current volume percentage"
@@ -259,7 +259,7 @@ msgstr "הדפס את עצמת השמע כאחוז"
 
 #: ../xl/main.py:583
 msgid "Other Options"
-msgstr ""
+msgstr "אפשרויות אחרות"
 
 #: ../xl/main.py:585
 msgid "Start new instance"
@@ -267,11 +267,11 @@ msgstr "התחל מופע חדש"
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "הראה את הודעת העזרה הזאת וצא"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "הראה את גרסת התוכנה וצא."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
@@ -291,7 +291,7 @@ msgstr ""
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
-msgstr ""
+msgstr "אל תייבא מידע ישן מגרסה 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
@@ -299,11 +299,11 @@ msgstr ""
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "אפשריות פיתוח/ניפוי"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
-msgstr ""
+msgstr "DIRECTORY"
 
 #: ../xl/main.py:612
 msgid "Set data directory"
@@ -315,7 +315,7 @@ msgstr ""
 
 #: ../xl/main.py:616
 msgid "MODULE"
-msgstr ""
+msgstr "MODULE"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
@@ -323,7 +323,7 @@ msgstr ""
 
 #: ../xl/main.py:619
 msgid "LEVEL"
-msgstr ""
+msgstr "LEVEL"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
@@ -343,7 +343,7 @@ msgstr ""
 
 #: ../xl/main.py:631
 msgid "TYPE"
-msgstr ""
+msgstr "TYPE"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
@@ -397,7 +397,7 @@ msgstr ""
 #: ../xl/plugins.py:104
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "תוסף בעל השם \"%s\" כבר מותקן."
 
 #: ../xl/plugins.py:109
 msgid "Plugin archive contains an unsafe path."
@@ -423,7 +423,7 @@ msgstr "לא ידוע"
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
@@ -573,7 +573,7 @@ msgstr "אלבום"
 
 #: ../xl/metadata/tags.py:52
 msgid "Encoded by"
-msgstr ""
+msgstr "קודד על ידי"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:318
 #: ../plugins/cd/cdprefs.py:114
@@ -606,15 +606,15 @@ msgstr "ארגון"
 
 #: ../xl/metadata/tags.py:59
 msgid "Original album"
-msgstr ""
+msgstr "אלבום מקורי"
 
 #: ../xl/metadata/tags.py:60
 msgid "Original artist"
-msgstr ""
+msgstr "אומן מקורי"
 
 #: ../xl/metadata/tags.py:61
 msgid "Original date"
-msgstr ""
+msgstr "תאריך מקורי"
 
 #: ../xl/metadata/tags.py:63
 msgid "Performer"
@@ -648,7 +648,7 @@ msgstr "קצב סיביות"
 
 #: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
 msgid "Date added"
-msgstr ""
+msgstr "נוסף בתאריך"
 
 #: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
 #: ../plugins/cd/cdprefs.py:119
@@ -678,7 +678,7 @@ msgstr "מספר השמעות"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
-msgstr ""
+msgstr "מספר הפעמים שנוגן"
 
 #: ../xl/metadata/tags.py:81
 msgid "Start offset"
@@ -702,7 +702,7 @@ msgstr "נימצא סוג לא מוכר של הגדרות."
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
-msgstr ""
+msgstr "סוג רשימת השמעה לא תקין."
 
 #: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
 #: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
@@ -720,7 +720,7 @@ msgstr "רשימת השמעה PLS"
 #: ../xl/playlist.py:529 ../xl/playlist.py:545
 #, python-format
 msgid "Invalid format for %s."
-msgstr ""
+msgstr "פורמט לא תקין עבור %s."
 
 #: ../xl/playlist.py:540
 #, python-format
@@ -737,27 +737,27 @@ msgstr "רשימת השמעה XSPF"
 
 #: ../xl/playlist.py:886
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "ערבוב _כבוי"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "ערבוב  _רצועות"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "ערבוב _אלבומים"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _Off"
-msgstr ""
+msgstr "חזרה_ כבוי"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _All"
-msgstr ""
+msgstr "חזרה _הכל"
 
 #: ../xl/playlist.py:891
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "חזרה א_חד"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic _Off"
@@ -814,7 +814,7 @@ msgstr ""
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
-msgstr ""
+msgstr "לא ניתן להעביר את הקבצים לפח האשפה. האם למחוק אותם לצמיתות מהכונן?"
 
 #: ../xlgui/widgets/menuitems.py:183
 msgid "Move to Trash"
@@ -822,7 +822,7 @@ msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
-msgstr ""
+msgstr "_הצג את הרצועה שמתנגנת כעת"
 
 #: ../xlgui/widgets/menuitems.py:221 ../xlgui/widgets/playlist.py:227
 msgid "Rename"
@@ -862,7 +862,7 @@ msgstr "הגבל ל־: "
 
 #: ../xlgui/widgets/filter.py:107
 msgid " tracks"
-msgstr ""
+msgstr " רצועות"
 
 #: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
 msgid "Not Playing"
@@ -889,7 +889,7 @@ msgstr ""
 #: ../xlgui/widgets/playback.py:1275
 #, python-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: ../xlgui/widgets/playback.py:1278
 msgid "Full Volume"
@@ -933,7 +933,7 @@ msgstr "השהה"
 #: ../xlgui/widgets/queue.py:102
 #, python-format
 msgid "Queue (%d)"
-msgstr ""
+msgstr "תור (%d)"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/widgets/playlist_columns.py:217 ../xlgui/panel/flatplaylist.py:91
@@ -1003,7 +1003,7 @@ msgstr "מצב נגינה דינאמי"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
-msgstr ""
+msgstr "הסר את הרצועה הנוכחית מרשימת ההשמעה"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
@@ -1045,7 +1045,7 @@ msgstr "פתח URL"
 
 #: ../xlgui/widgets/dialogs.py:560
 msgid "Select File Type (by Extension)"
-msgstr ""
+msgstr "בחר את סוג הקובץ (על פי הסיומת)"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
@@ -1079,7 +1079,7 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
-msgstr ""
+msgstr "יצא את רשימת ההשמעה הנוכחית"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
@@ -1088,7 +1088,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr ""
+msgstr "רשימת השמעה נשמרה כ<b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
@@ -1238,7 +1238,7 @@ msgstr "_עמודות"
 
 #: ../xlgui/menu.py:199
 msgid "C_lear playlist"
-msgstr ""
+msgstr "נ_קה את רשימת ההשמעה"
 
 #: ../xlgui/menu.py:215
 msgid "_Device Manager"
@@ -1255,7 +1255,7 @@ msgstr "סרקו את האוסף מחדש"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
-msgstr ""
+msgstr "_מאפייני רצועה"
 
 #: ../xlgui/progress.py:79
 msgid "Cancel"
@@ -1419,17 +1419,18 @@ msgstr ""
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
-msgstr ""
+msgstr "הוסף ספרייה"
 
 #: ../xlgui/collection.py:150
 msgid "Directory not added."
-msgstr ""
+msgstr "ספרייה לא נוספה."
 
 #: ../xlgui/collection.py:151
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
+"הספרייה הזאת כבר נמצאת באוסף שלך או שהיא תת ספרייה של ספרייה אחרת באוסף שלך."
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
@@ -1770,7 +1771,7 @@ msgstr ""
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
-msgstr ""
+msgstr "נדרש איתחול על מנת שהשינוי הזה יחול."
 
 #: ../xlgui/preferences/widgets.py:664
 msgid "Action"
@@ -1912,11 +1913,11 @@ msgstr "מאפייני הרצועה"
 
 #: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "A_dd tag"
-msgstr ""
+msgstr "ה_וסף תג"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "_Remove tag"
-msgstr ""
+msgstr "_הסר תג"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "ab &#x2192; A_b"
@@ -1924,7 +1925,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "הפוך לאותיות גדולות את האות הראשונה בכל תג."
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
@@ -2033,7 +2034,7 @@ msgstr "מנהל האוספים"
 
 #: ../data/ui/collection_manager.ui.h:3
 msgid "Monitored"
-msgstr ""
+msgstr "מנוטר"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
@@ -2151,6 +2152,8 @@ msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
+"במקום שיתווספו, רצועות שנוספו על ידי לחיצה כפולה בחלונית יחליפו את תוכן "
+"רשימת ההשמעה הנוכחית."
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
@@ -2196,7 +2199,7 @@ msgstr "שימוש בעמעום (ניסיוני)"
 #: ../data/ui/preferences/playback.ui.h:5
 #: ../plugins/previewdevice/previewprefs.ui.h:5
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "משך ההצלבה בעמעום (באלפית שנייה):"
 
 #: ../data/ui/preferences/playback.ui.h:6
 #: ../plugins/previewdevice/previewprefs.ui.h:6
@@ -2319,7 +2322,7 @@ msgstr "עדכונים"
 
 #: ../data/ui/preferences/plugin.ui.h:17
 msgid "Install Plugin File"
-msgstr ""
+msgstr "התקן את קובץ התוסף"
 
 #: ../data/ui/preferences/appearance.ui.h:1
 msgid "Show info area"
@@ -2414,7 +2417,7 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(לחיצה ימנית על מנת לאפס לברירת המחדל)"
 
 #: ../data/ui/preferences/collection.ui.h:3
 msgid "Use file based compilation detection"
@@ -4524,7 +4527,7 @@ msgstr ""
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
-msgstr ""
+msgstr "קריוקי"
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
@@ -4551,7 +4554,7 @@ msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "שלום עולם"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"

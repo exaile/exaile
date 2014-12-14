@@ -488,7 +488,7 @@ msgstr "Bardzo szybki, wolny i bezstratny format audio z dobrą kompresją."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX CoreAudio"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -505,7 +505,7 @@ msgstr "Automatycznie"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Możliwy błąd urządzenia dźwiękowego, czy jest podłączone?"
 
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
@@ -988,7 +988,7 @@ msgstr "Harmonogram"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Przesunięcie początku"
 
 #: ../xlgui/widgets/playlist_columns.py:514
 #, fuzzy
@@ -1393,7 +1393,7 @@ msgstr "Okladka dla %s"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
-msgstr ""
+msgstr "Zapisz plik"
 
 #: ../xlgui/cover.py:998
 #, python-format
@@ -1439,7 +1439,7 @@ msgstr "Skanowanie %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
-msgstr ""
+msgstr "Panele"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
@@ -1484,7 +1484,7 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:518
 msgid "Move to other View"
-msgstr ""
+msgstr "Przenieś do innego widoku"
 
 #: ../xlgui/panel/device.py:137
 #, python-format
@@ -1552,7 +1552,7 @@ msgstr "Rozmiar"
 #: ../xlgui/panel/files.py:407
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s KB"
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"
@@ -2070,7 +2070,7 @@ msgstr "Monitorowany"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Skanuj przy uruchomieniu"
 
 #: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
@@ -2274,12 +2274,16 @@ msgstr "Usuń utwór z kolejki po odtworzeniu"
 #: ../data/ui/preferences/playback.ui.h:13
 msgid "Disallow playing new tracks when another track is playing"
 msgstr ""
+"Nie pozwalaj na odtwarzanie nowego utworu gdy inny utwór jest już odtwarzany"
 
 #: ../data/ui/preferences/playback.ui.h:14
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Jeśli aktualnie jest odtwarzany utwór to nie będzie rozpoczynane odtwarzanie "
+"nowych utworów, chyba że zostanie kliknięta odpowiednia kontrolka "
+"odtwarzania."
 
 #: ../data/ui/preferences/playback.ui.h:15
 msgid "Automatically advance to the next track"
@@ -2287,11 +2291,11 @@ msgstr "Automatycznie przejdź do następnego utworu"
 
 #: ../data/ui/preferences/playback.ui.h:16
 msgid "Delay between tracks (ms)"
-msgstr ""
+msgstr "Opóźnienie pomiędzy utworami (ms)"
 
 #: ../data/ui/preferences/playback.ui.h:17
 msgid "Only works with the normal playback engine"
-msgstr ""
+msgstr "Działa jedynie z normalnym silnikiem odtwarzania"
 
 #: ../data/ui/preferences/playback.ui.h:18
 #: ../plugins/previewdevice/previewprefs.ui.h:9
@@ -2313,7 +2317,7 @@ msgstr "Włączony"
 
 #: ../data/ui/preferences/plugin.ui.h:4
 msgid "Status"
-msgstr ""
+msgstr "Stan"
 
 #: ../data/ui/preferences/plugin.ui.h:5
 #, fuzzy
@@ -2322,7 +2326,7 @@ msgstr "Nie można wyłączyć wtyczki!"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Show potentially broken plugins"
-msgstr ""
+msgstr "Pokaż potencjalnie uszkodzone wtyczki"
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
@@ -2704,7 +2708,7 @@ msgstr "Podgląd"
 
 #: ../plugins/previewdevice/__init__.py:351
 msgid "Pause Playback (double click to stop)"
-msgstr ""
+msgstr "Wstrzymaj odtwarzanie (podwójne kliknięcie, aby zatrzymać)"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
@@ -2952,7 +2956,7 @@ msgstr "Importowanie CD..."
 
 #: ../plugins/grouptagger/gt_import.py:170
 msgid "Updating groups"
-msgstr ""
+msgstr "Aktualizacja grup"
 
 #: ../plugins/grouptagger/gt_import.py:284
 #, fuzzy
@@ -2978,7 +2982,7 @@ msgstr "Ustaw katalog danych"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Mass rename/delete tags"
-msgstr ""
+msgstr "Masowe przemianowanie/usunięcie znaczników"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "Show tracks with all tags"
@@ -2991,7 +2995,7 @@ msgstr "Pokaż utwory ze znacznikami (własne)"
 #: ../plugins/grouptagger/__init__.py:219
 #: ../plugins/grouptagger/__init__.py:232
 msgid "No categorization tags found in selected tracks"
-msgstr ""
+msgstr "W zaznaczonych utworach nie odnaleziono znaczników kategoryzacji"
 
 #: ../plugins/grouptagger/gt_mass.py:121
 #, fuzzy, python-format
@@ -3001,13 +3005,16 @@ msgstr "Nie znaleziono słów."
 #: ../plugins/grouptagger/gt_mass.py:129
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr ""
+msgstr "Zastąpić '%s' przez '%s' w %s utworach?"
 
 #: ../plugins/grouptagger/gt_mass.py:151
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
+"Powinieneś ponownie przeskanować swoją kolekcję zanim użyjesz masowej zmiany "
+"nazw znaczników, aby mieć pewność, że wszystkie znaczniki są aktualne. Czy "
+"chcesz teraz to zrobić?"
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
@@ -3191,11 +3198,11 @@ msgstr "Numer płyty"
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:216
 #, python-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Znacznik %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:340
 msgid "Save analysis"
-msgstr ""
+msgstr "Zapisz analizę"
 
 #: ../plugins/playlistanalyzer/__init__.py:62
 #, fuzzy
@@ -3311,7 +3318,7 @@ msgstr "Aktualizacje"
 
 #: ../plugins/bpm/__init__.py:114
 msgid "Apply BPM"
-msgstr ""
+msgstr "Zastosuj tempo uderzeń na minutę"
 
 #: ../plugins/bpm/__init__.py:235
 #, python-format
@@ -3523,7 +3530,7 @@ msgstr "Pokaż w menu opcję włącznenia/wyłączenia wysyłania"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit streamed tracks (e.g. DAAP, Shoutcast radio etc.)"
-msgstr ""
+msgstr "Prześlij strumieniowane utwory (np. DAAP, radio Shoutcast itd.)"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 #: ../plugins/contextinfo/context_pane.ui.h:2
@@ -3864,13 +3871,15 @@ msgstr "Czcionka grupy/kategorii:"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:9
 msgid "Categorization tag name"
-msgstr ""
+msgstr "Kategoryzacja nazwy znacznika"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:10
 msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats. "
 msgstr ""
+"'grupowanie' i 'komentarz' to prawdopodobnie najlepiej obsługiwane wybory. "
+"Inne wybory mogą współdziałać tylko z określonymi formatami plików. "
 
 #: ../plugins/grouptagger/gt_import.ui.h:1
 #, fuzzy
@@ -3899,7 +3908,7 @@ msgstr "Ścieżka importu: "
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
-msgstr ""
+msgstr "Połącz"
 
 #: ../plugins/grouptagger/gt_import.ui.h:8
 #, fuzzy
@@ -3908,11 +3917,11 @@ msgstr "Zastąp obecny"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:1
 msgid "Mass Rename/Delete Tags"
-msgstr ""
+msgstr "Masowe przemianowanie/usuwanie znaczników"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:2
 msgid "If empty, matches all tracks"
-msgstr ""
+msgstr "Jeśli pusty, dopasowuje wszystkie utwory"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
 #, fuzzy
@@ -3921,7 +3930,7 @@ msgstr "Znajdź: "
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
-msgstr ""
+msgstr "Użyj pustego ciągu aby usunąć znacznik"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 #, fuzzy
@@ -4085,7 +4094,7 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:2
 msgid "Presets"
-msgstr ""
+msgstr "Zapisane ustawienia"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:3
 #, fuzzy
@@ -4104,7 +4113,7 @@ msgstr "Nazwa listy odtwarzania:"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
-msgstr ""
+msgstr "Wygeneruj!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:7
 #, fuzzy
@@ -4113,11 +4122,11 @@ msgstr "Wyjście"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:8
 msgid "Defaults to the playlist name"
-msgstr ""
+msgstr "Domyślne dla nazwy listy odtwarzania"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:9
 msgid "Generate"
-msgstr ""
+msgstr "Wygeneruj"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
@@ -4662,7 +4671,7 @@ msgstr "Prosty"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
-msgstr ""
+msgstr "Prosta konsola do komunikacji z API Exaile"
 
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
@@ -4712,6 +4721,8 @@ msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
+"Narzędzie pomagające wygenerować wizualizacje HTML5 dla Twoich list "
+"odtwarzania, przy użyciu d3.js. Zoptymalizowane dla Chrome."
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
@@ -4731,11 +4742,11 @@ msgstr "Prosta wtyczka do testowania podstawowego systemu wtyczek"
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
-msgstr ""
+msgstr "Mono"
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
-msgstr ""
+msgstr "Redukuje dźwięk do jednego kanału."
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4814,6 +4825,9 @@ msgid ""
 "\n"
 "http://somafm.com"
 msgstr ""
+"Lista stacji radiowych SomaFM\n"
+"\n"
+"http://somafm.com"
 
 #: ../plugins/bpm/PLUGININFO:4
 #, fuzzy

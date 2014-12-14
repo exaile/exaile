@@ -485,7 +485,7 @@ msgstr ""
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
-msgstr ""
+msgstr "Automātisks"
 
 #: ../xl/player/pipe.py:504 ../xl/player/pipe.py:527
 #: ../xl/player/sink_windows.py:37
@@ -2421,7 +2421,7 @@ msgstr "Atrastās ierīces:"
 
 #: ../data/ui/device_manager.ui.h:5
 msgid "Custom: "
-msgstr ""
+msgstr "Cits: "
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Queue Manager"
@@ -2498,7 +2498,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Modinātājpūlkstenis"
 
 #: ../plugins/mainmenubutton/__init__.py:32
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."

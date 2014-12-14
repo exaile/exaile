@@ -266,15 +266,15 @@ msgstr "Inicia unha nova instancia"
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "Mostrar esta mensaxe de axuda e saír"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "Mostrar o número de versión da aplicación e saír."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "Comezar minimizado (á bandexa, se é posíbel)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
@@ -282,15 +282,17 @@ msgstr ""
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
-msgstr ""
+msgstr "Comezar en modo seguro - ás veces é útil cando tes problemas"
 
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
+"Forzar a importación de datos antigos da versión 0.2.x (Sobrescribe os datos "
+"actuais)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
-msgstr ""
+msgstr "Non importar datos antigos da versión 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
@@ -298,23 +300,23 @@ msgstr ""
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "Desenrolo/Opcións de depuración"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
-msgstr ""
+msgstr "CARTAFOL"
 
 #: ../xl/main.py:612
 msgid "Set data directory"
-msgstr ""
+msgstr "Designar un directorio para os datos"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Designar directorio para datos e configuración"
 
 #: ../xl/main.py:616
 msgid "MODULE"
-msgstr ""
+msgstr "MÓDULO"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
@@ -322,7 +324,7 @@ msgstr ""
 
 #: ../xl/main.py:619
 msgid "LEVEL"
-msgstr ""
+msgstr "NIVEL"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
@@ -330,11 +332,11 @@ msgstr ""
 
 #: ../xl/main.py:623
 msgid "Show debugging output"
-msgstr ""
+msgstr "Mostrar a saída de depuración"
 
 #: ../xl/main.py:625
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "Activar depuración de xl.event. Xera MOITOS resultados"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
@@ -342,7 +344,7 @@ msgstr ""
 
 #: ../xl/main.py:631
 msgid "TYPE"
-msgstr ""
+msgstr "TIPO"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
@@ -350,15 +352,15 @@ msgstr ""
 
 #: ../xl/main.py:634
 msgid "Reduce level of output"
-msgstr ""
+msgstr "Reducir nivel de resultados"
 
 #: ../xl/main.py:638
 msgid "Disable D-Bus support"
-msgstr ""
+msgstr "Desactivar soporte D-Bus"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr ""
+msgstr "Desactivar soporte HAL."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
@@ -379,6 +381,8 @@ msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile aínda non rematou de cargar. Secadra deberías escoitar o sinal de "
+"exaile_loaded?"
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
@@ -386,7 +390,7 @@ msgstr "Etiquetas"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Ficheiro local"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
@@ -403,15 +407,15 @@ msgstr ""
 
 #: ../xl/trax/trackdb.py:176
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "Non especificaches unha localización para cargar a base de datos"
 
 #: ../xl/trax/trackdb.py:259
 msgid "You did not specify a location to save the db"
-msgstr ""
+msgstr "Non especificaches unha localización para gardar a base de datos"
 
 #: ../xl/trax/track.py:65 ../xlgui/widgets/info.py:422
 msgid "Various Artists"
-msgstr ""
+msgstr "Varios artistas"
 
 #. TRANSLATORS: title of a track if it is unknown
 #: ../xl/trax/track.py:66 ../plugins/notifyosd/__init__.py:71
@@ -421,25 +425,29 @@ msgstr "Descoñecido"
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
+"Vorbis é un códec de son con pérdida de fonte aberta cunha gran calidade de "
+"saída e cun tamaño de ficheiro menor que MP3."
 
 #: ../xl/transcoder.py:66
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
 msgstr ""
+"O códec de son libre e sen pérdida (FLAC) é un códec de fonte aberta que "
+"comprime pero non degrada a calidade do son."
 
 #: ../xl/transcoder.py:78
 msgid ""
@@ -2850,7 +2858,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.py:45
 msgid "Importing tracks"
-msgstr ""
+msgstr "Importando pistas"
 
 #: ../plugins/grouptagger/gt_import.py:91
 msgid "Importing groups"

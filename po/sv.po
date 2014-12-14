@@ -184,6 +184,7 @@ msgstr ""
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
 msgstr ""
+"Hämtar den nuvarande uppspelningsstatusen och låtinformationen som FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
@@ -313,7 +314,7 @@ msgstr "Ange datakatalog"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Ställ in data- och inställningskatalog"
 
 #: ../xl/main.py:616
 msgid "MODULE"
@@ -1023,7 +1024,7 @@ msgstr "Blanda spellistan"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "Slumpad selektion"
 
 #: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
@@ -1095,7 +1096,7 @@ msgstr "Exportera nuvarande spellista"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Använd relativa sökvägar till spår"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
@@ -1136,12 +1137,12 @@ msgstr "Sparat %(count)s av %(total)s."
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "Fel inträffade vid kopiering av %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Filen existerar, skriva över %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
@@ -1149,7 +1150,7 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Lägg till ny spellista..."
 
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
@@ -1275,7 +1276,7 @@ msgstr "Avbryt"
 
 #: ../xlgui/properties.py:250
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Skrivandet av taggar misslyckades"
 
 #: ../xlgui/properties.py:251
 #, python-brace-format

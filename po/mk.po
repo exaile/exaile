@@ -852,7 +852,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
 msgid "Not Playing"
-msgstr ""
+msgstr "Не свири"
 
 #: ../xlgui/widgets/playback.py:748
 #, python-format

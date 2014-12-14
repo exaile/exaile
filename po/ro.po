@@ -180,7 +180,7 @@ msgstr "Opțiuni piesă"
 
 #: ../xl/main.py:532
 msgid "Query player"
-msgstr ""
+msgstr "Interoghează player"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
@@ -304,6 +304,7 @@ msgstr "Nu importa datele vechi din versiunea 0.2.x"
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
+"Opțiuni de control de tip make ca --play pornesc Exaile dacă nu rulează"
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
@@ -393,7 +394,7 @@ msgstr ""
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
-msgstr ""
+msgstr "Etichete"
 
 #: ../xl/covers.py:505
 msgid "Local file"
@@ -767,11 +768,11 @@ msgstr "Repetă to_ate"
 
 #: ../xl/playlist.py:891
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "Repetă u_na"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic _Off"
-msgstr ""
+msgstr "Dinamic _oprit"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic by Similar _Artists"
@@ -810,7 +811,7 @@ msgstr "Adaugă în coadă"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
-msgstr ""
+msgstr "Înlocuiește curentul"
 
 #: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
@@ -832,7 +833,7 @@ msgstr "Mută la coșul de gunoi"
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
-msgstr ""
+msgstr "Arată piesa care se redă"
 
 #: ../xlgui/widgets/menuitems.py:221 ../xlgui/widgets/playlist.py:227
 msgid "Rename"
@@ -881,11 +882,11 @@ msgstr "Nu se redă nimic"
 #: ../xlgui/widgets/playback.py:748
 #, python-format
 msgid "Seeking: %s"
-msgstr ""
+msgstr "Se parcurge: %s"
 
 #: ../xlgui/widgets/playback.py:1024
 msgid "Move"
-msgstr ""
+msgstr "Mută"
 
 #: ../xlgui/widgets/playback.py:1170
 msgid "New Marker"
@@ -893,17 +894,17 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:1269
 msgid "Muted"
-msgstr ""
+msgstr "Amuțit"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1275
 #, python-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: ../xlgui/widgets/playback.py:1278
 msgid "Full Volume"
-msgstr ""
+msgstr "Volum maxim"
 
 #: ../xlgui/widgets/info.py:69
 msgid ""
@@ -911,30 +912,33 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"de $artist\n"
+"din $album"
 
 #: ../xlgui/widgets/info.py:417
 msgid "Various"
-msgstr ""
+msgstr "Diverse"
 
 #: ../xlgui/widgets/info.py:436
 #, python-format
 msgid "%(track_count)d in total (%(total_duration)s)"
-msgstr ""
+msgstr "%(track_count)d în total (%(total_duration)s)"
 
 #: ../xlgui/widgets/info.py:594
 #, python-format
 msgid "%d in collection"
-msgstr ""
+msgstr "%d în colecție"
 
 #: ../xlgui/widgets/info.py:616 ../xlgui/widgets/info.py:623
 #, python-format
 msgid "%d showing"
-msgstr ""
+msgstr "%d arătate"
 
 #: ../xlgui/widgets/info.py:620 ../xlgui/widgets/info.py:627
 #, python-format
 msgid "%d selected"
-msgstr ""
+msgstr "%d selectate"
 
 #: ../xlgui/widgets/queue.py:100
 msgid "Queue"
@@ -943,7 +947,7 @@ msgstr ""
 #: ../xlgui/widgets/queue.py:102
 #, python-format
 msgid "Queue (%d)"
-msgstr ""
+msgstr "Coadă (%d)"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/widgets/playlist_columns.py:217 ../xlgui/panel/flatplaylist.py:91
@@ -997,7 +1001,7 @@ msgstr "_Autodimensionează"
 
 #: ../xlgui/widgets/rating.py:261
 msgid "Rating:"
-msgstr ""
+msgstr "Apreciere:"
 
 #: ../xlgui/widgets/playlist.py:130
 msgid "Shuffle"
@@ -1013,7 +1017,7 @@ msgstr "Dinamică"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
-msgstr ""
+msgstr "Elimină piesa curentă din lista de redare"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
@@ -1039,11 +1043,11 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
-msgstr ""
+msgstr "Necesită module de extensie ce furnizează liste de redare dinamice"
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Adaugă dinamic piese similare în lista de redare"
 
 #: ../xlgui/widgets/dialogs.py:291
 msgid "Enter the URL to open"
@@ -1055,7 +1059,7 @@ msgstr "Deschide URL"
 
 #: ../xlgui/widgets/dialogs.py:560
 msgid "Select File Type (by Extension)"
-msgstr ""
+msgstr "Alegeți tipul fișierului (după extensie)"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
@@ -1080,7 +1084,7 @@ msgstr "Toate fişierele"
 
 #: ../xlgui/widgets/dialogs.py:707
 msgid "Choose Directory to Open"
-msgstr ""
+msgstr "Alegeți directorul de deschis"
 
 #: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
 #: ../xlgui/panel/menus.py:184
@@ -1089,7 +1093,7 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
-msgstr ""
+msgstr "Exportă lista de redare curentă"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
@@ -1098,17 +1102,17 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr ""
+msgstr "Listă de redare salvată ca <b>%s</b>"
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "Închide %s"
 
 #: ../xlgui/widgets/dialogs.py:960
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr ""
+msgstr "<b>Salvați modificările la %s înainte de închidere?</b>"
 
 #: ../xlgui/widgets/dialogs.py:961
 msgid "Your changes will be lost if you don't save them"
@@ -1177,7 +1181,7 @@ msgstr "Comută: Oprește după piesa selectată"
 
 #: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
 msgid "Playback error encountered!"
-msgstr ""
+msgstr "S-a întâmpinat o eroare de redare!"
 
 #: ../xlgui/main.py:589
 #, python-format
@@ -1403,15 +1407,15 @@ msgstr ""
 
 #: ../xlgui/devices.py:76
 msgid "Icon"
-msgstr ""
+msgstr "Pictogramă"
 
 #: ../xlgui/devices.py:81
 msgid "Device"
-msgstr ""
+msgstr "Dispozitiv"
 
 #: ../xlgui/devices.py:88
 msgid "Driver"
-msgstr ""
+msgstr "Driver"
 
 #: ../xlgui/__init__.py:317
 msgid "Scanning collection..."
@@ -1420,7 +1424,7 @@ msgstr "Scanez colecția..."
 #: ../xlgui/__init__.py:386
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "Se scanează %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
@@ -1428,17 +1432,19 @@ msgstr ""
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
-msgstr ""
+msgstr "Adaugă un director"
 
 #: ../xlgui/collection.py:150
 msgid "Directory not added."
-msgstr ""
+msgstr "Directorul nu a fost adăugat"
 
 #: ../xlgui/collection.py:151
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
+"Directorul este deja în colecția dumneavoastră sau este un subdirector al "
+"altui director din colecția dumneavoastră."
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
@@ -1470,7 +1476,7 @@ msgstr ""
 #: ../xlgui/panel/device.py:137
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Se transferă la %s..."
 
 #: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:469
 #: ../xlgui/panel/radio.py:545
@@ -1479,11 +1485,11 @@ msgstr "Încarc fluxuri..."
 
 #: ../xlgui/panel/radio.py:177
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Adaugă stație radio"
 
 #: ../xlgui/panel/radio.py:180 ../plugins/audioscrobbler/asprefs_pane.ui.h:6
 msgid "URL:"
-msgstr ""
+msgstr "Adresă URL:"
 
 #: ../xlgui/panel/radio.py:252
 msgid "Saved Stations"
@@ -1523,7 +1529,7 @@ msgstr ""
 
 #: ../xlgui/panel/collection.py:270 ../data/ui/collection_manager.ui.h:5
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Reexaminează colecția"
 
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:140
@@ -1537,11 +1543,11 @@ msgstr ""
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "Listă de redare inteligentă nouă"
 
 #: ../xlgui/panel/menus.py:251
 msgid "New Station"
-msgstr ""
+msgstr "Stație nouă"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:63
@@ -1675,7 +1681,7 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:487
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s și %(second)s"
 
 #: ../xlgui/panel/playlists.py:667
 msgid "Smart Playlists"
@@ -1704,7 +1710,7 @@ msgstr ""
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
-msgstr ""
+msgstr "Redare"
 
 #: ../xlgui/preferences/plugin.py:40 ../xlgui/preferences/__init__.py:124
 msgid "Plugins"
@@ -1717,7 +1723,7 @@ msgstr ""
 
 #: ../xlgui/preferences/plugin.py:156
 msgid "Could not load plugin info!"
-msgstr ""
+msgstr "Nu s-au putut încărca informațiile despre modulele de extensie!"
 
 #: ../xlgui/preferences/plugin.py:158
 #, python-format
@@ -1728,32 +1734,32 @@ msgstr[1] ""
 
 #: ../xlgui/preferences/plugin.py:188 ../xlgui/preferences/plugin.py:285
 msgid "Could not disable plugin!"
-msgstr ""
+msgstr "Nu s-a putut dezactiva modulul de extensie!"
 
 #: ../xlgui/preferences/plugin.py:198 ../xlgui/preferences/plugin.py:279
 msgid "Could not enable plugin!"
-msgstr ""
+msgstr "Nu s-a putut activa modulului de extensii!"
 
 #: ../xlgui/preferences/plugin.py:206
 msgid "Choose a Plugin"
-msgstr ""
+msgstr "Alegeți un modul de extensie"
 
 #: ../xlgui/preferences/plugin.py:215
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Arhivele modulelor de extensie"
 
 #: ../xlgui/preferences/plugin.py:234
 msgid "Plugin file installation failed!"
-msgstr ""
+msgstr "Instalarea fișierului cu modulele de extensie a eșuat!"
 
 #: ../xlgui/preferences/cover.py:38 ../plugins/musicbrainzcovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5 ../plugins/amazoncovers/PLUGININFO:5
 msgid "Covers"
-msgstr ""
+msgstr "Coperți"
 
 #: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui.h:9
 msgid "Appearance"
-msgstr ""
+msgstr "Aspect"
 
 #: ../xlgui/preferences/collection.py:23 ../data/ui/panel/device.ui.h:1
 #: ../data/ui/panel/collection.ui.h:1
@@ -1771,23 +1777,23 @@ msgstr ""
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
-msgstr ""
+msgstr "Restabilește valorile implicite"
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "Reporniți Exaile?"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
-msgstr ""
+msgstr "Pentru ca schimbările să ia efect este necesară o repornire"
 
 #: ../xlgui/preferences/widgets.py:664
 msgid "Action"
-msgstr ""
+msgstr "Acțiune"
 
 #: ../xlgui/preferences/widgets.py:672
 msgid "Shortcut"
-msgstr ""
+msgstr "Comandă rapidă"
 
 #: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
 msgid "Playlists"
@@ -1855,7 +1861,7 @@ msgstr ""
 
 #: ../data/ui/coverchooser.ui.h:3
 msgid "_Set as Cover"
-msgstr ""
+msgstr "_Stabilește ca copertă"
 
 #: ../data/ui/main.ui.h:1
 msgid "_File"
@@ -1898,23 +1904,23 @@ msgstr "0:00 / 0:00"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "Track Properties"
-msgstr ""
+msgstr "Proprietăți piesă"
 
 #: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "A_dd tag"
-msgstr ""
+msgstr "A_daugă etichetă"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Elimină etichetă"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Transformă prima literă a tuturor etichetelor în literă mare"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
@@ -1922,11 +1928,11 @@ msgstr "Proprietăți"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Previous"
-msgstr ""
+msgstr "_Precedentul"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "_Next"
-msgstr ""
+msgstr "Ur_mătorul"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
 msgid "Other"
@@ -2019,11 +2025,11 @@ msgstr "Descriere:"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
-msgstr ""
+msgstr "Administrator de colecții"
 
 #: ../data/ui/collection_manager.ui.h:3
 msgid "Monitored"
-msgstr ""
+msgstr "Monitorizat"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
@@ -2051,23 +2057,23 @@ msgstr "Fișiere"
 
 #: ../data/ui/panel/files.ui.h:2
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Precedentul director vizitat"
 
 #: ../data/ui/panel/files.ui.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Următorul director vizitat"
 
 #: ../data/ui/panel/files.ui.h:4
 msgid "Up one directory"
-msgstr ""
+msgstr "Mai sus cu un director"
 
 #: ../data/ui/panel/files.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Reîmprospătează listarea directoarelor"
 
 #: ../data/ui/panel/files.ui.h:6
 msgid "Home directory"
-msgstr ""
+msgstr "Dosar personal"
 
 #: ../data/ui/panel/files.ui.h:7 ../data/ui/panel/collection.ui.h:6
 msgid "Clear search field"
@@ -2089,11 +2095,11 @@ msgstr ""
 
 #: ../data/ui/preferences/cover.ui.h:1
 msgid "Use covers embedded in tags"
-msgstr ""
+msgstr "Folosește copertele încorporate în etichete"
 
 #: ../data/ui/preferences/cover.ui.h:2
 msgid "Use covers from local files"
-msgstr ""
+msgstr "Folosește coperte de la fișierele locale"
 
 #: ../data/ui/preferences/cover.ui.h:3
 msgid ""
@@ -2184,12 +2190,12 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui.h:5
 #: ../plugins/previewdevice/previewprefs.ui.h:5
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Durata trecerii(ms):"
 
 #: ../data/ui/preferences/playback.ui.h:6
 #: ../plugins/previewdevice/previewprefs.ui.h:6
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Chiuvetă audio:  "
 
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
@@ -2271,7 +2277,7 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
-msgstr ""
+msgstr "Niciun modul de extensie selectat"
 
 #: ../data/ui/preferences/plugin.ui.h:8
 msgid "Installed Plugins"
@@ -2307,7 +2313,7 @@ msgstr "Actualizări"
 
 #: ../data/ui/preferences/plugin.ui.h:17
 msgid "Install Plugin File"
-msgstr ""
+msgstr "Instalează fișierul modulului de extensie"
 
 #: ../data/ui/preferences/appearance.ui.h:1
 msgid "Show info area"
@@ -2323,11 +2329,11 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui.h:4
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Arată bara de file întotdeauna"
 
 #: ../data/ui/preferences/appearance.ui.h:5
 msgid "Tab placement:"
-msgstr ""
+msgstr "Plasarea taburilor"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
@@ -2341,18 +2347,20 @@ msgstr ""
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
-msgstr ""
+msgstr "Afișează numărul de piese în colecție"
 
 #: ../data/ui/preferences/appearance.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:7
 msgid "Use alpha transparency:"
-msgstr ""
+msgstr "Folosește transparența alfa"
 
 #: ../data/ui/preferences/appearance.ui.h:11
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
+"Avertisment: această opțiune poate cauza erori de afișare dacă este folosită "
+"cu un administrator de ferestre fără suport de compunere."
 
 #: ../data/ui/preferences/appearance.ui.h:12
 msgid "Show tray icon"
@@ -2360,11 +2368,11 @@ msgstr "Arată iconiţă în zona de notificare"
 
 #: ../data/ui/preferences/appearance.ui.h:13
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Minimizare în zona de notificare"
 
 #: ../data/ui/preferences/appearance.ui.h:14
 msgid "Close to tray"
-msgstr ""
+msgstr "Închide la zona de notificare"
 
 #: ../data/ui/preferences/appearance.ui.h:16
 msgid "Jump to current song on track change"
@@ -2376,19 +2384,19 @@ msgstr "Arată imaginea de pornire"
 
 #: ../data/ui/preferences/appearance.ui.h:18
 msgid "Left"
-msgstr ""
+msgstr "Stânga"
 
 #: ../data/ui/preferences/appearance.ui.h:19
 msgid "Right"
-msgstr ""
+msgstr "Dreapta"
 
 #: ../data/ui/preferences/appearance.ui.h:20
 msgid "Top"
-msgstr ""
+msgstr "Sus"
 
 #: ../data/ui/preferences/appearance.ui.h:21
 msgid "Bottom"
-msgstr ""
+msgstr "Bază"
 
 #: ../data/ui/preferences/preferences_dialog.ui.h:1
 msgid "Preferences"
@@ -2402,11 +2410,11 @@ msgstr ""
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Apăsați clic dreapta pentru a restabili valorile implicite)"
 
 #: ../data/ui/preferences/collection.ui.h:3
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Folosește detecția de compilare bazată pe fișier"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "Device Manager"
@@ -2434,31 +2442,31 @@ msgstr ""
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Se caută după mood..."
 
 #: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr ""
+msgstr "S-a găsit mood."
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "Nu s-a putut citi bara de mood."
 
 #: ../plugins/moodbar/__init__.py:538
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Executabilul barei de mood nu este disponibil."
 
 #: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Bară de mood"
 
 #: ../plugins/streamripper/__init__.py:72
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "Eroare la executarea ripperului de flux"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Ripper de flux"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
@@ -2503,7 +2511,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Ceas cu alarmă"
 
 #: ../plugins/mainmenubutton/__init__.py:32
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
@@ -2526,7 +2534,7 @@ msgstr ""
 
 #: ../plugins/icecast/__init__.py:317
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Introduceți cuvintele cheie de căutare"
 
 #: ../plugins/icecast/__init__.py:318
 #, fuzzy
@@ -2557,20 +2565,20 @@ msgstr ""
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
-msgstr ""
+msgstr "Nu s-au găsit versuri."
 
 #: ../plugins/lyricsviewer/__init__.py:302
 msgid "Go to: "
-msgstr ""
+msgstr "Navighează la: "
 
 #: ../plugins/lyricsviewer/__init__.py:366
 msgid "Any"
-msgstr ""
+msgstr "Oricare"
 
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
 msgid "Lyrics Viewer"
-msgstr ""
+msgstr "Vizualizator versuri"
 
 #: ../plugins/audioscrobbler/asprefs.py:32
 #: ../plugins/audioscrobbler/PLUGININFO:3
@@ -2596,7 +2604,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
-msgstr ""
+msgstr "Oprește după redare"
 
 #: ../plugins/shutdown/__init__.py:59
 msgid "Shutdown scheduled"
@@ -2604,7 +2612,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:60
 msgid "Computer will be shutdown at the end of playback."
-msgstr ""
+msgstr "Computerul se va opri la sfârșitul redării."
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
@@ -2621,7 +2629,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:136
 msgid "Computer could not be shutdown using D-Bus."
-msgstr ""
+msgstr "Computerul nu a putut fi oprit folosind D-Bus."
 
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
@@ -2642,41 +2650,41 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Notificările notify-osd"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "după %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:59
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "din %(album)s"
 
 #: ../plugins/ipconsole/__init__.py:86
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "Consolă IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:156
 msgid "Show IPython Console"
-msgstr ""
+msgstr "Arată consola IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "Consola IPython"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Notifică"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -2684,6 +2692,8 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"de %(artist)s\n"
+"din <i>%(album)s</i>"
 
 #: ../plugins/cd/_cdguipanel.py:96
 msgid "Importing CD..."
@@ -2723,38 +2733,38 @@ msgstr ""
 
 #: ../plugins/abrepeat/__init__.py:49
 msgid "Repeat Segment"
-msgstr ""
+msgstr "Repetă segment"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Beginning"
-msgstr ""
+msgstr "Repetă începutul"
 
 #: ../plugins/abrepeat/__init__.py:61
 msgid "Repeat End"
-msgstr ""
+msgstr "Repetă sfârșitul"
 
 #: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:110
 #: ../plugins/minimode/minimode_preferences.py:30
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Modul mini"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:111
 #: ../plugins/minimode/minimode_preferences.py:117
 #: ../plugins/minimode/controls.py:693 ../plugins/minimode/controls.py:956
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:113
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title de $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "$title ($__length)"
-msgstr ""
+msgstr "$title ($__length)"
 
 #: ../plugins/minimode/controls.py:221
 msgid "Previous"
@@ -2762,11 +2772,11 @@ msgstr "Precedentă"
 
 #: ../plugins/minimode/controls.py:222
 msgid "Go to the previous track"
-msgstr ""
+msgstr "Navighează la piesa precedentă"
 
 #: ../plugins/minimode/controls.py:228
 msgid "Previous track"
-msgstr ""
+msgstr "Piesa precedentă"
 
 #: ../plugins/minimode/controls.py:241
 msgid "Next"
@@ -2774,31 +2784,31 @@ msgstr "Următoarea"
 
 #: ../plugins/minimode/controls.py:242
 msgid "Go to the next track"
-msgstr ""
+msgstr "Navighează la piesa următoare"
 
 #: ../plugins/minimode/controls.py:248
 msgid "Next track"
-msgstr ""
+msgstr "Piesa următoare"
 
 #: ../plugins/minimode/controls.py:262
 msgid "Play/Pause"
-msgstr ""
+msgstr "Redă/Întrerupe"
 
 #: ../plugins/minimode/controls.py:263
 msgid "Start, pause or resume the playback"
-msgstr ""
+msgstr "Începe, întrerupe sau continuă redarea"
 
 #: ../plugins/minimode/controls.py:283
 msgid "Start playback"
-msgstr ""
+msgstr "Pornește redarea"
 
 #: ../plugins/minimode/controls.py:287
 msgid "Continue playback"
-msgstr ""
+msgstr "Continuă redarea"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Pause playback"
-msgstr ""
+msgstr "Întrerupe redarea"
 
 #: ../plugins/minimode/controls.py:328
 msgid "Stop"
@@ -2806,71 +2816,71 @@ msgstr "Oprește"
 
 #: ../plugins/minimode/controls.py:329
 msgid "Stop the playback"
-msgstr ""
+msgstr "Oprește redarea"
 
 #: ../plugins/minimode/controls.py:363
 msgid "Continue playback after current track"
-msgstr ""
+msgstr "Continuă redarea după piesa curentă"
 
 #: ../plugins/minimode/controls.py:427
 msgid "Volume"
-msgstr ""
+msgstr "Volum"
 
 #: ../plugins/minimode/controls.py:428
 msgid "Change the volume"
-msgstr ""
+msgstr "Modifică volumul"
 
 #: ../plugins/minimode/controls.py:489
 msgid "Restore"
-msgstr ""
+msgstr "Restaurează"
 
 #: ../plugins/minimode/controls.py:490
 msgid "Restore the main window"
-msgstr ""
+msgstr "Restaurează fereastra principală"
 
 #: ../plugins/minimode/controls.py:498
 msgid "Restore main window"
-msgstr ""
+msgstr "Restaurează fereastra principală"
 
 #: ../plugins/minimode/controls.py:528
 msgid "Select rating of the current track"
-msgstr ""
+msgstr "Alege aprecierea piesei curente"
 
 #: ../plugins/minimode/controls.py:545
 msgid "Track selector"
-msgstr ""
+msgstr "Selector de piese"
 
 #: ../plugins/minimode/controls.py:546
 msgid "Simple track list selector"
-msgstr ""
+msgstr "Selector de listă piese simplu"
 
 #: ../plugins/minimode/controls.py:698
 msgid "Playlist button"
-msgstr ""
+msgstr "Butonul listei de redare"
 
 #: ../plugins/minimode/controls.py:699
 msgid "Access the current playlist"
-msgstr ""
+msgstr "Accesează lista de redare curentă"
 
 #: ../plugins/minimode/controls.py:996
 msgid "$title ($current_time / $total_time)"
-msgstr ""
+msgstr "$title ($current_time / $total_time)"
 
 #: ../plugins/minimode/controls.py:1018
 msgid "Progress button"
-msgstr ""
+msgstr "Butonul de progres"
 
 #: ../plugins/minimode/controls.py:1019
 msgid "Playback progress and access to the current playlist"
-msgstr ""
+msgstr "Progresul de redare și acces a listei de redare curente"
 
 #: ../plugins/minimode/controls.py:1090
 msgid "Progress bar"
-msgstr ""
+msgstr "Bară de progres"
 
 #: ../plugins/minimode/controls.py:1091
 msgid "Playback progress and seeking"
-msgstr ""
+msgstr "Progresul redării și parcurgerea"
 
 #: ../plugins/grouptagger/gt_import.py:45
 #, fuzzy
@@ -3029,20 +3039,20 @@ msgstr ""
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "ReplayGain"
 
 #: ../plugins/droptrayicon/__init__.py:281
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Dați drumul pentru a alege"
 
 #: ../plugins/droptrayicon/__init__.py:284
 msgid "Append and Play"
-msgstr ""
+msgstr "Adaugă și redă"
 
 #: ../plugins/droptrayicon/__init__.py:286
 msgid "Append"
-msgstr ""
+msgstr "Adaugă"
 
 #: ../plugins/history/history_preferences.py:35
 #: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
@@ -3069,15 +3079,15 @@ msgstr ""
 #: ../plugins/jamendo/__init__.py:91
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Ready"
-msgstr ""
+msgstr "Gata"
 
 #: ../plugins/jamendo/__init__.py:92
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "Se caută în catalogul Jamendo"
 
 #: ../plugins/jamendo/__init__.py:93
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Se obțin datele melodiei..."
 
 #: ../plugins/console/__init__.py:109
 msgid "Console"
@@ -3085,7 +3095,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
-msgstr ""
+msgstr "Afișare pe ecran"
 
 #: ../plugins/osd/osd_preferences.py:88
 msgid ""
@@ -3104,7 +3114,7 @@ msgstr ""
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Coperte de la Amazon"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
 msgid "Modulus this number"
@@ -3132,49 +3142,49 @@ msgstr "Golește lista de redare"
 
 #: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "Podcast-uri"
 
 #: ../plugins/podcasts/__init__.py:70
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:79
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "Reîmprospătează podcast"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: ../plugins/podcasts/__init__.py:118
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Introduceți adresa URL a podcastului de adăugat"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Open Podcast"
-msgstr ""
+msgstr "Deschide podcast"
 
 #: ../plugins/podcasts/__init__.py:152
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "Se încarcă %s..."
 
 #: ../plugins/podcasts/__init__.py:181
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Eroare la încărcarea podcastului."
 
 #: ../plugins/podcasts/__init__.py:197
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Se încarcă podcasturile..."
 
 #: ../plugins/podcasts/__init__.py:228
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Nu s-a putut salva fișierul de podcast"
 
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "Copertă desktop"
 
 #: ../plugins/multialarmclock/macprefs.py:23
 #: ../plugins/multialarmclock/PLUGININFO:3
@@ -3183,34 +3193,34 @@ msgstr ""
 
 #: ../plugins/contextinfo/contextprefs.py:22
 msgid "Contextinfo"
-msgstr ""
+msgstr "Informații context"
 
 #: ../plugins/bookmarks/__init__.py:104
 msgid "Bookmark This Track"
-msgstr ""
+msgstr "Adaugă această piesă la semnele de carte"
 
 #: ../plugins/bookmarks/__init__.py:106
 msgid "Delete Bookmark"
-msgstr ""
+msgstr "Șterge semnul de carte"
 
 #: ../plugins/bookmarks/__init__.py:108
 msgid "Clear Bookmarks"
-msgstr ""
+msgstr "Elimină semnele de carte"
 
 #: ../plugins/bookmarks/__init__.py:305
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "Semne de carte"
 
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "Pauză pe protector de ecran"
 
 #: ../plugins/daapserver/daapserverprefs.py:6
 #: ../plugins/daapserver/PLUGININFO:3
 msgid "DAAP Server"
-msgstr ""
+msgstr "Server DAAP"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
 msgid "Contacting SomaFM server..."
@@ -3241,7 +3251,7 @@ msgstr ""
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "Client DAAP"
 
 #: ../plugins/daapclient/__init__.py:298
 msgid "Manually..."
@@ -3279,27 +3289,27 @@ msgstr ""
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Secție redată închis în loc de a folosi cursorul"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Darkness level:"
-msgstr ""
+msgstr "Nivel obscuritate:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Use waveform style"
-msgstr ""
+msgstr "Utilizează stilul undă de formă"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Arată numai undă de formă, fără ton"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Use color theme "
-msgstr ""
+msgstr "Utilizaţi culoare temă "
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Base color:"
-msgstr ""
+msgstr "Culoare de bază:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Base color"
@@ -3311,15 +3321,15 @@ msgstr ""
 
 #: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Relay port:"
-msgstr ""
+msgstr "Port releu:"
 
 #: ../plugins/streamripper/streamripper.ui.h:3
 msgid "Rip to single file"
-msgstr ""
+msgstr "Extrage la un singur fişier"
 
 #: ../plugins/streamripper/streamripper.ui.h:4
 msgid "Delete incomplete files"
-msgstr ""
+msgstr "Șterge fișierele incomplete"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:1
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
@@ -3345,7 +3355,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm time</b>"
-msgstr ""
+msgstr "<b>Timp alarmă</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Monday"
@@ -3377,7 +3387,7 @@ msgstr "Duminică"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "<b>Alarm Days</b>"
-msgstr ""
+msgstr "<b>Zile de alarmă</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Use Fading"
@@ -3393,7 +3403,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Increment:"
-msgstr ""
+msgstr "Incrementare:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
@@ -3405,19 +3415,19 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display covers"
-msgstr ""
+msgstr "Afișează coperte"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Circle display"
-msgstr ""
+msgstr "Afișare în cerc"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "Text percentage"
-msgstr ""
+msgstr "Procentaj text"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "None"
-msgstr ""
+msgstr "Niciunul"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
@@ -3425,15 +3435,15 @@ msgstr ""
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
-msgstr ""
+msgstr "Reîmprospătează versuri"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Trimite piesele folosind Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show menuitem to toggle submission"
-msgstr ""
+msgstr "Arată elementul din meniu pentru a comuta trimiterea"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit streamed tracks (e.g. DAAP, Shoutcast radio etc.)"
@@ -3455,67 +3465,67 @@ msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "pre"
-msgstr ""
+msgstr "pre"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "237"
-msgstr ""
+msgstr "237"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:14
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:15
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "On track change"
-msgstr ""
+msgstr "La schimbarea piesei"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "On playback start, pause or stop"
-msgstr ""
+msgstr "La pornirea, întreruperea sau oprirea redării"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
 msgid "On tag change"
@@ -3523,7 +3533,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "On tray icon hover"
-msgstr ""
+msgstr "La trecerea peste pictograma din zona de notificare"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "When main window is focused"
@@ -3531,11 +3541,11 @@ msgstr "Când fereastra principală este activă"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>Afișaj</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "Use album covers as icons"
-msgstr ""
+msgstr "Folosește copertele de albume ca pictograme"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "Use media icons for pause, stop and resume"
@@ -3543,11 +3553,11 @@ msgstr "Folosește iconițe media pentru întrerupere, oprire și continuare"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "<b>Icons</b>"
-msgstr ""
+msgstr "<b>Pictograme</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:10
 msgid "Artist line:"
-msgstr ""
+msgstr "Linie artist:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 #, python-format
@@ -3556,23 +3566,26 @@ msgid ""
 "replaced by their respective values. The title will be replaced by \"Unknown"
 "\" if it is empty.</i>"
 msgstr ""
+"<i>Etichetele \"%(title)s\", \"%(artist)s\", și \"%(album)s\" vor fi "
+"înlocuite de valorile lor respective. Titlul va fi înlocuit de „Necunoscut” "
+"dacă este gol.</i>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
 msgid "Summary:"
-msgstr ""
+msgstr "Rezumat"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "Album line:"
-msgstr ""
+msgstr "Linie album:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:15
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>Conținut</b>"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Terminal opacity:"
-msgstr ""
+msgstr "Opacitate terminal:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Font:"
@@ -3600,11 +3613,11 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:3
 msgid "Only artist:"
-msgstr ""
+msgstr "Numai artist:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:4
 msgid "Only album:"
-msgstr ""
+msgstr "Numai album:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:6
 #, python-format
@@ -3614,50 +3627,54 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place.</i>"
 msgstr ""
+"<i>Mesaj care ar trebui să fie afişat în corpul de notificare. În fiecare "
+"caz, \"%(title)s\", \"%(artist)s\", și \"%(album)s\" vor fi înlocuite cu "
+"valorile lor respective. În cazul în care eticheta nu este cunoscută, "
+"\"Necunoscut\" va fi completat în locul său.</i>"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Both artist and album:"
-msgstr ""
+msgstr "Atât artist şi album:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Corpul mesajului</b>"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "WavPack"
-msgstr ""
+msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "Import format: "
-msgstr ""
+msgstr "Format import: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Import quality: "
-msgstr ""
+msgstr "Calitate import: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "Import path: "
-msgstr ""
+msgstr "Cale import: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:3
@@ -3707,15 +3724,15 @@ msgstr ""
 
 #: ../plugins/minimode/minimode_preferences.ui.h:6
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Arată în tasklist"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr ""
+msgstr "Afișează decorațiuni fereastră:"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Show on all desktops"
-msgstr ""
+msgstr "Arată pe toate fundalele"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:10
 msgid "Show button in main window"
@@ -3828,35 +3845,36 @@ msgstr " piese"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "Preferă corecție per-album"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr ""
+msgstr "Preferă corecție ReplayGain pe album peste corecţie per-track."
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:5
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Utilizaţi protecție de tăiere"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Protecţie împotriva zgomotului cauzat de supra-amplificare"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Amplificare suplimentare să se aplice la toate fişierele"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Amplificare suplimentară (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
+"Corecţie de rezervă pentru fişierele care au lipsă de informaţii ReplayGain"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Nivel corecție de rezervă (dB):"
 
 #: ../plugins/history/history_preferences.ui.h:1
 msgid "Persist history after player exits"
@@ -3868,63 +3886,63 @@ msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Order by:"
-msgstr ""
+msgstr "Ordonează după:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Order direction:"
-msgstr ""
+msgstr "Direcția ordonării:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Results:"
-msgstr ""
+msgstr "Rezultate:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Advanced"
-msgstr ""
+msgstr "Avansat"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "Descendent"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Ascending"
-msgstr ""
+msgstr "Ascendent"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Release date"
-msgstr ""
+msgstr "Data lansării"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Rating this week"
-msgstr ""
+msgstr "Aprecierea din această săptămână"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Rating this month"
-msgstr ""
+msgstr "Aprecierea din această lună"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Număr de adiționări la lista de redare"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Number of downloads"
-msgstr ""
+msgstr "Număr de descărcări"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Number of listens"
-msgstr ""
+msgstr "Număr de ascultări"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Starred"
-msgstr ""
+msgstr "Cu stea"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Date of starring"
-msgstr ""
+msgstr "Data aprecierii"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Gen/etichete"
 
 #: ../plugins/osd/osd_preferences.ui.h:1
 #, python-brace-format
@@ -4004,7 +4022,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
 msgid "Anchor:"
-msgstr ""
+msgstr "Ancoră:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:2
 msgid "X offset:"
@@ -4020,7 +4038,7 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
 msgid "Override cover size"
-msgstr ""
+msgstr "Dimensiune copertă depașită"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
 msgid "Size:"
@@ -4088,7 +4106,7 @@ msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:9
 msgid "Restart playlist"
-msgstr ""
+msgstr "Repornește lista de redare"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:10
 msgid "<b>Playback</b>"
@@ -4096,19 +4114,20 @@ msgstr ""
 
 #: ../plugins/contextinfo/context_pane.ui.h:1
 msgid "Please enter your Last.fm authentication:"
-msgstr ""
+msgstr "Introduce-ți autentificarea dumneavoastră Last.fm:"
 
 #: ../plugins/contextinfo/context_pane.ui.h:4
 msgid "Sign up for Last.fm"
-msgstr ""
+msgstr "Înregistrați-vă pe Last.fm"
 
 #: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
-msgstr ""
+msgstr "Context"
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
+"Folosește copertele în meniul semne de carte (ia efect la următoarea pornire)"
 
 #: ../plugins/screensaverpause/prefs.ui.h:1
 msgid "Unpause when screensaver ends"
@@ -4120,7 +4139,7 @@ msgstr ""
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:2
 msgid "Server host:"
-msgstr ""
+msgstr "Gazdă server:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:3
 msgid "Port:"
@@ -4128,7 +4147,7 @@ msgstr ""
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:4
 msgid "Server enabled"
-msgstr ""
+msgstr "Server activat"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:1
 msgid "Show ipv6 servers (Experimental)"
@@ -4151,13 +4170,15 @@ msgstr ""
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr ""
+msgstr "Melodie curentă"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the suppported services."
 msgstr ""
+"Stabileşte statutul curent de redare în Pidgin. Verificaţi întrebările "
+"frecvente Pidgin pentru a afla serviciile suportate."
 
 #: ../plugins/currentsong/PLUGININFO:5 ../plugins/audioscrobbler/PLUGININFO:5
 #: ../plugins/notifyosd/PLUGININFO:5 ../plugins/notify/PLUGININFO:5
@@ -4170,6 +4191,8 @@ msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Înlocuieşte bara de progres standard cu o moodbar.\n"
+"Depinde: moodbar"
 
 #: ../plugins/moodbar/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
 #: ../plugins/awn/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
@@ -4179,13 +4202,15 @@ msgstr ""
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "Taste multimedia GNOME"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Adaugă suport pentru controlul Exaile prin intermediul sistemului tastelor "
+"multimedia GNOME. Compatibil cu GNOME >= 2.20.x"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
@@ -4197,6 +4222,8 @@ msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Vă permite să înregistraţi fluxuri cu Streamripper.\n"
+"Depinde: Streamripper"
 
 #: ../plugins/streamripper/PLUGININFO:5 ../plugins/previewdevice/PLUGININFO:5
 msgid "Output"
@@ -4232,6 +4259,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Redă muzica la un anumit moment.\n"
+"\n"
+"Reţineţi că atunci când timpul specificat ajunge, Exaile va acţiona ca și "
+"cum ați apăsat butonul de redare, astfel încât să fie sigur că aveţi muzica "
+"pe care doriţi să o auziți în lista dumneavoastră de redare"
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
@@ -4260,43 +4292,49 @@ msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Coperți Last.fm"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Caută Last.fm pentru coperți"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
-msgstr ""
+msgstr "Setează coperta şi adaugă unele elemente de meniu la AWN pentru Exaile"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Editor de etichete Ex Falso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
+"Integrează editorul de etichete Ex Falso cu Exaile.\n"
+"Depinde: Ex Falso."
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
 msgstr ""
+"Adaugă o parte de filă pentru afişarea versurilor a melodiei în curs de "
+"redare."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
+"Trimite informaţii privind ascultarea la Last.fm şi servicii similare de "
+"sprijin AudioScrobbler"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "Taste X"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "Taste rapide globale folosesc xlib (mmkeys.so)"
 
 #: ../plugins/winmmkeys/PLUGININFO:1
 msgid "Multimedia keys for Windows"
@@ -4313,7 +4351,7 @@ msgstr ""
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "Un egalizator pe 10 benzi"
 
 #: ../plugins/equalizer/PLUGININFO:5 ../plugins/abrepeat/PLUGININFO:5
 #: ../plugins/replaygain/PLUGININFO:5 ../plugins/karaoke/PLUGININFO:5
@@ -4331,25 +4369,27 @@ msgstr ""
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "Caută și ascultă cărțile audio de la Librivox.org."
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
-msgstr ""
+msgstr "Permite închiderea calculatorului la sfârşitul redării."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "Suport media player de stocare pe USB"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Suport pentru accesarea media playerelor portabile cu ajutorul protocolului "
+"de stocare USB"
 
 #: ../plugins/massstorage/PLUGININFO:5 ../plugins/cd/PLUGININFO:5
 #: ../plugins/ipod/PLUGININFO:5
@@ -4364,11 +4404,11 @@ msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Liste dinamice de redare Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "Suportul Last.fm pentru liste dinamice de redare"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
@@ -4383,10 +4423,17 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Acest modul afişează bule de notificare atunci când o piesa este redată/"
+"reluată/oprită, fie cu coperta melodiei sau o pictogramă media pentru a "
+"indica cea mai recentă acţiune.\n"
+"\n"
+"Depinde: python-notify\n"
+"Recomandă: notify-osd"
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
+"Oferă o consolă IPython care poate fi utilizată pentru a manipula Exaile."
 
 #: ../plugins/ipconsole/PLUGININFO:5 ../plugins/console/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
@@ -4400,7 +4447,7 @@ msgstr ""
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "CD-ul de redare"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
@@ -4423,15 +4470,15 @@ msgstr ""
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
-msgstr ""
+msgstr "Repetă A-B"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
-msgstr ""
+msgstr "Repetă continuu un segment al unei piese."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Modul compact pentru Exaile cu o interfaţă configurabilă"
 
 #: ../plugins/grouptagger/PLUGININFO:3
 msgid "Group Tagger"
@@ -4445,11 +4492,11 @@ msgstr ""
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr ""
+msgstr "Activează suport ReplayGain"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
-msgstr ""
+msgstr "Renunță la trayicon"
 
 #: ../plugins/droptrayicon/PLUGININFO:4
 msgid ""
@@ -4457,6 +4504,8 @@ msgid ""
 "\n"
 "Depends: python-eggtrayicon"
 msgstr ""
+"Oferă o alternativă trayicon care acceptă fişiere refuzate.\n"
+"Depinde: python-eggtrayicon"
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid ""
@@ -4466,11 +4515,11 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr ""
+msgstr "Activează accesul la catalogul muzical Jamendo."
 
 #: ../plugins/console/PLUGININFO:3
 msgid "Simple console"
@@ -4486,7 +4535,7 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
-msgstr ""
+msgstr "Suport iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid ""
@@ -4494,6 +4543,8 @@ msgid ""
 "\n"
 "Depends on python-gpod."
 msgstr ""
+"Un modul pentru suport iPod. Doar citibil pentru moment, niciun transfer.\n"
+"Depinde de python-gpod."
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -4501,14 +4552,18 @@ msgid ""
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
 msgstr ""
+"Caută pe Amazon pentru coperți\n"
+"\n"
+"Pentru a putea folosi acest modul, o cheie AWS API şi cheia secretă sunt "
+"necesare."
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
-msgstr ""
+msgstr "Karaoke"
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
-msgstr ""
+msgstr "Elimină voce din audio"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 #, fuzzy
@@ -4523,19 +4578,19 @@ msgstr ""
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Adaugă suport pentru simplu podcast"
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "Afișează coperta albumului curent pe fundal"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Hello World"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "Un simplu modul pentru testarea sistemului de modul de bază"
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
@@ -4553,10 +4608,15 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Redă muzica la anumite ore şi zile.\n"
+"\n"
+"Reţineţi că atunci când timpul specificat ajunge, Exaile va acţiona ca și "
+"cum ați apăsat butonul de redare, astfel încât să fie sigur că aveţi muzica "
+"pe care doriţi să o auziți în lista dumneavoastră de redare"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Informație contextuală"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -4564,10 +4624,13 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Arată diverse informatii despre melodia în curs de redare.\n"
+"Depinde: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
+"PIL)"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr ""
+msgstr "Permite salvarea/reluarea poziției marcajului în fișierele audio."
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid ""
@@ -4579,7 +4642,7 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Versuri Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid ""
@@ -4592,6 +4655,8 @@ msgid ""
 "This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
+"Acest modul integrează spydaap (http://launchpad.net/spydaap) în Exaile "
+"astfel o colecție poate fi partajată peste DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
 #, fuzzy
@@ -4611,7 +4676,7 @@ msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Permite redarea muzicii partajate a DAAP."
 
 #~ msgid "Toggle Queue"
 #~ msgstr "Alternează coada"

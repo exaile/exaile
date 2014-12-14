@@ -104,7 +104,7 @@ msgstr ""
 
 #: ../xl/main.py:237
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "0.2.14 માંથી કરવા સ્થાનાંતરિત કરવામાં નિષ્ફળ"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
@@ -474,7 +474,7 @@ msgstr "સ્વચલિત"
 #: ../xl/player/pipe.py:504 ../xl/player/pipe.py:527
 #: ../xl/player/sink_windows.py:37
 msgid "Custom"
-msgstr ""
+msgstr "કસ્ટમ = વૈવિધ્યપૂર્ણ"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"

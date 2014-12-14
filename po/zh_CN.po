@@ -48,31 +48,31 @@ msgstr[0] "%d 秒"
 #: ../xl/formatter.py:585
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%d 天， "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%d 小时， "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%d 分钟， "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:592
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%d 秒"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%d 天 "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:600
@@ -159,11 +159,11 @@ msgstr "从 地点 添加音轨到音乐库"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "播放列表选项"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "导出当前播放列表到位置"
 
 #: ../xl/main.py:530
 msgid "Track Options"
@@ -335,7 +335,7 @@ msgstr "启用 xl.event 调试，将产生大量信息。"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "添加线程名称到日志信息。"
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -418,13 +418,13 @@ msgstr "未知"
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -789,7 +789,7 @@ msgstr "本地的"
 
 #: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
-msgstr ""
+msgstr "加入队列"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
@@ -811,7 +811,7 @@ msgstr "文件不能被移至垃圾箱，从磁盘中永久删除吗？"
 
 #: ../xlgui/widgets/menuitems.py:183
 msgid "Move to Trash"
-msgstr ""
+msgstr "移至回收站"
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
@@ -1211,7 +1211,7 @@ msgstr "导出目前的播放列表(_E)"
 
 #: ../xlgui/menu.py:124 ../xlgui/preferences/widgets.py:70
 msgid "Restart"
-msgstr ""
+msgstr "重启"
 
 #: ../xlgui/menu.py:147
 msgid "_Collection"
@@ -1227,7 +1227,7 @@ msgstr "封面(_O)"
 
 #: ../xlgui/menu.py:190
 msgid "_Playlist Utilities Bar"
-msgstr ""
+msgstr "播放列表工具栏(_P)"
 
 #: ../xlgui/menu.py:192
 msgid "_Columns"

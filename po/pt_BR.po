@@ -2688,7 +2688,7 @@ msgstr "O computador não pode ser desligado utilizando D-Bus"
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Dispositivo de visualização"
 
 #: ../plugins/previewdevice/__init__.py:153
 msgid "Preview Player"
@@ -4031,6 +4031,11 @@ msgid ""
 "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
+"Todo rótulo pode ser usado com <b>$tag</b> ou <b>${tag}</b>. Rótulos "
+"internos como <b>$__length</b> precisam ser especificados com duas linhas "
+"sublinhadas antes do seu nome.\n"
+"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">O "
+"Atributo de remarcação Pango </a> é suportado."
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"

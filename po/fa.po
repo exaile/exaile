@@ -2852,7 +2852,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.py:45
 msgid "Importing tracks"
-msgstr ""
+msgstr "در حال وارد کردن ترک ها"
 
 #: ../plugins/grouptagger/gt_import.py:91
 msgid "Importing groups"

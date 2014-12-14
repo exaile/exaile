@@ -1318,7 +1318,7 @@ msgstr "JPEG görüntüsü"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "PNG görüntüsü"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
@@ -1357,11 +1357,11 @@ msgstr ""
 
 #: ../xlgui/cover.py:110
 msgid "All covers fetched"
-msgstr ""
+msgstr "Tüm albüm kapakları yüklendi"
 
 #: ../xlgui/cover.py:135
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Albümler ve albüm kapakları toplanıyor..."
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
@@ -1446,7 +1446,7 @@ msgstr ""
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Yeni bir çalma listesi oluşturmak için buraya sürükleyin"
 
 #: ../xlgui/playlist_container.py:138
 msgid "Recently Closed Tabs"
@@ -1566,13 +1566,13 @@ msgstr ""
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:188
 msgid "is set"
-msgstr ""
+msgstr "ayarlanmış"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:191
 msgid "is not set"
-msgstr ""
+msgstr "ayarlanmamış"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:193
@@ -1701,11 +1701,11 @@ msgstr "Akıllı Çalma Listesi Düzenle"
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Dışa aktarılıyor %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Dosyaları dışa aktarmak için bir dizin seçin"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1986,7 +1986,7 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Artist/sanatçı"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
@@ -1994,7 +1994,7 @@ msgstr "Grup/Orkestra"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Söz yazarı/yazar"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
@@ -2222,7 +2222,7 @@ msgstr "Ses Alıcı:  "
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
 msgid "Device:  "
-msgstr ""
+msgstr "Aygıt:  "
 
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8

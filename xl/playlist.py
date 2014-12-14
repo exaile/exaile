@@ -1840,11 +1840,11 @@ class SmartPlaylist(object):
         matchers = [] # matchers list
         maximum = settings.get_option('rating/maximum', 5)
         durations = {
-            _('seconds'): lambda value: timedelta(seconds=value),
-            _('minutes'): lambda value: timedelta(minutes=value),
-            _('hours'): lambda value: timedelta(hours=value),
-            _('days'): lambda value: timedelta(days=value),
-            _('weeks'): lambda value: timedelta(weeks=value),
+            'seconds': lambda value: timedelta(seconds=value),
+            'minutes': lambda value: timedelta(minutes=value),
+            'hours': lambda value: timedelta(hours=value),
+            'days': lambda value: timedelta(days=value),
+            'weeks': lambda value: timedelta(weeks=value),
         }
 
         for param in self.search_params:

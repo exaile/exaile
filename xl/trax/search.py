@@ -140,7 +140,10 @@ class _LtMatcher(_Matcher):
     """
     def _matches(self, value):
         try:
-            value = float(value)
+            if value is None:
+                value = 0
+            else:
+                value = float(value)
             content = float(self.content) # kinda inefficient
         except (TypeError, ValueError):
             return False

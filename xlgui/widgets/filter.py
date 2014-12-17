@@ -420,7 +420,7 @@ class ComboEntryField(gtk.HBox):
         return self.combo.get_child().get_text()
     
     def set_state(self, state):
-        self.combo.get_child().set_text(state)
+        self.combo.get_child().set_text(str(state))
 
 class NullField(gtk.HBox):
     '''Used as a placeholder for __null__ values'''
@@ -483,7 +483,7 @@ class QuotedEntryField(gtk.Entry):
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
-        self.set_text(unicode(urllib.unquote(state)))
+        self.set_text(unicode(urllib.unquote(str(state))))
 
 class EntryLabelEntryField(MultiEntryField):
     def __init__(self, label):
@@ -523,7 +523,7 @@ class SpinButtonAndComboField(gtk.HBox):
         self.show_all()
 
     def set_state(self, state):
-        if not isinstance(state, (tuple, list)):
+        if not isinstance(state, (tuple, list)) or len(state) < 2:
             return
 
         # TODO: Check length.

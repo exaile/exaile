@@ -8,23 +8,24 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Dustin Spicuzza <dustin@virtualroadside.com>\n"
-"Language-Team: Portuguese <pt@li.org>\n"
+"PO-Revision-Date: 2014-12-18 15:53+0200\n"
+"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
+"Language-Team: Portuguese "
+"<https://hosted.weblate.org/projects/exaile/master/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dia "
+msgstr[1] "%d dias "
 
 #: ../xl/formatter.py:578
 #, python-format
@@ -116,7 +117,7 @@ msgstr "Opções"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
-msgstr "Opções de Reprodução"
+msgstr "Opções de reprodução"
 
 #: ../xl/main.py:499
 msgid "Play the next track"
@@ -129,7 +130,7 @@ msgstr "Reproduzir a faixa anterior"
 #: ../xl/main.py:503 ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr "Parar a reprodução"
+msgstr "Parar reprodução"
 
 #: ../xl/main.py:505
 msgid "Play"
@@ -141,20 +142,20 @@ msgstr "Pausa"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr "Pausar ou continuar reprodução"
+msgstr "Pausar ou retomar reprodução"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
-msgstr "Parar a reprodução depois da faixa actual"
+msgstr "Parar reprodução depois da faixa atual"
 
 #: ../xl/main.py:516
 msgid "Collection Options"
-msgstr "Opções da Coleção"
+msgstr "Opções da coleção"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526
 msgid "LOCATION"
-msgstr "DIR_LOCAL"
+msgstr "LOCATION"
 
 #: ../xl/main.py:519
 msgid "Add tracks from LOCATION to the collection"
@@ -162,7 +163,7 @@ msgstr "Adicionar faixas de LOCATION à coleção"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr "Opções da Lista de Reprodução"
+msgstr "Opções da lista de reprodução"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
@@ -170,7 +171,7 @@ msgstr "Exporta a lista de reprodução atual para LOCATION"
 
 #: ../xl/main.py:530
 msgid "Track Options"
-msgstr "Opções da Faixa"
+msgstr "Opções de faixa"
 
 #: ../xl/main.py:532
 msgid "Query player"
@@ -179,20 +180,20 @@ msgstr "Reprodutor de consulta"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
-msgstr ""
+msgstr "Obtém o estado de reprodução e as informações da faixa como FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "TAGS"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr ""
+msgstr "TAGS a obter para a faixa atual, utilize com --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -200,19 +201,19 @@ msgstr "Mostrar janela com dados da faixa atual"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
-msgstr "Imprimir o título da faixa actual"
+msgstr "Imprimir o título da faixa atual"
 
 #: ../xl/main.py:547
 msgid "Print the album of current track"
-msgstr "Imprimir o álbum da faixa actual"
+msgstr "Imprimir o álbum da faixa atual"
 
 #: ../xl/main.py:549
 msgid "Print the artist of current track"
-msgstr "Imprimir o artista da faixa actual"
+msgstr "Imprimir o artista da faixa atual"
 
 #: ../xl/main.py:551
 msgid "Print the length of current track"
-msgstr "Imprimir a duração da faixa actual"
+msgstr "Imprimir a duração da faixa atual"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
@@ -221,23 +222,23 @@ msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
-msgstr "Definir pontuação da faixa atual para N%"
+msgstr "Definir avaliação da faixa atual para N%"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr "Obter pontuação da faixa atual"
+msgstr "Obter avaliação da faixa atual"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
-msgstr "Imprimir o tempo da posição atual da lista de reprodução"
+msgstr "Imprimir a posição temporal de reprodução como tempo"
 
 #: ../xl/main.py:562
 msgid "Print the current playback progress as percentage"
-msgstr "Imprimir o progresso da lista de reprodução atual em percentagem"
+msgstr "Imprimir progresso da lista de reprodução como percentagem"
 
 #: ../xl/main.py:566
 msgid "Volume Options"
-msgstr "Opções do Volume"
+msgstr "Opções de volume"
 
 #: ../xl/main.py:570
 msgid "Increases the volume by N%"
@@ -254,19 +255,19 @@ msgstr "Ativa ou desativa o volume"
 
 #: ../xl/main.py:580
 msgid "Print the current volume percentage"
-msgstr "Imprime a percentagem de volume currente"
+msgstr "Imprime a percentagem de volume atual"
 
 #: ../xl/main.py:583
 msgid "Other Options"
-msgstr "Outras Opções"
+msgstr "Outras opções"
 
 #: ../xl/main.py:585
 msgid "Start new instance"
-msgstr "Iniciar uma nova instância"
+msgstr "Inicia uma nova instância"
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr "Mostra uma mensagem de ajuda e sai"
+msgstr "Mostra esta mensagem de ajuda e sai"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
@@ -274,11 +275,11 @@ msgstr "Mostra o número da versão do programa e sai"
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr "Iniciar minimizado (na área de notificação do sistema, se possível)"
+msgstr "Iniciar minimizado (na área de notificação, se possível)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr "Alterar visibilidade do interface gráfico (se possível)"
+msgstr "Alterar visibilidade da interface (se possível)"
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
@@ -286,51 +287,49 @@ msgstr "Iniciar em modo seguro - útil para quando estiver com problemas"
 
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
-msgstr ""
-"Forçar importação de dados antigos da versão 0.2.x (Substitui os dados "
-"atuais)"
+msgstr "Forçar importação de dados da versão 0.2.x (substitui os dados atuais)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
-msgstr "Não importar dados antigos da versão 0.2.x"
+msgstr "Não importar dados da versão 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
-"Fazer com que opções tais como --play iniciem o Exaile se não estiver a ser "
+"Forçar que opções tais como --play iniciem o Exaile se não estiver a ser "
 "executado"
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
-msgstr "Opções de Desenvolvimento/Depuração"
+msgstr "Opções de desenvolvimento/depuração"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
-msgstr "PASTA"
+msgstr "DIRECTORY"
 
 #: ../xl/main.py:612
 msgid "Set data directory"
-msgstr "Definir pasta de dados"
+msgstr "Definir diretório de dados"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Definir diretório de dados e configuração"
 
 #: ../xl/main.py:616
 msgid "MODULE"
-msgstr "MÓDULO"
+msgstr "MODULE"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "Limitar registos a MODULE"
 
 #: ../xl/main.py:619
 msgid "LEVEL"
-msgstr "NÍVEL"
+msgstr "LEVEL"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "Limitar registos a LEVEL"
 
 #: ../xl/main.py:623
 msgid "Show debugging output"
@@ -338,21 +337,19 @@ msgstr "Mostrar resultado da depuração"
 
 #: ../xl/main.py:625
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
-"Activar a depuração de xl.event. Irá gerar uma GRANDE quantidade de "
-"resultados"
+msgstr "Ativar depuração de xl.event. Gerará imensos resultados"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Adicionar nome do processo às mensagens de registo."
 
 #: ../xl/main.py:631
 msgid "TYPE"
-msgstr "TIPO"
+msgstr "TYPE"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
-msgstr ""
+msgstr "Limitar depuração xl.event para TYPE"
 
 #: ../xl/main.py:634
 msgid "Reduce level of output"
@@ -360,15 +357,15 @@ msgstr "Reduzir nível de resultados"
 
 #: ../xl/main.py:638
 msgid "Disable D-Bus support"
-msgstr "Desactivar suporte ao D-Bus"
+msgstr "Desativar suporte D-Bus"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr "Desactivar suporte a HAL"
+msgstr "Desativar suporte HAL"
 
 #: ../xl/main.py:656
 msgid "Entire Library"
-msgstr "Biblioteca Completa"
+msgstr "Coleção completa"
 
 #: ../xl/main.py:662
 #, python-format
@@ -378,51 +375,53 @@ msgstr "Aleatório %d"
 #: ../xl/main.py:670
 #, python-format
 msgid "Rating > %d"
-msgstr "Classificação > %d"
+msgstr "Avaliação > %d"
 
 #: ../xl/main.py:814
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"O Exaile ainda não está carregado. Talvez deva esperar pelo sinal "
+"exaile_loaded?"
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetas"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Ficheiro local"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
-msgstr ""
+msgstr "O arquivo não está no formato correto."
 
 #: ../xl/plugins.py:104
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "Já está instalado um plugin com o nome \"%s\"."
 
 #: ../xl/plugins.py:109
 msgid "Plugin archive contains an unsafe path."
-msgstr ""
+msgstr "O arquivo contém um caminho inseguro."
 
 #: ../xl/trax/trackdb.py:176
 msgid "You did not specify a location to load the db from"
-msgstr "Não especificou uma localização da qual carregar a base de dados"
+msgstr "Não especificou a localização para carregar a base de dados"
 
 #: ../xl/trax/trackdb.py:259
 msgid "You did not specify a location to save the db"
-msgstr "Não especificou a localização onde guardar a base de dados"
+msgstr "Não especificou a localização para gravar a base de dados"
 
 #: ../xl/trax/track.py:65 ../xlgui/widgets/info.py:422
 msgid "Various Artists"
-msgstr "Vários Artistas"
+msgstr "Vários artistas"
 
 #. TRANSLATORS: title of a track if it is unknown
 #: ../xl/trax/track.py:66 ../plugins/notifyosd/__init__.py:71
 msgid "Unknown"
-msgstr "Desconhecido(a)"
+msgstr "Desconhecido"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
@@ -440,52 +439,50 @@ msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
-"Vorbis é um codec áudio com perdas (lossy) open source, consegue grande "
-"qualidade de saída de áudio com um menor tamanho de ficheiro que o MP3."
+"O formato Vorbis é um formato com perdas mas de alta qualidade e com um "
+"tamanho inferior ao formato MP3."
 
 #: ../xl/transcoder.py:66
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
 msgstr ""
-"Free Lossless Audio Codec (FLAC) (codec áudio sem perdas) é um codec open "
-"source que faz a compressão do ficheiro mas não degrada a qualidade áudio."
+"O formato Free Lossless Audio Codec (FLAC) é um formato sem perdas e que "
+"comprime o ficheiro mas sem perda de qualidade."
 
 #: ../xl/transcoder.py:78
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Formato áudio com perdas (lossy), propriedade da Apple, que consegue uma "
-"melhor qualidade de som que o MP3 a bitrates mais baixos."
+"O formato proprietário Apple é um formato áudio com perdas mas que tem "
+"melhor qualidade que o formato MP3 para taxas de dados mais baixas."
 
 #: ../xl/transcoder.py:89
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"Um formato áudio com perdas (lossy), proprietário e antigo mas também "
-"popular. O VBR oferece melhor qualidade que o CBR, mas pode ser incompatível "
-"com alguns leitores."
+"Um formato proprietário e antigo, mas bastante popular. O formato VBR produz "
+"ficheiros de melhor qualidade que o formato CBR, mas pode ser incompatível "
+"com alguns reprodutores."
 
 #: ../xl/transcoder.py:100
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"Um formato áudio com perdas (lossy), proprietário e antigo mas também "
-"popular. O CBR entrega menos qualidade áudio que o VBR, mas é compatível com "
-"qualquer leitor."
+"Um formato proprietário e antigo, mas bastante popular. O formato CBR produz "
+"ficheiros de pior qualidade que o formato VBR, mas é compatível com todos os "
+"reprodutores."
 
 #: ../xl/transcoder.py:111
 msgid "A very fast Free lossless audio format with good compression."
-msgstr ""
-"Um formato audio Free lossless (sem perdas) muito rápido e com boa taxa de "
-"compressão."
+msgstr "Um formato áudio sem perdas e com boa compressão."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX CoreAudio"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"

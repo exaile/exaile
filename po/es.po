@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-21 00:53+0200\n"
+"PO-Revision-Date: 2014-12-21 00:57+0200\n"
 "Last-Translator: Luis García Sevillano <floss.dev@gmail.com>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/exaile/master/es/>\n"
@@ -365,7 +365,7 @@ msgstr "Desactivar compatibilidad con D-Bus"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr "Desactivar compatibilidad con HAL"
+msgstr "Desactivar soporte HAL."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
@@ -715,7 +715,7 @@ msgstr "¡Se encontró un tipo de opción desconocido!"
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
-msgstr "Tipo de lista de reproducción no válida"
+msgstr "Tipo de lista de reproducción no válida."
 
 #: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
 #: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
@@ -733,7 +733,7 @@ msgstr "Lista de reproducción PLS"
 #: ../xl/playlist.py:529 ../xl/playlist.py:545
 #, python-format
 msgid "Invalid format for %s."
-msgstr "Formato inválido para %s"
+msgstr "Formato no válido para %s."
 
 #: ../xl/playlist.py:540
 #, python-format
@@ -1108,7 +1108,7 @@ msgstr "Usar rutas relativas a las pistas"
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "Lista de reproducción guardada como <b>%s</b>"
+msgstr "Lista de reproducción guardada como <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
@@ -1162,7 +1162,7 @@ msgstr "Añadir lista de reproducción nueva…"
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
 msgid "You did not enter a name for your playlist"
-msgstr "No ha introducido ningún nombre para su lista de reproducción."
+msgstr "No introdujo ningún nombre para su lista de reproducción"
 
 #: ../xlgui/widgets/dialogs.py:1545 ../xlgui/panel/playlists.py:349
 #: ../xlgui/panel/playlists.py:754 ../xlgui/panel/playlists.py:844
@@ -1206,7 +1206,7 @@ msgstr "Pausar reproducción"
 
 #: ../xlgui/main.py:779 ../xlgui/menu.py:103
 msgid "Playlist export failed!"
-msgstr "Fallo al exportar la lista de reproducción"
+msgstr "¡Fallo al exportar la lista de reproducción!"
 
 #: ../xlgui/main.py:837 ../data/ui/main.ui.h:7
 #: ../plugins/previewdevice/__init__.py:362

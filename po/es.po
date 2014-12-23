@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-21 01:42+0200\n"
-"Last-Translator: Luis García Sevillano <floss.dev@gmail.com>\n"
+"PO-Revision-Date: 2014-12-23 09:31+0200\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/exaile/master/es/>\n"
 "Language: es\n"
@@ -194,7 +194,7 @@ msgstr "ETIQUETAS"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr "ETIQUETAS a obtener de la pista actual, úselo con --format-query"
+msgstr "ETIQUETAS que obtener de la pista actual, úsese con --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -243,12 +243,12 @@ msgstr "Opciones de volumen"
 
 #: ../xl/main.py:570
 msgid "Increases the volume by N%"
-msgstr "Sube el volumen un N%"
+msgstr "Aumenta el volumen un N %"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:575
 msgid "Decreases the volume by N%"
-msgstr "Baja el volumen un N%"
+msgstr "Disminuye el volumen un N %"
 
 #: ../xl/main.py:578
 msgid "Mutes or unmutes the volume"
@@ -290,8 +290,8 @@ msgstr ""
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
-"Forzar la importación de datos antiguos de la versión 0.2.x (Sobreescribe "
-"los datos actuales)"
+"Forzar la importación de datos antiguos de la versión 0.2.x (sobrescribe los "
+"datos actuales)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
@@ -4784,7 +4784,7 @@ msgstr "Contador de PPM"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr "Permite la reproducción de música compartida DAAP."
+msgstr "Permite la reproducción de recursos compartidos mediante DAAP."
 
 #~ msgid "Toggle Queue"
 #~ msgstr "Activar/Desactivar cola"

@@ -8,45 +8,45 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-09 19:48+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/exaile/master/ca/"
-">\n"
+"PO-Revision-Date: 2014-12-23 09:52+0200\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Catalan "
+"<https://hosted.weblate.org/projects/exaile/master/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.1\n"
+"X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
 
 #: ../xl/formatter.py:576
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dia, "
+msgstr[1] "%d dies, "
 
 #: ../xl/formatter.py:578
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d hora, "
+msgstr[1] "%d hores, "
 
 #: ../xl/formatter.py:579
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minut, "
+msgstr[1] "%d minuts, "
 
 #: ../xl/formatter.py:580
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d segon"
+msgstr[1] "%d segons"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:585
@@ -76,13 +76,13 @@ msgstr "%ds"
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:604
@@ -93,7 +93,7 @@ msgstr "%d:%02d"
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:693 ../xl/formatter.py:698
 msgid "Never"
-msgstr "Mai"
+msgstr "Nunca"
 
 #: ../xl/formatter.py:704
 msgid "Today"
@@ -109,11 +109,11 @@ msgstr "No s'ha pogut migrar des de la versió 0.2.14"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr "Ús: exaile [OPCIÓ]... [URI]"
+msgstr "Utilització: exaile [OPCIÓ]... [URI]"
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr "Opcions"
+msgstr "Paràmetres"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
@@ -138,11 +138,11 @@ msgstr "Reprodueix"
 
 #: ../xl/main.py:507
 msgid "Pause"
-msgstr "Pausa"
+msgstr "Fes una pausa"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr "Pausar o reprendre la reproducció"
+msgstr "Pausa o reanuda la reproducció"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
@@ -150,12 +150,12 @@ msgstr "Atura la reproducció després de la peça actual"
 
 #: ../xl/main.py:516
 msgid "Collection Options"
-msgstr ""
+msgstr "Opcions de la col·lecció"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526
 msgid "LOCATION"
-msgstr ""
+msgstr "UBICACIÓ"
 
 #: ../xl/main.py:519
 msgid "Add tracks from LOCATION to the collection"
@@ -163,7 +163,7 @@ msgstr ""
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "Opcions de llista de reproducció"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: ../xl/main.py:530
 msgid "Track Options"
-msgstr "Opcions de pista"
+msgstr "Opcions de peça"
 
 #: ../xl/main.py:532
 msgid "Query player"
@@ -180,7 +180,7 @@ msgstr "Consulta reproductor"
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
@@ -189,11 +189,11 @@ msgstr ""
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "ETIQUETES"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr ""
+msgstr "Les ETIQUETES a obtenir des de la peça actual, useu amb --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -267,11 +267,11 @@ msgstr "Inicia una instància nova"
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr "Mostrar aquest missatge d'ajuda al sortir"
+msgstr "Mostra aquest missatge d’ajuda i surt"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr "Mostrar la versió del programa i sortir"
+msgstr "Mostra la versió del programa i surt."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
@@ -283,7 +283,7 @@ msgstr ""
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
-msgstr "Inicia en mode segur - a vegades és útil si us trobeu amb problemes"
+msgstr "Inicia en mode segur: de vegades és útil si us trobeu amb problemes"
 
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
@@ -301,7 +301,7 @@ msgstr ""
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
-msgstr "Opcions de desenvopupament/depuració"
+msgstr "Opcions de desenvolupament i depuració"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
@@ -385,29 +385,28 @@ msgstr ""
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetes"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Fitxer local"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
-msgstr ""
+msgstr "L’arxiu del connector no és en el format correcte."
 
 #: ../xl/plugins.py:104
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "Ja s’ha instal·lat un connector anomenat «%s»."
 
 #: ../xl/plugins.py:109
 msgid "Plugin archive contains an unsafe path."
-msgstr ""
+msgstr "L’arxiu del connector conté un camí no segur."
 
 #: ../xl/trax/trackdb.py:176
 msgid "You did not specify a location to load the db from"
-msgstr ""
-"No has especificat la localització de la base de dades que s'ha de carregar"
+msgstr "No heu especificat cap ubicació on trobar i carregar la base de dades"
 
 #: ../xl/trax/trackdb.py:259
 msgid "You did not specify a location to save the db"
@@ -431,7 +430,7 @@ msgstr " / "
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -495,7 +494,7 @@ msgstr "Personalitzat"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Automàtic"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
@@ -504,7 +503,7 @@ msgstr ""
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
 msgid "Not playing."
-msgstr "No s'està reproduint"
+msgstr "No s’està reproduint res."
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -539,7 +538,7 @@ msgstr "Autor"
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
-msgstr "BPM"
+msgstr "PPM"
 
 #: ../xl/metadata/tags.py:45
 msgid "Copyright"
@@ -547,7 +546,7 @@ msgstr "Drets d'autor"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Comentari"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
@@ -647,17 +646,17 @@ msgstr "Pàgina web"
 #: ../plugins/icecast/__init__.py:390 ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
-msgstr "Ràtio de bits"
+msgstr "Taxa de bits"
 
 #: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
 msgid "Date added"
-msgstr "Data d'incorporació"
+msgstr "Data d’adició"
 
 #: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
 #: ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
-msgstr "Escoltada per últim cop"
+msgstr "Última reproducció"
 
 #: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:253
 #: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:97
@@ -705,7 +704,7 @@ msgstr "S'ha trobat un tipus de paràmetre desconegut!"
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
-msgstr ""
+msgstr "El tipus de la llista de reproducció no és vàlid."
 
 #: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
 #: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
@@ -723,7 +722,7 @@ msgstr "Llista de reproducció PLS"
 #: ../xl/playlist.py:529 ../xl/playlist.py:545
 #, python-format
 msgid "Invalid format for %s."
-msgstr ""
+msgstr "El format no és vàlid per a %s."
 
 #: ../xl/playlist.py:540
 #, python-format
@@ -821,7 +820,7 @@ msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:183
 msgid "Move to Trash"
-msgstr ""
+msgstr "Mou a la paperera"
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
@@ -865,11 +864,11 @@ msgstr "Limita a: "
 
 #: ../xlgui/widgets/filter.py:107
 msgid " tracks"
-msgstr ""
+msgstr " peces"
 
 #: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
 msgid "Not Playing"
-msgstr "No s'està reproduint"
+msgstr "No s’està reproduint res"
 
 #: ../xlgui/widgets/playback.py:748
 #, python-format
@@ -896,7 +895,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playback.py:1278
 msgid "Full Volume"
-msgstr ""
+msgstr "Volum al màxim"
 
 #: ../xlgui/widgets/info.py:69
 msgid ""
@@ -941,7 +940,7 @@ msgstr ""
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/widgets/playlist_columns.py:217 ../xlgui/panel/flatplaylist.py:91
 msgid "#"
-msgstr "#"
+msgstr "Núm."
 
 #: ../xlgui/widgets/playlist_columns.py:218
 msgid "Track Number"
@@ -1002,7 +1001,7 @@ msgstr "Repeteix"
 
 #: ../xlgui/widgets/playlist.py:138
 msgid "Dynamic"
-msgstr "Dinamic"
+msgstr "Dinàmic"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
@@ -1020,7 +1019,7 @@ msgstr ""
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
 #: ../plugins/droptrayicon/__init__.py:288
 msgid "New Playlist"
-msgstr "Nova Llista de Reproducció"
+msgstr "Llista de reproducció nova"
 
 #: ../xlgui/widgets/playlist.py:267
 msgid "Stop Playback After This Track"
@@ -1036,11 +1035,11 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
-msgstr "Afegeix dinàmicament pises similars a la llista de reproducció"
+msgstr "Afegeix dinàmicament peces similars a la llista"
 
 #: ../xlgui/widgets/dialogs.py:291
 msgid "Enter the URL to open"
-msgstr "Introduïu l'adreça URL per obrir"
+msgstr "Introduïu l’URL que s’ha d’obrir"
 
 #: ../xlgui/widgets/dialogs.py:292
 msgid "Open URL"
@@ -1056,7 +1055,7 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:627
 msgid "Supported Files"
-msgstr "Fitxers suportats"
+msgstr "Fitxers compatibles"
 
 #: ../xlgui/widgets/dialogs.py:629
 msgid "Music Files"
@@ -1064,7 +1063,7 @@ msgstr "Fitxers de música"
 
 #: ../xlgui/widgets/dialogs.py:631 ../xlgui/widgets/dialogs.py:789
 msgid "Playlist Files"
-msgstr ""
+msgstr "Llistes de reproducció"
 
 #: ../xlgui/widgets/dialogs.py:633 ../xlgui/widgets/dialogs.py:791
 #: ../xlgui/preferences/plugin.py:222
@@ -1096,7 +1095,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "Tanca %s"
 
 #: ../xlgui/widgets/dialogs.py:960
 #, python-format
@@ -1113,11 +1112,11 @@ msgstr "Tanca sense desar"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
-msgstr ""
+msgstr "Sí a tot"
 
 #: ../xlgui/widgets/dialogs.py:1327
 msgid "No to all"
-msgstr ""
+msgstr "No a tot"
 
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
@@ -1132,11 +1131,11 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "El fitxer ja existeix, voleu sobreescriure %s?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
-msgstr ""
+msgstr "Nom de la llista:"
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."

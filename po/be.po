@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-23 22:27+0200\n"
+"PO-Revision-Date: 2014-12-25 18:55+0200\n"
 "Last-Translator: Viktar Palstsiuk <vipals@gmail.com>\n"
 "Language-Team: Belarusian "
 "<https://hosted.weblate.org/projects/exaile/master/be/>\n"
@@ -53,31 +53,31 @@ msgstr[1] ""
 #: ../xl/formatter.py:585
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dд, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dг, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dх, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:592
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%dс"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%dд "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:600
@@ -89,268 +89,272 @@ msgstr "%d:%02d:%02d"
 #: ../xl/formatter.py:604
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:693 ../xl/formatter.py:698
 msgid "Never"
-msgstr ""
+msgstr "Ніколі"
 
 #: ../xl/formatter.py:704
 msgid "Today"
-msgstr ""
+msgstr "Сёння"
 
 #: ../xl/formatter.py:706
 msgid "Yesterday"
-msgstr ""
+msgstr "Учора"
 
 #: ../xl/main.py:237
 msgid "Failed to migrate from 0.2.14"
-msgstr "Памылка падчас міграцыі з 0.2.14"
+msgstr "Не атрымалася міграваць з 0.2.14"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "Выкарыстанне: exaile [ПАРАМЕТРЫ]... [URI]"
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "Налады"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
-msgstr ""
+msgstr "Налады прайгравання"
 
 #: ../xl/main.py:499
 msgid "Play the next track"
-msgstr "Граць наступны трэк"
+msgstr "Прайграць наступную кампазіцыю"
 
 #: ../xl/main.py:501
 msgid "Play the previous track"
-msgstr "Граць папярэдні трэк"
+msgstr "Прайграць папярэднюю кампазіцыю"
 
 #: ../xl/main.py:503 ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr "Спыніць прайграваньне"
+msgstr "Спыніць прайграванне"
 
 #: ../xl/main.py:505
 msgid "Play"
-msgstr "Граць"
+msgstr "Прайграць"
 
 #: ../xl/main.py:507
 msgid "Pause"
-msgstr ""
+msgstr "Прыпыніць"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "Прыпыніць ці працягнуць прайграванне"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
-msgstr "Спыніцца пасля бягучага трэка"
+msgstr "Спыніць прайграванне пасля бягучай дарожкі"
 
 #: ../xl/main.py:516
 msgid "Collection Options"
-msgstr ""
+msgstr "Параметры калекцыі"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526
 msgid "LOCATION"
-msgstr ""
+msgstr "РАЗМЯШЧЭННЕ"
 
 #: ../xl/main.py:519
 msgid "Add tracks from LOCATION to the collection"
-msgstr ""
+msgstr "Дадаць дарожкі з РАЗМЯШЧЭННЯ ў калекцыю"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "Параметры спісу прайгравання"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "Экспарт бягучага спісу прайгравання ў РАЗМЯШЧЭННЕ"
 
 #: ../xl/main.py:530
 msgid "Track Options"
-msgstr ""
+msgstr "Уласцівасці дарожкі"
 
 #: ../xl/main.py:532
 msgid "Query player"
-msgstr ""
+msgstr "Апытаць прайгравальнік"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "ФАРМАТ"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
-msgstr ""
+msgstr "Атрымлівае бягучы стан прайгравання, выкарыстоўваючы ФАРМАТ"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "ПАЗНАКІ"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
 msgstr ""
+"ПАЗНАКІ, якія атрымліваюцца для бягучай дарожкі, выкарыстоўваць з --format-"
+"query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "Паказаць усплывальнае акно з дадзенымі пра бягучую дарожку"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
-msgstr "Паказаць назву бягучага трэка"
+msgstr "Паказваць назву бягучай дарожкі"
 
 #: ../xl/main.py:547
 msgid "Print the album of current track"
-msgstr "Паказаць альбом бягучага трэка"
+msgstr "Паказваць назву альбома для бягучай дарожкі"
 
 #: ../xl/main.py:549
 msgid "Print the artist of current track"
-msgstr "Паказаць выканаўцу бягучага трэка"
+msgstr "Паказваць выканаўца бягучай дарожкі"
 
 #: ../xl/main.py:551
 msgid "Print the length of current track"
-msgstr "Паказаць працягласць бягучага трэка"
+msgstr "Паказваць працягласць бягучай дарожкі"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "Усталяваць рэйтынг бягучай дарожкі ў N%"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr ""
+msgstr "Атрымаць рэйтынг бягучай дарожкі"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "Паказваць бягучы прагрэс прайгравання як час"
 
 #: ../xl/main.py:562
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "Паказваць бягучы прагрэс прайгравання ў адсотках"
 
 #: ../xl/main.py:566
 msgid "Volume Options"
-msgstr ""
+msgstr "Налады гуку"
 
 #: ../xl/main.py:570
 msgid "Increases the volume by N%"
-msgstr ""
+msgstr "Павялічыць гучнасць на N%"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:575
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "Паменшыць гучнасць на N%"
 
 #: ../xl/main.py:578
 msgid "Mutes or unmutes the volume"
-msgstr ""
+msgstr "Прыглушыць ці ўключыць гучнасць"
 
 #: ../xl/main.py:580
 msgid "Print the current volume percentage"
-msgstr "Паказваць бягучую гучнасць працэнтамі"
+msgstr "Паказваць бягучы ўзровень гучнасці"
 
 #: ../xl/main.py:583
 msgid "Other Options"
-msgstr ""
+msgstr "Іншыя налады"
 
 #: ../xl/main.py:585
 msgid "Start new instance"
-msgstr "Пачаць новую сесію"
+msgstr "Запусціць новы асобнік"
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "Паказаць гэта даведкавае паведамленне і выйсці"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "Паказаць нумар версіі праграмы і выйсці."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr "Запускацца згорнутым (у трэй, калі магчыма)"
+msgstr "Запускаць згорнутым (у вобласці апавяшчэнняў, калі магчыма)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Пераключыць бачнасць графічнага інтэрфейсу (калі магчыма)"
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
-msgstr ""
-"Запускацца ў бяспечным рэжыме - бывае карысна, калі нешта не працуе належным "
-"чынам"
+msgstr "Запускаць у бяспечным рэжыме — карысна пры ўзнікненні праблем"
 
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
+"Прымусова імпартаваць старыя дадзеныя з версіі 0.2.x (Перазапіша бягучыя "
+"дадзеныя)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
-msgstr ""
+msgstr "Не імпартаваць старыя дадзеныя з версіі 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
+"Запускаць Exaile пры выкарыстанні такіх параметраў, як --play, калі ён яшчэ "
+"не запушчаны"
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "Налады распрацоўкі і адладкі"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
-msgstr ""
+msgstr "КАТАЛОГ"
 
 #: ../xl/main.py:612
 msgid "Set data directory"
-msgstr ""
+msgstr "Задаць каталог з дадзенымі"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Задаць каталог для захоўвання дадзеных і налад"
 
 #: ../xl/main.py:616
 msgid "MODULE"
-msgstr ""
+msgstr "МОДУЛЬ"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "Абмежаваць часопіс падзей да МОДУЛЯ"
 
 #: ../xl/main.py:619
 msgid "LEVEL"
-msgstr ""
+msgstr "УЗРОВЕНЬ"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "Абмежаваць часопіс падзей да ЎЗРОЎНЯ"
 
 #: ../xl/main.py:623
 msgid "Show debugging output"
-msgstr "Паказваць вывад адладкі"
+msgstr "Паказваць паведамленні адладкі"
 
 #: ../xl/main.py:625
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "Уключыць адладку xl.event. Стварае ВЕЛІЗАРНУЮ колькасць вываду"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Дадаць імя патока да рэгістрацыі паведамленняў"
 
 #: ../xl/main.py:631
 msgid "TYPE"
-msgstr ""
+msgstr "ТЫП"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
-msgstr ""
+msgstr "Абмежаваць вывад адладкавай інфармацыі xl.event ТЫПАМ"
 
 #: ../xl/main.py:634
 msgid "Reduce level of output"
@@ -366,66 +370,67 @@ msgstr "Адключыць падтрымку HAL."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
-msgstr "Уся бібліятэка"
+msgstr "Уся фанатэка"
 
 #: ../xl/main.py:662
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "%d выпадковых"
 
 #: ../xl/main.py:670
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "Рэйтынг > %d"
 
 #: ../xl/main.py:814
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile яшчэ не запусціўся. Магчыма, вам варта дачакацца сігналу exaile_loaded"
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
-msgstr ""
+msgstr "Пазнакі"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Лакальны файл"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
-msgstr ""
+msgstr "Няслушны фармат архіва з дадаткам."
 
 #: ../xl/plugins.py:104
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "Модуль «%s» ужо ўсталяваны."
 
 #: ../xl/plugins.py:109
 msgid "Plugin archive contains an unsafe path."
-msgstr ""
+msgstr "Архіў з дадаткам утрымоўвае небяспечны шлях."
 
 #: ../xl/trax/trackdb.py:176
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "Вы не паказалі месцазнаходжанне базы дадзеных"
 
 #: ../xl/trax/trackdb.py:259
 msgid "You did not specify a location to save the db"
-msgstr "Вы не пазначылі шлях захавання базы дадзеных"
+msgstr "Вы не паказалі месца для захавання базы дадзеных"
 
 #: ../xl/trax/track.py:65 ../xlgui/widgets/info.py:422
 msgid "Various Artists"
-msgstr ""
+msgstr "Розныя выканаўцы"
 
 #. TRANSLATORS: title of a track if it is unknown
 #: ../xl/trax/track.py:66 ../plugins/notifyosd/__init__.py:71
 msgid "Unknown"
-msgstr ""
+msgstr "Невядома"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
@@ -438,34 +443,47 @@ msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
+"Vorbis — адкрыты кодэк для сціску гуку са стратамі, які дае высокую якасць "
+"пры меншым памеры файла, чым MP3."
 
 #: ../xl/transcoder.py:66
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
 msgstr ""
+"FLAC (Free Lossless Audio Codec) — адкрыты кодэк, які сціскае гук без страты "
+"якасці."
 
 #: ../xl/transcoder.py:78
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
+"Фармат сціску гуку  прыналежны Apple,  дае больш высокую якасць на нізкіх "
+"чашчынях, чым MP3."
 
 #: ../xl/transcoder.py:89
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
+"Зачынены, састарэлы, але ўсё яшчэ папулярны фармат сціску гуку са стратамі. "
+"VBR дае больш высокая якасць гуку, чым CBR, але можа апынуцца несумяшчальным "
+"з некаторымі плэерамі."
 
 #: ../xl/transcoder.py:100
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
+"Зачынены, састарэлы, але ўсё яшчэ папулярны фармат сціску гуку са стратамі. "
+"CBR дае ніжэйшая якасць гуку, чым VBR, але сумяшчальны з любымі плэерамі."
 
 #: ../xl/transcoder.py:111
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
+"Cвободный фармат сціску гуку без страты якасці з высокай хуткасцю і добрай "
+"кампрэсіяй."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
@@ -478,11 +496,11 @@ msgstr "Аўтаматычна"
 #: ../xl/player/pipe.py:504 ../xl/player/pipe.py:527
 #: ../xl/player/sink_windows.py:37
 msgid "Custom"
-msgstr ""
+msgstr "Уручную"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Аўта"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
@@ -491,7 +509,7 @@ msgstr ""
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
 msgid "Not playing."
-msgstr ""
+msgstr "Не прайграваецца."
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -499,167 +517,169 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"стан: %(status)s, назва: %(title)s, выканавец: %(artist)s, альбом: %(album)"
+"s, даўжыня: %(length)s, пазіцыя: %(progress)s%% [%(position)s]"
 
 #: ../xl/metadata/tags.py:40 ../xlgui/widgets/playlist_columns.py:246
 #: ../xlgui/panel/collection.py:132 ../data/ui/widgets/tracklist_info.ui.h:1
 #: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:96
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Album"
-msgstr ""
+msgstr "Альбом"
 
 #: ../xl/metadata/tags.py:41
 msgid "Arranger"
-msgstr ""
+msgstr "Апрацоўка"
 
 #: ../xl/metadata/tags.py:42 ../xlgui/widgets/playlist_columns.py:232
 #: ../xlgui/panel/collection.py:129 ../data/ui/widgets/tracklist_info.ui.h:2
 #: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Artist"
-msgstr ""
+msgstr "Выканавец"
 
 #: ../xl/metadata/tags.py:43
 msgid "Author"
-msgstr ""
+msgstr "Аўтар"
 
 #: ../xl/metadata/tags.py:44 ../xlgui/widgets/playlist_columns.py:353
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: ../xl/metadata/tags.py:45
 msgid "Copyright"
-msgstr ""
+msgstr "Аўтарскія правы"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Апісанне"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
 #: ../plugins/cd/cdprefs.py:108 ../plugins/minimode/minimode_preferences.py:95
 msgid "Composer"
-msgstr ""
+msgstr "Кампазітар"
 
 #: ../xl/metadata/tags.py:48
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:10
 msgid "Conductor"
-msgstr ""
+msgstr "Дырыжор"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/cover.py:812
 msgid "Cover"
-msgstr ""
+msgstr "Вокладка"
 
 #: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:312
 #: ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:100
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:260
 msgid "Disc"
-msgstr ""
+msgstr "Дыск"
 
 #: ../xl/metadata/tags.py:52
 msgid "Encoded by"
-msgstr ""
+msgstr "Кадаваны"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:318
 #: ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:101
 msgid "Genre"
-msgstr ""
+msgstr "Жанр"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
 msgid "Grouping"
-msgstr ""
+msgstr "Групаванне"
 
 #: ../xl/metadata/tags.py:55
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:56 ../plugins/lyricsviewer/__init__.py:347
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:1
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricsviewer/PLUGININFO:5
 #: ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
-msgstr ""
+msgstr "Тэкст песні"
 
 #: ../xl/metadata/tags.py:57
 msgid "Lyricist"
-msgstr ""
+msgstr "Аўтар тэксту"
 
 #: ../xl/metadata/tags.py:58
 msgid "Organization"
-msgstr ""
+msgstr "Арганізацыя"
 
 #: ../xl/metadata/tags.py:59
 msgid "Original album"
-msgstr ""
+msgstr "Зыходны альбом"
 
 #: ../xl/metadata/tags.py:60
 msgid "Original artist"
-msgstr ""
+msgstr "Арыгінальны выканавец"
 
 #: ../xl/metadata/tags.py:61
 msgid "Original date"
-msgstr ""
+msgstr "Арыгінальная дата"
 
 #: ../xl/metadata/tags.py:63
 msgid "Performer"
-msgstr ""
+msgstr "Выканавец"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/widgets/playlist_columns.py:225
 #: ../xlgui/panel/flatplaylist.py:99 ../plugins/cd/cdprefs.py:106
 #: ../plugins/minimode/minimode_preferences.py:93
 #: ../plugins/grouptagger/gt_import.ui.h:3
 msgid "Title"
-msgstr ""
+msgstr "Назва"
 
 #: ../xl/metadata/tags.py:65 ../plugins/grouptagger/gt_mass.ui.h:7
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
-msgstr ""
+msgstr "Дарожка"
 
 #: ../xl/metadata/tags.py:66 ../data/ui/preferences/plugin.ui.h:2
 msgid "Version"
-msgstr ""
+msgstr "Версія"
 
 #: ../xl/metadata/tags.py:67
 msgid "Website"
-msgstr ""
+msgstr "Сайт"
 
 #: ../xl/metadata/tags.py:71 ../xlgui/widgets/playlist_columns.py:325
 #: ../plugins/icecast/__init__.py:390 ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
-msgstr ""
+msgstr "Бітрэйт"
 
 #: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
 msgid "Date added"
-msgstr ""
+msgstr "Дата дадання"
 
 #: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
 #: ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
-msgstr ""
+msgstr "Апошняе прайграванне"
 
 #: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:253
 #: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:97
 msgid "Length"
-msgstr ""
+msgstr "Час"
 
 #: ../xl/metadata/tags.py:76 ../xlgui/widgets/playlist_columns.py:332
 #: ../data/ui/collection_manager.ui.h:2 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:103
 msgid "Location"
-msgstr ""
+msgstr "Месцазнаходжанне"
 
 #: ../xl/metadata/tags.py:77
 msgid "Modified"
-msgstr ""
+msgstr "Зменены"
 
 #: ../xl/metadata/tags.py:78
 #, fuzzy
@@ -668,7 +688,7 @@ msgstr "Граць"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
-msgstr ""
+msgstr "Прайграны раз"
 
 #: ../xl/metadata/tags.py:81
 msgid "Start offset"
@@ -680,19 +700,19 @@ msgstr ""
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "Версія параметраў навей бягучай."
 
 #: ../xl/settings.py:248
 msgid "We don't know how to store that kind of setting: "
-msgstr ""
+msgstr "Нам невядома, як захаваць гэты тып параметраў: "
 
 #: ../xl/settings.py:276
 msgid "An Unknown type of setting was found!"
-msgstr ""
+msgstr "Выяўлены невядомы тып параметраў!"
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
-msgstr ""
+msgstr "Некарэктны тып спісу прайгравання."
 
 #: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
 #: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
@@ -701,61 +721,61 @@ msgstr ""
 
 #: ../xl/playlist.py:327
 msgid "M3U Playlist"
-msgstr ""
+msgstr "Спіс прайгравання M3U"
 
 #: ../xl/playlist.py:435
 msgid "PLS Playlist"
-msgstr ""
+msgstr "Cпіс прайгравання PLS"
 
 #: ../xl/playlist.py:529 ../xl/playlist.py:545
 #, python-format
 msgid "Invalid format for %s."
-msgstr ""
+msgstr "Некарэктны фармат для %s."
 
 #: ../xl/playlist.py:540
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "Непадтрымліваемая версія %(version)s для %(type)s"
 
 #: ../xl/playlist.py:600
 msgid "ASX Playlist"
-msgstr ""
+msgstr "Спіс прайгравання ASX"
 
 #: ../xl/playlist.py:771
 msgid "XSPF Playlist"
-msgstr ""
+msgstr "Cпіс прайгравання XSPF"
 
 #: ../xl/playlist.py:886
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "_Не змешваць"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Змешваць _дарожкі"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Змешваць _альбомы"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _Off"
-msgstr ""
+msgstr "_Не паўтараць"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _All"
-msgstr ""
+msgstr "Паўтараць _усё"
 
 #: ../xl/playlist.py:891
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "Паўтараць _адзін"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic _Off"
-msgstr ""
+msgstr "Выключыць дынамічны плэйліст"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic by Similar _Artists"
-msgstr ""
+msgstr "Дынамічны плэйліст з падобнымі выканаўцамі"
 
 #: ../xl/playlist.py:1843 ../xlgui/panel/playlists.py:58
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:85
@@ -769,24 +789,24 @@ msgstr ""
 
 #: ../xl/playlist.py:1845 ../xlgui/panel/playlists.py:78
 msgid "hours"
-msgstr ""
+msgstr "гадзіны"
 
 #: ../xl/playlist.py:1846 ../xlgui/panel/playlists.py:67
 #: ../xlgui/panel/playlists.py:78
 msgid "days"
-msgstr ""
+msgstr "дзён"
 
 #: ../xl/playlist.py:1847 ../xlgui/panel/playlists.py:78
 msgid "weeks"
-msgstr ""
+msgstr "тыдзень"
 
 #: ../xl/lyrics.py:340
 msgid "Local"
-msgstr ""
+msgstr "Лакальна"
 
 #: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
-msgstr ""
+msgstr "Паставіць у чаргу"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
@@ -794,86 +814,86 @@ msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
-msgstr ""
+msgstr "Дадаць да бягучага"
 
 #: ../xlgui/widgets/menuitems.py:146 ../xlgui/properties.py:1125
 msgid "Open Directory"
-msgstr ""
+msgstr "Адкрыць каталог"
 
 #: ../xlgui/widgets/menuitems.py:168
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
-msgstr ""
+msgstr "Файл немагчыма перамясціць у кошык. Выдаліць файл з дыска канчаткова?"
 
 #: ../xlgui/widgets/menuitems.py:183
 msgid "Move to Trash"
-msgstr ""
+msgstr "Перамясціць у кошык"
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
-msgstr ""
+msgstr "Паказаць прайграваны трэк"
 
 #: ../xlgui/widgets/menuitems.py:221 ../xlgui/widgets/playlist.py:227
 msgid "Rename"
-msgstr ""
+msgstr "Пераназваць"
 
 #: ../xlgui/widgets/menuitems.py:226
 msgid "Edit"
-msgstr ""
+msgstr "Праўка"
 
 #: ../xlgui/widgets/menuitems.py:231
 msgid "Export Playlist"
-msgstr ""
+msgstr "Экспарт спісу прайгравання"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr ""
+msgstr "Экспартаваць файлы"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
-msgstr ""
+msgstr "Выдаліць спіс прайгравання"
 
 #: ../xlgui/widgets/filter.py:65 ../xlgui/panel/radio.py:179
 msgid "Name:"
-msgstr ""
+msgstr "Назва:"
 
 #: ../xlgui/widgets/filter.py:79
 msgid "Match any of the criteria"
-msgstr ""
+msgstr "Дадаць усё па крытэры"
 
 #: ../xlgui/widgets/filter.py:81
 msgid "Randomize results"
-msgstr ""
+msgstr "Выпадковыя вынікі"
 
 #: ../xlgui/widgets/filter.py:97
 msgid "Limit to: "
-msgstr ""
+msgstr "Абмежаваны да: "
 
 #: ../xlgui/widgets/filter.py:107
 msgid " tracks"
-msgstr ""
+msgstr " дарожкі"
 
 #: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
 msgid "Not Playing"
-msgstr ""
+msgstr "Не прайграваецца"
 
 #: ../xlgui/widgets/playback.py:748
 #, python-format
 msgid "Seeking: %s"
-msgstr ""
+msgstr "Пошук: %s"
 
 #: ../xlgui/widgets/playback.py:1024
 msgid "Move"
-msgstr ""
+msgstr "Перамясціць"
 
 #: ../xlgui/widgets/playback.py:1170
 msgid "New Marker"
-msgstr ""
+msgstr "Новая пазнака"
 
 #: ../xlgui/widgets/playback.py:1269
 msgid "Muted"
-msgstr ""
+msgstr "гук выключаны"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1275
@@ -4568,4 +4588,4 @@ msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Дазволіць прайграванне музыкі з DAAP."

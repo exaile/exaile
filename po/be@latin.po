@@ -54,222 +54,224 @@ msgstr[2] ""
 #: ../xl/formatter.py:585
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%dh, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dch, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:592
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:604
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:693 ../xl/formatter.py:698
 msgid "Never"
-msgstr ""
+msgstr "Nіkolі"
 
 #: ../xl/formatter.py:704
 msgid "Today"
-msgstr ""
+msgstr "Sionnia"
 
 #: ../xl/formatter.py:706
 msgid "Yesterday"
-msgstr ""
+msgstr "Učora"
 
 #: ../xl/main.py:237
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "Nie atrymalasia mіhravać z 0.2.14"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "Vykarystannie: exaile [PARAMIETRY]... [URI]"
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "Nalady"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
-msgstr ""
+msgstr "Nalady prajhravannia"
 
 #: ../xl/main.py:499
 msgid "Play the next track"
-msgstr ""
+msgstr "Prajhrać nastupnuju kampazіcyju"
 
 #: ../xl/main.py:501
 msgid "Play the previous track"
-msgstr ""
+msgstr "Prajhrać papiaredniuju kampazіcyju"
 
 #: ../xl/main.py:503 ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr ""
+msgstr "Spynіć prajhravannie"
 
 #: ../xl/main.py:505
 msgid "Play"
-msgstr ""
+msgstr "Prajhrać"
 
 #: ../xl/main.py:507
 msgid "Pause"
-msgstr ""
+msgstr "Prypynіć"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "Prypynіć cі praciahnuć prajhravannie"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "Spynіć prajhravannie paslia biahučaj darožkі"
 
 #: ../xl/main.py:516
 msgid "Collection Options"
-msgstr ""
+msgstr "Paramietry kaliekcyі"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526
 msgid "LOCATION"
-msgstr ""
+msgstr "RAZMIAŠČENNIe"
 
 #: ../xl/main.py:519
 msgid "Add tracks from LOCATION to the collection"
-msgstr ""
+msgstr "Dadać darožkі z RAZMIAŠČENNIa ŭ kaliekcyju"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "Paramietry spіsu prajhravannia"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "Ekspart biahučaha spіsu prajhravannia ŭ RAZMIAŠČENNIe"
 
 #: ../xl/main.py:530
 msgid "Track Options"
-msgstr ""
+msgstr "Ulascіvascі darožkі"
 
 #: ../xl/main.py:532
 msgid "Query player"
-msgstr ""
+msgstr "Apytać prajhravaĺnіk"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
 msgid "FORMAT"
-msgstr ""
+msgstr "FARMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
-msgstr ""
+msgstr "Atrymlіvaje biahučy stan prajhravannia, vykarystoŭvajučy FARMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "PAZNAKІ"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
 msgstr ""
+"PAZNAKІ, jakіja atrymlіvajucca dlia biahučaj darožkі, vykarystoŭvać z "
+"--format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "Pakazać usplyvaĺnaje akno z dadzienymі pra biahučuju darožku"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
-msgstr ""
+msgstr "Pakazvać nazvu biahučaj darožkі"
 
 #: ../xl/main.py:547
 msgid "Print the album of current track"
-msgstr ""
+msgstr "Pakazvać nazvu aĺboma dlia biahučaj darožkі"
 
 #: ../xl/main.py:549
 msgid "Print the artist of current track"
-msgstr ""
+msgstr "Pakazvać vykanaŭca biahučaj darožkі"
 
 #: ../xl/main.py:551
 msgid "Print the length of current track"
-msgstr ""
+msgstr "Pakazvać praciahlasć biahučaj darožkі"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "Ustaliavać rejtynh biahučaj darožkі ŭ N%"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr ""
+msgstr "Atrymać rejtynh biahučaj darožkі"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "Pakazvać biahučy prahres prajhravannia jak čas"
 
 #: ../xl/main.py:562
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "Pakazvać biahučy prahres prajhravannia ŭ adsotkach"
 
 #: ../xl/main.py:566
 msgid "Volume Options"
-msgstr ""
+msgstr "Nalady huku"
 
 #: ../xl/main.py:570
 msgid "Increases the volume by N%"
-msgstr ""
+msgstr "Pavialіčyć hučnasć na N%"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:575
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "Pamienšyć hučnasć na N%"
 
 #: ../xl/main.py:578
 msgid "Mutes or unmutes the volume"
-msgstr ""
+msgstr "Pryhlušyć cі ŭkliučyć hučnasć"
 
 #: ../xl/main.py:580
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "Pakazvać biahučy ŭzrovień hučnascі"
 
 #: ../xl/main.py:583
 msgid "Other Options"
-msgstr ""
+msgstr "Іnšyja nalady"
 
 #: ../xl/main.py:585
 msgid "Start new instance"
-msgstr ""
+msgstr "Zapuscіć novy asobnіk"
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "Pakazać heta daviedkavaje paviedamliennie і vyjscі"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
@@ -277,11 +279,11 @@ msgstr ""
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "Zapuskać zhornutym (u voblascі apaviaščenniaŭ, kalі mahčyma)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Pierakliučyć bačnasć hrafіčnaha іnterfiejsu (kalі mahčyma)"
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
@@ -290,141 +292,147 @@ msgstr ""
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
+"Prymusova іmpartavać staryja dadzienyja z viersіі 0.2.x (Pierazapіša "
+"biahučyja dadzienyja)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
-msgstr ""
+msgstr "Nie іmpartavać staryja dadzienyja z viersіі 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
+"Zapuskać Exaile pry vykarystannі takіch paramietraŭ, jak --play, kalі jon "
+"jašče nie zapuščany"
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "Nalady raspracoŭkі і adladkі"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
-msgstr ""
+msgstr "KATALOH"
 
 #: ../xl/main.py:612
 msgid "Set data directory"
-msgstr ""
+msgstr "Zadać kataloh z dadzienymі"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Zadać kataloh dlia zachoŭvannia dadzienych і nalad"
 
 #: ../xl/main.py:616
 msgid "MODULE"
-msgstr ""
+msgstr "MODUĹ"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "Abmiežavać časopіs padziej da MODULIa"
 
 #: ../xl/main.py:619
 msgid "LEVEL"
-msgstr ""
+msgstr "UZROVIEŃ"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "Abmiežavać časopіs padziej da ŬZROŬNIa"
 
 #: ../xl/main.py:623
 msgid "Show debugging output"
-msgstr ""
+msgstr "Pakazvać paviedamliennі adladkі"
 
 #: ../xl/main.py:625
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "Ukliučyć adladku xl.event. Stvaraje VIELІZARNUJu koĺkasć vyvadu"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Dadać іmia patoka da rehіstracyі paviedamlienniaŭ"
 
 #: ../xl/main.py:631
 msgid "TYPE"
-msgstr ""
+msgstr "TYP"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
-msgstr ""
+msgstr "Abmiežavać vyvad adladkavaj іnfarmacyі xl.event TYPAM"
 
 #: ../xl/main.py:634
 msgid "Reduce level of output"
-msgstr ""
+msgstr "Pamienšyć uzrovień vyvadu"
 
 #: ../xl/main.py:638
 msgid "Disable D-Bus support"
-msgstr ""
+msgstr "Adkliučyć padtrymku D-Bus"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr ""
+msgstr "Adkliučyć padtrymku HAL."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
-msgstr ""
+msgstr "Usia fanateka"
 
 #: ../xl/main.py:662
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "%d vypadkovych"
 
 #: ../xl/main.py:670
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "Rejtynh > %d"
 
 #: ../xl/main.py:814
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile jašče nie zapuscіŭsia. Mahčyma, vam varta dačakacca sіhnalu "
+"exaile_loaded"
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
-msgstr ""
+msgstr "Paznakі"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Lakaĺny fajl"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
-msgstr ""
+msgstr "Niaslušny farmat archіva z dadatkam."
 
 #: ../xl/plugins.py:104
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "Moduĺ «%s» užo ŭstaliavany."
 
 #: ../xl/plugins.py:109
 msgid "Plugin archive contains an unsafe path."
-msgstr ""
+msgstr "Archіŭ z dadatkam utrymoŭvaje niebiaspiečny šliach."
 
 #: ../xl/trax/trackdb.py:176
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "Vy nie pakazalі miescaznachodžannie bazy dadzienych"
 
 #: ../xl/trax/trackdb.py:259
 msgid "You did not specify a location to save the db"
-msgstr ""
+msgstr "Vy nie pakazalі miesca dlia zachavannia bazy dadzienych"
 
 #: ../xl/trax/track.py:65 ../xlgui/widgets/info.py:422
 msgid "Various Artists"
-msgstr ""
+msgstr "Roznyja vykanaŭcy"
 
 #. TRANSLATORS: title of a track if it is unknown
 #: ../xl/trax/track.py:66 ../plugins/notifyosd/__init__.py:71
 msgid "Unknown"
-msgstr ""
+msgstr "Nieviadoma"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
@@ -437,12 +445,16 @@ msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
+"Vorbis — adkryty kodek dlia scіsku huku sa stratamі, jakі daje vysokuju "
+"jakasć pry mienšym pamiery fajla, čym MP3."
 
 #: ../xl/transcoder.py:66
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
 msgstr ""
+"FLAC (Free Lossless Audio Codec) — adkryty kodek, jakі scіskaje huk biez "
+"straty jakascі."
 
 #: ../xl/transcoder.py:78
 msgid ""
@@ -455,16 +467,24 @@ msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
+"Začynieny, sastarely, alie ŭsio jašče papuliarny farmat scіsku huku sa "
+"stratamі. VBR daje boĺš vysokaja jakasć huku, čym CBR, alie moža apynucca "
+"niesumiaščaĺnym z niekatorymі plejeramі."
 
 #: ../xl/transcoder.py:100
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
+"Začynieny, sastarely, alie ŭsio jašče papuliarny farmat scіsku huku sa "
+"stratamі. CBR daje nіžejšaja jakasć huku, čym VBR, alie sumiaščaĺny z "
+"liubymі plejeramі."
 
 #: ../xl/transcoder.py:111
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
+"Cvobodnyj farmat scіsku huku biez straty jakascі z vysokaj chutkasciu і "
+"dobraj kampresіjaj."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
@@ -472,16 +492,16 @@ msgstr ""
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
-msgstr ""
+msgstr "Aŭtamatyčna"
 
 #: ../xl/player/pipe.py:504 ../xl/player/pipe.py:527
 #: ../xl/player/sink_windows.py:37
 msgid "Custom"
-msgstr ""
+msgstr "Uručnuju"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Aŭta"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
@@ -490,7 +510,7 @@ msgstr ""
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
 msgid "Not playing."
-msgstr ""
+msgstr "Nie prajhravajecca."
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -498,167 +518,169 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"stan: %(status)s, nazva: %(title)s, vykanaviec: %(artist)s, aĺbom: %(album)"
+"s, daŭžynia: %(length)s, pazіcyja: %(progress)s%% [%(position)s]"
 
 #: ../xl/metadata/tags.py:40 ../xlgui/widgets/playlist_columns.py:246
 #: ../xlgui/panel/collection.py:132 ../data/ui/widgets/tracklist_info.ui.h:1
 #: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:96
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Album"
-msgstr ""
+msgstr "Aĺbom"
 
 #: ../xl/metadata/tags.py:41
 msgid "Arranger"
-msgstr ""
+msgstr "Apracoŭka"
 
 #: ../xl/metadata/tags.py:42 ../xlgui/widgets/playlist_columns.py:232
 #: ../xlgui/panel/collection.py:129 ../data/ui/widgets/tracklist_info.ui.h:2
 #: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Artist"
-msgstr ""
+msgstr "Vykanaviec"
 
 #: ../xl/metadata/tags.py:43
 msgid "Author"
-msgstr ""
+msgstr "Aŭtar"
 
 #: ../xl/metadata/tags.py:44 ../xlgui/widgets/playlist_columns.py:353
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: ../xl/metadata/tags.py:45
 msgid "Copyright"
-msgstr ""
+msgstr "Aŭtarskіja pravy"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Apіsannie"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
 #: ../plugins/cd/cdprefs.py:108 ../plugins/minimode/minimode_preferences.py:95
 msgid "Composer"
-msgstr ""
+msgstr "Kampazіtar"
 
 #: ../xl/metadata/tags.py:48
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:10
 msgid "Conductor"
-msgstr ""
+msgstr "Dyryžor"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/cover.py:812
 msgid "Cover"
-msgstr ""
+msgstr "Vokladka"
 
 #: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:312
 #: ../plugins/cd/cdprefs.py:113
 #: ../plugins/minimode/minimode_preferences.py:100
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:260
 msgid "Disc"
-msgstr ""
+msgstr "Dysk"
 
 #: ../xl/metadata/tags.py:52
 msgid "Encoded by"
-msgstr ""
+msgstr "Kadavany"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:318
 #: ../plugins/cd/cdprefs.py:114
 #: ../plugins/minimode/minimode_preferences.py:101
 msgid "Genre"
-msgstr ""
+msgstr "Žanr"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
 msgid "Grouping"
-msgstr ""
+msgstr "Hrupavannie"
 
 #: ../xl/metadata/tags.py:55
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:56 ../plugins/lyricsviewer/__init__.py:347
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:1
 #: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricsviewer/PLUGININFO:5
 #: ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
-msgstr ""
+msgstr "Tekst piesnі"
 
 #: ../xl/metadata/tags.py:57
 msgid "Lyricist"
-msgstr ""
+msgstr "Aŭtar tekstu"
 
 #: ../xl/metadata/tags.py:58
 msgid "Organization"
-msgstr ""
+msgstr "Arhanіzacyja"
 
 #: ../xl/metadata/tags.py:59
 msgid "Original album"
-msgstr ""
+msgstr "Zychodny aĺbom"
 
 #: ../xl/metadata/tags.py:60
 msgid "Original artist"
-msgstr ""
+msgstr "Aryhіnaĺny vykanaviec"
 
 #: ../xl/metadata/tags.py:61
 msgid "Original date"
-msgstr ""
+msgstr "Aryhіnaĺnaja data"
 
 #: ../xl/metadata/tags.py:63
 msgid "Performer"
-msgstr ""
+msgstr "Vykanaviec"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/widgets/playlist_columns.py:225
 #: ../xlgui/panel/flatplaylist.py:99 ../plugins/cd/cdprefs.py:106
 #: ../plugins/minimode/minimode_preferences.py:93
 #: ../plugins/grouptagger/gt_import.ui.h:3
 msgid "Title"
-msgstr ""
+msgstr "Nazva"
 
 #: ../xl/metadata/tags.py:65 ../plugins/grouptagger/gt_mass.ui.h:7
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
-msgstr ""
+msgstr "Darožka"
 
 #: ../xl/metadata/tags.py:66 ../data/ui/preferences/plugin.ui.h:2
 msgid "Version"
-msgstr ""
+msgstr "Viersіja"
 
 #: ../xl/metadata/tags.py:67
 msgid "Website"
-msgstr ""
+msgstr "Sajt"
 
 #: ../xl/metadata/tags.py:71 ../xlgui/widgets/playlist_columns.py:325
 #: ../plugins/icecast/__init__.py:390 ../plugins/cd/cdprefs.py:115
 #: ../plugins/minimode/minimode_preferences.py:102
 msgid "Bitrate"
-msgstr ""
+msgstr "Bіtrejt"
 
 #: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
 msgid "Date added"
-msgstr ""
+msgstr "Data dadannia"
 
 #: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
 #: ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
-msgstr ""
+msgstr "Apošniaje prajhravannie"
 
 #: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:253
 #: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:97
 msgid "Length"
-msgstr ""
+msgstr "Čas"
 
 #: ../xl/metadata/tags.py:76 ../xlgui/widgets/playlist_columns.py:332
 #: ../data/ui/collection_manager.ui.h:2 ../plugins/cd/cdprefs.py:116
 #: ../plugins/minimode/minimode_preferences.py:103
 msgid "Location"
-msgstr ""
+msgstr "Miescaznachodžannie"
 
 #: ../xl/metadata/tags.py:77
 msgid "Modified"
-msgstr ""
+msgstr "Zmienieny"
 
 #: ../xl/metadata/tags.py:78
 msgid "Play time"
@@ -666,7 +688,7 @@ msgstr ""
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
-msgstr ""
+msgstr "Prajhrany raz"
 
 #: ../xl/metadata/tags.py:81
 msgid "Start offset"
@@ -678,7 +700,7 @@ msgstr ""
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "Viersіja paramietraŭ naviej biahučaj."
 
 #: ../xl/settings.py:248
 msgid "We don't know how to store that kind of setting: "
@@ -686,11 +708,11 @@ msgstr ""
 
 #: ../xl/settings.py:276
 msgid "An Unknown type of setting was found!"
-msgstr ""
+msgstr "Vyjaŭlieny nieviadomy typ paramietraŭ!"
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
-msgstr ""
+msgstr "Niekarektny typ spіsu prajhravannia."
 
 #: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
 #: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
@@ -699,61 +721,61 @@ msgstr ""
 
 #: ../xl/playlist.py:327
 msgid "M3U Playlist"
-msgstr ""
+msgstr "Spіs prajhravannia M3U"
 
 #: ../xl/playlist.py:435
 msgid "PLS Playlist"
-msgstr ""
+msgstr "Cpіs prajhravannia PLS"
 
 #: ../xl/playlist.py:529 ../xl/playlist.py:545
 #, python-format
 msgid "Invalid format for %s."
-msgstr ""
+msgstr "Niekarektny farmat dlia %s."
 
 #: ../xl/playlist.py:540
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "Niepadtrymlіvajemaja viersіja %(version)s dlia %(type)s"
 
 #: ../xl/playlist.py:600
 msgid "ASX Playlist"
-msgstr ""
+msgstr "Spіs prajhravannia ASX"
 
 #: ../xl/playlist.py:771
 msgid "XSPF Playlist"
-msgstr ""
+msgstr "Cpіs prajhravannia XSPF"
 
 #: ../xl/playlist.py:886
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "_Nie zmiešvać"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Zmiešvać _darožkі"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Zmiešvać _aĺbomy"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _Off"
-msgstr ""
+msgstr "_Nie paŭtarać"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _All"
-msgstr ""
+msgstr "Paŭtarać _usio"
 
 #: ../xl/playlist.py:891
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "Paŭtarać _adzіn"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic _Off"
-msgstr ""
+msgstr "Vykliučyć dynamіčny plejlіst"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic by Similar _Artists"
-msgstr ""
+msgstr "Dynamіčny plejlіst z padobnymі vykanaŭcamі"
 
 #: ../xl/playlist.py:1843 ../xlgui/panel/playlists.py:58
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:85
@@ -767,24 +789,24 @@ msgstr ""
 
 #: ../xl/playlist.py:1845 ../xlgui/panel/playlists.py:78
 msgid "hours"
-msgstr ""
+msgstr "hadzіny"
 
 #: ../xl/playlist.py:1846 ../xlgui/panel/playlists.py:67
 #: ../xlgui/panel/playlists.py:78
 msgid "days"
-msgstr ""
+msgstr "dzion"
 
 #: ../xl/playlist.py:1847 ../xlgui/panel/playlists.py:78
 msgid "weeks"
-msgstr ""
+msgstr "tydzień"
 
 #: ../xl/lyrics.py:340
 msgid "Local"
-msgstr ""
+msgstr "Lakaĺna"
 
 #: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
-msgstr ""
+msgstr "Pastavіć u čarhu"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
@@ -792,86 +814,86 @@ msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
-msgstr ""
+msgstr "Dadać da biahučaha"
 
 #: ../xlgui/widgets/menuitems.py:146 ../xlgui/properties.py:1125
 msgid "Open Directory"
-msgstr ""
+msgstr "Adkryć kataloh"
 
 #: ../xlgui/widgets/menuitems.py:168
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
-msgstr ""
+msgstr "Fajl niemahčyma pieramiascіć u košyk. Vydalіć fajl z dyska kančatkova?"
 
 #: ../xlgui/widgets/menuitems.py:183
 msgid "Move to Trash"
-msgstr ""
+msgstr "Pieramiascіć u košyk"
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
-msgstr ""
+msgstr "Pakazać prajhravany trek"
 
 #: ../xlgui/widgets/menuitems.py:221 ../xlgui/widgets/playlist.py:227
 msgid "Rename"
-msgstr ""
+msgstr "Pieranazvać"
 
 #: ../xlgui/widgets/menuitems.py:226
 msgid "Edit"
-msgstr ""
+msgstr "Praŭka"
 
 #: ../xlgui/widgets/menuitems.py:231
 msgid "Export Playlist"
-msgstr ""
+msgstr "Ekspart spіsu prajhravannia"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr ""
+msgstr "Ekspartavać fajly"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
-msgstr ""
+msgstr "Vydalіć spіs prajhravannia"
 
 #: ../xlgui/widgets/filter.py:65 ../xlgui/panel/radio.py:179
 msgid "Name:"
-msgstr ""
+msgstr "Nazva:"
 
 #: ../xlgui/widgets/filter.py:79
 msgid "Match any of the criteria"
-msgstr ""
+msgstr "Dadać usio pa krytery"
 
 #: ../xlgui/widgets/filter.py:81
 msgid "Randomize results"
-msgstr ""
+msgstr "Vypadkovyja vynіkі"
 
 #: ../xlgui/widgets/filter.py:97
 msgid "Limit to: "
-msgstr ""
+msgstr "Abmiežavany da: "
 
 #: ../xlgui/widgets/filter.py:107
 msgid " tracks"
-msgstr ""
+msgstr " darožkі"
 
 #: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
 msgid "Not Playing"
-msgstr ""
+msgstr "Nie prajhravajecca"
 
 #: ../xlgui/widgets/playback.py:748
 #, python-format
 msgid "Seeking: %s"
-msgstr ""
+msgstr "Pošuk: %s"
 
 #: ../xlgui/widgets/playback.py:1024
 msgid "Move"
-msgstr ""
+msgstr "Pieramiascіć"
 
 #: ../xlgui/widgets/playback.py:1170
 msgid "New Marker"
-msgstr ""
+msgstr "Novaja paznaka"
 
 #: ../xlgui/widgets/playback.py:1269
 msgid "Muted"
-msgstr ""
+msgstr "huk vykliučany"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1275
@@ -4567,4 +4589,4 @@ msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Dazvolіć prajhravannie muzykі z DAAP."

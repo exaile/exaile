@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-11-29 06:02+0200\n"
-"Last-Translator: Jack Lee <suifengtec@qq.com>\n"
-"Language-Team: Chinese <https://hosted.weblate.org/projects/exaile/master/zh/"
-">\n"
+"PO-Revision-Date: 2015-01-03 16:35+0200\n"
+"Last-Translator: feedly acehat <hrblxp@sina.com>\n"
+"Language-Team: Chinese "
+"<https://hosted.weblate.org/projects/exaile/master/zh/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.1-dev\n"
+"X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
 
 #: ../xl/formatter.py:576
@@ -138,19 +138,16 @@ msgid "Pause"
 msgstr "暂停"
 
 #: ../xl/main.py:510
-#, fuzzy
 msgid "Pause or resume playback"
-msgstr "暂停回放"
+msgstr "暂停或重播"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
-#, fuzzy
 msgid "Stop playback after current track"
-msgstr "打印当前音轨的专辑名称"
+msgstr "播放完当前曲目后停止播放"
 
 #: ../xl/main.py:516
-#, fuzzy
 msgid "Collection Options"
-msgstr "音乐库"
+msgstr "可选项"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526

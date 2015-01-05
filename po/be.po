@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-30 09:32+0200\n"
+"PO-Revision-Date: 2015-01-05 19:13+0200\n"
 "Last-Translator: Viktar Palstsiuk <vipals@gmail.com>\n"
 "Language-Team: Belarusian "
 "<https://hosted.weblate.org/projects/exaile/master/be/>\n"
@@ -814,7 +814,7 @@ msgstr "Паставіць у чаргу"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
-msgstr ""
+msgstr "Замяніць бягучы"
 
 #: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
@@ -903,11 +903,11 @@ msgstr "гук выключаны"
 #: ../xlgui/widgets/playback.py:1275
 #, python-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: ../xlgui/widgets/playback.py:1278
 msgid "Full Volume"
-msgstr ""
+msgstr "Поўная гучнасць"
 
 #: ../xlgui/widgets/info.py:69
 msgid ""
@@ -915,20 +915,23 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"у выкананні $artist\n"
+"з $album"
 
 #: ../xlgui/widgets/info.py:417
 msgid "Various"
-msgstr ""
+msgstr "Розныя"
 
 #: ../xlgui/widgets/info.py:436
 #, python-format
 msgid "%(track_count)d in total (%(total_duration)s)"
-msgstr ""
+msgstr "%(track_count)d усяго (%(total_duration)s)"
 
 #: ../xlgui/widgets/info.py:594
 #, python-format
 msgid "%d in collection"
-msgstr ""
+msgstr "%d у калекцыі"
 
 #: ../xlgui/widgets/info.py:616 ../xlgui/widgets/info.py:623
 #, python-format
@@ -942,38 +945,38 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:100
 msgid "Queue"
-msgstr ""
+msgstr "Чарга"
 
 #: ../xlgui/widgets/queue.py:102
 #, python-format
 msgid "Queue (%d)"
-msgstr ""
+msgstr "Чарга (%d)"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/widgets/playlist_columns.py:217 ../xlgui/panel/flatplaylist.py:91
 msgid "#"
-msgstr ""
+msgstr "№"
 
 #: ../xlgui/widgets/playlist_columns.py:218
 msgid "Track Number"
-msgstr ""
+msgstr "Нумар дарожкі"
 
 #: ../xlgui/widgets/playlist_columns.py:261
 msgid "Disc Number"
-msgstr ""
+msgstr "Нумар дыска"
 
 #: ../xlgui/widgets/playlist_columns.py:268 ../xlgui/panel/playlists.py:226
 #: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:99
 #: ../plugins/minimode/controls.py:527
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Rating"
-msgstr ""
+msgstr "Адзнака"
 
 #: ../xlgui/widgets/playlist_columns.py:339 ../xlgui/panel/files.py:116
 #: ../plugins/cd/cdprefs.py:117
 #: ../plugins/minimode/minimode_preferences.py:104
 msgid "Filename"
-msgstr ""
+msgstr "Назва файла"
 
 #: ../xlgui/widgets/playlist_columns.py:346
 msgid "Playcount"
@@ -981,7 +984,7 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
-msgstr ""
+msgstr "Расклад"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
@@ -993,45 +996,45 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
-msgstr ""
+msgstr "_Змяняльны памер"
 
 #: ../xlgui/widgets/playlist_columns.py:638
 msgid "_Autosize"
-msgstr ""
+msgstr "_Аўтаматычны памер"
 
 #: ../xlgui/widgets/rating.py:261
 msgid "Rating:"
-msgstr ""
+msgstr "Рэйтынг:"
 
 #: ../xlgui/widgets/playlist.py:130
 msgid "Shuffle"
-msgstr ""
+msgstr "У выпадковым парадку"
 
 #: ../xlgui/widgets/playlist.py:134
 msgid "Repeat"
-msgstr ""
+msgstr "Паўтор"
 
 #: ../xlgui/widgets/playlist.py:138
 msgid "Dynamic"
-msgstr ""
+msgstr "Дынамічны"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
-msgstr ""
+msgstr "Выдаліць бягучую кампазіцыю з плэйліста"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
-msgstr ""
+msgstr "Перамяшаць Спіс Прайгравання"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "Выпадковы парадак абранага"
 
 #: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
 #: ../plugins/droptrayicon/__init__.py:288
 msgid "New Playlist"
-msgstr ""
+msgstr "Стварыць спіс прайгравання"
 
 #: ../xlgui/widgets/playlist.py:267
 msgid "Stop Playback After This Track"
@@ -1039,39 +1042,40 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist.py:274
 msgid "Continue Playback After This Track"
-msgstr ""
+msgstr "Працягнуць прайграванне пасля гэтага трэка"
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
 msgstr ""
+"Патрабуецца модуль, які забяспечвае падтрымку дынамічных спісаў прайгравання"
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Дадаваць падобныя дарожкі ў спіс прайгравання"
 
 #: ../xlgui/widgets/dialogs.py:291
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Увядзіце URL для адкрыцця"
 
 #: ../xlgui/widgets/dialogs.py:292
 msgid "Open URL"
-msgstr ""
+msgstr "Адкрыць URL"
 
 #: ../xlgui/widgets/dialogs.py:560
 msgid "Select File Type (by Extension)"
-msgstr ""
+msgstr "Абярыце тып файла"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
-msgstr ""
+msgstr "Абярыце медыяфайл для адкрыцця"
 
 #: ../xlgui/widgets/dialogs.py:627
 msgid "Supported Files"
-msgstr ""
+msgstr "Падтрымоўваемыя тыпы файлаў"
 
 #: ../xlgui/widgets/dialogs.py:629
 msgid "Music Files"
-msgstr ""
+msgstr "Музычныя файлы"
 
 #: ../xlgui/widgets/dialogs.py:631 ../xlgui/widgets/dialogs.py:789
 msgid "Playlist Files"
@@ -1080,16 +1084,16 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:633 ../xlgui/widgets/dialogs.py:791
 #: ../xlgui/preferences/plugin.py:222
 msgid "All Files"
-msgstr ""
+msgstr "Усе файлы"
 
 #: ../xlgui/widgets/dialogs.py:707
 msgid "Choose Directory to Open"
-msgstr ""
+msgstr "Абярыце тэчку для адкрыцця"
 
 #: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
 #: ../xlgui/panel/menus.py:184
 msgid "Import Playlist"
-msgstr ""
+msgstr "Імпартаваць спіс прайгравання"
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
@@ -1097,53 +1101,53 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Выкарыстоўваць адносныя адрасы да файлаў"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr ""
+msgstr "Плэйліст захаваны як <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "Зачыніць %s"
 
 #: ../xlgui/widgets/dialogs.py:960
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr ""
+msgstr "<b>Захаваць змены ў %s перад выйсцем?<b>"
 
 #: ../xlgui/widgets/dialogs.py:961
 msgid "Your changes will be lost if you don't save them"
-msgstr ""
+msgstr "Вашы змены будуць страчаны, калі вы іх не захаваеце"
 
 #: ../xlgui/widgets/dialogs.py:963
 msgid "Close Without Saving"
-msgstr ""
+msgstr "Зачыніць без Захавання"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
-msgstr ""
+msgstr "Так для ўсіх"
 
 #: ../xlgui/widgets/dialogs.py:1327
 msgid "No to all"
-msgstr ""
+msgstr "Не для ўсіх"
 
 #: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr ""
+msgstr "Захавана %(count)s з %(total)s."
 
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "Адбылася памылка падчас капіявання %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Файл існуе, замяніць %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
@@ -1151,17 +1155,17 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Дадаць новы спіс прайгравання..."
 
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
 msgid "You did not enter a name for your playlist"
-msgstr ""
+msgstr "Вы не паказалі імя для вашага спісу прайгравання"
 
 #: ../xlgui/widgets/dialogs.py:1545 ../xlgui/panel/playlists.py:349
 #: ../xlgui/panel/playlists.py:754 ../xlgui/panel/playlists.py:844
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Уведзенае вамі назва спісу прайгравання ўжо выкарыстоўваецца."
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
@@ -1169,24 +1173,24 @@ msgstr ""
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
-msgstr ""
+msgstr "Зачыніць укладку"
 
 #: ../xlgui/main.py:113
 msgid "$title (by $artist)"
-msgstr ""
+msgstr "$title ($artist)"
 
 #: ../xlgui/main.py:479
 msgid "Toggle: Stop after Selected Track"
-msgstr ""
+msgstr "Перамыкач: спыніць пасля абранай дарожкі"
 
 #: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
 msgid "Playback error encountered!"
-msgstr ""
+msgstr "Пры прайграванні адбылася памылка!"
 
 #: ../xlgui/main.py:589
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr ""
+msgstr "Буферызацыя: %d%%..."
 
 #: ../xlgui/main.py:641 ../plugins/previewdevice/__init__.py:380
 msgid "Continue Playback"
@@ -1208,19 +1212,19 @@ msgstr ""
 
 #: ../xlgui/tray.py:148
 msgid "Exaile Music Player"
-msgstr ""
+msgstr "Музычны прайгравальнік Exaile"
 
 #: ../xlgui/menu.py:52
 msgid "_New Playlist"
-msgstr ""
+msgstr "_Новы спіс прайгравання"
 
 #: ../xlgui/menu.py:71
 msgid "Open _URL"
-msgstr ""
+msgstr "Адкрыць _URL"
 
 #: ../xlgui/menu.py:81
 msgid "Open Directories"
-msgstr ""
+msgstr "Адкрыць тэчку"
 
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
@@ -1228,7 +1232,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:124 ../xlgui/preferences/widgets.py:70
 msgid "Restart"
-msgstr ""
+msgstr "Перазапусціць"
 
 #: ../xlgui/menu.py:147
 msgid "_Collection"
@@ -1236,11 +1240,11 @@ msgstr ""
 
 #: ../xlgui/menu.py:151
 msgid "_Queue"
-msgstr ""
+msgstr "_Чарга"
 
 #: ../xlgui/menu.py:158
 msgid "C_overs"
-msgstr ""
+msgstr "_Вокладкі"
 
 #: ../xlgui/menu.py:190
 msgid "_Playlist Utilities Bar"
@@ -1252,15 +1256,15 @@ msgstr ""
 
 #: ../xlgui/menu.py:199
 msgid "C_lear playlist"
-msgstr ""
+msgstr "Ачысціць плэйліст"
 
 #: ../xlgui/menu.py:215
 msgid "_Device Manager"
-msgstr ""
+msgstr "_Мэнэджар прылад"
 
 #: ../xlgui/menu.py:218
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Нанова пра_сканаваць фанатэку"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
 msgid "Rescan Collection (slow)"
@@ -1272,11 +1276,11 @@ msgstr ""
 
 #: ../xlgui/progress.py:79
 msgid "Cancel"
-msgstr ""
+msgstr "Адмена"
 
 #: ../xlgui/properties.py:250
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Памылка запісу пазнак"
 
 #: ../xlgui/properties.py:251
 #, python-brace-format
@@ -1284,11 +1288,13 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Пазнакі не могуць быць запісаны для наступных файлаў:\n"
+"{files}"
 
 #: ../xlgui/properties.py:276
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "Рэдагуецца дарожка %(current)d з %(total)d"
 
 #: ../xlgui/properties.py:375
 msgid "Are you sure you want to apply the changes to all tracks?"
@@ -1296,11 +1302,11 @@ msgstr ""
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Ужыць змены перад зачыненнем?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Занесеныя змены будуць страчаны, калі вы не ўжывяце іх цяпер."
 
 #: ../xlgui/properties.py:589
 #, python-format
@@ -1311,28 +1317,28 @@ msgstr ""
 #. tracknumber, discnumber, etc. in the tagger.
 #: ../xlgui/properties.py:795
 msgid "of:"
-msgstr ""
+msgstr "з:"
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
-msgstr ""
+msgstr "Малюнак JPEG"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "Малюнак PNG"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
-msgstr ""
+msgstr "Малюнак"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "Адпаведны малюнак"
 
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} пікселяў"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format

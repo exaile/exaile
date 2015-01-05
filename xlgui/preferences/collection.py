@@ -30,7 +30,7 @@ def _get_default_strip_list():
     #collection panel. For example, in French locales this could be
     #the space-separated list "l' la le les".
     #If this practice is not common in your locale, simply
-    #translate this to an empty string.
+    #translate this to string with single space.
     default_strip_list = _("the")
     return [v.lower() for v in default_strip_list.split(' ') if v is not '']
 

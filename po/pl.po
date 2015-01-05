@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-31 15:43+0200\n"
-"Last-Translator: Piotr Strebski <strebski@o2.pl>\n"
+"PO-Revision-Date: 2015-01-05 09:52+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/exaile/master/pl/>"
 "\n"
 "Language: pl\n"
@@ -1356,7 +1356,7 @@ msgstr "Zastosuj tą wartość dla wszystkich utworów"
 #: ../xlgui/cover.py:109
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr "{oczekujące} okładki pozostałe do pozyskania"
+msgstr "{outstanding} okładki pozostałe do pozyskania"
 
 #: ../xlgui/cover.py:110
 msgid "All covers fetched"
@@ -1778,7 +1778,7 @@ msgstr "Kolekcja"
 #. translate this to an empty string.
 #: ../xlgui/preferences/collection.py:34
 msgid "the"
-msgstr ""
+msgstr " "
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
@@ -3734,7 +3734,7 @@ msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
 msgstr ""
-"Każdy znacznik może być użyty ze <b>$znacznik</b> lub <b>${znacznik}</b>. "
+"Każdy znacznik może być użyty ze <b>$znacznik</b> lub <b>${tag}</b>. "
 "Znaczniki wewnętrzne, takie jak <b>$__length</b> muszą być poprzedzone dwoma "
 "podkreśleniami."
 
@@ -4005,7 +4005,7 @@ msgid ""
 "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
-"Każdy znacznik może być użyty ze <b>$znacznik</b> lub <b>${znacznik}</b>. "
+"Każdy znacznik może być użyty ze <b>$znacznik</b> lub <b>${tag}</b>. "
 "Wewnętrzne znaczniki, takie jak <b>$__length</b> muszą być określone poprzez "
 "poprzedzające dwa podkreślenia.\n"
 "Obsługiwane są <a href=\""

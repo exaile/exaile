@@ -695,7 +695,7 @@ class Library(object):
                 artist not in ccheck[basedir][album]:
             if not (basedir, album) in compilations:
                 compilations.append((basedir, album))
-                logger.info("Compilation %(album)r detected in %(dir)r" %
+                logger.debug("Compilation %(album)r detected in %(dir)r" %
                         {'album': album, 'dir': basedir})
 
         ccheck[basedir][album].append(artist)

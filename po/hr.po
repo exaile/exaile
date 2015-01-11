@@ -1340,12 +1340,12 @@ msgstr ""
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr "{dužina}x{visina} pikseli"
+msgstr "{width}x{height} pikseli"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr "{format} ({dužina}x{visina} pikseli)"
+msgstr "{format} ({width}x{height} pikseli)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"

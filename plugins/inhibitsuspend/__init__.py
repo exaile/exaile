@@ -111,7 +111,7 @@ class SuspendAdapter(adapters.PlaybackAdapter):
         self.lock = _thread.allocate_lock()
 
         # Initialize parent object
-        adapters.PlaybackAdapter.__init__(self)
+        adapters.PlaybackAdapter.__init__(self, PLAYER)
 
         # Inhibit if player currently playing
         if PLAYER.is_playing():

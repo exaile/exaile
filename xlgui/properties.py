@@ -1023,8 +1023,10 @@ class TagImageField(gtk.HBox):
 
             width, height = pixbuf.get_width(), pixbuf.get_height()
             if mime is None:
+                # TRANSLATORS: do not translate 'width' and 'height'
                 markup = _('{width}x{height} pixels').format(width=width, height=height)
             else:
+                # TRANSLATORS: do not translate 'format', 'width', and 'height'
                 markup = _('{format} ({width}x{height} pixels)').format(
                     format=self.mime_info.get(mime, self.mime_info['image/'])['title'],
                     width=width, height=height

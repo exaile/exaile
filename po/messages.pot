@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-26 20:27+0100\n"
+"POT-Creation-Date: 2015-01-11 22:41-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,314 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ../xl/metadata/tags.py:40 ../xlgui/panel/collection.py:132
+#: ../xlgui/widgets/playlist_columns.py:246
+#: ../data/ui/widgets/tracklist_info.ui.h:1
+#: ../plugins/minimode/minimode_preferences.py:96 ../plugins/cd/cdprefs.py:109
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
+msgid "Album"
+msgstr ""
+
+#: ../xl/metadata/tags.py:41
+msgid "Arranger"
+msgstr ""
+
+#: ../xl/metadata/tags.py:42 ../xlgui/panel/collection.py:129
+#: ../xlgui/widgets/playlist_columns.py:232
+#: ../data/ui/widgets/tracklist_info.ui.h:2
+#: ../plugins/minimode/minimode_preferences.py:94 ../plugins/cd/cdprefs.py:107
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
+msgid "Artist"
+msgstr ""
+
+#: ../xl/metadata/tags.py:43
+msgid "Author"
+msgstr ""
+
+#: ../xl/metadata/tags.py:44 ../xlgui/widgets/playlist_columns.py:353
+#: ../plugins/minimode/minimode_preferences.py:107
+#: ../plugins/cd/cdprefs.py:120
+msgid "BPM"
+msgstr ""
+
+#: ../xl/metadata/tags.py:45
+msgid "Copyright"
+msgstr ""
+
+#: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
+msgid "Comment"
+msgstr ""
+
+#: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
+#: ../plugins/minimode/minimode_preferences.py:95 ../plugins/cd/cdprefs.py:108
+msgid "Composer"
+msgstr ""
+
+#: ../xl/metadata/tags.py:48
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:10
+msgid "Conductor"
+msgstr ""
+
+#: ../xl/metadata/tags.py:49 ../xlgui/cover.py:812
+msgid "Cover"
+msgstr ""
+
+#: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:312
+#: ../plugins/minimode/minimode_preferences.py:100
+#: ../plugins/cd/cdprefs.py:113
+msgid "Date"
+msgstr ""
+
+#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:260
+msgid "Disc"
+msgstr ""
+
+#: ../xl/metadata/tags.py:52
+msgid "Encoded by"
+msgstr ""
+
+#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:318
+#: ../plugins/minimode/minimode_preferences.py:101
+#: ../plugins/cd/cdprefs.py:114
+msgid "Genre"
+msgstr ""
+
+#: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
+msgid "Grouping"
+msgstr ""
+
+#: ../xl/metadata/tags.py:55
+msgid "ISRC"
+msgstr ""
+
+#: ../xl/metadata/tags.py:56 ../plugins/lyricsviewer/__init__.py:347
+#: ../plugins/lyricsviewer/lyricsviewer.ui.h:1
+#: ../plugins/lyricsviewer/PLUGININFO:5 ../plugins/lyricsmania/PLUGININFO:5
+#: ../plugins/lyricwiki/PLUGININFO:5
+msgid "Lyrics"
+msgstr ""
+
+#: ../xl/metadata/tags.py:57
+msgid "Lyricist"
+msgstr ""
+
+#: ../xl/metadata/tags.py:58
+msgid "Organization"
+msgstr ""
+
+#: ../xl/metadata/tags.py:59
+msgid "Original album"
+msgstr ""
+
+#: ../xl/metadata/tags.py:60
+msgid "Original artist"
+msgstr ""
+
+#: ../xl/metadata/tags.py:61
+msgid "Original date"
+msgstr ""
+
+#: ../xl/metadata/tags.py:63
+msgid "Performer"
+msgstr ""
+
+#: ../xl/metadata/tags.py:64 ../xlgui/panel/flatplaylist.py:99
+#: ../xlgui/widgets/playlist_columns.py:225
+#: ../plugins/minimode/minimode_preferences.py:93 ../plugins/cd/cdprefs.py:106
+#: ../plugins/grouptagger/gt_import.ui.h:3
+msgid "Title"
+msgstr ""
+
+#: ../xl/metadata/tags.py:65 ../plugins/grouptagger/gt_mass.ui.h:7
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
+msgid "Track"
+msgstr ""
+
+#: ../xl/metadata/tags.py:66 ../data/ui/preferences/plugin.ui.h:2
+msgid "Version"
+msgstr ""
+
+#: ../xl/metadata/tags.py:67
+msgid "Website"
+msgstr ""
+
+#: ../xl/metadata/tags.py:71 ../xlgui/widgets/playlist_columns.py:325
+#: ../plugins/minimode/minimode_preferences.py:102
+#: ../plugins/cd/cdprefs.py:115 ../plugins/icecast/__init__.py:390
+msgid "Bitrate"
+msgstr ""
+
+#: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
+msgid "Date added"
+msgstr ""
+
+#: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
+#: ../plugins/minimode/minimode_preferences.py:106
+#: ../plugins/cd/cdprefs.py:119
+msgid "Last played"
+msgstr ""
+
+#: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:253
+#: ../plugins/minimode/minimode_preferences.py:97 ../plugins/cd/cdprefs.py:110
+msgid "Length"
+msgstr ""
+
+#: ../xl/metadata/tags.py:76 ../xlgui/widgets/playlist_columns.py:332
+#: ../data/ui/collection_manager.ui.h:2
+#: ../plugins/minimode/minimode_preferences.py:103
+#: ../plugins/cd/cdprefs.py:116
+msgid "Location"
+msgstr ""
+
+#: ../xl/metadata/tags.py:77
+msgid "Modified"
+msgstr ""
+
+#: ../xl/metadata/tags.py:78
+msgid "Play time"
+msgstr ""
+
+#: ../xl/metadata/tags.py:79
+msgid "Times played"
+msgstr ""
+
+#: ../xl/metadata/tags.py:81
+msgid "Start offset"
+msgstr ""
+
+#: ../xl/metadata/tags.py:82
+msgid "Stop offset"
+msgstr ""
+
+#: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
+msgid "Tags"
+msgstr ""
+
+#: ../xl/covers.py:505
+msgid "Local file"
+msgstr ""
+
+#: ../xl/settings.py:104
+msgid "Settings version is newer than current."
+msgstr ""
+
+#: ../xl/settings.py:248
+msgid "We don't know how to store that kind of setting: "
+msgstr ""
+
+#: ../xl/settings.py:276
+msgid "An Unknown type of setting was found!"
+msgstr ""
+
+#: ../xl/plugins.py:97
+msgid "Plugin archive is not in the correct format."
+msgstr ""
+
+#: ../xl/plugins.py:104
+#, python-format
+msgid "A plugin with the name \"%s\" is already installed."
+msgstr ""
+
+#: ../xl/plugins.py:109
+msgid "Plugin archive contains an unsafe path."
+msgstr ""
+
+#: ../xl/trax/track.py:65 ../xlgui/widgets/info.py:422
+msgid "Various Artists"
+msgstr ""
+
+#. TRANSLATORS: title of a track if it is unknown
+#: ../xl/trax/track.py:66 ../plugins/notifyosd/__init__.py:71
+msgid "Unknown"
+msgstr ""
+
+#. TRANSLATORS: String multiple tag values will be joined by
+#: ../xl/trax/track.py:68
+msgid " / "
+msgstr ""
+
+#. TRANSLATORS: Bitrate (k here is short for kbps).
+#: ../xl/trax/track.py:606 ../xl/trax/track.py:668
+#, python-format
+msgid "%dk"
+msgstr ""
+
+#: ../xl/trax/trackdb.py:176
+msgid "You did not specify a location to load the db from"
+msgstr ""
+
+#: ../xl/trax/trackdb.py:259
+msgid "You did not specify a location to save the db"
+msgstr ""
+
+#: ../xl/playlist.py:157 ../xl/playlist.py:171
+msgid "Invalid playlist type."
+msgstr ""
+
+#: ../xl/playlist.py:178 ../xlgui/panel/playlists.py:227
+#: ../xlgui/widgets/playlist.py:336 ../plugins/grouptagger/gt_mass.ui.h:6
+msgid "Playlist"
+msgstr ""
+
+#: ../xl/playlist.py:327
+msgid "M3U Playlist"
+msgstr ""
+
+#: ../xl/playlist.py:435
+msgid "PLS Playlist"
+msgstr ""
+
+#: ../xl/playlist.py:529 ../xl/playlist.py:545
+#, python-format
+msgid "Invalid format for %s."
+msgstr ""
+
+#: ../xl/playlist.py:540
+#, python-format
+msgid "Unsupported version %(version)s for %(type)s"
+msgstr ""
+
+#: ../xl/playlist.py:600
+msgid "ASX Playlist"
+msgstr ""
+
+#: ../xl/playlist.py:771
+msgid "XSPF Playlist"
+msgstr ""
+
+#: ../xl/playlist.py:886
+msgid "Shuffle _Off"
+msgstr ""
+
+#: ../xl/playlist.py:887
+msgid "Shuffle _Tracks"
+msgstr ""
+
+#: ../xl/playlist.py:887
+msgid "Shuffle _Albums"
+msgstr ""
+
+#: ../xl/playlist.py:891
+msgid "Repeat _Off"
+msgstr ""
+
+#: ../xl/playlist.py:891
+msgid "Repeat _All"
+msgstr ""
+
+#: ../xl/playlist.py:891
+msgid "Repeat O_ne"
+msgstr ""
+
+#: ../xl/playlist.py:895
+msgid "Dynamic _Off"
+msgstr ""
+
+#: ../xl/playlist.py:895
+msgid "Dynamic by Similar _Artists"
+msgstr ""
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -99,6 +407,27 @@ msgstr ""
 
 #: ../xl/formatter.py:706
 msgid "Yesterday"
+msgstr ""
+
+#: ../xl/player/_base.py:131
+msgid ": Possible audio device error, is it plugged in?"
+msgstr ""
+
+#: ../xl/player/sink_windows.py:37 ../xl/player/pipe.py:504
+#: ../xl/player/pipe.py:527
+msgid "Custom"
+msgstr ""
+
+#: ../xl/player/pipe.py:475
+msgid "Automatic"
+msgstr ""
+
+#: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
+msgid "Auto"
+msgstr ""
+
+#: ../xl/player/sink_osx.py:165
+msgid "OSX CoreAudio"
 msgstr ""
 
 #: ../xl/main.py:237
@@ -379,53 +708,20 @@ msgid ""
 "exaile_loaded signal?"
 msgstr ""
 
-#: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
-msgid "Tags"
+#: ../xl/lyrics.py:340
+msgid "Local"
 msgstr ""
 
-#: ../xl/covers.py:505
-msgid "Local file"
+#: ../xl/xldbus.py:117 ../xl/xldbus.py:496
+#: ../plugins/lyricsviewer/__init__.py:242
+msgid "Not playing."
 msgstr ""
 
-#: ../xl/plugins.py:97
-msgid "Plugin archive is not in the correct format."
-msgstr ""
-
-#: ../xl/plugins.py:104
+#: ../xl/xldbus.py:498
 #, python-format
-msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
-
-#: ../xl/plugins.py:109
-msgid "Plugin archive contains an unsafe path."
-msgstr ""
-
-#: ../xl/trax/trackdb.py:176
-msgid "You did not specify a location to load the db from"
-msgstr ""
-
-#: ../xl/trax/trackdb.py:259
-msgid "You did not specify a location to save the db"
-msgstr ""
-
-#: ../xl/trax/track.py:65 ../xlgui/widgets/info.py:422
-msgid "Various Artists"
-msgstr ""
-
-#. TRANSLATORS: title of a track if it is unknown
-#: ../xl/trax/track.py:66 ../plugins/notifyosd/__init__.py:71
-msgid "Unknown"
-msgstr ""
-
-#. TRANSLATORS: String multiple tag values will be joined by
-#: ../xl/trax/track.py:68
-msgid " / "
-msgstr ""
-
-#. TRANSLATORS: Bitrate (k here is short for kbps).
-#: ../xl/trax/track.py:606 ../xl/trax/track.py:668
-#, python-format
-msgid "%dk"
+msgid ""
+"status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
+"length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 
 #: ../xl/transcoder.py:56
@@ -462,863 +758,16 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 
-#: ../xl/player/sink_osx.py:165
-msgid "OSX CoreAudio"
+#: ../xlgui/devices.py:76
+msgid "Icon"
 msgstr ""
 
-#: ../xl/player/pipe.py:475
-msgid "Automatic"
+#: ../xlgui/devices.py:81
+msgid "Device"
 msgstr ""
 
-#: ../xl/player/pipe.py:504 ../xl/player/pipe.py:527
-#: ../xl/player/sink_windows.py:37
-msgid "Custom"
-msgstr ""
-
-#: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
-msgid "Auto"
-msgstr ""
-
-#: ../xl/player/_base.py:131
-msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
-
-#: ../xl/xldbus.py:117 ../xl/xldbus.py:496
-#: ../plugins/lyricsviewer/__init__.py:242
-msgid "Not playing."
-msgstr ""
-
-#: ../xl/xldbus.py:498
-#, python-format
-msgid ""
-"status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
-"length: %(length)s, position: %(progress)s%% [%(position)s]"
-msgstr ""
-
-#: ../xl/metadata/tags.py:40 ../xlgui/widgets/playlist_columns.py:246
-#: ../xlgui/panel/collection.py:132 ../data/ui/widgets/tracklist_info.ui.h:1
-#: ../plugins/cd/cdprefs.py:109 ../plugins/minimode/minimode_preferences.py:96
-#: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
-msgid "Album"
-msgstr ""
-
-#: ../xl/metadata/tags.py:41
-msgid "Arranger"
-msgstr ""
-
-#: ../xl/metadata/tags.py:42 ../xlgui/widgets/playlist_columns.py:232
-#: ../xlgui/panel/collection.py:129 ../data/ui/widgets/tracklist_info.ui.h:2
-#: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimode_preferences.py:94
-#: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
-msgid "Artist"
-msgstr ""
-
-#: ../xl/metadata/tags.py:43
-msgid "Author"
-msgstr ""
-
-#: ../xl/metadata/tags.py:44 ../xlgui/widgets/playlist_columns.py:353
-#: ../plugins/cd/cdprefs.py:120
-#: ../plugins/minimode/minimode_preferences.py:107
-msgid "BPM"
-msgstr ""
-
-#: ../xl/metadata/tags.py:45
-msgid "Copyright"
-msgstr ""
-
-#: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
-msgid "Comment"
-msgstr ""
-
-#: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
-#: ../plugins/cd/cdprefs.py:108 ../plugins/minimode/minimode_preferences.py:95
-msgid "Composer"
-msgstr ""
-
-#: ../xl/metadata/tags.py:48
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:10
-msgid "Conductor"
-msgstr ""
-
-#: ../xl/metadata/tags.py:49 ../xlgui/cover.py:812
-msgid "Cover"
-msgstr ""
-
-#: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:312
-#: ../plugins/cd/cdprefs.py:113
-#: ../plugins/minimode/minimode_preferences.py:100
-msgid "Date"
-msgstr ""
-
-#: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:260
-msgid "Disc"
-msgstr ""
-
-#: ../xl/metadata/tags.py:52
-msgid "Encoded by"
-msgstr ""
-
-#: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:318
-#: ../plugins/cd/cdprefs.py:114
-#: ../plugins/minimode/minimode_preferences.py:101
-msgid "Genre"
-msgstr ""
-
-#: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
-msgid "Grouping"
-msgstr ""
-
-#: ../xl/metadata/tags.py:55
-msgid "ISRC"
-msgstr ""
-
-#: ../xl/metadata/tags.py:56 ../plugins/lyricsviewer/__init__.py:347
-#: ../plugins/lyricsviewer/lyricsviewer.ui.h:1
-#: ../plugins/lyricsmania/PLUGININFO:5 ../plugins/lyricsviewer/PLUGININFO:5
-#: ../plugins/lyricwiki/PLUGININFO:5
-msgid "Lyrics"
-msgstr ""
-
-#: ../xl/metadata/tags.py:57
-msgid "Lyricist"
-msgstr ""
-
-#: ../xl/metadata/tags.py:58
-msgid "Organization"
-msgstr ""
-
-#: ../xl/metadata/tags.py:59
-msgid "Original album"
-msgstr ""
-
-#: ../xl/metadata/tags.py:60
-msgid "Original artist"
-msgstr ""
-
-#: ../xl/metadata/tags.py:61
-msgid "Original date"
-msgstr ""
-
-#: ../xl/metadata/tags.py:63
-msgid "Performer"
-msgstr ""
-
-#: ../xl/metadata/tags.py:64 ../xlgui/widgets/playlist_columns.py:225
-#: ../xlgui/panel/flatplaylist.py:99 ../plugins/cd/cdprefs.py:106
-#: ../plugins/minimode/minimode_preferences.py:93
-#: ../plugins/grouptagger/gt_import.ui.h:3
-msgid "Title"
-msgstr ""
-
-#: ../xl/metadata/tags.py:65 ../plugins/grouptagger/gt_mass.ui.h:7
-#: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
-msgid "Track"
-msgstr ""
-
-#: ../xl/metadata/tags.py:66 ../data/ui/preferences/plugin.ui.h:2
-msgid "Version"
-msgstr ""
-
-#: ../xl/metadata/tags.py:67
-msgid "Website"
-msgstr ""
-
-#: ../xl/metadata/tags.py:71 ../xlgui/widgets/playlist_columns.py:325
-#: ../plugins/icecast/__init__.py:390 ../plugins/cd/cdprefs.py:115
-#: ../plugins/minimode/minimode_preferences.py:102
-msgid "Bitrate"
-msgstr ""
-
-#: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
-msgid "Date added"
-msgstr ""
-
-#: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
-#: ../plugins/cd/cdprefs.py:119
-#: ../plugins/minimode/minimode_preferences.py:106
-msgid "Last played"
-msgstr ""
-
-#: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:253
-#: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:97
-msgid "Length"
-msgstr ""
-
-#: ../xl/metadata/tags.py:76 ../xlgui/widgets/playlist_columns.py:332
-#: ../data/ui/collection_manager.ui.h:2 ../plugins/cd/cdprefs.py:116
-#: ../plugins/minimode/minimode_preferences.py:103
-msgid "Location"
-msgstr ""
-
-#: ../xl/metadata/tags.py:77
-msgid "Modified"
-msgstr ""
-
-#: ../xl/metadata/tags.py:78
-msgid "Play time"
-msgstr ""
-
-#: ../xl/metadata/tags.py:79
-msgid "Times played"
-msgstr ""
-
-#: ../xl/metadata/tags.py:81
-msgid "Start offset"
-msgstr ""
-
-#: ../xl/metadata/tags.py:82
-msgid "Stop offset"
-msgstr ""
-
-#: ../xl/settings.py:104
-msgid "Settings version is newer than current."
-msgstr ""
-
-#: ../xl/settings.py:248
-msgid "We don't know how to store that kind of setting: "
-msgstr ""
-
-#: ../xl/settings.py:276
-msgid "An Unknown type of setting was found!"
-msgstr ""
-
-#: ../xl/playlist.py:157 ../xl/playlist.py:171
-msgid "Invalid playlist type."
-msgstr ""
-
-#: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
-#: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
-msgid "Playlist"
-msgstr ""
-
-#: ../xl/playlist.py:327
-msgid "M3U Playlist"
-msgstr ""
-
-#: ../xl/playlist.py:435
-msgid "PLS Playlist"
-msgstr ""
-
-#: ../xl/playlist.py:529 ../xl/playlist.py:545
-#, python-format
-msgid "Invalid format for %s."
-msgstr ""
-
-#: ../xl/playlist.py:540
-#, python-format
-msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
-
-#: ../xl/playlist.py:600
-msgid "ASX Playlist"
-msgstr ""
-
-#: ../xl/playlist.py:771
-msgid "XSPF Playlist"
-msgstr ""
-
-#: ../xl/playlist.py:886
-msgid "Shuffle _Off"
-msgstr ""
-
-#: ../xl/playlist.py:887
-msgid "Shuffle _Tracks"
-msgstr ""
-
-#: ../xl/playlist.py:887
-msgid "Shuffle _Albums"
-msgstr ""
-
-#: ../xl/playlist.py:891
-msgid "Repeat _Off"
-msgstr ""
-
-#: ../xl/playlist.py:891
-msgid "Repeat _All"
-msgstr ""
-
-#: ../xl/playlist.py:891
-msgid "Repeat O_ne"
-msgstr ""
-
-#: ../xl/playlist.py:895
-msgid "Dynamic _Off"
-msgstr ""
-
-#: ../xl/playlist.py:895
-msgid "Dynamic by Similar _Artists"
-msgstr ""
-
-#: ../xl/playlist.py:1843 ../xlgui/panel/playlists.py:58
-#: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:85
-#: ../plugins/osd/osd_preferences.ui.h:7
-msgid "seconds"
-msgstr ""
-
-#: ../xl/playlist.py:1844 ../xlgui/panel/playlists.py:78
-msgid "minutes"
-msgstr ""
-
-#: ../xl/playlist.py:1845 ../xlgui/panel/playlists.py:78
-msgid "hours"
-msgstr ""
-
-#: ../xl/playlist.py:1846 ../xlgui/panel/playlists.py:67
-#: ../xlgui/panel/playlists.py:78
-msgid "days"
-msgstr ""
-
-#: ../xl/playlist.py:1847 ../xlgui/panel/playlists.py:78
-msgid "weeks"
-msgstr ""
-
-#: ../xl/lyrics.py:340
-msgid "Local"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:96
-msgid "Enqueue"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:119
-msgid "Replace Current"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
-msgid "Append to Current"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:146 ../xlgui/properties.py:1125
-msgid "Open Directory"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:168
-msgid ""
-"The files cannot be moved to the Trash. Delete them permanently from the "
-"disk?"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:183
-msgid "Move to Trash"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:194
-msgid "_Show Playing Track"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:221 ../xlgui/widgets/playlist.py:227
-msgid "Rename"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:226
-msgid "Edit"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:231
-msgid "Export Playlist"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:235
-msgid "Export Files"
-msgstr ""
-
-#: ../xlgui/widgets/menuitems.py:239
-msgid "Delete Playlist"
-msgstr ""
-
-#: ../xlgui/widgets/filter.py:65 ../xlgui/panel/radio.py:179
-msgid "Name:"
-msgstr ""
-
-#: ../xlgui/widgets/filter.py:79
-msgid "Match any of the criteria"
-msgstr ""
-
-#: ../xlgui/widgets/filter.py:81
-msgid "Randomize results"
-msgstr ""
-
-#: ../xlgui/widgets/filter.py:97
-msgid "Limit to: "
-msgstr ""
-
-#: ../xlgui/widgets/filter.py:107
-msgid " tracks"
-msgstr ""
-
-#: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
-msgid "Not Playing"
-msgstr ""
-
-#: ../xlgui/widgets/playback.py:748
-#, python-format
-msgid "Seeking: %s"
-msgstr ""
-
-#: ../xlgui/widgets/playback.py:1024
-msgid "Move"
-msgstr ""
-
-#: ../xlgui/widgets/playback.py:1170
-msgid "New Marker"
-msgstr ""
-
-#: ../xlgui/widgets/playback.py:1269
-msgid "Muted"
-msgstr ""
-
-#. TRANSLATORS: Volume percentage
-#: ../xlgui/widgets/playback.py:1275
-#, python-format
-msgid "%d%%"
-msgstr ""
-
-#: ../xlgui/widgets/playback.py:1278
-msgid "Full Volume"
-msgstr ""
-
-#: ../xlgui/widgets/info.py:69
-msgid ""
-"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
-"by $artist\n"
-"from $album"
-msgstr ""
-
-#: ../xlgui/widgets/info.py:417
-msgid "Various"
-msgstr ""
-
-#: ../xlgui/widgets/info.py:436
-#, python-format
-msgid "%(track_count)d in total (%(total_duration)s)"
-msgstr ""
-
-#: ../xlgui/widgets/info.py:594
-#, python-format
-msgid "%d in collection"
-msgstr ""
-
-#: ../xlgui/widgets/info.py:616 ../xlgui/widgets/info.py:623
-#, python-format
-msgid "%d showing"
-msgstr ""
-
-#: ../xlgui/widgets/info.py:620 ../xlgui/widgets/info.py:627
-#, python-format
-msgid "%d selected"
-msgstr ""
-
-#: ../xlgui/widgets/queue.py:100
-msgid "Queue"
-msgstr ""
-
-#: ../xlgui/widgets/queue.py:102
-#, python-format
-msgid "Queue (%d)"
-msgstr ""
-
-#. TRANSLATORS: Title of the track number column
-#: ../xlgui/widgets/playlist_columns.py:217 ../xlgui/panel/flatplaylist.py:91
-msgid "#"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:218
-msgid "Track Number"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:261
-msgid "Disc Number"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:268 ../xlgui/panel/playlists.py:226
-#: ../plugins/cd/cdprefs.py:112 ../plugins/minimode/minimode_preferences.py:99
-#: ../plugins/minimode/controls.py:527
-#: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
-msgid "Rating"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:339 ../xlgui/panel/files.py:116
-#: ../plugins/cd/cdprefs.py:117
-#: ../plugins/minimode/minimode_preferences.py:104
-msgid "Filename"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:346
-msgid "Playcount"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:372
-msgid "Schedule"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:507
-msgid "Start Offset"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:514
-msgid "Stop Offset"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:633
-msgid "_Resizable"
-msgstr ""
-
-#: ../xlgui/widgets/playlist_columns.py:638
-msgid "_Autosize"
-msgstr ""
-
-#: ../xlgui/widgets/rating.py:261
-msgid "Rating:"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:130
-msgid "Shuffle"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:134
-msgid "Repeat"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:138
-msgid "Dynamic"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:153
-msgid "Remove Current Track From Playlist"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:183
-msgid "Randomize Playlist"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:186
-msgid "Randomize Selection"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:207 ../xlgui/playlist_container.py:73
-#: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
-#: ../plugins/droptrayicon/__init__.py:288
-msgid "New Playlist"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:267
-msgid "Stop Playback After This Track"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:274
-msgid "Continue Playback After This Track"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:535
-msgid "Requires plugins providing dynamic playlists"
-msgstr ""
-
-#: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
-msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:291
-msgid "Enter the URL to open"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:292
-msgid "Open URL"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:560
-msgid "Select File Type (by Extension)"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:616
-msgid "Choose Media to Open"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:627
-msgid "Supported Files"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:629
-msgid "Music Files"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:631 ../xlgui/widgets/dialogs.py:789
-msgid "Playlist Files"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:633 ../xlgui/widgets/dialogs.py:791
-#: ../xlgui/preferences/plugin.py:222
-msgid "All Files"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:707
-msgid "Choose Directory to Open"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:778 ../xlgui/menu.py:87
-#: ../xlgui/panel/menus.py:184
-msgid "Import Playlist"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:879
-msgid "Export Current Playlist"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:890
-msgid "Use relative paths to tracks"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:945
-#, python-format
-msgid "Playlist saved as <b>%s</b>."
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:959
-#, python-format
-msgid "Close %s"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:960
-#, python-format
-msgid "<b>Save changes to %s before closing?</b>"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:961
-msgid "Your changes will be lost if you don't save them"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:963
-msgid "Close Without Saving"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1319
-msgid "Yes to all"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1327
-msgid "No to all"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1352 ../xlgui/properties.py:1199
-#, python-format
-msgid "Saved %(count)s of %(total)s."
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1472
-#, python-format
-msgid "Error occurred while copying %s: %s"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1481
-#, python-format
-msgid "File exists, overwrite %s ?"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1532
-msgid "Playlist name:"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1533
-msgid "Add new playlist..."
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
-#: ../xlgui/panel/playlists.py:837
-msgid "You did not enter a name for your playlist"
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1545 ../xlgui/panel/playlists.py:349
-#: ../xlgui/panel/playlists.py:754 ../xlgui/panel/playlists.py:844
-msgid "The playlist name you entered is already in use."
-msgstr ""
-
-#: ../xlgui/widgets/dialogs.py:1549
-msgid "Save As"
-msgstr ""
-
-#: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
-msgid "Close Tab"
-msgstr ""
-
-#: ../xlgui/main.py:113
-msgid "$title (by $artist)"
-msgstr ""
-
-#: ../xlgui/main.py:479
-msgid "Toggle: Stop after Selected Track"
-msgstr ""
-
-#: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
-msgid "Playback error encountered!"
-msgstr ""
-
-#: ../xlgui/main.py:589
-#, python-format
-msgid "Buffering: %d%%..."
-msgstr ""
-
-#: ../xlgui/main.py:641 ../plugins/previewdevice/__init__.py:380
-msgid "Continue Playback"
-msgstr ""
-
-#: ../xlgui/main.py:645 ../xlgui/main.py:825
-#: ../plugins/previewdevice/__init__.py:384
-msgid "Pause Playback"
-msgstr ""
-
-#: ../xlgui/main.py:779 ../xlgui/menu.py:103
-msgid "Playlist export failed!"
-msgstr ""
-
-#: ../xlgui/main.py:837 ../data/ui/main.ui.h:7
-#: ../plugins/previewdevice/__init__.py:362
-msgid "Start Playback"
-msgstr ""
-
-#: ../xlgui/tray.py:148
-msgid "Exaile Music Player"
-msgstr ""
-
-#: ../xlgui/menu.py:52
-msgid "_New Playlist"
-msgstr ""
-
-#: ../xlgui/menu.py:71
-msgid "Open _URL"
-msgstr ""
-
-#: ../xlgui/menu.py:81
-msgid "Open Directories"
-msgstr ""
-
-#: ../xlgui/menu.py:109
-msgid "_Export Current Playlist"
-msgstr ""
-
-#: ../xlgui/menu.py:124 ../xlgui/preferences/widgets.py:70
-msgid "Restart"
-msgstr ""
-
-#: ../xlgui/menu.py:147
-msgid "_Collection"
-msgstr ""
-
-#: ../xlgui/menu.py:151
-msgid "_Queue"
-msgstr ""
-
-#: ../xlgui/menu.py:158
-msgid "C_overs"
-msgstr ""
-
-#: ../xlgui/menu.py:190
-msgid "_Playlist Utilities Bar"
-msgstr ""
-
-#: ../xlgui/menu.py:192
-msgid "_Columns"
-msgstr ""
-
-#: ../xlgui/menu.py:199
-msgid "C_lear playlist"
-msgstr ""
-
-#: ../xlgui/menu.py:215
-msgid "_Device Manager"
-msgstr ""
-
-#: ../xlgui/menu.py:218
-msgid "Re_scan Collection"
-msgstr ""
-
-#: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-msgid "Rescan Collection (slow)"
-msgstr ""
-
-#: ../xlgui/menu.py:224
-msgid "Track _Properties"
-msgstr ""
-
-#: ../xlgui/progress.py:79
-msgid "Cancel"
-msgstr ""
-
-#: ../xlgui/properties.py:250
-msgid "Writing of tags failed"
-msgstr ""
-
-#: ../xlgui/properties.py:251
-#, python-brace-format
-msgid ""
-"Tags could not be written to the following files:\n"
-"{files}"
-msgstr ""
-
-#: ../xlgui/properties.py:276
-#, python-format
-msgid "Editing track %(current)d of %(total)d"
-msgstr ""
-
-#: ../xlgui/properties.py:375
-msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr ""
-
-#: ../xlgui/properties.py:415
-msgid "Apply changes before closing?"
-msgstr ""
-
-#: ../xlgui/properties.py:416
-msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
-
-#: ../xlgui/properties.py:589
-#, python-format
-msgid "%s:"
-msgstr ""
-
-#. TRANSLATORS: This is the 'of' between numbers in fields like
-#. tracknumber, discnumber, etc. in the tagger.
-#: ../xlgui/properties.py:795
-msgid "of:"
-msgstr ""
-
-#: ../xlgui/properties.py:886
-msgid "JPEG image"
-msgstr ""
-
-#: ../xlgui/properties.py:892
-msgid "PNG image"
-msgstr ""
-
-#: ../xlgui/properties.py:897
-msgid "Image"
-msgstr ""
-
-#: ../xlgui/properties.py:904
-msgid "Linked image"
-msgstr ""
-
-#: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
-#, python-brace-format
-msgid "{width}x{height} pixels"
-msgstr ""
-
-#: ../xlgui/properties.py:1028
-#, python-brace-format
-msgid "{format} ({width}x{height} pixels)"
-msgstr ""
-
-#: ../xlgui/properties.py:1041
-msgid "Select image to set as cover"
-msgstr ""
-
-#: ../xlgui/properties.py:1050
-msgid "Supported image formats"
-msgstr ""
-
-#: ../xlgui/properties.py:1173
-msgid "Apply current value to all tracks"
+#: ../xlgui/devices.py:88
+msgid "Driver"
 msgstr ""
 
 #: ../xlgui/cover.py:109
@@ -1374,104 +823,156 @@ msgid ""
 "sources."
 msgstr ""
 
-#: ../xlgui/devices.py:76
-msgid "Icon"
-msgstr ""
-
-#: ../xlgui/devices.py:81
-msgid "Device"
-msgstr ""
-
-#: ../xlgui/devices.py:88
-msgid "Driver"
-msgstr ""
-
-#: ../xlgui/__init__.py:317
-msgid "Scanning collection..."
-msgstr ""
-
-#: ../xlgui/__init__.py:386
-#, python-format
-msgid "Scanning %s..."
-msgstr ""
-
-#: ../xlgui/panels.py:102
-msgid "Panels"
-msgstr ""
-
-#: ../xlgui/collection.py:124
-msgid "Add a Directory"
-msgstr ""
-
-#: ../xlgui/collection.py:150
-msgid "Directory not added."
-msgstr ""
-
-#: ../xlgui/collection.py:151
-msgid ""
-"The directory is already in your collection or is a subdirectory of another "
-"directory in your collection."
-msgstr ""
-
-#: ../xlgui/playlist_container.py:74
-msgid "Drop here to create a new playlist"
-msgstr ""
-
-#: ../xlgui/playlist_container.py:138
-msgid "Recently Closed Tabs"
-msgstr ""
-
-#: ../xlgui/playlist_container.py:195
-#, python-format
-msgid "Playlist %d"
-msgstr ""
-
-#: ../xlgui/playlist_container.py:372
+#. TRANSLATORS: do not translate 'width' and 'height'
+#: ../xlgui/cover.py:1145 ../xlgui/properties.py:1027
 #, python-brace-format
-msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
+msgid "{width}x{height} pixels"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:378
-#, python-brace-format
-msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
+#: ../xlgui/preferences/plugin.py:40 ../xlgui/preferences/__init__.py:124
+msgid "Plugins"
 msgstr ""
 
-#: ../xlgui/playlist_container.py:518
-msgid "Move to other View"
+#: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
+#: ../plugins/grouptagger/gt_widgets.py:58
+msgid "Uncategorized"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:156
+msgid "Could not load plugin info!"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:158
+#, python-format
+msgid "Failed plugin: %s"
+msgid_plural "Failed plugins: %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../xlgui/preferences/plugin.py:188 ../xlgui/preferences/plugin.py:285
+msgid "Could not disable plugin!"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:198 ../xlgui/preferences/plugin.py:279
+msgid "Could not enable plugin!"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:206
+msgid "Choose a Plugin"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:215
+msgid "Plugin Archives"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:222 ../xlgui/widgets/dialogs.py:633
+#: ../xlgui/widgets/dialogs.py:791
+msgid "All Files"
+msgstr ""
+
+#: ../xlgui/preferences/plugin.py:234
+msgid "Plugin file installation failed!"
+msgstr ""
+
+#: ../xlgui/preferences/cover.py:38 ../plugins/lastfmcovers/PLUGININFO:5
+#: ../plugins/musicbrainzcovers/PLUGININFO:5
+#: ../plugins/amazoncovers/PLUGININFO:5
+msgid "Covers"
+msgstr ""
+
+#: ../xlgui/preferences/playback.py:35
+msgid "Playback"
+msgstr ""
+
+#: ../xlgui/preferences/collection.py:23 ../data/ui/panel/collection.ui.h:1
+#: ../data/ui/panel/device.ui.h:1
+msgid "Collection"
+msgstr ""
+
+#. TRANSLATORS: Grammatical articles that are ignored while sorting the
+#. collection panel. For example, in French locales this could be
+#. the space-separated list "l' la le les".
+#. If this practice is not common in your locale, simply
+#. translate this to string with single space.
+#: ../xlgui/preferences/collection.py:34
+msgid "the"
+msgstr ""
+
+#: ../xlgui/preferences/collection.py:56
+msgid "Reset to Defaults"
+msgstr ""
+
+#: ../xlgui/preferences/widgets.py:66
+msgid "Restart Exaile?"
+msgstr ""
+
+#: ../xlgui/preferences/widgets.py:68
+msgid "A restart is required for this change to take effect."
+msgstr ""
+
+#: ../xlgui/preferences/widgets.py:70 ../xlgui/menu.py:124
+msgid "Restart"
+msgstr ""
+
+#: ../xlgui/preferences/widgets.py:664
+msgid "Action"
+msgstr ""
+
+#: ../xlgui/preferences/widgets.py:672
+msgid "Shortcut"
+msgstr ""
+
+#: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
+msgid "Playlists"
+msgstr ""
+
+#: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui.h:9
+msgid "Appearance"
+msgstr ""
+
+#. TRANSLATORS: Title of the track number column
+#: ../xlgui/panel/flatplaylist.py:91 ../xlgui/widgets/playlist_columns.py:217
+msgid "#"
+msgstr ""
+
+#: ../xlgui/panel/files.py:116 ../xlgui/widgets/playlist_columns.py:339
+#: ../plugins/minimode/minimode_preferences.py:104
+#: ../plugins/cd/cdprefs.py:117
+msgid "Filename"
+msgstr ""
+
+#. TRANSLATORS: File size column in the file browser
+#: ../xlgui/panel/files.py:140
+msgid "Size"
+msgstr ""
+
+#: ../xlgui/panel/files.py:407
+#, python-format
+msgid "%s kB"
+msgstr ""
+
+#: ../xlgui/panel/menus.py:174 ../xlgui/panel/radio.py:414
+#: ../xlgui/playlist_container.py:73 ../xlgui/widgets/playlist.py:207
+#: ../plugins/droptrayicon/__init__.py:288
+msgid "New Playlist"
+msgstr ""
+
+#: ../xlgui/panel/menus.py:179
+msgid "New Smart Playlist"
+msgstr ""
+
+#: ../xlgui/panel/menus.py:184 ../xlgui/menu.py:87
+#: ../xlgui/widgets/dialogs.py:778
+msgid "Import Playlist"
+msgstr ""
+
+#: ../xlgui/panel/menus.py:251
+msgid "New Station"
 msgstr ""
 
 #: ../xlgui/panel/device.py:137
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
-
-#: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:469
-#: ../xlgui/panel/radio.py:545
-msgid "Loading streams..."
-msgstr ""
-
-#: ../xlgui/panel/radio.py:177
-msgid "Add Radio Station"
-msgstr ""
-
-#: ../xlgui/panel/radio.py:180 ../plugins/audioscrobbler/asprefs_pane.ui.h:6
-msgid "URL:"
-msgstr ""
-
-#: ../xlgui/panel/radio.py:252
-msgid "Saved Stations"
-msgstr ""
-
-#: ../xlgui/panel/radio.py:253
-msgid "Radio Streams"
-msgstr ""
-
-#: ../xlgui/panel/radio.py:283 ../plugins/wikipedia/data/wikipanel.ui.h:4
-msgid "Refresh"
-msgstr ""
-
-#: ../xlgui/panel/radio.py:413
-msgid "Enter the name you want for your new playlist"
 msgstr ""
 
 #: ../xlgui/panel/collection.py:135
@@ -1498,27 +999,30 @@ msgstr ""
 msgid "Rescan Collection"
 msgstr ""
 
-#. TRANSLATORS: File size column in the file browser
-#: ../xlgui/panel/files.py:140
-msgid "Size"
-msgstr ""
-
-#: ../xlgui/panel/files.py:407
-#, python-format
-msgid "%s kB"
-msgstr ""
-
-#: ../xlgui/panel/menus.py:179
-msgid "New Smart Playlist"
-msgstr ""
-
-#: ../xlgui/panel/menus.py:251
-msgid "New Station"
+#: ../xlgui/panel/playlists.py:58 ../xlgui/panel/playlists.py:78
+#: ../xlgui/panel/playlists.py:85 ../plugins/osd/osd_preferences.ui.h:7
+msgid "seconds"
 msgstr ""
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:63
 msgid "and"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:78
+msgid "days"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:78
+msgid "minutes"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:78
+msgid "hours"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:78
+msgid "weeks"
 msgstr ""
 
 #. TRANSLATORS: True if haystack is equal to needle
@@ -1616,6 +1120,13 @@ msgstr ""
 msgid "Track not in"
 msgstr ""
 
+#: ../xlgui/panel/playlists.py:226 ../xlgui/widgets/playlist_columns.py:268
+#: ../plugins/minimode/minimode_preferences.py:99
+#: ../plugins/minimode/controls.py:527 ../plugins/cd/cdprefs.py:112
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
+msgid "Rating"
+msgstr ""
+
 #: ../xlgui/panel/playlists.py:304
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr ""
@@ -1626,6 +1137,11 @@ msgstr ""
 
 #: ../xlgui/panel/playlists.py:337
 msgid "Rename Playlist"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:349 ../xlgui/panel/playlists.py:754
+#: ../xlgui/panel/playlists.py:844 ../xlgui/widgets/dialogs.py:1545
+msgid "The playlist name you entered is already in use."
 msgstr ""
 
 #: ../xlgui/panel/playlists.py:394
@@ -1660,6 +1176,11 @@ msgstr ""
 msgid "Add Smart Playlist"
 msgstr ""
 
+#: ../xlgui/panel/playlists.py:748 ../xlgui/panel/playlists.py:837
+#: ../xlgui/widgets/dialogs.py:1542
+msgid "You did not enter a name for your playlist"
+msgstr ""
+
 #: ../xlgui/panel/playlists.py:807
 msgid "Edit Smart Playlist"
 msgstr ""
@@ -1673,198 +1194,582 @@ msgstr ""
 msgid "Choose directory to export files to"
 msgstr ""
 
-#: ../xlgui/preferences/playback.py:35
-msgid "Playback"
+#: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:469
+#: ../xlgui/panel/radio.py:545
+msgid "Loading streams..."
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:40 ../xlgui/preferences/__init__.py:124
-msgid "Plugins"
+#: ../xlgui/panel/radio.py:177
+msgid "Add Radio Station"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
-#: ../plugins/grouptagger/gt_widgets.py:58
-msgid "Uncategorized"
+#: ../xlgui/panel/radio.py:179 ../xlgui/widgets/filter.py:65
+msgid "Name:"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:156
-msgid "Could not load plugin info!"
+#: ../xlgui/panel/radio.py:180 ../plugins/audioscrobbler/asprefs_pane.ui.h:6
+msgid "URL:"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:158
+#: ../xlgui/panel/radio.py:252
+msgid "Saved Stations"
+msgstr ""
+
+#: ../xlgui/panel/radio.py:253
+msgid "Radio Streams"
+msgstr ""
+
+#: ../xlgui/panel/radio.py:283 ../plugins/wikipedia/data/wikipanel.ui.h:4
+msgid "Refresh"
+msgstr ""
+
+#: ../xlgui/panel/radio.py:413
+msgid "Enter the name you want for your new playlist"
+msgstr ""
+
+#: ../xlgui/collection.py:124
+msgid "Add a Directory"
+msgstr ""
+
+#: ../xlgui/collection.py:150
+msgid "Directory not added."
+msgstr ""
+
+#: ../xlgui/collection.py:151
+msgid ""
+"The directory is already in your collection or is a subdirectory of another "
+"directory in your collection."
+msgstr ""
+
+#: ../xlgui/playlist_container.py:74
+msgid "Drop here to create a new playlist"
+msgstr ""
+
+#: ../xlgui/playlist_container.py:138
+msgid "Recently Closed Tabs"
+msgstr ""
+
+#: ../xlgui/playlist_container.py:195
 #, python-format
-msgid "Failed plugin: %s"
-msgid_plural "Failed plugins: %s"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../xlgui/preferences/plugin.py:188 ../xlgui/preferences/plugin.py:285
-msgid "Could not disable plugin!"
+msgid "Playlist %d"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:198 ../xlgui/preferences/plugin.py:279
-msgid "Could not enable plugin!"
+#: ../xlgui/playlist_container.py:372
+#, python-brace-format
+msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:206
-msgid "Choose a Plugin"
+#: ../xlgui/playlist_container.py:378
+#, python-brace-format
+msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:215
-msgid "Plugin Archives"
+#: ../xlgui/playlist_container.py:518
+msgid "Move to other View"
 msgstr ""
 
-#: ../xlgui/preferences/plugin.py:234
-msgid "Plugin file installation failed!"
+#: ../xlgui/properties.py:250
+msgid "Writing of tags failed"
 msgstr ""
 
-#: ../xlgui/preferences/cover.py:38 ../plugins/musicbrainzcovers/PLUGININFO:5
-#: ../plugins/lastfmcovers/PLUGININFO:5 ../plugins/amazoncovers/PLUGININFO:5
-msgid "Covers"
-msgstr ""
-
-#: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui.h:9
-msgid "Appearance"
-msgstr ""
-
-#: ../xlgui/preferences/collection.py:23 ../data/ui/panel/device.ui.h:1
-#: ../data/ui/panel/collection.ui.h:1
-msgid "Collection"
-msgstr ""
-
-#. TRANSLATORS: Grammatical articles that are ignored while sorting the
-#. collection panel. For example, in French locales this could be
-#. the space-separated list "l' la le les".
-#. If this practice is not common in your locale, simply
-#. translate this to an empty string.
-#: ../xlgui/preferences/collection.py:34
-msgid "the"
-msgstr ""
-
-#: ../xlgui/preferences/collection.py:56
-msgid "Reset to Defaults"
-msgstr ""
-
-#: ../xlgui/preferences/widgets.py:66
-msgid "Restart Exaile?"
-msgstr ""
-
-#: ../xlgui/preferences/widgets.py:68
-msgid "A restart is required for this change to take effect."
-msgstr ""
-
-#: ../xlgui/preferences/widgets.py:664
-msgid "Action"
-msgstr ""
-
-#: ../xlgui/preferences/widgets.py:672
-msgid "Shortcut"
-msgstr ""
-
-#: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
-msgid "Playlists"
-msgstr ""
-
-#: ../data/ui/about_dialog.ui.h:1
-msgid "About Exaile"
-msgstr ""
-
-#: ../data/ui/about_dialog.ui.h:2
-msgid "© 2009-2014"
-msgstr ""
-
-#: ../data/ui/about_dialog.ui.h:3
+#: ../xlgui/properties.py:251
+#, python-brace-format
 msgid ""
-"Copyright (C) 2008-2014 Various Contributors\n"
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License along\n"
-"with this program; if not, write to the Free Software Foundation, Inc.,\n"
-"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+"Tags could not be written to the following files:\n"
+"{files}"
 msgstr ""
 
-#: ../data/ui/about_dialog.ui.h:20
-msgctxt "About dialog translator credits"
-msgid "Unknown translator"
+#: ../xlgui/properties.py:276
+#, python-format
+msgid "Editing track %(current)d of %(total)d"
 msgstr ""
 
-#: ../data/ui/covermanager.ui.h:1
-msgid "Cover Manager"
+#: ../xlgui/properties.py:375
+msgid "Are you sure you want to apply the changes to all tracks?"
 msgstr ""
 
-#: ../data/ui/covermanager.ui.h:2
-msgid "_Fetch Covers"
+#: ../xlgui/properties.py:415
+msgid "Apply changes before closing?"
 msgstr ""
 
-#: ../data/ui/playlist.ui.h:1
-msgid "Shuffle playback order"
+#: ../xlgui/properties.py:416
+msgid "Your changes will be lost if you do not apply them now."
 msgstr ""
 
-#: ../data/ui/playlist.ui.h:2
-msgid "Repeat playback"
+#: ../xlgui/properties.py:589
+#, python-format
+msgid "%s:"
 msgstr ""
 
-#: ../data/ui/playlist.ui.h:4
-msgid "_Search:"
+#. TRANSLATORS: This is the 'of' between numbers in fields like
+#. tracknumber, discnumber, etc. in the tagger.
+#: ../xlgui/properties.py:795
+msgid "of:"
 msgstr ""
 
-#: ../data/ui/coverchooser.ui.h:1
-msgid "Cover Finder"
+#: ../xlgui/properties.py:886
+msgid "JPEG image"
 msgstr ""
 
-#: ../data/ui/coverchooser.ui.h:2
-msgid "The origin of this cover"
+#: ../xlgui/properties.py:892
+msgid "PNG image"
 msgstr ""
 
-#: ../data/ui/coverchooser.ui.h:3
-msgid "_Set as Cover"
+#: ../xlgui/properties.py:897
+msgid "Image"
 msgstr ""
 
-#: ../data/ui/main.ui.h:1
-msgid "_File"
+#: ../xlgui/properties.py:904
+msgid "Linked image"
 msgstr ""
 
-#: ../data/ui/main.ui.h:2
-msgid "_Edit"
+#. TRANSLATORS: do not translate 'format', 'width', and 'height'
+#: ../xlgui/properties.py:1030
+#, python-brace-format
+msgid "{format} ({width}x{height} pixels)"
 msgstr ""
 
-#: ../data/ui/main.ui.h:3
-msgid "_View"
+#: ../xlgui/properties.py:1043
+msgid "Select image to set as cover"
 msgstr ""
 
-#: ../data/ui/main.ui.h:4
-msgid "_Tools"
+#: ../xlgui/properties.py:1052
+msgid "Supported image formats"
 msgstr ""
 
-#: ../data/ui/main.ui.h:5
-msgid "_Help"
+#: ../xlgui/properties.py:1127 ../xlgui/widgets/menuitems.py:146
+msgid "Open Directory"
 msgstr ""
 
-#: ../data/ui/main.ui.h:6
-msgid "Previous Track"
+#: ../xlgui/properties.py:1175
+msgid "Apply current value to all tracks"
 msgstr ""
 
-#: ../data/ui/main.ui.h:8
+#: ../xlgui/properties.py:1201 ../xlgui/widgets/dialogs.py:1352
+#, python-format
+msgid "Saved %(count)s of %(total)s."
+msgstr ""
+
+#: ../xlgui/panels.py:102
+msgid "Panels"
+msgstr ""
+
+#: ../xlgui/main.py:113
+msgid "$title (by $artist)"
+msgstr ""
+
+#: ../xlgui/main.py:479
+msgid "Toggle: Stop after Selected Track"
+msgstr ""
+
+#: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
+msgid "Playback error encountered!"
+msgstr ""
+
+#: ../xlgui/main.py:589
+#, python-format
+msgid "Buffering: %d%%..."
+msgstr ""
+
+#: ../xlgui/main.py:641 ../plugins/previewdevice/__init__.py:380
+msgid "Continue Playback"
+msgstr ""
+
+#: ../xlgui/main.py:645 ../xlgui/main.py:825
+#: ../plugins/previewdevice/__init__.py:384
+msgid "Pause Playback"
+msgstr ""
+
+#: ../xlgui/main.py:779 ../xlgui/menu.py:103
+msgid "Playlist export failed!"
+msgstr ""
+
+#: ../xlgui/main.py:837 ../data/ui/main.ui.h:7
+#: ../plugins/previewdevice/__init__.py:362
+msgid "Start Playback"
+msgstr ""
+
+#: ../xlgui/progress.py:79
+msgid "Cancel"
+msgstr ""
+
+#: ../xlgui/menu.py:52
+msgid "_New Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:71
+msgid "Open _URL"
+msgstr ""
+
+#: ../xlgui/menu.py:81
+msgid "Open Directories"
+msgstr ""
+
+#: ../xlgui/menu.py:109
+msgid "_Export Current Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:115 ../xlgui/widgets/notebook.py:183
+msgid "Close Tab"
+msgstr ""
+
+#: ../xlgui/menu.py:147
+msgid "_Collection"
+msgstr ""
+
+#: ../xlgui/menu.py:151
+msgid "_Queue"
+msgstr ""
+
+#: ../xlgui/menu.py:158
+msgid "C_overs"
+msgstr ""
+
+#: ../xlgui/menu.py:190
+msgid "_Playlist Utilities Bar"
+msgstr ""
+
+#: ../xlgui/menu.py:192
+msgid "_Columns"
+msgstr ""
+
+#: ../xlgui/menu.py:199
+msgid "C_lear playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:215
+msgid "_Device Manager"
+msgstr ""
+
+#: ../xlgui/menu.py:218
+msgid "Re_scan Collection"
+msgstr ""
+
+#: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
+msgid "Rescan Collection (slow)"
+msgstr ""
+
+#: ../xlgui/menu.py:224
+msgid "Track _Properties"
+msgstr ""
+
+#: ../xlgui/__init__.py:317
+msgid "Scanning collection..."
+msgstr ""
+
+#: ../xlgui/__init__.py:386
+#, python-format
+msgid "Scanning %s..."
+msgstr ""
+
+#: ../xlgui/tray.py:148
+msgid "Exaile Music Player"
+msgstr ""
+
+#: ../xlgui/widgets/menuitems.py:96
+msgid "Enqueue"
+msgstr ""
+
+#: ../xlgui/widgets/menuitems.py:119
+msgid "Replace Current"
+msgstr ""
+
+#: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
+msgid "Append to Current"
+msgstr ""
+
+#: ../xlgui/widgets/menuitems.py:168
 msgid ""
-"Stop Playback\n"
-"\n"
-"Right Click for Stop After Track Feature"
+"The files cannot be moved to the Trash. Delete them permanently from the "
+"disk?"
 msgstr ""
 
-#: ../data/ui/main.ui.h:11
-msgid "Next Track"
+#: ../xlgui/widgets/menuitems.py:183
+msgid "Move to Trash"
 msgstr ""
 
-#: ../data/ui/main.ui.h:12
-msgid "0:00 / 0:00"
+#: ../xlgui/widgets/menuitems.py:194
+msgid "_Show Playing Track"
+msgstr ""
+
+#: ../xlgui/widgets/menuitems.py:221 ../xlgui/widgets/playlist.py:227
+msgid "Rename"
+msgstr ""
+
+#: ../xlgui/widgets/menuitems.py:226
+msgid "Edit"
+msgstr ""
+
+#: ../xlgui/widgets/menuitems.py:231
+msgid "Export Playlist"
+msgstr ""
+
+#: ../xlgui/widgets/menuitems.py:235
+msgid "Export Files"
+msgstr ""
+
+#: ../xlgui/widgets/menuitems.py:239
+msgid "Delete Playlist"
+msgstr ""
+
+#: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
+msgid "Not Playing"
+msgstr ""
+
+#: ../xlgui/widgets/playback.py:748
+#, python-format
+msgid "Seeking: %s"
+msgstr ""
+
+#: ../xlgui/widgets/playback.py:1024
+msgid "Move"
+msgstr ""
+
+#: ../xlgui/widgets/playback.py:1170
+msgid "New Marker"
+msgstr ""
+
+#: ../xlgui/widgets/playback.py:1269
+msgid "Muted"
+msgstr ""
+
+#. TRANSLATORS: Volume percentage
+#: ../xlgui/widgets/playback.py:1275
+#, python-format
+msgid "%d%%"
+msgstr ""
+
+#: ../xlgui/widgets/playback.py:1278
+msgid "Full Volume"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:291
+msgid "Enter the URL to open"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:292
+msgid "Open URL"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:560
+msgid "Select File Type (by Extension)"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:616
+msgid "Choose Media to Open"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:627
+msgid "Supported Files"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:629
+msgid "Music Files"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:631 ../xlgui/widgets/dialogs.py:789
+msgid "Playlist Files"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:707
+msgid "Choose Directory to Open"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:879
+msgid "Export Current Playlist"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:890
+msgid "Use relative paths to tracks"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:945
+#, python-format
+msgid "Playlist saved as <b>%s</b>."
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:959
+#, python-format
+msgid "Close %s"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:960
+#, python-format
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:961
+msgid "Your changes will be lost if you don't save them"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:963
+msgid "Close Without Saving"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:1319
+msgid "Yes to all"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:1327
+msgid "No to all"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:1472
+#, python-format
+msgid "Error occurred while copying %s: %s"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:1481
+#, python-format
+msgid "File exists, overwrite %s ?"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:1532
+msgid "Playlist name:"
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:1533
+msgid "Add new playlist..."
+msgstr ""
+
+#: ../xlgui/widgets/dialogs.py:1549
+msgid "Save As"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:130
+msgid "Shuffle"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:134
+msgid "Repeat"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:138
+msgid "Dynamic"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:153
+msgid "Remove Current Track From Playlist"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:183
+msgid "Randomize Playlist"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:186
+msgid "Randomize Selection"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:267
+msgid "Stop Playback After This Track"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:274
+msgid "Continue Playback After This Track"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:535
+msgid "Requires plugins providing dynamic playlists"
+msgstr ""
+
+#: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
+msgid "Dynamically add similar tracks to the playlist"
+msgstr ""
+
+#: ../xlgui/widgets/playlist_columns.py:218
+msgid "Track Number"
+msgstr ""
+
+#: ../xlgui/widgets/playlist_columns.py:261
+msgid "Disc Number"
+msgstr ""
+
+#: ../xlgui/widgets/playlist_columns.py:346
+msgid "Playcount"
+msgstr ""
+
+#: ../xlgui/widgets/playlist_columns.py:372
+msgid "Schedule"
+msgstr ""
+
+#: ../xlgui/widgets/playlist_columns.py:507
+msgid "Start Offset"
+msgstr ""
+
+#: ../xlgui/widgets/playlist_columns.py:514
+msgid "Stop Offset"
+msgstr ""
+
+#: ../xlgui/widgets/playlist_columns.py:633
+msgid "_Resizable"
+msgstr ""
+
+#: ../xlgui/widgets/playlist_columns.py:638
+msgid "_Autosize"
+msgstr ""
+
+#: ../xlgui/widgets/filter.py:79
+msgid "Match any of the criteria"
+msgstr ""
+
+#: ../xlgui/widgets/filter.py:81
+msgid "Randomize results"
+msgstr ""
+
+#: ../xlgui/widgets/filter.py:97
+msgid "Limit to: "
+msgstr ""
+
+#: ../xlgui/widgets/filter.py:107
+msgid " tracks"
+msgstr ""
+
+#: ../xlgui/widgets/info.py:69
+msgid ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"by $artist\n"
+"from $album"
+msgstr ""
+
+#: ../xlgui/widgets/info.py:417
+msgid "Various"
+msgstr ""
+
+#: ../xlgui/widgets/info.py:436
+#, python-format
+msgid "%(track_count)d in total (%(total_duration)s)"
+msgstr ""
+
+#: ../xlgui/widgets/info.py:594
+#, python-format
+msgid "%d in collection"
+msgstr ""
+
+#: ../xlgui/widgets/info.py:616 ../xlgui/widgets/info.py:623
+#, python-format
+msgid "%d showing"
+msgstr ""
+
+#: ../xlgui/widgets/info.py:620 ../xlgui/widgets/info.py:627
+#, python-format
+msgid "%d selected"
+msgstr ""
+
+#: ../xlgui/widgets/queue.py:100
+msgid "Queue"
+msgstr ""
+
+#: ../xlgui/widgets/queue.py:102
+#, python-format
+msgid "Queue (%d)"
+msgstr ""
+
+#: ../xlgui/widgets/rating.py:261
+msgid "Rating:"
+msgstr ""
+
+#: ../data/ui/queue_dialog.ui.h:1
+msgid "Queue Manager"
 msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
@@ -1899,237 +1804,70 @@ msgstr ""
 msgid "_Next"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
-msgid "Other"
+#: ../data/ui/about_dialog.ui.h:1
+msgid "About Exaile"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
-msgid "32x32 pixels 'file icon' (PNG only)"
+#: ../data/ui/about_dialog.ui.h:2
+msgid "© 2009-2014"
 msgstr ""
 
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
-msgid "Other file icon"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
-msgid "Cover (front)"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
-msgid "Cover (back)"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
-msgid "Leaflet page"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
-msgid "Media (e.g. label side of CD)"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
-msgid "Lead artist/lead performer/soloist"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
-msgid "Artist/performer"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
-msgid "Band/Orchestra"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
-msgid "Lyricist/text writer"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
-msgid "Recording Location"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
-msgid "During recording"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
-msgid "During performance"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
-msgid "Movie/video screen capture"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
-msgid "A bright coloured fish"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
-msgid "Illustration"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
-msgid "Band/artist logotype"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
-msgid "Publisher/Studio logotype"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
-msgid "Click or drag files here to change the cover image"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
-msgid "Type:"
-msgstr ""
-
-#: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
-#: ../data/ui/preferences/plugin.ui.h:11
-msgid "Description:"
-msgstr ""
-
-#: ../data/ui/collection_manager.ui.h:1
-msgid "Collection Manager"
-msgstr ""
-
-#: ../data/ui/collection_manager.ui.h:3
-msgid "Monitored"
-msgstr ""
-
-#: ../data/ui/collection_manager.ui.h:4
-msgid "Scan At Startup"
-msgstr ""
-
-#: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
-msgid "Radio"
-msgstr ""
-
-#: ../data/ui/panel/flatplaylist.ui.h:2
-msgid "Append All Tracks to Playlist"
-msgstr ""
-
-#: ../data/ui/panel/flatplaylist.ui.h:3
-msgid "Import CD"
-msgstr ""
-
-#: ../data/ui/panel/radio.ui.h:2
-msgid "Add Station"
-msgstr ""
-
-#: ../data/ui/panel/files.ui.h:1
-msgid "Files"
-msgstr ""
-
-#: ../data/ui/panel/files.ui.h:2
-msgid "Previous visited directory"
-msgstr ""
-
-#: ../data/ui/panel/files.ui.h:3
-msgid "Next visited directory"
-msgstr ""
-
-#: ../data/ui/panel/files.ui.h:4
-msgid "Up one directory"
-msgstr ""
-
-#: ../data/ui/panel/files.ui.h:5
-msgid "Refresh directory listing"
-msgstr ""
-
-#: ../data/ui/panel/files.ui.h:6
-msgid "Home directory"
-msgstr ""
-
-#: ../data/ui/panel/files.ui.h:7 ../data/ui/panel/collection.ui.h:6
-msgid "Clear search field"
-msgstr ""
-
-#: ../data/ui/panel/collection.ui.h:2
-msgid "<b>Collection is empty.</b>"
-msgstr ""
-
-#: ../data/ui/panel/collection.ui.h:3
-msgid "Add Music"
-msgstr ""
-
-#: ../data/ui/panel/collection.ui.h:4
+#: ../data/ui/about_dialog.ui.h:3
 msgid ""
-"Refresh collection view\n"
-"(Hold Shift key to rescan the collection)"
+"Copyright (C) 2008-2014 Various Contributors\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
 
-#: ../data/ui/preferences/cover.ui.h:1
-msgid "Use covers embedded in tags"
+#: ../data/ui/about_dialog.ui.h:20
+msgctxt "About dialog translator credits"
+msgid "Unknown translator"
 msgstr ""
 
-#: ../data/ui/preferences/cover.ui.h:2
-msgid "Use covers from local files"
+#: ../data/ui/device_manager.ui.h:1
+msgid "Device Manager"
 msgstr ""
 
-#: ../data/ui/preferences/cover.ui.h:3
+#: ../data/ui/device_manager.ui.h:2
+msgid "Add Device"
+msgstr ""
+
+#: ../data/ui/device_manager.ui.h:3
+msgid "Type of device:"
+msgstr ""
+
+#: ../data/ui/device_manager.ui.h:4
+msgid "Detected devices:"
+msgstr ""
+
+#: ../data/ui/device_manager.ui.h:5
+msgid "Custom: "
+msgstr ""
+
+#: ../data/ui/preferences/collection.ui.h:1
 msgid ""
-"This option will search for cover image files in \n"
-"the same folder as the music file."
+"Words to strip from the beginning of artist tags when sorting (space "
+"separated):"
 msgstr ""
 
-#: ../data/ui/preferences/cover.ui.h:5
-msgid "Preferred file names:"
+#: ../data/ui/preferences/collection.ui.h:2
+msgid "(Right click to reset to defaults)"
 msgstr ""
 
-#: ../data/ui/preferences/cover.ui.h:6
-msgid "A comma-separated list of file names without file extensions"
-msgstr ""
-
-#: ../data/ui/preferences/cover.ui.h:7
-msgid "Fetch covers automatically on playback start"
-msgstr ""
-
-#: ../data/ui/preferences/cover.ui.h:8
-msgid "Cover Search Order:"
-msgstr ""
-
-#: ../data/ui/preferences/cover.ui.h:9
-msgid "(drag to reorder)"
-msgstr ""
-
-#: ../data/ui/preferences/playlists.ui.h:1
-#: ../data/ui/preferences/general.ui.h:1
-msgid "Open last playlists on startup"
-msgstr ""
-
-#: ../data/ui/preferences/playlists.ui.h:2
-msgid "Prompt for saving custom playlists on close"
-msgstr ""
-
-#: ../data/ui/preferences/playlists.ui.h:3
-msgid "Replace content on side pane double click"
-msgstr ""
-
-#: ../data/ui/preferences/playlists.ui.h:4
-msgid ""
-"Instead of appending, tracks added via double click in the panes will "
-"replace the content of the current playlist."
-msgstr ""
-
-#: ../data/ui/preferences/playlists.ui.h:5
-msgid "Appending/Replacing via menu item triggers playback"
-msgstr ""
-
-#: ../data/ui/preferences/playlists.ui.h:6
-msgid ""
-"When using a menu item to add/replace tracks on the playlist, start playback "
-"if there is track currently playing. This option was the default behavior "
-"before Exaile 0.3.3"
-msgstr ""
-
-#: ../data/ui/preferences/playlists.ui.h:7
-msgid "Queue tracks by default instead of playing them"
-msgstr ""
-
-#: ../data/ui/preferences/playlists.ui.h:8
-msgid ""
-"When you double click or press enter to play a track in a playlist, queue "
-"the track instead of playing it"
+#: ../data/ui/preferences/collection.ui.h:3
+msgid "Use file based compilation detection"
 msgstr ""
 
 #: ../data/ui/preferences/playback.ui.h:1
@@ -2220,6 +1958,45 @@ msgstr ""
 msgid "Unified (unstable)"
 msgstr ""
 
+#: ../data/ui/preferences/general.ui.h:1
+#: ../data/ui/preferences/playlists.ui.h:1
+msgid "Open last playlists on startup"
+msgstr ""
+
+#: ../data/ui/preferences/cover.ui.h:1
+msgid "Use covers embedded in tags"
+msgstr ""
+
+#: ../data/ui/preferences/cover.ui.h:2
+msgid "Use covers from local files"
+msgstr ""
+
+#: ../data/ui/preferences/cover.ui.h:3
+msgid ""
+"This option will search for cover image files in \n"
+"the same folder as the music file."
+msgstr ""
+
+#: ../data/ui/preferences/cover.ui.h:5
+msgid "Preferred file names:"
+msgstr ""
+
+#: ../data/ui/preferences/cover.ui.h:6
+msgid "A comma-separated list of file names without file extensions"
+msgstr ""
+
+#: ../data/ui/preferences/cover.ui.h:7
+msgid "Fetch covers automatically on playback start"
+msgstr ""
+
+#: ../data/ui/preferences/cover.ui.h:8
+msgid "Cover Search Order:"
+msgstr ""
+
+#: ../data/ui/preferences/cover.ui.h:9
+msgid "(drag to reorder)"
+msgstr ""
+
 #: ../data/ui/preferences/plugin.ui.h:1
 msgid "Plugin"
 msgstr ""
@@ -2254,6 +2031,11 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:10
 msgid "Version:"
+msgstr ""
+
+#: ../data/ui/preferences/plugin.ui.h:11
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
+msgid "Description:"
 msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:12
@@ -2361,74 +2143,268 @@ msgstr ""
 msgid "Bottom"
 msgstr ""
 
+#: ../data/ui/preferences/playlists.ui.h:2
+msgid "Prompt for saving custom playlists on close"
+msgstr ""
+
+#: ../data/ui/preferences/playlists.ui.h:3
+msgid "Replace content on side pane double click"
+msgstr ""
+
+#: ../data/ui/preferences/playlists.ui.h:4
+msgid ""
+"Instead of appending, tracks added via double click in the panes will "
+"replace the content of the current playlist."
+msgstr ""
+
+#: ../data/ui/preferences/playlists.ui.h:5
+msgid "Appending/Replacing via menu item triggers playback"
+msgstr ""
+
+#: ../data/ui/preferences/playlists.ui.h:6
+msgid ""
+"When using a menu item to add/replace tracks on the playlist, start playback "
+"if there is track currently playing. This option was the default behavior "
+"before Exaile 0.3.3"
+msgstr ""
+
+#: ../data/ui/preferences/playlists.ui.h:7
+msgid "Queue tracks by default instead of playing them"
+msgstr ""
+
+#: ../data/ui/preferences/playlists.ui.h:8
+msgid ""
+"When you double click or press enter to play a track in a playlist, queue "
+"the track instead of playing it"
+msgstr ""
+
 #: ../data/ui/preferences/preferences_dialog.ui.h:1
 msgid "Preferences"
 msgstr ""
 
-#: ../data/ui/preferences/collection.ui.h:1
+#: ../data/ui/panel/collection.ui.h:2
+msgid "<b>Collection is empty.</b>"
+msgstr ""
+
+#: ../data/ui/panel/collection.ui.h:3
+msgid "Add Music"
+msgstr ""
+
+#: ../data/ui/panel/collection.ui.h:4
 msgid ""
-"Words to strip from the beginning of artist tags when sorting (space "
-"separated):"
+"Refresh collection view\n"
+"(Hold Shift key to rescan the collection)"
 msgstr ""
 
-#: ../data/ui/preferences/collection.ui.h:2
-msgid "(Right click to reset to defaults)"
+#: ../data/ui/panel/collection.ui.h:6 ../data/ui/panel/files.ui.h:7
+msgid "Clear search field"
 msgstr ""
 
-#: ../data/ui/preferences/collection.ui.h:3
-msgid "Use file based compilation detection"
+#: ../data/ui/panel/files.ui.h:1
+msgid "Files"
 msgstr ""
 
-#: ../data/ui/device_manager.ui.h:1
-msgid "Device Manager"
+#: ../data/ui/panel/files.ui.h:2
+msgid "Previous visited directory"
 msgstr ""
 
-#: ../data/ui/device_manager.ui.h:2
-msgid "Add Device"
+#: ../data/ui/panel/files.ui.h:3
+msgid "Next visited directory"
 msgstr ""
 
-#: ../data/ui/device_manager.ui.h:3
-msgid "Type of device:"
+#: ../data/ui/panel/files.ui.h:4
+msgid "Up one directory"
 msgstr ""
 
-#: ../data/ui/device_manager.ui.h:4
-msgid "Detected devices:"
+#: ../data/ui/panel/files.ui.h:5
+msgid "Refresh directory listing"
 msgstr ""
 
-#: ../data/ui/device_manager.ui.h:5
-msgid "Custom: "
+#: ../data/ui/panel/files.ui.h:6
+msgid "Home directory"
 msgstr ""
 
-#: ../data/ui/queue_dialog.ui.h:1
-msgid "Queue Manager"
+#: ../data/ui/panel/radio.ui.h:1 ../data/ui/panel/flatplaylist.ui.h:1
+msgid "Radio"
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:163
-msgid "Searching for mood..."
+#: ../data/ui/panel/radio.ui.h:2
+msgid "Add Station"
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:167
-msgid "Mood found."
+#: ../data/ui/panel/flatplaylist.ui.h:2
+msgid "Append All Tracks to Playlist"
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:199
-msgid "Could not read moodbar."
+#: ../data/ui/panel/flatplaylist.ui.h:3
+msgid "Import CD"
 msgstr ""
 
-#: ../plugins/moodbar/__init__.py:538
-msgid "Moodbar executable is not available."
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
+msgid "Other"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
-msgid "Moodbar"
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
+msgid "32x32 pixels 'file icon' (PNG only)"
 msgstr ""
 
-#: ../plugins/streamripper/__init__.py:72
-msgid "Error executing streamripper"
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
+msgid "Other file icon"
 msgstr ""
 
-#: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
-msgid "Streamripper"
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
+msgid "Cover (front)"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
+msgid "Cover (back)"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
+msgid "Leaflet page"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
+msgid "Media (e.g. label side of CD)"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
+msgid "Lead artist/lead performer/soloist"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
+msgid "Artist/performer"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
+msgid "Band/Orchestra"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
+msgid "Lyricist/text writer"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
+msgid "Recording Location"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
+msgid "During recording"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
+msgid "During performance"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
+msgid "Movie/video screen capture"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
+msgid "A bright coloured fish"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
+msgid "Illustration"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
+msgid "Band/artist logotype"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
+msgid "Publisher/Studio logotype"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
+msgid "Click or drag files here to change the cover image"
+msgstr ""
+
+#: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
+msgid "Type:"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui.h:1
+msgid "Collection Manager"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui.h:3
+msgid "Monitored"
+msgstr ""
+
+#: ../data/ui/collection_manager.ui.h:4
+msgid "Scan At Startup"
+msgstr ""
+
+#: ../data/ui/covermanager.ui.h:1
+msgid "Cover Manager"
+msgstr ""
+
+#: ../data/ui/covermanager.ui.h:2
+msgid "_Fetch Covers"
+msgstr ""
+
+#: ../data/ui/main.ui.h:1
+msgid "_File"
+msgstr ""
+
+#: ../data/ui/main.ui.h:2
+msgid "_Edit"
+msgstr ""
+
+#: ../data/ui/main.ui.h:3
+msgid "_View"
+msgstr ""
+
+#: ../data/ui/main.ui.h:4
+msgid "_Tools"
+msgstr ""
+
+#: ../data/ui/main.ui.h:5
+msgid "_Help"
+msgstr ""
+
+#: ../data/ui/main.ui.h:6
+msgid "Previous Track"
+msgstr ""
+
+#: ../data/ui/main.ui.h:8
+msgid ""
+"Stop Playback\n"
+"\n"
+"Right Click for Stop After Track Feature"
+msgstr ""
+
+#: ../data/ui/main.ui.h:11
+msgid "Next Track"
+msgstr ""
+
+#: ../data/ui/main.ui.h:12
+msgid "0:00 / 0:00"
+msgstr ""
+
+#: ../data/ui/playlist.ui.h:1
+msgid "Shuffle playback order"
+msgstr ""
+
+#: ../data/ui/playlist.ui.h:2
+msgid "Repeat playback"
+msgstr ""
+
+#: ../data/ui/playlist.ui.h:4
+msgid "_Search:"
+msgstr ""
+
+#: ../data/ui/coverchooser.ui.h:1
+msgid "Cover Finder"
+msgstr ""
+
+#: ../data/ui/coverchooser.ui.h:2
+msgid "The origin of this cover"
+msgstr ""
+
+#: ../data/ui/coverchooser.ui.h:3
+msgid "_Set as Cover"
 msgstr ""
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
@@ -2472,55 +2448,55 @@ msgstr ""
 msgid "Unlove This Track"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
-msgid "Alarm Clock"
+#: ../plugins/bookmarks/bookmarksprefs.py:22
+#: ../plugins/bookmarks/__init__.py:305 ../plugins/bookmarks/PLUGININFO:3
+msgid "Bookmarks"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:32
-msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
+#: ../plugins/bookmarks/__init__.py:104
+msgid "Bookmark This Track"
 msgstr ""
 
-#: ../plugins/mainmenubutton/__init__.py:72
-#: ../plugins/mainmenubutton/__init__.py:78
-msgid "Main Menu"
+#: ../plugins/bookmarks/__init__.py:106
+msgid "Delete Bookmark"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
-#: ../plugins/icecast/__init__.py:208
-msgid "Contacting Icecast server..."
+#: ../plugins/bookmarks/__init__.py:108
+msgid "Clear Bookmarks"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:119 ../plugins/icecast/__init__.py:123
-#: ../plugins/icecast/__init__.py:221 ../plugins/icecast/__init__.py:225
-msgid "Error connecting to Icecast server."
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:104
+#: ../plugins/grouptagger/gt_widgets.py:635
+#: ../plugins/grouptagger/gt_prefs.py:21
+#: ../plugins/grouptagger/__init__.py:125
+msgid "GroupTagger"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:317
-msgid "Enter the search keywords"
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:193
+msgid "Modulus this number"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:318
-msgid "Icecast Search"
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:216
+#, python-format
+msgid "Tag %s"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:342
-msgid "No Stations Found"
+#: ../plugins/playlistanalyzer/analyzer_dialog.py:340
+msgid "Save analysis"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:345
-msgid "Icecast Search Results"
+#: ../plugins/playlistanalyzer/__init__.py:62
+msgid "Analyze playlists"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:377
-msgid "Search"
+#: ../plugins/playlistanalyzer/__init__.py:67
+#: ../plugins/playlistanalyzer/analyzer.ui.h:1
+msgid "Analyze playlist"
 msgstr ""
 
-#: ../plugins/icecast/__init__.py:384
-msgid "Name"
-msgstr ""
-
-#: ../plugins/icecast/__init__.py:396
-msgid "Format"
+#: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
+#: ../plugins/lyricsviewer/PLUGININFO:3
+msgid "Lyrics Viewer"
 msgstr ""
 
 #: ../plugins/lyricsviewer/__init__.py:277
@@ -2533,33 +2509,6 @@ msgstr ""
 
 #: ../plugins/lyricsviewer/__init__.py:366
 msgid "Any"
-msgstr ""
-
-#: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
-#: ../plugins/lyricsviewer/PLUGININFO:3
-msgid "Lyrics Viewer"
-msgstr ""
-
-#: ../plugins/audioscrobbler/asprefs.py:32
-#: ../plugins/audioscrobbler/PLUGININFO:3
-msgid "AudioScrobbler"
-msgstr ""
-
-#: ../plugins/audioscrobbler/asprefs.py:107
-msgid "Verification successful"
-msgstr ""
-
-#: ../plugins/audioscrobbler/asprefs.py:113
-msgid "Verification failed"
-msgstr ""
-
-#: ../plugins/audioscrobbler/__init__.py:123
-msgid "Enable audioscrobbling"
-msgstr ""
-
-#: ../plugins/equalizer/__init__.py:127 ../plugins/equalizer/equalizer.ui.h:1
-#: ../plugins/equalizer/PLUGININFO:3
-msgid "Equalizer"
 msgstr ""
 
 #: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
@@ -2591,120 +2540,23 @@ msgstr ""
 msgid "Computer could not be shutdown using D-Bus."
 msgstr ""
 
-#: ../plugins/previewdevice/previewprefs.py:38
-#: ../plugins/previewdevice/PLUGININFO:3
-msgid "Preview Device"
+#: ../plugins/minimode/minimode_preferences.py:30
+#: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:110
+#: ../plugins/minimode/PLUGININFO:3
+msgid "Mini Mode"
 msgstr ""
 
-#: ../plugins/previewdevice/__init__.py:153
-msgid "Preview Player"
-msgstr ""
-
-#: ../plugins/previewdevice/__init__.py:159
-msgid "Preview"
-msgstr ""
-
-#: ../plugins/previewdevice/__init__.py:351
-msgid "Pause Playback (double click to stop)"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
-msgid "Notify-osd notifications"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs.py:51
-#: ../plugins/notify/notifyprefs.py:53
-#, python-format
-msgid "%(title)s"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs.py:55
-#: ../plugins/notify/notifyprefs.py:43
-#, python-format
-msgid "by %(artist)s"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs.py:59
-#: ../plugins/notify/notifyprefs.py:48
-#, python-format
-msgid "from %(album)s"
-msgstr ""
-
-#: ../plugins/ipconsole/__init__.py:86
-msgid "IPython Console - Exaile"
-msgstr ""
-
-#: ../plugins/ipconsole/__init__.py:156
-msgid "Show IPython Console"
-msgstr ""
-
-#: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
-msgid "IPython Console"
-msgstr ""
-
-#: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
-msgid "Notify"
-msgstr ""
-
-#: ../plugins/notify/notifyprefs.py:38
-#, python-format
-msgid ""
-"by %(artist)s\n"
-"from <i>%(album)s</i>"
-msgstr ""
-
-#: ../plugins/cd/_cdguipanel.py:96
-msgid "Importing CD..."
-msgstr ""
-
-#: ../plugins/cd/__init__.py:148 ../plugins/cd/__init__.py:226
-msgid "Audio Disc"
-msgstr ""
-
-#: ../plugins/cd/cdprefs.py:37
-msgid "CD"
-msgstr ""
-
-#: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimode_preferences.py:92
+#: ../plugins/minimode/minimode_preferences.py:92 ../plugins/cd/cdprefs.py:105
 msgid "Track number"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:98
+#: ../plugins/minimode/minimode_preferences.py:98 ../plugins/cd/cdprefs.py:111
 msgid "Disc number"
 msgstr ""
 
-#: ../plugins/cd/cdprefs.py:118
 #: ../plugins/minimode/minimode_preferences.py:105
+#: ../plugins/cd/cdprefs.py:118
 msgid "Play count"
-msgstr ""
-
-#: ../plugins/wikipedia/__init__.py:136 ../plugins/wikipedia/config.py:3
-#: ../plugins/wikipedia/preferences.py:21
-#: ../plugins/wikipedia/data/wikipanel.ui.h:1
-#: ../plugins/wikipedia/PLUGININFO:3
-msgid "Wikipedia"
-msgstr ""
-
-#: ../plugins/wikipedia/config.py:6
-msgid "Displays Wikipedia page about the current performer."
-msgstr ""
-
-#: ../plugins/abrepeat/__init__.py:49
-msgid "Repeat Segment"
-msgstr ""
-
-#: ../plugins/abrepeat/__init__.py:57
-msgid "Repeat Beginning"
-msgstr ""
-
-#: ../plugins/abrepeat/__init__.py:61
-msgid "Repeat End"
-msgstr ""
-
-#: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:110
-#: ../plugins/minimode/minimode_preferences.py:30
-#: ../plugins/minimode/PLUGININFO:3
-msgid "Mini Mode"
 msgstr ""
 
 #. TRANSLATORS: Mini mode track selector title preset
@@ -2840,6 +2692,216 @@ msgstr ""
 msgid "Playback progress and seeking"
 msgstr ""
 
+#: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
+msgid "Podcasts"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:70
+msgid "Podcast"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:79
+msgid "Refresh Podcast"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:80
+msgid "Delete"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:118
+msgid "Enter the URL of the podcast to add"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:119
+msgid "Open Podcast"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:152
+#, python-format
+msgid "Loading %s..."
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:181
+msgid "Error loading podcast."
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:197
+msgid "Loading Podcasts..."
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:228
+msgid "Could not save podcast file"
+msgstr ""
+
+#: ../plugins/daapserver/daapserverprefs.py:6
+#: ../plugins/daapserver/PLUGININFO:3
+msgid "DAAP Server"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
+msgid "Notify"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs.py:38
+#, python-format
+msgid ""
+"by %(artist)s\n"
+"from <i>%(album)s</i>"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs.py:43
+#: ../plugins/notifyosd/notifyosdprefs.py:55
+#, python-format
+msgid "by %(artist)s"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs.py:48
+#: ../plugins/notifyosd/notifyosdprefs.py:59
+#, python-format
+msgid "from %(album)s"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs.py:53
+#: ../plugins/notifyosd/notifyosdprefs.py:51
+#, python-format
+msgid "%(title)s"
+msgstr ""
+
+#: ../plugins/audioscrobbler/asprefs.py:32
+#: ../plugins/audioscrobbler/PLUGININFO:3
+msgid "AudioScrobbler"
+msgstr ""
+
+#: ../plugins/audioscrobbler/asprefs.py:107
+msgid "Verification successful"
+msgstr ""
+
+#: ../plugins/audioscrobbler/asprefs.py:113
+msgid "Verification failed"
+msgstr ""
+
+#: ../plugins/audioscrobbler/__init__.py:123
+msgid "Enable audioscrobbling"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
+msgid "IPython Console"
+msgstr ""
+
+#: ../plugins/ipconsole/__init__.py:86
+msgid "IPython Console - Exaile"
+msgstr ""
+
+#: ../plugins/ipconsole/__init__.py:156
+msgid "Show IPython Console"
+msgstr ""
+
+#: ../plugins/equalizer/__init__.py:127 ../plugins/equalizer/equalizer.ui.h:1
+#: ../plugins/equalizer/PLUGININFO:3
+msgid "Equalizer"
+msgstr ""
+
+#: ../plugins/contextinfo/contextprefs.py:22
+msgid "Contextinfo"
+msgstr ""
+
+#: ../plugins/history/__init__.py:108
+msgid "Playback history"
+msgstr ""
+
+#: ../plugins/history/__init__.py:140
+msgid "Erase stored history?"
+msgstr ""
+
+#: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
+#: ../plugins/history/history_preferences.py:35
+#: ../plugins/daapclient/__init__.py:292
+msgid "History"
+msgstr ""
+
+#: ../plugins/history/__init__.py:234
+msgid "Save History"
+msgstr ""
+
+#: ../plugins/history/__init__.py:236
+msgid "Clear History"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:281
+#: ../plugins/droptrayicon/drop_target_window.ui.h:1
+msgid "Drop to Choose"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:284
+msgid "Append and Play"
+msgstr ""
+
+#: ../plugins/droptrayicon/__init__.py:286
+msgid "Append"
+msgstr ""
+
+#: ../plugins/wikipedia/preferences.py:21 ../plugins/wikipedia/config.py:3
+#: ../plugins/wikipedia/__init__.py:136
+#: ../plugins/wikipedia/data/wikipanel.ui.h:1
+#: ../plugins/wikipedia/PLUGININFO:3
+msgid "Wikipedia"
+msgstr ""
+
+#: ../plugins/wikipedia/config.py:6
+msgid "Displays Wikipedia page about the current performer."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:298
+msgid "Manually..."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:350
+msgid "Enter IP address and port for share"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:351
+msgid "Enter IP address and port."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:556
+msgid ""
+"This server does not support multiple connections.\n"
+"You must stop playback before downloading songs."
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:647
+msgid "Refresh Server List"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:650
+msgid "Disconnect from Server"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:669
+msgid "Select a Location for Saving"
+msgstr ""
+
+#: ../plugins/daapclient/__init__.py:715
+msgid "Connect to DAAP..."
+msgstr ""
+
+#: ../plugins/daapclient/daapclientprefs.py:5
+#: ../plugins/daapclient/PLUGININFO:3
+msgid "DAAP Client"
+msgstr ""
+
+#: ../plugins/abrepeat/__init__.py:49
+msgid "Repeat Segment"
+msgstr ""
+
+#: ../plugins/abrepeat/__init__.py:57
+msgid "Repeat Beginning"
+msgstr ""
+
+#: ../plugins/abrepeat/__init__.py:61
+msgid "Repeat End"
+msgstr ""
+
 #: ../plugins/grouptagger/gt_import.py:45
 msgid "Importing tracks"
 msgstr ""
@@ -2854,55 +2916,6 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.py:284
 msgid "Select directory to import grouping tags from"
-msgstr ""
-
-#: ../plugins/grouptagger/gt_prefs.py:21
-#: ../plugins/grouptagger/__init__.py:125
-#: ../plugins/grouptagger/gt_widgets.py:635
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:104
-msgid "GroupTagger"
-msgstr ""
-
-#: ../plugins/grouptagger/__init__.py:109
-#: ../plugins/grouptagger/gt_widgets.py:693
-msgid "Get all tags from collection"
-msgstr ""
-
-#: ../plugins/grouptagger/__init__.py:114
-msgid "Import tags from directory"
-msgstr ""
-
-#: ../plugins/grouptagger/__init__.py:119
-msgid "Mass rename/delete tags"
-msgstr ""
-
-#: ../plugins/grouptagger/__init__.py:130
-msgid "Show tracks with all tags"
-msgstr ""
-
-#: ../plugins/grouptagger/__init__.py:134
-msgid "Show tracks with tags (custom)"
-msgstr ""
-
-#: ../plugins/grouptagger/__init__.py:219
-#: ../plugins/grouptagger/__init__.py:232
-msgid "No categorization tags found in selected tracks"
-msgstr ""
-
-#: ../plugins/grouptagger/gt_mass.py:121
-#, python-format
-msgid "%s tracks found"
-msgstr ""
-
-#: ../plugins/grouptagger/gt_mass.py:129
-#, python-format
-msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr ""
-
-#: ../plugins/grouptagger/gt_mass.py:151
-msgid ""
-"You should rescan your collection before using mass tag rename to ensure "
-"that all tags are up to date. Rescan now?"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:70
@@ -2964,6 +2977,11 @@ msgstr ""
 msgid "Add Group"
 msgstr ""
 
+#: ../plugins/grouptagger/gt_widgets.py:693
+#: ../plugins/grouptagger/__init__.py:109
+msgid "Get all tags from collection"
+msgstr ""
+
 #: ../plugins/grouptagger/gt_widgets.py:714
 msgid "Add selected to choices"
 msgstr ""
@@ -2992,61 +3010,49 @@ msgstr ""
 msgid "Selected Tracks"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs.py:32
-#: ../plugins/replaygain/PLUGININFO:3
-msgid "ReplayGain"
+#: ../plugins/grouptagger/gt_mass.py:121
+#, python-format
+msgid "%s tracks found"
 msgstr ""
 
-#: ../plugins/droptrayicon/__init__.py:281
-#: ../plugins/droptrayicon/drop_target_window.ui.h:1
-msgid "Drop to Choose"
+#: ../plugins/grouptagger/gt_mass.py:129
+#, python-format
+msgid "Replace '%s' with '%s' on %s tracks?"
 msgstr ""
 
-#: ../plugins/droptrayicon/__init__.py:284
-msgid "Append and Play"
+#: ../plugins/grouptagger/gt_mass.py:151
+msgid ""
+"You should rescan your collection before using mass tag rename to ensure "
+"that all tags are up to date. Rescan now?"
 msgstr ""
 
-#: ../plugins/droptrayicon/__init__.py:286
-msgid "Append"
+#: ../plugins/grouptagger/__init__.py:114
+msgid "Import tags from directory"
 msgstr ""
 
-#: ../plugins/history/history_preferences.py:35
-#: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
-#: ../plugins/daapclient/__init__.py:292
-msgid "History"
+#: ../plugins/grouptagger/__init__.py:119
+msgid "Mass rename/delete tags"
 msgstr ""
 
-#: ../plugins/history/__init__.py:108
-msgid "Playback history"
+#: ../plugins/grouptagger/__init__.py:130
+msgid "Show tracks with all tags"
 msgstr ""
 
-#: ../plugins/history/__init__.py:140
-msgid "Erase stored history?"
+#: ../plugins/grouptagger/__init__.py:134
+msgid "Show tracks with tags (custom)"
 msgstr ""
 
-#: ../plugins/history/__init__.py:234
-msgid "Save History"
+#: ../plugins/grouptagger/__init__.py:219
+#: ../plugins/grouptagger/__init__.py:232
+msgid "No categorization tags found in selected tracks"
 msgstr ""
 
-#: ../plugins/history/__init__.py:236
-msgid "Clear History"
+#: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
+msgid "Contacting SomaFM server..."
 msgstr ""
 
-#: ../plugins/jamendo/__init__.py:91
-#: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
-msgid "Ready"
-msgstr ""
-
-#: ../plugins/jamendo/__init__.py:92
-msgid "Searching Jamendo catalogue..."
-msgstr ""
-
-#: ../plugins/jamendo/__init__.py:93
-msgid "Retrieving song data..."
-msgstr ""
-
-#: ../plugins/console/__init__.py:109
-msgid "Console"
+#: ../plugins/somafm/__init__.py:95 ../plugins/somafm/__init__.py:98
+msgid "Error connecting to SomaFM server."
 msgstr ""
 
 #: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
@@ -3067,121 +3073,8 @@ msgid ""
 "from $album"
 msgstr ""
 
-#: ../plugins/amazoncovers/amazonprefs.py:22
-#: ../plugins/amazoncovers/PLUGININFO:3
-msgid "Amazon Covers"
-msgstr ""
-
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:193
-msgid "Modulus this number"
-msgstr ""
-
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:216
-#, python-format
-msgid "Tag %s"
-msgstr ""
-
-#: ../plugins/playlistanalyzer/analyzer_dialog.py:340
-msgid "Save analysis"
-msgstr ""
-
-#: ../plugins/playlistanalyzer/__init__.py:62
-msgid "Analyze playlists"
-msgstr ""
-
-#: ../plugins/playlistanalyzer/__init__.py:67
-#: ../plugins/playlistanalyzer/analyzer.ui.h:1
-msgid "Analyze playlist"
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
-msgid "Podcasts"
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:70
-msgid "Podcast"
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:79
-msgid "Refresh Podcast"
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:80
-msgid "Delete"
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:118
-msgid "Enter the URL of the podcast to add"
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:119
-msgid "Open Podcast"
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:152
-#, python-format
-msgid "Loading %s..."
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:181
-msgid "Error loading podcast."
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:197
-msgid "Loading Podcasts..."
-msgstr ""
-
-#: ../plugins/podcasts/__init__.py:228
-msgid "Could not save podcast file"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.py:21
-#: ../plugins/desktopcover/PLUGININFO:3
-msgid "Desktop Cover"
-msgstr ""
-
-#: ../plugins/multialarmclock/macprefs.py:23
-#: ../plugins/multialarmclock/PLUGININFO:3
-msgid "Multi-Alarm Clock"
-msgstr ""
-
-#: ../plugins/contextinfo/contextprefs.py:22
-msgid "Contextinfo"
-msgstr ""
-
-#: ../plugins/bookmarks/__init__.py:104
-msgid "Bookmark This Track"
-msgstr ""
-
-#: ../plugins/bookmarks/__init__.py:106
-msgid "Delete Bookmark"
-msgstr ""
-
-#: ../plugins/bookmarks/__init__.py:108
-msgid "Clear Bookmarks"
-msgstr ""
-
-#: ../plugins/bookmarks/__init__.py:305
-#: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
-msgid "Bookmarks"
-msgstr ""
-
-#: ../plugins/screensaverpause/prefs.py:5
-#: ../plugins/screensaverpause/PLUGININFO:3
-msgid "Pause on Screensaver"
-msgstr ""
-
-#: ../plugins/daapserver/daapserverprefs.py:6
-#: ../plugins/daapserver/PLUGININFO:3
-msgid "DAAP Server"
-msgstr ""
-
-#: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
-msgid "Contacting SomaFM server..."
-msgstr ""
-
-#: ../plugins/somafm/__init__.py:95 ../plugins/somafm/__init__.py:98
-msgid "Error connecting to SomaFM server."
+#: ../plugins/console/__init__.py:109
+msgid "Console"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:98 ../plugins/bpm/PLUGININFO:3
@@ -3201,87 +3094,154 @@ msgstr ""
 msgid "Set BPM of %d on %s?"
 msgstr ""
 
-#: ../plugins/daapclient/daapclientprefs.py:5
-#: ../plugins/daapclient/PLUGININFO:3
-msgid "DAAP Client"
+#: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
+msgid "Streamripper"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:298
-msgid "Manually..."
+#: ../plugins/streamripper/__init__.py:72
+msgid "Error executing streamripper"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:350
-msgid "Enter IP address and port for share"
+#: ../plugins/desktopcover/desktopcover_preferences.py:21
+#: ../plugins/desktopcover/PLUGININFO:3
+msgid "Desktop Cover"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:351
-msgid "Enter IP address and port."
+#: ../plugins/jamendo/__init__.py:91
+#: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
+msgid "Ready"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:556
-msgid ""
-"This server does not support multiple connections.\n"
-"You must stop playback before downloading songs."
+#: ../plugins/jamendo/__init__.py:92
+msgid "Searching Jamendo catalogue..."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:647
-msgid "Refresh Server List"
+#: ../plugins/jamendo/__init__.py:93
+msgid "Retrieving song data..."
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:650
-msgid "Disconnect from Server"
+#: ../plugins/screensaverpause/prefs.py:5
+#: ../plugins/screensaverpause/PLUGININFO:3
+msgid "Pause on Screensaver"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:669
-msgid "Select a Location for Saving"
+#: ../plugins/cd/cdprefs.py:37
+msgid "CD"
 msgstr ""
 
-#: ../plugins/daapclient/__init__.py:715
-msgid "Connect to DAAP..."
+#: ../plugins/cd/_cdguipanel.py:96
+msgid "Importing CD..."
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
-msgid "Darken played section instead of using cursor"
+#: ../plugins/cd/__init__.py:148 ../plugins/cd/__init__.py:226
+msgid "Audio Disc"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
-msgid "Darkness level:"
+#: ../plugins/mainmenubutton/__init__.py:32
+msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
-msgid "Use waveform style"
+#: ../plugins/mainmenubutton/__init__.py:72
+#: ../plugins/mainmenubutton/__init__.py:78
+msgid "Main Menu"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
-msgid "Show only waveform, not mood"
+#: ../plugins/replaygain/replaygainprefs.py:32
+#: ../plugins/replaygain/PLUGININFO:3
+msgid "ReplayGain"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
-msgid "Use color theme "
+#: ../plugins/multialarmclock/macprefs.py:23
+#: ../plugins/multialarmclock/PLUGININFO:3
+msgid "Multi-Alarm Clock"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
-msgid "Base color:"
+#: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
+msgid "Moodbar"
 msgstr ""
 
-#: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
-msgid "Base color"
+#: ../plugins/moodbar/__init__.py:163
+msgid "Searching for mood..."
 msgstr ""
 
-#: ../plugins/streamripper/streamripper.ui.h:1
-msgid "Save location:"
+#: ../plugins/moodbar/__init__.py:167
+msgid "Mood found."
 msgstr ""
 
-#: ../plugins/streamripper/streamripper.ui.h:2
-msgid "Relay port:"
+#: ../plugins/moodbar/__init__.py:199
+msgid "Could not read moodbar."
 msgstr ""
 
-#: ../plugins/streamripper/streamripper.ui.h:3
-msgid "Rip to single file"
+#: ../plugins/moodbar/__init__.py:538
+msgid "Moodbar executable is not available."
 msgstr ""
 
-#: ../plugins/streamripper/streamripper.ui.h:4
-msgid "Delete incomplete files"
+#: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
+#: ../plugins/icecast/__init__.py:208
+msgid "Contacting Icecast server..."
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:119 ../plugins/icecast/__init__.py:123
+#: ../plugins/icecast/__init__.py:221 ../plugins/icecast/__init__.py:225
+msgid "Error connecting to Icecast server."
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:317
+msgid "Enter the search keywords"
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:318
+msgid "Icecast Search"
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:342
+msgid "No Stations Found"
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:345
+msgid "Icecast Search Results"
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:377
+msgid "Search"
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:384
+msgid "Name"
+msgstr ""
+
+#: ../plugins/icecast/__init__.py:396
+msgid "Format"
+msgstr ""
+
+#: ../plugins/amazoncovers/amazonprefs.py:22
+#: ../plugins/amazoncovers/PLUGININFO:3
+msgid "Amazon Covers"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
+msgid "Alarm Clock"
+msgstr ""
+
+#: ../plugins/previewdevice/previewprefs.py:38
+#: ../plugins/previewdevice/PLUGININFO:3
+msgid "Preview Device"
+msgstr ""
+
+#: ../plugins/previewdevice/__init__.py:153
+msgid "Preview Player"
+msgstr ""
+
+#: ../plugins/previewdevice/__init__.py:159
+msgid "Preview"
+msgstr ""
+
+#: ../plugins/previewdevice/__init__.py:351
+msgid "Pause Playback (double click to stop)"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
+msgid "Notify-osd notifications"
 msgstr ""
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:1
@@ -3306,80 +3266,40 @@ msgid ""
 "complete the setup."
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.ui.h:1
-msgid "<b>Alarm time</b>"
+#: ../plugins/bookmarks/bookmarks_pane.ui.h:1
+msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.ui.h:2
-msgid "Monday"
+#: ../plugins/playlistanalyzer/analyzer.ui.h:2
+msgid "Presets"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.ui.h:3
-msgid "Tuesday"
+#: ../plugins/playlistanalyzer/analyzer.ui.h:3
+msgid "<none selected>"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.ui.h:4
-msgid "Wednesday"
+#: ../plugins/playlistanalyzer/analyzer.ui.h:4
+msgid "Select analysis"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.ui.h:5
-msgid "Thursday"
+#: ../plugins/playlistanalyzer/analyzer.ui.h:5
+msgid "Playlist(s) to analyze"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.ui.h:6
-msgid "Friday"
+#: ../plugins/playlistanalyzer/analyzer.ui.h:6
+msgid "Generate!"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.ui.h:7
-msgid "Saturday"
+#: ../plugins/playlistanalyzer/analyzer.ui.h:7
+msgid "Output Title"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.ui.h:8
-msgid "Sunday"
+#: ../plugins/playlistanalyzer/analyzer.ui.h:8
+msgid "Defaults to the playlist name"
 msgstr ""
 
-#: ../plugins/alarmclock/acprefs_pane.ui.h:9
-msgid "<b>Alarm Days</b>"
-msgstr ""
-
-#: ../plugins/alarmclock/acprefs_pane.ui.h:10
-msgid "Use Fading"
-msgstr ""
-
-#: ../plugins/alarmclock/acprefs_pane.ui.h:11
-msgid "Minimum volume:"
-msgstr ""
-
-#: ../plugins/alarmclock/acprefs_pane.ui.h:12
-msgid "Maximum volume:"
-msgstr ""
-
-#: ../plugins/alarmclock/acprefs_pane.ui.h:13
-msgid "Increment:"
-msgstr ""
-
-#: ../plugins/alarmclock/acprefs_pane.ui.h:14
-msgid "Time per increment:"
-msgstr ""
-
-#: ../plugins/awn/awn_prefs_pane.ui.h:1
-msgid "Display overlay:"
-msgstr ""
-
-#: ../plugins/awn/awn_prefs_pane.ui.h:2
-msgid "Display covers"
-msgstr ""
-
-#: ../plugins/awn/awn_prefs_pane.ui.h:3
-msgid "Circle display"
-msgstr ""
-
-#: ../plugins/awn/awn_prefs_pane.ui.h:4
-msgid "Text percentage"
-msgstr ""
-
-#: ../plugins/awn/awn_prefs_pane.ui.h:5
-msgid "None"
+#: ../plugins/playlistanalyzer/analyzer.ui.h:9
+msgid "Generate"
 msgstr ""
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
@@ -3388,6 +3308,110 @@ msgstr ""
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:1
+msgid ""
+"The order of controls can be changed by simply dragging them up or down. (Or "
+"press Alt+Up/Down.)"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:2
+msgid "Controls"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:3
+#: ../plugins/cd/cdprefs_pane.ui.h:10
+#, python-brace-format
+msgid ""
+"Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
+"<b>$__length</b> need to be specified with two leading underscores."
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:4
+msgid "Track Title Format"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:5
+msgid "Always on top"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:6
+msgid "Show in tasklist"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:8
+msgid "Display window decorations:"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:9
+msgid "Show on all desktops"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:10
+msgid "Show button in main window"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:13
+msgid "Full"
+msgstr ""
+
+#: ../plugins/minimode/minimode_preferences.ui.h:15
+msgid "Simple"
+msgstr ""
+
+#: ../plugins/podcasts/podcasts.ui.h:1
+msgid "Add Podcast"
+msgstr ""
+
+#: ../plugins/daapserver/daapserver_prefs.ui.h:1
+msgid "Server name:"
+msgstr ""
+
+#: ../plugins/daapserver/daapserver_prefs.ui.h:2
+msgid "Server host:"
+msgstr ""
+
+#: ../plugins/daapserver/daapserver_prefs.ui.h:3
+msgid "Port:"
+msgstr ""
+
+#: ../plugins/daapserver/daapserver_prefs.ui.h:4
+msgid "Server enabled"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.ui.h:1
+msgid "Resize displayed covers"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.ui.h:2
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
+msgid "Summary:"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.ui.h:3
+msgid "Only artist:"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.ui.h:4
+msgid "Only album:"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.ui.h:6
+#, python-format
+msgid ""
+"<i>Message that should be displayed in the body of the notification. In each "
+"case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced by "
+"their respective values. If the tag is not known, \"Unknown\" will be filled "
+"in its place.</i>"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.ui.h:7
+msgid "Both artist and album:"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.ui.h:8
+msgid "<b>Body Message</b>"
 msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
@@ -3414,6 +3438,30 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:7
 msgid "Verify Login Data"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
+msgid "Terminal opacity:"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
+msgid "Font:"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:3
+msgid "Text Color:"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:4
+msgid "Background Color:"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:5
+msgid "IPython Color Theme:"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
+msgid "Launch IPython console when Exaile starts"
 msgstr ""
 
 #: ../plugins/equalizer/equalizer.ui.h:3
@@ -3472,162 +3520,24 @@ msgstr ""
 msgid "15K"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
-msgid "On track change"
+#: ../plugins/contextinfo/context.ui.h:1
+msgid "Context"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
-msgid "On playback start, pause or stop"
+#: ../plugins/contextinfo/context_pane.ui.h:1
+msgid "Please enter your Last.fm authentication:"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
-msgid "On tag change"
+#: ../plugins/contextinfo/context_pane.ui.h:4
+msgid "Sign up for Last.fm"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
-msgid "On tray icon hover"
+#: ../plugins/history/history_preferences.ui.h:1
+msgid "Persist history after player exits"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
-msgid "When main window is focused"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
-msgid "<b>Display</b>"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
-msgid "Use album covers as icons"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
-msgid "Use media icons for pause, stop and resume"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
-msgid "<b>Icons</b>"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:10
-msgid "Artist line:"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
-#, python-format
-msgid ""
-"<i>The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be "
-"replaced by their respective values. The title will be replaced by \"Unknown"
-"\" if it is empty.</i>"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
-#: ../plugins/notify/notifyprefs_pane.ui.h:2
-msgid "Summary:"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
-msgid "Album line:"
-msgstr ""
-
-#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:15
-msgid "<b>Content</b>"
-msgstr ""
-
-#: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
-msgid "Terminal opacity:"
-msgstr ""
-
-#: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
-msgid "Font:"
-msgstr ""
-
-#: ../plugins/ipconsole/ipconsole_prefs.ui.h:3
-msgid "Text Color:"
-msgstr ""
-
-#: ../plugins/ipconsole/ipconsole_prefs.ui.h:4
-msgid "Background Color:"
-msgstr ""
-
-#: ../plugins/ipconsole/ipconsole_prefs.ui.h:5
-msgid "IPython Color Theme:"
-msgstr ""
-
-#: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
-msgid "Launch IPython console when Exaile starts"
-msgstr ""
-
-#: ../plugins/notify/notifyprefs_pane.ui.h:1
-msgid "Resize displayed covers"
-msgstr ""
-
-#: ../plugins/notify/notifyprefs_pane.ui.h:3
-msgid "Only artist:"
-msgstr ""
-
-#: ../plugins/notify/notifyprefs_pane.ui.h:4
-msgid "Only album:"
-msgstr ""
-
-#: ../plugins/notify/notifyprefs_pane.ui.h:6
-#, python-format
-msgid ""
-"<i>Message that should be displayed in the body of the notification. In each "
-"case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced by "
-"their respective values. If the tag is not known, \"Unknown\" will be filled "
-"in its place.</i>"
-msgstr ""
-
-#: ../plugins/notify/notifyprefs_pane.ui.h:7
-msgid "Both artist and album:"
-msgstr ""
-
-#: ../plugins/notify/notifyprefs_pane.ui.h:8
-msgid "<b>Body Message</b>"
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:1
-msgid "Ogg Vorbis"
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:2
-msgid "FLAC"
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:3
-msgid "AAC"
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:4
-msgid "MP3 (VBR)"
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:5
-msgid "MP3 (CBR)"
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:6
-msgid "WavPack"
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:7
-msgid "Import format: "
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:8
-msgid "Import quality: "
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:9
-msgid "Import path: "
-msgstr ""
-
-#: ../plugins/cd/cdprefs_pane.ui.h:10
-#: ../plugins/minimode/minimode_preferences.ui.h:3
-#, python-brace-format
-msgid ""
-"Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
-"<b>$__length</b> need to be specified with two leading underscores."
+#: ../plugins/history/history_preferences.ui.h:2
+msgid "History length:"
 msgstr ""
 
 #: ../plugins/wikipedia/data/preferences.ui.h:1
@@ -3650,46 +3560,12 @@ msgstr ""
 msgid "Forward"
 msgstr ""
 
-#: ../plugins/minimode/minimode_preferences.ui.h:1
-msgid ""
-"The order of controls can be changed by simply dragging them up or down. (Or "
-"press Alt+Up/Down.)"
+#: ../plugins/daapclient/daapclient_prefs.ui.h:1
+msgid "Show ipv6 servers (Experimental)"
 msgstr ""
 
-#: ../plugins/minimode/minimode_preferences.ui.h:2
-msgid "Controls"
-msgstr ""
-
-#: ../plugins/minimode/minimode_preferences.ui.h:4
-msgid "Track Title Format"
-msgstr ""
-
-#: ../plugins/minimode/minimode_preferences.ui.h:5
-msgid "Always on top"
-msgstr ""
-
-#: ../plugins/minimode/minimode_preferences.ui.h:6
-msgid "Show in tasklist"
-msgstr ""
-
-#: ../plugins/minimode/minimode_preferences.ui.h:8
-msgid "Display window decorations:"
-msgstr ""
-
-#: ../plugins/minimode/minimode_preferences.ui.h:9
-msgid "Show on all desktops"
-msgstr ""
-
-#: ../plugins/minimode/minimode_preferences.ui.h:10
-msgid "Show button in main window"
-msgstr ""
-
-#: ../plugins/minimode/minimode_preferences.ui.h:13
-msgid "Full"
-msgstr ""
-
-#: ../plugins/minimode/minimode_preferences.ui.h:15
-msgid "Simple"
+#: ../plugins/daapclient/daapclient_prefs.ui.h:2
+msgid "Remember recent DAAP servers"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:1
@@ -3730,6 +3606,30 @@ msgid ""
 "choices may only work with certain file formats. "
 msgstr ""
 
+#: ../plugins/grouptagger/gt_mass.ui.h:1
+msgid "Mass Rename/Delete Tags"
+msgstr ""
+
+#: ../plugins/grouptagger/gt_mass.ui.h:2
+msgid "If empty, matches all tracks"
+msgstr ""
+
+#: ../plugins/grouptagger/gt_mass.ui.h:3
+msgid "Search Tag"
+msgstr ""
+
+#: ../plugins/grouptagger/gt_mass.ui.h:4
+msgid "Use the empty string to delete the tag"
+msgstr ""
+
+#: ../plugins/grouptagger/gt_mass.ui.h:5
+msgid "Replace Tag"
+msgstr ""
+
+#: ../plugins/grouptagger/gt_mass.ui.h:8
+msgid "0 tracks found"
+msgstr ""
+
 #: ../plugins/grouptagger/gt_import.ui.h:1
 msgid "Import Tags"
 msgstr ""
@@ -3758,68 +3658,121 @@ msgstr ""
 msgid "Replace"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.ui.h:1
-msgid "Mass Rename/Delete Tags"
+#: ../plugins/awn/awn_prefs_pane.ui.h:1
+msgid "Display overlay:"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.ui.h:2
-msgid "If empty, matches all tracks"
+#: ../plugins/awn/awn_prefs_pane.ui.h:2
+msgid "Display covers"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.ui.h:3
-msgid "Search Tag"
+#: ../plugins/awn/awn_prefs_pane.ui.h:3
+msgid "Circle display"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.ui.h:4
-msgid "Use the empty string to delete the tag"
+#: ../plugins/awn/awn_prefs_pane.ui.h:4
+msgid "Text percentage"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.ui.h:5
-msgid "Replace Tag"
+#: ../plugins/awn/awn_prefs_pane.ui.h:5
+msgid "None"
 msgstr ""
 
-#: ../plugins/grouptagger/gt_mass.ui.h:8
-msgid "0 tracks found"
+#: ../plugins/osd/osd_preferences.ui.h:1
+#, python-brace-format
+msgid ""
+"Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
+"<b>$__length</b> need to be specified with two leading underscores.\n"
+"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
+"\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
-msgid "Prefer per-album correction"
+#: ../plugins/osd/osd_preferences.ui.h:3
+msgid "Display Format"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
-msgid "Prefer ReplayGain's per-album correction over per-track correction."
+#: ../plugins/osd/osd_preferences.ui.h:4
+msgid "Display duration:"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.ui.h:5
-msgid "Use clipping protection"
+#: ../plugins/osd/osd_preferences.ui.h:5
+msgid "Background:"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
-msgid "Protect against noise caused by over-amplification"
+#: ../plugins/osd/osd_preferences.ui.h:6
+msgid "Show progress bar"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
-msgid "Additional amplification to apply to all files"
+#: ../plugins/osd/osd_preferences.ui.h:8
+msgid "Border radius:"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
-msgid "Additional amplification (dB):"
+#: ../plugins/streamripper/streamripper.ui.h:1
+msgid "Save location:"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
-msgid "Fallback correction for files that lack ReplayGain information"
+#: ../plugins/streamripper/streamripper.ui.h:2
+msgid "Relay port:"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
-msgid "Fallback correction level (dB):"
+#: ../plugins/streamripper/streamripper.ui.h:3
+msgid "Rip to single file"
 msgstr ""
 
-#: ../plugins/history/history_preferences.ui.h:1
-msgid "Persist history after player exits"
+#: ../plugins/streamripper/streamripper.ui.h:4
+msgid "Delete incomplete files"
 msgstr ""
 
-#: ../plugins/history/history_preferences.ui.h:2
-msgid "History length:"
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
+msgid "Anchor:"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:2
+msgid "X offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:3
+msgid "pixels"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:4
+msgid "Y offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
+msgid "Override cover size"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
+msgid "Size:"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:7
+msgid "Use fading"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:8
+msgid "Fading duration:"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:9
+msgid "ms"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:10
+msgid "Top left"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:11
+msgid "Top right"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:12
+msgid "Bottom left"
+msgstr ""
+
+#: ../plugins/desktopcover/desktopcover_preferences.ui.h:13
+msgid "Bottom right"
 msgstr ""
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
@@ -3882,130 +3835,76 @@ msgstr ""
 msgid "Genre/Tags"
 msgstr ""
 
-#: ../plugins/osd/osd_preferences.ui.h:1
-#, python-brace-format
-msgid ""
-"Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
-"<b>$__length</b> need to be specified with two leading underscores.\n"
-"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
-"\">Pango Text Attribute Markup</a> is supported."
+#: ../plugins/screensaverpause/prefs.ui.h:1
+msgid "Unpause when screensaver ends"
 msgstr ""
 
-#: ../plugins/osd/osd_preferences.ui.h:3
-msgid "Display Format"
+#: ../plugins/cd/cdprefs_pane.ui.h:1
+msgid "Ogg Vorbis"
 msgstr ""
 
-#: ../plugins/osd/osd_preferences.ui.h:4
-msgid "Display duration:"
+#: ../plugins/cd/cdprefs_pane.ui.h:2
+msgid "FLAC"
 msgstr ""
 
-#: ../plugins/osd/osd_preferences.ui.h:5
-msgid "Background:"
+#: ../plugins/cd/cdprefs_pane.ui.h:3
+msgid "AAC"
 msgstr ""
 
-#: ../plugins/osd/osd_preferences.ui.h:6
-msgid "Show progress bar"
+#: ../plugins/cd/cdprefs_pane.ui.h:4
+msgid "MP3 (VBR)"
 msgstr ""
 
-#: ../plugins/osd/osd_preferences.ui.h:8
-msgid "Border radius:"
+#: ../plugins/cd/cdprefs_pane.ui.h:5
+msgid "MP3 (CBR)"
 msgstr ""
 
-#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
-msgid ""
-"<i>To sign up for an Amazon AWS account and get this information\n"
-"visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
-"\n"
-"You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
-"advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
+#: ../plugins/cd/cdprefs_pane.ui.h:6
+msgid "WavPack"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer.ui.h:2
-msgid "Presets"
+#: ../plugins/cd/cdprefs_pane.ui.h:7
+msgid "Import format: "
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer.ui.h:3
-msgid "<none selected>"
+#: ../plugins/cd/cdprefs_pane.ui.h:8
+msgid "Import quality: "
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer.ui.h:4
-msgid "Select analysis"
+#: ../plugins/cd/cdprefs_pane.ui.h:9
+msgid "Import path: "
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer.ui.h:5
-msgid "Playlist(s) to analyze"
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
+msgid "Prefer per-album correction"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer.ui.h:6
-msgid "Generate!"
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
+msgid "Prefer ReplayGain's per-album correction over per-track correction."
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer.ui.h:7
-msgid "Output Title"
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:5
+msgid "Use clipping protection"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer.ui.h:8
-msgid "Defaults to the playlist name"
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
+msgid "Protect against noise caused by over-amplification"
 msgstr ""
 
-#: ../plugins/playlistanalyzer/analyzer.ui.h:9
-msgid "Generate"
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
+msgid "Additional amplification to apply to all files"
 msgstr ""
 
-#: ../plugins/podcasts/podcasts.ui.h:1
-msgid "Add Podcast"
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
+msgid "Additional amplification (dB):"
 msgstr ""
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
-msgid "Anchor:"
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
+msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
 
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:2
-msgid "X offset:"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:3
-msgid "pixels"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:4
-msgid "Y offset:"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
-msgid "Override cover size"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
-msgid "Size:"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:7
-msgid "Use fading"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:8
-msgid "Fading duration:"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:9
-msgid "ms"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:10
-msgid "Top left"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:11
-msgid "Top right"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:12
-msgid "Bottom left"
-msgstr ""
-
-#: ../plugins/desktopcover/desktopcover_preferences.ui.h:13
-msgid "Bottom right"
+#: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
+msgid "Fallback correction level (dB):"
 msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:1
@@ -4048,119 +3947,153 @@ msgstr ""
 msgid "<b>Playback</b>"
 msgstr ""
 
-#: ../plugins/contextinfo/context_pane.ui.h:1
-msgid "Please enter your Last.fm authentication:"
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
+msgid "Darken played section instead of using cursor"
 msgstr ""
 
-#: ../plugins/contextinfo/context_pane.ui.h:4
-msgid "Sign up for Last.fm"
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
+msgid "Darkness level:"
 msgstr ""
 
-#: ../plugins/contextinfo/context.ui.h:1
-msgid "Context"
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
+msgid "Use waveform style"
 msgstr ""
 
-#: ../plugins/bookmarks/bookmarks_pane.ui.h:1
-msgid "Use covers in the bookmarks menu (takes effect on next start)"
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
+msgid "Show only waveform, not mood"
 msgstr ""
 
-#: ../plugins/screensaverpause/prefs.ui.h:1
-msgid "Unpause when screensaver ends"
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
+msgid "Use color theme "
 msgstr ""
 
-#: ../plugins/daapserver/daapserver_prefs.ui.h:1
-msgid "Server name:"
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
+msgid "Base color:"
 msgstr ""
 
-#: ../plugins/daapserver/daapserver_prefs.ui.h:2
-msgid "Server host:"
+#: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
+msgid "Base color"
 msgstr ""
 
-#: ../plugins/daapserver/daapserver_prefs.ui.h:3
-msgid "Port:"
-msgstr ""
-
-#: ../plugins/daapserver/daapserver_prefs.ui.h:4
-msgid "Server enabled"
-msgstr ""
-
-#: ../plugins/daapclient/daapclient_prefs.ui.h:1
-msgid "Show ipv6 servers (Experimental)"
-msgstr ""
-
-#: ../plugins/daapclient/daapclient_prefs.ui.h:2
-msgid "Remember recent DAAP servers"
-msgstr ""
-
-#: ../plugins/lyricsmania/PLUGININFO:3
-msgid "LyricsMania"
-msgstr ""
-
-#: ../plugins/lyricsmania/PLUGININFO:4
+#: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
-"Plugin to fetch lyrics from www.lyricsmania.com\n"
-"Depends: lxml"
+"<i>To sign up for an Amazon AWS account and get this information\n"
+"visit <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
+"\n"
+"You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
+"advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
 
-#: ../plugins/currentsong/PLUGININFO:3
-msgid "Current Song"
+#: ../plugins/alarmclock/acprefs_pane.ui.h:1
+msgid "<b>Alarm time</b>"
 msgstr ""
 
-#: ../plugins/currentsong/PLUGININFO:4
+#: ../plugins/alarmclock/acprefs_pane.ui.h:2
+msgid "Monday"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:3
+msgid "Tuesday"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:4
+msgid "Wednesday"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:5
+msgid "Thursday"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:6
+msgid "Friday"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:7
+msgid "Saturday"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:8
+msgid "Sunday"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:9
+msgid "<b>Alarm Days</b>"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:10
+msgid "Use Fading"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:11
+msgid "Minimum volume:"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:12
+msgid "Maximum volume:"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:13
+msgid "Increment:"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.ui.h:14
+msgid "Time per increment:"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
+msgid "On track change"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
+msgid "On playback start, pause or stop"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
+msgid "On tag change"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
+msgid "On tray icon hover"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
+msgid "When main window is focused"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
+msgid "<b>Display</b>"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
+msgid "Use album covers as icons"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
+msgid "Use media icons for pause, stop and resume"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
+msgid "<b>Icons</b>"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:10
+msgid "Artist line:"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
+#, python-format
 msgid ""
-"Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
-"out the suppported services."
+"<i>The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be "
+"replaced by their respective values. The title will be replaced by \"Unknown"
+"\" if it is empty.</i>"
 msgstr ""
 
-#: ../plugins/currentsong/PLUGININFO:5 ../plugins/audioscrobbler/PLUGININFO:5
-#: ../plugins/notifyosd/PLUGININFO:5 ../plugins/notify/PLUGININFO:5
-#: ../plugins/osd/PLUGININFO:5
-msgid "Notifications"
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
+msgid "Album line:"
 msgstr ""
 
-#: ../plugins/moodbar/PLUGININFO:4
-msgid ""
-"Replaces the standard progress bar with a moodbar.\n"
-"Depends: moodbar"
-msgstr ""
-
-#: ../plugins/moodbar/PLUGININFO:5 ../plugins/mainmenubutton/PLUGININFO:5
-#: ../plugins/awn/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
-#: ../plugins/droptrayicon/PLUGININFO:5 ../plugins/desktopcover/PLUGININFO:5
-msgid "GUI"
-msgstr ""
-
-#: ../plugins/gnomemmkeys/PLUGININFO:3
-msgid "GNOME Multimedia Keys"
-msgstr ""
-
-#: ../plugins/gnomemmkeys/PLUGININFO:4
-msgid ""
-"Adds support for controlling Exaile via GNOME's multimedia key system. "
-"Compatible with GNOME >= 2.20.x"
-msgstr ""
-
-#: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
-#: ../plugins/winmmkeys/PLUGININFO:5
-msgid "Hotkeys"
-msgstr ""
-
-#: ../plugins/streamripper/PLUGININFO:4
-msgid ""
-"Allows you to record streams with streamripper.\n"
-"Depends: streamripper"
-msgstr ""
-
-#: ../plugins/streamripper/PLUGININFO:5 ../plugins/previewdevice/PLUGININFO:5
-msgid "Output"
-msgstr ""
-
-#: ../plugins/musicbrainzcovers/PLUGININFO:3
-msgid "MusicBrainz Covers"
-msgstr ""
-
-#: ../plugins/musicbrainzcovers/PLUGININFO:4
-msgid "Integrates MusicBrainz for cover search"
+#: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:15
+msgid "<b>Content</b>"
 msgstr ""
 
 #: ../plugins/lastfmlove/PLUGININFO:4
@@ -4172,126 +4105,54 @@ msgid ""
 "Depends on the plugin \"AudioScrobbler\" for username and password."
 msgstr ""
 
-#: ../plugins/lastfmlove/PLUGININFO:5 ../plugins/exfalso/PLUGININFO:5
-#: ../plugins/grouptagger/PLUGININFO:5
+#: ../plugins/lastfmlove/PLUGININFO:5 ../plugins/grouptagger/PLUGININFO:5
+#: ../plugins/exfalso/PLUGININFO:5
 msgid "Tagging"
 msgstr ""
 
-#: ../plugins/alarmclock/PLUGININFO:4
-msgid ""
-"Plays music at a specific time.\n"
-"\n"
-"Note that when the specified time arrives, Exaile will just act like you "
-"pressed the play button, so be sure you have the music you want to hear in "
-"your playlist"
+#: ../plugins/karaoke/PLUGININFO:3
+msgid "Karaoke"
 msgstr ""
 
-#: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
-#: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
-#: ../plugins/history/PLUGININFO:5 ../plugins/multialarmclock/PLUGININFO:5
-#: ../plugins/bookmarks/PLUGININFO:5 ../plugins/screensaverpause/PLUGININFO:5
-#: ../plugins/bpm/PLUGININFO:5
+#: ../plugins/karaoke/PLUGININFO:4
+msgid "Removes voice from audio"
+msgstr ""
+
+#: ../plugins/karaoke/PLUGININFO:5 ../plugins/equalizer/PLUGININFO:5
+#: ../plugins/abrepeat/PLUGININFO:5 ../plugins/mono/PLUGININFO:5
+#: ../plugins/replaygain/PLUGININFO:5
+msgid "Effect"
+msgstr ""
+
+#: ../plugins/bookmarks/PLUGININFO:4
+msgid "Allows saving/resuming bookmark positions in audio files."
+msgstr ""
+
+#: ../plugins/bookmarks/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
+#: ../plugins/mpris/PLUGININFO:5 ../plugins/history/PLUGININFO:5
+#: ../plugins/inhibitsuspend/PLUGININFO:5 ../plugins/bpm/PLUGININFO:5
+#: ../plugins/screensaverpause/PLUGININFO:5
+#: ../plugins/multialarmclock/PLUGININFO:5 ../plugins/alarmclock/PLUGININFO:5
 msgid "Utility"
 msgstr ""
 
-#: ../plugins/mainmenubutton/PLUGININFO:3
-msgid "Main Menu Button"
+#: ../plugins/playlistanalyzer/PLUGININFO:3
+msgid "Playlist Analyzer"
 msgstr ""
 
-#: ../plugins/mainmenubutton/PLUGININFO:4
+#: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
-"Moves the main menu into a button on top of the panels.\n"
-"Depends: PyGTK >= 2.22, GTK >= 2.20"
+"Tool to help generate HTML5 visualizations of your playlists using d3.js. "
+"Optimized for Chrome."
 msgstr ""
 
-#: ../plugins/icecast/PLUGININFO:5 ../plugins/librivox/PLUGININFO:5
-#: ../plugins/jamendo/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
-#: ../plugins/daapserver/PLUGININFO:5 ../plugins/somafm/PLUGININFO:5
-#: ../plugins/daapclient/PLUGININFO:5
-msgid "Media Sources"
-msgstr ""
-
-#: ../plugins/lastfmcovers/PLUGININFO:3
-msgid "Last.fm Covers"
-msgstr ""
-
-#: ../plugins/lastfmcovers/PLUGININFO:4
-msgid "Searches Last.fm for covers"
-msgstr ""
-
-#: ../plugins/awn/PLUGININFO:4
-msgid "Sets the cover and adds some menu items to AWN for Exaile"
-msgstr ""
-
-#: ../plugins/exfalso/PLUGININFO:3
-msgid "Ex Falso tag editor"
-msgstr ""
-
-#: ../plugins/exfalso/PLUGININFO:4
-msgid ""
-"Integrates the Ex Falso tag editor with Exaile.\n"
-"Depends: Ex Falso."
+#: ../plugins/playlistanalyzer/PLUGININFO:5
+#: ../plugins/contextinfo/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
+msgid "Information"
 msgstr ""
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
-msgstr ""
-
-#: ../plugins/audioscrobbler/PLUGININFO:4
-msgid ""
-"Submits listening information to Last.fm and similar services supporting "
-"AudioScrobbler"
-msgstr ""
-
-#: ../plugins/xkeys/PLUGININFO:3
-msgid "XKeys"
-msgstr ""
-
-#: ../plugins/xkeys/PLUGININFO:4
-msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
-
-#: ../plugins/winmmkeys/PLUGININFO:1
-msgid "Multimedia keys for Windows"
-msgstr ""
-
-#: ../plugins/winmmkeys/PLUGININFO:4
-msgid ""
-"Adds support for multimedia keys (present on most new keyboards) when "
-"running Exaile in Microsoft Windows.\n"
-"\n"
-"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
-"pythonlibs/#pyhook> for more versions)"
-msgstr ""
-
-#: ../plugins/equalizer/PLUGININFO:4
-msgid "A 10-band equalizer"
-msgstr ""
-
-#: ../plugins/equalizer/PLUGININFO:5 ../plugins/abrepeat/PLUGININFO:5
-#: ../plugins/replaygain/PLUGININFO:5 ../plugins/karaoke/PLUGININFO:5
-#: ../plugins/mono/PLUGININFO:5
-msgid "Effect"
-msgstr ""
-
-#: ../plugins/inhibitsuspend/PLUGININFO:3
-msgid "Inhibit Suspend"
-msgstr ""
-
-#: ../plugins/inhibitsuspend/PLUGININFO:4
-msgid "Prevents User Session from suspending while music is playing"
-msgstr ""
-
-#: ../plugins/librivox/PLUGININFO:3
-msgid "Librivox"
-msgstr ""
-
-#: ../plugins/librivox/PLUGININFO:4
-msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
-
-#: ../plugins/shutdown/PLUGININFO:4
-msgid "Allows for shutdown of the computer at the end of playback."
 msgstr ""
 
 #: ../plugins/massstorage/PLUGININFO:3
@@ -4307,6 +4168,357 @@ msgstr ""
 #: ../plugins/massstorage/PLUGININFO:5 ../plugins/cd/PLUGININFO:5
 #: ../plugins/ipod/PLUGININFO:5
 msgid "Devices"
+msgstr ""
+
+#: ../plugins/shutdown/PLUGININFO:4
+msgid "Allows for shutdown of the computer at the end of playback."
+msgstr ""
+
+#: ../plugins/mpris/PLUGININFO:4
+msgid ""
+"Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for "
+"controlling Exaile."
+msgstr ""
+
+#: ../plugins/minimode/PLUGININFO:4
+msgid "Compact mode for Exaile with a configurable interface"
+msgstr ""
+
+#: ../plugins/minimode/PLUGININFO:5 ../plugins/droptrayicon/PLUGININFO:5
+#: ../plugins/awn/PLUGININFO:5 ../plugins/desktopcover/PLUGININFO:5
+#: ../plugins/mainmenubutton/PLUGININFO:5 ../plugins/moodbar/PLUGININFO:5
+msgid "GUI"
+msgstr ""
+
+#: ../plugins/podcasts/PLUGININFO:4
+msgid "Adds Simple Podcast Support"
+msgstr ""
+
+#: ../plugins/podcasts/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
+#: ../plugins/librivox/PLUGININFO:5 ../plugins/daapclient/PLUGININFO:5
+#: ../plugins/somafm/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
+#: ../plugins/icecast/PLUGININFO:5
+msgid "Media Sources"
+msgstr ""
+
+#: ../plugins/daapserver/PLUGININFO:4
+msgid ""
+"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
+"a collection can be shared over DAAP."
+msgstr ""
+
+#: ../plugins/librivox/PLUGININFO:3
+msgid "Librivox"
+msgstr ""
+
+#: ../plugins/librivox/PLUGININFO:4
+msgid "Browse and listen to audiobooks from Librivox.org."
+msgstr ""
+
+#: ../plugins/notify/PLUGININFO:4
+msgid ""
+"Pops up a notification when playback of a track starts. Requires pynotify"
+msgstr ""
+
+#: ../plugins/notify/PLUGININFO:5 ../plugins/audioscrobbler/PLUGININFO:5
+#: ../plugins/osd/PLUGININFO:5 ../plugins/currentsong/PLUGININFO:5
+#: ../plugins/notifyosd/PLUGININFO:5
+msgid "Notifications"
+msgstr ""
+
+#: ../plugins/audioscrobbler/PLUGININFO:4
+msgid ""
+"Submits listening information to Last.fm and similar services supporting "
+"AudioScrobbler"
+msgstr ""
+
+#: ../plugins/gnomemmkeys/PLUGININFO:3
+msgid "GNOME Multimedia Keys"
+msgstr ""
+
+#: ../plugins/gnomemmkeys/PLUGININFO:4
+msgid ""
+"Adds support for controlling Exaile via GNOME's multimedia key system. "
+"Compatible with GNOME >= 2.20.x"
+msgstr ""
+
+#: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/winmmkeys/PLUGININFO:5
+#: ../plugins/xkeys/PLUGININFO:5
+msgid "Hotkeys"
+msgstr ""
+
+#: ../plugins/ipconsole/PLUGININFO:4
+msgid "Provides an IPython console that can be used to manipulate Exaile."
+msgstr ""
+
+#: ../plugins/ipconsole/PLUGININFO:5 ../plugins/console/PLUGININFO:5
+#: ../plugins/helloworld/PLUGININFO:5
+msgid "Development"
+msgstr ""
+
+#: ../plugins/equalizer/PLUGININFO:4
+msgid "A 10-band equalizer"
+msgstr ""
+
+#: ../plugins/contextinfo/PLUGININFO:3
+msgid "Contextual Info"
+msgstr ""
+
+#: ../plugins/contextinfo/PLUGININFO:4
+msgid ""
+"Show various informations about the track currently playing.\n"
+"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
+"PIL)"
+msgstr ""
+
+#: ../plugins/winmmkeys/PLUGININFO:1
+msgid "Multimedia keys for Windows"
+msgstr ""
+
+#: ../plugins/winmmkeys/PLUGININFO:4
+msgid ""
+"Adds support for multimedia keys (present on most new keyboards) when "
+"running Exaile in Microsoft Windows.\n"
+"\n"
+"Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
+"pythonlibs/#pyhook> for more versions)"
+msgstr ""
+
+#: ../plugins/droptrayicon/PLUGININFO:3
+msgid "Drop Trayicon"
+msgstr ""
+
+#: ../plugins/droptrayicon/PLUGININFO:4
+msgid ""
+"Provides an alternative trayicon which accepts dropped files.\n"
+"\n"
+"Depends: python-eggtrayicon"
+msgstr ""
+
+#: ../plugins/wikipedia/PLUGININFO:4
+msgid ""
+"Provides Wikipedia information about the current artist.\n"
+"Depends: python-webkit"
+msgstr ""
+
+#: ../plugins/daapclient/PLUGININFO:4
+msgid "Allows playing of DAAP music shares."
+msgstr ""
+
+#: ../plugins/lyricsmania/PLUGININFO:3
+msgid "LyricsMania"
+msgstr ""
+
+#: ../plugins/lyricsmania/PLUGININFO:4
+msgid ""
+"Plugin to fetch lyrics from www.lyricsmania.com\n"
+"Depends: lxml"
+msgstr ""
+
+#: ../plugins/abrepeat/PLUGININFO:3
+msgid "A-B Repeat"
+msgstr ""
+
+#: ../plugins/abrepeat/PLUGININFO:4
+msgid "Continuously repeats a segment of a track."
+msgstr ""
+
+#: ../plugins/grouptagger/PLUGININFO:3
+msgid "Group Tagger"
+msgstr ""
+
+#: ../plugins/grouptagger/PLUGININFO:4
+msgid ""
+"Facilitates categorizing your music by managing the grouping/category tag in "
+"audio files"
+msgstr ""
+
+#: ../plugins/awn/PLUGININFO:4
+msgid "Sets the cover and adds some menu items to AWN for Exaile"
+msgstr ""
+
+#: ../plugins/lastfmcovers/PLUGININFO:3
+msgid "Last.fm Covers"
+msgstr ""
+
+#: ../plugins/lastfmcovers/PLUGININFO:4
+msgid "Searches Last.fm for covers"
+msgstr ""
+
+#: ../plugins/somafm/PLUGININFO:3
+msgid "SomaFM Radio"
+msgstr ""
+
+#: ../plugins/somafm/PLUGININFO:4
+msgid ""
+"SomaFM Radio list\n"
+"\n"
+"http://somafm.com"
+msgstr ""
+
+#: ../plugins/osd/PLUGININFO:4
+msgid "A popup window showing information of the currently playing track."
+msgstr ""
+
+#: ../plugins/musicbrainzcovers/PLUGININFO:3
+msgid "MusicBrainz Covers"
+msgstr ""
+
+#: ../plugins/musicbrainzcovers/PLUGININFO:4
+msgid "Integrates MusicBrainz for cover search"
+msgstr ""
+
+#: ../plugins/mono/PLUGININFO:3
+msgid "Mono"
+msgstr ""
+
+#: ../plugins/mono/PLUGININFO:4
+msgid "Downmixes audio to one channel."
+msgstr ""
+
+#: ../plugins/console/PLUGININFO:3
+msgid "Simple console"
+msgstr ""
+
+#: ../plugins/console/PLUGININFO:4
+msgid "Simple console to interact with the Exaile API"
+msgstr ""
+
+#: ../plugins/currentsong/PLUGININFO:3
+msgid "Current Song"
+msgstr ""
+
+#: ../plugins/currentsong/PLUGININFO:4
+msgid ""
+"Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
+"out the suppported services."
+msgstr ""
+
+#: ../plugins/inhibitsuspend/PLUGININFO:3
+msgid "Inhibit Suspend"
+msgstr ""
+
+#: ../plugins/inhibitsuspend/PLUGININFO:4
+msgid "Prevents User Session from suspending while music is playing"
+msgstr ""
+
+#: ../plugins/bpm/PLUGININFO:4
+msgid "Manual BPM counter"
+msgstr ""
+
+#: ../plugins/streamripper/PLUGININFO:4
+msgid ""
+"Allows you to record streams with streamripper.\n"
+"Depends: streamripper"
+msgstr ""
+
+#: ../plugins/streamripper/PLUGININFO:5 ../plugins/previewdevice/PLUGININFO:5
+msgid "Output"
+msgstr ""
+
+#: ../plugins/desktopcover/PLUGININFO:4
+msgid "Displays the current album cover on the desktop"
+msgstr ""
+
+#: ../plugins/jamendo/PLUGININFO:3
+msgid "Jamendo"
+msgstr ""
+
+#: ../plugins/jamendo/PLUGININFO:4
+msgid "Enables access to the Jamendo music catalogue."
+msgstr ""
+
+#: ../plugins/screensaverpause/PLUGININFO:4
+msgid ""
+"Pauses (and optionally resumes) playback based on screensaver status.\n"
+"\n"
+"Requires: GNOME Screensaver or KDE Screensaver (does not support "
+"XScreenSaver nor XLockMore)"
+msgstr ""
+
+#: ../plugins/cd/PLUGININFO:3
+msgid "CD Playback"
+msgstr ""
+
+#: ../plugins/cd/PLUGININFO:4
+msgid ""
+"Adds support for playing audio CDs.\n"
+"\n"
+"Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
+"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
+msgstr ""
+
+#: ../plugins/mainmenubutton/PLUGININFO:3
+msgid "Main Menu Button"
+msgstr ""
+
+#: ../plugins/mainmenubutton/PLUGININFO:4
+msgid ""
+"Moves the main menu into a button on top of the panels.\n"
+"Depends: PyGTK >= 2.22, GTK >= 2.20"
+msgstr ""
+
+#: ../plugins/helloworld/PLUGININFO:3
+msgid "Hello World"
+msgstr ""
+
+#: ../plugins/helloworld/PLUGININFO:4
+msgid "A simple plugin for testing the basic plugin system"
+msgstr ""
+
+#: ../plugins/replaygain/PLUGININFO:4
+msgid "Enables ReplayGain support"
+msgstr ""
+
+#: ../plugins/multialarmclock/PLUGININFO:4
+msgid ""
+"Plays music at specific times and days.\n"
+"\n"
+"Note that when the specified time arrives, Exaile will just act like you "
+"pressed the play button, so be sure you have the music you want to hear in "
+"your playlist"
+msgstr ""
+
+#: ../plugins/moodbar/PLUGININFO:4
+msgid ""
+"Replaces the standard progress bar with a moodbar.\n"
+"Depends: moodbar"
+msgstr ""
+
+#: ../plugins/amazoncovers/PLUGININFO:4
+msgid ""
+"Searches Amazon for covers\n"
+"\n"
+"To be able to use this plugin, an AWS API key and secret key are required."
+msgstr ""
+
+#: ../plugins/alarmclock/PLUGININFO:4
+msgid ""
+"Plays music at a specific time.\n"
+"\n"
+"Note that when the specified time arrives, Exaile will just act like you "
+"pressed the play button, so be sure you have the music you want to hear in "
+"your playlist"
+msgstr ""
+
+#: ../plugins/exfalso/PLUGININFO:3
+msgid "Ex Falso tag editor"
+msgstr ""
+
+#: ../plugins/exfalso/PLUGININFO:4
+msgid ""
+"Integrates the Ex Falso tag editor with Exaile.\n"
+"Depends: Ex Falso."
+msgstr ""
+
+#: ../plugins/lyricwiki/PLUGININFO:3
+msgid "Lyrics Wiki"
+msgstr ""
+
+#: ../plugins/lyricwiki/PLUGININFO:4
+msgid ""
+"Plugin to fetch lyrics from lyrics.wikia.com\n"
+"Depends: python-beautifulsoup"
 msgstr ""
 
 #: ../plugins/previewdevice/PLUGININFO:4
@@ -4337,104 +4549,12 @@ msgid ""
 "Recommends: notify-osd"
 msgstr ""
 
-#: ../plugins/ipconsole/PLUGININFO:4
-msgid "Provides an IPython console that can be used to manipulate Exaile."
+#: ../plugins/xkeys/PLUGININFO:3
+msgid "XKeys"
 msgstr ""
 
-#: ../plugins/ipconsole/PLUGININFO:5 ../plugins/console/PLUGININFO:5
-#: ../plugins/helloworld/PLUGININFO:5
-msgid "Development"
-msgstr ""
-
-#: ../plugins/notify/PLUGININFO:4
-msgid ""
-"Pops up a notification when playback of a track starts. Requires pynotify"
-msgstr ""
-
-#: ../plugins/cd/PLUGININFO:3
-msgid "CD Playback"
-msgstr ""
-
-#: ../plugins/cd/PLUGININFO:4
-msgid ""
-"Adds support for playing audio CDs.\n"
-"\n"
-"Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
-"Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
-msgstr ""
-
-#: ../plugins/wikipedia/PLUGININFO:4
-msgid ""
-"Provides Wikipedia information about the current artist.\n"
-"Depends: python-webkit"
-msgstr ""
-
-#: ../plugins/wikipedia/PLUGININFO:5 ../plugins/playlistanalyzer/PLUGININFO:5
-#: ../plugins/contextinfo/PLUGININFO:5
-msgid "Information"
-msgstr ""
-
-#: ../plugins/abrepeat/PLUGININFO:3
-msgid "A-B Repeat"
-msgstr ""
-
-#: ../plugins/abrepeat/PLUGININFO:4
-msgid "Continuously repeats a segment of a track."
-msgstr ""
-
-#: ../plugins/minimode/PLUGININFO:4
-msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
-
-#: ../plugins/grouptagger/PLUGININFO:3
-msgid "Group Tagger"
-msgstr ""
-
-#: ../plugins/grouptagger/PLUGININFO:4
-msgid ""
-"Facilitates categorizing your music by managing the grouping/category tag in "
-"audio files"
-msgstr ""
-
-#: ../plugins/replaygain/PLUGININFO:4
-msgid "Enables ReplayGain support"
-msgstr ""
-
-#: ../plugins/droptrayicon/PLUGININFO:3
-msgid "Drop Trayicon"
-msgstr ""
-
-#: ../plugins/droptrayicon/PLUGININFO:4
-msgid ""
-"Provides an alternative trayicon which accepts dropped files.\n"
-"\n"
-"Depends: python-eggtrayicon"
-msgstr ""
-
-#: ../plugins/mpris/PLUGININFO:4
-msgid ""
-"Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for "
-"controlling Exaile."
-msgstr ""
-
-#: ../plugins/jamendo/PLUGININFO:3
-msgid "Jamendo"
-msgstr ""
-
-#: ../plugins/jamendo/PLUGININFO:4
-msgid "Enables access to the Jamendo music catalogue."
-msgstr ""
-
-#: ../plugins/console/PLUGININFO:3
-msgid "Simple console"
-msgstr ""
-
-#: ../plugins/console/PLUGININFO:4
-msgid "Simple console to interact with the Exaile API"
-msgstr ""
-
-#: ../plugins/osd/PLUGININFO:4
-msgid "A popup window showing information of the currently playing track."
+#: ../plugins/xkeys/PLUGININFO:4
+msgid "Global hotkeys using xlib (mmkeys.so)"
 msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
@@ -4446,120 +4566,4 @@ msgid ""
 "A plugin for iPod support. Read-only for the moment, no transfer.\n"
 "\n"
 "Depends on python-gpod."
-msgstr ""
-
-#: ../plugins/amazoncovers/PLUGININFO:4
-msgid ""
-"Searches Amazon for covers\n"
-"\n"
-"To be able to use this plugin, an AWS API key and secret key are required."
-msgstr ""
-
-#: ../plugins/karaoke/PLUGININFO:3
-msgid "Karaoke"
-msgstr ""
-
-#: ../plugins/karaoke/PLUGININFO:4
-msgid "Removes voice from audio"
-msgstr ""
-
-#: ../plugins/playlistanalyzer/PLUGININFO:3
-msgid "Playlist Analyzer"
-msgstr ""
-
-#: ../plugins/playlistanalyzer/PLUGININFO:4
-msgid ""
-"Tool to help generate HTML5 visualizations of your playlists using d3.js. "
-"Optimized for Chrome."
-msgstr ""
-
-#: ../plugins/podcasts/PLUGININFO:4
-msgid "Adds Simple Podcast Support"
-msgstr ""
-
-#: ../plugins/desktopcover/PLUGININFO:4
-msgid "Displays the current album cover on the desktop"
-msgstr ""
-
-#: ../plugins/helloworld/PLUGININFO:3
-msgid "Hello World"
-msgstr ""
-
-#: ../plugins/helloworld/PLUGININFO:4
-msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
-
-#: ../plugins/mono/PLUGININFO:3
-msgid "Mono"
-msgstr ""
-
-#: ../plugins/mono/PLUGININFO:4
-msgid "Downmixes audio to one channel."
-msgstr ""
-
-#: ../plugins/multialarmclock/PLUGININFO:4
-msgid ""
-"Plays music at specific times and days.\n"
-"\n"
-"Note that when the specified time arrives, Exaile will just act like you "
-"pressed the play button, so be sure you have the music you want to hear in "
-"your playlist"
-msgstr ""
-
-#: ../plugins/contextinfo/PLUGININFO:3
-msgid "Contextual Info"
-msgstr ""
-
-#: ../plugins/contextinfo/PLUGININFO:4
-msgid ""
-"Show various informations about the track currently playing.\n"
-"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
-"PIL)"
-msgstr ""
-
-#: ../plugins/bookmarks/PLUGININFO:4
-msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr ""
-
-#: ../plugins/screensaverpause/PLUGININFO:4
-msgid ""
-"Pauses (and optionally resumes) playback based on screensaver status.\n"
-"\n"
-"Requires: GNOME Screensaver or KDE Screensaver (does not support "
-"XScreenSaver nor XLockMore)"
-msgstr ""
-
-#: ../plugins/lyricwiki/PLUGININFO:3
-msgid "Lyrics Wiki"
-msgstr ""
-
-#: ../plugins/lyricwiki/PLUGININFO:4
-msgid ""
-"Plugin to fetch lyrics from lyrics.wikia.com\n"
-"Depends: python-beautifulsoup"
-msgstr ""
-
-#: ../plugins/daapserver/PLUGININFO:4
-msgid ""
-"This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
-"a collection can be shared over DAAP."
-msgstr ""
-
-#: ../plugins/somafm/PLUGININFO:3
-msgid "SomaFM Radio"
-msgstr ""
-
-#: ../plugins/somafm/PLUGININFO:4
-msgid ""
-"SomaFM Radio list\n"
-"\n"
-"http://somafm.com"
-msgstr ""
-
-#: ../plugins/bpm/PLUGININFO:4
-msgid "Manual BPM counter"
-msgstr ""
-
-#: ../plugins/daapclient/PLUGININFO:4
-msgid "Allows playing of DAAP music shares."
 msgstr ""

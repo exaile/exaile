@@ -1,7 +1,7 @@
 Version='0.1.1'
 Authors=['Aren Olson <reacocard@gmail.com>']
 Name=_('CD Playback')
-Description=_('Adds support for playing audio CDs.\n\nRequires HAL/UDisks/UDisks2 to autodetect CDs\nRequires cddb-py (http://cddb-py.sourceforge.net/) to look up tags.')
+Description=_('Adds support for playing audio CDs.\n\nRequires HAL, UDisks or UDisks2 to autodetect CDs\nRequires cddb-py (http://cddb-py.sourceforge.net/) to look up tags.')
 Category=_('Devices')
 Platforms=['linux']
 RequiredModules=['dbus']

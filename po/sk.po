@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Roman Horník <Unknown>\n"
-"Language-Team: Slovak <sk@li.org>\n"
+"PO-Revision-Date: 2015-01-16 19:04+0200\n"
+"Last-Translator: Martin Lacina <martin@whistler.sk>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/exaile/master/sk/>"
+"\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -359,7 +360,7 @@ msgstr "Znížiť úroveň výstupu"
 
 #: ../xl/main.py:638
 msgid "Disable D-Bus support"
-msgstr "Zakázať D-Bus podporu."
+msgstr "Zakázať D-Bus podporu"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
@@ -1183,7 +1184,7 @@ msgstr "Nastala chyba v prehrávaní!"
 #: ../xlgui/main.py:589
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr "Ukladanie do vyrovnávacej pamäte: %d%%"
+msgstr "Ukladanie do vyrovnávacej pamäte: %d%%..."
 
 #: ../xlgui/main.py:641 ../plugins/previewdevice/__init__.py:380
 msgid "Continue Playback"
@@ -1434,7 +1435,7 @@ msgstr "Pridať priečinok"
 
 #: ../xlgui/collection.py:150
 msgid "Directory not added."
-msgstr "Priečinok nebol pridaný"
+msgstr "Priečinok nebol pridaný."
 
 #: ../xlgui/collection.py:151
 msgid ""
@@ -1721,7 +1722,7 @@ msgstr ""
 
 #: ../xlgui/preferences/plugin.py:156
 msgid "Could not load plugin info!"
-msgstr "Nepodarilo sa nahrať informácie o zásuvnom module"
+msgstr "Nepodarilo sa nahrať informácie o zásuvnom module!"
 
 #: ../xlgui/preferences/plugin.py:158
 #, python-format
@@ -1729,6 +1730,7 @@ msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
 msgstr[0] "Zlyhal rozširujúci modul: %s"
 msgstr[1] "Zlyhali rozširujúce moduly: %s"
+msgstr[2] "Zlyhalo rozširujúcich modulov: %s"
 
 #: ../xlgui/preferences/plugin.py:188 ../xlgui/preferences/plugin.py:285
 msgid "Could not disable plugin!"
@@ -2452,7 +2454,7 @@ msgstr "Pridať zariadenie"
 
 #: ../data/ui/device_manager.ui.h:3
 msgid "Type of device:"
-msgstr "Typ zariadenia"
+msgstr "Typ zariadenia:"
 
 #: ../data/ui/device_manager.ui.h:4
 msgid "Detected devices:"
@@ -2642,7 +2644,7 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:60
 msgid "Computer will be shutdown at the end of playback."
-msgstr "Počítač bude vypnutí po skončení prehrávania"
+msgstr "Počítač bude vypnutý po skončení prehrávania."
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
@@ -3290,7 +3292,7 @@ msgstr "Klient DAAP"
 
 #: ../plugins/daapclient/__init__.py:298
 msgid "Manually..."
-msgstr "Manuálne"
+msgstr "Manuálne..."
 
 #: ../plugins/daapclient/__init__.py:350
 msgid "Enter IP address and port for share"
@@ -3392,7 +3394,7 @@ msgstr ""
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm time</b>"
-msgstr "Čas budenia"
+msgstr "<b>Čas budenia</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Monday"
@@ -3655,7 +3657,7 @@ msgstr "Len umelec:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:4
 msgid "Only album:"
-msgstr "Len album"
+msgstr "Len album:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:6
 #, python-format
@@ -4308,8 +4310,8 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Prehráva hudbu v určitý čas.\n"
-"\n"
+"Prehráva hudbu v určitý čas.↵\n"
+"↵\n"
 "Upozornenie, v určenom čase sa bude Exaile správať akoby ste stlačili "
 "tlačítko prehrávania, uistite sa, že máte vybraný správny zoznam skladieb na "
 "prehranie."
@@ -4360,8 +4362,8 @@ msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
-"Integruje Ex Falso editor tagov s Exaile.\n"
-"Závislosti: Ex Falso"
+"Integruje Ex Falso editor tagov s Exaile.↵\n"
+"Závisí na: Ex Falso."
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
@@ -4521,7 +4523,7 @@ msgstr "A-B Opakovať"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
-msgstr "Neustále opakovať časť skladby"
+msgstr "Neustále opakovať časť skladby."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
@@ -4657,10 +4659,10 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Prehráva hudbu v určitý čas a deň.\n"
-"\n"
+"Prehráva hudbu v určitý čas a deň.↵\n"
+"↵\n"
 "Upozornenie, v určenom čase sa bude Exaile správať akoby ste stlačili "
-"tlačítko prehrávania, uistite sa, že máte vybraný správny zoznam skladieb na "
+"tlačítko prehrávania, uistite sa, že máte vybraný zoznam skladieb na "
 "prehranie."
 
 #: ../plugins/contextinfo/PLUGININFO:3

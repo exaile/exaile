@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-01-05 19:13+0200\n"
+"PO-Revision-Date: 2015-01-23 20:00+0200\n"
 "Last-Translator: Viktar Palstsiuk <vipals@gmail.com>\n"
 "Language-Team: Belarusian "
 "<https://hosted.weblate.org/projects/exaile/master/be/>\n"
@@ -350,7 +350,7 @@ msgstr "Уключыць адладку xl.event. Стварае ВЕЛІЗАР�
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr "Дадаць імя патока да рэгістрацыі паведамленняў"
+msgstr "Дадаць імя патока да рэгістрацыі паведамленняў."
 
 #: ../xl/main.py:631
 msgid "TYPE"
@@ -391,7 +391,8 @@ msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
-"Exaile яшчэ не запусціўся. Магчыма, вам варта дачакацца сігналу exaile_loaded"
+"Exaile яшчэ не запусціўся. Магчыма, вам варта дачакацца сігналу "
+"exaile_loaded?"
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
@@ -1116,7 +1117,7 @@ msgstr "Зачыніць %s"
 #: ../xlgui/widgets/dialogs.py:960
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>Захаваць змены ў %s перад выйсцем?<b>"
+msgstr "<b>Захаваць змены ў %s перад выйсцем?</b>"
 
 #: ../xlgui/widgets/dialogs.py:961
 msgid "Your changes will be lost if you don't save them"
@@ -1252,7 +1253,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:192
 msgid "_Columns"
-msgstr ""
+msgstr "_Слупкі"
 
 #: ../xlgui/menu.py:199
 msgid "C_lear playlist"
@@ -1343,49 +1344,49 @@ msgstr "{width}x{height} пікселяў"
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}x{height} пікселяў)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Абярыце малюнак для выкарыстання ў якасці вокладкі"
 
 #: ../xlgui/properties.py:1050
 msgid "Supported image formats"
-msgstr ""
+msgstr "Падтрымоўваныя фарматы малюнкаў"
 
 #: ../xlgui/properties.py:1173
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Ужыць гэтыя значэнні да ўсіх дарожак"
 
 #: ../xlgui/cover.py:109
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "засталося атрымаць {outstanding} вокладак"
 
 #: ../xlgui/cover.py:110
 msgid "All covers fetched"
-msgstr ""
+msgstr "Усе вокладкі прыняты"
 
 #: ../xlgui/cover.py:135
 msgid "Collecting albums and covers..."
-msgstr ""
+msgstr "Збор альбомаў і вокладак..."
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
-msgstr ""
+msgstr "Паказаць вокладку"
 
 #: ../xlgui/cover.py:503
 msgid "Fetch Cover"
-msgstr ""
+msgstr "Загрузіць Вокладку"
 
 #: ../xlgui/cover.py:504
 msgid "Remove Cover"
-msgstr ""
+msgstr "Выдаліць вокладку"
 
 #: ../xlgui/cover.py:810
 #, python-format
 msgid "Cover for %s"
-msgstr ""
+msgstr "Вокладка для %s"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
@@ -1394,42 +1395,44 @@ msgstr ""
 #: ../xlgui/cover.py:998
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr ""
+msgstr "опцыі вокладкі альбома для %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
-msgstr ""
+msgstr "Загрузка…"
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
-msgstr ""
+msgstr "Вокладкі не знойдзены."
 
 #: ../xlgui/cover.py:1104
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Ні ў адной з задзейнічаных крыніц не знойдзена вокладкі для гэтай "
+"кампазіцыі, паспрабуйце задзейнічаць дадатковыя крыніцы."
 
 #: ../xlgui/devices.py:76
 msgid "Icon"
-msgstr ""
+msgstr "Значок"
 
 #: ../xlgui/devices.py:81
 msgid "Device"
-msgstr ""
+msgstr "Прылада"
 
 #: ../xlgui/devices.py:88
 msgid "Driver"
-msgstr ""
+msgstr "Драйвер"
 
 #: ../xlgui/__init__.py:317
 msgid "Scanning collection..."
-msgstr ""
+msgstr "Сканаванне фанатэкі..."
 
 #: ../xlgui/__init__.py:386
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "Сканаванне %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
@@ -1437,25 +1440,27 @@ msgstr ""
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
-msgstr ""
+msgstr "Дадаць каталог"
 
 #: ../xlgui/collection.py:150
 msgid "Directory not added."
-msgstr ""
+msgstr "Каталог не дададзены."
 
 #: ../xlgui/collection.py:151
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
+"Каталог ужо ўключаны ў вашу калекцыю ці знаходзіцца ў адным з каталогаў "
+"вашай калекцыі."
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Перацягніце сюды, каб стварыць новы спіс прайгравання"
 
 #: ../xlgui/playlist_container.py:138
 msgid "Recently Closed Tabs"
-msgstr ""
+msgstr "Нядаўна зачыненыя ўкладкі"
 
 #: ../xlgui/playlist_container.py:195
 #, python-format
@@ -1465,12 +1470,13 @@ msgstr ""
 #: ../xlgui/playlist_container.py:372
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} дарожак, зачынена {minutes} мінут назад)"
 
 #: ../xlgui/playlist_container.py:378
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
 msgstr ""
+"{playlist_name} ({track_count} дарожак, зачынена {seconds} секунд назад)"
 
 #: ../xlgui/playlist_container.py:518
 msgid "Move to other View"
@@ -1479,65 +1485,65 @@ msgstr ""
 #: ../xlgui/panel/device.py:137
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Перадача ў %s..."
 
 #: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:469
 #: ../xlgui/panel/radio.py:545
 msgid "Loading streams..."
-msgstr ""
+msgstr "Загрузка струменяў..."
 
 #: ../xlgui/panel/radio.py:177
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Дадаць радыёстанцыю"
 
 #: ../xlgui/panel/radio.py:180 ../plugins/audioscrobbler/asprefs_pane.ui.h:6
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:252
 msgid "Saved Stations"
-msgstr ""
+msgstr "Захаваныя станцыі"
 
 #: ../xlgui/panel/radio.py:253
 msgid "Radio Streams"
-msgstr ""
+msgstr "Струменевае радыё"
 
 #: ../xlgui/panel/radio.py:283 ../plugins/wikipedia/data/wikipanel.ui.h:4
 msgid "Refresh"
-msgstr ""
+msgstr "Абнавіць"
 
 #: ../xlgui/panel/radio.py:413
 msgid "Enter the name you want for your new playlist"
-msgstr ""
+msgstr "Увядзіце новае імя для вашага спісу прайгравання"
 
 #: ../xlgui/panel/collection.py:135
 msgid "Genre - Artist"
-msgstr ""
+msgstr "Жанр - Выканавец"
 
 #: ../xlgui/panel/collection.py:138
 msgid "Genre - Album"
-msgstr ""
+msgstr "Жанр - Альбом"
 
 #: ../xlgui/panel/collection.py:141
 msgid "Date - Artist"
-msgstr ""
+msgstr "Дата - Выканавец"
 
 #: ../xlgui/panel/collection.py:144
 msgid "Date - Album"
-msgstr ""
+msgstr "Дата - Альбом"
 
 #: ../xlgui/panel/collection.py:147
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Выканавец - (Дата - Альбом)"
 
 #: ../xlgui/panel/collection.py:270 ../data/ui/collection_manager.ui.h:5
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Нанова прасканаваць фанатэку"
 
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:140
 msgid "Size"
-msgstr ""
+msgstr "Памер"
 
 #: ../xlgui/panel/files.py:407
 #, python-format
@@ -1546,101 +1552,101 @@ msgstr ""
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "Новы 'разумны' спіс прайгравання"
 
 #: ../xlgui/panel/menus.py:251
 msgid "New Station"
-msgstr ""
+msgstr "Новая Станцыя"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:63
 msgid "and"
-msgstr ""
+msgstr "і"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:183
 msgid "is"
-msgstr ""
+msgstr "з'яўляецца"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:185
 msgid "is not"
-msgstr ""
+msgstr "не з'яўляецца"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:188
 msgid "is set"
-msgstr ""
+msgstr "усталявана"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:191
 msgid "is not set"
-msgstr ""
+msgstr "не ўсталявана"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:193
 msgid "contains"
-msgstr ""
+msgstr "утрымоўвае"
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/panel/playlists.py:195
 msgid "does not contain"
-msgstr ""
+msgstr "не ўтрымоўвае"
 
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/panel/playlists.py:197
 msgid "regex"
-msgstr ""
+msgstr "рэгулярны выраз"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/panel/playlists.py:199
 msgid "not regex"
-msgstr ""
+msgstr "не рэгулярны выраз"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:201
 msgid "at least"
-msgstr ""
+msgstr "не меней"
 
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/panel/playlists.py:203
 msgid "at most"
-msgstr ""
+msgstr "не больш"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:205
 msgid "before"
-msgstr ""
+msgstr "да"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:207
 msgid "after"
-msgstr ""
+msgstr "пасля"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:209
 msgid "between"
-msgstr ""
+msgstr "паміж"
 
 #: ../xlgui/panel/playlists.py:210
 msgid "greater than"
-msgstr ""
+msgstr "больш чым"
 
 #: ../xlgui/panel/playlists.py:211
 msgid "less than"
-msgstr ""
+msgstr "менш чым"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/panel/playlists.py:213
 msgid "in the last"
-msgstr ""
+msgstr "за апошнія"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xlgui/panel/playlists.py:215
 msgid "not in the last"
-msgstr ""
+msgstr "не за апошнія"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
@@ -1654,15 +1660,15 @@ msgstr ""
 
 #: ../xlgui/panel/playlists.py:304
 msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr ""
+msgstr "Вы ўпэўнены, што жадаеце цалкам выдаліць абраны спіс прайгравання?"
 
 #: ../xlgui/panel/playlists.py:336
 msgid "Enter the new name you want for your playlist"
-msgstr ""
+msgstr "Увядзіце новае імя для вашага спісу прайгравання"
 
 #: ../xlgui/panel/playlists.py:337
 msgid "Rename Playlist"
-msgstr ""
+msgstr "Пераназваць спіс прайгравання"
 
 #: ../xlgui/panel/playlists.py:394
 #, python-format
@@ -1675,39 +1681,39 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:482
 #, python-format
 msgid "%(first)s, %(second)s and others"
-msgstr ""
+msgstr "%(first)s, %(second)s і іншыя"
 
 #. TRANSLATORS: Playlist title suggestion with two values
 #: ../xlgui/panel/playlists.py:459 ../xlgui/panel/playlists.py:473
 #: ../xlgui/panel/playlists.py:487
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s і %(second)s"
 
 #: ../xlgui/panel/playlists.py:667
 msgid "Smart Playlists"
-msgstr ""
+msgstr "'Разумныя' спісы прайгравання"
 
 #: ../xlgui/panel/playlists.py:670
 msgid "Custom Playlists"
-msgstr ""
+msgstr "Бягучы спіс прайгравання"
 
 #: ../xlgui/panel/playlists.py:726
 msgid "Add Smart Playlist"
-msgstr ""
+msgstr "Дадаць 'разумны' спіс прайгравання"
 
 #: ../xlgui/panel/playlists.py:807
 msgid "Edit Smart Playlist"
-msgstr ""
+msgstr "Рэдагаваць 'разумны' спіс прайгравання"
 
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Экспартаванне %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Абярыце тэчку, у якую будуць экспартаваны файлы"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
@@ -1715,16 +1721,16 @@ msgstr ""
 
 #: ../xlgui/preferences/plugin.py:40 ../xlgui/preferences/__init__.py:124
 msgid "Plugins"
-msgstr ""
+msgstr "Модулі"
 
 #: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
-msgstr ""
+msgstr "Не класіфікаваныя"
 
 #: ../xlgui/preferences/plugin.py:156
 msgid "Could not load plugin info!"
-msgstr ""
+msgstr "Не атрымалася загрузіць інфармацыю пра модуль!"
 
 #: ../xlgui/preferences/plugin.py:158
 #, python-format
@@ -1735,32 +1741,32 @@ msgstr[1] ""
 
 #: ../xlgui/preferences/plugin.py:188 ../xlgui/preferences/plugin.py:285
 msgid "Could not disable plugin!"
-msgstr ""
+msgstr "Не атрымалася ўключыць модуль!"
 
 #: ../xlgui/preferences/plugin.py:198 ../xlgui/preferences/plugin.py:279
 msgid "Could not enable plugin!"
-msgstr ""
+msgstr "Немагчыма актываваць дадатак!"
 
 #: ../xlgui/preferences/plugin.py:206
 msgid "Choose a Plugin"
-msgstr ""
+msgstr "Абраць убудову"
 
 #: ../xlgui/preferences/plugin.py:215
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Архівы модуляў"
 
 #: ../xlgui/preferences/plugin.py:234
 msgid "Plugin file installation failed!"
-msgstr ""
+msgstr "Усталёўка модуля не атрымалася!"
 
 #: ../xlgui/preferences/cover.py:38 ../plugins/musicbrainzcovers/PLUGININFO:5
 #: ../plugins/lastfmcovers/PLUGININFO:5 ../plugins/amazoncovers/PLUGININFO:5
 msgid "Covers"
-msgstr ""
+msgstr "Вокладкі"
 
 #: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui.h:9
 msgid "Appearance"
-msgstr ""
+msgstr "Афармленне"
 
 #: ../xlgui/preferences/collection.py:23 ../data/ui/panel/device.ui.h:1
 #: ../data/ui/panel/collection.ui.h:1
@@ -1774,19 +1780,19 @@ msgstr ""
 #. translate this to an empty string.
 #: ../xlgui/preferences/collection.py:34
 msgid "the"
-msgstr ""
+msgstr " "
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
-msgstr ""
+msgstr "Усталяваць налады па змаўчанні"
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "Перазапусціць Exaile?"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
-msgstr ""
+msgstr "Неабходзен перазапуск для таго каб змены набылі моц."
 
 #: ../xlgui/preferences/widgets.py:664
 msgid "Action"
@@ -1794,7 +1800,7 @@ msgstr ""
 
 #: ../xlgui/preferences/widgets.py:672
 msgid "Shortcut"
-msgstr ""
+msgstr "Камбінацыя клавіш"
 
 #: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
 msgid "Playlists"
@@ -1802,7 +1808,7 @@ msgstr ""
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "About Exaile"
-msgstr ""
+msgstr "Пра Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "© 2009-2014"
@@ -1830,19 +1836,19 @@ msgstr ""
 #: ../data/ui/about_dialog.ui.h:20
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
-msgstr ""
+msgstr "Невядомы перакладнік"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "Мэнэджар Вокладак"
 
 #: ../data/ui/covermanager.ui.h:2
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "_Атрымаць вокладкі"
 
 #: ../data/ui/playlist.ui.h:1
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Прайграваць дарожкі выпадкова"
 
 #: ../data/ui/playlist.ui.h:2
 msgid "Repeat playback"
@@ -1850,39 +1856,39 @@ msgstr ""
 
 #: ../data/ui/playlist.ui.h:4
 msgid "_Search:"
-msgstr ""
+msgstr "_Знайсці:"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
-msgstr ""
+msgstr "Пошукавік Вокладак"
 
 #: ../data/ui/coverchooser.ui.h:2
 msgid "The origin of this cover"
-msgstr ""
+msgstr "Паходжанне вокладкі"
 
 #: ../data/ui/coverchooser.ui.h:3
 msgid "_Set as Cover"
-msgstr ""
+msgstr "_Выкарыстоўваць у якасці Вокладкі альбома"
 
 #: ../data/ui/main.ui.h:1
 msgid "_File"
-msgstr ""
+msgstr "_Файл"
 
 #: ../data/ui/main.ui.h:2
 msgid "_Edit"
-msgstr ""
+msgstr "_Праўка"
 
 #: ../data/ui/main.ui.h:3
 msgid "_View"
-msgstr ""
+msgstr "_Выгляд"
 
 #: ../data/ui/main.ui.h:4
 msgid "_Tools"
-msgstr ""
+msgstr "_Прылады"
 
 #: ../data/ui/main.ui.h:5
 msgid "_Help"
-msgstr ""
+msgstr "_Дапамога"
 
 #: ../data/ui/main.ui.h:6
 msgid "Previous Track"
@@ -1894,14 +1900,17 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Спыніць прайграванне\n"
+"\n"
+"Пстрыкніце правай кнопкай мышы для прыпынку пасля вылучанай дарожкі"
 
 #: ../data/ui/main.ui.h:11
 msgid "Next Track"
-msgstr ""
+msgstr "Наступная дарожка"
 
 #: ../data/ui/main.ui.h:12
 msgid "0:00 / 0:00"
-msgstr ""
+msgstr "0:00 / 0:00"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "Track Properties"
@@ -1909,39 +1918,39 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "A_dd tag"
-msgstr ""
+msgstr "_Дадаць пазнаку"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Выдаліць пазнаку"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "аб &#x2192; А_б"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Вялікія першыя літары ва ўсіх пазнаках"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
-msgstr ""
+msgstr "Уласцівасці"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Previous"
-msgstr ""
+msgstr "_Назад"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "_Next"
-msgstr ""
+msgstr "_Наперад"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
 msgid "Other"
-msgstr ""
+msgstr "Іншыя"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "Значок файла памеру 32x32 пікселя (толькі PNG)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
@@ -1949,15 +1958,15 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
-msgstr ""
+msgstr "Вокладка (спераду)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
 msgid "Cover (back)"
-msgstr ""
+msgstr "Вокладка (ззаду)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
-msgstr ""
+msgstr "Старонка ўкладыша"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
 msgid "Media (e.g. label side of CD)"
@@ -1965,64 +1974,64 @@ msgstr ""
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Вядучы артыст/вядучы выканавец/саліст"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Выканавец"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Група / Аркестр"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Аўтар тэксту"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
-msgstr ""
+msgstr "Месца запісу"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
 msgid "During recording"
-msgstr ""
+msgstr "Падчас запісу"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
 msgid "During performance"
-msgstr ""
+msgstr "Падчас выступу"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Запіс падзей відэа экрана"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Яркая рознакаляровая рыба"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
-msgstr ""
+msgstr "Ілюстрацыя"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Лагатып групы ці артыста"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Лагатып студыі ці выдаўца"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
-msgstr ""
+msgstr "Пстрыкніце ці перацягніце файлы сюды, каб змяніць вокладку"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
-msgstr ""
+msgstr "Тып:"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 #: ../data/ui/preferences/plugin.ui.h:11
 msgid "Description:"
-msgstr ""
+msgstr "Апісанне:"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
@@ -2030,7 +2039,7 @@ msgstr ""
 
 #: ../data/ui/collection_manager.ui.h:3
 msgid "Monitored"
-msgstr ""
+msgstr "Сачыць"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
@@ -2038,118 +2047,124 @@ msgstr ""
 
 #: ../data/ui/panel/flatplaylist.ui.h:1 ../data/ui/panel/radio.ui.h:1
 msgid "Radio"
-msgstr ""
+msgstr "Радыё"
 
 #: ../data/ui/panel/flatplaylist.ui.h:2
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Дадаць усе дарожкі ў спіс прайгравання"
 
 #: ../data/ui/panel/flatplaylist.ui.h:3
 msgid "Import CD"
-msgstr ""
+msgstr "Імпарт CD"
 
 #: ../data/ui/panel/radio.ui.h:2
 msgid "Add Station"
-msgstr ""
+msgstr "Дадаць станцыю"
 
 #: ../data/ui/panel/files.ui.h:1
 msgid "Files"
-msgstr ""
+msgstr "Файлы"
 
 #: ../data/ui/panel/files.ui.h:2
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Папярэдні наведаны каталог"
 
 #: ../data/ui/panel/files.ui.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Наступны наведаны каталог"
 
 #: ../data/ui/panel/files.ui.h:4
 msgid "Up one directory"
-msgstr ""
+msgstr "Угару на адзін каталог"
 
 #: ../data/ui/panel/files.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Абнавіць змесціва каталога"
 
 #: ../data/ui/panel/files.ui.h:6
 msgid "Home directory"
-msgstr ""
+msgstr "Хатні каталог"
 
 #: ../data/ui/panel/files.ui.h:7 ../data/ui/panel/collection.ui.h:6
 msgid "Clear search field"
-msgstr ""
+msgstr "Ачысціць поле пошуку"
 
 #: ../data/ui/panel/collection.ui.h:2
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Фанатэка пустая.</b>"
 
 #: ../data/ui/panel/collection.ui.h:3
 msgid "Add Music"
-msgstr ""
+msgstr "Дадаць музыку"
 
 #: ../data/ui/panel/collection.ui.h:4
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Абнавіць панэль фанатэкі\n"
+"(Зацісніце Shift для паўторнага сканавання фанатэкі)"
 
 #: ../data/ui/preferences/cover.ui.h:1
 msgid "Use covers embedded in tags"
-msgstr ""
+msgstr "Выкарыстоўваць вокладкі, паказаныя ў тэгу"
 
 #: ../data/ui/preferences/cover.ui.h:2
 msgid "Use covers from local files"
-msgstr ""
+msgstr "Выкарыстоўваць вокладкі з лакальных файлаў"
 
 #: ../data/ui/preferences/cover.ui.h:3
 msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
+"Дадзеная опцыя дазваляе шукаць файлы вокладкі альбома ў \n"
+"той жа дырэкторыі, што і гукавы файл."
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Пераважныя імёны файлаў:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "Падзелены коскамі спіс імёнаў файлаў без пашырэнняў"
 
 #: ../data/ui/preferences/cover.ui.h:7
 msgid "Fetch covers automatically on playback start"
-msgstr ""
+msgstr "Атрымліваць вокладкі аўтаматычна пры пачатку прайгравання"
 
 #: ../data/ui/preferences/cover.ui.h:8
 msgid "Cover Search Order:"
-msgstr ""
+msgstr "Парадак пошуку вокладак:"
 
 #: ../data/ui/preferences/cover.ui.h:9
 msgid "(drag to reorder)"
-msgstr ""
+msgstr "(перамясціце для змены парадку)"
 
 #: ../data/ui/preferences/playlists.ui.h:1
 #: ../data/ui/preferences/general.ui.h:1
 msgid "Open last playlists on startup"
-msgstr ""
+msgstr "Адкрываць апошні спіс прайгравання пры запуску праграмы"
 
 #: ../data/ui/preferences/playlists.ui.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Пытаць пра захаванне бягучага спісу прайгравання перад зачыненнем"
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr ""
+msgstr "Замяніць утрыманне бакавой панэлі падвойнай пстрычкай"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
+"Замест дадання, дарожкі, дададзеныя падвойнай пстрычкай на панэлях, заменяць "
+"утрыманне бягучага спісу прайгравання."
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
-msgstr ""
+msgstr "Даданне/Замена праз пункт меню \"запускае прайграванне\""
 
 #: ../data/ui/preferences/playlists.ui.h:6
 msgid ""
@@ -2157,16 +2172,22 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"Пры выкарыстанні меню для дадання/замены дарожкі ў спісе прайгравання, "
+"пачаць прайграванне, калі прайграваецца трэк. Гэта былі стандартныя "
+"паводзіны ў версіі Exaile да 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
-msgstr ""
+msgstr "Паставіць кампазіцыі ў чаргу не прайграваючы іх"
 
 #: ../data/ui/preferences/playlists.ui.h:8
 msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"Калі вы двойчы пстрыкаеце ці націскаеце клавішу ўводу, каб прайграць "
+"кампазіцыю са спісу прайгравання, дадаваць кампазіцыі ў чаргу, а не "
+"прайграваць іх"
 
 #: ../data/ui/preferences/playback.ui.h:1
 #: ../plugins/previewdevice/previewprefs.ui.h:1
@@ -2176,53 +2197,53 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui.h:2
 #: ../plugins/previewdevice/previewprefs.ui.h:2
 msgid "Use fade transitions on user actions"
-msgstr ""
+msgstr "Выкарыстоўваць плаўныя пераходы пры дзеяннях карыстача"
 
 #: ../data/ui/preferences/playback.ui.h:3
 #: ../plugins/previewdevice/previewprefs.ui.h:3
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Час плаўнага згасання (мс):"
 
 #: ../data/ui/preferences/playback.ui.h:4
 #: ../plugins/previewdevice/previewprefs.ui.h:4
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Выкарыстоўваць міксаванне (ЭКСПЕРЫМЕНТАЛЬНА)"
 
 #: ../data/ui/preferences/playback.ui.h:5
 #: ../plugins/previewdevice/previewprefs.ui.h:5
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Час плаўнага міксавання (мс):"
 
 #: ../data/ui/preferences/playback.ui.h:6
 #: ../plugins/previewdevice/previewprefs.ui.h:6
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Аўдыёпрылада:  "
 
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
 msgid "Device:  "
-msgstr ""
+msgstr "Прылада:  "
 
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8
 msgid "Custom sink pipeline:"
-msgstr ""
+msgstr "Іншы канвеер-прымач:"
 
 #: ../data/ui/preferences/playback.ui.h:9
 msgid "Resume playback on start"
-msgstr ""
+msgstr "Аднаўляць прайграванне пры запуску праграмы"
 
 #: ../data/ui/preferences/playback.ui.h:10
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Аднаўляць прайграванне ў прыпыненым стане"
 
 #: ../data/ui/preferences/playback.ui.h:11
 msgid "Adding an item to an empty queue begins playback"
-msgstr ""
+msgstr "Даданне файла ў пустую чаргу пачне яго прайграванне"
 
 #: ../data/ui/preferences/playback.ui.h:12
 msgid "Remove track from queue upon playback"
-msgstr ""
+msgstr "Выдаліць трэк з чаргі пасля прайгравання"
 
 #: ../data/ui/preferences/playback.ui.h:13
 msgid "Disallow playing new tracks when another track is playing"
@@ -2236,7 +2257,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playback.ui.h:15
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Аўтаматычна пераходзіць на наступны трэк"
 
 #: ../data/ui/preferences/playback.ui.h:16
 msgid "Delay between tracks (ms)"
@@ -2249,20 +2270,20 @@ msgstr ""
 #: ../data/ui/preferences/playback.ui.h:18
 #: ../plugins/previewdevice/previewprefs.ui.h:9
 msgid "Normal"
-msgstr ""
+msgstr "Звычайны"
 
 #: ../data/ui/preferences/playback.ui.h:19
 #: ../plugins/previewdevice/previewprefs.ui.h:10
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Аб'яднаны (нестабільна)"
 
 #: ../data/ui/preferences/plugin.ui.h:1
 msgid "Plugin"
-msgstr ""
+msgstr "Модуль"
 
 #: ../data/ui/preferences/plugin.ui.h:3 ../plugins/equalizer/equalizer.ui.h:2
 msgid "Enabled"
-msgstr ""
+msgstr "Уключаны"
 
 #: ../data/ui/preferences/plugin.ui.h:4
 msgid "Status"
@@ -2278,63 +2299,63 @@ msgstr ""
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
-msgstr ""
+msgstr "Модуль не абраны"
 
 #: ../data/ui/preferences/plugin.ui.h:8
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Усталяваныя модулі"
 
 #: ../data/ui/preferences/plugin.ui.h:9
 msgid "Authors:"
-msgstr ""
+msgstr "Аўтары:"
 
 #: ../data/ui/preferences/plugin.ui.h:10
 msgid "Version:"
-msgstr ""
+msgstr "Версія:"
 
 #: ../data/ui/preferences/plugin.ui.h:12
 msgid "Install"
-msgstr ""
+msgstr "Усталяваць"
 
 #: ../data/ui/preferences/plugin.ui.h:13
 msgid "<b>No Plugin Selected</b>"
-msgstr ""
+msgstr "<b>Ніводны модуль не абраны</b>"
 
 #: ../data/ui/preferences/plugin.ui.h:14
 msgid "Available Plugins"
-msgstr ""
+msgstr "Даступныя модулі"
 
 #: ../data/ui/preferences/plugin.ui.h:15
 msgid "Install Updates"
-msgstr ""
+msgstr "Усталяваць Абнаўленні"
 
 #: ../data/ui/preferences/plugin.ui.h:16
 msgid "Updates"
-msgstr ""
+msgstr "Абнаўленні"
 
 #: ../data/ui/preferences/plugin.ui.h:17
 msgid "Install Plugin File"
-msgstr ""
+msgstr "Усталяваць файл модуля"
 
 #: ../data/ui/preferences/appearance.ui.h:1
 msgid "Show info area"
-msgstr ""
+msgstr "Паказаць вобласць інфармацыі"
 
 #: ../data/ui/preferences/appearance.ui.h:2
 msgid "The info area contains the cover art and track information"
-msgstr ""
+msgstr "Панэль інфармацыі ўтрымоўвае вокладку альбома і звесткі пра трэк"
 
 #: ../data/ui/preferences/appearance.ui.h:3
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Паказаць ілюстрацыі ў вобласці звестак"
 
 #: ../data/ui/preferences/appearance.ui.h:4
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Заўсёды паказваць паласу ўкладак"
 
 #: ../data/ui/preferences/appearance.ui.h:5
 msgid "Tab placement:"
-msgstr ""
+msgstr "Месцазнаходжанне ўкладкі:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
@@ -2344,146 +2365,149 @@ msgstr ""
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
 #: ../plugins/grouptagger/gt_prefs.ui.h:8
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Выкарыстоўваць сістэмны шрыфт"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
-msgstr ""
+msgstr "Адлюстроўваць нумары дарожак у калекцыі"
 
 #: ../data/ui/preferences/appearance.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:7
 msgid "Use alpha transparency:"
-msgstr ""
+msgstr "Выкарыстоўваць празрыстасць"
 
 #: ../data/ui/preferences/appearance.ui.h:11
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
+"Увага: гэты параметр можа выклікаць памылкі адлюстравання пры выкарыстанні з "
+"мэнэджарам вокнаў, які не падтрымлівае сумяшчэнне."
 
 #: ../data/ui/preferences/appearance.ui.h:12
 msgid "Show tray icon"
-msgstr ""
+msgstr "Адлюстроўваць абразок у сістэмным трэі"
 
 #: ../data/ui/preferences/appearance.ui.h:13
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Згарнуць у трэй"
 
 #: ../data/ui/preferences/appearance.ui.h:14
 msgid "Close to tray"
-msgstr ""
+msgstr "Згарнуць у трэй"
 
 #: ../data/ui/preferences/appearance.ui.h:16
 msgid "Jump to current song on track change"
-msgstr ""
+msgstr "Пераходзіць да бягучай дарожкі ў спісе пры змене"
 
 #: ../data/ui/preferences/appearance.ui.h:17
 msgid "Show splash screen on startup"
-msgstr ""
+msgstr "Паказваць застаўку пры загрузцы"
 
 #: ../data/ui/preferences/appearance.ui.h:18
 msgid "Left"
-msgstr ""
+msgstr "Лева"
 
 #: ../data/ui/preferences/appearance.ui.h:19
 msgid "Right"
-msgstr ""
+msgstr "Права"
 
 #: ../data/ui/preferences/appearance.ui.h:20
 msgid "Top"
-msgstr ""
+msgstr "Верх"
 
 #: ../data/ui/preferences/appearance.ui.h:21
 msgid "Bottom"
-msgstr ""
+msgstr "Ніз"
 
 #: ../data/ui/preferences/preferences_dialog.ui.h:1
 msgid "Preferences"
-msgstr ""
+msgstr "Налады"
 
 #: ../data/ui/preferences/collection.ui.h:1
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
+"Словы, якія трэба прыбраць з тэгаў выканаўца пры сартаванні (праз прабел):"
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
-msgstr ""
+msgstr "(Пстрыкніце правай кнопкай мышы для скіду да налад па змаўчанні)"
 
 #: ../data/ui/preferences/collection.ui.h:3
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Вызначаць файлы па змесціве"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "Device Manager"
-msgstr ""
+msgstr "Мэнэджар прылад"
 
 #: ../data/ui/device_manager.ui.h:2
 msgid "Add Device"
-msgstr ""
+msgstr "Дадаць прыладу"
 
 #: ../data/ui/device_manager.ui.h:3
 msgid "Type of device:"
-msgstr ""
+msgstr "Тып прылады:"
 
 #: ../data/ui/device_manager.ui.h:4
 msgid "Detected devices:"
-msgstr ""
+msgstr "Выяўленыя прылады:"
 
 #: ../data/ui/device_manager.ui.h:5
 msgid "Custom: "
-msgstr ""
+msgstr "Бягучы: "
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Queue Manager"
-msgstr ""
+msgstr "Мэнэджар чаргі"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Падбор танальнасці..."
 
 #: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr ""
+msgstr "Танальнасць падабрана."
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "Немагчыма прачытаць рэгулятар танальнасці."
 
 #: ../plugins/moodbar/__init__.py:538
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "Прыкладанне рэгулятара танальнасці недаступна."
 
 #: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Moodbar"
 
 #: ../plugins/streamripper/__init__.py:72
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "Памылка выканання запісу струменяў"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Запіс аўдыёструменю"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
 msgid "Last.fm Loved Tracks"
-msgstr ""
+msgstr "Улюблёныя трэкі на Last.fm"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr ""
+msgstr "API ключ не карэктны"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
 msgid "Please make sure the entered data is correct."
-msgstr ""
+msgstr "Калі ласка праверце правільнасць уведзеных дадзеных."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
-msgstr ""
+msgstr "Не магчыма запусціць вэб-браўзар"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:94
 #, python-brace-format
@@ -2491,35 +2515,37 @@ msgid ""
 "Please copy the following URL and open it with your web browser:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
+"Калі ласка, скапіюйце і адкрыйце наступную спасылку ў вашым вэб-браўзары:\n"
+"<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/lastfmlove/__init__.py:71
 msgid "Loved"
-msgstr ""
+msgstr "Абранае"
 
 #: ../plugins/lastfmlove/__init__.py:72
 msgid "Last.fm Loved"
-msgstr ""
+msgstr "Last.fm Абранае"
 
 #: ../plugins/lastfmlove/__init__.py:135
 msgid "Love This Track"
-msgstr ""
+msgstr "Мне падабацца гэты трэк."
 
 #: ../plugins/lastfmlove/__init__.py:157
 msgid "Unlove This Track"
-msgstr ""
+msgstr "Мне не падабаецца гэты трэк."
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Будзільнік"
 
 #: ../plugins/mainmenubutton/__init__.py:32
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
-msgstr ""
+msgstr "Надбудове неабходзен, мінімум PyGTK 2.22 і GTK 2.20."
 
 #: ../plugins/mainmenubutton/__init__.py:72
 #: ../plugins/mainmenubutton/__init__.py:78
 msgid "Main Menu"
-msgstr ""
+msgstr "Галоўнае меню"
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
@@ -2533,7 +2559,7 @@ msgstr ""
 
 #: ../plugins/icecast/__init__.py:317
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Увядзіце ключавыя словы для пошуку"
 
 #: ../plugins/icecast/__init__.py:318
 msgid "Icecast Search"
@@ -2549,7 +2575,7 @@ msgstr ""
 
 #: ../plugins/icecast/__init__.py:377
 msgid "Search"
-msgstr ""
+msgstr "Пошук"
 
 #: ../plugins/icecast/__init__.py:384
 msgid "Name"
@@ -2561,42 +2587,42 @@ msgstr ""
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
-msgstr ""
+msgstr "Тэкст песні не знойдзены."
 
 #: ../plugins/lyricsviewer/__init__.py:302
 msgid "Go to: "
-msgstr ""
+msgstr "Перайсці да: "
 
 #: ../plugins/lyricsviewer/__init__.py:366
 msgid "Any"
-msgstr ""
+msgstr "Любы"
 
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
 msgid "Lyrics Viewer"
-msgstr ""
+msgstr "Аглядальнік тэкстаў песень"
 
 #: ../plugins/audioscrobbler/asprefs.py:32
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:107
 msgid "Verification successful"
-msgstr ""
+msgstr "Пацверджанне паспяхова!"
 
 #: ../plugins/audioscrobbler/asprefs.py:113
 msgid "Verification failed"
-msgstr ""
+msgstr "Праверка не атрымалася"
 
 #: ../plugins/audioscrobbler/__init__.py:123
 msgid "Enable audioscrobbling"
-msgstr ""
+msgstr "Уключыць аўдыё-скроблінг"
 
 #: ../plugins/equalizer/__init__.py:127 ../plugins/equalizer/equalizer.ui.h:1
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Эквалайзер"
 
 #: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
@@ -2604,41 +2630,41 @@ msgstr ""
 
 #: ../plugins/shutdown/__init__.py:59
 msgid "Shutdown scheduled"
-msgstr ""
+msgstr "Выключэнне па раскладзе"
 
 #: ../plugins/shutdown/__init__.py:60
 msgid "Computer will be shutdown at the end of playback."
-msgstr ""
+msgstr "Кампутар выключыцца па завяршэнні прайгравання"
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
-msgstr ""
+msgstr "Хуткае завяршэнне працы"
 
 #: ../plugins/shutdown/__init__.py:109
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr ""
+msgstr "Кампутар будзе выключаны праз %d секунд"
 
 #: ../plugins/shutdown/__init__.py:135
 msgid "Shutdown failed"
-msgstr ""
+msgstr "Выключэнне не атрымалася"
 
 #: ../plugins/shutdown/__init__.py:136
 msgid "Computer could not be shutdown using D-Bus."
-msgstr ""
+msgstr "Кампутар не можа быць выключаны праз D-Bus."
 
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Папярэдні прагляд прылады"
 
 #: ../plugins/previewdevice/__init__.py:153
 msgid "Preview Player"
-msgstr ""
+msgstr "Прадпрагляд прайгравальніка"
 
 #: ../plugins/previewdevice/__init__.py:159
 msgid "Preview"
-msgstr ""
+msgstr "Прадпрагляд"
 
 #: ../plugins/previewdevice/__init__.py:351
 msgid "Pause Playback (double click to stop)"
@@ -2646,41 +2672,41 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Усплывальныя падказкі"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "(%(artist)s)"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:59
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "з %(album)s"
 
 #: ../plugins/ipconsole/__init__.py:86
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "Кансоль IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:156
 msgid "Show IPython Console"
-msgstr ""
+msgstr "Паказаць Кансоль IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "Кансоль IPython"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Апавяшчэнне"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -2688,81 +2714,83 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"(%(artist)s)\n"
+"з альбома <i>%(album)s</i>"
 
 #: ../plugins/cd/_cdguipanel.py:96
 msgid "Importing CD..."
-msgstr ""
+msgstr "Імпартаванне CD..."
 
 #: ../plugins/cd/__init__.py:148 ../plugins/cd/__init__.py:226
 msgid "Audio Disc"
-msgstr ""
+msgstr "Гукавы Дыск"
 
 #: ../plugins/cd/cdprefs.py:37
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:105 ../plugins/minimode/minimode_preferences.py:92
 msgid "Track number"
-msgstr ""
+msgstr "Нумар дарожкі"
 
 #: ../plugins/cd/cdprefs.py:111 ../plugins/minimode/minimode_preferences.py:98
 msgid "Disc number"
-msgstr ""
+msgstr "Нумар дыска"
 
 #: ../plugins/cd/cdprefs.py:118
 #: ../plugins/minimode/minimode_preferences.py:105
 msgid "Play count"
-msgstr ""
+msgstr "Праслухоўванняў"
 
 #: ../plugins/wikipedia/__init__.py:136 ../plugins/wikipedia/config.py:3
 #: ../plugins/wikipedia/preferences.py:21
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Вікіпедыя"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
-msgstr ""
+msgstr "Паказвае артыкул Вікіпедыі пра бягучага выканаўца."
 
 #: ../plugins/abrepeat/__init__.py:49
 msgid "Repeat Segment"
-msgstr ""
+msgstr "Паўтарыць сегмент"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Beginning"
-msgstr ""
+msgstr "Паўтарыць пачатак"
 
 #: ../plugins/abrepeat/__init__.py:61
 msgid "Repeat End"
-msgstr ""
+msgstr "Паўтарыць канец"
 
 #: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:110
 #: ../plugins/minimode/minimode_preferences.py:30
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Кампактны Рэжым"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:111
 #: ../plugins/minimode/minimode_preferences.py:117
 #: ../plugins/minimode/controls.py:693 ../plugins/minimode/controls.py:956
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:113
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title - $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "$title ($__length)"
-msgstr ""
+msgstr "$загаловак ($__даўжыня)"
 
 #: ../plugins/minimode/controls.py:221
 msgid "Previous"
-msgstr ""
+msgstr "Папярэдняя"
 
 #: ../plugins/minimode/controls.py:222
 msgid "Go to the previous track"
@@ -2774,7 +2802,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:241
 msgid "Next"
-msgstr ""
+msgstr "Наступная"
 
 #: ../plugins/minimode/controls.py:242
 msgid "Go to the next track"
@@ -2806,7 +2834,7 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:328
 msgid "Stop"
-msgstr ""
+msgstr "Спыніць прайграванне"
 
 #: ../plugins/minimode/controls.py:329
 msgid "Stop the playback"
@@ -2826,15 +2854,15 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:489
 msgid "Restore"
-msgstr ""
+msgstr "Аднавіць"
 
 #: ../plugins/minimode/controls.py:490
 msgid "Restore the main window"
-msgstr ""
+msgstr "Аднавіць галоўнае акно"
 
 #: ../plugins/minimode/controls.py:498
 msgid "Restore main window"
-msgstr ""
+msgstr "Аднавіць галоўнае акно"
 
 #: ../plugins/minimode/controls.py:528
 msgid "Select rating of the current track"
@@ -2842,11 +2870,11 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:545
 msgid "Track selector"
-msgstr ""
+msgstr "Выбар дарожак"
 
 #: ../plugins/minimode/controls.py:546
 msgid "Simple track list selector"
-msgstr ""
+msgstr "Просты Селектар спісу трэкаў"
 
 #: ../plugins/minimode/controls.py:698
 msgid "Playlist button"
@@ -2858,19 +2886,19 @@ msgstr ""
 
 #: ../plugins/minimode/controls.py:996
 msgid "$title ($current_time / $total_time)"
-msgstr ""
+msgstr "$title ($current_time / $total_time)"
 
 #: ../plugins/minimode/controls.py:1018
 msgid "Progress button"
-msgstr ""
+msgstr "Прагрэс-кнопкa"
 
 #: ../plugins/minimode/controls.py:1019
 msgid "Playback progress and access to the current playlist"
-msgstr ""
+msgstr "Прагрэс прайгравання і доступ да бягучага плэйліста"
 
 #: ../plugins/minimode/controls.py:1090
 msgid "Progress bar"
-msgstr ""
+msgstr "Індыкатар прайгравання"
 
 #: ../plugins/minimode/controls.py:1091
 msgid "Playback progress and seeking"
@@ -2878,7 +2906,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.py:45
 msgid "Importing tracks"
-msgstr ""
+msgstr "Імпарт дарожак"
 
 #: ../plugins/grouptagger/gt_import.py:91
 msgid "Importing groups"
@@ -2902,7 +2930,7 @@ msgstr ""
 #: ../plugins/grouptagger/__init__.py:109
 #: ../plugins/grouptagger/gt_widgets.py:693
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Атрымаць усе пазнакі з калекцыі"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "Import tags from directory"
@@ -2914,11 +2942,11 @@ msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Паказаць дарожкі з усімі пазнакамі"
 
 #: ../plugins/grouptagger/__init__.py:134
 msgid "Show tracks with tags (custom)"
-msgstr ""
+msgstr "Паказаць кампазіцыі з пазнакамі (наладжана карыстачом)"
 
 #: ../plugins/grouptagger/__init__.py:219
 #: ../plugins/grouptagger/__init__.py:232
@@ -2943,114 +2971,114 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Паказаць дарожкі з абраным"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr ""
+msgstr "Паказаць дарожкі з пазнакамі \"%s\""
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "Паказаць дарожкі з усімі абранымі"
 
 #: ../plugins/grouptagger/gt_widgets.py:132
 #: ../plugins/grouptagger/gt_widgets.py:657
 #: ../plugins/grouptagger/gt_widgets.py:758
 msgid "Group"
-msgstr ""
+msgstr "Група"
 
 #: ../plugins/grouptagger/gt_widgets.py:147
 msgid "Add new group"
-msgstr ""
+msgstr "Дадаць новую групу"
 
 #: ../plugins/grouptagger/gt_widgets.py:151
 msgid "Delete group"
-msgstr ""
+msgstr "Выдаліць групу"
 
 #: ../plugins/grouptagger/gt_widgets.py:158
 msgid "Add new category"
-msgstr ""
+msgstr "Дадаць новую катэгорыю"
 
 #: ../plugins/grouptagger/gt_widgets.py:162
 msgid "Remove category"
-msgstr ""
+msgstr "Выдаліць катэгорыю"
 
 #: ../plugins/grouptagger/gt_widgets.py:172
 msgid "Show tracks with selected (custom)"
-msgstr ""
+msgstr "Паказаць дарожкі з абраным (свой запыт)"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
-msgstr ""
+msgstr "Значэнне новай пазнакі?"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "Enter new tag value"
-msgstr ""
+msgstr "Увядзіце значэнне новай пазнакі"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "New Category?"
-msgstr ""
+msgstr "Новая катэгорыя?"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "Enter new group category name"
-msgstr ""
+msgstr "Увядзіце новае імя групавой катэгорыі"
 
 #: ../plugins/grouptagger/gt_widgets.py:510
 msgid "Add Group"
-msgstr ""
+msgstr "Дадаць групу"
 
 #: ../plugins/grouptagger/gt_widgets.py:714
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Дадаць у абранае"
 
 #: ../plugins/grouptagger/gt_widgets.py:740
 msgid "Show tracks with groups"
-msgstr ""
+msgstr "Паказаць дарожкі з групамі"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must have this tag [AND]"
-msgstr ""
+msgstr "Павінна мець гэту пазнаку [І]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "May have this tag [OR]"
-msgstr ""
+msgstr "Павінна мець гэту пазнаку [ЦІ]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must not have this tag [NOT]"
-msgstr ""
+msgstr "Не павінна мець гэту пазнаку [НЕ]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Ignored"
-msgstr ""
+msgstr "Ігнаруемае"
 
 #: ../plugins/grouptagger/gt_widgets.py:759
 msgid "Selected Tracks"
-msgstr ""
+msgstr "Абраныя дарожкі"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "ReplayGain"
 
 #: ../plugins/droptrayicon/__init__.py:281
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Скінуць для выбару"
 
 #: ../plugins/droptrayicon/__init__.py:284
 msgid "Append and Play"
-msgstr ""
+msgstr "Дадаць і прайграць"
 
 #: ../plugins/droptrayicon/__init__.py:286
 msgid "Append"
-msgstr ""
+msgstr "Дадаць"
 
 #: ../plugins/history/history_preferences.py:35
 #: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
 #: ../plugins/daapclient/__init__.py:292
 msgid "History"
-msgstr ""
+msgstr "Часопіс"
 
 #: ../plugins/history/__init__.py:108
 msgid "Playback history"
@@ -3058,28 +3086,28 @@ msgstr ""
 
 #: ../plugins/history/__init__.py:140
 msgid "Erase stored history?"
-msgstr ""
+msgstr "Сцерці захаваныя падзеі часопіса?"
 
 #: ../plugins/history/__init__.py:234
 msgid "Save History"
-msgstr ""
+msgstr "Захаваць часопіс"
 
 #: ../plugins/history/__init__.py:236
 msgid "Clear History"
-msgstr ""
+msgstr "Ачысціць часопіс"
 
 #: ../plugins/jamendo/__init__.py:91
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Ready"
-msgstr ""
+msgstr "Гатова"
 
 #: ../plugins/jamendo/__init__.py:92
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "Шукаю ў каталогу Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:93
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Атрымліваю інфармацыю пра трэк..."
 
 #: ../plugins/console/__init__.py:109
 msgid "Console"
@@ -3087,7 +3115,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
-msgstr ""
+msgstr "Усплывальныя апавяшчэнні"
 
 #: ../plugins/osd/osd_preferences.py:88
 msgid ""
@@ -3095,6 +3123,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"выканавец $artist\n"
+"альбом $album"
 
 #: ../plugins/osd/__init__.py:379
 msgid ""
@@ -3102,11 +3133,14 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"выканавец $artist\n"
+"альбом $album"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Вокладкі з Amazon"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
 msgid "Modulus this number"
@@ -3132,36 +3166,36 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "Подкасты"
 
 #: ../plugins/podcasts/__init__.py:70
 msgid "Podcast"
-msgstr ""
+msgstr "Подкаст"
 
 #: ../plugins/podcasts/__init__.py:79
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "Абнавіць Подкасты"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Delete"
-msgstr ""
+msgstr "Выдаліць"
 
 #: ../plugins/podcasts/__init__.py:118
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Для дадання подкаста ўвядзіце яго URL"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Open Podcast"
-msgstr ""
+msgstr "Адкрыць подкаст"
 
 #: ../plugins/podcasts/__init__.py:152
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "Загрузка %s..."
 
 #: ../plugins/podcasts/__init__.py:181
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Памылка загрузкі подкаста."
 
 #: ../plugins/podcasts/__init__.py:197
 msgid "Loading Podcasts..."

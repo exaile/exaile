@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Atanas Kovachki <Unknown>\n"
-"Language-Team: Bulgarian <bg@li.org>\n"
+"PO-Revision-Date: 2015-01-23 04:18+0200\n"
+"Last-Translator: krasimir <vip@krasio-valia.com>\n"
+"Language-Team: Bulgarian "
+"<https://hosted.weblate.org/projects/exaile/master/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:24+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -220,8 +221,9 @@ msgid "N"
 msgstr "N"
 
 #: ../xl/main.py:555
+#, fuzzy
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "Set rating for current track to N%"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
@@ -312,24 +314,27 @@ msgid "Set data directory"
 msgstr "Задаване на директория за данни"
 
 #: ../xl/main.py:614
+#, fuzzy
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Set data and config directory"
 
 #: ../xl/main.py:616
 msgid "MODULE"
 msgstr "MODULE"
 
 #: ../xl/main.py:617
+#, fuzzy
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "Limit log output to MODULE"
 
 #: ../xl/main.py:619
 msgid "LEVEL"
 msgstr "LEVEL"
 
 #: ../xl/main.py:620
+#, fuzzy
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "Limit log output to LEVEL"
 
 #: ../xl/main.py:623
 msgid "Show debugging output"
@@ -341,8 +346,9 @@ msgstr ""
 "Разрешаване на отстраняване на грешки за xl.event. Генерира МНОГО съобщения"
 
 #: ../xl/main.py:628
+#, fuzzy
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Add thread name to logging messages."
 
 #: ../xl/main.py:631
 msgid "TYPE"

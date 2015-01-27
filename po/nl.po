@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-11 14:52+0200\n"
-"Last-Translator: Dieter Adriaenssens <ruleant@users.sourceforge.net>\n"
+"PO-Revision-Date: 2015-01-27 14:39+0200\n"
+"Last-Translator: Nick Mispoulier <nick@proclame.be>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/exaile/master/nl/>"
 "\n"
 "Language: nl\n"
@@ -1262,9 +1262,8 @@ msgid "Re_scan Collection"
 msgstr "Collectie opnieuw _laden"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-#, fuzzy
 msgid "Rescan Collection (slow)"
-msgstr "Collectie opnieuw laden"
+msgstr "Collectie opnieuw laden (traag)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
@@ -1293,10 +1292,8 @@ msgid "Editing track %(current)d of %(total)d"
 msgstr "Nummer %(current)d van de %(total)d aan het bewerken"
 
 #: ../xlgui/properties.py:375
-#, fuzzy
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr ""
-"Weet u zeker dat u de geselecteerde afspeellijst definitief wilt verwijderen?"
+msgstr "Weet u zeker dat u de wijzigingen wilt toepassen op alle nummers?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -1387,7 +1384,7 @@ msgstr "Albumhoes voor %s"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
-msgstr ""
+msgstr "Bestand Opslaan"
 
 #: ../xlgui/cover.py:998
 #, python-format
@@ -1432,8 +1429,9 @@ msgid "Scanning %s..."
 msgstr "%s herladen..."
 
 #: ../xlgui/panels.py:102
+#, fuzzy
 msgid "Panels"
-msgstr ""
+msgstr "Panelen"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
@@ -1477,8 +1475,9 @@ msgstr ""
 "{playlist_name} ({track_count} nummers, {seconds} sec geleden afgesloten)"
 
 #: ../xlgui/playlist_container.py:518
+#, fuzzy
 msgid "Move to other View"
-msgstr ""
+msgstr "Verplaats naar andere weergave"
 
 #: ../xlgui/panel/device.py:137
 #, python-format
@@ -1546,7 +1545,7 @@ msgstr "Grootte"
 #: ../xlgui/panel/files.py:407
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s kB"
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"

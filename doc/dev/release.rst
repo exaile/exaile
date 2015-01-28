@@ -5,28 +5,19 @@ Release process
 This is an attempt to document what needs to be done in order to create a
 release for Exaile.
 
-TODO: Update these instructions for github releases!
+TODO: Update these instructions for github releases! Translations are now 
+on https://hosted.weblate.org/projects/exaile/master/
 
 Step one: Translations
 ----------------------
 
-Merge the translations branch for the current series.
+Merge the translations from https://hosted.weblate.org/projects/exaile/master/
 
-If a new series was created and no translations branch exists, follow
-these steps:
+If you are a member of https://github.com/exaile you should be able to
+import all translations from some github web UI into the git repository.
 
-* Create a new branch for translations, include the series in the branch
-  name, like "translations-3.4.x" for the "3.4.x" series
-* Open the translation settings page of the series on Launchpad:
-  https://translations.launchpad.net/exaile/3.4.x/+translations-settings
-* In "Import translations from branch" you should at least select
-  "Import template files" to have changes in code automatically show up
-  in the translation tool of Launchpad.
-* In "Export translations to branch" you just "Choose a target branch",
-  namely the one you just created.
-
-You can reach the settings for all series via the general translations
-page: https://translations.launchpad.net/exaile
+If you are no member clone git://git.weblate.org/exaile.git and add the
+translations into your git repository.
 
 Step two: Version bumping
 -------------------------

@@ -7,7 +7,7 @@ in various ways:
 
 * Bugfixes
 * Documentation updates
-* Translations
+* Translations on https://hosted.weblate.org/projects/exaile/master/
 * New features + plugins
 
 The best way to contribute is to submit patches/etc via pull request on github.

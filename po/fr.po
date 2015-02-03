@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-02-03 23:32+0200\n"
+"PO-Revision-Date: 2015-02-03 23:34+0200\n"
 "Last-Translator: drumel Event Team <drumel@ryzom.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
@@ -4832,6 +4832,7 @@ msgid "SomaFM Radio"
 msgstr "Radio Soma FM"
 
 #: ../plugins/somafm/PLUGININFO:4
+#, fuzzy
 msgid ""
 "SomaFM Radio list\n"
 "\n"

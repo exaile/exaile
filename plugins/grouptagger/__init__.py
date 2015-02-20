@@ -292,10 +292,27 @@ class GroupTaggerPlugin(object):
     def on_group_change(self, view, action, value):
         '''Called when a group is added/deleted/updated on the widget'''
         
-        if self.track is not None:
+        # Contrary to the mere display of current group tags,
+        # setting / resetting will affect all selected tracks.
+
+        selected_tracks = main.get_selected_page().view.get_selected_tracks()
+
+        if len(selected_tracks) > 1:
+            dialog = gtk.MessageDialog(None,
+                gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION,
+                gtk.BUTTONS_YES_NO,
+                _('Are you sure you want to apply the changes to all tracks?'),
+            )
+            response = dialog.run()
+            dialog.destroy()
+
+            if response != gtk.RESPONSE_YES:
+                return
+
+        for current_track in selected_tracks:
             groups = view.get_model().iter_active()
-            if not set_track_groups( self.track, groups ):
-                self.set_display_track( self.track, force_update=True )
+            if not set_track_groups(current_track, groups):
+                self.set_display_track(current_track, force_update=True)
                 
     def on_plugin_options_set(self, evtype, settings, option):
         '''Handles option changes'''
@@ -304,4 +321,3 @@ class GroupTaggerPlugin(object):
         elif option == tagname_option:
             if self.track is not None:
                 glib.idle_add(self.set_display_track, self.track, True)
-

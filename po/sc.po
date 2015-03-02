@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-11 22:41-0500\n"
-"PO-Revision-Date: 2015-01-11 22:41-0500\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2015-03-02 22:39+0200\n"
+"Last-Translator: Lu Ca <lmelonimamo@yahoo.it>\n"
+"Language-Team: Sardinian "
+"<https://hosted.weblate.org/projects/exaile/master/sc/>\n"
 "Language: sc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #: ../xl/metadata/tags.py:40 ../xlgui/panel/collection.py:132
 #: ../xlgui/widgets/playlist_columns.py:246
@@ -23,11 +25,11 @@ msgstr ""
 #: ../plugins/minimode/minimode_preferences.py:96 ../plugins/cd/cdprefs.py:109
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:18
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ../xl/metadata/tags.py:41
 msgid "Arranger"
-msgstr ""
+msgstr "Acontzadore"
 
 #: ../xl/metadata/tags.py:42 ../xlgui/panel/collection.py:129
 #: ../xlgui/widgets/playlist_columns.py:232
@@ -35,686 +37,698 @@ msgstr ""
 #: ../plugins/minimode/minimode_preferences.py:94 ../plugins/cd/cdprefs.py:107
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Artist"
-msgstr ""
+msgstr "Artista"
 
 #: ../xl/metadata/tags.py:43
 msgid "Author"
-msgstr ""
+msgstr "Autore"
 
 #: ../xl/metadata/tags.py:44 ../xlgui/widgets/playlist_columns.py:353
 #: ../plugins/minimode/minimode_preferences.py:107
 #: ../plugins/cd/cdprefs.py:120
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: ../xl/metadata/tags.py:45
 msgid "Copyright"
-msgstr ""
+msgstr "Deretu de autore"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Cummentu"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
 #: ../plugins/minimode/minimode_preferences.py:95 ../plugins/cd/cdprefs.py:108
 msgid "Composer"
-msgstr ""
+msgstr "Cumponidore"
 
 #: ../xl/metadata/tags.py:48
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:10
 msgid "Conductor"
-msgstr ""
+msgstr "Diretore de orchestra"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/cover.py:812
 msgid "Cover"
-msgstr ""
+msgstr "Cobertedda"
 
 #: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:312
 #: ../plugins/minimode/minimode_preferences.py:100
 #: ../plugins/cd/cdprefs.py:113
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:260
 msgid "Disc"
-msgstr ""
+msgstr "Discu"
 
 #: ../xl/metadata/tags.py:52
 msgid "Encoded by"
-msgstr ""
+msgstr "Codificadu dae"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:318
 #: ../plugins/minimode/minimode_preferences.py:101
 #: ../plugins/cd/cdprefs.py:114
 msgid "Genre"
-msgstr ""
+msgstr "Gènere"
 
 #: ../xl/metadata/tags.py:54 ../xlgui/widgets/playlist_columns.py:500
 msgid "Grouping"
-msgstr ""
+msgstr "Ragrupamentu"
 
 #: ../xl/metadata/tags.py:55
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../xl/metadata/tags.py:56 ../plugins/lyricsviewer/__init__.py:347
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:1
 #: ../plugins/lyricsviewer/PLUGININFO:5 ../plugins/lyricsmania/PLUGININFO:5
 #: ../plugins/lyricwiki/PLUGININFO:5
 msgid "Lyrics"
-msgstr ""
+msgstr "Testos"
 
 #: ../xl/metadata/tags.py:57
 msgid "Lyricist"
-msgstr ""
+msgstr "Autore testos"
 
 #: ../xl/metadata/tags.py:58
 msgid "Organization"
-msgstr ""
+msgstr "Organizatzione"
 
 #: ../xl/metadata/tags.py:59
 msgid "Original album"
-msgstr ""
+msgstr "Album originale"
 
 #: ../xl/metadata/tags.py:60
 msgid "Original artist"
-msgstr ""
+msgstr "Artista originale"
 
 #: ../xl/metadata/tags.py:61
 msgid "Original date"
-msgstr ""
+msgstr "Data originale"
 
 #: ../xl/metadata/tags.py:63
 msgid "Performer"
-msgstr ""
+msgstr "Intèrprete"
 
 #: ../xl/metadata/tags.py:64 ../xlgui/panel/flatplaylist.py:99
 #: ../xlgui/widgets/playlist_columns.py:225
 #: ../plugins/minimode/minimode_preferences.py:93 ../plugins/cd/cdprefs.py:106
 #: ../plugins/grouptagger/gt_import.ui.h:3
 msgid "Title"
-msgstr ""
+msgstr "Tìtulu"
 
 #: ../xl/metadata/tags.py:65 ../plugins/grouptagger/gt_mass.ui.h:7
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:20
 msgid "Track"
-msgstr ""
+msgstr "Rasta"
 
 #: ../xl/metadata/tags.py:66 ../data/ui/preferences/plugin.ui.h:2
 msgid "Version"
-msgstr ""
+msgstr "Versione"
 
 #: ../xl/metadata/tags.py:67
 msgid "Website"
-msgstr ""
+msgstr "Giassu/situ web"
 
 #: ../xl/metadata/tags.py:71 ../xlgui/widgets/playlist_columns.py:325
 #: ../plugins/minimode/minimode_preferences.py:102
 #: ../plugins/cd/cdprefs.py:115 ../plugins/icecast/__init__.py:390
 msgid "Bitrate"
-msgstr ""
+msgstr "Bitrate"
 
 #: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
 msgid "Date added"
-msgstr ""
+msgstr "Annanta su"
 
 #: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
 #: ../plugins/minimode/minimode_preferences.py:106
 #: ../plugins/cd/cdprefs.py:119
 msgid "Last played"
-msgstr ""
+msgstr "Ùrtima riprodutzione"
 
 #: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:253
 #: ../plugins/minimode/minimode_preferences.py:97 ../plugins/cd/cdprefs.py:110
 msgid "Length"
-msgstr ""
+msgstr "Longària"
 
 #: ../xl/metadata/tags.py:76 ../xlgui/widgets/playlist_columns.py:332
 #: ../data/ui/collection_manager.ui.h:2
 #: ../plugins/minimode/minimode_preferences.py:103
 #: ../plugins/cd/cdprefs.py:116
 msgid "Location"
-msgstr ""
+msgstr "Positzione"
 
 #: ../xl/metadata/tags.py:77
 msgid "Modified"
-msgstr ""
+msgstr "Modificada"
 
 #: ../xl/metadata/tags.py:78
 msgid "Play time"
-msgstr ""
+msgstr "Tempus de riprodutziones"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
-msgstr ""
+msgstr "Nùmeru de riprodutziones"
 
 #: ../xl/metadata/tags.py:81
 msgid "Start offset"
-msgstr ""
+msgstr "Oru de cumintzu"
 
 #: ../xl/metadata/tags.py:82
 msgid "Stop offset"
-msgstr ""
+msgstr "Oru de fine"
 
 #: ../xl/covers.py:466 ../data/ui/trackproperties_dialog.ui.h:6
 msgid "Tags"
-msgstr ""
+msgstr "Etichetas"
 
 #: ../xl/covers.py:505
 msgid "Local file"
-msgstr ""
+msgstr "Documentu locale"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "Sa versione de sas impostaduras est prus noa de s’atuale."
 
 #: ../xl/settings.py:248
 msgid "We don't know how to store that kind of setting: "
-msgstr ""
+msgstr "Modalidade de sarbamentu disconnota pro custu tipu de impostadura "
 
 #: ../xl/settings.py:276
 msgid "An Unknown type of setting was found!"
-msgstr ""
+msgstr "Est istadu agatadu unu tipu disconnotu de impostadura!"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
-msgstr ""
+msgstr "Su formadu de s’archìviu de s'estensione no est curretu."
 
 #: ../xl/plugins.py:104
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr ""
+msgstr "Un’estensione chi si mutit «%s» est giai installada."
 
 #: ../xl/plugins.py:109
 msgid "Plugin archive contains an unsafe path."
-msgstr ""
+msgstr "S’archìviu de s’estensione cuntènnit un’àndala non segura."
 
 #: ../xl/trax/track.py:65 ../xlgui/widgets/info.py:422
 msgid "Various Artists"
-msgstr ""
+msgstr "Artistas vàrios"
 
 #. TRANSLATORS: title of a track if it is unknown
 #: ../xl/trax/track.py:66 ../plugins/notifyosd/__init__.py:71
 msgid "Unknown"
-msgstr ""
+msgstr "Disconnotu"
 
 #. TRANSLATORS: String multiple tag values will be joined by
 #: ../xl/trax/track.py:68
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. TRANSLATORS: Bitrate (k here is short for kbps).
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dk"
 
 #: ../xl/trax/trackdb.py:176
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "No est istada dislindada una positzione dae sa cale carrigare su db"
 
 #: ../xl/trax/trackdb.py:259
 msgid "You did not specify a location to save the db"
-msgstr ""
+msgstr "No est istada dislindada una positzione pro sarbare su db"
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
-msgstr ""
+msgstr "Casta de iscalita non vàlida."
 
 #: ../xl/playlist.py:178 ../xlgui/panel/playlists.py:227
 #: ../xlgui/widgets/playlist.py:336 ../plugins/grouptagger/gt_mass.ui.h:6
 msgid "Playlist"
-msgstr ""
+msgstr "Iscalita"
 
 #: ../xl/playlist.py:327
 msgid "M3U Playlist"
-msgstr ""
+msgstr "Iscalita M3U"
 
 #: ../xl/playlist.py:435
 msgid "PLS Playlist"
-msgstr ""
+msgstr "Iscalita PLS"
 
 #: ../xl/playlist.py:529 ../xl/playlist.py:545
 #, python-format
 msgid "Invalid format for %s."
-msgstr ""
+msgstr "Formadu non vàlidu pro %s."
 
 #: ../xl/playlist.py:540
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr ""
+msgstr "Versione %(version)s non suportada pro %(type)s"
 
 #: ../xl/playlist.py:600
 msgid "ASX Playlist"
-msgstr ""
+msgstr "Iscalita ASX"
 
 #: ../xl/playlist.py:771
 msgid "XSPF Playlist"
-msgstr ""
+msgstr "Iscalita XSPF"
 
 #: ../xl/playlist.py:886
 msgid "Shuffle _Off"
-msgstr ""
+msgstr "Riprodutzione casuale _Off"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Tracks"
-msgstr ""
+msgstr "Riprodutzione casuale de sas _Rastas"
 
 #: ../xl/playlist.py:887
 msgid "Shuffle _Albums"
-msgstr ""
+msgstr "Riprodutzione casuale de sos _Albums"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _Off"
-msgstr ""
+msgstr "Ripetitzione _istudada"
 
 #: ../xl/playlist.py:891
 msgid "Repeat _All"
-msgstr ""
+msgstr "Repite _totu"
 
 #: ../xl/playlist.py:891
 msgid "Repeat O_ne"
-msgstr ""
+msgstr "Repite u_nu"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic _Off"
-msgstr ""
+msgstr "Modalidade dinàmica _istudada"
 
 #: ../xl/playlist.py:895
 msgid "Dynamic by Similar _Artists"
-msgstr ""
+msgstr "Dinàmica pro _artistas sìmiles"
 
 #: ../xl/formatter.py:576
 #, python-format
 msgid "%d day, "
 msgid_plural "%d days, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d die, "
+msgstr[1] "%d dies, "
 
 #: ../xl/formatter.py:578
 #, python-format
 msgid "%d hour, "
 msgid_plural "%d hours, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ora, "
+msgstr[1] "%d oras, "
 
 #: ../xl/formatter.py:579
 #, python-format
 msgid "%d minute, "
 msgid_plural "%d minutes, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minuto, "
+msgstr[1] "%d minutos, "
 
 #: ../xl/formatter.py:580
 #, python-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d segundu"
+msgstr[1] "%d segundos"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:585
 #, python-format
 msgid "%dd, "
-msgstr ""
+msgstr "%dd, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
 #, python-format
 msgid "%dh, "
-msgstr ""
+msgstr "%do, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
 #, python-format
 msgid "%dm, "
-msgstr ""
+msgstr "%dm, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:592
 #, python-format
 msgid "%ds"
-msgstr ""
+msgstr "%ds"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%dd "
-msgstr ""
+msgstr "%dd "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:600
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: Time duration (minutes:seconds)
 #: ../xl/formatter.py:604
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #. TRANSLATORS: Indicates that a track has never been played before
 #: ../xl/formatter.py:693 ../xl/formatter.py:698
 msgid "Never"
-msgstr ""
+msgstr "Mai"
 
 #: ../xl/formatter.py:704
 msgid "Today"
-msgstr ""
+msgstr "Oe"
 
 #: ../xl/formatter.py:706
 msgid "Yesterday"
-msgstr ""
+msgstr "Eris"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Possìbile errore de su dispostivu àudio, est cullegadu?"
 
 #: ../xl/player/sink_windows.py:37 ../xl/player/pipe.py:504
 #: ../xl/player/pipe.py:527
 msgid "Custom"
-msgstr ""
+msgstr "Pessonalizadu"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
-msgstr ""
+msgstr "Automàticu"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Autom."
 
 #: ../xl/player/sink_osx.py:165
+#, fuzzy
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "OSX CoreAudio"
 
 #: ../xl/main.py:237
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "Su tramudòngiu dae sa versione 0.2.14 est faddidu"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
-msgstr ""
+msgstr "Impreu: exaile [OPTZIONE]... [URI]"
 
 #: ../xl/main.py:493 ../plugins/minimode/minimode_preferences.ui.h:11
 msgid "Options"
-msgstr ""
+msgstr "Impostaduras"
 
 #: ../xl/main.py:497
 msgid "Playback Options"
-msgstr ""
+msgstr "Impostaduras de riprodutzione"
 
 #: ../xl/main.py:499
 msgid "Play the next track"
-msgstr ""
+msgstr "Reprodue sa rasta imbeniente"
 
 #: ../xl/main.py:501
 msgid "Play the previous track"
-msgstr ""
+msgstr "Reprodue sa rasta anteposta"
 
 #: ../xl/main.py:503 ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr ""
+msgstr "Firma sa riprodutzione"
 
 #: ../xl/main.py:505
 msgid "Play"
-msgstr ""
+msgstr "Reprodue"
 
 #: ../xl/main.py:507
 msgid "Pause"
-msgstr ""
+msgstr "Pasada"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr ""
+msgstr "Sessa o torra a leare sa riprodutzione"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
-msgstr ""
+msgstr "Firma sa riprodutzione a pustis de sa custa rasta"
 
 #: ../xl/main.py:516
 msgid "Collection Options"
-msgstr ""
+msgstr "Impostaduras pro sas regortas"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526
 msgid "LOCATION"
-msgstr ""
+msgstr "POSITZIONE"
 
 #: ../xl/main.py:519
 msgid "Add tracks from LOCATION to the collection"
-msgstr ""
+msgstr "Annanghe rastas dae POSITZIONE a sa regorta"
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "Impostaduras de s’iscalita"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
-msgstr ""
+msgstr "Esporta s'iscalita atuale in sa POSITZIONE"
 
 #: ../xl/main.py:530
 msgid "Track Options"
-msgstr ""
+msgstr "Impostaduras pro sas rastas"
 
 #: ../xl/main.py:532
 msgid "Query player"
-msgstr ""
+msgstr "Pòrroga su leghidore"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
+#, fuzzy
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMAT"
 
 #: ../xl/main.py:536
 msgid "Retrieves the current playback state and track information as FORMAT"
 msgstr ""
+"Recuperat sas informatziones chi pertocant s'istadu atuale de riprodutzione "
+"e sa rasta comente FORMAT"
 
 #. TRANSLATORS: Meta variable for --format-query-tags
 #: ../xl/main.py:539
 msgid "TAGS"
-msgstr ""
+msgstr "ETICHETAS"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
 msgstr ""
+"ETICHETAS de recuperare dae sa rasta atuale, impreare cun --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
-msgstr ""
+msgstr "Ammustra un’ischermada cun informatziones chi pertocant sa rasta atuale"
 
 #: ../xl/main.py:545
 msgid "Print the title of current track"
-msgstr ""
+msgstr "Ammustra su tìtulu de sa rasta atuale"
 
 #: ../xl/main.py:547
 msgid "Print the album of current track"
-msgstr ""
+msgstr "Ammustra s'album de sa rasta atuale"
 
 #: ../xl/main.py:549
 msgid "Print the artist of current track"
-msgstr ""
+msgstr "Ammustra s'artista de sa rasta atuale"
 
 #: ../xl/main.py:551
 msgid "Print the length of current track"
-msgstr ""
+msgstr "Ammustra sa longària de sa rasta atuale"
 
 #. TRANSLATORS: Variable for command line options with arguments
 #: ../xl/main.py:554 ../xl/main.py:569 ../xl/main.py:573
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
-msgstr ""
+msgstr "Imposta su votu pro sa rasta currente a N%"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr ""
+msgstr "Otènne su votu pro sa rasta atuale"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
-msgstr ""
+msgstr "Ammustra sa positzione de sa riprodutzione atuale comente tempus"
 
 #: ../xl/main.py:562
 msgid "Print the current playback progress as percentage"
-msgstr ""
+msgstr "Ammustra sa sobradura de sa riprodutzione atuale comente pertzentuale"
 
 #: ../xl/main.py:566
 msgid "Volume Options"
-msgstr ""
+msgstr "Impostaduras de su volume"
 
 #: ../xl/main.py:570
 msgid "Increases the volume by N%"
-msgstr ""
+msgstr "Aumenta su volume de N%"
 
 #. TRANSLATORS: Meta variable for --increase-vol and--decrease-vol
 #: ../xl/main.py:575
 msgid "Decreases the volume by N%"
-msgstr ""
+msgstr "Minima su volume de N%"
 
 #: ../xl/main.py:578
 msgid "Mutes or unmutes the volume"
-msgstr ""
+msgstr "Alluet o istudat su volume"
 
 #: ../xl/main.py:580
 msgid "Print the current volume percentage"
-msgstr ""
+msgstr "Ammustra su livellu pertzentuale"
 
 #: ../xl/main.py:583
 msgid "Other Options"
-msgstr ""
+msgstr "Àteras impostaduras"
 
 #: ../xl/main.py:585
 msgid "Start new instance"
-msgstr ""
+msgstr "Incumentza un'istàntzia noa"
 
 #: ../xl/main.py:587
 msgid "Show this help message and exit"
-msgstr ""
+msgstr "Ammustra custu messàgiu d'agiudu ed essi"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr ""
+msgstr "Ammustra su nùmeru de versione de su programma ed essi."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr ""
+msgstr "Avia minimadu (in s’àrea de notìfica, si est possìbile)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr ""
+msgstr "Càmbia sa visibilidade de s’interfàtzia gràfica (si est possìbile)"
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
+"Avia in modalidade segura - carchi borta est ùtile cando bi sunt problemas"
 
 #: ../xl/main.py:600
 msgid "Force import of old data from version 0.2.x (Overwrites current data)"
 msgstr ""
+"Fortza s'importatzione de sos datos dae sa versione 0.2.x (burrat sos datos "
+"atuale)"
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
-msgstr ""
+msgstr "No importare sos datos dae sa versione 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
 msgstr ""
+"Faghe in modu chi impostaduras de controllu comente --play ant a aviare "
+"Exaile, si no est giai allutu"
 
 #: ../xl/main.py:610
 msgid "Development/Debug Options"
-msgstr ""
+msgstr "Impostaduras de isvulupu/debug"
 
 #: ../xl/main.py:612 ../xl/main.py:614
 msgid "DIRECTORY"
-msgstr ""
+msgstr "CARTELLA"
 
 #: ../xl/main.py:612
 msgid "Set data directory"
-msgstr ""
+msgstr "Imposta da cartella de sos datos"
 
 #: ../xl/main.py:614
 msgid "Set data and config directory"
-msgstr ""
+msgstr "Imposta sa cartella de sos datos e de sas configuratziones"
 
 #: ../xl/main.py:616
 msgid "MODULE"
-msgstr ""
+msgstr "MÒDULU"
 
 #: ../xl/main.py:617
 msgid "Limit log output to MODULE"
-msgstr ""
+msgstr "Lìmita su resurtu d’essida de su registru a su MÒDULU"
 
 #: ../xl/main.py:619
 msgid "LEVEL"
-msgstr ""
+msgstr "LIVELLU"
 
 #: ../xl/main.py:620
 msgid "Limit log output to LEVEL"
-msgstr ""
+msgstr "Lìmita su resurtu d’essida de su registru a su LIVELLU"
 
 #: ../xl/main.py:623
 msgid "Show debugging output"
-msgstr ""
+msgstr "Ammustra su resurtu d’essida de debug"
 
 #: ../xl/main.py:625
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
+msgstr "Abìlita su debug de xl.event. Ingendra MEDA resurtu d’essida"
 
 #: ../xl/main.py:628
 msgid "Add thread name to logging messages."
-msgstr ""
+msgstr "Annanghe su nùmene de sa discussione a sos messàgios de log."
 
 #: ../xl/main.py:631
 msgid "TYPE"
-msgstr ""
+msgstr "CASTA"
 
 #: ../xl/main.py:632
 msgid "Limit xl.event debug to output of TYPE"
-msgstr ""
+msgstr "Lìmita su debug xl.event a su resurtu d'essida de sa CASTA"
 
 #: ../xl/main.py:634
 msgid "Reduce level of output"
-msgstr ""
+msgstr "Mìnima su livellu de resurtu d'essida"
 
 #: ../xl/main.py:638
 msgid "Disable D-Bus support"
-msgstr ""
+msgstr "Disabìlita su suportu D-Bus"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr ""
+msgstr "Disabìlita su suportu HAL."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
-msgstr ""
+msgstr "Libreria intrea"
 
 #: ../xl/main.py:662
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "%d casuale"
 
 #: ../xl/main.py:670
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "Votu > %d"
 
 #: ../xl/main.py:814
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Carrigamentu galu non compridu. Diat poder’èssere netzessàriu isetare su "
+"sinnale exaile_loaded."
 
 #: ../xl/lyrics.py:340
 msgid "Local"
-msgstr ""
+msgstr "Locale"
 
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
 msgid "Not playing."
-msgstr ""
+msgstr "Non in riprodutzione."
 
 #: ../xl/xldbus.py:498
 #, python-format
@@ -722,171 +736,191 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"istadu: %(status)s, tìtulu: %(title)s, artista: %(artist)s, album: %(album)"
+"s, longària: %(length)s, positizione: %(progress)s%% [%(position)s]"
 
 #: ../xl/transcoder.py:56
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
+"Vorbis est unu codec àudio a mitza aberta chi afiantzat/garantit unu resurtu "
+"d'essida de calidade manna cun documentos prus minores de sos MP3."
 
 #: ../xl/transcoder.py:66
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
 msgstr ""
+"Free Lossless Audio Codec (FLAC) est unu codec a mitza aberta chi pigiat "
+"s'àudio sena perdita de calidade."
 
 #: ../xl/transcoder.py:78
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
+"Formadu àudio de propriedade de Apple cun pèrdida de sa calidade àudio, ma "
+"chi est mègius de s’MP3 proite tenet unu bitrate prus bassu."
 
 #: ../xl/transcoder.py:89
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
+"Unu formadu àudio cun perdida de calidade, proprietàriu e prus bèciu, ma "
+"difusu su matessi. VBR oferrit una calidade prus manna de su CBR, ma podet "
+"èssere incompatìbile cun carchi riprodutore àudio."
 
 #: ../xl/transcoder.py:100
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
+"Unu formadu àudio cun perdida de calidade, proprietàriu e prus bèciu, ma "
+"difusu su matessi. CNR oferrit una calidade prus minore de su VBR, ma est "
+"compatìbile cun totu sos riprodutores àudio."
 
 #: ../xl/transcoder.py:111
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
+"UNu formadu àudio sena pèrdida de calidade meda lestru e cun una "
+"cumpressione bona."
 
 #: ../xlgui/devices.py:76
 msgid "Icon"
-msgstr ""
+msgstr "Icona"
 
 #: ../xlgui/devices.py:81
 msgid "Device"
-msgstr ""
+msgstr "Dispositivu"
 
 #: ../xlgui/devices.py:88
 msgid "Driver"
-msgstr ""
+msgstr "Driver"
 
 #: ../xlgui/cover.py:109
 #, python-brace-format
 msgid "{outstanding} covers left to fetch"
-msgstr ""
+msgstr "{outstanding} coberteddas de recuperare"
 
 #: ../xlgui/cover.py:110
 msgid "All covers fetched"
-msgstr ""
+msgstr "Totu sas coberteddas sunt istadas recuperadas"
 
 #: ../xlgui/cover.py:135
 msgid "Collecting albums and covers..."
 msgstr ""
+"So boddinde/regoglinde sas informatziones chi pertocant sos albums e sas "
+"coberteddas..."
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
-msgstr ""
+msgstr "Ammustra cobertedda"
 
 #: ../xlgui/cover.py:503
 msgid "Fetch Cover"
-msgstr ""
+msgstr "Recùpera sa cobertedda"
 
 #: ../xlgui/cover.py:504
 msgid "Remove Cover"
-msgstr ""
+msgstr "Burra sa cobertedda"
 
 #: ../xlgui/cover.py:810
 #, python-format
 msgid "Cover for %s"
-msgstr ""
+msgstr "Cobertedda pro %s"
 
 #: ../xlgui/cover.py:904
 msgid "Save File"
-msgstr ""
+msgstr "Sarba documentu"
 
 #: ../xlgui/cover.py:998
 #, python-format
 msgid "Cover options for %(artist)s - %(album)s"
-msgstr ""
+msgstr "Impostaduras cobertadda pro %(artist)s - %(album)s"
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
-msgstr ""
+msgstr "Carrigande..."
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
-msgstr ""
+msgstr "Peruna cobertedda agatada."
 
 #: ../xlgui/cover.py:1104
 msgid ""
 "None of the enabled sources has a cover for this track, try enabling more "
 "sources."
 msgstr ""
+"Peruna cobertedda agatada in sas mitzas abilitadas, proa a nde abilitare "
+"àteras."
 
 #. TRANSLATORS: do not translate 'width' and 'height'
 #: ../xlgui/cover.py:1145 ../xlgui/properties.py:1027
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr ""
+msgstr "{width}x{height} pixels"
 
 #: ../xlgui/preferences/plugin.py:40 ../xlgui/preferences/__init__.py:124
 msgid "Plugins"
-msgstr ""
+msgstr "Estensiones"
 
 #: ../xlgui/preferences/plugin.py:102 ../plugins/grouptagger/gt_common.py:65
 #: ../plugins/grouptagger/gt_widgets.py:58
 msgid "Uncategorized"
-msgstr ""
+msgstr "Sena categoria"
 
 #: ../xlgui/preferences/plugin.py:156
 msgid "Could not load plugin info!"
-msgstr ""
+msgstr "Impossìbile carrigare sas informatziones chi pertocant s’estensione!"
 
 #: ../xlgui/preferences/plugin.py:158
 #, python-format
 msgid "Failed plugin: %s"
 msgid_plural "Failed plugins: %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Estensione chi no est funtzionande: %s"
+msgstr[1] "Estensiones chi non sunt funtzionande: %s"
 
 #: ../xlgui/preferences/plugin.py:188 ../xlgui/preferences/plugin.py:285
 msgid "Could not disable plugin!"
-msgstr ""
+msgstr "No est possìbile disabilitare s'estensione!"
 
 #: ../xlgui/preferences/plugin.py:198 ../xlgui/preferences/plugin.py:279
 msgid "Could not enable plugin!"
-msgstr ""
+msgstr "No est possìbile abilitare s’estensione!"
 
 #: ../xlgui/preferences/plugin.py:206
 msgid "Choose a Plugin"
-msgstr ""
+msgstr "Issèbera un’estensione"
 
 #: ../xlgui/preferences/plugin.py:215
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Archìvios de sas estensiones"
 
 #: ../xlgui/preferences/plugin.py:222 ../xlgui/widgets/dialogs.py:633
 #: ../xlgui/widgets/dialogs.py:791
 msgid "All Files"
-msgstr ""
+msgstr "Totu sos documentos"
 
 #: ../xlgui/preferences/plugin.py:234
 msgid "Plugin file installation failed!"
-msgstr ""
+msgstr "Installazione de s’estensione non resissida!"
 
 #: ../xlgui/preferences/cover.py:38 ../plugins/lastfmcovers/PLUGININFO:5
 #: ../plugins/musicbrainzcovers/PLUGININFO:5
 #: ../plugins/amazoncovers/PLUGININFO:5
 msgid "Covers"
-msgstr ""
+msgstr "Coberteddas"
 
 #: ../xlgui/preferences/playback.py:35
 msgid "Playback"
-msgstr ""
+msgstr "Riprodutzione"
 
 #: ../xlgui/preferences/collection.py:23 ../data/ui/panel/collection.ui.h:1
 #: ../data/ui/panel/device.ui.h:1
 msgid "Collection"
-msgstr ""
+msgstr "Regorta"
 
 #. TRANSLATORS: Grammatical articles that are ignored while sorting the
 #. collection panel. For example, in French locales this could be
@@ -895,258 +929,260 @@ msgstr ""
 #. translate this to string with single space.
 #: ../xlgui/preferences/collection.py:34
 msgid "the"
-msgstr ""
+msgstr "su los sos is las sas ddu ddus ddis dda ddas"
 
 #: ../xlgui/preferences/collection.py:56
 msgid "Reset to Defaults"
-msgstr ""
+msgstr "Torra a impostare sos valores predefinidos"
 
 #: ../xlgui/preferences/widgets.py:66
 msgid "Restart Exaile?"
-msgstr ""
+msgstr "Torrare a aviare Exaile?"
 
 #: ../xlgui/preferences/widgets.py:68
 msgid "A restart is required for this change to take effect."
 msgstr ""
+"Pro fàghere tènnere efetu a custa modìfica est netzessàriu torrare a aviare "
+"s’aplicu."
 
 #: ../xlgui/preferences/widgets.py:70 ../xlgui/menu.py:124
 msgid "Restart"
-msgstr ""
+msgstr "Torra a aviare"
 
 #: ../xlgui/preferences/widgets.py:664
 msgid "Action"
-msgstr ""
+msgstr "Atzione"
 
 #: ../xlgui/preferences/widgets.py:672
 msgid "Shortcut"
-msgstr ""
+msgstr "Incurtzadura"
 
 #: ../xlgui/preferences/playlists.py:34 ../data/ui/panel/playlists.ui.h:1
 msgid "Playlists"
-msgstr ""
+msgstr "Iscalitas"
 
 #: ../xlgui/preferences/appearance.py:34 ../plugins/osd/osd_preferences.ui.h:9
 msgid "Appearance"
-msgstr ""
+msgstr "Aparèntzia"
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/panel/flatplaylist.py:91 ../xlgui/widgets/playlist_columns.py:217
 msgid "#"
-msgstr ""
+msgstr "N."
 
 #: ../xlgui/panel/files.py:116 ../xlgui/widgets/playlist_columns.py:339
 #: ../plugins/minimode/minimode_preferences.py:104
 #: ../plugins/cd/cdprefs.py:117
 msgid "Filename"
-msgstr ""
+msgstr "Nùmene documentu"
 
 #. TRANSLATORS: File size column in the file browser
 #: ../xlgui/panel/files.py:140
 msgid "Size"
-msgstr ""
+msgstr "Mannària"
 
 #: ../xlgui/panel/files.py:407
 #, python-format
 msgid "%s kB"
-msgstr ""
+msgstr "%s kB"
 
 #: ../xlgui/panel/menus.py:174 ../xlgui/panel/radio.py:414
 #: ../xlgui/playlist_container.py:73 ../xlgui/widgets/playlist.py:207
 #: ../plugins/droptrayicon/__init__.py:288
 msgid "New Playlist"
-msgstr ""
+msgstr "Iscalita noa"
 
 #: ../xlgui/panel/menus.py:179
 msgid "New Smart Playlist"
-msgstr ""
+msgstr "Iscalita automàtica noa"
 
 #: ../xlgui/panel/menus.py:184 ../xlgui/menu.py:87
 #: ../xlgui/widgets/dialogs.py:778
 msgid "Import Playlist"
-msgstr ""
+msgstr "Importa iscalita"
 
 #: ../xlgui/panel/menus.py:251
 msgid "New Station"
-msgstr ""
+msgstr "Istatzione noa"
 
 #: ../xlgui/panel/device.py:137
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Tramudande in %s..."
 
 #: ../xlgui/panel/collection.py:135
 msgid "Genre - Artist"
-msgstr ""
+msgstr "Gènere - Artista"
 
 #: ../xlgui/panel/collection.py:138
 msgid "Genre - Album"
-msgstr ""
+msgstr "Gènere - Album"
 
 #: ../xlgui/panel/collection.py:141
 msgid "Date - Artist"
-msgstr ""
+msgstr "Data - Artista"
 
 #: ../xlgui/panel/collection.py:144
 msgid "Date - Album"
-msgstr ""
+msgstr "Data - Album"
 
 #: ../xlgui/panel/collection.py:147
 msgid "Artist - (Date - Album)"
-msgstr ""
+msgstr "Artista (Data - Album)"
 
 #: ../xlgui/panel/collection.py:270 ../data/ui/collection_manager.ui.h:5
 msgid "Rescan Collection"
-msgstr ""
+msgstr "Torra a iscansire sa regorta"
 
 #: ../xlgui/panel/playlists.py:58 ../xlgui/panel/playlists.py:78
 #: ../xlgui/panel/playlists.py:85 ../plugins/osd/osd_preferences.ui.h:7
 msgid "seconds"
-msgstr ""
+msgstr "segundos"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:63
 msgid "and"
-msgstr ""
+msgstr "e"
 
 #: ../xlgui/panel/playlists.py:67 ../xlgui/panel/playlists.py:78
 msgid "days"
-msgstr ""
+msgstr "dies"
 
 #: ../xlgui/panel/playlists.py:78
 msgid "minutes"
-msgstr ""
+msgstr "minutos"
 
 #: ../xlgui/panel/playlists.py:78
 msgid "hours"
-msgstr ""
+msgstr "oras"
 
 #: ../xlgui/panel/playlists.py:78
 msgid "weeks"
-msgstr ""
+msgstr "chidas"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:183
 msgid "is"
-msgstr ""
+msgstr "est"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:185
 msgid "is not"
-msgstr ""
+msgstr "no est"
 
 #. TRANSLATORS: True if the specified tag is present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:188
 msgid "is set"
-msgstr ""
+msgstr "est impostadu"
 
 #. TRANSLATORS: True if the specified tag is not present (uses the NullField
 #. to compare to __null__)
 #: ../xlgui/panel/playlists.py:191
 msgid "is not set"
-msgstr ""
+msgstr "no est impostadu"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:193
 msgid "contains"
-msgstr ""
+msgstr "cuntènnit"
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/panel/playlists.py:195
 msgid "does not contain"
-msgstr ""
+msgstr "non cuntènnit"
 
 #. TRANSLATORS: True if haystack matches regular expression
 #: ../xlgui/panel/playlists.py:197
 msgid "regex"
-msgstr ""
+msgstr "sintassi curreta (regex)"
 
 #. TRANSLATORS: True if haystack does not match regular expression
 #: ../xlgui/panel/playlists.py:199
 msgid "not regex"
-msgstr ""
+msgstr "errore de sintassi"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:201
 msgid "at least"
-msgstr ""
+msgstr "a su nessi"
 
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/panel/playlists.py:203
 msgid "at most"
-msgstr ""
+msgstr "a su màssimu"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:205
 msgid "before"
-msgstr ""
+msgstr "in antis"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:207
 msgid "after"
-msgstr ""
+msgstr "a pustis"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:209
 msgid "between"
-msgstr ""
+msgstr "intre"
 
 #: ../xlgui/panel/playlists.py:210
 msgid "greater than"
-msgstr ""
+msgstr "prus mannu de"
 
 #: ../xlgui/panel/playlists.py:211
 msgid "less than"
-msgstr ""
+msgstr "prus minore de"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xlgui/panel/playlists.py:213
 msgid "in the last"
-msgstr ""
+msgstr "in sos ùrtimos"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xlgui/panel/playlists.py:215
 msgid "not in the last"
-msgstr ""
+msgstr "non in sos ùrtimos"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
 msgid "Track is in"
-msgstr ""
+msgstr "Sa rasta est in intro"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/panel/playlists.py:219
 msgid "Track not in"
-msgstr ""
+msgstr "Sa rasta no est in intro"
 
 #: ../xlgui/panel/playlists.py:226 ../xlgui/widgets/playlist_columns.py:268
 #: ../plugins/minimode/minimode_preferences.py:99
 #: ../plugins/minimode/controls.py:527 ../plugins/cd/cdprefs.py:112
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:9
 msgid "Rating"
-msgstr ""
+msgstr "Votu"
 
 #: ../xlgui/panel/playlists.py:304
 msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr ""
+msgstr "Burrare in manera definitiva s'iscalita ischertada?"
 
 #: ../xlgui/panel/playlists.py:336
 msgid "Enter the new name you want for your playlist"
-msgstr ""
+msgstr "Inserta su nùmene nou pro s'iscalita"
 
 #: ../xlgui/panel/playlists.py:337
 msgid "Rename Playlist"
-msgstr ""
+msgstr "Càmbia nùmene a s'iscalita"
 
 #: ../xlgui/panel/playlists.py:349 ../xlgui/panel/playlists.py:754
 #: ../xlgui/panel/playlists.py:844 ../xlgui/widgets/dialogs.py:1545
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Su nùmene insertadu pro s'iscalita est giai impreadu."
 
 #: ../xlgui/panel/playlists.py:394
 #, python-format
 msgid "Error loading smart playlist: %s"
-msgstr ""
+msgstr "Errore carrigande s’iscalita automàtica: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -1154,122 +1190,124 @@ msgstr ""
 #: ../xlgui/panel/playlists.py:482
 #, python-format
 msgid "%(first)s, %(second)s and others"
-msgstr ""
+msgstr "%(first)s, %(second)s e àteros"
 
 #. TRANSLATORS: Playlist title suggestion with two values
 #: ../xlgui/panel/playlists.py:459 ../xlgui/panel/playlists.py:473
 #: ../xlgui/panel/playlists.py:487
 #, python-format
 msgid "%(first)s and %(second)s"
-msgstr ""
+msgstr "%(first)s e %(second)s"
 
 #: ../xlgui/panel/playlists.py:667
 msgid "Smart Playlists"
-msgstr ""
+msgstr "Iscalitas automàticas"
 
 #: ../xlgui/panel/playlists.py:670
 msgid "Custom Playlists"
-msgstr ""
+msgstr "Iscalitas pessonalizadas"
 
 #: ../xlgui/panel/playlists.py:726
 msgid "Add Smart Playlist"
-msgstr ""
+msgstr "Annanghe un’iscalita automàtica"
 
 #: ../xlgui/panel/playlists.py:748 ../xlgui/panel/playlists.py:837
 #: ../xlgui/widgets/dialogs.py:1542
 msgid "You did not enter a name for your playlist"
-msgstr ""
+msgstr "No est istadu insertadu unu nùmene pro s'iscalita"
 
 #: ../xlgui/panel/playlists.py:807
 msgid "Edit Smart Playlist"
-msgstr ""
+msgstr "Modìfica iscalita automàtica"
 
 #: ../xlgui/panel/playlists.py:1131
 #, python-format
 msgid "Exporting %s"
-msgstr ""
+msgstr "Esportande %s"
 
 #: ../xlgui/panel/playlists.py:1134
 msgid "Choose directory to export files to"
-msgstr ""
+msgstr "Issèbera sa cartella in ue esportare sos documentos"
 
 #: ../xlgui/panel/radio.py:126 ../xlgui/panel/radio.py:469
 #: ../xlgui/panel/radio.py:545
 msgid "Loading streams..."
-msgstr ""
+msgstr "Carrigande sos flussos..."
 
 #: ../xlgui/panel/radio.py:177
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Annanghe un’istatzione ràdio"
 
 #: ../xlgui/panel/radio.py:179 ../xlgui/widgets/filter.py:65
 msgid "Name:"
-msgstr ""
+msgstr "Nùmene:"
 
 #: ../xlgui/panel/radio.py:180 ../plugins/audioscrobbler/asprefs_pane.ui.h:6
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:252
 msgid "Saved Stations"
-msgstr ""
+msgstr "Istatziones sarbadas"
 
 #: ../xlgui/panel/radio.py:253
 msgid "Radio Streams"
-msgstr ""
+msgstr "Flussos ràdio"
 
 #: ../xlgui/panel/radio.py:283 ../plugins/wikipedia/data/wikipanel.ui.h:4
 msgid "Refresh"
-msgstr ""
+msgstr "Agiorna"
 
 #: ../xlgui/panel/radio.py:413
 msgid "Enter the name you want for your new playlist"
-msgstr ""
+msgstr "Inserta su nùmene pro s’iscalita noa"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
-msgstr ""
+msgstr "Annanghe una cartella noa"
 
 #: ../xlgui/collection.py:150
 msgid "Directory not added."
-msgstr ""
+msgstr "Sa cartella no est istada annanta."
 
 #: ../xlgui/collection.py:151
 msgid ""
 "The directory is already in your collection or is a subdirectory of another "
 "directory in your collection."
 msgstr ""
+"Sa cartella est giai in sa regorta tua o est una cartella segundària de "
+"un'àtera in sa regorta tua."
 
 #: ../xlgui/playlist_container.py:74
 msgid "Drop here to create a new playlist"
-msgstr ""
+msgstr "Trisina inoghe pro creare un’iscalita noa"
 
 #: ../xlgui/playlist_container.py:138
 msgid "Recently Closed Tabs"
-msgstr ""
+msgstr "Ischedas serradas dae pagu"
 
 #: ../xlgui/playlist_container.py:195
 #, python-format
 msgid "Playlist %d"
-msgstr ""
+msgstr "Iscalita %d"
 
 #: ../xlgui/playlist_container.py:372
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {minutes} min ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} rastas, serradas {minutes} min. fàghet)"
 
 #: ../xlgui/playlist_container.py:378
 #, python-brace-format
 msgid "{playlist_name} ({track_count} tracks, closed {seconds} sec ago)"
-msgstr ""
+msgstr "{playlist_name} ({track_count} rastas, serradas {seconds} seg. fàghet)"
 
 #: ../xlgui/playlist_container.py:518
 msgid "Move to other View"
-msgstr ""
+msgstr "Tramuda in un’àtera vista"
 
 #: ../xlgui/properties.py:250
 msgid "Writing of tags failed"
-msgstr ""
+msgstr "Iscritura de sas etichetas faddida"
 
 #: ../xlgui/properties.py:251
 #, python-brace-format
@@ -1277,451 +1315,455 @@ msgid ""
 "Tags could not be written to the following files:\n"
 "{files}"
 msgstr ""
+"Impossìbile iscrìere sas etichetas de custos documentos:\n"
+"{files}"
 
 #: ../xlgui/properties.py:276
 #, python-format
 msgid "Editing track %(current)d of %(total)d"
-msgstr ""
+msgstr "Modìfica de sa rasta %(current)d de %(total)d"
 
 #: ../xlgui/properties.py:375
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr ""
+msgstr "Seguru ses de bòlere fàghere custas modìficas a totu sas rastas?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
-msgstr ""
+msgstr "Aplicare sas modìficas in antis de serrare?"
 
 #: ../xlgui/properties.py:416
 msgid "Your changes will be lost if you do not apply them now."
-msgstr ""
+msgstr "Sas modìficas s'ant a pèrdere si non las àplicas como."
 
 #: ../xlgui/properties.py:589
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #. TRANSLATORS: This is the 'of' between numbers in fields like
 #. tracknumber, discnumber, etc. in the tagger.
 #: ../xlgui/properties.py:795
 msgid "of:"
-msgstr ""
+msgstr "de:"
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
-msgstr ""
+msgstr "Immàgine JPEG"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "Immàgine PNG"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
-msgstr ""
+msgstr "Immàgine"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "Immàgine ligada"
 
 #. TRANSLATORS: do not translate 'format', 'width', and 'height'
 #: ../xlgui/properties.py:1030
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr ""
+msgstr "{format} ({width}x{height} pixels)"
 
 #: ../xlgui/properties.py:1043
 msgid "Select image to set as cover"
-msgstr ""
+msgstr "Ischerta s’immàgine de impreare comente cobertedda"
 
 #: ../xlgui/properties.py:1052
 msgid "Supported image formats"
-msgstr ""
+msgstr "Castas de immàgines suportadas"
 
 #: ../xlgui/properties.py:1127 ../xlgui/widgets/menuitems.py:146
 msgid "Open Directory"
-msgstr ""
+msgstr "Abèri cartella"
 
 #: ../xlgui/properties.py:1175
 msgid "Apply current value to all tracks"
-msgstr ""
+msgstr "Àplica su valore atuale a totu sas rastas"
 
 #: ../xlgui/properties.py:1201 ../xlgui/widgets/dialogs.py:1352
 #, python-format
 msgid "Saved %(count)s of %(total)s."
-msgstr ""
+msgstr "Sarbadas %(count)s de %(total)s."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
-msgstr ""
+msgstr "Pannellos"
 
 #: ../xlgui/main.py:113
 msgid "$title (by $artist)"
-msgstr ""
+msgstr "$title (de $artist)"
 
 #: ../xlgui/main.py:479
 msgid "Toggle: Stop after Selected Track"
-msgstr ""
+msgstr "Càmbia: firma a pustis de sa rasta ischertada"
 
 #: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
 msgid "Playback error encountered!"
-msgstr ""
+msgstr "Est istadu agatadu un’errore de riprodutzione!"
 
 #: ../xlgui/main.py:589
-#, python-format
+#, fuzzy, python-format
 msgid "Buffering: %d%%..."
-msgstr ""
+msgstr "Buffering: %d%%..."
 
 #: ../xlgui/main.py:641 ../plugins/previewdevice/__init__.py:380
 msgid "Continue Playback"
-msgstr ""
+msgstr "Sighi cun sa riprodutzione"
 
 #: ../xlgui/main.py:645 ../xlgui/main.py:825
 #: ../plugins/previewdevice/__init__.py:384
 msgid "Pause Playback"
-msgstr ""
+msgstr "Firma sa riprodutzione"
 
 #: ../xlgui/main.py:779 ../xlgui/menu.py:103
 msgid "Playlist export failed!"
-msgstr ""
+msgstr "Esportatzione de s’iscalita non resissida!"
 
 #: ../xlgui/main.py:837 ../data/ui/main.ui.h:7
 #: ../plugins/previewdevice/__init__.py:362
 msgid "Start Playback"
-msgstr ""
+msgstr "Incamina sa riprodutzione"
 
 #: ../xlgui/progress.py:79
 msgid "Cancel"
-msgstr ""
+msgstr "Annudda"
 
 #: ../xlgui/menu.py:52
 msgid "_New Playlist"
-msgstr ""
+msgstr "_Iscalita noa"
 
 #: ../xlgui/menu.py:71
 msgid "Open _URL"
-msgstr ""
+msgstr "Aberi _URL"
 
 #: ../xlgui/menu.py:81
 msgid "Open Directories"
-msgstr ""
+msgstr "Aberi cartella"
 
 #: ../xlgui/menu.py:109
 msgid "_Export Current Playlist"
-msgstr ""
+msgstr "_Esporta s’iscalita atuale"
 
 #: ../xlgui/menu.py:115 ../xlgui/widgets/notebook.py:183
 msgid "Close Tab"
-msgstr ""
+msgstr "Serra s’ischeda"
 
 #: ../xlgui/menu.py:147
 msgid "_Collection"
-msgstr ""
+msgstr "_Regorta"
 
 #: ../xlgui/menu.py:151
 msgid "_Queue"
-msgstr ""
+msgstr "_Elencu de riprodutzione"
 
 #: ../xlgui/menu.py:158
 msgid "C_overs"
-msgstr ""
+msgstr "C_oberteddas"
 
 #: ../xlgui/menu.py:190
 msgid "_Playlist Utilities Bar"
-msgstr ""
+msgstr "_Barra Ainas de s'iscalita"
 
 #: ../xlgui/menu.py:192
 msgid "_Columns"
-msgstr ""
+msgstr "_Colunna"
 
 #: ../xlgui/menu.py:199
 msgid "C_lear playlist"
-msgstr ""
+msgstr "I_sboida iscalita"
 
 #: ../xlgui/menu.py:215
 msgid "_Device Manager"
-msgstr ""
+msgstr "_Gestione dispositivu"
 
 #: ../xlgui/menu.py:218
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "_Torra a iscansire sa regorta"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
 msgid "Rescan Collection (slow)"
-msgstr ""
+msgstr "Torra a iscansire sa regorta (lentu)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
-msgstr ""
+msgstr "_Informatziones rasta"
 
 #: ../xlgui/__init__.py:317
 msgid "Scanning collection..."
-msgstr ""
+msgstr "Iscansinde sa regorta..."
 
 #: ../xlgui/__init__.py:386
 #, python-format
 msgid "Scanning %s..."
-msgstr ""
+msgstr "Iscansinde %s..."
 
 #: ../xlgui/tray.py:148
 msgid "Exaile Music Player"
-msgstr ""
+msgstr "Riprodutore musicale Exaile"
 
 #: ../xlgui/widgets/menuitems.py:96
 msgid "Enqueue"
-msgstr ""
+msgstr "Annanghe a s’elencu"
 
 #: ../xlgui/widgets/menuitems.py:119
 msgid "Replace Current"
-msgstr ""
+msgstr "Remplasa s’atuale"
 
 #: ../xlgui/widgets/menuitems.py:123 ../plugins/jamendo/menu.py:11
 msgid "Append to Current"
-msgstr ""
+msgstr "Annanghe a sa currente"
 
 #: ../xlgui/widgets/menuitems.py:168
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
 msgstr ""
+"Impossìbile tramudare sos documentos in su cestinu. Los cheres burrare "
+"definitivamente?"
 
 #: ../xlgui/widgets/menuitems.py:183
 msgid "Move to Trash"
-msgstr ""
+msgstr "Tramuda in su cestinu"
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
-msgstr ""
+msgstr "_Ammustra sa rasta in riprodutzione"
 
 #: ../xlgui/widgets/menuitems.py:221 ../xlgui/widgets/playlist.py:227
 msgid "Rename"
-msgstr ""
+msgstr "Càmbia nùmene"
 
 #: ../xlgui/widgets/menuitems.py:226
 msgid "Edit"
-msgstr ""
+msgstr "Modìfica"
 
 #: ../xlgui/widgets/menuitems.py:231
 msgid "Export Playlist"
-msgstr ""
+msgstr "Esporta iscalita"
 
 #: ../xlgui/widgets/menuitems.py:235
 msgid "Export Files"
-msgstr ""
+msgstr "Esporta documentu"
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
-msgstr ""
+msgstr "Burra iscalita"
 
 #: ../xlgui/widgets/playback.py:95 ../xlgui/widgets/info.py:75
 msgid "Not Playing"
-msgstr ""
+msgstr "Non in riprodutzione"
 
 #: ../xlgui/widgets/playback.py:748
 #, python-format
 msgid "Seeking: %s"
-msgstr ""
+msgstr "Chircande: %s"
 
 #: ../xlgui/widgets/playback.py:1024
 msgid "Move"
-msgstr ""
+msgstr "Tramuda"
 
 #: ../xlgui/widgets/playback.py:1170
 msgid "New Marker"
-msgstr ""
+msgstr "Indicadore nou"
 
 #: ../xlgui/widgets/playback.py:1269
 msgid "Muted"
-msgstr ""
+msgstr "Mudu"
 
 #. TRANSLATORS: Volume percentage
 #: ../xlgui/widgets/playback.py:1275
 #, python-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: ../xlgui/widgets/playback.py:1278
 msgid "Full Volume"
-msgstr ""
+msgstr "Volume màssimu"
 
 #: ../xlgui/widgets/dialogs.py:291
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Inserta s’URL de abèrrere"
 
 #: ../xlgui/widgets/dialogs.py:292
 msgid "Open URL"
-msgstr ""
+msgstr "Aberi URL"
 
 #: ../xlgui/widgets/dialogs.py:560
 msgid "Select File Type (by Extension)"
-msgstr ""
+msgstr "Ischerta sa casta de documentu (pro estensione)"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
-msgstr ""
+msgstr "Ischerta su dispositivu de abèrrere"
 
 #: ../xlgui/widgets/dialogs.py:627
 msgid "Supported Files"
-msgstr ""
+msgstr "Documentos suportados"
 
 #: ../xlgui/widgets/dialogs.py:629
 msgid "Music Files"
-msgstr ""
+msgstr "Documentos musicales"
 
 #: ../xlgui/widgets/dialogs.py:631 ../xlgui/widgets/dialogs.py:789
 msgid "Playlist Files"
-msgstr ""
+msgstr "Documentos de s'iscalita"
 
 #: ../xlgui/widgets/dialogs.py:707
 msgid "Choose Directory to Open"
-msgstr ""
+msgstr "Ischerta sa cartella de abèrrere"
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
-msgstr ""
+msgstr "Esporta s’iscalita atuale"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
-msgstr ""
+msgstr "Imprea sas àndalas relativas pro sas rastas"
 
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr ""
+msgstr "Iscalita sarbada comente <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "Serra %s"
 
 #: ../xlgui/widgets/dialogs.py:960
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr ""
+msgstr "<b>Sarbare sas modìficas a %s in antis de serrare?</b>"
 
 #: ../xlgui/widgets/dialogs.py:961
 msgid "Your changes will be lost if you don't save them"
-msgstr ""
+msgstr "Sas modìficas s’ant a pèrdere si no ant a èssere sarbadas"
 
 #: ../xlgui/widgets/dialogs.py:963
 msgid "Close Without Saving"
-msgstr ""
+msgstr "Serra sena sarbare"
 
 #: ../xlgui/widgets/dialogs.py:1319
 msgid "Yes to all"
-msgstr ""
+msgstr "Eja a totus"
 
 #: ../xlgui/widgets/dialogs.py:1327
 msgid "No to all"
-msgstr ""
+msgstr "Nono a totus"
 
 #: ../xlgui/widgets/dialogs.py:1472
 #, python-format
 msgid "Error occurred while copying %s: %s"
-msgstr ""
+msgstr "B'est istadu un’errore durante sa còpia de %s: %s"
 
 #: ../xlgui/widgets/dialogs.py:1481
 #, python-format
 msgid "File exists, overwrite %s ?"
-msgstr ""
+msgstr "Su documentu esistit, iscrìere in supra de %s ?"
 
 #: ../xlgui/widgets/dialogs.py:1532
 msgid "Playlist name:"
-msgstr ""
+msgstr "Nùmene iscalita:"
 
 #: ../xlgui/widgets/dialogs.py:1533
 msgid "Add new playlist..."
-msgstr ""
+msgstr "Annanghe un’iscalita noa..."
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr ""
+msgstr "Sarba comente"
 
 #: ../xlgui/widgets/playlist.py:130
 msgid "Shuffle"
-msgstr ""
+msgstr "Casuale"
 
 #: ../xlgui/widgets/playlist.py:134
 msgid "Repeat"
-msgstr ""
+msgstr "Torra a repìtere"
 
 #: ../xlgui/widgets/playlist.py:138
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinàmica"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
-msgstr ""
+msgstr "Boga sa rasta atuale dae s’iscalita"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
-msgstr ""
+msgstr "Iscalita casuale"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
-msgstr ""
+msgstr "Casualiza s’ischerta"
 
 #: ../xlgui/widgets/playlist.py:267
 msgid "Stop Playback After This Track"
-msgstr ""
+msgstr "Firma sa riprodutzione a pustis de custa rasta"
 
 #: ../xlgui/widgets/playlist.py:274
 msgid "Continue Playback After This Track"
-msgstr ""
+msgstr "Sighi cun sa riprodutzione a pustis de custa rasta"
 
 #: ../xlgui/widgets/playlist.py:535
 msgid "Requires plugins providing dynamic playlists"
-msgstr ""
+msgstr "Netzessitat de un’estensione pro sas iscalitas dinàmicas"
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
-msgstr ""
+msgstr "Annanghe rastas sìmiles a s’iscalita"
 
 #: ../xlgui/widgets/playlist_columns.py:218
 msgid "Track Number"
-msgstr ""
+msgstr "Nùmeru rasta"
 
 #: ../xlgui/widgets/playlist_columns.py:261
 msgid "Disc Number"
-msgstr ""
+msgstr "Nùmeru discu"
 
 #: ../xlgui/widgets/playlist_columns.py:346
 msgid "Playcount"
-msgstr ""
+msgstr "Contadore de riprodutzione"
 
 #: ../xlgui/widgets/playlist_columns.py:372
 msgid "Schedule"
-msgstr ""
+msgstr "Pianificatzione"
 
 #: ../xlgui/widgets/playlist_columns.py:507
 msgid "Start Offset"
-msgstr ""
+msgstr "Iscostiamentu dae su cumintzu"
 
 #: ../xlgui/widgets/playlist_columns.py:514
 msgid "Stop Offset"
-msgstr ""
+msgstr "Iscostiamentu dae sa firmada"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
-msgstr ""
+msgstr "_Ridimensionàbiles"
 
 #: ../xlgui/widgets/playlist_columns.py:638
 msgid "_Autosize"
-msgstr ""
+msgstr "_Mannària automàtica"
 
 #: ../xlgui/widgets/filter.py:79
 msgid "Match any of the criteria"
-msgstr ""
+msgstr "Perunu critèriu soddisfàtu"
 
 #: ../xlgui/widgets/filter.py:81
 msgid "Randomize results"
-msgstr ""
+msgstr "Mestura sos resurtados"
 
 #: ../xlgui/widgets/filter.py:97
 msgid "Limit to: "
-msgstr ""
+msgstr "Finas a: "
 
 #: ../xlgui/widgets/filter.py:107
 msgid " tracks"
-msgstr ""
+msgstr " rastas"
 
 #: ../xlgui/widgets/info.py:69
 msgid ""
@@ -1729,89 +1771,93 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span size=\"x-large\" weight=\"bold\">$title</span>\n"
+"de $artist\n"
+"dae $album"
 
 #: ../xlgui/widgets/info.py:417
 msgid "Various"
-msgstr ""
+msgstr "Varios"
 
 #: ../xlgui/widgets/info.py:436
 #, python-format
 msgid "%(track_count)d in total (%(total_duration)s)"
-msgstr ""
+msgstr "%(track_count)d , (%(total_duration)s) in totu"
 
 #: ../xlgui/widgets/info.py:594
 #, python-format
 msgid "%d in collection"
-msgstr ""
+msgstr "%d in sa regorta"
 
 #: ../xlgui/widgets/info.py:616 ../xlgui/widgets/info.py:623
 #, python-format
 msgid "%d showing"
-msgstr ""
+msgstr "%d ammustradas"
 
 #: ../xlgui/widgets/info.py:620 ../xlgui/widgets/info.py:627
 #, python-format
 msgid "%d selected"
-msgstr ""
+msgstr "%d ischertadu"
 
 #: ../xlgui/widgets/queue.py:100
 msgid "Queue"
-msgstr ""
+msgstr "Elencu"
 
 #: ../xlgui/widgets/queue.py:102
 #, python-format
 msgid "Queue (%d)"
-msgstr ""
+msgstr "Elencu (%d)"
 
 #: ../xlgui/widgets/rating.py:261
 msgid "Rating:"
-msgstr ""
+msgstr "Votu:"
 
 #: ../data/ui/queue_dialog.ui.h:1
 msgid "Queue Manager"
-msgstr ""
+msgstr "Gestore elencos"
 
 #: ../data/ui/trackproperties_dialog.ui.h:1
 msgid "Track Properties"
-msgstr ""
+msgstr "Informatziones rasta"
 
 #: ../data/ui/trackproperties_dialog.ui.h:2
 msgid "A_dd tag"
-msgstr ""
+msgstr "A_nnanghe eticheta"
 
 #: ../data/ui/trackproperties_dialog.ui.h:3
 msgid "_Remove tag"
-msgstr ""
+msgstr "_Boga eticheta"
 
 #: ../data/ui/trackproperties_dialog.ui.h:4
 msgid "ab &#x2192; A_b"
-msgstr ""
+msgstr "ab &#x2192; A_b"
 
 #: ../data/ui/trackproperties_dialog.ui.h:5
 msgid "Uppercase first letter of all tags"
-msgstr ""
+msgstr "Pone in maiùsculu sa prima lìtera de totu sas etichetas"
 
 #: ../data/ui/trackproperties_dialog.ui.h:7
 msgid "Properties"
-msgstr ""
+msgstr "Informatziones"
 
 #: ../data/ui/trackproperties_dialog.ui.h:8
 msgid "_Previous"
-msgstr ""
+msgstr "_Anteposta"
 
 #: ../data/ui/trackproperties_dialog.ui.h:9
 msgid "_Next"
-msgstr ""
+msgstr "_Imbeniente"
 
 #: ../data/ui/about_dialog.ui.h:1
 msgid "About Exaile"
-msgstr ""
+msgstr "Informatziones chi pertocant Exaile"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "© 2009-2014"
-msgstr ""
+msgstr "© 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
+#, fuzzy
 msgid ""
 "Copyright (C) 2008-2014 Various Contributors\n"
 "\n"
@@ -1829,336 +1875,371 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
+"Copyright (C) 2008-2014 Various Contributors\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/ui/about_dialog.ui.h:20
 msgctxt "About dialog translator credits"
 msgid "Unknown translator"
-msgstr ""
+msgstr "Bortadore disconnotu"
 
 #: ../data/ui/device_manager.ui.h:1
 msgid "Device Manager"
-msgstr ""
+msgstr "Gestore de sos dispositivos"
 
 #: ../data/ui/device_manager.ui.h:2
 msgid "Add Device"
-msgstr ""
+msgstr "Annanghe unu dispositivu"
 
 #: ../data/ui/device_manager.ui.h:3
 msgid "Type of device:"
-msgstr ""
+msgstr "Casta de dispositivu:"
 
 #: ../data/ui/device_manager.ui.h:4
 msgid "Detected devices:"
-msgstr ""
+msgstr "Dispositivos agatados:"
 
 #: ../data/ui/device_manager.ui.h:5
 msgid "Custom: "
-msgstr ""
+msgstr "Pessonalizadu: "
 
 #: ../data/ui/preferences/collection.ui.h:1
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
 msgstr ""
+"Paràulas de bogare dae su cumintzu de s’eticheta \"artista\" durante s’"
+"ordinamentu (iscrobadas una dae s'àtera):"
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
 msgstr ""
+"(Carca cun su butone destru pro torrare a pònnere sos valores predefinidos)"
 
 #: ../data/ui/preferences/collection.ui.h:3
 msgid "Use file based compilation detection"
-msgstr ""
+msgstr "Imprea sa chirca de sas regortas pro documentos"
 
 #: ../data/ui/preferences/playback.ui.h:1
 #: ../plugins/previewdevice/previewprefs.ui.h:1
 msgid "Playback engine: "
-msgstr ""
+msgstr "Motore pro sa riprodutzione: "
 
 #: ../data/ui/preferences/playback.ui.h:2
 #: ../plugins/previewdevice/previewprefs.ui.h:2
 msgid "Use fade transitions on user actions"
 msgstr ""
+"Imprea coladuras/transiduras in isparissione pro sas atziones de s'impitadore"
 
 #: ../data/ui/preferences/playback.ui.h:3
 #: ../plugins/previewdevice/previewprefs.ui.h:3
 msgid "Fade duration (ms):"
-msgstr ""
+msgstr "Durata isparissione (ms):"
 
 #: ../data/ui/preferences/playback.ui.h:4
 #: ../plugins/previewdevice/previewprefs.ui.h:4
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr ""
+msgstr "Imprea s’isparissione rugrada (ISPERIMENTALE)"
 
 #: ../data/ui/preferences/playback.ui.h:5
 #: ../plugins/previewdevice/previewprefs.ui.h:5
 msgid "Crossfade duration (ms):"
-msgstr ""
+msgstr "Durada de s’isparissione rugrada (ms):"
 
 #: ../data/ui/preferences/playback.ui.h:6
 #: ../plugins/previewdevice/previewprefs.ui.h:6
 msgid "Audio Sink:  "
-msgstr ""
+msgstr "Sink àudio:  "
 
 #: ../data/ui/preferences/playback.ui.h:7
 #: ../plugins/previewdevice/previewprefs.ui.h:7
 msgid "Device:  "
-msgstr ""
+msgstr "Dispositivu:  "
 
 #: ../data/ui/preferences/playback.ui.h:8
 #: ../plugins/previewdevice/previewprefs.ui.h:8
 msgid "Custom sink pipeline:"
-msgstr ""
+msgstr "Flussu sink pessonalizadu:"
 
 #: ../data/ui/preferences/playback.ui.h:9
 msgid "Resume playback on start"
-msgstr ""
+msgstr "Torra a reproduire dae su cumintzu"
 
 #: ../data/ui/preferences/playback.ui.h:10
 msgid "Resume playback in paused state"
-msgstr ""
+msgstr "Sighi cun sa riprodutzione interrùmpida"
 
 #: ../data/ui/preferences/playback.ui.h:11
 msgid "Adding an item to an empty queue begins playback"
-msgstr ""
+msgstr "Annanghere un’elementu a s'elencu faghet incumentzare sa riprodutzione"
 
 #: ../data/ui/preferences/playback.ui.h:12
 msgid "Remove track from queue upon playback"
-msgstr ""
+msgstr "Boga sa rasta dae s'elencu durante sa riprodutzione"
 
 #: ../data/ui/preferences/playback.ui.h:13
 msgid "Disallow playing new tracks when another track is playing"
 msgstr ""
+"Non permìtere sa riprodutzione de una rasta noa si s'aplicu nd'est giai "
+"riproduende una"
 
 #: ../data/ui/preferences/playback.ui.h:14
 msgid ""
 "If a track is currently playing, do not allow new tracks to be started, "
 "except when clicking the playback controls"
 msgstr ""
+"Si una rasta est in riprodutzione, non permìtere a un’àtera de cumintzare, "
+"cun s'etzessione de cando carcas sos controllos de riprodutzione"
 
 #: ../data/ui/preferences/playback.ui.h:15
 msgid "Automatically advance to the next track"
-msgstr ""
+msgstr "Sighi automaticamente cun sa rasta imbeniente"
 
 #: ../data/ui/preferences/playback.ui.h:16
 msgid "Delay between tracks (ms)"
-msgstr ""
+msgstr "Tempus bòidu intre sas rastas (ms)"
 
 #: ../data/ui/preferences/playback.ui.h:17
 msgid "Only works with the normal playback engine"
-msgstr ""
+msgstr "Funtzionat pertzi cun su sistema de riprodutzione normale"
 
 #: ../data/ui/preferences/playback.ui.h:18
 #: ../plugins/previewdevice/previewprefs.ui.h:9
 msgid "Normal"
-msgstr ""
+msgstr "Normale"
 
 #: ../data/ui/preferences/playback.ui.h:19
 #: ../plugins/previewdevice/previewprefs.ui.h:10
 msgid "Unified (unstable)"
-msgstr ""
+msgstr "Unificadu (instàbile)"
 
 #: ../data/ui/preferences/general.ui.h:1
 #: ../data/ui/preferences/playlists.ui.h:1
 msgid "Open last playlists on startup"
-msgstr ""
+msgstr "Abèri sas ùrtimas iscalitas a s’aviu"
 
 #: ../data/ui/preferences/cover.ui.h:1
 msgid "Use covers embedded in tags"
-msgstr ""
+msgstr "Imprea coberteddas incorporadas in sas etichetas"
 
 #: ../data/ui/preferences/cover.ui.h:2
 msgid "Use covers from local files"
-msgstr ""
+msgstr "Imprea documentos locales comente coberteddas"
 
 #: ../data/ui/preferences/cover.ui.h:3
 msgid ""
 "This option will search for cover image files in \n"
 "the same folder as the music file."
 msgstr ""
+"Custa optzione at a chircare sas immàgines de sas coberteddas in \n"
+"sa matessi cartella de su documentu musicale."
 
 #: ../data/ui/preferences/cover.ui.h:5
 msgid "Preferred file names:"
-msgstr ""
+msgstr "Nùmene documentu prefèrridu:"
 
 #: ../data/ui/preferences/cover.ui.h:6
 msgid "A comma-separated list of file names without file extensions"
-msgstr ""
+msgstr "Un’elencu de nùmenes sena estensione iscrobados dae una vìrgula"
 
 #: ../data/ui/preferences/cover.ui.h:7
 msgid "Fetch covers automatically on playback start"
 msgstr ""
+"Recùpera automaticamente sas coberteddas cando incumentzat sa riprodutzione"
 
 #: ../data/ui/preferences/cover.ui.h:8
 msgid "Cover Search Order:"
-msgstr ""
+msgstr "Òrdine De Chirca De Sas Coberteddas:"
 
 #: ../data/ui/preferences/cover.ui.h:9
 msgid "(drag to reorder)"
-msgstr ""
+msgstr "(trìsina pro riordinare)"
 
 #: ../data/ui/preferences/plugin.ui.h:1
 msgid "Plugin"
-msgstr ""
+msgstr "Estensione (plugin)"
 
 #: ../data/ui/preferences/plugin.ui.h:3 ../plugins/equalizer/equalizer.ui.h:2
 msgid "Enabled"
-msgstr ""
+msgstr "Abilitadu"
 
 #: ../data/ui/preferences/plugin.ui.h:4
 msgid "Status"
-msgstr ""
+msgstr "Istadu"
 
 #: ../data/ui/preferences/plugin.ui.h:5
 msgid "Show incompatible plugins"
-msgstr ""
+msgstr "Ammustra estensiones non cumpatìbiles"
 
 #: ../data/ui/preferences/plugin.ui.h:6
 msgid "Show potentially broken plugins"
-msgstr ""
+msgstr "Ammustra estensiones chi podent èssere difetosas"
 
 #: ../data/ui/preferences/plugin.ui.h:7
 msgid "No Plugin Selected"
-msgstr ""
+msgstr "Peruna estensione ischertada"
 
 #: ../data/ui/preferences/plugin.ui.h:8
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Estensiones installadas"
 
 #: ../data/ui/preferences/plugin.ui.h:9
 msgid "Authors:"
-msgstr ""
+msgstr "Autores:"
 
 #: ../data/ui/preferences/plugin.ui.h:10
 msgid "Version:"
-msgstr ""
+msgstr "Versione:"
 
 #: ../data/ui/preferences/plugin.ui.h:11
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:24
 msgid "Description:"
-msgstr ""
+msgstr "Descritzione:"
 
 #: ../data/ui/preferences/plugin.ui.h:12
 msgid "Install"
-msgstr ""
+msgstr "Installa"
 
 #: ../data/ui/preferences/plugin.ui.h:13
 msgid "<b>No Plugin Selected</b>"
-msgstr ""
+msgstr "<b>Peruna estensione ischertada</b>"
 
 #: ../data/ui/preferences/plugin.ui.h:14
 msgid "Available Plugins"
-msgstr ""
+msgstr "Estensiones disponìbiles"
 
 #: ../data/ui/preferences/plugin.ui.h:15
 msgid "Install Updates"
-msgstr ""
+msgstr "Installa sos agiornamentos"
 
 #: ../data/ui/preferences/plugin.ui.h:16
 msgid "Updates"
-msgstr ""
+msgstr "Agiornamentos"
 
 #: ../data/ui/preferences/plugin.ui.h:17
 msgid "Install Plugin File"
-msgstr ""
+msgstr "Installa s’estensione"
 
 #: ../data/ui/preferences/appearance.ui.h:1
 msgid "Show info area"
-msgstr ""
+msgstr "Ammustra s’àrea informatziones"
 
 #: ../data/ui/preferences/appearance.ui.h:2
 msgid "The info area contains the cover art and track information"
 msgstr ""
+"S’àrea de sas informatziones cuntènnit sa cubertedda e informatziones chi "
+"pertocant sa rasta"
 
 #: ../data/ui/preferences/appearance.ui.h:3
 msgid "Show cover art in info area"
-msgstr ""
+msgstr "Ammustra sa cobertedda in s'àrea informatziones"
 
 #: ../data/ui/preferences/appearance.ui.h:4
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Ammustra semper sa barra de sas ischedas"
 
 #: ../data/ui/preferences/appearance.ui.h:5
 msgid "Tab placement:"
-msgstr ""
+msgstr "Positzione ischedas:"
 
 #: ../data/ui/preferences/appearance.ui.h:6
 msgid "Playlist font:"
-msgstr ""
+msgstr "Caràtere iscalita:"
 
 #: ../data/ui/preferences/appearance.ui.h:7
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:2
 #: ../plugins/grouptagger/gt_prefs.ui.h:8
 msgid "Reset to the system font"
-msgstr ""
+msgstr "Torra a su caràtere predefinidu"
 
 #: ../data/ui/preferences/appearance.ui.h:8
 msgid "Display track counts in collection"
-msgstr ""
+msgstr "Ammustra su contu de sas rastas in sa regorta"
 
 #: ../data/ui/preferences/appearance.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:7
 msgid "Use alpha transparency:"
-msgstr ""
+msgstr "Imprea sa trasparèntzia alfa:"
 
 #: ../data/ui/preferences/appearance.ui.h:11
 msgid ""
 "Warning: this option can cause display errors if used with a window manager "
 "without compositing support."
 msgstr ""
+"Atentzione: custa optzione podet causare errores de visualizatzione si "
+"impreada cun unu gestore de sas ischermadas/bentanas sena suportu de "
+"cumponidura."
 
 #: ../data/ui/preferences/appearance.ui.h:12
 msgid "Show tray icon"
-msgstr ""
+msgstr "Ammustra s’icona in s’àrea de notìfica"
 
 #: ../data/ui/preferences/appearance.ui.h:13
 msgid "Minimize to tray"
-msgstr ""
+msgstr "Mìnima in s’àrea de notìfica"
 
 #: ../data/ui/preferences/appearance.ui.h:14
 msgid "Close to tray"
-msgstr ""
+msgstr "Mìnima in s’àrea de notìfica"
 
 #: ../data/ui/preferences/appearance.ui.h:16
 msgid "Jump to current song on track change"
-msgstr ""
+msgstr "Cola a sa cantzone atuale cando càmbiat sa rasta"
 
 #: ../data/ui/preferences/appearance.ui.h:17
 msgid "Show splash screen on startup"
-msgstr ""
+msgstr "Ammustra s'ichermada de inghitzu a s’alluìngiu"
 
 #: ../data/ui/preferences/appearance.ui.h:18
 msgid "Left"
-msgstr ""
+msgstr "Manca"
 
 #: ../data/ui/preferences/appearance.ui.h:19
 msgid "Right"
-msgstr ""
+msgstr "Destra"
 
 #: ../data/ui/preferences/appearance.ui.h:20
 msgid "Top"
-msgstr ""
+msgstr "Artu"
 
 #: ../data/ui/preferences/appearance.ui.h:21
 msgid "Bottom"
-msgstr ""
+msgstr "Bassu"
 
 #: ../data/ui/preferences/playlists.ui.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Pedi si sarbare sas iscalitas pessonalizadas cando serras"
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr ""
+msgstr "Remplasa su cuntènnidu in su pannellu laterale cun unu dòpiu clic"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
 "Instead of appending, tracks added via double click in the panes will "
 "replace the content of the current playlist."
 msgstr ""
+"Sas rastas postas tràmite dòpiu clic no ant a èssere annantas a sas àteras "
+"ma las ant a remplasare."
 
 #: ../data/ui/preferences/playlists.ui.h:5
 msgid "Appending/Replacing via menu item triggers playback"
 msgstr ""
+"Annànghere o remplasare tramite su menù at a fàghere incumentzare sa "
+"riprodutzione"
 
 #: ../data/ui/preferences/playlists.ui.h:6
 msgid ""
@@ -2166,206 +2247,216 @@ msgid ""
 "if there is track currently playing. This option was the default behavior "
 "before Exaile 0.3.3"
 msgstr ""
+"Cando ses impreande un’elementu de su menù pro annanghere o remplasare "
+"rastas in sa regorta, inghitza sa riprodutzione si b'est una rasta giai in "
+"riprodutzione. Custa optzione fiat predefinida finas a Exaile 0.3.3"
 
 #: ../data/ui/preferences/playlists.ui.h:7
 msgid "Queue tracks by default instead of playing them"
 msgstr ""
+"Pone sas rastas in s'elencu in manera predefinida imbetzes de las riproduire"
 
 #: ../data/ui/preferences/playlists.ui.h:8
 msgid ""
 "When you double click or press enter to play a track in a playlist, queue "
 "the track instead of playing it"
 msgstr ""
+"Faghinde dòpiu clic o carcande \"Invio\" pro riproduire una rasta in una "
+"regorta, pone•la in s'elencu, imbetzes"
 
 #: ../data/ui/preferences/preferences_dialog.ui.h:1
 msgid "Preferences"
-msgstr ""
+msgstr "Preferèntzias"
 
 #: ../data/ui/panel/collection.ui.h:2
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Sa regorta est bòida.</b>"
 
 #: ../data/ui/panel/collection.ui.h:3
 msgid "Add Music"
-msgstr ""
+msgstr "Annanghe mùsica"
 
 #: ../data/ui/panel/collection.ui.h:4
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Agiorna sa visualizatzione de sa regorta\n"
+"(mantènne Maiusc carcadu pro torrare a iscansire sa regorta)"
 
 #: ../data/ui/panel/collection.ui.h:6 ../data/ui/panel/files.ui.h:7
 msgid "Clear search field"
-msgstr ""
+msgstr "Isbòida su campu de chirca"
 
 #: ../data/ui/panel/files.ui.h:1
 msgid "Files"
-msgstr ""
+msgstr "Documentos"
 
 #: ../data/ui/panel/files.ui.h:2
 msgid "Previous visited directory"
-msgstr ""
+msgstr "Cartella bisitada dae pagu"
 
 #: ../data/ui/panel/files.ui.h:3
 msgid "Next visited directory"
-msgstr ""
+msgstr "Cartella bisitada imbeniente"
 
 #: ../data/ui/panel/files.ui.h:4
 msgid "Up one directory"
-msgstr ""
+msgstr "Cartella superiore"
 
 #: ../data/ui/panel/files.ui.h:5
 msgid "Refresh directory listing"
-msgstr ""
+msgstr "Agiorna sa lista de sas cartellas"
 
 #: ../data/ui/panel/files.ui.h:6
 msgid "Home directory"
-msgstr ""
+msgstr "Cartella printzipale"
 
 #: ../data/ui/panel/radio.ui.h:1 ../data/ui/panel/flatplaylist.ui.h:1
 msgid "Radio"
-msgstr ""
+msgstr "Ràdio"
 
 #: ../data/ui/panel/radio.ui.h:2
 msgid "Add Station"
-msgstr ""
+msgstr "Annanghe un’istatzione"
 
 #: ../data/ui/panel/flatplaylist.ui.h:2
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Annanghe totu sas rastas a s’iscalita"
 
 #: ../data/ui/panel/flatplaylist.ui.h:3
 msgid "Import CD"
-msgstr ""
+msgstr "Importa CD"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:1
 msgid "Other"
-msgstr ""
+msgstr "Àteru"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:2
 msgid "32x32 pixels 'file icon' (PNG only)"
-msgstr ""
+msgstr "'Documentu icona' 32x32 pixels (PNG ebbia)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:3
 msgid "Other file icon"
-msgstr ""
+msgstr "Icona pro àteros documentos"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:4
 msgid "Cover (front)"
-msgstr ""
+msgstr "Cobertedda (fronte)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:5
 msgid "Cover (back)"
-msgstr ""
+msgstr "Cobertedda (in palas)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:6
 msgid "Leaflet page"
-msgstr ""
+msgstr "Internu de sa cobertedda"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:7
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Mèdia (es. ladu eticheta de su CD)"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:8
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Artista printzipale/esecutore printzipale/solista"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:9
 msgid "Artist/performer"
-msgstr ""
+msgstr "Artista/esecutore"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:11
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Grupu/Orchestra"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:13
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Testos de"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:14
 msgid "Recording Location"
-msgstr ""
+msgstr "Registradu in"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:15
 msgid "During recording"
-msgstr ""
+msgstr "Durante sa registratzione"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:16
 msgid "During performance"
-msgstr ""
+msgstr "Durante s'esecutzione"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:17
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Ischermada vìdeo"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:18
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Unu pische cun colores lughèntes"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:19
 msgid "Illustration"
-msgstr ""
+msgstr "Illustratzione"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:20
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Logo de de su grupu/artista"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:21
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Logo de s’istùdiu/produtore"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:22
 msgid "Click or drag files here to change the cover image"
 msgstr ""
+"Carca o trìsina sos documentos inoghe pro cambiare s'immàgine de sa "
+"cubertedda"
 
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:23
 msgid "Type:"
-msgstr ""
+msgstr "Casta:"
 
 #: ../data/ui/collection_manager.ui.h:1
 msgid "Collection Manager"
-msgstr ""
+msgstr "Gestore regortas"
 
 #: ../data/ui/collection_manager.ui.h:3
 msgid "Monitored"
-msgstr ""
+msgstr "Compidadu"
 
 #: ../data/ui/collection_manager.ui.h:4
 msgid "Scan At Startup"
-msgstr ""
+msgstr "Iscansi a s’alluìngiu"
 
 #: ../data/ui/covermanager.ui.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "Gestore coberteddas"
 
 #: ../data/ui/covermanager.ui.h:2
 msgid "_Fetch Covers"
-msgstr ""
+msgstr "_Recùpera sas coberteddas"
 
 #: ../data/ui/main.ui.h:1
 msgid "_File"
-msgstr ""
+msgstr "_Documentu"
 
 #: ../data/ui/main.ui.h:2
 msgid "_Edit"
-msgstr ""
+msgstr "_Modìfica"
 
 #: ../data/ui/main.ui.h:3
 msgid "_View"
-msgstr ""
+msgstr "_Ammustra"
 
 #: ../data/ui/main.ui.h:4
 msgid "_Tools"
-msgstr ""
+msgstr "_Ainas"
 
 #: ../data/ui/main.ui.h:5
 msgid "_Help"
-msgstr ""
+msgstr "_Agiudu"
 
 #: ../data/ui/main.ui.h:6
 msgid "Previous Track"
-msgstr ""
+msgstr "Rasta anteposta"
 
 #: ../data/ui/main.ui.h:8
 msgid ""
@@ -2373,56 +2464,59 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Firma sa riprodutzione\n"
+"\n"
+"Clic destru pro firmare a pustis de àere postu in evidèntzia sa rasta"
 
 #: ../data/ui/main.ui.h:11
 msgid "Next Track"
-msgstr ""
+msgstr "Rasta imbeniente"
 
 #: ../data/ui/main.ui.h:12
 msgid "0:00 / 0:00"
-msgstr ""
+msgstr "0:00 / 0:00"
 
 #: ../data/ui/playlist.ui.h:1
 msgid "Shuffle playback order"
-msgstr ""
+msgstr "Òrdine casuale de riprodutzione"
 
 #: ../data/ui/playlist.ui.h:2
 msgid "Repeat playback"
-msgstr ""
+msgstr "Repite sa riprodutzione"
 
 #: ../data/ui/playlist.ui.h:4
 msgid "_Search:"
-msgstr ""
+msgstr "_Chirca:"
 
 #: ../data/ui/coverchooser.ui.h:1
 msgid "Cover Finder"
-msgstr ""
+msgstr "Chirca coberteddas"
 
 #: ../data/ui/coverchooser.ui.h:2
 msgid "The origin of this cover"
-msgstr ""
+msgstr "S’orìgine de custa cobertedda"
 
 #: ../data/ui/coverchooser.ui.h:3
 msgid "_Set as Cover"
-msgstr ""
+msgstr "_Imposta comente cobertedda"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:31
 #: ../plugins/lastfmlove/PLUGININFO:3
 msgid "Last.fm Loved Tracks"
-msgstr ""
+msgstr "Rastas prefèrridas in Last.fm"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr ""
+msgstr "Sa crae API no est vàlida."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
 msgid "Please make sure the entered data is correct."
-msgstr ""
+msgstr "Verìfica chi sos datos insertados sint curretos."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:93
 msgid "Could not start web browser"
-msgstr ""
+msgstr "Impossìbile inghitzare/aviare su navigatore (browser) web"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:94
 #, python-brace-format
@@ -2430,316 +2524,320 @@ msgid ""
 "Please copy the following URL and open it with your web browser:\n"
 "<b><a href=\"{url}\">{url}</a></b>"
 msgstr ""
+"Pro piaghere còpia custu URL e aberi•lu cun su navigatore (browser) web tuo:"
+"\n"
+"<b><a href=\"{url}\">{url}</a></b>"
 
 #: ../plugins/lastfmlove/__init__.py:71
 msgid "Loved"
-msgstr ""
+msgstr "Prefèrridos"
 
 #: ../plugins/lastfmlove/__init__.py:72
 msgid "Last.fm Loved"
-msgstr ""
+msgstr "Prefèrridos Last.fm"
 
 #: ../plugins/lastfmlove/__init__.py:135
 msgid "Love This Track"
-msgstr ""
+msgstr "Inserta custa rasta intre sos prefèrridos"
 
 #: ../plugins/lastfmlove/__init__.py:157
 msgid "Unlove This Track"
-msgstr ""
+msgstr "Boga custa rasta dae sos prefèrridos"
 
 #: ../plugins/bookmarks/bookmarksprefs.py:22
 #: ../plugins/bookmarks/__init__.py:305 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "Sinnalibros"
 
 #: ../plugins/bookmarks/__init__.py:104
 msgid "Bookmark This Track"
-msgstr ""
+msgstr "Annaghe custa rasta a sos sinnalibros"
 
 #: ../plugins/bookmarks/__init__.py:106
 msgid "Delete Bookmark"
-msgstr ""
+msgstr "Burra sinnalibru"
 
 #: ../plugins/bookmarks/__init__.py:108
 msgid "Clear Bookmarks"
-msgstr ""
+msgstr "Isbòida sinnalibros"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:104
 #: ../plugins/grouptagger/gt_widgets.py:635
 #: ../plugins/grouptagger/gt_prefs.py:21
 #: ../plugins/grouptagger/__init__.py:125
 msgid "GroupTagger"
-msgstr ""
+msgstr "Etichetadore de grupos"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
 msgid "Modulus this number"
-msgstr ""
+msgstr "Valore assolutu de su nùmeru"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:216
 #, python-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Eticheta %s"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:340
 msgid "Save analysis"
-msgstr ""
+msgstr "Sarba anàlisi"
 
 #: ../plugins/playlistanalyzer/__init__.py:62
 msgid "Analyze playlists"
-msgstr ""
+msgstr "Analiza sas regortas"
 
 #: ../plugins/playlistanalyzer/__init__.py:67
 #: ../plugins/playlistanalyzer/analyzer.ui.h:1
 msgid "Analyze playlist"
-msgstr ""
+msgstr "Analiza sa regorta"
 
 #: ../plugins/lyricsviewer/lyricsviewerprefs.py:21
 #: ../plugins/lyricsviewer/PLUGININFO:3
 msgid "Lyrics Viewer"
-msgstr ""
+msgstr "Visualizore testos"
 
 #: ../plugins/lyricsviewer/__init__.py:277
 msgid "No lyrics found."
-msgstr ""
+msgstr "Perunu testu agatadu."
 
 #: ../plugins/lyricsviewer/__init__.py:302
 msgid "Go to: "
-msgstr ""
+msgstr "Bae a: "
 
 #: ../plugins/lyricsviewer/__init__.py:366
 msgid "Any"
-msgstr ""
+msgstr "Cale si siat"
 
 #: ../plugins/shutdown/__init__.py:38 ../plugins/shutdown/PLUGININFO:3
 msgid "Shutdown after Playback"
-msgstr ""
+msgstr "Istuda a pustis de sa riprodutzione"
 
 #: ../plugins/shutdown/__init__.py:59
 msgid "Shutdown scheduled"
-msgstr ""
+msgstr "Istudadura de s’elaboradore programmada"
 
 #: ../plugins/shutdown/__init__.py:60
 msgid "Computer will be shutdown at the end of playback."
 msgstr ""
+"S’elaboradore at a èssere istudadu a pustis de sa fine de sa riprodutzione."
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
-msgstr ""
+msgstr "Istudadura imminente"
 
 #: ../plugins/shutdown/__init__.py:109
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr ""
+msgstr "S’elaboradore at a èssere istudadu intre %d segundos."
 
 #: ../plugins/shutdown/__init__.py:135
 msgid "Shutdown failed"
-msgstr ""
+msgstr "Istudadura faddida"
 
 #: ../plugins/shutdown/__init__.py:136
 msgid "Computer could not be shutdown using D-Bus."
-msgstr ""
+msgstr "S’elaboradore non podet èssere istudadu impreande D-Bus."
 
 #: ../plugins/minimode/minimode_preferences.py:30
 #: ../plugins/minimode/__init__.py:103 ../plugins/minimode/__init__.py:110
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
-msgstr ""
+msgstr "Modalidade mìnima"
 
 #: ../plugins/minimode/minimode_preferences.py:92 ../plugins/cd/cdprefs.py:105
 msgid "Track number"
-msgstr ""
+msgstr "Nùmeru rasta"
 
 #: ../plugins/minimode/minimode_preferences.py:98 ../plugins/cd/cdprefs.py:111
 msgid "Disc number"
-msgstr ""
+msgstr "Nùmeru discu"
 
 #: ../plugins/minimode/minimode_preferences.py:105
 #: ../plugins/cd/cdprefs.py:118
 msgid "Play count"
-msgstr ""
+msgstr "Nùmeru de riprodutziones"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:111
 #: ../plugins/minimode/minimode_preferences.py:117
 #: ../plugins/minimode/controls.py:693 ../plugins/minimode/controls.py:956
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:113
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title pro $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimode_preferences.py:115
 msgid "$title ($__length)"
-msgstr ""
+msgstr "$title ($__length)"
 
 #: ../plugins/minimode/controls.py:221
 msgid "Previous"
-msgstr ""
+msgstr "Anteposta"
 
 #: ../plugins/minimode/controls.py:222
 msgid "Go to the previous track"
-msgstr ""
+msgstr "Cola a sa rasta anteposta"
 
 #: ../plugins/minimode/controls.py:228
 msgid "Previous track"
-msgstr ""
+msgstr "Rasta anteposta"
 
 #: ../plugins/minimode/controls.py:241
 msgid "Next"
-msgstr ""
+msgstr "Imbeniente"
 
 #: ../plugins/minimode/controls.py:242
 msgid "Go to the next track"
-msgstr ""
+msgstr "Cola a sa rasta imbeniente"
 
 #: ../plugins/minimode/controls.py:248
 msgid "Next track"
-msgstr ""
+msgstr "Rasta imbeniente"
 
 #: ../plugins/minimode/controls.py:262
 msgid "Play/Pause"
-msgstr ""
+msgstr "Reprodui/Firma"
 
 #: ../plugins/minimode/controls.py:263
 msgid "Start, pause or resume the playback"
-msgstr ""
+msgstr "Inghitza, firma o torra a sighire sa riprodutzione"
 
 #: ../plugins/minimode/controls.py:283
 msgid "Start playback"
-msgstr ""
+msgstr "Inghitza sa riprodutzione"
 
 #: ../plugins/minimode/controls.py:287
 msgid "Continue playback"
-msgstr ""
+msgstr "Sighi cun sa riprodutzione"
 
 #: ../plugins/minimode/controls.py:290
 msgid "Pause playback"
-msgstr ""
+msgstr "Pone in pàusa sa riprodutzione"
 
 #: ../plugins/minimode/controls.py:328
 msgid "Stop"
-msgstr ""
+msgstr "Firma"
 
 #: ../plugins/minimode/controls.py:329
 msgid "Stop the playback"
-msgstr ""
+msgstr "Firma sa riprodutzione"
 
 #: ../plugins/minimode/controls.py:363
 msgid "Continue playback after current track"
-msgstr ""
+msgstr "Sighi cun sa riprodutzione a pustis de sa rasta atuale"
 
 #: ../plugins/minimode/controls.py:427
 msgid "Volume"
-msgstr ""
+msgstr "Volume"
 
 #: ../plugins/minimode/controls.py:428
 msgid "Change the volume"
-msgstr ""
+msgstr "Càmbia su volume"
 
 #: ../plugins/minimode/controls.py:489
 msgid "Restore"
-msgstr ""
+msgstr "Riprìstina"
 
 #: ../plugins/minimode/controls.py:490
 msgid "Restore the main window"
-msgstr ""
+msgstr "Riprìstina sa bentana printzipale"
 
 #: ../plugins/minimode/controls.py:498
 msgid "Restore main window"
-msgstr ""
+msgstr "Riprìstina bentana printzipale"
 
 #: ../plugins/minimode/controls.py:528
 msgid "Select rating of the current track"
-msgstr ""
+msgstr "Ischerta su votu de sa rasta atuale"
 
 #: ../plugins/minimode/controls.py:545
 msgid "Track selector"
-msgstr ""
+msgstr "Ischertadore rasta"
 
 #: ../plugins/minimode/controls.py:546
 msgid "Simple track list selector"
-msgstr ""
+msgstr "Ischertadore simple de elèncos de rastas"
 
 #: ../plugins/minimode/controls.py:698
 msgid "Playlist button"
-msgstr ""
+msgstr "Butone iscalita"
 
 #: ../plugins/minimode/controls.py:699
 msgid "Access the current playlist"
-msgstr ""
+msgstr "Intra in s'iscalita atuale"
 
 #: ../plugins/minimode/controls.py:996
 msgid "$title ($current_time / $total_time)"
-msgstr ""
+msgstr "$title ($current_time / $total_time)"
 
 #: ../plugins/minimode/controls.py:1018
 msgid "Progress button"
-msgstr ""
+msgstr "Butone de sobradura"
 
 #: ../plugins/minimode/controls.py:1019
 msgid "Playback progress and access to the current playlist"
-msgstr ""
+msgstr "Sobradura de sa riprodutzione e atzessu a s'iscalita atuale"
 
 #: ../plugins/minimode/controls.py:1090
 msgid "Progress bar"
-msgstr ""
+msgstr "Barra de sobradura"
 
 #: ../plugins/minimode/controls.py:1091
 msgid "Playback progress and seeking"
-msgstr ""
+msgstr "Sobradura de sa riprodutzione e chirca"
 
 #: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "Podcasts"
 
 #: ../plugins/podcasts/__init__.py:70
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:79
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "Agiorna sos podcasts"
 
 #: ../plugins/podcasts/__init__.py:80
 msgid "Delete"
-msgstr ""
+msgstr "Burra"
 
 #: ../plugins/podcasts/__init__.py:118
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Inserta s'URL de su podcast de annànghere"
 
 #: ../plugins/podcasts/__init__.py:119
 msgid "Open Podcast"
-msgstr ""
+msgstr "Abèri podcast"
 
 #: ../plugins/podcasts/__init__.py:152
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "Carrigamentu de %s..."
 
 #: ../plugins/podcasts/__init__.py:181
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Errore in su carrigamentu de su podcast."
 
 #: ../plugins/podcasts/__init__.py:197
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Carrigamentu de su podcast..."
 
 #: ../plugins/podcasts/__init__.py:228
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Impossìbile sarbare su documentu de su podcast"
 
 #: ../plugins/daapserver/daapserverprefs.py:6
 #: ../plugins/daapserver/PLUGININFO:3
 msgid "DAAP Server"
-msgstr ""
+msgstr "Server DAAP"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Notìfica"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -2747,175 +2845,179 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"artista %(artist)s\n"
+"album <i>%(album)s</i>"
 
 #: ../plugins/notify/notifyprefs.py:43
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "artista %(artist)s"
 
 #: ../plugins/notify/notifyprefs.py:48
 #: ../plugins/notifyosd/notifyosdprefs.py:59
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "album %(album)s"
 
 #: ../plugins/notify/notifyprefs.py:53
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/audioscrobbler/asprefs.py:32
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:107
 msgid "Verification successful"
-msgstr ""
+msgstr "Sa verìfica at tentu sutzessu"
 
 #: ../plugins/audioscrobbler/asprefs.py:113
 msgid "Verification failed"
-msgstr ""
+msgstr "Sa verìfica est faddida"
 
 #: ../plugins/audioscrobbler/__init__.py:123
 msgid "Enable audioscrobbling"
-msgstr ""
+msgstr "Abìlita s’audioscrobbling"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "Console IPython"
 
 #: ../plugins/ipconsole/__init__.py:86
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "Console IPython - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:156
 msgid "Show IPython Console"
-msgstr ""
+msgstr "Ammustra sa console IPython"
 
 #: ../plugins/equalizer/__init__.py:127 ../plugins/equalizer/equalizer.ui.h:1
 #: ../plugins/equalizer/PLUGININFO:3
 msgid "Equalizer"
-msgstr ""
+msgstr "Ecualizatore"
 
 #: ../plugins/contextinfo/contextprefs.py:22
 msgid "Contextinfo"
-msgstr ""
+msgstr "Informatziones cuntestu"
 
 #: ../plugins/history/__init__.py:108
 msgid "Playback history"
-msgstr ""
+msgstr "Istòria riprodutzione"
 
 #: ../plugins/history/__init__.py:140
 msgid "Erase stored history?"
-msgstr ""
+msgstr "Burrare s’istòria sarbada?"
 
 #: ../plugins/history/__init__.py:209 ../plugins/history/__init__.py:251
 #: ../plugins/history/history_preferences.py:35
 #: ../plugins/daapclient/__init__.py:292
 msgid "History"
-msgstr ""
+msgstr "Istòria"
 
 #: ../plugins/history/__init__.py:234
 msgid "Save History"
-msgstr ""
+msgstr "Sarba s’istòria"
 
 #: ../plugins/history/__init__.py:236
 msgid "Clear History"
-msgstr ""
+msgstr "Isbòida s’istòria"
 
 #: ../plugins/droptrayicon/__init__.py:281
 #: ../plugins/droptrayicon/drop_target_window.ui.h:1
 msgid "Drop to Choose"
-msgstr ""
+msgstr "Lassa pro ischertare"
 
 #: ../plugins/droptrayicon/__init__.py:284
 msgid "Append and Play"
-msgstr ""
+msgstr "Annanghe e riprodui"
 
 #: ../plugins/droptrayicon/__init__.py:286
 msgid "Append"
-msgstr ""
+msgstr "Annanghe"
 
 #: ../plugins/wikipedia/preferences.py:21 ../plugins/wikipedia/config.py:3
 #: ../plugins/wikipedia/__init__.py:136
 #: ../plugins/wikipedia/data/wikipanel.ui.h:1
 #: ../plugins/wikipedia/PLUGININFO:3
 msgid "Wikipedia"
-msgstr ""
+msgstr "Wikipedia"
 
 #: ../plugins/wikipedia/config.py:6
 msgid "Displays Wikipedia page about the current performer."
-msgstr ""
+msgstr "Ammustrat sa pàgina de Wikipedia chi chistionat de s’intèrprete atuale."
 
 #: ../plugins/daapclient/__init__.py:298
 msgid "Manually..."
-msgstr ""
+msgstr "Manualmente..."
 
 #: ../plugins/daapclient/__init__.py:350
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Inserta s’indiritzu IP e sa ghenna pro sa cumpartzidura"
 
 #: ../plugins/daapclient/__init__.py:351
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "Inserta s'indiritzu IP e sa ghenna."
 
 #: ../plugins/daapclient/__init__.py:556
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"Custu server non suportat sas cunnessiones mùltiplas.\n"
+"Depes firmare sa riprodutzione in antis de iscarrigare sos branos."
 
 #: ../plugins/daapclient/__init__.py:647
 msgid "Refresh Server List"
-msgstr ""
+msgstr "Agiorna s’elencu de sos servers"
 
 #: ../plugins/daapclient/__init__.py:650
 msgid "Disconnect from Server"
-msgstr ""
+msgstr "Istaca•di dae su server"
 
 #: ../plugins/daapclient/__init__.py:669
 msgid "Select a Location for Saving"
-msgstr ""
+msgstr "Ischerta una positzione pro sarbare sos datos"
 
 #: ../plugins/daapclient/__init__.py:715
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Cunnete•ti a DAAP..."
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "Client DAAP"
 
 #: ../plugins/abrepeat/__init__.py:49
 msgid "Repeat Segment"
-msgstr ""
+msgstr "Repite su segmentu"
 
 #: ../plugins/abrepeat/__init__.py:57
 msgid "Repeat Beginning"
-msgstr ""
+msgstr "Repite su cumintzu"
 
 #: ../plugins/abrepeat/__init__.py:61
 msgid "Repeat End"
-msgstr ""
+msgstr "Repite sa fine"
 
 #: ../plugins/grouptagger/gt_import.py:45
 msgid "Importing tracks"
-msgstr ""
+msgstr "Importande rastas"
 
 #: ../plugins/grouptagger/gt_import.py:91
 msgid "Importing groups"
-msgstr ""
+msgstr "Importande grupos"
 
 #: ../plugins/grouptagger/gt_import.py:170
 msgid "Updating groups"
-msgstr ""
+msgstr "Agiornande sos grupos"
 
 #: ../plugins/grouptagger/gt_import.py:284
 msgid "Select directory to import grouping tags from"
-msgstr ""
+msgstr "Ischerta sa cartella dae ue importare etichetas de ragrupamentu"
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
@@ -2924,33 +3026,33 @@ msgstr ""
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
 msgid "Show tracks tagged with \"%s\""
-msgstr ""
+msgstr "Ammustra rastas etichetadas comente \"%s\""
 
 #: ../plugins/grouptagger/gt_widgets.py:74
 msgid "Show tracks with all selected"
-msgstr ""
+msgstr "Ammustra rastas cun totu ischertadu"
 
 #: ../plugins/grouptagger/gt_widgets.py:132
 #: ../plugins/grouptagger/gt_widgets.py:657
 #: ../plugins/grouptagger/gt_widgets.py:758
 msgid "Group"
-msgstr ""
+msgstr "Grupu"
 
 #: ../plugins/grouptagger/gt_widgets.py:147
 msgid "Add new group"
-msgstr ""
+msgstr "Annanghe unu grupu nou"
 
 #: ../plugins/grouptagger/gt_widgets.py:151
 msgid "Delete group"
-msgstr ""
+msgstr "Burra grupu"
 
 #: ../plugins/grouptagger/gt_widgets.py:158
 msgid "Add new category"
-msgstr ""
+msgstr "Annanghe una categoria noa"
 
 #: ../plugins/grouptagger/gt_widgets.py:162
 msgid "Remove category"
-msgstr ""
+msgstr "Burra categoria"
 
 #: ../plugins/grouptagger/gt_widgets.py:172
 msgid "Show tracks with selected (custom)"
@@ -2958,105 +3060,107 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
-msgstr ""
+msgstr "Valore eticheta nou?"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "Enter new tag value"
-msgstr ""
+msgstr "Inserta unu valore eticheta nou"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "New Category?"
-msgstr ""
+msgstr "Categoria noa?"
 
 #: ../plugins/grouptagger/gt_widgets.py:281
 msgid "Enter new group category name"
-msgstr ""
+msgstr "Inserta unu nùmene nou pro sas categorias"
 
 #: ../plugins/grouptagger/gt_widgets.py:510
 msgid "Add Group"
-msgstr ""
+msgstr "Annanghe grupu"
 
 #: ../plugins/grouptagger/gt_widgets.py:693
 #: ../plugins/grouptagger/__init__.py:109
 msgid "Get all tags from collection"
-msgstr ""
+msgstr "Piga totu sas ètichetas dae sa regorta"
 
 #: ../plugins/grouptagger/gt_widgets.py:714
 msgid "Add selected to choices"
-msgstr ""
+msgstr "Annànghe sas ichertadas a sas issèberas"
 
 #: ../plugins/grouptagger/gt_widgets.py:740
 msgid "Show tracks with groups"
-msgstr ""
+msgstr "Ammusrta rastas cun grupos"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must have this tag [AND]"
-msgstr ""
+msgstr "Depet tènnere custa eticheta [AND]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "May have this tag [OR]"
-msgstr ""
+msgstr "Diat pòdere tènnere custa eticheta [OR]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Must not have this tag [NOT]"
-msgstr ""
+msgstr "Non depet tènnere custa eticheta [NOT]"
 
 #: ../plugins/grouptagger/gt_widgets.py:751
 msgid "Ignored"
-msgstr ""
+msgstr "Innorados"
 
 #: ../plugins/grouptagger/gt_widgets.py:759
 msgid "Selected Tracks"
-msgstr ""
+msgstr "Rastas ischertadas"
 
 #: ../plugins/grouptagger/gt_mass.py:121
 #, python-format
 msgid "%s tracks found"
-msgstr ""
+msgstr "%s rastas agatadas"
 
 #: ../plugins/grouptagger/gt_mass.py:129
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr ""
+msgstr "Remplasare '%s' cun '%s' in %s rastas?"
 
 #: ../plugins/grouptagger/gt_mass.py:151
 msgid ""
 "You should rescan your collection before using mass tag rename to ensure "
 "that all tags are up to date. Rescan now?"
 msgstr ""
+"Dias dèpere torrare a iscansire sa regorta tua in antis de cambiare sas "
+"etichetas pro èssere seguru chi siant totu agiornadas. Iscansire como?"
 
 #: ../plugins/grouptagger/__init__.py:114
 msgid "Import tags from directory"
-msgstr ""
+msgstr "Importa etichetas dae una cartella"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Mass rename/delete tags"
-msgstr ""
+msgstr "Càmbia nùmene/burra etichetas in massa"
 
 #: ../plugins/grouptagger/__init__.py:130
 msgid "Show tracks with all tags"
-msgstr ""
+msgstr "Ammustra rastas cun totu sas etichetas"
 
 #: ../plugins/grouptagger/__init__.py:134
 msgid "Show tracks with tags (custom)"
-msgstr ""
+msgstr "Ammustra rastas cun etichetas (pessonalizadu)"
 
 #: ../plugins/grouptagger/__init__.py:219
 #: ../plugins/grouptagger/__init__.py:232
 msgid "No categorization tags found in selected tracks"
-msgstr ""
+msgstr "Peruna eticheta de categorizatzione agatada in sas rastas ischertadas"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
 msgid "Contacting SomaFM server..."
-msgstr ""
+msgstr "Cuntatande su server SomaFM..."
 
 #: ../plugins/somafm/__init__.py:95 ../plugins/somafm/__init__.py:98
 msgid "Error connecting to SomaFM server."
-msgstr ""
+msgstr "Errore in sa cunnessione cun su server SomaFM."
 
 #: ../plugins/osd/osd_preferences.py:29 ../plugins/osd/PLUGININFO:3
 msgid "On Screen Display"
-msgstr ""
+msgstr "Vista a ischermu"
 
 #: ../plugins/osd/osd_preferences.py:88
 msgid ""
@@ -3064,6 +3168,9 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\">$title</span>\n"
+"artista $artist\n"
+"album $album"
 
 #: ../plugins/osd/__init__.py:379
 msgid ""
@@ -3071,156 +3178,161 @@ msgid ""
 "by $artist\n"
 "from $album"
 msgstr ""
+"<span font_desc=\"Sans 11\" foreground=\"#fff\"><b>$title</b></span>\n"
+"artista $artist\n"
+"album $album"
 
 #: ../plugins/console/__init__.py:109
 msgid "Console"
-msgstr ""
+msgstr "Console"
 
 #: ../plugins/bpm/__init__.py:98 ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
-msgstr ""
+msgstr "Contadore BPM"
 
 #: ../plugins/bpm/__init__.py:113 ../plugins/bpm/__init__.py:252
 msgid "Update"
-msgstr ""
+msgstr "Agiorna"
 
 #: ../plugins/bpm/__init__.py:114
 msgid "Apply BPM"
-msgstr ""
+msgstr "Àplica BPM"
 
 #: ../plugins/bpm/__init__.py:235
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "Impostare sos BPM de %d comente %s?"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
+#, fuzzy
 msgid "Streamripper"
-msgstr ""
+msgstr "Streamripper"
 
 #: ../plugins/streamripper/__init__.py:72
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "Errore in s’esecutzione de streamripper"
 
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
+#, fuzzy
 msgid "Desktop Cover"
-msgstr ""
+msgstr "Cobertedda Desktop"
 
 #: ../plugins/jamendo/__init__.py:91
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:5
 msgid "Ready"
-msgstr ""
+msgstr "Prontu"
 
 #: ../plugins/jamendo/__init__.py:92
 msgid "Searching Jamendo catalogue..."
-msgstr ""
+msgstr "Chircande in su catàlogu de Jamendo..."
 
 #: ../plugins/jamendo/__init__.py:93
 msgid "Retrieving song data..."
-msgstr ""
+msgstr "Recuperande sos datos de sa cantzone..."
 
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "Pausa cun sarba-ischermu"
 
 #: ../plugins/cd/cdprefs.py:37
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/_cdguipanel.py:96
 msgid "Importing CD..."
-msgstr ""
+msgstr "Importande CD..."
 
 #: ../plugins/cd/__init__.py:148 ../plugins/cd/__init__.py:226
 msgid "Audio Disc"
-msgstr ""
+msgstr "Discu àudio"
 
 #: ../plugins/mainmenubutton/__init__.py:32
 msgid "This plugin needs at least PyGTK 2.22 and GTK 2.20."
-msgstr ""
+msgstr "Custa estensione netzèssitat a su mancu de PyGTK 2.22 e GTK 2.20."
 
 #: ../plugins/mainmenubutton/__init__.py:72
 #: ../plugins/mainmenubutton/__init__.py:78
 msgid "Main Menu"
-msgstr ""
+msgstr "Menù printzipale"
 
 #: ../plugins/replaygain/replaygainprefs.py:32
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "Balàngiu riprodutzione"
 
 #: ../plugins/multialarmclock/macprefs.py:23
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Ischìglia (Isvèglia) mùltipla"
 
 #: ../plugins/moodbar/moodbarprefs.py:23 ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Barra de s'atmosfera"
 
 #: ../plugins/moodbar/__init__.py:163
 msgid "Searching for mood..."
-msgstr ""
+msgstr "Chircande pro atmosfera..."
 
 #: ../plugins/moodbar/__init__.py:167
 msgid "Mood found."
-msgstr ""
+msgstr "Atmosfera agatada."
 
 #: ../plugins/moodbar/__init__.py:199
 msgid "Could not read moodbar."
-msgstr ""
+msgstr "Impossìbile lèghere sa barra de s'atmosfera."
 
 #: ../plugins/moodbar/__init__.py:538
 msgid "Moodbar executable is not available."
-msgstr ""
+msgstr "S'esecutàbile 'barra de s’atmofera' no est disponìbile."
 
 #: ../plugins/icecast/__init__.py:106 ../plugins/icecast/__init__.py:185
 #: ../plugins/icecast/__init__.py:208
 msgid "Contacting Icecast server..."
-msgstr ""
+msgstr "Cuntatande su server Icecast..."
 
 #: ../plugins/icecast/__init__.py:119 ../plugins/icecast/__init__.py:123
 #: ../plugins/icecast/__init__.py:221 ../plugins/icecast/__init__.py:225
 msgid "Error connecting to Icecast server."
-msgstr ""
+msgstr "Errore in sa cunnessione cun su server Icecast."
 
 #: ../plugins/icecast/__init__.py:317
 msgid "Enter the search keywords"
-msgstr ""
+msgstr "Inserta sas paràulas de chircare"
 
 #: ../plugins/icecast/__init__.py:318
 msgid "Icecast Search"
-msgstr ""
+msgstr "Chirca Icecast"
 
 #: ../plugins/icecast/__init__.py:342
 msgid "No Stations Found"
-msgstr ""
+msgstr "Peruna istatzione agatada"
 
 #: ../plugins/icecast/__init__.py:345
 msgid "Icecast Search Results"
-msgstr ""
+msgstr "Resurdados chirca Icecast"
 
 #: ../plugins/icecast/__init__.py:377
 msgid "Search"
-msgstr ""
+msgstr "Chirca"
 
 #: ../plugins/icecast/__init__.py:384
 msgid "Name"
-msgstr ""
+msgstr "Nùmene"
 
 #: ../plugins/icecast/__init__.py:396
 msgid "Format"
-msgstr ""
+msgstr "Formadu"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Cuberteddas Amazon"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Ischìglia (Isvèglia)"
 
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
@@ -3233,29 +3345,29 @@ msgstr ""
 
 #: ../plugins/previewdevice/__init__.py:159
 msgid "Preview"
-msgstr ""
+msgstr "Pre-visualizatzione"
 
 #: ../plugins/previewdevice/__init__.py:351
 msgid "Pause Playback (double click to stop)"
-msgstr ""
+msgstr "Pone sa riprodutzione in pàusa (clic dòpiu pro firmare)"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Notìficas a ischermu"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:1
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API key:"
-msgstr ""
+msgstr "Crae API:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:2
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret:"
-msgstr ""
+msgstr "Segretu:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:3
 msgid "Request Access Permission"
-msgstr ""
+msgstr "Rechesta permissu de atzessu"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:5
 msgid ""
@@ -3264,34 +3376,40 @@ msgid ""
 "you have entered these, <b>request access permission</b> and confirm to "
 "complete the setup."
 msgstr ""
+"Intra in su <b><a href=\"http://www.last.fm/api/account\">contu API "
+"tuo</a></b> pro otènnere una <b>API crae</b> e unu <b>còdighe </b> e "
+"insertalos inoghe. A pustis, <b>pedi sos deretos de atzessu</b> e cunfirma "
+"pro cumprire s'installatzione."
 
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
+"Imprea sas coberteddas in su menù de sos sinnalibros (at a tènnere efetu dae "
+"s'alluìngiu imbeniente)"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:2
 msgid "Presets"
-msgstr ""
+msgstr "Predefinidos"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:3
 msgid "<none selected>"
-msgstr ""
+msgstr "<perunu ischertadu>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:4
 msgid "Select analysis"
-msgstr ""
+msgstr "Ischerta anàlisi"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
 msgid "Playlist(s) to analyze"
-msgstr ""
+msgstr "Regorta(s) de analizare"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
-msgstr ""
+msgstr "Ingendra!"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:7
 msgid "Output Title"
-msgstr ""
+msgstr "Tìtulu de essida"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:8
 msgid "Defaults to the playlist name"
@@ -3299,25 +3417,27 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:9
 msgid "Generate"
-msgstr ""
+msgstr "Ingendra"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Caràtere testos:"
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
-msgstr ""
+msgstr "Agiorna testos"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:1
 msgid ""
 "The order of controls can be changed by simply dragging them up or down. (Or "
 "press Alt+Up/Down.)"
 msgstr ""
+"S'òrdine de sos controllos podet èssere cambiadu trisinande•los in artu o in "
+"bassu (o carcande Alt+Susu/Giosso)"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:2
 msgid "Controls"
-msgstr ""
+msgstr "Controllos"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:3
 #: ../plugins/cd/cdprefs_pane.ui.h:10
@@ -3326,75 +3446,80 @@ msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
 msgstr ""
+"Cada eticheta podet èssere impreada cun <b>$tag</b> o <b>${tag}</b>. "
+"Etichetas intèrnas comente <b>$__length</b> depent èssere dislindadas cun "
+"duos tratigheddos bassos."
 
 #: ../plugins/minimode/minimode_preferences.ui.h:4
 msgid "Track Title Format"
-msgstr ""
+msgstr "Formadu tìtulu de sa rasta"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:5
 msgid "Always on top"
-msgstr ""
+msgstr "Semper a innantis"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:6
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Ammustra in s'elencu de sas operatziones"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr ""
+msgstr "Ammustra decoraduras bentana:"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
+#, fuzzy
 msgid "Show on all desktops"
-msgstr ""
+msgstr "Ammustra in totu sos desktops"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:10
 msgid "Show button in main window"
-msgstr ""
+msgstr "Ammustra su butone in sa bentana printzipale"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:13
 msgid "Full"
-msgstr ""
+msgstr "Prenu"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:15
 msgid "Simple"
-msgstr ""
+msgstr "Simple"
 
 #: ../plugins/podcasts/podcasts.ui.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "Annanghe podcast"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:1
 msgid "Server name:"
-msgstr ""
+msgstr "Nùmene de su server:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:2
+#, fuzzy
 msgid "Server host:"
-msgstr ""
+msgstr "Host de su server:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:3
 msgid "Port:"
-msgstr ""
+msgstr "Ghenna:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:4
 msgid "Server enabled"
-msgstr ""
+msgstr "Server abilitadu"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Càmbia sa mannària de sas coberdeddas ammustradas"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 msgid "Summary:"
-msgstr ""
+msgstr "Riepìlogu:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:3
 msgid "Only artist:"
-msgstr ""
+msgstr "Artista ebbia:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:4
 msgid "Only album:"
-msgstr ""
+msgstr "Album ebbia:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:6
 #, python-format
@@ -3404,132 +3529,136 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place.</i>"
 msgstr ""
+"<i>Messàgiu chi diat deper’èssere ammustradu intre sa notìfica. In cada "
+"manera, \"%(title)s\", \"%(artist)s\", e \"%(album)s\" ant a èssere "
+"remplasados cun sos valores relativos. Si s'eticheta est disconnota, b'at a "
+"èssere iscitu \"Disconnotu\".</i>"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Both artist and album:"
-msgstr ""
+msgstr "Artista e album:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Testu de su messàgiu</b>"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Imbia sas rastas impreande Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show menuitem to toggle submission"
-msgstr ""
+msgstr "Ammustra s’elementu de su menù pro ativare o disativare s'imbiu"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:3
 msgid "Submit streamed tracks (e.g. DAAP, Shoutcast radio etc.)"
-msgstr ""
+msgstr "Imbia rastas in streaming (es. DAAP, Shoutcast ràdio etc.)"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 #: ../plugins/contextinfo/context_pane.ui.h:2
 msgid "Password:"
-msgstr ""
+msgstr "Crae (password):"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 #: ../plugins/contextinfo/context_pane.ui.h:3
 msgid "Username:"
-msgstr ""
+msgstr "Nùmene impitadore:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:7
 msgid "Verify Login Data"
-msgstr ""
+msgstr "Verìfica sos datos de intrada"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Terminal opacity:"
-msgstr ""
+msgstr "Annapu de su terminale:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Font:"
-msgstr ""
+msgstr "Caràtere:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:3
 msgid "Text Color:"
-msgstr ""
+msgstr "Colore de su testu:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:4
 msgid "Background Color:"
-msgstr ""
+msgstr "Colore de isfundu:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:5
 msgid "IPython Color Theme:"
-msgstr ""
+msgstr "Colore de su tema IPython:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
 msgid "Launch IPython console when Exaile starts"
-msgstr ""
+msgstr "Inghitza sa console IPython a s'alluìngiu de Exaile"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "pre"
-msgstr ""
+msgstr "pre"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 dB"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "237"
-msgstr ""
+msgstr "237"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:14
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:15
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
-msgstr ""
+msgstr "Cuntestu"
 
 #: ../plugins/contextinfo/context_pane.ui.h:1
 msgid "Please enter your Last.fm authentication:"
-msgstr ""
+msgstr "Inserta sos datos de intrada pro Last.fm:"
 
 #: ../plugins/contextinfo/context_pane.ui.h:4
 msgid "Sign up for Last.fm"
-msgstr ""
+msgstr "Registra•ti a Last.fm"
 
 #: ../plugins/history/history_preferences.ui.h:1
 msgid "Persist history after player exits"
@@ -3537,77 +3666,80 @@ msgstr ""
 
 #: ../plugins/history/history_preferences.ui.h:2
 msgid "History length:"
-msgstr ""
+msgstr "Longària de s’istòria:"
 
 #: ../plugins/wikipedia/data/preferences.ui.h:1
 msgid "Shortcode of the Wikipedia language version (en, de, fr, ...)"
-msgstr ""
+msgstr "Còdighe de sa versione de Wikipedia pro cussa limba (en, de, fr, ...)"
 
 #: ../plugins/wikipedia/data/preferences.ui.h:2
 msgid "Language:"
-msgstr ""
+msgstr "Limba:"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:2
 msgid "Home"
-msgstr ""
+msgstr "Pàgina printzipale"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:3
 msgid "Back"
-msgstr ""
+msgstr "In dae segus"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:5
 msgid "Forward"
-msgstr ""
+msgstr "A dae innantis"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:1
 msgid "Show ipv6 servers (Experimental)"
-msgstr ""
+msgstr "Ammustra servers ipv6 (Isperimentale)"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:2
 msgid "Remember recent DAAP servers"
-msgstr ""
+msgstr "Ammenta•ti sos servers DAAP reghentes"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:1
 msgid "grouping"
-msgstr ""
+msgstr "ragrupamentu"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:2
 msgid "comment"
-msgstr ""
+msgstr "cummentu"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:3
 msgid "encodedby"
-msgstr ""
+msgstr "codificadu dae"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:4
 msgid "composer"
-msgstr ""
+msgstr "cumposidore"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:5
 msgid "conductor"
-msgstr ""
+msgstr "diretore de orchestra"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:6
 msgid "lyrics"
-msgstr ""
+msgstr "testos"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
-msgstr ""
+msgstr "Caràtere grupu/categorias:"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:9
 msgid "Categorization tag name"
-msgstr ""
+msgstr "Nùmene de s'eticheta de categorizatzione"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:10
 msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats. "
 msgstr ""
+"'ragrupamentu' e 'cummentu' sunt probabilmente sas mègius issèberas "
+"suportadas. Sas àteras diant pòdere traballare petzi cun determinados "
+"formados. "
 
 #: ../plugins/grouptagger/gt_mass.ui.h:1
 msgid "Mass Rename/Delete Tags"
-msgstr ""
+msgstr "Càmbia nùmene/burra etichetas totu paris"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:2
 msgid "If empty, matches all tracks"
@@ -3615,7 +3747,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
 msgid "Search Tag"
-msgstr ""
+msgstr "Chirca eticheta"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
@@ -3623,31 +3755,31 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 msgid "Replace Tag"
-msgstr ""
+msgstr "Remplasa eticheta"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:8
 msgid "0 tracks found"
-msgstr ""
+msgstr "0 rastas agatadas"
 
 #: ../plugins/grouptagger/gt_import.ui.h:1
 msgid "Import Tags"
-msgstr ""
+msgstr "Importa etichetas"
 
 #: ../plugins/grouptagger/gt_import.ui.h:2
 msgid "Import"
-msgstr ""
+msgstr "Importa"
 
 #: ../plugins/grouptagger/gt_import.ui.h:4
 msgid "Current Groups"
-msgstr ""
+msgstr "Grupos atuales"
 
 #: ../plugins/grouptagger/gt_import.ui.h:5
 msgid "New Groups"
-msgstr ""
+msgstr "Grupos noos"
 
 #: ../plugins/grouptagger/gt_import.ui.h:6
 msgid "Import Type:"
-msgstr ""
+msgstr "Importa casta:"
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
@@ -3655,7 +3787,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.ui.h:8
 msgid "Replace"
-msgstr ""
+msgstr "Remplasa"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Display overlay:"
@@ -3663,19 +3795,19 @@ msgstr ""
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display covers"
-msgstr ""
+msgstr "Ammustra coberteddas"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Circle display"
-msgstr ""
+msgstr "Vista tzirculare"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "Text percentage"
-msgstr ""
+msgstr "Pertzentuale de testu"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "None"
-msgstr ""
+msgstr "Perunu"
 
 #: ../plugins/osd/osd_preferences.ui.h:1
 #, python-brace-format
@@ -3688,7 +3820,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"
-msgstr ""
+msgstr "Ammustra formadu"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
@@ -3700,7 +3832,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:6
 msgid "Show progress bar"
-msgstr ""
+msgstr "Ammustra sa barra de sobradura"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
 msgid "Border radius:"
@@ -4528,15 +4660,15 @@ msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
-msgstr ""
+msgstr "Iscalitas dinàmicas de Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "Aina de Last.fm pro iscalitas dinàmicas"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
-msgstr ""
+msgstr "Iscalitas dinàmicas"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -4558,7 +4690,7 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
-msgstr ""
+msgstr "Suportu iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid ""
@@ -4566,3 +4698,7 @@ msgid ""
 "\n"
 "Depends on python-gpod."
 msgstr ""
+"Pugin pro su suportu iPod Pro como de leghidura ebbia, no est possìbile "
+"faghere tramudòngios.\n"
+"\n"
+"Dipendet dae python-gpod."

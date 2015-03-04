@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-01-16 19:04+0200\n"
-"Last-Translator: Martin Lacina <martin@whistler.sk>\n"
+"PO-Revision-Date: 2015-03-04 14:40+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/exaile/master/sk/>"
 "\n"
 "Language: sk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/formatter.py:576
@@ -275,7 +275,7 @@ msgstr "Zobrazí pomocnú hlášku a skončí"
 
 #: ../xl/main.py:589
 msgid "Show program's version number and exit."
-msgstr "Zobrazí verziu programu a skončí"
+msgstr "Zobrazí verziu programu a skončí."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
@@ -2434,7 +2434,7 @@ msgstr "Nastavenia"
 msgid ""
 "Words to strip from the beginning of artist tags when sorting (space "
 "separated):"
-msgstr "Slová v prúžku pred tagom interpréta pri zotriedení (oddeliť medzerou)"
+msgstr "Slová v prúžku pred tagom interpréta pri zotriedení (oddeliť medzerou):"
 
 #: ../data/ui/preferences/collection.ui.h:2
 msgid "(Right click to reset to defaults)"
@@ -3255,7 +3255,7 @@ msgstr "Pozastaviť pri šetriči obrazovky"
 #: ../plugins/daapserver/daapserverprefs.py:6
 #: ../plugins/daapserver/PLUGININFO:3
 msgid "DAAP Server"
-msgstr "DAAP Server"
+msgstr "DAAP server"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
 #, fuzzy
@@ -4310,8 +4310,8 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Prehráva hudbu v určitý čas.↵\n"
-"↵\n"
+"Prehráva hudbu v určitý čas.\n"
+"\n"
 "Upozornenie, v určenom čase sa bude Exaile správať akoby ste stlačili "
 "tlačítko prehrávania, uistite sa, že máte vybraný správny zoznam skladieb na "
 "prehranie."
@@ -4659,8 +4659,8 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Prehráva hudbu v určitý čas a deň.↵\n"
-"↵\n"
+"Prehráva hudbu v určitý čas a deň.\n"
+"\n"
 "Upozornenie, v určenom čase sa bude Exaile správať akoby ste stlačili "
 "tlačítko prehrávania, uistite sa, že máte vybraný zoznam skladieb na "
 "prehranie."
@@ -4728,7 +4728,7 @@ msgstr ""
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr "Umožňuje prehrávanie zdielanej hudby cez DAAP server"
+msgstr "Umožňuje prehrávanie zdielanej hudby cez DAAP server."
 
 #~ msgid "Toggle Queue"
 #~ msgstr "Prepnúť frontu"

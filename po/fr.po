@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-03-07 00:50+0200\n"
+"PO-Revision-Date: 2015-03-07 01:05+0200\n"
 "Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
@@ -1009,7 +1009,7 @@ msgstr "Taille _automatique"
 
 #: ../xlgui/widgets/rating.py:261
 msgid "Rating:"
-msgstr "Note :"
+msgstr "Note:"
 
 #: ../xlgui/widgets/playlist.py:130
 msgid "Shuffle"
@@ -1029,7 +1029,7 @@ msgstr "Supprimer la piste active de la liste de lecture"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
-msgstr "Rendre la liste de lecture aléatoire"
+msgstr "Liste de lecture aléatoire"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
@@ -1185,7 +1185,7 @@ msgstr "$title (par $artist)"
 
 #: ../xlgui/main.py:479
 msgid "Toggle: Stop after Selected Track"
-msgstr "Action : arrêter après la piste sélectionnée."
+msgstr "Action: Arrêter après la piste sélectionnée"
 
 #: ../xlgui/main.py:582 ../plugins/previewdevice/__init__.py:369
 msgid "Playback error encountered!"
@@ -1302,7 +1302,7 @@ msgstr "Édition de la piste %(current)d sur %(total)d"
 
 #: ../xlgui/properties.py:375
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Voulez-vous vraiment appliquer les changements a toutes les titres?"
+msgstr "Voulez-vous vraiment appliquer les changements à toutes les titres?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -2685,7 +2685,7 @@ msgstr "L'extinction a échoué"
 
 #: ../plugins/shutdown/__init__.py:136
 msgid "Computer could not be shutdown using D-Bus."
-msgstr "L'ordinateur n'a pas pu être éteint en utilisant D-Bus"
+msgstr "L'ordinateur n'a pas pu être éteint en utilisant D-Bus."
 
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
@@ -2876,7 +2876,7 @@ msgstr "Arrêter la lecture"
 
 #: ../plugins/minimode/controls.py:363
 msgid "Continue playback after current track"
-msgstr "Continuer la lecture après la piste actuelle."
+msgstr "Continuer la lecture après le titre actuelle."
 
 #: ../plugins/minimode/controls.py:427
 msgid "Volume"
@@ -3306,7 +3306,7 @@ msgstr "Appliquer les BPMs"
 #: ../plugins/bpm/__init__.py:235
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr "Régler les battements par minute de %d sur %s[NBSP]?"
+msgstr "Régler les BPMs de %d sur %s?"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
@@ -3779,8 +3779,8 @@ msgid ""
 "The order of controls can be changed by simply dragging them up or down. (Or "
 "press Alt+Up/Down.)"
 msgstr ""
-"L'ordre des contrôles peut être changé simplement par glisser/déposer (ou en "
-"appuyant sur Alt+Haut/Bas)."
+"L'ordre des contrôles peut être changé simplement par glisser/déposer. (Ou "
+"en appuyant sur Alt+Haut/Bas.)"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:2
 msgid "Controls"
@@ -3800,7 +3800,7 @@ msgstr "Afficher dans la liste des tâches"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr "Afficher les décorations de la fenêtre"
+msgstr "Afficher les décorations de la fenêtre:"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Show on all desktops"
@@ -4346,11 +4346,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Joue de la musique à une heure spécifiée par l'utilisateur.\n"
-"\n"
+"Joue de la musique à une heure spécifique.↵\n"
+"↵\n"
 "Notez qu'Exaile agira alors exactement comme si vous aviez pressé le bouton "
 "de lecture, assurez-vous donc que la musique que vous désirez écouter est "
-"dans votre liste de lecture."
+"dans votre liste de lecture"
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
@@ -4401,8 +4401,8 @@ msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
-"Intègre l'éditeur de balises Ex Falso dans Exaile.\n"
-"Dépend de : Ex Falso"
+"Intègre l'éditeur de balises Ex Falso dans Exaile.↵\n"
+"Dépend de : Ex Falso."
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
@@ -4727,11 +4727,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
-"Joue de la musique à des dates et heures spécifiées par l'utilisateur.\n"
+"Joue de la musique à des dates et heures spécifique.\n"
 "\n"
 "Notez qu'Exaile agira alors exactement comme si vous aviez pressé le bouton "
 "de lecture, assurez-vous donc que la musique que vous désirez écouter est "
-"dans votre liste de lecture."
+"dans votre liste de lecture"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"

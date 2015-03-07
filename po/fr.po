@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-03-07 01:05+0200\n"
+"PO-Revision-Date: 2015-03-08 00:32+0200\n"
 "Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
@@ -369,7 +369,7 @@ msgstr "Désactiver la prise en charge de D-Bus"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr "Désactiver la prise en charge de HAL"
+msgstr "Désactiver le support HAL."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
@@ -1302,7 +1302,7 @@ msgstr "Édition de la piste %(current)d sur %(total)d"
 
 #: ../xlgui/properties.py:375
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Voulez-vous vraiment appliquer les changements à toutes les titres?"
+msgstr "Voulez-vous vraiment appliquer les modifications à tous les titres?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -1344,12 +1344,12 @@ msgstr "Image liée"
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr "{width}x{height} pixels"
+msgstr "{largeur} x {hauteur} pixels"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr "{format} ({width}x{height} pixels)"
+msgstr "{format} ({largeur} x {hauteur} pixels)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"
@@ -2179,7 +2179,7 @@ msgstr ""
 
 #: ../data/ui/preferences/playlists.ui.h:3
 msgid "Replace content on side pane double click"
-msgstr "Remplacer le contenu lors d'un double-clic sur le panneau latéral."
+msgstr "Remplacer le contenu lors d'un double-clic sur le panneau latéral"
 
 #: ../data/ui/preferences/playlists.ui.h:4
 msgid ""
@@ -2876,7 +2876,7 @@ msgstr "Arrêter la lecture"
 
 #: ../plugins/minimode/controls.py:363
 msgid "Continue playback after current track"
-msgstr "Continuer la lecture après le titre actuelle."
+msgstr "Poursuivre la lecture après le titre actuelle"
 
 #: ../plugins/minimode/controls.py:427
 msgid "Volume"
@@ -3306,7 +3306,7 @@ msgstr "Appliquer les BPMs"
 #: ../plugins/bpm/__init__.py:235
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr "Régler les BPMs de %d sur %s?"
+msgstr "Régler le BPM de %d à %s?"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3

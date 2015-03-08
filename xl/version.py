@@ -24,6 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+import os
 import xdg
 
 major = "3.4"
@@ -39,9 +40,10 @@ def get_current_revision(directory):
     import subprocess
 
     try:
-        return subprocess.check_output([
-            'git', 'rev-parse', '--short=7', 'HEAD'
-        ], stderr=-1).strip()
+        with open(os.devnull, 'w') as devnull:
+            return subprocess.check_output([
+                'git', 'rev-parse', '--short=7', 'HEAD'
+            ], stderr=devnull).strip()
     except subprocess.CalledProcessError:
         return None
 

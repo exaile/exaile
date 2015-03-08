@@ -57,7 +57,7 @@ try:
     # If running from source dir, we have to set the paths.
     # (The test is equivalent to xdg.local_hack but without the xdg import,
     # which pulls in glib.)
-    if os.path.exists(os.path.join(os.environ['EXAILE_DIR'], 'data')):
+    if os.path.exists(os.path.join(os.environ['EXAILE_DIR'], 'po')):
         import os.path
         locale_path = os.path.join(os.environ['EXAILE_DIR'], 'po')
         try:

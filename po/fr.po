@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-03-08 00:32+0200\n"
+"PO-Revision-Date: 2015-03-08 23:16+0200\n"
 "Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/exaile/master/fr/>"
 "\n"
@@ -1009,7 +1009,7 @@ msgstr "Taille _automatique"
 
 #: ../xlgui/widgets/rating.py:261
 msgid "Rating:"
-msgstr "Note:"
+msgstr "Note :"
 
 #: ../xlgui/widgets/playlist.py:130
 msgid "Shuffle"
@@ -1302,7 +1302,7 @@ msgstr "Édition de la piste %(current)d sur %(total)d"
 
 #: ../xlgui/properties.py:375
 msgid "Are you sure you want to apply the changes to all tracks?"
-msgstr "Voulez-vous vraiment appliquer les modifications à tous les titres?"
+msgstr "Voulez-vous vraiment appliquer les modifications à tous les titres ?"
 
 #: ../xlgui/properties.py:415
 msgid "Apply changes before closing?"
@@ -1344,12 +1344,12 @@ msgstr "Image liée"
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
 msgid "{width}x{height} pixels"
-msgstr "{largeur} x {hauteur} pixels"
+msgstr "{largeur}x{hauteur} pixels"
 
 #: ../xlgui/properties.py:1028
 #, python-brace-format
 msgid "{format} ({width}x{height} pixels)"
-msgstr "{format} ({largeur} x {hauteur} pixels)"
+msgstr "{format} ({largeur}x{hauteur} pixels)"
 
 #: ../xlgui/properties.py:1041
 msgid "Select image to set as cover"
@@ -2995,7 +2995,7 @@ msgstr "%s titres trouvés"
 #: ../plugins/grouptagger/gt_mass.py:129
 #, python-format
 msgid "Replace '%s' with '%s' on %s tracks?"
-msgstr "Remplacer '%s' par '%s' dans %s titres?"
+msgstr "Remplacer '%s' par '%s' dans %s titres ?"
 
 #: ../plugins/grouptagger/gt_mass.py:151
 msgid ""
@@ -3004,7 +3004,7 @@ msgid ""
 msgstr ""
 "Vous devriez re-analyser votre bibliothèque avant d'utiliser le renommage "
 "massif d'étiquettes , cela afin d'êtres certain que toutes les étiquettes "
-"soient à jour avant le renommage. Analyser maintenant?"
+"soient à jour avant le renommage. Analyser maintenant ?"
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
@@ -3306,7 +3306,7 @@ msgstr "Appliquer les BPMs"
 #: ../plugins/bpm/__init__.py:235
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr "Régler le BPM de %d à %s?"
+msgstr "Régler le BPM de %d à %s ?"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
@@ -3800,7 +3800,7 @@ msgstr "Afficher dans la liste des tâches"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr "Afficher les décorations de la fenêtre:"
+msgstr "Afficher les décorations de la fenêtre :"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Show on all desktops"
@@ -3876,7 +3876,7 @@ msgstr "Nouveaux Groupes"
 
 #: ../plugins/grouptagger/gt_import.ui.h:6
 msgid "Import Type:"
-msgstr "Type d'importation:"
+msgstr "Type d'importation :"
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
@@ -3941,7 +3941,7 @@ msgstr "Correction pour les fichiers qui n'ont pas d'information ReplayGain"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Fallback correction level (dB):"
-msgstr "Niveau de correction (dB):"
+msgstr "Niveau de correction (dB) :"
 
 #: ../plugins/history/history_preferences.ui.h:1
 msgid "Persist history after player exits"

@@ -64,12 +64,13 @@ uninstall:
 	rm -f  ${EXAILEBINDIR}/exaile
 	rm -rf ${EXAILELIBDIR}
 	rm -rf ${EXAILESHAREDIR}
-	rm -rf ${EXAILECONFDIR}/exaile
+	rm -rf ${EXAILECONFDIR}
 	rm -f ${DESTDIR}${PREFIX}/share/applications/exaile.desktop
 	rm -f ${DESTDIR}${PREFIX}/share/pixmaps/exaile.png
 	rm -f ${DESTDIR}${PREFIX}/share/man/man1/exaile.1.gz
 	rm -f ${DESTDIR}${PREFIX}/share/dbus-1/services/org.exaile.Exaile.service
 	${MAKE} -C plugins uninstall
+	find ${DESTDIR}${PREFIX}/share/locale -name "exaile.mo" -exec rm -f {} \;
 
 install: install-target install-locale
 

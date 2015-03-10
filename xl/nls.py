@@ -31,7 +31,7 @@
 
 import sys
 import locale
-import os
+import os.path
 
 try:
     # Set to user default, gracefully fallback on C otherwise
@@ -46,25 +46,40 @@ except locale.Error, e:
 try:
     import gettext as gettextmod
 
-    # Required for gtk.Builder messages
-    try:
-        locale.textdomain('exaile')
-    except AttributeError: # E.g. Windows
-        pass
-    # Required for dynamically added messages
-    gettextmod.textdomain('exaile')
+    def __setup_locale():
 
-    # If running from source dir, we have to set the paths.
-    # (The test is equivalent to xdg.local_hack but without the xdg import,
-    # which pulls in glib.)
-    if os.path.exists(os.path.join(os.environ['EXAILE_DIR'], 'po')):
-        import os.path
-        locale_path = os.path.join(os.environ['EXAILE_DIR'], 'po')
+        # Required for gtk.Builder messages
         try:
-            locale.bindtextdomain('exaile', locale_path)
+            locale.textdomain('exaile')
         except AttributeError: # E.g. Windows
             pass
-        gettextmod.bindtextdomain('exaile', locale_path)
+        
+        # Required for dynamically added messages
+        gettextmod.textdomain('exaile')
+    
+        locale_path = None
+        exaile_path = os.environ['EXAILE_DIR']
+    
+        # If running from source dir, we have to set the paths.
+        # (The test is equivalent to xdg.local_hack but without the xdg import,
+        # which pulls in glib.)
+        if os.path.exists(os.path.join(exaile_path, 'po')):
+            locale_path = os.path.join(exaile_path, 'po')
+        
+        # Detect the prefix, to see if we need to correct the locale path
+        elif exaile_path.endswith(os.path.join('lib', 'exaile')):
+            exaile_prefix = exaile_path[:-len(os.path.join('lib', 'exaile'))]
+            if os.path.exists(os.path.join(exaile_prefix, 'share', 'locale')):
+                locale_path = os.path.join(exaile_prefix, 'share', 'locale')
+        
+        if locale_path is not None:
+            try:
+                locale.bindtextdomain('exaile', locale_path)
+            except AttributeError: # E.g. Windows
+                pass
+            gettextmod.bindtextdomain('exaile', locale_path)
+
+    __setup_locale()
 
     gettextfunc = gettextmod.gettext
 

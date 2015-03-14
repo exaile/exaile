@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-11 22:41-0500\n"
-"PO-Revision-Date: 2015-03-02 22:39+0200\n"
+"PO-Revision-Date: 2015-03-14 18:44+0200\n"
 "Last-Translator: Lu Ca <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian "
 "<https://hosted.weblate.org/projects/exaile/master/sc/>\n"
@@ -3751,7 +3751,7 @@ msgstr "Chirca eticheta"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
-msgstr ""
+msgstr "Imprea sas istringas bòidas pro burrare s'eticheta"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:5
 msgid "Replace Tag"
@@ -3783,7 +3783,7 @@ msgstr "Importa casta:"
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
-msgstr ""
+msgstr "Auni"
 
 #: ../plugins/grouptagger/gt_import.ui.h:8
 msgid "Replace"
@@ -3791,7 +3791,7 @@ msgstr "Remplasa"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Display overlay:"
-msgstr ""
+msgstr "Ammustra subrapositzione:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display covers"
@@ -3817,6 +3817,11 @@ msgid ""
 "<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html"
 "\">Pango Text Attribute Markup</a> is supported."
 msgstr ""
+"Cada eticheta podet èssere impreada cun <b>$tag</b> o <b>${tag}</b>. "
+"Eichetas internas comente <b>$__length</b> depent èssere dislindadas cun "
+"duos tratinos bassos (underscores) in antis.\n"
+"<a href=\"http://developer.gnome.org/pango/stable/PangoMarkupFormat.html\">"
+"Pango Text Attribute Markup</a> est suportadu."
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"
@@ -3828,7 +3833,7 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:5
 msgid "Background:"
-msgstr ""
+msgstr "Isfundu:"
 
 #: ../plugins/osd/osd_preferences.ui.h:6
 msgid "Show progress bar"
@@ -3840,271 +3845,273 @@ msgstr ""
 
 #: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Save location:"
-msgstr ""
+msgstr "Positzione de sarbamentu:"
 
 #: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Relay port:"
-msgstr ""
+msgstr "Ghenna pro sa trasmissione:"
 
 #: ../plugins/streamripper/streamripper.ui.h:3
 msgid "Rip to single file"
-msgstr ""
+msgstr "Boga in unu documentu sìngulu"
 
 #: ../plugins/streamripper/streamripper.ui.h:4
 msgid "Delete incomplete files"
-msgstr ""
+msgstr "Burra sos documentos non cumpridos"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
 msgid "Anchor:"
-msgstr ""
+msgstr "Àncora:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:2
 msgid "X offset:"
-msgstr ""
+msgstr "Iscostiamentu X:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:3
 msgid "pixels"
-msgstr ""
+msgstr "pixels"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:4
 msgid "Y offset:"
-msgstr ""
+msgstr "Iscostiamentu Y:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
 msgid "Override cover size"
-msgstr ""
+msgstr "Ignora mannària cubertedda"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
 msgid "Size:"
-msgstr ""
+msgstr "Mannària:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:7
 msgid "Use fading"
-msgstr ""
+msgstr "Imprea s’isparissione"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:8
 msgid "Fading duration:"
-msgstr ""
+msgstr "Longària isparissione:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:9
 msgid "ms"
-msgstr ""
+msgstr "ms"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:10
 msgid "Top left"
-msgstr ""
+msgstr "In artu a manca"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:11
 msgid "Top right"
-msgstr ""
+msgstr "In artu a destra"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:12
 msgid "Bottom left"
-msgstr ""
+msgstr "In bassu a manca"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:13
 msgid "Bottom right"
-msgstr ""
+msgstr "In bassu a destra"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Order by:"
-msgstr ""
+msgstr "Òrdina pro:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Order direction:"
-msgstr ""
+msgstr "Diretzione ordinamentu:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Results:"
-msgstr ""
+msgstr "Resurtados/resurtos:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Advanced"
-msgstr ""
+msgstr "Avantzadas"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "Minimante"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Ascending"
-msgstr ""
+msgstr "Creschente"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Release date"
-msgstr ""
+msgstr "Die de intregu"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Rating this week"
-msgstr ""
+msgstr "Votu in custa chida"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Rating this month"
-msgstr ""
+msgstr "Votu in custu mese"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Nùmeru de annantaduras a s’iscalita"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Number of downloads"
-msgstr ""
+msgstr "Nùmeru de iscarrigamentos"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Number of listens"
-msgstr ""
+msgstr "Nùmeru de ascurtos"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Starred"
-msgstr ""
+msgstr "Votadu"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Date of starring"
-msgstr ""
+msgstr "Data de su votu"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Gènere/Eticheta"
 
 #: ../plugins/screensaverpause/prefs.ui.h:1
 msgid "Unpause when screensaver ends"
-msgstr ""
+msgstr "Boga sa pàusa cando su screensaver finit"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "WavPack"
-msgstr ""
+msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "Import format: "
-msgstr ""
+msgstr "Formatu de importatzione: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Import quality: "
-msgstr ""
+msgstr "Calidade de s'importatzione: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "Import path: "
-msgstr ""
+msgstr "Àndala de importatzione: "
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "Prefèrre sa curretzione pro album"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr ""
+msgstr "Prefèrre sa curretzione ReplayGain pro album a cussa pro rasta."
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:5
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Imprea sa protezione dae clipping"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Ampara dae s’abbolotu cajonadu dae sa subra-ampriadura"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Ampriadura annantiva de aplicare a totu sos documentos"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Ampriadura annantiva (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
+"Curretzione de còntiga (fallback) pro documentos chi non tenent "
+"informatziones ReplayGain"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Fallback correction level (dB):"
-msgstr ""
+msgstr "Livellu de curretzione de sa còntiga (dB):"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:1
 msgid "Add"
-msgstr ""
+msgstr "Annanghe"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:2
 msgid "Remove"
-msgstr ""
+msgstr "Boga"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:3
 msgid "<b>Alarms</b>"
-msgstr ""
+msgstr "<b>Avisos</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:4
 msgid "Enable volume fade-in"
-msgstr ""
+msgstr "Abìlita isparissione in intrada de su volume"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:5
 msgid "Fade start volume:"
-msgstr ""
+msgstr "Volume cumintzu isparissione:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:6
 msgid "Fade stop volume:"
-msgstr ""
+msgstr "Volume fine isparissione:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:7
 msgid "Fade Increment:"
-msgstr ""
+msgstr "Ismanniamentu isparissione:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:8
 msgid "Fade Time (s):"
-msgstr ""
+msgstr "Longària isparissione (s):"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:9
 msgid "Restart playlist"
-msgstr ""
+msgstr "Torra a aviare/inghitzare s'iscalita"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:10
 msgid "<b>Playback</b>"
-msgstr ""
+msgstr "<b>Riprodutzione</b>"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Iscuriga sa parte riproduida imbetzes de impreare su cursore"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Darkness level:"
-msgstr ""
+msgstr "Livellu de iscuru:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Use waveform style"
-msgstr ""
+msgstr "Imprea s'istile forma de onda"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Ammustra petzi sa forma de onda, non s’atmosfera"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Use color theme "
-msgstr ""
+msgstr "Imprea su tema de sos colores "
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Base color:"
-msgstr ""
+msgstr "Colore de base:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Base color"
-msgstr ""
+msgstr "Colore de base"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""

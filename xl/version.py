@@ -44,7 +44,7 @@ def get_current_revision(directory):
             return subprocess.check_output([
                 'git', 'rev-parse', '--short=7', 'HEAD'
             ], stderr=devnull).strip()
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, OSError):
         return None
 
 if xdg.local_hack:

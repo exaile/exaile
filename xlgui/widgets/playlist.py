@@ -152,18 +152,18 @@ class RemoveCurrentMenuItem(menu.MenuItem):
         """
         item = gtk.ImageMenuItem(_('Remove Current Track From Playlist'))
         item.set_image(gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_MENU))
-        item.connect('activate', self.on_activate)
+        item.connect('activate', self.on_activate, parent, context)
 
         if player.PLAYER.is_stopped():
             item.set_sensitive(False)
 
         return item
 
-    def on_activate(self, menuitem, playlist):
+    def on_activate(self, menuitem, parent, context):
         """
             Removes the currently playing track from the current playlist
         """
-        playlist = self.get_playlist_func()
+        playlist = self.get_playlist_func(parent, context)
         
         if playlist and playlist.current == player.PLAYER.current:
             del playlist[playlist.current_position]

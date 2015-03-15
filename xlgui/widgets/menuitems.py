@@ -35,7 +35,7 @@ import gio, glib, gtk
 
 from xl import common, player, playlist, settings, trax
 from xl.nls import gettext as _
-from xlgui.widgets import rating, menu
+from xlgui.widgets import dialogs, rating, menu
 from xlgui import properties
 
 ### TRACKS ITEMS ###
@@ -229,11 +229,11 @@ def EditPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
 
 def ExportPlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     return menu.simple_menu_item(name, after, _('Export Playlist'), 'gtk-save',
-                          lambda w, n, o, c: o.export_playlist(get_pl_func(o, c)))
+                          lambda w, n, o, c: dialogs.export_playlist_dialog(get_pl_func(o, c)))
 
 def ExportPlaylistFilesMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     return menu.simple_menu_item(name, after, _('Export Files'), 'gtk-save',
-                          lambda w, n, o, c: o.export_playlist_files(get_pl_func(o, c)))
+                          lambda w, n, o, c: dialogs.export_playlist_files(get_pl_func(o, c)))
 
 def DeletePlaylistMenuItem(name, after, get_pl_func=generic_get_playlist_func):
     return menu.simple_menu_item(name, after, _('Delete Playlist'), 'gtk-delete',

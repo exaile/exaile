@@ -51,6 +51,9 @@ from xlgui.widgets import (
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets.filter import *
 
+import logging
+logger = logging.getLogger(__name__)
+
 def N_(x): return x
 
 class EntrySecondsField(MultiEntryField):
@@ -391,6 +394,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
                     try:
                         item = item.get_playlist(self.collection)
                     except Exception as e:
+                        logger.exception("Error loading smart playlist")
                         dialogs.error(self.parent, _("Error loading smart playlist: %s") % str(e))
                         return
                 else:

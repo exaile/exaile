@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-01-20 13:45+0200\n"
+"PO-Revision-Date: 2015-03-17 08:00+0200\n"
 "Last-Translator: Robert Hrovat <robi74@gmail.com>\n"
 "Language-Team: Slovenian "
 "<https://hosted.weblate.org/projects/exaile/master/sl/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 "X-Launchpad-Export-Date: 2014-09-09 07:47+0000\n"
 
 #: ../xl/formatter.py:576
@@ -1814,7 +1814,7 @@ msgstr "O programu"
 
 #: ../data/ui/about_dialog.ui.h:2
 msgid "© 2009-2014"
-msgstr "&#xA9; 2009-2014"
+msgstr "© 2009-2014"
 
 #: ../data/ui/about_dialog.ui.h:3
 msgid ""

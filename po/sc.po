@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-11 22:41-0500\n"
-"PO-Revision-Date: 2015-03-14 18:44+0200\n"
+"PO-Revision-Date: 2015-03-18 01:49+0200\n"
 "Last-Translator: Lu Ca <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian "
 "<https://hosted.weblate.org/projects/exaile/master/sc/>\n"
@@ -4121,66 +4121,72 @@ msgid ""
 "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
+"<i>Pro creare unu contu Amazon AWS e otènnere custa informatzione\n"
+"bìsita <a href=\"http://aws.amazon.com/\">http://aws.amazon.com/</a>.\n"
+"\n"
+"Dias pòdere tènnere fintzas bisòngiu de <a href=\"https://affiliate-"
+"program.amazon.com/gp/flex/advertising/api/sign-in.html\">ativare su Product "
+"Advertising API</a></i>."
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm time</b>"
-msgstr ""
+msgstr "<b>Oràriu isvèglia</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Monday"
-msgstr ""
+msgstr "Lunis"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:3
 msgid "Tuesday"
-msgstr ""
+msgstr "Martis"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:4
 msgid "Wednesday"
-msgstr ""
+msgstr "Mèrcuris"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:5
 msgid "Thursday"
-msgstr ""
+msgstr "Gioja"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:6
 msgid "Friday"
-msgstr ""
+msgstr "Chenàbura"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:7
 msgid "Saturday"
-msgstr ""
+msgstr "Sàbadu"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:8
 msgid "Sunday"
-msgstr ""
+msgstr "Domìniga"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "<b>Alarm Days</b>"
-msgstr ""
+msgstr "<b>Dies de s'isvèglia</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Use Fading"
-msgstr ""
+msgstr "Imprea isparissione"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Minimum volume:"
-msgstr ""
+msgstr "Volume mìnimu:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Maximum volume:"
-msgstr ""
+msgstr "Volume màssimu:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Increment:"
-msgstr ""
+msgstr "Ismanniamentu:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
-msgstr ""
+msgstr "Tempus pro ismanniamentu:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "On track change"
-msgstr ""
+msgstr "In su càmbiu rasta"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "On playback start, pause or stop"
@@ -4200,23 +4206,25 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>Visualizatzione</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "Use album covers as icons"
-msgstr ""
+msgstr "Imprea sas coberteddas de sos albums comente iconas"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "Use media icons for pause, stop and resume"
 msgstr ""
+"Imprea sas iconas multimediales pro sas atziones de pausa, firmada e torrada "
+"a leare"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "<b>Icons</b>"
-msgstr ""
+msgstr "<b>Iconas</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:10
 msgid "Artist line:"
-msgstr ""
+msgstr "Riga artista:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 #, python-format
@@ -4225,14 +4233,17 @@ msgid ""
 "replaced by their respective values. The title will be replaced by \"Unknown"
 "\" if it is empty.</i>"
 msgstr ""
+"<i>Sas etichetas \"%(title)s\", \"%(artist)s\", e \"%(album)s\" ant a èssere "
+"remplasadas dae sos valores relativos issoro. Su tìtulu at a èssere "
+"remplasadu dae \"Disconnotu\" si at a èssere bòidu.</i>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "Album line:"
-msgstr ""
+msgstr "Riga album:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:15
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>Cuntènnidu</b>"
 
 #: ../plugins/lastfmlove/PLUGININFO:4
 msgid ""
@@ -4242,29 +4253,38 @@ msgid ""
 "\n"
 "Depends on the plugin \"AudioScrobbler\" for username and password."
 msgstr ""
+"Ammustat sas rastas chi ti sunt agràdidas e abìlita cussas rastas.\n"
+"\n"
+"Faghe atentzione a insertare una crae API bàlida e segreta in sas "
+"preferèntzias de s'estensione.\n"
+"\n"
+"Su nùmene impitadore e sa password dipendent dae s'estensione \""
+"AudioScrobbler\"."
 
 #: ../plugins/lastfmlove/PLUGININFO:5 ../plugins/grouptagger/PLUGININFO:5
 #: ../plugins/exfalso/PLUGININFO:5
 msgid "Tagging"
-msgstr ""
+msgstr "Etichetadura"
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
-msgstr ""
+msgstr "Karaoke"
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
-msgstr ""
+msgstr "Boga sa boghe dae s'àudio"
 
 #: ../plugins/karaoke/PLUGININFO:5 ../plugins/equalizer/PLUGININFO:5
 #: ../plugins/abrepeat/PLUGININFO:5 ../plugins/mono/PLUGININFO:5
 #: ../plugins/replaygain/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "Efetu"
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
 msgstr ""
+"Cunsentit de sarbare e ripristinare sas positziones de sos sinnalibros in "
+"sos documentos àudio."
 
 #: ../plugins/bookmarks/PLUGININFO:5 ../plugins/shutdown/PLUGININFO:5
 #: ../plugins/mpris/PLUGININFO:5 ../plugins/history/PLUGININFO:5
@@ -4276,131 +4296,150 @@ msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"
-msgstr ""
+msgstr "Analizadore de iscalitas"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
 "Tool to help generate HTML5 visualizations of your playlists using d3.js. "
 "Optimized for Chrome."
 msgstr ""
+"Aina pro agiudare a ingendrare visualizatziones HTML5 de sas iscalitas tuas "
+"impreande d3.js. Otimizadu pro Chrome."
 
 #: ../plugins/playlistanalyzer/PLUGININFO:5
 #: ../plugins/contextinfo/PLUGININFO:5 ../plugins/wikipedia/PLUGININFO:5
 msgid "Information"
-msgstr ""
+msgstr "Informatzione"
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
 msgstr ""
+"Annanghet un'ischeda a un'ala pro ammustrare su testu de sa rasta in "
+"riprodutzione in cussu momentu."
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "Suportu pro sos riprodutores multimediales cun àrchiviu de massa USB"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
 "Support for accessing portable media players using the USB Mass Storage "
 "protocol"
 msgstr ""
+"Suportu pro atzèdere a sos riprodutores multimediales portàtiles impreande "
+"su protocollu USB pro sos archìvios de massa"
 
 #: ../plugins/massstorage/PLUGININFO:5 ../plugins/cd/PLUGININFO:5
 #: ../plugins/ipod/PLUGININFO:5
 msgid "Devices"
-msgstr ""
+msgstr "Dispositivos"
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
 msgstr ""
+"Permìtit de istudare s'elaboradore a pustis de sa fine de sa riprodutzione."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid ""
 "Implements the MPRIS (org.freedesktop.MediaPlayer) DBus interface for "
 "controlling Exaile."
 msgstr ""
+"Pònnet in òpera s'interfàtzia MPRIS (org.freedesktop.MediaPlayer) DBus pro "
+"controllare Exaile."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Modalidade minimada cun un'interfàtzia cunfiguràbile"
 
 #: ../plugins/minimode/PLUGININFO:5 ../plugins/droptrayicon/PLUGININFO:5
 #: ../plugins/awn/PLUGININFO:5 ../plugins/desktopcover/PLUGININFO:5
 #: ../plugins/mainmenubutton/PLUGININFO:5 ../plugins/moodbar/PLUGININFO:5
 msgid "GUI"
-msgstr ""
+msgstr "Interfàtzia gràfica"
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Annanghet unu suportu simple a sos podcasts"
 
 #: ../plugins/podcasts/PLUGININFO:5 ../plugins/daapserver/PLUGININFO:5
 #: ../plugins/librivox/PLUGININFO:5 ../plugins/daapclient/PLUGININFO:5
 #: ../plugins/somafm/PLUGININFO:5 ../plugins/jamendo/PLUGININFO:5
 #: ../plugins/icecast/PLUGININFO:5
 msgid "Media Sources"
-msgstr ""
+msgstr "Mitzas de sos media"
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
 "This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
+"Custa estensione integrat spydaap (http://launchpad.net/spydaap) in intro de "
+"Exaile pro permìtere chi una regorta diat pòdere èssere cumpartzida in DAAP."
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "Ischèrta e ascurta audiolibros dae Librivox.org."
 
 #: ../plugins/notify/PLUGININFO:4
 msgid ""
 "Pops up a notification when playback of a track starts. Requires pynotify"
 msgstr ""
+"Faghet cumpàrrere una notìfica cando incumentzat sa riprodutzione de una "
+"rasta. Netzèssitat de pynotify"
 
 #: ../plugins/notify/PLUGININFO:5 ../plugins/audioscrobbler/PLUGININFO:5
 #: ../plugins/osd/PLUGININFO:5 ../plugins/currentsong/PLUGININFO:5
 #: ../plugins/notifyosd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "Notìficas"
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
+"Imbiat sas informatziones de acurtu a Last.fm e àteros servìtzios sìmiles "
+"chi suportant AudioScrobbler"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "Teclas multimediales de GNOME"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Annanghet su suportu pro cuntollare Exaile dae su sistema de teclas "
+"multimediales de GNOME. Cumpatìbile cun GNOME >= 2.20.x"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/winmmkeys/PLUGININFO:5
 #: ../plugins/xkeys/PLUGININFO:5
 msgid "Hotkeys"
-msgstr ""
+msgstr "Teclas de issèbera lestra"
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
 msgstr ""
+"Frunit una console IPython chi podet èssere impreada pro controllare su "
+"programma."
 
 #: ../plugins/ipconsole/PLUGININFO:5 ../plugins/console/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
 msgid "Development"
-msgstr ""
+msgstr "Isvilupu"
 
 #: ../plugins/equalizer/PLUGININFO:4
 msgid "A 10-band equalizer"
-msgstr ""
+msgstr "Ecualizadore a deghe bandas"
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Informatziones de cuntestu"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -4408,10 +4447,13 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
 "PIL)"
 msgstr ""
+"Ammustra informatziones chi pertocant sa rasta in riprodutzione.\n"
+"Dipendet dae: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging ("
+"connotu fintzas comente PIL)"
 
 #: ../plugins/winmmkeys/PLUGININFO:1
 msgid "Multimedia keys for Windows"
-msgstr ""
+msgstr "Teclas multimediales pro Windows"
 
 #: ../plugins/winmmkeys/PLUGININFO:4
 msgid ""
@@ -4421,6 +4463,11 @@ msgid ""
 "Requires: pyHook <http://pyhook.sf.net/> (or <http://www.lfd.uci.edu/~gohlke/"
 "pythonlibs/#pyhook> for more versions)"
 msgstr ""
+"Annanghet su suportu pro teclas multimediales (chi bi sunt in sa majoria de "
+"sas tastieras noas) cando ses impreande Exaile in Microsoft Windows.\n"
+"\n"
+"Tenet bisòngiu de: pyHook <http://pyhook.sf.net/> (o "
+"<http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook> pro àteras versiones)"
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
@@ -4438,54 +4485,61 @@ msgid ""
 "Provides Wikipedia information about the current artist.\n"
 "Depends: python-webkit"
 msgstr ""
+"Frunit informatziones chi pertocant s’artista pigadas dae Wikipedia.\n"
+"Dipendet dae: python-webkit"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."
-msgstr ""
+msgstr "Cunsentit sa riprodutzione de cumpartziduras musicales DAAP."
 
 #: ../plugins/lyricsmania/PLUGININFO:3
 msgid "LyricsMania"
-msgstr ""
+msgstr "LyricsMania"
 
 #: ../plugins/lyricsmania/PLUGININFO:4
 msgid ""
 "Plugin to fetch lyrics from www.lyricsmania.com\n"
 "Depends: lxml"
 msgstr ""
+"Estensione pro iscarrigare testos dae www.lyricsmania.com\n"
+"Dipendet dae: lxml"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
-msgstr ""
+msgstr "Ripetitzione A-B"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
-msgstr ""
+msgstr "Repitit totora unu segmentu de una rasta."
 
 #: ../plugins/grouptagger/PLUGININFO:3
 msgid "Group Tagger"
-msgstr ""
+msgstr "Etichetadore de grupu"
 
 #: ../plugins/grouptagger/PLUGININFO:4
 msgid ""
 "Facilitates categorizing your music by managing the grouping/category tag in "
 "audio files"
 msgstr ""
+"Fatzilitat sa categorizatzione de sa mùsica tua tramite sa gestione de sas "
+"etichetas de grupu e de categoria in sos documentos àudio"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
 msgstr ""
+"Impostat sa cobertedda e annanghet carchi elementu de menù pro AWN pro Exaile"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Coberteddas Last.fm"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Chirca sas coberteddas in Last.fm"
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"
-msgstr ""
+msgstr "SomaFM Radio"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""

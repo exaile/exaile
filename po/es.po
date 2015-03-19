@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-23 09:31+0200\n"
+"PO-Revision-Date: 2015-01-09 05:44+0200\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/exaile/master/es/>\n"
@@ -52,31 +52,31 @@ msgstr[1] "%d segundos"
 #: ../xl/formatter.py:585
 #, python-format
 msgid "%dd, "
-msgstr "%dd, "
+msgstr "%d d, "
 
 #. TRANSLATORS: Short form of an amount of hours
 #: ../xl/formatter.py:588
 #, python-format
 msgid "%dh, "
-msgstr "%dh, "
+msgstr "%d h, "
 
 #. TRANSLATORS: Short form of an amount of minutes
 #: ../xl/formatter.py:590
 #, python-format
 msgid "%dm, "
-msgstr "%dm, "
+msgstr "%d m, "
 
 #. TRANSLATORS: Short form of an amount of seconds
 #: ../xl/formatter.py:592
 #, python-format
 msgid "%ds"
-msgstr "%ds,"
+msgstr "%d s"
 
 #. TRANSLATORS: Short form of an amount of days
 #: ../xl/formatter.py:597
 #, python-format
 msgid "%dd "
-msgstr "%dd "
+msgstr "%d d "
 
 #. TRANSLATORS: Time duration (hours:minutes:seconds)
 #: ../xl/formatter.py:600
@@ -105,7 +105,7 @@ msgstr "Ayer"
 
 #: ../xl/main.py:237
 msgid "Failed to migrate from 0.2.14"
-msgstr "Error al migrar desde 0.2.14"
+msgstr "Falló la migración desde 0.2.14"
 
 #: ../xl/main.py:492
 msgid "Usage: exaile [OPTION]... [URI]"
@@ -194,7 +194,7 @@ msgstr "ETIQUETAS"
 
 #: ../xl/main.py:540
 msgid "TAGS to retrieve from the current track, use with --format-query"
-msgstr "ETIQUETAS que obtener de la pista actual, úsese con --format-query"
+msgstr "Las ETIQUETAS que obtener de la pista actual, úsese con --format-query"
 
 #: ../xl/main.py:543
 msgid "Show a popup with data of the current track"
@@ -276,7 +276,7 @@ msgstr "Mostrar el número de versión del programa y salir."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr "Iniciar minimizado (en bandeja, si es posible)"
+msgstr "Iniciar minimizado (en el área de notificación si es posible)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
@@ -365,11 +365,11 @@ msgstr "Desactivar compatibilidad con D-Bus"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr "Desactivar soporte HAL."
+msgstr "Desactivar compatibilidad con HAL."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
-msgstr "Biblioteca completa"
+msgstr "Toda la fonoteca"
 
 #: ../xl/main.py:662
 #, python-format
@@ -399,12 +399,12 @@ msgstr "Archivo local"
 
 #: ../xl/plugins.py:97
 msgid "Plugin archive is not in the correct format."
-msgstr "El archivador del complemento no está en el formato correcto."
+msgstr "El formato del archivador del complemento no es correcto."
 
 #: ../xl/plugins.py:104
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed."
-msgstr "Un complemento con el nombre «%s» ya está instalado."
+msgstr "Ya se instaló un complemento con el nombre «%s»."
 
 #: ../xl/plugins.py:109
 msgid "Plugin archive contains an unsafe path."
@@ -460,7 +460,7 @@ msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
 msgstr ""
-"Formato propietario de audio digital con pérdida de Apple que obtiene mejor "
+"Formato privativo de audio digital con pérdidas de Apple que obtiene mejor "
 "calidad de sonido que el MP3 a menores tasas de bits."
 
 #: ../xl/transcoder.py:89
@@ -468,7 +468,7 @@ msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
-"Un formato propietario de audio con pérdida, más antiguo pero también "
+"Un formato privativo de audio con pérdidas, más antiguo pero también "
 "popular. VBR proporciona mejor calidad que CBR, pero puede ser incompatible "
 "con algunos reproductores."
 
@@ -477,14 +477,14 @@ msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"Un formato propietario de sonido con pérdida, más antiguo pero también "
-"popular. CBR proporciona más calidad que CBR, pero es compatible con todos "
+"Un formato privativo de sonido con pérdidas, más antiguo pero también "
+"popular. CBR proporciona más calidad que VBR, pero es compatible con todos "
 "los reproductores."
 
 #: ../xl/transcoder.py:111
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
-"Un formato de sonido Libre, sin perdida, muy rápido y con buena compresión."
+"Un formato de sonido libre, sin pérdidas, muy rápido y con buena compresión."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
@@ -547,7 +547,7 @@ msgstr "Autor"
 #: ../plugins/cd/cdprefs.py:120
 #: ../plugins/minimode/minimode_preferences.py:107
 msgid "BPM"
-msgstr "BPM"
+msgstr "PPM"
 
 #: ../xl/metadata/tags.py:45
 msgid "Copyright"
@@ -659,13 +659,13 @@ msgstr "Tasa de bits"
 
 #: ../xl/metadata/tags.py:73 ../xlgui/widgets/playlist_columns.py:366
 msgid "Date added"
-msgstr "Fecha añadida"
+msgstr "Fecha de adición"
 
 #: ../xl/metadata/tags.py:74 ../xlgui/widgets/playlist_columns.py:360
 #: ../plugins/cd/cdprefs.py:119
 #: ../plugins/minimode/minimode_preferences.py:106
 msgid "Last played"
-msgstr "Último reproducido"
+msgstr "Última reproducción"
 
 #: ../xl/metadata/tags.py:75 ../xlgui/widgets/playlist_columns.py:253
 #: ../plugins/cd/cdprefs.py:110 ../plugins/minimode/minimode_preferences.py:97
@@ -708,7 +708,7 @@ msgstr "No sabemos como almacenar este tipo de opción: "
 
 #: ../xl/settings.py:276
 msgid "An Unknown type of setting was found!"
-msgstr "¡Se encontró un tipo de opción desconocido!"
+msgstr "Se encontró un tipo de opción desconocido."
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
@@ -735,7 +735,7 @@ msgstr "Formato no válido para %s."
 #: ../xl/playlist.py:540
 #, python-format
 msgid "Unsupported version %(version)s for %(type)s"
-msgstr "Versión no soportada %(version)s para %(type)s"
+msgstr "Versión no compatible %(version)s para %(type)s"
 
 #: ../xl/playlist.py:600
 msgid "ASX Playlist"

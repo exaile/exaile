@@ -368,19 +368,18 @@ class FilesPanel(panel.Panel):
                 # Ignore hidden files. They can still be accessed manually from
                 # the location bar.
                 continue
-            f = directory.get_child(info.get_name())
-            basename = f.get_basename()
-            low_basename = basename.lower()
-            if keyword and keyword.lower() not in low_basename:
+            name = unicode(info.get_display_name(), 'utf-8')
+            low_name = name.lower()
+            if keyword and keyword.lower() not in low_name:
                 continue
+            f = directory.get_child(info.get_name())
             def sortkey():
-                name = info.get_display_name()
                 sortname = locale.strxfrm(name)
                 return sortname, name, f
             ftype = info.get_file_type()
             if ftype == gio.FILE_TYPE_DIRECTORY:
                 subdirs.append(sortkey())
-            elif any(low_basename.endswith('.' + ext)
+            elif any(low_name.endswith('.' + ext)
                     for ext in metadata.formats):
                 subfiles.append(sortkey())
 

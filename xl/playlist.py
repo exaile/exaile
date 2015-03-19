@@ -1852,16 +1852,11 @@ class SmartPlaylist(object):
                 params += [param]
                 continue
             (field, op, value) = param
-            fieldtype = tag_data.get(field).type
+            
             s = ""
 
             if field == '__rating':
                 value = float((100.0*value)/maximum)
-            elif fieldtype == 'timestamp':
-                duration, unit = value
-                delta = durations[unit](duration)
-                point = datetime.now() - delta
-                value = time.mktime(point.timetuple())
             elif field == '__playlist':
                 try:
                     pl = main.exaile().playlists.get_playlist(value)
@@ -1876,6 +1871,11 @@ class SmartPlaylist(object):
                 else:
                     matchers.append(trax.TracksNotInList(pl))
                 continue
+            elif tag_data.get(field) == 'timestamp':
+                duration, unit = value
+                delta = durations[unit](duration)
+                point = datetime.now() - delta
+                value = time.mktime(point.timetuple())
 
             if op == ">=" or op == "<=":
                 s += '( %(field)s%(op)s%(value)s ' \

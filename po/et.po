@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-11-23 12:40+0200\n"
+"PO-Revision-Date: 2015-03-04 11:52+0200\n"
 "Last-Translator: Kristjan Räts <kristjanrats@gmail.com>\n"
-"Language-Team: Estonian <https://hosted.weblate.org/projects/exaile/master/"
-"et/>\n"
+"Language-Team: Estonian "
+"<https://hosted.weblate.org/projects/exaile/master/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.1-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/formatter.py:576
@@ -671,23 +671,20 @@ msgid "Modified"
 msgstr "Muudetud"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
-msgstr "Esita"
+msgstr "Esituse kestus"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
 msgstr ""
 
 #: ../xl/metadata/tags.py:81
-#, fuzzy
 msgid "Start offset"
-msgstr "X-nihe:"
+msgstr "Alguse nihe"
 
 #: ../xl/metadata/tags.py:82
-#, fuzzy
 msgid "Stop offset"
-msgstr "X-nihe:"
+msgstr "Lõpu nihe"
 
 #: ../xl/settings.py:104
 msgid "Settings version is newer than current."
@@ -975,9 +972,8 @@ msgid "Start Offset"
 msgstr ""
 
 #: ../xlgui/widgets/playlist_columns.py:514
-#, fuzzy
 msgid "Stop Offset"
-msgstr "X-nihe:"
+msgstr "Lõpu nihe"
 
 #: ../xlgui/widgets/playlist_columns.py:633
 msgid "_Resizable"
@@ -1626,15 +1622,13 @@ msgstr "mitte viimase"
 
 #. TRANSLATORS: True if a track is contained in the specified playlist
 #: ../xlgui/panel/playlists.py:217
-#, fuzzy
 msgid "Track is in"
-msgstr "Loo valikud"
+msgstr "Rada on kaasatud"
 
 #. TRANSLATORS: True if a track is not contained in the specified playlist
 #: ../xlgui/panel/playlists.py:219
-#, fuzzy
 msgid "Track not in"
-msgstr "Loo valikud"
+msgstr "Rada ei ole kaasatud"
 
 #: ../xlgui/panel/playlists.py:304
 msgid "Are you sure you want to permanently delete the selected playlist?"
@@ -1649,9 +1643,9 @@ msgid "Rename Playlist"
 msgstr "Esitusnimekirja ümbernimetamine"
 
 #: ../xlgui/panel/playlists.py:394
-#, fuzzy, python-format
+#, python-format
 msgid "Error loading smart playlist: %s"
-msgstr "Nutika esitusnimekirja muutmine"
+msgstr "Viga nutika esitusnimekirja laadimisel: %s"
 
 #. TRANSLATORS: Playlist title suggestion with more
 #. than two values
@@ -2520,28 +2514,24 @@ msgid "Enter the search keywords"
 msgstr ""
 
 #: ../plugins/icecast/__init__.py:318
-#, fuzzy
 msgid "Icecast Search"
-msgstr "Otsi"
+msgstr "Icecast otsing"
 
 #: ../plugins/icecast/__init__.py:342
-#, fuzzy
 msgid "No Stations Found"
-msgstr "Kaanepilte ei leitud."
+msgstr "Jaamu ei leitud"
 
 #: ../plugins/icecast/__init__.py:345
-#, fuzzy
 msgid "Icecast Search Results"
-msgstr "Otsingu tulemused"
+msgstr "Icecast otsingu tulemused"
 
 #: ../plugins/icecast/__init__.py:377
 msgid "Search"
 msgstr "Otsi"
 
 #: ../plugins/icecast/__init__.py:384
-#, fuzzy
 msgid "Name"
-msgstr "Nimi:"
+msgstr "Nimi"
 
 #: ../plugins/icecast/__init__.py:396
 msgid "Format"
@@ -2618,7 +2608,7 @@ msgstr ""
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Seadme eelvaatus"
 
 #: ../plugins/previewdevice/__init__.py:153
 msgid "Preview Player"
@@ -2893,9 +2883,8 @@ msgid "Get all tags from collection"
 msgstr ""
 
 #: ../plugins/grouptagger/__init__.py:114
-#, fuzzy
 msgid "Import tags from directory"
-msgstr "Määra andmete kataloog"
+msgstr "Impordi sildid kataloogist"
 
 #: ../plugins/grouptagger/__init__.py:119
 msgid "Mass rename/delete tags"
@@ -2932,7 +2921,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:70
 msgid "Show tracks with selected"
-msgstr ""
+msgstr "Näita radu valikuga"
 
 #: ../plugins/grouptagger/gt_widgets.py:72
 #, python-format
@@ -2967,7 +2956,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_widgets.py:172
 msgid "Show tracks with selected (custom)"
-msgstr ""
+msgstr "Näita radu valikuga (kohandatud)"
 
 #: ../plugins/grouptagger/gt_widgets.py:251
 msgid "New tag value?"
@@ -3111,15 +3100,13 @@ msgid "Save analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/__init__.py:62
-#, fuzzy
 msgid "Analyze playlists"
-msgstr "Esitusnimekirja ümbernimetamine"
+msgstr "Esitusnimekirjade analüüs"
 
 #: ../plugins/playlistanalyzer/__init__.py:67
 #: ../plugins/playlistanalyzer/analyzer.ui.h:1
-#, fuzzy
 msgid "Analyze playlist"
-msgstr "Esitusnimekirja ümbernimetamine"
+msgstr "Esitusnimekirja analüüs"
 
 #: ../plugins/podcasts/__init__.py:53 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -3216,9 +3203,8 @@ msgid "BPM Counter"
 msgstr ""
 
 #: ../plugins/bpm/__init__.py:113 ../plugins/bpm/__init__.py:252
-#, fuzzy
 msgid "Update"
-msgstr "Uuendused"
+msgstr "Uuenda"
 
 #: ../plugins/bpm/__init__.py:114
 msgid "Apply BPM"
@@ -3729,24 +3715,20 @@ msgid "comment"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:3
-#, fuzzy
 msgid "encodedby"
-msgstr "Kodeerija"
+msgstr "kodeerija"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:4
-#, fuzzy
 msgid "composer"
-msgstr "Helilooja"
+msgstr "helilooja"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:5
-#, fuzzy
 msgid "conductor"
-msgstr "Dirigent"
+msgstr "dirigent"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:6
-#, fuzzy
 msgid "lyrics"
-msgstr "Laulusõnad"
+msgstr "laulusõnad"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
@@ -3799,9 +3781,8 @@ msgid "If empty, matches all tracks"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:3
-#, fuzzy
 msgid "Search Tag"
-msgstr "Otsi: "
+msgstr "Otsi silti"
 
 #: ../plugins/grouptagger/gt_mass.ui.h:4
 msgid "Use the empty string to delete the tag"
@@ -3812,9 +3793,8 @@ msgid "Replace Tag"
 msgstr ""
 
 #: ../plugins/grouptagger/gt_mass.ui.h:8
-#, fuzzy
 msgid "0 tracks found"
-msgstr "Kaanepilte ei leitud."
+msgstr "0 rada leitud"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
@@ -3959,18 +3939,16 @@ msgid "Presets"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:3
-#, fuzzy
 msgid "<none selected>"
-msgstr "%d valitud"
+msgstr "<valik puudub>"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:4
 msgid "Select analysis"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:5
-#, fuzzy
 msgid "Playlist(s) to analyze"
-msgstr "Esituskoendi failid"
+msgstr "Esituskoend(id), mida analüüsida"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:6
 msgid "Generate!"
@@ -4129,9 +4107,8 @@ msgid "Remember recent DAAP servers"
 msgstr ""
 
 #: ../plugins/lyricsmania/PLUGININFO:3
-#, fuzzy
 msgid "LyricsMania"
-msgstr "Laulusõnad"
+msgstr "LyricsMania"
 
 #: ../plugins/lyricsmania/PLUGININFO:4
 msgid ""
@@ -4463,9 +4440,8 @@ msgid "Enables access to the Jamendo music catalogue."
 msgstr ""
 
 #: ../plugins/console/PLUGININFO:3
-#, fuzzy
 msgid "Simple console"
-msgstr "Lihtne"
+msgstr "Lihtne konsool"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
@@ -4502,9 +4478,8 @@ msgid "Removes voice from audio"
 msgstr ""
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
-#, fuzzy
 msgid "Playlist Analyzer"
-msgstr "Esituskoendi failid"
+msgstr "Esitusloendi analüüsija"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:4
 msgid ""
@@ -4585,9 +4560,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/somafm/PLUGININFO:3
-#, fuzzy
 msgid "SomaFM Radio"
-msgstr "LastFM Raadio"
+msgstr "SomaFM Radio"
 
 #: ../plugins/somafm/PLUGININFO:4
 msgid ""

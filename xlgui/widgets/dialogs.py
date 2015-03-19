@@ -867,7 +867,7 @@ class PlaylistExportDialog(FileOperationDialog):
             gobject.signal_accumulator_true_handled
         )
     }
-
+    
     def __init__(self, playlist, parent=None):
         """
             :param playlist: the playlist to export
@@ -1585,5 +1585,29 @@ def save(parent, output_fname, output_setting=None, extensions=None, title=_("Sa
     dialog.destroy()
         
     return uri
-    
 
+def export_playlist_dialog(playlist, parent=None):
+    '''Exports the playlist to a user-specified path'''
+    if playlist is not None:
+        dialog = PlaylistExportDialog(playlist, parent)
+        dialog.show()
+
+def export_playlist_files(playlist, parent=None):
+    '''Exports the playlist files to a user-specified URI'''
+        
+    if playlist is None:
+        return 
+    
+    def _on_uri(uri):
+        pl_files = [track.get_loc_for_io() for track in playlist]
+        dialog = FileCopyDialog( pl_files, uri, 
+            _('Exporting %s') % playlist.name, parent=parent)
+        dialog.do_copy()
+        
+    dialog = DirectoryOpenDialog(title=_('Choose directory to export files to'),
+                                 parent=parent)
+    dialog.set_select_multiple(False)
+    dialog.connect( 'uris-selected', lambda widget, uris: _on_uri(uris[0]))
+    dialog.run()
+    dialog.destroy()
+    

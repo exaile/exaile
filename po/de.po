@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-11-26 20:11+0200\n"
-"Last-Translator: Mathias Brodala <info@noctus.net>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/"
-">\n"
+"PO-Revision-Date: 2015-01-28 10:58+0200\n"
+"Last-Translator: Christian Stadelmann <dev@genodeftest.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/exaile/master/de/>"
+"\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.1-dev\n"
+"X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:25+0000\n"
 
 #: ../xl/formatter.py:576
@@ -1431,7 +1431,7 @@ msgstr "%s einlesen …"
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
-msgstr ""
+msgstr "Paneele"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
@@ -1474,7 +1474,6 @@ msgstr ""
 "{playlist_name} ({track_count} Stücke, geschlossen vor {seconds} Sekunden)"
 
 #: ../xlgui/playlist_container.py:518
-#, fuzzy
 msgid "Move to other View"
 msgstr "In andere Ansicht verschieben"
 
@@ -3158,9 +3157,8 @@ msgid "Amazon Covers"
 msgstr "Amazon-Cover"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:193
-#, fuzzy
 msgid "Modulus this number"
-msgstr "CD-Nummer"
+msgstr "Modulo diese Nummer"
 
 #: ../plugins/playlistanalyzer/analyzer_dialog.py:216
 #, python-format
@@ -3279,7 +3277,6 @@ msgid "Update"
 msgstr "Aktualisierung"
 
 #: ../plugins/bpm/__init__.py:114
-#, fuzzy
 msgid "Apply BPM"
 msgstr "BPM anwenden"
 
@@ -3818,7 +3815,6 @@ msgid "composer"
 msgstr "Komponist"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:5
-#, fuzzy
 msgid "conductor"
 msgstr "Dirigent"
 
@@ -3839,6 +3835,8 @@ msgid ""
 "'grouping' and 'comment' are probably the best supported choices. Other "
 "choices may only work with certain file formats. "
 msgstr ""
+"'Gruppieren' und 'Kommentar' sind wohl die besten unterstützten Optionen. "
+"Andere Optionen funktionieren nur mit bestimmten Dateiformaten. "
 
 #: ../plugins/grouptagger/gt_import.ui.h:1
 msgid "Import Tags"
@@ -3857,20 +3855,18 @@ msgid "New Groups"
 msgstr "Neue Gruppen"
 
 #: ../plugins/grouptagger/gt_import.ui.h:6
-#, fuzzy
 msgid "Import Type:"
-msgstr "Typen importieren"
+msgstr "Typ der Importierung:"
 
 #: ../plugins/grouptagger/gt_import.ui.h:7
 msgid "Merge"
 msgstr "Zusammenfügen"
 
 #: ../plugins/grouptagger/gt_import.ui.h:8
-#, fuzzy
 msgid "Replace"
 msgstr "Ersetzen"
-#msgstr "Aktuelle Wiedergabeliste ersetzen"
 
+#msgstr "Aktuelle Wiedergabeliste ersetzen"
 #: ../plugins/grouptagger/gt_mass.ui.h:1
 msgid "Mass Rename/Delete Tags"
 msgstr "Viele Tags umbenennen oder löschen"
@@ -4037,17 +4033,18 @@ msgid ""
 "You may also need to <a href=\"https://affiliate-program.amazon.com/gp/flex/"
 "advertising/api/sign-in.html\">activate the Product Advertising API</a></i>."
 msgstr ""
-"<i>Um diese Informationen zu erhalten ist die Registierung eines \n"
-"Amazon AWS-Accounts auf <a href=\"http://aws.amazon.com/\">http://aws.amazon."
-"com/</a> erforderlich.</i>\n"
-"Es kann sein, dass Sie auch die <a "
-"href=\"https://affiliate-program.amazon.com/gp/flex/advertising/api/sign-in.html\">"
-"Product Advertising API</a>\n"
-"aktivieren müssen"
+"<i>Um diese Informationen zu erhalten ist die Registierung eines ↵\n"
+"Amazon AWS-Accounts auf <a href=\"http://aws.amazon.com/\""
+">http://aws.amazon.com/</a> erforderlich.↵\n"
+"↵\n"
+"Es kann sein, dass Sie auch die <a href=\"https://affiliate-"
+"program.amazon.com/gp/flex/advertising/api/sign-in.html\">Product "
+"Advertising API</a>\n"
+"aktivieren müssen</i>."
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:2
 msgid "Presets"
-msgstr ""
+msgstr "Voreinstellungen"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:3
 msgid "<none selected>"
@@ -4070,9 +4067,8 @@ msgid "Output Title"
 msgstr "Titel ausgeben"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:8
-#, fuzzy
 msgid "Defaults to the playlist name"
-msgstr "Name der eigenen Wiedergabeliste:"
+msgstr "Standardwert ist der Name der playlist"
 
 #: ../plugins/playlistanalyzer/analyzer.ui.h:9
 msgid "Generate"
@@ -4692,7 +4688,7 @@ msgstr ""
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
-msgstr ""
+msgstr "Sound auf einen Kanal herunterrechnen."
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4772,9 +4768,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/bpm/PLUGININFO:4
-#, fuzzy
 msgid "Manual BPM counter"
-msgstr "BPM-Zähler"
+msgstr "manueller BPM-Zähler"
 
 #: ../plugins/daapclient/PLUGININFO:4
 msgid "Allows playing of DAAP music shares."

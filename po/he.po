@@ -9,16 +9,17 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-08-10 19:50+0000\n"
-"Last-Translator: Ddorda <Ddorda@ubuntu.com>\n"
-"Language-Team: Hebrew <LL@li.org>\n"
+"PO-Revision-Date: 2015-01-17 09:46+0200\n"
+"Last-Translator: Green Lunar <genghiskhan@gmx.ca>\n"
+"Language-Team: Hebrew <https://hosted.weblate.org/projects/exaile/master/he/>"
+"\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:26+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
 
 #: ../xl/formatter.py:576
 #, python-format
@@ -121,16 +122,16 @@ msgstr "אפשרויות ניגון"
 
 #: ../xl/main.py:499
 msgid "Play the next track"
-msgstr "ניגון הרצועה הבאה"
+msgstr "נגן את הרצועה הבאה"
 
 #: ../xl/main.py:501
 msgid "Play the previous track"
-msgstr "ניגון הרצועה הקודמת"
+msgstr "נגן את הרצועה הקודמת"
 
 #: ../xl/main.py:503 ../plugins/minimode/controls.py:342
 #: ../plugins/minimode/controls.py:357
 msgid "Stop playback"
-msgstr "הפסק השמעה"
+msgstr "הפסק נגינה"
 
 #: ../xl/main.py:505
 msgid "Play"
@@ -138,15 +139,15 @@ msgstr "נגן"
 
 #: ../xl/main.py:507
 msgid "Pause"
-msgstr "הפסק"
+msgstr "השהה"
 
 #: ../xl/main.py:510
 msgid "Pause or resume playback"
-msgstr "הפסק או חדש את הנגינה"
+msgstr "השהה או חדש את הנגינה"
 
 #: ../xl/main.py:513 ../plugins/minimode/controls.py:365
 msgid "Stop playback after current track"
-msgstr "הפסק השמעה אחרי הרצועה הנוכחית"
+msgstr "הפסק נגינה אחרי הרצועה הנוכחית"
 
 #: ../xl/main.py:516
 msgid "Collection Options"
@@ -154,8 +155,9 @@ msgstr "אפשרויות אוסף"
 
 #. TRANSLATORS: Meta variable for --add and --export-playlist
 #: ../xl/main.py:519 ../xl/main.py:526
+#, fuzzy
 msgid "LOCATION"
-msgstr ""
+msgstr "LOCATION"
 
 #: ../xl/main.py:519
 msgid "Add tracks from LOCATION to the collection"
@@ -163,7 +165,7 @@ msgstr ""
 
 #: ../xl/main.py:523
 msgid "Playlist Options"
-msgstr ""
+msgstr "אפשרויות רשימת נגינה"
 
 #: ../xl/main.py:527
 msgid "Exports the current playlist to LOCATION"
@@ -175,7 +177,7 @@ msgstr "אפשרויות רצועה"
 
 #: ../xl/main.py:532
 msgid "Query player"
-msgstr "שאילתת נגן"
+msgstr "תשאל נגן"
 
 #. TRANSLATORS: Meta variable for --format-query
 #: ../xl/main.py:535
@@ -222,11 +224,11 @@ msgstr "N"
 
 #: ../xl/main.py:555
 msgid "Set rating for current track to N%"
-msgstr "דרג את הרצועה הנוכחית לN%"
+msgstr "דרג רצועה נוכחית לN%"
 
 #: ../xl/main.py:557
 msgid "Get rating for current track"
-msgstr "הצג דירוג עבור הרצועה הנוכחית"
+msgstr "הצג דירוג עבור רצועה נוכחית"
 
 #: ../xl/main.py:560
 msgid "Print the current playback position as time"
@@ -275,11 +277,11 @@ msgstr "הראה את גרסת התוכנה וצא."
 
 #: ../xl/main.py:592
 msgid "Start minimized (to tray, if possible)"
-msgstr "התחל מוקטן (לסרגל, אם ניתן)"
+msgstr "התחל מוקטן (למגש, אם ניתן)"
 
 #: ../xl/main.py:595
 msgid "Toggle visibility of the GUI (if possible)"
-msgstr "החלף ניראות של ממשק המשתמש (אם ניתן)"
+msgstr "החלף ניראות של ממשק משתמש (אם ניתן)"
 
 #: ../xl/main.py:597
 msgid "Start in safe mode - sometimes useful when you're running into problems"
@@ -291,7 +293,7 @@ msgstr ""
 
 #: ../xl/main.py:603
 msgid "Do not import old data from version 0.2.x"
-msgstr "אל תייבא מידע ישן מגרסה 0.2.x"
+msgstr "אל תייבא מידע ישן מתוך גרסה 0.2.x"
 
 #: ../xl/main.py:606
 msgid "Make control options like --play start Exaile if it is not running"
@@ -351,15 +353,15 @@ msgstr ""
 
 #: ../xl/main.py:634
 msgid "Reduce level of output"
-msgstr "צמצם את רמת הפלט"
+msgstr "צמצם רמת פלט"
 
 #: ../xl/main.py:638
 msgid "Disable D-Bus support"
-msgstr "בטל את התמיכה ב- D-Bus"
+msgstr "נטרל תמיכת D-Bus"
 
 #: ../xl/main.py:640
 msgid "Disable HAL support."
-msgstr "בטל את התמיכה ב- HAL"
+msgstr "נטרל תמיכת HAL."
 
 #: ../xl/main.py:656
 msgid "Entire Library"
@@ -436,16 +438,13 @@ msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
 msgstr ""
-"Vorbis הינו מקודד המשבש את איכות השמע בקוד פתוח בעל פלט באיכות גבוהה ובנפח "
-"הקטן מ־MP3."
+"Vorbis הינו מקודד בקוד פתוח בר אובדן בעל פלט באיכות גבוהה בנפח הקטן מ־MP3."
 
 #: ../xl/transcoder.py:66
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
-msgstr ""
-"מקודד השמע החופשי שאינו גורע (FLAC) הינו מקודד בקוד פתוח שדוחס אך לא גורע "
-"מאיכות השמע."
+msgstr "FLAC הינו מקודד בקוד פתוח שדוחס אך לא גורע איכות שמע."
 
 #: ../xl/transcoder.py:78
 msgid ""
@@ -468,12 +467,12 @@ msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
-"סוג מקודד שמע ישן אך מוכר הגורע מאיכות השמע. CBR מעניק איכות נמוכה יותר מ־"
-"VBR, אך נתמך על ידי כל הנגנים."
+"סוג מקודד שמע ישן אך מוכר הגורע מאיכות השמע. CBR מעניק איכות נמוכה יותר מאשר "
+"VBR, אולם זה נתמך על ידי כל נגן."
 
 #: ../xl/transcoder.py:111
 msgid "A very fast Free lossless audio format with good compression."
-msgstr "סוג מקודד מהיר וחופשי שאינו גורע מהאיכות בעל דחיסה מעולה."
+msgstr "פורמט שמע חופשי שלא גורע איכות שמע, מהיר מאוד בעל דחיסה טובה."
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
@@ -526,11 +525,11 @@ msgstr "מסדר"
 #: ../plugins/cd/cdprefs.py:107 ../plugins/minimode/minimode_preferences.py:94
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:17
 msgid "Artist"
-msgstr "אומן"
+msgstr "אמן"
 
 #: ../xl/metadata/tags.py:43
 msgid "Author"
-msgstr "יוצר"
+msgstr "מחבר"
 
 #: ../xl/metadata/tags.py:44 ../xlgui/widgets/playlist_columns.py:353
 #: ../plugins/cd/cdprefs.py:120
@@ -544,7 +543,7 @@ msgstr "זכויות יוצרים"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "הערה"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
@@ -559,7 +558,7 @@ msgstr "מנצח"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/cover.py:812
 msgid "Cover"
-msgstr ""
+msgstr "עטיפה"
 
 #: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:312
 #: ../plugins/cd/cdprefs.py:113
@@ -569,7 +568,7 @@ msgstr "תאריך"
 
 #: ../xl/metadata/tags.py:51 ../xlgui/widgets/playlist_columns.py:260
 msgid "Disc"
-msgstr "אלבום"
+msgstr "תקליטור"
 
 #: ../xl/metadata/tags.py:52
 msgid "Encoded by"
@@ -598,7 +597,7 @@ msgstr "מלים"
 
 #: ../xl/metadata/tags.py:57
 msgid "Lyricist"
-msgstr "כותב המילים"
+msgstr "כותב מילים"
 
 #: ../xl/metadata/tags.py:58
 msgid "Organization"
@@ -610,7 +609,7 @@ msgstr "אלבום מקורי"
 
 #: ../xl/metadata/tags.py:60
 msgid "Original artist"
-msgstr "אומן מקורי"
+msgstr "אמן מקורי"
 
 #: ../xl/metadata/tags.py:61
 msgid "Original date"
@@ -638,7 +637,7 @@ msgstr "גירסה"
 
 #: ../xl/metadata/tags.py:67
 msgid "Website"
-msgstr "אתר הבית"
+msgstr "אתר רשת"
 
 #: ../xl/metadata/tags.py:71 ../xlgui/widgets/playlist_columns.py:325
 #: ../plugins/icecast/__init__.py:390 ../plugins/cd/cdprefs.py:115
@@ -698,24 +697,24 @@ msgstr "אנו לא יודעים כיצד לשמור סוג כזה של הגדר
 
 #: ../xl/settings.py:276
 msgid "An Unknown type of setting was found!"
-msgstr "נימצא סוג לא מוכר של הגדרות."
+msgstr "נמצא טיפוס הגדרה לא מוכר."
 
 #: ../xl/playlist.py:157 ../xl/playlist.py:171
 msgid "Invalid playlist type."
-msgstr "סוג רשימת השמעה לא תקין."
+msgstr "טיפוס רשימת נגינה לא תקין."
 
 #: ../xl/playlist.py:178 ../xlgui/widgets/playlist.py:336
 #: ../xlgui/panel/playlists.py:227 ../plugins/grouptagger/gt_mass.ui.h:6
 msgid "Playlist"
-msgstr "רשימת השמעה"
+msgstr "רשימת נגינה"
 
 #: ../xl/playlist.py:327
 msgid "M3U Playlist"
-msgstr "רשימת השמעה M3U"
+msgstr "רשימת נגינה M3U"
 
 #: ../xl/playlist.py:435
 msgid "PLS Playlist"
-msgstr "רשימת השמעה PLS"
+msgstr "רשימת נגינה PLS"
 
 #: ../xl/playlist.py:529 ../xl/playlist.py:545
 #, python-format
@@ -729,11 +728,11 @@ msgstr ""
 
 #: ../xl/playlist.py:600
 msgid "ASX Playlist"
-msgstr "רשימת השמעה ASX"
+msgstr "רשימת נגינה ASX"
 
 #: ../xl/playlist.py:771
 msgid "XSPF Playlist"
-msgstr "רשימת השמעה XSPF"
+msgstr "רשימת נגינה XSPF"
 
 #: ../xl/playlist.py:886
 msgid "Shuffle _Off"
@@ -814,11 +813,11 @@ msgstr ""
 msgid ""
 "The files cannot be moved to the Trash. Delete them permanently from the "
 "disk?"
-msgstr "לא ניתן להעביר את הקבצים לפח האשפה. האם למחוק אותם לצמיתות מהכונן?"
+msgstr "לא ניתן להעביר את הקבצים לפח אשפה. למחוק אותם לצמיתות מתוך הכונן?"
 
 #: ../xlgui/widgets/menuitems.py:183
 msgid "Move to Trash"
-msgstr ""
+msgstr "העבר לפח אשפה"
 
 #: ../xlgui/widgets/menuitems.py:194
 msgid "_Show Playing Track"
@@ -842,7 +841,7 @@ msgstr ""
 
 #: ../xlgui/widgets/menuitems.py:239
 msgid "Delete Playlist"
-msgstr "מחק רשימת השמעה"
+msgstr "מחק רשימת נגינה"
 
 #: ../xlgui/widgets/filter.py:65 ../xlgui/panel/radio.py:179
 msgid "Name:"
@@ -850,7 +849,7 @@ msgstr "שם:"
 
 #: ../xlgui/widgets/filter.py:79
 msgid "Match any of the criteria"
-msgstr "תואם לקריטריונים"
+msgstr "תואם לאיזה מן הקריטריונים"
 
 #: ../xlgui/widgets/filter.py:81
 msgid "Randomize results"
@@ -928,7 +927,7 @@ msgstr ""
 
 #: ../xlgui/widgets/queue.py:100
 msgid "Queue"
-msgstr "השהה"
+msgstr "תור"
 
 #: ../xlgui/widgets/queue.py:102
 #, python-format
@@ -942,7 +941,7 @@ msgstr "מס'"
 
 #: ../xlgui/widgets/playlist_columns.py:218
 msgid "Track Number"
-msgstr "מספר רצועה"
+msgstr "רצועה מספר"
 
 #: ../xlgui/widgets/playlist_columns.py:261
 msgid "Disc Number"
@@ -1003,11 +1002,11 @@ msgstr "מצב נגינה דינאמי"
 
 #: ../xlgui/widgets/playlist.py:153
 msgid "Remove Current Track From Playlist"
-msgstr "הסר את הרצועה הנוכחית מרשימת ההשמעה"
+msgstr "הסר רצועה נוכחית מתוך רשימת נגינה"
 
 #: ../xlgui/widgets/playlist.py:183
 msgid "Randomize Playlist"
-msgstr "ערבב את רשימת ההשמעה"
+msgstr "ערבב רשימת נגינה"
 
 #: ../xlgui/widgets/playlist.py:186
 msgid "Randomize Selection"
@@ -1017,7 +1016,7 @@ msgstr ""
 #: ../xlgui/panel/radio.py:414 ../xlgui/panel/menus.py:174
 #: ../plugins/droptrayicon/__init__.py:288
 msgid "New Playlist"
-msgstr "רשימת השמעה חדשה"
+msgstr "רשימת נגינה חדשה"
 
 #: ../xlgui/widgets/playlist.py:267
 msgid "Stop Playback After This Track"
@@ -1033,11 +1032,11 @@ msgstr ""
 
 #: ../xlgui/widgets/playlist.py:539 ../data/ui/playlist.ui.h:3
 msgid "Dynamically add similar tracks to the playlist"
-msgstr "הוסף בצורה דינאמית רצועות דומות לרשימת ההשמעה"
+msgstr "הוסף בצורה דינאמית רצועות דומות לרשימת הנגינה"
 
 #: ../xlgui/widgets/dialogs.py:291
 msgid "Enter the URL to open"
-msgstr "הכנס את ה- URL לפתיחה"
+msgstr "הכנס URL לפתיחה"
 
 #: ../xlgui/widgets/dialogs.py:292
 msgid "Open URL"
@@ -1045,7 +1044,7 @@ msgstr "פתח URL"
 
 #: ../xlgui/widgets/dialogs.py:560
 msgid "Select File Type (by Extension)"
-msgstr "בחר את סוג הקובץ (על פי הסיומת)"
+msgstr "בחר טיפוס קובץ (לפי סיומת)"
 
 #: ../xlgui/widgets/dialogs.py:616
 msgid "Choose Media to Open"
@@ -1061,7 +1060,7 @@ msgstr "קבצי מוסיקה"
 
 #: ../xlgui/widgets/dialogs.py:631 ../xlgui/widgets/dialogs.py:789
 msgid "Playlist Files"
-msgstr "קבצי רשימת השמעה"
+msgstr "קבצי רשימת נגינה"
 
 #: ../xlgui/widgets/dialogs.py:633 ../xlgui/widgets/dialogs.py:791
 #: ../xlgui/preferences/plugin.py:222
@@ -1079,7 +1078,7 @@ msgstr ""
 
 #: ../xlgui/widgets/dialogs.py:879
 msgid "Export Current Playlist"
-msgstr "יצא את רשימת ההשמעה הנוכחית"
+msgstr "יצא רשימת נגינה נוכחית"
 
 #: ../xlgui/widgets/dialogs.py:890
 msgid "Use relative paths to tracks"
@@ -1088,7 +1087,7 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:945
 #, python-format
 msgid "Playlist saved as <b>%s</b>."
-msgstr "רשימת השמעה נשמרה כ<b>%s</b>."
+msgstr "רשימת נגינה נשמרה בתור <b>%s</b>."
 
 #: ../xlgui/widgets/dialogs.py:959
 #, python-format
@@ -1098,7 +1097,7 @@ msgstr "סגור %s"
 #: ../xlgui/widgets/dialogs.py:960
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>האם לשמור את השינויים ל־%s לפני הסגירה?</b>"
+msgstr "<b>האם לשמור את השינויים ל־%s לפני סגירה?</b>"
 
 #: ../xlgui/widgets/dialogs.py:961
 msgid "Your changes will be lost if you don't save them"
@@ -1142,20 +1141,20 @@ msgstr ""
 #: ../xlgui/widgets/dialogs.py:1542 ../xlgui/panel/playlists.py:748
 #: ../xlgui/panel/playlists.py:837
 msgid "You did not enter a name for your playlist"
-msgstr "לא הוזן שם עבור רשימת ההשמעה"
+msgstr "לא הזנת שם עבור רשימת הנגינה שלך"
 
 #: ../xlgui/widgets/dialogs.py:1545 ../xlgui/panel/playlists.py:349
 #: ../xlgui/panel/playlists.py:754 ../xlgui/panel/playlists.py:844
 msgid "The playlist name you entered is already in use."
-msgstr "שם רשימת ההשמעה שהכנסת כבר נימצא בשימוש"
+msgstr "שם רשימת הנגינה שהכנסת כבר מצוי בשימוש"
 
 #: ../xlgui/widgets/dialogs.py:1549
 msgid "Save As"
-msgstr ""
+msgstr "שמור בשם"
 
 #: ../xlgui/widgets/notebook.py:183 ../xlgui/menu.py:115
 msgid "Close Tab"
-msgstr ""
+msgstr "סגור כרטיסייה"
 
 #: ../xlgui/main.py:113
 msgid "$title (by $artist)"
@@ -1172,16 +1171,16 @@ msgstr ""
 #: ../xlgui/main.py:589
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr "טוען: %d%%..."
+msgstr "כעת אוגר: %d%%..."
 
 #: ../xlgui/main.py:641 ../plugins/previewdevice/__init__.py:380
 msgid "Continue Playback"
-msgstr "המשך השמעה"
+msgstr "המשך נגינה"
 
 #: ../xlgui/main.py:645 ../xlgui/main.py:825
 #: ../plugins/previewdevice/__init__.py:384
 msgid "Pause Playback"
-msgstr "עצור השמעה"
+msgstr "השהה נגינה"
 
 #: ../xlgui/main.py:779 ../xlgui/menu.py:103
 msgid "Playlist export failed!"
@@ -1190,15 +1189,15 @@ msgstr ""
 #: ../xlgui/main.py:837 ../data/ui/main.ui.h:7
 #: ../plugins/previewdevice/__init__.py:362
 msgid "Start Playback"
-msgstr "התחל השמעה"
+msgstr "התחל נגינה"
 
 #: ../xlgui/tray.py:148
 msgid "Exaile Music Player"
-msgstr "נגן המוסיקה Exaile"
+msgstr "נגן מוסיקה Exaile"
 
 #: ../xlgui/menu.py:52
 msgid "_New Playlist"
-msgstr "_רשימת השמעה חדשה"
+msgstr "_רשימת נגינה חדשה"
 
 #: ../xlgui/menu.py:71
 msgid "Open _URL"
@@ -1249,9 +1248,8 @@ msgid "Re_scan Collection"
 msgstr "סרוק_מחדש את האוסף"
 
 #: ../xlgui/menu.py:221 ../data/ui/collection_manager.ui.h:6
-#, fuzzy
 msgid "Rescan Collection (slow)"
-msgstr "סרקו את האוסף מחדש"
+msgstr "סרוק את האוסף מחדש (לאט)"
 
 #: ../xlgui/menu.py:224
 msgid "Track _Properties"
@@ -1303,19 +1301,19 @@ msgstr ""
 
 #: ../xlgui/properties.py:886
 msgid "JPEG image"
-msgstr ""
+msgstr "תמונת JPEG"
 
 #: ../xlgui/properties.py:892
 msgid "PNG image"
-msgstr ""
+msgstr "תמונת PNG"
 
 #: ../xlgui/properties.py:897
 msgid "Image"
-msgstr ""
+msgstr "תמונה"
 
 #: ../xlgui/properties.py:904
 msgid "Linked image"
-msgstr ""
+msgstr "תמונה מקושרת"
 
 #: ../xlgui/properties.py:1026 ../xlgui/cover.py:1145
 #, python-brace-format
@@ -1354,15 +1352,15 @@ msgstr ""
 
 #: ../xlgui/cover.py:502
 msgid "Show Cover"
-msgstr "הצגת העטיפה"
+msgstr "הצג עטיפה"
 
 #: ../xlgui/cover.py:503
 msgid "Fetch Cover"
-msgstr "הורדת העטיפה"
+msgstr "הורד עטיפה"
 
 #: ../xlgui/cover.py:504
 msgid "Remove Cover"
-msgstr "הסר תמונת אלבום"
+msgstr "הסר עטיפה"
 
 #: ../xlgui/cover.py:810
 #, python-format
@@ -1380,11 +1378,11 @@ msgstr ""
 
 #: ../xlgui/cover.py:1031
 msgid "Loading..."
-msgstr ""
+msgstr "כעת טוען..."
 
 #: ../xlgui/cover.py:1103
 msgid "No covers found."
-msgstr "לא נמצאו תמונות אלבום."
+msgstr "לא נמצאו עטיפות."
 
 #: ../xlgui/cover.py:1104
 msgid ""
@@ -1402,7 +1400,7 @@ msgstr "התקן"
 
 #: ../xlgui/devices.py:88
 msgid "Driver"
-msgstr "מנהל התקן"
+msgstr "תקליטור"
 
 #: ../xlgui/__init__.py:317
 msgid "Scanning collection..."
@@ -1411,11 +1409,11 @@ msgstr "סורק את האוסף..."
 #: ../xlgui/__init__.py:386
 #, python-format
 msgid "Scanning %s..."
-msgstr "סורק %s..."
+msgstr "כעת סורק %s..."
 
 #: ../xlgui/panels.py:102
 msgid "Panels"
-msgstr ""
+msgstr "לוחות"
 
 #: ../xlgui/collection.py:124
 msgid "Add a Directory"
@@ -1443,7 +1441,7 @@ msgstr ""
 #: ../xlgui/playlist_container.py:195
 #, python-format
 msgid "Playlist %d"
-msgstr "רשימת השמעה %d"
+msgstr "רשימת נגינה %d"
 
 #: ../xlgui/playlist_container.py:372
 #, python-brace-format
@@ -1479,19 +1477,19 @@ msgstr "כתובת אינטרנט (URL):"
 
 #: ../xlgui/panel/radio.py:252
 msgid "Saved Stations"
-msgstr "התחנות נשמרו"
+msgstr "תחנות שמורות"
 
 #: ../xlgui/panel/radio.py:253
 msgid "Radio Streams"
-msgstr "שידורי רדיו"
+msgstr "זרמי רדיו"
 
 #: ../xlgui/panel/radio.py:283 ../plugins/wikipedia/data/wikipanel.ui.h:4
 msgid "Refresh"
-msgstr "טען מחדש"
+msgstr "רענן"
 
 #: ../xlgui/panel/radio.py:413
 msgid "Enter the name you want for your new playlist"
-msgstr "יש להזין את השם עבור רשימת ההשמעה החדשה."
+msgstr "הזן את השם עבור רשימת הנגינה החדשה."
 
 #: ../xlgui/panel/collection.py:135
 msgid "Genre - Artist"

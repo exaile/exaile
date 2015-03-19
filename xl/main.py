@@ -37,6 +37,7 @@ import logging.handlers
 import os
 import platform
 import sys
+import threading
 
 from xl.nls import gettext as _
 

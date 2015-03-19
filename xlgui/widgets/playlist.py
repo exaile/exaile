@@ -152,18 +152,18 @@ class RemoveCurrentMenuItem(menu.MenuItem):
         """
         item = gtk.ImageMenuItem(_('Remove Current Track From Playlist'))
         item.set_image(gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_MENU))
-        item.connect('activate', self.on_activate)
+        item.connect('activate', self.on_activate, parent, context)
 
         if player.PLAYER.is_stopped():
             item.set_sensitive(False)
 
         return item
 
-    def on_activate(self, menuitem, playlist):
+    def on_activate(self, menuitem, parent, context):
         """
             Removes the currently playing track from the current playlist
         """
-        playlist = self.get_playlist_func()
+        playlist = self.get_playlist_func(parent, context)
         
         if playlist and playlist.current == player.PLAYER.current:
             del playlist[playlist.current_position]
@@ -229,7 +229,14 @@ def __create_playlist_tab_context_menu():
     items.append(smi('clear', ['rename'], None, 'gtk-clear',
         lambda w, n, o, c: o.playlist.clear()))
     items.append(sep('tab-close-sep', ['clear']))
-    items.append(smi('tab-close', ['tab-close-sep'], None, 'gtk-close',
+    
+    def _get_pl_func(o, c):
+        return o.playlist
+    
+    items.append(menuitems.ExportPlaylistMenuItem('export', ['tab-close-sep'], _get_pl_func))
+    items.append(menuitems.ExportPlaylistFilesMenuItem('export-files', ['export'], _get_pl_func))
+    items.append(sep('tab-export-sep', ['export']))
+    items.append(smi('tab-close', ['tab-export-sep'], None, 'gtk-close',
         lambda w, n, o, c: o.tab.close()))
     for item in items:
         providers.register('playlist-tab-context-menu', item)

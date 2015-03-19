@@ -85,7 +85,7 @@ def __create_file_menu():
 
     items.append(_smi('import-playlist', [items[-1].name],
         _("Import Playlist"), gtk.STOCK_OPEN, 
-        lambda *e: get_main().controller.panels['playlists'].import_playlist()
+        lambda *e: get_main().controller.get_panel('playlists').import_playlist()
     ))
     
     def export_playlist_cb(*args):

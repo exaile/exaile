@@ -51,6 +51,9 @@ from xlgui.widgets import (
 from xlgui.widgets.common import DragTreeView
 from xlgui.widgets.filter import *
 
+import logging
+logger = logging.getLogger(__name__)
+
 def N_(x): return x
 
 class EntrySecondsField(MultiEntryField):
@@ -391,6 +394,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
                     try:
                         item = item.get_playlist(self.collection)
                     except Exception as e:
+                        logger.exception("Error loading smart playlist")
                         dialogs.error(self.parent, _("Error loading smart playlist: %s") % str(e))
                         return
                 else:
@@ -1100,43 +1104,21 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                                                      gtk.gdk.ACTION_DEFAULT)
 
     # 
-    #  TODO: these should be moved somewhere more general
+    #  TODO: remove these two functions, only kept for possible backwards
+    #        compatibility
     # 
 
-    def export_playlist(self, pl):
+    def export_playlist(self, playlist):
         """
             Exports the selected playlist to path
-
-            @path where we we want it to be saved, with a
-                valid extension we support
         """
-        
-        if playlist is not None:
-            dialog = dialogs.PlaylistExportDialog(pl)
-            dialog.show()
-                    
-    def export_playlist_files(self, pl):
+        dialogs.export_playlist_dialog(playlist)
+            
+    def export_playlist_files(self, playlist):
         '''
             Exports the playlist files to a URI
-            
-            @uri where we want it to be saved
         '''
-        
-        if pl is None:
-            return 
-        
-        def _on_uri(uri):
-            pl_files = [track.get_loc_for_io() for track in pl]
-            dialog = dialogs.FileCopyDialog( pl_files, uri, 
-                _('Exporting %s') % pl.name )
-            dialog.do_copy()
-            
-        dialog = dialogs.DirectoryOpenDialog(title=_('Choose directory to export files to'))
-        dialog.set_select_multiple(False)
-        dialog.connect( 'uris-selected', lambda widget, uris: _on_uri(uris[0]))
-        dialog.run()
-        dialog.destroy()
-            
+        dialogs.export_playlist_files(playlist)
 
     def on_key_released(self, widget, event):
         """

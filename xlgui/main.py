@@ -395,7 +395,7 @@ class MainWindow(gobject.GObject):
         """
         screen = widget.get_screen()
         colormap = screen.get_rgba_colormap() or screen.get_rgb_colormap()
-        self.window.set_colormap(rgbamap)
+        self.window.set_colormap(colormap)
 
     def on_messagebar_response(self, widget, response):
         """

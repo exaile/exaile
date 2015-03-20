@@ -515,7 +515,7 @@ class PlaylistContainer(gtk.HBox):
             self.notebooks[0].add_default_tab()
             
         # menu item
-        item = menu.simple_menu_item('move-tab', [], _('Move to other View'), '',
+        item = menu.simple_menu_item('move-tab', [], _('Move to Other View'), None,
             lambda w, n, p, c: self._move_tab(p.tab),
             condition_fn=lambda n, p, c: True if p.tab.notebook in self.notebooks else False )
         providers.register('playlist-tab-context-menu', item)

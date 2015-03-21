@@ -26,3 +26,6 @@ doc/_build
 # Eclipse settings
 .project
 .pydevproject
+
+# Vim Pymode settings
+.ropeproject

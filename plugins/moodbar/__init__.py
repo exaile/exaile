@@ -16,12 +16,13 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 import moodbarprefs
-import cgi, gtk, glib, os, os.path, subprocess, colorsys
-import inspect
-from xl import common, event, player, settings, xdg
+import gtk
+import glib
+import os
+import subprocess
+import colorsys
+from xl import event, player, settings, xdg
 from xl.nls import gettext as _
-from xlgui.preferences import widgets
-import moodbarprefs
 
 import logging
 logger = logging.getLogger(__name__)
@@ -96,23 +97,23 @@ class ExModbar(object):
              self.mod.destroy()
 
     def setupUi(self):
-              self.setuped=True
-              self.pr=self.exaile.gui.main.progress_bar
-              self.changeBarToMod()
-              self.mod.seeking=False
-              self.mod.connect("expose-event", self.drawMod)
-              self.mod.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-              self.mod.add_events(gtk.gdk.BUTTON_RELEASE_MASK)
-              self.mod.add_events(gtk.gdk.POINTER_MOTION_MASK)
-              self.mod.connect("button-press-event", self.modSeekBegin)
-              self.mod.connect("button-release-event", self.modSeekEnd)
-              self.mod.connect("motion-notify-event", self.modSeekMotionNotify)
-              self.brush = self.mod.props.window.new_gc()
+            self.setuped=True
+            self.pr=self.exaile.gui.main.progress_bar
+            self.changeBarToMod()
+            self.mod.seeking=False
+            self.mod.connect("expose-event", self.drawMod)
+            self.mod.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+            self.mod.add_events(gtk.gdk.BUTTON_RELEASE_MASK)
+            self.mod.add_events(gtk.gdk.POINTER_MOTION_MASK)
+            self.mod.connect("button-press-event", self.modSeekBegin)
+            self.mod.connect("button-release-event", self.modSeekEnd)
+            self.mod.connect("motion-notify-event", self.modSeekMotionNotify)
+            self.brush = self.mod.props.window.new_gc()
 
 
-              track = player.PLAYER.current
+            track = player.PLAYER.current
 
-              self.lookformod(track)
+            self.lookformod(track)
 
     def destroy(self):
          if self.modTimer: glib.source_remove(self.modTimer)
@@ -252,7 +253,7 @@ class ExModbar(object):
            g=float(ord(self.moodbar[int(x*1000/width)*3+1]))/256
            b=float(ord(self.moodbar[int(x*1000/width)*3+2]))/256
            if (self.theme or self.defaultstyle):
-		          c1,c2,c3=colorsys.rgb_to_yiq(r, g, b)
+                c1,c2,c3=colorsys.rgb_to_yiq(r, g, b)
 
            if (self.theme):
                 c2=c2+self.ivalue
@@ -265,8 +266,8 @@ class ExModbar(object):
                 r,g,b=colorsys.yiq_to_rgb(0.5,c2,c3)
                 waluelength=int(c1*24)
            else:
-			    if self.theme:
-				    r,g,b=colorsys.yiq_to_rgb(c1,c2,c3)
+                if self.theme:
+                    r,g,b=colorsys.yiq_to_rgb(c1,c2,c3)
            if not self.defaultstyle:
                 buff=''
                 for h in range(24):
@@ -570,7 +571,3 @@ def get_preferences_pane():
 #python: ../../src/xcb_io.c:176: process_responses: Assertion `!(req && current_request && !(((long) (req->sequence) - (long) (current_request)) <= 0))' failed.
 
 #0.0.4 haven't errors
-
-
-
-

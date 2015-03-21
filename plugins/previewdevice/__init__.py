@@ -24,12 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
 import gtk
-import gobject
 
 import os
-import time
 
 from xl import (
     event,
@@ -42,7 +39,7 @@ from xl import (
 from xl.nls import gettext as _
 
 from xlgui import guiutil, main
-from xlgui.widgets import menu, dialogs, playback
+from xlgui.widgets import menu, playback
 
 import previewprefs
 

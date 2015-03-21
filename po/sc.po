@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-11 22:41-0500\n"
-"PO-Revision-Date: 2015-03-18 01:49+0200\n"
+"PO-Revision-Date: 2015-03-21 20:51+0200\n"
 "Last-Translator: Lu Ca <lmelonimamo@yahoo.it>\n"
 "Language-Team: Sardinian "
 "<https://hosted.weblate.org/projects/exaile/master/sc/>\n"
@@ -3337,11 +3337,11 @@ msgstr "Ischìglia (Isvèglia)"
 #: ../plugins/previewdevice/previewprefs.py:38
 #: ../plugins/previewdevice/PLUGININFO:3
 msgid "Preview Device"
-msgstr ""
+msgstr "Dispositivu de antiprima"
 
 #: ../plugins/previewdevice/__init__.py:153
 msgid "Preview Player"
-msgstr ""
+msgstr "Riproduidore de antiprima"
 
 #: ../plugins/previewdevice/__init__.py:159
 msgid "Preview"
@@ -3662,7 +3662,7 @@ msgstr "Registra•ti a Last.fm"
 
 #: ../plugins/history/history_preferences.ui.h:1
 msgid "Persist history after player exits"
-msgstr ""
+msgstr "Mantènne s'istòria a pustis de s'istudadura de su riproduidore"
 
 #: ../plugins/history/history_preferences.ui.h:2
 msgid "History length:"
@@ -3829,7 +3829,7 @@ msgstr "Ammustra formadu"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
-msgstr ""
+msgstr "Longària de sa visualizatzione:"
 
 #: ../plugins/osd/osd_preferences.ui.h:5
 msgid "Background:"
@@ -4190,19 +4190,19 @@ msgstr "In su càmbiu rasta"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "On playback start, pause or stop"
-msgstr ""
+msgstr "A s'incumintzu de sa riprodutzione, in pausa o firmada"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
 msgid "On tag change"
-msgstr ""
+msgstr "A su càmbiu de eticheta"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "On tray icon hover"
-msgstr ""
+msgstr "A sa colada de su mouse in s'icona de s’àrea de notìfica"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "When main window is focused"
-msgstr ""
+msgstr "Cando sa bentana printzipale est ischertada"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "<b>Display</b>"
@@ -4292,7 +4292,7 @@ msgstr ""
 #: ../plugins/screensaverpause/PLUGININFO:5
 #: ../plugins/multialarmclock/PLUGININFO:5 ../plugins/alarmclock/PLUGININFO:5
 msgid "Utility"
-msgstr ""
+msgstr "Utilidade"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"
@@ -4471,7 +4471,7 @@ msgstr ""
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
-msgstr ""
+msgstr "Icona de trisinamentu"
 
 #: ../plugins/droptrayicon/PLUGININFO:4
 msgid ""
@@ -4479,6 +4479,10 @@ msgid ""
 "\n"
 "Depends: python-eggtrayicon"
 msgstr ""
+"Frunit un’icona in s’àrea de notìfica chi atzetat sos documentos trisinados."
+"\n"
+"\n"
+"Dipendet dae: python-eggtrayicon"
 
 #: ../plugins/wikipedia/PLUGININFO:4
 msgid ""
@@ -4547,78 +4551,90 @@ msgid ""
 "\n"
 "http://somafm.com"
 msgstr ""
+"Lista Radio SomaFM\n"
+"\n"
+"http://somafm.com"
 
 #: ../plugins/osd/PLUGININFO:4
 msgid "A popup window showing information of the currently playing track."
 msgstr ""
+"Una bentana chi s’aberit pro che dare informatziones chi pertocant sa rasta "
+"in riprodutzione."
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
-msgstr ""
+msgstr "Coberteddas MusicBrainz"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:4
 msgid "Integrates MusicBrainz for cover search"
-msgstr ""
+msgstr "Integra MusicBrainz pro sa chirca de coberteddas"
 
 #: ../plugins/mono/PLUGININFO:3
+#, fuzzy
 msgid "Mono"
-msgstr ""
+msgstr "Mono"
 
 #: ../plugins/mono/PLUGININFO:4
 msgid "Downmixes audio to one channel."
-msgstr ""
+msgstr "Minimat (downmixes) s’àudiu a unu canale solu."
 
 #: ../plugins/console/PLUGININFO:3
 msgid "Simple console"
-msgstr ""
+msgstr "Console simple/sèmplitze"
 
 #: ../plugins/console/PLUGININFO:4
 msgid "Simple console to interact with the Exaile API"
-msgstr ""
+msgstr "Console sèmplitze pro interagire cun s’API de Exaile"
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr ""
+msgstr "Cantzone atuale"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
 "Sets the currently playing status in Pidgin. Check the Pidgin FAQ to find "
 "out the suppported services."
 msgstr ""
+"Imposta s'istadu de riprodutzione atuale in Pidgin. Abbàida sas FAQ de "
+"Pidgin pro iscobèrrere sos servìtzios suportados."
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
-msgstr ""
+msgstr "Arrea sa funtzionalidade de suspensione"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
 msgstr ""
+"Non permìtere sa suspensione de su sistema de s'impitadore cando sa musica "
+"est in riprodutzione"
 
 #: ../plugins/bpm/PLUGININFO:4
 msgid "Manual BPM counter"
-msgstr ""
+msgstr "Contadore BPM manuale"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Permitit de registrare flussos àudio cun streamripper.\n"
+"Dependet ade: streamripper"
 
 #: ../plugins/streamripper/PLUGININFO:5 ../plugins/previewdevice/PLUGININFO:5
 msgid "Output"
-msgstr ""
+msgstr "Resultadu"
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "Ammustrat sa cobertedda de s'àlbum in s'iscrivania (desktop)"
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr ""
+msgstr "Abìlitat s'atzessu a su catàlogu musicale de Jamendo."
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid ""
@@ -4627,10 +4643,15 @@ msgid ""
 "Requires: GNOME Screensaver or KDE Screensaver (does not support "
 "XScreenSaver nor XLockMore)"
 msgstr ""
+"Ponet in pausa (e, s'in casu, torrat a aviare) sa riprodutzione sighinde "
+"s'istadu de su screensaver.\n"
+"\n"
+"Tenet bisòngiu de: GNOME Screensaver o KDE Screensaver (non suportat "
+"XScreenSaver e XLockMore)"
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "Riprodutzione CD"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
@@ -4639,28 +4660,35 @@ msgid ""
 "Requires HAL/UDisks/UDisks2 to autodetect CDs\n"
 "Requires cddb-py (http://cddb-py.sourceforge.net/) to look up tags."
 msgstr ""
+"Annanghet su suportu pro riproduire CD musicales.\n"
+"\n"
+"Tenet bisòngiu de HAL/UDisks/UDisks2 pro agatare sos CDs\n"
+"Tenet bisòngiu de cddb-py (http://cddb-py.sourceforge.net/) pro abbaidare "
+"sas etichetas."
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
-msgstr ""
+msgstr "Butone menù printzipale"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
 msgid ""
 "Moves the main menu into a button on top of the panels.\n"
 "Depends: PyGTK >= 2.22, GTK >= 2.20"
 msgstr ""
+"Moet su menù printzipale in unu butone in supra de sos pannellos.\n"
+"Dependet dae: PyGTK >= 2.22, GTK >= 2.20"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Salude mundu"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "Un’estensione sèmplitze pro proare su sitema de base de sas estensiones"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
-msgstr ""
+msgstr "Abìlita su suportu pro ReplayGain"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -4670,12 +4698,19 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Riproduit sa mùsica in sas dies e su tempus isseberados dae tie.\n"
+"\n"
+"Cando at a arribare su tempus, Exaile s'at a cumportare cumente chi tue diat "
+"àere carcadu su butone de riprodutzione, pro custu ista atentu chi su chi "
+"cheres ascurtare siat giai in s’iscalita"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Remplasat sa barra de sobradura classica cun una barra de s’atmosfera.\n"
+"Dipendet dae: moodbar"
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -4683,6 +4718,10 @@ msgid ""
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
 msgstr ""
+"Chirca sas coberteddas in Amazon\n"
+"\n"
+"Pro pòdere impreare custa estensione sunt netzessàrias una crae AWS API e "
+"una crae segreta."
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -4692,32 +4731,43 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Riproduit sa mùsica in s’ora isseberada dae tie.\n"
+"\n"
+"Cando at a arribare su tempus, Exaile s'at a cumportare cumente chi tue diat "
+"àere carcadu su butone de riprodutzione, pro custu ista atentu chi su chi "
+"cheres ascurtare siat giai in s’iscalita"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Editore de etichetas Ex Falso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
+"Integrat s’editore de etichetas Ex Falso in Exaile.\n"
+"Dipendet dae: Ex Falso."
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Lyrics Wiki"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Depends: python-beautifulsoup"
 msgstr ""
+"Estensione pro iscarrigare testos dae lyrics.wikia.com\n"
+"Dipendet dae: python-beautifulsoup"
 
 #: ../plugins/previewdevice/PLUGININFO:4
 msgid ""
 "Allows playing audio over a secondary device (right click on playlist and "
 "select 'preview'). Useful for DJs."
 msgstr ""
+"Permitit de ascurtare s'àudiu tramite un'àteru dispositivu (clic destru in "
+"s'iscalita e ischerta 'antiprima'). Ùtile pro DJS."
 
 #: ../plugins/lastfmdynamic/PLUGININFO:3
 msgid "Last.fm Dynamic Playlists"
@@ -4740,14 +4790,20 @@ msgid ""
 "Depends: python-notify\n"
 "Recommends: notify-osd"
 msgstr ""
+"Custa estensione ammustrat notìficas cando una cantzone est reproduida, "
+"firmada o torrada a reproduire, indicande s'ùrtima atzione cun sa cobertedda "
+"de sa cantzone o s'icona multimediale.\n"
+"\n"
+"Dependet dae: python-notify\n"
+"Racumandatos: notify-osd"
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "Teclas X"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "Cumbinatziones globales de teclas chi impreant xlib (mmkeys.so)"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"

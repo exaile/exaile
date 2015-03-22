@@ -135,11 +135,11 @@ class SecondaryOutputPlugin(object):
             self._on_playpause_button_clicked
         )
 
-        progress_bar = playback.SeekProgressBar(self.player, use_markers=False)
+        self.progress_bar = playback.SeekProgressBar(self.player, use_markers=False)
 
         play_toolbar = gtk.HBox()
         play_toolbar.pack_start(self.playpause_button, expand=False, fill=False)
-        play_toolbar.pack_start(progress_bar)
+        play_toolbar.pack_start(self.progress_bar)
 
         # stick our player controls into this box
         self.pane1_box = gtk.VBox()

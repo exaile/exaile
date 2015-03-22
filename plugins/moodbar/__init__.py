@@ -551,14 +551,27 @@ class ExModbar(object):
     #------------------------------------------------------------------------
 
 
-
-def enable(exaile):
+def _enable_main_moodbar(exaile):
     global ExaileModbar
-    ExaileModbar=ExModbar(
+    ExaileModbar = ExModbar(
         player=player.PLAYER,
         progress_bar=exaile.gui.main.progress_bar
     )
 
+    ExaileModbar.readMod('')
+    ExaileModbar.setupUi()
+    ExaileModbar.add_callbacks()
+
+
+def _disable_main_moodbar():
+    global ExaileModbar
+    ExaileModbar.changeModToBar()
+    ExaileModbar.remove_callbacks()
+    ExaileModbar.destroy()
+    ExaileModbar = None
+
+
+def enable(exaile):
     try:
         subprocess.call(['moodbar', '--help'], stdout=-1, stderr=-1)
     except OSError:
@@ -571,17 +584,12 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    global ExaileModbar
-    ExaileModbar.readMod('')
-    ExaileModbar.setupUi()
-    ExaileModbar.add_callbacks()
+    _enable_main_moodbar(exaile)
+
 
 def disable(exaile):
-    global ExaileModbar
-    ExaileModbar.changeModToBar()
-    ExaileModbar.remove_callbacks()
-    ExaileModbar.destroy()
-    ExaileModbar = None
+    _disable_main_moodbar()
+
 
 def get_preferences_pane():
     return moodbarprefs

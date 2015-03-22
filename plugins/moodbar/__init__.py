@@ -547,6 +547,7 @@ class ExModbar(object):
 
 
 def _enable_main_moodbar(exaile):
+    logger.info("Enabling main moodbar")
     global ExaileModbar
     ExaileModbar = ExModbar(
         player=player.PLAYER,
@@ -559,11 +560,20 @@ def _enable_main_moodbar(exaile):
 
 
 def _disable_main_moodbar():
+    logger.info("Disabling main moodbar")
     global ExaileModbar
     ExaileModbar.changeModToBar()
     ExaileModbar.remove_callbacks()
     ExaileModbar.destroy()
     ExaileModbar = None
+
+
+def _enable_preview_moodbar(event, object, nothing):
+    logger.info("Enabling preview moodbar")
+
+
+def _disable_preview_moodbar(event, object, nothing):
+    logger.info("Disabling preview moodbar")
 
 
 def enable(exaile):
@@ -581,10 +591,14 @@ def enable(exaile):
 
 def _enable(eventname, exaile, nothing):
     _enable_main_moodbar(exaile)
+    event.add_callback(_enable_preview_moodbar, 'preview_device_enabled')
+    event.add_callback(_disable_preview_moodbar, 'preview_device_disabled')
 
 
 def disable(exaile):
     _disable_main_moodbar()
+    event.remove_callback(_enable_preview_moodbar, 'preview_device_enabled')
+    event.remove_callback(_disable_preview_moodbar, 'preview_device_disabled')
 
 
 

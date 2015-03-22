@@ -106,6 +106,9 @@ class SecondaryOutputPlugin(object):
         if settings.get_option('plugin/previewdevice/shown', True):
             self._init_gui_hooks()
 
+        # We're ready; teall anyone who might be interested
+        event.log_event('previewdevice_enabled', self, None)
+
     def disable_plugin(self, exaile):
         self._destroy_gui_hooks()
         self._destroy_gui()
@@ -113,6 +116,9 @@ class SecondaryOutputPlugin(object):
 
         self.player = None
         self.queue = None
+
+        # We're all through; tell anyone who might be interested
+        event.log_event('previewdevice_disabled', self, None)
 
     def _init_gui(self):
         self.pane = gtk.HPaned()

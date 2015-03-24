@@ -588,7 +588,7 @@ def _enable_preview_moodbar(event, preview_plugin, nothing):
 
 
 def _disable_preview_moodbar(event, preview_plugin, nothing):
-    global ExaileModbar
+    global PreviewMoodbar
     logger.info("Disabling preview moodbar")
     PreviewMoodbar.changeModToBar()
     PreviewMoodbar.remove_callbacks()

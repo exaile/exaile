@@ -549,7 +549,7 @@ class ExModbar(object):
 
 def _enable_main_moodbar(exaile):
     global ExaileModbar
-    logger.info("Enabling main moodbar")
+    logger.debug("Enabling main moodbar")
     ExaileModbar = ExModbar(
         player=player.PLAYER,
         progress_bar=exaile.gui.main.progress_bar
@@ -562,7 +562,7 @@ def _enable_main_moodbar(exaile):
 
 def _disable_main_moodbar():
     global ExaileModbar
-    logger.info("Disabling main moodbar")
+    logger.debug("Disabling main moodbar")
     ExaileModbar.changeModToBar()
     ExaileModbar.remove_callbacks()
     ExaileModbar.destroy()
@@ -571,7 +571,7 @@ def _disable_main_moodbar():
 
 def _enable_preview_moodbar(event, preview_plugin, nothing):
     global PreviewMoodbar
-    logger.info("Enabling preview moodbar")
+    logger.debug("Enabling preview moodbar")
     PreviewMoodbar = ExModbar(
         player=preview_plugin.player,
         progress_bar=preview_plugin.progress_bar
@@ -584,7 +584,7 @@ def _enable_preview_moodbar(event, preview_plugin, nothing):
 
 def _disable_preview_moodbar(event, preview_plugin, nothing):
     global PreviewMoodbar
-    logger.info("Disabling preview moodbar")
+    logger.debug("Disabling preview moodbar")
     PreviewMoodbar.changeModToBar()
     PreviewMoodbar.remove_callbacks()
     PreviewMoodbar.destroy()
@@ -608,15 +608,17 @@ def _enable(eventname, exaile, nothing):
     _enable_main_moodbar(exaile)
 
     event.add_callback(_enable_preview_moodbar, 'preview_device_enabled')
-    event.add_callback(_disable_preview_moodbar, 'preview_device_disabled')
+    event.add_callback(_disable_preview_moodbar, 'preview_device_disabling')
 
     try:
         import previewdevice
         preview_plugin = previewdevice.PREVIEW_PLUGIN
+        hooked = preview_plugin.hooked
     except ImportError:
         preview_plugin = None
+        hooked = False
 
-    if preview_plugin:
+    if hooked:  # Attach code fails unless preview player's gui is displayed
         _enable_preview_moodbar('', preview_plugin, None)
 
 
@@ -624,15 +626,17 @@ def disable(exaile):
     _disable_main_moodbar()
 
     event.remove_callback(_enable_preview_moodbar, 'preview_device_enabled')
-    event.remove_callback(_disable_preview_moodbar, 'preview_device_disabled')
+    event.remove_callback(_disable_preview_moodbar, 'preview_device_disabling')
 
     try:
         import previewdevice
         preview_plugin = previewdevice.PREVIEW_PLUGIN
+        hooked = preview_plugin.hooked
     except ImportError:
         preview_plugin = None
+        hooked = False
 
-    if preview_plugin:
+    if hooked:
         _disable_preview_moodbar('', preview_plugin, None)
 
 

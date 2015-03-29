@@ -43,6 +43,9 @@ from xlgui.widgets import menu, playback
 
 import previewprefs
 
+import logging
+logger = logging.getLogger(__name__)
+
 PREVIEW_PLUGIN = None
 
 
@@ -107,9 +110,12 @@ class SecondaryOutputPlugin(object):
             self._init_gui_hooks()
 
         # We're ready; teall anyone who might be interested
-        event.log_event('preview_device_enabled', self, None)
+        logger.debug('Preview Device Enabled')
+        # event.log_event('preview_device_enabled', self, None)
 
     def disable_plugin(self, exaile):
+        logger.debug('Disabling Preview Device')
+        event.log_event('preview_device_disabling', self, None)
         self._destroy_gui_hooks()
         self._destroy_gui()
         self.player.stop()
@@ -117,8 +123,7 @@ class SecondaryOutputPlugin(object):
         self.player = None
         self.queue = None
 
-        # We're all through; tell anyone who might be interested
-        event.log_event('preview_device_disabled', self, None)
+        logger.debug('Preview Device Disabled')
 
     def _init_gui(self):
         self.pane = gtk.HPaned()
@@ -251,6 +256,9 @@ class SecondaryOutputPlugin(object):
         self.hooked = True
         settings.set_option('plugin/previewdevice/shown', True)
 
+        logger.debug("Preview device gui hooked")
+        event.log_event('preview_device_enabled', self, None)
+
     def _destroy_gui_hooks(self):
         '''
             Removes any hooks from the main Exaile GUI
@@ -283,6 +291,7 @@ class SecondaryOutputPlugin(object):
 
         self.hooked = False
         settings.set_option('plugin/previewdevice/shown', False)
+        logger.debug('Preview device unhooked')
 
     #
     # Menu events

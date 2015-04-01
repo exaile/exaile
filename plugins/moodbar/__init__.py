@@ -632,7 +632,7 @@ def disable(exaile):
         import previewdevice
         preview_plugin = previewdevice.PREVIEW_PLUGIN
         hooked = preview_plugin.hooked
-    except ImportError:
+    except (ImportError, AttributeError):
         preview_plugin = None
         hooked = False
 

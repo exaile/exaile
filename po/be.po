@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2015-01-23 20:00+0200\n"
+"PO-Revision-Date: 2015-04-08 13:22+0200\n"
 "Last-Translator: Viktar Palstsiuk <vipals@gmail.com>\n"
 "Language-Team: Belarusian "
 "<https://hosted.weblate.org/projects/exaile/master/be/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:23+0000\n"
 
 #: ../xl/formatter.py:576
@@ -441,7 +441,7 @@ msgstr " / "
 #: ../xl/trax/track.py:606 ../xl/trax/track.py:668
 #, python-format
 msgid "%dk"
-msgstr ""
+msgstr "%dк"
 
 #: ../xl/transcoder.py:56
 msgid ""
@@ -492,7 +492,7 @@ msgstr ""
 
 #: ../xl/player/sink_osx.py:165
 msgid "OSX CoreAudio"
-msgstr ""
+msgstr "Core Audio OS X"
 
 #: ../xl/player/pipe.py:475
 msgid "Automatic"
@@ -687,9 +687,8 @@ msgid "Modified"
 msgstr "Зменены"
 
 #: ../xl/metadata/tags.py:78
-#, fuzzy
 msgid "Play time"
-msgstr "Граць"
+msgstr "Час прайгравання"
 
 #: ../xl/metadata/tags.py:79
 msgid "Times played"
@@ -786,11 +785,11 @@ msgstr "Дынамічны плэйліст з падобнымі выканаў
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:85
 #: ../plugins/osd/osd_preferences.ui.h:7
 msgid "seconds"
-msgstr ""
+msgstr "секунд"
 
 #: ../xl/playlist.py:1844 ../xlgui/panel/playlists.py:78
 msgid "minutes"
-msgstr ""
+msgstr "хвілін"
 
 #: ../xl/playlist.py:1845 ../xlgui/panel/playlists.py:78
 msgid "hours"
@@ -2374,7 +2373,7 @@ msgstr "Адлюстроўваць нумары дарожак у калекцы
 #: ../data/ui/preferences/appearance.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:7
 msgid "Use alpha transparency:"
-msgstr "Выкарыстоўваць празрыстасць"
+msgstr "Выкарыстоўваць празрыстасць:"
 
 #: ../data/ui/preferences/appearance.ui.h:11
 msgid ""
@@ -2498,7 +2497,7 @@ msgstr "Улюблёныя трэкі на Last.fm"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:58
 msgid "The API key is invalid."
-msgstr "API ключ не карэктны"
+msgstr "API ключ не карэктны."
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.py:80
 #: ../plugins/audioscrobbler/asprefs.py:114
@@ -2528,11 +2527,11 @@ msgstr "Last.fm Абранае"
 
 #: ../plugins/lastfmlove/__init__.py:135
 msgid "Love This Track"
-msgstr "Мне падабацца гэты трэк."
+msgstr "Мне падабацца гэты трэк"
 
 #: ../plugins/lastfmlove/__init__.py:157
 msgid "Unlove This Track"
-msgstr "Мне не падабаецца гэты трэк."
+msgstr "Мне не падабаецца гэты трэк"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
@@ -2609,7 +2608,7 @@ msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/asprefs.py:107
 msgid "Verification successful"
-msgstr "Пацверджанне паспяхова!"
+msgstr "Пацверджанне паспяхова"
 
 #: ../plugins/audioscrobbler/asprefs.py:113
 msgid "Verification failed"
@@ -2634,7 +2633,7 @@ msgstr "Выключэнне па раскладзе"
 
 #: ../plugins/shutdown/__init__.py:60
 msgid "Computer will be shutdown at the end of playback."
-msgstr "Кампутар выключыцца па завяршэнні прайгравання"
+msgstr "Кампутар выключыцца па завяршэнні прайгравання."
 
 #: ../plugins/shutdown/__init__.py:86
 msgid "Imminent Shutdown"
@@ -2643,7 +2642,7 @@ msgstr "Хуткае завяршэнне працы"
 #: ../plugins/shutdown/__init__.py:109
 #, python-format
 msgid "The computer will be shut down in %d seconds."
-msgstr "Кампутар будзе выключаны праз %d секунд"
+msgstr "Кампутар будзе выключаны праз %d секунд."
 
 #: ../plugins/shutdown/__init__.py:135
 msgid "Shutdown failed"
@@ -3199,52 +3198,52 @@ msgstr "Памылка загрузкі подкаста."
 
 #: ../plugins/podcasts/__init__.py:197
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Загрузка Падкастаў...."
 
 #: ../plugins/podcasts/__init__.py:228
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Не атрымалася захаваць файл падкаста"
 
 #: ../plugins/desktopcover/desktopcover_preferences.py:21
 #: ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
-msgstr ""
+msgstr "Вокладка працоўнага стала"
 
 #: ../plugins/multialarmclock/macprefs.py:23
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Мультыбудзільнік"
 
 #: ../plugins/contextinfo/contextprefs.py:22
 msgid "Contextinfo"
-msgstr ""
+msgstr "кантэкстная інфармацыя"
 
 #: ../plugins/bookmarks/__init__.py:104
 msgid "Bookmark This Track"
-msgstr ""
+msgstr "Дадаць дарожку ў закладкі"
 
 #: ../plugins/bookmarks/__init__.py:106
 msgid "Delete Bookmark"
-msgstr ""
+msgstr "Выдаліць закладку"
 
 #: ../plugins/bookmarks/__init__.py:108
 msgid "Clear Bookmarks"
-msgstr ""
+msgstr "Ачысціць закладкі"
 
 #: ../plugins/bookmarks/__init__.py:305
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "Закладкі"
 
 #: ../plugins/screensaverpause/prefs.py:5
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
-msgstr ""
+msgstr "Паўза пры актывацыі захавальніка экрана"
 
 #: ../plugins/daapserver/daapserverprefs.py:6
 #: ../plugins/daapserver/PLUGININFO:3
 msgid "DAAP Server"
-msgstr ""
+msgstr "Сервер DAAP"
 
 #: ../plugins/somafm/__init__.py:82 ../plugins/somafm/__init__.py:183
 msgid "Contacting SomaFM server..."
@@ -3256,7 +3255,7 @@ msgstr ""
 
 #: ../plugins/bpm/__init__.py:98 ../plugins/bpm/PLUGININFO:3
 msgid "BPM Counter"
-msgstr ""
+msgstr "Лічыльнік BPM"
 
 #: ../plugins/bpm/__init__.py:113 ../plugins/bpm/__init__.py:252
 msgid "Update"
@@ -3269,104 +3268,106 @@ msgstr ""
 #: ../plugins/bpm/__init__.py:235
 #, python-format
 msgid "Set BPM of %d on %s?"
-msgstr ""
+msgstr "Усталяваць BPM %d на %s?"
 
 #: ../plugins/daapclient/daapclientprefs.py:5
 #: ../plugins/daapclient/PLUGININFO:3
 msgid "DAAP Client"
-msgstr ""
+msgstr "Кліент DAAP"
 
 #: ../plugins/daapclient/__init__.py:298
 msgid "Manually..."
-msgstr ""
+msgstr "Уручную..."
 
 #: ../plugins/daapclient/__init__.py:350
 msgid "Enter IP address and port for share"
-msgstr ""
+msgstr "Увядзіце IP адрас і порт для"
 
 #: ../plugins/daapclient/__init__.py:351
 msgid "Enter IP address and port."
-msgstr ""
+msgstr "Увядзіце ip-адрас і порт."
 
 #: ../plugins/daapclient/__init__.py:556
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
+"Гэты сервер не падтрымлівае множныя злучэнні.\n"
+"Вы павінны спыніць прайграванне перад спампоўкай песень."
 
 #: ../plugins/daapclient/__init__.py:647
 msgid "Refresh Server List"
-msgstr ""
+msgstr "Абнавіць спіс сервераў"
 
 #: ../plugins/daapclient/__init__.py:650
 msgid "Disconnect from Server"
-msgstr ""
+msgstr "Адключыцца ад сервера"
 
 #: ../plugins/daapclient/__init__.py:669
 msgid "Select a Location for Saving"
-msgstr ""
+msgstr "Абраць месца для захавання"
 
 #: ../plugins/daapclient/__init__.py:715
 msgid "Connect to DAAP..."
-msgstr ""
+msgstr "Злучаюся з DAAP..."
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:1
 msgid "Darken played section instead of using cursor"
-msgstr ""
+msgstr "Зацямняць прайграную частку трэка, замест выкарыстання курсора"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:2
 msgid "Darkness level:"
-msgstr ""
+msgstr "Ступень зацьмення:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:3
 msgid "Use waveform style"
-msgstr ""
+msgstr "Паказваць у выглядзе асцылаграмы"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:4
 msgid "Show only waveform, not mood"
-msgstr ""
+msgstr "Заліць аднастайным колерам"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:5
 msgid "Use color theme "
-msgstr ""
+msgstr "Уключыць каляровую тэму "
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:6
 msgid "Base color:"
-msgstr ""
+msgstr "Базавы колер:"
 
 #: ../plugins/moodbar/moodbarprefs_pane.ui.h:7
 msgid "Base color"
-msgstr ""
+msgstr "Базавы колер"
 
 #: ../plugins/streamripper/streamripper.ui.h:1
 msgid "Save location:"
-msgstr ""
+msgstr "Шлях для захавання:"
 
 #: ../plugins/streamripper/streamripper.ui.h:2
 msgid "Relay port:"
-msgstr ""
+msgstr "Змяніце порт:"
 
 #: ../plugins/streamripper/streamripper.ui.h:3
 msgid "Rip to single file"
-msgstr ""
+msgstr "Выняць у адзіны файл"
 
 #: ../plugins/streamripper/streamripper.ui.h:4
 msgid "Delete incomplete files"
-msgstr ""
+msgstr "выдаліць(-яць) незавершаныя файлы"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:1
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:1
 msgid "API key:"
-msgstr ""
+msgstr "API ключ:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:2
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:2
 msgid "Secret:"
-msgstr ""
+msgstr "Пароль:"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:3
 msgid "Request Access Permission"
-msgstr ""
+msgstr "Запыт доступу"
 
 #: ../plugins/lastfmlove/lastfmlove_preferences.ui.h:5
 msgid ""
@@ -3375,94 +3376,98 @@ msgid ""
 "you have entered these, <b>request access permission</b> and confirm to "
 "complete the setup."
 msgstr ""
+"Перайдзіце на старонку <b><a href=\"http://www.last.fm/api/account\">API "
+"вашага акаўнта</a></b> каб атрымаць <b>API-ключ</b> і <b>пароль</b> і "
+"ўвядзіце іх сюды. Пасля таго, як вы ўведзяце іх сюды, <b>запытаеце дазвол "
+"доступу</b> і пацвердзіце яго для завяршэння ўсталёўкі."
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:1
 msgid "<b>Alarm time</b>"
-msgstr ""
+msgstr "<b>Час напаміну</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:2
 msgid "Monday"
-msgstr ""
+msgstr "Панядзелак"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:3
 msgid "Tuesday"
-msgstr ""
+msgstr "Аўторак"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:4
 msgid "Wednesday"
-msgstr ""
+msgstr "Серада"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:5
 msgid "Thursday"
-msgstr ""
+msgstr "Чацвер"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:6
 msgid "Friday"
-msgstr ""
+msgstr "Пятніца"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:7
 msgid "Saturday"
-msgstr ""
+msgstr "Субота"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:8
 msgid "Sunday"
-msgstr ""
+msgstr "Нядзеля"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:9
 msgid "<b>Alarm Days</b>"
-msgstr ""
+msgstr "<b>Дні напаміну</b>"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:10
 msgid "Use Fading"
-msgstr ""
+msgstr "Выкарыстоўваць Згасанне"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:11
 msgid "Minimum volume:"
-msgstr ""
+msgstr "Мінімальная гучнасць:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:12
 msgid "Maximum volume:"
-msgstr ""
+msgstr "Максімальная гучнасць:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:13
 msgid "Increment:"
-msgstr ""
+msgstr "Павелічэнне:"
 
 #: ../plugins/alarmclock/acprefs_pane.ui.h:14
 msgid "Time per increment:"
-msgstr ""
+msgstr "Прырашчэнне часу:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:1
 msgid "Display overlay:"
-msgstr ""
+msgstr "Паказваць трафарэт:"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:2
 msgid "Display covers"
-msgstr ""
+msgstr "Паказваць вокладкі"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:3
 msgid "Circle display"
-msgstr ""
+msgstr "Паказваць кола"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:4
 msgid "Text percentage"
-msgstr ""
+msgstr "Доля тэксту"
 
 #: ../plugins/awn/awn_prefs_pane.ui.h:5
 msgid "None"
-msgstr ""
+msgstr "Няма"
 
 #: ../plugins/lyricsviewer/lyricsviewer_prefs.ui.h:1
 msgid "Lyrics font:"
-msgstr ""
+msgstr "Шрыфт тэксту:"
 
 #: ../plugins/lyricsviewer/lyricsviewer.ui.h:2
 msgid "Refresh Lyrics"
-msgstr ""
+msgstr "Абнавіць словы песні"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:1
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "Перадаць дарожкі, выкарыстоўваючы Audioscrobbler"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:2
 msgid "Show menuitem to toggle submission"
@@ -3475,112 +3480,112 @@ msgstr ""
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:4
 #: ../plugins/contextinfo/context_pane.ui.h:2
 msgid "Password:"
-msgstr ""
+msgstr "Пароль:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:5
 #: ../plugins/contextinfo/context_pane.ui.h:3
 msgid "Username:"
-msgstr ""
+msgstr "Імя карыстача:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.ui.h:7
 msgid "Verify Login Data"
-msgstr ""
+msgstr "Праверыць рэквізіты ўваходу"
 
 #: ../plugins/equalizer/equalizer.ui.h:3
 msgid "pre"
-msgstr ""
+msgstr "перад"
 
 #: ../plugins/equalizer/equalizer.ui.h:4
 msgid "+12 dB"
-msgstr ""
+msgstr "+12 дБ"
 
 #: ../plugins/equalizer/equalizer.ui.h:5
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../plugins/equalizer/equalizer.ui.h:6
 msgid "-24 dB"
-msgstr ""
+msgstr "-24 дБ"
 
 #: ../plugins/equalizer/equalizer.ui.h:7
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../plugins/equalizer/equalizer.ui.h:8
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../plugins/equalizer/equalizer.ui.h:9
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../plugins/equalizer/equalizer.ui.h:10
 msgid "237"
-msgstr ""
+msgstr "237"
 
 #: ../plugins/equalizer/equalizer.ui.h:11
 msgid "474"
-msgstr ""
+msgstr "474"
 
 #: ../plugins/equalizer/equalizer.ui.h:12
 msgid "947"
-msgstr ""
+msgstr "947"
 
 #: ../plugins/equalizer/equalizer.ui.h:13
 msgid "1.9K"
-msgstr ""
+msgstr "1.9K"
 
 #: ../plugins/equalizer/equalizer.ui.h:14
 msgid "3.8K"
-msgstr ""
+msgstr "3.8K"
 
 #: ../plugins/equalizer/equalizer.ui.h:15
 msgid "7.5K"
-msgstr ""
+msgstr "7.5K"
 
 #: ../plugins/equalizer/equalizer.ui.h:16
 msgid "15K"
-msgstr ""
+msgstr "15K"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:1
 msgid "On track change"
-msgstr ""
+msgstr "Падчас змены дарожкі"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:2
 msgid "On playback start, pause or stop"
-msgstr ""
+msgstr "Падчас запуску, паўзы ці прыпынку прайгравання"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:3
 msgid "On tag change"
-msgstr ""
+msgstr "Пры змене тэга"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:4
 msgid "On tray icon hover"
-msgstr ""
+msgstr "На абразку ў трэі"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:5
 msgid "When main window is focused"
-msgstr ""
+msgstr "Калі галоўнае акно ў фокусе"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:6
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>Адлюстраванне</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:7
 msgid "Use album covers as icons"
-msgstr ""
+msgstr "Выкарыстоўваць вокладкі як абразкі"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:8
 msgid "Use media icons for pause, stop and resume"
-msgstr ""
+msgstr "Выкарыстоўваць медыя значкі для паўзы, прыпынку і аднаўлення"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:9
 msgid "<b>Icons</b>"
-msgstr ""
+msgstr "<b>Значыкі</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:10
 msgid "Artist line:"
-msgstr ""
+msgstr "Радок выканаўца:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:12
 #, python-format
@@ -3589,39 +3594,42 @@ msgid ""
 "replaced by their respective values. The title will be replaced by \"Unknown"
 "\" if it is empty.</i>"
 msgstr ""
+"<i>Тэгі \"%(title)s\", \"%(artist)s\", і \"%(album)s\" будуць заменены "
+"сваімі значэннямі. Калі загаловак пусты, ён будзе заменены на \"Unknown\""
+".</i>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:13
 #: ../plugins/notify/notifyprefs_pane.ui.h:2
 msgid "Summary:"
-msgstr ""
+msgstr "Рэзюмэ:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:14
 msgid "Album line:"
-msgstr ""
+msgstr "Радок альбома:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.ui.h:15
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>Змесціва</b>"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:1
 msgid "Terminal opacity:"
-msgstr ""
+msgstr "Празрыстасць тэрмінала:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:2
 msgid "Font:"
-msgstr ""
+msgstr "Шрыфт:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:3
 msgid "Text Color:"
-msgstr ""
+msgstr "Колер тэксту:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:4
 msgid "Background Color:"
-msgstr ""
+msgstr "Колер фону:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:5
 msgid "IPython Color Theme:"
-msgstr ""
+msgstr "Каляровая тэма IPython:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.ui.h:6
 msgid "Launch IPython console when Exaile starts"
@@ -3629,15 +3637,15 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:1
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Змяніць памер адлюстроўваемых вокладак"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:3
 msgid "Only artist:"
-msgstr ""
+msgstr "Толькі выканаўца:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:4
 msgid "Only album:"
-msgstr ""
+msgstr "Толькі альбом:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:6
 #, python-format
@@ -3647,50 +3655,53 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place.</i>"
 msgstr ""
+"<i>Паведамленне павінна быць паказана ў целе апавяшчэння. Таму, \"%(title)s\""
+", \"%(artist)s\", і \"%(album)s\" будуць заменены сваімі значэннямі. Калі "
+"тэг невядомы, будзе ўстаўлена \"Unknown\".</i>"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:7
 msgid "Both artist and album:"
-msgstr ""
+msgstr "І выканавец, і альбом:"
 
 #: ../plugins/notify/notifyprefs_pane.ui.h:8
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Цела Паведамлення</b>"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:1
 msgid "Ogg Vorbis"
-msgstr ""
+msgstr "Ogg Vorbis"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:2
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:3
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:4
 msgid "MP3 (VBR)"
-msgstr ""
+msgstr "MP3 (VBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:5
 msgid "MP3 (CBR)"
-msgstr ""
+msgstr "MP3 (CBR)"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:6
 msgid "WavPack"
-msgstr ""
+msgstr "WavPack"
 
 #: ../plugins/cd/cdprefs_pane.ui.h:7
 msgid "Import format: "
-msgstr ""
+msgstr "Фармат імпартуемых файлаў: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:8
 msgid "Import quality: "
-msgstr ""
+msgstr "Якасць: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:9
 msgid "Import path: "
-msgstr ""
+msgstr "Каталог: "
 
 #: ../plugins/cd/cdprefs_pane.ui.h:10
 #: ../plugins/minimode/minimode_preferences.ui.h:3
@@ -3699,68 +3710,73 @@ msgid ""
 "Every tag can be used with <b>$tag</b> or <b>${tag}</b>. Internal tags like "
 "<b>$__length</b> need to be specified with two leading underscores."
 msgstr ""
+"Кожны тэг можа быць скарыстаны з <b>$tag</b> ці <b>${tag}</b>. Унутраныя "
+"тэгі такія як <b>$__lenght</b> павінны быць указанны з двума папярэднімі "
+"падкрэсленнямі."
 
 #: ../plugins/wikipedia/data/preferences.ui.h:1
 msgid "Shortcode of the Wikipedia language version (en, de, fr, ...)"
-msgstr ""
+msgstr "Кароткае імя для мовы Вікіпедыі (en, ru, fr, ...)"
 
 #: ../plugins/wikipedia/data/preferences.ui.h:2
 msgid "Language:"
-msgstr ""
+msgstr "Мова:"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:2
 msgid "Home"
-msgstr ""
+msgstr "Галоўная"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:3
 msgid "Back"
-msgstr ""
+msgstr "Назад"
 
 #: ../plugins/wikipedia/data/wikipanel.ui.h:5
 msgid "Forward"
-msgstr ""
+msgstr "Наперад"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:1
 msgid ""
 "The order of controls can be changed by simply dragging them up or down. (Or "
 "press Alt+Up/Down.)"
 msgstr ""
+"Парадак элементаў кіравання можна змяніць, перацягваючы іх угару ці ўніз. ("
+"Ці націскам Alt+Up/Down.)"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:2
 msgid "Controls"
-msgstr ""
+msgstr "Кіраванне"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:4
 msgid "Track Title Format"
-msgstr ""
+msgstr "Фармат загалоўка трэка"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:5
 msgid "Always on top"
-msgstr ""
+msgstr "Па-над усімі вокнамі"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:6
 msgid "Show in tasklist"
-msgstr ""
+msgstr "Паказаць у плэйлісце"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:8
 msgid "Display window decorations:"
-msgstr ""
+msgstr "Паказаць афармленні акна:"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:9
 msgid "Show on all desktops"
-msgstr ""
+msgstr "Паказваць на ўсіх працоўных сталах"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:10
 msgid "Show button in main window"
-msgstr ""
+msgstr "Паказаць кнопку ў галоўным акне"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:13
 msgid "Full"
-msgstr ""
+msgstr "Поўны"
 
 #: ../plugins/minimode/minimode_preferences.ui.h:15
 msgid "Simple"
-msgstr ""
+msgstr "Просты"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:1
 msgid "grouping"
@@ -3788,7 +3804,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:7
 msgid "Group/categories font:"
-msgstr ""
+msgstr "Шрыфт груп і катэгорый:"
 
 #: ../plugins/grouptagger/gt_prefs.ui.h:9
 msgid "Categorization tag name"
@@ -3806,7 +3822,7 @@ msgstr ""
 
 #: ../plugins/grouptagger/gt_import.ui.h:2
 msgid "Import"
-msgstr ""
+msgstr "Імпартаваць"
 
 #: ../plugins/grouptagger/gt_import.ui.h:4
 msgid "Current Groups"
@@ -3854,31 +3870,31 @@ msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:2
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "Упадабаная паальбомная карэкцыя"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:3
 msgid "Prefer ReplayGain's per-album correction over per-track correction."
-msgstr ""
+msgstr "Аддаваць перавагу карэкцыі гуку па альбомах, а не па дарожках."
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:5
 msgid "Use clipping protection"
-msgstr ""
+msgstr "Выкарыстоўваць абарону ад абразання сігналу"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:6
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Абараніць ад шуму, выкліканага моцным узмацненнем гучнасці"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:7
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Дадатковае ўзмацненне для ўсіх файлаў"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:9
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Дадатковае ўзмацненне (дБ):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:10
 msgid "Fallback correction for files that lack ReplayGain information"
-msgstr ""
+msgstr "Загадзя аналізаваць трэкі без інфармацыі ReplayGain"
 
 #: ../plugins/replaygain/replaygainprefs_pane.ui.h:12
 msgid "Fallback correction level (dB):"
@@ -3886,71 +3902,71 @@ msgstr ""
 
 #: ../plugins/history/history_preferences.ui.h:1
 msgid "Persist history after player exits"
-msgstr ""
+msgstr "Захоўваць гісторыю пасля выйсця"
 
 #: ../plugins/history/history_preferences.ui.h:2
 msgid "History length:"
-msgstr ""
+msgstr "Працягласць вядзення часопіса:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:1
 msgid "Order by:"
-msgstr ""
+msgstr "Спарадкаваць па:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:2
 msgid "Order direction:"
-msgstr ""
+msgstr "Парадак:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:3
 msgid "Results:"
-msgstr ""
+msgstr "Вынікі:"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:4
 msgid "Advanced"
-msgstr ""
+msgstr "Дадаткова"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:6
 msgid "Descending"
-msgstr ""
+msgstr "Па змяншэнні"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:7
 msgid "Ascending"
-msgstr ""
+msgstr "Па ўзрастанні"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:8
 msgid "Release date"
-msgstr ""
+msgstr "Дата рэлізу"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:10
 msgid "Rating this week"
-msgstr ""
+msgstr "Рэйтынг тыдня"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:11
 msgid "Rating this month"
-msgstr ""
+msgstr "Рэйтынг месяца"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:12
 msgid "Number of playlist additions"
-msgstr ""
+msgstr "Колькасць даданняў у спіс прайгравання"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:13
 msgid "Number of downloads"
-msgstr ""
+msgstr "Колькасць спамповак"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:14
 msgid "Number of listens"
-msgstr ""
+msgstr "Колькасць праслухоўванняў"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:15
 msgid "Starred"
-msgstr ""
+msgstr "Ацэненыя"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:16
 msgid "Date of starring"
-msgstr ""
+msgstr "Час адзнакі"
 
 #: ../plugins/jamendo/ui/jamendo_panel.ui.h:19
 msgid "Genre/Tags"
-msgstr ""
+msgstr "Жанр/Тэгі"
 
 #: ../plugins/osd/osd_preferences.ui.h:1
 #, python-brace-format
@@ -3963,23 +3979,23 @@ msgstr ""
 
 #: ../plugins/osd/osd_preferences.ui.h:3
 msgid "Display Format"
-msgstr ""
+msgstr "Фармат адлюстравання"
 
 #: ../plugins/osd/osd_preferences.ui.h:4
 msgid "Display duration:"
-msgstr ""
+msgstr "Паказаць працягласць:"
 
 #: ../plugins/osd/osd_preferences.ui.h:5
 msgid "Background:"
-msgstr ""
+msgstr "Фон:"
 
 #: ../plugins/osd/osd_preferences.ui.h:6
 msgid "Show progress bar"
-msgstr ""
+msgstr "Паказваць панэль ходу выканання"
 
 #: ../plugins/osd/osd_preferences.ui.h:8
 msgid "Border radius:"
-msgstr ""
+msgstr "Памер мяжы:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.ui.h:3
 msgid ""
@@ -4028,71 +4044,71 @@ msgstr ""
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:1
 msgid "Anchor:"
-msgstr ""
+msgstr "Якар:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:2
 msgid "X offset:"
-msgstr ""
+msgstr "Водступ па X:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:3
 msgid "pixels"
-msgstr ""
+msgstr "пікселяў"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:4
 msgid "Y offset:"
-msgstr ""
+msgstr "Водступ па Y:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:5
 msgid "Override cover size"
-msgstr ""
+msgstr "Задаць памер вокладкі"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:6
 msgid "Size:"
-msgstr ""
+msgstr "Памер:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:7
 msgid "Use fading"
-msgstr ""
+msgstr "Выкарыстоўваць згасанне"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:8
 msgid "Fading duration:"
-msgstr ""
+msgstr "Працягласць згасання:"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:9
 msgid "ms"
-msgstr ""
+msgstr "мс"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:10
 msgid "Top left"
-msgstr ""
+msgstr "Угары злева"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:11
 msgid "Top right"
-msgstr ""
+msgstr "Зверху справа"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:12
 msgid "Bottom left"
-msgstr ""
+msgstr "Унізе злева"
 
 #: ../plugins/desktopcover/desktopcover_preferences.ui.h:13
 msgid "Bottom right"
-msgstr ""
+msgstr "Унізе справа"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:1
 msgid "Add"
-msgstr ""
+msgstr "Дадаць"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:2
 msgid "Remove"
-msgstr ""
+msgstr "Выдаліць"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:3
 msgid "<b>Alarms</b>"
-msgstr ""
+msgstr "<b>Папярэджанні</b>"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:4
 msgid "Enable volume fade-in"
-msgstr ""
+msgstr "Уключыць нарастанне гучнасці"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:5
 msgid "Fade start volume:"
@@ -4104,19 +4120,19 @@ msgstr ""
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:7
 msgid "Fade Increment:"
-msgstr ""
+msgstr "Інкрымент нарастання:"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:8
 msgid "Fade Time (s):"
-msgstr ""
+msgstr "Час нарастання (с):"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:9
 msgid "Restart playlist"
-msgstr ""
+msgstr "Перазагрузіць спіс прайгравання"
 
 #: ../plugins/multialarmclock/malrmclk.ui.h:10
 msgid "<b>Playback</b>"
-msgstr ""
+msgstr "<b>Прайграванне</b>"
 
 #: ../plugins/contextinfo/context_pane.ui.h:1
 msgid "Please enter your Last.fm authentication:"
@@ -4124,7 +4140,7 @@ msgstr ""
 
 #: ../plugins/contextinfo/context_pane.ui.h:4
 msgid "Sign up for Last.fm"
-msgstr ""
+msgstr "Зарэгістравацца ў Last.fm"
 
 #: ../plugins/contextinfo/context.ui.h:1
 msgid "Context"
@@ -4133,6 +4149,7 @@ msgstr ""
 #: ../plugins/bookmarks/bookmarks_pane.ui.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr ""
+"Выкарыстоўваць вокладкі ў меню закладак (актывізуецца пры наступным запуску)"
 
 #: ../plugins/screensaverpause/prefs.ui.h:1
 msgid "Unpause when screensaver ends"
@@ -4140,27 +4157,27 @@ msgstr ""
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:1
 msgid "Server name:"
-msgstr ""
+msgstr "Імя сервера:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:2
 msgid "Server host:"
-msgstr ""
+msgstr "Адрас сервера:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:3
 msgid "Port:"
-msgstr ""
+msgstr "Порт:"
 
 #: ../plugins/daapserver/daapserver_prefs.ui.h:4
 msgid "Server enabled"
-msgstr ""
+msgstr "Сервер актываваны"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:1
 msgid "Show ipv6 servers (Experimental)"
-msgstr ""
+msgstr "Паказаць серверы ipv6 (Эксперыментальная)"
 
 #: ../plugins/daapclient/daapclient_prefs.ui.h:2
 msgid "Remember recent DAAP servers"
-msgstr ""
+msgstr "Захоўваць апошнія серверы DAAP"
 
 #: ../plugins/lyricsmania/PLUGININFO:3
 msgid "LyricsMania"
@@ -4174,7 +4191,7 @@ msgstr ""
 
 #: ../plugins/currentsong/PLUGININFO:3
 msgid "Current Song"
-msgstr ""
+msgstr "Бягучая песня"
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
@@ -4186,7 +4203,7 @@ msgstr ""
 #: ../plugins/notifyosd/PLUGININFO:5 ../plugins/notify/PLUGININFO:5
 #: ../plugins/osd/PLUGININFO:5
 msgid "Notifications"
-msgstr ""
+msgstr "Апавяшчэнні"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
@@ -4198,32 +4215,36 @@ msgstr ""
 #: ../plugins/awn/PLUGININFO:5 ../plugins/minimode/PLUGININFO:5
 #: ../plugins/droptrayicon/PLUGININFO:5 ../plugins/desktopcover/PLUGININFO:5
 msgid "GUI"
-msgstr ""
+msgstr "Графічны інтэрфейс карыстача"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "Мультымедыйныя клавішы GNOME"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
+"Дадае магчымасць кіравання Exaile праз мультымедыйныя клавішы GNOME. Працуе "
+"ў GNOME >= 2.20.x"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:5 ../plugins/xkeys/PLUGININFO:5
 #: ../plugins/winmmkeys/PLUGININFO:5
 msgid "Hotkeys"
-msgstr ""
+msgstr "Спалучэнні клавіш"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Дазваляе запісваць аўдыёструмені з дапамогай streamripper\n"
+"Неабходны бібліятэкі: streamripper"
 
 #: ../plugins/streamripper/PLUGININFO:5 ../plugins/previewdevice/PLUGININFO:5
 msgid "Output"
-msgstr ""
+msgstr "Аўдыёвыхад"
 
 #: ../plugins/musicbrainzcovers/PLUGININFO:3
 msgid "MusicBrainz Covers"
@@ -4245,7 +4266,7 @@ msgstr ""
 #: ../plugins/lastfmlove/PLUGININFO:5 ../plugins/exfalso/PLUGININFO:5
 #: ../plugins/grouptagger/PLUGININFO:5
 msgid "Tagging"
-msgstr ""
+msgstr "Маркіроўка"
 
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
@@ -4255,6 +4276,11 @@ msgid ""
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
 msgstr ""
+"Прайгравае музыку ў вызначаны час.\n"
+"\n"
+"Увага: Exaile усяго толькі націсне кнопку прайгравання, калі наступіць "
+"паказаны час, таму будзьце ўпэўнены ў тым, што музыка, якую вы жадаеце "
+"пачуць, у будзе плэйлісце"
 
 #: ../plugins/alarmclock/PLUGININFO:5 ../plugins/inhibitsuspend/PLUGININFO:5
 #: ../plugins/shutdown/PLUGININFO:5 ../plugins/mpris/PLUGININFO:5
@@ -4262,50 +4288,54 @@ msgstr ""
 #: ../plugins/bookmarks/PLUGININFO:5 ../plugins/screensaverpause/PLUGININFO:5
 #: ../plugins/bpm/PLUGININFO:5
 msgid "Utility"
-msgstr ""
+msgstr "Сэрвіс"
 
 #: ../plugins/mainmenubutton/PLUGININFO:3
 msgid "Main Menu Button"
-msgstr ""
+msgstr "Кнопка асноўнага меню"
 
 #: ../plugins/mainmenubutton/PLUGININFO:4
 msgid ""
 "Moves the main menu into a button on top of the panels.\n"
 "Depends: PyGTK >= 2.22, GTK >= 2.20"
 msgstr ""
+"Перасоўвае меню ў кнопку зверху панэляў.\n"
+"Залежыць ад: PyGTK >= 2.22, GTK >= 2.20"
 
 #: ../plugins/icecast/PLUGININFO:5 ../plugins/librivox/PLUGININFO:5
 #: ../plugins/jamendo/PLUGININFO:5 ../plugins/podcasts/PLUGININFO:5
 #: ../plugins/daapserver/PLUGININFO:5 ../plugins/somafm/PLUGININFO:5
 #: ../plugins/daapclient/PLUGININFO:5
 msgid "Media Sources"
-msgstr ""
+msgstr "Крыніцы музыкі"
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Вокладкі альбомаў з Last.fm"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Пошук вокладак альбомаў на Last.fm"
 
 #: ../plugins/awn/PLUGININFO:4
 msgid "Sets the cover and adds some menu items to AWN for Exaile"
-msgstr ""
+msgstr "Пастаўце вокладку і дадайце элементы меню ў AWN для Exaile"
 
 #: ../plugins/exfalso/PLUGININFO:3
 msgid "Ex Falso tag editor"
-msgstr ""
+msgstr "Рэдактар пазнак Ex Falso"
 
 #: ../plugins/exfalso/PLUGININFO:4
 msgid ""
 "Integrates the Ex Falso tag editor with Exaile.\n"
 "Depends: Ex Falso."
 msgstr ""
+"Інтэграцыя рэдактара тэгаў Ex Falso з Exaile.\n"
+"Неабходна: Ex Falso."
 
 #: ../plugins/lyricsviewer/PLUGININFO:4
 msgid "Adds a side tab displaying lyrics for the currently playing track."
-msgstr ""
+msgstr "Дадае ўкладку з тэкстам прайграванага трэка."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
@@ -4315,15 +4345,15 @@ msgstr ""
 
 #: ../plugins/xkeys/PLUGININFO:3
 msgid "XKeys"
-msgstr ""
+msgstr "XKeys"
 
 #: ../plugins/xkeys/PLUGININFO:4
 msgid "Global hotkeys using xlib (mmkeys.so)"
-msgstr ""
+msgstr "Глабальныя гарачыя клавішы праз xlib (mmkeys.so)"
 
 #: ../plugins/winmmkeys/PLUGININFO:1
 msgid "Multimedia keys for Windows"
-msgstr ""
+msgstr "Мультымедыйныя клавішы для Windows"
 
 #: ../plugins/winmmkeys/PLUGININFO:4
 msgid ""
@@ -4342,23 +4372,25 @@ msgstr ""
 #: ../plugins/replaygain/PLUGININFO:5 ../plugins/karaoke/PLUGININFO:5
 #: ../plugins/mono/PLUGININFO:5
 msgid "Effect"
-msgstr ""
+msgstr "Эфект"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:3
 msgid "Inhibit Suspend"
-msgstr ""
+msgstr "Адключыць засынанне"
 
 #: ../plugins/inhibitsuspend/PLUGININFO:4
 msgid "Prevents User Session from suspending while music is playing"
 msgstr ""
+"Прадухіляе сеанс карыстача ад пераходу ў рэжым чакання падчас прайгравання "
+"музыкі"
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
+msgstr "Агляд і праслухоўванне аўдыё-кніг з Librivox.org."
 
 #: ../plugins/shutdown/PLUGININFO:4
 msgid "Allows for shutdown of the computer at the end of playback."
@@ -4366,7 +4398,7 @@ msgstr ""
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
-msgstr ""
+msgstr "Падтрымка USB Медыя Плэера"
 
 #: ../plugins/massstorage/PLUGININFO:4
 msgid ""
@@ -4377,7 +4409,7 @@ msgstr ""
 #: ../plugins/massstorage/PLUGININFO:5 ../plugins/cd/PLUGININFO:5
 #: ../plugins/ipod/PLUGININFO:5
 msgid "Devices"
-msgstr ""
+msgstr "Прылады"
 
 #: ../plugins/previewdevice/PLUGININFO:4
 msgid ""
@@ -4391,11 +4423,11 @@ msgstr ""
 
 #: ../plugins/lastfmdynamic/PLUGININFO:4
 msgid "The Last.fm backend for dynamic playlists"
-msgstr ""
+msgstr "Падтрымка дынамічных плэйлістоў Last.fm"
 
 #: ../plugins/lastfmdynamic/PLUGININFO:5
 msgid "Dynamic Playlists"
-msgstr ""
+msgstr "Дынамічныя спісы прайгравання"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -4409,7 +4441,7 @@ msgstr ""
 
 #: ../plugins/ipconsole/PLUGININFO:4
 msgid "Provides an IPython console that can be used to manipulate Exaile."
-msgstr ""
+msgstr "Дадае кансоль IPython, якая можа быць скарыстана для кіравання Exaile."
 
 #: ../plugins/ipconsole/PLUGININFO:5 ../plugins/console/PLUGININFO:5
 #: ../plugins/helloworld/PLUGININFO:5
@@ -4442,15 +4474,15 @@ msgstr ""
 #: ../plugins/wikipedia/PLUGININFO:5 ../plugins/playlistanalyzer/PLUGININFO:5
 #: ../plugins/contextinfo/PLUGININFO:5
 msgid "Information"
-msgstr ""
+msgstr "Звесткі"
 
 #: ../plugins/abrepeat/PLUGININFO:3
 msgid "A-B Repeat"
-msgstr ""
+msgstr "А-Б Паўтор"
 
 #: ../plugins/abrepeat/PLUGININFO:4
 msgid "Continuously repeats a segment of a track."
-msgstr ""
+msgstr "Бесперапынна паўтараць частку трэка."
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
@@ -4472,7 +4504,7 @@ msgstr ""
 
 #: ../plugins/droptrayicon/PLUGININFO:3
 msgid "Drop Trayicon"
-msgstr ""
+msgstr "Скінуць трэй-абразок"
 
 #: ../plugins/droptrayicon/PLUGININFO:4
 msgid ""
@@ -4489,11 +4521,11 @@ msgstr ""
 
 #: ../plugins/jamendo/PLUGININFO:3
 msgid "Jamendo"
-msgstr ""
+msgstr "Jamendo"
 
 #: ../plugins/jamendo/PLUGININFO:4
 msgid "Enables access to the Jamendo music catalogue."
-msgstr ""
+msgstr "Уключэнне доступу да музычнага каталога Jamendo."
 
 #: ../plugins/console/PLUGININFO:3
 msgid "Simple console"
@@ -4509,7 +4541,7 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod Support"
-msgstr ""
+msgstr "Падтрымка iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid ""
@@ -4517,6 +4549,9 @@ msgid ""
 "\n"
 "Depends on python-gpod."
 msgstr ""
+"Убудова для падтрымкі iPod. На дадзены момант падтрымліваецца толькі рэжым "
+"чытання, без магчымасці перадачы.\n"
+"Залежыць ад python-gpod."
 
 #: ../plugins/amazoncovers/PLUGININFO:4
 msgid ""
@@ -4527,11 +4562,11 @@ msgstr ""
 
 #: ../plugins/karaoke/PLUGININFO:3
 msgid "Karaoke"
-msgstr ""
+msgstr "Караоке"
 
 #: ../plugins/karaoke/PLUGININFO:4
 msgid "Removes voice from audio"
-msgstr ""
+msgstr "Выдаляе голас з аўдыё"
 
 #: ../plugins/playlistanalyzer/PLUGININFO:3
 msgid "Playlist Analyzer"
@@ -4549,15 +4584,15 @@ msgstr ""
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
-msgstr ""
+msgstr "Адлюстроўвае вокладку бягучага альбома на працоўным стале"
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Прывітанне, свет"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "Простая ўбудова для тэставання сістэмы ўбудоў"
 
 #: ../plugins/mono/PLUGININFO:3
 msgid "Mono"
@@ -4578,7 +4613,7 @@ msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Кантэкстная інфармацыя"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
@@ -4589,7 +4624,7 @@ msgstr ""
 
 #: ../plugins/bookmarks/PLUGININFO:4
 msgid "Allows saving/resuming bookmark positions in audio files."
-msgstr ""
+msgstr "Дазваляе запамінаць і прайграваць з вызначанага месца ў трэку."
 
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid ""
@@ -4601,19 +4636,23 @@ msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
-msgstr ""
+msgstr "Wiki Тэксты Песень"
 
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid ""
 "Plugin to fetch lyrics from lyrics.wikia.com\n"
 "Depends: python-beautifulsoup"
 msgstr ""
+"Надбудова для загрузкі тэксту пенсі з lyrics.wikia.com\n"
+"Залежнасці: python-beautifulsoup"
 
 #: ../plugins/daapserver/PLUGININFO:4
 msgid ""
 "This plugin integrates spydaap (http://launchpad.net/spydaap) into Exaile so "
 "a collection can be shared over DAAP."
 msgstr ""
+"Дадзеная ўбудова інтэгруе spydaap (http://launchpad.net/spydaap) у Exaile, "
+"такім чынам калекцыяй можна падзяліцца праз DAAP."
 
 #: ../plugins/somafm/PLUGININFO:3
 msgid "SomaFM Radio"

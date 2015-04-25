@@ -16,41 +16,46 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 import moodbarprefs
-import cgi, gtk, glib, os, os.path, subprocess, colorsys
-import inspect
-from xl import common, event, player, settings, xdg
+import gtk
+import glib
+import os
+import subprocess
+import colorsys
+from xl import event, player, settings, xdg
 from xl.nls import gettext as _
-from xlgui.preferences import widgets
-import moodbarprefs
 
 import logging
 logger = logging.getLogger(__name__)
 
 ExaileModbar = None
+PreviewMoodbar = None
 
 class ExModbar(object):
 
     #Setup and getting values------------------------------------------------
 
-    def __init__(self):
-         self.moodbar=''
-         self.buff=''
-         self.brush=None
-         self.modwidth=0
-         self.curpos=0
-         self.modTimer=None
-         self.haveMod=False
-         self.playingTrack=''
-         self.seeking=False
-         self.setuped=False
-         self.runed=False
-         self.pid=0
-         self.uptime=0
-         self.ivalue=0
-         self.qvalue=0
-         self.moodsDir=os.path.join(xdg.get_cache_dir(), "moods")
-         if not os.path.exists(self.moodsDir):
-             os.mkdir(self.moodsDir)
+    def __init__(self, player, progress_bar):
+        self.pr = progress_bar
+        self.player = player
+
+        self.moodbar=''
+        self.buff=''
+        self.brush=None
+        self.modwidth=0
+        self.curpos=0
+        self.modTimer=None
+        self.haveMod=False
+        self.playingTrack=''
+        self.seeking=False
+        self.setuped=False
+        self.runed=False
+        self.pid=0
+        self.uptime=0
+        self.ivalue=0
+        self.qvalue=0
+        self.moodsDir=os.path.join(xdg.get_cache_dir(), "moods")
+        if not os.path.exists(self.moodsDir):
+            os.mkdir(self.moodsDir)
 
     def __inner_preference(klass):
         """functionality copy from notyfication"""
@@ -69,8 +74,6 @@ class ExModbar(object):
 
     darkness = __inner_preference(moodbarprefs.DarknessPreference)
     color = __inner_preference(moodbarprefs.ColorPreference)
-    def set_ex(self, ex):
-         self.exaile=ex
 
     def get_size(self):
          progress_loc = self.mod.get_allocation()
@@ -96,23 +99,45 @@ class ExModbar(object):
              self.mod.destroy()
 
     def setupUi(self):
-              self.setuped=True
-              self.pr=self.exaile.gui.main.progress_bar
-              self.changeBarToMod()
-              self.mod.seeking=False
-              self.mod.connect("expose-event", self.drawMod)
-              self.mod.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-              self.mod.add_events(gtk.gdk.BUTTON_RELEASE_MASK)
-              self.mod.add_events(gtk.gdk.POINTER_MOTION_MASK)
-              self.mod.connect("button-press-event", self.modSeekBegin)
-              self.mod.connect("button-release-event", self.modSeekEnd)
-              self.mod.connect("motion-notify-event", self.modSeekMotionNotify)
-              self.brush = self.mod.props.window.new_gc()
+            self.setuped=True
+            self.changeBarToMod()
+            self.mod.seeking=False
+            self.mod.connect("expose-event", self.drawMod)
+            self.mod.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+            self.mod.add_events(gtk.gdk.BUTTON_RELEASE_MASK)
+            self.mod.add_events(gtk.gdk.POINTER_MOTION_MASK)
+            self.mod.connect("button-press-event", self.modSeekBegin)
+            self.mod.connect("button-release-event", self.modSeekEnd)
+            self.mod.connect("motion-notify-event", self.modSeekMotionNotify)
+            self.brush = self.mod.props.window.new_gc()
 
+            track = self.player.current
 
-              track = player.PLAYER.current
+            self.lookformod(track)
 
-              self.lookformod(track)
+    def add_callbacks(self):
+        event.add_callback(
+            self.play_start,
+            'playback_track_start',
+            self.player
+        )
+        event.add_callback(
+            self.play_end,
+            'playback_player_end',
+            self.player
+        )
+
+    def remove_callbacks(self):
+        event.remove_callback(
+            self.play_start,
+            'playback_track_start',
+            self.player
+        )
+        event.remove_callback(
+            self.play_end,
+            'playback_player_end',
+            self.player
+        )
 
     def destroy(self):
          if self.modTimer: glib.source_remove(self.modTimer)
@@ -130,7 +155,7 @@ class ExModbar(object):
          modLoc=self.moodsDir+'/'+ self.playingTrack.replace('/','-')+".mood"
          modLoc=modLoc.replace("'",'')
          needGen=False
-         self.curpos=player.PLAYER.get_progress()
+         self.curpos = self.player.get_progress()
          if os.access(modLoc, 0):
              self.modwidth=0
              if not self.readMod(modLoc):
@@ -170,7 +195,8 @@ class ExModbar(object):
          self.modTimer = glib.timeout_add_seconds(1, self.updateMod)
 
     def updateplayerpos(self):
-         if self.modTimer: self.curpos=player.PLAYER.get_progress()
+         if self.modTimer:
+             self.curpos = self.player.get_progress()
          self.mod.queue_draw_area(0, 0, self.get_size(), 24)
 
 
@@ -252,7 +278,7 @@ class ExModbar(object):
            g=float(ord(self.moodbar[int(x*1000/width)*3+1]))/256
            b=float(ord(self.moodbar[int(x*1000/width)*3+2]))/256
            if (self.theme or self.defaultstyle):
-		          c1,c2,c3=colorsys.rgb_to_yiq(r, g, b)
+                c1,c2,c3=colorsys.rgb_to_yiq(r, g, b)
 
            if (self.theme):
                 c2=c2+self.ivalue
@@ -265,8 +291,8 @@ class ExModbar(object):
                 r,g,b=colorsys.yiq_to_rgb(0.5,c2,c3)
                 waluelength=int(c1*24)
            else:
-			    if self.theme:
-				    r,g,b=colorsys.yiq_to_rgb(c1,c2,c3)
+                if self.theme:
+                    r,g,b=colorsys.yiq_to_rgb(c1,c2,c3)
            if not self.defaultstyle:
                 buff=''
                 for h in range(24):
@@ -340,7 +366,7 @@ class ExModbar(object):
              0x0000,
              0x0000
          )
-         track = player.PLAYER.current
+         track = self.player.current
          if self.theme:
                 flatcolor1r,flatcolor1g,flatcolor1b=colorsys.yiq_to_rgb(0.5,self.ivalue,self.qvalue)
                 flatcolor2r,flatcolor2g,flatcolor2b=colorsys.yiq_to_rgb(0.5*darkmulti,self.ivalue,self.qvalue)
@@ -405,7 +431,7 @@ class ExModbar(object):
 
             return False
 
-         track = player.PLAYER.current
+         track = self.player.current
          if not track or not (track.is_local() or \
                  track.get_tag_raw('__length')): return
 
@@ -449,8 +475,8 @@ class ExModbar(object):
                 this.props.window.draw_line(gc, int(self.curpos*self.modwidth), 10,
                                       int(self.curpos*self.modwidth)+10, -5)
 
-            length = player.PLAYER.current.get_tag_raw('__length')
-            seconds = player.PLAYER.get_time()
+            length = self.player.current.get_tag_raw('__length')
+            seconds = self.player.get_time()
             remaining_seconds = length - seconds
             text = ("%d:%02d / %d:%02d" %
                 ( seconds // 60, seconds % 60, remaining_seconds // 60,
@@ -488,7 +514,7 @@ class ExModbar(object):
 
     def modSeekEnd(self,this,event):
         self.seeking = False
-        track = player.PLAYER.current
+        track = self.player.current
         if not track or not (track.is_local() or \
                 track.get_tag_raw('__length')): return
 
@@ -504,11 +530,11 @@ class ExModbar(object):
         #redrawMod(self)
 
         seconds = float(value * length)
-        player.PLAYER.seek(seconds)
+        self.player.seek(seconds)
 
     def modSeekMotionNotify(self,this,  event):
         if self.seeking:
-            track = player.PLAYER.current
+            track = self.player.current
             if not track or not (track.is_local() or \
                     track.get_tag_raw('__length')): return
 
@@ -526,12 +552,51 @@ class ExModbar(object):
     #------------------------------------------------------------------------
 
 
+def _enable_main_moodbar(exaile):
+    global ExaileModbar
+    logger.debug("Enabling main moodbar")
+    ExaileModbar = ExModbar(
+        player=player.PLAYER,
+        progress_bar=exaile.gui.main.progress_bar
+    )
+
+    ExaileModbar.readMod('')
+    ExaileModbar.setupUi()
+    ExaileModbar.add_callbacks()
+
+
+def _disable_main_moodbar():
+    global ExaileModbar
+    logger.debug("Disabling main moodbar")
+    ExaileModbar.changeModToBar()
+    ExaileModbar.remove_callbacks()
+    ExaileModbar.destroy()
+    ExaileModbar = None
+
+
+def _enable_preview_moodbar(event, preview_plugin, nothing):
+    global PreviewMoodbar
+    logger.debug("Enabling preview moodbar")
+    PreviewMoodbar = ExModbar(
+        player=preview_plugin.player,
+        progress_bar=preview_plugin.progress_bar
+    )
+
+    PreviewMoodbar.readMod('')
+    PreviewMoodbar.setupUi()
+    PreviewMoodbar.add_callbacks()
+
+
+def _disable_preview_moodbar(event, preview_plugin, nothing):
+    global PreviewMoodbar
+    logger.debug("Disabling preview moodbar")
+    PreviewMoodbar.changeModToBar()
+    PreviewMoodbar.remove_callbacks()
+    PreviewMoodbar.destroy()
+    PreviewMoodbar = None
+
 
 def enable(exaile):
-    global ExaileModbar
-    ExaileModbar=ExModbar()
-    ExaileModbar.set_ex(exaile)
-
     try:
         subprocess.call(['moodbar', '--help'], stdout=-1, stderr=-1)
     except OSError:
@@ -543,20 +608,41 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
+
 def _enable(eventname, exaile, nothing):
-    global ExaileModbar
-    ExaileModbar.readMod('')
-    ExaileModbar.setupUi()
-    event.add_callback(ExaileModbar.play_start, 'playback_track_start', player.PLAYER)
-    event.add_callback(ExaileModbar.play_end, 'playback_player_end', player.PLAYER)
+    _enable_main_moodbar(exaile)
+
+    event.add_callback(_enable_preview_moodbar, 'preview_device_enabled')
+    event.add_callback(_disable_preview_moodbar, 'preview_device_disabling')
+
+    try:
+        import previewdevice
+        preview_plugin = previewdevice.PREVIEW_PLUGIN
+        hooked = preview_plugin.hooked
+    except ImportError:
+        preview_plugin = None
+        hooked = False
+
+    if hooked:  # Attach code fails unless preview player's gui is displayed
+        _enable_preview_moodbar('', preview_plugin, None)
+
 
 def disable(exaile):
-    global ExaileModbar
-    ExaileModbar.changeModToBar()
-    event.remove_callback(ExaileModbar.play_start, 'playback_track_start', player.PLAYER)
-    event.remove_callback(ExaileModbar.play_end, 'playback_player_end', player.PLAYER)
-    ExaileModbar.destroy()
-    ExaileModbar = None
+    _disable_main_moodbar()
+
+    event.remove_callback(_enable_preview_moodbar, 'preview_device_enabled')
+    event.remove_callback(_disable_preview_moodbar, 'preview_device_disabling')
+
+    try:
+        import previewdevice
+        preview_plugin = previewdevice.PREVIEW_PLUGIN
+        hooked = preview_plugin.hooked
+    except (ImportError, AttributeError):
+        preview_plugin = None
+        hooked = False
+
+    if hooked:
+        _disable_preview_moodbar('', preview_plugin, None)
 
 def get_preferences_pane():
     return moodbarprefs
@@ -570,7 +656,3 @@ def get_preferences_pane():
 #python: ../../src/xcb_io.c:176: process_responses: Assertion `!(req && current_request && !(((long) (req->sequence) - (long) (current_request)) <= 0))' failed.
 
 #0.0.4 haven't errors
-
-
-
-

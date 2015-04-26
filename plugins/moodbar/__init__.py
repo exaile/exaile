@@ -603,6 +603,9 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
+def _get_preview_plugin_if_active(exaile):
+    previewdevice = exaile.plugins.enabled_plugins.get('previewdevice', None)
+    return getattr(previewdevice, 'PREVIEW_PLUGIN', None)
 
 def _enable(eventname, exaile, nothing):
     _enable_main_moodbar(exaile)
@@ -610,15 +613,8 @@ def _enable(eventname, exaile, nothing):
     event.add_callback(_enable_preview_moodbar, 'preview_device_enabled')
     event.add_callback(_disable_preview_moodbar, 'preview_device_disabling')
 
-    try:
-        import previewdevice
-        preview_plugin = previewdevice.PREVIEW_PLUGIN
-        hooked = preview_plugin.hooked
-    except ImportError:
-        preview_plugin = None
-        hooked = False
-
-    if hooked:  # Attach code fails unless preview player's gui is displayed
+    preview_plugin = _get_preview_plugin_if_active(exaile)
+    if getattr(preview_plugin, 'hooked', False):
         _enable_preview_moodbar('', preview_plugin, None)
 
 
@@ -628,15 +624,8 @@ def disable(exaile):
     event.remove_callback(_enable_preview_moodbar, 'preview_device_enabled')
     event.remove_callback(_disable_preview_moodbar, 'preview_device_disabling')
 
-    try:
-        import previewdevice
-        preview_plugin = previewdevice.PREVIEW_PLUGIN
-        hooked = preview_plugin.hooked
-    except (ImportError, AttributeError):
-        preview_plugin = None
-        hooked = False
-
-    if hooked:
+    preview_plugin = _get_preview_plugin_if_active(exaile)
+    if getattr(preview_plugin, 'hooked', False):
         _disable_preview_moodbar('', preview_plugin, None)
 
 

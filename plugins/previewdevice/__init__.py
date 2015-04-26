@@ -109,9 +109,6 @@ class SecondaryOutputPlugin(object):
         if settings.get_option('plugin/previewdevice/shown', True):
             self._init_gui_hooks()
 
-        # We're ready; teall anyone who might be interested
-        logger.debug('Preview Device Enabled')
-        # event.log_event('preview_device_enabled', self, None)
 
     def disable_plugin(self, exaile):
         logger.debug('Disabling Preview Device')

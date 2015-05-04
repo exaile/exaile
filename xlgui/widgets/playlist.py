@@ -861,7 +861,10 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
     def scroll_to_current(self):
         position = self.playlist.current_position
         if position >= 0:
-            path = (position,)
+            model = self.get_model()
+            # If it's a filter, then the position isn't actually the path
+            if hasattr(model, 'convert_child_path_to_path'):
+                path = model.convert_child_path_to_path((position,))
             self.scroll_to_cell(path)
             self.set_cursor(path)
         

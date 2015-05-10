@@ -9,7 +9,7 @@ mkdir -p dist
 git archive HEAD --prefix=copy/ | tar -x -C dist
 
 EXAILE_DIR='.'
-PYTHONPATH="/Library/Frameworks/GStreamer.framework/Libraries/python2.7/site-packages/"
+PYTHONPATH="/Library/Frameworks/GStreamer.framework/Versions/0.10/Libraries/python2.7/site-packages/"
 DIST_VERSION=`PYTHONPATH=$PYTHONPATH EXAILE_DIR=$EXAILE_DIR python2 -c 'import xl.xdg; xl.xdg.local_hack=False; import xl.version; print xl.version.__version__'`
 
 echo "Building Exaile $DIST_VERSION"

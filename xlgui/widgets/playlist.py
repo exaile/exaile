@@ -24,21 +24,15 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import collections
 import glib
-import gobject
 import gtk
 import logging
-import os
 import pango
-import random
-import re
 import sys
 
 from xl.nls import gettext as _
 from xl.playlist import (
-    Playlist,
-    PlaylistManager,    
+    Playlist,    
     is_valid_playlist,
     import_playlist,
 )
@@ -52,7 +46,7 @@ from xl import (
     trax,
     xdg
 )
-import xlgui
+
 from xlgui.widgets.common import AutoScrollTreeView
 from xlgui.widgets.notebook import NotebookPage
 from xlgui.widgets import (

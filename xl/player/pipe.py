@@ -430,6 +430,8 @@ class ProviderBin(ElementBin, ProviderHandler):
         """
             :param servicename: the Provider name to listen for
         """
+        if name is None:
+            name = servicename
         ElementBin.__init__(self, player, name=name)
         ProviderHandler.__init__(self, servicename)
 

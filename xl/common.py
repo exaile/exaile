@@ -220,9 +220,12 @@ def _glib_wait_inner(timeout, glib_timeout_func):
                 # python's scoping rules prevent us assigning to an
                 # outer scope directly.
     def waiter(function):
+        def thunk(*args, **kwargs):
+            id[0] = None
+            return function(*args, **kwargs)
         def delayer(*args, **kwargs):
             if id[0]: glib.source_remove(id[0])
-            id[0] = glib_timeout_func(timeout, function, *args, **kwargs)
+            id[0] = glib_timeout_func(timeout, thunk, *args, **kwargs)
         return delayer
     return waiter
 

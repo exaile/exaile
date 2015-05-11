@@ -1337,6 +1337,7 @@ class PlaylistModel(gtk.ListStore):
             return
         glib.idle_add(self.update_icon, position)
 
+    @guiutil.idle_add()   # sync this call to prevent race conditions
     def on_track_tags_changed(self, type, track, tag):
         if not track or not \
             settings.get_option('gui/sync_on_tag_change', True) or not\
@@ -1349,10 +1350,12 @@ class PlaylistModel(gtk.ListStore):
         self._redraw_timer = glib.timeout_add(100, self._on_track_tags_changed)
             
     def _on_track_tags_changed(self):
+        self._redraw_timer = None
         tracks = {}
-        for track in self._redraw_queue:
-            tracks[track.get_loc_for_io()] = track
+        redraw_queue = self._redraw_queue
         self._redraw_queue = []
+        for track in redraw_queue:
+            tracks[track.get_loc_for_io()] = track
            
         for row in self:
             track = tracks.get( row[0].get_loc_for_io() )

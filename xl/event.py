@@ -235,6 +235,10 @@ class EventManager(object):
 
             event: the Event to emit [Event]
         """
+        
+        emit_logmsg = self.use_logger and (not self.logger_filter or \
+                   re.search(self.logger_filter, event.type))
+        
         with self.lock:
             callbacks = set()
             for tcall in [_NONE, event.type]:
@@ -253,9 +257,8 @@ class EventManager(object):
                         except (KeyError, ValueError):
                             pass
                     elif event.time >= cb.time:
-                        if self.use_logger and (not self.logger_filter or \
-                                re.search(self.logger_filter, event.type)):
-                                logger.debug("Attempting to call "
+                        if emit_logmsg:
+                            logger.debug("Attempting to call "
                                     "%(function)s in response "
                                     "to %(event)s." % {
                                         'function': cb.wfunction(),
@@ -267,10 +270,8 @@ class EventManager(object):
                     common.log_exception(logger,
                                 message="Event callback exception caught!")
 
-        if self.use_logger:
-            if not self.logger_filter or re.search(self.logger_filter,
-                event.type):
-                logger.debug("Sent '%(type)s' event from "
+        if emit_logmsg:
+            logger.debug("Sent '%(type)s' event from "
                     "'%(object)s' with data '%(data)s'." %
                         {'type' : event.type, 'object' : repr(event.object),
                         'data' : repr(event.data)})

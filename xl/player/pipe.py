@@ -163,9 +163,13 @@ class MainBin(gst.Bin):
         
         # Start off by blocking the src pad of the prior element
         spad = old_audio_sink.get_static_pad('sink').get_peer()
-        spad.set_blocked_async(True, self._pad_blocked_cb, audio_sink)
+        # HACK: GI: The following doesn't exist in 0.10:
+        #spad.set_blocked_async(True, self._pad_blocked_cb, audio_sink)
+        # HACK: GI: so replace with:
+        spad.add_probe(gst.PadProbeType.BLOCK_DOWNSTREAM, self._pad_blocked_cb, audio_sink)
         
     def _pad_blocked_cb(self, pad, info, new_audio_sink):
+        pad.remove_probe(info.id)
                 
         old_audio_sink = self.audio_sink
         buffer_position = old_audio_sink.query_position(gst.FORMAT_DEFAULT)
@@ -178,14 +182,16 @@ class MainBin(gst.Bin):
         # GST is holding a lock, so unblock the pad on the main thread so
         # that data continues to flow
         
-        def unblock_pad():
-            pad.set_blocked(False)
+        #def unblock_pad():
+            #pad.set_blocked(False)
         
-        glib.idle_add(unblock_pad)
+        #glib.idle_add(unblock_pad)
         self.__audio_sink_lock.release()
        
         # Start flushing the old sink
         self._clear_old_sink(old_audio_sink)
+
+        return gst.PadProbeReturn.DROP
     
     def _clear_old_sink(self, old_audio_sink):
         
@@ -317,8 +323,8 @@ class SinkHandler(gst.Bin, ProviderHandler):
             self.added_sinks.append(sink)
 
         self.set_state(state)
-        if blocked:
-            self.sinkpad.set_blocked_async(False, lambda *args: False, state)
+        #if blocked:
+            #self.sinkpad.set_blocked_async(False, lambda *args: False, state)
 
     def set_state(self, state):
         if state == gst.STATE_PLAYING and \
@@ -407,8 +413,8 @@ class ElementBin(gst.Bin):
         self.added_elems = elems
 
         self.set_state(state)
-        if blocked:
-            self.srcpad.set_blocked_async(False, lambda *args: False, state)
+        #if blocked:
+            #self.srcpad.set_blocked_async(False, lambda *args: False, state)
 
     def set_state(self, state):
         if state == gst.STATE_PLAYING and \

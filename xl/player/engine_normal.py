@@ -53,7 +53,7 @@ class NormalPlayer(_base.ExailePlayer):
         """
             setup the playbin to use for playback
         """
-        self._pipe = gst.element_factory_make("playbin2", "player")
+        self._pipe = gst.element_factory_make("playbin", "player")
         self._pipe.connect("about-to-finish", self._on_about_to_finish)
         self._fakevideo = gst.element_factory_make("fakesink")
         self._fakevideo.set_property("sync", True)
@@ -97,7 +97,7 @@ class NormalPlayer(_base.ExailePlayer):
                 
         elif message.type == gst.MESSAGE_ELEMENT and \
                 message.src == self._pipe and \
-                message.structure.get_name() == 'playbin2-stream-changed' and \
+                message.structure.get_name() == 'playbin-stream-changed' and \
                 self._buffered_track is not None:
             self.queue.next(autoplay=False)
             self._next_track(self._buffered_track, already_playing=True)

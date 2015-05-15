@@ -30,7 +30,6 @@ import time
 
 import glib
 import pygst
-pygst.require('0.10')
 import gst
 
 from xl.nls import gettext as _
@@ -41,6 +40,7 @@ logger = logging.getLogger(__name__)
 
 class UnifiedPlayer(_base.ExailePlayer):
     def __init__(self, name):
+        gst.init()
         self.caps = None
         self.adder = None
         self.audio_queue = None
@@ -50,20 +50,7 @@ class UnifiedPlayer(_base.ExailePlayer):
         self.streams = [None, None]
 
     def _setup_pipe(self):
-        # have to fix the caps because gst cant deal with having them change.
-        # TODO: make this a preference and/or autodetect optimal based on the
-        #   output device - if its a 48000hz-native chip we dont want to send it
-        #   44100hz audio all the time.
-        #   Or better yet, fix gst to handle changing caps :D
-        self.caps = gst.Caps(
-                "audio/x-raw-int, "
-                "endianness=(int)1234, "
-                "signed=(boolean)true, "
-                "width=(int)16, "
-                "depth=(int)16, "
-                "rate=(int)44100, "
-                "channels=(int)2"
-                )
+        self.caps = gst.Caps('audio/x-raw')
         self._pipe = gst.Pipeline()
         self.adder = gst.element_factory_make("adder")
         self.audio_queue = gst.element_factory_make("queue")

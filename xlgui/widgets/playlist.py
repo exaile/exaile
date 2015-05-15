@@ -858,7 +858,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
             model = self.get_model()
             # If it's a filter, then the position isn't actually the path
             if hasattr(model, 'convert_child_path_to_path'):
-                path = model.convert_child_path_to_path((position,))
+                path = model.convert_child_path_to_path(gtk.TreePath((position,)))
             self.scroll_to_cell(path)
             self.set_cursor(path)
         

@@ -1,420 +1,23 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkAdjustment" id="adjustment1">
-    <property name="value">1000</property>
     <property name="upper">10000</property>
+    <property name="value">1000</property>
     <property name="step_increment">50</property>
     <property name="page_increment">50</property>
   </object>
   <object class="GtkAdjustment" id="adjustment2">
-    <property name="value">3000</property>
     <property name="upper">10000</property>
+    <property name="value">3000</property>
     <property name="step_increment">50</property>
     <property name="page_increment">50</property>
   </object>
   <object class="GtkAdjustment" id="adjustment3">
-    <property name="value">0</property>
     <property name="upper">10000</property>
     <property name="step_increment">50</property>
     <property name="page_increment">50</property>
-  </object>
-  <object class="GtkWindow" id="preferences_window">
-    <child>
-      <object class="GtkVBox" id="preferences_pane">
-        <property name="visible">True</property>
-        <property name="border_width">3</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">3</property>
-        <child>
-          <object class="GtkHBox" id="hbox3">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
-                <property name="xalign">0</property>
-                <property name="ypad">1</property>
-                <property name="label" translatable="yes">Playback engine: </property>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="player/engine">
-                <property name="visible">True</property>
-                <property name="model">model1</property>
-                <property name="active">0</property>
-                <child>
-                  <object class="GtkCellRendererText" id="renderer1"/>
-                  <attributes>
-                    <attribute name="text">1</attribute>
-                  </attributes>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="player/user_fade_enabled">
-            <property name="label" translatable="yes">Use fade transitions on user actions</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox1">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkLabel" id="label2">
-                <property name="visible">True</property>
-                <property name="xalign">0.89999997615814209</property>
-                <property name="label" translatable="yes">Fade duration (ms):</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="padding">3</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="player/user_fade">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
-                <property name="xalign">1</property>
-                <property name="adjustment">adjustment1</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="player/crossfading">
-            <property name="label" translatable="yes">Use crossfading (EXPERIMENTAL)</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox2">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkLabel" id="label3">
-                <property name="visible">True</property>
-                <property name="xalign">0.89999997615814209</property>
-                <property name="label" translatable="yes">Crossfade duration (ms):</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="padding">3</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="player/crossfade_duration">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
-                <property name="xalign">1</property>
-                <property name="adjustment">adjustment2</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox4">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkLabel" id="label6">
-                <property name="visible">True</property>
-                <property name="xalign">0</property>
-                <property name="ypad">1</property>
-                <property name="label" translatable="yes">Audio Sink:  </property>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="player/audiosink">
-                <property name="visible">True</property>
-                <property name="model">model2</property>
-                <property name="active">0</property>
-                <child>
-                  <object class="GtkCellRendererText" id="renderer2"/>
-                  <attributes>
-                    <attribute name="text">1</attribute>
-                  </attributes>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox4b">
-            <property name="visible">False</property>
-            <child>
-              <object class="GtkLabel" id="label6b">
-                <property name="visible">True</property>
-                <property name="xalign">0</property>
-                <property name="ypad">1</property>
-                <property name="label" translatable="yes">Device:  </property>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="player/audiosink_device">
-                <property name="visible">True</property>
-                <property name="model">model3</property>
-                <property name="active">0</property>
-                <child>
-                  <object class="GtkCellRendererText" id="renderer3"/>
-                  <attributes>
-                    <attribute name="text">1</attribute>
-                  </attributes>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">6</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox5">
-            <property name="visible">True</property>
-            <property name="spacing">3</property>
-            <child>
-              <object class="GtkLabel" id="label7">
-                <property name="visible">True</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Custom sink pipeline:</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="player/custom_sink_pipe">
-                <property name="width_request">150</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">7</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="player/resume_playback">
-            <property name="label" translatable="yes">Resume playback on start</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="active">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">8</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="player/resume_paused">
-            <property name="label" translatable="yes">Resume playback in paused state</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">9</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="queue/enqueue_begins_playback">
-            <property name="label" translatable="yes">Adding an item to an empty queue begins playback</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">10</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="queue/remove_item_when_played">
-            <property name="label" translatable="yes">Remove track from queue upon playback</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">11</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="queue/disable_new_track_when_playing">
-            <property name="label" translatable="yes">Disallow playing new tracks when another track is playing</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">If a track is currently playing, do not allow new tracks to be started, except when clicking the playback controls</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">12</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="player/auto_advance">
-            <property name="label" translatable="yes">Automatically advance to the next track</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">13</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox6">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkLabel" id="label8">
-                <property name="visible">True</property>
-                <property name="xalign">0.89999997615814209</property>
-                <property name="label" translatable="yes">Delay between tracks (ms)</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="padding">3</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="player/auto_advance_delay">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
-                <property name="xalign">1</property>
-                <property name="adjustment">adjustment3</property>
-                <property name="tooltip_text" translatable="yes">Only works with the normal playback engine</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">14</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkListStore" id="model3">
-    <columns>
-      <!-- column-name item -->
-      <column type="gchararray"/>
-      <!-- column-name title -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="model2">
-    <columns>
-      <!-- column-name item -->
-      <column type="gchararray"/>
-      <!-- column-name title -->
-      <column type="gchararray"/>
-    </columns>
-    <data/>
   </object>
   <object class="GtkListStore" id="model1">
     <columns>
@@ -433,5 +36,448 @@
         <col id="1" translatable="yes">Unified (unstable)</col>
       </row>
     </data>
+  </object>
+  <object class="GtkListStore" id="model2">
+    <columns>
+      <!-- column-name item -->
+      <column type="gchararray"/>
+      <!-- column-name title -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="model3">
+    <columns>
+      <!-- column-name item -->
+      <column type="gchararray"/>
+      <!-- column-name title -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkWindow" id="preferences_window">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkBox" id="preferences_pane">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="border_width">3</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">3</property>
+        <child>
+          <object class="GtkBox" id="hbox3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="ypad">1</property>
+                <property name="label" translatable="yes">Playback engine: </property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="player/engine">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="model">model1</property>
+                <property name="active">0</property>
+                <child>
+                  <object class="GtkCellRendererText" id="renderer1"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="player/user_fade_enabled">
+            <property name="label" translatable="yes">Use fade transitions on user actions</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="hbox1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0.89999997615814209</property>
+                <property name="label" translatable="yes">Fade duration (ms):</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="padding">3</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="player/user_fade">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+                <property name="xalign">1</property>
+                <property name="adjustment">adjustment1</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="player/crossfading">
+            <property name="label" translatable="yes">Use crossfading (EXPERIMENTAL)</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="hbox2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0.89999997615814209</property>
+                <property name="label" translatable="yes">Crossfade duration (ms):</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="padding">3</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="player/crossfade_duration">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+                <property name="xalign">1</property>
+                <property name="adjustment">adjustment2</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="hbox4">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="ypad">1</property>
+                <property name="label" translatable="yes">Audio Sink:  </property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="player/audiosink">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="model">model2</property>
+                <property name="active">0</property>
+                <child>
+                  <object class="GtkCellRendererText" id="renderer2"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="hbox4b">
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label6b">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="ypad">1</property>
+                <property name="label" translatable="yes">Device:  </property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="player/audiosink_device">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="model">model3</property>
+                <property name="active">0</property>
+                <child>
+                  <object class="GtkCellRendererText" id="renderer3"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="hbox5">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">3</property>
+            <child>
+              <object class="GtkLabel" id="label7">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Custom sink pipeline:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="player/custom_sink_pipe">
+                <property name="width_request">150</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="player/resume_playback">
+            <property name="label" translatable="yes">Resume playback on start</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="xalign">0.5</property>
+            <property name="active">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">8</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="player/resume_paused">
+            <property name="label" translatable="yes">Resume playback in paused state</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">9</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="queue/enqueue_begins_playback">
+            <property name="label" translatable="yes">Adding an item to an empty queue begins playback</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">10</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="queue/remove_item_when_played">
+            <property name="label" translatable="yes">Remove track from queue upon playback</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">11</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="queue/disable_new_track_when_playing">
+            <property name="label" translatable="yes">Disallow playing new tracks when another track is playing</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">If a track is currently playing, do not allow new tracks to be started, except when clicking the playback controls</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">12</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="player/auto_advance">
+            <property name="label" translatable="yes">Automatically advance to the next track</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">13</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="hbox6">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label8">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0.89999997615814209</property>
+                <property name="label" translatable="yes">Delay between tracks (ms)</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="padding">3</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="player/auto_advance_delay">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Only works with the normal playback engine</property>
+                <property name="invisible_char">●</property>
+                <property name="xalign">1</property>
+                <property name="adjustment">adjustment3</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">14</property>
+          </packing>
+        </child>
+      </object>
+    </child>
   </object>
 </interface>

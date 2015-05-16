@@ -74,6 +74,11 @@ class ExtendedPixbuf:
             dest_x=0, dest_y=0
         )
 
+    def get_width(self):
+        return self.pixbuf.get_width()
+    def get_height(self):
+        return self.pixbuf.get_height()
+
     def __add__(self, other):
         """
             Horizontally appends a pixbuf to the current

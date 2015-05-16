@@ -29,8 +29,6 @@ import gtk
 import inspect
 import logging
 import os
-import pygtk
-pygtk.require('2.0')
 import shlex
 import string
 import thread

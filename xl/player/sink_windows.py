@@ -18,7 +18,7 @@ from xl.nls import gettext as _
 logger = logging.getLogger(__name__)
 
 def load_exaile_directsound_plugin(presets):
-    
+    return
     try:
         if platform.architecture()[0] == "32bit":
             plugin_path = os.path.abspath(os.path.join(__file__, '../../../tools/win-installer/libgstexailedirectsoundsink.dll'))

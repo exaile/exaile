@@ -29,7 +29,6 @@ import threading
 import time
 
 import glib
-import pygst
 import gst
 
 from xl.nls import gettext as _

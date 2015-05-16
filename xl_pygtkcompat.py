@@ -204,6 +204,6 @@ class GtkBorder(orig_GtkBorder):
 Gtk.Border = GtkBorder
 
 orig_GtkMenu_popup = Gtk.Menu.popup
-def GtkMenu_popup(a, b, c, d, e, f):
-    return orig_GtkMenu_popup(a, b, c, d, None, e, f)
+def GtkMenu_popup(self, parent_shell, parent_item, func, button, time_, data=None):
+    return orig_GtkMenu_popup(self, parent_shell, parent_item, func, data, button, time_)
 Gtk.Menu.popup = GtkMenu_popup

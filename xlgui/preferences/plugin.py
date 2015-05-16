@@ -121,7 +121,7 @@ class PluginManager(object):
                 icon = gtk.STOCK_APPLY
 
             enabled = plugin in self.plugins.enabled_plugins
-            plugin_data = (plugin, info['Name'], info['Version'],
+            plugin_data = (plugin, info['Name'], str(info['Version']),
                            enabled, icon, broken, compatible, True)
             
             if 'Category' in info:
@@ -305,7 +305,7 @@ class PluginManager(object):
                    self.show_incompatible_cb.get_active()
         self.status_column.set_visible(show_col)
         
-    def _model_visible_func(self, model, iter):
+    def _model_visible_func(self, model, iter, data):
         
         row = model[iter]
         broken = row[5]

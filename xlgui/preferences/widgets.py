@@ -252,7 +252,7 @@ class Button(Preference):
 
         widget.connect('clicked', self.on_clicked)
 
-    def _setup_change(*e):
+    def _setup_change(self, *e):
         pass
 
     def _get_value(self):
@@ -261,7 +261,7 @@ class Button(Preference):
     def _set_value(self):
         pass
 
-    def apply(*e):
+    def apply(self, *e):
         return False
 
     def on_clicked(self, button):

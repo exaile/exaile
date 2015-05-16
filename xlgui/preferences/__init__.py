@@ -39,14 +39,14 @@ from xl import xdg
 from xl.nls import gettext as _
 from xl.settings import MANAGER
 from xlgui import icons
-from xlgui.preferences.widgets import *
-from xlgui.preferences import (
+from . import (
     appearance,
     collection,
     cover,
     playback,
     playlists,
-    plugin
+    plugin,
+    widgets
 )
 
 logger = logging.getLogger(__name__)

@@ -30,6 +30,8 @@ import pango
 import os
 import webbrowser
 
+from gi.repository import GdkPixbuf
+
 from xl.nls import gettext as _
 from xl import (
     common,
@@ -91,7 +93,7 @@ class LyricsViewer(object):
         event.add_callback(self.search_method_added_cb,
                 'lyrics_search_method_added')
         event.add_callback(self.on_option_set, 'plugin_lyricsviewer_option_set')
-        self.style_handler = self.notebook.connect('style-set', self.set_style)
+        #self.style_handler = self.notebook.connect('style-set', self.set_style)
 
         self.update_lyrics()
 
@@ -117,7 +119,7 @@ class LyricsViewer(object):
 
         self.refresh_button = builder.get_object('RefreshButton')
         self.refresh_button_image = builder.get_object('RefreshLyrics')
-        self.loading_animation = gtk.gdk.PixbufAnimation(
+        self.loading_animation = GdkPixbuf.PixbufAnimation.new_from_file(
                 os.path.join(IMAGEDIR, self.loading_image))
 
        #track name title text
@@ -146,7 +148,8 @@ class LyricsViewer(object):
         lyrics_source_tag_table.add(self.url_tag)
        #end text url and source
 
-        self.set_style(self.notebook)
+        # TODO: GI: Style must be set via a different mechanism 
+        #self.set_style(self.notebook)
     #end initialize_widgets
     def on_option_set(self, event, settings, option):
         if option == 'plugin/lyricsviewer/lyrics_font':
@@ -185,7 +188,7 @@ class LyricsViewer(object):
         """
         tag = None
         window = textview.get_window(gtk.TEXT_WINDOW_TEXT)
-        cursor_type = window.get_cursor().type.value_name
+        cursor_type = window.get_cursor().get_cursor_type().value_name
 
         if self.source_url != "":
             x, y, mod = window.get_pointer()

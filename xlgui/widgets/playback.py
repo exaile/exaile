@@ -866,8 +866,19 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         """
             Sets up editing cancel on toplevel focus out
         """
-        self.get_toplevel().connect('focus-out-event',
-            lambda w, e: self.emit('focus-out-event', e))
+        # Disconnect from previous toplevel.
+        prev_conn = getattr(self, '__prev_focus_out_conn', None)
+        if prev_conn:
+            prev_conn[0].disconnect(prev_conn[1])
+            del self.__prev_focus_out_conn
+
+        # Connect to new toplevel and store the connection, but only if it's an
+        # actual toplevel window.
+        toplevel = self.get_toplevel()
+        if toplevel.is_toplevel():
+            conn = toplevel.connect('focus-out-event',
+                lambda w, e: self.emit('focus-out-event', e))
+            self.__prev_focus_out_conn = (toplevel, conn)
 
     def on_marker_menu_deactivate(self, menu):
         """

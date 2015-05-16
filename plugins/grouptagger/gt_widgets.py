@@ -629,7 +629,7 @@ class GroupTaggerPanel(notebook.NotebookPage):
         # add the widgets to this page
         self.pack_start( self.tagger, expand=True ) 
         
-        self.set_name('grouptagger')
+        self.name = 'grouptagger'
         
     def get_page_name(self):
         return _('GroupTagger')

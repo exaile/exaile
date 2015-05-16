@@ -74,7 +74,10 @@ from xlgui import guiutil
 logger = logging.getLogger(__name__)
 
 def mainloop():
-    gtk.main()
+    from xl.externals.sigint import InterruptibleLoopContext
+    
+    with InterruptibleLoopContext(gtk.main_quit):
+        gtk.main()
 
 def get_controller():
     return Main._main

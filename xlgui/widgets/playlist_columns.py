@@ -175,7 +175,7 @@ class Column(gtk.TreeViewColumn):
              
     def get_icon_height(self):
         '''Returns a default icon height based on the font size'''
-        sz = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[0]
+        sz = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[1]
         return max(int(sz*self._font_ratio), 1)
         
     def get_icon_size_ratio(self):

@@ -251,8 +251,6 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
             Takes care of resizing the icon if necessary
         """
-        screen = widget.get_screen()
-        settings = gtk.settings_get_for_screen(screen)
         icon_sizes = (
             gtk.ICON_SIZE_MENU, # 1
             gtk.ICON_SIZE_SMALL_TOOLBAR, # 2
@@ -262,8 +260,7 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
             gtk.ICON_SIZE_DIALOG # 6
         )
         # Retrieve pixel dimensions of stock icon sizes
-        sizes = [(gtk.icon_size_lookup_for_settings(settings, i)[0], i)
-                 for i in icon_sizes]
+        sizes = [(gtk.icon_size_lookup(i)[1], i) for i in icon_sizes]
         # Only look at sizes lower than the current dimensions
         sizes = [(s, i) for s, i in sizes if s <= allocation.width]
         # Get the closest fit

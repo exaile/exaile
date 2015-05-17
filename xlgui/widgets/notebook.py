@@ -41,6 +41,13 @@ class SmartNotebook(gtk.Notebook):
         self.connect('popup-menu', self.on_popup_menu)
         self._add_tab_on_empty = True
 
+        # Override the theme's tab overlap setting.
+        # Notably, this removes the gap between tabs that occur when using
+        # Adwaita (GNOME's default theme), which sets this to -8.
+        css = gtk.CssProvider()
+        css.load_from_data('GtkNotebook { -GtkNotebook-tab-overlap: 1 }')
+        self.get_style_context().add_provider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
     def get_current_tab(self):
         current_page = self.get_current_page()
         if current_page == -1:
@@ -153,7 +160,7 @@ class NotebookTab(gtk.EventBox):
         self.add(box)
 
         self.icon = gtk.Image()
-        self.icon.set_property("visible", False)
+        self.icon.set_no_show_all(True)
 
         self.label = gtk.Label(self.page.get_page_name())
         self.label.set_max_width_chars(20)

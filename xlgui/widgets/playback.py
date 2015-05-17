@@ -867,7 +867,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             Sets up editing cancel on toplevel focus out
         """
         # Disconnect from previous toplevel.
-        prev_conn = getattr(self, '__prev_focus_out_conn', None)
+        prev_conn = getattr(self, '_SeekProgressBar__prev_focus_out_conn', None)
         if prev_conn:
             prev_conn[0].disconnect(prev_conn[1])
             del self.__prev_focus_out_conn

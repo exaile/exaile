@@ -30,6 +30,8 @@ import gtk
 import locale
 import logging
 
+from gi.repository import Gtk
+
 from xlgui.preferences import widgets
 from xl import main, plugins, xdg
 from xlgui.widgets import common, dialogs
@@ -266,6 +268,7 @@ class PluginManager(object):
         """
             Called when the checkbox is toggled
         """
+        path = Gtk.TreePath.new_from_string(path)
         plugin = self.filter_model[path][0]
         if plugin is None:
             return

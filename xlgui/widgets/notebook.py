@@ -68,6 +68,7 @@ class SmartNotebook(gtk.Notebook):
         self.insert_page(page, tab, position=position)
         tab.notebook = self
         self.set_tab_reorderable(page, page.reorderable)
+        self.child_set_property(page, 'tab-expand', True)
         if switch:
             self.set_current_page(self.page_num(page))
 
@@ -139,7 +140,9 @@ class NotebookTab(gtk.EventBox):
     def __init__(self, notebook, page, display_left=False):
         """
             :param notebook: The notebook this tab will belong to
+            :type notebook: SmartNotebook
             :param page: The page this tab will be associated with
+            :type page: NotebookPage
         """
         gtk.EventBox.__init__(self)
         self.set_visible_window(False)
@@ -163,13 +166,17 @@ class NotebookTab(gtk.EventBox):
         self.icon.set_no_show_all(True)
 
         self.label = gtk.Label(self.page.get_page_name())
-        self.label.set_max_width_chars(20)
-        
+
         if display_left:
             self.label.set_angle(90)
+            self.label.props.valign = gtk.Align.CENTER
+            # Don't ellipsize but give a sane maximum length.
+            self.label.set_max_width_chars(20)
         else:
+            self.label.props.halign = gtk.Align.CENTER
             self.label.set_ellipsize(pango.ELLIPSIZE_END)
-        
+            self.label.set_width_chars(4)  # Minimum, including ellipsis
+
         self.label.set_tooltip_text(self.page.get_page_name())
         
         if self.can_rename():
@@ -196,15 +203,15 @@ class NotebookTab(gtk.EventBox):
         if display_left:
             box.pack_start(button, False, False)
             box.pack_end(self.icon, False, False)
-            box.pack_end(self.label, False, False)
+            box.pack_end(self.label, True, True)
             if self.can_rename():
-                box.pack_end(self.entry, False, False)
+                box.pack_end(self.entry, True, True)
             
         else:
             box.pack_start(self.icon, False, False)
-            box.pack_start(self.label, False, False)
+            box.pack_start(self.label, True, True)
             if self.can_rename():
-                box.pack_start(self.entry, False, False)
+                box.pack_start(self.entry, True, True)
             box.pack_end(button, False, False)
 
         page.set_tab(self)

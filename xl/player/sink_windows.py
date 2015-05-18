@@ -10,7 +10,7 @@ import logging
 import os.path
 import platform
 import glib
-import gst
+from gi.repository import Gst
 
 from xl import settings
 from xl.nls import gettext as _
@@ -25,8 +25,8 @@ def load_exaile_directsound_plugin(presets):
         else:
             plugin_path = os.path.abspath(os.path.join(__file__, '../../../tools/win-installer/libgstexailedirectsoundsink64.dll'))
             
-        plugin = gst.plugin_load_file(plugin_path)
-        gst.registry_get_default().add_plugin(plugin)
+        plugin = Gst.plugin_load_file(plugin_path)
+        Gst.registry_get_default().add_plugin(plugin)
         
     except glib.GError, e:
         logger.error("Error loading custom DirectSound plugin: %s" % str(e))

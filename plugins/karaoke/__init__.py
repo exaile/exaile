@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from gi.repository import Gst
 
-import gst
 import xl.providers
 from xl.player.pipe import ElementBin
 
@@ -25,7 +25,7 @@ class Karaoke(ElementBin):
     name = 'karaoke'
     def __init__(self, player):
         ElementBin.__init__(self, player, name=self.name)
-        self.elements[50] = gst.element_factory_make('audiokaraoke')
+        self.elements[50] = Gst.ElementFactory.make('audiokaraoke')
         self.setup_elements()
 
 

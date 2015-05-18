@@ -24,10 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-
-import pygst
-pygst.require("0.10")
-import gst
+from gi.repository import Gst
 
 from xl.nls import gettext as _
 
@@ -122,7 +119,7 @@ def get_formats():
     for name, val in FORMATS.iteritems():
         try:
             for plug in val['plugins']:
-                x = gst.element_factory_find(plug)
+                x = Gst.ElementFactory.find(plug)
                 if not x:
                     raise
             ret[name] = val
@@ -184,19 +181,19 @@ class Transcoder(object):
         elements = [ self.input, "decodebin name=\"decoder\"", "audioconvert",
                 self.encoder, self.output ]
         pipestr = " ! ".join( elements )
-        pipe = gst.parse_launch(pipestr)
+        pipe = Gst.parse_launch(pipestr)
         self.pipe = pipe
         self.bus = pipe.get_bus()
         self.bus.add_signal_watch()
         self.bus.connect('message::error', self.on_error)
         self.bus.connect('message::eos', self.on_eof)
 
-        pipe.set_state(gst.STATE_PLAYING)
+        pipe.set_state(Gst.State.PLAYING)
         self.running = True
         return pipe
 
     def stop(self):
-        self.pipe.set_state(gst.STATE_NULL)
+        self.pipe.set_state(Gst.State.NULL)
         self.running = False
         self.__last_time = 0.0
         try:
@@ -205,7 +202,7 @@ class Transcoder(object):
             pass #FIXME
 
     def on_error(self, *args):
-        self.pipe.set_state(gst.STATE_NULL)
+        self.pipe.set_state(Gst.State.NULL)
         self.running = False
         try:
             self.error_cb()
@@ -219,8 +216,8 @@ class Transcoder(object):
         if not self.running:
             return 0.0
         try:
-            tim = self.pipe.query_position(gst.FORMAT_TIME)[0]
-            tim = tim/gst.SECOND
+            tim = self.pipe.query_position(Gst.Format.TIME)[0]
+            tim = tim/Gst.SECOND
             self.__last_time = tim
             return tim
         except:

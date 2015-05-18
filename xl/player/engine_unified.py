@@ -29,7 +29,7 @@ import threading
 import time
 
 import glib
-import gst
+from gi.repository import Gst
 
 from xl.nls import gettext as _
 from xl import event, settings, common
@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 
 class UnifiedPlayer(_base.ExailePlayer):
     def __init__(self, name):
-        gst.init()
+        Gst.init()
         self.caps = None
         self.adder = None
         self.audio_queue = None
@@ -49,10 +49,10 @@ class UnifiedPlayer(_base.ExailePlayer):
         self.streams = [None, None]
 
     def _setup_pipe(self):
-        self.caps = gst.Caps('audio/x-raw')
-        self._pipe = gst.Pipeline()
-        self.adder = gst.element_factory_make("adder")
-        self.audio_queue = gst.element_factory_make("queue")
+        self.caps = Gst.Caps('audio/x-raw')
+        self._pipe = Gst.Pipeline()
+        self.adder = Gst.ElementFactory.make("adder")
+        self.audio_queue = Gst.ElementFactory.make("queue")
         self._load_queue_values()
         self._pipe.add(
                 self.adder,
@@ -142,10 +142,10 @@ class UnifiedPlayer(_base.ExailePlayer):
         if fading:
             self.streams[next].set_volume(0)
 
-        self._pipe.set_state(gst.STATE_PLAYING)
+        self._pipe.set_state(Gst.State.PLAYING)
         self.streams[next]._settle_flag = 1
-        glib.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
-        glib.idle_add(self._set_state, self._pipe, gst.STATE_PLAYING)
+        glib.idle_add(self.streams[next].set_state, Gst.State.PLAYING)
+        glib.idle_add(self._set_state, self._pipe, Gst.State.PLAYING)
 
         if fading:
             timeout = int(float(duration)/float(100))
@@ -169,7 +169,7 @@ class UnifiedPlayer(_base.ExailePlayer):
 
     def _set_state(self, thing, state):
         ret = thing.set_state(state)
-        if ret == gst.STATE_CHANGE_SUCCESS:
+        if ret == Gst.StateChangeReturn.SUCCESS:
             return False
         else:
             return True
@@ -221,10 +221,10 @@ class UnifiedPlayer(_base.ExailePlayer):
                 self.adder.release_request_pad(pad)
             except TypeError:
                 pass
-            glib.idle_add(stream.set_state, gst.STATE_NULL)
+            glib.idle_add(stream.set_state, Gst.State.NULL)
             try:
                 self._pipe.remove(stream)
-            except gst.RemoveError:
+            except Gst.RemoveError:
                 logger.debug("Failed to remove stream %s"%stream)
             if stream in self.streams:
                 self.streams[self.streams.index(stream)] = None
@@ -251,7 +251,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             stop playback
         """
         current = self.current
-        self._pipe.set_state(gst.STATE_NULL)
+        self._pipe.set_state(Gst.State.NULL)
         for stream in self.streams:
             self.unlink_stream(stream)
         self._reset_crossfade_timer()
@@ -259,7 +259,7 @@ class UnifiedPlayer(_base.ExailePlayer):
 
     @common.synchronized
     def _pause(self):
-        self._pipe.set_state(gst.STATE_PAUSED)
+        self._pipe.set_state(Gst.State.PAUSED)
         self._reset_crossfade_timer()
 
     @common.synchronized
@@ -267,9 +267,9 @@ class UnifiedPlayer(_base.ExailePlayer):
         # gstreamer does not buffer paused network streams, so if the user
         # is unpausing a stream, just restart playback
         if not self.current.is_local():
-            self._pipe.set_state(gst.STATE_READY)
+            self._pipe.set_state(Gst.State.READY)
 
-        self._pipe.set_state(gst.STATE_PLAYING)
+        self._pipe.set_state(Gst.State.PLAYING)
         self._reset_crossfade_timer()
 
     @common.synchronized
@@ -283,9 +283,9 @@ class UnifiedPlayer(_base.ExailePlayer):
         event.log_event('playback_seeked', self, value)
 
 
-class AudioStream(gst.Bin):
+class AudioStream(Gst.Bin):
     def __init__(self, name, player, caps=None):
-        gst.Bin.__init__(self, name)
+        Gst.Bin.__init__(self, name)
         self.notify_id = None
         self.track = None
         self._playtime_stamp = None
@@ -299,13 +299,13 @@ class AudioStream(gst.Bin):
         self.setup_elems(player)
 
     def setup_elems(self, player):
-        self.dec = gst.element_factory_make("uridecodebin")
-        self.audioconv = gst.element_factory_make("audioconvert")
-        self.audioresam = gst.element_factory_make("audioresample")
+        self.dec = Gst.ElementFactory.make("uridecodebin")
+        self.audioconv = Gst.ElementFactory.make("audioconvert")
+        self.audioresam = Gst.ElementFactory.make("audioresample")
         self.provided = pipe.ProviderBin(player, "stream_element")
-        self.capsfilter = gst.element_factory_make("capsfilter")
+        self.capsfilter = Gst.ElementFactory.make("capsfilter")
         self.capsfilter.set_property("caps", self.caps)
-        self.vol = gst.element_factory_make("volume")
+        self.vol = Gst.ElementFactory.make("volume")
         self.add(self.dec,
                 self.audioconv,
                 self.audioresam,
@@ -318,7 +318,7 @@ class AudioStream(gst.Bin):
         self.provided.link(self.vol)
         self.dec.connect('no-more-pads', self._dec_pad_cb, self.audioconv)
 
-        self.src = gst.GhostPad("src", self.vol.get_static_pad("src"))
+        self.src = Gst.GhostPad.new("src", self.vol.get_static_pad("src"))
         self.add_pad(self.src)
 
     def _dec_pad_cb(self, dec, v):
@@ -391,35 +391,35 @@ class AudioStream(gst.Bin):
     def set_state(self, state):
         logger.debug("Setting state on %s %s"%(self.get_name(), state))
         self._settle_flag = 0
-        if state == gst.STATE_PLAYING:
-            gst.Bin.set_state(self, state)
+        if state == Gst.State.PLAYING:
+            Gst.Bin.set_state(self, state)
             self._settle_state()
             self.reset_playtime_stamp()
-        elif state == gst.STATE_PAUSED:
+        elif state == Gst.State.PAUSED:
             self.update_playtime()
-            gst.Bin.set_state(self, state)
+            Gst.Bin.set_state(self, state)
             self.reset_playtime_stamp()
         else:
             self.update_playtime()
-            gst.Bin.set_state(self, state)
+            Gst.Bin.set_state(self, state)
 
     def _get_gst_state(self):
         """
             Returns the raw GStreamer state
         """
-        return self.get_state(timeout=50*gst.MSECOND)[1]
+        return self.get_state(timeout=50*Gst.MSECOND)[1]
 
     def is_playing(self):
         """
             Returns True if the player is currently playing
         """
-        return self._get_gst_state() == gst.STATE_PLAYING
+        return self._get_gst_state() == Gst.State.PLAYING
 
     def is_paused(self):
         """
             Returns True if the player is currently paused
         """
-        return self._get_gst_state() == gst.STATE_PAUSED
+        return self._get_gst_state() == Gst.State.PAUSED
 
     def get_current(self):
         if self.is_playing() or self.is_paused():
@@ -430,10 +430,10 @@ class AudioStream(gst.Bin):
     def get_position(self):
         if self.is_paused():
             return self.last_position
-        try:
-            self.last_position = self.dec.query_position(gst.FORMAT_TIME)[0]
-        except gst.QueryError:
-            common.log_exception(logger)
+        
+        res, self.last_position = self.dec.query_position(Gst.Format.TIME)
+        if not res:
+            #common.log_exception(logger)
             self.last_position = 0
         return self.last_position
 
@@ -443,7 +443,7 @@ class AudioStream(gst.Bin):
             self._settle_trap = 0
             self._settle_flag = 0
             logger.debug("Failed to settle state on %s."%self)
-            gst.Bin.set_state(self, gst.STATE_NULL)
+            Gst.Bin.set_state(self, Gst.State.NULL)
             event.log_event("stream_settled", self, None)
             return
         glib.idle_add(self._settle_state_sub)
@@ -454,10 +454,10 @@ class AudioStream(gst.Bin):
             hack to reset gstreamer states.
             TODO: find a cleaner way of doing this.
         """
-        if self._settle_flag == 1 and self._get_gst_state() == gst.STATE_PAUSED:
+        if self._settle_flag == 1 and self._get_gst_state() == Gst.State.PAUSED:
             self._settle_trap += 1
             logger.debug("Settling state on %s."%repr(self))
-            self.set_state(gst.STATE_PLAYING)
+            self.set_state(Gst.State.PLAYING)
         else:
             self._settle_flag = 0
             self._settle_trap = 0
@@ -472,10 +472,10 @@ class AudioStream(gst.Bin):
             self._seek_event.clear()
             self._seek_event.wait()
 
-        value = int(gst.SECOND * value)
-        seekevent = gst.event_new_seek(1.0, gst.FORMAT_TIME,
-            gst.SEEK_FLAG_FLUSH,gst.SEEK_TYPE_SET, value,
-            gst.SEEK_TYPE_NONE, 0)
+        value = int(Gst.SECOND * value)
+        seekevent = Gst.Event.new_seek(1.0, Gst.Format.TIME,
+            Gst.SeekFlags.FLUSH,Gst.SeekType.SET, value,
+            Gst.SeekType.NONE, 0)
 
         self.vol.send_event(seekevent)
         # update this in case we're paused

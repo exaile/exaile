@@ -33,7 +33,9 @@ from xlgui.widgets import menu
 
 from xl.nls import gettext as _
 
-import gst, gtk, glib
+from gi.repository import Gst
+
+import gtk, glib
 import os, string
 
 def enable(exaile):
@@ -65,13 +67,13 @@ class GSTEqualizer(ElementBin):
     def __init__(self, player):
         ElementBin.__init__(self, player, name=self.name)
 
-        self.audioconvert = gst.element_factory_make("audioconvert")
+        self.audioconvert = Gst.ElementFactory.make("audioconvert")
         self.elements[40] = self.audioconvert
 
-        self.preamp = gst.element_factory_make("volume")
+        self.preamp = Gst.ElementFactory.make("volume")
         self.elements[50] = self.preamp
 
-        self.eq10band = gst.element_factory_make("equalizer-10bands")
+        self.eq10band = Gst.ElementFactory.make("equalizer-10bands")
         self.elements[60] = self.eq10band
 
         self.setup_elements()

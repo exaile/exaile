@@ -33,7 +33,6 @@ import threading
 import cairo
 import glib
 import gobject
-import gst
 import gtk
 import pango
 

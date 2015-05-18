@@ -27,7 +27,7 @@
 import logging
 import time
 
-import gst
+from gi.repository import Gst
 import glib
 
 from xl.nls import gettext as _
@@ -84,7 +84,7 @@ class ExailePlayer(object):
 
     def _setup_pipe(self):
         """
-            Needs to create self._pipe, an instance of gst.Pipeline
+            Needs to create self._pipe, an instance of Gst.Pipeline
             that will control playback.
         """
         raise NotImplementedError
@@ -104,23 +104,23 @@ class ExailePlayer(object):
         handled = self._handle_message(bus, message, reading_tag)
         if handled:
             pass
-        elif message.type == gst.MESSAGE_TAG:
+        elif message.type == Gst.MessageType.TAG:
             """ Update track length and optionally metadata from gstreamer's parser.
                 Useful for streams and files mutagen doesn't understand. """
             parsed = message.parse_tag()
             event.log_event('tags_parsed', self, (self.current, parsed))
             if self.current and not self.current.get_tag_raw('__length'):
                 try:
-                    raw_duration = self._pipe.query_duration(gst.FORMAT_TIME, None)[0]
-                except gst.QueryError:
+                    raw_duration = self._pipe.query_duration(Gst.Format.TIME, None)[0]
+                except Gst.QueryError:
                     logger.error("Couldn't query duration")
                     raw_duration = 0
-                duration = float(raw_duration)/gst.SECOND
+                duration = float(raw_duration)/Gst.SECOND
                 if duration > 0:
                     self.current.set_tag_raw('__length', duration)
-        elif message.type == gst.MESSAGE_EOS and not self.is_paused():
+        elif message.type == Gst.MessageType.EOS and not self.is_paused():
             self._eos_func()
-        elif message.type == gst.MESSAGE_ERROR:
+        elif message.type == Gst.MessageType.ERROR:
             logger.error("%s %s" %(message, dir(message)) )
             message_text = message.parse_error()[1]
             # The most readable part is always the last..
@@ -223,7 +223,7 @@ class ExailePlayer(object):
         if start_offset > 0:
             
             # wait up to 1s for the state to switch, else this fails
-            if self._pipe.get_state(timeout=1000*gst.MSECOND)[0] != gst.STATE_CHANGE_SUCCESS:
+            if self._pipe.get_state(timeout=1000*Gst.MSECOND)[0] != Gst.StateChangeReturn.SUCCESS:
                 event.log_event('playback_error', self, "Could not start at specified offset")
                 self._error_func()
                 return
@@ -237,10 +237,10 @@ class ExailePlayer(object):
             
     def _monitor_for_stop(self, track, stop_offset):
         
-        if track == self.current and self.get_position() >= stop_offset * gst.SECOND and self.is_playing():
+        if track == self.current and self.get_position() >= stop_offset * Gst.SECOND and self.is_playing():
             
             # send eos to pipe
-            self._pipe.send_event(gst.event_new_eos())
+            self._pipe.send_event(Gst.event_new_eos())
         
             self._stop_id = None
             return False
@@ -364,7 +364,7 @@ class ExailePlayer(object):
             :returns: the playback time in seconds
             :rtype: int
         """
-        return self.get_position()/gst.SECOND
+        return self.get_position()/Gst.SECOND
 
     def get_progress(self):
         """
@@ -375,7 +375,7 @@ class ExailePlayer(object):
         """
         try:
             progress = self.get_position()/float(
-                    self.current.get_tag_raw("__length")*gst.SECOND)
+                    self.current.get_tag_raw("__length")*Gst.SECOND)
         except TypeError: # track doesnt have duration info
             progress = 0
         except AttributeError: # no current track
@@ -435,7 +435,7 @@ class ExailePlayer(object):
         """
             Returns the raw GStreamer state
         """
-        return self._pipe.get_state(timeout=50*gst.MSECOND)[1]
+        return self._pipe.get_state(timeout=50*Gst.MSECOND)[1]
 
     def get_state(self):
         """
@@ -445,9 +445,9 @@ class ExailePlayer(object):
             :rtype: string
         """
         state = self._get_gst_state()
-        if state == gst.STATE_PLAYING:
+        if state == Gst.State.PLAYING:
             return 'playing'
-        elif state == gst.STATE_PAUSED:
+        elif state == Gst.State.PAUSED:
             return 'paused'
         else:
             return 'stopped'
@@ -459,7 +459,7 @@ class ExailePlayer(object):
             :returns: whether the player is currently playing
             :rtype: bool
         """
-        return self._get_gst_state() == gst.STATE_PLAYING
+        return self._get_gst_state() == Gst.State.PLAYING
 
     def is_paused(self):
         """
@@ -468,7 +468,7 @@ class ExailePlayer(object):
             :returns: whether the player is currently paused
             :rtype: bool
         """
-        return self._get_gst_state() == gst.STATE_PAUSED
+        return self._get_gst_state() == Gst.State.PAUSED
 
     def is_stopped(self):
         """
@@ -477,7 +477,7 @@ class ExailePlayer(object):
             :returns: whether the player is currently stopped
             :rtype: bool
         """
-        return self._get_gst_state() == gst.STATE_NULL
+        return self._get_gst_state() == Gst.State.NULL
 
     @staticmethod
     def parse_stream_tags(track, tags):

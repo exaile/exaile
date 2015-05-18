@@ -30,7 +30,7 @@ import urllib
 import urlparse
 
 import glib
-import gst
+from gi.repository import Gst
 
 from xl.nls import gettext as _
 from xl import common, event, settings
@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 
 class NormalPlayer(_base.ExailePlayer):
     def __init__(self, name):
-        gst.init()
+        Gst.init()
         self._last_position = 0
         self._current = None
         self._buffered_track = None
@@ -53,9 +53,9 @@ class NormalPlayer(_base.ExailePlayer):
         """
             setup the playbin to use for playback
         """
-        self._pipe = gst.element_factory_make("playbin", "player")
+        self._pipe = Gst.ElementFactory.make("playbin", "player")
         self._pipe.connect("about-to-finish", self._on_about_to_finish)
-        self._fakevideo = gst.element_factory_make("fakesink")
+        self._fakevideo = Gst.ElementFactory.make("fakesink")
         self._fakevideo.set_property("sync", True)
         self._pipe.set_property("audio-sink", self._mainbin)
         self._pipe.set_property("video-sink", self._fakevideo)
@@ -88,14 +88,14 @@ class NormalPlayer(_base.ExailePlayer):
 
     def _handle_message(self, bus, message, reading_tag = False):
         
-        if message.type == gst.MESSAGE_BUFFERING:
+        if message.type == Gst.MessageType.BUFFERING:
             percent = message.parse_buffering()
             if not percent < 100:
                 logger.info('Buffering complete')
             if percent % 5 == 0:
                 event.log_event('playback_buffering', self, percent)
                 
-        elif message.type == gst.MESSAGE_ELEMENT and \
+        elif message.type == Gst.MessageType.ELEMENT and \
                 message.src == self._pipe and \
                 message.structure.get_name() == 'playbin-stream-changed' and \
                 self._buffered_track is not None:
@@ -109,11 +109,11 @@ class NormalPlayer(_base.ExailePlayer):
     def _error_func(self):
         
         # No need to reinitialize more than once
-        if self._pipe.get_state(timeout=50*gst.MSECOND)[1] == gst.STATE_NULL:
+        if self._pipe.get_state(timeout=50*Gst.MSECOND)[1] == Gst.State.NULL:
             return
         
         self.stop()
-        self._pipe.set_state(gst.STATE_NULL)
+        self._pipe.set_state(Gst.State.NULL)
         self._pipe.set_property('audio-sink', None)
         
         # The mainbin is still connected to the old element, need to
@@ -121,13 +121,13 @@ class NormalPlayer(_base.ExailePlayer):
         self._mainbin.unparent()
         
         # Only flush the element if necessary
-        if self._mainbin.get_state(timeout=50*gst.MSECOND)[1] != gst.STATE_NULL:
+        if self._mainbin.get_state(timeout=50*Gst.MSECOND)[1] != Gst.State.NULL:
         
             # flush it
             sinkpad = self._mainbin.get_static_pad('sink')
             self._err_probe_id = sinkpad.add_event_probe(self._error_func_flush)
             
-            sinkpad.send_event(gst.event_new_eos())
+            sinkpad.send_event(Gst.event_new_eos())
             
         else:
             self._reinitialize()
@@ -135,14 +135,14 @@ class NormalPlayer(_base.ExailePlayer):
     def _error_func_flush(self, pad, info):
         
         # wait for end of stream marker
-        if info.type != gst.EVENT_EOS:
+        if info.type != Gst.EVENT_EOS:
             return True
         
         pad.remove_event_probe(self._err_probe_id)
         self._pad_event_probe_id = None
         
         # Finish clearing the element
-        self._mainbin.set_state(gst.STATE_NULL)    
+        self._mainbin.set_state(Gst.State.NULL)    
             
         # Finally, reinitialize the pipe/bus now that the mainbin is ready
         self._reinitialize()
@@ -161,11 +161,12 @@ class NormalPlayer(_base.ExailePlayer):
             Gets the current playback position of the playing track
         """
         if not self.is_paused():
-            try:
-                self._last_position = \
-                    self._pipe.query_position(gst.FORMAT_TIME)[0]
-            except gst.QueryError:
+            res, self._last_position = \
+                self._pipe.query_position(Gst.Format.TIME)
+            
+            if res is False:
                 self._last_position = 0
+        
         return self._last_position
 
     def _update_playtime(self):
@@ -224,7 +225,7 @@ class NormalPlayer(_base.ExailePlayer):
                 self.notify_id = self._pipe.connect('notify::source',
                         self.__notify_source)
             
-            self._pipe.set_state(gst.STATE_PLAYING)
+            self._pipe.set_state(Gst.State.PLAYING)
         
         if not playing:
             event.log_event('playback_player_start', self, track)
@@ -263,7 +264,7 @@ class NormalPlayer(_base.ExailePlayer):
         self._buffered_track = None
         current = self.current
         if not _onlyfire:
-            self._pipe.set_state(gst.STATE_NULL)
+            self._pipe.set_state(Gst.State.NULL)
         self._update_playtime()
         self._current = None
         event.log_event('playback_track_end', self, current)
@@ -271,7 +272,7 @@ class NormalPlayer(_base.ExailePlayer):
 
     def _pause(self):
         self._update_playtime()
-        self._pipe.set_state(gst.STATE_PAUSED)
+        self._pipe.set_state(Gst.State.PAUSED)
         self._reset_playtime_stamp()
 
     def _unpause(self):
@@ -281,19 +282,19 @@ class NormalPlayer(_base.ExailePlayer):
         # is unpausing a stream, just restart playback
         if not (self.current.is_local() or
                 self.current.get_tag_raw('__length')):
-            self._pipe.set_state(gst.STATE_READY)
+            self._pipe.set_state(Gst.State.READY)
 
-        self._pipe.set_state(gst.STATE_PLAYING)
+        self._pipe.set_state(Gst.State.PLAYING)
 
     def seek(self, value):
         """
             seek to the given position in the current stream
         """
-        new_position = int(gst.SECOND * value)
-        seek_event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
-            gst.SEEK_FLAG_FLUSH, gst.SEEK_TYPE_SET,
+        new_position = int(Gst.SECOND * value)
+        seek_event = Gst.Event.new_seek(1.0, Gst.Format.TIME,
+            Gst.SeekFlags.FLUSH, Gst.SeekType.SET,
             new_position,
-            gst.SEEK_TYPE_NONE, 0)
+            Gst.SeekType.NONE, 0)
 
         # FIXME: GI: Broken
         res = None #self._pipe.send_event(seek_event)

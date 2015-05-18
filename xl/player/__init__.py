@@ -36,8 +36,8 @@ __all__ = [
         'engine_unified'
         ]
 
-import gobject
-gobject.threads_init()
+from gi.repository import GObject
+GObject.threads_init()
 import logging
 import os
 

@@ -2,7 +2,7 @@ import pygtkcompat
 pygtkcompat.enable()
 pygtkcompat.enable_gtk(version='3.0')
 
-from gi.repository import Gdk, GdkPixbuf, Gio, GLib, GObject, Gst, Gtk
+from gi.repository import Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk
 
 # GDK
 
@@ -45,102 +45,6 @@ orig_GioFile_query_info = Gio.File.base.query_info
 def GioFile_query_info(self, attributes, flags=Gio.FileQueryInfoFlags.NONE, cancellable=None):
     return orig_GioFile_query_info(self, attributes, flags, cancellable)
 Gio.File.base.query_info = GioFile_query_info
-
-# GStreamer
-
-# Mostly copied from pygtkcompat
-def enable_gst():
-    import sys
-    from pygtkcompat.pygtkcompat import _install_enums
-    sys.modules['gst'] = Gst
-    _install_enums(Gst)
-    #Gst.registry_get_default = Gst.Registry.get_default
-    Gst.element_register = Gst.Element.register
-    Gst.element_factory_make = Gst.ElementFactory.make
-    Gst.caps_new_any = Gst.Caps.new_any
-    Gst.get_pygst_version = Gst.version
-    Gst.get_gst_version = Gst.version
-
-    #from gi.repository import GstInterfaces
-    #sys.modules['gst.interfaces'] = GstInterfaces
-    #_install_enums(GstInterfaces)
-
-    from gi.repository import GstAudio
-    sys.modules['gst.audio'] = GstAudio
-    _install_enums(GstAudio)
-
-    from gi.repository import GstVideo
-    sys.modules['gst.video'] = GstVideo
-    _install_enums(GstVideo)
-
-    from gi.repository import GstBase
-    sys.modules['gst.base'] = GstBase
-    _install_enums(GstBase)
-
-    Gst.BaseTransform = GstBase.BaseTransform
-    Gst.BaseSink = GstBase.BaseSink
-
-    from gi.repository import GstController
-    sys.modules['gst.controller'] = GstController
-    _install_enums(GstController, dest=Gst)
-
-    from gi.repository import GstPbutils
-    sys.modules['gst.pbutils'] = GstPbutils
-    _install_enums(GstPbutils)
-
-enable_gst()
-
-orig_GstBin = Gst.Bin
-class GstBin(orig_GstBin):
-    def __init__(self, name):
-        orig_GstBin.__init__(self)
-        self.set_name(name)
-    def add(self, *elements):
-        for element in elements:
-            orig_GstBin.add(self, element)
-Gst.Bin = GstBin
-
-orig_GstCaps = Gst.Caps
-class GstCaps(orig_GstCaps):
-    def __new__(cls, s):
-        return orig_GstCaps.from_string(s)
-    def __init__(self, s):
-        orig_GstCaps.__init__(self)  # Suppress warning
-Gst.Caps = GstCaps
-
-orig_GstGhostPad = Gst.GhostPad
-class GstGhostPad(orig_GstGhostPad):
-    def __new__(cls, *a, **kw):
-        return orig_GstGhostPad.new(*a, **kw)
-Gst.GhostPad = GstGhostPad
-
-Gst.event_new_seek = Gst.Event.new_seek
-
-def Gst_element_link_many(*elements):
-    for i, element in enumerate(elements):
-        if i != 0:
-            elements[i - 1].link(element)
-Gst.element_link_many = Gst_element_link_many
-
-orig_GstElement_get_state = Gst.Element.get_state
-def GstElement_get_state(self, timeout=Gst.CLOCK_TIME_NONE):
-    return orig_GstElement_get_state(self, timeout)
-Gst.Element.get_state = GstElement_get_state
-
-orig_Gst_element_factory_make = Gst.ElementFactory.make
-def GstElementFactory_make(factoryname, name=None):
-    orig_Gst_element_factory_make(factoryname, name)
-Gst.ElementFactory.make = GstElementFactory_make
-
-def GstPad_set_blocked_async(self, *a, **kw):
-    Gst.Pad.set_blocked_async_full(self, *a, **kw)
-Gst.Pad.set_blocked_async = GstPad_set_blocked_async
-
-orig_GstPipeline_add = Gst.Pipeline.add
-def GstPipeline_add(self, *elements):
-    for element in elements:
-        orig_GstPipeline_add(self, element)
-Gst.Pipeline.add = GstPipeline_add
 
 # GTK+
 

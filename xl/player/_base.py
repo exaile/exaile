@@ -110,9 +110,8 @@ class ExailePlayer(object):
             parsed = message.parse_tag()
             event.log_event('tags_parsed', self, (self.current, parsed))
             if self.current and not self.current.get_tag_raw('__length'):
-                try:
-                    raw_duration = self._pipe.query_duration(Gst.Format.TIME, None)[0]
-                except Gst.QueryError:
+                res, raw_duration = self._pipe.query_duration(Gst.Format.TIME)
+                if not res:
                     logger.error("Couldn't query duration")
                     raw_duration = 0
                 duration = float(raw_duration)/Gst.SECOND

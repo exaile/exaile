@@ -298,33 +298,37 @@ class URIOpenDialog(TextEntryDialog):
 
     def run(self):
         """
-            Override to take care of the response
+            Show the dialog and block until it's closed.
+
+            The dialog will be automatically destroyed on user response.
+            To obtain the entered URI, handle the "uri-selected" signal.
         """
-        clipboard = gtk.clipboard_get()
-        text = clipboard.wait_for_text()
-
-        if text is not None:
-            location = gio.File(uri=text)
-
-            if location.get_uri_scheme() is not None:
-                self.set_value(text)
-
-        self.show_all()
+        self.show()
         response = TextEntryDialog.run(self)
         self.emit('response', response)
 
     def show(self):
         """
-            Override to capture clipboard content
+            Show the dialog and return immediately.
+
+            The dialog will be automatically destroyed on user response.
+            To obtain the entered URI, handle the "uri-selected" signal.
         """
-        clipboard = gtk.clipboard_get()
+        clipboard = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
         text = clipboard.wait_for_text()
 
         if text is not None:
-            location = gio.File(uri=text)
-
-            if location.get_uri_scheme() is not None:
+            # GIO parses any non-URI text to local file, so we specifically
+            # check that a file URI actually starts with "file:///".
+            if text.startswith('file:///'):
                 self.set_value(text)
+            else:
+                f = gio.File.new_for_uri(text)
+                # If we get a local file here (but text doesn't start with
+                # "file:///"), it means text is not a valid URI and should be
+                # ignored.
+                if f.get_uri_scheme() != 'file':
+                    self.set_value(text)
 
         TextEntryDialog.show_all(self)
 

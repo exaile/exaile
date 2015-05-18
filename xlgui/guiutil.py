@@ -37,34 +37,6 @@ from xlgui import icons
 # moved idle_add to common, useful for more than just GUI stuff :)
 from xl.common import idle_add
 
-
-def gtkrun(f):
-    """
-        A decorator that will make any function run in gtk threadsafe mode
-
-        ALL CODE MODIFYING THE UI SHOULD BE WRAPPED IN THIS
-    """
-    raise DeprecationWarning('We no longer need to use this '
-        'function for xl/event.')
-    def wrapper(*args, **kwargs):
-        # if we're already in the main thread and you try to run
-        # threads_enter, stuff will break horribly, so test for the main
-        # thread and if we're currently in it we simply run the function
-        if threading.currentThread().getName() == 'MainThread':
-            return f(*args, **kwargs)
-        else:
-            gtk.gdk.threads_enter()
-            try:
-                return f(*args, **kwargs)
-            finally:
-                gtk.gdk.threads_leave()
-
-    wrapper.__name__ = f.__name__
-    wrapper.__dict__ = f.__dict__
-    wrapper.__doc__ = f.__doc__
-
-    return wrapper
-
 def get_workarea_size():
     """
         Returns the width and height of the work area

@@ -29,6 +29,7 @@ import gio
 import glib
 import gtk
 import os
+import os.path
 import threading
 
 from xl import event, settings, xdg
@@ -36,6 +37,54 @@ from xlgui import icons
 
 # moved idle_add to common, useful for more than just GUI stuff :)
 from xl.common import idle_add
+
+# Import from external namespace
+from xl.externals.gi_composites import (
+    GtkCallback,
+    GtkChild,
+    GtkTemplate as _GtkTemplate
+) 
+
+class GtkTemplate(_GtkTemplate):
+    '''
+        Use this class decorator in conjunction with :class:`.GtkCallback`
+        and :class:`GtkChild` to construct widgets from a GtkBuilder UI
+        file.
+    
+        This is an exaile-specific wrapper around the :class:`.GtkTemplate`
+        object to allow loading the UI template file in an Exaile-specific
+        way.
+        
+        :param *path: Path components to specify UI file
+        :param relto: If keyword arg 'relto' is specified, path will be
+                      relative to this. Otherwise, it will be relative to
+                      the Exaile data directory
+                      
+        .. versionadded:: 3.5.0
+    '''
+    def __init__(self, *path, **kwargs):
+        super(GtkTemplate, self).__init__(ui=ui_path(*path, **kwargs))
+
+def ui_path(*path, **kwargs):
+    '''
+        Returns absolute path to a UI file. Each arg will be concatenated
+        to construct the final path.
+        
+        :param relto: If keyword arg 'relto' is specified, path will be
+                      relative to this. Otherwise, it will be relative to
+                      the Exaile data directory
+                      
+        .. versionadded:: 3.5.0
+    '''
+    
+    relto = kwargs.pop('relto', None)
+    if len(kwargs):
+        raise ValueError("Only 'relto' is allowed as a keyword argument")
+    
+    if relto is None:
+        return xdg.get_data_path(*path)
+    else:
+        return os.path.abspath(os.path.join(os.path.dirname(relto), *path))
 
 def get_workarea_size():
     """
@@ -425,6 +474,8 @@ def finish(repeat=True):
 
 def initialize_from_xml(this, other=None):
     '''
+        DEPRECATED. Use GtkComposite, GtkCallback, and GtkChild instead
+    
         Initializes the widgets and signals from a GtkBuilder XML file. Looks 
         for the following attributes in the instance you pass:
         
@@ -471,7 +522,7 @@ def initialize_from_xml(this, other=None):
                 signals[signal_name] = getattr(obj, signal_name)
             
     if signals is not None:
-        missing = builder.connect_signals(signals, None)
+        missing = builder.connect_signals(signals)
         if missing is not None:
             err = 'The following signals were found in %s but have no assigned handler: %s' % (this.ui_filename, str(missing))
             raise RuntimeError(err)

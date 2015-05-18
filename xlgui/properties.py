@@ -125,12 +125,12 @@ class TrackPropertiesDialog(gobject.GObject):
         self.trackdata_original = self._tags_copy(tracks)
         self.current_position = current_position
 
-        self._build_from_track(self.current_position)
+        if len(self.trackdata) != 0:
+            self._build_from_track(self.current_position)
+            self.rows[0].field.grab_focus()
 
         self.dialog.resize(600, 350)
         self.dialog.show()
-
-        self.rows[0].field.grab_focus()
 
     def _get_field_widget(self, tag_info, ab):
         tag_type = tag_info.type

@@ -59,8 +59,10 @@
                     <property name="border_width">6</property>
                     <property name="spacing">5</property>
                     <child>
-                      <object class="GtkComboBoxEntry" id="new_tag_combo">
+                      <object class="GtkComboBoxText" id="new_tag_combo">
                         <property name="visible">True</property>
+                        <property name="has_entry">True</property>
+                        <property name="entry_text_column">0</property>
                         <child internal-child="entry">
                           <object class="GtkEntry" id="new_tag_entry">
                             <signal name="changed" handler="on_new_tag_entry_changed"/>

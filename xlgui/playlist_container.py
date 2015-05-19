@@ -24,9 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
+
 import re
-import gtk
 from datetime import datetime
 from xl.nls import gettext as _
 from xl import (
@@ -54,7 +57,7 @@ logger = logging.getLogger(__name__)
 
 
 
-class NewPlaylistNotebookAction(NotebookAction, gtk.Button):
+class NewPlaylistNotebookAction(NotebookAction, Gtk.Button):
     """
         Playlist notebook action which allows for creating new playlists
         regularly as well as by dropping tracks, files and directories on it
@@ -64,17 +67,17 @@ class NewPlaylistNotebookAction(NotebookAction, gtk.Button):
 
     def __init__(self, notebook):
         NotebookAction.__init__(self, notebook)
-        gtk.Button.__init__(self)
+        Gtk.Button.__init__(self)
 
-        self.set_image(gtk.image_new_from_icon_name('tab-new',
-            gtk.ICON_SIZE_BUTTON))
-        self.set_relief(gtk.RELIEF_NONE)
+        self.set_image(Gtk.Image.new_from_icon_name('tab-new',
+            Gtk.IconSize.BUTTON))
+        self.set_relief(Gtk.ReliefStyle.NONE)
 
         self.__default_tooltip_text = _('New Playlist')
         self.__drag_tooltip_text = _('Drop here to create a new playlist')
         self.set_tooltip_text(self.__default_tooltip_text)
 
-        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, [], gtk.gdk.ACTION_COPY)
+        self.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
         self.drag_dest_add_uri_targets()
 
         self.connect('drag-motion', self.on_drag_motion)
@@ -135,7 +138,7 @@ class PlaylistNotebook(SmartNotebook):
         def factory(menu_, parent, context):
             if self.page_num(parent) == -1:
                 return None
-            item = gtk.MenuItem(_("Recently Closed Tabs"))
+            item = Gtk.MenuItem.new_with_label(_("Recently Closed Tabs"))
             if len(self.tab_history) > 0:
                 item.set_submenu(submenu)
             else:
@@ -161,10 +164,10 @@ class PlaylistNotebook(SmartNotebook):
         self.load_saved_tabs()
 
         self.tab_placement_map = {
-            'left': gtk.POS_LEFT,
-            'right': gtk.POS_RIGHT,
-            'top': gtk.POS_TOP,
-            'bottom': gtk.POS_BOTTOM
+            'left': Gtk.PositionType.LEFT,
+            'right': Gtk.PositionType.RIGHT,
+            'top': Gtk.PositionType.TOP,
+            'bottom': Gtk.PositionType.BOTTOM
         }
 
         self.connect('page-added', self.on_page_added)
@@ -380,14 +383,14 @@ class PlaylistNotebook(SmartNotebook):
                     track_count=len(playlist),
                     seconds=dt.seconds
                 )
-            item = gtk.ImageMenuItem(display_name)
-            item.set_image(gtk.image_new_from_icon_name('music-library', gtk.ICON_SIZE_MENU))
+            item = Gtk.ImageMenuItem.new_with_mnemonic(display_name)
+            item.set_image(Gtk.Image.new_from_icon_name('music-library', Gtk.IconSize.MENU))
 
             # Add accelerator to top item
             if self.tab_history[0][1].name == item_name:
-                key, mods = gtk.accelerator_parse(self.accelerator.keys)
+                key, mods = Gtk.accelerator_parse(self.accelerator.keys)
                 item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
-                        gtk.ACCEL_VISIBLE)
+                        Gtk.AccelFlags.VISIBLE)
 
 
             item.connect('activate', lambda w: self.restore_closed_tab(item_name=item_name))
@@ -471,14 +474,14 @@ class PlaylistNotebook(SmartNotebook):
             if not show_tabbar and self.get_n_pages() > 1:
                 show_tabbar = True
 
-            glib.idle_add(self.set_show_tabs, show_tabbar)
+            GLib.idle_add(self.set_show_tabs, show_tabbar)
 
         if option == 'gui/tab_placement':
             tab_placement = settings.get_option(option, 'top')
-            glib.idle_add(self.set_tab_pos, self.tab_placement_map[tab_placement])
+            GLib.idle_add(self.set_tab_pos, self.tab_placement_map[tab_placement])
 
             
-class PlaylistContainer(gtk.HBox):
+class PlaylistContainer(Gtk.HBox):
     '''
         Contains two playlist notebooks that can contain playlists. 
         Playlists can be moved between the two notebooks.
@@ -489,7 +492,7 @@ class PlaylistContainer(gtk.HBox):
         of UI elements if that was the case. 
     '''
     def __init__(self, manager_name, player):
-        gtk.HBox.__init__(self)
+        Gtk.HBox.__init__(self)
     
         self.notebooks = []
         self.notebooks.append(PlaylistNotebook(manager_name, player, '<Control><Shift>t'))
@@ -498,10 +501,10 @@ class PlaylistContainer(gtk.HBox):
         self.notebooks[1].set_add_tab_on_empty(False)
         
         # add notebooks to self
-        self.pack_start(self.notebooks[0])
+        self.pack_start(self.notebooks[0], True, True, 0)
         
         # setup the paned window for separate views
-        self.paned = gtk.VPaned()
+        self.paned = Gtk.VPaned()
         self.paned.pack2(self.notebooks[1], True, True)
         
         # setup queue page
@@ -558,14 +561,14 @@ class PlaylistContainer(gtk.HBox):
                 parent.remove(self.notebooks[0])
                 
                 self.paned.pack1(self.notebooks[0], True, True)
-                self.pack_start(self.paned)
+                self.pack_start(self.paned, True, True, 0)
         else:
             if pane_installed:
                 parent = self.notebooks[0].get_parent()
                 parent.remove(self.notebooks[0])
                 
                 self.remove(self.paned)
-                self.pack_start(self.notebooks[0])
+                self.pack_start(self.notebooks[0], True, True, 0)
                 
         self.show_all()
         

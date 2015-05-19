@@ -27,8 +27,10 @@
 
 import os
 import time
-import gtk
-import gobject
+
+from gi.repository import Gdk
+from gi.repository import Gtk
+from gi.repository import GObject
  
 from xl import (
     event, 
@@ -92,10 +94,10 @@ class BPMCounterPlugin(object):
         return BPMWidget(info_area.get_player())
         
 
-class BPMWidget(gtk.Frame):
+class BPMWidget(Gtk.Frame):
 
     def __init__(self, player):
-        gtk.Frame.__init__(self, _('BPM Counter'))
+        Gtk.Frame.__init__(self, _('BPM Counter'))
         
         self.player = player
         self.taps = []
@@ -108,12 +110,12 @@ class BPMWidget(gtk.Frame):
         # if no tap received, then restart
         self.stale_time = settings.get_option('plugin/bpm/stale_period', 2.0)
         
-        #info_label = gtk.Label(_('BPM Counter'))
-        self.eventbox = gtk.EventBox()
-        self.bpm_label = gtk.Label(_('Update'))
-        self.apply_button = gtk.Button(_('Apply BPM'))
+        #info_label = Gtk.Label(label=_('BPM Counter'))
+        self.eventbox = Gtk.EventBox()
+        self.bpm_label = Gtk.Label(label=_('Update'))
+        self.apply_button = Gtk.Button(_('Apply BPM'))
         
-        vbox = gtk.VBox()
+        vbox = Gtk.VBox()
         w, h = self.bpm_label.size_request()
         self.eventbox.add(self.bpm_label)
         self.eventbox.props.can_focus = True
@@ -171,14 +173,14 @@ class BPMWidget(gtk.Frame):
     
     def on_keydown(self, widget, event):
                 
-        if event.keyval == gtk.keysyms.Return:
+        if event.keyval == Gdk.KEY_Return:
             self.set_bpm()
             return False
                 
         if widget == self.apply_button:
             return False
             
-        if event.keyval == gtk.keysyms.Escape:
+        if event.keyval == Gdk.KEY_Escape:
             self.taps = []
             
         self.add_bpm_tap()
@@ -188,14 +190,14 @@ class BPMWidget(gtk.Frame):
         if widget == self.apply_button:
             return False
         
-        self.eventbox.set_state(gtk.STATE_SELECTED)
+        self.eventbox.set_state(Gtk.StateType.SELECTED)
         self.eventbox.grab_focus()
         
         self.add_bpm_tap()
         return True
         
     def on_focus_out(self, widget, event):
-        self.eventbox.set_state(gtk.STATE_NORMAL)
+        self.eventbox.set_state(Gtk.StateType.NORMAL)
         
             
     #
@@ -231,16 +233,16 @@ class BPMWidget(gtk.Frame):
         '''Make sure we don't accidentally set BPM on things'''
         if self.track and self.bpm:
             
-            msg = gtk.MessageDialog(self.get_toplevel(), gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
+            msg = Gtk.MessageDialog(self.get_toplevel(), Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, 
                 _('Set BPM of %d on %s?') % (int(self.bpm), self.track.get_tag_display('title')))
-            msg.set_default_response( gtk.RESPONSE_NO )
+            msg.set_default_response( Gtk.ResponseType.NO )
             result = msg.run()
             msg.destroy()
         
-            if result == gtk.RESPONSE_YES:
+            if result == Gtk.ResponseType.YES:
                 self.track.set_tag_raw('bpm', int(self.bpm))
                 if not self.track.write_tags():
-                    dialogs.error( None, "Error writing BPM to %s" % gobject.markup_escape_text(self.track.get_loc_for_io()) )
+                    dialogs.error( None, "Error writing BPM to %s" % GObject.markup_escape_text(self.track.get_loc_for_io()) )
         
         self.update_ui()
     

@@ -27,15 +27,16 @@
 # support python 2.5
 from __future__ import with_statement
 
+from gi.repository import GLib
+from gi.repository import Gst
+from gi.repository import Gtk
+
 from xl import providers, event, settings, xdg
 from xl.player.pipe import ElementBin
 from xlgui.widgets import menu
 
 from xl.nls import gettext as _
 
-from gi.repository import Gst
-
-import gtk, glib
 import os, string
 
 def enable(exaile):
@@ -131,7 +132,7 @@ class EqualizerPlugin:
         providers.register('menubar-tools-menu', self.MENU_ITEM)
 
         self.presets_path = os.path.join(xdg.get_config_dir(), 'eq-presets.dat')
-        self.presets = gtk.ListStore(str, float, float, float, float,
+        self.presets = Gtk.ListStore(str, float, float, float, float,
                 float, float, float, float, float, float, float)
         self.load_presets()
 
@@ -192,7 +193,7 @@ class EqualizerPlugin:
                 'on_band9_format_value':self.adjust_band
                 }
 
-        self.ui = gtk.Builder()
+        self.ui = Gtk.Builder()
         self.ui.add_from_file( os.path.join( os.path.dirname(
                 os.path.realpath(__file__)), 'equalizer.ui'))
         self.ui.connect_signals(signals)
@@ -239,7 +240,7 @@ class EqualizerPlugin:
         """
         # Buildable.get_name clashes with Widget.get_name. See
         # https://bugzilla.gnome.org/show_bug.cgi?id=591085#c19
-        widget_name = gtk.Buildable.get_name(widget)
+        widget_name = Gtk.Buildable.get_name(widget)
         band = widget_name[-1]
         if widget.get_value() != settings.get_option(
                 "plugin/equalizer/band" + band):

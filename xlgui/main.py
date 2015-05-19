@@ -31,10 +31,11 @@ import re
 import threading
 
 import cairo
-import glib
-import gobject
-import gtk
-import pango
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
+from gi.repository import Pango
 
 from xl.nls import gettext as _
 from xl import (
@@ -76,11 +77,11 @@ SEEK_STEP_DEFAULT = 10
 VOLUME_STEP_DEFAULT = 0.1
 
 
-class MainWindow(gobject.GObject):
+class MainWindow(GObject.GObject):
     """
         Main Exaile Window
     """
-    __gsignals__ = {'main-visible-toggle': (gobject.SIGNAL_RUN_LAST, bool, ())}
+    __gsignals__ = {'main-visible-toggle': (GObject.SignalFlags.RUN_LAST, bool, ())}
     _mainwindow = None
     def __init__(self, controller, builder, collection):
         """
@@ -88,7 +89,7 @@ class MainWindow(gobject.GObject):
 
             @param controller: the main gui controller
         """
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
 
         self.controller = controller
         self.collection =  collection
@@ -108,7 +109,7 @@ class MainWindow(gobject.GObject):
             'gui/main_window_title_format', _('$title (by $artist)') +
 		' - Exaile'))
 
-        self.accelgroup = gtk.AccelGroup()
+        self.accelgroup = Gtk.AccelGroup()
         self.window.add_accel_group(self.accelgroup)
         self.accel_manager = AcceleratorManager('mainwindow-accelerators', self.accelgroup)
         self.menubar = self.builder.get_object("mainmenu")
@@ -184,10 +185,10 @@ class MainWindow(gobject.GObject):
             ('<Alt>0', lambda *e: self._on_focus_playlist_tab(9)),
         )
 
-        self.accel_group = gtk.AccelGroup()
+        self.accel_group = Gtk.AccelGroup()
         for key, function in hotkeys:
-            key, mod = gtk.accelerator_parse(key)
-            self.accel_group.connect_group(key, mod, gtk.ACCEL_VISIBLE,
+            key, mod = Gtk.accelerator_parse(key)
+            self.accel_group.connect(key, mod, Gtk.AccelFlags.VISIBLE,
                 function)
         self.window.add_accel_group(self.accel_group)
 
@@ -198,19 +199,19 @@ class MainWindow(gobject.GObject):
         # TODO: Maybe make this stackable
         self.message = dialogs.MessageBar(
             parent=self.builder.get_object('player_box'),
-            buttons=gtk.BUTTONS_CLOSE
+            buttons=Gtk.ButtonsType.CLOSE
         )
         self.message.connect('response', self.on_messagebar_response)
 
         self.info_area = MainWindowTrackInfoPane(player.PLAYER)
         self.info_area.set_auto_update(True)
         self.info_area.set_padding(3, 3, 3, 3)
-        self.info_area.hide_all()
+        self.info_area.hide()
         self.info_area.set_no_show_all(True)
         guiutil.gtk_widget_replace(self.builder.get_object('info_area'), self.info_area)
 
         self.volume_control = playback.VolumeControl(player.PLAYER)
-        self.info_area.get_action_area().pack_start(self.volume_control)
+        self.info_area.get_action_area().pack_end(self.volume_control, False, False, 0)
 
         if settings.get_option('gui/use_alpha', False):
             screen = self.window.get_screen()
@@ -232,7 +233,7 @@ class MainWindow(gobject.GObject):
                 selection = page.view.get_selection()
                 selection.connect('changed', self.on_playlist_view_selection_changed)
             
-        playlist_area.pack_start(self.playlist_container, padding=3)
+        playlist_area.pack_start(self.playlist_container, True, True, 3)
 
         self.splitter = self.builder.get_object('splitter')
 
@@ -246,7 +247,7 @@ class MainWindow(gobject.GObject):
             setattr(self, '%s_button' % button,
                 self.builder.get_object('%s_button' % button))
 
-        self.stop_button.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.stop_button.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
         self.stop_button.connect('motion-notify-event',
             self.on_stop_button_motion_notify_event)
         self.stop_button.connect('leave-notify-event',
@@ -261,8 +262,8 @@ class MainWindow(gobject.GObject):
             self.on_stop_button_press_event)
         self.stop_button.connect('button-release-event',
             self.on_stop_button_release_event)
-        self.stop_button.drag_dest_set(gtk.DEST_DEFAULT_ALL,
-            [gtk.TargetEntry.new("exaile-index-list", gtk.TARGET_SAME_APP, 0)], gtk.gdk.ACTION_COPY)
+        self.stop_button.drag_dest_set(Gtk.DestDefaults.ALL,
+            [Gtk.TargetEntry.new("exaile-index-list", Gtk.TargetFlags.SAME_APP, 0)], Gdk.DragAction.COPY)
         self.stop_button.connect('drag-motion',
             self.on_stop_button_drag_motion)
         self.stop_button.connect('drag-leave',
@@ -374,7 +375,7 @@ class MainWindow(gobject.GObject):
         """
         opacity = 1 - settings.get_option('gui/transparency', 0.3)
         context = widget.props.window.cairo_create()
-        background = widget.style.bg[gtk.STATE_NORMAL]
+        background = widget.style.bg[Gtk.StateType.NORMAL]
         context.set_source_rgba(
             float(background.red) / 256**2,
             float(background.green) / 256**2,
@@ -396,7 +397,7 @@ class MainWindow(gobject.GObject):
         """
             Hides the messagebar if requested
         """
-        if response == gtk.RESPONSE_CLOSE:
+        if response == Gtk.ResponseType.CLOSE:
             widget.hide()
             
     def on_panel_notebook_add_page(self, notebook, page, page_num):
@@ -412,12 +413,12 @@ class MainWindow(gobject.GObject):
             Sets the hover state and shows SPAT icon
         """
         widget.__hovered = True
-        if event.state & gtk.gdk.SHIFT_MASK:
-            widget.set_image(gtk.image_new_from_stock(
-                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+        if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
+            widget.set_image(Gtk.Image.new_from_stock(
+                Gtk.STOCK_STOP, Gtk.IconSize.BUTTON))
         else:
-            widget.set_image(gtk.image_new_from_stock(
-                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+            widget.set_image(Gtk.Image.new_from_stock(
+                Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
 
     def on_stop_button_leave_notify_event(self, widget, event):
         """
@@ -425,20 +426,20 @@ class MainWindow(gobject.GObject):
         """
         widget.__hovered = False
         if not widget.is_focus() and \
-           ~(event.state & gtk.gdk.SHIFT_MASK):
-            widget.set_image(gtk.image_new_from_stock(
-                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+           ~(event.get_state() & Gdk.ModifierType.SHIFT_MASK):
+            widget.set_image(Gtk.Image.new_from_stock(
+                Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
 
     def on_stop_button_key_press_event(self, widget, event):
         """
             Shows SPAT icon on Shift key press
         """
-        if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
-            widget.set_image(gtk.image_new_from_stock(
-                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+        if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
+            widget.set_image(Gtk.Image.new_from_stock(
+                Gtk.STOCK_STOP, Gtk.IconSize.BUTTON))
             widget.set_data('toggle_spat', True)
 
-        if event.keyval in (gtk.keysyms.space, gtk.keysyms.Return):
+        if event.keyval in (Gdk.KEY_space, Gdk.KEY_Return):
             if widget.get_data('toggle_spat'):
                 self.on_spat_clicked()
             else:
@@ -448,9 +449,9 @@ class MainWindow(gobject.GObject):
         """
             Resets the button icon
         """
-        if event.keyval in (gtk.keysyms.Shift_L, gtk.keysyms.Shift_R):
-            widget.set_image(gtk.image_new_from_stock(
-                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+        if event.keyval in (Gdk.KEY_Shift_L, Gdk.KEY_Shift_R):
+            widget.set_image(Gtk.Image.new_from_stock(
+                Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
             widget.set_data('toggle_spat', False)
 
     def on_stop_button_focus_out_event(self, widget, event):
@@ -459,22 +460,22 @@ class MainWindow(gobject.GObject):
             the button is still hovered
         """
         if not getattr(widget, '__hovered', False):
-            widget.set_image(gtk.image_new_from_stock(
-                gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+            widget.set_image(Gtk.Image.new_from_stock(
+                Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
 
     def on_stop_button_press_event(self, widget, event):
         """
             Called when the user clicks on the stop button
         """
         if event.button == 1:
-            if event.state & gtk.gdk.SHIFT_MASK:
+            if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
                 self.on_spat_clicked()
         elif event.button == 3:
             menu = guiutil.Menu()
             menu.append(_("Toggle: Stop after Selected Track"),
                 self.on_spat_clicked,
-                gtk.STOCK_STOP)
-            menu.popup(None, None, None, event.button, event.time)
+                Gtk.STOCK_STOP)
+            menu.popup(None, None, None, None, event.button, event.time)
 
     def on_stop_button_release_event(self, widget, event):
         """
@@ -490,15 +491,15 @@ class MainWindow(gobject.GObject):
         """
         target = widget.drag_dest_find_target(context, widget.drag_dest_get_target_list())
         if target == 'exaile-index-list':
-            widget.set_image(gtk.image_new_from_stock(
-                gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON))
+            widget.set_image(Gtk.Image.new_from_stock(
+                Gtk.STOCK_STOP, Gtk.IconSize.BUTTON))
 
     def on_stop_button_drag_leave(self, widget, context, time):
         """
             Resets the stop button
         """
-        widget.set_image(gtk.image_new_from_stock(
-            gtk.STOCK_MEDIA_STOP, gtk.ICON_SIZE_BUTTON))
+        widget.set_image(Gtk.Image.new_from_stock(
+            Gtk.STOCK_MEDIA_STOP, Gtk.IconSize.BUTTON))
 
     def on_stop_button_drag_data_received(self, widget, context, x, y, selection, info, time):
         """
@@ -574,14 +575,14 @@ class MainWindow(gobject.GObject):
         """
             Called when there has been a playback error
         """
-        glib.idle_add(self.message.show_error, _('Playback error encountered!'), message)
+        GLib.idle_add(self.message.show_error, _('Playback error encountered!'), message)
 
     def on_buffering(self, type, player, percent):
         """
             Called when a stream is buffering
         """
         percent = min(percent, 100)
-        glib.idle_add(self.statusbar.set_status, _("Buffering: %d%%...") % percent, 1)
+        GLib.idle_add(self.statusbar.set_status, _("Buffering: %d%%...") % percent, 1)
 
     def on_tags_parsed(self, type, player, args):
         """
@@ -610,20 +611,20 @@ class MainWindow(gobject.GObject):
         """
             Updates information on exaile load
         """
-        glib.idle_add(self.statusbar.update_info)
+        GLib.idle_add(self.statusbar.update_info)
         event.remove_callback(self.on_exaile_loaded, 'exaile_loaded')
 
     def on_playlist_tracks_added(self, type, playlist, tracks):
         """
             Updates information on track add
         """
-        glib.idle_add(self.statusbar.update_info)
+        GLib.idle_add(self.statusbar.update_info)
 
     def on_playlist_tracks_removed(self, type, playlist, tracks):
         """
             Updates information on track removal
         """
-        glib.idle_add(self.statusbar.update_info)
+        GLib.idle_add(self.statusbar.update_info)
 
     def on_toggle_pause(self, type, player, object):
         """
@@ -631,16 +632,16 @@ class MainWindow(gobject.GObject):
             already begun
         """
         if player.is_paused():
-            image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
-                gtk.ICON_SIZE_SMALL_TOOLBAR)
+            image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PLAY,
+                Gtk.IconSize.SMALL_TOOLBAR)
             tooltip = _('Continue Playback')
         else:
-            image = gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
-                gtk.ICON_SIZE_SMALL_TOOLBAR)
+            image = Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PAUSE,
+                Gtk.IconSize.SMALL_TOOLBAR)
             tooltip = _('Pause Playback')
 
-        glib.idle_add(self.playpause_button.set_image, image)
-        glib.idle_add(self.playpause_button.set_tooltip_text, tooltip)
+        GLib.idle_add(self.playpause_button.set_image, image)
+        GLib.idle_add(self.playpause_button.set_tooltip_text, tooltip)
         self._update_track_information()
 
         # refresh the current playlist
@@ -768,9 +769,9 @@ class MainWindow(gobject.GObject):
             """
                 Show messages in the main window message area
             """
-            if message_type == gtk.MESSAGE_INFO:
+            if message_type == Gtk.MessageType.INFO:
                 self.message.show_info(markup=message)
-            elif message_type == gtk.MESSAGE_ERROR:
+            elif message_type == Gtk.MessageType.ERROR:
                 self.message.show_error(_('Playlist export failed!'), message)
 
             return True
@@ -813,22 +814,22 @@ class MainWindow(gobject.GObject):
             return
 
         self._update_track_information()
-        glib.idle_add(self.playpause_button.set_image,
-            gtk.image_new_from_stock(gtk.STOCK_MEDIA_PAUSE,
-            gtk.ICON_SIZE_SMALL_TOOLBAR))
-        glib.idle_add(self.playpause_button.set_tooltip_text,
+        GLib.idle_add(self.playpause_button.set_image,
+            Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PAUSE,
+            Gtk.IconSize.SMALL_TOOLBAR))
+        GLib.idle_add(self.playpause_button.set_tooltip_text,
             _('Pause Playback'))
 
     def on_playback_end(self, type, player, object):
         """
             Called when playback ends
         """
-        glib.idle_add(self.window.set_title, 'Exaile')
+        GLib.idle_add(self.window.set_title, 'Exaile')
 
-        glib.idle_add(self.playpause_button.set_image,
-            gtk.image_new_from_stock(gtk.STOCK_MEDIA_PLAY,
-            gtk.ICON_SIZE_SMALL_TOOLBAR))
-        glib.idle_add(self.playpause_button.set_tooltip_text,
+        GLib.idle_add(self.playpause_button.set_image,
+            Gtk.Image.new_from_stock(Gtk.STOCK_MEDIA_PLAY,
+            Gtk.IconSize.SMALL_TOOLBAR))
+        GLib.idle_add(self.playpause_button.set_tooltip_text,
             _('Start Playback'))
 
     def _on_option_set(self, name, object, option):
@@ -842,18 +843,18 @@ class MainWindow(gobject.GObject):
         if option == 'gui/use_tray':
             usetray = settings.get_option(option, False)
             if self.controller.tray_icon and not usetray:
-                glib.idle_add(self.controller.tray_icon.destroy)
+                GLib.idle_add(self.controller.tray_icon.destroy)
                 self.controller.tray_icon = None
             elif not self.controller.tray_icon and usetray:
                 self.controller.tray_icon = tray.TrayIcon(self)
 	
         if option == 'gui/show_info_area':
-            glib.idle_add(self.info_area.set_no_show_all, False)
+            GLib.idle_add(self.info_area.set_no_show_all, False)
             if settings.get_option(option, True):
-                glib.idle_add(self.info_area.show_all)
+                GLib.idle_add(self.info_area.show_all)
             else:
-                glib.idle_add(self.info_area.hide_all)
-            glib.idle_add(self.info_area.set_no_show_all, True)
+                GLib.idle_add(self.info_area.hide)
+            GLib.idle_add(self.info_area.set_no_show_all, True)
             
         if option == 'gui/show_info_area_covers':
             def _setup_info_covers():
@@ -862,10 +863,10 @@ class MainWindow(gobject.GObject):
                 if settings.get_option(option, True):
                     cover.show_all()
                 else:
-                    cover.hide_all()
+                    cover.hide()
                 cover.set_no_show_all(True)
                 
-            glib.idle_add(_setup_info_covers)
+            GLib.idle_add(_setup_info_covers)
 
     def _on_volume_key(self, is_up):
         diff = int(100 * settings.get_option('gui/volue_key_step_size', VOLUME_STEP_DEFAULT))
@@ -913,7 +914,7 @@ class MainWindow(gobject.GObject):
         if not track:
             return
 
-        glib.idle_add(self.window.set_title,
+        GLib.idle_add(self.window.set_title,
             self.title_formatter.format(track))
 
  
@@ -973,7 +974,7 @@ class MainWindow(gobject.GObject):
             Quits Exaile
         """
         self.window.hide()
-        glib.idle_add(self.controller.exaile.quit)
+        GLib.idle_add(self.controller.exaile.quit)
         return True
 
     def on_restart_item_activate(self, menuitem):
@@ -981,7 +982,7 @@ class MainWindow(gobject.GObject):
             Restarts Exaile
         """
         self.window.hide()
-        glib.idle_add(self.controller.exaile.quit, True)
+        GLib.idle_add(self.controller.exaile.quit, True)
 
     def toggle_visible(self, bringtofront=False):
         """
@@ -1026,27 +1027,27 @@ class MainWindow(gobject.GObject):
             Saves the current maximized and fullscreen
             states and minimizes to tray if requested
         """
-        if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
+        if event.changed_mask & Gdk.WindowState.MAXIMIZED:
             settings.set_option('gui/mainw_maximized',
-                bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
-        if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
-            self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
+                bool(event.new_window_state & Gdk.WindowState.MAXIMIZED))
+        if event.changed_mask & Gdk.WindowState.FULLSCREEN:
+            self._fullscreen = bool(event.new_window_state & Gdk.WindowState.FULLSCREEN)
 
         # detect minimization state changes
         prev_minimized = self.minimized
         
         if not self.minimized:
             
-            if event.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED and \
-               not event.changed_mask & gtk.gdk.WINDOW_STATE_WITHDRAWN and \
-               event.new_window_state & gtk.gdk.WINDOW_STATE_ICONIFIED and \
-               not event.new_window_state & gtk.gdk.WINDOW_STATE_WITHDRAWN and \
-               not self.window_state & gtk.gdk.WINDOW_STATE_ICONIFIED:
+            if event.changed_mask & Gdk.WindowState.ICONIFIED and \
+               not event.changed_mask & Gdk.WindowState.WITHDRAWN and \
+               event.new_window_state & Gdk.WindowState.ICONIFIED and \
+               not event.new_window_state & Gdk.WindowState.WITHDRAWN and \
+               not self.window_state & Gdk.WindowState.ICONIFIED:
                 
                 self.minimized = True
         else:
-            if event.changed_mask & gtk.gdk.WINDOW_STATE_WITHDRAWN and \
-               not event.new_window_state & (gtk.gdk.WINDOW_STATE_WITHDRAWN): #and \
+            if event.changed_mask & Gdk.WindowState.WITHDRAWN and \
+               not event.new_window_state & (Gdk.WindowState.WITHDRAWN): #and \
                 
                 self.minimized = False
 
@@ -1102,7 +1103,7 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
         The mainwindow-info-area-widget provider is used to show widgets
         on the right of the info area. They should be small. The registered
         provider should provide a method 'create_widget' that takes the info
-        area instance as a parameter, and that returns a gtk.Widget to be
+        area instance as a parameter, and that returns a Gtk.Widget to be
         inserted into the widget_area of the info area, and an attribute
         'name' that will be used when removing the provider.
     """
@@ -1110,9 +1111,9 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
         info.TrackInfoPane.__init__(self, player)
 
         self.__player = player
-        self.widget_area = gtk.HBox()
+        self.widget_area = Gtk.HBox()
 
-        self.get_child().pack_start(self.widget_area, expand=False, fill=False)
+        self.get_child().pack_start(self.widget_area, False, False, 0)
 
         self.__widget_area_widgets = {}
         
@@ -1137,7 +1138,7 @@ class MainWindowTrackInfoPane(info.TrackInfoPane, providers.ProviderHandler):
             old_widget.destroy()
         
         self.__widget_area_widgets[name] = widget
-        self.widget_area.pack_start(widget, False, False)
+        self.widget_area.pack_start(widget, False, False, 0)
         widget.show_all()
     
     def on_provider_removed(self, provider):

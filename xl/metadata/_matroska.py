@@ -34,6 +34,8 @@
 import sys
 from struct import unpack
 
+from gi.repository import GLib
+
 SINT, UINT, FLOAT, STRING, UTF8, DATE, MASTER, BINARY = range(8)
 
 class EbmlException(Exception): pass
@@ -246,18 +248,18 @@ class Ebml:
 
 ## GIO-specific code
 
-import gio
+from gi.repository import Gio
 
 class GioEbml(Ebml):
     # NOTE: All seeks are faked using InputStream.skip because we need to use
     # BufferedInputStream but it does not implement Seekable.
 
     def open(self, location):
-        f = gio.File(location)
-        self.buffer = gio.BufferedInputStream(f.read())
+        f = Gio.File.new_for_uri(location)
+        self.buffer = Gio.BufferedInputStream(f.read())
         self._tell = 0
 
-        self.size = f.query_info('standard::size').get_size()
+        self.size = f.query_info('standard::size', Gio.FileQueryInfoFlags.NONE, None).get_size()
 
     def seek(self, offset, mode):
         if mode == 0:
@@ -269,7 +271,7 @@ class GioEbml(Ebml):
         else:
             raise ValueError("invalid seek mode: %r" % offset)
         if skip < 0:
-            raise gio.Error("cannot seek backwards from %d" % self._tell)
+            raise GLib.Error("cannot seek backwards from %d" % self._tell)
         self._tell += skip
         self.buffer.skip(skip)
 

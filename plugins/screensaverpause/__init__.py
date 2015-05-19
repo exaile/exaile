@@ -24,8 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
+from gi.repository import GLib
+from gi.repository import GObject
 
-import dbus, gtk
+import dbus
 from xl import event, player, settings
 
 SERVICES = [
@@ -78,8 +80,7 @@ def disable(exaile):
 
 
 def test():
-    import glib, gobject
-    gobject.threads_init()
+    GObject.threads_init()
     import dbus.mainloop.glib as dbgl
     dbgl.DBusGMainLoop(set_as_default=True)
 
@@ -97,7 +98,7 @@ def test():
         return None
     assert proxy
     interface = dbus.Interface(proxy, service['dbus_interface'])
-    mainloop = glib.MainLoop()
+    mainloop = GLib.MainLoop()
 
     def active_changed(new_value):
         if not new_value:

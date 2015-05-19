@@ -28,7 +28,7 @@ import logging
 import time
 
 from gi.repository import Gst
-import glib
+from gi.repository import GLib
 
 from xl.nls import gettext as _
 from xl import event, settings, common
@@ -198,7 +198,7 @@ class ExailePlayer(object):
 
     def _cancel_delayed_start(self):
         if self._delay_id is not None:
-            glib.source_remove(self._delay_id)
+            GLib.source_remove(self._delay_id)
             self._delay_id = None
     
     def _should_delay_start(self):
@@ -206,12 +206,12 @@ class ExailePlayer(object):
         if delay <= 0:
             return False
         self.pause()
-        self._delay_id = glib.timeout_add(int(delay), self._unpause) 
+        self._delay_id = GLib.timeout_add(int(delay), self._unpause) 
         return True
     
     def _cancel_stop_offset(self):
         if self._stop_id is not None:
-            glib.source_remove(self._stop_id)
+            GLib.source_remove(self._stop_id)
             self._stop_id = None
     
     def _setup_startstop_offsets(self, track):
@@ -231,7 +231,7 @@ class ExailePlayer(object):
             
         # there's probably a better way to implement this... 
         if stop_offset > 0:
-            self._stop_id = glib.timeout_add(250, self._monitor_for_stop, track, stop_offset)
+            self._stop_id = GLib.timeout_add(250, self._monitor_for_stop, track, stop_offset)
     
             
     def _monitor_for_stop(self, track, stop_offset):

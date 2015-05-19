@@ -24,8 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject
-import gtk
+from gi.repository import GObject
+from gi.repository import Gtk
 
 from os.path import basename, dirname, join
 from glob import glob
@@ -81,8 +81,8 @@ class AnalyzerDialog(object):
         
         guiutil.initialize_from_xml(self)
         
-        self.info_bar = dialogs.MessageBar(self.info_bar, type=gtk.MESSAGE_ERROR, 
-                                           buttons=gtk.BUTTONS_CLOSE)
+        self.info_bar = dialogs.MessageBar(self.info_bar, type=Gtk.MessageType.ERROR, 
+                                           buttons=Gtk.ButtonsType.CLOSE)
         
         self.__build_template_list()
         self.__build_playlist_list(selected_playlist)
@@ -150,7 +150,7 @@ class AnalyzerDialog(object):
             
     def __build_playlist_list(self, selected_playlist):
         
-        self.playlists_list.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
+        self.playlists_list.get_selection().set_mode(Gtk.SelectionMode.MULTIPLE)
         
         manager = self.plugin.exaile.playlists
         for name in sorted(manager.list_playlists()):
@@ -162,9 +162,9 @@ class AnalyzerDialog(object):
         
     def __build_tag_combo(self, idx):
         
-        model = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT, gobject.TYPE_STRING)
-        widget = gtk.ComboBox(model)
-        cell = gtk.CellRendererText()
+        model = Gtk.ListStore(GObject.TYPE_STRING, GObject.TYPE_PYOBJECT, GObject.TYPE_STRING)
+        widget = Gtk.ComboBox(model)
+        cell = Gtk.CellRendererText()
         widget.pack_start(cell, True)
         widget.add_attribute(cell, 'text', 0)
         
@@ -187,7 +187,7 @@ class AnalyzerDialog(object):
         
         # TODO: persist value
         
-        spin = gtk.SpinButton()
+        spin = Gtk.SpinButton()
         spin.set_no_show_all(True)
         spin.hide()
         spin.set_tooltip_text(_('Modulus this number'))
@@ -213,7 +213,7 @@ class AnalyzerDialog(object):
         
         for i in xrange(0, tmpl['maxtags']):
             
-            label = gtk.Label(_('Tag %s') % (i + 1))
+            label = Gtk.Label(label=_('Tag %s') % (i + 1))
             combo = self.__build_tag_combo(i)
             spin = self.__build_spin(i)
             

@@ -24,9 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gio
-import gobject
-import gtk
+from gi.repository import Gio
+from gi.repository import Gtk
 import logging
 import os
 
@@ -49,7 +48,7 @@ class CollectionManagerDialog(object):
         """
         self.parent = parent
         self.collection = collection
-        builder = gtk.Builder()
+        builder = Gtk.Builder()
         builder.add_from_file(xdg.get_data_path(
             'ui', 'collection_manager.ui'))
         self.dialog = builder.get_object('CollectionManager')
@@ -59,7 +58,7 @@ class CollectionManagerDialog(object):
         self.remove_button = builder.get_object('remove_button')
         self.message = dialogs.MessageBar(
             parent=builder.get_object('content_area'),
-            buttons=gtk.BUTTONS_CLOSE
+            buttons=Gtk.ButtonsType.CLOSE
         )
 
         builder.connect_signals(self)
@@ -121,10 +120,10 @@ class CollectionManagerDialog(object):
         """
             Adds a path to the list
         """
-        dialog = gtk.FileChooserDialog(_("Add a Directory"),
-            self.parent, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_ADD, gtk.RESPONSE_OK))
+        dialog = Gtk.FileChooserDialog(_("Add a Directory"),
+            self.parent, Gtk.FileChooserAction.SELECT_FOLDER,
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_ADD, Gtk.ResponseType.OK))
         dialog.set_current_folder(xdg.get_last_dir())
         dialog.set_local_only(False) # enable gio
         response = dialog.run()
@@ -136,12 +135,12 @@ class CollectionManagerDialog(object):
         uri = dialog.get_uri()
         dialog.hide()
 
-        if response == gtk.RESPONSE_OK:
-            location = gio.File(uri)
+        if response == Gtk.ResponseType.OK:
+            location = Gio.File.new_for_uri(uri)
             removals = []
 
             for row in self.model:
-                library_location = gio.File(row[0])
+                library_location = Gio.File.new_for_uri(row[0])
                 monitored = row[1]
                 scan_on_startup = row[2]
 

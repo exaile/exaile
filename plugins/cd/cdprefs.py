@@ -25,8 +25,8 @@
 # from your version.
 
 from __future__ import with_statement
-import gobject
-import gtk
+from gi.repository import GObject
+from gi.repository import Gtk
 import os
 import warnings 
 

@@ -25,13 +25,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gtk
-import pango
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
+from gi.repository import Pango
 
 from xl import (
-    common,
-    covers,
     event,
     formatter,
     main,
@@ -48,15 +48,15 @@ from xlgui import (
 from xlgui.widgets import playlist
 from xlgui.widgets.playback import PlaybackProgressBar
 
-class TrackInfoPane(gtk.Alignment):
+class TrackInfoPane(Gtk.Alignment):
     """
         Displays cover art and track data
     """
     def __init__(self, player):
-        gtk.Alignment.__init__(self, xscale=1, yscale=1)
+        Gtk.Alignment.__init__(self, xscale=1, yscale=1)
         self.__player = player
         
-        builder = gtk.Builder()
+        builder = Gtk.Builder()
         builder.add_from_file(xdg.get_data_path(
             'ui', 'widgets', 'track_info.ui'))
 
@@ -86,7 +86,7 @@ class TrackInfoPane(gtk.Alignment):
             self.progressbar)
         
         self.cover = cover.CoverWidget(builder.get_object('cover_image'))
-        self.cover.hide_all()
+        self.cover.hide()
         self.cover.set_no_show_all(True)
 
         self.clear()
@@ -98,7 +98,7 @@ class TrackInfoPane(gtk.Alignment):
         # Make sure to disconnect callbacks
         self.set_auto_update(False)
 
-        gtk.Alignment.destroy(self)
+        Gtk.Alignment.destroy(self)
 
     def get_auto_update(self):
         """
@@ -239,13 +239,13 @@ class TrackInfoPane(gtk.Alignment):
             if track == self.__player.current and \
                not self.__player.is_stopped():
 
-                stock_id = gtk.STOCK_MEDIA_PLAY
+                stock_id = Gtk.STOCK_MEDIA_PLAY
 
                 if self.__player.is_paused():
-                    stock_id = gtk.STOCK_MEDIA_PAUSE
+                    stock_id = Gtk.STOCK_MEDIA_PAUSE
 
                 self.playback_image.set_from_stock(stock_id,
-                    gtk.ICON_SIZE_SMALL_TOOLBAR)
+                    Gtk.IconSize.SMALL_TOOLBAR)
 
                 self.__show_progress()
             else:
@@ -269,7 +269,7 @@ class TrackInfoPane(gtk.Alignment):
             Retrieves the action area
             at the end of the pane
 
-            :rtype: :class:`gtk.VBox`
+            :rtype: :class:`Gtk.VBox`
         """
         return self.action_area
 
@@ -300,25 +300,25 @@ class TrackInfoPane(gtk.Alignment):
         """
             Clears the info pane on playback end
         """
-        glib.idle_add(self.clear)
+        GLib.idle_add(self.clear)
 
     def on_playback_track_start(self, event, player, track):
         """
             Updates the info pane on track start
         """
-        glib.idle_add(self.set_track, track)
+        GLib.idle_add(self.set_track, track)
 
     def on_playback_toggle_pause(self, event, player, track):
         """
             Updates the info pane on playback pause/resume
         """
-        glib.idle_add(self.set_track, track)
+        GLib.idle_add(self.set_track, track)
 
     def on_playback_error(self, event, player, message):
         """
             Clears the info pane on playback errors
         """
-        glib.idle_add(self.clear)
+        GLib.idle_add(self.clear)
 
     def on_track_tags_changed(self, event, track, tag):
         """
@@ -327,25 +327,25 @@ class TrackInfoPane(gtk.Alignment):
         if self.__player is not None and \
            not self.__player.is_stopped() and \
            track is self.__track:
-            glib.idle_add(self.set_track, track)
+            GLib.idle_add(self.set_track, track)
 
     def on_cover_set(self, event, covers, track):
         """
             Updates the info pane on cover set
         """
         if track is self.__track:
-            glib.idle_add(self.set_track, track)
+            GLib.idle_add(self.set_track, track)
 
     def on_cover_removed(self, event, covers, track):
         """
             Updates the info pane on cover removal
         """
         if track is self.__track:
-            glib.idle_add(self.set_track, track)
+            GLib.idle_add(self.set_track, track)
     
 
 # TODO: Use single info label and formatter
-class TrackListInfoPane(gtk.Alignment):
+class TrackListInfoPane(Gtk.Alignment):
     """
         Displays cover art and data about a list of tracks
     """
@@ -354,9 +354,9 @@ class TrackListInfoPane(gtk.Alignment):
             :param display_tracklist: Whether to display
                 a short list of tracks
         """
-        gtk.Alignment.__init__(self)
+        Gtk.Alignment.__init__(self)
 
-        builder = gtk.Builder()
+        builder = Gtk.Builder()
         builder.add_from_file(xdg.get_data_path(
             'ui', 'widgets', 'tracklist_info.ui'))
 
@@ -379,14 +379,14 @@ class TrackListInfoPane(gtk.Alignment):
             self.total_label.set_property('visible', True)
 
             self.rownumber = 1
-            self.pango_attributes = pango.AttrList()
+            self.pango_attributes = Pango.AttrList()
             self.pango_attributes.insert(
-                pango.AttrScale(pango.SCALE_SMALL, end_index=-1))
+                Pango.AttrScale(Pango.SCALE_SMALL, end_index=-1))
             self.pango_attributes.insert(
-                pango.AttrStyle(pango.STYLE_ITALIC, end_index=-1))
-            self.ellipse_pango_attributes = pango.AttrList()
+                Pango.AttrStyle(Pango.Style.ITALIC, end_index=-1))
+            self.ellipse_pango_attributes = Pango.AttrList()
             self.ellipse_pango_attributes.insert(
-                pango.AttrWeight(pango.WEIGHT_BOLD, end_index=-1))
+                Pango.AttrWeight(Pango.Weight.BOLD, end_index=-1))
 
     def set_tracklist(self, tracks):
         """
@@ -466,7 +466,7 @@ class TrackListInfoPane(gtk.Alignment):
                 None to insert an ellipse
         """
         if track is None:
-            ellipse_label = gtk.Label('⋮')
+            ellipse_label = Gtk.Label(label='⋮')
             ellipse_label.set_attributes(self.ellipse_pango_attributes)
             self.tracklist_table.attach(ellipse_label,
                 1, 2, self.rownumber - 1, self.rownumber)
@@ -474,20 +474,20 @@ class TrackListInfoPane(gtk.Alignment):
             tracknumber = track.get_tag_display('tracknumber')
             tracknumber = formatter.TrackNumberTagFormatter.format_value(
                 tracknumber)
-            tracknumber_label = gtk.Label(tracknumber)
+            tracknumber_label = Gtk.Label(label=tracknumber)
             tracknumber_label.set_attributes(self.pango_attributes)
             tracknumber_label.props.xalign = 0
             self.tracklist_table.attach(tracknumber_label,
                 0, 1, self.rownumber - 1, self.rownumber)
 
-            title_label = gtk.Label(track.get_tag_display('title'))
+            title_label = Gtk.Label(label=track.get_tag_display('title'))
             title_label.set_attributes(self.pango_attributes)
             self.tracklist_table.attach(title_label,
                 1, 2, self.rownumber - 1, self.rownumber)
 
             length = float(track.get_tag_display('__length'))
             length = formatter.LengthTagFormatter.format_value(length, 'short')
-            length_label = gtk.Label(length)
+            length_label = Gtk.Label(label=length)
             length_label.set_attributes(self.pango_attributes)
             length_label.props.xalign = 0.9
             self.tracklist_table.attach(length_label,
@@ -539,7 +539,7 @@ class TrackToolTip(TrackInfoPane, ToolTip):
         ToolTip.__init__(self, parent, self)
 
         self.set_padding(6, 6, 6, 6)
-        self.info_label.set_ellipsize(pango.ELLIPSIZE_NONE)
+        self.info_label.set_ellipsize(Pango.EllipsizeMode.NONE)
         self.cover.set_no_show_all(False)
         self.cover.show_all()
 
@@ -706,14 +706,14 @@ class Statusbar(object):
                 '${playlist_duration:selection=override, format=long, prefix=(, suffix=)\, }'
                 '$collection_count'))
 
-        self.info_label = gtk.Label()
+        self.info_label = Gtk.Label()
         self.info_label.props.xpad = 3
 
         frame = self.status_bar.get_children()[0]
         box = frame.get_children()[0]
 
         try:
-            box.pack_start(self.info_label, False)
+            box.pack_start(self.info_label, False, True, 0)
         except AttributeError: # GTK < 2.20, thus box is the original label
             frame.remove(frame.get_children()[0])
             frame.add(self.info_label)
@@ -731,7 +731,7 @@ class Statusbar(object):
         self.message_ids += [self.status_bar.push(self.context_id, status)]
 
         if timeout > 0:
-            glib.timeout_add_seconds(timeout, self.clear_status)
+            GLib.timeout_add_seconds(timeout, self.clear_status)
 
     def clear_status(self):
         """
@@ -758,10 +758,10 @@ class Statusbar(object):
             Taken from GTK source, retrieves the
             preferred edge for the resize grip
         """
-        if widget.get_direction() == gtk.TEXT_DIR_LTR:
-            edge = gtk.gdk.WINDOW_EDGE_SOUTH_EAST
+        if widget.get_direction() == Gtk.TextDirection.LTR:
+            edge = Gdk.WindowEdge.SOUTH_EAST
         else:
-            edge = gtk.gdk.WINDOW_EDGE_SOUTH_WEST
+            edge = Gdk.WindowEdge.SOUTH_WEST
         return edge
 
     def __get_grip_rect(self, widget):
@@ -775,14 +775,14 @@ class Statusbar(object):
         width = min(width, allocation.width)
         height = min(height, allocation.height - widget.style.ythickness)
 
-        if widget.get_direction() == gtk.TEXT_DIR_LTR:
+        if widget.get_direction() == Gtk.TextDirection.LTR:
             x = allocation.x + allocation.width - width
         else:
             x = allocation.x + widget.style.xthickness
 
         y = allocation.y + allocation.height - height
 
-        return gtk.gdk.Rectangle(x, y, width, height)
+        return (x, y, width, height)
 
     def on_draw(self, widget, context):
         """
@@ -818,7 +818,7 @@ class Splash(object):
         will automatically be destroyed after GUI startup
     """
     def __init__(self):
-        builder = gtk.Builder()
+        builder = Gtk.Builder()
         builder.add_from_file(xdg.get_data_path('ui', 'splash.ui'))
 
         image = builder.get_object('splash_image')
@@ -837,13 +837,13 @@ class Splash(object):
             Shows the splash screen
         """
         # Show the splash screen without causing startup notification.
-        gtk.window_set_auto_startup_notification(False)
+        Gtk.Window.set_auto_startup_notification(False)
         self.window.show_all()
-        gtk.window_set_auto_startup_notification(True)
+        Gtk.Window.set_auto_startup_notification(True)
 
         # Ensure the splash is completely drawn before moving on
-        while gtk.events_pending():
-            gtk.main_iteration()
+        while Gtk.events_pending():
+            Gtk.main_iteration()
 
     def hide(self):
         """

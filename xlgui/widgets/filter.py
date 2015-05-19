@@ -32,13 +32,13 @@ They resemble the configuration dialogs of Evolution's mail filters
 and Rhythmbox's automatic playlists.
 """
 
-import gobject
-import gtk
+from gi.repository import GObject
+from gi.repository import Gtk
 import urllib
 
 from xl.nls import gettext as _
 
-class FilterDialog(gtk.Dialog):
+class FilterDialog(Gtk.Dialog):
     """Dialog to filter a list of items.
 
     Consists of a FilterWidget and an Add button.
@@ -52,59 +52,59 @@ class FilterDialog(gtk.Dialog):
         - criteria: possible criteria; see FilterWindow
         """
 
-        gtk.Dialog.__init__(self, title, parent, buttons=(
-            gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+        Gtk.Dialog.__init__(self, title, parent, buttons=(
+            Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
+            Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT))
 
-        self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
-        top = gtk.HBox()
+        top = Gtk.HBox()
         top.set_border_width(5)
         top.set_spacing(5)
 
-        top.pack_start(gtk.Label(_("Name:")), False)
-        self.name_entry = gtk.Entry()
-        top.pack_start(self.name_entry)
+        top.pack_start(Gtk.Label(_("Name:")), False, True, 0)
+        self.name_entry = Gtk.Entry()
+        top.pack_start(self.name_entry, True, True, 0)
         self.vbox.pack_start(top, False)
         top.show_all()
 
         self.filter = f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
         f.add_row()
         f.set_border_width(5)
-        self.vbox.pack_start(f)
+        self.vbox.pack_start(f, True, True, 0)
         f.show_all()
 
-        bottom = gtk.HBox()
+        bottom = Gtk.HBox()
         bottom.set_border_width(5)
-        self.match_any = gtk.CheckButton(_('Match any of the criteria'))
-        bottom.pack_start(self.match_any)
-        self.random = gtk.CheckButton(_('Randomize results'))
-        bottom.pack_start(self.random)
+        self.match_any = Gtk.CheckButton(_('Match any of the criteria'))
+        bottom.pack_start(self.match_any, True, True, 0)
+        self.random = Gtk.CheckButton(_('Randomize results'))
+        bottom.pack_start(self.random, True, True, 0)
 
-        btn = gtk.Button()
+        btn = Gtk.Button()
         btn.connect('clicked', lambda *x: self.filter.add_row())
-        image = gtk.Image()
-        image.set_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON)
+        image = Gtk.Image()
+        image.set_from_stock(Gtk.STOCK_ADD, Gtk.IconSize.BUTTON)
         btn.add(image)
-        align = gtk.Alignment(xalign=1)
+        align = Gtk.Alignment.new(1, 0, 0, 0)
         align.add(btn)
-        bottom.pack_end(align)
+        bottom.pack_end(align, True, True, 0)
         self.vbox.pack_start(bottom, False)
 
         # add the limit checkbox, spinner
-        limit_area = gtk.HBox()
+        limit_area = Gtk.HBox()
         limit_area.set_border_width(5)
-        self.lim_check = gtk.CheckButton(_("Limit to: "))
+        self.lim_check = Gtk.CheckButton(_("Limit to: "))
         limit_area.pack_start(self.lim_check, False)
 
-        self.lim_spin = gtk.SpinButton(gtk.Adjustment(1, 0, 1000000000, 1))
+        self.lim_spin = Gtk.SpinButton(Gtk.Adjustment(1, 0, 1000000000, 1))
         self.lim_spin.set_sensitive(False)
 
         self.lim_check.connect('toggled', lambda b:
             self.lim_spin.set_sensitive(self.lim_check.get_active()))
 
         limit_area.pack_start(self.lim_spin, False)
-        limit_area.pack_start(gtk.Label(_(" tracks")), False)
+        limit_area.pack_start(Gtk.Label(_(" tracks")), False, True, 0)
         self.vbox.pack_start(limit_area, False)
         limit_area.show_all()
 
@@ -189,7 +189,7 @@ class FilterDialog(gtk.Dialog):
         """
         self.filter.set_state(state)
 
-class FilterWidget(gtk.Table):
+class FilterWidget(Gtk.Table):
     """Widget to filter a list of items.
 
     This widget only includes the criteria selector (Criterion widgets)
@@ -215,7 +215,7 @@ class FilterWidget(gtk.Table):
 
     The field class is a class following this interface:
 
-        class Field(gtk.Widget):
+        class Field(Gtk.Widget):
             def __init__(self, result_generator):
                 pass
             def get_result(self):
@@ -236,7 +236,7 @@ class FilterWidget(gtk.Table):
         - criteria: see FilterWidget
         """
 
-        gtk.Table.__init__(self)
+        super(FilterWidget, self).__init__()
         self.set_col_spacings(10)
         self.set_row_spacings(2)
         self.criteria = criteria
@@ -252,18 +252,18 @@ class FilterWidget(gtk.Table):
         if len(self.rows) != 0:
             criterion.set_state(self.rows[-1][0].get_state())
 
-        remove_btn = gtk.Button()
-        image = gtk.Image()
-        image.set_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON)
+        remove_btn = Gtk.Button()
+        image = Gtk.Image()
+        image.set_from_stock(Gtk.STOCK_REMOVE, Gtk.IconSize.BUTTON)
         remove_btn.add(image)
         remove_btn_handler_id = remove_btn.connect(
             'clicked', self.__remove_clicked, self.n)
         remove_btn.show_all()
 
         self.attach(criterion, 0, 1, self.n, self.n + 1,
-            gtk.EXPAND | gtk.FILL, gtk.SHRINK)
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
         self.attach(remove_btn, 1, 2, self.n, self.n + 1,
-            gtk.FILL, gtk.SHRINK)
+            Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
 
         self.rows.append((criterion, remove_btn, remove_btn_handler_id))
         self.n += 1
@@ -278,9 +278,9 @@ class FilterWidget(gtk.Table):
             btn.disconnect(handler)
             if iRow != row:  # shift up
                 self.attach(crit, 0, 1, iRow - 1, iRow,
-                    gtk.EXPAND | gtk.FILL, gtk.SHRINK)
+                    Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
                 self.attach(btn, 1, 2, iRow - 1, iRow,
-                    gtk.FILL, gtk.SHRINK)
+                    Gtk.AttachOptions.FILL, Gtk.AttachOptions.SHRINK)
                 handler = btn.connect(
                     'clicked', self.__remove_clicked, iRow - 1)
                 rows[iRow - 1] = crit, btn, handler
@@ -324,7 +324,7 @@ class FilterWidget(gtk.Table):
             cstate[0].reverse() # reverse so it becomes a stack
             self.rows[i][0].set_state(cstate)
 
-class Criterion(gtk.HBox):
+class Criterion(Gtk.HBox):
     """Widget representing one filter criterion.
 
     It contains either:
@@ -339,13 +339,13 @@ class Criterion(gtk.HBox):
         - subcriteria: a list of possible subcriteria;
           see criteria in FilterWidget
         """
-        gtk.HBox.__init__(self, spacing=5)
-        if isinstance(subcriteria, (gtk.Widget,
-            gobject.GObjectMeta)):
+        super(Criterion, self).__init__(spacing=5)
+        if isinstance(subcriteria, (Gtk.Widget,
+            GObject.GObjectMeta)):
             field_class = subcriteria
-            self.child = field_class()
+            self.add(field_class())
         else:
-            self.combo = combo = gtk.combo_box_new_text()
+            self.combo = combo = Gtk.ComboBoxText()
             if len(subcriteria) > 10:
                 self.combo.set_wrap_width(5)
             self.subcriteria = subcriteria
@@ -355,26 +355,26 @@ class Criterion(gtk.HBox):
             combo.connect('changed', self._combo_changed)
             combo.show()
             self.pack_start(combo, False)
-            self.child = Criterion(subcriteria[0][1])
-        self.child.show()
-        self.pack_start(self.child)
+            self.add(Criterion(subcriteria[0][1]))
+        self.get_child().show()
+        self.pack_start(self.get_child(), True, True, 0)
 
     def _combo_changed(self, widget):
         """Called when the combo box changes its value."""
-        state = self.child.get_state()
-        self.remove(self.child)
-        self.child = Criterion(self.subcriteria[self.combo.get_active()][1])
-        if state: self.child.set_state(state)
-        self.pack_start(self.child)
-        self.child.show()
+        state = self.get_child().get_state()
+        self.remove(self.get_child())
+        self.add(Criterion(self.subcriteria[self.combo.get_active()][1]))
+        if state: self.get_child().set_state(state)
+        self.pack_start(self.get_child(), True, True, 0)
+        self.get_child().show()
 
     def get_state(self):
         """Return the criterion state.
 
         See set_state for the state format.
         """
-        state = self.child.get_state()
-        if isinstance(self.child, Criterion):
+        state = self.get_child().get_state()
+        if isinstance(self.get_child(), Criterion):
             state[0].append(self.subcriteria[self.combo.get_active()][0])
         else:
             state = ([], state)
@@ -390,30 +390,30 @@ class Criterion(gtk.HBox):
         Note the reverse order of the list. This is to give the
         impression of it being a stack responding to pop().
         """
-        if isinstance(self.child, Criterion):
+        if isinstance(self.get_child(), Criterion):
             text = state[0].pop()
             for i, subc in enumerate(self.subcriteria):
                 if subc[0] == text:
                     self.combo.set_active(i)
                     break
-            self.child.set_state(state)
+            self.get_child().set_state(state)
         else:
             if len(state) > 1:
-                self.child.set_state(state[1])
+                self.get_child().set_state(state[1])
 
 # Sample fields
 
-class ComboEntryField(gtk.HBox):
+class ComboEntryField(Gtk.HBox):
     '''Select from multiple fixed values, but allow the user to enter text'''
     
     def __init__(self, values):
-        gtk.HBox.__init__(self)
+        Gtk.HBox.__init__(self)
         
-        self.combo = gtk.combo_box_entry_new_text()
+        self.combo = Gtk.combo_box_entry_new_text()
         for value in values:
             self.combo.append_text(value)
         
-        self.pack_start(self.combo)
+        self.pack_start(self.combo, True, True, 0)
         self.combo.show()
     
     def get_state(self):
@@ -422,7 +422,7 @@ class ComboEntryField(gtk.HBox):
     def set_state(self, state):
         self.combo.get_child().set_text(str(state))
 
-class NullField(gtk.HBox):
+class NullField(Gtk.HBox):
     '''Used as a placeholder for __null__ values'''
     
     def get_state(self):
@@ -432,7 +432,7 @@ class NullField(gtk.HBox):
         pass
     
 
-class MultiEntryField(gtk.HBox):
+class MultiEntryField(Gtk.HBox):
     """Helper field that can be subclassed to get fields with multiple
        GtkEntry widgets and multiple labels."""
     def __init__(self, labels):
@@ -444,18 +444,18 @@ class MultiEntryField(gtk.HBox):
           integer represents Entry widget with a specific width,
           None represents Entry widget with default width
         """
-        gtk.HBox.__init__(self, spacing=5)
+        Gtk.HBox.__init__(self, spacing=5)
         self.entries = []
         for label in labels:
             if label is None:
-                widget = gtk.Entry()
+                widget = Gtk.Entry()
                 self.entries.append(widget)
             elif isinstance(label, (int, long, float)):
-                widget = gtk.Entry()
+                widget = Gtk.Entry()
                 widget.set_size_request(label, -1)
                 self.entries.append(widget)
             else:
-                widget = gtk.Label(unicode(label))
+                widget = Gtk.Label(label=unicode(label))
             self.pack_start(widget, False)
             widget.show()
     def get_state(self):
@@ -465,9 +465,9 @@ class MultiEntryField(gtk.HBox):
         for i in xrange(min(len(entries), len(state))):
             entries[i].set_text(unicode(state[i]))
 
-class EntryField(gtk.Entry):
+class EntryField(Gtk.Entry):
     def __init__(self):
-        gtk.Entry.__init__(self)
+        Gtk.Entry.__init__(self)
     def get_state(self):
         return unicode(self.get_text(), 'utf-8')
     def set_state(self, state):
@@ -475,9 +475,9 @@ class EntryField(gtk.Entry):
             state = state[0]
         self.set_text(unicode(state))
         
-class QuotedEntryField(gtk.Entry):
+class QuotedEntryField(Gtk.Entry):
     def __init__(self):
-        gtk.Entry.__init__(self)
+        Gtk.Entry.__init__(self)
     def get_state(self):
         return unicode(urllib.quote(self.get_text()), 'utf-8')
     def set_state(self, state):
@@ -489,12 +489,12 @@ class EntryLabelEntryField(MultiEntryField):
     def __init__(self, label):
         MultiEntryField.__init__(self, (50, label, 50))
 
-class SpinLabelField(gtk.HBox):
+class SpinLabelField(Gtk.HBox):
     def __init__(self, label='', top=99999, lower=-99999):
-        gtk.HBox.__init__(self, spacing=5)
-        self.spin = gtk.SpinButton(gtk.Adjustment(0, lower, top, 1, 0, 0))
+        Gtk.HBox.__init__(self, spacing=5)
+        self.spin = Gtk.SpinButton(Gtk.Adjustment(0, lower, top, 1, 0, 0))
         self.pack_start(self.spin, False)
-        self.pack_start(gtk.Label(label), False)
+        self.pack_start(Gtk.Label(label), False, True, 0)
         self.show_all()
     def get_state(self):
         return self.spin.get_value()
@@ -506,20 +506,20 @@ class SpinLabelField(gtk.HBox):
         except ValueError:
             pass
 
-class SpinButtonAndComboField(gtk.HBox):
+class SpinButtonAndComboField(Gtk.HBox):
     def __init__(self, items=()):
-        gtk.HBox.__init__(self, spacing=5)
+        Gtk.HBox.__init__(self, spacing=5)
         self.items = items
 
-        adjustment = gtk.Adjustment(0, 0, 99999, 1, 0, 0)
-        self.entry = gtk.SpinButton(adjustment=adjustment)
-        self.pack_start(self.entry)
+        adjustment = Gtk.Adjustment(0, 0, 99999, 1, 0, 0)
+        self.entry = Gtk.SpinButton(adjustment=adjustment)
+        self.pack_start(self.entry, True, True, 0)
 
-        self.combo = gtk.combo_box_new_text()
+        self.combo = Gtk.ComboBoxText()
         for item in items:
             self.combo.append_text(_(item))
         self.combo.set_active(0)
-        self.pack_start(self.combo)
+        self.pack_start(self.combo, True, True, 0)
         self.show_all()
 
     def set_state(self, state):

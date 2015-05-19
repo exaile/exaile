@@ -47,7 +47,7 @@ import threading
 import time
 import traceback
 import weakref
-import glib
+from gi.repository import GLib
 
 from xl import common
 from xl.nls import gettext as _
@@ -280,7 +280,7 @@ class EventManager(object):
         """
             Same as emit(), but does not block.
         """
-        glib.idle_add(self.emit, event)
+        GLib.idle_add(self.emit, event)
 
     def add_callback(self, function, type, obj, args, kwargs):
         """

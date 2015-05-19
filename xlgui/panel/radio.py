@@ -24,10 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gio
-import glib
-import gobject
-import gtk
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import Gio
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 
 import xl.radio, xl.playlist
 from xl import (
@@ -58,10 +60,10 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         The Radio Panel
     """
     __gsignals__ = {
-        'playlist-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
-        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'playlist-selected': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object, bool)),
+        'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
     __gsignals__.update(playlistpanel.BasePlaylistPanelMixin._gsignals_)
     
@@ -87,7 +89,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self._setup_tree()
         self._setup_widgets()
         self.playlist_image = icons.MANAGER.pixbuf_from_icon_name(
-            'music-library', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            'music-library', Gtk.IconSize.SMALL_TOOLBAR)
 
         # menus
         self.playlist_menu = menus.RadioPanelPlaylistMenu(self)
@@ -114,7 +116,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.add_driver(value)
 
     def _add_driver_cb(self, type, object, driver):
-        glib.idle_add(self.add_driver, driver)
+        GLib.idle_add(self.add_driver, driver)
 
     def add_driver(self, driver):
         """
@@ -131,7 +133,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.tree.expand_row(self.model.get_path(node), False)
 
     def _remove_driver_cb(self, type, object, driver):
-        glib.idle_add(self.remove_driver, driver)
+        GLib.idle_add(self.remove_driver, driver)
 
     def remove_driver(self, driver):
         """
@@ -152,7 +154,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.status.set_text(message)
 
         if timeout:
-            glib.timeout_add_seconds(timeout, self._set_status, '', 0)
+            GLib.timeout_add_seconds(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
         """
@@ -179,11 +181,11 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         dialog.add_field(_("Name:"))
         url_field = dialog.add_field(_("URL:"))
 
-        clipboard = gtk.clipboard_get()
+        clipboard = Gtk.clipboard_get(Gdk.SELECTION_CLIPBOARD)
         text = clipboard.wait_for_text()
 
         if text is not None:
-            location = gio.File(uri=text)
+            location = Gio.File.new_for_uri(text)
 
             if location.get_uri_scheme() is not None:
                 url_field.set_text(text)
@@ -191,7 +193,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         result = dialog.run()
         dialog.hide()
 
-        if result == gtk.RESPONSE_OK:
+        if result == Gtk.ResponseType.OK:
             (name, uri) = dialog.get_values()
             self._do_add_playlist(name, uri)
 
@@ -223,42 +225,42 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.tree = playlistpanel.PlaylistDragTreeView(self, True, True)
         self.tree.set_headers_visible(False)
 
-        self.targets = [('text/uri-list', 0, 0)]
+        self.targets = [Gtk.TargetEntry.new('text/uri-list', 0, 0)]
 
         # columns
-        text = gtk.CellRendererText()
+        text = Gtk.CellRendererText()
         if settings.get_option('gui/ellipsize_text_in_panels', False):
-            import pango
+            from gi.repository import Pango
             text.set_property( 'ellipsize-set', True)
-            text.set_property( 'ellipsize', pango.ELLIPSIZE_END)
-        icon = gtk.CellRendererPixbuf()
-        col = gtk.TreeViewColumn('radio')
+            text.set_property( 'ellipsize', Pango.EllipsizeMode.END)
+        icon = Gtk.CellRendererPixbuf()
+        col = Gtk.TreeViewColumn('radio')
         col.pack_start(icon, False)
         col.pack_start(text, True)
         col.set_attributes(icon, pixbuf=0)
         col.set_cell_data_func(text, self.cell_data_func)
         self.tree.append_column(col)
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
+        self.model = Gtk.TreeStore(GdkPixbuf.Pixbuf, str, object)
         self.tree.set_model(self.model)
 
         self.track = icons.MANAGER.pixbuf_from_icon_name(
-            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
         self.folder = self.tree.render_icon(
-            gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
+            Gtk.STOCK_DIRECTORY, Gtk.IconSize.SMALL_TOOLBAR)
         self.refresh_image = icons.MANAGER.pixbuf_from_stock(
-            gtk.STOCK_REFRESH)
+            Gtk.STOCK_REFRESH)
 
         self.custom = self.model.append(None, [self.folder, _("Saved Stations"), None])
         self.radio_root = self.model.append(None, [self.folder, _("Radio "
             "Streams"), None])
 
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroll.add(self.tree)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
+        scroll.set_shadow_type(Gtk.ShadowType.IN)
 
-        box.pack_start(scroll, True, True)
+        box.pack_start(scroll, True, True, 0)
 
     def on_row_activated(self, tree, path, column):
         item = self.model[path][2]
@@ -280,14 +282,14 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             Returns the menu that all radio stations use
         """
         menu = guiutil.Menu()
-        menu.append(_("Refresh"), self.on_reload, gtk.STOCK_REFRESH)
+        menu.append(_("Refresh"), self.on_reload, Gtk.STOCK_REFRESH)
         return menu
 
     def on_key_released(self, widget, event):
         """
             Called when a key is released in the tree
         """
-        if event.keyval == gtk.keysyms.Menu:
+        if event.keyval == Gdk.KEY_Menu:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 iter = self.model.get_iter(paths[0])
@@ -301,20 +303,20 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
                     if station and hasattr(station, 'get_menu'):
                         menu = station.get_menu(self)
-                        gtk.Menu.popup(menu, None, None, None, 0, event.time)
+                        Gtk.Menu.popup(menu, None, None, None, None, 0, event.time)
                 elif isinstance(item, xl.playlist.Playlist):
-                    gtk.Menu.popup(self.playlist_menu, None, None, None, 0, event.time)
+                    Gtk.Menu.popup(self.playlist_menu, None, None, None, None, 0, event.time)
                 elif isinstance(item, playlistpanel.TrackWrapper):
-                    gtk.Menu.popup(self.track_menu, None, None, None, 0, event.time)
+                    Gtk.Menu.popup(self.track_menu, None, None, None, None, 0, event.time)
             return True
 
-        if event.keyval == gtk.keysyms.Left:
+        if event.keyval == Gdk.KEY_Left:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.collapse_row(paths[0])
             return True
 
-        if event.keyval == gtk.keysyms.Right:
+        if event.keyval == Gdk.KEY_Right:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             if paths and paths[0]:
                 self.tree.expand_row(paths[0], False)
@@ -342,7 +344,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
                     if station and hasattr(station, 'get_menu'):
                         menu = station.get_menu(self)
-                        menu.popup(None, None, None, event.button, event.time)
+                        menu.popup(None, None, None, None, event.button, event.time)
                 elif isinstance(item, xl.playlist.Playlist):
                     self.playlist_menu.popup(event)
                 elif isinstance(item, playlistpanel.TrackWrapper):
@@ -413,7 +415,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             _("Enter the name you want for your new playlist"),
             _("New Playlist"))
             result = dialog.run()
-            if result == gtk.RESPONSE_OK:
+            if result == Gtk.ResponseType.OK:
                 name = dialog.get_value()
                 if not name == "":
                     #Create the playlist from all of the tracks
@@ -530,7 +532,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 self._set_status(str(e), 2)
 
         if not lists: return
-        glib.idle_add(self._done_loading, iter, driver, lists)
+        GLib.idle_add(self._done_loading, iter, driver, lists)
 
     def _done_loading(self, iter, object, items):
         """

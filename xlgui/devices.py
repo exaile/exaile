@@ -27,7 +27,8 @@
 import logging
 import threading
 
-import gtk
+from gi.repository import GdkPixbuf
+from gi.repository import Gtk
 
 from xl.nls import gettext as _
 from xl import xdg, settings, event, devices
@@ -47,11 +48,11 @@ class ManagerDialog(object):
         self.main = main
         self.parent = parent
         self.device_manager = self.main.exaile.devices
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui/device_manager.ui'))
         self.window = self.builder.get_object('device_manager')
         self.window.set_transient_for(self.parent)
-        self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        self.window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.window.connect('delete-event', self.on_close)
 
         self.builder.connect_signals({
@@ -68,24 +69,24 @@ class ManagerDialog(object):
             self.builder.get_object('btn_%s' % item).destroy()
 
         # object should really be devices.Device, but it doesnt work :/
-        self.model = gtk.ListStore(object, gtk.gdk.Pixbuf, str, str)
+        self.model = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str, str)
         self.tree = self.builder.get_object('tree_devices')
         self.tree.set_model(self.model)
 
-        render = gtk.CellRendererPixbuf()
-        col = gtk.TreeViewColumn(_("Icon"), render)
+        render = Gtk.CellRendererPixbuf()
+        col = Gtk.TreeViewColumn(_("Icon"), render)
         col.add_attribute(render, "pixbuf", 1)
         self.tree.append_column(col)
 
-        render = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_("Device"), render)
+        render = Gtk.CellRendererText()
+        col = Gtk.TreeViewColumn(_("Device"), render)
         col.set_expand(True)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        col.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE)
         col.add_attribute(render, "text", 2)
         self.tree.append_column(col)
 
-        render = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_("Driver"), render)
+        render = Gtk.CellRendererText()
+        col = Gtk.TreeViewColumn(_("Driver"), render)
         col.add_attribute(render, "text", 3)
         self.tree.append_column(col)
 

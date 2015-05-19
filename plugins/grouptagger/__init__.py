@@ -24,10 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gtk
-import gobject
-import pango
+from gi.repository import GLib
+from gi.repository import Gtk
+from gi.repository import GObject
+from gi.repository import Pango
  
 from xl import (
     event, 
@@ -171,7 +171,7 @@ class GroupTaggerPlugin(object):
                 return
             font = gt_prefs._get_system_default_font()
         else:
-            font = pango.FontDescription(font)
+            font = Pango.FontDescription(font)
 
         self.panel.tagger.set_font(font)
         
@@ -300,8 +300,8 @@ class GroupTaggerPlugin(object):
     def on_plugin_options_set(self, evtype, settings, option):
         '''Handles option changes'''
         if option == 'plugin/grouptagger/panel_font':
-            glib.idle_add( self.setup_panel_font, True )
+            GLib.idle_add( self.setup_panel_font, True )
         elif option == tagname_option:
             if self.track is not None:
-                glib.idle_add(self.set_display_track, self.track, True)
+                GLib.idle_add(self.set_display_track, self.track, True)
 

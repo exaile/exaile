@@ -24,8 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
-import gobject
+from gi.repository import Gdk
+from gi.repository import Gtk
 
 import os
 import os.path
@@ -136,10 +136,10 @@ class HistoryPlugin(object):
 
         if os.path.exists( self.history_loc ):
         
-            dialog = gtk.MessageDialog( None, gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
+            dialog = Gtk.MessageDialog( None, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, 
                                         _('Erase stored history?') )
                 
-            if dialog.run() == gtk.RESPONSE_YES:
+            if dialog.run() == Gtk.ResponseType.YES:
                 try:
                     os.unlink( self.history_loc )
                 except:
@@ -179,24 +179,24 @@ class HistoryPlaylistPage( NotebookPage ):
         
         self.playlist = playlist
         
-        self.swindow = gtk.ScrolledWindow()
-        self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.swindow = Gtk.ScrolledWindow()
+        self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.pack_start(self.swindow, True, True)
 
         self.view = PlaylistView(self.playlist, player)
         self.swindow.add(self.view)
         
-        hbox = gtk.HButtonBox()
+        hbox = Gtk.HButtonBox()
         
-        button = gtk.Button(stock=gtk.STOCK_CLEAR)
+        button = Gtk.Button(stock=Gtk.STOCK_CLEAR)
         button.connect( 'clicked', self.on_clear_history )
-        hbox.pack_start( button )
+        hbox.pack_start( button , True, True, 0)
         
-        button = gtk.Button(stock=gtk.STOCK_SAVE)
+        button = Gtk.Button(stock=Gtk.STOCK_SAVE)
         button.connect( 'clicked', self.on_save_history )
-        hbox.pack_start( button )
+        hbox.pack_start( button , True, True, 0)
         
-        align = gtk.Alignment( 1.0, 0.0 )
+        align = Gtk.Alignment.new(1, 0, 0, 0)
         align.add( hbox )
         
         self.pack_start( align, False, False )

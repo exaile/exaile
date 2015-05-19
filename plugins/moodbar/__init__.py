@@ -15,9 +15,12 @@
 # along with this program; if not, write to the free software
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
+from gi.repository import Gdk
+from gi.repository import Gtk
+from gi.repository import GLib
+
 import moodbarprefs
-import gtk
-import glib
+
 import os
 import subprocess
 import colorsys
@@ -85,7 +88,7 @@ class ExModbar(object):
 
     def changeBarToMod(self):
         place = self.pr.get_parent()
-        self.mod = gtk.DrawingArea()
+        self.mod = Gtk.DrawingArea()
         self.mod.pangolayout = self.mod.create_pango_layout("")
         self.mod.set_size_request(-1, 24)
         place.remove(self.pr)
@@ -105,9 +108,9 @@ class ExModbar(object):
         self.changeBarToMod()
         self.mod.seeking = False
         self.mod.connect("expose-event", self.drawMod)
-        self.mod.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-        self.mod.add_events(gtk.gdk.BUTTON_RELEASE_MASK)
-        self.mod.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.mod.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
+        self.mod.add_events(Gdk.EventMask.BUTTON_RELEASE_MASK)
+        self.mod.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
         self.mod.connect("button-press-event", self.modSeekBegin)
         self.mod.connect("button-release-event", self.modSeekEnd)
         self.mod.connect("motion-notify-event", self.modSeekMotionNotify)
@@ -142,7 +145,7 @@ class ExModbar(object):
         )
 
     def destroy(self):
-        if self.modTimer: glib.source_remove(self.modTimer)
+        if self.modTimer: GLib.source_remove(self.modTimer)
 
     # playing ----------------------------------------------------------------
 
@@ -170,14 +173,14 @@ class ExModbar(object):
                                          track.get_local_path(), '-o', modLoc])
         self.haveMod = not needGen
 
-        if self.modTimer: glib.source_remove(self.modTimer)
-        self.modTimer = glib.timeout_add_seconds(1, self.updateMod)
+        if self.modTimer: GLib.source_remove(self.modTimer)
+        self.modTimer = GLib.timeout_add_seconds(1, self.updateMod)
 
     def play_start(self, type, player, track):
         self.lookformod(track)
 
     def play_end(self, type, player, track):
-        if self.modTimer: glib.source_remove(self.modTimer)
+        if self.modTimer: GLib.source_remove(self.modTimer)
         self.modTimer = None
         self.haveMod = False
         self.mod.queue_draw_area(0, 0, self.get_size(), 24)
@@ -195,7 +198,7 @@ class ExModbar(object):
                 logger.debug(_("Mood found."))
                 self.haveMod = True
                 self.modwidth = 0
-        self.modTimer = glib.timeout_add_seconds(1, self.updateMod)
+        self.modTimer = GLib.timeout_add_seconds(1, self.updateMod)
 
     def updateplayerpos(self):
         if self.modTimer:
@@ -249,18 +252,18 @@ class ExModbar(object):
         self.darkness_old = self.darkness
         self.cursor_old = self.cursor
         gc = self.brush
-        self.bgcolor = self.mod.style.bg[gtk.STATE_NORMAL]
+        self.bgcolor = self.mod.style.bg[Gtk.StateType.NORMAL]
         redf = self.bgcolor.red / 255
         greenf = self.bgcolor.green / 255
         bluef = self.bgcolor.blue / 255
-        colortheme = gtk.gdk.Color(self.color)
+        colortheme = Gdk.Color(self.color)
         c1, self.ivalue, self.qvalue = colorsys.rgb_to_yiq(
             float(colortheme.red) / 256 / 256, float(colortheme.green) / 256 /
             256, float(colortheme.blue) / 256 / 256)
         gc.foreground = self.bgcolor
         gc.line_width = 1
-        self.pixmap = gtk.gdk.Pixmap(self.mod.window, width, 24)
-        self.pixmap2 = gtk.gdk.Pixmap(self.mod.window, width, 24)
+        self.pixmap = Gdk.Pixmap(self.mod.window, width, 24)
+        self.pixmap2 = Gdk.Pixmap(self.mod.window, width, 24)
         self.pixmap.draw_rectangle(gc, True, 0, 0, self.modwidth, 24)
         self.pixmap2.draw_rectangle(gc, True, 0, 0, self.modwidth, 24)
         if self.flat:
@@ -305,7 +308,7 @@ class ExModbar(object):
                                                    b * 255 * hh[h] + bluef *
                                                    (1 - hh[h])))
                 self.pixmap.draw_rgb_image(gc, x, 0, 1, 24,
-                                           gtk.gdk.RGB_DITHER_NONE, buff, 3)
+                                           Gdk.RGB_DITHER_NONE, buff, 3)
 
                 if self.cursor:
                     buff2 = ''
@@ -315,7 +318,7 @@ class ExModbar(object):
                                                  (1 - hh[int(h / 3)]))))
 
                     self.pixmap2.draw_rgb_image(gc, x, 0, 1, 24,
-                                                gtk.gdk.RGB_DITHER_NONE, buff2,
+                                                Gdk.RGB_DITHER_NONE, buff2,
                                                 3)
 
             else:
@@ -346,9 +349,9 @@ class ExModbar(object):
         #    self.pixmap2.draw_drawable(gc,self.pixmap, 0, 0, 0, 0, self.modwidth, 24)
         #    gc.foreground = self.mod.get_colormap().alloc_color(
         #                int(0xCCCC*darkmulti),  int(0xCCCC*darkmulti),  int(0xCCCC*darkmulti))
-        #    gc.function=gtk.gdk.AND
+        #    gc.function=Gdk.AND
         #    self.pixmap2.draw_rectangle(gc, True, 0, 0, self.modwidth, 24)
-        #    gc.function=gtk.gdk.COPY
+        #    gc.function=Gdk.COPY
         return b
 
     #Drawing mood UI---------------------------------------------------------
@@ -357,7 +360,7 @@ class ExModbar(object):
         darkmulti = (1 - self.darkness / 10)
         self.uptime += 1
         gc = self.brush
-        self.bgcolor = self.mod.style.bg[gtk.STATE_NORMAL]
+        self.bgcolor = self.mod.style.bg[Gtk.StateType.NORMAL]
         redf = self.bgcolor.red
         greenf = self.bgcolor.green
         bluef = self.bgcolor.blue

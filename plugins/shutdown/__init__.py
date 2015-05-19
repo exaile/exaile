@@ -15,8 +15,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import dbus
-import glib
-import gtk
+from gi.repository import GLib
+from gi.repository import Gtk
 
 from xl import event, providers
 from xl.nls import gettext as _
@@ -45,7 +45,7 @@ class Shutdown():
 
         self.message = dialogs.MessageBar(
             parent=exaile.gui.builder.get_object('player_box'),
-            buttons=gtk.BUTTONS_CLOSE)
+            buttons=Gtk.ButtonsType.CLOSE)
         self.message.connect('response', self.on_response)
 
     def on_toggled(self, menuitem):
@@ -67,7 +67,7 @@ class Shutdown():
 
         # Stop possible countdown
         if self.countdown is not None:
-            glib.source_remove(self.countdown)
+            GLib.source_remove(self.countdown)
             self.countdown = None
 
         # Prepare for a new run
@@ -76,28 +76,28 @@ class Shutdown():
         # Reset message button layout
         self.message.hide()
         self.message.clear_buttons()
-        self.message.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
+        self.message.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
 
     def on_playback_player_end(self, event, player, track):
         """
             Tries to shutdown the computer
         """
-        self.message.set_message_type(gtk.MESSAGE_INFO)
+        self.message.set_message_type(Gtk.MessageType.INFO)
         self.message.set_markup(_('Imminent Shutdown'))
         self.message.clear_buttons()
-        self.message.add_button(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
+        self.message.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
 
         if self.countdown is not None:
-            glib.source_remove(self.countdown)
+            GLib.source_remove(self.countdown)
 
         self.counter = 10
-        self.countdown = glib.timeout_add_seconds(1, self.on_timeout)
+        self.countdown = GLib.timeout_add_seconds(1, self.on_timeout)
 
     def on_response(self, widget, response):
         """
             Cancels shutdown if requested
         """
-        if response == gtk.RESPONSE_CANCEL:
+        if response == Gtk.ResponseType.CANCEL:
             self.disable_shutdown()
 
     def on_timeout(self):
@@ -140,7 +140,7 @@ class Shutdown():
             Cleans up
         """
         if self.countdown is not None:
-            glib.source_remove(self.countdown)
+            GLib.source_remove(self.countdown)
 
         event.remove_callback(self.on_playback_player_end, 'playback_player_end')
         for item in providers.get('menubar-tools-menu'):

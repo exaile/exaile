@@ -24,9 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gobject
-import gtk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 import locale
 import logging
 
@@ -56,7 +56,7 @@ class PluginManager(object):
 
         self.message = dialogs.MessageBar(
             parent=builder.get_object('preferences_pane'),
-            buttons=gtk.BUTTONS_CLOSE
+            buttons=Gtk.ButtonsType.CLOSE
         )
         self.message.connect('response', self.on_messagebar_response)
 
@@ -65,13 +65,13 @@ class PluginManager(object):
 
         if main.exaile().options.Debug:
             reload_cellrenderer = common.ClickableCellRendererPixbuf()
-            reload_cellrenderer.props.stock_id = gtk.STOCK_REFRESH
+            reload_cellrenderer.props.stock_id = Gtk.STOCK_REFRESH
             reload_cellrenderer.props.xalign = 1
             reload_cellrenderer.connect('clicked',
                 self.on_reload_cellrenderer_clicked)
 
             name_column = builder.get_object('name_column')
-            name_column.pack_start(reload_cellrenderer)
+            name_column.pack_start(reload_cellrenderer, True)
             name_column.add_attribute(reload_cellrenderer, 'visible', 3)
 
         self.version_label = builder.get_object('version_label')
@@ -93,8 +93,8 @@ class PluginManager(object):
         selection = self.list.get_selection()
         selection.connect('changed', self.on_selection_changed)
         self._load_plugin_list()
-        glib.idle_add(selection.select_path, (0,))
-        glib.idle_add(self.list.grab_focus)
+        GLib.idle_add(selection.select_path, (0,))
+        GLib.idle_add(self.list.grab_focus)
 
     def _load_plugin_list(self):
         """
@@ -118,9 +118,9 @@ class PluginManager(object):
             
             # determine icon to show
             if broken or not compatible:
-                icon = gtk.STOCK_DIALOG_WARNING
+                icon = Gtk.STOCK_DIALOG_WARNING
             else:
-                icon = gtk.STOCK_APPLY
+                icon = Gtk.STOCK_APPLY
 
             enabled = plugin in self.plugins.enabled_plugins
             plugin_data = (plugin, info['Name'], str(info['Version']),
@@ -167,7 +167,7 @@ class PluginManager(object):
         """
             Hides the messagebar if requested
         """
-        if response == gtk.RESPONSE_CLOSE:
+        if response == Gtk.ResponseType.CLOSE:
             widget.hide()
 
     def on_plugin_tree_row_activated(self, tree, path, column):
@@ -205,22 +205,22 @@ class PluginManager(object):
             Shows a dialog allowing the user to choose a plugin to install
             from the filesystem
         """
-        dialog = gtk.FileChooserDialog(_('Choose a Plugin'),
+        dialog = Gtk.FileChooserDialog(_('Choose a Plugin'),
             self.preferences.parent,
             buttons=(
-                gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                gtk.STOCK_ADD, gtk.RESPONSE_OK
+                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                Gtk.STOCK_ADD, Gtk.ResponseType.OK
             )
         )
 
-        filter = gtk.FileFilter()
+        filter = Gtk.FileFilter()
         filter.set_name(_('Plugin Archives'))
         filter.add_pattern("*.exz")
         filter.add_pattern("*.tar.gz")
         filter.add_pattern("*.tar.bz2")
         dialog.add_filter(filter)
 
-        filter = gtk.FileFilter()
+        filter = Gtk.FileFilter()
         filter.set_name(_('All Files'))
         filter.add_pattern('*')
         dialog.add_filter(filter)
@@ -228,7 +228,7 @@ class PluginManager(object):
         result = dialog.run()
         dialog.hide()
 
-        if result == gtk.RESPONSE_OK:
+        if result == Gtk.ResponseType.OK:
             try:
                 self.plugins.install_plugin(dialog.get_filename())
             except plugins.InvalidPluginError, e:

@@ -24,11 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gio
-import glib
-import gtk
+
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
+from gi.repository import Pango
+
 import logging
-import pango
 import time
 
 from xl import (
@@ -48,11 +50,11 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_COLUMNS = ['tracknumber', 'title', 'album', 'artist', '__length']
 
-class Column(gtk.TreeViewColumn):
+class Column(Gtk.TreeViewColumn):
     name = ''
     display = ''
     menu_title = classproperty(lambda c: c.display)
-    renderer = gtk.CellRendererText
+    renderer = Gtk.CellRendererText
     formatter = classproperty(lambda c: TrackFormatter('$%s' % c.name))
     size = 10 # default size
     autoexpand = False # whether to expand to fit space in Autosize mode
@@ -74,8 +76,8 @@ class Column(gtk.TreeViewColumn):
         self._setup_font(font)
 
         if index == 2:
-            gtk.TreeViewColumn.__init__(self, self.display)
-            self.icon_cellr = gtk.CellRendererPixbuf()
+            super(Column, self).__init__(self.display)
+            self.icon_cellr = Gtk.CellRendererPixbuf()
             pbufsize = self.get_icon_height()
             self.icon_cellr.set_fixed_size(pbufsize, pbufsize)
             self.extrasize = pbufsize
@@ -85,12 +87,12 @@ class Column(gtk.TreeViewColumn):
             self.set_attributes(self.icon_cellr, pixbuf=1)
             self.set_attributes(self.cellrenderer, **{self.dataproperty: index})
         else:
-            gtk.TreeViewColumn.__init__(self, self.display, self.cellrenderer,
+            super(Column, self).__init__(self.display, self.cellrenderer,
                 **{self.dataproperty: index})
         self.set_cell_data_func(self.cellrenderer, self.data_func)
 
         try:
-            self.cellrenderer.set_property('ellipsize', pango.ELLIPSIZE_END)
+            self.cellrenderer.set_property('ellipsize', Pango.EllipsizeMode.END)
         except TypeError: #cellrenderer doesn't do ellipsize - eg. rating
             pass
             
@@ -99,11 +101,11 @@ class Column(gtk.TreeViewColumn):
 
         self.set_reorderable(True)
         self.set_clickable(True)
-        self.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED) # needed for fixed-height mode
-        self.set_sort_order(gtk.SORT_DESCENDING)
+        self.set_sizing(Gtk.TreeViewColumnSizing.FIXED) # needed for fixed-height mode
+        self.set_sort_order(Gtk.SortType.DESCENDING)
 
         # hack to allow button press events on the header to be detected
-        self.set_widget(gtk.Label(self.display))
+        self.set_widget(Gtk.Label(label=self.display))
 
         self.connect('notify::width', self.on_width_changed)
         self._setup_sizing()
@@ -113,7 +115,7 @@ class Column(gtk.TreeViewColumn):
 
     def on_option_set(self, typ, obj, data):
         if data in ("gui/resizable_cols", self.settings_width_name):
-            glib.idle_add(self._setup_sizing)
+            GLib.idle_add(self._setup_sizing)
 
     def on_width_changed(self, column, wid):
         if not self.container.button_pressed:
@@ -126,9 +128,9 @@ class Column(gtk.TreeViewColumn):
         '''
             This should be set even for non-text columns.
             
-            ::param font:: is None or a pango.FontDescription
+            ::param font:: is None or a Pango.FontDescription
         '''
-        default_font = gtk.widget_get_default_style().font_desc
+        default_font = Gtk.Widget.get_default_style().font_desc
         if font is None:
             font = default_font
             
@@ -175,7 +177,7 @@ class Column(gtk.TreeViewColumn):
              
     def get_icon_height(self):
         '''Returns a default icon height based on the font size'''
-        sz = gtk.icon_size_lookup(gtk.ICON_SIZE_BUTTON)[1]
+        sz = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)[1]
         return max(int(sz*self._font_ratio), 1)
         
     def get_icon_size_ratio(self):
@@ -183,7 +185,7 @@ class Column(gtk.TreeViewColumn):
         return self._font_ratio
                 
     def data_func(self, col, cell, model, iter, user_data):
-        if type(cell) == gtk.CellRendererText:
+        if type(cell) == Gtk.CellRendererText:
             playlist = self.container.playlist
 
             
@@ -195,9 +197,9 @@ class Column(gtk.TreeViewColumn):
 
             if track == self.player.current and \
                path[0] == playlist.get_current_position():
-                weight = pango.WEIGHT_HEAVY
+                weight = Pango.Weight.HEAVY
             else:
-                weight = pango.WEIGHT_NORMAL
+                weight = Pango.Weight.NORMAL
 
             cell.props.weight = weight
 
@@ -430,10 +432,10 @@ class ScheduleTimeColumn(Column):
 
         # Make sure to stop any timer still running
         if timeout_id is not None:
-            glib.source_remove(timeout_id)
+            GLib.source_remove(timeout_id)
 
         self.set_data('timeout_id',
-            glib.timeout_add_seconds(60, self.on_timeout))
+            GLib.timeout_add_seconds(60, self.on_timeout))
 
     def stop_timer(self):
         """
@@ -442,7 +444,7 @@ class ScheduleTimeColumn(Column):
         timeout_id = self.get_data('timeout_id')
 
         if timeout_id is not None:
-            glib.source_remove(timeout_id)
+            GLib.source_remove(timeout_id)
 
         # Update once more
         self.on_timeout()
@@ -538,7 +540,7 @@ class ColumnMenuItem(menu.MenuItem):
         """
             Creates the menu item
         """
-        item = gtk.CheckMenuItem(self.title)
+        item = Gtk.CheckMenuItem.new_with_label(self.title)
         active = self.is_selected(self.name, parent, context)
         item.set_active(active)
         item.connect('activate', self.on_item_activate,

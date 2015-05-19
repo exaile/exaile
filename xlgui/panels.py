@@ -24,8 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gtk
+from gi.repository import GLib
+from gi.repository import Gtk
 import logging
 
 from xl.nls import gettext as _
@@ -85,7 +85,7 @@ class PanelNotebook(notebook.SmartNotebook, providers.ProviderHandler):
         self.exaile = exaile
         self.panels = {}    # key: name, value: PanelData object
         
-        self.set_tab_pos(gtk.POS_LEFT)
+        self.set_tab_pos(Gtk.PositionType.LEFT)
         self.set_add_tab_on_empty(False)
         
         self.loading_panels = True

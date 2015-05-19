@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gtk
 from xl import providers
 
 class Accelerator(object):
@@ -42,10 +42,10 @@ class AcceleratorManager(providers.ProviderHandler):
             self.on_provider_added(provider)
 
     def on_provider_added(self, provider):
-        key, mod = gtk.accelerator_parse(provider.keys)
-        self.accelgroup.connect_group(key, mod, gtk.ACCEL_VISIBLE, provider.callback)
+        key, mod = Gtk.accelerator_parse(provider.keys)
+        self.accelgroup.connect(key, mod, Gtk.AccelFlags.VISIBLE, provider.callback)
 
     def on_provider_removed(self, provider):
-        key, mod = gtk.accelerator_parse(provider.keys)
+        key, mod = Gtk.accelerator_parse(provider.keys)
         self.accelgroup.disconnect_key(key, mod)
 

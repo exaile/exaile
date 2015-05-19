@@ -29,7 +29,7 @@ import time
 import urllib
 import urlparse
 
-import glib
+from gi.repository import GLib
 from gi.repository import Gst
 
 from xl.nls import gettext as _

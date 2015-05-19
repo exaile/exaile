@@ -18,10 +18,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import cgi
-import glib
-import gtk.gdk
+
+from gi.repository import Gdk
+from gi.repository import GLib
+
 import logging
-import pynotify
+from gi.repository import Notify
 
 from xl import (
     common,
@@ -36,7 +38,7 @@ from xlgui import icons
 import notifyosdprefs
 
 logger = logging.getLogger(__name__)
-pynotify.init('Exaile')
+Notify.init('Exaile')
 
 class ExaileNotifyOsd(object):
 
@@ -61,7 +63,7 @@ class ExaileNotifyOsd(object):
     notify_change   = __inner_preference(notifyosdprefs.NotifyChange)
 
     def __init__(self):
-        self.notify         = pynotify.Notification('Exaile')
+        self.notify         = Notify.Notification('Exaile')
         self.exaile         = None
         self.icon           = None
         self.pauseicon      = 'notification-audio-pause'
@@ -129,7 +131,7 @@ class ExaileNotifyOsd(object):
                 True) or not self.exaile.gui.main.window.is_active():
             try:
                 self.notify.show()
-            except glib.GError, e:
+            except GLib.GError, e:
                 logger.warning("error showing OSD notification: %s" % e )
                 logger.warning("Perhaps notify-osd is not installed?")
 
@@ -178,7 +180,7 @@ class ExaileNotifyOsd(object):
 
     def on_tray_toggled(self, type, object, data):
         if data and self.tray_connection == -1:
-            glib.timeout_add_seconds(1, self.exaile_ready)
+            GLib.timeout_add_seconds(1, self.exaile_ready)
         elif not data and self.tray_connection != -1:
             self.tray_connection = -1
 

@@ -28,9 +28,10 @@ import hashlib
 import logging
 import os
 
-import glib
-import gtk
-import pango
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import Gtk
+from gi.repository import Pango
 
 from xl.nls import gettext as _
 from xl import event, main, settings, xdg
@@ -41,7 +42,7 @@ logger = logging.getLogger(__name__)
 
 class Preference(object):
     """
-        Representing a gtk.Entry preferences item
+        Representing a Gtk.Entry preferences item
     """
     default = ''
     restart_required = False
@@ -61,15 +62,15 @@ class Preference(object):
         if self.restart_required:
             self.message = dialogs.MessageBar(
                 parent=preferences.builder.get_object('preferences_box'),
-                type=gtk.MESSAGE_QUESTION,
-                buttons=gtk.BUTTONS_CLOSE,
+                type=Gtk.MessageType.QUESTION,
+                buttons=Gtk.ButtonsType.CLOSE,
                 text=_('Restart Exaile?'))
             self.message.set_secondary_text(
                 _('A restart is required for this change to take effect.'))
 
-            button = self.message.add_button(_('Restart'), gtk.RESPONSE_ACCEPT)
-            button.set_image(gtk.image_new_from_stock(
-                gtk.STOCK_REFRESH, gtk.ICON_SIZE_BUTTON))
+            button = self.message.add_button(_('Restart'), Gtk.ResponseType.ACCEPT)
+            button.set_image(Gtk.Image.new_from_stock(
+                Gtk.STOCK_REFRESH, Gtk.IconSize.BUTTON))
 
             self.message.connect('response', self.on_message_response)
 
@@ -135,8 +136,8 @@ class Preference(object):
         """
         widget.hide()
 
-        if response == gtk.RESPONSE_ACCEPT:
-            glib.idle_add(main.exaile().quit, True)
+        if response == Gtk.ResponseType.ACCEPT:
+            GLib.idle_add(main.exaile().quit, True)
 
 class Conditional(object):
     """
@@ -148,7 +149,7 @@ class Conditional(object):
 
     def __init__(self):
         event.add_callback(self.on_option_set, 'option_set')
-        glib.idle_add(self.on_option_set,
+        GLib.idle_add(self.on_option_set,
             'option_set', settings, self.condition_preference_name)
 
     def on_check_condition(self):
@@ -206,7 +207,7 @@ class MultiConditional(object):
 
     def __init__(self):
         event.add_callback(self.on_option_set, 'option_set')
-        glib.idle_add(self.on_option_set,
+        GLib.idle_add(self.on_option_set,
             'option_set', settings, self.condition_preference_names[0])
 
     def on_check_condition(self):
@@ -354,8 +355,8 @@ class HashedPreference(Preference):
 
         self.widget.set_visibility(False)
         # Defer to after returning from this method
-        glib.idle_add(self.widget.set_text, text)
-        glib.idle_add(self.widget.set_position, length)
+        GLib.idle_add(self.widget.set_text, text)
+        GLib.idle_add(self.widget.set_position, length)
 
 class CheckPreference(Preference):
     """
@@ -404,13 +405,13 @@ class OrderListPreference(Preference):
         A list box with reorderable items
     """
     def __init__(self, preferences, widget):
-        self.model = gtk.ListStore(str)
+        self.model = Gtk.ListStore(str)
         Preference.__init__(self, preferences, widget)
         widget.set_headers_visible(False)
         widget.set_reorderable(True)
 
-        text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn("Item", text, text=0)
+        text = Gtk.CellRendererText()
+        col = Gtk.TreeViewColumn("Item", text, text=0)
         self.widget.append_column(col)
         self.widget.set_model(self.model)
 
@@ -474,7 +475,7 @@ class SelectionListPreference(Preference):
         fixed = property(lambda self: self.__fixed)
 
     def __init__(self, preferences, widget):
-        self.model = gtk.ListStore(
+        self.model = Gtk.ListStore(
             str,  # 0: item
             str,  # 1: title
             str,  # 2: description
@@ -486,39 +487,39 @@ class SelectionListPreference(Preference):
             self.model.append([item.id, item.title, item.description,
                 True, item.fixed])
 
-        tree = gtk.TreeView(self.model)
+        tree = Gtk.TreeView(self.model)
         tree.set_headers_visible(False)
         tree.set_rules_hint(True)
         tree.enable_model_drag_source(
-            gtk.gdk.BUTTON1_MASK,
-            [('GTK_TREE_MODEL_ROW', gtk.TARGET_SAME_WIDGET, 0)],
-            gtk.gdk.ACTION_MOVE
+            Gdk.ModifierType.BUTTON1_MASK,
+            [('GTK_TREE_MODEL_ROW', Gtk.TargetFlags.SAME_WIDGET, 0)],
+            Gdk.DragAction.MOVE
         )
         tree.enable_model_drag_dest(
-            [('GTK_TREE_MODEL_ROW', gtk.TARGET_SAME_WIDGET, 0)],
-            gtk.gdk.ACTION_MOVE
+            [('GTK_TREE_MODEL_ROW', Gtk.TargetFlags.SAME_WIDGET, 0)],
+            Gdk.DragAction.MOVE
         )
         tree.connect('row-activated', self.on_row_activated)
         tree.connect('key-press-event', self.on_key_press_event)
         tree.connect('drag-end', self.change)
 
-        toggle_renderer = gtk.CellRendererToggle()
+        toggle_renderer = Gtk.CellRendererToggle()
         toggle_renderer.connect('toggled', self.on_toggled)
-        enabled_column = gtk.TreeViewColumn('Enabled', toggle_renderer, active=3)
+        enabled_column = Gtk.TreeViewColumn('Enabled', toggle_renderer, active=3)
         enabled_column.set_cell_data_func(toggle_renderer,
             self.enabled_data_function)
         tree.append_column(enabled_column)
 
-        text_renderer = gtk.CellRendererText()
+        text_renderer = Gtk.CellRendererText()
         text_renderer.props.ypad = 6
-        title_column = gtk.TreeViewColumn('Title', text_renderer, text=1)
+        title_column = Gtk.TreeViewColumn('Title', text_renderer, text=1)
         title_column.set_cell_data_func(text_renderer,
             self.title_data_function)
         tree.append_column(title_column)
 
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scroll.set_shadow_type(Gtk.ShadowType.IN)
         scroll.add(tree)
 
         guiutil.gtk_widget_replace(widget, scroll)
@@ -616,18 +617,18 @@ class SelectionListPreference(Preference):
         """
             Allows for reordering via keyboard (Alt+<direction>)
         """
-        if not event.state & gtk.gdk.MOD1_MASK:
+        if not event.get_state() & Gdk.ModifierType.MOD1_MASK:
             return
 
-        if event.keyval not in (gtk.keysyms.Up, gtk.keysyms.Down):
+        if event.keyval not in (Gdk.KEY_Up, Gdk.KEY_Down):
             return
 
         model, selected_iter = tree.get_selection().get_selected()
 
-        if event.keyval == gtk.keysyms.Up:
+        if event.keyval == Gdk.KEY_Up:
             previous_iter = self.iter_prev(selected_iter, model)
             model.move_before(selected_iter, previous_iter)
-        elif event.keyval == gtk.keysyms.Down:
+        elif event.keyval == Gdk.KEY_Down:
             next_iter = model.iter_next(selected_iter)
             model.move_after(selected_iter, next_iter)
 
@@ -654,22 +655,22 @@ class ShortcutListPreference(Preference):
         to assign/edit/remove key accelerators
     """
     def __init__(self, preferences, widget):
-        self.list = gtk.ListStore(str, str)
+        self.list = Gtk.ListStore(str, str)
 
         Preference.__init__(self, preferences, widget)
 
         self.widget.set_model(self.list)
 
-        title_renderer = gtk.CellRendererText()
-        title_column = gtk.TreeViewColumn(_('Action'), title_renderer, text=0)
+        title_renderer = Gtk.CellRendererText()
+        title_column = Gtk.TreeViewColumn(_('Action'), title_renderer, text=0)
         title_column.set_expand(True)
         title_column.set_cell_data_func(title_renderer, self.title_data_func)
-        accel_renderer = gtk.CellRendererAccel()
+        accel_renderer = Gtk.CellRendererAccel()
         accel_renderer.set_property('editable', True)
-        accel_renderer.set_property('style', pango.STYLE_OBLIQUE)
+        accel_renderer.set_property('style', Pango.Style.OBLIQUE)
         accel_renderer.connect('accel-cleared', self.on_accel_cleared)
         accel_renderer.connect('accel-edited', self.on_accel_edited)
-        accel_column = gtk.TreeViewColumn(_('Shortcut'), accel_renderer, text=1)
+        accel_column = Gtk.TreeViewColumn(_('Shortcut'), accel_renderer, text=1)
         accel_column.set_expand(True)
 
         self.widget.append_column(title_column)
@@ -697,7 +698,7 @@ class ShortcutListPreference(Preference):
         """
             Updates accelerators display in the list
         """
-        accel = gtk.accelerator_name(accel_key, accel_mods)
+        accel = Gtk.accelerator_name(accel_key, accel_mods)
         iter = self.list.get_iter(path)
         self.list.set_value(iter, 1, accel)
 
@@ -738,7 +739,7 @@ class ShortcutListPreference(Preference):
 
 class TextViewPreference(Preference):
     """
-        Represents a gtk.TextView
+        Represents a Gtk.TextView
     """
     def __init__(self, preferences, widget):
         """
@@ -816,7 +817,7 @@ class SpinPreference(Preference):
 
 class ScalePreference(SpinPreference):
     """
-        Representation of gtk.Scale widgets
+        Representation of Gtk.Scale widgets
     """
     def __init__(self, preferences, widget):
         SpinPreference.__init__(self, preferences, widget)
@@ -863,7 +864,7 @@ class ColorButtonPreference(Preference):
         if self.widget.get_use_alpha():
             self.widget.set_alpha(alpha)
 
-        self.widget.set_color(gtk.gdk.color_parse(value))
+        self.widget.set_color(Gdk.color_parse(value))
 
     def _get_value(self):
         color = self.widget.get_color()
@@ -961,17 +962,17 @@ class ComboEntryPreference(Preference):
     def __init__(self, preferences, widget):
         Preference.__init__(self, preferences, widget)
 
-        self.list = gtk.ListStore(str)
+        self.list = Gtk.ListStore(str)
 
         try:
             try:
                 preset_items = self.preset_items.items()
-                self.list = gtk.ListStore(str, str)
+                self.list = Gtk.ListStore(str, str)
                 text_renderer = self.widget.get_cells()[0]
-                text_renderer.set_property('weight', pango.WEIGHT_BOLD)
+                text_renderer.set_property('weight', Pango.Weight.BOLD)
 
-                title_renderer = gtk.CellRendererText()
-                self.widget.pack_start(title_renderer, expand=False)
+                title_renderer = Gtk.CellRendererText()
+                self.widget.pack_start(title_renderer, False, True, 0)
                 self.widget.add_attribute(title_renderer, 'text', 1)
             except AttributeError:
                 preset_items = [[item] for item in self.preset_items]
@@ -985,22 +986,22 @@ class ComboEntryPreference(Preference):
         self.widget.set_text_column(0)
 
         try:
-            completion = gtk.EntryCompletion()
+            completion = Gtk.EntryCompletion()
 
             try:
                 completion_items = self.completion_items.items()
-                self.completion_list = gtk.ListStore(str, str)
+                self.completion_list = Gtk.ListStore(str, str)
 
-                title_renderer = gtk.CellRendererText()
-                completion.pack_end(title_renderer)
+                title_renderer = Gtk.CellRendererText()
+                completion.pack_end(title_renderer, True, True, 0)
                 completion.add_attribute(title_renderer, 'text', 1)
             except AttributeError:
                 completion_items = [[item] for item in self.completion_items]
-                self.completion_list = gtk.ListStore(str)
+                self.completion_list = Gtk.ListStore(str)
 
-            keyword_renderer = gtk.CellRendererText()
-            keyword_renderer.set_property('weight', pango.WEIGHT_BOLD)
-            completion.pack_end(keyword_renderer)
+            keyword_renderer = Gtk.CellRendererText()
+            keyword_renderer.set_property('weight', Pango.Weight.BOLD)
+            completion.pack_end(keyword_renderer, True, True, 0)
             completion.add_attribute(keyword_renderer, 'text', 0)
             completion.set_match_func(self.on_matching)
             completion.connect('match-selected', self.on_match_selected)

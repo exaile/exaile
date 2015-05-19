@@ -15,9 +15,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
+from gi.repository import Gio
+from gi.repository import GLib
+
 from contextlib import closing
-import gio
-from glib import GError
+
 import hashlib
 from urllib import quote_plus
 try:
@@ -86,9 +88,9 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
                 api_key=API_KEY
             )
             try:
-                with closing(gio.DataInputStream(gio.File(url).read())) as stream:
+                with closing(Gio.DataInputStream(Gio.File.new_for_uri(url).read())) as stream:
                     data = stream.read()
-            except GError:
+            except GLib.GError:
                 continue
 
             try:
@@ -108,9 +110,9 @@ class LastFMCoverSearch(covers.CoverSearchMethod):
 
     def get_cover_data(self, cover_url):
         try:
-            with closing(gio.DataInputStream(gio.File(cover_url).read())) as stream:
+            with closing(Gio.DataInputStream(Gio.File.new_for_uri(cover_url).read())) as stream:
                 data = stream.read()
-        except GError:
+        except GLib.GError:
             return None
         return data
 

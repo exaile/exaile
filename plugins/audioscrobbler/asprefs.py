@@ -14,8 +14,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import glib
-import gtk
+from gi.repository import GLib
+from gi.repository import Gtk
+
 import os.path
 import _scrobbler
 
@@ -74,7 +75,7 @@ class VerifyLoginButton(widgets.Button):
 
         self.message = dialogs.MessageBar(
             parent = preferences.builder.get_object('preferences_box'),
-            buttons=gtk.BUTTONS_CLOSE
+            buttons=Gtk.ButtonsType.CLOSE
         )
 
     @common.threaded
@@ -102,19 +103,19 @@ class VerifyLoginButton(widgets.Button):
             login_verified = True
 
         if login_verified:
-            glib.idle_add(
+            GLib.idle_add(
                 self.message.show_info,
                 _('Verification successful'),
                 ''
             )
         else:
-            glib.idle_add(
+            GLib.idle_add(
                 self.message.show_error,
                 _('Verification failed'),
                 _('Please make sure the entered data is correct.')
             )
 
-        glib.idle_add(self.widget.set_sensitive, True)
+        GLib.idle_add(self.widget.set_sensitive, True)
 
     def on_clicked(self, button):
         """

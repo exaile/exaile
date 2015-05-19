@@ -26,7 +26,7 @@
 
 from collections import namedtuple
 import copy
-import gio
+from gi.repository import Gio
 
 INFO_TAGS = ['__bitrate', '__length']
 

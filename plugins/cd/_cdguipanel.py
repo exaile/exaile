@@ -24,8 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
-import glib
+from gi.repository import Gtk
+from gi.repository import GLib
 import os
 import imp
 importer = imp.load_source("importer",
@@ -65,9 +65,9 @@ class CDImportThread(common.ProgressThread):
         """
             Runs the thread
         """
-        progress_id = glib.timeout_add_seconds(1, self.on_progress_update)
+        progress_id = GLib.timeout_add_seconds(1, self.on_progress_update)
         self.cd_importer.do_import()
-        glib.source_remove(progress_id)
+        GLib.source_remove(progress_id)
         self.emit('done')
 
 class CDPanel(device.FlatPlaylistDevicePanel):
@@ -93,7 +93,7 @@ class CDPanel(device.FlatPlaylistDevicePanel):
         thread = CDImportThread(cd_importer)
         thread.connect('done', lambda *e: self._import_finish())
         self.main.controller.progress_manager.add_monitor(thread,
-                _("Importing CD..."), gtk.STOCK_HARDDISK)
+                _("Importing CD..."), Gtk.STOCK_HARDDISK)
 
 
     def _import_finish(self):

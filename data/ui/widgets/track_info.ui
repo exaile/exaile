@@ -62,7 +62,6 @@
               <object class="GtkBox" id="action_area">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkBox" id="progress_box">
                     <property name="can_focus">False</property>

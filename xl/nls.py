@@ -48,7 +48,7 @@ try:
 
     def __setup_locale():
 
-        # Required for gtk.Builder messages
+        # Required for Gtk.Builder messages
         try:
             locale.textdomain('exaile')
         except AttributeError: # E.g. Windows
@@ -62,7 +62,7 @@ try:
     
         # If running from source dir, we have to set the paths.
         # (The test is equivalent to xdg.local_hack but without the xdg import,
-        # which pulls in glib.)
+        # which pulls in GLib.)
         if os.path.exists(os.path.join(exaile_path, 'po')):
             locale_path = os.path.join(exaile_path, 'po')
         

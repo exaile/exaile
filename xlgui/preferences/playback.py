@@ -24,8 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject
-import gtk
+from gi.repository import GObject
+from gi.repository import Gtk
 
 from xlgui.preferences import widgets
 from xl import main, xdg
@@ -33,7 +33,7 @@ from xl.player import pipe
 from xl.nls import gettext as _
 
 name = _('Playback')
-icon = gtk.STOCK_MEDIA_PLAY
+icon = Gtk.STOCK_MEDIA_PLAY
 ui = xdg.get_data_path('ui', 'preferences', 'playback.ui')
 
 class EnginePreference(widgets.ComboPreference):

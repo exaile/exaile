@@ -31,9 +31,9 @@
 from __future__ import with_statement
 
 import inspect
-import gio
-import glib
-import gobject
+from gi.repository import Gio
+from gi.repository import GLib
+from gi.repository import GObject
 import logging
 import os
 import random
@@ -196,7 +196,7 @@ def _idle_callback(func, callback, *args, **kwargs):
 
 def idle_add(callback=None):
     """
-        A decorator that will wrap the function in a glib.idle_add call
+        A decorator that will wrap the function in a GLib.idle_add call
 
         NOTE: Although this decorator will probably work in more cases than
         the gtkrun decorator does, you CANNOT expect to get a return value
@@ -209,7 +209,7 @@ def idle_add(callback=None):
     """
     def wrap(f):
         def wrapped(*args, **kwargs):
-            glib.idle_add(_idle_callback, f, callback,
+            GLib.idle_add(_idle_callback, f, callback,
                 *args, **kwargs)
 
         return wrapped
@@ -224,7 +224,7 @@ def _glib_wait_inner(timeout, glib_timeout_func):
             id[0] = None
             return function(*args, **kwargs)
         def delayer(*args, **kwargs):
-            if id[0]: glib.source_remove(id[0])
+            if id[0]: GLib.source_remove(id[0])
             id[0] = glib_timeout_func(timeout, thunk, *args, **kwargs)
         return delayer
     return waiter
@@ -251,16 +251,16 @@ def glib_wait(timeout):
     # the implementation later for the moment, and really I don't
     # think it makes sense to use functions that have changing args
     # with this decorator.
-    return _glib_wait_inner(timeout, glib.timeout_add)
+    return _glib_wait_inner(timeout, GLib.timeout_add)
 
 def glib_wait_seconds(timeout):
     """
-        Same as glib_wait, but uses glib.timeout_add_seconds instead
-        of glib.timeout_add and takes its timeout in seconds. See the
+        Same as glib_wait, but uses GLib.timeout_add_seconds instead
+        of GLib.timeout_add and takes its timeout in seconds. See the
         glib documention for why you might want to use one over the
         other.
     """
-    return _glib_wait_inner(timeout, glib.timeout_add_seconds)
+    return _glib_wait_inner(timeout, GLib.timeout_add_seconds)
 
 def profileit(func):
     """
@@ -324,8 +324,7 @@ def open_file_directory(path):
     """
         Opens the parent directory of a file, selecting the file if possible.
     """
-    import gio
-    f = gio.File(path)
+    f = Gio.File.new_for_uri(path)
     platform = sys.platform
     if platform == 'win32':
         # Normally we can just run `explorer /select, filename`, but Python 2
@@ -435,10 +434,10 @@ def walk(root):
         the next directory. Order of files within a directory
         and order of directory traversal is not specified.
 
-        :param root: a :class:`gio.File` representing the
+        :param root: a :class:`Gio.File` representing the
             directory to walk through
         :returns: a generator object
-        :rtype: :class:`gio.File`
+        :rtype: :class:`Gio.File`
     """
     queue = deque()
     queue.append(root)
@@ -449,7 +448,8 @@ def walk(root):
         try:
             for fileinfo in dir.enumerate_children("standard::type,"
                     "standard::is-symlink,standard::name,"
-                    "standard::symlink-target,time::modified"):
+                    "standard::symlink-target,time::modified",
+                    Gio.FileQueryInfoFlags.NONE, None):
                 fil = dir.get_child(fileinfo.get_name())
                 # FIXME: recursive symlinks could cause an infinite loop
                 if fileinfo.get_is_symlink():
@@ -457,26 +457,26 @@ def walk(root):
                     if not "://" in target and not os.path.isabs(target):
                         fil2 = dir.get_child(target)
                     else:
-                        fil2 = gio.File(target)
+                        fil2 = Gio.File.new_for_uri(target)
                     # already in the collection, we'll get it anyway
                     if fil2.has_prefix(root):
                         continue
                 type = fileinfo.get_file_type()
-                if type == gio.FILE_TYPE_DIRECTORY:
+                if type == Gio.FileType.DIRECTORY:
                     queue.append(fil)
-                elif type == gio.FILE_TYPE_REGULAR:
+                elif type == Gio.FileType.REGULAR:
                     yield fil
-        except gio.Error, e: # why doesnt gio offer more-specific errors?
+        except GLib.Error, e: # why doesnt gio offer more-specific errors?
             log_exception(log=logger, message="Unhandled exception while walking on %s." % dir)
 
 def walk_directories(root):
     """
         Walk through a Gio directory, yielding each subdirectory
 
-        :param root: a :class:`gio.File` representing the
+        :param root: a :class:`Gio.File` representing the
             directory to walk through
         :returns: a generator object
-        :rtype: :class:`gio.File`
+        :rtype: :class:`Gio.File`
     """
     yield root
     directory = None
@@ -484,13 +484,13 @@ def walk_directories(root):
 
     try:
         for fileinfo in root.enumerate_children(
-                'standard::name,standard::type'):
-            if fileinfo.get_file_type() == gio.FILE_TYPE_DIRECTORY:
+                'standard::name,standard::type', Gio.FileQueryInfoFlags.NONE, None):
+            if fileinfo.get_file_type() == Gio.FileType.DIRECTORY:
                 directory = root.get_child(fileinfo.get_name())
 
                 for subdirectory in walk_directories(directory):
                     yield subdirectory
-    except gio.Error, e:
+    except GLib.Error, e:
         log_exception(log=logger, message="Unhandled exception while walking dirs on %s, %s, %s" % (root, directory, subdirectory))
 
 class TimeSpan:
@@ -648,26 +648,26 @@ class MetadataList(object):
         if not self.metadata[index]:
             self.metadata[index] = None
 
-class ProgressThread(gobject.GObject, threading.Thread):
+class ProgressThread(GObject.GObject, threading.Thread):
     """
         A basic thread with progress updates
     """
     __gsignals__ = {
         'progress-update': (
-            gobject.SIGNAL_RUN_FIRST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
+            GObject.SignalFlags.RUN_FIRST,
+            None,
+            (GObject.TYPE_INT,)
         ),
         # TODO: Check if 'stopped' is required
         'done': (
-            gobject.SIGNAL_RUN_FIRST,
-            gobject.TYPE_NONE,
+            GObject.SignalFlags.RUN_FIRST,
+            None,
             ()
         )
     }
 
     def __init__(self):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         threading.Thread.__init__(self)
         self.setDaemon(True)
 

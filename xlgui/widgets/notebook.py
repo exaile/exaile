@@ -24,18 +24,19 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject
-import gtk
-import pango
+from gi.repository import GObject
+from gi.repository import Gdk
+from gi.repository import Gtk
+from gi.repository import Pango
 
 from xl.nls import gettext as _
 from xl import providers
 from xlgui import guiutil
 from xlgui.widgets import menu
 
-class SmartNotebook(gtk.Notebook):
+class SmartNotebook(Gtk.Notebook):
     def __init__(self):
-        gtk.Notebook.__init__(self)
+        Gtk.Notebook.__init__(self)
         self.set_scrollable(True)
         self.connect('button-press-event', self.on_button_press)
         self.connect('popup-menu', self.on_popup_menu)
@@ -44,9 +45,9 @@ class SmartNotebook(gtk.Notebook):
         # Override the theme's tab overlap setting.
         # Notably, this removes the gap between tabs that occur when using
         # Adwaita (GNOME's default theme), which sets this to -8.
-        css = gtk.CssProvider()
+        css = Gtk.CssProvider()
         css.load_from_data('GtkNotebook { -GtkNotebook-tab-overlap: 1 }')
-        self.get_style_context().add_provider(css, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.get_style_context().add_provider(css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def get_current_tab(self):
         current_page = self.get_current_page()
@@ -84,13 +85,13 @@ class SmartNotebook(gtk.Notebook):
 
     def remove_page(self, page_num):
         '''
-            Overrides gtk.Notebook.remove_page
+            Overrides Gtk.Notebook.remove_page
         '''
         if page_num == -1:
             page_num = self.get_n_pages()-1
         tab = self.get_tab_label(self.get_nth_page(page_num))
         
-        gtk.Notebook.remove_page(self, page_num)
+        Gtk.Notebook.remove_page(self, page_num)
         tab.notebook = None
         
         if self._add_tab_on_empty and self.get_n_pages() == 0:
@@ -112,28 +113,28 @@ class SmartNotebook(gtk.Notebook):
         self._add_tab_on_empty = add_tab_on_empty
 
     def on_button_press(self, widget, event):
-        if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:
+        if event.type == Gdk.EventType.BUTTON_PRESS and event.button == 2:
             self.add_default_tab()
             
     def on_popup_menu(self, widget):
         page = self.get_current_tab()
         tab_label = self.get_tab_label(self.get_current_tab())
-        page.tab_menu.popup(None, None, guiutil.position_menu, 
-                            0, 0, (self.window, tab_label))
+        page.tab_menu.popup(None, None, guiutil.position_menu, (self.window, tab_label),
+                            0, 0)
         return True        
         
 
 # Reduce the notebook tabs' close button padding size.
-gtk.rc_parse_string("""
+Gtk.rc_parse_string("""
     style "thinWidget" {
         xthickness = 0
         ythickness = 0
     }
     widget "*.tabCloseButton" style "thinWidget"
     """)
-class NotebookTab(gtk.EventBox):
+class NotebookTab(Gtk.EventBox):
     """
-        Class to represent a generic tab in a gtk.Notebook.
+        Class to represent a generic tab in a Gtk.Notebook.
     """
     menu_provider_name = 'notebooktab' # Change this in subclasses!
     reorderable = True
@@ -144,7 +145,7 @@ class NotebookTab(gtk.EventBox):
             :param page: The page this tab will be associated with
             :type page: NotebookPage
         """
-        gtk.EventBox.__init__(self)
+        Gtk.EventBox.__init__(self)
         self.set_visible_window(False)
 
         self.closable = True
@@ -157,62 +158,65 @@ class NotebookTab(gtk.EventBox):
         self.connect('button-press-event', self.on_button_press)
 
         if display_left:
-            box = gtk.VBox(False, 2)
+            box = Gtk.VBox(False, 2)
         else:
-            box = gtk.HBox(False, 2)
+            box = Gtk.HBox(False, 2)
         self.add(box)
 
-        self.icon = gtk.Image()
+        self.icon = Gtk.Image()
         self.icon.set_no_show_all(True)
 
-        self.label = gtk.Label(self.page.get_page_name())
+        self.label = Gtk.Label(label=self.page.get_page_name())
 
         if display_left:
             self.label.set_angle(90)
-            self.label.props.valign = gtk.Align.CENTER
+            self.label.props.valign = Gtk.Align.CENTER
             # Don't ellipsize but give a sane maximum length.
             self.label.set_max_width_chars(20)
         else:
-            self.label.props.halign = gtk.Align.CENTER
-            self.label.set_ellipsize(pango.ELLIPSIZE_END)
+            self.label.props.halign = Gtk.Align.CENTER
+            self.label.set_ellipsize(Pango.EllipsizeMode.END)
             self.label.set_width_chars(4)  # Minimum, including ellipsis
 
         self.label.set_tooltip_text(self.page.get_page_name())
         
         if self.can_rename():
-            self.entry = gtk.Entry()
+            self.entry = Gtk.Entry()
             self.entry.set_width_chars(self.label.get_max_width_chars())
             self.entry.set_text(self.label.get_text())
-            self.entry.set_inner_border(gtk.Border(left=1, right=1))
+            border = Gtk.Border.new()
+            border.left = 1
+            border.right = 1
+            self.entry.set_inner_border(border)
             self.entry.connect('activate', self.on_entry_activate)
             self.entry.connect('focus-out-event', self.on_entry_focus_out_event)
             self.entry.connect('key-press-event', self.on_entry_key_press_event)
             self.entry.set_no_show_all(True)
         
 
-        self.button = button = gtk.Button()
+        self.button = button = Gtk.Button()
         button.set_name("tabCloseButton")
-        button.set_relief(gtk.RELIEF_NONE)
+        button.set_relief(Gtk.ReliefStyle.NONE)
         button.set_focus_on_click(False)
         button.set_tooltip_text(_("Close Tab"))
-        button.add(gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU))
+        button.add(Gtk.Image.new_from_stock(Gtk.STOCK_CLOSE, Gtk.IconSize.MENU))
         button.connect('clicked', self.close)
         button.connect('button-press-event', self.on_button_press)
         
         # pack the widgets in
         if display_left:
-            box.pack_start(button, False, False)
-            box.pack_end(self.icon, False, False)
-            box.pack_end(self.label, True, True)
+            box.pack_start(button, False, False, 0)
+            box.pack_end(self.icon, False, False, 0)
+            box.pack_end(self.label, True, True, 0)
             if self.can_rename():
-                box.pack_end(self.entry, True, True)
+                box.pack_end(self.entry, True, True, 0)
             
         else:
-            box.pack_start(self.icon, False, False)
-            box.pack_start(self.label, True, True)
+            box.pack_start(self.icon, False, False, 0)
+            box.pack_start(self.label, True, True, 0)
             if self.can_rename():
-                box.pack_start(self.entry, True, True)
-            box.pack_end(button, False, False)
+                box.pack_start(self.entry, True, True, 0)
+            box.pack_end(button, False, False, 0)
 
         page.set_tab(self)
         page.connect('name-changed', self.on_name_changed)
@@ -223,7 +227,7 @@ class NotebookTab(gtk.EventBox):
             Set the primary icon for the tab.
 
             :param pixbuf: The icon to use, or None to hide
-            :type pixbuf: :class:`gtk.gdk.Pixbuf`
+            :type pixbuf: :class:`GdkPixbuf.Pixbuf`
         """
         if pixbuf is None:
             self.icon.set_property("visible", False)
@@ -241,12 +245,12 @@ class NotebookTab(gtk.EventBox):
 
             Typically triggers renaming, closing and menu.
         """
-        if event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+        if event.button == 1 and event.type == Gdk.EventType._2BUTTON_PRESS:
             self.start_rename()
         elif event.button == 2:
             self.close()
         elif event.button == 3:
-            self.page.tab_menu.popup( None, None, None,
+            self.page.tab_menu.popup( None, None, None, None,
                     event.button, event.time)
             return True
 
@@ -268,7 +272,7 @@ class NotebookTab(gtk.EventBox):
         """
             Cancel rename if Escape is pressed
         """
-        if event.keyval == gtk.keysyms.Escape:
+        if event.keyval == Gdk.KEY_Escape:
             self.entry.props.editing_canceled = True
             self.end_rename()
             return True
@@ -314,7 +318,7 @@ class NotebookTab(gtk.EventBox):
             self.notebook.remove_page(self.notebook.page_num(self.page))
 
 
-class NotebookPage(gtk.VBox):
+class NotebookPage(Gtk.VBox):
     """
         Base class representing a page. Should never be used directly.
     """
@@ -322,23 +326,23 @@ class NotebookPage(gtk.VBox):
     reorderable = True
     __gsignals__ = {
         'name-changed': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
+            GObject.SignalFlags.RUN_LAST,
+            None,
             ()
         ),
         'closing': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_BOOLEAN,
+            GObject.SignalFlags.RUN_LAST,
+            GObject.TYPE_BOOLEAN,
             ()
         )
     }
     def __init__(self, child=None, page_name=None):
-        gtk.VBox.__init__(self)
+        Gtk.VBox.__init__(self)
         self.tab = None
         self.tab_menu = menu.ProviderMenu(self.menu_provider_name, self)
         
         if child is not None:
-            self.pack_start(child, True, True)
+            self.pack_start(child, True, True, 0)
             
         if page_name is not None:
             self.page_name = page_name
@@ -385,7 +389,7 @@ class NotebookAction(object):
         A custom action to be placed to the left or right of tabs in a notebook
     """
     name = None
-    position = gtk.PACK_END
+    position = Gtk.PackType.END
 
     def __init__(self, notebook):
         self.notebook = notebook
@@ -411,16 +415,13 @@ class NotebookActionService(providers.ProviderHandler):
         self.notebook = notebook
 
         # Try to set up action widgets
-        try:
-            notebook.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_START)
-            notebook.set_action_widget(gtk.HBox(spacing=3), gtk.PACK_END)
-        except AttributeError: # Older than GTK 2.20 and PyGTK 2.22
-            pass
-        else:
-            self.__actions = {}
-            for provider in self.get_providers():
-                self.on_provider_added(provider)
-                
+        notebook.set_action_widget(Gtk.HBox(spacing=3), Gtk.PackType.START)
+        notebook.set_action_widget(Gtk.HBox(spacing=3), Gtk.PackType.END)
+    
+        self.__actions = {}
+        for provider in self.get_providers():
+            self.on_provider_added(provider)
+            
     def on_provider_added(self, provider):
         """
             Adds actions on provider addition
@@ -431,7 +432,7 @@ class NotebookActionService(providers.ProviderHandler):
             pass
         else:
             self.__actions[provider.name] = provider(self.notebook)
-            actions_box.pack_start(self.__actions[provider.name], False, False)
+            actions_box.pack_start(self.__actions[provider.name], False, False, 0)
             actions_box.show_all()
 
     def on_provider_removed(self, provider):

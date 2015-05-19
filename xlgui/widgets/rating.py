@@ -24,9 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gobject
-import gtk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gdk
+from gi.repository import Gtk
 
 from xl import event, settings
 from xl.common import clamp
@@ -34,27 +35,27 @@ from xl.nls import gettext as _
 import xl.main
 from xlgui import icons
 
-class RatingWidget(gtk.EventBox):
+class RatingWidget(Gtk.EventBox):
     """
         A rating widget which displays a row of
         images and allows for selecting the rating
     """
     __gproperties__ = {
         'rating': (
-            gobject.TYPE_INT,
+            GObject.TYPE_INT,
             'rating',
             'The selected rating',
             0, # Minimum
             65535, # Maximum
             0, # Default
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         )
     }
     __gsignals__ = {
         'rating-changed': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_INT,)
         )
     }
 
@@ -66,15 +67,15 @@ class RatingWidget(gtk.EventBox):
                            update to reflect the rating of the current song
             :type player: xl.player.ExailePlayer
         """
-        gtk.EventBox.__init__(self)
+        Gtk.EventBox.__init__(self)
         self._player = player
         
         self.set_visible_window(False)
         self.set_above_child(True)
-        self.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
         self.set_can_focus(True)
 
-        self._image = gtk.Image()
+        self._image = Gtk.Image()
         self.add(self._image)
 
         self._rating = -1
@@ -141,13 +142,13 @@ class RatingWidget(gtk.EventBox):
                 height=event.area.height
             )
 
-        gtk.EventBox.do_expose_event(self, event)
+        Gtk.EventBox.do_expose_event(self, event)
 
     def do_motion_notify_event(self, event):
         """
             Temporarily updates the displayed rating
         """
-        if self.get_state() & gtk.STATE_INSENSITIVE:
+        if self.get_state() & Gtk.StateType.INSENSITIVE:
             return
 
         allocation = self.get_allocation()
@@ -165,7 +166,7 @@ class RatingWidget(gtk.EventBox):
         """
             Restores the original rating
         """
-        if self.get_state() & gtk.STATE_INSENSITIVE:
+        if self.get_state() & Gtk.StateType.INSENSITIVE:
             return
 
         self._image.set_from_pixbuf(
@@ -175,7 +176,7 @@ class RatingWidget(gtk.EventBox):
         """
             Applies the selected rating
         """
-        if self.get_state() & gtk.STATE_INSENSITIVE:
+        if self.get_state() & Gtk.StateType.INSENSITIVE:
             return
 
         allocation = self.get_allocation()
@@ -192,15 +193,15 @@ class RatingWidget(gtk.EventBox):
             * Alt+Up/Right: increases the rating
             * Alt+Down/Left: decreases the rating
         """
-        if self.get_state() & gtk.STATE_INSENSITIVE:
+        if self.get_state() & Gtk.StateType.INSENSITIVE:
             return
 
-        if not event.state & gtk.gdk.MOD1_MASK:
+        if not event.get_state() & Gdk.ModifierType.MOD1_MASK:
             return
 
-        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
+        if event.keyval in (Gdk.KEY_Up, Gdk.KEY_Right):
             rating = self.props.rating + 1
-        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
+        elif event.keyval in (Gdk.KEY_Down, Gdk.KEY_Left):
             rating = self.props.rating - 1
         else:
             return
@@ -219,32 +220,32 @@ class RatingWidget(gtk.EventBox):
         """
         if self._player.current is not None:
             self._rating = self._player.current.get_rating()
-            glib.idle_add(self._image.set_from_pixbuf,
+            GLib.idle_add(self._image.set_from_pixbuf,
                 icons.MANAGER.pixbuf_from_rating(self._rating).pixbuf)
-            glib.idle_add(self.set_sensitive, True)
+            GLib.idle_add(self.set_sensitive, True)
         else:
-            glib.idle_add(self.set_sensitive, False)
+            GLib.idle_add(self.set_sensitive, False)
 
-class RatingMenuItem(gtk.MenuItem):
+class RatingMenuItem(Gtk.MenuItem):
     """
         A menuitem containing a rating widget
     """
     __gproperties__ = {
         'rating': (
-            gobject.TYPE_INT,
+            GObject.TYPE_INT,
             'rating',
             'The selected rating',
             0, # Minimum
             65535, # Maximum
             0, # Default
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         )
     }
     __gsignals__ = {
         'rating-changed': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_INT,)
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_INT,)
         )
     }
     def __init__(self, rating=0, player=None):
@@ -255,12 +256,12 @@ class RatingMenuItem(gtk.MenuItem):
                            update to reflect the rating of the current song
             :type player: xl.player.ExailePlayer
         """
-        gtk.MenuItem.__init__(self)
+        Gtk.MenuItem.__init__(self)
 
-        box = gtk.HBox(spacing=6)
-        box.pack_start(gtk.Label(_('Rating:')), False, False)
+        box = Gtk.HBox(spacing=6)
+        box.pack_start(Gtk.Label(_('Rating:')), False, False, 0)
         self.rating_widget = RatingWidget(rating, player)
-        box.pack_start(self.rating_widget, False, False)
+        box.pack_start(self.rating_widget, False, False, 0)
 
         self.add(box)
 
@@ -296,14 +297,14 @@ class RatingMenuItem(gtk.MenuItem):
                 int(event.x), int(event.y))
             event.x, event.y = float(x), float(y)
             # HACK: GI: event is not subclass of Gdk.Event.
-            self.rating_widget.emit('motion-notify-event', gtk.gdk.Event(event))
+            self.rating_widget.emit('motion-notify-event', Gdk.Event(event))
 
     def do_leave_notify_event(self, event):
         """
             Forwards the event to the rating widget
         """
         # HACK: GI: event is not subclass of Gdk.Event.
-        self.rating_widget.emit('leave-notify-event', gtk.gdk.Event(event))
+        self.rating_widget.emit('leave-notify-event', Gdk.Event(event))
 
     def do_button_release_event(self, event):
         """
@@ -323,33 +324,33 @@ class RatingMenuItem(gtk.MenuItem):
         """
         self.emit('rating-changed', rating)
 
-class RatingCellRenderer(gtk.CellRendererPixbuf):
+class RatingCellRenderer(Gtk.CellRendererPixbuf):
     """
         A cell renderer drawing rating images
         and allowing for selection of ratings
     """
     __gproperties__ = {
         'rating': (
-            gobject.TYPE_INT,
+            GObject.TYPE_INT,
             'Rating',
             'The selected rating',
             0, # Minimum
             65535, # Maximum
             0, # Default
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         )
     }
     __gsignals__ = {
         'rating-changed': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_PYOBJECT, gobject.TYPE_INT)
+            GObject.SignalFlags.RUN_LAST,
+            None,
+            (GObject.TYPE_PYOBJECT, GObject.TYPE_INT)
         )
     }
 
     def __init__(self):
-        gtk.CellRendererPixbuf.__init__(self)
-        self.props.mode = gtk.CELL_RENDERER_MODE_ACTIVATABLE
+        Gtk.CellRendererPixbuf.__init__(self)
+        self.props.mode = Gtk.CellRendererMode.ACTIVATABLE
         self.props.xalign = 0
         
         self.rating = 0
@@ -384,7 +385,7 @@ class RatingCellRenderer(gtk.CellRendererPixbuf):
             return
 
         # Locate click area at zero
-        click_area = gtk.gdk.Rectangle(
+        click_area = Gdk.Rectangle(
             x=0,
             y=self.props.ypad,
             width=self.props.pixbuf.get_width(),
@@ -406,7 +407,7 @@ class RatingCellRenderer(gtk.CellRendererPixbuf):
                   cell_area, expose_area, flags):
         """
             Renders the rating images
-            (Overriden since gtk.CellRendererPixbuf
+            (Overriden since Gtk.CellRendererPixbuf
              fails at vertical padding)
         """
         cell_area.width *= self.props.xalign

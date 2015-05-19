@@ -21,14 +21,16 @@ For better development experience, please use the IPython console plugin. This
 plugin is meant as a basic alternative without the extra dependencies.
 """
 
+from gi.repository import GLib
+from gi.repository import Gtk
+
 import sys, traceback
 from cStringIO import StringIO
-import glib, gtk
 from xl.nls import gettext as _
 
-class PyConsole(gtk.Window):
+class PyConsole(Gtk.Window):
     def __init__(self, dict):
-        gtk.Window.__init__(self)
+        Gtk.Window.__init__(self)
         self.dict = dict
 
         self.buffer = StringIO()
@@ -36,26 +38,26 @@ class PyConsole(gtk.Window):
         self.set_border_width(12)
         self.set_default_size(450, 250)
 
-        vbox = gtk.VBox(False, 12)
+        vbox = Gtk.VBox(False, 12)
         self.add(vbox)
 
-        sw = gtk.ScrolledWindow()
-        vbox.pack_start(sw)
-        sw.set_shadow_type(gtk.SHADOW_IN)
-        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS) 
-        self.text_view = tv = gtk.TextView()
+        sw = Gtk.ScrolledWindow()
+        vbox.pack_start(sw, True, True, 0)
+        sw.set_shadow_type(Gtk.ShadowType.IN)
+        sw.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS) 
+        self.text_view = tv = Gtk.TextView()
         sw.add(tv)
         tv.set_editable(False)
         self.text_buffer = buff = tv.get_buffer()
         self.end_mark = buff.create_mark(None, buff.get_end_iter(), False)
-        tv.set_wrap_mode(gtk.WRAP_WORD)
+        tv.set_wrap_mode(Gtk.WrapMode.WORD)
 
-        hbox = gtk.HBox(False, 6)
+        hbox = Gtk.HBox(False, 6)
         vbox.pack_start(hbox, False)
-        label = gtk.Label('>>>')
+        label = Gtk.Label(label='>>>')
         hbox.pack_start(label, False)
-        self.entry = entry = gtk.Entry()
-        hbox.pack_start(entry)
+        self.entry = entry = Gtk.Entry()
+        hbox.pack_start(entry, True, True, 0)
         entry.connect('activate', self.entry_activated)
 
         entry.grab_focus()

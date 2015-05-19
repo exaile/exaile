@@ -16,9 +16,10 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from __future__ import with_statement
-import gio
-import glib
-import gtk
+
+from gi.repository import Gio
+from gi.repository import GLib
+from gi.repository import Gtk
 import os
 import logging
 logger = logging.getLogger(__name__)
@@ -82,9 +83,9 @@ class Bookmarks:
         # define factory-factory for sensitive-aware menuitems
         def factory_factory(display_name, icon_name, callback=None, submenu=None):
             def factory(menu_, parent, context):
-                item = gtk.ImageMenuItem(display_name)
-                image = gtk.image_new_from_icon_name(icon_name,
-                        size=gtk.ICON_SIZE_MENU)
+                item = Gtk.ImageMenuItem.new_with_mnemonic(display_name)
+                image = Gtk.Image.new_from_icon_name(icon_name,
+                        size=Gtk.IconSize.MENU)
                 item.set_image(image)
                 
                 # insensitive if no bookmarks present
@@ -174,7 +175,7 @@ class Bookmarks:
                 if image:
                     try:
                         pix = icons.MANAGER.pixbuf_from_data(image, size=(16,16))
-                    except glib.GError:
+                    except GLib.GError:
                         logger.warn('Could not load cover')
                         pix = None
                         # no cover
@@ -192,9 +193,9 @@ class Bookmarks:
         counter = self.counter # closure magic (workaround for factories not having access to item)
         # factory for new bookmarks
         def factory(menu_, parent, context):
-            menu_item = gtk.ImageMenuItem(label)
+            menu_item = Gtk.ImageMenuItem.new_with_mnemonic(label)
             if pix:
-                menu_item.set_image(gtk.image_new_from_pixbuf(pix))
+                menu_item.set_image(Gtk.image_new_from_pixbuf(pix))
             
             if menu_ is self.menu:
                 menu_item.connect('activate', self.do_bookmark, (key,pos))
@@ -279,7 +280,7 @@ class Bookmarks:
 
 
 def __enb(eventname, exaile, nothing):
-    glib.idle_add(_enable, exaile)
+    GLib.idle_add(_enable, exaile)
 
 def enable(exaile):
     """

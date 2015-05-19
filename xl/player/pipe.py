@@ -33,7 +33,7 @@ import threading
 
 from gi.repository import Gst
 
-import glib
+from gi.repository import GLib
 
 from xl.nls import gettext as _
 from xl import event, common, settings
@@ -67,7 +67,8 @@ class MainBin(Gst.Bin):
         #self.queue = Gst.ElementFactory.make("queue")
         #self._elements.append(self.queue)
 
-        self.add(*self._elements)
+        for e in self._elements:
+            self.add(e)
         # TODO: GI: We sometimes get None here, but we shouldn't.
         # For now, filter them out.
         self._elements = [e for e in self._elements if e]
@@ -191,7 +192,7 @@ class MainBin(Gst.Bin):
         #def unblock_pad():
             #pad.set_blocked(False)
         
-        #glib.idle_add(unblock_pad)
+        #GLib.idle_add(unblock_pad)
         self.__audio_sink_lock.release()
        
         # Start flushing the old sink
@@ -396,7 +397,8 @@ class ElementBin(Gst.Bin):
             elems.append(Gst.ElementFactory.make('identity'))
         else:
             elems = [ x[1] for x in elems ]
-        self.add(*elems)
+        for e in elems:
+            self.add(e)
         if len(elems) > 1:
             element_link_many(*elems)
         
@@ -617,7 +619,8 @@ class AudioSink(Gst.Bin):
         self.provided = ProviderBin(player, 'sink_element')
         self.vol = Gst.ElementFactory.make("volume")
         elems = [self.provided, self.vol] + elems
-        self.add(*elems)
+        for e in elems:
+            self.add(e)
         element_link_many(*elems)
         self.sinkghost = Gst.GhostPad.new("sink",
                 self.provided.get_static_pad("sink"))

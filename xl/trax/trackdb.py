@@ -31,7 +31,7 @@ import shelve
 
 from copy import deepcopy
 
-import glib
+from gi.repository import GLib
 
 from xl import common, event
 from xl.nls import gettext as _

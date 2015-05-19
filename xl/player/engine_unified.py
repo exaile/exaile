@@ -49,16 +49,13 @@ class UnifiedPlayer(_base.ExailePlayer):
         self.streams = [None, None]
 
     def _setup_pipe(self):
-        self.caps = Gst.Caps('audio/x-raw')
+        self.caps = Gst.Caps.from_string('audio/x-raw')
         self._pipe = Gst.Pipeline()
         self.adder = Gst.ElementFactory.make("adder")
         self.audio_queue = Gst.ElementFactory.make("queue")
         self._load_queue_values()
-        self._pipe.add(
-                self.adder,
-                self.audio_queue,
-                self._mainbin
-                )
+        for e in (self.adder, self.audio_queue, self._mainbin):
+            self._pipe.add(e)
         self.adder.link(self.audio_queue)
         self.audio_queue.link(self._mainbin)
 
@@ -285,7 +282,7 @@ class UnifiedPlayer(_base.ExailePlayer):
 
 class AudioStream(Gst.Bin):
     def __init__(self, name, player, caps=None):
-        Gst.Bin.__init__(self, name)
+        Gst.Bin.__init__(self, name=name)
         self.notify_id = None
         self.track = None
         self._playtime_stamp = None
@@ -306,12 +303,8 @@ class AudioStream(Gst.Bin):
         self.capsfilter = Gst.ElementFactory.make("capsfilter")
         self.capsfilter.set_property("caps", self.caps)
         self.vol = Gst.ElementFactory.make("volume")
-        self.add(self.dec,
-                self.audioconv,
-                self.audioresam,
-                self.provided,
-                self.capsfilter,
-                self.vol)
+        for e in (self.dec, self.audioconv, self.audioresam, self.provided, self.capsfilter, self.vol):
+            self.add(e)
         self.audioconv.link(self.audioresam)
         self.audioresam.link(self.capsfilter)
         self.capsfilter.link(self.provided)

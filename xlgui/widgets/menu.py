@@ -24,9 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gobject
-import gtk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 
 from xl import common, providers
 from xl.nls import gettext as _
@@ -34,11 +34,11 @@ from xlgui import icons
 
 # Fake accel group so that menuitems can trick GTK into
 # showing accelerators in the menus.
-FAKEACCELGROUP = gtk.AccelGroup()
+FAKEACCELGROUP = Gtk.AccelGroup()
 
 def simple_separator(name, after):
     def factory(menu, parent, context):
-        item = gtk.SeparatorMenuItem()
+        item = Gtk.SeparatorMenuItem()
         return item
     item = MenuItem(name, factory, after=after)
     item._pos = 'last'
@@ -57,7 +57,7 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         :param icon_name: Name of the icon to display, or None for no icon.
         :param callback: The function to call when the menu item is activated.
                 signature: callback(widget, name, parent, context)
-        :param submenu: The gtk.Menu that is to be the submenu of this item
+        :param submenu: The Gtk.Menu that is to be the submenu of this item
         :param accelerator: The keyboard shortcut to display next to the item.
                 This does NOT bind the key, that mus tbe done separately by
                 registering an Accelerator with providers.
@@ -73,22 +73,22 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
         
         if display_name is not None:
             if icon_name is not None:
-                item = gtk.ImageMenuItem(display_name)
-                image = gtk.image_new_from_icon_name(icon_name,
-                        size=gtk.ICON_SIZE_MENU)
+                item = Gtk.ImageMenuItem.new_from_stock(display_name)
+                image = Gtk.Image.new_from_icon_name(icon_name,
+                        size=Gtk.IconSize.MENU)
                 item.set_image(image)
             else:
-                item = gtk.MenuItem(display_name)
+                item = Gtk.MenuItem.new_with_mnemonic(display_name)
         else:
-            item = gtk.ImageMenuItem(icon_name)
+            item = Gtk.ImageMenuItem.new_from_stock(icon_name)
 
         if submenu is not None:
             item.set_submenu(submenu)
 
         if accelerator is not None:
-            key, mods = gtk.accelerator_parse(accelerator)
+            key, mods = Gtk.accelerator_parse(accelerator)
             item.add_accelerator('activate', FAKEACCELGROUP, key, mods,
-                    gtk.ACCEL_VISIBLE)
+                    Gtk.AccelFlags.VISIBLE)
 
         if callback is not None:
             item.connect('activate', callback, name,
@@ -100,13 +100,13 @@ def simple_menu_item(name, after, display_name=None, icon_name=None,
 def check_menu_item(name, after, display_name, checked_func, callback,
         accelerator=None):
     def factory(menu, parent, context):
-        item = gtk.CheckMenuItem(display_name)
+        item = Gtk.CheckMenuItem.new_with_mnemonic(display_name)
         active = checked_func(name, parent, context)
         item.set_active(active)
         if accelerator is not None:
-            key, mods = gtk.accelerator_parse(accelerator)
+            key, mods = Gtk.accelerator_parse(accelerator)
             item.add_accelerator('activate', FAKEACCELGROUP, key, mods,
-                    gtk.ACCEL_VISIBLE)
+                    Gtk.AccelFlags.VISIBLE)
         item.connect('activate', callback, name, parent, context)
         return item
     return MenuItem(name, factory, after=after)
@@ -123,12 +123,12 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
         if index is not None:
             try:
                 group_parent = menu.get_children()[index]
-                if not isinstance(group_parent, gtk.RadioMenuItem):
+                if not isinstance(group_parent, Gtk.RadioMenuItem):
                     group_parent = None
             except IndexError:
                 group_parent = None
 
-        item = gtk.RadioMenuItem(label=display_name)
+        item = Gtk.RadioMenuItem.new_with_mnemonic(None, display_name)
         active = selected_func(name, parent, context)
         item.set_active(active)
         if group_parent:
@@ -184,7 +184,7 @@ class RadioMenuItem(MenuItem):
         MenuItem.__init__(self, name, factory, after)
         self.groupname = groupname
 
-class Menu(gtk.Menu):
+class Menu(Gtk.Menu):
     """
         Generic flexible menu with reliable
         menu item order and context handling
@@ -195,14 +195,14 @@ class Menu(gtk.Menu):
             :param context_func: a function for context
                 retrieval
         """
-        gtk.Menu.__init__(self)
+        Gtk.Menu.__init__(self)
         self._parent = parent
         self._items = []
         self.context_func = context_func
         self.connect('show', lambda *e: self.regenerate_menu())
         # GTK gets unhappy if we remove the menu items before it's done with them.
-        self.connect('hide', lambda *e: glib.idle_add(self.clear_menu))
-        self.placeholder = gtk.MenuItem('')
+        self.connect('hide', lambda *e: GLib.idle_add(self.clear_menu))
+        self.placeholder = Gtk.MenuItem.new_with_label('')
 
     def get_context(self):
         """
@@ -282,9 +282,9 @@ class Menu(gtk.Menu):
         if len(self._items) > 0:
             if len(args) == 1:
                 event = args[0]
-                gtk.Menu.popup(self, None, None, None, event.button, event.time)
+                Gtk.Menu.popup(self, None, None, None, None, event.button, event.time)
             else:
-                gtk.Menu.popup(self, *args)
+                Gtk.Menu.popup(self, *args)
 
 
 class ProviderMenu(providers.ProviderHandler, Menu):

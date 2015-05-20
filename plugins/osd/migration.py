@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from gtk.gdk import color_parse
+from gi.repository import Gdk
 
 from xl import settings
 
@@ -85,7 +85,7 @@ def migrate_settings():
         text_color = settings.get_option('osd/text_color')
 
         if text_color is not None:
-            color = color_parse(text_color)
+            color = Gdk.color_parse(text_color)
             attributes += ['foreground="%s"' % str(color)]
 
         if attributes:

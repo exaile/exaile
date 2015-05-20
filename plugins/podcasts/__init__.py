@@ -1,4 +1,7 @@
-import gtk, glib
+
+from gi.repository import GLib
+from gi.repository import Gtk
+
 from xl import event, common, playlist, providers
 from xl import trax
 from xl.nls import gettext as _
@@ -62,12 +65,12 @@ class PodcastPanel(panel.Panel):
         self._load_podcasts()
 
     def _setup_widgets(self):
-        self.model = gtk.ListStore(str, str)
+        self.model = Gtk.ListStore(str, str)
         self.tree = self.builder.get_object('podcast_tree')
         self.tree.set_model(self.model)
 
-        text = gtk.CellRendererText()
-        self.column = gtk.TreeViewColumn(_('Podcast'))
+        text = Gtk.CellRendererText()
+        self.column = Gtk.TreeViewColumn(_('Podcast'))
         self.column.pack_start(text, True)
         self.column.set_expand(True)
         self.column.set_attributes(text, text=0)
@@ -76,15 +79,15 @@ class PodcastPanel(panel.Panel):
         self.status = self.builder.get_object('podcast_statusbar')
 
         self.menu = guiutil.Menu()
-        self.menu.append(_('Refresh Podcast'), self._on_refresh, gtk.STOCK_REFRESH)
-        self.menu.append(_('Delete'), self._on_delete, gtk.STOCK_DELETE)
+        self.menu.append(_('Refresh Podcast'), self._on_refresh, Gtk.STOCK_REFRESH)
+        self.menu.append(_('Delete'), self._on_delete, Gtk.STOCK_DELETE)
 
     @guiutil.idle_add()
     def _set_status(self, message, timeout=0):
         self.status.set_text(message)
 
         if timeout:
-            glib.timeout_add_seconds(timeout, self._set_status, '', 0)
+            GLib.timeout_add_seconds(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
         self.builder.connect_signals({
@@ -118,12 +121,12 @@ class PodcastPanel(panel.Panel):
         dialog = dialogs.TextEntryDialog(_('Enter the URL of the '
             'podcast to add'), _('Open Podcast'))
         dialog.set_transient_for(self.parent)
-        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
         result = dialog.run()
         dialog.hide()
 
-        if result == gtk.RESPONSE_OK:
+        if result == Gtk.ResponseType.OK:
             url = dialog.get_value()
             self._parse_podcast(url, True)
 

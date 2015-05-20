@@ -31,7 +31,10 @@
 # TODO: how should we document standardization of context's
 # selected-(items|tracks) ?
 
-import gio, glib, gtk
+from gi.repository import Gio
+from gi.repository import GLib
+from gi.repository import Gtk
+
 
 from xl import common, player, playlist, settings, trax
 from xl.nls import gettext as _
@@ -93,7 +96,7 @@ def _enqueue_cb(widget, name, parent, context, get_tracks_func):
     player.QUEUE.extend(tracks)
 
 def EnqueueMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
-    return menu.simple_menu_item(name, after, _("Enqueue"), gtk.STOCK_ADD,
+    return menu.simple_menu_item(name, after, _("Enqueue"), Gtk.STOCK_ADD,
             _enqueue_cb, callback_args=[get_tracks_func])
 
 # TODO: move logic into (GUI?) playlist
@@ -148,12 +151,12 @@ def OpenDirectoryMenuItem(name, after, get_tracks_func=generic_get_tracks_func):
 
 def generic_trash_tracks_func(parent, context, tracks):
     for track in tracks:
-        gfile = gio.File(track.get_loc_for_io())
+        gfile = Gio.File.new_for_uri(track.get_loc_for_io())
         gfile.trash()
 
 def generic_delete_tracks_func(parent, context, tracks):
     for track in tracks:
-        gfile = gio.File(track.get_loc_for_io())
+        gfile = Gio.File.new_for_uri(track.get_loc_for_io())
         gfile.delete()
 
 def _on_trash_tracks(widget, name, parent, context,
@@ -163,16 +166,16 @@ def _on_trash_tracks(widget, name, parent, context,
 
     try:
         trash_tracks_func(parent, context, tracks)
-    except glib.GError:
-        dialog = gtk.MessageDialog(type=gtk.MESSAGE_WARNING,
+    except GLib.GError:
+        dialog = Gtk.MessageDialog(type=Gtk.MessageType.WARNING,
             message_format=_('The files cannot be moved to the Trash. '
                              'Delete them permanently from the disk?'))
         dialog.add_buttons(
-            gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_DELETE, gtk.RESPONSE_OK)
-        dialog.set_alternative_button_order((gtk.RESPONSE_OK, gtk.RESPONSE_CANCEL))
+            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_DELETE, Gtk.ResponseType.OK)
+        dialog.set_alternative_button_order((Gtk.ResponseType.OK, Gtk.ResponseType.CANCEL))
 
-        if dialog.run() == gtk.RESPONSE_OK:
+        if dialog.run() == Gtk.ResponseType.OK:
             delete_tracks_func(parent, context, tracks)
 
         dialog.destroy()
@@ -191,15 +194,15 @@ class ShowCurrentTrackMenuItem(menu.MenuItem):
     """
     def __init__(self, name, after, callback=None, callback_args=[], accelerator=None):
         def factory(container, parent, context):
-            item = gtk.ImageMenuItem(_("_Show Playing Track"))
-            image = gtk.image_new_from_icon_name('gtk-jump-to-ltr',
-                    size=gtk.ICON_SIZE_MENU)
+            item = Gtk.ImageMenuItem.new_with_mnemonic(_("_Show Playing Track"))
+            image = Gtk.Image.new_from_icon_name('gtk-jump-to-ltr',
+                    size=Gtk.IconSize.MENU)
             item.set_image(image)
 
             if accelerator is not None:
-                key, mods = gtk.accelerator_parse(accelerator)
+                key, mods = Gtk.accelerator_parse(accelerator)
                 item.add_accelerator('activate', menu.FAKEACCELGROUP, key, mods,
-                        gtk.ACCEL_VISIBLE)
+                        Gtk.AccelFlags.VISIBLE)
 
             if callback is not None:
                 item.connect('activate', callback, name, parent, context, *callback_args)

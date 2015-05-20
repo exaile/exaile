@@ -14,8 +14,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import glib
-import gtk
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import Gtk
+
 import os
 from egg.trayicon import TrayIcon as EggTrayIcon
 
@@ -65,13 +67,13 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
     def __init__(self, exaile):
         EggTrayIcon.__init__(self, 'Exaile Trayicon')
 
-        self.image = gtk.image_new_from_icon_name(
-          'exaile', gtk.ICON_SIZE_MENU)
-        self.eventbox = gtk.EventBox()
+        self.image = Gtk.Image.new_from_icon_name(
+          'exaile', Gtk.IconSize.MENU)
+        self.eventbox = Gtk.EventBox()
         self.eventbox.add(self.image)
         self.add(self.eventbox)
 
-        builder = gtk.Builder()
+        builder = Gtk.Builder()
         basedir = os.path.dirname(os.path.abspath(__file__))
         builder.add_from_file(os.path.join(basedir, 'drop_target_window.ui'))
 
@@ -111,21 +113,21 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
 
         for widget in widgets:
             widget.drag_dest_set(
-                gtk.DEST_DEFAULT_ALL,
-                [("text/uri-list", 0, 0)],
-                gtk.gdk.ACTION_COPY |
-                gtk.gdk.ACTION_DEFAULT |
-                gtk.gdk.ACTION_MOVE
+                Gtk.DestDefaults.ALL,
+                [Gtk.TargetEntry.new("text/uri-list", 0, 0)],
+                Gdk.DragAction.COPY |
+                Gdk.DragAction.DEFAULT |
+                Gdk.DragAction.MOVE
             )
 
         # Required to allow the window to be
         # integrated into the drag process
         self.drop_target_window.drag_dest_set(
-            gtk.DEST_DEFAULT_MOTION,
-            [("text/uri-list", 0, 0)],
-            gtk.gdk.ACTION_COPY |
-            gtk.gdk.ACTION_DEFAULT |
-            gtk.gdk.ACTION_MOVE
+            Gtk.DestDefaults.MOTION,
+            [Gtk.TargetEntry.new("text/uri-list", 0, 0)],
+            Gdk.DragAction.COPY |
+            Gdk.DragAction.DEFAULT |
+            Gdk.DragAction.MOVE
         )
 
     def connect_events(self):
@@ -169,7 +171,7 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
             Updates the tray icon
         """
-        self.image.set_from_icon_name(icon_name, gtk.ICON_SIZE_MENU)
+        self.image.set_from_icon_name(icon_name, Gtk.IconSize.MENU)
 
     def set_tooltip(self, tooltip_text):
         """
@@ -252,15 +254,15 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
             Takes care of resizing the icon if necessary
         """
         icon_sizes = (
-            gtk.ICON_SIZE_MENU, # 1
-            gtk.ICON_SIZE_SMALL_TOOLBAR, # 2
-            gtk.ICON_SIZE_LARGE_TOOLBAR, # 3
-            gtk.ICON_SIZE_BUTTON, # 4
-            gtk.ICON_SIZE_DND, # 5
-            gtk.ICON_SIZE_DIALOG # 6
+            Gtk.IconSize.MENU, # 1
+            Gtk.IconSize.SMALL_TOOLBAR, # 2
+            Gtk.IconSize.LARGE_TOOLBAR, # 3
+            Gtk.IconSize.BUTTON, # 4
+            Gtk.IconSize.DND, # 5
+            Gtk.IconSize.DIALOG # 6
         )
         # Retrieve pixel dimensions of stock icon sizes
-        sizes = [(gtk.icon_size_lookup(i)[1], i) for i in icon_sizes]
+        sizes = [(Gtk.icon_size_lookup(i)[1], i) for i in icon_sizes]
         # Only look at sizes lower than the current dimensions
         sizes = [(s, i) for s, i in sizes if s <= allocation.width]
         # Get the closest fit
@@ -268,7 +270,7 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
 
         # Avoid setting the same size over and over again
         if self.image.props.icon_size is not target_size.real:
-            glib.idle_add(self.image.set_from_icon_name,
+            GLib.idle_add(self.image.set_from_icon_name,
                 self.image.props.icon_name, target_size)
 
     def on_drag_motion(self, widget, context, x, y, timestamp):
@@ -288,12 +290,12 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
 
         # Defer display of drop target
         if self._drag_motion_id is None:
-            self._drag_motion_id = glib.timeout_add(500,
+            self._drag_motion_id = GLib.timeout_add(500,
                 self.drag_motion_finish)
 
         # Prevent hiding of drop target
         if self._drag_leave_id is not None:
-            glib.source_remove(self._drag_leave_id)
+            GLib.source_remove(self._drag_leave_id)
             self._drag_leave_id = None
 
     def drag_motion_finish(self):
@@ -309,13 +311,13 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
         # Enable display of drop target on re-enter
         if self._drag_motion_id is not None:
-            glib.source_remove(self._drag_motion_id)
+            GLib.source_remove(self._drag_motion_id)
             self._drag_motion_id = None
 
         # Defer hiding of drop target
         if self._drag_leave_id is not None:
-            glib.source_remove(self._drag_leave_id)
-        self._drag_leave_id = glib.timeout_add(500,
+            GLib.source_remove(self._drag_leave_id)
+        self._drag_leave_id = GLib.timeout_add(500,
             self.drag_leave_finish)
 
     def drag_leave_finish(self):
@@ -330,12 +332,12 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
         # Enable display of drop target on re-enter
         if self._drag_motion_id is not None:
-            glib.source_remove(self._drag_motion_id)
+            GLib.source_remove(self._drag_motion_id)
             self._drag_motion_id = None
 
         # Enable hiding of drop target on re-enter
         if self._drag_leave_id is not None:
-            glib.source_remove(self._drag_leave_id)
+            GLib.source_remove(self._drag_leave_id)
             self._drag_leave_id = None
 
         self.drop_target_window.hide()

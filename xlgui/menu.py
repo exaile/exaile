@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gtk
 
 from xl.nls import gettext as _
 from xl import settings, providers
@@ -59,7 +59,7 @@ def __create_file_menu():
         dialog.connect('uris-selected', lambda d, uris, ud:
             get_main().controller.open_uris(uris))
         dialog.show()
-    items.append(_smi('open', [items[-1].name], icon_name=gtk.STOCK_OPEN,
+    items.append(_smi('open', [items[-1].name], icon_name=Gtk.STOCK_OPEN,
         callback=open_cb, accelerator='<Control>o'))
     accelerators.append(Accelerator('<Control>o', open_cb))
 
@@ -84,7 +84,7 @@ def __create_file_menu():
     items.append(_sep('open-sep', [items[-1].name]))
 
     items.append(_smi('import-playlist', [items[-1].name],
-        _("Import Playlist"), gtk.STOCK_OPEN, 
+        _("Import Playlist"), Gtk.STOCK_OPEN, 
         lambda *e: get_main().controller.get_panel('playlists').import_playlist()
     ))
     
@@ -97,22 +97,22 @@ def __create_file_menu():
             """
                 Show messages in the main window message area
             """
-            if message_type == gtk.MESSAGE_INFO:
+            if message_type == Gtk.MessageType.INFO:
                 main.message.show_info(markup=message)
-            elif message_type == gtk.MESSAGE_ERROR:
+            elif message_type == Gtk.MessageType.ERROR:
                 main.message.show_error(_('Playlist export failed!'), message)
             return True
         dialog = dialogs.PlaylistExportDialog(page.playlist, main.window)
         dialog.connect('message', on_message)
         dialog.show()
     items.append(_smi('export-playlist', [items[-1].name],
-        _("_Export Current Playlist"), gtk.STOCK_SAVE_AS, export_playlist_cb))
+        _("_Export Current Playlist"), Gtk.STOCK_SAVE_AS, export_playlist_cb))
     items.append(_sep('export-sep', [items[-1].name]))
 
     def close_tab_cb(*args):
         get_main().get_selected_page().tab.close()
     items.append(_smi('close-tab', [items[-1].name],
-        _("Close Tab"), gtk.STOCK_CLOSE, callback=close_tab_cb,
+        _("Close Tab"), Gtk.STOCK_CLOSE, callback=close_tab_cb,
         accelerator='<Control>w'))
     accelerators.append(Accelerator('<Control>w', close_tab_cb))
 
@@ -129,7 +129,7 @@ def __create_file_menu():
         from xl import main
         main.exaile().quit()
     items.append(_smi('quit-application', [items[-1].name],
-        icon_name=gtk.STOCK_QUIT, callback=quit_cb, accelerator='<Control>q'))
+        icon_name=Gtk.STOCK_QUIT, callback=quit_cb, accelerator='<Control>q'))
     accelerators.append(Accelerator('<Control>q', quit_cb))
 
     for item in items:
@@ -162,7 +162,7 @@ def __create_edit_menu():
         dialog = PreferencesDialog(get_main().window, get_main().controller)
         dialog.run()
     items.append(_smi('preferences', [items[-1].name],
-        icon_name=gtk.STOCK_PREFERENCES, callback=preferences_cb))
+        icon_name=Gtk.STOCK_PREFERENCES, callback=preferences_cb))
 
     for item in items:
         providers.register('menubar-edit-menu', item)
@@ -197,7 +197,7 @@ def __create_view_menu():
         if page:
             page.playlist.clear()
     items.append(_smi('clear-playlist', [items[-1].name], _('C_lear playlist'),
-         gtk.STOCK_CLEAR, clear_playlist_cb, accelerator='<Control>l'))
+         Gtk.STOCK_CLEAR, clear_playlist_cb, accelerator='<Control>l'))
     accelerators.append(Accelerator('<Control>l', clear_playlist_cb))
 
     for item in items:
@@ -213,13 +213,13 @@ def __create_playlist_menu():
 def __create_tools_menu():
     items = []
     items.append(_smi('device-manager', [], _('_Device Manager'),
-        gtk.STOCK_HARDDISK, lambda *x: get_main().controller.show_devices()))
+        Gtk.STOCK_HARDDISK, lambda *x: get_main().controller.show_devices()))
     
     items.append(_smi('scan-collection', [items[-1].name], _('Re_scan Collection'),
-        gtk.STOCK_REFRESH, get_main().controller.on_rescan_collection))
+        Gtk.STOCK_REFRESH, get_main().controller.on_rescan_collection))
     
     items.append(_smi('slow-scan-collection', [items[-1].name], _('Rescan Collection (slow)'),
-        gtk.STOCK_REFRESH, get_main().controller.on_rescan_collection_forced))
+        Gtk.STOCK_REFRESH, get_main().controller.on_rescan_collection_forced))
 
     for item in items:
         providers.register('menubar-tools-menu', item)
@@ -230,7 +230,7 @@ def __create_help_menu():
     def show_about_dialog(widget, name, parent, context):
         dialog = dialogs.AboutDialog(parent.window)
         dialog.show()
-    items.append(_smi('about', [], icon_name=gtk.STOCK_ABOUT,
+    items.append(_smi('about', [], icon_name=Gtk.STOCK_ABOUT,
         callback=show_about_dialog))
     for item in items:
         providers.register('menubar-help-menu', item)

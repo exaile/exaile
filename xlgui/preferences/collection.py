@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import gtk
+from gi.repository import Gtk
 
 from xl import xdg
 from xl.nls import gettext as _
@@ -52,12 +52,12 @@ class CollectionStripArtistPreference(widgets.ListPreference):
         return values
 
     def _populate_popup_cb(self, entry, menu):
-        import gtk
-        entry = gtk.MenuItem(_('Reset to Defaults'))
+        from gi.repository import Gtk
+        entry = Gtk.MenuItem.new_with_label(_('Reset to Defaults'))
         entry.connect('activate', self._reset_to_defaults_cb)
         entry.show()
 
-        sep = gtk.SeparatorMenuItem()
+        sep = Gtk.SeparatorMenuItem()
         sep.show()
 
         menu.attach(entry, 0, 1, 0, 1)

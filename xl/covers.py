@@ -29,8 +29,8 @@ Provides the base for obtaining and storing covers, also known
 as album art.
 """
 
-import glib
-import gio
+from gi.repository import GLib
+from gi.repository import Gio
 import logging
 import hashlib
 import os
@@ -521,18 +521,18 @@ class LocalFileCoverFetcher(CoverSearchMethod):
         # always be checked, obviously.
         if track.get_type() not in self.uri_types:
             return []
-        basedir = gio.File(track.get_loc_for_io()).get_parent()
+        basedir = Gio.File.new_for_uri(track.get_loc_for_io()).get_parent()
         try:
-            if not basedir.query_info("standard::type").get_file_type() == \
-                    gio.FILE_TYPE_DIRECTORY:
+            if not basedir.query_info("standard::type", Gio.FileQueryInfoFlags.NONE, None).get_file_type() == \
+                    Gio.FileType.DIRECTORY:
                 return []
-        except gio.Error:
+        except GLib.Error:
             return []
         covers = []
         for fileinfo in basedir.enumerate_children("standard::type"
-                ",standard::name"):
+                ",standard::name", Gio.FileQueryInfoFlags.NONE, None):
             gloc = basedir.get_child(fileinfo.get_name())
-            if not fileinfo.get_file_type() == gio.FILE_TYPE_REGULAR:
+            if not fileinfo.get_file_type() == Gio.FileType.REGULAR:
                 continue
             filename = gloc.get_basename()
             base, ext = os.path.splitext(filename)
@@ -549,9 +549,9 @@ class LocalFileCoverFetcher(CoverSearchMethod):
 
     def get_cover_data(self, db_string):
         try:
-            data = gio.File(db_string).load_contents(None)[1]
+            data = Gio.File.new_for_uri(db_string).load_contents(None)[1]
             return data
-        except glib.GError:
+        except GLib.GError:
             return None
 
     def on_option_set(self, e, settings, option):

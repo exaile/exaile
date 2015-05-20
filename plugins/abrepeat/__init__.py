@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import gtk
+from gi.repository import Gtk
 
 from xl import event, player, providers
 from xl.nls import gettext as _
@@ -53,11 +53,11 @@ class RepeatSegmentMenuItem(playback.MoveMarkerMenuItem,
 
         self.beginning_marker = playback.Marker()
         self.beginning_marker.name = 'repeat-beginning'
-        self.beginning_marker.props.anchor = gtk.ANCHOR_NORTH_WEST
+        self.beginning_marker.props.anchor = playback.Anchor.NORTH_WEST
         self.beginning_marker.props.label = _('Repeat Beginning')
         self.end_marker = playback.Marker()
         self.end_marker.name = 'repeat-end'
-        self.end_marker.props.anchor = gtk.ANCHOR_NORTH_EAST
+        self.end_marker.props.anchor = playback.Anchor.NORTH_EAST
         self.end_marker.props.label = _('Repeat End')
         self.end_marker.connect('reached', self.on_end_marker_reached)
 

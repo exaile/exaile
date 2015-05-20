@@ -26,13 +26,13 @@
 
 import os
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 
 from xl import xdg
 from xlgui.widgets.notebook import NotebookPage
 
-class Panel(gobject.GObject):
+class Panel(GObject.GObject):
     """
         The base panel class.
 
@@ -49,7 +49,7 @@ class Panel(gobject.GObject):
             @param name: the name of the panel. should be unique.
             @param label: text of the label displayed to the user 
         """
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self.name = name        # panel id
         self.label = label      # label to be displayed
         self.parent = parent
@@ -60,7 +60,7 @@ class Panel(gobject.GObject):
         if not os.path.isabs(ui_file):
             ui_file = xdg.get_data_path('ui', 'panel', ui_file)
 
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(ui_file)
         self._child = None
 

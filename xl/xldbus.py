@@ -40,8 +40,8 @@ import traceback
 
 import dbus
 import dbus.service
-import gio
-import gobject
+from gi.repository import Gio
+from gi.repository import GObject
 
 # Be VERY careful what you import here! This module gets loaded even if
 # we are just issuing a dbus command to a running instance, so we need
@@ -82,7 +82,7 @@ def check_exit(options, args):
                 # This enables:    find PATH -name *.mp3 | exaile -
                 if args[0] == '-':
                     args = sys.stdin.read().split('\n')
-                args = [ gio.File(arg).get_uri() for arg in args ]
+                args = [ Gio.File.new_for_commandline_arg(arg).get_uri() for arg in args ]
                 iface.Enqueue(args)
 
     if not iface:

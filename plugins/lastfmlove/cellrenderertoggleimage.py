@@ -1,55 +1,57 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import gobject, gtk
+from gi.repository import GdkPixbuf
+from gi.repository import GObject
+from gi.repository import Gtk
 
-class CellRendererToggleImage(gtk.CellRendererToggle):
+class CellRendererToggleImage(Gtk.CellRendererToggle):
     """
         Renders a toggleable state as an image
     """
     __gproperties__ = {
         'icon-name': (
-            gobject.TYPE_STRING,
+            GObject.TYPE_STRING,
             'icon name',
             'The name of the themed icon to display. This '
             'property only has an effect if not overridden '
             'by "stock_id" or "pixbuf" properties.',
             '',
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         ),
         'pixbuf': (
-            gtk.gdk.Pixbuf,
+            GdkPixbuf.Pixbuf,
             'pixbuf',
             'The pixbuf to render.',
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         ),
         'stock-id': (
-            gobject.TYPE_STRING,
+            GObject.TYPE_STRING,
             'stock id',
             'The stock ID of the stock icon to render.',
             '',
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         ),
         'stock-size': (
-            gobject.TYPE_UINT,
+            GObject.TYPE_UINT,
             'stock size',
             'The size of the rendered icon.',
             0,
             65535,
-            gtk.ICON_SIZE_SMALL_TOOLBAR,
-            gobject.PARAM_READWRITE
+            Gtk.IconSize.SMALL_TOOLBAR,
+            GObject.PARAM_READWRITE
         ),
         'render-prelit': (
-            gobject.TYPE_BOOLEAN,
+            GObject.TYPE_BOOLEAN,
             'render prelit',
             'Whether to render prelit states or not',
             True,
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         )
     }
 
     def __init__(self):
-        gtk.CellRendererToggle.__init__(self)
+        Gtk.CellRendererToggle.__init__(self)
 
         self.__icon_name = ''
         self.__pixbuf = None
@@ -58,12 +60,12 @@ class CellRendererToggleImage(gtk.CellRendererToggle):
         self.__pixbuf_width = 0
         self.__pixbuf_height = 0
         self.__stock_id = ''
-        self.__stock_size = gtk.ICON_SIZE_SMALL_TOOLBAR
+        self.__stock_size = Gtk.IconSize.SMALL_TOOLBAR
         self.__render_prelit = True
 
         # Any widget is fine
-        self.__render_widget = gtk.Button()
-        self.__icon_theme = gtk.icon_theme_get_default()
+        self.__render_widget = Gtk.Button()
+        self.__icon_theme = Gtk.IconTheme.get_default()
 
         self.set_property('activatable', True)
 
@@ -113,7 +115,7 @@ class CellRendererToggleImage(gtk.CellRendererToggle):
                 size=self.__stock_size,
                 flags=0
             )
-        except gobject.GError:
+        except GObject.GError:
             return None
 
     def __pixbuf_from_stock(self):
@@ -167,7 +169,7 @@ class CellRendererToggleImage(gtk.CellRendererToggle):
             self.__render_pixbufs()
 
         pixbuf = None
-        prelit = flags & gtk.CELL_RENDERER_PRELIT
+        prelit = flags & Gtk.CellRendererState.PRELIT
 
         # Either draw the sensitive or insensitive state
         if self.props.sensitive:

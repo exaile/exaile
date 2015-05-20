@@ -39,28 +39,16 @@ import platform
 import sys
 import threading
 
-import xl_pygtkcompat
-
-import gio
-
 from xl import common, xdg
 from xl.nls import gettext as _
 
-# Imported later to avoid PyGTK imports just for --help.
-gio = common = xdg = None
+# Imported later to avoid PyGObject imports just for --help.
+Gio = common = xdg = None
 
 def _do_heavy_imports():
-    global gio, common, xdg
+    global Gio, common, xdg
 
-    try:
-        import gio
-    except ImportError:
-        # on Win32 using the GStreamer SDK, requires import of
-        # pygtk first
-        import pygtk
-        pygtk.require('2.0')
-        import gio
-
+    from gi.repository import Gio
     from xl import common, xdg
 
 # placeholder, - xl.version can be slow to import, which would slow down
@@ -341,7 +329,8 @@ class Exaile(object):
             # Find out if the user just passed in a list of songs
             # TODO: find a better place to put this
             # using arg[2:] because arg[1:] will include --startgui
-            args = [ gio.File(arg).get_uri() for arg in self.args ]
+            
+            args = [ Gio.File.new_for_path(arg).get_uri() for arg in self.args ]
             if len(args) > 0:
                 restore = False
                 self.gui.open_uri(args[0], play=True)
@@ -679,9 +668,9 @@ class Exaile(object):
             self.smart_playlists.save_playlist(pl, overwrite=True)
 
     def mainloop_init(self):
-        import gobject
+        from gi.repository import GObject
 
-        gobject.threads_init()
+        GObject.threads_init()
 
         if self.options.Dbus:
             import dbus, dbus.mainloop.glib
@@ -690,8 +679,8 @@ class Exaile(object):
             dbus.mainloop.glib.gthreads_init()
 
         if not self.options.StartGui:
-            import glib
-            loop = glib.MainLoop()
+            from gi.repository import GLib
+            loop = GLib.MainLoop()
             context = loop.get_context()
             t = threading.Thread(target=self.__mainloop, args=(context,))
             t.daemon = True

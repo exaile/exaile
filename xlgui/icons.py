@@ -30,8 +30,12 @@
 
 import cairo
 import glob
-import glib
-import gtk
+from gi.repository import (
+    Gdk,
+    GdkPixbuf,
+    GLib,
+    Gtk
+)
 import logging
 import os
 
@@ -46,7 +50,7 @@ logger = logging.getLogger(__name__)
 
 class ExtendedPixbuf:
     """
-        A :class:`gtk.gdk.Pixbuf` wrapper class allowing for
+        A :class:`GdkPixbuf.Pixbuf` wrapper class allowing for
         interaction using standard operators
 
         Thus you can do the following:
@@ -60,7 +64,7 @@ class ExtendedPixbuf:
         Even more is possible with the provided verbose methods
     """
     def __init__(self, pixbuf):
-        self.pixbuf = gtk.gdk.Pixbuf.new(
+        self.pixbuf = GdkPixbuf.Pixbuf.new(
             pixbuf.get_colorspace(),
             pixbuf.get_has_alpha(),
             pixbuf.get_bits_per_sample(),
@@ -84,7 +88,7 @@ class ExtendedPixbuf:
             Horizontally appends a pixbuf to the current
             
             :param other: the pixbuf to append
-            :type other: :class:`gtk.gdk.Pixbuf`
+            :type other: :class:`GdkPixbuf.Pixbuf`
             :returns: a new pixbuf
             :rtype: :class:`ExtendedPixbuf`
         """
@@ -108,7 +112,7 @@ class ExtendedPixbuf:
             pixbuf at the location (0, 0)
             
             :param other: the pixbuf to composite
-            :type other: :class:`gtk.gdk.Pixbuf`
+            :type other: :class:`GdkPixbuf.Pixbuf`
             :returns: a new pixbuf
             :rtype: :class:`ExtendedPixbuf`
         """
@@ -185,7 +189,7 @@ class ExtendedPixbuf:
             Horizontally appends a pixbuf to the current
             
             :param other: the pixbuf to append
-            :type other: :class:`gtk.gdk.Pixbuf`
+            :type other: :class:`GdkPixbuf.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
             :returns: a new pixbuf
@@ -197,7 +201,7 @@ class ExtendedPixbuf:
         height = max(self.pixbuf.get_height(), other.get_height())
         spacing = max(0, spacing)
 
-        new_pixbuf = gtk.gdk.Pixbuf.new(
+        new_pixbuf = GdkPixbuf.Pixbuf.new(
             self.pixbuf.get_colorspace(),
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
@@ -226,7 +230,7 @@ class ExtendedPixbuf:
             Vertically appends a pixbuf to the current
             
             :param other: the pixbuf to append
-            :type other: :class:`gtk.gdk.Pixbuf`
+            :type other: :class:`GdkPixbuf.Pixbuf`
             :param spacing: amount of pixels between the pixbufs
             :type spacing: int
             :returns: a new pixbuf
@@ -238,7 +242,7 @@ class ExtendedPixbuf:
         width = max(self.pixbuf.get_width(), other.get_width())
         spacing = max(0, spacing)
 
-        new_pixbuf = gtk.gdk.Pixbuf.new(
+        new_pixbuf = GdkPixbuf.Pixbuf.new(
             self.pixbuf.get_colorspace(),
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
@@ -275,7 +279,7 @@ class ExtendedPixbuf:
             :rtype: :class:`ExtendedPixbuf`
         """
         spacing = max(0, spacing)
-        new_pixbuf = gtk.gdk.Pixbuf.new(
+        new_pixbuf = GdkPixbuf.Pixbuf.new(
             self.pixbuf.get_colorspace(),
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
@@ -307,7 +311,7 @@ class ExtendedPixbuf:
             :rtype: :class:`ExtendedPixbuf`
         """
         spacing = max(0, spacing)
-        new_pixbuf = gtk.gdk.Pixbuf.new(
+        new_pixbuf = GdkPixbuf.Pixbuf.new(
             self.pixbuf.get_colorspace(),
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
@@ -332,7 +336,7 @@ class ExtendedPixbuf:
             pixbuf at the location (0, 0)
             
             :param other: the pixbuf to composite
-            :type other: :class:`gtk.gdk.Pixbuf`
+            :type other: :class:`GdkPixbuf.Pixbuf`
             :returns: a new pixbuf
             :rtype: :class:`ExtendedPixbuf`
         """
@@ -342,7 +346,7 @@ class ExtendedPixbuf:
         width = max(self.pixbuf.get_width(), other.get_width())
         height = max(self.pixbuf.get_height(), other.get_height())
 
-        new_pixbuf = gtk.gdk.Pixbuf.new(
+        new_pixbuf = GdkPixbuf.Pixbuf.new(
             self.pixbuf.get_colorspace(),
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
@@ -358,7 +362,7 @@ class ExtendedPixbuf:
                 dest_height=pixbuf.get_height(),
                 offset_x=0, offset_y=0,
                 scale_x=1, scale_y=1,
-                interp_type=gtk.gdk.INTERP_BILINEAR,
+                interp_type=GdkPixbuf.InterpType.BILINEAR,
                 # Alpha needs to be embedded in the pixbufs
                 overall_alpha=255
             )
@@ -391,7 +395,7 @@ class ExtendedPixbuf:
             width += offset_x
             height += offset_y
 
-        new_pixbuf = gtk.gdk.Pixbuf.new(
+        new_pixbuf = GdkPixbuf.Pixbuf.new(
             self.pixbuf.get_colorspace(),
             self.pixbuf.get_has_alpha(),
             self.pixbuf.get_bits_per_sample(),
@@ -413,20 +417,20 @@ class ExtendedPixbuf:
         """
             Override to return same type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.copy(self.pixbuf))
+        return ExtendedPixbuf(GdkPixbuf.Pixbuf.copy(self.pixbuf))
 
     def add_alpha(self, substitute_color, r, g, b):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.add_alpha(
+        return ExtendedPixbuf(GdkPixbuf.Pixbuf.add_alpha(
             self.pixbuf, substitute_color, r, g, b))
 
     def scale_simple(self, dest_width, dest_height, interp_type):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.scale_simple(
+        return ExtendedPixbuf(GdkPixbuf.Pixbuf.scale_simple(
             self.pixbuf, dest_width, dest_height, interp_type))
 
     def composite_color_simple(self, dest_width, dest_height, interp_type,
@@ -434,7 +438,7 @@ class ExtendedPixbuf:
         """
             Override to return same type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.composite_color_simple(
+        return ExtendedPixbuf(GdkPixbuf.Pixbuf.composite_color_simple(
             self.pixbuf, dest_width, dest_height, interp_type,
             overall_alpha, check_size, color1, color2))
 
@@ -442,20 +446,20 @@ class ExtendedPixbuf:
         """
             Override to return same type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.subpixbuf(
+        return ExtendedPixbuf(GdkPixbuf.Pixbuf.subpixbuf(
             self.pixbuf, src_x, src_y, width, height))
 
     def rotate_simple(self, angle):
         """
             Override to return same type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.rotate_simple(self.pixbuf, angle))
+        return ExtendedPixbuf(GdkPixbuf.Pixbuf.rotate_simple(self.pixbuf, angle))
 
     def flip(self, horizontal):
         """
             Override to return sampe type
         """
-        return ExtendedPixbuf(gtk.gdk.Pixbuf.flip(self.pixbuf, horizontal))
+        return ExtendedPixbuf(GdkPixbuf.Pixbuf.flip(self.pixbuf, horizontal))
 
 def extended_pixbuf_new_from_file(filename):
     """
@@ -468,7 +472,7 @@ def extended_pixbuf_new_from_file(filename):
         :returns: a new pixbuf
         :rtype: :class:`ExtendedPixbuf`
     """
-    return ExtendedPixbuf(gtk.gdk.pixbuf_new_from_file(filename))
+    return ExtendedPixbuf(GdkPixbuf.Pixbuf.new_from_file(filename))
 
 class IconManager(object):
     """
@@ -476,12 +480,12 @@ class IconManager(object):
         managing icons and images in general
     """
     def __init__(self):
-        self.icon_theme = gtk.icon_theme_get_default()
-        self.icon_factory = gtk.IconFactory()
+        self.icon_theme = Gtk.IconTheme.get_default()
+        self.icon_factory = Gtk.IconFactory()
         self.icon_factory.add_default()
         # Any arbitrary widget is fine
-        self.render_widget = gtk.Button()
-        self.system_visual = gtk.gdk.visual_get_system()
+        self.render_widget = Gtk.Button()
+        self.system_visual = Gdk.Visual.get_system()
         # TODO: Make svg actually recognized
         self._sizes = [16, 22, 24, 32, 48, 'scalable']
         self._cache = {}
@@ -538,7 +542,7 @@ class IconManager(object):
             :type size: int
         """
         try:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
             self.add_icon_name_from_pixbuf(icon_name, pixbuf, size)
         except Exception as e:
             # Happens if, e.g., librsvg is not installed.
@@ -557,14 +561,14 @@ class IconManager(object):
             :param icon_name: the name for the icon
             :type icon_name: string
             :param pixbuf: the pixbuf of an image
-            :type pixbuf: :class:`gtk.gdk.Pixbuf`
+            :type pixbuf: :class:`GdkPixbuf.Pixbuf`
             :param size: the size the icon shall be registered for
             :type size: int
         """
         if size is None:
             size = pixbuf.get_width()
 
-        gtk.icon_theme_add_builtin_icon(icon_name, size, pixbuf)
+        Gtk.IconTheme.add_builtin_icon(icon_name, size, pixbuf)
 
     def add_stock_from_directory(self, stock_id, directory):
         """
@@ -619,7 +623,7 @@ class IconManager(object):
             :param filenames: the filenames of images
             :type filenames: list of string
         """
-        pixbufs = [gtk.gdk.pixbuf_new_from_file(filename) for filename in filenames]
+        pixbufs = [GdkPixbuf.Pixbuf.new_from_file(filename) for filename in filenames]
         self.add_stock_from_pixbufs(stock_id, pixbufs)
 
     def add_stock_from_pixbuf(self, stock_id, pixbuf):
@@ -629,7 +633,7 @@ class IconManager(object):
             :param stock_id: the stock id for the icon
             :type stock_id: string
             :param pixbuf: the pixbuf of an image
-            :type pixbuf: :class:`gtk.gdk.Pixbuf`
+            :type pixbuf: :class:`GdkPixbuf.Pixbuf`
         """
         self.add_stock_from_pixbufs(stock_id, [pixbuf])
 
@@ -640,18 +644,18 @@ class IconManager(object):
             :param stock_id: the stock id for the icon
             :type stock_id: string
             :param pixbuf: the pixbufs of images
-            :type pixbuf: list of :class:`gtk.gdk.Pixbuf`
+            :type pixbuf: list of :class:`GdkPixbuf.Pixbuf`
         """
-        icon_set = gtk.IconSet()
+        icon_set = Gtk.IconSet()
 
         for pixbuf in pixbufs:
-            icon_source = gtk.IconSource()
+            icon_source = Gtk.IconSource()
             icon_source.set_pixbuf(pixbuf)
             icon_set.add_source(icon_source)
 
         self.icon_factory.add(stock_id, icon_set)
 
-    def pixbuf_from_stock(self, stock_id, size=gtk.ICON_SIZE_BUTTON):
+    def pixbuf_from_stock(self, stock_id, size=Gtk.IconSize.BUTTON):
         """
             Generates a pixbuf from a stock id
 
@@ -661,12 +665,12 @@ class IconManager(object):
             :type size: GtkIconSize
 
             :returns: the generated pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf` or None
+            :rtype: :class:`GdkPixbuf.Pixbuf` or None
         """
         # TODO: Check if fallbacks are necessary
         return self.render_widget.render_icon(stock_id, size)
 
-    def pixbuf_from_icon_name(self, icon_name, size=gtk.ICON_SIZE_BUTTON):
+    def pixbuf_from_icon_name(self, icon_name, size=Gtk.IconSize.BUTTON):
         """
             Generates a pixbuf from an icon name
 
@@ -677,16 +681,16 @@ class IconManager(object):
             :type size: int or GtkIconSize
 
             :returns: the generated pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf` or None
+            :rtype: :class:`GdkPixbuf.Pixbuf` or None
         """
         if type(size) != int:
-            icon_size = gtk.icon_size_lookup(size)
+            icon_size = Gtk.icon_size_lookup(size)
             size = icon_size[1]
 
         try:
             pixbuf = self.icon_theme.load_icon(
-                icon_name, size, gtk.ICON_LOOKUP_NO_SVG)
-        except glib.GError as e:
+                icon_name, size, Gtk.IconLookupFlags.NO_SVG)
+        except GLib.GError as e:
             logger.warning('Failed to get pixbuf from "{icon_name}": {error}'.format(
                 icon_name=icon_name,
                 error=e.message
@@ -713,13 +717,13 @@ class IconManager(object):
             :type upscale: bool
 
             :returns: the generated pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf` or None
+            :rtype: :class:`GdkPixbuf.Pixbuf` or None
         """
         if not data:
             return None
 
         pixbuf = None
-        loader = gtk.gdk.PixbufLoader()
+        loader = GdkPixbuf.PixbufLoader()
 
         if size is not None:
             def on_size_prepared(loader, width, height):
@@ -747,7 +751,7 @@ class IconManager(object):
         try:
             loader.write(data)
             loader.close()
-        except glib.GError as e:
+        except GLib.GError as e:
             logger.warning('Failed to get pixbuf from data: {error}'.format(
                 error=e.message
             ))
@@ -781,16 +785,16 @@ class IconManager(object):
             return self._cache[key]
 
         # TODO: GI: No pixmap
-        '''pixmap = gtk.gdk.Pixmap(None, pixmap_width, pixmap_height,
+        '''pixmap = Gdk.Pixmap(None, pixmap_width, pixmap_height,
             self.system_visual.depth)
         context = pixmap.cairo_create()
 
-        context.set_source_color(gtk.gdk.Color(background_color))
+        context.set_source_color(Gdk.Color(background_color))
         context.set_line_width(1)
         context.rectangle(1, 1, pixmap_width - 2, pixmap_height - 2)
         context.fill()
 
-        context.set_source_color(gtk.gdk.Color(text_color))
+        context.set_source_color(Gdk.Color(text_color))
         context.select_font_face('sans-serif 10')
         x_bearing, y_bearing, width, height = context.text_extents(text)[:4]
         x = pixmap_width / 2 - width / 2 - x_bearing
@@ -798,12 +802,12 @@ class IconManager(object):
         context.move_to(x, y)
         context.show_text(text)
 
-        context.set_source_color(gtk.gdk.Color(border_color))
+        context.set_source_color(Gdk.Color(border_color))
         context.set_antialias(cairo.ANTIALIAS_NONE)
         context.rectangle(0, 0, pixmap_width - 1, pixmap_height - 1)
         context.stroke()'''
 
-        pixbuf = gtk.gdk.Pixbuf.new(gtk.gdk.COLORSPACE_RGB, False, 8,
+        pixbuf = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, False, 8,
             pixmap_width, pixmap_height)
         # TODO: GI: No pixmap
         #pixbuf = pixbuf.get_from_drawable(pixmap, self.system_colormap,
@@ -822,7 +826,7 @@ class IconManager(object):
             :type rating: int
 
             :returns: the rating pixbuf
-            :rtype: :class:`gtk.gdk.Pixbuf`
+            :rtype: :class:`GdkPixbuf.Pixbuf`
         """
         maximum = settings.get_option('rating/maximum', 5)
         width = self.rating_active_pixbuf.get_width()
@@ -830,10 +834,10 @@ class IconManager(object):
         
         active_pixbuf = self.rating_active_pixbuf.scale_simple(int(width*size_ratio),
                                                                int(height*size_ratio),
-                                                               gtk.gdk.INTERP_BILINEAR)
+                                                               GdkPixbuf.InterpType.BILINEAR)
         inactive_pixbuf = self.rating_inactive_pixbuf.scale_simple(int(width*size_ratio),
                                                                    int(height*size_ratio),
-                                                                   gtk.gdk.INTERP_BILINEAR)
+                                                                   GdkPixbuf.InterpType.BILINEAR)
         rating = max(0, rating)
         rating = min(rating, maximum)
         

@@ -24,8 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gobject
-import gtk
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GObject
+from gi.repository import Gtk
+
 import jamtree
 import jamapi
 import menu
@@ -76,8 +79,8 @@ def disable(exaile):
 class JamendoPanel(panel.Panel):
 
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'download-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'download-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
 
     ui_info = (os.path.dirname(__file__) + "/ui/jamendo_panel.ui", 'JamendoPanelWindow')
@@ -146,11 +149,11 @@ class JamendoPanel(panel.Panel):
         self.menu = menu.JamendoMenu(self)
 
         #setup images
-        window = gtk.Window()
-        self.artist_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path("images/16x16/artist.png"))
-        self.album_image = window.render_icon(gtk.STOCK_CDROM, gtk.ICON_SIZE_SMALL_TOOLBAR)
+        window = Gtk.Window()
+        self.artist_image = GdkPixbuf.Pixbuf.new_from_file(xdg.get_data_path("images/16x16/artist.png"))
+        self.album_image = window.render_icon(Gtk.STOCK_CDROM, Gtk.IconSize.SMALL_TOOLBAR)
         self.title_image = icons.MANAGER.pixbuf_from_icon_name(
-            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
 
         #setup search combobox
         self.search_combobox = self.builder.get_object('searchComboBox')
@@ -179,25 +182,25 @@ class JamendoPanel(panel.Panel):
         self.treeview.connect("row-expanded", self.row_expanded)
         self.treeview.set_headers_visible(False)
         container = self.builder.get_object('treeview_box')
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroll.add(self.treeview)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
+        scroll.set_shadow_type(Gtk.ShadowType.IN)
         container.pack_start(scroll, True, True)
         container.show_all()
 
         selection = self.treeview.get_selection()
-        selection.set_mode(gtk.SELECTION_SINGLE)
-        pb = gtk.CellRendererPixbuf()
-        cell = gtk.CellRendererText()
-        col = gtk.TreeViewColumn('Text')
+        selection.set_mode(Gtk.SelectionMode.SINGLE)
+        pb = Gtk.CellRendererPixbuf()
+        cell = Gtk.CellRendererText()
+        col = Gtk.TreeViewColumn('Text')
         col.pack_start(pb, False)
         col.pack_start(cell, True)
         col.set_attributes(pb, pixbuf=0)
         col.set_attributes(cell, text=1)
         self.treeview.append_column(col)
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, gobject.TYPE_PYOBJECT)
+        self.model = Gtk.TreeStore(GdkPixbuf.Pixbuf, str, GObject.TYPE_PYOBJECT)
         self.treeview.set_model(self.model)
 
     def set_status(self, message):
@@ -292,7 +295,7 @@ class JamendoPanel(panel.Panel):
     # is called when a user doubleclicks an item in the TreeView
     def button_press(self, widget, event):
 
-        if event.type == gtk.gdk._2BUTTON_PRESS:
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
             self.add_to_playlist()
 
         elif event.button == 3:

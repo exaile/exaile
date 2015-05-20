@@ -14,13 +14,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-import gtk
-import webkit
+from gi.repository import Gtk
+from gi.repository import WebKit
 
-class Inspector (gtk.Window):
-    def __init__ (self, inspector):
+class Inspector(Gtk.Window):
+    def __init__(self, inspector):
         """initialize the WebInspector class"""
-        gtk.Window.__init__(self)
+        Gtk.Window.__init__(self)
         self.set_default_size(600, 480)
 
         self._web_inspector = inspector
@@ -42,9 +42,9 @@ class Inspector (gtk.Window):
 
     def _inspect_web_view_cb (self, inspector, web_view):
         """Called when the 'inspect' menu item is activated"""
-        scrolled_window = gtk.ScrolledWindow()
-        scrolled_window.props.hscrollbar_policy = gtk.POLICY_AUTOMATIC
-        scrolled_window.props.vscrollbar_policy = gtk.POLICY_AUTOMATIC
+        scrolled_window = Gtk.ScrolledWindow()
+        scrolled_window.props.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC
+        scrolled_window.props.vscrollbar_policy = Gtk.PolicyType.AUTOMATIC
         webview = webkit.WebView()
         scrolled_window.add(webview)
         scrolled_window.show_all()

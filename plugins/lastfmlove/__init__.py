@@ -13,7 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import gtk
+from gi.repository import Gtk
+
 import logging
 import os.path
 from threading import (
@@ -132,9 +133,9 @@ class LoveMenuItem(MenuItem):
         """
         global LASTFMLOVER
 
-        item = gtk.ImageMenuItem(_('Love This Track'))
-        item.set_image(gtk.image_new_from_icon_name(
-            'love', gtk.ICON_SIZE_MENU))
+        item = Gtk.ImageMenuItem.new_with_label(_('Love This Track'))
+        item.set_image(Gtk.Image.new_from_icon_name(
+            'love', Gtk.IconSize.MENU))
 
         if self.get_tracks_function is not None:
             tracks = self.get_tracks_function()

@@ -18,7 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from __future__ import with_statement
-import gtk, time, glib, thread, os
+
+from gi.repository import GLib
+from gi.repository import Gtk
+
+import time, thread, os
 from xl.nls import gettext as _
 from xlgui import guiutil
 from xl import event, player, settings, xdg, common
@@ -62,10 +66,10 @@ def get_preferences_pane():
     return macprefs
 
 def idle_add(f):
-    '''Decorator that runs a function through glib.idle_add'''
+    '''Decorator that runs a function through GLib.idle_add'''
     @wraps(f)
     def idler(*args, **kwargs):
-        glib.idle_add(f, *args, **kwargs)
+        GLib.idle_add(f, *args, **kwargs)
 
     return idler
     
@@ -112,7 +116,7 @@ class AlarmClock:
 #        self.view = None
         
         # Create Model
-        self.model = gtk.ListStore(bool, str, str, object, str)
+        self.model = Gtk.ListStore(bool, str, str, object, str)
         
         # Load any saved alarms
         self.load_list()
@@ -120,32 +124,32 @@ class AlarmClock:
     def _create_view(self):
         '''Create treeview to display model'''
         # Create View
-        view = gtk.TreeView()
+        view = Gtk.TreeView()
         view.set_model(self.model)
 
         # setup view
-        cr = gtk.CellRendererToggle()
+        cr = Gtk.CellRendererToggle()
         cr.connect('toggled', self.enable_cb)
-        col = gtk.TreeViewColumn('Enabled', cr, active=0)
+        col = Gtk.TreeViewColumn('Enabled', cr, active=0)
         view.append_column(col)
         
-        cr = gtk.CellRendererText()
+        cr = Gtk.CellRendererText()
         cr.connect('edited', self.text_edited, 1)
         cr.set_property('editable', True)
-        col = gtk.TreeViewColumn('Name', cr, text=1)
+        col = Gtk.TreeViewColumn('Name', cr, text=1)
         view.append_column(col)
         
-        cr = gtk.CellRendererText()
+        cr = Gtk.CellRendererText()
         cr.connect('edited', self.text_edited, 2)
         cr.set_property('editable', True)
-        col = gtk.TreeViewColumn('Time', cr, text=2)
+        col = Gtk.TreeViewColumn('Time', cr, text=2)
         view.append_column(col)
         
         # custom CellRenderer for Days Popup
         cr = CellRendererDays()
         cr.connect('days-changed', self.days_changed)
         cr.set_property('editable', True)
-        col = gtk.TreeViewColumn('Days', cr, days=3, text=4)
+        col = Gtk.TreeViewColumn('Days', cr, days=3, text=4)
         view.append_column(col)
 
         return view        
@@ -442,7 +446,7 @@ def _enable(stuff, exaile, junk):
     #'''Since I don't know if init() or enable() will be called first, save builder and setup UI if enabled() was already called.'''
         main.init_ui(MY_BUILDER)
 
-    TIMER_ID = glib.timeout_add_seconds(5, check_alarms, main, exaile)
+    TIMER_ID = GLib.timeout_add_seconds(5, check_alarms, main, exaile)
 
 
 
@@ -455,13 +459,13 @@ def disable(exaile):
 
     # Cleanup
     if TIMER_ID is not None:
-        glib.source_remove(TIMER_ID)
+        GLib.source_remove(TIMER_ID)
         TIMER_ID = None
 
     if ALARM_CLOCK_MAIN is not None:
         ALARM_CLOCK_MAIN = None
         
-#   disable/enable doesn't re-call init(), so if we scrap and re-create the class, we wont' get our gtk.Builder back, and there will
+#   disable/enable doesn't re-call init(), so if we scrap and re-create the class, we wont' get our Gtk.Builder back, and there will
 #   be a disconnect between the Alarm class and the UI in the prefs page       
 #   NOTE: reloading the plugin from prefs page (DEBUG MODE) breaks this anyway
 #    if MY_BUILDER is not None:

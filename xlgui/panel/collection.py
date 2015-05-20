@@ -24,9 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gobject
-import gtk
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 import itertools
 import logging
 
@@ -155,10 +157,10 @@ class CollectionPanel(panel.Panel):
         The collection panel
     """
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
-        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object, bool)),
+        'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'collection-tree-loaded': (GObject.SignalFlags.RUN_LAST, None, ()),
     }
 
     ui_info = ('collection.ui', 'CollectionPanelWindow')
@@ -227,19 +229,19 @@ class CollectionPanel(panel.Panel):
         if not self._show_collection_empty_message or \
             (self.collection.libraries and self.collection_empty_message):
             self.collection_empty_message = False
-            glib.idle_add(self.vbox.set_child_visible, True)
-            glib.idle_add(self.message.set_child_visible, False)
-            glib.idle_add(self.vbox.show_all)
-            glib.idle_add(self.message.hide_all)
+            GLib.idle_add(self.vbox.set_child_visible, True)
+            GLib.idle_add(self.message.set_child_visible, False)
+            GLib.idle_add(self.vbox.show_all)
+            GLib.idle_add(self.message.hide)
 
         elif not self.collection.libraries and not \
             self.collection_empty_message:
             self.collection_empty_message = True
-            glib.idle_add(self.vbox.set_child_visible, False)
-            glib.idle_add(self.message.set_no_show_all, False)
-            glib.idle_add(self.message.set_child_visible, True)
-            glib.idle_add(self.vbox.hide_all)
-            glib.idle_add(self.message.show_all)
+            GLib.idle_add(self.vbox.set_child_visible, False)
+            GLib.idle_add(self.message.set_no_show_all, False)
+            GLib.idle_add(self.message.set_child_visible, True)
+            GLib.idle_add(self.vbox.hide)
+            GLib.idle_add(self.message.show_all)
 
     def _connect_events(self):
         """
@@ -269,11 +271,11 @@ class CollectionPanel(panel.Panel):
             menu = guiutil.Menu()
             menu.append(_('Rescan Collection'),
                 xlgui.get_controller().on_rescan_collection,
-                gtk.STOCK_REFRESH)
-            menu.popup(None, None, None, event.button, event.time)
+                Gtk.STOCK_REFRESH)
+            menu.popup(None, None, None, None, event.button, event.time)
             return
 
-        if event.state & gtk.gdk.SHIFT_MASK:
+        if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
             xlgui.get_controller().on_rescan_collection(None)
         else:
             self.load_tree()
@@ -282,9 +284,9 @@ class CollectionPanel(panel.Panel):
         """
             Called on key presses on the refresh button
         """
-        if event.keyval != gtk.keysyms.Return: return False
+        if event.keyval != Gdk.KEY_Return: return False
 
-        if event.state & gtk.gdk.SHIFT_MASK:
+        if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
             xlgui.get_controller().on_rescan_collection(None)
         else:
             self.load_tree()
@@ -293,23 +295,23 @@ class CollectionPanel(panel.Panel):
         """
             Called when a key is released in the tree
         """
-        if event.keyval == gtk.keysyms.Menu:
-            gtk.Menu.popup(self.menu, None, None, None, 0, event.time)
+        if event.keyval == Gdk.KEY_Menu:
+            Gtk.Menu.popup(self.menu, None, None, None, None, 0, event.time)
             return True
 
-        if event.keyval == gtk.keysyms.Left:
+        if event.keyval == Gdk.KEY_Left:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.collapse_row(path)
             return True
 
-        if event.keyval == gtk.keysyms.Right:
+        if event.keyval == Gdk.KEY_Right:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.expand_row(path, False)
             return True
 
-        if event.keyval == gtk.keysyms.Return:
+        if event.keyval == Gdk.KEY_Return:
             self.append_to_playlist()
             return True
         return False
@@ -330,15 +332,15 @@ class CollectionPanel(panel.Panel):
             Sets up the various images that will be used in the tree
         """
         self.artist_image = icons.MANAGER.pixbuf_from_icon_name(
-            'artist', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            'artist', Gtk.IconSize.SMALL_TOOLBAR)
         self.date_image = icons.MANAGER.pixbuf_from_icon_name(
-            'office-calendar', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            'office-calendar', Gtk.IconSize.SMALL_TOOLBAR)
         self.album_image = icons.MANAGER.pixbuf_from_stock(
-            gtk.STOCK_CDROM, gtk.ICON_SIZE_SMALL_TOOLBAR)
+            Gtk.STOCK_CDROM, Gtk.IconSize.SMALL_TOOLBAR)
         self.title_image = icons.MANAGER.pixbuf_from_icon_name(
-            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
         self.genre_image = icons.MANAGER.pixbuf_from_icon_name(
-            'genre', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            'genre', Gtk.IconSize.SMALL_TOOLBAR)
 
     def drag_data_received(self, *e):
         """
@@ -371,18 +373,18 @@ class CollectionPanel(panel.Panel):
         self.tree = CollectionDragTreeView(self)
         self.tree.set_headers_visible(False)
         container = self.builder.get_object('CollectionPanel')
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroll.add(self.tree)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
-        container.pack_start(scroll, True, True)
+        scroll.set_shadow_type(Gtk.ShadowType.IN)
+        container.pack_start(scroll, True, True, 0)
         container.show_all()
 
         selection = self.tree.get_selection()
-        selection.set_mode(gtk.SELECTION_MULTIPLE)
-        pb = gtk.CellRendererPixbuf()
-        cell = gtk.CellRendererText()
-        col = gtk.TreeViewColumn('Text')
+        selection.set_mode(Gtk.SelectionMode.MULTIPLE)
+        pb = Gtk.CellRendererPixbuf()
+        cell = Gtk.CellRendererText()
+        col = Gtk.TreeViewColumn('Text')
         col.pack_start(pb, False)
         col.pack_start(cell, True)
         col.set_attributes(pb, pixbuf=0)
@@ -390,14 +392,14 @@ class CollectionPanel(panel.Panel):
         self.tree.append_column(col)
 
         if settings.get_option('gui/ellipsize_text_in_panels', False):
-            import pango
+            from gi.repository import Pango
             cell.set_property('ellipsize-set', True)
-            cell.set_property('ellipsize', pango.ELLIPSIZE_END)
+            cell.set_property('ellipsize', Pango.EllipsizeMode.END)
 
         self.tree.set_row_separator_func(
             (lambda m, i, d: m.get_value(i, 1) is None), None)
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
+        self.model = Gtk.TreeStore(GdkPixbuf.Pixbuf, str, object)
 
         self.tree.connect("row-expanded", self.on_expanded)
 
@@ -427,7 +429,7 @@ class CollectionPanel(panel.Panel):
         selection = self.tree.get_selection()
         (x, y) = map(int, event.get_coords())
         path = self.tree.get_path_at_pos(x, y)
-        if event.type == gtk.gdk._2BUTTON_PRESS:
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
             replace = settings.get_option('playlist/replace_content', False)
             self.append_to_playlist(replace=replace)
             return False
@@ -448,7 +450,7 @@ class CollectionPanel(panel.Panel):
                 return False
             (mods,paths) = selection.get_selected_rows()
             if (path[0] in paths):
-                if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                if event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
                     return False
                 return True
             else:
@@ -484,7 +486,7 @@ class CollectionPanel(panel.Panel):
             self._refresh_tags_in_tree()
 
     def refresh_tracks_in_tree(self, type, obj, loc):
-        glib.idle_add(self._refresh_tags_in_tree)
+        GLib.idle_add(self._refresh_tags_in_tree)
 
     @common.glib_wait(500)
     def _refresh_tags_in_tree(self):
@@ -509,7 +511,7 @@ class CollectionPanel(panel.Panel):
 
     def load_tree(self):
         """
-            Loads the gtk.TreeView for this collection panel.
+            Loads the Gtk.TreeView for this collection panel.
 
             Loads tracks based on the current keyword, or all the tracks in
             the collection associated with this panel
@@ -574,7 +576,7 @@ class CollectionPanel(panel.Panel):
 
         if rest:
             item = rest.pop(0)
-            glib.idle_add(self._expand_node_by_name, search_num,
+            GLib.idle_add(self._expand_node_by_name, search_num,
                 parent, item, rest)
 
     def load_subtree(self, parent):
@@ -703,7 +705,7 @@ class CollectionPanel(panel.Panel):
             len(self.keyword.strip()) >= \
                     settings.get_option("gui/expand_minimum_term_length", 2):
             for row in to_expand:
-                glib.idle_add(self.tree.expand_row, row, False)
+                GLib.idle_add(self.tree.expand_row, row, False)
 
         if iter_sep is not None:
             self.model.remove(iter_sep)

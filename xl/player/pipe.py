@@ -33,7 +33,7 @@ import threading
 
 from gi.repository import Gst
 
-import glib
+from gi.repository import GLib
 
 from xl.nls import gettext as _
 from xl import event, common, settings
@@ -192,7 +192,7 @@ class MainBin(Gst.Bin):
         #def unblock_pad():
             #pad.set_blocked(False)
         
-        #glib.idle_add(unblock_pad)
+        #GLib.idle_add(unblock_pad)
         self.__audio_sink_lock.release()
        
         # Start flushing the old sink

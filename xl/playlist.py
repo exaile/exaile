@@ -34,7 +34,7 @@ import cgi
 from collections import namedtuple
 from contextlib import closing
 from datetime import datetime, timedelta
-import gio
+from gi.repository import Gio
 import logging
 import os
 import random
@@ -104,9 +104,9 @@ def is_valid_playlist(path):
         :param path: the source path
         :type path: string
     """
-    content_type = gio.content_type_guess(path)
+    content_type = Gio.content_type_guess(path)
 
-    if not gio.content_type_is_unknown(content_type):
+    if not Gio.content_type_is_unknown(content_type):
         for provider in providers.get('playlist-format-converter'):
             if content_type in provider.content_types:
                 return True
@@ -130,9 +130,9 @@ def import_playlist(path):
         :rtype: :class:`Playlist`
     """
     # First try the cheap Gio way
-    content_type = gio.content_type_guess(path)
+    content_type = Gio.content_type_guess(path)
 
-    if not gio.content_type_is_unknown(content_type):
+    if not Gio.content_type_is_unknown(content_type):
         for provider in providers.get('playlist-format-converter'):
             if content_type in provider.content_types:
                 return provider.import_from_file(path)
@@ -145,7 +145,7 @@ def import_playlist(path):
             return provider.import_from_file(path)
 
     # Last try the expensive Gio way (downloads the data for inspection)
-    content_type = gio.File(path).\
+    content_type = Gio.File.new_for_uri(path).\
         query_info('standard::content-type').\
             get_content_type()
 
@@ -216,7 +216,7 @@ class FormatConverter(object):
             :returns: a name
             :rtype: string
         """
-        gfile = gio.File(path)
+        gfile = Gio.File.new_for_uri(path)
         name = gfile.get_basename()
 
         for extension in self.file_extensions:
@@ -234,7 +234,7 @@ class FormatConverter(object):
             :param track_path: the path of the track
             :type track_path: string
         """
-        playlist_uri = gio.File(playlist_path).get_uri()
+        playlist_uri = Gio.File.new_for_uri(playlist_path).get_uri()
         # Track path will not be changed if it already is a fully qualified URL
         track_uri = urlparse.urljoin(playlist_uri, track_path.replace('\\','/'))
         
@@ -248,7 +248,7 @@ class FormatConverter(object):
         # TODO: Scan collection for tracks as last resort?? 
         
         if track_uri.startswith('file:///') and \
-                not gio.File(track_uri).query_exists():
+                not Gio.File.new_for_uri(track_uri).query_exists():
             
             if not playlist_uri.startswith('file:///'):
                 logging.debug('Track does not seem to exist, using original path')
@@ -273,7 +273,7 @@ class FormatConverter(object):
 
                 for uri in _iter_uris(playlist_uri, track_path):
                     logging.debug('Trying %s' % uri)
-                    if gio.File(uri).query_exists():
+                    if Gio.File.new_for_uri(uri).query_exists():
                         track_uri = uri
                         logging.debug('Track found at %s' % uri)
                         break
@@ -293,7 +293,7 @@ class FormatConverter(object):
             :type options: :class:`PlaylistExportOptions`
         """
         if options is not None and options.relative:
-            playlist_file = gio.File(playlist_path)
+            playlist_file = Gio.File.new_for_uri(playlist_path)
             # Strip playlist filename from export path
             export_path = playlist_file.get_uri()[:-len(playlist_file.get_basename())]
 
@@ -307,7 +307,7 @@ class FormatConverter(object):
                 # the same URI scheme and location as the playlist
                 if export_path_components.scheme == track_path_components.scheme and \
                    export_path_components.netloc == track_path_components.netloc:
-                    # gio.File.get_relative_path does not generate relative paths
+                    # Gio.File.get_relative_path does not generate relative paths
                     # for tracks located above the playlist in the path hierarchy,
                     # thus process both paths as done here
                     track_path = os.path.relpath(
@@ -341,7 +341,7 @@ class M3UConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
-        with closing(gio.File(path).replace('', False)) as stream:
+        with closing(Gio.File.new_for_uri(path).replace('', False)) as stream:
             stream.write('#EXTM3U\n')
 
             if playlist.name:
@@ -375,7 +375,7 @@ class M3UConverter(FormatConverter):
 
         logger.debug('Importing M3U playlist: %s' % path)
         
-        with closing(gio.DataInputStream(gio.File(path).read())) as stream:
+        with closing(Gio.DataInputStream(Gio.File.new_for_uri(path).read())) as stream:
             while True:
                 line = stream.read_line()
                 lineno += 1
@@ -470,7 +470,7 @@ class PLSConverter(FormatConverter):
 
         pls_playlist.set('playlist', 'Version', 2)
 
-        with closing(gio.File(path).replace('', False)) as stream:
+        with closing(Gio.File.new_for_uri(path).replace('', False)) as stream:
             pls_playlist.write(stream)
 
     def import_from_file(self, path):
@@ -489,12 +489,12 @@ class PLSConverter(FormatConverter):
         )
 
         pls_playlist = RawConfigParser()
-        gfile = gio.File(path)
+        gfile = Gio.File.new_for_uri(path)
         
         logger.debug('Importing PLS playlist: %s' % path)
 
         try:
-            with closing(gio.DataInputStream(gfile.read())) as stream:
+            with closing(Gio.DataInputStream(gfile.read())) as stream:
                 # RawConfigParser.readfp() requires fp.readline()
                 stream.readline = stream.read_line
                 pls_playlist.readfp(stream)
@@ -502,7 +502,7 @@ class PLSConverter(FormatConverter):
             # Most likely version 1, thus only a list of URIs
             playlist = Playlist(self.name_from_path(path))
 
-            with closing(gio.DataInputStream(gfile.read())) as stream:
+            with closing(Gio.DataInputStream(gfile.read())) as stream:
                 while True:
                     line = stream.read_line()
 
@@ -618,7 +618,7 @@ class ASXConverter(FormatConverter):
         """
         from xml.sax.saxutils import escape
 
-        with closing(gio.File(path).replace('', False)) as stream:
+        with closing(Gio.File.new_for_uri(path).replace('', False)) as stream:
             stream.write('<asx version="3.0">\n')
             stream.write('  <title>%s</title>\n' % escape(playlist.name))
 
@@ -657,7 +657,7 @@ class ASXConverter(FormatConverter):
         
         logger.debug('Importing ASX playlist: %s' % path)
 
-        with closing(gio.DataInputStream(gio.File(path).read())) as stream:
+        with closing(Gio.DataInputStream(Gio.File.new_for_uri(path).read())) as stream:
             parser = XMLParser(target=self.ASXPlaylistParser())
             parser.feed(stream.read())
 
@@ -795,7 +795,7 @@ class XSPFConverter(FormatConverter):
         """
         from xml.sax.saxutils import escape
 
-        with closing(gio.File(path).replace('', False)) as stream:
+        with closing(Gio.File.new_for_uri(path).replace('', False)) as stream:
             stream.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             stream.write('<playlist version="1" xmlns="http://xspf.org/ns/0/">\n')
 
@@ -840,7 +840,7 @@ class XSPFConverter(FormatConverter):
         
         logger.debug('Importing XSPF playlist: %s' % path)
 
-        with closing(gio.DataInputStream(gio.File(path).read())) as stream:
+        with closing(Gio.DataInputStream(Gio.File.new_for_uri(path).read())) as stream:
             tree = ETree.ElementTree(file=stream)
             ns = "{http://xspf.org/ns/0/}"
             nodes = tree.find("%strackList" % ns).findall("%strack" % ns)

@@ -24,7 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gio
+from gi.repository import Gio
+from gi.repository import GLib
 from xl import metadata, settings
 from xl.trax.track import Track
 from xl.trax.search import search_tracks, TracksMatcher
@@ -39,7 +40,7 @@ def is_valid_track(location):
         :returns: whether the file is a valid track
         :rtype: boolean
     """
-    extension = gio.File(location).get_basename().split(".")[-1]
+    extension = Gio.File.new_for_uri(location).get_basename().split(".")[-1]
     return extension.lower() in metadata.formats
 
 def get_uris_from_tracks(tracks):
@@ -64,7 +65,7 @@ def get_tracks_from_uri(uri):
     """
     tracks = []
 
-    gloc = gio.File(uri)
+    gloc = Gio.File.new_for_uri(uri)
 
     # don't do advanced checking on streaming-type uris as it can fail or
     # otherwise be terribly slow.
@@ -73,10 +74,10 @@ def get_tracks_from_uri(uri):
         return [Track(uri)]
 
     try:
-        file_type = gloc.query_info("standard::type").get_file_type()
-    except gio.Error: # E.g. cdda
+        file_type = gloc.query_info("standard::type", Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+    except GLib.Error: # E.g. cdda
         file_type = None
-    if file_type == gio.FILE_TYPE_DIRECTORY:
+    if file_type == Gio.FileType.DIRECTORY:
         # TODO: refactor Library so we dont need the collection obj
         from xl.collection import Library, Collection
         tracks = Collection('scanner')

@@ -24,10 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import glib
-import gobject
-import gtk
-import pango
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
+from gi.repository import Pango
 
 from xl import (
     event,
@@ -62,12 +63,12 @@ class ProgressBarFormatter(formatter.ProgressTextFormatter):
                 'gui/progress_bar_text_format',
                 '$current_time / $remaining_time')
 
-class PlaybackProgressBar(gtk.ProgressBar):
+class PlaybackProgressBar(Gtk.ProgressBar):
     """
         Progress bar which automatically follows playback
     """
     def __init__(self, player):
-        gtk.ProgressBar.__init__(self)
+        Gtk.ProgressBar.__init__(self)
         self.__player = player
         
         self.reset()
@@ -91,8 +92,8 @@ class PlaybackProgressBar(gtk.ProgressBar):
         """
             Resets the progress bar appearance
         """
-        glib.idle_add(self.set_fraction, 0)
-        glib.idle_add(self.set_text, _('Not Playing'))
+        GLib.idle_add(self.set_fraction, 0)
+        GLib.idle_add(self.set_text, _('Not Playing'))
 
     def __enable_timer(self):
         """
@@ -104,10 +105,10 @@ class PlaybackProgressBar(gtk.ProgressBar):
         interval = settings.get_option('gui/progress_update_millisecs', 1000)
 
         if interval % 1000 == 0:
-            self.__timer_id = glib.timeout_add_seconds(
+            self.__timer_id = GLib.timeout_add_seconds(
                 interval / 1000, self.on_timer)
         else:
-            self.__timer_id = glib.timeout_add(
+            self.__timer_id = GLib.timeout_add(
                 interval, self.on_timer)
 
         self.on_timer()
@@ -117,7 +118,7 @@ class PlaybackProgressBar(gtk.ProgressBar):
             Disables the update timer
         """
         if self.__timer_id is not None:
-            glib.source_remove(self.__timer_id)
+            GLib.source_remove(self.__timer_id)
             self.__timer_id = None
 
     def on_timer(self):
@@ -129,8 +130,8 @@ class PlaybackProgressBar(gtk.ProgressBar):
             self.reset()
             return False
 
-        glib.idle_add(self.set_fraction, self.__player.get_progress())
-        glib.idle_add(self.set_text, self.formatter.format())
+        GLib.idle_add(self.set_fraction, self.__player.get_progress())
+        GLib.idle_add(self.set_text, self.formatter.format())
 
         return True
 
@@ -164,13 +165,13 @@ class PlaybackProgressBar(gtk.ProgressBar):
         self.__disable_timer()
         self.reset()
 
-class Marker(gobject.GObject):
+class Anchor(int):
+    __gtype__ = GObject.TYPE_INT
+
+class Marker(GObject.GObject):
     """
         A marker pointing to a playback position
     """
-    class Anchor(int):
-        __gtype__ = gobject.TYPE_INT
-        pass
     for i, a in enumerate('CENTER NORTH NORTH_WEST NORTH_EAST SOUTH SOUTH_WEST SOUTH_EAST WEST EAST'.split()):
         setattr(Anchor, a, Anchor(i))
     __gproperties__ = {
@@ -179,53 +180,53 @@ class Marker(gobject.GObject):
             'anchor position',
             'The position the marker will be anchored',
             Anchor.CENTER, Anchor.EAST, Anchor.SOUTH,
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         ),
         'color': (
-            gtk.gdk.Color,
+            Gdk.Color,
             'marker color',
             'Override color of the marker',
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         ),
         'label': (
-            gobject.TYPE_STRING,
+            GObject.TYPE_STRING,
             'marker label',
             'Textual description of the marker',
             None,
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         ),
         'position': (
-            gobject.TYPE_FLOAT,
+            GObject.TYPE_FLOAT,
             'marker position',
             'Relative position of the marker',
             0, 1, 0,
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         ),
         'state': (
-            gtk.StateType,
+            Gtk.StateType,
             'marker state',
             'The state of the marker',
-            gtk.STATE_NORMAL,
-            gobject.PARAM_READWRITE
+            Gtk.StateType.NORMAL,
+            GObject.PARAM_READWRITE
         )
     }
     __gsignals__ = {
         'reached': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_NONE,
+            GObject.SignalFlags.RUN_LAST,
+            None,
             ()
         )
     }
 
     def __init__(self, position=0):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
 
         self.__values = {
-            'anchor': gtk.Anchor.SOUTH,
+            'anchor': Gtk.Anchor.SOUTH,
             'color': None,
             'label': None,
             'position': 0,
-            'state': gtk.STATE_NORMAL
+            'state': Gtk.StateType.NORMAL
         }
 
         self.props.position = position
@@ -352,16 +353,16 @@ class MarkerManager(providers.ProviderHandler):
             Starts marker watching
         """
         if self.__timeout_id is not None:
-            glib.source_remove(self.__timeout_id)
+            GLib.source_remove(self.__timeout_id)
 
-        self.__timeout_id = glib.timeout_add_seconds(1, self.on_timeout, player)
+        self.__timeout_id = GLib.timeout_add_seconds(1, self.on_timeout, player)
 
     def on_playback_track_end(self, event, player, track):
         """
             Stops marker watching
         """
         if self.__timeout_id is not None:
-            glib.source_remove(self.__timeout_id)
+            GLib.source_remove(self.__timeout_id)
             self.__timeout_id = None
 
     def on_timeout(self, player):
@@ -398,11 +399,11 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
     """
     __gproperties__ = {
         'marker-scale': (
-            gobject.TYPE_FLOAT,
+            GObject.TYPE_FLOAT,
             'marker scale',
             'Scaling of markers',
             0, 1, 0.7,
-            gobject.PARAM_READWRITE
+            GObject.PARAM_READWRITE
         )
     }
     __gsignals__ = {
@@ -414,10 +415,10 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         'key-press-event': 'override',
         'key-release-event': 'override',
         'marker-reached': (
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_BOOLEAN,
+            GObject.SignalFlags.RUN_LAST,
+            GObject.TYPE_BOOLEAN,
             (Marker,),
-            gobject.signal_accumulator_true_handled
+            GObject.signal_accumulator_true_handled
         )
     }
 
@@ -444,10 +445,10 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
 
             providers.ProviderHandler.__init__(self, 'playback-markers')
 
-        self.add_events(gtk.gdk.BUTTON_PRESS_MASK |
-                        gtk.gdk.BUTTON_RELEASE_MASK |
-                        gtk.gdk.POINTER_MOTION_MASK |
-                        gtk.gdk.LEAVE_NOTIFY_MASK)
+        self.add_events(Gdk.EventMask.BUTTON_PRESS_MASK |
+                        Gdk.EventMask.BUTTON_RELEASE_MASK |
+                        Gdk.EventMask.POINTER_MOTION_MASK |
+                        Gdk.EventMask.LEAVE_NOTIFY_MASK)
         self.set_can_focus(True)
 
         self.connect('hierarchy-changed',
@@ -668,7 +669,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         """
         oldallocation = self.get_allocation()
 
-        gtk.ProgressBar.do_size_allocate(self, allocation)
+        Gtk.ProgressBar.do_size_allocate(self, allocation)
 
         if allocation != oldallocation:
             for marker in self._points.iterkeys():
@@ -678,7 +679,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         """
             Draws markers on top of the progress bar
         """
-        gtk.ProgressBar.do_draw(self, context)
+        Gtk.ProgressBar.do_draw(self, context)
 
         if not self._points:
             return
@@ -690,8 +691,8 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
                 context.line_to(x, y)
             context.close_path()
 
-            if marker.props.state in (gtk.STATE_PRELIGHT, gtk.STATE_ACTIVE):
-                context.set_source_color(self.style.fg[gtk.STATE_NORMAL])
+            if marker.props.state in (Gtk.StateType.PRELIGHT, Gtk.StateType.ACTIVE):
+                context.set_source_color(self.style.fg[Gtk.StateType.NORMAL])
             else:
                 if marker.props.color is not None:
                     base = marker.props.color
@@ -706,8 +707,8 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
                 )
             context.fill_preserve()
 
-            if marker.props.state in (gtk.STATE_PRELIGHT, gtk.STATE_ACTIVE):
-                context.set_source_color(self.style.fg[gtk.STATE_NORMAL])
+            if marker.props.state in (Gtk.StateType.PRELIGHT, Gtk.StateType.ACTIVE):
+                context.set_source_color(self.style.fg[Gtk.StateType.NORMAL])
             else:
                 foreground = self.style.fg[marker.props.state]
                 context.set_source_rgba(
@@ -726,9 +727,9 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
 
         for marker in self._points.iterkeys():
             if self._is_marker_hit(marker, event.x, event.y):
-                if marker.props.state in (gtk.STATE_NORMAL,
-                                          gtk.STATE_PRELIGHT):
-                    marker.props.state = gtk.STATE_ACTIVE
+                if marker.props.state in (Gtk.StateType.NORMAL,
+                                          Gtk.StateType.PRELIGHT):
+                    marker.props.state = Gtk.StateType.ACTIVE
                     hit_markers += [marker]
 
         hit_markers.sort()
@@ -764,8 +765,8 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             Completes seeking
         """
         for marker in self._points.iterkeys():
-            if marker.props.state == gtk.STATE_ACTIVE:
-                marker.props.state = gtk.STATE_PRELIGHT
+            if marker.props.state == Gtk.StateType.ACTIVE:
+                marker.props.state = Gtk.StateType.PRELIGHT
 
         if event.button == 1 and self._seeking:
             length = self.__player.current.get_tag_raw('__length')
@@ -785,7 +786,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         self.set_tooltip_markup(None)
 
         if self._seeking:
-            press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
+            press_event = Gdk.Event(Gdk.EventType.BUTTON_PRESS)
             press_event.button = 1
             press_event.x = event.x
             press_event.y = event.y
@@ -796,12 +797,12 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
 
             for marker in self._points.iterkeys():
                 if self._is_marker_hit(marker, event.x, event.y):
-                    if marker.props.state == gtk.STATE_NORMAL:
-                        marker.props.state = gtk.STATE_PRELIGHT
+                    if marker.props.state == Gtk.StateType.NORMAL:
+                        marker.props.state = Gtk.StateType.PRELIGHT
                     hit_markers += [marker]
                 else:
-                    if marker.props.state == gtk.STATE_PRELIGHT:
-                        marker.props.state = gtk.STATE_NORMAL
+                    if marker.props.state == Gtk.StateType.PRELIGHT:
+                        marker.props.state = Gtk.StateType.NORMAL
 
             if len(hit_markers) > 0:
                 hit_markers.sort()
@@ -815,8 +816,8 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         """
         for marker in self._points.iterkeys():
             # Leave other states intact
-            if marker.props.state == gtk.STATE_PRELIGHT:
-                marker.props.state = gtk.STATE_NORMAL
+            if marker.props.state == Gtk.StateType.PRELIGHT:
+                marker.props.state = Gtk.StateType.NORMAL
 
     def do_key_press_event(self, event):
         """
@@ -824,20 +825,20 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             * Alt+Up/Right: seek 1% forward
             * Alt+Down/Left: seek 1% backward
         """
-        if self.get_state() & gtk.STATE_INSENSITIVE:
+        if self.get_state() & Gtk.StateType.INSENSITIVE:
             return
 
-        if not event.state & gtk.gdk.MOD1_MASK:
+        if not event.get_state() & Gdk.ModifierType.MOD1_MASK:
             return
 
-        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
+        if event.keyval in (Gdk.KEY_Up, Gdk.KEY_Right):
             direction = 1
-        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
+        elif event.keyval in (Gdk.KEY_Down, Gdk.KEY_Left):
             direction = -1
         else:
             return
         
-        press_event = gtk.gdk.Event(gtk.gdk.BUTTON_PRESS)
+        press_event = Gdk.Event(Gdk.EventType.BUTTON_PRESS)
         press_event.button = 1
         new_fraction = self.get_fraction() + 0.01 * direction
         alloc = self.get_allocation()
@@ -850,17 +851,17 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         """
             Completes seeking via keyboard interaction
         """
-        if not event.state & gtk.gdk.MOD1_MASK:
+        if not event.get_state() & Gdk.ModifierType.MOD1_MASK:
             return
 
-        if event.keyval in (gtk.keysyms.Up, gtk.keysyms.Right):
+        if event.keyval in (Gdk.KEY_Up, Gdk.KEY_Right):
             direction = 1
-        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.Left):
+        elif event.keyval in (Gdk.KEY_Down, Gdk.KEY_Left):
             direction = -1
         else:
             return
 
-        release_event = gtk.gdk.Event(gtk.gdk.BUTTON_RELEASE)
+        release_event = Gdk.Event(Gdk.EventType.BUTTON_RELEASE)
         release_event.button = 1
         new_fraction = self.get_fraction() + 0.01 * direction
         alloc = self.get_allocation()
@@ -876,7 +877,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
         self.get_toplevel().connect('focus-out-event',
             lambda w, e: self.emit('focus-out-event',
                 # HACK: GI: Gdk.EventFocus is not subclass of Gdk.Event.
-                gtk.gdk.Event(e)))
+                Gdk.Event(e)))
 
     def on_marker_menu_deactivate(self, menu):
         """
@@ -884,7 +885,7 @@ class SeekProgressBar(PlaybackProgressBar, providers.ProviderHandler):
             previously selected markers
         """
         for marker in self._points:
-            marker.props.state = gtk.STATE_NORMAL
+            marker.props.state = Gtk.StateType.NORMAL
         self.queue_draw()
 
     def on_marker_notify(self, marker, gproperty):
@@ -957,7 +958,7 @@ class ProgressBarContextMenu(menu.ProviderMenu):
             Pops up the menu
 
             :param event: an event
-            :type event: :class:`gtk.gdk.Event`
+            :type event: :class:`Gdk.Event`
         """
         self._position = event.x / self._parent.get_allocation().width
 
@@ -988,17 +989,17 @@ class MarkerContextMenu(menu.ProviderMenu):
             if label is None:
                 continue
 
-            markup_data = pango.parse_markup(label)
-            label_item = gtk.MenuItem(markup_data[1])
+            markup_data = Pango.parse_markup(label)
+            label_item = Gtk.MenuItem.new_with_mnemonic(markup_data[1])
             self.append(label_item)
 
             if len(self._markers) > 1:
-                item_menu = gtk.Menu()
+                item_menu = Gtk.Menu()
                 label_item.set_submenu(item_menu)
             else:
                 item_menu = self
                 label_item.set_sensitive(False)
-                self.append(gtk.SeparatorMenuItem())
+                self.append(Gtk.SeparatorMenuItem())
 
             context = {
                 'current-marker': marker,
@@ -1017,7 +1018,7 @@ class MarkerContextMenu(menu.ProviderMenu):
             Pops up the menu
 
             :param event: an event
-            :type event: :class:`gtk.gdk.Event`
+            :type event: :class:`Gdk.Event`
             :param markers: (m1, m2, ...)
             :type markers: (:class:`Marker`, ...)
         """
@@ -1046,11 +1047,11 @@ class MoveMarkerMenuItem(menu.MenuItem):
         """
         self._parent = parent
 
-        item = gtk.ImageMenuItem(self._display_name)
+        item = Gtk.ImageMenuItem.new_with_mnemonic(self._display_name)
 
         if self._icon_name is not None:
-            item.set_image(gtk.image_new_from_icon_name(
-                self._icon_name, gtk.ICON_SIZE_MENU))
+            item.set_image(Gtk.Image.new_from_icon_name(
+                self._icon_name, Gtk.IconSize.MENU))
 
         item.connect('activate', self.on_activate, parent, context)
 
@@ -1076,10 +1077,10 @@ class MoveMarkerMenuItem(menu.MenuItem):
 
         if marker is not None:
             self._marker = marker
-            self._marker.props.state = gtk.STATE_ACTIVE
+            self._marker.props.state = Gtk.StateType.ACTIVE
             self._reset_position = marker.props.position
             self._parent.props.window.set_cursor(
-                gtk.gdk.Cursor(gtk.gdk.SB_H_DOUBLE_ARROW))
+                Gdk.Cursor.new(Gdk.CursorType.SB_H_DOUBLE_ARROW))
 
             return True
 
@@ -1111,7 +1112,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
             :rtype: bool
         """
         if self._marker is not None:
-            self._marker.props.state = gtk.STATE_NORMAL
+            self._marker.props.state = Gtk.StateType.NORMAL
             self._marker = None
             self._reset_position = -1
             self._parent.props.window.set_cursor(None)
@@ -1129,7 +1130,7 @@ class MoveMarkerMenuItem(menu.MenuItem):
         """
         if self._marker is not None:
             self._marker.props.position = self._reset_position
-            self._marker.props.state = gtk.STATE_NORMAL
+            self._marker.props.state = Gtk.StateType.NORMAL
             self._marker = None
             self._reset_position = -1
             self._parent.props.window.set_cursor(None)
@@ -1176,7 +1177,7 @@ class NewMarkerMenuItem(MoveMarkerMenuItem):
     """
     def __init__(self, name, after):
         MoveMarkerMenuItem.__init__(self, name, after,
-            _('New Marker'), gtk.STOCK_NEW)
+            _('New Marker'), Gtk.STOCK_NEW)
 
     def move_cancel(self):
         """
@@ -1228,19 +1229,19 @@ def __create_marker_context_menu():
         providers.unregister('playback-markers', context['current-marker'])
 
     items.append(menu.simple_menu_item('jumpto-marker',
-        [], icon_name=gtk.STOCK_JUMP_TO,
+        [], icon_name=Gtk.STOCK_JUMP_TO,
         callback=on_jumpto_item_activate))
     items.append(MoveMarkerMenuItem('move-marker',
         [items[-1].name]))
     items.append(menu.simple_menu_item('remove-marker',
-        [items[-1].name], icon_name=gtk.STOCK_REMOVE,
+        [items[-1].name], icon_name=Gtk.STOCK_REMOVE,
         callback=on_remove_item_activate))
 
     for item in items:
         providers.register('playback-marker-context-menu', item)
 __create_marker_context_menu()
 
-class VolumeControl(gtk.Alignment):
+class VolumeControl(Gtk.Alignment):
     """
         Encapsulates a button and a slider to
         control the volume indicating the current
@@ -1248,12 +1249,12 @@ class VolumeControl(gtk.Alignment):
     """
     def __init__(self, player):
         self.__volume_setting = '%s/volume' % player._name
-        gtk.Alignment.__init__(self, xalign=1)
+        Gtk.Alignment.__init__(self, xalign=1)
 
         self.restore_volume = settings.get_option(self.__volume_setting, 1)
         self.icon_names = ['low', 'medium', 'high']
 
-        builder = gtk.Builder()
+        builder = Gtk.Builder()
         builder.add_from_file(xdg.get_data_path('ui', 'widgets',
             'volume_control.ui'))
         builder.connect_signals(self)
@@ -1262,7 +1263,7 @@ class VolumeControl(gtk.Alignment):
         box.reparent(self)
 
         self.button = builder.get_object('button')
-        self.button.add_events(gtk.gdk.KEY_PRESS_MASK)
+        self.button.add_events(Gdk.EventMask.KEY_PRESS_MASK)
         self.button_image = builder.get_object('button_image')
         self.slider = builder.get_object('slider')
         self.slider_adjustment = builder.get_object('slider_adjustment')
@@ -1289,7 +1290,7 @@ class VolumeControl(gtk.Alignment):
         if volume > 0:
             self.button.set_active(False)
 
-        self.button_image.set_from_icon_name(icon_name, gtk.ICON_SIZE_BUTTON)
+        self.button_image.set_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
         self.button.set_tooltip_text(tooltip)
         self.slider.set_value(volume)
         self.slider.set_tooltip_text(tooltip)
@@ -1302,20 +1303,20 @@ class VolumeControl(gtk.Alignment):
         step_increment = self.slider_adjustment.props.step_increment
         value = self.slider.get_value()
 
-        if event.direction == gtk.gdk.SCROLL_DOWN:
-            if event.state & gtk.gdk.SHIFT_MASK:
+        if event.direction == Gdk.ScrollDirection.DOWN:
+            if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
                 self.slider.set_value(value - page_increment)
             else:
                 self.slider.set_value(value - step_increment)
             return True
-        elif event.direction == gtk.gdk.SCROLL_UP:
-            if event.state & gtk.gdk.SHIFT_MASK:
+        elif event.direction == Gdk.ScrollDirection.UP:
+            if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
                 self.slider.set_value(value + page_increment)
             else:
                 self.slider.set_value(value + step_increment)
             return True
-        elif event.direction == gtk.gdk.SCROLL_SMOOTH:
-            if event.state & gtk.gdk.SHIFT_MASK:
+        elif event.direction == Gdk.ScrollDirection.SMOOTH:
+            if event.get_state() & Gdk.ModifierType.SHIFT_MASK:
                 self.slider.set_value(value - event.delta_y * page_increment)
             else:
                 self.slider.set_value(value - event.delta_y * step_increment)
@@ -1351,16 +1352,16 @@ class VolumeControl(gtk.Alignment):
         step_increment = slider.get_adjustment().step_increment
         value = slider.get_value()
 
-        if event.keyval == gtk.keysyms.Down:
+        if event.keyval == Gdk.KEY_Down:
             slider.set_value(value - step_increment)
             return True
-        elif event.keyval == gtk.keysyms.Page_Down:
+        elif event.keyval == Gdk.KEY_Page_Down:
             slider.set_value(value - page_increment)
             return True
-        elif event.keyval == gtk.keysyms.Up:
+        elif event.keyval == Gdk.KEY_Up:
             slider.set_value(value + step_increment)
             return True
-        elif event.keyval == gtk.keysyms.Page_Up:
+        elif event.keyval == Gdk.KEY_Page_Up:
             slider.set_value(value + page_increment)
             return True
 
@@ -1397,25 +1398,25 @@ def playpause(player):
 def PlayPauseMenuItem(name, player, after):
     def factory(menu, parent, context):
         if player.is_playing():
-            stock_id = gtk.STOCK_MEDIA_PAUSE
+            stock_id = Gtk.STOCK_MEDIA_PAUSE
         else:
-            stock_id = gtk.STOCK_MEDIA_PLAY
+            stock_id = Gtk.STOCK_MEDIA_PLAY
 
-        item = gtk.ImageMenuItem(stock_id)
+        item = Gtk.ImageMenuItem.new_from_stock(stock_id)
         item.connect('activate', lambda *args: playpause( player ), name, parent, context)
 
         return item
     return menu.MenuItem(name, factory, after=after)
 
 def NextMenuItem(name, player, after):
-    return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_NEXT,
+    return menu.simple_menu_item(name, after, icon_name=Gtk.STOCK_MEDIA_NEXT,
         callback=lambda *args: player.queue.next() )
 
 def PrevMenuItem(name, player, after):
-    return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_PREVIOUS,
+    return menu.simple_menu_item(name, after, icon_name=Gtk.STOCK_MEDIA_PREVIOUS,
         callback=lambda *args: player.queue.prev() )
 
 def StopMenuItem(name, player, after):
-    return menu.simple_menu_item(name, after, icon_name=gtk.STOCK_MEDIA_STOP,
+    return menu.simple_menu_item(name, after, icon_name=Gtk.STOCK_MEDIA_STOP,
         callback=lambda *args: player.stop() )
 

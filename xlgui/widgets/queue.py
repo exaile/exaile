@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gtk
 
 from xl.nls import gettext as _
 from xl import main, providers, playlist, event
@@ -66,9 +66,9 @@ class QueuePage(NotebookPage):
         self.player = player
         self.playlist = player.queue # a queue is a playlist object... 
         
-        self.swindow = gtk.ScrolledWindow()
-        self.swindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.pack_start(self.swindow, True, True)
+        self.swindow = Gtk.ScrolledWindow()
+        self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        self.pack_start(self.swindow, True, True, 0)
 
         self.view = PlaylistView(self.player.queue, self.player)
         self.view.dragdrop_copyonly = True

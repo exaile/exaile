@@ -17,7 +17,9 @@
 import cgi
 import inspect
 import logging
-import pynotify
+
+from gi.repository import Gtk
+from gi.repository import Notify
 
 from xl import covers, event, common, player, settings
 from xl.nls import gettext as _
@@ -32,7 +34,7 @@ logger = logging.getLogger(__name__)
 # the commented section in the UI designer file
 ATTACH_COVERS_OPTION_ALLOWED = False
 
-pynotify.init('exailenotify')
+Notify.init('exailenotify')
 
 
 class ExaileNotification(object):
@@ -89,7 +91,7 @@ class ExaileNotification(object):
                               'album': album
                               }
 
-        notif = pynotify.Notification(summary, body)
+        notif = Notify.Notification(summary, body)
         cover_data = covers.MANAGER.get_cover(track,
             set_only=True, use_default=True)
         size = (48, 48) if self.resize else None
@@ -101,7 +103,7 @@ class ExaileNotification(object):
             if self.attach_tray and hasattr(self.exaile, 'gui'):
                 gui = self.exaile.gui
                 if hasattr(gui, 'tray_icon') and gui.tray_icon:
-                    if isinstance(gui.tray_icon, type(gtk.StatusIcon)):
+                    if isinstance(gui.tray_icon, type(Gtk.StatusIcon)):
                         notif.attach_to_status_icon(gui.tray_icon)
                     else:
                         notif.attach_to_widget(gui.tray_icon)

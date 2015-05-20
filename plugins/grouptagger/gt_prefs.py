@@ -16,14 +16,14 @@ from xlgui.preferences import widgets
 from xl import xdg
 from xl.nls import gettext as _
 import os
-import gtk
+from gi.repository import Gtk
 
 name = _('GroupTagger')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'gt_prefs.ui')
 
 def _get_system_default_font():
-    return gtk.widget_get_default_style().font_desc.to_string()
+    return Gtk.Widget.get_default_style().font_desc.to_string()
 
 class GTPanelFontPreference(widgets.FontButtonPreference):
     default = _get_system_default_font()

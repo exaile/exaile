@@ -14,11 +14,11 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import gtk
+from gi.repository import Gtk
 import logging
 import os
 import urllib2 
-import webkit
+from gi.repository import WebKit
 
 from xl import (
     event,
@@ -144,9 +144,9 @@ class WikiPanel(panel.Panel):
         self._browser.destroy() 
  
     def setup_widgets(self):
-        self._scrolled_window = gtk.ScrolledWindow()
-        self._scrolled_window.props.hscrollbar_policy = gtk.POLICY_AUTOMATIC
-        self._scrolled_window.props.vscrollbar_policy = gtk.POLICY_AUTOMATIC
+        self._scrolled_window = Gtk.ScrolledWindow()
+        self._scrolled_window.props.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC
+        self._scrolled_window.props.vscrollbar_policy = Gtk.PolicyType.AUTOMATIC
         self._scrolled_window.add(self._browser)
         frame = self.builder.get_object('rendering_frame')
         self._scrolled_window.show_all()

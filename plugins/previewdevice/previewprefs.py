@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gtk
+from gi.repository import Gtk
 
 from xlgui.preferences import (
     playback,
@@ -38,7 +38,7 @@ import os
 name = _('Preview Device')
 basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(basedir, 'previewprefs.ui')
-icon = gtk.STOCK_MEDIA_PLAY
+icon = Gtk.STOCK_MEDIA_PLAY
 
 
 def __autoconfig():

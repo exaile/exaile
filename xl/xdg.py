@@ -25,7 +25,7 @@
 # from your version.
 
 import os, sys
-import glib
+from gi.repository import GLib
 
 # We need the local hack for OSX bundled apps, so we depend on the main script
 # to set the environment variable correctly instead of trying to infer an
@@ -36,13 +36,13 @@ exaile_dir = os.environ['EXAILE_DIR']
 homedir = os.path.expanduser("~")
 lastdir = homedir
 
-data_home = glib.get_user_data_dir()
+data_home = GLib.get_user_data_dir()
 data_home = os.path.join(data_home, "exaile")
 
-config_home = glib.get_user_config_dir()
+config_home = GLib.get_user_config_dir()
 config_home = os.path.join(config_home, "exaile")
 
-cache_home = glib.get_user_cache_dir()
+cache_home = GLib.get_user_cache_dir()
 cache_home = os.path.join(cache_home, "exaile")
 
 data_dirs = os.getenv("XDG_DATA_DIRS")

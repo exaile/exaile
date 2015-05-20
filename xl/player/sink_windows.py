@@ -9,7 +9,7 @@
 import logging
 import os.path
 import platform
-import glib
+from gi.repository import GLib
 from gi.repository import Gst
 
 from xl import settings
@@ -28,7 +28,7 @@ def load_exaile_directsound_plugin(presets):
         plugin = Gst.plugin_load_file(plugin_path)
         Gst.registry_get_default().add_plugin(plugin)
         
-    except glib.GError, e:
+    except GLib.GError, e:
         logger.error("Error loading custom DirectSound plugin: %s" % str(e))
         
     else:

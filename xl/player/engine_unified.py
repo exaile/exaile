@@ -28,7 +28,7 @@ import logging
 import threading
 import time
 
-import glib
+from gi.repository import GLib
 from gi.repository import Gst
 
 from xl.nls import gettext as _
@@ -141,20 +141,20 @@ class UnifiedPlayer(_base.ExailePlayer):
 
         self._pipe.set_state(Gst.State.PLAYING)
         self.streams[next]._settle_flag = 1
-        glib.idle_add(self.streams[next].set_state, Gst.State.PLAYING)
-        glib.idle_add(self._set_state, self._pipe, Gst.State.PLAYING)
+        GLib.idle_add(self.streams[next].set_state, Gst.State.PLAYING)
+        GLib.idle_add(self._set_state, self._pipe, Gst.State.PLAYING)
 
         if fading:
             timeout = int(float(duration)/float(100))
             if self.streams[next]:
-                glib.timeout_add(timeout, self._fade_stream,
+                GLib.timeout_add(timeout, self._fade_stream,
                         self.streams[next], 1)
             if self.streams[self._current_stream]:
-                glib.timeout_add(timeout, self._fade_stream,
+                GLib.timeout_add(timeout, self._fade_stream,
                         self.streams[self._current_stream], -1, True)
             if settings.get_option("%s/crossfading" % self._name, False):
                 time = int(track.get_tag_raw("__length")*1000 - duration)
-                glib.timer_id = glib.timeout_add(time,
+                GLib.timer_id = GLib.timeout_add(time,
                         self._start_crossfade)
 
         self._current_stream = next
@@ -187,16 +187,16 @@ class UnifiedPlayer(_base.ExailePlayer):
         if tr is not None:
             self.play(tr, user=False)
         if self._timer_id:
-            glib.source_remove(self._timer_id)
+            GLib.source_remove(self._timer_id)
         if tr is None:
-            self._timer_id = glib.timeout_add(1000 * \
+            self._timer_id = GLib.timeout_add(1000 * \
                     (self.current.get_tag_raw('__length') - self.get_time()),
                     self.stop)
         return False
 
     def _reset_crossfade_timer(self):
         if self._timer_id:
-            glib.source_remove(self._timer_id)
+            GLib.source_remove(self._timer_id)
         if not self.is_playing():
             return
         if not settings.get_option("%s/crossfading" % self._name, False):
@@ -205,9 +205,9 @@ class UnifiedPlayer(_base.ExailePlayer):
         time = int( self.current.get_tag_raw('__length')*1000 - \
                 (self.get_time()*1000 + duration) )
         if time < duration: # start crossfade now, we're late!
-            glib.idle_add(self._start_crossfade)
+            GLib.idle_add(self._start_crossfade)
         else:
-            self._timer_id = glib.timeout_add(time, self._start_crossfade)
+            self._timer_id = GLib.timeout_add(time, self._start_crossfade)
 
     def unlink_stream(self, stream):
         try:
@@ -218,7 +218,7 @@ class UnifiedPlayer(_base.ExailePlayer):
                 self.adder.release_request_pad(pad)
             except TypeError:
                 pass
-            glib.idle_add(stream.set_state, Gst.State.NULL)
+            GLib.idle_add(stream.set_state, Gst.State.NULL)
             try:
                 self._pipe.remove(stream)
             except Gst.RemoveError:
@@ -439,7 +439,7 @@ class AudioStream(Gst.Bin):
             Gst.Bin.set_state(self, Gst.State.NULL)
             event.log_event("stream_settled", self, None)
             return
-        glib.idle_add(self._settle_state_sub)
+        GLib.idle_add(self._settle_state_sub)
 
     @common.threaded
     def _settle_state_sub(self):

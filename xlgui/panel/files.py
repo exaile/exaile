@@ -24,14 +24,16 @@
 # do so. If you do not wish to do so, delete this exception statement
 # from your version.
 
-import gio
-import glib
-import gobject
-import gtk
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import Gio
+from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gtk
 import locale
 import logging
 import os
-import pango
+from gi.repository import Pango
 import re
 import urllib
 
@@ -63,9 +65,9 @@ class FilesPanel(panel.Panel):
         The Files panel
     """
     __gsignals__ = {
-        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object, bool)),
-        'replace-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
-        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (GObject.SignalFlags.RUN_LAST, None, (object, bool)),
+        'replace-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
+        'queue-items': (GObject.SignalFlags.RUN_LAST, None, (object,)),
     }
 
     ui_info = ('files.ui', 'FilesPanelWindow')
@@ -79,7 +81,7 @@ class FilesPanel(panel.Panel):
 
         self.box = self.builder.get_object('files_box')
 
-        self.targets = [('text/uri-list', 0, 0)]
+        self.targets = [Gtk.TargetEntry.new('text/uri-list', 0, 0)]
 
         self._setup_tree()
         self._setup_widgets()
@@ -88,7 +90,7 @@ class FilesPanel(panel.Panel):
         self.key_id = None
         self.i = 0
 
-        first_dir = gio.File(settings.get_option('gui/files_panel_dir',
+        first_dir = Gio.File.new_for_uri(settings.get_option('gui/files_panel_dir',
             xdg.homedir))
         self.history = [first_dir]
         self.load_directory(first_dir, False)
@@ -97,36 +99,35 @@ class FilesPanel(panel.Panel):
         """
             Sets up tree widget for the files panel
         """
-        # TODO: GI: Hack
-        self.model = gtk.ListStore(gio.File.base, gtk.gdk.Pixbuf, str, str)
+        self.model = Gtk.ListStore(Gio.File, GdkPixbuf.Pixbuf, str, str)
         self.tree = tree = FilesDragTreeView(self, True, True)
         tree.set_model(self.model)
         tree.connect('row-activated', self.row_activated)
         tree.connect('key-release-event', self.on_key_released)
 
         selection = tree.get_selection()
-        selection.set_mode(gtk.SELECTION_MULTIPLE)
-        self.scroll = scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        selection.set_mode(Gtk.SelectionMode.MULTIPLE)
+        self.scroll = scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroll.add(tree)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
-        self.box.pack_start(scroll, True, True)
+        scroll.set_shadow_type(Gtk.ShadowType.IN)
+        self.box.pack_start(scroll, True, True, 0)
 
-        pb = gtk.CellRendererPixbuf()
-        text = gtk.CellRendererText()
-        self.colname = colname = gtk.TreeViewColumn(_('Filename'))
+        pb = Gtk.CellRendererPixbuf()
+        text = Gtk.CellRendererText()
+        self.colname = colname = Gtk.TreeViewColumn(_('Filename'))
         colname.pack_start(pb, False)
         colname.pack_start(text, True)
         if settings.get_option('gui/ellipsize_text_in_panels', False):
             text.set_property('ellipsize-set', True)
-            text.set_property('ellipsize', pango.ELLIPSIZE_END)
+            text.set_property('ellipsize', Pango.EllipsizeMode.END)
         else:
             colname.connect('notify::width', self.set_column_width)
 
             width = settings.get_option('gui/files_filename_col_width', 130)
 
             colname.set_fixed_width(width)
-            colname.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+            colname.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
 
         colname.set_resizable(True)
         colname.set_attributes(pb, pixbuf=1)
@@ -135,10 +136,10 @@ class FilesPanel(panel.Panel):
 
         tree.append_column(self.colname)
 
-        text = gtk.CellRendererText()
+        text = Gtk.CellRendererText()
         text.set_property('xalign', 1.0)
         # TRANSLATORS: File size column in the file browser
-        self.colsize = colsize = gtk.TreeViewColumn(_('Size'))
+        self.colsize = colsize = Gtk.TreeViewColumn(_('Size'))
         colsize.set_resizable(True)
         colsize.pack_start(text, False)
         colsize.set_attributes(text, text=3)
@@ -150,9 +151,9 @@ class FilesPanel(panel.Panel):
             Sets up the widgets for the files panel
         """
         self.directory = self.tree.render_icon(
-            gtk.STOCK_DIRECTORY, gtk.ICON_SIZE_SMALL_TOOLBAR)
+            Gtk.STOCK_DIRECTORY, Gtk.IconSize.SMALL_TOOLBAR)
         self.track = icons.MANAGER.pixbuf_from_icon_name(
-            'audio-x-generic', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            'audio-x-generic', Gtk.IconSize.SMALL_TOOLBAR)
         self.back = self.builder.get_object('files_back_button')
         self.back.connect('clicked', self.go_back)
         self.forward = self.builder.get_object('files_forward_button')
@@ -186,7 +187,7 @@ class FilesPanel(panel.Panel):
 
         if len(libraries) > 0:
             for library in libraries:
-                model.append([gio.File(library['location']).get_parse_name()])
+                model.append([Gio.File.new_for_uri(library['location']).get_parse_name()])
         self.location_bar.set_model(model)
 
     def on_location_bar_changed(self, widget, *args):
@@ -196,33 +197,33 @@ class FilesPanel(panel.Panel):
         model = self.location_bar.get_model()
         location = model.get_value(iter, 0)
         if location != '':
-            self.load_directory(gio.File(location))
+            self.load_directory(Gio.File.new_for_uri(location))
 
     def on_key_released(self, widget, event):
         """
             Called when a key is released in the tree
         """
-        if event.keyval == gtk.keysyms.Menu:
-            gtk.Menu.popup(self.menu, None, None, None, 0, event.time)
+        if event.keyval == Gdk.KEY_Menu:
+            Gtk.Menu.popup(self.menu, None, None, None, None, 0, event.time)
             return True
 
-        if event.keyval == gtk.keysyms.Left and gtk.gdk.MOD1_MASK & event.state:
+        if event.keyval == Gdk.KEY_Left and Gdk.ModifierType.MOD1_MASK & event.get_state():
             self.go_back(self.tree)
             return True
 
-        if event.keyval == gtk.keysyms.Right and gtk.gdk.MOD1_MASK & event.state:
+        if event.keyval == Gdk.KEY_Right and Gdk.ModifierType.MOD1_MASK & event.get_state():
             self.go_forward(self.tree)
             return True
 
-        if event.keyval == gtk.keysyms.Up and gtk.gdk.MOD1_MASK & event.state:
+        if event.keyval == Gdk.KEY_Up and Gdk.ModifierType.MOD1_MASK & event.get_state():
             self.go_up(self.tree)
             return True
 
-        if event.keyval == gtk.keysyms.BackSpace:
+        if event.keyval == Gdk.KEY_BackSpace:
             self.go_up(self.tree)
             return True
 
-        if event.keyval == gtk.keysyms.F5:
+        if event.keyval == Gdk.KEY_F5:
             self.refresh(self.tree)
             return True
         return False
@@ -242,7 +243,7 @@ class FilesPanel(panel.Panel):
 
             model, paths = selection.get_selected_rows()
             if path[0] in paths:
-                if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                if event.get_state() & (Gdk.ModifierType.SHIFT_MASK|Gdk.ModifierType.CONTROL_MASK):
                     return False
                 return True
             else:
@@ -258,8 +259,8 @@ class FilesPanel(panel.Panel):
 
         for path in paths:
             f = model[path][0]
-            ftype = f.query_info('standard::type').get_file_type()
-            if ftype == gio.FILE_TYPE_DIRECTORY:
+            ftype = f.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+            if ftype == Gio.FileType.DIRECTORY:
                 self.load_directory(f)
             else:
                 self.emit('append-items', self.tree.get_selected_tracks(), True)
@@ -278,14 +279,14 @@ class FilesPanel(panel.Panel):
         path = self.entry.get_text()
         if path.startswith('~'):
             path = os.path.expanduser(path)
-        f = gio.file_parse_name(path)
+        f = Gio.file_parse_name(path)
         try:
-            ftype = f.query_info('standard::type').get_file_type()
-        except glib.GError, e:
+            ftype = f.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+        except GLib.GError, e:
             logger.error(e)
             self.entry.set_text(self.current.get_parse_name())
             return
-        if ftype != gio.FILE_TYPE_DIRECTORY:
+        if ftype != Gio.FileType.DIRECTORY:
             f = f.get_parent()
         self.load_directory(f)
         
@@ -328,7 +329,7 @@ class FilesPanel(panel.Panel):
         """
             Goes to the user's home directory
         """
-        self.load_directory(gio.File(xdg.homedir))
+        self.load_directory(Gio.File.new_for_uri(xdg.homedir))
 
     def set_column_width(self, col, stuff=None):
         """
@@ -351,12 +352,13 @@ class FilesPanel(panel.Panel):
         self.current = directory
         try:
             infos = directory.enumerate_children('standard::is-hidden,'
-                'standard::name,standard::display-name,standard::type')
-        except gio.Error, e:
+                'standard::name,standard::display-name,standard::type',
+                Gio.FileQueryInfoFlags.NONE, None)
+        except GLib.Error, e:
             logger.error(e)
             if directory.get_path() != xdg.homedir: # Avoid infinite recursion.
                 return self.load_directory(
-                    gio.File(xdg.homedir), history, keyword, cursor)
+                    Gio.File.new_for_uri(xdg.homedir), history, keyword, cursor)
         if self.current != directory: # Modified from another thread.
             return
 
@@ -375,10 +377,12 @@ class FilesPanel(panel.Panel):
                 continue
             f = directory.get_child(info.get_name())
             def sortkey():
-                sortname = locale.strxfrm(name)
+                # HACK: Python 2 bug: strxfrm doesn't support unicode.
+                # https://bugs.python.org/issue2481
+                sortname = locale.strxfrm(name.encode('utf-8'))
                 return sortname, name, f
             ftype = info.get_file_type()
-            if ftype == gio.FILE_TYPE_DIRECTORY:
+            if ftype == Gio.FileType.DIRECTORY:
                 subdirs.append(sortkey())
             elif any(low_name.endswith('.' + ext)
                     for ext in metadata.formats):
@@ -398,7 +402,7 @@ class FilesPanel(panel.Panel):
             for sortname, name, f in subdirs:
                 model.append((f, self.directory, name, ''))
             for sortname, name, f in subfiles:
-                size = f.query_info('standard::size').get_size() // 1000
+                size = f.query_info('standard::size', Gio.FileQueryInfoFlags.NONE, None).get_size() // 1000
                 
                 # locale.format_string does not support unicode objects
                 # correctly, so we call it with an str and convert the 
@@ -424,7 +428,7 @@ class FilesPanel(panel.Panel):
                 self.forward.set_sensitive(False)
             self.up.set_sensitive(bool(directory.get_parent()))
 
-        glib.idle_add(idle)
+        GLib.idle_add(idle)
 
     def drag_data_received(self, *e):
         """
@@ -476,8 +480,8 @@ class FilesDragTreeView(DragTreeView):
         """
             Appends recursively
         """
-        ftype = f.query_info('standard::type').get_file_type()
-        if ftype == gio.FILE_TYPE_DIRECTORY:
+        ftype = f.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
+        if ftype == Gio.FileType.DIRECTORY:
             file_infos = f.enumerate_children('standard::name')
             files = (f.get_child(fi.get_name()) for fi in file_infos)
             for subf in files:
@@ -489,7 +493,7 @@ class FilesDragTreeView(DragTreeView):
 
     def get_track(self, f):
         """
-            Returns a single track from a gio.File
+            Returns a single track from a Gio.File
         """
         uri = f.get_uri()
         if not trax.is_valid_track(uri):

@@ -26,8 +26,9 @@
 
 __all__ = ['main', 'panel', 'playlist']
 
-import glib
-import gtk
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import Gtk
 import logging
 
 import sys
@@ -35,8 +36,8 @@ import sys
 # This is needed for OpenBSD otherwise exaile freezes. However, some
 # versions of glib on Win32 freeze if this is used. Go figure. 
 if sys.platform != 'win32':
-    gtk.gdk.threads_init()
-    gtk.gdk.threads_enter()
+    Gdk.threads_init()
+    Gdk.threads_enter()
     
 if sys.platform == 'darwin':
 
@@ -45,7 +46,7 @@ if sys.platform == 'darwin':
     # 'Sans' no longer exists as of osx 10.9, so we need to set the default
     # font to something more sensible else we crash.
 
-    __settings = gtk.settings_get_default()
+    __settings = Gtk.Settings.get_default()
     __font_name = __settings.get_property('gtk-font-name')
     
     # font names that start with '.' aren't usable
@@ -58,7 +59,7 @@ if sys.platform == 'darwin':
 
     __settings.set_property('gtk-font-name', __font_name)
 
-    __icon_theme = gtk.icon_theme_get_default()
+    __icon_theme = Gtk.IconTheme.get_default()
     __icon_theme.append_search_path('/Library/Frameworks/GStreamer.framework/Versions/0.10/share/icons')
 
 from xl import (
@@ -76,8 +77,8 @@ logger = logging.getLogger(__name__)
 def mainloop():
     from xl.externals.sigint import InterruptibleLoopContext
     
-    with InterruptibleLoopContext(gtk.main_quit):
-        gtk.main()
+    with InterruptibleLoopContext(Gtk.main_quit):
+        Gtk.main()
 
 def get_controller():
     return Main._main
@@ -95,13 +96,13 @@ class Main(object):
         """
         from xlgui import icons, main, panels, tray, progress
 
-        gtk.gdk.set_program_class("Exaile")
+        Gdk.set_program_class("Exaile")
 
         self.exaile = exaile
         self.first_removed = False
         self.tray_icon = None
         
-        self.builder = gtk.Builder()
+        self.builder = Gtk.Builder()
         self.builder.add_from_file(xdg.get_data_path('ui', 'main.ui'))
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
@@ -112,14 +113,16 @@ class Main(object):
                      'music-library', 'artist', 'genre'):
             icons.MANAGER.add_icon_name_from_directory(name,
                 xdg.get_data_path('images'))
-        gtk.window_set_default_icon_name('exaile')
+        Gtk.Window.set_default_icon_name('exaile')
 
         for name in ('dynamic', 'repeat', 'shuffle'):
             icon_name = 'media-playlist-%s' % name
             icons.MANAGER.add_icon_name_from_directory(icon_name,
                 xdg.get_data_path('images'))
         
-        logger.info("Using GTK+ %s" % '.'.join(map(str,gtk.gtk_version)))
+        logger.info("Using GTK+ %s.%s.%s", Gtk.MAJOR_VERSION,
+                                           Gtk.MINOR_VERSION,
+                                           Gtk.MICRO_VERSION)
         
         logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.builder, exaile.collection)
@@ -195,7 +198,7 @@ class Main(object):
             sort_by = common.BASE_SORT_TAGS
 
             if column:
-                reverse = column.get_sort_order() == gtk.SORT_DESCENDING
+                reverse = column.get_sort_order() == Gtk.SortType.DESCENDING
                 sort_by = [column.name] + sort_by
 
             tracks = trax.get_tracks_from_uri(uri)
@@ -248,7 +251,7 @@ class Main(object):
         result = dialog.run()
         dialog.hide()
 
-        if result == gtk.RESPONSE_APPLY:
+        if result == Gtk.ResponseType.APPLY:
             collection = self.exaile.collection
             collection.freeze_libraries()
 
@@ -290,7 +293,7 @@ class Main(object):
     def on_gui_loaded(self, event, object, nothing):
         
         # This has to be idle_add so that plugin panels can be configured
-        glib.idle_add(self.panel_notebook.on_gui_loaded)
+        GLib.idle_add(self.panel_notebook.on_gui_loaded)
         
         # Fix track info not displaying properly when resuming after a restart.
         self.main._update_track_information()
@@ -317,13 +320,13 @@ class Main(object):
                                           force_update=force_update)
             thread.connect('done', self.on_rescan_done)
             self.progress_manager.add_monitor(thread,
-                _("Scanning collection..."), gtk.STOCK_REFRESH)
+                _("Scanning collection..."), Gtk.STOCK_REFRESH)
 
     def on_rescan_done(self, thread):
         """
             Called when the rescan has finished
         """
-        glib.idle_add(self.get_panel('collection').load_tree)
+        GLib.idle_add(self.get_panel('collection').load_tree)
 
     def on_track_properties(self, *e):
         pl = self.main.get_selected_page()
@@ -355,7 +358,7 @@ class Main(object):
 
         # save open tabs
         self.main.playlist_container.save_current_tabs()
-        gtk.gdk.threads_leave()
+        Gdk.threads_leave()
 
     @guiutil.idle_add()
     def add_device_panel(self, type, obj, device):
@@ -382,11 +385,11 @@ class Main(object):
             self.main.on_append_items(items, replace=True, sort=sort))
 
         self.device_panels[device.get_name()] = panel
-        glib.idle_add(providers.register, 'main-panel', panel)
+        GLib.idle_add(providers.register, 'main-panel', panel)
         thread = CollectionScanThread(device.get_collection())
         thread.connect('done', panel.load_tree)
         self.progress_manager.add_monitor(thread,
-            _("Scanning %s..." % device.name), gtk.STOCK_REFRESH)
+            _("Scanning %s..." % device.name), Gtk.STOCK_REFRESH)
 
     @guiutil.idle_add()
     def remove_device_panel(self, type, obj, device):

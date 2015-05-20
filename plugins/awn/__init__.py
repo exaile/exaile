@@ -19,8 +19,8 @@ import urllib
 import logging
 
 import dbus
-import gtk
-import glib
+from gi.repository import Gtk
+from gi.repository import GLib
 import os
 import tempfile
 
@@ -60,11 +60,11 @@ class ExaileAwn(object):
 
     def enable_progress(self, type, player, object):
         assert self.timer_id is None
-        glib.timeout_add_seconds(1, self.update_timer)
+        GLib.timeout_add_seconds(1, self.update_timer)
 
     def disable_progress(self, type, player, object, clear_menu=True):
         if self.timer_id is not None:
-            glib.source_remove(self.timer_id)
+            GLib.source_remove(self.timer_id)
         self.timer_id = None
         if clear_menu:
             self._set_timer(100)

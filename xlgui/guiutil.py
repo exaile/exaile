@@ -442,7 +442,7 @@ class Menu(Gtk.Menu):
             Gtk.Menu.popup(self, *e)
 
             
-def position_menu(menu, data):
+def position_menu(menu, orig_x, orig_y, data):
     '''
         A function that will position a menu near a particular widget. This
         should be specified as the third argument to menu.popup(), with the

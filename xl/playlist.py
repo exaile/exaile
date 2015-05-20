@@ -341,7 +341,7 @@ class M3UConverter(FormatConverter):
             :param options: exporting options
             :type options: :class:`PlaylistExportOptions`
         """
-        with closing(Gio.File.new_for_uri(path).replace('', False)) as stream:
+        with closing(Gio.File.new_for_uri(path).replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)) as stream:
             stream.write('#EXTM3U\n')
 
             if playlist.name:
@@ -470,7 +470,7 @@ class PLSConverter(FormatConverter):
 
         pls_playlist.set('playlist', 'Version', 2)
 
-        with closing(Gio.File.new_for_uri(path).replace('', False)) as stream:
+        with closing(Gio.File.new_for_uri(path).replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)) as stream:
             pls_playlist.write(stream)
 
     def import_from_file(self, path):
@@ -618,7 +618,7 @@ class ASXConverter(FormatConverter):
         """
         from xml.sax.saxutils import escape
 
-        with closing(Gio.File.new_for_uri(path).replace('', False)) as stream:
+        with closing(Gio.File.new_for_uri(path).replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)) as stream:
             stream.write('<asx version="3.0">\n')
             stream.write('  <title>%s</title>\n' % escape(playlist.name))
 
@@ -795,7 +795,7 @@ class XSPFConverter(FormatConverter):
         """
         from xml.sax.saxutils import escape
 
-        with closing(Gio.File.new_for_uri(path).replace('', False)) as stream:
+        with closing(Gio.File.new_for_uri(path).replace('', False, Gio.FileCreateFlags.REPLACE_DESTINATION)) as stream:
             stream.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             stream.write('<playlist version="1" xmlns="http://xspf.org/ns/0/">\n')
 

@@ -316,7 +316,7 @@ class URIOpenDialog(TextEntryDialog):
             The dialog will be automatically destroyed on user response.
             To obtain the entered URI, handle the "uri-selected" signal.
         """
-        clipboard = Gtk.clipboard_get(Gdk.SELECTION_CLIPBOARD)
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         text = clipboard.wait_for_text()
 
         if text is not None:
@@ -356,7 +356,7 @@ class URIOpenDialog(TextEntryDialog):
         dialog.set_transient_for(self.main.window)
         dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
-        clipboard = Gtk.clipboard_get(Gdk.SELECTION_CLIPBOARD)
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         text = clipboard.wait_for_text()
 
         if text is not None:

@@ -181,7 +181,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         dialog.add_field(_("Name:"))
         url_field = dialog.add_field(_("URL:"))
 
-        clipboard = Gtk.clipboard_get(Gdk.SELECTION_CLIPBOARD)
+        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
         text = clipboard.wait_for_text()
 
         if text is not None:

@@ -555,7 +555,7 @@ class FileOperationDialog(Gtk.FileChooserDialog):
         self.list.append_column(column)
         self.list.show_all()
 
-        self.expander = Gtk.Expander(_('Select File Type (by Extension)'))
+        self.expander = Gtk.Expander.new(_('Select File Type (by Extension)'))
         self.expander.add(self.list)
         self.extras_box.pack_start(self.expander, False, False, 0)
         self.expander.show()

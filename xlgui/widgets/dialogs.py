@@ -320,17 +320,9 @@ class URIOpenDialog(TextEntryDialog):
         text = clipboard.wait_for_text()
 
         if text is not None:
-            # GIO parses any non-URI text to local file, so we specifically
-            # check that a file URI actually starts with "file:///".
-            if text.startswith('file:///'):
+            f = Gio.File.new_for_uri(text)
+            if f.get_uri_scheme():
                 self.set_value(text)
-            else:
-                f = Gio.File.new_for_uri(text)
-                # If we get a local file here (but text doesn't start with
-                # "file:///"), it means text is not a valid URI and should be
-                # ignored.
-                if f.get_uri_scheme() != 'file':
-                    self.set_value(text)
 
         TextEntryDialog.show_all(self)
 

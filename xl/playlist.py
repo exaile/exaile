@@ -106,9 +106,9 @@ def is_valid_playlist(path):
     """
     content_type = Gio.content_type_guess(path)
 
-    if not Gio.content_type_is_unknown(content_type):
+    if not Gio.content_type_is_unknown(content_type[0]):
         for provider in providers.get('playlist-format-converter'):
-            if content_type in provider.content_types:
+            if content_type[0] in provider.content_types:
                 return True
 
     file_extension = path.split('.')[-1]

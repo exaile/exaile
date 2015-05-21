@@ -377,7 +377,7 @@ class M3UConverter(FormatConverter):
 
         with closing(Gio.DataInputStream.new(Gio.File.new_for_uri(path).read())) as stream:
             while True:
-                line = stream.read_line()
+                line = stream.read_line()[0]
                 lineno += 1
 
                 if not line:
@@ -504,7 +504,7 @@ class PLSConverter(FormatConverter):
 
             with closing(Gio.DataInputStream.new(gfile.read())) as stream:
                 while True:
-                    line = stream.read_line()
+                    line = stream.read_line()[0]
 
                     if not line:
                         break

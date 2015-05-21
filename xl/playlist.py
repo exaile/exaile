@@ -104,11 +104,11 @@ def is_valid_playlist(path):
         :param path: the source path
         :type path: string
     """
-    content_type = Gio.content_type_guess(path)
+    content_type = Gio.content_type_guess(path)[0]
 
-    if not Gio.content_type_is_unknown(content_type[0]):
+    if not Gio.content_type_is_unknown(content_type):
         for provider in providers.get('playlist-format-converter'):
-            if content_type[0] in provider.content_types:
+            if content_type in provider.content_types:
                 return True
 
     file_extension = path.split('.')[-1]
@@ -130,11 +130,11 @@ def import_playlist(path):
         :rtype: :class:`Playlist`
     """
     # First try the cheap Gio way
-    content_type = Gio.content_type_guess(path)
+    content_type = Gio.content_type_guess(path)[0]
 
-    if not Gio.content_type_is_unknown(content_type[0]):
+    if not Gio.content_type_is_unknown(content_type):
         for provider in providers.get('playlist-format-converter'):
-            if content_type[0] in provider.content_types:
+            if content_type in provider.content_types:
                 return provider.import_from_file(path)
 
     # Next try to extract the file extension via URL parsing

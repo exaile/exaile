@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 20:27+0100\n"
-"PO-Revision-Date: 2014-12-18 15:53+0200\n"
-"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
+"PO-Revision-Date: 2015-05-21 12:04+0200\n"
+"Last-Translator: Alexandre Badalo <alexandre.badalo@sapo.pt>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/exaile/master/pt/>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 "X-Launchpad-Export-Date: 2014-08-12 06:28+0000\n"
 
 #: ../xl/formatter.py:576
@@ -495,11 +495,11 @@ msgstr "Personalizado"
 
 #: ../xl/player/pipe.py:587 ../plugins/previewdevice/previewprefs.py:76
 msgid "Auto"
-msgstr ""
+msgstr "Automático"
 
 #: ../xl/player/_base.py:131
 msgid ": Possible audio device error, is it plugged in?"
-msgstr ""
+msgstr ": Possivel erro do dispositivo de audio! Ele está ligado?"
 
 #: ../xl/xldbus.py:117 ../xl/xldbus.py:496
 #: ../plugins/lyricsviewer/__init__.py:242
@@ -535,7 +535,7 @@ msgstr "Artista"
 
 #: ../xl/metadata/tags.py:43
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: ../xl/metadata/tags.py:44 ../xlgui/widgets/playlist_columns.py:353
 #: ../plugins/cd/cdprefs.py:120
@@ -545,11 +545,11 @@ msgstr "BPM"
 
 #: ../xl/metadata/tags.py:45
 msgid "Copyright"
-msgstr ""
+msgstr "Copyright"
 
 #: ../xl/metadata/tags.py:46 ../xlgui/widgets/playlist_columns.py:491
 msgid "Comment"
-msgstr ""
+msgstr "Comentário"
 
 #: ../xl/metadata/tags.py:47 ../xlgui/widgets/playlist_columns.py:239
 #: ../data/ui/trackproperties_dialog_cover_row.ui.h:12
@@ -564,7 +564,7 @@ msgstr "Maestro"
 
 #: ../xl/metadata/tags.py:49 ../xlgui/cover.py:812
 msgid "Cover"
-msgstr ""
+msgstr "Capa"
 
 #: ../xl/metadata/tags.py:50 ../xlgui/widgets/playlist_columns.py:312
 #: ../plugins/cd/cdprefs.py:113
@@ -578,7 +578,7 @@ msgstr "Disco"
 
 #: ../xl/metadata/tags.py:52
 msgid "Encoded by"
-msgstr ""
+msgstr "Codificado por"
 
 #: ../xl/metadata/tags.py:53 ../xlgui/widgets/playlist_columns.py:318
 #: ../plugins/cd/cdprefs.py:114

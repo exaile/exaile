@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkWindow" id="ExaileWindow">
     <property name="width_request">700</property>
     <property name="height_request">400</property>
-    <signal name="configure_event" handler="on_configure_event"/>
-    <signal name="delete_event" after="yes" handler="on_delete_event"/>
-    <signal name="window_state_event" handler="on_window_state_event"/>
+    <property name="can_focus">False</property>
+    <signal name="configure-event" handler="on_configure_event" swapped="no"/>
+    <signal name="delete-event" handler="on_delete_event" after="yes" swapped="no"/>
+    <signal name="window-state-event" handler="on_window_state_event" swapped="no"/>
     <child>
-      <object class="GtkVBox" id="vbox1">
+      <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkMenuBar" id="mainmenu">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <child>
               <object class="GtkMenuItem" id="file_menu_item">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_File</property>
                 <property name="use_underline">True</property>
               </object>
@@ -24,36 +29,46 @@
             <child>
               <object class="GtkMenuItem" id="edit_menu_item">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Edit</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
-                  <object class="GtkMenu" id="edit_menu"/>
+                  <object class="GtkMenu" id="edit_menu">
+                    <property name="can_focus">False</property>
+                  </object>
                 </child>
               </object>
             </child>
             <child>
               <object class="GtkMenuItem" id="view_menu_item">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_View</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
-                  <object class="GtkMenu" id="view_menu"/>
+                  <object class="GtkMenu" id="view_menu">
+                    <property name="can_focus">False</property>
+                  </object>
                 </child>
               </object>
             </child>
             <child>
               <object class="GtkMenuItem" id="tools_menu_item">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Tools</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
-                  <object class="GtkMenu" id="tools_menu"/>
+                  <object class="GtkMenu" id="tools_menu">
+                    <property name="can_focus">False</property>
+                  </object>
                 </child>
               </object>
             </child>
             <child>
               <object class="GtkMenuItem" id="help_menu_item">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Help</property>
                 <property name="use_underline">True</property>
               </object>
@@ -61,17 +76,20 @@
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkHPaned" id="splitter">
+          <object class="GtkPaned" id="splitter">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="position">129</property>
             <child>
-              <object class="GtkVBox" id="panel_box">
+              <object class="GtkBox" id="panel_box">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkNotebook" id="panel_notebook">
                     <property name="visible">True</property>
@@ -86,17 +104,22 @@
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkAlignment" id="alignment3">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="top_padding">4</property>
                     <property name="left_padding">6</property>
                     <child>
-                      <object class="GtkVBox" id="progress_box">
+                      <object class="GtkBox" id="progress_box">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <placeholder/>
                         </child>
@@ -105,6 +128,7 @@
                   </object>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -115,40 +139,49 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="player_box">
+              <object class="GtkBox" id="player_box">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="border_width">3</property>
+                <property name="orientation">vertical</property>
                 <property name="spacing">3</property>
                 <child>
-                  <object class="GtkHBox" id="info_area">
+                  <object class="GtkBox" id="info_area">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <placeholder/>
                     </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="playlist_area">
+                  <object class="GtkBox" id="playlist_area">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <placeholder/>
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="play_toolbar">
+                  <object class="GtkBox" id="play_toolbar">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <object class="GtkAlignment" id="alignment1">
                         <property name="width_request">6</property>
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <child>
                           <placeholder/>
                         </child>
@@ -167,16 +200,18 @@
                         <property name="tooltip_text" translatable="yes">Previous Track</property>
                         <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="clicked" handler="on_prev_button_clicked"/>
+                        <signal name="clicked" handler="on_prev_button_clicked" swapped="no"/>
                         <child>
                           <object class="GtkImage" id="image1">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="stock">gtk-media-previous</property>
                           </object>
                         </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -188,16 +223,18 @@
                         <property name="tooltip_text" translatable="yes">Start Playback</property>
                         <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="clicked" handler="on_playpause_button_clicked"/>
+                        <signal name="clicked" handler="on_playpause_button_clicked" swapped="no"/>
                         <child>
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="stock">gtk-media-play</property>
                           </object>
                         </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
@@ -214,12 +251,14 @@ Right Click for Stop After Track Feature</property>
                         <child>
                           <object class="GtkImage" id="image2">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="stock">gtk-media-stop</property>
                           </object>
                         </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">3</property>
                       </packing>
                     </child>
@@ -231,10 +270,11 @@ Right Click for Stop After Track Feature</property>
                         <property name="tooltip_text" translatable="yes">Next Track</property>
                         <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
-                        <signal name="clicked" handler="on_next_button_clicked"/>
+                        <signal name="clicked" handler="on_next_button_clicked" swapped="no"/>
                         <child>
                           <object class="GtkImage" id="image4">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="stock">gtk-media-next</property>
                           </object>
                         </child>
@@ -248,6 +288,7 @@ Right Click for Stop After Track Feature</property>
                     <child>
                       <object class="GtkAlignment" id="alignment2">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="top_padding">3</property>
                         <property name="bottom_padding">3</property>
                         <property name="left_padding">3</property>
@@ -256,14 +297,17 @@ Right Click for Stop After Track Feature</property>
                           <object class="GtkProgressBar" id="playback_progressbar">
                             <property name="height_request">24</property>
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="events">GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
-                            <property name="show_text">True</property>
                             <property name="pulse_step">0.10000000149</property>
                             <property name="text" translatable="yes">0:00 / 0:00</property>
+                            <property name="show_text">True</property>
                           </object>
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="position">5</property>
                       </packing>
                     </child>
@@ -282,15 +326,19 @@ Right Click for Stop After Track Feature</property>
             </child>
           </object>
           <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkStatusbar" id="status_bar">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="pack_type">end</property>
             <property name="position">2</property>
           </packing>

@@ -25,17 +25,25 @@
 # from your version.
 
 from gi.repository import GLib
-from gi.repository import GObject
 from gi.repository import Gtk
-import time
 
 from xl.common import clamp
 from xl.nls import gettext as _
 
-class ProgressMonitor(Gtk.VBox):
+from xlgui.guiutil import GtkTemplate
+
+@GtkTemplate('ui', 'widgets', 'progress.ui')
+class ProgressMonitor(Gtk.Grid):
     """
         A graphical progress monitor
     """
+    
+    __gtype_name__ = 'ProgressMonitor'
+    
+    label,          \
+    box,            \
+    progressbar     = GtkTemplate.Child.widgets(3)
+    
     def __init__(self, manager, thread, description, image=None):
         """
             Initializes the monitor
@@ -47,41 +55,20 @@ class ProgressMonitor(Gtk.VBox):
             :param description: the description for this process
             :type description: string
         """
-        super(ProgressMonitor, self).__init__(spacing=3)
+        super(ProgressMonitor, self).__init__()
+        self.init_template()
 
         self.manager = manager
         self.thread = thread
         self._progress_updated = False
 
-        box = Gtk.HBox(spacing=6)
-        self.pack_start(box, True, True, 0)
-
         if image is not None:
-            box.pack_start(image, False, True, 0)
-
-        label = Gtk.Label(label=description)
-        label.props.xalign = 0
-        box.pack_start(label, True, True, 0)
-
-        box = Gtk.HBox(spacing=3)
-        self.pack_start(box, True, True, 0)
-
-        alignment = Gtk.Alignment.new(1, 1, 0, 0)
-        alignment.set_padding(3, 3, 0, 0)
-        self.progressbar = Gtk.ProgressBar()
-        self.progressbar.set_pulse_step(0.05)
-        alignment.add(self.progressbar)
-        box.pack_start(alignment, True, True, 0)
-
-        button = Gtk.Button()
-        button.set_image(Gtk.Image.new_from_stock(
-            Gtk.STOCK_CANCEL, Gtk.IconSize.BUTTON))
-        button.set_tooltip_text(_('Cancel'))
-        button.connect('clicked', self.on_button_clicked)
-        box.pack_start(button, False, True, 0)
-
+            self.box.pack_start(image, False, True, 0)
+            
+        self.label.set_text(description)
+        
         self.show_all()
-        GLib.timeout_add(50, self.pulsate_progress)
+        GLib.timeout_add(100, self.pulsate_progress)
 
         self.progress_update_id = self.thread.connect('progress-update',
             self.on_progress_update)
@@ -127,7 +114,8 @@ class ProgressMonitor(Gtk.VBox):
         """
         self.manager.remove_monitor(self)
 
-    def on_button_clicked(self, widget):
+    @GtkTemplate.Callback
+    def on_cancel_button_clicked(self, widget):
         """
             Stops the running thread
         """

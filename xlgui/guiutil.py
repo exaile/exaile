@@ -42,11 +42,7 @@ from xlgui import icons
 from xl.common import idle_add
 
 # Import from external namespace
-from xl.externals.gi_composites import (
-    GtkCallback,
-    GtkChild,
-    GtkTemplate as _GtkTemplate
-) 
+from xl.externals.gi_composites import GtkTemplate as _GtkTemplate
 
 class GtkTemplate(_GtkTemplate):
     '''

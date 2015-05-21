@@ -23,42 +23,40 @@ import warnings
 
 from gi.repository import GLib
 from gi.repository import GObject
-from gi.repository import Gtk
 
-__all__ = ['GtkTemplate', 'GtkChild', 'GtkCallback']
+__all__ = ['GtkTemplate']
 
+class GtkTemplateWarning(UserWarning):
+    pass
 
 def _connect_func(builder, obj, signal_name, handler_name,
                   connect_object, flags, cls):
     '''Handles GtkBuilder signal connect events'''
     
-    # Deal with signals on the template object itself
     if connect_object is None:
-        if not isinstance(obj, cls):
-            warnings.warn("Cannot determine object to connect '%s' to" %
-                          handler_name)
-            return
-        
-        connect_object = obj
-    elif not isinstance(connect_object, cls):
-        warnings.warn("Handler '%s' user_data is not set to an instance of '%s'" %
-                      (handler_name, cls))
+        extra = ()
+    else:
+        extra = (connect_object,)
+    
+    # The handler name refers to an attribute on the template instance,
+    # so ask GtkBuilder for the template instance
+    template_inst = builder.get_object(cls.__gtype_name__)
+    
+    if template_inst is None: # This should never happen
+        errmsg = "Internal error: cannot find template instance! obj: %s; " \
+                 "signal: %s; handler: %s; connect_obj: %s; class: %s" % \
+                 (obj, signal_name, handler_name, connect_object, cls)
+        warnings.warn(errmsg, GtkTemplateWarning)
         return
     
-    if handler_name not in connect_object.__gtemplate_methods__:
-        errmsg = "@GtkCallback handler '%s' was not found for signal '%s'" % \
-                 (handler_name, signal_name)
-        warnings.warn(errmsg)
-        return
-    
-    handler = getattr(connect_object, handler_name)
+    handler = getattr(template_inst, handler_name)
 
     if flags == GObject.ConnectFlags.AFTER:
-        obj.connect_after(signal_name, handler)
+        obj.connect_after(signal_name, handler, *extra)
     else:
-        obj.connect(signal_name, handler)
+        obj.connect(signal_name, handler, *extra)
     
-    connect_object.__connected_template_signals__.add(handler_name)
+    template_inst.__connected_template_signals__.add(handler_name)
 
 
 def _register_template(cls, ui_path):
@@ -70,7 +68,7 @@ def _register_template(cls, ui_path):
     bound_methods = set()
     bound_widgets = set()
     
-    # Walk the class, find callback objects
+    # Walk the class, find marked callbacks and child attributes
     for name in dir(cls):
         
         o = getattr(cls, name, None)
@@ -80,7 +78,7 @@ def _register_template(cls, ui_path):
                 bound_methods.add(name)
                 # Don't need to call this, as connect_func always gets called
                 #cls.bind_template_callback_full(name, o)
-        elif isinstance(o, _GtkChild):
+        elif isinstance(o, _Child):
             cls.bind_template_child_full(name, True, 0)
             bound_widgets.add(name)
     
@@ -97,7 +95,7 @@ def _register_template(cls, ui_path):
     
     base_init_template = cls.init_template
     cls.init_template = lambda s: _init_template(s, cls, base_init_template)
-    
+
 
 def _init_template(self, cls, base_init_template):
     '''This would be better as an override for Gtk.Widget'''
@@ -118,14 +116,37 @@ def _init_template(self, cls, base_init_template):
             #      one is broken either -- but the stderr should show
             #      something useful with a Gtk-CRITICAL message)
             raise AttributeError("A missing child widget was set using " +
-                                 "GtkChild and the entire template is now " +
-                                 "broken (widgets: %s)" %
+                                 "GtkTemplate.Child and the entire"
+                                 "template is now broken (widgets: %s)" %
                                  ', '.join(self.__gtemplate_widgets__))
     
     for name in self.__gtemplate_methods__.difference(connected_signals):
-        errmsg = ("Signal '%s' was declared with @GtkCallback " +
+        errmsg = ("Signal '%s' was declared with @GtkTemplate.Callback " +
                   "but was not present in template") % name
-        warnings.warn(errmsg)
+        warnings.warn(errmsg, GtkTemplateWarning)
+
+
+# TODO: Make it easier for IDE to introspect this
+class _Child(object):
+    '''
+        Assign this to an attribute in your class definition and it will
+        be replaced with a widget defined in the UI file when init_template
+        is called
+    '''
+    
+    __slots__ = []
+    
+    @staticmethod
+    def widgets(count):
+        '''
+            Allows declaring multiple widgets with less typing::
+            
+                button    \
+                label1    \
+                label2    = GtkTemplate.Child.widgets(3)
+        '''
+        return [_Child() for _ in xrange(count)]
+
 
 class _GtkTemplate(object):
     '''
@@ -140,6 +161,21 @@ class _GtkTemplate(object):
                 def __init__(self):
                     super(Foo, self).__init__()
                     self.init_template()
+                
+        To connect a signal to a method on your instance, do::
+            
+            @GtkTemplate.Callback
+            def on_thing_happened(self, widget):
+                pass
+        
+        To create a child attribute that is retrieved from your template,
+        add this to your class definition::
+        
+            @GtkTemplate(ui='foo.ui')
+            class Foo(Gtk.Box):
+            
+                widget = GtkTemplate.Child()
+        
     
         Note: This is implemented as a class decorator, but if it were
         included with PyGI I suspect it might be better to do this
@@ -148,6 +184,18 @@ class _GtkTemplate(object):
     '''
     
     __ui_path__ = None
+    
+    @staticmethod
+    def Callback(f):
+        '''
+            Decorator that designates a method to be attached to a signal from
+            the template
+        '''
+        f._gtk_callback = True
+        return f
+
+    
+    Child = _Child
     
     @staticmethod
     def set_ui_path(*path):
@@ -177,34 +225,10 @@ class _GtkTemplate(object):
         return cls
 
 
-def _GtkCallback(f):
-    '''Marks a method as a callback method to be attached to a signal'''
-    f._gtk_callback = True
-    return f
-
-# TODO: Make it easier for IDE to introspect this
-class _GtkChild(object):
-    '''
-        Assign this to an attribute in your class definition and it will
-        be replaced with a widget defined in the UI file when init_template
-        is called
-    '''
-    
-    __slots__ = []
-    
-    @staticmethod
-    def widgets(count):
-        '''Allows silliness like foo,bar = GtkChild()'''
-        return [_GtkChild() for _ in xrange(count)]
-
-    
-# Future shim support if this makes it into PyGI
-if hasattr(Gtk, 'GtkChild'):
-    GtkChild = Gtk.GtkChild
-    GtkCallback = Gtk.GtkCallback
-    GtkTemplate = lambda c: c
-else:
-    GtkChild = _GtkChild
-    GtkCallback = _GtkCallback
-    GtkTemplate = _GtkTemplate
+   
+# Future shim support if this makes it into PyGI?
+#if hasattr(Gtk, 'GtkTemplate'):
+#    GtkTemplate = lambda c: c
+#else:
+GtkTemplate = _GtkTemplate
     

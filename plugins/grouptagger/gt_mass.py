@@ -28,7 +28,7 @@ from gi.repository import Gtk
 
 from xl.nls import gettext as _
 
-from xlgui.guiutil import GtkCallback, GtkChild, GtkTemplate
+from xlgui.guiutil import GtkTemplate
 from xlgui.widgets import dialogs
 
 import gt_common
@@ -43,8 +43,7 @@ class GtMassRename(Gtk.Window):
     replace,        \
     replace_entry,  \
     search_entry,   \
-    tracks_list     \
-        = GtkChild.widgets(6)
+    tracks_list     = GtkTemplate.Child.widgets(6)
     
     def __init__(self, exaile):
         Gtk.Window.__init__(self, transient_for=exaile.gui.main.window)
@@ -69,7 +68,7 @@ class GtMassRename(Gtk.Window):
         self.tracks_list.get_model().clear()
         self.replace.set_sensitive(False)
 
-    @GtkCallback
+    @GtkTemplate.Callback
     def on_find_clicked(self, widget):
         
         self.search_str = self.search_entry.get_text().strip()
@@ -115,7 +114,7 @@ class GtMassRename(Gtk.Window):
         
         self.replace.set_sensitive(len(model) != 0)
     
-    @GtkCallback
+    @GtkTemplate.Callback
     def on_replace_clicked(self, widget):
         
         tracks = [row[2] for row in self.tracks_list.get_model() if row[1]]

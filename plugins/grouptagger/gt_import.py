@@ -13,11 +13,7 @@ from xl.trax import search_tracks, TracksMatcher
 from xlgui.progress import ProgressManager
 from xlgui.widgets import dialogs
 
-from xlgui.guiutil import (
-    GtkCallback,
-    GtkChild,
-    GtkTemplate,
-)
+from xlgui.guiutil import GtkTemplate
 
 from gt_common import get_track_groups, set_track_groups
 
@@ -40,8 +36,7 @@ class GtImporter(Gtk.Window):
     tags_view,          \
     tags_vbox,          \
     radio_merge,        \
-    radio_replace       \
-        = GtkChild.widgets(7)
+    radio_replace       = GtkTemplate.Child.widgets(7)
     
     def __init__(self, exaile, uris):
         Gtk.Window.__init__(self, transient_for=exaile.gui.main.window)
@@ -135,7 +130,7 @@ class GtImporter(Gtk.Window):
     # Widget events
     #
     
-    @GtkCallback
+    @GtkTemplate.Callback
     def on_cancel_button_clicked(self, widget):
         
         if self.rescan_thread is not None:
@@ -147,11 +142,11 @@ class GtImporter(Gtk.Window):
         
         self.destroy()
     
-    @GtkCallback
+    @GtkTemplate.Callback
     def on_import_checkbox_toggled(self, cell, path):
         self.tags_model[path][0] = not cell.get_active()
     
-    @GtkCallback
+    @GtkTemplate.Callback
     def on_ok_button_clicked(self, widget):
         
         self.ok_button.set_sensitive(False)
@@ -165,7 +160,7 @@ class GtImporter(Gtk.Window):
         
         self.manager.add_monitor(self.update_thread, _("Updating groups"), Gtk.STOCK_CONVERT)
     
-    @GtkCallback
+    @GtkTemplate.Callback
     def on_window_destroy(self, widget):
         self.collection.close()
 

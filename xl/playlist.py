@@ -248,7 +248,7 @@ class FormatConverter(object):
         # TODO: Scan collection for tracks as last resort?? 
         
         if track_uri.startswith('file:///') and \
-                not Gio.File.new_for_uri(track_uri).query_exists():
+                not Gio.File.new_for_uri(track_uri).query_exists(None):
             
             if not playlist_uri.startswith('file:///'):
                 logging.debug('Track does not seem to exist, using original path')
@@ -273,7 +273,7 @@ class FormatConverter(object):
 
                 for uri in _iter_uris(playlist_uri, track_path):
                     logging.debug('Trying %s' % uri)
-                    if Gio.File.new_for_uri(uri).query_exists():
+                    if Gio.File.new_for_uri(uri).query_exists(None):
                         track_uri = uri
                         logging.debug('Track found at %s' % uri)
                         break

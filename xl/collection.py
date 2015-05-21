@@ -824,7 +824,7 @@ class Library(object):
                 common.log_exception(log=logger)
                 continue
 
-            if not gloc.query_exists():
+            if not gloc.query_exists(None):
                 removals.append(tr)
 
         for tr in removals:

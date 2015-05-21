@@ -265,7 +265,7 @@ class Track(object):
             Returns whether the file exists
             This can be very slow, use with caution!
         """
-        return Gio.File.new_for_uri(self.get_loc_for_io()).query_exists()
+        return Gio.File.new_for_uri(self.get_loc_for_io()).query_exists(None)
 
     def get_loc_for_io(self):
         """

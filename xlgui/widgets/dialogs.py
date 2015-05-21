@@ -1429,7 +1429,7 @@ class FileCopyDialog(Gtk.Dialog):
         
         
         if not overwrite:
-            if self.destination.query_exists():
+            if self.destination.query_exists(None):
                 if self.overwrite_response == XRESPONSE_YES_ALL:
                     overwrite = True
                     

@@ -52,12 +52,12 @@ class TestGetTracksFromUri(unittest.TestCase):
         elif file_type == 'd':
             file_type = Gio.FileType.DIRECTORY
         elif file_type == 'n':
-#            anything.query_exists().AndReturn(False)
+#            anything.query_exists(None).AndReturn(False)
 #            return anything
             pass
         else:
             raise NotImplementedError
-#        anything.query_exists().AndReturn(True)
+#        anything.query_exists(None).AndReturn(True)
         anything.query_info('standard::type').AndReturn(anything)
         anything.get_file_type().AndReturn(file_type)
         return anything

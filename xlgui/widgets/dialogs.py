@@ -137,14 +137,14 @@ class MultiTextEntryDialog(Gtk.Dialog):
 
 
         self.hbox = Gtk.HBox()
-        self.vbox.pack_start(self.hbox, True, True)
+        self.vbox.pack_start(self.hbox, True, True, 0)
         self.vbox.set_border_width(5)
         self.hbox.set_border_width(5)
         self.left = Gtk.VBox()
         self.right = Gtk.VBox()
 
-        self.hbox.pack_start(self.left, True, True)
-        self.hbox.pack_start(self.right, True, True)
+        self.hbox.pack_start(self.left, True, True, 0)
+        self.hbox.pack_start(self.right, True, True, 0)
 
         self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             Gtk.STOCK_OK, Gtk.ResponseType.OK)
@@ -162,13 +162,13 @@ class MultiTextEntryDialog(Gtk.Dialog):
         label = Gtk.Label(label=label)
         label.set_alignment(0, 0)
         label.set_padding(0, 5)
-        self.left.pack_start(label, False, False)
+        self.left.pack_start(label, False, False, 0)
 
         entry = Gtk.Entry()
         entry.set_width_chars(30)
         entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, False)
         entry.connect('activate', lambda *e: self.response(Gtk.ResponseType.OK))
-        self.right.pack_start(entry, True, True)
+        self.right.pack_start(entry, True, True, 0)
         label.show()
         entry.show()
 

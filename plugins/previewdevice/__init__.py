@@ -238,12 +238,12 @@ class SecondaryOutputPlugin(object):
         parent = info_area.get_parent()
         parent.remove(info_area)
 
-        parent.pack_start(self.pane, expand=False, fill=False)
+        parent.pack_start(self.pane, False, False, 0)
         parent.reorder_child(self.pane, 0)
 
         # stick the main player controls into this box
-        self.pane1_box.pack_start(info_area, expand=False, fill=False)
-        self.pane1_box.pack_start(play_toolbar, expand=False, fill=False)
+        self.pane1_box.pack_start(info_area, False, False, 0)
+        self.pane1_box.pack_start(play_toolbar, False, False, 0)
 
         # and do it
         self.pane.show_all()
@@ -280,9 +280,9 @@ class SecondaryOutputPlugin(object):
         parent.remove(self.pane)
 
         # reattach
-        parent.pack_start(info_area, expand=False, fill=False)
+        parent.pack_start(info_area, False, False, 0)
         parent.reorder_child(info_area, 0)
-        parent.pack_start(play_toolbar, expand=False, fill=False)
+        parent.pack_start(play_toolbar, False, False, 0)
 
         # remove player events
         self._setup_events(event.remove_callback)

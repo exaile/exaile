@@ -1085,7 +1085,7 @@ class CoverChooser(GObject.GObject):
         self.previews_box.set_model(self.covers_model)
 
         if db_strings:
-            self.cover_image_box.pack_start(self.cover, True, True)
+            self.cover_image_box.pack_start(self.cover, True, True, 0)
             self.cover.show()
             self.set_button.set_sensitive(True)
 

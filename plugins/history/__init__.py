@@ -181,7 +181,7 @@ class HistoryPlaylistPage( NotebookPage ):
         
         self.swindow = Gtk.ScrolledWindow()
         self.swindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-        self.pack_start(self.swindow, True, True)
+        self.pack_start(self.swindow, True, True, 0)
 
         self.view = PlaylistView(self.playlist, player)
         self.swindow.add(self.view)
@@ -199,7 +199,7 @@ class HistoryPlaylistPage( NotebookPage ):
         align = Gtk.Alignment.new(1, 0, 0, 0)
         align.add( hbox )
         
-        self.pack_start( align, False, False )
+        self.pack_start( align, False, False, 0 )
         
         self.show_all()
     

@@ -186,7 +186,7 @@ class JamendoPanel(panel.Panel):
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroll.add(self.treeview)
         scroll.set_shadow_type(Gtk.ShadowType.IN)
-        container.pack_start(scroll, True, True)
+        container.pack_start(scroll, True, True, 0)
         container.show_all()
 
         selection = self.treeview.get_selection()

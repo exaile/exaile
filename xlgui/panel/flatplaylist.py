@@ -86,7 +86,7 @@ class FlatPlaylistPanel(panel.Panel):
         self.scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.scroll.add(self.tree)
         self.scroll.set_shadow_type(Gtk.ShadowType.IN)
-        self.box.pack_start(self.scroll, True, True)
+        self.box.pack_start(self.scroll, True, True, 0)
 
         text = Gtk.CellRendererText()
         col = Gtk.TreeViewColumn(_('#'))

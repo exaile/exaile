@@ -120,7 +120,7 @@ class BPMWidget(Gtk.Frame):
         self.eventbox.add(self.bpm_label)
         self.eventbox.props.can_focus = True
         vbox.pack_start(self.eventbox, False, False, padding=h/2) # add some space
-        vbox.pack_start(self.apply_button, False, False)
+        vbox.pack_start(self.apply_button, False, False, 0)
         
         self.add(vbox)
         

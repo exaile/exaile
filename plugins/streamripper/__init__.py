@@ -120,7 +120,7 @@ class Button(Streamripper):
         self.button.set_image(image)
 
         toolbar = self.exaile.gui.play_toolbar
-        toolbar.pack_start(self.button, False, False)
+        toolbar.pack_start(self.button, False, False, 0)
         toolbar.reorder_child(self.button, 3)
 
         self.button.show()

@@ -597,7 +597,7 @@ class TagRow(object):
         self.clear_button.connect("clicked", self.clear)
 
         if not isinstance(field, PropertyField):
-            self.field.pack_start(self.clear_button, expand=False, fill=False)
+            self.field.pack_start(self.clear_button, False, False, 0)
 
         self.field.show_all()
 
@@ -615,14 +615,14 @@ class TagRow(object):
         if not self.tag.startswith('__') or self.multi_id != 0:
             if val and not self.remove_mode:
                 self.field.remove(self.clear_button)
-                self.field.pack_start(self.remove_button, expand=False, fill=False)
+                self.field.pack_start(self.remove_button, False, False, 0)
                 self.field.show_all()
                 self.remove_mode = True
 
             if not val and self.remove_mode:
                 self.field.remove(self.remove_button)
                 self.remove_mode = False
-                self.field.pack_start(self.clear_button, expand=False, fill=False)
+                self.field.pack_start(self.clear_button, False, False, 0)
                 self.field.show_all()
 
     def clear(self, w):
@@ -642,7 +642,7 @@ class TagField(Gtk.HBox):
         self.all_button = None
         if all_button:
             self.all_button = AllButton(self)
-            self.pack_start(self.all_button, expand=False, fill=False)
+            self.pack_start(self.all_button, False, False, 0)
 
     def grab_focus(self):
         """
@@ -691,7 +691,7 @@ class TagTextField(Gtk.HBox):
         self.all_button = None
         if all_button:
             self.all_button = AllButton(self)
-            self.pack_start(self.all_button, expand=False, fill=False)
+            self.pack_start(self.all_button, False, False, 0)
 
     def register_parent_row(self, parent_row):
         self.parent_row = parent_row
@@ -743,7 +743,7 @@ class TagNumField(Gtk.HBox):
         self.all_button = None
         if all_button:
             self.all_button = AllButton(self)
-            self.pack_start(self.all_button, expand=False, fill=False)
+            self.pack_start(self.all_button, False, False, 0)
 
     def register_parent_row(self, parent_row):
         self.parent_row = parent_row
@@ -799,11 +799,11 @@ class TagDblNumField(Gtk.HBox):
 
         self.pack_start(self.field[0], True, True, 0)
         if all_button and self.all_button[0] != None:
-            self.pack_start(self.all_button[0], expand=False, fill=False)
+            self.pack_start(self.all_button[0], False, False, 0)
         self.pack_start(lbl, True, True, 0)
         self.pack_start(self.field[1], True, True, 0)
         if all_button:
-            self.pack_start(self.all_button[1], expand=False, fill=False)
+            self.pack_start(self.all_button[1], False, False, 0)
 
     def grab_focus(self):
         """
@@ -926,7 +926,7 @@ class TagImageField(Gtk.HBox):
         self.all_button = None
         if all_button:
             self.all_button = AllButton(self)
-            self.pack_start(self.all_button, expand=False, fill=False)
+            self.pack_start(self.all_button, False, False, 0)
 
     def grab_focus(self):
         """
@@ -1127,7 +1127,7 @@ class PropertyField(Gtk.HBox):
             self.folder_button.set_tooltip_text(_('Open Directory'))
             self.folder_button.set_image(Gtk.Image.new_from_stock(
                 Gtk.STOCK_OPEN, Gtk.IconSize.BUTTON))
-            self.pack_start(self.folder_button, expand=False, fill=False)
+            self.pack_start(self.folder_button, False, False, 0)
             self.folder_button.connect("clicked", self.folder_button_clicked)
 
     def register_parent_row(self, parent_row):

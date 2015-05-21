@@ -709,20 +709,16 @@ class Statusbar(object):
         self.info_label = Gtk.Label()
         self.info_label.props.xpad = 3
 
-        frame = self.status_bar.get_children()[0]
-        box = frame.get_children()[0]
+        box = self.status_bar.get_message_area()
 
-        try:
-            box.pack_start(self.info_label, False, True, 0)
-        except AttributeError: # GTK < 2.20, thus box is the original label
-            frame.remove(frame.get_children()[0])
-            frame.add(self.info_label)
+        box.pack_end(self.info_label, False, True, 0)
 
         self.context_id = self.status_bar.get_context_id('status')
         self.message_ids = []
 
-        self.status_bar.set_app_paintable(True)
-        self.status_bar.connect('draw', self.on_draw)
+        # TODO: GI
+        #self.status_bar.set_app_paintable(True)
+        #self.status_bar.connect('draw', self.on_draw)
 
     def set_status(self, status, timeout=0):
         """

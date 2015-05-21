@@ -132,9 +132,9 @@ def import_playlist(path):
     # First try the cheap Gio way
     content_type = Gio.content_type_guess(path)
 
-    if not Gio.content_type_is_unknown(content_type):
+    if not Gio.content_type_is_unknown(content_type[0]):
         for provider in providers.get('playlist-format-converter'):
-            if content_type in provider.content_types:
+            if content_type[0] in provider.content_types:
                 return provider.import_from_file(path)
 
     # Next try to extract the file extension via URL parsing

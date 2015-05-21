@@ -42,6 +42,8 @@ from xl.common import clamp
 from xl.nls import gettext as _
 from xlgui.widgets import menu
 
+from xlgui.guiutil import GtkTemplate
+
 class ProgressBarFormatter(formatter.ProgressTextFormatter):
     """
         A formatter for progress bars
@@ -1241,32 +1243,28 @@ def __create_marker_context_menu():
         providers.register('playback-marker-context-menu', item)
 __create_marker_context_menu()
 
-class VolumeControl(Gtk.Alignment):
+@GtkTemplate('ui', 'widgets', 'volume_control.ui')
+class VolumeControl(Gtk.Box):
     """
         Encapsulates a button and a slider to
         control the volume indicating the current
         status via icon and tooltip
     """
+    
+    __gtype_name__ = 'VolumeControl'
+    
+    button,             \
+    slider,             \
+    button_image,       \
+    slider_adjustment   = GtkTemplate.Child.widgets(4)
+    
     def __init__(self, player):
+        Gtk.Box.__init__(self)
+        self.init_template()
+        
         self.__volume_setting = '%s/volume' % player._name
-        Gtk.Alignment.__init__(self, xalign=1)
-
         self.restore_volume = settings.get_option(self.__volume_setting, 1)
         self.icon_names = ['low', 'medium', 'high']
-
-        builder = Gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui', 'widgets',
-            'volume_control.ui'))
-        builder.connect_signals(self)
-
-        box = builder.get_object('volume_control')
-        box.reparent(self)
-
-        self.button = builder.get_object('button')
-        self.button.add_events(Gdk.EventMask.KEY_PRESS_MASK)
-        self.button_image = builder.get_object('button_image')
-        self.slider = builder.get_object('slider')
-        self.slider_adjustment = builder.get_object('slider_adjustment')
         self.__update(self.restore_volume)
 
         event.add_callback(self.on_option_set, '%s_option_set' % player._name)
@@ -1295,6 +1293,7 @@ class VolumeControl(Gtk.Alignment):
         self.slider.set_value(volume)
         self.slider.set_tooltip_text(tooltip)
 
+    @GtkTemplate.Callback
     def on_scroll_event(self, widget, event):
         """
             Changes the volume on scrolling
@@ -1324,6 +1323,7 @@ class VolumeControl(Gtk.Alignment):
 
         return False
 
+    @GtkTemplate.Callback
     def on_button_toggled(self, button):
         """
             Mutes or unmutes the volume
@@ -1337,19 +1337,21 @@ class VolumeControl(Gtk.Alignment):
         if self.restore_volume > 0:
             settings.set_option(self.__volume_setting, volume)
 
+    @GtkTemplate.Callback
     def on_slider_value_changed(self, slider):
         """
             Stores the preferred volume
         """
         settings.set_option(self.__volume_setting, slider.get_value())
 
+    @GtkTemplate.Callback
     def on_slider_key_press_event(self, slider, event):
         """
             Changes the volume on key press
             while the slider is focussed
         """
-        page_increment = slider.get_adjustment().page_increment
-        step_increment = slider.get_adjustment().step_increment
+        page_increment = slider.get_adjustment().props.page_increment
+        step_increment = slider.get_adjustment().props.step_increment
         value = slider.get_value()
 
         if event.keyval == Gdk.KEY_Down:

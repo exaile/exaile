@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 
 class UnifiedPlayer(_base.ExailePlayer):
     def __init__(self, name):
-        Gst.init()
+        Gst.init(None)
         self.caps = None
         self.adder = None
         self.audio_queue = None

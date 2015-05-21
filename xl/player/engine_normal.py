@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 
 class NormalPlayer(_base.ExailePlayer):
     def __init__(self, name):
-        Gst.init()
+        Gst.init(None)
         self._last_position = 0
         self._current = None
         self._buffered_track = None

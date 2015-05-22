@@ -53,9 +53,9 @@ class PyConsole(Gtk.Window):
         tv.set_wrap_mode(Gtk.WrapMode.WORD)
 
         hbox = Gtk.HBox(False, 6)
-        vbox.pack_start(hbox, False)
+        vbox.pack_start(hbox, False, True, 0)
         label = Gtk.Label(label='>>>')
-        hbox.pack_start(label, False)
+        hbox.pack_start(label, False, True, 0)
         self.entry = entry = Gtk.Entry()
         hbox.pack_start(entry, True, True, 0)
         entry.connect('activate', self.entry_activated)
@@ -93,7 +93,7 @@ class PyConsole(Gtk.Window):
         result = '>>> %s\n%s' % (code, result)
         self.text_buffer.insert(self.text_buffer.get_end_iter(), result)
         # Can't use iter; won't scroll correctly.
-        self.text_view.scroll_to_mark(self.end_mark, 0)
+        self.text_view.scroll_to_mark(self.end_mark, 0, False, 0.5, 0.5)
         self.entry.grab_focus()
 
 PLUGIN = None

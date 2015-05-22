@@ -1262,6 +1262,8 @@ class VolumeControl(Gtk.Box):
         Gtk.Box.__init__(self)
         self.init_template()
         
+        self.button.add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.SCROLL_MASK)
+        
         self.__volume_setting = '%s/volume' % player._name
         self.restore_volume = settings.get_option(self.__volume_setting, 1)
         self.icon_names = ['low', 'medium', 'high']

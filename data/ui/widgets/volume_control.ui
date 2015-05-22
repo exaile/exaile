@@ -15,7 +15,7 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
-        <property name="events">GDK_KEY_PRESS_MASK | GDK_STRUCTURE_MASK</property>
+        <property name="events">GDK_KEY_PRESS_MASK | GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
         <property name="relief">none</property>
         <property name="focus_on_click">False</property>
         <signal name="scroll-event" handler="on_scroll_event" swapped="no"/>
@@ -42,6 +42,7 @@
         <property name="adjustment">slider_adjustment</property>
         <property name="draw_value">False</property>
         <signal name="key-press-event" handler="on_slider_key_press_event" swapped="no"/>
+        <signal name="scroll-event" handler="on_scroll_event" swapped="no"/>
         <signal name="value-changed" handler="on_slider_value_changed" swapped="no"/>
       </object>
       <packing>

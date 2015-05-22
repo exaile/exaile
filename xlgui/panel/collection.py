@@ -738,6 +738,9 @@ class CollectionDragTreeView(DragTreeView):
         """
         model, paths = self.get_selection().get_selected_rows()
         tracks = []
+        
+        if len(paths) == 0:
+            return tracks
 
         for path in paths:
             iter = model.get_iter(path)

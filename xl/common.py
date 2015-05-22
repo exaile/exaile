@@ -320,11 +320,11 @@ def open_file(path):
     else:
         subprocess.Popen(["xdg-open", path])
 
-def open_file_directory(path):
+def open_file_directory(path_or_uri):
     """
         Opens the parent directory of a file, selecting the file if possible.
     """
-    f = Gio.File.new_for_uri(path)
+    f = Gio.File.new_for_commandline_arg(path_or_uri)
     platform = sys.platform
     if platform == 'win32':
         # Normally we can just run `explorer /select, filename`, but Python 2

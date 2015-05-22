@@ -1144,7 +1144,7 @@ class PlaylistView(AutoScrollTreeView, providers.ProviderHandler):
         self.set_drag_dest_row(path, position)
 
         action = Gdk.DragAction.MOVE
-        x, y, modifier = self.window.get_pointer()
+        x, y, modifier = self.get_window().get_pointer()
         target = self.drag_dest_find_target(context, self.drag_dest_get_target_list())
 
         if target == 'text/uri-list' or \

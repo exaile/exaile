@@ -104,11 +104,11 @@ def is_valid_playlist(path):
         :param path: the source path
         :type path: string
     """
-    content_type = Gio.content_type_guess(path)
+    content_type = Gio.content_type_guess(path)[0]
 
-    if not Gio.content_type_is_unknown(content_type[0]):
+    if not Gio.content_type_is_unknown(content_type):
         for provider in providers.get('playlist-format-converter'):
-            if content_type[0] in provider.content_types:
+            if content_type in provider.content_types:
                 return True
 
     file_extension = path.split('.')[-1]
@@ -130,7 +130,7 @@ def import_playlist(path):
         :rtype: :class:`Playlist`
     """
     # First try the cheap Gio way
-    content_type = Gio.content_type_guess(path)
+    content_type = Gio.content_type_guess(path)[0]
 
     if not Gio.content_type_is_unknown(content_type):
         for provider in providers.get('playlist-format-converter'):
@@ -374,10 +374,10 @@ class M3UConverter(FormatConverter):
         lineno = 0
 
         logger.debug('Importing M3U playlist: %s' % path)
-        
-        with closing(Gio.DataInputStream(Gio.File.new_for_uri(path).read())) as stream:
+
+        with closing(Gio.DataInputStream.new(Gio.File.new_for_uri(path).read())) as stream:
             while True:
-                line = stream.read_line()
+                line = stream.read_line()[0]
                 lineno += 1
 
                 if not line:
@@ -494,7 +494,7 @@ class PLSConverter(FormatConverter):
         logger.debug('Importing PLS playlist: %s' % path)
 
         try:
-            with closing(Gio.DataInputStream(gfile.read())) as stream:
+            with closing(Gio.DataInputStream.new(gfile.read())) as stream:
                 # RawConfigParser.readfp() requires fp.readline()
                 stream.readline = stream.read_line
                 pls_playlist.readfp(stream)
@@ -502,9 +502,9 @@ class PLSConverter(FormatConverter):
             # Most likely version 1, thus only a list of URIs
             playlist = Playlist(self.name_from_path(path))
 
-            with closing(Gio.DataInputStream(gfile.read())) as stream:
+            with closing(Gio.DataInputStream.new(gfile.read())) as stream:
                 while True:
-                    line = stream.read_line()
+                    line = stream.read_line()[0]
 
                     if not line:
                         break
@@ -654,10 +654,10 @@ class ASXConverter(FormatConverter):
         from xml.etree.cElementTree import XMLParser
 
         playlist = Playlist(self.name_from_path(path))
-        
+
         logger.debug('Importing ASX playlist: %s' % path)
 
-        with closing(Gio.DataInputStream(Gio.File.new_for_uri(path).read())) as stream:
+        with closing(Gio.DataInputStream.new(Gio.File.new_for_uri(path).read())) as stream:
             parser = XMLParser(target=self.ASXPlaylistParser())
             parser.feed(stream.read())
 
@@ -837,10 +837,11 @@ class XSPFConverter(FormatConverter):
         import xml.etree.cElementTree as ETree
 
         playlist = Playlist(name=self.name_from_path(path))
+
         
         logger.debug('Importing XSPF playlist: %s' % path)
 
-        with closing(Gio.DataInputStream(Gio.File.new_for_uri(path).read())) as stream:
+        with closing(Gio.DataInputStream.new(Gio.File.new_for_uri(path).read())) as stream:
             tree = ETree.ElementTree(file=stream)
             ns = "{http://xspf.org/ns/0/}"
             nodes = tree.find("%strackList" % ns).findall("%strack" % ns)

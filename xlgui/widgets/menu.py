@@ -207,6 +207,7 @@ class Menu(Gtk.Menu):
         self.connect('show', lambda *e: self.regenerate_menu())
         # GTK gets unhappy if we remove the menu items before it's done with them.
         self.connect('hide', lambda *e: GLib.idle_add(self.clear_menu))
+        # Placeholder exists to make sure unity doesn't get confused (legacy?)
         self.placeholder = Gtk.MenuItem.new_with_label('')
 
     def get_context(self):
@@ -271,13 +272,13 @@ class Menu(Gtk.Menu):
             method of all menu items
         """
         context = self.get_context()
+        if self.placeholder in self.get_children():
+            self.remove(self.placeholder)
         for item in self._items:
             subitem = item.factory(self, self._parent, context)
             if subitem is not None:
                 self.append(subitem)
         self.show_all()
-        if self.placeholder in self.get_children():
-            self.remove(self.placeholder)
 
     def popup(self, *args):
         """

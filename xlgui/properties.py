@@ -1140,8 +1140,8 @@ class PropertyField(Gtk.HBox):
             except (TypeError, ValueError):
                 pass
         elif self.property_type == 'timestamp':
-            d = GLib.DateTime.new_from_timeval_local(val)
-            val = d.format("%c")
+            d = datetime.datetime.fromtimestamp(val)
+            val = d.strftime("%x %X")
         elif self.property_type == 'time':
             val = "%(m)d:%(s)02d" % {'m': val // 60, 's': val % 60}
         elif self.property_type == 'location':

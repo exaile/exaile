@@ -715,6 +715,7 @@ class Library(object):
         if not uri: # we get segfaults if this check is removed
             return None
         mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
+        mtime = mtime.tv_sec + (mtime.tv_usec/100000.0)
         tr = self.collection.get_track_by_loc(uri)
         if tr:
             if force_update or tr.get_tag_raw('__modified') < mtime:

@@ -366,6 +366,7 @@ class Track(object):
             # fill out file specific items
             gloc = Gio.File.new_for_uri(self.get_loc_for_io())
             mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
+            mtime = mtime.tv_sec + (mtime.tv_usec/100000.0)
             self.set_tag_raw('__modified', mtime)
             # TODO: this probably breaks on non-local files
             path = gloc.get_parent().get_path()

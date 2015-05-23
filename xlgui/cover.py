@@ -817,8 +817,8 @@ class CoverWindow(object):
         self.cover_window.set_title(title)
         self.cover_window.set_transient_for(parent)
         self.cover_window_width = 500
-        self.cover_window_height = 500 + self.toolbar.size_request()[1] + \
-                                   self.statusbar.size_request()[1]
+        self.cover_window_height = 500 + self.toolbar.size_request().height + \
+                                   self.statusbar.size_request().height
         self.cover_window.set_default_size(self.cover_window_width, \
                                            self.cover_window_height)
 
@@ -842,8 +842,8 @@ class CoverWindow(object):
     def available_image_height(self):
         """Returns the available vertical space for the image"""
         return self.cover_window.get_size()[1] - \
-               self.toolbar.size_request()[1] - \
-               self.statusbar.size_request()[1]
+               self.toolbar.size_request().height - \
+               self.statusbar.size_request().height
 
     def center_image(self):
         """Centers the image in the layout"""
@@ -855,8 +855,9 @@ class CoverWindow(object):
 
     def update_widgets(self):
         """Updates image, layout, scrolled window, tool bar and status bar"""
-        if self.cover_window.window:
-            self.cover_window.window.freeze_updates()
+        window = self.cover_window.get_window()
+        if window:
+            window.freeze_updates()
         self.apply_zoom()
         self.layout.set_size(self.image_pixbuf.get_width(), \
                              self.image_pixbuf.get_height())
@@ -877,8 +878,8 @@ class CoverWindow(object):
         self.statusbar.push(self.statusbar.get_context_id(''), message)
         self.image.set_from_pixbuf(self.image_pixbuf)
         self.center_image()
-        if self.cover_window.window:
-            self.cover_window.window.thaw_updates()
+        if window:
+            window.thaw_updates()
 
     def apply_zoom(self):
         """Scales the image if needed"""

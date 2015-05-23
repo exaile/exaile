@@ -30,7 +30,7 @@ class CellRendererDays(Gtk.CellRendererText):
     property_names = __gproperties__.keys()
 
     def __init__(self):
-        self.__gobject_init__()
+        Gtk.CellRendererText.__init__(self)
         self.model = Gtk.ListStore(bool, str)
         self.view = None
         self.view_window = None
@@ -100,9 +100,9 @@ class CellRendererDays(Gtk.CellRendererText):
 
 
         # position the popup below the edited cell (and try hard to keep the popup within the toplevel window)
-        (tree_x, tree_y) = treeview.get_bin_window().get_origin()
-        (tree_w, tree_h) = treeview.window.get_geometry()[2:4]
-        (my_w, my_h) = self.view_window.window.get_geometry()[2:4]
+        (tree_x, tree_y) = treeview.get_bin_window().get_origin()[1:]
+        (tree_w, tree_h) = treeview.get_window().get_geometry()[2:4]
+        (my_w, my_h) = self.view_window.get_window().get_geometry()[2:4]
         x = tree_x + min(cell_area.x, tree_w - my_w + treeview.get_visible_rect().x)
         y = tree_y + min(cell_area.y, tree_h - my_h + treeview.get_visible_rect().y)
         self.view_window.move(x, y)

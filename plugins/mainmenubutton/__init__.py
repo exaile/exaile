@@ -26,16 +26,10 @@ def enable(exaile):
     """
         Enables the plugin
     """
-    try:
-        Gtk.Notebook.get_action_widget
-    except AttributeError:
-        raise NotImplementedError(_('This plugin needs at least '
-                                    'PyGTK 2.22 and GTK 2.20.'))
+    if exaile.loading:
+        event.add_callback(on_gui_loaded, 'gui_loaded')
     else:
-        if exaile.loading:
-            event.add_callback(on_gui_loaded, 'gui_loaded')
-        else:
-            on_gui_loaded()
+        on_gui_loaded()
 
 def disable(exaile):
     """
@@ -58,7 +52,7 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
     __gsignals__ = {}
     
     name = 'main-menu'
-    position = Gtk.PackType.PACK_START
+    position = Gtk.PackType.START
 
     def __init__(self, panel_notebook):
         """
@@ -104,12 +98,13 @@ class MainMenuButton(Gtk.ToggleButton, notebook.NotebookAction):
         self.unparent()
         Gtk.Button.destroy(self)
 
-    def get_menu_position(self, menu):
+    def get_menu_position(self, menu, unknown):
         """
             Positions the menu at the right of the button
         """
         # Origin includes window position and decorations
-        x, y = self.props.window.get_origin()
+        _, x, y = self.props.window.get_origin()
+        
         allocation = self.get_allocation()
 
         return (

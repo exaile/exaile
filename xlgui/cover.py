@@ -959,7 +959,7 @@ class CoverWindow(object):
         """
             Hides the window
         """
-        self.cover_window.hide_all()
+        self.cover_window.hide()
 
     def cover_window_size_allocate(self, widget, allocation):
         if self.cover_window_width != allocation.width or \

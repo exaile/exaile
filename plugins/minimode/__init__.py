@@ -164,7 +164,7 @@ class MiniMode(Gtk.Window):
             self.exaile_window.hide()
             self.show_all()
         elif not active and self.props.visible:
-            self.hide_all()
+            self.hide()
             self.exaile_window.show()
 
         self.__active = active
@@ -294,7 +294,7 @@ class MiniMode(Gtk.Window):
         """
         if self.__active:
             if self.props.visible:
-                self.hide_all()
+                self.hide()
             else:
                 self.show_all()
 
@@ -315,7 +315,7 @@ class MiniMode(Gtk.Window):
                 self.mainbutton_alignment.set_no_show_all(False)
                 self.mainbutton_alignment.show_all()
             else:
-                self.mainbutton_alignment.hide_all()
+                self.mainbutton_alignment.hide()
                 self.mainbutton_alignment.set_no_show_all(True)
 
 # vim: et sts=4 sw=4

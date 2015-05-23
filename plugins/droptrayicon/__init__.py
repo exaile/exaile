@@ -186,7 +186,7 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         if visible:
             self.show_all()
         else:
-            self.hide_all()
+            self.hide()
 
     def get_menu_position(self, menu, icon):
         """

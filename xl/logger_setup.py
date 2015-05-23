@@ -28,7 +28,7 @@
 
 import logging
 import logging.handlers
-import pprint
+from pprint import PrettyPrinter
 import os.path
 
 __all__ = ['start_logging', 'stop_logging']
@@ -62,6 +62,15 @@ class FilterLogger(logging.Logger):
         self.addFilter(log_filter)
 
 
+class SafePrettyPrinter(PrettyPrinter):
+    
+    def _repr(self, *args, **kwargs):
+        try:
+            return PrettyPrinter._repr(self, *args, **kwargs)
+        except Exception as e:
+            return "!! Cannot format: %s" % e
+
+
 class VerboseExceptionFormatter(logging.Formatter):
     '''
         Taken from http://word.bitly.com/post/69080588278/logging-locals
@@ -69,6 +78,7 @@ class VerboseExceptionFormatter(logging.Formatter):
  
     def __init__(self, log_locals_on_exception=True, *args, **kwargs):
         self._log_locals = log_locals_on_exception
+        self._printer = SafePrettyPrinter(indent=2)
         super(VerboseExceptionFormatter, self).__init__(*args, **kwargs)
  
     def formatException(self, exc_info):
@@ -82,7 +92,8 @@ class VerboseExceptionFormatter(logging.Formatter):
         while tb.tb_next:
             tb = tb.tb_next  # Zoom to the innermost frame.
         output_lines.append('Locals at innermost frame:\n')
-        locals_text = pprint.pformat(tb.tb_frame.f_locals, indent=2)
+        locals_text = self._printer.pformat(tb.tb_frame.f_locals)
+            
         locals_lines = locals_text.split('\n')
         if len(locals_lines) > MAX_VARS_LINES:
             locals_lines = locals_lines[:MAX_VARS_LINES]

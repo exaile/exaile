@@ -30,6 +30,7 @@ import logging
 import logging.handlers
 from pprint import PrettyPrinter
 import os.path
+import sys
 
 __all__ = ['start_logging', 'stop_logging']
 
@@ -169,6 +170,14 @@ def start_logging(debug, quiet, debugthreads,
     logfile.setFormatter(fmt_class(fmt=file_format,
                                    datefmt=datefmt))
     logging.root.addHandler(logfile)
+    
+    # GTK3 supports sys.excepthook
+    if debug:
+        logger = logging.getLogger('gtk')
+        def log_unhandled_exception(*args):
+            logger.error("Unhandled exception", exc_info=args)
+            
+        sys.excepthook = log_unhandled_exception
 
 def stop_logging():
     logging.shutdown()

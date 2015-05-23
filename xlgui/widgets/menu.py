@@ -120,6 +120,7 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
                 break
         else:
             index = None
+        
         if index is not None:
             try:
                 group_parent = menu.get_children()[index]
@@ -127,12 +128,16 @@ def radio_menu_item(name, after, display_name, groupname, selected_func,
                     group_parent = None
             except IndexError:
                 group_parent = None
+        
+        if group_parent:
+            group = group_parent.get_group()
+        else:
+            group = None
 
-        item = Gtk.RadioMenuItem.new_with_mnemonic(None, display_name)
+        item = Gtk.RadioMenuItem.new_with_mnemonic(group, display_name)
         active = selected_func(name, parent, context)
         item.set_active(active)
-        if group_parent:
-            item.set_group(group_parent.get_group())
+        
         item.connect('activate', callback, name, parent, context)
         return item
     return RadioMenuItem(name, factory, after=after, groupname=groupname)

@@ -110,6 +110,11 @@ def start_logging(debug, quiet, debugthreads,
     
     if debugthreads:
         console_format = "%(threadName)s:" + console_format
+    else:
+        logging.logThreads = 0
+
+    logging.logMultiprocessing = 0
+    logging.logProcesses = 0
 
     if debug:
         file_loglevel = logging.DEBUG

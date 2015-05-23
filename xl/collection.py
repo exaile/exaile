@@ -545,7 +545,7 @@ class Library(object):
         """
         self.location = location
         self.scan_interval = scan_interval
-        self.scan_id = 0
+        self.scan_id = None
         self.scanning = False
         self._startup_scan = startup_scan
         self.monitor = LibraryMonitor(self)
@@ -609,14 +609,12 @@ class Library(object):
             :param interval: scan interval in seconds
             :type interval: int
         """
-        if not interval:
-            if self.scan_id:
-                GLib.source_remove(self.scan_id)
-                self.scan_id = 0
-        else:
-            if self.scan_id:
-                GLib.source_remove(self.scan_id)
-
+        
+        if self.scan_id:
+            GLib.source_remove(self.scan_id)
+            self.scan_id = None
+        
+        if interval:
             self.scan_id = GLib.timeout_add_seconds(interval, self.rescan)
 
         self.scan_interval = interval
@@ -740,7 +738,7 @@ class Library(object):
             to the Collection
         """
         # TODO: use gio's cancellable support
-
+        
         if self.collection is None:
             return True
 

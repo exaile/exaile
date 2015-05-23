@@ -143,6 +143,7 @@ class ExaileAwn(object):
             raise InvalidOverlayOption(self.overlay)
 
     def update_timer(self, *args, **kwargs):
+        self.timer_id = None
         if self.exaile is None:
             return False
         if player.PLAYER is None:

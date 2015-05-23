@@ -274,6 +274,7 @@ class SearchEntry(object):
         """
             Emit the activate signal
         """
+        self.change_id = None
         if self.entry.get_text() != self._last_text:
             self.entry.activate()
 

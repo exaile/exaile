@@ -104,6 +104,7 @@ class Shutdown():
         """
             Tries to shutdown the computer
         """
+        self.countdown = None
         if self.counter > 0:
             self.message.set_secondary_text(
                 _('The computer will be shut down in %d seconds.') % self.counter)

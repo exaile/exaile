@@ -302,6 +302,7 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
             Shows the drop target
         """
+        self._drag_motion_id = None
         self.update_drop_target_window_location()
         self.drop_target_window.show()
 
@@ -324,6 +325,7 @@ class DropTrayIcon(EggTrayIcon, BaseTrayIcon):
         """
             Hides the drop target
         """
+        self._drag_leave_id = None
         self.drop_target_window.hide()
 
     def on_drag_data_received(self, widget, context, x, y, selection, info, time):

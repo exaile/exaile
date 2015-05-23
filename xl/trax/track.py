@@ -79,11 +79,12 @@ class _MetadataCacher(object):
         self._cache = []
         self.timeout = timeout
         self.maxentries = maxentries
-        self._cleanup_id = 0
+        self._cleanup_id = None
 
     def __cleanup(self):
         if self._cleanup_id:
             GLib.source_remove(self._cleanup_id)
+            self._cleanup_id = None
         current = time.time()
         thresh = current - self.timeout
         for item in self._cache[:]:

@@ -93,6 +93,7 @@ class Alarmclock(object):
         nothing.  If the current time matches the time specified, it starts
         playing
         """
+        self.timer_id=None
         self.hour=int(settings.get_option('plugin/alarmclock/hour', 15))
         self.minuts=int(settings.get_option('plugin/alarmclock/minuts', 20))
         self.volume_control.load_settings()
@@ -132,3 +133,4 @@ class Alarmclock(object):
 
     def disable_alarm(self):
         GLib.source_remove(self.timer_id)
+        self.timer_id = None

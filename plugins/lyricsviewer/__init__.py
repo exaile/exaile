@@ -352,20 +352,15 @@ class LyricsViewer(object):
             self._panel = NotebookPage(self.lyrics_panel, _('Lyrics'))
         return self._panel
 
-class LyricsMethodsComboBox(Gtk.ComboBox, providers.ProviderHandler):
+class LyricsMethodsComboBox(Gtk.ComboBoxText, providers.ProviderHandler):
     """
         An extended Gtk.ComboBox class.
         Shows lyrics methods search registered
     """
     def __init__(self, exaile):
-        Gtk.ComboBox.__init__(self)
+        Gtk.ComboBoxText.__init__(self)
         providers.ProviderHandler.__init__(self, 'lyrics')
-
-        liststore = Gtk.ListStore(str)
-        self.set_model(liststore)
-        cell = Gtk.CellRendererText()
-        self.pack_start(cell, True)
-        self.add_attribute(cell, 'text', 0)
+        
         self.model = self.get_model()
         # Default value, any registered lyrics provider
         self.append_text(_("Any"))
@@ -397,11 +392,7 @@ class LyricsMethodsComboBox(Gtk.ComboBox, providers.ProviderHandler):
         return False
 
     def get_active_item(self):
-        active = self.get_active()
-        if active >= 0:
-            return (active, self.model[active][0])
-        else:
-            return (None, None)
+        return self.get_active(), self.get_active_text()
 
     def on_provider_added(self, provider):
         self.append_item(provider.display_name)

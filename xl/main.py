@@ -31,15 +31,12 @@
 #
 # Also takes care of parsing commandline options.
 
-import errno
-import logging
-import logging.handlers
 import os
 import platform
 import sys
 import threading
 
-from xl import common, xdg
+from xl import logger_setup
 from xl.nls import gettext as _
 
 # Imported later to avoid PyGObject imports just for --help.
@@ -119,12 +116,17 @@ class Exaile(object):
             self.options.Debug = True
 
         try:
-            self.setup_logging()
+            logger_setup.start_logging(self.options.Debug,
+                                       self.options.Quiet,
+                                       self.options.DebugThreads,
+                                       self.options.ModuleFilter,
+                                       self.options.LevelFilter)
         except OSError, e:
             print >> sys.stderr, 'ERROR: could not setup logging: %s' % str(e)
             return
         
         global logger
+        import logging
         logger = logging.getLogger(__name__)
 
         # Late import ensures xl.event uses correct logger
@@ -366,90 +368,6 @@ class Exaile(object):
 
         splash = Splash()
         splash.show()
-
-    def setup_logging(self):
-        console_format = "%(levelname)-8s: %(message)s"
-        loglevel = logging.INFO
-
-        if self.options.DebugThreads:
-            console_format = "%(threadName)s:" + console_format
-
-        if self.options.Debug:
-            loglevel = logging.DEBUG
-            console_format = "%(asctime)s,%(msecs)3d:" + console_format
-            console_format += " (%(name)s)" # add module name
-        elif self.options.Quiet:
-            loglevel = logging.WARNING
-
-        # Logfile level should always be INFO or higher
-        if self.options.Quiet:
-            logfilelevel = logging.INFO
-        else:
-            logfilelevel = loglevel
-
-        datefmt = "%H:%M:%S"
-
-        # Logging to terminal
-        logging.basicConfig(level=loglevel, format=console_format,
-                datefmt=datefmt)
-
-        class FilterLogger(logging.Logger):
-            class Filter(logging.Filter):
-                def filter(self, record):
-                    pass_record = True
-
-                    if FilterLogger.module is not None:
-                        pass_record = record.name == self.module
-
-                    if FilterLogger.level != logging.NOTSET and pass_record:
-                        pass_record = record.levelno == self.level
-
-                    return pass_record
-
-            module = None
-            level = logging.NOTSET
-
-            def __init__(self, name):
-                logging.Logger.__init__(self, name)
-
-                log_filter = self.Filter(name)
-                log_filter.module = FilterLogger.module
-                log_filter.level = FilterLogger.level
-                self.addFilter(log_filter)
-
-        FilterLogger.module = self.options.ModuleFilter
-        if self.options.LevelFilter is not None:
-            FilterLogger.level = getattr(logging, self.options.LevelFilter)
-        logging.setLoggerClass(FilterLogger)
-
-        # Create log directory
-        logdir = os.path.join(xdg.get_data_dir(), 'logs')
-        if not os.path.exists(logdir):
-            os.makedirs(logdir)
-
-        # Try to migrate logs from old location
-        from glob import glob
-        logfiles = glob(os.path.join(xdg.get_config_dir(), 'exaile.log*'))
-        for logfile in logfiles:
-            try:
-                # Try to move to new location
-                os.rename(logfile, os.path.join(logdir,
-                    os.path.basename(logfile)))
-            except OSError:
-                # Give up and simply remove
-                os.remove(logfile)
-
-        # Logging to file; this also automatically rotates the logs
-        logfile = logging.handlers.RotatingFileHandler(
-                os.path.join(logdir, 'exaile.log'),
-                mode='a', backupCount=5)
-        logfile.doRollover() # each session gets its own file
-        logfile.setLevel(logfilelevel)
-        formatter = logging.Formatter(
-                '%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
-                datefmt=datefmt)
-        logfile.setFormatter(formatter)
-        logging.getLogger("").addHandler(logfile)
 
     def get_options(self, unicode_bug_happened=False):
         """
@@ -801,7 +719,7 @@ class Exaile(object):
             os.execl(python, python, *sys.argv)
 
         logger.info("Bye!")
-        logging.shutdown()
+        logger_setup.stop_logging()
         sys.exit(0)
 
 def exaile():

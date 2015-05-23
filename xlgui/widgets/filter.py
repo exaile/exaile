@@ -32,7 +32,7 @@ They resemble the configuration dialogs of Evolution's mail filters
 and Rhythmbox's automatic playlists.
 """
 
-from gi.repository import GObject
+from gi.types import GObjectMeta
 from gi.repository import Gtk
 import urllib
 
@@ -65,7 +65,7 @@ class FilterDialog(Gtk.Dialog):
         top.pack_start(Gtk.Label(_("Name:")), False, True, 0)
         self.name_entry = Gtk.Entry()
         top.pack_start(self.name_entry, True, True, 0)
-        self.vbox.pack_start(top, False)
+        self.vbox.pack_start(top, False, True, 0)
         top.show_all()
 
         self.filter = f = FilterWidget(sorted(criteria, key=lambda k: _(k[0])))
@@ -89,23 +89,24 @@ class FilterDialog(Gtk.Dialog):
         align = Gtk.Alignment.new(1, 0, 0, 0)
         align.add(btn)
         bottom.pack_end(align, True, True, 0)
-        self.vbox.pack_start(bottom, False)
+        self.vbox.pack_start(bottom, False, True, 0)
 
         # add the limit checkbox, spinner
         limit_area = Gtk.HBox()
         limit_area.set_border_width(5)
         self.lim_check = Gtk.CheckButton(_("Limit to: "))
-        limit_area.pack_start(self.lim_check, False)
+        limit_area.pack_start(self.lim_check, False, True, 0)
 
-        self.lim_spin = Gtk.SpinButton(Gtk.Adjustment(1, 0, 1000000000, 1))
+        self.lim_spin = Gtk.SpinButton.new_with_range(0, 1000000000, 1)
+        self.lim_spin.set_value(1.0)
         self.lim_spin.set_sensitive(False)
 
         self.lim_check.connect('toggled', lambda b:
             self.lim_spin.set_sensitive(self.lim_check.get_active()))
 
-        limit_area.pack_start(self.lim_spin, False)
+        limit_area.pack_start(self.lim_spin, False, True, 0)
         limit_area.pack_start(Gtk.Label(_(" tracks")), False, True, 0)
-        self.vbox.pack_start(limit_area, False)
+        self.vbox.pack_start(limit_area, False, True, 0)
         limit_area.show_all()
 
         bottom.show_all()
@@ -340,10 +341,9 @@ class Criterion(Gtk.HBox):
           see criteria in FilterWidget
         """
         super(Criterion, self).__init__(spacing=5)
-        if isinstance(subcriteria, (Gtk.Widget,
-            GObject.GObjectMeta)):
+        if isinstance(subcriteria, (Gtk.Widget, GObjectMeta)):
             field_class = subcriteria
-            self.add(field_class())
+            self.child = field_class()
         else:
             self.combo = combo = Gtk.ComboBoxText()
             if len(subcriteria) > 10:
@@ -354,27 +354,27 @@ class Criterion(Gtk.HBox):
             combo.set_active(0)
             combo.connect('changed', self._combo_changed)
             combo.show()
-            self.pack_start(combo, False)
-            self.add(Criterion(subcriteria[0][1]))
-        self.get_child().show()
-        self.pack_start(self.get_child(), True, True, 0)
+            self.pack_start(combo, False, True, 0)
+            self.child = Criterion(subcriteria[0][1])
+        self.child.show()
+        self.pack_start(self.child, True, True, 0)
 
     def _combo_changed(self, widget):
         """Called when the combo box changes its value."""
-        state = self.get_child().get_state()
-        self.remove(self.get_child())
-        self.add(Criterion(self.subcriteria[self.combo.get_active()][1]))
-        if state: self.get_child().set_state(state)
-        self.pack_start(self.get_child(), True, True, 0)
-        self.get_child().show()
+        state = self.child.get_state()
+        self.remove(self.child)
+        self.child = Criterion(self.subcriteria[self.combo.get_active()][1])
+        if state: self.child.set_state(state)
+        self.pack_start(self.child, True, True, 0)
+        self.child.show()
 
     def get_state(self):
         """Return the criterion state.
 
         See set_state for the state format.
         """
-        state = self.get_child().get_state()
-        if isinstance(self.get_child(), Criterion):
+        state = self.child.get_state()
+        if isinstance(self.child, Criterion):
             state[0].append(self.subcriteria[self.combo.get_active()][0])
         else:
             state = ([], state)
@@ -390,16 +390,16 @@ class Criterion(Gtk.HBox):
         Note the reverse order of the list. This is to give the
         impression of it being a stack responding to pop().
         """
-        if isinstance(self.get_child(), Criterion):
+        if isinstance(self.child, Criterion):
             text = state[0].pop()
             for i, subc in enumerate(self.subcriteria):
                 if subc[0] == text:
                     self.combo.set_active(i)
                     break
-            self.get_child().set_state(state)
+            self.child.set_state(state)
         else:
             if len(state) > 1:
-                self.get_child().set_state(state[1])
+                self.child.set_state(state[1])
 
 # Sample fields
 
@@ -409,7 +409,7 @@ class ComboEntryField(Gtk.HBox):
     def __init__(self, values):
         Gtk.HBox.__init__(self)
         
-        self.combo = Gtk.combo_box_entry_new_text()
+        self.combo = Gtk.ComboBoxText.new_with_entry()
         for value in values:
             self.combo.append_text(value)
         
@@ -417,7 +417,7 @@ class ComboEntryField(Gtk.HBox):
         self.combo.show()
     
     def get_state(self):
-        return self.combo.get_child().get_text()
+        return self.combo.get_active_text()
     
     def set_state(self, state):
         self.combo.get_child().set_text(str(state))
@@ -456,7 +456,7 @@ class MultiEntryField(Gtk.HBox):
                 self.entries.append(widget)
             else:
                 widget = Gtk.Label(label=unicode(label))
-            self.pack_start(widget, False)
+            self.pack_start(widget, False, True, 0)
             widget.show()
     def get_state(self):
         return [unicode(e.get_text(), 'utf-8') for e in self.entries]
@@ -492,9 +492,10 @@ class EntryLabelEntryField(MultiEntryField):
 class SpinLabelField(Gtk.HBox):
     def __init__(self, label='', top=99999, lower=-99999):
         Gtk.HBox.__init__(self, spacing=5)
-        self.spin = Gtk.SpinButton(Gtk.Adjustment(0, lower, top, 1, 0, 0))
-        self.pack_start(self.spin, False)
-        self.pack_start(Gtk.Label(label), False, True, 0)
+        self.spin = Gtk.SpinButton.new_with_range(lower, top, 1)
+        self.spin.set_value(0)
+        self.pack_start(self.spin, False, True, 0)
+        self.pack_start(Gtk.Label.new(label), False, True, 0)
         self.show_all()
     def get_state(self):
         return self.spin.get_value()
@@ -511,8 +512,8 @@ class SpinButtonAndComboField(Gtk.HBox):
         Gtk.HBox.__init__(self, spacing=5)
         self.items = items
 
-        adjustment = Gtk.Adjustment(0, 0, 99999, 1, 0, 0)
-        self.entry = Gtk.SpinButton(adjustment=adjustment)
+        self.entry = Gtk.SpinButton.new_with_range(0, 99999, 1)
+        self.entry.set_value(0)
         self.pack_start(self.entry, True, True, 0)
 
         self.combo = Gtk.ComboBoxText()

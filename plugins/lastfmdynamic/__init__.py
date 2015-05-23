@@ -32,6 +32,9 @@ import urllib
 from xl.dynamic import DynamicSource
 from xl import providers, common
 
+import logging
+logger = logging.getLogger(__name__)
+
 LFMS = None
 
 # Last.fm API Key for Exaile
@@ -61,7 +64,7 @@ class LastfmSource(DynamicSource):
         try:
             f = urllib.urlopen(url%ar).read()
         except IOError:
-            common.log_exception()
+            logger.exception("Error retrieving results")
             return []
 
         retlist = []

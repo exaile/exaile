@@ -15,7 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import traceback
 import os
 from gi.repository import Gtk
 import dbus
@@ -443,10 +442,9 @@ class DaapConnection(object):
             self.session = client.login()
             self.connected = True
 #        except DAAPError:
-        except Exception, inst:
-            logger.warning('failed to connect to ({0},{1})'.format(
+        except:
+            logger.exception('failed to connect to ({0},{1})'.format(
                 self.server, self.port))
-            logger.debug(traceback.format_exc())
             
             self.auth = True
             self.connected = False
@@ -528,7 +526,6 @@ class DaapConnection(object):
                     except:
                         if field is 'tracknumber':
                             temp.set_tag_raw('tracknumber', [0], notify_changed=False)
-                        logger.debug(traceback.format_exc())
 
 
                 #TODO: convert year (asyr) here as well, what's the formula?

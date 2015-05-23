@@ -35,7 +35,6 @@ import os
 import shlex
 import string
 import thread
-import traceback
 import urllib2
 
 from xl import xdg
@@ -146,8 +145,7 @@ class PreferencesDialog(object):
                 try:
                     plugin_pages.append(plugin.get_preferences_pane())
                 except Exception:
-                    logger.warning('Error loading preferences pane')
-                    traceback.print_exc()
+                    logger.exception('Error loading preferences pane')
 
         import locale
         plugin_pages.sort(key=lambda x: locale.strxfrm(x.name))
@@ -269,7 +267,7 @@ class PreferencesDialog(object):
                     widget = builder.get_object(klass.name)
 
                     if not widget:
-                        logger.warning('Invalid preferences widget: %s' % klass.name)
+                        logger.warning('Invalid preferences widget: %s', klass.name)
                         continue
 
                     if issubclass(klass, widgets.Conditional):
@@ -282,8 +280,7 @@ class PreferencesDialog(object):
                     field = klass(self, widget)
                     self.fields[page].append(field)
             except Exception:
-                logger.warning('Broken preferences class: %s' % attr)
-                traceback.print_exc()
+                logger.exception('Broken preferences class: %s', attr)
 
     def run(self):
         """

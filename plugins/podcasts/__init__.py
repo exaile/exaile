@@ -11,7 +11,6 @@ from xlgui.widgets import dialogs
 from xl import xdg
 import xlgui, os, os.path
 import _feedparser as fp
-import traceback
 
 # set up logger
 import logging
@@ -180,7 +179,7 @@ class PodcastPanel(panel.Panel):
             self._open_podcast(pl, title)
             self.podcast_playlists.save_playlist(pl, overwrite=True)
         except:
-            traceback.print_exc()
+            logger.exception("Error loading podcast")
             self._set_status(_('Error loading podcast.'), 2)
 
     @guiutil.idle_add()

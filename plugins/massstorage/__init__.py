@@ -103,7 +103,7 @@ class MassStorageHandler(Handler):
                     return 10
             except dbus.exceptions.DBusException,e:
                 if not e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
-                    common.log_exception(log=logger)
+                    logger.exception("Portable audio player without storage property")
         return 0
 
     def get_udis(self, hal):

@@ -41,7 +41,6 @@ import string
 import subprocess
 import sys
 import threading
-import traceback
 import urllib2
 import urlparse
 from functools import wraps, partial
@@ -72,13 +71,19 @@ BASE_SORT_TAGS=('albumartist', 'date', 'album', 'discnumber', 'tracknumber', 'ti
 # use this for general logging of exceptions
 def log_exception(log=logger, message="Exception caught!"):
     """
-        Convenience function to log an exception + traceback
-
-        :param log: the logger object to use.  important to specify
-            so that it will be logged under the right module name.
-        :param message: a message describing the error condition.
+        Deprecated! Don't use this in newer code, use this instead::
+        
+            import logging
+            logger = logging.getLogger(__name__)
+            
+            .. 
+            
+            try:
+                ..
+            except:
+                logger.exception("Some message: %s", param)
     """
-    log.debug(message + "\n" + traceback.format_exc())
+    log.exception(message)
 
 def to_unicode(x, default_encoding=None):
     """Force getting a unicode string from any object."""
@@ -466,8 +471,8 @@ def walk(root):
                     queue.append(fil)
                 elif type == Gio.FileType.REGULAR:
                     yield fil
-        except GLib.Error, e: # why doesnt gio offer more-specific errors?
-            log_exception(log=logger, message="Unhandled exception while walking on %s." % dir)
+        except GLib.Error: # why doesnt gio offer more-specific errors?
+            logger.exception("Unhandled exception while walking on %s.", dir)
 
 def walk_directories(root):
     """
@@ -490,8 +495,9 @@ def walk_directories(root):
 
                 for subdirectory in walk_directories(directory):
                     yield subdirectory
-    except GLib.Error, e:
-        log_exception(log=logger, message="Unhandled exception while walking dirs on %s, %s, %s" % (root, directory, subdirectory))
+    except GLib.Error:
+        logger.exception("Unhandled exception while walking dirs on %s, %s, %s",
+                         root, directory, subdirectory)
 
 class TimeSpan:
     """

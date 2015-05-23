@@ -277,7 +277,7 @@ class Collection(trax.TrackDB):
             try:
                 self.save_to_location()
             except AttributeError:
-                common.log_exception(log=logger)
+                logger.exception("Exception occurred while saving")
 
         event.log_event('scan_progress_update', self, 100)
 
@@ -674,7 +674,7 @@ class Library(object):
             album = joiner(tr.get_tag_raw('album'))
             artist = joiner(tr.get_tag_raw('artist'))
         except Exception:
-            logger.warning("Error while checking for compilation: " + `tr`)
+            logger.warning("Error while checking for compilation: " + repr(tr))
             return
         if not basedir or not album or not artist: return
         album = album.lower()
@@ -686,7 +686,7 @@ class Library(object):
             if not album in ccheck[basedir]:
                 ccheck[basedir][album] = deque()
         except TypeError:
-            common.log_exception(log=logger)
+            logger.exception("Error adding to compilation")
             return
 
         if ccheck[basedir][album] and \
@@ -820,7 +820,7 @@ class Library(object):
                 if not gloc.has_prefix(libloc):
                     continue
             except UnicodeDecodeError:
-                common.log_exception(log=logger)
+                logger.exception("Error decoding file location")
                 continue
 
             if not gloc.query_exists(None):

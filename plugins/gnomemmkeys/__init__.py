@@ -27,7 +27,7 @@
 GNOME_MMKEYS = None
 
 from xl import common, event, player
-import dbus, logging, traceback
+import dbus, logging
 logger = logging.getLogger(__name__)
 
 def callback(key):
@@ -84,7 +84,7 @@ def _enable(eventname, player, nothing):
     except dbus.DBusException:
         disable(None) # Disconnect if we failed to load completely
         GNOME_MMKEYS = None
-        common.log_exception(logger)
+        logger.exception("Error connecting to dbus")
         return False
     else:
         GNOME_MMKEYS.GrabMediaPlayerKeys("Exaile", 0)
@@ -97,7 +97,7 @@ def disable(exaile):
         try:
             GNOME_MMKEYS.ReleaseMediaPlayerKeys("Exaile")
         except:
-            common.log_exception()
+            logger.exception("Error releasing player keys")
             GNOME_MMKEYS = None
             return False
     GNOME_MMKEYS = None

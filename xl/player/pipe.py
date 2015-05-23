@@ -281,9 +281,8 @@ class SinkHandler(Gst.Bin, ProviderHandler):
             try:
                 self.sinks[provider.name] = provider()
             except:
-                logger.warning("Could not create %s element for %s." % \
-                        (provider, self.get_name()) )
-                common.log_exception(log=logger)
+                logger.exception("Could not create %s element for %s.",
+                                 provider, self.get_name())
 
     def on_provider_added(self, provider):
         self.reset_providers()
@@ -463,9 +462,8 @@ class ProviderBin(ElementBin, ProviderHandler):
             try:
                 self.elements[idx] = provider(self.player)
             except:
-                logger.warning("Could not create %s element for %s." % \
-                        (provider, self.get_name()) )
-                common.log_exception(log=logger)
+                logger.exception("Could not create %s element for %s.",
+                                 provider, self.get_name())
         #self.setup_elements()
         
         for k, v in dups.iteritems():
@@ -557,8 +555,7 @@ def sink_from_preset(player, preset):
     try:
         sink = AudioSink(name, pipe, player)
     except Exception:
-        common.log_exception(log=logger,
-                message="Could not enable audiosink %s for %s." % (preset, player._name))
+        logger.exception("Could not enable audiosink %s for %s.", preset, player._name)
         return None
     return sink
         

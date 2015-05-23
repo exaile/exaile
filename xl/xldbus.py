@@ -33,10 +33,7 @@
 
 from collections import namedtuple
 import logging
-from optparse import OptionParser
-import os
 import sys
-import traceback
 
 import dbus
 import dbus.service

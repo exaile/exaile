@@ -182,9 +182,7 @@ class Bookmarks:
                 else:
                     pix = None
         except:
-            import traceback, sys
-            traceback.print_exc(file=sys.stdout)
-            logger.debug('BM: Cannot open %s' % key)
+            logger.exception("Cannot open %s", key)
             # delete offending key?
             return
         time = '%d:%02d' % (pos/60, pos%60)

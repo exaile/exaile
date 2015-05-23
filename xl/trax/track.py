@@ -332,8 +332,7 @@ class Track(object):
             logger.warning( "Could not write tags to file: %s" % e )
             return False
         except Exception, e:
-            common.log_exception(logger)
-            logger.warning( "Unknown exception: Could not write tags to file: %s" % e )
+            logger.exception( "Unknown exception: Could not write tags to file: %s" % e )
             return False
 
     def read_tags(self):
@@ -343,8 +342,9 @@ class Track(object):
             Returns False if unsuccessful, and a Format object from
             `xl.metadata` otherwise.
         """
+        loc = self.get_loc_for_io()
         try:
-            f = metadata.get_format(self.get_loc_for_io())
+            f = metadata.get_format(loc)
             if f is None:
                 self._scan_valid = False
                 return False # not a supported type
@@ -365,7 +365,7 @@ class Track(object):
                     self.set_tag_raw(tag, None)
 
             # fill out file specific items
-            gloc = Gio.File.new_for_uri(self.get_loc_for_io())
+            gloc = Gio.File.new_for_uri(loc)
             mtime = gloc.query_info("time::modified", Gio.FileQueryInfoFlags.NONE, None).get_modification_time()
             mtime = mtime.tv_sec + (mtime.tv_usec/100000.0)
             self.set_tag_raw('__modified', mtime)
@@ -377,7 +377,7 @@ class Track(object):
             return f
         except Exception:
             self._scan_valid = False
-            common.log_exception()
+            logger.exception("Error reading tags for %s", loc)
             return False
 
     def is_local(self):

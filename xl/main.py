@@ -191,7 +191,7 @@ class Exaile(object):
         try:
             from xl import settings
         except common.VersionError:
-            common.log_exception(log=logger)
+            logger.exception("Error loading settings")
             sys.exit(1)
             
         logger.debug("Settings loaded from %s" % settings.location)
@@ -229,8 +229,7 @@ class Exaile(object):
                 migrator.migrate(force=self.options.ForceImport)
                 del migrator
             except:
-                common.log_exception(log=logger,
-                        message=_("Failed to migrate from 0.2.14"))
+                logger.exception("Failed to migrate from 0.2.14")
 
         # Migrate old rating options
         from xl.migrations.settings import rating
@@ -257,7 +256,7 @@ class Exaile(object):
             self.collection = collection.Collection("Collection",
                     location=os.path.join(xdg.get_data_dir(), 'music.db'))
         except common.VersionError:
-            common.log_exception(log=logger)
+            logger.exception("VersionError loading collection")
             sys.exit(1)
 
         from xl import event

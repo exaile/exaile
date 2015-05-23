@@ -45,7 +45,6 @@ from new import instancemethod
 import re
 import threading
 import time
-import traceback
 import weakref
 from gi.repository import GLib
 
@@ -267,8 +266,7 @@ class EventManager(object):
                                 event.data, *cb.args, **cb.kwargs)
                 except Exception:
                     # something went wrong inside the function we're calling
-                    common.log_exception(logger,
-                                message="Event callback exception caught!")
+                    logger.exception("Event callback exception caught!")
 
         if emit_logmsg:
             logger.debug("Sent '%(type)s' event from "

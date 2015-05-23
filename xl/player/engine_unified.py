@@ -230,7 +230,7 @@ class UnifiedPlayer(_base.ExailePlayer):
         except AttributeError:
             return True
         except:
-            common.log_exception(log=logger)
+            logger.exception("Error unlinking stream")
             return False
 
     def link_stream(self, stream, track):

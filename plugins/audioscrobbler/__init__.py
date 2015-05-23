@@ -170,7 +170,7 @@ class ExaileScrobbler(object):
                 scrobbler.login(username, password, hashpw=True, post_url=server)
             except:
                 self.connecting = False
-                common.log_exception()
+                logger.exception("Error logging in")
                 return
 
         logger.info("Connected to AudioScrobbler")
@@ -261,6 +261,5 @@ class ExaileScrobbler(object):
                     autoflush=True,
                     )
             except:
-                common.log_exception()
-                logger.warning("AS: Failed to submit track")
+                logger.exception("AS: Failed to submit track")
 

@@ -90,7 +90,7 @@ class FilesPanel(panel.Panel):
         self.key_id = None
         self.i = 0
 
-        first_dir = Gio.File.new_for_uri(settings.get_option('gui/files_panel_dir',
+        first_dir = Gio.File.new_for_commandline_arg(settings.get_option('gui/files_panel_dir',
             xdg.homedir))
         self.history = [first_dir]
         self.load_directory(first_dir, False)
@@ -187,7 +187,7 @@ class FilesPanel(panel.Panel):
 
         if len(libraries) > 0:
             for library in libraries:
-                model.append([Gio.File.new_for_uri(library['location']).get_parse_name()])
+                model.append([Gio.File.new_for_commandline_arg(library['location']).get_parse_name()])
         self.location_bar.set_model(model)
 
     def on_location_bar_changed(self, widget, *args):
@@ -197,7 +197,7 @@ class FilesPanel(panel.Panel):
         model = self.location_bar.get_model()
         location = model.get_value(iter, 0)
         if location != '':
-            self.load_directory(Gio.File.new_for_uri(location))
+            self.load_directory(Gio.File.new_for_commandline_arg(location))
 
     def on_key_released(self, widget, event):
         """
@@ -283,7 +283,7 @@ class FilesPanel(panel.Panel):
         try:
             ftype = f.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
         except GLib.GError, e:
-            logger.error(e)
+            logger.exception(e)
             self.entry.set_text(self.current.get_parse_name())
             return
         if ftype != Gio.FileType.DIRECTORY:
@@ -329,7 +329,7 @@ class FilesPanel(panel.Panel):
         """
             Goes to the user's home directory
         """
-        self.load_directory(Gio.File.new_for_uri(xdg.homedir))
+        self.load_directory(Gio.File.new_for_commandline_arg(xdg.homedir))
 
     def set_column_width(self, col, stuff=None):
         """
@@ -355,10 +355,10 @@ class FilesPanel(panel.Panel):
                 'standard::name,standard::display-name,standard::type',
                 Gio.FileQueryInfoFlags.NONE, None)
         except GLib.Error, e:
-            logger.error(e)
+            logger.exception(e)
             if directory.get_path() != xdg.homedir: # Avoid infinite recursion.
                 return self.load_directory(
-                    Gio.File.new_for_uri(xdg.homedir), history, keyword, cursor)
+                    Gio.File.new_for_commandline_arg(xdg.homedir), history, keyword, cursor)
         if self.current != directory: # Modified from another thread.
             return
 

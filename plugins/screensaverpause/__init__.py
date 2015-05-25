@@ -25,7 +25,6 @@
 # from your version.
 
 from gi.repository import GLib
-from gi.repository import GObject
 
 import dbus
 from xl import event, player, settings
@@ -45,7 +44,7 @@ SERVICES = [
 
 import prefs
 def get_preferences_pane():
-	return prefs
+    return prefs
 
 matches = set()
 bus = None
@@ -80,7 +79,6 @@ def disable(exaile):
 
 
 def test():
-    GObject.threads_init()
     import dbus.mainloop.glib as dbgl
     dbgl.DBusGMainLoop(set_as_default=True)
 

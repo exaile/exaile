@@ -341,10 +341,9 @@ class IcecastRadioStation(RadioStation):
             Called when the search is finished
         """
         if not lists:
-            Gdk.threads_enter()
             dialogs.info(self.exaile.gui.main.window, _('No Stations Found'))
-            Gdk.threads_leave()
             return
+        
         dialog = ResultsDialog(_("Icecast Search Results"))
         dialog.set_items(lists)
         dialog.connect('response', self._search_response)

@@ -586,9 +586,16 @@ class Exaile(object):
 
     def mainloop_init(self):
         from gi.repository import GObject
-
-        GObject.threads_init()
-
+        
+        major, minor, patch = GObject.pygobject_version
+        logger.info("Using PyGObject %d.%d.%d", major, minor, patch)
+        
+        if major < 3 or \
+            (major == 3 and minor < 10) or \
+            (major == 3 and minor == 10 and patch < 2):
+            # Probably should exit?
+            logger.warning("Exaile requires PyGObject 3.10.2 or greater!")
+        
         if self.options.Dbus:
             import dbus, dbus.mainloop.glib
             dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)

@@ -41,7 +41,6 @@ from xl import (
 )
 
 logger = logging.getLogger(__name__)
-GObject.threads_init()
 
 _smi = menu.simple_menu_item
 _sep = menu.simple_separator

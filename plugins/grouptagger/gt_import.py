@@ -91,16 +91,10 @@ class GtImporter(Gtk.Window):
         
         if len(track_data) == 0:
             self.destroy()
-             
-            # TODO: this isn't on another thread, but if we don't call
-            # threads_enter/leave then it deadlocks. Not sure why... 
             
             locations = ';'.join([l.get_location() for l in self.collection.get_libraries()])
             
-            Gdk.threads_enter()
             dialogs.info(self.exaile.gui.main.window, 'No new tracks found at "%s"' % locations)
-            Gdk.threads_leave()
-            
             return
         
         self.tags_view.freeze_child_notify()

@@ -32,12 +32,6 @@ from gi.repository import Gtk
 import logging
 
 import sys
-
-# This is needed for OpenBSD otherwise exaile freezes. However, some
-# versions of glib on Win32 freeze if this is used. Go figure. 
-if sys.platform != 'win32':
-    Gdk.threads_init()
-    Gdk.threads_enter()
     
 if sys.platform == 'darwin':
 
@@ -358,7 +352,6 @@ class Main(object):
 
         # save open tabs
         self.main.playlist_container.save_current_tabs()
-        Gdk.threads_leave()
 
     @guiutil.idle_add()
     def add_device_panel(self, type, obj, device):

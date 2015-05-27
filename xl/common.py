@@ -859,4 +859,40 @@ class GioFileOutputStream(_GioFileStream):
         return self.stream.write(s)
 
 
+def subscribe_for_settings(section, options, self):
+    '''
+        Allows you designate attributes on an object to be dynamically
+        updated when a particular setting changes. If you want to be
+        notified of a setting update, use a @property for the attribute.
+        
+        Only works for a options in a single section
+        
+        :param section: Settings section
+        :param options: Dictionary of key: option name, value: attribute on
+                        'self' to set when the setting has been updated. The
+                        attribute must already have a default value in it
+        :param self:    Object to set attribute values on
+        
+        :returns: A function that can be called to unsubscribe
+        
+        .. versionadded:: 3.5.0
+    '''
+    
+    from xl import event
+    from xl import settings
+    
+    def _on_option_set(unused_name, unused_object, data):
+        attrname = options.get(data)
+        if attrname is not None:
+            setattr(self, attrname,
+                    settings.get_option(data, getattr(self, attrname)))
+    
+    for k in options.iterkeys():
+        if not k.startswith('%s/' % section):
+            raise ValueError("Option is not part of section %s" % section)
+        _on_option_set(None, None, k)
+    
+    return event.add_callback(_on_option_set, '%s_option_set' % section.replace('/', '_'))
+
+
 # vim: et sts=4 sw=4

@@ -162,7 +162,7 @@
                 </child>
                 <child internal-child="entry">
                   <object class="GtkEntry" id="combobox-entry1">
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                   </object>
                 </child>
               </object>
@@ -175,7 +175,7 @@
             <child>
               <object class="GtkEntry" id="files_search_entry">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can_focus">True</property>
                 <property name="primary_icon_stock">gtk-find</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
                 <property name="primary_icon_activatable">False</property>

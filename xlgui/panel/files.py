@@ -482,7 +482,7 @@ class FilesDragTreeView(DragTreeView):
         """
         ftype = f.query_info('standard::type', Gio.FileQueryInfoFlags.NONE, None).get_file_type()
         if ftype == Gio.FileType.DIRECTORY:
-            file_infos = f.enumerate_children('standard::name')
+            file_infos = f.enumerate_children('standard::name', Gio.FileQueryInfoFlags.NONE, None)
             files = (f.get_child(fi.get_name()) for fi in file_infos)
             for subf in files:
                 self.append_recursive(songs, subf)

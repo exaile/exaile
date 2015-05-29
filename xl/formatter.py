@@ -404,7 +404,7 @@ class TrackFormatter(Formatter):
                 substitute = provider.format(track, parameters)
 
             if markup_escape:
-                substitute = GLib.markup_escape_text(substitute)
+                substitute = GLib.markup_escape_text(substitute).decode('utf-8')
 
             self._substitutions[identifier] = substitute
 

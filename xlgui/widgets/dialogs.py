@@ -1517,7 +1517,7 @@ class FileCopyDialog(Gtk.Dialog):
         dialog.destroy()
 
         
-def ask_for_playlist_name(playlist_manager, name=None):
+def ask_for_playlist_name(parent, playlist_manager, name=None):
     """
         Returns a user-selected name that is not already used
             in the specified playlist manager
@@ -1530,7 +1530,9 @@ def ask_for_playlist_name(playlist_manager, name=None):
             
         dialog = TextEntryDialog(
             _('Playlist name:'),
-            _('Add new playlist...'), name, okbutton=Gtk.STOCK_ADD)
+            _('Add new playlist...'),
+            name,
+            parent=parent, okbutton=Gtk.STOCK_ADD)
             
         result = dialog.run()
         if result != Gtk.ResponseType.OK:

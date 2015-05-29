@@ -423,7 +423,8 @@ class BasePlaylistPanelMixin(GObject.GObject):
         do_add_playlist = False
         if name:
             if name in self.playlist_manager.playlists:
-                name = dialogs.ask_for_playlist_name( self.playlist_manager, name )
+                name = dialogs.ask_for_playlist_name(
+                    self.get_panel().get_toplevel(), self.playlist_manager, name)
         else:
             if tracks:
                 artists = []
@@ -497,7 +498,8 @@ class BasePlaylistPanelMixin(GObject.GObject):
                 else:
                     name = ''
 
-            name = dialogs.ask_for_playlist_name( self.playlist_manager, name )
+            name = dialogs.ask_for_playlist_name(
+                self.get_panel().get_toplevel(), self.playlist_manager, name)
         
         if name is not None:
             #Create the playlist from all of the tracks

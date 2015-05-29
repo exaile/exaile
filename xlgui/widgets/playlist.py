@@ -211,8 +211,10 @@ def __create_playlist_tab_context_menu():
         main.exaile().playlists.save_playlist(page.playlist, overwrite=True)
         
     def _saveas_playlist_cb(widget, name, page, context):
-        playlists = main.exaile().playlists
-        name = dialogs.ask_for_playlist_name(playlists, page.playlist.name)
+        exaile = main.exaile()
+        playlists = exaile.playlists
+        name = dialogs.ask_for_playlist_name(
+            exaile.gui.main.window, playlists, page.playlist.name)
         if name is not None:
             page.set_page_name(name)
             playlists.save_playlist(page.playlist)

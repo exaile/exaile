@@ -43,7 +43,8 @@ def __create_queue_tab_context_menu():
     
     def _saveas_playlist_cb(widget, name, page, context):
         exaile = main.exaile()
-        name = dialogs.ask_for_playlist_name(exaile.playlists, "")
+        name = dialogs.ask_for_playlist_name(
+            exaile.gui.main.window, exaile.playlists)
         if name is not None:
             pl = playlist.Playlist(name, page.playlist[:])
             exaile.playlists.save_playlist(pl)

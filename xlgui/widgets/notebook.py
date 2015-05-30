@@ -46,7 +46,10 @@ class SmartNotebook(Gtk.Notebook):
         # Notably, this removes the gap between tabs that occur when using
         # Adwaita (GNOME's default theme), which sets this to -8.
         css = Gtk.CssProvider()
-        css.load_from_data('GtkNotebook { -GtkNotebook-tab-overlap: 1 }')
+        css.load_from_data('''
+            GtkNotebook { -GtkNotebook-initial-gap: 0; -GtkNotebook-tab-overlap: 1 }
+            GtkNotebook tab { padding: 6px }
+        ''')
         self.get_style_context().add_provider(css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def get_current_tab(self):

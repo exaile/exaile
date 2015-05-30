@@ -893,9 +893,11 @@ class ColorButtonPreference(Preference):
             self.name, self.default)
 
         # Extract alpha value in any case
-        if len(value) == 9:
-            alpha = int(value[-2:], 16) * 256
+        if len(value) == 9 and value[0] == '#':
+            alpha = int(value[-2:], 16) * 255
             value = value[:-2]
+        else:
+            alpha = 1
 
         if self.widget.get_use_alpha():
             self.widget.set_alpha(alpha)
